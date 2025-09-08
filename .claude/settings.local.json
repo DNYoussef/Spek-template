@@ -32,7 +32,8 @@
       "Bash(cat:*)",
       "Bash(scripts/self_correct.sh:*)",
       "Bash(scripts/gate_fail_reason.sh:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
