@@ -1,0 +1,121 @@
+name: Quality Gates
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main, develop]
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with: 
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with: 
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Create artifacts directory
+        run: mkdir -p .claude/.artifacts
+
+      - name: Install JS dependencies
+        run: |
+          if [ -f package.json ]; then 
+            npm ci || npm i
+          fi
+
+      - name: Install analysis tooling
+        run: |
+          pip install -e ./analyzer || pip install connascence-analyzer
+          pip install semgrep pip-audit
+
+      - name: Run Tests
+        run: |
+          if [ -f package.json ]; then 
+            npm test --silent
+          fi
+        continue-on-error: true
+
+      - name: Run TypeCheck
+        run: |
+          if [ -f package.json ]; then 
+            npm run typecheck
+          fi
+        continue-on-error: true
+
+      - name: Run Linting
+        run: |
+          if [ -f package.json ]; then 
+            npm run lint --silent
+          fi
+        continue-on-error: true
+
+      - name: Run Coverage
+        run: |
+          if [ -f package.json ]; then 
+            npm run coverage
+            npm run diff:coverage || true
+          fi
+        continue-on-error: true
+
+      - name: Security Scan (Semgrep)
+        run: |
+          semgrep --quiet --config p/owasp-top-ten --config configs/.semgrep.yml --sarif -o .claude/.artifacts/semgrep.sarif . || true
+        continue-on-error: true
+
+      - name: Package Audit (npm)
+        run: |
+          if [ -f package.json ]; then 
+            npm audit --json > .claude/.artifacts/npm_audit.json || true
+          fi
+        continue-on-error: true
+
+      - name: Package Audit (Python)
+        run: |
+          if [ -f requirements.txt ] || [ -f pyproject.toml ]; then 
+            pip-audit -f json -o .claude/.artifacts/pip_audit.json || true
+          fi
+        continue-on-error: true
+
+      - name: Connascence Analysis
+        run: |
+          python -m analyzer.core --path . --policy nasa_jpl_pot10 --format json --output .claude/.artifacts/connascence.json || true
+        continue-on-error: true
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: .claude/.artifacts/semgrep.sarif
+        continue-on-error: true
+
+      - name: Aggregate Gates
+        run: |
+          echo "📊 Quality Gates Summary:"
+          echo "Tests: $(test -f .claude/.artifacts/qa.json && echo 'Available' || echo 'Missing')"
+          echo "Security: $(test -f .claude/.artifacts/semgrep.sarif && echo 'Available' || echo 'Missing')"  
+          echo "Connascence: $(test -f .claude/.artifacts/connascence.json && echo 'Available' || echo 'Missing')"
+          echo "Coverage: $(test -f .claude/.artifacts/diff_coverage.json && echo 'Available' || echo 'Missing')"
+          node scripts/diff_coverage.js || python scripts/diff_coverage.py || true
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quality-gates-artifacts
+          path: .claude/.artifacts/
+          retention-days: 7

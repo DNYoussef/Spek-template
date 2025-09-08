@@ -9,7 +9,14 @@
       "Bash(claude --version)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Read(//c/Users/17175/Desktop/connascence/analyzer/**)",
+      "Read(//c/Users/17175/Desktop/connascence/interfaces/cli/**)",
+      "Read(//c/Users/17175/Desktop/connascence/interfaces/core/**)",
+      "Read(//c/Users/17175/Desktop/connascence/.github/**)",
+      "Bash(robocopy:*)",
+      "Bash(echo:*)",
+      "Bash(chmod:*)"
     ],
     "deny": [],
     "ask": []

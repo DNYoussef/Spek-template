@@ -1,0 +1,18 @@
+{
+  "api_url": "${PLANE_API_URL}",
+  "token": "${PLANE_TOKEN}",
+  "project_id": "${PLANE_PROJECT_ID}",
+  "cycle_id": "${PLANE_CYCLE_ID:-null}",
+  "workspace_slug": "${PLANE_WORKSPACE_SLUG}",
+  "default_labels": ["spek-driven", "auto-generated"],
+  "priority_mapping": {
+    "small": "low",
+    "multi": "medium", 
+    "big": "high"
+  },
+  "state_mapping": {
+    "pending": "backlog",
+    "in_progress": "started",
+    "completed": "completed"
+  }
+}

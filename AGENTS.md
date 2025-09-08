@@ -8,12 +8,16 @@ TEST_CMD="npm test --silent"
 TYPECHECK_CMD="npm run typecheck"
 LINT_CMD="npm run lint --silent"
 COVERAGE_CMD="npm run coverage"
+SECURITY_CMD="semgrep --quiet --config p/owasp-top-ten --config configs/.semgrep.yml"
+CONNASCENCE_CMD="python -m analyzer.core --path . --policy nasa_jpl_pot10 --format json"
 ```
 
 ### Budget Constraints
 ```bash
 MAX_LOC=25          # Maximum lines of code per operation
 MAX_FILES=2         # Maximum files per micro-edit
+MAX_CRITICAL_CONN=5 # Maximum new critical connascence violations
+MAX_HIGH_SEC=5      # Maximum high severity security findings
 ```
 
 ## 🚦 Quality Gates

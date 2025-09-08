@@ -22,15 +22,22 @@ steps:
     when: item.type == "multi"
     run: claude /fix:planned "${{ item.title }}"
 
-  - id: qa
-    run: claude /qa:run
+  - id: verify_fan_out
+    run: |
+      claude /qa:run &
+      claude /sec:scan &
+      claude /conn:scan &
+      wait
     capture: .claude/.artifacts/qa.json
     expect_json: true
 
+  - id: gate
+    run: claude --output-format json -p "/qa:gate"
+    capture: gate.json
+    expect_json: true
+
   - id: pass_gate
-    when: .claude/.artifacts/qa.json.tests.ok == true
-          and .claude/.artifacts/qa.json.typecheck.ok == true
-          and .claude/.artifacts/qa.json.lint.ok == true
+    when: gate.json.ok == true
     run: claude /pr:open
     exit: 0
 
@@ -52,6 +59,20 @@ steps:
   - id: route_big_context
     when: triage.json.size == "big"
     run: claude /gemini:impact "$(jq -r '.root_causes[0]' triage.json)"
+
+  - id: re_verify_fan_out
+    run: |
+      claude /qa:run &
+      claude /sec:scan &
+      claude /conn:scan &
+      wait
+    capture: .claude/.artifacts/qa.json
+    expect_json: true
+
+  - id: re_gate
+    run: claude --output-format json -p "/qa:gate"
+    capture: gate.json
+    expect_json: true
 
   - id: loop_limit
     run: echo "Loop once more via Flow caller"; # caller decides attempts (e.g., max 3)

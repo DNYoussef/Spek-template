@@ -1,0 +1,29 @@
+{
+  "budgets": {
+    "max_loc": 25,
+    "max_files": 2
+  },
+  "allowlist": [
+    "src/**",
+    "lib/**",
+    "tests/**",
+    "package.json",
+    "tsconfig.json",
+    "jest.config.js"
+  ],
+  "denylist": [
+    ".claude/**",
+    ".github/**",
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    "coverage/**",
+    "analyzer/**",
+    "interfaces/**"
+  ],
+  "verification": {
+    "test_cmd": "npm test --silent",
+    "typecheck_cmd": "npm run typecheck",
+    "lint_cmd": "npm run lint --silent"
+  }
+}

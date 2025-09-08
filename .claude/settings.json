@@ -2,10 +2,12 @@
   "hooks": {
     "preTool": [
       {"match": "codex exec", "cmd": "test -z \"$(git status --porcelain)\" || git stash -k -u"},
-      {"match": "codex exec", "cmd": "git checkout -b codex/task-$(date +%s)"}
+      {"match": "codex exec", "cmd": "git checkout -b codex/task-$(date +%s)"},
+      {"match": ".*", "cmd": "mkdir -p .claude/.artifacts out .sandboxes"}
     ],
     "postTool": [
-      {"match": "codex exec", "cmd": "git status --porcelain && echo 'Review with: git diff --stat'"}
+      {"match": "codex exec", "cmd": "git status --porcelain && echo 'Review with: git diff --stat'"},
+      {"match": "conn:scan|sec:scan|qa:run", "cmd": "echo 'Artifacts: ' && ls -la .claude/.artifacts/ 2>/dev/null || true"}
     ]
   }
 }

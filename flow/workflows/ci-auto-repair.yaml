@@ -1,0 +1,55 @@
+name: ci-auto-repair
+description: Analyze failing PR, attempt bounded auto-fixes, re-run QA, gate, and push if green.
+
+steps:
+  - id: analyze
+    run: |
+      git fetch --all --prune || true
+      git diff --stat origin/main...HEAD > .claude/.artifacts/diffstat.txt || true
+      claude --output-format json -p "/qa:analyze '$(cat .claude/.artifacts/diffstat.txt 2>/dev/null)'" || echo '{"size":"small","root_causes":["unknown"]}' > triage.json
+    capture: triage.json
+    expect_json: true
+
+  - id: route_small
+    when: triage.json.size == "small"
+    run: claude /codex:micro-fix "$(jq -r '.root_causes[0]' triage.json)"
+
+  - id: route_multi
+    when: triage.json.size == "multi"
+    run: claude /fix:planned "$(jq -r '.root_causes[0]' triage.json)"
+
+  - id: route_big
+    when: triage.json.size == "big"
+    run: claude /gemini:impact "$(jq -r '.root_causes[0]' triage.json)"
+
+  - id: verify_fan_out
+    run: |
+      claude /qa:run &
+      claude /sec:scan &
+      claude /conn:scan &
+      wait
+    capture: .claude/.artifacts/qa.json
+    expect_json: true
+
+  - id: gate
+    run: claude --output-format json -p "/qa:gate"
+    capture: gate.json
+    expect_json: true
+
+  - id: show_sandbox
+    run: |
+      echo "Codex sandbox branches:"
+      ls -1 .sandboxes 2>/dev/null || true
+
+  - id: push
+    when: gate.json.ok == true
+    run: |
+      git add -A
+      git commit -m "auto-fix: satisfy quality gates [skip ci]"
+      git push
+
+  - id: report_failure
+    when: gate.json.ok == false
+    run: |
+      echo "❌ Auto-repair failed. Gate results:"
+      cat gate.json | jq '.'

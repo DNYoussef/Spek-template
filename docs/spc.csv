@@ -1,0 +1,4 @@
+date,semgrep_high,semgrep_critical,conn_critical_delta,conn_high_delta,dup_score_delta,pr_size_files,cycle_time_hours,gate_pass_rate,auto_repair_success_rate
+# Statistical Process Control metrics for quality trends
+# Updated automatically by nightly Flow workflow
+# Analyze weekly for control chart patterns and process improvements

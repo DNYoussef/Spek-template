@@ -22,13 +22,32 @@ steps:
     when: item.type == "multi"
     run: claude /fix:planned "${{ item.title }}"
 
-  - id: qa
-    run: claude /qa:run
+  - id: verify_fan_out
+    run: |
+      claude /qa:run &
+      claude /sec:scan &
+      claude /conn:scan &
+      wait
     capture: .claude/.artifacts/qa.json
     expect_json: true
 
-  - id: verify_gate
-    run: jq -e '.tests.ok and .typecheck.ok and .lint.ok' .claude/.artifacts/qa.json
+  - id: gate
+    run: claude --output-format json -p "/qa:gate"
+    capture: gate.json
+    expect_json: true
+
+  - id: pm_sync
+    when: gate.json.ok == true
+    run: claude /pm:sync
+    capture: pm_sync.json
+    expect_json: true
 
   - id: pr
+    when: gate.json.ok == true
     run: claude /pr:open
+
+  - id: gate_failure
+    when: gate.json.ok == false
+    run: |
+      echo "❌ Quality gates failed. Artifacts available:"
+      ls -la .claude/.artifacts/
