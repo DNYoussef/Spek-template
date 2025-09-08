@@ -16,7 +16,16 @@
       "Read(//c/Users/17175/Desktop/connascence/.github/**)",
       "Bash(robocopy:*)",
       "Bash(echo:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(claude-flow --version)",
+      "Bash(claude-flow:*)",
+      "Bash(claude mcp:*)",
+      "Read(//c/Users/17175/AppData/**)",
+      "Bash(find:*)",
+      "Bash(./scripts/update_agents_spek_augment.sh:*)",
+      "Bash(bash -c 'find .claude/agents -name \"\"*.md\"\" | head -5 | while read file; do echo \"\"Processing: $file\"\"; done')",
+      "Bash(node:*)",
+      "Bash(./scripts/lint_agents.sh:*)"
     ],
     "deny": [],
     "ask": []
