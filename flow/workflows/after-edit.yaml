@@ -38,69 +38,42 @@ steps:
     when: item.type == "multi"
     run: claude /fix:planned "${{ item.title }}"
 
-  - id: verify_fan_out
+  # Self-Correcting Quality Loop
+  - id: self_correct_loop
     run: |
-      claude /qa:run &
-      claude /sec:scan &
-      claude /conn:scan &
-      wait
-    capture: .claude/.artifacts/qa.json
-    expect_json: true
-
-  - id: gate
-    run: claude --output-format json -p "/qa:gate"
-    capture: gate.json
+      export HIVE_NAMESPACE="$HIVE_NAMESPACE"
+      export SESSION_ID="$SESSION_ID"
+      export MAX_ATTEMPTS="$MAX_ATTEMPTS"
+      export SHOW_LOGS=1
+      
+      # Run bounded self-correction
+      bash scripts/self_correct.sh
+    capture: .claude/.artifacts/gate.json
     expect_json: true
 
   - id: pass_gate
-    when: gate.json.ok == true
+    when: $.self_correct_loop.ok == true
     run: |
-      npx claude-flow@alpha neural train --model success_patterns --session "$SESSION_ID" --input "$(git diff --stat)"
-      npx claude-flow@alpha swarm status --update-success --session "$SESSION_ID"
+      npx claude-flow@alpha neural train --model success_patterns --session "$SESSION_ID" --input "$(git diff --stat)" 2>/dev/null || true
+      npx claude-flow@alpha swarm status --update-success --session "$SESSION_ID" 2>/dev/null || true
       claude /pr:open
     exit: 0
 
-  - id: analyze
+  - id: failure_analysis
+    when: $.self_correct_loop.ok == false
     run: |
-      git diff --stat > .claude/.artifacts/diffstat.txt
-      npx claude-flow@alpha neural predict --model failure_classifier --input "$(cat .claude/.artifacts/diffstat.txt)" > failure_prediction.json || echo '{"pattern": "unknown"}' > failure_prediction.json
-      npx claude-flow@alpha swarm status --increment-attempts --session "$SESSION_ID"
-      claude --output-format json -p "/qa:analyze '$(cat .claude/.artifacts/diffstat.txt)'"
-    capture: triage.json
-    expect_json: true
-
-  - id: route_small_fix
-    when: triage.json.size == "small"
-    run: claude /codex:micro-fix "$(jq -r '.root_causes[0]' triage.json)"
-
-  - id: route_multi_fix
-    when: triage.json.size == "multi"
-    run: claude /fix:planned "$(jq -r '.root_causes[0]' triage.json)"
-
-  - id: route_big_context
-    when: triage.json.size == "big"
-    run: |
-      npx claude-flow@alpha agent spawn --type researcher --max-context 30 --session "$SESSION_ID"
-      IMPACT_RESULT="$(claude /gemini:impact "$(jq -r '.root_causes[0]' triage.json)")"
-      scripts/impact_quickcheck.sh validate ".claude/.artifacts/gemini/impact.json" > impact_validation.json
-      if [[ "$(jq -r '.valid' impact_validation.json)" != "true" ]]; then
-        echo "⚠️ Impact validation failed - using Context7 fallback"
-        npx claude-flow@alpha context7 create --files-changed --max 30 > context7_pack.json
+      echo "❌ Self-correction loop failed after $MAX_ATTEMPTS attempts"
+      
+      # Generate detailed failure report
+      chmod +x scripts/gate_fail_reason.sh
+      scripts/gate_fail_reason.sh .claude/.artifacts/gate.json plain
+      
+      # Show what was attempted
+      echo ""
+      echo "🔄 Self-correction attempts made:"
+      if [[ -f .claude/.artifacts/current_attempt.json ]]; then
+        jq . .claude/.artifacts/current_attempt.json
       fi
-
-  - id: re_verify_fan_out
-    run: |
-      claude /qa:run &
-      claude /sec:scan &
-      claude /conn:scan &
-      wait
-    capture: .claude/.artifacts/qa.json
-    expect_json: true
-
-  - id: re_gate
-    run: claude --output-format json -p "/qa:gate"
-    capture: gate.json
-    expect_json: true
 
   # Neural Learning and Session Management
   - id: learn_from_failure

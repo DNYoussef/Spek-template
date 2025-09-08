@@ -49,32 +49,31 @@ steps:
     when: item.type == "multi"
     run: claude /fix:planned "${{ item.title }}"
 
-  - id: verify_fan_out
+  # Self-Correcting Quality Gates
+  - id: self_correct_quality
     run: |
-      claude /qa:run &
-      claude /sec:scan &
-      claude /conn:scan &
-      wait
-    capture: .claude/.artifacts/qa.json
-    expect_json: true
-
-  - id: gate
-    run: claude --output-format json -p "/qa:gate"
-    capture: gate.json
+      export HIVE_NAMESPACE="$HIVE_NAMESPACE"
+      export SESSION_ID="$SESSION_ID"
+      export MAX_ATTEMPTS=4
+      export SHOW_LOGS=1
+      
+      # Run self-correction loop to ensure quality gates pass
+      bash scripts/self_correct.sh
+    capture: .claude/.artifacts/gate.json
     expect_json: true
 
   - id: pm_sync
-    when: gate.json.ok == true
+    when: $.self_correct_quality.ok == true
     run: |
-      npx claude-flow@alpha github pm-sync --project-id "$PROJECT_ID" --session "$SESSION_ID" --idempotent
+      npx claude-flow@alpha github pm-sync --project-id "$PROJECT_ID" --session "$SESSION_ID" --idempotent 2>/dev/null || true
       claude /pm:sync
     capture: pm_sync.json
     expect_json: true
 
   - id: pr_create
-    when: gate.json.ok == true
+    when: $.self_correct_quality.ok == true
     run: |
-      npx claude-flow@alpha github pr-manager --create --evidence-rich --session "$SESSION_ID"
+      npx claude-flow@alpha github pr-manager --create --evidence-rich --session "$SESSION_ID" 2>/dev/null || true
       claude /pr:open
     capture: pr_result.json
 
@@ -89,7 +88,14 @@ steps:
     expect_json: true
 
   - id: gate_failure
-    when: gate.json.ok == false
+    when: $.self_correct_quality.ok == false
     run: |
-      echo "❌ Quality gates failed. Artifacts available:"
+      echo "❌ Quality gates failed after self-correction attempts. Generating failure report..."
+      chmod +x scripts/gate_fail_reason.sh
+      scripts/gate_fail_reason.sh .claude/.artifacts/gate.json pr-comment
+      
+      echo "📋 Artifacts available:"
       ls -la .claude/.artifacts/
+      
+      echo "📝 PR comment generated (if applicable):"
+      cat .claude/.artifacts/pr_comment.md 2>/dev/null || echo "No PR comment generated"

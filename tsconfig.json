@@ -1,16 +1,18 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022"],
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -29,16 +31,20 @@
       "@/components/*": ["src/components/*"],
       "@/utils/*": ["src/utils/*"],
       "@/types/*": ["src/types/*"],
-      "@/config/*": ["src/config/*"]
+      "@/config/*": ["src/config/*"],
+      "@/tests/*": ["tests/*"]
     },
-    "types": ["node", "@types/node"]
+    "types": ["node", "jest"]
   },
   "include": [
     "src/**/*",
     "tests/**/*",
-    "scripts/**/*",
-    ".claude/**/*",
-    "flow/**/*"
+    "scripts/**/*.ts",
+    "scripts/**/*.js",
+    ".claude/**/*.ts",
+    ".claude/**/*.js",
+    "flow/**/*.ts",
+    "flow/**/*.js"
   ],
   "exclude": [
     "node_modules",
@@ -48,6 +54,8 @@
     "analyzer",
     "interfaces",
     ".sandboxes",
-    "build"
+    "build",
+    "**/*.test.js",
+    "**/*.spec.js"
   ]
 }

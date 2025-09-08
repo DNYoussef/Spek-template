@@ -1,100 +1,83 @@
 name: ci-auto-repair
-description: CF neural-enhanced auto-repair with hive coordination and pattern recognition.
+description: Self-correcting loop with CF v2 Alpha coordination and neural learning.
 environment:
   HIVE_NAMESPACE: "spek/ci-repair/$(date +%Y%m%d)"
   SESSION_ID: "swarm-ci-$(echo $GITHUB_RUN_ID || date +%s)"
-  MAX_ATTEMPTS: "${AUTO_REPAIR_MAX_ATTEMPTS:-2}"
+  MAX_ATTEMPTS: "${AUTO_REPAIR_MAX_ATTEMPTS:-4}"
+  BASE_BRANCH: "${BASE_BRANCH:-main}"
 
 steps:
-  # Neural-Enhanced Analysis
-  - id: neural_analyze
+  # Self-Correcting Loop Integration
+  - id: self_correct
     run: |
-      npx claude-flow@alpha swarm init --topology adaptive --session "$SESSION_ID" --namespace "$HIVE_NAMESPACE"
-      git fetch --all --prune || true
-      git diff --stat origin/main...HEAD > .claude/.artifacts/diffstat.txt || true
+      export HIVE_NAMESPACE="$HIVE_NAMESPACE"
+      export SESSION_ID="$SESSION_ID"
+      export MAX_ATTEMPTS="$MAX_ATTEMPTS"
+      export BASE_BRANCH="$BASE_BRANCH"
+      export SHOW_LOGS=1
       
-      # Neural pattern recognition
-      npx claude-flow@alpha neural predict --model ci_failure_classifier --input "$(cat .claude/.artifacts/diffstat.txt)" > neural_analysis.json || echo '{"confidence": 0.5, "pattern": "unknown"}' > neural_analysis.json
-      
-      # Memory-assisted analysis
-      SIMILAR_FAILURES="$(npx claude-flow@alpha memory query --pattern 'failures/*' --namespace '$HIVE_NAMESPACE' --limit 3 | jq -s '.' || echo '[]')"
-      
-      jq -n --argjson neural "$(cat neural_analysis.json)" --argjson history "$SIMILAR_FAILURES" '{neural: $neural, historical_patterns: $history}'
-    capture: enhanced_analysis.json
+      # Run the bounded self-correction loop
+      bash scripts/self_correct.sh
+
+    capture: .claude/.artifacts/gate.json
     expect_json: true
 
-  - id: analyze
+  # Generate PR Comment on Failure
+  - id: generate_pr_comment
+    when: $.self_correct.ok == false
     run: |
-      git fetch --all --prune || true
-      git diff --stat origin/main...HEAD > .claude/.artifacts/diffstat.txt || true
-      claude --output-format json -p "/qa:analyze '$(cat .claude/.artifacts/diffstat.txt 2>/dev/null)'" || echo '{"size":"small","root_causes":["unknown"]}' > triage.json
-    capture: triage.json
-    expect_json: true
+      chmod +x scripts/gate_fail_reason.sh
+      scripts/gate_fail_reason.sh .claude/.artifacts/gate.json pr-comment
+    capture: .claude/.artifacts/pr_comment.md
 
-  - id: route_small
-    when: triage.json.size == "small"
-    run: claude /codex:micro-fix "$(jq -r '.root_causes[0]' triage.json)"
-
-  - id: route_multi
-    when: triage.json.size == "multi"
-    run: claude /fix:planned "$(jq -r '.root_causes[0]' triage.json)"
-
-  - id: route_big
-    when: triage.json.size == "big"
-    run: claude /gemini:impact "$(jq -r '.root_causes[0]' triage.json)"
-
-  - id: verify_fan_out
-    run: |
-      claude /qa:run &
-      claude /sec:scan &
-      claude /conn:scan &
-      wait
-    capture: .claude/.artifacts/qa.json
-    expect_json: true
-
-  - id: gate
-    run: claude --output-format json -p "/qa:gate"
-    capture: gate.json
-    expect_json: true
-
-  - id: show_sandbox
-    run: |
-      echo "Codex sandbox branches:"
-      ls -1 .sandboxes 2>/dev/null || true
-
+  # Push Changes on Success
   - id: push
-    when: gate.json.ok == true
+    when: $.self_correct.ok == true
     run: |
-      # Success pattern learning
-      npx claude-flow@alpha neural train --model success_patterns --session "$SESSION_ID" --input "$(git diff --cached --stat)"
-      npx claude-flow@alpha memory store --key "successes/$(date +%s)" --value "$(cat gate.json)" --namespace "$HIVE_NAMESPACE"
+      # Success pattern learning (if CF available)
+      npx claude-flow@alpha neural train --model success_patterns --session "$SESSION_ID" --input "$(git diff --cached --stat)" 2>/dev/null || true
+      npx claude-flow@alpha memory store --key "successes/$(date +%s)" --value "$(cat .claude/.artifacts/gate.json)" --namespace "$HIVE_NAMESPACE" 2>/dev/null || true
       
       git add -A
-      git commit -m "auto-fix: satisfy quality gates [skip ci]"
-      git push
+      git commit -m "auto-fix: satisfy quality gates via self-correction [skip ci]" || true
+      git push || true
       
-      # Export session metrics for continuous improvement
-      npx claude-flow@alpha hooks session-end --export-metrics true --namespace "$HIVE_NAMESPACE"
+      # Export session metrics
+      npx claude-flow@alpha hooks session-end --export-metrics true --namespace "$HIVE_NAMESPACE" 2>/dev/null || true
 
+  # Report Failure with Enhanced Context
   - id: report_failure
-    when: gate.json.ok == false
+    when: $.self_correct.ok == false
     run: |
-      # Failure pattern learning and escalation
-      npx claude-flow@alpha neural train --model failure_patterns --session "$SESSION_ID" --input "$(jq -c '{gates: .}' gate.json)"
-      npx claude-flow@alpha memory store --key "failures/ci/$(date +%s)" --value "$(cat gate.json)" --namespace "$HIVE_NAMESPACE"
+      echo "❌ Self-correction failed after $MAX_ATTEMPTS attempts"
       
-      # Check attempt count and escalate if needed
-      ATTEMPTS="$(npx claude-flow@alpha swarm status --session '$SESSION_ID' --json | jq -r '.attempts // 1')"
-      if [[ $ATTEMPTS -ge $MAX_ATTEMPTS ]]; then
-        echo "🚨 Max repair attempts exceeded ($ATTEMPTS/$MAX_ATTEMPTS) - escalating"
-        npx claude-flow@alpha task orchestrate --escalate architecture --reason "ci-repair-limit" --context "$(cat gate.json)"
-        
-        # Create escalation issue
-        gh issue create --title "Auto-repair escalation: $(git rev-parse --short HEAD)" --body "Auto-repair failed after $ATTEMPTS attempts. See gate results in artifacts." --label "escalation,ci" 2>/dev/null || true
+      # Show final gate status
+      if [[ -f .claude/.artifacts/gate.json ]]; then
+        echo "📊 Final gate status:"
+        jq . .claude/.artifacts/gate.json || cat .claude/.artifacts/gate.json
       fi
       
-      echo "❌ Auto-repair failed. Gate results:"
-      cat gate.json | jq '.'
+      # Show generated PR comment
+      if [[ -f .claude/.artifacts/pr_comment.md ]]; then
+        echo "📝 Generated PR comment:"
+        cat .claude/.artifacts/pr_comment.md
+      fi
+      
+      # CF neural learning and escalation (if available)
+      npx claude-flow@alpha neural train --model failure_patterns --session "$SESSION_ID" --input "$(cat .claude/.artifacts/gate.json 2>/dev/null || echo '{}')" 2>/dev/null || true
+      npx claude-flow@alpha memory store --key "failures/ci/$(date +%s)" --value "$(cat .claude/.artifacts/gate.json 2>/dev/null || echo '{}')" --namespace "$HIVE_NAMESPACE" 2>/dev/null || true
+      
+      # Create escalation issue if configured
+      if command -v gh >/dev/null 2>&1; then
+        gh issue create --title "CI Auto-repair failed: $(git rev-parse --short HEAD)" \
+          --body "Self-correction loop failed after $MAX_ATTEMPTS attempts. Check artifacts for details." \
+          --label "ci,auto-repair,escalation" 2>/dev/null || echo "Note: Could not create GitHub issue"
+      fi
+      
+      # CF task orchestration escalation (if available)
+      npx claude-flow@alpha task orchestrate --escalate architecture --reason "ci-repair-limit-exceeded" --context "$(cat .claude/.artifacts/gate.json 2>/dev/null || echo '{}')" 2>/dev/null || true
       
       # Export failure session for analysis
-      npx claude-flow@alpha hooks session-end --export-metrics true --namespace "$HIVE_NAMESPACE" --failure
+      npx claude-flow@alpha hooks session-end --export-metrics true --namespace "$HIVE_NAMESPACE" --failure 2>/dev/null || true
+      
+      exit 1

@@ -29,7 +29,9 @@
       "Bash(./scripts/batch_update_agents.sh:*)",
       "Bash(scripts/ops_tripwires.sh report:*)",
       "Bash(scripts/sandbox_janitor.sh report:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(scripts/self_correct.sh:*)",
+      "Bash(scripts/gate_fail_reason.sh:*)"
     ],
     "deny": [],
     "ask": []
