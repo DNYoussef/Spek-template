@@ -36,90 +36,134 @@ This project uses SPEK (Specification, Planning, Execution, Knowledge) methodolo
 - **Codex CLI** - Sandboxed micro-edits and automated QA
 - **MCP Servers** - Multi-modal development tool integration
 
-## 🎯 Available Slash Commands
+## 🎯 Complete Slash Commands Reference
+
+> 📖 **Quick Reference**: See `docs/QUICK-REFERENCE.md` for command cheat sheet
+> 🎓 **Tutorials**: See `examples/` directory for step-by-step guides
 
 ### Core SPEK Commands
 
 #### `/spec:plan`
-Read SPEC.md using Spec Kit's section semantics and output structured JSON:
+Convert SPEC.md to structured plan.json for workflow orchestration:
 ```json
 { 
-  "goals":[], 
-  "tasks":[{
-    "id":"",
-    "title":"",
-    "type":"small|multi|big",
-    "scope":"",
-    "verify_cmds":[],
-    "budget_loc":25,
-    "budget_files":2
-  }], 
-  "risks":[] 
+  "goals": ["Primary objectives from SPEC"],
+  "tasks": [{
+    "id": "task-001",
+    "title": "Descriptive task name",
+    "type": "small|multi|big",
+    "scope": "Detailed implementation scope", 
+    "verify_cmds": ["npm test", "npm run typecheck"],
+    "budget_loc": 25,
+    "budget_files": 2,
+    "acceptance": ["Measurable success criteria"]
+  }],
+  "risks": ["Technical and business risks"]
 }
 ```
 
-#### `/specify` (Spec Kit native)
-Define project requirements using Spec Kit templates
+#### `/specify` (Spec Kit Native)
+Define project requirements using GitHub's Spec Kit templates and semantics
 
-#### `/plan` (Spec Kit native)
-Specify technical implementation details
+#### `/plan` (Spec Kit Native) 
+Specify technical implementation details with structured planning approach
 
-#### `/tasks` (Spec Kit native)
-Create actionable task list
+#### `/tasks` (Spec Kit Native)
+Create actionable task breakdown from specifications
 
-### Analysis Commands
+### Analysis & Impact Commands
 
 #### `/gemini:impact`
-Generate change-impact map with Gemini CLI:
-1. Run: `gemini -p "@$ARGUMENTS Create impact map. Output JSON {hotspots[], callers[], configs[], crosscuts[], testFocus[]} only."`
-2. Show raw JSON output
+Leverage Gemini's large context window for comprehensive change-impact analysis:
+- **Input**: Target change description + full codebase context
+- **Analysis**: Hotspots, callers, dependencies, cross-cutting concerns
+- **Output**: JSON with risk assessment and implementation guidance
+- **Use When**: Complex changes, architectural modifications, high-risk updates
+
+#### `/qa:analyze`
+Intelligent failure analysis that routes to appropriate fix strategy:
+```json
+{
+  "classification": {"size": "small|multi|big", "confidence": 0.87},
+  "root_causes": ["Specific failure analysis"],
+  "fix_strategy": {
+    "primary_approach": "codex:micro|fix:planned|gemini:impact",
+    "estimated_time": "3-5 minutes",
+    "success_rate": 0.85
+  }
+}
+```
 
 ### Implementation Commands
 
 #### `/codex:micro`
-Micro-edit via Codex with safety constraints:
-- Budget: ≤25 LOC, ≤2 files
-- Safety: Auto-stash/branch via hooks
-- Verification: Tests + TypeCheck + Lint
-- Output: Structured JSON with changes and verification
+Sandboxed micro-edits with comprehensive testing (leverages Codex sandboxing):
+- **Budget**: ≤25 LOC, ≤2 files, isolated changes
+- **Safety**: Auto-branch creation, clean working tree verification
+- **Verification**: Tests + TypeCheck + Lint + Coverage in sandbox
+- **Output**: Structured JSON with changes, verification, and merge readiness
 
 #### `/codex:micro-fix`
-Targeted micro-fix for failing tests or bugs:
-- Same constraints as `/codex:micro`
-- Prefers find-related-tests flags where supported
+Surgical fixes for test failures detected in sandbox loops:
+- **Purpose**: Codex performs precise diagnostic edits when tests fail
+- **Constraints**: Same as `/codex:micro` - bounded and sandboxed
+- **Integration**: Used automatically in edit-test-fix cycles
+- **Output**: JSON with specific fixes applied and verification results
 
 #### `/fix:planned`
-Multi-file fix with bounded checkpoints:
-- Break into steps with file subsets
-- Each step: ≤25 LOC budget
-- Stop on first failed checkpoint
-- Output: JSON summary
+Systematic multi-file fixes with bounded checkpoints:
+- **Approach**: Break complex fixes into ≤25 LOC checkpoints
+- **Safety**: Rollback points before each checkpoint
+- **Verification**: Quality gates at each checkpoint
+- **Output**: JSON summary with checkpoint results and rollback availability
 
 ### Quality Assurance Commands
 
 #### `/qa:run`
-Run comprehensive QA in Codex sandbox:
-1. Execute: Tests, TypeCheck, Lint, Coverage
-2. Output: Structured JSON to `.claude/.artifacts/qa.json`
+Comprehensive quality assurance suite with parallel execution:
+- **Execution**: Tests, TypeCheck, Lint, Coverage, Security, Connascence
+- **Output**: Structured JSON to `.claude/.artifacts/qa.json`
+- **Integration**: Feeds into quality gates and fix routing
+- **Performance**: Parallel execution, changed-files optimization
 
-#### `/qa:analyze`
-Analyze QA failures and route to appropriate fix strategy:
-```json
-{ 
-  "size":"small|multi|big",
-  "suspects":["file:line",...],
-  "root_causes":["..."],
-  "fix_strategy":"codex_micro|codex_seq|claude_plan|gemini_context" 
-}
-```
+#### `/qa:gate`
+Apply SPEK-AUGMENT CTQ thresholds for deployment decisions:
+- **Critical Gates**: Tests (100% pass), TypeCheck (0 errors), Security (0 high/critical)
+- **Quality Gates**: Lint, Coverage, Connascence (warnings but allow)
+- **Output**: Pass/fail decision with detailed reasoning and fix recommendations
+- **Integration**: Used by PR workflows and deployment pipelines
 
-### Delivery Commands
+### Security & Architecture Commands
+
+#### `/sec:scan`
+Comprehensive security scanning with Semgrep and OWASP rules:
+- **Scope**: Changed files or full codebase analysis
+- **Rules**: OWASP Top 10, CWE Top 25, secrets detection
+- **Output**: Categorized findings with remediation guidance
+- **Integration**: Blocks deployment on critical/high findings
+
+#### `/conn:scan`
+Connascence analysis with NASA POT10 compliance metrics:
+- **Analysis**: Structural coupling, code quality, architectural debt
+- **Metrics**: NASA Program On a Tear (POT10) compliance scoring
+- **Output**: Compliance score, technical debt assessment, refactoring priorities
+- **Integration**: Architectural quality gates and improvement guidance
+
+### Project Management & Delivery Commands
+
+#### `/pm:sync`
+Bidirectional synchronization with Plane MCP project management:
+- **Sync**: Development status ↔ Project management tracking
+- **Features**: Task mapping, progress reporting, stakeholder notifications
+- **Output**: Sync results, conflict resolution, project health metrics
+- **Integration**: Automated progress reporting and stakeholder alignment
 
 #### `/pr:open`
-Prepare PR body with evidence and checklists:
-- Input: `.claude/.artifacts/qa.json` + analysis results
-- Checklist: Gates passed, coverage maintained, risk assessment
-- Output: PR body for GitHub MCP
+Evidence-rich pull request creation with comprehensive documentation:
+- **Evidence**: QA results, impact analysis, security scan, architectural metrics
+- **Content**: Professional PR body with checklists and deployment notes
+- **Integration**: Automated reviewer assignment, label application, merge configuration
+- **Output**: GitHub PR URL with complete evidence package
 
 ## 🛠️ Build Commands
 
@@ -133,21 +177,30 @@ npm run coverage     # Coverage analysis
 
 ## 🎭 Agent Capabilities & Constraints
 
-### Codex Agent
-- **Scope**: Micro-edits (≤25 LOC, ≤2 files)
-- **Safety**: Auto-branch creation, clean working tree
-- **Gates**: All QA commands must pass
-- **Output**: JSON with changes and verification
+### Codex Agent (Sandboxing & Testing)
+- **Primary Role**: Sandboxed micro-edits and surgical test fixes
+- **Sandboxing**: Auto-branch creation, isolated execution, clean rollback
+- **Testing Focus**: Immediate test execution and failure recovery in sandbox
+- **Constraints**: ≤25 LOC, ≤2 files, comprehensive quality gates
+- **Output**: JSON with changes, verification results, and merge readiness
 
-### Gemini Agent  
-- **Scope**: Large-context analysis
-- **Capability**: Impact mapping, architectural analysis
-- **Output**: JSON with hotspots, dependencies, test focus areas
+### Gemini Agent (Large Context Window)
+- **Primary Role**: Architectural analysis leveraging massive context window
+- **Context Capability**: Full codebase analysis, cross-cutting impact assessment
+- **Analysis Scope**: Change impact, dependency mapping, risk assessment
+- **Output**: JSON with hotspots, architectural guidance, implementation sequence
 
-### QA Agent
-- **Scope**: Comprehensive verification
-- **Gates**: Tests, TypeCheck, Lint, Coverage
-- **Artifacts**: Results stored as JSON in `.claude/.artifacts/`
+### Claude Code Agent (Primary Implementation)
+- **Primary Role**: Main development work, complex implementations, planning
+- **Integration**: Coordinates with Codex for testing, Gemini for analysis
+- **Scope**: Full-scale development, multi-file changes, architectural work
+- **Workflow**: Handles primary implementation while Codex/Gemini provide specialized support
+
+### QA Agent (Comprehensive Verification)
+- **Scope**: Parallel execution of all quality gates
+- **Gates**: Tests, TypeCheck, Lint, Coverage, Security, Connascence
+- **Artifacts**: Structured results stored as JSON in `.claude/.artifacts/`
+- **Integration**: Feeds analysis and routing for automated fixes
 
 ## 🔄 Claude Flow Integration
 
@@ -173,15 +226,27 @@ flow run flow/workflows/after-edit.yaml    # Post-edit quality loop
 
 ## 🚦 Quality Gates
 
-### Required Gates (All Must Pass):
-1. **Tests**: `npm test --silent` → exit code 0
-2. **Types**: `npm run typecheck` → exit code 0
-3. **Lint**: `npm run lint --silent` → exit code 0
-4. **Coverage**: No regression on changed lines
+### Critical Gates (Must Pass for Deployment):
+1. **Tests**: 100% pass rate - no test failures allowed
+2. **TypeScript**: Zero compilation errors - warnings allowed
+3. **Security**: Zero critical/high findings - medium findings allowed with review
+4. **Coverage**: No regression on changed lines - maintain or improve coverage
 
-### Budget Constraints:
-- `MAX_LOC: 25` (lines of code per operation)
-- `MAX_FILES: 2` (files per micro-edit)
+### Quality Gates (Warn but Allow):
+1. **Lint**: Zero errors preferred - warnings allowed with justification
+2. **Connascence**: NASA POT10 compliance ≥90% - architectural quality tracking
+3. **Performance**: No significant regressions - monitor key metrics
+
+### Budget Constraints by Operation Type:
+- **Micro-edits**: ≤25 LOC, ≤2 files, isolated changes only
+- **Planned fixes**: ≤25 LOC per checkpoint, unlimited checkpoints
+- **Architecture changes**: No fixed limits, require impact analysis
+
+### SPEK-AUGMENT CTQ Thresholds:
+- **Test Reliability**: 100% pass rate, no flaky tests
+- **Type Safety**: Complete TypeScript coverage, strict configuration
+- **Security Compliance**: Zero critical vulnerabilities, OWASP alignment
+- **Architectural Quality**: NASA POT10 ≥90%, low connascence coupling
 
 ## 🔒 Safety Mechanisms
 

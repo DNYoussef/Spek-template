@@ -31,7 +31,8 @@
       "Bash(scripts/sandbox_janitor.sh report:*)",
       "Bash(cat:*)",
       "Bash(scripts/self_correct.sh:*)",
-      "Bash(scripts/gate_fail_reason.sh:*)"
+      "Bash(scripts/gate_fail_reason.sh:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
