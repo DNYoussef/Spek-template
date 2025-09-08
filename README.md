@@ -110,6 +110,206 @@ vim SPEC.md
 /qa:run && /conn:scan && /theater:scan --quality-correlation && /pr:open
 ```
 
+## 🔄 Integrated Loop System
+
+### Three Interconnected Loops for Complete Development Lifecycle
+
+The S-R-P-E-K template orchestrates **three interconnected loops** that work together to ensure high-quality, reality-validated delivery while maintaining continuous development velocity.
+
+#### 🔍 Loop 1: Spec-Plan-Research-Premortem Loop
+**Discovery and Planning Phase - Prevents Issues Before They Start**
+
+```bash
+# Continuous refinement loop until plan is solid
+SPEC.md → /research:web → /research:github → /research:analyze → /spec:plan → premortem → refine → repeat
+```
+
+**Key Characteristics:**
+- **Research-First Approach**: Discover existing solutions before building from scratch (30-60% faster development)
+- **Premortem Integration**: Identify failure modes during planning, not during implementation
+- **Evidence-Based Planning**: Use research findings to inform architectural decisions
+- **Parallel Research Execution**: Web, GitHub, models, and deep research run concurrently
+- **Risk Mitigation**: Plan refinement continues until premortem reveals acceptable risk levels
+
+**Loop Termination Criteria:**
+- ✅ Comprehensive research findings with solution recommendations
+- ✅ Structured plan.json with research-informed tasks
+- ✅ Premortem analysis shows manageable risks
+- ✅ Clear implementation strategy with fallback options
+
+#### ⚡ Loop 2: Development Loop with CI/CD Integration  
+**Parallel Implementation and Continuous Audit - Maintains Quality at Velocity**
+
+```bash
+# Parallel execution with continuous safety checks
+Implementation → Analyzer (Parallel) → Safe Audit → Sandbox → Surgical Edits → GitHub Hooks → Repeat
+```
+
+**Parallel Execution Architecture:**
+```bash
+# All quality gates run simultaneously for maximum speed
+Parallel {
+  /qa:run --architecture --performance-monitor,
+  /conn:scan --detector-pools --enhanced-metrics,  
+  /sec:scan --owasp --custom-rules,
+  /theater:scan --quality-correlation,
+  /conn:arch --hotspots --recommendations
+}
+```
+
+**Key Characteristics:**
+- **Parallel Quality Gates**: All analyzers run simultaneously (2.8-4.4x speed improvement)
+- **Safe Sandbox Execution**: Auto-branch creation, isolated testing, clean rollback capabilities
+- **Surgical Edit System**: Bounded modifications (≤25 LOC, ≤2 files) with immediate verification
+- **GitHub Hooks Integration**: Automated quality checks, PR preparation, evidence packaging
+- **Continuous Safety**: Every change verified before integration, with automatic rollback on failure
+
+**Safety Mechanisms:**
+```json
+// .claude/settings.json hooks configuration
+{
+  "hooks": {
+    "preTool": [
+      {"match": "codex exec", "cmd": "test -z \"$(git status --porcelain)\" || git stash -k -u"},
+      {"match": "codex exec", "cmd": "git checkout -b codex/task-$(date +%s)"}
+    ],
+    "postTool": [
+      {"match": "codex exec", "cmd": "git status --porcelain && echo 'Review with: git diff --stat'"},
+      {"match": "qa:run", "cmd": ".claude/scripts/evidence-package.sh"}
+    ]
+  }
+}
+```
+
+**Loop Operations:**
+- **Implementation Phase**: Route by complexity (`/codex:micro` for small, `/fix:planned` for multi-file)
+- **Parallel Analyzer Phase**: 9 connascence detectors, security scanning, architectural analysis
+- **Safe Audit Phase**: Evidence packaging, quality gate evaluation, theater detection
+- **Surgical Edit Phase**: Bounded fixes with immediate verification and rollback capability
+- **GitHub Integration**: Automated PR creation, reviewer assignment, evidence attachment
+
+#### 🎭 Loop 3: Theater Detection Reality Loop
+**Continuous Validation - Prevents Fake Work and Ensures Genuine Quality**
+
+```bash
+# Continuous reality validation throughout development
+Claims → Evidence Cross-Check → Pattern Detection → Quality Contradiction Analysis → Reality Validation → Learning → Repeat
+```
+
+**Multi-Layer Detection System:**
+```bash
+# Theater detection runs across all development phases
+/theater:scan --patterns {
+  code_theater,           # Mock-heavy implementations
+  test_theater,          # Non-functional test content  
+  quality_infrastructure, # Gaming quality gates
+  security_theater,      # Fake vulnerability fixes
+  performance_theater    # Unrealistic benchmarks
+}
+```
+
+**Key Characteristics:**
+- **Continuous Pattern Recognition**: Learns organizational theater patterns over time
+- **Evidence Cross-Reference**: Validates completion claims against actual code changes
+- **Quality Contradiction Detection**: Identifies conflicts between metrics and reality
+- **Reality Validation Framework**: Tests that functionality actually works as claimed
+- **Learning Integration**: Builds knowledge base of theater patterns for future detection
+
+**Integration Points:**
+- **Research Phase**: Validates discovered solutions against theater patterns
+- **Quality Gates**: Theater detection runs alongside traditional quality checks
+- **CI/CD Pipeline**: Automated theater scanning blocks PRs on high-confidence findings
+- **Evidence Packages**: Theater detection results included in audit trails
+
+### 🔗 Loop Integration & Coordination
+
+#### Parallel Execution Capabilities
+**All loops can run simultaneously for maximum efficiency:**
+
+```bash
+# Complete parallel execution in single message
+Parallel {
+  # Loop 1: Research and planning
+  /research:web + /research:github + /research:analyze,
+  
+  # Loop 2: Quality and architecture analysis  
+  /qa:run + /conn:scan + /sec:scan + /conn:arch,
+  
+  # Loop 3: Theater detection and reality validation
+  /theater:scan + /reality:check,
+  
+  # Infrastructure: GitHub integration
+  GitHub hooks + Evidence packaging + PR preparation
+}
+```
+
+#### Cross-Loop Communication
+- **Research → Development**: Research findings inform implementation approach and architectural decisions
+- **Development → Theater Detection**: Code changes trigger theater pattern analysis and reality validation
+- **Theater Detection → Research**: Theater patterns influence future solution evaluation criteria
+- **All Loops → GitHub**: Evidence from all three loops packaged for PR documentation and audit trails
+
+#### Loop Coordination Protocol
+```yaml
+# .github/workflows/integrated-loops.yml
+name: Integrated Loop System
+on: [push, pull_request]
+jobs:
+  loop-coordination:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initialize All Loops
+        run: |
+          # Start all three loops in parallel
+          ./scripts/loop-coordinator.sh --mode parallel --loops all
+      
+      - name: Cross-Loop Validation  
+        run: |
+          # Validate consistency across loop outputs
+          ./scripts/cross-loop-validator.sh --evidence-package
+          
+      - name: Reality Check Integration
+        run: |
+          # Final reality validation before merge
+          ./scripts/reality-validator.sh --comprehensive
+```
+
+#### Success Metrics Across Loops
+
+**Loop 1 - Research & Planning:**
+- 30-60% development time reduction through solution reuse
+- 90%+ plan accuracy with reduced implementation surprises
+- Premortem risk mitigation prevents 80%+ of potential issues
+
+**Loop 2 - Development & Quality:**
+- 2.8-4.4x speed improvement through parallel execution
+- 100% quality gate pass rate with evidence packages
+- Zero production defects through surgical edit safety
+
+**Loop 3 - Theater Detection:**
+- >90% theater pattern recognition accuracy
+- <5% false positive rate for legitimate code
+- Improved stakeholder confidence through reality validation
+
+#### Emergency Protocols
+```bash
+# Loop failure recovery procedures
+if loop1_failure; then
+  ./scripts/research-recovery.sh --fallback-plan
+fi
+
+if loop2_failure; then  
+  git worktree prune && git checkout main  # Clean rollback
+  ./scripts/quality-gate-bypass.sh --emergency-mode
+fi
+
+if loop3_failure; then
+  ./scripts/manual-validation.sh --human-review
+fi
+```
+
+**The integrated loop system ensures that every change is research-informed, quality-gated, and reality-validated while maintaining maximum development velocity through parallel execution and surgical safety mechanisms.**
+
 ## 🛠️ Comprehensive Tool Integration
 
 ### Core Quality Stack
