@@ -137,12 +137,87 @@ SPEC.md → /research:web → /research:github → /research:analyze → /spec:p
 - ✅ Premortem analysis shows manageable risks
 - ✅ Clear implementation strategy with fallback options
 
+#### 🔄 Loop 1 → Loop 2 Handoff Protocol
+**Critical Transition: Research-Informed Planning to Implementation**
+
+**After Loop 1 Completion, we have:**
+- **Refined SPEC.md** - IMMUTABLE source of truth for requirements and acceptance criteria
+- **Detailed plan.json** - IMMUTABLE source of truth for implementation strategy and task breakdown
+- **Copied Components** - Starter codebase from GitHub research with proven patterns
+- **Risk Analysis** - Premortem findings with mitigation strategies
+
+**Loop 2 MUST Operate Under These Constraints:**
+
+1. **Source of Truth Hierarchy** (IMMUTABLE):
+   ```bash
+   SPEC.md (requirements) → plan.json (strategy) → implementation (execution)
+   # NO deviation from these carefully researched foundations
+   ```
+
+2. **Handoff Artifacts** (Loop 1 Produces for Loop 2):
+   - `SPEC.md`: Refined requirements with research validation
+   - `plan.json`: Structured tasks with research-informed approach
+   - `.claude/.artifacts/research-*.json`: Solution analysis and recommendations
+   - `premortem-analysis.json`: Risk mitigation strategies
+   - Component copies: Proven code patterns from research
+
+3. **Guardrail Configuration** (Enforces Plan Adherence):
+   ```json
+   // .claude/settings.json - Automated plan enforcement
+   {
+     "hooks": {
+       "preTool": [
+         {"match": "*", "cmd": "./scripts/validate-against-spec.sh"},
+         {"match": "*", "cmd": "./scripts/check-plan-deviation.sh"}
+       ],
+       "postTool": [
+         {"match": "*", "cmd": "./scripts/plan-compliance-check.sh"}
+       ]
+     },
+     "immutable_sources": ["SPEC.md", "plan.json"],
+     "deviation_prevention": {
+       "spec_changes": "blocked",
+       "plan_changes": "blocked", 
+       "architecture_drift": "alert_and_revert"
+     }
+   }
+   ```
+
+4. **Component Integration Strategy** (Build Upon Research):
+   - **Preserve Research Insights**: Use copied components as foundation, not starting point
+   - **Follow Proven Patterns**: Implement based on research-validated approaches
+   - **Maintain Architecture**: Stick to research-informed architectural decisions
+   - **Honor Budget Constraints**: Respect plan.json LOC and file limits per task
+
+5. **Deviation Prevention Mechanisms**:
+   ```bash
+   # Automated checks that prevent plan drift
+   ./scripts/spec-compliance-gate.sh     # Validates all changes against SPEC.md
+   ./scripts/plan-deviation-detector.sh  # Alerts on plan.json violations
+   ./scripts/research-pattern-enforcer.sh # Ensures research findings are honored
+   ./scripts/architecture-drift-monitor.sh # Prevents architectural deviations
+   ```
+
+**❌ FORBIDDEN IN LOOP 2:**
+- Modifying SPEC.md requirements
+- Changing plan.json task structure or strategy
+- Ignoring research-validated solution patterns
+- Overriding architectural decisions from Loop 1
+- Bypassing budget constraints without plan revision
+
+**✅ LOOP 2 RESPONSIBILITIES:**
+- Execute plan.json tasks exactly as specified
+- Build upon copied components following research patterns
+- Apply guardrails to prevent deviation from carefully crafted plan
+- Maintain continuous adherence to SPEC.md requirements
+- Honor research-informed architectural decisions
+
 #### ⚡ Loop 2: Development Loop with CI/CD Integration  
 **Parallel Implementation and Continuous Audit - Maintains Quality at Velocity**
 
 ```bash
-# Parallel execution with continuous safety checks
-Implementation → Analyzer (Parallel) → Safe Audit → Sandbox → Surgical Edits → GitHub Hooks → Repeat
+# Parallel execution with continuous safety checks and plan adherence validation
+Implementation → Plan Compliance Check → Analyzer (Parallel) → Safe Audit → Sandbox → Surgical Edits → GitHub Hooks → Repeat
 ```
 
 **Parallel Execution Architecture:**
