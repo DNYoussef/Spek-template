@@ -16,7 +16,9 @@
       "Read(//c/Users/17175/Desktop/connascence/.github/**)",
       "Bash(robocopy:*)",
       "Bash(echo:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(git merge:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
