@@ -70,6 +70,97 @@ This template follows GitHub's **Spec Kit** process end-to-end (Specify → Plan
 | **REVIEW/DELIVER** | Github, MarkItDown | PR management, release notes |
 | **LEARN** | Memory, Ref | Store lessons, reference sources |
 
+## 🛠️ Prerequisites & Infrastructure Setup
+
+### Required API Keys & Accounts
+- **Claude Code Subscription** - Essential for the development environment
+- **Gemini API Key** - For large-context analysis (`GEMINI_API_KEY`)
+- **Codex API Access** - For sandboxed micro-edits
+- **GitHub Account** - For Spec Kit integration and repository management
+- **Plane API** (Optional) - For project management sync (`PLANE_*` env vars)
+
+### Required CLI Tools & Software
+```bash
+# Core Development Tools
+node >= 18.0.0 && npm >= 8.0.0     # Node.js runtime
+python >= 3.8                      # Python for analyzers
+git >= 2.30                        # Version control
+
+# AI & Analysis Tools  
+claude-code                        # Primary development environment
+gemini-cli                         # Large context analysis
+codex-cli                          # Sandboxed edits
+semgrep                            # Security scanning
+pip-audit                          # Python security audit
+```
+
+### MCP Servers (Install via Claude MCP)
+```bash
+# Core MCP Servers for SPEK phases
+claude mcp add github             # GitHub integration
+claude mcp add memory             # Cross-session persistence
+claude mcp add sequential-thinking # Structured reasoning
+claude mcp add context7           # Context management
+claude mcp add ref                # Reference management
+claude mcp add deepwiki           # Research capabilities
+claude mcp add firecrawl          # Web content extraction  
+claude mcp add huggingface        # AI model access
+claude mcp add markit-down        # Markdown processing
+claude mcp add playwright         # End-to-end testing
+claude mcp add eva                # Evaluation framework
+```
+
+### GitHub Spec Kit Installation
+```bash
+# Install GitHub's Spec Kit globally
+npm install -g @github/spec-kit
+
+# Verify installation
+spec-kit --version
+```
+
+### Claude Flow Setup
+```bash
+# Install Claude Flow v2 Alpha
+npm install -g claude-flow@alpha
+
+# Add Claude Flow MCP server
+claude mcp add claude-flow npx claude-flow@alpha mcp start
+
+# Verify installation
+npx claude-flow@alpha --version
+```
+
+### Environment Variables Setup
+Create `.env` file with required credentials:
+```bash
+# AI Services
+GEMINI_API_KEY=your_gemini_key_here
+CODEX_API_KEY=your_codex_key_here
+
+# Plane Project Management (Optional)
+PLANE_API_URL=https://your-plane-instance.com
+PLANE_TOKEN=your_plane_token
+PLANE_PROJECT_ID=your_project_id  
+PLANE_WORKSPACE_SLUG=your_workspace
+PLANE_CYCLE_ID=current_cycle_id
+
+# Security & Compliance
+SEMGREP_TOKEN=your_semgrep_token   # For private rules
+GITHUB_TOKEN=ghp_your_token        # For enhanced GitHub integration
+
+# Quality Gates Profile
+GATES_PROFILE=full                 # Options: full, light, docs
+```
+
+### Directory Structure Preparation
+```bash
+# Create required directories
+mkdir -p .claude/{.artifacts,commands,agents}
+mkdir -p {src,tests,docs,configs,scripts,examples,flow/workflows}
+mkdir -p {gemini,memory,templates}
+```
+
 ## 🎯 Quick Start
 
 1. **Setup Dependencies**:
@@ -77,10 +168,14 @@ This template follows GitHub's **Spec Kit** process end-to-end (Specify → Plan
    npm install                    # Install Node.js dependencies
    pip install -e ./analyzer     # Install connascence analyzer
    pip install semgrep pip-audit # Install security tools
+   
+   # Verify all tools are installed
+   claude --version && gemini --version && semgrep --version
    ```
 
 2. **Configure Environment**:
-   - Edit `configs/plane.json` with your Plane API credentials
+   - Copy `.env.example` to `.env` and fill in your API keys
+   - Edit `configs/plane.json` with your Plane API credentials (if using)
    - Review `configs/codex.json` for budget constraints
    - Adjust `configs/.semgrep.yml` for custom security rules
 
@@ -100,34 +195,48 @@ This template follows GitHub's **Spec Kit** process end-to-end (Specify → Plan
    flow run flow/workflows/ci-auto-repair.yaml
    ```
 
-4. **Available Commands**: 17 specialized slash commands:
+4. **Available Commands**: 17 specialized slash commands organized by workflow phase:
+
+   ### Core SPEK Commands
    ```bash
-   # Planning & Analysis
-   /spec:plan          # SPEC.md → structured JSON
-   /gemini:impact      # Change impact analysis
-   
-   # Implementation  
-   /codex:micro        # Bounded micro-edits (≤25 LOC, ≤2 files)
-   /codex:micro-fix    # Targeted bug fixes
-   /fix:planned        # Multi-file planned fixes
-   
-   # Quality Assurance
-   /qa:run             # Comprehensive QA suite
-   /qa:gate            # Aggregate all quality gates
-   /qa:analyze         # Failure triage and routing
-   
-   # Security & Structure
-   /sec:scan           # Semgrep + package audits  
-   /conn:scan          # Connascence analysis
-   /conn:gate          # Connascence quality gate
-   /conn:fix-hints     # Structural improvement hints
-   
-   # Project Management
-   /pm:sync            # Sync to Plane MCP
-   
-   # Delivery
-   /pr:open            # Evidence-based PR creation
+   /spec:plan          # Convert SPEC.md → structured plan.json
+   /specify            # Define project requirements (Spec Kit native)
+   /plan               # Specify technical implementation (Spec Kit native)
+   /tasks              # Create actionable task list (Spec Kit native)
    ```
+
+   ### Analysis & Impact
+   ```bash
+   /gemini:impact      # Large-context change impact analysis
+   /qa:analyze         # Analyze failures and route repair strategies
+   ```
+   
+   ### Implementation Commands
+   ```bash
+   /codex:micro        # Sandboxed micro-edits (≤25 LOC, ≤2 files)
+   /codex:micro-fix    # Surgical fixes for test failures in sandbox
+   /fix:planned        # Multi-file fixes with bounded checkpoints
+   ```
+   
+   ### Quality Assurance
+   ```bash
+   /qa:run             # Comprehensive QA suite (tests/lint/types/coverage)
+   /qa:gate            # Apply CTQ thresholds for gate decisions
+   ```
+   
+   ### Security & Architecture
+   ```bash
+   /sec:scan           # Semgrep security scanning with OWASP rules
+   /conn:scan          # Connascence analysis with NASA POT10 compliance
+   ```
+   
+   ### Project Management & Delivery
+   ```bash
+   /pm:sync            # Bidirectional sync with Plane MCP
+   /pr:open            # Evidence-rich pull request creation
+   ```
+
+   > 📖 **Complete documentation**: See `docs/COMMANDS.md` for detailed usage and `examples/` for tutorials
 
 ## 🏗️ Project Structure
 
