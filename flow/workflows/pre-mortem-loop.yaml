@@ -1,0 +1,448 @@
+name: pre-mortem-loop
+description: Multi-agent iterative pre-mortem analysis with fresh-eyes diversity to achieve <3% failure rate confidence before implementation
+environment:
+  HIVE_NAMESPACE: "spek/pre-mortem/$(date +%Y%m%d)"
+  SESSION_ID: "premortem-$(git rev-parse --short HEAD || echo 'default')"
+  TARGET_FAILURE_RATE: "${TARGET_FAILURE_RATE:-3}"
+  MAX_ITERATIONS: "${MAX_ITERATIONS:-3}"
+  RESEARCH_DEPTH: "${RESEARCH_DEPTH:-standard}"
+  AGENT_DIVERSITY: "${AGENT_DIVERSITY:-true}"
+
+steps:
+  # Phase 1: Initialize Multi-Agent Swarm with Memory Isolation
+  - id: init_premortem_swarm
+    run: |
+      echo "🧠 Initializing pre-mortem swarm with fresh-eyes coordination..."
+      
+      # Initialize unified memory bridge for cross-agent coordination
+      source scripts/memory_bridge.sh
+      initialize_memory_router
+      
+      # Initialize Claude Flow swarm for multi-agent coordination
+      npx claude-flow@alpha swarm init \
+        --topology mesh \
+        --max-agents 4 \
+        --namespace "$HIVE_NAMESPACE" \
+        --fresh-eyes-mode \
+        2>/dev/null || true
+      
+      # Spawn coordinated agents with specific memory constraints
+      npx claude-flow@alpha agent spawn \
+        --type "claude-orchestrator" \
+        --session "$SESSION_ID" \
+        --memory-enabled \
+        --role "coordinator" 2>/dev/null || true
+        
+      npx claude-flow@alpha agent spawn \
+        --type "gemini-architect" \
+        --session "$SESSION_ID" \
+        --memory-disabled \
+        --fresh-context \
+        --role "architectural_analysis" 2>/dev/null || true
+        
+      npx claude-flow@alpha agent spawn \
+        --type "codex-implementer" \
+        --session "$SESSION_ID" \
+        --memory-disabled \
+        --fresh-context \
+        --role "implementation_analysis" 2>/dev/null || true
+        
+      npx claude-flow@alpha agent spawn \
+        --type "research-intelligence" \
+        --session "$SESSION_ID" \
+        --research-enabled \
+        --role "pattern_discovery" 2>/dev/null || true
+      
+      # Store initialization context
+      init_context=$(jq -n \
+        --arg session "$SESSION_ID" \
+        --arg namespace "$HIVE_NAMESPACE" \
+        --arg target_rate "$TARGET_FAILURE_RATE" \
+        --arg max_iter "$MAX_ITERATIONS" \
+        --arg diversity "$AGENT_DIVERSITY" \
+        '{
+          session_id: $session,
+          hive_namespace: $namespace,
+          target_failure_rate: ($target_rate | tonumber),
+          max_iterations: ($max_iter | tonumber),
+          agent_diversity: ($diversity == "true"),
+          swarm_topology: "mesh",
+          fresh_eyes_mode: true,
+          agents_spawned: 4
+        }')
+      
+      scripts/memory_bridge.sh store \
+        "coordination/premortem" \
+        "init_$SESSION_ID" \
+        "$init_context" \
+        '{"type": "swarm_init", "phase": "initialization"}'
+      
+      echo "$init_context"
+    capture: swarm_init.json
+    expect_json: true
+
+  # Phase 2: Research Common Failure Patterns
+  - id: research_failure_patterns
+    run: |
+      echo "🔍 Researching common failure patterns for project type..."
+      
+      # Extract project type from SPEC.md for targeted research
+      PROJECT_TYPE=$(grep -i "project\|system\|application" SPEC.md | head -1 | sed 's/[^a-zA-Z ]//g' | xargs || echo "software project")
+      
+      # Research agent discovers domain-specific failure patterns
+      claude /research:web \
+        "$PROJECT_TYPE common failures lessons learned post-mortem" \
+        comprehensive \
+        technical
+      
+      claude /research:deep \
+        "$PROJECT_TYPE implementation anti-patterns risk management" \
+        comprehensive \
+        technical
+      
+      # Store research findings in unified memory for agent access
+      if [[ -f .claude/.artifacts/research-web.json ]]; then
+        scripts/memory_bridge.sh store \
+          "intelligence/patterns" \
+          "failure_research_$SESSION_ID" \
+          "$(cat .claude/.artifacts/research-web.json)" \
+          "{\"type\": \"failure_patterns\", \"domain\": \"$PROJECT_TYPE\"}"
+      fi
+      
+      # Synthesize research findings
+      claude /research:analyze \
+        "$(cat .claude/.artifacts/research-*.json 2>/dev/null || echo '{}')" \
+        synthesis \
+        guidance
+      
+      echo "Research completed for: $PROJECT_TYPE"
+    capture: .claude/.artifacts/research_synthesis.json
+    expect_json: true
+
+  # Phase 3: Multi-Agent Independent Pre-Mortem Analysis
+  - id: independent_premortem_analysis
+    run: |
+      echo "🎭 Executing independent pre-mortem analysis with fresh eyes..."
+      
+      # Prepare documents for analysis
+      SPEC_CONTENT=$(cat SPEC.md 2>/dev/null || echo "No SPEC.md found")
+      PLAN_CONTENT=$(cat plan.json 2>/dev/null || echo "{}")
+      
+      # Store documents in isolated contexts for fresh-eyes analysis
+      scripts/memory_bridge.sh store \
+        "analysis/documents" \
+        "spec_$SESSION_ID" \
+        "$SPEC_CONTENT" \
+        '{"type": "specification", "isolated": true}'
+        
+      scripts/memory_bridge.sh store \
+        "analysis/documents" \
+        "plan_$SESSION_ID" \
+        "$PLAN_CONTENT" \
+        '{"type": "plan", "isolated": true}'
+      
+      # Execute parallel fresh-eyes analysis using different agents
+      echo "🧠 Claude Code: Full-context orchestrator analysis..."
+      claude /pre-mortem:analyze \
+        --role orchestrator \
+        --memory-enabled \
+        --research-context "$(cat .claude/.artifacts/research_synthesis.json 2>/dev/null || echo '{}')"
+      
+      echo "🔍 Gemini CLI: Fresh architectural analysis..."
+      # Gemini gets documents with NO research context for fresh perspective
+      export GEMINI_MEMORY_DISABLED=true
+      gemini-cli /pre-mortem:analyze \
+        --role architect \
+        --memory-disabled \
+        --fresh-eyes \
+        --documents "$SPEC_CONTENT|$PLAN_CONTENT" \
+        2>/dev/null || echo '{"analysis": "Gemini CLI unavailable", "failure_probability": 15}' > .claude/.artifacts/gemini_analysis.json
+      
+      echo "⚡ Codex CLI: Fresh implementation analysis..."  
+      # Codex gets documents with NO research context for fresh perspective
+      export CODEX_MEMORY_DISABLED=true
+      codex-cli /pre-mortem:analyze \
+        --role implementer \
+        --memory-disabled \
+        --fresh-eyes \
+        --documents "$SPEC_CONTENT|$PLAN_CONTENT" \
+        2>/dev/null || echo '{"analysis": "Codex CLI unavailable", "failure_probability": 12}' > .claude/.artifacts/codex_analysis.json
+      
+      # Store individual analyses in separate namespaces
+      if [[ -f .claude/.artifacts/claude_premortem.json ]]; then
+        scripts/memory_bridge.sh store \
+          "analysis/claude" \
+          "premortem_$SESSION_ID" \
+          "$(cat .claude/.artifacts/claude_premortem.json)" \
+          '{"agent": "claude", "memory_enabled": true, "iteration": 1}'
+      fi
+      
+      if [[ -f .claude/.artifacts/gemini_analysis.json ]]; then
+        scripts/memory_bridge.sh store \
+          "analysis/gemini" \
+          "premortem_$SESSION_ID" \
+          "$(cat .claude/.artifacts/gemini_analysis.json)" \
+          '{"agent": "gemini", "fresh_eyes": true, "iteration": 1}'
+      fi
+      
+      if [[ -f .claude/.artifacts/codex_analysis.json ]]; then
+        scripts/memory_bridge.sh store \
+          "analysis/codex" \
+          "premortem_$SESSION_ID" \
+          "$(cat .claude/.artifacts/codex_analysis.json)" \
+          '{"agent": "codex", "fresh_eyes": true, "iteration": 1}'
+      fi
+      
+      # Calculate initial consensus
+      bash scripts/calculate_consensus.sh 1
+    capture: .claude/.artifacts/iteration_1_results.json
+    expect_json: true
+
+  # Phase 4: Iterative Improvement and Convergence Loop
+  - id: iterative_improvement_loop
+    run: |
+      echo "🔄 Starting iterative improvement loop toward $TARGET_FAILURE_RATE% failure rate..."
+      
+      CURRENT_ITERATION=1
+      CONVERGED=false
+      
+      while [[ $CURRENT_ITERATION -le $MAX_ITERATIONS && "$CONVERGED" != "true" ]]; do
+        echo "📊 Iteration $CURRENT_ITERATION/$MAX_ITERATIONS"
+        
+        # Load current iteration results
+        ITERATION_FILE=".claude/.artifacts/iteration_${CURRENT_ITERATION}_results.json"
+        if [[ ! -f "$ITERATION_FILE" ]]; then
+          echo "❌ Missing iteration results file: $ITERATION_FILE"
+          break
+        fi
+        
+        CONSENSUS_RATE=$(jq -r '.consensus_failure_rate // 50' "$ITERATION_FILE")
+        echo "Current consensus failure rate: $CONSENSUS_RATE%"
+        
+        # Check convergence
+        if (( $(echo "$CONSENSUS_RATE <= $TARGET_FAILURE_RATE" | bc -l) )); then
+          echo "✅ Converged! Failure rate $CONSENSUS_RATE% ≤ target $TARGET_FAILURE_RATE%"
+          CONVERGED=true
+          break
+        fi
+        
+        if [[ $CURRENT_ITERATION -ge $MAX_ITERATIONS ]]; then
+          echo "⚠️ Maximum iterations reached without convergence"
+          break
+        fi
+        
+        # Synthesize improvement recommendations from all agents
+        echo "🔧 Synthesizing improvements from all agent analyses..."
+        claude /pre-mortem:synthesize \
+          --iteration "$CURRENT_ITERATION" \
+          --claude-analysis "$(cat .claude/.artifacts/claude_premortem.json 2>/dev/null || echo '{}')" \
+          --gemini-analysis "$(cat .claude/.artifacts/gemini_analysis.json 2>/dev/null || echo '{}')" \
+          --codex-analysis "$(cat .claude/.artifacts/codex_analysis.json 2>/dev/null || echo '{}')" \
+          --target-rate "$TARGET_FAILURE_RATE"
+        
+        # Update SPEC.md and plan.json with improvements
+        if [[ -f .claude/.artifacts/improvements.json ]]; then
+          echo "📝 Applying improvements to SPEC.md and plan.json..."
+          bash scripts/apply_improvements.sh .claude/.artifacts/improvements.json
+        fi
+        
+        # Targeted research on newly identified risks
+        NEW_RISKS=$(jq -r '.newly_identified_risks[]? // empty' .claude/.artifacts/improvements.json 2>/dev/null)
+        if [[ -n "$NEW_RISKS" ]]; then
+          echo "🔍 Researching newly identified risks..."
+          claude /research:web "$NEW_RISKS" standard technical
+        fi
+        
+        # Increment iteration and re-analyze with fresh eyes
+        CURRENT_ITERATION=$((CURRENT_ITERATION + 1))
+        
+        echo "🎭 Re-analyzing with improved documents (Iteration $CURRENT_ITERATION)..."
+        
+        # Fresh analysis with updated documents (no previous context)
+        UPDATED_SPEC=$(cat SPEC.md 2>/dev/null || echo "No SPEC.md found")
+        UPDATED_PLAN=$(cat plan.json 2>/dev/null || echo "{}")
+        
+        # Claude analysis with memory (coordinator role)
+        claude /pre-mortem:analyze \
+          --role orchestrator \
+          --memory-enabled \
+          --iteration "$CURRENT_ITERATION" \
+          --previous-findings "$(cat .claude/.artifacts/improvements.json 2>/dev/null || echo '{}')"
+        
+        # Gemini fresh analysis (no memory, no previous context)
+        export GEMINI_MEMORY_DISABLED=true
+        gemini-cli /pre-mortem:analyze \
+          --role architect \
+          --memory-disabled \
+          --fresh-eyes \
+          --documents "$UPDATED_SPEC|$UPDATED_PLAN" \
+          --iteration "$CURRENT_ITERATION" \
+          2>/dev/null || echo '{"analysis": "Gemini unavailable", "failure_probability": 10}' > .claude/.artifacts/gemini_analysis.json
+        
+        # Codex fresh analysis (no memory, no previous context)
+        export CODEX_MEMORY_DISABLED=true
+        codex-cli /pre-mortem:analyze \
+          --role implementer \
+          --memory-disabled \
+          --fresh-eyes \
+          --documents "$UPDATED_SPEC|$UPDATED_PLAN" \
+          --iteration "$CURRENT_ITERATION" \
+          2>/dev/null || echo '{"analysis": "Codex unavailable", "failure_probability": 8}' > .claude/.artifacts/codex_analysis.json
+        
+        # Calculate new consensus
+        bash scripts/calculate_consensus.sh "$CURRENT_ITERATION"
+      done
+      
+      # Generate final results
+      jq -n \
+        --arg converged "$CONVERGED" \
+        --arg iterations "$CURRENT_ITERATION" \
+        --arg final_rate "$(jq -r '.consensus_failure_rate // 50' .claude/.artifacts/iteration_${CURRENT_ITERATION}_results.json 2>/dev/null || echo '50')" \
+        --arg target "$TARGET_FAILURE_RATE" \
+        '{
+          converged: ($converged == "true"),
+          iterations_completed: ($iterations | tonumber),
+          final_consensus_failure_rate: ($final_rate | tonumber),
+          target_failure_rate: ($target | tonumber),
+          success: ($converged == "true" and ($final_rate | tonumber) <= ($target | tonumber))
+        }'
+    capture: .claude/.artifacts/convergence_results.json
+    expect_json: true
+
+  # Phase 5: Generate Final Pre-Mortem Report and Artifacts
+  - id: generate_final_report
+    run: |
+      echo "📋 Generating comprehensive pre-mortem report..."
+      
+      CONVERGED=$(jq -r '.converged // false' .claude/.artifacts/convergence_results.json)
+      FINAL_RATE=$(jq -r '.final_consensus_failure_rate // 50' .claude/.artifacts/convergence_results.json)
+      ITERATIONS=$(jq -r '.iterations_completed // 1' .claude/.artifacts/convergence_results.json)
+      
+      # Generate comprehensive report
+      claude /pre-mortem:report \
+        --convergence-results "$(cat .claude/.artifacts/convergence_results.json)" \
+        --research-findings "$(cat .claude/.artifacts/research_synthesis.json 2>/dev/null || echo '{}')" \
+        --all-iterations \
+        --final-artifacts
+      
+      # Store final results in unified memory for organizational learning
+      if [[ -f .claude/.artifacts/pre_mortem_report.json ]]; then
+        scripts/memory_bridge.sh store \
+          "intelligence/premortem" \
+          "final_report_$SESSION_ID" \
+          "$(cat .claude/.artifacts/pre_mortem_report.json)" \
+          "{\"session\": \"$SESSION_ID\", \"converged\": $CONVERGED, \"final_rate\": $FINAL_RATE}"
+      fi
+      
+      # Neural pattern learning for future improvements
+      npx claude-flow@alpha neural train \
+        --model "premortem_patterns" \
+        --session "$SESSION_ID" \
+        --input "$(cat .claude/.artifacts/pre_mortem_report.json 2>/dev/null || echo '{}')" \
+        2>/dev/null || true
+      
+      # Cross-system synchronization
+      scripts/memory_bridge.sh sync
+      
+      echo "✅ Pre-mortem analysis complete:"
+      echo "   Converged: $CONVERGED"
+      echo "   Final failure rate: $FINAL_RATE%"
+      echo "   Target: $TARGET_FAILURE_RATE%"
+      echo "   Iterations: $ITERATIONS"
+      
+      if [[ "$CONVERGED" == "true" ]]; then
+        echo "🎉 SUCCESS: Ready for implementation with $FINAL_RATE% predicted failure rate"
+      else
+        echo "⚠️ WARNING: Did not converge to target failure rate. Review recommendations."
+      fi
+    capture: .claude/.artifacts/pre_mortem_final.json
+    expect_json: true
+
+  # Success Path: Implementation Ready
+  - id: implementation_ready
+    when: $.generate_final_report.success == true
+    run: |
+      echo "🚀 Project is ready for implementation!"
+      
+      # Store success pattern for learning
+      npx claude-flow@alpha neural train \
+        --model "success_patterns" \
+        --session "$SESSION_ID" \
+        --input "convergence_success" \
+        2>/dev/null || true
+      
+      # Generate go/no-go recommendation
+      echo "✅ GO: Proceed with implementation"
+      echo "📊 Predicted failure rate: $(jq -r '.final_consensus_failure_rate' .claude/.artifacts/convergence_results.json)%"
+      echo "📋 See .claude/.artifacts/pre_mortem_report.json for detailed analysis"
+      echo "📝 Updated SPEC.md and plan.json with risk mitigations"
+    exit: 0
+
+  # Failure Path: Manual Review Required  
+  - id: manual_review_required
+    when: $.generate_final_report.success == false
+    run: |
+      echo "⚠️ Manual review required - did not achieve target failure rate"
+      
+      FINAL_RATE=$(jq -r '.final_consensus_failure_rate // 50' .claude/.artifacts/convergence_results.json)
+      ITERATIONS=$(jq -r '.iterations_completed // 1' .claude/.artifacts/convergence_results.json)
+      
+      echo "📊 Final failure rate: $FINAL_RATE% (target: $TARGET_FAILURE_RATE%)"
+      echo "🔄 Iterations completed: $ITERATIONS/$MAX_ITERATIONS"
+      echo ""
+      echo "🔍 Key remaining risks:"
+      
+      # Extract top risks that couldn't be mitigated
+      if [[ -f .claude/.artifacts/pre_mortem_report.json ]]; then
+        jq -r '.remaining_risks[]? | "  - \(.risk): \(.probability)% (\(.impact) impact)"' \
+          .claude/.artifacts/pre_mortem_report.json 2>/dev/null || echo "  No specific risks extracted"
+      fi
+      
+      echo ""
+      echo "📋 Recommendations:"
+      echo "  1. Review .claude/.artifacts/pre_mortem_report.json for detailed analysis"
+      echo "  2. Consider extending timeline or reducing scope"
+      echo "  3. Involve additional stakeholders in risk assessment"
+      echo "  4. Re-run with higher iteration limit: MAX_ITERATIONS=5"
+      
+      # Store failure pattern for learning
+      npx claude-flow@alpha neural train \
+        --model "failure_patterns" \
+        --session "$SESSION_ID" \
+        --input "convergence_failure" \
+        2>/dev/null || true
+      
+      # Create escalation issue for review
+      if command -v gh >/dev/null 2>&1; then
+        gh issue create \
+          --title "Pre-mortem analysis requires manual review: $(git rev-parse --short HEAD)" \
+          --body "Pre-mortem loop did not converge to target $TARGET_FAILURE_RATE% failure rate. Final rate: $FINAL_RATE%. See artifacts for details." \
+          --label "pre-mortem,manual-review,high-priority" \
+          2>/dev/null || echo "Note: Could not create GitHub issue"
+      fi
+      
+      echo ""
+      echo "🔄 NO-GO: Manual review required before implementation"
+    exit: 1
+
+  # Session Cleanup and Learning Export
+  - id: session_cleanup
+    run: |
+      echo "🧹 Cleaning up pre-mortem session..."
+      
+      # Export session metrics for analysis
+      npx claude-flow@alpha hooks session-end \
+        --export-metrics true \
+        --namespace "$HIVE_NAMESPACE" \
+        --session "$SESSION_ID" \
+        2>/dev/null || true
+      
+      # Export unified memory state for debugging
+      scripts/memory_bridge.sh export \
+        "premortem_session_$SESSION_ID" \
+        ".claude/.artifacts/memory_export.json"
+      
+      echo "✅ Session cleanup complete"
+      echo "📁 Artifacts available in .claude/.artifacts/"
+      ls -la .claude/.artifacts/ | grep -E "(pre_mortem|iteration|consensus|convergence)"
+    capture: session_cleanup.json

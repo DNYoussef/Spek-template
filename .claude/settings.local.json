@@ -34,9 +34,73 @@
       "Bash(scripts/gate_fail_reason.sh:*)",
       "Bash(git push:*)",
       "Bash(git checkout:*)",
-      "Bash(git merge:*)"
+      "Bash(git merge:*)",
+      "Bash(git remote add:*)",
+      "Bash(git pull:*)",
+      "mcp__ide__executeCode",
+      "Bash(npx:*)",
+      "Bash(scripts/audit_swarm.sh:*)",
+      "Bash(scripts/contextual_loop.sh:*)",
+      "Bash(scripts/reality_validator.sh:*)",
+      "Bash(scripts/memory_bridge.sh:*)",
+      "Bash(scripts/analyzer_improvement_loop.sh:*)",
+      "Bash(./scripts/audit_swarm.sh:*)",
+      "Bash(./scripts/analyzer_improvement_loop.sh:*)"
     ],
     "deny": [],
     "ask": []
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/audit_swarm.sh --mode comprehensive --theater true --evidence comprehensive || true"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "scripts/contextual_loop.sh .claude/.artifacts/audit_analysis.json --theater-focused --memory-update || true"
+          }
+        ]
+      },
+      {
+        "matcher": "MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "scripts/contextual_loop.sh .claude/.artifacts/audit_analysis.json --theater-focused --memory-update || true"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit:*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "scripts/reality_validator.sh --scope comprehensive --deployment --user-journey"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "scripts/memory_bridge.sh sync || true"
+          }
+        ]
+      }
+    ]
   }
 }

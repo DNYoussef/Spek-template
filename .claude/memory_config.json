@@ -1,0 +1,32 @@
+{
+  "router_version": "1.0.0-unified",
+  "systems": {
+    "claude_flow": {
+      "available": true,
+      "priority_namespaces": ["swarm", "session", "coordination", "hive"],
+      "fallback_namespaces": ["patterns", "intelligence"]
+    },
+    "memory_mcp": {
+      "available": true,
+      "priority_namespaces": ["analysis", "performance", "patterns"],
+      "fallback_namespaces": ["intelligence", "unified"]
+    }
+  },
+  "routing_rules": {
+    "swarm/*": "claude_flow",
+    "session/*": "claude_flow",
+    "coordination/*": "claude_flow",
+    "hive/*": "claude_flow",
+    "analysis/*": "memory_mcp",
+    "performance/*": "memory_mcp",
+    "connascence/*": "memory_mcp",
+    "patterns/*": "bridge_unified",
+    "intelligence/*": "bridge_unified",
+    "unified/*": "bridge_unified"
+  },
+  "sync_settings": {
+    "auto_sync_interval": 300,
+    "conflict_resolution": "merge_intelligent",
+    "performance_threshold": 0.8
+  }
+}

@@ -382,3 +382,169 @@ Generate comprehensive triage.json:
 - Pattern matching efficiency for large error sets
 
 This command provides the intelligent analysis that enables automated repair systems to choose the most effective fix strategy for any quality gate failure.
+
+## NEW: Architecture-Aware Failure Analysis
+
+### Enhanced Root Cause Analysis with Architecture Context
+
+#### Architectural Impact Assessment:
+```javascript
+function assessArchitecturalImpact(rootCauses, architectureContext) {
+  const architecturalFactors = {
+    coupling_changes: analyzeComponentCoupling(architectureContext),
+    hotspot_modifications: detectHotspotChanges(architectureContext),
+    cross_cutting_concerns: identifyCrossCuttingImpact(rootCauses),
+    refactoring_opportunities: findRefactoringOpportunities(architectureContext)
+  };
+  
+  return {
+    architectural_complexity: calculateArchitecturalComplexity(architecturalFactors),
+    coupling_impact: architecturalFactors.coupling_changes.impact_score,
+    refactor_potential: architecturalFactors.refactoring_opportunities.length,
+    system_health_delta: predictSystemHealthChange(architecturalFactors)
+  };
+}
+```
+
+#### Smart Recommendation Integration:
+```javascript
+function generateSmartRecommendations(rootCauses, architecturalContext) {
+  const recommendationEngine = new SmartRecommendationEngine();
+  
+  const recommendations = recommendationEngine.analyze({
+    failures: rootCauses,
+    architecture: architecturalContext,
+    performance_context: extractPerformanceMetrics(),
+    historical_patterns: getHistoricalFailurePatterns()
+  });
+  
+  return recommendations.map(rec => ({
+    type: rec.category,
+    priority: rec.priority,
+    architectural_benefit: rec.architectural_improvement,
+    implementation_approach: rec.suggested_approach,
+    success_probability: rec.confidence_score
+  }));
+}
+```
+
+### Enhanced Classification with Architecture Awareness
+
+```javascript
+const ENHANCED_COMPLEXITY_PATTERNS = {
+  architectural_small: {
+    criteria: [
+      'Single component changes ≤25 LOC',
+      'No cross-component dependencies affected',
+      'Coupling changes < 0.1 delta',
+      'No architectural hotspots involved'
+    ],
+    fix_approach: 'codex:micro',
+    architectural_verification: 'basic',
+    confidence_threshold: 0.85
+  },
+  
+  architectural_multi: {
+    criteria: [
+      'Multi-component changes 25-100 LOC',
+      'Limited cross-component impact',
+      'Coupling changes 0.1-0.3 delta',
+      'One architectural hotspot involved'
+    ],
+    fix_approach: 'fix:planned',
+    architectural_verification: 'comprehensive',
+    confidence_threshold: 0.70
+  },
+  
+  architectural_big: {
+    criteria: [
+      'System-wide changes >100 LOC',
+      'Multiple architectural hotspots',
+      'Coupling changes > 0.3 delta',
+      'Cross-cutting architectural concerns'
+    ],
+    fix_approach: 'gemini:impact',
+    architectural_verification: 'full_analysis',
+    confidence_threshold: 0.55
+  }
+};
+```
+
+### Enhanced Output with Architectural Intelligence
+
+```json
+{
+  "timestamp": "2024-09-08T12:15:00Z",
+  "analysis_version": "2.0.0-architectural",
+  
+  "classification": {
+    "size": "architectural_multi",
+    "confidence": 0.78,
+    "reasoning": "Multi-component change affecting auth and database modules with moderate coupling impact"
+  },
+  
+  "architectural_assessment": {
+    "coupling_delta": 0.23,
+    "hotspots_affected": ["auth.service", "database.connection"],
+    "cross_cutting_impact": true,
+    "refactoring_opportunities": [
+      {
+        "component": "auth.service",
+        "type": "extract_interface",
+        "benefit": "Reduce coupling by 15%"
+      }
+    ],
+    "system_health_prediction": {
+      "current": 0.82,
+      "after_fix": 0.87,
+      "improvement_potential": 0.05
+    }
+  },
+  
+  "smart_recommendations": [
+    {
+      "priority": "critical",
+      "type": "architectural_refactoring",
+      "target": "auth.service",
+      "issue": "High coupling detected during failure analysis",
+      "solution": "Extract IAuthService interface, apply dependency injection",
+      "architectural_benefit": "Reduces cross-component coupling",
+      "implementation_effort": "6-8 hours",
+      "success_probability": 0.89
+    }
+  ],
+  
+  "fix_strategy": {
+    "primary_approach": "fix:planned",
+    "architectural_guidance": "Apply architectural refactoring during fix process",
+    "verification_requirements": [
+      "Component coupling verification",
+      "Hotspot analysis post-fix",
+      "Cross-cutting concern validation"
+    ],
+    "success_indicators": [
+      "Tests pass",
+      "TypeScript compilation succeeds",
+      "Architecture coupling improved by >10%",
+      "No new architectural hotspots introduced"
+    ]
+  }
+}
+```
+
+## Integration with Existing Workflows
+
+### Enhanced Self-Correction Loop
+```bash
+# Architecture-aware failure analysis and routing
+/qa:analyze "$(cat .claude/.artifacts/qa_failures.json)" \
+  --architecture-context \
+  --smart-recommendations \
+  --coupling-analysis \
+  --hotspot-impact
+
+# Route to appropriate fix with architectural guidance
+if [ "$FIX_APPROACH" = "fix:planned" ]; then
+  /fix:planned --architectural-guidance --coupling-aware
+fi
+```

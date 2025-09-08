@@ -2,6 +2,16 @@
 
 ## 🚀 Command Overview
 
+### Research Commands (NEW)
+| Command | Purpose | Constraints | Output |
+|---------|---------|-------------|--------|
+| `/research:web` | Web search for existing solutions | - | `research-web.json` |
+| `/research:github` | GitHub repository analysis | Quality scoring | `research-github.json` |
+| `/research:models` | AI model discovery (HuggingFace) | Size/deployment filters | `research-models.json` |
+| `/research:deep` | Deep technical research | MCP tools integration | `research-deep.json` |
+| `/research:analyze` | Large-context synthesis | Gemini processing | `research-analyze.json` |
+
+### Core Commands  
 | Command | Purpose | Constraints | Output |
 |---------|---------|-------------|--------|
 | `/spec:plan` | SPEC.md → plan.json | - | `plan.json` |
@@ -14,34 +24,41 @@
 | `/qa:analyze` | Failure routing | - | `triage.json` |
 | `/sec:scan` | Security scanning | - | `security.json/.sarif` |
 | `/conn:scan` | Connascence analysis | - | `connascence.json` |
+| `/theater:scan` | Theater pattern detection | - | `theater.json` |
+| `/reality:check` | End-user validation | - | `reality-check.json` |
+| `/memory:unified` | Unified memory operations | - | `memory.json` |
 | `/pm:sync` | Plane MCP sync | - | `pm-sync.json` |
 | `/pr:open` | Evidence-rich PRs | - | GitHub PR URL |
 
-## 📋 Core SPEK Workflow
+## 📋 Enhanced S-R-P-E-K Workflow
 
 ```bash
-# 1. Planning Phase
-/spec:plan                    # Convert SPEC.md to structured tasks
+# 1. Specification Phase
+# Edit SPEC.md with your requirements
 
-# 2. Analysis Phase  
-/gemini:impact 'description'  # For complex/architectural changes
+# 2. Research Phase (NEW)
+/research:web 'problem description'           # Discover existing solutions
+/research:github 'repository search'          # Analyze code repositories
+/research:models 'ai task description'        # Find AI models if needed
+/research:deep 'technical topic'              # Deep technical research
+/research:analyze 'synthesis context'         # Large-context analysis
 
-# 3. Implementation Phase
-/codex:micro 'simple change'     # ≤25 LOC, ≤2 files
-/fix:planned 'complex change'    # Multi-file with checkpoints
+# 3. Planning Phase
+/spec:plan                                     # Convert SPEC.md to structured tasks (with research)
 
-# 4. Quality Phase
-/qa:run                      # Run all quality checks
-/qa:gate                     # Apply CTQ thresholds
-/qa:analyze                  # Route failures to fixes
+# 4. Execution Phase  
+/gemini:impact 'description'                  # For complex/architectural changes
+/codex:micro 'simple change'                  # ≤25 LOC, ≤2 files
+/fix:planned 'complex change'                 # Multi-file with checkpoints
 
-# 5. Security & Architecture
-/sec:scan [changed|full]     # Security scanning
-/conn:scan [changed|full]    # Connascence analysis  
-
-# 6. Delivery Phase
-/pm:sync                     # Sync with project management
-/pr:open [target] [draft]    # Create evidence-rich PR
+# 5. Knowledge Phase
+/qa:run                                       # Run all quality checks
+/qa:gate                                      # Apply CTQ thresholds
+/qa:analyze                                   # Route failures to fixes
+/sec:scan [changed|full]                      # Security scanning
+/conn:scan [changed|full]                     # Connascence analysis  
+/pm:sync                                      # Sync with project management
+/pr:open [target] [draft]                     # Create evidence-rich PR
 ```
 
 ## 🎯 Quick Decision Tree
@@ -141,7 +158,10 @@ All command outputs stored in `.claude/.artifacts/`:
 ├── planned-fix.json     # /fix:planned results
 ├── security.json        # /sec:scan results
 ├── security.sarif       # /sec:scan SARIF format
-├── connascence.json     # /conn:scan results  
+├── connascence.json     # /conn:scan results
+├── theater.json         # /theater:scan results
+├── reality-check.json   # /reality:check results
+├── memory.json          # /memory:unified results
 └── pm-sync.json         # /pm:sync results
 ```
 

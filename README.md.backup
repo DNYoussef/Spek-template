@@ -1,13 +1,8 @@
-# S-R-P-E-K Enhanced Development Template
+# SPEK-Driven Development Template
 
 ## 🚀 Overview
 
-This template extends **GitHub's Spec Kit** with **Research Intelligence** and **Theater Detection**, integrating **Claude Flow**, **Gemini CLI**, **Codex CLI**, **Connascence Analysis**, **Semgrep Security**, and **Plane MCP** to create the most comprehensive AI-driven, quality-gated, reality-validated development environment available.
-
-**Key Enhancements:**
-- **🔬 Research Phase**: Discover existing solutions before building from scratch (30-60% faster development)
-- **🎭 Theater Detection**: Eliminate completion theater and validate genuine quality improvements
-- **🧠 Reality Validation**: Evidence-based verification of functionality and quality claims
+This template integrates **GitHub's Spec Kit** with **Claude Flow**, **Gemini CLI**, **Codex CLI**, **Connascence Analysis**, **Semgrep Security**, and **Plane MCP** to create the most comprehensive AI-driven, quality-gated development environment available.
 
 ## 📚 Spec-Driven Development (Spec Kit)
 
@@ -21,94 +16,23 @@ This template follows GitHub's **Spec Kit** process end-to-end (Specify → Plan
 - Detailed process (`spec-driven.md`): https://github.com/github/spec-kit/blob/main/spec-driven.md  
 - "Get started" blog announcement: https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/
 
-## 🔄 Enhanced S-R-P-E-K Workflow
+## 🔄 The SPEK Loop
 
-**Specification → Research → Planning → Execution → Knowledge**
-
-### Enhanced Methodology: Adding Research Phase
-
-S-R-P-E-K extends traditional SPEK by adding a dedicated **Research phase** between Specification and Planning, dramatically reducing development time by discovering existing solutions before building from scratch.
+**Spec → Plan → Discover → Implement → Verify → Review → Deliver → Learn**
 
 ### How Claude Flow Orchestrates Each Phase:
 
 1. **SPECIFY** (`SPEC.md`) - Define requirements clearly
-   - Gather and document requirements
-   - Define acceptance criteria and project scope
-   - Create technical specifications
-   - **Commands**: `/specify`, `/spec:plan`
-
-2. **RESEARCH** (NEW) - Discover existing solutions before building
-   - Web search for existing solutions and alternatives
-   - GitHub repository analysis for code quality and reusability
-   - AI model research for specialized integration needs
-   - Deep technical research for implementation guidance
-   - **Commands**: `/research:web`, `/research:github`, `/research:models`, `/research:deep`, `/research:analyze`
-
-3. **PLAN** (`/spec:plan`) - Convert spec to structured JSON tasks incorporating research
-   - Incorporate research findings into technical planning
-   - Design architecture leveraging existing solutions
-   - Plan component extraction and integration
-   - **Commands**: `/plan`, `/gemini:impact`
-
-4. **EXECUTE** - Route by complexity using research-informed approach:
+2. **PLAN** (`/spec:plan`) - Convert spec to structured JSON tasks  
+3. **DISCOVER** (`/gemini:impact`) - Wide-context impact analysis
+4. **IMPLEMENT** - Route by complexity:
    - `small` → `/codex:micro` (sandboxed, ≤25 LOC, ≤2 files)
    - `multi` → `/fix:planned` (checkpointed steps)
    - `big` → Gemini context → planned approach
-   - Apply research-backed best practices and integrate external solutions
-
-5. **KNOWLEDGE** - Learn from process and validate against research predictions:
-   - **VERIFY** (`/qa:run`) - Automated QA gates (tests/typecheck/lint/coverage)
-   - **REVIEW** (`/qa:analyze`) - Failure triage → routing strategy  
-   - **DELIVER** (`/pr:open`) - Evidence-based PR preparation
-   - **LEARN** - Memory persistence via MCP with research effectiveness tracking
-
-### Research Phase Benefits
-- **30-60% faster development** for common features through component reuse
-- **Improved solution quality** by building on battle-tested libraries
-- **Better architectural decisions** based on comprehensive research
-- **Knowledge building** with organizational solution evaluation database
-
-### S-R-P-E-K Workflow Examples
-
-**Simple Feature Development:**
-```bash
-# 1. SPECIFY: Define requirements
-vim SPEC.md
-
-# 2. RESEARCH: Find existing solutions
-/research:web 'react form validation library'
-/research:github 'formik react-hook-form comparison'
-
-# 3. PLAN: Incorporate research findings
-/spec:plan
-
-# 4. EXECUTE: Implement with best solution
-/codex:micro 'integrate react-hook-form based on research'
-
-# 5. KNOWLEDGE: Validate and deliver
-/qa:run && /theater:scan && /pr:open
-```
-
-**Complex System with Theater Detection:**
-```bash
-# 1. SPECIFY: Multi-tenant auth requirements
-vim SPEC.md
-
-# 2. RESEARCH: Comprehensive solution discovery
-/research:web 'multi-tenant authentication SaaS patterns' comprehensive technical
-/research:github 'auth0 supertokens firebase-auth comparison' 0.8 all
-/research:analyze "$(cat .claude/.artifacts/research-*.json)" synthesis roadmap
-
-# 3. PLAN: Research-informed implementation strategy
-/spec:plan
-/gemini:impact 'implement hybrid auth0-supertokens system'
-
-# 4. EXECUTE: Multi-phase implementation
-/fix:planned 'auth system implementation per research roadmap'
-
-# 5. KNOWLEDGE: Reality-validated delivery
-/qa:run && /conn:scan && /theater:scan --quality-correlation && /pr:open
-```
+5. **VERIFY** (`/qa:run`) - Automated QA gates (tests/typecheck/lint/coverage)
+6. **REVIEW** (`/qa:analyze`) - Failure triage → routing strategy
+7. **DELIVER** (`/pr:open`) - Evidence-based PR preparation
+8. **LEARN** - Memory persistence via MCP
 
 ## 🛠️ Comprehensive Tool Integration
 
@@ -262,28 +186,23 @@ mkdir -p {gemini,memory,templates}
    - Review `configs/codex.json` for budget constraints
    - Adjust `configs/.semgrep.yml` for custom security rules
 
-3. **Start Development with S-R-P-E-K Workflow**:
+3. **Start Development**:
    ```bash
    # 1. Edit SPEC.md with your requirements
-   # 2. Research existing solutions (NEW!)
-   /research:web 'user authentication system for SaaS applications'
-   /research:github 'auth0 supertokens authentication comparison'
-   /research:analyze "$(cat .claude/.artifacts/research-*.json)" synthesis
-   
-   # 3. Generate plan incorporating research findings
+   # 2. Generate plan
    /spec:plan
    
-   # 4. Execute full workflow  
+   # 3. Execute full workflow  
    flow run flow/workflows/spec-to-pr.yaml
    
-   # OR for post-edit quality loop with theater detection
+   # OR for post-edit quality loop
    flow run flow/workflows/after-edit.yaml
    
-   # OR for CI auto-repair with reality validation
+   # OR for CI auto-repair
    flow run flow/workflows/ci-auto-repair.yaml
    ```
 
-4. **Available Commands**: 22 specialized slash commands organized by S-R-P-E-K workflow phases:
+4. **Available Commands**: 17 specialized slash commands organized by workflow phase:
 
    ### Core SPEK Commands
    ```bash
@@ -291,15 +210,6 @@ mkdir -p {gemini,memory,templates}
    /specify            # Define project requirements (Spec Kit native)
    /plan               # Specify technical implementation (Spec Kit native)
    /tasks              # Create actionable task list (Spec Kit native)
-   ```
-
-   ### Research Commands (NEW)
-   ```bash
-   /research:web       # Comprehensive web search for existing solutions
-   /research:github    # GitHub repository analysis for code quality
-   /research:models    # AI model research for specialized integration
-   /research:deep      # Deep technical research for implementation guidance
-   /research:analyze   # Large-context synthesis of research findings
    ```
 
    ### Analysis & Impact
@@ -315,12 +225,10 @@ mkdir -p {gemini,memory,templates}
    /fix:planned        # Multi-file fixes with bounded checkpoints
    ```
    
-   ### Quality Assurance & Theater Detection
+   ### Quality Assurance
    ```bash
    /qa:run             # Comprehensive QA suite (tests/lint/types/coverage)
    /qa:gate            # Apply CTQ thresholds for gate decisions
-   /theater:scan       # Performance theater detection in code and quality infrastructure
-   /reality:check      # Reality validation for completion claims
    ```
    
    ### Security & Architecture
@@ -336,7 +244,7 @@ mkdir -p {gemini,memory,templates}
    /pr:open            # Evidence-rich pull request creation
    ```
 
-   > 📖 **Complete documentation**: See `docs/S-R-P-E-K-METHODOLOGY.md` for research methodology, `docs/ANALYZER-CAPABILITIES.md` for full analyzer matrix, `docs/CLI-INTEGRATION-GAPS.md` for enhancement roadmap, and `examples/` for tutorials
+   > 📖 **Complete documentation**: See `docs/COMMANDS.md` for detailed usage, `docs/ANALYZER-CAPABILITIES.md` for full analyzer matrix, `docs/CLI-INTEGRATION-GAPS.md` for enhancement roadmap, and `examples/` for tutorials
 
 ## 🏗️ Project Structure
 
@@ -370,18 +278,16 @@ All changes must pass:
 
 ## 🤖 CI/CD Integration
 
-### Enhanced Quality Pipeline with Theater Detection
+### Enhanced Quality Pipeline
 - **`.github/workflows/quality-gates.yml`**: Defense industry ready with comprehensive gates
   - **9 Connascence Detectors**: CoM, CoP, CoA, CoT, CoV, CoE, CoI, CoN, CoC analysis
   - **God Object Detection**: Context-aware analysis with ≤25 object threshold
   - **MECE Duplication Analysis**: Comprehensive duplication scoring ≥0.75
   - **Architecture Analysis**: Detector pools, enhanced metrics, cross-component correlation
   - **NASA POT10 Compliance**: Full defense industry standards with ≥90% compliance
-  - **Theater Detection**: Performance theater pattern detection in code and quality infrastructure
 - **`.github/workflows/connascence-analysis.yml`**: Specialized connascence pipeline
 - **`.github/workflows/nasa-compliance-check.yml`**: Defense industry compliance validation
 - **`.github/workflows/auto-repair.yml`**: Intelligent repair with failure analysis routing
-- **`.github/workflows/theater-detection.yml`**: Automated theater detection and reality validation
 
 ### Advanced Reporting & Integration
 - **SARIF Integration**: Connascence findings appear in GitHub Security tab
@@ -406,9 +312,6 @@ All changes must pass:
 - **connascence_analysis.sarif**: Connascence findings for GitHub Security tab
 - **quality_gates_report.json**: Comprehensive gate evaluation with defense industry status
 - **diff_coverage.json**: Coverage analysis on changed lines
-- **theater_scan.json**: Performance theater detection results with quality contradiction analysis
-- **reality_validation.json**: Reality validation results for completion claims
-- **research_findings.json**: Research phase outputs with solution recommendations
 - **SPC metrics**: Statistical process control data with quality trend analysis
 
 ### Governance Framework
@@ -419,109 +322,6 @@ All changes must pass:
 
 > Tip: If you prefer starting from the official Claude template bundle, grab the latest **`spec-kit-template-claude-*.zip`** from the releases page and layer this repo's Flow/commands on top.
 
-## 🎭 Theater Detection & Reality Validation
-
-### Performance Theater Detection System
-
-The SPEK template includes a comprehensive **Theater Detection System** designed to identify and eliminate completion theater patterns - where work appears complete but lacks functional implementation or genuine quality improvements.
-
-#### Theater Detection Capabilities
-
-**🔍 Multi-Layer Pattern Detection:**
-- **Code Theater**: Mock-heavy implementations claiming real functionality
-- **Test Theater**: Tests that print success without actual verification  
-- **Quality Infrastructure Theater**: Gaming quality gates and metrics manipulation
-- **Security Theater**: Marking vulnerabilities "resolved" without actual fixes
-- **Performance Theater**: Benchmarks with unrealistic data or scenarios
-
-**🔗 Quality Gate Integration:**
-- **Connascence Analysis**: Detects architectural "improvements" without genuine coupling reduction
-- **Security Scanning**: Cross-references SARIF findings with actual code changes
-- **Test Coverage**: Identifies high coverage with non-functional test content
-- **Performance Monitoring**: Validates performance claims against actual measurements
-
-#### Reality Validation Framework
-
-**📊 Evidence-Based Verification:**
-- **Quality Contradiction Analysis**: Identifies conflicts between claims and evidence
-- **Git History Cross-Reference**: Validates completion claims against actual changes
-- **Functional Verification**: Tests that functionality actually works as claimed
-- **Pattern Learning**: Builds organizational knowledge of theater patterns
-
-**🎯 Theater Detection Commands:**
-
-```bash
-# Comprehensive theater detection across all layers
-/theater:scan --scope comprehensive --quality-correlation
-
-# Reality validation for specific completion claims
-/reality:check "user authentication system implementation"
-
-# Automated theater detection in quality infrastructure  
-/theater:scan --patterns quality_infrastructure --evidence-level high
-```
-
-#### Integration with S-R-P-E-K Workflow
-
-**Research Phase Integration:**
-- Research findings validate against theater patterns in discovered solutions
-- Solution quality scoring includes theater detection indicators
-- Community health metrics identify projects with theater tendencies
-
-**Quality Gates Enhancement:**
-- Theater detection runs alongside traditional quality gates
-- Quality contradictions trigger additional validation requirements
-- Evidence packages include theater detection results for audit trails
-
-**Continuous Validation:**
-- CI/CD pipelines include automated theater detection
-- Pull requests blocked on high-confidence theater findings
-- Quality reports include theater detection summaries with remediation guidance
-
-#### Theater Pattern Examples
-
-**Code Theater Pattern:**
-```javascript
-// THEATER: Claims integration but uses mocks
-function authenticateUser(credentials) {
-  console.log('✓ User authentication successful');
-  return { success: true }; // No actual authentication
-}
-```
-
-**Quality Infrastructure Theater:**
-```yaml
-# THEATER: Claims architectural improvement
-architectural_health: 0.95  # Claimed improvement
-actual_coupling: increased  # Reality: coupling got worse
-god_objects: renamed_not_refactored  # Cosmetic changes only
-```
-
-**Test Theater Pattern:**
-```javascript
-// THEATER: Test that always passes
-test('integration test passes', () => {
-  console.log('✓ Integration test completed successfully');
-  expect(true).toBe(true); // No actual integration tested
-});
-```
-
-#### Success Metrics
-
-**Theater Detection Effectiveness:**
-- Pattern Recognition Accuracy: >90% theater patterns correctly identified
-- False Positive Rate: <5% legitimate code incorrectly flagged
-- Quality Gate Reliability: Improved trustworthiness of quality infrastructure
-- Development Velocity: Faster delivery through elimination of false completion
-
-**Reality Validation Impact:**
-- Reduced production defects through genuine quality improvements
-- Increased stakeholder confidence in delivery claims
-- Improved team accountability and quality culture
-- Enhanced organizational learning through pattern recognition
-
-> **📖 Deep Dive**: See `docs/GUARDRAILS.md` for comprehensive theater detection patterns, `.claude/commands/theater-scan.md` for detailed implementation, and `.claude/agents/theater-killer.md` for specialized theater elimination strategies.
-
 ---
 
-**Ready to build with specification-driven development and reality-validated delivery!** 🚀
+**Ready to build with specification-driven development!** 🚀

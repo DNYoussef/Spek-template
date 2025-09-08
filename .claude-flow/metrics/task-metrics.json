@@ -1,10 +1,10 @@
 [
   {
-    "id": "cmd-config-1757307822414",
-    "type": "config",
+    "id": "cmd-memory-1757354754173",
+    "type": "memory",
     "success": true,
-    "duration": 1.689800000000048,
-    "timestamp": 1757307822416,
+    "duration": 1.6879999999999882,
+    "timestamp": 1757354754175,
     "metadata": {}
   }
 ]

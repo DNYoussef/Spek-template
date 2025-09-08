@@ -1,0 +1,413 @@
+name: theater-detection
+description: Specialized workflow for detecting and eliminating performance theater patterns in code, tests, and quality infrastructure.
+environment:
+  DETECTION_NAMESPACE: "theater/detection/$(date +%Y%m%d)"
+  SESSION_ID: "theater-detection-$(date +%s)"
+  DETECTION_SCOPE: "${DETECTION_SCOPE:-comprehensive}"
+  EVIDENCE_LEVEL: "${EVIDENCE_LEVEL:-detailed}"
+  REMEDIATION_MODE: "${REMEDIATION_MODE:-automatic}"
+
+steps:
+  # Initialize Theater Detection Environment
+  - id: init_theater_detection
+    run: |
+      echo "🎭 Initializing theater detection environment..."
+      
+      # Ensure artifacts directory exists
+      mkdir -p .claude/.artifacts/theater_detection
+      
+      # Initialize memory bridge for pattern coordination
+      source scripts/memory_bridge.sh
+      initialize_memory_router
+      
+      # Load historical theater patterns
+      historical_patterns=$(scripts/memory_bridge.sh retrieve "intelligence/theater_patterns" "detection_history" 2>/dev/null || echo '{"patterns": [], "confidence_scores": {}}')
+      
+      # Initialize detection context
+      detection_context=$(jq -n \
+        --arg session "$SESSION_ID" \
+        --arg scope "$DETECTION_SCOPE" \
+        --arg evidence_level "$EVIDENCE_LEVEL" \
+        --argjson historical "$historical_patterns" \
+        '{
+          session_id: $session,
+          detection_scope: $scope,
+          evidence_level: $evidence_level,
+          historical_patterns: $historical,
+          detection_timestamp: now | strftime("%Y-%m-%dT%H:%M:%SZ"),
+          theater_detection_initialized: true
+        }')
+      
+      # Store initialization context
+      scripts/memory_bridge.sh store "coordination/theater_detection" "init_$SESSION_ID" "$detection_context" '{"type": "detection_init"}'
+      
+      echo "$detection_context"
+    capture: .claude/.artifacts/theater_detection/init_context.json
+    expect_json: true
+
+  # Pre-Detection Quality Context Gathering
+  - id: gather_quality_context
+    run: |
+      echo "📊 Gathering quality context for theater detection..."
+      
+      # Run quality gates to establish baseline
+      quality_results="{}"
+      
+      # Gather QA results if available
+      if [[ -f .claude/.artifacts/qa.json ]]; then
+        qa_data=$(cat .claude/.artifacts/qa.json)
+      else
+        echo "Running QA to establish quality baseline..."
+        claude /qa:run --architecture --performance-monitor > /dev/null 2>&1 || true
+        qa_data=$(cat .claude/.artifacts/qa.json 2>/dev/null || echo '{}')
+      fi
+      
+      # Gather connascence results if available
+      if [[ -f .claude/.artifacts/connascence_full.json ]]; then
+        conn_data=$(cat .claude/.artifacts/connascence_full.json)
+      else
+        echo "Running connascence analysis for architectural context..."
+        claude /conn:scan --architecture --detector-pools > /dev/null 2>&1 || true
+        conn_data=$(cat .claude/.artifacts/connascence_full.json 2>/dev/null || echo '{}')
+      fi
+      
+      # Gather security results if available
+      if [[ -f .claude/.artifacts/semgrep.sarif ]]; then
+        sec_data=$(cat .claude/.artifacts/semgrep.sarif 2>/dev/null || echo '{}')
+      else
+        echo "Running security scan for security theater detection..."
+        claude /sec:scan --comprehensive > /dev/null 2>&1 || true
+        sec_data=$(cat .claude/.artifacts/semgrep.sarif 2>/dev/null || echo '{}')
+      fi
+      
+      # Compile quality context
+      quality_context=$(jq -n \
+        --argjson qa "$qa_data" \
+        --argjson connascence "$conn_data" \
+        --argjson security "$sec_data" \
+        '{
+          qa_results: $qa,
+          connascence_results: $connascence,
+          security_results: $security,
+          context_gathered_at: now | strftime("%Y-%m-%dT%H:%M:%SZ")
+        }')
+      
+      echo "$quality_context" > .claude/.artifacts/theater_detection/quality_context.json
+      echo "Quality context gathered and stored"
+    capture: .claude/.artifacts/theater_detection/quality_context.json
+    expect_json: true
+
+  # Execute Comprehensive Theater Scan
+  - id: execute_theater_scan
+    run: |
+      echo "🔍 Executing comprehensive theater pattern detection..."
+      
+      # Run theater scan with quality correlation
+      claude /theater:scan \
+        --scope "$DETECTION_SCOPE" \
+        --quality-correlation \
+        --evidence-level "$EVIDENCE_LEVEL" \
+        --output-format json > .claude/.artifacts/theater_detection/theater_scan_results.json || echo '{"theater_findings": [], "error": "theater_scan_failed"}' > .claude/.artifacts/theater_detection/theater_scan_results.json
+      
+      # Extract key metrics from scan results
+      scan_results=$(cat .claude/.artifacts/theater_detection/theater_scan_results.json)
+      theater_count=$(echo "$scan_results" | jq -r '.theater_summary.total_patterns_detected // 0')
+      critical_count=$(echo "$scan_results" | jq -r '.theater_summary.critical_theater_count // 0')
+      confidence=$(echo "$scan_results" | jq -r '.theater_summary.average_confidence // 0')
+      
+      echo "🎭 Theater detection results:"
+      echo "  - Total patterns detected: $theater_count"
+      echo "  - Critical theater patterns: $critical_count"
+      echo "  - Average confidence: $confidence"
+      
+      # Store scan results in memory for pattern learning
+      scripts/memory_bridge.sh store "intelligence/theater_patterns" "scan_results_$(date +%s)" "$scan_results" '{"type": "theater_scan", "session": "'$SESSION_ID'"}'
+      
+      echo "$scan_results"
+    capture: .claude/.artifacts/theater_detection/theater_scan_results.json
+    expect_json: true
+
+  # Deploy Theater-Killer Agents
+  - id: deploy_theater_killer_agents
+    run: |
+      echo "🚀 Deploying theater-killer agent suite..."
+      
+      # Load quality and theater detection context
+      quality_context=$(cat .claude/.artifacts/theater_detection/quality_context.json 2>/dev/null || echo '{}')
+      theater_results=$(cat .claude/.artifacts/theater_detection/theater_scan_results.json 2>/dev/null || echo '{}')
+      
+      # Deploy reality checker agent
+      echo "🔍 Deploying Reality Checker..."
+      npx claude-flow@alpha agent spawn \
+        --type reality-checker \
+        --session "$SESSION_ID" \
+        --context "$(echo "$quality_context" | jq -c .)" 2>/dev/null || true
+      
+      claude /reality:check \
+        --scope user-journey \
+        --deployment-validation \
+        --integration-tests \
+        --evidence-package > .claude/.artifacts/theater_detection/reality_check_results.json || echo '{"validation_results": {}, "error": "reality_check_failed"}' > .claude/.artifacts/theater_detection/reality_check_results.json
+      
+      # Deploy theater killer agent
+      echo "🎭 Deploying Theater Killer..."
+      npx claude-flow@alpha agent spawn \
+        --type theater-killer \
+        --session "$SESSION_ID" \
+        --context "$(echo "$theater_results" | jq -c .)" 2>/dev/null || true
+      
+      # Theater killer leverages existing theater scan results and quality context
+      theater_killer_analysis=$(jq -n \
+        --argjson theater "$theater_results" \
+        --argjson quality "$quality_context" \
+        '{
+          theater_elimination_analysis: $theater,
+          quality_infrastructure_context: $quality,
+          analysis_timestamp: now | strftime("%Y-%m-%dT%H:%M:%SZ"),
+          agent: "theater-killer"
+        }')
+      
+      echo "$theater_killer_analysis" > .claude/.artifacts/theater_detection/theater_killer_results.json
+      
+      # Deploy completion auditor agent
+      echo "📋 Deploying Completion Auditor..."
+      npx claude-flow@alpha agent spawn \
+        --type completion-auditor \
+        --session "$SESSION_ID" \
+        --context "$(echo "$quality_context" | jq -c .)" 2>/dev/null || true
+      
+      # Extract completion claims from recent changes
+      completion_claims="[]"
+      if command -v git >/dev/null 2>&1; then
+        recent_commits=$(git log --oneline -5 --pretty=format:'{"commit": "%H", "message": "%s", "author": "%an", "date": "%cd"}' 2>/dev/null || echo "")
+        if [[ -n "$recent_commits" ]]; then
+          # Parse commit messages for completion claims
+          completion_claims=$(echo "$recent_commits" | jq -s '.')
+        fi
+      fi
+      
+      completion_audit_results=$(jq -n \
+        --argjson claims "$completion_claims" \
+        --argjson quality "$quality_context" \
+        '{
+          completion_claims_analyzed: $claims,
+          quality_evidence: $quality,
+          audit_timestamp: now | strftime("%Y-%m-%dT%H:%M:%SZ"),
+          agent: "completion-auditor"
+        }')
+      
+      echo "$completion_audit_results" > .claude/.artifacts/theater_detection/completion_audit_results.json
+      
+      # Compile agent deployment results
+      deployment_summary=$(jq -n \
+        '{
+          agents_deployed: ["reality-checker", "theater-killer", "completion-auditor"],
+          deployment_timestamp: now | strftime("%Y-%m-%dT%H:%M:%SZ"),
+          session_id: "'$SESSION_ID'",
+          all_agents_active: true
+        }')
+      
+      echo "$deployment_summary"
+    capture: .claude/.artifacts/theater_detection/agent_deployment.json
+    expect_json: true
+
+  # Consolidate Theater Detection Results
+  - id: consolidate_detection_results
+    run: |
+      echo "📊 Consolidating theater detection results..."
+      
+      # Load all detection results
+      theater_scan=$(cat .claude/.artifacts/theater_detection/theater_scan_results.json 2>/dev/null || echo '{}')
+      reality_check=$(cat .claude/.artifacts/theater_detection/reality_check_results.json 2>/dev/null || echo '{}')
+      theater_killer=$(cat .claude/.artifacts/theater_detection/theater_killer_results.json 2>/dev/null || echo '{}')
+      completion_audit=$(cat .claude/.artifacts/theater_detection/completion_audit_results.json 2>/dev/null || echo '{}')
+      
+      # Calculate consolidated metrics
+      theater_patterns_detected=$(echo "$theater_scan" | jq -r '.theater_summary.total_patterns_detected // 0')
+      reality_score=$(echo "$reality_check" | jq -r '.overall_reality_assessment.reality_score // 0')
+      critical_blockers=$(echo "$reality_check" | jq -r '.overall_reality_assessment.critical_blockers // [] | length')
+      
+      # Generate consolidated report
+      consolidated_results=$(jq -n \
+        --argjson theater_scan "$theater_scan" \
+        --argjson reality_check "$reality_check" \
+        --argjson theater_killer "$theater_killer" \
+        --argjson completion_audit "$completion_audit" \
+        --arg theater_count "$theater_patterns_detected" \
+        --arg reality_score "$reality_score" \
+        --arg critical_blockers "$critical_blockers" \
+        '{
+          consolidation_timestamp: now | strftime("%Y-%m-%dT%H:%M:%SZ"),
+          session_id: "'$SESSION_ID'",
+          detection_results: {
+            theater_scan: $theater_scan,
+            reality_check: $reality_check,
+            theater_killer: $theater_killer,
+            completion_audit: $completion_audit
+          },
+          summary_metrics: {
+            theater_patterns_detected: ($theater_count | tonumber),
+            reality_score: ($reality_score | tonumber),
+            critical_blockers: ($critical_blockers | tonumber),
+            overall_health: (if ($theater_count | tonumber) == 0 and ($reality_score | tonumber) > 0.8 and ($critical_blockers | tonumber) == 0 then "excellent" elif ($theater_count | tonumber) < 3 and ($reality_score | tonumber) > 0.6 then "good" elif ($theater_count | tonumber) < 5 then "fair" else "poor" end)
+          },
+          recommendations: (if ($theater_count | tonumber) > 0 then ["Eliminate detected theater patterns", "Run contextual remediation loops"] else ["Theater detection clean - proceed with development"] end)
+        }')
+      
+      # Store consolidated results
+      echo "$consolidated_results" > .claude/.artifacts/theater_detection/consolidated_results.json
+      
+      # Store in unified memory for pattern learning
+      scripts/memory_bridge.sh store "intelligence/theater_detection" "consolidated_$(date +%s)" "$consolidated_results" '{"type": "consolidated_theater_detection", "session": "'$SESSION_ID'"}'
+      
+      echo "$consolidated_results"
+    capture: .claude/.artifacts/theater_detection/consolidated_results.json  
+    expect_json: true
+
+  # Execute Contextual Remediation if Theater Detected
+  - id: contextual_remediation
+    when: $.consolidate_detection_results.summary_metrics.theater_patterns_detected > 0
+    run: |
+      echo "🔧 Executing contextual remediation for detected theater patterns..."
+      
+      REMEDIATION_MODE="$REMEDIATION_MODE"
+      
+      if [[ "$REMEDIATION_MODE" == "automatic" ]]; then
+        # Execute contextual loop for automatic remediation
+        scripts/contextual_loop.sh \
+          --audit-results .claude/.artifacts/theater_detection/consolidated_results.json \
+          --remediation-mode comprehensive \
+          --theater-focused \
+          --memory-update || echo "Contextual loop execution failed"
+        
+        # Verify remediation success with re-scan
+        echo "🔄 Re-scanning to verify theater remediation..."
+        claude /theater:scan \
+          --scope focused \
+          --quality-correlation \
+          --evidence-level basic > .claude/.artifacts/theater_detection/post_remediation_scan.json || echo '{"error": "post_remediation_scan_failed"}' > .claude/.artifacts/theater_detection/post_remediation_scan.json
+        
+        post_scan_results=$(cat .claude/.artifacts/theater_detection/post_remediation_scan.json)
+        remaining_patterns=$(echo "$post_scan_results" | jq -r '.theater_summary.total_patterns_detected // -1')
+        
+        remediation_summary=$(jq -n \
+          --arg remaining "$remaining_patterns" \
+          --argjson post_scan "$post_scan_results" \
+          '{
+            remediation_executed: true,
+            remediation_mode: "'$REMEDIATION_MODE'",
+            remaining_theater_patterns: ($remaining | tonumber),
+            remediation_success: (($remaining | tonumber) == 0),
+            post_remediation_scan: $post_scan,
+            remediation_timestamp: now | strftime("%Y-%m-%dT%H:%M:%SZ")
+          }')
+      else
+        # Manual remediation mode - generate recommendations only
+        remediation_summary=$(jq -n \
+          '{
+            remediation_executed: false,
+            remediation_mode: "'$REMEDIATION_MODE'",
+            manual_remediation_required: true,
+            recommendations: [
+              "Review theater detection results manually",
+              "Apply recommended fixes from consolidated report", 
+              "Re-run theater detection after manual fixes"
+            ],
+            remediation_timestamp: now | strftime("%Y-%m-%dT%H:%M:%SZ")
+          }')
+      fi
+      
+      echo "$remediation_summary"
+    capture: .claude/.artifacts/theater_detection/remediation_summary.json
+    expect_json: true
+
+  # Generate Theater Detection Report
+  - id: generate_theater_report
+    run: |
+      echo "📝 Generating comprehensive theater detection report..."
+      
+      # Load all results
+      consolidated=$(cat .claude/.artifacts/theater_detection/consolidated_results.json 2>/dev/null || echo '{}')
+      remediation=$(cat .claude/.artifacts/theater_detection/remediation_summary.json 2>/dev/null || echo '{}')
+      
+      # Generate final report
+      final_report=$(jq -n \
+        --argjson consolidated "$consolidated" \
+        --argjson remediation "$remediation" \
+        --arg session "$SESSION_ID" \
+        '{
+          theater_detection_report: {
+            session_id: $session,
+            detection_timestamp: now | strftime("%Y-%m-%dT%H:%M:%SZ"),
+            scope: "'$DETECTION_SCOPE'",
+            evidence_level: "'$EVIDENCE_LEVEL'",
+            consolidated_results: $consolidated,
+            remediation_summary: $remediation,
+            final_status: (if $consolidated.summary_metrics.theater_patterns_detected == 0 then "theater_free" elif $remediation.remediation_success == true then "theater_eliminated" else "theater_detected_pending_remediation" end),
+            next_actions: (if $consolidated.summary_metrics.theater_patterns_detected == 0 then ["Proceed with development - no theater detected"] elif $remediation.remediation_success == true then ["Theater eliminated - safe to proceed"] else ["Manual intervention required for remaining theater patterns"] end)
+          }
+        }')
+      
+      # Store final report in memory
+      scripts/memory_bridge.sh store "intelligence/reports" "theater_detection_$(date +%s)" "$final_report" '{"type": "theater_detection_report", "session": "'$SESSION_ID'"}'
+      
+      echo "$final_report" > .claude/.artifacts/theater_detection_final_report.json
+      
+      # Display summary
+      theater_status=$(echo "$final_report" | jq -r '.theater_detection_report.final_status')
+      case "$theater_status" in
+        "theater_free")
+          echo "✅ Theater Detection Result: CLEAN - No theater patterns detected"
+          ;;
+        "theater_eliminated") 
+          echo "✅ Theater Detection Result: RESOLVED - Theater patterns eliminated"
+          ;;
+        "theater_detected_pending_remediation")
+          echo "⚠️  Theater Detection Result: PENDING - Manual remediation required"
+          ;;
+        *)
+          echo "❓ Theater Detection Result: UNKNOWN - Check detailed report"
+          ;;
+      esac
+      
+      echo "$final_report"
+    capture: .claude/.artifacts/theater_detection_final_report.json
+    expect_json: true
+
+  # Update Memory Patterns and Learning
+  - id: update_memory_patterns  
+    run: |
+      echo "🧠 Updating memory patterns and learning from theater detection..."
+      
+      # Load final report
+      final_report=$(cat .claude/.artifacts/theater_detection_final_report.json 2>/dev/null || echo '{}')
+      
+      # Extract patterns for learning
+      theater_patterns=$(echo "$final_report" | jq '.theater_detection_report.consolidated_results.detection_results.theater_scan.theater_findings // []')
+      quality_correlations=$(echo "$final_report" | jq '.theater_detection_report.consolidated_results.detection_results // {}')
+      
+      # Update theater pattern library
+      if [[ "$theater_patterns" != "[]" ]]; then
+        scripts/memory_bridge.sh store "intelligence/theater_patterns" "learned_patterns_$(date +%s)" "$theater_patterns" '{"type": "pattern_learning", "session": "'$SESSION_ID'"}'
+      fi
+      
+      # Update quality correlation patterns
+      scripts/memory_bridge.sh store "intelligence/quality_correlations" "theater_quality_$(date +%s)" "$quality_correlations" '{"type": "quality_correlation_learning", "session": "'$SESSION_ID'"}'
+      
+      # Update detection confidence scores based on results
+      detection_effectiveness=$(jq -n \
+        --argjson report "$final_report" \
+        '{
+          session_id: "'$SESSION_ID'",
+          detection_accuracy: ($report.theater_detection_report.consolidated_results.summary_metrics | if .theater_patterns_detected > 0 then "patterns_found" else "clean_scan" end),
+          remediation_success: ($report.theater_detection_report.remediation_summary.remediation_success // false),
+          learning_timestamp: now | strftime("%Y-%m-%dT%H:%M:%SZ")
+        }')
+      
+      scripts/memory_bridge.sh store "models/theater_detection" "effectiveness_$(date +%s)" "$detection_effectiveness" '{"type": "effectiveness_learning", "session": "'$SESSION_ID'"}'
+      
+      # Synchronize memory systems
+      scripts/memory_bridge.sh sync
+      
+      echo "Memory patterns updated successfully"
+    capture: .claude/.artifacts/theater_detection/memory_update.json

@@ -91,9 +91,88 @@ jobs:
           fi
         continue-on-error: true
 
-      - name: Connascence Analysis
+      - name: Cache Optimization and Performance Setup
         run: |
-          python -m analyzer.core --path . --policy nasa_jpl_pot10 --format json --output .claude/.artifacts/connascence.json || true
+          echo "🚀 Optimizing analyzer cache for CI/CD performance..."
+          
+          # Cache inspection and cleanup for optimal performance
+          python -m analyzer.cache \
+            --inspect-health \
+            --cleanup-stale \
+            --optimize-utilization \
+            --performance-benchmark \
+            --output .claude/.artifacts/cache_optimization.json || true
+          
+          # Performance monitoring baseline
+          python -m analyzer.performance \
+            --memory-monitoring \
+            --resource-tracking \
+            --benchmark-baseline \
+            --output .claude/.artifacts/performance_baseline.json || true
+        continue-on-error: true
+
+      - name: Enhanced Connascence Analysis with Full Integration
+        run: |
+          echo "🔍 Running comprehensive connascence analysis with full analyzer integration..."
+          
+          # Enhanced connascence analysis with all 9 detector modules + architecture
+          python -m analyzer.core \
+            --path . \
+            --policy nasa_jpl_pot10 \
+            --types CoM,CoP,CoA,CoT,CoV,CoE,CoI,CoN,CoC \
+            --god-objects \
+            --duplication-analysis \
+            --comprehensive \
+            --enable-correlations \
+            --architecture-analysis \
+            --detector-pools \
+            --enhanced-metrics \
+            --hotspot-detection \
+            --performance-monitor \
+            --format json \
+            --output .claude/.artifacts/connascence_full.json || true
+          
+          # Dedicated architectural analysis
+          python -m analyzer.architecture \
+            --path . \
+            --detector-pool-optimization \
+            --hotspot-detection \
+            --cross-component-analysis \
+            --enhanced-metrics \
+            --smart-recommendations \
+            --performance-monitoring \
+            --output .claude/.artifacts/architecture_analysis.json || true
+          
+          # God object detection with enhanced context-aware analysis
+          python -m analyzer.core \
+            --path . \
+            --god-object-limit 25 \
+            --god-object-threshold 400 \
+            --god-object-context-aware \
+            --detector-pools \
+            --format json \
+            --output .claude/.artifacts/god_objects.json || true
+          
+          # MECE duplication analysis with architectural context
+          python -m analyzer.core \
+            --path . \
+            --duplication-threshold 0.75 \
+            --duplication-analysis \
+            --comprehensive \
+            --architectural-context \
+            --consolidation-recommendations \
+            --format json \
+            --output .claude/.artifacts/mece_analysis.json || true
+          
+          # Performance monitoring with trend analysis
+          python -m analyzer.performance \
+            --memory-monitoring \
+            --resource-tracking \
+            --performance-benchmarking \
+            --trend-analysis \
+            --bottleneck-detection \
+            --optimization-recommendations \
+            --output .claude/.artifacts/performance_monitor.json || true
         continue-on-error: true
 
       - name: Upload SARIF
@@ -103,14 +182,202 @@ jobs:
           sarif_file: .claude/.artifacts/semgrep.sarif
         continue-on-error: true
 
-      - name: Aggregate Gates
+      - name: Quality Gate Evaluation & Reporting
         run: |
-          echo "📊 Quality Gates Summary:"
+          echo "🎯 Enhanced Quality Gates Summary:"
           echo "Tests: $(test -f .claude/.artifacts/qa.json && echo 'Available' || echo 'Missing')"
           echo "Security: $(test -f .claude/.artifacts/semgrep.sarif && echo 'Available' || echo 'Missing')"  
-          echo "Connascence: $(test -f .claude/.artifacts/connascence.json && echo 'Available' || echo 'Missing')"
+          echo "Connascence: $(test -f .claude/.artifacts/connascence_full.json && echo 'Available' || echo 'Missing')"
+          echo "God Objects: $(test -f .claude/.artifacts/god_objects.json && echo 'Available' || echo 'Missing')"
+          echo "MECE Analysis: $(test -f .claude/.artifacts/mece_analysis.json && echo 'Available' || echo 'Missing')"
+          echo "Architecture: $(test -f .claude/.artifacts/architecture_analysis.json && echo 'Available' || echo 'Missing')"
+          echo "Performance: $(test -f .claude/.artifacts/performance_monitor.json && echo 'Available' || echo 'Missing')"
+          echo "Cache Optimization: $(test -f .claude/.artifacts/cache_optimization.json && echo 'Available' || echo 'Missing')"
           echo "Coverage: $(test -f .claude/.artifacts/diff_coverage.json && echo 'Available' || echo 'Missing')"
+          
+          # Generate comprehensive quality report
+          python3 << 'EOF'
+          import json
+          import os
+          from datetime import datetime
+          
+          def safe_load_json(filepath, default=None):
+              if default is None:
+                  default = {}
+              try:
+                  if os.path.exists(filepath):
+                      with open(filepath, 'r') as f:
+                          return json.load(f)
+              except:
+                  pass
+              return default
+          
+          # Load all analysis results
+          connascence = safe_load_json('.claude/.artifacts/connascence_full.json', {"violations": [], "summary": {}})
+          god_objects = safe_load_json('.claude/.artifacts/god_objects.json', [])
+          mece = safe_load_json('.claude/.artifacts/mece_analysis.json', {"mece_score": 0.0, "duplications": []})
+          architecture = safe_load_json('.claude/.artifacts/architecture_analysis.json', {"hotspots": [], "metrics": {}})
+          performance = safe_load_json('.claude/.artifacts/performance_monitor.json', {"metrics": {}, "optimization_recommendations": []})
+          cache = safe_load_json('.claude/.artifacts/cache_optimization.json', {"health": {}, "performance_metrics": {}})
+          
+          # Calculate quality scores
+          violations = connascence.get('violations', [])
+          critical_violations = len([v for v in violations if v.get('severity') == 'critical'])
+          god_object_count = len([g for g in god_objects if 'God Object' in str(g)])
+          mece_score = mece.get('mece_score', 0.0)
+          nasa_compliance = connascence.get('nasa_compliance', {}).get('score', 0.0)
+          
+          # Enhanced architectural and performance metrics
+          architecture_health = architecture.get('system_overview', {}).get('architectural_health', 0.0)
+          coupling_score = architecture.get('system_overview', {}).get('coupling_score', 1.0)
+          hotspot_count = len(architecture.get('architectural_hotspots', []))
+          cache_health = cache.get('cache_health', {}).get('health_score', 0.0)
+          performance_efficiency = performance.get('resource_utilization', {}).get('cpu_usage', {}).get('efficiency_score', 0.0)
+          
+          # Enhanced quality gate evaluation
+          gates = {
+              'nasa_compliance': nasa_compliance >= 0.90,
+              'god_objects': god_object_count <= 25,
+              'critical_violations': critical_violations <= 50,
+              'mece_score': mece_score >= 0.75,
+              'overall_quality': len(violations) < 1000,
+              'architecture_health': architecture_health >= 0.75,
+              'coupling_quality': coupling_score <= 0.5,
+              'architecture_hotspots': hotspot_count <= 5,
+              'cache_performance': cache_health >= 0.80,
+              'performance_efficiency': performance_efficiency >= 0.70
+          }
+          
+          # Generate quality report
+          report = {
+              'timestamp': datetime.now().isoformat(),
+              'quality_gates': gates,
+              'metrics': {
+                  'nasa_compliance_score': nasa_compliance,
+                  'god_objects_found': god_object_count,
+                  'critical_violations': critical_violations,
+                  'total_violations': len(violations),
+                  'mece_score': mece_score,
+                  'architecture_hotspots': hotspot_count,
+                  'architecture_health': architecture_health,
+                  'coupling_score': coupling_score,
+                  'cache_health_score': cache_health,
+                  'performance_efficiency': performance_efficiency
+              },
+              'gates_passed': all(gates.values()),
+              'critical_gates_passed': all([gates['nasa_compliance'], gates['god_objects'], gates['critical_violations']]),
+              'defense_industry_ready': gates['nasa_compliance'] and gates['architecture_health'],
+              'performance_optimized': gates['cache_performance'] and gates['performance_efficiency']
+          }
+          
+          # Save comprehensive report
+          with open('.claude/.artifacts/quality_gates_report.json', 'w') as f:
+              json.dump(report, f, indent=2)
+          
+          # Print summary
+          print(f"\n🎯 Quality Gates Results:")
+          print(f"NASA Compliance: {'✅ PASS' if gates['nasa_compliance'] else '❌ FAIL'} ({nasa_compliance:.2%})")
+          print(f"God Objects: {'✅ PASS' if gates['god_objects'] else '❌ FAIL'} ({god_object_count} found)")
+          print(f"Critical Violations: {'✅ PASS' if gates['critical_violations'] else '❌ FAIL'} ({critical_violations} found)")
+          print(f"MECE Score: {'✅ PASS' if gates['mece_score'] else '❌ FAIL'} ({mece_score:.2f})")
+          print(f"Overall Quality: {'✅ PASS' if gates['overall_quality'] else '❌ FAIL'} ({len(violations)} violations)")
+          print(f"\n🏗️ Architecture Quality Gates:")
+          print(f"Architecture Health: {'✅ PASS' if gates['architecture_health'] else '❌ FAIL'} ({architecture_health:.2f})")
+          print(f"Coupling Quality: {'✅ PASS' if gates['coupling_quality'] else '❌ FAIL'} ({coupling_score:.2f})")
+          print(f"Architecture Hotspots: {'✅ PASS' if gates['architecture_hotspots'] else '❌ FAIL'} ({hotspot_count} found)")
+          print(f"\n🚀 Performance Quality Gates:")
+          print(f"Cache Performance: {'✅ PASS' if gates['cache_performance'] else '❌ FAIL'} ({cache_health:.2f})")
+          print(f"Performance Efficiency: {'✅ PASS' if gates['performance_efficiency'] else '❌ FAIL'} ({performance_efficiency:.2f})")
+          print(f"\n🏛️ Defense Industry Status: {'✅ APPROVED' if report['defense_industry_ready'] else '❌ NOT APPROVED'}")
+          print(f"🚀 Performance Optimized: {'✅ YES' if report['performance_optimized'] else '❌ NO'}")
+          print(f"🎯 All Gates Passed: {'✅ YES' if report['gates_passed'] else '❌ NO'}")
+          print(f"⚡ Critical Gates Status: {'✅ PASS' if report['critical_gates_passed'] else '❌ FAIL'}")
+          
+          # Exit with appropriate code
+          exit(0 if report['gates_passed'] else 1)
+          EOF
+          
           node scripts/diff_coverage.js || python scripts/diff_coverage.py || true
+
+      - name: Generate SARIF Report
+        run: |
+          echo "🔍 Generating comprehensive SARIF report..."
+          
+          # Generate SARIF from connascence analysis
+          python3 << 'EOF'
+          import json
+          import os
+          from datetime import datetime
+          
+          def create_sarif_report():
+              sarif = {
+                  "version": "2.1.0",
+                  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+                  "runs": [{
+                      "tool": {
+                          "driver": {
+                              "name": "connascence-analyzer",
+                              "version": "2.0.0",
+                              "informationUri": "https://github.com/your-org/connascence-analyzer",
+                              "rules": []
+                          }
+                      },
+                      "results": []
+                  }]
+              }
+              
+              # Load connascence results and convert to SARIF format
+              if os.path.exists('.claude/.artifacts/connascence_full.json'):
+                  try:
+                      with open('.claude/.artifacts/connascence_full.json', 'r') as f:
+                          connascence_data = json.load(f)
+                      
+                      violations = connascence_data.get('violations', [])
+                      for violation in violations:
+                          severity_map = {
+                              'critical': 'error',
+                              'high': 'warning', 
+                              'medium': 'note',
+                              'low': 'note'
+                          }
+                          
+                          result = {
+                              "ruleId": f"connascence-{violation.get('type', 'unknown')}",
+                              "message": {
+                                  "text": violation.get('description', 'Connascence violation detected')
+                              },
+                              "level": severity_map.get(violation.get('severity', 'medium'), 'note'),
+                              "locations": [{
+                                  "physicalLocation": {
+                                      "artifactLocation": {
+                                          "uri": violation.get('file', 'unknown')
+                                      },
+                                      "region": {
+                                          "startLine": violation.get('line', 1)
+                                      }
+                                  }
+                              }]
+                          }
+                          sarif["runs"][0]["results"].append(result)
+                  except Exception as e:
+                      print(f"Warning: Could not process connascence results: {e}")
+              
+              # Save SARIF report
+              with open('.claude/.artifacts/connascence_analysis.sarif', 'w') as f:
+                  json.dump(sarif, f, indent=2)
+              
+              print(f"Generated SARIF report with {len(sarif['runs'][0]['results'])} findings")
+          
+          create_sarif_report()
+          EOF
+        continue-on-error: true
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: .claude/.artifacts/connascence_analysis.sarif
+        continue-on-error: true
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
