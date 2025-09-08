@@ -1,0 +1,8 @@
+node_modules/
+.venv/
+.idea/
+.DS_Store
+coverage/
+.claude/.artifacts/
+*.log
+*.tmp

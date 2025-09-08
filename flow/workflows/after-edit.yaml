@@ -1,0 +1,57 @@
+name: after-edit
+description: Run QA in Codex sandbox; if fail, triage and route to the right fixer; loop until green or bail.
+steps:
+  - id: plan
+    run: claude /spec:plan
+    capture: plan.json
+    expect_json: true
+
+  - id: implement_small
+    foreach: plan.json.tasks
+    when: item.type == "small"
+    run: claude /codex:micro "${{ item.title }}"
+
+  - id: discover_big
+    foreach: plan.json.tasks
+    when: item.type == "big"
+    run: claude /gemini:impact "${{ item.scope }}"
+    capture: "gemini/${{ item.id }}.json"
+
+  - id: implement_multi
+    foreach: plan.json.tasks
+    when: item.type == "multi"
+    run: claude /fix:planned "${{ item.title }}"
+
+  - id: qa
+    run: claude /qa:run
+    capture: .claude/.artifacts/qa.json
+    expect_json: true
+
+  - id: pass_gate
+    when: .claude/.artifacts/qa.json.tests.ok == true
+          and .claude/.artifacts/qa.json.typecheck.ok == true
+          and .claude/.artifacts/qa.json.lint.ok == true
+    run: claude /pr:open
+    exit: 0
+
+  - id: analyze
+    run: |
+      git diff --stat > .claude/.artifacts/diffstat.txt
+      claude --output-format json -p "/qa:analyze '$(cat .claude/.artifacts/diffstat.txt)'"
+    capture: triage.json
+    expect_json: true
+
+  - id: route_small_fix
+    when: triage.json.size == "small"
+    run: claude /codex:micro-fix "$(jq -r '.root_causes[0]' triage.json)"
+
+  - id: route_multi_fix
+    when: triage.json.size == "multi"
+    run: claude /fix:planned "$(jq -r '.root_causes[0]' triage.json)"
+
+  - id: route_big_context
+    when: triage.json.size == "big"
+    run: claude /gemini:impact "$(jq -r '.root_causes[0]' triage.json)"
+
+  - id: loop_limit
+    run: echo "Loop once more via Flow caller"; # caller decides attempts (e.g., max 3)

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uvx:*)",
+      "Bash(curl:*)",
+      "Bash(unzip:*)",
+      "Bash(codex:*)",
+      "Bash(gemini:*)",
+      "Bash(claude --version)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

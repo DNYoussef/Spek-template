@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "preTool": [
+      {"match": "codex exec", "cmd": "test -z \"$(git status --porcelain)\" || git stash -k -u"},
+      {"match": "codex exec", "cmd": "git checkout -b codex/task-$(date +%s)"}
+    ],
+    "postTool": [
+      {"match": "codex exec", "cmd": "git status --porcelain && echo 'Review with: git diff --stat'"}
+    ]
+  }
+}

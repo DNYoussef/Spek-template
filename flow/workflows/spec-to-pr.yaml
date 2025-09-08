@@ -1,0 +1,34 @@
+name: spec-to-pr
+description: Execute SPEC.md end-to-end and open a PR when gates are met.
+steps:
+  - id: plan
+    run: claude /spec:plan
+    capture: plan.json
+    expect_json: true
+
+  - id: discover_big
+    foreach: plan.json.tasks
+    when: item.type == "big"
+    run: claude /gemini:impact "${{ item.scope }}"
+    capture: "gemini/${{ item.id }}.json"
+
+  - id: implement_small
+    foreach: plan.json.tasks
+    when: item.type == "small"
+    run: claude /codex:micro "${{ item.title }}"
+
+  - id: implement_multi
+    foreach: plan.json.tasks
+    when: item.type == "multi"
+    run: claude /fix:planned "${{ item.title }}"
+
+  - id: qa
+    run: claude /qa:run
+    capture: .claude/.artifacts/qa.json
+    expect_json: true
+
+  - id: verify_gate
+    run: jq -e '.tests.ok and .typecheck.ok and .lint.ok' .claude/.artifacts/qa.json
+
+  - id: pr
+    run: claude /pr:open
