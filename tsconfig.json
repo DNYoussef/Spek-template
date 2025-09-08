@@ -22,11 +22,23 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "allowUnusedLabels": false,
-    "allowUnreachableCode": false
+    "allowUnreachableCode": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/components/*": ["src/components/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/types/*": ["src/types/*"],
+      "@/config/*": ["src/config/*"]
+    },
+    "types": ["node", "@types/node"]
   },
   "include": [
     "src/**/*",
-    "tests/**/*"
+    "tests/**/*",
+    "scripts/**/*",
+    ".claude/**/*",
+    "flow/**/*"
   ],
   "exclude": [
     "node_modules",
@@ -34,6 +46,8 @@
     "coverage",
     ".claude/.artifacts",
     "analyzer",
-    "interfaces"
+    "interfaces",
+    ".sandboxes",
+    "build"
   ]
 }

@@ -1,13 +1,39 @@
 {
   "hooks": {
     "preTool": [
+      {"match": ".*", "cmd": "npx claude-flow@alpha health check --components all --auto-heal --quiet || echo 'CF degraded mode' >> .claude/.artifacts/system_status.log"},
+      {"match": ".*", "cmd": "npx claude-flow@alpha hooks pre-task --description '$TASK_DESCRIPTION' --namespace 'spek/$(date +%Y%m%d)' || true"},
       {"match": "codex exec", "cmd": "test -z \"$(git status --porcelain)\" || git stash -k -u"},
       {"match": "codex exec", "cmd": "git checkout -b codex/task-$(date +%s)"},
-      {"match": ".*", "cmd": "mkdir -p .claude/.artifacts out .sandboxes"}
+      {"match": ".*", "cmd": "mkdir -p .claude/.artifacts out .sandboxes"},
+      {"match": ".*", "cmd": "scripts/ops_tripwires.sh check-limits || echo 'Tripwire warnings logged'"},
+      {"match": "codex.*|gemini.*|/qa:.*", "cmd": "npx claude-flow@alpha hooks session-restore --session-id 'swarm-$(git branch --show-current)' || true"},
+      {"match": "/.*:.*", "cmd": "echo '$0' | grep -E 'secret|key|pass|token' && echo 'BLOCKED: Potential secret in command' && exit 1 || true"}
     ],
     "postTool": [
       {"match": "codex exec", "cmd": "git status --porcelain && echo 'Review with: git diff --stat'"},
-      {"match": "conn:scan|sec:scan|qa:run", "cmd": "echo 'Artifacts: ' && ls -la .claude/.artifacts/ 2>/dev/null || true"}
+      {"match": "conn:scan|sec:scan|qa:run", "cmd": "echo 'Artifacts: ' && ls -la .claude/.artifacts/ 2>/dev/null || true"},
+      {"match": ".*", "cmd": "npx claude-flow@alpha hooks post-edit --file '$FILE_PATH' --memory-key 'spek/$(git branch --show-current)/$(date +%s)' || true"},
+      {"match": ".*", "cmd": "npx claude-flow@alpha hooks notify --message 'Task completed: $TASK_DESCRIPTION' || true"},
+      {"match": ".*", "cmd": "scripts/ops_tripwires.sh update-metrics || true"}
+    ],
+    "sessionEnd": [
+      {"match": ".*", "cmd": "npx claude-flow@alpha hooks post-task --task-id '$TASK_ID' || true"},
+      {"match": ".*", "cmd": "npx claude-flow@alpha hooks session-end --export-metrics true --namespace 'spek/$(date +%Y%m%d)' || true"}
     ]
+  },
+  "environment": {
+    "GATES_PROFILE": "${GATES_PROFILE:-full}",
+    "AUTO_REPAIR_MAX_ATTEMPTS": "2",
+    "SANDBOX_TTL_HOURS": "72",
+    "SANDBOX_MAX": "10",
+    "PM_SYNC_BLOCKING": "true",
+    "CF_DEGRADED_MODE": "${CF_DEGRADED_MODE:-false}"
+  },
+  "risk_labels": {
+    "high_risk": ["security", "infra", "core-module"],
+    "fast_lane": ["docs", "chore", "test-only"],
+    "auto_full_gates": ["security", "infra"],
+    "auto_light_gates": ["docs", "chore"]
   }
 }

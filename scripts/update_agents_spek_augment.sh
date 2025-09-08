@@ -71,7 +71,7 @@ SPECIFY → PLAN → DISCOVER → IMPLEMENT → VERIFY → REVIEW → DELIVER �
 
 <!-- /SPEK-AUGMENT v1 -->'
 
-# MCP footer template
+# Enhanced MCP footer template with CF v2 Alpha integration
 MCP_FOOTER='<!-- SPEK-AUGMENT v1: mcp -->
 Allowed MCP by phase:
 SPECIFY: MarkItDown, Memory, SequentialThinking, Ref, DeepWiki, Firecrawl
@@ -82,6 +82,19 @@ VERIFY:  Playwright, eva
 REVIEW:  Github, MarkItDown, Plane
 DELIVER: Github, MarkItDown, Plane
 LEARN:   Memory, Ref
+
+## CF v2 Alpha Hive-Mind Integration
+- **Swarm coordination**: Each phase initializes with session namespace
+- **Neural patterns**: Failure/success patterns feed back to CF models
+- **Memory continuity**: Cross-session state preservation via hive backend
+- **Risk prediction**: CF neural models influence gate profile selection
+- **Auto-healing**: Degraded mode fallbacks when CF components fail
+
+## Risk-Based Behavior
+- HIGH risk labels (security, infra, core-module) → full gates + Context7 validation
+- FAST lane labels (docs, chore, test-only) → light gates + minimal Context7
+- Budget escalation → CF task orchestrate to architecture/planner agents
+- Failure patterns → Neural training for continuous improvement
 <!-- /SPEK-AUGMENT v1 -->'
 
 # Function to extract role name from file path

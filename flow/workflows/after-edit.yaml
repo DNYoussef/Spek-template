@@ -1,6 +1,22 @@
 name: after-edit
-description: Run QA in Codex sandbox; if fail, triage and route to the right fixer; loop until green or bail.
+description: QA loop with CF swarm coordination, attempt capping, and neural pattern recognition.
+environment:
+  HIVE_NAMESPACE: "spek/after-edit/$(date +%Y%m%d)"
+  SESSION_ID: "swarm-$(git branch --show-current || echo 'main')"
+  MAX_ATTEMPTS: "${AUTO_REPAIR_MAX_ATTEMPTS:-2}"
 steps:
+  # Swarm Burst Control Initialization
+  - id: init_swarm
+    run: |
+      npx claude-flow@alpha swarm init --topology hierarchical --burst-control --max-attempts "$MAX_ATTEMPTS"
+      npx claude-flow@alpha swarm status --session "$SESSION_ID" > swarm_status.json || echo '{"attempts": 0}' > swarm_status.json
+      CURRENT_ATTEMPTS="$(jq -r '.attempts // 0' swarm_status.json)"
+      if [[ $CURRENT_ATTEMPTS -ge $MAX_ATTEMPTS ]]; then
+        echo "🚨 Max attempts ($MAX_ATTEMPTS) exceeded - escalating to planner"
+        npx claude-flow@alpha task orchestrate --escalate planner --reason "auto-repair-limit"
+        exit 1
+      fi
+    capture: swarm_init.json
   - id: plan
     run: claude /spec:plan
     capture: plan.json
@@ -38,12 +54,17 @@ steps:
 
   - id: pass_gate
     when: gate.json.ok == true
-    run: claude /pr:open
+    run: |
+      npx claude-flow@alpha neural train --model success_patterns --session "$SESSION_ID" --input "$(git diff --stat)"
+      npx claude-flow@alpha swarm status --update-success --session "$SESSION_ID"
+      claude /pr:open
     exit: 0
 
   - id: analyze
     run: |
       git diff --stat > .claude/.artifacts/diffstat.txt
+      npx claude-flow@alpha neural predict --model failure_classifier --input "$(cat .claude/.artifacts/diffstat.txt)" > failure_prediction.json || echo '{"pattern": "unknown"}' > failure_prediction.json
+      npx claude-flow@alpha swarm status --increment-attempts --session "$SESSION_ID"
       claude --output-format json -p "/qa:analyze '$(cat .claude/.artifacts/diffstat.txt)'"
     capture: triage.json
     expect_json: true
@@ -58,7 +79,14 @@ steps:
 
   - id: route_big_context
     when: triage.json.size == "big"
-    run: claude /gemini:impact "$(jq -r '.root_causes[0]' triage.json)"
+    run: |
+      npx claude-flow@alpha agent spawn --type researcher --max-context 30 --session "$SESSION_ID"
+      IMPACT_RESULT="$(claude /gemini:impact "$(jq -r '.root_causes[0]' triage.json)")"
+      scripts/impact_quickcheck.sh validate ".claude/.artifacts/gemini/impact.json" > impact_validation.json
+      if [[ "$(jq -r '.valid' impact_validation.json)" != "true" ]]; then
+        echo "⚠️ Impact validation failed - using Context7 fallback"
+        npx claude-flow@alpha context7 create --files-changed --max 30 > context7_pack.json
+      fi
 
   - id: re_verify_fan_out
     run: |
@@ -74,5 +102,15 @@ steps:
     capture: gate.json
     expect_json: true
 
-  - id: loop_limit
-    run: echo "Loop once more via Flow caller"; # caller decides attempts (e.g., max 3)
+  # Neural Learning and Session Management
+  - id: learn_from_failure
+    when: gate.json.ok == false
+    run: |
+      npx claude-flow@alpha neural train --model failure_patterns --session "$SESSION_ID" --input "$(cat triage.json)"
+      npx claude-flow@alpha memory store --key "failures/$(date +%s)" --value "$(cat triage.json)" --namespace "$HIVE_NAMESPACE"
+      CURRENT_ATTEMPTS="$(npx claude-flow@alpha swarm status --session '$SESSION_ID' --json | jq -r '.attempts // 0')"
+      if [[ $CURRENT_ATTEMPTS -ge $MAX_ATTEMPTS ]]; then
+        echo "🚨 Escalating to architecture phase after $CURRENT_ATTEMPTS attempts"
+        npx claude-flow@alpha task orchestrate --escalate architecture --reason "repeated-failure" --context "$(cat triage.json)"
+      fi
+    capture: learn_results.json

@@ -1,15 +1,42 @@
 name: spec-to-pr
-description: Execute SPEC.md end-to-end and open a PR when gates are met.
+description: Execute SPEC.md end-to-end with CF hive-mind coordination and neural learning.
+environment:
+  HIVE_NAMESPACE: "spek/spec-to-pr/$(date +%Y%m%d)"
+  SESSION_ID: "swarm-$(git branch --show-current || echo 'main')"
 steps:
+  # CF Hive-Mind Initialization
+  - id: init_hive
+    run: |
+      npx claude-flow@alpha swarm init --topology mesh --max-agents 6 --namespace "$HIVE_NAMESPACE"
+      npx claude-flow@alpha memory usage --namespace "$HIVE_NAMESPACE" --restore-session "$SESSION_ID"
+    capture: hive_status.json
+    expect_json: true
+
+  # Risk Assessment and Gate Profile Selection
+  - id: assess_risk
+    run: |
+      PR_LABELS="$(gh pr view --json labels --jq '.labels[].name' | tr '
+' ',' 2>/dev/null || echo '')" 
+      GATE_PROFILE="$(scripts/ops_tripwires.sh gate-profile "$PR_LABELS")"
+      npx claude-flow@alpha neural predict --model risk_classifier --input "$(git diff --stat)" --output risk_predict.json || echo '{"risk":"medium"}' > risk_predict.json
+      jq -n --arg profile "$GATE_PROFILE" --argjson risk "$(cat risk_predict.json)" '{gate_profile: $profile, risk_assessment: $risk}'
+    capture: risk_assessment.json
+    expect_json: true
   - id: plan
-    run: claude /spec:plan
+    run: |
+      npx claude-flow@alpha agent spawn --type planner --session "$SESSION_ID"
+      claude /spec:plan
+      npx claude-flow@alpha memory store --key "plan/$(date +%s)" --value "$(cat plan.json)" --namespace "$HIVE_NAMESPACE"
     capture: plan.json
     expect_json: true
 
   - id: discover_big
     foreach: plan.json.tasks
     when: item.type == "big"
-    run: claude /gemini:impact "${{ item.scope }}"
+    run: |
+      npx claude-flow@alpha agent spawn --type researcher --session "$SESSION_ID" --max-context 30
+      claude /gemini:impact "${{ item.scope }}"
+      scripts/impact_quickcheck.sh validate "gemini/${{ item.id }}.json" > "gemini/${{ item.id }}_validation.json"
     capture: "gemini/${{ item.id }}.json"
 
   - id: implement_small
@@ -38,13 +65,28 @@ steps:
 
   - id: pm_sync
     when: gate.json.ok == true
-    run: claude /pm:sync
+    run: |
+      npx claude-flow@alpha github pm-sync --project-id "$PROJECT_ID" --session "$SESSION_ID" --idempotent
+      claude /pm:sync
     capture: pm_sync.json
     expect_json: true
 
-  - id: pr
+  - id: pr_create
     when: gate.json.ok == true
-    run: claude /pr:open
+    run: |
+      npx claude-flow@alpha github pr-manager --create --evidence-rich --session "$SESSION_ID"
+      claude /pr:open
+    capture: pr_result.json
+
+  # LEARN Phase - Neural Training and Memory Export
+  - id: learn_phase
+    when: gate.json.ok == true
+    run: |
+      npx claude-flow@alpha neural train --model pattern_learner --session "$SESSION_ID" --export-patterns
+      npx claude-flow@alpha memory export --namespace "$HIVE_NAMESPACE" --format json > ".claude/.artifacts/session_memory.json"
+      jq -n --arg session "$SESSION_ID" --argjson metrics "$(npx claude-flow@alpha agent metrics --session '$SESSION_ID' --json)" '{session: $session, metrics: $metrics, status: "completed"}'
+    capture: learn_results.json
+    expect_json: true
 
   - id: gate_failure
     when: gate.json.ok == false
