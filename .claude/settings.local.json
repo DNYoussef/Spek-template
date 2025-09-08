@@ -25,7 +25,8 @@
       "Bash(./scripts/update_agents_spek_augment.sh:*)",
       "Bash(bash -c 'find .claude/agents -name \"\"*.md\"\" | head -5 | while read file; do echo \"\"Processing: $file\"\"; done')",
       "Bash(node:*)",
-      "Bash(./scripts/lint_agents.sh:*)"
+      "Bash(./scripts/lint_agents.sh:*)",
+      "Bash(./scripts/batch_update_agents.sh:*)"
     ],
     "deny": [],
     "ask": []
