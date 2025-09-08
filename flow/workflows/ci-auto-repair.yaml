@@ -1,55 +1,83 @@
 name: ci-auto-repair
-description: Analyze failing PR, attempt bounded auto-fixes, re-run QA, gate, and push if green.
+description: Self-correcting loop with CF v2 Alpha coordination and neural learning.
+environment:
+  HIVE_NAMESPACE: "spek/ci-repair/$(date +%Y%m%d)"
+  SESSION_ID: "swarm-ci-$(echo $GITHUB_RUN_ID || date +%s)"
+  MAX_ATTEMPTS: "${AUTO_REPAIR_MAX_ATTEMPTS:-4}"
+  BASE_BRANCH: "${BASE_BRANCH:-main}"
 
 steps:
-  - id: analyze
+  # Self-Correcting Loop Integration
+  - id: self_correct
     run: |
-      git fetch --all --prune || true
-      git diff --stat origin/main...HEAD > .claude/.artifacts/diffstat.txt || true
-      claude --output-format json -p "/qa:analyze '$(cat .claude/.artifacts/diffstat.txt 2>/dev/null)'" || echo '{"size":"small","root_causes":["unknown"]}' > triage.json
-    capture: triage.json
+      export HIVE_NAMESPACE="$HIVE_NAMESPACE"
+      export SESSION_ID="$SESSION_ID"
+      export MAX_ATTEMPTS="$MAX_ATTEMPTS"
+      export BASE_BRANCH="$BASE_BRANCH"
+      export SHOW_LOGS=1
+      
+      # Run the bounded self-correction loop
+      bash scripts/self_correct.sh
+
+    capture: .claude/.artifacts/gate.json
     expect_json: true
 
-  - id: route_small
-    when: triage.json.size == "small"
-    run: claude /codex:micro-fix "$(jq -r '.root_causes[0]' triage.json)"
-
-  - id: route_multi
-    when: triage.json.size == "multi"
-    run: claude /fix:planned "$(jq -r '.root_causes[0]' triage.json)"
-
-  - id: route_big
-    when: triage.json.size == "big"
-    run: claude /gemini:impact "$(jq -r '.root_causes[0]' triage.json)"
-
-  - id: verify_fan_out
+  # Generate PR Comment on Failure
+  - id: generate_pr_comment
+    when: $.self_correct.ok == false
     run: |
-      claude /qa:run &
-      claude /sec:scan &
-      claude /conn:scan &
-      wait
-    capture: .claude/.artifacts/qa.json
-    expect_json: true
+      chmod +x scripts/gate_fail_reason.sh
+      scripts/gate_fail_reason.sh .claude/.artifacts/gate.json pr-comment
+    capture: .claude/.artifacts/pr_comment.md
 
-  - id: gate
-    run: claude --output-format json -p "/qa:gate"
-    capture: gate.json
-    expect_json: true
-
-  - id: show_sandbox
-    run: |
-      echo "Codex sandbox branches:"
-      ls -1 .sandboxes 2>/dev/null || true
-
+  # Push Changes on Success
   - id: push
-    when: gate.json.ok == true
+    when: $.self_correct.ok == true
     run: |
+      # Success pattern learning (if CF available)
+      npx claude-flow@alpha neural train --model success_patterns --session "$SESSION_ID" --input "$(git diff --cached --stat)" 2>/dev/null || true
+      npx claude-flow@alpha memory store --key "successes/$(date +%s)" --value "$(cat .claude/.artifacts/gate.json)" --namespace "$HIVE_NAMESPACE" 2>/dev/null || true
+      
       git add -A
-      git commit -m "auto-fix: satisfy quality gates [skip ci]"
-      git push
+      git commit -m "auto-fix: satisfy quality gates via self-correction [skip ci]" || true
+      git push || true
+      
+      # Export session metrics
+      npx claude-flow@alpha hooks session-end --export-metrics true --namespace "$HIVE_NAMESPACE" 2>/dev/null || true
 
+  # Report Failure with Enhanced Context
   - id: report_failure
-    when: gate.json.ok == false
+    when: $.self_correct.ok == false
     run: |
-      echo "❌ Auto-repair failed. Gate results:"
-      cat gate.json | jq '.'
+      echo "❌ Self-correction failed after $MAX_ATTEMPTS attempts"
+      
+      # Show final gate status
+      if [[ -f .claude/.artifacts/gate.json ]]; then
+        echo "📊 Final gate status:"
+        jq . .claude/.artifacts/gate.json || cat .claude/.artifacts/gate.json
+      fi
+      
+      # Show generated PR comment
+      if [[ -f .claude/.artifacts/pr_comment.md ]]; then
+        echo "📝 Generated PR comment:"
+        cat .claude/.artifacts/pr_comment.md
+      fi
+      
+      # CF neural learning and escalation (if available)
+      npx claude-flow@alpha neural train --model failure_patterns --session "$SESSION_ID" --input "$(cat .claude/.artifacts/gate.json 2>/dev/null || echo '{}')" 2>/dev/null || true
+      npx claude-flow@alpha memory store --key "failures/ci/$(date +%s)" --value "$(cat .claude/.artifacts/gate.json 2>/dev/null || echo '{}')" --namespace "$HIVE_NAMESPACE" 2>/dev/null || true
+      
+      # Create escalation issue if configured
+      if command -v gh >/dev/null 2>&1; then
+        gh issue create --title "CI Auto-repair failed: $(git rev-parse --short HEAD)" \
+          --body "Self-correction loop failed after $MAX_ATTEMPTS attempts. Check artifacts for details." \
+          --label "ci,auto-repair,escalation" 2>/dev/null || echo "Note: Could not create GitHub issue"
+      fi
+      
+      # CF task orchestration escalation (if available)
+      npx claude-flow@alpha task orchestrate --escalate architecture --reason "ci-repair-limit-exceeded" --context "$(cat .claude/.artifacts/gate.json 2>/dev/null || echo '{}')" 2>/dev/null || true
+      
+      # Export failure session for analysis
+      npx claude-flow@alpha hooks session-end --export-metrics true --namespace "$HIVE_NAMESPACE" --failure 2>/dev/null || true
+      
+      exit 1

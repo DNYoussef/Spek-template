@@ -1,16 +1,18 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022"],
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -22,11 +24,27 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "allowUnusedLabels": false,
-    "allowUnreachableCode": false
+    "allowUnreachableCode": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/components/*": ["src/components/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/types/*": ["src/types/*"],
+      "@/config/*": ["src/config/*"],
+      "@/tests/*": ["tests/*"]
+    },
+    "types": ["node", "jest"]
   },
   "include": [
     "src/**/*",
-    "tests/**/*"
+    "tests/**/*",
+    "scripts/**/*.ts",
+    "scripts/**/*.js",
+    ".claude/**/*.ts",
+    ".claude/**/*.js",
+    "flow/**/*.ts",
+    "flow/**/*.js"
   ],
   "exclude": [
     "node_modules",
@@ -34,6 +52,10 @@
     "coverage",
     ".claude/.artifacts",
     "analyzer",
-    "interfaces"
+    "interfaces",
+    ".sandboxes",
+    "build",
+    "**/*.test.js",
+    "**/*.spec.js"
   ]
 }
