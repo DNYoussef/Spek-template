@@ -152,3 +152,7 @@ class DetectorBase(ABC):
             'reuse_count': self._pool_reuse_count,
             'detector_type': self.__class__.__name__
         }
+
+
+# Alias for backward compatibility
+BaseDetector = DetectorBase

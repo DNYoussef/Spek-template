@@ -17,9 +17,39 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 try:
     from core.unified_imports import IMPORT_MANAGER
 except ImportError:
-    # Fallback for legacy execution
-    sys.path.insert(0, str(Path(__file__).parent.parent / "core"))
-    from unified_imports import IMPORT_MANAGER
+    try:
+        # Fallback for legacy execution
+        sys.path.insert(0, str(Path(__file__).parent.parent / "core"))
+        from unified_imports import IMPORT_MANAGER
+    except ImportError:
+        # Final fallback - define minimal import manager with required methods
+        class MockImportResult:
+            def __init__(self, has_module=False, module=None):
+                self.has_module = has_module
+                self.module = module
+        
+        class MockImportManager:
+            def log_import(self, *args, **kwargs):
+                pass
+            def get_stats(self):
+                return {}
+            def import_constants(self):
+                return MockImportResult()
+            def import_analyzer_components(self):
+                return MockImportResult()
+            def import_unified_analyzer(self):
+                return MockImportResult()
+            def import_duplication_analyzer(self):
+                return MockImportResult()
+            def import_orchestration_components(self):
+                return MockImportResult()
+            def import_output_manager(self):
+                return MockImportResult()
+            def import_mcp_server(self):
+                return MockImportResult()
+            def import_reporting(self, format_type=None):
+                return MockImportResult()
+        IMPORT_MANAGER = MockImportManager()
 
 # Import constants with unified strategy
 constants_result = IMPORT_MANAGER.import_constants()

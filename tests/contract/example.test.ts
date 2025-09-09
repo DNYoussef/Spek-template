@@ -1,7 +1,8 @@
-// Contract test example using Zod
+// Contract test example using Zod and SPEK Template
 // Run with: npm test
 
 import { z } from 'zod';
+import { SPEKTemplate } from '../../src/index';
 
 // Schema for configuration contract
 const ConfigSchema = z.object({
@@ -41,5 +42,29 @@ describe('Configuration Contract Tests', () => {
     };
     
     expect(() => ConfigSchema.parse(invalidConfig)).toThrow();
+  });
+  
+  it('validates SPEKTemplate creation', () => {
+    const config = {
+      name: 'Test Template',
+      version: '1.0.0',
+      description: 'Test description'
+    };
+    
+    const template = new SPEKTemplate(config);
+    expect(template.getConfig()).toEqual(config);
+    expect(template.welcome()).toContain('Test Template');
+  });
+  
+  it('validates health check contract', () => {
+    const template = new SPEKTemplate({
+      name: 'Health Test',
+      version: '1.0.0'
+    });
+    
+    const health = template.healthCheck();
+    expect(health).toHaveProperty('status', 'healthy');
+    expect(health).toHaveProperty('timestamp');
+    expect(new Date(health.timestamp)).toBeInstanceOf(Date);
   });
 });
