@@ -30,9 +30,21 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        
+        # Install requirements if they exist
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        else
+          echo "⚠️  requirements.txt not found, installing minimal dependencies"
+          pip install astroid pylint pathspec toml pyyaml requests
+        fi
+        
         # Install connascence CLI for enterprise demo scripts
-        pip install -e .
+        if [ -f setup.py ]; then
+          pip install -e .
+        else
+          echo "⚠️  setup.py not found, skipping package installation"
+        fi
 
     - name: 🔬 Self-Analysis with NASA Rules
       run: |

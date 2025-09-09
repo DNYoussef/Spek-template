@@ -28,6 +28,7 @@ jobs:
         with: 
           python-version: '3.11'
           cache: 'pip'
+          cache-dependency-path: 'requirements.txt'
 
       - name: Create artifacts directory
         run: mkdir -p .claude/.artifacts
@@ -44,14 +45,20 @@ jobs:
           echo "📦 Installing analyzer dependencies..."
           pip install --upgrade pip
           
-          # Try to install local analyzer first, then fallback
-          if [ -f "analyzer/setup.py" ]; then
-            echo "📦 Installing local analyzer..."
-            pip install -e ./analyzer || echo "⚠️  Local analyzer installation failed, continuing with fallbacks"
+          # Install requirements first
+          if [ -f "requirements.txt" ]; then
+            echo "📦 Installing requirements..."
+            pip install -r requirements.txt || echo "⚠️  Some requirements failed to install"
           fi
           
-          # Install required tools with fallbacks
-          pip install semgrep pip-audit astroid pylint pathspec toml || echo "⚠️  Some analysis tools failed to install"
+          # Try to install local analyzer first, then fallback
+          if [ -f "setup.py" ]; then
+            echo "📦 Installing local analyzer..."
+            pip install -e . || echo "⚠️  Local analyzer installation failed, continuing with fallbacks"
+          elif [ -f "analyzer/setup.py" ]; then
+            echo "📦 Installing analyzer from subdirectory..."
+            pip install -e ./analyzer || echo "⚠️  Analyzer installation failed, continuing with fallbacks"
+          fi
           
           echo "✅ Analysis tooling installation complete"
 
