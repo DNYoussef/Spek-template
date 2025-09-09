@@ -54,7 +54,8 @@ else:
 
 # Import unified duplication analyzer
 try:
-    from analyzer.duplication_helper import format_duplication_analysis
+    # CONSOLIDATED: Functions from duplication_helper.py now inlined into duplication_unified.py
+    from analyzer.duplication_unified import format_duplication_analysis
     from analyzer.duplication_unified import UnifiedDuplicationAnalyzer
 
     DUPLICATION_ANALYZER_AVAILABLE = True
@@ -92,12 +93,14 @@ if not JSONReporter or not SARIFReporter:
 
 # Fallback imports for when unified analyzer is not available
 try:
-    from .check_connascence import ConnascenceAnalyzer as FallbackAnalyzer
+    # CONSOLIDATED: Legacy ConnascenceAnalyzer replaced by modular detectors
+    from .unified_analyzer import UnifiedConnascenceAnalyzer as FallbackAnalyzer
 
     FALLBACK_ANALYZER_AVAILABLE = True
 except ImportError:
     try:
-        from check_connascence import ConnascenceAnalyzer as FallbackAnalyzer
+        # CONSOLIDATED: Legacy ConnascenceAnalyzer replaced by modular detectors  
+        from unified_analyzer import UnifiedConnascenceAnalyzer as FallbackAnalyzer
 
         FALLBACK_ANALYZER_AVAILABLE = True
     except ImportError:
