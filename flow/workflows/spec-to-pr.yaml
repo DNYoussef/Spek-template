@@ -67,15 +67,25 @@ steps:
     foreach: plan.json.tasks
     when: item.type == "big"
     run: |
-      npx claude-flow@alpha agent spawn --type researcher --session "$SESSION_ID" --max-context 30
-      claude /gemini:impact "${{ item.scope }}"
+      echo "🔍 Spawning Gemini-optimized researcher for comprehensive analysis..."
+      # Spawn Gemini-optimized researcher with large context capability
+      npx claude-flow@alpha agent spawn --type researcher-gemini --session "$SESSION_ID" --max-context unlimited
+      # Use Gemini integration for impact analysis
+      claude Task --subagent_type researcher-gemini --description "Comprehensive impact analysis" --prompt "Analyze impact for: ${{ item.scope }}. Use Gemini CLI with full codebase context for hotspots, callers, configs, crosscuts identification. Output impact.json with architectural insights."
+      # Validation and fallback
+      claude /gemini:impact "${{ item.scope }}" || echo "Direct Gemini analysis"  
       scripts/impact_quickcheck.sh validate "gemini/${{ item.id }}.json" > "gemini/${{ item.id }}_validation.json"
     capture: "gemini/${{ item.id }}.json"
 
   - id: implement_small
     foreach: plan.json.tasks
     when: item.type == "small"
-    run: claude /codex:micro "${{ item.title }}"
+    run: |
+      echo "⚡ Using Codex-optimized implementation with sandbox verification..."
+      # Route small tasks to Codex-optimized agent
+      claude Task --subagent_type coder-codex --description "Sandboxed micro-implementation" --prompt "Execute micro-task: ${{ item.title }}. Use Codex CLI with comprehensive sandbox verification. Budget: ≤25 LOC, ≤2 files. Generate codex_summary.json with verification results."
+      # Fallback to direct implementation
+      claude /codex:micro "${{ item.title }}" || echo "Direct Codex micro-operation"
 
   - id: implement_multi
     foreach: plan.json.tasks

@@ -128,9 +128,22 @@ main() {
         # 4) FIX - Route to appropriate repair strategy
         case "$size" in
             small)
-                note "🔧 Routing to Codex micro-fix (cause: $cause)"
-                if ! claude /codex:micro-fix "$cause"; then
-                    note "⚠️  Codex micro-fix failed - will retry in next cycle"
+                note "🔧 Routing to Codex-optimized agent for surgical fixes"
+                # Route to Codex-optimized agent for bounded surgical fixes
+                if claude Task --subagent_type coder-codex --description "Surgical fix via Codex" --prompt "Fix identified issue: $cause. Use Codex CLI with sandbox verification. Constraints: ≤25 LOC, ≤2 files. Generate codex_summary.json with verification results and merge readiness."; then
+                    note "✅ Codex agent fix completed - verifying results"
+                    # Verify the fix was applied successfully
+                    if [[ -f .claude/.artifacts/codex_summary.json ]]; then
+                        fix_success=$(jq -r '.merge_readiness.ready_to_merge // false' .claude/.artifacts/codex_summary.json 2>/dev/null || echo "false")
+                        if [[ "$fix_success" == "true" ]]; then
+                            note "🎯 Codex fix verified and ready for merge"
+                        else
+                            note "⚠️  Codex fix applied but verification issues remain"
+                        fi
+                    fi
+                else
+                    note "⚠️  Codex agent fix failed - falling back to direct micro-fix"
+                    claude /codex:micro-fix "$cause" || note "Direct micro-fix also failed - will retry in next cycle"
                 fi
                 ;;
             multi)
@@ -140,12 +153,13 @@ main() {
                 fi
                 ;;
             big)
-                note "🗺️  Big impact detected → Gemini context analysis first"
-                # First get context, then attempt fix
-                if claude /gemini:impact "$cause"; then
+                note "🗺️  Big impact detected → Gemini-optimized analysis first"
+                # Route to Gemini-optimized researcher for comprehensive context analysis
+                if claude Task --subagent_type researcher-gemini --description "Large context failure analysis" --prompt "Analyze large-scale failure: $cause. Use Gemini CLI with full codebase context to identify root causes, impact scope, and architectural implications. Generate impact.json with comprehensive analysis."; then
+                    note "✅ Gemini analysis completed - validating results"
                     # Validate impact with quickcheck
-                    if [[ -x scripts/impact_quickcheck.sh ]]; then
-                        scripts/impact_quickcheck.sh validate .claude/.artifacts/gemini/impact.json > .claude/.artifacts/impact_validation.json || true
+                    if [[ -x scripts/impact_quickcheck.sh && -f .claude/.artifacts/impact.json ]]; then
+                        scripts/impact_quickcheck.sh validate .claude/.artifacts/impact.json > .claude/.artifacts/impact_validation.json || true
                         if [[ "$(jq -r '.valid // false' .claude/.artifacts/impact_validation.json)" == "false" ]]; then
                             note "⚠️  Impact validation failed - using Context7 fallback"
                         fi

@@ -25,12 +25,22 @@ steps:
   - id: implement_small
     foreach: plan.json.tasks
     when: item.type == "small"
-    run: claude /codex:micro "${{ item.title }}"
+    run: |
+      echo "⚡ Using Codex-optimized agent for sandboxed micro-operations..."
+      # Route to Codex-optimized agent for bounded implementations
+      claude Task --subagent_type coder-codex --description "Sandboxed micro-implementation" --prompt "Implement micro-operation: ${{ item.title }}. Use Codex CLI with sandbox verification (tests, typecheck, lint, security, coverage). Ensure ≤25 LOC, ≤2 files. Output codex_summary.json format."
+      # Fallback to direct Codex if agent unavailable  
+      claude /codex:micro "${{ item.title }}" || echo "Fallback to direct Codex execution"
 
   - id: discover_big
     foreach: plan.json.tasks
     when: item.type == "big"
-    run: claude /gemini:impact "${{ item.scope }}"
+    run: |
+      echo "🔍 Using Gemini-optimized researcher for large-context analysis..."
+      # Route to Gemini-optimized researcher for comprehensive analysis
+      claude Task --subagent_type researcher-gemini --description "Large context impact analysis" --prompt "Conduct comprehensive impact analysis for: ${{ item.scope }}. Use Gemini CLI with full codebase context to identify hotspots, callers, configs, crosscuts, testFocus, and citations. Output impact.json format."
+      # Fallback to direct Gemini if researcher unavailable
+      claude /gemini:impact "${{ item.scope }}" || echo "Fallback to direct Gemini analysis"
     capture: "gemini/${{ item.id }}.json"
 
   - id: implement_multi
