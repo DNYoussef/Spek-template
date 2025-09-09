@@ -212,13 +212,43 @@ SPEC.md → /research:web → /research:github → /research:analyze → /spec:p
 - Maintain continuous adherence to SPEC.md requirements
 - Honor research-informed architectural decisions
 
-#### ⚡ Loop 2: Development Loop with CI/CD Integration  
-**Parallel Implementation and Continuous Audit - Maintains Quality at Velocity**
+#### ⚡ Loop 2: Development Loop with GitHub Closed-Loop Integration  
+**Automated Quality Improvement Loop - Maintains Quality at Velocity**
 
 ```bash
-# Parallel execution with continuous safety checks and plan adherence validation
-Implementation → Plan Compliance Check → Analyzer (Parallel) → Safe Audit → Sandbox → Surgical Edits → GitHub Hooks → Repeat
+# Complete closed-loop integration with GitHub MCP and quality analyzers
+GitHub Failure Detection → Intelligent Analysis → Surgical Fixes → Comprehensive Testing → Reality Validation → GitHub PR → Repeat
 ```
+
+**🔄 Closed-Loop Quality System:**
+Integrates with GitHub MCP servers to detect failed checks, analyze root causes, apply surgical fixes, and create evidence-rich PRs. The system implements at least 4 critical quality checks:
+
+1. **Connascence Analysis** - 9 detector modules (CoM, CoP, CoA, CoT, CoV, CoE, CoI, CoN, CoC)
+2. **NASA Power of Ten Safety** - ≥90% compliance threshold for defense industry standards  
+3. **MECE Duplication Analysis** - Mutually Exclusive, Collectively Exhaustive consolidation
+4. **God Objects Detection** - ≤25 threshold with context-aware analysis
+
+**GitHub Hooks Integration**: 
+- Pre-commit: Automated quality gate validation before code changes
+- Post-merge: Continuous audit with failure detection and auto-fix routing
+- PR creation: Evidence-rich documentation with comprehensive analysis artifacts
+- Workflow orchestration: Seamless integration with existing 70-file analyzer system
+
+```bash
+# Systematic GitHub check failure resolution
+./scripts/simple_quality_loop.sh --iterative --max-iterations 5
+# OR with full features (requires jq/bc)
+./scripts/run_complete_quality_loop.sh --iterative
+# OR Windows PowerShell version
+./scripts/windows_quality_loop.ps1 -Mode iterative
+```
+
+**Surgical Fix Routing**:
+- **Micro-edits**: ≤25 LOC, ≤2 files via Codex sandboxing (`scripts/surgical_fix_system.sh`)
+- **Multi-file fixes**: Bounded checkpoints with rollback safety (`scripts/intelligent_failure_analysis.sh`)
+- **Architectural changes**: Impact analysis via Gemini large context window
+
+**Evidence Artifacts**: All analysis results stored in `.claude/.artifacts/` with SARIF integration for GitHub Security tab visibility.
 
 **Parallel Execution Architecture:**
 ```bash
