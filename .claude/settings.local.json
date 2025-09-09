@@ -52,7 +52,8 @@
       "Bash(./scripts/simple_quality_loop.sh:*)",
       "Bash(mkdir:*)",
       "Bash(python:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(npm test:*)"
     ],
     "deny": [],
     "ask": []

@@ -32,17 +32,16 @@ import json
 import logging
 from pathlib import Path
 import sys
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
-# Import optimization components
+# Import extracted architecture components
 try:
-    from .optimization.file_cache import (
-        FileContentCache, cached_python_files, cached_file_content,
-        cached_ast_tree, cached_file_lines, get_global_cache
-    )
-    CACHE_AVAILABLE = True
+    from .configuration_manager import AnalysisConfigurationManager
+    from .cache_manager import AnalysisCacheManager
+    ARCHITECTURE_COMPONENTS_AVAILABLE = True
 except ImportError:
-    CACHE_AVAILABLE = False
+    ARCHITECTURE_COMPONENTS_AVAILABLE = False
+    logger.warning("Architecture components not available")
 
 # Import memory monitoring and resource management
 try:
@@ -426,19 +425,16 @@ class UnifiedConnascenceAnalyzer:
         if STREAMING_AVAILABLE and analysis_mode in ['streaming', 'hybrid']:
             self._initialize_streaming_components()
         
-        # Initialize enhanced file cache for optimized I/O with intelligent warming
-        self.file_cache = FileContentCache(max_memory=100 * 1024 * 1024) if CACHE_AVAILABLE else None  # 100MB for large projects
-        self._cache_stats = {"hits": 0, "misses": 0, "warm_requests": 0, "batch_loads": 0}
-        self._analysis_patterns = {}  # Track file access patterns for intelligent caching
-        self._file_priorities = {}  # Cache file priority scores for better eviction
+        # Initialize extracted architecture components
+        self.config_manager = AnalysisConfigurationManager(config_path) if ARCHITECTURE_COMPONENTS_AVAILABLE else None
+        self.cache_manager = AnalysisCacheManager(100) if ARCHITECTURE_COMPONENTS_AVAILABLE else None
         
-        # Initialize advanced monitoring and resource management
-        self.memory_monitor = None
-        self.resource_manager = None
-        if ADVANCED_MONITORING_AVAILABLE:
-            self.memory_monitor = get_global_memory_monitor()
-            self.resource_manager = get_global_resource_manager()
-            self._setup_monitoring_and_cleanup_hooks()
+        # Initialize monitoring system
+        self._initialize_monitoring_system()
+        
+        # Update configuration from manager
+        if self.config_manager:
+            self.config = self.config_manager.config
 
         # Initialize new architecture components (NASA Rule 4 compliant)
         # Temporarily disabled all broken architecture components
@@ -448,30 +444,12 @@ class UnifiedConnascenceAnalyzer:
         # self.recommendation_engine = RecommendationEngine()
         # self.enhanced_metrics = EnhancedMetricsCalculator()
         
-        # Load configuration (simplified)
-        self.config = self._load_config(config_path)
+        # Configuration loaded through config_manager
         
-        # Initialize core analyzers (always available)
-        try:
-            self.ast_analyzer = ConnascenceASTAnalyzer()
-            self.god_object_orchestrator = GodObjectOrchestrator()  # Renamed for clarity
-            self.mece_analyzer = MECEAnalyzer()
-        except Exception as e:
-            error = self.error_handler.handle_exception(e, {"component": "core_analyzers"})
-            self.error_handler.log_error(error)
-            raise
-
-        # Initialize optional components
-        initializer = ComponentInitializer()
-        self.smart_engine = initializer.init_smart_engine()
-        self.failure_detector = initializer.init_failure_detector()
-        self.nasa_integration = initializer.init_nasa_integration()
-        self.policy_manager = initializer.init_policy_manager()
-        self.budget_tracker = initializer.init_budget_tracker()
-
-        # Initialize helper classes
-        self.metrics_calculator = MetricsCalculator()
-        self.recommendation_generator = RecommendationGenerator()
+        # Initialize core analyzers and components
+        self._initialize_core_analyzers()
+        self._initialize_optional_components()
+        self._initialize_helper_classes()
 
         components_loaded = ["AST Analyzer", "Orchestrator", "MECE Analyzer"]
         if self.smart_engine:
@@ -481,7 +459,52 @@ class UnifiedConnascenceAnalyzer:
         if self.nasa_integration:
             components_loaded.append("NASA Integration")
 
+        # Log initialization completion
+        components_loaded = ["AST Analyzer", "Orchestrator", "MECE Analyzer"]
+        if self.smart_engine:
+            components_loaded.append("Smart Engine")
+        if self.failure_detector:
+            components_loaded.append("Failure Detector")
+        if self.nasa_integration:
+            components_loaded.append("NASA Integration")
+        
         logger.info(f"Unified Connascence Analyzer initialized with: {', '.join(components_loaded)}")
+    
+    def _initialize_core_analyzers(self):
+        """Initialize core analyzers (NASA Rule 2: ≤60 LOC)."""
+        try:
+            self.ast_analyzer = ConnascenceASTAnalyzer()
+            self.god_object_orchestrator = GodObjectOrchestrator()  # Renamed for clarity
+            self.mece_analyzer = MECEAnalyzer()
+        except Exception as e:
+            error = self.error_handler.handle_exception(e, {"component": "core_analyzers"})
+            self.error_handler.log_error(error)
+            raise
+    
+    def _initialize_optional_components(self):
+        """Initialize optional components (NASA Rule 2: ≤60 LOC)."""
+        initializer = ComponentInitializer()
+        self.smart_engine = initializer.init_smart_engine()
+        self.failure_detector = initializer.init_failure_detector()
+        self.nasa_integration = initializer.init_nasa_integration()
+        self.policy_manager = initializer.init_policy_manager()
+        self.budget_tracker = initializer.init_budget_tracker()
+    
+    def _initialize_helper_classes(self):
+        """Initialize helper classes (NASA Rule 2: ≤60 LOC)."""
+        self.metrics_calculator = MetricsCalculator()
+        self.recommendation_generator = RecommendationGenerator()
+    
+    # Cache system now managed by AnalysisCacheManager
+    
+    def _initialize_monitoring_system(self):
+        """Initialize monitoring and resource management (NASA Rule 2: ≤60 LOC)."""
+        self.memory_monitor = None
+        self.resource_manager = None
+        if ADVANCED_MONITORING_AVAILABLE:
+            self.memory_monitor = get_global_memory_monitor()
+            self.resource_manager = get_global_resource_manager()
+            self._setup_monitoring_and_cleanup_hooks()
 
     def analyze_project(
         self,
@@ -521,8 +544,8 @@ class UnifiedConnascenceAnalyzer:
         logger.info(f"Starting batch unified analysis of {project_path}")
         
         # Intelligent cache warming based on project structure
-        if self.file_cache:
-            self._warm_cache_intelligently(project_path)
+        if self.cache_manager:
+            self.cache_manager.warm_cache_intelligently(project_path)
         
         # Validate inputs and handle errors
         analysis_errors, analysis_warnings = self._initialize_analysis_context(project_path, policy_preset)
@@ -1069,97 +1092,13 @@ class UnifiedConnascenceAnalyzer:
             "overall_quality_score": 0.8,
         }
 
-    def _warm_cache_intelligently(self, project_path: Path) -> None:
-        """
-        Intelligent cache warming strategy to achieve >80% hit rates.
-        
-        NASA Rule 4: Function under 60 lines
-        NASA Rule 5: Input assertions and error handling
-        """
-        assert project_path.exists(), "project_path must exist"
-        
-        try:
-            # Strategy 1: Pre-load frequently accessed file types
-            common_files = ["__init__.py", "setup.py", "main.py", "app.py", "config.py"]
-            for filename in common_files:
-                file_matches = list(project_path.rglob(filename))
-                for file_path in file_matches[:5]:  # Limit to avoid memory issues
-                    if file_path.stat().st_size < 100 * 1024:  # Only small files
-                        self.file_cache.get_file_content(file_path)
-                        self._cache_stats["warm_requests"] += 1
-            
-            # Strategy 2: Pre-load directory structure for pattern recognition
-            python_files = list(project_path.glob("**/*.py"))
-            
-            # Prioritize by file size and common patterns
-            prioritized = sorted(python_files, key=lambda f: (
-                -self._calculate_file_priority(f),  # Higher priority first
-                f.stat().st_size  # Smaller files first within same priority
-            ))[:15]  # Pre-warm top 15 files
-            
-            for py_file in prioritized:
-                if py_file.stat().st_size < 500 * 1024:  # Skip large files
-                    self.file_cache.get_file_content(py_file)
-                    self._cache_stats["warm_requests"] += 1
-                    
-        except Exception as e:
-            logger.warning(f"Cache warming failed: {e}")
+    # Cache warming now handled by AnalysisCacheManager
 
-    def _calculate_file_priority(self, file_path: Path) -> int:
-        """Calculate file priority for intelligent caching (0-100)."""
-        score = 0
-        filename = file_path.name.lower()
-        parent_dir = file_path.parent.name.lower()
-        
-        # High priority files
-        high_priority_names = ["__init__", "main", "app", "config", "settings"]
-        if any(name in filename for name in high_priority_names):
-            score += 40
-        
-        # Medium priority directories
-        important_dirs = ["src", "lib", "core", "utils", "common"]
-        if any(dir_name in parent_dir for dir_name in important_dirs):
-            score += 20
-        
-        # Boost for smaller files (easier to cache)
-        if file_path.stat().st_size < 50 * 1024:  # < 50KB
-            score += 20
-        elif file_path.stat().st_size < 200 * 1024:  # < 200KB
-            score += 10
-            
-        # Frequently imported patterns
-        if filename.endswith(("_utils.py", "_common.py", "_base.py")):
-            score += 15
-            
-        return min(score, 100)
+    # File priority calculation now handled by AnalysisCacheManager
 
-    def _get_prioritized_python_files(self, project_path: Path) -> List[Path]:
-        """Get Python files prioritized for analysis with caching benefits."""
-        if self.file_cache:
-            python_files = self.file_cache.get_python_files(str(project_path))
-        else:
-            python_files = list(project_path.glob("**/*.py"))
-        
-        # Sort by priority for better cache utilization
-        return sorted(python_files, key=self._calculate_file_priority, reverse=True)
+    # Prioritized file retrieval now handled by AnalysisCacheManager
 
-    def _batch_preload_files(self, files: List[Path]) -> None:
-        """Batch preload files for optimal cache performance."""
-        if not self.file_cache:
-            return
-            
-        logger.info(f"Batch preloading {len(files)} files for cache optimization")
-        
-        for file_path in files:
-            try:
-                if file_path.stat().st_size < 1024 * 1024:  # Only files < 1MB
-                    # Preload both content and AST for maximum benefit
-                    self.file_cache.get_file_content(file_path)
-                    self.file_cache.get_ast_tree(file_path)
-                    self._cache_stats["batch_loads"] += 1
-                    
-            except Exception as e:
-                logger.debug(f"Failed to preload {file_path}: {e}")
+    # Batch preloading now handled by AnalysisCacheManager
 
     def _get_cached_content_with_tracking(self, file_path: Path) -> Optional[str]:
         """Get file content with access pattern tracking for cache optimization."""
@@ -1689,34 +1628,63 @@ class UnifiedConnascenceAnalyzer:
             return None
 
     def analyze_file(self, file_path: Union[str, Path]) -> Dict[str, Any]:
-        """Analyze a single file with all available analyzers."""
+        """Analyze a single file with all available analyzers (NASA Rule 2: ≤60 LOC)."""
         file_path = Path(file_path)
-        file_errors = []
-        file_warnings = []
+        file_errors, file_warnings = [], []
 
         # Validate file input
+        validation_result = self._validate_file_input(file_path, file_errors)
+        if validation_result is not None:
+            return validation_result
+
+        # Run analysis pipeline
+        return self._execute_file_analysis_pipeline(file_path, file_errors, file_warnings)
+    
+    def _execute_file_analysis_pipeline(self, file_path: Path, file_errors: List, file_warnings: List) -> Dict[str, Any]:
+        """Execute complete file analysis pipeline (NASA Rule 2: ≤60 LOC)."""
+        # Run AST analysis
+        violations = self._run_ast_analysis(file_path, file_errors)
+        
+        # Check NASA compliance
+        nasa_violations, nasa_compliance_score = self._check_nasa_compliance(
+            violations, file_path, file_warnings
+        )
+        
+        # Build and return result
+        return self._build_file_analysis_result(
+            file_path, violations, nasa_violations, nasa_compliance_score, 
+            file_errors, file_warnings
+        )
+
+        return result
+    
+    def _validate_file_input(self, file_path: Path, file_errors: List) -> Optional[Dict[str, Any]]:
+        """Validate file input (NASA Rule 2: ≤60 LOC)."""
         try:
             if not file_path.exists():
                 raise FileNotFoundError(f"File does not exist: {file_path}")
             if not file_path.is_file():
                 raise ValueError(f"Path is not a file: {file_path}")
+            return None  # Validation passed
         except Exception as e:
             error = self.error_handler.handle_exception(e, file_path=str(file_path))
             file_errors.append(error)
             self.error_handler.log_error(error)
             return self._get_empty_file_result(file_path, file_errors)
-
-        # Run individual file analysis through each component
+    
+    def _run_ast_analysis(self, file_path: Path, file_errors: List) -> List[Dict[str, Any]]:
+        """Run AST analysis on file (NASA Rule 2: ≤60 LOC)."""
         try:
             ast_violations = self.ast_analyzer.analyze_file(file_path)
-            violations = [self._violation_to_dict(v) for v in ast_violations]
+            return [self._violation_to_dict(v) for v in ast_violations]
         except Exception as e:
             error = self.error_handler.handle_exception(e, {"analysis_type": "ast"}, str(file_path))
             file_errors.append(error)
             self.error_handler.log_error(error)
-            violations = []
-
-        # Check NASA compliance for each violation
+            return []
+    
+    def _check_nasa_compliance(self, violations: List, file_path: Path, file_warnings: List) -> Tuple[List, float]:
+        """Check NASA compliance for violations (NASA Rule 2: ≤60 LOC)."""
         nasa_violations = []
         try:
             if self.nasa_integration:
@@ -1730,7 +1698,7 @@ class UnifiedConnascenceAnalyzer:
             error = self.error_handler.handle_exception(e, {"analysis_type": "nasa"}, str(file_path))
             file_warnings.append(error)
             self.error_handler.log_error(error)
-
+        
         # Calculate compliance score
         try:
             nasa_compliance_score = (
@@ -1743,7 +1711,12 @@ class UnifiedConnascenceAnalyzer:
             file_warnings.append(error)
             self.error_handler.log_error(error)
             nasa_compliance_score = 1.0
-
+        
+        return nasa_violations, nasa_compliance_score
+    
+    def _build_file_analysis_result(self, file_path: Path, violations: List, nasa_violations: List, 
+                                   nasa_compliance_score: float, file_errors: List, file_warnings: List) -> Dict[str, Any]:
+        """Build file analysis result dictionary (NASA Rule 2: ≤60 LOC)."""
         result = {
             "file_path": str(file_path),
             "connascence_violations": violations,
@@ -1830,9 +1803,7 @@ class UnifiedConnascenceAnalyzer:
             "similarity_score": getattr(cluster, "similarity_score", 0.0),
         }
 
-    def _load_config(self, config_path: Optional[str]) -> Dict[str, Any]:
-        """Load configuration with fallbacks (simplified)."""
-        return {}
+    # Configuration now managed by AnalysisConfigurationManager
 
     def _get_timestamp_ms(self) -> int:
         """Get current timestamp in milliseconds."""
