@@ -18,7 +18,8 @@ from .detector_pool import DetectorPool, get_detector_pool
 from .orchestrator import AnalysisOrchestrator
 from .aggregator import ViolationAggregator  
 from .recommendation_engine import RecommendationEngine
-from .configuration_manager import ConfigurationManager
+# CONSOLIDATED: ConfigurationManager replaced by utils/config_manager.py (more comprehensive)
+from analyzer.utils.config_manager import ConfigurationManager
 from .enhanced_metrics import EnhancedMetricsCalculator
 
 __all__ = [
