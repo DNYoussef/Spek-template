@@ -53,7 +53,10 @@
       "Bash(mkdir:*)",
       "Bash(python:*)",
       "WebSearch",
-      "Bash(npm test:*)"
+      "Bash(npm test:*)",
+      "Bash(npm install)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm run lint)"
     ],
     "deny": [],
     "ask": []
