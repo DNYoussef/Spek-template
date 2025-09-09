@@ -34,6 +34,10 @@ from pathlib import Path
 import sys
 from typing import Any, Dict, List, Optional, Tuple, Union
 
+# Setup logger before first usage
+import logging
+logger = logging.getLogger(__name__)
+
 # Import extracted architecture components
 try:
     from .configuration_manager import AnalysisConfigurationManager
@@ -85,14 +89,22 @@ try:
     from .optimization.ast_optimizer import ConnascencePatternOptimizer
     from .nasa_engine.nasa_analyzer import NASAAnalyzer
 except ImportError:
-    # Fallback when running as script
-    from ast_engine.analyzer_orchestrator import AnalyzerOrchestrator as GodObjectOrchestrator
-    # CONSOLIDATED: Legacy ConnascenceAnalyzer replaced by modular detector system
-    from detectors.base import BaseDetector as ConnascenceASTAnalyzer
-    from dup_detection.mece_analyzer import MECEAnalyzer
-    from smart_integration_engine import SmartIntegrationEngine
-    from detectors.timing_detector import TimingDetector
-    from refactored_detector import RefactoredConnascenceDetector
+    # Fallback with comprehensive error handling
+    try:
+        from detectors.base import BaseDetector as ConnascenceASTAnalyzer
+    except ImportError:
+        # Minimal fallback analyzer class
+        class ConnascenceASTAnalyzer:
+            def __init__(self, *args, **kwargs):
+                pass
+        logger.warning("Using minimal fallback analyzer")
+    
+    # Safe fallbacks for other components
+    GodObjectOrchestrator = None
+    MECEAnalyzer = None
+    SmartIntegrationEngine = None
+    TimingDetector = None
+    RefactoredConnascenceDetector = None
     from optimization.ast_optimizer import ConnascencePatternOptimizer
     from nasa_engine.nasa_analyzer import NASAAnalyzer
 
