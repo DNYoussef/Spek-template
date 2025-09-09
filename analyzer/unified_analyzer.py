@@ -77,7 +77,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 # Core analyzer components (Phase 1-5) - now all in analyzer/
 try:
     from .ast_engine.analyzer_orchestrator import AnalyzerOrchestrator as GodObjectOrchestrator
-    from .check_connascence import ConnascenceAnalyzer as ConnascenceASTAnalyzer
+    # CONSOLIDATED: Legacy ConnascenceAnalyzer replaced by modular detector system
+    from .detectors.base import BaseDetector as ConnascenceASTAnalyzer
     from .dup_detection.mece_analyzer import MECEAnalyzer
     from .smart_integration_engine import SmartIntegrationEngine
     from .detectors.timing_detector import TimingDetector
@@ -87,7 +88,8 @@ try:
 except ImportError:
     # Fallback when running as script
     from ast_engine.analyzer_orchestrator import AnalyzerOrchestrator as GodObjectOrchestrator
-    from check_connascence import ConnascenceAnalyzer as ConnascenceASTAnalyzer
+    # CONSOLIDATED: Legacy ConnascenceAnalyzer replaced by modular detector system
+    from detectors.base import BaseDetector as ConnascenceASTAnalyzer
     from dup_detection.mece_analyzer import MECEAnalyzer
     from smart_integration_engine import SmartIntegrationEngine
     from detectors.timing_detector import TimingDetector

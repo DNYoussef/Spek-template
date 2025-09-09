@@ -49,7 +49,10 @@
       "Bash(gh run list:*)",
       "Bash(./scripts/run_complete_quality_loop.sh:*)",
       "Bash(./scripts/intelligent_failure_analysis.sh:*)",
-      "Bash(./scripts/simple_quality_loop.sh:*)"
+      "Bash(./scripts/simple_quality_loop.sh:*)",
+      "Bash(mkdir:*)",
+      "Bash(python:*)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
