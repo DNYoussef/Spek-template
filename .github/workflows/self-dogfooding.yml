@@ -98,7 +98,7 @@ jobs:
       run: |
         echo "::group::Tool Correlation Self-Test"
         # Test our tool coordinator on itself
-        python -m integrations.tool_coordinator \
+        python -m analyzer.integrations.tool_coordinator \
           --connascence-results self_analysis_nasa.json \
           --external-results /dev/null \
           --output tool_correlation_self_test.json || echo "Tool correlation completed with basic mode"
@@ -108,7 +108,7 @@ jobs:
       run: |
         echo "::group::Update Historical Self-Analysis"
         # Update our own analysis baseline
-        python -m dashboard.metrics \
+        python -m analyzer.dashboard.metrics \
           --update-self-analysis \
           --nasa-results self_analysis_nasa.json \
           --mece-results self_mece_analysis.json \
@@ -191,7 +191,7 @@ jobs:
     - name: 📊 Generate Self-Analysis Dashboard
       run: |
         echo "::group::Generate Self-Analysis Dashboard"
-        python -m dashboard.ci_integration \
+        python -m analyzer.dashboard.ci_integration \
           --generate-self-analysis-dashboard \
           --nasa-results self_analysis_nasa.json \
           --mece-results self_mece_analysis.json \

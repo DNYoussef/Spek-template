@@ -168,7 +168,7 @@ print(f'{final_score:.2f}')
         bandit -r . -f json -o bandit_results.json || true
         
         # Use existing tool coordinator
-        python -m integrations.tool_coordinator \
+        python -m analyzer.integrations.tool_coordinator \
           --connascence-results connascence_full.json \
           --external-results ruff_results.json,mypy_results.json,radon_results.json,bandit_results.json \
           --output correlated_results.json || echo "Tool correlation completed with fallbacks"
@@ -184,7 +184,7 @@ print(f'{final_score:.2f}')
         echo "::group::Dashboard Generation"
         
         # Generate comprehensive dashboard with integrated system
-        python -m dashboard.ci_integration \
+        python -m analyzer.dashboard.ci_integration \
           --output-dir . \
           --policy nasa_jpl_pot10
         
@@ -470,7 +470,7 @@ print(f'{final_score:.2f}')
     
     - name: Update Historical Trends
       run: |
-        python -m dashboard.metrics \
+        python -m analyzer.dashboard.metrics \
           --update-trends \
           --nasa-results nasa_analysis.json \
           --connascence-results connascence_full.json \
@@ -479,7 +479,7 @@ print(f'{final_score:.2f}')
     
     - name: Generate Trend Dashboard
       run: |
-        python -m dashboard.metrics \
+        python -m analyzer.dashboard.metrics \
           --generate-trends-dashboard \
           --days 30 \
           --output trend_dashboard.html
