@@ -45,7 +45,11 @@
       "Bash(scripts/memory_bridge.sh:*)",
       "Bash(scripts/analyzer_improvement_loop.sh:*)",
       "Bash(./scripts/audit_swarm.sh:*)",
-      "Bash(./scripts/analyzer_improvement_loop.sh:*)"
+      "Bash(./scripts/analyzer_improvement_loop.sh:*)",
+      "Bash(gh run list:*)",
+      "Bash(./scripts/run_complete_quality_loop.sh:*)",
+      "Bash(./scripts/intelligent_failure_analysis.sh:*)",
+      "Bash(./scripts/simple_quality_loop.sh:*)"
     ],
     "deny": [],
     "ask": []
