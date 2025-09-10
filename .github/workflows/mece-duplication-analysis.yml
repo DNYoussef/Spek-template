@@ -16,11 +16,18 @@ on:
       - '**/*.py'
       - '**/*.ts'
       - '**/*.js'
+  workflow_dispatch:
+    inputs:
+      trigger-reason:
+        description: 'Reason for triggering analysis'
+        required: false
+        default: 'manual'
 
 jobs:
   mece-analysis:
     runs-on: ubuntu-latest
     name: "MECE Duplication Analysis"
+    timeout-minutes: 30
     
     steps:
     - name: Checkout Repository

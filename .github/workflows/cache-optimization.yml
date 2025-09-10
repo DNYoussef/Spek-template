@@ -12,11 +12,18 @@ on:
       - 'analyzer/**'
       - 'src/**'
       - '**/*.py'
+  workflow_dispatch:
+    inputs:
+      trigger-reason:
+        description: 'Reason for triggering analysis'
+        required: false
+        default: 'manual'
 
 jobs:
   cache-optimization:
     runs-on: ubuntu-latest
     name: "Cache Optimization Analysis"
+    timeout-minutes: 30
     
     steps:
     - name: Checkout Repository
@@ -49,12 +56,12 @@ jobs:
         sys.path.insert(0, '.')
         
         try:
-            from optimization.file_cache import IncrementalCache
+            from optimization.file_cache import FileContentCache as IncrementalCache
             import json
             from datetime import datetime
             
             # Cache optimization
-            cache = IncrementalCache()
+            cache = IncrementalCache()  # FileContentCache aliased as IncrementalCache
             cache_result = cache.get_cache_health()
             
             # Cache optimization specific results

@@ -74,7 +74,12 @@
       "Bash(bash:*)",
       "Bash(npm install:*)",
       "Bash(gh run view:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(while IFS=$'\\t' read -r status conclusion title workflow branch trigger id duration date)",
+      "Bash(do echo \"  - $workflow: $status ($conclusion)\")",
+      "Bash(done)",
+      "Bash(grep:*)",
+      "Bash(npm audit:*)"
     ],
     "deny": [],
     "ask": []

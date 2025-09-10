@@ -1,0 +1,88 @@
+# Performance Optimization Configuration
+# Phase 2A: Resource Optimization Settings
+
+# Runner Configuration Matrix
+runners:
+  light:
+    type: "ubuntu-latest"
+    cpu_cores: 2
+    memory_gb: 7
+    max_timeout: 15
+    suitable_for:
+      - "Cache optimization"
+      - "Self-dogfooding analysis" 
+      - "Light validation tasks"
+      
+  standard:
+    type: "ubuntu-latest-4-core"
+    cpu_cores: 4
+    memory_gb: 16
+    max_timeout: 30
+    suitable_for:
+      - "Connascence analysis"
+      - "Architecture analysis"
+      - "MECE duplication analysis"
+      - "Consolidation tasks"
+      
+  heavy:
+    type: "ubuntu-latest-8-core"
+    cpu_cores: 8
+    memory_gb: 32
+    max_timeout: 45
+    suitable_for:
+      - "Performance monitoring"
+      - "Large-scale security scans"
+      - "Complex architectural analysis"
+
+# Memory Optimization Settings
+memory:
+  cache_limits:
+    file_content_cache: "50MB"
+    ast_cache: "25MB"
+    analysis_cache: "30MB"
+  
+  optimization_strategies:
+    - "Streaming analysis for large files"
+    - "Incremental processing with checkpoints"
+    - "Memory-bounded operations (NASA Rule 7)"
+    - "Lazy loading of analyzer components"
+  
+  monitoring:
+    memory_threshold: "80%"
+    gc_frequency: "every_major_operation"
+    memory_profiling: true
+
+# Parallel Execution Strategy
+parallel_execution:
+  max_concurrent_analyses: 6
+  fail_fast: false
+  timeout_strategy: "individual"
+  
+  priority_mapping:
+    critical: ["connascence", "architecture"]
+    high: ["performance", "security"]
+    medium: ["mece", "cache"]
+    low: ["dogfooding", "validation"]
+
+# Performance Targets (Phase 2A Goals)
+targets:
+  execution_time_reduction: "40-60%"
+  baseline_sequential_time: "90 minutes"
+  target_parallel_time: "45-60 minutes"
+  
+  resource_efficiency:
+    cpu_utilization: ">75%"
+    memory_efficiency: ">80%"
+    runner_cost_optimization: "30-40%"
+
+# Quality Gate Integration
+quality_gates:
+  performance_thresholds:
+    min_cpu_efficiency: 0.70
+    min_memory_optimization: 0.65
+    max_execution_time: 60
+    
+  failure_handling:
+    retry_strategy: "immediate_once"
+    fallback_mode: "sequential_critical_only"
+    notification_threshold: "2_failures"

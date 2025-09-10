@@ -1,0 +1,771 @@
+name: Enhanced Quality Gates (Phase 3)
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'analyzer/**'
+      - 'src/**'
+      - '**/*.py'
+      - '**/*.ts'
+      - '**/*.js'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM
+  workflow_dispatch:
+    inputs:
+      gate_mode:
+        description: 'Quality gate execution mode'
+        required: false
+        default: 'comprehensive'
+        type: choice
+        options:
+          - comprehensive
+          - security_only
+          - performance_only
+
+jobs:
+  # Parallel quality gate validation with enhanced detection
+  quality-gate-validation:
+    strategy:
+      fail-fast: false
+      matrix:
+        gate_type:
+          - name: "parallel_quality_gates"
+            runner: "ubuntu-latest"
+            timeout: 20
+          - name: "security_quality_gates"  
+            runner: "ubuntu-latest-4-core"
+            timeout: 25
+          - name: "nasa_compliance_gates"
+            runner: "ubuntu-latest"
+            timeout: 15
+          - name: "performance_gates"
+            runner: "ubuntu-latest-4-core"
+            timeout: 30
+          - name: "consolidated_reporting"
+            runner: "ubuntu-latest"
+            timeout: 15
+    
+    runs-on: ${{ matrix.gate_type.runner }}
+    name: "Quality Gate: ${{ matrix.gate_type.name }}"
+    timeout-minutes: ${{ matrix.gate_type.timeout }}
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+
+    - name: Create Quality Gates Artifacts Directory
+      run: mkdir -p .claude/.artifacts/quality_gates
+
+    - name: Install Quality Gate Dependencies
+      run: |
+        echo "Installing quality gate dependencies for ${{ matrix.gate_type.name }}..."
+        pip install --upgrade pip
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        fi
+        pip install pyyaml requests
+
+    - name: Validate Parallel Quality Gates
+      if: matrix.gate_type.name == 'parallel_quality_gates'
+      run: |
+        echo "=== Parallel Quality Gates Validation ==="
+        python -c "
+        import json
+        import yaml
+        import os
+        from datetime import datetime
+        from pathlib import Path
+        
+        def validate_parallel_gates():
+            workflows_dir = Path('.github/workflows')
+            parallel_workflows = []
+            gate_features = {
+                'matrix_strategy': False,
+                'parallel_execution': False,
+                'consolidated_results': False,
+                'timeout_optimization': False,
+                'runner_tiering': False
+            }
+            
+            if not workflows_dir.exists():
+                return gate_features, []
+            
+            for workflow_file in workflows_dir.glob('*.yml'):
+                try:
+                    with open(workflow_file, 'r', encoding='utf-8') as f:
+                        workflow_config = yaml.safe_load(f)
+                    
+                    jobs = workflow_config.get('jobs', {})
+                    
+                    for job_name, job_config in jobs.items():
+                        if isinstance(job_config, dict):
+                            # Check for matrix strategy
+                            if 'strategy' in job_config:
+                                gate_features['matrix_strategy'] = True
+                                if 'matrix' in job_config['strategy']:
+                                    gate_features['parallel_execution'] = True
+                            
+                            # Check for runner tiering
+                            runs_on = job_config.get('runs-on', '')
+                            if 'ubuntu-latest-' in str(runs_on):
+                                gate_features['runner_tiering'] = True
+                            
+                            # Check for timeout optimization
+                            if 'timeout-minutes' in job_config:
+                                gate_features['timeout_optimization'] = True
+                        
+                        # Check for consolidation jobs
+                        if 'consolidat' in job_name.lower() or 'consolid' in job_name.lower():
+                            gate_features['consolidated_results'] = True
+                            
+                    parallel_workflows.append({
+                        'file': str(workflow_file),
+                        'name': workflow_config.get('name', workflow_file.stem),
+                        'has_parallel_features': any([
+                            'strategy' in str(jobs),
+                            'matrix' in str(jobs),
+                            'parallel' in workflow_config.get('name', '').lower()
+                        ])
+                    })
+                    
+                except Exception as e:
+                    print(f'Warning: Could not parse {workflow_file}: {e}')
+            
+            return gate_features, parallel_workflows
+        
+        # Run validation
+        features, workflows = validate_parallel_gates()
+        
+        # Calculate score
+        feature_score = sum(1 for f in features.values() if f) / len(features)
+        parallel_workflow_count = sum(1 for w in workflows if w['has_parallel_features'])
+        
+        validation_result = {
+            'timestamp': datetime.now().isoformat(),
+            'gate_type': 'parallel_quality_gates',
+            'features_detected': features,
+            'feature_score': feature_score,
+            'parallel_workflows': workflows,
+            'parallel_workflow_count': parallel_workflow_count,
+            'validation_passed': feature_score >= 0.6,
+            'recommendations': []
+        }
+        
+        if not features['matrix_strategy']:
+            validation_result['recommendations'].append('Implement matrix strategy for parallel execution')
+        if not features['runner_tiering']:
+            validation_result['recommendations'].append('Add tiered runner allocation for resource optimization')
+        if not features['consolidated_results']:
+            validation_result['recommendations'].append('Add result consolidation jobs')
+        
+        # Save results
+        with open('.claude/.artifacts/quality_gates/${{ matrix.gate_type.name }}_validation.json', 'w') as f:
+            json.dump(validation_result, f, indent=2, default=str)
+        
+        print(f'Parallel Quality Gates Score: {feature_score:.2%}')
+        print(f'Validation: {\"PASSED\" if validation_result[\"validation_passed\"] else \"FAILED\"}')
+        "
+
+    - name: Validate Security Quality Gates  
+      if: matrix.gate_type.name == 'security_quality_gates'
+      run: |
+        echo "=== Security Quality Gates Validation ==="
+        python -c "
+        import json
+        import yaml
+        import os
+        from datetime import datetime
+        from pathlib import Path
+        
+        def validate_security_gates():
+            workflows_dir = Path('.github/workflows')
+            security_features = {
+                'sast_integration': False,
+                'supply_chain_scanning': False,
+                'secrets_detection': False,
+                'security_quality_gates': False,
+                'vulnerability_thresholds': False,
+                'automated_security_reporting': False
+            }
+            
+            security_workflows = []
+            
+            if not workflows_dir.exists():
+                return security_features, []
+            
+            for workflow_file in workflows_dir.glob('*.yml'):
+                try:
+                    with open(workflow_file, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                        workflow_config = yaml.safe_load(content)
+                    
+                    # Check for security tools and features
+                    content_lower = content.lower()
+                    
+                    if any(tool in content_lower for tool in ['bandit', 'semgrep', 'codeql']):
+                        security_features['sast_integration'] = True
+                    
+                    if any(tool in content_lower for tool in ['safety', 'pip-audit', 'dependency']):
+                        security_features['supply_chain_scanning'] = True
+                    
+                    if any(tool in content_lower for tool in ['detect-secrets', 'truffhog', 'secrets']):
+                        security_features['secrets_detection'] = True
+                    
+                    if 'security' in content_lower and 'quality' in content_lower and 'gate' in content_lower:
+                        security_features['security_quality_gates'] = True
+                    
+                    if any(threshold in content_lower for threshold in ['critical_findings', 'high_findings', 'max_allowed']):
+                        security_features['vulnerability_thresholds'] = True
+                    
+                    if 'security' in workflow_config.get('name', '').lower():
+                        security_workflows.append({
+                            'file': str(workflow_file),
+                            'name': workflow_config.get('name', workflow_file.stem)
+                        })
+                        
+                        # Check for automated reporting
+                        jobs = workflow_config.get('jobs', {})
+                        for job_name, job_config in jobs.items():
+                            if isinstance(job_config, dict):
+                                steps = job_config.get('steps', [])
+                                for step in steps:
+                                    if isinstance(step, dict):
+                                        if any(report_key in step.get('name', '').lower() 
+                                              for report_key in ['upload', 'artifact', 'report']):
+                                            security_features['automated_security_reporting'] = True
+                    
+                except Exception as e:
+                    print(f'Warning: Could not parse {workflow_file}: {e}')
+            
+            return security_features, security_workflows
+        
+        # Run validation
+        features, workflows = validate_security_gates()
+        
+        # Calculate score
+        feature_score = sum(1 for f in features.values() if f) / len(features)
+        
+        validation_result = {
+            'timestamp': datetime.now().isoformat(),
+            'gate_type': 'security_quality_gates',
+            'security_features': features,
+            'feature_score': feature_score,
+            'security_workflows': workflows,
+            'security_workflow_count': len(workflows),
+            'validation_passed': feature_score >= 0.7,
+            'recommendations': []
+        }
+        
+        if not features['sast_integration']:
+            validation_result['recommendations'].append('Implement SAST tools (Bandit, Semgrep, CodeQL)')
+        if not features['supply_chain_scanning']:
+            validation_result['recommendations'].append('Add supply chain vulnerability scanning')
+        if not features['secrets_detection']:
+            validation_result['recommendations'].append('Implement secrets detection tools')
+        if not features['vulnerability_thresholds']:
+            validation_result['recommendations'].append('Define vulnerability threshold policies')
+        
+        # Save results
+        with open('.claude/.artifacts/quality_gates/${{ matrix.gate_type.name }}_validation.json', 'w') as f:
+            json.dump(validation_result, f, indent=2, default=str)
+        
+        print(f'Security Quality Gates Score: {feature_score:.2%}')
+        print(f'Validation: {\"PASSED\" if validation_result[\"validation_passed\"] else \"FAILED\"}')
+        "
+
+    - name: Validate NASA Compliance Gates
+      if: matrix.gate_type.name == 'nasa_compliance_gates'
+      run: |
+        echo "=== NASA Compliance Gates Validation ==="
+        python -c "
+        import json
+        import yaml
+        import os
+        from datetime import datetime
+        from pathlib import Path
+        
+        def validate_nasa_compliance():
+            workflows_dir = Path('.github/workflows')
+            nasa_features = {
+                'nasa_pot10_references': False,
+                'compliance_scoring': False,
+                'rule_enforcement': False,
+                'compliance_reporting': False,
+                'threshold_validation': False
+            }
+            
+            compliance_workflows = []
+            
+            if not workflows_dir.exists():
+                return nasa_features, []
+            
+            for workflow_file in workflows_dir.glob('*.yml'):
+                try:
+                    with open(workflow_file, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                        workflow_config = yaml.safe_load(content)
+                    
+                    content_lower = content.lower()
+                    
+                    if 'nasa' in content_lower:
+                        nasa_features['nasa_pot10_references'] = True
+                        
+                    if 'compliance' in content_lower and ('score' in content_lower or 'rating' in content_lower):
+                        nasa_features['compliance_scoring'] = True
+                    
+                    if any(rule in content_lower for rule in ['rule_3', 'rule_7', 'rule_8', 'rule_9', 'rule_10']):
+                        nasa_features['rule_enforcement'] = True
+                    
+                    if 'compliance' in content_lower and 'report' in content_lower:
+                        nasa_features['compliance_reporting'] = True
+                    
+                    if any(threshold in content_lower for threshold in ['92%', '0.92', 'min_compliance']):
+                        nasa_features['threshold_validation'] = True
+                    
+                    if any(keyword in workflow_config.get('name', '').lower() 
+                          for keyword in ['nasa', 'compliance', 'pot10']):
+                        compliance_workflows.append({
+                            'file': str(workflow_file),
+                            'name': workflow_config.get('name', workflow_file.stem)
+                        })
+                    
+                except Exception as e:
+                    print(f'Warning: Could not parse {workflow_file}: {e}')
+            
+            return nasa_features, compliance_workflows
+        
+        # Run validation
+        features, workflows = validate_nasa_compliance()
+        
+        # Calculate score
+        feature_score = sum(1 for f in features.values() if f) / len(features)
+        
+        validation_result = {
+            'timestamp': datetime.now().isoformat(),
+            'gate_type': 'nasa_compliance_gates',
+            'nasa_features': features,
+            'feature_score': feature_score,
+            'compliance_workflows': workflows,
+            'compliance_workflow_count': len(workflows),
+            'validation_passed': feature_score >= 0.6,
+            'recommendations': []
+        }
+        
+        if not features['nasa_pot10_references']:
+            validation_result['recommendations'].append('Add explicit NASA POT10 compliance references')
+        if not features['compliance_scoring']:
+            validation_result['recommendations'].append('Implement compliance scoring mechanisms')
+        if not features['rule_enforcement']:
+            validation_result['recommendations'].append('Add specific NASA rule enforcement checks')
+        
+        # Save results
+        with open('.claude/.artifacts/quality_gates/${{ matrix.gate_type.name }}_validation.json', 'w') as f:
+            json.dump(validation_result, f, indent=2, default=str)
+        
+        print(f'NASA Compliance Gates Score: {feature_score:.2%}')
+        print(f'Validation: {\"PASSED\" if validation_result[\"validation_passed\"] else \"FAILED\"}')
+        "
+
+    - name: Validate Performance Gates
+      if: matrix.gate_type.name == 'performance_gates'
+      run: |
+        echo "=== Performance Gates Validation ==="
+        python -c "
+        import json
+        import yaml
+        import os
+        from datetime import datetime
+        from pathlib import Path
+        
+        def validate_performance_gates():
+            workflows_dir = Path('.github/workflows')
+            performance_features = {
+                'execution_time_monitoring': False,
+                'resource_utilization_tracking': False,
+                'performance_thresholds': False,
+                'regression_detection': False,
+                'performance_reporting': False
+            }
+            
+            performance_workflows = []
+            
+            if not workflows_dir.exists():
+                return performance_features, []
+            
+            for workflow_file in workflows_dir.glob('*.yml'):
+                try:
+                    with open(workflow_file, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                        workflow_config = yaml.safe_load(content)
+                    
+                    content_lower = content.lower()
+                    
+                    if any(perf_key in content_lower for perf_key in ['timeout-minutes', 'execution_time', 'duration']):
+                        performance_features['execution_time_monitoring'] = True
+                    
+                    if any(resource in content_lower for resource in ['memory', 'cpu', 'resource', 'utilization']):
+                        performance_features['resource_utilization_tracking'] = True
+                    
+                    if any(threshold in content_lower for threshold in ['min_', 'max_', 'threshold', 'limit']):
+                        performance_features['performance_thresholds'] = True
+                    
+                    if 'regression' in content_lower:
+                        performance_features['regression_detection'] = True
+                    
+                    if 'performance' in content_lower and any(report in content_lower for report in ['report', 'artifact', 'metrics']):
+                        performance_features['performance_reporting'] = True
+                    
+                    if any(keyword in workflow_config.get('name', '').lower() 
+                          for keyword in ['performance', 'monitoring', 'benchmark']):
+                        performance_workflows.append({
+                            'file': str(workflow_file),
+                            'name': workflow_config.get('name', workflow_file.stem)
+                        })
+                    
+                except Exception as e:
+                    print(f'Warning: Could not parse {workflow_file}: {e}')
+            
+            return performance_features, performance_workflows
+        
+        # Run validation
+        features, workflows = validate_performance_gates()
+        
+        # Calculate score
+        feature_score = sum(1 for f in features.values() if f) / len(features)
+        
+        validation_result = {
+            'timestamp': datetime.now().isoformat(),
+            'gate_type': 'performance_gates',
+            'performance_features': features,
+            'feature_score': feature_score,
+            'performance_workflows': workflows,
+            'performance_workflow_count': len(workflows),
+            'validation_passed': feature_score >= 0.6,
+            'recommendations': []
+        }
+        
+        if not features['execution_time_monitoring']:
+            validation_result['recommendations'].append('Add execution time monitoring and tracking')
+        if not features['resource_utilization_tracking']:
+            validation_result['recommendations'].append('Implement resource utilization monitoring')
+        if not features['performance_thresholds']:
+            validation_result['recommendations'].append('Define performance threshold policies')
+        if not features['regression_detection']:
+            validation_result['recommendations'].append('Add performance regression detection')
+        
+        # Save results
+        with open('.claude/.artifacts/quality_gates/${{ matrix.gate_type.name }}_validation.json', 'w') as f:
+            json.dump(validation_result, f, indent=2, default=str)
+        
+        print(f'Performance Gates Score: {feature_score:.2%}')
+        print(f'Validation: {\"PASSED\" if validation_result[\"validation_passed\"] else \"FAILED\"}')
+        "
+
+    - name: Validate Consolidated Reporting
+      if: matrix.gate_type.name == 'consolidated_reporting'
+      run: |
+        echo "=== Consolidated Reporting Validation ==="
+        python -c "
+        import json
+        import yaml
+        import os
+        from datetime import datetime
+        from pathlib import Path
+        
+        def validate_consolidated_reporting():
+            workflows_dir = Path('.github/workflows')
+            artifacts_dir = Path('.claude/.artifacts')
+            
+            reporting_features = {
+                'consolidation_workflows': False,
+                'artifact_generation': False,
+                'cross_workflow_reporting': False,
+                'dashboard_integration': False,
+                'automated_summaries': False
+            }
+            
+            consolidation_workflows = []
+            
+            if workflows_dir.exists():
+                for workflow_file in workflows_dir.glob('*.yml'):
+                    try:
+                        with open(workflow_file, 'r', encoding='utf-8') as f:
+                            content = f.read()
+                            workflow_config = yaml.safe_load(content)
+                        
+                        content_lower = content.lower()
+                        
+                        if any(keyword in content_lower for keyword in ['consolidat', 'consolid', 'aggregate']):
+                            reporting_features['consolidation_workflows'] = True
+                            consolidation_workflows.append({
+                                'file': str(workflow_file),
+                                'name': workflow_config.get('name', workflow_file.stem)
+                            })
+                        
+                        if 'upload-artifact' in content_lower or 'actions/upload-artifact' in content_lower:
+                            reporting_features['artifact_generation'] = True
+                        
+                        if 'download-artifact' in content_lower and 'consolidat' in content_lower:
+                            reporting_features['cross_workflow_reporting'] = True
+                        
+                        if any(dashboard in content_lower for dashboard in ['dashboard', 'monitoring', 'health']):
+                            reporting_features['dashboard_integration'] = True
+                        
+                        if any(summary in content_lower for summary in ['summary', 'digest', 'report']):
+                            reporting_features['automated_summaries'] = True
+                        
+                    except Exception as e:
+                        print(f'Warning: Could not parse {workflow_file}: {e}')
+            
+            # Check for existing artifacts and reports
+            if artifacts_dir.exists():
+                artifact_files = list(artifacts_dir.glob('*.json'))
+                if len(artifact_files) > 0:
+                    reporting_features['artifact_generation'] = True
+            
+            return reporting_features, consolidation_workflows
+        
+        # Run validation
+        features, workflows = validate_consolidated_reporting()
+        
+        # Calculate score
+        feature_score = sum(1 for f in features.values() if f) / len(features)
+        
+        validation_result = {
+            'timestamp': datetime.now().isoformat(),
+            'gate_type': 'consolidated_reporting',
+            'reporting_features': features,
+            'feature_score': feature_score,
+            'consolidation_workflows': workflows,
+            'consolidation_workflow_count': len(workflows),
+            'validation_passed': feature_score >= 0.6,
+            'recommendations': []
+        }
+        
+        if not features['consolidation_workflows']:
+            validation_result['recommendations'].append('Create workflow consolidation and result aggregation')
+        if not features['cross_workflow_reporting']:
+            validation_result['recommendations'].append('Implement cross-workflow result sharing')
+        if not features['dashboard_integration']:
+            validation_result['recommendations'].append('Add dashboard and monitoring integration')
+        if not features['automated_summaries']:
+            validation_result['recommendations'].append('Implement automated summary generation')
+        
+        # Save results
+        with open('.claude/.artifacts/quality_gates/${{ matrix.gate_type.name }}_validation.json', 'w') as f:
+            json.dump(validation_result, f, indent=2, default=str)
+        
+        print(f'Consolidated Reporting Score: {feature_score:.2%}')
+        print(f'Validation: {\"PASSED\" if validation_result[\"validation_passed\"] else \"FAILED\"}')
+        "
+
+    - name: Upload Quality Gate Validation Artifact
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: quality-gate-${{ matrix.gate_type.name }}-${{ github.run_number }}
+        path: |
+          .claude/.artifacts/quality_gates/${{ matrix.gate_type.name }}_validation.json
+
+  # Consolidate all quality gate validations
+  quality-gates-consolidation:
+    needs: quality-gate-validation
+    runs-on: ubuntu-latest-4-core
+    name: "Quality Gates Consolidation & Final Validation"
+    timeout-minutes: 20
+    if: always()
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Create Quality Gates Artifacts Directory
+      run: mkdir -p .claude/.artifacts/quality_gates
+
+    - name: Download All Quality Gate Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: ./quality-gate-artifacts
+        merge-multiple: true
+
+    - name: Consolidate Quality Gate Results
+      run: |
+        echo "Consolidating all quality gate validation results..."
+        python -c "
+        import json
+        import os
+        import glob
+        from pathlib import Path
+        from datetime import datetime
+        
+        # Create consolidated quality gates report
+        consolidated = {
+            'consolidated_timestamp': datetime.now().isoformat(),
+            'validation_type': 'enhanced_quality_gates',
+            'gate_validations': {},
+            'overall_scores': {},
+            'quality_gate_summary': {},
+            'recommendations': []
+        }
+        
+        # Find all quality gate validation files
+        gate_files = glob.glob('./quality-gate-artifacts/*_validation.json')
+        
+        total_score = 0.0
+        gate_count = 0
+        passed_gates = 0
+        
+        for filepath in gate_files:
+            try:
+                with open(filepath, 'r') as f:
+                    data = json.load(f)
+                
+                gate_type = data.get('gate_type', 'unknown')
+                feature_score = data.get('feature_score', 0.0)
+                validation_passed = data.get('validation_passed', False)
+                
+                consolidated['gate_validations'][gate_type] = {
+                    'feature_score': feature_score,
+                    'validation_passed': validation_passed,
+                    'recommendations': data.get('recommendations', []),
+                    'workflow_count': data.get(f'{gate_type.split(\"_\")[0]}_workflow_count', 0),
+                    'features_detected': data.get(f'{gate_type.split(\"_\")[0]}_features', {})
+                }
+                
+                total_score += feature_score
+                gate_count += 1
+                if validation_passed:
+                    passed_gates += 1
+                
+                # Collect recommendations
+                for rec in data.get('recommendations', []):
+                    if rec not in consolidated['recommendations']:
+                        consolidated['recommendations'].append(rec)
+                
+            except Exception as e:
+                print(f'Failed to process {filepath}: {e}')
+        
+        # Calculate overall quality gates score
+        if gate_count > 0:
+            overall_quality_gates_score = total_score / gate_count
+            pass_rate = passed_gates / gate_count
+        else:
+            overall_quality_gates_score = 0.0
+            pass_rate = 0.0
+        
+        consolidated['overall_scores'] = {
+            'quality_gates_score': overall_quality_gates_score,
+            'gate_pass_rate': pass_rate,
+            'passed_gates': passed_gates,
+            'total_gates': gate_count
+        }
+        
+        consolidated['quality_gate_summary'] = {
+            'overall_validation_passed': overall_quality_gates_score >= 0.6,
+            'critical_gates_passed': passed_gates >= gate_count * 0.6,
+            'phase3_quality_gates_ready': overall_quality_gates_score >= 0.7
+        }
+        
+        # Generate summary recommendations
+        if overall_quality_gates_score < 0.6:
+            consolidated['recommendations'].insert(0, 
+                f'Quality gates score {overall_quality_gates_score:.2%} below 60% threshold - immediate action required')
+        elif overall_quality_gates_score < 0.8:
+            consolidated['recommendations'].insert(0,
+                f'Quality gates score {overall_quality_gates_score:.2%} needs improvement for optimal validation')
+        else:
+            consolidated['recommendations'].insert(0,
+                f'Quality gates validation successful at {overall_quality_gates_score:.2%}')
+        
+        # Save consolidated quality gates report
+        with open('.claude/.artifacts/quality_gates/enhanced_quality_gates_report.json', 'w') as f:
+            json.dump(consolidated, f, indent=2, default=str)
+        
+        print('Enhanced Quality Gates Consolidation Completed')
+        print(f'Overall Quality Gates Score: {overall_quality_gates_score:.2%}')
+        print(f'Gate Pass Rate: {pass_rate:.2%} ({passed_gates}/{gate_count})')
+        print(f'Phase 3 Ready: {\"YES\" if consolidated[\"quality_gate_summary\"][\"phase3_quality_gates_ready\"] else \"NO\"}')
+        "
+
+    - name: Enhanced Quality Gates Decision
+      run: |
+        echo "=== Enhanced Quality Gates Final Decision ==="
+        python -c "
+        import json
+        import sys
+        
+        with open('.claude/.artifacts/quality_gates/enhanced_quality_gates_report.json', 'r') as f:
+            data = json.load(f)
+        
+        overall_score = data.get('overall_scores', {}).get('quality_gates_score', 0.0)
+        pass_rate = data.get('overall_scores', {}).get('gate_pass_rate', 0.0)
+        passed_gates = data.get('overall_scores', {}).get('passed_gates', 0)
+        total_gates = data.get('overall_scores', {}).get('total_gates', 0)
+        phase3_ready = data.get('quality_gate_summary', {}).get('phase3_quality_gates_ready', False)
+        
+        print(f'Overall Quality Gates Score: {overall_score:.2%}')
+        print(f'Gate Pass Rate: {pass_rate:.2%} ({passed_gates}/{total_gates})')
+        print(f'Phase 3 Quality Gates Ready: {\"YES\" if phase3_ready else \"NO\"}')
+        
+        # Enhanced quality gates thresholds
+        min_quality_gates_score = 0.6
+        min_gate_pass_rate = 0.6
+        
+        failed = False
+        
+        if overall_score < min_quality_gates_score:
+            print(f'FAILED: Quality gates score {overall_score:.2%} < {min_quality_gates_score:.2%}')
+            failed = True
+        else:
+            print(f'PASSED: Quality gates score {overall_score:.2%} >= {min_quality_gates_score:.2%}')
+        
+        if pass_rate < min_gate_pass_rate:
+            print(f'FAILED: Gate pass rate {pass_rate:.2%} < {min_gate_pass_rate:.2%}')
+            failed = True
+        else:
+            print(f'PASSED: Gate pass rate {pass_rate:.2%} >= {min_gate_pass_rate:.2%}')
+        
+        # Show gate-specific results
+        print('\\nGate-Specific Results:')
+        for gate_type, gate_data in data.get('gate_validations', {}).items():
+            score = gate_data.get('feature_score', 0.0)
+            passed = gate_data.get('validation_passed', False)
+            print(f'  - {gate_type.replace(\"_\", \" \").title()}: {score:.2%} ({\"PASSED\" if passed else \"FAILED\"})')
+        
+        # Show recommendations
+        recommendations = data.get('recommendations', [])
+        if recommendations:
+            print('\\nRecommendations:')
+            for i, rec in enumerate(recommendations[:5], 1):
+                print(f'  {i}. {rec}')
+        
+        if failed:
+            print('\\nENHANCED QUALITY GATES: FAILED')
+            print('Quality gates require improvement before Phase 3 completion')
+            sys.exit(1)
+        else:
+            print('\\nENHANCED QUALITY GATES: PASSED')
+            print('Quality gates validation successful - Phase 3 monitoring ready!')
+        "
+
+    - name: Upload Enhanced Quality Gates Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: enhanced-quality-gates-report-${{ github.run_number }}
+        path: |
+          .claude/.artifacts/quality_gates/enhanced_quality_gates_report.json

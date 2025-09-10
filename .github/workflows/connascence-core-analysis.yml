@@ -16,11 +16,18 @@ on:
       - '**/*.py'
       - '**/*.ts'
       - '**/*.js'
+  workflow_dispatch:
+    inputs:
+      trigger-reason:
+        description: 'Reason for triggering analysis'
+        required: false
+        default: 'manual'
 
 jobs:
   connascence-analysis:
     runs-on: ubuntu-latest
     name: "Core Connascence Analysis"
+    timeout-minutes: 45
     
     steps:
     - name: Checkout Repository

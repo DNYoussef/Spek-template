@@ -12,11 +12,18 @@ on:
       - 'analyzer/**'
       - 'src/**'
       - '**/*.py'
+  workflow_dispatch:
+    inputs:
+      trigger-reason:
+        description: 'Reason for triggering analysis'
+        required: false
+        default: 'manual'
 
 jobs:
   performance-monitoring:
     runs-on: ubuntu-latest
     name: "Performance Monitoring & Optimization"
+    timeout-minutes: 45
     
     steps:
     - name: Checkout Repository
@@ -50,7 +57,7 @@ jobs:
         
         try:
             from optimization.streaming_performance_monitor import StreamingPerformanceMonitor
-            from optimization.file_cache import IncrementalCache
+            from optimization.file_cache import FileContentCache as IncrementalCache
             import json
             from datetime import datetime
             
@@ -59,7 +66,7 @@ jobs:
             perf_result = perf_monitor.get_performance_metrics()
             
             # Cache optimization
-            cache = IncrementalCache()
+            cache = IncrementalCache()  # FileContentCache aliased as IncrementalCache
             cache_result = cache.get_cache_health()
             
             # Combined performance results

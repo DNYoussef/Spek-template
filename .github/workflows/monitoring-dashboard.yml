@@ -1,0 +1,644 @@
+name: Workflow Health Monitoring Dashboard
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Every 15 minutes
+  workflow_dispatch:
+    inputs:
+      monitoring_scope:
+        description: 'Monitoring scope'
+        required: false
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - performance_only
+          - security_only
+          - health_check
+  workflow_run:
+    workflows: [
+      "Quality Analysis Orchestrator",
+      "Quality Analysis Orchestrator (Parallel Optimized)",
+      "Security Pipeline (Standardized)",
+      "Enhanced Quality Gates (Phase 3)"
+    ]
+    types: [completed]
+
+jobs:
+  workflow-health-monitoring:
+    runs-on: ubuntu-latest-4-core
+    name: "Workflow Health Dashboard"
+    timeout-minutes: 25
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+
+    - name: Install Monitoring Dependencies
+      run: |
+        pip install --upgrade pip
+        pip install requests pyyaml matplotlib plotly pandas
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        fi
+
+    - name: Create Monitoring Artifacts Directory
+      run: mkdir -p .claude/.artifacts/monitoring
+
+    - name: Collect Workflow Health Metrics
+      run: |
+        echo "Collecting workflow health metrics..."
+        python -c "
+        import json
+        import subprocess
+        import sys
+        from datetime import datetime, timedelta
+        from pathlib import Path
+        import requests
+        import os
+        
+        class WorkflowHealthMonitor:
+            def __init__(self):
+                self.github_token = os.environ.get('GITHUB_TOKEN')
+                self.repo_owner = 'your-org'
+                self.repo_name = 'your-repo'
+                self.base_url = f'https://api.github.com/repos/{self.repo_owner}/{self.repo_name}'
+                
+                self.health_metrics = {
+                    'timestamp': datetime.now().isoformat(),
+                    'monitoring_type': 'workflow_health_dashboard',
+                    'workflow_status': {},
+                    'performance_metrics': {},
+                    'failure_patterns': {},
+                    'health_score': 0.0,
+                    'alerts': [],
+                    'recommendations': []
+                }
+                
+                # Detect actual repo info
+                self._detect_repository_info()
+            
+            def _detect_repository_info(self):
+                try:
+                    result = subprocess.run(
+                        ['git', 'config', '--get', 'remote.origin.url'],
+                        capture_output=True, text=True, timeout=10
+                    )
+                    
+                    if result.returncode == 0:
+                        remote_url = result.stdout.strip()
+                        if 'github.com' in remote_url:
+                            if remote_url.startswith('https://'):
+                                parts = remote_url.replace('https://github.com/', '').replace('.git', '').split('/')
+                            elif remote_url.startswith('git@'):
+                                parts = remote_url.replace('git@github.com:', '').replace('.git', '').split('/')
+                            
+                            if len(parts) >= 2:
+                                self.repo_owner = parts[0]
+                                self.repo_name = parts[1]
+                                self.base_url = f'https://api.github.com/repos/{self.repo_owner}/{self.repo_name}'
+                
+                except Exception as e:
+                    print(f'Warning: Could not detect repo info: {e}')
+            
+            def collect_workflow_status(self):
+                '''Collect current workflow status from GitHub CLI'''
+                try:
+                    # Get workflow list
+                    result = subprocess.run(
+                        ['gh', 'workflow', 'list', '--json', 'name,id,state'],
+                        capture_output=True, text=True, timeout=30
+                    )
+                    
+                    if result.returncode == 0:
+                        workflows = json.loads(result.stdout)
+                        
+                        # Get recent runs for each workflow
+                        for workflow in workflows:
+                            workflow_name = workflow['name']
+                            workflow_id = workflow['id']
+                            
+                            # Get last 10 runs
+                            runs_result = subprocess.run(
+                                ['gh', 'run', 'list', '--workflow', str(workflow_id), 
+                                 '--limit', '10', '--json', 'status,conclusion,createdAt,runStartedAt,updatedAt'],
+                                capture_output=True, text=True, timeout=30
+                            )
+                            
+                            if runs_result.returncode == 0:
+                                runs = json.loads(runs_result.stdout)
+                                
+                                # Calculate metrics
+                                successful_runs = sum(1 for run in runs if run.get('conclusion') == 'success')
+                                total_runs = len(runs)
+                                
+                                success_rate = successful_runs / total_runs if total_runs > 0 else 0.0
+                                
+                                # Calculate average execution time
+                                execution_times = []
+                                for run in runs:
+                                    if run.get('runStartedAt') and run.get('updatedAt'):
+                                        try:
+                                            start_time = datetime.fromisoformat(run['runStartedAt'].replace('Z', '+00:00'))
+                                            end_time = datetime.fromisoformat(run['updatedAt'].replace('Z', '+00:00'))
+                                            execution_time = (end_time - start_time).total_seconds() / 60  # minutes
+                                            execution_times.append(execution_time)
+                                        except:
+                                            pass
+                                
+                                avg_execution_time = sum(execution_times) / len(execution_times) if execution_times else 0.0
+                                
+                                self.health_metrics['workflow_status'][workflow_name] = {
+                                    'success_rate': success_rate,
+                                    'total_runs': total_runs,
+                                    'successful_runs': successful_runs,
+                                    'failed_runs': total_runs - successful_runs,
+                                    'avg_execution_time_minutes': avg_execution_time,
+                                    'state': workflow.get('state', 'unknown'),
+                                    'recent_runs': runs[:5]  # Keep 5 most recent
+                                }
+                
+                except Exception as e:
+                    print(f'Warning: Could not collect workflow status: {e}')
+                    # Fallback to file-based analysis
+                    self._fallback_workflow_analysis()
+            
+            def _fallback_workflow_analysis(self):
+                '''Fallback workflow analysis when GitHub API is unavailable'''
+                workflows_dir = Path('.github/workflows')
+                if not workflows_dir.exists():
+                    return
+                
+                workflow_files = list(workflows_dir.glob('*.yml'))
+                
+                for workflow_file in workflow_files:
+                    try:
+                        with open(workflow_file, 'r', encoding='utf-8') as f:
+                            import yaml
+                            workflow_config = yaml.safe_load(f)
+                        
+                        workflow_name = workflow_config.get('name', workflow_file.stem)
+                        
+                        # Estimate health based on configuration
+                        has_timeout = any('timeout-minutes' in str(job) for job in workflow_config.get('jobs', {}).values())
+                        has_error_handling = 'continue-on-error' in str(workflow_config)
+                        has_parallel = 'strategy' in str(workflow_config)
+                        
+                        estimated_health = 0.7  # Base health
+                        if has_timeout:
+                            estimated_health += 0.1
+                        if not has_error_handling:  # Better if no continue-on-error
+                            estimated_health += 0.1
+                        if has_parallel:
+                            estimated_health += 0.1
+                        
+                        self.health_metrics['workflow_status'][workflow_name] = {
+                            'success_rate': estimated_health,
+                            'total_runs': 5,  # Estimated
+                            'successful_runs': int(5 * estimated_health),
+                            'failed_runs': int(5 * (1 - estimated_health)),
+                            'avg_execution_time_minutes': 45.0,  # Estimated
+                            'state': 'active',
+                            'source': 'estimated'
+                        }
+                    
+                    except Exception as e:
+                        print(f'Warning: Could not analyze {workflow_file}: {e}')
+            
+            def analyze_performance_metrics(self):
+                '''Analyze performance metrics and trends'''
+                total_success_rate = 0.0
+                total_workflows = 0
+                execution_times = []
+                
+                for workflow_name, workflow_data in self.health_metrics['workflow_status'].items():
+                    success_rate = workflow_data.get('success_rate', 0.0)
+                    exec_time = workflow_data.get('avg_execution_time_minutes', 0.0)
+                    
+                    total_success_rate += success_rate
+                    total_workflows += 1
+                    if exec_time > 0:
+                        execution_times.append(exec_time)
+                
+                if total_workflows > 0:
+                    overall_success_rate = total_success_rate / total_workflows
+                else:
+                    overall_success_rate = 0.0
+                
+                avg_execution_time = sum(execution_times) / len(execution_times) if execution_times else 0.0
+                
+                self.health_metrics['performance_metrics'] = {
+                    'overall_success_rate': overall_success_rate,
+                    'avg_execution_time_minutes': avg_execution_time,
+                    'total_workflows_monitored': total_workflows,
+                    'phase2_target_execution_time': 55.0,  # Phase 2 target
+                    'phase2_target_success_rate': 0.85,  # Phase 3 target
+                    'performance_vs_target': {
+                        'execution_time_delta': avg_execution_time - 55.0,
+                        'success_rate_delta': overall_success_rate - 0.85
+                    }
+                }
+            
+            def detect_failure_patterns(self):
+                '''Detect patterns in workflow failures'''
+                failure_patterns = {}
+                failing_workflows = []
+                
+                for workflow_name, workflow_data in self.health_metrics['workflow_status'].items():
+                    success_rate = workflow_data.get('success_rate', 0.0)
+                    failed_runs = workflow_data.get('failed_runs', 0)
+                    
+                    if success_rate < 0.8:  # Below 80% success rate
+                        failing_workflows.append({
+                            'name': workflow_name,
+                            'success_rate': success_rate,
+                            'failed_runs': failed_runs
+                        })
+                    
+                    # Analyze recent run patterns
+                    recent_runs = workflow_data.get('recent_runs', [])
+                    consecutive_failures = 0
+                    for run in recent_runs:
+                        if run.get('conclusion') == 'failure':
+                            consecutive_failures += 1
+                        else:
+                            break
+                    
+                    if consecutive_failures >= 2:
+                        failure_patterns[workflow_name] = {
+                            'consecutive_failures': consecutive_failures,
+                            'pattern_type': 'consecutive_failures',
+                            'risk_level': 'high' if consecutive_failures >= 3 else 'medium'
+                        }
+                
+                self.health_metrics['failure_patterns'] = {
+                    'failing_workflows': failing_workflows,
+                    'pattern_analysis': failure_patterns,
+                    'total_failing_workflows': len(failing_workflows)
+                }
+            
+            def calculate_health_score(self):
+                '''Calculate overall system health score'''
+                performance = self.health_metrics['performance_metrics']
+                failure_patterns = self.health_metrics['failure_patterns']
+                
+                # Base score from overall success rate
+                base_score = performance.get('overall_success_rate', 0.0) * 100
+                
+                # Penalties for performance issues
+                exec_time_delta = performance.get('performance_vs_target', {}).get('execution_time_delta', 0)
+                if exec_time_delta > 10:  # More than 10 minutes over target
+                    base_score -= 10
+                elif exec_time_delta > 5:  # 5-10 minutes over target
+                    base_score -= 5
+                
+                # Penalties for failure patterns
+                failing_workflow_count = failure_patterns.get('total_failing_workflows', 0)
+                base_score -= failing_workflow_count * 5  # 5 points per failing workflow
+                
+                # High-risk patterns penalty
+                high_risk_patterns = sum(1 for pattern in failure_patterns.get('pattern_analysis', {}).values()
+                                       if pattern.get('risk_level') == 'high')
+                base_score -= high_risk_patterns * 15  # 15 points per high-risk pattern
+                
+                # Ensure score is between 0 and 100
+                health_score = max(0, min(100, base_score))
+                
+                self.health_metrics['health_score'] = health_score
+            
+            def generate_alerts_and_recommendations(self):
+                '''Generate alerts and recommendations based on metrics'''
+                alerts = []
+                recommendations = []
+                
+                performance = self.health_metrics['performance_metrics']
+                failure_patterns = self.health_metrics['failure_patterns']
+                health_score = self.health_metrics['health_score']
+                
+                # Critical alerts
+                if health_score < 50:
+                    alerts.append({
+                        'level': 'critical',
+                        'message': f'System health critically low at {health_score:.1f}%',
+                        'action': 'immediate_intervention_required'
+                    })
+                
+                overall_success_rate = performance.get('overall_success_rate', 0.0)
+                if overall_success_rate < 0.3:  # Below 30%
+                    alerts.append({
+                        'level': 'critical',
+                        'message': f'Overall success rate critically low at {overall_success_rate:.1%}',
+                        'action': 'investigate_system_failures'
+                    })
+                
+                # High-priority alerts
+                failing_count = failure_patterns.get('total_failing_workflows', 0)
+                if failing_count >= 3:
+                    alerts.append({
+                        'level': 'high',
+                        'message': f'{failing_count} workflows consistently failing',
+                        'action': 'review_failing_workflows'
+                    })
+                
+                # Performance alerts
+                avg_exec_time = performance.get('avg_execution_time_minutes', 0.0)
+                target_exec_time = performance.get('phase2_target_execution_time', 55.0)
+                if avg_exec_time > target_exec_time * 1.2:  # 20% over target
+                    alerts.append({
+                        'level': 'medium',
+                        'message': f'Execution time {avg_exec_time:.1f}min exceeds target {target_exec_time:.1f}min by 20%+',
+                        'action': 'optimize_workflow_performance'
+                    })
+                
+                # Recommendations
+                if overall_success_rate < 0.85:
+                    recommendations.append('Investigate and fix failing workflows to reach 85% success rate target')
+                
+                if avg_exec_time > target_exec_time:
+                    recommendations.append('Optimize workflow execution time to meet Phase 2 performance targets')
+                
+                if failing_count > 0:
+                    recommendations.append('Implement automated rollback for consistently failing workflows')
+                
+                if health_score < 80:
+                    recommendations.append('Review workflow health monitoring alerts and take corrective action')
+                
+                # Success recommendations
+                if health_score >= 90 and overall_success_rate >= 0.85:
+                    recommendations.append('System health excellent - monitor for maintenance of performance targets')
+                
+                self.health_metrics['alerts'] = alerts
+                self.health_metrics['recommendations'] = recommendations
+            
+            def run_monitoring(self):
+                '''Run complete workflow health monitoring'''
+                print('Collecting workflow status...')
+                self.collect_workflow_status()
+                
+                print('Analyzing performance metrics...')
+                self.analyze_performance_metrics()
+                
+                print('Detecting failure patterns...')
+                self.detect_failure_patterns()
+                
+                print('Calculating health score...')
+                self.calculate_health_score()
+                
+                print('Generating alerts and recommendations...')
+                self.generate_alerts_and_recommendations()
+                
+                return self.health_metrics
+        
+        # Run monitoring
+        monitor = WorkflowHealthMonitor()
+        results = monitor.run_monitoring()
+        
+        # Save results
+        with open('.claude/.artifacts/monitoring/workflow_health_dashboard.json', 'w') as f:
+            json.dump(results, f, indent=2, default=str)
+        
+        print('Workflow Health Monitoring Complete')
+        print(f'Overall Health Score: {results[\"health_score\"]:.1f}%')
+        print(f'Success Rate: {results[\"performance_metrics\"].get(\"overall_success_rate\", 0.0):.1%}')
+        print(f'Alerts: {len(results[\"alerts\"])}')
+        "
+
+    - name: Generate Health Dashboard Report
+      run: |
+        echo "Generating workflow health dashboard report..."
+        python -c "
+        import json
+        from datetime import datetime
+        
+        # Load monitoring results
+        with open('.claude/.artifacts/monitoring/workflow_health_dashboard.json', 'r') as f:
+            health_data = json.load(f)
+        
+        # Generate HTML dashboard
+        html_dashboard = f'''
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Workflow Health Dashboard</title>
+            <meta charset='UTF-8'>
+            <style>
+                body {{ font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }}
+                .dashboard {{ max-width: 1200px; margin: 0 auto; }}
+                .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                          color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }}
+                .metrics-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+                               gap: 20px; margin-bottom: 20px; }}
+                .metric-card {{ background: white; padding: 20px; border-radius: 10px; 
+                              box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+                .metric-value {{ font-size: 2em; font-weight: bold; }}
+                .health-excellent {{ color: #10b981; }}
+                .health-good {{ color: #f59e0b; }}
+                .health-poor {{ color: #ef4444; }}
+                .alerts {{ background: white; padding: 20px; border-radius: 10px; 
+                         box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }}
+                .alert-critical {{ border-left: 4px solid #ef4444; }}
+                .alert-high {{ border-left: 4px solid #f59e0b; }}
+                .alert-medium {{ border-left: 4px solid #3b82f6; }}
+                .workflow-table {{ width: 100%; border-collapse: collapse; background: white; }}
+                .workflow-table th, .workflow-table td {{ padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }}
+                .workflow-table th {{ background-color: #f8f9fa; }}
+                .status-success {{ color: #10b981; font-weight: bold; }}
+                .status-warning {{ color: #f59e0b; font-weight: bold; }}
+                .status-error {{ color: #ef4444; font-weight: bold; }}
+            </style>
+        </head>
+        <body>
+            <div class='dashboard'>
+                <div class='header'>
+                    <h1>Workflow Health Dashboard</h1>
+                    <p>Phase 3 Monitoring & Validation - Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+                </div>
+                
+                <div class='metrics-grid'>
+                    <div class='metric-card'>
+                        <h3>Overall Health Score</h3>
+                        <div class='metric-value {
+                            'health-excellent' if health_data['health_score'] >= 80 
+                            else 'health-good' if health_data['health_score'] >= 60 
+                            else 'health-poor'
+                        }'>{health_data['health_score']:.1f}%</div>
+                    </div>
+                    
+                    <div class='metric-card'>
+                        <h3>Overall Success Rate</h3>
+                        <div class='metric-value {
+                            'health-excellent' if health_data['performance_metrics'].get('overall_success_rate', 0) >= 0.85 
+                            else 'health-good' if health_data['performance_metrics'].get('overall_success_rate', 0) >= 0.7 
+                            else 'health-poor'
+                        }'>{health_data['performance_metrics'].get('overall_success_rate', 0):.1%}</div>
+                        <small>Target: 85%</small>
+                    </div>
+                    
+                    <div class='metric-card'>
+                        <h3>Avg Execution Time</h3>
+                        <div class='metric-value {
+                            'health-excellent' if health_data['performance_metrics'].get('avg_execution_time_minutes', 0) <= 55 
+                            else 'health-good' if health_data['performance_metrics'].get('avg_execution_time_minutes', 0) <= 70 
+                            else 'health-poor'
+                        }'>{health_data['performance_metrics'].get('avg_execution_time_minutes', 0):.1f}min</div>
+                        <small>Target: 55min</small>
+                    </div>
+                    
+                    <div class='metric-card'>
+                        <h3>Failing Workflows</h3>
+                        <div class='metric-value {
+                            'health-excellent' if health_data['failure_patterns'].get('total_failing_workflows', 0) == 0 
+                            else 'health-good' if health_data['failure_patterns'].get('total_failing_workflows', 0) <= 2 
+                            else 'health-poor'
+                        }'>{health_data['failure_patterns'].get('total_failing_workflows', 0)}</div>
+                    </div>
+                </div>
+        '''
+        
+        # Add alerts section
+        if health_data.get('alerts'):
+            html_dashboard += '''
+                <div class='alerts'>
+                    <h2>Active Alerts</h2>
+            '''
+            for alert in health_data['alerts']:
+                alert_class = f'alert-{alert[\"level\"]}'
+                html_dashboard += f'''
+                    <div class='{alert_class}' style='margin-bottom: 10px; padding: 10px;'>
+                        <strong>{alert['level'].upper()}:</strong> {alert['message']}
+                        <br><em>Action: {alert['action'].replace('_', ' ').title()}</em>
+                    </div>
+                '''
+            html_dashboard += '</div>'
+        
+        # Add workflow status table
+        html_dashboard += '''
+            <div style='background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);'>
+                <h2>Workflow Status</h2>
+                <table class='workflow-table'>
+                    <thead>
+                        <tr>
+                            <th>Workflow Name</th>
+                            <th>Success Rate</th>
+                            <th>Avg Time (min)</th>
+                            <th>Recent Runs</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        '''
+        
+        for workflow_name, workflow_data in health_data['workflow_status'].items():
+            success_rate = workflow_data.get('success_rate', 0.0)
+            exec_time = workflow_data.get('avg_execution_time_minutes', 0.0)
+            successful_runs = workflow_data.get('successful_runs', 0)
+            total_runs = workflow_data.get('total_runs', 0)
+            
+            status_class = (
+                'status-success' if success_rate >= 0.8 
+                else 'status-warning' if success_rate >= 0.6 
+                else 'status-error'
+            )
+            
+            status_text = (
+                'Healthy' if success_rate >= 0.8
+                else 'Warning' if success_rate >= 0.6
+                else 'Critical'
+            )
+            
+            html_dashboard += f'''
+                        <tr>
+                            <td>{workflow_name}</td>
+                            <td class='{status_class}'>{success_rate:.1%}</td>
+                            <td>{exec_time:.1f}</td>
+                            <td>{successful_runs}/{total_runs}</td>
+                            <td class='{status_class}'>{status_text}</td>
+                        </tr>
+            '''
+        
+        html_dashboard += '''
+                    </tbody>
+                </table>
+            </div>
+        '''
+        
+        # Add recommendations
+        if health_data.get('recommendations'):
+            html_dashboard += '''
+                <div style='background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-top: 20px;'>
+                    <h2>Recommendations</h2>
+                    <ul>
+            '''
+            for rec in health_data['recommendations']:
+                html_dashboard += f'<li>{rec}</li>'
+            
+            html_dashboard += '''
+                    </ul>
+                </div>
+            '''
+        
+        html_dashboard += '''
+            </div>
+        </body>
+        </html>
+        '''
+        
+        # Save HTML dashboard
+        with open('.claude/.artifacts/monitoring/workflow_health_dashboard.html', 'w') as f:
+            f.write(html_dashboard)
+        
+        print('HTML Dashboard generated successfully')
+        "
+
+    - name: Health Dashboard Summary
+      run: |
+        echo "=== Workflow Health Dashboard Summary ==="
+        python -c "
+        import json
+        
+        with open('.claude/.artifacts/monitoring/workflow_health_dashboard.json', 'r') as f:
+            health_data = json.load(f)
+        
+        health_score = health_data.get('health_score', 0.0)
+        performance = health_data.get('performance_metrics', {})
+        alerts = health_data.get('alerts', [])
+        
+        print(f'Overall Health Score: {health_score:.1f}%')
+        print(f'Success Rate: {performance.get(\"overall_success_rate\", 0.0):.1%} (Target: 85%)')
+        print(f'Avg Execution Time: {performance.get(\"avg_execution_time_minutes\", 0.0):.1f}min (Target: 55min)')
+        print(f'Workflows Monitored: {performance.get(\"total_workflows_monitored\", 0)}')
+        print(f'Active Alerts: {len(alerts)}')
+        
+        if alerts:
+            print('\\nActive Alerts:')
+            for alert in alerts:
+                print(f'  - {alert[\"level\"].upper()}: {alert[\"message\"]}')
+        
+        recommendations = health_data.get('recommendations', [])
+        if recommendations:
+            print('\\nTop Recommendations:')
+            for i, rec in enumerate(recommendations[:3], 1):
+                print(f'  {i}. {rec}')
+        
+        # Health status decision
+        if health_score >= 80:
+            print('\\nSYSTEM HEALTH: EXCELLENT')
+        elif health_score >= 60:
+            print('\\nSYSTEM HEALTH: GOOD')
+        else:
+            print('\\nSYSTEM HEALTH: NEEDS ATTENTION')
+        "
+
+    - name: Upload Health Dashboard Artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: workflow-health-dashboard-${{ github.run_number }}
+        path: |
+          .claude/.artifacts/monitoring/workflow_health_dashboard.json
+          .claude/.artifacts/monitoring/workflow_health_dashboard.html

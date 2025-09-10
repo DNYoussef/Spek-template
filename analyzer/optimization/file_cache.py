@@ -85,6 +85,10 @@ class FileContentCache:
         self._lock = RLock()
         self._stats = CacheStats(max_memory=max_memory)
         
+        # Phase 2A: Enhanced memory optimization
+        self._memory_pressure_threshold = int(max_memory * 0.8)  # 80% threshold
+        self._aggressive_cleanup_threshold = int(max_memory * 0.9)  # 90% threshold
+        
         # AST cache by content hash
         self._ast_cache: Dict[str, ast.AST] = {}
         
@@ -270,16 +274,39 @@ class FileContentCache:
     
     def _enforce_memory_bounds(self) -> None:
         """Enforce memory bounds by evicting LRU entries."""
+        # Phase 2A: Enhanced memory pressure handling
+        current_usage = self._stats.memory_usage
+        
+        if current_usage > self._aggressive_cleanup_threshold:
+            # Aggressive cleanup - remove 25% of entries
+            entries_to_remove = max(1, len(self._cache) // 4)
+            for _ in range(entries_to_remove):
+                if not self._cache:
+                    break
+                oldest_path, oldest_entry = self._cache.popitem(last=False)
+                self._stats.memory_usage -= oldest_entry.file_size
+                self._stats.evictions += 1
+                if oldest_path in self._file_mtimes:
+                    del self._file_mtimes[oldest_path]
+                    
+        elif current_usage > self._memory_pressure_threshold:
+            # Standard cleanup - remove LRU entries until below threshold
+            while self._stats.memory_usage > self._memory_pressure_threshold:
+                if not self._cache:
+                    break
+                oldest_path, oldest_entry = self._cache.popitem(last=False)
+                self._stats.memory_usage -= oldest_entry.file_size
+                self._stats.evictions += 1
+                if oldest_path in self._file_mtimes:
+                    del self._file_mtimes[oldest_path]
+        
+        # Original enforcement for max memory
         while self._stats.memory_usage > self.max_memory:
             if not self._cache:
                 break
-            
-            # Evict least recently used entry
             oldest_path, oldest_entry = self._cache.popitem(last=False)
             self._stats.memory_usage -= oldest_entry.file_size
             self._stats.evictions += 1
-            
-            # Clean up associated data
             if oldest_path in self._file_mtimes:
                 del self._file_mtimes[oldest_path]
     

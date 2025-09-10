@@ -1035,10 +1035,10 @@ Examples:
         return ExitCode.SUCCESS
 
 
-def main():
+def main(args=None):
     """Main entry point."""
     cli = ConnascenceCLI()
-    return cli.run()
+    return cli.run(args)
 
 
 if __name__ == "__main__":

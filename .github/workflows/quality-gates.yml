@@ -65,48 +65,83 @@ jobs:
       - name: Run Tests
         run: |
           if [ -f package.json ]; then 
-            npm test --silent
+            npm test --silent || {
+              echo "CRITICAL: Tests failed - this blocks quality gates"
+              echo "Run 'npm test' locally to debug test failures"
+              exit 1
+            }
+          else
+            echo "No package.json found - skipping JavaScript tests"
           fi
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Run TypeCheck
         run: |
           if [ -f package.json ]; then 
-            npm run typecheck
+            npm run typecheck || {
+              echo "CRITICAL: TypeScript errors found - this blocks deployment"
+              echo "Run 'npm run typecheck' locally to fix type errors"
+              exit 1
+            }
+          else
+            echo "No package.json found - skipping TypeScript checking"
           fi
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Run Linting
         run: |
           if [ -f package.json ]; then 
-            npm run lint --silent
+            npm run lint --silent || {
+              echo "CRITICAL: Linting errors found - this blocks quality gates"
+              echo "Run 'npm run lint' locally to fix linting errors"
+              exit 1
+            }
+          else
+            echo "No package.json found - skipping linting"
           fi
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Run Coverage
         run: |
           if [ -f package.json ]; then 
-            npm run coverage
-            npm run diff:coverage || true
+            npm run coverage || echo "Coverage collection failed - continuing"
+            npm run diff:coverage || echo "Coverage diff failed - continuing"
+          else
+            echo "No package.json found - skipping coverage"
           fi
         continue-on-error: true
 
       - name: Security Scan (Semgrep)
         run: |
-          semgrep --quiet --config p/owasp-top-ten --config configs/.semgrep.yml --sarif -o .claude/.artifacts/semgrep.sarif . || true
-        continue-on-error: true
+          if command -v semgrep >/dev/null 2>&1; then
+            semgrep --quiet --config p/owasp-top-ten --config configs/.semgrep.yml --sarif -o .claude/.artifacts/semgrep.sarif . || {
+              echo "CRITICAL: Security vulnerabilities found by Semgrep"
+              echo "Review .claude/.artifacts/semgrep.sarif for details"
+              exit 1
+            }
+          else
+            echo "Semgrep not available - skipping security scan"
+            echo '{}' > .claude/.artifacts/semgrep.sarif
+          fi
+        continue-on-error: false
 
       - name: Package Audit (npm)
         run: |
           if [ -f package.json ]; then 
-            npm audit --json > .claude/.artifacts/npm_audit.json || true
+            npm audit --json > .claude/.artifacts/npm_audit.json || echo "NPM audit failed - continuing"
+          else
+            echo "No package.json found - skipping npm audit"
+            echo '{}' > .claude/.artifacts/npm_audit.json
           fi
         continue-on-error: true
 
       - name: Package Audit (Python)
         run: |
           if [ -f requirements.txt ] || [ -f pyproject.toml ]; then 
-            pip-audit -f json -o .claude/.artifacts/pip_audit.json || true
+            pip-audit -f json -o .claude/.artifacts/pip_audit.json || echo "pip-audit failed - continuing"
+          else
+            echo "No Python requirements files found - skipping pip audit"
+            echo '{}' > .claude/.artifacts/pip_audit.json
           fi
         continue-on-error: true
 
@@ -219,14 +254,14 @@ jobs:
           try:
               print('🚀 Running performance monitoring and cache optimization...')
               from analyzer.optimization.streaming_performance_monitor import StreamingPerformanceMonitor
-              from analyzer.optimization.file_cache import IncrementalCache
+              from analyzer.optimization.file_cache import FileContentCache as IncrementalCache
               
               # Performance monitoring
               perf_monitor = StreamingPerformanceMonitor()
               perf_result = perf_monitor.get_performance_metrics()
               
               # Cache optimization
-              cache = IncrementalCache()
+              cache = IncrementalCache()  # FileContentCache aliased as IncrementalCache
               cache_result = cache.get_cache_health()
               
               # Combined performance results
