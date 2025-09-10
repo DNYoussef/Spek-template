@@ -1,4 +1,23 @@
-# Claude Code Configuration - SPEK Development Environment
+# Claude Code Configuration - SPEK Enhanced Development Platform
+
+## 🎯 Project Overview
+
+**SPEK Enhanced Development Platform** is a comprehensive AI-driven development environment that extends GitHub's Spec Kit with Research Intelligence, Theater Detection, and Reality Validation. The platform integrates 54+ AI agents, 29 specialized slash commands, and comprehensive quality gates to deliver **30-60% faster development** with **zero-defect production delivery**.
+
+### Core Pipeline: S-R-P-E-K Methodology
+```
+Specification → Research → Planning → Execution → Knowledge
+     ↓             ↓          ↓           ↓          ↓
+  Define       Discover   Generate    Implement   Validate
+Requirements  Solutions   Strategy     Features    Quality
+```
+
+**Key Differentiators:**
+- **Research-First Approach**: Discover existing solutions before building from scratch
+- **Theater Detection**: Eliminate fake work and validate genuine quality improvements  
+- **Defense Industry Ready**: 95% NASA POT10 compliance with comprehensive quality gates
+- **Parallel Execution**: 2.8-4.4x speed improvement through concurrent operations
+- **Reality Validation**: Evidence-based verification preventing completion theater
 
 ## 🚨 CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT
 
@@ -29,35 +48,57 @@
 
 ## 📑 Complete Documentation Table of Contents
 
-### **🔧 Core Commands & Quick Reference**
-- **Slash Commands**: `docs/SPEK-METHODOLOGY.md` - 22+ specialized commands
-- **Quality Gates**: `docs/QUALITY-GATES-REFERENCE.md` - CTQ thresholds & validation
-- **Agent Commands**: 54+ specialized agents with swarm coordination
-- **Build Commands**: `npm run build|test|lint|typecheck|coverage`
+### **📁 Core Project Documentation**
+- **Main README**: `README.md` - Project overview and quick start
+- **Project Structure**: `docs/PROJECT-STRUCTURE.md` - Complete 70-file system layout  
+- **Getting Started**: `examples/getting-started.md` - Step-by-step tutorial
+- **Quick Reference**: `docs/QUICK-REFERENCE.md` - Essential commands and patterns
+- **Agent Management**: `AGENTS.md` - Codex proof rules & gates
 
-### **🏗️ Project Architecture & Analysis**
-- **Project Structure**: `docs/PROJECT-STRUCTURE.md` - Complete 70-file system layout
+### **🔧 Methodology & Commands**
+- **SPEK Methodology**: `docs/S-R-P-E-K-METHODOLOGY.md` - Complete workflow guide
+- **Commands Reference**: `docs/reference/COMMANDS.md` - All 29 slash commands
+- **Quick Reference**: `docs/reference/QUICK-REFERENCE.md` - Essential commands and patterns
+
+### **🏗️ Architecture & Analysis**
 - **Analyzer Capabilities**: `docs/ANALYZER-CAPABILITIES.md` - 25,640 LOC analysis engine
-- **Consolidation Results**: `docs/MECE-CONSOLIDATION-PLAN.md` - Phase 1 achievements
+- **Architectural Analysis**: `docs/ARCHITECTURAL-ANALYSIS.md` - System design validation
+- **Agent Wiring**: `docs/AGENT-WIRING-OPTIMIZATION.md` - Multi-agent coordination
 - **CLI Integration**: `docs/CLI-INTEGRATION-GAPS.md` - Enhancement roadmap
 
-### **🧠 Memory System & Intelligence**
-- **Unified Memory Architecture**: `docs/UNIFIED-MEMORY-ARCHITECTURE.md` - Consolidated system
-- **Cross-Agent Memory**: Memory MCP + Claude Flow integration
-- **Session Management**: Persistent state & context restoration
-- **Neural Training**: Pattern learning & optimization
+### **🧠 Memory & Intelligence Systems** 
+- **Unified Memory**: `docs/UNIFIED-MEMORY-ARCHITECTURE.md` - Consolidated memory system
 
 ### **📊 Quality & Compliance**
 - **NASA POT10 Compliance**: `docs/NASA-POT10-COMPLIANCE-STRATEGIES.md` - Defense industry ready
-- **Connascence Analysis**: `docs/CONNASCENCE-VIOLATION-PATTERNS-RESEARCH.md` - Pattern detection
-- **God Object Decomposition**: `docs/GOD-OBJECT-DECOMPOSITION-RESEARCH.md` - Refactoring strategies
-- **Theater Detection**: Reality validation & completion verification
+- **Code Review Checklist**: `docs/NASA-POT10-CODE-REVIEW-CHECKLIST.md` - Review standards
+- **Guardrails**: `docs/process/GUARDRAILS.md` - Safety and validation mechanisms
 
-### **⚙️ Methodology & Process**
-- **SPEK Workflow**: Specification → Research → Planning → Execution → Knowledge
-- **3 Interconnected Loops**: Spec-Plan-Research | Development-Quality | Theater-Reality
-- **GitHub Integration**: Closed-loop quality system with MCP servers
-- **Safety Mechanisms**: Bounded operations, rollback capabilities, evidence packaging
+### **🔬 Research & Pattern Analysis**
+- **Connascence Patterns**: `docs/CONNASCENCE-VIOLATION-PATTERNS-RESEARCH.md` - Pattern detection
+- **God Object Research**: `docs/GOD-OBJECT-DECOMPOSITION-RESEARCH.md` - Refactoring strategies
+- **Analysis Format**: `docs/ANALYSIS-RESULT-FORMAT.md` - Result standardization
+- **Implementation Specs**: `docs/IMPLEMENTATION-SPECIFICATIONS.md` - Technical specifications
+
+### **📈 Consolidation & Migration**
+- **MECE Consolidation**: `docs/MECE-CONSOLIDATION-PLAN.md` - Phase 1 achievements  
+- **Analyzer Consolidation**: `docs/ANALYZER-CONSOLIDATION-PLAN.md` - System unification
+
+### **🚀 Implementation Status**
+- **Production Validation**: `docs/PRODUCTION-VALIDATION-REPORT.md` - Deployment readiness
+- **Final Assessment**: `docs/FINAL-PRODUCTION-ASSESSMENT.md` - Production status
+- **Implementation History**: `docs/history/` - Phase summaries and historical records
+
+### **📖 Examples & Workflows**
+- **Examples Overview**: `examples/README.md` - Available examples
+- **Sample Specifications**: `examples/sample-specs/auth-system.md` - Auth system spec
+- **Troubleshooting**: `examples/troubleshooting.md` - Common issues and solutions
+- **Spec-to-PR Workflow**: `examples/workflows/spec-to-pr.md` - Complete workflow example
+
+### **🔧 Technical Documentation**
+- **CLI README**: `interfaces/cli/README.md` - Command-line interface
+- **Analyzer README**: `analyzer/optimization/README.md` - Analysis optimization
+- **Constitution**: `memory/constitution.md` - System constitution and principles
 
 ## 🎯 Essential Agent Coordination
 
@@ -115,16 +156,66 @@ Pattern detection → Evidence validation → Quality verification → Learning
 - **VERIFY**: Playwright, eva, Theater detection
 - **DELIVER**: GitHub, Evidence packaging
 
-## 📚 Documentation Quick Links
+## 🔧 Available Slash Commands (29 Total)
 
-| Category | Documentation File |
-|----------|-------------------|
-| **Project Overview** | `README.md`, `docs/PROJECT-STRUCTURE.md` |
-| **Architecture** | `docs/ANALYZER-CAPABILITIES.md` |
-| **Quality** | `docs/NASA-POT10-COMPLIANCE-STRATEGIES.md` |
-| **Memory System** | `docs/UNIFIED-MEMORY-ARCHITECTURE.md` |
-| **Methodology** | `docs/SPEK-METHODOLOGY.md` |
-| **Examples** | `examples/` directory |
+### **🔬 Research & Discovery Commands**
+| Command | Description | Reference |
+|---------|-------------|-----------|
+| `/research:web` | Comprehensive web search for existing solutions | `.claude/commands/research-web.md` |
+| `/research:github` | GitHub repository analysis for code quality | `.claude/commands/research-github.md` |
+| `/research:models` | AI model research for specialized integration | `.claude/commands/research-models.md` |  
+| `/research:deep` | Deep technical research for implementation guidance | `.claude/commands/research-deep.md` |
+| `/research:analyze` | Large-context synthesis of research findings | `.claude/commands/research-analyze.md` |
+
+### **📋 Planning & Architecture Commands**
+| Command | Description | Reference |
+|---------|-------------|-----------|
+| `/spec:plan` | Convert SPEC.md → structured plan.json | `.claude/commands/spec-plan.md` |
+| `/specify` | Define project requirements (Spec Kit native) | `.claude/commands/specify.md` |
+| `/plan` | Specify technical implementation (Spec Kit native) | `.claude/commands/plan.md` |
+| `/tasks` | Create actionable task list (Spec Kit native) | `.claude/commands/tasks.md` |
+| `/gemini:impact` | Large-context change impact analysis | `.claude/commands/gemini-impact.md` |
+| `/pre-mortem-loop` | Comprehensive risk analysis and mitigation | `.claude/commands/pre-mortem-loop.md` |
+
+### **⚡ Implementation Commands**
+| Command | Description | Reference |
+|---------|-------------|-----------|
+| `/codex:micro` | Sandboxed micro-edits (≤25 LOC, ≤2 files) | `.claude/commands/codex-micro.md` |
+| `/codex:micro-fix` | Surgical fixes for test failures in sandbox | `.claude/commands/codex-micro-fix.md` |
+| `/fix:planned` | Multi-file fixes with bounded checkpoints | `.claude/commands/fix-planned.md` |
+
+### **🛡️ Quality Assurance Commands**
+| Command | Description | Reference |
+|---------|-------------|-----------|
+| `/qa:run` | Comprehensive QA suite (tests/lint/types/coverage) | `.claude/commands/qa-run.md` |
+| `/qa:analyze` | Analyze failures and route repair strategies | `.claude/commands/qa-analyze.md` |
+| `/qa:gate` | Apply CTQ thresholds for gate decisions | `.claude/commands/qa-gate.md` |
+| `/theater:scan` | Performance theater detection with quality correlation | `.claude/commands/theater-scan.md` |
+| `/reality:check` | Reality validation for completion claims | `.claude/commands/reality-check.md` |
+
+### **🔍 Analysis & Architecture Commands**
+| Command | Description | Reference |
+|---------|-------------|-----------|
+| `/conn:scan` | Advanced connascence analysis with 9 detector modules | `.claude/commands/conn-scan.md` |
+| `/conn:arch` | Architectural analysis with detector pools & recommendations | `.claude/commands/conn-arch.md` |
+| `/conn:monitor` | Real-time connascence monitoring and alerts | `.claude/commands/conn-monitor.md` |
+| `/conn:cache` | Optimized connascence analysis with intelligent caching | `.claude/commands/conn-cache.md` |
+| `/sec:scan` | Semgrep security scanning with OWASP rules | `.claude/commands/sec-scan.md` |
+| `/audit:swarm` | Multi-agent quality audit with swarm coordination | `.claude/commands/audit-swarm.md` |
+
+### **📊 Project Management Commands**
+| Command | Description | Reference |
+|---------|-------------|-----------|
+| `/pm:sync` | Bidirectional sync with Plane MCP | `.claude/commands/pm-sync.md` |
+| `/pr:open` | Evidence-rich pull request creation | `.claude/commands/pr-open.md` |
+
+### **🧠 Memory & System Commands**
+| Command | Description | Reference |
+|---------|-------------|-----------|
+| `/memory:unified` | Unified memory management across agents and sessions | `.claude/commands/memory-unified.md` |
+| `/cleanup:post-completion` | Transform SPEK template to production-ready codebase | `.claude/commands/cleanup-post-completion.md` |
+
+## 📚 Quick Reference Links
 
 ---
 
