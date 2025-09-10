@@ -18,7 +18,7 @@ from datetime import datetime
 logger = logging.getLogger(__name__)
 
 
-class AnalysisOrchestrator:
+class ArchitectureOrchestrator:
     """Orchestrates analysis phases with comprehensive coordination."""
 
     def __init__(self):

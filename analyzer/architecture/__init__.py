@@ -15,7 +15,7 @@ Includes performance optimization components like DetectorPool.
 from .detector_pool import DetectorPool, get_detector_pool
 
 # Import existing architecture components
-from .orchestrator import AnalysisOrchestrator
+from .orchestrator import ArchitectureOrchestrator
 from .aggregator import ViolationAggregator  
 from .recommendation_engine import RecommendationEngine
 # CONSOLIDATED: ConfigurationManager replaced by utils/config_manager.py (more comprehensive)
@@ -25,7 +25,7 @@ from .enhanced_metrics import EnhancedMetricsCalculator
 __all__ = [
     "DetectorPool", 
     "get_detector_pool",
-    "AnalysisOrchestrator",
+    "ArchitectureOrchestrator",
     "ViolationAggregator", 
     "RecommendationEngine",
     "ConfigurationManager",

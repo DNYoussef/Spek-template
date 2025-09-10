@@ -15,12 +15,12 @@ from typing import Any, Dict, List, Optional
 # Import using unified import strategy
 sys.path.insert(0, str(Path(__file__).parent.parent))
 try:
-    from core.unified_imports import IMPORT_MANAGER
+    from analyzer.core.unified_imports import IMPORT_MANAGER
 except ImportError:
     try:
-        # Fallback for legacy execution
-        sys.path.insert(0, str(Path(__file__).parent.parent / "core"))
-        from unified_imports import IMPORT_MANAGER
+        # Fallback for direct execution
+        sys.path.insert(0, str(Path(__file__).parent))
+        from core.unified_imports import IMPORT_MANAGER
     except ImportError:
         # Final fallback - define minimal import manager with required methods
         class MockImportResult:
@@ -159,6 +159,21 @@ class ConnascenceAnalyzer:
         else:
             self.analysis_mode = "mock"
             print("[WARNING] Neither unified nor fallback analyzer available, using mock mode")
+    
+    def analyze(self, *args, **kwargs) -> Dict[str, Any]:
+        """
+        Primary analysis method expected by external callers.
+        Routes to analyze_path for backward compatibility.
+        """
+        # Handle different calling patterns
+        if args:
+            path = args[0]
+            policy = args[1] if len(args) > 1 else kwargs.get('policy', 'default')
+        else:
+            path = kwargs.get('path', '.')
+            policy = kwargs.get('policy', 'default')
+        
+        return self.analyze_path(path, policy, **kwargs)
 
     def analyze_path(self, path: str, policy: str = "default", **kwargs) -> Dict[str, Any]:
         """Analyze a file or directory for connascence violations using real analysis pipeline."""

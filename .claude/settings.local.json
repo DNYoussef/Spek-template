@@ -71,7 +71,8 @@
       "Bash(bash --version)",
       "Bash(bash post-completion-cleanup.sh:*)",
       "Bash(xxd:*)",
-      "Bash(bash:*)"
+      "Bash(bash:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []
