@@ -65,7 +65,13 @@
       "Bash(timeout 30 python analyzer/core.py --path . --format json --output /dev/null)",
       "Read(//tmp/**)",
       "Bash(timeout:*)",
-      "Bash(./simulate_actions.sh:*)"
+      "Bash(./simulate_actions.sh:*)",
+      "Bash(git --version)",
+      "Bash(npm run build:*)",
+      "Bash(bash --version)",
+      "Bash(bash post-completion-cleanup.sh:*)",
+      "Bash(xxd:*)",
+      "Bash(bash:*)"
     ],
     "deny": [],
     "ask": []

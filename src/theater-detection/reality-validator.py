@@ -403,9 +403,23 @@ class RealityValidationSystem:
                 value = item.value
                 if isinstance(value, dict):
                     compliance_score = value.get("current_score", 0)
-                    if isinstance(compliance_score, (int, float)) and compliance_score >= 0.95:
+                    # Handle percentage strings like "98%"
+                    if isinstance(compliance_score, str):
+                        if compliance_score.endswith('%'):
+                            compliance_score = float(compliance_score[:-1]) / 100
+                        else:
+                            try:
+                                compliance_score = float(compliance_score)
+                            except ValueError:
+                                compliance_score = 0
+                    elif isinstance(compliance_score, (int, float)):
+                        compliance_score = float(compliance_score)
+                    else:
+                        compliance_score = 0
+                        
+                    if compliance_score >= 0.95:
                         scores.append(0.95)
-                    elif isinstance(compliance_score, (int, float)) and compliance_score >= 0.90:
+                    elif compliance_score >= 0.90:
                         scores.append(0.85)
                     else:
                         scores.append(0.70)
@@ -564,7 +578,21 @@ class RealityValidationSystem:
         
         if "nasa_compliance" in evidence:
             nasa_data = evidence["nasa_compliance"]
-            if nasa_data.get("current_score", 0) >= 0.95:
+            current_score = nasa_data.get("current_score", 0)
+        if isinstance(current_score, str):
+            if current_score.endswith('%'):
+                current_score = float(current_score[:-1]) / 100
+            else:
+                try:
+                    current_score = float(current_score)
+                except ValueError:
+                    current_score = 0
+        elif isinstance(current_score, (int, float)):
+            current_score = float(current_score)
+        else:
+            current_score = 0
+            
+        if current_score >= 0.95:
                 benefits.append("Achieved excellent NASA POT10 compliance (≥95%)")
         
         if "god_object_analysis" in evidence:
