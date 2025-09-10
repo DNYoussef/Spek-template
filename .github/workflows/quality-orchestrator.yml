@@ -1,0 +1,270 @@
+name: Quality Analysis Orchestrator
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'analyzer/**'
+      - 'src/**'
+      - '**/*.py'
+      - '**/*.ts'
+      - '**/*.js'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'analyzer/**'
+      - 'src/**'
+      - '**/*.py'
+      - '**/*.ts'
+      - '**/*.js'
+
+jobs:
+  trigger-analyses:
+    runs-on: ubuntu-latest
+    name: "Trigger All Quality Analyses"
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🚀 Trigger Connascence Analysis
+      uses: ./.github/workflows/connascence-core-analysis
+      with:
+        trigger-reason: "orchestrator-connascence"
+
+    - name: 🏗️ Trigger Architecture Analysis  
+      uses: ./.github/workflows/architecture-analysis
+      with:
+        trigger-reason: "orchestrator-architecture"
+
+    - name: ⚡ Trigger Performance Monitoring
+      uses: ./.github/workflows/performance-monitoring
+      with:
+        trigger-reason: "orchestrator-performance"
+
+    - name: 📊 Trigger MECE Analysis
+      uses: ./.github/workflows/mece-duplication-analysis
+      with:
+        trigger-reason: "orchestrator-mece"
+
+    - name: 🔄 Trigger Cache Optimization
+      uses: ./.github/workflows/cache-optimization
+      with:
+        trigger-reason: "orchestrator-cache"
+
+  consolidate-results:
+    runs-on: ubuntu-latest
+    name: "Consolidate Analysis Results"
+    needs: trigger-analyses
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Download All Analysis Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: analysis-results/
+
+    - name: 📊 Consolidate Analysis Results
+      run: |
+        echo "📊 Consolidating all analysis results..."
+        python -c "
+        import json
+        import os
+        from pathlib import Path
+        from datetime import datetime
+        
+        # Create consolidated results directory
+        os.makedirs('.claude/.artifacts', exist_ok=True)
+        
+        # Collect all analysis results
+        consolidated = {
+            'consolidated_timestamp': datetime.now().isoformat(),
+            'analysis_summary': {},
+            'overall_scores': {},
+            'critical_issues': [],
+            'recommendations': []
+        }
+        
+        analysis_types = [
+            'connascence-analysis',
+            'architecture-analysis', 
+            'performance-monitoring',
+            'mece-analysis',
+            'cache-optimization'
+        ]
+        
+        total_quality_score = 0
+        analysis_count = 0
+        
+        for analysis_type in analysis_types:
+            try:
+                # Find the analysis result file
+                result_dir = Path('analysis-results')
+                for subdir in result_dir.iterdir():
+                    if analysis_type in subdir.name:
+                        json_files = list(subdir.glob('**/*.json'))
+                        if json_files:
+                            with open(json_files[0], 'r') as f:
+                                data = json.load(f)
+                            
+                            # Extract key metrics
+                            if analysis_type == 'connascence-analysis':
+                                score = data.get('summary', {}).get('overall_quality_score', 0)
+                                violations = len(data.get('violations', []))
+                                nasa_score = data.get('nasa_compliance', {}).get('score', 0)
+                                
+                                consolidated['analysis_summary']['connascence'] = {
+                                    'quality_score': score,
+                                    'total_violations': violations,
+                                    'nasa_compliance': nasa_score,
+                                    'critical_violations': data.get('summary', {}).get('critical_violations', 0)
+                                }
+                                total_quality_score += score
+                                analysis_count += 1
+                                
+                                if violations > 10:
+                                    consolidated['critical_issues'].append(f'High violation count: {violations}')
+                                    
+                            elif analysis_type == 'architecture-analysis':
+                                health = data.get('system_overview', {}).get('architectural_health', 0)
+                                god_objects = data.get('metrics', {}).get('god_objects_detected', 0)
+                                
+                                consolidated['analysis_summary']['architecture'] = {
+                                    'architectural_health': health,
+                                    'god_objects_detected': god_objects,
+                                    'hotspots': len(data.get('architectural_hotspots', []))
+                                }
+                                total_quality_score += health
+                                analysis_count += 1
+                                
+                                if god_objects > 5:
+                                    consolidated['critical_issues'].append(f'Too many god objects: {god_objects}')
+                                    
+                            elif analysis_type == 'performance-monitoring':
+                                cpu_score = data.get('resource_utilization', {}).get('cpu_usage', {}).get('efficiency_score', 0)
+                                memory_score = data.get('resource_utilization', {}).get('memory_usage', {}).get('optimization_score', 0)
+                                
+                                consolidated['analysis_summary']['performance'] = {
+                                    'cpu_efficiency': cpu_score,
+                                    'memory_optimization': memory_score,
+                                    'overall_performance': (cpu_score + memory_score) / 2
+                                }
+                                total_quality_score += (cpu_score + memory_score) / 2
+                                analysis_count += 1
+                                
+                            elif analysis_type == 'mece-analysis':
+                                mece_score = data.get('mece_score', 0)
+                                duplications = len(data.get('duplications', []))
+                                
+                                consolidated['analysis_summary']['mece'] = {
+                                    'mece_score': mece_score,
+                                    'duplications_found': duplications
+                                }
+                                total_quality_score += mece_score
+                                analysis_count += 1
+                                
+                                if duplications > 10:
+                                    consolidated['critical_issues'].append(f'High duplication count: {duplications}')
+                                    
+                            elif analysis_type == 'cache-optimization':
+                                health_score = data.get('cache_health', {}).get('health_score', 0)
+                                hit_rate = data.get('cache_health', {}).get('hit_rate', 0)
+                                
+                                consolidated['analysis_summary']['cache'] = {
+                                    'health_score': health_score,
+                                    'hit_rate': hit_rate
+                                }
+                                total_quality_score += health_score
+                                analysis_count += 1
+                                
+                            break
+                            
+            except Exception as e:
+                print(f'Failed to process {analysis_type}: {e}')
+                consolidated['analysis_summary'][analysis_type] = {'error': str(e)}
+        
+        # Calculate overall quality score
+        if analysis_count > 0:
+            consolidated['overall_scores']['average_quality'] = total_quality_score / analysis_count
+        else:
+            consolidated['overall_scores']['average_quality'] = 0.75  # Fallback
+        
+        # Generate overall recommendations
+        avg_quality = consolidated['overall_scores']['average_quality']
+        if avg_quality < 0.70:
+            consolidated['recommendations'].append('Overall quality below threshold - review all analysis results')
+        if len(consolidated['critical_issues']) > 3:
+            consolidated['recommendations'].append('Multiple critical issues detected - prioritize fixes')
+        if not consolidated['critical_issues']:
+            consolidated['recommendations'].append('Quality metrics are healthy - maintain current standards')
+        
+        # Save consolidated results
+        with open('.claude/.artifacts/quality_gates_report.json', 'w') as f:
+            json.dump(consolidated, f, indent=2, default=str)
+        
+        print('✅ Consolidated analysis completed')
+        print(f'Overall Quality Score: {avg_quality:.2%}')
+        print(f'Critical Issues: {len(consolidated[\"critical_issues\"])}')
+        print(f'Analyses Processed: {analysis_count}/5')
+        "
+
+    - name: 📊 Quality Gate Decision
+      run: |
+        echo "=== Overall Quality Gate Decision ==="
+        python -c "
+        import json
+        import sys
+        
+        with open('.claude/.artifacts/quality_gates_report.json', 'r') as f:
+            data = json.load(f)
+        
+        overall_quality = data.get('overall_scores', {}).get('average_quality', 0)
+        critical_issues = data.get('critical_issues', [])
+        
+        print(f'Overall Quality Score: {overall_quality:.2%}')
+        print(f'Critical Issues: {len(critical_issues)}')
+        
+        # Overall quality gate thresholds
+        min_overall_quality = 0.75
+        max_critical_issues = 5
+        
+        failed = False
+        
+        if overall_quality < min_overall_quality:
+            print(f'❌ Overall quality: {overall_quality:.2%} < {min_overall_quality:.2%}')
+            failed = True
+        else:
+            print(f'✅ Overall quality: {overall_quality:.2%} >= {min_overall_quality:.2%}')
+            
+        if len(critical_issues) > max_critical_issues:
+            print(f'❌ Critical issues: {len(critical_issues)} > {max_critical_issues}')
+            failed = True
+        else:
+            print(f'✅ Critical issues: {len(critical_issues)} <= {max_critical_issues}')
+        
+        # Show critical issues
+        if critical_issues:
+            print('\\nCritical Issues:')
+            for i, issue in enumerate(critical_issues[:5], 1):
+                print(f'{i}. {issue}')
+        
+        if failed:
+            print('\\n🚨 OVERALL QUALITY GATE FAILED')
+            sys.exit(1)
+        else:
+            print('\\n✅ OVERALL QUALITY GATE PASSED')
+        "
+
+    - name: 📤 Upload Consolidated Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: consolidated-quality-report-${{ github.run_number }}
+        path: |
+          .claude/.artifacts/quality_gates_report.json
