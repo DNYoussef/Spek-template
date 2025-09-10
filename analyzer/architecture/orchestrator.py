@@ -446,7 +446,8 @@ class ArchitectureOrchestrator:
                     "complexity_score": round(complexity_score, 3),
                     "maintainability_index": round(maintainability_index, 3)
                 },
-                "architectural_hotspots": hotspots,
+                "hotspots": hotspots,  # Changed from "architectural_hotspots" to "hotspots" for validation test compatibility
+                "architectural_hotspots": hotspots,  # Keep both for backwards compatibility
                 "metrics": {
                     "total_components": total_files,
                     "total_lines_of_code": total_loc,
@@ -456,6 +457,7 @@ class ArchitectureOrchestrator:
                     "god_object_ratio": round(god_object_ratio, 3)
                 },
                 "recommendations": recommendations,
+                "architectural_health": round(architectural_health, 3),  # Add top-level architectural_health for validation test
                 "analysis_metadata": {
                     "analysis_duration_seconds": round(analysis_duration, 3),
                     "timestamp": self._get_iso_timestamp(),
@@ -491,7 +493,6 @@ class ArchitectureOrchestrator:
                     "fallback": True
                 }
             }
-            )
             
             # Extract architectural metrics
             architectural_metrics = self._calculate_architectural_metrics(violations_result)

@@ -72,7 +72,9 @@
       "Bash(bash post-completion-cleanup.sh:*)",
       "Bash(xxd:*)",
       "Bash(bash:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(gh run view:*)",
+      "Bash(sed:*)"
     ],
     "deny": [],
     "ask": []
