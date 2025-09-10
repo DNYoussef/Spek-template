@@ -99,7 +99,7 @@ jobs:
         echo "::group::Tool Correlation Self-Test"
         # Test our tool coordinator on itself
         python -m analyzer.integrations.tool_coordinator \
-          --connascence-results self_analysis_nasa.json \
+          --connascence-results analyzer/test_results/self_analysis_nasa.json \
           --external-results /dev/null \
           --output tool_correlation_self_test.json || echo "Tool correlation completed with basic mode"
         echo "::endgroup::"
@@ -110,9 +110,9 @@ jobs:
         # Update our own analysis baseline
         python -m analyzer.dashboard.metrics \
           --update-self-analysis \
-          --nasa-results self_analysis_nasa.json \
-          --mece-results self_mece_analysis.json \
-          --god-object-results self_god_objects.json \
+          --nasa-results analyzer/test_results/self_analysis_nasa.json \
+          --mece-results analyzer/test_results/self_mece_analysis.json \
+          --god-object-results analyzer/test_results/self_god_objects.json \
           --output updated_baseline_report.md
           
         # Compare with previous self-analysis from docs/reports/
@@ -130,11 +130,11 @@ jobs:
         echo "::group::Quality Gate Self-Assessment"
         
         # Extract metrics from our self-analysis
-        NASA_SCORE=$(python -c "import json; data=json.load(open('self_analysis_nasa.json')); print(data.get('nasa_compliance', {}).get('score', 0.0))")
-        TOTAL_VIOLATIONS=$(python -c "import json; data=json.load(open('self_analysis_nasa.json')); print(len(data.get('violations', [])))")
-        CRITICAL_VIOLATIONS=$(python -c "import json; data=json.load(open('self_analysis_nasa.json')); print(len([v for v in data.get('violations', []) if v.get('severity') == 'critical']))")
-        GOD_OBJECTS=$(python -c "import json; data=json.load(open('self_god_objects.json')); print(len([v for v in data.get('violations', []) if 'God Object' in v.get('description', '')]))")
-        MECE_SCORE=$(python -c "import json; data=json.load(open('self_mece_analysis.json')); print(data.get('mece_score', 0.0))")
+        NASA_SCORE=$(python -c "import json; data=json.load(open('analyzer/test_results/self_analysis_nasa.json')); print(data.get('nasa_compliance', {}).get('score', 0.0))")
+        TOTAL_VIOLATIONS=$(python -c "import json; data=json.load(open('analyzer/test_results/self_analysis_nasa.json')); print(len(data.get('violations', [])))")
+        CRITICAL_VIOLATIONS=$(python -c "import json; data=json.load(open('analyzer/test_results/self_analysis_nasa.json')); print(len([v for v in data.get('violations', []) if v.get('severity') == 'critical']))")
+        GOD_OBJECTS=$(python -c "import json; data=json.load(open('analyzer/test_results/self_god_objects.json')); print(len([v for v in data.get('violations', []) if 'God Object' in v.get('description', '')]))")
+        MECE_SCORE=$(python -c "import json; data=json.load(open('analyzer/test_results/self_mece_analysis.json')); print(data.get('mece_score', 0.0))")
         
         echo "Self-Analysis Results:"
         echo "===================="
@@ -193,9 +193,9 @@ jobs:
         echo "::group::Generate Self-Analysis Dashboard"
         python -m analyzer.dashboard.ci_integration \
           --generate-self-analysis-dashboard \
-          --nasa-results self_analysis_nasa.json \
-          --mece-results self_mece_analysis.json \
-          --god-object-results self_god_objects.json \
+          --nasa-results analyzer/test_results/self_analysis_nasa.json \
+          --mece-results analyzer/test_results/self_mece_analysis.json \
+          --god-object-results analyzer/test_results/self_god_objects.json \
           --correlation-results tool_correlation_self_test.json \
           --output self_analysis_dashboard.html
         echo "::endgroup::"
@@ -221,9 +221,9 @@ jobs:
       with:
         name: self-analysis-results-${{ github.run_number }}
         path: |
-          self_analysis_nasa.json
-          self_mece_analysis.json
-          self_god_objects.json
+          analyzer/test_results/self_analysis_nasa.json
+          analyzer/test_results/self_mece_analysis.json
+          analyzer/test_results/self_god_objects.json
           tool_correlation_self_test.json
           self_analysis_dashboard.html
           updated_baseline_report.md
