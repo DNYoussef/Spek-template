@@ -60,7 +60,12 @@
       "Bash(gh workflow list:*)",
       "Bash(gh api:*)",
       "Bash(ls:*)",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(gh workflow run:*)",
+      "Bash(timeout 30 python analyzer/core.py --path . --format json --output /dev/null)",
+      "Read(//tmp/**)",
+      "Bash(timeout:*)",
+      "Bash(./simulate_actions.sh:*)"
     ],
     "deny": [],
     "ask": []

@@ -368,7 +368,6 @@ class ConnascenceAnalyzer:
         """Generate mock violations only when real analysis is unavailable."""
         violations = [
             ConnascenceViolation(
-                id="mock_1",
                 rule_id="CON_CoM",
                 connascence_type="CoM",
                 severity="medium",
@@ -382,7 +381,6 @@ class ConnascenceAnalyzer:
         if policy == "nasa_jpl_pot10":
             violations.append(
                 ConnascenceViolation(
-                    id="nasa_mock",
                     rule_id="NASA_POT10_2",
                     connascence_type="CoA",
                     severity="critical",

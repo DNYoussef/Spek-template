@@ -81,7 +81,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 try:
     from .ast_engine.analyzer_orchestrator import AnalyzerOrchestrator as GodObjectOrchestrator
     # CONSOLIDATED: Legacy ConnascenceAnalyzer replaced by modular detector system
-    from .detectors.base import BaseDetector as ConnascenceASTAnalyzer
+    from .detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
     from .dup_detection.mece_analyzer import MECEAnalyzer
     from .smart_integration_engine import SmartIntegrationEngine
     from .detectors.timing_detector import TimingDetector
@@ -91,7 +91,7 @@ try:
 except ImportError:
     # Fallback with comprehensive error handling
     try:
-        from detectors.base import BaseDetector as ConnascenceASTAnalyzer
+        from detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
     except ImportError:
         # Minimal fallback analyzer class
         class ConnascenceASTAnalyzer:
@@ -486,8 +486,17 @@ class UnifiedConnascenceAnalyzer:
         """Initialize core analyzers (NASA Rule 2: ≤60 LOC)."""
         try:
             self.ast_analyzer = ConnascenceASTAnalyzer()
-            self.god_object_orchestrator = GodObjectOrchestrator()  # Renamed for clarity
-            self.mece_analyzer = MECEAnalyzer()
+            # Safe instantiation with None check for import fallback
+            if GodObjectOrchestrator is not None:
+                self.god_object_orchestrator = GodObjectOrchestrator()
+            else:
+                # Fallback: Create minimal analyzer with required interface
+                class MinimalGodObjectOrchestrator:
+                    def analyze(self, *args, **kwargs): return []
+                    def orchestrate_analysis(self, *args, **kwargs): return []
+                    def analyze_directory(self, *args, **kwargs): return []
+                self.god_object_orchestrator = MinimalGodObjectOrchestrator()
+            self.mece_analyzer = MECEAnalyzer() if MECEAnalyzer is not None else None
         except Exception as e:
             error = self.error_handler.handle_exception(e, {"component": "core_analyzers"})
             self.error_handler.log_error(error)
