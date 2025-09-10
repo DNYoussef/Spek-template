@@ -132,7 +132,7 @@ class TheaterPatternDetector:
 theater_pattern_library:
   classic_patterns:
     success_printing:
-      signature: 'console.log("✓")|print("PASS")|echo "SUCCESS"'
+      signature: 'console.log("[U+2713]")|print("PASS")|echo "SUCCESS"'
       context: "Test files or validation scripts"
       severity: "high"
       evidence_required: "Actual verification logic missing"
@@ -250,7 +250,7 @@ def correlate_theater_with_quality_gates(theater_findings, quality_results):
       "severity": "high",
       "confidence": 0.92,
       "evidence": {
-        "code_snippet": "console.log('✓ Auth integration test passed')",
+        "code_snippet": "console.log('[U+2713] Auth integration test passed')",
         "context": "Function returns without actual API call",
         "git_history": "Added in commit abc123 claiming integration test"
       },

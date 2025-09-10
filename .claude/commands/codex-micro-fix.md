@@ -126,7 +126,7 @@ function monitorSurgicalFix(logFile, targetIssue) {
         
         if (result.success) {
           monitor.success = true;
-          console.log(`✅ Surgical fix successful: ${targetIssue}`);
+          console.log(`[OK] Surgical fix successful: ${targetIssue}`);
         }
       }
       
@@ -353,7 +353,7 @@ Generate detailed surgical-fix.json:
 ```javascript
 async function integrateWithEditLoop(originalEdit, testResults) {
   if (testResults.status === 'failed') {
-    console.log('🔧 Tests failed after edit - initiating surgical fix...');
+    console.log('[TOOL] Tests failed after edit - initiating surgical fix...');
     
     const surgicalResult = await executeSurgicalFix({
       failure_context: testResults.failure_details,

@@ -99,20 +99,20 @@ optimization:
   memory_limit: "2GB"
 hooks:
   pre_execution: |
-    echo "🤖 ML Model Developer initializing..."
-    echo "📁 Checking for datasets..."
+    echo "[U+1F916] ML Model Developer initializing..."
+    echo "[FOLDER] Checking for datasets..."
     find . -name "*.csv" -o -name "*.parquet" | grep -E "(data|dataset)" | head -5
-    echo "📦 Checking ML libraries..."
+    echo "[U+1F4E6] Checking ML libraries..."
     python -c "import sklearn, pandas, numpy; print('Core ML libraries available')" 2>/dev/null || echo "ML libraries not installed"
   post_execution: |
-    echo "✅ ML model development completed"
-    echo "📊 Model artifacts:"
+    echo "[OK] ML model development completed"
+    echo "[CHART] Model artifacts:"
     find . -name "*.pkl" -o -name "*.h5" -o -name "*.joblib" | grep -v __pycache__ | head -5
-    echo "📋 Remember to version and document your model"
+    echo "[CLIPBOARD] Remember to version and document your model"
   on_error: |
-    echo "❌ ML pipeline error: {{error_message}}"
-    echo "🔍 Check data quality and feature compatibility"
-    echo "💡 Consider simpler models or more data preprocessing"
+    echo "[FAIL] ML pipeline error: {{error_message}}"
+    echo "[SEARCH] Check data quality and feature compatibility"
+    echo "[INFO] Consider simpler models or more data preprocessing"
 examples:
   - trigger: "create a classification model for customer churn prediction"
     response: "I'll develop a machine learning pipeline for customer churn prediction, including data preprocessing, model selection, training, and evaluation..."

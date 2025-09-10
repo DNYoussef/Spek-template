@@ -12,15 +12,15 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "🗳️  Raft Manager starting: $TASK"
+    echo "[U+1F5F3][U+FE0F]  Raft Manager starting: $TASK"
     # Check cluster health before operations
     if [[ "$TASK" == *"election"* ]]; then
-      echo "🎯 Preparing leader election process"
+      echo "[TARGET] Preparing leader election process"
     fi
   post: |
-    echo "📝 Raft operation complete"
+    echo "[NOTE] Raft operation complete"
     # Verify log consistency
-    echo "🔍 Validating log replication and consistency"
+    echo "[SEARCH] Validating log replication and consistency"
 ---
 
 # Raft Consensus Manager

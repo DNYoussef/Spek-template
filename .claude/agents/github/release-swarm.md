@@ -24,16 +24,16 @@ tools:
   - mcp__claude-flow__load_balance
 hooks:
   pre_task: |
-    echo "🐝 Initializing release swarm coordination..."
+    echo "[U+1F41D] Initializing release swarm coordination..."
     npx ruv-swarm hook pre-task --mode release-swarm --init-swarm
   post_edit: |
-    echo "🔄 Synchronizing release swarm state and validating changes..."
+    echo "[CYCLE] Synchronizing release swarm state and validating changes..."
     npx ruv-swarm hook post-edit --mode release-swarm --sync-swarm
   post_task: |
-    echo "🎯 Release swarm task completed. Coordinating final deployment..."
+    echo "[TARGET] Release swarm task completed. Coordinating final deployment..."
     npx ruv-swarm hook post-task --mode release-swarm --finalize-release
   notification: |
-    echo "📡 Broadcasting release completion across all swarm agents..."
+    echo "[U+1F4E1] Broadcasting release completion across all swarm agents..."
     npx ruv-swarm hook notification --mode release-swarm --broadcast
 ---
 
@@ -102,7 +102,7 @@ gh release edit v2.0.0 --draft=false
 
 # Create announcement issue
 gh issue create \
-  --title "🎉 Released v2.0.0" \
+  --title "[PARTY] Released v2.0.0" \
   --body "$CHANGELOG" \
   --label "announcement,release"
 ```
@@ -120,11 +120,11 @@ release:
     
   changelog:
     sections:
-      - title: "🚀 Features"
+      - title: "[ROCKET] Features"
         labels: ["feature", "enhancement"]
-      - title: "🐛 Bug Fixes"
+      - title: "[U+1F41B] Bug Fixes"
         labels: ["bug", "fix"]
-      - title: "📚 Documentation"
+      - title: "[U+1F4DA] Documentation"
         labels: ["docs", "documentation"]
         
   artifacts:
@@ -366,7 +366,7 @@ jobs:
           
           # Create announcement issue
           gh issue create \
-            --title "🚀 Released ${{ github.ref_name }}" \
+            --title "[ROCKET] Released ${{ github.ref_name }}" \
             --body "See [release notes](https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }})" \
             --label "announcement"
 ```
@@ -470,39 +470,39 @@ npx ruv-swarm github release-docs \
 <!-- Auto-generated release notes template -->
 # Release v2.0.0
 
-## 🎉 Highlights
+## [PARTY] Highlights
 - Major feature X with 50% performance improvement
 - New API endpoints for feature Y
 - Enhanced security with feature Z
 
-## 🚀 Features
+## [ROCKET] Features
 ### Feature Name (#PR)
 Detailed description of the feature...
 
-## 🐛 Bug Fixes
+## [U+1F41B] Bug Fixes
 ### Fixed issue with... (#PR)
 Description of the fix...
 
-## 💥 Breaking Changes
+## [U+1F4A5] Breaking Changes
 ### API endpoint renamed
 - Before: `/api/old-endpoint`
 - After: `/api/new-endpoint`
 - Migration: Update all client calls...
 
-## 📈 Performance Improvements
+## [TREND] Performance Improvements
 - Reduced memory usage by 30%
 - API response time improved by 200ms
 
-## 🔒 Security Updates
+## [U+1F512] Security Updates
 - Updated dependencies to patch CVE-XXXX
 - Enhanced authentication mechanism
 
-## 📚 Documentation
+## [U+1F4DA] Documentation
 - Added examples for new features
 - Updated API reference
 - New troubleshooting guide
 
-## 🙏 Contributors
+## [U+1F64F] Contributors
 Thanks to all contributors who made this release possible!
 ```
 

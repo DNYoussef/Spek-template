@@ -12,25 +12,25 @@ Intelligent memory router that unifies Claude Flow memory and Memory MCP into a 
 
 ### Memory Router Design
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Unified Memory Router                    │
-├─────────────────────────────────────────────────────────────┤
-│  Namespace-Based Routing Logic                             │
-│  ├── swarm/* → Claude Flow (coordination primary)          │
-│  ├── analysis/* → Memory MCP (analysis primary)           │
-│  ├── patterns/* → Unified Bridge (hybrid storage)         │
-│  └── intelligence/* → Unified Bridge (shared knowledge)   │
-├─────────────────────────────────────────────────────────────┤
-│  Integration Bridge                                         │
-│  ├── Data Synchronization Engine                           │
-│  ├── Pattern Consolidation Service                         │
-│  ├── Performance Monitoring Bridge                         │
-│  └── Cross-System Translation Layer                        │
-├─────────────────────────────────────────────────────────────┤
-│  Memory Systems                                             │
-│  ├── Claude Flow Memory (Session & Coordination)           │
-│  └── Memory MCP (Analysis & Pattern Learning)              │
-└─────────────────────────────────────────────────────────────┘
+[U+250C][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2510]
+[U+2502]                    Unified Memory Router                    [U+2502]
+[U+251C][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2524]
+[U+2502]  Namespace-Based Routing Logic                             [U+2502]
+[U+2502]  [U+251C][U+2500][U+2500] swarm/* -> Claude Flow (coordination primary)          [U+2502]
+[U+2502]  [U+251C][U+2500][U+2500] analysis/* -> Memory MCP (analysis primary)           [U+2502]
+[U+2502]  [U+251C][U+2500][U+2500] patterns/* -> Unified Bridge (hybrid storage)         [U+2502]
+[U+2502]  [U+2514][U+2500][U+2500] intelligence/* -> Unified Bridge (shared knowledge)   [U+2502]
+[U+251C][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2524]
+[U+2502]  Integration Bridge                                         [U+2502]
+[U+2502]  [U+251C][U+2500][U+2500] Data Synchronization Engine                           [U+2502]
+[U+2502]  [U+251C][U+2500][U+2500] Pattern Consolidation Service                         [U+2502]
+[U+2502]  [U+251C][U+2500][U+2500] Performance Monitoring Bridge                         [U+2502]
+[U+2502]  [U+2514][U+2500][U+2500] Cross-System Translation Layer                        [U+2502]
+[U+251C][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2524]
+[U+2502]  Memory Systems                                             [U+2502]
+[U+2502]  [U+251C][U+2500][U+2500] Claude Flow Memory (Session & Coordination)           [U+2502]
+[U+2502]  [U+2514][U+2500][U+2500] Memory MCP (Analysis & Pattern Learning)              [U+2502]
+[U+2514][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2518]
 ```
 
 ## Core Features
@@ -59,7 +59,7 @@ Intelligent memory router that unifies Claude Flow memory and Memory MCP into a 
 ```bash
 # 1. Initialize unified memory router with configuration
 memory_router_init() {
-  echo "🧠 Initializing Unified Memory Router..."
+  echo "[BRAIN] Initializing Unified Memory Router..."
   
   # Check both memory systems availability
   CLAUDE_FLOW_AVAILABLE=$(npx claude-flow@alpha memory usage --quick-check 2>/dev/null && echo "true" || echo "false")
@@ -82,7 +82,7 @@ unified_memory_store() {
   local value="$3"
   local metadata="$4"
   
-  echo "💾 Storing memory: ${namespace}/${key}"
+  echo "[U+1F4BE] Storing memory: ${namespace}/${key}"
   
   # Route based on namespace patterns
   case "$namespace" in
@@ -117,7 +117,7 @@ unified_memory_store() {
 ```bash
 # 3. Bi-directional synchronization between systems
 sync_memory_systems() {
-  echo "🔄 Synchronizing memory systems..."
+  echo "[CYCLE] Synchronizing memory systems..."
   
   # Synchronize pattern learning data
   sync_pattern_data() {
@@ -151,7 +151,7 @@ sync_memory_systems() {
   sync_pattern_data
   sync_performance_data
   
-  echo "✅ Memory systems synchronized successfully"
+  echo "[OK] Memory systems synchronized successfully"
 }
 ```
 

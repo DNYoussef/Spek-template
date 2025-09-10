@@ -163,7 +163,7 @@ npx ruv-swarm github issue-init 456 \
   --auto-topology
 
 # Add swarm initialization comment
-gh issue comment 456 --body "🐝 Swarm initialized for this issue"
+gh issue comment 456 --body "[U+1F41D] Swarm initialized for this issue"
 ```
 
 ### Task Decomposition
@@ -219,22 +219,22 @@ gh issue edit 456 --body "$UPDATED_BODY"
 
 # Post progress summary as comment
 SUMMARY=$(echo "$PROGRESS" | jq -r '
-"## 📊 Progress Update
+"## [CHART] Progress Update
 
 **Completion**: \(.completion)%
 **ETA**: \(.eta)
 
 ### Completed Tasks
-\(.completed | map("- ✅ " + .) | join("\n"))
+\(.completed | map("- [OK] " + .) | join("\n"))
 
 ### In Progress
-\(.in_progress | map("- 🔄 " + .) | join("\n"))
+\(.in_progress | map("- [CYCLE] " + .) | join("\n"))
 
 ### Remaining
-\(.remaining | map("- ⏳ " + .) | join("\n"))
+\(.remaining | map("- [U+23F3] " + .) | join("\n"))
 
 ---
-🤖 Automated update by swarm agent"')
+[U+1F916] Automated update by swarm agent"')
 
 gh issue comment 456 --body "$SUMMARY"
 

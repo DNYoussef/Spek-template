@@ -12,15 +12,15 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "🔄 CRDT Synchronizer syncing: $TASK"
+    echo "[CYCLE] CRDT Synchronizer syncing: $TASK"
     # Initialize CRDT state tracking
     if [[ "$TASK" == *"synchronization"* ]]; then
-      echo "📊 Preparing delta state computation"
+      echo "[CHART] Preparing delta state computation"
     fi
   post: |
-    echo "🎯 CRDT synchronization complete"
+    echo "[TARGET] CRDT synchronization complete"
     # Verify eventual consistency
-    echo "✅ Validating conflict-free state convergence"
+    echo "[OK] Validating conflict-free state convergence"
 ---
 
 # CRDT Synchronizer

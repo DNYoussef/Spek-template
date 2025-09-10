@@ -38,17 +38,17 @@ This directory contains specialized swarm coordination agents designed to work w
 ### Performance Characteristics
 
 ```
-Hierarchical: ⭐⭐⭐⭐⭐ Coordination Efficiency
-              ⭐⭐⭐⭐   Fault Tolerance  
-              ⭐⭐⭐⭐⭐ Scalability
+Hierarchical: [U+2B50][U+2B50][U+2B50][U+2B50][U+2B50] Coordination Efficiency
+              [U+2B50][U+2B50][U+2B50][U+2B50]   Fault Tolerance  
+              [U+2B50][U+2B50][U+2B50][U+2B50][U+2B50] Scalability
 
-Mesh:         ⭐⭐⭐     Coordination Efficiency
-              ⭐⭐⭐⭐⭐ Fault Tolerance
-              ⭐⭐⭐     Scalability
+Mesh:         [U+2B50][U+2B50][U+2B50]     Coordination Efficiency
+              [U+2B50][U+2B50][U+2B50][U+2B50][U+2B50] Fault Tolerance
+              [U+2B50][U+2B50][U+2B50]     Scalability
 
-Adaptive:     ⭐⭐⭐⭐⭐ Coordination Efficiency  
-              ⭐⭐⭐⭐⭐ Fault Tolerance
-              ⭐⭐⭐⭐⭐ Scalability
+Adaptive:     [U+2B50][U+2B50][U+2B50][U+2B50][U+2B50] Coordination Efficiency  
+              [U+2B50][U+2B50][U+2B50][U+2B50][U+2B50] Fault Tolerance
+              [U+2B50][U+2B50][U+2B50][U+2B50][U+2B50] Scalability
 ```
 
 ## MCP Tool Integration
@@ -108,28 +108,28 @@ claude-flow agent spawn adaptive-coordinator "Optimize system performance"
 ## Architecture Decision Framework
 
 ### When to Use Hierarchical
-- ✅ Well-defined project structure
-- ✅ Clear resource hierarchy 
-- ✅ Need for centralized decision making
-- ✅ Large team coordination required
-- ❌ High fault tolerance critical
-- ❌ Network partitioning likely
+- [OK] Well-defined project structure
+- [OK] Clear resource hierarchy 
+- [OK] Need for centralized decision making
+- [OK] Large team coordination required
+- [FAIL] High fault tolerance critical
+- [FAIL] Network partitioning likely
 
 ### When to Use Mesh
-- ✅ High availability requirements
-- ✅ Distributed processing needs
-- ✅ Network reliability concerns
-- ✅ Peer collaboration model
-- ❌ Simple coordination sufficient
-- ❌ Resource constraints exist
+- [OK] High availability requirements
+- [OK] Distributed processing needs
+- [OK] Network reliability concerns
+- [OK] Peer collaboration model
+- [FAIL] Simple coordination sufficient
+- [FAIL] Resource constraints exist
 
 ### When to Use Adaptive
-- ✅ Variable workload patterns
-- ✅ Long-running production systems
-- ✅ Performance optimization critical
-- ✅ Machine learning acceptable
-- ❌ Predictable, stable workloads
-- ❌ Simple requirements
+- [OK] Variable workload patterns
+- [OK] Long-running production systems
+- [OK] Performance optimization critical
+- [OK] Machine learning acceptable
+- [FAIL] Predictable, stable workloads
+- [FAIL] Simple requirements
 
 ## Performance Monitoring
 

@@ -108,18 +108,18 @@ mapping:
     
   # Map agent types to labels
   agents:
-    coder: "🔧 Development"
-    tester: "🧪 Testing"
-    analyst: "📊 Analysis"
-    designer: "🎨 Design"
-    architect: "🏗️ Architecture"
+    coder: "[TOOL] Development"
+    tester: "[U+1F9EA] Testing"
+    analyst: "[CHART] Analysis"
+    designer: "[U+1F3A8] Design"
+    architect: "[BUILD] Architecture"
     
   # Map priority to project fields
   priority:
-    critical: "🔴 Critical"
-    high: "🟡 High"
-    medium: "🟢 Medium"
-    low: "⚪ Low"
+    critical: "[U+1F534] Critical"
+    high: "[U+1F7E1] High"
+    medium: "[U+1F7E2] Medium"
+    low: "[U+26AA] Low"
     
   # Custom fields
   fields:

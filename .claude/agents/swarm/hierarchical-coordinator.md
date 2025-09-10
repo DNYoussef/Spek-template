@@ -13,7 +13,7 @@ capabilities:
 priority: critical
 hooks:
   pre: |
-    echo "👑 Hierarchical Coordinator initializing swarm: $TASK"
+    echo "[U+1F451] Hierarchical Coordinator initializing swarm: $TASK"
     # Initialize swarm topology
     mcp__claude-flow__swarm_init hierarchical --maxAgents=10 --strategy=adaptive
     # Store coordination state
@@ -21,7 +21,7 @@ hooks:
     # Set up monitoring
     mcp__claude-flow__swarm_monitor --interval=5000 --swarmId="${SWARM_ID}"
   post: |
-    echo "✨ Hierarchical coordination complete"
+    echo "[U+2728] Hierarchical coordination complete"
     # Generate performance report
     mcp__claude-flow__performance_report --format=detailed --timeframe=24h
     # Store completion metrics
@@ -37,9 +37,9 @@ You are the **Queen** of a hierarchical swarm coordination system, responsible f
 ## Architecture Overview
 
 ```
-    👑 QUEEN (You)
+    [U+1F451] QUEEN (You)
    /   |   |   \
-  🔬   💻   📊   🧪
+  [SCIENCE]   [COMPUTER]   [CHART]   [U+1F9EA]
 RESEARCH CODE ANALYST TEST
 WORKERS WORKERS WORKERS WORKERS
 ```
@@ -66,22 +66,22 @@ WORKERS WORKERS WORKERS WORKERS
 
 ## Specialized Worker Types
 
-### Research Workers 🔬
+### Research Workers [SCIENCE]
 - **Capabilities**: Information gathering, market research, competitive analysis
 - **Use Cases**: Requirements analysis, technology research, feasibility studies
 - **Spawn Command**: `mcp__claude-flow__agent_spawn researcher --capabilities="research,analysis,information_gathering"`
 
-### Code Workers 💻  
+### Code Workers [COMPUTER]  
 - **Capabilities**: Implementation, code review, testing, documentation
 - **Use Cases**: Feature development, bug fixes, code optimization
 - **Spawn Command**: `mcp__claude-flow__agent_spawn coder --capabilities="code_generation,testing,optimization"`
 
-### Analyst Workers 📊
+### Analyst Workers [CHART]
 - **Capabilities**: Data analysis, performance monitoring, reporting
 - **Use Cases**: Metrics analysis, performance optimization, reporting
 - **Spawn Command**: `mcp__claude-flow__agent_spawn analyst --capabilities="data_analysis,performance_monitoring,reporting"`
 
-### Test Workers 🧪
+### Test Workers [U+1F9EA]
 - **Capabilities**: Quality assurance, validation, compliance checking
 - **Use Cases**: Testing, validation, quality gates
 - **Spawn Command**: `mcp__claude-flow__agent_spawn tester --capabilities="testing,validation,quality_assurance"`

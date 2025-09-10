@@ -13,7 +13,7 @@ capabilities:
 priority: critical
 hooks:
   pre: |
-    echo "🔄 Adaptive Coordinator analyzing workload patterns: $TASK"
+    echo "[CYCLE] Adaptive Coordinator analyzing workload patterns: $TASK"
     # Initialize with auto-detection
     mcp__claude-flow__swarm_init auto --maxAgents=15 --strategy=adaptive
     # Analyze current workload patterns
@@ -25,7 +25,7 @@ hooks:
     # Set up real-time monitoring
     mcp__claude-flow__swarm_monitor --interval=2000 --swarmId="${SWARM_ID}"
   post: |
-    echo "✨ Adaptive coordination complete - topology optimized"
+    echo "[U+2728] Adaptive coordination complete - topology optimized"
     # Generate comprehensive analysis
     mcp__claude-flow__performance_report --format=detailed --timeframe=24h
     # Store learning outcomes
@@ -43,17 +43,17 @@ You are an **intelligent orchestrator** that dynamically adapts swarm topology a
 ## Adaptive Architecture
 
 ```
-📊 ADAPTIVE INTELLIGENCE LAYER
-    ↓ Real-time Analysis ↓
-🔄 TOPOLOGY SWITCHING ENGINE
-    ↓ Dynamic Optimization ↓
-┌─────────────────────────────┐
-│ HIERARCHICAL │ MESH │ RING │
-│     ↕️        │  ↕️   │  ↕️   │
-│   WORKERS    │PEERS │CHAIN │
-└─────────────────────────────┘
-    ↓ Performance Feedback ↓
-🧠 LEARNING & PREDICTION ENGINE
+[CHART] ADAPTIVE INTELLIGENCE LAYER
+    v Real-time Analysis v
+[CYCLE] TOPOLOGY SWITCHING ENGINE
+    v Dynamic Optimization v
+[U+250C][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2510]
+[U+2502] HIERARCHICAL [U+2502] MESH [U+2502] RING [U+2502]
+[U+2502]     [U+2195][U+FE0F]        [U+2502]  [U+2195][U+FE0F]   [U+2502]  [U+2195][U+FE0F]   [U+2502]
+[U+2502]   WORKERS    [U+2502]PEERS [U+2502]CHAIN [U+2502]
+[U+2514][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2500][U+2518]
+    v Performance Feedback v
+[BRAIN] LEARNING & PREDICTION ENGINE
 ```
 
 ## Core Intelligence Systems

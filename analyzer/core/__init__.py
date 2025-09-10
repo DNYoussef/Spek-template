@@ -1,9 +1,9 @@
-# Core module initialization - simplified to avoid circular imports
+# Core module initialization with enhanced CI/CD support
 from .unified_imports import IMPORT_MANAGER
 
-# For validation tests that need ConnascenceAnalyzer, expose it through lazy import
-def _get_connascence_analyzer():
-    """Lazy import of ConnascenceAnalyzer to avoid circular imports."""
+# Enhanced imports with lazy loading for CI compatibility
+def _lazy_import_from_core():
+    """Lazy import of enhanced functions from core.py."""
     try:
         import sys
         from pathlib import Path
@@ -13,22 +13,35 @@ def _get_connascence_analyzer():
         core_py_path = analyzer_path / "core.py"
         
         if not core_py_path.exists():
-            return None
+            return {}
             
         # Add analyzer directory to path
         if str(analyzer_path) not in sys.path:
             sys.path.insert(0, str(analyzer_path))
         
-        # Import the main ConnascenceAnalyzer class from core.py
+        # Import enhanced functions from core.py
         import core as core_module
-        return getattr(core_module, 'ConnascenceAnalyzer', None)
+        return {
+            'ConnascenceAnalyzer': getattr(core_module, 'ConnascenceAnalyzer', None),
+            'validate_critical_dependencies': getattr(core_module, 'validate_critical_dependencies', None),
+            'create_enhanced_mock_import_manager': getattr(core_module, 'create_enhanced_mock_import_manager', None),
+            'main': getattr(core_module, 'main', None)
+        }
         
-    except (ImportError, AttributeError) as e:
-        return None
+    except Exception as e:
+        return {}
 
-# Make ConnascenceAnalyzer available through lazy import
-ConnascenceAnalyzer = _get_connascence_analyzer()
+# Load enhanced functions
+_enhanced_functions = _lazy_import_from_core()
 
+# Export enhanced functions
+ConnascenceAnalyzer = _enhanced_functions.get('ConnascenceAnalyzer')
+validate_critical_dependencies = _enhanced_functions.get('validate_critical_dependencies')
+create_enhanced_mock_import_manager = _enhanced_functions.get('create_enhanced_mock_import_manager')
+main = _enhanced_functions.get('main')
+
+# Build __all__ dynamically
 __all__ = ["IMPORT_MANAGER"]
-if ConnascenceAnalyzer:
-    __all__.append("ConnascenceAnalyzer")
+for name, func in _enhanced_functions.items():
+    if func is not None:
+        __all__.append(name)

@@ -12,15 +12,15 @@ capabilities:
 priority: medium
 hooks:
   pre: |
-    echo "📡 Gossip Coordinator broadcasting: $TASK"
+    echo "[U+1F4E1] Gossip Coordinator broadcasting: $TASK"
     # Initialize peer connections
     if [[ "$TASK" == *"dissemination"* ]]; then
-      echo "🌐 Establishing peer network topology"
+      echo "[GLOBE] Establishing peer network topology"
     fi
   post: |
-    echo "🔄 Gossip protocol cycle complete"
+    echo "[CYCLE] Gossip protocol cycle complete"
     # Check convergence status
-    echo "📊 Monitoring eventual consistency convergence"
+    echo "[CHART] Monitoring eventual consistency convergence"
 ---
 
 # Gossip Protocol Coordinator

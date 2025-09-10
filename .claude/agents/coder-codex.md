@@ -12,12 +12,12 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "⚡ Coder-Codex initializing with sandbox isolation"
-    echo "🛡️ Budget constraints: ≤25 LOC, ≤2 files"
-    echo "🧪 Comprehensive QA verification enabled"
+    echo "[LIGHTNING] Coder-Codex initializing with sandbox isolation"
+    echo "[SHIELD] Budget constraints: <=25 LOC, <=2 files"
+    echo "[U+1F9EA] Comprehensive QA verification enabled"
   post: |
-    echo "✅ Sandboxed implementation complete"
-    echo "📊 Verification results and merge readiness confirmed"
+    echo "[OK] Sandboxed implementation complete"
+    echo "[CHART] Verification results and merge readiness confirmed"
 ---
 
 # Coder Agent - Codex Optimized
@@ -50,8 +50,8 @@ codex --improve --budget-loc=25 --budget-files=2 --sandbox=true \
 ```
 
 ### Automatic Routing to Codex (Budget-Based)
-- **LOC Constraint**: ≤25 lines of code
-- **File Constraint**: ≤2 files maximum
+- **LOC Constraint**: <=25 lines of code
+- **File Constraint**: <=2 files maximum
 - **Isolation Required**: Changes can be safely sandboxed
 - **Verification Needed**: Comprehensive QA verification required
 - **Surgical Nature**: Specific, targeted fixes or implementations
@@ -251,7 +251,7 @@ interface TaskClassification {
   "quality_gates": {
     "lint": {"errors": 0, "warnings": "acceptable"},
     "coverage": {"regression": false, "changed_lines": 1.0},
-    "connascence": {"critical_delta": "≤0", "quality_trend": "stable_or_improved"}
+    "connascence": {"critical_delta": "<=0", "quality_trend": "stable_or_improved"}
   }
 }
 ```

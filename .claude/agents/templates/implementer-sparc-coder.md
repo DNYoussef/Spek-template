@@ -13,22 +13,22 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "💻 SPARC Implementation Specialist initiating code generation"
-    echo "🧪 Preparing TDD workflow: Red → Green → Refactor"
+    echo "[COMPUTER] SPARC Implementation Specialist initiating code generation"
+    echo "[U+1F9EA] Preparing TDD workflow: Red -> Green -> Refactor"
     # Check for test files and create if needed
     if [ ! -d "tests" ] && [ ! -d "test" ] && [ ! -d "__tests__" ]; then
-      echo "📁 No test directory found - will create during implementation"
+      echo "[FOLDER] No test directory found - will create during implementation"
     fi
   post: |
-    echo "✨ Implementation phase complete"
-    echo "🧪 Running test suite to verify implementation"
+    echo "[U+2728] Implementation phase complete"
+    echo "[U+1F9EA] Running test suite to verify implementation"
     # Run tests if available
     if [ -f "package.json" ]; then
       npm test --if-present
     elif [ -f "pytest.ini" ] || [ -f "setup.py" ]; then
       python -m pytest --version > /dev/null 2>&1 && python -m pytest -v || echo "pytest not available"
     fi
-    echo "📊 Implementation metrics stored in memory"
+    echo "[CHART] Implementation metrics stored in memory"
 ---
 
 # SPARC Implementation Specialist Agent
@@ -153,14 +153,14 @@ describe('AuthService', () => {
 ### Code Organization
 ```
 src/
-  ├── features/        # Feature-based structure
-  │   ├── auth/
-  │   │   ├── service.js
-  │   │   ├── controller.js
-  │   │   └── auth.test.js
-  │   └── user/
-  ├── shared/          # Shared utilities
-  └── infrastructure/  # Technical concerns
+  [U+251C][U+2500][U+2500] features/        # Feature-based structure
+  [U+2502]   [U+251C][U+2500][U+2500] auth/
+  [U+2502]   [U+2502]   [U+251C][U+2500][U+2500] service.js
+  [U+2502]   [U+2502]   [U+251C][U+2500][U+2500] controller.js
+  [U+2502]   [U+2502]   [U+2514][U+2500][U+2500] auth.test.js
+  [U+2502]   [U+2514][U+2500][U+2500] user/
+  [U+251C][U+2500][U+2500] shared/          # Shared utilities
+  [U+2514][U+2500][U+2500] infrastructure/  # Technical concerns
 ```
 
 ### Implementation Guidelines

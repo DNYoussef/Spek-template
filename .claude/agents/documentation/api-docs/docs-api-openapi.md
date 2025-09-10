@@ -90,23 +90,23 @@ optimization:
   memory_limit: "256MB"
 hooks:
   pre_execution: |
-    echo "📝 OpenAPI Documentation Specialist starting..."
-    echo "🔍 Analyzing API endpoints..."
+    echo "[NOTE] OpenAPI Documentation Specialist starting..."
+    echo "[SEARCH] Analyzing API endpoints..."
     # Look for existing API routes
     find . -name "*.route.js" -o -name "*.controller.js" -o -name "routes.js" | grep -v node_modules | head -10
     # Check for existing OpenAPI docs
     find . -name "openapi.yaml" -o -name "swagger.yaml" -o -name "api.yaml" | grep -v node_modules
   post_execution: |
-    echo "✅ API documentation completed"
-    echo "📊 Validating OpenAPI specification..."
+    echo "[OK] API documentation completed"
+    echo "[CHART] Validating OpenAPI specification..."
     # Check if the spec exists and show basic info
     if [ -f "openapi.yaml" ]; then
       echo "OpenAPI spec found at openapi.yaml"
       grep -E "^(openapi:|info:|paths:)" openapi.yaml | head -5
     fi
   on_error: |
-    echo "⚠️ Documentation error: {{error_message}}"
-    echo "🔧 Check OpenAPI specification syntax"
+    echo "[WARN] Documentation error: {{error_message}}"
+    echo "[TOOL] Check OpenAPI specification syntax"
 examples:
   - trigger: "create OpenAPI documentation for user API"
     response: "I'll create comprehensive OpenAPI 3.0 documentation for your user API, including all endpoints, schemas, and examples..."

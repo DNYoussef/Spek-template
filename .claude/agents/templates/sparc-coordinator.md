@@ -13,14 +13,14 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "🎯 SPARC Coordinator initializing methodology workflow"
+    echo "[TARGET] SPARC Coordinator initializing methodology workflow"
     memory_store "sparc_session_start" "$(date +%s)"
     # Check for existing SPARC phase data
     memory_search "sparc_phase" | tail -1
   post: |
-    echo "✅ SPARC coordination phase complete"
+    echo "[OK] SPARC coordination phase complete"
     memory_store "sparc_coord_complete_$(date +%s)" "SPARC methodology phases coordinated"
-    echo "📊 Phase progress tracked in memory"
+    echo "[CHART] Phase progress tracked in memory"
 ---
 
 # SPARC Methodology Orchestrator Agent
@@ -64,15 +64,15 @@ This agent orchestrates the complete SPARC (Specification, Pseudocode, Architect
 
 ### Phase Transitions
 ```
-Specification → Quality Gate 1 → Pseudocode
-     ↓
-Pseudocode → Quality Gate 2 → Architecture  
-     ↓
-Architecture → Quality Gate 3 → Refinement
-     ↓ 
-Refinement → Quality Gate 4 → Completion
-     ↓
-Completion → Final Review → Deployment
+Specification -> Quality Gate 1 -> Pseudocode
+     v
+Pseudocode -> Quality Gate 2 -> Architecture  
+     v
+Architecture -> Quality Gate 3 -> Refinement
+     v 
+Refinement -> Quality Gate 4 -> Completion
+     v
+Completion -> Final Review -> Deployment
 ```
 
 ### Quality Gates

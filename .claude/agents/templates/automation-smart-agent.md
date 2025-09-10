@@ -13,14 +13,14 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "🤖 Smart Agent Coordinator initializing..."
-    echo "📊 Analyzing task requirements and resource availability"
+    echo "[U+1F916] Smart Agent Coordinator initializing..."
+    echo "[CHART] Analyzing task requirements and resource availability"
     # Check current swarm status
     memory_retrieve "current_swarm_status" || echo "No active swarm detected"
   post: |
-    echo "✅ Smart coordination complete"
+    echo "[OK] Smart coordination complete"
     memory_store "last_coordination_$(date +%s)" "Intelligent agent coordination executed"
-    echo "💡 Agent spawning patterns learned and stored"
+    echo "[INFO] Agent spawning patterns learned and stored"
 ---
 
 # Smart Agent Coordinator
@@ -39,8 +39,8 @@ This agent implements intelligent, automated agent management by analyzing task 
 
 ### 2. Capability Matching
 ```
-Task Requirements → Capability Analysis → Agent Selection
-        ↓                    ↓                    ↓
+Task Requirements -> Capability Analysis -> Agent Selection
+        v                    v                    v
    Complexity           Required Skills      Best Match
    Assessment          Identification        Algorithm
 ```

@@ -12,15 +12,15 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "🛡️  Byzantine Coordinator initiating: $TASK"
+    echo "[SHIELD]  Byzantine Coordinator initiating: $TASK"
     # Verify network integrity before consensus
     if [[ "$TASK" == *"consensus"* ]]; then
-      echo "🔍 Checking for malicious actors..."
+      echo "[SEARCH] Checking for malicious actors..."
     fi
   post: |
-    echo "✅ Byzantine consensus complete"
+    echo "[OK] Byzantine consensus complete"
     # Validate consensus results
-    echo "🔐 Verifying message signatures and ordering"
+    echo "[LOCK] Verifying message signatures and ordering"
 ---
 
 # Byzantine Consensus Coordinator

@@ -25,16 +25,16 @@ tools:
   - mcp__claude-flow__memory_usage
 hooks:
   pre_task: |
-    echo "🏗️ Initializing repository architecture analysis..."
+    echo "[BUILD] Initializing repository architecture analysis..."
     npx ruv-swarm hook pre-task --mode repo-architect --analyze-structure
   post_edit: |
-    echo "📐 Validating architecture changes and updating structure documentation..."
+    echo "[U+1F4D0] Validating architecture changes and updating structure documentation..."
     npx ruv-swarm hook post-edit --mode repo-architect --validate-structure
   post_task: |
-    echo "🏛️ Architecture task completed. Generating structure recommendations..."
+    echo "[U+1F3DB][U+FE0F] Architecture task completed. Generating structure recommendations..."
     npx ruv-swarm hook post-task --mode repo-architect --generate-recommendations
   notification: |
-    echo "📋 Notifying stakeholders of architecture improvements..."
+    echo "[CLIPBOARD] Notifying stakeholders of architecture improvements..."
     npx ruv-swarm hook notification --mode repo-architect
 ---
 
@@ -150,10 +150,10 @@ npx claude-flow start --ui
 \`\`\`
 
 ## Features
-- 🧠 ruv-swarm integration
-- 🎯 SPARC development modes  
-- 🔧 GitHub workflow automation
-- 📊 Advanced coordination capabilities
+- [BRAIN] ruv-swarm integration
+- [TARGET] SPARC development modes  
+- [TOOL] GitHub workflow automation
+- [CHART] Advanced coordination capabilities
 
 ## Documentation
 See CLAUDE.md for complete integration instructions.`
@@ -272,54 +272,54 @@ jobs:
 ### 1. **Monorepo Structure Pattern**
 ```
 ruv-FANN/
-├── packages/
-│   ├── claude-code-flow/
-│   │   ├── src/
-│   │   ├── .claude/
-│   │   └── package.json
-│   ├── ruv-swarm/
-│   │   ├── src/
-│   │   ├── wasm/
-│   │   └── package.json
-│   └── shared/
-│       ├── types/
-│       ├── utils/
-│       └── config/
-├── tools/
-│   ├── build/
-│   ├── test/
-│   └── deploy/
-├── docs/
-│   ├── architecture/
-│   ├── integration/
-│   └── examples/
-└── .github/
-    ├── workflows/
-    ├── templates/
-    └── actions/
+[U+251C][U+2500][U+2500] packages/
+[U+2502]   [U+251C][U+2500][U+2500] claude-code-flow/
+[U+2502]   [U+2502]   [U+251C][U+2500][U+2500] src/
+[U+2502]   [U+2502]   [U+251C][U+2500][U+2500] .claude/
+[U+2502]   [U+2502]   [U+2514][U+2500][U+2500] package.json
+[U+2502]   [U+251C][U+2500][U+2500] ruv-swarm/
+[U+2502]   [U+2502]   [U+251C][U+2500][U+2500] src/
+[U+2502]   [U+2502]   [U+251C][U+2500][U+2500] wasm/
+[U+2502]   [U+2502]   [U+2514][U+2500][U+2500] package.json
+[U+2502]   [U+2514][U+2500][U+2500] shared/
+[U+2502]       [U+251C][U+2500][U+2500] types/
+[U+2502]       [U+251C][U+2500][U+2500] utils/
+[U+2502]       [U+2514][U+2500][U+2500] config/
+[U+251C][U+2500][U+2500] tools/
+[U+2502]   [U+251C][U+2500][U+2500] build/
+[U+2502]   [U+251C][U+2500][U+2500] test/
+[U+2502]   [U+2514][U+2500][U+2500] deploy/
+[U+251C][U+2500][U+2500] docs/
+[U+2502]   [U+251C][U+2500][U+2500] architecture/
+[U+2502]   [U+251C][U+2500][U+2500] integration/
+[U+2502]   [U+2514][U+2500][U+2500] examples/
+[U+2514][U+2500][U+2500] .github/
+    [U+251C][U+2500][U+2500] workflows/
+    [U+251C][U+2500][U+2500] templates/
+    [U+2514][U+2500][U+2500] actions/
 ```
 
 ### 2. **Command Structure Pattern**
 ```
 .claude/
-├── commands/
-│   ├── github/
-│   │   ├── github-modes.md
-│   │   ├── pr-manager.md
-│   │   ├── issue-tracker.md
-│   │   └── sync-coordinator.md
-│   ├── sparc/
-│   │   ├── sparc-modes.md
-│   │   ├── coder.md
-│   │   └── tester.md
-│   └── swarm/
-│       ├── coordination.md
-│       └── orchestration.md
-├── templates/
-│   ├── issue.md
-│   ├── pr.md
-│   └── project.md
-└── config.json
+[U+251C][U+2500][U+2500] commands/
+[U+2502]   [U+251C][U+2500][U+2500] github/
+[U+2502]   [U+2502]   [U+251C][U+2500][U+2500] github-modes.md
+[U+2502]   [U+2502]   [U+251C][U+2500][U+2500] pr-manager.md
+[U+2502]   [U+2502]   [U+251C][U+2500][U+2500] issue-tracker.md
+[U+2502]   [U+2502]   [U+2514][U+2500][U+2500] sync-coordinator.md
+[U+2502]   [U+251C][U+2500][U+2500] sparc/
+[U+2502]   [U+2502]   [U+251C][U+2500][U+2500] sparc-modes.md
+[U+2502]   [U+2502]   [U+251C][U+2500][U+2500] coder.md
+[U+2502]   [U+2502]   [U+2514][U+2500][U+2500] tester.md
+[U+2502]   [U+2514][U+2500][U+2500] swarm/
+[U+2502]       [U+251C][U+2500][U+2500] coordination.md
+[U+2502]       [U+2514][U+2500][U+2500] orchestration.md
+[U+251C][U+2500][U+2500] templates/
+[U+2502]   [U+251C][U+2500][U+2500] issue.md
+[U+2502]   [U+251C][U+2500][U+2500] pr.md
+[U+2502]   [U+2514][U+2500][U+2500] project.md
+[U+2514][U+2500][U+2500] config.json
 ```
 
 ### 3. **Integration Pattern**

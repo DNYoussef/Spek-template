@@ -97,11 +97,11 @@ function checkBranchStatus() {
 prepare_pr_environment() {
     local target_branch="${1:-main}"
     
-    echo "🚀 Preparing PR environment..."
+    echo "[ROCKET] Preparing PR environment..."
     
     # Ensure all changes are committed
     if [[ -n $(git status --porcelain) ]]; then
-        echo "❌ Working tree not clean. Please commit or stash changes."
+        echo "[FAIL] Working tree not clean. Please commit or stash changes."
         return 1
     fi
     
@@ -110,18 +110,18 @@ prepare_pr_environment() {
     
     # Check for conflicts
     if ! git merge-tree $(git merge-base HEAD "origin/$target_branch") HEAD "origin/$target_branch" >/dev/null 2>&1; then
-        echo "⚠️ Potential merge conflicts detected with $target_branch"
+        echo "[WARN] Potential merge conflicts detected with $target_branch"
         echo "Run: git rebase origin/$target_branch"
         return 1
     fi
     
     # Final QA run to ensure freshness
     if [[ ! -f ".claude/.artifacts/qa.json" ]] || [[ $(find ".claude/.artifacts/qa.json" -mmin +10) ]]; then
-        echo "🔍 Running fresh QA scan..."
+        echo "[SEARCH] Running fresh QA scan..."
         # Would typically call /qa:run here
     fi
     
-    echo "✅ PR environment ready"
+    echo "[OK] PR environment ready"
     return 0
 }
 ```
@@ -224,7 +224,7 @@ function generateSummary(evidence) {
     risk_level: evidence.impact_analysis.riskAssessment?.overall_risk || 'low'
   };
   
-  return `## 📋 Summary
+  return `## [CLIPBOARD] Summary
 
 **Feature**: ${summary_data.feature_description}
 
@@ -238,13 +238,13 @@ function generateSummary(evidence) {
 function generateQASection(evidence) {
   const qa = evidence.quality_metrics;
   
-  return `## 🧪 Quality Assurance
+  return `## [U+1F9EA] Quality Assurance
 
 ### Test Results
-- **Tests**: ${qa.test_results.passed}/${qa.test_results.total} passing ${qa.test_results.failed === 0 ? '✅' : '❌'}
+- **Tests**: ${qa.test_results.passed}/${qa.test_results.total} passing ${qa.test_results.failed === 0 ? '[OK]' : '[FAIL]'}
 - **Coverage**: ${qa.test_results.coverage_delta} ${getCoverageTrend(qa.test_results.coverage_delta)}
-- **Type Check**: ${qa.code_quality.typecheck_errors === 0 ? '✅ Pass' : `❌ ${qa.code_quality.typecheck_errors} errors`}
-- **Linting**: ${qa.code_quality.lint_errors === 0 ? '✅ Pass' : `❌ ${qa.code_quality.lint_errors} errors`}${qa.code_quality.lint_warnings > 0 ? ` (${qa.code_quality.lint_warnings} warnings)` : ''}
+- **Type Check**: ${qa.code_quality.typecheck_errors === 0 ? '[OK] Pass' : `[FAIL] ${qa.code_quality.typecheck_errors} errors`}
+- **Linting**: ${qa.code_quality.lint_errors === 0 ? '[OK] Pass' : `[FAIL] ${qa.code_quality.lint_errors} errors`}${qa.code_quality.lint_warnings > 0 ? ` (${qa.code_quality.lint_warnings} warnings)` : ''}
 
 ### Risk Assessment: ${getRiskEmoji(qa.risk_assessment)} ${qa.risk_assessment}
 
@@ -253,20 +253,20 @@ ${generateQualityEvidence(evidence)}`;
 
 function generateImpactSection(evidence) {
   if (!evidence.impact_analysis.hotspots) {
-    return `## 🎯 Impact Analysis
+    return `## [TARGET] Impact Analysis
 *No impact analysis available*`;
   }
   
   const impact = evidence.impact_analysis;
   
-  return `## 🎯 Impact Analysis
+  return `## [TARGET] Impact Analysis
 
 ### Files Changed
 ${impact.hotspots.map(h => `- **${h.file}** (${h.impact_level} impact) - ${h.reason}`).join('\n')}
 
 ### Dependencies
 ${impact.callers?.length > 0 ? 
-  impact.callers.map(c => `- ${c.caller_file} → ${c.target_file} (${c.risk_level} risk)`).join('\n') :
+  impact.callers.map(c => `- ${c.caller_file} -> ${c.target_file} (${c.risk_level} risk)`).join('\n') :
   '*No significant dependency impacts*'}
 
 ### Recommended Approach: ${impact.riskAssessment?.recommended_approach || 'standard'}
@@ -278,7 +278,7 @@ function generateSecuritySection(evidence) {
   const security = evidence.security_assessment;
   
   if (!security.summary) {
-    return `## 🔒 Security Assessment
+    return `## [U+1F512] Security Assessment
 *No security scan results available*`;
   }
   
@@ -286,16 +286,16 @@ function generateSecuritySection(evidence) {
   const high = security.summary.by_severity?.high || 0;
   const medium = security.summary.by_severity?.medium || 0;
   
-  return `## 🔒 Security Assessment
+  return `## [U+1F512] Security Assessment
 
 ### Security Scan Results
-- **Critical**: ${critical} ${critical === 0 ? '✅' : '🚨'}
-- **High**: ${high} ${high === 0 ? '✅' : '⚠️'}
-- **Medium**: ${medium} ${medium === 0 ? '✅' : '💡'}
+- **Critical**: ${critical} ${critical === 0 ? '[OK]' : '[U+1F6A8]'}
+- **High**: ${high} ${high === 0 ? '[OK]' : '[WARN]'}
+- **Medium**: ${medium} ${medium === 0 ? '[OK]' : '[INFO]'}
 
 ${critical > 0 || high > 0 ? 
-  `### 🚨 Security Issues Requiring Attention\n${generateSecurityIssuesList(security)}` :
-  '### ✅ No critical or high-severity security issues found'}
+  `### [U+1F6A8] Security Issues Requiring Attention\n${generateSecurityIssuesList(security)}` :
+  '### [OK] No critical or high-severity security issues found'}
 
 ${generateSecurityEvidence(evidence)}`;
 }
@@ -338,7 +338,7 @@ function generateChecklist(evidence) {
     { text: 'Breaking changes documented', checked: !hasBreakingChanges(evidence) }
   ];
   
-  return `## ✅ Pre-merge Checklist
+  return `## [OK] Pre-merge Checklist
 
 ${checklist_items.map(item => `- [${item.checked ? 'x' : ' '}] ${item.text}`).join('\n')}
 
@@ -394,7 +394,7 @@ create_pull_request() {
     # Cleanup
     rm -f "$pr_body_file"
     
-    echo "🎉 Pull request created: $pr_url"
+    echo "[PARTY] Pull request created: $pr_url"
     return 0
 }
 

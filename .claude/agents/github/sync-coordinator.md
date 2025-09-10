@@ -146,13 +146,13 @@ Bash(`gh pr create \
   --title "Feature: GitHub Workflow Integration with Swarm Coordination" \
   --head "feature/github-commands" \
   --base "main" \
-  --body "## 🚀 GitHub Workflow Integration
+  --body "## [ROCKET] GitHub Workflow Integration
 
 ### Features Added
-- ✅ Comprehensive GitHub command modes
-- ✅ Swarm-coordinated PR management  
-- ✅ Automated issue tracking
-- ✅ Cross-package synchronization
+- [OK] Comprehensive GitHub command modes
+- [OK] Swarm-coordinated PR management  
+- [OK] Automated issue tracking
+- [OK] Cross-package synchronization
 
 ### Integration Points
 - Claude-code-flow: GitHub command modes in .claude/commands/github/
@@ -173,7 +173,7 @@ This integration uses ruv-swarm agents for:
 - Memory-based state management
 
 ---
-🤖 Generated with Claude Code using ruv-swarm coordination`
+[U+1F916] Generated with Claude Code using ruv-swarm coordination`
 }
 ```
 

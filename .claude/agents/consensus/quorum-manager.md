@@ -12,15 +12,15 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "🎯 Quorum Manager adjusting: $TASK"
+    echo "[TARGET] Quorum Manager adjusting: $TASK"
     # Assess current network conditions
     if [[ "$TASK" == *"quorum"* ]]; then
-      echo "📡 Analyzing network topology and node health"
+      echo "[U+1F4E1] Analyzing network topology and node health"
     fi
   post: |
-    echo "⚖️  Quorum adjustment complete"
+    echo "[U+2696][U+FE0F]  Quorum adjustment complete"
     # Validate new quorum configuration
-    echo "✅ Verifying fault tolerance and availability guarantees"
+    echo "[OK] Verifying fault tolerance and availability guarantees"
 ---
 
 # Quorum Manager

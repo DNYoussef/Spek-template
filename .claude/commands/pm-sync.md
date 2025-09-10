@@ -71,7 +71,7 @@ function detectProjectContext() {
 
 ### 2. Bidirectional Synchronization
 
-#### Development Status → PM System:
+#### Development Status -> PM System:
 ```javascript
 async function syncDevelopmentToPlane(planJson, qaResults) {
   const sync_payload = {
@@ -139,7 +139,7 @@ function determineTaskStatus(task, qaResults) {
 }
 ```
 
-#### PM System → Development Sync:
+#### PM System -> Development Sync:
 ```javascript
 async function syncPlaneToDevlopment() {
   const plane_updates = await callPlaneMCP('get_project_updates', {
@@ -352,7 +352,7 @@ Generate detailed pm-sync.json:
       {
         "spek_task_id": "auth-001",
         "plane_issue_id": "ISS-234",
-        "status_change": "backlog → in_progress",
+        "status_change": "backlog -> in_progress",
         "completion_percentage": 75,
         "quality_score": 85,
         "blockers": []
@@ -360,7 +360,7 @@ Generate detailed pm-sync.json:
       {
         "spek_task_id": "auth-002", 
         "plane_issue_id": "ISS-235",
-        "status_change": "in_progress → done",
+        "status_change": "in_progress -> done",
         "completion_percentage": 100,
         "quality_score": 92,
         "blockers": []

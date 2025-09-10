@@ -195,7 +195,7 @@ def detect_security_theater(sarif_results):
 def detect_coverage_theater(coverage_results, test_files):
     theater_patterns = {
         "mock_heavy": "Tests with >80% mocks claiming integration coverage",
-        "success_printing": "Tests that print ✓ without assertions",
+        "success_printing": "Tests that print [U+2713] without assertions",
         "coverage_gaming": "High coverage with non-functional test content",
         "excluded_reality": "Coverage exclusions hiding core functionality"
     }

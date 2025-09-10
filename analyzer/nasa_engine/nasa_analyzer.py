@@ -51,6 +51,12 @@ class NASAAnalyzer:
         self.assertions: List[ast.Assert] = []
         self.malloc_calls: List[ast.Call] = []
         self.return_checks: List[ast.AST] = []
+
+
+# Alias for compatibility with CI/CD workflows
+class NASARuleEngine(NASAAnalyzer):
+    """Alias for NASAAnalyzer to maintain CI/CD compatibility."""
+    pass
     
     def _find_nasa_config(self) -> str:
         """Find NASA configuration file."""

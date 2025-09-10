@@ -23,7 +23,7 @@
       "Read(//c/Users/17175/AppData/**)",
       "Bash(find:*)",
       "Bash(./scripts/update_agents_spek_augment.sh:*)",
-      "Bash(bash -c 'find .claude/agents -name \"\"*.md\"\" | head -5 | while read file; do echo \"\"Processing: $file\"\"; done')",
+      "Bash(bash -c 'find .claude/agents -name \"*.md\" | head -5 | while read file; do echo \"Processing: $file\"; done')",
       "Bash(node:*)",
       "Bash(./scripts/lint_agents.sh:*)",
       "Bash(./scripts/batch_update_agents.sh:*)",
@@ -79,7 +79,11 @@
       "Bash(do echo \"  - $workflow: $status ($conclusion)\")",
       "Bash(done)",
       "Bash(grep:*)",
-      "Bash(npm audit:*)"
+      "Bash(npm audit:*)",
+      "Bash(npm run setup:win:*)",
+      "Bash(powershell:*)",
+      "Bash(npm run mcp:init:*)",
+      "Bash(claude /doctor)"
     ],
     "deny": [],
     "ask": []

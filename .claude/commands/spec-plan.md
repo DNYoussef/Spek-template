@@ -72,7 +72,7 @@ Generate structured plan.json:
 ```
 
 ### 4. Task Complexity Classification
-- **small**: ≤25 LOC, ≤2 files, isolated changes
+- **small**: <=25 LOC, <=2 files, isolated changes
 - **multi**: Multi-file changes, moderate complexity, clear boundaries
 - **big**: Architectural changes, cross-cutting concerns, high impact
 

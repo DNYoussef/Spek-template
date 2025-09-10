@@ -1,6 +1,7 @@
 {
   "hooks": {
     "preTool": [
+      {"match": ".*", "cmd": "npm run setup:win || npm run setup || echo 'MCP init failed but continuing'"},
       {"match": ".*", "cmd": "npx claude-flow@alpha health check --components all --auto-heal --quiet || echo 'CF degraded mode' >> .claude/.artifacts/system_status.log"},
       {"match": ".*", "cmd": "npx claude-flow@alpha hooks pre-task --description '$TASK_DESCRIPTION' --namespace 'spek/$(date +%Y%m%d)' || true"},
       {"match": "codex exec", "cmd": "test -z \"$(git status --porcelain)\" || git stash -k -u"},

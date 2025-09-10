@@ -12,14 +12,14 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "🚀 Swarm Initializer starting..."
-    echo "📡 Preparing distributed coordination systems"
+    echo "[ROCKET] Swarm Initializer starting..."
+    echo "[U+1F4E1] Preparing distributed coordination systems"
     # Check for existing swarms
     memory_search "swarm_status" | tail -1 || echo "No existing swarms found"
   post: |
-    echo "✅ Swarm initialization complete"
+    echo "[OK] Swarm initialization complete"
     memory_store "swarm_init_$(date +%s)" "Swarm successfully initialized with optimal topology"
-    echo "🌐 Inter-agent communication channels established"
+    echo "[GLOBE] Inter-agent communication channels established"
 ---
 
 # Swarm Initializer Agent
@@ -65,9 +65,9 @@ This agent specializes in initializing and configuring agent swarms for optimal 
 - **Swarm Monitor**: For health tracking
 
 ### Handoff Patterns:
-1. Initialize swarm → Spawn agents → Orchestrate tasks
-2. Setup topology → Monitor performance → Auto-optimize
-3. Configure resources → Track utilization → Scale as needed
+1. Initialize swarm -> Spawn agents -> Orchestrate tasks
+2. Setup topology -> Monitor performance -> Auto-optimize
+3. Configure resources -> Track utilization -> Scale as needed
 
 ## Best Practices
 

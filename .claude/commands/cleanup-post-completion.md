@@ -28,7 +28,7 @@ Enterprise-ready post-completion cleanup command that safely removes temporary a
 **Enterprise-Safe**: Step-by-step confirmations with impact analysis
 ```bash
 /cleanup:post-completion --interactive
-# Expected output: "🧹 Analyzing 234 files across 4 categories..."
+# Expected output: "[U+1F9F9] Analyzing 234 files across 4 categories..."
 # User prompted for each phase with detailed impact metrics
 ```
 
@@ -174,24 +174,24 @@ temporary_files:
 qa_artifact_management:
   connascence_reports:
     consolidate:
-      - "connascence_full.json" → "analysis/final/connascence_consolidated.json"
-      - "connascence_*.json" → Archive in "analysis/archive/connascence/"
+      - "connascence_full.json" -> "analysis/final/connascence_consolidated.json"
+      - "connascence_*.json" -> Archive in "analysis/archive/connascence/"
     cleanup:
       - Remove intermediate analysis files
       - Preserve final consolidated reports
   
   security_scans:
     consolidate:
-      - "*.sarif" → "analysis/final/security_consolidated.sarif"
-      - "security_*.json" → Archive in "analysis/archive/security/"
+      - "*.sarif" -> "analysis/final/security_consolidated.sarif"
+      - "security_*.json" -> Archive in "analysis/archive/security/"
     cleanup:
       - Remove scan cache files
       - Preserve SARIF reports for compliance
   
   test_coverage:
     consolidate:
-      - "coverage/lcov-report/**" → "analysis/final/coverage/"
-      - "coverage_*.json" → Archive in "analysis/archive/coverage/"
+      - "coverage/lcov-report/**" -> "analysis/final/coverage/"
+      - "coverage_*.json" -> Archive in "analysis/archive/coverage/"
     cleanup:
       - Remove .nyc_output cache
       - Preserve final coverage reports
@@ -204,17 +204,17 @@ qa_artifact_management:
 documentation_management:
   working_documents:
     consolidate:
-      - "docs/working/*.md" → "docs/archive/working/$(date +%Y-%m)/"
-      - "research_notes_*.md" → "docs/knowledge/research/"
-      - "analysis_*.md" → "docs/knowledge/analysis/"
+      - "docs/working/*.md" -> "docs/archive/working/$(date +%Y-%m)/"
+      - "research_notes_*.md" -> "docs/knowledge/research/"
+      - "analysis_*.md" -> "docs/knowledge/analysis/"
     cleanup:
       - Remove duplicate research files
       - Consolidate overlapping documentation
   
   memory_artifacts:
     consolidate:
-      - ".claude/.artifacts/memory_*" → ".claude/memory/archive/"
-      - "memory_export_*" → ".claude/memory/consolidated/"
+      - ".claude/.artifacts/memory_*" -> ".claude/memory/archive/"
+      - "memory_export_*" -> ".claude/memory/consolidated/"
     cleanup:
       - Remove temporary memory exports
       - Preserve learning patterns and intelligence
@@ -313,7 +313,7 @@ create_comprehensive_backup() {
     local backup_id="cleanup-backup-$(date +%s)"
     local backup_path="${CLEANUP_BACKUP_PATH:-".claude/.backups"}/${backup_id}"
     
-    echo "🛡️  Creating comprehensive backup: $backup_id"
+    echo "[SHIELD]  Creating comprehensive backup: $backup_id"
     
     # Create backup structure
     mkdir -p "$backup_path"/{files,metadata,git}
@@ -353,11 +353,11 @@ create_comprehensive_backup() {
     
     # Verify backup integrity
     if verify_backup_integrity "$backup_path"; then
-        echo "✅ Backup created successfully: $backup_path"
+        echo "[OK] Backup created successfully: $backup_path"
         echo "$backup_id" > .claude/.artifacts/last_cleanup_backup.txt
         return 0
     else
-        echo "❌ Backup verification failed"
+        echo "[FAIL] Backup verification failed"
         rm -rf "$backup_path"
         return 1
     fi
@@ -370,7 +370,7 @@ safety_check_before_cleanup() {
     local cleanup_plan="$1"
     local safety_issues=()
     
-    echo "🔍 Running comprehensive safety checks..."
+    echo "[SEARCH] Running comprehensive safety checks..."
     
     # Check for active processes
     check_active_processes() {
@@ -413,7 +413,7 @@ safety_check_before_cleanup() {
     check_dependency_locks
     
     if [ ${#safety_issues[@]} -gt 0 ]; then
-        echo "⚠️  Safety issues detected:"
+        echo "[WARN]  Safety issues detected:"
         printf '%s\n' "${safety_issues[@]}"
         
         if [ "$CLEANUP_MODE" = "interactive" ]; then
@@ -421,13 +421,13 @@ safety_check_before_cleanup() {
             read -r response
             [ "$response" = "y" ] || [ "$response" = "Y" ] || return 1
         elif [ "$CLEANUP_MODE" = "force" ]; then
-            echo "🚨 Force mode: Continuing despite safety issues"
+            echo "[U+1F6A8] Force mode: Continuing despite safety issues"
         else
             return 1
         fi
     fi
     
-    echo "✅ Safety checks completed"
+    echo "[OK] Safety checks completed"
     return 0
 }
 ```
@@ -440,23 +440,23 @@ rollback_cleanup() {
     local backup_id="$1"
     local backup_path=".claude/.backups/$backup_id"
     
-    echo "🔄 Initiating rollback to backup: $backup_id"
+    echo "[CYCLE] Initiating rollback to backup: $backup_id"
     
     if [ ! -d "$backup_path" ]; then
-        echo "❌ Backup not found: $backup_path"
+        echo "[FAIL] Backup not found: $backup_path"
         return 1
     fi
     
     # Verify backup integrity before rollback
     if ! verify_backup_integrity "$backup_path"; then
-        echo "❌ Backup integrity verification failed"
+        echo "[FAIL] Backup integrity verification failed"
         return 1
     fi
     
     # Progressive rollback with checkpoints
     rollback_with_checkpoints() {
         # Checkpoint 1: Restore critical files
-        echo "📁 Restoring critical files..."
+        echo "[FOLDER] Restoring critical files..."
         if [ -d "$backup_path/files" ]; then
             cp -r "$backup_path/files/claude-artifacts/"* .claude/.artifacts/ 2>/dev/null || true
             cp -r "$backup_path/files/docs/"* docs/ 2>/dev/null || true
@@ -464,7 +464,7 @@ rollback_cleanup() {
         fi
         
         # Checkpoint 2: Restore configuration
-        echo "⚙️  Restoring configuration files..."
+        echo "[U+2699][U+FE0F]  Restoring configuration files..."
         if [ -d "$backup_path/files" ]; then
             for config_file in package.json package-lock.json tsconfig.json .eslintrc* .gitignore; do
                 [ -f "$backup_path/files/$config_file" ] && cp "$backup_path/files/$config_file" . || true
@@ -472,14 +472,14 @@ rollback_cleanup() {
         fi
         
         # Checkpoint 3: Restore git state if needed
-        echo "🔀 Checking git state..."
+        echo "[U+1F500] Checking git state..."
         if [ -f "$backup_path/metadata/git_status.txt" ] && [ -s "$backup_path/metadata/git_status.txt" ]; then
-            echo "⚠️  Git state changes detected, manual review may be needed"
+            echo "[WARN]  Git state changes detected, manual review may be needed"
             cat "$backup_path/metadata/git_status.txt"
         fi
         
         # Verify rollback success
-        echo "✅ Rollback completed successfully"
+        echo "[OK] Rollback completed successfully"
         
         # Record rollback in cleanup log
         echo "{\"timestamp\": \"$(date -Iseconds)\", \"action\": \"rollback\", \"backup_id\": \"$backup_id\", \"status\": \"success\"}" >> .claude/.artifacts/cleanup_history.jsonl
@@ -570,7 +570,7 @@ rollback_cleanup() {
 ```bash
 # Pre-cleanup hook execution
 execute_pre_cleanup_hooks() {
-    echo "🎣 Executing pre-cleanup hooks..."
+    echo "[U+1F3A3] Executing pre-cleanup hooks..."
     
     # Memory bridge preparation
     if command -v scripts/memory_bridge.sh >/dev/null 2>&1; then
@@ -579,7 +579,7 @@ execute_pre_cleanup_hooks() {
     
     # Quality gate checkpoint
     if [ -f ".claude/.artifacts/qa.json" ]; then
-        echo "📊 Creating QA checkpoint for post-cleanup comparison"
+        echo "[CHART] Creating QA checkpoint for post-cleanup comparison"
         cp .claude/.artifacts/qa.json .claude/.artifacts/qa_pre_cleanup.json
     fi
     
@@ -587,7 +587,7 @@ execute_pre_cleanup_hooks() {
     git status --porcelain > .claude/.artifacts/git_state_pre_cleanup.txt
     git log --oneline -5 > .claude/.artifacts/git_commits_pre_cleanup.txt
     
-    echo "✅ Pre-cleanup hooks completed"
+    echo "[OK] Pre-cleanup hooks completed"
 }
 ```
 
@@ -597,7 +597,7 @@ execute_pre_cleanup_hooks() {
 execute_post_cleanup_hooks() {
     local cleanup_results="$1"
     
-    echo "🎣 Executing post-cleanup hooks..."
+    echo "[U+1F3A3] Executing post-cleanup hooks..."
     
     # Memory bridge update
     if command -v scripts/memory_bridge.sh >/dev/null 2>&1; then
@@ -626,7 +626,7 @@ execute_post_cleanup_hooks() {
         local pre_size=$(du -sb . 2>/dev/null | cut -f1)
         local post_size=$(echo "$cleanup_results" | jq -r '.total_space_freed_mb // 0')
         
-        echo "📈 Cleanup impact analysis:"
+        echo "[TREND] Cleanup impact analysis:"
         echo "  Space freed: ${post_size}MB"
         echo "  File system optimization: $(git count-objects | awk '{print $1}') objects"
     }
@@ -634,7 +634,7 @@ execute_post_cleanup_hooks() {
     optimize_post_cleanup
     analyze_cleanup_impact
     
-    echo "✅ Post-cleanup hooks completed"
+    echo "[OK] Post-cleanup hooks completed"
 }
 ```
 
@@ -658,10 +658,10 @@ quality_framework_integration:
   
   quality_gate_coordination:
     preservation_rules:
-      - "qa.json" → Preserve final quality gate status
-      - "connascence_*.json" → Consolidate into single report
-      - "security_*.sarif" → Preserve for compliance audits
-      - "coverage_*.json" → Archive with historical trend data
+      - "qa.json" -> Preserve final quality gate status
+      - "connascence_*.json" -> Consolidate into single report
+      - "security_*.sarif" -> Preserve for compliance audits
+      - "coverage_*.json" -> Archive with historical trend data
     validation:
       - Pre-cleanup quality gate status capture
       - Post-cleanup quality gate integrity verification
@@ -745,12 +745,12 @@ evidence_packaging:
   compliance_artifacts:
     structure:
       - ".claude/.evidence/cleanup-[timestamp]/"
-      - "├── compliance/nasa_pot10_status.json"
-      - "├── quality/consolidated_qa_report.json"  
-      - "├── security/sarif_audit_trail.json"
-      - "├── performance/baseline_measurements.json"
-      - "├── memory/learning_patterns_archive.json"
-      - "└── audit/cleanup_operation_log.json"
+      - "[U+251C][U+2500][U+2500] compliance/nasa_pot10_status.json"
+      - "[U+251C][U+2500][U+2500] quality/consolidated_qa_report.json"  
+      - "[U+251C][U+2500][U+2500] security/sarif_audit_trail.json"
+      - "[U+251C][U+2500][U+2500] performance/baseline_measurements.json"
+      - "[U+251C][U+2500][U+2500] memory/learning_patterns_archive.json"
+      - "[U+2514][U+2500][U+2500] audit/cleanup_operation_log.json"
     
   audit_trail_features:
     operation_logging:
@@ -805,20 +805,20 @@ enterprise_safety:
 claude /cleanup:post-completion --interactive --theater-scan
 
 # Expected Output:
-# 🧹 SPEK Post-Completion Cleanup Analysis
+# [U+1F9F9] SPEK Post-Completion Cleanup Analysis
 # ==========================================
 # Phase 1: Temporary Files - 234 files (127.3MB) - Est: 45s
 # Phase 2: Quality Artifacts - 23 files consolidation - Est: 30s  
 # Phase 3: Documentation - 12 files organization - Est: 20s
 # Phase 4: Environment - Git GC + cache clear - Est: 60s
 # 
-# 🎭 Theater Detection: Scanning for performance theater...
-# ✅ No theater patterns detected in cleanup scope
+# [U+1F3AD] Theater Detection: Scanning for performance theater...
+# [OK] No theater patterns detected in cleanup scope
 # 
-# 🛡️ Safety Status:
-# - Quality gates preserved: ✅ NASA compliance 92%
-# - Memory patterns backup: ✅ Created
-# - Git state clean: ✅ No uncommitted changes
+# [SHIELD] Safety Status:
+# - Quality gates preserved: [OK] NASA compliance 92%
+# - Memory patterns backup: [OK] Created
+# - Git state clean: [OK] No uncommitted changes
 # 
 # Continue with Phase 1 cleanup? (Y/n/s for status): Y
 ```
@@ -831,10 +831,10 @@ claude /cleanup:post-completion --force --evidence-package --backup-to=.backups/
 
 # Expected Artifacts Generated:
 # .claude/.evidence/cleanup-20240908-153022/
-# ├── compliance/nasa_pot10_status.json (Current: 92%)
-# ├── quality/consolidated_qa_report.json (Gates: PASS)
-# ├── audit/cleanup_operation_log.json (247 operations)
-# └── backup/restore_manifest.json (Rollback ready)
+# [U+251C][U+2500][U+2500] compliance/nasa_pot10_status.json (Current: 92%)
+# [U+251C][U+2500][U+2500] quality/consolidated_qa_report.json (Gates: PASS)
+# [U+251C][U+2500][U+2500] audit/cleanup_operation_log.json (247 operations)
+# [U+2514][U+2500][U+2500] backup/restore_manifest.json (Rollback ready)
 
 # Pipeline Integration Example:
 curl -X POST $WEBHOOK_URL \
@@ -847,19 +847,19 @@ curl -X POST $WEBHOOK_URL \
 claude /cleanup:post-completion --swarm-coordinate --agents=temp-cleaner,qa-consolidator,doc-organizer,env-optimizer
 
 # Expected Swarm Output:
-# 🤖 Initializing Cleanup Swarm...
-# ├── Agent 1: temp-cleaner → Processing 234 temp files
-# ├── Agent 2: qa-consolidator → Merging 23 QA artifacts  
-# ├── Agent 3: doc-organizer → Organizing 12 docs
-# └── Agent 4: env-optimizer → Git GC + dependency cleanup
+# [U+1F916] Initializing Cleanup Swarm...
+# [U+251C][U+2500][U+2500] Agent 1: temp-cleaner -> Processing 234 temp files
+# [U+251C][U+2500][U+2500] Agent 2: qa-consolidator -> Merging 23 QA artifacts  
+# [U+251C][U+2500][U+2500] Agent 3: doc-organizer -> Organizing 12 docs
+# [U+2514][U+2500][U+2500] Agent 4: env-optimizer -> Git GC + dependency cleanup
 # 
-# 📊 Parallel Execution Status:
-# Agent 1: ████████████████ 100% (Freed 127.3MB in 32s)
-# Agent 2: ████████████████ 100% (Consolidated 34.8MB in 28s)
-# Agent 3: ████████████████ 100% (Organized 5.2MB in 15s)  
-# Agent 4: ████████████████ 100% (Optimized 89.4MB in 45s)
+# [CHART] Parallel Execution Status:
+# Agent 1: [U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588] 100% (Freed 127.3MB in 32s)
+# Agent 2: [U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588] 100% (Consolidated 34.8MB in 28s)
+# Agent 3: [U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588] 100% (Organized 5.2MB in 15s)  
+# Agent 4: [U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588][U+2588] 100% (Optimized 89.4MB in 45s)
 # 
-# ✅ Swarm cleanup completed in 45s (vs 155s sequential)
+# [OK] Swarm cleanup completed in 45s (vs 155s sequential)
 ```
 
 ### 4. Memory Bridge Integration
@@ -868,13 +868,13 @@ claude /cleanup:post-completion --swarm-coordinate --agents=temp-cleaner,qa-cons
 claude /cleanup:post-completion --memory-bridge --learning-mode --evidence-package
 
 # Expected Memory Integration:
-# 🧠 Memory Bridge Integration Status:
-# ├── Neural patterns backup: ✅ 15 patterns preserved
-# ├── Agent coordination logs: ✅ 247 interactions archived
-# ├── Quality insights export: ✅ 8 improvement patterns saved
-# └── Cross-session sync: ✅ Memory state synchronized
+# [BRAIN] Memory Bridge Integration Status:
+# [U+251C][U+2500][U+2500] Neural patterns backup: [OK] 15 patterns preserved
+# [U+251C][U+2500][U+2500] Agent coordination logs: [OK] 247 interactions archived
+# [U+251C][U+2500][U+2500] Quality insights export: [OK] 8 improvement patterns saved
+# [U+2514][U+2500][U+2500] Cross-session sync: [OK] Memory state synchronized
 # 
-# 📚 Learning Pattern Preservation:
+# [U+1F4DA] Learning Pattern Preservation:
 # - Successful agent coordination workflows: 12 patterns
 # - Quality improvement strategies: 8 patterns  
 # - Error recovery methodologies: 5 patterns
@@ -917,9 +917,9 @@ claude /cleanup:post-completion --evidence-package --backup-only --memory-bridge
 ```bash
 # This happens automatically if quality gates fail post-cleanup
 # Expected Output:
-# ❌ Quality gate degradation detected (NASA compliance: 89% < 92%)
-# 🔄 Initiating automatic rollback to backup: cleanup-backup-1725812745
-# ✅ Rollback completed - Quality gates restored to pre-cleanup state
+# [FAIL] Quality gate degradation detected (NASA compliance: 89% < 92%)
+# [CYCLE] Initiating automatic rollback to backup: cleanup-backup-1725812745
+# [OK] Rollback completed - Quality gates restored to pre-cleanup state
 ```
 
 #### Manual Rollback
@@ -927,15 +927,15 @@ claude /cleanup:post-completion --evidence-package --backup-only --memory-bridge
 claude /cleanup:post-completion --rollback --verify
 
 # Expected Output:
-# 🔍 Available backups:
-# 1. cleanup-backup-1725812745 (2 hours ago) - Size: 445.7MB ✅
-# 2. cleanup-backup-1725809145 (5 hours ago) - Size: 423.1MB ✅  
+# [SEARCH] Available backups:
+# 1. cleanup-backup-1725812745 (2 hours ago) - Size: 445.7MB [OK]
+# 2. cleanup-backup-1725809145 (5 hours ago) - Size: 423.1MB [OK]  
 # 
 # Select backup for rollback (1-2): 1
-# 🔄 Verifying backup integrity... ✅
-# 🔄 Restoring files... ✅
-# 🔄 Restoring git state... ✅
-# ✅ Rollback completed successfully
+# [CYCLE] Verifying backup integrity... [OK]
+# [CYCLE] Restoring files... [OK]
+# [CYCLE] Restoring git state... [OK]
+# [OK] Rollback completed successfully
 ```
 
 ### 7. Status and Monitoring
@@ -977,18 +977,18 @@ claude /cleanup:post-completion --status --theater-scan --json
 ```bash
 # Automatic disk space management during cleanup
 # Expected Output:
-# ⚠️ Low disk space detected (15% remaining)
-# 🔧 Enabling aggressive cleanup mode...
-# 📊 Space freed: 1.2GB → Disk space: 28% available ✅
+# [WARN] Low disk space detected (15% remaining)
+# [TOOL] Enabling aggressive cleanup mode...
+# [CHART] Space freed: 1.2GB -> Disk space: 28% available [OK]
 ```
 
 #### Concurrent Process Detection
 ```bash
 # Safety mechanism for active development processes  
 # Expected Output:
-# ⚠️ Active processes detected: npm (PID 12345), jest (PID 12346)
-# 🛡️ Cleanup paused - Waiting for processes to complete...
-# ✅ Processes completed - Resuming cleanup operations
+# [WARN] Active processes detected: npm (PID 12345), jest (PID 12346)
+# [SHIELD] Cleanup paused - Waiting for processes to complete...
+# [OK] Processes completed - Resuming cleanup operations
 ```
 
 This comprehensive command documentation ensures enterprise-ready cleanup operations with full integration into the SPEK quality framework, safety mechanisms, and audit trail requirements.

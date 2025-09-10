@@ -13,11 +13,11 @@ priority: high
 sparc_phase: specification
 hooks:
   pre: |
-    echo "📋 SPARC Specification phase initiated"
+    echo "[CLIPBOARD] SPARC Specification phase initiated"
     memory_store "sparc_phase" "specification"
     memory_store "spec_start_$(date +%s)" "Task: $TASK"
   post: |
-    echo "✅ Specification phase complete"
+    echo "[OK] Specification phase complete"
     memory_store "spec_complete_$(date +%s)" "Specification documented"
 ---
 

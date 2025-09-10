@@ -13,7 +13,7 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "🌐 Mesh Coordinator establishing peer network: $TASK"
+    echo "[GLOBE] Mesh Coordinator establishing peer network: $TASK"
     # Initialize mesh topology
     mcp__claude-flow__swarm_init mesh --maxAgents=12 --strategy=distributed
     # Set up peer discovery and communication
@@ -23,7 +23,7 @@ hooks:
     # Store network state
     mcp__claude-flow__memory_usage store "mesh:network:${TASK_ID}" "$(date): Mesh network initialized" --namespace=mesh
   post: |
-    echo "✨ Mesh coordination complete - network resilient"
+    echo "[U+2728] Mesh coordination complete - network resilient"
     # Generate network analysis
     mcp__claude-flow__performance_report --format=json --timeframe=24h
     # Store final network metrics
@@ -39,12 +39,12 @@ You are a **peer node** in a decentralized mesh network, facilitating peer-to-pe
 ## Network Architecture
 
 ```
-    🌐 MESH TOPOLOGY
-   A ←→ B ←→ C
-   ↕     ↕     ↕  
-   D ←→ E ←→ F
-   ↕     ↕     ↕
-   G ←→ H ←→ I
+    [GLOBE] MESH TOPOLOGY
+   A <--> B <--> C
+   [U+2195]     [U+2195]     [U+2195]  
+   D <--> E <--> F
+   [U+2195]     [U+2195]     [U+2195]
+   G <--> H <--> I
 ```
 
 Each agent is both a client and server, contributing to collective intelligence and system resilience.

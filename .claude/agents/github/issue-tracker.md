@@ -62,7 +62,7 @@ mcp__github__create_issue {
   owner: "ruvnet",
   repo: "ruv-FANN",
   title: "Integration Review: claude-code-flow and ruv-swarm complete integration",
-  body: `## 🔄 Integration Review
+  body: `## [CYCLE] Integration Review
   
   ### Overview
   Comprehensive review and integration between packages.
@@ -100,22 +100,22 @@ mcp__github__add_issue_comment {
   owner: "ruvnet",
   repo: "ruv-FANN",
   issue_number: 54,
-  body: `## 🚀 Progress Update
+  body: `## [ROCKET] Progress Update
 
   ### Completed Tasks
-  - ✅ Architecture review completed (agent-1751574161764)
-  - ✅ Dependency analysis finished (agent-1751574162044)
-  - ✅ Integration testing verified (agent-1751574162300)
+  - [OK] Architecture review completed (agent-1751574161764)
+  - [OK] Dependency analysis finished (agent-1751574162044)
+  - [OK] Integration testing verified (agent-1751574162300)
   
   ### Current Status
-  - 🔄 Documentation review in progress
-  - 📊 Integration score: 89% (Excellent)
+  - [CYCLE] Documentation review in progress
+  - [CHART] Integration score: 89% (Excellent)
   
   ### Next Steps
   - Final validation and merge preparation
   
   ---
-  🤖 Generated with Claude Code using ruv-swarm coordination`
+  [U+1F916] Generated with Claude Code using ruv-swarm coordination`
 }
 
 // Store progress in swarm memory
@@ -196,7 +196,7 @@ mcp__github__update_issue {
 
 ### Integration Issue Template:
 ```markdown
-## 🔄 Integration Task
+## [CYCLE] Integration Task
 
 ### Overview
 [Brief description of integration requirements]
@@ -233,12 +233,12 @@ mcp__github__update_issue {
 Updates will be posted automatically by swarm agents during implementation.
 
 ---
-🤖 Generated with Claude Code
+[U+1F916] Generated with Claude Code
 ```
 
 ### Bug Report Template:
 ```markdown
-## 🐛 Bug Report
+## [U+1F41B] Bug Report
 
 ### Problem Description
 [Clear description of the issue]
@@ -271,7 +271,7 @@ Updates will be posted automatically by swarm agents during implementation.
 - **Tester**: Validation and testing
 
 ---
-🤖 Generated with Claude Code
+[U+1F916] Generated with Claude Code
 ```
 
 ## Best Practices

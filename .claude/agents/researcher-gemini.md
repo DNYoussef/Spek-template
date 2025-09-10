@@ -12,12 +12,12 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "🔍 Researcher-Gemini initializing with large context capability"
-    echo "🧠 Sequential Thinking MCP enabled for structured analysis"
-    echo "📊 Gemini CLI integration for comprehensive codebase analysis"
+    echo "[SEARCH] Researcher-Gemini initializing with large context capability"
+    echo "[BRAIN] Sequential Thinking MCP enabled for structured analysis"
+    echo "[CHART] Gemini CLI integration for comprehensive codebase analysis"
   post: |
-    echo "✅ Large-context research analysis complete"
-    echo "📋 Impact analysis and architectural insights generated"
+    echo "[OK] Large-context research analysis complete"
+    echo "[CLIPBOARD] Impact analysis and architectural insights generated"
 ---
 
 # Researcher Agent - Gemini Optimized

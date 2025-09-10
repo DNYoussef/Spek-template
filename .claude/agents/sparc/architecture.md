@@ -13,12 +13,12 @@ priority: high
 sparc_phase: architecture
 hooks:
   pre: |
-    echo "🏗️ SPARC Architecture phase initiated"
+    echo "[BUILD] SPARC Architecture phase initiated"
     memory_store "sparc_phase" "architecture"
     # Retrieve pseudocode designs
     memory_search "pseudo_complete" | tail -1
   post: |
-    echo "✅ Architecture phase complete"
+    echo "[OK] Architecture phase complete"
     memory_store "arch_complete_$(date +%s)" "System architecture defined"
 ---
 

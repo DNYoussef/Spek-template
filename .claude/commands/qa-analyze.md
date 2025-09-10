@@ -22,7 +22,7 @@ Handle multiple input formats:
 const COMPLEXITY_PATTERNS = {
   small: {
     criteria: [
-      'Single file changes ≤25 LOC',
+      'Single file changes <=25 LOC',
       'Isolated test failures',
       'Simple linting errors',
       'Type errors in one module',
@@ -434,7 +434,7 @@ function generateSmartRecommendations(rootCauses, architecturalContext) {
 const ENHANCED_COMPLEXITY_PATTERNS = {
   architectural_small: {
     criteria: [
-      'Single component changes ≤25 LOC',
+      'Single component changes <=25 LOC',
       'No cross-component dependencies affected',
       'Coupling changes < 0.1 delta',
       'No architectural hotspots involved'

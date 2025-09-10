@@ -57,7 +57,7 @@ codex --improve --verify="tests,typecheck,lint" --budget-loc=25 --task="[improve
 ```
 
 **Route to Codex When**:
-- Changes are ≤25 LOC and ≤2 files
+- Changes are <=25 LOC and <=2 files
 - Surgical fixes for specific test failures
 - Bounded refactoring with clear constraints
 - Quality improvements within budget limits

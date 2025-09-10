@@ -77,7 +77,7 @@ async function executeCheckpointPlan(checkpoints, issueDescription) {
   };
   
   for (const [index, checkpoint] of checkpoints.entries()) {
-    console.log(`🎯 Executing checkpoint ${checkpoint.id}/${checkpoints.length}`);
+    console.log(`[TARGET] Executing checkpoint ${checkpoint.id}/${checkpoints.length}`);
     execution.current_checkpoint = checkpoint;
     
     // Create rollback point before each checkpoint
@@ -94,9 +94,9 @@ async function executeCheckpointPlan(checkpoints, issueDescription) {
           completed_at: new Date().toISOString()
         });
         
-        console.log(`✅ Checkpoint ${checkpoint.id} completed successfully`);
+        console.log(`[OK] Checkpoint ${checkpoint.id} completed successfully`);
       } else {
-        console.error(`❌ Checkpoint ${checkpoint.id} failed: ${result.error}`);
+        console.error(`[FAIL] Checkpoint ${checkpoint.id} failed: ${result.error}`);
         await rollbackToPoint(rollbackPoint);
         
         execution.overall_status = 'failed';
@@ -106,7 +106,7 @@ async function executeCheckpointPlan(checkpoints, issueDescription) {
       }
       
     } catch (error) {
-      console.error(`💥 Checkpoint ${checkpoint.id} threw error: ${error.message}`);
+      console.error(`[U+1F4A5] Checkpoint ${checkpoint.id} threw error: ${error.message}`);
       await rollbackToPoint(rollbackPoint);
       
       execution.overall_status = 'error';
@@ -118,7 +118,7 @@ async function executeCheckpointPlan(checkpoints, issueDescription) {
   
   if (execution.checkpoints_completed.length === checkpoints.length) {
     execution.overall_status = 'success';
-    console.log(`🎉 All ${checkpoints.length} checkpoints completed successfully`);
+    console.log(`[PARTY] All ${checkpoints.length} checkpoints completed successfully`);
   }
   
   return execution;

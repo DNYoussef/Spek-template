@@ -13,18 +13,18 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "🧠 Memory Coordination Specialist initializing"
-    echo "💾 Checking memory system status and available namespaces"
+    echo "[BRAIN] Memory Coordination Specialist initializing"
+    echo "[U+1F4BE] Checking memory system status and available namespaces"
     # Check memory system availability
-    echo "📊 Current memory usage:"
+    echo "[CHART] Current memory usage:"
     # List active namespaces if memory tools are available
-    echo "🗂️ Available namespaces will be scanned"
+    echo "[U+1F5C2][U+FE0F] Available namespaces will be scanned"
   post: |
-    echo "✅ Memory operations completed successfully"
-    echo "📈 Memory system optimized and synchronized"
-    echo "🔄 Cross-session persistence enabled"
+    echo "[OK] Memory operations completed successfully"
+    echo "[TREND] Memory system optimized and synchronized"
+    echo "[CYCLE] Cross-session persistence enabled"
     # Log memory operation summary
-    echo "📋 Memory coordination session summary stored"
+    echo "[CLIPBOARD] Memory coordination session summary stored"
 ---
 
 # Memory Coordination Specialist Agent
@@ -133,9 +133,9 @@ Contents:
 ### Memory Hierarchies
 ```
 Global Memory (Long-term)
-  → Project Memory (Medium-term)
-    → Session Memory (Short-term)
-      → Task Memory (Ephemeral)
+  -> Project Memory (Medium-term)
+    -> Session Memory (Short-term)
+      -> Task Memory (Ephemeral)
 ```
 
 ## Advanced Features

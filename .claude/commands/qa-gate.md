@@ -60,7 +60,7 @@ const QUALITY_GATES = {
   
   connascence: {
     threshold: result => result.nasa_compliance >= 90 && result.duplication_score >= 0.75,
-    message: "Maintain NASA POT10 compliance ≥90% and duplication score ≥0.75", 
+    message: "Maintain NASA POT10 compliance >=90% and duplication score >=0.75", 
     critical: false
   }
 };
@@ -82,7 +82,7 @@ function evaluateQualityGates(qaResults) {
     gates[gateName] = {
       passed,
       critical: config.critical,
-      message: passed ? `✅ ${gateName} passed` : `❌ ${config.message}`,
+      message: passed ? `[OK] ${gateName} passed` : `[FAIL] ${config.message}`,
       details: result
     };
     
@@ -100,7 +100,7 @@ function evaluateQualityGates(qaResults) {
     gates[gateName] = {
       passed,
       critical: config.critical,
-      message: passed ? `✅ ${gateName} passed` : `⚠️ ${config.message}`,
+      message: passed ? `[OK] ${gateName} passed` : `[WARN] ${config.message}`,
       details: result
     };
     
@@ -138,7 +138,7 @@ Generate structured gate.json decision:
     "tests": {
       "passed": false,
       "critical": true,
-      "message": "❌ All tests must pass - no exceptions",
+      "message": "[FAIL] All tests must pass - no exceptions",
       "details": {
         "total": 45,
         "passed": 42,
@@ -152,7 +152,7 @@ Generate structured gate.json decision:
     "typecheck": {
       "passed": true,
       "critical": true, 
-      "message": "✅ typecheck passed",
+      "message": "[OK] typecheck passed",
       "details": {
         "errors": 0,
         "warnings": 2
@@ -162,7 +162,7 @@ Generate structured gate.json decision:
     "lint": {
       "passed": false,
       "critical": false,
-      "message": "⚠️ Linting errors should be fixed (warnings allowed)", 
+      "message": "[WARN] Linting errors should be fixed (warnings allowed)", 
       "details": {
         "errors": 2,
         "warnings": 5,
@@ -173,7 +173,7 @@ Generate structured gate.json decision:
     "security": {
       "passed": true,
       "critical": true,
-      "message": "✅ security passed",
+      "message": "[OK] security passed",
       "details": {
         "high": 0,
         "medium": 1,
@@ -184,7 +184,7 @@ Generate structured gate.json decision:
     "coverage": {
       "passed": true,
       "critical": false, 
-      "message": "✅ coverage passed",
+      "message": "[OK] coverage passed",
       "details": {
         "coverage_delta": "+2.1%",
         "changed_files_coverage": 94.5
@@ -194,7 +194,7 @@ Generate structured gate.json decision:
     "connascence": {
       "passed": true,
       "critical": false,
-      "message": "✅ connascence passed", 
+      "message": "[OK] connascence passed", 
       "details": {
         "nasa_compliance": 92.3,
         "duplication_score": 0.81

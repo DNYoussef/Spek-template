@@ -12,12 +12,12 @@ capabilities:
 priority: high
 hooks:
   pre: |
-    echo "👁️ Fresh-Eyes Codex Analyst initializing implementation-focused pre-mortem"
-    echo "🚫 Memory isolation enforced - no project context available"
-    echo "🧠 Sequential Thinking MCP enabled for structured reasoning"
+    echo "[U+1F441][U+FE0F] Fresh-Eyes Codex Analyst initializing implementation-focused pre-mortem"
+    echo "[U+1F6AB] Memory isolation enforced - no project context available"
+    echo "[BRAIN] Sequential Thinking MCP enabled for structured reasoning"
   post: |
-    echo "✅ Fresh-eyes implementation risk analysis complete"
-    echo "📊 Technical failure probability and code improvements identified"
+    echo "[OK] Fresh-eyes implementation risk analysis complete"
+    echo "[CHART] Technical failure probability and code improvements identified"
 ---
 
 # Fresh-Eyes Codex Implementation Risk Analyst

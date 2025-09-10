@@ -880,3 +880,135 @@ def should_enable_component(component_name: str, policy_name: str = None) -> boo
             return component_name in core_components
     
     return component_config.get("enabled", True)
+
+
+# ============================================================================
+# POLICY MANAGEMENT FUNCTIONS (Thread-Safe)
+# ============================================================================
+# Essential policy management functions for NASA POT10 compliance and
+# thread-safe operation with DetectorPool systems.
+
+def get_policy_thresholds(policy_name: str) -> dict:
+    """
+    Get quality thresholds for a specific policy.
+    
+    Thread-safe policy threshold retrieval for parallel analysis.
+    
+    Args:
+        policy_name: Policy name (unified or legacy format)
+        
+    Returns:
+        Dictionary of policy-specific quality thresholds
+        
+    Examples:
+        get_policy_thresholds("nasa-compliance") -> {"nasa_compliance_min": 0.95, ...}
+        get_policy_thresholds("strict") -> {"nasa_compliance_min": 0.90, ...}
+    """
+    canonical_policy = resolve_policy_name(policy_name, warn_deprecated=False)
+    
+    thresholds = {
+        "nasa-compliance": {
+            "nasa_compliance_min": NASA_COMPLIANCE_THRESHOLD,
+            "god_object_limit": GOD_OBJECT_METHOD_THRESHOLD // 2,  # Stricter for NASA
+            "duplication_threshold": MECE_QUALITY_THRESHOLD + 0.15,
+            "critical_violations": CRITICAL_VIOLATION_LIMIT,
+            "high_violations": HIGH_VIOLATION_LIMIT // 2,
+            "max_complexity": ALGORITHM_COMPLEXITY_THRESHOLD // 2,
+            "max_parameters": NASA_PARAMETER_THRESHOLD,
+        },
+        "strict": {
+            "nasa_compliance_min": 0.90,
+            "god_object_limit": GOD_OBJECT_METHOD_THRESHOLD,
+            "duplication_threshold": MECE_QUALITY_THRESHOLD + 0.10,
+            "critical_violations": CRITICAL_VIOLATION_LIMIT,
+            "high_violations": HIGH_VIOLATION_LIMIT,
+            "max_complexity": ALGORITHM_COMPLEXITY_THRESHOLD,
+            "max_parameters": NASA_PARAMETER_THRESHOLD + 2,
+        },
+        "standard": {
+            "nasa_compliance_min": OVERALL_QUALITY_THRESHOLD,
+            "god_object_limit": GOD_OBJECT_METHOD_THRESHOLD + 5,
+            "duplication_threshold": MECE_QUALITY_THRESHOLD,
+            "critical_violations": CRITICAL_VIOLATION_LIMIT + 2,
+            "high_violations": HIGH_VIOLATION_LIMIT + 10,
+            "max_complexity": ALGORITHM_COMPLEXITY_THRESHOLD + 5,
+            "max_parameters": POSITION_COUPLING_THRESHOLD + 2,
+        },
+        "lenient": {
+            "nasa_compliance_min": 0.60,
+            "god_object_limit": GOD_OBJECT_METHOD_THRESHOLD + 15,
+            "duplication_threshold": MECE_QUALITY_THRESHOLD - 0.20,
+            "critical_violations": CRITICAL_VIOLATION_LIMIT + 10,
+            "high_violations": HIGH_VIOLATION_LIMIT + 30,
+            "max_complexity": ALGORITHM_COMPLEXITY_THRESHOLD + 15,
+            "max_parameters": POSITION_COUPLING_THRESHOLD + 6,
+        }
+    }
+    
+    return thresholds.get(canonical_policy, thresholds["standard"])
+
+
+def is_policy_nasa_compliant(policy_name: str) -> bool:
+    """
+    Check if a policy meets NASA POT10 compliance requirements.
+    
+    Thread-safe compliance check for defense industry validation.
+    
+    Args:
+        policy_name: Policy name to check
+        
+    Returns:
+        True if policy meets NASA POT10 compliance standards
+    """
+    canonical_policy = resolve_policy_name(policy_name, warn_deprecated=False)
+    
+    # NASA compliance policies
+    nasa_policies = {"nasa-compliance"}
+    
+    # Check if thresholds meet NASA standards
+    if canonical_policy in nasa_policies:
+        return True
+        
+    # Check if policy thresholds meet minimum NASA requirements
+    thresholds = get_policy_thresholds(canonical_policy)
+    return (
+        thresholds.get("nasa_compliance_min", 0) >= NASA_COMPLIANCE_THRESHOLD and
+        thresholds.get("max_parameters", 99) <= NASA_PARAMETER_THRESHOLD and
+        thresholds.get("critical_violations", 99) <= CRITICAL_VIOLATION_LIMIT
+    )
+
+
+def get_policy_severity_mapping(policy_name: str) -> dict:
+    """
+    Get severity level mapping for a specific policy.
+    
+    Thread-safe severity mapping for consistent violation reporting.
+    
+    Args:
+        policy_name: Policy name
+        
+    Returns:
+        Dictionary mapping violation types to severity levels
+    """
+    canonical_policy = resolve_policy_name(policy_name, warn_deprecated=False)
+    
+    # NASA compliance uses strictest severity mapping
+    if canonical_policy == "nasa-compliance":
+        return {
+            "god_object": "CRITICAL",
+            "parameter_coupling": "CRITICAL",
+            "magic_literal": "MAJOR", 
+            "algorithm_coupling": "SIGNIFICANT",
+            "position_coupling": "MAJOR",
+            "nasa_violation": "CRITICAL",
+        }
+    
+    # Standard severity mapping for other policies
+    return {
+        "god_object": "MAJOR" if canonical_policy == "strict" else "SIGNIFICANT",
+        "parameter_coupling": "SIGNIFICANT",
+        "magic_literal": "MODERATE",
+        "algorithm_coupling": "MODERATE", 
+        "position_coupling": "MINOR",
+        "nasa_violation": "SIGNIFICANT",
+    }

@@ -45,7 +45,7 @@ npx ruv-swarm github review-init \
   --depth comprehensive
 
 # Post initial review status
-gh pr comment 123 --body "🔍 Multi-agent code review initiated"
+gh pr comment 123 --body "[SEARCH] Multi-agent code review initiated"
 ```
 
 ### 2. Specialized Review Agents
@@ -359,9 +359,9 @@ done
 ### Comment Templates
 ```markdown
 <!-- Security Issue Template -->
-🔒 **Security Issue: [Type]**
+[U+1F512] **Security Issue: [Type]**
 
-**Severity**: 🔴 Critical / 🟡 High / 🟢 Low
+**Severity**: [U+1F534] Critical / [U+1F7E1] High / [U+1F7E2] Low
 
 **Description**: 
 [Clear explanation of the security issue]

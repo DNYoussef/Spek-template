@@ -31,7 +31,7 @@
 ### Red Flags to Investigate
 ```yaml
 suspicious_patterns:
-  - "✓ Complete" without working demos
+  - "[U+2713] Complete" without working demos
   - Unit tests pass but integration fails
   - Documentation claims without validation
   - "Production ready" without deployment testing

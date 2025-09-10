@@ -84,7 +84,7 @@ run_semgrep_security_scan() {
     local output_format="$3"
     local targets_file="/tmp/scan_targets.txt"
     
-    echo "🔒 Starting security scan (scope: $scope, profile: $profile)"
+    echo "[U+1F512] Starting security scan (scope: $scope, profile: $profile)"
     
     # Create artifacts directory
     mkdir -p .claude/.artifacts

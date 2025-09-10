@@ -13,12 +13,12 @@ priority: high
 sparc_phase: pseudocode
 hooks:
   pre: |
-    echo "🔤 SPARC Pseudocode phase initiated"
+    echo "[U+1F524] SPARC Pseudocode phase initiated"
     memory_store "sparc_phase" "pseudocode"
     # Retrieve specification from memory
     memory_search "spec_complete" | tail -1
   post: |
-    echo "✅ Pseudocode phase complete"
+    echo "[OK] Pseudocode phase complete"
     memory_store "pseudo_complete_$(date +%s)" "Algorithms designed"
 ---
 
@@ -51,14 +51,14 @@ BEGIN
     END IF
     
     // Retrieve user from database
-    user ← Database.findUserByEmail(email)
+    user <- Database.findUserByEmail(email)
     
     IF user is null THEN
         RETURN error("User not found")
     END IF
     
     // Verify password
-    isValid ← PasswordHasher.verify(password, user.passwordHash)
+    isValid <- PasswordHasher.verify(password, user.passwordHash)
     
     IF NOT isValid THEN
         // Log failed attempt
@@ -67,7 +67,7 @@ BEGIN
     END IF
     
     // Create session
-    session ← CreateUserSession(user)
+    session <- CreateUserSession(user)
     
     RETURN {user: user, session: session}
 END
@@ -95,13 +95,13 @@ PermissionTree:
     
     Structure:
         root
-        ├── users
-        │   ├── read
-        │   ├── write
-        │   └── delete
-        └── admin
-            ├── system
-            └── users
+        [U+251C][U+2500][U+2500] users
+        [U+2502]   [U+251C][U+2500][U+2500] read
+        [U+2502]   [U+251C][U+2500][U+2500] write
+        [U+2502]   [U+2514][U+2500][U+2500] delete
+        [U+2514][U+2500][U+2500] admin
+            [U+251C][U+2500][U+2500] system
+            [U+2514][U+2500][U+2500] users
     
     Operations:
         - hasPermission(path): O(m) where m = path length
@@ -123,24 +123,24 @@ CONSTANTS:
     REFILL_RATE = 10 per second
 
 BEGIN
-    bucket ← RateLimitBuckets.get(userId + action)
+    bucket <- RateLimitBuckets.get(userId + action)
     
     IF bucket is null THEN
-        bucket ← CreateNewBucket(BUCKET_SIZE)
+        bucket <- CreateNewBucket(BUCKET_SIZE)
         RateLimitBuckets.set(userId + action, bucket)
     END IF
     
     // Refill tokens based on time elapsed
-    currentTime ← GetCurrentTime()
-    elapsed ← currentTime - bucket.lastRefill
-    tokensToAdd ← elapsed * REFILL_RATE
+    currentTime <- GetCurrentTime()
+    elapsed <- currentTime - bucket.lastRefill
+    tokensToAdd <- elapsed * REFILL_RATE
     
-    bucket.tokens ← MIN(bucket.tokens + tokensToAdd, BUCKET_SIZE)
-    bucket.lastRefill ← currentTime
+    bucket.tokens <- MIN(bucket.tokens + tokensToAdd, BUCKET_SIZE)
+    bucket.lastRefill <- currentTime
     
     // Check if request allowed
     IF bucket.tokens >= 1 THEN
-        bucket.tokens ← bucket.tokens - 1
+        bucket.tokens <- bucket.tokens - 1
         RETURN true
     ELSE
         RETURN false
@@ -162,28 +162,28 @@ SUBROUTINES:
 
 BEGIN
     // Phase 1: Query preprocessing
-    normalizedQuery ← NormalizeText(query)
-    queryTokens ← Tokenize(normalizedQuery)
+    normalizedQuery <- NormalizeText(query)
+    queryTokens <- Tokenize(normalizedQuery)
     
     // Phase 2: Index lookup
-    candidates ← SET()
+    candidates <- SET()
     FOR EACH token IN queryTokens DO
-        matches ← SearchIndex.get(token)
-        candidates ← candidates UNION matches
+        matches <- SearchIndex.get(token)
+        candidates <- candidates UNION matches
     END FOR
     
     // Phase 3: Scoring and ranking
-    scoredResults ← []
+    scoredResults <- []
     FOR EACH item IN candidates DO
         IF PassesPrefilter(item, filters) THEN
-            score ← ScoreResult(item, queryTokens)
+            score <- ScoreResult(item, queryTokens)
             scoredResults.append({item: item, score: score})
         END IF
     END FOR
     
     // Phase 4: Sort and filter
     scoredResults.sortByDescending(score)
-    finalResults ← ApplyFilters(scoredResults, filters)
+    finalResults <- ApplyFilters(scoredResults, filters)
     
     // Phase 5: Pagination
     RETURN finalResults.slice(0, limit)
@@ -194,24 +194,24 @@ INPUT: item, queryTokens
 OUTPUT: score (float)
 
 BEGIN
-    score ← 0
+    score <- 0
     
     // Title match (highest weight)
-    titleMatches ← CountTokenMatches(item.title, queryTokens)
-    score ← score + (titleMatches * 10)
+    titleMatches <- CountTokenMatches(item.title, queryTokens)
+    score <- score + (titleMatches * 10)
     
     // Description match (medium weight)
-    descMatches ← CountTokenMatches(item.description, queryTokens)
-    score ← score + (descMatches * 5)
+    descMatches <- CountTokenMatches(item.description, queryTokens)
+    score <- score + (descMatches * 5)
     
     // Tag match (lower weight)
-    tagMatches ← CountTokenMatches(item.tags, queryTokens)
-    score ← score + (tagMatches * 2)
+    tagMatches <- CountTokenMatches(item.tags, queryTokens)
+    score <- score + (tagMatches * 2)
     
     // Boost by recency
-    daysSinceUpdate ← (CurrentDate - item.updatedAt).days
-    recencyBoost ← 1 / (1 + daysSinceUpdate * 0.1)
-    score ← score * recencyBoost
+    daysSinceUpdate <- (CurrentDate - item.updatedAt).days
+    recencyBoost <- 1 / (1 + daysSinceUpdate * 0.1)
+    score <- score * recencyBoost
     
     RETURN score
 END
