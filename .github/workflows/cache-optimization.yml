@@ -51,96 +51,13 @@ jobs:
       run: |
         echo "🔄 Running cache optimization analysis..."
         cd analyzer
-        python -c "
-        import sys
-        sys.path.insert(0, '.')
-        
-        try:
-            from optimization.file_cache import FileContentCache as IncrementalCache
-            import json
-            from datetime import datetime
-            
-            # Cache optimization
-            cache = IncrementalCache()  # FileContentCache aliased as IncrementalCache
-            cache_result = cache.get_cache_health()
-            
-            # Cache optimization specific results
-            cache_optimization_result = {
-                'cache_health': {
-                    'health_score': 0.85,
-                    'hit_rate': 0.78,
-                    'optimization_potential': 0.22
-                },
-                'performance_metrics': {
-                    'cache_efficiency': 0.82,
-                    'memory_utilization': 0.68
-                },
-                'recommendations': [
-                    'Increase cache size for better hit rates',
-                    'Implement cache warming strategies'
-                ],
-                'timestamp': datetime.now().isoformat()
-            }
-            
-            with open('../.claude/.artifacts/cache_optimization.json', 'w') as f:
-                json.dump(cache_optimization_result, f, indent=2)
-            
-            print('✅ Cache optimization analysis completed')
-            print(f'Cache Health Score: {cache_optimization_result[\"cache_health\"][\"health_score\"]:.2%}')
-            print(f'Hit Rate: {cache_optimization_result[\"cache_health\"][\"hit_rate\"]:.2%}')
-            print(f'Cache Efficiency: {cache_optimization_result[\"performance_metrics\"][\"cache_efficiency\"]:.2%}')
-            
-        except Exception as e:
-            print(f'⚠️  Cache optimization analysis failed: {e}')
-            
-            cache_fallback = {
-                'cache_health': {
-                    'health_score': 0.80,
-                    'hit_rate': 0.70,
-                    'optimization_potential': 0.30
-                },
-                'performance_metrics': {
-                    'cache_efficiency': 0.75,
-                    'memory_utilization': 0.60
-                },
-                'recommendations': [
-                    'Cache optimization analysis unavailable'
-                ],
-                'timestamp': datetime.now().isoformat(),
-                'fallback': True,
-                'error': str(e)
-            }
-            
-            with open('../.claude/.artifacts/cache_optimization.json', 'w') as f:
-                json.dump(cache_fallback, f, indent=2)
-        "
+        python -c "import sys; sys.path.insert(0, '.'); exec(\"\"\"try:\n    from analyzer.optimization.file_cache import FileContentCache as IncrementalCache\n    import json\n    from datetime import datetime\n    cache = IncrementalCache()\n    cache_result = cache.get_cache_health()\n    cache_optimization_result = {'cache_health': {'health_score': 0.85, 'hit_rate': 0.78, 'optimization_potential': 0.22}, 'performance_metrics': {'cache_efficiency': 0.82, 'memory_utilization': 0.68}, 'recommendations': ['Increase cache size for better hit rates', 'Implement cache warming strategies'], 'timestamp': datetime.now().isoformat()}\n    with open('../.claude/.artifacts/cache_optimization.json', 'w') as f:\n        json.dump(cache_optimization_result, f, indent=2)\n    print('SUCCESS: Cache optimization analysis completed')\n    print(f'Cache Health Score: {cache_optimization_result[\\\"cache_health\\\"][\\\"health_score\\\"]:.2%}')\n    print(f'Hit Rate: {cache_optimization_result[\\\"cache_health\\\"][\\\"hit_rate\\\"]:.2%}')\n    print(f'Cache Efficiency: {cache_optimization_result[\\\"performance_metrics\\\"][\\\"cache_efficiency\\\"]:.2%}')\nexcept Exception as e:\n    print(f'WARNING: Cache optimization analysis failed: {e}')\n    from datetime import datetime\n    import json\n    cache_fallback = {'cache_health': {'health_score': 0.80, 'hit_rate': 0.70, 'optimization_potential': 0.30}, 'performance_metrics': {'cache_efficiency': 0.75, 'memory_utilization': 0.60}, 'recommendations': ['Cache optimization analysis unavailable'], 'timestamp': datetime.now().isoformat(), 'fallback': True, 'error': str(e)}\n    with open('../.claude/.artifacts/cache_optimization.json', 'w') as f:\n        json.dump(cache_fallback, f, indent=2)\"\"\")"
 
     - name: 📊 Cache Analysis Summary
       run: |
         if [ -f .claude/.artifacts/cache_optimization.json ]; then
           echo "=== Cache Optimization Analysis Summary ==="
-          python -c "
-          import json
-          with open('.claude/.artifacts/cache_optimization.json', 'r') as f:
-              data = json.load(f)
-          
-          health = data.get('cache_health', {})
-          metrics = data.get('performance_metrics', {})
-          recommendations = data.get('recommendations', [])
-          
-          print(f'Cache Health Score: {health.get(\"health_score\", \"N/A\")}')
-          print(f'Hit Rate: {health.get(\"hit_rate\", \"N/A\")}')
-          print(f'Optimization Potential: {health.get(\"optimization_potential\", \"N/A\")}')
-          print(f'Cache Efficiency: {metrics.get(\"cache_efficiency\", \"N/A\")}')
-          print(f'Memory Utilization: {metrics.get(\"memory_utilization\", \"N/A\")}')
-          print(f'Recommendations: {len(recommendations)}')
-          
-          if data.get('fallback'):
-              print('⚠️  Analysis ran in fallback mode')
-          
-          for i, rec in enumerate(recommendations[:3], 1):
-              print(f'{i}. {rec}')
-          "
+          python -c "import json; data = json.load(open('.claude/.artifacts/cache_optimization.json')); health = data.get('cache_health', {}); metrics = data.get('performance_metrics', {}); recommendations = data.get('recommendations', []); print(f'Cache Health Score: {health.get(\"health_score\", \"N/A\")}'); print(f'Hit Rate: {health.get(\"hit_rate\", \"N/A\")}'); print(f'Optimization Potential: {health.get(\"optimization_potential\", \"N/A\")}'); print(f'Cache Efficiency: {metrics.get(\"cache_efficiency\", \"N/A\")}'); print(f'Memory Utilization: {metrics.get(\"memory_utilization\", \"N/A\")}'); print(f'Recommendations: {len(recommendations)}'); data.get('fallback') and print('WARNING: Analysis ran in fallback mode'); [print(f'{i}. {rec}') for i, rec in enumerate(recommendations[:3], 1)]"
         else
           echo "❌ Cache optimization analysis file not found"
           exit 1
@@ -157,55 +74,4 @@ jobs:
     - name: 🔄 Cache Quality Gate
       run: |
         echo "=== Cache Optimization Quality Gate ==="
-        python -c "
-        import json
-        import sys
-        
-        with open('.claude/.artifacts/cache_optimization.json', 'r') as f:
-            data = json.load(f)
-        
-        # Cache quality thresholds
-        min_health_score = 0.75
-        min_hit_rate = 0.60
-        min_cache_efficiency = 0.70
-        max_optimization_potential = 0.40
-        
-        health = data.get('cache_health', {})
-        metrics = data.get('performance_metrics', {})
-        
-        health_score = health.get('health_score', 0)
-        hit_rate = health.get('hit_rate', 0)
-        cache_efficiency = metrics.get('cache_efficiency', 0)
-        optimization_potential = health.get('optimization_potential', 1)
-        
-        failed = False
-        
-        if health_score < min_health_score:
-            print(f'❌ Cache health: {health_score:.2%} < {min_health_score:.2%}')
-            failed = True
-        else:
-            print(f'✅ Cache health: {health_score:.2%} >= {min_health_score:.2%}')
-            
-        if hit_rate < min_hit_rate:
-            print(f'❌ Hit rate: {hit_rate:.2%} < {min_hit_rate:.2%}')
-            failed = True
-        else:
-            print(f'✅ Hit rate: {hit_rate:.2%} >= {min_hit_rate:.2%}')
-            
-        if cache_efficiency < min_cache_efficiency:
-            print(f'❌ Cache efficiency: {cache_efficiency:.2%} < {min_cache_efficiency:.2%}')
-            failed = True
-        else:
-            print(f'✅ Cache efficiency: {cache_efficiency:.2%} >= {min_cache_efficiency:.2%}')
-            
-        if optimization_potential > max_optimization_potential:
-            print(f'⚠️  Optimization potential: {optimization_potential:.2%} > {max_optimization_potential:.2%}')
-            print('🔧 Consider implementing cache optimization recommendations')
-        else:
-            print(f'✅ Optimization potential: {optimization_potential:.2%} <= {max_optimization_potential:.2%}')
-        
-        if failed:
-            print('\\n⚠️  Cache optimization quality gate has warnings')
-        else:
-            print('\\n✅ Cache optimization quality gate PASSED')
-        "
+        python -c "import json, sys; data = json.load(open('.claude/.artifacts/cache_optimization.json')); min_health_score, min_hit_rate, min_cache_efficiency, max_optimization_potential = 0.75, 0.60, 0.70, 0.40; health, metrics = data.get('cache_health', {}), data.get('performance_metrics', {}); health_score, hit_rate, cache_efficiency, optimization_potential = health.get('health_score', 0), health.get('hit_rate', 0), metrics.get('cache_efficiency', 0), health.get('optimization_potential', 1); failed = False; print(f'ERROR: Cache health: {health_score:.2%} < {min_health_score:.2%}') if (health_score < min_health_score and (failed := True)) else print(f'SUCCESS: Cache health: {health_score:.2%} >= {min_health_score:.2%}'); print(f'ERROR: Hit rate: {hit_rate:.2%} < {min_hit_rate:.2%}') if (hit_rate < min_hit_rate and (failed := True)) else print(f'SUCCESS: Hit rate: {hit_rate:.2%} >= {min_hit_rate:.2%}'); print(f'ERROR: Cache efficiency: {cache_efficiency:.2%} < {min_cache_efficiency:.2%}') if (cache_efficiency < min_cache_efficiency and (failed := True)) else print(f'SUCCESS: Cache efficiency: {cache_efficiency:.2%} >= {min_cache_efficiency:.2%}'); print(f'WARNING: Optimization potential: {optimization_potential:.2%} > {max_optimization_potential:.2%}\\nConsider implementing cache optimization recommendations') if optimization_potential > max_optimization_potential else print(f'SUCCESS: Optimization potential: {optimization_potential:.2%} <= {max_optimization_potential:.2%}'); print('\\nWARNING: Cache optimization quality gate has warnings') if failed else print('\\nSUCCESS: Cache optimization quality gate PASSED')"

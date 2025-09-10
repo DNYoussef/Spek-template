@@ -1,0 +1,219 @@
+name: Setup Branch Protection
+
+on:
+  workflow_dispatch:
+    inputs:
+      protection_level:
+        description: 'Protection level to apply'
+        required: true
+        default: 'standard'
+        type: choice
+        options:
+          - minimal
+          - standard
+          - strict
+      target_branch:
+        description: 'Branch to protect'
+        required: true
+        default: 'main'
+
+jobs:
+  setup-protection:
+    name: Configure Branch Protection Rules
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      administration: write
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Configure Branch Protection Rules
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { owner, repo } = context.repo;
+          const branch = '${{ inputs.target_branch }}';
+          const level = '${{ inputs.protection_level }}';
+          
+          console.log(`Setting up ${level} branch protection for ${branch}...`);
+          
+          // Define protection configurations
+          const protectionConfigs = {
+            minimal: {
+              required_status_checks: {
+                strict: true,
+                checks: [
+                  { context: "connascence-core-analysis" },
+                  { context: "quality-gate-enforcer" }
+                ]
+              },
+              enforce_admins: false,
+              required_pull_request_reviews: {
+                required_approving_review_count: 1,
+                dismiss_stale_reviews: false
+              },
+              restrictions: null
+            },
+            
+            standard: {
+              required_status_checks: {
+                strict: true,
+                checks: [
+                  { context: "connascence-core-analysis" },
+                  { context: "architecture-analysis" }, 
+                  { context: "security-pipeline" },
+                  { context: "performance-monitoring" },
+                  { context: "quality-gate-enforcer" }
+                ]
+              },
+              enforce_admins: true,
+              required_pull_request_reviews: {
+                required_approving_review_count: 1,
+                dismiss_stale_reviews: true,
+                require_code_owner_reviews: true
+              },
+              restrictions: null
+            },
+            
+            strict: {
+              required_status_checks: {
+                strict: true,
+                checks: [
+                  { context: "connascence-core-analysis" },
+                  { context: "architecture-analysis" },
+                  { context: "security-pipeline" },
+                  { context: "performance-monitoring" },
+                  { context: "cache-optimization" },
+                  { context: "mece-duplication-analysis" },
+                  { context: "self-dogfooding" },
+                  { context: "quality-gates" },
+                  { context: "quality-orchestrator" },
+                  { context: "quality-gate-enforcer" }
+                ]
+              },
+              enforce_admins: true,
+              required_pull_request_reviews: {
+                required_approving_review_count: 2,
+                dismiss_stale_reviews: true,
+                require_code_owner_reviews: true
+              },
+              restrictions: null
+            }
+          };
+          
+          const config = protectionConfigs[level];
+          
+          try {
+            await github.rest.repos.updateBranchProtection({
+              owner,
+              repo,
+              branch,
+              ...config
+            });
+            
+            console.log(`✅ Successfully configured ${level} branch protection for ${branch}`);
+            
+            // Create summary
+            const summary = `
+            ## Branch Protection Configuration Complete
+            
+            **Branch**: \`${branch}\`
+            **Protection Level**: \`${level}\`
+            **Required Checks**: ${config.required_status_checks.checks.length}
+            
+            ### Enabled Protections:
+            - ✅ Required status checks
+            - ✅ Require branches to be up to date
+            - ✅ Pull request reviews required
+            - ${config.enforce_admins ? '✅' : '❌'} Enforce for administrators
+            - ${config.required_pull_request_reviews.require_code_owner_reviews ? '✅' : '❌'} Require CODEOWNERS review
+            
+            ### Required Status Checks:
+            ${config.required_status_checks.checks.map(check => `- \`${check.context}\``).join('\n')}
+            `;
+            
+            console.log(summary);
+            
+          } catch (error) {
+            console.error('❌ Failed to configure branch protection:', error);
+            throw error;
+          }
+
+    - name: Create CODEOWNERS File
+      run: |
+        echo "Creating CODEOWNERS file for code review assignments..."
+        cat > .github/CODEOWNERS << 'EOF'
+        # Global ownership for quality gates and analyzer components
+        * @your-team/quality-reviewers
+        
+        # Analyzer components require specialist review
+        /analyzer/ @your-team/analyzer-specialists
+        /.github/workflows/ @your-team/devops-specialists
+        
+        # Critical quality gate files
+        /.github/quality-gates.py @your-team/security-reviewers
+        /.github/validate-analyzer-pipeline.py @your-team/quality-reviewers
+        /requirements.txt @your-team/security-reviewers
+        
+        # Core analyzer files
+        /analyzer/connascence_analyzer.py @your-team/analyzer-specialists
+        /analyzer/core.py @your-team/analyzer-specialists
+        /setup.py @your-team/package-maintainers
+        EOF
+        
+        echo "✅ CODEOWNERS file created"
+
+    - name: Setup Environment Variables Template
+      run: |
+        echo "Creating environment variables template for quality thresholds..."
+        cat > .github/quality-thresholds.env.template << 'EOF'
+        # NASA Compliance Thresholds
+        NASA_MIN_SCORE=0.85
+        NASA_MAX_CRITICAL=0
+        NASA_MAX_HIGH=5
+        
+        # Security Gate Thresholds
+        SEC_MAX_CRITICAL=0
+        SEC_MAX_HIGH=3
+        SEC_MAX_SECRETS=0
+        
+        # Connascence Analysis Thresholds
+        CONN_MAX_CRITICAL=5
+        CONN_MIN_QUALITY=0.70
+        CONN_MAX_GOD_OBJECTS=3
+        
+        # Architecture Analysis Thresholds
+        ARCH_MIN_HEALTH=0.70
+        ARCH_MAX_COUPLING=0.60
+        ARCH_MAX_COMPLEXITY=0.70
+        ARCH_MIN_MAINTAINABILITY=0.65
+        
+        # Cache Optimization Thresholds
+        CACHE_MIN_HEALTH=0.75
+        CACHE_MIN_HIT_RATE=0.60
+        CACHE_MIN_EFFICIENCY=0.70
+        
+        # Performance Monitoring Thresholds
+        PERF_MIN_CPU_EFFICIENCY=0.70
+        PERF_MIN_MEMORY_OPTIMIZATION=0.65
+        EOF
+        
+        echo "✅ Environment variables template created"
+
+    - name: Protection Summary
+      run: |
+        echo "=== Branch Protection Setup Complete ==="
+        echo "Protection Level: ${{ inputs.protection_level }}"
+        echo "Target Branch: ${{ inputs.target_branch }}"
+        echo ""
+        echo "Next Steps:"
+        echo "1. Configure repository secrets with environment variables"
+        echo "2. Update team names in .github/CODEOWNERS"
+        echo "3. Test branch protection with a test PR"
+        echo "4. Deploy remaining workflow fixes"
+        echo ""
+        echo "Files created:"
+        echo "- .github/CODEOWNERS"
+        echo "- .github/quality-thresholds.env.template"

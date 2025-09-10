@@ -1,0 +1,55 @@
+{
+  "analysis_timestamp": "2025-01-15T10:30:00Z",
+  "project_name": "SPEK Enhanced Development Platform",
+  "total_files": 70,
+  "total_loc": 25640,
+  "violations": [
+    {
+      "type": "minor_style",
+      "severity": "low",
+      "file": "src/utils/helper.js",
+      "line": 42,
+      "message": "Consider using const instead of let for immutable variable"
+    },
+    {
+      "type": "complexity",
+      "severity": "medium", 
+      "file": "src/analyzer/core.js",
+      "line": 156,
+      "message": "Function complexity score of 12 exceeds recommended 10"
+    }
+  ],
+  "nasa_compliance": {
+    "score": 0.95,
+    "requirements_met": 19,
+    "total_requirements": 20,
+    "failing_requirements": ["POT10-R15: Automated regression testing"]
+  },
+  "god_objects": [
+    {
+      "name": "AnalyzerCore",
+      "file": "src/analyzer/core.js", 
+      "methods": 18,
+      "loc": 450,
+      "reason": "Central analysis orchestration - justified complexity"
+    }
+  ],
+  "mece_analysis": {
+    "score": 0.87,
+    "overlaps_found": 2,
+    "gaps_found": 1,
+    "categories_analyzed": 12
+  },
+  "overall_quality_score": 0.89,
+  "security_findings": {
+    "critical": 0,
+    "high": 0,
+    "medium": 1,
+    "low": 3
+  },
+  "test_coverage": {
+    "percentage": 87.4,
+    "lines_covered": 22409,
+    "lines_total": 25640
+  }
+}

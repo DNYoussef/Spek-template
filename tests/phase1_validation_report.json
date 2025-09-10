@@ -1,0 +1,31 @@
+{
+  "test_summary": {
+    "total_components_tested": 14,
+    "passed": 2,
+    "failed": 12,
+    "success_rate": "14.3%"
+  },
+  "passed_components": [
+    "Branch Protection Workflow",
+    "CODEOWNERS File"
+  ],
+  "failed_components": [
+    "connascence-core-analysis.yml: Missing required key: on",
+    "cache-optimization.yml: Missing required key: on",
+    "performance-monitoring.yml: Missing required key: on",
+    "mece-duplication-analysis.yml: Missing required key: on",
+    "self-dogfooding.yml: Missing required key: on",
+    "architecture-analysis.yml: while scanning a simple key\n  in \".github\\workflows\\architecture-analysis.yml\", line 55, column 1\ncould not find expected ':'\n  in \".github\\workflows\\architecture-analysis.yml\", line 56, column 1",
+    "connascence-analysis.yml: while scanning a simple key\n  in \".github\\workflows\\connascence-analysis.yml\", line 135, column 1\ncould not find expected ':'\n  in \".github\\workflows\\connascence-analysis.yml\", line 136, column 5",
+    "enhanced-quality-gates.yml: while scanning a simple key\n  in \".github\\workflows\\enhanced-quality-gates.yml\", line 1699, column 3\ncould not find expected ':'\n  in \".github\\workflows\\enhanced-quality-gates.yml\", line 1702, column 65",
+    "nasa-compliance-check.yml: while parsing a block mapping\n  in \".github\\workflows\\nasa-compliance-check.yml\", line 218, column 7\nexpected <block end>, but found '<scalar>'\n  in \".github\\workflows\\nasa-compliance-check.yml\", line 218, column 24",
+    "quality-gates.yml: while parsing a block mapping\n  in \".github\\workflows\\quality-gates.yml\", line 187, column 5\nexpected <block end>, but found ','\n  in \".github\\workflows\\quality-gates.yml\", line 190, column 23",
+    "quality-orchestrator.yml: mapping values are not allowed here\n  in \".github\\workflows\\quality-orchestrator.yml\", line 75, column 24",
+    "security-pipeline.yml: mapping values are not allowed here\n  in \".github\\workflows\\security-pipeline.yml\", line 149, column 51"
+  ],
+  "phase1_readiness": {
+    "ready_for_phase2": false,
+    "critical_issues": 5,
+    "deployment_recommendation": "FIX_REQUIRED"
+  }
+}

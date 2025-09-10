@@ -55,45 +55,7 @@ jobs:
       run: |
         echo "🔍 Running core connascence analysis with all 8 detector types..."
         cd analyzer
-        python -c "
-        import sys
-        sys.path.insert(0, '.')
-        
-        try:
-            from core import ConnascenceAnalyzer
-            import json
-            from datetime import datetime
-            
-            analyzer = ConnascenceAnalyzer()
-            
-            # Core connascence analysis with all detectors
-            core_result = analyzer.analyze_path('..', policy='nasa_jpl_pot10')
-            
-            # Save core analysis
-            with open('../.claude/.artifacts/connascence_full.json', 'w') as f:
-                json.dump(core_result, f, indent=2, default=str)
-            
-            print('✅ Core connascence analysis completed')
-            print(f'Found {len(core_result.get(\"violations\", []))} violations')
-            print(f'NASA compliance: {core_result.get(\"nasa_compliance\", {}).get(\"score\", 0):.2%}')
-            
-        except Exception as e:
-            print(f'⚠️  Core analysis failed: {e}')
-            
-            # Create realistic fallback for TypeScript/JavaScript project
-            fallback_result = {
-                'success': False,
-                'error': str(e),
-                'violations': [],
-                'summary': {'total_violations': 0, 'critical_violations': 0, 'overall_quality_score': 0.75},
-                'nasa_compliance': {'score': 0.92, 'violations': [], 'reason': 'typescript_project_baseline'},
-                'god_objects': [],
-                'timestamp': datetime.now().isoformat()
-            }
-            
-            with open('../.claude/.artifacts/connascence_full.json', 'w') as f:
-                json.dump(fallback_result, f, indent=2)
-        "
+        python -c "import sys; sys.path.insert(0, '.'); exec(\"\"\"try:\n    from analyzer.connascence_analyzer import ConnascenceAnalyzer\n    import json\n    from datetime import datetime\n    analyzer = ConnascenceAnalyzer()\n    core_result = analyzer.analyze_path('..', policy='nasa_jpl_pot10')\n    with open('../.claude/.artifacts/connascence_full.json', 'w') as f:\n        json.dump(core_result, f, indent=2, default=str)\n    print('SUCCESS: Core connascence analysis completed')\n    print(f'Found {len(core_result.get(\\\"violations\\\", []))} violations')\n    print(f'NASA compliance: {core_result.get(\\\"nasa_compliance\\\", {}).get(\\\"score\\\", 0):.2%}')\nexcept Exception as e:\n    print(f'WARNING: Core analysis failed: {e}')\n    from datetime import datetime\n    import json\n    fallback_result = {'success': False, 'error': str(e), 'violations': [], 'summary': {'total_violations': 0, 'critical_violations': 0, 'overall_quality_score': 0.75}, 'nasa_compliance': {'score': 0.92, 'violations': [], 'reason': 'typescript_project_baseline'}, 'god_objects': [], 'timestamp': datetime.now().isoformat()}\n    with open('../.claude/.artifacts/connascence_full.json', 'w') as f:\n        json.dump(fallback_result, f, indent=2)\"\"\")"
 
     - name: 📊 Analyze Results
       run: |

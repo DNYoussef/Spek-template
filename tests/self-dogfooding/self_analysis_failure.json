@@ -1,0 +1,82 @@
+{
+  "analysis_timestamp": "2025-01-15T10:30:00Z", 
+  "project_name": "SPEK Enhanced Development Platform",
+  "total_files": 70,
+  "total_loc": 25640,
+  "violations": [
+    {
+      "type": "security_vulnerability",
+      "severity": "critical",
+      "file": "src/auth/validator.js",
+      "line": 23,
+      "message": "SQL injection vulnerability in user input validation"
+    },
+    {
+      "type": "memory_leak",
+      "severity": "critical", 
+      "file": "src/memory/manager.js",
+      "line": 89,
+      "message": "Potential memory leak in event listener cleanup"
+    },
+    {
+      "type": "complexity",
+      "severity": "medium",
+      "file": "src/analyzer/core.js", 
+      "line": 156,
+      "message": "Function complexity score of 12 exceeds recommended 10"
+    }
+  ],
+  "nasa_compliance": {
+    "score": 0.76,
+    "requirements_met": 15,
+    "total_requirements": 20,
+    "failing_requirements": [
+      "POT10-R03: Input validation requirements",
+      "POT10-R08: Memory management standards", 
+      "POT10-R12: Security vulnerability prevention",
+      "POT10-R15: Automated regression testing",
+      "POT10-R18: Code review coverage"
+    ]
+  },
+  "god_objects": [
+    {
+      "name": "MegaController",
+      "file": "src/controllers/mega.js",
+      "methods": 47,
+      "loc": 1200,
+      "reason": "Monolithic controller handling multiple responsibilities"
+    },
+    {
+      "name": "DataProcessor", 
+      "file": "src/data/processor.js",
+      "methods": 38,
+      "loc": 950,
+      "reason": "Handles all data transformation logic"
+    },
+    {
+      "name": "ConfigManager",
+      "file": "src/config/manager.js", 
+      "methods": 29,
+      "loc": 780,
+      "reason": "Centralized configuration with too many concerns"
+    }
+  ],
+  "mece_analysis": {
+    "score": 0.62,
+    "overlaps_found": 8,
+    "gaps_found": 5,
+    "categories_analyzed": 12
+  },
+  "overall_quality_score": 0.68,
+  "security_findings": {
+    "critical": 2,
+    "high": 3, 
+    "medium": 7,
+    "low": 12
+  },
+  "test_coverage": {
+    "percentage": 54.2,
+    "lines_covered": 13897,
+    "lines_total": 25640
+  }
+}

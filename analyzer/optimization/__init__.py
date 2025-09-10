@@ -27,6 +27,11 @@ from .file_cache import (
 
 from .performance_benchmark import PerformanceBenchmark
 
+try:
+    from .streaming_performance_monitor import StreamingPerformanceMonitor
+except ImportError:
+    StreamingPerformanceMonitor = None
+
 __all__ = [
     'FileContentCache',
     'get_global_cache', 
@@ -37,7 +42,8 @@ __all__ = [
     'cached_python_files',
     'CacheStats',
     'CacheEntry',
-    'PerformanceBenchmark'
+    'PerformanceBenchmark',
+    'StreamingPerformanceMonitor'
 ]
 
 __version__ = '1.0.0'

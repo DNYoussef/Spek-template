@@ -1,0 +1,14 @@
+Testing quality gates for: self_analysis_success.json
+==================================================
+=== EXTRACTED METRICS ===
+Total violations: 2
+Critical violations: 0
+NASA compliance: 95.0%
+God objects: 1
+MECE score: 87.0%
+Overall quality: 89.0%
+
+=== QUALITY GATE RESULTS ===
+STATUS: PASSED - All quality gates met
+Ready for production deployment
+==================================================

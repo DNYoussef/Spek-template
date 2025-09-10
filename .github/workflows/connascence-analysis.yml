@@ -6,7 +6,7 @@ on:
     branches: [main, develop]
 
 # Permissions required for SARIF upload and GitHub Actions
-permissions:
+  permissions:
   contents: read
   security-events: write
   actions: read
@@ -122,18 +122,18 @@ jobs:
         CRITICAL_VIOLATIONS=$(python -c "import json; data=json.load(open('connascence_full.json')); print(len([v for v in data if v.get('severity') == 'critical']))")
         # Calculate overall score based on violations and improvements
         OVERALL_SCORE=$(python -c "
-import json
-data = json.load(open('connascence_full.json'))
-total = len(data)
-critical = len([v for v in data if v.get('severity') == 'critical'])
-high = len([v for v in data if v.get('severity') == 'high'])
+  import json:
+  data = json.load(open('connascence_full.json')):
+  total = len(data):
+  critical = len([v for v in data if v.get('severity') == 'critical']):
+  high = len([v for v in data if v.get('severity') == 'high']):
 # Improved scoring reflecting our architectural improvements
-base_score = max(0.0, 1.0 - (critical * 0.1 + high * 0.05 + total * 0.001))
+  base_score = max(0.0, 1.0 - (critical * 0.1 + high * 0.05 + total * 0.001)):
 # Bonus for architectural improvements (reduced from 1300+ to 927 lines)
-architecture_bonus = 0.1
-final_score = min(1.0, base_score + architecture_bonus)
+  architecture_bonus = 0.1:
+  final_score = min(1.0, base_score + architecture_bonus):
 print(f'{final_score:.2f}')
-")
+  "):
         
         echo "total_violations=$TOTAL_VIOLATIONS" >> $GITHUB_OUTPUT
         echo "critical_violations=$CRITICAL_VIOLATIONS" >> $GITHUB_OUTPUT

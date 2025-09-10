@@ -1,0 +1,1063 @@
+{
+  "summary": {
+    "total_workflows": 9,
+    "total_scripts": 51,
+    "syntax_valid": 10,
+    "execution_tested": 0,
+    "execution_successful": 0
+  },
+  "workflow_results": {
+    "architecture-analysis.yml": {
+      "script_count": 3,
+      "syntax_valid": 1,
+      "execution_tested": 0,
+      "execution_successful": 0,
+      "scripts": [
+        {
+          "script_name": "script_1",
+          "script_length": 576,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 6: unexpected indent"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected indent"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_2",
+          "script_length": 320,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 7: '(' was never closed"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: '(' was never closed"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_3",
+          "script_length": 1680,
+          "syntax_valid": true,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [],
+          "runtime_errors": [],
+          "warnings": [
+            "Non-ASCII characters may cause CI issues"
+          ],
+          "critical_issues": [],
+          "imports_detected": [
+            "json",
+            "sys"
+          ],
+          "outputs_generated": []
+        }
+      ],
+      "critical_issues": [
+        "Syntax error: unexpected indent",
+        "Syntax error: '(' was never closed"
+      ],
+      "warnings": [
+        "Non-ASCII characters may cause CI issues"
+      ]
+    },
+    "connascence-core-analysis.yml": {
+      "script_count": 3,
+      "syntax_valid": 0,
+      "execution_tested": 0,
+      "execution_successful": 0,
+      "scripts": [
+        {
+          "script_name": "script_1",
+          "script_length": 43,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: '(' was never closed"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: '(' was never closed"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_2",
+          "script_length": 170,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 2: unexpected indent"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected indent"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_3",
+          "script_length": 1856,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 2: unexpected indent"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected indent"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        }
+      ],
+      "critical_issues": [
+        "Syntax error: '(' was never closed",
+        "Syntax error: unexpected indent",
+        "Syntax error: unexpected indent"
+      ],
+      "warnings": []
+    },
+    "cache-optimization.yml": {
+      "script_count": 3,
+      "syntax_valid": 1,
+      "execution_tested": 0,
+      "execution_successful": 0,
+      "scripts": [
+        {
+          "script_name": "script_1",
+          "script_length": 43,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: '(' was never closed"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: '(' was never closed"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_2",
+          "script_length": 261,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: '(' was never closed"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: '(' was never closed"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_3",
+          "script_length": 1621,
+          "syntax_valid": true,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [],
+          "imports_detected": [
+            "json",
+            "sys"
+          ],
+          "outputs_generated": []
+        }
+      ],
+      "critical_issues": [
+        "Syntax error: '(' was never closed",
+        "Syntax error: '(' was never closed"
+      ],
+      "warnings": []
+    },
+    "security-pipeline.yml": {
+      "script_count": 8,
+      "syntax_valid": 1,
+      "execution_tested": 0,
+      "execution_successful": 0,
+      "scripts": [
+        {
+          "script_name": "script_1",
+          "script_length": 4314,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 134: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_2",
+          "script_length": 2485,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 76: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_3",
+          "script_length": 5712,
+          "syntax_valid": true,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [],
+          "runtime_errors": [],
+          "warnings": [
+            "Timezone-dependent datetime usage"
+          ],
+          "critical_issues": [],
+          "imports_detected": [
+            "json",
+            "os",
+            "glob",
+            "pathlib.Path",
+            "datetime.datetime"
+          ],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_4",
+          "script_length": 2436,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 14: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_5",
+          "script_length": 126,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 9)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 9)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_6",
+          "script_length": 134,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 9)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 9)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_7",
+          "script_length": 159,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 10)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 10)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_8",
+          "script_length": 44,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 5)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 5)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        }
+      ],
+      "critical_issues": [
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 9)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 9)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 10)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 5)"
+      ],
+      "warnings": [
+        "Timezone-dependent datetime usage"
+      ]
+    },
+    "performance-monitoring.yml": {
+      "script_count": 5,
+      "syntax_valid": 0,
+      "execution_tested": 0,
+      "execution_successful": 0,
+      "scripts": [
+        {
+          "script_name": "script_1",
+          "script_length": 2746,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 23: invalid syntax"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: invalid syntax"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_2",
+          "script_length": 1135,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 25)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 25)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_3",
+          "script_length": 40,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_4",
+          "script_length": 27,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_5",
+          "script_length": 39,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        }
+      ],
+      "critical_issues": [
+        "Syntax error: invalid syntax",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 25)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 1)"
+      ],
+      "warnings": []
+    },
+    "quality-gates.yml": {
+      "script_count": 0,
+      "syntax_valid": 0,
+      "execution_tested": 0,
+      "execution_successful": 0,
+      "scripts": [],
+      "critical_issues": [],
+      "warnings": []
+    },
+    "mece-duplication-analysis.yml": {
+      "script_count": 8,
+      "syntax_valid": 2,
+      "execution_tested": 0,
+      "execution_successful": 0,
+      "scripts": [
+        {
+          "script_name": "script_1",
+          "script_length": 540,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_2",
+          "script_length": 490,
+          "syntax_valid": true,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [],
+          "runtime_errors": [],
+          "warnings": [
+            "Timezone-dependent datetime usage"
+          ],
+          "critical_issues": [],
+          "imports_detected": [
+            "json",
+            "datetime.datetime"
+          ],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_3",
+          "script_length": 899,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_4",
+          "script_length": 1370,
+          "syntax_valid": true,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [],
+          "imports_detected": [
+            "json",
+            "sys"
+          ],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_5",
+          "script_length": 40,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_6",
+          "script_length": 70,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_7",
+          "script_length": 44,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_8",
+          "script_length": 56,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 1)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        }
+      ],
+      "critical_issues": [
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 1)"
+      ],
+      "warnings": [
+        "Timezone-dependent datetime usage"
+      ]
+    },
+    "self-dogfooding.yml": {
+      "script_count": 5,
+      "syntax_valid": 5,
+      "execution_tested": 0,
+      "execution_successful": 0,
+      "scripts": [
+        {
+          "script_name": "script_1",
+          "script_length": 140,
+          "syntax_valid": true,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [],
+          "imports_detected": [
+            "json"
+          ],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_2",
+          "script_length": 122,
+          "syntax_valid": true,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [],
+          "imports_detected": [
+            "json"
+          ],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_3",
+          "script_length": 170,
+          "syntax_valid": true,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [],
+          "imports_detected": [
+            "json"
+          ],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_4",
+          "script_length": 177,
+          "syntax_valid": true,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [],
+          "imports_detected": [
+            "json"
+          ],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_5",
+          "script_length": 118,
+          "syntax_valid": true,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [],
+          "imports_detected": [
+            "json"
+          ],
+          "outputs_generated": []
+        }
+      ],
+      "critical_issues": [],
+      "warnings": []
+    },
+    "quality-orchestrator.yml": {
+      "script_count": 16,
+      "syntax_valid": 0,
+      "execution_tested": 0,
+      "execution_successful": 0,
+      "scripts": [
+        {
+          "script_name": "script_1",
+          "script_length": 2065,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 7: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_2",
+          "script_length": 2093,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 7: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_3",
+          "script_length": 1793,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 7: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_4",
+          "script_length": 1523,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 7: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_5",
+          "script_length": 1761,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 7: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_6",
+          "script_length": 1393,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 7: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_7",
+          "script_length": 6625,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 6: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_8",
+          "script_length": 1214,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 4: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_9",
+          "script_length": 1136,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 25)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 25)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_10",
+          "script_length": 1139,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 28)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 28)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_11",
+          "script_length": 826,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 21)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 21)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_12",
+          "script_length": 755,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 21)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 21)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_13",
+          "script_length": 681,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 20)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 20)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_14",
+          "script_length": 315,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 1: unterminated triple-quoted string literal (detected at line 14)"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unterminated triple-quoted string literal (detected at line 14)"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_15",
+          "script_length": 6507,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 7: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        },
+        {
+          "script_name": "script_16",
+          "script_length": 1214,
+          "syntax_valid": false,
+          "execution_tested": false,
+          "execution_successful": false,
+          "syntax_errors": [
+            "Line 4: unexpected character after line continuation character"
+          ],
+          "runtime_errors": [],
+          "warnings": [],
+          "critical_issues": [
+            "Syntax error: unexpected character after line continuation character"
+          ],
+          "imports_detected": [],
+          "outputs_generated": []
+        }
+      ],
+      "critical_issues": [
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 25)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 28)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 21)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 21)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 20)",
+        "Syntax error: unterminated triple-quoted string literal (detected at line 14)",
+        "Syntax error: unexpected character after line continuation character",
+        "Syntax error: unexpected character after line continuation character"
+      ],
+      "warnings": []
+    }
+  },
+  "critical_issues": [
+    "architecture-analysis.yml: Syntax error: unexpected indent",
+    "architecture-analysis.yml: Syntax error: '(' was never closed",
+    "connascence-core-analysis.yml: Syntax error: '(' was never closed",
+    "connascence-core-analysis.yml: Syntax error: unexpected indent",
+    "connascence-core-analysis.yml: Syntax error: unexpected indent",
+    "cache-optimization.yml: Syntax error: '(' was never closed",
+    "cache-optimization.yml: Syntax error: '(' was never closed",
+    "security-pipeline.yml: Syntax error: unexpected character after line continuation character",
+    "security-pipeline.yml: Syntax error: unexpected character after line continuation character",
+    "security-pipeline.yml: Syntax error: unexpected character after line continuation character",
+    "security-pipeline.yml: Syntax error: unterminated triple-quoted string literal (detected at line 9)",
+    "security-pipeline.yml: Syntax error: unterminated triple-quoted string literal (detected at line 9)",
+    "security-pipeline.yml: Syntax error: unterminated triple-quoted string literal (detected at line 10)",
+    "security-pipeline.yml: Syntax error: unterminated triple-quoted string literal (detected at line 5)",
+    "performance-monitoring.yml: Syntax error: invalid syntax",
+    "performance-monitoring.yml: Syntax error: unterminated triple-quoted string literal (detected at line 25)",
+    "performance-monitoring.yml: Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+    "performance-monitoring.yml: Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+    "performance-monitoring.yml: Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+    "mece-duplication-analysis.yml: Syntax error: unexpected character after line continuation character",
+    "mece-duplication-analysis.yml: Syntax error: unexpected character after line continuation character",
+    "mece-duplication-analysis.yml: Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+    "mece-duplication-analysis.yml: Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+    "mece-duplication-analysis.yml: Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+    "mece-duplication-analysis.yml: Syntax error: unterminated triple-quoted string literal (detected at line 1)",
+    "quality-orchestrator.yml: Syntax error: unexpected character after line continuation character",
+    "quality-orchestrator.yml: Syntax error: unexpected character after line continuation character",
+    "quality-orchestrator.yml: Syntax error: unexpected character after line continuation character",
+    "quality-orchestrator.yml: Syntax error: unexpected character after line continuation character",
+    "quality-orchestrator.yml: Syntax error: unexpected character after line continuation character",
+    "quality-orchestrator.yml: Syntax error: unexpected character after line continuation character",
+    "quality-orchestrator.yml: Syntax error: unexpected character after line continuation character",
+    "quality-orchestrator.yml: Syntax error: unexpected character after line continuation character",
+    "quality-orchestrator.yml: Syntax error: unterminated triple-quoted string literal (detected at line 25)",
+    "quality-orchestrator.yml: Syntax error: unterminated triple-quoted string literal (detected at line 28)",
+    "quality-orchestrator.yml: Syntax error: unterminated triple-quoted string literal (detected at line 21)",
+    "quality-orchestrator.yml: Syntax error: unterminated triple-quoted string literal (detected at line 21)",
+    "quality-orchestrator.yml: Syntax error: unterminated triple-quoted string literal (detected at line 20)",
+    "quality-orchestrator.yml: Syntax error: unterminated triple-quoted string literal (detected at line 14)",
+    "quality-orchestrator.yml: Syntax error: unexpected character after line continuation character",
+    "quality-orchestrator.yml: Syntax error: unexpected character after line continuation character"
+  ],
+  "recommendations": [
+    "Fix 41 Python syntax errors before deployment",
+    "Address 41 critical Python script issues",
+    "Run local Python syntax validation before committing"
+  ]
+}

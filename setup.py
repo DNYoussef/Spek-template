@@ -28,6 +28,8 @@ setup(
             "spek-analyzer=analyzer.core:main"
         ]
     },
+    package_dir={"": "."},
+    include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",

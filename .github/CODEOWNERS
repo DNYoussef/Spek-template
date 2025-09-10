@@ -1,0 +1,21 @@
+# Global ownership for quality gates and analyzer components
+* @your-team/quality-reviewers
+
+# Analyzer components require specialist review
+/analyzer/ @your-team/analyzer-specialists
+/.github/workflows/ @your-team/devops-specialists
+
+# Critical quality gate files
+/.github/quality-gates.py @your-team/security-reviewers
+/.github/validate-analyzer-pipeline.py @your-team/quality-reviewers
+/requirements.txt @your-team/security-reviewers
+
+# Core analyzer files
+/analyzer/connascence_analyzer.py @your-team/analyzer-specialists
+/analyzer/core.py @your-team/analyzer-specialists
+/setup.py @your-team/package-maintainers
+
+# Documentation and setup files
+/README.md @your-team/documentation-team
+/CLAUDE.md @your-team/quality-reviewers
+/.github/setup-branch-protection.md @your-team/devops-specialists

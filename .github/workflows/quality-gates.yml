@@ -1,9 +1,20 @@
-name: Quality Gates
+name: Quality Gates (Enhanced)
 on:
   pull_request:
     types: [opened, synchronize, reopened]
   push:
     branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      quality_scope:
+        description: 'Quality analysis scope'
+        required: false
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - critical_only
+          - detector_only
 
 jobs:
   gates:
@@ -42,25 +53,25 @@ jobs:
       - name: Install analysis tooling
         run: |
           # Install Python analyzer with better error handling
-          echo "📦 Installing analyzer dependencies..."
+          echo "Installing analyzer dependencies..."
           pip install --upgrade pip
           
           # Install requirements first
           if [ -f "requirements.txt" ]; then
-            echo "📦 Installing requirements..."
-            pip install -r requirements.txt || echo "⚠️  Some requirements failed to install"
+            echo "Installing requirements..."
+            pip install -r requirements.txt || echo "WARNING: Some requirements failed to install"
           fi
           
           # Try to install local analyzer first, then fallback
           if [ -f "setup.py" ]; then
-            echo "📦 Installing local analyzer..."
-            pip install -e . || echo "⚠️  Local analyzer installation failed, continuing with fallbacks"
+            echo "Installing local analyzer..."
+            pip install -e . || echo "WARNING: Local analyzer installation failed, continuing with fallbacks"
           elif [ -f "analyzer/setup.py" ]; then
-            echo "📦 Installing analyzer from subdirectory..."
-            pip install -e ./analyzer || echo "⚠️  Analyzer installation failed, continuing with fallbacks"
+            echo "Installing analyzer from subdirectory..."
+            pip install -e ./analyzer || echo "WARNING: Analyzer installation failed, continuing with fallbacks"
           fi
           
-          echo "✅ Analysis tooling installation complete"
+          echo "SUCCESS: Analysis tooling installation complete"
 
       - name: Run Tests
         run: |
@@ -147,7 +158,7 @@ jobs:
 
       - name: Cache Optimization and Performance Setup
         run: |
-          echo "🚀 Optimizing analyzer cache for CI/CD performance..."
+          echo "Optimizing analyzer cache for CI/CD performance..."
           
           # Cache inspection and cleanup for optimal performance
           python -m analyzer.cache \
@@ -165,353 +176,24 @@ jobs:
             --output .claude/.artifacts/performance_baseline.json || true
         continue-on-error: true
 
+      - name: Make Quality Gates Scripts Executable
+        run: chmod +x .github/scripts/*.py
+
       - name: Comprehensive Analyzer Integration with All Detectors
-        timeout-minutes: 15  # Reduced timeout for faster feedback
-        run: |
-          echo "🔍 Running comprehensive analysis with enhanced fallback handling..."
-          
-          # Create timeout handler function
-          timeout_handler() {
-            echo "⏰ Analysis timeout reached after 15 minutes"
-            echo "🔄 Switching to fast analysis mode..."
-            
-            # Generate CI-compatible results when timeout occurs
-            python3 -c "
-            import json, os
-            from datetime import datetime
-            
-            os.makedirs('.claude/.artifacts', exist_ok=True)
-            
-            # Create timeout fallback results that pass quality gates
-            timeout_result = {
-                'success': True,
-                'timeout_mode': True,
-                'analysis_duration': '15min_timeout',
-                'violations': [],
-                'summary': {
-                    'total_violations': 0, 
-                    'critical_violations': 0, 
-                    'overall_quality_score': 0.75  # CI-safe score
-                },
-                'nasa_compliance': {
-                    'score': 0.85, 
-                    'violations': [], 
-                    'reason': 'timeout_fallback_mode'
-                },
-                'god_objects': [],
-                'metrics': {
-                    'files_analyzed': 0,
-                    'analysis_time': 900,  # 15 minutes
-                    'mode': 'timeout_fallback'
-                },
-                'timestamp': datetime.now().isoformat()
-            }
-            
-            with open('.claude/.artifacts/connascence_full.json', 'w') as f:
-                json.dump(timeout_result, f, indent=2)
-            
-            print('✅ Timeout fallback results generated')
-            "
-          }
-          
-          # Set up timeout signal handler
-          trap timeout_handler SIGTERM SIGINT
-          
-          # Enhanced analysis with timeout and dependency checks
-          timeout 900 python3 -c "
-          import sys, json, os, time
-          from pathlib import Path
-          from datetime import datetime
-          
-          start_time = time.time()
-          
-          # Create artifacts directory
-          os.makedirs('.claude/.artifacts', exist_ok=True)
-          
-          # Check if analyzer can be imported with timeout
-          analyzer_available = False
-          analyzer = None
-          
-          print('🔧 Checking analyzer availability...')
-          try:
-              # Quick dependency check first
-              import analyzer
-              print('✅ Base analyzer module importable')
-              
-              # Try to import the main analyzer with timeout
-              import signal
-              
-              def timeout_import(signum, frame):
-                  raise TimeoutError('Analyzer import timed out')
-              
-              signal.signal(signal.SIGALRM, timeout_import)
-              signal.alarm(60)  # 60 second timeout for imports
-              
-              try:
-                  from analyzer.core import ConnascenceAnalyzer
-                  analyzer = ConnascenceAnalyzer()
-                  analyzer_available = True
-                  print('✅ Full analyzer successfully imported and initialized')
-              finally:
-                  signal.alarm(0)  # Cancel the alarm
-                  
-          except Exception as e:
-              print(f'⚠️  Analyzer import failed: {e}')
-              print('🔄 Will use CI-compatible fallback mode')
-              analyzer_available = False
-          
-          # Determine analysis strategy based on availability
-          if analyzer_available and analyzer:
-              print('🔍 Running full analyzer (limited time budget)...')
-              try:
-                  # Run analysis with timeout protection
-                  import signal
-                  
-                  analysis_result = None
-                  
-                  def analysis_timeout(signum, frame):
-                      raise TimeoutError('Analysis execution timed out')
-                  
-                  signal.signal(signal.SIGALRM, analysis_timeout)
-                  signal.alarm(480)  # 8 minute timeout for analysis
-                  
-                  try:
-                      core_result = analyzer.analyze_path('.', policy='standard')  # Use standard policy for speed
-                      analysis_result = core_result
-                      print('✅ Core analysis completed successfully')
-                  except TimeoutError:
-                      print('⚠️  Analysis timed out, generating safe results')
-                      analysis_result = None
-                  finally:
-                      signal.alarm(0)
-                  
-                  # Use analysis result or create fallback
-                  if analysis_result and analysis_result.get('success', False):
-                      # Ensure the result has safe quality scores for CI
-                      if analysis_result.get('summary', {}).get('overall_quality_score', 0) < 0.65:
-                          print('⚠️  Adjusting quality score for CI compatibility')
-                          analysis_result['summary']['overall_quality_score'] = 0.70
-                      
-                      with open('.claude/.artifacts/connascence_full.json', 'w') as f:
-                          json.dump(analysis_result, f, indent=2, default=str)
-                  else:
-                      raise Exception('Analysis result invalid or timed out')
-                      
-              except Exception as e:
-                  print(f'⚠️  Full analysis failed: {e}')
-                  analyzer_available = False  # Fall through to fallback
-          
-          if not analyzer_available:
-              print('🔄 Using CI-compatible fallback analysis...')
-              
-              # Enhanced fallback that checks project structure
-              project_files = list(Path('.').glob('**/*.py'))
-              js_files = list(Path('.').glob('**/*.js')) + list(Path('.').glob('**/*.ts'))
-              total_files = len(project_files) + len(js_files)
-              
-              # Generate realistic but CI-safe results
-              fallback_result = {
-                  'success': True,
-                  'fallback_mode': True,
-                  'analysis_mode': 'ci_compatible_fallback',
-                  'violations': [],
-                  'summary': {
-                      'total_violations': 0, 
-                      'critical_violations': 0, 
-                      'overall_quality_score': 0.75  # CI-safe score
-                  },
-                  'nasa_compliance': {
-                      'score': 0.85, 
-                      'violations': [], 
-                      'reason': 'fallback_mode_safe_defaults',
-                      'passing': True
-                  },
-                  'mece_analysis': {
-                      'score': 0.85,
-                      'duplications': [],
-                      'passing': True
-                  },
-                  'god_objects': [],
-                  'metrics': {
-                      'files_analyzed': total_files,
-                      'analysis_time': time.time() - start_time,
-                      'python_files': len(project_files),
-                      'js_files': len(js_files),
-                      'mode': 'ci_fallback'
-                  },
-                  'quality_gates': {
-                      'overall_passing': True,
-                      'nasa_passing': True,
-                      'mece_passing': True
-                  },
-                  'timestamp': datetime.now().isoformat()
-              }
-              
-              with open('.claude/.artifacts/connascence_full.json', 'w') as f:
-                  json.dump(fallback_result, f, indent=2)
-              
-              print('✅ CI-compatible fallback analysis completed')
-          
-          print(f'📊 Total analysis time: {time.time() - start_time:.1f}s')
-          " || {
-            # Final fallback if even the timeout script fails
-            echo "🚨 Analysis script failed completely, using emergency fallback"
-            timeout_handler
-          }
-              
-          # Architecture Analysis with Hotspots and Recommendations
-          try:
-              print('🏗️  Running architecture analysis with hotspot detection...')
-              from analyzer.architecture.orchestrator import ArchitectureOrchestrator
-              
-              arch_orchestrator = ArchitectureOrchestrator()
-              arch_result = arch_orchestrator.analyze_architecture('.')
-              
-              with open('.claude/.artifacts/architecture_analysis.json', 'w') as f:
-                  json.dump(arch_result, f, indent=2, default=str)
-              
-              print('✅ Architecture analysis completed')
-              
-          except Exception as e:
-              print(f'⚠️  Architecture analysis failed: {e}')
-              
-              # Architecture fallback with realistic baseline
-              arch_fallback = {
-                  'system_overview': {
-                      'architectural_health': 0.78,
-                      'coupling_score': 0.42,
-                      'complexity_score': 0.65,
-                      'maintainability_index': 0.72
-                  },
-                  'architectural_hotspots': [],
-                  'metrics': {
-                      'total_components': 45,
-                      'high_coupling_components': 3,
-                      'god_objects_detected': 2
-                  },
-                  'recommendations': [
-                      'Consider refactoring high-coupling components',
-                      'Implement interface segregation for large classes'
-                  ]
-              }
-              
-              with open('.claude/.artifacts/architecture_analysis.json', 'w') as f:
-                  json.dump(arch_fallback, f, indent=2)
-          
-          # Performance Monitoring and Cache Optimization
-          try:
-              print('🚀 Running performance monitoring and cache optimization...')
-              from analyzer.optimization.streaming_performance_monitor import StreamingPerformanceMonitor
-              from analyzer.optimization.file_cache import FileContentCache as IncrementalCache
-              
-              # Performance monitoring
-              perf_monitor = StreamingPerformanceMonitor()
-              perf_result = perf_monitor.get_performance_metrics()
-              
-              # Cache optimization
-              cache = IncrementalCache()  # FileContentCache aliased as IncrementalCache
-              cache_result = cache.get_cache_health()
-              
-              # Combined performance results
-              performance_result = {
-                  'metrics': perf_result,
-                  'resource_utilization': {
-                      'cpu_usage': {'efficiency_score': 0.82},
-                      'memory_usage': {'optimization_score': 0.76}
-                  },
-                  'optimization_recommendations': [
-                      'Cache hit rate could be improved',
-                      'Consider memory usage optimization'
-                  ],
-                  'cache_health': cache_result
-              }
-              
-              with open('.claude/.artifacts/performance_monitor.json', 'w') as f:
-                  json.dump(performance_result, f, indent=2, default=str)
-              
-              # Cache optimization specific results
-              cache_optimization_result = {
-                  'cache_health': {
-                      'health_score': 0.85,
-                      'hit_rate': 0.78,
-                      'optimization_potential': 0.22
-                  },
-                  'performance_metrics': {
-                      'cache_efficiency': 0.82,
-                      'memory_utilization': 0.68
-                  },
-                  'recommendations': [
-                      'Increase cache size for better hit rates',
-                      'Implement cache warming strategies'
-                  ]
-              }
-              
-              with open('.claude/.artifacts/cache_optimization.json', 'w') as f:
-                  json.dump(cache_optimization_result, f, indent=2)
-              
-              print('✅ Performance monitoring completed')
-              
-          except Exception as e:
-              print(f'⚠️  Performance monitoring failed: {e}')
-              
-              # Performance fallback
-              perf_fallback = {
-                  'metrics': {},
-                  'resource_utilization': {'cpu_usage': {'efficiency_score': 0.75}},
-                  'optimization_recommendations': ['Performance monitoring unavailable']
-              }
-              
-              with open('.claude/.artifacts/performance_monitor.json', 'w') as f:
-                  json.dump(perf_fallback, f, indent=2)
-              
-              cache_fallback = {
-                  'cache_health': {'health_score': 0.80},
-                  'performance_metrics': {}
-              }
-              
-              with open('.claude/.artifacts/cache_optimization.json', 'w') as f:
-                  json.dump(cache_fallback, f, indent=2)
-          
-          # MECE Duplication Analysis
-          try:
-              print('📊 Running MECE duplication analysis...')
-              from analyzer.dup_detection.mece_analyzer import MECEAnalyzer
-              
-              mece_analyzer = MECEAnalyzer(threshold=0.8)
-              mece_result = mece_analyzer.analyze_path('.', comprehensive=True)
-              
-              with open('.claude/.artifacts/mece_analysis.json', 'w') as f:
-                  json.dump(mece_result, f, indent=2, default=str)
-              
-              print('✅ MECE analysis completed')
-              
-          except Exception as e:
-              print(f'⚠️  MECE analysis failed: {e}')
-              
-              # MECE fallback
-              mece_fallback = {
-                  'success': True,
-                  'mece_score': 0.82,
-                  'duplications': [],
-                  'summary': {
-                      'total_duplications': 0,
-                      'high_similarity_count': 0,
-                      'coverage_score': 0.82
-                  }
-              }
-              
-              with open('.claude/.artifacts/mece_analysis.json', 'w') as f:
-                  json.dump(mece_fallback, f, indent=2)
-          
-          print('✅ Comprehensive analysis pipeline completed')
-          " || echo "⚠️  Analysis completely failed, creating fallback results"
-          
-          # Ensure God objects artifact exists (may be created by self-dogfooding)
-          if [ ! -f ".claude/.artifacts/god_objects.json" ]; then
-            echo '[]' > .claude/.artifacts/god_objects.json
-          fi
-          
-          echo "✅ Comprehensive analysis pipeline with all detectors completed"
+        timeout-minutes: 15
+        run: python .github/scripts/comprehensive_analysis.py
+        continue-on-error: true
+
+      - name: Architecture Analysis with Hotspots and Recommendations
+        run: python .github/scripts/architecture_analysis.py
+        continue-on-error: true
+
+      - name: Performance Monitoring and Cache Optimization
+        run: python .github/scripts/performance_optimization.py
+        continue-on-error: true
+
+      - name: MECE Duplication Analysis
+        run: python .github/scripts/mece_analysis.py
         continue-on-error: true
 
       - name: Upload SARIF
@@ -523,527 +205,26 @@ jobs:
 
       - name: Multi-Tier Quality Gate Evaluation & Comprehensive Reporting
         run: |
-          echo "🎯 Multi-Tier Quality Gates Summary:"
+          echo "Multi-Tier Quality Gates Summary:"
           echo "Core Analysis: $(test -f .claude/.artifacts/connascence_full.json && echo 'Available' || echo 'Missing')"
           echo "Architecture: $(test -f .claude/.artifacts/architecture_analysis.json && echo 'Available' || echo 'Missing')"
           echo "Performance: $(test -f .claude/.artifacts/performance_monitor.json && echo 'Available' || echo 'Missing')"
           echo "Cache Optimization: $(test -f .claude/.artifacts/cache_optimization.json && echo 'Available' || echo 'Missing')"
           echo "MECE Analysis: $(test -f .claude/.artifacts/mece_analysis.json && echo 'Available' || echo 'Missing')"
           echo "God Objects: $(test -f .claude/.artifacts/god_objects.json && echo 'Available' || echo 'Missing')"
-          echo "Security: $(test -f .claude/.artifacts/semgrep.sarif && echo 'Available' || echo 'Missing')"  
+          echo "Security: $(test -f .claude/.artifacts/semgrep.sarif && echo 'Available' || echo 'Missing')"
           echo "Tests: $(test -f .claude/.artifacts/qa.json && echo 'Available' || echo 'Missing')"
           echo "Coverage: $(test -f .claude/.artifacts/diff_coverage.json && echo 'Available' || echo 'Missing')"
           
-          # Generate comprehensive multi-tier quality report with all detector results
-          python3 << 'EOF'
-          import json
-          import os
-          from datetime import datetime
-          
-          def safe_load_json(filepath, default=None):
-              if default is None:
-                  default = {}
-              try:
-                  if os.path.exists(filepath):
-                      with open(filepath, 'r') as f:
-                          return json.load(f)
-              except:
-                  pass
-              return default
-          
-          # Load all comprehensive analysis results
-          connascence = safe_load_json('.claude/.artifacts/connascence_full.json', {"violations": [], "summary": {}, "nasa_compliance": {}})
-          god_objects = safe_load_json('.claude/.artifacts/god_objects.json', [])
-          mece = safe_load_json('.claude/.artifacts/mece_analysis.json', {"mece_score": 0.0, "duplications": []})
-          architecture = safe_load_json('.claude/.artifacts/architecture_analysis.json', {"system_overview": {}, "architectural_hotspots": [], "metrics": {}})
-          performance = safe_load_json('.claude/.artifacts/performance_monitor.json', {"metrics": {}, "resource_utilization": {}, "optimization_recommendations": []})
-          cache = safe_load_json('.claude/.artifacts/cache_optimization.json', {"cache_health": {}, "performance_metrics": {}})
-          
-          # Extract detector-specific metrics from comprehensive analysis
-          violations = connascence.get('violations', [])
-          summary = connascence.get('summary', {})
-          
-          # Detector-specific violation counts
-          algorithm_violations = len([v for v in violations if v.get('type') == 'CoA'])
-          convention_violations = len([v for v in violations if v.get('type') == 'CoC'])
-          execution_violations = len([v for v in violations if v.get('type') == 'CoE'])
-          timing_violations = len([v for v in violations if v.get('type') == 'CoT'])
-          magic_literal_violations = len([v for v in violations if v.get('type') == 'CoM'])
-          position_violations = len([v for v in violations if v.get('type') == 'CoP'])
-          values_violations = len([v for v in violations if v.get('type') == 'CoV'])
-          interface_violations = len([v for v in violations if v.get('type') == 'CoI'])
-          name_violations = len([v for v in violations if v.get('type') == 'CoN'])
-          
-          # Severity-based metrics
-          critical_violations = len([v for v in violations if v.get('severity') == 'critical'])
-          high_violations = len([v for v in violations if v.get('severity') == 'high'])
-          total_violations = len(violations)
-          
-          # Core quality metrics
-          nasa_compliance = connascence.get('nasa_compliance', {}).get('score', 0.0)
-          god_object_count = len([g for g in god_objects if 'God Object' in str(g) or 'god_object' in str(g).lower()])
-          mece_score = mece.get('mece_score', 0.0)
-          overall_quality_score = summary.get('overall_quality_score', 0.0)
-          
-          # Architectural and performance metrics
-          arch_overview = architecture.get('system_overview', {})
-          architecture_health = arch_overview.get('architectural_health', 0.0)
-          coupling_score = arch_overview.get('coupling_score', 1.0)
-          complexity_score = arch_overview.get('complexity_score', 0.0)
-          maintainability_index = arch_overview.get('maintainability_index', 0.0)
-          hotspot_count = len(architecture.get('architectural_hotspots', []))
-          
-          # Performance metrics
-          resource_util = performance.get('resource_utilization', {})
-          cache_health_data = cache.get('cache_health', {})
-          cache_health_score = cache_health_data.get('health_score', 0.0)
-          performance_efficiency = resource_util.get('cpu_usage', {}).get('efficiency_score', 0.0)
-          memory_optimization = resource_util.get('memory_usage', {}).get('optimization_score', 0.0)
-          
-          # CRITICAL GATES (Must Pass for Deployment)
-          critical_gates = {
-              'tests_pass': True,  # Assumes tests pass if we reach this point
-              'typescript_compile': True,  # Assumes TS compiles if we reach this point
-              'security_scan': True,  # Assumes no critical security issues
-              'nasa_compliance': nasa_compliance >= 0.90,
-              'god_objects': god_object_count <= 25,
-              'critical_violations': critical_violations <= 50,
-              'high_violations': high_violations <= 100
-          }
-          
-          # QUALITY GATES (Warn but Allow)
-          quality_gates = {
-              'architecture_health': architecture_health >= 0.75,
-              'mece_score': mece_score >= 0.75,
-              'coupling_quality': coupling_score <= 0.5,
-              'architecture_hotspots': hotspot_count <= 5,
-              'cache_performance': cache_health_score >= 0.80,
-              'performance_efficiency': performance_efficiency >= 0.70,
-              'overall_quality': overall_quality_score >= 0.75,
-              'total_violations': total_violations < 1000,
-              'maintainability': maintainability_index >= 0.70
-          }
-          
-          # Detector-specific quality gates
-          detector_gates = {
-              'algorithm_detector': algorithm_violations <= 20,
-              'convention_detector': convention_violations <= 50,
-              'execution_detector': execution_violations <= 30,
-              'timing_detector': timing_violations <= 10,
-              'magic_literal_detector': magic_literal_violations <= 40,
-              'position_detector': position_violations <= 25,
-              'values_detector': values_violations <= 35,
-              'interface_detector': interface_violations <= 15,
-              'name_detector': name_violations <= 30
-          }
-          
-          # Calculate gate results
-          critical_gates_passed = all(critical_gates.values())
-          quality_gates_passed = all(quality_gates.values())
-          detector_gates_passed = all(detector_gates.values())
-          all_gates_passed = critical_gates_passed and quality_gates_passed and detector_gates_passed
-          
-          # Generate comprehensive multi-tier report
-          report = {
-              'timestamp': datetime.now().isoformat(),
-              'multi_tier_results': {
-                  'critical_gates': {
-                      'gates': critical_gates,
-                      'passed': critical_gates_passed,
-                      'status': 'PASS' if critical_gates_passed else 'FAIL - DEPLOYMENT BLOCKED'
-                  },
-                  'quality_gates': {
-                      'gates': quality_gates,
-                      'passed': quality_gates_passed,
-                      'status': 'PASS' if quality_gates_passed else 'WARN - QUALITY ISSUES'
-                  },
-                  'detector_gates': {
-                      'gates': detector_gates,
-                      'passed': detector_gates_passed,
-                      'status': 'PASS' if detector_gates_passed else 'WARN - DETECTOR ISSUES'
-                  }
-              },
-              'comprehensive_metrics': {
-                  'nasa_compliance_score': nasa_compliance,
-                  'god_objects_found': god_object_count,
-                  'critical_violations': critical_violations,
-                  'high_violations': high_violations,
-                  'total_violations': total_violations,
-                  'mece_score': mece_score,
-                  'overall_quality_score': overall_quality_score,
-                  'architecture_health': architecture_health,
-                  'coupling_score': coupling_score,
-                  'complexity_score': complexity_score,
-                  'maintainability_index': maintainability_index,
-                  'architecture_hotspots': hotspot_count,
-                  'cache_health_score': cache_health_score,
-                  'performance_efficiency': performance_efficiency,
-                  'memory_optimization': memory_optimization
-              },
-              'detector_violations': {
-                  'algorithm_violations': algorithm_violations,
-                  'convention_violations': convention_violations,
-                  'execution_violations': execution_violations,
-                  'timing_violations': timing_violations,
-                  'magic_literal_violations': magic_literal_violations,
-                  'position_violations': position_violations,
-                  'values_violations': values_violations,
-                  'interface_violations': interface_violations,
-                  'name_violations': name_violations
-              },
-              'overall_status': {
-                  'all_gates_passed': all_gates_passed,
-                  'deployment_ready': critical_gates_passed,
-                  'defense_industry_ready': nasa_compliance >= 0.90 and architecture_health >= 0.75,
-                  'performance_optimized': cache_health_score >= 0.80 and performance_efficiency >= 0.70,
-                  'architectural_quality': architecture_health >= 0.75 and coupling_score <= 0.5
-              },
-              'recommendations': []
-          }
-          
-          # Add specific recommendations based on failures
-          if not critical_gates_passed:
-              if not critical_gates['nasa_compliance']:
-                  report['recommendations'].append(f"CRITICAL: Improve NASA compliance from {nasa_compliance:.2%} to ≥90%")
-              if not critical_gates['god_objects']:
-                  report['recommendations'].append(f"CRITICAL: Reduce god objects from {god_object_count} to ≤25")
-              if not critical_gates['critical_violations']:
-                  report['recommendations'].append(f"CRITICAL: Fix critical violations from {critical_violations} to ≤50")
-          
-          if not quality_gates_passed:
-              if not quality_gates['architecture_health']:
-                  report['recommendations'].append(f"QUALITY: Improve architecture health from {architecture_health:.2f} to ≥0.75")
-              if not quality_gates['mece_score']:
-                  report['recommendations'].append(f"QUALITY: Improve MECE score from {mece_score:.2f} to ≥0.75")
-              if not quality_gates['coupling_quality']:
-                  report['recommendations'].append(f"QUALITY: Reduce coupling from {coupling_score:.2f} to ≤0.5")
-          
-          # Save comprehensive report
-          with open('.claude/.artifacts/quality_gates_report.json', 'w') as f:
-              json.dump(report, f, indent=2)
-          
-          # Print comprehensive multi-tier summary
-          print(f"\n🎯 Multi-Tier Quality Gates Results:")
-          print(f"{'='*60}")
-          print(f"\n🚨 CRITICAL GATES (Deployment Blockers):")
-          for gate, status in critical_gates.items():
-              icon = '✅' if status else '❌'
-              print(f"  {icon} {gate.replace('_', ' ').title()}: {'PASS' if status else 'FAIL'}")
-          print(f"\n📊 Status: {report['multi_tier_results']['critical_gates']['status']}")
-          
-          print(f"\n⚡ QUALITY GATES (Warnings):")
-          for gate, status in quality_gates.items():
-              icon = '✅' if status else '⚠️ '
-              print(f"  {icon} {gate.replace('_', ' ').title()}: {'PASS' if status else 'WARN'}")
-          print(f"\n📊 Status: {report['multi_tier_results']['quality_gates']['status']}")
-          
-          print(f"\n🔍 DETECTOR GATES (All 8 Connascence Types):")
-          for gate, status in detector_gates.items():
-              icon = '✅' if status else '⚠️ '
-              detector_name = gate.replace('_detector', '').replace('_', ' ').title()
-              print(f"  {icon} {detector_name}: {'PASS' if status else 'WARN'}")
-          print(f"\n📊 Status: {report['multi_tier_results']['detector_gates']['status']}")
-          
-          print(f"\n🏛️  COMPREHENSIVE METRICS:")
-          print(f"  NASA Compliance: {nasa_compliance:.2%} (target: ≥90%)")
-          print(f"  God Objects: {god_object_count} (target: ≤25)")
-          print(f"  Critical Violations: {critical_violations} (target: ≤50)")
-          print(f"  Architecture Health: {architecture_health:.2f} (target: ≥0.75)")
-          print(f"  MECE Score: {mece_score:.2f} (target: ≥0.75)")
-          print(f"  Performance Efficiency: {performance_efficiency:.2f} (target: ≥0.70)")
-          print(f"  Cache Health: {cache_health_score:.2f} (target: ≥0.80)")
-          
-          print(f"\n🎯 FINAL ASSESSMENT:")
-          print(f"  All Gates Passed: {'✅ YES' if all_gates_passed else '❌ NO'}")
-          print(f"  Deployment Ready: {'✅ YES' if critical_gates_passed else '❌ BLOCKED'}")
-          print(f"  Defense Industry Ready: {'✅ YES' if report['overall_status']['defense_industry_ready'] else '❌ NO'}")
-          print(f"  Performance Optimized: {'✅ YES' if report['overall_status']['performance_optimized'] else '❌ NO'}")
-          
-          if report['recommendations']:
-              print(f"\n📋 RECOMMENDATIONS:")
-              for i, rec in enumerate(report['recommendations'], 1):
-                  print(f"  {i}. {rec}")
-          
-          print(f"\n{'='*60}")
-          
-          # Exit with appropriate code for CI/CD
-          if critical_gates_passed:
-              print(f"✅ CRITICAL GATES PASSED - Deployment allowed")
-              exit_code = 0
-          else:
-              print(f"❌ CRITICAL GATES FAILED - Deployment blocked")
-              exit_code = 1
-          
-          exit(exit_code)
-          EOF
+          # Generate comprehensive multi-tier quality report
+          python .github/scripts/quality_gates.py
           
           node scripts/diff_coverage.js || python scripts/diff_coverage.py || true
 
       - name: Comprehensive SARIF Generation for GitHub Security Integration
         run: |
-          echo "🔍 Generating comprehensive SARIF report for all detector types..."
-          
-          # Generate comprehensive SARIF from all analysis results
-          python3 << 'EOF'
-          import json
-          import os
-          from datetime import datetime
-          
-          def safe_load_json(filepath, default=None):
-              if default is None:
-                  default = {}
-              try:
-                  if os.path.exists(filepath):
-                      with open(filepath, 'r') as f:
-                          return json.load(f)
-              except:
-                  pass
-              return default
-          
-          def create_comprehensive_sarif_report():
-              # Enhanced SARIF structure for comprehensive analysis
-              sarif = {
-                  "version": "2.1.0",
-                  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
-                  "runs": [{
-                      "tool": {
-                          "driver": {
-                              "name": "comprehensive-analyzer",
-                              "version": "3.0.0",
-                              "informationUri": "https://github.com/spek-template/comprehensive-analyzer",
-                              "fullName": "Comprehensive Code Quality Analyzer with All Detectors",
-                              "shortDescription": {
-                                  "text": "Multi-detector analysis with NASA POT10 compliance, architecture assessment, and performance monitoring"
-                              },
-                              "rules": []
-                          }
-                      },
-                      "results": [],
-                      "automationDetails": {
-                          "id": "comprehensive-quality-analysis",
-                          "description": {
-                              "text": "Multi-tier quality gates with 8 connascence detectors, architecture analysis, and performance monitoring"
-                          }
-                      }
-                  }]
-              }
-              
-              # Define comprehensive rule set for all detector types
-              detector_rules = {
-                  "CON_CoA": {"name": "Connascence of Algorithm", "description": "Duplicate algorithms across functions", "level": "warning"},
-                  "CON_CoC": {"name": "Connascence of Convention", "description": "Naming conventions and style violations", "level": "note"},
-                  "CON_CoE": {"name": "Connascence of Execution", "description": "Control flow dependencies and execution order coupling", "level": "warning"},
-                  "CON_CoT": {"name": "Connascence of Timing", "description": "Sleep-based timing dependencies", "level": "error"},
-                  "CON_CoM": {"name": "Connascence of Meaning", "description": "Magic literals and hardcoded values", "level": "warning"},
-                  "CON_CoP": {"name": "Connascence of Position", "description": "Parameter position coupling", "level": "warning"},
-                  "CON_CoV": {"name": "Connascence of Value", "description": "Value-based coupling and constants", "level": "note"},
-                  "CON_CoI": {"name": "Connascence of Interface", "description": "Interface coupling violations", "level": "warning"},
-                  "CON_CoN": {"name": "Connascence of Name", "description": "Name-based coupling violations", "level": "note"},
-                  "GOD_OBJECT": {"name": "God Object Detection", "description": "Classes with excessive methods or lines of code", "level": "error"},
-                  "ARCH_HOTSPOT": {"name": "Architecture Hotspot", "description": "High-coupling architectural components", "level": "warning"},
-                  "PERF_ISSUE": {"name": "Performance Issue", "description": "Performance and cache optimization opportunities", "level": "note"},
-                  "MECE_VIOLATION": {"name": "MECE Duplication", "description": "Code duplication violating MECE principles", "level": "warning"},
-                  "NASA_VIOLATION": {"name": "NASA POT10 Violation", "description": "Violation of NASA Power of Ten rules", "level": "error"}
-              }
-              
-              # Add all rules to SARIF
-              for rule_id, rule_info in detector_rules.items():
-                  sarif["runs"][0]["tool"]["driver"]["rules"].append({
-                      "id": rule_id,
-                      "name": rule_info["name"],
-                      "shortDescription": {"text": rule_info["description"]},
-                      "fullDescription": {"text": rule_info["description"]},
-                      "defaultConfiguration": {"level": rule_info["level"]},
-                      "helpUri": f"https://docs.spek-template.com/rules/{rule_id.lower()}"
-                  })
-              
-              # Load all analysis results
-              connascence = safe_load_json('.claude/.artifacts/connascence_full.json', {"violations": []})
-              god_objects = safe_load_json('.claude/.artifacts/god_objects.json', [])
-              architecture = safe_load_json('.claude/.artifacts/architecture_analysis.json', {"architectural_hotspots": []})
-              mece = safe_load_json('.claude/.artifacts/mece_analysis.json', {"duplications": []})
-              performance = safe_load_json('.claude/.artifacts/performance_monitor.json', {"optimization_recommendations": []})
-              quality_report = safe_load_json('.claude/.artifacts/quality_gates_report.json', {})
-              
-              results_count = 0
-              
-              # Process connascence violations (all 8 detector types)
-              for violation in connascence.get('violations', []):
-                  severity_map = {
-                      'critical': 'error',
-                      'high': 'error', 
-                      'medium': 'warning',
-                      'low': 'note'
-                  }
-                  
-                  rule_id = f"CON_{violation.get('type', 'CoM')}"
-                  result = {
-                      "ruleId": rule_id,
-                      "level": severity_map.get(violation.get('severity', 'medium'), 'warning'),
-                      "message": {
-                          "text": violation.get('description', 'Connascence violation detected'),
-                          "markdown": f"**{violation.get('type', 'Unknown')} Violation**: {violation.get('description', 'Connascence violation detected')}"
-                      },
-                      "locations": [{
-                          "physicalLocation": {
-                              "artifactLocation": {"uri": violation.get('file_path', 'unknown')},
-                              "region": {"startLine": violation.get('line_number', 1)}
-                          }
-                      }],
-                      "properties": {
-                          "detector_type": violation.get('type', 'Unknown'),
-                          "severity": violation.get('severity', 'medium'),
-                          "nasa_rule": violation.get('nasa_rule', 'N/A')
-                      }
-                  }
-                  sarif["runs"][0]["results"].append(result)
-                  results_count += 1
-              
-              # Process god objects
-              for god_obj in god_objects:
-                  if isinstance(god_obj, dict) and 'name' in god_obj:
-                      result = {
-                          "ruleId": "GOD_OBJECT",
-                          "level": "error",
-                          "message": {
-                              "text": f"God object detected: {god_obj.get('name', 'Unknown')} with {god_obj.get('methods', 0)} methods and {god_obj.get('lines', 0)} lines",
-                              "markdown": f"**God Object**: `{god_obj.get('name', 'Unknown')}` has {god_obj.get('methods', 0)} methods and {god_obj.get('lines', 0)} lines of code"
-                          },
-                          "locations": [{
-                              "physicalLocation": {
-                                  "artifactLocation": {"uri": god_obj.get('file', 'unknown')},
-                                  "region": {"startLine": god_obj.get('line', 1)}
-                              }
-                          }],
-                          "properties": {
-                              "methods_count": god_obj.get('methods', 0),
-                              "lines_of_code": god_obj.get('lines', 0),
-                              "complexity": god_obj.get('complexity', 0)
-                          }
-                      }
-                      sarif["runs"][0]["results"].append(result)
-                      results_count += 1
-              
-              # Process architecture hotspots
-              for hotspot in architecture.get('architectural_hotspots', []):
-                  if isinstance(hotspot, dict):
-                      result = {
-                          "ruleId": "ARCH_HOTSPOT",
-                          "level": "warning",
-                          "message": {
-                              "text": f"Architecture hotspot: {hotspot.get('component', 'Unknown')} - {hotspot.get('issue', 'High coupling detected')}",
-                              "markdown": f"**Architecture Hotspot**: `{hotspot.get('component', 'Unknown')}` - {hotspot.get('issue', 'High coupling detected')}"
-                          },
-                          "locations": [{
-                              "physicalLocation": {
-                                  "artifactLocation": {"uri": hotspot.get('file', 'unknown')},
-                                  "region": {"startLine": hotspot.get('line', 1)}
-                              }
-                          }],
-                          "properties": {
-                              "coupling_score": hotspot.get('coupling_score', 0),
-                              "complexity": hotspot.get('complexity', 0),
-                              "recommendation": hotspot.get('recommendation', 'Consider refactoring')
-                          }
-                      }
-                      sarif["runs"][0]["results"].append(result)
-                      results_count += 1
-              
-              # Process MECE duplications
-              for duplication in mece.get('duplications', []):
-                  if isinstance(duplication, dict):
-                      result = {
-                          "ruleId": "MECE_VIOLATION",
-                          "level": "warning",
-                          "message": {
-                              "text": f"Code duplication: {duplication.get('description', 'Duplicate code blocks detected')}",
-                              "markdown": f"**MECE Violation**: {duplication.get('description', 'Duplicate code blocks detected')}"
-                          },
-                          "locations": [],
-                          "properties": {
-                              "similarity_score": duplication.get('similarity_score', 0),
-                              "block_count": duplication.get('block_count', 0),
-                              "files_involved": duplication.get('files_involved', [])
-                          }
-                      }
-                      
-                      # Add locations for all involved blocks
-                      for block in duplication.get('blocks', []):
-                          result["locations"].append({
-                              "physicalLocation": {
-                                  "artifactLocation": {"uri": block.get('file_path', 'unknown')},
-                                  "region": {
-                                      "startLine": block.get('start_line', 1),
-                                      "endLine": block.get('end_line', 1)
-                                  }
-                              }
-                          })
-                      
-                      sarif["runs"][0]["results"].append(result)
-                      results_count += 1
-              
-              # Process performance recommendations
-              for recommendation in performance.get('optimization_recommendations', []):
-                  if isinstance(recommendation, str):
-                      result = {
-                          "ruleId": "PERF_ISSUE",
-                          "level": "note",
-                          "message": {
-                              "text": f"Performance optimization opportunity: {recommendation}",
-                              "markdown": f"**Performance**: {recommendation}"
-                          },
-                          "locations": [{
-                              "physicalLocation": {
-                                  "artifactLocation": {"uri": "performance-analysis"},
-                                  "region": {"startLine": 1}
-                              }
-                          }],
-                          "properties": {
-                              "category": "performance",
-                              "optimization_type": "cache" if "cache" in recommendation.lower() else "general"
-                          }
-                      }
-                      sarif["runs"][0]["results"].append(result)
-                      results_count += 1
-              
-              # Add NASA compliance summary as informational result
-              nasa_score = connascence.get('nasa_compliance', {}).get('score', 0.0)
-              if nasa_score < 0.90:
-                  result = {
-                      "ruleId": "NASA_VIOLATION",
-                      "level": "error",
-                      "message": {
-                          "text": f"NASA POT10 compliance below threshold: {nasa_score:.2%} (required: ≥90%)",
-                          "markdown": f"**NASA Compliance**: Current score {nasa_score:.2%} is below the required 90% threshold for defense industry standards"
-                      },
-                      "locations": [{
-                          "physicalLocation": {
-                              "artifactLocation": {"uri": "nasa-compliance-summary"},
-                              "region": {"startLine": 1}
-                          }
-                      }],
-                      "properties": {
-                          "compliance_score": nasa_score,
-                          "required_score": 0.90,
-                          "compliance_category": "defense_industry_standards"
-                      }
-                  }
-                  sarif["runs"][0]["results"].append(result)
-                  results_count += 1
-              
-              # Save comprehensive SARIF report
-              with open('.claude/.artifacts/comprehensive_analysis.sarif', 'w') as f:
-                  json.dump(sarif, f, indent=2)
-              
-              print(f"Generated comprehensive SARIF report with {results_count} findings across all detector types")
-              print(f"SARIF includes: Connascence violations, God objects, Architecture hotspots, MECE duplications, Performance issues, NASA compliance")
-              
-              return results_count
-          
-          # Generate the comprehensive SARIF report
-          findings_count = create_comprehensive_sarif_report()
-          print(f"✅ Comprehensive SARIF generation completed with {findings_count} total findings")
-          EOF
+          echo "Generating comprehensive SARIF report for all detector types..."
+          python .github/scripts/sarif_generation.py
         continue-on-error: true
 
       - name: Upload Comprehensive SARIF to GitHub Security

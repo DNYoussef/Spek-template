@@ -1,4 +1,4 @@
-name: Quality Analysis Orchestrator (Legacy Sequential)
+name: Quality Analysis Orchestrator
 on:
   workflow_dispatch:
     inputs:
@@ -25,9 +25,9 @@ on:
       - '**/*.js'
 
 jobs:
-  quality-analyses:
+  quality-orchestrator:
     runs-on: ubuntu-latest
-    name: "Sequential Quality Analyses"
+    name: "Quality Analysis Orchestrator"
     timeout-minutes: 90
     
     steps:
@@ -45,597 +45,64 @@ jobs:
 
     - name: Install Analysis Dependencies
       run: |
-        echo "📦 Installing analysis dependencies..."
+        echo "Installing analysis dependencies..."
         pip install --upgrade pip
         # Install core analyzer dependencies
         if [ -f requirements.txt ]; then
           pip install -r requirements.txt
         fi
         # Install analyzer package
-        pip install -e ./analyzer || echo "⚠️ Analyzer installation failed, using fallbacks"
-        echo "✅ Analysis dependencies installed"
+        pip install -e ./analyzer || echo "WARNING: Analyzer installation failed, using fallbacks"
+        echo "SUCCESS: Analysis dependencies installed"
 
-    - name: 🚀 Run Connascence Analysis
+    - name: Make Scripts Executable
+      run: chmod +x .github/scripts/*.py
+
+    - name: Run Connascence Analysis
       run: |
         echo "=== Connascence Analysis ==="
-        python -c "
-        import sys
-        import json
-        import os
-        from datetime import datetime
-        from pathlib import Path
-        
-        sys.path.append('.')
-        
-        try:
-            # Import analyzer components
-            from analyzer.connascence_analyzer import ConnascenceAnalyzer
-            
-            analyzer = ConnascenceAnalyzer()
-            results = analyzer.analyze_directory('.')
-            
-            # Structure results for consolidation
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'connascence-analysis',
-                'summary': {
-                    'overall_quality_score': results.get('overall_score', 0.75),
-                    'critical_violations': len([v for v in results.get('violations', []) if v.get('severity') == 'critical']),
-                    'high_violations': len([v for v in results.get('violations', []) if v.get('severity') == 'high']),
-                    'medium_violations': len([v for v in results.get('violations', []) if v.get('severity') == 'medium']),
-                    'low_violations': len([v for v in results.get('violations', []) if v.get('severity') == 'low'])
-                },
-                'violations': results.get('violations', [])[:50],  # Limit for artifact size
-                'nasa_compliance': results.get('nasa_compliance', {'score': 0.92}),
-                'fallback': False
-            }
-            
-        except Exception as e:
-            print(f'⚠️ Connascence analysis failed: {e}, using fallback')
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'connascence-analysis',
-                'summary': {
-                    'overall_quality_score': 0.75,
-                    'critical_violations': 0,
-                    'high_violations': 2,
-                    'medium_violations': 8,
-                    'low_violations': 15
-                },
-                'violations': [],
-                'nasa_compliance': {'score': 0.92},
-                'fallback': True,
-                'error': str(e)
-            }
-        
-        # Save results
-        with open('.claude/.artifacts/connascence_analysis.json', 'w') as f:
-            json.dump(analysis_result, f, indent=2, default=str)
-        
-        print(f'✅ Connascence Analysis completed')
-        print(f'Overall Score: {analysis_result["summary"]["overall_quality_score"]:.2%}')
-        print(f'Critical: {analysis_result["summary"]["critical_violations"]}, High: {analysis_result["summary"]["high_violations"]}')
-        "
+        python .github/scripts/run_connascence_analysis.py
       continue-on-error: false
 
-    - name: 🏗️ Run Architecture Analysis
+    - name: Run Architecture Analysis
       run: |
         echo "=== Architecture Analysis ==="
-        python -c "
-        import sys
-        import json
-        import os
-        from datetime import datetime
-        from pathlib import Path
-        
-        sys.path.append('.')
-        
-        try:
-            # Import architecture analyzer
-            from analyzer.analysis_orchestrator import ArchitectureOrchestrator
-            
-            orchestrator = ArchitectureOrchestrator()
-            results = orchestrator.analyze_architecture('.')
-            
-            # Structure results for consolidation
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'architecture-analysis',
-                'system_overview': {
-                    'architectural_health': results.get('architectural_health', 0.85),
-                    'coupling_score': results.get('coupling_score', 0.3),
-                    'complexity_score': results.get('complexity_score', 0.4),
-                    'maintainability_index': results.get('maintainability_index', 75)
-                },
-                'metrics': {
-                    'total_components': results.get('total_components', 25),
-                    'high_coupling_components': results.get('high_coupling_components', 3),
-                    'god_objects_detected': results.get('god_objects_detected', 2)
-                },
-                'architectural_hotspots': results.get('hotspots', [])[:10],
-                'fallback': False
-            }
-            
-        except Exception as e:
-            print(f'⚠️ Architecture analysis failed: {e}, using fallback')
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'architecture-analysis',
-                'system_overview': {
-                    'architectural_health': 0.85,
-                    'coupling_score': 0.3,
-                    'complexity_score': 0.4,
-                    'maintainability_index': 75
-                },
-                'metrics': {
-                    'total_components': 25,
-                    'high_coupling_components': 3,
-                    'god_objects_detected': 2
-                },
-                'architectural_hotspots': [],
-                'fallback': True,
-                'error': str(e)
-            }
-        
-        # Save results
-        with open('.claude/.artifacts/architecture_analysis.json', 'w') as f:
-            json.dump(analysis_result, f, indent=2, default=str)
-        
-        print(f'✅ Architecture Analysis completed')
-        print(f'Health: {analysis_result["system_overview"]["architectural_health"]:.2%}')
-        print(f'God Objects: {analysis_result["metrics"]["god_objects_detected"]}')
-        "
+        python .github/scripts/run_architecture_analysis.py
       continue-on-error: false
 
-    - name: ⚡ Run Performance Monitoring
+    - name: Run Performance Monitoring
       run: |
         echo "=== Performance Monitoring ==="
-        python -c "
-        import sys
-        import json
-        import os
-        from datetime import datetime
-        from pathlib import Path
-        
-        sys.path.append('.')
-        
-        try:
-            # Import performance analyzer
-            from analyzer.optimization.performance_benchmark import StreamingPerformanceMonitor
-            
-            monitor = StreamingPerformanceMonitor()
-            results = monitor.benchmark_project('.')
-            
-            # Structure results for consolidation
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'performance-monitoring',
-                'resource_utilization': {
-                    'cpu_usage': {
-                        'efficiency_score': results.get('cpu_efficiency', 0.8),
-                        'peak_usage': results.get('peak_cpu', 45)
-                    },
-                    'memory_usage': {
-                        'optimization_score': results.get('memory_optimization', 0.75),
-                        'peak_memory_mb': results.get('peak_memory', 512)
-                    }
-                },
-                'performance_metrics': results.get('metrics', {}),
-                'fallback': False
-            }
-            
-        except Exception as e:
-            print(f'⚠️ Performance monitoring failed: {e}, using fallback')
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'performance-monitoring',
-                'resource_utilization': {
-                    'cpu_usage': {
-                        'efficiency_score': 0.8,
-                        'peak_usage': 45
-                    },
-                    'memory_usage': {
-                        'optimization_score': 0.75,
-                        'peak_memory_mb': 512
-                    }
-                },
-                'performance_metrics': {},
-                'fallback': True,
-                'error': str(e)
-            }
-        
-        # Save results
-        with open('.claude/.artifacts/performance_monitoring.json', 'w') as f:
-            json.dump(analysis_result, f, indent=2, default=str)
-        
-        print(f'✅ Performance Monitoring completed')
-        print(f'CPU Efficiency: {analysis_result["resource_utilization"]["cpu_usage"]["efficiency_score"]:.2%}')
-        print(f'Memory Optimization: {analysis_result["resource_utilization"]["memory_usage"]["optimization_score"]:.2%}')
-        "
+        python .github/scripts/run_performance_monitoring.py
       continue-on-error: false
 
-    - name: 📊 Run MECE Analysis
+    - name: Run MECE Analysis
       run: |
         echo "=== MECE Duplication Analysis ==="
-        python -c "
-        import sys
-        import json
-        import os
-        from datetime import datetime
-        from pathlib import Path
-        
-        sys.path.append('.')
-        
-        try:
-            # Import MECE analyzer
-            from analyzer.mece.mece_analyzer import MECEAnalyzer
-            
-            analyzer = MECEAnalyzer()
-            results = analyzer.analyze_project('.')
-            
-            # Structure results for consolidation
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'mece-analysis',
-                'mece_score': results.get('mece_score', 0.82),
-                'duplications': results.get('duplications', [])[:20],
-                'duplication_stats': {
-                    'total_duplications': len(results.get('duplications', [])),
-                    'severe_duplications': len([d for d in results.get('duplications', []) if d.get('severity', 'low') in ['high', 'critical']])
-                },
-                'fallback': False
-            }
-            
-        except Exception as e:
-            print(f'⚠️ MECE analysis failed: {e}, using fallback')
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'mece-analysis',
-                'mece_score': 0.82,
-                'duplications': [],
-                'duplication_stats': {
-                    'total_duplications': 5,
-                    'severe_duplications': 1
-                },
-                'fallback': True,
-                'error': str(e)
-            }
-        
-        # Save results
-        with open('.claude/.artifacts/mece_analysis.json', 'w') as f:
-            json.dump(analysis_result, f, indent=2, default=str)
-        
-        print(f'✅ MECE Analysis completed')
-        print(f'MECE Score: {analysis_result["mece_score"]:.2%}')
-        print(f'Duplications: {analysis_result["duplication_stats"]["total_duplications"]}')
-        "
+        python .github/scripts/run_mece_analysis.py
       continue-on-error: false
 
-    - name: 🔄 Run Cache Optimization
+    - name: Run Cache Optimization
       run: |
         echo "=== Cache Optimization Analysis ==="
-        python -c "
-        import sys
-        import json
-        import os
-        from datetime import datetime
-        from pathlib import Path
-        
-        sys.path.append('.')
-        
-        try:
-            # Import cache analyzer
-            from analyzer.optimization.file_cache import FileContentCache as IncrementalCache
-            
-            cache = IncrementalCache()
-            # Simulate cache analysis
-            cache_stats = cache.get_stats() if hasattr(cache, 'get_stats') else {}
-            
-            # Structure results for consolidation
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'cache-optimization',
-                'cache_health': {
-                    'health_score': cache_stats.get('health_score', 0.88),
-                    'hit_rate': cache_stats.get('hit_rate', 0.76),
-                    'memory_efficiency': cache_stats.get('memory_efficiency', 0.82)
-                },
-                'optimization_recommendations': [
-                    'Consider increasing cache size for better hit rates',
-                    'Implement cache warming for critical paths'
-                ],
-                'fallback': False
-            }
-            
-        except Exception as e:
-            print(f'⚠️ Cache optimization failed: {e}, using fallback')
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'cache-optimization',
-                'cache_health': {
-                    'health_score': 0.88,
-                    'hit_rate': 0.76,
-                    'memory_efficiency': 0.82
-                },
-                'optimization_recommendations': [
-                    'Consider increasing cache size for better hit rates',
-                    'Implement cache warming for critical paths'
-                ],
-                'fallback': True,
-                'error': str(e)
-            }
-        
-        # Save results
-        with open('.claude/.artifacts/cache_optimization.json', 'w') as f:
-            json.dump(analysis_result, f, indent=2, default=str)
-        
-        print(f'✅ Cache Optimization completed')
-        print(f'Health Score: {analysis_result["cache_health"]["health_score"]:.2%}')
-        print(f'Hit Rate: {analysis_result["cache_health"]["hit_rate"]:.2%}')
-        "
+        python .github/scripts/run_cache_optimization.py
       continue-on-error: false
 
-    - name: 🗜️ Self-Dogfooding Analysis
+    - name: Run Self-Dogfooding Analysis
       run: |
         echo "=== Self-Dogfooding Analysis ==="
-        python -c "
-        import sys
-        import json
-        import os
-        from datetime import datetime
-        from pathlib import Path
-        
-        sys.path.append('.')
-        
-        try:
-            # Simple self-dogfooding check
-            # Check if our fixes are working
-            policy_check = Path('policy/__init__.py').exists()
-            cli_check = Path('interfaces/cli/main_python.py').exists()
-            
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'self-dogfooding',
-                'dogfooding_metrics': {
-                    'policy_integration': policy_check,
-                    'cli_functionality': cli_check,
-                    'workflow_syntax': True,  # If we got here, syntax is valid
-                    'sequential_execution': True  # Successfully running sequentially
-                },
-                'overall_health': 0.92 if policy_check and cli_check else 0.6,
-                'fallback': False
-            }
-            
-        except Exception as e:
-            print(f'⚠️ Self-dogfooding analysis failed: {e}, using fallback')
-            analysis_result = {
-                'timestamp': datetime.now().isoformat(),
-                'analysis_type': 'self-dogfooding',
-                'dogfooding_metrics': {
-                    'policy_integration': False,
-                    'cli_functionality': False,
-                    'workflow_syntax': True,
-                    'sequential_execution': True
-                },
-                'overall_health': 0.6,
-                'fallback': True,
-                'error': str(e)
-            }
-        
-        # Save results
-        with open('.claude/.artifacts/self_dogfooding.json', 'w') as f:
-            json.dump(analysis_result, f, indent=2, default=str)
-        
-        print(f'✅ Self-Dogfooding Analysis completed')
-        print(f'Overall Health: {analysis_result["overall_health"]:.2%}')
-        "
+        python .github/scripts/run_dogfooding_analysis.py
       continue-on-error: false
 
-    - name: 📊 Consolidate Analysis Results
+    - name: Consolidate Analysis Results
       run: |
-        echo "📊 Consolidating all analysis results..."
-        python -c "
-        import json
-        import os
-        from pathlib import Path
-        from datetime import datetime
-        
-        # Create consolidated results directory (already exists from previous steps)
-        os.makedirs('.claude/.artifacts', exist_ok=True)
-        
-        # Collect all analysis results from artifacts
-        consolidated = {
-            'consolidated_timestamp': datetime.now().isoformat(),
-            'analysis_summary': {},
-            'overall_scores': {},
-            'critical_issues': [],
-            'recommendations': [],
-            'execution_mode': 'sequential'
-        }
-        
-        analysis_files = [
-            ('connascence_analysis.json', 'connascence'),
-            ('architecture_analysis.json', 'architecture'),
-            ('performance_monitoring.json', 'performance'),
-            ('mece_analysis.json', 'mece'),
-            ('cache_optimization.json', 'cache'),
-            ('self_dogfooding.json', 'dogfooding')
-        ]
-        
-        total_quality_score = 0
-        analysis_count = 0
-        
-        for filename, analysis_key in analysis_files:
-            artifact_path = Path(f'.claude/.artifacts/{filename}')
-            try:
-                if artifact_path.exists():
-                    with open(artifact_path, 'r') as f:
-                        data = json.load(f)
-                    
-                    # Extract key metrics based on analysis type
-                    if analysis_key == 'connascence':
-                        score = data.get('summary', {}).get('overall_quality_score', 0)
-                        violations = len(data.get('violations', []))
-                        nasa_score = data.get('nasa_compliance', {}).get('score', 0)
-                        
-                        consolidated['analysis_summary']['connascence'] = {
-                            'quality_score': score,
-                            'total_violations': violations,
-                            'nasa_compliance': nasa_score,
-                            'critical_violations': data.get('summary', {}).get('critical_violations', 0),
-                            'fallback': data.get('fallback', False)
-                        }
-                        total_quality_score += score
-                        analysis_count += 1
-                        
-                        if violations > 10:
-                            consolidated['critical_issues'].append(f'High violation count: {violations}')
-                            
-                    elif analysis_key == 'architecture':
-                        health = data.get('system_overview', {}).get('architectural_health', 0)
-                        god_objects = data.get('metrics', {}).get('god_objects_detected', 0)
-                        
-                        consolidated['analysis_summary']['architecture'] = {
-                            'architectural_health': health,
-                            'god_objects_detected': god_objects,
-                            'hotspots': len(data.get('architectural_hotspots', [])),
-                            'fallback': data.get('fallback', False)
-                        }
-                        total_quality_score += health
-                        analysis_count += 1
-                        
-                        if god_objects > 5:
-                            consolidated['critical_issues'].append(f'Too many god objects: {god_objects}')
-                            
-                    elif analysis_key == 'performance':
-                        cpu_score = data.get('resource_utilization', {}).get('cpu_usage', {}).get('efficiency_score', 0)
-                        memory_score = data.get('resource_utilization', {}).get('memory_usage', {}).get('optimization_score', 0)
-                        
-                        consolidated['analysis_summary']['performance'] = {
-                            'cpu_efficiency': cpu_score,
-                            'memory_optimization': memory_score,
-                            'overall_performance': (cpu_score + memory_score) / 2,
-                            'fallback': data.get('fallback', False)
-                        }
-                        total_quality_score += (cpu_score + memory_score) / 2
-                        analysis_count += 1
-                        
-                    elif analysis_key == 'mece':
-                        mece_score = data.get('mece_score', 0)
-                        duplications = data.get('duplication_stats', {}).get('total_duplications', 0)
-                        
-                        consolidated['analysis_summary']['mece'] = {
-                            'mece_score': mece_score,
-                            'duplications_found': duplications,
-                            'fallback': data.get('fallback', False)
-                        }
-                        total_quality_score += mece_score
-                        analysis_count += 1
-                        
-                        if duplications > 10:
-                            consolidated['critical_issues'].append(f'High duplication count: {duplications}')
-                            
-                    elif analysis_key == 'cache':
-                        health_score = data.get('cache_health', {}).get('health_score', 0)
-                        hit_rate = data.get('cache_health', {}).get('hit_rate', 0)
-                        
-                        consolidated['analysis_summary']['cache'] = {
-                            'health_score': health_score,
-                            'hit_rate': hit_rate,
-                            'fallback': data.get('fallback', False)
-                        }
-                        total_quality_score += health_score
-                        analysis_count += 1
-                        
-                    elif analysis_key == 'dogfooding':
-                        health = data.get('overall_health', 0)
-                        consolidated['analysis_summary']['dogfooding'] = {
-                            'overall_health': health,
-                            'metrics': data.get('dogfooding_metrics', {}),
-                            'fallback': data.get('fallback', False)
-                        }
-                        total_quality_score += health
-                        analysis_count += 1
-                        
-                else:
-                    print(f'Warning: Analysis file {filename} not found')
-                    consolidated['analysis_summary'][analysis_key] = {'error': 'file_not_found'}
-                    
-            except Exception as e:
-                print(f'Failed to process {filename}: {e}')
-                consolidated['analysis_summary'][analysis_key] = {'error': str(e)}
-        
-        # Calculate overall quality score
-        if analysis_count > 0:
-            consolidated['overall_scores']['average_quality'] = total_quality_score / analysis_count
-        else:
-            consolidated['overall_scores']['average_quality'] = 0.75  # Fallback
-        
-        # Generate overall recommendations
-        avg_quality = consolidated['overall_scores']['average_quality']
-        if avg_quality < 0.70:
-            consolidated['recommendations'].append('Overall quality below threshold - review all analysis results')
-        if len(consolidated['critical_issues']) > 3:
-            consolidated['recommendations'].append('Multiple critical issues detected - prioritize fixes')
-        if not consolidated['critical_issues']:
-            consolidated['recommendations'].append('Quality metrics are healthy - maintain current standards')
-        
-        # Save consolidated results
-        with open('.claude/.artifacts/quality_gates_report.json', 'w') as f:
-            json.dump(consolidated, f, indent=2, default=str)
-        
-        print('✅ Consolidated analysis completed')
-        print(f'Overall Quality Score: {avg_quality:.2%}')
-        print(f'Critical Issues: {len(consolidated[\"critical_issues\"])}')
-        print(f'Analyses Processed: {analysis_count}/5')
-        "
+        echo "=== Consolidating Analysis Results ==="
+        python .github/scripts/consolidate_analysis_results.py
 
-    - name: 📊 Quality Gate Decision
+    - name: Quality Gate Decision
       run: |
         echo "=== Overall Quality Gate Decision ==="
-        python -c "
-        import json
-        import sys
-        
-        with open('.claude/.artifacts/quality_gates_report.json', 'r') as f:
-            data = json.load(f)
-        
-        overall_quality = data.get('overall_scores', {}).get('average_quality', 0)
-        critical_issues = data.get('critical_issues', [])
-        
-        print(f'Overall Quality Score: {overall_quality:.2%}')
-        print(f'Critical Issues: {len(critical_issues)}')
-        
-        # Overall quality gate thresholds
-        min_overall_quality = 0.75
-        max_critical_issues = 5
-        
-        failed = False
-        
-        if overall_quality < min_overall_quality:
-            print(f'❌ Overall quality: {overall_quality:.2%} < {min_overall_quality:.2%}')
-            failed = True
-        else:
-            print(f'✅ Overall quality: {overall_quality:.2%} >= {min_overall_quality:.2%}')
-            
-        if len(critical_issues) > max_critical_issues:
-            print(f'❌ Critical issues: {len(critical_issues)} > {max_critical_issues}')
-            failed = True
-        else:
-            print(f'✅ Critical issues: {len(critical_issues)} <= {max_critical_issues}')
-        
-        # Show critical issues
-        if critical_issues:
-            print('\\nCritical Issues:')
-            for i, issue in enumerate(critical_issues[:5], 1):
-                print(f'{i}. {issue}')
-        
-        if failed:
-            print('\\n🚨 OVERALL QUALITY GATE FAILED')
-            sys.exit(1)
-        else:
-            print('\\n✅ OVERALL QUALITY GATE PASSED')
-        "
+        python .github/scripts/quality_gate_decision.py
 
     - name: Upload Consolidated Results
       uses: actions/upload-artifact@v4

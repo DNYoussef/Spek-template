@@ -31,7 +31,7 @@ on:
         default: 'true'
         type: boolean
 
-env:
+  env:
   PYTHON_VERSION: '3.12'
   ANALYSIS_CACHE_KEY: v4-analysis-${{ github.sha }}
   SARIF_VERSION: '2.1.0'
@@ -1695,8 +1695,8 @@ jobs:
 ## Overall Status: {consolidated_report['quality_summary']['overall_status'].upper()}
 ## Authenticity: {consolidated_report['quality_summary']['authenticity_status'].upper()}
 
-### Analysis Streams Results (8 Total REAL Streams):
-'''
+  ### Analysis Streams Results (8 Total REAL Streams):
+  ''':
             
             for stream_name in expected_streams:
                 stream_data = stream_results.get(stream_name, {'status': 'not_found', 'authentic': False})
@@ -1707,7 +1707,7 @@ jobs:
             
             github_summary += f'''
 
-### Quality & Authenticity Summary:
+  ### Quality & Authenticity Summary:
 - **Pass Rate**: {overall_pass_rate:.1f}% ({passed_streams}/{total_streams})
 - **Authenticity Rate**: {authenticity_rate:.1f}% ({authentic_streams}/{total_streams})
 - **Defense Industry Ready**: {\"✅ YES\" if consolidated_report[\"defense_industry_certification\"][\"production_ready\"] else \"❌ NO\"}
@@ -1715,7 +1715,7 @@ jobs:
 - **NASA POT10 Compliance**: {\"✅ PASSED\" if consolidated_report[\"defense_industry_certification\"][\"nasa_pot10_ready\"] else \"❌ FAILED\"}
 - **Security Validation**: {\"✅ PASSED\" if consolidated_report[\"defense_industry_certification\"][\"security_validated\"] else \"❌ FAILED\"}
 
-### Evidence Package:
+  ### Evidence Package:
 - **REAL SARIF Files**: {len(all_sarif_files)}
 - **REAL Evidence Files**: {len(all_evidence_files)} 
 - **Audit Trail**: Complete ✅
@@ -1723,7 +1723,7 @@ jobs:
 
 *Generated: {consolidated_report['metadata']['generated_at']}*
 *Pipeline: 8-Stream Parallel REAL Analysis (Theater Detection Enabled)*
-'''
+  ''':
             
             with open('final-report/summaries/github-real-summary.md', 'w') as f:
                 f.write(github_summary)
@@ -1866,10 +1866,10 @@ jobs:
                 repo: context.repo.repo,
                 body: `## 8-Stream REAL Quality Gates Analysis (Theater Detection Enabled)
 
-${summary}
+  ${summary}:
 
 ---
-*This analysis includes comprehensive theater detection to ensure authentic results with no mock implementations or performance theater.*`
+  *This analysis includes comprehensive theater detection to ensure authentic results with no mock implementations or performance theater.*`:
               });
             }
           } catch (error) {

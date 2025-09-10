@@ -1,0 +1,637 @@
+{
+  "validation_timestamp": "2025-09-10T15:43:11.146907",
+  "summary": {
+    "total_workflows": 9,
+    "passed_workflows": 0,
+    "failed_workflows": 9,
+    "total_tests": 64,
+    "passed_tests": 29,
+    "failed_tests": 35,
+    "success_rate": 45.3125
+  },
+  "overall_assessment": {
+    "validation_passed": false,
+    "production_ready": false,
+    "analyzer_pipeline_ready": false,
+    "deployment_recommendation": "BLOCK"
+  },
+  "workflow_results": {
+    "architecture-analysis.yml": {
+      "passed": false,
+      "execution_time": 0.01992,
+      "test_results": [
+        {
+          "test_name": "yaml_syntax",
+          "passed": false,
+          "message": "YAML parsing error: while scanning a simple key\n  in \".github\\workflows\\architecture-analysis.yml\", line 55, column 1\ncould not find expected ':'\n  in \".github\\workflows\\architecture-analysis.yml\", line 56, column 1",
+          "error": "while scanning a simple key\n  in \".github\\workflows\\architecture-analysis.yml\", line 55, column 1\ncould not find expected ':'\n  in \".github\\workflows\\architecture-analysis.yml\", line 56, column 1"
+        },
+        {
+          "test_name": "python_scripts",
+          "passed": false,
+          "message": "Python syntax errors found: 2",
+          "error": "Script 1: unexpected indent (<unknown>, line 6); Script 2: '(' was never closed (<unknown>, line 7)"
+        },
+        {
+          "test_name": "unicode_check",
+          "passed": false,
+          "message": "Found 28 Unicode characters",
+          "error": null
+        },
+        {
+          "test_name": "json_structure",
+          "passed": true,
+          "message": "JSON structure properly defined for 1 artifacts",
+          "error": null
+        },
+        {
+          "test_name": "quality_gate_logic",
+          "passed": false,
+          "message": "Quality gate logic issues: No threshold validation patterns found",
+          "error": null
+        },
+        {
+          "test_name": "error_handling",
+          "passed": false,
+          "message": "Basic error handling found (2 patterns)",
+          "error": null
+        },
+        {
+          "test_name": "dependencies",
+          "passed": false,
+          "message": "Error validating dependencies: while scanning a simple key\n  in \"<unicode string>\", line 55, column 1:\n    import sys\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 56, column 1:\n    sys.path.insert(0, '.')\n    ^",
+          "error": "while scanning a simple key\n  in \"<unicode string>\", line 55, column 1:\n    import sys\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 56, column 1:\n    sys.path.insert(0, '.')\n    ^"
+        }
+      ],
+      "critical_issues": [
+        "YAML syntax error in architecture-analysis.yml",
+        "Python syntax errors in architecture-analysis.yml",
+        "Quality gate logic errors in architecture-analysis.yml"
+      ],
+      "warnings": [
+        "Unicode characters detected in architecture-analysis.yml",
+        "Error handling issues in architecture-analysis.yml",
+        "Dependency issues in architecture-analysis.yml"
+      ]
+    },
+    "connascence-core-analysis.yml": {
+      "passed": false,
+      "execution_time": 0.020944,
+      "test_results": [
+        {
+          "test_name": "yaml_syntax",
+          "passed": false,
+          "message": "Missing required keys: ['on']",
+          "error": null
+        },
+        {
+          "test_name": "python_scripts",
+          "passed": false,
+          "message": "Python syntax errors found: 3",
+          "error": "Script 1: '(' was never closed (<unknown>, line 1); Script 2: unexpected indent (<unknown>, line 2); Script 3: unexpected indent (<unknown>, line 2)"
+        },
+        {
+          "test_name": "unicode_check",
+          "passed": false,
+          "message": "Found 16 Unicode characters",
+          "error": null
+        },
+        {
+          "test_name": "json_structure",
+          "passed": true,
+          "message": "JSON structure properly defined for 1 artifacts",
+          "error": null
+        },
+        {
+          "test_name": "quality_gate_logic",
+          "passed": false,
+          "message": "Quality gate logic issues: No threshold validation patterns found",
+          "error": null
+        },
+        {
+          "test_name": "error_handling",
+          "passed": false,
+          "message": "Basic error handling found (1 patterns)",
+          "error": null
+        },
+        {
+          "test_name": "dependencies",
+          "passed": true,
+          "message": "Dependencies properly managed (5 aspects)",
+          "error": null
+        }
+      ],
+      "critical_issues": [
+        "YAML syntax error in connascence-core-analysis.yml",
+        "Python syntax errors in connascence-core-analysis.yml",
+        "Quality gate logic errors in connascence-core-analysis.yml"
+      ],
+      "warnings": [
+        "Unicode characters detected in connascence-core-analysis.yml",
+        "Error handling issues in connascence-core-analysis.yml"
+      ]
+    },
+    "cache-optimization.yml": {
+      "passed": false,
+      "execution_time": 0.020559,
+      "test_results": [
+        {
+          "test_name": "yaml_syntax",
+          "passed": false,
+          "message": "Missing required keys: ['on']",
+          "error": null
+        },
+        {
+          "test_name": "python_scripts",
+          "passed": false,
+          "message": "Python syntax errors found: 2",
+          "error": "Script 1: '(' was never closed (<unknown>, line 1); Script 2: '(' was never closed (<unknown>, line 1)"
+        },
+        {
+          "test_name": "unicode_check",
+          "passed": false,
+          "message": "Found 6 Unicode characters",
+          "error": null
+        },
+        {
+          "test_name": "json_structure",
+          "passed": true,
+          "message": "JSON structure properly defined for 1 artifacts",
+          "error": null
+        },
+        {
+          "test_name": "quality_gate_logic",
+          "passed": false,
+          "message": "Quality gate logic issues: No threshold validation patterns found",
+          "error": null
+        },
+        {
+          "test_name": "error_handling",
+          "passed": false,
+          "message": "Basic error handling found (1 patterns)",
+          "error": null
+        },
+        {
+          "test_name": "dependencies",
+          "passed": true,
+          "message": "Dependencies properly managed (5 aspects)",
+          "error": null
+        }
+      ],
+      "critical_issues": [
+        "YAML syntax error in cache-optimization.yml",
+        "Python syntax errors in cache-optimization.yml",
+        "Quality gate logic errors in cache-optimization.yml"
+      ],
+      "warnings": [
+        "Unicode characters detected in cache-optimization.yml",
+        "Error handling issues in cache-optimization.yml"
+      ]
+    },
+    "security-pipeline.yml": {
+      "passed": false,
+      "execution_time": 0.027004,
+      "test_results": [
+        {
+          "test_name": "yaml_syntax",
+          "passed": false,
+          "message": "YAML parsing error: while scanning a simple key\n  in \".github\\workflows\\security-pipeline.yml\", line 137, column 1\ncould not find expected ':'\n  in \".github\\workflows\\security-pipeline.yml\", line 138, column 1",
+          "error": "while scanning a simple key\n  in \".github\\workflows\\security-pipeline.yml\", line 137, column 1\ncould not find expected ':'\n  in \".github\\workflows\\security-pipeline.yml\", line 138, column 1"
+        },
+        {
+          "test_name": "python_scripts",
+          "passed": false,
+          "message": "Python syntax errors found: 6",
+          "error": "Script 1: unterminated triple-quoted string literal (detected at line 9) (<unknown>, line 1); Script 2: unterminated triple-quoted string literal (detected at line 9) (<unknown>, line 1); Script 3: unterminated triple-quoted string literal (detected at line 10) (<unknown>, line 1)"
+        },
+        {
+          "test_name": "unicode_check",
+          "passed": true,
+          "message": "No Unicode characters found - ASCII only",
+          "error": null
+        },
+        {
+          "test_name": "json_structure",
+          "passed": true,
+          "message": "JSON structure properly defined for 1 artifacts",
+          "error": null
+        },
+        {
+          "test_name": "quality_gate_logic",
+          "passed": true,
+          "message": "Quality gate logic properly implemented with 20 checks",
+          "error": null
+        },
+        {
+          "test_name": "error_handling",
+          "passed": true,
+          "message": "Robust error handling (26 patterns)",
+          "error": null
+        },
+        {
+          "test_name": "dependencies",
+          "passed": false,
+          "message": "Error validating dependencies: while scanning a simple key\n  in \"<unicode string>\", line 137, column 1:\n    import json\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 138, column 1:\n    import os\n    ^",
+          "error": "while scanning a simple key\n  in \"<unicode string>\", line 137, column 1:\n    import json\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 138, column 1:\n    import os\n    ^"
+        }
+      ],
+      "critical_issues": [
+        "YAML syntax error in security-pipeline.yml",
+        "Python syntax errors in security-pipeline.yml"
+      ],
+      "warnings": [
+        "Dependency issues in security-pipeline.yml"
+      ]
+    },
+    "performance-monitoring.yml": {
+      "passed": false,
+      "execution_time": 0.018294,
+      "test_results": [
+        {
+          "test_name": "yaml_syntax",
+          "passed": false,
+          "message": "Missing required keys: ['on']",
+          "error": null
+        },
+        {
+          "test_name": "python_scripts",
+          "passed": false,
+          "message": "Python syntax errors found: 3",
+          "error": "Script 1: unterminated triple-quoted string literal (detected at line 1) (<unknown>, line 1); Script 2: unterminated triple-quoted string literal (detected at line 1) (<unknown>, line 1); Script 3: unterminated triple-quoted string literal (detected at line 1) (<unknown>, line 1)"
+        },
+        {
+          "test_name": "unicode_check",
+          "passed": true,
+          "message": "No Unicode characters found - ASCII only",
+          "error": null
+        },
+        {
+          "test_name": "json_structure",
+          "passed": true,
+          "message": "JSON structure properly defined for 1 artifacts",
+          "error": null
+        },
+        {
+          "test_name": "quality_gate_logic",
+          "passed": false,
+          "message": "Quality gate logic issues: No threshold validation patterns found",
+          "error": null
+        },
+        {
+          "test_name": "error_handling",
+          "passed": false,
+          "message": "Basic error handling found (1 patterns)",
+          "error": null
+        },
+        {
+          "test_name": "dependencies",
+          "passed": true,
+          "message": "Dependencies properly managed (5 aspects)",
+          "error": null
+        }
+      ],
+      "critical_issues": [
+        "YAML syntax error in performance-monitoring.yml",
+        "Python syntax errors in performance-monitoring.yml",
+        "Quality gate logic errors in performance-monitoring.yml"
+      ],
+      "warnings": [
+        "Error handling issues in performance-monitoring.yml"
+      ]
+    },
+    "quality-gates.yml": {
+      "passed": false,
+      "execution_time": 0.016955,
+      "test_results": [
+        {
+          "test_name": "yaml_syntax",
+          "passed": false,
+          "message": "YAML parsing error: while scanning a simple key\n  in \".github\\workflows\\quality-gates.yml\", line 180, column 1\ncould not find expected ':'\n  in \".github\\workflows\\quality-gates.yml\", line 181, column 1",
+          "error": "while scanning a simple key\n  in \".github\\workflows\\quality-gates.yml\", line 180, column 1\ncould not find expected ':'\n  in \".github\\workflows\\quality-gates.yml\", line 181, column 1"
+        },
+        {
+          "test_name": "python_scripts",
+          "passed": true,
+          "message": "No Python scripts found in workflow",
+          "error": null
+        },
+        {
+          "test_name": "unicode_check",
+          "passed": true,
+          "message": "No Unicode characters found - ASCII only",
+          "error": null
+        },
+        {
+          "test_name": "json_structure",
+          "passed": true,
+          "message": "JSON structure properly defined for 1 artifacts",
+          "error": null
+        },
+        {
+          "test_name": "quality_gate_logic",
+          "passed": true,
+          "message": "Quality gate logic properly implemented with 1 checks",
+          "error": null
+        },
+        {
+          "test_name": "error_handling",
+          "passed": true,
+          "message": "Robust error handling (34 patterns)",
+          "error": null
+        },
+        {
+          "test_name": "dependencies",
+          "passed": false,
+          "message": "Error validating dependencies: while scanning a simple key\n  in \"<unicode string>\", line 180, column 1:\n    import json, os\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 181, column 1:\n    from datetime import datetime\n    ^",
+          "error": "while scanning a simple key\n  in \"<unicode string>\", line 180, column 1:\n    import json, os\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 181, column 1:\n    from datetime import datetime\n    ^"
+        }
+      ],
+      "critical_issues": [
+        "YAML syntax error in quality-gates.yml"
+      ],
+      "warnings": [
+        "Dependency issues in quality-gates.yml"
+      ]
+    },
+    "mece-duplication-analysis.yml": {
+      "passed": false,
+      "execution_time": 0.018949,
+      "test_results": [
+        {
+          "test_name": "yaml_syntax",
+          "passed": false,
+          "message": "Missing required keys: ['on']",
+          "error": null
+        },
+        {
+          "test_name": "python_scripts",
+          "passed": false,
+          "message": "Python syntax errors found: 4",
+          "error": "Script 1: unterminated triple-quoted string literal (detected at line 1) (<unknown>, line 1); Script 2: unterminated triple-quoted string literal (detected at line 1) (<unknown>, line 1); Script 3: unterminated triple-quoted string literal (detected at line 1) (<unknown>, line 1)"
+        },
+        {
+          "test_name": "unicode_check",
+          "passed": true,
+          "message": "No Unicode characters found - ASCII only",
+          "error": null
+        },
+        {
+          "test_name": "json_structure",
+          "passed": true,
+          "message": "JSON structure properly defined for 1 artifacts",
+          "error": null
+        },
+        {
+          "test_name": "quality_gate_logic",
+          "passed": true,
+          "message": "Quality gate logic properly implemented with 4 checks",
+          "error": null
+        },
+        {
+          "test_name": "error_handling",
+          "passed": false,
+          "message": "No error handling patterns found",
+          "error": null
+        },
+        {
+          "test_name": "dependencies",
+          "passed": true,
+          "message": "Dependencies properly managed (5 aspects)",
+          "error": null
+        }
+      ],
+      "critical_issues": [
+        "YAML syntax error in mece-duplication-analysis.yml",
+        "Python syntax errors in mece-duplication-analysis.yml"
+      ],
+      "warnings": [
+        "Error handling issues in mece-duplication-analysis.yml"
+      ]
+    },
+    "self-dogfooding.yml": {
+      "passed": false,
+      "execution_time": 0.019947,
+      "test_results": [
+        {
+          "test_name": "yaml_syntax",
+          "passed": false,
+          "message": "Missing required keys: ['on']",
+          "error": null
+        },
+        {
+          "test_name": "python_scripts",
+          "passed": true,
+          "message": "All 5 Python scripts have valid syntax",
+          "error": null
+        },
+        {
+          "test_name": "unicode_check",
+          "passed": true,
+          "message": "No Unicode characters found - ASCII only",
+          "error": null
+        },
+        {
+          "test_name": "json_structure",
+          "passed": true,
+          "message": "JSON structure properly defined for 1 artifacts",
+          "error": null
+        },
+        {
+          "test_name": "quality_gate_logic",
+          "passed": false,
+          "message": "No quality gate logic patterns found",
+          "error": null
+        },
+        {
+          "test_name": "error_handling",
+          "passed": false,
+          "message": "No error handling patterns found",
+          "error": null
+        },
+        {
+          "test_name": "dependencies",
+          "passed": true,
+          "message": "Dependencies properly managed (3 aspects)",
+          "error": null
+        }
+      ],
+      "critical_issues": [
+        "YAML syntax error in self-dogfooding.yml",
+        "Quality gate logic errors in self-dogfooding.yml"
+      ],
+      "warnings": [
+        "Error handling issues in self-dogfooding.yml"
+      ]
+    },
+    "quality-orchestrator.yml": {
+      "passed": false,
+      "execution_time": 0.018949,
+      "test_results": [
+        {
+          "test_name": "yaml_syntax",
+          "passed": false,
+          "message": "YAML parsing error: while scanning a simple key\n  in \".github\\workflows\\quality-orchestrator.yml\", line 62, column 1\ncould not find expected ':'\n  in \".github\\workflows\\quality-orchestrator.yml\", line 63, column 1",
+          "error": "while scanning a simple key\n  in \".github\\workflows\\quality-orchestrator.yml\", line 62, column 1\ncould not find expected ':'\n  in \".github\\workflows\\quality-orchestrator.yml\", line 63, column 1"
+        },
+        {
+          "test_name": "python_scripts",
+          "passed": false,
+          "message": "Python syntax errors found: 8",
+          "error": "Script 1: unterminated triple-quoted string literal (detected at line 25) (<unknown>, line 1); Script 2: unterminated triple-quoted string literal (detected at line 28) (<unknown>, line 1); Script 3: unterminated triple-quoted string literal (detected at line 21) (<unknown>, line 1)"
+        },
+        {
+          "test_name": "unicode_check",
+          "passed": true,
+          "message": "No Unicode characters found - ASCII only",
+          "error": null
+        },
+        {
+          "test_name": "json_structure",
+          "passed": true,
+          "message": "JSON structure properly defined for 1 artifacts",
+          "error": null
+        },
+        {
+          "test_name": "quality_gate_logic",
+          "passed": true,
+          "message": "Quality gate logic properly implemented with 9 checks",
+          "error": null
+        },
+        {
+          "test_name": "error_handling",
+          "passed": true,
+          "message": "Robust error handling (15 patterns)",
+          "error": null
+        },
+        {
+          "test_name": "dependencies",
+          "passed": false,
+          "message": "Error validating dependencies: while scanning a simple key\n  in \"<unicode string>\", line 62, column 1:\n    import sys\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 63, column 1:\n    import json\n    ^",
+          "error": "while scanning a simple key\n  in \"<unicode string>\", line 62, column 1:\n    import sys\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 63, column 1:\n    import json\n    ^"
+        }
+      ],
+      "critical_issues": [
+        "YAML syntax error in quality-orchestrator.yml",
+        "Python syntax errors in quality-orchestrator.yml"
+      ],
+      "warnings": [
+        "Dependency issues in quality-orchestrator.yml"
+      ]
+    }
+  },
+  "end_to_end_integration": {
+    "test_name": "end_to_end_integration",
+    "passed": false,
+    "message": "Integration issues found: 19",
+    "details": {
+      "successful_workflows": 0,
+      "total_workflows": 9,
+      "pipeline_health": 0.0,
+      "integration_issues": [
+        "Workflow architecture-analysis.yml failed validation",
+        "Workflow connascence-core-analysis.yml failed validation",
+        "Workflow cache-optimization.yml failed validation",
+        "Workflow security-pipeline.yml failed validation",
+        "Workflow performance-monitoring.yml failed validation"
+      ],
+      "producer_consumer_map": {
+        "producers": {
+          "architecture-analysis.yml": [
+            "architecture_analysis.json"
+          ],
+          "connascence-core-analysis.yml": [
+            "connascence_full.json"
+          ],
+          "cache-optimization.yml": [
+            "cache_optimization.json"
+          ],
+          "security-pipeline.yml": [
+            "security_gates_report.json"
+          ],
+          "performance-monitoring.yml": [
+            "performance_monitor.json"
+          ],
+          "quality-gates.yml": [
+            "quality_gates_report.json"
+          ],
+          "mece-duplication-analysis.yml": [
+            "mece_analysis.json"
+          ],
+          "self-dogfooding.yml": [
+            "self_analysis_nasa.json"
+          ],
+          "quality-orchestrator.yml": [
+            "quality_gates_report.json"
+          ]
+        },
+        "consumers": {
+          "quality-gates.yml": [
+            "connascence_full.json",
+            "architecture_analysis.json",
+            "performance_monitor.json",
+            "cache_optimization.json",
+            "mece_analysis.json"
+          ],
+          "quality-orchestrator.yml": [
+            "connascence_analysis.json",
+            "architecture_analysis.json",
+            "performance_monitoring.json",
+            "mece_analysis.json",
+            "cache_optimization.json"
+          ]
+        }
+      }
+    }
+  },
+  "critical_issues": [
+    "YAML syntax error in architecture-analysis.yml",
+    "Python syntax errors in architecture-analysis.yml",
+    "Quality gate logic errors in architecture-analysis.yml",
+    "YAML syntax error in connascence-core-analysis.yml",
+    "Python syntax errors in connascence-core-analysis.yml",
+    "Quality gate logic errors in connascence-core-analysis.yml",
+    "YAML syntax error in cache-optimization.yml",
+    "Python syntax errors in cache-optimization.yml",
+    "Quality gate logic errors in cache-optimization.yml",
+    "YAML syntax error in security-pipeline.yml",
+    "Python syntax errors in security-pipeline.yml",
+    "YAML syntax error in performance-monitoring.yml",
+    "Python syntax errors in performance-monitoring.yml",
+    "Quality gate logic errors in performance-monitoring.yml",
+    "YAML syntax error in quality-gates.yml",
+    "YAML syntax error in mece-duplication-analysis.yml",
+    "Python syntax errors in mece-duplication-analysis.yml",
+    "YAML syntax error in self-dogfooding.yml",
+    "Quality gate logic errors in self-dogfooding.yml",
+    "YAML syntax error in quality-orchestrator.yml",
+    "Python syntax errors in quality-orchestrator.yml"
+  ],
+  "warnings": [
+    "Unicode characters detected in architecture-analysis.yml",
+    "Error handling issues in architecture-analysis.yml",
+    "Dependency issues in architecture-analysis.yml",
+    "Unicode characters detected in connascence-core-analysis.yml",
+    "Error handling issues in connascence-core-analysis.yml",
+    "Unicode characters detected in cache-optimization.yml",
+    "Error handling issues in cache-optimization.yml",
+    "Dependency issues in security-pipeline.yml",
+    "Error handling issues in performance-monitoring.yml",
+    "Dependency issues in quality-gates.yml",
+    "Error handling issues in mece-duplication-analysis.yml",
+    "Error handling issues in self-dogfooding.yml",
+    "Dependency issues in quality-orchestrator.yml"
+  ],
+  "production_blockers": [
+    "Critical workflow failed: connascence-core-analysis.yml",
+    "Critical workflow failed: security-pipeline.yml",
+    "Critical workflow failed: quality-gates.yml"
+  ],
+  "recommendations": [
+    "Address 21 critical issues before production deployment",
+    "Fix YAML syntax errors - these prevent workflow execution",
+    "Fix Python syntax errors in embedded scripts",
+    "Review and fix quality gate logic implementation",
+    "Consider addressing 13 warnings for optimal performance",
+    "Fix end-to-end integration issues before enabling full pipeline"
+  ]
+}

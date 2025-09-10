@@ -1,0 +1,1130 @@
+{
+  "validation_timestamp": "2025-09-10T15:46:58.614166",
+  "executive_summary": {
+    "total_workflows_tested": 9,
+    "workflows_production_ready": 0,
+    "workflows_needing_fixes": 9,
+    "overall_success_rate": 0.0,
+    "critical_blockers_count": 0,
+    "total_issues_found": 56,
+    "total_warnings": 18,
+    "analyzer_pipeline_status": "NEEDS_FIXES",
+    "deployment_recommendation": "BLOCK"
+  },
+  "detailed_analysis": {
+    "architecture-analysis.yml": {
+      "workflow_name": "architecture-analysis.yml",
+      "file_size_bytes": 6400,
+      "yaml_valid": false,
+      "python_scripts_valid": false,
+      "unicode_compliant": false,
+      "indentation_correct": true,
+      "quality_gates_implemented": false,
+      "error_handling_adequate": false,
+      "production_ready": false,
+      "critical_issue_count": 3,
+      "warning_count": 6,
+      "issues_found": [
+        "YAML parsing error: while scanning a simple key\n  in \"<unicode string>\", line 55, column 1:\n    import sys\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 56, column 1:\n    sys.path.insert(0, '.')\n    ^",
+        "Script 1 syntax error: unexpected indent (<unknown>, line 6)",
+        "Script 2 syntax error: '(' was never closed (<unknown>, line 7)"
+      ],
+      "warnings_found": [
+        "Found 28 Unicode characters that may cause CI issues",
+        "Insufficient quality gate implementation",
+        "Missing essential gate components (thresholds, conditionals, failure handling)",
+        "Insufficient error handling - add try-catch blocks and fallbacks",
+        "Add timeout handling for long-running operations",
+        "Implement continue-on-error for non-critical steps"
+      ],
+      "success_indicators": [
+        "Proper YAML indentation throughout"
+      ]
+    },
+    "connascence-core-analysis.yml": {
+      "workflow_name": "connascence-core-analysis.yml",
+      "file_size_bytes": 5879,
+      "yaml_valid": false,
+      "python_scripts_valid": false,
+      "unicode_compliant": false,
+      "indentation_correct": true,
+      "quality_gates_implemented": true,
+      "error_handling_adequate": false,
+      "production_ready": false,
+      "critical_issue_count": 3,
+      "warning_count": 4,
+      "issues_found": [
+        "Missing required YAML key: 'on'",
+        "Script 1 syntax error: unexpected indent (<unknown>, line 2)",
+        "Script 2 syntax error: unexpected indent (<unknown>, line 2)"
+      ],
+      "warnings_found": [
+        "Found 16 Unicode characters that may cause CI issues",
+        "Insufficient error handling - add try-catch blocks and fallbacks",
+        "Add timeout handling for long-running operations",
+        "Implement continue-on-error for non-critical steps"
+      ],
+      "success_indicators": [
+        "Proper YAML indentation throughout",
+        "Quality gates properly implemented (17 gates)"
+      ]
+    },
+    "cache-optimization.yml": {
+      "workflow_name": "cache-optimization.yml",
+      "file_size_bytes": 6082,
+      "yaml_valid": false,
+      "python_scripts_valid": false,
+      "unicode_compliant": false,
+      "indentation_correct": true,
+      "quality_gates_implemented": false,
+      "error_handling_adequate": true,
+      "production_ready": false,
+      "critical_issue_count": 2,
+      "warning_count": 3,
+      "issues_found": [
+        "Missing required YAML key: 'on'",
+        "Script 1 syntax error: '(' was never closed (<unknown>, line 1)"
+      ],
+      "warnings_found": [
+        "Found 6 Unicode characters that may cause CI issues",
+        "Insufficient quality gate implementation",
+        "Missing essential gate components (thresholds, conditionals, failure handling)"
+      ],
+      "success_indicators": [
+        "Proper YAML indentation throughout",
+        "Adequate error handling (4 patterns)"
+      ]
+    },
+    "security-pipeline.yml": {
+      "workflow_name": "security-pipeline.yml",
+      "file_size_bytes": 32478,
+      "yaml_valid": false,
+      "python_scripts_valid": false,
+      "unicode_compliant": true,
+      "indentation_correct": true,
+      "quality_gates_implemented": true,
+      "error_handling_adequate": true,
+      "production_ready": false,
+      "critical_issue_count": 9,
+      "warning_count": 0,
+      "issues_found": [
+        "YAML parsing error: while scanning a simple key\n  in \"<unicode string>\", line 137, column 1:\n    import json\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 138, column 1:\n    import os\n    ^",
+        "Script 1 syntax error: unexpected character after line continuation character (<unknown>, line 134)",
+        "Script 2 syntax error: unexpected character after line continuation character (<unknown>, line 76)",
+        "Script 4 syntax error: unexpected character after line continuation character (<unknown>, line 14)",
+        "Script 5 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 6 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 7 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 8 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 9 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)"
+      ],
+      "warnings_found": [],
+      "success_indicators": [
+        "ASCII-only content (no Unicode issues)",
+        "Proper YAML indentation throughout",
+        "Quality gates properly implemented (50 gates)",
+        "Adequate error handling (39 patterns)"
+      ]
+    },
+    "performance-monitoring.yml": {
+      "workflow_name": "performance-monitoring.yml",
+      "file_size_bytes": 6087,
+      "yaml_valid": false,
+      "python_scripts_valid": false,
+      "unicode_compliant": true,
+      "indentation_correct": true,
+      "quality_gates_implemented": false,
+      "error_handling_adequate": true,
+      "production_ready": false,
+      "critical_issue_count": 6,
+      "warning_count": 2,
+      "issues_found": [
+        "Missing required YAML key: 'on'",
+        "Script 1 syntax error: invalid syntax (<unknown>, line 23)",
+        "Script 2 syntax error: unterminated triple-quoted string literal (detected at line 25) (<unknown>, line 1)",
+        "Script 3 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 4 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 5 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)"
+      ],
+      "warnings_found": [
+        "Insufficient quality gate implementation",
+        "Missing essential gate components (thresholds, conditionals, failure handling)"
+      ],
+      "success_indicators": [
+        "ASCII-only content (no Unicode issues)",
+        "Proper YAML indentation throughout",
+        "Adequate error handling (3 patterns)"
+      ]
+    },
+    "quality-gates.yml": {
+      "workflow_name": "quality-gates.yml",
+      "file_size_bytes": 37126,
+      "yaml_valid": false,
+      "python_scripts_valid": false,
+      "unicode_compliant": true,
+      "indentation_correct": true,
+      "quality_gates_implemented": true,
+      "error_handling_adequate": true,
+      "production_ready": false,
+      "critical_issue_count": 8,
+      "warning_count": 0,
+      "issues_found": [
+        "YAML parsing error: while scanning a simple key\n  in \"<unicode string>\", line 180, column 1:\n    import json, os\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 181, column 1:\n    from datetime import datetime\n    ^",
+        "Script 1 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 2 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 3 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 4 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 5 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 6 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 7 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)"
+      ],
+      "warnings_found": [],
+      "success_indicators": [
+        "ASCII-only content (no Unicode issues)",
+        "Proper YAML indentation throughout",
+        "Quality gates properly implemented (18 gates)",
+        "Adequate error handling (42 patterns)"
+      ]
+    },
+    "mece-duplication-analysis.yml": {
+      "workflow_name": "mece-duplication-analysis.yml",
+      "file_size_bytes": 5473,
+      "yaml_valid": false,
+      "python_scripts_valid": false,
+      "unicode_compliant": true,
+      "indentation_correct": true,
+      "quality_gates_implemented": true,
+      "error_handling_adequate": true,
+      "production_ready": false,
+      "critical_issue_count": 7,
+      "warning_count": 0,
+      "issues_found": [
+        "Missing required YAML key: 'on'",
+        "Script 1 syntax error: unexpected character after line continuation character (<unknown>, line 1)",
+        "Script 3 syntax error: unexpected character after line continuation character (<unknown>, line 1)",
+        "Script 5 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 6 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 7 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 8 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)"
+      ],
+      "warnings_found": [],
+      "success_indicators": [
+        "ASCII-only content (no Unicode issues)",
+        "Proper YAML indentation throughout",
+        "Quality gates properly implemented (10 gates)",
+        "Adequate error handling (3 patterns)"
+      ]
+    },
+    "self-dogfooding.yml": {
+      "workflow_name": "self-dogfooding.yml",
+      "file_size_bytes": 15201,
+      "yaml_valid": false,
+      "python_scripts_valid": true,
+      "unicode_compliant": true,
+      "indentation_correct": true,
+      "quality_gates_implemented": true,
+      "error_handling_adequate": false,
+      "production_ready": false,
+      "critical_issue_count": 1,
+      "warning_count": 3,
+      "issues_found": [
+        "Missing required YAML key: 'on'"
+      ],
+      "warnings_found": [
+        "Insufficient error handling - add try-catch blocks and fallbacks",
+        "Add timeout handling for long-running operations",
+        "Implement continue-on-error for non-critical steps"
+      ],
+      "success_indicators": [
+        "All 5 Python scripts valid",
+        "ASCII-only content (no Unicode issues)",
+        "Proper YAML indentation throughout",
+        "Quality gates properly implemented (17 gates)"
+      ]
+    },
+    "quality-orchestrator.yml": {
+      "workflow_name": "quality-orchestrator.yml",
+      "file_size_bytes": 22759,
+      "yaml_valid": false,
+      "python_scripts_valid": false,
+      "unicode_compliant": true,
+      "indentation_correct": true,
+      "quality_gates_implemented": true,
+      "error_handling_adequate": true,
+      "production_ready": false,
+      "critical_issue_count": 17,
+      "warning_count": 0,
+      "issues_found": [
+        "YAML parsing error: while scanning a simple key\n  in \"<unicode string>\", line 62, column 1:\n    import sys\n    ^\ncould not find expected ':'\n  in \"<unicode string>\", line 63, column 1:\n    import json\n    ^",
+        "Script 1 syntax error: unexpected character after line continuation character (<unknown>, line 7)",
+        "Script 2 syntax error: unexpected character after line continuation character (<unknown>, line 7)",
+        "Script 3 syntax error: unexpected character after line continuation character (<unknown>, line 7)",
+        "Script 4 syntax error: unexpected character after line continuation character (<unknown>, line 7)",
+        "Script 5 syntax error: unexpected character after line continuation character (<unknown>, line 7)",
+        "Script 6 syntax error: unexpected character after line continuation character (<unknown>, line 7)",
+        "Script 7 syntax error: unexpected character after line continuation character (<unknown>, line 6)",
+        "Script 8 syntax error: unexpected character after line continuation character (<unknown>, line 4)",
+        "Script 9 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 10 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 11 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 12 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 13 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 14 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 15 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)",
+        "Script 16 syntax error: unterminated string literal (detected at line 1) (<unknown>, line 1)"
+      ],
+      "warnings_found": [],
+      "success_indicators": [
+        "ASCII-only content (no Unicode issues)",
+        "Proper YAML indentation throughout",
+        "Quality gates properly implemented (18 gates)",
+        "Adequate error handling (22 patterns)"
+      ]
+    }
+  },
+  "production_readiness": {
+    "overall_status": "NOT_READY",
+    "readiness_score": 40.0,
+    "critical_requirements": {
+      "yaml_syntax_valid": false,
+      "python_scripts_working": false,
+      "no_critical_blockers": true,
+      "quality_gates_functioning": false
+    },
+    "quality_requirements": {
+      "unicode_compliant": true,
+      "error_handling_adequate": true,
+      "integration_compatible": false,
+      "documentation_complete": true
+    },
+    "deployment_checklist": [
+      "\u274c Fix YAML syntax errors in workflows",
+      "\u274c Fix Python script syntax errors",
+      "\u2705 No critical blocking issues found",
+      "\u274c Implement proper quality gate logic",
+      "\u26a0\ufe0f  Fix cross-workflow integration issues",
+      "\ud83d\uded1 Not recommended for production deployment"
+    ],
+    "risk_assessment": "VERY_HIGH_RISK"
+  },
+  "workflow_fixes_validated": {
+    "architecture-analysis.yml": {
+      "indentation_fixed": false,
+      "python_syntax_fixed": false,
+      "unicode_issues_resolved": false,
+      "quality_gates_working": false,
+      "overall_fix_status": "NEEDS_WORK"
+    },
+    "connascence-core-analysis.yml": {
+      "indentation_fixed": false,
+      "python_syntax_fixed": false,
+      "unicode_issues_resolved": false,
+      "quality_gates_working": true,
+      "overall_fix_status": "NEEDS_WORK"
+    },
+    "cache-optimization.yml": {
+      "indentation_fixed": false,
+      "python_syntax_fixed": false,
+      "unicode_issues_resolved": false,
+      "quality_gates_working": false,
+      "overall_fix_status": "NEEDS_WORK"
+    },
+    "security-pipeline.yml": {
+      "indentation_fixed": false,
+      "python_syntax_fixed": false,
+      "unicode_issues_resolved": true,
+      "quality_gates_working": true,
+      "overall_fix_status": "PARTIALLY_FIXED"
+    },
+    "performance-monitoring.yml": {
+      "indentation_fixed": false,
+      "python_syntax_fixed": false,
+      "unicode_issues_resolved": true,
+      "quality_gates_working": false,
+      "overall_fix_status": "NEEDS_WORK"
+    },
+    "quality-gates.yml": {
+      "indentation_fixed": false,
+      "python_syntax_fixed": false,
+      "unicode_issues_resolved": true,
+      "quality_gates_working": true,
+      "overall_fix_status": "PARTIALLY_FIXED"
+    },
+    "mece-duplication-analysis.yml": {
+      "indentation_fixed": false,
+      "python_syntax_fixed": false,
+      "unicode_issues_resolved": true,
+      "quality_gates_working": true,
+      "overall_fix_status": "PARTIALLY_FIXED"
+    },
+    "self-dogfooding.yml": {
+      "indentation_fixed": false,
+      "python_syntax_fixed": true,
+      "unicode_issues_resolved": true,
+      "quality_gates_working": true,
+      "overall_fix_status": "MOSTLY_FIXED"
+    },
+    "quality-orchestrator.yml": {
+      "indentation_fixed": false,
+      "python_syntax_fixed": false,
+      "unicode_issues_resolved": true,
+      "quality_gates_working": true,
+      "overall_fix_status": "PARTIALLY_FIXED"
+    }
+  },
+  "python_script_validation": {
+    "architecture-analysis.yml": {
+      "total_scripts": 3,
+      "syntax_valid_scripts": 1,
+      "execution_safe_scripts": 0,
+      "json_output_scripts": 1,
+      "error_handled_scripts": 0,
+      "overall_quality": "POOR"
+    },
+    "connascence-core-analysis.yml": {
+      "total_scripts": 2,
+      "syntax_valid_scripts": 0,
+      "execution_safe_scripts": 0,
+      "json_output_scripts": 0,
+      "error_handled_scripts": 0,
+      "overall_quality": "POOR"
+    },
+    "cache-optimization.yml": {
+      "total_scripts": 2,
+      "syntax_valid_scripts": 1,
+      "execution_safe_scripts": 0,
+      "json_output_scripts": 1,
+      "error_handled_scripts": 0,
+      "overall_quality": "POOR"
+    },
+    "security-pipeline.yml": {
+      "total_scripts": 9,
+      "syntax_valid_scripts": 1,
+      "execution_safe_scripts": 0,
+      "json_output_scripts": 1,
+      "error_handled_scripts": 1,
+      "overall_quality": "POOR"
+    },
+    "performance-monitoring.yml": {
+      "total_scripts": 5,
+      "syntax_valid_scripts": 0,
+      "execution_safe_scripts": 0,
+      "json_output_scripts": 0,
+      "error_handled_scripts": 0,
+      "overall_quality": "POOR"
+    },
+    "quality-gates.yml": {
+      "total_scripts": 7,
+      "syntax_valid_scripts": 0,
+      "execution_safe_scripts": 0,
+      "json_output_scripts": 0,
+      "error_handled_scripts": 0,
+      "overall_quality": "POOR"
+    },
+    "mece-duplication-analysis.yml": {
+      "total_scripts": 8,
+      "syntax_valid_scripts": 2,
+      "execution_safe_scripts": 0,
+      "json_output_scripts": 2,
+      "error_handled_scripts": 0,
+      "overall_quality": "POOR"
+    },
+    "self-dogfooding.yml": {
+      "total_scripts": 5,
+      "syntax_valid_scripts": 5,
+      "execution_safe_scripts": 0,
+      "json_output_scripts": 5,
+      "error_handled_scripts": 0,
+      "overall_quality": "EXCELLENT"
+    },
+    "quality-orchestrator.yml": {
+      "total_scripts": 16,
+      "syntax_valid_scripts": 0,
+      "execution_safe_scripts": 0,
+      "json_output_scripts": 0,
+      "error_handled_scripts": 0,
+      "overall_quality": "POOR"
+    }
+  },
+  "yaml_indentation_assessment": {
+    "architecture-analysis.yml": {
+      "correct": true,
+      "problems": [],
+      "warnings": []
+    },
+    "connascence-core-analysis.yml": {
+      "correct": true,
+      "problems": [],
+      "warnings": []
+    },
+    "cache-optimization.yml": {
+      "correct": true,
+      "problems": [],
+      "warnings": []
+    },
+    "security-pipeline.yml": {
+      "correct": true,
+      "problems": [],
+      "warnings": [
+        "Unusually large indentations found: [22]"
+      ]
+    },
+    "performance-monitoring.yml": {
+      "correct": true,
+      "problems": [],
+      "warnings": []
+    },
+    "quality-gates.yml": {
+      "correct": true,
+      "problems": [],
+      "warnings": [
+        "Unusually large indentations found: [24]"
+      ]
+    },
+    "mece-duplication-analysis.yml": {
+      "correct": true,
+      "problems": [],
+      "warnings": []
+    },
+    "self-dogfooding.yml": {
+      "correct": true,
+      "problems": [],
+      "warnings": []
+    },
+    "quality-orchestrator.yml": {
+      "correct": true,
+      "problems": [],
+      "warnings": []
+    }
+  },
+  "unicode_compliance": {
+    "architecture-analysis.yml": {
+      "compliant": false,
+      "issues": [
+        "Found 28 Unicode characters that may cause CI issues"
+      ],
+      "unicode_chars": [
+        {
+          "char": "\ud83c\udfd7",
+          "code": 127959,
+          "line": 50
+        },
+        {
+          "char": "\ufe0f",
+          "code": 65039,
+          "line": 50
+        },
+        {
+          "char": "\ud83c\udfd7",
+          "code": 127959,
+          "line": 52
+        },
+        {
+          "char": "\ufe0f",
+          "code": 65039,
+          "line": 52
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 69
+        },
+        {
+          "char": "\u26a0",
+          "code": 9888,
+          "line": 74
+        },
+        {
+          "char": "\ufe0f",
+          "code": 65039,
+          "line": 74
+        },
+        {
+          "char": "\ud83d\udcca",
+          "code": 128202,
+          "line": 103
+        },
+        {
+          "char": "\u26a0",
+          "code": 9888,
+          "line": 121
+        },
+        {
+          "char": "\ufe0f",
+          "code": 65039,
+          "line": 121
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 123
+        },
+        {
+          "char": "\ud83d\udce4",
+          "code": 128228,
+          "line": 127
+        },
+        {
+          "char": "\ud83c\udfd7",
+          "code": 127959,
+          "line": 135
+        },
+        {
+          "char": "\ufe0f",
+          "code": 65039,
+          "line": 135
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 138
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 138
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 138
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 138
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 138
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 138
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 138
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 138
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 138
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 138
+        },
+        {
+          "char": "\ud83d\udea8",
+          "code": 128680,
+          "line": 138
+        },
+        {
+          "char": "\u26a0",
+          "code": 9888,
+          "line": 138
+        },
+        {
+          "char": "\ufe0f",
+          "code": 65039,
+          "line": 138
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 138
+        }
+      ]
+    },
+    "connascence-core-analysis.yml": {
+      "compliant": false,
+      "issues": [
+        "Found 16 Unicode characters that may cause CI issues"
+      ],
+      "unicode_chars": [
+        {
+          "char": "\ud83d\udd0d",
+          "code": 128269,
+          "line": 54
+        },
+        {
+          "char": "\ud83d\udd0d",
+          "code": 128269,
+          "line": 56
+        },
+        {
+          "char": "\ud83d\udcca",
+          "code": 128202,
+          "line": 60
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 77
+        },
+        {
+          "char": "\ud83d\udce4",
+          "code": 128228,
+          "line": 81
+        },
+        {
+          "char": "\ud83d\udea8",
+          "code": 128680,
+          "line": 89
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 113
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 116
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 119
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 122
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 125
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 128
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 131
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 134
+        },
+        {
+          "char": "\ud83d\udea8",
+          "code": 128680,
+          "line": 137
+        },
+        {
+          "char": "\u2705",
+          "code": 9989,
+          "line": 140
+        }
+      ]
+    },
+    "cache-optimization.yml": {
+      "compliant": false,
+      "issues": [
+        "Found 6 Unicode characters that may cause CI issues"
+      ],
+      "unicode_chars": [
+        {
+          "char": "\ud83d\udd04",
+          "code": 128260,
+          "line": 50
+        },
+        {
+          "char": "\ud83d\udd04",
+          "code": 128260,
+          "line": 52
+        },
+        {
+          "char": "\ud83d\udcca",
+          "code": 128202,
+          "line": 56
+        },
+        {
+          "char": "\u274c",
+          "code": 10060,
+          "line": 62
+        },
+        {
+          "char": "\ud83d\udce4",
+          "code": 128228,
+          "line": 66
+        },
+        {
+          "char": "\ud83d\udd04",
+          "code": 128260,
+          "line": 74
+        }
+      ]
+    },
+    "security-pipeline.yml": {
+      "compliant": true,
+      "issues": [],
+      "unicode_chars": []
+    },
+    "performance-monitoring.yml": {
+      "compliant": true,
+      "issues": [],
+      "unicode_chars": []
+    },
+    "quality-gates.yml": {
+      "compliant": true,
+      "issues": [],
+      "unicode_chars": []
+    },
+    "mece-duplication-analysis.yml": {
+      "compliant": true,
+      "issues": [],
+      "unicode_chars": []
+    },
+    "self-dogfooding.yml": {
+      "compliant": true,
+      "issues": [],
+      "unicode_chars": []
+    },
+    "quality-orchestrator.yml": {
+      "compliant": true,
+      "issues": [],
+      "unicode_chars": []
+    }
+  },
+  "quality_gate_validation": {
+    "architecture-analysis.yml": {
+      "implemented": false,
+      "gate_count": 8,
+      "issues": [
+        "Insufficient quality gate implementation",
+        "Missing essential gate components (thresholds, conditionals, failure handling)"
+      ],
+      "gates_found": [
+        [
+          "Minimum threshold definition",
+          1
+        ],
+        [
+          "Maximum threshold definition",
+          1
+        ],
+        [
+          "Threshold comparison",
+          1
+        ],
+        [
+          "Quality gate section",
+          4
+        ],
+        [
+          "Failure tracking",
+          1
+        ]
+      ]
+    },
+    "connascence-core-analysis.yml": {
+      "implemented": true,
+      "gate_count": 17,
+      "issues": [],
+      "gates_found": [
+        [
+          "Minimum threshold definition",
+          2
+        ],
+        [
+          "Maximum threshold definition",
+          2
+        ],
+        [
+          "Threshold comparison",
+          1
+        ],
+        [
+          "Quality gate section",
+          4
+        ],
+        [
+          "Failure exit code",
+          1
+        ],
+        [
+          "System exit on failure",
+          1
+        ],
+        [
+          "Failure tracking",
+          6
+        ]
+      ]
+    },
+    "cache-optimization.yml": {
+      "implemented": false,
+      "gate_count": 11,
+      "issues": [
+        "Insufficient quality gate implementation",
+        "Missing essential gate components (thresholds, conditionals, failure handling)"
+      ],
+      "gates_found": [
+        [
+          "Minimum threshold definition",
+          1
+        ],
+        [
+          "Maximum threshold definition",
+          1
+        ],
+        [
+          "Threshold comparison",
+          3
+        ],
+        [
+          "Quality gate section",
+          4
+        ],
+        [
+          "Failure tracking",
+          2
+        ]
+      ]
+    },
+    "security-pipeline.yml": {
+      "implemented": true,
+      "gate_count": 50,
+      "issues": [],
+      "gates_found": [
+        [
+          "Minimum threshold definition",
+          3
+        ],
+        [
+          "Maximum threshold definition",
+          3
+        ],
+        [
+          "Threshold comparison",
+          14
+        ],
+        [
+          "Quality gate section",
+          12
+        ],
+        [
+          "Failure exit code",
+          1
+        ],
+        [
+          "System exit on failure",
+          1
+        ],
+        [
+          "Pass/fail tracking",
+          11
+        ],
+        [
+          "Failure tracking",
+          5
+        ]
+      ]
+    },
+    "performance-monitoring.yml": {
+      "implemented": false,
+      "gate_count": 10,
+      "issues": [
+        "Insufficient quality gate implementation",
+        "Missing essential gate components (thresholds, conditionals, failure handling)"
+      ],
+      "gates_found": [
+        [
+          "Minimum threshold definition",
+          1
+        ],
+        [
+          "Threshold comparison",
+          3
+        ],
+        [
+          "Quality gate section",
+          4
+        ],
+        [
+          "Failure tracking",
+          2
+        ]
+      ]
+    },
+    "quality-gates.yml": {
+      "implemented": true,
+      "gate_count": 18,
+      "issues": [],
+      "gates_found": [
+        [
+          "Threshold comparison",
+          3
+        ],
+        [
+          "Quality gate section",
+          11
+        ],
+        [
+          "Pass/fail tracking",
+          4
+        ]
+      ]
+    },
+    "mece-duplication-analysis.yml": {
+      "implemented": true,
+      "gate_count": 10,
+      "issues": [],
+      "gates_found": [
+        [
+          "Minimum threshold definition",
+          1
+        ],
+        [
+          "Maximum threshold definition",
+          1
+        ],
+        [
+          "Threshold comparison",
+          3
+        ],
+        [
+          "Quality gate section",
+          4
+        ],
+        [
+          "Failure tracking",
+          1
+        ]
+      ]
+    },
+    "self-dogfooding.yml": {
+      "implemented": true,
+      "gate_count": 17,
+      "issues": [],
+      "gates_found": [
+        [
+          "Maximum threshold definition",
+          2
+        ],
+        [
+          "Threshold comparison",
+          3
+        ],
+        [
+          "Quality gate section",
+          4
+        ],
+        [
+          "Pass/fail tracking",
+          8
+        ]
+      ]
+    },
+    "quality-orchestrator.yml": {
+      "implemented": true,
+      "gate_count": 18,
+      "issues": [],
+      "gates_found": [
+        [
+          "Minimum threshold definition",
+          1
+        ],
+        [
+          "Maximum threshold definition",
+          1
+        ],
+        [
+          "Threshold comparison",
+          7
+        ],
+        [
+          "Quality gate section",
+          4
+        ],
+        [
+          "Failure exit code",
+          1
+        ],
+        [
+          "System exit on failure",
+          1
+        ],
+        [
+          "Failure tracking",
+          3
+        ]
+      ]
+    }
+  },
+  "integration_test_results": {
+    "artifact_dependencies": {
+      "producers": {
+        "architecture-analysis.yml": [
+          "architecture_analysis.json"
+        ],
+        "connascence-core-analysis.yml": [
+          "connascence_full.json"
+        ],
+        "cache-optimization.yml": [
+          "cache_optimization.json"
+        ],
+        "security-pipeline.yml": [
+          "security_gates_report.json"
+        ],
+        "performance-monitoring.yml": [
+          "performance_monitor.json"
+        ],
+        "mece-duplication-analysis.yml": [
+          "mece_analysis.json"
+        ],
+        "self-dogfooding.yml": [
+          "self_analysis_nasa.json"
+        ]
+      },
+      "consumers": {
+        "quality-gates.yml": [
+          "connascence_full.json",
+          "architecture_analysis.json",
+          "performance_monitor.json",
+          "cache_optimization.json",
+          "mece_analysis.json"
+        ],
+        "quality-orchestrator.yml": [
+          "connascence_analysis.json",
+          "architecture_analysis.json",
+          "performance_monitoring.json",
+          "mece_analysis.json"
+        ]
+      }
+    },
+    "execution_order": [],
+    "integration_issues": [
+      "No producer found for artifact connascence_analysis.json required by quality-orchestrator.yml",
+      "No producer found for artifact performance_monitoring.json required by quality-orchestrator.yml"
+    ],
+    "compatibility_score": 77.77777777777779
+  },
+  "deployment_recommendations": [
+    "\ud83d\udeab NOT READY - BLOCK deployment until major issues resolved",
+    "\ud83d\udccb Complete workflow redesign may be required",
+    "\ud83d\udc65 Consider involving workflow automation expert",
+    "\ud83d\udcc8 Success rate below 50% - fundamental issues need resolution",
+    "\ud83d\udd17 Integration compatibility at 77.8% - review artifact dependencies"
+  ],
+  "critical_blockers": [],
+  "warnings": [],
+  "success_indicators": []
+}

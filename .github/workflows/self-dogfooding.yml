@@ -35,7 +35,7 @@ jobs:
         if [ -f requirements.txt ]; then
           pip install -r requirements.txt
         else
-          echo "⚠️  requirements.txt not found, installing minimal dependencies"
+          echo "WARNING: requirements.txt not found, installing minimal dependencies"
           pip install astroid pylint pathspec toml pyyaml requests
         fi
         
@@ -43,10 +43,10 @@ jobs:
         if [ -f setup.py ]; then
           pip install -e .
         else
-          echo "⚠️  setup.py not found, skipping package installation"
+          echo "WARNING: setup.py not found, skipping package installation"
         fi
 
-    - name: 🔬 Self-Analysis with NASA Rules
+    - name: "Self-Analysis with NASA Rules"
       run: |
         echo "::group::Self Analysis - NASA Compliance"
         cd analyzer && python core.py \
@@ -65,7 +65,7 @@ jobs:
         fi
         echo "::endgroup::"
 
-    - name: 🎯 God Object & MECE Self-Analysis
+    - name: "God Object & MECE Self-Analysis"
       run: |
         echo "::group::Self Analysis - God Objects & MECE"
         # Comprehensive MECE analysis of our own codebase
@@ -84,7 +84,7 @@ jobs:
         cd ..
         echo "::endgroup::"
 
-    - name: 📊 Validate Demo Claims
+    - name: "Validate Demo Claims"
       run: |
         echo "::group::Validate Enterprise Demo Claims"
         # Verify our own claims about violation counts
@@ -94,7 +94,7 @@ jobs:
         python scripts/reproduce_enterprise_demo.py --validate-performance --quick-mode
         echo "::endgroup::"
 
-    - name: 🔗 Tool Correlation Self-Test
+    - name: "Tool Correlation Self-Test"
       run: |
         echo "::group::Tool Correlation Self-Test"
         # Test our tool coordinator on itself
@@ -104,7 +104,7 @@ jobs:
           --output tool_correlation_self_test.json || echo "Tool correlation completed with basic mode"
         echo "::endgroup::"
 
-    - name: 📈 Update Self-Analysis Metrics
+    - name: "Update Self-Analysis Metrics"
       run: |
         echo "::group::Update Historical Self-Analysis"
         # Update our own analysis baseline
@@ -124,7 +124,7 @@ jobs:
         fi
         echo "::endgroup::"
 
-    - name: 🎯 Quality Gate Self-Assessment
+    - name: "Quality Gate Self-Assessment"
       id: self-quality-gates
       run: |
         echo "::group::Quality Gate Self-Assessment"
@@ -160,35 +160,35 @@ jobs:
         PASSED=true
         
         if python3 -c "exit(1 if float('${NASA_SCORE:-0}') < float('$SELF_NASA_THRESHOLD') else 0)"; then
-          echo "⚠️ NASA Compliance below threshold ($NASA_SCORE < $SELF_NASA_THRESHOLD)"
+          echo "WARNING: NASA Compliance below threshold ($NASA_SCORE < $SELF_NASA_THRESHOLD)"
           PASSED=false
         fi
         
         if [[ $CRITICAL_VIOLATIONS -gt $SELF_MAX_CRITICAL ]]; then
-          echo "⚠️ Too many critical violations ($CRITICAL_VIOLATIONS > $SELF_MAX_CRITICAL)"
+          echo "WARNING: Too many critical violations ($CRITICAL_VIOLATIONS > $SELF_MAX_CRITICAL)"
           PASSED=false
         fi
         
         if [[ $GOD_OBJECTS -gt $SELF_MAX_GOD_OBJECTS ]]; then
-          echo "⚠️ Too many god objects ($GOD_OBJECTS > $SELF_MAX_GOD_OBJECTS)"
+          echo "WARNING: Too many god objects ($GOD_OBJECTS > $SELF_MAX_GOD_OBJECTS)"
           PASSED=false
         fi
         
         if python3 -c "exit(1 if float('${MECE_SCORE:-0}') < float('$SELF_MECE_THRESHOLD') else 0)"; then
-          echo "⚠️ MECE score below threshold ($MECE_SCORE < $SELF_MECE_THRESHOLD)"
+          echo "WARNING: MECE score below threshold ($MECE_SCORE < $SELF_MECE_THRESHOLD)"
           PASSED=false
         fi
         
         if [[ "$PASSED" == "true" ]]; then
-          echo "✅ Self-analysis quality gates passed!"
+          echo "SUCCESS: Self-analysis quality gates passed!"
         else
-          echo "⚠️ Self-analysis identified improvement opportunities"
+          echo "WARNING: Self-analysis identified improvement opportunities"
         fi
         
         echo "self_assessment_passed=$PASSED" >> $GITHUB_OUTPUT
         echo "::endgroup::"
 
-    - name: 📊 Generate Self-Analysis Dashboard
+    - name: "Generate Self-Analysis Dashboard"
       run: |
         echo "::group::Generate Self-Analysis Dashboard"
         python -m analyzer.dashboard.ci_integration \
@@ -200,7 +200,7 @@ jobs:
           --output self_analysis_dashboard.html
         echo "::endgroup::"
 
-    - name: 🔄 Update Documentation with Latest Results
+    - name: "Update Documentation with Latest Results"
       run: |
         echo "::group::Update Documentation"
         # Update the self-analysis documentation
@@ -216,7 +216,7 @@ jobs:
           --update-if-changed
         echo "::endgroup::"
 
-    - name: 📤 Upload Self-Analysis Results
+    - name: "Upload Self-Analysis Results"
       uses: actions/upload-artifact@v4
       with:
         name: self-analysis-results-${{ github.run_number }}
@@ -230,7 +230,7 @@ jobs:
           self_analysis_comparison.json
           self_analysis_trends.json
 
-    - name: 🔔 Create Issue for Critical Self-Analysis Issues
+    - name: "Create Issue for Critical Self-Analysis Issues"
       if: steps.self-quality-gates.outputs.critical_violations > 25
       uses: actions/github-script@v7
       with:
@@ -239,24 +239,24 @@ jobs:
           const totalCount = ${{ steps.self-quality-gates.outputs.total_violations }};
           const nasaScore = ${{ steps.self-quality-gates.outputs.nasa_score }};
           
-          const issueBody = `## 🚨 Self-Analysis Alert: High Critical Violations
+          const issueBody = `## [ALERT] Self-Analysis Alert: High Critical Violations
           
           Our automated self-analysis has detected a significant number of critical violations in the codebase.
           
-          ### 📊 Current Metrics
+          ### [METRICS] Current Metrics
           - **Critical Violations:** ${criticalCount}
           - **Total Violations:** ${totalCount}  
           - **NASA Compliance Score:** ${(nasaScore * 100).toFixed(1)}%
           - **God Objects:** ${{ steps.self-quality-gates.outputs.god_objects }}
           - **MECE Score:** ${{ steps.self-quality-gates.outputs.mece_score }}
           
-          ### 🎯 Recommended Actions
+          ### [ACTIONS] Recommended Actions
           1. Review critical violations in the [self-analysis dashboard](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
           2. Prioritize fixing god objects and parameter bombs
           3. Address NASA Power of Ten rule violations
           4. Reduce code duplication identified by MECE analysis
           
-          ### 📁 Analysis Files
+          ### [FILES] Analysis Files
           - NASA Analysis: \`self_analysis_nasa.json\`
           - MECE Analysis: \`self_mece_analysis.json\`
           - God Objects: \`self_god_objects.json\`
@@ -267,12 +267,12 @@ jobs:
           github.rest.issues.create({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            title: `🚨 Self-Analysis Alert: ${criticalCount} Critical Violations Detected`,
+            title: `[ALERT] Self-Analysis Alert: ${criticalCount} Critical Violations Detected`,
             body: issueBody,
             labels: ['technical-debt', 'self-analysis', 'high-priority']
           });
 
-    - name: 📈 Update Project Metrics
+    - name: "Update Project Metrics"
       if: always()
       run: |
         echo "::group::Update Project Metrics"
@@ -302,11 +302,11 @@ jobs:
         fi
         echo "::endgroup::"
 
-    - name: 📝 Summary Comment
+    - name: "Summary Comment"
       run: |
-        echo "## 🔬 Self-Dogfooding Analysis Summary" >> $GITHUB_STEP_SUMMARY
+        echo "## Self-Dogfooding Analysis Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### 📊 Key Metrics" >> $GITHUB_STEP_SUMMARY
+        echo "### Key Metrics" >> $GITHUB_STEP_SUMMARY
         echo "- **NASA Compliance:** ${{ steps.self-quality-gates.outputs.nasa_score }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Total Violations:** ${{ steps.self-quality-gates.outputs.total_violations }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Critical Violations:** ${{ steps.self-quality-gates.outputs.critical_violations }}" >> $GITHUB_STEP_SUMMARY
@@ -315,15 +315,15 @@ jobs:
         echo "" >> $GITHUB_STEP_SUMMARY
         
         if [[ "${{ steps.self-quality-gates.outputs.self_assessment_passed }}" == "true" ]]; then
-          echo "### ✅ Self-Assessment Result: PASSED" >> $GITHUB_STEP_SUMMARY
+          echo "### [SUCCESS] Self-Assessment Result: PASSED" >> $GITHUB_STEP_SUMMARY
           echo "The analyzer meets its own quality standards!" >> $GITHUB_STEP_SUMMARY
         else
-          echo "### ⚠️ Self-Assessment Result: NEEDS IMPROVEMENT" >> $GITHUB_STEP_SUMMARY
+          echo "### [WARNING] Self-Assessment Result: NEEDS IMPROVEMENT" >> $GITHUB_STEP_SUMMARY
           echo "The analyzer has identified areas for improvement in its own codebase." >> $GITHUB_STEP_SUMMARY
         fi
         
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### 🔗 Analysis Artifacts" >> $GITHUB_STEP_SUMMARY
+        echo "### Analysis Artifacts" >> $GITHUB_STEP_SUMMARY
         echo "- [Self-Analysis Dashboard](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
         echo "- [Detailed Results](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
         

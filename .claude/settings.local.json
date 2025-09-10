@@ -83,7 +83,14 @@
       "Bash(npm run setup:win:*)",
       "Bash(powershell:*)",
       "Bash(npm run mcp:init:*)",
-      "Bash(claude /doctor)"
+      "Bash(claude /doctor)",
+      "mcp__filesystem__list_directory",
+      "mcp__filesystem__read_multiple_files",
+      "mcp__filesystem__read_text_file",
+      "Bash(yamllint:*)",
+      "Bash(yaml-validator:*)",
+      "mcp__filesystem__create_directory",
+      "mcp__filesystem__directory_tree"
     ],
     "deny": [],
     "ask": []

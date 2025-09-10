@@ -1,0 +1,19 @@
+{
+  "analysis_timestamp": "2025-01-15T10:30:00Z",
+  "project_name": "SPEK Enhanced Development Platform",
+  "total_files": 0,
+  "total_loc": 0,
+  "violations": [],
+  "nasa_compliance": {
+    "score": null,
+    "requirements_met": 0,
+    "total_requirements": 0
+  },
+  "god_objects": [],
+  "mece_analysis": {
+    "score": null
+  },
+  "overall_quality_score": null,
+  "security_findings": {},
+  "test_coverage": {}
+}

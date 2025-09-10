@@ -1,0 +1,39 @@
+{
+  "nasa_compliance": {
+    "score": 0.92,
+    "violations": {
+      "critical": 0,
+      "high": 2,
+      "medium": 5
+    }
+  },
+  "summary": {
+    "critical_violations": 0,
+    "overall_quality_score": 0.78
+  },
+  "god_objects": [
+    {
+      "class": "LargeController",
+      "score": 0.6
+    }
+  ],
+  "cache_health": {
+    "health_score": 0.82,
+    "hit_rate": 0.75,
+    "efficiency": 0.78
+  },
+  "system_overview": {
+    "architectural_health": 0.75,
+    "coupling_score": 0.45,
+    "complexity_score": 0.65,
+    "maintainability": 0.70
+  },
+  "findings": [
+    {
+      "type": "security",
+      "severity": "medium",
+      "description": "Potential SQL injection"
+    }
+  ],
+  "secrets_detected": 0
+}

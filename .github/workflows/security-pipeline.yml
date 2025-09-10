@@ -59,19 +59,19 @@ jobs:
 
     - name: Install Security Dependencies
       run: |
-        echo "🔒 Installing security analysis dependencies for ${{ matrix.analysis.name }}..."
+        echo "Installing security analysis dependencies for ${{ matrix.analysis.name }}..."
         pip install --upgrade pip
         
         # Install basic requirements with error handling
         if [ -f requirements.txt ]; then
-          echo "📦 Installing basic requirements..."
+          echo "Installing basic requirements..."
           pip install -r requirements.txt || {
-            echo "⚠️  Some basic requirements failed, continuing with security tools..."
+            echo "WARNING: Some basic requirements failed, continuing with security tools..."
           }
         fi
         
         # Install security tools with enhanced error handling and retries
-        echo "🔧 Installing security tools for ${{ matrix.analysis.name }}..."
+        echo "Installing security tools for ${{ matrix.analysis.name }}..."
         
         install_with_retry() {
           local package=$1
@@ -81,570 +81,68 @@ jobs:
           while [ $attempt -le $max_attempts ]; do
             echo "Attempt $attempt/$max_attempts: Installing $package..."
             if pip install "$package" --timeout=120; then
-              echo "✅ Successfully installed $package"
+              echo "SUCCESS: Successfully installed $package"
               return 0
             else
-              echo "❌ Failed to install $package (attempt $attempt/$max_attempts)"
+              echo "FAILED: Failed to install $package (attempt $attempt/$max_attempts)"
               if [ $attempt -lt $max_attempts ]; then
-                echo "⏳ Waiting 5 seconds before retry..."
+                echo "Waiting 5 seconds before retry..."
                 sleep 5
               fi
               attempt=$((attempt + 1))
             fi
           done
           
-          echo "🚫 Failed to install $package after $max_attempts attempts"
+          echo "FAILED: Failed to install $package after $max_attempts attempts"
           return 1
         }
         
         # Tool-specific installations with fallbacks
         if [[ "${{ matrix.analysis.name }}" == "sast" ]]; then
           # Try to install SAST tools with fallbacks
-          install_with_retry "bandit" || echo "⚠️  Bandit installation failed, will skip bandit analysis"
-          install_with_retry "semgrep" || echo "⚠️  Semgrep installation failed, will skip semgrep analysis"
+          install_with_retry "bandit" || echo "WARNING: Bandit installation failed, will skip bandit analysis"
+          install_with_retry "semgrep" || echo "WARNING: Semgrep installation failed, will skip semgrep analysis"
           
           # Verify installations
-          echo "🔍 Verifying SAST tool installations..."
-          bandit --version 2>/dev/null && echo "✅ Bandit available" || echo "❌ Bandit not available"
-          semgrep --version 2>/dev/null && echo "✅ Semgrep available" || echo "❌ Semgrep not available"
+          echo "Verifying SAST tool installations..."
+          bandit --version 2>/dev/null && echo "SUCCESS: Bandit available" || echo "FAILED: Bandit not available"
+          semgrep --version 2>/dev/null && echo "SUCCESS: Semgrep available" || echo "FAILED: Semgrep not available"
           
         elif [[ "${{ matrix.analysis.name }}" == "supply_chain" ]]; then
           # Try to install supply chain tools with fallbacks
-          install_with_retry "safety" || echo "⚠️  Safety installation failed, will skip safety analysis"
-          install_with_retry "pip-audit" || echo "⚠️  Pip-audit installation failed, will skip pip-audit analysis"
+          install_with_retry "safety" || echo "WARNING: Safety installation failed, will skip safety analysis"
+          install_with_retry "pip-audit" || echo "WARNING: Pip-audit installation failed, will skip pip-audit analysis"
           
           # Verify installations
-          echo "🔍 Verifying supply chain tool installations..."
-          safety --version 2>/dev/null && echo "✅ Safety available" || echo "❌ Safety not available"
-          pip-audit --version 2>/dev/null && echo "✅ Pip-audit available" || echo "❌ Pip-audit not available"
+          echo "Verifying supply chain tool installations..."
+          safety --version 2>/dev/null && echo "SUCCESS: Safety available" || echo "FAILED: Safety not available"
+          pip-audit --version 2>/dev/null && echo "SUCCESS: Pip-audit available" || echo "FAILED: Pip-audit not available"
           
         elif [[ "${{ matrix.analysis.name }}" == "secrets" ]]; then
           # Try to install secrets detection tools with fallbacks
-          install_with_retry "detect-secrets" || echo "⚠️  Detect-secrets installation failed, will skip secrets analysis"
+          install_with_retry "detect-secrets" || echo "WARNING: Detect-secrets installation failed, will skip secrets analysis"
           
           # Verify installations
-          echo "🔍 Verifying secrets tool installations..."
-          detect-secrets --version 2>/dev/null && echo "✅ Detect-secrets available" || echo "❌ Detect-secrets not available"
+          echo "Verifying secrets tool installations..."
+          detect-secrets --version 2>/dev/null && echo "SUCCESS: Detect-secrets available" || echo "FAILED: Detect-secrets not available"
         fi
         
-        echo "✅ Security dependency installation completed (with potential fallbacks)"
+        echo "SUCCESS: Security dependency installation completed (with potential fallbacks)"
+
+    - name: Make Security Scripts Executable
+      run: chmod +x .github/scripts/*.py
 
     - name: Run SAST Analysis
       if: matrix.analysis.name == 'sast'
-      run: |
-        echo "=== Static Application Security Testing ==="
-        python -c "
-        import json
-        import subprocess
-        import sys
-        from datetime import datetime
-        from pathlib import Path
-        
-        def run_bandit():
-            # Check if bandit is available first
-            try:
-                subprocess.run(['bandit', '--version'], capture_output=True, check=True, timeout=10)
-            except (subprocess.CalledProcessError, subprocess.TimeoutExpired, FileNotFoundError):
-                print('⚠️  Bandit not available, skipping bandit analysis')
-                return {
-                    'tool': 'bandit',
-                    'findings': [],
-                    'summary': {'total_issues': 0},
-                    'success': False,
-                    'error': 'bandit_not_available',
-                    'skipped': True
-                }
-            
-            try:
-                # Run bandit with enhanced error handling and timeout
-                result = subprocess.run(
-                    ['bandit', '-r', '.', '-f', 'json', '-o', 'bandit_results.json', '--exit-zero'],
-                    capture_output=True, text=True, timeout=240,  # Reduced timeout
-                    cwd='.'
-                )
-                
-                if Path('bandit_results.json').exists() and os.path.getsize('bandit_results.json') > 0:
-                    try:
-                        with open('bandit_results.json', 'r') as f:
-                            bandit_data = json.load(f)
-                        return {
-                            'tool': 'bandit',
-                            'findings': bandit_data.get('results', []),
-                            'summary': bandit_data.get('metrics', {'total_issues': len(bandit_data.get('results', []))}),
-                            'success': True
-                        }
-                    except json.JSONDecodeError as e:
-                        print(f'⚠️  Bandit JSON parsing failed: {e}')
-                        return {
-                            'tool': 'bandit',
-                            'findings': [],
-                            'summary': {'total_issues': 0},
-                            'success': False,
-                            'error': f'json_parse_error: {str(e)}'
-                        }
-                else:
-                    print('⚠️  Bandit results file missing or empty, assuming no issues found')
-                    return {
-                        'tool': 'bandit',
-                        'findings': [],
-                        'summary': {'total_issues': 0},
-                        'success': True,
-                        'note': 'no_results_file_generated'
-                    }
-                    
-            except subprocess.TimeoutExpired:
-                print('⚠️  Bandit analysis timed out after 4 minutes')
-                return {
-                    'tool': 'bandit',
-                    'findings': [],
-                    'summary': {'total_issues': 0},
-                    'success': False,
-                    'error': 'timeout_exceeded'
-                }
-            except Exception as e:
-                print(f'⚠️  Bandit analysis failed: {e}')
-                return {
-                    'tool': 'bandit',
-                    'findings': [],
-                    'summary': {'total_issues': 0},
-                    'success': False,
-                    'error': str(e)
-                }
-        
-        def run_semgrep():
-            # Check if semgrep is available first
-            try:
-                subprocess.run(['semgrep', '--version'], capture_output=True, check=True, timeout=10)
-            except (subprocess.CalledProcessError, subprocess.TimeoutExpired, FileNotFoundError):
-                print('⚠️  Semgrep not available, skipping semgrep analysis')
-                return {
-                    'tool': 'semgrep',
-                    'findings': [],
-                    'summary': {'total_issues': 0},
-                    'success': False,
-                    'error': 'semgrep_not_available',
-                    'skipped': True
-                }
-            
-            try:
-                # Run semgrep with enhanced error handling and reduced timeout
-                result = subprocess.run(
-                    ['semgrep', '--config=auto', '--json', '--output=semgrep_results.json', '.', '--timeout=180'],
-                    capture_output=True, text=True, timeout=300,  # Reduced timeout
-                    cwd='.'
-                )
-                
-                if Path('semgrep_results.json').exists() and os.path.getsize('semgrep_results.json') > 0:
-                    try:
-                        with open('semgrep_results.json', 'r') as f:
-                            semgrep_data = json.load(f)
-                        return {
-                            'tool': 'semgrep',
-                            'findings': semgrep_data.get('results', []),
-                            'summary': {'total_issues': len(semgrep_data.get('results', []))},
-                            'success': True
-                        }
-                    except json.JSONDecodeError as e:
-                        print(f'⚠️  Semgrep JSON parsing failed: {e}')
-                        return {
-                            'tool': 'semgrep',
-                            'findings': [],
-                            'summary': {'total_issues': 0},
-                            'success': False,
-                            'error': f'json_parse_error: {str(e)}'
-                        }
-                else:
-                    print('⚠️  Semgrep results file missing or empty, assuming no issues found')
-                    return {
-                        'tool': 'semgrep',
-                        'findings': [],
-                        'summary': {'total_issues': 0},
-                        'success': True,
-                        'note': 'no_results_file_generated'
-                    }
-                    
-            except subprocess.TimeoutExpired:
-                print('⚠️  Semgrep analysis timed out after 5 minutes')
-                return {
-                    'tool': 'semgrep',
-                    'findings': [],
-                    'summary': {'total_issues': 0},
-                    'success': False,
-                    'error': 'timeout_exceeded'
-                }
-            except Exception as e:
-                print(f'⚠️  Semgrep analysis failed: {e}')
-                return {
-                    'tool': 'semgrep',
-                    'findings': [],
-                    'summary': {'total_issues': 0},
-                    'success': False,
-                    'error': str(e)
-                }
-        
-        # Run SAST tools
-        bandit_results = run_bandit()
-        semgrep_results = run_semgrep()
-        
-        # Consolidate results
-        critical_findings = []
-        high_findings = []
-        medium_findings = []
-        low_findings = []
-        
-        # Track tools that were skipped due to installation failures
-        skipped_tools = []
-        
-        # Process bandit findings (handle skipped tools)
-        if bandit_results.get('skipped', False):
-            skipped_tools.append('bandit')
-            print('⚠️  Bandit analysis was skipped due to installation issues')
-        else:
-            for finding in bandit_results.get('findings', []):
-                severity = finding.get('issue_severity', 'LOW').lower()
-                if severity in ['critical', 'high']:
-                    (critical_findings if severity == 'critical' else high_findings).append({
-                        'tool': 'bandit',
-                        'severity': severity,
-                        'description': finding.get('issue_text', ''),
-                        'file': finding.get('filename', ''),
-                        'line': finding.get('line_number', 0)
-                    })
-                elif severity == 'medium':
-                    medium_findings.append({
-                        'tool': 'bandit',
-                        'severity': severity,
-                        'description': finding.get('issue_text', ''),
-                        'file': finding.get('filename', ''),
-                        'line': finding.get('line_number', 0)
-                    })
-                else:
-                    low_findings.append({
-                        'tool': 'bandit',
-                        'severity': severity,
-                        'description': finding.get('issue_text', ''),
-                        'file': finding.get('filename', ''),
-                        'line': finding.get('line_number', 0)
-                    })
-        
-        # Process semgrep findings (handle skipped tools)
-        if semgrep_results.get('skipped', False):
-            skipped_tools.append('semgrep')
-            print('⚠️  Semgrep analysis was skipped due to installation issues')
-        else:
-            for finding in semgrep_results.get('findings', []):
-                extra = finding.get('extra', {})
-                severity = extra.get('severity', 'INFO').lower()
-                if severity in ['error', 'warning']:
-                    severity_mapped = 'high' if severity == 'error' else 'medium'
-                    target_list = high_findings if severity_mapped == 'high' else medium_findings
-                    target_list.append({
-                        'tool': 'semgrep',
-                        'severity': severity_mapped,
-                        'description': extra.get('message', ''),
-                        'file': finding.get('path', ''),
-                        'line': finding.get('start', {}).get('line', 0)
-                    })
-                else:
-                    low_findings.append({
-                        'tool': 'semgrep',
-                        'severity': 'low',
-                        'description': extra.get('message', ''),
-                        'file': finding.get('path', ''),
-                        'line': finding.get('start', {}).get('line', 0)
-                    })
-        
-        # Calculate tools coverage (adjust quality gates based on available tools)
-        total_tools = 2  # bandit + semgrep
-        available_tools = total_tools - len(skipped_tools)
-        tools_coverage = available_tools / total_tools if total_tools > 0 else 0
-        
-        # Adjust quality thresholds based on tool availability
-        # If tools are missing, be more lenient to avoid false failures
-        if tools_coverage < 1.0:  # Some tools are missing
-            critical_threshold = 2 if tools_coverage >= 0.5 else 5  # More lenient
-            high_threshold = 8 if tools_coverage >= 0.5 else 15     # More lenient
-            print(f'⚠️  Adjusting quality thresholds due to {len(skipped_tools)} missing tools (coverage: {tools_coverage:.0%})')
-        else:
-            critical_threshold = 0  # Normal thresholds
-            high_threshold = 3
-        
-        # Create consolidated SAST report with tool availability information
-        sast_report = {
-            'timestamp': datetime.now().isoformat(),
-            'analysis_type': 'sast-security',
-            'execution_mode': 'parallel',
-            'runner_type': '${{ matrix.analysis.runner }}',
-            'tools': {
-                'bandit': bandit_results,
-                'semgrep': semgrep_results
-            },
-            'tool_availability': {
-                'total_tools': total_tools,
-                'available_tools': available_tools,
-                'skipped_tools': skipped_tools,
-                'coverage': tools_coverage,
-                'adjusted_thresholds': tools_coverage < 1.0
-            },
-            'findings_summary': {
-                'critical': len(critical_findings),
-                'high': len(high_findings),
-                'medium': len(medium_findings),
-                'low': len(low_findings),
-                'total': len(critical_findings) + len(high_findings) + len(medium_findings) + len(low_findings)
-            },
-            'findings': {
-                'critical': critical_findings[:10],  # Limit for artifact size
-                'high': high_findings[:15],
-                'medium': medium_findings[:20],
-                'low': low_findings[:10]
-            },
-            'nasa_compliance': {
-                'rule_3_violations': len([f for f in critical_findings + high_findings if 'assertion' in f.get('description', '').lower()]),
-                'rule_7_violations': len([f for f in critical_findings + high_findings if 'memory' in f.get('description', '').lower()]),
-                'overall_compliance': 0.95 if len(critical_findings) <= critical_threshold and len(high_findings) <= high_threshold else 0.8
-            },
-            'quality_gate_status': {
-                'critical_passed': len(critical_findings) <= critical_threshold,
-                'high_passed': len(high_findings) <= high_threshold,
-                'overall_passed': len(critical_findings) <= critical_threshold and len(high_findings) <= high_threshold,
-                'thresholds_used': {
-                    'critical': critical_threshold,
-                    'high': high_threshold
-                }
-            }
-        }
-        
-        # Save SAST results
-        with open('.claude/.artifacts/security/sast_analysis.json', 'w') as f:
-            json.dump(sast_report, f, indent=2, default=str)
-        
-        print('✅ SAST Analysis completed')
-        print(f'Critical: {len(critical_findings)}, High: {len(high_findings)}')
-        print(f'Quality Gate: {\"PASSED\" if sast_report[\"quality_gate_status\"][\"overall_passed\"] else \"FAILED\"}')
-        "
+      run: python .github/scripts/sast_analysis.py
 
     - name: Run Supply Chain Analysis
       if: matrix.analysis.name == 'supply_chain'
-      run: |
-        echo "=== Supply Chain Security Analysis ==="
-        python -c "
-        import json
-        import subprocess
-        import sys
-        from datetime import datetime
-        from pathlib import Path
-        
-        def run_safety():
-            try:
-                result = subprocess.run(
-                    ['safety', 'check', '--json', '--output', 'safety_results.json'],
-                    capture_output=True, text=True, timeout=300
-                )
-                
-                if Path('safety_results.json').exists():
-                    with open('safety_results.json', 'r') as f:
-                        safety_data = json.load(f)
-                    return {
-                        'tool': 'safety',
-                        'vulnerabilities': safety_data,
-                        'success': True
-                    }
-            except Exception as e:
-                print(f'Safety check failed: {e}')
-                return {
-                    'tool': 'safety',
-                    'vulnerabilities': [],
-                    'success': False,
-                    'error': str(e)
-                }
-        
-        def run_pip_audit():
-            try:
-                result = subprocess.run(
-                    ['pip-audit', '--format=json', '--output=pip_audit_results.json'],
-                    capture_output=True, text=True, timeout=300
-                )
-                
-                if Path('pip_audit_results.json').exists():
-                    with open('pip_audit_results.json', 'r') as f:
-                        audit_data = json.load(f)
-                    return {
-                        'tool': 'pip-audit',
-                        'vulnerabilities': audit_data.get('dependencies', []),
-                        'success': True
-                    }
-            except Exception as e:
-                print(f'Pip audit failed: {e}')
-                return {
-                    'tool': 'pip-audit',
-                    'vulnerabilities': [],
-                    'success': False,
-                    'error': str(e)
-                }
-        
-        # Run supply chain tools
-        safety_results = run_safety()
-        audit_results = run_pip_audit()
-        
-        # Process vulnerabilities
-        critical_vulns = []
-        high_vulns = []
-        medium_vulns = []
-        low_vulns = []
-        
-        # Process safety vulnerabilities
-        for vuln in safety_results.get('vulnerabilities', []):
-            severity = vuln.get('severity', 'unknown').lower()
-            vuln_data = {
-                'tool': 'safety',
-                'package': vuln.get('package', ''),
-                'version': vuln.get('version', ''),
-                'vulnerability_id': vuln.get('id', ''),
-                'description': vuln.get('advisory', ''),
-                'severity': severity
-            }
-            
-            if severity in ['critical', 'high']:
-                (critical_vulns if severity == 'critical' else high_vulns).append(vuln_data)
-            elif severity == 'medium':
-                medium_vulns.append(vuln_data)
-            else:
-                low_vulns.append(vuln_data)
-        
-        # Process pip-audit vulnerabilities
-        for vuln in audit_results.get('vulnerabilities', []):
-            severity = 'medium'  # pip-audit doesn't provide severity, assume medium
-            vuln_data = {
-                'tool': 'pip-audit',
-                'package': vuln.get('name', ''),
-                'version': vuln.get('version', ''),
-                'vulnerability_id': vuln.get('id', ''),
-                'description': vuln.get('description', ''),
-                'severity': severity
-            }
-            medium_vulns.append(vuln_data)
-        
-        # Create supply chain report
-        supply_chain_report = {
-            'timestamp': datetime.now().isoformat(),
-            'analysis_type': 'supply-chain-security',
-            'execution_mode': 'parallel',
-            'runner_type': '${{ matrix.analysis.runner }}',
-            'tools': {
-                'safety': safety_results,
-                'pip_audit': audit_results
-            },
-            'vulnerability_summary': {
-                'critical': len(critical_vulns),
-                'high': len(high_vulns),
-                'medium': len(medium_vulns),
-                'low': len(low_vulns),
-                'total': len(critical_vulns) + len(high_vulns) + len(medium_vulns) + len(low_vulns)
-            },
-            'vulnerabilities': {
-                'critical': critical_vulns,
-                'high': high_vulns,
-                'medium': medium_vulns[:15],  # Limit for artifact size
-                'low': low_vulns[:10]
-            },
-            'quality_gate_status': {
-                'critical_passed': len(critical_vulns) == 0,
-                'high_passed': len(high_vulns) <= 3,
-                'overall_passed': len(critical_vulns) == 0 and len(high_vulns) <= 3
-            }
-        }
-        
-        # Save supply chain results
-        with open('.claude/.artifacts/security/supply_chain_analysis.json', 'w') as f:
-            json.dump(supply_chain_report, f, indent=2, default=str)
-        
-        print('✅ Supply Chain Analysis completed')
-        print(f'Critical: {len(critical_vulns)}, High: {len(high_vulns)}')
-        print(f'Quality Gate: {\"PASSED\" if supply_chain_report[\"quality_gate_status\"][\"overall_passed\"] else \"FAILED\"}')
-        "
+      run: python .github/scripts/supply_chain_analysis.py
 
     - name: Run Secrets Detection
       if: matrix.analysis.name == 'secrets'
-      run: |
-        echo "=== Secrets Detection Analysis ==="
-        python -c "
-        import json
-        import subprocess
-        import sys
-        from datetime import datetime
-        from pathlib import Path
-        
-        def run_detect_secrets():
-            try:
-                # Initialize detect-secrets baseline
-                subprocess.run(['detect-secrets', 'scan', '--baseline', '.secrets.baseline'], 
-                              capture_output=True, text=True, timeout=300)
-                
-                if Path('.secrets.baseline').exists():
-                    with open('.secrets.baseline', 'r') as f:
-                        secrets_data = json.load(f)
-                    return {
-                        'tool': 'detect-secrets',
-                        'secrets': secrets_data.get('results', {}),
-                        'success': True
-                    }
-            except Exception as e:
-                print(f'Secrets detection failed: {e}')
-                return {
-                    'tool': 'detect-secrets',
-                    'secrets': {},
-                    'success': False,
-                    'error': str(e)
-                }
-        
-        # Run secrets detection
-        secrets_results = run_detect_secrets()
-        
-        # Process secrets findings
-        secrets_found = []
-        total_secrets = 0
-        
-        for file_path, findings in secrets_results.get('secrets', {}).items():
-            for finding in findings:
-                secrets_found.append({
-                    'tool': 'detect-secrets',
-                    'file': file_path,
-                    'type': finding.get('type', 'unknown'),
-                    'line': finding.get('line_number', 0),
-                    'severity': 'critical'  # All secrets are critical
-                })
-                total_secrets += 1
-        
-        # Create secrets report
-        secrets_report = {
-            'timestamp': datetime.now().isoformat(),
-            'analysis_type': 'secrets-detection',
-            'execution_mode': 'parallel',
-            'runner_type': '${{ matrix.analysis.runner }}',
-            'tools': {
-                'detect_secrets': secrets_results
-            },
-            'secrets_summary': {
-                'total_secrets_found': total_secrets,
-                'files_with_secrets': len(secrets_results.get('secrets', {})),
-                'secret_types': list(set([s.get('type', 'unknown') for s in secrets_found]))
-            },
-            'secrets': secrets_found[:20],  # Limit for artifact size
-            'quality_gate_status': {
-                'secrets_passed': total_secrets == 0,
-                'overall_passed': total_secrets == 0
-            }
-        }
-        
-        # Save secrets results
-        with open('.claude/.artifacts/security/secrets_analysis.json', 'w') as f:
-            json.dump(secrets_report, f, indent=2, default=str)
-        
-        print('✅ Secrets Detection completed')
-        print(f'Secrets Found: {total_secrets}')
-        print(f'Quality Gate: {\"PASSED\" if secrets_report[\"quality_gate_status\"][\"overall_passed\"] else \"FAILED\"}')
-        "
+      run: python .github/scripts/secrets_analysis.py
 
     - name: Upload Security Analysis Artifact
       uses: actions/upload-artifact@v4
@@ -680,230 +178,14 @@ jobs:
         path: ./security-artifacts
         merge-multiple: true
 
+    - name: Make Security Scripts Executable
+      run: chmod +x .github/scripts/*.py
+
     - name: Consolidate Security Results
-      run: |
-        echo "🔒 Consolidating all security analysis results..."
-        python -c "
-        import json
-        import os
-        import glob
-        from pathlib import Path
-        from datetime import datetime
-        
-        # Create consolidated security report
-        consolidated = {
-            'consolidated_timestamp': datetime.now().isoformat(),
-            'execution_mode': 'parallel',
-            'security_summary': {},
-            'overall_security_score': 0.0,
-            'critical_security_issues': [],
-            'quality_gates': {},
-            'nasa_compliance_status': {}
-        }
-        
-        # Find all security analysis files
-        security_files = glob.glob('./security-artifacts/*_analysis.json')
-        
-        total_critical = 0
-        total_high = 0
-        total_medium = 0
-        total_low = 0
-        gates_passed = 0
-        total_gates = 0
-        
-        for filepath in security_files:
-            try:
-                with open(filepath, 'r') as f:
-                    data = json.load(f)
-                
-                analysis_type = data.get('analysis_type', '').replace('-security', '').replace('-', '_')
-                
-                if 'sast' in analysis_type:
-                    findings = data.get('findings_summary', {})
-                    critical = findings.get('critical', 0)
-                    high = findings.get('high', 0)
-                    medium = findings.get('medium', 0)
-                    low = findings.get('low', 0)
-                    
-                    consolidated['security_summary']['sast'] = {
-                        'critical_findings': critical,
-                        'high_findings': high,
-                        'medium_findings': medium,
-                        'low_findings': low,
-                        'total_findings': findings.get('total', 0),
-                        'nasa_compliance': data.get('nasa_compliance', {}),
-                        'quality_gate_passed': data.get('quality_gate_status', {}).get('overall_passed', False)
-                    }
-                    
-                    total_critical += critical
-                    total_high += high
-                    total_medium += medium
-                    total_low += low
-                    
-                    if data.get('quality_gate_status', {}).get('overall_passed', False):
-                        gates_passed += 1
-                    total_gates += 1
-                    
-                elif 'supply_chain' in analysis_type:
-                    vulns = data.get('vulnerability_summary', {})
-                    critical = vulns.get('critical', 0)
-                    high = vulns.get('high', 0)
-                    medium = vulns.get('medium', 0)
-                    low = vulns.get('low', 0)
-                    
-                    consolidated['security_summary']['supply_chain'] = {
-                        'critical_vulnerabilities': critical,
-                        'high_vulnerabilities': high,
-                        'medium_vulnerabilities': medium,
-                        'low_vulnerabilities': low,
-                        'total_vulnerabilities': vulns.get('total', 0),
-                        'quality_gate_passed': data.get('quality_gate_status', {}).get('overall_passed', False)
-                    }
-                    
-                    total_critical += critical
-                    total_high += high
-                    total_medium += medium
-                    total_low += low
-                    
-                    if data.get('quality_gate_status', {}).get('overall_passed', False):
-                        gates_passed += 1
-                    total_gates += 1
-                    
-                elif 'secrets' in analysis_type:
-                    secrets = data.get('secrets_summary', {})
-                    secrets_count = secrets.get('total_secrets_found', 0)
-                    
-                    consolidated['security_summary']['secrets'] = {
-                        'secrets_found': secrets_count,
-                        'files_with_secrets': secrets.get('files_with_secrets', 0),
-                        'secret_types': secrets.get('secret_types', []),
-                        'quality_gate_passed': data.get('quality_gate_status', {}).get('overall_passed', False)
-                    }
-                    
-                    # All secrets are critical
-                    total_critical += secrets_count
-                    
-                    if data.get('quality_gate_status', {}).get('overall_passed', False):
-                        gates_passed += 1
-                    total_gates += 1
-                    
-            except Exception as e:
-                print(f'Failed to process {filepath}: {e}')
-        
-        # Calculate overall security score
-        max_possible_score = 100
-        critical_penalty = total_critical * 20  # 20 points per critical
-        high_penalty = total_high * 10         # 10 points per high  
-        medium_penalty = total_medium * 5      # 5 points per medium
-        low_penalty = total_low * 1            # 1 point per low
-        
-        total_penalty = critical_penalty + high_penalty + medium_penalty + low_penalty
-        security_score = max(0, max_possible_score - total_penalty) / max_possible_score
-        
-        consolidated['overall_security_score'] = security_score
-        
-        # Quality gates summary
-        consolidated['quality_gates'] = {
-            'total_gates': total_gates,
-            'gates_passed': gates_passed,
-            'gates_failed': total_gates - gates_passed,
-            'overall_gate_passed': gates_passed == total_gates,
-            'pass_rate': (gates_passed / total_gates * 100) if total_gates > 0 else 100
-        }
-        
-        # Critical issues summary
-        if total_critical > 0:
-            consolidated['critical_security_issues'].append(f'Found {total_critical} critical security issues')
-        if total_high > 5:
-            consolidated['critical_security_issues'].append(f'Found {total_high} high-severity security issues')
-        
-        # NASA compliance summary
-        nasa_compliance_score = 0.95 if total_critical == 0 and total_high <= 3 else 0.8
-        consolidated['nasa_compliance_status'] = {
-            'overall_compliance_score': nasa_compliance_score,
-            'compliant': nasa_compliance_score >= 0.92,
-            'critical_violations': total_critical,
-            'high_violations': total_high
-        }
-        
-        # Save consolidated security report
-        with open('.claude/.artifacts/security/security_gates_report.json', 'w') as f:
-            json.dump(consolidated, f, indent=2, default=str)
-        
-        print('✅ Security consolidation completed')
-        print(f'Overall Security Score: {security_score:.2%}')
-        print(f'Critical Issues: {total_critical}')
-        print(f'Quality Gates: {gates_passed}/{total_gates} passed')
-        print(f'NASA Compliance: {nasa_compliance_score:.2%}')
-        "
+      run: python .github/scripts/security_consolidation.py
 
     - name: Security Quality Gate Decision
-      run: |
-        echo "=== Security Quality Gate Decision ==="
-        python -c "
-        import json
-        import sys
-        
-        with open('.claude/.artifacts/security/security_gates_report.json', 'r') as f:
-            data = json.load(f)
-        
-        security_score = data.get('overall_security_score', 0)
-        critical_issues = len(data.get('critical_security_issues', []))
-        gates = data.get('quality_gates', {})
-        nasa_compliance = data.get('nasa_compliance_status', {})
-        
-        print(f'Overall Security Score: {security_score:.2%}')
-        print(f'Critical Security Issues: {critical_issues}')
-        print(f'Quality Gates: {gates.get(\"gates_passed\", 0)}/{gates.get(\"total_gates\", 0)} passed')
-        print(f'NASA Compliance: {nasa_compliance.get(\"overall_compliance_score\", 0):.2%}')
-        
-        # Security gate thresholds
-        min_security_score = 0.80
-        max_critical_issues = 0
-        min_gate_pass_rate = 100
-        min_nasa_compliance = 0.92
-        
-        failed = False
-        
-        if security_score < min_security_score:
-            print(f'❌ Security score: {security_score:.2%} < {min_security_score:.2%}')
-            failed = True
-        else:
-            print(f'✅ Security score: {security_score:.2%} >= {min_security_score:.2%}')
-        
-        sast_critical = data.get('security_summary', {}).get('sast', {}).get('critical_findings', 0)
-        supply_critical = data.get('security_summary', {}).get('supply_chain', {}).get('critical_vulnerabilities', 0)  
-        secrets_found = data.get('security_summary', {}).get('secrets', {}).get('secrets_found', 0)
-        total_critical = sast_critical + supply_critical + secrets_found
-        
-        if total_critical > max_critical_issues:
-            print(f'❌ Critical security issues: {total_critical} > {max_critical_issues}')
-            failed = True
-        else:
-            print(f'✅ Critical security issues: {total_critical} <= {max_critical_issues}')
-        
-        pass_rate = gates.get('pass_rate', 0)
-        if pass_rate < min_gate_pass_rate:
-            print(f'❌ Gate pass rate: {pass_rate:.1f}% < {min_gate_pass_rate}%')
-            failed = True
-        else:
-            print(f'✅ Gate pass rate: {pass_rate:.1f}% >= {min_gate_pass_rate}%')
-        
-        compliance_score = nasa_compliance.get('overall_compliance_score', 0)
-        if compliance_score < min_nasa_compliance:
-            print(f'❌ NASA compliance: {compliance_score:.2%} < {min_nasa_compliance:.2%}')
-            failed = True
-        else:
-            print(f'✅ NASA compliance: {compliance_score:.2%} >= {min_nasa_compliance:.2%}')
-        
-        if failed:
-            print('\\n🚨 SECURITY QUALITY GATE FAILED')
-            print('🔒 Security issues must be resolved before deployment')
-            sys.exit(1)
-        else:
-            print('\\n✅ SECURITY QUALITY GATE PASSED')
-            print('🛡️ Security hardening successful!')
-        "
+      run: python .github/scripts/security_gate_decision.py
 
     - name: Upload Consolidated Security Report
       uses: actions/upload-artifact@v4
