@@ -491,10 +491,6 @@ class ArchitectureOrchestrator:
                     "fallback": True
                 }
             }
-            violations_result = self.orchestrate_analysis_phases(
-                project_path=path_obj,
-                policy_preset="service-defaults",
-                analyzers=analyzers
             )
             
             # Extract architectural metrics
