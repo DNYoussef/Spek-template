@@ -90,7 +90,14 @@
       "Bash(yamllint:*)",
       "Bash(yaml-validator:*)",
       "mcp__filesystem__create_directory",
-      "mcp__filesystem__directory_tree"
+      "mcp__filesystem__directory_tree",
+      "Bash(dir:*)",
+      "Bash(if [ -f \".claude/.artifacts/test_ci_output.json\" ])",
+      "Bash(then echo \"Output file created successfully\")",
+      "Bash(else echo \"Output file not found\")",
+      "Bash(fi)",
+      "Bash(if [ -f \".claude/.artifacts/test_sarif_output.json\" ])",
+      "Bash(else echo \"SARIF file not found\")"
     ],
     "deny": [],
     "ask": []

@@ -54,7 +54,7 @@ def check_analyzer_imports():
     # Core analyzer components to test
     components = [
         ('ConnascenceAnalyzer', 'analyzer.connascence_analyzer'),
-        ('AnalysisOrchestrator', 'analyzer.architecture.orchestrator'),
+        ('ArchitectureOrchestrator', 'analyzer.architecture.orchestrator'),
         ('StreamingPerformanceMonitor', 'analyzer.optimization.performance_monitor'),
         ('FileContentCache', 'analyzer.optimization.file_cache'),
         ('MECEAnalyzer', 'analyzer.dup_detection.mece_analyzer'),

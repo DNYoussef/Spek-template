@@ -643,3 +643,7 @@ class ArchitectureOrchestrator:
             "error": error_message,
             "fallback_mode": True
         }
+
+
+# Compatibility alias for CI/CD imports
+AnalysisOrchestrator = ArchitectureOrchestrator

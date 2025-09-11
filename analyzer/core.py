@@ -1082,18 +1082,31 @@ def map_severity_to_sarif(severity: str) -> str:
     return reporter._map_severity_to_level(severity)
 
 
+def get_core_analyzer(policy: str = "default", **kwargs) -> 'ConnascenceAnalyzer':
+    """
+    Get a configured core analyzer instance.
+    
+    Args:
+        policy: Analysis policy to use ('default', 'strict', 'relaxed')
+        **kwargs: Additional configuration options
+        
+    Returns:
+        ConnascenceAnalyzer: Configured analyzer instance
+    """
+    return ConnascenceAnalyzer()
+
+
 if __name__ == "__main__":
     main()
-
-
-__all__ = ["ConnascenceAnalyzer", "ConnascenceViolation", "main"]
 
 
 # Export enhanced functions for testing and CI integration
 __all__ = [
     'main', 
     'ConnascenceAnalyzer', 
+    'ConnascenceViolation',
     'validate_critical_dependencies',
     'create_enhanced_mock_import_manager',
+    'get_core_analyzer',
     'IMPORT_MANAGER'
 ]

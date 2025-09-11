@@ -718,3 +718,6 @@ PRIORITY ACTIONS:
 
 # Singleton instance for global access
 reporting_coordinator = UnifiedReportingCoordinator()
+
+# Compatibility alias for CI/CD imports
+ReportingCoordinator = UnifiedReportingCoordinator

@@ -109,8 +109,19 @@ except ImportError:
     from nasa_engine.nasa_analyzer import NASAAnalyzer
 
 # Import new architecture components
-# Temporarily disabled broken architecture imports - will re-implement correctly
-pass
+try:
+    from .architecture.aggregator import ViolationAggregator
+    from .architecture.recommendation_engine import RecommendationEngine  
+    from .architecture.enhanced_metrics import EnhancedMetricsCalculator
+    from .optimization.file_cache import FileContentCache
+    ARCHITECTURE_EXTRACTED_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Architecture extracted components not available: {e}")
+    ViolationAggregator = None
+    RecommendationEngine = None
+    EnhancedMetricsCalculator = None
+    FileContentCache = None
+    ARCHITECTURE_EXTRACTED_AVAILABLE = False
 
 # Try to import Tree-Sitter backend with fallback
 try:
@@ -449,12 +460,35 @@ class UnifiedConnascenceAnalyzer:
             self.config = self.config_manager.config
 
         # Initialize new architecture components (NASA Rule 4 compliant)
-        # Temporarily disabled all broken architecture components
-        # self.config_manager = ConfigurationManager() 
-        # self.orchestrator_component = AnalysisOrchestrator()
-        # self.aggregator = ViolationAggregator()
-        # self.recommendation_engine = RecommendationEngine()
-        # self.enhanced_metrics = EnhancedMetricsCalculator()
+        # Use module-level imports for better reliability
+        if ARCHITECTURE_EXTRACTED_AVAILABLE:
+            self.aggregator = ViolationAggregator()
+            self.recommendation_engine = RecommendationEngine()
+            self.enhanced_metrics = EnhancedMetricsCalculator()
+            self.file_cache = FileContentCache(max_memory=50 * 1024 * 1024)  # Initialize file cache (50MB)
+        else:
+            # Fallback to None if components not available
+            logger.warning("Architecture extracted components not available, using fallbacks")
+            self.aggregator = None
+            self.recommendation_engine = None
+            self.enhanced_metrics = None
+            self.file_cache = None
+            
+        # Initialize orchestrator component for analysis phases
+        if ARCHITECTURE_EXTRACTED_AVAILABLE:
+            from .architecture.orchestrator import ArchitectureOrchestrator
+            self.orchestrator_component = ArchitectureOrchestrator()
+            self.orchestrator = self.orchestrator_component  # Alias for backward compatibility
+        else:
+            self.orchestrator_component = None
+            self.orchestrator = None
+        
+        # Initialize cache statistics tracking
+        self._cache_stats = {"hits": 0, "misses": 0, "warm_requests": 0, "batch_loads": 0}
+        
+        # Initialize analysis patterns tracking
+        self._analysis_patterns = {}
+        self._file_priorities = {}
         
         # Configuration loaded through config_manager
         

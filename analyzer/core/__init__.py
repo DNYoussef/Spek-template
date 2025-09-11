@@ -19,12 +19,19 @@ def _lazy_import_from_core():
         if str(analyzer_path) not in sys.path:
             sys.path.insert(0, str(analyzer_path))
         
-        # Import enhanced functions from core.py
-        import core as core_module
+        # Import enhanced functions from core.py (import as analyzer.core module)
+        import analyzer.core as analyzer_core_module
+        
+        # Now import the actual core.py file by adding the analyzer path and importing
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("core_module", str(core_py_path))
+        core_module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(core_module)
         return {
             'ConnascenceAnalyzer': getattr(core_module, 'ConnascenceAnalyzer', None),
             'validate_critical_dependencies': getattr(core_module, 'validate_critical_dependencies', None),
             'create_enhanced_mock_import_manager': getattr(core_module, 'create_enhanced_mock_import_manager', None),
+            'get_core_analyzer': getattr(core_module, 'get_core_analyzer', None),
             'main': getattr(core_module, 'main', None)
         }
         
@@ -38,6 +45,7 @@ _enhanced_functions = _lazy_import_from_core()
 ConnascenceAnalyzer = _enhanced_functions.get('ConnascenceAnalyzer')
 validate_critical_dependencies = _enhanced_functions.get('validate_critical_dependencies')
 create_enhanced_mock_import_manager = _enhanced_functions.get('create_enhanced_mock_import_manager')
+get_core_analyzer = _enhanced_functions.get('get_core_analyzer')
 main = _enhanced_functions.get('main')
 
 # Build __all__ dynamically

@@ -12,11 +12,11 @@ sys.path.insert(0, ".")
 def run_architecture_analysis():
     """Run comprehensive architecture analysis."""
     try:
-        from analyzer.architecture.orchestrator import AnalysisOrchestrator as ArchitectureOrchestrator
+        from analyzer.architecture.orchestrator import ArchitectureOrchestrator
         
         # Run architecture analysis
         orchestrator = ArchitectureOrchestrator()
-        analysis_result = orchestrator.run_comprehensive_analysis()
+        analysis_result = orchestrator.analyze_architecture(".")
         
         # Ensure output directory exists
         os.makedirs("../.claude/.artifacts", exist_ok=True)
