@@ -1032,6 +1032,25 @@ class CachePerformanceProfiler:
         summary["coherence_stats"] = self.coherence_manager.coherence_stats.copy()
         
         return summary
+    
+    def measure_cache_hit_rate(self) -> float:
+        """Measure current cache hit rate across all cache layers.
+        
+        Returns:
+            float: Average hit rate percentage (0-100)
+        """
+        total_hit_rate = 0.0
+        active_caches = 0
+        
+        # Calculate hit rate for each active cache layer
+        for cache_name, metrics_list in self.metrics_history.items():
+            if metrics_list:
+                latest_metrics = metrics_list[-1]
+                total_hit_rate += latest_metrics.hit_rate
+                active_caches += 1
+        
+        # Return average hit rate across all active caches
+        return total_hit_rate / active_caches if active_caches > 0 else 0.0
 
 
 # Global profiler instance

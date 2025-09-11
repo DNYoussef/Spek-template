@@ -213,6 +213,9 @@ class Phase3PerformanceValidator:
         """Validate cache performance profiler achieving 96.7% hit rates."""
         test_name = "Cache Performance Profiler Validation"
         
+        # Get target hit rate for this validation (moved before try block for proper scoping)
+        target_hit_rate = self.performance_targets['cache_hit_rate']
+        
         with self.measurement_util.measure_execution():
             try:
                 # Execute cache performance test
@@ -225,9 +228,6 @@ class Phase3PerformanceValidator:
                     # Parse performance metrics from output
                     metrics = self._parse_cache_metrics(result.stdout)
                     hit_rate = metrics.get('average_hit_rate', 0.0)
-                    
-                    # Validate against target (96.7% hit rate)
-                    target_hit_rate = self.performance_targets['cache_hit_rate']
                     improvement = hit_rate
                     validation_passed = hit_rate >= target_hit_rate * 0.9  # 90% of target
                     

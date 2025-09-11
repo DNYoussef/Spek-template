@@ -385,13 +385,20 @@ class DetectorVisitorCoordinator:
                 coordination_id, file_path, source_lines, detector_types, visitor_config, shared_pool
             )
             
-            # Update metrics
+            # Update metrics with proper synchronization
             coordination_time = (time.time() - coordination_start) * 1000
-            self.coordination_metrics.visitor_detector_coordination_ms = (
-                (self.coordination_metrics.visitor_detector_coordination_ms * 
-                 len(self.coordination_history) + coordination_time) / 
-                (len(self.coordination_history) + 1)
-            )
+            with self._coordination_lock:
+                history_len = len(self.coordination_history)
+                self.coordination_metrics.visitor_detector_coordination_ms = (
+                    (self.coordination_metrics.visitor_detector_coordination_ms * 
+                     history_len + coordination_time) / 
+                    (history_len + 1)
+                )
+                self.coordination_history.append({
+                    'coordination_id': coordination_id,
+                    'duration_ms': coordination_time,
+                    'timestamp': time.time()
+                })
             
             return coordination_results
             
@@ -622,15 +629,7 @@ class DetectorVisitorCoordinator:
                     0, self.coordination_metrics.active_visitors - 1
                 )
                 
-                # Store coordination history
-                coordination_time = time.time() - coordination["start_time"]
-                self.coordination_history.append({
-                    "coordination_id": coordination_id,
-                    "file_path": file_path,
-                    "duration_seconds": coordination_time,
-                    "detector_types": coordination["detector_types"],
-                    "timestamp": time.time()
-                })
+                # Skip duplicate history storage (already handled in main method)
     
     def get_coordination_report(self) -> Dict[str, Any]:
         """Generate comprehensive coordination report."""

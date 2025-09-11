@@ -45,29 +45,29 @@
   },
   "aggregation_pipeline": {
     "raw_results": {
-      "volume_10": "AggregationBenchmarkMetrics(total_aggregation_time_ms=0.13458000003083725, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=10000.0, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=0.0078125, memory_growth_mb=0.00234375, gc_collections=0, memory_efficiency_ratio=10.0, processing_latency_p50_ms=0.12590000005729962, processing_latency_p95_ms=0.1337000003331923, processing_latency_p99_ms=0.1337000003331923, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)",
-      "volume_50": "AggregationBenchmarkMetrics(total_aggregation_time_ms=1.3530600000194681, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=36953.27627694307, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=0.0234375, memory_growth_mb=0.00859375, gc_collections=0, memory_efficiency_ratio=50.0, processing_latency_p50_ms=1.3564000000769738, processing_latency_p95_ms=1.3714000001527893, processing_latency_p99_ms=1.3714000001527893, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)",
-      "volume_100": "AggregationBenchmarkMetrics(total_aggregation_time_ms=4.987559999881341, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=20049.88411214684, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=0.0625, memory_growth_mb=0.0234375, gc_collections=0, memory_efficiency_ratio=100.0, processing_latency_p50_ms=4.957299999659881, processing_latency_p95_ms=5.052799999702984, processing_latency_p99_ms=5.052799999702984, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)",
-      "volume_500": "AggregationBenchmarkMetrics(total_aggregation_time_ms=130.3127599999243, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=3836.922800194627, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=2.14453125, memory_growth_mb=0.965625, gc_collections=0, memory_efficiency_ratio=233.1511839708561, processing_latency_p50_ms=123.05799999967348, processing_latency_p95_ms=141.0820999999487, processing_latency_p99_ms=141.0820999999487, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)",
-      "volume_1000": "AggregationBenchmarkMetrics(total_aggregation_time_ms=510.30271999989054, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=1959.6211440930877, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=6.171875, memory_growth_mb=1.90546875, gc_collections=0, memory_efficiency_ratio=162.0253164556962, processing_latency_p50_ms=520.0691999998526, processing_latency_p95_ms=524.7312999999849, processing_latency_p99_ms=524.7312999999849, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)",
-      "volume_5000": "AggregationBenchmarkMetrics(total_aggregation_time_ms=13474.957639999957, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=371.0586803744502, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=194.9921875, memory_growth_mb=40.18671875, gc_collections=0, memory_efficiency_ratio=25.64205296686566, processing_latency_p50_ms=13413.702599999851, processing_latency_p95_ms=13532.382900000357, processing_latency_p99_ms=13532.382900000357, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)"
+      "volume_10": "AggregationBenchmarkMetrics(total_aggregation_time_ms=0.1457399997889297, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=10000.0, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=0.0078125, memory_growth_mb=0.00234375, gc_collections=0, memory_efficiency_ratio=10.0, processing_latency_p50_ms=0.13080000007903436, processing_latency_p95_ms=0.16219999997701962, processing_latency_p99_ms=0.16219999997701962, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)",
+      "volume_50": "AggregationBenchmarkMetrics(total_aggregation_time_ms=1.3540600002670544, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=36925.985547271724, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=0.0234375, memory_growth_mb=0.00859375, gc_collections=0, memory_efficiency_ratio=50.0, processing_latency_p50_ms=1.3398000000961474, processing_latency_p95_ms=1.341300000603951, processing_latency_p99_ms=1.341300000603951, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)",
+      "volume_100": "AggregationBenchmarkMetrics(total_aggregation_time_ms=5.733479999798874, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=17441.41429001373, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=0.05859375, memory_growth_mb=0.021875, gc_collections=0, memory_efficiency_ratio=100.0, processing_latency_p50_ms=5.0670000000536675, processing_latency_p95_ms=5.2053999997951905, processing_latency_p99_ms=5.2053999997951905, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)",
+      "volume_500": "AggregationBenchmarkMetrics(total_aggregation_time_ms=127.65447999972821, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=3916.8229740238226, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=2.0234375, memory_growth_mb=0.93203125, gc_collections=0, memory_efficiency_ratio=247.1042471042471, processing_latency_p50_ms=128.77119999939168, processing_latency_p95_ms=129.74909999957163, processing_latency_p99_ms=129.74909999957163, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)",
+      "volume_1000": "AggregationBenchmarkMetrics(total_aggregation_time_ms=531.9878600001175, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=1879.7421429875844, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=5.1875, memory_growth_mb=1.6359375, gc_collections=0, memory_efficiency_ratio=192.7710843373494, processing_latency_p50_ms=518.4941999996227, processing_latency_p95_ms=531.6061000003174, processing_latency_p99_ms=531.6061000003174, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)",
+      "volume_5000": "AggregationBenchmarkMetrics(total_aggregation_time_ms=14388.204220000443, correlation_processing_time_ms=0.0, deduplication_time_ms=0.0, serialization_time_ms=0.0, violations_per_second=347.50688296804327, aggregations_per_second=0.0, peak_throughput_violations_per_sec=0.0, peak_memory_mb=193.73046875, memory_growth_mb=39.69453125, gc_collections=0, memory_efficiency_ratio=25.809053331989112, processing_latency_p50_ms=14327.530400000796, processing_latency_p95_ms=14713.800400000764, processing_latency_p99_ms=14713.800400000764, failed_aggregations=0, timeout_errors=0, memory_pressure_events=0)"
     },
     "performance_analysis": {
       "throughput_scaling": {
-        "factor": -3.7908595004843835,
-        "linearity": -1.3513958094128502
+        "factor": -3.656682829261228,
+        "linearity": -1.302160481122388
       },
       "latency_scaling": {
-        "factor": 2.7816897125066875,
-        "linearity": 0.9539925973004355
+        "factor": 3.025553910016046,
+        "linearity": 0.9525505639357531
       },
       "memory_scaling": {
-        "factor": 0.04008669722111818,
-        "linearity": 0.9512390499015398
+        "factor": 0.03983645916136725,
+        "linearity": 0.9490727573736063
       },
       "optimal_volume_range": {
         "optimal_volume": 50,
-        "peak_throughput": 36953.27627694307,
+        "peak_throughput": 36925.985547271724,
         "recommended_min": 25,
         "recommended_max": 100
       },
@@ -83,16 +83,16 @@
   },
   "correlation_engine": {
     "scenario_results": {
-      "low_density": "CorrelationEngineMetrics(correlation_calculation_time_ms=0.11139999969600467, similarity_computation_time_ms=0.0, confidence_scoring_time_ms=0.01340000017080456, clustering_algorithm_time_ms=0.0, cross_tool_correlation_time_ms=0.0, linter_integration_overhead_ms=0.0, tool_synchronization_time_ms=0.0, correlation_accuracy=0.5, false_positive_rate=0.0, clustering_quality_score=0.725, correlations_processed=2, average_correlation_time_ms=0.055699999848002335, correlation_cache_hit_rate=0.0)",
-      "medium_density": "CorrelationEngineMetrics(correlation_calculation_time_ms=1.3591000001724751, similarity_computation_time_ms=0.0, confidence_scoring_time_ms=0.03210000022590975, clustering_algorithm_time_ms=0.0, cross_tool_correlation_time_ms=0.0, linter_integration_overhead_ms=0.0, tool_synchronization_time_ms=0.0, correlation_accuracy=1.0, false_positive_rate=0.0, clustering_quality_score=1.0, correlations_processed=2, average_correlation_time_ms=0.6795500000862376, correlation_cache_hit_rate=0.0)",
-      "high_density": "CorrelationEngineMetrics(correlation_calculation_time_ms=7.249899999806075, similarity_computation_time_ms=0.0, confidence_scoring_time_ms=0.05339999961506692, clustering_algorithm_time_ms=0.0, cross_tool_correlation_time_ms=0.0, linter_integration_overhead_ms=0.0, tool_synchronization_time_ms=0.0, correlation_accuracy=1.0, false_positive_rate=0.0, clustering_quality_score=1.0, correlations_processed=2, average_correlation_time_ms=3.6249499999030377, correlation_cache_hit_rate=0.0)"
+      "low_density": "CorrelationEngineMetrics(correlation_calculation_time_ms=0.11670000003505265, similarity_computation_time_ms=0.0, confidence_scoring_time_ms=0.015100000382517464, clustering_algorithm_time_ms=0.0, cross_tool_correlation_time_ms=0.0, linter_integration_overhead_ms=0.0, tool_synchronization_time_ms=0.0, correlation_accuracy=0.5, false_positive_rate=0.0, clustering_quality_score=0.725, correlations_processed=2, average_correlation_time_ms=0.05835000001752633, correlation_cache_hit_rate=0.0)",
+      "medium_density": "CorrelationEngineMetrics(correlation_calculation_time_ms=1.391999999214022, similarity_computation_time_ms=0.0, confidence_scoring_time_ms=0.03239999932702631, clustering_algorithm_time_ms=0.0, cross_tool_correlation_time_ms=0.0, linter_integration_overhead_ms=0.0, tool_synchronization_time_ms=0.0, correlation_accuracy=1.0, false_positive_rate=0.0, clustering_quality_score=1.0, correlations_processed=2, average_correlation_time_ms=0.695999999607011, correlation_cache_hit_rate=0.0)",
+      "high_density": "CorrelationEngineMetrics(correlation_calculation_time_ms=7.2338999998464715, similarity_computation_time_ms=0.0, confidence_scoring_time_ms=0.06459999985963805, clustering_algorithm_time_ms=0.0, cross_tool_correlation_time_ms=0.0, linter_integration_overhead_ms=0.0, tool_synchronization_time_ms=0.0, correlation_accuracy=1.0, false_positive_rate=0.0, clustering_quality_score=1.0, correlations_processed=2, average_correlation_time_ms=3.6169499999232357, correlation_cache_hit_rate=0.0)"
     },
     "correlation_analysis": {
-      "average_processing_time_ms": 2.9067999998915184,
-      "processing_time_std_dev": 3.8126207560863716,
+      "average_processing_time_ms": 2.9141999996985155,
+      "processing_time_std_dev": 3.794924714725598,
       "average_accuracy": 0.8333333333333334,
       "average_quality_score": 0.9083333333333333,
-      "performance_consistency": -0.3116212867168908
+      "performance_consistency": -0.3022183498449649
     },
     "optimization_opportunities": [
       "Optimize correlation engine for consistent performance"
@@ -100,16 +100,16 @@
   },
   "streaming_aggregation": {
     "streaming_results": {
-      "low_rate": "StreamingAggregationMetrics(stream_processing_latency_ms=0.009758666671283814, backlog_size=0, processing_velocity=5446.504433531538, buffer_utilization_percent=75.0, buffer_overflows=0, buffer_optimization_efficiency=0.0, incremental_update_time_ms=0.009374000010211603, dependency_invalidation_time_ms=0.0, delta_processing_efficiency=0.0, peak_concurrent_streams=5, stream_multiplexing_efficiency=1.0, load_balancing_effectiveness=0.0)",
-      "medium_rate": "StreamingAggregationMetrics(stream_processing_latency_ms=0.0119694666639892, backlog_size=0, processing_velocity=6610.911706425304, buffer_utilization_percent=75.0, buffer_overflows=0, buffer_optimization_efficiency=0.0, incremental_update_time_ms=0.013216999996075174, dependency_invalidation_time_ms=0.0, delta_processing_efficiency=0.0, peak_concurrent_streams=25, stream_multiplexing_efficiency=1.0, load_balancing_effectiveness=0.0)",
-      "high_rate": "StreamingAggregationMetrics(stream_processing_latency_ms=0.012854841667338709, backlog_size=0, processing_velocity=6431.100803486099, buffer_utilization_percent=75.0, buffer_overflows=0, buffer_optimization_efficiency=0.0, incremental_update_time_ms=0.01115900000968395, dependency_invalidation_time_ms=0.0, delta_processing_efficiency=0.0, peak_concurrent_streams=100, stream_multiplexing_efficiency=1.0, load_balancing_effectiveness=0.0)"
+      "low_rate": "StreamingAggregationMetrics(stream_processing_latency_ms=0.01674266669700349, backlog_size=0, processing_velocity=4862.741029961311, buffer_utilization_percent=75.0, buffer_overflows=0, buffer_optimization_efficiency=0.0, incremental_update_time_ms=0.01695900004961004, dependency_invalidation_time_ms=0.0, delta_processing_efficiency=0.0, peak_concurrent_streams=5, stream_multiplexing_efficiency=1.0, load_balancing_effectiveness=0.0)",
+      "medium_rate": "StreamingAggregationMetrics(stream_processing_latency_ms=0.014779666660009147, backlog_size=0, processing_velocity=6482.049260978429, buffer_utilization_percent=75.0, buffer_overflows=0, buffer_optimization_efficiency=0.0, incremental_update_time_ms=0.02137200008291984, dependency_invalidation_time_ms=0.0, delta_processing_efficiency=0.0, peak_concurrent_streams=25, stream_multiplexing_efficiency=1.0, load_balancing_effectiveness=0.0)",
+      "high_rate": "StreamingAggregationMetrics(stream_processing_latency_ms=0.014453208331815404, backlog_size=0, processing_velocity=6339.543074263455, buffer_utilization_percent=75.0, buffer_overflows=0, buffer_optimization_efficiency=0.0, incremental_update_time_ms=0.011832999971375102, dependency_invalidation_time_ms=0.0, delta_processing_efficiency=0.0, peak_concurrent_streams=100, stream_multiplexing_efficiency=1.0, load_balancing_effectiveness=0.0)"
     },
     "scalability_analysis": {
-      "peak_processing_velocity": 6610.911706425304,
-      "average_latency_ms": 0.011527658334203907,
-      "latency_consistency": 0.998405330488236,
+      "peak_processing_velocity": 6482.049260978429,
+      "average_latency_ms": 0.01532518056294268,
+      "latency_consistency": 0.9987616163901267,
       "average_efficiency": 1.0,
-      "scalability_factor": 1.2137898329293675
+      "scalability_factor": 1.3330031809302418
     },
     "streaming_optimizations": [
       "Enhance parallel processing for better streaming scalability"
@@ -117,7 +117,7 @@
   },
   "cumulative_validation": {
     "validation_passed": true,
-    "cumulative_metrics": "CumulativePerformanceValidation(ast_traversal_reduction_validated=True, ast_time_improvement_percent=32.19, memory_efficiency_improvement_validated=True, thread_contention_reduction_percent=73.0, aggregation_throughput_improvement_percent=50.0, correlation_efficiency_improvement_percent=40.0, total_performance_improvement_percent=41.095, cumulative_memory_reduction_percent=0.0, overall_scalability_improvement_factor=1.2137898329293675)",
+    "cumulative_metrics": "CumulativePerformanceValidation(ast_traversal_reduction_validated=True, ast_time_improvement_percent=32.19, memory_efficiency_improvement_validated=True, thread_contention_reduction_percent=73.0, aggregation_throughput_improvement_percent=50.0, correlation_efficiency_improvement_percent=40.0, total_performance_improvement_percent=41.095, cumulative_memory_reduction_percent=0.0, overall_scalability_improvement_factor=1.3330031809302418)",
     "improvement_summary": {
       "phases_validated": 2,
       "total_performance_gain": 41.095,
@@ -127,7 +127,7 @@
         "Aggregation throughput: 50.0% improvement",
         "Correlation efficiency: 40.0% improvement"
       ],
-      "scalability_multiplier": 1.2137898329293675
+      "scalability_multiplier": 1.3330031809302418
     }
   },
   "final_analysis": {
@@ -135,7 +135,7 @@
     "key_findings": [
       "Optimal aggregation performance at 50 violations",
       "Correlation accuracy: 83.3%",
-      "Peak streaming velocity: 6610.9 items/second"
+      "Peak streaming velocity: 6482.0 items/second"
     ],
     "optimization_priorities": [
       "Implement parallel aggregation for better throughput scaling",
@@ -153,5 +153,5 @@
       "blocking_issues": []
     }
   },
-  "total_benchmark_time_seconds": 73.74544715881348
+  "total_benchmark_time_seconds": 78.48987197875977
 }
