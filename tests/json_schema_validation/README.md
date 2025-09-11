@@ -46,16 +46,16 @@ This comprehensive test suite validates all critical issues identified in Phase 
 
 ```
 tests/json_schema_validation/
-├── test_json_schema_validation.py    # Core schema validation tests
-├── test_sarif_compliance.py          # SARIF 2.1.0 compliance tests  
-├── test_risk_mitigation.py           # Risk mitigation & failure prevention
-├── test_full_pipeline_integration.py # End-to-end integration tests
-├── test_runner.py                    # Automated test orchestration
-├── fixtures/                         # Test data and schemas
-│   ├── valid/                        # Valid schema examples
-│   ├── invalid/                      # Invalid schemas for negative testing
-│   └── mock_data/                    # Mock data for detection testing
-└── README.md                         # This documentation
++-- test_json_schema_validation.py    # Core schema validation tests
++-- test_sarif_compliance.py          # SARIF 2.1.0 compliance tests  
++-- test_risk_mitigation.py           # Risk mitigation & failure prevention
++-- test_full_pipeline_integration.py # End-to-end integration tests
++-- test_runner.py                    # Automated test orchestration
++-- fixtures/                         # Test data and schemas
+|   +-- valid/                        # Valid schema examples
+|   +-- invalid/                      # Invalid schemas for negative testing
+|   +-- mock_data/                    # Mock data for detection testing
++-- README.md                         # This documentation
 ```
 
 ## Test Categories

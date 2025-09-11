@@ -9,37 +9,37 @@ This document specifies a comprehensive external tool input pipeline architectur
 ### 1.1 High-Level Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    API Gateway Layer                           │
-│   (Rate limiting, Authentication, Load balancing)              │
-└─────────────────┬───────────────────────────────────────────────┘
-                  │
-┌─────────────────▼───────────────────────────────────────────────┐
-│              Input Pipeline Orchestrator                       │
-│  (Request routing, Tool coordination, Result aggregation)      │
-└─────────────┬───────────┬───────────┬───────────┬───────────────┘
-              │           │           │           │
-   ┌──────────▼─┐ ┌───────▼─┐ ┌───────▼─┐ ┌───────▼─┐
-   │ Flake8     │ │ Pylint  │ │ Ruff    │ │ Mypy    │
-   │ Processor  │ │ Proc.   │ │ Proc.   │ │ Proc.   │
-   └──────────┬─┘ └───────┬─┘ └───────┬─┘ └───────┬─┘
-              │           │           │           │
-              └───────────▼───────────▼───────────┘
-                          │
-             ┌────────────▼────────────┐
-             │   Correlation Engine    │
-             │ (Violation correlation) │
-             └────────────┬────────────┘
-                          │
-             ┌────────────▼────────────┐
-             │   Aggregation Engine    │
-             │  (Result unification)   │
-             └────────────┬────────────┘
-                          │
-             ┌────────────▼────────────┐
-             │    Result Storage       │
-             │  (Cache & Persistence)  │
-             └─────────────────────────┘
++-----------------------------------------------------------------+
+|                    API Gateway Layer                           |
+|   (Rate limiting, Authentication, Load balancing)              |
++-----------------+-----------------------------------------------+
+                  |
++-----------------?-----------------------------------------------+
+|              Input Pipeline Orchestrator                       |
+|  (Request routing, Tool coordination, Result aggregation)      |
++-------------+-----------+-----------+-----------+---------------+
+              |           |           |           |
+   +----------?-+ +-------?-+ +-------?-+ +-------?-+
+   | Flake8     | | Pylint  | | Ruff    | | Mypy    |
+   | Processor  | | Proc.   | | Proc.   | | Proc.   |
+   +----------+-+ +-------+-+ +-------+-+ +-------+-+
+              |           |           |           |
+              +-----------?-----------?-----------+
+                          |
+             +------------?------------+
+             |   Correlation Engine    |
+             | (Violation correlation) |
+             +------------+------------+
+                          |
+             +------------?------------+
+             |   Aggregation Engine    |
+             |  (Result unification)   |
+             +------------+------------+
+                          |
+             +------------?------------+
+             |    Result Storage       |
+             |  (Cache & Persistence)  |
+             +-------------------------+
 ```
 
 ### 1.2 Component Responsibilities

@@ -55,7 +55,7 @@ class PerformanceRegressionSuite:
         
     def run_complete_regression_suite(self) -> Dict[str, Any]:
         """Execute complete performance regression testing suite."""
-        print("🚀 Starting Performance Regression Test Suite...")
+        print("[ROCKET] Starting Performance Regression Test Suite...")
         
         suite_start = time.perf_counter()
         
@@ -75,19 +75,19 @@ class PerformanceRegressionSuite:
         passed_tests = 0
         
         for test_name, test_function in tests:
-            print(f"\n📊 Running: {test_name}")
+            print(f"\n[CHART] Running: {test_name}")
             try:
                 result = test_function()
                 results[test_name] = result
                 
                 if result.get('passed', False):
-                    print(f"   ✅ PASSED - {result.get('summary', '')}")
+                    print(f"   [OK] PASSED - {result.get('summary', '')}")
                     passed_tests += 1
                 else:
-                    print(f"   ❌ FAILED - {result.get('error', '')}")
+                    print(f"   [FAIL] FAILED - {result.get('error', '')}")
                     
             except Exception as e:
-                print(f"   💥 ERROR - {str(e)}")
+                print(f"   ? ERROR - {str(e)}")
                 results[test_name] = {
                     'passed': False,
                     'error': str(e),
@@ -488,28 +488,28 @@ class PerformanceRegressionSuite:
         with open(results_file, 'w') as f:
             json.dump(results, f, indent=2)
             
-        print(f"\n💾 Results saved to: {results_file}")
+        print(f"\n[DISK] Results saved to: {results_file}")
         
     def print_summary_report(self, results: Dict[str, Any]):
         """Print comprehensive summary report."""
         print("\n" + "="*80)
-        print("📊 PERFORMANCE REGRESSION TEST SUITE SUMMARY")
+        print("[CHART] PERFORMANCE REGRESSION TEST SUITE SUMMARY")
         print("="*80)
         
-        print(f"⏱️  Total Execution Time: {results['suite_execution_time']:.2f} seconds")
-        print(f"✅ Tests Passed: {results['tests_passed']}/{results['total_tests']}")
-        print(f"📈 Success Rate: {results['success_rate']:.1f}%")
+        print(f"??  Total Execution Time: {results['suite_execution_time']:.2f} seconds")
+        print(f"[OK] Tests Passed: {results['tests_passed']}/{results['total_tests']}")
+        print(f"[TREND] Success Rate: {results['success_rate']:.1f}%")
         
         if results['success_rate'] >= 90:
-            print("🎉 EXCELLENT: No significant performance regression detected!")
+            print("[CELEBRATION] EXCELLENT: No significant performance regression detected!")
         elif results['success_rate'] >= 75:
-            print("⚠️  WARNING: Some performance degradation detected")
+            print("[WARNING]  WARNING: Some performance degradation detected")
         else:
-            print("🚨 CRITICAL: Significant performance regression detected!")
+            print("[ALERT] CRITICAL: Significant performance regression detected!")
             
-        print("\n📋 Individual Test Results:")
+        print("\n[CLIPBOARD] Individual Test Results:")
         for test_name, result in results['individual_results'].items():
-            status = "✅ PASSED" if result.get('passed', False) else "❌ FAILED"
+            status = "[OK] PASSED" if result.get('passed', False) else "[FAIL] FAILED"
             summary = result.get('summary', result.get('error', 'No summary'))
             print(f"   {status} - {test_name}: {summary}")
             
@@ -518,7 +518,7 @@ class PerformanceRegressionSuite:
 
 def main():
     """Main execution function."""
-    print("🚀 Performance Regression Test Suite")
+    print("[ROCKET] Performance Regression Test Suite")
     print("="*50)
     
     suite = PerformanceRegressionSuite()
@@ -526,10 +526,10 @@ def main():
     
     # Exit with appropriate code
     if results['success_rate'] >= 90:
-        print("\n✅ All performance targets maintained - regression testing PASSED")
+        print("\n[OK] All performance targets maintained - regression testing PASSED")
         sys.exit(0)
     else:
-        print("\n❌ Performance regression detected - regression testing FAILED")
+        print("\n[FAIL] Performance regression detected - regression testing FAILED")
         sys.exit(1)
 
 

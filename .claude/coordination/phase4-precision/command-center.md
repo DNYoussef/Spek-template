@@ -13,20 +13,20 @@
    - File: `.claude/artifacts/sandbox-validation/phase3_performance_optimization_validator.py`
    - Line: 230 - `target_hit_rate` variable accessibility
    - Severity: HIGH - Blocking cache validation
-   - Estimated Fix: ≤5 LOC
+   - Estimated Fix: <=5 LOC
 
 2. **MICRO-IMPL-002**: Missing Method Implementation
    - File: `analyzer/performance/cache_performance_profiler.py`
    - Method: `measure_cache_hit_rate()`
    - Called by: `tests/regression/performance_regression_suite.py:204`
    - Severity: HIGH - Regression tests failing
-   - Estimated Fix: ≤20 LOC
+   - Estimated Fix: <=20 LOC
 
 3. **MICRO-SYNC-003**: Integration Synchronization
    - File: `analyzer/performance/integration_optimizer.py`
    - Issue: Concurrent load handling inconsistencies
    - Severity: MEDIUM - Cross-component instability
-   - Estimated Fix: ≤25 LOC
+   - Estimated Fix: <=25 LOC
 
 ## SURVEILLANCE MATRIX
 

@@ -632,9 +632,9 @@ class ByzantineStressTester:
         
         # Byzantine tolerance analysis
         if len(self.coordinator.byzantine_nodes) <= self.coordinator.max_byzantine_nodes:
-            conclusions.append("✓ Byzantine fault tolerance maintained throughout testing")
+            conclusions.append("[CHECK] Byzantine fault tolerance maintained throughout testing")
         else:
-            conclusions.append("✗ Byzantine tolerance exceeded - system at risk")
+            conclusions.append("[X] Byzantine tolerance exceeded - system at risk")
         
         # Consensus performance
         if self.coordinator.consensus_metrics['successful_validations'] > 0:
@@ -643,20 +643,20 @@ class ByzantineStressTester:
                 self.coordinator.consensus_metrics['total_consensus_rounds']
             )
             if success_rate > 0.9:
-                conclusions.append(f"✓ High consensus success rate: {success_rate:.1%}")
+                conclusions.append(f"[CHECK] High consensus success rate: {success_rate:.1%}")
             else:
-                conclusions.append(f"⚠ Moderate consensus success rate: {success_rate:.1%}")
+                conclusions.append(f"? Moderate consensus success rate: {success_rate:.1%}")
         
         # Malicious detection
         if self.coordinator.consensus_metrics['detected_byzantine_behaviors'] > 0:
-            conclusions.append(f"✓ Malicious behavior detection active: "
+            conclusions.append(f"[CHECK] Malicious behavior detection active: "
                              f"{self.coordinator.consensus_metrics['detected_byzantine_behaviors']} detected")
         
         # Thread safety validation
         if self.coordinator.consensus_metrics['thread_safety_violations_detected'] == 0:
-            conclusions.append("✓ No thread safety violations detected under Byzantine conditions")
+            conclusions.append("[CHECK] No thread safety violations detected under Byzantine conditions")
         else:
-            conclusions.append(f"⚠ Thread safety violations detected: "
+            conclusions.append(f"? Thread safety violations detected: "
                              f"{self.coordinator.consensus_metrics['thread_safety_violations_detected']}")
         
         return conclusions

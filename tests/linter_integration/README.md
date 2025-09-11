@@ -124,7 +124,7 @@ pip install flake8 pylint ruff mypy bandit
 ## Test Coverage Requirements
 
 ### Minimum Coverage Targets
-- **Code Coverage**: ≥95% for all 8,642 LOC
+- **Code Coverage**: >=95% for all 8,642 LOC
 - **Critical Path Coverage**: 100% for error handling and failure modes
 - **Performance Benchmarking**: All major components
 - **Regression Protection**: Phase 1 + Phase 2 integration
@@ -132,12 +132,12 @@ pip install flake8 pylint ruff mypy bandit
 ### Coverage by Component
 | Component | Target Coverage | Critical Paths |
 |-----------|----------------|----------------|
-| Mesh Coordination | ≥95% | Fault tolerance, consensus mechanisms |
-| API Server | ≥90% | Authentication, rate limiting, WebSocket handling |
-| Tool Management | ≥95% | Circuit breakers, resource allocation, health monitoring |
-| Adapters | ≥95% | Output parsing, error handling for all 5 tools |
-| Severity Mapping | ≥98% | Cross-tool normalization, quality scoring |
-| Real-time Processing | ≥90% | Streaming ingestion, correlation algorithms |
+| Mesh Coordination | >=95% | Fault tolerance, consensus mechanisms |
+| API Server | >=90% | Authentication, rate limiting, WebSocket handling |
+| Tool Management | >=95% | Circuit breakers, resource allocation, health monitoring |
+| Adapters | >=95% | Output parsing, error handling for all 5 tools |
+| Severity Mapping | >=98% | Cross-tool normalization, quality scoring |
+| Real-time Processing | >=90% | Streaming ingestion, correlation algorithms |
 
 ## Performance Benchmarks
 
@@ -177,9 +177,9 @@ pip install flake8 pylint ruff mypy bandit
 - **Connascence**: Integration with existing 9-detector system
 
 ### Phase 2 Validation
-- **NASA POT10**: Maintain ≥95% compliance (currently 92% post-Phase 2)
-- **God Objects**: Keep ≤25 (achieved through Phase 1 consolidation)
-- **MECE Score**: Maintain ≥0.75 (achieved >0.85 post-consolidation)
+- **NASA POT10**: Maintain >=95% compliance (currently 92% post-Phase 2)
+- **God Objects**: Keep <=25 (achieved through Phase 1 consolidation)
+- **MECE Score**: Maintain >=0.75 (achieved >0.85 post-consolidation)
 
 ## Test Data and Fixtures
 

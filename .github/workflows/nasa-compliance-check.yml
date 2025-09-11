@@ -37,9 +37,9 @@ jobs:
         pip install pytest mypy ruff bandit black radon
         pip install pyyaml  # For NASA rules configuration
     
-    - name: 🛡️ NASA Power of Ten Rule 10 - Compile with All Warnings
+    - name: [SHIELD] NASA Power of Ten Rule 10 - Compile with All Warnings
       run: |
-        echo "🔍 Checking compiler warnings (NASA Rule 10)..."
+        echo "[SEARCH] Checking compiler warnings (NASA Rule 10)..."
         
         # Python static analysis (equivalent to compiler warnings)
         echo "Running MyPy for type checking..."
@@ -51,23 +51,23 @@ jobs:
         # If we had C/C++ code, we would use:
         # gcc -Wall -Wextra -Werror -pedantic *.c
         
-    - name: 🚀 NASA Power of Ten Rule 1 - Avoid Complex Flow Constructs  
+    - name: [ROCKET] NASA Power of Ten Rule 1 - Avoid Complex Flow Constructs  
       run: |
-        echo "🔍 Checking for complex flow constructs (NASA Rule 1)..."
+        echo "[SEARCH] Checking for complex flow constructs (NASA Rule 1)..."
         
         # Check for recursion
         echo "Checking for recursive functions..."
         if grep -r "def.*(" --include="*.py" . | xargs -I {} sh -c 'echo "{}"; grep -n "$(echo "{}" | cut -d":" -f3 | cut -d"(" -f1)" "$(echo "{}" | cut -d":" -f1)"' | grep -E "def|return.*\(" || true; then
-            echo "⚠️ Potential recursive functions found"
+            echo "[WARNING] Potential recursive functions found"
         fi
         
         # Check for goto statements (not applicable in Python, but checking for equivalents)
         echo "Checking for complex flow patterns..."
-        grep -r "goto\|longjmp\|setjmp" --include="*.py" --include="*.c" --include="*.cpp" . || echo "✅ No goto/longjmp found"
+        grep -r "goto\|longjmp\|setjmp" --include="*.py" --include="*.c" --include="*.cpp" . || echo "[OK] No goto/longjmp found"
     
-    - name: 🔄 NASA Power of Ten Rule 2 - Bounded Loops
+    - name: ? NASA Power of Ten Rule 2 - Bounded Loops
       run: |
-        echo "🔍 Checking for bounded loops (NASA Rule 2)..."
+        echo "[SEARCH] Checking for bounded loops (NASA Rule 2)..."
         
         # Check for while True loops
         echo "Checking for infinite loops..."
@@ -102,24 +102,24 @@ jobs:
                         checker = LoopChecker()
                         checker.visit(tree)
                         if checker.unbounded_loops:
-                            print(f"⚠️ {filepath}: {checker.unbounded_loops}")
+                            print(f"[WARNING] {filepath}: {checker.unbounded_loops}")
                     except:
                         continue
         EOF
     
-    - name: 💾 NASA Power of Ten Rule 3 - No Heap After Init
+    - name: [DISK] NASA Power of Ten Rule 3 - No Heap After Init
       run: |
-        echo "🔍 Checking for heap usage after initialization (NASA Rule 3)..."
+        echo "[SEARCH] Checking for heap usage after initialization (NASA Rule 3)..."
         
         # Check for dynamic allocation in Python (less critical but good practice)
         grep -rn "malloc\|calloc\|realloc\|free" --include="*.c" --include="*.cpp" . || echo "No C/C++ dynamic allocation found"
         
         # Check for excessive dynamic object creation in Python
-        grep -rn "list()\|dict()\|set()" --include="*.py" . | head -10 || echo "✅ Limited dynamic allocation patterns"
+        grep -rn "list()\|dict()\|set()" --include="*.py" . | head -10 || echo "[OK] Limited dynamic allocation patterns"
     
-    - name: 📏 NASA Power of Ten Rule 4 - Function Size Limits
+    - name: ? NASA Power of Ten Rule 4 - Function Size Limits
       run: |
-        echo "🔍 Checking function size (NASA Rule 4 - max 60 lines)..."
+        echo "[SEARCH] Checking function size (NASA Rule 4 - max 60 lines)..."
         
         python3 << 'EOF'
         import ast
@@ -147,7 +147,7 @@ jobs:
                         checker = FunctionSizeChecker()
                         checker.visit(tree)
                         if checker.violations:
-                            print(f"⚠️ {filepath}:")
+                            print(f"[WARNING] {filepath}:")
                             for violation in checker.violations:
                                 print(f"  {violation}")
                                 total_violations += 1
@@ -155,14 +155,14 @@ jobs:
                         continue
         
         if total_violations > 0:
-            print(f"⚠️ Total NASA Rule 4 violations: {total_violations}")
+            print(f"[WARNING] Total NASA Rule 4 violations: {total_violations}")
         else:
-            print("✅ All functions within size limit")
+            print("[OK] All functions within size limit")
         EOF
     
-    - name: 🧪 NASA Power of Ten Rule 5 - Assertions Required
+    - name: ? NASA Power of Ten Rule 5 - Assertions Required
       run: |
-        echo "🔍 Checking for assertions (NASA Rule 5 - min 2 per function)..."
+        echo "[SEARCH] Checking for assertions (NASA Rule 5 - min 2 per function)..."
         
         python3 << 'EOF'
         import ast
@@ -202,7 +202,7 @@ jobs:
                         
                         violations = [f for f in checker.functions if f['assertions'] < 2 and len(f['name']) > 2]
                         if violations:
-                            print(f"⚠️ {filepath}:")
+                            print(f"[WARNING] {filepath}:")
                             for violation in violations:
                                 print(f"  Function '{violation['name']}' at line {violation['line']}: {violation['assertions']} assertions (need 2+)")
                                 total_violations += 1
@@ -210,9 +210,9 @@ jobs:
                         continue
         
         if total_violations > 0:
-            print(f"⚠️ Total NASA Rule 5 violations: {total_violations}")
+            print(f"[WARNING] Total NASA Rule 5 violations: {total_violations}")
         else:
-            print("✅ Functions have adequate assertions")
+            print("[OK] Functions have adequate assertions")
         EOF
     
     - name: [ENHANCED] Run Unified Connascence Analysis with NASA Integration
@@ -230,7 +230,7 @@ jobs:
         
         # Display summary
         if [ -f nasa-connascence-report.json ]; then
-          echo "📊 Analysis Results:"
+          echo "[CHART] Analysis Results:"
           python3 << 'EOF'
         import json
         try:
@@ -258,9 +258,9 @@ jobs:
         EOF
         fi
     
-    - name: 🔍 MECE Duplication Analysis
+    - name: [SEARCH] MECE Duplication Analysis
       run: |
-        echo "🔍 Running MECE duplication analysis..."
+        echo "[SEARCH] Running MECE duplication analysis..."
         
         python3 << 'EOF'
         import sys
@@ -282,7 +282,7 @@ jobs:
                 import json
                 results = json.loads(result.stdout)
             
-            print(f"📊 MECE Analysis Results:")
+            print(f"[CHART] MECE Analysis Results:")
             print(f"Files analyzed: {results.get('files_analyzed', 0)}")
             print(f"Duplication clusters found: {len(results.get('duplication_clusters', []))}")
             print(f"Consolidation opportunities: {len(results.get('consolidation_opportunities', []))}")
@@ -292,23 +292,23 @@ jobs:
             high_priority = [c for c in clusters if c.confidence > 0.8]
             
             if high_priority:
-                print(f"\n⚠️ High-priority duplications found: {len(high_priority)}")
+                print(f"\n[WARNING] High-priority duplications found: {len(high_priority)}")
                 for cluster in high_priority[:5]:  # Show first 5
                     print(f"  - {cluster.duplication_type} duplication in {len(cluster.files_involved)} files")
                     print(f"    Confidence: {cluster.confidence:.2f}")
                     print(f"    Recommendation: {cluster.consolidation_recommendation}")
             else:
-                print("✅ No high-priority duplications found")
+                print("[OK] No high-priority duplications found")
                 
         except ImportError as e:
-            print(f"⚠️ MECE analyzer not available: {e}")
+            print(f"[WARNING] MECE analyzer not available: {e}")
         except Exception as e:
-            print(f"⚠️ MECE analysis failed: {e}")
+            print(f"[WARNING] MECE analysis failed: {e}")
         EOF
     
-    - name: 📊 Generate NASA Compliance Report
+    - name: [CHART] Generate NASA Compliance Report
       run: |
-        echo "📊 Generating NASA Power of Ten compliance report..."
+        echo "[CHART] Generating NASA Power of Ten compliance report..."
         
         python3 << 'EOF'
         import json
@@ -337,10 +337,10 @@ jobs:
         with open('nasa-compliance-report.json', 'w') as f:
             json.dump(compliance_report, f, indent=2)
         
-        print("✅ NASA compliance report generated")
+        print("[OK] NASA compliance report generated")
         EOF
     
-    - name: 📤 Upload Artifacts
+    - name: ? Upload Artifacts
       uses: actions/upload-artifact@v4
       if: always()
       with:
@@ -350,30 +350,30 @@ jobs:
           nasa-compliance-report.json
           ruff-report.json
     
-    - name: 📋 Report Summary
+    - name: [CLIPBOARD] Report Summary
       if: always()
       run: |
-        echo "## 🛡️ NASA Power of Ten Compliance Check Summary" >> $GITHUB_STEP_SUMMARY
+        echo "## [SHIELD] NASA Power of Ten Compliance Check Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "✅ **Completed NASA Power of Ten Rules Check**" >> $GITHUB_STEP_SUMMARY
+        echo "[OK] **Completed NASA Power of Ten Rules Check**" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "### Rules Checked:" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ Rule 1: Complex flow constructs" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ Rule 2: Bounded loops" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ Rule 3: Heap usage" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ Rule 4: Function size limits" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ Rule 5: Assertion requirements" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ Rule 10: Compiler warnings" >> $GITHUB_STEP_SUMMARY
+        echo "- [OK] Rule 1: Complex flow constructs" >> $GITHUB_STEP_SUMMARY
+        echo "- [OK] Rule 2: Bounded loops" >> $GITHUB_STEP_SUMMARY
+        echo "- [OK] Rule 3: Heap usage" >> $GITHUB_STEP_SUMMARY
+        echo "- [OK] Rule 4: Function size limits" >> $GITHUB_STEP_SUMMARY
+        echo "- [OK] Rule 5: Assertion requirements" >> $GITHUB_STEP_SUMMARY
+        echo "- [OK] Rule 10: Compiler warnings" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "### Additional Analysis:" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ Connascence analysis with NASA integration" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ MECE duplication detection" >> $GITHUB_STEP_SUMMARY
+        echo "- [OK] Connascence analysis with NASA integration" >> $GITHUB_STEP_SUMMARY
+        echo "- [OK] MECE duplication detection" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "📊 **Reports available in artifacts**" >> $GITHUB_STEP_SUMMARY
+        echo "[CHART] **Reports available in artifacts**" >> $GITHUB_STEP_SUMMARY
     
-    - name: 🚨 Fail on Critical Violations
+    - name: [ALERT] Fail on Critical Violations
       run: |
-        echo "🔍 Checking for critical NASA violations..."
+        echo "[SEARCH] Checking for critical NASA violations..."
         
         # This would fail the build if critical violations are found
         # For now, we'll make it a warning
@@ -390,14 +390,14 @@ jobs:
             critical_violations = [v for v in violations if v.get('severity') == 'critical']
             
             if len(critical_violations) > 5:  # Allow some critical violations for now
-                print(f"❌ Too many critical violations: {len(critical_violations)}")
+                print(f"[FAIL] Too many critical violations: {len(critical_violations)}")
                 print("Build would fail in production environment")
                 # sys.exit(1)  # Uncomment to fail the build
             else:
-                print(f"✅ Critical violations within acceptable range: {len(critical_violations)}")
+                print(f"[OK] Critical violations within acceptable range: {len(critical_violations)}")
         except:
-            print("⚠️ Could not evaluate critical violations")
+            print("[WARNING] Could not evaluate critical violations")
         EOF
         fi
         
-        echo "✅ NASA Power of Ten compliance check completed"
+        echo "[OK] NASA Power of Ten compliance check completed"

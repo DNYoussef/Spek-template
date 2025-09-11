@@ -9,25 +9,25 @@ The Real-Time Processing system is the heart of the SPEK Enhanced Development Pl
 ### Data Flow Pipeline
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    REAL-TIME PROCESSING PIPELINE                │
-└─────────────────────────────────────────────────────────────────┘
++-----------------------------------------------------------------+
+|                    REAL-TIME PROCESSING PIPELINE                |
++-----------------------------------------------------------------+
 
-Input Files ──► Ingestion Engine ──► Correlation Framework ──► Output
-    │               │                      │                     │
-    ▼               ▼                      ▼                     ▼
-┌─────────┐   ┌─────────────┐      ┌──────────────┐      ┌─────────────┐
-│File     │──►│Parallel     │─────►│Cross-tool    │─────►│Streaming    │
-│Queue    │   │Execution    │      │Correlation   │      │Results      │
-│         │   │(5 tools)    │      │Analysis      │      │             │
-└─────────┘   └─────────────┘      └──────────────┘      └─────────────┘
-                     │                      │                     │
-                     ▼                      ▼                     ▼
-              ┌─────────────┐      ┌──────────────┐      ┌─────────────┐
-              │Circuit      │      │Pattern       │      │MCP          │
-              │Breakers     │      │Recognition   │      │Integration  │
-              │& Retries    │      │& Clustering  │      │& IDE Sync   │
-              └─────────────┘      └──────────────┘      └─────────────┘
+Input Files --? Ingestion Engine --? Correlation Framework --? Output
+    |               |                      |                     |
+    ?               ?                      ?                     ?
++---------+   +-------------+      +--------------+      +-------------+
+|File     |--?|Parallel     |-----?|Cross-tool    |-----?|Streaming    |
+|Queue    |   |Execution    |      |Correlation   |      |Results      |
+|         |   |(5 tools)    |      |Analysis      |      |             |
++---------+   +-------------+      +--------------+      +-------------+
+                     |                      |                     |
+                     ?                      ?                     ?
+              +-------------+      +--------------+      +-------------+
+              |Circuit      |      |Pattern       |      |MCP          |
+              |Breakers     |      |Recognition   |      |Integration  |
+              |& Retries    |      |& Clustering  |      |& IDE Sync   |
+              +-------------+      +--------------+      +-------------+
 
 Performance: 2.8-4.4x speed improvement through parallel processing
 Reliability: Circuit breaker patterns with 95% uptime guarantee

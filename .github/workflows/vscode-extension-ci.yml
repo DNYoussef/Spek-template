@@ -39,13 +39,13 @@ jobs:
       - name: Lint Code
         run: |
           if npm run --silent 2>/dev/null | grep -E '^\s*lint\s' >/dev/null 2>&1; then
-            echo "📋 Running lint checks..."
+            echo "[CLIPBOARD] Running lint checks..."
             npm run lint || {
-              echo "⚠️ Lint warnings detected but not blocking build"
+              echo "[WARNING] Lint warnings detected but not blocking build"
               echo "This is acceptable for pre-compiled extensions"
             }
           else
-            echo "ℹ️ No lint script configured, skipping lint check"
+            echo "?? No lint script configured, skipping lint check"
             echo "This is normal for pre-compiled extensions"
           fi
         continue-on-error: true
@@ -54,13 +54,13 @@ jobs:
       - name: Type Check
         run: |
           if [ -f "tsconfig.json" ]; then
-            echo "📝 Running TypeScript type checking..."
+            echo "[NOTE] Running TypeScript type checking..."
             npx tsc --noEmit || {
-              echo "⚠️ TypeScript warnings detected but not blocking build"
+              echo "[WARNING] TypeScript warnings detected but not blocking build"
               echo "This is acceptable for pre-compiled extensions with minor type issues"
             }
           else
-            echo "ℹ️ No TypeScript configuration found"
+            echo "?? No TypeScript configuration found"
             echo "Using pre-compiled JavaScript files"
           fi
         continue-on-error: true
@@ -77,14 +77,14 @@ jobs:
         
       - name: Security Scan
         run: |
-          echo "🔒 Running security audit..."
+          echo "[LOCK] Running security audit..."
           npm audit --audit-level=high --production || {
-            echo "⚠️ Security audit found issues - checking severity..."
+            echo "[WARNING] Security audit found issues - checking severity..."
             npm audit --audit-level=critical --production || {
-              echo "❌ Critical security vulnerabilities found!"
+              echo "[FAIL] Critical security vulnerabilities found!"
               exit 1
             }
-            echo "✅ No critical vulnerabilities - continuing build"
+            echo "[OK] No critical vulnerabilities - continuing build"
           }
         continue-on-error: false
         shell: bash
@@ -119,20 +119,20 @@ jobs:
         shell: bash
         run: |
           if [ -d "out" ] && [ "$(ls -A out 2>/dev/null || echo)" != "" ]; then
-            echo "✅ Extension already compiled (out/ directory exists with files)"
+            echo "[OK] Extension already compiled (out/ directory exists with files)"
             echo "File count: $(find out -type f 2>/dev/null | wc -l || echo "0")"
             echo "Total size: $(du -sh out 2>/dev/null | cut -f1 || echo "unknown")"
           else
-            echo "⚠️ No pre-compiled files found, attempting compilation..."
+            echo "[WARNING] No pre-compiled files found, attempting compilation..."
             if npm run --silent 2>/dev/null | grep -E '^\s*compile\s' >/dev/null 2>&1; then
-              echo "📝 Found compile script, running compilation..."
+              echo "[NOTE] Found compile script, running compilation..."
               if npm run compile; then
-                echo "✅ Compilation successful"
+                echo "[OK] Compilation successful"
               else
-                echo "⚠️ Compilation failed - this may be acceptable for pre-packaged extensions"
+                echo "[WARNING] Compilation failed - this may be acceptable for pre-packaged extensions"
               fi
             else
-              echo "ℹ️ No compile script configured - using existing files"
+              echo "?? No compile script configured - using existing files"
               echo "This is normal for pre-compiled extensions"
             fi
           fi
@@ -141,13 +141,13 @@ jobs:
         shell: bash
         run: |
           if npm run --silent 2>/dev/null | grep -E '^\s*test\s' >/dev/null 2>&1; then
-            echo "🧪 Running test suite..."
+            echo "? Running test suite..."
             npm test || {
-              echo "⚠️ Tests failed but continuing build (acceptable for pre-compiled extensions)"
+              echo "[WARNING] Tests failed but continuing build (acceptable for pre-compiled extensions)"
               echo "Test failures may be due to missing test environment in CI"
             }
           else
-            echo "ℹ️ No test script configured - skipping tests"
+            echo "?? No test script configured - skipping tests"
             echo "This is acceptable for extensions with manual testing validation"
           fi
         continue-on-error: true
@@ -182,20 +182,20 @@ jobs:
         shell: bash
         run: |
           if [ -d "out" ] && [ "$(ls -A out 2>/dev/null || echo)" != "" ]; then
-            echo "✅ Extension already compiled (out/ directory exists with files)"
+            echo "[OK] Extension already compiled (out/ directory exists with files)"
             echo "File count: $(find out -type f 2>/dev/null | wc -l || echo "0")"
             echo "Total size: $(du -sh out 2>/dev/null | cut -f1 || echo "unknown")"
           else
-            echo "⚠️ No pre-compiled files found, attempting compilation..."
+            echo "[WARNING] No pre-compiled files found, attempting compilation..."
             if npm run --silent 2>/dev/null | grep -E '^\s*compile\s' >/dev/null 2>&1; then
-              echo "📝 Found compile script, running compilation..."
+              echo "[NOTE] Found compile script, running compilation..."
               if npm run compile; then
-                echo "✅ Compilation successful"
+                echo "[OK] Compilation successful"
               else
-                echo "⚠️ Compilation failed - this may be acceptable for pre-packaged extensions"
+                echo "[WARNING] Compilation failed - this may be acceptable for pre-packaged extensions"
               fi
             else
-              echo "ℹ️ No compile script configured - using existing files"
+              echo "?? No compile script configured - using existing files"
               echo "This is normal for pre-compiled extensions"
             fi
           fi
@@ -204,22 +204,22 @@ jobs:
         shell: bash
         timeout-minutes: 10
         run: |
-          echo "📦 Installing VSCE (VS Code Extension packager)..."
+          echo "[PACKAGE] Installing VSCE (VS Code Extension packager)..."
           npm install -g @vscode/vsce@latest
           
-          echo "📦 Packaging extension..."
+          echo "[PACKAGE] Packaging extension..."
           if vsce package --no-dependencies --no-update-package-json; then
-            echo "✅ Extension packaged successfully!"
+            echo "[OK] Extension packaged successfully!"
           else
-            echo "❌ Packaging failed with standard options, trying alternatives..."
+            echo "[FAIL] Packaging failed with standard options, trying alternatives..."
             if vsce package --allow-missing-repository --no-dependencies; then
-              echo "✅ Extension packaged with fallback options!"
+              echo "[OK] Extension packaged with fallback options!"
             else
-              echo "❌ Packaging failed completely - checking structure..."
-              echo "🔍 Current directory contents:"
+              echo "[FAIL] Packaging failed completely - checking structure..."
+              echo "[SEARCH] Current directory contents:"
               ls -la
               if [ -f "package.json" ]; then
-                echo "📋 Package.json content:"
+                echo "[CLIPBOARD] Package.json content:"
                 node -e "const pkg=require('./package.json'); console.log('Main entry:', pkg.main); console.log('Engine:', pkg.engines?.vscode);"
               fi
               exit 1
@@ -229,24 +229,24 @@ jobs:
       - name: Verify Package
         shell: bash
         run: |
-          echo "🔍 Verifying extension package..."
+          echo "[SEARCH] Verifying extension package..."
           
           VSIX_FILES=(*.vsix)
           if [ ${#VSIX_FILES[@]} -eq 0 ] || [ ! -f "${VSIX_FILES[0]}" ]; then
-            echo "❌ No VSIX package found!"
-            echo "📁 Current directory contents:"
+            echo "[FAIL] No VSIX package found!"
+            echo "[FOLDER] Current directory contents:"
             ls -la
             exit 1
           fi
           
           VSIX_FILE="${VSIX_FILES[0]}"
-          echo "✅ Package found: $VSIX_FILE"
+          echo "[OK] Package found: $VSIX_FILE"
           
           # Cross-platform file size
           if command -v stat >/dev/null 2>&1; then
             SIZE=$(stat -c%s "$VSIX_FILE" 2>/dev/null || stat -f%z "$VSIX_FILE" 2>/dev/null || echo "0")
             SIZE_MB=$(echo "scale=2; $SIZE/1024/1024" | bc 2>/dev/null || echo "unknown")
-            echo "📏 Size: ${SIZE} bytes (${SIZE_MB} MB)"
+            echo "? Size: ${SIZE} bytes (${SIZE_MB} MB)"
           fi
           
           # Verify ZIP format
@@ -256,23 +256,23 @@ jobs:
           
           # Check package contents
           if command -v unzip >/dev/null 2>&1; then
-            echo "📋 Package structure:"
+            echo "[CLIPBOARD] Package structure:"
             unzip -l "$VSIX_FILE" | head -10
             
             if unzip -l "$VSIX_FILE" | grep -q "extension/package.json"; then
-              echo "✅ Package.json found in package"
+              echo "[OK] Package.json found in package"
             else
-              echo "⚠️ Package.json not found in expected location"
+              echo "[WARNING] Package.json not found in expected location"
             fi
             
             if unzip -l "$VSIX_FILE" | grep -E "(extension\.js|out/extension\.js)" >/dev/null; then
-              echo "✅ Extension entry point found"
+              echo "[OK] Extension entry point found"
             else
-              echo "⚠️ Extension entry point not clearly identified"
+              echo "[WARNING] Extension entry point not clearly identified"
             fi
           fi
           
-          echo "🎉 Package verification completed!"
+          echo "[CELEBRATION] Package verification completed!"
           
       - name: Upload Package Artifact
         uses: actions/upload-artifact@v4
@@ -305,30 +305,30 @@ jobs:
       - name: Run Security Audit
         shell: bash
         run: |
-          echo "🔒 Running comprehensive security audit..."
+          echo "[LOCK] Running comprehensive security audit..."
           
-          echo "📦 Auditing production dependencies..."
+          echo "[PACKAGE] Auditing production dependencies..."
           npm audit --audit-level=high --production || {
-            echo "⚠️ Production dependencies have security issues"
+            echo "[WARNING] Production dependencies have security issues"
             npm audit --audit-level=critical --production || {
-              echo "❌ Critical vulnerabilities in production dependencies!"
+              echo "[FAIL] Critical vulnerabilities in production dependencies!"
               exit 1
             }
-            echo "✅ No critical production vulnerabilities"
+            echo "[OK] No critical production vulnerabilities"
           }
           
-          echo "🛠️ Auditing development dependencies..."
+          echo "?? Auditing development dependencies..."
           npm audit --audit-level=moderate || {
-            echo "ℹ️ Development dependencies have some security issues - acceptable for extensions"
+            echo "?? Development dependencies have some security issues - acceptable for extensions"
             echo "Extension packages don't ship development dependencies to end users"
           }
           
-          echo "🔧 Attempting automatic security fixes..."
+          echo "[TOOL] Attempting automatic security fixes..."
           npm audit fix --only=prod || {
-            echo "ℹ️ Some issues couldn't be auto-fixed - manual review may be needed"
+            echo "?? Some issues couldn't be auto-fixed - manual review may be needed"
           }
           
-          echo "✅ Security audit completed"
+          echo "[OK] Security audit completed"
           
       - name: Scan for Secrets
         uses: trufflesecurity/trufflehog@main
@@ -342,23 +342,23 @@ jobs:
         shell: bash
         working-directory: vscode-extension
         run: |
-          echo "🔍 Additional security checks..."
+          echo "[SEARCH] Additional security checks..."
           
           echo "Checking for hardcoded secrets..."
           FOUND_SECRETS=false
           
           if grep -r -i "api_key\|apikey\|secret\|token\|password" --include="*.js" --include="*.ts" --include="*.json" . | grep -v node_modules | grep -v "\.git" || true; then
-            echo "⚠️ Potential secrets found - manual review recommended"
+            echo "[WARNING] Potential secrets found - manual review recommended"
             FOUND_SECRETS=true
           fi
           
           if find . -name ".env*" -not -path "./node_modules/*" | head -5; then
-            echo "⚠️ Environment files found - ensure they don't contain secrets"
+            echo "[WARNING] Environment files found - ensure they don't contain secrets"
             FOUND_SECRETS=true
           fi
           
           if [ "$FOUND_SECRETS" = "false" ]; then
-            echo "✅ No obvious secrets detected"
+            echo "[OK] No obvious secrets detected"
           fi
         continue-on-error: true
 
@@ -388,51 +388,51 @@ jobs:
       - name: Performance Benchmark
         shell: bash
         run: |
-          echo "📊 Extension Performance Metrics"
+          echo "[CHART] Extension Performance Metrics"
           
           VSIX_FILES=(*.vsix)
           if [ ${#VSIX_FILES[@]} -eq 0 ] || [ ! -f "${VSIX_FILES[0]}" ]; then
-            echo "❌ No VSIX file found for performance testing"
+            echo "[FAIL] No VSIX file found for performance testing"
             exit 1
           fi
           
           VSIX_FILE="${VSIX_FILES[0]}"
-          echo "📦 Analyzing: $VSIX_FILE"
+          echo "[PACKAGE] Analyzing: $VSIX_FILE"
           
           # Cross-platform file size
           if command -v stat >/dev/null 2>&1; then
             SIZE_BYTES=$(stat -c%s "$VSIX_FILE" 2>/dev/null || stat -f%z "$VSIX_FILE" 2>/dev/null)
             SIZE_KB=$((SIZE_BYTES / 1024))
             SIZE_MB=$(echo "scale=2; $SIZE_BYTES / 1024 / 1024" | bc 2>/dev/null || echo "unknown")
-            echo "📏 Package Size: ${SIZE_BYTES} bytes (${SIZE_MB} MB)"
+            echo "? Package Size: ${SIZE_BYTES} bytes (${SIZE_MB} MB)"
           else
             SIZE_KB=$(du -k "$VSIX_FILE" | cut -f1)
-            echo "📏 Package Size: ${SIZE_KB}KB"
+            echo "? Package Size: ${SIZE_KB}KB"
           fi
           
           # File count analysis
           if command -v unzip >/dev/null 2>&1; then
             FILE_COUNT=$(unzip -l "$VSIX_FILE" | tail -1 | awk '{print $2}' 2>/dev/null || echo "unknown")
-            echo "📁 File Count: $FILE_COUNT files"
+            echo "[FOLDER] File Count: $FILE_COUNT files"
           fi
           
           # Enterprise deployment validation
           if [ "$SIZE_KB" -gt 10240 ]; then
-            echo "⚠️ Warning: Package size ${SIZE_KB}KB exceeds 10MB enterprise threshold"
+            echo "[WARNING] Warning: Package size ${SIZE_KB}KB exceeds 10MB enterprise threshold"
           elif [ "$SIZE_KB" -gt 5120 ]; then
-            echo "📊 Package size ${SIZE_KB}KB is acceptable but consider optimization"
+            echo "[CHART] Package size ${SIZE_KB}KB is acceptable but consider optimization"
           else
-            echo "✅ Package size ${SIZE_KB}KB is optimal for enterprise deployment"
+            echo "[OK] Package size ${SIZE_KB}KB is optimal for enterprise deployment"
           fi
           
           echo ""
-          echo "🚀 Performance Analysis:"
+          echo "[ROCKET] Performance Analysis:"
           if [ "$SIZE_KB" -lt 1024 ]; then
-            echo "  ⚡ Excellent: Fast download and installation"
+            echo "  [LIGHTNING] Excellent: Fast download and installation"
           elif [ "$SIZE_KB" -lt 5120 ]; then
-            echo "  ✅ Good: Reasonable download time"
+            echo "  [OK] Good: Reasonable download time"
           else
-            echo "  ⚠️ Large: May impact download/installation speed"
+            echo "  [WARNING] Large: May impact download/installation speed"
           fi
 
   nasa-compliance-validation:
@@ -516,31 +516,31 @@ jobs:
           
           # Check NASA compliance
           if (( $(echo "$NASA_SCORE >= $NASA_THRESHOLD" | bc -l) )); then
-            echo "✅ NASA Compliance: PASS ($NASA_SCORE >= $NASA_THRESHOLD)"
+            echo "[OK] NASA Compliance: PASS ($NASA_SCORE >= $NASA_THRESHOLD)"
             NASA_PASS=true
           else
-            echo "❌ NASA Compliance: FAIL ($NASA_SCORE < $NASA_THRESHOLD)"
+            echo "[FAIL] NASA Compliance: FAIL ($NASA_SCORE < $NASA_THRESHOLD)"
             NASA_PASS=false
           fi
           
           # Check critical violations
           if [[ $CRITICAL_VIOLATIONS -le $MAX_CRITICAL_VIOLATIONS ]]; then
-            echo "✅ Critical Violations: PASS ($CRITICAL_VIOLATIONS <= $MAX_CRITICAL_VIOLATIONS)"
+            echo "[OK] Critical Violations: PASS ($CRITICAL_VIOLATIONS <= $MAX_CRITICAL_VIOLATIONS)"
             CRITICAL_PASS=true
           else
-            echo "❌ Critical Violations: FAIL ($CRITICAL_VIOLATIONS > $MAX_CRITICAL_VIOLATIONS)"
+            echo "[FAIL] Critical Violations: FAIL ($CRITICAL_VIOLATIONS > $MAX_CRITICAL_VIOLATIONS)"
             CRITICAL_PASS=false
           fi
           
           # Final NASA gate decision
           if [[ "$NASA_PASS" == "true" && "$CRITICAL_PASS" == "true" ]]; then
             echo ""
-            echo "🚀 NASA COMPLIANCE GATE: PASSED"
+            echo "[ROCKET] NASA COMPLIANCE GATE: PASSED"
             echo "Extension meets defense industry standards!"
             exit 0
           else
             echo ""
-            echo "🚫 NASA COMPLIANCE GATE: FAILED"
+            echo "? NASA COMPLIANCE GATE: FAILED"
             echo "Extension does not meet defense industry standards."
             echo "This is a blocking failure for enterprise defense deployments."
             exit 1
@@ -566,22 +566,22 @@ jobs:
           
           ## Quality Gate Status
           
-          $(if [[ "${{ steps.nasa-analysis.outputs.nasa_score }}" != "0.0" ]] && (( $(echo "${{ steps.nasa-analysis.outputs.nasa_score }} >= 0.90" | bc -l) )); then echo "✅ **PASSED** - Meets defense industry requirements"; else echo "❌ **FAILED** - Does not meet defense industry requirements"; fi)
+          $(if [[ "${{ steps.nasa-analysis.outputs.nasa_score }}" != "0.0" ]] && (( $(echo "${{ steps.nasa-analysis.outputs.nasa_score }} >= 0.90" | bc -l) )); then echo "[OK] **PASSED** - Meets defense industry requirements"; else echo "[FAIL] **FAILED** - Does not meet defense industry requirements"; fi)
           
           ## Defense Industry Readiness
           
           This analysis validates compliance with NASA's Power of Ten rules for safety-critical software:
           
-          1. ✅ Avoid complex flow constructs (goto, recursion)
-          2. ✅ All loops must have fixed upper bounds
-          3. ✅ No heap allocation after initialization
-          4. ✅ Function size limited (60 lines max)
-          5. ✅ Minimum 2 assertions per function
-          6. ⚠️ Data objects at smallest scope
-          7. ⚠️ Check return values of non-void functions
-          8. ⚠️ Limit preprocessor use
-          9. ⚠️ Restrict pointer use
-          10. ✅ Compile with all warnings enabled
+          1. [OK] Avoid complex flow constructs (goto, recursion)
+          2. [OK] All loops must have fixed upper bounds
+          3. [OK] No heap allocation after initialization
+          4. [OK] Function size limited (60 lines max)
+          5. [OK] Minimum 2 assertions per function
+          6. [WARNING] Data objects at smallest scope
+          7. [WARNING] Check return values of non-void functions
+          8. [WARNING] Limit preprocessor use
+          9. [WARNING] Restrict pointer use
+          10. [OK] Compile with all warnings enabled
           
           **Note:** Rules 6-9 are less applicable to JavaScript/TypeScript but equivalent patterns are checked.
           EOF
@@ -616,81 +616,81 @@ jobs:
       - name: Enterprise Readiness Assessment
         shell: bash
         run: |
-          echo "🏢 Enterprise Deployment Readiness Check"
+          echo "? Enterprise Deployment Readiness Check"
           echo "========================================"
           
           VSIX_FILES=(*.vsix)
           if [ ${#VSIX_FILES[@]} -eq 0 ] || [ ! -f "${VSIX_FILES[0]}" ]; then
-            echo "❌ No VSIX package found!"
+            echo "[FAIL] No VSIX package found!"
             exit 1
           fi
           
           VSIX_FILE="${VSIX_FILES[0]}"
-          echo "📦 Validating: $VSIX_FILE"
+          echo "[PACKAGE] Validating: $VSIX_FILE"
           
           if [ -f "$VSIX_FILE" ] && [ -s "$VSIX_FILE" ]; then
-            echo "✅ Package exists and is not empty"
+            echo "[OK] Package exists and is not empty"
             
             SIZE_BYTES=$(stat -c%s "$VSIX_FILE" 2>/dev/null || stat -f%z "$VSIX_FILE" 2>/dev/null || echo "0")
             SIZE_MB=$(echo "scale=2; $SIZE_BYTES / 1024 / 1024" | bc 2>/dev/null || echo "unknown")
-            echo "📏 Package size: ${SIZE_MB}MB"
+            echo "? Package size: ${SIZE_MB}MB"
           else
-            echo "❌ Package missing or empty"
+            echo "[FAIL] Package missing or empty"
             exit 1
           fi
           
           echo ""
-          echo "🔍 Package Structure Validation:"
+          echo "[SEARCH] Package Structure Validation:"
           
           if unzip -l "$VSIX_FILE" | grep -E "(extension\.js|out/extension\.js|src/extension\.js)" >/dev/null 2>&1; then
-            echo "✅ Extension entry point found"
+            echo "[OK] Extension entry point found"
           else
-            echo "❌ Extension entry point missing"
+            echo "[FAIL] Extension entry point missing"
             exit 1
           fi
           
           if unzip -l "$VSIX_FILE" | grep "extension/package\.json" >/dev/null 2>&1; then
-            echo "✅ Extension package.json found"
+            echo "[OK] Extension package.json found"
             
             TEMP_PKG=$(mktemp)
             unzip -p "$VSIX_FILE" extension/package.json > "$TEMP_PKG" 2>/dev/null || {
-              echo "❌ Could not extract package.json"
+              echo "[FAIL] Could not extract package.json"
               exit 1
             }
             
             if grep -q '"publisher"' "$TEMP_PKG"; then
               PUBLISHER=$(grep -o '"publisher":\s*"[^"]*"' "$TEMP_PKG" | cut -d'"' -f4)
-              echo "✅ Publisher: $PUBLISHER"
+              echo "[OK] Publisher: $PUBLISHER"
             else
-              echo "❌ Publisher information missing"
+              echo "[FAIL] Publisher information missing"
               exit 1
             fi
             
             if grep -q '"engines"' "$TEMP_PKG"; then
               VSCODE_VERSION=$(grep -A 2 '"engines"' "$TEMP_PKG" | grep '"vscode"' | cut -d'"' -f4 || echo "unknown")
-              echo "✅ VS Code Engine: $VSCODE_VERSION"
+              echo "[OK] VS Code Engine: $VSCODE_VERSION"
             else
-              echo "❌ VS Code engine version missing"
+              echo "[FAIL] VS Code engine version missing"
               exit 1
             fi
             
             rm -f "$TEMP_PKG"
           else
-            echo "❌ Extension package.json not found"
+            echo "[FAIL] Extension package.json not found"
             exit 1
           fi
           
           echo ""
-          echo "🎯 Enterprise Deployment Checklist:"
-          echo "✅ Package integrity verified"
-          echo "✅ Structure validation passed"
-          echo "✅ Metadata requirements met"
-          echo "✅ Security scan completed"
-          echo "✅ Performance benchmarks passed"
-          echo "✅ NASA Power of Ten compliance validated"
+          echo "[TARGET] Enterprise Deployment Checklist:"
+          echo "[OK] Package integrity verified"
+          echo "[OK] Structure validation passed"
+          echo "[OK] Metadata requirements met"
+          echo "[OK] Security scan completed"
+          echo "[OK] Performance benchmarks passed"
+          echo "[OK] NASA Power of Ten compliance validated"
           echo ""
-          echo "🎉 Extension is ENTERPRISE READY!"
-          echo "🚀 Ready for Fortune 500 and Defense Industry deployment"
+          echo "[CELEBRATION] Extension is ENTERPRISE READY!"
+          echo "[ROCKET] Ready for Fortune 500 and Defense Industry deployment"
           
       - name: Generate Deployment Report
         shell: bash
@@ -704,7 +704,7 @@ jobs:
           echo "- **File**: $VSIX_FILE" >> deployment-report.md
           echo "- **Size**: $(du -h "$VSIX_FILE" | cut -f1)" >> deployment-report.md
           echo "- **Build**: ${{ github.sha }}" >> deployment-report.md
-          echo "- **Status**: ✅ Ready for Production" >> deployment-report.md
+          echo "- **Status**: [OK] Ready for Production" >> deployment-report.md
           echo "" >> deployment-report.md
           
           echo "## NASA Power of Ten Compliance" >> deployment-report.md
@@ -719,22 +719,22 @@ jobs:
             echo "- **NASA Violations**: ${NASA_VIOLATIONS}" >> vscode-extension/deployment-report.md
             
             if (( $(echo "${NASA_SCORE} >= 0.90" | bc -l 2>/dev/null || echo "0") )); then
-              echo "- **Defense Industry Ready**: ✅ YES" >> vscode-extension/deployment-report.md
+              echo "- **Defense Industry Ready**: [OK] YES" >> vscode-extension/deployment-report.md
             else
-              echo "- **Defense Industry Ready**: ❌ NO (Score < 90%)" >> vscode-extension/deployment-report.md
+              echo "- **Defense Industry Ready**: [FAIL] NO (Score < 90%)" >> vscode-extension/deployment-report.md
             fi
           else
             echo "- **NASA Compliance Score**: Not Available" >> vscode-extension/deployment-report.md
-            echo "- **Defense Industry Ready**: ⚠️ Unknown" >> vscode-extension/deployment-report.md
+            echo "- **Defense Industry Ready**: [WARNING] Unknown" >> vscode-extension/deployment-report.md
           fi
           cd vscode-extension
           
           echo "" >> deployment-report.md
           echo "## Quality Gates" >> deployment-report.md
-          echo "- ✅ Package Integrity" >> deployment-report.md
-          echo "- ✅ Security Scan" >> deployment-report.md
-          echo "- ✅ Performance Benchmarks" >> deployment-report.md
-          echo "- ✅ NASA Power of Ten Compliance" >> deployment-report.md
+          echo "- [OK] Package Integrity" >> deployment-report.md
+          echo "- [OK] Security Scan" >> deployment-report.md
+          echo "- [OK] Performance Benchmarks" >> deployment-report.md
+          echo "- [OK] NASA Power of Ten Compliance" >> deployment-report.md
           
           cat deployment-report.md
           
@@ -783,7 +783,7 @@ jobs:
           npm install -g @vscode/vsce
           VSIX_FILE=$(ls *.vsix | head -1)
           
-          echo "🚀 Ready to publish: $VSIX_FILE"
+          echo "[ROCKET] Ready to publish: $VSIX_FILE"
           echo "To publish manually, run: vsce publish --packagePath $VSIX_FILE"
           
         env:
@@ -808,22 +808,22 @@ jobs:
           echo ""
           
           if [ "$ENTERPRISE_STATUS" == "success" ] && [ "$NASA_STATUS" == "success" ]; then
-            echo "✅ VS Code Extension CI/CD Pipeline: SUCCESS"
-            echo "🚀 Extension is ready for enterprise deployment!"
-            echo "🛡️ NASA Power of Ten compliance validated!"
-            echo "🏢 Approved for Fortune 500 and Defense Industry use!"
+            echo "[OK] VS Code Extension CI/CD Pipeline: SUCCESS"
+            echo "[ROCKET] Extension is ready for enterprise deployment!"
+            echo "[SHIELD] NASA Power of Ten compliance validated!"
+            echo "? Approved for Fortune 500 and Defense Industry use!"
           elif [ "$ENTERPRISE_STATUS" == "success" ] && [ "$NASA_STATUS" != "success" ]; then
-            echo "⚠️ VS Code Extension CI/CD Pipeline: PARTIAL SUCCESS"
-            echo "✅ Enterprise validation passed"
-            echo "❌ NASA compliance failed - not suitable for defense industry"
-            echo "🔧 Review NASA compliance issues before defense deployment"
+            echo "[WARNING] VS Code Extension CI/CD Pipeline: PARTIAL SUCCESS"
+            echo "[OK] Enterprise validation passed"
+            echo "[FAIL] NASA compliance failed - not suitable for defense industry"
+            echo "[TOOL] Review NASA compliance issues before defense deployment"
           elif [ "$ENTERPRISE_STATUS" != "success" ] && [ "$NASA_STATUS" == "success" ]; then
-            echo "⚠️ VS Code Extension CI/CD Pipeline: PARTIAL SUCCESS"
-            echo "❌ Enterprise validation failed"
-            echo "✅ NASA compliance passed"
-            echo "🔧 Review enterprise validation issues"
+            echo "[WARNING] VS Code Extension CI/CD Pipeline: PARTIAL SUCCESS"
+            echo "[FAIL] Enterprise validation failed"
+            echo "[OK] NASA compliance passed"
+            echo "[TOOL] Review enterprise validation issues"
           else
-            echo "❌ VS Code Extension CI/CD Pipeline: FAILED"
-            echo "❌ Both enterprise and NASA compliance failed"
-            echo "🔧 Please review the build logs and fix all issues."
+            echo "[FAIL] VS Code Extension CI/CD Pipeline: FAILED"
+            echo "[FAIL] Both enterprise and NASA compliance failed"
+            echo "[TOOL] Please review the build logs and fix all issues."
           fi

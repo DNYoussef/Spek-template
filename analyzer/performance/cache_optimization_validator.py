@@ -730,7 +730,7 @@ def generate_validation_report(validation_results: Dict[str, Any]) -> str:
         report.append("KEY ACHIEVEMENTS")
         report.append("-" * 16)
         for achievement in achievements:
-            report.append(f"✓ {achievement}")
+            report.append(f"[CHECK] {achievement}")
         report.append("")
     
     # Performance Summary
@@ -759,7 +759,7 @@ def generate_validation_report(validation_results: Dict[str, Any]) -> str:
         blocking_issues = readiness.get('blocking_issues', [])
         report.append("Blocking issues identified:")
         for issue in blocking_issues:
-            report.append(f"  × {issue}")
+            report.append(f"  x {issue}")
     
     report.append("")
     
@@ -769,7 +769,7 @@ def generate_validation_report(validation_results: Dict[str, Any]) -> str:
     report.append("-" * 23)
     
     for test_name, result in test_results.items():
-        status_icon = "✓" if result.success else "✗"
+        status_icon = "[CHECK]" if result.success else "[X]"
         improvement = result.measured_improvement_percent
         target = result.target_improvement_percent
         
@@ -820,10 +820,10 @@ async def main():
         # Final status
         readiness = results.get('production_readiness', {})
         if readiness.get('production_ready', False):
-            print("\n🎉 PHASE 3.5 CACHE OPTIMIZATION: VALIDATION SUCCESSFUL")
+            print("\n[CELEBRATION] PHASE 3.5 CACHE OPTIMIZATION: VALIDATION SUCCESSFUL")
             print("Cache optimization ready for production deployment!")
         else:
-            print("\n⚠️  PHASE 3.5 CACHE OPTIMIZATION: VALIDATION INCOMPLETE")
+            print("\n[WARNING]  PHASE 3.5 CACHE OPTIMIZATION: VALIDATION INCOMPLETE")
             print("Some optimization targets not met - review blocking issues")
         
     except Exception as e:

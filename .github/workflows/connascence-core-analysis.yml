@@ -51,13 +51,13 @@ jobs:
     - name: Create Artifacts Directory
       run: mkdir -p .claude/.artifacts
 
-    - name: 🔍 Core Connascence Analysis
+    - name: [SEARCH] Core Connascence Analysis
       run: |
-        echo "🔍 Running core connascence analysis with all 8 detector types..."
+        echo "[SEARCH] Running core connascence analysis with all 8 detector types..."
         cd analyzer
         python -c "import sys; sys.path.insert(0, '.'); exec(\"\"\"try:\n    from analyzer.connascence_analyzer import ConnascenceAnalyzer\n    import json\n    from datetime import datetime\n    analyzer = ConnascenceAnalyzer()\n    core_result = analyzer.analyze_path('..', policy='nasa_jpl_pot10')\n    with open('../.claude/.artifacts/connascence_full.json', 'w') as f:\n        json.dump(core_result, f, indent=2, default=str)\n    print('SUCCESS: Core connascence analysis completed')\n    print(f'Found {len(core_result.get(\\\"violations\\\", []))} violations')\n    print(f'NASA compliance: {core_result.get(\\\"nasa_compliance\\\", {}).get(\\\"score\\\", 0):.2%}')\nexcept Exception as e:\n    print(f'WARNING: Core analysis failed: {e}')\n    from datetime import datetime\n    import json\n    fallback_result = {'success': False, 'error': str(e), 'violations': [], 'summary': {'total_violations': 0, 'critical_violations': 0, 'overall_quality_score': 0.75}, 'nasa_compliance': {'score': 0.92, 'violations': [], 'reason': 'typescript_project_baseline'}, 'god_objects': [], 'timestamp': datetime.now().isoformat()}\n    with open('../.claude/.artifacts/connascence_full.json', 'w') as f:\n        json.dump(fallback_result, f, indent=2)\"\"\")"
 
-    - name: 📊 Analyze Results
+    - name: [CHART] Analyze Results
       run: |
         if [ -f .claude/.artifacts/connascence_full.json ]; then
           echo "=== Connascence Analysis Summary ==="
@@ -74,11 +74,11 @@ jobs:
           print(f'God Objects: {len(data.get(\"god_objects\", []))}')
           "
         else
-          echo "❌ Connascence analysis file not found"
+          echo "[FAIL] Connascence analysis file not found"
           exit 1
         fi
 
-    - name: 📤 Upload Connascence Analysis
+    - name: ? Upload Connascence Analysis
       uses: actions/upload-artifact@v4
       if: always()
       with:
@@ -86,7 +86,7 @@ jobs:
         path: |
           .claude/.artifacts/connascence_full.json
 
-    - name: 🚨 Quality Gate Check
+    - name: [ALERT] Quality Gate Check
       run: |
         echo "=== Connascence Quality Gate ==="
         python -c "
@@ -110,32 +110,32 @@ jobs:
         failed = False
         
         if critical_violations > max_critical:
-            print(f'❌ Critical violations: {critical_violations} > {max_critical}')
+            print(f'[FAIL] Critical violations: {critical_violations} > {max_critical}')
             failed = True
         else:
-            print(f'✅ Critical violations: {critical_violations} <= {max_critical}')
+            print(f'[OK] Critical violations: {critical_violations} <= {max_critical}')
             
         if nasa_score < min_nasa_compliance:
-            print(f'❌ NASA compliance: {nasa_score:.2%} < {min_nasa_compliance:.2%}')
+            print(f'[FAIL] NASA compliance: {nasa_score:.2%} < {min_nasa_compliance:.2%}')
             failed = True
         else:
-            print(f'✅ NASA compliance: {nasa_score:.2%} >= {min_nasa_compliance:.2%}')
+            print(f'[OK] NASA compliance: {nasa_score:.2%} >= {min_nasa_compliance:.2%}')
             
         if quality_score < min_quality_score:
-            print(f'❌ Quality score: {quality_score:.2%} < {min_quality_score:.2%}')
+            print(f'[FAIL] Quality score: {quality_score:.2%} < {min_quality_score:.2%}')
             failed = True
         else:
-            print(f'✅ Quality score: {quality_score:.2%} >= {min_quality_score:.2%}')
+            print(f'[OK] Quality score: {quality_score:.2%} >= {min_quality_score:.2%}')
             
         if god_objects > max_god_objects:
-            print(f'❌ God objects: {god_objects} > {max_god_objects}')
+            print(f'[FAIL] God objects: {god_objects} > {max_god_objects}')
             failed = True
         else:
-            print(f'✅ God objects: {god_objects} <= {max_god_objects}')
+            print(f'[OK] God objects: {god_objects} <= {max_god_objects}')
         
         if failed:
-            print('\\n🚨 Connascence quality gate FAILED')
+            print('\\n[ALERT] Connascence quality gate FAILED')
             sys.exit(1)
         else:
-            print('\\n✅ Connascence quality gate PASSED')
+            print('\\n[OK] Connascence quality gate PASSED')
         "

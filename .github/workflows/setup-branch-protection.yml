@@ -113,7 +113,7 @@ jobs:
               ...config
             });
             
-            console.log(`✅ Successfully configured ${level} branch protection for ${branch}`);
+            console.log(`[OK] Successfully configured ${level} branch protection for ${branch}`);
             
             // Create summary
             const summary = `
@@ -124,11 +124,11 @@ jobs:
             **Required Checks**: ${config.required_status_checks.checks.length}
             
             ### Enabled Protections:
-            - ✅ Required status checks
-            - ✅ Require branches to be up to date
-            - ✅ Pull request reviews required
-            - ${config.enforce_admins ? '✅' : '❌'} Enforce for administrators
-            - ${config.required_pull_request_reviews.require_code_owner_reviews ? '✅' : '❌'} Require CODEOWNERS review
+            - [OK] Required status checks
+            - [OK] Require branches to be up to date
+            - [OK] Pull request reviews required
+            - ${config.enforce_admins ? '[OK]' : '[FAIL]'} Enforce for administrators
+            - ${config.required_pull_request_reviews.require_code_owner_reviews ? '[OK]' : '[FAIL]'} Require CODEOWNERS review
             
             ### Required Status Checks:
             ${config.required_status_checks.checks.map(check => `- \`${check.context}\``).join('\n')}
@@ -137,7 +137,7 @@ jobs:
             console.log(summary);
             
           } catch (error) {
-            console.error('❌ Failed to configure branch protection:', error);
+            console.error('[FAIL] Failed to configure branch protection:', error);
             throw error;
           }
 
@@ -163,7 +163,7 @@ jobs:
         /setup.py @your-team/package-maintainers
         EOF
         
-        echo "✅ CODEOWNERS file created"
+        echo "[OK] CODEOWNERS file created"
 
     - name: Setup Environment Variables Template
       run: |
@@ -200,7 +200,7 @@ jobs:
         PERF_MIN_MEMORY_OPTIMIZATION=0.65
         EOF
         
-        echo "✅ Environment variables template created"
+        echo "[OK] Environment variables template created"
 
     - name: Protection Summary
       run: |

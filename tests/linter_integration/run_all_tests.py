@@ -99,8 +99,8 @@ class LinterIntegrationTestRunner:
             if not any(cat in suite_config["categories"] for cat in test_categories):
                 continue
                 
-            print(f"\n🧪 Running {suite_name}...")
-            print(f"   📄 {suite_config['description']}")
+            print(f"\n? Running {suite_name}...")
+            print(f"   ? {suite_config['description']}")
             
             suite_start = time.time()
             result = self._run_test_file(suite_config["file"], verbose)
@@ -115,11 +115,11 @@ class LinterIntegrationTestRunner:
             
             # Print immediate results
             if result["passed"]:
-                print(f"   ✅ {result['tests_run']} tests passed in {suite_duration:.2f}s")
+                print(f"   [OK] {result['tests_run']} tests passed in {suite_duration:.2f}s")
             else:
-                print(f"   ❌ {result['failures']} failures, {result['errors']} errors")
+                print(f"   [FAIL] {result['failures']} failures, {result['errors']} errors")
                 if result["error_summary"]:
-                    print(f"   💡 {result['error_summary']}")
+                    print(f"   [BULB] {result['error_summary']}")
         
         self.total_duration = time.time() - self.start_time
         
@@ -338,14 +338,14 @@ class LinterIntegrationTestRunner:
         print("=" * 80)
         
         # Overall status
-        status = "✅ PASSED" if report["overall_success"] else "❌ FAILED"
+        status = "[OK] PASSED" if report["overall_success"] else "[FAIL] FAILED"
         print(f"Overall Status: {status}")
         print(f"Success Rate: {report['success_rate']:.1f}%")
         print(f"Total Duration: {report['total_duration']:.2f}s")
         print()
         
         # Test summary
-        print("📊 TEST SUMMARY:")
+        print("[CHART] TEST SUMMARY:")
         print(f"   Total Tests: {report['total_tests']}")
         print(f"   Passed: {report['total_passed']}")
         print(f"   Failed: {report['total_failures']}")
@@ -353,23 +353,23 @@ class LinterIntegrationTestRunner:
         print()
         
         # Suite results
-        print("📋 SUITE RESULTS:")
+        print("[CLIPBOARD] SUITE RESULTS:")
         for suite_name, result in report["suite_results"].items():
-            status_icon = "✅" if result["passed"] else "❌"
+            status_icon = "[OK]" if result["passed"] else "[FAIL]"
             print(f"   {status_icon} {suite_name}: {result['tests_run']} tests in {result['duration']:.2f}s")
             if not result["passed"] and result.get("error_summary"):
-                print(f"      💡 {result['error_summary']}")
+                print(f"      [BULB] {result['error_summary']}")
         print()
         
         # Coverage analysis
-        print("🎯 COVERAGE ANALYSIS:")
+        print("[TARGET] COVERAGE ANALYSIS:")
         for component, data in report["coverage_analysis"].items():
-            status_icon = "✅" if data["covered"] else "❌"
+            status_icon = "[OK]" if data["covered"] else "[FAIL]"
             print(f"   {status_icon} {component}: {data['test_count']} tests ({data['success_rate']:.1f}% success)")
         print()
         
         # Recommendations
-        print("💡 RECOMMENDATIONS:")
+        print("[BULB] RECOMMENDATIONS:")
         for i, rec in enumerate(report["recommendations"], 1):
             print(f"   {i}. {rec}")
         
@@ -411,16 +411,16 @@ def main():
         with open(report_file, "w") as f:
             json.dump(report, f, indent=2)
         
-        print(f"\n📄 Full report saved to: {report_file}")
+        print(f"\n? Full report saved to: {report_file}")
         
         # Exit with appropriate code
         sys.exit(0 if report["overall_success"] else 1)
         
     except KeyboardInterrupt:
-        print("\n⚠️  Test run interrupted by user")
+        print("\n[WARNING]  Test run interrupted by user")
         sys.exit(130)
     except Exception as e:
-        print(f"\n💥 Test runner error: {e}")
+        print(f"\n? Test runner error: {e}")
         sys.exit(1)
 
 

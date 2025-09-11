@@ -916,7 +916,7 @@ def get_real_time_monitoring_report() -> Dict[str, Any]:
 # Example alert handler
 def example_alert_handler(alert: PerformanceAlert) -> None:
     """Example alert handler for demonstration."""
-    print(f"🚨 {alert.severity.value.upper()}: {alert.message}")
+    print(f"[ALERT] {alert.severity.value.upper()}: {alert.message}")
     if alert.suggested_actions:
         print("   Suggested actions:")
         for action in alert.suggested_actions:

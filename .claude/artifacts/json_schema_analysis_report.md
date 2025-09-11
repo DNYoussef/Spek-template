@@ -27,7 +27,7 @@
 
 ### 1. Code-Analyzer Agent: JSON Schema Consistency
 
-**Status:** ✅ COMPLETED  
+**Status:** [OK] COMPLETED  
 **Finding:** Structural consistency across all files
 
 **Schema Pattern Validated:**
@@ -51,16 +51,16 @@
 
 ### 2. Researcher-Gemini Agent: SARIF 2.1.0 Compliance
 
-**Status:** ✅ COMPLETED  
+**Status:** [OK] COMPLETED  
 **Finding:** FULL COMPLIANCE ACHIEVED
 
 **SARIF 2.1.0 Validation:**
-- ✅ Schema compliance: `https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json`
-- ✅ Version specification: "2.1.0"
-- ✅ Tool metadata: Complete driver information
-- ✅ Rules definitions: 9 connascence rules + notifications
-- ✅ Results format: Proper location and fingerprint structure
-- ✅ Automation details: UUID-based identification
+- [OK] Schema compliance: `https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json`
+- [OK] Version specification: "2.1.0"
+- [OK] Tool metadata: Complete driver information
+- [OK] Rules definitions: 9 connascence rules + notifications
+- [OK] Results format: Proper location and fingerprint structure
+- [OK] Automation details: UUID-based identification
 
 **Quality Metrics:**
 - Tool: connascence v1.0.0
@@ -69,7 +69,7 @@
 
 ### 3. Performance-Benchmarker Agent: JSON Generation Timing
 
-**Status:** ⚠️ COMPLETED - ANOMALIES DETECTED  
+**Status:** [WARNING] COMPLETED - ANOMALIES DETECTED  
 **Finding:** Suspicious timing uniformity indicates mock data
 
 **Timing Analysis:**
@@ -92,7 +92,7 @@ test_nasa                   | 0.5s          | 5             | 1757461889.4160483
 
 ### 4. Fresh-Eyes-Gemini Agent: Inconsistency Pre-mortem
 
-**Status:** 🚨 COMPLETED - MAJOR ISSUES IDENTIFIED  
+**Status:** [ALERT] COMPLETED - MAJOR ISSUES IDENTIFIED  
 **Finding:** Systematic mock data contamination
 
 **Mock Data Patterns Detected:**
@@ -158,7 +158,7 @@ test_nasa                   | 0.5s          | 5             | 1757461889.4160483
 ## Resource Allocation Assessment
 
 ### Successful Coordination Elements:
-1. **Hierarchical Structure:** Effective QUEEN → Worker delegation
+1. **Hierarchical Structure:** Effective QUEEN -> Worker delegation
 2. **Parallel Analysis:** All 7 files analyzed simultaneously
 3. **Memory Integration:** Findings properly stored and correlated
 4. **Quality Gates:** Mock data detection successful

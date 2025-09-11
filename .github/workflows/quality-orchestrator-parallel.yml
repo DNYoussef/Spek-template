@@ -78,13 +78,13 @@ jobs:
 
     - name: Install Analysis Dependencies
       run: |
-        echo "📦 Installing analysis dependencies for ${{ matrix.analysis.name }}..."
+        echo "[PACKAGE] Installing analysis dependencies for ${{ matrix.analysis.name }}..."
         pip install --upgrade pip
         if [ -f requirements.txt ]; then
           pip install -r requirements.txt
         fi
-        pip install -e ./analyzer || echo "⚠️ Analyzer installation failed, using fallbacks"
-        echo "✅ Analysis dependencies installed"
+        pip install -e ./analyzer || echo "[WARNING] Analyzer installation failed, using fallbacks"
+        echo "[OK] Analysis dependencies installed"
 
     - name: Run Connascence Analysis
       if: matrix.analysis.name == 'connascence'
@@ -121,7 +121,7 @@ jobs:
             }
             
         except Exception as e:
-            print(f'⚠️ Connascence analysis failed: {e}, using fallback')
+            print(f'[WARNING] Connascence analysis failed: {e}, using fallback')
             analysis_result = {
                 'timestamp': datetime.now().isoformat(),
                 'analysis_type': 'connascence-analysis',
@@ -143,7 +143,7 @@ jobs:
         with open('.claude/.artifacts/${{ matrix.analysis.name }}_analysis.json', 'w') as f:
             json.dump(analysis_result, f, indent=2, default=str)
         
-        print(f'✅ Connascence Analysis completed')
+        print(f'[OK] Connascence Analysis completed')
         print(f'Overall Score: {analysis_result[\"summary\"][\"overall_quality_score\"]:.2%}')
         "
 
@@ -185,7 +185,7 @@ jobs:
             }
             
         except Exception as e:
-            print(f'⚠️ Architecture analysis failed: {e}, using fallback')
+            print(f'[WARNING] Architecture analysis failed: {e}, using fallback')
             analysis_result = {
                 'timestamp': datetime.now().isoformat(),
                 'analysis_type': 'architecture-analysis',
@@ -210,7 +210,7 @@ jobs:
         with open('.claude/.artifacts/${{ matrix.analysis.name }}_analysis.json', 'w') as f:
             json.dump(analysis_result, f, indent=2, default=str)
         
-        print(f'✅ Architecture Analysis completed')
+        print(f'[OK] Architecture Analysis completed')
         print(f'Health: {analysis_result[\"system_overview\"][\"architectural_health\"]:.2%}')
         "
 
@@ -251,7 +251,7 @@ jobs:
             }
             
         except Exception as e:
-            print(f'⚠️ Performance monitoring failed: {e}, using fallback')
+            print(f'[WARNING] Performance monitoring failed: {e}, using fallback')
             analysis_result = {
                 'timestamp': datetime.now().isoformat(),
                 'analysis_type': 'performance-monitoring',
@@ -275,7 +275,7 @@ jobs:
         with open('.claude/.artifacts/${{ matrix.analysis.name }}_analysis.json', 'w') as f:
             json.dump(analysis_result, f, indent=2, default=str)
         
-        print(f'✅ Performance Monitoring completed')
+        print(f'[OK] Performance Monitoring completed')
         print(f'CPU Efficiency: {analysis_result[\"resource_utilization\"][\"cpu_usage\"][\"efficiency_score\"]:.2%}')
         "
 
@@ -311,7 +311,7 @@ jobs:
             }
             
         except Exception as e:
-            print(f'⚠️ MECE analysis failed: {e}, using fallback')
+            print(f'[WARNING] MECE analysis failed: {e}, using fallback')
             analysis_result = {
                 'timestamp': datetime.now().isoformat(),
                 'analysis_type': 'mece-analysis',
@@ -330,7 +330,7 @@ jobs:
         with open('.claude/.artifacts/${{ matrix.analysis.name }}_analysis.json', 'w') as f:
             json.dump(analysis_result, f, indent=2, default=str)
         
-        print(f'✅ MECE Analysis completed')
+        print(f'[OK] MECE Analysis completed')
         print(f'MECE Score: {analysis_result[\"mece_score\"]:.2%}')
         "
 
@@ -369,7 +369,7 @@ jobs:
             }
             
         except Exception as e:
-            print(f'⚠️ Cache optimization failed: {e}, using fallback')
+            print(f'[WARNING] Cache optimization failed: {e}, using fallback')
             analysis_result = {
                 'timestamp': datetime.now().isoformat(),
                 'analysis_type': 'cache-optimization',
@@ -391,7 +391,7 @@ jobs:
         with open('.claude/.artifacts/${{ matrix.analysis.name }}_analysis.json', 'w') as f:
             json.dump(analysis_result, f, indent=2, default=str)
         
-        print(f'✅ Cache Optimization completed')
+        print(f'[OK] Cache Optimization completed')
         print(f'Health Score: {analysis_result[\"cache_health\"][\"health_score\"]:.2%}')
         "
 
@@ -426,7 +426,7 @@ jobs:
             }
             
         except Exception as e:
-            print(f'⚠️ Self-dogfooding analysis failed: {e}, using fallback')
+            print(f'[WARNING] Self-dogfooding analysis failed: {e}, using fallback')
             analysis_result = {
                 'timestamp': datetime.now().isoformat(),
                 'analysis_type': 'self-dogfooding',
@@ -446,7 +446,7 @@ jobs:
         with open('.claude/.artifacts/${{ matrix.analysis.name }}_analysis.json', 'w') as f:
             json.dump(analysis_result, f, indent=2, default=str)
         
-        print(f'✅ Self-Dogfooding Analysis completed')
+        print(f'[OK] Self-Dogfooding Analysis completed')
         print(f'Overall Health: {analysis_result[\"overall_health\"]:.2%}')
         "
 
@@ -486,7 +486,7 @@ jobs:
 
     - name: Consolidate Analysis Results
       run: |
-        echo "📊 Consolidating all parallel analysis results..."
+        echo "[CHART] Consolidating all parallel analysis results..."
         python -c "
         import json
         import os
@@ -639,7 +639,7 @@ jobs:
         with open('.claude/.artifacts/quality_gates_report_parallel.json', 'w') as f:
             json.dump(consolidated, f, indent=2, default=str)
         
-        print('✅ Parallel analysis consolidation completed')
+        print('[OK] Parallel analysis consolidation completed')
         print(f'Overall Quality Score: {avg_quality:.2%}')
         print(f'Critical Issues: {len(consolidated[\"critical_issues\"])}')
         print(f'Analyses Processed: {analysis_count}/6')
@@ -673,16 +673,16 @@ jobs:
         failed = False
         
         if overall_quality < min_overall_quality:
-            print(f'❌ Overall quality: {overall_quality:.2%} < {min_overall_quality:.2%}')
+            print(f'[FAIL] Overall quality: {overall_quality:.2%} < {min_overall_quality:.2%}')
             failed = True
         else:
-            print(f'✅ Overall quality: {overall_quality:.2%} >= {min_overall_quality:.2%}')
+            print(f'[OK] Overall quality: {overall_quality:.2%} >= {min_overall_quality:.2%}')
             
         if len(critical_issues) > max_critical_issues:
-            print(f'❌ Critical issues: {len(critical_issues)} > {max_critical_issues}')
+            print(f'[FAIL] Critical issues: {len(critical_issues)} > {max_critical_issues}')
             failed = True
         else:
-            print(f'✅ Critical issues: {len(critical_issues)} <= {max_critical_issues}')
+            print(f'[OK] Critical issues: {len(critical_issues)} <= {max_critical_issues}')
         
         if critical_issues:
             print('\\nCritical Issues:')
@@ -690,11 +690,11 @@ jobs:
                 print(f'{i}. {issue}')
         
         if failed:
-            print('\\n🚨 PARALLEL QUALITY GATE FAILED')
+            print('\\n[ALERT] PARALLEL QUALITY GATE FAILED')
             sys.exit(1)
         else:
-            print('\\n✅ PARALLEL QUALITY GATE PASSED')
-            print('🚀 Parallel execution optimization successful!')
+            print('\\n[OK] PARALLEL QUALITY GATE PASSED')
+            print('[ROCKET] Parallel execution optimization successful!')
         "
 
     - name: Upload Consolidated Results

@@ -9,34 +9,34 @@ The SPEK Enhanced Development Platform's Linter Integration system is a comprehe
 The integration system follows a **mesh coordination topology** with specialized agents managing different aspects of linter execution:
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                   MESH COORDINATION LAYER                      │
-├─────────────────────────────────────────────────────────────────┤
-│  System Architect  │  Backend Dev  │  API Docs  │  Integration  │
-│     Pipeline       │   Adapters    │  Severity  │   Specialist  │
-│     Design         │   Pattern     │  Mapping   │   Real-time   │
-└─────────────────────────────────────────────────────────────────┘
-         │                    │             │              │
-         ▼                    ▼             ▼              ▼
-┌─────────────┐    ┌─────────────┐   ┌──────────────┐   ┌──────────────┐
-│Tool Mgmt    │    │Base Adapter │   │Severity      │   │Real-time     │
-│System       │    │Pattern      │   │Mapping       │   │Ingestion     │
-│(1,158 LOC)  │    │(254 LOC)    │   │(423 LOC)     │   │(2,247 LOC)   │
-└─────────────┘    └─────────────┘   └──────────────┘   └──────────────┘
-         │                    │             │              │
-         └────────────────────┼─────────────┼──────────────┘
-                              │             │
-                    ┌─────────────────────────────┐
-                    │   Integration API Server    │
-                    │     (1,247 LOC)            │
-                    │  REST/WebSocket/GraphQL     │
-                    └─────────────────────────────┘
-                              │
-                    ┌─────────────────────────────┐
-                    │  Correlation Framework      │
-                    │     (3,945 LOC)            │
-                    │  Cross-tool Analysis        │
-                    └─────────────────────────────┘
++-----------------------------------------------------------------+
+|                   MESH COORDINATION LAYER                      |
++-----------------------------------------------------------------+
+|  System Architect  |  Backend Dev  |  API Docs  |  Integration  |
+|     Pipeline       |   Adapters    |  Severity  |   Specialist  |
+|     Design         |   Pattern     |  Mapping   |   Real-time   |
++-----------------------------------------------------------------+
+         |                    |             |              |
+         ?                    ?             ?              ?
++-------------+    +-------------+   +--------------+   +--------------+
+|Tool Mgmt    |    |Base Adapter |   |Severity      |   |Real-time     |
+|System       |    |Pattern      |   |Mapping       |   |Ingestion     |
+|(1,158 LOC)  |    |(254 LOC)    |   |(423 LOC)     |   |(2,247 LOC)   |
++-------------+    +-------------+   +--------------+   +--------------+
+         |                    |             |              |
+         +--------------------+-------------+--------------+
+                              |             |
+                    +-----------------------------+
+                    |   Integration API Server    |
+                    |     (1,247 LOC)            |
+                    |  REST/WebSocket/GraphQL     |
+                    +-----------------------------+
+                              |
+                    +-----------------------------+
+                    |  Correlation Framework      |
+                    |     (3,945 LOC)            |
+                    |  Cross-tool Analysis        |
+                    +-----------------------------+
 ```
 
 ## Quick Start

@@ -352,13 +352,13 @@ def run_phase4_tests():
 
 
 if __name__ == '__main__':
-    print("🚀 Phase 4 Precision Validation Test Suite")
+    print("[ROCKET] Phase 4 Precision Validation Test Suite")
     print("=" * 60)
     
     results = run_phase4_tests()
     
     print("\n" + "=" * 60)
-    print("📊 PHASE 4 TEST SUITE RESULTS")
+    print("[CHART] PHASE 4 TEST SUITE RESULTS")
     print("=" * 60)
     print(f"Tests Run: {results['tests_run']}")
     print(f"Failures: {results['failures']}")
@@ -366,10 +366,10 @@ if __name__ == '__main__':
     print(f"Success Rate: {results['success_rate']:.1%}")
     
     if results['success_rate'] >= 0.95:
-        print("\n✅ Phase 4 validation PASSED - All precision micro-operations validated!")
+        print("\n[OK] Phase 4 validation PASSED - All precision micro-operations validated!")
         exit_code = 0
     else:
-        print("\n❌ Phase 4 validation FAILED - Issues detected in precision validation!")
+        print("\n[FAIL] Phase 4 validation FAILED - Issues detected in precision validation!")
         exit_code = 1
     
     print("=" * 60)

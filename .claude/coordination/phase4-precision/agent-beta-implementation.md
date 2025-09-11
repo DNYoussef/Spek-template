@@ -2,7 +2,7 @@
 
 ## MISSION BRIEFING
 **Agent Designation**: Beta
-**Specialization**: Method Implementation ≤20 LOC
+**Specialization**: Method Implementation <=20 LOC
 **Current Assignment**: MICRO-IMPL-002 - Missing Method Implementation
 **Status**: DEPLOYED - AWAITING EXECUTION
 
@@ -21,7 +21,7 @@ def measure_cache_hit_rate(self) -> float:
     Returns:
         float: Average hit rate percentage (0-100)
     """
-    # Implementation required - ≤20 LOC
+    # Implementation required - <=20 LOC
 ```
 
 ## TACTICAL APPROACH

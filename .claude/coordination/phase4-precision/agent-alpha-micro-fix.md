@@ -2,7 +2,7 @@
 
 ## MISSION BRIEFING
 **Agent Designation**: Alpha
-**Specialization**: Surgical Micro-Fixes ≤5 LOC
+**Specialization**: Surgical Micro-Fixes <=5 LOC
 **Current Assignment**: MICRO-FIX-001 - Variable Scoping Error
 **Status**: DEPLOYED - AWAITING EXECUTION
 

@@ -473,7 +473,7 @@ def run_comprehensive_validation():
     if assessment['critical_issues']:
         print(f"  Critical Issues:")
         for issue in assessment['critical_issues']:
-            print(f"    • {issue}")
+            print(f"    * {issue}")
     else:
         print(f"  Critical Issues: None")
     
@@ -488,7 +488,7 @@ def run_comprehensive_validation():
     # Recommendations
     print(f"\nRecommendations:")
     for rec in results['recommendations']:
-        print(f"  • {rec}")
+        print(f"  * {rec}")
     
     return results
 

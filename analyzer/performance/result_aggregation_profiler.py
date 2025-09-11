@@ -1459,7 +1459,7 @@ def generate_comprehensive_report(benchmark_results: Dict[str, Any]) -> str:
         report.append("KEY FINDINGS")
         report.append("-" * 15)
         for finding in key_findings[:5]:  # Top 5 findings
-            report.append(f"• {finding}")
+            report.append(f"* {finding}")
         report.append("")
     
     # Cumulative Performance Validation

@@ -20,7 +20,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 
 ## 1. SARIF 2.1.0 SCHEMA COMPLIANCE ASSESSMENT
 
-### ✅ COMPLIANT ELEMENTS
+### [OK] COMPLIANT ELEMENTS
 
 **Schema Declaration**: 
 - Correctly references official schema: `https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json`
@@ -34,7 +34,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 - `$schema`, `version`, `runs` all present and valid
 - Tool object properly structured with driver section
 
-### ❌ NON-COMPLIANT ELEMENTS
+### [FAIL] NON-COMPLIANT ELEMENTS
 
 **Schema Location Issue**:
 - Uses SchemaStore mirror instead of official OASIS schema
@@ -42,7 +42,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 
 ## 2. TOOL METADATA VALIDATION
 
-### ✅ COMPLIANT ELEMENTS
+### [OK] COMPLIANT ELEMENTS
 
 **Basic Driver Information**:
 ```json
@@ -56,7 +56,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 }
 ```
 
-### ❌ MISSING REQUIRED METADATA
+### [FAIL] MISSING REQUIRED METADATA
 
 **Missing Critical Fields**:
 - `semanticVersion`: Should follow semantic versioning specification
@@ -81,7 +81,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 
 ## 3. RULES DEFINITION ANALYSIS
 
-### ✅ COMPLIANT RULE STRUCTURES
+### [OK] COMPLIANT RULE STRUCTURES
 
 **Well-Formed Rules**: All 9 connascence rules properly structured:
 - `id`, `name`, `shortDescription`, `fullDescription` present
@@ -101,7 +101,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 }
 ```
 
-### ❌ RULE COMPLIANCE ISSUES
+### [FAIL] RULE COMPLIANCE ISSUES
 
 **Naming Convention Violations**:
 - Mixed rule namespaces: "CON_" prefix vs "NASA_POT10_" 
@@ -130,7 +130,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 
 ## 4. RESULT OBJECT COMPLIANCE
 
-### ✅ COMPLIANT RESULT STRUCTURES
+### [OK] COMPLIANT RESULT STRUCTURES
 
 **Required Fields Present**:
 - `ruleId`, `level`, `message` properly implemented
@@ -149,7 +149,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 }
 ```
 
-### ❌ RESULT COMPLIANCE ISSUES
+### [FAIL] RESULT COMPLIANCE ISSUES
 
 **Missing Optional Enhancements**:
 - No `guid` for stable result identification
@@ -163,7 +163,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 
 ## 5. SEVERITY MAPPING VALIDATION
 
-### ❌ NON-COMPLIANT SEVERITY IMPLEMENTATION
+### [FAIL] NON-COMPLIANT SEVERITY IMPLEMENTATION
 
 **Current Issues**:
 - SARIF `level` ("warning", "error") mixed with custom `problem.severity`
@@ -186,7 +186,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 
 ## 6. URI AND LOCATION COMPLIANCE
 
-### ✅ COMPLIANT LOCATION STRUCTURES
+### [OK] COMPLIANT LOCATION STRUCTURES
 
 **Proper physicalLocation Implementation**:
 ```json
@@ -202,7 +202,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 }
 ```
 
-### ❌ LOCATION ENHANCEMENT OPPORTUNITIES
+### [FAIL] LOCATION ENHANCEMENT OPPORTUNITIES
 
 **Missing Location Features**:
 - No `endLine`, `endColumn` for multi-line issues
@@ -225,7 +225,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 
 ## 7. FINGERPRINT ANALYSIS
 
-### ✅ BASIC FINGERPRINT IMPLEMENTATION
+### [OK] BASIC FINGERPRINT IMPLEMENTATION
 
 **Present Fingerprints**:
 ```json
@@ -235,7 +235,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 }
 ```
 
-### ❌ FINGERPRINT ENHANCEMENT NEEDED
+### [FAIL] FINGERPRINT ENHANCEMENT NEEDED
 
 **Missing Advanced Fingerprints**:
 - No versioned fingerprints (`"hash/v1"`, `"hash/v2"`)
@@ -257,7 +257,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 
 ## 8. PROPERTIES EXTENSION VALIDATION
 
-### ✅ COMPLIANT CUSTOM PROPERTIES
+### [OK] COMPLIANT CUSTOM PROPERTIES
 
 **Well-Structured Extensions**:
 ```json
@@ -268,7 +268,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 }
 ```
 
-### ❌ PROPERTIES COMPLIANCE ISSUES
+### [FAIL] PROPERTIES COMPLIANCE ISSUES
 
 **Namespace Violations**:
 - Custom properties should use tool-specific prefixes
@@ -288,22 +288,22 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 ## 9. INDUSTRY STANDARD COMPARISON
 
 ### CodeQL SARIF Implementation
-- ✅ Complete tool metadata with semantic versioning
-- ✅ Comprehensive rule definitions with relationships
-- ✅ Advanced fingerprinting with stable hashes
-- ✅ GitHub-optimized severity mapping
+- [OK] Complete tool metadata with semantic versioning
+- [OK] Comprehensive rule definitions with relationships
+- [OK] Advanced fingerprinting with stable hashes
+- [OK] GitHub-optimized severity mapping
 
 ### SonarQube SARIF Implementation  
-- ✅ Rich rule metadata with taxonomies
-- ✅ Multi-language support indicators
-- ✅ Quality gate integration properties
-- ✅ Remediation guidance in fixes
+- [OK] Rich rule metadata with taxonomies
+- [OK] Multi-language support indicators
+- [OK] Quality gate integration properties
+- [OK] Remediation guidance in fixes
 
 ### ESLint SARIF Implementation
-- ✅ Rule configuration inheritance
-- ✅ Plugin namespace separation
-- ✅ Source location precision with snippets
-- ✅ Auto-fix integration
+- [OK] Rule configuration inheritance
+- [OK] Plugin namespace separation
+- [OK] Source location precision with snippets
+- [OK] Auto-fix integration
 
 **Gap Analysis**: test_sarif.json implements basic SARIF structure but lacks advanced features present in industry-standard implementations.
 
@@ -311,30 +311,30 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 
 ### GitHub Advanced Security Integration
 **Compatible Elements**:
-- ✅ Basic SARIF 2.1.0 structure accepted
-- ✅ Rule-based result organization supported
-- ✅ Physical location mapping functional
+- [OK] Basic SARIF 2.1.0 structure accepted
+- [OK] Rule-based result organization supported
+- [OK] Physical location mapping functional
 
 **Enhancement Required**:
-- ❌ Add `security-severity` for proper severity mapping
-- ❌ Implement stable fingerprints for alert tracking
-- ❌ Include remediation fixes for automated suggestions
+- [FAIL] Add `security-severity` for proper severity mapping
+- [FAIL] Implement stable fingerprints for alert tracking
+- [FAIL] Include remediation fixes for automated suggestions
 
 ### Azure DevOps Integration
 **Compatible Elements**:
-- ✅ Run-level metadata supports build integration
-- ✅ Invocation tracking enables pipeline integration
+- [OK] Run-level metadata supports build integration
+- [OK] Invocation tracking enables pipeline integration
 
 **Enhancement Required**:
-- ❌ Add automation details for better pipeline tracking
-- ❌ Include execution metrics for performance monitoring
+- [FAIL] Add automation details for better pipeline tracking
+- [FAIL] Include execution metrics for performance monitoring
 
 ### Commercial Tool Integration
 **Compatibility Score**: 75/100
-- ✅ Standard import/export supported by most tools
-- ✅ Core finding data translates across platforms
-- ❌ Advanced features may be lost in translation
-- ❌ Tool-specific extensions need translation layers
+- [OK] Standard import/export supported by most tools
+- [OK] Core finding data translates across platforms
+- [FAIL] Advanced features may be lost in translation
+- [FAIL] Tool-specific extensions need translation layers
 
 ## RECOMMENDATIONS FOR SARIF IMPROVEMENT
 
@@ -370,7 +370,7 @@ The analyzed test_sarif.json file demonstrates **GOOD OVERALL COMPLIANCE** with 
 ### MEDIUM PRIORITY ENHANCEMENTS
 
 4. **Standardize Rule Naming**:
-   - Convert `CON_CoM` → `connascence.static.meaning`
+   - Convert `CON_CoM` -> `connascence.static.meaning`
    - Separate NASA rules into distinct taxonomy
 
 5. **Add Location Precision**:

@@ -34,7 +34,7 @@ export CONN_MIN_QUALITY=0.70
 
 ## Environment Profiles
 
-### 🚀 **Development Profile** (Fast Iteration)
+### [ROCKET] **Development Profile** (Fast Iteration)
 ```bash
 NASA_MIN_SCORE=0.75
 SEC_MAX_CRITICAL=1
@@ -44,7 +44,7 @@ ARCH_MIN_HEALTH=0.60
 OVERALL_MIN_QUALITY=0.65
 ```
 
-### 🧪 **Staging Profile** (Integration Testing)
+### ? **Staging Profile** (Integration Testing)
 ```bash
 NASA_MIN_SCORE=0.80
 SEC_MAX_CRITICAL=0
@@ -54,7 +54,7 @@ ARCH_MIN_HEALTH=0.65
 OVERALL_MIN_QUALITY=0.70
 ```
 
-### 🏭 **Production Profile** (Strict Quality)
+### ? **Production Profile** (Strict Quality)
 ```bash
 NASA_MIN_SCORE=0.90
 SEC_MAX_CRITICAL=0
@@ -64,7 +64,7 @@ ARCH_MIN_HEALTH=0.80
 OVERALL_MIN_QUALITY=0.85
 ```
 
-### 🛡️ **Defense Industry Profile** (Maximum Security)
+### [SHIELD] **Defense Industry Profile** (Maximum Security)
 ```bash
 NASA_MIN_SCORE=0.95
 SEC_MAX_CRITICAL=0
@@ -79,27 +79,27 @@ OVERALL_MIN_QUALITY=0.90
 
 ## Variable Categories
 
-### 🛡️ **NASA Compliance**
+### [SHIELD] **NASA Compliance**
 - `NASA_MIN_SCORE` - Minimum POT10 compliance (0.85 recommended)
 - `NASA_MAX_CRITICAL` - Critical violations allowed (0 for defense)
 - `NASA_MAX_HIGH` - High severity violations allowed (5 standard)
 
-### 🔒 **Security Analysis**
+### [LOCK] **Security Analysis**
 - `SEC_MAX_CRITICAL` - Critical vulnerabilities allowed (0 recommended)
 - `SEC_MAX_HIGH` - High vulnerabilities allowed (3 standard)
 - `SEC_MAX_SECRETS` - Secrets detected allowed (0 for production)
 
-### 📊 **Connascence Analysis**
+### [CHART] **Connascence Analysis**
 - `CONN_MAX_CRITICAL` - Critical coupling violations (5 standard)
 - `CONN_MIN_QUALITY` - Minimum quality score (0.70 recommended)
 - `CONN_MAX_GOD_OBJECTS` - God objects allowed (3 standard)
 
-### 🏗️ **Architecture Quality**
+### ?? **Architecture Quality**
 - `ARCH_MIN_HEALTH` - Minimum health score (0.70 recommended)
 - `ARCH_MAX_COUPLING` - Maximum coupling (0.60 recommended)
 - `ARCH_MIN_MAINTAINABILITY` - Minimum maintainability (0.65)
 
-### ⚡ **Performance & Cache**
+### [LIGHTNING] **Performance & Cache**
 - `CACHE_MIN_HEALTH` - Minimum cache health (0.75 recommended)
 - `PERF_MIN_CPU_EFFICIENCY` - Minimum CPU efficiency (0.70)
 

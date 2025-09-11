@@ -371,13 +371,13 @@ class Phase1TestSuite:
         print()
         
         if passed == len(tests):
-            print("✅ ALL PHASE 1 ISSUES PROTECTED - NO REGRESSION DETECTED")
+            print("[OK] ALL PHASE 1 ISSUES PROTECTED - NO REGRESSION DETECTED")
         else:
-            print("❌ REGRESSION DETECTED - PHASE 1 ISSUES NOT FULLY PROTECTED")
+            print("[FAIL] REGRESSION DETECTED - PHASE 1 ISSUES NOT FULLY PROTECTED")
         
         print("\nDetailed Results:")
         for result in results:
-            status_emoji = "✅" if result["status"] == "PASS" else "❌"
+            status_emoji = "[OK]" if result["status"] == "PASS" else "[FAIL]"
             print(f"{status_emoji} {result['test_name']}: {result['status']}")
             print(f"   {result['baseline_improvement']}")
         

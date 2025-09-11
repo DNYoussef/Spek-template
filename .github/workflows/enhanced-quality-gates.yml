@@ -153,7 +153,7 @@ jobs:
           safety --version || { echo "::error::Safety installation failed"; exit 1; }
           pip-audit --version || { echo "::error::pip-audit installation failed"; exit 1; }
           
-          echo "✅ ALL REAL SECURITY TOOLS VERIFIED"
+          echo "[OK] ALL REAL SECURITY TOOLS VERIFIED"
         fi
         
         # Install NASA compliance tools
@@ -191,7 +191,7 @@ jobs:
           echo "- Safety: $(safety --version 2>/dev/null || echo 'NOT INSTALLED')"
         fi
         
-        echo "✅ Theater detection pre-check completed"
+        echo "[OK] Theater detection pre-check completed"
         echo "::endgroup::"
 
     # STREAM 1: REAL Connascence Analysis with 9 Detector Modules
@@ -222,7 +222,7 @@ jobs:
                 is_policy_nasa_compliant
             )
             
-            print('✅ REAL UnifiedConnascenceAnalyzer imported successfully')
+            print('[OK] REAL UnifiedConnascenceAnalyzer imported successfully')
             
             # Configure REAL analysis with all 9 detector modules
             analyzer_config = {
@@ -244,7 +244,7 @@ jobs:
             analyzer = UnifiedConnascenceAnalyzer()
             analysis_results = analyzer.analyze_project('.', config=analyzer_config)
             
-            print('✅ REAL analysis execution completed')
+            print('[OK] REAL analysis execution completed')
             
             # Extract and validate REAL metrics
             total_violations = len(analysis_results.get('violations', []))
@@ -323,7 +323,7 @@ jobs:
                     'no_mocks_used': True
                 }, f, indent=2)
             
-            print(f'✅ REAL connascence analysis completed:')
+            print(f'[OK] REAL connascence analysis completed:')
             print(f'  - Analysis duration: {analysis_duration:.2f} seconds')
             print(f'  - Total violations: {total_violations}/{max_violations}')
             print(f'  - Critical violations: {critical_violations}/{max_critical}')
@@ -376,7 +376,7 @@ jobs:
             from analyzer.duplication.duplication_unified import DuplicationAnalyzer
             from analyzer.dup_detection.mece_analyzer import MECEAnalyzer
             
-            print('✅ REAL MECEAnalyzer imported successfully')
+            print('[OK] REAL MECEAnalyzer imported successfully')
             
             # Configure REAL MECE analysis
             mece_config = {
@@ -494,7 +494,7 @@ jobs:
                     'no_mocks_used': True
                 }, f, indent=2)
             
-            print(f'✅ REAL MECE analysis completed:')
+            print(f'[OK] REAL MECE analysis completed:')
             print(f'  - Analysis duration: {analysis_duration:.2f} seconds')
             print(f'  - MECE score: {mece_score:.3f} (threshold: {mece_threshold})')
             print(f'  - Duplicate clusters: {duplicate_clusters}')
@@ -547,7 +547,7 @@ jobs:
             from analyzer.detectors.position_detector import PositionDetector
             from analyzer.constants import get_policy_thresholds
             
-            print('✅ REAL God Object detectors imported successfully')
+            print('[OK] REAL God Object detectors imported successfully')
             
             # Configure REAL complexity analysis
             detector_config = {
@@ -716,7 +716,7 @@ jobs:
                     'no_mocks_used': True
                 }, f, indent=2)
             
-            print(f'✅ REAL god object detection completed:')
+            print(f'[OK] REAL god object detection completed:')
             print(f'  - Analysis duration: {analysis_duration:.2f} seconds')
             print(f'  - Files analyzed: {len(python_files)}')
             print(f'  - God objects found: {god_object_count}/{max_god_objects}')
@@ -757,7 +757,7 @@ jobs:
         semgrep --version || { echo "::error::Semgrep not installed"; exit 1; }
         safety --version || { echo "::error::Safety not installed"; exit 1; }
         pip-audit --version || { echo "::error::pip-audit not installed"; exit 1; }
-        echo "✅ ALL REAL SECURITY TOOLS VERIFIED"
+        echo "[OK] ALL REAL SECURITY TOOLS VERIFIED"
         
         # Real Bandit SAST analysis
         echo "Running REAL Bandit SAST analysis..."
@@ -819,15 +819,15 @@ jobs:
                         for run in semgrep_data['runs']:
                             run_results = run.get('results', [])
                             all_results.extend(run_results)
-                            print(f'  ✅ Processed Semgrep SARIF: {len(run_results)} REAL findings')
+                            print(f'  [OK] Processed Semgrep SARIF: {len(run_results)} REAL findings')
                         tools_used.append('Semgrep')
                     else:
-                        print('  ⚠️ Semgrep SARIF contains no runs/results')
+                        print('  [WARNING] Semgrep SARIF contains no runs/results')
                         
                 except Exception as e:
-                    print(f'  ❌ Failed to process Semgrep SARIF: {e}')
+                    print(f'  [FAIL] Failed to process Semgrep SARIF: {e}')
             else:
-                print('  ⚠️ Semgrep SARIF file not found')
+                print('  [WARNING] Semgrep SARIF file not found')
             
             # Process Bandit JSON and convert to SARIF
             bandit_file = sarif_dir / 'bandit-raw.json'
@@ -864,12 +864,12 @@ jobs:
                     
                     consolidated_sarif['runs'].append(bandit_run)
                     tools_used.append('Bandit')
-                    print(f'  ✅ Processed Bandit JSON: {len(bandit_run[\"results\"])} REAL findings')
+                    print(f'  [OK] Processed Bandit JSON: {len(bandit_run[\"results\"])} REAL findings')
                     
                 except Exception as e:
-                    print(f'  ❌ Failed to process Bandit JSON: {e}')
+                    print(f'  [FAIL] Failed to process Bandit JSON: {e}')
             else:
-                print('  ⚠️ Bandit JSON file not found')
+                print('  [WARNING] Bandit JSON file not found')
             
             # Process Safety JSON and convert to SARIF
             safety_file = sarif_dir / 'safety-raw.json'
@@ -911,14 +911,14 @@ jobs:
                         
                         consolidated_sarif['runs'].append(safety_run)
                         tools_used.append('Safety')
-                        print(f'  ✅ Processed Safety JSON: {len(safety_run[\"results\"])} REAL findings')
+                        print(f'  [OK] Processed Safety JSON: {len(safety_run[\"results\"])} REAL findings')
                     else:
-                        print('  ⚠️ Safety JSON file is empty')
+                        print('  [WARNING] Safety JSON file is empty')
                     
                 except Exception as e:
-                    print(f'  ❌ Failed to process Safety JSON: {e}')
+                    print(f'  [FAIL] Failed to process Safety JSON: {e}')
             else:
-                print('  ⚠️ Safety JSON file not found')
+                print('  [WARNING] Safety JSON file not found')
             
             # Process pip-audit JSON and convert to SARIF  
             pipaudit_file = sarif_dir / 'pip-audit-raw.json'
@@ -955,14 +955,14 @@ jobs:
                         
                         consolidated_sarif['runs'].append(pipaudit_run)
                         tools_used.append('pip-audit')
-                        print(f'  ✅ Processed pip-audit JSON: {len(pipaudit_run[\"results\"])} REAL findings')
+                        print(f'  [OK] Processed pip-audit JSON: {len(pipaudit_run[\"results\"])} REAL findings')
                     else:
-                        print('  ⚠️ pip-audit JSON file is empty')
+                        print('  [WARNING] pip-audit JSON file is empty')
                         
                 except Exception as e:
-                    print(f'  ❌ Failed to process pip-audit JSON: {e}')
+                    print(f'  [FAIL] Failed to process pip-audit JSON: {e}')
             else:
-                print('  ⚠️ pip-audit JSON file not found')
+                print('  [WARNING] pip-audit JSON file not found')
             
             # Save consolidated REAL SARIF
             with open('.claude/.artifacts/sarif/security-analysis.sarif', 'w') as f:
@@ -1006,7 +1006,7 @@ jobs:
             with open('.claude/.artifacts/analysis/${{ matrix.stream.name }}/results.json', 'w') as f:
                 json.dump(security_results, f, indent=2)
             
-            print(f'\\n✅ REAL security analysis consolidated:')
+            print(f'\\n[OK] REAL security analysis consolidated:')
             print(f'  - REAL tools executed: {tools_used} ({len(tools_used)}/4)')
             print(f'  - Total AUTHENTIC findings: {total_findings}')
             print(f'  - Critical findings: {critical_findings}')
@@ -1062,7 +1062,7 @@ jobs:
             from analyzer.nasa_engine.nasa_analyzer import NASARuleEngine
             from analyzer.constants import get_policy_thresholds, is_policy_nasa_compliant
             
-            print('✅ REAL NASARuleEngine imported successfully')
+            print('[OK] REAL NASARuleEngine imported successfully')
             
             # Configure REAL NASA POT10 analysis
             nasa_config = {
@@ -1081,7 +1081,7 @@ jobs:
             nasa_engine = NASARuleEngine()
             compliance_results = nasa_engine.analyze_project('.', config=nasa_config)
             
-            print('✅ REAL NASA compliance analysis execution completed')
+            print('[OK] REAL NASA compliance analysis execution completed')
             
             # Extract REAL compliance metrics
             compliance_score = compliance_results.get('compliance_percentage', 0.0)
@@ -1168,7 +1168,7 @@ jobs:
             with open('.claude/.artifacts/analysis/${{ matrix.stream.name }}/results.json', 'w') as f:
                 json.dump(evidence_package, f, indent=2)
             
-            print(f'✅ REAL NASA POT10 compliance analysis completed:')
+            print(f'[OK] REAL NASA POT10 compliance analysis completed:')
             print(f'  - Analysis duration: {analysis_duration:.2f} seconds')
             print(f'  - Compliance score: {compliance_score:.1f}% (target: {min_compliance:.1f}%)')
             print(f'  - Total violations: {len(rule_violations)}')
@@ -1270,9 +1270,9 @@ jobs:
         theater_issues = detect_performance_theater()
         
         if theater_issues:
-            print('🎭 THEATER DETECTION ISSUES FOUND:')
+            print('? THEATER DETECTION ISSUES FOUND:')
             for issue in theater_issues:
-                print(f'  ❌ {issue}')
+                print(f'  [FAIL] {issue}')
             
             # Save theater detection report
             with open('.claude/.artifacts/theater_detection/${{ matrix.stream.name }}_theater_report.json', 'w') as f:
@@ -1287,7 +1287,7 @@ jobs:
             print('::error::Theater detection failed - analysis may not be authentic')
             exit(1)
         else:
-            print('✅ NO THEATER DETECTED - Analysis appears authentic')
+            print('[OK] NO THEATER DETECTED - Analysis appears authentic')
             
             # Save clean theater detection report
             with open('.claude/.artifacts/theater_detection/${{ matrix.stream.name }}_theater_report.json', 'w') as f:
@@ -1354,7 +1354,7 @@ jobs:
         from datetime import datetime
         
         def comprehensive_theater_detection():
-            print('🕵️ COMPREHENSIVE THEATER DETECTION AUDIT')
+            print('?? COMPREHENSIVE THEATER DETECTION AUDIT')
             print('=' * 60)
             
             theater_report = {
@@ -1382,7 +1382,7 @@ jobs:
             
             # Audit each stream for theater
             for stream_name in expected_streams:
-                print(f'\\n🔍 Auditing stream: {stream_name}')
+                print(f'\\n[SEARCH] Auditing stream: {stream_name}')
                 
                 # Find stream results
                 stream_results = None
@@ -1448,10 +1448,10 @@ jobs:
                 
                 if stream_theater_detected:
                     theater_report['theater_detected_streams'] += 1
-                    print(f'  🎭 THEATER DETECTED: {len(failed_checks)} authenticity failures')
+                    print(f'  ? THEATER DETECTED: {len(failed_checks)} authenticity failures')
                 else:
                     theater_report['authentic_streams'] += 1
-                    print(f'  ✅ AUTHENTIC: All checks passed')
+                    print(f'  [OK] AUTHENTIC: All checks passed')
             
             # Overall assessment
             overall_authenticity = (theater_report['authentic_streams'] / 
@@ -1473,7 +1473,7 @@ jobs:
             with open('.claude/.artifacts/consolidated/theater_detection_audit.json', 'w') as f:
                 json.dump(theater_report, f, indent=2)
             
-            print('\\n🎭 THEATER DETECTION AUDIT SUMMARY')
+            print('\\n? THEATER DETECTION AUDIT SUMMARY')
             print('=' * 60)
             print(f'Streams audited: {theater_report[\"streams_audited\"]}/8')
             print(f'Authentic streams: {theater_report[\"authentic_streams\"]}')
@@ -1483,7 +1483,7 @@ jobs:
             print(f'Production ready: {\"YES\" if theater_report[\"overall_assessment\"][\"production_ready\"] else \"NO\"}')
             
             if theater_report['theater_issues']:
-                print('\\n🚨 THEATER ISSUES DETECTED:')
+                print('\\n[ALERT] THEATER ISSUES DETECTED:')
                 for issue in theater_report['theater_issues']:
                     print(f'  - {issue[\"stream\"]}: {issue[\"issue\"]}')
             
@@ -1516,7 +1516,7 @@ jobs:
         from datetime import datetime
         
         def consolidate_real_8_stream_results():
-            print('🔄 CONSOLIDATING 8-STREAM REAL ANALYSIS RESULTS')
+            print('? CONSOLIDATING 8-STREAM REAL ANALYSIS RESULTS')
             print('=' * 60)
             
             # Stream results consolidation
@@ -1609,7 +1609,7 @@ jobs:
                         if 'god_object_count' in data:
                             stream_results[stream_name]['metrics']['god_object_count'] = data['god_object_count']
                         
-                        authenticity_indicator = '✅ REAL' if stream_results[stream_name]['authentic'] else '❌ SUSPECT'
+                        authenticity_indicator = '[OK] REAL' if stream_results[stream_name]['authentic'] else '[FAIL] SUSPECT'
                         print(f'  {authenticity_indicator} {stream_name}: {stream_results[stream_name][\"status\"].upper()}')
                     
                 except Exception as e:
@@ -1687,8 +1687,8 @@ jobs:
                 json.dump(consolidated_report, f, indent=2)
             
             # Generate GitHub summary for REAL analysis
-            status_emoji = '✅' if consolidated_report['quality_summary']['overall_status'] == 'passed' else '❌'
-            auth_emoji = '🔒' if consolidated_report['quality_summary']['authenticity_status'] == 'authentic' else '🎭'
+            status_emoji = '[OK]' if consolidated_report['quality_summary']['overall_status'] == 'passed' else '[FAIL]'
+            auth_emoji = '[LOCK]' if consolidated_report['quality_summary']['authenticity_status'] == 'authentic' else '?'
             
             github_summary = f'''# 8-Stream REAL Quality Gates Analysis {status_emoji}{auth_emoji}
 
@@ -1700,8 +1700,8 @@ jobs:
             
             for stream_name in expected_streams:
                 stream_data = stream_results.get(stream_name, {'status': 'not_found', 'authentic': False})
-                status_icon = '✅' if stream_data['status'] == 'passed' else '❌' if stream_data['status'] == 'failed' else '❓'
-                auth_icon = '🔒' if stream_data.get('authentic', False) else '🎭'
+                status_icon = '[OK]' if stream_data['status'] == 'passed' else '[FAIL]' if stream_data['status'] == 'failed' else '?'
+                auth_icon = '[LOCK]' if stream_data.get('authentic', False) else '?'
                 tool_used = stream_data.get('tool_used', 'unknown')
                 github_summary += f'- **{stream_name.replace(\"_\", \" \").title()}**: {status_icon}{auth_icon} {stream_data[\"status\"].upper()} (Tool: {tool_used})\\n'
             
@@ -1710,16 +1710,16 @@ jobs:
   ### Quality & Authenticity Summary:
 - **Pass Rate**: {overall_pass_rate:.1f}% ({passed_streams}/{total_streams})
 - **Authenticity Rate**: {authenticity_rate:.1f}% ({authentic_streams}/{total_streams})
-- **Defense Industry Ready**: {\"✅ YES\" if consolidated_report[\"defense_industry_certification\"][\"production_ready\"] else \"❌ NO\"}
-- **Theater-Free Analysis**: {\"🔒 YES\" if consolidated_report[\"defense_industry_certification\"][\"theater_free\"] else \"🎭 THEATER DETECTED\"}
-- **NASA POT10 Compliance**: {\"✅ PASSED\" if consolidated_report[\"defense_industry_certification\"][\"nasa_pot10_ready\"] else \"❌ FAILED\"}
-- **Security Validation**: {\"✅ PASSED\" if consolidated_report[\"defense_industry_certification\"][\"security_validated\"] else \"❌ FAILED\"}
+- **Defense Industry Ready**: {\"[OK] YES\" if consolidated_report[\"defense_industry_certification\"][\"production_ready\"] else \"[FAIL] NO\"}
+- **Theater-Free Analysis**: {\"[LOCK] YES\" if consolidated_report[\"defense_industry_certification\"][\"theater_free\"] else \"? THEATER DETECTED\"}
+- **NASA POT10 Compliance**: {\"[OK] PASSED\" if consolidated_report[\"defense_industry_certification\"][\"nasa_pot10_ready\"] else \"[FAIL] FAILED\"}
+- **Security Validation**: {\"[OK] PASSED\" if consolidated_report[\"defense_industry_certification\"][\"security_validated\"] else \"[FAIL] FAILED\"}
 
   ### Evidence Package:
 - **REAL SARIF Files**: {len(all_sarif_files)}
 - **REAL Evidence Files**: {len(all_evidence_files)} 
-- **Audit Trail**: Complete ✅
-- **Real Tools Verified**: {\"✅ YES\" if consolidated_report[\"evidence_package\"][\"real_tools_verified\"] else \"❌ NO\"}
+- **Audit Trail**: Complete [OK]
+- **Real Tools Verified**: {\"[OK] YES\" if consolidated_report[\"evidence_package\"][\"real_tools_verified\"] else \"[FAIL] NO\"}
 
 *Generated: {consolidated_report['metadata']['generated_at']}*
 *Pipeline: 8-Stream Parallel REAL Analysis (Theater Detection Enabled)*
@@ -1728,7 +1728,7 @@ jobs:
             with open('final-report/summaries/github-real-summary.md', 'w') as f:
                 f.write(github_summary)
             
-            print(f'\\n✅ 8-Stream REAL Quality Gates Consolidation Complete:')
+            print(f'\\n[OK] 8-Stream REAL Quality Gates Consolidation Complete:')
             print(f'  - Overall Status: {consolidated_report[\"quality_summary\"][\"overall_status\"].upper()}')
             print(f'  - Pass Rate: {overall_pass_rate:.1f}% ({passed_streams}/{total_streams})')
             print(f'  - Authenticity Rate: {authenticity_rate:.1f}% ({authentic_streams}/{total_streams})')
@@ -1779,7 +1779,7 @@ jobs:
         production_ready = report.get('defense_industry_certification', {}).get('production_ready', False)
         theater_free = report.get('defense_industry_certification', {}).get('theater_free', False)
         
-        print('🚀 8-STREAM REAL QUALITY GATES ANALYSIS RESULTS')
+        print('[ROCKET] 8-STREAM REAL QUALITY GATES ANALYSIS RESULTS')
         print('=' * 60)
         print(f'Overall Status: {overall_status.upper()}')
         print(f'Authenticity Status: {authenticity_status.upper()}')
@@ -1794,7 +1794,7 @@ jobs:
             status = stream_data.get('status', 'unknown')
             authentic = stream_data.get('authentic', False)
             tool_used = stream_data.get('tool_used', 'unknown')
-            auth_indicator = '🔒' if authentic else '🎭'
+            auth_indicator = '[LOCK]' if authentic else '?'
             print(f'  {auth_indicator} {stream_name.replace(\"_\", \" \").title()}: {status.upper()} (Tool: {tool_used})')
         
         # Defense industry certification details
@@ -1812,24 +1812,24 @@ jobs:
         failed = False
         
         if overall_status == 'failed' or pass_rate < min_pass_rate:
-            print(f'\\n❌ QUALITY GATES FAILED: Pass rate {pass_rate:.1f}% < {min_pass_rate:.1f}%')
+            print(f'\\n[FAIL] QUALITY GATES FAILED: Pass rate {pass_rate:.1f}% < {min_pass_rate:.1f}%')
             failed = True
         elif authenticity_status == 'suspect' or authenticity_rate < min_authenticity_rate:
-            print(f'\\n🎭 AUTHENTICITY FAILED: Authenticity rate {authenticity_rate:.1f}% < {min_authenticity_rate:.1f}%')
+            print(f'\\n? AUTHENTICITY FAILED: Authenticity rate {authenticity_rate:.1f}% < {min_authenticity_rate:.1f}%')
             print('Theater detected in analysis - results may not be genuine')
             failed = True
         else:
-            print(f'\\n✅ QUALITY GATES: PASSED')
-            print(f'🔒 AUTHENTICITY: VERIFIED')
+            print(f'\\n[OK] QUALITY GATES: PASSED')
+            print(f'[LOCK] AUTHENTICITY: VERIFIED')
             print(f'Pass rate {pass_rate:.1f}% >= {min_pass_rate:.1f}%')
             print(f'Authenticity rate {authenticity_rate:.1f}% >= {min_authenticity_rate:.1f}%')
         
         if failed:
-            print('\\n🚨 8-STREAM REAL QUALITY GATES: FAILED')
+            print('\\n[ALERT] 8-STREAM REAL QUALITY GATES: FAILED')
             print('Quality gates require improvement or theater detection issues must be resolved')
             sys.exit(1)
         else:
-            print('\\n🎉 8-STREAM REAL QUALITY GATES: PASSED')
+            print('\\n[CELEBRATION] 8-STREAM REAL QUALITY GATES: PASSED')
             print('All quality gates validation successful with authentic analysis!')
             print(f'Defense industry certification: {\"READY\" if production_ready else \"NEEDS_REVIEW\"}')
             print(f'Theater-free analysis: {\"VERIFIED\" if theater_free else \"DETECTED\"}')

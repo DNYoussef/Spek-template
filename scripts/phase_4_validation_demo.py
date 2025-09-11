@@ -35,21 +35,21 @@ def demonstrate_variable_scoping_fix():
         current_rate = 98.5
         
         if current_rate >= target_hit_rate:
-            print(f"   ✓ Hit rate {current_rate}% meets target {target_hit_rate}%")
+            print(f"   [CHECK] Hit rate {current_rate}% meets target {target_hit_rate}%")
         else:
-            print(f"   ✗ Hit rate {current_rate}% below target {target_hit_rate}%")
+            print(f"   [X] Hit rate {current_rate}% below target {target_hit_rate}%")
             
     except Exception as e:
         # Variable is still accessible here due to fix
-        print(f"   ✓ Exception handled, target still accessible: {target_hit_rate}%")
+        print(f"   [CHECK] Exception handled, target still accessible: {target_hit_rate}%")
     
     # Validate variable accessibility
     try:
         validation_check = target_hit_rate * 1.1  # 106.37%
-        print(f"   ✓ Variable scoping fix working: {validation_check:.1f}%")
+        print(f"   [CHECK] Variable scoping fix working: {validation_check:.1f}%")
         return True
     except NameError:
-        print("   ✗ Variable scoping fix failed")
+        print("   [X] Variable scoping fix failed")
         return False
 
 def demonstrate_cache_hit_rate_method():
@@ -91,13 +91,13 @@ def demonstrate_cache_hit_rate_method():
     profiler = CacheProfiler()
     overall_hit_rate = profiler.measure_cache_hit_rate()
     
-    print(f"   ✓ Overall cache hit rate: {overall_hit_rate:.1f}%")
+    print(f"   [CHECK] Overall cache hit rate: {overall_hit_rate:.1f}%")
     
     if overall_hit_rate >= 96.7:
-        print(f"   ✓ Exceeds target hit rate of 96.7%")
+        print(f"   [CHECK] Exceeds target hit rate of 96.7%")
         return True
     else:
-        print(f"   ✗ Below target hit rate of 96.7%")
+        print(f"   [X] Below target hit rate of 96.7%")
         return False
 
 def demonstrate_memory_leak_prevention():
@@ -143,10 +143,10 @@ def demonstrate_memory_leak_prevention():
     print(f"   Memory growth: {memory_growth:,} objects")
     
     if memory_growth < 500:  # Reasonable threshold
-        print(f"   ✓ Memory leak prevention successful (growth: {memory_growth})")
+        print(f"   [CHECK] Memory leak prevention successful (growth: {memory_growth})")
         return True
     else:
-        print(f"   ✗ Potential memory leak detected (growth: {memory_growth})")
+        print(f"   [X] Potential memory leak detected (growth: {memory_growth})")
         return False
 
 def demonstrate_thread_safety():
@@ -199,10 +199,10 @@ def demonstrate_thread_safety():
     # Phase 4 validation: 73% thread contention reduction
     if results['success'] >= 95:  # 95% success rate
         contention_reduction = 73.0  # From baseline measurements
-        print(f"   ✓ Thread safety validated (73% contention reduction achieved)")
+        print(f"   [CHECK] Thread safety validated (73% contention reduction achieved)")
         return True
     else:
-        print(f"   ✗ Thread safety issues detected")
+        print(f"   [X] Thread safety issues detected")
         return False
 
 def demonstrate_performance_improvements():
@@ -228,11 +228,11 @@ def demonstrate_performance_improvements():
         target = data['target']
         
         if value >= target:
-            status = "✓"
+            status = "[CHECK]"
             improvement = ((value - target) / target * 100)
             print(f"   {status} {metric}: {value}{unit} (target: {target}{unit}, +{improvement:.1f}% over target)")
         else:
-            status = "✗"
+            status = "[X]"
             shortfall = ((target - value) / target * 100)
             print(f"   {status} {metric}: {value}{unit} (target: {target}{unit}, -{shortfall:.1f}% under target)")
             all_targets_met = False
@@ -280,17 +280,17 @@ def run_comprehensive_validation():
     print(f"\nOverall Results: {passed_tests}/{total_tests} tests passed ({success_rate:.1f}%)")
     
     if success_rate == 100.0:
-        print("\n🎉 PHASE 4 COMPLETION VALIDATION: ALL TESTS PASSED")
-        print("✅ System is PRODUCTION READY with all micro-fixes integrated")
-        print("✅ Performance improvements validated and maintained")
-        print("✅ Zero regressions detected")
+        print("\n[CELEBRATION] PHASE 4 COMPLETION VALIDATION: ALL TESTS PASSED")
+        print("[OK] System is PRODUCTION READY with all micro-fixes integrated")
+        print("[OK] Performance improvements validated and maintained")
+        print("[OK] Zero regressions detected")
     elif success_rate >= 80.0:
-        print(f"\n⚠️  PHASE 4 COMPLETION VALIDATION: MOSTLY SUCCESSFUL ({success_rate:.1f}%)")
-        print("✅ Critical functionality working")
-        print("⚠️  Some optimizations may need attention")
+        print(f"\n[WARNING]  PHASE 4 COMPLETION VALIDATION: MOSTLY SUCCESSFUL ({success_rate:.1f}%)")
+        print("[OK] Critical functionality working")
+        print("[WARNING]  Some optimizations may need attention")
     else:
-        print(f"\n❌ PHASE 4 COMPLETION VALIDATION: ISSUES DETECTED ({success_rate:.1f}%)")
-        print("❌ System needs further validation before production")
+        print(f"\n[FAIL] PHASE 4 COMPLETION VALIDATION: ISSUES DETECTED ({success_rate:.1f}%)")
+        print("[FAIL] System needs further validation before production")
     
     return success_rate == 100.0
 

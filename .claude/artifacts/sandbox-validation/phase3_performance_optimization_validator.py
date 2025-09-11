@@ -1781,7 +1781,7 @@ if __name__ == "__main__":
         """Parse cumulative improvement metrics from test output."""
         return self._parse_cache_metrics(output)
     
-    # Micro-edit application methods (≤25 LOC each)
+    # Micro-edit application methods (<=25 LOC each)
     async def _apply_cache_micro_edits(self, error_output: str) -> List[str]:
         """Apply micro-edits for cache performance issues."""
         edits = []
@@ -1889,7 +1889,7 @@ if __name__ == "__main__":
     
     def _assess_production_readiness(self) -> bool:
         """Assess if Phase 3 optimizations are ready for production."""
-        # Criteria: ≥80% tests pass, no critical errors, cumulative improvement ≥45%
+        # Criteria: >=80% tests pass, no critical errors, cumulative improvement >=45%
         if not self.validation_results:
             return False
         success_rate = sum(1 for r in self.validation_results if r.validation_passed) / len(self.validation_results)

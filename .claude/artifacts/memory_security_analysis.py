@@ -766,11 +766,11 @@ def main():
     total_gates = len(report.security_gates_passed)
     
     if gates_passed == total_gates and report.nasa_compliance_score >= 90:
-        print("\\n🟢 SECURITY STATUS: PRODUCTION READY")
+        print("\\n? SECURITY STATUS: PRODUCTION READY")
     elif gates_passed >= total_gates * 0.8 and report.nasa_compliance_score >= 75:
-        print("\\n🟡 SECURITY STATUS: NEEDS MINOR FIXES")  
+        print("\\n? SECURITY STATUS: NEEDS MINOR FIXES")  
     else:
-        print("\\n🔴 SECURITY STATUS: REQUIRES IMMEDIATE ATTENTION")
+        print("\\n? SECURITY STATUS: REQUIRES IMMEDIATE ATTENTION")
     
     return report
 

@@ -48,7 +48,7 @@ This regression test suite ensures that performance optimizations implemented in
 python tests/regression/performance_regression_suite.py
 
 # Expected output:
-# ✅ All performance targets maintained - regression testing PASSED
+# [OK] All performance targets maintained - regression testing PASSED
 ```
 
 ### Continuous Integration Integration

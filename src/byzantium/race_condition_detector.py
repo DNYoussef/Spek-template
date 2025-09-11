@@ -783,7 +783,7 @@ class DetectorPoolRaceDetector:
         recommendations = []
         
         if not self.detected_races:
-            recommendations.append("✓ No race conditions detected - thread safety appears good")
+            recommendations.append("[CHECK] No race conditions detected - thread safety appears good")
             return recommendations
         
         # Analyze detected races for patterns

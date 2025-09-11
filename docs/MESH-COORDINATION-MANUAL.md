@@ -9,24 +9,24 @@ The Mesh Coordination system is a **368-line production-ready** peer-to-peer top
 ### Mesh Topology Design
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    MESH QUEEN COORDINATOR                      │
-│                     (Full Mesh Network)                        │
-└─────────────────────────────────────────────────────────────────┘
-              │                    │                    │
-        ┌─────▼─────┐        ┌─────▼─────┐        ┌─────▼─────┐
-        │  System   │◄──────►│ Backend   │◄──────►│   API     │
-        │Architect  │        │    Dev    │        │   Docs    │
-        │  Node     │        │   Node    │        │   Node    │
-        └─────┬─────┘        └─────┬─────┘        └─────┬─────┘
-              │                    │                    │
-              └────────────────────┼────────────────────┘
-                                   │
-                            ┌─────▼─────┐
-                            │Integration│
-                            │Specialist │
-                            │   Node    │
-                            └───────────┘
++-----------------------------------------------------------------+
+|                    MESH QUEEN COORDINATOR                      |
+|                     (Full Mesh Network)                        |
++-----------------------------------------------------------------+
+              |                    |                    |
+        +-----?-----+        +-----?-----+        +-----?-----+
+        |  System   |?------?| Backend   |?------?|   API     |
+        |Architect  |        |    Dev    |        |   Docs    |
+        |  Node     |        |   Node    |        |   Node    |
+        +-----+-----+        +-----+-----+        +-----+-----+
+              |                    |                    |
+              +--------------------+--------------------+
+                                   |
+                            +-----?-----+
+                            |Integration|
+                            |Specialist |
+                            |   Node    |
+                            +-----------+
 
 Peer-to-Peer Connections: Each node connects to every other node
 Total Connections: N * (N-1) = 4 * 3 = 12 bidirectional connections
@@ -990,21 +990,21 @@ async def health_check():
     # Initialize if needed
     try:
         await mesh_coordinator.initialize_mesh_topology()
-        print("✓ Mesh topology initialized")
+        print("[CHECK] Mesh topology initialized")
     except Exception as e:
-        print(f"✗ Topology initialization failed: {e}")
+        print(f"[X] Topology initialization failed: {e}")
         return
     
     # Check node health
     health = await mesh_coordinator.monitor_integration_health()
     print(f"\n=== Node Health ===")
     for node_id, node_health in health["node_health"].items():
-        status_icon = "✓" if node_health["status"] == "active" else "✗"
+        status_icon = "[CHECK]" if node_health["status"] == "active" else "[X]"
         print(f"{status_icon} {node_id}: {node_health['status']}")
     
     # Check connectivity
     connectivity = calculate_mesh_connectivity()
-    connectivity_icon = "✓" if connectivity > 0.8 else "✗"
+    connectivity_icon = "[CHECK]" if connectivity > 0.8 else "[X]"
     print(f"\n=== Connectivity ===")
     print(f"{connectivity_icon} Mesh connectivity: {connectivity:.1%}")
     

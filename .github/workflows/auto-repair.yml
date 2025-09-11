@@ -42,15 +42,15 @@ jobs:
 
       - name: Check for Claude Flow
         run: |
-          echo "🔍 Looking for Claude Flow runner..."
+          echo "[SEARCH] Looking for Claude Flow runner..."
           echo "Available tools:"
           which claude || echo "Claude Code: not found"
           which flow || echo "Flow runner: not found"
-          echo "📝 Auto-repair would execute: flow run flow/workflows/ci-auto-repair.yaml"
+          echo "[NOTE] Auto-repair would execute: flow run flow/workflows/ci-auto-repair.yaml"
 
       - name: Placeholder Auto-Repair
         run: |
-          echo "🔧 Auto-repair simulation (placeholder)"
+          echo "[TOOL] Auto-repair simulation (placeholder)"
           echo "Would analyze failures and attempt bounded fixes..."
           echo "Failed workflow: ${{ github.event.workflow_run.conclusion }}"
           echo "Artifacts available:"
@@ -68,17 +68,17 @@ jobs:
               owner,
               repo,
               issue_number: context.issue.number,
-              body: `🤖 **Auto-Repair Attempted**
+              body: `? **Auto-Repair Attempted**
               
               Quality Gates failed, attempted auto-repair analysis.
               
-              📊 **Artifacts Available:**
+              [CHART] **Artifacts Available:**
               - Tests, TypeCheck, Lint results
               - Security scan (Semgrep) 
               - Connascence analysis
               - Coverage analysis
               
-              🔧 **Next Steps:**
+              [TOOL] **Next Steps:**
               1. Review artifacts in workflow run
               2. Manual intervention may be required for complex issues
               3. Consider running: \`flow run flow/workflows/ci-auto-repair.yaml\`
