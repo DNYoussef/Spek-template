@@ -1,0 +1,46 @@
+{
+  "collection_timestamp": 1757593103,
+  "collection_date": "2025-09-11T08:18:23",
+  "system_baseline": {
+    "timestamp": 1757593102.4490407,
+    "cpu_cores": 12,
+    "cpu_frequency_mhz": 2904.0,
+    "total_memory_gb": 15.89162826538086,
+    "available_memory_gb": 5.9003448486328125,
+    "disk_io_read_mb": 0.015625,
+    "disk_io_write_mb": 0.12890625,
+    "network_sent_mb": 0.0024251937866210938,
+    "network_received_mb": 0.0010366439819335938
+  },
+  "analyzer_baselines": [
+    {
+      "timestamp": 1757593103.1159666,
+      "ast_traversal_time_ms": 213.72294425964355,
+      "ast_nodes_processed": 21352,
+      "memory_peak_mb": 20.1328125,
+      "file_processing_rate": 29.988338713540607,
+      "detector_initialization_time_ms": 453.2029628753662,
+      "cache_hit_ratio": 0.0,
+      "total_analysis_time_ms": 666.9259071350098
+    }
+  ],
+  "process_baselines": {
+    "sample_analysis": {
+      "operation_name": "sample_analysis",
+      "execution_time_ms": 102.49996185302734,
+      "cpu_time_ms": 0.0,
+      "memory_peak_mb": 20.265625,
+      "io_operations": 0,
+      "cache_operations": 0,
+      "thread_count": 4,
+      "success_rate": 1.0
+    }
+  },
+  "collection_metadata": {
+    "project_root": "C:\\Users\\17175\\Desktop\\spek template",
+    "collection_duration": 10,
+    "sampling_interval": 0.5,
+    "platform": "nt",
+    "python_version": "3.8.0"
+  }
+}

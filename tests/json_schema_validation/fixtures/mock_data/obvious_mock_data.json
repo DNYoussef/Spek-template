@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "metadata": {
+    "tool": {
+      "name": "example-tool",
+      "version": "1.0.0",
+      "url": "https://example.com/sample-analyzer"
+    },
+    "analysis": {
+      "timestamp": "2024-01-01T00:00:00Z",
+      "project_root": "/example/sample/project",
+      "total_files_analyzed": 1,
+      "analysis_duration_ms": 100,
+      "policy_preset": "example"
+    },
+    "environment": {
+      "python_version": "3.11+",
+      "platform": "sample-platform"
+    }
+  },
+  "summary": {
+    "total_violations": 1,
+    "total_weight": 1.0,
+    "average_weight": 1.0,
+    "files_with_violations": 1,
+    "violations_by_type": {
+      "example": 1
+    },
+    "violations_by_severity": {
+      "sample": 1
+    },
+    "violations_by_locality": {
+      "test": 1
+    },
+    "top_files": [
+      {
+        "file_path": "example/sample.py",
+        "violation_count": 1,
+        "total_weight": 1.0,
+        "severity_breakdown": {
+          "sample": 1
+        }
+      }
+    ],
+    "quality_metrics": {
+      "connascence_index": 1.0,
+      "violations_per_file": 1.0,
+      "critical_violations": 0,
+      "high_violations": 0
+    }
+  },
+  "violations": [
+    {
+      "id": "sample_violation_123",
+      "rule_id": "EXAMPLE_RULE",
+      "type": "example",
+      "severity": "sample",
+      "weight": 1.0,
+      "locality": "test",
+      "file_path": "example/sample.py",
+      "line_number": 1,
+      "column": 1,
+      "end_line": 1,
+      "end_column": 1,
+      "description": "This is a sample violation for testing purposes",
+      "recommendation": "Consider fixing this example issue",
+      "function_name": "example_function",
+      "class_name": "SampleClass",
+      "code_snippet": "# Example code",
+      "context": {
+        "mock": true,
+        "generated": true,
+        "template": "sample_template"
+      }
+    }
+  ],
+  "file_stats": {
+    "total_files": 1,
+    "analyzed_files": 1
+  },
+  "policy_compliance": {
+    "policy_preset": "example",
+    "budget_status": {
+      "within_budget": true
+    },
+    "baseline_comparison": {
+      "example": true
+    },
+    "quality_gates": {
+      "sample_gate": true
+    }
+  }
+}

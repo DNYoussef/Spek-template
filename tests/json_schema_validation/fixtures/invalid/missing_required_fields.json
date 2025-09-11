@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "tool": {
+      "name": "connascence",
+      "version": "1.0.0"
+    }
+  },
+  "violations": [
+    {
+      "id": "test_violation",
+      "type": "name",
+      "severity": "medium"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "audit_timestamp": 1757593425.4859266,
+  "test_configuration": {
+    "test_files_count": 12,
+    "file_categories": [
+      "small",
+      "medium",
+      "large",
+      "xlarge"
+    ],
+    "iterations_per_benchmark": 5
+  },
+  "traversal_reduction_analysis": {
+    "claimed_reduction": "85-90%",
+    "measured_reduction": "0.00%",
+    "claim_validated": false,
+    "unified_traversals": 0,
+    "separate_traversals": 0,
+    "sample_size": 5,
+    "statistical_confidence": "High"
+  },
+  "performance_improvements": {
+    "time_improvement_percent": "-42.71%",
+    "memory_improvement_percent": "-0.01%",
+    "unified_time_ms": 104.92659999999887,
+    "separate_time_ms": 73.5261399999672
+  },
+  "memory_allocation_analysis": {
+    "avg_unified_visitor_bytes": 0,
+    "avg_detector_pool_bytes": 0,
+    "total_allocations_tracked": 0,
+    "memory_efficiency_ratio": 0.0
+  },
+  "data_completeness_validation": {
+    "total_files_tested": 12,
+    "successful_collections": 0,
+    "missing_data_errors": 12,
+    "detector_compatibility": {
+      "position": {
+        "compatible_files": 0,
+        "missing_data_files": 0,
+        "compatibility_rate": 0.0
+      },
+      "magic_literal": {
+        "compatible_files": 0,
+        "missing_data_files": 0,
+        "compatibility_rate": 0.0
+      },
+      "algorithm": {
+        "compatible_files": 0,
+        "missing_data_files": 0,
+        "compatibility_rate": 0.0
+      },
+      "god_object": {
+        "compatible_files": 0,
+        "missing_data_files": 0,
+        "compatibility_rate": 0.0
+      },
+      "timing": {
+        "compatible_files": 0,
+        "missing_data_files": 0,
+        "compatibility_rate": 0.0
+      },
+      "convention": {
+        "compatible_files": 0,
+        "missing_data_files": 0,
+        "compatibility_rate": 0.0
+      },
+      "values": {
+        "compatible_files": 0,
+        "missing_data_files": 0,
+        "compatibility_rate": 0.0
+      },
+      "execution": {
+        "compatible_files": 0,
+        "missing_data_files": 0,
+        "compatibility_rate": 0.0
+      }
+    }
+  },
+  "thread_safety_analysis": {
+    "thread_performance_by_count": {
+      "1": {
+        "total_time_seconds": 0.07534609999993336,
+        "files_per_second": 159.26504490624748,
+        "files_processed": 12,
+        "error_count": 0,
+        "error_rate": 0.0
+      },
+      "2": {
+        "total_time_seconds": 0.07341120000000956,
+        "files_per_second": 163.46279586763924,
+        "files_processed": 12,
+        "error_count": 0,
+        "error_rate": 0.0
+      },
+      "4": {
+        "total_time_seconds": 0.0710434999998597,
+        "files_per_second": 168.91059702891465,
+        "files_processed": 12,
+        "error_count": 0,
+        "error_rate": 0.0
+      }
+    },
+    "optimal_thread_count": 4,
+    "scalability_factor": 1.0605628945657541
+  },
+  "evidence_quality": "CONCRETE_MEASUREMENTS",
+  "methodology": "Statistical sampling with multiple iterations and memory profiling"
+}

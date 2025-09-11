@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.0.0",
+  "metadata": {
+    "tool": {
+      "name": "connascence",
+      "version": "1.0.0",
+      "url": "https://github.com/connascence/connascence-analyzer"
+    },
+    "analysis": {
+      "timestamp": "2024-01-01T12:00:00Z",
+      "project_root": "/test/project",
+      "total_files_analyzed": 5,
+      "analysis_duration_ms": 1500,
+      "policy_preset": "default"
+    },
+    "environment": {
+      "python_version": "3.11+",
+      "platform": "multi-platform"
+    }
+  },
+  "summary": {
+    "total_violations": 3,
+    "total_weight": 15.5,
+    "average_weight": 5.17,
+    "files_with_violations": 2,
+    "violations_by_type": {
+      "meaning": 1,
+      "name": 1,
+      "type": 1
+    },
+    "violations_by_severity": {
+      "critical": 1,
+      "high": 1,
+      "medium": 1
+    },
+    "violations_by_locality": {
+      "local": 2,
+      "cross_module": 1
+    },
+    "top_files": [
+      {
+        "file_path": "src/module1.py",
+        "violation_count": 2,
+        "total_weight": 10.5,
+        "severity_breakdown": {
+          "high": 1,
+          "medium": 1
+        }
+      }
+    ],
+    "quality_metrics": {
+      "connascence_index": 15.5,
+      "violations_per_file": 0.6,
+      "critical_violations": 1,
+      "high_violations": 1
+    }
+  },
+  "violations": [
+    {
+      "id": "test_CON_NAME_abc123",
+      "rule_id": "CON_NAME",
+      "type": "name",
+      "severity": "medium",
+      "weight": 2.5,
+      "locality": "local",
+      "file_path": "src/module1.py",
+      "line_number": 10,
+      "column": 5,
+      "end_line": 10,
+      "end_column": 15,
+      "description": "Connascence of name detected",
+      "recommendation": "Use dependency injection to reduce name coupling",
+      "function_name": "process_data",
+      "class_name": "DataProcessor",
+      "code_snippet": "def process_data(input_data):",
+      "context": {
+        "authentic": true,
+        "analysis_type": "real"
+      }
+    },
+    {
+      "id": "test_CON_TYPE_def456",
+      "rule_id": "CON_TYPE",
+      "type": "type",
+      "severity": "high",
+      "weight": 5.0,
+      "locality": "cross_module",
+      "file_path": "src/module2.py",
+      "line_number": 25,
+      "column": 8,
+      "end_line": 25,
+      "end_column": 20,
+      "description": "Connascence of type detected",
+      "recommendation": "Use interfaces or protocols to reduce type coupling",
+      "function_name": "validate_input",
+      "class_name": "InputValidator",
+      "code_snippet": "def validate_input(data: CustomType):",
+      "context": {
+        "authentic": true,
+        "cross_module_dependency": "CustomType"
+      }
+    },
+    {
+      "id": "test_CON_MEANING_ghi789",
+      "rule_id": "CON_MEANING",
+      "type": "meaning",
+      "severity": "critical",
+      "weight": 8.0,
+      "locality": "local",
+      "file_path": "src/module1.py",
+      "line_number": 42,
+      "column": 12,
+      "end_line": 42,
+      "end_column": 15,
+      "description": "Magic number detected",
+      "recommendation": "Replace magic number with named constant",
+      "function_name": "calculate_score",
+      "class_name": "ScoreCalculator",
+      "code_snippet": "if score > 100:",
+      "context": {
+        "magic_value": 100,
+        "usage_frequency": 5
+      }
+    }
+  ],
+  "file_stats": {
+    "total_files": 5,
+    "analyzed_files": 5
+  },
+  "policy_compliance": {
+    "policy_preset": "default",
+    "budget_status": {
+      "within_budget": true
+    },
+    "baseline_comparison": {
+      "improved": true
+    },
+    "quality_gates": {
+      "no_critical_violations": false,
+      "max_high_violations": true,
+      "total_violations_acceptable": true
+    }
+  }
+}

@@ -98,7 +98,19 @@
       "Bash(fi)",
       "Bash(if [ -f \".claude/.artifacts/test_sarif_output.json\" ])",
       "Bash(else echo \"SARIF file not found\")",
-      "Bash(git fetch:*)"
+      "Bash(git fetch:*)",
+      "Read(//c/Users/17175/Desktop/**)",
+      "mcp__memory__create_entities",
+      "WebFetch(domain:docs.oasis-open.org)",
+      "WebFetch(domain:github.com)",
+      "mcp__filesystem__get_file_info",
+      "mcp__filesystem__write_file",
+      "mcp__memory__add_observations",
+      "Bash(/reality:check:*)",
+      "Bash(/theater:scan:*)",
+      "mcp__filesystem__search_files",
+      "mcp__memory__create_relations",
+      "mcp__filesystem__list_allowed_directories"
     ],
     "deny": [],
     "ask": []

@@ -1,0 +1,275 @@
+{
+  "version": "1.0.0",
+  "severity_levels": {
+    "critical": 10.0,
+    "high": 5.0,
+    "medium": 2.0,
+    "low": 1.0,
+    "info": 0.5
+  },
+  "tool_mappings": {
+    "connascence": {
+      "enabled": true,
+      "base_mappings": {
+        "CoM": "high",
+        "CoP": "high", 
+        "CoA": "critical",
+        "CoE": "critical",
+        "CoTiming": "critical",
+        "CoV": "high",
+        "CoI": "high",
+        "CoN": "medium",
+        "CoC": "low"
+      },
+      "escalation_rules": {
+        "security_related": 1.0,
+        "api_boundary": 1.0,
+        "critical_path": 1.5
+      },
+      "confidence_weights": {
+        "static_analysis": 0.9,
+        "dynamic_analysis": 0.8,
+        "heuristic": 0.6
+      }
+    },
+    "flake8": {
+      "enabled": true,
+      "base_mappings": {
+        "E1": "critical",
+        "E2": "high",
+        "E3": "high", 
+        "E4": "medium",
+        "E5": "high",
+        "E7": "medium",
+        "E9": "critical",
+        "W1": "low",
+        "W2": "low",
+        "W3": "medium",
+        "W5": "medium",
+        "W6": "low",
+        "F8": "critical",
+        "F4": "high",
+        "F6": "medium",
+        "F7": "low"
+      },
+      "escalation_rules": {
+        "line_length_api": 0.5,
+        "syntax_error": 2.0
+      },
+      "confidence_weights": {
+        "syntax_check": 1.0,
+        "style_check": 0.7
+      }
+    },
+    "pylint": {
+      "enabled": true,
+      "base_mappings": {
+        "F": "critical",
+        "E": "high", 
+        "W": "medium",
+        "R": "medium",
+        "C": "low"
+      },
+      "escalation_rules": {
+        "E1101": "critical",
+        "W0622": "high",
+        "R0903": "medium",
+        "C0103": "low"
+      },
+      "confidence_weights": {
+        "error": 1.0,
+        "warning": 0.8,
+        "refactor": 0.6,
+        "convention": 0.5
+      }
+    },
+    "ruff": {
+      "enabled": true,
+      "base_mappings": {
+        "S": "critical",
+        "B": "high",
+        "PER": "high",
+        "E": "medium",
+        "W": "low",
+        "PLE": "high",
+        "PLW": "medium", 
+        "PLR": "medium",
+        "PLC": "low"
+      },
+      "escalation_rules": {
+        "security_rule": 1.0,
+        "performance_rule": 0.5
+      },
+      "confidence_weights": {
+        "security": 1.0,
+        "bugs": 0.9,
+        "style": 0.7
+      }
+    },
+    "mypy": {
+      "enabled": true,
+      "base_mappings": {
+        "error": "high",
+        "warning": "medium",
+        "note": "low"
+      },
+      "escalation_rules": {
+        "no-untyped-def": "high",
+        "no-any-return": "medium",
+        "ignore-without-code": "low"
+      },
+      "confidence_weights": {
+        "type_error": 0.95,
+        "type_warning": 0.8,
+        "type_note": 0.6
+      }
+    },
+    "bandit": {
+      "enabled": true,
+      "base_mappings": {
+        "HIGH_HIGH": "critical",
+        "HIGH_MEDIUM": "high",
+        "HIGH_LOW": "medium", 
+        "MEDIUM_HIGH": "high",
+        "MEDIUM_MEDIUM": "medium",
+        "MEDIUM_LOW": "low",
+        "LOW_HIGH": "medium",
+        "LOW_MEDIUM": "low",
+        "LOW_LOW": "info"
+      },
+      "escalation_rules": {
+        "B301": "critical",
+        "B302": "critical", 
+        "B303": "critical",
+        "B506": "critical"
+      },
+      "confidence_weights": {
+        "HIGH": 1.0,
+        "MEDIUM": 0.7,
+        "LOW": 0.4
+      }
+    },
+    "eslint": {
+      "enabled": true,
+      "base_mappings": {
+        "2": "high",
+        "1": "medium",
+        "0": "info"
+      },
+      "escalation_rules": {
+        "no-eval": "critical",
+        "no-implied-eval": "critical",
+        "no-new-func": "critical", 
+        "no-debugger": "high",
+        "no-console": "low"
+      },
+      "confidence_weights": {
+        "error": 1.0,
+        "warning": 0.8,
+        "off": 0.0
+      }
+    }
+  },
+  "escalation_rules": {
+    "multi_tool_consensus": {
+      "enabled": true,
+      "thresholds": {
+        "2_tools": 0.5,
+        "3_tools": 1.0,
+        "4_tools": 1.5
+      }
+    },
+    "context_sensitive": {
+      "enabled": true,
+      "factors": {
+        "public_api": 1.0,
+        "critical_path": 1.5,
+        "security_context": 2.0,
+        "test_code": -0.5,
+        "generated_code": -1.0,
+        "high_complexity": 0.5,
+        "deep_nesting": 0.3
+      }
+    },
+    "temporal": {
+      "enabled": true,
+      "age_thresholds": {
+        "recent_days": 7,
+        "recent_factor": -0.2,
+        "old_days": 30,
+        "old_factor": 0.5,
+        "legacy_days": 90,
+        "legacy_factor": 1.0
+      },
+      "recurrence_thresholds": {
+        "multiple_factor": 0.3,
+        "frequent_threshold": 3,
+        "frequent_factor": 1.0
+      }
+    }
+  },
+  "industry_standards": {
+    "owasp": {
+      "enabled": true,
+      "mappings": {
+        "A01_Broken_Access_Control": "critical",
+        "A02_Cryptographic_Failures": "critical",
+        "A03_Injection": "critical",
+        "A04_Insecure_Design": "high",
+        "A05_Security_Misconfiguration": "high",
+        "A06_Vulnerable_Components": "high",
+        "A07_Authentication_Failures": "critical",
+        "A08_Software_Data_Integrity": "high",
+        "A09_Security_Logging_Monitoring": "medium",
+        "A10_Server_Side_Request_Forgery": "high"
+      }
+    },
+    "nist": {
+      "enabled": true,
+      "mappings": {
+        "IDENTIFY": "info",
+        "PROTECT": "medium",
+        "DETECT": "high", 
+        "RESPOND": "high",
+        "RECOVER": "medium"
+      }
+    },
+    "nasa_pot10": {
+      "enabled": true,
+      "compliance_target": 0.95,
+      "mappings": {
+        "POT10_1": "critical",
+        "POT10_2": "critical",
+        "POT10_3": "high",
+        "POT10_4": "medium",
+        "POT10_5": "high",
+        "POT10_6": "high",
+        "POT10_7": "high",
+        "POT10_8": "critical",
+        "POT10_9": "high",
+        "POT10_10": "medium"
+      }
+    }
+  },
+  "performance": {
+    "cache": {
+      "l1_size": 10000,
+      "l2_ttl": 3600,
+      "enabled": true
+    },
+    "batch_processing": {
+      "max_batch_size": 1000,
+      "timeout_ms": 5000
+    },
+    "response_times": {
+      "single_mapping_ms": 10,
+      "batch_mapping_ms": 100,
+      "cross_tool_correlation_ms": 50
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "include_performance_metrics": true,
+    "include_escalation_details": true
+  }
+}

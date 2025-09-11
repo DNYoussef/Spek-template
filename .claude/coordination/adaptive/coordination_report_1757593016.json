@@ -1,0 +1,6 @@
+{
+  "coordination_framework": {
+    "current_topology": "hybrid",
+    "active_agents": {
+      "perf-analyzer": {
+        "agent_type": 

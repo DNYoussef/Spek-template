@@ -1,0 +1,95 @@
+{
+  "report_metadata": {
+    "generation_timestamp": 1757593175.7608585,
+    "generation_date": "2025-09-11T08:19:35.760858",
+    "protocol_version": "1.0.0"
+  },
+  "deployment_summary": {
+    "total_deployments": 4,
+    "successful_deployments": 0,
+    "success_rate": 0.0,
+    "active_agents": 0,
+    "aggregate_optimizations": {},
+    "deployment_timeline": [
+      {
+        "agent_type": "perf-analyzer",
+        "deployment_id": "perf-analyzer_1757593159",
+        "success": false,
+        "duration": 2.0013058185577393,
+        "optimization_count": 0
+      },
+      {
+        "agent_type": "memory-coordinator",
+        "deployment_id": "memory-coordinator_1757593163",
+        "success": false,
+        "duration": 2.0010263919830322,
+        "optimization_count": 0
+      },
+      {
+        "agent_type": "performance-benchmarker",
+        "deployment_id": "performance-benchmarker_1757593167",
+        "success": false,
+        "duration": 2.0007691383361816,
+        "optimization_count": 0
+      },
+      {
+        "agent_type": "code-analyzer",
+        "deployment_id": "code-analyzer_1757593171",
+        "success": false,
+        "duration": 2.000803232192993,
+        "optimization_count": 0
+      }
+    ]
+  },
+  "individual_deployments": [
+    {
+      "agent_type": "perf-analyzer",
+      "deployment_id": "perf-analyzer_1757593159",
+      "success": false,
+      "start_time": 1757593159.1330993,
+      "end_time": 1757593161.1344051,
+      "duration": 2.0013058185577393,
+      "performance_impact": {},
+      "optimization_results": {},
+      "error_message": "Deployment validation failed"
+    },
+    {
+      "agent_type": "memory-coordinator",
+      "deployment_id": "memory-coordinator_1757593163",
+      "success": false,
+      "start_time": 1757593163.3419137,
+      "end_time": 1757593165.34294,
+      "duration": 2.0010263919830322,
+      "performance_impact": {},
+      "optimization_results": {},
+      "error_message": "Deployment validation failed"
+    },
+    {
+      "agent_type": "performance-benchmarker",
+      "deployment_id": "performance-benchmarker_1757593167",
+      "success": false,
+      "start_time": 1757593167.5510936,
+      "end_time": 1757593169.5518627,
+      "duration": 2.0007691383361816,
+      "performance_impact": {},
+      "optimization_results": {},
+      "error_message": "Deployment validation failed"
+    },
+    {
+      "agent_type": "code-analyzer",
+      "deployment_id": "code-analyzer_1757593171",
+      "success": false,
+      "start_time": 1757593171.7596388,
+      "end_time": 1757593173.760442,
+      "duration": 2.000803232192993,
+      "performance_impact": {},
+      "optimization_results": {},
+      "error_message": "Deployment validation failed"
+    }
+  ],
+  "coordination_integration": {
+    "topology_switches": 0,
+    "resource_allocation_efficiency": 0.0,
+    "overall_optimization_impact": {}
+  }
+}
