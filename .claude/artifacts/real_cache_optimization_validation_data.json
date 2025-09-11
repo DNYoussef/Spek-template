@@ -1,0 +1,83 @@
+{
+  "validation_results": {
+    "baseline_performance": "CacheSystemMetrics(file_cache_hit_rate=0.0, file_cache_memory_mb=1.8078203201293945, file_cache_entries=100, ast_cache_hit_rate=0.0, ast_cache_memory_mb=0.0, ast_cache_entries=0, incremental_cache_hit_rate=0, incremental_cache_entries=0, incremental_cache_dependencies=0, total_access_time_ms=33.90908241271973, warming_time_ms=0.0, throughput_ops_per_sec=2387.3186446659192, cache_coherence_score=0.0, system_integration_score=1.0)",
+    "integration_validation": "RealValidationResult(test_name='cache_integration', success=False, performance_improvement_percent=60.0, target_improvement_percent=80.0, baseline_metrics={}, optimized_metrics={}, evidence={'integration_tests': {'file_cache_functional': True, 'ast_cache_functional': False, 'incremental_cache_functional': False, 'cross_cache_coherence': True, 'profiler_integration': True}, 'passed_tests': 3, 'total_tests': 5, 'integration_time_ms': 20.285844802856445, 'test_file_used': 'C:\\\\Users\\\\17175\\\\Desktop\\\\spek template\\\\setup.py'}, error_message=None)",
+    "warming_validation": "RealValidationResult(test_name='intelligent_warming', success=True, performance_improvement_percent=170.0, target_improvement_percent=70.0, baseline_metrics={}, optimized_metrics={}, evidence={'files_warmed': 85, 'expected_files': 50, 'warming_effectiveness_percent': 170.0, 'warming_time_seconds': 0.755913496017456, 'fast_access_rate_percent': 100.0, 'post_warming_time_seconds': 0.003885507583618164, 'memory_used_mb': 1.4658479690551758}, error_message=None)",
+    "streaming_validation": "RealValidationResult(test_name='streaming_performance', success=False, performance_improvement_percent=-2.4271011352539054, target_improvement_percent=15.0, baseline_metrics={}, optimized_metrics={}, evidence={'baseline_avg_time_ms': 0.20003318786621094, 'optimized_avg_time_ms': 0.22430419921875, 'time_improvement_percent': -2.4271011352539054, 'cache_hit_rate_percent': 0.0, 'cache_hits': 0, 'baseline_operations': 40, 'optimized_operations': 40, 'files_tested': 40}, error_message=None)",
+    "optimized_performance": "CacheSystemMetrics(file_cache_hit_rate=0.44794188861985473, file_cache_memory_mb=2.1214332580566406, file_cache_entries=127, ast_cache_hit_rate=0.0, ast_cache_memory_mb=0.0, ast_cache_entries=0, incremental_cache_hit_rate=0.0, incremental_cache_entries=40, incremental_cache_dependencies=40, total_access_time_ms=17.952680587768555, warming_time_ms=0.0, throughput_ops_per_sec=4359.031812182372, cache_coherence_score=0.0, system_integration_score=1.0)",
+    "improvement_analysis": {
+      "file_cache_hit_rate_improvement": 0.44794188861985473,
+      "ast_cache_hit_rate_improvement": 0.0,
+      "overall_hit_rate_improvement": 0.44794188861985473,
+      "access_time_improvement_percent": 47.056424679205485,
+      "throughput_improvement_percent": 82.59111836293532,
+      "memory_efficiency_improvement": 4.549955845629043,
+      "overall_improvement_percent": 43.36516164358689,
+      "baseline_metrics": "CacheSystemMetrics(file_cache_hit_rate=0.0, file_cache_memory_mb=1.8078203201293945, file_cache_entries=100, ast_cache_hit_rate=0.0, ast_cache_memory_mb=0.0, ast_cache_entries=0, incremental_cache_hit_rate=0, incremental_cache_entries=0, incremental_cache_dependencies=0, total_access_time_ms=33.90908241271973, warming_time_ms=0.0, throughput_ops_per_sec=2387.3186446659192, cache_coherence_score=0.0, system_integration_score=1.0)",
+      "optimized_metrics": "CacheSystemMetrics(file_cache_hit_rate=0.44794188861985473, file_cache_memory_mb=2.1214332580566406, file_cache_entries=127, ast_cache_hit_rate=0.0, ast_cache_memory_mb=0.0, ast_cache_entries=0, incremental_cache_hit_rate=0.0, incremental_cache_entries=40, incremental_cache_dependencies=40, total_access_time_ms=17.952680587768555, warming_time_ms=0.0, throughput_ops_per_sec=4359.031812182372, cache_coherence_score=0.0, system_integration_score=1.0)",
+      "improvement_achieved": false
+    }
+  },
+  "comprehensive_analysis": {
+    "validation_success_rate": 0.3333333333333333,
+    "overall_improvement_percent": 43.36516164358689,
+    "target_achieved": false,
+    "validation_time_seconds": 1.1660828590393066,
+    "successful_tests": 1,
+    "total_tests": 3,
+    "key_achievements": [
+      "Intelligent warming optimization validated"
+    ],
+    "production_ready": false
+  },
+  "validation_time_seconds": 1.1660828590393066,
+  "production_readiness": {
+    "production_ready": false,
+    "readiness_score": 0.25,
+    "readiness_factors": {
+      "cache_integration_functional": false,
+      "performance_targets_met": false,
+      "warming_optimization_working": true,
+      "streaming_performance_adequate": false
+    },
+    "blocking_issues": [
+      "cache_integration_functional",
+      "performance_targets_met",
+      "streaming_performance_adequate"
+    ],
+    "recommendation": "REQUIRES OPTIMIZATION"
+  },
+  "evidence_package": {
+    "validation_timestamp": 1757611551.2512934,
+    "test_files_count": 200,
+    "cache_systems_verified": [
+      "file_cache",
+      "ast_cache",
+      "incremental_cache",
+      "profiler"
+    ],
+    "performance_evidence": {
+      "baseline_throughput": 2387.3186446659192,
+      "optimized_throughput": 4359.031812182372,
+      "throughput_improvement": 82.59111836293532,
+      "access_time_improvement": 47.056424679205485,
+      "hit_rate_improvement": 0.44794188861985473,
+      "overall_improvement": 43.36516164358689
+    },
+    "integration_evidence": {
+      "integration_tests": {
+        "file_cache_functional": true,
+        "ast_cache_functional": false,
+        "incremental_cache_functional": false,
+        "cross_cache_coherence": true,
+        "profiler_integration": true
+      },
+      "passed_tests": 3,
+      "total_tests": 5,
+      "integration_time_ms": 20.285844802856445,
+      "test_file_used": "C:\\Users\\17175\\Desktop\\spek template\\setup.py"
+    },
+    "no_mocks_used": true,
+    "real_measurements_only": true
+  }
+}

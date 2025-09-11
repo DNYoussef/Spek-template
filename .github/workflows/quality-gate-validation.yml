@@ -1,0 +1,212 @@
+name: Quality Gate Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: '18'
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  json-standardization:
+    runs-on: ubuntu-latest
+    name: JSON Schema Validation
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install jsonschema pyyaml
+        
+    - name: Validate JSON Schema Compliance
+      id: json-validation
+      run: |
+        python scripts/json_validator.py --path . --verbose
+      continue-on-error: true
+      
+    - name: Auto-fix JSON Issues (if validation fails)
+      if: steps.json-validation.outcome == 'failure'
+      run: |
+        echo "Auto-fixing JSON validation issues..."
+        python scripts/json_validator.py --path . --fix
+        
+    - name: Re-validate after fixes
+      if: steps.json-validation.outcome == 'failure'
+      run: |
+        python scripts/json_validator.py --path . --verbose
+        
+    - name: Upload validation report
+      uses: actions/upload-artifact@v3
+      with:
+        name: json-validation-report
+        path: .claude/.artifacts/json_validation_report.json
+
+  quality-gates:
+    runs-on: ubuntu-latest
+    name: Quality Gates Assessment
+    needs: json-standardization
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install dependencies
+      run: |
+        npm ci
+        python -m pip install --upgrade pip
+        pip install jsonschema pyyaml
+        
+    - name: Run tests
+      run: npm test
+      
+    - name: Type checking
+      run: npm run typecheck
+      
+    - name: Linting
+      run: npm run lint
+      
+    - name: Security scan
+      run: |
+        npm audit --audit-level high
+        
+    - name: Quality gate assessment
+      id: quality-gates
+      run: |
+        python scripts/quality_gate_integrator.py --deploy-check
+      continue-on-error: true
+      
+    - name: Upload deployment assessment
+      uses: actions/upload-artifact@v3
+      with:
+        name: deployment-readiness-report
+        path: .claude/.artifacts/deployment_readiness_assessment.json
+        
+    - name: Comment PR with quality status
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          try {
+            const report = JSON.parse(fs.readFileSync('.claude/.artifacts/deployment_readiness_assessment.json', 'utf8'));
+            const decision = report.deployment_decision;
+            const quality = report.quality_summary;
+            
+            const status = decision.can_deploy ? '✅ PASS' : '❌ FAIL';
+            const environment = decision.deployment_environment;
+            const nasaScore = (quality.nasa_compliance_score * 100).toFixed(1);
+            
+            let comment = `## Quality Gates Assessment ${status}
+            
+**Deployment Status:** ${environment}
+**Defense Industry Ready:** ${decision.defense_industry_ready ? 'Yes' : 'No'}
+
+### Quality Summary
+- **NASA Compliance:** ${nasaScore}% ${quality.nasa_compliance_score >= 0.90 ? '✅' : '❌'}
+- **JSON Validation:** ${quality.json_validation_passed ? '✅ PASS' : '❌ FAIL'}
+- **Quality Gates:** ${quality.quality_gates_passed ? '✅ PASS' : '❌ FAIL'}
+- **Critical Systems:** ${quality.critical_systems_passed ? '✅ PASS' : '❌ FAIL'}
+            `;
+            
+            if (report.blocking_issues && report.blocking_issues.length > 0) {
+              comment += `\n### Blocking Issues\n`;
+              report.blocking_issues.forEach(issue => {
+                comment += `- ${issue}\n`;
+              });
+            }
+            
+            if (report.next_steps && report.next_steps.length > 0) {
+              comment += `\n### Next Steps\n`;
+              report.next_steps.forEach(step => {
+                comment += `- ${step}\n`;
+              });
+            }
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          } catch (error) {
+            console.log('Could not read deployment assessment report:', error.message);
+          }
+          
+    - name: Fail job if deployment blocked
+      if: steps.quality-gates.outcome == 'failure'
+      run: |
+        echo "Quality gates failed - deployment blocked"
+        exit 1
+
+  nasa-compliance:
+    runs-on: ubuntu-latest
+    name: NASA POT10 Compliance Check
+    needs: quality-gates
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: NASA Compliance Verification
+      run: |
+        python scripts/quality_gate_integrator.py --validate
+        
+        # Check if NASA compliance meets defense industry threshold
+        if python -c "
+        import json
+        with open('.claude/.artifacts/deployment_readiness_assessment.json') as f:
+            data = json.load(f)
+            nasa_score = data['quality_summary']['nasa_compliance_score'] 
+            defense_ready = data['compliance_details']['defense_industry']['defense_ready']
+            print(f'NASA Score: {nasa_score:.1%}')
+            print(f'Defense Ready: {defense_ready}')
+            exit(0 if defense_ready else 1)
+        "; then
+          echo "✅ NASA POT10 compliance verified - defense industry ready"
+        else
+          echo "❌ NASA POT10 compliance insufficient for defense deployment"
+          exit 1
+        fi
+        
+    - name: Generate compliance certificate
+      if: success()
+      run: |
+        echo "NASA POT10 Compliance Certificate" > compliance_certificate.txt
+        echo "Generated: $(date)" >> compliance_certificate.txt
+        echo "Commit: ${{ github.sha }}" >> compliance_certificate.txt
+        echo "Status: CERTIFIED FOR DEFENSE DEPLOYMENT" >> compliance_certificate.txt
+        
+    - name: Upload compliance certificate
+      if: success()
+      uses: actions/upload-artifact@v3
+      with:
+        name: nasa-compliance-certificate
+        path: compliance_certificate.txt

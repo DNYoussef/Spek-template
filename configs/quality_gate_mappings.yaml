@@ -1,0 +1,252 @@
+# SPEK Quality Gate Path Mappings
+# Standardized JSON path mappings for quality gate threshold checks across 70+ artifacts
+
+# Core Quality Gate Thresholds
+thresholds:
+  nasa_compliance:
+    path: "metrics.nasa_compliance_score"
+    operator: ">="
+    value: 0.85
+    critical: true
+    description: "NASA POT10 compliance score must be >= 85%"
+  
+  god_objects:
+    path: "metrics.god_objects_count"
+    operator: "<="
+    value: 2
+    critical: true
+    description: "God objects count must be <= 2"
+  
+  mece_score:
+    path: "metrics.mece_score"
+    operator: ">="
+    value: 0.75
+    critical: false
+    description: "MECE score must be >= 75%"
+    
+  critical_violations:
+    path: "metrics.critical_violations"
+    operator: "<="
+    value: 0
+    critical: true
+    description: "Critical violations must be 0"
+    
+  high_violations:
+    path: "metrics.high_violations" 
+    operator: "<="
+    value: 5
+    critical: true
+    description: "High violations must be <= 5"
+    
+  total_violations:
+    path: "metrics.total_violations"
+    operator: "<="
+    value: 50
+    critical: false
+    description: "Total violations should be <= 50"
+    
+  overall_quality:
+    path: "metrics.overall_quality_score"
+    operator: ">="
+    value: 0.70
+    critical: false
+    description: "Overall quality score should be >= 70%"
+    
+  architecture_health:
+    path: "metrics.architecture_health"
+    operator: ">="
+    value: 0.80
+    critical: false
+    description: "Architecture health should be >= 80%"
+    
+  maintainability:
+    path: "metrics.maintainability_index"
+    operator: ">="
+    value: 60
+    critical: false
+    description: "Maintainability index should be >= 60"
+
+# Artifact Type Mappings
+# Maps each artifact type to its specific JSON structure patterns
+artifact_mappings:
+  quality-gates:
+    primary_file: "quality_gates_report.json"
+    schema_version: "1.0"
+    critical_paths:
+      - "quality_gates.overall_gate_passed"
+      - "quality_gates.critical_gates.passed"
+      - "metrics.nasa_compliance_score"
+      - "metrics.god_objects_count"
+      - "metrics.critical_violations"
+    fallback_paths:
+      nasa_compliance: "comprehensive_metrics.nasa_compliance_score"
+      god_objects: "comprehensive_metrics.god_objects_found"
+      critical_violations: "comprehensive_metrics.critical_violations"
+      
+  nasa-compliance:
+    primary_file: "nasa-compliance/baseline_assessment.json"
+    schema_version: "1.0" 
+    critical_paths:
+      - "nasa_pot10_compliance.overall_score"
+      - "nasa_pot10_compliance.defense_industry_threshold"
+      - "nasa_pot10_compliance.certification_ready"
+    fallback_paths:
+      nasa_compliance: "nasa_pot10_compliance.overall_score"
+      
+  connascence-analysis:
+    primary_file: "connascence_full.json"
+    schema_version: "1.0"
+    critical_paths:
+      - "nasa_compliance.score"
+      - "summary.total_violations"
+      - "summary.critical_violations"
+      - "summary.overall_quality_score"
+    fallback_paths:
+      nasa_compliance: "nasa_compliance.score"
+      total_violations: "summary.total_violations"
+      
+  mece-analysis:
+    primary_file: "mece_analysis.json"
+    schema_version: "1.0"
+    critical_paths:
+      - "mece_score"
+      - "summary.total_duplications"
+      - "summary.coverage_score"
+    fallback_paths:
+      mece_score: "mece_score"
+      
+  architecture-analysis:
+    primary_file: "architecture_analysis.json"
+    schema_version: "1.0"
+    critical_paths:
+      - "system_overview.architectural_health"
+      - "system_overview.coupling_score"
+      - "system_overview.maintainability_index"
+      - "metrics.god_objects_detected"
+    fallback_paths:
+      architecture_health: "system_overview.architectural_health"
+      god_objects_count: "metrics.god_objects_detected"
+      
+  security-gates:
+    primary_file: "security/security_gates_report.json"
+    schema_version: "1.0"
+    critical_paths:
+      - "overall_security_score"
+      - "critical_security_issues"
+      - "nasa_compliance_status.overall_compliance_score"
+      - "nasa_compliance_status.critical_violations"
+    fallback_paths:
+      nasa_compliance: "nasa_compliance_status.overall_compliance_score"
+      critical_violations: "nasa_compliance_status.critical_violations"
+      
+  god-objects:
+    primary_file: "god_objects.json"
+    schema_version: "1.0"
+    critical_paths:
+      - "length"  # Array length for god objects count
+    fallback_paths:
+      god_objects_count: "length"
+      
+  performance-validation:
+    primary_file: "performance_validation_test.json"
+    schema_version: "1.0"
+    critical_paths:
+      - "metrics.cache_health_score"
+      - "metrics.performance_efficiency"
+      - "metrics.memory_optimization"
+    fallback_paths:
+      cache_performance: "metrics.cache_health_score"
+      performance_efficiency: "metrics.performance_efficiency"
+      
+  theater-detection:
+    primary_file: "theater-detection-report.json"
+    schema_version: "1.0"
+    critical_paths:
+      - "theater_analysis.overall_theater_score"
+      - "reality_validation.overall_reality_score"
+      - "quality_correlation.genuine_improvement_score"
+    fallback_paths:
+      theater_score: "theater_analysis.overall_theater_score"
+      
+  memory-optimization:
+    primary_file: "memory_mcp_update_patterns.json"
+    schema_version: "1.0"
+    critical_paths:
+      - "optimization_metrics.memory_efficiency"
+      - "optimization_metrics.cache_hit_ratio"
+    fallback_paths:
+      memory_optimization: "optimization_metrics.memory_efficiency"
+
+# Detector Gate Mappings
+detector_gates:
+  algorithm_detector:
+    path: "detector_violations.algorithm_violations"
+    threshold: 10
+    
+  convention_detector:
+    path: "detector_violations.convention_violations"
+    threshold: 20
+    
+  execution_detector:
+    path: "detector_violations.execution_violations"
+    threshold: 5
+    
+  timing_detector:
+    path: "detector_violations.timing_violations"
+    threshold: 5
+    
+  magic_literal_detector:
+    path: "detector_violations.magic_literal_violations"
+    threshold: 15
+    
+  position_detector:
+    path: "detector_violations.position_violations"
+    threshold: 10
+    
+  values_detector:
+    path: "detector_violations.values_violations"
+    threshold: 10
+    
+  interface_detector:
+    path: "detector_violations.interface_violations"
+    threshold: 8
+    
+  name_detector:
+    path: "detector_violations.name_violations"
+    threshold: 12
+
+# Validation Rules
+validation_rules:
+  required_fields:
+    - "timestamp"
+    - "analysis_type"
+    - "quality_gates"
+    - "metrics"
+    - "summary"
+    
+  critical_gates:
+    - "nasa_compliance"
+    - "god_objects"
+    - "critical_violations"
+    - "high_violations"
+    
+  quality_gates:
+    - "mece_score"
+    - "overall_quality"
+    - "architecture_health"
+    - "maintainability"
+    
+  fallback_handling:
+    enabled: true
+    default_values:
+      nasa_compliance_score: 0.0
+      god_objects_count: 999
+      critical_violations: 999
+      mece_score: 0.0
+      overall_quality_score: 0.0
+      
+  error_handling:
+    missing_file: "skip_with_warning"
+    invalid_json: "fallback_to_defaults"
+    missing_path: "use_fallback_path"
+    threshold_violation: "block_deployment"

@@ -1,0 +1,597 @@
+# GitHub Closed-Loop Automation - Failure Recovery Configuration
+# Comprehensive configuration for intelligent failure handling and recovery mechanisms
+# Version: 2.0.0
+# Memory Key: swarm/github_integration
+
+# ==============================================================================
+# CORE AUTOMATION SETTINGS
+# ==============================================================================
+automation:
+  enabled: true
+  version: "2.0.0"
+  
+  # Recovery execution modes
+  recovery_modes:
+    - automatic      # Fully automated recovery with no human intervention
+    - supervised     # Automated recovery with human approval gates
+    - analysis_only  # Detection and analysis only, no automated fixes
+  
+  # Default recovery mode for different priorities
+  default_recovery_mode: "automatic"
+  priority_overrides:
+    critical: "supervised"    # Critical failures require supervision
+    high: "automatic"        # High priority allows full automation
+    medium: "automatic"      # Medium priority allows full automation
+    low: "analysis_only"     # Low priority just analyzes
+  
+  # Notification channels for different scenarios
+  notification_channels:
+    success: ["commit_status", "workflow_summary"]
+    partial_success: ["commit_status", "pr_comments", "workflow_summary"]
+    failure: ["commit_status", "github_issues", "pr_comments", "workflow_summary"]
+    critical: ["commit_status", "github_issues", "pr_comments", "slack_alerts"]
+
+# ==============================================================================
+# FAILURE DETECTION CONFIGURATION
+# ==============================================================================
+failure_detection:
+  # Monitoring window for failure analysis
+  monitoring_window_hours: 24
+  
+  # Failure rate thresholds (percentage)
+  thresholds:
+    critical_failure_rate: 50.0    # >= 50% failure rate triggers critical response
+    high_failure_rate: 30.0        # >= 30% failure rate triggers high priority
+    medium_failure_rate: 15.0      # >= 15% failure rate triggers medium priority
+    low_failure_rate: 5.0          # >= 5% failure rate triggers low priority
+  
+  # Failure count thresholds
+  failure_count_thresholds:
+    critical: 10    # 10+ failures in window = critical
+    high: 5         # 5+ failures in window = high priority
+    medium: 3       # 3+ failures in window = medium priority
+    low: 1          # 1+ failure in window = low priority
+  
+  # Critical workflows that always get high priority
+  critical_workflows:
+    - "Enhanced Quality Gates"
+    - "Quality Analysis Orchestrator"
+    - "Security Scan"
+    - "NASA Compliance"
+    - "Closed-Loop Automation"
+    - "CodeQL Analysis"
+  
+  # Workflow classification patterns for intelligent routing
+  workflow_patterns:
+    quality_gates:
+      keywords: ["quality", "gate", "analysis", "lint", "format", "mece", "connascence"]
+      priority_boost: 1  # Increase priority by 1 level
+      
+    security:
+      keywords: ["security", "scan", "vulnerability", "audit", "bandit", "semgrep", "safety"]
+      priority_boost: 2  # Increase priority by 2 levels
+      
+    performance:
+      keywords: ["performance", "benchmark", "load", "stress", "profile"]
+      priority_boost: 0  # No priority change
+      
+    testing:
+      keywords: ["test", "unit", "integration", "e2e", "pytest", "jest"]
+      priority_boost: 0  # No priority change
+      
+    build_deploy:
+      keywords: ["build", "compile", "deploy", "release", "publish", "docker"]
+      priority_boost: 0  # No priority change
+      
+    dependencies:
+      keywords: ["dependency", "deps", "npm", "pip", "requirements", "package"]
+      priority_boost: 1  # Increase priority by 1 level
+
+# ==============================================================================
+# INTELLIGENT RETRY MECHANISMS
+# ==============================================================================
+retry_mechanisms:
+  # Global retry settings
+  enabled: true
+  max_attempts: 5
+  
+  # Exponential backoff configuration
+  exponential_backoff:
+    base_delay_seconds: 30        # Initial delay
+    max_delay_seconds: 1800       # Maximum delay (30 minutes)
+    multiplier: 2.0               # Exponential multiplier
+    jitter_factor: 0.1            # Random jitter (10%)
+  
+  # Retry strategies by failure category
+  strategies:
+    dependencies:
+      max_attempts: 3
+      base_delay: 60              # Dependencies take longer to resolve
+      transient_error_patterns:
+        - "timeout"
+        - "network"
+        - "rate limit"
+        - "service unavailable"
+        
+    quality_gates:
+      max_attempts: 5
+      base_delay: 30
+      transient_error_patterns:
+        - "import error"
+        - "module not found"
+        - "temporary file"
+        - "resource busy"
+        
+    security:
+      max_attempts: 3
+      base_delay: 45
+      transient_error_patterns:
+        - "api timeout"
+        - "scan timeout"
+        - "rate limit exceeded"
+        
+    performance:
+      max_attempts: 2
+      base_delay: 120             # Performance tests need more time
+      transient_error_patterns:
+        - "timeout"
+        - "memory limit"
+        - "resource exhausted"
+        
+    testing:
+      max_attempts: 4
+      base_delay: 45
+      transient_error_patterns:
+        - "flaky test"
+        - "timing issue"
+        - "resource conflict"
+        - "connection refused"
+        
+    build_deploy:
+      max_attempts: 3
+      base_delay: 90
+      transient_error_patterns:
+        - "docker timeout"
+        - "registry unavailable"
+        - "deployment timeout"
+        
+    infrastructure:
+      max_attempts: 3
+      base_delay: 120
+      transient_error_patterns:
+        - "cluster unavailable"
+        - "node not ready"
+        - "resource quota"
+        
+    general:
+      max_attempts: 3
+      base_delay: 60
+      transient_error_patterns:
+        - "temporary failure"
+        - "network error"
+        - "timeout"
+
+# ==============================================================================
+# RECOVERY ACTION CONFIGURATIONS
+# ==============================================================================
+recovery_actions:
+  # Global recovery settings
+  max_concurrent_actions: 3
+  action_timeout_seconds: 600      # 10 minutes per action
+  total_recovery_timeout_seconds: 1800  # 30 minutes total
+  
+  # Recovery actions by failure category
+  categories:
+    dependencies:
+      enabled_actions:
+        - "vulnerability_scan"
+        - "dependency_audit"
+        - "update_analysis"
+        - "security_patch_check"
+      automatic_actions:        # Actions that run automatically
+        - "vulnerability_scan"
+        - "dependency_audit"
+      supervised_actions:       # Actions requiring approval
+        - "update_analysis"
+        - "security_patch_check"
+      
+    quality_gates:
+      enabled_actions:
+        - "code_formatting"
+        - "linting_fixes" 
+        - "unused_code_cleanup"
+        - "import_sorting"
+        - "style_correction"
+      automatic_actions:
+        - "code_formatting"
+        - "unused_code_cleanup"
+        - "import_sorting"
+      supervised_actions:
+        - "linting_fixes"
+        - "style_correction"
+      
+    security:
+      enabled_actions:
+        - "security_scan"
+        - "secret_detection"
+        - "vulnerability_assessment"
+        - "compliance_check"
+      automatic_actions:
+        - "security_scan"
+        - "secret_detection"
+      supervised_actions:
+        - "vulnerability_assessment"
+        - "compliance_check"
+      
+    performance:
+      enabled_actions:
+        - "performance_analysis"
+        - "bottleneck_detection"
+        - "resource_optimization"
+        - "cache_analysis"
+      automatic_actions:
+        - "performance_analysis"
+        - "bottleneck_detection"
+      supervised_actions:
+        - "resource_optimization"
+        - "cache_analysis"
+      
+    testing:
+      enabled_actions:
+        - "test_analysis"
+        - "flaky_test_detection"
+        - "test_environment_check"
+        - "dependency_isolation"
+      automatic_actions:
+        - "test_analysis"
+        - "test_environment_check"
+      supervised_actions:
+        - "flaky_test_detection"
+        - "dependency_isolation"
+      
+    build_deploy:
+      enabled_actions:
+        - "build_dependency_check"
+        - "environment_validation"
+        - "resource_availability"
+        - "deployment_readiness"
+      automatic_actions:
+        - "build_dependency_check"
+        - "environment_validation"
+      supervised_actions:
+        - "resource_availability"
+        - "deployment_readiness"
+      
+    infrastructure:
+      enabled_actions:
+        - "resource_monitoring"
+        - "capacity_analysis"
+        - "health_check"
+        - "connectivity_test"
+      automatic_actions:
+        - "health_check"
+        - "connectivity_test"
+      supervised_actions:
+        - "resource_monitoring"
+        - "capacity_analysis"
+
+# ==============================================================================
+# CIRCUIT BREAKER PATTERNS
+# ==============================================================================
+circuit_breakers:
+  # Global circuit breaker settings
+  enabled: true
+  
+  # Circuit breaker thresholds
+  thresholds:
+    failure_count: 5              # Open circuit after 5 consecutive failures
+    failure_rate: 60.0            # Open circuit if failure rate exceeds 60%
+    timeout_seconds: 300          # Keep circuit open for 5 minutes
+    
+  # Half-open state settings
+  half_open:
+    test_requests: 3              # Number of test requests in half-open state
+    success_threshold: 2          # Successes needed to close circuit
+  
+  # Per-category circuit breaker overrides
+  category_overrides:
+    dependencies:
+      failure_count: 3
+      timeout_seconds: 900        # 15 minutes for dependency issues
+      
+    security:
+      failure_count: 2            # More sensitive for security
+      timeout_seconds: 600        # 10 minutes timeout
+      
+    performance:
+      failure_count: 2
+      timeout_seconds: 1200       # 20 minutes for performance issues
+      
+    infrastructure:
+      failure_count: 3
+      timeout_seconds: 1800       # 30 minutes for infrastructure
+
+# ==============================================================================
+# ROLLBACK TRIGGERS AND MECHANISMS  
+# ==============================================================================
+rollback:
+  # Global rollback settings
+  enabled: true
+  automatic_rollback: true
+  
+  # Rollback triggers
+  triggers:
+    failure_rate_threshold: 75.0   # Rollback if failure rate exceeds 75%
+    consecutive_failures: 8        # Rollback after 8 consecutive failures
+    critical_failure_detected: true   # Rollback on any critical failure
+    security_incident: true        # Immediate rollback on security incidents
+    
+  # Rollback strategies
+  strategies:
+    - "revert_last_commit"         # Revert the last commit
+    - "restore_previous_version"   # Restore previous working version
+    - "disable_failing_feature"   # Disable specific failing features
+    - "emergency_maintenance"      # Enter maintenance mode
+  
+  # Rollback timeouts and limits
+  timeouts:
+    rollback_execution: 300       # 5 minutes to execute rollback
+    verification_timeout: 180     # 3 minutes to verify rollback success
+    max_rollback_attempts: 2      # Maximum rollback attempts
+  
+  # Protected branches and environments
+  protection:
+    branches:
+      - "main"
+      - "production" 
+      - "release/*"
+    environments:
+      - "production"
+      - "staging"
+    require_approval: true        # Require human approval for protected rollbacks
+
+# ==============================================================================
+# NOTIFICATION AND ALERTING SYSTEM
+# ==============================================================================
+notifications:
+  # Notification routing by priority and type
+  routing:
+    critical:
+      channels: ["github_issues", "slack_alerts", "email", "pager_duty"]
+      escalation_minutes: 15     # Escalate if no response in 15 minutes
+      
+    high:
+      channels: ["github_issues", "pr_comments", "slack_notifications"]
+      escalation_minutes: 60     # Escalate if no response in 1 hour
+      
+    medium:
+      channels: ["pr_comments", "commit_status"]
+      escalation_minutes: 240    # Escalate if no response in 4 hours
+      
+    low:
+      channels: ["commit_status", "workflow_summary"]
+      escalation_minutes: 1440   # Escalate if no response in 24 hours
+  
+  # Notification templates
+  templates:
+    failure_detected:
+      title: "🚨 CI/CD Failure Detected: {category}"
+      include_sections: ["failure_analysis", "recovery_plan", "timeline"]
+      
+    recovery_successful:
+      title: "✅ Automated Recovery Successful: {category}"
+      include_sections: ["recovery_summary", "actions_taken", "performance_metrics"]
+      
+    recovery_failed:
+      title: "❌ Automated Recovery Failed: {category}"
+      include_sections: ["failure_analysis", "attempted_actions", "manual_steps"]
+      
+    rollback_triggered:
+      title: "🔄 Emergency Rollback Triggered: {reason}"
+      include_sections: ["rollback_reason", "affected_systems", "recovery_timeline"]
+  
+  # Rate limiting to prevent spam
+  rate_limiting:
+    max_notifications_per_hour: 10
+    max_notifications_per_day: 50
+    cooldown_minutes: 30         # Minimum time between similar notifications
+
+# ==============================================================================
+# QUALITY GATE INTEGRATION
+# ==============================================================================
+quality_gates:
+  # Integration with existing quality gate workflows
+  integration_enabled: true
+  
+  # Quality gate thresholds
+  thresholds:
+    overall_quality_score: 75.0   # Minimum overall quality score
+    critical_violations: 0        # Zero tolerance for critical violations
+    high_violations: 5            # Maximum 5 high-severity violations
+    security_score: 90.0          # Minimum security score
+    performance_score: 80.0       # Minimum performance score
+    coverage_threshold: 85.0      # Minimum code coverage
+  
+  # Auto-fix capabilities
+  auto_fixes:
+    enabled: true
+    categories:
+      - "formatting"              # Code formatting issues
+      - "imports"                 # Import organization
+      - "unused_variables"        # Remove unused variables
+      - "simple_linting"          # Simple linting fixes
+    
+    # Actions requiring approval
+    supervised_fixes:
+      - "complex_refactoring"     # Complex code refactoring
+      - "dependency_updates"      # Dependency version updates
+      - "security_patches"        # Security-related patches
+  
+  # Integration with GitHub status checks
+  github_status_checks:
+    enabled: true
+    context_prefix: "quality-gate/"
+    detailed_reporting: true
+    
+    # Status check configuration
+    checks:
+      - name: "failure-detection"
+        required: false
+      - name: "recovery-effectiveness"
+        required: false 
+      - name: "automation-health"
+        required: false
+      - name: "overall-automation"
+        required: true
+
+# ==============================================================================
+# PERFORMANCE AND MONITORING
+# ==============================================================================
+performance:
+  # Performance monitoring and optimization
+  monitoring:
+    enabled: true
+    metrics_retention_days: 90
+    
+    # Key performance indicators
+    kpis:
+      - "mean_time_to_detection"    # How quickly failures are detected
+      - "mean_time_to_recovery"     # How quickly recovery is completed
+      - "recovery_success_rate"     # Percentage of successful recoveries
+      - "false_positive_rate"       # Rate of incorrect failure detections
+      - "automation_coverage"       # Percentage of failures handled automatically
+  
+  # Resource limits and optimization
+  resource_limits:
+    max_memory_mb: 2048           # Maximum memory usage
+    max_cpu_percentage: 80        # Maximum CPU usage
+    max_execution_time: 1800      # Maximum execution time (30 minutes)
+    max_concurrent_workflows: 5   # Maximum concurrent automation workflows
+  
+  # Performance optimization settings
+  optimization:
+    cache_enabled: true
+    parallel_execution: true
+    max_parallel_streams: 4
+    batch_processing: true
+    lazy_loading: true
+
+# ==============================================================================
+# SECURITY AND COMPLIANCE
+# ==============================================================================
+security:
+  # Security settings for automation system
+  authentication:
+    require_github_token: true
+    token_permissions:
+      - "repo"                    # Repository access
+      - "workflow"               # Workflow management
+      - "issues"                 # Issue creation/management
+      - "pull_requests"          # PR comments
+  
+  # Security boundaries
+  restrictions:
+    allowed_actions:
+      - "code_formatting"
+      - "dependency_scanning"
+      - "security_analysis"
+      - "performance_monitoring"
+    
+    prohibited_actions:
+      - "file_deletion"           # Never delete files automatically
+      - "credential_modification" # Never modify credentials
+      - "production_deployment"   # No direct production deployments
+      - "user_management"        # No user/permission changes
+  
+  # Audit and compliance
+  audit:
+    log_all_actions: true
+    retain_logs_days: 365
+    compliance_reporting: true
+    
+    # Compliance standards
+    standards:
+      - "SOC2"                   # SOC 2 compliance
+      - "PCI_DSS"               # PCI DSS compliance
+      - "GDPR"                  # GDPR compliance
+      - "NASA_POT10"            # NASA Power of Ten compliance
+
+# ==============================================================================
+# ADVANCED CONFIGURATION
+# ==============================================================================
+advanced:
+  # Machine learning and intelligence
+  machine_learning:
+    enabled: false              # ML features disabled by default
+    failure_prediction: false
+    pattern_recognition: true
+    adaptive_thresholds: false
+  
+  # Experimental features
+  experimental:
+    enabled: false              # Experimental features disabled by default
+    auto_pr_creation: false     # Automatically create PRs for fixes
+    predictive_scaling: false   # Predict and prevent failures
+    cross_repo_learning: false  # Learn from other repositories
+  
+  # Integration with external systems
+  integrations:
+    slack:
+      enabled: false
+      webhook_url: ""           # Configure in environment variables
+      
+    pager_duty:
+      enabled: false
+      integration_key: ""       # Configure in environment variables
+      
+    email:
+      enabled: false
+      smtp_server: ""           # Configure in environment variables
+      
+    monitoring:
+      enabled: true
+      prometheus_metrics: true
+      grafana_dashboards: false
+
+# ==============================================================================
+# ENVIRONMENT-SPECIFIC OVERRIDES
+# ==============================================================================
+environments:
+  # Production environment settings (most restrictive)
+  production:
+    automation:
+      default_recovery_mode: "supervised"  # Require supervision in prod
+    rollback:
+      automatic_rollback: false           # Manual rollback approval required
+    quality_gates:
+      thresholds:
+        overall_quality_score: 90.0       # Higher quality bar
+        critical_violations: 0            # Zero tolerance
+    notifications:
+      routing:
+        critical:
+          escalation_minutes: 5           # Faster escalation
+  
+  # Staging environment settings
+  staging:
+    automation:
+      default_recovery_mode: "automatic"   # More automation allowed
+    quality_gates:
+      thresholds:
+        overall_quality_score: 80.0        # Slightly lower bar
+        critical_violations: 1             # Allow 1 critical violation
+  
+  # Development environment settings (least restrictive) 
+  development:
+    automation:
+      default_recovery_mode: "automatic"   # Full automation
+    rollback:
+      automatic_rollback: true            # Automatic rollback OK
+    quality_gates:
+      thresholds:
+        overall_quality_score: 70.0        # Lower quality bar for dev
+        critical_violations: 3             # More tolerance for issues
+    notifications:
+      routing:
+        critical:
+          channels: ["pr_comments"]       # Less noisy notifications

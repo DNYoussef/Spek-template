@@ -1,0 +1,371 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://spek-platform.dev/schemas/security-artifact.json",
+  "title": "Security Artifact Schema",
+  "description": "Standardized schema for security scan artifacts and quality gate results",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["metadata", "summary", "findings"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["timestamp", "tool_name", "version", "scan_type"],
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of scan execution"
+        },
+        "tool_name": {
+          "type": "string",
+          "enum": ["semgrep", "bandit", "safety", "npm_audit", "codeql", "security_validator"],
+          "description": "Name of the security tool that generated this artifact"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version of the security tool"
+        },
+        "scan_type": {
+          "type": "string",
+          "enum": ["sast", "dependency", "secret", "container", "infrastructure", "composite"],
+          "description": "Type of security scan performed"
+        },
+        "scan_duration_seconds": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total execution time in seconds"
+        },
+        "configuration": {
+          "type": "object",
+          "description": "Tool-specific configuration used for the scan"
+        },
+        "target_info": {
+          "type": "object",
+          "properties": {
+            "project_name": {"type": "string"},
+            "repository_url": {"type": "string"},
+            "branch": {"type": "string"},
+            "commit_sha": {"type": "string"},
+            "files_scanned": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "lines_of_code": {
+              "type": "integer", 
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["total_findings", "findings_by_severity"],
+      "properties": {
+        "total_findings": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of security findings"
+        },
+        "findings_by_severity": {
+          "type": "object",
+          "required": ["critical", "high", "medium", "low"],
+          "properties": {
+            "critical": {"type": "integer", "minimum": 0},
+            "high": {"type": "integer", "minimum": 0},
+            "medium": {"type": "integer", "minimum": 0},
+            "low": {"type": "integer", "minimum": 0},
+            "info": {"type": "integer", "minimum": 0}
+          }
+        },
+        "risk_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Calculated risk score based on findings (0-100)"
+        },
+        "compliance_status": {
+          "type": "object",
+          "properties": {
+            "soc2_compliant": {"type": "boolean"},
+            "nist_compliant": {"type": "boolean"},
+            "nasa_pot10_compliant": {"type": "boolean"},
+            "production_ready": {"type": "boolean"}
+          }
+        },
+        "quality_gates": {
+          "type": "object",
+          "properties": {
+            "gates_evaluated": {"type": "integer", "minimum": 0},
+            "gates_passed": {"type": "integer", "minimum": 0},
+            "gates_failed": {"type": "integer", "minimum": 0},
+            "blocking_failures": {"type": "integer", "minimum": 0},
+            "overall_status": {
+              "type": "string",
+              "enum": ["PASS", "FAIL", "WARNING", "UNKNOWN"]
+            }
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "description": "Array of security findings",
+      "items": {
+        "type": "object",
+        "required": ["id", "tool", "severity", "title", "description", "file_path"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for this finding"
+          },
+          "tool": {
+            "type": "string",
+            "description": "Tool that generated this finding"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low", "info"],
+            "description": "Severity level of the security finding"
+          },
+          "title": {
+            "type": "string",
+            "description": "Brief title or summary of the finding"
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the security issue"
+          },
+          "file_path": {
+            "type": "string",
+            "description": "Path to the file where the issue was found"
+          },
+          "line_number": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Line number where the issue was found"
+          },
+          "column_number": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Column number where the issue was found (optional)"
+          },
+          "rule_id": {
+            "type": "string",
+            "description": "Rule or check ID that triggered this finding"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "injection", "broken_authentication", "sensitive_data_exposure", 
+              "xml_external_entities", "broken_access_control", "security_misconfiguration",
+              "xss", "insecure_deserialization", "vulnerable_components", "logging_monitoring",
+              "cryptography", "input_validation", "authorization", "session_management"
+            ],
+            "description": "OWASP Top 10 or security category"
+          },
+          "cwe_id": {
+            "type": "string",
+            "pattern": "^CWE-[0-9]+$",
+            "description": "Common Weakness Enumeration ID (e.g., CWE-79)"
+          },
+          "cvss_score": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 10.0,
+            "description": "CVSS score for vulnerability findings"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["high", "medium", "low"],
+            "default": "medium",
+            "description": "Confidence level of the finding"
+          },
+          "remediation": {
+            "type": "object",
+            "properties": {
+              "summary": {
+                "type": "string",
+                "description": "Brief remediation summary"
+              },
+              "detailed_steps": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "Detailed remediation steps"
+              },
+              "code_example": {
+                "type": "string",
+                "description": "Example of secure code implementation"
+              },
+              "references": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": {"type": "string"},
+                    "url": {"type": "string", "format": "uri"}
+                  }
+                },
+                "description": "Reference links for remediation guidance"
+              }
+            }
+          },
+          "false_positive": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether this finding has been marked as a false positive"
+          },
+          "suppressed": {
+            "type": "boolean", 
+            "default": false,
+            "description": "Whether this finding has been suppressed"
+          },
+          "suppression_reason": {
+            "type": "string",
+            "description": "Reason for suppressing this finding"
+          },
+          "first_detected": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When this finding was first detected"
+          },
+          "last_seen": {
+            "type": "string",
+            "format": "date-time", 
+            "description": "When this finding was last seen"
+          }
+        }
+      }
+    },
+    "quality_gates": {
+      "type": "object",
+      "description": "Security quality gate results",
+      "properties": {
+        "gate_results": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "type": "object",
+              "properties": {
+                "passed": {"type": "boolean"},
+                "threshold": {"type": "integer"},
+                "actual_count": {"type": "integer"},
+                "blocking": {"type": "boolean"},
+                "status": {
+                  "type": "string",
+                  "enum": ["PASS", "FAIL", "WARNING"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "sarif_data": {
+      "type": "object",
+      "description": "SARIF format data for GitHub Security integration",
+      "properties": {
+        "version": {"type": "string"},
+        "runs": {"type": "array"}
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "description": "Dependency-related security information",
+      "properties": {
+        "total_dependencies": {"type": "integer", "minimum": 0},
+        "vulnerable_dependencies": {"type": "integer", "minimum": 0},
+        "outdated_dependencies": {"type": "integer", "minimum": 0},
+        "dependency_details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "version": {"type": "string"},
+              "vulnerable": {"type": "boolean"},
+              "vulnerabilities": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {"type": "string"},
+                    "severity": {"type": "string"},
+                    "title": {"type": "string"},
+                    "cvss_score": {"type": "number"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Security metrics and KPIs",
+      "properties": {
+        "code_coverage_percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "security_coverage_percentage": {
+          "type": "number", 
+          "minimum": 0,
+          "maximum": 100
+        },
+        "false_positive_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mean_time_to_remediation_days": {
+          "type": "number",
+          "minimum": 0
+        },
+        "vulnerability_density": {
+          "type": "number",
+          "description": "Vulnerabilities per 1000 lines of code"
+        }
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "priority": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "category": {"type": "string"},
+          "description": {"type": "string"},
+          "impact": {"type": "string"},
+          "effort": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          }
+        }
+      }
+    },
+    "trends": {
+      "type": "object",
+      "description": "Historical trend data",
+      "properties": {
+        "finding_trend": {
+          "type": "string",
+          "enum": ["improving", "stable", "degrading"]
+        },
+        "previous_scan_comparison": {
+          "type": "object",
+          "properties": {
+            "findings_delta": {"type": "integer"},
+            "new_findings": {"type": "integer"},
+            "resolved_findings": {"type": "integer"}
+          }
+        }
+      }
+    }
+  }
+}

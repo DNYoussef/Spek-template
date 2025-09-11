@@ -112,7 +112,22 @@
       "mcp__memory__create_relations",
       "mcp__filesystem__list_allowed_directories",
       "mcp__filesystem__list_directory_with_sizes",
-      "Bash(npm run test:*)"
+      "Bash(npm run test:*)",
+      "mcp__memory__search_nodes",
+      "Bash(xargs ls:*)",
+      "Bash(cd:*)",
+      "Bash(if [ -f \"scripts/json_validator.py\" ])",
+      "Bash(then python scripts/json_validator.py --test-mode)",
+      "Bash(else echo \"JSON validator not found, checking for quality gate integrator...\")",
+      "Bash(if [ -f \"src/security/real_security_scanner.py\" ])",
+      "Bash(then python src/security/real_security_scanner.py --test)",
+      "Bash(else echo \"Real security scanner not found, checking alternatives...\")",
+      "Bash(if [ -f \"analyzer/performance/real_cache_optimization_validator.py\" ])",
+      "Bash(then python analyzer/performance/real_cache_optimization_validator.py --benchmark)",
+      "Bash(else echo \"Cache optimization validator not found, checking alternatives...\")",
+      "Bash(if [ -f \"scripts/workflow_optimizer.py\" ])",
+      "Bash(then python scripts/workflow_optimizer.py --config configs/workflow_orchestration.yaml --mode debug)",
+      "Bash(else echo \"Workflow optimizer not found, checking alternatives...\")"
     ],
     "deny": [],
     "ask": []

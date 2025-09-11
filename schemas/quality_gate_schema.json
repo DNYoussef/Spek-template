@@ -1,0 +1,294 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SPEK Quality Gate JSON Schema",
+  "description": "Standardized JSON schema for all quality gate artifacts in the SPEK platform",
+  "type": "object",
+  "required": [
+    "timestamp",
+    "analysis_type",
+    "quality_gates",
+    "metrics",
+    "summary"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO timestamp of analysis execution"
+    },
+    "analysis_type": {
+      "type": "string",
+      "enum": [
+        "quality-gates",
+        "nasa-compliance", 
+        "connascence-analysis",
+        "mece-analysis",
+        "architecture-analysis",
+        "security-gates",
+        "god-objects",
+        "performance-validation",
+        "theater-detection",
+        "memory-optimization",
+        "cache-optimization"
+      ],
+      "description": "Type of analysis performed"
+    },
+    "quality_gates": {
+      "type": "object",
+      "required": ["overall_gate_passed", "critical_gates", "quality_gates"],
+      "properties": {
+        "overall_gate_passed": {
+          "type": "boolean",
+          "description": "Master gate status - true if all critical gates pass"
+        },
+        "deployment_ready": {
+          "type": "boolean",
+          "description": "Whether system is ready for deployment"
+        },
+        "defense_industry_ready": {
+          "type": "boolean",
+          "description": "NASA POT10 compliance for defense industry"
+        },
+        "critical_gates": {
+          "type": "object",
+          "properties": {
+            "gates": {
+              "type": "object",
+              "properties": {
+                "tests_pass": {"type": "boolean"},
+                "typescript_compile": {"type": "boolean"},
+                "security_scan": {"type": "boolean"},
+                "nasa_compliance": {"type": "boolean"},
+                "god_objects": {"type": "boolean"},
+                "critical_violations": {"type": "boolean"},
+                "high_violations": {"type": "boolean"}
+              }
+            },
+            "passed": {"type": "boolean"},
+            "status": {"type": "string", "enum": ["PASS", "FAIL - DEPLOYMENT BLOCKED"]}
+          }
+        },
+        "quality_gates": {
+          "type": "object",
+          "properties": {
+            "gates": {
+              "type": "object",
+              "properties": {
+                "architecture_health": {"type": "boolean"},
+                "mece_score": {"type": "boolean"},
+                "coupling_quality": {"type": "boolean"},
+                "architecture_hotspots": {"type": "boolean"},
+                "cache_performance": {"type": "boolean"},
+                "performance_efficiency": {"type": "boolean"},
+                "overall_quality": {"type": "boolean"},
+                "total_violations": {"type": "boolean"},
+                "maintainability": {"type": "boolean"}
+              }
+            },
+            "passed": {"type": "boolean"},
+            "status": {"type": "string", "enum": ["PASS", "FAIL"]}
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "required": ["nasa_compliance_score"],
+      "properties": {
+        "nasa_compliance_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "NASA POT10 compliance score (0-1)"
+        },
+        "god_objects_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of god objects detected"
+        },
+        "critical_violations": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Count of critical violations"
+        },
+        "high_violations": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Count of high priority violations"
+        },
+        "total_violations": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total violation count"
+        },
+        "mece_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "MECE analysis score (0-1)"
+        },
+        "overall_quality_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Overall quality score (0-1)"
+        },
+        "architecture_health": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Architecture health score (0-1)"
+        },
+        "coupling_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Coupling quality score (0-1, lower is better)"
+        },
+        "complexity_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Complexity score (0-1, lower is better)"
+        },
+        "maintainability_index": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Maintainability index (0-100)"
+        },
+        "cache_health_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Cache performance score (0-1)"
+        },
+        "performance_efficiency": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Performance efficiency score (0-1)"
+        },
+        "memory_optimization": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Memory optimization score (0-1)"
+        },
+        "files_analyzed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of files analyzed"
+        },
+        "analysis_time": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Analysis execution time in seconds"
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["overall_status"],
+      "properties": {
+        "overall_status": {
+          "type": "string",
+          "enum": ["PASS", "FAIL", "WARNING", "BLOCKED"],
+          "description": "Overall analysis status"
+        },
+        "deployment_status": {
+          "type": "string", 
+          "enum": ["READY", "BLOCKED", "WARNING"],
+          "description": "Deployment readiness status"
+        },
+        "critical_issues": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of critical issues blocking deployment"
+        },
+        "recommendations": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Recommended actions for improvement"
+        },
+        "next_steps": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Next steps for resolution"
+        }
+      }
+    },
+    "violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string"},
+          "severity": {"type": "string", "enum": ["critical", "high", "medium", "low"]},
+          "file_path": {"type": "string"},
+          "line_number": {"type": "integer", "minimum": 1},
+          "description": {"type": "string"},
+          "recommendation": {"type": "string"}
+        }
+      },
+      "description": "Detailed list of violations found"
+    },
+    "detector_violations": {
+      "type": "object",
+      "description": "Violations by detector type",
+      "properties": {
+        "algorithm_violations": {"type": "integer", "minimum": 0},
+        "convention_violations": {"type": "integer", "minimum": 0},
+        "execution_violations": {"type": "integer", "minimum": 0},
+        "timing_violations": {"type": "integer", "minimum": 0},
+        "magic_literal_violations": {"type": "integer", "minimum": 0},
+        "position_violations": {"type": "integer", "minimum": 0},
+        "values_violations": {"type": "integer", "minimum": 0},
+        "interface_violations": {"type": "integer", "minimum": 0},
+        "name_violations": {"type": "integer", "minimum": 0}
+      }
+    },
+    "god_objects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file_path": {"type": "string"},
+          "class_name": {"type": "string"},
+          "line_count": {"type": "integer", "minimum": 1},
+          "method_count": {"type": "integer", "minimum": 1},
+          "complexity_score": {"type": "number"},
+          "recommendations": {"type": "array", "items": {"type": "string"}}
+        }
+      },
+      "description": "List of detected god objects"
+    },
+    "duplications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "similarity_score": {"type": "number", "minimum": 0, "maximum": 1},
+          "block_count": {"type": "integer", "minimum": 1},
+          "files_involved": {"type": "array", "items": {"type": "string"}},
+          "description": {"type": "string"}
+        }
+      },
+      "description": "Code duplication analysis results"
+    },
+    "fallback_mode": {
+      "type": "boolean",
+      "description": "Whether analysis ran in fallback mode"
+    },
+    "success": {
+      "type": "boolean",
+      "description": "Whether analysis completed successfully"
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message if analysis failed"
+    }
+  },
+  "additionalProperties": true
+}

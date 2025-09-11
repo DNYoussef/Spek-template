@@ -95,8 +95,15 @@ def run_semgrep():
     
     try:
         result = subprocess.run([
-            "semgrep", "--config=auto", "--json", 
-            "--output=semgrep_results.json", ".", "--timeout=180"
+            "semgrep", 
+            "--config=p/owasp-top-ten",
+            "--config=p/security-audit", 
+            "--config=p/secrets",
+            "--json", 
+            "--output=semgrep_results.json", 
+            ".", 
+            "--timeout=180",
+            "--verbose"
         ], capture_output=True, text=True, timeout=300, cwd=".")
         
         if Path("semgrep_results.json").exists() and Path("semgrep_results.json").stat().st_size > 0:
@@ -231,8 +238,8 @@ def main():
         high_threshold = 8 if tools_coverage >= 0.5 else 15
         print(f"WARNING: Adjusting quality thresholds due to {len(skipped_tools)} missing tools (coverage: {tools_coverage:.0%})")
     else:
-        critical_threshold = 0
-        high_threshold = 3
+        critical_threshold = 0  # Zero-critical policy
+        high_threshold = 0      # Zero-high policy for production
     
     # Create SAST report
     runner_type = os.environ.get('RUNNER_OS', 'unknown')
