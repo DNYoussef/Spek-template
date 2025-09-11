@@ -215,7 +215,7 @@ analyze_failure_with_mcp() {
         log_warning "Detected pattern: $matched_pattern"
         log_info "Suggested fixes:"
         for fix in "${suggested_fixes[@]}"; do
-            echo "  → $fix"
+            echo "  -> $fix"
         done
     else
         log_warning "No known pattern matched - will research solutions"
@@ -266,9 +266,9 @@ Common Solutions from 2024:
 4. Permissions: Run as admin, check file permissions, verify access rights
 
 Recent GitHub Issues:
-- MCP server connection timeout → Solution: Retry with exponential backoff
-- Authentication failures → Solution: Token refresh or regeneration
-- Version compatibility → Solution: Update CLI to latest version
+- MCP server connection timeout -> Solution: Retry with exponential backoff
+- Authentication failures -> Solution: Token refresh or regeneration
+- Version compatibility -> Solution: Update CLI to latest version
 
 Community Fixes:
 - Clear MCP cache: rm -rf ~/.cache/claude-mcp
@@ -447,42 +447,42 @@ provide_failure_suggestions() {
     local server_name="$1"
     local error_output="$2"
     
-    log_info "💡 Intelligent Suggestions for $server_name:"
+    log_info "[INFO] Intelligent Suggestions for $server_name:"
     
     echo "Based on the error pattern, try these solutions:"
     
     if [[ "$error_output" =~ (network|timeout|connection) ]]; then
-        echo "  🌐 Network Issue Detected:"
-        echo "    → Check internet connection"
-        echo "    → Verify proxy settings"
-        echo "    → Try: claude mcp add $server_name --retry"
+        echo "  [GLOBE] Network Issue Detected:"
+        echo "    -> Check internet connection"
+        echo "    -> Verify proxy settings"
+        echo "    -> Try: claude mcp add $server_name --retry"
     fi
     
     if [[ "$error_output" =~ (auth|401|403|token) ]]; then
-        echo "  🔐 Authentication Issue Detected:"
-        echo "    → Check API tokens in .env"
-        echo "    → Try: claude auth refresh"
-        echo "    → Verify token permissions"
+        echo "  [LOCK] Authentication Issue Detected:"
+        echo "    -> Check API tokens in .env"
+        echo "    -> Try: claude auth refresh"
+        echo "    -> Verify token permissions"
     fi
     
     if [[ "$error_output" =~ (permission|EACCES|denied) ]]; then
-        echo "  🔒 Permission Issue Detected:"
-        echo "    → Try running with elevated permissions"
-        echo "    → Check: chmod -R u+rw ~/.config/claude"
+        echo "  [U+1F512] Permission Issue Detected:"
+        echo "    -> Try running with elevated permissions"
+        echo "    -> Check: chmod -R u+rw ~/.config/claude"
     fi
     
     if [[ "$error_output" =~ (version|incompatible|protocol) ]]; then
-        echo "  🔄 Version Issue Detected:"
-        echo "    → Try: claude --version"
-        echo "    → Update: npm install -g @anthropic/claude-cli"
-        echo "    → Clear cache: rm -rf ~/.cache/claude-mcp"
+        echo "  [CYCLE] Version Issue Detected:"
+        echo "    -> Try: claude --version"
+        echo "    -> Update: npm install -g @anthropic/claude-cli"
+        echo "    -> Clear cache: rm -rf ~/.cache/claude-mcp"
     fi
     
     echo ""
-    echo "💻 Manual Research Commands:"
-    echo "  → npm run mcp:diagnose"
-    echo "  → bash scripts/validate-mcp-environment.sh"
-    echo "  → claude mcp list --debug"
+    echo "[COMPUTER] Manual Research Commands:"
+    echo "  -> npm run mcp:diagnose"
+    echo "  -> bash scripts/validate-mcp-environment.sh"
+    echo "  -> claude mcp list --debug"
 }
 
 # Function to check if MCP server is already added (from original script)
@@ -589,11 +589,11 @@ initialize_mcp_servers_enhanced() {
     fi
     
     if [[ $success_count -eq $total_count ]]; then
-        log_success "🚀 All MCP servers initialized successfully with AI-powered reliability!"
+        log_success "[ROCKET] All MCP servers initialized successfully with AI-powered reliability!"
         return 0
     else
-        log_warning "⚠️  Some MCP servers failed - but intelligent debugging data collected"
-        log_info "📊 Run 'npm run mcp:diagnose' for detailed failure analysis"
+        log_warning "[WARN]  Some MCP servers failed - but intelligent debugging data collected"
+        log_info "[CHART] Run 'npm run mcp:diagnose' for detailed failure analysis"
         return 1
     fi
 }
@@ -739,11 +739,11 @@ Options:
   --help, -h           Show this help message
 
 Enhanced Features:
-  🧠 AI-Powered Failure Analysis    Uses available MCPs for intelligent debugging
-  📊 Pattern Recognition            Learns from failures and applies known fixes
-  🔄 Self-Healing Capabilities      Automatic repair attempts based on error patterns
-  📈 Cross-Session Learning         Persistent knowledge base for improved reliability
-  🔍 Comprehensive Diagnostics      System, network, and environment analysis
+  [BRAIN] AI-Powered Failure Analysis    Uses available MCPs for intelligent debugging
+  [CHART] Pattern Recognition            Learns from failures and applies known fixes
+  [CYCLE] Self-Healing Capabilities      Automatic repair attempts based on error patterns
+  [TREND] Cross-Session Learning         Persistent knowledge base for improved reliability
+  [SEARCH] Comprehensive Diagnostics      System, network, and environment analysis
 
 Environment Variables (for conditional MCPs):
   PLANE_API_TOKEN      Enables Plane MCP if configured
@@ -785,14 +785,14 @@ main() {
             run_comprehensive_diagnostics
             ;;
         --repair|-r)
-            log_info "🔧 Attempting automatic repairs based on learned patterns..."
+            log_info "[TOOL] Attempting automatic repairs based on learned patterns..."
             initialize_mcp_servers_enhanced
             ;;
         --clean|-c)
             cleanup_diagnostic_data
             ;;
         --force|-f)
-            log_info "🚀 Force mode: full re-initialization with enhanced diagnostics"
+            log_info "[ROCKET] Force mode: full re-initialization with enhanced diagnostics"
             cleanup_diagnostic_data
             initialize_mcp_servers_enhanced
             ;;

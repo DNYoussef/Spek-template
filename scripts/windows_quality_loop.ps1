@@ -22,11 +22,11 @@ function Write-Log {
     
     $timestamp = Get-Date -Format "HH:mm:ss"
     $prefix = switch ($Level) {
-        "Success" { Write-Host "[$timestamp] ✅ " -ForegroundColor $colors.Green -NoNewline; break }
-        "Error" { Write-Host "[$timestamp] ❌ " -ForegroundColor $colors.Red -NoNewline; break }
-        "Warning" { Write-Host "[$timestamp] ⚠️ " -ForegroundColor $colors.Yellow -NoNewline; break }
-        "Info" { Write-Host "[$timestamp] ℹ️ " -ForegroundColor $colors.Cyan -NoNewline; break }
-        "Phase" { Write-Host "[$timestamp] 🔄 " -ForegroundColor $colors.Magenta -NoNewline; break }
+        "Success" { Write-Host "[$timestamp] [OK] " -ForegroundColor $colors.Green -NoNewline; break }
+        "Error" { Write-Host "[$timestamp] [FAIL] " -ForegroundColor $colors.Red -NoNewline; break }
+        "Warning" { Write-Host "[$timestamp] [WARN] " -ForegroundColor $colors.Yellow -NoNewline; break }
+        "Info" { Write-Host "[$timestamp] i[U+FE0F] " -ForegroundColor $colors.Cyan -NoNewline; break }
+        "Phase" { Write-Host "[$timestamp] [CYCLE] " -ForegroundColor $colors.Magenta -NoNewline; break }
         default { Write-Host "[$timestamp] " -NoNewline; break }
     }
     Write-Host $Message
@@ -34,15 +34,15 @@ function Write-Log {
 
 function Show-Banner {
     Write-Host @"
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                   SPEK QUALITY IMPROVEMENT LOOP                             ║
-║               Windows-Compatible PowerShell Implementation                  ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║  🔄 Iterative Quality Loop with GitHub Integration                          ║
-║  🎭 Theater Detection and Reality Validation                                ║ 
-║  🔬 Comprehensive Testing and Verification Pipeline                         ║
-║  ⚡ Windows Native - No jq/bc Dependencies Required                         ║
-╚══════════════════════════════════════════════════════════════════════════════╝
+[U+2554][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2557]
+[U+2551]                   SPEK QUALITY IMPROVEMENT LOOP                             [U+2551]
+[U+2551]               Windows-Compatible PowerShell Implementation                  [U+2551]
+[U+2560][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2563]
+[U+2551]  [CYCLE] Iterative Quality Loop with GitHub Integration                          [U+2551]
+[U+2551]  [U+1F3AD] Theater Detection and Reality Validation                                [U+2551] 
+[U+2551]  [SCIENCE] Comprehensive Testing and Verification Pipeline                         [U+2551]
+[U+2551]  [LIGHTNING] Windows Native - No jq/bc Dependencies Required                         [U+2551]
+[U+255A][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+255D]
 "@ -ForegroundColor $colors.Blue
 }
 
@@ -62,76 +62,76 @@ function Test-SystemRequirements {
         try {
             $null = Get-Command $cmd -ErrorAction Stop
             $requirements[$cmd] = $true
-            Write-Log "✓ $cmd is available" "Success"
+            Write-Log "[U+2713] $cmd is available" "Success"
         }
         catch {
-            Write-Log "✗ $cmd is not available" "Error"
+            Write-Log "[U+2717] $cmd is not available" "Error"
         }
     }
     
     # Check Node.js project
     if (Test-Path "package.json") {
-        Write-Log "✓ Node.js project detected" "Success"
+        Write-Log "[U+2713] Node.js project detected" "Success"
         
         if (Test-Path "node_modules") {
-            Write-Log "✓ Dependencies installed" "Success"
+            Write-Log "[U+2713] Dependencies installed" "Success"
         }
         else {
-            Write-Log "○ Dependencies not installed (run npm install)" "Warning"
+            Write-Log "[U+25CB] Dependencies not installed (run npm install)" "Warning"
         }
     }
     else {
-        Write-Log "○ No package.json found" "Info"
+        Write-Log "[U+25CB] No package.json found" "Info"
     }
     
     # Check Git repository
     try {
         git rev-parse --git-dir | Out-Null
-        Write-Log "✓ Git repository detected" "Success"
+        Write-Log "[U+2713] Git repository detected" "Success"
         
         $gitStatus = git status --porcelain
         if ($gitStatus) {
-            Write-Log "○ Uncommitted changes detected (will be handled safely)" "Warning"
+            Write-Log "[U+25CB] Uncommitted changes detected (will be handled safely)" "Warning"
         }
         else {
-            Write-Log "✓ Working tree is clean" "Success"
+            Write-Log "[U+2713] Working tree is clean" "Success"
         }
     }
     catch {
-        Write-Log "✗ Not in a Git repository" "Error"
+        Write-Log "[U+2717] Not in a Git repository" "Error"
         return $false
     }
     
     # Check analyzer
     if (Test-Path "analyzer") {
-        Write-Log "✓ Connascence analyzer detected" "Success"
+        Write-Log "[U+2713] Connascence analyzer detected" "Success"
         
         try {
             python -c "import analyzer" 2>$null
             if ($LASTEXITCODE -eq 0) {
-                Write-Log "✓ Analyzer module importable" "Success"
+                Write-Log "[U+2713] Analyzer module importable" "Success"
             }
             else {
-                Write-Log "○ Analyzer module has import issues" "Warning"
+                Write-Log "[U+25CB] Analyzer module has import issues" "Warning"
             }
         }
         catch {
-            Write-Log "○ Cannot test analyzer import" "Warning"
+            Write-Log "[U+25CB] Cannot test analyzer import" "Warning"
         }
     }
     else {
-        Write-Log "○ No analyzer directory found" "Info"
+        Write-Log "[U+25CB] No analyzer directory found" "Info"
     }
     
     # Determine overall status
     $criticalMissing = @("git") | Where-Object { -not $requirements[$_] }
     
     if ($criticalMissing.Count -eq 0) {
-        Write-Log "🎯 System requirements check: PASSED" "Success"
+        Write-Log "[TARGET] System requirements check: PASSED" "Success"
         return $true
     }
     else {
-        Write-Log "❌ System requirements check: FAILED" "Error"
+        Write-Log "[FAIL] System requirements check: FAILED" "Error"
         Write-Log "Missing critical components: $($criticalMissing -join ', ')" "Error"
         return $false
     }
@@ -195,32 +195,32 @@ function Test-GitHubIntegration {
     try {
         $ghVersion = gh --version 2>$null
         if ($LASTEXITCODE -eq 0) {
-            Write-Log "✓ GitHub CLI is available" "Success"
+            Write-Log "[U+2713] GitHub CLI is available" "Success"
             
             # Test GitHub authentication
             try {
                 gh auth status 2>$null
                 if ($LASTEXITCODE -eq 0) {
-                    Write-Log "✓ GitHub authentication is active" "Success"
+                    Write-Log "[U+2713] GitHub authentication is active" "Success"
                     return $true
                 }
                 else {
-                    Write-Log "○ GitHub authentication not configured" "Warning"
+                    Write-Log "[U+25CB] GitHub authentication not configured" "Warning"
                     return $false
                 }
             }
             catch {
-                Write-Log "○ Cannot check GitHub authentication" "Warning"
+                Write-Log "[U+25CB] Cannot check GitHub authentication" "Warning"
                 return $false
             }
         }
         else {
-            Write-Log "✗ GitHub CLI not working properly" "Error"
+            Write-Log "[U+2717] GitHub CLI not working properly" "Error"
             return $false
         }
     }
     catch {
-        Write-Log "✗ GitHub CLI not available" "Error"
+        Write-Log "[U+2717] GitHub CLI not available" "Error"
         return $false
     }
 }
@@ -248,7 +248,7 @@ function Get-GitHubWorkflowStatus {
                 return $failedRuns
             }
             else {
-                Write-Log "✓ All recent workflows passed" "Success"
+                Write-Log "[U+2713] All recent workflows passed" "Success"
                 return @()
             }
         }
@@ -279,26 +279,26 @@ function Test-QualityGates {
         try {
             $packageJson = Get-Content "package.json" | ConvertFrom-Json
             $results.basic_structure = "passed"
-            Write-Log "✓ package.json is valid" "Success"
+            Write-Log "[U+2713] package.json is valid" "Success"
         }
         catch {
             $results.basic_structure = "failed"
-            Write-Log "✗ package.json is invalid" "Error"
+            Write-Log "[U+2717] package.json is invalid" "Error"
         }
     }
     else {
         $results.basic_structure = "failed"
-        Write-Log "✗ package.json not found" "Error"
+        Write-Log "[U+2717] package.json not found" "Error"
     }
     
     # Test 2: TypeScript config (if exists)
     if (Test-Path "tsconfig.json") {
         try {
             $tsConfig = Get-Content "tsconfig.json" | ConvertFrom-Json
-            Write-Log "✓ tsconfig.json is valid" "Success"
+            Write-Log "[U+2713] tsconfig.json is valid" "Success"
         }
         catch {
-            Write-Log "✗ tsconfig.json is invalid" "Error"
+            Write-Log "[U+2717] tsconfig.json is invalid" "Error"
         }
     }
     
@@ -309,16 +309,16 @@ function Test-QualityGates {
             npm test --silent 2>$null
             if ($LASTEXITCODE -eq 0) {
                 $results.tests = "passed"
-                Write-Log "✓ Tests passed" "Success"
+                Write-Log "[U+2713] Tests passed" "Success"
             }
             else {
                 $results.tests = "failed"
-                Write-Log "✗ Tests failed" "Error"
+                Write-Log "[U+2717] Tests failed" "Error"
             }
         }
         catch {
             $results.tests = "failed"
-            Write-Log "✗ Cannot run tests" "Error"
+            Write-Log "[U+2717] Cannot run tests" "Error"
         }
         
         try {
@@ -326,16 +326,16 @@ function Test-QualityGates {
             npm run typecheck 2>$null
             if ($LASTEXITCODE -eq 0) {
                 $results.typecheck = "passed"
-                Write-Log "✓ TypeScript check passed" "Success"
+                Write-Log "[U+2713] TypeScript check passed" "Success"
             }
             else {
                 $results.typecheck = "failed"
-                Write-Log "✗ TypeScript check failed" "Error"
+                Write-Log "[U+2717] TypeScript check failed" "Error"
             }
         }
         catch {
             $results.typecheck = "skipped"
-            Write-Log "○ TypeScript check not available" "Info"
+            Write-Log "[U+25CB] TypeScript check not available" "Info"
         }
         
         try {
@@ -343,16 +343,16 @@ function Test-QualityGates {
             npm run lint 2>$null
             if ($LASTEXITCODE -eq 0) {
                 $results.lint = "passed"
-                Write-Log "✓ Linting passed" "Success"
+                Write-Log "[U+2713] Linting passed" "Success"
             }
             else {
                 $results.lint = "failed"
-                Write-Log "✗ Linting failed" "Error"
+                Write-Log "[U+2717] Linting failed" "Error"
             }
         }
         catch {
             $results.lint = "skipped"
-            Write-Log "○ Linting not available" "Info"
+            Write-Log "[U+25CB] Linting not available" "Info"
         }
     }
     
@@ -361,14 +361,14 @@ function Test-QualityGates {
         try {
             python -m analyzer 2>$null
             if ($LASTEXITCODE -eq 0) {
-                Write-Log "✓ Connascence analyzer completed" "Success"
+                Write-Log "[U+2713] Connascence analyzer completed" "Success"
             }
             else {
-                Write-Log "○ Connascence analyzer had issues" "Warning"
+                Write-Log "[U+25CB] Connascence analyzer had issues" "Warning"
             }
         }
         catch {
-            Write-Log "○ Cannot run connascence analyzer" "Info"
+            Write-Log "[U+25CB] Cannot run connascence analyzer" "Info"
         }
     }
     
@@ -378,15 +378,15 @@ function Test-QualityGates {
     
     if ($passedGates -eq $totalGates -and $totalGates -gt 0) {
         $results.overall_status = "passed"
-        Write-Log "🎯 Quality gates: ALL PASSED ($passedGates/$totalGates)" "Success"
+        Write-Log "[TARGET] Quality gates: ALL PASSED ($passedGates/$totalGates)" "Success"
     }
     elseif ($passedGates -gt 0) {
         $results.overall_status = "partial"
-        Write-Log "⚠️ Quality gates: PARTIAL SUCCESS ($passedGates/$totalGates)" "Warning"
+        Write-Log "[WARN] Quality gates: PARTIAL SUCCESS ($passedGates/$totalGates)" "Warning"
     }
     else {
         $results.overall_status = "failed"
-        Write-Log "❌ Quality gates: FAILED ($passedGates/$totalGates)" "Error"
+        Write-Log "[FAIL] Quality gates: FAILED ($passedGates/$totalGates)" "Error"
     }
     
     return $results
@@ -412,7 +412,7 @@ function Invoke-BasicFixes {
         
         $basicPackageJson | ConvertTo-Json -Depth 3 | Out-File -FilePath "package.json" -Encoding UTF8
         $fixesApplied += "created_package_json"
-        Write-Log "✓ Created basic package.json" "Success"
+        Write-Log "[U+2713] Created basic package.json" "Success"
     }
     
     # Fix 2: Create basic test structure
@@ -429,7 +429,7 @@ describe('Basic functionality', () => {
 "@
         $basicTest | Out-File -FilePath "tests\basic.test.js" -Encoding UTF8
         $fixesApplied += "created_test_structure"
-        Write-Log "✓ Created basic test structure" "Success"
+        Write-Log "[U+2713] Created basic test structure" "Success"
     }
     
     # Fix 3: Create basic .gitignore
@@ -446,7 +446,7 @@ dist/
 "@
         $basicGitignore | Out-File -FilePath ".gitignore" -Encoding UTF8
         $fixesApplied += "created_gitignore"
-        Write-Log "✓ Created basic .gitignore" "Success"
+        Write-Log "[U+2713] Created basic .gitignore" "Success"
     }
     
     # Fix 4: Create analyzer module if directory exists but module is missing
@@ -464,7 +464,7 @@ if __name__ == "__main__":
 "@
         $basicAnalyzer | Out-File -FilePath "analyzer\__init__.py" -Encoding UTF8
         $fixesApplied += "created_analyzer_module"
-        Write-Log "✓ Created basic analyzer module" "Success"
+        Write-Log "[U+2713] Created basic analyzer module" "Success"
     }
     
     if ($fixesApplied.Count -gt 0) {
@@ -487,7 +487,7 @@ function Start-QualityLoop {
     $success = $false
     
     while ($iteration -le $MaxIterations -and -not $success) {
-        Write-Log "🔄 Quality Loop Iteration $iteration of $MaxIterations" "Phase"
+        Write-Log "[CYCLE] Quality Loop Iteration $iteration of $MaxIterations" "Phase"
         
         # Phase 1: Analyze GitHub status
         $failedWorkflows = Get-GitHubWorkflowStatus
@@ -500,7 +500,7 @@ function Start-QualityLoop {
         
         # Phase 4: Evaluate results
         if ($qualityResults.overall_status -eq "passed") {
-            Write-Log "🎉 Quality gates achieved in $iteration iterations!" "Success"
+            Write-Log "[PARTY] Quality gates achieved in $iteration iterations!" "Success"
             $success = $true
             
             # Create success summary
@@ -517,18 +517,18 @@ function Start-QualityLoop {
             
         }
         elseif ($qualityResults.overall_status -eq "partial") {
-            Write-Log "⚠️ Partial success in iteration $iteration, continuing..." "Warning"
+            Write-Log "[WARN] Partial success in iteration $iteration, continuing..." "Warning"
             $iteration++
         }
         else {
-            Write-Log "❌ Quality gates failed in iteration $iteration, continuing..." "Error"
+            Write-Log "[FAIL] Quality gates failed in iteration $iteration, continuing..." "Error"
             $iteration++
         }
     }
     
     if (-not $success) {
-        Write-Log "❌ Maximum iterations reached without full success" "Error"
-        Write-Log "💡 Consider manual intervention for remaining issues" "Info"
+        Write-Log "[FAIL] Maximum iterations reached without full success" "Error"
+        Write-Log "[INFO] Consider manual intervention for remaining issues" "Info"
         
         # Create failure summary
         $summary = @{
@@ -553,18 +553,18 @@ function Show-Results {
     # Show session summary
     if (Test-Path ".claude\.artifacts\quality_loop_success.json") {
         $results = Get-Content ".claude\.artifacts\quality_loop_success.json" | ConvertFrom-Json
-        Write-Log "🏆 Quality Loop: SUCCESS" "Success"
-        Write-Log "🔄 Completed in $($results.iterations) iterations" "Success"
-        Write-Log "🎯 All quality gates passed" "Success"
+        Write-Log "[U+1F3C6] Quality Loop: SUCCESS" "Success"
+        Write-Log "[CYCLE] Completed in $($results.iterations) iterations" "Success"
+        Write-Log "[TARGET] All quality gates passed" "Success"
     }
     elseif (Test-Path ".claude\.artifacts\quality_loop_partial.json") {
         $results = Get-Content ".claude\.artifacts\quality_loop_partial.json" | ConvertFrom-Json
-        Write-Log "⚠️ Quality Loop: PARTIAL SUCCESS" "Warning"
-        Write-Log "🔄 Ran $($results.iterations) iterations" "Warning"
-        Write-Log "💡 Some quality gates may need manual attention" "Info"
+        Write-Log "[WARN] Quality Loop: PARTIAL SUCCESS" "Warning"
+        Write-Log "[CYCLE] Ran $($results.iterations) iterations" "Warning"
+        Write-Log "[INFO] Some quality gates may need manual attention" "Info"
     }
     else {
-        Write-Log "📊 Quality Loop: CHECK ONLY MODE" "Info"
+        Write-Log "[CHART] Quality Loop: CHECK ONLY MODE" "Info"
     }
     
     # Show available artifacts
@@ -572,14 +572,14 @@ function Show-Results {
     if (Test-Path $artifactsDir) {
         $artifacts = Get-ChildItem $artifactsDir -File
         if ($artifacts.Count -gt 0) {
-            Write-Log "📄 Generated $($artifacts.Count) evidence artifacts:" "Info"
+            Write-Log "[U+1F4C4] Generated $($artifacts.Count) evidence artifacts:" "Info"
             foreach ($artifact in $artifacts) {
                 Write-Host "   - $($artifact.Name)" -ForegroundColor $colors.Cyan
             }
         }
     }
     
-    Write-Log "📁 Results available in: $artifactsDir" "Info"
+    Write-Log "[FOLDER] Results available in: $artifactsDir" "Info"
 }
 
 function Show-Help {
@@ -606,13 +606,13 @@ EXAMPLES:
     .\windows_quality_loop.ps1 -Mode test-github         # Test GitHub integration
 
 FEATURES:
-    ✓ Windows native - no jq/bc dependencies required
-    ✓ GitHub CLI integration for workflow analysis
-    ✓ Automatic basic fixes (package.json, tests, .gitignore)
-    ✓ Quality gate verification (tests, typecheck, lint)
-    ✓ Connascence analyzer integration
-    ✓ Evidence artifact generation
-    ✓ Iterative improvement with safety mechanisms
+    [U+2713] Windows native - no jq/bc dependencies required
+    [U+2713] GitHub CLI integration for workflow analysis
+    [U+2713] Automatic basic fixes (package.json, tests, .gitignore)
+    [U+2713] Quality gate verification (tests, typecheck, lint)
+    [U+2713] Connascence analyzer integration
+    [U+2713] Evidence artifact generation
+    [U+2713] Iterative improvement with safety mechanisms
 "@
 }
 

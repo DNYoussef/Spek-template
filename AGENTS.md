@@ -1,6 +1,6 @@
 # Agent Configuration & Proof Rules
 
-## 🎯 Codex Constraints & Quality Gates
+## [TARGET] Codex Constraints & Quality Gates
 
 ### Command Placeholders
 ```bash
@@ -20,24 +20,24 @@ MAX_CRITICAL_CONN=5 # Maximum new critical connascence violations
 MAX_HIGH_SEC=5      # Maximum high severity security findings
 ```
 
-## 🚦 Quality Gates
+## [U+1F6A6] Quality Gates
 
 All operations must satisfy these proof rules before completion:
 
-### ✅ Required Gates
+### [OK] Required Gates
 1. **Tests Pass**: `{{TEST_CMD}}` returns exit code 0
 2. **Types Valid**: `{{TYPECHECK_CMD}}` returns exit code 0  
 3. **Lint Clean**: `{{LINT_CMD}}` returns exit code 0
 4. **Coverage Maintained**: `{{COVERAGE_CMD}}` shows no regression on changed lines
 
-### 📊 Coverage Rules
+### [CHART] Coverage Rules
 - **Baseline**: Coverage percentage at start of operation
-- **Requirement**: Coverage on changed lines ≥ baseline
+- **Requirement**: Coverage on changed lines >= baseline
 - **Exception**: New files may start with 0% if tests are added in same operation
 
-## 🎚️ Operation Routing
+## [U+1F39A][U+FE0F] Operation Routing
 
-### Small Operations (`≤{{MAX_LOC}}` LOC, `≤{{MAX_FILES}}` files)
+### Small Operations (`<={{MAX_LOC}}` LOC, `<={{MAX_FILES}}` files)
 - **Route to**: `/codex:micro` or `/codex:micro-fix`
 - **Safety**: Auto-branch + stash via hooks
 - **Verification**: All gates must pass before proceeding
@@ -52,7 +52,7 @@ All operations must satisfy these proof rules before completion:
 - **Follow-up**: Planned approach via Claude Flow
 - **Verification**: Full QA cycle before PR
 
-## 🔒 Safety Mechanisms
+## [U+1F512] Safety Mechanisms
 
 ### Pre-Operation Hooks
 ```json
@@ -78,13 +78,13 @@ All operations must satisfy these proof rules before completion:
 }
 ```
 
-## 📈 Success Metrics
+## [TREND] Success Metrics
 
 ### Micro-Edit Success
-- All quality gates pass ✅
-- Change size within budget (`≤{{MAX_LOC}}` LOC, `≤{{MAX_FILES}}` files) ✅
-- No public API changes without explicit approval ✅
-- Related tests updated or added ✅
+- All quality gates pass [OK]
+- Change size within budget (`<={{MAX_LOC}}` LOC, `<={{MAX_FILES}}` files) [OK]
+- No public API changes without explicit approval [OK]
+- Related tests updated or added [OK]
 
 ### QA Gate Success  
 ```json
@@ -96,21 +96,21 @@ All operations must satisfy these proof rules before completion:
 }
 ```
 
-## 🔄 Failure Recovery
+## [CYCLE] Failure Recovery
 
 ### QA Failure Analysis
-1. **Generate**: Diffstat + QA JSON → triage analysis
+1. **Generate**: Diffstat + QA JSON -> triage analysis
 2. **Route**: Based on failure size and complexity:
-   - `small` → `/codex:micro-fix`
-   - `multi` → `/fix:planned` 
-   - `big` → `/gemini:impact` → manual planning
+   - `small` -> `/codex:micro-fix`
+   - `multi` -> `/fix:planned` 
+   - `big` -> `/gemini:impact` -> manual planning
 
 ### Checkpoint Failures
 - **Action**: Stop at first failed checkpoint
 - **Output**: JSON summary with failure details
 - **Recovery**: Manual intervention or re-route to different strategy
 
-## 🎯 Agent Responsibilities
+## [TARGET] Agent Responsibilities
 
 ### Codex Agent
 - **Scope**: Micro-edits within budget constraints

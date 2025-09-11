@@ -4,16 +4,16 @@
 
 **S-R-P-E-K** extends the traditional SPEK methodology by adding a dedicated **Research phase** between Specification and Planning. This enhancement addresses the critical need to discover existing solutions before building from scratch, dramatically reducing development time and improving solution quality.
 
-## Methodology Evolution: SPEK → S-R-P-E-K
+## Methodology Evolution: SPEK -> S-R-P-E-K
 
 ### Traditional SPEK
 ```
-Specification → Planning → Execution → Knowledge
+Specification -> Planning -> Execution -> Knowledge
 ```
 
 ### Enhanced S-R-P-E-K
 ```
-Specification → Research → Planning → Execution → Knowledge
+Specification -> Research -> Planning -> Execution -> Knowledge
 ```
 
 ## Phase Definitions

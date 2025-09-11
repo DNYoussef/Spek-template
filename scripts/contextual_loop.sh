@@ -25,11 +25,11 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 # Logging functions
-log_info() { echo -e "${CYAN}🔄 $1${NC}"; }
-log_success() { echo -e "${GREEN}✅ $1${NC}"; }
-log_warning() { echo -e "${YELLOW}⚠️  $1${NC}"; }
-log_error() { echo -e "${RED}❌ $1${NC}"; }
-log_debug() { [[ "${DEBUG:-0}" == "1" ]] && echo -e "${PURPLE}🔍 DEBUG: $1${NC}"; }
+log_info() { echo -e "${CYAN}[CYCLE] $1${NC}"; }
+log_success() { echo -e "${GREEN}[OK] $1${NC}"; }
+log_warning() { echo -e "${YELLOW}[WARN]  $1${NC}"; }
+log_error() { echo -e "${RED}[FAIL] $1${NC}"; }
+log_debug() { [[ "${DEBUG:-0}" == "1" ]] && echo -e "${PURPLE}[SEARCH] DEBUG: $1${NC}"; }
 
 # Initialize contextual loop environment
 initialize_contextual_loop() {
@@ -466,9 +466,9 @@ remediate_test_theater() {
     fi
     
     # Simple remediation: comment out theater patterns
-    if grep -q "console.log.*✓\|print.*PASS\|echo.*SUCCESS" "$file" 2>/dev/null; then
+    if grep -q "console.log.*[U+2713]\|print.*PASS\|echo.*SUCCESS" "$file" 2>/dev/null; then
         # Comment out theater patterns
-        sed -i.bak 's/console.log.*✓.*/\/\/ THEATER PATTERN REMOVED: &/' "$file" 2>/dev/null || return 1
+        sed -i.bak 's/console.log.*[U+2713].*/\/\/ THEATER PATTERN REMOVED: &/' "$file" 2>/dev/null || return 1
         sed -i.bak 's/print.*PASS.*/# THEATER PATTERN REMOVED: &/' "$file" 2>/dev/null || return 1
         sed -i.bak 's/echo.*SUCCESS.*/# THEATER PATTERN REMOVED: &/' "$file" 2>/dev/null || return 1
         
@@ -801,15 +801,15 @@ main() {
     
     case "$final_status" in
         "completed_successfully")
-            log_success "🎉 All issues resolved - contextual loop successful"
+            log_success "[PARTY] All issues resolved - contextual loop successful"
             exit 0
             ;;
         "max_cycles_reached")
-            log_warning "🔄 Maximum cycles reached - some issues may remain"
+            log_warning "[CYCLE] Maximum cycles reached - some issues may remain"
             exit 1
             ;;
         *)
-            log_error "❌ Contextual loop incomplete"
+            log_error "[FAIL] Contextual loop incomplete"
             exit 2
             ;;
     esac

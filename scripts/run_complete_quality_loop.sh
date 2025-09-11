@@ -21,27 +21,27 @@ NC='\033[0m'
 
 # Logging functions
 log() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
-log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] ✅${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] ⚠️${NC} $*"; }
-log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] ❌${NC} $*"; }
-log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] ℹ️${NC} $*"; }
-log_header() { echo -e "${BOLD}${PURPLE}[$(date '+%H:%M:%S')] 🚀${NC}${BOLD} $*${NC}"; }
+log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] [OK]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] [WARN]${NC} $*"; }
+log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] [FAIL]${NC} $*"; }
+log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] i[U+FE0F]${NC} $*"; }
+log_header() { echo -e "${BOLD}${PURPLE}[$(date '+%H:%M:%S')] [ROCKET]${NC}${BOLD} $*${NC}"; }
 
 # Banner
 show_banner() {
     echo -e "${BOLD}${BLUE}"
     cat << 'EOF'
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                   SPEK QUALITY IMPROVEMENT LOOP                             ║
-║            Comprehensive GitHub Integration with Reality Validation         ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║  🔄 Iterative Quality Loop with GitHub MCP Integration                      ║
-║  🎭 Theater Detection and Reality Validation                                ║ 
-║  🔬 Comprehensive Testing and Verification Pipeline                         ║
-║  ⚡ Surgical Fix Implementation with Complexity Routing                     ║
-║  📊 Quality Measurement with Statistical Process Control                    ║
-║  🧠 Pattern Recognition and Learning Integration                            ║
-╚══════════════════════════════════════════════════════════════════════════════╝
+[U+2554][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2557]
+[U+2551]                   SPEK QUALITY IMPROVEMENT LOOP                             [U+2551]
+[U+2551]            Comprehensive GitHub Integration with Reality Validation         [U+2551]
+[U+2560][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2563]
+[U+2551]  [CYCLE] Iterative Quality Loop with GitHub MCP Integration                      [U+2551]
+[U+2551]  [U+1F3AD] Theater Detection and Reality Validation                                [U+2551] 
+[U+2551]  [SCIENCE] Comprehensive Testing and Verification Pipeline                         [U+2551]
+[U+2551]  [LIGHTNING] Surgical Fix Implementation with Complexity Routing                     [U+2551]
+[U+2551]  [CHART] Quality Measurement with Statistical Process Control                    [U+2551]
+[U+2551]  [BRAIN] Pattern Recognition and Learning Integration                            [U+2551]
+[U+255A][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+255D]
 EOF
     echo -e "${NC}"
 }
@@ -57,9 +57,9 @@ check_system_requirements() {
     
     for cmd in "${required_commands[@]}"; do
         if command -v "$cmd" >/dev/null 2>&1; then
-            log_success "✓ $cmd is available"
+            log_success "[U+2713] $cmd is available"
         else
-            log_error "✗ $cmd is not available"
+            log_error "[U+2717] $cmd is not available"
             requirements_met=false
         fi
     done
@@ -70,59 +70,59 @@ check_system_requirements() {
     log_info "Optional components:"
     for cmd in "${optional_commands[@]}"; do
         if command -v "$cmd" >/dev/null 2>&1; then
-            log_success "✓ $cmd is available"
+            log_success "[U+2713] $cmd is available"
         else
-            log_warning "○ $cmd is not available (optional)"
+            log_warning "[U+25CB] $cmd is not available (optional)"
         fi
     done
     
     # Check Node.js project setup
     if [[ -f "package.json" ]]; then
-        log_success "✓ Node.js project detected"
+        log_success "[U+2713] Node.js project detected"
         
         # Check if node_modules exists
         if [[ -d "node_modules" ]]; then
-            log_success "✓ Dependencies installed"
+            log_success "[U+2713] Dependencies installed"
         else
-            log_warning "○ Dependencies not installed (run npm install)"
+            log_warning "[U+25CB] Dependencies not installed (run npm install)"
         fi
     else
-        log_info "○ No package.json found (will create basic structure)"
+        log_info "[U+25CB] No package.json found (will create basic structure)"
     fi
     
     # Check Python analyzer
     if [[ -d "analyzer" ]]; then
-        log_success "✓ Connascence analyzer detected"
+        log_success "[U+2713] Connascence analyzer detected"
         
         if python -c "import analyzer" 2>/dev/null; then
-            log_success "✓ Analyzer module importable"
+            log_success "[U+2713] Analyzer module importable"
         else
-            log_warning "○ Analyzer module has import issues"
+            log_warning "[U+25CB] Analyzer module has import issues"
         fi
     else
-        log_info "○ No analyzer directory found"
+        log_info "[U+25CB] No analyzer directory found"
     fi
     
     # Check Git repository status
     if git rev-parse --git-dir >/dev/null 2>&1; then
-        log_success "✓ Git repository detected"
+        log_success "[U+2713] Git repository detected"
         
         # Check for uncommitted changes
         if [[ -n "$(git status --porcelain)" ]]; then
-            log_warning "○ Uncommitted changes detected (will be handled safely)"
+            log_warning "[U+25CB] Uncommitted changes detected (will be handled safely)"
         else
-            log_success "✓ Working tree is clean"
+            log_success "[U+2713] Working tree is clean"
         fi
     else
-        log_error "✗ Not in a Git repository"
+        log_error "[U+2717] Not in a Git repository"
         requirements_met=false
     fi
     
     if [[ "$requirements_met" == "true" ]]; then
-        log_success "🎯 System requirements check: PASSED"
+        log_success "[TARGET] System requirements check: PASSED"
         return 0
     else
-        log_error "❌ System requirements check: FAILED"
+        log_error "[FAIL] System requirements check: FAILED"
         return 1
     fi
 }
@@ -192,9 +192,9 @@ preflight_validation() {
     
     for script in "${critical_scripts[@]}"; do
         if [[ -f "$SCRIPTS_DIR/$script" ]]; then
-            log_success "✓ $script is available"
+            log_success "[U+2713] $script is available"
         else
-            log_error "✗ $script is missing"
+            log_error "[U+2717] $script is missing"
             scripts_available=false
         fi
     done
@@ -203,19 +203,19 @@ preflight_validation() {
     for json_file in "$ARTIFACTS_DIR"/*.json; do
         if [[ -f "$json_file" ]]; then
             if jq empty "$json_file" 2>/dev/null; then
-                log_success "✓ $(basename "$json_file") is valid JSON"
+                log_success "[U+2713] $(basename "$json_file") is valid JSON"
             else
-                log_error "✗ $(basename "$json_file") is invalid JSON"
+                log_error "[U+2717] $(basename "$json_file") is invalid JSON"
                 scripts_available=false
             fi
         fi
     done
     
     if [[ "$scripts_available" == "true" ]]; then
-        log_success "🎯 Pre-flight validation: PASSED"
+        log_success "[TARGET] Pre-flight validation: PASSED"
         return 0
     else
-        log_error "❌ Pre-flight validation: FAILED"
+        log_error "[FAIL] Pre-flight validation: FAILED"
         return 1
     fi
 }
@@ -228,7 +228,7 @@ run_complete_loop() {
     loop_start_time=$(date +%s)
     
     # Phase 1: GitHub Analysis and Discovery
-    log_info "🔍 Phase 1: Running GitHub Analysis and Discovery..."
+    log_info "[SEARCH] Phase 1: Running GitHub Analysis and Discovery..."
     
     if [[ -f "$SCRIPTS_DIR/intelligent_failure_analysis.sh" ]]; then
         if bash "$SCRIPTS_DIR/intelligent_failure_analysis.sh" > "$ARTIFACTS_DIR/phase1_discovery.log" 2>&1; then
@@ -241,7 +241,7 @@ run_complete_loop() {
     fi
     
     # Phase 2: Surgical Fix Implementation
-    log_info "⚡ Phase 2: Running Surgical Fix Implementation..."
+    log_info "[LIGHTNING] Phase 2: Running Surgical Fix Implementation..."
     
     if [[ -f "$SCRIPTS_DIR/surgical_fix_system.sh" ]]; then
         if bash "$SCRIPTS_DIR/surgical_fix_system.sh" > "$ARTIFACTS_DIR/phase2_implementation.log" 2>&1; then
@@ -254,7 +254,7 @@ run_complete_loop() {
     fi
     
     # Phase 3: Comprehensive Verification
-    log_info "🔬 Phase 3: Running Comprehensive Verification..."
+    log_info "[SCIENCE] Phase 3: Running Comprehensive Verification..."
     
     if [[ -f "$SCRIPTS_DIR/comprehensive_verification_pipeline.sh" ]]; then
         if bash "$SCRIPTS_DIR/comprehensive_verification_pipeline.sh" > "$ARTIFACTS_DIR/phase3_verification.log" 2>&1; then
@@ -267,7 +267,7 @@ run_complete_loop() {
     fi
     
     # Phase 4: Quality Measurement and Reality Validation
-    log_info "🎭 Phase 4: Running Quality Measurement and Reality Validation..."
+    log_info "[U+1F3AD] Phase 4: Running Quality Measurement and Reality Validation..."
     
     if [[ -f "$SCRIPTS_DIR/quality_measurement_reality_validation.sh" ]]; then
         if bash "$SCRIPTS_DIR/quality_measurement_reality_validation.sh" > "$ARTIFACTS_DIR/phase4_measurement.log" 2>&1; then
@@ -319,8 +319,8 @@ EOF
        "$ARTIFACTS_DIR/complete_loop_results.json" > "${ARTIFACTS_DIR}/complete_loop_results.json.tmp"
     mv "${ARTIFACTS_DIR}/complete_loop_results.json.tmp" "$ARTIFACTS_DIR/complete_loop_results.json"
     
-    log_success "🏆 Complete quality loop finished in ${total_duration}s"
-    log_success "📊 Generated ${#artifacts[@]} evidence artifacts"
+    log_success "[U+1F3C6] Complete quality loop finished in ${total_duration}s"
+    log_success "[CHART] Generated ${#artifacts[@]} evidence artifacts"
 }
 
 # Alternative: Run Iterative Loop
@@ -328,7 +328,7 @@ run_iterative_loop() {
     log_header "Running Iterative Quality Loop"
     
     if [[ -f "$SCRIPTS_DIR/iterative_improvement_loop.sh" ]]; then
-        log_info "🔄 Executing iterative improvement loop..."
+        log_info "[CYCLE] Executing iterative improvement loop..."
         
         # Set environment variables for iterative loop
         export MAX_ITERATIONS="${MAX_ITERATIONS:-3}"
@@ -336,14 +336,14 @@ run_iterative_loop() {
         export SESSION_ID="iterative-$(date +%s)"
         
         if bash "$SCRIPTS_DIR/iterative_improvement_loop.sh"; then
-            log_success "🎉 Iterative quality loop completed successfully!"
+            log_success "[PARTY] Iterative quality loop completed successfully!"
             return 0
         else
-            log_warning "⚠️ Iterative quality loop completed with issues"
+            log_warning "[WARN] Iterative quality loop completed with issues"
             return 1
         fi
     else
-        log_error "❌ Iterative improvement loop script not found"
+        log_error "[FAIL] Iterative improvement loop script not found"
         return 1
     fi
 }
@@ -369,24 +369,24 @@ This report summarizes the complete execution of the SPEK (Specification-Researc
 
 ## Quality Loop Components Executed
 
-### 1. 🔍 GitHub Analysis and Discovery
+### 1. [SEARCH] GitHub Analysis and Discovery
 - **Purpose**: Analyze failed GitHub workflow runs and extract failure patterns
-- **Status**: $(test -f "$ARTIFACTS_DIR/failure_analysis.json" && echo "✅ Completed" || echo "⚠️ Partial")
+- **Status**: $(test -f "$ARTIFACTS_DIR/failure_analysis.json" && echo "[OK] Completed" || echo "[WARN] Partial")
 - **Artifacts**: failure_analysis.json, github_runs.json
 
-### 2. ⚡ Surgical Fix Implementation  
+### 2. [LIGHTNING] Surgical Fix Implementation  
 - **Purpose**: Apply targeted fixes based on complexity routing
-- **Status**: $(test -f "$ARTIFACTS_DIR/codex_micro_implementation.json" && echo "✅ Completed" || echo "⚠️ Partial")
+- **Status**: $(test -f "$ARTIFACTS_DIR/codex_micro_implementation.json" && echo "[OK] Completed" || echo "[WARN] Partial")
 - **Approach**: Complexity-based routing (micro-fixes, planned checkpoints, architectural)
 
-### 3. 🔬 Comprehensive Verification
+### 3. [SCIENCE] Comprehensive Verification
 - **Purpose**: Run complete quality gate validation pipeline
-- **Status**: $(test -f "$ARTIFACTS_DIR/verification_pipeline_results.json" && echo "✅ Completed" || echo "⚠️ Partial")
+- **Status**: $(test -f "$ARTIFACTS_DIR/verification_pipeline_results.json" && echo "[OK] Completed" || echo "[WARN] Partial")
 - **Gates Tested**: Tests, TypeScript, Security, NASA Compliance, God Objects, Connascence
 
-### 4. 🎭 Quality Measurement and Reality Validation
+### 4. [U+1F3AD] Quality Measurement and Reality Validation
 - **Purpose**: Theater detection and reality validation of improvement claims
-- **Status**: $(test -f "$ARTIFACTS_DIR/quality_measurement_results.json" && echo "✅ Completed" || echo "⚠️ Partial")
+- **Status**: $(test -f "$ARTIFACTS_DIR/quality_measurement_results.json" && echo "[OK] Completed" || echo "[WARN] Partial")
 - **Reality Score**: $(jq -r '.overall_reality_score // "N/A"' "$ARTIFACTS_DIR/quality_measurement_results.json" 2>/dev/null)/100
 
 ## Quality Gates Results
@@ -488,7 +488,7 @@ Based on the quality loop execution:
 **Timestamp**: $(date -u +%Y-%m-%dT%H:%M:%SZ)
 EOF
     
-    log_success "📄 Final quality report generated: $report_file"
+    log_success "[U+1F4C4] Final quality report generated: $report_file"
 }
 
 # Display Results Summary
@@ -500,7 +500,7 @@ display_results_summary() {
     if [[ -f "$ARTIFACTS_DIR/session_info.json" ]]; then
         local session_id
         session_id=$(jq -r '.session_id' "$ARTIFACTS_DIR/session_info.json")
-        log_info "🔗 Session ID: $session_id"
+        log_info "[U+1F517] Session ID: $session_id"
     fi
     
     # Show quality gates status if available
@@ -509,9 +509,9 @@ display_results_summary() {
         overall_status=$(jq -r '.overall_status' "$ARTIFACTS_DIR/verification_pipeline_results.json")
         
         if [[ "$overall_status" == "success" ]]; then
-            log_success "🎯 Quality Gates: ALL PASSED"
+            log_success "[TARGET] Quality Gates: ALL PASSED"
         else
-            log_warning "🎯 Quality Gates: SOME FAILED"
+            log_warning "[TARGET] Quality Gates: SOME FAILED"
         fi
     fi
     
@@ -522,13 +522,13 @@ display_results_summary() {
         
         if [[ "$reality_score" != "N/A" ]]; then
             if [[ $reality_score -ge 90 ]]; then
-                log_success "🎭 Reality Score: $reality_score/100 (EXCELLENT)"
+                log_success "[U+1F3AD] Reality Score: $reality_score/100 (EXCELLENT)"
             elif [[ $reality_score -ge 80 ]]; then
-                log_success "🎭 Reality Score: $reality_score/100 (GOOD)"
+                log_success "[U+1F3AD] Reality Score: $reality_score/100 (GOOD)"
             elif [[ $reality_score -ge 70 ]]; then
-                log_warning "🎭 Reality Score: $reality_score/100 (ACCEPTABLE)"
+                log_warning "[U+1F3AD] Reality Score: $reality_score/100 (ACCEPTABLE)"
             else
-                log_error "🎭 Reality Score: $reality_score/100 (NEEDS IMPROVEMENT)"
+                log_error "[U+1F3AD] Reality Score: $reality_score/100 (NEEDS IMPROVEMENT)"
             fi
         fi
     fi
@@ -536,19 +536,19 @@ display_results_summary() {
     # Show artifacts count
     local artifact_count
     artifact_count=$(find "$ARTIFACTS_DIR" -name "*.json" -o -name "*.log" -o -name "*.md" -o -name "*.sarif" | wc -l)
-    log_info "📊 Evidence Artifacts: $artifact_count generated"
+    log_info "[CHART] Evidence Artifacts: $artifact_count generated"
     
     # Show available reports
     echo
-    log_info "📋 Available Reports and Artifacts:"
-    echo "   📁 All artifacts: $ARTIFACTS_DIR/"
+    log_info "[CLIPBOARD] Available Reports and Artifacts:"
+    echo "   [FOLDER] All artifacts: $ARTIFACTS_DIR/"
     
     if [[ -f "$ARTIFACTS_DIR/final_quality_report.md" ]]; then
-        echo "   📄 Final report: $ARTIFACTS_DIR/final_quality_report.md"
+        echo "   [U+1F4C4] Final report: $ARTIFACTS_DIR/final_quality_report.md"
     fi
     
     if [[ -f "$ARTIFACTS_DIR/complete_loop_results.json" ]]; then
-        echo "   📊 Loop results: $ARTIFACTS_DIR/complete_loop_results.json"
+        echo "   [CHART] Loop results: $ARTIFACTS_DIR/complete_loop_results.json"
     fi
     
     echo
@@ -556,7 +556,7 @@ display_results_summary() {
 
 # Cleanup function
 cleanup() {
-    log_info "🧹 Cleaning up temporary files..."
+    log_info "[U+1F9F9] Cleaning up temporary files..."
     
     # Remove temporary files
     find "$ARTIFACTS_DIR" -name "*.tmp" -delete 2>/dev/null || true
@@ -643,7 +643,7 @@ main() {
     
     # If check-only mode, exit here
     if [[ "$mode" == "check-only" ]]; then
-        log_success "✅ System requirements check completed"
+        log_success "[OK] System requirements check completed"
         exit 0
     fi
     
@@ -684,16 +684,16 @@ main() {
     
     # Final status
     if [[ "$execution_success" == "true" ]]; then
-        log_success "🏆 SPEK Quality Loop execution completed successfully!"
+        log_success "[U+1F3C6] SPEK Quality Loop execution completed successfully!"
         echo
-        log_info "🔍 Review the generated artifacts for detailed results"
-        log_info "📋 See $ARTIFACTS_DIR/final_quality_report.md for comprehensive summary"
+        log_info "[SEARCH] Review the generated artifacts for detailed results"
+        log_info "[CLIPBOARD] See $ARTIFACTS_DIR/final_quality_report.md for comprehensive summary"
         exit 0
     else
-        log_error "❌ SPEK Quality Loop execution completed with issues"
+        log_error "[FAIL] SPEK Quality Loop execution completed with issues"
         echo
-        log_info "🔍 Review the generated artifacts for error details"
-        log_info "💡 Consider running with different parameters or manual intervention"
+        log_info "[SEARCH] Review the generated artifacts for error details"
+        log_info "[INFO] Consider running with different parameters or manual intervention"
         exit 1
     fi
 }

@@ -16,11 +16,11 @@ describe('Email Normalization (Golden Tests)', () => {
     { input: 'simple@test.com', expected: 'simple@test.com' },
     { input: 'CAPS@DOMAIN.NET', expected: 'caps@domain.net' },
     { input: '\t\n user@test.com \r\n', expected: 'user@test.com' },
-    { input: 'unicode.测试@example.org', expected: 'unicode.测试@example.org' }
+    { input: 'unicode.[U+6D4B][U+8BD5]@example.org', expected: 'unicode.[U+6D4B][U+8BD5]@example.org' }
   ];
 
   testCases.forEach(({ input, expected }, index) => {
-    test(`case ${index + 1}: '${input}' → '${expected}'`, () => {
+    test(`case ${index + 1}: '${input}' -> '${expected}'`, () => {
       expect(normalizeEmail(input)).toBe(expected);
     });
   });
@@ -35,7 +35,7 @@ describe('Email Normalization (Golden Tests)', () => {
   ];
 
   edgeCases.forEach(({ input, expected }, index) => {
-    test(`edge case ${index + 1}: ${typeof input} input → '${expected}'`, () => {
+    test(`edge case ${index + 1}: ${typeof input} input -> '${expected}'`, () => {
       expect(normalizeEmail(input)).toBe(expected);
     });
   });
@@ -149,7 +149,7 @@ describe('Path Processing (Golden Tests)', () => {
   ];
 
   pathCases.forEach(({ input, expected }, index) => {
-    test(`path ${index + 1}: '${input}' → '${expected}'`, () => {
+    test(`path ${index + 1}: '${input}' -> '${expected}'`, () => {
       expect(normalizePath(input)).toBe(expected);
     });
   });

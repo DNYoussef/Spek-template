@@ -1,6 +1,6 @@
 # Quick Reference - Slash Commands Cheat Sheet
 
-## 🚀 Command Overview
+## [ROCKET] Command Overview
 
 ### Research Commands (NEW)
 | Command | Purpose | Constraints | Output |
@@ -14,11 +14,11 @@
 ### Core Commands  
 | Command | Purpose | Constraints | Output |
 |---------|---------|-------------|--------|
-| `/spec:plan` | SPEC.md → plan.json | - | `plan.json` |
+| `/spec:plan` | SPEC.md -> plan.json | - | `plan.json` |
 | `/gemini:impact` | Change impact analysis | Large context | `impact.json` |
-| `/codex:micro` | Sandboxed micro-edits | ≤25 LOC, ≤2 files | `micro.json` |
+| `/codex:micro` | Sandboxed micro-edits | <=25 LOC, <=2 files | `micro.json` |
 | `/codex:micro-fix` | Surgical test fixes | Same as micro | `surgical-fix.json` |
-| `/fix:planned` | Multi-file checkpoints | ≤25 LOC/checkpoint | `planned-fix.json` |
+| `/fix:planned` | Multi-file checkpoints | <=25 LOC/checkpoint | `planned-fix.json` |
 | `/qa:run` | Comprehensive QA | - | `qa.json` |
 | `/qa:gate` | Apply CTQ thresholds | - | `gate.json` |
 | `/qa:analyze` | Failure routing | - | `triage.json` |
@@ -30,7 +30,7 @@
 | `/pm:sync` | Plane MCP sync | - | `pm-sync.json` |
 | `/pr:open` | Evidence-rich PRs | - | GitHub PR URL |
 
-## 📋 Enhanced S-R-P-E-K Workflow
+## [CLIPBOARD] Enhanced S-R-P-E-K Workflow
 
 ```bash
 # 1. Specification Phase
@@ -48,7 +48,7 @@
 
 # 4. Execution Phase  
 /gemini:impact 'description'                  # For complex/architectural changes
-/codex:micro 'simple change'                  # ≤25 LOC, ≤2 files
+/codex:micro 'simple change'                  # <=25 LOC, <=2 files
 /fix:planned 'complex change'                 # Multi-file with checkpoints
 
 # 5. Knowledge Phase
@@ -61,38 +61,38 @@
 /pr:open [target] [draft]                     # Create evidence-rich PR
 ```
 
-## 🎯 Quick Decision Tree
+## [TARGET] Quick Decision Tree
 
 ### When to Use Which Implementation Command?
 
 ```
-Is it a simple, isolated change (≤25 LOC, ≤2 files)?
-├── YES → `/codex:micro`
-│   ├── Tests fail? → Auto `/codex:micro-fix`
-│   └── Success → Continue to QA
-│
-└── NO → Is it a complex architectural change?
-    ├── YES → `/gemini:impact` first, then `/fix:planned`
-    └── NO → `/fix:planned` with checkpoints
+Is it a simple, isolated change (<=25 LOC, <=2 files)?
+[U+251C][U+2500][U+2500] YES -> `/codex:micro`
+[U+2502]   [U+251C][U+2500][U+2500] Tests fail? -> Auto `/codex:micro-fix`
+[U+2502]   [U+2514][U+2500][U+2500] Success -> Continue to QA
+[U+2502]
+[U+2514][U+2500][U+2500] NO -> Is it a complex architectural change?
+    [U+251C][U+2500][U+2500] YES -> `/gemini:impact` first, then `/fix:planned`
+    [U+2514][U+2500][U+2500] NO -> `/fix:planned` with checkpoints
 ```
 
 ### When to Use Analysis Commands?
 
 ```
 Need change impact assessment?
-├── Complex/architectural → `/gemini:impact`
-└── QA failures → `/qa:analyze`
+[U+251C][U+2500][U+2500] Complex/architectural -> `/gemini:impact`
+[U+2514][U+2500][U+2500] QA failures -> `/qa:analyze`
 
 Quality checking needed?  
-├── Full QA suite → `/qa:run`
-└── Gate decision → `/qa:gate`
+[U+251C][U+2500][U+2500] Full QA suite -> `/qa:run`
+[U+2514][U+2500][U+2500] Gate decision -> `/qa:gate`
 
 Security/architecture review?
-├── Security → `/sec:scan`
-└── Code quality → `/conn:scan`
+[U+251C][U+2500][U+2500] Security -> `/sec:scan`
+[U+2514][U+2500][U+2500] Code quality -> `/conn:scan`
 ```
 
-## 🔧 Common Command Combinations
+## [TOOL] Common Command Combinations
 
 ### Simple Feature Development
 ```bash
@@ -117,7 +117,7 @@ Security/architecture review?
 ```bash
 /qa:run                    # Reproduce issue
 /qa:analyze               # Classify complexity
-# → Routes to appropriate fix command
+# -> Routes to appropriate fix command
 /qa:run                   # Verify fix
 /pr:open
 ```
@@ -131,7 +131,7 @@ Security/architecture review?
 /pr:open main false     # Production-ready PR
 ```
 
-## 🚦 Quality Gate Thresholds
+## [U+1F6A6] Quality Gate Thresholds
 
 ### Critical Gates (Must Pass)
 - **Tests**: 100% pass rate
@@ -141,31 +141,31 @@ Security/architecture review?
 ### Quality Gates (Warn but Allow)
 - **Lint**: 0 errors preferred
 - **Coverage**: No regression
-- **Connascence**: ≥90% NASA POT10 compliance
+- **Connascence**: >=90% NASA POT10 compliance
 
-## 📁 Artifact Locations
+## [FOLDER] Artifact Locations
 
 All command outputs stored in `.claude/.artifacts/`:
 
 ```
 .claude/.artifacts/
-├── qa.json              # /qa:run results
-├── gate.json            # /qa:gate decisions  
-├── triage.json          # /qa:analyze routing
-├── impact.json          # /gemini:impact analysis
-├── micro.json           # /codex:micro results
-├── surgical-fix.json    # /codex:micro-fix results
-├── planned-fix.json     # /fix:planned results
-├── security.json        # /sec:scan results
-├── security.sarif       # /sec:scan SARIF format
-├── connascence.json     # /conn:scan results
-├── theater.json         # /theater:scan results
-├── reality-check.json   # /reality:check results
-├── memory.json          # /memory:unified results
-└── pm-sync.json         # /pm:sync results
+[U+251C][U+2500][U+2500] qa.json              # /qa:run results
+[U+251C][U+2500][U+2500] gate.json            # /qa:gate decisions  
+[U+251C][U+2500][U+2500] triage.json          # /qa:analyze routing
+[U+251C][U+2500][U+2500] impact.json          # /gemini:impact analysis
+[U+251C][U+2500][U+2500] micro.json           # /codex:micro results
+[U+251C][U+2500][U+2500] surgical-fix.json    # /codex:micro-fix results
+[U+251C][U+2500][U+2500] planned-fix.json     # /fix:planned results
+[U+251C][U+2500][U+2500] security.json        # /sec:scan results
+[U+251C][U+2500][U+2500] security.sarif       # /sec:scan SARIF format
+[U+251C][U+2500][U+2500] connascence.json     # /conn:scan results
+[U+251C][U+2500][U+2500] theater.json         # /theater:scan results
+[U+251C][U+2500][U+2500] reality-check.json   # /reality:check results
+[U+251C][U+2500][U+2500] memory.json          # /memory:unified results
+[U+2514][U+2500][U+2500] pm-sync.json         # /pm:sync results
 ```
 
-## ⚡ Performance Tips
+## [LIGHTNING] Performance Tips
 
 ### For Large Codebases
 ```bash
@@ -183,7 +183,7 @@ export GATES_PROFILE=light  # Use light quality profile
 /qa:run && /qa:gate && /sec:scan full && /conn:scan full
 ```
 
-## 🔄 Error Recovery Patterns
+## [CYCLE] Error Recovery Patterns
 
 ### Command Failed?
 ```bash
@@ -197,7 +197,7 @@ cat .claude/.artifacts/[command].json
 ### Quality Gates Failed?
 ```bash
 /qa:analyze              # Analyze failures
-# → Follow routing recommendation
+# -> Follow routing recommendation
 /qa:run                  # Verify fix
 ```
 
@@ -208,7 +208,7 @@ git stash                # Save work if needed
 /codex:micro 'retry'     # Try again with clean state
 ```
 
-## 🎛️ Configuration Options
+## [U+1F39B][U+FE0F] Configuration Options
 
 ### Environment Variables
 ```bash
@@ -227,7 +227,7 @@ SANDBOX_TTL_HOURS=72               # Sandbox cleanup time
 [true|false]            # Draft/auto-merge flags
 ```
 
-## 📚 Quick Help
+## [U+1F4DA] Quick Help
 
 | Need | Command | Documentation |
 |------|---------|---------------|
@@ -239,4 +239,4 @@ SANDBOX_TTL_HOURS=72               # Sandbox cleanup time
 
 ---
 
-*💡 **Pro Tip**: Start simple with `/codex:micro` and escalate to `/fix:planned` or `/gemini:impact` as needed. The system will guide you through the decision tree!*
+*[INFO] **Pro Tip**: Start simple with `/codex:micro` and escalate to `/fix:planned` or `/gemini:impact` as needed. The system will guide you through the decision tree!*

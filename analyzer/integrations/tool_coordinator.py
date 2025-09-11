@@ -18,9 +18,9 @@ def main():
     
     args = parser.parse_args()
     
-    print(f"🔗 Coordinating tool analysis...")
-    print(f"📄 Connascence results: {args.connascence_results}")
-    print(f"📄 External results: {args.external_results}")
+    print(f"[U+1F517] Coordinating tool analysis...")
+    print(f"[U+1F4C4] Connascence results: {args.connascence_results}")
+    print(f"[U+1F4C4] External results: {args.external_results}")
     
     # Create tool correlation results
     correlation = {
@@ -53,9 +53,9 @@ def main():
     with open(args.output, 'w') as f:
         json.dump(correlation, f, indent=2)
     
-    print(f"✅ Tool coordination completed")
-    print(f"📊 Correlation saved to {args.output}")
-    print(f"🎯 Consistency score: {correlation['correlation_analysis']['correlation_score']:.1%}")
+    print(f"[OK] Tool coordination completed")
+    print(f"[CHART] Correlation saved to {args.output}")
+    print(f"[TARGET] Consistency score: {correlation['correlation_analysis']['correlation_score']:.1%}")
     
     return 0
 

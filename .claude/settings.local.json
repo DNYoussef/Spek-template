@@ -97,7 +97,8 @@
       "Bash(else echo \"Output file not found\")",
       "Bash(fi)",
       "Bash(if [ -f \".claude/.artifacts/test_sarif_output.json\" ])",
-      "Bash(else echo \"SARIF file not found\")"
+      "Bash(else echo \"SARIF file not found\")",
+      "Bash(git fetch:*)"
     ],
     "deny": [],
     "ask": []

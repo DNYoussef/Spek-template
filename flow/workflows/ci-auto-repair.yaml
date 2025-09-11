@@ -49,17 +49,17 @@ steps:
   - id: report_failure
     when: $.self_correct.ok == false
     run: |
-      echo "❌ Self-correction failed after $MAX_ATTEMPTS attempts"
+      echo "[FAIL] Self-correction failed after $MAX_ATTEMPTS attempts"
       
       # Show final gate status
       if [[ -f .claude/.artifacts/gate.json ]]; then
-        echo "📊 Final gate status:"
+        echo "[CHART] Final gate status:"
         jq . .claude/.artifacts/gate.json || cat .claude/.artifacts/gate.json
       fi
       
       # Show generated PR comment
       if [[ -f .claude/.artifacts/pr_comment.md ]]; then
-        echo "📝 Generated PR comment:"
+        echo "[NOTE] Generated PR comment:"
         cat .claude/.artifacts/pr_comment.md
       fi
       

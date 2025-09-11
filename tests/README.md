@@ -31,29 +31,29 @@
 - **Integration validation** - full system behavior
 - Minimal set covering critical user journeys
 - Use real dependencies when possible
-- Example: "full SPEC → PR workflow completes successfully"
+- Example: "full SPEC -> PR workflow completes successfully"
 
 ### 3. What NOT to Test
-- ❌ **Unit tests of private methods** - implementation details change
-- ❌ **Mocking internal components** - creates brittle coupling
-- ❌ **Testing framework code** - focus on business logic
-- ❌ **Configuration parsing** - use contract tests instead
+- [FAIL] **Unit tests of private methods** - implementation details change
+- [FAIL] **Mocking internal components** - creates brittle coupling
+- [FAIL] **Testing framework code** - focus on business logic
+- [FAIL] **Configuration parsing** - use contract tests instead
 
 ### 4. Test Organization
 ```
 tests/
-├── property/           # Property-based invariant tests
-│   ├── analyzer.test.ts
-│   └── workflows.test.ts
-├── golden/             # Golden master / snapshot tests
-│   ├── fixtures/       # Input test data
-│   ├── expected/       # Golden outputs  
-│   └── runner.test.ts
-├── contract/           # Schema/interface validation
-│   ├── api.test.ts
-│   └── config.test.ts
-└── e2e/               # End-to-end integration tests
-    └── spec-to-pr.test.ts
+[U+251C][U+2500][U+2500] property/           # Property-based invariant tests
+[U+2502]   [U+251C][U+2500][U+2500] analyzer.test.ts
+[U+2502]   [U+2514][U+2500][U+2500] workflows.test.ts
+[U+251C][U+2500][U+2500] golden/             # Golden master / snapshot tests
+[U+2502]   [U+251C][U+2500][U+2500] fixtures/       # Input test data
+[U+2502]   [U+251C][U+2500][U+2500] expected/       # Golden outputs  
+[U+2502]   [U+2514][U+2500][U+2500] runner.test.ts
+[U+251C][U+2500][U+2500] contract/           # Schema/interface validation
+[U+2502]   [U+251C][U+2500][U+2500] api.test.ts
+[U+2502]   [U+2514][U+2500][U+2500] config.test.ts
+[U+2514][U+2500][U+2500] e2e/               # End-to-end integration tests
+    [U+2514][U+2500][U+2500] spec-to-pr.test.ts
 ```
 
 ### 5. Quality Standards

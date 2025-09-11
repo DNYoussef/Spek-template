@@ -25,7 +25,7 @@ mkdir -p .sandboxes
 git worktree add -b "$SBX_NAME" ".sandboxes/$SBX_NAME" "${BASE}" >/dev/null
 pushd ".sandboxes/$SBX_NAME" >/dev/null
 
-# Run Codex against the plan (stdin or file). We don't assume flags—use a single entrypoint.
+# Run Codex against the plan (stdin or file). We don't assume flags--use a single entrypoint.
 # Map your actual Codex command here if it differs (e.g., "$CODEX_BIN exec ...").
 # The wrapper ensures the rest of the system doesn't care about Codex CLI syntax.
 cat "$PLAN_JSON" | "$CODEX_BIN" || true

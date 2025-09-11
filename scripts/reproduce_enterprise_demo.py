@@ -18,10 +18,10 @@ def main():
     
     args = parser.parse_args()
     
-    print("🚀 Reproducing enterprise demo results...")
+    print("[ROCKET] Reproducing enterprise demo results...")
     
     if args.quick_mode:
-        print("⚡ Running in quick mode")
+        print("[LIGHTNING] Running in quick mode")
     
     # Simulate demo execution
     demo_results = {
@@ -49,9 +49,9 @@ def main():
     with open('enterprise_demo_results.json', 'w') as f:
         json.dump(demo_results, f, indent=2)
     
-    print("✅ Enterprise demo reproduction completed")
-    print(f"📊 Results saved to enterprise_demo_results.json")
-    print(f"🎯 Performance validation: {'✅ PASSED' if args.validate_performance else '⏭️  SKIPPED'}")
+    print("[OK] Enterprise demo reproduction completed")
+    print(f"[CHART] Results saved to enterprise_demo_results.json")
+    print(f"[TARGET] Performance validation: {'[OK] PASSED' if args.validate_performance else '[U+23ED][U+FE0F]  SKIPPED'}")
     
     return 0
 

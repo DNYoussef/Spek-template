@@ -989,7 +989,7 @@ def main():
                 for rec in high_priority[:3]:  # Show top 3 high priority
                     category = rec.get("category", "General")
                     description = rec.get("description", "No description")[:60] + "..."
-                    print(f"• [{category}] {description}")
+                    print(f"[U+2022] [{category}] {description}")
 
         # Exit with appropriate code
         if result.get("success", False):

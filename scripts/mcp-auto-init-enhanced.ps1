@@ -220,7 +220,7 @@ function Invoke-FailureAnalysisWithMcp {
         Log-Warning "Detected pattern: $matchedPattern"
         Log-Info "Suggested fixes:"
         foreach ($fix in $suggestedFixes) {
-            Write-Host "  → $fix"
+            Write-Host "  -> $fix"
         }
     } else {
         Log-Warning "No known pattern matched - will research solutions"
@@ -277,9 +277,9 @@ Common Solutions from 2024:
 4. Permissions: Run as admin, check file permissions, verify access rights
 
 Recent GitHub Issues:
-- MCP server connection timeout → Solution: Retry with exponential backoff
-- Authentication failures → Solution: Token refresh or regeneration
-- Version compatibility → Solution: Update CLI to latest version
+- MCP server connection timeout -> Solution: Retry with exponential backoff
+- Authentication failures -> Solution: Token refresh or regeneration
+- Version compatibility -> Solution: Update CLI to latest version
 
 Community Fixes:
 - Clear MCP cache: Remove-Item ~/.cache/claude-mcp -Recurse -Force
@@ -491,42 +491,42 @@ function Show-FailureSuggestions {
         [string]$ErrorOutput
     )
     
-    Log-Info "💡 Intelligent Suggestions for $($ServerName):"
+    Log-Info "[INFO] Intelligent Suggestions for $($ServerName):"
     
     Write-Host "Based on the error pattern, try these solutions:"
     
     if ($ErrorOutput -match "(network|timeout|connection)") {
-        Write-Host "  🌐 Network Issue Detected:"
-        Write-Host "    → Check internet connection"
-        Write-Host "    → Verify proxy settings"
-        Write-Host "    → Try: claude mcp add $($ServerName) --retry"
+        Write-Host "  [GLOBE] Network Issue Detected:"
+        Write-Host "    -> Check internet connection"
+        Write-Host "    -> Verify proxy settings"
+        Write-Host "    -> Try: claude mcp add $($ServerName) --retry"
     }
     
     if ($ErrorOutput -match "(auth|401|403|token)") {
-        Write-Host "  🔐 Authentication Issue Detected:"
-        Write-Host "    → Check API tokens in .env"
-        Write-Host "    → Try: claude auth refresh"
-        Write-Host "    → Verify token permissions"
+        Write-Host "  [LOCK] Authentication Issue Detected:"
+        Write-Host "    -> Check API tokens in .env"
+        Write-Host "    -> Try: claude auth refresh"
+        Write-Host "    -> Verify token permissions"
     }
     
     if ($ErrorOutput -match "(permission|EACCES|denied)") {
-        Write-Host "  🔒 Permission Issue Detected:"
-        Write-Host "    → Try running as Administrator"
-        Write-Host "    → Check file permissions"
+        Write-Host "  [U+1F512] Permission Issue Detected:"
+        Write-Host "    -> Try running as Administrator"
+        Write-Host "    -> Check file permissions"
     }
     
     if ($ErrorOutput -match "(version|incompatible|protocol)") {
-        Write-Host "  🔄 Version Issue Detected:"
-        Write-Host "    → Try: claude --version"
-        Write-Host "    → Update: npm install -g @anthropic/claude-cli"
-        Write-Host "    → Clear cache: Remove-Item ~/.cache/claude-mcp -Recurse"
+        Write-Host "  [CYCLE] Version Issue Detected:"
+        Write-Host "    -> Try: claude --version"
+        Write-Host "    -> Update: npm install -g @anthropic/claude-cli"
+        Write-Host "    -> Clear cache: Remove-Item ~/.cache/claude-mcp -Recurse"
     }
     
     Write-Host ""
-    Write-Host "💻 Manual Research Commands:"
-    Write-Host "  → npm run mcp:diagnose:win"
-    Write-Host "  → .\scripts\validate-mcp-environment.sh"
-    Write-Host "  → claude mcp list --debug"
+    Write-Host "[COMPUTER] Manual Research Commands:"
+    Write-Host "  -> npm run mcp:diagnose:win"
+    Write-Host "  -> .\scripts\validate-mcp-environment.sh"
+    Write-Host "  -> claude mcp list --debug"
 }
 
 # Enhanced main initialization function
@@ -622,11 +622,11 @@ function Initialize-McpServersEnhanced {
     }
     
     if ($successCount -eq $totalCount) {
-        Log-Success "🚀 All MCP servers initialized successfully with AI-powered reliability!"
+        Log-Success "[ROCKET] All MCP servers initialized successfully with AI-powered reliability!"
         return $true
     } else {
-        Log-Warning "⚠️  Some MCP servers failed - but intelligent debugging data collected"
-        Log-Info "📊 Run 'npm run mcp:diagnose:win' for detailed failure analysis"
+        Log-Warning "[WARN]  Some MCP servers failed - but intelligent debugging data collected"
+        Log-Info "[CHART] Run 'npm run mcp:diagnose:win' for detailed failure analysis"
         return $false
     }
 }
@@ -754,11 +754,11 @@ Options:
   -Help           Show this help message
 
 Enhanced Features:
-  🧠 AI-Powered Failure Analysis    Uses available MCPs for intelligent debugging
-  📊 Pattern Recognition            Learns from failures and applies known fixes
-  🔄 Self-Healing Capabilities      Automatic repair attempts based on error patterns
-  📈 Cross-Session Learning         Persistent knowledge base for improved reliability
-  🔍 Comprehensive Diagnostics      System, network, and environment analysis
+  [BRAIN] AI-Powered Failure Analysis    Uses available MCPs for intelligent debugging
+  [CHART] Pattern Recognition            Learns from failures and applies known fixes
+  [CYCLE] Self-Healing Capabilities      Automatic repair attempts based on error patterns
+  [TREND] Cross-Session Learning         Persistent knowledge base for improved reliability
+  [SEARCH] Comprehensive Diagnostics      System, network, and environment analysis
 
 Environment Variables (for conditional MCPs):
   PLANE_API_TOKEN      Enables Plane MCP if configured
@@ -799,14 +799,14 @@ elseif ($Diagnose) {
     Invoke-ComprehensiveDiagnostics
 }
 elseif ($Repair) {
-    Log-Info "🔧 Attempting automatic repairs based on learned patterns..."
+    Log-Info "[TOOL] Attempting automatic repairs based on learned patterns..."
     Initialize-McpServersEnhanced
 }
 elseif ($Clean) {
     Clear-DiagnosticData
 }
 elseif ($Force) {
-    Log-Info "🚀 Force mode: full re-initialization with enhanced diagnostics"
+    Log-Info "[ROCKET] Force mode: full re-initialization with enhanced diagnostics"
     Clear-DiagnosticData
     Initialize-McpServersEnhanced
 }

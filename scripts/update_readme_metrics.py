@@ -17,23 +17,23 @@ def main():
     
     args = parser.parse_args()
     
-    print(f"📝 Updating README metrics...")
-    print(f"🎯 Current violations: {args.current_violations}")
-    print(f"🛡️  NASA compliance: {args.nasa_score:.1%}")
+    print(f"[NOTE] Updating README metrics...")
+    print(f"[TARGET] Current violations: {args.current_violations}")
+    print(f"[SHIELD]  NASA compliance: {args.nasa_score:.1%}")
     
     # Check if update is needed
     if args.update_if_changed:
-        print("🔍 Checking if metrics changed significantly...")
+        print("[SEARCH] Checking if metrics changed significantly...")
         
         # Simulate change detection
         significant_change = abs(args.nasa_score - 0.92) > 0.05 or args.current_violations > 5
         
         if not significant_change:
-            print("📊 No significant changes detected, README update skipped")
+            print("[CHART] No significant changes detected, README update skipped")
             return 0
     
     # Simulate README update
-    print("✏️  Updating README with latest metrics...")
+    print("[U+270F][U+FE0F]  Updating README with latest metrics...")
     
     # Create update summary
     update_summary = {
@@ -48,8 +48,8 @@ def main():
         "defense_industry_ready": args.nasa_score >= 0.90
     }
     
-    print(f"✅ README metrics updated successfully")
-    print(f"🏛️  Defense Industry Status: {'✅ APPROVED' if update_summary['defense_industry_ready'] else '❌ NEEDS IMPROVEMENT'}")
+    print(f"[OK] README metrics updated successfully")
+    print(f"[U+1F3DB][U+FE0F]  Defense Industry Status: {'[OK] APPROVED' if update_summary['defense_industry_ready'] else '[FAIL] NEEDS IMPROVEMENT'}")
     
     return 0
 

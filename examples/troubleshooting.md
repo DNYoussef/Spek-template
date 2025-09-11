@@ -2,7 +2,7 @@
 
 **Common issues and solutions for SPEK-AUGMENT development workflow**
 
-## 🚨 Quick Fixes
+## [U+1F6A8] Quick Fixes
 
 | Issue | Quick Solution | Details |
 |-------|---------------|---------|
@@ -12,7 +12,7 @@
 | Large codebase slow | Use `scope=changed` | [See below](#performance-issues) |
 | Artifact not found | Run `/qa:run` first | [See below](#missing-artifacts) |
 
-## 📋 Common Issues
+## [CLIPBOARD] Common Issues
 
 ### Command Not Found
 
@@ -43,21 +43,21 @@
 **Expected Files**:
 ```
 .claude/commands/
-├── spec-plan.md
-├── gemini-impact.md
-├── codex-micro.md
-├── codex-micro-fix.md
-├── fix-planned.md
-├── qa-run.md
-├── qa-gate.md
-├── qa-analyze.md
-├── sec-scan.md
-├── conn-scan.md
-├── pm-sync.md
-├── pr-open.md
-├── specify.md
-├── plan.md
-└── tasks.md
+[U+251C][U+2500][U+2500] spec-plan.md
+[U+251C][U+2500][U+2500] gemini-impact.md
+[U+251C][U+2500][U+2500] codex-micro.md
+[U+251C][U+2500][U+2500] codex-micro-fix.md
+[U+251C][U+2500][U+2500] fix-planned.md
+[U+251C][U+2500][U+2500] qa-run.md
+[U+251C][U+2500][U+2500] qa-gate.md
+[U+251C][U+2500][U+2500] qa-analyze.md
+[U+251C][U+2500][U+2500] sec-scan.md
+[U+251C][U+2500][U+2500] conn-scan.md
+[U+251C][U+2500][U+2500] pm-sync.md
+[U+251C][U+2500][U+2500] pr-open.md
+[U+251C][U+2500][U+2500] specify.md
+[U+251C][U+2500][U+2500] plan.md
+[U+2514][U+2500][U+2500] tasks.md
 ```
 
 ### Quality Gate Failures
@@ -292,7 +292,7 @@ rm -rf node_modules && npm install
    cat package.json | grep -A 5 '"plane"'
    ```
 
-## 🔧 Advanced Troubleshooting
+## [TOOL] Advanced Troubleshooting
 
 ### Debug Mode
 
@@ -353,7 +353,7 @@ free -h
 top | grep -E "(node|python|semgrep)"
 ```
 
-## 🚀 Performance Optimization
+## [ROCKET] Performance Optimization
 
 ### Large Codebases
 
@@ -403,7 +403,7 @@ export STREAM_LARGE_FILES=true
 export NODE_OPTIONS="--gc-concurrent"
 ```
 
-## 🔍 Diagnostic Commands
+## [SEARCH] Diagnostic Commands
 
 ### System Health Check
 
@@ -445,7 +445,7 @@ echo "# Test Spec" > SPEC.md
 ls -la .claude/.artifacts/
 ```
 
-## 📞 Getting Help
+## [U+1F4DE] Getting Help
 
 ### Self-Service Resources
 
@@ -496,7 +496,7 @@ If you can't resolve the issue:
    - What error messages you saw
    - What you've already tried
 
-## ✅ Prevention Checklist
+## [OK] Prevention Checklist
 
 ### Before Starting Work
 

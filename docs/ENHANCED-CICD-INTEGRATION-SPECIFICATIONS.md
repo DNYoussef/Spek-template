@@ -894,14 +894,14 @@ matrix:
 ## Success Metrics
 
 ### Quality Gates
-- **NASA Compliance**: ≥92% with real analyzer validation
+- **NASA Compliance**: >=92% with real analyzer validation
 - **Security**: Zero critical findings from real security tools
-- **Connascence**: Overall score ≥75% from UnifiedConnascenceAnalyzer
-- **MECE**: Duplication ≤15% with real MECE analysis
+- **Connascence**: Overall score >=75% from UnifiedConnascenceAnalyzer
+- **MECE**: Duplication <=15% with real MECE analysis
 
 ### Performance Metrics
-- **Execution Time**: ≤45 minutes for complete 8-stream analysis
-- **Parallel Efficiency**: ≥80% concurrent stream utilization
+- **Execution Time**: <=45 minutes for complete 8-stream analysis
+- **Parallel Efficiency**: >=80% concurrent stream utilization
 - **Evidence Generation**: Complete SARIF consolidation within 5 minutes
 
 ### Defense Industry Readiness

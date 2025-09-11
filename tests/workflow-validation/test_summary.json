@@ -142,7 +142,7 @@
       ],
       "solution": "Replace emoji characters with ASCII equivalents",
       "estimated_effort": "30 minutes",
-      "example_fix": "🏗️ → [ARCH], 🔍 → [SCAN], 📊 → [CHART]"
+      "example_fix": "[BUILD] -> [ARCH], [SEARCH] -> [SCAN], [CHART] -> [CHART]"
     },
     
     "priority_3_validation": {

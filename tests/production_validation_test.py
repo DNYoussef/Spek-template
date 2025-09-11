@@ -597,21 +597,21 @@ def run_production_validation():
     print("PRODUCTION READINESS ASSESSMENT")
     print("=" * 80)
     print(f"Overall Score: {report['production_readiness_score']:.1f}%")
-    print(f"Deployment Ready: {'✅ YES' if report['deployment_ready'] else '❌ NO'}")
+    print(f"Deployment Ready: {'[OK] YES' if report['deployment_ready'] else '[FAIL] NO'}")
     print(f"Risk Level: {report['risk_level']}")
     print(f"Tests Passed: {report['test_summary']['passed_tests']}/{report['test_summary']['total_tests']}")
     
     if report['deployment_blockers']:
-        print(f"\n❌ DEPLOYMENT BLOCKERS:")
+        print(f"\n[FAIL] DEPLOYMENT BLOCKERS:")
         for blocker in report['deployment_blockers']:
             print(f"  - {blocker}")
     
     if report['recommendations']:
-        print(f"\n📋 RECOMMENDATIONS:")
+        print(f"\n[CLIPBOARD] RECOMMENDATIONS:")
         for i, rec in enumerate(report['recommendations'], 1):
             print(f"  {i}. {rec}")
     
-    print(f"\n📄 Full report saved to: {report_file}")
+    print(f"\n[U+1F4C4] Full report saved to: {report_file}")
     print("=" * 80)
     
     return report

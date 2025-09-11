@@ -21,7 +21,7 @@ analyze_callers() {
     local target_function="$1"
     local target_file="${2:-}"
     
-    log "🔍 Analyzing callers for: $target_function"
+    log "[SEARCH] Analyzing callers for: $target_function"
     
     local callers=()
     
@@ -48,7 +48,7 @@ analyze_callers() {
 analyze_dependencies() {
     local target_file="$1"
     
-    log "🔗 Analyzing dependencies for: $target_file"
+    log "[U+1F517] Analyzing dependencies for: $target_file"
     
     local imports=()
     local exports=()
@@ -93,7 +93,7 @@ analyze_dependencies() {
 detect_config_hotspots() {
     local pattern="${1:-config}"
     
-    log "⚙️  Detecting configuration hotspots for: $pattern"
+    log "[U+2699][U+FE0F]  Detecting configuration hotspots for: $pattern"
     
     local configs=()
     
@@ -126,12 +126,12 @@ validate_impact_map() {
     local impact_file="$1"
     
     if [[ ! -f "$impact_file" ]]; then
-        log "❌ Impact file not found: $impact_file"
+        log "[FAIL] Impact file not found: $impact_file"
         echo '{"valid": false, "error": "Impact file not found"}'
         return 1
     fi
     
-    log "✅ Validating impact map: $impact_file"
+    log "[OK] Validating impact map: $impact_file"
     
     local impact_data=$(cat "$impact_file")
     local validation_results=()
@@ -143,7 +143,7 @@ validate_impact_map() {
             validation_results+=("{\"type\":\"hotspot\",\"file\":\"$hotspot\",\"exists\":true}")
         else
             validation_results+=("{\"type\":\"hotspot\",\"file\":\"$hotspot\",\"exists\":false}")
-            log "⚠️  Hotspot file missing: $hotspot"
+            log "[WARN]  Hotspot file missing: $hotspot"
         fi
     done
     
@@ -154,7 +154,7 @@ validate_impact_map() {
         validation_results+=("{\"type\":\"caller\",\"function\":\"$caller\",\"found_calls\":$real_callers}")
         
         if [[ $real_callers -eq 0 ]]; then
-            log "⚠️  No callers found for: $caller"
+            log "[WARN]  No callers found for: $caller"
         fi
     done
     
@@ -173,9 +173,9 @@ validate_impact_map() {
     local is_valid=true
     if [[ $missing_hotspots -gt 0 ]] || [[ $missing_callers -gt 2 ]]; then
         is_valid=false
-        log "❌ Impact map validation failed - missing files or excessive caller misses"
+        log "[FAIL] Impact map validation failed - missing files or excessive caller misses"
     else
-        log "✅ Impact map validation passed"
+        log "[OK] Impact map validation passed"
     fi
     
     jq -n --argjson results "$validation_json" \
@@ -190,11 +190,11 @@ quick_impact_check() {
     local target="${1:-}"
     
     if [[ -z "$target" ]]; then
-        log "❌ No target specified for quick check"
+        log "[FAIL] No target specified for quick check"
         return 1
     fi
     
-    log "⚡ Quick impact check for: $target"
+    log "[LIGHTNING] Quick impact check for: $target"
     
     local results="{}"
     
@@ -225,7 +225,7 @@ generate_impact_report() {
     local target="${1:-}"
     local output_file="$ARTIFACTS_DIR/impact_quickcheck_report.json"
     
-    log "📊 Generating comprehensive impact report..."
+    log "[CHART] Generating comprehensive impact report..."
     
     local timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)
     local quick_check=$(quick_impact_check "$target")
@@ -259,7 +259,7 @@ generate_impact_report() {
     
     # Save report
     echo "$report" > "$output_file"
-    log "✅ Impact report saved: $output_file"
+    log "[OK] Impact report saved: $output_file"
     
     echo "$report"
 }

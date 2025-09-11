@@ -69,7 +69,7 @@ class ConnascenceValidator:
         Returns:
             Dictionary containing validation results and metrics
         """
-        print("🔍 Validating connascence reduction effectiveness...")
+        print("[SEARCH] Validating connascence reduction effectiveness...")
         start_time = time.time()
         
         # Collect metrics from the analyzer codebase
@@ -396,18 +396,18 @@ def validate_connascence_reduction() -> Dict[str, Any]:
     results = validator.validate_reduction_effectiveness()
     
     # Print summary
-    print("\n📊 CONNASCENCE REDUCTION VALIDATION RESULTS")
+    print("\n[CHART] CONNASCENCE REDUCTION VALIDATION RESULTS")
     print("=" * 50)
     print(f"Overall Improvement: {results['improvement_percentages']['overall']}%")
     print(f"Files Analyzed: {results['validation_summary']['files_analyzed']}")
     print(f"Total Violations After: {results['after_metrics']['total_violations']}")
-    print("\n🎯 Key Improvements:")
+    print("\n[TARGET] Key Improvements:")
     for improvement in results['specific_improvements']:
-        print(f"  • {improvement['area']}: {improvement['description']}")
+        print(f"  [U+2022] {improvement['area']}: {improvement['description']}")
     
-    print("\n💡 Recommendations:")
+    print("\n[INFO] Recommendations:")
     for rec in results['recommendations']:
-        print(f"  • {rec}")
+        print(f"  [U+2022] {rec}")
     
     return results
 

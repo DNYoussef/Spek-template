@@ -37,7 +37,7 @@ class AnalysisCacheManager:
     """
     
     def __init__(self, max_memory_mb: int = 100):
-        """Initialize cache manager (NASA Rule 2: ≤60 LOC)."""
+        """Initialize cache manager (NASA Rule 2: <=60 LOC)."""
         self.max_memory_mb = max_memory_mb
         self.file_cache = None
         self._cache_stats = {"hits": 0, "misses": 0, "warm_requests": 0, "batch_loads": 0}
@@ -51,11 +51,11 @@ class AnalysisCacheManager:
             logger.warning("Cache initialization skipped - optimization not available")
     
     def is_cache_available(self) -> bool:
-        """Check if cache is available (NASA Rule 2: ≤60 LOC)."""
+        """Check if cache is available (NASA Rule 2: <=60 LOC)."""
         return CACHE_AVAILABLE and self.file_cache is not None
     
     def warm_cache_intelligently(self, project_path: Path) -> None:
-        """Intelligently warm cache based on project structure (NASA Rule 2: ≤60 LOC)."""
+        """Intelligently warm cache based on project structure (NASA Rule 2: <=60 LOC)."""
         if not self.is_cache_available():
             return
             
@@ -82,7 +82,7 @@ class AnalysisCacheManager:
             logger.warning(f"Cache warming failed: {e}")
     
     def _prioritize_files_for_caching(self, files: List[Path]) -> List[Path]:
-        """Prioritize files for caching (NASA Rule 2: ≤60 LOC)."""
+        """Prioritize files for caching (NASA Rule 2: <=60 LOC)."""
         def priority_score(file_path: Path) -> float:
             try:
                 stat = file_path.stat()
@@ -96,7 +96,7 @@ class AnalysisCacheManager:
         return sorted(files, key=priority_score, reverse=True)
     
     def _warm_single_file(self, file_path: Path) -> None:
-        """Warm cache for a single file (NASA Rule 2: ≤60 LOC)."""
+        """Warm cache for a single file (NASA Rule 2: <=60 LOC)."""
         if not self.is_cache_available():
             return
             
@@ -112,7 +112,7 @@ class AnalysisCacheManager:
             logger.debug(f"Failed to warm cache for {file_path}: {e}")
     
     def get_cache_stats(self) -> Dict[str, Any]:
-        """Get current cache statistics (NASA Rule 2: ≤60 LOC)."""
+        """Get current cache statistics (NASA Rule 2: <=60 LOC)."""
         stats = self._cache_stats.copy()
         
         if self.is_cache_available() and hasattr(self.file_cache, 'get_stats'):
@@ -125,7 +125,7 @@ class AnalysisCacheManager:
         return stats
     
     def clear_cache(self) -> None:
-        """Clear all cache data (NASA Rule 2: ≤60 LOC)."""
+        """Clear all cache data (NASA Rule 2: <=60 LOC)."""
         if self.is_cache_available() and hasattr(self.file_cache, 'clear'):
             self.file_cache.clear()
             
@@ -136,7 +136,7 @@ class AnalysisCacheManager:
         logger.info("Cache cleared")
     
     def update_access_pattern(self, file_path: str, access_type: str = "read") -> None:
-        """Update file access patterns for better caching (NASA Rule 2: ≤60 LOC)."""
+        """Update file access patterns for better caching (NASA Rule 2: <=60 LOC)."""
         if file_path not in self._analysis_patterns:
             self._analysis_patterns[file_path] = {"reads": 0, "writes": 0, "last_access": 0}
         
@@ -144,6 +144,6 @@ class AnalysisCacheManager:
         self._analysis_patterns[file_path]["last_access"] = self._get_timestamp()
     
     def _get_timestamp(self) -> int:
-        """Get current timestamp (NASA Rule 2: ≤60 LOC)."""
+        """Get current timestamp (NASA Rule 2: <=60 LOC)."""
         import time
         return int(time.time())

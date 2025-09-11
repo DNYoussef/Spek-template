@@ -1,14 +1,14 @@
 # Complete Slash Commands Reference
 
-## 📋 Overview
+## [CLIPBOARD] Overview
 
 This document provides comprehensive documentation for all 17 slash commands in the SPEK-AUGMENT development template. Commands are organized by workflow phase and include detailed usage examples, integration patterns, and troubleshooting guidance.
 
-> 🎯 **Quick Start**: New to SPEK? See `examples/getting-started.md` for step-by-step tutorial  
-> 📖 **Cheat Sheet**: See `docs/QUICK-REFERENCE.md` for command syntax summary  
-> 🔧 **Troubleshooting**: See `examples/troubleshooting.md` for common issues
+> [TARGET] **Quick Start**: New to SPEK? See `examples/getting-started.md` for step-by-step tutorial  
+> [U+1F4D6] **Cheat Sheet**: See `docs/QUICK-REFERENCE.md` for command syntax summary  
+> [TOOL] **Troubleshooting**: See `examples/troubleshooting.md` for common issues
 
-## 🔗 Command Categories
+## [U+1F517] Command Categories
 
 ### [Core SPEK Commands](#core-spek-commands)
 Planning and specification management
@@ -81,9 +81,9 @@ PM integration and PR creation
 - Provides budget constraints for safety enforcement
 
 **Troubleshooting**:
-- **Error**: "SPEC.md not found" → Create SPEC.md using template
-- **Error**: "Invalid SPEC format" → Check required sections (Goals, Acceptance Criteria)
-- **Warning**: "Complex tasks detected" → Consider breaking down large features
+- **Error**: "SPEC.md not found" -> Create SPEC.md using template
+- **Error**: "Invalid SPEC format" -> Check required sections (Goals, Acceptance Criteria)
+- **Warning**: "Complex tasks detected" -> Consider breaking down large features
 
 ---
 
@@ -180,7 +180,7 @@ PM integration and PR creation
 **Usage**: `/qa:analyze '<qa_results_or_diff_context>'`
 
 **Key Features**:
-- **Intelligent Routing**: small → codex:micro, multi → fix:planned, big → gemini:impact
+- **Intelligent Routing**: small -> codex:micro, multi -> fix:planned, big -> gemini:impact
 - **Root Cause Analysis**: Pattern matching for common failure types
 - **Fix Confidence**: Success rate prediction for different approaches
 
@@ -215,9 +215,9 @@ PM integration and PR creation
 ```
 
 **Classification Logic**:
-- **small**: ≤25 LOC, ≤2 files, isolated → `codex:micro`
-- **multi**: Multiple files, moderate complexity → `fix:planned`
-- **big**: Architectural, >100 LOC, cross-cutting → `gemini:impact`
+- **small**: <=25 LOC, <=2 files, isolated -> `codex:micro`
+- **multi**: Multiple files, moderate complexity -> `fix:planned`
+- **big**: Architectural, >100 LOC, cross-cutting -> `gemini:impact`
 
 ---
 
@@ -231,7 +231,7 @@ PM integration and PR creation
 
 **Key Features**:
 - **Sandboxed Execution**: Auto-branch creation, isolated testing
-- **Safety Constraints**: ≤25 LOC, ≤2 files maximum
+- **Safety Constraints**: <=25 LOC, <=2 files maximum
 - **Immediate Verification**: Tests + TypeCheck + Lint in sandbox
 - **Rollback Safety**: Clean working tree verification
 
@@ -288,9 +288,9 @@ PM integration and PR creation
 - Quick improvements
 
 **Error Handling**:
-- Constraint violations → Suggest `/fix:planned`
-- Test failures → Automatic `/codex:micro-fix`
-- Sandbox issues → Clean rollback
+- Constraint violations -> Suggest `/fix:planned`
+- Test failures -> Automatic `/codex:micro-fix`
+- Sandbox issues -> Clean rollback
 
 ---
 
@@ -335,7 +335,7 @@ PM integration and PR creation
 
 **Key Features**:
 - **Checkpoint Safety**: Rollback points before each step
-- **Bounded Progress**: ≤25 LOC per checkpoint
+- **Bounded Progress**: <=25 LOC per checkpoint
 - **Progressive Validation**: Quality gates at each checkpoint
 - **Coordination**: Handles cross-file dependencies
 
@@ -438,7 +438,7 @@ wait
   QUALITY_GATES: {
     lint: { threshold: "0 errors", blocking: false },
     coverage: { threshold: "no regression", blocking: false },
-    connascence: { threshold: "≥90% NASA compliance", blocking: false }
+    connascence: { threshold: ">=90% NASA compliance", blocking: false }
   }
 }
 ```
@@ -556,8 +556,8 @@ wait
 **Usage**: `/pm:sync [operation=sync|status|update] [project_id=auto]`
 
 **Sync Operations**:
-- **Development → PM**: Task status, quality metrics, velocity
-- **PM → Development**: New requirements, priority changes, timeline updates
+- **Development -> PM**: Task status, quality metrics, velocity
+- **PM -> Development**: New requirements, priority changes, timeline updates
 - **Conflict Resolution**: Status conflicts, timeline mismatches
 
 **Example**:
@@ -618,11 +618,11 @@ wait
 
 ---
 
-## 🔗 Integration Patterns
+## [U+1F517] Integration Patterns
 
 ### Sequential Workflows
 ```bash
-# Complete SPEC → PR workflow
+# Complete SPEC -> PR workflow
 /spec:plan
 /gemini:impact 'Implement new feature'
 /codex:micro 'Add initial implementation'
@@ -631,24 +631,24 @@ wait
 /pr:open
 ```
 
-### Analysis → Fix Loops
+### Analysis -> Fix Loops
 ```bash
 /qa:run
 /qa:analyze
-# → Routes to appropriate fix command
+# -> Routes to appropriate fix command
 /qa:run  # Verify fix
 ```
 
 ### Self-Correction Cycles
 ```bash
 /codex:micro 'Fix bug'
-# → Auto-triggers /codex:micro-fix on test failure
-# → Continues until success or escalation
+# -> Auto-triggers /codex:micro-fix on test failure
+# -> Continues until success or escalation
 ```
 
 ---
 
-## 🔧 Troubleshooting
+## [TOOL] Troubleshooting
 
 ### Common Issues
 
@@ -684,7 +684,7 @@ wait
 
 ---
 
-## 📚 Additional Resources
+## [U+1F4DA] Additional Resources
 
 - **Quick Reference**: `docs/QUICK-REFERENCE.md`
 - **Getting Started Tutorial**: `examples/getting-started.md`

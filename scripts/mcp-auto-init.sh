@@ -84,7 +84,7 @@ analyze_failure_with_mcp() {
     local error_details="$3"
     local failure_record="$4"
     
-    log_info "🧠 Running intelligent failure analysis using available MCP servers..."
+    log_info "[BRAIN] Running intelligent failure analysis using available MCP servers..."
     
     # Create analysis request for MCP servers
     local analysis_prompt="Analyze this MCP server installation failure and suggest specific fixes:
@@ -114,44 +114,44 @@ suggest_intelligent_fixes() {
     local server_name="$1"
     local error_output="$2"
     
-    log_info "🔍 Analyzing failure patterns for intelligent fix suggestions..."
+    log_info "[SEARCH] Analyzing failure patterns for intelligent fix suggestions..."
     
     # Pattern matching for common issues
     case "$error_output" in
         *"network"*|*"timeout"*|*"connection"*)
-            log_info "🌐 Network-related failure detected"
-            echo "  💡 Try: Check internet connection, proxy settings, firewall rules"
-            echo "  💡 Try: curl -I https://api.anthropic.com (test connectivity)"
-            echo "  💡 Try: export https_proxy=your_proxy if behind corporate firewall"
+            log_info "[GLOBE] Network-related failure detected"
+            echo "  [INFO] Try: Check internet connection, proxy settings, firewall rules"
+            echo "  [INFO] Try: curl -I https://api.anthropic.com (test connectivity)"
+            echo "  [INFO] Try: export https_proxy=your_proxy if behind corporate firewall"
             ;;
         *"permission"*|*"EACCES"*)
-            log_info "🔒 Permission-related failure detected"
-            echo "  💡 Try: sudo chown -R \$USER ~/.claude (fix permissions)"
-            echo "  💡 Try: Check if Claude CLI was installed with sudo (shouldn't be)"
+            log_info "[U+1F512] Permission-related failure detected"
+            echo "  [INFO] Try: sudo chown -R \$USER ~/.claude (fix permissions)"
+            echo "  [INFO] Try: Check if Claude CLI was installed with sudo (shouldn't be)"
             ;;
         *"not found"*|*"command not found"*)
-            log_info "📦 Installation/Path issue detected"
-            echo "  💡 Try: which claude (verify Claude CLI installation)"
-            echo "  💡 Try: Add Claude CLI to PATH or reinstall"
-            echo "  💡 Try: curl -fsSL https://claude.ai/download/cli | sh"
+            log_info "[U+1F4E6] Installation/Path issue detected"
+            echo "  [INFO] Try: which claude (verify Claude CLI installation)"
+            echo "  [INFO] Try: Add Claude CLI to PATH or reinstall"
+            echo "  [INFO] Try: curl -fsSL https://claude.ai/download/cli | sh"
             ;;
         *"authentication"*|*"auth"*|*"token"*)
-            log_info "🔐 Authentication failure detected"
-            echo "  💡 Try: claude auth login (re-authenticate)"
-            echo "  💡 Try: Check if API keys are properly configured"
-            echo "  💡 Try: claude auth status (verify auth status)"
+            log_info "[LOCK] Authentication failure detected"
+            echo "  [INFO] Try: claude auth login (re-authenticate)"
+            echo "  [INFO] Try: Check if API keys are properly configured"
+            echo "  [INFO] Try: claude auth status (verify auth status)"
             ;;
         *"version"*|*"protocol"*)
-            log_info "⚠️ Version compatibility issue detected"
-            echo "  💡 Try: claude --version (check Claude CLI version)"
-            echo "  💡 Try: Update Claude CLI to latest version"
-            echo "  💡 Try: Check MCP server compatibility requirements"
+            log_info "[WARN] Version compatibility issue detected"
+            echo "  [INFO] Try: claude --version (check Claude CLI version)"
+            echo "  [INFO] Try: Update Claude CLI to latest version"
+            echo "  [INFO] Try: Check MCP server compatibility requirements"
             ;;
         *)
-            log_info "❓ Unknown failure pattern - using general troubleshooting"
-            echo "  💡 Try: claude mcp list (check current MCP state)"
-            echo "  💡 Try: claude mcp remove $server_name && claude mcp add $server_name (reset)"
-            echo "  💡 Try: Check ~/.claude/logs/ for detailed error logs"
+            log_info "[U+2753] Unknown failure pattern - using general troubleshooting"
+            echo "  [INFO] Try: claude mcp list (check current MCP state)"
+            echo "  [INFO] Try: claude mcp remove $server_name && claude mcp add $server_name (reset)"
+            echo "  [INFO] Try: Check ~/.claude/logs/ for detailed error logs"
             ;;
     esac
     
@@ -166,7 +166,7 @@ research_mcp_solutions() {
     local server_name="$1"
     local error_output="$2"
     
-    log_info "🔬 Researching solutions for $server_name installation issues..."
+    log_info "[SCIENCE] Researching solutions for $server_name installation issues..."
     
     # Create research queries based on error patterns
     local search_queries=(
@@ -178,17 +178,17 @@ research_mcp_solutions() {
     # If we have working MCP servers, use them for research
     if is_mcp_added "websearch"; then
         for query in "${search_queries[@]}"; do
-            log_info "🌐 Searching: $query"
+            log_info "[GLOBE] Searching: $query"
             echo "Research query: $query" >> "$DIAGNOSTIC_LOG"
             # Note: This would use WebSearch MCP if available in the environment
         done
     fi
     
     # Fallback to manual research suggestions
-    log_info "📚 Manual research suggestions:"
-    echo "  🔍 Search GitHub issues: https://github.com/search?q=\"$server_name+MCP+server\"+error"
-    echo "  🔍 Check official docs: https://docs.anthropic.com/claude-code/mcp"
-    echo "  🔍 Community discussions: https://discord.gg/anthropic (MCP channel)"
+    log_info "[U+1F4DA] Manual research suggestions:"
+    echo "  [SEARCH] Search GitHub issues: https://github.com/search?q=\"$server_name+MCP+server\"+error"
+    echo "  [SEARCH] Check official docs: https://docs.anthropic.com/claude-code/mcp"
+    echo "  [SEARCH] Community discussions: https://discord.gg/anthropic (MCP channel)"
 }
 
 # Enhanced function to add MCP server with intelligent retry and analysis
@@ -237,7 +237,7 @@ add_mcp_server() {
             # Implement smart backoff strategy
             local backoff_time=$((attempt * 3))
             if [[ $attempt -lt 3 ]]; then
-                log_info "⏳ Waiting ${backoff_time}s before retry (smart backoff)..."
+                log_info "[U+23F3] Waiting ${backoff_time}s before retry (smart backoff)..."
                 sleep $backoff_time
                 
                 # Try auto-repair based on error pattern
@@ -246,9 +246,9 @@ add_mcp_server() {
         fi
     done
     
-    log_error "❌ Failed to add $server_name MCP server after 3 intelligent attempts"
-    log_info "📋 Check diagnostic log: $DIAGNOSTIC_LOG"
-    log_info "🛠️ For manual troubleshooting, see suggestions above"
+    log_error "[FAIL] Failed to add $server_name MCP server after 3 intelligent attempts"
+    log_info "[CLIPBOARD] Check diagnostic log: $DIAGNOSTIC_LOG"
+    log_info "[U+1F6E0][U+FE0F] For manual troubleshooting, see suggestions above"
     
     return 1
 }
@@ -259,29 +259,29 @@ attempt_auto_repair() {
     local error_type="$2"
     local error_output="$3"
     
-    log_info "🔧 Attempting auto-repair for $error_type..."
+    log_info "[TOOL] Attempting auto-repair for $error_type..."
     
     case "$error_type" in
         "auth_error")
-            log_info "🔐 Attempting authentication refresh..."
+            log_info "[LOCK] Attempting authentication refresh..."
             claude auth status >/dev/null 2>&1 || {
-                log_warning "⚠️ Claude auth appears invalid - manual re-auth may be needed"
+                log_warning "[WARN] Claude auth appears invalid - manual re-auth may be needed"
             }
             ;;
         "permission_error")
-            log_info "🔒 Checking Claude directory permissions..."
+            log_info "[U+1F512] Checking Claude directory permissions..."
             if [[ -d "${HOME}/.claude" ]]; then
                 chmod -R u+rw "${HOME}/.claude" 2>/dev/null || true
             fi
             ;;
         "network_error"|"timeout_error")
-            log_info "🌐 Testing network connectivity..."
+            log_info "[GLOBE] Testing network connectivity..."
             if ! curl -I --max-time 10 https://api.anthropic.com >/dev/null 2>&1; then
-                log_warning "⚠️ Network connectivity issues detected"
+                log_warning "[WARN] Network connectivity issues detected"
             fi
             ;;
         *)
-            log_info "❓ Generic auto-repair: clearing MCP cache..."
+            log_info "[U+2753] Generic auto-repair: clearing MCP cache..."
             # Try to clean any cached state
             [[ -d "${HOME}/.claude/mcp-cache" ]] && rm -rf "${HOME}/.claude/mcp-cache" 2>/dev/null || true
             ;;
@@ -316,28 +316,28 @@ initialize_mcp_servers() {
     # Enhanced Claude Code availability check
     if ! command -v claude &> /dev/null; then
         log_error "Claude Code CLI not found. Please install Claude Code first."
-        log_info "💡 Installation help:"
-        log_info "   • Visit: https://claude.ai/code"
-        log_info "   • Or run: curl -fsSL https://claude.ai/download/cli | sh"
+        log_info "[INFO] Installation help:"
+        log_info "   [U+2022] Visit: https://claude.ai/code"
+        log_info "   [U+2022] Or run: curl -fsSL https://claude.ai/download/cli | sh"
         record_failure_pattern "system" "claude_cli_missing" "Claude CLI not found in PATH" "1"
         exit 1
     fi
     
     # Verify Claude authentication
-    log_info "🔐 Verifying Claude authentication..."
+    log_info "[LOCK] Verifying Claude authentication..."
     if ! claude auth status >/dev/null 2>&1; then
-        log_warning "⚠️ Claude authentication may be invalid"
-        log_info "💡 Try: claude auth login"
+        log_warning "[WARN] Claude authentication may be invalid"
+        log_info "[INFO] Try: claude auth login"
     else
-        log_success "✅ Claude authentication verified"
+        log_success "[OK] Claude authentication verified"
     fi
     
     # Check for existing MCP issues from previous sessions
     if [[ -f "$FAILURE_PATTERNS_DB" ]]; then
         local failure_count=$(jq '.failure_patterns | length' "$FAILURE_PATTERNS_DB" 2>/dev/null || echo "0")
         if [[ $failure_count -gt 0 ]]; then
-            log_info "📊 Found $failure_count previous failure patterns in diagnostic database"
-            log_info "🧠 Using historical data to optimize initialization strategy"
+            log_info "[CHART] Found $failure_count previous failure patterns in diagnostic database"
+            log_info "[BRAIN] Using historical data to optimize initialization strategy"
         fi
     fi
     
@@ -348,7 +348,7 @@ initialize_mcp_servers() {
     local partial_success_servers=()
     
     # Tier 1: Always Auto-Start (Core Infrastructure) - Enhanced with Priority Logic
-    log_info "🚀 Initializing Tier 1: Core Infrastructure MCPs (Enhanced)"
+    log_info "[ROCKET] Initializing Tier 1: Core Infrastructure MCPs (Enhanced)"
     
     # Define server initialization order based on dependency and importance
     declare -A server_priorities=(
@@ -370,37 +370,37 @@ initialize_mcp_servers() {
     # Sort servers by priority for optimal initialization order
     for server in $(printf '%s\n' "${!server_priorities[@]}" | sort -k1,1n); do
         ((total_count++))
-        log_info "🔧 Initializing $server (priority: ${server_priorities[$server]})"
+        log_info "[TOOL] Initializing $server (priority: ${server_priorities[$server]})"
         
         if add_mcp_server "$server" "${server_commands[$server]}"; then
             ((success_count++))
-            log_success "✅ $server MCP initialized successfully"
+            log_success "[OK] $server MCP initialized successfully"
         else
             failed_servers+=("$server")
-            log_warning "❌ $server MCP failed to initialize"
+            log_warning "[FAIL] $server MCP failed to initialize"
             
             # Special handling for critical dependencies
             if [[ "$server" == "memory" || "$server" == "sequential-thinking" ]]; then
-                log_warning "⚠️ $server is a critical dependency - other services may have reduced functionality"
+                log_warning "[WARN] $server is a critical dependency - other services may have reduced functionality"
             fi
         fi
     done
     
     # Tier 2: Conditional Auto-Start - Enhanced with Environment Analysis
-    log_info "🔄 Initializing Tier 2: Conditional MCPs (Enhanced)"
+    log_info "[CYCLE] Initializing Tier 2: Conditional MCPs (Enhanced)"
     
     # Enhanced Plane MCP initialization with validation
     if check_env_var "PLANE_API_TOKEN"; then
-        log_info "🛫 PLANE_API_TOKEN found - enabling Plane MCP with validation"
+        log_info "[U+1F6EB] PLANE_API_TOKEN found - enabling Plane MCP with validation"
         
         # Additional Plane configuration validation
         local plane_config_valid=true
         if ! check_env_var "PLANE_API_URL"; then
-            log_warning "⚠️ PLANE_API_URL not configured - Plane MCP may have issues"
+            log_warning "[WARN] PLANE_API_URL not configured - Plane MCP may have issues"
             plane_config_valid=false
         fi
         if ! check_env_var "PLANE_PROJECT_ID"; then
-            log_warning "⚠️ PLANE_PROJECT_ID not configured - Plane MCP may have issues"
+            log_warning "[WARN] PLANE_PROJECT_ID not configured - Plane MCP may have issues"
             plane_config_valid=false
         fi
         
@@ -408,21 +408,21 @@ initialize_mcp_servers() {
         if add_mcp_server "plane" "plane"; then
             ((success_count++))
             if [[ "$plane_config_valid" == "true" ]]; then
-                log_success "✅ Plane MCP initialized with full configuration"
+                log_success "[OK] Plane MCP initialized with full configuration"
             else
-                log_warning "⚠️ Plane MCP initialized but configuration incomplete"
+                log_warning "[WARN] Plane MCP initialized but configuration incomplete"
                 partial_success_servers+=("plane")
             fi
         else
             failed_servers+=("plane")
-            log_error "❌ Plane MCP failed despite token configuration"
+            log_error "[FAIL] Plane MCP failed despite token configuration"
         fi
     else
-        log_info "💡 PLANE_API_TOKEN not configured - skipping Plane MCP"
+        log_info "[INFO] PLANE_API_TOKEN not configured - skipping Plane MCP"
         log_info "   To enable Plane integration:"
-        log_info "   • Set PLANE_API_TOKEN in your .env file"
-        log_info "   • Also configure PLANE_API_URL, PLANE_PROJECT_ID"
-        log_info "   • Run: bash scripts/validate-mcp-environment.sh --template"
+        log_info "   [U+2022] Set PLANE_API_TOKEN in your .env file"
+        log_info "   [U+2022] Also configure PLANE_API_URL, PLANE_PROJECT_ID"
+        log_info "   [U+2022] Run: bash scripts/validate-mcp-environment.sh --template"
     fi
     
     # Detect and suggest additional conditional MCPs based on environment
@@ -434,42 +434,42 @@ initialize_mcp_servers() {
     
     # Analyze results and provide intelligent recommendations
     if [[ $success_count -eq $total_count ]]; then
-        log_success "🎉 All MCP servers initialized successfully!"
-        log_info "🚀 Your development environment is fully optimized for:"
-        log_info "   • Persistent memory across sessions"
-        log_info "   • Structured reasoning and analysis"
-        log_info "   • Swarm coordination (2.8-4.4x speed boost)"
-        log_info "   • Seamless GitHub integration"
-        log_info "   • Large-context architectural analysis"
+        log_success "[PARTY] All MCP servers initialized successfully!"
+        log_info "[ROCKET] Your development environment is fully optimized for:"
+        log_info "   [U+2022] Persistent memory across sessions"
+        log_info "   [U+2022] Structured reasoning and analysis"
+        log_info "   [U+2022] Swarm coordination (2.8-4.4x speed boost)"
+        log_info "   [U+2022] Seamless GitHub integration"
+        log_info "   [U+2022] Large-context architectural analysis"
         record_success_metric "system" "full_initialization" "$total_count"
         return 0
     elif [[ $success_count -gt 0 ]]; then
-        log_warning "⚠️ Partial success: $success_count/$total_count MCP servers initialized"
-        log_info "📋 Failed servers: ${failed_servers[*]}"
-        log_info "🛠️ Your environment has reduced functionality but core features are available"
+        log_warning "[WARN] Partial success: $success_count/$total_count MCP servers initialized"
+        log_info "[CLIPBOARD] Failed servers: ${failed_servers[*]}"
+        log_info "[U+1F6E0][U+FE0F] Your environment has reduced functionality but core features are available"
         
         # Provide specific guidance based on which servers failed
         if [[ ${#failed_servers[@]} -gt 0 ]]; then
-            log_info "💡 To restore full functionality:"
+            log_info "[INFO] To restore full functionality:"
             for failed_server in "${failed_servers[@]}"; do
-                log_info "   • $failed_server: Check diagnostic log at $DIAGNOSTIC_LOG"
+                log_info "   [U+2022] $failed_server: Check diagnostic log at $DIAGNOSTIC_LOG"
             done
-            log_info "   • Run: npm run mcp:force (force re-initialization)"
-            log_info "   • Or manually: claude mcp add [server_name]"
+            log_info "   [U+2022] Run: npm run mcp:force (force re-initialization)"
+            log_info "   [U+2022] Or manually: claude mcp add [server_name]"
         fi
         
         return 0  # Don't fail completely on partial success
     else
-        log_error "❌ No MCP servers could be initialized"
-        log_info "🚨 Your environment is running in basic mode without MCP enhancements"
-        log_info "📋 Diagnostic information:"
-        log_info "   • Check: $DIAGNOSTIC_LOG"
-        log_info "   • Verify: claude auth status"
-        log_info "   • Test: claude mcp list"
-        log_info "💡 Quick fixes to try:"
-        log_info "   • claude auth login (re-authenticate)"
-        log_info "   • Check internet connection"
-        log_info "   • Update Claude CLI: curl -fsSL https://claude.ai/download/cli | sh"
+        log_error "[FAIL] No MCP servers could be initialized"
+        log_info "[U+1F6A8] Your environment is running in basic mode without MCP enhancements"
+        log_info "[CLIPBOARD] Diagnostic information:"
+        log_info "   [U+2022] Check: $DIAGNOSTIC_LOG"
+        log_info "   [U+2022] Verify: claude auth status"
+        log_info "   [U+2022] Test: claude mcp list"
+        log_info "[INFO] Quick fixes to try:"
+        log_info "   [U+2022] claude auth login (re-authenticate)"
+        log_info "   [U+2022] Check internet connection"
+        log_info "   [U+2022] Update Claude CLI: curl -fsSL https://claude.ai/download/cli | sh"
         
         return 1
     fi
@@ -514,32 +514,32 @@ show_usage() {
 
 # Detect opportunities for additional MCP servers based on environment
 detect_additional_mcp_opportunities() {
-    log_info "🔍 Detecting additional MCP opportunities..."
+    log_info "[SEARCH] Detecting additional MCP opportunities..."
     
     # Check for development tools that could benefit from MCP integration
     if command -v docker &> /dev/null; then
-        log_info "🐳 Docker detected - consider adding Docker MCP for container management"
+        log_info "[U+1F433] Docker detected - consider adding Docker MCP for container management"
     fi
     
     if [[ -d ".git" ]]; then
-        log_info "📦 Git repository detected - GitHub MCP will provide enhanced integration"
+        log_info "[U+1F4E6] Git repository detected - GitHub MCP will provide enhanced integration"
     fi
     
     if [[ -f "package.json" ]]; then
-        log_info "📦 Node.js project detected - consider NPM/Yarn MCP servers"
+        log_info "[U+1F4E6] Node.js project detected - consider NPM/Yarn MCP servers"
     fi
     
     if [[ -f "requirements.txt" || -f "pyproject.toml" ]]; then
-        log_info "🐍 Python project detected - consider Python-specific MCP servers"
+        log_info "[U+1F40D] Python project detected - consider Python-specific MCP servers"
     fi
     
     # Check for API keys that could enable additional services
     if check_env_var "OPENAI_API_KEY"; then
-        log_info "🤖 OpenAI API key detected - consider OpenAI MCP for enhanced AI features"
+        log_info "[U+1F916] OpenAI API key detected - consider OpenAI MCP for enhanced AI features"
     fi
     
     if check_env_var "ANTHROPIC_API_KEY"; then
-        log_info "🧠 Anthropic API key detected - enhanced Claude integration possible"
+        log_info "[BRAIN] Anthropic API key detected - enhanced Claude integration possible"
     fi
 }
 
@@ -559,16 +559,16 @@ show_enhanced_usage() {
     echo "  --help, -h       Show this enhanced help message"
     echo ""
     echo "Diagnostic Features:"
-    echo "  • Intelligent failure pattern recognition"
-    echo "  • Automatic fix suggestions based on error analysis"
-    echo "  • Research-powered troubleshooting using available MCP servers"
-    echo "  • Success metric tracking and optimization"
-    echo "  • Cross-session failure pattern learning"
+    echo "  [U+2022] Intelligent failure pattern recognition"
+    echo "  [U+2022] Automatic fix suggestions based on error analysis"
+    echo "  [U+2022] Research-powered troubleshooting using available MCP servers"
+    echo "  [U+2022] Success metric tracking and optimization"
+    echo "  [U+2022] Cross-session failure pattern learning"
     echo ""
     echo "Diagnostic Files:"
-    echo "  • Log: $DIAGNOSTIC_LOG"
-    echo "  • Patterns: $FAILURE_PATTERNS_DB"
-    echo "  • Metrics: $SUCCESS_METRICS"
+    echo "  [U+2022] Log: $DIAGNOSTIC_LOG"
+    echo "  [U+2022] Patterns: $FAILURE_PATTERNS_DB"
+    echo "  [U+2022] Metrics: $SUCCESS_METRICS"
     echo ""
     echo "Environment Variables (for conditional MCPs):"
     echo "  PLANE_API_TOKEN    - Enables Plane MCP if set"
@@ -584,52 +584,52 @@ show_enhanced_usage() {
 
 # Run comprehensive diagnostics
 run_comprehensive_diagnostics() {
-    log_info "🔍 Running comprehensive MCP diagnostic analysis..."
+    log_info "[SEARCH] Running comprehensive MCP diagnostic analysis..."
     
     # System environment analysis
-    log_info "📊 System Environment Analysis:"
-    echo "  • Operating System: $(uname -a)"
-    echo "  • Node.js Version: $(node --version 2>/dev/null || echo 'Not installed')"
-    echo "  • Claude CLI Version: $(claude --version 2>/dev/null || echo 'Not installed')"
-    echo "  • Shell: $SHELL"
-    echo "  • Current User: $(whoami)"
-    echo "  • Home Directory: $HOME"
+    log_info "[CHART] System Environment Analysis:"
+    echo "  [U+2022] Operating System: $(uname -a)"
+    echo "  [U+2022] Node.js Version: $(node --version 2>/dev/null || echo 'Not installed')"
+    echo "  [U+2022] Claude CLI Version: $(claude --version 2>/dev/null || echo 'Not installed')"
+    echo "  [U+2022] Shell: $SHELL"
+    echo "  [U+2022] Current User: $(whoami)"
+    echo "  [U+2022] Home Directory: $HOME"
     
     # Authentication status
-    log_info "🔐 Authentication Analysis:"
+    log_info "[LOCK] Authentication Analysis:"
     if claude auth status >/dev/null 2>&1; then
-        log_success "✅ Claude authentication is valid"
+        log_success "[OK] Claude authentication is valid"
     else
-        log_warning "⚠️ Claude authentication appears invalid"
-        echo "  💡 Try: claude auth login"
+        log_warning "[WARN] Claude authentication appears invalid"
+        echo "  [INFO] Try: claude auth login"
     fi
     
     # Network connectivity tests
-    log_info "🌐 Network Connectivity Analysis:"
+    log_info "[GLOBE] Network Connectivity Analysis:"
     if curl -I --max-time 10 https://api.anthropic.com >/dev/null 2>&1; then
-        log_success "✅ Anthropic API reachable"
+        log_success "[OK] Anthropic API reachable"
     else
-        log_warning "⚠️ Cannot reach Anthropic API"
-        echo "  💡 Check: Internet connection, proxy settings, firewall rules"
+        log_warning "[WARN] Cannot reach Anthropic API"
+        echo "  [INFO] Check: Internet connection, proxy settings, firewall rules"
     fi
     
     # MCP server status analysis
-    log_info "🤖 Current MCP Server Analysis:"
+    log_info "[U+1F916] Current MCP Server Analysis:"
     if command -v claude &> /dev/null; then
-        claude mcp list 2>/dev/null || log_warning "⚠️ Cannot list MCP servers"
+        claude mcp list 2>/dev/null || log_warning "[WARN] Cannot list MCP servers"
     else
-        log_error "❌ Claude CLI not available"
+        log_error "[FAIL] Claude CLI not available"
     fi
     
     # Diagnostic log analysis
     if [[ -f "$DIAGNOSTIC_LOG" ]]; then
         local log_lines=$(wc -l < "$DIAGNOSTIC_LOG" 2>/dev/null || echo "0")
-        log_info "📋 Diagnostic Log Analysis:"
-        echo "  • Log file: $DIAGNOSTIC_LOG"
-        echo "  • Log entries: $log_lines"
+        log_info "[CLIPBOARD] Diagnostic Log Analysis:"
+        echo "  [U+2022] Log file: $DIAGNOSTIC_LOG"
+        echo "  [U+2022] Log entries: $log_lines"
         
         if [[ $log_lines -gt 0 ]]; then
-            echo "  • Recent failures:"
+            echo "  [U+2022] Recent failures:"
             grep "FAILURE:" "$DIAGNOSTIC_LOG" | tail -3 | while read -r line; do
                 echo "    - $line"
             done
@@ -637,42 +637,42 @@ run_comprehensive_diagnostics() {
     fi
     
     # Environment variables analysis
-    log_info "🌍 Environment Configuration Analysis:"
+    log_info "[U+1F30D] Environment Configuration Analysis:"
     local env_vars=("PLANE_API_TOKEN" "GITHUB_TOKEN" "CLAUDE_API_KEY" "GEMINI_API_KEY")
     for var in "${env_vars[@]}"; do
         if check_env_var "$var"; then
-            log_success "✅ $var is configured"
+            log_success "[OK] $var is configured"
         else
-            log_info "ℹ️ $var not configured (optional)"
+            log_info "i[U+FE0F] $var not configured (optional)"
         fi
     done
     
     # Recommendations based on analysis
-    log_info "💡 Diagnostic Recommendations:"
+    log_info "[INFO] Diagnostic Recommendations:"
     if [[ ! -f "$HOME/.env" ]]; then
-        echo "  • Create .env file for configuration persistence"
-        echo "  • Run: bash scripts/validate-mcp-environment.sh --template"
+        echo "  [U+2022] Create .env file for configuration persistence"
+        echo "  [U+2022] Run: bash scripts/validate-mcp-environment.sh --template"
     fi
     
-    echo "  • For detailed troubleshooting: check $DIAGNOSTIC_LOG"
-    echo "  • For configuration help: bash scripts/validate-mcp-environment.sh --help"
-    echo "  • For force repair: $0 --repair"
+    echo "  [U+2022] For detailed troubleshooting: check $DIAGNOSTIC_LOG"
+    echo "  [U+2022] For configuration help: bash scripts/validate-mcp-environment.sh --help"
+    echo "  [U+2022] For force repair: $0 --repair"
 }
 
 # Attempt automatic repair of failed MCP servers
 attempt_mcp_repair() {
-    log_info "🔧 Attempting automatic MCP server repair..."
+    log_info "[TOOL] Attempting automatic MCP server repair..."
     
     # Clear any corrupted cache
     if [[ -d "${HOME}/.claude/mcp-cache" ]]; then
-        log_info "🗑️ Clearing MCP cache..."
+        log_info "[U+1F5D1][U+FE0F] Clearing MCP cache..."
         rm -rf "${HOME}/.claude/mcp-cache" 2>/dev/null || true
     fi
     
     # Reset authentication if needed
     if ! claude auth status >/dev/null 2>&1; then
-        log_warning "⚠️ Authentication invalid - manual re-auth needed"
-        log_info "💡 Run: claude auth login"
+        log_warning "[WARN] Authentication invalid - manual re-auth needed"
+        log_info "[INFO] Run: claude auth login"
         return 1
     fi
     
@@ -682,10 +682,10 @@ attempt_mcp_repair() {
         failed_servers=$(grep "FAILURE:" "$DIAGNOSTIC_LOG" | awk '{print $3}' | sort -u)
         
         if [[ -n "$failed_servers" ]]; then
-            log_info "🔄 Attempting repair of previously failed servers..."
+            log_info "[CYCLE] Attempting repair of previously failed servers..."
             while IFS= read -r server; do
                 if [[ -n "$server" && "$server" != "-" ]]; then
-                    log_info "🔧 Repairing $server..."
+                    log_info "[TOOL] Repairing $server..."
                     # Remove and re-add the server
                     claude mcp remove "$server" 2>/dev/null || true
                     sleep 1
@@ -698,12 +698,12 @@ attempt_mcp_repair() {
                         "github") claude mcp add github ;;
                         "context7") claude mcp add context7 ;;
                         "plane") claude mcp add plane ;;
-                        *) log_warning "⚠️ Unknown server type: $server" ;;
+                        *) log_warning "[WARN] Unknown server type: $server" ;;
                     esac
                 fi
             done <<< "$failed_servers"
         else
-            log_info "ℹ️ No failed servers found in diagnostic log"
+            log_info "i[U+FE0F] No failed servers found in diagnostic log"
         fi
     fi
     
@@ -713,7 +713,7 @@ attempt_mcp_repair() {
 
 # Clean diagnostic data
 clean_diagnostic_data() {
-    log_info "🧹 Cleaning diagnostic data..."
+    log_info "[U+1F9F9] Cleaning diagnostic data..."
     
     local files_to_clean=("$DIAGNOSTIC_LOG" "$FAILURE_PATTERNS_DB" "$SUCCESS_METRICS")
     local cleaned_count=0
@@ -721,12 +721,12 @@ clean_diagnostic_data() {
     for file in "${files_to_clean[@]}"; do
         if [[ -f "$file" ]]; then
             rm "$file" && ((cleaned_count++))
-            log_success "✅ Cleaned: $file"
+            log_success "[OK] Cleaned: $file"
         fi
     done
     
-    log_info "🧹 Cleaned $cleaned_count diagnostic files"
-    log_info "💡 Next run will start with fresh diagnostic tracking"
+    log_info "[U+1F9F9] Cleaned $cleaned_count diagnostic files"
+    log_info "[INFO] Next run will start with fresh diagnostic tracking"
 }
 
 # Main execution logic

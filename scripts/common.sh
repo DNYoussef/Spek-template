@@ -55,10 +55,10 @@ check_file() {
     local file="$1"
     local description="$2"
     if [[ -f "$file" ]]; then
-        echo "  ✓ $description"
+        echo "  [U+2713] $description"
         return 0
     else
-        echo "  ✗ $description"
+        echo "  [U+2717] $description"
         return 1
     fi
 }
@@ -68,10 +68,10 @@ check_dir() {
     local dir="$1"
     local description="$2"
     if [[ -d "$dir" ]] && [[ -n "$(ls -A "$dir" 2>/dev/null)" ]]; then
-        echo "  ✓ $description"
+        echo "  [U+2713] $description"
         return 0
     else
-        echo "  ✗ $description"
+        echo "  [U+2717] $description"
         return 1
     fi
 }

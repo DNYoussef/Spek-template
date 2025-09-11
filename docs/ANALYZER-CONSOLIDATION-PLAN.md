@@ -59,42 +59,42 @@ The detector infrastructure is well-modularized with clear interfaces. Minor cle
 
 ```
 analyzer/
-├── core/
-│   ├── orchestrator.py          # Main analysis coordination (split from unified_analyzer)
-│   ├── policy_engine.py         # Policy management (split from unified_analyzer)
-│   ├── result_aggregator.py     # Result processing (split from unified_analyzer)
-│   └── quality_calculator.py    # Quality metrics (split from unified_analyzer)
-├── cli/
-│   └── main.py                  # Pure CLI (streamlined from core.py)
-└── legacy/                      # Deprecated files for reference
-    ├── check_connascence.py     # Marked deprecated
-    └── check_connascence_minimal.py  # Marked deprecated
+[U+251C][U+2500][U+2500] core/
+[U+2502]   [U+251C][U+2500][U+2500] orchestrator.py          # Main analysis coordination (split from unified_analyzer)
+[U+2502]   [U+251C][U+2500][U+2500] policy_engine.py         # Policy management (split from unified_analyzer)
+[U+2502]   [U+251C][U+2500][U+2500] result_aggregator.py     # Result processing (split from unified_analyzer)
+[U+2502]   [U+2514][U+2500][U+2500] quality_calculator.py    # Quality metrics (split from unified_analyzer)
+[U+251C][U+2500][U+2500] cli/
+[U+2502]   [U+2514][U+2500][U+2500] main.py                  # Pure CLI (streamlined from core.py)
+[U+2514][U+2500][U+2500] legacy/                      # Deprecated files for reference
+    [U+251C][U+2500][U+2500] check_connascence.py     # Marked deprecated
+    [U+2514][U+2500][U+2500] check_connascence_minimal.py  # Marked deprecated
 ```
 
 ### Phase 2: Configuration Consolidation
 
 ```
 analyzer/
-├── config/
-│   ├── manager.py               # Unified config management
-│   ├── constants.py             # Static constants (unchanged)
-│   ├── defaults.yaml            # Default configuration
-│   └── schemas/                 # Configuration schemas
-└── utils/
-    └── types.py                 # Keep violation types
+[U+251C][U+2500][U+2500] config/
+[U+2502]   [U+251C][U+2500][U+2500] manager.py               # Unified config management
+[U+2502]   [U+251C][U+2500][U+2500] constants.py             # Static constants (unchanged)
+[U+2502]   [U+251C][U+2500][U+2500] defaults.yaml            # Default configuration
+[U+2502]   [U+2514][U+2500][U+2500] schemas/                 # Configuration schemas
+[U+2514][U+2500][U+2500] utils/
+    [U+2514][U+2500][U+2500] types.py                 # Keep violation types
 ```
 
 ### Phase 3: Processing Pipeline Cleanup
 
 ```
 analyzer/
-├── processing/
-│   ├── ast_optimizer.py         # Keep as-is
-│   └── ast_cache.py             # Keep as-is
-├── duplication/
-│   ├── unified_analyzer.py      # Keep as primary
-│   └── mece_analyzer.py         # Keep as module
-└── detectors/                   # Keep existing structure
+[U+251C][U+2500][U+2500] processing/
+[U+2502]   [U+251C][U+2500][U+2500] ast_optimizer.py         # Keep as-is
+[U+2502]   [U+2514][U+2500][U+2500] ast_cache.py             # Keep as-is
+[U+251C][U+2500][U+2500] duplication/
+[U+2502]   [U+251C][U+2500][U+2500] unified_analyzer.py      # Keep as primary
+[U+2502]   [U+2514][U+2500][U+2500] mece_analyzer.py         # Keep as module
+[U+2514][U+2500][U+2500] detectors/                   # Keep existing structure
 ```
 
 ## Production-Ready Consolidation Strategy
@@ -287,9 +287,9 @@ class LegacyCompatibilityShim:
 ## Success Metrics
 
 ### Code Quality Improvements
-- **God Object Elimination**: 2 god objects (2,323 + 977 LOC) → 0 god objects
-- **MECE Score Improvement**: Current ~0.60 → Target >0.85
-- **Duplication Reduction**: ~25% code duplication → <5% duplication
+- **God Object Elimination**: 2 god objects (2,323 + 977 LOC) -> 0 god objects
+- **MECE Score Improvement**: Current ~0.60 -> Target >0.85
+- **Duplication Reduction**: ~25% code duplication -> <5% duplication
 - **Maintainability**: Reduce cyclomatic complexity by 40%
 
 ### Performance Targets

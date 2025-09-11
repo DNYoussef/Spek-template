@@ -257,27 +257,27 @@ show_mcp_recommendations() {
     echo "Based on your environment configuration:"
     echo ""
     
-    echo "✅ Always Enabled (Core Infrastructure):"
-    echo "  • memory - Universal learning & persistence"
-    echo "  • sequential-thinking - Universal quality improvement"  
-    echo "  • claude-flow - Core swarm coordination"
-    echo "  • github - Universal Git/GitHub workflows"
-    echo "  • context7 - Large-context analysis"
+    echo "[OK] Always Enabled (Core Infrastructure):"
+    echo "  [U+2022] memory - Universal learning & persistence"
+    echo "  [U+2022] sequential-thinking - Universal quality improvement"  
+    echo "  [U+2022] claude-flow - Core swarm coordination"
+    echo "  [U+2022] github - Universal Git/GitHub workflows"
+    echo "  [U+2022] context7 - Large-context analysis"
     echo ""
     
-    echo "🔄 Conditionally Enabled:"
+    echo "[CYCLE] Conditionally Enabled:"
     if [[ -n "$PLANE_API_TOKEN" ]]; then
-        echo "  ✅ plane - Project management sync (PLANE_API_TOKEN configured)"
+        echo "  [OK] plane - Project management sync (PLANE_API_TOKEN configured)"
     else
-        echo "  ❌ plane - Project management sync (PLANE_API_TOKEN not configured)"
+        echo "  [FAIL] plane - Project management sync (PLANE_API_TOKEN not configured)"
     fi
     echo ""
     
-    echo "📋 On-Demand (Phase-Specific):"
-    echo "  • deepwiki - Research phase only"
-    echo "  • firecrawl - Research phase only"
-    echo "  • playwright - Verification phase only"
-    echo "  • eva - Quality scoring phase only"
+    echo "[CLIPBOARD] On-Demand (Phase-Specific):"
+    echo "  [U+2022] deepwiki - Research phase only"
+    echo "  [U+2022] firecrawl - Research phase only"
+    echo "  [U+2022] playwright - Verification phase only"
+    echo "  [U+2022] eva - Quality scoring phase only"
 }
 
 # Main execution logic

@@ -12,7 +12,7 @@ steps:
       npx claude-flow@alpha swarm status --session "$SESSION_ID" > swarm_status.json || echo '{"attempts": 0}' > swarm_status.json
       CURRENT_ATTEMPTS="$(jq -r '.attempts // 0' swarm_status.json)"
       if [[ $CURRENT_ATTEMPTS -ge $MAX_ATTEMPTS ]]; then
-        echo "🚨 Max attempts ($MAX_ATTEMPTS) exceeded - escalating to planner"
+        echo "[U+1F6A8] Max attempts ($MAX_ATTEMPTS) exceeded - escalating to planner"
         npx claude-flow@alpha task orchestrate --escalate planner --reason "auto-repair-limit"
         exit 1
       fi
@@ -26,9 +26,9 @@ steps:
     foreach: plan.json.tasks
     when: item.type == "small"
     run: |
-      echo "⚡ Using Codex-optimized agent for sandboxed micro-operations..."
+      echo "[LIGHTNING] Using Codex-optimized agent for sandboxed micro-operations..."
       # Route to Codex-optimized agent for bounded implementations
-      claude Task --subagent_type coder-codex --description "Sandboxed micro-implementation" --prompt "Implement micro-operation: ${{ item.title }}. Use Codex CLI with sandbox verification (tests, typecheck, lint, security, coverage). Ensure ≤25 LOC, ≤2 files. Output codex_summary.json format."
+      claude Task --subagent_type coder-codex --description "Sandboxed micro-implementation" --prompt "Implement micro-operation: ${{ item.title }}. Use Codex CLI with sandbox verification (tests, typecheck, lint, security, coverage). Ensure <=25 LOC, <=2 files. Output codex_summary.json format."
       # Fallback to direct Codex if agent unavailable  
       claude /codex:micro "${{ item.title }}" || echo "Fallback to direct Codex execution"
 
@@ -36,7 +36,7 @@ steps:
     foreach: plan.json.tasks
     when: item.type == "big"
     run: |
-      echo "🔍 Using Gemini-optimized researcher for large-context analysis..."
+      echo "[SEARCH] Using Gemini-optimized researcher for large-context analysis..."
       # Route to Gemini-optimized researcher for comprehensive analysis
       claude Task --subagent_type researcher-gemini --description "Large context impact analysis" --prompt "Conduct comprehensive impact analysis for: ${{ item.scope }}. Use Gemini CLI with full codebase context to identify hotspots, callers, configs, crosscuts, testFocus, and citations. Output impact.json format."
       # Fallback to direct Gemini if researcher unavailable
@@ -51,7 +51,7 @@ steps:
   # Enhanced Quality Loop with Architectural Context
   - id: enhanced_qa_analysis
     run: |
-      echo "🏗️ Running enhanced QA with unified memory coordination..."
+      echo "[BUILD] Running enhanced QA with unified memory coordination..."
       
       # Initialize unified memory bridge
       source scripts/memory_bridge.sh
@@ -82,7 +82,7 @@ steps:
   # Architectural Impact Analysis
   - id: architectural_analysis
     run: |
-      echo "🏛️ Running architectural impact analysis..."
+      echo "[U+1F3DB][U+FE0F] Running architectural impact analysis..."
       
       # Architecture-aware analysis
       claude /conn:arch \
@@ -133,7 +133,7 @@ steps:
   - id: failure_analysis
     when: $.self_correct_loop.ok == false
     run: |
-      echo "❌ Self-correction loop failed after $MAX_ATTEMPTS attempts"
+      echo "[FAIL] Self-correction loop failed after $MAX_ATTEMPTS attempts"
       
       # Enhanced failure analysis with architectural context
       if [[ -f .claude/.artifacts/qa_enhanced.json ]]; then
@@ -154,14 +154,14 @@ steps:
       
       # Show architectural analysis results
       echo ""
-      echo "🏗️ Architectural Analysis Results:"
+      echo "[BUILD] Architectural Analysis Results:"
       if [[ -f .claude/.artifacts/architecture_impact.json ]]; then
         jq -r '.smart_recommendations[] | "- \(.priority | ascii_upcase): \(.issue) -> \(.solution)"' .claude/.artifacts/architecture_impact.json
       fi
       
       # Show what was attempted
       echo ""
-      echo "🔄 Self-correction attempts made:"
+      echo "[CYCLE] Self-correction attempts made:"
       if [[ -f .claude/.artifacts/current_attempt.json ]]; then
         jq . .claude/.artifacts/current_attempt.json
       fi
@@ -170,7 +170,7 @@ steps:
   - id: learn_from_failure
     when: gate.json.ok == false
     run: |
-      echo "🧠 Learning from failure with unified memory coordination..."
+      echo "[BRAIN] Learning from failure with unified memory coordination..."
       
       # Load memory bridge
       source scripts/memory_bridge.sh
@@ -192,7 +192,7 @@ steps:
       # Enhanced escalation with unified memory context
       CURRENT_ATTEMPTS="$(npx claude-flow@alpha swarm status --session '$SESSION_ID' --json 2>/dev/null | jq -r '.attempts // 0')"
       if [[ $CURRENT_ATTEMPTS -ge $MAX_ATTEMPTS ]]; then
-        echo "🚨 Escalating to architecture phase after $CURRENT_ATTEMPTS attempts"
+        echo "[U+1F6A8] Escalating to architecture phase after $CURRENT_ATTEMPTS attempts"
         
         # Retrieve architectural intelligence for escalation context
         arch_context=$(scripts/memory_bridge.sh retrieve "intelligence/architecture" "failure_patterns" 2>/dev/null || echo '{}')

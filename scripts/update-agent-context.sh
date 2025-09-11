@@ -183,7 +183,7 @@ EOF
     
     # Move temp file to final location
     mv "$temp_file" "$target_file"
-    echo "✅ $agent_name context file updated successfully"
+    echo "[OK] $agent_name context file updated successfully"
 }
 
 # Update files based on argument or detect existing files

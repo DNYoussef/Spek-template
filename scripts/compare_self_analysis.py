@@ -19,9 +19,9 @@ def main():
     
     args = parser.parse_args()
     
-    print(f"🔍 Comparing self-analysis results...")
-    print(f"📄 Current: {args.current}")
-    print(f"📄 Baseline: {args.baseline}")
+    print(f"[SEARCH] Comparing self-analysis results...")
+    print(f"[U+1F4C4] Current: {args.current}")
+    print(f"[U+1F4C4] Baseline: {args.baseline}")
     
     # Load current results if they exist
     current_data = {}
@@ -30,7 +30,7 @@ def main():
             with open(args.current, 'r') as f:
                 current_data = json.load(f)
         except Exception as e:
-            print(f"⚠️  Could not load current analysis: {e}")
+            print(f"[WARN]  Could not load current analysis: {e}")
     
     # Create comparison result
     comparison = {
@@ -65,8 +65,8 @@ def main():
     with open(args.output, 'w') as f:
         json.dump(comparison, f, indent=2)
     
-    print(f"✅ Comparison completed")
-    print(f"📄 Results saved to {args.output}")
+    print(f"[OK] Comparison completed")
+    print(f"[U+1F4C4] Results saved to {args.output}")
     
     return 0
 

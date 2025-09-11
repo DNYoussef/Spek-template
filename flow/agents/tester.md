@@ -100,7 +100,7 @@ interface ContractTest {
 ```
 
 ### Coverage & Quality Gates
-- **Unit Test Coverage**: ≥90% line coverage, ≥85% branch coverage
+- **Unit Test Coverage**: >=90% line coverage, >=85% branch coverage
 - **Integration Test Coverage**: All API endpoints and critical paths
 - **Property-Based Tests**: For complex business logic and data transformations
 - **Contract Tests**: For all external service integrations
@@ -136,7 +136,7 @@ interface ContractTest {
 ## Quality Gates & Metrics
 
 ### Test Execution Gates
-- [ ] All unit tests pass with ≥90% coverage
+- [ ] All unit tests pass with >=90% coverage
 - [ ] All integration tests pass
 - [ ] All contract tests pass with valid schemas
 - [ ] Performance tests meet established benchmarks
@@ -148,10 +148,10 @@ interface ContractTest {
 ```typescript
 interface TestMetrics {
   coverage: {
-    line: number;        // ≥90%
-    branch: number;      // ≥85%
-    function: number;    // ≥95%
-    statement: number;   // ≥90%
+    line: number;        // >=90%
+    branch: number;      // >=85%
+    function: number;    // >=95%
+    statement: number;   // >=90%
   };
   performance: {
     testExecution: number;  // Total test suite time

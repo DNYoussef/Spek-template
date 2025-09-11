@@ -41,7 +41,7 @@ cleanup_by_ttl() {
         return 0
     fi
     
-    log "🧹 Cleaning sandboxes older than $TTL_HOURS hours..."
+    log "[U+1F9F9] Cleaning sandboxes older than $TTL_HOURS hours..."
     
     # Find directories older than TTL_HOURS
     while IFS= read -r -d '' sandbox; do
@@ -62,7 +62,7 @@ cleanup_by_ttl() {
         fi
     done < <(find "$SANDBOX_DIR" -maxdepth 1 -type d -not -name "$(basename "$SANDBOX_DIR")" -print0 2>/dev/null)
     
-    log "✅ Cleaned $cleaned expired sandboxes"
+    log "[OK] Cleaned $cleaned expired sandboxes"
     return 0
 }
 
@@ -77,7 +77,7 @@ cleanup_by_count() {
     fi
     
     local excess=$(( current_count - MAX_SANDBOXES ))
-    log "🧹 Cleaning $excess oldest sandboxes (current: $current_count, limit: $MAX_SANDBOXES)..."
+    log "[U+1F9F9] Cleaning $excess oldest sandboxes (current: $current_count, limit: $MAX_SANDBOXES)..."
     
     # Get oldest sandboxes by modification time
     while IFS= read -r sandbox; do
@@ -98,13 +98,13 @@ cleanup_by_count() {
         rm -rf "$sandbox" && ((cleaned++)) && ((excess--)) || log "    Warning: Failed to remove $sandbox"
     done < <(find "$SANDBOX_DIR" -maxdepth 1 -type d -not -name "$(basename "$SANDBOX_DIR")" -printf '%T@ %p\n' 2>/dev/null | sort -n | cut -d' ' -f2-)
     
-    log "✅ Cleaned $cleaned sandboxes by count"
+    log "[OK] Cleaned $cleaned sandboxes by count"
 }
 
 # Emergency cleanup for critical disk space
 emergency_cleanup() {
     local disk_free=$(check_disk_space)
-    log "🚨 Emergency cleanup - disk space: $disk_free%"
+    log "[U+1F6A8] Emergency cleanup - disk space: $disk_free%"
     
     # Remove all sandboxes
     if [[ -d "$SANDBOX_DIR" ]]; then
@@ -116,7 +116,7 @@ emergency_cleanup() {
         
         # Remove sandbox directory
         rm -rf "$SANDBOX_DIR"/* 2>/dev/null || true
-        log "✅ Emergency cleanup completed"
+        log "[OK] Emergency cleanup completed"
     fi
     
     # Clean up large artifacts
@@ -125,7 +125,7 @@ emergency_cleanup() {
     
     # Verify space recovery
     local new_disk_free=$(check_disk_space)
-    log "  Disk space recovered: $disk_free% → $new_disk_free%"
+    log "  Disk space recovered: $disk_free% -> $new_disk_free%"
 }
 
 # Generate cleanup report
@@ -134,7 +134,7 @@ generate_report() {
     local disk_free=$(check_disk_space)
     
     cat <<EOF
-📊 Sandbox Janitor Report
+[CHART] Sandbox Janitor Report
 ========================
 Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)
 
@@ -161,7 +161,7 @@ EOF
 
 # Regular maintenance routine
 maintenance() {
-    log "🔧 Starting regular maintenance..."
+    log "[TOOL] Starting regular maintenance..."
     
     # TTL-based cleanup
     cleanup_by_ttl
@@ -172,15 +172,15 @@ maintenance() {
     # Check disk space
     local disk_free=$(check_disk_space)
     if [[ $disk_free -lt 15 ]]; then
-        log "⚠️  Low disk space: $disk_free% - consider emergency cleanup"
+        log "[WARN]  Low disk space: $disk_free% - consider emergency cleanup"
     fi
     
-    log "✅ Maintenance completed"
+    log "[OK] Maintenance completed"
 }
 
 # Integration with CF scheduler
 schedule_maintenance() {
-    log "📅 Scheduling maintenance with CF..."
+    log "[U+1F4C5] Scheduling maintenance with CF..."
     
     # Register with CF scheduler if available
     if command -v "npx claude-flow@alpha" >/dev/null 2>&1; then

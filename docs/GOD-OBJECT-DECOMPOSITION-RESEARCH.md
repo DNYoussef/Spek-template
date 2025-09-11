@@ -9,7 +9,7 @@ Analysis of the codebase reveals 30+ god objects with the largest being:
 3. **ConnascenceAnalyzer** (781 LOC) - Analysis coordination and reporting
 4. **ContextAnalyzer** (603 LOC) - Context classification and domain analysis
 
-**Goal**: Reduce god objects to ≤20 while maintaining functionality and improving maintainability.
+**Goal**: Reduce god objects to <=20 while maintaining functionality and improving maintainability.
 
 ---
 
@@ -88,7 +88,7 @@ class IntegrationPhase(AnalysisPhase):
     def execute(self, context: AnalysisContext) -> AnalysisContext: ...
 ```
 
-**Expected Reduction**: 2,323 → 1,200 LOC total (8 focused classes, ~150 LOC average)
+**Expected Reduction**: 2,323 -> 1,200 LOC total (8 focused classes, ~150 LOC average)
 
 ### 2. ConnascenceDetector (977 LOC)
 
@@ -150,7 +150,7 @@ class ViolationAggregator:
     def prioritize_by_severity(self): ...
 ```
 
-**Expected Reduction**: 977 → 900 LOC total (7 focused classes, ~130 LOC average)
+**Expected Reduction**: 977 -> 900 LOC total (7 focused classes, ~130 LOC average)
 
 ### 3. ConnascenceAnalyzer (781 LOC)
 
@@ -209,7 +209,7 @@ class CacheService:
     def cache_result(self, file_path: Path, result: List[ConnascenceViolation]): ...
 ```
 
-**Expected Reduction**: 781 → 650 LOC total (5 focused classes, ~130 LOC average)
+**Expected Reduction**: 781 -> 650 LOC total (5 focused classes, ~130 LOC average)
 
 ---
 
@@ -592,7 +592,7 @@ class ContextAwareAnalyzerFactory:
 - Total god object LOC: ~19,500
 
 **After Refactoring** (Target):
-- ≤20 god objects (>400 LOC each)  
+- <=20 god objects (>400 LOC each)  
 - Largest class: ~800 LOC (context-appropriate)
 - Average class size: ~200 LOC
 - 60+ focused classes replacing god objects
@@ -685,11 +685,11 @@ class ContextAwareAnalyzerFactory:
 ## Success Metrics
 
 ### Quantitative Targets
-- [ ] Reduce god objects from 30+ to ≤20
-- [ ] Largest class size ≤800 LOC (context-appropriate)
+- [ ] Reduce god objects from 30+ to <=20
+- [ ] Largest class size <=800 LOC (context-appropriate)
 - [ ] Average class size ~200 LOC
-- [ ] Test coverage ≥90% for new components
-- [ ] Performance regression ≤10%
+- [ ] Test coverage >=90% for new components
+- [ ] Performance regression <=10%
 
 ### Qualitative Indicators
 - [ ] Improved code review velocity

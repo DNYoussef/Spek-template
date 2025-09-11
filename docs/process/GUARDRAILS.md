@@ -8,12 +8,12 @@ This document defines the operational guardrails, tripwires, and playbooks for t
 
 | Metric (rolling) | Tripwire | Auto-action |
 |------------------|----------|-------------|
-| Auto-repair attempts / PR | ≥3 | Escalate to planner; disable auto-repair for PR; require `/fix:planned` |
+| Auto-repair attempts / PR | >=3 | Escalate to planner; disable auto-repair for PR; require `/fix:planned` |
 | CI P95 (min) | >15 | Switch to `GATES_PROFILE=light` (changed-files-only); schedule nightly full scans |
 | Waivers open | >10 or age>30d | Open "Rule Pruning" issue; page security-manager to review |
 | Plane sync drift | >1 task mismatch | Block PR open; run `/pm:sync --fix`; add comment with diff |
 | Sandbox count | >10 or disk<15% | Pause auto-repair; run cleanup; alert |
-| Secret-scan hits | ≥1 | Block artifact upload; rotate keys; create SECURITY incident ticket |
+| Secret-scan hits | >=1 | Block artifact upload; rotate keys; create SECURITY incident ticket |
 | PR size | >250 LOC | Force "multi" plan; require architecture steps |
 
 ## Environment Variables

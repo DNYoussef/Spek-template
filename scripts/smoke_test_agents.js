@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-console.log('🧪 Agent Smoke Test Suite - SPEK-AUGMENT v1');
+console.log('[U+1F9EA] Agent Smoke Test Suite - SPEK-AUGMENT v1');
 console.log('==============================================');
 
 // Test agent configurations
@@ -220,11 +220,11 @@ async function runSmokeTests() {
   let passedTests = 0;
   let failedTests = 0;
   
-  console.log(`\n🧪 Running smoke tests for ${AGENT_TESTS.length} agents...\n`);
+  console.log(`\n[U+1F9EA] Running smoke tests for ${AGENT_TESTS.length} agents...\n`);
   
   for (const test of AGENT_TESTS) {
     totalTests++;
-    console.log(`📝 Testing ${test.agent} agent...`);
+    console.log(`[NOTE] Testing ${test.agent} agent...`);
     
     try {
       // Simulate agent response (in real implementation, would call Claude Flow)
@@ -239,24 +239,24 @@ async function runSmokeTests() {
       );
       
       if (errors.length === 0) {
-        console.log(`   ✅ PASS - Valid JSON schema`);
+        console.log(`   [OK] PASS - Valid JSON schema`);
         passedTests++;
       } else {
-        console.log(`   ❌ FAIL - Schema validation errors:`);
-        errors.forEach(error => console.log(`      • ${error}`));
+        console.log(`   [FAIL] FAIL - Schema validation errors:`);
+        errors.forEach(error => console.log(`      [U+2022] ${error}`));
         failedTests++;
       }
       
       if (warnings.length > 0) {
-        console.log(`   ⚠️  Warnings:`);
-        warnings.forEach(warning => console.log(`      • ${warning}`));
+        console.log(`   [WARN]  Warnings:`);
+        warnings.forEach(warning => console.log(`      [U+2022] ${warning}`));
       }
       
       // Show sample response
-      console.log(`   📄 Sample response: ${JSON.stringify(response).slice(0, 100)}...`);
+      console.log(`   [U+1F4C4] Sample response: ${JSON.stringify(response).slice(0, 100)}...`);
       
     } catch (error) {
-      console.log(`   ❌ FAIL - Exception: ${error.message}`);
+      console.log(`   [FAIL] FAIL - Exception: ${error.message}`);
       failedTests++;
     }
     
@@ -264,17 +264,17 @@ async function runSmokeTests() {
   }
   
   // Summary
-  console.log('📊 Smoke Test Results:');
+  console.log('[CHART] Smoke Test Results:');
   console.log(`   Total Tests: ${totalTests}`);
-  console.log(`   ✅ Passed: ${passedTests}`);
-  console.log(`   ❌ Failed: ${failedTests}`);
+  console.log(`   [OK] Passed: ${passedTests}`);
+  console.log(`   [FAIL] Failed: ${failedTests}`);
   console.log(`   Success Rate: ${Math.round((passedTests / totalTests) * 100)}%`);
   
   if (failedTests === 0) {
-    console.log('\n🎉 All agents pass STRICT JSON validation!');
+    console.log('\n[PARTY] All agents pass STRICT JSON validation!');
     process.exit(0);
   } else {
-    console.log(`\n💥 ${failedTests} agent(s) failed validation. Fix schemas before deployment.`);
+    console.log(`\n[U+1F4A5] ${failedTests} agent(s) failed validation. Fix schemas before deployment.`);
     process.exit(1);
   }
 }
@@ -283,7 +283,7 @@ async function runSmokeTests() {
  * Validate agent files exist and have SPEK-AUGMENT markers
  */
 function validateAgentFiles() {
-  console.log('🔍 Validating agent files exist with SPEK-AUGMENT markers...');
+  console.log('[SEARCH] Validating agent files exist with SPEK-AUGMENT markers...');
   
   const agentsDir = '.claude/agents';
   let validFiles = 0;
@@ -303,7 +303,7 @@ function validateAgentFiles() {
         const content = fs.readFileSync(filePath, 'utf8');
         
         if (content.includes('SPEK-AUGMENT v1: header')) {
-          console.log(`   ✅ ${test.agent}: Found with SPEK-AUGMENT v1`);
+          console.log(`   [OK] ${test.agent}: Found with SPEK-AUGMENT v1`);
           validFiles++;
           found = true;
           break;
@@ -312,14 +312,14 @@ function validateAgentFiles() {
     }
     
     if (!found) {
-      console.log(`   ❌ ${test.agent}: Missing or invalid SPEK-AUGMENT v1 markers`);
+      console.log(`   [FAIL] ${test.agent}: Missing or invalid SPEK-AUGMENT v1 markers`);
       invalidFiles++;
     }
   }
   
-  console.log(`\n📊 Agent File Validation:`);
-  console.log(`   ✅ Valid: ${validFiles}`);
-  console.log(`   ❌ Invalid: ${invalidFiles}`);
+  console.log(`\n[CHART] Agent File Validation:`);
+  console.log(`   [OK] Valid: ${validFiles}`);
+  console.log(`   [FAIL] Invalid: ${invalidFiles}`);
   
   return invalidFiles === 0;
 }
@@ -330,14 +330,14 @@ async function main() {
     const filesValid = validateAgentFiles();
     
     if (!filesValid) {
-      console.log('\n⚠️  Some agent files are missing SPEK-AUGMENT v1 markers.');
+      console.log('\n[WARN]  Some agent files are missing SPEK-AUGMENT v1 markers.');
       console.log('   Run the update script first: ./scripts/update_agents_spek_augment.sh');
     }
     
     await runSmokeTests();
     
   } catch (error) {
-    console.error('💥 Smoke test failed:', error.message);
+    console.error('[U+1F4A5] Smoke test failed:', error.message);
     process.exit(1);
   }
 }

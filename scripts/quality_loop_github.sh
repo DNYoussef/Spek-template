@@ -33,24 +33,24 @@ log() {
 }
 
 log_success() {
-    echo -e "${GREEN}[$(date '+%Y-%m-%d %H:%M:%S')] ✅${NC} $*"
+    echo -e "${GREEN}[$(date '+%Y-%m-%d %H:%M:%S')] [OK]${NC} $*"
 }
 
 log_warning() {
-    echo -e "${YELLOW}[$(date '+%Y-%m-%d %H:%M:%S')] ⚠️${NC} $*"
+    echo -e "${YELLOW}[$(date '+%Y-%m-%d %H:%M:%S')] [WARN]${NC} $*"
 }
 
 log_error() {
-    echo -e "${RED}[$(date '+%Y-%m-%d %H:%M:%S')] ❌${NC} $*"
+    echo -e "${RED}[$(date '+%Y-%m-%d %H:%M:%S')] [FAIL]${NC} $*"
 }
 
 log_info() {
-    echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ℹ️${NC} $*"
+    echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] i[U+FE0F]${NC} $*"
 }
 
 # Phase 1: Discover Issues - Comprehensive GitHub Check Analysis
 discover_github_failures() {
-    log "🔍 Phase 1: Discovering GitHub check failures..."
+    log "[SEARCH] Phase 1: Discovering GitHub check failures..."
     
     # Fetch recent workflow runs
     log_info "Fetching recent GitHub workflow runs..."
@@ -97,7 +97,7 @@ EOF
 
 # Phase 2: Smart Analysis & Prioritization
 analyze_and_prioritize() {
-    log "🧠 Phase 2: Smart analysis and prioritization..."
+    log "[BRAIN] Phase 2: Smart analysis and prioritization..."
     
     # Use Gemini for large-context impact analysis
     log_info "Running Gemini large-context impact analysis..."
@@ -135,7 +135,7 @@ EOF
 
 # Phase 3: Surgical Implementation Strategy
 implement_fixes() {
-    log "⚡ Phase 3: Surgical implementation strategy..."
+    log "[LIGHTNING] Phase 3: Surgical implementation strategy..."
     
     local attempt_number="${1:-1}"
     
@@ -167,7 +167,7 @@ EOF
 
 # Phase 4: Comprehensive Testing & Verification  
 test_and_verify() {
-    log "🔬 Phase 4: Comprehensive testing and verification..."
+    log "[SCIENCE] Phase 4: Comprehensive testing and verification..."
     
     # Initialize verification results
     cat > "$ARTIFACTS_DIR/verification_results.json" << EOF
@@ -229,7 +229,7 @@ EOF
 
 # Phase 5: Measurement & Reality Validation
 measure_and_validate() {
-    log "📊 Phase 5: Measurement and reality validation..."
+    log "[CHART] Phase 5: Measurement and reality validation..."
     
     # Create measurement results
     cat > "$ARTIFACTS_DIR/measurement_results.json" << EOF
@@ -287,7 +287,7 @@ EOF
 
 # Phase 6: Iterative Improvement & Learning
 iterate_and_learn() {
-    log "🔄 Phase 6: Iterative improvement and learning..."
+    log "[CYCLE] Phase 6: Iterative improvement and learning..."
     
     local current_attempt="$1"
     local max_attempts="$2"
@@ -329,7 +329,7 @@ EOF
 
 # GitHub Integration - Create PR with evidence
 create_evidence_pr() {
-    log "📋 Creating evidence-rich pull request..."
+    log "[CLIPBOARD] Creating evidence-rich pull request..."
     
     # Check if there are changes to commit
     if [[ -z "$(git status --porcelain)" ]]; then
@@ -351,7 +351,7 @@ fix: Quality loop improvements with architectural guidance
 This commit addresses multiple quality gate failures through systematic
 analysis and surgical fixes:
 
-🔧 Quality Gates Addressed:
+[TOOL] Quality Gates Addressed:
 - Tests: Fixed failing test cases
 - TypeScript: Resolved compilation errors  
 - Linting: Code style improvements
@@ -359,19 +359,19 @@ analysis and surgical fixes:
 - Connascence: Reduced coupling violations
 - Architecture: Improved structural quality
 
-🏗️ Architectural Improvements:
+[BUILD] Architectural Improvements:
 - Reduced god object violations
 - Improved MECE duplication score
 - Enhanced NASA compliance rating
 - Optimized detector pool performance
 
-📊 Evidence Package:
+[CHART] Evidence Package:
 - Complete quality gate results in .claude/.artifacts/
 - Performance benchmarks and metrics
 - Architectural analysis with recommendations
 - Reality validation and theater detection results
 
-🚀 Generated with Claude Code and SPEK Quality Loop
+[ROCKET] Generated with Claude Code and SPEK Quality Loop
 Co-Authored-By: Claude <noreply@anthropic.com>
 EOF
 )"
@@ -381,36 +381,36 @@ EOF
     
     # Create PR with evidence
     gh pr create \
-        --title "🔧 Quality Loop Fixes: Comprehensive Quality Gate Improvements" \
+        --title "[TOOL] Quality Loop Fixes: Comprehensive Quality Gate Improvements" \
         --body "$(cat <<EOF
-## 🔍 Quality Loop Analysis Summary
+## [SEARCH] Quality Loop Analysis Summary
 
 This PR addresses systematic quality gate failures through architectural intelligence and surgical fixes.
 
-### 🎯 Quality Gates Addressed
+### [TARGET] Quality Gates Addressed
 
 #### Critical Gates (Must Pass)
-- ✅ **Tests**: All test cases now passing
-- ✅ **TypeScript**: Zero compilation errors
-- ✅ **Security**: Critical vulnerabilities resolved
-- ✅ **NASA Compliance**: ≥90% Power of Ten compliance achieved
-- ✅ **God Objects**: Reduced to ≤25 threshold
-- ✅ **Critical Violations**: ≤50 connascence violations
+- [OK] **Tests**: All test cases now passing
+- [OK] **TypeScript**: Zero compilation errors
+- [OK] **Security**: Critical vulnerabilities resolved
+- [OK] **NASA Compliance**: >=90% Power of Ten compliance achieved
+- [OK] **God Objects**: Reduced to <=25 threshold
+- [OK] **Critical Violations**: <=50 connascence violations
 
 #### Quality Gates (Improved)  
-- 🔧 **Linting**: Code style improvements
-- 📊 **MECE Score**: Duplication analysis ≥0.75
-- 🏗️ **Architecture Health**: Structural quality ≥0.75
-- ⚡ **Performance**: Cache and resource optimization
+- [TOOL] **Linting**: Code style improvements
+- [CHART] **MECE Score**: Duplication analysis >=0.75
+- [BUILD] **Architecture Health**: Structural quality >=0.75
+- [LIGHTNING] **Performance**: Cache and resource optimization
 
-### 🏗️ Architectural Intelligence Applied
+### [BUILD] Architectural Intelligence Applied
 
 - **Detector Pool Optimization**: 40-50% analysis speed improvement
 - **Smart Recommendations**: AI-powered architectural guidance implemented
 - **Cross-Component Analysis**: Hotspot detection and coupling reduction
 - **Performance Monitoring**: Resource tracking and optimization
 
-### 📊 Evidence Package
+### [CHART] Evidence Package
 
 Complete analysis artifacts available in \`.claude/.artifacts/\`:
 - **Quality Gate Results**: Comprehensive pass/fail analysis
@@ -419,7 +419,7 @@ Complete analysis artifacts available in \`.claude/.artifacts/\`:
 - **Security Scanning**: SARIF reports and vulnerability analysis
 - **Reality Validation**: Theater detection and completion verification
 
-### 🔄 Quality Loop Process
+### [CYCLE] Quality Loop Process
 
 This PR was generated through the SPEK Quality Improvement Loop:
 1. **Discover**: GitHub check failure analysis
@@ -429,17 +429,17 @@ This PR was generated through the SPEK Quality Improvement Loop:
 5. **Measure**: Reality validation and performance tracking
 6. **Iterate**: Continuous improvement until gates pass
 
-### 🧪 Test Plan
+### [U+1F9EA] Test Plan
 
 - [ ] All existing tests pass
 - [ ] TypeScript compilation succeeds
 - [ ] Security scan shows no critical/high findings
-- [ ] NASA compliance ≥90%
-- [ ] God objects ≤25
-- [ ] Connascence violations ≤50
-- [ ] Architecture health score ≥0.75
+- [ ] NASA compliance >=90%
+- [ ] God objects <=25
+- [ ] Connascence violations <=50
+- [ ] Architecture health score >=0.75
 
-🚀 Generated with Claude Code SPEK Quality Loop
+[ROCKET] Generated with Claude Code SPEK Quality Loop
 EOF
 )" \
         --assignee @me \
@@ -450,7 +450,7 @@ EOF
 
 # Main Quality Loop Execution
 main() {
-    log "🚀 Starting SPEK Quality Improvement Loop with GitHub Integration"
+    log "[ROCKET] Starting SPEK Quality Improvement Loop with GitHub Integration"
     log_info "Session ID: $SESSION_ID"
     log_info "Max Attempts: $MAX_ATTEMPTS"
     
@@ -459,7 +459,7 @@ main() {
     local loop_success=false
     
     while [[ $current_attempt -le $MAX_ATTEMPTS ]]; do
-        log "📋 Quality Loop Iteration $current_attempt of $MAX_ATTEMPTS"
+        log "[CLIPBOARD] Quality Loop Iteration $current_attempt of $MAX_ATTEMPTS"
         
         # Phase 1: Discover Issues
         discover_github_failures
@@ -475,7 +475,7 @@ main() {
         
         # Phase 5: Measurement & Reality Validation
         if measure_and_validate; then
-            log_success "🎉 Quality gates passed! Creating evidence-rich PR..."
+            log_success "[PARTY] Quality gates passed! Creating evidence-rich PR..."
             create_evidence_pr
             loop_success=true
             break
@@ -498,10 +498,10 @@ main() {
     
     # Final status
     if [[ "$loop_success" == "true" ]]; then
-        log_success "🏆 Quality Improvement Loop completed successfully!"
+        log_success "[U+1F3C6] Quality Improvement Loop completed successfully!"
         exit 0
     else
-        log_error "❌ Quality Improvement Loop failed after $MAX_ATTEMPTS attempts"
+        log_error "[FAIL] Quality Improvement Loop failed after $MAX_ATTEMPTS attempts"
         log_error "Review artifacts in $ARTIFACTS_DIR/ for detailed analysis"
         exit 1
     fi

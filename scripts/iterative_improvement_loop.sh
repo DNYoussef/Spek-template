@@ -20,12 +20,12 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
-log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] ✅${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] ⚠️${NC} $*"; }
-log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] ❌${NC} $*"; }
-log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] ℹ️${NC} $*"; }
-log_phase() { echo -e "${PURPLE}[$(date '+%H:%M:%S')] 🔄${NC} $*"; }
-log_header() { echo -e "${BOLD}${BLUE}[$(date '+%H:%M:%S')] 🚀${NC}${BOLD} $*${NC}"; }
+log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] [OK]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] [WARN]${NC} $*"; }
+log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] [FAIL]${NC} $*"; }
+log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] i[U+FE0F]${NC} $*"; }
+log_phase() { echo -e "${PURPLE}[$(date '+%H:%M:%S')] [CYCLE]${NC} $*"; }
+log_header() { echo -e "${BOLD}${BLUE}[$(date '+%H:%M:%S')] [ROCKET]${NC}${BOLD} $*${NC}"; }
 
 # Global Configuration
 export HIVE_NAMESPACE="${HIVE_NAMESPACE:-spek/iterative-loop/$(date +%Y%m%d)}"
@@ -86,7 +86,7 @@ EOF
 execute_loop_iteration() {
     local iteration_number="$1"
     
-    log_phase "🔄 Executing Loop Iteration $iteration_number of $MAX_ITERATIONS"
+    log_phase "[CYCLE] Executing Loop Iteration $iteration_number of $MAX_ITERATIONS"
     
     # Create iteration tracking
     local iteration_start
@@ -155,7 +155,7 @@ EOF
 # Execute Discovery Phase
 execute_discovery_phase() {
     local iteration_number="$1"
-    log_info "🔍 Phase 1: Discovery - GitHub Check Analysis"
+    log_info "[SEARCH] Phase 1: Discovery - GitHub Check Analysis"
     
     local phase_start
     phase_start=$(date +%s)
@@ -190,7 +190,7 @@ execute_discovery_phase() {
 # Execute Analysis Phase
 execute_analysis_phase() {
     local iteration_number="$1"
-    log_info "🧠 Phase 2: Analysis - Intelligent Failure Analysis"
+    log_info "[BRAIN] Phase 2: Analysis - Intelligent Failure Analysis"
     
     local phase_start
     phase_start=$(date +%s)
@@ -234,7 +234,7 @@ EOF
 # Execute Implementation Phase
 execute_implementation_phase() {
     local iteration_number="$1"
-    log_info "⚡ Phase 3: Implementation - Surgical Fixes"
+    log_info "[LIGHTNING] Phase 3: Implementation - Surgical Fixes"
     
     local phase_start
     phase_start=$(date +%s)
@@ -329,7 +329,7 @@ EOF
 # Execute Verification Phase
 execute_verification_phase() {
     local iteration_number="$1"
-    log_info "🔬 Phase 4: Verification - Comprehensive Testing"
+    log_info "[SCIENCE] Phase 4: Verification - Comprehensive Testing"
     
     local phase_start
     phase_start=$(date +%s)
@@ -400,7 +400,7 @@ run_basic_verification() {
 # Execute Measurement Phase
 execute_measurement_phase() {
     local iteration_number="$1"
-    log_info "📊 Phase 5: Measurement - Reality Validation"
+    log_info "[CHART] Phase 5: Measurement - Reality Validation"
     
     local phase_start
     phase_start=$(date +%s)
@@ -475,7 +475,7 @@ EOF
 # Execute Learning Phase
 execute_learning_phase() {
     local iteration_number="$1"
-    log_info "🧠 Phase 6: Learning - Pattern Recognition"
+    log_info "[BRAIN] Phase 6: Learning - Pattern Recognition"
     
     local phase_start
     phase_start=$(date +%s)
@@ -637,7 +637,7 @@ evaluate_iteration_results() {
 
 # Create Evidence-Rich Pull Request
 create_evidence_pr() {
-    log_info "📋 Creating evidence-rich pull request..."
+    log_info "[CLIPBOARD] Creating evidence-rich pull request..."
     
     # Check if there are changes to commit
     if [[ -z "$(git status --porcelain)" ]]; then
@@ -663,30 +663,30 @@ This commit represents systematic quality improvements achieved through the
 SPEK (Specification-Research-Planning-Execution-Knowledge) iterative loop
 with comprehensive GitHub integration and reality validation.
 
-🔄 Loop Summary:
+[CYCLE] Loop Summary:
 - Total iterations: $current_iteration
 - Session ID: $SESSION_ID
 - Quality gates achieved through surgical fixes and verification
 
-🎯 Quality Improvements:
+[TARGET] Quality Improvements:
 - Comprehensive testing and verification pipeline
 - Reality validation with theater detection
 - Intelligent failure analysis and routing
 - Surgical fix implementation with safety mechanisms
 
-📊 Evidence Package:
+[CHART] Evidence Package:
 - Complete iteration history in .claude/.artifacts/
 - Quality measurement and reality validation results
 - Pattern recognition and learning outcomes
 - GitHub workflow integration and failure analysis
 
-🔧 Technical Enhancements:
+[TOOL] Technical Enhancements:
 - Enhanced project structure and configuration
 - Improved test coverage and reliability
 - Better error handling and validation
 - Optimized CI/CD integration
 
-🚀 Generated with Claude Code SPEK Iterative Quality Loop
+[ROCKET] Generated with Claude Code SPEK Iterative Quality Loop
 Co-Authored-By: Claude <noreply@anthropic.com>
 EOF
 )"
@@ -700,13 +700,13 @@ EOF
         reality_score=$(jq '.quality_gates.reality_score' "$ARTIFACTS_DIR/loop_state.json")
         
         gh pr create \
-            --title "🔄 Iterative Quality Improvements: $current_iteration SPEK Loop Iterations" \
+            --title "[CYCLE] Iterative Quality Improvements: $current_iteration SPEK Loop Iterations" \
             --body "$(cat <<EOF
-## 🔄 SPEK Iterative Quality Loop Results
+## [CYCLE] SPEK Iterative Quality Loop Results
 
 This PR contains systematic quality improvements achieved through **$current_iteration iterations** of the SPEK (Specification-Research-Planning-Execution-Knowledge) iterative improvement loop with comprehensive GitHub integration.
 
-### 📊 Quality Achievement Summary
+### [CHART] Quality Achievement Summary
 
 - **Reality Score**: $reality_score/100
 - **Total Iterations**: $current_iteration
@@ -714,33 +714,33 @@ This PR contains systematic quality improvements achieved through **$current_ite
 - **Critical Gates**: $(jq -r '.quality_gates.critical_gates_passed' "$ARTIFACTS_DIR/loop_state.json" | tr 'a-z' 'A-Z')
 - **Quality Gates**: $(jq -r '.quality_gates.quality_gates_passed' "$ARTIFACTS_DIR/loop_state.json" | tr 'a-z' 'A-Z')
 
-### 🎯 Loop Phases Executed
+### [TARGET] Loop Phases Executed
 
 Each iteration systematically executed 6 phases:
 
-1. **🔍 Discovery**: GitHub check failure analysis and artifact collection
-2. **🧠 Analysis**: Intelligent failure routing with architectural context
-3. **⚡ Implementation**: Surgical fixes with complexity-based routing
-4. **🔬 Verification**: Comprehensive testing and quality gate validation
-5. **📊 Measurement**: Reality validation with theater detection
-6. **🧠 Learning**: Pattern recognition and effectiveness tracking
+1. **[SEARCH] Discovery**: GitHub check failure analysis and artifact collection
+2. **[BRAIN] Analysis**: Intelligent failure routing with architectural context
+3. **[LIGHTNING] Implementation**: Surgical fixes with complexity-based routing
+4. **[SCIENCE] Verification**: Comprehensive testing and quality gate validation
+5. **[CHART] Measurement**: Reality validation with theater detection
+6. **[BRAIN] Learning**: Pattern recognition and effectiveness tracking
 
-### 🏗️ Quality Improvements Delivered
+### [BUILD] Quality Improvements Delivered
 
 #### Critical Quality Gates
-- ✅ **Tests**: All test cases now passing
-- ✅ **TypeScript**: Zero compilation errors achieved
-- ✅ **Security**: Critical vulnerabilities resolved
-- ✅ **Project Structure**: Valid configuration and module structure
-- ✅ **File Integrity**: JSON validity and syntax correctness
+- [OK] **Tests**: All test cases now passing
+- [OK] **TypeScript**: Zero compilation errors achieved
+- [OK] **Security**: Critical vulnerabilities resolved
+- [OK] **Project Structure**: Valid configuration and module structure
+- [OK] **File Integrity**: JSON validity and syntax correctness
 
 #### Quality Enhancements  
-- 🔧 **Linting**: Code style improvements applied
-- 📊 **Metrics**: Quality scoring and measurement system
-- 🎭 **Reality Validation**: Theater detection and completion verification
-- 🔄 **Process**: Iterative improvement with learning integration
+- [TOOL] **Linting**: Code style improvements applied
+- [CHART] **Metrics**: Quality scoring and measurement system
+- [U+1F3AD] **Reality Validation**: Theater detection and completion verification
+- [CYCLE] **Process**: Iterative improvement with learning integration
 
-### 🎭 Reality Validation Results
+### [U+1F3AD] Reality Validation Results
 
 The system performed comprehensive theater detection across 5 categories:
 - **Code Theater**: Verified genuine implementation vs. mock-heavy patterns
@@ -749,7 +749,7 @@ The system performed comprehensive theater detection across 5 categories:
 - **Security Theater**: Verified actual security fixes vs. cosmetic changes
 - **Performance Theater**: Validated performance claims with measurements
 
-### 🔬 Evidence Package
+### [SCIENCE] Evidence Package
 
 Complete evidence trail available in \`.claude/.artifacts/\`:
 
@@ -768,7 +768,7 @@ Complete evidence trail available in \`.claude/.artifacts/\`:
 - **\`basic_verification_N.json\`**: Verification results per iteration
 - **\`iteration_learnings_N.json\`**: Learning outcomes per iteration
 
-### 🧪 Verification & Testing
+### [U+1F9EA] Verification & Testing
 
 All changes have been systematically verified through:
 - **Iterative Testing**: Quality gates validated at each iteration
@@ -776,7 +776,7 @@ All changes have been systematically verified through:
 - **Evidence Correlation**: Cross-validation of improvement claims
 - **Pattern Recognition**: Learning from successful and failed approaches
 
-### 🔄 Iterative Process Benefits
+### [CYCLE] Iterative Process Benefits
 
 - **Systematic Improvement**: Each iteration builds on previous learnings
 - **Risk Mitigation**: Bounded changes with rollback capabilities  
@@ -784,7 +784,7 @@ All changes have been systematically verified through:
 - **Reality Validated**: Comprehensive theater detection prevents fake improvements
 - **GitHub Integrated**: Seamless CI/CD integration with workflow analysis
 
-### 🚀 Next Steps
+### [ROCKET] Next Steps
 
 - [ ] Monitor quality metrics in production
 - [ ] Continue iterative improvements based on usage patterns
@@ -793,9 +793,9 @@ All changes have been systematically verified through:
 
 ---
 
-**🔄 Generated by SPEK Iterative Quality Loop**  
-**⚡ Powered by Claude Code + GitHub Integration**  
-**🎭 Reality Validated with Theater Detection**
+**[CYCLE] Generated by SPEK Iterative Quality Loop**  
+**[LIGHTNING] Powered by Claude Code + GitHub Integration**  
+**[U+1F3AD] Reality Validated with Theater Detection**
 
 EOF
 )" \
@@ -821,17 +821,17 @@ display_loop_summary() {
     
     # Display comprehensive results using jq
     jq -r '
-    "🕐 Session Duration: " + ((.iterations | map(.duration) | add) | tostring) + "s across " + (.current_iteration | tostring) + " iterations",
-    "📊 Final Reality Score: " + (.quality_gates.reality_score | tostring) + "/100",
-    "🎯 Critical Gates: " + (.quality_gates.critical_gates_passed | tostring | ascii_upcase),
-    "🔄 Quality Gates: " + (.quality_gates.quality_gates_passed | tostring | ascii_upcase),
+    "[U+1F550] Session Duration: " + ((.iterations | map(.duration) | add) | tostring) + "s across " + (.current_iteration | tostring) + " iterations",
+    "[CHART] Final Reality Score: " + (.quality_gates.reality_score | tostring) + "/100",
+    "[TARGET] Critical Gates: " + (.quality_gates.critical_gates_passed | tostring | ascii_upcase),
+    "[CYCLE] Quality Gates: " + (.quality_gates.quality_gates_passed | tostring | ascii_upcase),
     "",
-    "📈 Iteration Performance:",
+    "[TREND] Iteration Performance:",
     (.iterations[] | "  Iteration " + (.iteration | tostring) + ": " + (.duration | tostring) + "s"),
     "",
-    "🎭 GitHub Integration: " + (.github_integration.enabled | tostring | ascii_upcase),
-    "🔗 Session ID: " + .session_id,
-    "📁 Artifacts Location: .claude/.artifacts/",
+    "[U+1F3AD] GitHub Integration: " + (.github_integration.enabled | tostring | ascii_upcase),
+    "[U+1F517] Session ID: " + .session_id,
+    "[FOLDER] Artifacts Location: .claude/.artifacts/",
     ""
     ' "$ARTIFACTS_DIR/loop_state.json"
     
@@ -840,15 +840,15 @@ display_loop_summary() {
     final_status=$(jq -r '.quality_gates.critical_gates_passed' "$ARTIFACTS_DIR/loop_state.json")
     
     if [[ "$final_status" == "true" ]]; then
-        log_success "🏆 Iterative Quality Loop: SUCCESS"
-        log_success "🚀 Ready for deployment with evidence-rich PR"
+        log_success "[U+1F3C6] Iterative Quality Loop: SUCCESS"
+        log_success "[ROCKET] Ready for deployment with evidence-rich PR"
     else
-        log_warning "⚠️  Iterative Quality Loop: PARTIAL SUCCESS"
-        log_info "💡 Consider additional iterations or manual intervention"
+        log_warning "[WARN]  Iterative Quality Loop: PARTIAL SUCCESS"
+        log_info "[INFO] Consider additional iterations or manual intervention"
     fi
     
     echo
-    log_info "📋 Complete evidence package available in: $ARTIFACTS_DIR/"
+    log_info "[CLIPBOARD] Complete evidence package available in: $ARTIFACTS_DIR/"
 }
 
 # Main Iterative Loop Execution
@@ -868,14 +868,14 @@ main() {
     local loop_success=false
     
     while [[ $iteration -le $MAX_ITERATIONS ]]; do
-        log_phase "🔄 Starting Iteration $iteration of $MAX_ITERATIONS"
+        log_phase "[CYCLE] Starting Iteration $iteration of $MAX_ITERATIONS"
         
         # Execute single iteration
         execute_loop_iteration "$iteration"
         
         # Check if we achieved success
         if evaluate_iteration_results "$iteration"; then
-            log_success "🎉 Quality gates achieved in $iteration iterations!"
+            log_success "[PARTY] Quality gates achieved in $iteration iterations!"
             loop_success=true
             break
         else
@@ -910,8 +910,8 @@ main() {
            "$ARTIFACTS_DIR/loop_state.json" > "${ARTIFACTS_DIR}/loop_state.json.tmp"
         mv "${ARTIFACTS_DIR}/loop_state.json.tmp" "$ARTIFACTS_DIR/loop_state.json"
         
-        log_error "❌ Maximum iterations reached without achieving all quality gates"
-        log_info "💡 Manual intervention may be required for remaining issues"
+        log_error "[FAIL] Maximum iterations reached without achieving all quality gates"
+        log_info "[INFO] Manual intervention may be required for remaining issues"
         
         # Display partial success summary
         display_loop_summary

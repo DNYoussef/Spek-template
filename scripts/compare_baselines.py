@@ -19,9 +19,9 @@ def main():
     
     args = parser.parse_args()
     
-    print(f"📊 Comparing analysis baselines...")
-    print(f"📄 Current: {args.current}")
-    print(f"📄 Previous: {args.previous}")
+    print(f"[CHART] Comparing analysis baselines...")
+    print(f"[U+1F4C4] Current: {args.current}")
+    print(f"[U+1F4C4] Previous: {args.previous}")
     
     # Create baseline trends analysis
     trends = {
@@ -68,8 +68,8 @@ def main():
     with open(args.output, 'w') as f:
         json.dump(trends, f, indent=2)
     
-    print(f"✅ Baseline comparison completed")
-    print(f"📈 Trends saved to {args.output}")
+    print(f"[OK] Baseline comparison completed")
+    print(f"[TREND] Trends saved to {args.output}")
     
     return 0
 

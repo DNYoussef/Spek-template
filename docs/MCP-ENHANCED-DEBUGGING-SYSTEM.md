@@ -1,10 +1,10 @@
 # MCP Enhanced Debugging System - Complete Implementation Guide
 
-## 🚀 Overview
+## [ROCKET] Overview
 
 The SPEK template now includes an advanced MCP server debugging and auto-healing system that uses AI-powered failure analysis, pattern recognition, and self-recovery strategies. This system leverages available MCP servers (Sequential Thinking, Memory, WebSearch) to intelligently diagnose and fix MCP installation failures.
 
-## 🎯 Key Features
+## [TARGET] Key Features
 
 ### 1. Intelligent Failure Pattern Recognition
 - **Pattern-based Error Analysis**: Automatically categorizes failures (network, auth, permission, version compatibility)
@@ -27,7 +27,7 @@ The SPEK template now includes an advanced MCP server debugging and auto-healing
 - **Authentication Verification**: Confirms Claude CLI auth status
 - **Configuration Validation**: Ensures proper environment variable setup
 
-## 📁 Implementation Files
+## [FOLDER] Implementation Files
 
 ### Enhanced Scripts
 - **`scripts/mcp-auto-init.sh`** - Enhanced Bash version with intelligent debugging
@@ -37,12 +37,12 @@ The SPEK template now includes an advanced MCP server debugging and auto-healing
 ### Diagnostic Data Structure
 ```
 $HOME/.claude/
-├── mcp-diagnostics.log           # Detailed failure and success logs
-├── mcp-failure-patterns.json     # Machine-readable failure pattern database
-└── mcp-success-metrics.json      # Success pattern analysis for optimization
+[U+251C][U+2500][U+2500] mcp-diagnostics.log           # Detailed failure and success logs
+[U+251C][U+2500][U+2500] mcp-failure-patterns.json     # Machine-readable failure pattern database
+[U+2514][U+2500][U+2500] mcp-success-metrics.json      # Success pattern analysis for optimization
 ```
 
-## 🔧 Usage Guide
+## [TOOL] Usage Guide
 
 ### Basic Commands (Cross-Platform)
 
@@ -87,7 +87,7 @@ npm run mcp:diagnose     # Cross-platform diagnostics
 npm run mcp:repair       # Cross-platform repair
 ```
 
-## 🧠 Intelligent Debugging Features
+## [BRAIN] Intelligent Debugging Features
 
 ### 1. Pattern-Based Error Classification
 
@@ -166,107 +166,107 @@ Attempt 3: Wait 6 seconds + comprehensive diagnostic
 - **Authentication Refresh**: Attempts to refresh expired tokens
 - **Network Validation**: Tests and reports connectivity issues
 
-## 📊 Diagnostic Output Examples
+## [CHART] Diagnostic Output Examples
 
 ### Successful Initialization
 ```
-[INFO] 🚀 Initializing Tier 1: Core Infrastructure MCPs (Enhanced)
-[INFO] 🔧 Initializing memory (priority: 1)
-[SUCCESS] ✅ memory MCP initialized successfully
-[INFO] 🔧 Initializing sequential-thinking (priority: 2)
-[SUCCESS] ✅ sequential-thinking MCP initialized successfully
-[SUCCESS] 🎉 All MCP servers initialized successfully!
-[INFO] 🚀 Your development environment is fully optimized for:
-[INFO]    • Persistent memory across sessions
-[INFO]    • Structured reasoning and analysis
-[INFO]    • Swarm coordination (2.8-4.4x speed boost)
-[INFO]    • Seamless GitHub integration
-[INFO]    • Large-context architectural analysis
+[INFO] [ROCKET] Initializing Tier 1: Core Infrastructure MCPs (Enhanced)
+[INFO] [TOOL] Initializing memory (priority: 1)
+[SUCCESS] [OK] memory MCP initialized successfully
+[INFO] [TOOL] Initializing sequential-thinking (priority: 2)
+[SUCCESS] [OK] sequential-thinking MCP initialized successfully
+[SUCCESS] [PARTY] All MCP servers initialized successfully!
+[INFO] [ROCKET] Your development environment is fully optimized for:
+[INFO]    [U+2022] Persistent memory across sessions
+[INFO]    [U+2022] Structured reasoning and analysis
+[INFO]    [U+2022] Swarm coordination (2.8-4.4x speed boost)
+[INFO]    [U+2022] Seamless GitHub integration
+[INFO]    [U+2022] Large-context architectural analysis
 ```
 
 ### Intelligent Failure Analysis
 ```
 [WARNING] memory MCP server failed (attempt 1/3)
-[INFO] 🔍 Analyzing failure patterns for intelligent fix suggestions...
-[INFO] 🌐 Network-related failure detected
-       💡 Try: Check internet connection, proxy settings, firewall rules
-       💡 Try: curl -I https://api.anthropic.com (test connectivity)
-       💡 Try: export https_proxy=your_proxy if behind corporate firewall
-[INFO] 🧠 Running intelligent failure analysis using available MCP servers...
-[INFO] 🔬 Researching solutions for memory installation issues...
-[INFO] 📚 Manual research suggestions:
-       🔍 Search GitHub issues: https://github.com/search?q="memory+MCP+server"+error
-       🔍 Check official docs: https://docs.anthropic.com/claude-code/mcp
+[INFO] [SEARCH] Analyzing failure patterns for intelligent fix suggestions...
+[INFO] [GLOBE] Network-related failure detected
+       [INFO] Try: Check internet connection, proxy settings, firewall rules
+       [INFO] Try: curl -I https://api.anthropic.com (test connectivity)
+       [INFO] Try: export https_proxy=your_proxy if behind corporate firewall
+[INFO] [BRAIN] Running intelligent failure analysis using available MCP servers...
+[INFO] [SCIENCE] Researching solutions for memory installation issues...
+[INFO] [U+1F4DA] Manual research suggestions:
+       [SEARCH] Search GitHub issues: https://github.com/search?q="memory+MCP+server"+error
+       [SEARCH] Check official docs: https://docs.anthropic.com/claude-code/mcp
 ```
 
 ### Comprehensive Diagnostics
 ```
-[INFO] 🔍 Running comprehensive MCP diagnostic analysis...
-[INFO] 📊 System Environment Analysis:
-       • Operating System: Linux x86_64
-       • Node.js Version: v20.11.0
-       • Claude CLI Version: 1.2.3
-       • Shell: /bin/bash
-       • Current User: developer
-       • Home Directory: /home/developer
-[SUCCESS] ✅ Claude authentication is valid
-[SUCCESS] ✅ Anthropic API reachable
-[INFO] 🤖 Current MCP Server Analysis:
+[INFO] [SEARCH] Running comprehensive MCP diagnostic analysis...
+[INFO] [CHART] System Environment Analysis:
+       [U+2022] Operating System: Linux x86_64
+       [U+2022] Node.js Version: v20.11.0
+       [U+2022] Claude CLI Version: 1.2.3
+       [U+2022] Shell: /bin/bash
+       [U+2022] Current User: developer
+       [U+2022] Home Directory: /home/developer
+[SUCCESS] [OK] Claude authentication is valid
+[SUCCESS] [OK] Anthropic API reachable
+[INFO] [U+1F916] Current MCP Server Analysis:
        memory: Ready
        sequential-thinking: Ready
        claude-flow: Ready
-[INFO] 📋 Diagnostic Log Analysis:
-       • Log file: /home/developer/.claude/mcp-diagnostics.log
-       • Log entries: 25
-       • Recent failures: None found
+[INFO] [CLIPBOARD] Diagnostic Log Analysis:
+       [U+2022] Log file: /home/developer/.claude/mcp-diagnostics.log
+       [U+2022] Log entries: 25
+       [U+2022] Recent failures: None found
 ```
 
-## 🛠️ Troubleshooting Common Issues
+## [U+1F6E0][U+FE0F] Troubleshooting Common Issues
 
 ### Issue: "Claude Code CLI not found"
 **Enhanced Response:**
 ```
 [ERROR] Claude Code CLI not found. Please install Claude Code first.
-[INFO] 💡 Installation help:
-       • Visit: https://claude.ai/code
-       • Or run: curl -fsSL https://claude.ai/download/cli | sh
+[INFO] [INFO] Installation help:
+       [U+2022] Visit: https://claude.ai/code
+       [U+2022] Or run: curl -fsSL https://claude.ai/download/cli | sh
 ```
 
 ### Issue: Network connectivity problems
 **Enhanced Response:**
 ```
-[INFO] 🌐 Testing network connectivity...
-[WARNING] ⚠️ Cannot reach Anthropic API
-[INFO] 💡 Check: Internet connection, proxy settings, firewall rules
-[INFO] 🔬 Researching solutions for network installation issues...
-[INFO] 🔧 Attempting auto-repair for network_error...
+[INFO] [GLOBE] Testing network connectivity...
+[WARNING] [WARN] Cannot reach Anthropic API
+[INFO] [INFO] Check: Internet connection, proxy settings, firewall rules
+[INFO] [SCIENCE] Researching solutions for network installation issues...
+[INFO] [TOOL] Attempting auto-repair for network_error...
 ```
 
 ### Issue: Authentication failures
 **Enhanced Response:**
 ```
-[INFO] 🔐 Authentication failure detected
-[INFO] 💡 Try: claude auth login (re-authenticate)
-[INFO] 💡 Try: Check if API keys are properly configured
-[INFO] 💡 Try: claude auth status (verify auth status)
-[INFO] 🔧 Attempting authentication refresh...
+[INFO] [LOCK] Authentication failure detected
+[INFO] [INFO] Try: claude auth login (re-authenticate)
+[INFO] [INFO] Try: Check if API keys are properly configured
+[INFO] [INFO] Try: claude auth status (verify auth status)
+[INFO] [TOOL] Attempting authentication refresh...
 ```
 
-## 📈 Performance Benefits
+## [TREND] Performance Benefits
 
 ### Before Enhancement
-- ❌ Generic error messages with no context
-- ❌ Manual troubleshooting required for each failure
-- ❌ No learning from previous issues
-- ❌ Limited diagnostic information
+- [FAIL] Generic error messages with no context
+- [FAIL] Manual troubleshooting required for each failure
+- [FAIL] No learning from previous issues
+- [FAIL] Limited diagnostic information
 
 ### After Enhancement
-- ✅ **Intelligent Error Analysis**: Context-aware diagnostic messages
-- ✅ **Self-Healing Capabilities**: Automatic repair attempts based on error patterns
-- ✅ **Cross-Session Learning**: Maintains failure/success pattern database
-- ✅ **MCP-Powered Intelligence**: Uses available MCP servers for enhanced troubleshooting
-- ✅ **Comprehensive Diagnostics**: Full system, network, and configuration analysis
-- ✅ **Research Integration**: Real-time solution discovery using web search
+- [OK] **Intelligent Error Analysis**: Context-aware diagnostic messages
+- [OK] **Self-Healing Capabilities**: Automatic repair attempts based on error patterns
+- [OK] **Cross-Session Learning**: Maintains failure/success pattern database
+- [OK] **MCP-Powered Intelligence**: Uses available MCP servers for enhanced troubleshooting
+- [OK] **Comprehensive Diagnostics**: Full system, network, and configuration analysis
+- [OK] **Research Integration**: Real-time solution discovery using web search
 
 ### Measured Improvements
 - **85% Reduction** in manual troubleshooting time
@@ -274,7 +274,7 @@ Attempt 3: Wait 6 seconds + comprehensive diagnostic
 - **3.2x Faster** issue diagnosis with pattern recognition
 - **67% Fewer** repeated installation failures
 
-## 🔮 Advanced Features
+## [U+1F52E] Advanced Features
 
 ### Cross-MCP Analysis
 The system can use multiple MCP servers simultaneously:
@@ -314,13 +314,13 @@ The system can use multiple MCP servers simultaneously:
 - MCP server setup troubleshooting "memory" guide
 
 # Research output integration
-💡 Based on recent GitHub issues and community discussions:
-   • Try updating to Claude CLI v1.2.4+ (fixes known memory MCP issues)
-   • Check for conflicting Node.js versions (known issue with v18.x)
-   • Verify MCP server compatibility matrix
+[INFO] Based on recent GitHub issues and community discussions:
+   [U+2022] Try updating to Claude CLI v1.2.4+ (fixes known memory MCP issues)
+   [U+2022] Check for conflicting Node.js versions (known issue with v18.x)
+   [U+2022] Verify MCP server compatibility matrix
 ```
 
-## 🎯 Integration with SPEK Workflow
+## [TARGET] Integration with SPEK Workflow
 
 The enhanced debugging system integrates seamlessly with SPEK's development workflow:
 
@@ -344,7 +344,7 @@ The enhanced debugging system integrates seamlessly with SPEK's development work
 - **Theater detection** improved through persistent failure analysis
 - **Reality validation** enhanced with comprehensive diagnostics
 
-## 🚀 Migration Guide
+## [ROCKET] Migration Guide
 
 ### Upgrading Existing SPEK Installations
 
@@ -377,35 +377,35 @@ ls ~/.claude/mcp-*.json
 ```
 
 ### No Breaking Changes
-- ✅ All existing functionality preserved
-- ✅ Original command line options still work
-- ✅ Existing environment variables honored
-- ✅ Backward compatible with current workflows
+- [OK] All existing functionality preserved
+- [OK] Original command line options still work
+- [OK] Existing environment variables honored
+- [OK] Backward compatible with current workflows
 
-## 🎉 Result Summary
+## [PARTY] Result Summary
 
 Your SPEK development environment now features:
 
-### 🧠 **Intelligent MCP Management**
+### [BRAIN] **Intelligent MCP Management**
 - AI-powered failure analysis using available MCP servers
 - Pattern recognition and learning across sessions
 - Research-driven troubleshooting with real-time solutions
 
-### 🔧 **Self-Healing Infrastructure**
+### [TOOL] **Self-Healing Infrastructure**
 - Automatic repair attempts based on error classification
 - Smart retry logic with exponential backoff
 - Proactive cache management and permission fixes
 
-### 📊 **Comprehensive Diagnostics**
+### [CHART] **Comprehensive Diagnostics**
 - Full system environment analysis
 - Network connectivity validation  
 - Authentication and configuration verification
 - Historical failure pattern analysis
 
-### 🚀 **Enhanced Reliability**
+### [ROCKET] **Enhanced Reliability**
 - 85% reduction in manual troubleshooting time
 - 92% success rate for automatic problem resolution
 - Cross-session learning and optimization
 - Integration with all SPEK workflow phases
 
-**Your MCP server infrastructure is now production-ready with enterprise-grade reliability, intelligent debugging, and self-healing capabilities!** 🚀
+**Your MCP server infrastructure is now production-ready with enterprise-grade reliability, intelligent debugging, and self-healing capabilities!** [ROCKET]

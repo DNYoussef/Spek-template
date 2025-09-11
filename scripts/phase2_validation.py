@@ -508,10 +508,10 @@ def main():
     
     print(f"\nPerformance Improvements:")
     summary = results['comparisons']['summary']
-    print(f"  • Execution Time: {summary['execution_time_reduction']} faster")
-    print(f"  • Memory Efficiency: {summary['memory_efficiency_gain']} better")
-    print(f"  • Security Scanning: {summary['security_scan_speedup']} faster")
-    print(f"  • Cost Savings: {summary['cost_savings']} reduction")
+    print(f"  [U+2022] Execution Time: {summary['execution_time_reduction']} faster")
+    print(f"  [U+2022] Memory Efficiency: {summary['memory_efficiency_gain']} better")
+    print(f"  [U+2022] Security Scanning: {summary['security_scan_speedup']} faster")
+    print(f"  [U+2022] Cost Savings: {summary['cost_savings']} reduction")
     
     print(f"\nValidation Results:")
     for metric, data in results['metrics'].items():

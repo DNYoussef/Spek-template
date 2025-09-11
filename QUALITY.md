@@ -12,17 +12,17 @@ This project follows a **zero-defect delivery** philosophy with automated qualit
 
 ### 2. Security Gates  
 - **Zero critical security findings** - Semgrep + custom rules
-- **High findings ≤5** - Must be reviewed and approved
+- **High findings <=5** - Must be reviewed and approved
 - **Package vulnerabilities** - Critical/high must be patched or waived
 
 ### 3. Structural Quality Gates
-- **Connascence limits** - NASA JPL POT10 compliance ≥90%
-- **Code duplication** - MECE score ≥0.75 on changed files
-- **God object limit** - ≤25 per codebase, ≤3 new per change
+- **Connascence limits** - NASA JPL POT10 compliance >=90%
+- **Code duplication** - MECE score >=0.75 on changed files
+- **God object limit** - <=25 per codebase, <=3 new per change
 
 ### 4. Coverage Gates (Differential)
-- **No regression** - Coverage on changed lines ≥ baseline
-- **New code coverage** - ≥80% for new files
+- **No regression** - Coverage on changed lines >= baseline
+- **New code coverage** - >=80% for new files
 - **Critical path coverage** - 100% for security/safety functions
 
 ## Waiver Process
@@ -59,10 +59,10 @@ This project follows a **zero-defect delivery** philosophy with automated qualit
 - **Monthly**: Coverage trends, technical debt accumulation
 
 ### Process Improvement Triggers
-- **3 consecutive gate failures** → Process review required
-- **Quality metric >3σ from control limits** → Root cause analysis
-- **Waiver rate >10%** → Policy/tooling review
-- **CI duration >10 minutes** → Performance optimization required
+- **3 consecutive gate failures** -> Process review required
+- **Quality metric >3[U+03C3] from control limits** -> Root cause analysis
+- **Waiver rate >10%** -> Policy/tooling review
+- **CI duration >10 minutes** -> Performance optimization required
 
 ## Testing Doctrine
 
@@ -81,7 +81,7 @@ This project follows a **zero-defect delivery** philosophy with automated qualit
 ## Development Standards
 
 ### Code Organization
-- **Modular design** - Files ≤500 lines, functions ≤50 lines
+- **Modular design** - Files <=500 lines, functions <=50 lines
 - **Clear interfaces** - Strong typing, documented contracts
 - **Separation of concerns** - Business logic isolated from framework
 - **Environment safety** - Zero hardcoded secrets or environment dependencies

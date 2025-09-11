@@ -9,39 +9,39 @@ IMPROVEMENTS_FILE=${1:-".claude/.artifacts/improvements.json"}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if [[ ! -f "$IMPROVEMENTS_FILE" ]]; then
-    echo "❌ Improvements file not found: $IMPROVEMENTS_FILE"
+    echo "[FAIL] Improvements file not found: $IMPROVEMENTS_FILE"
     exit 1
 fi
 
-echo "🔧 Applying pre-mortem improvements..."
+echo "[TOOL] Applying pre-mortem improvements..."
 
 # Backup existing files
 if [[ -f "SPEC.md" ]]; then
     cp "SPEC.md" "SPEC.md.backup.$(date +%s)"
-    echo "📋 Backed up SPEC.md"
+    echo "[CLIPBOARD] Backed up SPEC.md"
 fi
 
 if [[ -f "plan.json" ]]; then
     cp "plan.json" "plan.json.backup.$(date +%s)"
-    echo "📋 Backed up plan.json"
+    echo "[CLIPBOARD] Backed up plan.json"
 fi
 
 # Load improvements
 IMPROVEMENTS=$(cat "$IMPROVEMENTS_FILE")
 
-echo "📝 Processing improvements..."
+echo "[NOTE] Processing improvements..."
 
 # Apply SPEC.md improvements
 SPEC_IMPROVEMENTS=$(echo "$IMPROVEMENTS" | jq -r '.spec_improvements[]? // empty')
 if [[ -n "$SPEC_IMPROVEMENTS" ]]; then
     echo ""
-    echo "🔍 SPEC.md improvements:"
+    echo "[SEARCH] SPEC.md improvements:"
     
     # Create updated SPEC.md content
     if [[ -f "SPEC.md" ]]; then
         CURRENT_SPEC=$(cat "SPEC.md")
     else
-        echo "⚠️ SPEC.md not found, creating from template"
+        echo "[WARN] SPEC.md not found, creating from template"
         CURRENT_SPEC="# Project Specification
 
 ## Problem Statement
@@ -89,13 +89,13 @@ fi
 PLAN_IMPROVEMENTS=$(echo "$IMPROVEMENTS" | jq -r '.plan_refinements[]? // empty')
 if [[ -n "$PLAN_IMPROVEMENTS" ]]; then
     echo ""
-    echo "📋 plan.json improvements:"
+    echo "[CLIPBOARD] plan.json improvements:"
     
     # Load existing plan or create template
     if [[ -f "plan.json" ]]; then
         CURRENT_PLAN=$(cat "plan.json")
     else
-        echo "⚠️ plan.json not found, creating from template"
+        echo "[WARN] plan.json not found, creating from template"
         CURRENT_PLAN='{
             "goals": [],
             "tasks": [],
@@ -137,7 +137,7 @@ fi
 NEW_RISKS=$(echo "$IMPROVEMENTS" | jq -r '.newly_identified_risks[]? // empty')
 if [[ -n "$NEW_RISKS" ]]; then
     echo ""
-    echo "⚠️ Newly identified risks:"
+    echo "[WARN] Newly identified risks:"
     
     # Load existing plan to add risks
     CURRENT_PLAN=$(cat "plan.json" 2>/dev/null || echo '{"risks": []}')
@@ -149,7 +149,7 @@ if [[ -n "$NEW_RISKS" ]]; then
     
     while IFS= read -r risk; do
         if [[ -n "$risk" ]]; then
-            echo "  ⚠️ $risk"
+            echo "  [WARN] $risk"
             
             NEW_RISK=$(jq -n \
                 --arg risk "$risk" \
@@ -173,7 +173,7 @@ fi
 QUALITY_CHECKPOINTS=$(echo "$IMPROVEMENTS" | jq -r '.quality_checkpoints[]? // empty')
 if [[ -n "$QUALITY_CHECKPOINTS" ]]; then
     echo ""
-    echo "✅ Quality checkpoints:"
+    echo "[OK] Quality checkpoints:"
     
     CURRENT_PLAN=$(cat "plan.json" 2>/dev/null || echo '{"quality_gates": []}')
     
@@ -184,7 +184,7 @@ if [[ -n "$QUALITY_CHECKPOINTS" ]]; then
     
     while IFS= read -r checkpoint; do
         if [[ -n "$checkpoint" ]]; then
-            echo "  ✓ $checkpoint"
+            echo "  [U+2713] $checkpoint"
             
             NEW_CHECKPOINT=$(jq -n \
                 --arg cp "$checkpoint" \
@@ -203,18 +203,18 @@ if [[ -n "$QUALITY_CHECKPOINTS" ]]; then
 fi
 
 echo ""
-echo "✅ Improvements applied successfully!"
-echo "📁 Backups created with timestamp suffix"
-echo "📋 Updated files:"
+echo "[OK] Improvements applied successfully!"
+echo "[FOLDER] Backups created with timestamp suffix"
+echo "[CLIPBOARD] Updated files:"
 echo "   - SPEC.md (enhanced with risk mitigations)"
 echo "   - plan.json (updated with preventive measures)"
 
 # Validate JSON structure
 if [[ -f "plan.json" ]]; then
     if jq empty plan.json 2>/dev/null; then
-        echo "✅ plan.json structure validated"
+        echo "[OK] plan.json structure validated"
     else
-        echo "❌ plan.json validation failed, restoring backup"
+        echo "[FAIL] plan.json validation failed, restoring backup"
         if [[ -f "plan.json.backup."* ]]; then
             cp plan.json.backup.* plan.json
         fi

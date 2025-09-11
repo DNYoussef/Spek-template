@@ -435,26 +435,26 @@ class PerformanceBenchmark:
         if "cache_performance" in self.results:
             cache_data = self.results["cache_performance"]
             print(f"\nNASA Rule 7 Compliance:")
-            print(f"  Memory Bounded: ✓ ({cache_data.get('memory_usage_mb', 0)}MB < 50MB)")
-            print(f"  LRU Eviction: ✓ ({cache_data.get('cache_evictions', 0)} evictions)")
-            print(f"  Thread Safe: ✓")
+            print(f"  Memory Bounded: [U+2713] ({cache_data.get('memory_usage_mb', 0)}MB < 50MB)")
+            print(f"  LRU Eviction: [U+2713] ({cache_data.get('cache_evictions', 0)} evictions)")
+            print(f"  Thread Safe: [U+2713]")
         
         print("\nOptimization Benefits:")
-        print("  • Single file traversal instead of 3 separate traversals")
-        print("  • Content hash-based AST caching")
-        print("  • Memory-bounded operations with LRU eviction")
-        print("  • Thread-safe concurrent access")
-        print("  • Reduced disk I/O by ~70%")
+        print("  [U+2022] Single file traversal instead of 3 separate traversals")
+        print("  [U+2022] Content hash-based AST caching")
+        print("  [U+2022] Memory-bounded operations with LRU eviction")
+        print("  [U+2022] Thread-safe concurrent access")
+        print("  [U+2022] Reduced disk I/O by ~70%")
         
         # Streaming analysis performance summary
         if "streaming_analysis" in self.results and self.results["streaming_analysis"].get("components_available"):
             streaming_data = self.results["streaming_analysis"]
             print("\nStreaming Analysis Performance:")
-            print(f"  • Streaming mode overhead: {streaming_data.get('streaming_overhead_percent', 0)}%")
-            print(f"  • Dashboard generation: {streaming_data.get('dashboard_generation_time_ms', 0)}ms")
-            print(f"  • Real-time monitoring: {streaming_data.get('monitor_report_time_ms', 0)}ms") 
-            print(f"  • Hybrid mode initialization: {streaming_data.get('hybrid_init_time_ms', 0)}ms")
-            print("  • Full streaming stack available and tested")
+            print(f"  [U+2022] Streaming mode overhead: {streaming_data.get('streaming_overhead_percent', 0)}%")
+            print(f"  [U+2022] Dashboard generation: {streaming_data.get('dashboard_generation_time_ms', 0)}ms")
+            print(f"  [U+2022] Real-time monitoring: {streaming_data.get('monitor_report_time_ms', 0)}ms") 
+            print(f"  [U+2022] Hybrid mode initialization: {streaming_data.get('hybrid_init_time_ms', 0)}ms")
+            print("  [U+2022] Full streaming stack available and tested")
 
 
 def main():

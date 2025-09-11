@@ -25,11 +25,11 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 # Logging functions
-log_info() { echo -e "${CYAN}🔍 $1${NC}"; }
-log_success() { echo -e "${GREEN}✅ $1${NC}"; }
-log_warning() { echo -e "${YELLOW}⚠️  $1${NC}"; }
-log_error() { echo -e "${RED}❌ $1${NC}"; }
-log_debug() { [[ "${DEBUG:-0}" == "1" ]] && echo -e "${PURPLE}🔍 DEBUG: $1${NC}"; }
+log_info() { echo -e "${CYAN}[SEARCH] $1${NC}"; }
+log_success() { echo -e "${GREEN}[OK] $1${NC}"; }
+log_warning() { echo -e "${YELLOW}[WARN]  $1${NC}"; }
+log_error() { echo -e "${RED}[FAIL] $1${NC}"; }
+log_debug() { [[ "${DEBUG:-0}" == "1" ]] && echo -e "${PURPLE}[SEARCH] DEBUG: $1${NC}"; }
 
 # Initialize audit environment
 initialize_audit_environment() {
@@ -407,24 +407,24 @@ main() {
         
         case "$commit_readiness" in
             "ready")
-                log_success "🎉 AUDIT PASSED: Safe to commit"
+                log_success "[PARTY] AUDIT PASSED: Safe to commit"
                 exit 0
                 ;;
             "blocked")
-                log_error "🚫 AUDIT BLOCKED: Issues must be resolved before commit"
+                log_error "[U+1F6AB] AUDIT BLOCKED: Issues must be resolved before commit"
                 exit 1
                 ;;
             "review_required")
-                log_warning "📋 AUDIT INCOMPLETE: Manual review required"
+                log_warning "[CLIPBOARD] AUDIT INCOMPLETE: Manual review required"
                 exit 2
                 ;;
             *)
-                log_warning "❓ AUDIT STATUS UNKNOWN: Check detailed results"
+                log_warning "[U+2753] AUDIT STATUS UNKNOWN: Check detailed results"
                 exit 3
                 ;;
         esac
     else
-        log_error "❌ AUDIT FAILED: No analysis results generated"
+        log_error "[FAIL] AUDIT FAILED: No analysis results generated"
         exit 4
     fi
 }

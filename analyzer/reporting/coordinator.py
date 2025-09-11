@@ -371,7 +371,7 @@ class UnifiedReportingCoordinator:
 
         priority_fixes_html = ""
         for fix in analysis_result.priority_fixes[:10]:
-            priority_fixes_html += f'<div class="violation-item critical">• {fix}</div>\n'
+            priority_fixes_html += f'<div class="violation-item critical">[U+2022] {fix}</div>\n'
 
         return html_template.format(
             project_name=Path(analysis_result.project_path).name,

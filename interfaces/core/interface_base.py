@@ -82,11 +82,11 @@ class InterfaceBase(ABC):
         critical = summary.get('critical_violations', 0)
 
         if total == 0:
-            return "✅ No connascence violations found"
+            return "[OK] No connascence violations found"
         elif critical > 0:
-            return f"❌ {total} violations found ({critical} critical)"
+            return f"[FAIL] {total} violations found ({critical} critical)"
         else:
-            return f"⚠️  {total} violations found"
+            return f"[WARN]  {total} violations found"
 
     def _load_theme(self, theme_name: str) -> Dict[str, Any]:
         """Load theme configuration."""

@@ -11,7 +11,7 @@ steps:
   # Initialize Theater Detection Environment
   - id: init_theater_detection
     run: |
-      echo "🎭 Initializing theater detection environment..."
+      echo "[U+1F3AD] Initializing theater detection environment..."
       
       # Ensure artifacts directory exists
       mkdir -p .claude/.artifacts/theater_detection
@@ -48,7 +48,7 @@ steps:
   # Pre-Detection Quality Context Gathering
   - id: gather_quality_context
     run: |
-      echo "📊 Gathering quality context for theater detection..."
+      echo "[CHART] Gathering quality context for theater detection..."
       
       # Run quality gates to establish baseline
       quality_results="{}"
@@ -100,7 +100,7 @@ steps:
   # Execute Comprehensive Theater Scan
   - id: execute_theater_scan
     run: |
-      echo "🔍 Executing comprehensive theater pattern detection..."
+      echo "[SEARCH] Executing comprehensive theater pattern detection..."
       
       # Run theater scan with quality correlation
       claude /theater:scan \
@@ -115,7 +115,7 @@ steps:
       critical_count=$(echo "$scan_results" | jq -r '.theater_summary.critical_theater_count // 0')
       confidence=$(echo "$scan_results" | jq -r '.theater_summary.average_confidence // 0')
       
-      echo "🎭 Theater detection results:"
+      echo "[U+1F3AD] Theater detection results:"
       echo "  - Total patterns detected: $theater_count"
       echo "  - Critical theater patterns: $critical_count"
       echo "  - Average confidence: $confidence"
@@ -130,14 +130,14 @@ steps:
   # Deploy Theater-Killer Agents
   - id: deploy_theater_killer_agents
     run: |
-      echo "🚀 Deploying theater-killer agent suite..."
+      echo "[ROCKET] Deploying theater-killer agent suite..."
       
       # Load quality and theater detection context
       quality_context=$(cat .claude/.artifacts/theater_detection/quality_context.json 2>/dev/null || echo '{}')
       theater_results=$(cat .claude/.artifacts/theater_detection/theater_scan_results.json 2>/dev/null || echo '{}')
       
       # Deploy reality checker agent
-      echo "🔍 Deploying Reality Checker..."
+      echo "[SEARCH] Deploying Reality Checker..."
       npx claude-flow@alpha agent spawn \
         --type reality-checker \
         --session "$SESSION_ID" \
@@ -150,7 +150,7 @@ steps:
         --evidence-package > .claude/.artifacts/theater_detection/reality_check_results.json || echo '{"validation_results": {}, "error": "reality_check_failed"}' > .claude/.artifacts/theater_detection/reality_check_results.json
       
       # Deploy theater killer agent
-      echo "🎭 Deploying Theater Killer..."
+      echo "[U+1F3AD] Deploying Theater Killer..."
       npx claude-flow@alpha agent spawn \
         --type theater-killer \
         --session "$SESSION_ID" \
@@ -170,7 +170,7 @@ steps:
       echo "$theater_killer_analysis" > .claude/.artifacts/theater_detection/theater_killer_results.json
       
       # Deploy completion auditor agent
-      echo "📋 Deploying Completion Auditor..."
+      echo "[CLIPBOARD] Deploying Completion Auditor..."
       npx claude-flow@alpha agent spawn \
         --type completion-auditor \
         --session "$SESSION_ID" \
@@ -214,7 +214,7 @@ steps:
   # Consolidate Theater Detection Results
   - id: consolidate_detection_results
     run: |
-      echo "📊 Consolidating theater detection results..."
+      echo "[CHART] Consolidating theater detection results..."
       
       # Load all detection results
       theater_scan=$(cat .claude/.artifacts/theater_detection/theater_scan_results.json 2>/dev/null || echo '{}')
@@ -268,7 +268,7 @@ steps:
   - id: contextual_remediation
     when: $.consolidate_detection_results.summary_metrics.theater_patterns_detected > 0
     run: |
-      echo "🔧 Executing contextual remediation for detected theater patterns..."
+      echo "[TOOL] Executing contextual remediation for detected theater patterns..."
       
       REMEDIATION_MODE="$REMEDIATION_MODE"
       
@@ -281,7 +281,7 @@ steps:
           --memory-update || echo "Contextual loop execution failed"
         
         # Verify remediation success with re-scan
-        echo "🔄 Re-scanning to verify theater remediation..."
+        echo "[CYCLE] Re-scanning to verify theater remediation..."
         claude /theater:scan \
           --scope focused \
           --quality-correlation \
@@ -324,7 +324,7 @@ steps:
   # Generate Theater Detection Report
   - id: generate_theater_report
     run: |
-      echo "📝 Generating comprehensive theater detection report..."
+      echo "[NOTE] Generating comprehensive theater detection report..."
       
       # Load all results
       consolidated=$(cat .claude/.artifacts/theater_detection/consolidated_results.json 2>/dev/null || echo '{}')
@@ -357,16 +357,16 @@ steps:
       theater_status=$(echo "$final_report" | jq -r '.theater_detection_report.final_status')
       case "$theater_status" in
         "theater_free")
-          echo "✅ Theater Detection Result: CLEAN - No theater patterns detected"
+          echo "[OK] Theater Detection Result: CLEAN - No theater patterns detected"
           ;;
         "theater_eliminated") 
-          echo "✅ Theater Detection Result: RESOLVED - Theater patterns eliminated"
+          echo "[OK] Theater Detection Result: RESOLVED - Theater patterns eliminated"
           ;;
         "theater_detected_pending_remediation")
-          echo "⚠️  Theater Detection Result: PENDING - Manual remediation required"
+          echo "[WARN]  Theater Detection Result: PENDING - Manual remediation required"
           ;;
         *)
-          echo "❓ Theater Detection Result: UNKNOWN - Check detailed report"
+          echo "[U+2753] Theater Detection Result: UNKNOWN - Check detailed report"
           ;;
       esac
       
@@ -377,7 +377,7 @@ steps:
   # Update Memory Patterns and Learning
   - id: update_memory_patterns  
     run: |
-      echo "🧠 Updating memory patterns and learning from theater detection..."
+      echo "[BRAIN] Updating memory patterns and learning from theater detection..."
       
       # Load final report
       final_report=$(cat .claude/.artifacts/theater_detection_final_report.json 2>/dev/null || echo '{}')

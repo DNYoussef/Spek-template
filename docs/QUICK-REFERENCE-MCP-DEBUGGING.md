@@ -1,6 +1,6 @@
 # MCP Enhanced Debugging - Quick Reference Guide
 
-## 🚀 Quick Commands
+## [ROCKET] Quick Commands
 
 ### Cross-Platform NPM Commands
 ```bash
@@ -35,7 +35,7 @@ npm run mcp:force        # Force re-initialization
 .\scripts\mcp-auto-init-enhanced.ps1 -Help      # Enhanced help
 ```
 
-## 🔍 Common Troubleshooting Scenarios
+## [SEARCH] Common Troubleshooting Scenarios
 
 ### Scenario 1: "Claude CLI not found"
 **Quick Fix:**
@@ -84,7 +84,7 @@ npm run mcp:clean
 npm run setup
 ```
 
-## 📊 Diagnostic File Locations
+## [CHART] Diagnostic File Locations
 
 ### Cross-Platform Paths
 ```bash
@@ -111,13 +111,13 @@ tail -f ~/.claude/mcp-diagnostics.log | grep SUCCESS
 cat ~/.claude/mcp-failure-patterns.json | jq '.failure_patterns | length'
 ```
 
-## 🧠 Intelligent Features Summary
+## [BRAIN] Intelligent Features Summary
 
 ### Error Classification
-- **🌐 Network Errors**: Connectivity, timeout, proxy issues
-- **🔐 Auth Errors**: Authentication, token, API key issues  
-- **🔒 Permission Errors**: File access, directory permissions
-- **⚙️ Version Errors**: CLI version, protocol compatibility
+- **[GLOBE] Network Errors**: Connectivity, timeout, proxy issues
+- **[LOCK] Auth Errors**: Authentication, token, API key issues  
+- **[U+1F512] Permission Errors**: File access, directory permissions
+- **[U+2699][U+FE0F] Version Errors**: CLI version, protocol compatibility
 
 ### Auto-Repair Actions
 - **Cache Clearing**: Removes corrupted MCP data
@@ -130,14 +130,14 @@ cat ~/.claude/mcp-failure-patterns.json | jq '.failure_patterns | length'
 - **Memory MCP**: Persistent troubleshooting context
 - **WebSearch MCP**: Real-time solution research
 
-## ⚡ Performance Quick Stats
+## [LIGHTNING] Performance Quick Stats
 
 - **85% Reduction** in manual troubleshooting time
 - **92% Success Rate** for automatic problem resolution  
 - **3.2x Faster** issue diagnosis
 - **67% Fewer** repeated failures
 
-## 🎯 Emergency Troubleshooting
+## [TARGET] Emergency Troubleshooting
 
 ### When All Else Fails
 ```bash
@@ -167,7 +167,7 @@ claude mcp list
 - **Discord Community**: https://discord.gg/anthropic (MCP channel)
 - **Official Docs**: https://docs.anthropic.com/claude-code/mcp
 
-## 🔄 Workflow Integration
+## [CYCLE] Workflow Integration
 
 ### Daily Development Startup
 ```bash
@@ -198,4 +198,4 @@ tail ~/.claude/mcp-diagnostics.log
 
 ---
 
-**Remember**: The enhanced debugging system learns from each session, becoming more effective over time. Your troubleshooting experience improves automatically! 🚀
+**Remember**: The enhanced debugging system learns from each session, becoming more effective over time. Your troubleshooting experience improves automatically! [ROCKET]

@@ -25,11 +25,11 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 # Logging functions
-log_info() { echo -e "${CYAN}🔍 $1${NC}"; }
-log_success() { echo -e "${GREEN}✅ $1${NC}"; }
-log_warning() { echo -e "${YELLOW}⚠️  $1${NC}"; }
-log_error() { echo -e "${RED}❌ $1${NC}"; }
-log_debug() { [[ "${DEBUG:-0}" == "1" ]] && echo -e "${PURPLE}🔍 DEBUG: $1${NC}"; }
+log_info() { echo -e "${CYAN}[SEARCH] $1${NC}"; }
+log_success() { echo -e "${GREEN}[OK] $1${NC}"; }
+log_warning() { echo -e "${YELLOW}[WARN]  $1${NC}"; }
+log_error() { echo -e "${RED}[FAIL] $1${NC}"; }
+log_debug() { [[ "${DEBUG:-0}" == "1" ]] && echo -e "${PURPLE}[SEARCH] DEBUG: $1${NC}"; }
 
 # Initialize reality validation environment
 initialize_reality_validation() {
@@ -895,16 +895,16 @@ main() {
     critical_blockers_count=$(echo "$final_results" | jq -r '.reality_validation_report.critical_blockers // [] | length')
     
     if (( $(echo "$overall_score >= 0.8" | bc -l) )) && [[ "$critical_blockers_count" -eq 0 ]]; then
-        log_success "🎉 REALITY VALIDATION PASSED: Software works as claimed"
+        log_success "[PARTY] REALITY VALIDATION PASSED: Software works as claimed"
         exit 0
     elif (( $(echo "$overall_score >= 0.6" | bc -l) )) && [[ "$critical_blockers_count" -eq 0 ]]; then
-        log_warning "⚠️  REALITY VALIDATION PARTIAL: Minor issues found"
+        log_warning "[WARN]  REALITY VALIDATION PARTIAL: Minor issues found"
         exit 1
     elif [[ "$critical_blockers_count" -gt 0 ]]; then
-        log_error "🚫 REALITY VALIDATION BLOCKED: Critical issues prevent user success"
+        log_error "[U+1F6AB] REALITY VALIDATION BLOCKED: Critical issues prevent user success"
         exit 2
     else
-        log_error "❌ REALITY VALIDATION FAILED: Software does not work as claimed"
+        log_error "[FAIL] REALITY VALIDATION FAILED: Software does not work as claimed"
         exit 3
     fi
 }

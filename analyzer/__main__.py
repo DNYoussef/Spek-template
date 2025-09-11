@@ -14,22 +14,22 @@ def main_with_fallback():
         from .core import main
         return main()
     except ImportError as e:
-        print(f"⚠️  Relative import failed: {e}")
+        print(f"[WARN]  Relative import failed: {e}")
         try:
             # Try absolute import (CI/direct execution)
             from analyzer.core import main
             return main()
         except ImportError as e2:
-            print(f"⚠️  Absolute import failed: {e2}")
+            print(f"[WARN]  Absolute import failed: {e2}")
             try:
                 # Try path-based import (fallback for various execution contexts)
                 sys.path.insert(0, str(Path(__file__).parent))
                 from core import main
                 return main()
             except ImportError as e3:
-                print(f"⚠️  All import strategies failed: {e3}")
+                print(f"[WARN]  All import strategies failed: {e3}")
                 # CI-compatible emergency fallback
-                print("🔄 Using emergency CLI fallback mode for CI compatibility")
+                print("[CYCLE] Using emergency CLI fallback mode for CI compatibility")
                 return emergency_cli_fallback()
 
 def emergency_cli_fallback():

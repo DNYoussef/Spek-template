@@ -19,15 +19,15 @@ PURPLE='\033[0;35m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
-log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] ✅${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] ⚠️${NC} $*"; }
-log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] ❌${NC} $*"; }
-log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] ℹ️${NC} $*"; }
-log_phase() { echo -e "${PURPLE}[$(date '+%H:%M:%S')] 🎭${NC} $*"; }
+log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] [OK]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] [WARN]${NC} $*"; }
+log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] [FAIL]${NC} $*"; }
+log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] i[U+FE0F]${NC} $*"; }
+log_phase() { echo -e "${PURPLE}[$(date '+%H:%M:%S')] [U+1F3AD]${NC} $*"; }
 
 # Initialize Quality Measurement System
 initialize_quality_measurement() {
-    log "📊 Initializing Quality Measurement and Reality Validation System..."
+    log "[CHART] Initializing Quality Measurement and Reality Validation System..."
     
     # Create comprehensive measurement structure
     cat > "$ARTIFACTS_DIR/quality_measurement_results.json" << 'EOF'
@@ -83,7 +83,7 @@ EOF
 
 # Run Comprehensive Quality Measurement
 run_quality_measurement() {
-    log_phase "📊 Running Comprehensive Quality Measurement"
+    log_phase "[CHART] Running Comprehensive Quality Measurement"
     
     # Phase 1: Multi-Layer Theater Detection
     detect_theater_patterns
@@ -108,7 +108,7 @@ run_quality_measurement() {
 
 # Multi-Layer Theater Detection
 detect_theater_patterns() {
-    log_phase "🎭 Phase 1: Multi-Layer Theater Detection"
+    log_phase "[U+1F3AD] Phase 1: Multi-Layer Theater Detection"
     
     # Theater Pattern 1: Code Theater Detection
     detect_code_theater
@@ -149,7 +149,7 @@ detect_code_theater() {
     
     # Pattern 2: Console.log success without actual implementation
     local fake_success_logs
-    fake_success_logs=$(find . -name "*.py" -o -name "*.js" -o -name "*.ts" -not -path "*/test*" | xargs grep -c "console\.log.*success\|print.*success\|print.*completed\|console\.log.*✓" 2>/dev/null | awk -F: '{sum+=$2} END {print sum+0}')
+    fake_success_logs=$(find . -name "*.py" -o -name "*.js" -o -name "*.ts" -not -path "*/test*" | xargs grep -c "console\.log.*success\|print.*success\|print.*completed\|console\.log.*[U+2713]" 2>/dev/null | awk -F: '{sum+=$2} END {print sum+0}')
     
     if [[ $fake_success_logs -gt 10 ]]; then
         code_theater_patterns+=("fake_success_logging")
@@ -173,7 +173,7 @@ detect_code_theater() {
     local minimal_functions=0
     while IFS= read -r -d '' file; do
         if [[ -f "$file" ]]; then
-            # Count functions with minimal implementation (≤3 lines)
+            # Count functions with minimal implementation (<=3 lines)
             local minimal_count
             minimal_count=$(awk '
                 /^[[:space:]]*(def |function |const.*=.*=>)/ {
@@ -229,7 +229,7 @@ detect_test_theater() {
     
     # Pattern 1: Tests that print success without actual verification
     local fake_test_success
-    fake_test_success=$(find . -path "*/test*" -o -name "*test*" -name "*.py" -o -name "*.js" -o -name "*.ts" | xargs grep -c "console\.log.*test.*success\|print.*test.*pass\|console\.log.*✓.*test" 2>/dev/null | awk -F: '{sum+=$2} END {print sum+0}')
+    fake_test_success=$(find . -path "*/test*" -o -name "*test*" -name "*.py" -o -name "*.js" -o -name "*.ts" | xargs grep -c "console\.log.*test.*success\|print.*test.*pass\|console\.log.*[U+2713].*test" 2>/dev/null | awk -F: '{sum+=$2} END {print sum+0}')
     
     if [[ $fake_test_success -gt 5 ]]; then
         test_theater_patterns+=("fake_test_success_logging")
@@ -527,7 +527,7 @@ detect_performance_theater() {
 
 # Reality Validation Framework
 validate_completion_claims() {
-    log_phase "🔬 Phase 2: Reality Validation Framework"
+    log_phase "[SCIENCE] Phase 2: Reality Validation Framework"
     
     # Validation 1: Functionality Verification
     verify_functionality_claims
@@ -696,7 +696,7 @@ perform_evidence_correlation() {
 
 # Collect Quality Metrics
 collect_quality_metrics() {
-    log_phase "📊 Phase 3: Quality Metrics Collection"
+    log_phase "[CHART] Phase 3: Quality Metrics Collection"
     
     log_info "Collecting comprehensive quality metrics..."
     
@@ -778,7 +778,7 @@ collect_quality_metrics() {
 
 # Perform Statistical Analysis
 perform_statistical_analysis() {
-    log_phase "📈 Phase 4: Statistical Process Control"
+    log_phase "[TREND] Phase 4: Statistical Process Control"
     
     log_info "Performing statistical process control analysis..."
     
@@ -811,7 +811,7 @@ EOF
 
 # Perform Performance Benchmarking
 perform_performance_benchmarking() {
-    log_phase "⚡ Phase 5: Performance Benchmarking"
+    log_phase "[LIGHTNING] Phase 5: Performance Benchmarking"
     
     log_info "Running performance benchmarking..."
     
@@ -848,7 +848,7 @@ EOF
 
 # Calculate Overall Reality Score
 calculate_reality_score() {
-    log_phase "🎯 Phase 6: Overall Reality Score Calculation"
+    log_phase "[TARGET] Phase 6: Overall Reality Score Calculation"
     
     log_info "Calculating overall reality score..."
     
@@ -940,24 +940,24 @@ calculate_reality_score() {
 
 # Display Measurement Summary
 display_measurement_summary() {
-    log "📊 Quality Measurement and Reality Validation Summary"
+    log "[CHART] Quality Measurement and Reality Validation Summary"
     echo
     
     # Display results using jq
     jq -r '
-    "🎭 Theater Detection Results:",
+    "[U+1F3AD] Theater Detection Results:",
     "  Code Theater: " + (.reality_validation.theater_detection.code_theater.status | ascii_upcase) + " (confidence: " + (.reality_validation.theater_detection.code_theater.confidence // 0 | tostring) + "%)",
     "  Test Theater: " + (.reality_validation.theater_detection.test_theater.status | ascii_upcase) + " (confidence: " + (.reality_validation.theater_detection.test_theater.confidence // 0 | tostring) + "%)",
     "  Quality Infrastructure Theater: " + (.reality_validation.theater_detection.quality_infrastructure_theater.status | ascii_upcase) + " (confidence: " + (.reality_validation.theater_detection.quality_infrastructure_theater.confidence // 0 | tostring) + "%)",
     "  Security Theater: " + (.reality_validation.theater_detection.security_theater.status | ascii_upcase) + " (confidence: " + (.reality_validation.theater_detection.security_theater.confidence // 0 | tostring) + "%)",
     "  Performance Theater: " + (.reality_validation.theater_detection.performance_theater.status | ascii_upcase) + " (confidence: " + (.reality_validation.theater_detection.performance_theater.confidence // 0 | tostring) + "%)",
     "",
-    "🔬 Reality Validation Results:",
+    "[SCIENCE] Reality Validation Results:",
     "  Functionality Verified: " + (.reality_validation.completion_claims.functionality_verification.verified | tostring | ascii_upcase),
     "  Quality Improvements Genuine: " + (.reality_validation.completion_claims.quality_improvement_verification.genuine | tostring | ascii_upcase),
     "  Evidence Consistent: " + (.reality_validation.completion_claims.evidence_correlation.consistent | tostring | ascii_upcase),
     "",
-    "📈 Quality Metrics:",
+    "[TREND] Quality Metrics:",
     "  NASA Compliance: " + (.quality_metrics.nasa_compliance_score | tostring) + "%",
     "  God Objects: " + (.quality_metrics.god_objects_count | tostring),
     "  MECE Score: " + (.quality_metrics.mece_score | tostring),
@@ -965,19 +965,19 @@ display_measurement_summary() {
     "  Test Reliability: " + (.quality_metrics.test_reliability | tostring),
     "  Security Posture: " + (.quality_metrics.security_posture | tostring),
     "",
-    "🎯 Overall Assessment:",
+    "[TARGET] Overall Assessment:",
     "  Reality Score: " + (.overall_reality_score | tostring) + "/100",
     "  Theater Confidence: " + (.theater_confidence | tostring) + "%",
     "  Deployment Ready: " + (.deployment_readiness | tostring | ascii_upcase)
     ' "$ARTIFACTS_DIR/quality_measurement_results.json"
     
     echo
-    log_info "📁 Detailed results available in: $ARTIFACTS_DIR/quality_measurement_results.json"
+    log_info "[FOLDER] Detailed results available in: $ARTIFACTS_DIR/quality_measurement_results.json"
 }
 
 # Main execution
 main() {
-    log "🎭 Starting Quality Measurement and Reality Validation System"
+    log "[U+1F3AD] Starting Quality Measurement and Reality Validation System"
     
     # Ensure artifacts directory exists
     mkdir -p "$ARTIFACTS_DIR"
@@ -996,10 +996,10 @@ main() {
     reality_score=$(jq '.overall_reality_score' "$ARTIFACTS_DIR/quality_measurement_results.json")
     
     if [[ $reality_score -ge 80 ]]; then
-        log_success "🏆 Quality measurement completed: HIGH REALITY SCORE"
+        log_success "[U+1F3C6] Quality measurement completed: HIGH REALITY SCORE"
         return 0
     else
-        log_error "❌ Quality measurement completed: LOW REALITY SCORE"
+        log_error "[FAIL] Quality measurement completed: LOW REALITY SCORE"
         return 1
     fi
 }

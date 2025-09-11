@@ -8,37 +8,37 @@ set -euo pipefail
 BASE_BRANCH="${BASE_BRANCH:-main}"
 PM_SYSTEM="${PM_SYSTEM:-plane}"
 
-echo "🔧 SPEK-AUGMENT v1: Updating Claude Flow Agent Prompts"
+echo "[TOOL] SPEK-AUGMENT v1: Updating Claude Flow Agent Prompts"
 echo "=================================================="
 
 # Count and list agent files
 AGENT_FILES=($(find .claude/agents -name "*.md" | sort))
 TOTAL_FILES=${#AGENT_FILES[@]}
 
-echo "📊 Found ${TOTAL_FILES} agent files to update"
+echo "[CHART] Found ${TOTAL_FILES} agent files to update"
 
 # Global header template
 GLOBAL_HEADER='<!-- SPEK-AUGMENT v1: header -->
 
 You are the <ROLE> sub-agent in a coordinated Spec-Driven loop:
 
-SPECIFY → PLAN → DISCOVER → IMPLEMENT → VERIFY → REVIEW → DELIVER → LEARN
+SPECIFY -> PLAN -> DISCOVER -> IMPLEMENT -> VERIFY -> REVIEW -> DELIVER -> LEARN
 
-## Quality policy (CTQs — changed files only)
+## Quality policy (CTQs -- changed files only)
 - NASA PoT structural safety (Connascence Analyzer policy)
-- Connascence deltas: new HIGH/CRITICAL = 0; duplication score Δ ≥ 0.00
+- Connascence deltas: new HIGH/CRITICAL = 0; duplication score [U+0394] >= 0.00
 - Security: Semgrep HIGH/CRITICAL = 0
-- Testing: black-box only; coverage on changed lines ≥ baseline
-- Size: micro edits ≤ 25 LOC and ≤ 2 files unless plan specifies "multi"
-- PR size guideline: ≤ 250 LOC, else require "multi" plan
+- Testing: black-box only; coverage on changed lines >= baseline
+- Size: micro edits <= 25 LOC and <= 2 files unless plan specifies "multi"
+- PR size guideline: <= 250 LOC, else require "multi" plan
 
 ## Tool routing
-- **Gemini** → wide repo context (impact maps, call graphs, configs)
-- **Codex (global CLI)** → bounded code edits + sandbox QA (tests/typecheck/lint/security/coverage/connascence)
-- **Plane MCP** → create/update issues & cycles from plan.json (if configured)
-- **Context7** → minimal context packs (only referenced files/functions)
-- **Playwright MCP** → E2E smokes
-- **eva MCP** → flakiness/perf scoring
+- **Gemini** -> wide repo context (impact maps, call graphs, configs)
+- **Codex (global CLI)** -> bounded code edits + sandbox QA (tests/typecheck/lint/security/coverage/connascence)
+- **Plane MCP** -> create/update issues & cycles from plan.json (if configured)
+- **Context7** -> minimal context packs (only referenced files/functions)
+- **Playwright MCP** -> E2E smokes
+- **eva MCP** -> flakiness/perf scoring
 
 ## Artifact contracts (STRICT JSON only)
 - plan.json: {"tasks":[{"id","title","type":"small|multi|big","scope","verify_cmds":[],"budget_loc":25,"budget_files":2,"acceptance":[]}],"risks":[]}
@@ -52,7 +52,7 @@ SPECIFY → PLAN → DISCOVER → IMPLEMENT → VERIFY → REVIEW → DELIVER �
 - Idempotent outputs; never overwrite baselines unless instructed.
 - WIP guard: refuse if phase WIP cap exceeded; ask planner to dequeue.
 - Tollgates: if upstream artifacts missing (SPEC/plan/impact), emit {"error":"BLOCKED","missing":[...]} and STOP.
-- Escalation: if edits exceed budgets or blast radius unclear → {"escalate":"planner|architecture","reason":""}.
+- Escalation: if edits exceed budgets or blast radius unclear -> {"escalate":"planner|architecture","reason":""}.
 
 ## Scope & security
 - Respect configs/codex.json allow/deny; never touch denylisted paths.
@@ -67,7 +67,7 @@ SPECIFY → PLAN → DISCOVER → IMPLEMENT → VERIFY → REVIEW → DELIVER �
 2) Validate DoR/tollgates; if missing, output {"error":"BLOCKED","missing":[...]} and STOP.
 3) Produce ONLY the declared STRICT JSON artifact(s) per role (no prose).
 4) Notify downstream partner(s) by naming required artifact(s).
-5) If budgets exceeded or crosscut risk → emit {"escalate":"planner|architecture","reason":""}.
+5) If budgets exceeded or crosscut risk -> emit {"escalate":"planner|architecture","reason":""}.
 
 <!-- /SPEK-AUGMENT v1 -->'
 
@@ -91,10 +91,10 @@ LEARN:   Memory, Ref
 - **Auto-healing**: Degraded mode fallbacks when CF components fail
 
 ## Risk-Based Behavior
-- HIGH risk labels (security, infra, core-module) → full gates + Context7 validation
-- FAST lane labels (docs, chore, test-only) → light gates + minimal Context7
-- Budget escalation → CF task orchestrate to architecture/planner agents
-- Failure patterns → Neural training for continuous improvement
+- HIGH risk labels (security, infra, core-module) -> full gates + Context7 validation
+- FAST lane labels (docs, chore, test-only) -> light gates + minimal Context7
+- Budget escalation -> CF task orchestrate to architecture/planner agents
+- Failure patterns -> Neural training for continuous improvement
 <!-- /SPEK-AUGMENT v1 -->'
 
 # Function to extract role name from file path
@@ -108,7 +108,7 @@ update_agent_file() {
     local file="$1"
     local role_name=$(get_role_name "$file")
     
-    echo "📝 Updating $role_name..."
+    echo "[NOTE] Updating $role_name..."
     
     # Create temporary file
     local temp_file=$(mktemp)
@@ -150,15 +150,15 @@ for file in "${AGENT_FILES[@]}"; do
 done
 
 echo ""
-echo "📊 Update Summary:"
+echo "[CHART] Update Summary:"
 echo "   Updated: $UPDATED_COUNT files"
 echo "   Skipped: $SKIPPED_COUNT files"
 echo "   Total:   $TOTAL_FILES files"
 echo ""
-echo "✅ All agent prompts updated to SPEK-AUGMENT v1 standard"
+echo "[OK] All agent prompts updated to SPEK-AUGMENT v1 standard"
 
 # Validation
-echo "🔍 Validating updated files..."
+echo "[SEARCH] Validating updated files..."
 VALIDATION_ERRORS=0
 
 for file in "${AGENT_FILES[@]}"; do
@@ -167,31 +167,31 @@ for file in "${AGENT_FILES[@]}"; do
         
         # Check for required markers
         if ! grep -q "SPEK-AUGMENT v1: header" "$file"; then
-            echo "❌ $role_name: Missing header marker"
+            echo "[FAIL] $role_name: Missing header marker"
             ((VALIDATION_ERRORS++))
         fi
         
         if ! grep -q "SPEK-AUGMENT v1: mcp" "$file"; then
-            echo "❌ $role_name: Missing MCP footer marker"
+            echo "[FAIL] $role_name: Missing MCP footer marker"
             ((VALIDATION_ERRORS++))
         fi
         
         # Check role substitution
         if grep -q "<ROLE>" "$file"; then
-            echo "❌ $role_name: Role placeholder not substituted"
+            echo "[FAIL] $role_name: Role placeholder not substituted"
             ((VALIDATION_ERRORS++))
         fi
     fi
 done
 
 if [ $VALIDATION_ERRORS -eq 0 ]; then
-    echo "✅ All validations passed"
+    echo "[OK] All validations passed"
 else
-    echo "❌ Found $VALIDATION_ERRORS validation errors"
+    echo "[FAIL] Found $VALIDATION_ERRORS validation errors"
 fi
 
 echo ""
-echo "🎯 Next steps:"
+echo "[TARGET] Next steps:"
 echo "   1. Review sample updated files"
 echo "   2. Run lint script to validate JSON contracts"
 echo "   3. Test agent responses for STRICT JSON output"

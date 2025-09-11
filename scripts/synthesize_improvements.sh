@@ -9,7 +9,7 @@ ITERATION=${1:-1}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ARTIFACTS_DIR=".claude/.artifacts"
 
-echo "🔄 Synthesizing improvements from iteration $ITERATION analysis..."
+echo "[CYCLE] Synthesizing improvements from iteration $ITERATION analysis..."
 
 # Load individual agent analyses
 CLAUDE_FILE="$ARTIFACTS_DIR/claude_premortem.json"
@@ -17,17 +17,17 @@ GEMINI_FILE="$ARTIFACTS_DIR/gemini_analysis.json"
 CODEX_FILE="$ARTIFACTS_DIR/codex_analysis.json"
 
 if [[ ! -f "$CLAUDE_FILE" || ! -f "$GEMINI_FILE" || ! -f "$CODEX_FILE" ]]; then
-    echo "❌ Missing agent analysis files - cannot synthesize improvements"
+    echo "[FAIL] Missing agent analysis files - cannot synthesize improvements"
     echo "   Required: claude_premortem.json, gemini_analysis.json, codex_analysis.json"
     exit 1
 fi
 
-echo "📋 Loading agent analyses..."
+echo "[CLIPBOARD] Loading agent analyses..."
 CLAUDE_ANALYSIS=$(cat "$CLAUDE_FILE")
 GEMINI_ANALYSIS=$(cat "$GEMINI_FILE")
 CODEX_ANALYSIS=$(cat "$CODEX_FILE")
 
-echo "🧠 Extracting improvement categories..."
+echo "[BRAIN] Extracting improvement categories..."
 
 # Extract spec improvements from all agents
 CLAUDE_SPEC_IMPROVEMENTS=$(echo "$CLAUDE_ANALYSIS" | jq -r '.spec_improvements[]? // empty')
@@ -49,7 +49,7 @@ CLAUDE_CHECKPOINTS=$(echo "$CLAUDE_ANALYSIS" | jq -r '.quality_checkpoints[]? //
 GEMINI_CHECKPOINTS=$(echo "$GEMINI_ANALYSIS" | jq -r '.quality_checkpoints[]? // empty') 
 CODEX_CHECKPOINTS=$(echo "$CODEX_ANALYSIS" | jq -r '.quality_checkpoints[]? // empty')
 
-echo "🔍 Consolidating and deduplicating improvements..."
+echo "[SEARCH] Consolidating and deduplicating improvements..."
 
 # Combine all improvements into temporary files for processing
 {
@@ -108,7 +108,7 @@ done < /tmp/quality_checkpoints.txt
 # Clean up temporary files
 rm -f /tmp/spec_improvements.txt /tmp/plan_refinements.txt /tmp/new_risks.txt /tmp/quality_checkpoints.txt
 
-echo "📊 Improvement synthesis summary:"
+echo "[CHART] Improvement synthesis summary:"
 echo "   - Spec improvements: $(echo "$SPEC_IMPROVEMENTS_ARRAY" | jq length)"
 echo "   - Plan refinements: $(echo "$PLAN_REFINEMENTS_ARRAY" | jq length)"
 echo "   - New risks: $(echo "$NEW_RISKS_ARRAY" | jq length)"
@@ -164,27 +164,27 @@ IMPROVEMENTS_FILE="$ARTIFACTS_DIR/improvements.json"
 echo "$IMPROVEMENTS_JSON" > "$IMPROVEMENTS_FILE"
 
 echo ""
-echo "✅ Improvement synthesis complete!"
-echo "📁 Output file: $IMPROVEMENTS_FILE"
-echo "🔧 Ready for application using apply_improvements.sh"
+echo "[OK] Improvement synthesis complete!"
+echo "[FOLDER] Output file: $IMPROVEMENTS_FILE"
+echo "[TOOL] Ready for application using apply_improvements.sh"
 
 # Display summary of what will be applied
 echo ""
-echo "🎯 Preview of improvements to be applied:"
+echo "[TARGET] Preview of improvements to be applied:"
 echo ""
-echo "📝 SPEC.md improvements:"
+echo "[NOTE] SPEC.md improvements:"
 echo "$SPEC_IMPROVEMENTS_ARRAY" | jq -r '.[] | "  + " + .'
 
 echo ""
-echo "📋 plan.json refinements:"
+echo "[CLIPBOARD] plan.json refinements:"
 echo "$PLAN_REFINEMENTS_ARRAY" | jq -r '.[] | "  + " + .'
 
 echo ""
-echo "⚠️ New risks identified:"
-echo "$NEW_RISKS_ARRAY" | jq -r '.[] | "  ⚠️ " + .'
+echo "[WARN] New risks identified:"
+echo "$NEW_RISKS_ARRAY" | jq -r '.[] | "  [WARN] " + .'
 
 echo ""
-echo "✅ Quality checkpoints:"
-echo "$QUALITY_CHECKPOINTS_ARRAY" | jq -r '.[] | "  ✓ " + .'
+echo "[OK] Quality checkpoints:"
+echo "$QUALITY_CHECKPOINTS_ARRAY" | jq -r '.[] | "  [U+2713] " + .'
 
 exit 0

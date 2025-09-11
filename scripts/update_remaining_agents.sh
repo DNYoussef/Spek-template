@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-echo "🚀 SPEK-AUGMENT v1: Update Remaining Agent Groups"
+echo "[ROCKET] SPEK-AUGMENT v1: Update Remaining Agent Groups"
 echo "================================================"
 
 # Global header template
@@ -13,23 +13,23 @@ GLOBAL_HEADER='<!-- SPEK-AUGMENT v1: header -->
 
 You are the <ROLE> sub-agent in a coordinated Spec-Driven loop:
 
-SPECIFY → PLAN → DISCOVER → IMPLEMENT → VERIFY → REVIEW → DELIVER → LEARN
+SPECIFY -> PLAN -> DISCOVER -> IMPLEMENT -> VERIFY -> REVIEW -> DELIVER -> LEARN
 
-## Quality policy (CTQs — changed files only)
+## Quality policy (CTQs -- changed files only)
 - NASA PoT structural safety (Connascence Analyzer policy)
-- Connascence deltas: new HIGH/CRITICAL = 0; duplication score Δ ≥ 0.00
+- Connascence deltas: new HIGH/CRITICAL = 0; duplication score [U+0394] >= 0.00
 - Security: Semgrep HIGH/CRITICAL = 0
-- Testing: black-box only; coverage on changed lines ≥ baseline
-- Size: micro edits ≤ 25 LOC and ≤ 2 files unless plan specifies "multi"
-- PR size guideline: ≤ 250 LOC, else require "multi" plan
+- Testing: black-box only; coverage on changed lines >= baseline
+- Size: micro edits <= 25 LOC and <= 2 files unless plan specifies "multi"
+- PR size guideline: <= 250 LOC, else require "multi" plan
 
 ## Tool routing
-- **Gemini** → wide repo context (impact maps, call graphs, configs)
-- **Codex (global CLI)** → bounded code edits + sandbox QA (tests/typecheck/lint/security/coverage/connascence)
-- **Plane MCP** → create/update issues & cycles from plan.json (if configured)
-- **Context7** → minimal context packs (only referenced files/functions)
-- **Playwright MCP** → E2E smokes
-- **eva MCP** → flakiness/perf scoring
+- **Gemini** -> wide repo context (impact maps, call graphs, configs)
+- **Codex (global CLI)** -> bounded code edits + sandbox QA (tests/typecheck/lint/security/coverage/connascence)
+- **Plane MCP** -> create/update issues & cycles from plan.json (if configured)
+- **Context7** -> minimal context packs (only referenced files/functions)
+- **Playwright MCP** -> E2E smokes
+- **eva MCP** -> flakiness/perf scoring
 
 ## Artifact contracts (STRICT JSON only)
 - plan.json: {"tasks":[{"id","title","type":"small|multi|big","scope","verify_cmds":[],"budget_loc":25,"budget_files":2,"acceptance":[]}],"risks":[]}
@@ -43,7 +43,7 @@ SPECIFY → PLAN → DISCOVER → IMPLEMENT → VERIFY → REVIEW → DELIVER �
 - Idempotent outputs; never overwrite baselines unless instructed.
 - WIP guard: refuse if phase WIP cap exceeded; ask planner to dequeue.
 - Tollgates: if upstream artifacts missing (SPEC/plan/impact), emit {"error":"BLOCKED","missing":[...]} and STOP.
-- Escalation: if edits exceed budgets or blast radius unclear → {"escalate":"planner|architecture","reason":""}.
+- Escalation: if edits exceed budgets or blast radius unclear -> {"escalate":"planner|architecture","reason":""}.
 
 ## Scope & security
 - Respect configs/codex.json allow/deny; never touch denylisted paths.
@@ -58,7 +58,7 @@ SPECIFY → PLAN → DISCOVER → IMPLEMENT → VERIFY → REVIEW → DELIVER �
 2) Validate DoR/tollgates; if missing, output {"error":"BLOCKED","missing":[...]} and STOP.
 3) Produce ONLY the declared STRICT JSON artifact(s) per role (no prose).
 4) Notify downstream partner(s) by naming required artifact(s).
-5) If budgets exceeded or crosscut risk → emit {"escalate":"planner|architecture","reason":""}.
+5) If budgets exceeded or crosscut risk -> emit {"escalate":"planner|architecture","reason":""}.
 
 <!-- /SPEK-AUGMENT v1 -->'
 
@@ -88,7 +88,7 @@ ROLE_PR_MANAGER='<!-- SPEK-AUGMENT v1: role=pr-manager -->
 Mission: Compose PR Quality Summary (tests/typecheck/lint/security/coverage + connascence deltas + SARIF links) and open PR; link Plane issues.
 MCP: Github (PRs/labels/reviewers), Plane (if configured).
 Output: {"pr_ready":true,"labels":["quality:green","scope:small"],"links":{"plane_issue_ids":[]}} (STRICT). Only JSON. No prose.
-PM (Plane): After PR created, call pm:sync and append issue links to PR body; if config missing → {"pm_warning":"PLANE_CONFIG_MISSING"}.
+PM (Plane): After PR created, call pm:sync and append issue links to PR body; if config missing -> {"pm_warning":"PLANE_CONFIG_MISSING"}.
 <!-- /SPEK-AUGMENT v1 -->'
 
 ROLE_RELEASE_MANAGER='<!-- SPEK-AUGMENT v1: role=release-manager -->
@@ -114,11 +114,11 @@ update_agent_file() {
     local role_name=$(basename "$file" .md)
     local role_block="$2"
     
-    echo "📝 Updating $role_name..."
+    echo "[NOTE] Updating $role_name..."
     
     # Skip if already updated
     if grep -q "SPEK-AUGMENT v1: header" "$file" 2>/dev/null; then
-        echo "   ✅ Already updated, skipping"
+        echo "   [OK] Already updated, skipping"
         return 0
     fi
     
@@ -152,7 +152,7 @@ update_agent_file() {
 
 # GROUP 2: PLAN Phase - Key agents
 echo ""
-echo "🎯 GROUP 2: PLAN Phase Agents"
+echo "[TARGET] GROUP 2: PLAN Phase Agents"
 echo "-----------------------------"
 
 if [ -f ".claude/agents/architecture/system-design/arch-system-design.md" ]; then
@@ -161,7 +161,7 @@ fi
 
 # GROUP 6: REVIEW Phase - Key PR management agents  
 echo ""
-echo "🔍 GROUP 6: REVIEW Phase - PR Management"
+echo "[SEARCH] GROUP 6: REVIEW Phase - PR Management"
 echo "----------------------------------------"
 
 if [ -f ".claude/agents/github/pr-manager.md" ]; then
@@ -170,7 +170,7 @@ fi
 
 # GROUP 7: DELIVER Phase - Release management
 echo ""
-echo "🚀 GROUP 7: DELIVER Phase - Release Management" 
+echo "[ROCKET] GROUP 7: DELIVER Phase - Release Management" 
 echo "----------------------------------------------"
 
 if [ -f ".claude/agents/github/release-manager.md" ]; then
@@ -179,7 +179,7 @@ fi
 
 # GROUP 5: VERIFY Phase - Security and Performance
 echo ""
-echo "✅ GROUP 5: VERIFY Phase - Security & Performance"
+echo "[OK] GROUP 5: VERIFY Phase - Security & Performance"
 echo "------------------------------------------------"
 
 if [ -f ".claude/agents/consensus/security-manager.md" ]; then
@@ -191,5 +191,5 @@ if [ -f ".claude/agents/consensus/performance-benchmarker.md" ]; then
 fi
 
 echo ""
-echo "✅ Key agent groups updated!"
-echo "📊 Next: Fix duplicate MCP footers and validate all updates"
+echo "[OK] Key agent groups updated!"
+echo "[CHART] Next: Fix duplicate MCP footers and validate all updates"

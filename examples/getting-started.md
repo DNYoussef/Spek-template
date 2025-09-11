@@ -3,17 +3,17 @@
 **Time to Complete**: ~15 minutes  
 **Prerequisites**: Node.js 18+, Git, Claude Code with latest commands
 
-## 📋 What You'll Learn
+## [CLIPBOARD] What You'll Learn
 
 By the end of this tutorial, you'll have:
-- ✅ Initialized the SPEK-AUGMENT template
-- ✅ Created your first specification (SPEC.md)
-- ✅ Generated structured tasks with `/spec:plan`
-- ✅ Implemented a simple change with `/codex:micro`
-- ✅ Verified quality with comprehensive QA gates
-- ✅ Created an evidence-rich pull request
+- [OK] Initialized the SPEK-AUGMENT template
+- [OK] Created your first specification (SPEC.md)
+- [OK] Generated structured tasks with `/spec:plan`
+- [OK] Implemented a simple change with `/codex:micro`
+- [OK] Verified quality with comprehensive QA gates
+- [OK] Created an evidence-rich pull request
 
-## 🚀 Step 1: Environment Setup
+## [ROCKET] Step 1: Environment Setup
 
 ### Verify Prerequisites
 
@@ -46,9 +46,9 @@ npx semgrep --version
 python -m analyzer.connascence_analyzer --help
 ```
 
-✅ **Checkpoint**: All dependencies installed without errors
+[OK] **Checkpoint**: All dependencies installed without errors
 
-## 📝 Step 2: Create Your First Specification
+## [NOTE] Step 2: Create Your First Specification
 
 Let's implement a simple utility function to demonstrate the workflow.
 
@@ -102,9 +102,9 @@ npm run coverage
 - **Phase 3**: Quality verification and PR (15 min)
 ```
 
-✅ **Checkpoint**: SPEC.md created with clear requirements
+[OK] **Checkpoint**: SPEC.md created with clear requirements
 
-## 🎯 Step 3: Generate Structured Tasks
+## [TARGET] Step 3: Generate Structured Tasks
 
 Now let's convert our human-readable spec into machine-executable tasks.
 
@@ -169,14 +169,14 @@ In Claude Code:
 ### Review the Generated Plan
 
 **Key Observations**:
-- ✅ Tasks classified as "small" (suitable for `/codex:micro`)
-- ✅ Budget constraints: ≤25 LOC, ≤2 files per task
-- ✅ Clear acceptance criteria for each task
-- ✅ Verification commands specified
+- [OK] Tasks classified as "small" (suitable for `/codex:micro`)
+- [OK] Budget constraints: <=25 LOC, <=2 files per task
+- [OK] Clear acceptance criteria for each task
+- [OK] Verification commands specified
 
-✅ **Checkpoint**: plan.json generated with appropriate task breakdown
+[OK] **Checkpoint**: plan.json generated with appropriate task breakdown
 
-## 🔧 Step 4: Implement with `/codex:micro`
+## [TOOL] Step 4: Implement with `/codex:micro`
 
 Now let's implement the first task using Codex's sandboxing capabilities.
 
@@ -245,9 +245,9 @@ export function validateEmail(email) {
 }
 ```
 
-✅ **Checkpoint**: Function implemented and passing all quality gates
+[OK] **Checkpoint**: Function implemented and passing all quality gates
 
-## 🧪 Step 5: Add Comprehensive Tests
+## [U+1F9EA] Step 5: Add Comprehensive Tests
 
 Now implement the test suite for complete coverage.
 
@@ -286,9 +286,9 @@ describe('validateEmail', () => {
 });
 ```
 
-✅ **Checkpoint**: Test suite created with comprehensive coverage
+[OK] **Checkpoint**: Test suite created with comprehensive coverage
 
-## 🔍 Step 6: Run Comprehensive Quality Assurance
+## [SEARCH] Step 6: Run Comprehensive Quality Assurance
 
 Let's verify everything meets our quality standards.
 
@@ -371,9 +371,9 @@ Let's verify everything meets our quality standards.
 }
 ```
 
-✅ **Checkpoint**: All quality gates passing, ready for PR
+[OK] **Checkpoint**: All quality gates passing, ready for PR
 
-## 📤 Step 7: Create Evidence-Rich Pull Request
+## [U+1F4E4] Step 7: Create Evidence-Rich Pull Request
 
 Now let's create a professional PR with complete evidence package.
 
@@ -386,14 +386,14 @@ Now let's create a professional PR with complete evidence package.
 ```markdown
 # feat: Add email validation utility with comprehensive edge case handling
 
-## 📋 Summary
+## [CLIPBOARD] Summary
 
 **Feature**: Email validation utility function
 **Business Value**: Robust input validation for user email addresses
 **Technical Approach**: Simple utility with comprehensive error handling
-**Risk Level**: 🟢 low
+**Risk Level**: [U+1F7E2] low
 
-## 🏗️ Changes
+## [BUILD] Changes
 
 ### Files Modified
 - **src/utils/validation.js** - New validateEmail function (18 lines)
@@ -405,15 +405,15 @@ Now let's create a professional PR with complete evidence package.
 - Structured return format: `{valid: boolean, error?: string}`
 - 100% test coverage with edge case handling
 
-## 🧪 Quality Assurance
+## [U+1F9EA] Quality Assurance
 
 ### Test Results
-- **Tests**: 8/8 passing ✅
-- **Coverage**: +2.1% ✅
-- **Type Check**: ✅ Pass (0 errors)
-- **Linting**: ✅ Pass (0 errors)
+- **Tests**: 8/8 passing [OK]
+- **Coverage**: +2.1% [OK]
+- **Type Check**: [OK] Pass (0 errors)
+- **Linting**: [OK] Pass (0 errors)
 
-### Risk Assessment: 🟢 low
+### Risk Assessment: [U+1F7E2] low
 
 **Quality Metrics**:
 - Test Coverage: 100% on changed files
@@ -421,16 +421,16 @@ Now let's create a professional PR with complete evidence package.
 - Security Scan: Clean (0 findings)
 - Code Duplication Score: 0.95
 
-## 🔒 Security Assessment
+## [U+1F512] Security Assessment
 
 ### Security Scan Results
-- **Critical**: 0 ✅
-- **High**: 0 ✅  
-- **Medium**: 0 ✅
+- **Critical**: 0 [OK]
+- **High**: 0 [OK]  
+- **Medium**: 0 [OK]
 
-### ✅ No security issues found
+### [OK] No security issues found
 
-## 📊 Impact Analysis
+## [CHART] Impact Analysis
 
 ### Files Changed
 - **src/utils/validation.js** (new file) - Isolated utility function
@@ -441,17 +441,17 @@ Now let's create a professional PR with complete evidence package.
 
 ### Recommended Approach: standard
 
-## 🚀 Deployment
+## [ROCKET] Deployment
 
 ### Deployment Readiness
-- ✅ All quality gates passed
-- ✅ No breaking changes
-- ✅ No configuration changes required
-- ✅ Self-contained utility function
+- [OK] All quality gates passed
+- [OK] No breaking changes
+- [OK] No configuration changes required
+- [OK] Self-contained utility function
 
 **Deployment Notes**: None - function is self-contained and backward compatible
 
-## ✅ Pre-merge Checklist
+## [OK] Pre-merge Checklist
 
 - [x] All tests pass
 - [x] Code coverage maintained/improved
@@ -468,8 +468,8 @@ Now let's create a professional PR with complete evidence package.
 
 ---
 
-🤖 Generated with SPEK-AUGMENT v1
-📊 Evidence Package: qa.json, security.json, connascence.json
+[U+1F916] Generated with SPEK-AUGMENT v1
+[CHART] Evidence Package: qa.json, security.json, connascence.json
 ```
 
 **PR Results**:
@@ -488,36 +488,36 @@ Now let's create a professional PR with complete evidence package.
 }
 ```
 
-✅ **Checkpoint**: Professional PR created with complete evidence package
+[OK] **Checkpoint**: Professional PR created with complete evidence package
 
-## 🎉 Congratulations!
+## [PARTY] Congratulations!
 
 You've successfully completed your first SPEK-AUGMENT workflow! Here's what you accomplished:
 
-### ✅ What You Built
+### [OK] What You Built
 - **Specification**: Clear, structured requirements in SPEC.md
 - **Implementation**: Email validation utility with error handling
 - **Tests**: Comprehensive test suite with 100% coverage
 - **Quality**: All gates passing (tests, types, lint, security)
 - **Documentation**: Evidence-rich PR ready for review
 
-### 🎯 Key Learnings
+### [TARGET] Key Learnings
 
-1. **SPEK Workflow**: Specification → Planning → Implementation → Verification → Delivery
-2. **Command Progression**: `/spec:plan` → `/codex:micro` → `/qa:run` → `/pr:open`
+1. **SPEK Workflow**: Specification -> Planning -> Implementation -> Verification -> Delivery
+2. **Command Progression**: `/spec:plan` -> `/codex:micro` -> `/qa:run` -> `/pr:open`
 3. **Quality Gates**: Automated verification ensures consistent quality
 4. **Evidence-Based PRs**: Complete audit trail for every change
 5. **Safety Constraints**: Bounded operations prevent runaway changes
 
-### 📈 Quality Metrics Achieved
-- ✅ 100% test pass rate
-- ✅ 100% test coverage on changed files
-- ✅ Zero TypeScript errors
-- ✅ Zero linting errors
-- ✅ Zero security vulnerabilities
-- ✅ 95.2% NASA POT10 compliance
+### [TREND] Quality Metrics Achieved
+- [OK] 100% test pass rate
+- [OK] 100% test coverage on changed files
+- [OK] Zero TypeScript errors
+- [OK] Zero linting errors
+- [OK] Zero security vulnerabilities
+- [OK] 95.2% NASA POT10 compliance
 
-## 🚀 Next Steps
+## [ROCKET] Next Steps
 
 Now that you understand the basics, explore more advanced workflows:
 
@@ -549,7 +549,7 @@ Now that you understand the basics, explore more advanced workflows:
 /qa:gate              # Apply all quality thresholds
 ```
 
-## 🔧 Troubleshooting
+## [TOOL] Troubleshooting
 
 If you encountered any issues during this tutorial:
 
@@ -560,7 +560,7 @@ If you encountered any issues during this tutorial:
 
 See [troubleshooting.md](troubleshooting.md) for comprehensive issue resolution.
 
-## 💡 Pro Tips
+## [INFO] Pro Tips
 
 1. **Start Small**: Always begin with `/codex:micro` - it will suggest escalation if needed
 2. **Trust the Gates**: Quality gates prevent issues - don't skip them
@@ -570,9 +570,9 @@ See [troubleshooting.md](troubleshooting.md) for comprehensive issue resolution.
 
 ---
 
-**Ready for more?** 🚀 Choose your next adventure:
+**Ready for more?** [ROCKET] Choose your next adventure:
 - **Simple changes**: Continue with [Basic Workflow](basic-workflow.md)
 - **Complex features**: Try [Complex Workflow](complex-workflow.md)
 - **Team integration**: Explore [Project Management](project-management.md)
 
-*Welcome to the future of AI-driven development!* ✨
+*Welcome to the future of AI-driven development!* [U+2728]

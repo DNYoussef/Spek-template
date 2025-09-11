@@ -7,7 +7,7 @@ steps:
   # Enhanced Hive-Mind Initialization with Unified Memory
   - id: init_hive
     run: |
-      echo "🐝 Initializing hive-mind with unified memory coordination..."
+      echo "[U+1F41D] Initializing hive-mind with unified memory coordination..."
       
       # Initialize unified memory bridge first
       source scripts/memory_bridge.sh
@@ -67,7 +67,7 @@ steps:
     foreach: plan.json.tasks
     when: item.type == "big"
     run: |
-      echo "🔍 Spawning Gemini-optimized researcher for comprehensive analysis..."
+      echo "[SEARCH] Spawning Gemini-optimized researcher for comprehensive analysis..."
       # Spawn Gemini-optimized researcher with large context capability
       npx claude-flow@alpha agent spawn --type researcher-gemini --session "$SESSION_ID" --max-context unlimited
       # Use Gemini integration for impact analysis
@@ -81,9 +81,9 @@ steps:
     foreach: plan.json.tasks
     when: item.type == "small"
     run: |
-      echo "⚡ Using Codex-optimized implementation with sandbox verification..."
+      echo "[LIGHTNING] Using Codex-optimized implementation with sandbox verification..."
       # Route small tasks to Codex-optimized agent
-      claude Task --subagent_type coder-codex --description "Sandboxed micro-implementation" --prompt "Execute micro-task: ${{ item.title }}. Use Codex CLI with comprehensive sandbox verification. Budget: ≤25 LOC, ≤2 files. Generate codex_summary.json with verification results."
+      claude Task --subagent_type coder-codex --description "Sandboxed micro-implementation" --prompt "Execute micro-task: ${{ item.title }}. Use Codex CLI with comprehensive sandbox verification. Budget: <=25 LOC, <=2 files. Generate codex_summary.json with verification results."
       # Fallback to direct implementation
       claude /codex:micro "${{ item.title }}" || echo "Direct Codex micro-operation"
 
@@ -95,7 +95,7 @@ steps:
   # Cache Optimization and Performance Enhancement
   - id: cache_optimization
     run: |
-      echo "🚀 Optimizing cache for improved CI/CD performance..."
+      echo "[ROCKET] Optimizing cache for improved CI/CD performance..."
       
       # Cache inspection and optimization
       claude /conn:cache \
@@ -119,7 +119,7 @@ steps:
   # Enhanced Architectural Analysis
   - id: architectural_assessment
     run: |
-      echo "🏛️ Running comprehensive architectural assessment..."
+      echo "[U+1F3DB][U+FE0F] Running comprehensive architectural assessment..."
       
       # Enhanced connascence analysis with architecture
       claude /conn:scan \
@@ -191,7 +191,7 @@ steps:
   - id: learn_phase
     when: gate.json.ok == true
     run: |
-      echo "🧠 Learning phase with unified memory intelligence..."
+      echo "[BRAIN] Learning phase with unified memory intelligence..."
       
       # Load memory bridge for coordination
       source scripts/memory_bridge.sh
@@ -248,7 +248,7 @@ steps:
   - id: gate_failure
     when: $.self_correct_quality.ok == false
     run: |
-      echo "❌ Quality gates failed after self-correction attempts. Generating comprehensive failure report..."
+      echo "[FAIL] Quality gates failed after self-correction attempts. Generating comprehensive failure report..."
       
       # Enhanced failure analysis with architectural intelligence
       claude /qa:analyze "$(cat .claude/.artifacts/gate.json)" \
@@ -262,7 +262,7 @@ steps:
       scripts/gate_fail_reason.sh .claude/.artifacts/gate.json pr-comment
       
       echo ""
-      echo "🏗️ Architectural Failure Analysis:"
+      echo "[BUILD] Architectural Failure Analysis:"
       if [[ -f .claude/.artifacts/architecture_assessment.json ]]; then
         echo "Architecture Health Score: $(jq -r '.system_overview.architectural_health // "N/A"' .claude/.artifacts/architecture_assessment.json)"
         echo "Coupling Score: $(jq -r '.system_overview.coupling_score // "N/A"' .claude/.artifacts/architecture_assessment.json)"
@@ -274,7 +274,7 @@ steps:
       fi
       
       echo ""
-      echo "🚀 Cache Performance Analysis:"
+      echo "[ROCKET] Cache Performance Analysis:"
       if [[ -f .claude/.artifacts/cache_optimization.json ]]; then
         echo "Cache Health Score: $(jq -r '.cache_health.health_score // "N/A"' .claude/.artifacts/cache_optimization.json)"
         echo "Hit Rate: $(jq -r '.performance_metrics.hit_rate // "N/A"' .claude/.artifacts/cache_optimization.json)"
@@ -282,9 +282,9 @@ steps:
       fi
       
       echo ""
-      echo "📋 Artifacts available:"
+      echo "[CLIPBOARD] Artifacts available:"
       ls -la .claude/.artifacts/
       
       echo ""
-      echo "📝 PR comment generated (if applicable):"
+      echo "[NOTE] PR comment generated (if applicable):"
       cat .claude/.artifacts/pr_comment.md 2>/dev/null || echo "No PR comment generated"

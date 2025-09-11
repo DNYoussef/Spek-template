@@ -33,12 +33,12 @@ def get_changed_files() -> List[str]:
 
 def analyze_diff_coverage() -> Dict[str, Any]:
     """Analyze coverage on changed files only."""
-    print("🔍 Analyzing diff coverage...")
+    print("[SEARCH] Analyzing diff coverage...")
     
     try:
         changed_files = get_changed_files()
         
-        print(f"📁 Changed files: {len(changed_files)}")
+        print(f"[FOLDER] Changed files: {len(changed_files)}")
         for file in changed_files:
             print(f"  - {file}")
         
@@ -62,13 +62,13 @@ def analyze_diff_coverage() -> Dict[str, Any]:
         with open(artifacts_dir / "diff_coverage.json", "w") as f:
             json.dump(result, f, indent=2)
         
-        print("✅ Diff coverage analysis complete (placeholder)")
-        print(f"📊 Coverage delta: {result['coverage_delta']}")
+        print("[OK] Diff coverage analysis complete (placeholder)")
+        print(f"[CHART] Coverage delta: {result['coverage_delta']}")
         
         return result
         
     except Exception as e:
-        print(f"❌ Diff coverage analysis failed: {e}")
+        print(f"[FAIL] Diff coverage analysis failed: {e}")
         
         result = {
             "ok": False,

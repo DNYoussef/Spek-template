@@ -23,11 +23,11 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
 # Logging functions
-log_info() { echo -e "${CYAN}ℹ️  $1${NC}"; }
-log_success() { echo -e "${GREEN}✅ $1${NC}"; }
-log_warning() { echo -e "${YELLOW}⚠️  $1${NC}"; }
-log_error() { echo -e "${RED}❌ $1${NC}"; }
-log_debug() { [[ "${DEBUG:-0}" == "1" ]] && echo -e "${PURPLE}🔍 DEBUG: $1${NC}"; }
+log_info() { echo -e "${CYAN}i[U+FE0F]  $1${NC}"; }
+log_success() { echo -e "${GREEN}[OK] $1${NC}"; }
+log_warning() { echo -e "${YELLOW}[WARN]  $1${NC}"; }
+log_error() { echo -e "${RED}[FAIL] $1${NC}"; }
+log_debug() { [[ "${DEBUG:-0}" == "1" ]] && echo -e "${PURPLE}[SEARCH] DEBUG: $1${NC}"; }
 
 # Memory Router Functions
 initialize_memory_router() {

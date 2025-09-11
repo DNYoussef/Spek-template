@@ -230,7 +230,7 @@ class ResultAggregator:
                 # Mark as duplicate for potential correlation
                 violation['is_duplicate'] = True
 
-        logger.info(f"Deduplicated {len(violations)} → {len(unique_violations)} violations")
+        logger.info(f"Deduplicated {len(violations)} -> {len(unique_violations)} violations")
         return unique_violations
 
     def _cross_correlate_violations(self, violations: List[Dict]) -> List[Dict]:

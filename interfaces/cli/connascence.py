@@ -216,13 +216,13 @@ class ConnascenceCLI:
 
         # Map severity to CLI-friendly display
         severity_prefix = {
-            ERROR_SEVERITY['CRITICAL']: '💥 CRITICAL',
-            ERROR_SEVERITY['HIGH']: '❌ ERROR',
-            ERROR_SEVERITY['MEDIUM']: '⚠️  WARNING',
-            ERROR_SEVERITY['LOW']: 'i️  INFO'
+            ERROR_SEVERITY['CRITICAL']: '[U+1F4A5] CRITICAL',
+            ERROR_SEVERITY['HIGH']: '[FAIL] ERROR',
+            ERROR_SEVERITY['MEDIUM']: '[WARN]  WARNING',
+            ERROR_SEVERITY['LOW']: 'i[U+FE0F]  INFO'
         }
 
-        prefix = severity_prefix.get(error.severity, '❌ ERROR')
+        prefix = severity_prefix.get(error.severity, '[FAIL] ERROR')
         print(f"{prefix}: {error.message}", file=sys.stderr)
 
         # Show relevant context
@@ -265,10 +265,10 @@ def main(args: Optional[List[str]] = None) -> int:
         cli = ConnascenceCLI()
         return cli.run(args)
     except KeyboardInterrupt:
-        print("\n⏹️ Analysis interrupted by user", file=sys.stderr)
+        print("\n[U+23F9][U+FE0F] Analysis interrupted by user", file=sys.stderr)
         return EXIT_INTERRUPTED
     except Exception as e:
-        print(f"💥 CLI initialization failed: {e}", file=sys.stderr)
+        print(f"[U+1F4A5] CLI initialization failed: {e}", file=sys.stderr)
         return EXIT_ERROR
 
 

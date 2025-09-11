@@ -487,8 +487,8 @@ def main():
     # Component validation summary
     print("\\nComponent Validation:")
     for component, validation_data in results['component_validation'].items():
-        implemented = "✓" if validation_data['implemented'] else "✗"
-        functional = "✓" if validation_data['functional'] else "✗"
+        implemented = "[U+2713]" if validation_data['implemented'] else "[U+2717]"
+        functional = "[U+2713]" if validation_data['functional'] else "[U+2717]"
         print(f"  - {component}: Implemented {implemented}, Functional {functional}")
     
     # Performance comparison
@@ -521,10 +521,10 @@ def main():
     
     # Exit with status based on deployment readiness
     if deployment_ready:
-        print("\\n🚀 PHASE 3 DEPLOYMENT: READY")
+        print("\\n[ROCKET] PHASE 3 DEPLOYMENT: READY")
         sys.exit(0)
     else:
-        print("\\n⚠️  PHASE 3 DEPLOYMENT: NOT READY")
+        print("\\n[WARN]  PHASE 3 DEPLOYMENT: NOT READY")
         sys.exit(1)
 
 

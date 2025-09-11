@@ -18,10 +18,10 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
-log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] ✅${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] ⚠️${NC} $*"; }
-log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] ❌${NC} $*"; }
-log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] ℹ️${NC} $*"; }
+log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] [OK]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] [WARN]${NC} $*"; }
+log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] [FAIL]${NC} $*"; }
+log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] i[U+FE0F]${NC} $*"; }
 
 # Safety mechanism: Check working tree is clean
 ensure_clean_working_tree() {
@@ -49,7 +49,7 @@ create_safety_branch() {
 
 # Route fixes based on complexity analysis
 route_surgical_fixes() {
-    log "⚡ Routing surgical fixes based on complexity analysis..."
+    log "[LIGHTNING] Routing surgical fixes based on complexity analysis..."
     
     local failure_analysis_file="$ARTIFACTS_DIR/failure_analysis.json"
     
@@ -89,9 +89,9 @@ route_surgical_fixes() {
     esac
 }
 
-# Implement Codex micro-fixes (≤25 LOC, ≤2 files)
+# Implement Codex micro-fixes (<=25 LOC, <=2 files)
 implement_codex_micro_fixes() {
-    log_info "🔬 Implementing Codex micro-fixes (bounded surgical edits)..."
+    log_info "[SCIENCE] Implementing Codex micro-fixes (bounded surgical edits)..."
     
     # Create implementation record
     cat > "$ARTIFACTS_DIR/codex_micro_implementation.json" << EOF
@@ -382,7 +382,7 @@ verify_codex_micro_fixes() {
 
 # Implement planned checkpoint fixes (multi-file, bounded)
 implement_planned_checkpoint_fixes() {
-    log_info "📋 Implementing planned checkpoint fixes..."
+    log_info "[CLIPBOARD] Implementing planned checkpoint fixes..."
     
     # Create implementation record
     cat > "$ARTIFACTS_DIR/planned_checkpoint_implementation.json" << EOF
@@ -671,7 +671,7 @@ verify_checkpoint_quality() {
 
 # Implement Gemini architectural fixes (complex analysis)
 implement_gemini_architectural_fixes() {
-    log_info "🏗️ Implementing Gemini architectural fixes..."
+    log_info "[BUILD] Implementing Gemini architectural fixes..."
     
     # Create implementation record
     cat > "$ARTIFACTS_DIR/gemini_architectural_implementation.json" << EOF
@@ -699,7 +699,7 @@ EOF
 
 # Fallback manual fixes
 implement_fallback_manual_fixes() {
-    log_warning "🔧 Implementing fallback manual fixes..."
+    log_warning "[TOOL] Implementing fallback manual fixes..."
     
     log_info "Manual intervention recommendations:"
     log_info "1. Review failure analysis in $ARTIFACTS_DIR/failure_analysis.json"
@@ -738,7 +738,7 @@ EOF
 
 # Main surgical fix execution
 main() {
-    log "⚡ Starting Surgical Fix Implementation System"
+    log "[LIGHTNING] Starting Surgical Fix Implementation System"
     
     # Ensure artifacts directory exists
     mkdir -p "$ARTIFACTS_DIR"
@@ -750,14 +750,14 @@ main() {
     # Route and implement fixes
     route_surgical_fixes
     
-    log_success "🏆 Surgical fix implementation completed"
-    log_info "📄 Implementation details available in $ARTIFACTS_DIR/"
+    log_success "[U+1F3C6] Surgical fix implementation completed"
+    log_info "[U+1F4C4] Implementation details available in $ARTIFACTS_DIR/"
     
     # Show current branch info
     local current_branch
     current_branch=$(git branch --show-current)
-    log_info "🌿 Current branch: $current_branch"
-    log_info "🔄 To return to main: git checkout main"
+    log_info "[U+1F33F] Current branch: $current_branch"
+    log_info "[CYCLE] To return to main: git checkout main"
     
     return 0
 }

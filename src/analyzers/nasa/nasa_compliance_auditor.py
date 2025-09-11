@@ -278,7 +278,7 @@ class NASAComplianceAuditor:
             recommendations.extend([
                 "Apply Extract Method refactoring to functions >60 LOC",
                 "Implement Command Pattern for complex function decomposition", 
-                "Use bounded surgical edits (≤25 LOC, ≤2 files per operation)",
+                "Use bounded surgical edits (<=25 LOC, <=2 files per operation)",
                 "Target function length reduction of 35 LOC average"
             ])
         elif rule_id == "rule_4":  # Loop Bounds (SECONDARY GAP)
@@ -422,7 +422,7 @@ class NASAComplianceAuditor:
                 "total_improvement_potential": sum(r.compliance_gap for r in rule_reports)
             },
             "improvement_evidence": {
-                "surgical_precision": "≤25 LOC, ≤2 files per operation",
+                "surgical_precision": "<=25 LOC, <=2 files per operation",
                 "bounded_operations": True,
                 "safety_validation": True,
                 "systematic_approach": True
@@ -452,11 +452,11 @@ RULE COMPLIANCE MATRIX
         for report in sorted(assessment.rule_reports, key=lambda r: r.priority_rank, reverse=True):
             report += f"""
 {report.rule_name} (Rule {report.rule_id.split('_')[1]})
-├─ Current: {report.current_compliance:.1%}
-├─ Target:  {report.target_compliance:.1%}
-├─ Gap:     {report.compliance_gap:.1%}
-├─ Priority: #{report.priority_rank}
-└─ Violations: {report.violation_count}
+[U+251C][U+2500] Current: {report.current_compliance:.1%}
+[U+251C][U+2500] Target:  {report.target_compliance:.1%}
+[U+251C][U+2500] Gap:     {report.compliance_gap:.1%}
+[U+251C][U+2500] Priority: #{report.priority_rank}
+[U+2514][U+2500] Violations: {report.violation_count}
 """
         
         # Add improvement roadmap
@@ -468,10 +468,10 @@ IMPROVEMENT ROADMAP
         for phase, details in assessment.improvement_roadmap.items():
             report += f"""
 {phase.replace('_', ' ').title()}:
-├─ Rules: {', '.join(details['rules'])}
-├─ Expected Improvement: {details['expected_improvement']:.1%}
-├─ Timeline: {details['timeline']}
-└─ Operations: {details['operations']}
+[U+251C][U+2500] Rules: {', '.join(details['rules'])}
+[U+251C][U+2500] Expected Improvement: {details['expected_improvement']:.1%}
+[U+251C][U+2500] Timeline: {details['timeline']}
+[U+2514][U+2500] Operations: {details['operations']}
 """
         
         return report

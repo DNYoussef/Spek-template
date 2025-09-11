@@ -18,14 +18,14 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
-log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] ✅${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] ⚠️${NC} $*"; }
-log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] ❌${NC} $*"; }
-log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] ℹ️${NC} $*"; }
+log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] [OK]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] [WARN]${NC} $*"; }
+log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] [FAIL]${NC} $*"; }
+log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] i[U+FE0F]${NC} $*"; }
 
 # Analyze GitHub workflow failure patterns
 analyze_github_failures() {
-    log "🔍 Analyzing GitHub workflow failures with architectural context..."
+    log "[SEARCH] Analyzing GitHub workflow failures with architectural context..."
     
     local failure_analysis_file="$ARTIFACTS_DIR/failure_analysis.json"
     
@@ -415,7 +415,7 @@ generate_fix_strategy() {
         "codex_micro")
             fix_steps+=("Use /codex:micro for bounded surgical edits")
             fix_steps+=("Verify changes in sandbox environment")
-            fix_steps+=("Apply ≤25 LOC constraint per change")
+            fix_steps+=("Apply <=25 LOC constraint per change")
             tools_required+=("codex_cli")
             tools_required+=("sandbox_verification")
             ;;
@@ -463,7 +463,7 @@ generate_fix_strategy() {
 
 # Main execution
 main() {
-    log "🧠 Starting Intelligent Failure Analysis System"
+    log "[BRAIN] Starting Intelligent Failure Analysis System"
     
     # Ensure artifacts directory exists
     mkdir -p "$ARTIFACTS_DIR"
@@ -472,7 +472,7 @@ main() {
     analyze_github_failures
     
     # Display results summary
-    log "📊 Analysis Results Summary:"
+    log "[CHART] Analysis Results Summary:"
     jq -r '
         "Timestamp: " + .timestamp,
         "Failed Workflows: " + (.workflow_failures | keys | length | tostring),
@@ -483,8 +483,8 @@ main() {
         "Estimated Files: " + (.complexity_routing.estimated_files // 0 | tostring)
     ' "$ARTIFACTS_DIR/failure_analysis.json"
     
-    log_success "✅ Intelligent Failure Analysis completed"
-    log_info "📄 Detailed results available in: $ARTIFACTS_DIR/failure_analysis.json"
+    log_success "[OK] Intelligent Failure Analysis completed"
+    log_info "[U+1F4C4] Detailed results available in: $ARTIFACTS_DIR/failure_analysis.json"
     
     return 0
 }

@@ -4,11 +4,11 @@
 ### Executive Summary
 
 This research analyzes connascence violation patterns in the analyzer codebase to achieve quality gates:
-- **MECE Score**: 0.65 → ≥0.75 through systematic duplication elimination
-- **Coupling Reduction**: 0.65 → ≤0.5 through architectural improvements  
-- **God Object Reduction**: Current 30+ → ≤25 through strategic class decomposition
+- **MECE Score**: 0.65 -> >=0.75 through systematic duplication elimination
+- **Coupling Reduction**: 0.65 -> <=0.5 through architectural improvements  
+- **God Object Reduction**: Current 30+ -> <=25 through strategic class decomposition
 
-## 🎯 Current Architecture Analysis
+## [TARGET] Current Architecture Analysis
 
 ### God Objects Identified
 
@@ -72,7 +72,7 @@ for node in ast.walk(condition_node):
 - Performance improvement: 85-90% reduction in AST traversals
 - **Gap**: Detectors still use legacy `ast.walk()` instead of unified data
 
-## 🔄 Coupling Patterns Analysis
+## [CYCLE] Coupling Patterns Analysis
 
 ### High Coupling Sources (Causing 0.65 Coupling Score)
 
@@ -97,11 +97,11 @@ MECE_QUALITY_THRESHOLD = 0.80
 VIOLATION_WEIGHTS = {"critical": 10, "high": 5, "medium": 2, "low": 1}
 ```
 
-## 🏗️ Refactoring Strategies & Implementation Patterns
+## [BUILD] Refactoring Strategies & Implementation Patterns
 
 ### Strategy 1: God Object Decomposition Using Single Responsibility Principle
 
-#### A. UnifiedConnascenceAnalyzer Decomposition (2,323 LOC → Multiple Classes)
+#### A. UnifiedConnascenceAnalyzer Decomposition (2,323 LOC -> Multiple Classes)
 
 **Target Architecture**:
 ```python
@@ -126,7 +126,7 @@ class ReportCoordinator:
     """Coordinates different reporting formats"""
 ```
 
-#### B. ConnascenceDetector Decomposition (977 LOC → Interface + Factories)
+#### B. ConnascenceDetector Decomposition (977 LOC -> Interface + Factories)
 
 **Factory Pattern Implementation**:
 ```python
@@ -178,7 +178,7 @@ class PoolableDetectorInterface(Protocol):
 
 ### Strategy 3: Dependency Injection for Coupling Reduction
 
-#### Current Direct Dependencies → Injection Pattern
+#### Current Direct Dependencies -> Injection Pattern
 ```python
 # analyzer/core/dependency_container.py
 class DependencyContainer:
@@ -202,7 +202,7 @@ class AnalyzerCoordinator:
         self.reporter = container.get(ReporterInterface)
 ```
 
-### Strategy 4: AST Traversal Unification (MECE Score 0.65 → ≥0.75)
+### Strategy 4: AST Traversal Unification (MECE Score 0.65 -> >=0.75)
 
 #### Implement Two-Phase Analysis Architecture
 ```python
@@ -230,7 +230,7 @@ class UnifiedASTVisitor(ast.NodeVisitor):
         self.data.algorithm_hashes[body_hash].append((self.file_path, node))
 ```
 
-## 📊 Implementation Roadmap with Metrics
+## [CHART] Implementation Roadmap with Metrics
 
 ### Phase 1: AST Traversal Unification (Target: MECE 0.75+)
 **Duration**: 2-3 weeks
@@ -242,27 +242,27 @@ class UnifiedASTVisitor(ast.NodeVisitor):
    - Remove legacy `ast.walk()` calls from detectors
 
 2. **Metrics**: 
-   - MECE Score: 0.65 → 0.80+ (elimination of AST traversal duplication)
+   - MECE Score: 0.65 -> 0.80+ (elimination of AST traversal duplication)
    - Performance: 85-90% reduction in AST processing time
    - LOC Reduction: ~300-400 lines through deduplication
 
-### Phase 2: God Object Decomposition (Target: ≤25 God Objects)  
+### Phase 2: God Object Decomposition (Target: <=25 God Objects)  
 **Duration**: 3-4 weeks
 **Impact**: Reduces largest classes by 60-70%
 
-1. **UnifiedConnascenceAnalyzer Decomposition** (2,323 → ~1,100 LOC across 5 classes)
+1. **UnifiedConnascenceAnalyzer Decomposition** (2,323 -> ~1,100 LOC across 5 classes)
    - Extract `AnalyzerCoordinator` (~300 LOC)
    - Extract `ASTProcessor` (~200 LOC)  
    - Extract `ResultAggregator` (~250 LOC)
    - Extract `ConfigurationHandler` (~150 LOC)
    - Extract `ReportCoordinator` (~200 LOC)
 
-2. **ConnascenceDetector Modernization** (977 → ~200 LOC factory)
+2. **ConnascenceDetector Modernization** (977 -> ~200 LOC factory)
    - Convert to factory pattern using existing detector modules
    - Eliminate legacy single-class approach
    - Leverage `DetectorPool` for performance
 
-### Phase 3: Dependency Injection Architecture (Target: Coupling ≤0.5)
+### Phase 3: Dependency Injection Architecture (Target: Coupling <=0.5)
 **Duration**: 2-3 weeks  
 **Impact**: Eliminates tight coupling through abstractions
 
@@ -284,7 +284,7 @@ class UnifiedASTVisitor(ast.NodeVisitor):
    - Implement configuration validation and type safety
    - Support multiple configuration sources (file, env, args)
 
-## 🔍 Proven Refactoring Patterns for AST Analysis Systems
+## [SEARCH] Proven Refactoring Patterns for AST Analysis Systems
 
 ### Pattern 1: Visitor Aggregation Pattern
 **Source**: Martin Fowler's "Refactoring" - Visitor Pattern optimization
@@ -306,12 +306,12 @@ class UnifiedASTVisitor(ast.NodeVisitor):
 **Application**: Violation severity classification and filtering
 **Benefit**: Extensible violation processing pipeline
 
-## 🎯 Expected Outcomes
+## [TARGET] Expected Outcomes
 
 ### Quantitative Improvements
-- **MECE Score**: 0.65 → 0.80+ (20%+ improvement)
-- **Coupling Score**: 0.65 → 0.45 (30%+ improvement)  
-- **God Objects**: 30+ → 18-20 (35%+ reduction)
+- **MECE Score**: 0.65 -> 0.80+ (20%+ improvement)
+- **Coupling Score**: 0.65 -> 0.45 (30%+ improvement)  
+- **God Objects**: 30+ -> 18-20 (35%+ reduction)
 - **Performance**: 85-90% reduction in AST traversal time
 - **Maintainability**: 60-70% reduction in code duplication
 
@@ -322,7 +322,7 @@ class UnifiedASTVisitor(ast.NodeVisitor):
 - **Dependency Inversion**: High-level modules depend on abstractions
 - **Testability**: Individual components easily unit testable
 
-## 🔧 Implementation Best Practices
+## [TOOL] Implementation Best Practices
 
 ### Testing Strategy
 1. **Unit Tests**: Each decomposed class independently testable

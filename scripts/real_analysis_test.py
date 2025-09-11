@@ -127,13 +127,13 @@ def main():
         # Final verdict
         if getattr(result, 'total_violations', 0) > 0:
             print("")
-            print("✓ SUCCESS: REAL ANALYSIS CONFIRMED!")
-            print(f"✓ Found {getattr(result, 'total_violations', 0)} actual violations")
-            print("✓ This is NOT mock/fallback data")
+            print("[U+2713] SUCCESS: REAL ANALYSIS CONFIRMED!")
+            print(f"[U+2713] Found {getattr(result, 'total_violations', 0)} actual violations")
+            print("[U+2713] This is NOT mock/fallback data")
             return 0
         else:
             print("")
-            print("⚠ WARNING: No violations found - might still be using fallback")
+            print("[U+26A0] WARNING: No violations found - might still be using fallback")
             return 1
             
     except Exception as e:

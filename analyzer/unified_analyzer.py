@@ -517,7 +517,7 @@ class UnifiedConnascenceAnalyzer:
         logger.info(f"Unified Connascence Analyzer initialized with: {', '.join(components_loaded)}")
     
     def _initialize_core_analyzers(self):
-        """Initialize core analyzers (NASA Rule 2: ≤60 LOC)."""
+        """Initialize core analyzers (NASA Rule 2: <=60 LOC)."""
         try:
             self.ast_analyzer = ConnascenceASTAnalyzer()
             # Safe instantiation with None check for import fallback
@@ -537,7 +537,7 @@ class UnifiedConnascenceAnalyzer:
             raise
     
     def _initialize_optional_components(self):
-        """Initialize optional components (NASA Rule 2: ≤60 LOC)."""
+        """Initialize optional components (NASA Rule 2: <=60 LOC)."""
         initializer = ComponentInitializer()
         self.smart_engine = initializer.init_smart_engine()
         self.failure_detector = initializer.init_failure_detector()
@@ -546,14 +546,14 @@ class UnifiedConnascenceAnalyzer:
         self.budget_tracker = initializer.init_budget_tracker()
     
     def _initialize_helper_classes(self):
-        """Initialize helper classes (NASA Rule 2: ≤60 LOC)."""
+        """Initialize helper classes (NASA Rule 2: <=60 LOC)."""
         self.metrics_calculator = MetricsCalculator()
         self.recommendation_generator = RecommendationGenerator()
     
     # Cache system now managed by AnalysisCacheManager
     
     def _initialize_monitoring_system(self):
-        """Initialize monitoring and resource management (NASA Rule 2: ≤60 LOC)."""
+        """Initialize monitoring and resource management (NASA Rule 2: <=60 LOC)."""
         self.memory_monitor = None
         self.resource_manager = None
         if ADVANCED_MONITORING_AVAILABLE:
@@ -1408,7 +1408,7 @@ class UnifiedConnascenceAnalyzer:
                 if memory_report.get('recommendations'):
                     logger.info("  Memory Recommendations:")
                     for rec in memory_report['recommendations']:
-                        logger.info(f"    • {rec}")
+                        logger.info(f"    [U+2022] {rec}")
             
             # Resource management report
             if self.resource_manager:
@@ -1428,7 +1428,7 @@ class UnifiedConnascenceAnalyzer:
                 if resource_report.get('recommendations'):
                     logger.info("  Resource Recommendations:")
                     for rec in resource_report['recommendations']:
-                        logger.info(f"    • {rec}")
+                        logger.info(f"    [U+2022] {rec}")
                         
                 # Log by resource type
                 logger.info("  Resource Breakdown by Type:")
@@ -1683,7 +1683,7 @@ class UnifiedConnascenceAnalyzer:
             return None
 
     def analyze_file(self, file_path: Union[str, Path]) -> Dict[str, Any]:
-        """Analyze a single file with all available analyzers (NASA Rule 2: ≤60 LOC)."""
+        """Analyze a single file with all available analyzers (NASA Rule 2: <=60 LOC)."""
         file_path = Path(file_path)
         file_errors, file_warnings = [], []
 
@@ -1696,7 +1696,7 @@ class UnifiedConnascenceAnalyzer:
         return self._execute_file_analysis_pipeline(file_path, file_errors, file_warnings)
     
     def _execute_file_analysis_pipeline(self, file_path: Path, file_errors: List, file_warnings: List) -> Dict[str, Any]:
-        """Execute complete file analysis pipeline (NASA Rule 2: ≤60 LOC)."""
+        """Execute complete file analysis pipeline (NASA Rule 2: <=60 LOC)."""
         # Run AST analysis
         violations = self._run_ast_analysis(file_path, file_errors)
         
@@ -1714,7 +1714,7 @@ class UnifiedConnascenceAnalyzer:
         return result
     
     def _validate_file_input(self, file_path: Path, file_errors: List) -> Optional[Dict[str, Any]]:
-        """Validate file input (NASA Rule 2: ≤60 LOC)."""
+        """Validate file input (NASA Rule 2: <=60 LOC)."""
         try:
             if not file_path.exists():
                 raise FileNotFoundError(f"File does not exist: {file_path}")
@@ -1728,7 +1728,7 @@ class UnifiedConnascenceAnalyzer:
             return self._get_empty_file_result(file_path, file_errors)
     
     def _run_ast_analysis(self, file_path: Path, file_errors: List) -> List[Dict[str, Any]]:
-        """Run AST analysis on file (NASA Rule 2: ≤60 LOC)."""
+        """Run AST analysis on file (NASA Rule 2: <=60 LOC)."""
         try:
             ast_violations = self.ast_analyzer.analyze_file(file_path)
             return [self._violation_to_dict(v) for v in ast_violations]
@@ -1739,7 +1739,7 @@ class UnifiedConnascenceAnalyzer:
             return []
     
     def _check_nasa_compliance(self, violations: List, file_path: Path, file_warnings: List) -> Tuple[List, float]:
-        """Check NASA compliance for violations (NASA Rule 2: ≤60 LOC)."""
+        """Check NASA compliance for violations (NASA Rule 2: <=60 LOC)."""
         nasa_violations = []
         try:
             if self.nasa_integration:
@@ -1771,7 +1771,7 @@ class UnifiedConnascenceAnalyzer:
     
     def _build_file_analysis_result(self, file_path: Path, violations: List, nasa_violations: List, 
                                    nasa_compliance_score: float, file_errors: List, file_warnings: List) -> Dict[str, Any]:
-        """Build file analysis result dictionary (NASA Rule 2: ≤60 LOC)."""
+        """Build file analysis result dictionary (NASA Rule 2: <=60 LOC)."""
         result = {
             "file_path": str(file_path),
             "connascence_violations": violations,

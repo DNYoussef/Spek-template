@@ -19,15 +19,15 @@ PURPLE='\033[0;35m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
-log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] ✅${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] ⚠️${NC} $*"; }
-log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] ❌${NC} $*"; }
-log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] ℹ️${NC} $*"; }
-log_phase() { echo -e "${PURPLE}[$(date '+%H:%M:%S')] 🔬${NC} $*"; }
+log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] [OK]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] [WARN]${NC} $*"; }
+log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] [FAIL]${NC} $*"; }
+log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] i[U+FE0F]${NC} $*"; }
+log_phase() { echo -e "${PURPLE}[$(date '+%H:%M:%S')] [SCIENCE]${NC} $*"; }
 
 # Initialize verification pipeline
 initialize_verification_pipeline() {
-    log "🔬 Initializing Comprehensive Verification Pipeline..."
+    log "[SCIENCE] Initializing Comprehensive Verification Pipeline..."
     
     # Create verification results structure
     cat > "$ARTIFACTS_DIR/verification_pipeline_results.json" << 'EOF'
@@ -71,7 +71,7 @@ EOF
 
 # Execute comprehensive verification pipeline
 run_comprehensive_verification() {
-    log_phase "🚀 Starting Comprehensive Verification Pipeline"
+    log_phase "[ROCKET] Starting Comprehensive Verification Pipeline"
     
     local start_time
     start_time=$(date +%s)
@@ -105,7 +105,7 @@ run_comprehensive_verification() {
 
 # Run Critical Gates verification (Must Pass for Deployment)
 run_critical_gates_verification() {
-    log_phase "🔴 Phase 1: Critical Gates Verification (Must Pass)"
+    log_phase "[U+1F534] Phase 1: Critical Gates Verification (Must Pass)"
     
     # Gate 1: Tests (100% pass rate)
     verify_tests_critical_gate
@@ -116,13 +116,13 @@ run_critical_gates_verification() {
     # Gate 3: Security (Zero critical/high findings)
     verify_security_critical_gate
     
-    # Gate 4: NASA Compliance (≥90% Power of Ten compliance)
+    # Gate 4: NASA Compliance (>=90% Power of Ten compliance)
     verify_nasa_compliance_critical_gate
     
-    # Gate 5: God Objects (≤25 detected)
+    # Gate 5: God Objects (<=25 detected)
     verify_god_objects_critical_gate
     
-    # Gate 6: Critical Violations (≤50 connascence violations)
+    # Gate 6: Critical Violations (<=50 connascence violations)
     verify_critical_violations_gate
     
     log_success "Critical gates verification completed"
@@ -248,7 +248,7 @@ verify_nasa_compliance_critical_gate() {
         nasa_status="failed"
         log_error "NASA Compliance: FAILED ($compliance_score% < 90% threshold)"
     else
-        log_success "NASA Compliance: PASSED ($compliance_score% ≥ 90% threshold)"
+        log_success "NASA Compliance: PASSED ($compliance_score% >= 90% threshold)"
     fi
     
     # Update results
@@ -289,7 +289,7 @@ verify_god_objects_critical_gate() {
         log_error "Large files found:"
         printf '%s\n' "${god_objects_files[@]}" | head -5
     else
-        log_success "God Objects: PASSED ($god_objects_count ≤ 25 threshold)"
+        log_success "God Objects: PASSED ($god_objects_count <= 25 threshold)"
     fi
     
     # Update results
@@ -325,7 +325,7 @@ verify_critical_violations_gate() {
         violations_status="failed"
         log_error "Critical Violations: FAILED ($critical_violations > 50 threshold)"
     else
-        log_success "Critical Violations: PASSED ($critical_violations ≤ 50 threshold)"
+        log_success "Critical Violations: PASSED ($critical_violations <= 50 threshold)"
     fi
     
     # Update results
@@ -337,21 +337,21 @@ verify_critical_violations_gate() {
 
 # Run Quality Gates verification (Warn but Allow)
 run_quality_gates_verification() {
-    log_phase "🟡 Phase 2: Quality Gates Verification (Warn but Allow)"
+    log_phase "[U+1F7E1] Phase 2: Quality Gates Verification (Warn but Allow)"
     
     # Gate 1: Linting (warnings allowed)
     verify_lint_quality_gate
     
-    # Gate 2: MECE Score (≥0.75 duplication threshold)
+    # Gate 2: MECE Score (>=0.75 duplication threshold)
     verify_mece_quality_gate
     
-    # Gate 3: Architecture Health (≥0.75 structural quality)
+    # Gate 3: Architecture Health (>=0.75 structural quality)
     verify_architecture_health_gate
     
-    # Gate 4: Cache Performance (≥0.80 cache health)
+    # Gate 4: Cache Performance (>=0.80 cache health)
     verify_cache_performance_gate
     
-    # Gate 5: Performance Efficiency (≥0.70 resource utilization)
+    # Gate 5: Performance Efficiency (>=0.70 resource utilization)
     verify_performance_efficiency_gate
     
     # Gate 6: Coverage (no regression)
@@ -415,7 +415,7 @@ verify_mece_quality_gate() {
         mece_status="warning"
         log_warning "MECE Score: WARNING ($mece_score < 0.75 threshold)"
     else
-        log_success "MECE Score: PASSED ($mece_score ≥ 0.75 threshold)"
+        log_success "MECE Score: PASSED ($mece_score >= 0.75 threshold)"
     fi
     
     # Update results
@@ -449,7 +449,7 @@ verify_architecture_health_gate() {
         arch_status="warning"
         log_warning "Architecture Health: WARNING ($arch_score < 0.75 threshold)"
     else
-        log_success "Architecture Health: PASSED ($arch_score ≥ 0.75 threshold)"
+        log_success "Architecture Health: PASSED ($arch_score >= 0.75 threshold)"
     fi
     
     # Update results
@@ -534,7 +534,7 @@ verify_performance_efficiency_gate() {
         perf_status="warning"
         log_warning "Performance Efficiency: WARNING ($efficiency_score < 0.70 threshold)"
     else
-        log_success "Performance Efficiency: PASSED ($efficiency_score ≥ 0.70 threshold)"
+        log_success "Performance Efficiency: PASSED ($efficiency_score >= 0.70 threshold)"
     fi
     
     # Update results
@@ -570,7 +570,7 @@ verify_coverage_quality_gate() {
 
 # Run Specialized Analysis
 run_specialized_analysis() {
-    log_phase "🔬 Phase 3: Specialized Analysis"
+    log_phase "[SCIENCE] Phase 3: Specialized Analysis"
     
     # Connascence Analysis (9 detector modules)
     run_connascence_analysis
@@ -695,7 +695,7 @@ EOF
 
 # Generate Evidence Artifacts
 generate_evidence_artifacts() {
-    log_phase "📄 Phase 4: Generating Evidence Artifacts"
+    log_phase "[U+1F4C4] Phase 4: Generating Evidence Artifacts"
     
     local artifacts=()
     
@@ -760,33 +760,33 @@ determine_overall_pipeline_status() {
 
 # Display Pipeline Summary
 display_pipeline_summary() {
-    log "📊 Comprehensive Verification Pipeline Summary"
+    log "[CHART] Comprehensive Verification Pipeline Summary"
     echo
     
     # Display results using jq
     jq -r '
-    "🕐 Pipeline Duration: " + (.pipeline_duration | tostring) + "s",
-    "📊 Overall Status: " + (.overall_status | ascii_upcase),
+    "[U+1F550] Pipeline Duration: " + (.pipeline_duration | tostring) + "s",
+    "[CHART] Overall Status: " + (.overall_status | ascii_upcase),
     "",
-    "🔴 Critical Gates (Must Pass):",
+    "[U+1F534] Critical Gates (Must Pass):",
     (.critical_gates | to_entries[] | "  " + (.key | ascii_upcase) + ": " + (.value.status | ascii_upcase)),
     "",
-    "🟡 Quality Gates (Warn but Allow):", 
+    "[U+1F7E1] Quality Gates (Warn but Allow):", 
     (.quality_gates | to_entries[] | "  " + (.key | ascii_upcase) + ": " + (.value.status | ascii_upcase)),
     "",
-    "🔬 Specialized Analysis:",
+    "[SCIENCE] Specialized Analysis:",
     (.specialized_analysis | to_entries[] | "  " + (.key | ascii_upcase) + ": " + (.value.status | ascii_upcase)),
     "",
-    "📄 Evidence Artifacts: " + (.evidence_artifacts | length | tostring) + " files"
+    "[U+1F4C4] Evidence Artifacts: " + (.evidence_artifacts | length | tostring) + " files"
     ' "$ARTIFACTS_DIR/verification_pipeline_results.json"
     
     echo
-    log_info "📁 Detailed results available in: $ARTIFACTS_DIR/"
+    log_info "[FOLDER] Detailed results available in: $ARTIFACTS_DIR/"
 }
 
 # Main execution
 main() {
-    log "🔬 Starting Comprehensive Testing and Verification Pipeline"
+    log "[SCIENCE] Starting Comprehensive Testing and Verification Pipeline"
     
     # Ensure artifacts directory exists
     mkdir -p "$ARTIFACTS_DIR"
@@ -805,10 +805,10 @@ main() {
     overall_status=$(jq -r '.overall_status' "$ARTIFACTS_DIR/verification_pipeline_results.json")
     
     if [[ "$overall_status" == "success" ]]; then
-        log_success "🏆 Comprehensive verification pipeline completed successfully!"
+        log_success "[U+1F3C6] Comprehensive verification pipeline completed successfully!"
         return 0
     else
-        log_error "❌ Comprehensive verification pipeline failed"
+        log_error "[FAIL] Comprehensive verification pipeline failed"
         return 1
     fi
 }

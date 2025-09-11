@@ -73,7 +73,7 @@ class DecompositionResult:
 class FunctionDecomposer:
     """
     NASA Rule 2 compliance agent for systematic function decomposition.
-    All operations bounded to ≤25 LOC, ≤2 files per operation.
+    All operations bounded to <=25 LOC, <=2 files per operation.
     """
     
     def __init__(self):

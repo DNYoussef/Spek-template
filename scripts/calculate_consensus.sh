@@ -9,7 +9,7 @@ ITERATION=${1:-1}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ARTIFACTS_DIR=".claude/.artifacts"
 
-echo "🧮 Calculating consensus for iteration $ITERATION..."
+echo "[U+1F9EE] Calculating consensus for iteration $ITERATION..."
 
 # Load individual agent analyses
 CLAUDE_ANALYSIS=""
@@ -19,21 +19,21 @@ CODEX_ANALYSIS=""
 if [[ -f "$ARTIFACTS_DIR/claude_premortem.json" ]]; then
     CLAUDE_ANALYSIS=$(cat "$ARTIFACTS_DIR/claude_premortem.json")
 else
-    echo "⚠️ Missing Claude analysis, using fallback"
+    echo "[WARN] Missing Claude analysis, using fallback"
     CLAUDE_ANALYSIS='{"overall_failure_probability": 20, "confidence_level": 0.5}'
 fi
 
 if [[ -f "$ARTIFACTS_DIR/gemini_analysis.json" ]]; then
     GEMINI_ANALYSIS=$(cat "$ARTIFACTS_DIR/gemini_analysis.json")
 else
-    echo "⚠️ Missing Gemini analysis, using fallback"
+    echo "[WARN] Missing Gemini analysis, using fallback"
     GEMINI_ANALYSIS='{"failure_probability": 15, "confidence_level": 0.6}'
 fi
 
 if [[ -f "$ARTIFACTS_DIR/codex_analysis.json" ]]; then
     CODEX_ANALYSIS=$(cat "$ARTIFACTS_DIR/codex_analysis.json")
 else
-    echo "⚠️ Missing Codex analysis, using fallback"
+    echo "[WARN] Missing Codex analysis, using fallback"
     CODEX_ANALYSIS='{"implementation_failure_probability": 12, "confidence_level": 0.7}'
 fi
 
@@ -89,12 +89,12 @@ MAX_RATE=$(echo "$CLAUDE_RATE $GEMINI_RATE $CODEX_RATE" | tr ' ' '\n' | sort -n 
 CONFIDENCE_RANGE=$(echo "scale=1; $MAX_RATE - $MIN_RATE" | bc -l)
 
 echo ""
-echo "📊 Consensus Analysis:"
+echo "[CHART] Consensus Analysis:"
 echo "  Weighted consensus: $WEIGHTED_CONSENSUS%"
 echo "  Simple average: $MEAN%"
 echo "  Standard deviation: $STD_DEV"
 echo "  Agreement level: $AGREEMENT_LEVEL"
-echo "  Confidence range: $MIN_RATE% - $MAX_RATE% (±$CONFIDENCE_RANGE)"
+echo "  Confidence range: $MIN_RATE% - $MAX_RATE% (+/-$CONFIDENCE_RANGE)"
 
 # Generate iteration results JSON
 ITERATION_RESULTS=$(jq -n \
@@ -141,8 +141,8 @@ ITERATION_RESULTS=$(jq -n \
 echo "$ITERATION_RESULTS" > "$ARTIFACTS_DIR/iteration_${ITERATION}_results.json"
 
 echo ""
-echo "✅ Consensus calculation complete for iteration $ITERATION"
-echo "📁 Results saved to: $ARTIFACTS_DIR/iteration_${ITERATION}_results.json"
+echo "[OK] Consensus calculation complete for iteration $ITERATION"
+echo "[FOLDER] Results saved to: $ARTIFACTS_DIR/iteration_${ITERATION}_results.json"
 
 # Return success if this represents progress toward target
 exit 0

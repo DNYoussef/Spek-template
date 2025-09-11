@@ -18,7 +18,7 @@ note() { echo "[$(date +%H:%M:%S)] $*"; }
 # Initialize CF hive coordination if available
 init_cf_coordination() {
     if command -v npx >/dev/null 2>&1 && npx claude-flow@alpha --version >/dev/null 2>&1; then
-        note "🧠 Initializing CF hive coordination"
+        note "[BRAIN] Initializing CF hive coordination"
         npx claude-flow@alpha swarm init --topology hierarchical --session "$SESSION_ID" --namespace "$HIVE_NAMESPACE" --max-attempts "$MAX_ATTEMPTS" 2>/dev/null || true
         npx claude-flow@alpha memory usage --namespace "$HIVE_NAMESPACE" --restore-session "$SESSION_ID" 2>/dev/null || true
     fi
@@ -54,9 +54,9 @@ export_session_summary() {
 # Check operational tripwires before starting
 check_tripwires() {
     if [[ -x scripts/ops_tripwires.sh ]]; then
-        note "🚨 Checking operational tripwires"
+        note "[U+1F6A8] Checking operational tripwires"
         if ! scripts/ops_tripwires.sh check-limits; then
-            note "⚠️  Tripwire violations detected - proceeding with caution"
+            note "[WARN]  Tripwire violations detected - proceeding with caution"
             # Don't exit, but log for monitoring
         fi
     fi
@@ -64,18 +64,18 @@ check_tripwires() {
 
 # Main self-correction loop
 main() {
-    note "🔄 Starting self-correction loop (max attempts: $MAX_ATTEMPTS)"
+    note "[CYCLE] Starting self-correction loop (max attempts: $MAX_ATTEMPTS)"
     init_cf_coordination
     check_tripwires
     
     while (( attempt <= MAX_ATTEMPTS )); do
-        note "Attempt $attempt / $MAX_ATTEMPTS: VERIFY → GATE"
+        note "Attempt $attempt / $MAX_ATTEMPTS: VERIFY -> GATE"
         
         # Record attempt start
         echo "{\"attempt\": $attempt, \"start_time\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" > .claude/.artifacts/current_attempt.json
         
         # 1) VERIFY - Run all quality gates in parallel
-        note "🔍 Running verification suite..."
+        note "[SEARCH] Running verification suite..."
         {
             claude /qa:run &
             claude /sec:scan &  
@@ -84,13 +84,13 @@ main() {
         } || true
         
         # 2) GATE - Aggregate gate results
-        note "🚪 Checking quality gates..."
+        note "[U+1F6AA] Checking quality gates..."
         claude --output-format json -p "/qa:gate" > .claude/.artifacts/gate.json || echo '{"ok": false, "reason": "gate_command_failed"}' > .claude/.artifacts/gate.json
         
         ok=$(jq -r '.ok // false' .claude/.artifacts/gate.json 2>/dev/null || echo "false")
         
         if [[ "$ok" == "true" ]]; then
-            note "✅ All quality gates green - self-correction successful!"
+            note "[OK] All quality gates green - self-correction successful!"
             log_attempt_to_cf "verify" "true" "$(cat .claude/.artifacts/gate.json)"
             export_session_summary "success" "$attempt"
             
@@ -100,7 +100,7 @@ main() {
         fi
         
         # 3) ANALYZE - Determine failure mode and root cause
-        note "❌ Gates red → analyzing failure mode"
+        note "[FAIL] Gates red -> analyzing failure mode"
         
         # Get detailed failure info
         gate_content=$(cat .claude/.artifacts/gate.json 2>/dev/null || echo "{}")
@@ -115,9 +115,9 @@ main() {
         
         # Show logs if requested
         if [[ "$SHOW_LOGS" == "1" ]]; then
-            echo "📊 Gate status:"
+            echo "[CHART] Gate status:"
             jq . .claude/.artifacts/gate.json || echo "Gate results not available"
-            echo "🔍 Triage results:"
+            echo "[SEARCH] Triage results:"
             jq . .claude/.artifacts/triage.json || echo "Triage results not available"
         fi
         
@@ -128,54 +128,54 @@ main() {
         # 4) FIX - Route to appropriate repair strategy
         case "$size" in
             small)
-                note "🔧 Routing to Codex-optimized agent for surgical fixes"
+                note "[TOOL] Routing to Codex-optimized agent for surgical fixes"
                 # Route to Codex-optimized agent for bounded surgical fixes
-                if claude Task --subagent_type coder-codex --description "Surgical fix via Codex" --prompt "Fix identified issue: $cause. Use Codex CLI with sandbox verification. Constraints: ≤25 LOC, ≤2 files. Generate codex_summary.json with verification results and merge readiness."; then
-                    note "✅ Codex agent fix completed - verifying results"
+                if claude Task --subagent_type coder-codex --description "Surgical fix via Codex" --prompt "Fix identified issue: $cause. Use Codex CLI with sandbox verification. Constraints: <=25 LOC, <=2 files. Generate codex_summary.json with verification results and merge readiness."; then
+                    note "[OK] Codex agent fix completed - verifying results"
                     # Verify the fix was applied successfully
                     if [[ -f .claude/.artifacts/codex_summary.json ]]; then
                         fix_success=$(jq -r '.merge_readiness.ready_to_merge // false' .claude/.artifacts/codex_summary.json 2>/dev/null || echo "false")
                         if [[ "$fix_success" == "true" ]]; then
-                            note "🎯 Codex fix verified and ready for merge"
+                            note "[TARGET] Codex fix verified and ready for merge"
                         else
-                            note "⚠️  Codex fix applied but verification issues remain"
+                            note "[WARN]  Codex fix applied but verification issues remain"
                         fi
                     fi
                 else
-                    note "⚠️  Codex agent fix failed - falling back to direct micro-fix"
+                    note "[WARN]  Codex agent fix failed - falling back to direct micro-fix"
                     claude /codex:micro-fix "$cause" || note "Direct micro-fix also failed - will retry in next cycle"
                 fi
                 ;;
             multi)
-                note "🧭 Routing to planned multi-file fix (cause: $cause)"
+                note "[U+1F9ED] Routing to planned multi-file fix (cause: $cause)"
                 if ! claude /fix:planned "$cause"; then
-                    note "⚠️  Planned fix failed - will retry in next cycle"
+                    note "[WARN]  Planned fix failed - will retry in next cycle"
                 fi
                 ;;
             big)
-                note "🗺️  Big impact detected → Gemini-optimized analysis first"
+                note "[U+1F5FA][U+FE0F]  Big impact detected -> Gemini-optimized analysis first"
                 # Route to Gemini-optimized researcher for comprehensive context analysis
                 if claude Task --subagent_type researcher-gemini --description "Large context failure analysis" --prompt "Analyze large-scale failure: $cause. Use Gemini CLI with full codebase context to identify root causes, impact scope, and architectural implications. Generate impact.json with comprehensive analysis."; then
-                    note "✅ Gemini analysis completed - validating results"
+                    note "[OK] Gemini analysis completed - validating results"
                     # Validate impact with quickcheck
                     if [[ -x scripts/impact_quickcheck.sh && -f .claude/.artifacts/impact.json ]]; then
                         scripts/impact_quickcheck.sh validate .claude/.artifacts/impact.json > .claude/.artifacts/impact_validation.json || true
                         if [[ "$(jq -r '.valid // false' .claude/.artifacts/impact_validation.json)" == "false" ]]; then
-                            note "⚠️  Impact validation failed - using Context7 fallback"
+                            note "[WARN]  Impact validation failed - using Context7 fallback"
                         fi
                     fi
                     
                     # Attempt repair with context
                     if ! claude /fix:planned "$cause"; then
-                        note "⚠️  Context-aware fix failed - will retry in next cycle"
+                        note "[WARN]  Context-aware fix failed - will retry in next cycle"
                     fi
                 else
-                    note "⚠️  Gemini context analysis failed - falling back to micro-fix"
+                    note "[WARN]  Gemini context analysis failed - falling back to micro-fix"
                     claude /codex:micro-fix "$cause" || true
                 fi
                 ;;
             *)
-                note "ℹ️  Unknown failure size '$size' - defaulting to Codex micro-fix"
+                note "i[U+FE0F]  Unknown failure size '$size' - defaulting to Codex micro-fix"
                 claude /codex:micro-fix "$cause" || true
                 ;;
         esac
@@ -187,7 +187,7 @@ main() {
         if (( attempt > MAX_ATTEMPTS )); then
             break
         elif (( attempt == MAX_ATTEMPTS )); then
-            note "⚠️  Final attempt - will escalate if this fails"
+            note "[WARN]  Final attempt - will escalate if this fails"
         fi
         
         # Brief pause to allow file system to settle
@@ -195,8 +195,8 @@ main() {
     done
     
     # All attempts exhausted
-    note "❗ Max attempts ($MAX_ATTEMPTS) reached; gates still red"
-    note "📋 Final gate status:"
+    note "[U+2757] Max attempts ($MAX_ATTEMPTS) reached; gates still red"
+    note "[CLIPBOARD] Final gate status:"
     jq . .claude/.artifacts/gate.json 2>/dev/null || echo "Gate results not available"
     
     # Log final failure and export session
@@ -205,7 +205,7 @@ main() {
     
     # Escalate to CF task orchestrator if available
     if command -v npx >/dev/null 2>&1 && npx claude-flow@alpha --version >/dev/null 2>&1; then
-        note "🚨 Escalating to CF task orchestrator"
+        note "[U+1F6A8] Escalating to CF task orchestrator"
         npx claude-flow@alpha task orchestrate --escalate architecture --reason "self-correct-limit-exceeded" --context "$(cat .claude/.artifacts/triage.json)" 2>/dev/null || true
     fi
     
@@ -224,7 +224,7 @@ USAGE:
     $0 [options]
 
 DESCRIPTION:
-    Bounded repair cycle: VERIFY → GATE → ANALYZE → FIX → repeat
+    Bounded repair cycle: VERIFY -> GATE -> ANALYZE -> FIX -> repeat
     Stops when all quality gates pass or max attempts reached.
 
 OPTIONS:

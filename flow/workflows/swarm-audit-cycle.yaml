@@ -11,7 +11,7 @@ steps:
   # Enhanced Hive-Mind Initialization with Audit Coordination
   - id: init_swarm_audit_hive
     run: |
-      echo "🐝 Initializing swarm-audit hive with theater detection capabilities..."
+      echo "[U+1F41D] Initializing swarm-audit hive with theater detection capabilities..."
       
       # Initialize unified memory bridge for audit coordination
       source scripts/memory_bridge.sh
@@ -60,7 +60,7 @@ steps:
   # SPEK Planning Phase with Audit Integration
   - id: enhanced_planning
     run: |
-      echo "📋 Enhanced SPEK planning with audit-aware task decomposition..."
+      echo "[CLIPBOARD] Enhanced SPEK planning with audit-aware task decomposition..."
       
       # Standard SPEK planning
       npx claude-flow@alpha agent spawn --type planner --session "$SESSION_ID"
@@ -85,7 +85,7 @@ steps:
   # Multi-Agent Swarm Deployment with Audit Hooks
   - id: swarm_deployment_phase
     run: |
-      echo "🚀 Deploying multi-agent swarm with audit hooks..."
+      echo "[ROCKET] Deploying multi-agent swarm with audit hooks..."
       
       # Deploy agents based on enhanced plan
       SWARM_RESULTS=""
@@ -94,7 +94,7 @@ steps:
       SMALL_AGENTS=()
       for task in $(jq -r '.tasks[] | select(.type == "small") | .id' plan_enhanced.json 2>/dev/null || echo ""); do
         if [[ -n "$task" ]]; then
-          echo "🔧 Deploying Codex agent for task: $task"
+          echo "[TOOL] Deploying Codex agent for task: $task"
           npx claude-flow@alpha agent spawn --type coder --session "$SESSION_ID" --task "$task" 2>/dev/null || true
           claude /codex:micro "$(jq -r --arg id "$task" '.tasks[] | select(.id == $id) | .title' plan_enhanced.json)" &
           SMALL_AGENTS+=($!)
@@ -105,7 +105,7 @@ steps:
       MULTI_AGENTS=()
       for task in $(jq -r '.tasks[] | select(.type == "multi") | .id' plan_enhanced.json 2>/dev/null || echo ""); do
         if [[ -n "$task" ]]; then
-          echo "🧭 Deploying planned fix agent for task: $task"
+          echo "[U+1F9ED] Deploying planned fix agent for task: $task"
           npx claude-flow@alpha agent spawn --type coder --session "$SESSION_ID" --task "$task" 2>/dev/null || true
           claude /fix:planned "$(jq -r --arg id "$task" '.tasks[] | select(.id == $id) | .title' plan_enhanced.json)" &
           MULTI_AGENTS+=($!)
@@ -116,7 +116,7 @@ steps:
       BIG_AGENTS=()
       for task in $(jq -r '.tasks[] | select(.type == "big") | .id' plan_enhanced.json 2>/dev/null || echo ""); do
         if [[ -n "$task" ]]; then
-          echo "🗺️  Deploying Gemini impact analysis for task: $task"
+          echo "[U+1F5FA][U+FE0F]  Deploying Gemini impact analysis for task: $task"
           npx claude-flow@alpha agent spawn --type researcher --session "$SESSION_ID" --task "$task" --max-context 30 2>/dev/null || true
           claude /gemini:impact "$(jq -r --arg id "$task" '.tasks[] | select(.id == $id) | .scope' plan_enhanced.json)" &
           BIG_AGENTS+=($!)
@@ -124,7 +124,7 @@ steps:
       done
       
       # Wait for all agents to complete
-      echo "⏳ Waiting for swarm completion..."
+      echo "[U+23F3] Waiting for swarm completion..."
       for pid in "${SMALL_AGENTS[@]}" "${MULTI_AGENTS[@]}" "${BIG_AGENTS[@]}"; do
         wait $pid 2>/dev/null || echo "Agent $pid completed with non-zero exit"
       done
@@ -150,7 +150,7 @@ steps:
   # Post-Swarm Theater Detection and Audit
   - id: comprehensive_swarm_audit
     run: |
-      echo "🎭 Executing comprehensive post-swarm theater detection and audit..."
+      echo "[U+1F3AD] Executing comprehensive post-swarm theater detection and audit..."
       
       if [[ "$THEATER_DETECTION_ENABLED" == "true" ]]; then
         # Execute comprehensive audit with theater detection
@@ -175,14 +175,14 @@ steps:
   # Contextual Understanding Loops for Detected Issues
   - id: contextual_remediation_loops
     run: |
-      echo "🔄 Executing contextual understanding loops for detected issues..."
+      echo "[CYCLE] Executing contextual understanding loops for detected issues..."
       
       REMEDIATION_CYCLES=0
       MAX_CYCLES="$MAX_AUDIT_CYCLES"
       
       while [[ $REMEDIATION_CYCLES -lt $MAX_CYCLES ]]; do
         REMEDIATION_CYCLES=$((REMEDIATION_CYCLES + 1))
-        echo "🔧 Remediation cycle $REMEDIATION_CYCLES / $MAX_CYCLES"
+        echo "[TOOL] Remediation cycle $REMEDIATION_CYCLES / $MAX_CYCLES"
         
         # Check if there are issues to remediate
         if [[ -f .claude/.artifacts/swarm_audit.json ]]; then
@@ -190,7 +190,7 @@ steps:
           blocking_issues=$(jq -r '.theater_killer_results.reality_checker.blocking_issues // [] | length' .claude/.artifacts/swarm_audit.json)
           
           if [[ "$theater_count" -gt 0 ]] || [[ "$blocking_issues" -gt 0 ]]; then
-            echo "🚨 Detected $theater_count theater patterns and $blocking_issues blocking issues"
+            echo "[U+1F6A8] Detected $theater_count theater patterns and $blocking_issues blocking issues"
             
             # Execute contextual understanding loop
             scripts/contextual_loop.sh \
@@ -206,15 +206,15 @@ steps:
             new_blocking_issues=$(jq -r '.theater_killer_results.reality_checker.blocking_issues // [] | length' .claude/.artifacts/swarm_audit.json 2>/dev/null || echo "0")
             
             if [[ "$new_theater_count" -eq 0 ]] && [[ "$new_blocking_issues" -eq 0 ]]; then
-              echo "✅ All issues resolved after $REMEDIATION_CYCLES cycles"
+              echo "[OK] All issues resolved after $REMEDIATION_CYCLES cycles"
               break
             fi
           else
-            echo "✅ No issues detected - skipping remediation"
+            echo "[OK] No issues detected - skipping remediation"
             break
           fi
         else
-          echo "⚠️  No audit results found - skipping remediation"
+          echo "[WARN]  No audit results found - skipping remediation"
           break
         fi
       done
@@ -238,7 +238,7 @@ steps:
   # Enhanced Quality Gates with Theater-Proof Validation
   - id: theater_proof_quality_gates
     run: |
-      echo "🚪 Running theater-proof quality gates..."
+      echo "[U+1F6AA] Running theater-proof quality gates..."
       
       # Initialize unified memory for quality context
       source scripts/memory_bridge.sh
@@ -286,7 +286,7 @@ steps:
   # Quality Gate Evaluation with Theater-Proof Criteria
   - id: evaluate_theater_proof_gates
     run: |
-      echo "🎯 Evaluating theater-proof quality gates..."
+      echo "[TARGET] Evaluating theater-proof quality gates..."
       
       # Run quality gate evaluation with enhanced criteria
       claude --output-format json -p "/qa:gate --theater-aware --evidence-required" > .claude/.artifacts/gate_enhanced.json || echo '{"ok": false, "reason": "gate_evaluation_failed"}' > .claude/.artifacts/gate_enhanced.json
@@ -319,7 +319,7 @@ steps:
   - id: theater_free_commit
     when: $.evaluate_theater_proof_gates.commit_ready == true
     run: |
-      echo "✅ All theater-proof quality gates passed - executing commit..."
+      echo "[OK] All theater-proof quality gates passed - executing commit..."
       
       # Generate comprehensive commit message with audit trail
       commit_summary=$(jq -r '.swarm_audit_results.agents_audited // [] | length' .claude/.artifacts/swarm_audit.json 2>/dev/null || echo "0")
@@ -332,19 +332,19 @@ feat: enhanced SPEK development with multi-agent theater detection
 
 This commit introduces comprehensive theater detection and audit capabilities:
 
-🎭 Theater Detection Results:
+[U+1F3AD] Theater Detection Results:
 - Agents audited: $commit_summary
 - Theater patterns eliminated: $theater_eliminated  
 - Quality gates: All passing with theater-free verification
 - Reality validation: End-user functionality verified
 
-🔍 Audit Trail:
+[SEARCH] Audit Trail:
 - Swarm deployment audit: Comprehensive  
 - Completion claims validation: Evidence-backed
 - Quality infrastructure: Theater-proof enhanced
 - Memory integration: Pattern learning active
 
-🚀 Generated with [Claude Code](https://claude.ai/code)
+[ROCKET] Generated with [Claude Code](https://claude.ai/code)
 
 Co-Authored-By: Claude <noreply@anthropic.com>
 EOF
@@ -365,14 +365,14 @@ EOF
       
       scripts/memory_bridge.sh store "coordination/completion" "theater_free_commit_$(date +%s)" "$completion_data" '{"type": "successful_completion"}'
       
-      echo "🎉 Theater-free commit completed successfully"
+      echo "[PARTY] Theater-free commit completed successfully"
     capture: commit_success.json
 
   # Failure Analysis and Escalation
   - id: failure_analysis_escalation
     when: $.evaluate_theater_proof_gates.commit_ready == false
     run: |
-      echo "❌ Theater-proof quality gates failed - analyzing and escalating..."
+      echo "[FAIL] Theater-proof quality gates failed - analyzing and escalating..."
       
       # Generate comprehensive failure analysis
       claude /qa:analyze "$(cat .claude/.artifacts/gate_enhanced.json)" \
@@ -393,12 +393,12 @@ EOF
         --context "$(cat .claude/.artifacts/gate_enhanced.json)" \
         --theater-context "$(cat .claude/.artifacts/swarm_audit.json 2>/dev/null || echo '{}')" 2>/dev/null || true
       
-      echo "🚨 Escalated to architecture phase for theater-proof quality resolution"
+      echo "[U+1F6A8] Escalated to architecture phase for theater-proof quality resolution"
 
   # Learning and Memory Update Phase
   - id: learning_and_memory_update
     run: |
-      echo "🧠 Learning phase with comprehensive memory updates..."
+      echo "[BRAIN] Learning phase with comprehensive memory updates..."
       
       # Load memory bridge for coordination
       source scripts/memory_bridge.sh

@@ -1,11 +1,11 @@
-# Complete SPEC → PR Workflow
+# Complete SPEC -> PR Workflow
 
 **Scenario**: Implement a complete feature from specification to pull request  
 **Time**: 45-90 minutes  
 **Complexity**: Intermediate  
 **Commands Used**: `/spec:plan`, `/gemini:impact`, `/fix:planned`, `/qa:run`, `/qa:gate`, `/pr:open`
 
-## 🎯 Workflow Overview
+## [TARGET] Workflow Overview
 
 This workflow demonstrates the complete SPEK-AUGMENT cycle:
 
@@ -19,7 +19,7 @@ graph LR
     F --> G[/pr:open]
 ```
 
-## 📋 Example: User Authentication System
+## [CLIPBOARD] Example: User Authentication System
 
 Let's implement JWT token authentication with middleware integration.
 
@@ -179,7 +179,7 @@ export function validateToken(token) {
 }
 ```
 
-**Checkpoint Result**: ✅ Pass (tests pass, types check, lint clean)
+**Checkpoint Result**: [OK] Pass (tests pass, types check, lint clean)
 
 #### Checkpoint 2: Authentication Middleware
 **Files**: `src/middleware/auth.js`
@@ -208,7 +208,7 @@ export function requireAuth(req, res, next) {
 }
 ```
 
-**Checkpoint Result**: ✅ Pass (middleware tests pass)
+**Checkpoint Result**: [OK] Pass (middleware tests pass)
 
 #### Checkpoint 3: Token Refresh Endpoint
 **Files**: `src/routes/auth.js`
@@ -239,7 +239,7 @@ export async function refreshToken(req, res) {
 }
 ```
 
-**Final Checkpoint**: ✅ All checkpoints completed successfully
+**Final Checkpoint**: [OK] All checkpoints completed successfully
 
 **planned-fix.json Summary**:
 ```json
@@ -297,10 +297,10 @@ export async function refreshToken(req, res) {
   "ok": true,
   "summary": {"total": 6, "passed": 6, "failed": 0, "critical_failures": 0},
   "gates": {
-    "tests": {"passed": true, "message": "✅ All tests pass"},
-    "typecheck": {"passed": true, "message": "✅ TypeScript compilation clean"},
-    "security": {"passed": true, "message": "✅ No critical security issues"},
-    "coverage": {"passed": true, "message": "✅ Coverage improved"}
+    "tests": {"passed": true, "message": "[OK] All tests pass"},
+    "typecheck": {"passed": true, "message": "[OK] TypeScript compilation clean"},
+    "security": {"passed": true, "message": "[OK] No critical security issues"},
+    "coverage": {"passed": true, "message": "[OK] Coverage improved"}
   },
   "recommendations": [
     "Code quality excellent - ready for deployment",
@@ -321,14 +321,14 @@ export async function refreshToken(req, res) {
 ```markdown
 # feat: Implement JWT authentication system with middleware integration
 
-## 📋 Summary
+## [CLIPBOARD] Summary
 
 **Feature**: Complete JWT authentication system
 **Business Value**: Secure user authentication with token-based session management
 **Technical Approach**: JWT utilities + middleware + refresh mechanism
-**Risk Level**: 🟡 medium (cross-cutting middleware changes)
+**Risk Level**: [U+1F7E1] medium (cross-cutting middleware changes)
 
-## 🏗️ Implementation Details
+## [BUILD] Implementation Details
 
 ### Files Added/Modified
 - **src/utils/jwt.js** - JWT generation and validation utilities (28 lines)
@@ -338,29 +338,29 @@ export async function refreshToken(req, res) {
 - **tests/** - Comprehensive test suite (95 lines)
 
 ### Key Features
-- 🔐 JWT token generation with configurable expiry
-- 🛡️ Authentication middleware for route protection
-- 🔄 Token refresh mechanism for seamless UX
-- ⚡ Environment-based configuration
-- 🧪 100% test coverage on auth functionality
+- [LOCK] JWT token generation with configurable expiry
+- [SHIELD] Authentication middleware for route protection
+- [CYCLE] Token refresh mechanism for seamless UX
+- [LIGHTNING] Environment-based configuration
+- [U+1F9EA] 100% test coverage on auth functionality
 
-## 🧪 Quality Assurance
+## [U+1F9EA] Quality Assurance
 
 ### Test Results
-- **Tests**: 24/24 passing ✅
-- **Coverage**: +3.2% improvement ✅ (95.8% on changed files)
-- **Type Check**: ✅ Pass (0 errors, 1 warning)
-- **Linting**: ✅ Pass (0 errors, 2 fixable warnings)
+- **Tests**: 24/24 passing [OK]
+- **Coverage**: +3.2% improvement [OK] (95.8% on changed files)
+- **Type Check**: [OK] Pass (0 errors, 1 warning)
+- **Linting**: [OK] Pass (0 errors, 2 fixable warnings)
 
-### Risk Assessment: 🟢 low (post-implementation)
+### Risk Assessment: [U+1F7E2] low (post-implementation)
 
 **Quality Metrics**:
-- NASA POT10 Compliance: 91.5% ✅
-- Code Duplication Score: 0.78 ✅
-- Security Compliance: 1 medium finding (non-blocking) ⚠️
+- NASA POT10 Compliance: 91.5% [OK]
+- Code Duplication Score: 0.78 [OK]
+- Security Compliance: 1 medium finding (non-blocking) [WARN]
 - Performance Impact: Minimal (middleware overhead <1ms)
 
-## 🎯 Impact Analysis
+## [TARGET] Impact Analysis
 
 ### Architectural Changes
 - **Cross-cutting**: Authentication middleware affects all protected routes
@@ -374,32 +374,32 @@ export async function refreshToken(req, res) {
 - **Low Impact**: Utility files (isolated functionality)
 
 ### Risk Mitigation Applied
-- ✅ Incremental implementation with checkpoints
-- ✅ Comprehensive test coverage (100%)
-- ✅ Environment-based secret management
-- ✅ Token expiry and refresh mechanism
+- [OK] Incremental implementation with checkpoints
+- [OK] Comprehensive test coverage (100%)
+- [OK] Environment-based secret management
+- [OK] Token expiry and refresh mechanism
 
-## 🔒 Security Assessment
+## [U+1F512] Security Assessment
 
 ### Security Scan Results
-- **Critical**: 0 ✅
-- **High**: 0 ✅
-- **Medium**: 1 ⚠️ (JWT secret in development mode)
-- **Low**: 2 ℹ️ (informational)
+- **Critical**: 0 [OK]
+- **High**: 0 [OK]
+- **Medium**: 1 [WARN] (JWT secret in development mode)
+- **Low**: 2 i[U+FE0F] (informational)
 
 ### Security Best Practices Applied
-- 🔐 Environment-based secret management
-- ⏰ Configurable token expiry
-- 🍪 Secure HTTP-only cookie support ready
-- 🛡️ Input validation on all auth endpoints
-- 🔄 Token refresh mechanism prevents long-lived tokens
+- [LOCK] Environment-based secret management
+- [U+23F0] Configurable token expiry
+- [U+1F36A] Secure HTTP-only cookie support ready
+- [SHIELD] Input validation on all auth endpoints
+- [CYCLE] Token refresh mechanism prevents long-lived tokens
 
 ### Medium Security Finding
 **Issue**: Development fallback secret detected  
 **Impact**: Low (development only, documented in code)  
 **Resolution**: Ensure JWT_SECRET is set in production environments
 
-## 🚀 Deployment
+## [ROCKET] Deployment
 
 ### Configuration Required
 ```bash
@@ -423,7 +423,7 @@ REFRESH_EXPIRY=7d
 - Revert to previous authentication method
 - No data migration required
 
-## ✅ Pre-merge Checklist
+## [OK] Pre-merge Checklist
 
 - [x] All tests pass (24/24)
 - [x] Code coverage maintained/improved (+3.2%)
@@ -441,35 +441,35 @@ REFRESH_EXPIRY=7d
 - [ ] Environment variables configured in production
 
 ### Automated Checks Status
-- ✅ CI/CD pipeline passes
-- ✅ Security gates met
-- ✅ Quality gates passed
-- ✅ Integration tests pass
+- [OK] CI/CD pipeline passes
+- [OK] Security gates met
+- [OK] Quality gates passed
+- [OK] Integration tests pass
 
 ---
 
-🤖 Generated with SPEK-AUGMENT v1  
-📊 Evidence Package: qa.json, impact.json, planned-fix.json, security.json  
-🔗 Workflow: SPEC → Planning → Impact Analysis → Implementation → QA → Gates → PR
+[U+1F916] Generated with SPEK-AUGMENT v1  
+[CHART] Evidence Package: qa.json, impact.json, planned-fix.json, security.json  
+[U+1F517] Workflow: SPEC -> Planning -> Impact Analysis -> Implementation -> QA -> Gates -> PR
 ```
 
-## 📊 Workflow Results
+## [CHART] Workflow Results
 
-### ✅ Success Metrics
+### [OK] Success Metrics
 - **Implementation Time**: 145 seconds (automated)
 - **Quality Score**: 91.5% NASA POT10 compliance
 - **Test Coverage**: 95.8% on changed files
 - **Security Posture**: 0 critical/high findings
 - **Code Quality**: 0 errors, minimal warnings
 
-### 📈 Value Delivered
+### [TREND] Value Delivered
 - **Feature Complete**: JWT authentication system fully implemented
 - **Quality Assured**: All gates passed with comprehensive testing
 - **Security Verified**: OWASP compliance with documented findings
 - **Evidence Rich**: Complete audit trail for review and compliance
 - **Deployment Ready**: Configuration documented, rollback plan provided
 
-### 🎯 Lessons Learned
+### [TARGET] Lessons Learned
 
 1. **Impact Analysis Value**: Gemini's analysis correctly identified risk level and approach
 2. **Checkpoint Safety**: Planned approach with rollback points prevented issues
@@ -477,7 +477,7 @@ REFRESH_EXPIRY=7d
 4. **Evidence Package**: Rich documentation improved review efficiency
 5. **Risk Mitigation**: Incremental approach made complex changes manageable
 
-## 🔄 Workflow Variations
+## [CYCLE] Workflow Variations
 
 ### For Higher Risk Changes
 ```bash

@@ -593,7 +593,7 @@ class RealityValidationSystem:
             current_score = 0
             
         if current_score >= 0.95:
-                benefits.append("Achieved excellent NASA POT10 compliance (≥95%)")
+                benefits.append("Achieved excellent NASA POT10 compliance (>=95%)")
         
         if "god_object_analysis" in evidence:
             god_data = evidence["god_object_analysis"]

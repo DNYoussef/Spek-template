@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 
 async function analyzeDiffCoverage() {
-  console.log('🔍 Analyzing diff coverage...');
+  console.log('[SEARCH] Analyzing diff coverage...');
   
   try {
     // Get changed files with better git handling
@@ -37,11 +37,11 @@ async function analyzeDiffCoverage() {
         }
       }
     } catch (error) {
-      console.log('⚠️  Could not determine changed files, analyzing all files');
+      console.log('[WARN]  Could not determine changed files, analyzing all files');
       changedFiles = [];
     }
     
-    console.log(`📁 Changed files: ${changedFiles.length}`);
+    console.log(`[FOLDER] Changed files: ${changedFiles.length}`);
     changedFiles.forEach(file => console.log(`  - ${file}`));
     
     // TODO: Implement actual coverage calculation
@@ -68,13 +68,13 @@ async function analyzeDiffCoverage() {
       JSON.stringify(result, null, 2)
     );
     
-    console.log('✅ Diff coverage analysis complete (placeholder)');
-    console.log(`📊 Coverage delta: ${result.coverage_delta}`);
+    console.log('[OK] Diff coverage analysis complete (placeholder)');
+    console.log(`[CHART] Coverage delta: ${result.coverage_delta}`);
     
     return 0;
     
   } catch (error) {
-    console.error('❌ Diff coverage analysis failed:', error.message);
+    console.error('[FAIL] Diff coverage analysis failed:', error.message);
     
     const result = {
       ok: false,

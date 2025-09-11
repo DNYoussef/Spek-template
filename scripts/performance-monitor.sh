@@ -6,7 +6,7 @@ monitor_performance() {
     local script_cmd="$*"
     local start_time memory_before memory_after duration
     
-    echo "📊 Performance Monitor: $script_cmd"
+    echo "[CHART] Performance Monitor: $script_cmd"
     
     # Get initial memory usage (if available)
     memory_before=$(ps -o pid,vsz,rss -p $$ 2>/dev/null | tail -1 | awk '{print $2}') || memory_before=0
@@ -14,7 +14,7 @@ monitor_performance() {
     
     # Execute command with timeout
     timeout 300 bash -c "$script_cmd" || {
-        echo "⚠️ Command timed out after 5 minutes"
+        echo "[WARN] Command timed out after 5 minutes"
         return 1
     }
     
@@ -24,10 +24,10 @@ monitor_performance() {
     duration=$(echo "$end_time - $start_time" | bc -l 2>/dev/null || echo "unknown")
     memory_after=$(ps -o pid,vsz,rss -p $$ 2>/dev/null | tail -1 | awk '{print $2}') || memory_after=0
     
-    echo "⏱️ Execution Time: ${duration}s"
+    echo "[U+23F1][U+FE0F] Execution Time: ${duration}s"
     if [[ "$memory_before" != "0" && "$memory_after" != "0" ]]; then
         local memory_delta=$((memory_after - memory_before))
-        echo "💾 Memory Delta: ${memory_delta}KB"
+        echo "[U+1F4BE] Memory Delta: ${memory_delta}KB"
     fi
 }
 
@@ -36,11 +36,11 @@ test_cleanup_performance() {
     local cleanup_script="$1"
     
     if [[ ! -x "$cleanup_script" ]]; then
-        echo "❌ Cleanup script not found or not executable: $cleanup_script"
+        echo "[FAIL] Cleanup script not found or not executable: $cleanup_script"
         return 1
     fi
     
-    echo "🔍 Testing cleanup system performance..."
+    echo "[SEARCH] Testing cleanup system performance..."
     
     # Test help command (should be fast)
     echo "Testing --help performance:"
@@ -54,7 +54,7 @@ test_cleanup_performance() {
     echo "Testing --dry-run performance:"
     monitor_performance "$cleanup_script --dry-run --phase 1"
     
-    echo "✅ Performance testing complete"
+    echo "[OK] Performance testing complete"
 }
 
 # Export functions

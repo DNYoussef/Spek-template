@@ -494,7 +494,7 @@ class BoundedASTWalker:
             "improvement_roadmap": {
                 "phase_1_function_decomposition": {
                     "expected_improvement": 0.02,
-                    "operations": "≤25 LOC, ≤2 files per operation"
+                    "operations": "<=25 LOC, <=2 files per operation"
                 },
                 "phase_2_bounded_traversal": {
                     "expected_improvement": 0.02,

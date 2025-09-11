@@ -767,38 +767,38 @@ class ComprehensiveWorkflowValidator:
         
         # Critical requirements
         if not readiness['critical_requirements']['yaml_syntax_valid']:
-            checklist.append("❌ Fix YAML syntax errors in workflows")
+            checklist.append("[FAIL] Fix YAML syntax errors in workflows")
         else:
-            checklist.append("✅ YAML syntax validation passed")
+            checklist.append("[OK] YAML syntax validation passed")
             
         if not readiness['critical_requirements']['python_scripts_working']:
-            checklist.append("❌ Fix Python script syntax errors")
+            checklist.append("[FAIL] Fix Python script syntax errors")
         else:
-            checklist.append("✅ Python scripts validation passed")
+            checklist.append("[OK] Python scripts validation passed")
             
         if not readiness['critical_requirements']['no_critical_blockers']:
-            checklist.append("❌ Resolve all critical blocking issues")
+            checklist.append("[FAIL] Resolve all critical blocking issues")
         else:
-            checklist.append("✅ No critical blocking issues found")
+            checklist.append("[OK] No critical blocking issues found")
             
         if not readiness['critical_requirements']['quality_gates_functioning']:
-            checklist.append("❌ Implement proper quality gate logic")
+            checklist.append("[FAIL] Implement proper quality gate logic")
         else:
-            checklist.append("✅ Quality gates properly implemented")
+            checklist.append("[OK] Quality gates properly implemented")
             
         # Quality requirements
         if not readiness['quality_requirements']['integration_compatible']:
-            checklist.append("⚠️  Fix cross-workflow integration issues")
+            checklist.append("[WARN]  Fix cross-workflow integration issues")
         else:
-            checklist.append("✅ Cross-workflow integration validated")
+            checklist.append("[OK] Cross-workflow integration validated")
             
         # Additional recommendations
         if readiness['readiness_score'] >= 90:
-            checklist.append("🚀 Ready for production deployment")
+            checklist.append("[ROCKET] Ready for production deployment")
         elif readiness['readiness_score'] >= 70:
-            checklist.append("⚠️  Consider staging deployment first")
+            checklist.append("[WARN]  Consider staging deployment first")
         else:
-            checklist.append("🛑 Not recommended for production deployment")
+            checklist.append("[U+1F6D1] Not recommended for production deployment")
             
         return checklist
         
@@ -811,36 +811,36 @@ class ComprehensiveWorkflowValidator:
         
         # Based on overall status
         if production['overall_status'] == 'PRODUCTION_READY':
-            recommendations.append("✅ All workflows validated - APPROVED for production deployment")
-            recommendations.append("🚀 Consider enabling automated workflow execution")
-            recommendations.append("📊 Set up monitoring dashboard for workflow execution")
+            recommendations.append("[OK] All workflows validated - APPROVED for production deployment")
+            recommendations.append("[ROCKET] Consider enabling automated workflow execution")
+            recommendations.append("[CHART] Set up monitoring dashboard for workflow execution")
             
         elif production['overall_status'] == 'MOSTLY_READY':
-            recommendations.append("⚠️  Most workflows ready - CONDITIONAL approval for deployment")
-            recommendations.append("🔧 Address remaining quality issues before full rollout")
-            recommendations.append("📋 Implement staged rollout with monitoring")
+            recommendations.append("[WARN]  Most workflows ready - CONDITIONAL approval for deployment")
+            recommendations.append("[TOOL] Address remaining quality issues before full rollout")
+            recommendations.append("[CLIPBOARD] Implement staged rollout with monitoring")
             
         elif production['overall_status'] == 'NEEDS_FIXES':
-            recommendations.append("🛠️  Significant fixes needed - HOLD deployment until resolved")
-            recommendations.append("🔍 Focus on critical YAML and Python syntax issues")
-            recommendations.append("⏱️  Estimated fix time: 2-4 hours for experienced developer")
+            recommendations.append("[U+1F6E0][U+FE0F]  Significant fixes needed - HOLD deployment until resolved")
+            recommendations.append("[SEARCH] Focus on critical YAML and Python syntax issues")
+            recommendations.append("[U+23F1][U+FE0F]  Estimated fix time: 2-4 hours for experienced developer")
             
         else:
-            recommendations.append("🚫 NOT READY - BLOCK deployment until major issues resolved")
-            recommendations.append("📋 Complete workflow redesign may be required")
-            recommendations.append("👥 Consider involving workflow automation expert")
+            recommendations.append("[U+1F6AB] NOT READY - BLOCK deployment until major issues resolved")
+            recommendations.append("[CLIPBOARD] Complete workflow redesign may be required")
+            recommendations.append("[U+1F465] Consider involving workflow automation expert")
             
         # Specific technical recommendations
         if summary['critical_blockers_count'] > 0:
-            recommendations.append(f"🔥 Address {summary['critical_blockers_count']} critical blocking issues immediately")
+            recommendations.append(f"[U+1F525] Address {summary['critical_blockers_count']} critical blocking issues immediately")
             
         if summary['overall_success_rate'] < 50:
-            recommendations.append("📈 Success rate below 50% - fundamental issues need resolution")
+            recommendations.append("[TREND] Success rate below 50% - fundamental issues need resolution")
             
         # Integration recommendations
         integration_score = report['integration_test_results']['compatibility_score']
         if integration_score < 90:
-            recommendations.append(f"🔗 Integration compatibility at {integration_score:.1f}% - review artifact dependencies")
+            recommendations.append(f"[U+1F517] Integration compatibility at {integration_score:.1f}% - review artifact dependencies")
             
         return recommendations
 
@@ -867,7 +867,7 @@ def main():
     with open(output_path, 'w') as f:
         json.dump(report, f, indent=2)
         
-    print(f"\n📊 Comprehensive validation report saved to: {output_path}")
+    print(f"\n[CHART] Comprehensive validation report saved to: {output_path}")
     
     # Print executive summary
     if args.summary or True:  # Always show summary
@@ -875,32 +875,32 @@ def main():
         production = report['production_readiness']
         
         print("\n" + "="*80)
-        print("🚀 COMPREHENSIVE WORKFLOW VALIDATION REPORT")
+        print("[ROCKET] COMPREHENSIVE WORKFLOW VALIDATION REPORT")
         print("="*80)
         
-        print(f"\n📈 EXECUTIVE SUMMARY")
+        print(f"\n[TREND] EXECUTIVE SUMMARY")
         print(f"   Total Workflows Tested: {summary['total_workflows_tested']}")
         print(f"   Production Ready: {summary['workflows_production_ready']}")
         print(f"   Need Fixes: {summary['workflows_needing_fixes']}")
         print(f"   Success Rate: {summary['overall_success_rate']:.1f}%")
         print(f"   Pipeline Status: {summary['analyzer_pipeline_status']}")
         
-        print(f"\n🎯 PRODUCTION READINESS")
+        print(f"\n[TARGET] PRODUCTION READINESS")
         print(f"   Overall Status: {production['overall_status']}")
         print(f"   Readiness Score: {production['readiness_score']:.1f}%")
         print(f"   Risk Assessment: {production['risk_assessment']}")
         print(f"   Deployment Recommendation: {summary['deployment_recommendation']}")
         
-        print(f"\n🔍 KEY FINDINGS")
+        print(f"\n[SEARCH] KEY FINDINGS")
         print(f"   Critical Blockers: {summary['critical_blockers_count']}")
         print(f"   Total Issues: {summary['total_issues_found']}")
         print(f"   Warnings: {summary['total_warnings']}")
         
-        print(f"\n📋 DEPLOYMENT CHECKLIST")
+        print(f"\n[CLIPBOARD] DEPLOYMENT CHECKLIST")
         for item in production['deployment_checklist'][:10]:  # Show first 10 items
             print(f"   {item}")
             
-        print(f"\n🎯 RECOMMENDATIONS")
+        print(f"\n[TARGET] RECOMMENDATIONS")
         for rec in report['deployment_recommendations'][:5]:  # Show first 5
             print(f"   {rec}")
             

@@ -2,16 +2,16 @@
 
 ## Overview
 
-This checklist ensures systematic validation of NASA JPL Power of Ten rules compliance during code reviews. Use this for Python analyzer codebases targeting ≥90% defense industry compliance standards.
+This checklist ensures systematic validation of NASA JPL Power of Ten rules compliance during code reviews. Use this for Python analyzer codebases targeting >=90% defense industry compliance standards.
 
 **Review Focus Areas:**
-- ✅ **Critical Rules**: 1, 2, 3 (Must pass 100%)
-- ⚠️ **High Priority Rules**: 4, 5, 7 (Target ≥90%)  
-- 📊 **Medium Priority Rules**: 6, 8, 9, 10 (Target ≥75%)
+- [OK] **Critical Rules**: 1, 2, 3 (Must pass 100%)
+- [WARN] **High Priority Rules**: 4, 5, 7 (Target >=90%)  
+- [CHART] **Medium Priority Rules**: 6, 8, 9, 10 (Target >=75%)
 
 ---
 
-## Rule 1: Simple Control Flow ✅ CRITICAL
+## Rule 1: Simple Control Flow [OK] CRITICAL
 
 **Objective**: Eliminate complex control flow constructs
 
@@ -20,7 +20,7 @@ This checklist ensures systematic validation of NASA JPL Power of Ten rules comp
 - [ ] **No goto statements** (N/A in Python)
 - [ ] **No recursion** - All recursive functions converted to iterative
   - [ ] Check for direct recursion: `function_name()` calls within same function
-  - [ ] Check for indirect recursion: Function A → Function B → Function A
+  - [ ] Check for indirect recursion: Function A -> Function B -> Function A
   - [ ] Verify iterative alternatives use explicit stacks/queues
 - [ ] **No setjmp/longjmp** (N/A in Python)
 - [ ] **Simple loop constructs only**
@@ -51,7 +51,7 @@ def traverse_tree(node):
 
 ---
 
-## Rule 2: Bounded Loops ✅ CRITICAL
+## Rule 2: Bounded Loops [OK] CRITICAL
 
 **Objective**: All loops must have statically determinable upper bounds
 
@@ -97,7 +97,7 @@ while True:  # VIOLATION - no explicit bound
 
 ---
 
-## Rule 3: Heap Memory Management ✅ CRITICAL
+## Rule 3: Heap Memory Management [OK] CRITICAL
 
 **Objective**: Avoid dynamic memory allocation after initialization
 
@@ -135,13 +135,13 @@ class BoundedAnalyzer:
 
 ---
 
-## Rule 4: Function Size ⚠️ HIGH PRIORITY
+## Rule 4: Function Size [WARN] HIGH PRIORITY
 
-**Objective**: Functions should fit on a single printed page (≤60 lines)
+**Objective**: Functions should fit on a single printed page (<=60 lines)
 
 ### Checklist Items:
 
-- [ ] **All functions ≤60 lines**
+- [ ] **All functions <=60 lines**
   - [ ] Count from `def` to end of function body
   - [ ] Include docstrings and comments in count
   - [ ] Exclude blank lines from count
@@ -181,7 +181,7 @@ def _parse_file(self, file_path):
 
 ---
 
-## Rule 5: Assertion Density ⚠️ HIGH PRIORITY
+## Rule 5: Assertion Density [WARN] HIGH PRIORITY
 
 **Objective**: Minimum 2 assertions per function (defensive programming)
 
@@ -227,7 +227,7 @@ def analyze_violations(self, violations):
 
 ---
 
-## Rule 6: Variable Scope 📊 MEDIUM PRIORITY
+## Rule 6: Variable Scope [CHART] MEDIUM PRIORITY
 
 **Objective**: Declare objects at smallest possible scope
 
@@ -252,7 +252,7 @@ def analyze_violations(self, violations):
 
 ---
 
-## Rule 7: Return Value Checking ⚠️ HIGH PRIORITY
+## Rule 7: Return Value Checking [WARN] HIGH PRIORITY
 
 **Objective**: Check return values of all non-void functions
 
@@ -293,7 +293,7 @@ risky_operation()  # VIOLATION - return value not checked
 
 ---
 
-## Rules 8-10: Language-Specific 📊 MEDIUM PRIORITY
+## Rules 8-10: Language-Specific [CHART] MEDIUM PRIORITY
 
 ### Rule 8: Preprocessor Usage (Limited Python Application)
 - [ ] Minimal use of complex decorators
@@ -316,10 +316,10 @@ risky_operation()  # VIOLATION - return value not checked
 ## Compliance Scoring
 
 ### Target Thresholds:
-- **Defense Industry Standard**: ≥90% overall compliance
+- **Defense Industry Standard**: >=90% overall compliance
 - **Critical Rules (1,2,3)**: 100% compliance required
-- **High Priority Rules (4,5,7)**: ≥90% compliance target
-- **Medium Priority Rules (6,8,9,10)**: ≥75% compliance target
+- **High Priority Rules (4,5,7)**: >=90% compliance target
+- **Medium Priority Rules (6,8,9,10)**: >=75% compliance target
 
 ### Review Sign-off:
 
@@ -327,9 +327,9 @@ risky_operation()  # VIOLATION - return value not checked
 
 **Compliance Assessment**:
 - [ ] Critical rules: 100% compliant
-- [ ] High priority rules: ≥90% compliant  
-- [ ] Medium priority rules: ≥75% compliant
-- [ ] Overall NASA POT10 score: ≥90%
+- [ ] High priority rules: >=90% compliant  
+- [ ] Medium priority rules: >=75% compliant
+- [ ] Overall NASA POT10 score: >=90%
 
 **Notes**:
 _________________________________

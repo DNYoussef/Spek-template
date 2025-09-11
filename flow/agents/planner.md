@@ -134,7 +134,7 @@ interface RiskAssessment {
   description: string;
   probability: 'low' | 'medium' | 'high';
   impact: 'low' | 'medium' | 'high' | 'critical';
-  severity: number;        // probability × impact
+  severity: number;        // probability * impact
   mitigation: MitigationStrategy;
   owner: AgentType;
   timeline: string;

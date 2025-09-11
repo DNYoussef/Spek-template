@@ -17,7 +17,7 @@ def main():
     
     args = parser.parse_args()
     
-    print("🔍 Validating enterprise demo claims...")
+    print("[SEARCH] Validating enterprise demo claims...")
     
     # Create validation report
     validation_report = {
@@ -45,9 +45,9 @@ def main():
         json.dump(validation_report, f, indent=2)
     
     if args.verbose:
-        print("✅ Validation completed successfully")
-        print(f"📄 Report saved to validation_report.json")
-        print(f"🎯 Claims verified with current analyzer baseline")
+        print("[OK] Validation completed successfully")
+        print(f"[U+1F4C4] Report saved to validation_report.json")
+        print(f"[TARGET] Claims verified with current analyzer baseline")
     
     return 0
 

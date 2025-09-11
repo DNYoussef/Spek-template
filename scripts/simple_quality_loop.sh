@@ -21,25 +21,25 @@ NC='\033[0m'
 
 # Logging functions
 log() { echo -e "${BLUE}[$(date '+%H:%M:%S')]${NC} $*"; }
-log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] ✅${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] ⚠️${NC} $*"; }
-log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] ❌${NC} $*"; }
-log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] ℹ️${NC} $*"; }
-log_phase() { echo -e "${PURPLE}[$(date '+%H:%M:%S')] 🔄${NC} $*"; }
+log_success() { echo -e "${GREEN}[$(date '+%H:%M:%S')] [OK]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[$(date '+%H:%M:%S')] [WARN]${NC} $*"; }
+log_error() { echo -e "${RED}[$(date '+%H:%M:%S')] [FAIL]${NC} $*"; }
+log_info() { echo -e "${CYAN}[$(date '+%H:%M:%S')] i[U+FE0F]${NC} $*"; }
+log_phase() { echo -e "${PURPLE}[$(date '+%H:%M:%S')] [CYCLE]${NC} $*"; }
 
 # Banner
 show_banner() {
     echo -e "${BOLD}${BLUE}"
     cat << 'EOF'
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                   SPEK QUALITY IMPROVEMENT LOOP                             ║
-║                Simple Implementation - No jq/bc Required                    ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║  🔄 Iterative Quality Loop with GitHub Integration                          ║
-║  🎭 Basic Theater Detection and Reality Validation                          ║ 
-║  🔬 Essential Testing and Verification Pipeline                             ║
-║  ⚡ Universal Compatibility - Basic Unix Tools Only                         ║
-╚══════════════════════════════════════════════════════════════════════════════╝
+[U+2554][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2557]
+[U+2551]                   SPEK QUALITY IMPROVEMENT LOOP                             [U+2551]
+[U+2551]                Simple Implementation - No jq/bc Required                    [U+2551]
+[U+2560][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2563]
+[U+2551]  [CYCLE] Iterative Quality Loop with GitHub Integration                          [U+2551]
+[U+2551]  [U+1F3AD] Basic Theater Detection and Reality Validation                          [U+2551] 
+[U+2551]  [SCIENCE] Essential Testing and Verification Pipeline                             [U+2551]
+[U+2551]  [LIGHTNING] Universal Compatibility - Basic Unix Tools Only                         [U+2551]
+[U+255A][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+255D]
 EOF
     echo -e "${NC}"
 }
@@ -55,9 +55,9 @@ check_system_requirements() {
     
     for cmd in "${required_commands[@]}"; do
         if command -v "$cmd" >/dev/null 2>&1; then
-            log_success "✓ $cmd is available"
+            log_success "[U+2713] $cmd is available"
         else
-            log_error "✗ $cmd is not available"
+            log_error "[U+2717] $cmd is not available"
             requirements_met=false
         fi
     done
@@ -68,57 +68,57 @@ check_system_requirements() {
     log_info "Optional components:"
     for cmd in "${optional_commands[@]}"; do
         if command -v "$cmd" >/dev/null 2>&1; then
-            log_success "✓ $cmd is available"
+            log_success "[U+2713] $cmd is available"
         else
-            log_warning "○ $cmd is not available (optional)"
+            log_warning "[U+25CB] $cmd is not available (optional)"
         fi
     done
     
     # Check project structure
     if [[ -f "package.json" ]]; then
-        log_success "✓ Node.js project detected"
+        log_success "[U+2713] Node.js project detected"
         
         if [[ -d "node_modules" ]]; then
-            log_success "✓ Dependencies installed"
+            log_success "[U+2713] Dependencies installed"
         else
-            log_warning "○ Dependencies not installed (run npm install)"
+            log_warning "[U+25CB] Dependencies not installed (run npm install)"
         fi
     else
-        log_info "○ No package.json found (will create basic structure)"
+        log_info "[U+25CB] No package.json found (will create basic structure)"
     fi
     
     # Check Git repository
     if git rev-parse --git-dir >/dev/null 2>&1; then
-        log_success "✓ Git repository detected"
+        log_success "[U+2713] Git repository detected"
         
         if [[ -n "$(git status --porcelain 2>/dev/null)" ]]; then
-            log_warning "○ Uncommitted changes detected (will be handled safely)"
+            log_warning "[U+25CB] Uncommitted changes detected (will be handled safely)"
         else
-            log_success "✓ Working tree is clean"
+            log_success "[U+2713] Working tree is clean"
         fi
     else
-        log_error "✗ Not in a Git repository"
+        log_error "[U+2717] Not in a Git repository"
         requirements_met=false
     fi
     
     # Check analyzer
     if [[ -d "analyzer" ]]; then
-        log_success "✓ Connascence analyzer detected"
+        log_success "[U+2713] Connascence analyzer detected"
         
         if python -c "import analyzer" 2>/dev/null; then
-            log_success "✓ Analyzer module importable"
+            log_success "[U+2713] Analyzer module importable"
         else
-            log_warning "○ Analyzer module has import issues"
+            log_warning "[U+25CB] Analyzer module has import issues"
         fi
     else
-        log_info "○ No analyzer directory found"
+        log_info "[U+25CB] No analyzer directory found"
     fi
     
     if [[ "$requirements_met" == "true" ]]; then
-        log_success "🎯 System requirements check: PASSED"
+        log_success "[TARGET] System requirements check: PASSED"
         return 0
     else
-        log_error "❌ System requirements check: FAILED"
+        log_error "[FAIL] System requirements check: FAILED"
         return 1
     fi
 }
@@ -189,7 +189,7 @@ analyze_github_workflows() {
             echo "$failed_count" > "$ARTIFACTS_DIR/failed_count.txt"
             return 0
         else
-            log_success "✓ All recent workflows passed"
+            log_success "[U+2713] All recent workflows passed"
             echo "0" > "$ARTIFACTS_DIR/failed_count.txt"
             return 0
         fi
@@ -224,15 +224,15 @@ EOF
         close_braces=$(grep -o '}' package.json | wc -l)
         
         if [[ $open_braces -eq $close_braces ]] && [[ $open_braces -gt 0 ]]; then
-            log_success "✓ package.json is valid"
+            log_success "[U+2713] package.json is valid"
             echo "package_json=passed" >> "$ARTIFACTS_DIR/quality_results.txt"
             ((gates_passed++))
         else
-            log_error "✗ package.json appears invalid"
+            log_error "[U+2717] package.json appears invalid"
             echo "package_json=failed" >> "$ARTIFACTS_DIR/quality_results.txt"
         fi
     else
-        log_error "✗ package.json not found"
+        log_error "[U+2717] package.json not found"
         echo "package_json=failed" >> "$ARTIFACTS_DIR/quality_results.txt"
     fi
     
@@ -242,15 +242,15 @@ EOF
         local test_files
         test_files=$(find . -name "*test*" -name "*.js" -o -name "*test*" -name "*.ts" -o -name "*test*" -name "*.py" | wc -l)
         if [[ $test_files -gt 0 ]]; then
-            log_success "✓ Test structure exists ($test_files test files)"
+            log_success "[U+2713] Test structure exists ($test_files test files)"
             echo "test_structure=passed" >> "$ARTIFACTS_DIR/quality_results.txt"
             ((gates_passed++))
         else
-            log_warning "○ Test directories exist but no test files found"
+            log_warning "[U+25CB] Test directories exist but no test files found"
             echo "test_structure=partial" >> "$ARTIFACTS_DIR/quality_results.txt"
         fi
     else
-        log_error "✗ No test structure found"
+        log_error "[U+2717] No test structure found"
         echo "test_structure=failed" >> "$ARTIFACTS_DIR/quality_results.txt"
     fi
     
@@ -259,11 +259,11 @@ EOF
         # Test npm test
         ((gates_total++))
         if npm test --silent >/dev/null 2>&1; then
-            log_success "✓ Tests passed"
+            log_success "[U+2713] Tests passed"
             echo "npm_test=passed" >> "$ARTIFACTS_DIR/quality_results.txt"
             ((gates_passed++))
         else
-            log_error "✗ Tests failed"
+            log_error "[U+2717] Tests failed"
             echo "npm_test=failed" >> "$ARTIFACTS_DIR/quality_results.txt"
         fi
         
@@ -271,11 +271,11 @@ EOF
         if grep -q '"typecheck"' package.json 2>/dev/null; then
             ((gates_total++))
             if npm run typecheck >/dev/null 2>&1; then
-                log_success "✓ TypeScript check passed"
+                log_success "[U+2713] TypeScript check passed"
                 echo "typecheck=passed" >> "$ARTIFACTS_DIR/quality_results.txt"
                 ((gates_passed++))
             else
-                log_error "✗ TypeScript check failed"
+                log_error "[U+2717] TypeScript check failed"
                 echo "typecheck=failed" >> "$ARTIFACTS_DIR/quality_results.txt"
             fi
         fi
@@ -284,11 +284,11 @@ EOF
         if grep -q '"lint"' package.json 2>/dev/null; then
             ((gates_total++))
             if npm run lint >/dev/null 2>&1; then
-                log_success "✓ Linting passed"
+                log_success "[U+2713] Linting passed"
                 echo "lint=passed" >> "$ARTIFACTS_DIR/quality_results.txt"
                 ((gates_passed++))
             else
-                log_warning "○ Linting failed (warnings allowed)"
+                log_warning "[U+25CB] Linting failed (warnings allowed)"
                 echo "lint=warning" >> "$ARTIFACTS_DIR/quality_results.txt"
                 ((gates_passed++))  # Count warnings as passed
             fi
@@ -299,11 +299,11 @@ EOF
     if [[ -d "analyzer" ]] && command -v python >/dev/null 2>&1; then
         ((gates_total++))
         if python -m analyzer >/dev/null 2>&1; then
-            log_success "✓ Connascence analyzer completed"
+            log_success "[U+2713] Connascence analyzer completed"
             echo "analyzer=passed" >> "$ARTIFACTS_DIR/quality_results.txt"
             ((gates_passed++))
         else
-            log_warning "○ Connascence analyzer had issues"
+            log_warning "[U+25CB] Connascence analyzer had issues"
             echo "analyzer=warning" >> "$ARTIFACTS_DIR/quality_results.txt"
             ((gates_passed++))  # Count warnings as passed
         fi
@@ -314,19 +314,19 @@ EOF
     echo "gates_total=$gates_total" >> "$ARTIFACTS_DIR/quality_results.txt"
     
     if [[ $gates_total -eq 0 ]]; then
-        log_error "❌ No quality gates available to test"
+        log_error "[FAIL] No quality gates available to test"
         echo "overall_status=no_gates" >> "$ARTIFACTS_DIR/quality_results.txt"
         return 1
     elif [[ $gates_passed -eq $gates_total ]]; then
-        log_success "🎯 Quality gates: ALL PASSED ($gates_passed/$gates_total)"
+        log_success "[TARGET] Quality gates: ALL PASSED ($gates_passed/$gates_total)"
         echo "overall_status=passed" >> "$ARTIFACTS_DIR/quality_results.txt"
         return 0
     elif [[ $gates_passed -gt 0 ]]; then
-        log_warning "⚠️ Quality gates: PARTIAL SUCCESS ($gates_passed/$gates_total)"
+        log_warning "[WARN] Quality gates: PARTIAL SUCCESS ($gates_passed/$gates_total)"
         echo "overall_status=partial" >> "$ARTIFACTS_DIR/quality_results.txt"
         return 1
     else
-        log_error "❌ Quality gates: ALL FAILED ($gates_passed/$gates_total)"
+        log_error "[FAIL] Quality gates: ALL FAILED ($gates_passed/$gates_total)"
         echo "overall_status=failed" >> "$ARTIFACTS_DIR/quality_results.txt"
         return 1
     fi
@@ -357,7 +357,7 @@ apply_basic_fixes() {
 }
 EOF
         fixes_applied+=("created_package_json")
-        log_success "✓ Created basic package.json"
+        log_success "[U+2713] Created basic package.json"
     fi
     
     # Fix 2: Create basic test structure
@@ -372,7 +372,7 @@ describe('Basic functionality', () => {
 });
 EOF
         fixes_applied+=("created_test_structure")
-        log_success "✓ Created basic test structure"
+        log_success "[U+2713] Created basic test structure"
     fi
     
     # Fix 3: Create basic .gitignore
@@ -388,7 +388,7 @@ dist/
 .claude/.artifacts/*.log
 EOF
         fixes_applied+=("created_gitignore")
-        log_success "✓ Created basic .gitignore"
+        log_success "[U+2713] Created basic .gitignore"
     fi
     
     # Fix 4: Create analyzer module if directory exists but module is missing
@@ -405,7 +405,7 @@ if __name__ == "__main__":
     print(f"Analysis result: {result}")
 EOF
         fixes_applied+=("created_analyzer_module")
-        log_success "✓ Created basic analyzer module"
+        log_success "[U+2713] Created basic analyzer module"
     fi
     
     # Save fixes applied
@@ -428,7 +428,7 @@ detect_basic_theater() {
     
     # Pattern 1: Excessive console.log success messages
     local fake_success_logs
-    fake_success_logs=$(find . -name "*.js" -o -name "*.ts" -o -name "*.py" -not -path "*/node_modules/*" -not -path "*/test*" -exec grep -c "console\.log.*success\|print.*success\|console\.log.*✓" {} \; 2>/dev/null | awk '{sum+=$1} END {print sum+0}')
+    fake_success_logs=$(find . -name "*.js" -o -name "*.ts" -o -name "*.py" -not -path "*/node_modules/*" -not -path "*/test*" -exec grep -c "console\.log.*success\|print.*success\|console\.log.*[U+2713]" {} \; 2>/dev/null | awk '{sum+=$1} END {print sum+0}')
     
     if [[ $fake_success_logs -gt 10 ]]; then
         theater_patterns+=("excessive_fake_success_logging")
@@ -460,13 +460,13 @@ detect_basic_theater() {
         printf '%s\n' "${theater_patterns[@]}" > "$ARTIFACTS_DIR/theater_patterns.txt"
         echo "theater_detected=true" > "$ARTIFACTS_DIR/theater_results.txt"
         echo "theater_confidence=medium" >> "$ARTIFACTS_DIR/theater_results.txt"
-        log_warning "🎭 Theater detection: PATTERNS FOUND"
+        log_warning "[U+1F3AD] Theater detection: PATTERNS FOUND"
         return 1
     else
         echo "no_theater_detected" > "$ARTIFACTS_DIR/theater_patterns.txt"
         echo "theater_detected=false" > "$ARTIFACTS_DIR/theater_results.txt"
         echo "theater_confidence=low" >> "$ARTIFACTS_DIR/theater_results.txt"
-        log_success "🎭 Theater detection: CLEAN"
+        log_success "[U+1F3AD] Theater detection: CLEAN"
         return 0
     fi
 }
@@ -481,7 +481,7 @@ run_iterative_loop() {
     local success=false
     
     while [[ $iteration -le $max_iterations && "$success" == "false" ]]; do
-        log_phase "🔄 Quality Loop Iteration $iteration of $max_iterations"
+        log_phase "[CYCLE] Quality Loop Iteration $iteration of $max_iterations"
         
         # Create iteration tracking
         echo "iteration=$iteration" > "$ARTIFACTS_DIR/current_iteration.txt"
@@ -495,7 +495,7 @@ run_iterative_loop() {
         
         # Phase 3: Run quality gates
         if run_quality_gates; then
-            log_success "🎉 Quality gates achieved in $iteration iterations!"
+            log_success "[PARTY] Quality gates achieved in $iteration iterations!"
             success=true
             
             # Phase 4: Theater detection on success
@@ -518,10 +518,10 @@ EOF
     done
     
     if [[ "$success" == "true" ]]; then
-        log_success "🏆 Iterative Quality Loop: SUCCESS"
+        log_success "[U+1F3C6] Iterative Quality Loop: SUCCESS"
         return 0
     else
-        log_error "❌ Maximum iterations reached without full success"
+        log_error "[FAIL] Maximum iterations reached without full success"
         
         # Create partial success summary
         cat > "$ARTIFACTS_DIR/loop_partial.txt" << EOF
@@ -543,36 +543,36 @@ show_results_summary() {
     if [[ -f "$ARTIFACTS_DIR/current_session_id.txt" ]]; then
         local session_id
         session_id=$(cat "$ARTIFACTS_DIR/current_session_id.txt")
-        log_info "🔗 Session ID: $session_id"
+        log_info "[U+1F517] Session ID: $session_id"
     fi
     
     # Show final status
     if [[ -f "$ARTIFACTS_DIR/loop_success.txt" ]]; then
         local iterations
         iterations=$(grep "iterations=" "$ARTIFACTS_DIR/loop_success.txt" | cut -d'=' -f2)
-        log_success "🎯 Quality Loop: SUCCESS in $iterations iterations"
+        log_success "[TARGET] Quality Loop: SUCCESS in $iterations iterations"
         
         # Check theater detection
         if [[ -f "$ARTIFACTS_DIR/theater_results.txt" ]]; then
             local theater_detected
             theater_detected=$(grep "theater_detected=" "$ARTIFACTS_DIR/theater_results.txt" | cut -d'=' -f2)
             if [[ "$theater_detected" == "false" ]]; then
-                log_success "🎭 Reality validation: CLEAN"
+                log_success "[U+1F3AD] Reality validation: CLEAN"
             else
-                log_warning "🎭 Reality validation: Some patterns detected"
+                log_warning "[U+1F3AD] Reality validation: Some patterns detected"
             fi
         fi
         
-        log_success "🚀 Ready for deployment"
+        log_success "[ROCKET] Ready for deployment"
         
     elif [[ -f "$ARTIFACTS_DIR/loop_partial.txt" ]]; then
         local iterations
         iterations=$(grep "iterations=" "$ARTIFACTS_DIR/loop_partial.txt" | cut -d'=' -f2)
-        log_warning "⚠️ Quality Loop: PARTIAL SUCCESS after $iterations iterations"
-        log_info "💡 Manual intervention may be needed"
+        log_warning "[WARN] Quality Loop: PARTIAL SUCCESS after $iterations iterations"
+        log_info "[INFO] Manual intervention may be needed"
         
     else
-        log_info "📊 Quality Loop: Analysis completed"
+        log_info "[CHART] Quality Loop: Analysis completed"
     fi
     
     # Show quality gate results
@@ -581,7 +581,7 @@ show_results_summary() {
         local gates_total
         gates_passed=$(grep "gates_passed=" "$ARTIFACTS_DIR/quality_results.txt" | cut -d'=' -f2)
         gates_total=$(grep "gates_total=" "$ARTIFACTS_DIR/quality_results.txt" | cut -d'=' -f2)
-        log_info "📊 Quality Gates: $gates_passed/$gates_total passed"
+        log_info "[CHART] Quality Gates: $gates_passed/$gates_total passed"
     fi
     
     # Show GitHub status
@@ -589,17 +589,17 @@ show_results_summary() {
         local failed_count
         failed_count=$(cat "$ARTIFACTS_DIR/failed_count.txt")
         if [[ $failed_count -eq 0 ]]; then
-            log_success "🔗 GitHub Workflows: All passing"
+            log_success "[U+1F517] GitHub Workflows: All passing"
         else
-            log_warning "🔗 GitHub Workflows: $failed_count failures detected"
+            log_warning "[U+1F517] GitHub Workflows: $failed_count failures detected"
         fi
     fi
     
     # Show artifacts
     local artifact_count
     artifact_count=$(find "$ARTIFACTS_DIR" -type f | wc -l)
-    log_info "📄 Evidence artifacts generated: $artifact_count"
-    log_info "📁 Results available in: $ARTIFACTS_DIR/"
+    log_info "[U+1F4C4] Evidence artifacts generated: $artifact_count"
+    log_info "[FOLDER] Results available in: $ARTIFACTS_DIR/"
 }
 
 # Help function
@@ -625,26 +625,26 @@ EXAMPLES:
     ./simple_quality_loop.sh --max-iterations 5       # Custom iteration limit
 
 FEATURES:
-    ✓ No jq/bc dependencies - works on any Unix system
-    ✓ GitHub CLI integration for workflow analysis
-    ✓ Automatic basic fixes (package.json, tests, .gitignore)
-    ✓ Quality gate verification (tests, typecheck, lint, analyzer)
-    ✓ Basic theater detection and reality validation
-    ✓ Evidence artifact generation in plain text format
-    ✓ Iterative improvement with safety mechanisms
+    [U+2713] No jq/bc dependencies - works on any Unix system
+    [U+2713] GitHub CLI integration for workflow analysis
+    [U+2713] Automatic basic fixes (package.json, tests, .gitignore)
+    [U+2713] Quality gate verification (tests, typecheck, lint, analyzer)
+    [U+2713] Basic theater detection and reality validation
+    [U+2713] Evidence artifact generation in plain text format
+    [U+2713] Iterative improvement with safety mechanisms
 
 QUALITY GATES VERIFIED:
-    • Package.json validity
-    • Test structure and execution
-    • TypeScript compilation (if configured)
-    • Linting (if configured)
-    • Connascence analysis (if available)
+    [U+2022] Package.json validity
+    [U+2022] Test structure and execution
+    [U+2022] TypeScript compilation (if configured)
+    [U+2022] Linting (if configured)
+    [U+2022] Connascence analysis (if available)
 
 THEATER DETECTION:
-    • Excessive fake success logging
-    • Trivial test assertions
-    • Hardcoded success returns
-    • Reality validation of improvements
+    [U+2022] Excessive fake success logging
+    [U+2022] Trivial test assertions
+    [U+2022] Hardcoded success returns
+    [U+2022] Reality validation of improvements
 EOF
 }
 

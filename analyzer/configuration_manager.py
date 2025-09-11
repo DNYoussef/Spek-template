@@ -26,13 +26,13 @@ class AnalysisConfigurationManager:
     """
     
     def __init__(self, config_path: Optional[str] = None):
-        """Initialize configuration manager (NASA Rule 2: ≤60 LOC)."""
+        """Initialize configuration manager (NASA Rule 2: <=60 LOC)."""
         self.config_path = config_path
         self.config = self._load_config(config_path)
         self._component_registry = {}
         
     def _load_config(self, config_path: Optional[str]) -> Dict[str, Any]:
-        """Load configuration from file or use defaults (NASA Rule 2: ≤60 LOC)."""
+        """Load configuration from file or use defaults (NASA Rule 2: <=60 LOC)."""
         default_config = {
             "analysis_timeout": 300,
             "max_memory_mb": 100,
@@ -63,11 +63,11 @@ class AnalysisConfigurationManager:
         return default_config
     
     def get_config_value(self, key: str, default: Any = None) -> Any:
-        """Get configuration value (NASA Rule 2: ≤60 LOC)."""
+        """Get configuration value (NASA Rule 2: <=60 LOC)."""
         return self.config.get(key, default)
     
     def register_component(self, name: str, component: Any) -> None:
-        """Register a component in the registry (NASA Rule 2: ≤60 LOC)."""
+        """Register a component in the registry (NASA Rule 2: <=60 LOC)."""
         assert name is not None, "Component name cannot be None"
         assert component is not None, "Component cannot be None"
         
@@ -75,15 +75,15 @@ class AnalysisConfigurationManager:
         logger.debug(f"Registered component: {name}")
     
     def get_component(self, name: str) -> Optional[Any]:
-        """Get registered component (NASA Rule 2: ≤60 LOC)."""
+        """Get registered component (NASA Rule 2: <=60 LOC)."""
         return self._component_registry.get(name)
     
     def get_all_components(self) -> Dict[str, Any]:
-        """Get all registered components (NASA Rule 2: ≤60 LOC)."""
+        """Get all registered components (NASA Rule 2: <=60 LOC)."""
         return self._component_registry.copy()
     
     def validate_configuration(self) -> Dict[str, Any]:
-        """Validate current configuration (NASA Rule 2: ≤60 LOC)."""
+        """Validate current configuration (NASA Rule 2: <=60 LOC)."""
         validation_result = {
             "valid": True,
             "warnings": [],

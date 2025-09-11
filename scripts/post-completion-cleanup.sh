@@ -220,11 +220,11 @@ confirm_action() {
     fi
     
     echo
-    echo "╔══════════════════════════════════════════════════════════════════════════════════╗"
-    echo "║ CONFIRMATION REQUIRED                                                            ║"
-    echo "╠══════════════════════════════════════════════════════════════════════════════════╣"
-    printf "║ %-80s ║\n" "$message"
-    echo "╚══════════════════════════════════════════════════════════════════════════════════╝"
+    echo "[U+2554][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2557]"
+    echo "[U+2551] CONFIRMATION REQUIRED                                                            [U+2551]"
+    echo "[U+2560][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2563]"
+    printf "[U+2551] %-80s [U+2551]\n" "$message"
+    echo "[U+255A][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+255D]"
     echo
     
     local prompt="Continue? (y/N)"
@@ -263,8 +263,8 @@ show_progress() {
     local empty=$((20 - filled))
     
     printf "\r[%s%s] %d%% - %s" \
-        "$(printf "%*s" $filled | tr ' ' '█')" \
-        "$(printf "%*s" $empty | tr ' ' '░')" \
+        "$(printf "%*s" $filled | tr ' ' '[U+2588]')" \
+        "$(printf "%*s" $empty | tr ' ' '[U+2591]')" \
         $percentage \
         "$message"
     
@@ -679,9 +679,9 @@ EOF
         git add -A
         if ! git diff --cached --quiet; then
             echo
-            echo "╔══════════════════════════════════════════════════════════════════════════════════╗"
-            echo "║ PHASE 2 CHANGES REVIEW                                                          ║"
-            echo "╚══════════════════════════════════════════════════════════════════════════════════╝"
+            echo "[U+2554][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2557]"
+            echo "[U+2551] PHASE 2 CHANGES REVIEW                                                          [U+2551]"
+            echo "[U+255A][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+255D]"
             git diff --cached --stat
             echo
             
@@ -874,14 +874,14 @@ The SPEK template has been successfully transformed into a production-ready appl
 
 ## Cleanup Phases Completed
 
-### ✅ Phase 1: Safety & Backup (NON-DESTRUCTIVE)
+### [OK] Phase 1: Safety & Backup (NON-DESTRUCTIVE)
 - Created git tag: $(get_backup_tag)
 - Created backup branch: $(get_backup_branch)
 - Full filesystem backup: .spek-backup/
 - Complete file inventory generated
 - Project completion validation passed
 
-### ✅ Phase 2: Infrastructure Cleanup (DESTRUCTIVE, REVERSIBLE)
+### [OK] Phase 2: Infrastructure Cleanup (DESTRUCTIVE, REVERSIBLE)
 - Removed .claude directory (22+ commands, 54 agents)
 - Removed flow/, memory/, gemini/ directories
 - Cleaned scripts/ directory (preserved production essentials)
@@ -889,7 +889,7 @@ The SPEK template has been successfully transformed into a production-ready appl
 - Transformed README.md to production documentation
 - Archived SPEC.md to docs/ORIGINAL-SPEC.md
 
-### ✅ Phase 3: Documentation & Handoff (CONSTRUCTIVE)
+### [OK] Phase 3: Documentation & Handoff (CONSTRUCTIVE)
 - Generated handoff documentation
 - Validated build system and analyzer
 - Confirmed GitHub workflows functionality
@@ -897,13 +897,13 @@ The SPEK template has been successfully transformed into a production-ready appl
 
 ## Preserved Components
 
-### 🛡️ Quality Infrastructure (PRESERVED)
+### [SHIELD] Quality Infrastructure (PRESERVED)
 - \`analyzer/\` directory: Complete code analysis system
 - \`.github/workflows/\`: CI/CD pipelines with quality gates
 - \`docs/\`: Technical documentation
 - \`tests/\`: Test suites
 
-### 📊 Production Assets (PRESERVED)
+### [CHART] Production Assets (PRESERVED)
 - \`src/\`: Source code
 - Core configuration files
 - Production scripts in \`scripts/\`
@@ -969,7 +969,7 @@ EOF
 - Generated handoff documentation
 - Created completion report
 - Final validation of all systems
-- Project transformation complete: SPEK template → Production application
+- Project transformation complete: SPEK template -> Production application
 
 Application is now production-ready."
         fi
@@ -999,18 +999,18 @@ perform_rollback() {
     fi
     
     echo
-    echo "╔══════════════════════════════════════════════════════════════════════════════════╗"
-    echo "║ ROLLBACK CONFIRMATION                                                            ║"
-    echo "╠══════════════════════════════════════════════════════════════════════════════════╣"
-    echo "║ This will restore the project to its state before cleanup began.                ║"
-    echo "║                                                                                  ║"
-    echo "║ Last completed phase: ${LAST_PHASE:-unknown}                                                                ║"
-    echo "║ Last status: ${LAST_STATUS:-unknown}                                                                      ║"
-    echo "║ Backup tag: ${BACKUP_TAG:-unknown}                                                            ║"
-    echo "║ Backup branch: ${BACKUP_BRANCH:-unknown}                                                      ║"
-    echo "║                                                                                  ║"
-    echo "║ WARNING: This will UNDO all cleanup changes!                                    ║"
-    echo "╚══════════════════════════════════════════════════════════════════════════════════╝"
+    echo "[U+2554][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2557]"
+    echo "[U+2551] ROLLBACK CONFIRMATION                                                            [U+2551]"
+    echo "[U+2560][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2563]"
+    echo "[U+2551] This will restore the project to its state before cleanup began.                [U+2551]"
+    echo "[U+2551]                                                                                  [U+2551]"
+    echo "[U+2551] Last completed phase: ${LAST_PHASE:-unknown}                                                                [U+2551]"
+    echo "[U+2551] Last status: ${LAST_STATUS:-unknown}                                                                      [U+2551]"
+    echo "[U+2551] Backup tag: ${BACKUP_TAG:-unknown}                                                            [U+2551]"
+    echo "[U+2551] Backup branch: ${BACKUP_BRANCH:-unknown}                                                      [U+2551]"
+    echo "[U+2551]                                                                                  [U+2551]"
+    echo "[U+2551] WARNING: This will UNDO all cleanup changes!                                    [U+2551]"
+    echo "[U+255A][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+255D]"
     echo
     
     if ! confirm_action "Proceed with rollback? This will restore the SPEK template state."; then
@@ -1123,15 +1123,15 @@ perform_rollback() {
         log "INFO" "Verifying rollback completion..."
         
         if [[ -d "$PROJECT_ROOT/.claude" ]]; then
-            log "INFO" "✅ .claude directory restored"
+            log "INFO" "[OK] .claude directory restored"
         else
-            log "WARN" "❌ .claude directory not found after rollback"
+            log "WARN" "[FAIL] .claude directory not found after rollback"
         fi
         
         if [[ -f "$PROJECT_ROOT/SPEC.md" ]]; then
-            log "INFO" "✅ SPEC.md restored"
+            log "INFO" "[OK] SPEC.md restored"
         else
-            log "WARN" "❌ SPEC.md not found after rollback"
+            log "WARN" "[FAIL] SPEC.md not found after rollback"
         fi
         
         git add -A
@@ -1157,13 +1157,13 @@ show_cleanup_status() {
     load_state
     
     echo
-    echo "╔══════════════════════════════════════════════════════════════════════════════════╗"
-    echo "║ POST-COMPLETION CLEANUP STATUS                                                   ║"
-    echo "╚══════════════════════════════════════════════════════════════════════════════════╝"
+    echo "[U+2554][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2557]"
+    echo "[U+2551] POST-COMPLETION CLEANUP STATUS                                                   [U+2551]"
+    echo "[U+255A][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+2550][U+255D]"
     echo
     
     # Current state
-    echo "📊 Current State:"
+    echo "[CHART] Current State:"
     echo "  Last Phase: ${LAST_PHASE:-Not started}"
     echo "  Last Status: ${LAST_STATUS:-None}"
     echo "  Last Run: ${LAST_TIMESTAMP:-Never}"
@@ -1171,34 +1171,34 @@ show_cleanup_status() {
     echo
     
     # Backup information
-    echo "💾 Backup Information:"
+    echo "[U+1F4BE] Backup Information:"
     echo "  Git Tag: ${BACKUP_TAG:-Not created}"
     echo "  Git Branch: ${BACKUP_BRANCH:-Not created}"
     echo "  Filesystem Backup: $([ -d "$BACKUP_DIR" ] && echo "Present" || echo "Not found")"
     echo
     
     # Directory status
-    echo "📁 Directory Status:"
+    echo "[FOLDER] Directory Status:"
     for dir in "${REMOVE_DIRS[@]}"; do
         if [[ -d "$PROJECT_ROOT/$dir" ]]; then
-            echo "  $dir: 🟢 Present (not cleaned)"
+            echo "  $dir: [U+1F7E2] Present (not cleaned)"
         else
-            echo "  $dir: 🔴 Removed (cleaned)"
+            echo "  $dir: [U+1F534] Removed (cleaned)"
         fi
     done
     echo
     
     for dir in "${PRESERVE_DIRS[@]}"; do
         if [[ -d "$PROJECT_ROOT/$dir" ]]; then
-            echo "  $dir: 🟢 Preserved"
+            echo "  $dir: [U+1F7E2] Preserved"
         else
-            echo "  $dir: 🟠 Missing"
+            echo "  $dir: [U+1F7E0] Missing"
         fi
     done
     echo
     
     # Phase status
-    echo "🔄 Phase Status:"
+    echo "[CYCLE] Phase Status:"
     local current_phase="${LAST_PHASE:-0}"
     
     for phase_info in "${PHASES[@]}"; do
@@ -1209,14 +1209,14 @@ show_cleanup_status() {
         
         if [[ "$phase_num" -le "$current_phase" ]]; then
             if [[ "$phase_num" == "$current_phase" && "${LAST_STATUS:-}" == "COMPLETED" ]]; then
-                echo "  Phase $phase_num ($phase_name): ✅ Completed"
+                echo "  Phase $phase_num ($phase_name): [OK] Completed"
             elif [[ "$phase_num" == "$current_phase" ]]; then
-                echo "  Phase $phase_num ($phase_name): 🟡 In Progress"
+                echo "  Phase $phase_num ($phase_name): [U+1F7E1] In Progress"
             else
-                echo "  Phase $phase_num ($phase_name): ✅ Completed"
+                echo "  Phase $phase_num ($phase_name): [OK] Completed"
             fi
         else
-            echo "  Phase $phase_num ($phase_name): ⏸️ Pending"
+            echo "  Phase $phase_num ($phase_name): [U+23F8][U+FE0F] Pending"
         fi
     done
     echo
@@ -1225,9 +1225,9 @@ show_cleanup_status() {
     if [[ -f "$CLEANUP_LOCK_FILE" ]]; then
         local lock_pid
         lock_pid=$(cat "$CLEANUP_LOCK_FILE" 2>/dev/null || echo "unknown")
-        echo "🔒 Lock Status: Active (PID: $lock_pid)"
+        echo "[U+1F512] Lock Status: Active (PID: $lock_pid)"
     else
-        echo "🔓 Lock Status: None"
+        echo "[U+1F513] Lock Status: None"
     fi
     echo
     
@@ -1237,36 +1237,36 @@ show_cleanup_status() {
         log_size=$(du -h "$LOG_FILE" | cut -f1)
         local log_lines
         log_lines=$(wc -l < "$LOG_FILE")
-        echo "📝 Log File: $log_size ($log_lines lines)"
+        echo "[NOTE] Log File: $log_size ($log_lines lines)"
     else
-        echo "📝 Log File: Not found"
+        echo "[NOTE] Log File: Not found"
     fi
     echo
     
     # Recommendations
-    echo "💡 Recommendations:"
+    echo "[INFO] Recommendations:"
     case "${LAST_PHASE:-0}" in
         0)
-            echo "  • Run Phase 1 to create safety backups: $SCRIPT_NAME --phase 1"
+            echo "  [U+2022] Run Phase 1 to create safety backups: $SCRIPT_NAME --phase 1"
             ;;
         1)
             if [[ "${LAST_STATUS:-}" == "COMPLETED" ]]; then
-                echo "  • Ready for Phase 2: $SCRIPT_NAME --phase 2"
-                echo "  • Or run all remaining phases: $SCRIPT_NAME"
+                echo "  [U+2022] Ready for Phase 2: $SCRIPT_NAME --phase 2"
+                echo "  [U+2022] Or run all remaining phases: $SCRIPT_NAME"
             else
-                echo "  • Complete Phase 1 first: $SCRIPT_NAME --phase 1"
+                echo "  [U+2022] Complete Phase 1 first: $SCRIPT_NAME --phase 1"
             fi
             ;;
         2)
             if [[ "${LAST_STATUS:-}" == "COMPLETED" ]]; then
-                echo "  • Run final Phase 3: $SCRIPT_NAME --phase 3"
+                echo "  [U+2022] Run final Phase 3: $SCRIPT_NAME --phase 3"
             else
-                echo "  • Complete Phase 2 first: $SCRIPT_NAME --phase 2"
+                echo "  [U+2022] Complete Phase 2 first: $SCRIPT_NAME --phase 2"
             fi
             ;;
         3)
-            echo "  • ✅ All phases completed! Project transformation successful."
-            echo "  • Review: CLEANUP-COMPLETION-REPORT.md"
+            echo "  [U+2022] [OK] All phases completed! Project transformation successful."
+            echo "  [U+2022] Review: CLEANUP-COMPLETION-REPORT.md"
             ;;
     esac
     echo
@@ -1296,23 +1296,23 @@ OPTIONS:
 
 PHASES:
     Phase 1: Safety & Backup (NON-DESTRUCTIVE)
-             • Validate project completion
-             • Create git tag and backup branch
-             • Create filesystem backup
-             • Generate file inventory
+             [U+2022] Validate project completion
+             [U+2022] Create git tag and backup branch
+             [U+2022] Create filesystem backup
+             [U+2022] Generate file inventory
 
     Phase 2: Infrastructure Cleanup (DESTRUCTIVE, REVERSIBLE)
-             • Remove .claude directory (22+ commands, 54 agents)
-             • Remove flow/, memory/, gemini/ directories
-             • Clean scripts directory
-             • Update package.json
-             • Transform README.md
-             • Archive SPEC.md
+             [U+2022] Remove .claude directory (22+ commands, 54 agents)
+             [U+2022] Remove flow/, memory/, gemini/ directories
+             [U+2022] Clean scripts directory
+             [U+2022] Update package.json
+             [U+2022] Transform README.md
+             [U+2022] Archive SPEC.md
 
     Phase 3: Documentation & Handoff (CONSTRUCTIVE)
-             • Generate handoff documentation
-             • Final validation
-             • Create completion report
+             [U+2022] Generate handoff documentation
+             [U+2022] Final validation
+             [U+2022] Create completion report
 
 EXAMPLES:
     # Full cleanup with confirmations
@@ -1337,12 +1337,12 @@ EXAMPLES:
     $SCRIPT_NAME --theater-scan --verbose
 
 SAFETY FEATURES:
-    • Multiple backup mechanisms (git tag, branch, filesystem)
-    • Progressive confirmation prompts
-    • Automatic rollback on failure
-    • Lock file prevents concurrent runs
-    • Complete audit trail in logs
-    • Theater detection integration
+    [U+2022] Multiple backup mechanisms (git tag, branch, filesystem)
+    [U+2022] Progressive confirmation prompts
+    [U+2022] Automatic rollback on failure
+    [U+2022] Lock file prevents concurrent runs
+    [U+2022] Complete audit trail in logs
+    [U+2022] Theater detection integration
 
 ROLLBACK OPTIONS:
     1. Script-based: $SCRIPT_NAME --rollback
@@ -1419,20 +1419,20 @@ main() {
     # Header
     log "INFO" "===================================================================================="
     log "INFO" "Post-Completion Cleanup Orchestrator v$SCRIPT_VERSION"
-    log "INFO" "Enterprise-grade SPEK → Production transformation"
+    log "INFO" "Enterprise-grade SPEK -> Production transformation"
     log "INFO" "Project: $(basename "$PROJECT_ROOT")"
     log "INFO" "Started: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
     
     if [[ "$DRY_RUN" == "true" ]]; then
-        log "INFO" "🔍 DRY RUN MODE - No changes will be made"
+        log "INFO" "[SEARCH] DRY RUN MODE - No changes will be made"
     fi
     
     if [[ "$FORCE_MODE" == "true" ]]; then
-        log "INFO" "🚀 FORCE MODE - Skipping confirmations"
+        log "INFO" "[ROCKET] FORCE MODE - Skipping confirmations"
     fi
     
     if [[ "$THEATER_SCAN" == "true" ]]; then
-        log "INFO" "🎭 THEATER DETECTION - Enabled"
+        log "INFO" "[U+1F3AD] THEATER DETECTION - Enabled"
     fi
     
     log "INFO" "===================================================================================="
@@ -1485,31 +1485,31 @@ main() {
         case $phase in
             1)
                 if phase_1_safety_backup; then
-                    log "INFO" "✅ Phase 1 completed successfully"
+                    log "INFO" "[OK] Phase 1 completed successfully"
                     if [[ $? -eq 2 ]]; then  # User requested stop
                         log "INFO" "Cleanup stopped at user request after Phase 1 (safe stop)"
                         exit 0
                     fi
                 else
-                    log "ERROR" "❌ Phase 1 failed"
+                    log "ERROR" "[FAIL] Phase 1 failed"
                     overall_success=false
                     break
                 fi
                 ;;
             2)
                 if phase_2_infrastructure_cleanup; then
-                    log "INFO" "✅ Phase 2 completed successfully"
+                    log "INFO" "[OK] Phase 2 completed successfully"
                 else
-                    log "ERROR" "❌ Phase 2 failed"
+                    log "ERROR" "[FAIL] Phase 2 failed"
                     overall_success=false
                     break
                 fi
                 ;;
             3)
                 if phase_3_documentation_handoff; then
-                    log "INFO" "✅ Phase 3 completed successfully"
+                    log "INFO" "[OK] Phase 3 completed successfully"
                 else
-                    log "ERROR" "❌ Phase 3 failed"
+                    log "ERROR" "[FAIL] Phase 3 failed"
                     overall_success=false
                     break
                 fi
@@ -1522,21 +1522,21 @@ main() {
     log "INFO" "===================================================================================="
     
     if [[ "$overall_success" == "true" ]]; then
-        log "INFO" "🎉 POST-COMPLETION CLEANUP SUCCESSFUL!"
+        log "INFO" "[PARTY] POST-COMPLETION CLEANUP SUCCESSFUL!"
         log "INFO" ""
-        log "INFO" "✅ SPEK Template → Production Application transformation complete"
-        log "INFO" "✅ All safety backups created and validated"
-        log "INFO" "✅ Development infrastructure removed"
-        log "INFO" "✅ Production documentation generated"
-        log "INFO" "✅ Quality assurance systems preserved"
+        log "INFO" "[OK] SPEK Template -> Production Application transformation complete"
+        log "INFO" "[OK] All safety backups created and validated"
+        log "INFO" "[OK] Development infrastructure removed"
+        log "INFO" "[OK] Production documentation generated"
+        log "INFO" "[OK] Quality assurance systems preserved"
         log "INFO" ""
-        log "INFO" "📄 Review completion report: CLEANUP-COMPLETION-REPORT.md"
-        log "INFO" "📚 Check handoff docs: docs/"
-        log "INFO" "🔄 Quality gates remain active in .github/workflows/"
+        log "INFO" "[U+1F4C4] Review completion report: CLEANUP-COMPLETION-REPORT.md"
+        log "INFO" "[U+1F4DA] Check handoff docs: docs/"
+        log "INFO" "[CYCLE] Quality gates remain active in .github/workflows/"
         log "INFO" ""
-        log "INFO" "Your application is now production-ready! 🚀"
+        log "INFO" "Your application is now production-ready! [ROCKET]"
     else
-        log "ERROR" "❌ POST-COMPLETION CLEANUP FAILED"
+        log "ERROR" "[FAIL] POST-COMPLETION CLEANUP FAILED"
         log "ERROR" ""
         log "ERROR" "Some phases failed to complete. Check logs for details."
         log "ERROR" "Recovery options:"

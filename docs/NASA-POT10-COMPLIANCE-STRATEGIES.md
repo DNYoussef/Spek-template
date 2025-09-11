@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This research document provides comprehensive strategies for improving NASA JPL Power of Ten rules compliance from 85% to ≥92% in Python codebases, specifically targeting analyzer components. Based on analysis of the existing NASA analyzer implementation and extensive research into compliance best practices, this guide focuses on systematic approaches to address the three primary gap areas:
+This research document provides comprehensive strategies for improving NASA JPL Power of Ten rules compliance from 85% to >=92% in Python codebases, specifically targeting analyzer components. Based on analysis of the existing NASA analyzer implementation and extensive research into compliance best practices, this guide focuses on systematic approaches to address the three primary gap areas:
 
 1. **Rule 2 (Function Size Violations)** - Large class decomposition strategies
 2. **Rule 4 (Bounded Loops)** - AST traversal safety mechanisms  
@@ -17,7 +17,7 @@ The Power of Ten Rules were developed by Gerard J. Holzmann of NASA JPL Laborato
 1. **Simple Control Flow**: No goto, recursion, setjmp/longjmp constructs
 2. **Bounded Loops**: All loops must have statically determinable upper bounds
 3. **Heap Management**: Avoid dynamic memory allocation after initialization
-4. **Function Size**: Restrict functions to single printed page (≤60 lines)
+4. **Function Size**: Restrict functions to single printed page (<=60 lines)
 5. **Assertion Density**: Minimum 2 assertions per function
 6. **Variable Scope**: Declare objects at smallest possible scope
 7. **Return Value Checking**: Check all function return values
@@ -435,7 +435,7 @@ class ComplianceTracker:
         return ImprovementResult(current_score=current_result.overall_score)
 ```
 
-## Implementation Roadmap (85% → 92%)
+## Implementation Roadmap (85% -> 92%)
 
 ### Phase 1: Critical Rule Violations (Target: 87%)
 
@@ -480,8 +480,8 @@ class ComplianceTracker:
 Based on research into NASA's implementation requirements:
 
 - **Critical Gates**: 100% pass rate for Rules 1, 2, 3 (safety-critical)
-- **Quality Gates**: ≥90% compliance for Rules 4, 5, 7 (high priority)  
-- **Monitoring Gates**: ≥75% compliance for Rules 6, 8-10 (medium priority)
+- **Quality Gates**: >=90% compliance for Rules 4, 5, 7 (high priority)  
+- **Monitoring Gates**: >=75% compliance for Rules 6, 8-10 (medium priority)
 
 ### Code Review Checklist
 
@@ -512,7 +512,7 @@ Based on research into NASA's implementation requirements:
 
 ## Conclusion
 
-This comprehensive strategy provides a systematic approach to improving NASA Power of Ten compliance from 85% to ≥92%. The three-phase implementation focuses on the highest-impact areas: function decomposition, bounded operations, and defensive programming.
+This comprehensive strategy provides a systematic approach to improving NASA Power of Ten compliance from 85% to >=92%. The three-phase implementation focuses on the highest-impact areas: function decomposition, bounded operations, and defensive programming.
 
 Key success factors:
 - **Incremental Implementation**: Phase-by-phase approach minimizes risk

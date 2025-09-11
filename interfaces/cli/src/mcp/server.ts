@@ -712,7 +712,7 @@ ${context}`;
         enhancedContext.correlations.slice(0, 5).forEach((corr: any, index: number) => {
           const score = (corr.correlation_score * 100).toFixed(1);
           const priority = corr.priority || 'medium';
-          prompt += `\n${index + 1}. [${priority.toUpperCase()}] ${corr.analyzer1} ↔ ${corr.analyzer2} (${score}% correlation)`;
+          prompt += `\n${index + 1}. [${priority.toUpperCase()}] ${corr.analyzer1} <-> ${corr.analyzer2} (${score}% correlation)`;
           prompt += `\n   Impact: ${corr.description}`;
           if (corr.remediation_impact) {
             prompt += `\n   Remediation: ${corr.remediation_impact}`;
@@ -801,14 +801,14 @@ ${context}`;
         prompt += `\nCross-Phase Correlations:`;
         enhancedContext.correlations.slice(0, 3).forEach((corr: any, index: number) => {
           const score = (corr.correlation_score * 100).toFixed(1);
-          prompt += `\n• ${corr.analyzer1} ↔ ${corr.analyzer2} (${score}%): ${corr.description}`;
+          prompt += `\n[U+2022] ${corr.analyzer1} <-> ${corr.analyzer2} (${score}%): ${corr.description}`;
         });
       }
       
       if (enhancedContext.smart_recommendations?.length > 0) {
         prompt += `\nSmart Architectural Recommendations:`;
         enhancedContext.smart_recommendations.slice(0, 3).forEach((rec: any, index: number) => {
-          prompt += `\n• [${rec.priority || 'medium'}] ${rec.category}: ${rec.description}`;
+          prompt += `\n[U+2022] [${rec.priority || 'medium'}] ${rec.category}: ${rec.description}`;
         });
       }
     }

@@ -22,7 +22,7 @@ def main():
     
     args = parser.parse_args()
     
-    print(f"📊 Generating self-analysis dashboard...")
+    print(f"[CHART] Generating self-analysis dashboard...")
     
     # Load available results
     data = {
@@ -42,9 +42,9 @@ def main():
             try:
                 with open(result_file, 'r') as f:
                     data[key] = json.load(f)
-                print(f"✅ Loaded {key} data")
+                print(f"[OK] Loaded {key} data")
             except Exception as e:
-                print(f"⚠️  Using fallback data for {key}: {e}")
+                print(f"[WARN]  Using fallback data for {key}: {e}")
     
     # Generate HTML dashboard
     dashboard_html = f"""<!DOCTYPE html>
@@ -64,40 +64,40 @@ def main():
 </head>
 <body>
     <div class="container">
-        <h1>🔬 Self-Dogfooding Analysis Dashboard</h1>
+        <h1>[SCIENCE] Self-Dogfooding Analysis Dashboard</h1>
         <p class="timestamp">Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}</p>
         
         <div class="metric pass">
-            <h3>🛡️ NASA Compliance</h3>
+            <h3>[SHIELD] NASA Compliance</h3>
             <p><strong>{data['nasa'].get('nasa_compliance', {}).get('score', 0.92):.1%}</strong></p>
             <p>Defense Industry Ready</p>
         </div>
         
         <div class="metric pass">
-            <h3>🎯 God Objects</h3>
+            <h3>[TARGET] God Objects</h3>
             <p><strong>{len(data.get('god_objects', []))}</strong></p>
             <p>Objects Found</p>
         </div>
         
         <div class="metric pass">
-            <h3>📊 MECE Score</h3>
+            <h3>[CHART] MECE Score</h3>
             <p><strong>{data.get('mece', {}).get('mece_score', 0.75):.2f}</strong></p>
             <p>Modularity Index</p>
         </div>
         
         <div class="metric info">
-            <h3>🔗 Tool Correlation</h3>
+            <h3>[U+1F517] Tool Correlation</h3>
             <p><strong>{data.get('correlation', {}).get('correlation_score', 0.88):.1%}</strong></p>
             <p>Consistency Score</p>
         </div>
         
         <div style="margin-top: 30px; padding: 20px; background: #e7f3ff; border-radius: 8px;">
-            <h3>📈 Analysis Summary</h3>
+            <h3>[TREND] Analysis Summary</h3>
             <ul>
-                <li>✅ All quality gates passing</li>
-                <li>✅ Defense industry compliance achieved</li>
-                <li>✅ Zero critical violations detected</li>
-                <li>✅ Strong architectural health maintained</li>
+                <li>[OK] All quality gates passing</li>
+                <li>[OK] Defense industry compliance achieved</li>
+                <li>[OK] Zero critical violations detected</li>
+                <li>[OK] Strong architectural health maintained</li>
             </ul>
         </div>
     </div>
@@ -108,8 +108,8 @@ def main():
     with open(args.output, 'w') as f:
         f.write(dashboard_html)
     
-    print(f"✅ Self-analysis dashboard generated")
-    print(f"🌐 Dashboard saved to {args.output}")
+    print(f"[OK] Self-analysis dashboard generated")
+    print(f"[GLOBE] Dashboard saved to {args.output}")
     
     return 0
 

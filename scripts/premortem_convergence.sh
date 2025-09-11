@@ -10,9 +10,9 @@ MAX_ITERATIONS=${2:-3}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ARTIFACTS_DIR=".claude/.artifacts"
 
-echo "🎯 Pre-mortem Convergence Controller"
-echo "📊 Target failure rate: ≤${TARGET_FAILURE_RATE}%"
-echo "🔄 Maximum iterations: ${MAX_ITERATIONS}"
+echo "[TARGET] Pre-mortem Convergence Controller"
+echo "[CHART] Target failure rate: <=${TARGET_FAILURE_RATE}%"
+echo "[CYCLE] Maximum iterations: ${MAX_ITERATIONS}"
 echo ""
 
 # Initialize convergence tracking
@@ -21,18 +21,18 @@ echo "[]" > "$CONVERGENCE_LOG"
 
 # Check if SPEC.md and plan.json exist
 if [[ ! -f "SPEC.md" ]]; then
-    echo "❌ SPEC.md not found - cannot proceed with pre-mortem analysis"
+    echo "[FAIL] SPEC.md not found - cannot proceed with pre-mortem analysis"
     exit 1
 fi
 
 if [[ ! -f "plan.json" ]]; then
-    echo "⚠️ plan.json not found - will be created during process"
+    echo "[WARN] plan.json not found - will be created during process"
 fi
 
 ITERATION=1
 CONVERGED=false
 
-echo "🚀 Starting pre-mortem convergence loop..."
+echo "[ROCKET] Starting pre-mortem convergence loop..."
 
 while [[ $ITERATION -le $MAX_ITERATIONS ]] && [[ "$CONVERGED" == "false" ]]; do
     echo ""
@@ -44,13 +44,13 @@ while [[ $ITERATION -le $MAX_ITERATIONS ]] && [[ "$CONVERGED" == "false" ]]; do
     rm -f "$ARTIFACTS_DIR"/codex_analysis.json
     rm -f "$ARTIFACTS_DIR"/improvements.json
     
-    echo "🧠 Running fresh-eyes pre-mortem analysis..."
+    echo "[BRAIN] Running fresh-eyes pre-mortem analysis..."
     
     # Step 1: Launch parallel fresh-eyes analysis
-    echo "  📋 Phase 1: Multi-agent fresh-eyes analysis"
+    echo "  [CLIPBOARD] Phase 1: Multi-agent fresh-eyes analysis"
     
     # Claude Code analysis (with memory and full context)
-    echo "    🤖 Claude Code: Full context analysis..."
+    echo "    [U+1F916] Claude Code: Full context analysis..."
     cat > "$ARTIFACTS_DIR/claude_prompt.txt" << 'EOF'
 Perform comprehensive pre-mortem analysis of the attached SPEC.md and plan.json.
 
@@ -80,7 +80,7 @@ Output format:
 EOF
     
     # Gemini CLI analysis (fresh eyes, large context)
-    echo "    🔷 Gemini CLI: Fresh-eyes large context analysis..."
+    echo "    [U+1F537] Gemini CLI: Fresh-eyes large context analysis..."
     cat > "$ARTIFACTS_DIR/gemini_prompt.txt" << 'EOF'
 FRESH-EYES PRE-MORTEM ANALYSIS
 ==============================
@@ -114,7 +114,7 @@ Output JSON format:
 EOF
     
     # Codex CLI analysis (fresh eyes, implementation focus)
-    echo "    🟣 Codex CLI: Fresh-eyes implementation analysis..."
+    echo "    [U+1F7E3] Codex CLI: Fresh-eyes implementation analysis..."
     cat > "$ARTIFACTS_DIR/codex_prompt.txt" << 'EOF'
 FRESH-EYES IMPLEMENTATION RISK ANALYSIS
 =======================================
@@ -151,13 +151,13 @@ EOF
     # Note: Actual execution would use claude-flow or direct CLI calls
     # For now, we'll simulate with placeholder files
     
-    echo "    ⏳ Waiting for analysis completion..."
+    echo "    [U+23F3] Waiting for analysis completion..."
     sleep 2
     
     # Create placeholder analysis results for demonstration
     # In real implementation, these would come from actual agent executions
     if [[ ! -f "$ARTIFACTS_DIR/claude_premortem.json" ]]; then
-        echo "⚠️ Creating placeholder Claude analysis for iteration $ITERATION"
+        echo "[WARN] Creating placeholder Claude analysis for iteration $ITERATION"
         jq -n \
             --arg iteration "$ITERATION" \
             '{
@@ -172,7 +172,7 @@ EOF
     fi
     
     if [[ ! -f "$ARTIFACTS_DIR/gemini_analysis.json" ]]; then
-        echo "⚠️ Creating placeholder Gemini analysis for iteration $ITERATION"
+        echo "[WARN] Creating placeholder Gemini analysis for iteration $ITERATION"
         jq -n \
             --arg iteration "$ITERATION" \
             '{
@@ -186,7 +186,7 @@ EOF
     fi
     
     if [[ ! -f "$ARTIFACTS_DIR/codex_analysis.json" ]]; then
-        echo "⚠️ Creating placeholder Codex analysis for iteration $ITERATION"
+        echo "[WARN] Creating placeholder Codex analysis for iteration $ITERATION"
         jq -n \
             --arg iteration "$ITERATION" \
             '{
@@ -200,7 +200,7 @@ EOF
     fi
     
     # Step 2: Calculate consensus
-    echo "  📊 Phase 2: Calculating consensus failure rate..."
+    echo "  [CHART] Phase 2: Calculating consensus failure rate..."
     "$SCRIPT_DIR/calculate_consensus.sh" "$ITERATION"
     
     # Extract consensus result
@@ -208,15 +208,15 @@ EOF
     CONSENSUS_RATE=$(echo "$CONSENSUS_RESULT" | jq -r '.consensus_failure_rate')
     AGREEMENT_LEVEL=$(echo "$CONSENSUS_RESULT" | jq -r '.agreement_level')
     
-    echo "    🎯 Consensus failure rate: ${CONSENSUS_RATE}%"
-    echo "    🤝 Agreement level: $AGREEMENT_LEVEL"
+    echo "    [TARGET] Consensus failure rate: ${CONSENSUS_RATE}%"
+    echo "    [U+1F91D] Agreement level: $AGREEMENT_LEVEL"
     
     # Step 3: Check convergence
-    echo "  🎯 Phase 3: Convergence check..."
+    echo "  [TARGET] Phase 3: Convergence check..."
     
     CONSENSUS_INT=$(echo "$CONSENSUS_RATE" | cut -d. -f1)
     if (( CONSENSUS_INT <= TARGET_FAILURE_RATE )); then
-        echo "    ✅ CONVERGENCE ACHIEVED! Failure rate ${CONSENSUS_RATE}% ≤ ${TARGET_FAILURE_RATE}%"
+        echo "    [OK] CONVERGENCE ACHIEVED! Failure rate ${CONSENSUS_RATE}% <= ${TARGET_FAILURE_RATE}%"
         CONVERGED=true
         
         # Log successful convergence
@@ -238,20 +238,20 @@ EOF
         mv "$CONVERGENCE_LOG.tmp" "$CONVERGENCE_LOG"
         
     else
-        echo "    📈 Failure rate ${CONSENSUS_RATE}% > ${TARGET_FAILURE_RATE}% - improvement needed"
+        echo "    [TREND] Failure rate ${CONSENSUS_RATE}% > ${TARGET_FAILURE_RATE}% - improvement needed"
         
         # Step 4: Generate and apply improvements
-        echo "  🔧 Phase 4: Generating improvements..."
+        echo "  [TOOL] Phase 4: Generating improvements..."
         
         # Synthesize improvements from all agents
         "$SCRIPT_DIR/synthesize_improvements.sh" "$ITERATION"
         
         # Apply improvements to SPEC.md and plan.json
         if [[ -f "$ARTIFACTS_DIR/improvements.json" ]]; then
-            echo "    📝 Applying improvements to SPEC.md and plan.json..."
+            echo "    [NOTE] Applying improvements to SPEC.md and plan.json..."
             "$SCRIPT_DIR/apply_improvements.sh" "$ARTIFACTS_DIR/improvements.json"
         else
-            echo "    ⚠️ No improvements file generated"
+            echo "    [WARN] No improvements file generated"
         fi
         
         # Log iteration result
@@ -279,10 +279,10 @@ done
 
 echo ""
 if [[ "$CONVERGED" == "true" ]]; then
-    echo "🎉 PRE-MORTEM CONVERGENCE SUCCESSFUL!"
-    echo "✅ Final failure rate: ${CONSENSUS_RATE}% (target: ≤${TARGET_FAILURE_RATE}%)"
-    echo "🎯 Achieved in $((ITERATION - 1)) iteration(s)"
-    echo "📋 Agreement level: $AGREEMENT_LEVEL"
+    echo "[PARTY] PRE-MORTEM CONVERGENCE SUCCESSFUL!"
+    echo "[OK] Final failure rate: ${CONSENSUS_RATE}% (target: <=${TARGET_FAILURE_RATE}%)"
+    echo "[TARGET] Achieved in $((ITERATION - 1)) iteration(s)"
+    echo "[CLIPBOARD] Agreement level: $AGREEMENT_LEVEL"
     
     # Generate final summary
     FINAL_SUMMARY=$(jq -n \
@@ -308,10 +308,10 @@ if [[ "$CONVERGED" == "true" ]]; then
     echo "$FINAL_SUMMARY" > "$ARTIFACTS_DIR/convergence_summary.json"
     
 else
-    echo "⚠️ PRE-MORTEM CONVERGENCE INCOMPLETE"
-    echo "❌ Failed to reach target failure rate ≤${TARGET_FAILURE_RATE}% in ${MAX_ITERATIONS} iterations"
-    echo "📊 Final consensus rate: ${CONSENSUS_RATE}%"
-    echo "💡 Consider:"
+    echo "[WARN] PRE-MORTEM CONVERGENCE INCOMPLETE"
+    echo "[FAIL] Failed to reach target failure rate <=${TARGET_FAILURE_RATE}% in ${MAX_ITERATIONS} iterations"
+    echo "[CHART] Final consensus rate: ${CONSENSUS_RATE}%"
+    echo "[INFO] Consider:"
     echo "   - Increasing max iterations"
     echo "   - Adjusting target failure rate"
     echo "   - Manual specification review"
@@ -340,8 +340,8 @@ else
 fi
 
 echo ""
-echo "📁 Convergence log: $CONVERGENCE_LOG" 
-echo "📊 Final summary: $ARTIFACTS_DIR/convergence_summary.json"
-echo "🗂️ All artifacts: $ARTIFACTS_DIR/"
+echo "[FOLDER] Convergence log: $CONVERGENCE_LOG" 
+echo "[CHART] Final summary: $ARTIFACTS_DIR/convergence_summary.json"
+echo "[U+1F5C2][U+FE0F] All artifacts: $ARTIFACTS_DIR/"
 
 exit 0

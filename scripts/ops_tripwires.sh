@@ -38,12 +38,12 @@ check_limits() {
     local disk_free=$(df . | tail -1 | awk '{print 100-$5}' | tr -d '%' || echo 100)
     local waivers_count=$(find . -name "*.waiver" 2>/dev/null | wc -l || echo 0)
     
-    echo "🔍 Checking operational tripwires..."
+    echo "[SEARCH] Checking operational tripwires..."
     
     # Tripwire 1: Auto-repair attempts >= 3
     local repair_attempts=$(jq -r '.auto_repair_attempts // 0' "$METRICS_FILE")
     if [[ $repair_attempts -ge 3 ]]; then
-        echo "🚨 TRIPWIRE: Auto-repair attempts >= 3 ($repair_attempts)"
+        echo "[U+1F6A8] TRIPWIRE: Auto-repair attempts >= 3 ($repair_attempts)"
         echo "$(date -u +%Y-%m-%dT%H:%M:%SZ): ESCALATE to planner - disable auto-repair" >> "$STATUS_FILE"
         export AUTO_REPAIR_DISABLED=true
         ((violations++))
@@ -51,7 +51,7 @@ check_limits() {
     
     # Tripwire 2: Sandbox count > 10 or disk < 15%
     if [[ $sandbox_count -gt 10 ]] || [[ $disk_free -lt 15 ]]; then
-        echo "🚨 TRIPWIRE: Sandbox limits exceeded (count: $sandbox_count, disk: $disk_free%)"
+        echo "[U+1F6A8] TRIPWIRE: Sandbox limits exceeded (count: $sandbox_count, disk: $disk_free%)"
         echo "$(date -u +%Y-%m-%dT%H:%M:%SZ): PAUSE auto-repair - cleanup needed" >> "$STATUS_FILE"
         bash "$SCRIPT_DIR/sandbox_janitor.sh" cleanup-now || true
         export AUTO_REPAIR_PAUSED=true
@@ -60,7 +60,7 @@ check_limits() {
     
     # Tripwire 3: Waivers > 10 or age > 30d
     if [[ $waivers_count -gt 10 ]]; then
-        echo "🚨 TRIPWIRE: Too many open waivers ($waivers_count)"
+        echo "[U+1F6A8] TRIPWIRE: Too many open waivers ($waivers_count)"
         echo "$(date -u +%Y-%m-%dT%H:%M:%SZ): RULE PRUNING needed - page security-manager" >> "$STATUS_FILE"
         # Create GitHub issue for rule pruning
         gh issue create --title "Rule Pruning Required" --body "Open waivers: $waivers_count > threshold (10)" --label "security" 2>/dev/null || true
@@ -70,7 +70,7 @@ check_limits() {
     # Tripwire 4: Secret scan hits >= 1
     local secret_hits=$(jq -r '.secret_scan_hits // 0' "$METRICS_FILE")
     if [[ $secret_hits -ge 1 ]]; then
-        echo "🚨 TRIPWIRE: Secret scan hits detected ($secret_hits)"
+        echo "[U+1F6A8] TRIPWIRE: Secret scan hits detected ($secret_hits)"
         echo "$(date -u +%Y-%m-%dT%H:%M:%SZ): SECURITY INCIDENT - block artifacts, rotate keys" >> "$STATUS_FILE"
         # Block artifact upload
         touch "$ARTIFACTS_DIR/.upload_blocked"
@@ -86,10 +86,10 @@ check_limits() {
        "$METRICS_FILE" > "$METRICS_FILE.tmp" && mv "$METRICS_FILE.tmp" "$METRICS_FILE"
     
     if [[ $violations -gt 0 ]]; then
-        echo "⚠️  Found $violations tripwire violations - check $STATUS_FILE"
+        echo "[WARN]  Found $violations tripwire violations - check $STATUS_FILE"
         return 1
     else
-        echo "✅ All tripwires within limits"
+        echo "[OK] All tripwires within limits"
         return 0
     fi
 }
@@ -110,7 +110,7 @@ update_metrics() {
     local ci_minutes=$(( ci_duration / 60 ))
     
     if [[ $ci_minutes -gt 15 ]]; then
-        echo "🚨 TRIPWIRE: CI P95 > 15 minutes ($ci_minutes)"
+        echo "[U+1F6A8] TRIPWIRE: CI P95 > 15 minutes ($ci_minutes)"
         echo "$(date -u +%Y-%m-%dT%H:%M:%SZ): SWITCH to light gates profile" >> "$STATUS_FILE"
         export GATES_PROFILE=light
         
@@ -129,11 +129,11 @@ update_metrics() {
 
 # Health check and auto-heal integration
 health_check() {
-    echo "🏥 Running CF health check..."
+    echo "[U+1F3E5] Running CF health check..."
     
     # Check CF components
     if ! npx claude-flow@alpha health check --components all --quiet; then
-        echo "🚨 CF components failing - enabling degraded mode"
+        echo "[U+1F6A8] CF components failing - enabling degraded mode"
         export CF_DEGRADED_MODE=true
         echo "$(date -u +%Y-%m-%dT%H:%M:%SZ): CF_DEGRADED_MODE enabled" >> "$STATUS_FILE"
         
@@ -145,7 +145,7 @@ health_check() {
     # Check disk space
     local disk_free=$(df . | tail -1 | awk '{print 100-$5}' | tr -d '%' || echo 100)
     if [[ $disk_free -lt 10 ]]; then
-        echo "🚨 Critical disk space: $disk_free%"
+        echo "[U+1F6A8] Critical disk space: $disk_free%"
         bash "$SCRIPT_DIR/sandbox_janitor.sh" emergency-cleanup || true
     fi
 }
@@ -174,7 +174,7 @@ select_gate_profile() {
 generate_report() {
     init_metrics
     
-    echo "📊 SPEK-AUGMENT Operational Report"
+    echo "[CHART] SPEK-AUGMENT Operational Report"
     echo "=================================="
     echo "Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
     echo ""
