@@ -63,7 +63,9 @@ jobs:
       if: always()
       run: |
         echo "Generating comprehensive quality gate report..."
-        python -c "import json; import os; from datetime import datetime; from pathlib import Path; artifacts_dir = Path('.claude/.artifacts'); report = {'timestamp': datetime.now().isoformat(), 'workflow': 'quality-gate-enforcer', 'status': 'completed', 'artifacts_found': [f.name for f in artifacts_dir.glob('*.json') if f.exists()], 'quality_thresholds': {'nasa_compliance': 0.85, 'critical_violations': 0, 'god_objects': 3, 'overall_quality': 0.70}}; print(f'Quality Gate Report: {json.dumps(report, indent=2)}'); Path('.claude/.artifacts/quality_gate_report.json').write_text(json.dumps(report, indent=2))"
+        # Ensure artifacts directory exists
+        mkdir -p .claude/.artifacts
+        python -c "import json; import os; from datetime import datetime; from pathlib import Path; artifacts_dir = Path('.claude/.artifacts'); artifacts_dir.mkdir(parents=True, exist_ok=True); report = {'timestamp': datetime.now().isoformat(), 'workflow': 'quality-gate-enforcer', 'status': 'completed', 'artifacts_found': [f.name for f in artifacts_dir.glob('*.json') if f.exists()], 'quality_thresholds': {'nasa_compliance': 0.85, 'critical_violations': 0, 'god_objects': 3, 'overall_quality': 0.70}}; print(f'Quality Gate Report: {json.dumps(report, indent=2)}'); Path('.claude/.artifacts/quality_gate_report.json').write_text(json.dumps(report, indent=2))"
     
     - name: Upload Quality Gate Artifacts
       uses: actions/upload-artifact@v4
