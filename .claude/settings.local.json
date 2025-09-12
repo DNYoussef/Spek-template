@@ -136,7 +136,10 @@
       "Bash(bandit:*)",
       "Bash(safety:*)",
       "Bash(pip-audit:*)",
-      "Bash(ruff:*)"
+      "Bash(ruff:*)",
+      "Bash(claude /qa:run:*)",
+      "Bash(claude /theater:scan:*)",
+      "Bash(claude /reality:check)"
     ],
     "deny": [],
     "ask": []
