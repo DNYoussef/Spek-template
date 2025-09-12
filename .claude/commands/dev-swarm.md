@@ -477,7 +477,7 @@ step5b_validation_passed() {
 ```bash
 step6_codex_sandbox_integration() {
     local session_id="$1"
-    local sandbox_path="${SANDBOX_PATH:-C:/Users/17175/Desktop/PodBrain/.sandboxes}"
+    local sandbox_path="${SANDBOX_PATH:-./.sandboxes}"
     
     echo "Step 6: Using Codex sandbox to test and run changes..."
     
@@ -845,7 +845,7 @@ FEATURE_DESCRIPTION="${1:-}"
 PHASE="${2:-implement}"
 MAX_CYCLES="${3:-3}"
 THEATER_DETECTION="${4:-true}"
-SANDBOX_PATH="${5:-C:/Users/17175/Desktop/PodBrain/.sandboxes}"
+SANDBOX_PATH="${5:-./.sandboxes}"
 
 if [[ -z "$FEATURE_DESCRIPTION" ]]; then
     echo "Usage: /dev:swarm '<feature_description>' [phase] [max_cycles] [theater_detection] [sandbox_path]"
