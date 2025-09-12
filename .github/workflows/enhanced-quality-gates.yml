@@ -135,11 +135,35 @@ jobs:
     - name: Install Analysis Dependencies (Real Tools Only)
       run: |
         echo "Installing REAL analysis dependencies for ${{ matrix.stream.name }}..."
-        pip install --upgrade pip
+        
+        # Retry logic for pip operations (network-dependent)
+        retry_pip_install() {
+          local package="$1"
+          local max_retries=3
+          local retry_count=0
+          
+          while [ $retry_count -lt $max_retries ]; do
+            echo "Installing $package (attempt $((retry_count + 1))/$max_retries)..."
+            if pip install $package; then
+              echo "$package installed successfully"
+              return 0
+            else
+              retry_count=$((retry_count + 1))
+              if [ $retry_count -lt $max_retries ]; then
+                echo "Installation failed, retrying in 5 seconds..."
+                sleep 5
+              fi
+            fi
+          done
+          echo "Failed to install $package after $max_retries attempts"
+          return 1
+        }
+        
+        retry_pip_install "--upgrade pip"
         
         # Install core analyzer dependencies
         if [ -f requirements.txt ]; then
-          pip install -r requirements.txt
+          retry_pip_install "-r requirements.txt"
         fi
         
         # Install REAL security tools for authentic SAST analysis
@@ -778,7 +802,7 @@ jobs:
         
         # Real Safety analysis for dependency vulnerabilities  
         echo "Running REAL Safety analysis for dependency vulnerabilities..."
-        safety check --json --output .claude/.artifacts/sarif/safety-raw.json --ignore 70612 || echo "Safety scan completed"
+        safety scan --json --output .claude/.artifacts/sarif/safety-raw.json --ignore 70612 || echo "Safety scan completed"
         
         # Real pip-audit for Python package vulnerabilities
         echo "Running REAL pip-audit for Python package vulnerabilities..."

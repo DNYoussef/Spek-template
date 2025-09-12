@@ -127,12 +127,12 @@ class SecurityValidator:
             # Check tool availability
             if self._check_tool_availability(tool_name):
                 validation_results["tools_available"] += 1
-                print(f"✓ {tool_name} - Available and configured")
+                print(f"[PASS] {tool_name} - Available and configured")
             else:
                 validation_results["configuration_issues"].append(
                     f"{tool_name} not available or not properly configured"
                 )
-                print(f"✗ {tool_name} - Not available")
+                print(f"[FAIL] {tool_name} - Not available")
         
         # Add recommendations
         if validation_results["tools_available"] < validation_results["tools_validated"]:
@@ -183,9 +183,9 @@ class SecurityValidator:
                 try:
                     result = future.result()
                     scan_results[tool_name] = result
-                    print(f"✓ {tool_name} scan completed")
+                    print(f"[PASS] {tool_name} scan completed")
                 except Exception as e:
-                    print(f"✗ {tool_name} scan failed: {e}")
+                    print(f"[FAIL] {tool_name} scan failed: {e}")
                     scan_results[tool_name] = self._create_error_result(tool_name, str(e))
         
         return scan_results
@@ -289,25 +289,54 @@ class SecurityValidator:
         findings = []
         
         try:
-            # Run safety check
-            cmd = ["safety", "check", "--json"]
+            # Run safety scan (newer command)
+            cmd = ["safety", "scan", "--json"]
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
             
             if result.stdout:
-                data = json.loads(result.stdout)
+                try:
+                    data = json.loads(result.stdout)
+                except json.JSONDecodeError:
+                    # Safety returned string output instead of JSON
+                    print(f"Safety returned string output: {result.stdout}")
+                    return findings
                 
-                for vuln in data:
-                    finding = SecurityFinding(
-                        tool="safety",
-                        severity=SecuritySeverity.HIGH if "critical" in vuln.get("vulnerability", "").lower() else SecuritySeverity.MEDIUM,
-                        title=f"Vulnerable dependency: {vuln.get('package', 'Unknown')}",
-                        description=vuln.get("vulnerability", ""),
-                        file_path="requirements.txt",  # Placeholder
-                        line_number=0,
-                        rule_id=vuln.get("id", ""),
-                        remediation=f"Update to version {vuln.get('safe_version', 'latest')}"
-                    )
-                    findings.append(finding)
+                # Handle different response formats from Safety
+                if isinstance(data, list):
+                    # Standard list format
+                    for vuln in data:
+                        if isinstance(vuln, dict):
+                            finding = SecurityFinding(
+                                tool="safety",
+                                severity=SecuritySeverity.HIGH if "critical" in vuln.get("vulnerability", "").lower() else SecuritySeverity.MEDIUM,
+                                title=f"Vulnerable dependency: {vuln.get('package', 'Unknown')}",
+                                description=vuln.get("vulnerability", ""),
+                                file_path="requirements.txt",  # Placeholder
+                                line_number=0,
+                                rule_id=vuln.get("id", ""),
+                                remediation=f"Update to version {vuln.get('safe_version', 'latest')}"
+                            )
+                            findings.append(finding)
+                        else:
+                            print(f"Unexpected vuln format in Safety results: {type(vuln)}")
+                elif isinstance(data, dict):
+                    # Dictionary format (newer Safety versions)
+                    vulnerabilities = data.get("vulnerabilities", [])
+                    for vuln in vulnerabilities:
+                        if isinstance(vuln, dict):
+                            finding = SecurityFinding(
+                                tool="safety",
+                                severity=SecuritySeverity.HIGH if "critical" in vuln.get("vulnerability", "").lower() else SecuritySeverity.MEDIUM,
+                                title=f"Vulnerable dependency: {vuln.get('package', 'Unknown')}",
+                                description=vuln.get("vulnerability", ""),
+                                file_path="requirements.txt",  # Placeholder
+                                line_number=0,
+                                rule_id=vuln.get("id", ""),
+                                remediation=f"Update to version {vuln.get('safe_version', 'latest')}"
+                            )
+                            findings.append(finding)
+                else:
+                    print(f"Error running safety: '{type(data).__name__}' object has no attribute 'get'")
         
         except (subprocess.TimeoutExpired, json.JSONDecodeError, FileNotFoundError) as e:
             print(f"Safety scan error: {e}")
@@ -454,13 +483,13 @@ class SecurityValidator:
             
             if gate_passed:
                 gate_validation["gates_passed"] += 1
-                print(f"✓ {gate_name}: {actual_count}/{threshold} (PASS)")
+                print(f"[PASS] {gate_name}: {actual_count}/{threshold} (PASS)")
             else:
                 gate_validation["gates_failed"] += 1
                 if is_blocking:
                     gate_validation["blocking_failures"] += 1
                     gate_validation["overall_status"] = "FAIL"
-                print(f"✗ {gate_name}: {actual_count}/{threshold} ({'BLOCKING' if is_blocking else 'WARNING'})")
+                print(f"[FAIL] {gate_name}: {actual_count}/{threshold} ({'BLOCKING' if is_blocking else 'WARNING'})")
             
             gate_validation["gate_results"][gate_name] = {
                 "passed": gate_passed,
@@ -732,9 +761,9 @@ def main():
     
     print("\nCompliance Status:")
     compliance = results["compliance_status"]
-    print(f"  SOC 2 Compliant: {'✓' if compliance['soc2_compliant'] else '✗'}")
-    print(f"  NIST Compliant: {'✓' if compliance['nist_compliant'] else '✗'}")
-    print(f"  Production Ready: {'✓' if compliance['production_ready'] else '✗'}")
+    print(f"  SOC 2 Compliant: {'[PASS]' if compliance['soc2_compliant'] else '[FAIL]'}")
+    print(f"  NIST Compliant: {'[PASS]' if compliance['nist_compliant'] else '[FAIL]'}")
+    print(f"  Production Ready: {'[PASS]' if compliance['production_ready'] else '[FAIL]'}")
     
     if results["recommendations"]:
         print("\nTop Recommendations:")

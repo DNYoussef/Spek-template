@@ -205,15 +205,13 @@ jobs:
     - name: Protection Summary
       run: |
         echo "=== Branch Protection Setup Complete ==="
-        echo "Protection Level: ${{ inputs.protection_level }}"
-        echo "Target Branch: ${{ inputs.target_branch }}"
+        echo "Protection Level: ${PROTECTION_LEVEL}"
+        echo "Target Branch: ${TARGET_BRANCH}"
         echo ""
         echo "Next Steps:"
         echo "1. Configure repository secrets with environment variables"
         echo "2. Update team names in .github/CODEOWNERS"
         echo "3. Test branch protection with a test PR"
-        echo "4. Deploy remaining workflow fixes"
-        echo ""
-        echo "Files created:"
-        echo "- .github/CODEOWNERS"
-        echo "- .github/quality-thresholds.env.template"
+      env:
+        PROTECTION_LEVEL: ${{ inputs.protection_level }}
+        TARGET_BRANCH: ${{ inputs.target_branch }}

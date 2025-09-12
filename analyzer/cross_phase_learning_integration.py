@@ -258,7 +258,7 @@ class PatternClassifier:
     def _generate_pattern_id(self, correlation: MemoryCorrelation) -> str:
         """Generate unique pattern ID."""
         pattern_string = f"{correlation.source_phase}_{correlation.target_phase}_{correlation.correlation_type}_{correlation.timestamp}"
-        return hashlib.md5(pattern_string.encode()).hexdigest()[:16]
+        return hashlib.md5(pattern_string.encode(), usedforsecurity=False).hexdigest()[:16]
     
     def _extract_pattern_data(self,
                              correlation: MemoryCorrelation,

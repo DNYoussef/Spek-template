@@ -119,7 +119,7 @@ def demonstrate_memory_leak_prevention():
         data = {
             'id': i,
             'content': f'test_data_{i}' * 10,
-            'metadata': {'timestamp': time.time(), 'hash': hashlib.md5(f'data_{i}'.encode()).hexdigest()}
+            'metadata': {'timestamp': time.time(), 'hash': hashlib.md5(f'data_{i}'.encode(), usedforsecurity=False).hexdigest()}
         }
         test_data.append(data)
     
@@ -164,7 +164,7 @@ def demonstrate_thread_safety():
             
             # Simulate analysis work
             test_content = f"thread_{thread_id}_data" * 100
-            hash_result = hashlib.md5(test_content.encode()).hexdigest()
+            hash_result = hashlib.md5(test_content.encode(), usedforsecurity=False).hexdigest()
             
             # Simulate some computation
             computation_result = sum(ord(c) for c in hash_result[:10])

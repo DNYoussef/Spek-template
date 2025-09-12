@@ -22,6 +22,7 @@ Requirements  Solutions   Strategy     Features    Quality
 - **Defense Industry Ready**: 95% NASA POT10 compliance with comprehensive quality gates
 - **Parallel Execution**: 2.8-4.4x speed improvement through concurrent operations
 - **Reality Validation**: Evidence-based verification preventing completion theater
+- **AI Governance**: Full model attribution and audit trails via transcript mode and enhanced hooks
 
 ## [U+1F6A8] CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT
 
@@ -160,6 +161,20 @@ Pattern detection -> Evidence validation -> Quality verification -> Learning
 - **VERIFY**: Playwright, eva, Theater detection
 - **DELIVER**: GitHub, Evidence packaging
 
+## NEW: Claude Code Enhanced Capabilities
+
+### Audit Trail & Governance Features
+- **Transcript Mode (Ctrl+R)**: Model attribution for all AI outputs in quality gates
+- **Enhanced SessionEnd Hooks**: Better cross-session memory and state management
+- **Improved User Experience**: Configurable spinner tips (`spinnerTipsEnabled: false`)
+- **Defense Industry Compliance**: Full audit trails for NASA POT10 requirements
+
+### Integration with SPEK Workflow
+- **Theater Detection Enhancement**: Use transcript data to validate model consistency
+- **Reality Validation**: Track model performance across validation cycles
+- **Agent Coordination**: SessionEnd hooks support 54+ agent workflows
+- **Quality Gate Documentation**: Model attribution in `.claude/.artifacts/` for compliance
+
 ## [TOOL] Available Slash Commands (29 Total)
 
 ### **[SCIENCE] Research & Discovery Commands**
@@ -218,6 +233,8 @@ Pattern detection -> Evidence validation -> Quality verification -> Learning
 |---------|-------------|-----------|
 | `/memory:unified` | Unified memory management across agents and sessions | `.claude/commands/memory-unified.md` |
 | `/cleanup:post-completion` | Transform SPEK template to production-ready codebase | `.claude/commands/cleanup-post-completion.md` |
+| **NEW:** `Ctrl+R` | **Transcript Mode**: View model attribution for all AI outputs | Built-in Claude Code feature |
+| **NEW:** SessionEnd Hooks | **Enhanced Session Management**: Better memory persistence | Configure in Claude Code settings |
 
 ## [U+1F4DA] Quick Reference Links
 

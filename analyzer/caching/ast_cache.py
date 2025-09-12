@@ -9,11 +9,11 @@ to improve performance on repeated analysis runs.
 
 import ast
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict, field
 import hashlib
+import json
 import logging
 from pathlib import Path
-import pickle
 import sys
 import threading
 import time
@@ -366,14 +366,16 @@ class ASTCache:
 
         # Include file path and type in hash for uniqueness
         key_data = f"{file_path.absolute()}:{cache_type}"
-        return hashlib.md5(key_data.encode()).hexdigest()
+        return hashlib.md5(key_data.encode(), usedforsecurity=False).hexdigest()
 
     def _add_entry(self, key: str, entry: CacheEntry):
         """Add entry to cache."""
 
         # Calculate entry size (rough estimate)
         try:
-            entry_size = len(pickle.dumps(entry.data))
+            # Use JSON serialization for safe size estimation
+            entry_dict = asdict(entry)
+            entry_size = len(json.dumps(entry_dict, default=str))
         except Exception:
             entry_size = 1024  # Default estimate
 
@@ -392,7 +394,9 @@ class ASTCache:
 
             # Estimate size reduction
             try:
-                entry_size = len(pickle.dumps(entry.data))
+                # Use JSON serialization for safe size estimation
+                entry_dict = asdict(entry)
+                entry_size = len(json.dumps(entry_dict, default=str))
             except Exception:
                 entry_size = 1024
 
@@ -438,14 +442,18 @@ class ASTCache:
         try:
             cache_file = self.cache_dir / f"{key}.cache"
 
-            with open(cache_file, "wb") as f:
+            with open(cache_file, "w", encoding='utf-8') as f:
                 if self.enable_compression:
                     import gzip
-
-                    with gzip.open(f, "wb") as gf:
-                        pickle.dump(entry, gf)
+                    
+                    # JSON with gzip compression
+                    entry_json = json.dumps(asdict(entry), default=str)
+                    with gzip.open(str(cache_file) + ".gz", "wt", encoding='utf-8') as gf:
+                        gf.write(entry_json)
+                    # Remove uncompressed file
+                    cache_file.unlink()
                 else:
-                    pickle.dump(entry, f)
+                    json.dump(asdict(entry), f, default=str, indent=2)
 
         except Exception as e:
             logger.warning(f"Failed to persist cache entry {key}: {e}")
@@ -459,18 +467,25 @@ class ASTCache:
         loaded_count = 0
         failed_count = 0
 
-        for cache_file in self.cache_dir.glob("*.cache"):
+        # Load both .cache files and .cache.gz files
+        cache_files = list(self.cache_dir.glob("*.cache")) + list(self.cache_dir.glob("*.cache.gz"))
+        
+        for cache_file in cache_files:
             try:
-                key = cache_file.stem
+                key = cache_file.stem.replace('.cache', '')
 
-                with open(cache_file, "rb") as f:
-                    if self.enable_compression:
-                        import gzip
-
-                        with gzip.open(f, "rb") as gf:
-                            entry = pickle.load(gf)
-                    else:
-                        entry = pickle.load(f)
+                if cache_file.name.endswith('.gz'):
+                    # Compressed JSON format
+                    import gzip
+                    with gzip.open(cache_file, "rt", encoding='utf-8') as gf:
+                        entry_dict = json.load(gf)
+                else:
+                    # Uncompressed JSON format
+                    with open(cache_file, "r", encoding='utf-8') as f:
+                        entry_dict = json.load(f)
+                
+                # Convert dictionary back to CacheEntry
+                entry = CacheEntry(**entry_dict)
 
                 # Validate entry
                 if entry.is_valid():

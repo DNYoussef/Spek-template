@@ -12,6 +12,7 @@
 - **Defense Industry Standards**: 95% NASA POT10 compliance with comprehensive quality gates
 - **Parallel Execution**: 2.8-4.4x speed improvement through concurrent operations
 - **Automated Recovery**: Intelligent failure detection with surgical fixes and rollback safety
+- **AI Governance & Audit Trails**: Full model attribution and session tracking for enterprise compliance
 
 ## For Different User Types
 
@@ -31,8 +32,15 @@
 node >= 18.0.0 && npm >= 8.0.0     # Node.js runtime
 python >= 3.8                      # Python for analyzers  
 git >= 2.30                        # Version control
-claude-code                        # Primary development environment
+claude-code >= latest               # Primary development environment with transcript mode
 ```
+
+### New Claude Code Capabilities Integration
+**Enhanced AI Governance Features**:
+- **Transcript Mode (Ctrl+R)**: Model attribution for all AI-generated outputs
+- **Enhanced Hook System**: SessionEnd support for better memory persistence
+- **Improved UX**: Configurable spinner tips and IDE stability improvements
+- **Audit Trail Support**: Full compliance documentation for defense industry requirements
 
 ### 1-Minute Setup
 ```bash

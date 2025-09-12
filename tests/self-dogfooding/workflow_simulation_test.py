@@ -57,7 +57,7 @@ def extract_metrics_from_file(file_path):
     results = []
     for cmd in commands:
         try:
-            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True)
+            result = subprocess.run(cmd, shell=False, capture_output=True, text=True, check=True)
             output = result.stdout.strip()
             print(f"  {output}")
             results.append(output)

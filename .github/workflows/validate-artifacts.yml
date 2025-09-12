@@ -91,26 +91,30 @@ jobs:
       - name: Configure Validation Matrix
         id: matrix
         run: |
-          if [ "${{ github.event.inputs.validation_mode }}" = "quick" ]; then
+          if [ "${VALIDATION_MODE}" = "quick" ]; then
             CONFIG='{"include":[{"name":"quick","timeout":300,"memory_limit":"1GB"}]}'
-          elif [ "${{ github.event.inputs.validation_mode }}" = "performance" ]; then
+          elif [ "${VALIDATION_MODE}" = "performance" ]; then
             CONFIG='{"include":[{"name":"performance","timeout":1800,"memory_limit":"4GB","benchmark":true}]}'
-          elif [ "${{ github.event.inputs.validation_mode }}" = "reproducibility" ]; then
+          elif [ "${VALIDATION_MODE}" = "reproducibility" ]; then
             CONFIG='{"include":[{"name":"reproducibility","timeout":3600,"memory_limit":"8GB","full_clone":true}]}'
           else
             CONFIG='{"include":[{"name":"full","timeout":1800,"memory_limit":"4GB","benchmark":true}]}'
           fi
           echo "config=${CONFIG}" >> $GITHUB_OUTPUT
           echo "[TARGET] Matrix configuration: ${CONFIG}"
+        env:
+          VALIDATION_MODE: ${{ github.event.inputs.validation_mode }}
 
       - name: Setup Configuration Flags
         id: config
         run: |
           BENCHMARK="false"
-          if [ "${{ github.event.inputs.validation_mode }}" = "performance" ] || [ "${{ github.event.inputs.validation_mode }}" = "full" ]; then
+          if [ "${VALIDATION_MODE}" = "performance" ] || [ "${VALIDATION_MODE}" = "full" ]; then
             BENCHMARK="true"
           fi
           echo "benchmark-enabled=${BENCHMARK}" >> $GITHUB_OUTPUT
+        env:
+          VALIDATION_MODE: ${{ github.event.inputs.validation_mode }}
 
       - name: Cache Validation Data
         uses: actions/cache@v4
@@ -172,7 +176,7 @@ jobs:
         run: |
           echo "[TARGET] Running Consolidated Analyzer Validation"
           VERBOSE_FLAG=""
-          if [ "${{ github.event.inputs.verbose }}" = "true" ]; then
+          if [ "${VERBOSE}" = "true" ]; then
             VERBOSE_FLAG="--verbose"
           fi
           
@@ -195,8 +199,10 @@ jobs:
           if [ ${VALIDATION_EXIT_CODE} -eq 0 ]; then
             echo "[OK] Validation PASSED"
           else
-            echo "[WARNING] Validation completed with warnings"
+            echo "[FAIL] Validation FAILED"
           fi
+        env:
+          VERBOSE: ${{ github.event.inputs.verbose }}
 
       - name: Store Validation Results
         if: always()

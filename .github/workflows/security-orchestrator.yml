@@ -46,7 +46,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.12'
           cache: 'pip'
 
       - name: Setup Node.js
@@ -70,9 +70,23 @@ jobs:
           mkdir -p .claude/.artifacts/security/sarif
 
       - name: Install dependencies
+        timeout-minutes: 15
         run: |
           if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
+            # Retry logic for requirements installation
+            for attempt in 1 2 3; do
+              echo "Installing requirements (attempt $attempt/3)..."
+              if timeout 600 pip install -r requirements.txt; then
+                echo "Requirements installed successfully"
+                break
+              elif [ $attempt -eq 3 ]; then
+                echo "Requirements installation failed after 3 attempts"
+                exit 1
+              else
+                echo "Installation failed, retrying in 10 seconds..."
+                sleep 10
+              fi
+            done
           fi
           
           if [ -f package.json ]; then
@@ -130,12 +144,26 @@ jobs:
           echo "Running Safety dependency vulnerability check..."
           
           if [ -f requirements.txt ]; then
-            safety check \
-              --json \
-              --output safety_results.json \
-              --continue-on-error || true
+            # Retry logic for safety scan (network-dependent)
+            RETRY_COUNT=0
+            MAX_RETRIES=3
             
-            echo "Safety check completed"
+            while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+              echo "Attempt $((RETRY_COUNT + 1)) of $MAX_RETRIES..."
+              
+              if safety scan --json --output safety_results.json --continue-on-error; then
+                echo "Safety check completed successfully"
+                break
+              else
+                RETRY_COUNT=$((RETRY_COUNT + 1))
+                if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                  echo "Safety scan failed, retrying in 10 seconds..."
+                  sleep 10
+                else
+                  echo "Safety scan failed after $MAX_RETRIES attempts, continuing..."
+                fi
+              fi
+            done
           else
             echo "No requirements.txt found, skipping Safety check"
           fi

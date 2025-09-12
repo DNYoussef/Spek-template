@@ -1012,7 +1012,7 @@ class FileChangeTracker:
         try:
             with open(file_path, 'rb') as f:
                 content = f.read()
-            return hashlib.md5(content).hexdigest()
+            return hashlib.md5(content, usedforsecurity=False).hexdigest()
         except Exception as e:
             logger.debug(f"Failed to calculate hash for {file_path}: {e}")
             return None
