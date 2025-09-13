@@ -1,0 +1,9 @@
+astroid<3.0.0,>=2.15.0
+pylint<3.0.0,>=2.17.0
+pathspec<1.0.0,>=0.11.0
+toml<1.0.0,>=0.10.0
+pyyaml<7.0,>=6.0
+dataclasses-json<1.0.0,>=0.5.9
+typing-extensions<5.0.0,>=4.7.0
+jsonschema<5.0.0,>=4.19.0
+requests<3.0.0,>=2.31.0

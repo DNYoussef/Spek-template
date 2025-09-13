@@ -1,0 +1,3 @@
+[console_scripts]
+connascence = analyzer.core:main
+spek-analyzer = analyzer.core:main

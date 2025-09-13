@@ -1,0 +1,269 @@
+{
+  "success": true,
+  "path": "..",
+  "threshold": 0.8,
+  "comprehensive": true,
+  "mece_score": 0.987,
+  "duplications": [
+    {
+      "id": "cluster_1",
+      "similarity_score": 0.88,
+      "block_count": 4,
+      "files_involved": [
+        "..\\analyzer\\analysis_orchestrator.py",
+        "..\\analyzer\\optimization\\memory_monitor.py",
+        "..\\analyzer\\optimization\\resource_manager.py",
+        "..\\analyzer\\optimization\\file_cache.py"
+      ],
+      "blocks": [
+        {
+          "file_path": "..\\analyzer\\analysis_orchestrator.py",
+          "start_line": 475,
+          "end_line": 477,
+          "lines": [
+            475,
+            476,
+            477
+          ]
+        },
+        {
+          "file_path": "..\\analyzer\\optimization\\file_cache.py",
+          "start_line": 331,
+          "end_line": 333,
+          "lines": [
+            331,
+            332,
+            333
+          ]
+        },
+        {
+          "file_path": "..\\analyzer\\optimization\\memory_monitor.py",
+          "start_line": 462,
+          "end_line": 465,
+          "lines": [
+            462,
+            463,
+            464,
+            465
+          ]
+        },
+        {
+          "file_path": "..\\analyzer\\optimization\\resource_manager.py",
+          "start_line": 507,
+          "end_line": 510,
+          "lines": [
+            507,
+            508,
+            509,
+            510
+          ]
+        }
+      ],
+      "description": "Found 4 similar code blocks with 88.0% average similarity"
+    },
+    {
+      "id": "cluster_2",
+      "similarity_score": 1.0,
+      "block_count": 3,
+      "files_involved": [
+        "..\\analyzer\\architecture\\aggregator.py",
+        "..\\analyzer\\architecture\\orchestrator.py",
+        "..\\analyzer\\architecture\\enhanced_metrics.py"
+      ],
+      "blocks": [
+        {
+          "file_path": "..\\analyzer\\architecture\\aggregator.py",
+          "start_line": 305,
+          "end_line": 307,
+          "lines": [
+            305,
+            306,
+            307
+          ]
+        },
+        {
+          "file_path": "..\\analyzer\\architecture\\enhanced_metrics.py",
+          "start_line": 344,
+          "end_line": 346,
+          "lines": [
+            344,
+            345,
+            346
+          ]
+        },
+        {
+          "file_path": "..\\analyzer\\architecture\\orchestrator.py",
+          "start_line": 353,
+          "end_line": 355,
+          "lines": [
+            353,
+            354,
+            355
+          ]
+        }
+      ],
+      "description": "Found 3 similar code blocks with 100.0% average similarity"
+    },
+    {
+      "id": "cluster_3",
+      "similarity_score": 0.83,
+      "block_count": 3,
+      "files_involved": [
+        "..\\analyzer\\detectors\\god_object_detector.py",
+        "..\\analyzer\\detectors\\timing_detector.py",
+        "..\\analyzer\\detectors\\algorithm_detector.py"
+      ],
+      "blocks": [
+        {
+          "file_path": "..\\analyzer\\detectors\\algorithm_detector.py",
+          "start_line": 22,
+          "end_line": 50,
+          "lines": [
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50
+          ]
+        },
+        {
+          "file_path": "..\\analyzer\\detectors\\god_object_detector.py",
+          "start_line": 20,
+          "end_line": 43,
+          "lines": [
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ]
+        },
+        {
+          "file_path": "..\\analyzer\\detectors\\timing_detector.py",
+          "start_line": 17,
+          "end_line": 40,
+          "lines": [
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40
+          ]
+        }
+      ],
+      "description": "Found 3 similar code blocks with 83.0% average similarity"
+    },
+    {
+      "id": "cluster_4",
+      "similarity_score": 0.833,
+      "block_count": 3,
+      "files_involved": [
+        "..\\analyzer\\detectors\\values_detector.py",
+        "..\\analyzer\\detectors\\position_detector.py",
+        "..\\analyzer\\interfaces\\detector_interface.py"
+      ],
+      "blocks": [
+        {
+          "file_path": "..\\analyzer\\detectors\\position_detector.py",
+          "start_line": 195,
+          "end_line": 197,
+          "lines": [
+            195,
+            196,
+            197
+          ]
+        },
+        {
+          "file_path": "..\\analyzer\\detectors\\values_detector.py",
+          "start_line": 285,
+          "end_line": 287,
+          "lines": [
+            285,
+            286,
+            287
+          ]
+        },
+        {
+          "file_path": "..\\analyzer\\interfaces\\detector_interface.py",
+          "start_line": 82,
+          "end_line": 84,
+          "lines": [
+            82,
+            83,
+            84
+          ]
+        }
+      ],
+      "description": "Found 3 similar code blocks with 83.3% average similarity"
+    }
+  ],
+  "summary": {
+    "total_duplications": 4,
+    "high_similarity_count": 4,
+    "coverage_score": 0.987,
+    "files_analyzed": 90,
+    "blocks_analyzed": 1486
+  }
+}

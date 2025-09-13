@@ -1,0 +1,185 @@
+---
+# Six Sigma Quality Gates Configuration
+# Theater-Free Quality Validation with DPMO/RTY Calculations
+
+quality_gates:
+  six_sigma:
+    enabled: true
+    target_sigma_level: 4.0  # Target: 6210 DPMO (4-sigma)
+    minimum_sigma_level: 3.0  # Minimum: 66,807 DPMO (3-sigma)
+    
+    # Defect Categories & Weights
+    defect_categories:
+      critical:
+        weight: 10.0
+        examples: ["security_vulnerability", "data_loss", "system_crash"]
+        threshold: 0  # Zero tolerance
+        
+      major:
+        weight: 5.0
+        examples: ["functional_failure", "performance_degradation", "integration_break"]
+        threshold: 2  # Max 2 per 1000 opportunities
+        
+      minor:
+        weight: 2.0
+        examples: ["ui_inconsistency", "documentation_gap", "style_violation"]
+        threshold: 10  # Max 10 per 1000 opportunities
+        
+      cosmetic:
+        weight: 1.0
+        examples: ["formatting", "typos", "color_scheme"]
+        threshold: 50  # Max 50 per 1000 opportunities
+
+    # Process Stages for RTY Calculation
+    process_stages:
+      specification:
+        opportunities: ["requirement_completeness", "acceptance_criteria", "edge_cases"]
+        target_yield: 0.95
+        
+      design:
+        opportunities: ["architecture_review", "pattern_compliance", "scalability"]
+        target_yield: 0.92
+        
+      implementation:
+        opportunities: ["code_review", "test_coverage", "style_compliance"]
+        target_yield: 0.90
+        
+      testing:
+        opportunities: ["unit_tests", "integration_tests", "e2e_tests"]
+        target_yield: 0.95
+        
+      deployment:
+        opportunities: ["build_success", "security_scan", "performance_check"]
+        target_yield: 0.98
+
+    # Theater Detection Metrics
+    theater_detection:
+      vanity_metrics:
+        - "lines_of_code"
+        - "commit_frequency"
+        - "meeting_attendance"
+      
+      reality_metrics:
+        - "defect_escape_rate"
+        - "customer_satisfaction"
+        - "mean_time_to_recovery"
+        - "process_capability"
+      
+      correlation_threshold: 0.7  # Theater if vanity/reality correlation < 0.7
+
+    # DPMO Calculation Parameters
+    dpmo_calculation:
+      opportunity_definitions:
+        code_review:
+          unit: "lines_of_code"
+          opportunities_per_unit: 0.1  # 1 opportunity per 10 LOC
+          
+        test_coverage:
+          unit: "testable_units"
+          opportunities_per_unit: 1.0  # 1 opportunity per unit
+          
+        integration_points:
+          unit: "api_endpoints"
+          opportunities_per_unit: 3.0  # 3 opportunities per endpoint
+          
+        user_stories:
+          unit: "acceptance_criteria"
+          opportunities_per_unit: 1.0  # 1 opportunity per criteria
+
+    # RTY Calculation Thresholds
+    rty_thresholds:
+      excellent: 0.95    # >95% RTY = Excellent (6-sigma approach)
+      good: 0.90         # 90-95% RTY = Good (4-5 sigma)
+      acceptable: 0.80   # 80-90% RTY = Acceptable (3-4 sigma)
+      poor: 0.70         # 70-80% RTY = Poor (2-3 sigma)
+      unacceptable: 0.70 # <70% RTY = Unacceptable (<2 sigma)
+
+    # Continuous Improvement Triggers
+    improvement_triggers:
+      sigma_degradation:
+        threshold: -0.5  # Trigger if sigma drops by 0.5
+        action: "root_cause_analysis"
+        
+      dpmo_increase:
+        threshold: 1000  # Trigger if DPMO increases by 1000
+        action: "process_review"
+        
+      rty_decline:
+        threshold: -0.05  # Trigger if RTY drops by 5%
+        action: "stage_analysis"
+
+# Telemetry Configuration
+telemetry:
+  collection_interval: 300  # 5 minutes
+  retention_days: 90
+  
+  metrics:
+    dpmo:
+      enabled: true
+      aggregation: ["hourly", "daily", "weekly"]
+      alerts:
+        - threshold: 10000
+          severity: "warning"
+        - threshold: 50000
+          severity: "critical"
+    
+    rty:
+      enabled: true
+      aggregation: ["daily", "weekly", "monthly"]
+      alerts:
+        - threshold: 0.85
+          severity: "warning"
+          direction: "below"
+        - threshold: 0.75
+          severity: "critical"
+          direction: "below"
+    
+    sigma_level:
+      enabled: true
+      aggregation: ["daily", "weekly"]
+      target: 4.0
+      alerts:
+        - threshold: 3.5
+          severity: "warning"
+          direction: "below"
+        - threshold: 3.0
+          severity: "critical"
+          direction: "below"
+
+# Artifact Generation
+artifacts:
+  output_directory: ".claude/.artifacts/sixsigma"
+  formats: ["json", "csv", "html"]
+  
+  reports:
+    daily_summary:
+      enabled: true
+      schedule: "0 9 * * *"  # 9 AM daily
+      includes: ["dpmo", "rty", "sigma_level", "defect_analysis"]
+      
+    weekly_analysis:
+      enabled: true
+      schedule: "0 9 * * 1"  # 9 AM Mondays
+      includes: ["trend_analysis", "process_capability", "improvement_recommendations"]
+      
+    monthly_review:
+      enabled: true
+      schedule: "0 9 1 * *"  # 9 AM 1st of month
+      includes: ["executive_summary", "roi_analysis", "benchmark_comparison"]
+
+# Integration Settings
+integration:
+  github:
+    webhook_events: ["pull_request", "push", "issues"]
+    quality_gates: true
+    auto_comments: true
+    
+  ci_cd:
+    jenkins: true
+    github_actions: true
+    failure_threshold: 3.0  # Block deployment if sigma < 3.0
+    
+  monitoring:
+    prometheus: true
+    grafana_dashboard: true
+    alert_manager: true

@@ -1,0 +1,9 @@
+Control ID,Framework,Category,Title,Risk Level,Status,Last Assessment,Evidence Count,Frequency
+CC1.1,SOC2,Control Environment,Organization Structure and Reporting Lines,High,Compliant,2025-09-12T20:04:43.549Z,0,Annual
+CC2.1,SOC2,Communication and Information,Information Quality and Communication,Medium,Not Assessed,Never,0,Quarterly
+CC3.1,SOC2,Risk Assessment,Risk Identification and Assessment,High,Not Assessed,Never,0,Semi-Annual
+CC4.1,SOC2,Monitoring Activities,Control Monitoring and Evaluation,Medium,Not Assessed,Never,0,Monthly
+CC5.1,SOC2,Control Activities,Logical and Physical Access Controls,Critical,Partially Compliant,2025-09-12T20:04:43.550Z,0,Continuous
+A.9.1.1,ISO27001,Access Control,Access Control Policy,Critical,Compliant,2025-09-12T20:04:43.567Z,3,Annual
+A.12.6.1,ISO27001,Operations Security,Management of Technical Vulnerabilities,High,Non-Compliant,2025-09-12T20:04:43.568Z,2,Monthly
+A.18.1.4,ISO27001,Compliance,Privacy and Protection of PII,Critical,Compliant,2025-09-12T20:04:43.568Z,0,Continuous

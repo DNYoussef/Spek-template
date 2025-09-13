@@ -1,0 +1,94 @@
+# Spek / Analyzer — Six Sigma Telemetry Manifest
+schema_version: v1
+unit: PR                        # or Deploy
+sigma_shift: 1.5                # set 0 to disable the 1.5σ shift convention
+artifact_roots:
+  - ".claude/.artifacts"
+  - ".artifacts"
+  - "artifacts"
+
+# Canonical artifact locations (globs OK)
+artifacts:
+  security_sarif: "security/**/*.sarif"          # Semgrep/CodeQL/Trivy SARIF
+  nasa_json: "nasa/**/*.json"                    # { "score": 0.93, "rules_evaluated": 120, "violations_on_changed": 7 }
+  connascence_json: "connascence/**/*.json"      # { "modules_changed": 12, "positive_deltas": 3 }
+  god_objects_json: "architecture/god_objects.json"  # { "count": 18, "delta": -2 }
+  duplication_json: "quality/duplication.json"   # { "mece": 0.81, "dup_delta_lines": 0 }
+  tests_json: "tests/results.json"               # { "passed": true, "failing": 0 }
+  coverage_changed_json: "coverage/changed_lines.json" # { "changed_lines": 542, "uncovered_changed_lines": 0 }
+  mutation_json: "mutation/summary.json"         # { "mutation_score_changed": 0.67 }
+  perf_json: "perf/**/*.json"                    # [{ "name":"login","p95_base_ms":120,"p95_new_ms":124,"band_pct":5 }]
+  diffstats_json: "meta/diffstats.json"          # { "changed_files": 23, "changed_lines": 542, "golden_workflows": 4 }
+
+# CTQs to compute Six Sigma against
+ctqs:
+  - id: security
+    spec: { critical_max: 0, high_max: 5 }
+    sources: [security_sarif, diffstats_json]
+    opportunities:
+      # simple, auditable model; tweak as you wish
+      formula: "3 * changed_files"    # inj/authz/crypto per changed file
+      vars: ["changed_files"]
+    defect_rules:
+      # computed by scorer from SARIF: critical_excess + high_excess_if_any
+      type: "security_excess"
+
+  - id: nasa_pot10
+    spec: { min_score: 0.90 }
+    sources: [nasa_json, diffstats_json]
+    opportunities:
+      formula: "1 * changed_lines"    # 1 opportunity per changed line
+      vars: ["changed_lines"]
+    defect_rules:
+      type: "nasa_violations_on_changed_or_shortfall"
+
+  - id: connascence
+    spec: { allow_positive_delta: false }
+    sources: [connascence_json, diffstats_json]
+    opportunities:
+      formula: "modules_changed"
+      vars: ["modules_changed"]
+    defect_rules:
+      type: "count_positive_deltas"    # #modules with any Co* increase
+
+  - id: god_objects
+    spec: { max_delta: 0 }             # no new ones
+    sources: [god_objects_json]
+    opportunities:
+      formula: "max(1, abs(delta))"
+      vars: ["delta"]
+    defect_rules:
+      type: "delta_gt_zero_as_count"
+
+  - id: mece_dup
+    spec: { mece_min: 0.75, dup_delta_max: 0 }
+    sources: [duplication_json, diffstats_json]
+    opportunities:
+      formula: "max(1, dup_delta_lines)"
+      vars: ["dup_delta_lines"]
+    defect_rules:
+      type: "dup_delta_gt_zero_or_mece_below_min"
+
+  - id: tests_mutation
+    spec: { require_pass: true, min_mutation_changed: 0.60, allow_uncovered_changed: 0 }
+    sources: [tests_json, coverage_changed_json, mutation_json, diffstats_json]
+    opportunities:
+      formula: "uncovered_changed_lines + max(0, ceil((min_mutation_changed - mutation_score_changed) * changed_lines))"
+      vars: ["uncovered_changed_lines","mutation_score_changed","min_mutation_changed","changed_lines"]
+    defect_rules:
+      type: "tests_or_mutation_shortfall"
+
+  - id: performance
+    spec: { max_regression_pct: 5 }   # 5% band by default
+    sources: [perf_json, diffstats_json]
+    opportunities:
+      formula: "golden_workflows"
+      vars: ["golden_workflows"]
+    defect_rules:
+      type: "perf_regressions_exceed_band"
+
+# Where to write outputs
+outputs:
+  summary_json: "evidence/sixsigma/summary.json"
+  per_ctq_json: "evidence/sixsigma/ctq_breakdown.json"
+  spc_csv: "evidence/sixsigma/spc.csv"   # append-only time series

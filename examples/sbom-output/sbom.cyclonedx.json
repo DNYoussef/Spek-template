@@ -1,0 +1,62 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:61f6dd8a-c96e-4d9f-8107-3958631a3489",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-09-12T20:04:36.868Z",
+    "tools": [
+      {
+        "vendor": "SPEK Platform",
+        "name": "SBOM Generator",
+        "version": "1.0.0"
+      }
+    ],
+    "component": {
+      "bom-ref": "spek-working-implementations@1.0.0",
+      "type": "application",
+      "name": "spek-working-implementations",
+      "version": "1.0.0"
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "jest@29.7.0",
+      "type": "library",
+      "name": "jest",
+      "version": "29.7.0",
+      "description": "Delightful JavaScript Testing.",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4824180d6488e744"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://jestjs.io/"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/jestjs/jest.git"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "spek-working-implementations@1.0.0",
+      "dependsOn": [
+        "jest@29.7.0"
+      ]
+    }
+  ]
+}

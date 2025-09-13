@@ -1,0 +1,64 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "documentName": "SBOM for Project",
+  "documentNamespace": "https://example.com/spdx/7340bbea-3f19-475f-b55d-6fdcd92208cb",
+  "creationInfo": {
+    "created": "2025-09-12T20:04:36.868Z",
+    "creators": [
+      "Tool: SPEK Platform SBOM Generator v1.0.0"
+    ],
+    "licenseListVersion": "3.19"
+  },
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Package-spek-working-implementations",
+      "name": "spek-working-implementations",
+      "versionInfo": "1.0.0",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d10455090b37d8c2"
+        }
+      ],
+      "homepage": "NOASSERTION",
+      "description": "Working implementations of Six Sigma telemetry, SBOM generation, and compliance matrix"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-jest",
+      "name": "jest",
+      "versionInfo": "29.7.0",
+      "downloadLocation": "https://github.com/jestjs/jest.git",
+      "filesAnalyzed": false,
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4824180d6488e744"
+        }
+      ],
+      "homepage": "https://jestjs.io/",
+      "description": "Delightful JavaScript Testing."
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-Package-spek-working-implementations"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-spek-working-implementations",
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-jest"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "summary": {
+    "compliancePercentage": 38,
+    "totalControls": 8,
+    "compliantControls": 3,
+    "nonCompliantControls": 1,
+    "partiallyCompliantControls": 1,
+    "notAssessedControls": 3,
+    "totalEvidence": 5,
+    "activeEvidence": 5,
+    "riskScore": 35,
+    "lastUpdated": "2025-09-12T20:04:43.569Z"
+  },
+  "riskBreakdown": {
+    "critical": 1,
+    "high": 2,
+    "medium": 2,
+    "low": 0
+  },
+  "overdueAssessments": [],
+  "recentAssessments": [
+    {
+      "id": "assessment_1757707483568_hns9yt2jo",
+      "controlId": "A.12.6.1",
+      "status": "Non-Compliant",
+      "assessor": "Technical Security Auditor",
+      "assessmentDate": "2025-09-12T20:04:43.568Z",
+      "findings": [
+        "Vulnerability scanning not performed regularly",
+        "Patch management process inconsistent",
+        "No formal vulnerability assessment program"
+      ],
+      "remediation": [
+        "Implement automated monthly vulnerability scanning",
+        "Establish formal patch management procedures",
+        "Create vulnerability assessment and remediation workflow",
+        "Assign dedicated security analyst for vulnerability management"
+      ],
+      "riskRating": "High",
+      "dueDate": "2024-04-30T23:59:59.000Z",
+      "notes": "Critical gap in vulnerability management requires immediate attention"
+    },
+    {
+      "id": "assessment_1757707483568_s344iffpg",
+      "controlId": "A.18.1.4",
+      "status": "Compliant",
+      "assessor": "Privacy Officer",
+      "assessmentDate": "2025-09-12T20:04:43.568Z",
+      "findings": [
+        "Privacy policy comprehensive and up-to-date",
+        "PII handling procedures well-documented",
+        "Data subject rights properly supported"
+      ],
+      "remediation": [],
+      "riskRating": "Low",
+      "dueDate": null,
+      "notes": "Strong privacy and PII protection framework in place"
+    },
+    {
+      "id": "assessment_1757707483567_30llh7dyn",
+      "controlId": "A.9.1.1",
+      "status": "Compliant",
+      "assessor": "ISO 27001 Lead Auditor",
+      "assessmentDate": "2025-09-12T20:04:43.567Z",
+      "findings": [
+        "Access control policy comprehensively covers all requirements",
+        "Policy approved by senior management and regularly reviewed",
+        "Effective communication to all staff members"
+      ],
+      "remediation": [],
+      "riskRating": "Low",
+      "dueDate": null,
+      "notes": "Excellent implementation of access control policy framework"
+    },
+    {
+      "id": "assessment_1757707483550_ga3vuyhsn",
+      "controlId": "CC5.1",
+      "status": "Partially Compliant",
+      "assessor": "Security Auditor",
+      "assessmentDate": "2025-09-12T20:04:43.550Z",
+      "findings": [
+        "Access control policies exist and are documented",
+        "Technical controls implemented but missing some monitoring",
+        "Physical security adequate but needs improvement"
+      ],
+      "remediation": [
+        "Implement comprehensive access logging and monitoring",
+        "Enhance physical security controls at data center",
+        "Conduct quarterly access reviews"
+      ],
+      "riskRating": "Medium",
+      "dueDate": "2024-06-30T23:59:59.000Z",
+      "notes": "Good foundation but needs enhancement in monitoring and physical controls"
+    },
+    {
+      "id": "assessment_1757707483549_sve22m4uc",
+      "controlId": "CC1.1",
+      "status": "Compliant",
+      "assessor": "Senior Auditor",
+      "assessmentDate": "2025-09-12T20:04:43.549Z",
+      "findings": [
+        "Code of conduct exists and is properly communicated",
+        "Organizational structure is well-documented",
+        "Clear reporting lines established"
+      ],
+      "remediation": [],
+      "riskRating": "Low",
+      "dueDate": null,
+      "notes": "Control operating effectively with strong governance framework"
+    }
+  ],
+  "frameworkCoverage": {
+    "soc2": {
+      "total": 5,
+      "compliant": 1
+    },
+    "iso27001": {
+      "total": 3,
+      "compliant": 2
+    }
+  }
+}

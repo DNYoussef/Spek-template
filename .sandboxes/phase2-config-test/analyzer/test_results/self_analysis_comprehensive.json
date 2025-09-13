@@ -1,0 +1,60 @@
+{
+  "god_objects": [],
+  "mece_analysis": {
+    "duplications": [],
+    "score": 0.75
+  },
+  "metrics": {
+    "analysis_time": 0.5,
+    "files_analyzed": 5,
+    "timestamp": 1757461724.2496164
+  },
+  "nasa_compliance": {
+    "score": 0.85,
+    "violations": [
+      {
+        "analysis_mode": "fallback",
+        "description": "Mock: NASA Power of Ten Rule violation (fallback mode)",
+        "file_path": "../memory.py",
+        "id": "-3581835135198814456",
+        "line_number": 88,
+        "rule_id": "NASA_POT10_2",
+        "severity": "critical",
+        "type": "CoA",
+        "weight": 5.0
+      }
+    ]
+  },
+  "path": "..",
+  "policy": "nasa_jpl_pot10",
+  "success": true,
+  "summary": {
+    "critical_violations": 1,
+    "overall_quality_score": 0.75,
+    "total_violations": 2
+  },
+  "violations": [
+    {
+      "analysis_mode": "fallback",
+      "description": "Mock: Magic literal detected (fallback mode)",
+      "file_path": "../mock_file.py",
+      "id": "4676243744128244468",
+      "line_number": 42,
+      "rule_id": "CON_CoM",
+      "severity": "medium",
+      "type": "CoM",
+      "weight": 2.0
+    },
+    {
+      "analysis_mode": "fallback",
+      "description": "Mock: NASA Power of Ten Rule violation (fallback mode)",
+      "file_path": "../memory.py",
+      "id": "-3581835135198814456",
+      "line_number": 88,
+      "rule_id": "NASA_POT10_2",
+      "severity": "critical",
+      "type": "CoA",
+      "weight": 5.0
+    }
+  ]
+}

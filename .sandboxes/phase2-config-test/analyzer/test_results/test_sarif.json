@@ -1,0 +1,388 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "connascence",
+          "version": "1.0.0",
+          "informationUri": "https://github.com/connascence/connascence-analyzer",
+          "organization": "Connascence Analytics",
+          "shortDescription": {
+            "text": "Connascence analysis for reducing coupling in codebases"
+          },
+          "fullDescription": {
+            "text": "Professional connascence analyzer that detects various forms of coupling in Python code based on Meilir Page-Jones' theory. Identifies static forms (Name, Type, Meaning, Position, Algorithm) and dynamic forms (Execution, Timing, Value, Identity) of connascence."
+          },
+          "rules": [
+            {
+              "id": "CON_CoN",
+              "name": "Connascence of Name",
+              "shortDescription": {
+                "text": "Dependencies on specific names or identifiers"
+              },
+              "fullDescription": {
+                "text": "Connascence of Name occurs when multiple components must agree on the name of an entity. This is the weakest form of connascence but can still cause maintenance issues when names change."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "tags": [
+                  "coupling",
+                  "maintenance",
+                  "static"
+                ],
+                "precision": "high",
+                "problem.severity": "note"
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "{0}"
+                }
+              },
+              "helpUri": "https://github.com/connascence/connascence-analyzer/docs/rules/con_con"
+            },
+            {
+              "id": "CON_CoT",
+              "name": "Connascence of Type",
+              "shortDescription": {
+                "text": "Dependencies on data types"
+              },
+              "fullDescription": {
+                "text": "Connascence of Type occurs when multiple components must agree on the type of an entity. Use type hints and proper abstractions to minimize type coupling."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "tags": [
+                  "coupling",
+                  "types",
+                  "static"
+                ],
+                "precision": "high",
+                "problem.severity": "note"
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "{0}"
+                }
+              },
+              "helpUri": "https://github.com/connascence/connascence-analyzer/docs/rules/con_cot"
+            },
+            {
+              "id": "CON_CoM",
+              "name": "Connascence of Meaning",
+              "shortDescription": {
+                "text": "Dependencies on magic literals or values"
+              },
+              "fullDescription": {
+                "text": "Connascence of Meaning occurs when multiple components must agree on the meaning of particular values. Magic numbers and strings create this coupling. Use named constants instead."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "coupling",
+                  "magic-literals",
+                  "static",
+                  "maintenance"
+                ],
+                "precision": "high",
+                "problem.severity": "warning"
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "{0}"
+                }
+              },
+              "helpUri": "https://github.com/connascence/connascence-analyzer/docs/rules/con_com"
+            },
+            {
+              "id": "CON_CoP",
+              "name": "Connascence of Position",
+              "shortDescription": {
+                "text": "Dependencies on parameter or argument order"
+              },
+              "fullDescription": {
+                "text": "Connascence of Position occurs when multiple components must agree on the order of values. Function parameters create this coupling. Use keyword arguments or data structures to reduce it."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "coupling",
+                  "parameters",
+                  "static",
+                  "api-design"
+                ],
+                "precision": "high",
+                "problem.severity": "warning"
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "{0}"
+                }
+              },
+              "helpUri": "https://github.com/connascence/connascence-analyzer/docs/rules/con_cop"
+            },
+            {
+              "id": "CON_CoA",
+              "name": "Connascence of Algorithm",
+              "shortDescription": {
+                "text": "Dependencies on specific algorithms or implementations"
+              },
+              "fullDescription": {
+                "text": "Connascence of Algorithm occurs when multiple components must agree on a particular algorithm. This includes duplicate code and complex interdependent logic. Extract shared algorithms."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "coupling",
+                  "duplication",
+                  "static",
+                  "complexity"
+                ],
+                "precision": "high",
+                "problem.severity": "warning"
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "{0}"
+                }
+              },
+              "helpUri": "https://github.com/connascence/connascence-analyzer/docs/rules/con_coa"
+            },
+            {
+              "id": "CON_CoE",
+              "name": "Connascence of Execution",
+              "shortDescription": {
+                "text": "Dependencies on execution order"
+              },
+              "fullDescription": {
+                "text": "Connascence of Execution occurs when the order of execution matters. This dynamic coupling makes code fragile and hard to test. Use dependency injection and proper initialization patterns."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "coupling",
+                  "execution-order",
+                  "dynamic",
+                  "reliability"
+                ],
+                "precision": "high",
+                "problem.severity": "error"
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "{0}"
+                }
+              },
+              "helpUri": "https://github.com/connascence/connascence-analyzer/docs/rules/con_coe"
+            },
+            {
+              "id": "CON_CoTiming",
+              "name": "Connascence of Timing",
+              "shortDescription": {
+                "text": "Dependencies on timing or delays"
+              },
+              "fullDescription": {
+                "text": "Connascence of Timing occurs when components depend on timing. This is a strong form of dynamic coupling that makes systems unreliable. Use proper synchronization mechanisms."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "coupling",
+                  "timing",
+                  "dynamic",
+                  "reliability"
+                ],
+                "precision": "high",
+                "problem.severity": "error"
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "{0}"
+                }
+              },
+              "helpUri": "https://github.com/connascence/connascence-analyzer/docs/rules/con_cotiming"
+            },
+            {
+              "id": "CON_CoV",
+              "name": "Connascence of Value",
+              "shortDescription": {
+                "text": "Dependencies on shared mutable values"
+              },
+              "fullDescription": {
+                "text": "Connascence of Value occurs when multiple components depend on the same shared value. This dynamic coupling can lead to unexpected side effects and race conditions."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "coupling",
+                  "shared-state",
+                  "dynamic",
+                  "concurrency"
+                ],
+                "precision": "high",
+                "problem.severity": "warning"
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "{0}"
+                }
+              },
+              "helpUri": "https://github.com/connascence/connascence-analyzer/docs/rules/con_cov"
+            },
+            {
+              "id": "CON_CoI",
+              "name": "Connascence of Identity",
+              "shortDescription": {
+                "text": "Dependencies on object identity"
+              },
+              "fullDescription": {
+                "text": "Connascence of Identity occurs when multiple components must reference the same object. This is the strongest and most dangerous form of coupling. Use immutable objects and values."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "coupling",
+                  "identity",
+                  "dynamic",
+                  "reliability"
+                ],
+                "precision": "high",
+                "problem.severity": "error"
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "{0}"
+                }
+              },
+              "helpUri": "https://github.com/connascence/connascence-analyzer/docs/rules/con_coi"
+            }
+          ],
+          "notifications": [
+            {
+              "id": "CFG001",
+              "shortDescription": {
+                "text": "Configuration issue"
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "Configuration issue: {0}"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "automationDetails": {
+        "id": "connascence/b7f088d4-4e2d-4c60-9884-efb1365c623e",
+        "description": {
+          "text": "Connascence analysis for Python codebases"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "startTimeUtc": "2025-09-09T18:50:53.265181Z",
+          "workingDirectory": {
+            "uri": "file://."
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "CON_CoM",
+          "level": "warning",
+          "message": {
+            "text": "Mock: Magic literal detected (fallback mode)",
+            "arguments": [
+              "Mock: Magic literal detected (fallback mode)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "mock_file.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "7258762064631262100",
+            "connascenceFingerprint": "7258762064631262100"
+          },
+          "properties": {
+            "connascenceType": "CoM",
+            "severity": "medium",
+            "weight": 2.0
+          }
+        },
+        {
+          "ruleId": "NASA_POT10_2",
+          "level": "error",
+          "message": {
+            "text": "Mock: NASA Power of Ten Rule violation (fallback mode)",
+            "arguments": [
+              "Mock: NASA Power of Ten Rule violation (fallback mode)"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "memory.py",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 88,
+                  "startColumn": 1
+                }
+              }
+            }
+          ],
+          "partialFingerprints": {
+            "primaryLocationLineHash": "7909529503239004799",
+            "connascenceFingerprint": "7909529503239004799"
+          },
+          "properties": {
+            "connascenceType": "CoA",
+            "severity": "critical",
+            "weight": 5.0
+          }
+        }
+      ],
+      "properties": {
+        "analysisType": "connascence",
+        "policyPreset": "nasa_jpl_pot10",
+        "summaryMetrics": {
+          "total_violations": 2,
+          "critical_violations": 1,
+          "overall_quality_score": 0.75
+        }
+      }
+    }
+  ]
+}
