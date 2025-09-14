@@ -42,7 +42,8 @@
       "Bash(pip install:*)",
       "Bash(gh run list:*)",
       "Bash(gh workflow:*)",
-      "Bash(gh run view:*)"
+      "Bash(gh run view:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []

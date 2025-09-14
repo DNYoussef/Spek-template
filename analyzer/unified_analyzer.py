@@ -35,7 +35,7 @@ import sys
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 # Import shared types to avoid circular dependencies
-from .types import UnifiedAnalysisResult, StandardError, ERROR_SEVERITY, ERROR_CODE_MAPPING
+from .analyzer_types import UnifiedAnalysisResult, StandardError, ERROR_SEVERITY, ERROR_CODE_MAPPING
 
 # Setup logger before first usage
 import logging

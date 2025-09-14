@@ -41,7 +41,7 @@ from analyzer.reporting.markdown import MarkdownReporter
 from analyzer.reporting.sarif import SARIFReporter
 
 # Import shared types to avoid circular dependencies
-from analyzer.types import UnifiedAnalysisResult
+from analyzer.analyzer_types import UnifiedAnalysisResult
 
 logger = logging.getLogger(__name__)
 
