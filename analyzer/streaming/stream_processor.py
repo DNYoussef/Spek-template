@@ -33,9 +33,27 @@ try:
     from watchdog.events import FileSystemEventHandler, FileSystemEvent
     WATCHDOG_AVAILABLE = True
 except ImportError:
-    Observer = None
-    FileSystemEventHandler = None
-    FileSystemEvent = None  
+    # Create dummy classes for when watchdog is not available
+    class Observer:
+        def __init__(self):
+            pass
+        def start(self):
+            pass
+        def stop(self):
+            pass
+        def join(self):
+            pass
+        def schedule(self, handler, path, recursive=False):
+            pass
+
+    class FileSystemEventHandler:
+        def __init__(self):
+            pass
+
+    class FileSystemEvent:
+        def __init__(self):
+            pass
+
     WATCHDOG_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
