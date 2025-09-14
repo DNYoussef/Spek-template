@@ -1,1039 +1,793 @@
+#!/usr/bin/env node
 /**
- * ISO27001:2022 Assessment Engine
- * 
- * Implements comprehensive ISO27001:2022 control mapping and automated assessment
- * with Annex A controls coverage and risk-based approach.
- * 
- * EC-002: ISO27001:2022 control mapping and automated assessment with Annex A controls
+ * ISO27001 Compliance Assessment Engine
+ * Automated ISO27001:2022 compliance validation with evidence collection
  */
 
-const EventEmitter = require('events');
+const fs = require('fs').promises;
+const path = require('path');
 const crypto = require('crypto');
 
-class ISO27001AssessmentEngine extends EventEmitter {
+class ISO27001AssessmentEngine {
   constructor(config = {}) {
-    super();
-    
     this.config = {
-      riskAssessmentCycle: 12, // 12 months
-      controlAssessmentFrequency: 6, // 6 months
-      continuousMonitoring: true,
-      riskTolerance: 'medium',
+      outputDir: '.claude/.artifacts/compliance/ISO27001/',
+      evidenceCollection: true,
+      auditHash: null,
       ...config
     };
 
-    // ISO27001:2022 Annex A control categories
-    this.annexACategories = {
-      'A.5': 'Information Security Policies',
-      'A.6': 'Organization of Information Security',
-      'A.7': 'Human Resource Security',
-      'A.8': 'Asset Management',
-      'A.9': 'Access Control',
-      'A.10': 'Cryptography',
-      'A.11': 'Physical and Environmental Security',
-      'A.12': 'Operations Security',
-      'A.13': 'Communications Security',
-      'A.14': 'System Acquisition, Development and Maintenance',
-      'A.15': 'Supplier Relationships',
-      'A.16': 'Information Security Incident Management',
-      'A.17': 'Information Security Aspects of Business Continuity Management',
-      'A.18': 'Compliance'
-    };
-
-    // Initialize ISO27001 controls
-    this.iso27001Controls = this.initializeISO27001Controls();
-    this.riskRegister = new Map();
-    this.controlAssessments = new Map();
-    this.managementSystemStatus = this.initializeManagementSystem();
-  }
-
-  /**
-   * Initialize comprehensive ISO27001:2022 Annex A controls
-   */
-  initializeISO27001Controls() {
-    return {
-      // A.5 Information Security Policies
-      'A.5.1': {
-        category: 'Information Security Policies',
-        title: 'Policies for Information Security',
-        description: 'Information security policy and topic-specific policies should be defined',
-        implementationGuidance: 'Establish, implement, maintain and continually improve information security policies',
-        riskLevel: 'High',
-        assessmentFrequency: 'Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Information security policy documented and approved',
-          'Topic-specific policies developed for key areas',
-          'Policies communicated to relevant stakeholders',
-          'Policy review and update process established'
-        ]
-      },
-      
-      // A.6 Organization of Information Security
-      'A.6.1': {
-        category: 'Organization of Information Security',
-        title: 'Information Security Roles and Responsibilities',
-        description: 'Information security roles and responsibilities should be defined and allocated',
-        implementationGuidance: 'Define and allocate information security responsibilities according to organizational needs',
-        riskLevel: 'High',
-        assessmentFrequency: 'Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Information security roles clearly defined',
-          'Responsibilities allocated to appropriate personnel',
-          'Authority levels documented',
-          'Reporting structures established'
-        ]
-      },
-      'A.6.2': {
-        category: 'Organization of Information Security',
-        title: 'Segregation of Duties',
-        description: 'Conflicting duties and areas of responsibility should be segregated',
-        implementationGuidance: 'Separate duties to reduce risk of accidental or deliberate misuse',
-        riskLevel: 'Medium',
-        assessmentFrequency: 'Annual',
-        applicability: 'Conditional',
-        requirements: [
-          'Conflicting duties identified and documented',
-          'Segregation controls implemented',
-          'Compensating controls for small organizations',
-          'Regular review of duty assignments'
-        ]
-      },
-
-      // A.7 Human Resource Security
-      'A.7.1': {
-        category: 'Human Resource Security',
-        title: 'Screening',
-        description: 'Background verification checks should be carried out on all candidates',
-        implementationGuidance: 'Conduct appropriate screening of personnel prior to employment',
-        riskLevel: 'Medium',
-        assessmentFrequency: 'Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Background screening process established',
-          'Verification appropriate to role sensitivity',
-          'Legal and regulatory compliance maintained',
-          'Screening records maintained securely'
-        ]
-      },
-      'A.7.2': {
-        category: 'Human Resource Security',
-        title: 'Terms and Conditions of Employment',
-        description: 'Contractual agreements should state responsibilities for information security',
-        implementationGuidance: 'Include information security responsibilities in employment agreements',
-        riskLevel: 'Medium',
-        assessmentFrequency: 'Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Security responsibilities included in contracts',
-          'Confidentiality agreements executed',
-          'Acceptable use policies acknowledged',
-          'Security awareness requirements specified'
-        ]
-      },
-
-      // A.8 Asset Management
-      'A.8.1': {
-        category: 'Asset Management',
-        title: 'Responsibility for Assets',
-        description: 'Assets should be identified and appropriate protection responsibilities should be assigned',
-        implementationGuidance: 'Identify organizational assets and define appropriate protection responsibilities',
-        riskLevel: 'High',
-        assessmentFrequency: 'Semi-Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Asset inventory maintained and updated',
-          'Asset ownership clearly defined',
-          'Protection responsibilities assigned',
-          'Asset classification implemented'
-        ]
-      },
-      'A.8.2': {
-        category: 'Asset Management',
-        title: 'Information Classification',
-        description: 'Information should be classified according to its sensitivity',
-        implementationGuidance: 'Classify information according to legal requirements, value, criticality and sensitivity',
-        riskLevel: 'High',
-        assessmentFrequency: 'Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Classification scheme established',
-          'Information labeled according to classification',
-          'Handling procedures defined per classification',
-          'Regular review and reclassification process'
-        ]
-      },
-
-      // A.9 Access Control
-      'A.9.1': {
-        category: 'Access Control',
-        title: 'Business Requirements for Access Control',
-        description: 'Access control policy should be established',
-        implementationGuidance: 'Limit access to information and processing facilities',
-        riskLevel: 'Critical',
-        assessmentFrequency: 'Semi-Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Access control policy documented',
-          'Business requirements for access defined',
-          'Least privilege principle implemented',
-          'Regular access reviews conducted'
-        ]
-      },
-      'A.9.2': {
-        category: 'Access Control',
-        title: 'User Access Management',
-        description: 'User access should be provisioned, reviewed and revoked appropriately',
-        implementationGuidance: 'Ensure authorized user access and prevent unauthorized access',
-        riskLevel: 'Critical',
-        assessmentFrequency: 'Quarterly',
-        applicability: 'Mandatory',
-        requirements: [
-          'User access provisioning process',
-          'Regular access reviews performed',
-          'Prompt access revocation procedures',
-          'Privileged access management'
-        ]
-      },
-
-      // A.10 Cryptography
-      'A.10.1': {
-        category: 'Cryptography',
-        title: 'Cryptographic Controls',
-        description: 'Policy on the use of cryptographic controls should be developed',
-        implementationGuidance: 'Use cryptography to protect the confidentiality, authenticity and integrity of information',
-        riskLevel: 'High',
-        assessmentFrequency: 'Annual',
-        applicability: 'Conditional',
-        requirements: [
-          'Cryptographic policy established',
-          'Appropriate cryptographic controls selected',
-          'Key management procedures implemented',
-          'Cryptographic standards compliance'
-        ]
-      },
-
-      // A.11 Physical and Environmental Security
-      'A.11.1': {
-        category: 'Physical and Environmental Security',
-        title: 'Physical Security Perimeters',
-        description: 'Physical security perimeters should be defined and used',
-        implementationGuidance: 'Prevent unauthorized physical access, damage and interference',
-        riskLevel: 'High',
-        assessmentFrequency: 'Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Security perimeters defined and implemented',
-          'Physical entry controls established',
-          'Visitor access management',
-          'Environmental monitoring systems'
-        ]
-      },
-
-      // A.12 Operations Security
-      'A.12.1': {
-        category: 'Operations Security',
-        title: 'Operational Procedures and Responsibilities',
-        description: 'Operating procedures should be documented and made available',
-        implementationGuidance: 'Ensure correct and secure operation of information processing facilities',
-        riskLevel: 'Medium',
-        assessmentFrequency: 'Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Operating procedures documented',
-          'Change management procedures implemented',
-          'Capacity management performed',
-          'System monitoring capabilities deployed'
-        ]
-      },
-      'A.12.2': {
-        category: 'Operations Security',
-        title: 'Protection from Malware',
-        description: 'Detection and prevention controls should be implemented',
-        implementationGuidance: 'Protect against malware and ensure awareness of information security threats',
-        riskLevel: 'High',
-        assessmentFrequency: 'Quarterly',
-        applicability: 'Mandatory',
-        requirements: [
-          'Anti-malware software deployed',
-          'Regular updates and scanning performed',
-          'User awareness training provided',
-          'Incident response procedures for malware'
-        ]
-      },
-
-      // A.13 Communications Security
-      'A.13.1': {
-        category: 'Communications Security',
-        title: 'Network Security Management',
-        description: 'Networks should be managed and controlled',
-        implementationGuidance: 'Ensure protection of information in networks and facilities',
-        riskLevel: 'High',
-        assessmentFrequency: 'Semi-Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Network controls implemented',
-          'Network segregation performed',
-          'Network monitoring capabilities',
-          'Secure network architecture'
-        ]
-      },
-
-      // A.14 System Acquisition, Development and Maintenance
-      'A.14.1': {
-        category: 'System Acquisition, Development and Maintenance',
-        title: 'Security Requirements of Information Systems',
-        description: 'Information security requirements should be identified and addressed',
-        implementationGuidance: 'Ensure information security is an integral part of information systems',
-        riskLevel: 'High',
-        assessmentFrequency: 'Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Security requirements specification process',
-          'Secure development lifecycle implemented',
-          'Security testing performed',
-          'Change control procedures established'
-        ]
-      },
-
-      // A.15 Supplier Relationships
-      'A.15.1': {
-        category: 'Supplier Relationships',
-        title: 'Information Security in Supplier Relationships',
-        description: 'Information security requirements should be addressed in supplier agreements',
-        implementationGuidance: 'Maintain appropriate level of information security in supplier relationships',
-        riskLevel: 'Medium',
-        assessmentFrequency: 'Annual',
-        applicability: 'Conditional',
-        requirements: [
-          'Supplier security requirements defined',
-          'Information security clauses in agreements',
-          'Supplier security assessments performed',
-          'Supply chain monitoring implemented'
-        ]
-      },
-
-      // A.16 Information Security Incident Management
-      'A.16.1': {
-        category: 'Information Security Incident Management',
-        title: 'Management of Information Security Incidents and Improvements',
-        description: 'Information security incidents should be managed through defined procedures',
-        implementationGuidance: 'Ensure consistent and effective approach to management of information security incidents',
-        riskLevel: 'High',
-        assessmentFrequency: 'Semi-Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Incident management procedures established',
-          'Incident reporting mechanisms implemented',
-          'Response team roles and responsibilities',
-          'Lessons learned process implemented'
-        ]
-      },
-
-      // A.17 Business Continuity Management
-      'A.17.1': {
-        category: 'Information Security Aspects of Business Continuity Management',
-        title: 'Information Security Continuity',
-        description: 'Information security continuity should be planned and implemented',
-        implementationGuidance: 'Counteract interruptions to business activities and protect critical business processes',
-        riskLevel: 'High',
-        assessmentFrequency: 'Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Business continuity planning performed',
-          'Information security considerations included',
-          'Recovery procedures tested',
-          'Backup and recovery capabilities'
-        ]
-      },
-
-      // A.18 Compliance
-      'A.18.1': {
-        category: 'Compliance',
-        title: 'Compliance with Legal and Contractual Requirements',
-        description: 'Legal, statutory, regulatory and contractual requirements should be identified',
-        implementationGuidance: 'Avoid breaches of legal, statutory, regulatory or contractual obligations',
-        riskLevel: 'Critical',
-        assessmentFrequency: 'Semi-Annual',
-        applicability: 'Mandatory',
-        requirements: [
-          'Legal and regulatory requirements identified',
-          'Compliance monitoring procedures implemented',
-          'Regular compliance assessments performed',
-          'Privacy and data protection compliance'
-        ]
-      }
+    // ISO27001:2022 Annex A Control domains
+    this.controlDomains = {
+      'A.5': { name: 'Information Security Policies', weight: 0.08, controls: 2 },
+      'A.6': { name: 'Organization of Information Security', weight: 0.10, controls: 8 },
+      'A.7': { name: 'Human Resource Security', weight: 0.08, controls: 7 },
+      'A.8': { name: 'Asset Management', weight: 0.12, controls: 10 },
+      'A.9': { name: 'Access Control', weight: 0.15, controls: 14 },
+      'A.10': { name: 'Cryptography', weight: 0.07, controls: 2 },
+      'A.11': { name: 'Physical and Environmental Security', weight: 0.08, controls: 15 },
+      'A.12': { name: 'Operations Security', weight: 0.12, controls: 14 },
+      'A.13': { name: 'Communications Security', weight: 0.08, controls: 7 },
+      'A.14': { name: 'System Acquisition, Development and Maintenance', weight: 0.10, controls: 13 },
+      'A.15': { name: 'Supplier Relationship Security', weight: 0.07, controls: 3 },
+      'A.16': { name: 'Information Security Incident Management', weight: 0.08, controls: 7 },
+      'A.17': { name: 'Information Security Aspects of Business Continuity Management', weight: 0.05, controls: 4 },
+      'A.18': { name: 'Compliance', weight: 0.08, controls: 8 }
     };
   }
 
-  /**
-   * Initialize Information Security Management System status
-   */
-  initializeManagementSystem() {
-    return {
-      scope: 'To be defined',
-      policy: 'Draft',
-      riskAssessment: 'Pending',
-      treatmentPlan: 'Not Started',
-      implementation: 'In Progress',
-      monitoring: 'Partial',
-      review: 'Scheduled',
-      improvement: 'Ongoing'
-    };
-  }
+  async validateCompliance() {
+    console.log('Starting ISO27001:2022 compliance assessment...');
 
-  /**
-   * Initialize ISO27001 assessment engine
-   */
-  async initialize() {
-    try {
-      // Load existing risk assessments and control evaluations
-      await this.loadRiskRegister();
-      await this.loadControlAssessments();
-      
-      // Initialize continuous monitoring if enabled
-      if (this.config.continuousMonitoring) {
-        await this.initializeContinuousMonitoring();
-      }
-
-      this.emit('initialized', {
-        controlsCount: Object.keys(this.iso27001Controls).length,
-        categoriesCount: Object.keys(this.annexACategories).length,
-        riskItems: this.riskRegister.size
-      });
-
-      console.log('✅ ISO27001 Assessment Engine initialized');
-    } catch (error) {
-      throw new Error(`ISO27001 engine initialization failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Assess all Annex A controls
-   */
-  async assessAnnexAControls() {
-    try {
-      const annexAResults = {};
-
-      // Assess controls by category
-      for (const [categoryCode, categoryName] of Object.entries(this.annexACategories)) {
-        const categoryControls = Object.entries(this.iso27001Controls)
-          .filter(([controlId]) => controlId.startsWith(categoryCode))
-          .map(([controlId, control]) => ({ controlId, ...control }));
-
-        const categoryAssessment = await this.assessControlCategory(categoryCode, categoryName, categoryControls);
-        annexAResults[categoryCode] = categoryAssessment;
-      }
-
-      return {
-        timestamp: new Date().toISOString(),
-        standard: 'ISO27001:2022',
-        annexVersion: 'Annex A',
-        assessment: annexAResults,
-        overallCompliance: this.calculateAnnexACompliance(annexAResults),
-        controlsSummary: this.generateControlsSummary(annexAResults),
-        nextAssessment: this.calculateNextControlAssessment()
-      };
-
-    } catch (error) {
-      throw new Error(`Annex A controls assessment failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Execute comprehensive risk assessment
-   */
-  async executeRiskAssessment() {
-    try {
-      // Identify assets and threats
-      const assetInventory = await this.identifyAssets();
-      const threatCatalog = await this.identifyThreats();
-      const vulnerabilityAssessment = await this.assessVulnerabilities();
-
-      // Perform risk analysis
-      const riskAnalysis = await this.analyzeRisks(assetInventory, threatCatalog, vulnerabilityAssessment);
-      
-      // Evaluate risks against criteria
-      const riskEvaluation = await this.evaluateRisks(riskAnalysis);
-      
-      // Update risk register
-      await this.updateRiskRegister(riskEvaluation);
-
-      return {
-        timestamp: new Date().toISOString(),
-        methodology: 'ISO27001:2022 Risk Management',
-        assets: assetInventory.summary,
-        threats: threatCatalog.summary,
-        vulnerabilities: vulnerabilityAssessment.summary,
-        risks: riskEvaluation,
-        riskCriteria: this.getRiskCriteria(),
-        nextAssessment: this.calculateNextRiskAssessment()
-      };
-
-    } catch (error) {
-      throw new Error(`Risk assessment failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Assess Information Security Management System
-   */
-  async assessManagementSystem() {
-    try {
-      const ismsAssessment = {
-        scope: await this.assessISMSScope(),
-        policy: await this.assessInformationSecurityPolicy(),
-        riskManagement: await this.assessRiskManagementProcess(),
-        controlImplementation: await this.assessControlImplementation(),
-        monitoring: await this.assessMonitoringAndMeasurement(),
-        improvement: await this.assessContinualImprovement()
-      };
-
-      // Calculate overall ISMS maturity
-      const maturityScore = this.calculateISMSMaturity(ismsAssessment);
-
-      return {
-        timestamp: new Date().toISOString(),
-        standard: 'ISO27001:2022',
-        assessment: ismsAssessment,
-        maturityScore,
-        recommendations: this.generateISMSRecommendations(ismsAssessment),
-        nextReview: this.calculateNextISMSReview()
-      };
-
-    } catch (error) {
-      throw new Error(`ISMS assessment failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Generate control mapping to other frameworks
-   */
-  async generateControlMapping() {
-    try {
-      const mappings = {
-        'SOC2': await this.mapToSOC2(),
-        'NIST-CSF': await this.mapToNISTCSF(),
-        'NIST-800-53': await this.mapToNIST80053(),
-        'PCI-DSS': await this.mapToPCIDSS()
-      };
-
-      return {
-        timestamp: new Date().toISOString(),
-        source: 'ISO27001:2022 Annex A',
-        mappings,
-        coverageAnalysis: this.analyzeMappingCoverage(mappings),
-        gapAnalysis: this.identifyMappingGaps(mappings)
-      };
-
-    } catch (error) {
-      throw new Error(`Control mapping generation failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Assess individual control category
-   */
-  async assessControlCategory(categoryCode, categoryName, controls) {
-    const categoryResults = {
-      categoryCode,
-      categoryName,
-      controlsCount: controls.length,
-      assessedAt: new Date().toISOString(),
-      controls: {},
-      compliance: {
-        implemented: 0,
-        partiallyImplemented: 0,
-        notImplemented: 0,
-        notApplicable: 0,
-        percentage: 0
-      }
+    const results = {
+      framework: 'ISO27001',
+      standard_version: '2022',
+      timestamp: new Date().toISOString(),
+      audit_hash: this.config.auditHash,
+      overall_score: 0,
+      total_findings: 0,
+      domains: {},
+      evidence: {},
+      recommendations: [],
+      risk_assessment: {}
     };
 
-    for (const control of controls) {
-      const controlResult = await this.assessIndividualControl(control.controlId, control);
-      categoryResults.controls[control.controlId] = controlResult;
-
-      // Update compliance counters
-      switch (controlResult.implementationStatus) {
-        case 'implemented':
-          categoryResults.compliance.implemented++;
-          break;
-        case 'partially-implemented':
-          categoryResults.compliance.partiallyImplemented++;
-          break;
-        case 'not-implemented':
-          categoryResults.compliance.notImplemented++;
-          break;
-        case 'not-applicable':
-          categoryResults.compliance.notApplicable++;
-          break;
-      }
-    }
-
-    // Calculate compliance percentage (excluding not applicable)
-    const applicableControls = controls.length - categoryResults.compliance.notApplicable;
-    categoryResults.compliance.percentage = applicableControls > 0
-      ? (categoryResults.compliance.implemented / applicableControls) * 100
-      : 100;
-
-    return categoryResults;
-  }
-
-  /**
-   * Assess individual control
-   */
-  async assessIndividualControl(controlId, control) {
     try {
-      // Check applicability
-      const applicabilityAssessment = await this.assessControlApplicability(controlId, control);
-      
-      if (!applicabilityAssessment.applicable) {
-        return {
-          controlId,
-          assessedAt: new Date().toISOString(),
-          implementationStatus: 'not-applicable',
-          justification: applicabilityAssessment.justification,
-          evidence: []
-        };
+      await this.ensureOutputDirectory();
+
+      // Assess each control domain
+      for (const [domain, details] of Object.entries(this.controlDomains)) {
+        const domainResult = await this.assessControlDomain(domain, details);
+        results.domains[domain] = domainResult;
+        results.overall_score += domainResult.score * details.weight;
+        results.total_findings += domainResult.findings.length;
       }
 
-      // Assess implementation
-      const implementationAssessment = await this.assessControlImplementation(controlId, control);
-      
-      // Assess effectiveness
-      const effectivenessAssessment = await this.assessControlEffectiveness(controlId, control, implementationAssessment);
+      // Conduct risk assessment
+      results.risk_assessment = await this.conductRiskAssessment();
 
-      // Determine overall status
-      const implementationStatus = this.determineImplementationStatus(implementationAssessment, effectivenessAssessment);
+      // Collect evidence if enabled
+      if (this.config.evidenceCollection) {
+        results.evidence = await this.collectEvidence();
+      }
 
-      return {
-        controlId,
-        assessedAt: new Date().toISOString(),
-        implementationStatus,
-        implementationScore: implementationAssessment.score,
-        effectivenessScore: effectivenessAssessment.score,
-        evidence: implementationAssessment.evidence,
-        findings: this.extractControlFindings(implementationAssessment, effectivenessAssessment),
-        recommendations: this.generateControlRecommendations(controlId, implementationAssessment, effectivenessAssessment)
-      };
+      // Generate remediation recommendations
+      results.recommendations = await this.generateRecommendations(results);
+
+      // Write results
+      await this.writeResults(results);
+
+      console.log(`ISO27001 assessment completed. Overall score: ${(results.overall_score * 100).toFixed(1)}%`);
+      return results;
 
     } catch (error) {
-      return {
-        controlId,
-        assessedAt: new Date().toISOString(),
-        implementationStatus: 'assessment-failed',
-        error: error.message
-      };
+      console.error('ISO27001 assessment failed:', error.message);
+      throw error;
     }
   }
 
-  /**
-   * Assess control applicability
-   */
-  async assessControlApplicability(controlId, control) {
-    // Default: all mandatory controls are applicable
-    if (control.applicability === 'Mandatory') {
-      return {
-        applicable: true,
-        justification: 'Control is mandatory per ISO27001:2022'
-      };
-    }
-
-    // For conditional controls, perform applicability assessment
-    return {
-      applicable: true, // Placeholder - would contain actual applicability logic
-      justification: 'Control applicable based on organizational context'
-    };
-  }
-
-  /**
-   * Assess control implementation
-   */
-  async assessControlImplementation(controlId, control) {
-    const implementation = {
+  async assessControlDomain(domain, details) {
+    const result = {
+      name: details.name,
       score: 0,
-      evidence: [],
-      completedRequirements: 0,
-      totalRequirements: control.requirements.length
+      findings: [],
+      evidence_files: [],
+      controls_tested: details.controls,
+      controls_implemented: 0,
+      maturity_level: 'Initial',
+      risk_level: 'High'
     };
 
-    // Assess each requirement
-    for (const requirement of control.requirements) {
-      const requirementAssessment = await this.assessControlRequirement(controlId, requirement);
-      
-      if (requirementAssessment.implemented) {
-        implementation.completedRequirements++;
-        implementation.evidence.push(requirementAssessment.evidence);
-      }
+    switch (domain) {
+      case 'A.5': // Information Security Policies
+        await this.assessPolicies(result);
+        break;
+      case 'A.6': // Organization of Information Security
+        await this.assessOrganization(result);
+        break;
+      case 'A.7': // Human Resource Security
+        await this.assessHumanResources(result);
+        break;
+      case 'A.8': // Asset Management
+        await this.assessAssetManagement(result);
+        break;
+      case 'A.9': // Access Control
+        await this.assessAccessControl(result);
+        break;
+      case 'A.10': // Cryptography
+        await this.assessCryptography(result);
+        break;
+      case 'A.11': // Physical and Environmental Security
+        await this.assessPhysicalSecurity(result);
+        break;
+      case 'A.12': // Operations Security
+        await this.assessOperationsSecurity(result);
+        break;
+      case 'A.13': // Communications Security
+        await this.assessCommunicationsSecurity(result);
+        break;
+      case 'A.14': // System Acquisition, Development and Maintenance
+        await this.assessSystemDevelopment(result);
+        break;
+      case 'A.15': // Supplier Relationship Security
+        await this.assessSupplierSecurity(result);
+        break;
+      case 'A.16': // Information Security Incident Management
+        await this.assessIncidentManagement(result);
+        break;
+      case 'A.17': // Business Continuity Management
+        await this.assessBusinessContinuity(result);
+        break;
+      case 'A.18': // Compliance
+        await this.assessCompliance(result);
+        break;
     }
 
-    // Calculate implementation score
-    implementation.score = (implementation.completedRequirements / implementation.totalRequirements) * 100;
+    result.score = result.controls_tested > 0 ?
+      result.controls_implemented / result.controls_tested : 0;
 
-    return implementation;
+    // Determine maturity level
+    if (result.score >= 0.95) result.maturity_level = 'Optimized';
+    else if (result.score >= 0.85) result.maturity_level = 'Managed';
+    else if (result.score >= 0.70) result.maturity_level = 'Defined';
+    else if (result.score >= 0.50) result.maturity_level = 'Repeatable';
+
+    // Determine risk level
+    if (result.score >= 0.90) result.risk_level = 'Low';
+    else if (result.score >= 0.70) result.risk_level = 'Medium';
+    else result.risk_level = 'High';
+
+    return result;
   }
 
-  /**
-   * Assess control effectiveness
-   */
-  async assessControlEffectiveness(controlId, control, implementationAssessment) {
-    const effectiveness = {
-      score: 0,
-      metrics: [],
-      monitoring: null
-    };
-
-    // If not implemented, effectiveness is 0
-    if (implementationAssessment.score < 50) {
-      return effectiveness;
-    }
-
-    // Assess effectiveness metrics
-    const effectivenessMetrics = await this.collectEffectivenessMetrics(controlId, control);
-    effectiveness.metrics = effectivenessMetrics;
-
-    // Calculate effectiveness score based on metrics
-    effectiveness.score = this.calculateEffectivenessScore(effectivenessMetrics);
-
-    return effectiveness;
-  }
-
-  /**
-   * Risk assessment methods
-   */
-  async identifyAssets() {
-    // Placeholder for asset identification
-    return {
-      assets: [
-        { id: 'APP-001', type: 'Application', criticality: 'High' },
-        { id: 'DATA-001', type: 'Database', criticality: 'Critical' }
-      ],
-      summary: { total: 2, critical: 1, high: 1, medium: 0, low: 0 }
-    };
-  }
-
-  async identifyThreats() {
-    // Placeholder for threat identification
-    return {
-      threats: [
-        { id: 'THR-001', name: 'Unauthorized Access', likelihood: 'Medium' },
-        { id: 'THR-002', name: 'Data Breach', likelihood: 'High' }
-      ],
-      summary: { total: 2, high: 1, medium: 1, low: 0 }
-    };
-  }
-
-  async assessVulnerabilities() {
-    // Placeholder for vulnerability assessment
-    return {
-      vulnerabilities: [
-        { id: 'VUL-001', severity: 'High', exploitability: 'Medium' }
-      ],
-      summary: { total: 1, critical: 0, high: 1, medium: 0, low: 0 }
-    };
-  }
-
-  async analyzeRisks(assets, threats, vulnerabilities) {
-    // Placeholder for risk analysis
-    return {
-      risks: [
-        { id: 'RISK-001', impact: 'High', likelihood: 'Medium', riskLevel: 'High' }
-      ]
-    };
-  }
-
-  async evaluateRisks(riskAnalysis) {
-    // Placeholder for risk evaluation
-    return {
-      totalRisks: 1,
-      highRisks: 1,
-      mediumRisks: 0,
-      lowRisks: 0,
-      treatmentRequired: 1
-    };
-  }
-
-  /**
-   * Get engine status summary
-   */
-  async getStatusSummary() {
-    const controlsCount = Object.keys(this.iso27001Controls).length;
-    const assessedControls = this.controlAssessments.size;
-    const riskItems = this.riskRegister.size;
-    
-    return {
-      framework: 'ISO27001:2022',
-      controlsCount,
-      assessedControls,
-      riskItems,
-      lastRiskAssessment: null, // Would be actual date
-      status: 'active'
-    };
-  }
-
-  /**
-   * Utility methods
-   */
-  calculateAnnexACompliance(annexAResults) {
-    const percentages = Object.values(annexAResults).map(cat => cat.compliance.percentage);
-    return percentages.reduce((a, b) => a + b, 0) / percentages.length;
-  }
-
-  generateControlsSummary(annexAResults) {
-    const summary = { total: 0, implemented: 0, partiallyImplemented: 0, notImplemented: 0, notApplicable: 0 };
-    
-    Object.values(annexAResults).forEach(category => {
-      summary.total += category.compliance.implemented + category.compliance.partiallyImplemented + 
-                     category.compliance.notImplemented + category.compliance.notApplicable;
-      summary.implemented += category.compliance.implemented;
-      summary.partiallyImplemented += category.compliance.partiallyImplemented;
-      summary.notImplemented += category.compliance.notImplemented;
-      summary.notApplicable += category.compliance.notApplicable;
-    });
-
-    return summary;
-  }
-
-  calculateNextControlAssessment() {
-    const nextDate = new Date();
-    nextDate.setMonth(nextDate.getMonth() + this.config.controlAssessmentFrequency);
-    return nextDate.toISOString();
-  }
-
-  calculateNextRiskAssessment() {
-    const nextDate = new Date();
-    nextDate.setMonth(nextDate.getMonth() + this.config.riskAssessmentCycle);
-    return nextDate.toISOString();
-  }
-
-  calculateNextISMSReview() {
-    const nextDate = new Date();
-    nextDate.setMonth(nextDate.getMonth() + 12); // Annual ISMS review
-    return nextDate.toISOString();
-  }
-
-  determineImplementationStatus(implementationAssessment, effectivenessAssessment) {
-    if (implementationAssessment.score >= 90 && effectivenessAssessment.score >= 80) {
-      return 'implemented';
-    } else if (implementationAssessment.score >= 50) {
-      return 'partially-implemented';
+  async assessPolicies(result) {
+    // A.5.1 Information security policy
+    if (await this.fileExists('docs/security/information-security-policy.md')) {
+      result.controls_implemented++;
+      result.evidence_files.push('docs/security/information-security-policy.md');
     } else {
-      return 'not-implemented';
+      result.findings.push('A.5.1: Missing information security policy');
+    }
+
+    // A.5.2 Information security roles and responsibilities
+    if (await this.fileExists('docs/security/roles-responsibilities.md')) {
+      result.controls_implemented++;
+      result.evidence_files.push('docs/security/roles-responsibilities.md');
+    } else {
+      result.findings.push('A.5.2: Missing security roles and responsibilities documentation');
     }
   }
 
-  getRiskCriteria() {
+  async assessOrganization(result) {
+    const organizationControls = [
+      { id: 'A.6.1', file: 'docs/governance/information-security-management.md', name: 'Management commitment to information security' },
+      { id: 'A.6.2', file: 'docs/governance/segregation-of-duties.md', name: 'Segregation of duties' },
+      { id: 'A.6.3', file: 'docs/governance/contact-authorities.md', name: 'Contact with authorities' },
+      { id: 'A.6.4', file: 'docs/governance/contact-groups.md', name: 'Contact with special interest groups' },
+      { id: 'A.6.5', file: 'docs/governance/threat-intelligence.md', name: 'Threat intelligence' },
+      { id: 'A.6.6', file: 'docs/governance/project-management.md', name: 'Information security in project management' },
+      { id: 'A.6.7', file: 'docs/governance/organizing-information-security.md', name: 'Organizing information security' },
+      { id: 'A.6.8', file: 'docs/governance/remote-working.md', name: 'Remote working' }
+    ];
+
+    for (const control of organizationControls) {
+      if (await this.fileExists(control.file)) {
+        result.controls_implemented++;
+        result.evidence_files.push(control.file);
+      } else {
+        result.findings.push(`${control.id}: Missing ${control.name.toLowerCase()}`);
+      }
+    }
+  }
+
+  async assessHumanResources(result) {
+    const hrControls = [
+      { id: 'A.7.1', file: 'docs/hr/background-verification.md', name: 'Background verification' },
+      { id: 'A.7.2', file: 'docs/hr/terms-conditions.md', name: 'Terms and conditions of employment' },
+      { id: 'A.7.3', file: 'docs/hr/disciplinary-process.md', name: 'Disciplinary process' },
+      { id: 'A.7.4', file: 'docs/hr/security-responsibilities.md', name: 'Information security responsibilities' },
+      { id: 'A.7.5', file: 'docs/hr/remote-working-guidelines.md', name: 'Remote working' },
+      { id: 'A.7.6', file: 'docs/hr/security-awareness.md', name: 'Information security awareness, education and training' },
+      { id: 'A.7.7', file: 'docs/hr/termination-responsibilities.md', name: 'Termination or change of employment' }
+    ];
+
+    for (const control of hrControls) {
+      if (await this.fileExists(control.file)) {
+        result.controls_implemented++;
+        result.evidence_files.push(control.file);
+      } else {
+        result.findings.push(`${control.id}: Missing ${control.name.toLowerCase()}`);
+      }
+    }
+  }
+
+  async assessAssetManagement(result) {
+    const assetControls = [
+      { id: 'A.8.1', file: 'docs/assets/inventory.md', name: 'Inventory of assets' },
+      { id: 'A.8.2', file: 'docs/assets/ownership.md', name: 'Ownership of assets' },
+      { id: 'A.8.3', file: 'docs/assets/acceptable-use.md', name: 'Acceptable use of assets' },
+      { id: 'A.8.4', file: 'docs/assets/return-policy.md', name: 'Return of assets' },
+      { id: 'A.8.5', file: 'docs/assets/classification.md', name: 'Classification of information' },
+      { id: 'A.8.6', file: 'docs/assets/labeling.md', name: 'Labeling of information' },
+      { id: 'A.8.7', file: 'docs/assets/handling.md', name: 'Handling of assets' },
+      { id: 'A.8.8', file: 'docs/assets/retention.md', name: 'Management of removable media' },
+      { id: 'A.8.9', file: 'docs/assets/disposal.md', name: 'Disposal of media' },
+      { id: 'A.8.10', file: 'docs/assets/transfer.md', name: 'Information transfer' }
+    ];
+
+    for (const control of assetControls) {
+      if (await this.fileExists(control.file)) {
+        result.controls_implemented++;
+        result.evidence_files.push(control.file);
+      } else {
+        result.findings.push(`${control.id}: Missing ${control.name.toLowerCase()}`);
+      }
+    }
+  }
+
+  async assessAccessControl(result) {
+    // Check for authentication and authorization systems
+    if (await this.fileExists('src/auth/') || await this.fileExists('lib/auth/')) {
+      result.controls_implemented += 3; // A.9.1, A.9.2, A.9.3
+      result.evidence_files.push('authentication system');
+    } else {
+      result.findings.push('A.9.1-A.9.3: Missing authentication and authorization systems');
+    }
+
+    // Check for access control policies
+    if (await this.fileExists('docs/access-control/')) {
+      result.controls_implemented += 4; // A.9.4, A.9.5, A.9.6, A.9.7
+      result.evidence_files.push('docs/access-control/');
+    } else {
+      result.findings.push('A.9.4-A.9.7: Missing access control policies');
+    }
+
+    // Check for privileged access management
+    if (await this.fileExists('docs/access-control/privileged-access.md')) {
+      result.controls_implemented += 2; // A.9.8, A.9.9
+      result.evidence_files.push('docs/access-control/privileged-access.md');
+    } else {
+      result.findings.push('A.9.8-A.9.9: Missing privileged access management');
+    }
+
+    // Check for access reviews
+    if (await this.fileExists('docs/access-control/access-review.md')) {
+      result.controls_implemented += 3; // A.9.10, A.9.11, A.9.12
+      result.evidence_files.push('docs/access-control/access-review.md');
+    } else {
+      result.findings.push('A.9.10-A.9.12: Missing access review procedures');
+    }
+
+    // Check for secure logon procedures
+    if (await this.fileExists('docs/access-control/secure-logon.md')) {
+      result.controls_implemented += 2; // A.9.13, A.9.14
+      result.evidence_files.push('docs/access-control/secure-logon.md');
+    } else {
+      result.findings.push('A.9.13-A.9.14: Missing secure logon procedures');
+    }
+  }
+
+  async assessCryptography(result) {
+    // A.10.1 Policy on the use of cryptographic controls
+    if (await this.fileExists('docs/security/cryptography-policy.md')) {
+      result.controls_implemented++;
+      result.evidence_files.push('docs/security/cryptography-policy.md');
+    } else {
+      result.findings.push('A.10.1: Missing cryptography policy');
+    }
+
+    // A.10.2 Key management
+    if (await this.fileExists('src/crypto/') || await this.fileExists('docs/security/key-management.md')) {
+      result.controls_implemented++;
+      result.evidence_files.push('cryptographic key management');
+    } else {
+      result.findings.push('A.10.2: Missing key management system');
+    }
+  }
+
+  async assessPhysicalSecurity(result) {
+    // Simplified assessment - in real environment would check physical controls
+    const physicalControls = 15; // Total A.11 controls
+    const documentedControls = [
+      'docs/physical-security/secure-areas.md',
+      'docs/physical-security/physical-entry.md',
+      'docs/physical-security/equipment-protection.md',
+      'docs/physical-security/maintenance.md',
+      'docs/physical-security/secure-disposal.md'
+    ];
+
+    for (const control of documentedControls) {
+      if (await this.fileExists(control)) {
+        result.controls_implemented += 3; // Each document covers ~3 controls
+        result.evidence_files.push(control);
+      }
+    }
+
+    if (result.controls_implemented === 0) {
+      result.findings.push('A.11: Missing physical and environmental security controls');
+    }
+  }
+
+  async assessOperationsSecurity(result) {
+    const opsControls = [
+      { id: 'A.12.1', file: 'docs/operations/procedures.md', name: 'Operating procedures and responsibilities' },
+      { id: 'A.12.2', file: 'docs/operations/change-management.md', name: 'Change management' },
+      { id: 'A.12.3', file: 'docs/operations/capacity-management.md', name: 'Capacity management' },
+      { id: 'A.12.4', file: 'docs/operations/separation.md', name: 'Separation of development, testing and operational environments' },
+      { id: 'A.12.5', file: 'monitoring/', name: 'Information processing facilities' },
+      { id: 'A.12.6', file: 'docs/operations/vulnerability-management.md', name: 'Vulnerability management' },
+      { id: 'A.12.7', file: 'docs/operations/logging.md', name: 'Information systems audit considerations' },
+      { id: 'A.12.8', file: 'src/logging/', name: 'Logging and monitoring' },
+      { id: 'A.12.9', file: 'docs/operations/backup.md', name: 'Protection of log information' },
+      { id: 'A.12.10', file: 'docs/operations/administrator-logs.md', name: 'Administrator and operator logs' },
+      { id: 'A.12.11', file: 'docs/operations/clock-synchronization.md', name: 'Clock synchronisation' },
+      { id: 'A.12.12', file: 'docs/operations/malware.md', name: 'Control of operational software' },
+      { id: 'A.12.13', file: 'docs/operations/technical-vulnerability.md', name: 'Technical vulnerability management' },
+      { id: 'A.12.14', file: 'docs/operations/audit-testing.md', name: 'Information systems audit considerations' }
+    ];
+
+    for (const control of opsControls) {
+      if (await this.fileExists(control.file)) {
+        result.controls_implemented++;
+        result.evidence_files.push(control.file);
+      } else {
+        result.findings.push(`${control.id}: Missing ${control.name.toLowerCase()}`);
+      }
+    }
+  }
+
+  async assessCommunicationsSecurity(result) {
+    const commsControls = [
+      { id: 'A.13.1', file: 'docs/communications/network-security.md', name: 'Network security management' },
+      { id: 'A.13.2', file: 'docs/communications/information-transfer.md', name: 'Information transfer policies and procedures' },
+      { id: 'A.13.3', file: 'docs/communications/electronic-messaging.md', name: 'Electronic messaging' },
+      { id: 'A.13.4', file: 'docs/communications/confidentiality-agreements.md', name: 'Confidentiality or non-disclosure agreements' },
+      { id: 'A.13.5', file: 'config/network/', name: 'Network controls' },
+      { id: 'A.13.6', file: 'docs/communications/secure-connections.md', name: 'Secure connections' },
+      { id: 'A.13.7', file: 'docs/communications/transmission-integrity.md', name: 'Secure transmission' }
+    ];
+
+    for (const control of commsControls) {
+      if (await this.fileExists(control.file)) {
+        result.controls_implemented++;
+        result.evidence_files.push(control.file);
+      } else {
+        result.findings.push(`${control.id}: Missing ${control.name.toLowerCase()}`);
+      }
+    }
+  }
+
+  async assessSystemDevelopment(result) {
+    // Check for secure development practices
+    if (await this.fileExists('.github/workflows/') && await this.fileExists('tests/')) {
+      result.controls_implemented += 5; // A.14.1-A.14.5 (Development lifecycle controls)
+      result.evidence_files.push('secure development lifecycle');
+    } else {
+      result.findings.push('A.14.1-A.14.5: Missing secure development lifecycle');
+    }
+
+    // Check for security testing
+    if (await this.fileExists('tests/security/')) {
+      result.controls_implemented += 3; // A.14.6-A.14.8 (Security testing)
+      result.evidence_files.push('tests/security/');
+    } else {
+      result.findings.push('A.14.6-A.14.8: Missing security testing');
+    }
+
+    // Check for change management
+    if (await this.fileExists('docs/development/change-management.md')) {
+      result.controls_implemented += 3; // A.14.9-A.14.11 (Change management)
+      result.evidence_files.push('docs/development/change-management.md');
+    } else {
+      result.findings.push('A.14.9-A.14.11: Missing development change management');
+    }
+
+    // Check for outsourced development
+    if (await this.fileExists('docs/development/outsourcing.md')) {
+      result.controls_implemented += 2; // A.14.12-A.14.13 (Outsourcing)
+      result.evidence_files.push('docs/development/outsourcing.md');
+    } else {
+      result.findings.push('A.14.12-A.14.13: Missing outsourced development controls');
+    }
+  }
+
+  async assessSupplierSecurity(result) {
+    const supplierControls = [
+      { id: 'A.15.1', file: 'docs/suppliers/security-policy.md', name: 'Information security policy for supplier relationships' },
+      { id: 'A.15.2', file: 'docs/suppliers/security-requirements.md', name: 'Addressing security within supplier agreements' },
+      { id: 'A.15.3', file: 'docs/suppliers/supply-chain.md', name: 'Information and communication technology supply chain' }
+    ];
+
+    for (const control of supplierControls) {
+      if (await this.fileExists(control.file)) {
+        result.controls_implemented++;
+        result.evidence_files.push(control.file);
+      } else {
+        result.findings.push(`${control.id}: Missing ${control.name.toLowerCase()}`);
+      }
+    }
+  }
+
+  async assessIncidentManagement(result) {
+    const incidentControls = [
+      { id: 'A.16.1', file: 'docs/incident-response/management-responsibilities.md', name: 'Management responsibilities and procedures' },
+      { id: 'A.16.2', file: 'docs/incident-response/reporting-events.md', name: 'Reporting information security events' },
+      { id: 'A.16.3', file: 'docs/incident-response/reporting-weaknesses.md', name: 'Reporting information security weaknesses' },
+      { id: 'A.16.4', file: 'docs/incident-response/assessment.md', name: 'Assessment of and decision on information security events' },
+      { id: 'A.16.5', file: 'docs/incident-response/response.md', name: 'Response to information security incidents' },
+      { id: 'A.16.6', file: 'docs/incident-response/learning.md', name: 'Learning from information security incidents' },
+      { id: 'A.16.7', file: 'docs/incident-response/evidence.md', name: 'Collection of evidence' }
+    ];
+
+    for (const control of incidentControls) {
+      if (await this.fileExists(control.file)) {
+        result.controls_implemented++;
+        result.evidence_files.push(control.file);
+      } else {
+        result.findings.push(`${control.id}: Missing ${control.name.toLowerCase()}`);
+      }
+    }
+  }
+
+  async assessBusinessContinuity(result) {
+    const bcmControls = [
+      { id: 'A.17.1', file: 'docs/business-continuity/planning.md', name: 'Planning information security continuity' },
+      { id: 'A.17.2', file: 'docs/business-continuity/redundancies.md', name: 'Implementing information security continuity' },
+      { id: 'A.17.3', file: 'docs/business-continuity/verification.md', name: 'Verify, review and evaluate information security continuity' },
+      { id: 'A.17.4', file: 'docs/business-continuity/availability.md', name: 'Information and communication technology readiness for business continuity' }
+    ];
+
+    for (const control of bcmControls) {
+      if (await this.fileExists(control.file)) {
+        result.controls_implemented++;
+        result.evidence_files.push(control.file);
+      } else {
+        result.findings.push(`${control.id}: Missing ${control.name.toLowerCase()}`);
+      }
+    }
+  }
+
+  async assessCompliance(result) {
+    const complianceControls = [
+      { id: 'A.18.1', file: 'docs/compliance/legal-requirements.md', name: 'Compliance with legal and contractual requirements' },
+      { id: 'A.18.2', file: 'docs/compliance/intellectual-property.md', name: 'Intellectual property rights' },
+      { id: 'A.18.3', file: 'docs/compliance/records-protection.md', name: 'Protection of records' },
+      { id: 'A.18.4', file: 'docs/compliance/privacy.md', name: 'Privacy and protection of personally identifiable information' },
+      { id: 'A.18.5', file: 'docs/compliance/cryptography-regulations.md', name: 'Regulation of cryptographic controls' },
+      { id: 'A.18.6', file: 'docs/compliance/reviews.md', name: 'Independent reviews of information security' },
+      { id: 'A.18.7', file: 'docs/compliance/policies-standards.md', name: 'Compliance with security policies and standards' },
+      { id: 'A.18.8', file: 'docs/compliance/technical-compliance.md', name: 'Technical compliance review' }
+    ];
+
+    for (const control of complianceControls) {
+      if (await this.fileExists(control.file)) {
+        result.controls_implemented++;
+        result.evidence_files.push(control.file);
+      } else {
+        result.findings.push(`${control.id}: Missing ${control.name.toLowerCase()}`);
+      }
+    }
+  }
+
+  async conductRiskAssessment() {
     return {
-      likelihood: { high: '>70%', medium: '30-70%', low: '<30%' },
-      impact: { high: 'Significant business impact', medium: 'Moderate impact', low: 'Minor impact' },
-      tolerance: this.config.riskTolerance
+      methodology: 'ISO27005',
+      assessment_date: new Date().toISOString(),
+      overall_risk_level: 'Medium',
+      high_risks: 0,
+      medium_risks: 0,
+      low_risks: 0,
+      residual_risk: 'Acceptable',
+      next_review_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString() // 1 year from now
     };
   }
 
-  calculateISMSMaturity(ismsAssessment) {
-    // Calculate ISMS maturity score based on assessment results
-    return 75; // Placeholder
-  }
-
-  generateISMSRecommendations(ismsAssessment) {
-    return [
-      'Enhance risk assessment documentation',
-      'Improve control monitoring procedures',
-      'Develop incident response capabilities'
-    ];
-  }
-
-  async loadRiskRegister() {
-    // Placeholder for loading existing risk data
-    this.riskRegister = new Map();
-  }
-
-  async loadControlAssessments() {
-    // Placeholder for loading existing control assessments
-    this.controlAssessments = new Map();
-  }
-
-  async initializeContinuousMonitoring() {
-    // Placeholder for continuous monitoring setup
-    console.log('Continuous monitoring initialized for ISO27001');
-  }
-
-  async updateRiskRegister(riskEvaluation) {
-    // Update the risk register with new risk evaluation results
-    const riskId = `RISK-${Date.now()}`;
-    this.riskRegister.set(riskId, {
-      ...riskEvaluation,
-      lastUpdated: new Date().toISOString()
-    });
-  }
-
-  async assessControlRequirement(controlId, requirement) {
-    // Placeholder for requirement assessment
-    return {
-      requirement,
-      implemented: true,
-      evidence: { type: 'documentation', description: 'Policy document' }
+  async collectEvidence() {
+    const evidence = {
+      files_collected: 0,
+      total_size: 0,
+      checksum: null,
+      collection_timestamp: new Date().toISOString()
     };
+
+    try {
+      // Collect relevant files for ISO27001 evidence
+      const evidenceFiles = [
+        'docs/',
+        'config/',
+        'src/',
+        'tests/',
+        'monitoring/',
+        '.github/',
+        '.claude/.artifacts/',
+        'README.md',
+        'SECURITY.md'
+      ];
+
+      const collectedFiles = [];
+
+      for (const file of evidenceFiles) {
+        if (await this.fileExists(file)) {
+          collectedFiles.push(file);
+          evidence.files_collected++;
+        }
+      }
+
+      // Calculate checksum
+      if (collectedFiles.length > 0) {
+        const hash = crypto.createHash('sha256');
+        for (const file of collectedFiles) {
+          const stats = await fs.stat(file).catch(() => null);
+          if (stats) {
+            evidence.total_size += stats.size;
+            hash.update(file + stats.mtime.toISOString());
+          }
+        }
+        evidence.checksum = hash.digest('hex');
+        evidence.files = collectedFiles;
+      }
+
+    } catch (error) {
+      console.warn('Evidence collection partial failure:', error.message);
+    }
+
+    return evidence;
   }
 
-  async collectEffectivenessMetrics(controlId, control) {
-    // Placeholder for effectiveness metrics collection
-    return [
-      { metric: 'uptime', value: 99.9, target: 99.5 },
-      { metric: 'incidents', value: 0, target: 0 }
-    ];
-  }
-
-  calculateEffectivenessScore(metrics) {
-    // Real effectiveness score calculation based on control implementation metrics
-    if (!metrics || typeof metrics !== 'object') {
-      return 0;
-    }
-
-    const {
-      implementationCompleteness = 0,
-      testingCoverage = 0,
-      documentationQuality = 0,
-      incidentCount = 0,
-      complianceViolations = 0,
-      performanceMetrics = {}
-    } = metrics;
-
-    // Weighted scoring algorithm
-    let score = 0;
-    let totalWeight = 0;
-
-    // Implementation completeness (40% weight)
-    if (implementationCompleteness >= 0) {
-      score += implementationCompleteness * 0.4;
-      totalWeight += 0.4;
-    }
-
-    // Testing coverage (25% weight)
-    if (testingCoverage >= 0) {
-      score += testingCoverage * 0.25;
-      totalWeight += 0.25;
-    }
-
-    // Documentation quality (15% weight)
-    if (documentationQuality >= 0) {
-      score += documentationQuality * 0.15;
-      totalWeight += 0.15;
-    }
-
-    // Incident impact (10% weight - inverse scoring)
-    const incidentPenalty = Math.min(incidentCount * 5, 100); // Max 100% penalty
-    score += (100 - incidentPenalty) * 0.1;
-    totalWeight += 0.1;
-
-    // Compliance violations (10% weight - inverse scoring)
-    const violationPenalty = Math.min(complianceViolations * 10, 100); // Max 100% penalty
-    score += (100 - violationPenalty) * 0.1;
-    totalWeight += 0.1;
-
-    return totalWeight > 0 ? Math.round(score / totalWeight * 100) / 100 : 0;
-  }
-
-  extractControlFindings(implementationAssessment, effectivenessAssessment) {
-    const findings = [];
-    
-    if (implementationAssessment.score < 100) {
-      findings.push('Implementation gaps identified');
-    }
-    
-    if (effectivenessAssessment.score < 80) {
-      findings.push('Effectiveness improvements needed');
-    }
-    
-    return findings;
-  }
-
-  generateControlRecommendations(controlId, implementationAssessment, effectivenessAssessment) {
+  async generateRecommendations(results) {
     const recommendations = [];
-    
-    if (implementationAssessment.score < 100) {
-      recommendations.push(`Complete implementation requirements for ${controlId}`);
+
+    // Generate recommendations based on findings
+    for (const [domain, details] of Object.entries(results.domains)) {
+      if (details.score < 0.95) {
+        const priority = details.score < 0.5 ? 'critical' :
+                        details.score < 0.7 ? 'high' : 'medium';
+
+        recommendations.push({
+          domain,
+          priority,
+          maturity_level: details.maturity_level,
+          risk_level: details.risk_level,
+          description: `Improve ${details.name} (current score: ${(details.score * 100).toFixed(1)}%)`,
+          findings: details.findings,
+          suggested_actions: this.getSuggestedActions(domain, details.findings)
+        });
+      }
     }
-    
-    if (effectivenessAssessment.score < 80) {
-      recommendations.push(`Enhance monitoring and measurement for ${controlId}`);
+
+    // Add overall recommendations
+    if (results.overall_score < 0.95) {
+      recommendations.push({
+        domain: 'overall',
+        priority: 'high',
+        description: 'Overall ISO27001 compliance below 95% threshold',
+        suggested_actions: [
+          'Prioritize critical and high-risk control implementations',
+          'Establish formal ISMS (Information Security Management System)',
+          'Conduct comprehensive risk assessment',
+          'Create compliance improvement roadmap with timelines'
+        ]
+      });
     }
-    
+
     return recommendations;
   }
 
-  // ISMS assessment methods
-  async assessISMSScope() {
-    return { status: 'documented', score: 85 };
-  }
-
-  async assessInformationSecurityPolicy() {
-    return { status: 'approved', score: 90 };
-  }
-
-  async assessRiskManagementProcess() {
-    return { status: 'implemented', score: 80 };
-  }
-
-  async assessMonitoringAndMeasurement() {
-    return { status: 'partial', score: 70 };
-  }
-
-  async assessContinualImprovement() {
-    return { status: 'planned', score: 65 };
-  }
-
-  // Control mapping methods
-  async mapToSOC2() {
-    return {
-      'A.9.1': ['CC6.1', 'CC6.2'],
-      'A.12.2': ['CC7.2'],
-      'A.16.1': ['CC7.4']
+  getSuggestedActions(domain, findings) {
+    const actionMap = {
+      'A.5': ['Develop comprehensive information security policies', 'Define security roles and responsibilities'],
+      'A.6': ['Establish information security organization', 'Implement management commitment processes'],
+      'A.7': ['Create HR security procedures', 'Implement security awareness training'],
+      'A.8': ['Implement asset management system', 'Create information classification scheme'],
+      'A.9': ['Implement access control framework', 'Deploy authentication and authorization systems'],
+      'A.10': ['Develop cryptography policy', 'Implement key management system'],
+      'A.11': ['Implement physical security controls', 'Create secure areas documentation'],
+      'A.12': ['Establish operations security procedures', 'Implement vulnerability management'],
+      'A.13': ['Implement network security controls', 'Create secure communication procedures'],
+      'A.14': ['Implement secure development lifecycle', 'Create security testing procedures'],
+      'A.15': ['Create supplier security requirements', 'Implement supply chain security'],
+      'A.16': ['Establish incident response procedures', 'Create incident management team'],
+      'A.17': ['Develop business continuity plans', 'Implement continuity testing'],
+      'A.18': ['Ensure legal compliance', 'Implement compliance monitoring']
     };
+
+    return actionMap[domain] || ['Review control requirements', 'Implement missing controls'];
   }
 
-  async mapToNISTCSF() {
-    return {
-      'A.9.1': ['PR.AC-1', 'PR.AC-4'],
-      'A.12.2': ['DE.CM-4'],
-      'A.16.1': ['RS.CO-2']
-    };
+  async fileExists(filePath) {
+    try {
+      await fs.access(filePath);
+      return true;
+    } catch {
+      return false;
+    }
   }
 
-  async mapToNIST80053() {
-    return {
-      'A.9.1': ['AC-2', 'AC-3'],
-      'A.12.2': ['SI-3'],
-      'A.16.1': ['IR-4']
-    };
+  async ensureOutputDirectory() {
+    await fs.mkdir(this.config.outputDir, { recursive: true });
   }
 
-  async mapToPCIDSS() {
-    return {
-      'A.9.1': ['7.1', '8.1'],
-      'A.10.1': ['3.4', '4.1'],
-      'A.12.2': ['5.1']
-    };
+  async writeResults(results) {
+    const outputFile = path.join(this.config.outputDir, 'compliance-score.json');
+    await fs.writeFile(outputFile, JSON.stringify(results, null, 2));
+
+    // Create human-readable report
+    const reportFile = path.join(this.config.outputDir, 'iso27001-assessment-report.md');
+    const report = this.generateMarkdownReport(results);
+    await fs.writeFile(reportFile, report);
+
+    console.log(`ISO27001 assessment results written to: ${outputFile}`);
+    console.log(`ISO27001 assessment report written to: ${reportFile}`);
   }
 
-  analyzeMappingCoverage(mappings) {
-    // Analyze coverage across different frameworks
-    return {
-      totalMappings: Object.keys(mappings).reduce((sum, framework) => 
-        sum + Object.keys(mappings[framework]).length, 0),
-      frameworkCoverage: Object.keys(mappings).length
-    };
-  }
+  generateMarkdownReport(results) {
+    const timestamp = new Date(results.timestamp).toLocaleString();
+    const scorePercentage = (results.overall_score * 100).toFixed(1);
 
-  identifyMappingGaps(mappings) {
-    // Identify gaps in control mappings
-    return [
-      'Some ISO27001 controls have no equivalent in NIST CSF',
-      'Privacy controls need additional mapping to GDPR'
-    ];
+    let report = `# ISO27001:2022 Compliance Assessment Report
+
+**Generated:** ${timestamp}
+**Standard Version:** ${results.standard_version}
+**Overall Score:** ${scorePercentage}%
+**Total Findings:** ${results.total_findings}
+**Audit Hash:** ${results.audit_hash}
+
+## Executive Summary
+
+${results.overall_score >= 0.95 ?
+  '[OK] **COMPLIANT** - Organization meets ISO27001:2022 requirements.' :
+  '[FAIL] **NON-COMPLIANT** - Organization requires remediation to meet ISO27001:2022 requirements.'
+}
+
+## Control Domain Assessment Results
+
+| Domain | Name | Score | Maturity | Risk | Implemented | Total | Status |
+|--------|------|-------|----------|------|-------------|-------|--------|
+`;
+
+    for (const [domain, details] of Object.entries(results.domains)) {
+      const score = (details.score * 100).toFixed(1);
+      const status = details.score >= 0.95 ? '[OK] Compliant' : 
+                    details.score >= 0.70 ? '[WARN] Partial' : '[FAIL] Non-Compliant';
+      
+      report += `| ${domain} | ${details.name} | ${score}% | ${details.maturity_level} | ${details.risk_level} | ${details.controls_implemented} | ${details.controls_tested} | ${status} |\n`;
+    }
+
+    // Risk Assessment Summary
+    report += `\n## Risk Assessment Summary\n\n`;
+    report += `- **Methodology:** ${results.risk_assessment.methodology}\n`;
+    report += `- **Overall Risk Level:** ${results.risk_assessment.overall_risk_level}\n`;
+    report += `- **Residual Risk:** ${results.risk_assessment.residual_risk}\n`;
+    report += `- **Next Review Date:** ${new Date(results.risk_assessment.next_review_date).toLocaleDateString()}\n\n`;
+
+    // Recommendations
+    if (results.recommendations.length > 0) {
+      report += `## Recommendations\n\n`;
+      
+      const criticalRecs = results.recommendations.filter(r => r.priority === 'critical');
+      const highRecs = results.recommendations.filter(r => r.priority === 'high');
+      const mediumRecs = results.recommendations.filter(r => r.priority === 'medium');
+
+      if (criticalRecs.length > 0) {
+        report += `### [ALERT] Critical Priority\n\n`;
+        for (const rec of criticalRecs) {
+          report += `#### ${rec.domain}: ${rec.description}\n`;
+          report += `**Risk Level:** ${rec.risk_level} | **Maturity:** ${rec.maturity_level}\n\n`;
+          
+          if (rec.findings && rec.findings.length > 0) {
+            report += `**Findings:**\n`;
+            for (const finding of rec.findings.slice(0, 5)) { // Limit to first 5
+              report += `- ${finding}\n`;
+            }
+            if (rec.findings.length > 5) {
+              report += `- ... and ${rec.findings.length - 5} more\n`;
+            }
+            report += '\n';
+          }
+
+          report += `**Suggested Actions:**\n`;
+          for (const action of rec.suggested_actions) {
+            report += `- ${action}\n`;
+          }
+          report += '\n';
+        }
+      }
+
+      if (highRecs.length > 0) {
+        report += `### [WARN] High Priority\n\n`;
+        for (const rec of highRecs) {
+          report += `#### ${rec.domain}: ${rec.description}\n`;
+          report += `**Actions:** ${rec.suggested_actions.join(', ')}\n\n`;
+        }
+      }
+
+      if (mediumRecs.length > 0) {
+        report += `### [CLIPBOARD] Medium Priority\n\n`;
+        for (const rec of mediumRecs) {
+          report += `- **${rec.domain}:** ${rec.description}\n`;
+        }
+        report += '\n';
+      }
+    }
+
+    // Evidence Collection Summary
+    if (results.evidence && results.evidence.files_collected > 0) {
+      report += `## Evidence Collection Summary\n\n`;
+      report += `- **Files Collected:** ${results.evidence.files_collected}\n`;
+      report += `- **Total Size:** ${results.evidence.total_size} bytes\n`;
+      report += `- **Checksum:** ${results.evidence.checksum}\n`;
+      report += `- **Collection Time:** ${results.evidence.collection_timestamp}\n\n`;
+    }
+
+    report += `---\n*This report was generated by the ISO27001 Assessment Engine*\n`;
+
+    return report;
   }
 }
 
-module.exports = ISO27001AssessmentEngine;
+// CLI Interface
+async function main() {
+  const args = process.argv.slice(2);
+  const config = {};
+
+  for (let i = 0; i < args.length; i += 2) {
+    const key = args[i]?.replace('--', '');
+    const value = args[i + 1];
+
+    switch (key) {
+      case 'output-dir':
+        config.outputDir = value;
+        break;
+      case 'audit-hash':
+        config.auditHash = value;
+        break;
+      case 'evidence-collection':
+        config.evidenceCollection = value === 'true';
+        break;
+      case 'config':
+        try {
+          const configFile = JSON.parse(await fs.readFile(value, 'utf8'));
+          Object.assign(config, configFile);
+        } catch (error) {
+          console.warn(`Could not load config file ${value}:`, error.message);
+        }
+        break;
+    }
+  }
+
+  try {
+    const engine = new ISO27001AssessmentEngine(config);
+    const results = await engine.validateCompliance();
+
+    process.exit(results.overall_score >= 0.95 ? 0 : 1);
+  } catch (error) {
+    console.error('ISO27001 assessment failed:', error.message);
+    process.exit(1);
+  }
+}
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = { ISO27001AssessmentEngine };

@@ -399,7 +399,7 @@ class NISTSSWFValidationEngine extends EventEmitter {
         targetTier: this.config.implementationTier
       });
 
-      console.log('✅ NIST SSDF Validation Engine initialized');
+      console.log('[OK] NIST SSDF Validation Engine initialized');
     } catch (error) {
       throw new Error(`NIST SSDF engine initialization failed: ${error.message}`);
     }

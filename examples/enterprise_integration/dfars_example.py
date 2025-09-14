@@ -173,7 +173,7 @@ def insecure_transmission(data):
             print(f"  Compliance Level: {enterprise['compliance_level']}")
             print("  Recommendations:")
             for rec in enterprise['recommendations']:
-                print(f"    • {rec}")
+                print(f"     {rec}")
         else:
             print(f"Analysis failed: {simulated_results['error']}")
         

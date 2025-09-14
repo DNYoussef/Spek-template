@@ -1,0 +1,325 @@
+name: Automated Compliance Validation
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM UTC
+  workflow_dispatch:  # Manual trigger capability
+    inputs:
+      frameworks:
+        description: 'Compliance frameworks to validate'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - soc2
+          - iso27001
+          - nist-ssdf
+      evidence_collection:
+        description: 'Collect evidence artifacts'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+  issues: write
+
+jobs:
+  compliance-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        framework:
+          - name: "SOC2"
+            engine: "soc2-automation-engine.js"
+            config: "soc2-config.json"
+          - name: "ISO27001"
+            engine: "iso27001-assessment-engine.js"
+            config: "iso27001-config.json"
+          - name: "NIST-SSDF"
+            engine: "nist_ssdf.py"
+            config: "nist-ssdf-config.json"
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for compliance audit trails
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          npm install --production
+          pip install -r requirements.txt
+
+      - name: Initialize Compliance Directories
+        run: |
+          mkdir -p .claude/.artifacts/compliance/{reports,evidence,audit-trails}
+          mkdir -p .claude/.artifacts/compliance/${{ matrix.framework.name }}/
+
+      - name: Generate Audit Trail Hash
+        id: audit-hash
+        run: |
+          AUDIT_HASH=$(echo "${{ github.sha }}-${{ matrix.framework.name }}-$(date -u +%Y%m%d%H%M%S)" | sha256sum | cut -d' ' -f1)
+          echo "hash=${AUDIT_HASH}" >> $GITHUB_OUTPUT
+          echo "timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_OUTPUT
+
+      - name: Run SOC2 Compliance Validation
+        if: matrix.framework.name == 'SOC2'
+        run: |
+          echo "Running SOC2 compliance validation..."
+          node src/compliance/engines/${{ matrix.framework.engine }} \
+            --config config/compliance/${{ matrix.framework.config }} \
+            --output-dir .claude/.artifacts/compliance/SOC2/ \
+            --audit-hash ${{ steps.audit-hash.outputs.hash }} \
+            --evidence-collection ${{ github.event.inputs.evidence_collection || 'true' }}
+
+      - name: Run ISO27001 Compliance Validation
+        if: matrix.framework.name == 'ISO27001'
+        run: |
+          echo "Running ISO27001 compliance validation..."
+          node src/compliance/engines/${{ matrix.framework.engine }} \
+            --config config/compliance/${{ matrix.framework.config }} \
+            --output-dir .claude/.artifacts/compliance/ISO27001/ \
+            --audit-hash ${{ steps.audit-hash.outputs.hash }} \
+            --evidence-collection ${{ github.event.inputs.evidence_collection || 'true' }}
+
+      - name: Run NIST-SSDF Compliance Validation
+        if: matrix.framework.name == 'NIST-SSDF'
+        run: |
+          echo "Running NIST-SSDF compliance validation..."
+          python analyzer/enterprise/compliance/nist_ssdf.py \
+            --config config/compliance/${{ matrix.framework.config }} \
+            --output-dir .claude/.artifacts/compliance/NIST-SSDF/ \
+            --audit-hash ${{ steps.audit-hash.outputs.hash }} \
+            --evidence-collection ${{ github.event.inputs.evidence_collection || 'true' }}
+
+      - name: Validate Compliance Score
+        id: validate-score
+        run: |
+          SCORE_FILE=".claude/.artifacts/compliance/${{ matrix.framework.name }}/compliance-score.json"
+          if [ -f "$SCORE_FILE" ]; then
+            SCORE=$(jq -r '.overall_score' $SCORE_FILE)
+            echo "score=${SCORE}" >> $GITHUB_OUTPUT
+
+            # Validate minimum 95% compliance
+            if (( $(echo "$SCORE < 0.95" | bc -l) )); then
+              echo "::error::Compliance score ${SCORE} below required 95% threshold for ${{ matrix.framework.name }}"
+              exit 1
+            else
+              echo "::notice::Compliance score ${SCORE} meets 95% threshold for ${{ matrix.framework.name }}"
+            fi
+          else
+            echo "::error::Compliance score file not found for ${{ matrix.framework.name }}"
+            exit 1
+          fi
+
+      - name: Generate Cryptographic Evidence
+        run: |
+          # Create evidence package with SHA-256 integrity
+          EVIDENCE_DIR=".claude/.artifacts/compliance/${{ matrix.framework.name }}"
+          EVIDENCE_PACKAGE="${EVIDENCE_DIR}/evidence-package.tar.gz"
+
+          # Package all compliance artifacts
+          tar -czf "$EVIDENCE_PACKAGE" \
+            -C .claude/.artifacts/compliance/${{ matrix.framework.name }} .
+
+          # Generate SHA-256 checksum
+          sha256sum "$EVIDENCE_PACKAGE" > "${EVIDENCE_PACKAGE}.sha256"
+
+          # Sign with audit trail
+          echo "{
+            \"framework\": \"${{ matrix.framework.name }}\",
+            \"audit_hash\": \"${{ steps.audit-hash.outputs.hash }}\",
+            \"timestamp\": \"${{ steps.audit-hash.outputs.timestamp }}\",
+            \"compliance_score\": ${{ steps.validate-score.outputs.score }},
+            \"commit_sha\": \"${{ github.sha }}\",
+            \"workflow_run_id\": \"${{ github.run_id }}\",
+            \"evidence_checksum\": \"$(cat ${EVIDENCE_PACKAGE}.sha256 | cut -d' ' -f1)\"
+          }" | jq . > "${EVIDENCE_DIR}/audit-trail.json"
+
+      - name: Upload Compliance Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: compliance-${{ matrix.framework.name }}-${{ steps.audit-hash.outputs.hash }}
+          path: .claude/.artifacts/compliance/${{ matrix.framework.name }}/
+          retention-days: 90
+
+      - name: Detect Compliance Drift
+        id: drift-detection
+        run: |
+          # Compare with previous compliance results
+          CURRENT_SCORE=${{ steps.validate-score.outputs.score }}
+          PREVIOUS_SCORE_FILE=".claude/.artifacts/compliance/${{ matrix.framework.name }}/previous-score.txt"
+
+          if [ -f "$PREVIOUS_SCORE_FILE" ]; then
+            PREVIOUS_SCORE=$(cat "$PREVIOUS_SCORE_FILE")
+            DRIFT=$(echo "scale=4; $CURRENT_SCORE - $PREVIOUS_SCORE" | bc)
+            echo "drift=${DRIFT}" >> $GITHUB_OUTPUT
+
+            # Alert on negative drift > 2%
+            if (( $(echo "$DRIFT < -0.02" | bc -l) )); then
+              echo "::warning::Compliance drift detected: ${DRIFT} for ${{ matrix.framework.name }}"
+              echo "drift_alert=true" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+          # Store current score for next run
+          echo "$CURRENT_SCORE" > "$PREVIOUS_SCORE_FILE"
+
+  consolidate-results:
+    needs: compliance-validation
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download All Compliance Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: compliance-results/
+
+      - name: Generate Consolidated Dashboard
+        run: |
+          echo "Generating compliance dashboard..."
+
+          # Create consolidated report
+          mkdir -p .claude/.artifacts/compliance/dashboard
+
+          # Generate dashboard summary
+          cat > .claude/.artifacts/compliance/dashboard/summary.json << 'EOF'
+          {
+            "generated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "workflow_run_id": "${{ github.run_id }}",
+            "commit_sha": "${{ github.sha }}",
+            "frameworks": {}
+          }
+          EOF
+
+          # Process each framework result
+          for framework_dir in compliance-results/*/; do
+            if [ -d "$framework_dir" ]; then
+              framework_name=$(basename "$framework_dir" | sed 's/compliance-\([^-]*\)-.*/\1/')
+
+              if [ -f "${framework_dir}compliance-score.json" ]; then
+                score=$(jq -r '.overall_score' "${framework_dir}compliance-score.json")
+                findings=$(jq -r '.total_findings' "${framework_dir}compliance-score.json" 2>/dev/null || echo "0")
+
+                # Update consolidated summary
+                jq --arg framework "$framework_name" \
+                   --arg score "$score" \
+                   --arg findings "$findings" \
+                   '.frameworks[$framework] = {"score": ($score | tonumber), "findings": ($findings | tonumber)}' \
+                   .claude/.artifacts/compliance/dashboard/summary.json > temp.json && \
+                   mv temp.json .claude/.artifacts/compliance/dashboard/summary.json
+              fi
+            fi
+          done
+
+      - name: Generate HTML Dashboard
+        run: |
+          # Create HTML dashboard
+          cat > .claude/.artifacts/compliance/dashboard/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Compliance Dashboard</title>
+            <meta charset="utf-8">
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; }
+              .framework { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+              .score { font-size: 2em; font-weight: bold; }
+              .pass { color: green; }
+              .fail { color: red; }
+              .timestamp { font-size: 0.8em; color: #666; }
+            </style>
+          </head>
+          <body>
+            <h1>Compliance Dashboard</h1>
+            <div class="timestamp">Generated: $(date -u)</div>
+            <div class="timestamp">Commit: ${{ github.sha }}</div>
+            <div class="timestamp">Workflow: ${{ github.run_id }}</div>
+
+            <div id="frameworks"></div>
+
+            <script>
+              // Load and display compliance data
+              fetch('summary.json')
+                .then(response => response.json())
+                .then(data => {
+                  const container = document.getElementById('frameworks');
+                  Object.entries(data.frameworks).forEach(([name, info]) => {
+                    const scoreClass = info.score >= 0.95 ? 'pass' : 'fail';
+                    const percentage = (info.score * 100).toFixed(1);
+
+                    container.innerHTML += `
+                      <div class="framework">
+                        <h3>${name}</h3>
+                        <div class="score ${scoreClass}">${percentage}%</div>
+                        <div>Findings: ${info.findings}</div>
+                      </div>
+                    `;
+                  });
+                })
+                .catch(error => {
+                  document.getElementById('frameworks').innerHTML =
+                    '<div style="color: red;">Error loading compliance data</div>';
+                });
+            </script>
+          </body>
+          </html>
+          EOF
+
+      - name: Upload Consolidated Dashboard
+        uses: actions/upload-artifact@v4
+        with:
+          name: compliance-dashboard-${{ github.run_id }}
+          path: .claude/.artifacts/compliance/dashboard/
+          retention-days: 90
+
+      - name: Create Issues for Failed Compliance
+        if: failure()
+        run: |
+          # Create issue for compliance failures using gh CLI
+          gh issue create \
+            --title "Compliance Validation Failed - Run ${{ github.run_id }}" \
+            --body "Automated compliance validation failed. Check workflow run ${{ github.run_id }} for details." \
+            --label "compliance,critical"
+
+      - name: Post Summary Comment
+        if: always()
+        run: |
+          # Generate summary for workflow
+          echo "## Compliance Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Run ID**: ${{ github.run_id }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Timestamp**: $(date -u)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Framework Results" >> $GITHUB_STEP_SUMMARY
+
+          # Add framework results if available
+          if [ -f ".claude/.artifacts/compliance/dashboard/summary.json" ]; then
+            jq -r '.frameworks | to_entries[] | "- **\(.key)**: \((.value.score * 100) | round)% (\(.value.findings) findings)"' \
+              .claude/.artifacts/compliance/dashboard/summary.json >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Dashboard and detailed reports available in workflow artifacts." >> $GITHUB_STEP_SUMMARY

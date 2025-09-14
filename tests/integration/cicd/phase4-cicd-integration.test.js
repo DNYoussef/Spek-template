@@ -573,13 +573,13 @@ async function generateIntegrationReport(metrics) {
 
 **Test Execution**: ${new Date().toISOString()}
 **Total Duration**: ${(metrics.totalDuration / 1000).toFixed(2)} seconds
-**Production Ready**: ${metrics.productionReadiness?.ready ? '✅ YES' : '❌ NO'}
+**Production Ready**: ${metrics.productionReadiness?.ready ? '[OK] YES' : '[FAIL] NO'}
 
 ## Integration Test Results
 
 ### End-to-End Pipeline Tests
 ${Object.entries(metrics.testResults).map(([test, result]) => `
-- **${test}**: ${result.passed !== false ? '✅ PASSED' : '❌ FAILED'}
+- **${test}**: ${result.passed !== false ? '[OK] PASSED' : '[FAIL] FAILED'}
   - Duration: ${result.duration?.toFixed(2) || 'N/A'}s
   - Quality Score: ${result.qualityScore || 'N/A'}
   - Compliance Score: ${result.complianceScore || 'N/A'}%
@@ -589,32 +589,32 @@ ${Object.entries(metrics.testResults).map(([test, result]) => `
 - **Baseline Time**: ${metrics.performanceMetrics?.baselineTime?.toFixed(2) || 'N/A'}ms
 - **Enhanced Time**: ${metrics.performanceMetrics?.enhancedTime?.toFixed(2) || 'N/A'}ms
 - **Performance Overhead**: ${metrics.performanceMetrics?.performanceOverhead?.toFixed(2) || 'N/A'}%
-- **Constraint Met**: ${metrics.performanceMetrics?.constraintMet ? '✅ <2%' : '❌ >2%'}
+- **Constraint Met**: ${metrics.performanceMetrics?.constraintMet ? '[OK] <2%' : '[FAIL] >2%'}
 
 ### Theater Remediation Validation
 ${Object.entries(metrics.theaterValidation || {}).map(([domain, validation]) => `
 #### ${domain.toUpperCase()}
-- Real Calculations: ${validation.realCalculations ? '✅' : '❌'}
-- Genuine Logic: ${validation.genuineLogic ? '✅' : '❌'}
-- Value Focused: ${validation.valueFocused ? '✅' : '❌'}
+- Real Calculations: ${validation.realCalculations ? '[OK]' : '[FAIL]'}
+- Genuine Logic: ${validation.genuineLogic ? '[OK]' : '[FAIL]'}
+- Value Focused: ${validation.valueFocused ? '[OK]' : '[FAIL]'}
 `).join('')}
 
 ### Production Readiness Assessment
 - **Deployment Strategies**: ${metrics.productionReadiness?.deploymentStrategies ?
   Object.entries(metrics.productionReadiness.deploymentStrategies).map(([strategy, ready]) =>
-    `${strategy}: ${ready ? '✅' : '❌'}`).join(', ') : 'N/A'}
+    `${strategy}: ${ready ? '[OK]' : '[FAIL]'}`).join(', ') : 'N/A'}
 - **Quality Gates**: ${metrics.productionReadiness?.qualityGates ?
   Object.entries(metrics.productionReadiness.qualityGates).map(([gate, ready]) =>
-    `${gate}: ${ready ? '✅' : '❌'}`).join(', ') : 'N/A'}
-- **Compliance**: ${metrics.productionReadiness?.compliance ? '✅ READY' : '❌ NOT READY'}
-- **Performance**: ${metrics.productionReadiness?.performance ? '✅ COMPLIANT' : '❌ NON-COMPLIANT'}
-- **Theater Remediated**: ${metrics.productionReadiness?.theaterRemediated ? '✅ YES' : '❌ NO'}
+    `${gate}: ${ready ? '[OK]' : '[FAIL]'}`).join(', ') : 'N/A'}
+- **Compliance**: ${metrics.productionReadiness?.compliance ? '[OK] READY' : '[FAIL] NOT READY'}
+- **Performance**: ${metrics.productionReadiness?.performance ? '[OK] COMPLIANT' : '[FAIL] NON-COMPLIANT'}
+- **Theater Remediated**: ${metrics.productionReadiness?.theaterRemediated ? '[OK] YES' : '[FAIL] NO'}
 
 ## Recommendations
 
 ${metrics.productionReadiness?.ready ?
-  '✅ **PRODUCTION DEPLOYMENT APPROVED**: All integration tests passed, performance constraints met, and theater patterns remediated.' :
-  '❌ **PRODUCTION DEPLOYMENT NOT READY**: Review failed tests and performance metrics before deployment.'}
+  '[OK] **PRODUCTION DEPLOYMENT APPROVED**: All integration tests passed, performance constraints met, and theater patterns remediated.' :
+  '[FAIL] **PRODUCTION DEPLOYMENT NOT READY**: Review failed tests and performance metrics before deployment.'}
 
 *Report generated: ${new Date().toISOString()}*
 `;

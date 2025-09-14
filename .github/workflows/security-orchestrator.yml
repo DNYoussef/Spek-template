@@ -235,10 +235,10 @@ jobs:
         run: |
           if [ "${{ steps.sarif-upload.outcome }}" == "success" ]; then
             echo "uploaded=true" >> $GITHUB_OUTPUT
-            echo "✅ SARIF results uploaded to GitHub Security tab"
+            echo "[OK] SARIF results uploaded to GitHub Security tab"
           else
             echo "uploaded=false" >> $GITHUB_OUTPUT
-            echo "⚠️  SARIF upload failed - results available as artifacts"
+            echo "[WARN]  SARIF upload failed - results available as artifacts"
           fi
 
       - name: Upload Security Artifacts
@@ -256,7 +256,7 @@ jobs:
       - name: Generate Security Summary
         if: always()
         run: |
-          echo "## 🛡️ Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "## [SHIELD] Security Scan Summary" >> $GITHUB_STEP_SUMMARY
           
           if [ -f .claude/.artifacts/security/security_validation_report.json ]; then
             REPORT=".claude/.artifacts/security/security_validation_report.json"
@@ -269,9 +269,9 @@ jobs:
             GATES_FAILED=$(cat $REPORT | jq -r '.executive_summary.gates_failed')
             
             if [ "$OVERALL_STATUS" = "PASS" ]; then
-              echo "### ✅ Security Gates: PASSED" >> $GITHUB_STEP_SUMMARY
+              echo "### [OK] Security Gates: PASSED" >> $GITHUB_STEP_SUMMARY
             else
-              echo "### ❌ Security Gates: FAILED" >> $GITHUB_STEP_SUMMARY
+              echo "### [FAIL] Security Gates: FAILED" >> $GITHUB_STEP_SUMMARY
             fi
             
             echo "" >> $GITHUB_STEP_SUMMARY
@@ -290,17 +290,17 @@ jobs:
             NIST_COMPLIANT=$(cat $REPORT | jq -r '.compliance_status.nist_compliant')
             PROD_READY=$(cat $REPORT | jq -r '.compliance_status.production_ready')
             
-            echo "- SOC 2 Compliant: $([ "$SOC2_COMPLIANT" = "true" ] && echo "✅" || echo "❌")" >> $GITHUB_STEP_SUMMARY
-            echo "- NIST Compliant: $([ "$NIST_COMPLIANT" = "true" ] && echo "✅" || echo "❌")" >> $GITHUB_STEP_SUMMARY
-            echo "- Production Ready: $([ "$PROD_READY" = "true" ] && echo "✅" || echo "❌")" >> $GITHUB_STEP_SUMMARY
+            echo "- SOC 2 Compliant: $([ "$SOC2_COMPLIANT" = "true" ] && echo "[OK]" || echo "[FAIL]")" >> $GITHUB_STEP_SUMMARY
+            echo "- NIST Compliant: $([ "$NIST_COMPLIANT" = "true" ] && echo "[OK]" || echo "[FAIL]")" >> $GITHUB_STEP_SUMMARY
+            echo "- Production Ready: $([ "$PROD_READY" = "true" ] && echo "[OK]" || echo "[FAIL]")" >> $GITHUB_STEP_SUMMARY
           else
-            echo "### ⚠️ Security validation report not found" >> $GITHUB_STEP_SUMMARY
+            echo "### [WARN] Security validation report not found" >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Security Gate Status Check
         if: steps.validation.outputs.status == 'FAIL'
         run: |
-          echo "❌ Security gates failed - blocking deployment"
+          echo "[FAIL] Security gates failed - blocking deployment"
           echo "Critical findings: ${{ steps.validation.outputs.critical_findings }}"
           exit 1
 
@@ -398,9 +398,9 @@ jobs:
               await github.rest.issues.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                title: `🚨 Critical Security Findings Detected - ${criticalFindings} findings`,
+                title: `[ALERT] Critical Security Findings Detected - ${criticalFindings} findings`,
                 body: `
-            ## 🚨 Critical Security Alert
+            ## [ALERT] Critical Security Alert
             
             **Critical Findings:** ${criticalFindings}
             **Workflow:** ${{ github.workflow }}

@@ -6,7 +6,7 @@
 const { SixSigmaReportingSystem } = require('../../../analyzer/enterprise/sixsigma/index');
 
 async function validateSystem() {
-    console.log('🎯 Starting Six Sigma Reporting System Validation...\n');
+    console.log('[TARGET] Starting Six Sigma Reporting System Validation...\n');
 
     const system = new SixSigmaReportingSystem({
         targetSigma: 4.0,
@@ -43,15 +43,15 @@ async function validateSystem() {
 
     try {
         const startTime = performance.now();
-        console.log('⏱️  Running complete Six Sigma analysis...');
+        console.log('  Running complete Six Sigma analysis...');
         
         const report = await system.generateReport(testData);
         
         const executionTime = performance.now() - startTime;
-        console.log(`✅ Analysis completed in ${executionTime.toFixed(2)}ms\n`);
+        console.log(`[OK] Analysis completed in ${executionTime.toFixed(2)}ms\n`);
 
         // Validate core results
-        console.log('📊 Results Summary:');
+        console.log('[CHART] Results Summary:');
         console.log(`   Overall Sigma Level: ${report.dpmo?.processMetrics?.overallSigma || 'N/A'}`);
         console.log(`   Overall DPMO: ${report.dpmo?.processMetrics?.overallDPMO || 'N/A'}`);
         console.log(`   Process RTY: ${report.dpmo?.processMetrics?.processRTY || 'N/A'}%`);
@@ -60,27 +60,27 @@ async function validateSystem() {
 
         // Validate performance
         const performanceData = await system.getPerformanceMetrics();
-        console.log(`\n⚡ Performance Metrics:`);
+        console.log(`\n[LIGHTNING] Performance Metrics:`);
         console.log(`   Execution Time: ${executionTime.toFixed(2)}ms`);
         console.log(`   Overhead: ${performanceData.summary?.overheadPercentage?.current?.toFixed(2) || 'N/A'}%`);
         console.log(`   Memory Used: ${performanceData.summary?.memoryUsage?.current?.toFixed(2) || 'N/A'}MB`);
 
         // Check compliance
         const compliance = performanceData.compliance;
-        console.log(`\n🛡️  Compliance Status:`);
-        console.log(`   Overall: ${compliance?.overall ? '✅ PASS' : '❌ FAIL'}`);
+        console.log(`\n[SHIELD]  Compliance Status:`);
+        console.log(`   Overall: ${compliance?.overall ? '[OK] PASS' : '[FAIL] FAIL'}`);
         console.log(`   Overhead: ${compliance?.overhead?.status || 'UNKNOWN'} (${compliance?.overhead?.current || 'N/A'}%)`);
-        console.log(`   NASA POT10: 95%+ ✅ COMPLIANT`);
+        console.log(`   NASA POT10: 95%+ [OK] COMPLIANT`);
 
         // Validate artifacts
-        console.log(`\n📁 Generated Reports:`);
+        console.log(`\n[FOLDER] Generated Reports:`);
         if (report.reports) {
-            console.log(`   Executive Report: ${typeof report.reports.executive === 'string' ? '✅' : '❌'}`);
-            console.log(`   Technical Report: ${typeof report.reports.technical === 'string' ? '✅' : '❌'}`);
-            console.log(`   Dashboard Data: ${typeof report.reports.dashboard === 'object' ? '✅' : '❌'}`);
+            console.log(`   Executive Report: ${typeof report.reports.executive === 'string' ? '[OK]' : '[FAIL]'}`);
+            console.log(`   Technical Report: ${typeof report.reports.technical === 'string' ? '[OK]' : '[FAIL]'}`);
+            console.log(`   Dashboard Data: ${typeof report.reports.dashboard === 'object' ? '[OK]' : '[FAIL]'}`);
         }
 
-        console.log('\n🎉 Six Sigma Reporting System Validation: SUCCESS\n');
+        console.log('\n Six Sigma Reporting System Validation: SUCCESS\n');
         
         // Return summary for external validation
         return {
@@ -92,8 +92,8 @@ async function validateSystem() {
         };
 
     } catch (error) {
-        console.error('❌ Validation failed:', error.message);
-        console.error('📋 Stack trace:', error.stack);
+        console.error('[FAIL] Validation failed:', error.message);
+        console.error('[CLIPBOARD] Stack trace:', error.stack);
         
         return {
             success: false,
@@ -106,10 +106,10 @@ async function validateSystem() {
 if (require.main === module) {
     validateSystem().then(result => {
         if (result.success) {
-            console.log('🚀 System ready for production deployment!');
+            console.log('[ROCKET] System ready for production deployment!');
             process.exit(0);
         } else {
-            console.log('🔧 System requires fixes before deployment.');
+            console.log('[WRENCH] System requires fixes before deployment.');
             process.exit(1);
         }
     });

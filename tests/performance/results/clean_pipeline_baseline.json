@@ -1,0 +1,538 @@
+{
+  "measurements": [
+    {
+      "stage": "code_analysis",
+      "duration_ms": 382.09630001802,
+      "cpu_percent": 6.6,
+      "memory_mb": 2.30859375,
+      "timestamp": "2025-09-14T13:22:03.468294+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 0
+      }
+    },
+    {
+      "stage": "unit_tests",
+      "duration_ms": 2938.031999976374,
+      "cpu_percent": 13.4,
+      "memory_mb": 22.8515625,
+      "timestamp": "2025-09-14T13:22:06.409011+00:00",
+      "success": false,
+      "metadata": {
+        "iteration": 0
+      }
+    },
+    {
+      "stage": "integration_tests",
+      "duration_ms": 163.9456999837421,
+      "cpu_percent": 0,
+      "memory_mb": 25.3828125,
+      "timestamp": "2025-09-14T13:22:06.575710+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 0
+      }
+    },
+    {
+      "stage": "linting",
+      "duration_ms": 1711.6442000260577,
+      "cpu_percent": 71.3,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:08.290009+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 0
+      }
+    },
+    {
+      "stage": "type_checking",
+      "duration_ms": 245.54219999117777,
+      "cpu_percent": 13.9,
+      "memory_mb": 3.9921875,
+      "timestamp": "2025-09-14T13:22:08.538157+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 0
+      }
+    },
+    {
+      "stage": "security_scan",
+      "duration_ms": 61.85960001312196,
+      "cpu_percent": 10.4,
+      "memory_mb": 4.625,
+      "timestamp": "2025-09-14T13:22:08.602361+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 0
+      }
+    },
+    {
+      "stage": "build",
+      "duration_ms": 113.92019997583702,
+      "cpu_percent": 11.9,
+      "memory_mb": 23.328125,
+      "timestamp": "2025-09-14T13:22:08.718555+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 0
+      }
+    },
+    {
+      "stage": "deployment_prep",
+      "duration_ms": 83.32090004114434,
+      "cpu_percent": 13.9,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:08.803618+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 0
+      }
+    },
+    {
+      "stage": "code_analysis",
+      "duration_ms": 371.28479999955744,
+      "cpu_percent": 13.3,
+      "memory_mb": 11.0234375,
+      "timestamp": "2025-09-14T13:22:09.177169+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 1
+      }
+    },
+    {
+      "stage": "unit_tests",
+      "duration_ms": 2892.3637000261806,
+      "cpu_percent": 16.5,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:12.072190+00:00",
+      "success": false,
+      "metadata": {
+        "iteration": 1
+      }
+    },
+    {
+      "stage": "integration_tests",
+      "duration_ms": 164.17150001507252,
+      "cpu_percent": 13.4,
+      "memory_mb": 6.76953125,
+      "timestamp": "2025-09-14T13:22:12.238504+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 1
+      }
+    },
+    {
+      "stage": "linting",
+      "duration_ms": 1721.6309999930672,
+      "cpu_percent": 73.8,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:13.963032+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 1
+      }
+    },
+    {
+      "stage": "type_checking",
+      "duration_ms": 243.4406999964267,
+      "cpu_percent": 15.2,
+      "memory_mb": 7.8984375,
+      "timestamp": "2025-09-14T13:22:14.208788+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 1
+      }
+    },
+    {
+      "stage": "security_scan",
+      "duration_ms": 60.872300004120916,
+      "cpu_percent": 10.9,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:14.272020+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 1
+      }
+    },
+    {
+      "stage": "build",
+      "duration_ms": 110.3304999996908,
+      "cpu_percent": 8.3,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:14.384635+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 1
+      }
+    },
+    {
+      "stage": "deployment_prep",
+      "duration_ms": 82.64129998860881,
+      "cpu_percent": 10.0,
+      "memory_mb": 5.1796875,
+      "timestamp": "2025-09-14T13:22:14.469975+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 1
+      }
+    },
+    {
+      "stage": "code_analysis",
+      "duration_ms": 369.2944999784231,
+      "cpu_percent": 12.5,
+      "memory_mb": 4.73046875,
+      "timestamp": "2025-09-14T13:22:14.842131+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 2
+      }
+    },
+    {
+      "stage": "unit_tests",
+      "duration_ms": 2903.1180000165477,
+      "cpu_percent": 15.6,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:17.746672+00:00",
+      "success": false,
+      "metadata": {
+        "iteration": 2
+      }
+    },
+    {
+      "stage": "integration_tests",
+      "duration_ms": 163.29910000786185,
+      "cpu_percent": 10.6,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:17.912317+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 2
+      }
+    },
+    {
+      "stage": "linting",
+      "duration_ms": 1702.87969999481,
+      "cpu_percent": 72.1,
+      "memory_mb": 20.55078125,
+      "timestamp": "2025-09-14T13:22:19.617247+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 2
+      }
+    },
+    {
+      "stage": "type_checking",
+      "duration_ms": 241.22019996866584,
+      "cpu_percent": 15.5,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:19.861415+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 2
+      }
+    },
+    {
+      "stage": "security_scan",
+      "duration_ms": 63.34470002911985,
+      "cpu_percent": 0,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:19.927320+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 2
+      }
+    },
+    {
+      "stage": "build",
+      "duration_ms": 113.53000003146008,
+      "cpu_percent": 8.3,
+      "memory_mb": 0.8984375,
+      "timestamp": "2025-09-14T13:22:20.043652+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 2
+      }
+    },
+    {
+      "stage": "deployment_prep",
+      "duration_ms": 84.08080000663176,
+      "cpu_percent": 18.8,
+      "memory_mb": 1.94140625,
+      "timestamp": "2025-09-14T13:22:20.129837+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 2
+      }
+    },
+    {
+      "stage": "code_analysis",
+      "duration_ms": 386.52479997836053,
+      "cpu_percent": 17.0,
+      "memory_mb": 10.2421875,
+      "timestamp": "2025-09-14T13:22:20.519139+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 3
+      }
+    },
+    {
+      "stage": "unit_tests",
+      "duration_ms": 2894.121599965729,
+      "cpu_percent": 0,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:23.415449+00:00",
+      "success": false,
+      "metadata": {
+        "iteration": 3
+      }
+    },
+    {
+      "stage": "integration_tests",
+      "duration_ms": 171.9242999679409,
+      "cpu_percent": 17.3,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:23.590338+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 3
+      }
+    },
+    {
+      "stage": "linting",
+      "duration_ms": 1687.6132000470534,
+      "cpu_percent": 71.5,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:25.279591+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 3
+      }
+    },
+    {
+      "stage": "type_checking",
+      "duration_ms": 246.52310000965372,
+      "cpu_percent": 13.5,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:25.529051+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 3
+      }
+    },
+    {
+      "stage": "security_scan",
+      "duration_ms": 64.39010001486167,
+      "cpu_percent": 20.8,
+      "memory_mb": 6.234375,
+      "timestamp": "2025-09-14T13:22:25.595754+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 3
+      }
+    },
+    {
+      "stage": "build",
+      "duration_ms": 112.65970004023984,
+      "cpu_percent": 0,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:25.710759+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 3
+      }
+    },
+    {
+      "stage": "deployment_prep",
+      "duration_ms": 83.44139996916056,
+      "cpu_percent": 15.0,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:25.796701+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 3
+      }
+    },
+    {
+      "stage": "code_analysis",
+      "duration_ms": 377.61919997865334,
+      "cpu_percent": 16.4,
+      "memory_mb": 7.93359375,
+      "timestamp": "2025-09-14T13:22:26.176174+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 4
+      }
+    },
+    {
+      "stage": "unit_tests",
+      "duration_ms": 2935.2870999719016,
+      "cpu_percent": 16.4,
+      "memory_mb": 14.36328125,
+      "timestamp": "2025-09-14T13:22:29.114582+00:00",
+      "success": false,
+      "metadata": {
+        "iteration": 4
+      }
+    },
+    {
+      "stage": "integration_tests",
+      "duration_ms": 164.15879997657612,
+      "cpu_percent": 6.7,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:29.280814+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 4
+      }
+    },
+    {
+      "stage": "linting",
+      "duration_ms": 1732.3403999907896,
+      "cpu_percent": 71.4,
+      "memory_mb": 5.65234375,
+      "timestamp": "2025-09-14T13:22:31.016185+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 4
+      }
+    },
+    {
+      "stage": "type_checking",
+      "duration_ms": 245.8218999672681,
+      "cpu_percent": 15.6,
+      "memory_mb": 12.33203125,
+      "timestamp": "2025-09-14T13:22:31.263645+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 4
+      }
+    },
+    {
+      "stage": "security_scan",
+      "duration_ms": 60.47159997979179,
+      "cpu_percent": 14.6,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:31.327472+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 4
+      }
+    },
+    {
+      "stage": "build",
+      "duration_ms": 111.46769998595119,
+      "cpu_percent": 7.1,
+      "memory_mb": 0,
+      "timestamp": "2025-09-14T13:22:31.440725+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 4
+      }
+    },
+    {
+      "stage": "deployment_prep",
+      "duration_ms": 82.9663000185974,
+      "cpu_percent": 0,
+      "memory_mb": 5.1171875,
+      "timestamp": "2025-09-14T13:22:31.526289+00:00",
+      "success": true,
+      "metadata": {
+        "iteration": 4
+      }
+    }
+  ],
+  "statistics": {
+    "code_analysis": {
+      "mean": 377.3639199906029,
+      "median": 377.61919997865334,
+      "stdev": 7.218960277366636,
+      "min": 369.2944999784231,
+      "max": 386.52479997836053,
+      "p95": 386.52479997836053,
+      "p99": 386.52479997836053,
+      "count": 5,
+      "success_rate": 1.0
+    },
+    "integration_tests": {
+      "mean": 165.4998799902387,
+      "median": 164.15879997657612,
+      "stdev": 3.608849159870472,
+      "min": 163.29910000786185,
+      "max": 171.9242999679409,
+      "p95": 171.9242999679409,
+      "p99": 171.9242999679409,
+      "count": 5,
+      "success_rate": 1.0
+    },
+    "linting": {
+      "mean": 1711.2217000103556,
+      "median": 1711.6442000260577,
+      "stdev": 17.186344550496592,
+      "min": 1687.6132000470534,
+      "max": 1732.3403999907896,
+      "p95": 1732.3403999907896,
+      "p99": 1732.3403999907896,
+      "count": 5,
+      "success_rate": 1.0
+    },
+    "type_checking": {
+      "mean": 244.50961998663843,
+      "median": 245.54219999117777,
+      "stdev": 2.1682525231468417,
+      "min": 241.22019996866584,
+      "max": 246.52310000965372,
+      "p95": 246.52310000965372,
+      "p99": 246.52310000965372,
+      "count": 5,
+      "success_rate": 1.0
+    },
+    "security_scan": {
+      "mean": 62.18766000820324,
+      "median": 61.85960001312196,
+      "stdev": 1.6562111063173672,
+      "min": 60.47159997979179,
+      "max": 64.39010001486167,
+      "p95": 64.39010001486167,
+      "p99": 64.39010001486167,
+      "count": 5,
+      "success_rate": 1.0
+    },
+    "build": {
+      "mean": 112.38162000663579,
+      "median": 112.65970004023984,
+      "stdev": 1.4837180152601508,
+      "min": 110.3304999996908,
+      "max": 113.92019997583702,
+      "p95": 113.92019997583702,
+      "p99": 113.92019997583702,
+      "count": 5,
+      "success_rate": 1.0
+    },
+    "deployment_prep": {
+      "mean": 83.29014000482857,
+      "median": 83.32090004114434,
+      "stdev": 0.5419489594107444,
+      "min": 82.64129998860881,
+      "max": 84.08080000663176,
+      "p95": 84.08080000663176,
+      "p99": 84.08080000663176,
+      "count": 5,
+      "success_rate": 1.0
+    }
+  },
+  "methodology": {
+    "iterations": "5",
+    "measurement_approach": "isolated_stage_timing",
+    "environment": "clean_no_enterprise_features",
+    "precision": "millisecond_timing"
+  },
+  "environment": {
+    "python_version": "3.12.5",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "processor": "Intel64 Family 6 Model 165 Stepping 3, GenuineIntel",
+    "cpu_count": "12",
+    "memory_gb": "15.9",
+    "measurement_time": "2025-09-14T13:22:31.528283+00:00"
+  },
+  "timestamp": "2025-09-14T13:22:31.528283+00:00"
+}

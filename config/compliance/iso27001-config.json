@@ -1,0 +1,130 @@
+{
+  "framework": "ISO27001",
+  "version": "2022",
+  "compliance_threshold": 0.95,
+  "audit_settings": {
+    "evidence_collection": true,
+    "cryptographic_integrity": true,
+    "retention_days": 2557
+  },
+  "control_domains": {
+    "A.5": {
+      "name": "Information Security Policies",
+      "weight": 0.08,
+      "total_controls": 2,
+      "maturity_assessment": true
+    },
+    "A.6": {
+      "name": "Organization of Information Security",
+      "weight": 0.10,
+      "total_controls": 8,
+      "maturity_assessment": true
+    },
+    "A.7": {
+      "name": "Human Resource Security",
+      "weight": 0.08,
+      "total_controls": 7,
+      "maturity_assessment": true
+    },
+    "A.8": {
+      "name": "Asset Management",
+      "weight": 0.12,
+      "total_controls": 10,
+      "maturity_assessment": true
+    },
+    "A.9": {
+      "name": "Access Control",
+      "weight": 0.15,
+      "total_controls": 14,
+      "maturity_assessment": true
+    },
+    "A.10": {
+      "name": "Cryptography",
+      "weight": 0.07,
+      "total_controls": 2,
+      "maturity_assessment": true
+    },
+    "A.11": {
+      "name": "Physical and Environmental Security",
+      "weight": 0.08,
+      "total_controls": 15,
+      "maturity_assessment": false,
+      "note": "Physical controls assessed via documentation review"
+    },
+    "A.12": {
+      "name": "Operations Security",
+      "weight": 0.12,
+      "total_controls": 14,
+      "maturity_assessment": true
+    },
+    "A.13": {
+      "name": "Communications Security",
+      "weight": 0.08,
+      "total_controls": 7,
+      "maturity_assessment": true
+    },
+    "A.14": {
+      "name": "System Acquisition, Development and Maintenance",
+      "weight": 0.10,
+      "total_controls": 13,
+      "maturity_assessment": true
+    },
+    "A.15": {
+      "name": "Supplier Relationship Security",
+      "weight": 0.07,
+      "total_controls": 3,
+      "maturity_assessment": true
+    },
+    "A.16": {
+      "name": "Information Security Incident Management",
+      "weight": 0.08,
+      "total_controls": 7,
+      "maturity_assessment": true
+    },
+    "A.17": {
+      "name": "Information Security Aspects of Business Continuity Management",
+      "weight": 0.05,
+      "total_controls": 4,
+      "maturity_assessment": true
+    },
+    "A.18": {
+      "name": "Compliance",
+      "weight": 0.08,
+      "total_controls": 8,
+      "maturity_assessment": true
+    }
+  },
+  "risk_assessment": {
+    "methodology": "ISO27005",
+    "risk_levels": ["Critical", "High", "Medium", "Low"],
+    "risk_matrix": {
+      "probability": ["Very Low", "Low", "Medium", "High", "Very High"],
+      "impact": ["Negligible", "Minor", "Moderate", "Major", "Catastrophic"]
+    },
+    "acceptable_risk_threshold": "Medium"
+  },
+  "maturity_levels": [
+    { "level": 1, "name": "Initial", "description": "Ad hoc processes" },
+    { "level": 2, "name": "Repeatable", "description": "Basic documented processes" },
+    { "level": 3, "name": "Defined", "description": "Standardized processes" },
+    { "level": 4, "name": "Managed", "description": "Quantitatively managed" },
+    { "level": 5, "name": "Optimized", "description": "Continuously improving" }
+  ],
+  "reporting": {
+    "formats": ["json", "markdown", "pdf"],
+    "include_risk_assessment": true,
+    "include_maturity_assessment": true,
+    "include_evidence_summary": true,
+    "include_recommendations": true,
+    "generate_executive_summary": true
+  },
+  "remediation": {
+    "auto_generate_recommendations": true,
+    "priority_mapping": {
+      "critical": "score < 0.5 AND risk_level = High",
+      "high": "score < 0.7 OR risk_level = High",
+      "medium": "score < 0.95 AND risk_level = Medium",
+      "low": "score >= 0.95 AND risk_level = Low"
+    }
+  }
+}

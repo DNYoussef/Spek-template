@@ -396,7 +396,7 @@ if __name__ == "__main__":
     async def main():
         project_path = sys.argv[1] if len(sys.argv) > 1 else "."
         
-        print("🔒 SPEK Compliance Evidence System Demonstration")
+        print("[LOCK] SPEK Compliance Evidence System Demonstration")
         print("=" * 60)
         
         demo_results = await demonstrate_compliance_system(project_path)
@@ -407,7 +407,7 @@ if __name__ == "__main__":
         print()
         
         for step in demo_results["steps"]:
-            status_icon = "✅" if step["result"].get("status") in ["success", "skipped"] else "❌"
+            status_icon = "[OK]" if step["result"].get("status") in ["success", "skipped"] else "[FAIL]"
             print(f"{status_icon} Step {step['step']}: {step['description']}")
             
             result = step["result"]
@@ -430,7 +430,7 @@ if __name__ == "__main__":
         
         if "summary" in demo_results:
             summary = demo_results["summary"]
-            print("📊 Demonstration Summary:")
+            print("[CHART] Demonstration Summary:")
             print(f"   Total Steps: {summary['total_steps']}")
             print(f"   Successful Steps: {summary['successful_steps']}")
             print(f"   Frameworks Demonstrated: {summary['frameworks_demonstrated']}")
@@ -438,10 +438,10 @@ if __name__ == "__main__":
             print(f"   Overall Success: {summary['demonstration_complete']}")
         
         if demo_results["overall_status"] == "error":
-            print(f"\n❌ Error: {demo_results.get('error', 'Unknown error')}")
+            print(f"\n[FAIL] Error: {demo_results.get('error', 'Unknown error')}")
             return 1
         
-        print("\n🎉 Compliance Evidence System demonstration completed successfully!")
+        print("\n Compliance Evidence System demonstration completed successfully!")
         return 0
     
     exit_code = asyncio.run(main())

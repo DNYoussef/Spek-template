@@ -64,7 +64,7 @@ class AuditTrailGenerator extends EventEmitter {
         existingAudits: this.auditIndex.size
       });
 
-      console.log('✅ Audit Trail Generator initialized');
+      console.log('[OK] Audit Trail Generator initialized');
     } catch (error) {
       throw new Error(`Audit trail generator initialization failed: ${error.message}`);
     }

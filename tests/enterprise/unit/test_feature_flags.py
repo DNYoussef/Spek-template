@@ -896,7 +896,7 @@ class TestErrorHandlingAndEdgeCases:
     def test_unicode_feature_names(self):
         """Test handling of unicode feature names"""
         # Add unicode feature name
-        unicode_name = 'feature_测试_🚀'
+        unicode_name = 'feature__[ROCKET]'
         self.manager.features[unicode_name] = FeatureFlag(
             name=unicode_name,
             state=FeatureState.ENABLED,

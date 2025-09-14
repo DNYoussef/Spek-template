@@ -114,7 +114,7 @@ jobs:
             const decision = report.deployment_decision;
             const quality = report.quality_summary;
             
-            const status = decision.can_deploy ? '✅ PASS' : '❌ FAIL';
+            const status = decision.can_deploy ? '[OK] PASS' : '[FAIL] FAIL';
             const environment = decision.deployment_environment;
             const nasaScore = (quality.nasa_compliance_score * 100).toFixed(1);
             
@@ -124,10 +124,10 @@ jobs:
 **Defense Industry Ready:** ${decision.defense_industry_ready ? 'Yes' : 'No'}
 
 ### Quality Summary
-- **NASA Compliance:** ${nasaScore}% ${quality.nasa_compliance_score >= 0.90 ? '✅' : '❌'}
-- **JSON Validation:** ${quality.json_validation_passed ? '✅ PASS' : '❌ FAIL'}
-- **Quality Gates:** ${quality.quality_gates_passed ? '✅ PASS' : '❌ FAIL'}
-- **Critical Systems:** ${quality.critical_systems_passed ? '✅ PASS' : '❌ FAIL'}
+- **NASA Compliance:** ${nasaScore}% ${quality.nasa_compliance_score >= 0.90 ? '[OK]' : '[FAIL]'}
+- **JSON Validation:** ${quality.json_validation_passed ? '[OK] PASS' : '[FAIL] FAIL'}
+- **Quality Gates:** ${quality.quality_gates_passed ? '[OK] PASS' : '[FAIL] FAIL'}
+- **Critical Systems:** ${quality.critical_systems_passed ? '[OK] PASS' : '[FAIL] FAIL'}
             `;
             
             if (report.blocking_issues && report.blocking_issues.length > 0) {
@@ -190,9 +190,9 @@ jobs:
             print(f'Defense Ready: {defense_ready}')
             exit(0 if defense_ready else 1)
         "; then
-          echo "✅ NASA POT10 compliance verified - defense industry ready"
+          echo "[OK] NASA POT10 compliance verified - defense industry ready"
         else
-          echo "❌ NASA POT10 compliance insufficient for defense deployment"
+          echo "[FAIL] NASA POT10 compliance insufficient for defense deployment"
           exit 1
         fi
         

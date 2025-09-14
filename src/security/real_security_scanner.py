@@ -192,7 +192,7 @@ class RealSecurityScanner:
                 print(f"[OK] {tool_name} scan completed: {len(result.findings)} findings")
                 
             except Exception as e:
-                logger.error(f"✗ {tool_name} scan failed: {e}")
+                logger.error(f" {tool_name} scan failed: {e}")
                 # Create error result
                 self.scan_results[tool_name] = SecurityScanResult(
                     tool_name=tool_name,
@@ -925,7 +925,7 @@ class RealSecurityScanner:
             if security_report["recommendations"]:
                 print("\nRecommendations:")
                 for rec in security_report["recommendations"]:
-                    print(f"  • {rec}")
+                    print(f"   {rec}")
             
             return security_report
             

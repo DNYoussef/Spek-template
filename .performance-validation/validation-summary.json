@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-09-14T13:19:16.614Z",
+  "success": false,
+  "precision_achieved": 1.5394713806486993,
+  "precision_target": 0.1,
+  "tests_passed": "0/3",
+  "theater_detection_status": "PARTIAL"
+}

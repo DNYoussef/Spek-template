@@ -504,7 +504,7 @@ async function generateGitHubActionsIntegrationReport(artifactResults) {
 ## Executive Summary
 
 **Test Execution**: ${new Date().toISOString()}
-**Integration Status**: ${JSON.stringify(artifactResults, null, 2).length > 100 ? '✅ SUCCESS' : '❌ INCOMPLETE'}
+**Integration Status**: ${JSON.stringify(artifactResults, null, 2).length > 100 ? '[OK] SUCCESS' : '[FAIL] INCOMPLETE'}
 
 ## Workflow Optimization Artifacts
 
@@ -535,7 +535,7 @@ async function generateGitHubActionsIntegrationReport(artifactResults) {
 
 ### Performance Metrics
 - **Execution Duration**: ${artifactResults.enterpriseArtifacts?.performanceArtifact?.execution?.duration?.toFixed(2) || 'N/A'}ms
-- **Performance Budget Met**: ${artifactResults.enterpriseArtifacts?.performanceArtifact?.execution?.performanceBudgetMet ? '✅ YES' : '❌ NO'}
+- **Performance Budget Met**: ${artifactResults.enterpriseArtifacts?.performanceArtifact?.execution?.performanceBudgetMet ? '[OK] YES' : '[FAIL] NO'}
 - **Parallel Operations**: ${artifactResults.enterpriseArtifacts?.performanceArtifact?.execution?.parallelOperations || 'N/A'}
 
 ## Theater Remediation Validation
@@ -548,8 +548,8 @@ async function generateGitHubActionsIntegrationReport(artifactResults) {
 
 ### Remediation Success
 - **Patterns Identified**: ${artifactResults.theaterDetection?.remediation?.patternsIdentified?.length || 'N/A'}
-- **Remediation Success**: ${artifactResults.theaterDetection?.remediation?.remediationSuccess ? '✅ YES' : '❌ NO'}
-- **Value Focus Achieved**: ${artifactResults.theaterDetection?.remediation?.valueFocusAchieved ? '✅ YES' : '❌ NO'}
+- **Remediation Success**: ${artifactResults.theaterDetection?.remediation?.remediationSuccess ? '[OK] YES' : '[FAIL] NO'}
+- **Value Focus Achieved**: ${artifactResults.theaterDetection?.remediation?.valueFocusAchieved ? '[OK] YES' : '[FAIL] NO'}
 
 ## Generated Enterprise Artifacts
 
@@ -561,17 +561,17 @@ async function generateGitHubActionsIntegrationReport(artifactResults) {
 
 ## Integration Validation Status
 
-${artifactResults.workflowOptimizations?.reportGenerated ? '✅' : '❌'} Workflow optimization artifacts generated
-${artifactResults.complianceArtifacts?.compliance ? '✅' : '❌'} Enterprise compliance integration
-${artifactResults.enterpriseArtifacts?.qualityGateIntegration ? '✅' : '❌'} Quality gates integration
-${artifactResults.theaterDetection?.remediation?.remediationSuccess ? '✅' : '❌'} Theater patterns remediated
-${artifactResults.theaterDetection?.operationalValue ? '✅' : '❌'} Operational value focus validated
+${artifactResults.workflowOptimizations?.reportGenerated ? '[OK]' : '[FAIL]'} Workflow optimization artifacts generated
+${artifactResults.complianceArtifacts?.compliance ? '[OK]' : '[FAIL]'} Enterprise compliance integration
+${artifactResults.enterpriseArtifacts?.qualityGateIntegration ? '[OK]' : '[FAIL]'} Quality gates integration
+${artifactResults.theaterDetection?.remediation?.remediationSuccess ? '[OK]' : '[FAIL]'} Theater patterns remediated
+${artifactResults.theaterDetection?.operationalValue ? '[OK]' : '[FAIL]'} Operational value focus validated
 
 ## Recommendations
 
 ${artifactResults.theaterDetection?.analysis?.theaterPercentage < 30 ?
-  '✅ **GitHub Actions integration is production-ready** with effective theater remediation and enterprise artifact generation.' :
-  '❌ **Additional theater remediation required** before production deployment. Review high-complexity, low-value workflows.'}
+  '[OK] **GitHub Actions integration is production-ready** with effective theater remediation and enterprise artifact generation.' :
+  '[FAIL] **Additional theater remediation required** before production deployment. Review high-complexity, low-value workflows.'}
 
 *Report generated: ${new Date().toISOString()}*
 `;

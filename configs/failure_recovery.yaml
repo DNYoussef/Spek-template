@@ -375,19 +375,19 @@ notifications:
   # Notification templates
   templates:
     failure_detected:
-      title: "🚨 CI/CD Failure Detected: {category}"
+      title: "[ALERT] CI/CD Failure Detected: {category}"
       include_sections: ["failure_analysis", "recovery_plan", "timeline"]
       
     recovery_successful:
-      title: "✅ Automated Recovery Successful: {category}"
+      title: "[OK] Automated Recovery Successful: {category}"
       include_sections: ["recovery_summary", "actions_taken", "performance_metrics"]
       
     recovery_failed:
-      title: "❌ Automated Recovery Failed: {category}"
+      title: "[FAIL] Automated Recovery Failed: {category}"
       include_sections: ["failure_analysis", "attempted_actions", "manual_steps"]
       
     rollback_triggered:
-      title: "🔄 Emergency Rollback Triggered: {reason}"
+      title: "[CYCLE] Emergency Rollback Triggered: {reason}"
       include_sections: ["rollback_reason", "affected_systems", "recovery_timeline"]
   
   # Rate limiting to prevent spam

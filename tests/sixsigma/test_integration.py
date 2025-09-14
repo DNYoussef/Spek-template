@@ -361,10 +361,10 @@ if __name__ == "__main__":
     print(f"Errors: {len(result.errors)}")
     
     if result.wasSuccessful():
-        print("✅ All Six Sigma integration tests passed!")
-        print("\n🎯 Theater-Free Quality Validation: VERIFIED")
-        print("📊 DPMO/RTY Calculations: WORKING")
-        print("📈 Telemetry System: FUNCTIONAL")
-        print("🚨 Alert System: OPERATIONAL")
+        print("[OK] All Six Sigma integration tests passed!")
+        print("\n[TARGET] Theater-Free Quality Validation: VERIFIED")
+        print("[CHART] DPMO/RTY Calculations: WORKING")
+        print("[TREND] Telemetry System: FUNCTIONAL")
+        print("[ALERT] Alert System: OPERATIONAL")
     else:
-        print("❌ Some tests failed - check output above")
+        print("[FAIL] Some tests failed - check output above")

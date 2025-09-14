@@ -8,6 +8,17 @@ import yaml
 from pathlib import Path
 from typing import Dict, Any, Optional
 import re
+import sys
+
+# Add security module to path
+sys.path.append(str(Path(__file__).parent.parent.parent.parent / 'src'))
+
+try:
+    from security.path_validator import PathSecurityValidator, SecurityError
+except ImportError:
+    # Fallback if security module not available
+    PathSecurityValidator = None
+    SecurityError = Exception
 
 
 class SupplyChainConfigLoader:
@@ -16,6 +27,17 @@ class SupplyChainConfigLoader:
     def __init__(self, config_path: Optional[str] = None):
         self.config_path = config_path or self._find_config_file()
         self._config_cache = None
+
+        # Initialize DFARS-compliant path validator
+        self.path_validator = None
+        if PathSecurityValidator:
+            allowed_paths = [
+                str(Path.cwd()),
+                str(Path.cwd() / "config"),
+                str(Path.home() / ".spek"),
+                os.path.expanduser("~/.spek")
+            ]
+            self.path_validator = PathSecurityValidator(allowed_paths)
         
     def _find_config_file(self) -> str:
         """Find enterprise configuration file."""
@@ -36,35 +58,42 @@ class SupplyChainConfigLoader:
         return "config/enterprise_config.yaml"
     
     def load_config(self, reload: bool = False) -> Dict[str, Any]:
-        """Load enterprise configuration with environment variable substitution."""
-        
+        """Load enterprise configuration with DFARS-compliant path validation."""
+
         if self._config_cache and not reload:
             return self._config_cache
-        
+
         try:
             config_path = Path(self.config_path)
-            
+
+            # DFARS Compliance: Validate configuration file path
+            if self.path_validator:
+                validation_result = self.path_validator.validate_path(str(config_path), 'read')
+                if not validation_result['valid']:
+                    print(f"Security Warning: Config path validation failed: {validation_result['security_violations']}")
+                    return self._get_default_config()
+
             if not config_path.exists():
                 print(f"Warning: Config file not found at {config_path}, using defaults")
                 return self._get_default_config()
-            
+
             with open(config_path, 'r', encoding='utf-8') as f:
                 config_content = f.read()
-            
-            # Substitute environment variables
-            config_content = self._substitute_env_vars(config_content)
-            
+
+            # Substitute environment variables with security validation
+            config_content = self._substitute_env_vars_secure(config_content)
+
             # Parse YAML
             config = yaml.safe_load(config_content)
-            
-            # Validate and set defaults
-            config = self._validate_and_set_defaults(config)
-            
+
+            # Validate and set defaults with security enhancements
+            config = self._validate_and_set_defaults_secure(config)
+
             # Cache the config
             self._config_cache = config
-            
+
             return config
-            
+
         except Exception as e:
             print(f"Error loading config from {self.config_path}: {e}")
             return self._get_default_config()
@@ -91,6 +120,63 @@ class SupplyChainConfigLoader:
         pattern = r'\$\{([A-Z_][A-Z0-9_]*?)(?::([^}]*))?\}'
         
         return re.sub(pattern, replace_env_var, content)
+
+    def _substitute_env_vars_secure(self, content: str) -> str:
+        """Securely substitute environment variables with validation."""
+        # Use existing implementation but add security logging
+        result = self._substitute_env_vars(content)
+
+        # Log if sensitive patterns detected in environment substitution
+        sensitive_patterns = ['password', 'secret', 'key', 'token']
+        for pattern in sensitive_patterns:
+            if pattern.lower() in result.lower():
+                print(f"Security Notice: Sensitive configuration detected: {pattern}")
+
+        return result
+
+    def _validate_and_set_defaults_secure(self, config: Dict[str, Any]) -> Dict[str, Any]:
+        """Enhanced validation with security controls."""
+        # Use existing validation
+        config = self._validate_and_set_defaults(config)
+
+        # Add DFARS security enhancements
+        if 'supply_chain' not in config:
+            config['supply_chain'] = {}
+
+        sc_config = config['supply_chain']
+
+        # DFARS-specific security defaults
+        security_defaults = {
+            'security_level': 'dfars_compliant',
+            'path_validation_enabled': True,
+            'crypto_compliance_mode': 'dfars_252_204_7012',
+            'audit_trail_enabled': True,
+            'tls_min_version': '1.3',
+            'require_crypto_validation': True,
+            'data_protection_level': 'defense_grade'
+        }
+
+        for key, default_value in security_defaults.items():
+            if key not in sc_config:
+                sc_config[key] = default_value
+
+        # Update cryptographic signing for DFARS compliance
+        if 'cryptographic_signing' in sc_config:
+            crypto_config = sc_config['cryptographic_signing']
+            # Remove SHA1 from allowed algorithms for DFARS compliance
+            if 'allowed_algorithms' in crypto_config:
+                allowed_algs = crypto_config['allowed_algorithms']
+                crypto_config['allowed_algorithms'] = [
+                    alg for alg in allowed_algs
+                    if 'sha1' not in alg.lower() and 'md5' not in alg.lower()
+                ]
+                # Ensure strong algorithms are present
+                if 'RSA-SHA256' not in crypto_config['allowed_algorithms']:
+                    crypto_config['allowed_algorithms'].append('RSA-SHA256')
+                if 'ECDSA-SHA256' not in crypto_config['allowed_algorithms']:
+                    crypto_config['allowed_algorithms'].append('ECDSA-SHA256')
+
+        return config
     
     def _validate_and_set_defaults(self, config: Dict[str, Any]) -> Dict[str, Any]:
         """Validate configuration and set defaults."""

@@ -412,7 +412,7 @@ async def validate_compliance_retention(project_path: str = ".") -> Dict[str, An
     """Main validation function for compliance retention system"""
     validator = ComplianceRetentionValidator(project_path)
     
-    print("🔒 Starting Compliance Evidence Retention Validation")
+    print("[LOCK] Starting Compliance Evidence Retention Validation")
     print("=" * 60)
     
     validation_results = await validator.run_retention_validation()
@@ -424,7 +424,7 @@ async def validate_compliance_retention(project_path: str = ".") -> Dict[str, An
     print()
     
     for test in validation_results["tests"]:
-        status_icon = "✅" if test["status"] == "pass" else "❌"
+        status_icon = "[OK]" if test["status"] == "pass" else "[FAIL]"
         print(f"{status_icon} {test['test_name']} ({test['test_id']})")
         
         if test["status"] == "pass":
@@ -442,7 +442,7 @@ async def validate_compliance_retention(project_path: str = ".") -> Dict[str, An
     
     if "summary" in validation_results:
         summary = validation_results["summary"]
-        print("📊 Validation Summary:")
+        print("[CHART] Validation Summary:")
         print(f"   Total Tests: {summary['total_tests']}")
         print(f"   Passed Tests: {summary['passed_tests']}")
         print(f"   Failed Tests: {summary['failed_tests']}")
@@ -461,14 +461,14 @@ if __name__ == "__main__":
         validation_results = await validate_compliance_retention(project_path)
         
         if validation_results["overall_status"] == "success":
-            print("\n🎉 Compliance retention validation completed successfully!")
-            print("✅ 90-day evidence retention system validated")
-            print("✅ Performance overhead within 1.5% limit")
-            print("✅ Audit trail integrity confirmed")
-            print("✅ Automated cleanup procedures working")
+            print("\n Compliance retention validation completed successfully!")
+            print("[OK] 90-day evidence retention system validated")
+            print("[OK] Performance overhead within 1.5% limit")
+            print("[OK] Audit trail integrity confirmed")
+            print("[OK] Automated cleanup procedures working")
             return 0
         else:
-            print(f"\n❌ Validation failed: {validation_results.get('error', 'Unknown error')}")
+            print(f"\n[FAIL] Validation failed: {validation_results.get('error', 'Unknown error')}")
             return 1
     
     exit_code = asyncio.run(main())

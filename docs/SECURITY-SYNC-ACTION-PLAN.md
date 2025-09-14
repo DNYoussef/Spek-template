@@ -6,7 +6,7 @@ Based on comprehensive analysis of security tool configuration differences betwe
 
 ## Critical Findings Summary
 
-### 🚨 CRITICAL ISSUES IDENTIFIED
+### [ALERT] CRITICAL ISSUES IDENTIFIED
 
 1. **Safety CLI Version Gap**: Local 3.6.0 vs CI 3.0.0+ (2-year gap)
    - **Impact**: 4x more vulnerabilities detected in 3.6.0, different JSON output format
@@ -227,36 +227,36 @@ echo "=== Security Tool Version Validation ==="
 # Check Python version
 PYTHON_VERSION=$(python --version | cut -d' ' -f2)
 if [[ ! "$PYTHON_VERSION" =~ ^3\.12\. ]]; then
-    echo "❌ Python version mismatch. Expected: 3.12.x, Got: $PYTHON_VERSION"
+    echo "[FAIL] Python version mismatch. Expected: 3.12.x, Got: $PYTHON_VERSION"
     exit 1
 fi
-echo "✅ Python version: $PYTHON_VERSION"
+echo "[OK] Python version: $PYTHON_VERSION"
 
 # Check Safety version
 SAFETY_VERSION=$(safety --version | head -n1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
 if [[ ! "$SAFETY_VERSION" =~ ^3\.[6-9]\.|^[4-9]\. ]]; then
-    echo "❌ Safety version outdated. Expected: >=3.6.0, Got: $SAFETY_VERSION"
+    echo "[FAIL] Safety version outdated. Expected: >=3.6.0, Got: $SAFETY_VERSION"
     exit 1
 fi
-echo "✅ Safety version: $SAFETY_VERSION"
+echo "[OK] Safety version: $SAFETY_VERSION"
 
 # Check Semgrep version  
 SEMGREP_VERSION=$(semgrep --version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
 if [[ ! "$SEMGREP_VERSION" =~ ^1\.(13[4-9]|1[4-9][0-9]|[2-9][0-9][0-9])\.|^[2-9]\. ]]; then
-    echo "❌ Semgrep version outdated. Expected: >=1.134.0, Got: $SEMGREP_VERSION"
+    echo "[FAIL] Semgrep version outdated. Expected: >=1.134.0, Got: $SEMGREP_VERSION"
     exit 1
 fi
-echo "✅ Semgrep version: $SEMGREP_VERSION"
+echo "[OK] Semgrep version: $SEMGREP_VERSION"
 
 # Check Bandit version
 BANDIT_VERSION=$(bandit --version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
 if [[ ! "$BANDIT_VERSION" =~ ^1\.[8-9]\.|^[2-9]\. ]]; then
-    echo "❌ Bandit version outdated. Expected: >=1.8.0, Got: $BANDIT_VERSION"
+    echo "[FAIL] Bandit version outdated. Expected: >=1.8.0, Got: $BANDIT_VERSION"
     exit 1
 fi
-echo "✅ Bandit version: $BANDIT_VERSION"
+echo "[OK] Bandit version: $BANDIT_VERSION"
 
-echo "✅ All security tools validated successfully!"
+echo "[OK] All security tools validated successfully!"
 ```
 
 ### Scan Result Comparison Testing
@@ -283,10 +283,10 @@ python scripts/compare_security_findings.py \
 
 # Validate no critical regressions
 if grep -q '"critical_regressions": true' comparison_report.json; then
-    echo "❌ Critical regressions detected in scan results"
+    echo "[FAIL] Critical regressions detected in scan results"
     exit 1
 else
-    echo "✅ No critical regressions detected"
+    echo "[OK] No critical regressions detected"
 fi
 ```
 

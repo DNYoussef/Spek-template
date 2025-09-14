@@ -764,15 +764,15 @@ async def run_regression_check(args: argparse.Namespace) -> None:
     
     if regression_results["baseline_available"]:
         if regression_results["regression_detected"]:
-            print("❌ REGRESSION DETECTED")
+            print("[FAIL] REGRESSION DETECTED")
             for detail in regression_results["regression_details"]:
                 if detail["regression"]:
                     print(f"  - {detail['metric']}: {detail['change_percent']:.1f}% degradation ({detail['severity']} severity)")
         else:
-            print("✅ NO REGRESSION DETECTED")
+            print("[OK] NO REGRESSION DETECTED")
             print("Performance is stable or improved compared to baseline")
     else:
-        print("⚠️  No baseline available for comparison")
+        print("[WARN]  No baseline available for comparison")
         if args.save_baseline:
             checker.save_baseline(regression_results["current_metrics"], args.save_baseline)
             print(f"Current metrics saved as baseline: {args.save_baseline}")

@@ -30,9 +30,9 @@ const WORKFLOW_TEST_CONFIG = {
 };
 
 async function main() {
-  console.log('🚀 GitHub Actions Workflow Performance Validation');
-  console.log('🎯 Target: Matrix build optimization and <2% overhead');
-  console.log('📊 Testing workflow analysis and optimization performance\n');
+  console.log('[ROCKET] GitHub Actions Workflow Performance Validation');
+  console.log('[TARGET] Target: Matrix build optimization and <2% overhead');
+  console.log('[CHART] Testing workflow analysis and optimization performance\n');
 
   const startTime = Date.now();
 
@@ -65,14 +65,14 @@ async function main() {
     displayWorkflowSummary(results);
 
     const totalDuration = (Date.now() - startTime) / 1000;
-    console.log(`\n✅ GitHub Actions validation completed in ${totalDuration.toFixed(2)}s`);
+    console.log(`\n[OK] GitHub Actions validation completed in ${totalDuration.toFixed(2)}s`);
 
     // Exit based on performance compliance
     const compliant = validateWorkflowCompliance(results);
     process.exit(compliant ? 0 : 1);
 
   } catch (error) {
-    console.error('❌ GitHub Actions validation failed:', error);
+    console.error('[FAIL] GitHub Actions validation failed:', error);
     process.exit(1);
   }
 }
@@ -81,7 +81,7 @@ async function main() {
  * Setup test workflows for performance testing
  */
 async function setupTestWorkflows() {
-  console.log('📋 Setting up test workflows...');
+  console.log('[CLIPBOARD] Setting up test workflows...');
 
   const workflows = [];
 
@@ -160,7 +160,7 @@ function createTestWorkflow(name, complexity) {
  * Test workflow analysis performance
  */
 async function testWorkflowAnalysis(workflows) {
-  console.log('🔍 Testing workflow analysis performance...');
+  console.log('[SEARCH] Testing workflow analysis performance...');
 
   const startTime = performance.now();
   const startMemory = process.memoryUsage();
@@ -356,7 +356,7 @@ async function simulateAnalysisWork(complexityScore) {
  * Test workflow optimization performance
  */
 async function testWorkflowOptimization(workflows) {
-  console.log('⚙️ Testing workflow optimization performance...');
+  console.log('[GEAR] Testing workflow optimization performance...');
 
   const startTime = performance.now();
   const startMemory = process.memoryUsage();
@@ -464,7 +464,7 @@ async function simulateOptimizationWork(stepCount) {
  * Test matrix build optimization
  */
 async function testMatrixOptimization() {
-  console.log('🏗️ Testing matrix build optimization...');
+  console.log('[BUILD] Testing matrix build optimization...');
 
   const startTime = performance.now();
   const results = {
@@ -545,7 +545,7 @@ function optimizeMatrix(matrix) {
  * Generate workflow performance report
  */
 async function generateWorkflowPerformanceReport(results) {
-  console.log('📄 Generating GitHub Actions performance report...');
+  console.log('[DOCUMENT] Generating GitHub Actions performance report...');
 
   const reportDir = path.join(process.cwd(), '.claude', '.artifacts');
   await fs.mkdir(reportDir, { recursive: true });
@@ -591,17 +591,17 @@ ${Object.entries(results.analysis.complexityResults).map(([category, count]) =>
 
 ## Performance Constraints Validation
 
-### ✅ **THROUGHPUT PERFORMANCE**
+### [OK] **THROUGHPUT PERFORMANCE**
 - **Analysis Throughput**: ${results.analysis.throughput.toFixed(1)} workflows/sec
-- **Target**: ≥${WORKFLOW_TEST_CONFIG.expectedThroughput} workflows/sec
+- **Target**: ${WORKFLOW_TEST_CONFIG.expectedThroughput} workflows/sec
 - **Status**: ${results.analysis.throughput >= WORKFLOW_TEST_CONFIG.expectedThroughput ? 'PASS' : 'FAIL'}
 
-### ✅ **MEMORY EFFICIENCY**
+### [OK] **MEMORY EFFICIENCY**
 - **Analysis Memory**: ${results.analysis.memoryUsage.toFixed(2)} MB
 - **Optimization Memory**: ${results.optimization.memoryUsage.toFixed(2)} MB
 - **Combined Overhead**: ${(results.analysis.memoryUsage + results.optimization.memoryUsage).toFixed(2)} MB
 
-### ✅ **OPTIMIZATION EFFECTIVENESS**
+### [OK] **OPTIMIZATION EFFECTIVENESS**
 - **Matrix Reduction**: ${results.matrix.reductionPercentage.toFixed(1)}%
 - **Time Savings**: ${results.matrix.timeReduction.toFixed(1)} minutes per run
 - **Theater Patterns**: ${((results.analysis.theaterDetection.total - results.analysis.theaterDetection.detected) / results.analysis.theaterDetection.total * 100).toFixed(1)}% legitimate workflows
@@ -622,8 +622,8 @@ ${Object.entries(results.analysis.complexityResults).map(([category, count]) =>
 
 ${results.analysis.throughput >= WORKFLOW_TEST_CONFIG.expectedThroughput &&
   results.matrix.reductionPercentage > 20 ?
-  '🟢 **APPROVED FOR PRODUCTION**\n\nGitHub Actions workflow optimization demonstrates excellent performance with significant time savings and genuine optimization value.' :
-  '🟡 **CONDITIONAL APPROVAL**\n\nPerformance acceptable but monitor for optimization opportunities in production.'}
+  ' **APPROVED FOR PRODUCTION**\n\nGitHub Actions workflow optimization demonstrates excellent performance with significant time savings and genuine optimization value.' :
+  ' **CONDITIONAL APPROVAL**\n\nPerformance acceptable but monitor for optimization opportunities in production.'}
 
 ---
 *Generated by GitHub Actions Workflow Performance Validator*
@@ -635,8 +635,8 @@ ${results.analysis.throughput >= WORKFLOW_TEST_CONFIG.expectedThroughput &&
   await fs.writeFile(reportPath, report, 'utf8');
   await fs.writeFile(resultsPath, JSON.stringify(results, null, 2), 'utf8');
 
-  console.log(`📄 Report saved: ${reportPath}`);
-  console.log(`📊 Results saved: ${resultsPath}`);
+  console.log(`[DOCUMENT] Report saved: ${reportPath}`);
+  console.log(`[CHART] Results saved: ${resultsPath}`);
 }
 
 /**
@@ -644,20 +644,20 @@ ${results.analysis.throughput >= WORKFLOW_TEST_CONFIG.expectedThroughput &&
  */
 function displayWorkflowSummary(results) {
   console.log('\n' + '='.repeat(80));
-  console.log('🎯 GITHUB ACTIONS WORKFLOW PERFORMANCE SUMMARY');
+  console.log('[TARGET] GITHUB ACTIONS WORKFLOW PERFORMANCE SUMMARY');
   console.log('='.repeat(80));
 
-  console.log(`\n📊 **ANALYSIS PERFORMANCE**`);
+  console.log(`\n[CHART] **ANALYSIS PERFORMANCE**`);
   console.log(`   Throughput: ${results.analysis.throughput.toFixed(1)} workflows/sec`);
-  console.log(`   Target: ≥${WORKFLOW_TEST_CONFIG.expectedThroughput} workflows/sec`);
-  console.log(`   Status: ${results.analysis.throughput >= WORKFLOW_TEST_CONFIG.expectedThroughput ? '✅ PASS' : '❌ FAIL'}`);
+  console.log(`   Target: ${WORKFLOW_TEST_CONFIG.expectedThroughput} workflows/sec`);
+  console.log(`   Status: ${results.analysis.throughput >= WORKFLOW_TEST_CONFIG.expectedThroughput ? '[OK] PASS' : '[FAIL] FAIL'}`);
 
-  console.log(`\n🏗️ **MATRIX OPTIMIZATION**`);
+  console.log(`\n[BUILD] **MATRIX OPTIMIZATION**`);
   console.log(`   Reduction: ${results.matrix.reductionPercentage.toFixed(1)}%`);
   console.log(`   Time Savings: ${results.matrix.timeReduction.toFixed(1)} min/run`);
-  console.log(`   Jobs: ${results.matrix.originalMatrix} → ${results.matrix.optimizedMatrix}`);
+  console.log(`   Jobs: ${results.matrix.originalMatrix}  ${results.matrix.optimizedMatrix}`);
 
-  console.log(`\n🎭 **THEATER DETECTION**`);
+  console.log(`\n[THEATER] **THEATER DETECTION**`);
   console.log(`   Patterns Detected: ${results.analysis.theaterDetection.detected}/${results.analysis.theaterDetection.total}`);
   console.log(`   Detection Rate: ${(results.analysis.theaterDetection.detected / results.analysis.theaterDetection.total * 100).toFixed(1)}%`);
   console.log(`   Legitimate Workflows: ${((results.analysis.theaterDetection.total - results.analysis.theaterDetection.detected) / results.analysis.theaterDetection.total * 100).toFixed(1)}%`);

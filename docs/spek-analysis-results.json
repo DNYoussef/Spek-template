@@ -1,0 +1,12 @@
+{
+  "error": "UnifiedImportManager._create_analyzer_adapter.<locals>.AnalyzerAdapter.analyze_path() got an unexpected keyword argument 'policy'",
+  "nasa_compliance": {
+    "score": 0.0,
+    "violations": []
+  },
+  "success": false,
+  "summary": {
+    "total_violations": 0
+  },
+  "violations": []
+}

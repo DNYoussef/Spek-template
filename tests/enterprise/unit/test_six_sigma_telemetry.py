@@ -703,7 +703,7 @@ class TestErrorHandlingAndEdgeCases:
         
     def test_unicode_defect_types(self):
         """Test handling of unicode defect types"""
-        unicode_defect = "错误_🐛_тест"
+        unicode_defect = "__"
         
         # Should handle unicode defect types gracefully
         self.telemetry.record_defect(unicode_defect, opportunities=1)

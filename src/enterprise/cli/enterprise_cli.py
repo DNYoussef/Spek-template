@@ -37,8 +37,42 @@ class EnterpriseCommand:
         pass
         
     async def execute(self, args: argparse.Namespace) -> int:
-        """Execute command and return exit code"""
-        raise NotImplementedError
+        """Execute command and return exit code with comprehensive error handling."""
+        try:
+            # NASA Rule 5: Input validation
+            assert isinstance(args, argparse.Namespace), "args must be argparse.Namespace"
+
+            # Log command execution
+            logger.info(f"Executing enterprise command: {self.name}")
+
+            # Execute command-specific logic
+            result = await self._execute_command_logic(args)
+
+            # Validate result
+            if isinstance(result, int):
+                return result
+            elif result is True:
+                return 0  # Success
+            elif result is False:
+                return 1  # Generic failure
+            else:
+                logger.warning(f"Command {self.name} returned unexpected result type: {type(result)}")
+                return 0  # Default to success
+
+        except Exception as e:
+            logger.error(f"Enterprise command {self.name} failed: {e}")
+            return 1  # Error exit code
+
+    async def _execute_command_logic(self, args: argparse.Namespace) -> Any:
+        """Command-specific execution logic - to be overridden by subclasses."""
+        logger.info(f"Executing base command logic for {self.name}")
+
+        # Default implementation - log the command and arguments
+        arg_dict = vars(args)
+        logger.info(f"Command arguments: {json.dumps(arg_dict, default=str, indent=2)}")
+
+        # Return success for base implementation
+        return True
         
 
 class TelemetryCommand(EnterpriseCommand):

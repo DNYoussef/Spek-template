@@ -134,7 +134,7 @@ export class CICDPerformanceMonitor extends EventEmitter {
       return;
     }
 
-    console.log('🔍 Starting CI/CD performance monitoring...');
+    console.log('[SEARCH] Starting CI/CD performance monitoring...');
     console.log(`   Overhead threshold: <${this.config.overheadThreshold}%`);
     console.log(`   Sampling interval: ${this.config.samplingInterval}ms`);
     console.log(`   Monitoring domains: ${this.config.domains.join(', ')}`);
@@ -160,7 +160,7 @@ export class CICDPerformanceMonitor extends EventEmitter {
       baseline: Object.fromEntries(this.baselineMetrics)
     });
 
-    console.log('✅ Performance monitoring active');
+    console.log('[OK] Performance monitoring active');
   }
 
   /**
@@ -172,7 +172,7 @@ export class CICDPerformanceMonitor extends EventEmitter {
       return this.generateSummary();
     }
 
-    console.log('🛑 Stopping CI/CD performance monitoring...');
+    console.log(' Stopping CI/CD performance monitoring...');
 
     this.isMonitoring = false;
     if (this.monitoringInterval) {
@@ -191,7 +191,7 @@ export class CICDPerformanceMonitor extends EventEmitter {
       summary
     });
 
-    console.log('✅ Performance monitoring stopped');
+    console.log('[OK] Performance monitoring stopped');
     return summary;
   }
 
@@ -250,7 +250,7 @@ export class CICDPerformanceMonitor extends EventEmitter {
    * Establish baseline performance metrics
    */
   private async establishBaseline(): Promise<void> {
-    console.log('📊 Establishing baseline metrics...');
+    console.log('[CHART] Establishing baseline metrics...');
 
     for (const domain of this.config.domains) {
       // Simulate baseline establishment
@@ -516,7 +516,7 @@ export class CICDPerformanceMonitor extends EventEmitter {
       await this.sendAlert(alert);
     }
 
-    console.log(`🚨 ${alert.severity.toUpperCase()} ALERT: ${alert.message}`);
+    console.log(`[ALERT] ${alert.severity.toUpperCase()} ALERT: ${alert.message}`);
   }
 
   /**
@@ -539,14 +539,14 @@ export class CICDPerformanceMonitor extends EventEmitter {
    * Handle alert events
    */
   private handleAlert(alert: PerformanceAlert): void {
-    console.log(`📢 Alert triggered: ${alert.id} - ${alert.message}`);
+    console.log(` Alert triggered: ${alert.id} - ${alert.message}`);
   }
 
   /**
    * Handle alert resolution
    */
   private handleAlertResolution(alertId: string): void {
-    console.log(`✅ Alert resolved: ${alertId}`);
+    console.log(`[OK] Alert resolved: ${alertId}`);
   }
 
   /**
@@ -672,7 +672,7 @@ export class CICDPerformanceMonitor extends EventEmitter {
       };
 
       await fs.writeFile(dataFile, JSON.stringify(data, null, 2), 'utf8');
-      console.log(`💾 Monitoring data saved: ${dataFile}`);
+      console.log(`[DISK] Monitoring data saved: ${dataFile}`);
 
     } catch (error) {
       console.error('Failed to save monitoring data:', error);

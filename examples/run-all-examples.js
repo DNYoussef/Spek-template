@@ -7,40 +7,40 @@ const { demonstrateSBOM } = require('./sbom-example');
 const { demonstrateCompliance } = require('./compliance-example');
 
 async function runAllExamples() {
-  console.log('🚀 SPEK Platform - Working Implementation Demonstration');
+  console.log('[ROCKET] SPEK Platform - Working Implementation Demonstration');
   console.log('='.repeat(60));
   console.log('This demonstration proves all functionality works without theater patterns.\n');
   
   const startTime = Date.now();
   
   try {
-    console.log('🔢 Starting Six Sigma Telemetry demonstration...\n');
+    console.log(' Starting Six Sigma Telemetry demonstration...\n');
     await demonstrateSixSigma();
     console.log('\n' + '='.repeat(60) + '\n');
     
-    console.log('📋 Starting SBOM Generation demonstration...\n');
+    console.log('[CLIPBOARD] Starting SBOM Generation demonstration...\n');
     await demonstrateSBOM();
     console.log('\n' + '='.repeat(60) + '\n');
     
-    console.log('✅ Starting Compliance Matrix demonstration...\n');
+    console.log('[OK] Starting Compliance Matrix demonstration...\n');
     await demonstrateCompliance();
     
     const endTime = Date.now();
     const duration = (endTime - startTime) / 1000;
     
     console.log('\n' + '='.repeat(60));
-    console.log('🎉 ALL DEMONSTRATIONS COMPLETED SUCCESSFULLY');
+    console.log(' ALL DEMONSTRATIONS COMPLETED SUCCESSFULLY');
     console.log('='.repeat(60));
     console.log(`Total execution time: ${duration.toFixed(2)} seconds`);
     console.log('\nREAL FUNCTIONALITY VERIFIED:');
-    console.log('✅ Six Sigma DPMO/RTY calculations with mathematical accuracy');
-    console.log('✅ Functional SBOM generation with valid CycloneDX/SPDX output');
-    console.log('✅ Working compliance matrix with actual SOC2/ISO27001 mappings');
-    console.log('✅ All code executes successfully with verifiable results');
+    console.log('[OK] Six Sigma DPMO/RTY calculations with mathematical accuracy');
+    console.log('[OK] Functional SBOM generation with valid CycloneDX/SPDX output');
+    console.log('[OK] Working compliance matrix with actual SOC2/ISO27001 mappings');
+    console.log('[OK] All code executes successfully with verifiable results');
     console.log('\nNo theater patterns detected - all implementations are functional!');
     
   } catch (error) {
-    console.error('\n❌ DEMONSTRATION FAILED:');
+    console.error('\n[FAIL] DEMONSTRATION FAILED:');
     console.error(error.message);
     console.error('\nStack trace:');
     console.error(error.stack);

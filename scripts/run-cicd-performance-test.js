@@ -38,9 +38,9 @@ let testResults = [];
 let realTimeStats = { operations: 0, errors: 0, totalDuration: 0 };
 
 async function main() {
-  console.log('🚀 Phase 4 CI/CD Performance Validation Starting...');
-  console.log('📊 Target: <2% system overhead constraint');
-  console.log('🎯 Scope: All 6 CI/CD domain agents post-theater remediation\n');
+  console.log('[ROCKET] Phase 4 CI/CD Performance Validation Starting...');
+  console.log('[CHART] Target: <2% system overhead constraint');
+  console.log('[TARGET] Scope: All 6 CI/CD domain agents post-theater remediation\n');
 
   const startTime = Date.now();
 
@@ -64,13 +64,13 @@ async function main() {
     displaySummary(analysis, compliance);
 
     const totalDuration = (Date.now() - startTime) / 1000;
-    console.log(`\n✅ Performance validation completed in ${totalDuration.toFixed(2)}s`);
+    console.log(`\n[OK] Performance validation completed in ${totalDuration.toFixed(2)}s`);
 
     // Exit with appropriate code
     process.exit(compliance.overheadCompliant ? 0 : 1);
 
   } catch (error) {
-    console.error('❌ Performance validation failed:', error);
+    console.error('[FAIL] Performance validation failed:', error);
     process.exit(1);
   }
 }
@@ -79,7 +79,7 @@ async function main() {
  * Establish baseline performance metrics
  */
 async function establishBaseline() {
-  console.log('📋 Establishing baseline performance metrics...');
+  console.log('[CLIPBOARD] Establishing baseline performance metrics...');
 
   baselineMetrics = captureMetrics();
 
@@ -95,28 +95,28 @@ async function establishBaseline() {
 
   console.log(`   Memory baseline: ${baselineMetrics.memory.rss.toFixed(1)} MB`);
   console.log(`   CPU baseline: ${baselineMetrics.cpu.usage.toFixed(1)}%`);
-  console.log('✅ Baseline established\n');
+  console.log('[OK] Baseline established\n');
 }
 
 /**
  * Execute performance tests for all domains
  */
 async function executeDomainTests() {
-  console.log('🎯 Executing domain performance tests...\n');
+  console.log('[TARGET] Executing domain performance tests...\n');
 
   const results = [];
 
   for (const domain of CONFIG.domains) {
-    console.log(`🔍 Testing ${domain} domain...`);
+    console.log(`[SEARCH] Testing ${domain} domain...`);
 
     const domainResult = await testDomain(domain);
     results.push(domainResult);
 
     // Display immediate results
-    const status = domainResult.compliance.overallCompliant ? '✅' : '❌';
+    const status = domainResult.compliance.overallCompliant ? '[OK]' : '[FAIL]';
     console.log(`   ${status} Overhead: ${domainResult.metrics.overheadPercentage.toFixed(2)}%`);
-    console.log(`   📊 Throughput: ${domainResult.metrics.throughput.toFixed(0)} ops/sec`);
-    console.log(`   ⏱️  P95 Latency: ${domainResult.metrics.latency.p95.toFixed(0)}ms\n`);
+    console.log(`   [CHART] Throughput: ${domainResult.metrics.throughput.toFixed(0)} ops/sec`);
+    console.log(`     P95 Latency: ${domainResult.metrics.latency.p95.toFixed(0)}ms\n`);
 
     // Cool down between tests
     await sleep(2000);
@@ -529,7 +529,7 @@ function validateCompliance(analysis) {
  * Generate comprehensive report
  */
 async function generateReport(results, analysis) {
-  console.log('📄 Generating performance report...');
+  console.log('[DOCUMENT] Generating performance report...');
 
   const reportDir = path.join(process.cwd(), '.claude', '.artifacts');
   await fs.mkdir(reportDir, { recursive: true });
@@ -545,7 +545,7 @@ async function generateReport(results, analysis) {
 
 - **Overall Compliance**: ${analysis.summary.complianceRate.toFixed(1)}%
 - **Average Overhead**: ${analysis.summary.avgOverhead.toFixed(2)}%
-- **Overhead Constraint**: ${analysis.summary.avgOverhead <= CONFIG.targetOverhead ? '✅ PASS' : '❌ FAIL'}
+- **Overhead Constraint**: ${analysis.summary.avgOverhead <= CONFIG.targetOverhead ? '[OK] PASS' : '[FAIL] FAIL'}
 - **Compliant Domains**: ${analysis.summary.compliantDomains}/${analysis.summary.totalDomains}
 - **Average Throughput**: ${analysis.summary.avgThroughput.toFixed(1)} ops/sec
 - **Average P95 Latency**: ${analysis.summary.avgLatency.toFixed(1)}ms
@@ -554,7 +554,7 @@ async function generateReport(results, analysis) {
 
 ${results.map(result => `
 ### ${result.domain.toUpperCase()} Domain
-- **Status**: ${result.compliance.overallCompliant ? '✅ PASS' : '❌ FAIL'}
+- **Status**: ${result.compliance.overallCompliant ? '[OK] PASS' : '[FAIL] FAIL'}
 - **Overhead**: ${result.metrics.overheadPercentage.toFixed(2)}%
 - **Throughput**: ${result.metrics.throughput.toFixed(1)} ops/sec
 - **P95 Latency**: ${result.metrics.latency.p95.toFixed(1)}ms
@@ -564,7 +564,7 @@ ${results.map(result => `
 
 ## Performance Constraints Validation
 
-### ✅ **OVERHEAD CONSTRAINT (<${CONFIG.targetOverhead}%)**
+### [OK] **OVERHEAD CONSTRAINT (<${CONFIG.targetOverhead}%)**
 - **Target**: <${CONFIG.targetOverhead}%
 - **Measured**: ${analysis.summary.avgOverhead.toFixed(2)}%
 - **Status**: ${analysis.summary.avgOverhead <= CONFIG.targetOverhead ? 'COMPLIANT' : 'NON-COMPLIANT'}
@@ -587,14 +587,14 @@ ${CONFIG.domains.map(domain => {
 ## Production Readiness Assessment
 
 ### **CRITERIA VALIDATION**
-- ✅ System overhead <${CONFIG.targetOverhead}%: ${analysis.summary.avgOverhead <= CONFIG.targetOverhead ? 'PASS' : 'FAIL'}
-- ✅ Domain compliance ≥80%: ${analysis.summary.complianceRate >= 80 ? 'PASS' : 'FAIL'}
-- ✅ System stability: ${analysis.extremes.maxOverhead <= CONFIG.targetOverhead * 1.5 ? 'PASS' : 'FAIL'}
+- [OK] System overhead <${CONFIG.targetOverhead}%: ${analysis.summary.avgOverhead <= CONFIG.targetOverhead ? 'PASS' : 'FAIL'}
+- [OK] Domain compliance 80%: ${analysis.summary.complianceRate >= 80 ? 'PASS' : 'FAIL'}
+- [OK] System stability: ${analysis.extremes.maxOverhead <= CONFIG.targetOverhead * 1.5 ? 'PASS' : 'FAIL'}
 
 ### **DEPLOYMENT RECOMMENDATION**
 ${analysis.summary.avgOverhead <= CONFIG.targetOverhead && analysis.summary.complianceRate >= 80 ?
-  '🟢 **APPROVED FOR PRODUCTION DEPLOYMENT**\n\nSystem meets all performance constraints and demonstrates excellent stability.' :
-  '🟡 **REQUIRES OPTIMIZATION**\n\nAddress performance issues before production deployment.'}
+  ' **APPROVED FOR PRODUCTION DEPLOYMENT**\n\nSystem meets all performance constraints and demonstrates excellent stability.' :
+  ' **REQUIRES OPTIMIZATION**\n\nAddress performance issues before production deployment.'}
 
 ---
 *Report generated by Phase 4 CI/CD Performance Validator*
@@ -606,8 +606,8 @@ ${analysis.summary.avgOverhead <= CONFIG.targetOverhead && analysis.summary.comp
   await fs.writeFile(reportPath, report, 'utf8');
   await fs.writeFile(resultsPath, JSON.stringify({ results, analysis }, null, 2), 'utf8');
 
-  console.log(`📄 Report saved: ${reportPath}`);
-  console.log(`📊 Results saved: ${resultsPath}`);
+  console.log(`[DOCUMENT] Report saved: ${reportPath}`);
+  console.log(`[CHART] Results saved: ${resultsPath}`);
 }
 
 /**
@@ -615,24 +615,24 @@ ${analysis.summary.avgOverhead <= CONFIG.targetOverhead && analysis.summary.comp
  */
 function displaySummary(analysis, compliance) {
   console.log('\n' + '='.repeat(80));
-  console.log('📊 PHASE 4 CI/CD PERFORMANCE VALIDATION SUMMARY');
+  console.log('[CHART] PHASE 4 CI/CD PERFORMANCE VALIDATION SUMMARY');
   console.log('='.repeat(80));
 
-  console.log(`\n🎯 **OVERHEAD CONSTRAINT VALIDATION**`);
+  console.log(`\n[TARGET] **OVERHEAD CONSTRAINT VALIDATION**`);
   console.log(`   Target: <${CONFIG.targetOverhead}%`);
   console.log(`   Measured: ${analysis.summary.avgOverhead.toFixed(2)}%`);
-  console.log(`   Status: ${compliance.overheadCompliant ? '✅ COMPLIANT' : '❌ NON-COMPLIANT'}`);
+  console.log(`   Status: ${compliance.overheadCompliant ? '[OK] COMPLIANT' : '[FAIL] NON-COMPLIANT'}`);
   console.log(`   Max Domain: ${analysis.extremes.maxOverhead.toFixed(2)}%`);
 
-  console.log(`\n📈 **DOMAIN PERFORMANCE**`);
+  console.log(`\n[TREND] **DOMAIN PERFORMANCE**`);
   console.log(`   Total Domains: ${analysis.summary.totalDomains}`);
   console.log(`   Compliant: ${analysis.summary.compliantDomains}`);
   console.log(`   Compliance Rate: ${analysis.summary.complianceRate.toFixed(1)}%`);
   console.log(`   Avg Throughput: ${analysis.summary.avgThroughput.toFixed(1)} ops/sec`);
 
-  console.log(`\n🚀 **PRODUCTION READINESS**`);
+  console.log(`\n[ROCKET] **PRODUCTION READINESS**`);
   const readiness = compliance.overallCompliant;
-  console.log(`   Status: ${readiness ? '✅ READY FOR DEPLOYMENT' : '⚠️  REQUIRES OPTIMIZATION'}`);
+  console.log(`   Status: ${readiness ? '[OK] READY FOR DEPLOYMENT' : '[WARN]  REQUIRES OPTIMIZATION'}`);
   console.log(`   Overall Score: ${compliance.score.toFixed(1)}%`);
 
   console.log('\n' + '='.repeat(80));

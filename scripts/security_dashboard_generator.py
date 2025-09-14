@@ -688,7 +688,7 @@ class SecurityDashboardGenerator:
 </head>
 <body>
     <div class="header">
-        <h1>🛡️ Security Dashboard</h1>
+        <h1>[SHIELD] Security Dashboard</h1>
         <p>Generated: {timestamp}</p>
     </div>
     
@@ -765,11 +765,11 @@ class SecurityDashboardGenerator:
             high_issues=exec_summary.get("high_issues", 0),
             compliance_score=exec_summary.get("compliance_score", 0.0),
             alerts_html=alerts_html,
-            nasa_status="✓" if compliance.get("nasa_pot10", {}).get("compliant", False) else "✗",
+            nasa_status="" if compliance.get("nasa_pot10", {}).get("compliant", False) else "",
             nasa_score=compliance.get("nasa_pot10", {}).get("overall_score", 0.0),
-            soc2_status="✓" if compliance.get("soc2", {}).get("compliant", False) else "✗",
+            soc2_status="" if compliance.get("soc2", {}).get("compliant", False) else "",
             soc2_coverage=compliance.get("soc2", {}).get("control_coverage", 0.0),
-            nist_status="✓" if compliance.get("nist", {}).get("overall", 0.0) > 0.7 else "✗",
+            nist_status="" if compliance.get("nist", {}).get("overall", 0.0) > 0.7 else "",
             nist_score=compliance.get("nist", {}).get("overall", 0.0),
             total_findings=exec_summary.get("key_metrics", {}).get("total_findings", 0),
             scan_coverage=metrics.get("security_kpis", {}).get("security_coverage", 0.0),
@@ -844,9 +844,9 @@ def main():
     
     compliance = dashboard["compliance_status"]
     print(f"\nCompliance Status:")
-    print(f"  NASA POT10: {'✓' if compliance.get('nasa_pot10', {}).get('compliant', False) else '✗'}")
-    print(f"  SOC 2: {'✓' if compliance.get('soc2', {}).get('compliant', False) else '✗'}")
-    print(f"  NIST: {'✓' if compliance.get('nist', {}).get('overall', 0.0) > 0.7 else '✗'}")
+    print(f"  NASA POT10: {'' if compliance.get('nasa_pot10', {}).get('compliant', False) else ''}")
+    print(f"  SOC 2: {'' if compliance.get('soc2', {}).get('compliant', False) else ''}")
+    print(f"  NIST: {'' if compliance.get('nist', {}).get('overall', 0.0) > 0.7 else ''}")
     
     print(f"\nDashboard available at: .claude/.artifacts/dashboard/security_dashboard.html")
 

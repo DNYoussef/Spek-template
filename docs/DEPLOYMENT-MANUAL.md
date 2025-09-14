@@ -1260,20 +1260,20 @@ def validate_config(config_path: str):
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
     except Exception as e:
-        print(f"❌ Failed to load config: {e}")
+        print(f"[FAIL] Failed to load config: {e}")
         return False
     
     # Required sections
     required_sections = ['spek', 'analysis', 'phases', 'security']
     for section in required_sections:
         if section not in config:
-            print(f"❌ Missing required section: {section}")
+            print(f"[FAIL] Missing required section: {section}")
             return False
     
     # Validate SPEK section
     spek_config = config['spek']
     if spek_config.get('environment') not in ['development', 'production']:
-        print(f"❌ Invalid environment: {spek_config.get('environment')}")
+        print(f"[FAIL] Invalid environment: {spek_config.get('environment')}")
         return False
     
     # Validate phases
@@ -1281,15 +1281,15 @@ def validate_config(config_path: str):
     required_phases = ['json_schema', 'linter_integration', 'performance_optimization', 'precision_validation']
     for phase in required_phases:
         if phase not in phases_config:
-            print(f"❌ Missing phase configuration: {phase}")
+            print(f"[FAIL] Missing phase configuration: {phase}")
             return False
     
     # Validate security settings
     security_config = config['security']
     if security_config.get('nasa_compliance_threshold', 0) < 0.8:
-        print(f"⚠️  NASA compliance threshold too low: {security_config.get('nasa_compliance_threshold')}")
+        print(f"[WARN]  NASA compliance threshold too low: {security_config.get('nasa_compliance_threshold')}")
     
-    print("✅ Configuration validation passed")
+    print("[OK] Configuration validation passed")
     return True
 
 def validate_environment():
@@ -1309,7 +1309,7 @@ def validate_environment():
             missing_vars.append(var)
     
     if missing_vars:
-        print(f"❌ Missing environment variables: {', '.join(missing_vars)}")
+        print(f"[FAIL] Missing environment variables: {', '.join(missing_vars)}")
         return False
     
     # Check file permissions
@@ -1317,24 +1317,24 @@ def validate_environment():
     if config_path and os.path.exists(config_path):
         stat = os.stat(config_path)
         if stat.st_mode & 0o077:  # Check if group/others have access
-            print(f"⚠️  Config file permissions too permissive: {config_path}")
+            print(f"[WARN]  Config file permissions too permissive: {config_path}")
     
-    print("✅ Environment validation passed")
+    print("[OK] Environment validation passed")
     return True
 
 if __name__ == "__main__":
     config_path = sys.argv[1] if len(sys.argv) > 1 else "/etc/spek/production.yaml"
     
-    print("🔍 Validating SPEK deployment configuration...")
+    print("[SEARCH] Validating SPEK deployment configuration...")
     
     config_valid = validate_config(config_path)
     env_valid = validate_environment()
     
     if config_valid and env_valid:
-        print("\n✅ All validations passed - deployment ready!")
+        print("\n[OK] All validations passed - deployment ready!")
         sys.exit(0)
     else:
-        print("\n❌ Validation failed - please fix issues before deployment")
+        print("\n[FAIL] Validation failed - please fix issues before deployment")
         sys.exit(1)
 ```
 
@@ -1448,7 +1448,7 @@ chown spek:spek /etc/spek/ssl/spek.*
 
 set -e
 
-echo "🔒 Applying security hardening..."
+echo "[LOCK] Applying security hardening..."
 
 # Update system packages
 apt-get update && apt-get upgrade -y
@@ -1530,7 +1530,7 @@ cat > /etc/logrotate.d/spek << EOF
 }
 EOF
 
-echo "✅ Security hardening completed"
+echo "[OK] Security hardening completed"
 ```
 
 ### Access Control
@@ -1950,7 +1950,7 @@ class SPEKPerformanceTuner:
         with open(self.config_path, 'w') as f:
             yaml.dump(config, f, default_flow_style=False, indent=2)
         
-        print(f"✅ Configuration optimized:")
+        print(f"[OK] Configuration optimized:")
         print(f"   - Workers: {optimal_workers}")
         print(f"   - Cache: {config['spek']['cache']['max_memory']}")
         print(f"   - System: {self.system_info}")
@@ -2043,7 +2043,7 @@ mkdir -p "${BACKUP_DIR}"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 BACKUP_FILE="${BACKUP_DIR}/spek_db_${TIMESTAMP}.sql.gz"
 
-echo "🔄 Starting database backup..."
+echo "[CYCLE] Starting database backup..."
 
 # Create database dump
 pg_dump -h localhost -U "${DB_USER}" -d "${DB_NAME}" \
@@ -2051,13 +2051,13 @@ pg_dump -h localhost -U "${DB_USER}" -d "${DB_NAME}" \
     | gzip > "${BACKUP_FILE}"
 
 if [ $? -eq 0 ]; then
-    echo "✅ Database backup completed: ${BACKUP_FILE}"
+    echo "[OK] Database backup completed: ${BACKUP_FILE}"
     
     # Calculate backup size
     BACKUP_SIZE=$(du -h "${BACKUP_FILE}" | cut -f1)
     echo "   Size: ${BACKUP_SIZE}"
 else
-    echo "❌ Database backup failed"
+    echo "[FAIL] Database backup failed"
     exit 1
 fi
 
@@ -2071,13 +2071,13 @@ if [ -n "${AWS_S3_BACKUP_BUCKET}" ]; then
     aws s3 cp "${BACKUP_FILE}" "s3://${AWS_S3_BACKUP_BUCKET}/spek/database/"
     
     if [ $? -eq 0 ]; then
-        echo "✅ S3 upload completed"
+        echo "[OK] S3 upload completed"
     else
-        echo "❌ S3 upload failed"
+        echo "[FAIL] S3 upload failed"
     fi
 fi
 
-echo "🔄 Backup process completed"
+echo "[CYCLE] Backup process completed"
 ```
 
 #### Application Data Backup
@@ -2096,7 +2096,7 @@ CONFIG_DIR="/etc/spek"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 BACKUP_FILE="${BACKUP_DIR}/spek_data_${TIMESTAMP}.tar.gz"
 
-echo "🔄 Starting application data backup..."
+echo "[CYCLE] Starting application data backup..."
 
 # Create compressed archive
 tar -czf "${BACKUP_FILE}" \
@@ -2107,20 +2107,20 @@ tar -czf "${BACKUP_FILE}" \
     --exclude="*/tmp/*"
 
 if [ $? -eq 0 ]; then
-    echo "✅ Application data backup completed: ${BACKUP_FILE}"
+    echo "[OK] Application data backup completed: ${BACKUP_FILE}"
     
     # Calculate backup size
     BACKUP_SIZE=$(du -h "${BACKUP_FILE}" | cut -f1)
     echo "   Size: ${BACKUP_SIZE}"
 else
-    echo "❌ Application data backup failed"
+    echo "[FAIL] Application data backup failed"
     exit 1
 fi
 
 # Cleanup old backups
 find "${BACKUP_DIR}" -name "spek_data_*.tar.gz" -mtime +30 -delete
 
-echo "🔄 Application backup process completed"
+echo "[CYCLE] Application backup process completed"
 ```
 
 ### Recovery Procedures
@@ -2143,12 +2143,12 @@ DB_NAME="spek"
 DB_USER="spek"
 
 if [ ! -f "${BACKUP_FILE}" ]; then
-    echo "❌ Backup file not found: ${BACKUP_FILE}"
+    echo "[FAIL] Backup file not found: ${BACKUP_FILE}"
     exit 1
 fi
 
-echo "🔄 Starting database recovery from: ${BACKUP_FILE}"
-echo "⚠️  This will replace the current database. Continue? (y/N)"
+echo "[CYCLE] Starting database recovery from: ${BACKUP_FILE}"
+echo "[WARN]  This will replace the current database. Continue? (y/N)"
 read -r response
 
 if [[ ! "${response}" =~ ^[Yy]$ ]]; then
@@ -2170,14 +2170,14 @@ echo "📥 Restoring database..."
 gunzip -c "${BACKUP_FILE}" | psql -h localhost -U "${DB_USER}" -d "${DB_NAME}"
 
 if [ $? -eq 0 ]; then
-    echo "✅ Database recovery completed"
+    echo "[OK] Database recovery completed"
 else
-    echo "❌ Database recovery failed"
+    echo "[FAIL] Database recovery failed"
     exit 1
 fi
 
 # Start SPEK service
-echo "🚀 Starting SPEK service..."
+echo "[ROCKET] Starting SPEK service..."
 systemctl start spek
 
 # Wait for service to be ready
@@ -2186,12 +2186,12 @@ sleep 10
 # Health check
 curl -f http://localhost:8000/health > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "✅ SPEK service is healthy after recovery"
+    echo "[OK] SPEK service is healthy after recovery"
 else
-    echo "⚠️  SPEK service health check failed"
+    echo "[WARN]  SPEK service health check failed"
 fi
 
-echo "🔄 Recovery process completed"
+echo "[CYCLE] Recovery process completed"
 ```
 
 ## Maintenance Procedures
@@ -2212,36 +2212,36 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "${LOG_FILE}"
 }
 
-log "🔄 Starting daily maintenance..."
+log "[CYCLE] Starting daily maintenance..."
 
 # Check service health
 log "🏥 Checking service health..."
 if systemctl is-active --quiet spek; then
-    log "✅ SPEK service is running"
+    log "[OK] SPEK service is running"
 else
-    log "❌ SPEK service is not running"
+    log "[FAIL] SPEK service is not running"
     systemctl start spek
 fi
 
 # Database maintenance
 log "🗄️  Running database maintenance..."
 sudo -u postgres psql -d spek -c "VACUUM ANALYZE;" > /dev/null 2>&1
-log "✅ Database vacuum completed"
+log "[OK] Database vacuum completed"
 
 # Cache cleanup
 log "🧹 Cleaning cache..."
 redis-cli -p 6379 --eval /opt/spek/scripts/cache_cleanup.lua > /dev/null 2>&1
-log "✅ Cache cleanup completed"
+log "[OK] Cache cleanup completed"
 
 # Log rotation
 log "📜 Rotating logs..."
 logrotate -f /etc/logrotate.d/spek
-log "✅ Log rotation completed"
+log "[OK] Log rotation completed"
 
 # Check disk space
 DISK_USAGE=$(df /opt/spek | awk 'NR==2 {print $5}' | sed 's/%//')
 if [ "${DISK_USAGE}" -gt 80 ]; then
-    log "⚠️  Disk usage is high: ${DISK_USAGE}%"
+    log "[WARN]  Disk usage is high: ${DISK_USAGE}%"
     # Cleanup old temporary files
     find /tmp/spek -type f -mtime +1 -delete 2>/dev/null || true
     find /opt/spek/cache -type f -mtime +7 -delete 2>/dev/null || true
@@ -2250,10 +2250,10 @@ fi
 # Performance check
 RESPONSE_TIME=$(curl -w "%{time_total}" -s -o /dev/null http://localhost:8000/health)
 if (( $(echo "${RESPONSE_TIME} > 5.0" | bc -l) )); then
-    log "⚠️  High response time: ${RESPONSE_TIME}s"
+    log "[WARN]  High response time: ${RESPONSE_TIME}s"
 fi
 
-log "✅ Daily maintenance completed"
+log "[OK] Daily maintenance completed"
 ```
 
 #### Weekly Maintenance Script
@@ -2270,24 +2270,24 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "${LOG_FILE}"
 }
 
-log "🔄 Starting weekly maintenance..."
+log "[CYCLE] Starting weekly maintenance..."
 
 # Full database backup
-log "💾 Creating database backup..."
+log "[DISK] Creating database backup..."
 /opt/spek/scripts/backup_database.sh
-log "✅ Database backup completed"
+log "[OK] Database backup completed"
 
 # Application data backup
-log "📦 Creating application data backup..."
+log "[PACKAGE] Creating application data backup..."
 /opt/spek/scripts/backup_app_data.sh
-log "✅ Application data backup completed"
+log "[OK] Application data backup completed"
 
 # System updates
-log "🔄 Checking for system updates..."
+log "[CYCLE] Checking for system updates..."
 apt-get update > /dev/null 2>&1
 UPDATES=$(apt list --upgradable 2>/dev/null | wc -l)
 if [ "${UPDATES}" -gt 1 ]; then
-    log "📦 ${UPDATES} updates available"
+    log "[PACKAGE] ${UPDATES} updates available"
     # Apply security updates only
     unattended-upgrade --dry-run
 fi
@@ -2300,16 +2300,16 @@ if [ -f "/etc/spek/ssl/spek.crt" ]; then
     DAYS_LEFT=$(( (EXPIRES_EPOCH - CURRENT_EPOCH) / 86400 ))
     
     if [ "${DAYS_LEFT}" -lt 30 ]; then
-        log "⚠️  SSL certificate expires in ${DAYS_LEFT} days"
+        log "[WARN]  SSL certificate expires in ${DAYS_LEFT} days"
     fi
 fi
 
 # Performance baseline update
-log "📊 Updating performance baselines..."
+log "[CHART] Updating performance baselines..."
 python3 /opt/spek/scripts/update_baselines.py
-log "✅ Performance baselines updated"
+log "[OK] Performance baselines updated"
 
-log "✅ Weekly maintenance completed"
+log "[OK] Weekly maintenance completed"
 ```
 
 ### Emergency Procedures
@@ -2339,7 +2339,7 @@ log() {
 }
 
 alert() {
-    log "🚨 ALERT: $1"
+    log "[ALERT] ALERT: $1"
     # Send alert notification
     if [ -n "${ALERT_WEBHOOK_URL}" ]; then
         curl -X POST "${ALERT_WEBHOOK_URL}" \
@@ -2349,30 +2349,30 @@ alert() {
     fi
 }
 
-log "🚨 Emergency response initiated: ${INCIDENT_TYPE} (${SEVERITY})"
+log "[ALERT] Emergency response initiated: ${INCIDENT_TYPE} (${SEVERITY})"
 
 case "${INCIDENT_TYPE}" in
     service_down)
-        log "🔄 Attempting to restart SPEK service..."
+        log "[CYCLE] Attempting to restart SPEK service..."
         systemctl restart spek
         sleep 10
         
         if systemctl is-active --quiet spek; then
-            log "✅ Service restart successful"
+            log "[OK] Service restart successful"
         else
             alert "Service restart failed"
-            log "❌ Service restart failed, checking logs..."
+            log "[FAIL] Service restart failed, checking logs..."
             journalctl -u spek --no-pager -l -n 50 >> "${LOG_FILE}"
         fi
         ;;
         
     high_cpu)
-        log "📊 Investigating high CPU usage..."
+        log "[CHART] Investigating high CPU usage..."
         ps aux --sort=-%cpu | head -20 >> "${LOG_FILE}"
         
         # Reduce workers if CPU critical
         if [ "${SEVERITY}" = "critical" ]; then
-            log "⚡ Reducing worker count to 2..."
+            log "[LIGHTNING] Reducing worker count to 2..."
             # Update configuration temporarily
             sed -i 's/max_workers: [0-9]*/max_workers: 2/' /etc/spek/production.yaml
             systemctl reload spek
@@ -2380,7 +2380,7 @@ case "${INCIDENT_TYPE}" in
         ;;
         
     high_memory)
-        log "📊 Investigating high memory usage..."
+        log "[CHART] Investigating high memory usage..."
         ps aux --sort=-%mem | head -20 >> "${LOG_FILE}"
         
         # Clear cache if memory critical
@@ -2391,7 +2391,7 @@ case "${INCIDENT_TYPE}" in
         ;;
         
     disk_full)
-        log "💾 Investigating disk usage..."
+        log "[DISK] Investigating disk usage..."
         df -h >> "${LOG_FILE}"
         
         # Emergency cleanup
@@ -2403,7 +2403,7 @@ case "${INCIDENT_TYPE}" in
         
     security_breach)
         alert "SECURITY BREACH DETECTED"
-        log "🔒 Implementing security lockdown..."
+        log "[LOCK] Implementing security lockdown..."
         
         # Block external access
         ufw --force reset > /dev/null 2>&1
@@ -2422,8 +2422,8 @@ case "${INCIDENT_TYPE}" in
         ;;
 esac
 
-log "🔄 Emergency response completed"
-log "📋 Incident log: ${LOG_FILE}"
+log "[CYCLE] Emergency response completed"
+log "[CLIPBOARD] Incident log: ${LOG_FILE}"
 ```
 
 ---
@@ -2432,15 +2432,15 @@ log "📋 Incident log: ${LOG_FILE}"
 
 This deployment manual provides:
 
-✅ **Complete Infrastructure** - From bare metal to cloud deployment  
-✅ **Production Configuration** - Optimized for defense industry requirements  
-✅ **Security Hardening** - NATO/Defense grade security implementation  
-✅ **Monitoring & Alerting** - Comprehensive observability stack  
-✅ **Performance Tuning** - 58.3% improvement target optimization  
-✅ **Disaster Recovery** - Backup and recovery procedures  
-✅ **Maintenance Procedures** - Daily, weekly, and emergency procedures  
-✅ **Container Support** - Docker and Kubernetes deployment options  
-✅ **Cloud Integration** - AWS, Azure, GCP deployment templates  
+[OK] **Complete Infrastructure** - From bare metal to cloud deployment  
+[OK] **Production Configuration** - Optimized for defense industry requirements  
+[OK] **Security Hardening** - NATO/Defense grade security implementation  
+[OK] **Monitoring & Alerting** - Comprehensive observability stack  
+[OK] **Performance Tuning** - 58.3% improvement target optimization  
+[OK] **Disaster Recovery** - Backup and recovery procedures  
+[OK] **Maintenance Procedures** - Daily, weekly, and emergency procedures  
+[OK] **Container Support** - Docker and Kubernetes deployment options  
+[OK] **Cloud Integration** - AWS, Azure, GCP deployment templates  
 
 The deployment maintains SPEK's core capabilities:
 - **58.3% Performance Improvement**

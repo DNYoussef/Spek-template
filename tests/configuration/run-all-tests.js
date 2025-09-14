@@ -53,14 +53,14 @@ class ConfigurationTestRunner {
   }
 
   async runAllTests() {
-    console.log('🧪 Configuration System Test Suite Runner');
+    console.log(' Configuration System Test Suite Runner');
     console.log('==========================================\n');
 
     const startTime = Date.now();
 
     // Run tests by category
     for (const [categoryName, categoryInfo] of Object.entries(this.testCategories)) {
-      console.log(`📂 Running ${categoryName} tests...`);
+      console.log(` Running ${categoryName} tests...`);
       console.log(`   ${categoryInfo.description}\n`);
 
       const categoryResults = await this.runCategoryTests(categoryName, categoryInfo);
@@ -71,7 +71,7 @@ class ConfigurationTestRunner {
     }
 
     // Run helper utility tests
-    console.log('🔧 Running helper utility tests...');
+    console.log('[WRENCH] Running helper utility tests...');
     const helperResults = await this.runHelperTests();
     this.results.categories['Helper Utilities'] = helperResults;
     this.displayCategoryResults('Helper Utilities', helperResults);
@@ -104,7 +104,7 @@ class ConfigurationTestRunner {
       const filePath = path.join(__dirname, fileName);
       
       if (!fs.existsSync(filePath)) {
-        console.log(`   ⚠️  Test file not found: ${fileName}`);
+        console.log(`   [WARN]  Test file not found: ${fileName}`);
         results.errors.push(`Test file not found: ${fileName}`);
         continue;
       }
@@ -261,7 +261,7 @@ describe('Configuration Helper Utilities', () => {
     const passRate = results.totalTests > 0 ? 
       Math.round((results.passedTests / results.totalTests) * 100) : 0;
     
-    const status = results.failedTests === 0 ? '✅' : '❌';
+    const status = results.failedTests === 0 ? '[OK]' : '[FAIL]';
     
     console.log(`   ${status} ${categoryName}:`);
     console.log(`      Tests: ${results.totalTests} total, ${results.passedTests} passed, ${results.failedTests} failed`);
@@ -286,13 +286,13 @@ describe('Configuration Helper Utilities', () => {
   }
 
   displayFinalSummary() {
-    console.log('📊 Final Test Results Summary');
+    console.log('[CHART] Final Test Results Summary');
     console.log('============================');
     
     const overallPassRate = this.results.overall.totalTests > 0 ?
       Math.round((this.results.overall.passedTests / this.results.overall.totalTests) * 100) : 0;
     
-    const overallStatus = this.results.overall.failedTests === 0 ? '🎉 ALL PASSED' : '⚠️  SOME FAILED';
+    const overallStatus = this.results.overall.failedTests === 0 ? ' ALL PASSED' : '[WARN]  SOME FAILED';
     
     console.log(`Status: ${overallStatus}`);
     console.log(`Total Tests: ${this.results.overall.totalTests}`);
@@ -306,17 +306,17 @@ describe('Configuration Helper Utilities', () => {
     Object.entries(this.results.categories).forEach(([categoryName, results]) => {
       const categoryPassRate = results.totalTests > 0 ?
         Math.round((results.passedTests / results.totalTests) * 100) : 0;
-      const categoryStatus = results.failedTests === 0 ? '✅' : '❌';
+      const categoryStatus = results.failedTests === 0 ? '[OK]' : '[FAIL]';
       
       console.log(`  ${categoryStatus} ${categoryName}: ${categoryPassRate}% (${results.passedTests}/${results.totalTests})`);
     });
     
     if (this.results.overall.failedTests > 0) {
-      console.log('\\n🔍 Investigate failed tests for detailed error information.');
+      console.log('\\n[SEARCH] Investigate failed tests for detailed error information.');
     }
     
     if (this.results.overall.failedTests === 0) {
-      console.log('\\n🚀 Configuration system is ready for production deployment!');
+      console.log('\\n[ROCKET] Configuration system is ready for production deployment!');
     }
   }
 
@@ -342,9 +342,9 @@ describe('Configuration Helper Utilities', () => {
 
     try {
       fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
-      console.log(`\\n📄 Test report saved to: ${reportPath}`);
+      console.log(`\\n[DOCUMENT] Test report saved to: ${reportPath}`);
     } catch (error) {
-      console.error(`\\n❌ Failed to save test report: ${error.message}`);
+      console.error(`\\n[FAIL] Failed to save test report: ${error.message}`);
     }
 
     // Also generate a markdown summary
@@ -360,7 +360,7 @@ describe('Configuration Helper Utilities', () => {
     const markdown = `# Configuration System Test Summary
 
 **Generated:** ${report.timestamp}
-**Status:** ${report.summary.failedTests === 0 ? '🎉 ALL TESTS PASSED' : '⚠️ SOME TESTS FAILED'}
+**Status:** ${report.summary.failedTests === 0 ? ' ALL TESTS PASSED' : '[WARN] SOME TESTS FAILED'}
 **Overall Pass Rate:** ${overallPassRate}%
 
 ## Summary Statistics
@@ -378,7 +378,7 @@ describe('Configuration Helper Utilities', () => {
 ${Object.entries(report.categories).map(([categoryName, results]) => {
   const categoryPassRate = results.totalTests > 0 ?
     Math.round((results.passedTests / results.totalTests) * 100) : 0;
-  const status = results.failedTests === 0 ? '✅' : '❌';
+  const status = results.failedTests === 0 ? '[OK]' : '[FAIL]';
   
   return `### ${status} ${categoryName}
 
@@ -410,7 +410,7 @@ The configuration system test suite covers:
 6. **Error Handling** - Tests resilience and recovery mechanisms
 
 ${report.summary.failedTests === 0 ? `
-## ✅ Conclusion
+## [OK] Conclusion
 
 All configuration system tests are passing! The system is ready for production deployment.
 
@@ -422,7 +422,7 @@ Key achievements:
 - Backward compatibility maintained
 
 ` : `
-## ⚠️ Action Required
+## [WARN] Action Required
 
 Some tests are failing and need attention before production deployment.
 
@@ -435,9 +435,9 @@ Please review the failed tests and address any issues found.
 
     try {
       fs.writeFileSync(summaryPath, markdown);
-      console.log(`📄 Markdown summary saved to: ${summaryPath}`);
+      console.log(`[DOCUMENT] Markdown summary saved to: ${summaryPath}`);
     } catch (error) {
-      console.error(`❌ Failed to save markdown summary: ${error.message}`);
+      console.error(`[FAIL] Failed to save markdown summary: ${error.message}`);
     }
   }
 }
@@ -451,7 +451,7 @@ if (require.main === module) {
       process.exit(results.overall.failedTests === 0 ? 0 : 1);
     })
     .catch((error) => {
-      console.error('❌ Test runner failed:', error);
+      console.error('[FAIL] Test runner failed:', error);
       process.exit(1);
     });
 }

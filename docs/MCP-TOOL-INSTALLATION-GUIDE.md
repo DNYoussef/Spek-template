@@ -93,10 +93,10 @@ Run the automated configuration script:
 node scripts/update-agent-mcp-servers.js
 
 # Expected output:
-# 🚀 Starting MCP server configuration update for all agents...
-# ✅ Updated: 96 agents
-# ❌ Errors: 0 agents
-# 📊 Universal servers applied to all agents: claude-flow, memory, sequential-thinking
+# [ROCKET] Starting MCP server configuration update for all agents...
+# [OK] Updated: 96 agents
+# [FAIL] Errors: 0 agents
+# [CHART] Universal servers applied to all agents: claude-flow, memory, sequential-thinking
 # 🔗 Total unique MCP servers used: 14
 ```
 

@@ -430,7 +430,7 @@ class QualityValidationTestSuite {
     let failedCount = 0;
     
     for (const result of this.testResults) {
-      const status = result.passed ? '✅ PASS' : '❌ FAIL';
+      const status = result.passed ? '[OK] PASS' : '[FAIL] FAIL';
       console.log(`${status} ${result.test}: ${result.message}`);
       
       if (result.passed) {

@@ -67,23 +67,23 @@
 ### Existing Model Usage Patterns
 
 **Claude Integration**:
-- ✅ **Fully Integrated** - Primary model for all agents
-- ✅ **MCP Support** - 16 MCP servers configured
-- ✅ **Comprehensive Coverage** - All 85 agents use Claude infrastructure
+- [OK] **Fully Integrated** - Primary model for all agents
+- [OK] **MCP Support** - 16 MCP servers configured
+- [OK] **Comprehensive Coverage** - All 85 agents use Claude infrastructure
 
 **Gemini Integration**:
-- ⚠️ **Limited** - Only 2 integration points:
+- [WARN] **Limited** - Only 2 integration points:
   - `/gemini:impact` command for large-context analysis
   - `researcher-gemini` agent for context synthesis
 - 🚫 **Underutilized** - Massive 1M context window not fully leveraged
-- 🔄 **Expansion Opportunity** - 12 research/analysis agents could benefit
+- [CYCLE] **Expansion Opportunity** - 12 research/analysis agents could benefit
 
 **Codex Integration**:
-- ⚠️ **Minimal** - Only 2 integration points:
+- [WARN] **Minimal** - Only 2 integration points:
   - `/codex:micro` command for sandboxed micro-edits
   - `coder-codex` agent for bounded operations
 - 🚫 **Testing Gap** - 15 testing/validation agents lack Codex access
-- 🔄 **Quality Opportunity** - Sandboxed testing underutilized
+- [CYCLE] **Quality Opportunity** - Sandboxed testing underutilized
 
 ## Capability Gap Analysis
 

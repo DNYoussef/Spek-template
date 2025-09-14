@@ -80,7 +80,7 @@ class EnterprisePerformanceOptimizer extends EventEmitter {
             ['reality_validation', null]
         ]);
         
-        console.log('✓ Lazy loading framework initialized');
+        console.log(' Lazy loading framework initialized');
     }
 
     /**
@@ -108,7 +108,7 @@ class EnterprisePerformanceOptimizer extends EventEmitter {
             const loadTime = performance.now() - startTime;
             this.trackPerformance('lazy_load_module', loadTime);
             
-            console.log(`✓ Lazy loaded ${domainName} in ${loadTime.toFixed(2)}ms`);
+            console.log(` Lazy loaded ${domainName} in ${loadTime.toFixed(2)}ms`);
             return module;
             
         } catch (error) {
@@ -144,7 +144,7 @@ class EnterprisePerformanceOptimizer extends EventEmitter {
             evictions: 0
         };
         
-        console.log(`✓ Multi-level caching initialized (max size: ${this.config.cacheSize})`);
+        console.log(` Multi-level caching initialized (max size: ${this.config.cacheSize})`);
     }
 
     /**
@@ -225,7 +225,7 @@ class EnterprisePerformanceOptimizer extends EventEmitter {
         this.asyncQueue = [];
         this.processingQueue = false;
         
-        console.log('✓ Async processing pipeline initialized');
+        console.log(' Async processing pipeline initialized');
     }
 
     /**
@@ -257,7 +257,7 @@ class EnterprisePerformanceOptimizer extends EventEmitter {
         const processingTime = performance.now() - startTime;
         this.trackPerformance('parallel_domain_processing', processingTime);
         
-        console.log(`✓ Processed ${domains.length} domains in parallel in ${processingTime.toFixed(2)}ms`);
+        console.log(` Processed ${domains.length} domains in parallel in ${processingTime.toFixed(2)}ms`);
         
         return results.map(result => result.value);
     }
@@ -485,7 +485,7 @@ class EnterprisePerformanceOptimizer extends EventEmitter {
             objectsReused: 0
         };
         
-        console.log('✓ Memory optimization system initialized');
+        console.log(' Memory optimization system initialized');
     }
 
     /**
@@ -547,7 +547,7 @@ class EnterprisePerformanceOptimizer extends EventEmitter {
                 const afterGC = process.memoryUsage().heapUsed;
                 const freedMB = (beforeGC - afterGC) / 1024 / 1024;
                 
-                console.log(`✓ Garbage collection freed ${freedMB.toFixed(2)}MB`);
+                console.log(` Garbage collection freed ${freedMB.toFixed(2)}MB`);
             }
             
             // Clear caches if still over limit
@@ -571,7 +571,7 @@ class EnterprisePerformanceOptimizer extends EventEmitter {
             pool.length = 0;
         }
         
-        console.log(`✓ Cleared ${cacheSize} cache entries and ${pooledObjects} pooled objects`);
+        console.log(` Cleared ${cacheSize} cache entries and ${pooledObjects} pooled objects`);
     }
 
     /**
@@ -601,7 +601,7 @@ class EnterprisePerformanceOptimizer extends EventEmitter {
             // Calculate performance metrics
             const metrics = this.calculateOptimizationMetrics(totalTime, domainResults);
             
-            console.log(`✓ Optimized enterprise analysis completed in ${totalTime.toFixed(2)}ms`);
+            console.log(` Optimized enterprise analysis completed in ${totalTime.toFixed(2)}ms`);
             console.log(`  System overhead: ${metrics.systemOverhead.toFixed(2)}%`);
             console.log(`  Memory usage: ${metrics.memoryUsageMB.toFixed(2)}MB`);
             console.log(`  Artifacts generated: ${artifacts.length}`);

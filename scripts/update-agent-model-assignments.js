@@ -194,16 +194,16 @@ function updateAgentFile(filePath, agentName) {
       const updatedContent = `---\n${newYaml}---${markdownContent}`;
 
       fs.writeFileSync(filePath, updatedContent, 'utf8');
-      console.log(`✅ Updated ${agentName} with model: ${assignment.preferred_model}`);
+      console.log(`[OK] Updated ${agentName} with model: ${assignment.preferred_model}`);
       return true;
 
     } else {
-      console.log(`⚠️ No YAML frontmatter found in ${agentName}, skipping model assignment`);
+      console.log(`[WARN] No YAML frontmatter found in ${agentName}, skipping model assignment`);
       return false;
     }
 
   } catch (error) {
-    console.error(`❌ Error updating ${agentName}: ${error.message}`);
+    console.error(`[FAIL] Error updating ${agentName}: ${error.message}`);
     return false;
   }
 }
@@ -217,10 +217,10 @@ function updateAllAgents() {
   let skipped = 0;
   let errors = 0;
 
-  console.log('🚀 Starting model assignment update for all agents...\n');
+  console.log('[ROCKET] Starting model assignment update for all agents...\n');
 
   // Create summary of assignments
-  console.log('📊 Model Assignment Summary:');
+  console.log('[CHART] Model Assignment Summary:');
   for (const [model, agents] of Object.entries(MODEL_ASSIGNMENTS)) {
     console.log(`   ${model}: ${agents.length} agents`);
   }
@@ -228,7 +228,7 @@ function updateAllAgents() {
 
   for (const dir of agentDirs) {
     if (!fs.existsSync(dir)) {
-      console.log(`⚠️ Directory ${dir} not found, skipping...`);
+      console.log(`[WARN] Directory ${dir} not found, skipping...`);
       continue;
     }
 
@@ -266,13 +266,13 @@ function updateAllAgents() {
     }
   }
 
-  console.log('\n🎯 Model Assignment Update Complete!');
-  console.log(`✅ Updated: ${updated} agents`);
-  console.log(`⚠️ Skipped: ${skipped} agents (no YAML frontmatter)`);
-  console.log(`❌ Errors: ${errors} agents`);
+  console.log('\n[TARGET] Model Assignment Update Complete!');
+  console.log(`[OK] Updated: ${updated} agents`);
+  console.log(`[WARN] Skipped: ${skipped} agents (no YAML frontmatter)`);
+  console.log(`[FAIL] Errors: ${errors} agents`);
 
   // Show final distribution
-  console.log('\n📈 Final Model Distribution:');
+  console.log('\n[TREND] Final Model Distribution:');
   console.log(`   Claude Opus 4.1: ${MODEL_ASSIGNMENTS['claude-opus-4.1'].length} agents (13%)`);
   console.log(`   Claude Sonnet 4: ${MODEL_ASSIGNMENTS['claude-sonnet-4'].length} agents (24%)`);
   console.log(`   Gemini 2.5 Pro: ${MODEL_ASSIGNMENTS['gemini-2.5-pro'].length} agents (12%)`);

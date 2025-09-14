@@ -116,7 +116,7 @@ export class BenchmarkExecutor extends EventEmitter {
    * Execute complete performance validation
    */
   async executePerformanceValidation(): Promise<ValidationResults> {
-    console.log('🚀 Starting Phase 4 CI/CD Performance Validation');
+    console.log('[ROCKET] Starting Phase 4 CI/CD Performance Validation');
 
     try {
       // Phase 1: Pre-validation setup
@@ -152,7 +152,7 @@ export class BenchmarkExecutor extends EventEmitter {
       };
 
     } catch (error) {
-      console.error('❌ Performance validation failed:', error);
+      console.error('[FAIL] Performance validation failed:', error);
       throw new ValidationError(`Performance validation failed: ${error.message}`);
     }
   }
@@ -161,7 +161,7 @@ export class BenchmarkExecutor extends EventEmitter {
    * Pre-validation setup and system preparation
    */
   private async preValidationSetup(): Promise<void> {
-    console.log('📋 Preparing validation environment...');
+    console.log('[CLIPBOARD] Preparing validation environment...');
 
     // Clear system caches
     await this.clearSystemCaches();
@@ -175,14 +175,14 @@ export class BenchmarkExecutor extends EventEmitter {
     // Establish baseline metrics
     await this.establishBaseline();
 
-    console.log('✅ Pre-validation setup complete');
+    console.log('[OK] Pre-validation setup complete');
   }
 
   /**
    * Execute domain-specific performance benchmarks
    */
   private async executeDomainBenchmarks(): Promise<DomainBenchmarkResults> {
-    console.log('🎯 Executing domain-specific benchmarks...');
+    console.log('[TARGET] Executing domain-specific benchmarks...');
 
     const results: DomainBenchmarkResults = {
       domains: new Map(),
@@ -196,7 +196,7 @@ export class BenchmarkExecutor extends EventEmitter {
     };
 
     for (const domain of this.config.domains) {
-      console.log(`🔍 Benchmarking ${domain.name} domain...`);
+      console.log(`[SEARCH] Benchmarking ${domain.name} domain...`);
 
       try {
         const domainResult = await this.benchmarkDomain(domain);
@@ -211,7 +211,7 @@ export class BenchmarkExecutor extends EventEmitter {
         this.emit('domain-completed', { domain: domain.name, result: domainResult });
 
       } catch (error) {
-        console.error(`❌ Failed to benchmark ${domain.name}:`, error);
+        console.error(`[FAIL] Failed to benchmark ${domain.name}:`, error);
         results.summary.failedDomains++;
         this.emit('domain-failed', { domain: domain.name, error });
       }
@@ -224,7 +224,7 @@ export class BenchmarkExecutor extends EventEmitter {
     results.summary.overallCompliance = allResults.reduce((sum, r) =>
       sum + r.compliance.overallCompliance, 0) / allResults.length;
 
-    console.log(`✅ Domain benchmarks complete: ${results.summary.successfulDomains}/${results.summary.totalDomains} successful`);
+    console.log(`[OK] Domain benchmarks complete: ${results.summary.successfulDomains}/${results.summary.totalDomains} successful`);
     return results;
   }
 
@@ -385,7 +385,7 @@ export class BenchmarkExecutor extends EventEmitter {
     domain: CICDDomain,
     scenario: BenchmarkScenario
   ): Promise<ScenarioResult> {
-    console.log(`  📊 Executing ${scenario.name} scenario...`);
+    console.log(`  [CHART] Executing ${scenario.name} scenario...`);
 
     const startTime = Date.now();
     const startMetrics = await this.captureMetrics();

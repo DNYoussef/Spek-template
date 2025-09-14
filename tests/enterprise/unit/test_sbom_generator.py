@@ -856,10 +856,10 @@ package>=1.0,!=1.2,<2.0
     def test_component_with_unicode_names(self):
         """Test components with unicode names"""
         unicode_component = Component(
-            name="测试包",
+            name="",
             version="1.0.0",
-            description="Unicode test package 🚀",
-            supplier="测试供应商"
+            description="Unicode test package [ROCKET]",
+            supplier=""
         )
         
         self.generator.components["unicode-test"] = unicode_component

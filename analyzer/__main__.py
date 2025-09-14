@@ -9,6 +9,15 @@ from pathlib import Path
 # Enhanced error handling for __main__ execution
 def main_with_fallback():
     """Main function with enhanced error handling and fallback modes."""
+    # Ensure analyzer directory is in Python path for proper imports
+    analyzer_dir = Path(__file__).parent
+    project_root = analyzer_dir.parent
+
+    if str(analyzer_dir) not in sys.path:
+        sys.path.insert(0, str(analyzer_dir))
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+
     try:
         # Try relative import first (standard package execution)
         from .core import main
@@ -22,13 +31,24 @@ def main_with_fallback():
         except ImportError as e2:
             print(f"[WARN]  Absolute import failed: {e2}")
             try:
-                # Try path-based import (fallback for various execution contexts)
-                sys.path.insert(0, str(Path(__file__).parent))
-                from core import main
-                return main()
-            except ImportError as e3:
-                print(f"[WARN]  All import strategies failed: {e3}")
+                # Try direct import from core.py file
+                import importlib.util
+                core_py_path = analyzer_dir / "core.py"
+
+                if core_py_path.exists():
+                    spec = importlib.util.spec_from_file_location("core_module", str(core_py_path))
+                    core_module = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(core_module)
+                    main_func = getattr(core_module, 'main', None)
+                    if main_func:
+                        return main_func()
+
+                print(f"[WARN]  Direct core.py import failed")
                 # CI-compatible emergency fallback
+                print("[CYCLE] Using emergency CLI fallback mode for CI compatibility")
+                return emergency_cli_fallback()
+            except Exception as e3:
+                print(f"[WARN]  All import strategies failed: {e3}")
                 print("[CYCLE] Using emergency CLI fallback mode for CI compatibility")
                 return emergency_cli_fallback()
 

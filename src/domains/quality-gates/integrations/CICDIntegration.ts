@@ -723,7 +723,7 @@ echo "Executing quality gate: \$GATE_ID for environment: \$ENVIRONMENT"
 
 # Check for bypass conditions
 if [ "\$BYPASS_ENABLED" == "true" ]; then
-  echo "⚠️  Quality gate bypass requested - checking authorization..."
+  echo "[WARN]  Quality gate bypass requested - checking authorization..."
   qg-cli bypass check --gate "\$GATE_ID" --justification "\${{ github.event.inputs.bypass_reason }}"
 fi
 
@@ -744,13 +744,13 @@ echo "Gate Status: \$GATE_STATUS"
 echo "Gate Score: \$GATE_SCORE"
 
 if [ "\$GATE_STATUS" != "true" ] && [ "\$BYPASS_ENABLED" != "true" ]; then
-  echo "❌ Quality gate failed: \$GATE_ID"
+  echo "[FAIL] Quality gate failed: \$GATE_ID"
   echo "Score: \$GATE_SCORE"
   jq -r '.violations[] | "- \\(.severity | ascii_upcase): \\(.description)"' quality-gate-results.json
   exit 1
 fi
 
-echo "✅ Quality gate passed: \$GATE_ID"
+echo "[OK] Quality gate passed: \$GATE_ID"
     `.trim();
   }
 
@@ -815,7 +815,7 @@ case "\$ENVIRONMENT" in
     ;;
 esac
 
-echo "✅ Deployment completed successfully"
+echo "[OK] Deployment completed successfully"
 echo "deployment_id=\$DEPLOYMENT_ID" >> \$GITHUB_OUTPUT
     `.trim();
   }
@@ -843,15 +843,15 @@ echo "Running health checks..."
 # Execute health checks with retries
 for i in {1..5}; do
   if ${checkCommands}; then
-    echo "✅ All health checks passed"
+    echo "[OK] All health checks passed"
     exit 0
   else
-    echo "❌ Health check failed (attempt \$i/5)"
+    echo "[FAIL] Health check failed (attempt \$i/5)"
     sleep 30
   fi
 done
 
-echo "❌ Health checks failed after 5 attempts"
+echo "[FAIL] Health checks failed after 5 attempts"
 exit 1
     `.trim();
   }

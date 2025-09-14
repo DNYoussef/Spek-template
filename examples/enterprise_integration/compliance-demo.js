@@ -30,7 +30,7 @@ class ComplianceDemo {
 
     try {
       // Initialize compliance integration
-      console.log('🔧 Initializing Enterprise Compliance Integration...');
+      console.log('[WRENCH] Initializing Enterprise Compliance Integration...');
       const complianceIntegration = new EnterpriseComplianceIntegration({
         enableRealTimeMonitoring: true,
         automationLevel: 'SEMI_AUTOMATED',
@@ -39,7 +39,7 @@ class ComplianceDemo {
         complianceThreshold: 85
       });
 
-      console.log('✅ Enterprise Compliance Integration initialized');
+      console.log('[OK] Enterprise Compliance Integration initialized');
       console.log('');
 
       // Demonstrate comprehensive assessment
@@ -58,7 +58,7 @@ class ComplianceDemo {
       await this.generateDemoSummary();
 
     } catch (error) {
-      console.error('❌ Demo execution failed:', error.message);
+      console.error('[FAIL] Demo execution failed:', error.message);
       console.error(error.stack);
       process.exit(1);
     }
@@ -68,7 +68,7 @@ class ComplianceDemo {
    * Demonstrate Comprehensive Compliance Assessment
    */
   async demonstrateComprehensiveAssessment(complianceIntegration) {
-    console.log('📊 COMPREHENSIVE COMPLIANCE ASSESSMENT DEMONSTRATION');
+    console.log('[CHART] COMPREHENSIVE COMPLIANCE ASSESSMENT DEMONSTRATION');
     console.log('Running real compliance assessment across all frameworks...');
     console.log('');
 
@@ -80,7 +80,7 @@ class ComplianceDemo {
 
       const assessmentDuration = Date.now() - assessmentStartTime;
 
-      console.log('✅ Comprehensive Assessment Completed');
+      console.log('[OK] Comprehensive Assessment Completed');
       console.log(`   Assessment ID: ${assessmentResult.assessmentId}`);
       console.log(`   Overall Compliance Score: ${assessmentResult.overallScore}%`);
       console.log(`   Assessment Duration: ${Math.round(assessmentDuration / 1000)}s`);
@@ -88,7 +88,7 @@ class ComplianceDemo {
       console.log('');
 
       // Display framework results
-      console.log('📋 Framework Results:');
+      console.log('[CLIPBOARD] Framework Results:');
       for (const [framework, result] of Object.entries(assessmentResult.frameworkResults)) {
         console.log(`   ${framework}:`);
 
@@ -116,7 +116,7 @@ class ComplianceDemo {
 
       // Display critical findings
       if (assessmentResult.criticalFindings.length > 0) {
-        console.log('🚨 Critical Findings:');
+        console.log('[ALERT] Critical Findings:');
         assessmentResult.criticalFindings.forEach((finding, index) => {
           console.log(`   ${index + 1}. ${finding.framework} - ${finding.severity}`);
           console.log(`      Issue: ${finding.issue}`);
@@ -134,7 +134,7 @@ class ComplianceDemo {
       });
 
     } catch (error) {
-      console.error('❌ Comprehensive assessment failed:', error.message);
+      console.error('[FAIL] Comprehensive assessment failed:', error.message);
       throw error;
     }
   }
@@ -143,7 +143,7 @@ class ComplianceDemo {
    * Demonstrate Executive Dashboard
    */
   async demonstrateExecutiveDashboard(complianceIntegration) {
-    console.log('📈 EXECUTIVE DASHBOARD DEMONSTRATION');
+    console.log('[TREND] EXECUTIVE DASHBOARD DEMONSTRATION');
     console.log('Generating real-time executive compliance dashboard...');
     console.log('');
 
@@ -151,11 +151,11 @@ class ComplianceDemo {
       // Generate executive dashboard
       const dashboard = await complianceIntegration.reportingEngine.generateExecutiveDashboard();
 
-      console.log('✅ Executive Dashboard Generated');
+      console.log('[OK] Executive Dashboard Generated');
       console.log('');
 
       // Display executive summary
-      console.log('🎯 Executive Summary:');
+      console.log('[TARGET] Executive Summary:');
       console.log(`   Overall Compliance Score: ${dashboard.executiveSummary.overallComplianceScore}%`);
       console.log(`   Compliance Level: ${dashboard.executiveSummary.complianceLevel}`);
       console.log(`   Trend Direction: ${dashboard.executiveSummary.trendDirection}`);
@@ -165,7 +165,7 @@ class ComplianceDemo {
       console.log('');
 
       // Display key performance indicators
-      console.log('📊 Key Performance Indicators:');
+      console.log('[CHART] Key Performance Indicators:');
       for (const [kpiName, kpiData] of Object.entries(dashboard.keyPerformanceIndicators)) {
         if (kpiData.name) {
           console.log(`   ${kpiData.name}:`);
@@ -177,7 +177,7 @@ class ComplianceDemo {
       console.log('');
 
       // Display compliance status breakdown
-      console.log('🔍 Framework Compliance Status:');
+      console.log('[SEARCH] Framework Compliance Status:');
       for (const [framework, status] of Object.entries(dashboard.complianceStatus.frameworkStatus)) {
         console.log(`   ${framework}:`);
         console.log(`     Score: ${status.score}%`);
@@ -195,7 +195,7 @@ class ComplianceDemo {
       });
 
     } catch (error) {
-      console.error('❌ Executive dashboard generation failed:', error.message);
+      console.error('[FAIL] Executive dashboard generation failed:', error.message);
       // Continue with demo even if dashboard fails
     }
   }
@@ -204,7 +204,7 @@ class ComplianceDemo {
    * Demonstrate Automated Remediation
    */
   async demonstrateAutomatedRemediation(complianceIntegration) {
-    console.log('🔧 AUTOMATED REMEDIATION DEMONSTRATION');
+    console.log('[WRENCH] AUTOMATED REMEDIATION DEMONSTRATION');
     console.log('Demonstrating automated compliance remediation workflows...');
     console.log('');
 
@@ -240,13 +240,13 @@ class ComplianceDemo {
         }
       ];
 
-      console.log(`🔍 Processing ${sampleFindings.length} compliance findings...`);
+      console.log(`[SEARCH] Processing ${sampleFindings.length} compliance findings...`);
       console.log('');
 
       let remediationResults = [];
 
       for (const finding of sampleFindings) {
-        console.log(`🛠️ Processing Finding: ${finding.id}`);
+        console.log(` Processing Finding: ${finding.id}`);
         console.log(`   Type: ${finding.type}`);
         console.log(`   Severity: ${finding.severity}`);
         console.log(`   Description: ${finding.description}`);
@@ -255,9 +255,9 @@ class ComplianceDemo {
           // Execute remediation workflow
           const workflowResult = await complianceIntegration.remediationWorkflows.executeRemediationWorkflow(finding);
 
-          console.log(`   ✅ Remediation Status: ${workflowResult.status}`);
-          console.log(`   ⏱️ Duration: ${Math.round(workflowResult.duration || 0)}ms`);
-          console.log(`   📋 Steps Completed: ${workflowResult.steps?.length || 0}`);
+          console.log(`   [OK] Remediation Status: ${workflowResult.status}`);
+          console.log(`    Duration: ${Math.round(workflowResult.duration || 0)}ms`);
+          console.log(`   [CLIPBOARD] Steps Completed: ${workflowResult.steps?.length || 0}`);
 
           remediationResults.push({
             findingId: finding.id,
@@ -267,7 +267,7 @@ class ComplianceDemo {
           });
 
         } catch (error) {
-          console.log(`   ❌ Remediation Failed: ${error.message}`);
+          console.log(`   [FAIL] Remediation Failed: ${error.message}`);
           remediationResults.push({
             findingId: finding.id,
             status: 'FAILED',
@@ -279,7 +279,7 @@ class ComplianceDemo {
       }
 
       // Display remediation summary
-      console.log('📊 Remediation Summary:');
+      console.log('[CHART] Remediation Summary:');
       const successful = remediationResults.filter(r => r.status === 'COMPLETED').length;
       const failed = remediationResults.filter(r => r.status === 'FAILED').length;
 
@@ -299,7 +299,7 @@ class ComplianceDemo {
       });
 
     } catch (error) {
-      console.error('❌ Automated remediation demonstration failed:', error.message);
+      console.error('[FAIL] Automated remediation demonstration failed:', error.message);
       // Continue with demo
     }
   }
@@ -308,7 +308,7 @@ class ComplianceDemo {
    * Demonstrate Audit Trail Integrity
    */
   async demonstrateAuditTrailIntegrity(complianceIntegration) {
-    console.log('🔐 AUDIT TRAIL INTEGRITY DEMONSTRATION');
+    console.log('[SECURE] AUDIT TRAIL INTEGRITY DEMONSTRATION');
     console.log('Verifying tamper-evident audit trail with cryptographic validation...');
     console.log('');
 
@@ -316,10 +316,10 @@ class ComplianceDemo {
       // Verify audit chain integrity
       const integrityResults = await complianceIntegration.auditSystem.verifyChainIntegrity();
 
-      console.log('✅ Audit Trail Integrity Verification Completed');
+      console.log('[OK] Audit Trail Integrity Verification Completed');
       console.log('');
 
-      console.log('📊 Integrity Results:');
+      console.log('[CHART] Integrity Results:');
       console.log(`   Total Audit Entries: ${integrityResults.totalEntries}`);
       console.log(`   Valid Entries: ${integrityResults.validEntries}`);
       console.log(`   Invalid Entries: ${integrityResults.invalidEntries}`);
@@ -330,22 +330,22 @@ class ComplianceDemo {
 
       // Display integrity status
       if (integrityResults.integrityScore >= 100) {
-        console.log('✅ Audit trail integrity is PERFECT - No tampering detected');
+        console.log('[OK] Audit trail integrity is PERFECT - No tampering detected');
       } else if (integrityResults.integrityScore >= 95) {
-        console.log('⚠️ Audit trail integrity is GOOD - Minor issues detected');
+        console.log('[WARN] Audit trail integrity is GOOD - Minor issues detected');
       } else {
-        console.log('❌ Audit trail integrity is COMPROMISED - Investigation required');
+        console.log('[FAIL] Audit trail integrity is COMPROMISED - Investigation required');
       }
       console.log('');
 
       // Export audit trail for external verification
-      console.log('📤 Exporting audit trail for external verification...');
+      console.log(' Exporting audit trail for external verification...');
       const auditExport = await complianceIntegration.auditSystem.exportAuditTrail({
         includeIntegrityProofs: true,
         format: 'JSON'
       });
 
-      console.log(`✅ Audit trail exported: ${auditExport.metadata.totalEntries} entries`);
+      console.log(`[OK] Audit trail exported: ${auditExport.metadata.totalEntries} entries`);
       console.log(`   Export Hash: ${auditExport.exportHash}`);
       console.log(`   Integrity Proof: ${auditExport.integrityProof ? 'Included' : 'Not Included'}`);
       console.log('');
@@ -360,7 +360,7 @@ class ComplianceDemo {
       });
 
     } catch (error) {
-      console.error('❌ Audit trail integrity verification failed:', error.message);
+      console.error('[FAIL] Audit trail integrity verification failed:', error.message);
       // Continue with demo
     }
   }
@@ -377,18 +377,18 @@ class ComplianceDemo {
     console.log('='.repeat(80));
     console.log('');
 
-    console.log('⏱️ Demo Execution Summary:');
+    console.log(' Demo Execution Summary:');
     console.log(`   Total Demo Duration: ${Math.round(totalDemoDuration / 1000)}s`);
     console.log(`   Components Demonstrated: ${this.results.length}`);
     console.log(`   Demo Completion Time: ${new Date().toISOString()}`);
     console.log('');
 
     // Summary by component
-    console.log('📊 Component Performance Summary:');
+    console.log('[CHART] Component Performance Summary:');
     this.results.forEach(result => {
       switch (result.type) {
         case 'COMPREHENSIVE_ASSESSMENT':
-          console.log(`   🔍 Comprehensive Assessment:`);
+          console.log(`   [SEARCH] Comprehensive Assessment:`);
           console.log(`     Overall Score: ${result.overallScore}%`);
           console.log(`     Frameworks Assessed: ${result.frameworkCount}`);
           console.log(`     Critical Findings: ${result.criticalFindings}`);
@@ -396,21 +396,21 @@ class ComplianceDemo {
           break;
 
         case 'EXECUTIVE_DASHBOARD':
-          console.log(`   📈 Executive Dashboard:`);
+          console.log(`   [TREND] Executive Dashboard:`);
           console.log(`     Overall Score: ${result.overallScore}%`);
           console.log(`     Trend Direction: ${result.trendDirection}`);
           console.log(`     Critical Issues: ${result.criticalIssues}`);
           break;
 
         case 'AUTOMATED_REMEDIATION':
-          console.log(`   🔧 Automated Remediation:`);
+          console.log(`   [WRENCH] Automated Remediation:`);
           console.log(`     Total Findings: ${result.totalFindings}`);
           console.log(`     Success Rate: ${result.successRate}%`);
           console.log(`     Failed Remediations: ${result.failed}`);
           break;
 
         case 'AUDIT_INTEGRITY':
-          console.log(`   🔐 Audit Trail Integrity:`);
+          console.log(`   [SECURE] Audit Trail Integrity:`);
           console.log(`     Integrity Score: ${Math.round(result.integrityScore)}%`);
           console.log(`     Total Entries: ${result.totalEntries}`);
           console.log(`     Export Hash: ${result.exportHash.substring(0, 12)}...`);
@@ -420,28 +420,28 @@ class ComplianceDemo {
     });
 
     // Key achievements
-    console.log('🎯 Key Achievements Demonstrated:');
-    console.log('   ✅ Real compliance assessment with measurable outcomes');
-    console.log('   ✅ Dynamic scoring eliminating theater patterns');
-    console.log('   ✅ Tamper-evident audit trail with cryptographic integrity');
-    console.log('   ✅ Automated remediation with operational validation');
-    console.log('   ✅ Executive reporting with genuine performance metrics');
-    console.log('   ✅ Multi-framework integration (SOC2, ISO27001, NIST, PCI-DSS, GDPR, HIPAA)');
-    console.log('   ✅ Risk assessment with actual threat modeling');
-    console.log('   ✅ Cost-benefit analysis with real financial impact');
+    console.log('[TARGET] Key Achievements Demonstrated:');
+    console.log('   [OK] Real compliance assessment with measurable outcomes');
+    console.log('   [OK] Dynamic scoring eliminating theater patterns');
+    console.log('   [OK] Tamper-evident audit trail with cryptographic integrity');
+    console.log('   [OK] Automated remediation with operational validation');
+    console.log('   [OK] Executive reporting with genuine performance metrics');
+    console.log('   [OK] Multi-framework integration (SOC2, ISO27001, NIST, PCI-DSS, GDPR, HIPAA)');
+    console.log('   [OK] Risk assessment with actual threat modeling');
+    console.log('   [OK] Cost-benefit analysis with real financial impact');
     console.log('');
 
     // Value proposition
-    console.log('💰 Business Value Delivered:');
-    console.log('   • 60-80% reduction in compliance assessment time');
-    console.log('   • 95%+ accuracy in compliance scoring');
-    console.log('   • Zero-defect audit trail integrity');
-    console.log('   • Automated remediation reducing manual effort by 70%');
-    console.log('   • Real-time compliance monitoring and alerting');
-    console.log('   • Comprehensive regulatory coverage');
+    console.log(' Business Value Delivered:');
+    console.log('    60-80% reduction in compliance assessment time');
+    console.log('    95%+ accuracy in compliance scoring');
+    console.log('    Zero-defect audit trail integrity');
+    console.log('    Automated remediation reducing manual effort by 70%');
+    console.log('    Real-time compliance monitoring and alerting');
+    console.log('    Comprehensive regulatory coverage');
     console.log('');
 
-    console.log('🚀 Enterprise Compliance Automation Demo Completed Successfully!');
+    console.log('[ROCKET] Enterprise Compliance Automation Demo Completed Successfully!');
     console.log('='.repeat(80));
   }
 }

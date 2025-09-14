@@ -437,7 +437,7 @@ async def precision_validation():
         print(f"Theater Detection: {result.theater_detection_score:.1%}")
         
         if result.critical_violations > 0:
-            print(f"⚠️  Critical violations found: {result.critical_violations}")
+            print(f"[WARN]  Critical violations found: {result.critical_violations}")
         
         return result
 
@@ -1148,7 +1148,7 @@ async def theater_detection():
         if result.theater_detection_score >= 0.9:
             print("✓ Genuine Performance Improvements")
         else:
-            print("⚠️  Potential Performance Theater Detected")
+            print("[WARN]  Potential Performance Theater Detected")
             
             # Show theater patterns
             theater_violations = [
@@ -1191,7 +1191,7 @@ async def diagnose_performance():
         print(f"Performance improvement: {result.performance_improvement:.1%}")
         
         if execution_time > 300:  # 5 minutes
-            print("⚠️  Performance issue detected")
+            print("[WARN]  Performance issue detected")
             
             # Check phase timing
             if hasattr(result, 'audit_trail'):

@@ -59,7 +59,7 @@ class Phase3IntegrationManager extends EventEmitter {
         integrationMode: this.config.integrationMode
       });
 
-      console.log('✅ Phase 3 Integration Manager initialized');
+      console.log('[OK] Phase 3 Integration Manager initialized');
     } catch (error) {
       throw new Error(`Phase 3 integration initialization failed: ${error.message}`);
     }
@@ -79,7 +79,7 @@ class Phase3IntegrationManager extends EventEmitter {
       try {
         const configContent = await fs.readFile(configPath, 'utf8');
         this.enterpriseConfig = yaml.load(configContent);
-        console.log(`✅ Loaded enterprise configuration from: ${configPath}`);
+        console.log(`[OK] Loaded enterprise configuration from: ${configPath}`);
         
         // Validate configuration structure
         await this.validateEnterpriseConfiguration();
@@ -158,7 +158,7 @@ class Phase3IntegrationManager extends EventEmitter {
       // Discover compliance reports
       await this.discoverComplianceReports(artifactsPath);
 
-      console.log(`✅ Discovered ${this.phase3Evidence.size} Phase 3 evidence items`);
+      console.log(`[OK] Discovered ${this.phase3Evidence.size} Phase 3 evidence items`);
 
     } catch (error) {
       throw new Error(`Failed to discover Phase 3 evidence: ${error.message}`);
@@ -262,7 +262,7 @@ class Phase3IntegrationManager extends EventEmitter {
     // Perform initial sync
     await this.performBidirectionalSync();
 
-    console.log('✅ Bidirectional sync initialized');
+    console.log('[OK] Bidirectional sync initialized');
   }
 
   /**
@@ -401,7 +401,7 @@ class Phase3IntegrationManager extends EventEmitter {
         timestamp: new Date().toISOString()
       });
 
-      console.log('✅ Enterprise Compliance Agent integrated');
+      console.log('[OK] Enterprise Compliance Agent integrated');
 
     } catch (error) {
       throw new Error(`Compliance agent integration failed: ${error.message}`);
@@ -428,7 +428,7 @@ class Phase3IntegrationManager extends EventEmitter {
     // Update compliance agent configuration
     complianceAgent.config = { ...complianceAgent.config, ...complianceConfig };
 
-    console.log('✅ Compliance agent configured with enterprise settings');
+    console.log('[OK] Compliance agent configured with enterprise settings');
   }
 
   /**
@@ -561,7 +561,7 @@ class Phase3IntegrationManager extends EventEmitter {
     const configYaml = yaml.dump(defaultConfig);
     await fs.writeFile('enterprise_config.yaml', configYaml);
     
-    console.log('✅ Created default enterprise configuration');
+    console.log('[OK] Created default enterprise configuration');
   }
 
   async addMissingConfigurationSections(missingSections) {

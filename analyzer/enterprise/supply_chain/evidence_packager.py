@@ -600,9 +600,14 @@ class EvidencePackager:
             with open(file_path, 'rb') as f:
                 content = f.read()
                 
+            # DFARS Compliance: Use SHA256 and stronger algorithms only
             hashes['sha256'] = hashlib.sha256(content).hexdigest()
-            hashes['sha1'] = hashlib.sha1(content).hexdigest()
-            hashes['md5'] = hashlib.md5(content).hexdigest()
+            hashes['sha512'] = hashlib.sha512(content).hexdigest()
+            # SHA1 and MD5 removed for DFARS compliance
+            # Legacy hash support available via configuration if needed
+            if self.config.get('allow_legacy_hashes', False):
+                hashes['sha1'] = hashlib.sha1(content).hexdigest()
+                hashes['md5'] = hashlib.md5(content).hexdigest()
             
         except Exception:
             pass

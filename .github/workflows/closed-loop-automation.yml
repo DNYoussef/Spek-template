@@ -87,7 +87,7 @@ jobs:
         from pathlib import Path
         
         def detect_cicd_failures():
-            print('🔍 REAL-TIME CI/CD FAILURE DETECTION SYSTEM')
+            print('[SEARCH] REAL-TIME CI/CD FAILURE DETECTION SYSTEM')
             print('=' * 50)
             
             # GitHub API setup
@@ -123,7 +123,7 @@ jobs:
                 return simulate_failure_detection()
         
         def analyze_workflow_failures(workflow_data):
-            print('📊 Analyzing Recent Workflow Runs...')
+            print('[CHART] Analyzing Recent Workflow Runs...')
             
             workflow_runs = workflow_data.get('workflow_runs', [])
             recent_runs = [run for run in workflow_runs[:10]]  # Last 10 runs
@@ -144,7 +144,7 @@ jobs:
                 run_conclusion = run.get('conclusion', 'unknown')
                 workflow_name = run.get('name', 'unknown')
                 
-                print(f'  📋 {workflow_name}: {run_status}/{run_conclusion}')
+                print(f'  [CLIPBOARD] {workflow_name}: {run_status}/{run_conclusion}')
                 
                 if run_conclusion in ['failure', 'timed_out', 'cancelled']:
                     failure_analysis['failed_runs'] += 1
@@ -168,7 +168,7 @@ jobs:
             recovery_required = failure_detected and failure_rate >= 20  # 20% failure threshold
             automation_strategy = determine_automation_strategy(failure_analysis, failure_rate)
             
-            print(f'\\n🎯 FAILURE DETECTION RESULTS:')
+            print(f'\\n[TARGET] FAILURE DETECTION RESULTS:')
             print(f'  - Failure detected: {failure_detected}')
             print(f'  - Primary category: {primary_failure_category}')
             print(f'  - Failure rate: {failure_rate:.1f}% ({failure_analysis[\"failed_runs\"]}/{failure_analysis[\"total_runs\"]})')
@@ -234,7 +234,7 @@ jobs:
         
         def simulate_failure_detection():
             \"\"\"Fallback simulation for environments without GitHub API access\"\"\"
-            print('⚠️ Using simulated failure detection (GitHub API unavailable)')
+            print('[WARN] Using simulated failure detection (GitHub API unavailable)')
             
             # Check for common failure indicators in repository
             common_failure_indicators = [
@@ -346,7 +346,7 @@ jobs:
         from datetime import datetime
         
         def execute_recovery_stream():
-            print('🔧 INTELLIGENT RECOVERY ORCHESTRATOR')
+            print('[WRENCH] INTELLIGENT RECOVERY ORCHESTRATOR')
             print(f'Recovery Stream: ${{ matrix.recovery_stream.name }}')
             print(f'Priority: ${{ matrix.recovery_stream.priority }}')
             print('=' * 50)
@@ -356,7 +356,7 @@ jobs:
             failure_category = failure_data.get('failure_category', 'general')
             automation_strategy = failure_data.get('automation_strategy', 'monitoring_only')
             
-            print(f'🎯 Target failure category: {failure_category}')
+            print(f'[TARGET] Target failure category: {failure_category}')
             print(f'🤖 Automation strategy: {automation_strategy}')
             
             recovery_stream = '${{ matrix.recovery_stream.name }}'
@@ -397,7 +397,7 @@ jobs:
         
         def handle_dependency_recovery(failure_category):
             \"\"\"Handle dependency-related failures with automated updates\"\"\"
-            print('📦 DEPENDENCY RECOVERY HANDLER')
+            print('[PACKAGE] DEPENDENCY RECOVERY HANDLER')
             
             recovery_actions = []
             
@@ -410,7 +410,7 @@ jobs:
                     result = subprocess.run(['safety', 'check', '--json'], 
                                           capture_output=True, text=True, timeout=60)
                     if result.returncode != 0:
-                        print('  ⚠️ Security vulnerabilities detected in Python packages')
+                        print('  [WARN] Security vulnerabilities detected in Python packages')
                         recovery_actions.append({
                             'action': 'python_security_update',
                             'status': 'identified',
@@ -426,13 +426,13 @@ jobs:
             
             # Node.js dependency recovery
             if Path('package.json').exists():
-                print('  📦 Analyzing Node.js dependencies...')
+                print('  [PACKAGE] Analyzing Node.js dependencies...')
                 
                 try:
                     result = subprocess.run(['npm', 'audit', '--json'], 
                                           capture_output=True, text=True, timeout=60)
                     if result.returncode != 0:
-                        print('  ⚠️ Security vulnerabilities detected in npm packages')
+                        print('  [WARN] Security vulnerabilities detected in npm packages')
                         recovery_actions.append({
                             'action': 'npm_security_update',
                             'status': 'identified',
@@ -450,12 +450,12 @@ jobs:
         
         def handle_quality_gate_recovery(failure_category):
             \"\"\"Handle quality gate failures with automated fixes\"\"\"
-            print('✨ QUALITY GATE RECOVERY HANDLER')
+            print('[SPARKLE] QUALITY GATE RECOVERY HANDLER')
             
             recovery_actions = []
             
             # Code formatting recovery
-            print('  🎨 Applying automated code formatting...')
+            print('  [ART] Applying automated code formatting...')
             
             # Python code formatting
             python_files = list(Path('.').glob('**/*.py'))
@@ -498,12 +498,12 @@ jobs:
         
         def handle_security_recovery(failure_category):
             \"\"\"Handle security-related failures\"\"\"
-            print('🛡️ SECURITY RECOVERY HANDLER')
+            print('[SHIELD] SECURITY RECOVERY HANDLER')
             
             recovery_actions = []
             
             # Run comprehensive security scan
-            print('  🔍 Running security analysis...')
+            print('  [SEARCH] Running security analysis...')
             
             try:
                 # Bandit security scan for Python
@@ -530,12 +530,12 @@ jobs:
         
         def handle_performance_recovery(failure_category):
             \"\"\"Handle performance-related failures\"\"\"
-            print('⚡ PERFORMANCE RECOVERY HANDLER')
+            print('[LIGHTNING] PERFORMANCE RECOVERY HANDLER')
             
             recovery_actions = []
             
             # Analyze and optimize Python code performance
-            print('  📊 Analyzing performance bottlenecks...')
+            print('  [CHART] Analyzing performance bottlenecks...')
             
             # Look for common performance issues
             performance_issues = scan_performance_issues()
@@ -565,7 +565,7 @@ jobs:
                         current_version = package['version']
                         latest_version = package['latest_version']
                         
-                        print(f'    📦 {package_name}: {current_version} -> {latest_version}')
+                        print(f'    [PACKAGE] {package_name}: {current_version} -> {latest_version}')
                         security_updates.append({
                             'package': package_name,
                             'current': current_version,
@@ -640,7 +640,7 @@ jobs:
             with open(f'.github/automation/recovery/{stream_name}_results.json', 'w') as f:
                 json.dump(recovery_report, f, indent=2)
             
-            print(f'\\n✅ Recovery stream completed: {len(results)} actions performed')
+            print(f'\\n[OK] Recovery stream completed: {len(results)} actions performed')
         
         def calculate_success_rate(results):
             \"\"\"Calculate success rate of recovery actions\"\"\"
@@ -725,7 +725,7 @@ jobs:
         
         def collect_automation_results():
             \"\"\"Collect results from all automation streams\"\"\"
-            print('📊 Collecting automation results...')
+            print('[CHART] Collecting automation results...')
             
             summary = {
                 'timestamp': datetime.now().isoformat(),
@@ -742,9 +742,9 @@ jobs:
                 try:
                     with open(failure_files[0], 'r') as f:
                         summary['failure_detection'] = json.load(f)
-                    print(f'  ✅ Loaded failure detection data')
+                    print(f'  [OK] Loaded failure detection data')
                 except Exception as e:
-                    print(f'  ⚠️ Failed to load failure detection: {e}')
+                    print(f'  [WARN] Failed to load failure detection: {e}')
             
             # Load recovery results
             recovery_files = list(Path('./automation-artifacts').glob('**/*_results.json'))
@@ -764,9 +764,9 @@ jobs:
                         success_rate = recovery_data.get('success_rate', 0.0) / 100
                         successful_actions += int(actions * success_rate)
                         
-                    print(f'  ✅ Loaded recovery results: {recovery_file.name}')
+                    print(f'  [OK] Loaded recovery results: {recovery_file.name}')
                 except Exception as e:
-                    print(f'  ⚠️ Failed to load recovery results: {e}')
+                    print(f'  [WARN] Failed to load recovery results: {e}')
             
             summary['actions_taken'] = total_actions
             summary['success_rate'] = (successful_actions / max(total_actions, 1)) * 100
@@ -785,7 +785,7 @@ jobs:
             else:
                 summary['overall_status'] = 'healthy'
             
-            print(f'\\n📈 AUTOMATION SUMMARY:')
+            print(f'\\n[TREND] AUTOMATION SUMMARY:')
             print(f'  - Overall status: {summary[\"overall_status\"]}')
             print(f'  - Actions taken: {summary[\"actions_taken\"]}')
             print(f'  - Success rate: {summary[\"success_rate\"]:.1f}%')
@@ -794,7 +794,7 @@ jobs:
         
         def generate_intelligent_notifications(summary):
             \"\"\"Generate context-aware notifications\"\"\"
-            print('🧠 Generating intelligent notifications...')
+            print('[BRAIN] Generating intelligent notifications...')
             
             notifications = []
             
@@ -806,21 +806,21 @@ jobs:
             if status == 'recovered':
                 notifications.append({
                     'type': 'success',
-                    'title': '✅ Automated Recovery Successful',
+                    'title': '[OK] Automated Recovery Successful',
                     'message': f'CI/CD issues automatically resolved with {actions_taken} recovery actions (success rate: {success_rate:.1f}%)',
                     'priority': 'medium'
                 })
             elif status == 'partially_recovered':
                 notifications.append({
                     'type': 'warning',
-                    'title': '⚠️ Partial Recovery Completed',
+                    'title': '[WARN] Partial Recovery Completed',
                     'message': f'Some CI/CD issues resolved automatically. {actions_taken} actions taken with {success_rate:.1f}% success rate. Manual review recommended.',
                     'priority': 'high'
                 })
             elif status == 'recovery_failed':
                 notifications.append({
                     'type': 'error',
-                    'title': '❌ Automated Recovery Failed',
+                    'title': '[FAIL] Automated Recovery Failed',
                     'message': f'Attempted {actions_taken} recovery actions but issues persist (success rate: {success_rate:.1f}%). Manual intervention required.',
                     'priority': 'critical'
                 })
@@ -842,7 +842,7 @@ jobs:
                     if stream_actions > 0:
                         notifications.append({
                             'type': 'info',
-                            'title': f'🔧 {stream_name.replace(\"_\", \" \").title()} Recovery',
+                            'title': f'[WRENCH] {stream_name.replace(\"_\", \" \").title()} Recovery',
                             'message': f'Performed {stream_actions} automated recovery actions',
                             'priority': 'low'
                         })
@@ -860,13 +860,13 @@ jobs:
                 try:
                     create_github_issue_notification(critical_notifications, summary)
                 except Exception as e:
-                    print(f'  ⚠️ Failed to create GitHub notification: {e}')
+                    print(f'  [WARN] Failed to create GitHub notification: {e}')
             
             # Update commit status
             try:
                 update_commit_status(summary)
             except Exception as e:
-                print(f'  ⚠️ Failed to update commit status: {e}')
+                print(f'  [WARN] Failed to update commit status: {e}')
             
             # Generate workflow summary
             generate_workflow_summary(notifications, summary)
@@ -877,7 +877,7 @@ jobs:
             repo_name = os.environ.get('GITHUB_REPOSITORY')
             
             if not all([github_token, repo_name]):
-                print('  ⚠️ GitHub API credentials unavailable for issue creation')
+                print('  [WARN] GitHub API credentials unavailable for issue creation')
                 return
             
             headers = {
@@ -898,9 +898,9 @@ jobs:
                     
                     response = requests.post(comment_url, headers=headers, json=comment_data)
                     if response.status_code == 201:
-                        print(f'  ✅ Created PR comment for notifications')
+                        print(f'  [OK] Created PR comment for notifications')
                     else:
-                        print(f'  ⚠️ Failed to create PR comment: {response.status_code}')
+                        print(f'  [WARN] Failed to create PR comment: {response.status_code}')
         
         def update_commit_status(summary):
             \"\"\"Update commit status based on automation results\"\"\"
@@ -909,7 +909,7 @@ jobs:
             commit_sha = os.environ.get('GITHUB_SHA')
             
             if not all([github_token, repo_name, commit_sha]):
-                print('  ⚠️ GitHub API credentials unavailable for status update')
+                print('  [WARN] GitHub API credentials unavailable for status update')
                 return
             
             headers = {
@@ -939,9 +939,9 @@ jobs:
             
             response = requests.post(status_url, headers=headers, json=status_data)
             if response.status_code == 201:
-                print(f'  ✅ Updated commit status: {github_status}')
+                print(f'  [OK] Updated commit status: {github_status}')
             else:
-                print(f'  ⚠️ Failed to update commit status: {response.status_code}')
+                print(f'  [WARN] Failed to update commit status: {response.status_code}')
         
         def generate_issue_body(notifications, summary):
             \"\"\"Generate formatted issue body for GitHub notifications\"\"\"
@@ -970,7 +970,7 @@ jobs:
             recovery_results = summary.get('recovery_results', [])
             if recovery_results:
                 body_parts.extend([
-                    '### 🔧 Recovery Actions:',
+                    '### [WRENCH] Recovery Actions:',
                     ''
                 ])
                 
@@ -1017,9 +1017,9 @@ jobs:
                 try:
                     with open(github_step_summary, 'w') as f:
                         f.write('\\n'.join(summary_lines))
-                    print('  ✅ Generated GitHub step summary')
+                    print('  [OK] Generated GitHub step summary')
                 except Exception as e:
-                    print(f'  ⚠️ Failed to write step summary: {e}')
+                    print(f'  [WARN] Failed to write step summary: {e}')
         
         # Execute notification processing
         process_notifications()
@@ -1080,7 +1080,7 @@ jobs:
         from pathlib import Path
         
         def update_quality_gate_checks():
-            print('🎯 QUALITY GATE INTEGRATION SYSTEM')
+            print('[TARGET] QUALITY GATE INTEGRATION SYSTEM')
             print('=' * 45)
             
             # Load automation results
@@ -1096,7 +1096,7 @@ jobs:
         
         def load_automation_data():
             \"\"\"Load all automation results for quality assessment\"\"\"
-            print('📊 Loading automation data for quality assessment...')
+            print('[CHART] Loading automation data for quality assessment...')
             
             data = {
                 'failure_detection': None,
@@ -1139,7 +1139,7 @@ jobs:
         
         def generate_quality_gate_status(automation_data):
             \"\"\"Generate comprehensive quality gate status\"\"\"
-            print('🎯 Generating quality gate status...')
+            print('[TARGET] Generating quality gate status...')
             
             metrics = automation_data['overall_metrics']
             failure_data = automation_data.get('failure_detection', {})
@@ -1186,7 +1186,7 @@ jobs:
                 'context': 'quality-gate/closed-loop-automation'
             }
             
-            print(f'  📊 Quality gate status: {overall_status}')
+            print(f'  [CHART] Quality gate status: {overall_status}')
             for gate_name, gate_info in gates.items():
                 print(f'    - {gate_name}: {gate_info[\"status\"]} - {gate_info[\"description\"]}')
             
@@ -1201,7 +1201,7 @@ jobs:
             commit_sha = os.environ.get('GITHUB_SHA')
             
             if not all([github_token, repo_name, commit_sha]):
-                print('  ⚠️ GitHub API credentials unavailable - skipping status updates')
+                print('  [WARN] GitHub API credentials unavailable - skipping status updates')
                 return
             
             headers = {
@@ -1222,13 +1222,13 @@ jobs:
                 try:
                     response = requests.post(base_url, headers=headers, json=status_data)
                     if response.status_code == 201:
-                        print(f'  ✅ Updated {gate_name} status check')
+                        print(f'  [OK] Updated {gate_name} status check')
                     else:
-                        print(f'  ⚠️ Failed to update {gate_name} status: {response.status_code}')
+                        print(f'  [WARN] Failed to update {gate_name} status: {response.status_code}')
                 except Exception as e:
-                    print(f'  ⚠️ Error updating {gate_name} status: {e}')
+                    print(f'  [WARN] Error updating {gate_name} status: {e}')
             
-            print('✅ Quality gate status updates completed')
+            print('[OK] Quality gate status updates completed')
         
         # Execute quality gate integration
         update_quality_gate_checks()
@@ -1271,7 +1271,7 @@ jobs:
         from pathlib import Path
         
         def generate_comprehensive_report():
-            print('📋 COMPREHENSIVE AUTOMATION REPORT GENERATOR')
+            print('[CLIPBOARD] COMPREHENSIVE AUTOMATION REPORT GENERATOR')
             print('=' * 50)
             
             # Collect all automation data
@@ -1287,7 +1287,7 @@ jobs:
         
         def collect_comprehensive_data():
             \"\"\"Collect all automation data from artifacts\"\"\"
-            print('📊 Collecting comprehensive automation data...')
+            print('[CHART] Collecting comprehensive automation data...')
             
             data = {
                 'metadata': {
@@ -1308,7 +1308,7 @@ jobs:
             if failure_files:
                 with open(failure_files[0], 'r') as f:
                     data['failure_detection'] = json.load(f)
-                print('  ✅ Loaded failure detection data')
+                print('  [OK] Loaded failure detection data')
             
             # Load recovery results
             recovery_files = list(Path('./complete-automation-results').glob('**/*_results.json'))
@@ -1316,7 +1316,7 @@ jobs:
                 if 'failure_detection' not in recovery_file.name:
                     with open(recovery_file, 'r') as f:
                         data['recovery_streams'].append(json.load(f))
-            print(f'  ✅ Loaded {len(data[\"recovery_streams\"])} recovery streams')
+            print(f'  [OK] Loaded {len(data[\"recovery_streams\"])} recovery streams')
             
             return data
         
@@ -1453,7 +1453,7 @@ jobs:
         
         def save_comprehensive_reports(report):
             \"\"\"Save comprehensive report in multiple formats\"\"\"
-            print('💾 Saving comprehensive reports...')
+            print('[DISK] Saving comprehensive reports...')
             
             # Create reports directory
             Path('.github/automation/reports').mkdir(parents=True, exist_ok=True)
@@ -1462,21 +1462,21 @@ jobs:
             json_filename = f'automation_report_{datetime.now().strftime(\"%Y%m%d_%H%M%S\")}.json'
             with open(f'.github/automation/reports/{json_filename}', 'w') as f:
                 json.dump(report, f, indent=2, default=str)
-            print(f'  ✅ Saved JSON report: {json_filename}')
+            print(f'  [OK] Saved JSON report: {json_filename}')
             
             # Generate Markdown summary
             markdown_report = generate_markdown_summary(report)
             markdown_filename = f'automation_summary_{datetime.now().strftime(\"%Y%m%d_%H%M%S\")}.md'
             with open(f'.github/automation/reports/{markdown_filename}', 'w') as f:
                 f.write(markdown_report)
-            print(f'  ✅ Saved Markdown summary: {markdown_filename}')
+            print(f'  [OK] Saved Markdown summary: {markdown_filename}')
             
             # Generate GitHub step summary
             github_summary = os.environ.get('GITHUB_STEP_SUMMARY')
             if github_summary:
                 with open(github_summary, 'w') as f:
                     f.write(markdown_report)
-                print('  ✅ Updated GitHub step summary')
+                print('  [OK] Updated GitHub step summary')
         
         def generate_markdown_summary(report):
             \"\"\"Generate formatted Markdown summary\"\"\"
@@ -1489,7 +1489,7 @@ jobs:
                 f'**Repository**: {report[\"metadata\"][\"repository\"]}',
                 f'**Workflow Run**: {report[\"metadata\"][\"workflow_run_id\"]}',
                 '',
-                '## 📊 Executive Summary',
+                '## [CHART] Executive Summary',
                 '',
                 f'- **Automation Effectiveness**: {exec_summary[\"automation_effectiveness\"].replace(\"_\", \" \").title()}',
                 f'- **Total Recovery Actions**: {exec_summary[\"total_recovery_actions\"]}',
@@ -1505,7 +1505,7 @@ jobs:
             
             if stream_performance:
                 summary_lines.extend([
-                    '## 🔧 Recovery Stream Performance',
+                    '## [WRENCH] Recovery Stream Performance',
                     ''
                 ])
                 
@@ -1525,7 +1525,7 @@ jobs:
             recommendations = report.get('recommendations', [])
             if recommendations:
                 summary_lines.extend([
-                    '## 💡 Recommendations',
+                    '## [BULB] Recommendations',
                     ''
                 ])
                 

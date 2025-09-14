@@ -1,0 +1,23 @@
+{
+  "sampling_interval_seconds": 30,
+  "alert_cooldown_seconds": 300,
+  "history_retention_hours": 24,
+  "thresholds": {
+    "six_sigma_overhead_percent": {
+      "warning": 2.5,
+      "critical": 4.0
+    },
+    "feature_flag_overhead_percent": {
+      "warning": 2.0,
+      "critical": 3.5
+    },
+    "compliance_overhead_percent": {
+      "warning": 3.0,
+      "critical": 5.0
+    },
+    "pipeline_total_ms": {
+      "warning": 8000,
+      "critical": 12000
+    }
+  }
+}

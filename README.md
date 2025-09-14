@@ -117,6 +117,16 @@ vim SPEC.md  # Define your requirements
 | `/theater:scan` | Reality validation | Detect completion theater |
 | `/pr:open` | Evidence-rich PR creation | Automated documentation |
 
+#### Enterprise Six Sigma & Compliance
+| Command | Purpose | Example Usage |
+|---------|---------|---------------|
+| `/enterprise:telemetry:status` | Six Sigma DPMO/RTY monitoring | `--process quality_gates --timeframe 24` |
+| `/enterprise:telemetry:report` | Comprehensive telemetry reports | `--format pdf --processes all` |
+| `/enterprise:security:sbom` | Generate SBOM (SPDX/CycloneDX) | `--format cyclonedx-json --sign` |
+| `/enterprise:security:slsa` | SLSA provenance attestations | `--level 3 --build-type spek_enterprise` |
+| `/enterprise:compliance:status` | Multi-framework compliance | `--framework soc2-type2 --audit-trail` |
+| `/enterprise:compliance:audit` | Audit-ready reports | `--evidence-package --cross-framework` |
+
 ---
 
 ## Your First Project

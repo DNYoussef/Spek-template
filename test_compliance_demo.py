@@ -45,7 +45,7 @@ async def main():
     project_path = sys.argv[1] if len(sys.argv) > 1 else "."
     project_path = Path(project_path).resolve()
     
-    print("🔒 SPEK Compliance Evidence System Demonstration")
+    print("[LOCK] SPEK Compliance Evidence System Demonstration")
     print("=" * 70)
     print(f"Project Path: {project_path}")
     print(f"Demonstration Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -57,35 +57,35 @@ async def main():
         from analyzer.enterprise.compliance.validate_retention import validate_compliance_retention
         
         # Step 1: System Demonstration
-        print("📋 Step 1: Running Compliance System Demonstration")
+        print("[CLIPBOARD] Step 1: Running Compliance System Demonstration")
         print("-" * 50)
         
         demo_start = time.time()
         demo_results = await demonstrate_compliance_system(str(project_path))
         demo_duration = time.time() - demo_start
         
-        print(f"✅ Demonstration completed in {demo_duration:.2f} seconds")
+        print(f"[OK] Demonstration completed in {demo_duration:.2f} seconds")
         print(f"   Overall Status: {demo_results['overall_status']}")
         print(f"   Steps Completed: {demo_results.get('summary', {}).get('successful_steps', 0)}")
         print(f"   Frameworks Demonstrated: {demo_results.get('summary', {}).get('frameworks_demonstrated', 0)}")
         print()
         
         # Step 2: Retention System Validation
-        print("📋 Step 2: Running 90-Day Retention Validation")
+        print("[CLIPBOARD] Step 2: Running 90-Day Retention Validation")
         print("-" * 50)
         
         validation_start = time.time()
         validation_results = await validate_compliance_retention(str(project_path))
         validation_duration = time.time() - validation_start
         
-        print(f"✅ Validation completed in {validation_duration:.2f} seconds")
+        print(f"[OK] Validation completed in {validation_duration:.2f} seconds")
         print(f"   Overall Status: {validation_results['overall_status']}")
         print(f"   Tests Passed: {validation_results.get('summary', {}).get('passed_tests', 0)}")
         print(f"   Success Rate: {validation_results.get('summary', {}).get('success_rate', 0):.1f}%")
         print()
         
         # Step 3: Results Summary
-        print("📊 Demonstration Results Summary")
+        print("[CHART] Demonstration Results Summary")
         print("-" * 50)
         
         # Overall success determination
@@ -93,49 +93,49 @@ async def main():
         validation_success = validation_results['overall_status'] == 'success'
         overall_success = demo_success and validation_success
         
-        print(f"System Demonstration: {'✅ PASSED' if demo_success else '❌ FAILED'}")
-        print(f"Retention Validation: {'✅ PASSED' if validation_success else '❌ FAILED'}")
-        print(f"Overall Result: {'🎉 SUCCESS' if overall_success else '💥 FAILURE'}")
+        print(f"System Demonstration: {'[OK] PASSED' if demo_success else '[FAIL] FAILED'}")
+        print(f"Retention Validation: {'[OK] PASSED' if validation_success else '[FAIL] FAILED'}")
+        print(f"Overall Result: {' SUCCESS' if overall_success else ' FAILURE'}")
         print()
         
         # Detailed metrics
         if overall_success:
-            print("🎯 Key Metrics Achieved:")
-            print("   ✅ Multi-framework compliance evidence collection")
-            print("   ✅ Automated audit trail generation")
-            print("   ✅ Evidence integrity validation with SHA-256")
-            print("   ✅ 90-day retention policy enforcement")
-            print("   ✅ Performance overhead <1.5% target")
-            print("   ✅ Tamper-evident evidence packaging")
-            print("   ✅ Cross-framework compliance reporting")
+            print("[TARGET] Key Metrics Achieved:")
+            print("   [OK] Multi-framework compliance evidence collection")
+            print("   [OK] Automated audit trail generation")
+            print("   [OK] Evidence integrity validation with SHA-256")
+            print("   [OK] 90-day retention policy enforcement")
+            print("   [OK] Performance overhead <1.5% target")
+            print("   [OK] Tamper-evident evidence packaging")
+            print("   [OK] Cross-framework compliance reporting")
             print()
             
-            print("🏆 Regulatory Framework Support:")
-            print("   ✅ SOC2 Type II Trust Services Criteria")
-            print("   ✅ ISO27001:2022 Annex A Controls")
-            print("   ✅ NIST-SSDF v1.1 All Practice Groups")
+            print("[TROPHY] Regulatory Framework Support:")
+            print("   [OK] SOC2 Type II Trust Services Criteria")
+            print("   [OK] ISO27001:2022 Annex A Controls")
+            print("   [OK] NIST-SSDF v1.1 All Practice Groups")
             print()
             
-            print("⚡ Performance Characteristics:")
+            print("[LIGHTNING] Performance Characteristics:")
             if 'performance' in demo_results.get('steps', [{}])[-1].get('result', {}):
                 perf = demo_results['steps'][-1]['result']['performance']
                 overhead = perf.get('overhead_percentage', 0)
-                print(f"   ✅ Performance Overhead: {overhead:.3f}%")
-                print(f"   ✅ Within Target Limit: {overhead < 1.5}")
-            print(f"   ✅ Total Demo Time: {demo_duration + validation_duration:.2f} seconds")
+                print(f"   [OK] Performance Overhead: {overhead:.3f}%")
+                print(f"   [OK] Within Target Limit: {overhead < 1.5}")
+            print(f"   [OK] Total Demo Time: {demo_duration + validation_duration:.2f} seconds")
             print()
             
-            print("🔐 Security & Compliance Features:")
-            print("   ✅ Cryptographic evidence integrity (SHA-256)")
-            print("   ✅ Tamper detection and prevention")
-            print("   ✅ Automated chain of custody tracking")
-            print("   ✅ Evidence retention policy enforcement")
-            print("   ✅ Audit-ready evidence packaging")
-            print("   ✅ Defense industry compliance (95% NASA POT10)")
+            print("[SECURE] Security & Compliance Features:")
+            print("   [OK] Cryptographic evidence integrity (SHA-256)")
+            print("   [OK] Tamper detection and prevention")
+            print("   [OK] Automated chain of custody tracking")
+            print("   [OK] Evidence retention policy enforcement")
+            print("   [OK] Audit-ready evidence packaging")
+            print("   [OK] Defense industry compliance (95% NASA POT10)")
             print()
             
         else:
-            print("❌ Issues Identified:")
+            print("[FAIL] Issues Identified:")
             if not demo_success:
                 print("   - System demonstration failed")
                 if 'error' in demo_results:
@@ -147,7 +147,7 @@ async def main():
             print()
         
         # Step 4: Next Steps
-        print("🚀 Next Steps")
+        print("[ROCKET] Next Steps")
         print("-" * 50)
         
         if overall_success:
@@ -176,7 +176,7 @@ async def main():
         
         print()
         print("=" * 70)
-        print("🔒 SPEK Compliance Evidence System Demonstration Complete")
+        print("[LOCK] SPEK Compliance Evidence System Demonstration Complete")
         
         # Save results
         results_file = project_path / "compliance_demo_results.json"
@@ -194,18 +194,18 @@ async def main():
                 }
             }, indent=2, default=str)
         
-        print(f"📄 Results saved to: {results_file}")
+        print(f"[DOCUMENT] Results saved to: {results_file}")
         
         return 0 if overall_success else 1
         
     except ImportError as e:
-        print(f"❌ Import Error: {e}")
+        print(f"[FAIL] Import Error: {e}")
         print("Please ensure the compliance module is properly installed.")
         print("Check that analyzer/enterprise/compliance/ exists and contains all required files.")
         return 1
         
     except Exception as e:
-        print(f"❌ Unexpected Error: {e}")
+        print(f"[FAIL] Unexpected Error: {e}")
         print("Please check the logs for detailed error information.")
         return 1
 
@@ -215,8 +215,8 @@ if __name__ == "__main__":
         exit_code = asyncio.run(main())
         sys.exit(exit_code)
     except KeyboardInterrupt:
-        print("\n⚠️  Demonstration interrupted by user.")
+        print("\n[WARN]  Demonstration interrupted by user.")
         sys.exit(1)
     except Exception as e:
-        print(f"\n💥 Fatal Error: {e}")
+        print(f"\n Fatal Error: {e}")
         sys.exit(1)

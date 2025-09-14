@@ -312,7 +312,7 @@ describe('Theater Remediation Validation', () => {
       // Should calculate real complexity metrics
       expect(analysis.complexity.totalSteps).toBe(7); // Actual step count
       expect(analysis.complexity.parallelJobs).toBe(3); // test, build, deploy
-      expect(analysis.complexity.matrixBuilds).toBe(9); // 3 nodes × 3 OS = 9
+      expect(analysis.complexity.matrixBuilds).toBe(9); // 3 nodes  3 OS = 9
       expect(analysis.complexity.dependencies).toBe(2); // build needs test, deploy needs build
       expect(analysis.complexity.conditionals).toBe(1); // deploy has if condition
 

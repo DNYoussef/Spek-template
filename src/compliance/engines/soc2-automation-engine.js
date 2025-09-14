@@ -1,810 +1,740 @@
+#!/usr/bin/env node
 /**
- * SOC2 Type II Automation Engine
- * 
- * Implements comprehensive SOC2 Type II compliance automation with Trust Services Criteria validation.
- * Focuses on Security, Availability, Processing Integrity, Confidentiality, and Privacy.
- * 
- * EC-001: SOC2 Type II compliance automation with Trust Services Criteria validation
+ * SOC2 Compliance Automation Engine
+ * Automated Type II SOC2 compliance validation with evidence collection
  */
 
-const EventEmitter = require('events');
+const fs = require('fs').promises;
+const path = require('path');
 const crypto = require('crypto');
+const { execSync } = require('child_process');
 
-class SOC2AutomationEngine extends EventEmitter {
+class SOC2AutomationEngine {
   constructor(config = {}) {
-    super();
-    
     this.config = {
-      assessmentPeriod: 12, // 12 months for Type II
+      outputDir: '.claude/.artifacts/compliance/SOC2/',
       evidenceCollection: true,
-      continuousMonitoring: true,
+      auditHash: null,
       ...config
     };
 
-    // Trust Services Criteria categories
-    this.trustServicesCriteria = {
-      security: 'CC', // Common Criteria (Security)
-      availability: 'A', // Availability
-      processingIntegrity: 'PI', // Processing Integrity
-      confidentiality: 'C', // Confidentiality
-      privacy: 'P' // Privacy
-    };
-
-    // SOC2 Type II controls mapping
-    this.soc2Controls = this.initializeSOC2Controls();
-    this.evidenceRepository = new Map();
-    this.assessmentHistory = [];
-  }
-
-  /**
-   * Initialize comprehensive SOC2 Type II controls
-   */
-  initializeSOC2Controls() {
-    return {
-      // Common Criteria (Security) - CC1-CC9
-      'CC1.1': {
-        category: 'Control Environment',
-        title: 'Integrity and Ethical Values',
-        description: 'The entity demonstrates a commitment to integrity and ethical values',
-        riskLevel: 'High',
-        testingFrequency: 'Annual',
-        operatingEffectiveness: 'Quarterly',
-        requirements: [
-          'Code of conduct established and communicated',
-          'Ethics training provided to personnel',
-          'Disciplinary actions documented',
-          'Management tone at the top demonstrated'
-        ]
-      },
-      'CC1.2': {
-        category: 'Control Environment',
-        title: 'Board Independence and Oversight',
-        description: 'The board demonstrates independence and exercises oversight',
-        riskLevel: 'High',
-        testingFrequency: 'Annual',
-        operatingEffectiveness: 'Semi-Annual',
-        requirements: [
-          'Board independence maintained',
-          'Oversight responsibilities defined',
-          'Regular board meetings conducted',
-          'Risk management oversight provided'
-        ]
-      },
-      'CC2.1': {
-        category: 'Communication and Information',
-        title: 'Information System Objectives',
-        description: 'The entity obtains or generates relevant quality information',
-        riskLevel: 'Medium',
-        testingFrequency: 'Semi-Annual',
-        operatingEffectiveness: 'Quarterly',
-        requirements: [
-          'Information systems identified',
-          'Data quality standards established',
-          'Information flow documented',
-          'System objectives aligned with business'
-        ]
-      },
-      'CC3.1': {
-        category: 'Risk Assessment',
-        title: 'Risk Identification and Analysis',
-        description: 'The entity specifies objectives with sufficient clarity',
-        riskLevel: 'High',
-        testingFrequency: 'Annual',
-        operatingEffectiveness: 'Quarterly',
-        requirements: [
-          'Risk assessment process documented',
-          'Risk tolerance defined',
-          'Regular risk assessments conducted',
-          'Risk response strategies developed'
-        ]
-      },
-      'CC4.1': {
-        category: 'Monitoring Activities',
-        title: 'Ongoing Evaluations',
-        description: 'The entity selects, develops, and performs ongoing evaluations',
-        riskLevel: 'Medium',
-        testingFrequency: 'Semi-Annual',
-        operatingEffectiveness: 'Monthly',
-        requirements: [
-          'Monitoring procedures established',
-          'Control effectiveness evaluated',
-          'Deficiencies identified and reported',
-          'Corrective actions implemented'
-        ]
-      },
-      'CC5.1': {
-        category: 'Control Activities',
-        title: 'Logical and Physical Access Controls',
-        description: 'The entity selects and develops control activities',
-        riskLevel: 'Critical',
-        testingFrequency: 'Continuous',
-        operatingEffectiveness: 'Monthly',
-        requirements: [
-          'Access control policies implemented',
-          'User access regularly reviewed',
-          'Physical security controls maintained',
-          'Logical access monitored'
-        ]
-      },
-      'CC6.1': {
-        category: 'Logical and Physical Access',
-        title: 'Access Control Management',
-        description: 'The entity implements logical access security software',
-        riskLevel: 'Critical',
-        testingFrequency: 'Monthly',
-        operatingEffectiveness: 'Continuous',
-        requirements: [
-          'User authentication required',
-          'Privileged access controlled',
-          'Access reviews performed',
-          'Termination procedures followed'
-        ]
-      },
-      'CC7.1': {
-        category: 'System Operations',
-        title: 'System Monitoring',
-        description: 'The entity monitors system components',
-        riskLevel: 'High',
-        testingFrequency: 'Monthly',
-        operatingEffectiveness: 'Continuous',
-        requirements: [
-          'System monitoring tools deployed',
-          'Performance metrics tracked',
-          'Incident detection capabilities',
-          'Capacity management procedures'
-        ]
-      },
-      'CC8.1': {
-        category: 'Change Management',
-        title: 'System Changes',
-        description: 'The entity implements change management processes',
-        riskLevel: 'High',
-        testingFrequency: 'Quarterly',
-        operatingEffectiveness: 'Monthly',
-        requirements: [
-          'Change management process documented',
-          'Change approvals required',
-          'Testing procedures implemented',
-          'Change documentation maintained'
-        ]
-      },
-      'CC9.1': {
-        category: 'Risk Mitigation',
-        title: 'Risk Mitigation Activities',
-        description: 'The entity identifies and addresses risks',
-        riskLevel: 'High',
-        testingFrequency: 'Quarterly',
-        operatingEffectiveness: 'Monthly',
-        requirements: [
-          'Risk mitigation strategies defined',
-          'Mitigation controls implemented',
-          'Residual risk monitored',
-          'Risk mitigation effectiveness assessed'
-        ]
-      },
-
-      // Availability Controls - A1.1-A1.3
-      'A1.1': {
-        category: 'Availability',
-        title: 'System Availability',
-        description: 'The entity maintains system availability commitments',
-        riskLevel: 'Critical',
-        testingFrequency: 'Monthly',
-        operatingEffectiveness: 'Continuous',
-        requirements: [
-          'Availability commitments defined',
-          'System uptime monitored',
-          'Incident response procedures',
-          'Business continuity planning'
-        ]
-      },
-
-      // Processing Integrity Controls - PI1.1
-      'PI1.1': {
-        category: 'Processing Integrity',
-        title: 'Data Processing Integrity',
-        description: 'The entity processes data completely and accurately',
-        riskLevel: 'High',
-        testingFrequency: 'Quarterly',
-        operatingEffectiveness: 'Monthly',
-        requirements: [
-          'Data processing controls implemented',
-          'Data validation procedures',
-          'Error detection and correction',
-          'Data processing monitoring'
-        ]
-      },
-
-      // Confidentiality Controls - C1.1
-      'C1.1': {
-        category: 'Confidentiality',
-        title: 'Confidential Information Protection',
-        description: 'The entity protects confidential information',
-        riskLevel: 'Critical',
-        testingFrequency: 'Monthly',
-        operatingEffectiveness: 'Continuous',
-        requirements: [
-          'Confidentiality requirements identified',
-          'Data classification implemented',
-          'Encryption controls deployed',
-          'Confidentiality breach procedures'
-        ]
-      },
-
-      // Privacy Controls - P1.1-P1.2
-      'P1.1': {
-        category: 'Privacy',
-        title: 'Privacy Notice and Choice',
-        description: 'The entity provides notice and choice regarding privacy',
-        riskLevel: 'High',
-        testingFrequency: 'Annual',
-        operatingEffectiveness: 'Quarterly',
-        requirements: [
-          'Privacy notice provided',
-          'Consent mechanisms implemented',
-          'Choice options available',
-          'Privacy policy maintained'
-        ]
-      }
+    // SOC2 Trust Service Criteria (TSC)
+    this.trustCriteria = {
+      'CC1': { name: 'Control Environment', weight: 0.15 },
+      'CC2': { name: 'Communication and Information', weight: 0.10 },
+      'CC3': { name: 'Risk Assessment', weight: 0.15 },
+      'CC4': { name: 'Monitoring Activities', weight: 0.10 },
+      'CC5': { name: 'Control Activities', weight: 0.15 },
+      'CC6': { name: 'Logical and Physical Access Controls', weight: 0.20 },
+      'CC7': { name: 'System Operations', weight: 0.10 },
+      'CC8': { name: 'Change Management', weight: 0.05 }
     };
   }
 
-  /**
-   * Initialize SOC2 automation engine
-   */
-  async initialize() {
-    try {
-      // Load existing evidence and assessment history
-      await this.loadAssessmentHistory();
-      
-      // Initialize monitoring systems
-      if (this.config.continuousMonitoring) {
-        await this.initializeContinuousMonitoring();
-      }
+  async validateCompliance() {
+    console.log('Starting SOC2 Type II compliance validation...');
 
-      this.emit('initialized', {
-        controlsCount: Object.keys(this.soc2Controls).length,
-        categoriesCount: Object.keys(this.trustServicesCriteria).length
-      });
-
-      console.log('✅ SOC2 Automation Engine initialized');
-    } catch (error) {
-      throw new Error(`SOC2 engine initialization failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Assess Trust Services Criteria compliance
-   */
-  async assessTrustServicesCriteria() {
-    try {
-      const criteriaAssessment = {};
-
-      // Assess each Trust Services Criteria category
-      for (const [category, prefix] of Object.entries(this.trustServicesCriteria)) {
-        const categoryControls = Object.entries(this.soc2Controls)
-          .filter(([controlId]) => controlId.startsWith(prefix))
-          .map(([controlId, control]) => ({ controlId, ...control }));
-
-        const categoryResults = await this.assessControlCategory(category, categoryControls);
-        criteriaAssessment[category] = categoryResults;
-      }
-
-      return {
-        timestamp: new Date().toISOString(),
-        assessment: criteriaAssessment,
-        overallCompliance: this.calculateOverallTSCCompliance(criteriaAssessment),
-        nextAssessment: this.calculateNextTSCAssessment()
-      };
-
-    } catch (error) {
-      throw new Error(`Trust Services Criteria assessment failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Execute comprehensive controls assessment
-   */
-  async executeControlsAssessment() {
-    try {
-      const controlResults = {};
-
-      for (const [controlId, control] of Object.entries(this.soc2Controls)) {
-        const controlAssessment = await this.assessIndividualControl(controlId, control);
-        controlResults[controlId] = controlAssessment;
-      }
-
-      return {
-        timestamp: new Date().toISOString(),
-        controls: controlResults,
-        summary: this.generateControlsSummary(controlResults),
-        compliance: this.calculateControlsCompliance(controlResults),
-        findings: this.extractControlFindings(controlResults)
-      };
-
-    } catch (error) {
-      throw new Error(`Controls assessment failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Assess operating effectiveness for Type II requirements
-   */
-  async assessOperatingEffectiveness() {
-    try {
-      const effectivenessResults = {};
-
-      for (const [controlId, control] of Object.entries(this.soc2Controls)) {
-        const effectiveness = await this.assessControlOperatingEffectiveness(controlId, control);
-        effectivenessResults[controlId] = effectiveness;
-      }
-
-      return {
-        timestamp: new Date().toISOString(),
-        period: `${this.config.assessmentPeriod} months`,
-        effectiveness: effectivenessResults,
-        summary: this.generateEffectivenessSummary(effectivenessResults),
-        trends: this.analyzeEffectivenessTrends(effectivenessResults)
-      };
-
-    } catch (error) {
-      throw new Error(`Operating effectiveness assessment failed: ${error.message}`);
-    }
-  }
-
-  /**
-   * Assess individual control category
-   */
-  async assessControlCategory(category, controls) {
-    const categoryResults = {
-      category,
-      controlsCount: controls.length,
-      assessedAt: new Date().toISOString(),
-      controls: {},
-      compliance: {
-        compliant: 0,
-        nonCompliant: 0,
-        partiallyCompliant: 0,
-        percentage: 0
-      }
+    const results = {
+      framework: 'SOC2',
+      timestamp: new Date().toISOString(),
+      audit_hash: this.config.auditHash,
+      overall_score: 0,
+      total_findings: 0,
+      criteria: {},
+      evidence: {},
+      recommendations: []
     };
 
-    for (const control of controls) {
-      const controlResult = await this.assessIndividualControl(control.controlId, control);
-      categoryResults.controls[control.controlId] = controlResult;
-
-      // Update compliance counters
-      switch (controlResult.status) {
-        case 'compliant':
-          categoryResults.compliance.compliant++;
-          break;
-        case 'non-compliant':
-          categoryResults.compliance.nonCompliant++;
-          break;
-        case 'partially-compliant':
-          categoryResults.compliance.partiallyCompliant++;
-          break;
-      }
-    }
-
-    // Calculate compliance percentage
-    categoryResults.compliance.percentage = categoryResults.compliance.compliant / controls.length * 100;
-
-    return categoryResults;
-  }
-
-  /**
-   * Assess individual control
-   */
-  async assessIndividualControl(controlId, control) {
     try {
-      // Collect evidence for control
-      const evidence = await this.collectControlEvidence(controlId, control);
-      
-      // Test control design
-      const designTest = await this.testControlDesign(controlId, control, evidence);
-      
-      // Test operating effectiveness (for Type II)
-      const operatingTest = await this.testOperatingEffectiveness(controlId, control, evidence);
+      await this.ensureOutputDirectory();
 
-      // Determine overall control status
-      const status = this.determineControlStatus(designTest, operatingTest);
+      // Validate each Trust Service Criterion
+      for (const [criterion, details] of Object.entries(this.trustCriteria)) {
+        const criterionResult = await this.validateCriterion(criterion, details);
+        results.criteria[criterion] = criterionResult;
+        results.overall_score += criterionResult.score * details.weight;
+        results.total_findings += criterionResult.findings.length;
+      }
 
-      return {
-        controlId,
-        assessedAt: new Date().toISOString(),
-        evidence: evidence.summary,
-        designTest,
-        operatingTest,
-        status,
-        riskLevel: control.riskLevel,
-        findings: this.extractControlSpecificFindings(designTest, operatingTest),
-        recommendations: this.generateControlRecommendations(controlId, designTest, operatingTest)
-      };
+      // Collect evidence if enabled
+      if (this.config.evidenceCollection) {
+        results.evidence = await this.collectEvidence();
+      }
+
+      // Generate remediation recommendations
+      results.recommendations = await this.generateRecommendations(results);
+
+      // Write results
+      await this.writeResults(results);
+
+      console.log(`SOC2 validation completed. Overall score: ${(results.overall_score * 100).toFixed(1)}%`);
+      return results;
 
     } catch (error) {
-      return {
-        controlId,
-        assessedAt: new Date().toISOString(),
-        status: 'assessment-failed',
-        error: error.message
-      };
+      console.error('SOC2 validation failed:', error.message);
+      throw error;
     }
   }
 
-  /**
-   * Collect evidence for specific control
-   */
-  async collectControlEvidence(controlId, control) {
+  async validateCriterion(criterion, details) {
+    const result = {
+      name: details.name,
+      score: 0,
+      findings: [],
+      evidence_files: [],
+      controls_tested: 0,
+      controls_passed: 0
+    };
+
+    switch (criterion) {
+      case 'CC1': // Control Environment
+        await this.validateControlEnvironment(result);
+        break;
+      case 'CC2': // Communication and Information
+        await this.validateCommunication(result);
+        break;
+      case 'CC3': // Risk Assessment
+        await this.validateRiskAssessment(result);
+        break;
+      case 'CC4': // Monitoring Activities
+        await this.validateMonitoring(result);
+        break;
+      case 'CC5': // Control Activities
+        await this.validateControlActivities(result);
+        break;
+      case 'CC6': // Logical and Physical Access Controls
+        await this.validateAccessControls(result);
+        break;
+      case 'CC7': // System Operations
+        await this.validateSystemOperations(result);
+        break;
+      case 'CC8': // Change Management
+        await this.validateChangeManagement(result);
+        break;
+    }
+
+    result.score = result.controls_tested > 0 ?
+      result.controls_passed / result.controls_tested : 0;
+
+    return result;
+  }
+
+  async validateControlEnvironment(result) {
+    result.controls_tested = 5;
+
+    // Check for governance documentation
+    if (await this.fileExists('docs/governance/')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/governance/');
+    } else {
+      result.findings.push('Missing governance documentation');
+    }
+
+    // Check for code of conduct
+    if (await this.fileExists('CODE_OF_CONDUCT.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('CODE_OF_CONDUCT.md');
+    } else {
+      result.findings.push('Missing code of conduct');
+    }
+
+    // Check for security policies
+    if (await this.fileExists('docs/security/')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/security/');
+    } else {
+      result.findings.push('Missing security policies');
+    }
+
+    // Check for organizational chart
+    if (await this.fileExists('docs/organization.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/organization.md');
+    } else {
+      result.findings.push('Missing organizational structure documentation');
+    }
+
+    // Check for training records
+    if (await this.fileExists('docs/training/')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/training/');
+    } else {
+      result.findings.push('Missing security training documentation');
+    }
+  }
+
+  async validateCommunication(result) {
+    result.controls_tested = 4;
+
+    // Check for incident response procedures
+    if (await this.fileExists('docs/incident-response.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/incident-response.md');
+    } else {
+      result.findings.push('Missing incident response procedures');
+    }
+
+    // Check for communication policies
+    if (await this.fileExists('docs/communication-policy.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/communication-policy.md');
+    } else {
+      result.findings.push('Missing communication policies');
+    }
+
+    // Check for change notification procedures
+    if (await this.fileExists('.github/')) {
+      result.controls_passed++;
+      result.evidence_files.push('.github/');
+    } else {
+      result.findings.push('Missing automated change notification system');
+    }
+
+    // Check for user communication channels
+    if (await this.fileExists('docs/user-communications.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/user-communications.md');
+    } else {
+      result.findings.push('Missing user communication documentation');
+    }
+  }
+
+  async validateRiskAssessment(result) {
+    result.controls_tested = 3;
+
+    // Check for risk assessment documentation
+    if (await this.fileExists('docs/risk-assessment.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/risk-assessment.md');
+    } else {
+      result.findings.push('Missing risk assessment documentation');
+    }
+
+    // Check for threat modeling
+    if (await this.fileExists('docs/threat-model.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/threat-model.md');
+    } else {
+      result.findings.push('Missing threat modeling documentation');
+    }
+
+    // Check for business continuity plan
+    if (await this.fileExists('docs/business-continuity.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/business-continuity.md');
+    } else {
+      result.findings.push('Missing business continuity plan');
+    }
+  }
+
+  async validateMonitoring(result) {
+    result.controls_tested = 4;
+
+    // Check for monitoring configuration
+    if (await this.fileExists('monitoring/') || await this.fileExists('config/monitoring.yml')) {
+      result.controls_passed++;
+      result.evidence_files.push('monitoring configuration');
+    } else {
+      result.findings.push('Missing monitoring configuration');
+    }
+
+    // Check for log retention policies
+    if (await this.fileExists('docs/log-retention-policy.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/log-retention-policy.md');
+    } else {
+      result.findings.push('Missing log retention policies');
+    }
+
+    // Check for audit trails
+    if (await this.fileExists('.claude/.artifacts/')) {
+      result.controls_passed++;
+      result.evidence_files.push('.claude/.artifacts/');
+    } else {
+      result.findings.push('Missing audit trail configuration');
+    }
+
+    // Check for alerting systems
+    if (await this.fileExists('config/alerts.yml')) {
+      result.controls_passed++;
+      result.evidence_files.push('config/alerts.yml');
+    } else {
+      result.findings.push('Missing alerting system configuration');
+    }
+  }
+
+  async validateControlActivities(result) {
+    result.controls_tested = 6;
+
+    // Check for automated testing
+    if (await this.fileExists('tests/') && await this.fileExists('package.json')) {
+      try {
+        const packageJson = JSON.parse(await fs.readFile('package.json', 'utf8'));
+        if (packageJson.scripts && packageJson.scripts.test) {
+          result.controls_passed++;
+          result.evidence_files.push('automated testing configuration');
+        }
+      } catch (e) {
+        result.findings.push('Invalid package.json or missing test scripts');
+      }
+    } else {
+      result.findings.push('Missing automated testing framework');
+    }
+
+    // Check for code review process
+    if (await this.fileExists('.github/pull_request_template.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('.github/pull_request_template.md');
+    } else {
+      result.findings.push('Missing code review process documentation');
+    }
+
+    // Check for deployment controls
+    if (await this.fileExists('.github/workflows/')) {
+      result.controls_passed++;
+      result.evidence_files.push('.github/workflows/');
+    } else {
+      result.findings.push('Missing automated deployment controls');
+    }
+
+    // Check for data validation controls
+    if (await this.fileExists('src/validation/') || await this.fileExists('lib/validation/')) {
+      result.controls_passed++;
+      result.evidence_files.push('data validation controls');
+    } else {
+      result.findings.push('Missing data validation controls');
+    }
+
+    // Check for error handling
+    if (await this.fileExists('src/errors/') || await this.fileExists('lib/errors/')) {
+      result.controls_passed++;
+      result.evidence_files.push('error handling framework');
+    } else {
+      result.findings.push('Missing centralized error handling');
+    }
+
+    // Check for backup procedures
+    if (await this.fileExists('docs/backup-procedures.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/backup-procedures.md');
+    } else {
+      result.findings.push('Missing backup procedures documentation');
+    }
+  }
+
+  async validateAccessControls(result) {
+    result.controls_tested = 7;
+
+    // Check for authentication system
+    if (await this.fileExists('src/auth/') || await this.fileExists('lib/auth/')) {
+      result.controls_passed++;
+      result.evidence_files.push('authentication system');
+    } else {
+      result.findings.push('Missing authentication system');
+    }
+
+    // Check for authorization controls
+    if (await this.fileExists('src/rbac/') || await this.fileExists('src/permissions/')) {
+      result.controls_passed++;
+      result.evidence_files.push('authorization controls');
+    } else {
+      result.findings.push('Missing role-based access controls');
+    }
+
+    // Check for session management
+    if (await this.fileExists('src/session/') || await this.fileExists('config/session.json')) {
+      result.controls_passed++;
+      result.evidence_files.push('session management');
+    } else {
+      result.findings.push('Missing session management controls');
+    }
+
+    // Check for encryption configuration
+    if (await this.fileExists('src/crypto/') || await this.fileExists('config/encryption.json')) {
+      result.controls_passed++;
+      result.evidence_files.push('encryption configuration');
+    } else {
+      result.findings.push('Missing encryption implementation');
+    }
+
+    // Check for access logging
+    if (await this.fileExists('src/logging/') || await this.fileExists('logs/')) {
+      result.controls_passed++;
+      result.evidence_files.push('access logging');
+    } else {
+      result.findings.push('Missing access logging system');
+    }
+
+    // Check for password policies
+    if (await this.fileExists('docs/password-policy.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/password-policy.md');
+    } else {
+      result.findings.push('Missing password policy documentation');
+    }
+
+    // Check for MFA implementation
+    if (await this.fileExists('src/mfa/') || await this.fileExists('src/2fa/')) {
+      result.controls_passed++;
+      result.evidence_files.push('multi-factor authentication');
+    } else {
+      result.findings.push('Missing multi-factor authentication');
+    }
+  }
+
+  async validateSystemOperations(result) {
+    result.controls_tested = 5;
+
+    // Check for capacity management
+    if (await this.fileExists('docs/capacity-planning.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/capacity-planning.md');
+    } else {
+      result.findings.push('Missing capacity management documentation');
+    }
+
+    // Check for system availability monitoring
+    if (await this.fileExists('monitoring/availability.yml')) {
+      result.controls_passed++;
+      result.evidence_files.push('monitoring/availability.yml');
+    } else {
+      result.findings.push('Missing availability monitoring');
+    }
+
+    // Check for performance monitoring
+    if (await this.fileExists('monitoring/performance.yml')) {
+      result.controls_passed++;
+      result.evidence_files.push('monitoring/performance.yml');
+    } else {
+      result.findings.push('Missing performance monitoring');
+    }
+
+    // Check for data processing integrity
+    if (await this.fileExists('src/integrity/') || await this.fileExists('lib/checksums/')) {
+      result.controls_passed++;
+      result.evidence_files.push('data integrity controls');
+    } else {
+      result.findings.push('Missing data processing integrity controls');
+    }
+
+    // Check for system configuration management
+    if (await this.fileExists('config/') && await this.fileExists('docs/configuration.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('configuration management');
+    } else {
+      result.findings.push('Missing configuration management documentation');
+    }
+  }
+
+  async validateChangeManagement(result) {
+    result.controls_tested = 4;
+
+    // Check for change control process
+    if (await this.fileExists('docs/change-control.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/change-control.md');
+    } else {
+      result.findings.push('Missing change control process');
+    }
+
+    // Check for version control
+    if (await this.fileExists('.git/')) {
+      result.controls_passed++;
+      result.evidence_files.push('git version control');
+    } else {
+      result.findings.push('Missing version control system');
+    }
+
+    // Check for automated testing in CI/CD
+    if (await this.fileExists('.github/workflows/')) {
+      result.controls_passed++;
+      result.evidence_files.push('.github/workflows/');
+    } else {
+      result.findings.push('Missing CI/CD pipeline with testing');
+    }
+
+    // Check for rollback procedures
+    if (await this.fileExists('docs/rollback-procedures.md')) {
+      result.controls_passed++;
+      result.evidence_files.push('docs/rollback-procedures.md');
+    } else {
+      result.findings.push('Missing rollback procedures');
+    }
+  }
+
+  async collectEvidence() {
     const evidence = {
-      collected: [],
-      summary: {
-        totalItems: 0,
-        documentationItems: 0,
-        systemEvidenceItems: 0,
-        testingEvidenceItems: 0
-      }
+      files_collected: 0,
+      total_size: 0,
+      checksum: null,
+      collection_timestamp: new Date().toISOString()
     };
 
     try {
-      // Collect documentation evidence
-      const docEvidence = await this.collectDocumentationEvidence(controlId, control);
-      evidence.collected.push(...docEvidence);
-      evidence.summary.documentationItems = docEvidence.length;
+      // Collect relevant files for SOC2 evidence
+      const evidenceFiles = [
+        'package.json',
+        'README.md',
+        'SECURITY.md',
+        'CODE_OF_CONDUCT.md',
+        '.github/',
+        'docs/',
+        'config/',
+        'tests/',
+        'monitoring/',
+        '.claude/.artifacts/'
+      ];
 
-      // Collect system-generated evidence
-      const systemEvidence = await this.collectSystemEvidence(controlId, control);
-      evidence.collected.push(...systemEvidence);
-      evidence.summary.systemEvidenceItems = systemEvidence.length;
+      const collectedFiles = [];
 
-      // Collect testing evidence
-      const testingEvidence = await this.collectTestingEvidence(controlId, control);
-      evidence.collected.push(...testingEvidence);
-      evidence.summary.testingEvidenceItems = testingEvidence.length;
-
-      evidence.summary.totalItems = evidence.collected.length;
-
-      // Store evidence in repository
-      this.evidenceRepository.set(`${controlId}_${Date.now()}`, evidence);
-
-      return evidence;
-
-    } catch (error) {
-      throw new Error(`Evidence collection failed for ${controlId}: ${error.message}`);
-    }
-  }
-
-  /**
-   * Test control design effectiveness
-   */
-  async testControlDesign(controlId, control, evidence) {
-    const designTest = {
-      controlId,
-      testType: 'design',
-      testedAt: new Date().toISOString(),
-      tests: [],
-      result: 'passed',
-      deficiencies: []
-    };
-
-    try {
-      // Test each requirement
-      for (const requirement of control.requirements) {
-        const requirementTest = await this.testControlRequirement(controlId, requirement, evidence);
-        designTest.tests.push(requirementTest);
-
-        if (requirementTest.result === 'failed') {
-          designTest.result = 'failed';
-          designTest.deficiencies.push(requirementTest.deficiency);
+      for (const file of evidenceFiles) {
+        if (await this.fileExists(file)) {
+          collectedFiles.push(file);
+          evidence.files_collected++;
         }
       }
 
-      return designTest;
+      // Calculate total size and create checksum
+      if (collectedFiles.length > 0) {
+        const hash = crypto.createHash('sha256');
+        for (const file of collectedFiles) {
+          const stats = await fs.stat(file).catch(() => null);
+          if (stats) {
+            evidence.total_size += stats.size;
+            hash.update(file + stats.mtime.toISOString());
+          }
+        }
+        evidence.checksum = hash.digest('hex');
+        evidence.files = collectedFiles;
+      }
 
     } catch (error) {
-      designTest.result = 'failed';
-      designTest.error = error.message;
-      return designTest;
+      console.warn('Evidence collection partial failure:', error.message);
     }
+
+    return evidence;
   }
 
-  /**
-   * Test operating effectiveness for Type II
-   */
-  async testOperatingEffectiveness(controlId, control, evidence) {
-    const operatingTest = {
-      controlId,
-      testType: 'operating-effectiveness',
-      testedAt: new Date().toISOString(),
-      period: `${this.config.assessmentPeriod} months`,
-      sampleSize: 0,
-      exceptions: [],
-      result: 'passed',
-      effectivenessRating: 0
-    };
+  async generateRecommendations(results) {
+    const recommendations = [];
 
-    try {
-      // Determine sample size based on control frequency
-      const sampleSize = this.calculateSampleSize(control.testingFrequency);
-      operatingTest.sampleSize = sampleSize;
-
-      // Test sample items
-      const sampleResults = await this.testSampleItems(controlId, control, evidence, sampleSize);
-      operatingTest.exceptions = sampleResults.exceptions;
-
-      // Calculate effectiveness rating
-      const passRate = (sampleSize - sampleResults.exceptions.length) / sampleSize;
-      operatingTest.effectivenessRating = passRate * 100;
-
-      // Determine result based on pass rate
-      if (passRate >= 0.95) {
-        operatingTest.result = 'passed';
-      } else if (passRate >= 0.80) {
-        operatingTest.result = 'passed-with-deficiencies';
-      } else {
-        operatingTest.result = 'failed';
-      }
-
-      return operatingTest;
-
-    } catch (error) {
-      operatingTest.result = 'failed';
-      operatingTest.error = error.message;
-      return operatingTest;
-    }
-  }
-
-  /**
-   * Calculate sample size based on testing frequency
-   */
-  calculateSampleSize(frequency) {
-    const sampleSizes = {
-      'continuous': 365,
-      'monthly': 12,
-      'quarterly': 4,
-      'semi-annual': 2,
-      'annual': 1
-    };
-
-    return sampleSizes[frequency.toLowerCase()] || 4;
-  }
-
-  /**
-   * Determine overall control status
-   */
-  determineControlStatus(designTest, operatingTest) {
-    if (designTest.result === 'failed' || operatingTest.result === 'failed') {
-      return 'non-compliant';
-    }
-    
-    if (designTest.result === 'passed-with-deficiencies' || operatingTest.result === 'passed-with-deficiencies') {
-      return 'partially-compliant';
-    }
-    
-    return 'compliant';
-  }
-
-  /**
-   * Get engine status summary
-   */
-  async getStatusSummary() {
-    const controlsCount = Object.keys(this.soc2Controls).length;
-    const evidenceCount = this.evidenceRepository.size;
-    
-    return {
-      framework: 'SOC2 Type II',
-      controlsCount,
-      evidenceCount,
-      lastAssessment: this.assessmentHistory.length > 0 
-        ? this.assessmentHistory[this.assessmentHistory.length - 1].timestamp 
-        : null,
-      status: 'active'
-    };
-  }
-
-  /**
-   * Utility methods for evidence collection
-   */
-  async collectDocumentationEvidence(controlId, control) {
-    // Placeholder for documentation evidence collection
-    return [
-      {
-        type: 'documentation',
-        name: `${controlId}_policy.pdf`,
-        description: `Policy documentation for ${control.title}`,
-        collectedAt: new Date().toISOString()
-      }
-    ];
-  }
-
-  async collectSystemEvidence(controlId, control) {
-    // Placeholder for system evidence collection
-    return [
-      {
-        type: 'system',
-        name: `${controlId}_system_log.json`,
-        description: `System logs for ${control.title}`,
-        collectedAt: new Date().toISOString()
-      }
-    ];
-  }
-
-  async collectTestingEvidence(controlId, control) {
-    // Placeholder for testing evidence collection
-    return [
-      {
-        type: 'testing',
-        name: `${controlId}_test_results.json`,
-        description: `Test results for ${control.title}`,
-        collectedAt: new Date().toISOString()
-      }
-    ];
-  }
-
-  async testControlRequirement(controlId, requirement, evidence) {
-    // Placeholder for requirement testing
-    return {
-      requirement,
-      result: 'passed',
-      evidenceReviewed: evidence.summary.totalItems > 0
-    };
-  }
-
-  async testSampleItems(controlId, control, evidence, sampleSize) {
-    // Real statistical sampling with exception detection
-    const exceptions = [];
-    const samplingResults = {
-      sampleSize,
-      exceptions,
-      samplingMethod: 'statistical',
-      confidenceLevel: 95,
-      marginOfError: 5
-    };
-
-    // Simulate real sampling process with potential exceptions
-    const populationSize = population.length;
-    const selectedSamples = [];
-
-    // Random sampling
-    for (let i = 0; i < sampleSize; i++) {
-      const randomIndex = Math.floor(Math.random() * populationSize);
-      const sample = population[randomIndex];
-      selectedSamples.push(sample);
-
-      // Check for exceptions (realistic 2-5% exception rate)
-      if (Math.random() < 0.03) { // 3% exception rate
-        const exceptionTypes = ['missing_documentation', 'control_gap', 'timing_difference', 'incomplete_evidence'];
-        const exceptionType = exceptionTypes[Math.floor(Math.random() * exceptionTypes.length)];
-
-        exceptions.push({
-          sampleId: sample.id || `sample_${i}`,
-          type: exceptionType,
-          severity: Math.random() < 0.3 ? 'high' : 'medium',
-          description: `Exception found during sampling: ${exceptionType}`,
-          identifiedAt: new Date().toISOString()
+    // Generate recommendations based on findings
+    for (const [criterion, details] of Object.entries(results.criteria)) {
+      if (details.score < 0.95) {
+        recommendations.push({
+          criterion,
+          priority: details.score < 0.8 ? 'high' : 'medium',
+          description: `Improve ${details.name} (current score: ${(details.score * 100).toFixed(1)}%)`,
+          findings: details.findings,
+          suggested_actions: this.getSuggestedActions(criterion, details.findings)
         });
       }
     }
 
-    samplingResults.selectedSamples = selectedSamples;
-    samplingResults.exceptionRate = (exceptions.length / sampleSize) * 100;
-
-    return samplingResults;
-  }
-
-  calculateOverallTSCCompliance(criteriaAssessment) {
-    const percentages = Object.values(criteriaAssessment).map(c => c.compliance.percentage);
-    return percentages.reduce((a, b) => a + b, 0) / percentages.length;
-  }
-
-  calculateNextTSCAssessment() {
-    const nextDate = new Date();
-    nextDate.setMonth(nextDate.getMonth() + 3); // Quarterly TSC assessments
-    return nextDate.toISOString();
-  }
-
-  generateControlsSummary(controlResults) {
-    const summary = {
-      total: Object.keys(controlResults).length,
-      compliant: 0,
-      nonCompliant: 0,
-      partiallyCompliant: 0
-    };
-
-    Object.values(controlResults).forEach(result => {
-      switch (result.status) {
-        case 'compliant':
-          summary.compliant++;
-          break;
-        case 'non-compliant':
-          summary.nonCompliant++;
-          break;
-        case 'partially-compliant':
-          summary.partiallyCompliant++;
-          break;
-      }
-    });
-
-    summary.compliancePercentage = (summary.compliant / summary.total) * 100;
-    return summary;
-  }
-
-  calculateControlsCompliance(controlResults) {
-    const summary = this.generateControlsSummary(controlResults);
-    return {
-      status: summary.compliancePercentage >= 95 ? 'compliant' : 
-             summary.compliancePercentage >= 80 ? 'partially-compliant' : 'non-compliant',
-      percentage: summary.compliancePercentage
-    };
-  }
-
-  extractControlFindings(controlResults) {
-    const findings = [];
-    
-    Object.values(controlResults).forEach(result => {
-      if (result.findings && result.findings.length > 0) {
-        findings.push(...result.findings);
-      }
-    });
-
-    return findings;
-  }
-
-  extractControlSpecificFindings(designTest, operatingTest) {
-    const findings = [];
-    
-    if (designTest.deficiencies) {
-      findings.push(...designTest.deficiencies);
+    // Add overall recommendations
+    if (results.overall_score < 0.95) {
+      recommendations.push({
+        criterion: 'overall',
+        priority: 'high',
+        description: 'Overall SOC2 compliance below 95% threshold',
+        suggested_actions: [
+          'Prioritize high-impact control implementations',
+          'Establish regular compliance monitoring',
+          'Create compliance improvement roadmap'
+        ]
+      });
     }
-    
-    if (operatingTest.exceptions) {
-      findings.push(...operatingTest.exceptions);
-    }
-    
-    return findings;
-  }
 
-  generateControlRecommendations(controlId, designTest, operatingTest) {
-    const recommendations = [];
-    
-    if (designTest.result !== 'passed') {
-      recommendations.push(`Review and update control design for ${controlId}`);
-    }
-    
-    if (operatingTest.result !== 'passed') {
-      recommendations.push(`Enhance operating procedures for ${controlId}`);
-    }
-    
     return recommendations;
   }
 
-  async loadAssessmentHistory() {
-    // Placeholder for loading historical assessments
-    this.assessmentHistory = [];
-  }
-
-  async initializeContinuousMonitoring() {
-    // Placeholder for continuous monitoring setup
-    console.log('Continuous monitoring initialized for SOC2');
-  }
-
-  generateEffectivenessSummary(effectivenessResults) {
-    // Generate summary of operating effectiveness results
-    return {
-      averageEffectiveness: 95,
-      controlsWithDeficiencies: 2,
-      improvementTrend: 'positive'
+  getSuggestedActions(criterion, findings) {
+    const actionMap = {
+      'CC1': [
+        'Create comprehensive governance documentation',
+        'Establish code of conduct and ethics policies',
+        'Document organizational structure and responsibilities'
+      ],
+      'CC2': [
+        'Implement incident response procedures',
+        'Create communication policies and channels',
+        'Establish change notification systems'
+      ],
+      'CC3': [
+        'Conduct formal risk assessments',
+        'Create threat modeling documentation',
+        'Develop business continuity plans'
+      ],
+      'CC4': [
+        'Implement comprehensive monitoring systems',
+        'Create log retention and audit trail policies',
+        'Establish alerting and notification systems'
+      ],
+      'CC5': [
+        'Implement automated testing frameworks',
+        'Establish code review processes',
+        'Create data validation and error handling controls'
+      ],
+      'CC6': [
+        'Implement authentication and authorization systems',
+        'Create access control and session management',
+        'Establish encryption and MFA requirements'
+      ],
+      'CC7': [
+        'Implement capacity and performance monitoring',
+        'Create system availability controls',
+        'Establish configuration management processes'
+      ],
+      'CC8': [
+        'Create change control processes',
+        'Implement automated CI/CD pipelines',
+        'Establish rollback and recovery procedures'
+      ]
     };
+
+    return actionMap[criterion] || [
+      'Review control requirements',
+      'Implement missing controls',
+      'Document processes and procedures'
+    ];
   }
 
-  analyzeEffectivenessTrends(effectivenessResults) {
-    // Analyze trends in operating effectiveness
-    return {
-      direction: 'improving',
-      yearOverYear: '+3%',
-      quarterOverQuarter: '+1%'
-    };
+  async fileExists(filePath) {
+    try {
+      await fs.access(filePath);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  async ensureOutputDirectory() {
+    await fs.mkdir(this.config.outputDir, { recursive: true });
+  }
+
+  async writeResults(results) {
+    const outputFile = path.join(this.config.outputDir, 'compliance-score.json');
+    await fs.writeFile(outputFile, JSON.stringify(results, null, 2));
+
+    // Create human-readable report
+    const reportFile = path.join(this.config.outputDir, 'soc2-compliance-report.md');
+    const report = this.generateMarkdownReport(results);
+    await fs.writeFile(reportFile, report);
+
+    console.log(`SOC2 compliance results written to: ${outputFile}`);
+    console.log(`SOC2 compliance report written to: ${reportFile}`);
+  }
+
+  generateMarkdownReport(results) {
+    const timestamp = new Date(results.timestamp).toLocaleString();
+    const scorePercentage = (results.overall_score * 100).toFixed(1);
+
+    let report = `# SOC2 Type II Compliance Report
+
+**Generated:** ${timestamp}
+**Overall Score:** ${scorePercentage}%
+**Total Findings:** ${results.total_findings}
+**Audit Hash:** ${results.audit_hash}
+
+## Executive Summary
+
+${results.overall_score >= 0.95 ?
+  '[OK] **COMPLIANT** - Organization meets SOC2 Type II requirements.' :
+  '[FAIL] **NON-COMPLIANT** - Organization requires remediation to meet SOC2 Type II requirements.'
+}
+
+## Trust Service Criteria Results
+
+| Criterion | Name | Score | Status | Findings |
+|-----------|------|-------|--------|----------|
+`;
+
+    for (const [criterion, details] of Object.entries(results.criteria)) {
+      const score = (details.score * 100).toFixed(1);
+      const status = details.score >= 0.95 ? '[OK] Pass' : '[FAIL] Fail';
+      report += `| ${criterion} | ${details.name} | ${score}% | ${status} | ${details.findings.length} |\n`;
+    }
+
+    if (results.recommendations.length > 0) {
+      report += `\n## Recommendations\n\n`;
+      for (const rec of results.recommendations) {
+        report += `### ${rec.criterion.toUpperCase()}: ${rec.description}\n`;
+        report += `**Priority:** ${rec.priority.toUpperCase()}\n\n`;
+
+        if (rec.findings && rec.findings.length > 0) {
+          report += `**Findings:**\n`;
+          for (const finding of rec.findings) {
+            report += `- ${finding}\n`;
+          }
+          report += '\n';
+        }
+
+        report += `**Suggested Actions:**\n`;
+        for (const action of rec.suggested_actions) {
+          report += `- ${action}\n`;
+        }
+        report += '\n';
+      }
+    }
+
+    if (results.evidence && results.evidence.files_collected > 0) {
+      report += `## Evidence Collection Summary\n\n`;
+      report += `- **Files Collected:** ${results.evidence.files_collected}\n`;
+      report += `- **Total Size:** ${results.evidence.total_size} bytes\n`;
+      report += `- **Checksum:** ${results.evidence.checksum}\n`;
+      report += `- **Collection Time:** ${results.evidence.collection_timestamp}\n\n`;
+    }
+
+    report += `---\n*This report was generated by the SOC2 Automation Engine*\n`;
+
+    return report;
   }
 }
 
-module.exports = SOC2AutomationEngine;
+// CLI Interface
+async function main() {
+  const args = process.argv.slice(2);
+  const config = {};
+
+  for (let i = 0; i < args.length; i += 2) {
+    const key = args[i]?.replace('--', '');
+    const value = args[i + 1];
+
+    switch (key) {
+      case 'output-dir':
+        config.outputDir = value;
+        break;
+      case 'audit-hash':
+        config.auditHash = value;
+        break;
+      case 'evidence-collection':
+        config.evidenceCollection = value === 'true';
+        break;
+      case 'config':
+        // Load additional config from file
+        try {
+          const configFile = JSON.parse(await fs.readFile(value, 'utf8'));
+          Object.assign(config, configFile);
+        } catch (error) {
+          console.warn(`Could not load config file ${value}:`, error.message);
+        }
+        break;
+    }
+  }
+
+  try {
+    const engine = new SOC2AutomationEngine(config);
+    const results = await engine.validateCompliance();
+
+    process.exit(results.overall_score >= 0.95 ? 0 : 1);
+  } catch (error) {
+    console.error('SOC2 validation failed:', error.message);
+    process.exit(1);
+  }
+}
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = { SOC2AutomationEngine };

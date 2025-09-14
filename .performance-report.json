@@ -1,0 +1,141 @@
+{
+  "timestamp": "2025-09-14T13:17:19.610Z",
+  "summary": {
+    "testsRun": 3,
+    "alertsRaised": 0,
+    "avgPrecision": 118.80674669617822,
+    "precisionTarget": 0.1,
+    "precisionAchieved": false
+  },
+  "measurements": [
+    {
+      "testName": "six_sigma_cicd_pipeline",
+      "timestamp": "2025-09-14T13:17:19.607Z",
+      "measurements": {
+        "samples": [
+          1.7833000000000006,
+          1.2299000000000007,
+          0.33999999999999986,
+          0.34820000000000206,
+          0.5564
+        ],
+        "avgTime": 0.8515600000000006,
+        "stdDev": 0.5680607242188109,
+        "precision": 66.70824418934784,
+        "min": 0.33999999999999986,
+        "max": 1.7833000000000006
+      },
+      "resources": {
+        "totalTime": 9,
+        "cpuTime": {
+          "user": 0,
+          "system": 0
+        },
+        "memoryDelta": {
+          "heapUsed": 0.5330123901367188,
+          "external": 0.2725687026977539
+        }
+      },
+      "metadata": {},
+      "regression": {
+        "status": "baseline_established",
+        "regression": 0,
+        "alert": false
+      }
+    },
+    {
+      "testName": "dpmo_calculation",
+      "timestamp": "2025-09-14T13:17:19.609Z",
+      "measurements": {
+        "samples": [
+          0.08089999999999975,
+          0.007200000000000983,
+          0.006400000000002848,
+          0.005299999999998306,
+          0.005000000000002558
+        ],
+        "avgTime": 0.020960000000000888,
+        "stdDev": 0.02998030019862987,
+        "precision": 143.03578339040365,
+        "min": 0.005000000000002558,
+        "max": 0.08089999999999975
+      },
+      "resources": {
+        "totalTime": 0,
+        "cpuTime": {
+          "user": 0,
+          "system": 0
+        },
+        "memoryDelta": {
+          "heapUsed": 0.03578948974609375,
+          "external": 0
+        }
+      },
+      "metadata": {},
+      "regression": {
+        "status": "baseline_established",
+        "regression": 0,
+        "alert": false
+      }
+    },
+    {
+      "testName": "spc_chart_generation",
+      "timestamp": "2025-09-14T13:17:19.609Z",
+      "measurements": {
+        "samples": [
+          0.13889999999999958,
+          0.011899999999997135,
+          0.008899999999997021,
+          0.008500000000005059,
+          0.00840000000000174
+        ],
+        "avgTime": 0.03532000000000011,
+        "stdDev": 0.051806038258102385,
+        "precision": 146.6762125087832,
+        "min": 0.00840000000000174,
+        "max": 0.13889999999999958
+      },
+      "resources": {
+        "totalTime": 0,
+        "cpuTime": {
+          "user": 0,
+          "system": 0
+        },
+        "memoryDelta": {
+          "heapUsed": 0.0514068603515625,
+          "external": 0
+        }
+      },
+      "metadata": {},
+      "regression": {
+        "status": "baseline_established",
+        "regression": 0,
+        "alert": false
+      }
+    }
+  ],
+  "alerts": [],
+  "baselines": {
+    "six_sigma_cicd_pipeline": {
+      "avgTime": 0.8515600000000006,
+      "stdDev": 0.5680607242188109,
+      "precision": 66.70824418934784,
+      "timestamp": "2025-09-14T13:17:19.607Z",
+      "samples": 5
+    },
+    "dpmo_calculation": {
+      "avgTime": 0.020960000000000888,
+      "stdDev": 0.02998030019862987,
+      "precision": 143.03578339040365,
+      "timestamp": "2025-09-14T13:17:19.609Z",
+      "samples": 5
+    },
+    "spc_chart_generation": {
+      "avgTime": 0.03532000000000011,
+      "stdDev": 0.051806038258102385,
+      "precision": 146.6762125087832,
+      "timestamp": "2025-09-14T13:17:19.609Z",
+      "samples": 5
+    }
+  }
+}

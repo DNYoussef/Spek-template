@@ -185,7 +185,7 @@ memory_store "${yamlContent.phase || 'unknown'}_complete_$(date +%s)" "Task comp
       const updatedContent = `---\n${newYaml}---${markdownContent}`;
 
       fs.writeFileSync(filePath, updatedContent, 'utf8');
-      console.log(`✅ Updated ${agentName} with MCP servers: ${mcpServers.join(', ')}`);
+      console.log(`[OK] Updated ${agentName} with MCP servers: ${mcpServers.join(', ')}`);
       return true;
 
     } else {
@@ -220,12 +220,12 @@ memory_store "${phase}_complete_$(date +%s)" "Task completed"`
       const updatedContent = `---\n${newYaml}---\n\n${content}`;
 
       fs.writeFileSync(filePath, updatedContent, 'utf8');
-      console.log(`✅ Added YAML frontmatter to ${agentName} with MCP servers: ${mcpServers.join(', ')}`);
+      console.log(`[OK] Added YAML frontmatter to ${agentName} with MCP servers: ${mcpServers.join(', ')}`);
       return true;
     }
 
   } catch (error) {
-    console.error(`❌ Error updating ${agentName}: ${error.message}`);
+    console.error(`[FAIL] Error updating ${agentName}: ${error.message}`);
     return false;
   }
 }
@@ -317,11 +317,11 @@ function updateAllAgents() {
   let updated = 0;
   let errors = 0;
 
-  console.log('🚀 Starting MCP server configuration update for all agents...\n');
+  console.log('[ROCKET] Starting MCP server configuration update for all agents...\n');
 
   for (const dir of agentDirs) {
     if (!fs.existsSync(dir)) {
-      console.log(`⚠️  Directory ${dir} not found, skipping...`);
+      console.log(`[WARN]  Directory ${dir} not found, skipping...`);
       continue;
     }
 
@@ -356,11 +356,11 @@ function updateAllAgents() {
     }
   }
 
-  console.log('\n🎯 MCP Server Configuration Update Complete!');
-  console.log(`✅ Updated: ${updated} agents`);
-  console.log(`❌ Errors: ${errors} agents`);
-  console.log(`📊 Universal servers applied to all agents: ${MCP_ASSIGNMENTS.universal.join(', ')}`);
-  console.log(`🔗 Total unique MCP servers used: ${new Set(Object.values(MCP_ASSIGNMENTS.assignments).flat().concat(MCP_ASSIGNMENTS.universal)).size}`);
+  console.log('\n[TARGET] MCP Server Configuration Update Complete!');
+  console.log(`[OK] Updated: ${updated} agents`);
+  console.log(`[FAIL] Errors: ${errors} agents`);
+  console.log(`[CHART] Universal servers applied to all agents: ${MCP_ASSIGNMENTS.universal.join(', ')}`);
+  console.log(` Total unique MCP servers used: ${new Set(Object.values(MCP_ASSIGNMENTS.assignments).flat().concat(MCP_ASSIGNMENTS.universal)).size}`);
 }
 
 // Run if executed directly

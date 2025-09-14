@@ -80,7 +80,7 @@ class ComplianceMonitor extends EventEmitter {
         automatedRemediation: this.config.automatedRemediation
       });
 
-      console.log('✅ Real-time Compliance Monitor initialized');
+      console.log('[OK] Real-time Compliance Monitor initialized');
     } catch (error) {
       throw new Error(`Real-time monitor initialization failed: ${error.message}`);
     }
@@ -137,7 +137,7 @@ class ComplianceMonitor extends EventEmitter {
         frameworks: Object.keys(this.frameworkMonitors)
       });
 
-      console.log('✅ Real-time compliance monitoring started');
+      console.log('[OK] Real-time compliance monitoring started');
     } catch (error) {
       throw new Error(`Failed to start monitoring: ${error.message}`);
     }
@@ -166,7 +166,7 @@ class ComplianceMonitor extends EventEmitter {
         totalRuntime: Date.now() - this.performanceMetrics.startTime
       });
 
-      console.log('✅ Real-time compliance monitoring stopped');
+      console.log('[OK] Real-time compliance monitoring stopped');
     } catch (error) {
       throw new Error(`Failed to stop monitoring: ${error.message}`);
     }

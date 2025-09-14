@@ -41,6 +41,7 @@ class ConnascenceViolation:
     file_path: str = ""
     line_number: int = 0
     column: int = 0
+    id: Optional[str] = None
     
     # Extended fields for enhanced analysis
     rule_id: Optional[str] = None
@@ -62,6 +63,7 @@ class ConnascenceViolation:
     def to_dict(self) -> Dict[str, Any]:
         """Convert violation to dictionary for JSON serialization."""
         return {
+            "id": self.id,
             "type": self.type,
             "severity": self.severity,
             "description": self.description,

@@ -40,8 +40,8 @@ from analyzer.reporting.json import JSONReporter
 from analyzer.reporting.markdown import MarkdownReporter
 from analyzer.reporting.sarif import SARIFReporter
 
-# Import unified analyzer
-from analyzer.unified_analyzer import UnifiedAnalysisResult
+# Import shared types to avoid circular dependencies
+from analyzer.types import UnifiedAnalysisResult
 
 logger = logging.getLogger(__name__)
 

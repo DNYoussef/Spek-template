@@ -500,7 +500,7 @@ export class CICDPerformanceBenchmarker extends EventEmitter {
 - **Overall Performance Grade**: ${analysis.overall.performanceGrade}
 - **Success Rate**: ${analysis.overall.successRate.toFixed(1)}%
 - **Average System Overhead**: ${analysis.overall.averageOverhead.toFixed(2)}%
-- **Overhead Compliance**: ${analysis.overall.overheadCompliant ? '✅ PASS' : '❌ FAIL'}
+- **Overhead Compliance**: ${analysis.overall.overheadCompliant ? '[OK] PASS' : '[FAIL] FAIL'}
 - **Average Throughput**: ${analysis.overall.averageThroughput.toFixed(0)} ops/sec
 - **Average P95 Latency**: ${analysis.overall.averageLatency.toFixed(0)}ms
 
@@ -517,7 +517,7 @@ ${Object.entries(analysis.byDomain).map(([domain, metrics]) => `
 
 ## Performance Constraints Validation
 
-### ✅ **OVERHEAD CONSTRAINT (<2%)**
+### [OK] **OVERHEAD CONSTRAINT (<2%)**
 - **Status**: ${analysis.overall.overheadCompliant ? 'COMPLIANT' : 'NON-COMPLIANT'}
 - **Measured**: ${analysis.overall.averageOverhead.toFixed(2)}%
 - **Variance**: ${(analysis.overall.averageOverhead - this.config.targetOverhead).toFixed(2)}%
@@ -539,7 +539,7 @@ ${analysis.bottlenecks.map(bottleneck => `
 
 ## Optimization Recommendations
 
-### 🚀 **Priority Actions**
+### [ROCKET] **Priority Actions**
 ${results.flatMap(r => r.optimization.priorityActions)
   .filter(action => action.impact === 'high')
   .slice(0, 5)
@@ -564,10 +564,10 @@ ${results.map(result => `
 ## Production Readiness Assessment
 
 ### **CRITERIA VALIDATION**
-- ✅ System overhead <2%: ${analysis.overall.overheadCompliant ? 'PASS' : 'FAIL'}
-- ✅ Performance stability: ${analysis.trends.stable ? 'PASS' : 'FAIL'}
-- ✅ Resource efficiency: ${analysis.overall.performanceGrade !== 'D' ? 'PASS' : 'FAIL'}
-- ✅ Scalability validated: ${analysis.trends.scalable ? 'PASS' : 'FAIL'}
+- [OK] System overhead <2%: ${analysis.overall.overheadCompliant ? 'PASS' : 'FAIL'}
+- [OK] Performance stability: ${analysis.trends.stable ? 'PASS' : 'FAIL'}
+- [OK] Resource efficiency: ${analysis.overall.performanceGrade !== 'D' ? 'PASS' : 'FAIL'}
+- [OK] Scalability validated: ${analysis.trends.scalable ? 'PASS' : 'FAIL'}
 
 ### **RECOMMENDATION**
 ${this.generateProductionRecommendation(analysis)}
@@ -582,11 +582,11 @@ ${this.generateProductionRecommendation(analysis)}
    */
   private generateProductionRecommendation(analysis: BenchmarkAnalysis): string {
     if (analysis.overall.overheadCompliant && analysis.overall.successRate >= 95) {
-      return '🟢 **APPROVED FOR PRODUCTION DEPLOYMENT**\n\nSystem meets all performance constraints and demonstrates excellent stability and efficiency.';
+      return ' **APPROVED FOR PRODUCTION DEPLOYMENT**\n\nSystem meets all performance constraints and demonstrates excellent stability and efficiency.';
     } else if (analysis.overall.overheadCompliant && analysis.overall.successRate >= 85) {
-      return '🟡 **CONDITIONAL APPROVAL**\n\nSystem meets overhead constraints but requires monitoring and optimization of identified bottlenecks.';
+      return ' **CONDITIONAL APPROVAL**\n\nSystem meets overhead constraints but requires monitoring and optimization of identified bottlenecks.';
     } else {
-      return '🔴 **NOT APPROVED FOR PRODUCTION**\n\nSystem fails to meet critical performance constraints. Address identified issues before deployment.';
+      return ' **NOT APPROVED FOR PRODUCTION**\n\nSystem fails to meet critical performance constraints. Address identified issues before deployment.';
     }
   }
 

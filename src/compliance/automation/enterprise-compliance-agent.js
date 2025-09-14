@@ -102,7 +102,7 @@ class EnterpriseComplianceAgent extends EventEmitter {
         performanceOverhead: this.calculatePerformanceOverhead()
       });
 
-      console.log('✅ Enterprise Compliance Agent initialized successfully');
+      console.log('[OK] Enterprise Compliance Agent initialized successfully');
     } catch (error) {
       this.emit('initialization-error', { error: error.message });
       throw new Error(`Failed to initialize Enterprise Compliance Agent: ${error.message}`);
@@ -365,7 +365,7 @@ class EnterpriseComplianceAgent extends EventEmitter {
       // Start monitoring
       await this.complianceMonitor.start();
 
-      console.log('✅ Real-time compliance monitoring started');
+      console.log('[OK] Real-time compliance monitoring started');
 
     } catch (error) {
       throw new Error(`Failed to start real-time monitoring: ${error.message}`);
@@ -712,7 +712,7 @@ class EnterpriseComplianceAgent extends EventEmitter {
       await this.complianceMonitor.stop();
       await this.auditTrailGenerator.close();
       this.emit('shutdown-complete');
-      console.log('✅ Enterprise Compliance Agent shutdown complete');
+      console.log('[OK] Enterprise Compliance Agent shutdown complete');
     } catch (error) {
       console.error('Error during shutdown:', error);
     }

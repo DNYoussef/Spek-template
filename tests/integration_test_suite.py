@@ -104,7 +104,7 @@ def global_function():
             "features_enabled": "none"
         })
         
-        print(f"✓ Baseline test completed in {baseline_time:.3f}s")
+        print(f" Baseline test completed in {baseline_time:.3f}s")
         print(f"  - Analysis mode: {analyzer.analysis_mode}")
         print(f"  - Violations found: {len(result.get('violations', []))}")
         print(f"  - NASA compliance score: {result.get('nasa_compliance', {}).get('score', 'N/A')}")
@@ -132,15 +132,15 @@ def global_function():
             for issue in issues[:3]:  # Show first 3 issues
                 print(f"    * {issue}")
         else:
-            print("  ✓ Configuration validation passed")
+            print("   Configuration validation passed")
             
         # Test environment-specific overrides
         for env in [EnvironmentType.TESTING, EnvironmentType.STAGING, EnvironmentType.PRODUCTION]:
             env_config = config.get_environment_config(env)
             self.assertIsNotNone(env_config)
-            print(f"  ✓ {env.value} environment config loaded")
+            print(f"   {env.value} environment config loaded")
         
-        print("✓ Enterprise configuration integration test passed")
+        print(" Enterprise configuration integration test passed")
         
     def test_03_six_sigma_domain_integration(self):
         """Test 3: Six Sigma (SR) domain integration with analyzer"""
@@ -191,7 +191,7 @@ def global_function():
             "overhead_pct": ((end_time - start_time) / self.performance_data[0]["time_seconds"] - 1) * 100
         })
         
-        print("✓ Six Sigma domain integration test passed")
+        print(" Six Sigma domain integration test passed")
         
     def test_04_supply_chain_domain_integration(self):
         """Test 4: Supply Chain (SC) domain integration"""
@@ -261,9 +261,9 @@ def global_function():
             "artifacts_generated": ["sbom.json", "provenance.json"]
         })
         
-        print(f"  ✓ SBOM generated: {sbom_file}")
-        print(f"  ✓ SLSA provenance generated: {provenance_file}")
-        print("✓ Supply Chain domain integration test passed")
+        print(f"   SBOM generated: {sbom_file}")
+        print(f"   SLSA provenance generated: {provenance_file}")
+        print(" Supply Chain domain integration test passed")
         
     def test_05_compliance_domain_integration(self):
         """Test 5: Compliance Matrix (CE) domain integration"""
@@ -313,10 +313,10 @@ def global_function():
             "controls_generated": len(soc2_controls) + len(iso27001_controls) + len(nist_controls)
         })
         
-        print(f"  ✓ SOC2 controls: {len(soc2_controls)}")
-        print(f"  ✓ ISO27001 controls: {len(iso27001_controls)}")
-        print(f"  ✓ NIST-SSDF practices: {len(nist_controls)}")
-        print("✓ Compliance domain integration test passed")
+        print(f"   SOC2 controls: {len(soc2_controls)}")
+        print(f"   ISO27001 controls: {len(iso27001_controls)}")
+        print(f"   NIST-SSDF practices: {len(nist_controls)}")
+        print(" Compliance domain integration test passed")
         
     def test_06_full_integration_test(self):
         """Test 6: Full integration with all enterprise features enabled"""
@@ -394,11 +394,11 @@ def global_function():
         # Validate performance impact is within acceptable limits (<4.7%)
         self.assertLess(performance_impact, 5.0, f"Performance impact {performance_impact:.1f}% exceeds 5% threshold")
         
-        print(f"  ✓ Full integration completed in {full_integration_time:.3f}s")
-        print(f"  ✓ Performance impact: {performance_impact:.1f}% (target: <4.7%)")
-        print(f"  ✓ Violations found: {len(result.get('violations', []))}")
-        print(f"  ✓ NASA compliance score: {result.get('nasa_compliance', {}).get('score', 'N/A')}")
-        print("✓ Full integration test passed")
+        print(f"   Full integration completed in {full_integration_time:.3f}s")
+        print(f"   Performance impact: {performance_impact:.1f}% (target: <4.7%)")
+        print(f"   Violations found: {len(result.get('violations', []))}")
+        print(f"   NASA compliance score: {result.get('nasa_compliance', {}).get('score', 'N/A')}")
+        print(" Full integration test passed")
         
     def test_07_error_handling_and_graceful_degradation(self):
         """Test 7: Error handling and graceful degradation"""
@@ -409,14 +409,14 @@ def global_function():
         config.security.slsa_level = 99  # Invalid SLSA level
         issues = config.validate_config()
         self.assertGreater(len(issues), 0)
-        print(f"  ✓ Configuration validation caught {len(issues)} issues")
+        print(f"   Configuration validation caught {len(issues)} issues")
         
         # Test missing files
         analyzer = ConnascenceAnalyzer()
         result = analyzer.analyze_path("/nonexistent/path", policy="standard")
         self.assertFalse(result.get("success", True))
         self.assertIn("error", result)
-        print("  ✓ Graceful handling of missing paths")
+        print("   Graceful handling of missing paths")
         
         # Test malformed Python file
         bad_file = self.temp_dir / "malformed.py"
@@ -424,7 +424,7 @@ def global_function():
         
         result = analyzer.analyze_path(str(bad_file), policy="standard")
         # Should handle syntax errors gracefully
-        print(f"  ✓ Handled malformed file: success={result.get('success', False)}")
+        print(f"   Handled malformed file: success={result.get('success', False)}")
         
         # Test enterprise features with missing dependencies
         try:
@@ -435,11 +435,11 @@ def global_function():
                 include_duplication=True
             )
             self.assertTrue(result.get("success", False))
-            print("  ✓ Graceful degradation when enterprise features unavailable")
+            print("   Graceful degradation when enterprise features unavailable")
         except Exception as e:
-            print(f"  ✓ Exception handled gracefully: {type(e).__name__}")
+            print(f"   Exception handled gracefully: {type(e).__name__}")
         
-        print("✓ Error handling and graceful degradation test passed")
+        print(" Error handling and graceful degradation test passed")
         
     def test_08_configuration_compatibility(self):
         """Test 8: Configuration compatibility between systems"""
@@ -451,7 +451,7 @@ def global_function():
             with open(analysis_config_path) as f:
                 analysis_config = yaml.safe_load(f)
             self.assertIn("analysis", analysis_config)
-            print("  ✓ Existing analysis_config.yaml loaded successfully")
+            print("   Existing analysis_config.yaml loaded successfully")
         
         # Test loading enterprise_config.yaml
         enterprise_config_path = Path(__file__).parent.parent / "analyzer" / "config" / "enterprise_config.yaml"
@@ -459,12 +459,12 @@ def global_function():
             with open(enterprise_config_path) as f:
                 enterprise_config = yaml.safe_load(f)
             self.assertIn("enterprise", enterprise_config)
-            print("  ✓ Enterprise config loaded successfully")
+            print("   Enterprise config loaded successfully")
             
             # Validate enterprise features are disabled by default
             enterprise_enabled = enterprise_config.get("enterprise", {}).get("enabled", True)
             self.assertFalse(enterprise_enabled, "Enterprise features should be disabled by default")
-            print("  ✓ Enterprise features disabled by default (backward compatibility)")
+            print("   Enterprise features disabled by default (backward compatibility)")
         
         # Test configuration merging
         config = EnterpriseConfig()
@@ -475,7 +475,7 @@ def global_function():
         self.assertIn("security", config_dict)
         self.assertIn("compliance", config_dict)
         
-        print("✓ Configuration compatibility test passed")
+        print(" Configuration compatibility test passed")
         
     def _calculate_sigma_level(self, dpmo: float) -> float:
         """Calculate approximate sigma level from DPMO"""
@@ -563,12 +563,12 @@ def global_function():
         
         print("\nIntegration Summary:")
         print("-" * 40)
-        print("  ✓ Core analyzer functionality preserved")
-        print("  ✓ Enterprise features integrate seamlessly")
-        print("  ✓ Configuration compatibility maintained")
-        print("  ✓ Performance impact within acceptable limits")
-        print("  ✓ Graceful degradation on errors")
-        print("  ✓ Backward compatibility ensured")
+        print("   Core analyzer functionality preserved")
+        print("   Enterprise features integrate seamlessly")
+        print("   Configuration compatibility maintained")
+        print("   Performance impact within acceptable limits")
+        print("   Graceful degradation on errors")
+        print("   Backward compatibility ensured")
         
         # Calculate overall performance impact
         if len(self.performance_data) > 1:
@@ -578,9 +578,9 @@ def global_function():
                 status = "PASS" if overall_impact < 4.7 else "FAIL"
                 print(f"\nOverall Performance Impact: {overall_impact:.1f}% ({status})")
         
-        print("\nProduction Readiness: READY ✓")
-        print("NASA POT10 Compliance: MAINTAINED ✓")
-        print("Backward Compatibility: PRESERVED ✓")
+        print("\nProduction Readiness: READY ")
+        print("NASA POT10 Compliance: MAINTAINED ")
+        print("Backward Compatibility: PRESERVED ")
         
         print("\n" + "="*80)
 

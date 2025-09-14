@@ -84,7 +84,7 @@ class PerformanceValidationSuite:
         
         NASA Rule 4: Function under 60 lines
         """
-        print("🚀 Starting Comprehensive Performance Validation")
+        print("[ROCKET] Starting Comprehensive Performance Validation")
         print("=" * 60)
         
         validation_start = time.time()
@@ -98,37 +98,37 @@ class PerformanceValidationSuite:
         
         try:
             # Phase 1: Cache Performance Validation
-            print("\n📊 Phase 1: Cache Performance Validation")
+            print("\n[CHART] Phase 1: Cache Performance Validation")
             cache_results = await self._validate_cache_performance()
             self.validation_results["cache_performance"] = cache_results
             
             # Phase 2: Parallel Processing Validation
-            print("\n⚡ Phase 2: Parallel Processing Validation")
+            print("\n[LIGHTNING] Phase 2: Parallel Processing Validation")
             parallel_results = await self._validate_parallel_processing()
             self.validation_results["parallel_processing"] = parallel_results
             
             # Phase 3: Incremental Analysis Validation
-            print("\n🔄 Phase 3: Incremental Analysis Validation")
+            print("\n[CYCLE] Phase 3: Incremental Analysis Validation")
             incremental_results = await self._validate_incremental_analysis()
             self.validation_results["incremental_analysis"] = incremental_results
             
             # Phase 4: CI/CD Acceleration Validation
-            print("\n🏗️ Phase 4: CI/CD Acceleration Validation")
+            print("\n[BUILD] Phase 4: CI/CD Acceleration Validation")
             cicd_results = await self._validate_cicd_acceleration()
             self.validation_results["ci_cd_acceleration"] = cicd_results
             
             # Phase 5: Memory Optimization Validation
-            print("\n💾 Phase 5: Memory Optimization Validation")
+            print("\n[DISK] Phase 5: Memory Optimization Validation")
             memory_results = await self._validate_memory_optimization()
             self.validation_results["memory_optimization"] = memory_results
             
             # Phase 6: Integration Performance Validation
-            print("\n🔧 Phase 6: Integration Performance Validation")
+            print("\n[WRENCH] Phase 6: Integration Performance Validation")
             integration_results = await self._validate_integration_performance()
             self.validation_results["integration_performance"] = integration_results
             
             # Phase 7: Calculate Overall Achievement
-            print("\n🎯 Phase 7: Overall Performance Target Validation")
+            print("\n[TARGET] Phase 7: Overall Performance Target Validation")
             overall_results = self._calculate_overall_achievement()
             self.validation_results["overall_achievement"] = overall_results
             
@@ -137,7 +137,7 @@ class PerformanceValidationSuite:
             # Generate final validation report
             final_report = self._generate_validation_report(validation_time)
             
-            print(f"\n✅ Comprehensive validation completed in {validation_time:.2f}s")
+            print(f"\n[OK] Comprehensive validation completed in {validation_time:.2f}s")
             
             return final_report
             
@@ -151,7 +151,7 @@ class PerformanceValidationSuite:
     
     async def _validate_cache_performance(self) -> Dict[str, Any]:
         """Validate cache performance improvements."""
-        print("  🔍 Testing cache optimization strategies...")
+        print("  [SEARCH] Testing cache optimization strategies...")
         
         try:
             # Get cache profiler
@@ -161,10 +161,10 @@ class PerformanceValidationSuite:
             test_files = [str(f) for f in self.project_path.rglob("*.py") if f.is_file()][:50]
             
             if not test_files:
-                print("  ⚠️ No test files found for cache validation")
+                print("  [WARN] No test files found for cache validation")
                 return {"validation_status": "skipped", "reason": "no_test_files"}
             
-            print(f"  📁 Testing with {len(test_files)} files")
+            print(f"  [FOLDER] Testing with {len(test_files)} files")
             
             # Measure baseline performance (cold cache)
             if cache_profiler.file_cache:
@@ -205,8 +205,8 @@ class PerformanceValidationSuite:
                     "memory_usage_mb": memory_usage.get("file_cache_bytes", 0) / (1024 * 1024)
                 }
             
-            print(f"  📈 Cache improvement: {improvement_percent:.1f}% (target: {self.improvement_targets['cache_performance']}%)")
-            print(f"  {'✅' if target_achieved else '❌'} Target {'achieved' if target_achieved else 'not achieved'}")
+            print(f"  [TREND] Cache improvement: {improvement_percent:.1f}% (target: {self.improvement_targets['cache_performance']}%)")
+            print(f"  {'[OK]' if target_achieved else '[FAIL]'} Target {'achieved' if target_achieved else 'not achieved'}")
             
             return {
                 "validation_status": "completed",
@@ -220,12 +220,12 @@ class PerformanceValidationSuite:
             }
             
         except Exception as e:
-            print(f"  ❌ Cache validation failed: {e}")
+            print(f"  [FAIL] Cache validation failed: {e}")
             return {"validation_status": "failed", "error": str(e)}
     
     async def _validate_parallel_processing(self) -> Dict[str, Any]:
         """Validate parallel processing improvements."""
-        print("  🔍 Testing parallel processing optimization...")
+        print("  [SEARCH] Testing parallel processing optimization...")
         
         try:
             optimization_engine = get_global_optimization_engine()
@@ -278,9 +278,9 @@ class PerformanceValidationSuite:
             
             target_achieved = improvement_percent >= self.improvement_targets["parallel_processing"]
             
-            print(f"  📈 Parallel improvement: {improvement_percent:.1f}% (target: {self.improvement_targets['parallel_processing']}%)")
-            print(f"  ⏱️ Sequential: {sequential_time:.3f}s, Parallel: {parallel_time:.3f}s")
-            print(f"  {'✅' if target_achieved else '❌'} Target {'achieved' if target_achieved else 'not achieved'}")
+            print(f"  [TREND] Parallel improvement: {improvement_percent:.1f}% (target: {self.improvement_targets['parallel_processing']}%)")
+            print(f"   Sequential: {sequential_time:.3f}s, Parallel: {parallel_time:.3f}s")
+            print(f"  {'[OK]' if target_achieved else '[FAIL]'} Target {'achieved' if target_achieved else 'not achieved'}")
             
             return {
                 "validation_status": "completed",
@@ -294,19 +294,19 @@ class PerformanceValidationSuite:
             }
             
         except Exception as e:
-            print(f"  ❌ Parallel processing validation failed: {e}")
+            print(f"  [FAIL] Parallel processing validation failed: {e}")
             return {"validation_status": "failed", "error": str(e)}
     
     async def _validate_incremental_analysis(self) -> Dict[str, Any]:
         """Validate incremental analysis improvements."""
-        print("  🔍 Testing incremental analysis optimization...")
+        print("  [SEARCH] Testing incremental analysis optimization...")
         
         try:
             # Test incremental analysis vs full analysis
             test_files = [str(f) for f in self.project_path.rglob("*.py") if f.is_file()][:20]
             
             if not test_files:
-                print("  ⚠️ No test files found for incremental analysis validation")
+                print("  [WARN] No test files found for incremental analysis validation")
                 return {"validation_status": "skipped", "reason": "no_test_files"}
             
             # Simulate full analysis (baseline)
@@ -348,9 +348,9 @@ class PerformanceValidationSuite:
             improvement_percent = ((baseline_time - optimized_time) / baseline_time) * 100
             target_achieved = improvement_percent >= self.improvement_targets["incremental_analysis"]
             
-            print(f"  📈 Incremental improvement: {improvement_percent:.1f}% (target: {self.improvement_targets['incremental_analysis']}%)")
-            print(f"  ⏱️ Full analysis: {baseline_time:.3f}s, Incremental: {optimized_time:.3f}s")
-            print(f"  {'✅' if target_achieved else '❌'} Target {'achieved' if target_achieved else 'not achieved'}")
+            print(f"  [TREND] Incremental improvement: {improvement_percent:.1f}% (target: {self.improvement_targets['incremental_analysis']}%)")
+            print(f"   Full analysis: {baseline_time:.3f}s, Incremental: {optimized_time:.3f}s")
+            print(f"  {'[OK]' if target_achieved else '[FAIL]'} Target {'achieved' if target_achieved else 'not achieved'}")
             
             return {
                 "validation_status": "completed",
@@ -365,12 +365,12 @@ class PerformanceValidationSuite:
             }
             
         except Exception as e:
-            print(f"  ❌ Incremental analysis validation failed: {e}")
+            print(f"  [FAIL] Incremental analysis validation failed: {e}")
             return {"validation_status": "failed", "error": str(e)}
     
     async def _validate_cicd_acceleration(self) -> Dict[str, Any]:
         """Validate CI/CD pipeline acceleration."""
-        print("  🔍 Testing CI/CD pipeline acceleration...")
+        print("  [SEARCH] Testing CI/CD pipeline acceleration...")
         
         try:
             # Create mock CI/CD pipeline tasks
@@ -437,10 +437,10 @@ class PerformanceValidationSuite:
             improvement_percent = accelerated_result.performance_improvement_percent
             target_achieved = acceleration_result["target_improvement_achieved"]
             
-            print(f"  📈 CI/CD improvement: {improvement_percent:.1f}% (target: {self.improvement_targets['ci_cd_acceleration']}%)")
-            print(f"  ⏱️ Sequential: {baseline_time:.1f}s, Accelerated: {optimized_time:.3f}s")
-            print(f"  🎯 Parallelization: {accelerated_result.parallelization_achieved:.1%}")
-            print(f"  {'✅' if target_achieved else '❌'} Target {'achieved' if target_achieved else 'not achieved'}")
+            print(f"  [TREND] CI/CD improvement: {improvement_percent:.1f}% (target: {self.improvement_targets['ci_cd_acceleration']}%)")
+            print(f"   Sequential: {baseline_time:.1f}s, Accelerated: {optimized_time:.3f}s")
+            print(f"  [TARGET] Parallelization: {accelerated_result.parallelization_achieved:.1%}")
+            print(f"  {'[OK]' if target_achieved else '[FAIL]'} Target {'achieved' if target_achieved else 'not achieved'}")
             
             return {
                 "validation_status": "completed",
@@ -456,12 +456,12 @@ class PerformanceValidationSuite:
             }
             
         except Exception as e:
-            print(f"  ❌ CI/CD acceleration validation failed: {e}")
+            print(f"  [FAIL] CI/CD acceleration validation failed: {e}")
             return {"validation_status": "failed", "error": str(e)}
     
     async def _validate_memory_optimization(self) -> Dict[str, Any]:
         """Validate memory usage optimization."""
-        print("  🔍 Testing memory optimization...")
+        print("  [SEARCH] Testing memory optimization...")
         
         try:
             # Test memory usage with and without optimization
@@ -491,9 +491,9 @@ class PerformanceValidationSuite:
             memory_optimization_percent = (memory_recovered / memory_growth) * 100 if memory_growth > 0 else 0
             target_achieved = memory_optimization_percent >= self.improvement_targets["memory_optimization"]
             
-            print(f"  📈 Memory optimization: {memory_optimization_percent:.1f}% (target: {self.improvement_targets['memory_optimization']}%)")
-            print(f"  💾 Baseline: {baseline_memory:.1f}MB, Peak: {peak_memory:.1f}MB, Final: {final_memory:.1f}MB")
-            print(f"  {'✅' if target_achieved else '❌'} Target {'achieved' if target_achieved else 'not achieved'}")
+            print(f"  [TREND] Memory optimization: {memory_optimization_percent:.1f}% (target: {self.improvement_targets['memory_optimization']}%)")
+            print(f"  [DISK] Baseline: {baseline_memory:.1f}MB, Peak: {peak_memory:.1f}MB, Final: {final_memory:.1f}MB")
+            print(f"  {'[OK]' if target_achieved else '[FAIL]'} Target {'achieved' if target_achieved else 'not achieved'}")
             
             return {
                 "validation_status": "completed",
@@ -508,12 +508,12 @@ class PerformanceValidationSuite:
             }
             
         except Exception as e:
-            print(f"  ❌ Memory optimization validation failed: {e}")
+            print(f"  [FAIL] Memory optimization validation failed: {e}")
             return {"validation_status": "failed", "error": str(e)}
     
     async def _validate_integration_performance(self) -> Dict[str, Any]:
         """Validate integrated performance across all optimization systems."""
-        print("  🔍 Testing integrated performance optimization...")
+        print("  [SEARCH] Testing integrated performance optimization...")
         
         try:
             # Run integrated optimization test
@@ -547,9 +547,9 @@ class PerformanceValidationSuite:
             total_optimizations = optimization_summary.get("total_optimizations_attempted", 1)
             success_rate = (successful_optimizations / total_optimizations) * 100
             
-            print(f"  📈 Integrated improvement: {avg_improvement:.1f}% (target: {self.improvement_targets['overall_performance']}%)")
-            print(f"  ✅ Success rate: {success_rate:.1f}% ({successful_optimizations}/{total_optimizations} optimizations)")
-            print(f"  {'✅' if target_achieved else '❌'} Overall target {'achieved' if target_achieved else 'not achieved'}")
+            print(f"  [TREND] Integrated improvement: {avg_improvement:.1f}% (target: {self.improvement_targets['overall_performance']}%)")
+            print(f"  [OK] Success rate: {success_rate:.1f}% ({successful_optimizations}/{total_optimizations} optimizations)")
+            print(f"  {'[OK]' if target_achieved else '[FAIL]'} Overall target {'achieved' if target_achieved else 'not achieved'}")
             
             return {
                 "validation_status": "completed",
@@ -563,7 +563,7 @@ class PerformanceValidationSuite:
             }
             
         except Exception as e:
-            print(f"  ❌ Integration performance validation failed: {e}")
+            print(f"  [FAIL] Integration performance validation failed: {e}")
             return {"validation_status": "failed", "error": str(e)}
     
     def _calculate_overall_achievement(self) -> Dict[str, Any]:
@@ -609,10 +609,10 @@ class PerformanceValidationSuite:
             targets_achieved = 0
             total_targets = 0
         
-        print(f"  🎯 Overall improvement: {overall_improvement:.1f}% (target: {self.improvement_targets['overall_performance']}%)")
-        print(f"  📊 Achievement rate: {achievement_rate:.1f}% ({targets_achieved}/{total_targets} targets met)")
-        print(f"  📈 Range: {min_improvement:.1f}% - {max_improvement:.1f}%")
-        print(f"  {'🏆' if overall_target_achieved else '🎯'} Overall target {'ACHIEVED' if overall_target_achieved else 'not achieved'}")
+        print(f"  [TARGET] Overall improvement: {overall_improvement:.1f}% (target: {self.improvement_targets['overall_performance']}%)")
+        print(f"  [CHART] Achievement rate: {achievement_rate:.1f}% ({targets_achieved}/{total_targets} targets met)")
+        print(f"  [TREND] Range: {min_improvement:.1f}% - {max_improvement:.1f}%")
+        print(f"  {'[TROPHY]' if overall_target_achieved else '[TARGET]'} Overall target {'ACHIEVED' if overall_target_achieved else 'not achieved'}")
         
         return {
             "overall_improvement_percent": overall_improvement,
@@ -664,17 +664,17 @@ class PerformanceValidationSuite:
         # Overall performance recommendations
         if overall_improvement >= 50.0:
             recommendations.append(
-                f"🏆 Outstanding performance improvement achieved: {overall_improvement:.1f}%. "
+                f"[TROPHY] Outstanding performance improvement achieved: {overall_improvement:.1f}%. "
                 "System is production-ready with excellent optimization."
             )
         elif overall_improvement >= 40.0:
             recommendations.append(
-                f"✅ Good performance improvement achieved: {overall_improvement:.1f}%. "
+                f"[OK] Good performance improvement achieved: {overall_improvement:.1f}%. "
                 "Consider fine-tuning specific components for additional gains."
             )
         else:
             recommendations.append(
-                f"⚠️ Performance improvement below target: {overall_improvement:.1f}%. "
+                f"[WARN] Performance improvement below target: {overall_improvement:.1f}%. "
                 "Review failed optimizations and consider additional strategies."
             )
         
@@ -688,19 +688,19 @@ class PerformanceValidationSuite:
                 gap = target - improvement
                 
                 recommendations.append(
-                    f"🎯 {component.replace('_', ' ').title()}: {improvement:.1f}% improvement "
+                    f"[TARGET] {component.replace('_', ' ').title()}: {improvement:.1f}% improvement "
                     f"(target: {target}%). Gap: {gap:.1f}% - consider additional optimization."
                 )
         
         # Achievement rate recommendations
         if achievement_rate < 70.0:
             recommendations.append(
-                f"📊 Low achievement rate: {achievement_rate:.1f}%. "
+                f"[CHART] Low achievement rate: {achievement_rate:.1f}%. "
                 "Focus on comprehensive optimization across all components."
             )
         
         if not recommendations:
-            recommendations.append("🚀 All performance targets exceeded. System is highly optimized.")
+            recommendations.append("[ROCKET] All performance targets exceeded. System is highly optimized.")
         
         return recommendations
 
@@ -737,31 +737,31 @@ async def main():
         
         # Display results
         print("\n" + "=" * 60)
-        print("🏁 PERFORMANCE VALIDATION RESULTS")
+        print(" PERFORMANCE VALIDATION RESULTS")
         print("=" * 60)
         
         summary = validation_report.get("validation_summary", {})
         improvements = validation_report.get("performance_improvements", {})
         
-        print(f"\n📊 Validation Summary:")
+        print(f"\n[CHART] Validation Summary:")
         print(f"   Project: {summary.get('project_path', 'Unknown')}")
         print(f"   Components Tested: {summary.get('components_tested', 0)}")
         print(f"   Validation Time: {summary.get('validation_time_seconds', 0):.2f}s")
         print(f"   Status: {validation_report.get('validation_status', 'unknown').upper()}")
         
-        print(f"\n🎯 Performance Results:")
+        print(f"\n[TARGET] Performance Results:")
         print(f"   Overall Improvement: {improvements.get('overall_improvement_percent', 0):.1f}%")
         print(f"   Target: {improvements.get('target_improvement_percent', 50):.1f}%")
         print(f"   Achievement Rate: {improvements.get('achievement_rate_percent', 0):.1f}%")
         print(f"   Targets Achieved: {improvements.get('targets_achieved', 0)}/{improvements.get('total_targets', 0)}")
         
         overall_achieved = improvements.get('overall_improvement_percent', 0) >= 50.0
-        print(f"\n{'🏆' if overall_achieved else '🎯'} 50% IMPROVEMENT TARGET: {'ACHIEVED' if overall_achieved else 'NOT ACHIEVED'}")
+        print(f"\n{'[TROPHY]' if overall_achieved else '[TARGET]'} 50% IMPROVEMENT TARGET: {'ACHIEVED' if overall_achieved else 'NOT ACHIEVED'}")
         
         # Show recommendations
         recommendations = validation_report.get("recommendations", [])
         if recommendations:
-            print(f"\n💡 Recommendations:")
+            print(f"\n[BULB] Recommendations:")
             for i, rec in enumerate(recommendations, 1):
                 print(f"   {i}. {rec}")
         
@@ -769,14 +769,14 @@ async def main():
         if args.output:
             with open(args.output, 'w') as f:
                 json.dump(validation_report, f, indent=2, default=str)
-            print(f"\n📄 Validation report saved to: {args.output}")
+            print(f"\n[DOCUMENT] Validation report saved to: {args.output}")
         
         # Exit with appropriate code
         exit_code = 0 if overall_achieved else 1
         sys.exit(exit_code)
         
     except Exception as e:
-        print(f"\n❌ Validation failed: {e}")
+        print(f"\n[FAIL] Validation failed: {e}")
         if args.verbose:
             import traceback
             traceback.print_exc()

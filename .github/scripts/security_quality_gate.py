@@ -53,27 +53,27 @@ class SecurityQualityGate:
         if sast_file.exists():
             with open(sast_file, 'r') as f:
                 results["sast"] = json.load(f)
-            print("✓ Loaded SAST analysis results")
+            print(" Loaded SAST analysis results")
         else:
-            print("✗ SAST analysis results not found")
+            print(" SAST analysis results not found")
         
         # Load supply chain results
         supply_chain_file = self.artifacts_dir / "supply_chain_analysis.json"
         if supply_chain_file.exists():
             with open(supply_chain_file, 'r') as f:
                 results["supply_chain"] = json.load(f)
-            print("✓ Loaded supply chain analysis results")
+            print(" Loaded supply chain analysis results")
         else:
-            print("✗ Supply chain analysis results not found")
+            print(" Supply chain analysis results not found")
         
         # Load secrets results
         secrets_file = self.artifacts_dir / "secrets_analysis.json"
         if secrets_file.exists():
             with open(secrets_file, 'r') as f:
                 results["secrets"] = json.load(f)
-            print("✓ Loaded secrets analysis results")
+            print(" Loaded secrets analysis results")
         else:
-            print("✗ Secrets analysis results not found")
+            print(" Secrets analysis results not found")
         
         return results
     
@@ -188,7 +188,7 @@ class SecurityQualityGate:
                 "status": "PASS" if passed else ("FAIL" if blocking else "WARNING")
             }
             
-            status_symbol = "✓" if passed else "✗"
+            status_symbol = "" if passed else ""
             block_text = " (BLOCKING)" if blocking and not passed else ""
             print(f"  {status_symbol} {gate_name}: {actual_count}/{threshold}{block_text}")
         
@@ -436,10 +436,10 @@ class SecurityQualityGate:
             
             # REAL quality gate decision - BLOCK if failures
             if gate_evaluation["blocking_failures"] > 0:
-                print("\n🚫 DEPLOYMENT BLOCKED - Security quality gates failed")
+                print("\n DEPLOYMENT BLOCKED - Security quality gates failed")
                 return 1
             else:
-                print("\n✅ DEPLOYMENT APPROVED - Security quality gates passed")
+                print("\n[OK] DEPLOYMENT APPROVED - Security quality gates passed")
                 return 0
             
         except Exception as e:

@@ -114,7 +114,7 @@ class CorrelationEngine extends EventEmitter {
         correlationMatrixSize: this.correlationMatrix.size
       });
 
-      console.log('✅ Correlation Engine initialized');
+      console.log('[OK] Correlation Engine initialized');
     } catch (error) {
       throw new Error(`Correlation engine initialization failed: ${error.message}`);
     }

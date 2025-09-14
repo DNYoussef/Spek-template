@@ -172,7 +172,7 @@ jobs:
         sys.path.insert(0, '.')
         
         async def execute_failure_analysis():
-            print('🔍 INTELLIGENT FAILURE ANALYSIS SYSTEM')
+            print('[SEARCH] INTELLIGENT FAILURE ANALYSIS SYSTEM')
             print('=' * 50)
             
             # Initialize analysis results
@@ -241,7 +241,7 @@ jobs:
                 repair_recommendations = generate_repair_recommendations(analysis_results)
                 analysis_results['repair_recommendations'] = repair_recommendations
                 
-                print(f'\\n📋 ANALYSIS SUMMARY:')
+                print(f'\\n[CLIPBOARD] ANALYSIS SUMMARY:')
                 print(f'  - Artifacts found: {len(artifacts_analysis.get(\"artifacts\", []))}')
                 print(f'  - Repair actions recommended: {len(repair_recommendations)}')
                 
@@ -422,7 +422,7 @@ jobs:
         sys.path.insert(0, '.')
         
         async def execute_repair_actions():
-            print('🔧 INTELLIGENT AUTO-REPAIR EXECUTION SYSTEM')
+            print('[WRENCH] INTELLIGENT AUTO-REPAIR EXECUTION SYSTEM')
             print('=' * 55)
             
             # Load failure analysis results
@@ -544,7 +544,7 @@ jobs:
             print(f'::set-output name=actions_taken::{repair_results[\"total_actions\"]}')
             print(f'::set-output name=success_rate::{repair_results[\"success_rate\"]:.1f}')
             
-            print(f'\\n📊 REPAIR EXECUTION SUMMARY:')
+            print(f'\\n[CHART] REPAIR EXECUTION SUMMARY:')
             print(f'  - Status: {repair_results[\"repair_status\"]}')
             print(f'  - Actions attempted: {repair_results[\"total_actions\"]}')
             print(f'  - Actions successful: {repair_results[\"successful_actions\"]}')
@@ -560,7 +560,7 @@ jobs:
             actions = []
             
             # Action 1: Code formatting
-            print('  🎨 Applying code formatting...')
+            print('  [ART] Applying code formatting...')
             action_start = time.time()
             
             try:
@@ -579,9 +579,9 @@ jobs:
                 })
                 
                 if result.returncode == 0:
-                    print('    ✅ Code formatting successful')
+                    print('    [OK] Code formatting successful')
                 else:
-                    print(f'    ❌ Code formatting failed: {result.stderr}')
+                    print(f'    [FAIL] Code formatting failed: {result.stderr}')
                     
             except Exception as e:
                 actions.append({
@@ -590,10 +590,10 @@ jobs:
                     'success': False,
                     'execution_time': time.time() - action_start
                 })
-                print(f'    ❌ Code formatting error: {e}')
+                print(f'    [FAIL] Code formatting error: {e}')
             
             # Action 2: Import sorting
-            print('  📦 Sorting imports...')
+            print('  [PACKAGE] Sorting imports...')
             action_start = time.time()
             
             try:
@@ -612,9 +612,9 @@ jobs:
                 })
                 
                 if result.returncode == 0:
-                    print('    ✅ Import sorting successful')
+                    print('    [OK] Import sorting successful')
                 else:
-                    print(f'    ❌ Import sorting failed: {result.stderr}')
+                    print(f'    [FAIL] Import sorting failed: {result.stderr}')
                     
             except Exception as e:
                 actions.append({
@@ -623,7 +623,7 @@ jobs:
                     'success': False,
                     'execution_time': time.time() - action_start
                 })
-                print(f'    ❌ Import sorting error: {e}')
+                print(f'    [FAIL] Import sorting error: {e}')
             
             # Action 3: Unused code cleanup
             print('  🧹 Cleaning unused code...')
@@ -646,9 +646,9 @@ jobs:
                 })
                 
                 if result.returncode == 0:
-                    print('    ✅ Unused code cleanup successful')
+                    print('    [OK] Unused code cleanup successful')
                 else:
-                    print(f'    ❌ Unused code cleanup failed: {result.stderr}')
+                    print(f'    [FAIL] Unused code cleanup failed: {result.stderr}')
                     
             except Exception as e:
                 actions.append({
@@ -657,10 +657,10 @@ jobs:
                     'success': False,
                     'execution_time': time.time() - action_start
                 })
-                print(f'    ❌ Unused code cleanup error: {e}')
+                print(f'    [FAIL] Unused code cleanup error: {e}')
             
             # Action 4: Cache cleanup
-            print('  💾 Clearing caches...')
+            print('  [DISK] Clearing caches...')
             action_start = time.time()
             
             try:
@@ -685,7 +685,7 @@ jobs:
                     'cache_dirs_cleared': cleared_count
                 })
                 
-                print(f'    ✅ Cache cleanup successful ({cleared_count} directories)')
+                print(f'    [OK] Cache cleanup successful ({cleared_count} directories)')
                 
             except Exception as e:
                 actions.append({
@@ -694,7 +694,7 @@ jobs:
                     'success': False,
                     'execution_time': time.time() - action_start
                 })
-                print(f'    ❌ Cache cleanup error: {e}')
+                print(f'    [FAIL] Cache cleanup error: {e}')
             
             return actions
         
@@ -848,7 +848,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
         from pathlib import Path
         
         def generate_comprehensive_report():
-            print('📋 COMPREHENSIVE AUTO-REPAIR REPORT GENERATOR')
+            print('[CLIPBOARD] COMPREHENSIVE AUTO-REPAIR REPORT GENERATOR')
             print('=' * 55)
             
             # Load all available data
@@ -966,9 +966,9 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
             
             # Header with status emoji
             status_emoji = {
-                'successful': '✅',
-                'partially_successful': '⚠️', 
-                'failed': '❌'
+                'successful': '[OK]',
+                'partially_successful': '[WARN]', 
+                'failed': '[FAIL]'
             }.get(summary['repair_status'], '❓')
             
             markdown_lines = [
@@ -980,7 +980,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
                 f'**Repair Mode**: {metadata[\"repair_mode\"].title()}',
                 f'**Trigger**: {metadata[\"trigger_mode\"].replace(\"_\", \" \").title()}',
                 '',
-                '## 📊 Repair Summary',
+                '## [CHART] Repair Summary',
                 '',
                 f'- **Status**: {summary[\"repair_status\"].replace(\"_\", \" \").title()}',
                 f'- **Actions Attempted**: {summary[\"total_actions_attempted\"]}',
@@ -997,12 +997,12 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
             
             if actions_attempted:
                 markdown_lines.extend([
-                    '## 🔧 Repair Actions Performed',
+                    '## [WRENCH] Repair Actions Performed',
                     ''
                 ])
                 
                 for i, action in enumerate(actions_attempted, 1):
-                    success_emoji = '✅' if action.get('success', False) else '❌'
+                    success_emoji = '[OK]' if action.get('success', False) else '[FAIL]'
                     action_type = action.get('action_type', 'unknown').replace('_', ' ').title()
                     description = action.get('description', 'No description')
                     execution_time = action.get('execution_time', 0)
@@ -1019,7 +1019,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
             recommendations = report_data.get('recommendations', [])
             if recommendations:
                 markdown_lines.extend([
-                    '## 💡 Recommendations',
+                    '## [BULB] Recommendations',
                     ''
                 ])
                 
@@ -1063,9 +1063,9 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
           // Determine status and emoji
           const repairStatus = repairData.repair_status || 'unknown';
           const statusEmojis = {
-            'successful': '✅',
-            'partially_successful': '⚠️',
-            'failed': '❌'
+            'successful': '[OK]',
+            'partially_successful': '[WARN]',
+            'failed': '[FAIL]'
           };
           const statusEmoji = statusEmojis[repairStatus] || '❓';
           
@@ -1082,12 +1082,12 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 **Success Rate**: ${successRate.toFixed(1)}%
 **Execution Time**: ${executionTime.toFixed(2)}s
           
-### 🔧 Repair Actions Performed:
+### [WRENCH] Repair Actions Performed:
 ${repairData.actions_attempted ? repairData.actions_attempted.map((action, index) => 
-  `${index + 1}. ${action.success ? '✅' : '❌'} **${action.action_type.replace('_', ' ')}**: ${action.description}`
+  `${index + 1}. ${action.success ? '[OK]' : '[FAIL]'} **${action.action_type.replace('_', ' ')}**: ${action.description}`
 ).join('\n') : 'No detailed action information available'}
           
-### 📊 Integration Features:
+### [CHART] Integration Features:
 - **Intelligent Failure Detection**: Real-time CI/CD failure analysis
 - **Category-based Recovery**: Targeted repair strategies by failure type
 - **Exponential Backoff**: Smart retry mechanisms for transient failures

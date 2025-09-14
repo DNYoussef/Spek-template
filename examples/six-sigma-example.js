@@ -106,7 +106,7 @@ async function demonstrateSixSigma() {
       {
         shift: hour <= 4 ? 'Morning' : 'Afternoon',
         operator: `Operator ${Math.floor(Math.random() * 3) + 1}`,
-        temperature: 68 + Math.floor(Math.random() * 8), // 68-76°F
+        temperature: 68 + Math.floor(Math.random() * 8), // 68-76F
         humidity: 45 + Math.floor(Math.random() * 10) // 45-55%
       }
     );
@@ -114,7 +114,7 @@ async function demonstrateSixSigma() {
     console.log(`Hour ${hour} (${telemetryPoint.shift} Shift):`);
     console.log(`  - Units: ${telemetryPoint.units}, Defects: ${telemetryPoint.defects}`);
     console.log(`  - DPMO: ${telemetryPoint.dpmo}, Sigma: ${telemetryPoint.sigmaLevel}`);
-    console.log(`  - Operator: ${telemetryPoint.operator}, Temp: ${telemetryPoint.temperature}°F`);
+    console.log(`  - Operator: ${telemetryPoint.operator}, Temp: ${telemetryPoint.temperature}F`);
     console.log(`  - Telemetry ID: ${telemetryPoint.telemetryId}`);
     console.log('');
   }

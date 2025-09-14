@@ -12,9 +12,9 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 
 async function main() {
-  console.log('🚀 Phase 4 CI/CD Performance Validation Starting...');
-  console.log('📊 Target: <2% system overhead constraint');
-  console.log('🎯 Scope: All 6 CI/CD domain agents post-theater remediation');
+  console.log('[ROCKET] Phase 4 CI/CD Performance Validation Starting...');
+  console.log('[CHART] Target: <2% system overhead constraint');
+  console.log('[TARGET] Scope: All 6 CI/CD domain agents post-theater remediation');
 
   const startTime = Date.now();
 
@@ -29,7 +29,7 @@ async function main() {
     setupEventListeners(executor);
 
     // Execute comprehensive performance validation
-    console.log('\n📋 Executing Performance Validation Phases:');
+    console.log('\n[CLIPBOARD] Executing Performance Validation Phases:');
     const results = await executor.executePerformanceValidation();
 
     // Generate and save comprehensive report
@@ -45,13 +45,13 @@ async function main() {
     displayValidationSummary(results, complianceStatus, optimizations);
 
     const duration = (Date.now() - startTime) / 1000;
-    console.log(`\n✅ Performance validation completed in ${duration.toFixed(2)}s`);
+    console.log(`\n[OK] Performance validation completed in ${duration.toFixed(2)}s`);
 
     // Exit with appropriate code
     process.exit(complianceStatus.overheadCompliant ? 0 : 1);
 
   } catch (error) {
-    console.error('❌ Performance validation failed:', error);
+    console.error('[FAIL] Performance validation failed:', error);
     process.exit(1);
   }
 }
@@ -60,7 +60,7 @@ async function main() {
  * Create comprehensive validation configuration
  */
 async function createValidationConfig(): Promise<ExecutionConfig> {
-  console.log('⚙️ Creating validation configuration...');
+  console.log('[GEAR] Creating validation configuration...');
 
   const domains: CICDDomain[] = [
     {
@@ -310,17 +310,17 @@ async function createValidationConfig(): Promise<ExecutionConfig> {
 function setupEventListeners(executor: BenchmarkExecutor): void {
   executor.on('domain-completed', (event: any) => {
     const compliance = event.result.compliance.overallCompliance;
-    const status = compliance >= 80 ? '✅' : '❌';
+    const status = compliance >= 80 ? '[OK]' : '[FAIL]';
     console.log(`  ${status} ${event.domain}: ${compliance.toFixed(1)}% compliance`);
   });
 
   executor.on('domain-failed', (event: any) => {
-    console.log(`  ❌ ${event.domain}: FAILED - ${event.error.message}`);
+    console.log(`  [FAIL] ${event.domain}: FAILED - ${event.error.message}`);
   });
 
   executor.on('operation-completed', (event: any) => {
     if (Math.random() < 0.01) { // Log 1% of operations
-      console.log(`    📊 ${event.domain}: ${event.duration.toFixed(2)}ms`);
+      console.log(`    [CHART] ${event.domain}: ${event.duration.toFixed(2)}ms`);
     }
   });
 
@@ -328,7 +328,7 @@ function setupEventListeners(executor: BenchmarkExecutor): void {
   setInterval(async () => {
     const memUsage = process.memoryUsage();
     const memMB = (memUsage.rss / 1024 / 1024).toFixed(1);
-    process.stdout.write(`\r💾 Memory: ${memMB}MB | 📈 Operations: Running...`);
+    process.stdout.write(`\r[DISK] Memory: ${memMB}MB | [TREND] Operations: Running...`);
   }, 5000);
 }
 
@@ -336,7 +336,7 @@ function setupEventListeners(executor: BenchmarkExecutor): void {
  * Generate comprehensive performance report
  */
 async function generateComprehensiveReport(results: any): Promise<void> {
-  console.log('\n📄 Generating comprehensive performance report...');
+  console.log('\n[DOCUMENT] Generating comprehensive performance report...');
 
   const reportDir = path.join(process.cwd(), '.claude', '.artifacts');
   await fs.mkdir(reportDir, { recursive: true });
@@ -352,8 +352,8 @@ async function generateComprehensiveReport(results: any): Promise<void> {
   const jsonResults = JSON.stringify(results, null, 2);
   await fs.writeFile(jsonPath, jsonResults, 'utf8');
 
-  console.log(`📄 Report saved: ${reportPath}`);
-  console.log(`📊 Results saved: ${jsonPath}`);
+  console.log(`[DOCUMENT] Report saved: ${reportPath}`);
+  console.log(`[CHART] Results saved: ${jsonPath}`);
 }
 
 /**
@@ -374,13 +374,13 @@ function generateMarkdownReport(results: any): string {
 - **Domains Tested**: ${results.domainResults.summary.totalDomains}
 - **Success Rate**: ${((results.domainResults.summary.successfulDomains / results.domainResults.summary.totalDomains) * 100).toFixed(1)}%
 - **Average Overhead**: ${results.domainResults.summary.averageOverhead.toFixed(2)}%
-- **Overhead Compliance**: ${results.domainResults.summary.averageOverhead <= 2 ? '✅ PASS' : '❌ FAIL'}
+- **Overhead Compliance**: ${results.domainResults.summary.averageOverhead <= 2 ? '[OK] PASS' : '[FAIL] FAIL'}
 
 ## Domain Performance Results
 
 ${Array.from(results.domainResults.domains.entries()).map(([domain, result]: [string, any]) => `
 ### ${domain.toUpperCase()} Domain
-- **Status**: ${result.status === 'pass' ? '✅ PASS' : '❌ FAIL'}
+- **Status**: ${result.status === 'pass' ? '[OK] PASS' : '[FAIL] FAIL'}
 - **Duration**: ${(result.duration / 1000).toFixed(2)}s
 - **Overhead**: ${result.performance?.summary?.overheadPercentage?.toFixed(2) || 'N/A'}%
 - **Throughput**: ${result.performance?.summary?.averageThroughput?.toFixed(0) || 'N/A'} ops/sec
@@ -390,7 +390,7 @@ ${Array.from(results.domainResults.domains.entries()).map(([domain, result]: [st
 
 ## Performance Constraints Validation
 
-### ✅ **OVERHEAD CONSTRAINT (<2%)**
+### [OK] **OVERHEAD CONSTRAINT (<2%)**
 - **Target**: <2.0%
 - **Measured**: ${results.domainResults.summary.averageOverhead.toFixed(2)}%
 - **Status**: ${results.domainResults.summary.averageOverhead <= 2 ? 'COMPLIANT' : 'NON-COMPLIANT'}
@@ -427,15 +427,15 @@ ${i + 1}. **${rec.action || 'Optimization Action'}**
 ## Production Readiness Assessment
 
 ### **VALIDATION CRITERIA**
-- ✅ System overhead <2%: ${results.domainResults.summary.averageOverhead <= 2 ? 'PASS' : 'FAIL'}
-- ✅ Domain functionality: ${results.domainResults.summary.successfulDomains}/${results.domainResults.summary.totalDomains} operational
-- ✅ Performance stability: Validated across test scenarios
-- ✅ Theater remediation: Complete pattern elimination
+- [OK] System overhead <2%: ${results.domainResults.summary.averageOverhead <= 2 ? 'PASS' : 'FAIL'}
+- [OK] Domain functionality: ${results.domainResults.summary.successfulDomains}/${results.domainResults.summary.totalDomains} operational
+- [OK] Performance stability: Validated across test scenarios
+- [OK] Theater remediation: Complete pattern elimination
 
 ### **DEPLOYMENT RECOMMENDATION**
 ${results.domainResults.summary.averageOverhead <= 2 && results.domainResults.summary.successfulDomains >= results.domainResults.summary.totalDomains * 0.8 ?
-  '🟢 **APPROVED FOR PRODUCTION DEPLOYMENT**\\n\\nSystem meets all performance constraints and demonstrates excellent post-remediation stability.' :
-  '🔴 **REQUIRES OPTIMIZATION BEFORE DEPLOYMENT**\\n\\nAddress identified performance issues before production deployment.'}
+  ' **APPROVED FOR PRODUCTION DEPLOYMENT**\\n\\nSystem meets all performance constraints and demonstrates excellent post-remediation stability.' :
+  ' **REQUIRES OPTIMIZATION BEFORE DEPLOYMENT**\\n\\nAddress identified performance issues before production deployment.'}
 
 ---
 *Generated by Phase 4 CI/CD Performance Validator*
@@ -504,30 +504,30 @@ function displayValidationSummary(
   optimizations: OptimizationPlan
 ): void {
   console.log('\n' + '='.repeat(80));
-  console.log('📊 PHASE 4 CI/CD PERFORMANCE VALIDATION SUMMARY');
+  console.log('[CHART] PHASE 4 CI/CD PERFORMANCE VALIDATION SUMMARY');
   console.log('='.repeat(80));
 
-  console.log(`\n🎯 **OVERHEAD CONSTRAINT VALIDATION**`);
+  console.log(`\n[TARGET] **OVERHEAD CONSTRAINT VALIDATION**`);
   console.log(`   Target: <2.0%`);
   console.log(`   Measured: ${compliance.overheadPercentage.toFixed(2)}%`);
   console.log(`   Status: ${compliance.status}`);
   console.log(`   Variance: ${compliance.variance >= 0 ? '+' : ''}${compliance.variance.toFixed(2)}%`);
 
-  console.log(`\n📈 **DOMAIN PERFORMANCE**`);
+  console.log(`\n[TREND] **DOMAIN PERFORMANCE**`);
   console.log(`   Total Domains: ${results.domainResults.summary.totalDomains}`);
   console.log(`   Successful: ${results.domainResults.summary.successfulDomains}`);
   console.log(`   Failed: ${results.domainResults.summary.failedDomains}`);
   console.log(`   Success Rate: ${((results.domainResults.summary.successfulDomains / results.domainResults.summary.totalDomains) * 100).toFixed(1)}%`);
 
-  console.log(`\n🔧 **OPTIMIZATION OPPORTUNITIES**`);
+  console.log(`\n[WRENCH] **OPTIMIZATION OPPORTUNITIES**`);
   console.log(`   Immediate Actions: ${optimizations.immediate.length}`);
   console.log(`   Planned Actions: ${optimizations.planned.length}`);
   console.log(`   Expected Impact: ${optimizations.totalImpact}`);
 
-  console.log(`\n🚀 **PRODUCTION READINESS**`);
+  console.log(`\n[ROCKET] **PRODUCTION READINESS**`);
   const readiness = compliance.overheadCompliant &&
                    results.domainResults.summary.successfulDomains >= results.domainResults.summary.totalDomains * 0.8;
-  console.log(`   Status: ${readiness ? '✅ READY FOR DEPLOYMENT' : '❌ REQUIRES OPTIMIZATION'}`);
+  console.log(`   Status: ${readiness ? '[OK] READY FOR DEPLOYMENT' : '[FAIL] REQUIRES OPTIMIZATION'}`);
 
   console.log('\n' + '='.repeat(80));
 }

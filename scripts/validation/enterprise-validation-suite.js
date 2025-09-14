@@ -50,7 +50,7 @@ class EnterpriseValidationSuite {
      * Phase 1: Enterprise Module Architecture Validation
      */
     async validatePhase1() {
-        console.log('🔍 Validating Phase 1: Enterprise Module Architecture...');
+        console.log('[SEARCH] Validating Phase 1: Enterprise Module Architecture...');
 
         try {
             // Validate unified analyzer consolidation
@@ -81,10 +81,10 @@ class EnterpriseValidationSuite {
                 ]
             };
 
-            console.log('✅ Phase 1 validation completed');
+            console.log('[OK] Phase 1 validation completed');
             return this.validationResults.phase1;
         } catch (error) {
-            console.error('❌ Phase 1 validation failed:', error.message);
+            console.error('[FAIL] Phase 1 validation failed:', error.message);
             this.validationResults.phase1.status = 'failed';
             this.validationResults.phase1.issues.push(error.message);
             return this.validationResults.phase1;
@@ -95,7 +95,7 @@ class EnterpriseValidationSuite {
      * Phase 2: Configuration & Integration Validation
      */
     async validatePhase2() {
-        console.log('🔍 Validating Phase 2: Configuration & Integration...');
+        console.log('[SEARCH] Validating Phase 2: Configuration & Integration...');
 
         try {
             // Validate configuration management system
@@ -126,10 +126,10 @@ class EnterpriseValidationSuite {
                 ]
             };
 
-            console.log('✅ Phase 2 validation completed');
+            console.log('[OK] Phase 2 validation completed');
             return this.validationResults.phase2;
         } catch (error) {
-            console.error('❌ Phase 2 validation failed:', error.message);
+            console.error('[FAIL] Phase 2 validation failed:', error.message);
             this.validationResults.phase2.status = 'failed';
             this.validationResults.phase2.issues.push(error.message);
             return this.validationResults.phase2;
@@ -140,7 +140,7 @@ class EnterpriseValidationSuite {
      * Phase 3: Artifact Generation System Validation
      */
     async validatePhase3() {
-        console.log('🔍 Validating Phase 3: Artifact Generation System...');
+        console.log('[SEARCH] Validating Phase 3: Artifact Generation System...');
 
         try {
             // Validate evidence packaging
@@ -171,10 +171,10 @@ class EnterpriseValidationSuite {
                 ]
             };
 
-            console.log('✅ Phase 3 validation completed');
+            console.log('[OK] Phase 3 validation completed');
             return this.validationResults.phase3;
         } catch (error) {
-            console.error('❌ Phase 3 validation failed:', error.message);
+            console.error('[FAIL] Phase 3 validation failed:', error.message);
             this.validationResults.phase3.status = 'failed';
             this.validationResults.phase3.issues.push(error.message);
             return this.validationResults.phase3;
@@ -185,7 +185,7 @@ class EnterpriseValidationSuite {
      * Phase 4: CI/CD Enhancement System Validation
      */
     async validatePhase4() {
-        console.log('🔍 Validating Phase 4: CI/CD Enhancement System...');
+        console.log('[SEARCH] Validating Phase 4: CI/CD Enhancement System...');
 
         try {
             // Validate performance monitoring
@@ -216,10 +216,10 @@ class EnterpriseValidationSuite {
                 ]
             };
 
-            console.log('✅ Phase 4 validation completed');
+            console.log('[OK] Phase 4 validation completed');
             return this.validationResults.phase4;
         } catch (error) {
-            console.error('❌ Phase 4 validation failed:', error.message);
+            console.error('[FAIL] Phase 4 validation failed:', error.message);
             this.validationResults.phase4.status = 'failed';
             this.validationResults.phase4.issues.push(error.message);
             return this.validationResults.phase4;
@@ -230,7 +230,7 @@ class EnterpriseValidationSuite {
      * Overall Enterprise Production Readiness Assessment
      */
     async assessProductionReadiness() {
-        console.log('🎯 Assessing Overall Enterprise Production Readiness...');
+        console.log('[TARGET] Assessing Overall Enterprise Production Readiness...');
 
         // Calculate overall readiness score
         const phase1Score = this.calculatePhaseScore(this.validationResults.phase1);
@@ -253,7 +253,7 @@ class EnterpriseValidationSuite {
             phaseScores: { phase1Score, phase2Score, phase3Score, phase4Score }
         };
 
-        console.log(`📊 Overall Production Readiness: ${readinessLevel} (${overallScore}%)`);
+        console.log(`[CHART] Overall Production Readiness: ${readinessLevel} (${overallScore}%)`);
         return this.validationResults.overall;
     }
 
@@ -272,7 +272,7 @@ class EnterpriseValidationSuite {
         const reportPath = path.join(process.cwd(), '.claude', 'artifacts', 'phase5', 'enterprise-validation-report.json');
         fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
 
-        console.log(`📄 Validation report generated: ${reportPath}`);
+        console.log(`[DOCUMENT] Validation report generated: ${reportPath}`);
         return report;
     }
 
@@ -388,7 +388,7 @@ if (require.main === module) {
 
     (async () => {
         try {
-            console.log('🚀 Starting Enterprise Validation Suite...');
+            console.log('[ROCKET] Starting Enterprise Validation Suite...');
 
             await suite.validatePhase1();
             await suite.validatePhase2();
@@ -398,9 +398,9 @@ if (require.main === module) {
 
             suite.generateValidationReport();
 
-            console.log('✅ Enterprise validation completed successfully');
+            console.log('[OK] Enterprise validation completed successfully');
         } catch (error) {
-            console.error('❌ Enterprise validation failed:', error);
+            console.error('[FAIL] Enterprise validation failed:', error);
             process.exit(1);
         }
     })();

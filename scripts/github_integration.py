@@ -1228,7 +1228,7 @@ class GitHubIntegration:
             
             # Create issue
             issue = self.repo.create_issue(
-                title=f"🚨 Critical {analysis.failure_category.value.replace('_', ' ').title()} Failure - Automated Recovery",
+                title=f"[ALERT] Critical {analysis.failure_category.value.replace('_', ' ').title()} Failure - Automated Recovery",
                 body=issue_body,
                 labels=['automated-recovery', 'critical', analysis.failure_category.value]
             )
@@ -1243,33 +1243,33 @@ class GitHubIntegration:
     def _generate_issue_body(self, analysis: FailureAnalysis, recovery_actions: List[RecoveryAction]) -> str:
         """Generate formatted issue body"""
         body_parts = [
-            "## 🚨 Critical Failure Detected",
+            "## [ALERT] Critical Failure Detected",
             "",
             f"**Failure Category**: {analysis.failure_category.value.replace('_', ' ').title()}",
             f"**Failure Rate**: {analysis.failure_rate:.1f}%",
             f"**Recovery Priority**: {analysis.recovery_priority.title()}",
             f"**Estimated Recovery Time**: {analysis.estimated_recovery_time} minutes",
             "",
-            "### 📊 Failure Analysis",
+            "### [CHART] Failure Analysis",
             "",
             f"- **Recent Failures**: {len(analysis.recent_failures)}",
             f"- **Failure Patterns**: {', '.join(f'{k}: {v}' for k, v in analysis.failure_patterns.items())}",
             f"- **Recommended Strategy**: {analysis.recommended_strategy.value.replace('_', ' ').title()}",
             "",
-            "### 🔧 Recovery Actions Attempted",
+            "### [WRENCH] Recovery Actions Attempted",
             ""
         ]
         
         if recovery_actions:
             for i, action in enumerate(recovery_actions, 1):
-                status_emoji = "✅" if action.success else "❌"
+                status_emoji = "[OK]" if action.success else "[FAIL]"
                 body_parts.append(f"{i}. {status_emoji} **{action.action_type.replace('_', ' ').title()}**: {action.description}")
         else:
             body_parts.append("No recovery actions were attempted.")
         
         body_parts.extend([
             "",
-            "### 🔗 Related Workflow Runs",
+            "###  Related Workflow Runs",
             ""
         ])
         
@@ -1321,13 +1321,13 @@ class GitHubIntegration:
         success_rate = (len(successful_actions) / max(len(recovery_actions), 1)) * 100
         
         if not analysis.failure_detected:
-            header = "✅ **CI/CD Health Check - No Issues Detected**"
+            header = "[OK] **CI/CD Health Check - No Issues Detected**"
         elif success_rate >= 75:
-            header = "🔧 **Automated Recovery Successful**"
+            header = "[WRENCH] **Automated Recovery Successful**"
         elif success_rate >= 50:
-            header = "⚠️ **Partial Recovery Completed**"
+            header = "[WARN] **Partial Recovery Completed**"
         else:
-            header = "❌ **Recovery Failed - Manual Review Required**"
+            header = "[FAIL] **Recovery Failed - Manual Review Required**"
         
         comment_parts = [
             header,
@@ -1345,7 +1345,7 @@ class GitHubIntegration:
             ])
             
             for action in recovery_actions[:5]:  # Show top 5 actions
-                status_emoji = "✅" if action.success else "❌"
+                status_emoji = "[OK]" if action.success else "[FAIL]"
                 comment_parts.append(f"- {status_emoji} {action.description}")
         
         comment_parts.extend([
@@ -1458,7 +1458,7 @@ async def main():
         success_rate = (successful_actions / max(total_actions, 1)) * 100
         
         print("\n" + "="*60)
-        print("🤖 GITHUB CLOSED-LOOP AUTOMATION SUMMARY")
+        print(" GITHUB CLOSED-LOOP AUTOMATION SUMMARY")
         print("="*60)
         print(f"Mode: {args.mode}")
         print(f"Failure Detected: {'Yes' if analysis.failure_detected else 'No'}")

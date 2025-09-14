@@ -445,7 +445,7 @@ async function generateIntegrationReport(testResults) {
 ## Executive Summary
 
 **Test Execution**: ${new Date().toISOString()}
-**Production Ready**: ${testResults.productionReadiness?.ready ? '✅ YES' : '❌ NO'}
+**Production Ready**: ${testResults.productionReadiness?.ready ? '[OK] YES' : '[FAIL] NO'}
 **Readiness Score**: ${testResults.productionReadiness?.readinessPercentage?.toFixed(2) || 'N/A'}%
 
 ## Component Validation Results
@@ -453,18 +453,18 @@ async function generateIntegrationReport(testResults) {
 ### Domain Structure
 - **Expected Domains**: ${testResults.domainStructure?.expected || 'N/A'}
 - **Existing Domains**: ${testResults.domainStructure?.existing || 'N/A'}
-- **Status**: ${testResults.domainStructure?.existing >= 3 ? '✅ VALID' : '❌ INCOMPLETE'}
+- **Status**: ${testResults.domainStructure?.existing >= 3 ? '[OK] VALID' : '[FAIL] INCOMPLETE'}
 
 ### Workflow Analysis
 - **Total Workflows**: ${testResults.workflowAnalysis?.totalWorkflows || 'N/A'}
 - **Average Complexity**: ${testResults.workflowAnalysis?.averageComplexity?.toFixed(2) || 'N/A'}
 - **Average Value**: ${testResults.workflowAnalysis?.averageValue?.toFixed(2) || 'N/A'}
 - **Theater Workflows**: ${testResults.workflowAnalysis?.theaterWorkflows || 'N/A'} (${testResults.workflowAnalysis?.theaterPercentage?.toFixed(2) || 'N/A'}%)
-- **Optimization Status**: ${testResults.workflowAnalysis?.optimizable ? '✅ OPTIMIZABLE' : '❌ NEEDS WORK'}
+- **Optimization Status**: ${testResults.workflowAnalysis?.optimizable ? '[OK] OPTIMIZABLE' : '[FAIL] NEEDS WORK'}
 
 ### Theater Remediation
 - **Remediation Score**: ${testResults.theaterRemediation?.evidenceScore || 'N/A'}/${testResults.theaterRemediation?.maxScore || 'N/A'}
-- **Remediation Complete**: ${testResults.theaterRemediation?.remediationComplete ? '✅ YES' : '❌ NO'}
+- **Remediation Complete**: ${testResults.theaterRemediation?.remediationComplete ? '[OK] YES' : '[FAIL] NO'}
 - **Evidence Percentage**: ${testResults.theaterRemediation?.remediationPercentage?.toFixed(2) || 'N/A'}%
 
 ### Performance Validation
@@ -477,12 +477,12 @@ async function generateIntegrationReport(testResults) {
 - **Domains Coordinated**: ${testResults.crossDomainCoordination?.domainsCoordinated || 'N/A'}
 - **Successful Domains**: ${testResults.crossDomainCoordination?.successfulDomains || 'N/A'}
 - **Coordination Duration**: ${testResults.crossDomainCoordination?.coordinationDuration?.toFixed(2) || 'N/A'}ms
-- **Coordination Success**: ${testResults.crossDomainCoordination?.coordinationSuccess ? '✅ YES' : '❌ NO'}
+- **Coordination Success**: ${testResults.crossDomainCoordination?.coordinationSuccess ? '[OK] YES' : '[FAIL] NO'}
 
 ## Production Readiness Checks
 
 ${Object.entries(testResults.productionReadiness?.checks || {}).map(([check, passed]) =>
-  `- **${check.charAt(0).toUpperCase() + check.slice(1)}**: ${passed ? '✅ PASSED' : '❌ FAILED'}`
+  `- **${check.charAt(0).toUpperCase() + check.slice(1)}**: ${passed ? '[OK] PASSED' : '[FAIL] FAILED'}`
 ).join('\n')}
 
 ## Recommendations
@@ -496,10 +496,10 @@ ${testResults.productionReadiness?.recommendations?.map(rec =>
 ## Integration Status
 
 **Overall Assessment**: ${testResults.productionReadiness?.ready ?
-  '✅ Phase 4 CI/CD integration is ready for production deployment with ' +
+  '[OK] Phase 4 CI/CD integration is ready for production deployment with ' +
   testResults.productionReadiness.passedChecks + '/' + testResults.productionReadiness.totalChecks +
   ' checks passed.' :
-  '❌ Phase 4 CI/CD integration requires additional work before production deployment. ' +
+  '[FAIL] Phase 4 CI/CD integration requires additional work before production deployment. ' +
   'Only ' + testResults.productionReadiness?.passedChecks + '/' + testResults.productionReadiness?.totalChecks +
   ' readiness checks passed.'}
 
