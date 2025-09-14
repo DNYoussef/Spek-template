@@ -12,19 +12,21 @@ sys.path.insert(0, ".")
 def run_architecture_analysis():
     """Run comprehensive architecture analysis."""
     try:
-        from analyzer.architecture.orchestrator import ArchitectureOrchestrator
-        
+        # Set up paths correctly
+        sys.path.insert(0, os.path.abspath("analyzer"))
+        from architecture.orchestrator import ArchitectureOrchestrator
+
         # Run architecture analysis
         orchestrator = ArchitectureOrchestrator()
         analysis_result = orchestrator.analyze_architecture(".")
-        
+
         # Ensure output directory exists
-        os.makedirs("../.claude/.artifacts", exist_ok=True)
-        
+        os.makedirs(".claude/.artifacts", exist_ok=True)
+
         # Save analysis results
-        with open("../.claude/.artifacts/architecture_analysis.json", "w") as f:
+        with open(".claude/.artifacts/architecture_analysis.json", "w") as f:
             json.dump(analysis_result, f, indent=2)
-        
+
         print("[SUCCESS] Architecture analysis completed successfully")
         return True
         
@@ -56,9 +58,9 @@ def run_architecture_analysis():
         }
         
         # Ensure output directory exists
-        os.makedirs("../.claude/.artifacts", exist_ok=True)
-        
-        with open("../.claude/.artifacts/architecture_analysis.json", "w") as f:
+        os.makedirs(".claude/.artifacts", exist_ok=True)
+
+        with open(".claude/.artifacts/architecture_analysis.json", "w") as f:
             json.dump(arch_fallback, f, indent=2)
         
         return False
