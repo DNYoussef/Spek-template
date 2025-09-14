@@ -39,7 +39,10 @@
       "Bash(npm run test:*)",
       "Bash(timeout 60 python tests/performance/enterprise_overhead.py)",
       "Bash(cd:*)",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh workflow:*)",
+      "Bash(gh run view:*)"
     ],
     "deny": [],
     "ask": []

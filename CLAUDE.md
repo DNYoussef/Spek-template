@@ -152,14 +152,127 @@ Implementation -> Quality gates -> Evidence packaging -> PR creation
 ### **Loop 3**: Theater Detection-Reality Validation
 Pattern detection -> Evidence validation -> Quality verification -> Learning
 
-## [ROCKET] MCP Server Integration
+## [ROCKET] MCP Server Integration - CORRECTED CAPABILITIES
 
-**By Development Phase:**
-- **PLAN**: Sequential Thinking, Memory, Context7
-- **DISCOVER**: Ref, DeepWiki, Firecrawl, MarkItDown  
-- **IMPLEMENT**: GitHub, Codex sandboxing
-- **VERIFY**: Playwright, eva, Theater detection
-- **DELIVER**: GitHub, Evidence packaging
+### Available MCP Servers (15+ Total)
+
+#### Universal Servers (Applied to ALL 85 Agents)
+- **claude-flow**: Swarm coordination, agent spawning, task orchestration
+- **memory**: Knowledge graph operations (entities/relations), cross-session persistence
+- **sequential-thinking**: Step-by-step reasoning chains, structured problem solving
+
+#### Specialized MCP Servers by Actual Function
+
+**File & Data Management:**
+- **filesystem**: Secure file operations in allowed directories (NOT for code generation)
+- **everything**: Full MCP protocol demonstration and testing capabilities
+
+**Research & Documentation:**
+- **deepwiki**: GitHub repository documentation, AI-powered codebase context
+- **firecrawl**: Web scraping, JavaScript-rendered content, batch processing
+- **ref**: Technical references, API specifications, compliance documentation
+- **ref-tools**: Enhanced reference and documentation tools
+- **context7**: Live documentation, version-specific examples, up-to-date APIs
+- **markitdown**: Markdown conversion, document formatting, template processing
+
+**Development & Testing:**
+- **github**: Repository management, PR/issue tracking, workflow automation (beyond git CLI)
+- **playwright**: Browser automation, cross-browser testing, accessibility checks
+- **puppeteer**: Advanced browser automation, device simulation, performance monitoring
+- **eva**: Performance evaluation, quality metrics, systematic benchmarking
+
+**Design & Visual:**
+- **figma**: Design system integration, mockups, visual assets, brand consistency
+
+**Project Management:**
+- **plane**: Issue tracking, sprint planning, team coordination, workload balancing
+
+### MCP IDE Integration Tools (VS Code)
+- **mcp__ide__getDiagnostics**: Language diagnostics (errors/warnings) from VS Code
+- **mcp__ide__executeCode**: Jupyter notebook kernel execution for data science
+
+### MCP Filesystem Tools (Security-Controlled)
+- **mcp__filesystem__read_file**: Read file contents (deprecated, use read_text_file)
+- **mcp__filesystem__read_text_file**: Read text files with encoding handling
+- **mcp__filesystem__read_media_file**: Read images/audio as base64
+- **mcp__filesystem__read_multiple_files**: Batch file reading
+- **mcp__filesystem__write_file**: Create/overwrite files with caution
+- **mcp__filesystem__edit_file**: Line-based edits with git-style diff
+- **mcp__filesystem__create_directory**: Create nested directories
+- **mcp__filesystem__list_directory**: Directory listing with [FILE]/[DIR] prefixes
+- **mcp__filesystem__directory_tree**: Recursive JSON tree structure
+- **mcp__filesystem__move_file**: Move/rename files and directories
+- **mcp__filesystem__search_files**: Recursive pattern search
+- **mcp__filesystem__get_file_info**: Detailed file metadata
+- **mcp__filesystem__list_allowed_directories**: View security boundaries
+
+### MCP Memory Tools (Knowledge Graph)
+- **mcp__memory__create_entities**: Create knowledge graph entities
+- **mcp__memory__create_relations**: Define entity relationships
+- **mcp__memory__add_observations**: Add observations to entities
+- **mcp__memory__delete_entities**: Remove entities and relations
+- **mcp__memory__delete_observations**: Remove specific observations
+- **mcp__memory__delete_relations**: Remove relationships
+- **mcp__memory__read_graph**: Read entire knowledge graph
+- **mcp__memory__search_nodes**: Query-based node search
+- **mcp__memory__open_nodes**: Retrieve specific entities
+
+## [TARGET] Claude Code vs MCP Tools - ACCURATE SEPARATION
+
+### Claude Code Native Tools (Primary Execution):
+**File & Code Operations:**
+- **Read/Write/Edit/MultiEdit**: Direct code manipulation and file creation
+- **Glob/Grep**: Fast pattern matching and search across codebase
+- **NotebookEdit**: Jupyter notebook cell manipulation
+- **All code generation**: Programming, implementation, refactoring
+
+**System & Shell Operations:**
+- **Bash**: All command-line operations (git, npm, python, etc.)
+- **BashOutput/KillShell**: Background process management
+- **WebSearch/WebFetch**: General web access and research
+
+**Project Management:**
+- **TodoWrite**: Task tracking and progress management
+- **Task**: Agent spawning and coordination
+- **ExitPlanMode**: Planning mode control
+
+### MCP Tools (Specialized Integrations):
+**When to Use MCP Instead of Claude Code:**
+
+1. **MCP Filesystem** (`mcp__filesystem__*`):
+   - Use for: Secure file ops in restricted directories, batch operations
+   - NOT for: General programming (use Claude Code Read/Write/Edit)
+   - Best for: Data persistence, report storage, asset management agents
+
+2. **MCP IDE** (`mcp__ide__*`):
+   - Use for: VS Code diagnostics, Jupyter kernel execution
+   - NOT for: General coding (use Claude Code tools)
+   - Best for: Testing agents, validation agents, notebook specialists
+
+3. **MCP Memory** (`mcp__memory__*`):
+   - Use for: Cross-session knowledge graphs, entity relationships
+   - NOT for: Temporary state (use variables/TodoWrite)
+   - Best for: Coordination agents, learning systems, audit trails
+
+4. **External Platform MCPs**:
+   - **github**: GitHub API operations beyond git CLI
+   - **plane**: Project management integration
+   - **figma**: Design system access (visual agents)
+   - **playwright/puppeteer**: Browser automation (testing agents)
+   - **eva**: Performance benchmarking (QA agents)
+
+5. **Research MCPs**:
+   - **deepwiki**: GitHub repo documentation (research agents)
+   - **firecrawl**: Web scraping (content agents)
+   - **ref/ref-tools**: Technical documentation (compliance agents)
+   - **context7**: Live docs (development agents)
+
+**KEY PRINCIPLES:**
+- Claude Code = Direct execution and manipulation
+- MCP = Specialized integrations and external platforms
+- Never use MCP filesystem for general coding tasks
+- MCP IDE tools are for testing/validation, not development
+- MCP memory is for persistent knowledge, not temporary state
 
 ## NEW: Claude Code Enhanced Capabilities
 

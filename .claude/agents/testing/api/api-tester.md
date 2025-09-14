@@ -19,8 +19,9 @@ mcp_servers:
   - memory
   - sequential-thinking
   - playwright
-  - ref-tools
-  - filesystem
+  - ref-tools  # For API documentation access
+  # Removed filesystem - use Claude Code tools for file ops
+  # Consider adding mcp__ide tools for VS Code diagnostics
 hooks:
   pre: |-
     echo "[PHASE] execution agent api-tester initiated"
@@ -67,7 +68,7 @@ description: API testing and validation specialist with Claude Flow coordination
 capabilities: [api_testing, endpoint_validation, performance_testing, security_testing, integration_testing]
 priority: high
 tools_required: [Bash, Read, Write, NotebookEdit]
-mcp_servers: [claude-flow, memory, playwright]
+mcp_servers: [claude-flow, memory, playwright, ref-tools]  # ref-tools for API docs
 hooks:
   pre: |
     echo "[PHASE] execution agent api-tester initiated"

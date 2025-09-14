@@ -15,8 +15,8 @@ mcp_servers:
   - claude-flow
   - memory
   - sequential-thinking
-  - github
-  - filesystem
+  - github  # For repository operations beyond git CLI
+  # NOTE: Use Claude Code's Read/Write/Edit for file operations, not MCP filesystem
 hooks:
   pre: |-
     echo "[PHASE] execution agent coder initiated"

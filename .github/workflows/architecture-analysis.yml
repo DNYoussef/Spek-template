@@ -50,8 +50,8 @@ jobs:
     - name: Architecture Analysis with Hotspot Detection
       run: |
         echo "Running architecture analysis with hotspot detection..."
-        cd analyzer
-        python ../.github/scripts/architecture_analysis.py
+        export PYTHONPATH="${GITHUB_WORKSPACE}/analyzer:${PYTHONPATH}"
+        python .github/scripts/architecture_analysis.py
 
     - name: Architecture Health Assessment
       run: |
