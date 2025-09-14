@@ -1,0 +1,26 @@
+{
+  "servers": {
+    "filesystem": {
+      "command": "mcp-server-filesystem",
+      "args": ["--path", "./"]
+    },
+    "memory": {
+      "command": "mcp-server-memory"
+    },
+    "everything": {
+      "command": "mcp-server-everything"
+    },
+    "sequential-thinking": {
+      "command": "mcp-server-sequential-thinking"
+    },
+    "ref-tools": {
+      "command": "ref-tools-mcp"
+    },
+    "figma": {
+      "command": "figma-mcp"
+    },
+    "puppeteer": {
+      "command": "puppeteer-mcp-server"
+    }
+  }
+}

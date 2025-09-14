@@ -1,5 +1,57 @@
 ---
 name: refinement
+type: general
+phase: knowledge
+category: refinement
+description: refinement agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - eva
+  - filesystem
+hooks:
+  pre: |-
+    echo "[PHASE] knowledge agent refinement initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "knowledge_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] knowledge complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "knowledge_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - documentation_complete
+  - lessons_captured
+artifact_contracts:
+  input: knowledge_input.json
+  output: refinement_output.json
+preferred_model: gpt-5
+model_fallback:
+  primary: claude-sonnet-4
+  secondary: claude-sonnet-4
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - coding
+    - agentic_tasks
+    - fast_processing
+  specialized_features: []
+  cost_sensitivity: high
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
+---
+name: refinement
 type: developer
 color: violet
 description: SPARC Refinement phase specialist for iterative improvement

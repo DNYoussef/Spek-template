@@ -1,5 +1,58 @@
 ---
 name: swarm-issue
+type: general
+phase: execution
+category: swarm_issue
+description: swarm-issue agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+  - TodoWrite
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - github
+  - plane
+hooks:
+  pre: |-
+    echo "[PHASE] execution agent swarm-issue initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "execution_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] execution complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "execution_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - tests_passing
+  - quality_gates_met
+artifact_contracts:
+  input: execution_input.json
+  output: swarm-issue_output.json
+preferred_model: gpt-5
+model_fallback:
+  primary: claude-sonnet-4
+  secondary: claude-sonnet-4
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - coding
+    - agentic_tasks
+    - fast_processing
+  specialized_features: []
+  cost_sensitivity: high
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
+---
+name: swarm-issue
 description: GitHub issue-based swarm coordination agent that transforms issues into intelligent multi-agent tasks with automatic decomposition and progress tracking
 type: coordination
 color: "#FF6B35"

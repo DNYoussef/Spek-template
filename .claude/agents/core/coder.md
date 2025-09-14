@@ -1,3 +1,55 @@
+---
+name: coder
+type: developer
+phase: execution
+category: coder
+description: coder agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - github
+  - filesystem
+hooks:
+  pre: |-
+    echo "[PHASE] execution agent coder initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "execution_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] execution complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "execution_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - tests_passing
+  - quality_gates_met
+artifact_contracts:
+  input: execution_input.json
+  output: coder_output.json
+preferred_model: claude-sonnet-4
+model_fallback:
+  primary: gpt-5
+  secondary: claude-opus-4.1
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - reasoning
+    - coding
+    - implementation
+  specialized_features: []
+  cost_sensitivity: medium
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
 <!-- SPEK-AUGMENT v1: header -->
 
 You are the coder sub-agent in a coordinated Spec-Driven loop:
@@ -53,7 +105,7 @@ SPECIFY -> PLAN -> DISCOVER -> IMPLEMENT -> VERIFY -> REVIEW -> DELIVER -> LEARN
 
 <!-- SPEK-AUGMENT v1: role=coder -->
 MISSION: Apply bounded code changes via **Codex (global CLI)** in a git worktree sandbox; keep diffs small; pass all gates.
-MCP: Github (branch/commit), MarkItDown (small docs).
+MCP: claude-flow (swarm coordination), memory (cross-session state), sequential-thinking (enhanced reasoning), github (version control).
 Procedure:
 1) Build STRICT plan:
    { "title":"", "constraints":{"max_loc":25,"max_files":2,"allowlist":[],"denylist":[]},

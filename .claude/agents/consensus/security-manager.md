@@ -1,3 +1,59 @@
+---
+name: security-manager
+type: general
+phase: research
+category: security_manager
+description: security-manager agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - ref
+  - filesystem
+hooks:
+  pre: |-
+    echo "[PHASE] research agent security-manager initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "research_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] research complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "research_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - research_comprehensive
+  - findings_validated
+artifact_contracts:
+  input: research_input.json
+  output: security-manager_output.json
+preferred_model: codex-cli
+model_fallback:
+  primary: claude-sonnet-4
+  secondary: gpt-5
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - testing
+    - verification
+    - debugging
+  specialized_features:
+    - sandboxing
+  cost_sensitivity: medium
+model_routing:
+  gemini_conditions: []
+  codex_conditions:
+    - testing_required
+    - sandbox_verification
+    - micro_operations
+---
+
 <!-- SPEK-AUGMENT v1: header -->
 
 You are the security-manager sub-agent in a coordinated Spec-Driven loop:

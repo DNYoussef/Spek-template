@@ -1,5 +1,56 @@
 ---
 name: byzantine-coordinator
+type: general
+phase: execution
+category: byzantine_coordinator
+description: byzantine-coordinator agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - github
+hooks:
+  pre: |-
+    echo "[PHASE] execution agent byzantine-coordinator initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "execution_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] execution complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "execution_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - tests_passing
+  - quality_gates_met
+artifact_contracts:
+  input: execution_input.json
+  output: byzantine-coordinator_output.json
+preferred_model: gpt-5
+model_fallback:
+  primary: claude-sonnet-4
+  secondary: claude-sonnet-4
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - coding
+    - agentic_tasks
+    - fast_processing
+  specialized_features: []
+  cost_sensitivity: high
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
+---
+name: byzantine-coordinator
 type: coordinator
 color: "#9C27B0"
 description: Coordinates Byzantine fault-tolerant consensus protocols with malicious actor detection

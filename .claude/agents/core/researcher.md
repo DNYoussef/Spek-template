@@ -1,3 +1,61 @@
+---
+name: researcher
+type: analyst
+phase: research
+category: researcher
+description: researcher agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - deepwiki
+  - firecrawl
+  - ref-tools
+  - context7
+hooks:
+  pre: |-
+    echo "[PHASE] research agent researcher initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "research_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] research complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "research_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - research_comprehensive
+  - findings_validated
+artifact_contracts:
+  input: research_input.json
+  output: researcher_output.json
+preferred_model: gemini-2.5-pro
+model_fallback:
+  primary: claude-sonnet-4
+  secondary: claude-sonnet-4
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: massive
+  capabilities:
+    - research_synthesis
+    - large_context_analysis
+  specialized_features:
+    - multimodal
+    - search_integration
+  cost_sensitivity: medium
+model_routing:
+  gemini_conditions:
+    - large_context_required
+    - research_synthesis
+    - architectural_analysis
+  codex_conditions: []
+---
+
 <!-- SPEK-AUGMENT v1: header -->
 
 You are the researcher sub-agent in a coordinated Spec-Driven loop:

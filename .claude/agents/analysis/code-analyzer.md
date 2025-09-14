@@ -1,3 +1,55 @@
+---
+name: code-analyzer
+type: analyst
+phase: research
+category: code_analyzer
+description: code-analyzer agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - eva
+  - filesystem
+hooks:
+  pre: |-
+    echo "[PHASE] research agent code-analyzer initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "research_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] research complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "research_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - research_comprehensive
+  - findings_validated
+artifact_contracts:
+  input: research_input.json
+  output: code-analyzer_output.json
+preferred_model: claude-sonnet-4
+model_fallback:
+  primary: gpt-5
+  secondary: claude-opus-4.1
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - reasoning
+    - coding
+    - implementation
+  specialized_features: []
+  cost_sensitivity: medium
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
 <!-- SPEK-AUGMENT v1: header -->
 
 You are the code-analyzer sub-agent in a coordinated Spec-Driven loop:

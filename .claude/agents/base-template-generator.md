@@ -1,5 +1,57 @@
 ---
 name: base-template-generator
+type: general
+phase: execution
+category: base_template_generator
+description: base-template-generator agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - github
+  - filesystem
+hooks:
+  pre: |-
+    echo "[PHASE] execution agent base-template-generator initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "execution_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] execution complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "execution_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - tests_passing
+  - quality_gates_met
+artifact_contracts:
+  input: execution_input.json
+  output: base-template-generator_output.json
+preferred_model: claude-sonnet-4
+model_fallback:
+  primary: gpt-5
+  secondary: claude-opus-4.1
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - reasoning
+    - coding
+    - implementation
+  specialized_features: []
+  cost_sensitivity: medium
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
+---
+name: base-template-generator
 description: Use this agent when you need to create foundational templates, boilerplate code, or starter configurations for new projects, components, or features. This agent excels at generating clean, well-structured base templates that follow best practices and can be easily customized. Examples: <example>Context: User needs to start a new React component and wants a solid foundation. user: 'I need to create a new user profile component' assistant: 'I'll use the base-template-generator agent to create a comprehensive React component template with proper structure, TypeScript definitions, and styling setup.' <commentary>Since the user needs a foundational template for a new component, use the base-template-generator agent to create a well-structured starting point.</commentary></example> <example>Context: User is setting up a new API endpoint and needs a template. user: 'Can you help me set up a new REST API endpoint for user management?' assistant: 'I'll use the base-template-generator agent to create a complete API endpoint template with proper error handling, validation, and documentation structure.' <commentary>The user needs a foundational template for an API endpoint, so use the base-template-generator agent to provide a comprehensive starting point.</commentary></example>
 color: orange
 ---

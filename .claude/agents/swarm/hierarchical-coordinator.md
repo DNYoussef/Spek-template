@@ -1,5 +1,66 @@
 ---
 name: hierarchical-coordinator
+type: general
+phase: execution
+category: hierarchical_coordinator
+description: hierarchical-coordinator agent for SPEK pipeline
+capabilities:
+  - >-
+    `mcp__claude-flow__agent_spawn researcher
+    --capabilities="research,analysis,information_gathering"`
+  - >-
+    `mcp__claude-flow__agent_spawn coder
+    --capabilities="code_generation,testing,optimization"`
+  - >-
+    `mcp__claude-flow__agent_spawn analyst
+    --capabilities="data_analysis,performance_monitoring,reporting"`
+  - >-
+    `mcp__claude-flow__agent_spawn tester
+    --capabilities="testing,validation,quality_assurance"`
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - plane
+hooks:
+  pre: |-
+    echo "[PHASE] execution agent hierarchical-coordinator initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "execution_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] execution complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "execution_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - tests_passing
+  - quality_gates_met
+artifact_contracts:
+  input: execution_input.json
+  output: hierarchical-coordinator_output.json
+preferred_model: claude-opus-4.1
+model_fallback:
+  primary: claude-sonnet-4
+  secondary: claude-sonnet-4
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: large
+  capabilities:
+    - strategic_reasoning
+    - complex_coordination
+  specialized_features: []
+  cost_sensitivity: low
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
+---
+name: hierarchical-coordinator
 type: coordinator
 color: "#FF6B35"
 description: Queen-led hierarchical swarm coordination with specialized worker delegation

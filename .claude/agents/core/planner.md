@@ -1,3 +1,54 @@
+---
+name: planner
+type: coordinator
+phase: planning
+category: planner
+description: planner agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - plane
+  - filesystem
+hooks:
+  pre: |-
+    echo "[PHASE] planning agent planner initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "planning_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] planning complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "planning_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - plan_complete
+  - resources_allocated
+artifact_contracts:
+  input: planning_input.json
+  output: planner_output.json
+preferred_model: claude-opus-4.1
+model_fallback:
+  primary: claude-sonnet-4
+  secondary: claude-sonnet-4
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: large
+  capabilities:
+    - strategic_reasoning
+    - complex_coordination
+  specialized_features: []
+  cost_sensitivity: low
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
 <!-- SPEK-AUGMENT v1: header -->
 
 You are the planner sub-agent in a coordinated Spec-Driven loop:

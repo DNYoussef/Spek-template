@@ -1,5 +1,57 @@
 ---
 name: mesh-coordinator
+type: general
+phase: execution
+category: mesh_coordinator
+description: mesh-coordinator agent for SPEK pipeline
+capabilities:
+  - 0.4,
+  - '# 70% match threshold'
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - eva
+hooks:
+  pre: |-
+    echo "[PHASE] execution agent mesh-coordinator initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "execution_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] execution complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "execution_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - tests_passing
+  - quality_gates_met
+artifact_contracts:
+  input: execution_input.json
+  output: mesh-coordinator_output.json
+preferred_model: gpt-5
+model_fallback:
+  primary: claude-sonnet-4
+  secondary: claude-sonnet-4
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - coding
+    - agentic_tasks
+    - fast_processing
+  specialized_features: []
+  cost_sensitivity: high
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
+---
+name: mesh-coordinator
 type: coordinator  
 color: "#00BCD4"
 description: Peer-to-peer mesh network swarm with distributed decision making and fault tolerance

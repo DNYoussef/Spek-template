@@ -1,5 +1,61 @@
 ---
 name: fresh-eyes-gemini
+type: general
+phase: knowledge
+category: fresh_eyes_gemini
+description: fresh-eyes-gemini agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - context7
+  - filesystem
+hooks:
+  pre: |-
+    echo "[PHASE] knowledge agent fresh-eyes-gemini initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "knowledge_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] knowledge complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "knowledge_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - documentation_complete
+  - lessons_captured
+artifact_contracts:
+  input: knowledge_input.json
+  output: fresh-eyes-gemini_output.json
+preferred_model: gemini-2.5-pro
+model_fallback:
+  primary: claude-sonnet-4
+  secondary: claude-sonnet-4
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: massive
+  capabilities:
+    - research_synthesis
+    - large_context_analysis
+  specialized_features:
+    - multimodal
+    - search_integration
+  cost_sensitivity: medium
+model_routing:
+  gemini_conditions:
+    - large_context_required
+    - research_synthesis
+    - architectural_analysis
+  codex_conditions: []
+---
+
+---
+name: fresh-eyes-gemini
 type: analysis
 color: blue
 description: Fresh-eyes pre-mortem analysis using Gemini's large context window with Sequential Thinking

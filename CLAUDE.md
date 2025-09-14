@@ -6,7 +6,7 @@
 
 ## [TARGET] Project Overview
 
-**SPEK Enhanced Development Platform** is a comprehensive AI-driven development environment that extends GitHub's Spec Kit with Research Intelligence, Theater Detection, and Reality Validation. The platform integrates 54+ AI agents, 29 specialized slash commands, and comprehensive quality gates to deliver **30-60% faster development** with **zero-defect production delivery**.
+**SPEK Enhanced Development Platform** is a comprehensive AI-driven development environment that extends GitHub's Spec Kit with Research Intelligence, Theater Detection, and Reality Validation. The platform integrates 85+ AI agents (54 core + 31 specialized), 29 specialized slash commands, and comprehensive quality gates to deliver **30-60% faster development** with **zero-defect production delivery**.
 
 ### Core Pipeline: S-R-P-E-K Methodology
 ```
@@ -107,7 +107,7 @@ Requirements  Solutions   Strategy     Features    Quality
 
 ## [TARGET] Essential Agent Coordination
 
-### **Specialized Agent Categories (54 Total)**
+### **Specialized Agent Categories (85 Total: 54 Core + 31 Extended)**
 - **Core Development**: `coder`, `reviewer`, `tester`, `planner`, `researcher`
 - **SPEK Methodology**: `sparc-coord`, `specification`, `architecture`, `refinement`
 - **Quality Assurance**: `code-analyzer`, `security-manager`, `performance-benchmarker`

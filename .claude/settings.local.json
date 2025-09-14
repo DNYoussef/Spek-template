@@ -15,7 +15,14 @@
       "Bash(grep:*)",
       "Bash(npm install:*)",
       "Bash(npx tsx:*)",
-      "Bash(npx:*)"
+      "Bash(npx:*)",
+      "Bash(git push:*)",
+      "Read(//c/Users/17175/Downloads/**)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(git clone:*)",
+      "Bash(npm search:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

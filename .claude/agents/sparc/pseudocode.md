@@ -1,5 +1,57 @@
 ---
 name: pseudocode
+type: general
+phase: planning
+category: pseudocode
+description: pseudocode agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - markitdown
+  - filesystem
+hooks:
+  pre: |-
+    echo "[PHASE] planning agent pseudocode initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "planning_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] planning complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "planning_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - plan_complete
+  - resources_allocated
+artifact_contracts:
+  input: planning_input.json
+  output: pseudocode_output.json
+preferred_model: gpt-5
+model_fallback:
+  primary: claude-sonnet-4
+  secondary: claude-sonnet-4
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - coding
+    - agentic_tasks
+    - fast_processing
+  specialized_features: []
+  cost_sensitivity: high
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
+---
+name: pseudocode
 type: architect
 color: indigo
 description: SPARC Pseudocode phase specialist for algorithm design

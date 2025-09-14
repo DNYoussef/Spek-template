@@ -1,5 +1,57 @@
 ---
 name: fresh-eyes-codex
+type: general
+phase: knowledge
+category: fresh_eyes_codex
+description: fresh-eyes-codex agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - eva
+  - filesystem
+hooks:
+  pre: |-
+    echo "[PHASE] knowledge agent fresh-eyes-codex initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "knowledge_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] knowledge complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "knowledge_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - documentation_complete
+  - lessons_captured
+artifact_contracts:
+  input: knowledge_input.json
+  output: fresh-eyes-codex_output.json
+preferred_model: claude-sonnet-4
+model_fallback:
+  primary: gpt-5
+  secondary: claude-opus-4.1
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - reasoning
+    - coding
+    - implementation
+  specialized_features: []
+  cost_sensitivity: medium
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
+---
+name: fresh-eyes-codex
 type: analysis
 color: purple
 description: Fresh-eyes pre-mortem analysis focusing on implementation risks with Sequential Thinking

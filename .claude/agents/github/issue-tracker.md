@@ -1,5 +1,58 @@
 ---
 name: issue-tracker
+type: general
+phase: execution
+category: issue_tracker
+description: issue-tracker agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+  - TodoWrite
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - github
+  - plane
+hooks:
+  pre: |-
+    echo "[PHASE] execution agent issue-tracker initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "execution_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] execution complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "execution_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - tests_passing
+  - quality_gates_met
+artifact_contracts:
+  input: execution_input.json
+  output: issue-tracker_output.json
+preferred_model: gpt-5
+model_fallback:
+  primary: claude-sonnet-4
+  secondary: claude-sonnet-4
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - coding
+    - agentic_tasks
+    - fast_processing
+  specialized_features: []
+  cost_sensitivity: high
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
+---
+name: issue-tracker
 description: Intelligent issue management and project coordination with automated tracking, progress monitoring, and team coordination
 tools: mcp__claude-flow__swarm_init, mcp__claude-flow__agent_spawn, mcp__claude-flow__task_orchestrate, mcp__claude-flow__memory_usage, Bash, TodoWrite, Read, Write
 color: green

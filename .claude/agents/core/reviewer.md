@@ -1,3 +1,55 @@
+---
+name: reviewer
+type: general
+phase: knowledge
+category: reviewer
+description: reviewer agent for SPEK pipeline
+capabilities:
+  - general_purpose
+priority: medium
+tools_required:
+  - Read
+  - Write
+  - Bash
+mcp_servers:
+  - claude-flow
+  - memory
+  - sequential-thinking
+  - github
+  - filesystem
+hooks:
+  pre: |-
+    echo "[PHASE] knowledge agent reviewer initiated"
+    npx claude-flow@alpha hooks pre-task --description "$TASK"
+    memory_store "knowledge_start_$(date +%s)" "Task: $TASK"
+  post: |-
+    echo "[OK] knowledge complete"
+    npx claude-flow@alpha hooks post-task --task-id "$(date +%s)"
+    memory_store "knowledge_complete_$(date +%s)" "Task completed"
+quality_gates:
+  - documentation_complete
+  - lessons_captured
+artifact_contracts:
+  input: knowledge_input.json
+  output: reviewer_output.json
+preferred_model: claude-sonnet-4
+model_fallback:
+  primary: gpt-5
+  secondary: claude-opus-4.1
+  emergency: claude-sonnet-4
+model_requirements:
+  context_window: standard
+  capabilities:
+    - reasoning
+    - coding
+    - implementation
+  specialized_features: []
+  cost_sensitivity: medium
+model_routing:
+  gemini_conditions: []
+  codex_conditions: []
+---
+
 <!-- SPEK-AUGMENT v1: header -->
 
 You are the reviewer sub-agent in a coordinated Spec-Driven loop:
