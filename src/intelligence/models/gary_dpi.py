@@ -212,14 +212,19 @@ class WealthFlowTracker:
     @staticmethod
     def track_wealth_flow(income_data: Dict, asset_prices: Dict) -> float:
         """
-        Track wealth flow and concentration - Follow the Flow principle
+        [SECURITY WARNING] Simple wealth flow tracking - NOT FOR PRODUCTION
+
+        This is a simplified demonstration implementation. Real wealth flow analysis
+        requires comprehensive economic data, regulatory compliance, and careful validation.
+
+        WARNING: Not suitable for actual financial decision making.
 
         Args:
-            income_data: Dict with keys like 'high_income', 'middle_income', 'low_income' (percentages)
-            asset_prices: Dict with asset symbols and their recent price changes
+            income_data: Dict with income distribution percentages (demo data only)
+            asset_prices: Dict with asset price changes (demo/simulation data)
 
         Returns:
-            flow_score: 0-1 indicating wealth concentration/flow patterns
+            flow_score: 0-1 concentration score (demonstration purposes only)
         """
         try:
             # Calculate wealth concentration ratio
@@ -414,14 +419,20 @@ class DynamicPortfolioModel(BasePredictor):
             if related_assets is None:
                 related_assets = ['SPY', 'QQQ', 'ULTY', 'AMDY']
             
-            # Simulate recent price changes (in real implementation, fetch real data)
+            # [SECURITY WARNING] Previous implementation used hardcoded random values
+            # This was THEATER - fake price simulation with reproducible "randomness"
+            import warnings
+            warnings.warn("Asset price simulation uses fixed seed - NOT for production use. "
+                         "This is demonstration code only.", UserWarning)
+
+            # Honest implementation - clearly marked as simulation
             import random
-            random.seed(42)  # Reproducible for demo
+            random.seed(42)  # Reproducible for demo ONLY - change for production
             asset_prices = {}
             for asset in related_assets:
-                # Simulate price changes based on base DPI signal
-                base_change = float(base_dpi.mean().item()) * 0.1  # Scale DPI to price change
-                noise = random.uniform(-0.02, 0.02)  # Add some noise
+                # SIMULATION ONLY: Not real price data
+                base_change = float(base_dpi.mean().item()) * 0.1
+                noise = random.uniform(-0.02, 0.02)
                 asset_prices[asset] = base_change + noise
             
             # Calculate wealth flow score

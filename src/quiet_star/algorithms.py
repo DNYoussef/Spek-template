@@ -54,7 +54,7 @@ class ThoughtGenerator:
         self.coherence_scorer = CoherenceScorer(config)
         self.mixing_head = MixingHead(config)
     
-    def generate_thoughts(self, 
+    def generate_thoughts(self,
                          input_ids: torch.Tensor,
                          attention_mask: torch.Tensor,
                          model: nn.Module,
@@ -235,40 +235,31 @@ class CoherenceScorer:
         
         return total_scores
     
-    def _semantic_coherence(self, 
-                           thoughts: torch.Tensor, 
+    def _semantic_coherence(self,
+                           thoughts: torch.Tensor,
                            context: torch.Tensor) -> torch.Tensor:
         """
-        Compute semantic coherence between thoughts and context.
-        
-        Algorithm: Cosine Similarity in Embedding Space
-        ==============================================
-        1. Embed thoughts and context using model embeddings
-        2. Compute mean embeddings for thoughts and context
-        3. Calculate cosine similarity: cos(θ) = (A·B) / (||A||·||B||)
+        [THEATER REMOVED] Semantic coherence computation.
+
+        WARNING: This was a THEATER IMPLEMENTATION using random embeddings.
+        Original theater code generated fake semantic scores using torch.randn().
+
+        REALITY: Not implemented - requires actual model embeddings and semantic analysis.
         """
-        batch_size, num_thoughts, thought_len = thoughts.shape
-        
-        # Placeholder implementation - in practice would use model embeddings
-        # Here we simulate with random embeddings for demonstration
-        thought_embeds = torch.randn(batch_size, num_thoughts, 512)  # [batch, thoughts, embed_dim]
-        context_embeds = torch.randn(batch_size, 512)  # [batch, embed_dim]
-        
-        # Compute cosine similarity
-        thought_norms = torch.norm(thought_embeds, dim=2, keepdim=True)
-        context_norms = torch.norm(context_embeds, dim=1, keepdim=True)
-        
-        # Expand context for broadcasting
-        context_expanded = context_embeds.unsqueeze(1)  # [batch, 1, embed_dim]
-        
-        # Cosine similarity
-        dot_product = torch.sum(thought_embeds * context_expanded, dim=2)
-        similarities = dot_product / (thought_norms.squeeze(2) * context_norms)
-        
-        # Normalize to [0, 1]
-        semantic_scores = (similarities + 1) / 2
-        
-        return semantic_scores
+        batch_size, num_thoughts = thoughts.shape[:2]
+
+        # HONEST IMPLEMENTATION: Return zeros instead of fake scores
+        # TODO: Implement actual semantic coherence using real model embeddings
+        # TODO: Use actual pre-trained embeddings (BERT, RoBERTa, etc.)
+        # TODO: Implement real cosine similarity with meaningful vectors
+
+        # Security warning: Previous implementation was dangerous theater
+        import warnings
+        warnings.warn("Semantic coherence not implemented - returning zeros. "
+                     "Previous implementation was theater using random data.",
+                     UserWarning)
+
+        return torch.zeros(batch_size, num_thoughts)
     
     def _syntactic_coherence(self, 
                             thoughts: torch.Tensor,
@@ -300,37 +291,32 @@ class CoherenceScorer:
         
         return syntactic_scores
     
-    def _predictive_utility(self, 
+    def _predictive_utility(self,
                            thoughts: torch.Tensor,
                            thought_logits: torch.Tensor,
                            context: torch.Tensor) -> torch.Tensor:
         """
-        Compute predictive utility of thoughts for future token prediction.
-        
-        Algorithm: Information Gain Estimation
-        =====================================
-        Utility = H(P(next|context)) - H(P(next|context, thought))
-        Where H is entropy and P is the prediction distribution
+        [THEATER REMOVED] Predictive utility computation.
+
+        WARNING: This was a THEATER IMPLEMENTATION using fake information gain.
+        Original theater code simulated entropy calculations with random values.
+
+        REALITY: Not implemented - requires actual prediction distribution analysis.
         """
         batch_size, num_thoughts = thoughts.shape[:2]
-        
-        # Placeholder implementation - simulate information gain
-        # In practice, would compare prediction distributions with/without thoughts
-        
-        # Simulate baseline entropy (without thoughts)
-        baseline_entropy = torch.ones(batch_size) * 8.0  # Typical token entropy
-        
-        # Simulate reduced entropy with thoughts (random for demo)
-        thought_entropy = baseline_entropy.unsqueeze(1) - torch.rand(batch_size, num_thoughts) * 2.0
-        
-        # Information gain as utility
-        information_gain = baseline_entropy.unsqueeze(1) - thought_entropy
-        
-        # Normalize to [0, 1]
-        max_gain = baseline_entropy.unsqueeze(1)
-        predictive_scores = information_gain / max_gain
-        
-        return predictive_scores
+
+        # HONEST IMPLEMENTATION: Return zeros instead of fake utility scores
+        # TODO: Implement actual information gain calculation
+        # TODO: Compare real prediction distributions with/without thoughts
+        # TODO: Use actual entropy calculations on real probability distributions
+
+        # Security warning: Previous implementation was dangerous theater
+        import warnings
+        warnings.warn("Predictive utility not implemented - returning zeros. "
+                     "Previous implementation was theater using fake entropy.",
+                     UserWarning)
+
+        return torch.zeros(batch_size, num_thoughts)
 
 
 class MixingHead(nn.Module):
