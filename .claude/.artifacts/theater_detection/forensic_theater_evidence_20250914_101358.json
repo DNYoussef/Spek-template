@@ -1,0 +1,713 @@
+{
+  "forensic_analysis_metadata": {
+    "analysis_timestamp": "2025-09-14T14:13:58.163022+00:00",
+    "detection_engine_version": "1.0.0",
+    "total_modules_analyzed": 52,
+    "analysis_type": "zero_tolerance_defense_industry",
+    "compliance_standard": "DFARS 252.204-7012"
+  },
+  "theater_detection_summary": {
+    "modules_with_theater": 29,
+    "defense_industry_ready": 23,
+    "critical_violations": 9,
+    "high_violations": 13,
+    "overall_compliance_score": 0.6865634365634367
+  },
+  "module_reports": {
+    "src.enterprise.cli.enterprise_cli": {
+      "theater_level": "high",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 2,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "033c66dbbebdc5e1504a47af5c9d5c0f17e8c762fbe0c6aec9edd129a933fc5b",
+      "critical_findings": [
+        {
+          "type": "functionality_theater",
+          "severity": "high",
+          "function": "module_import",
+          "line": 1,
+          "description": "Module failed to load for dynamic testing: No module named 'src'"
+        }
+      ]
+    },
+    "src.enterprise.compliance.matrix": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "50f194923d7dbbc86cbabd9529b290cb0c0eda0c5847e483146641e4a20b9795",
+      "critical_findings": []
+    },
+    "src.enterprise.config.enterprise_config": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "2deb79718ae2b4ccde5324c1631b183305eda6c3c15def09de0cd70f4a32abe7",
+      "critical_findings": []
+    },
+    "src.enterprise.flags.feature_flags": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 8,
+      "validations_passed": 3,
+      "validations_failed": 0,
+      "forensic_hash": "b4f899a116c1d5fc8c7f12b59fa049c1de730882b3b6b14a14dd4442ba4149e7",
+      "critical_findings": []
+    },
+    "src.enterprise.integration.analyzer": {
+      "theater_level": "high",
+      "compliance_score": 0.4,
+      "defense_ready": false,
+      "violations_count": 3,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "ab81f35f9c30b9a4038bf61c53356e0e4c4f44e39c0fa470483c38072e887932",
+      "critical_findings": [
+        {
+          "type": "functionality_theater",
+          "severity": "high",
+          "function": "module_import",
+          "line": 1,
+          "description": "Module failed to load for dynamic testing: No module named 'src'"
+        }
+      ]
+    },
+    "src.enterprise.security.sbom_generator": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "d03c7a9ce5892520ec70b15c29513cd98db56fbc6d8af2cc9d53f2126d58b0cd",
+      "critical_findings": []
+    },
+    "src.enterprise.security.slsa_generator": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "f5fa8b90fd9b9a29033f01aa1055c7fb76a92b1fc7ffc35f536f2271f4b3e3c6",
+      "critical_findings": []
+    },
+    "src.enterprise.security.supply_chain": {
+      "theater_level": "high",
+      "compliance_score": 0.19999999999999996,
+      "defense_ready": false,
+      "violations_count": 1,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "3bec10e567213eefcb8063fd9bac89370150613780e7999bc62ed1fe58edcf74",
+      "critical_findings": [
+        {
+          "type": "functionality_theater",
+          "severity": "high",
+          "function": "module_import",
+          "line": 1,
+          "description": "Module failed to load for dynamic testing: No module named 'src'"
+        }
+      ]
+    },
+    "src.enterprise.telemetry.six_sigma": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 6,
+      "validations_passed": 7,
+      "validations_failed": 3,
+      "forensic_hash": "00d0eb609695d14697c181e4bddbf11c87c4a29a9f0596c9db97514144eb72f2",
+      "critical_findings": []
+    },
+    "src.enterprise.tests.test_runner": {
+      "theater_level": "high",
+      "compliance_score": 0.19999999999999996,
+      "defense_ready": false,
+      "violations_count": 1,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "6a8a9a08bbad511851d041ca1efd08ad8028a355e04b06be13a15940b0ca76a8",
+      "critical_findings": [
+        {
+          "type": "functionality_theater",
+          "severity": "high",
+          "function": "module_import",
+          "line": 1,
+          "description": "Module failed to load for dynamic testing: No module named 'src'"
+        }
+      ]
+    },
+    "src.enterprise.utils.error_handling": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 2,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "7afbc4a25db6093cf60b503e316f43a9a516a21a7b12b1e1e6c7fdbd8bbe4278",
+      "critical_findings": []
+    },
+    "src.enterprise.utils.logging_utils": {
+      "theater_level": "high",
+      "compliance_score": 0.4,
+      "defense_ready": false,
+      "violations_count": 3,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "5dccfcf143beff726d40e0a878654a0485a72ab9eb2afea9e9b955d0bb4865ff",
+      "critical_findings": [
+        {
+          "type": "functionality_theater",
+          "severity": "high",
+          "function": "module_import",
+          "line": 1,
+          "description": "Module failed to load for dynamic testing: No module named 'src'"
+        }
+      ]
+    },
+    "analyzer.enterprise.compliance.audit_trail": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 4,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "326694b11b76147556d27f9edff607e9fff8cca5b59f577935f9d61808d75e7f",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.compliance.core": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 1,
+      "validations_failed": 2,
+      "forensic_hash": "7e95c9d58f5628d2a5f06945588791db9796686a88b6aabe64b2e773f1e7e3a0",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.compliance.integration": {
+      "theater_level": "high",
+      "compliance_score": 0.19999999999999996,
+      "defense_ready": false,
+      "violations_count": 1,
+      "validations_passed": 0,
+      "validations_failed": 1,
+      "forensic_hash": "489ecb49a56ebc7e67ad651a927eb31d008116e191f14c790593bbee20f4ff0b",
+      "critical_findings": [
+        {
+          "type": "functionality_theater",
+          "severity": "high",
+          "function": "module_import",
+          "line": 1,
+          "description": "Module failed to load for dynamic testing: No module named 'analyzer.enterprise.core.analyzer_integration'"
+        }
+      ]
+    },
+    "analyzer.enterprise.compliance.iso27001": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 2,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "c580efb0bb3adf194dd380fa285824dc609b0f3c32fc465629cd132a8eada984",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.compliance.nist_ssdf": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 2,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "f33e887985f5f939982e7fa34845650e19903e0b0e3b3bec4adb27dde82787b8",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.compliance.reporting": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "fc5c3165542b363d81ea2b1b0842f84857da30a00096a30407a63d19e025a191",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.compliance.soc2": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 1,
+      "forensic_hash": "f3aeb9683013c804cb72aefe3cd0924b347a71293840c4a14aab5ff0d5f19353",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.compliance.validate_retention": {
+      "theater_level": "high",
+      "compliance_score": 0.19999999999999996,
+      "defense_ready": false,
+      "violations_count": 1,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "2b66090d95fe4f4319eeb934b3a463edb35447d14b57b40e2d344e9fc14838df",
+      "critical_findings": [
+        {
+          "type": "functionality_theater",
+          "severity": "high",
+          "function": "module_import",
+          "line": 1,
+          "description": "Module failed to load for dynamic testing: No module named 'analyzer.enterprise.core.analyzer_integration'"
+        }
+      ]
+    },
+    "analyzer.enterprise.core.decorators": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 2,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "41e2c5d2a5d001e5a346d0440eec4fe25b82bc7ba11ebaee8150d1650f2436bd",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.core.feature_flags": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "0ae673442fb432859b77d00e1b4b3f745ef4667662f190ae3f8545f4c30ae9d0",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.core.performance_monitor": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 2,
+      "validations_passed": 1,
+      "validations_failed": 1,
+      "forensic_hash": "5bec398f0fb3d7806792f7f9959813ddbf2cc9f51b01e3f94f79eae8aa03c392",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.detector.EnterpriseDetectorPool": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "1ead526f9bc6b7fb9d47d41bdd2a92fcd698f3895fb8326f97281aa565f0f496",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.detectors.dfars_detector": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "b4f60371eabbc91e3081df3480c29c842c440b2bb40246aa6a33beb1dc8c6d87",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.detectors.dfars_detector_simple": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "c64e1278f5ebd6d3fa80f2b48b7c24229ca71b4ce589e63181a00a1898dbc4fe",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.integration.EnterpriseIntegrationFramework": {
+      "theater_level": "high",
+      "compliance_score": 0.4727272727272728,
+      "defense_ready": false,
+      "violations_count": 11,
+      "validations_passed": 0,
+      "validations_failed": 1,
+      "forensic_hash": "ee79258f6fd8e616d8db2cb503725a413023e75cc532114601ac4cba4c9fe201",
+      "critical_findings": [
+        {
+          "type": "functionality_theater",
+          "severity": "high",
+          "function": "module_import",
+          "line": 1,
+          "description": "Module failed to load for dynamic testing: name 'EnterpriseDetectorPool' is not defined"
+        }
+      ]
+    },
+    "analyzer.enterprise.performance.MLCacheOptimizer": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 8,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "c56942bf3dac671144bfcf421880e3a147d484bf8ce72d4767596a91a6262a7f",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.supply_chain.config_loader": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "bc42e95f2f805c268e78003c09b045e91fd380fff0bcc043ea11ea0f52bda462",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.supply_chain.crypto_signer": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 8,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "827d40e6629001aa3348ea56de3602e93401024c1d49e32cfacbe61d00a296b8",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.supply_chain.evidence_packager": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 2,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "3db4b64e689535c96a53644bbdb2405b97f720fff809db43c504dbe591f082d7",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.supply_chain.integration": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "0dbcedce7842e1ebd15da1a6022591615ab2c2e5dc560c90395d217e7b305512",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.supply_chain.sbom_generator": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "4056148b853491d31a44bde79c92c05f53c13590a642d81b8c5ab66a44264780",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.supply_chain.slsa_provenance": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "0f69c20be5f1b9febac007adf388d1c0a8c79d8deb403279e54d0b54c4788a00",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.supply_chain.supply_chain_analyzer": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "be3f4630b88911ec9d88ae865576ea26689fef5eedbe7808b661c1dfdd4db754",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.supply_chain.vulnerability_scanner": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 8,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "cefd30220b01e2dc028efba053964f4bb97e67524013fdfd2ce1d065207423a3",
+      "critical_findings": []
+    },
+    "analyzer.enterprise.validation.EnterprisePerformanceValidator": {
+      "theater_level": "high",
+      "compliance_score": 0.4,
+      "defense_ready": false,
+      "violations_count": 3,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "5ff68ab1cb201ba311af89dacbd84c39e59065607cee197f2fece7e45b5664eb",
+      "critical_findings": [
+        {
+          "type": "functionality_theater",
+          "severity": "high",
+          "function": "module_import",
+          "line": 1,
+          "description": "Module failed to load for dynamic testing: name 'EnterpriseDetectorPool' is not defined"
+        }
+      ]
+    },
+    "src.security.audit_trail_manager": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "c20d147f3a9bec94dff2e0caf00c4970934a978de3eb81094fb1b6b2261da5ff",
+      "critical_findings": []
+    },
+    "src.security.cdi_protection_framework": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 14,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "2a942d46e83e53876abd62cc5df3fb1c6719bbc3bd52a96e34d3c6237ca136dc",
+      "critical_findings": []
+    },
+    "src.security.configuration_management_system": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 2,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "89db650670f699f30b638163edc92134e27d0920e9a00572168032a4270198d6",
+      "critical_findings": []
+    },
+    "src.security.continuous_risk_assessment": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "e22c5ae6617648d422470b7330a73516035c8453a16d46e02f95a33b5e11cf08",
+      "critical_findings": []
+    },
+    "src.security.continuous_theater_monitor": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 6,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "1f10d41796fb7ca7c7bcae74b9ef6c6e15ede52f8bbd49d00ae103ea37117954",
+      "critical_findings": []
+    },
+    "src.security.defense_industry_evidence_generator": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "3f7c64fb479d0e7564049ce653d03ff0d01ddb53d7cc75b9f6bfe3d890008c81",
+      "critical_findings": []
+    },
+    "src.security.dfars_compliance_certification": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 1,
+      "forensic_hash": "a43e5ff6f7a677942a3478f55d3ed0ab423bb881a7acca07eab5c5c422e7279f",
+      "critical_findings": []
+    },
+    "src.security.dfars_compliance_engine": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 4,
+      "validations_passed": 0,
+      "validations_failed": 1,
+      "forensic_hash": "4ce547183f5f5a24b304521b0137265d89eb8c599cc92187eb497382c7f707b0",
+      "critical_findings": []
+    },
+    "src.security.enhanced_audit_trail_manager": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 4,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "afdaa3ca5680fb3c301caab0b4f36907ab3e08fd47b5907db466be5d351c5b6b",
+      "critical_findings": []
+    },
+    "src.security.enterprise_theater_detection": {
+      "theater_level": "critical",
+      "compliance_score": 0.22857142857142865,
+      "defense_ready": false,
+      "violations_count": 21,
+      "validations_passed": 0,
+      "validations_failed": 2,
+      "forensic_hash": "dbb62acffb5a46f9ddf3c4d18f3756eef434c0d8713576ff337e8dc4c3967195",
+      "critical_findings": [
+        {
+          "type": "performance_theater",
+          "severity": "high",
+          "function": "_load_theater_patterns",
+          "line": 117,
+          "description": "Theater pattern detected: # TODO.*performance"
+        },
+        {
+          "type": "performance_theater",
+          "severity": "critical",
+          "function": "_load_theater_patterns",
+          "line": 118,
+          "description": "Theater pattern detected: # FAKE.*implementation"
+        },
+        {
+          "type": "performance_theater",
+          "severity": "critical",
+          "function": "_load_theater_patterns",
+          "line": 122,
+          "description": "Theater pattern detected: fake.*metrics"
+        },
+        {
+          "type": "performance_theater",
+          "severity": "critical",
+          "function": "_load_theater_patterns",
+          "line": 123,
+          "description": "Theater pattern detected: dummy.*measurement"
+        },
+        {
+          "type": "compliance_theater",
+          "severity": "critical",
+          "function": "_load_theater_patterns",
+          "line": 126,
+          "description": "Theater pattern detected: # MOCK.*compliance"
+        },
+        {
+          "type": "compliance_theater",
+          "severity": "high",
+          "function": "_load_theater_patterns",
+          "line": 128,
+          "description": "Theater pattern detected: # TODO.*audit"
+        },
+        {
+          "type": "compliance_theater",
+          "severity": "critical",
+          "function": "_load_theater_patterns",
+          "line": 129,
+          "description": "Theater pattern detected: fake.*evidence"
+        },
+        {
+          "type": "compliance_theater",
+          "severity": "critical",
+          "function": "_load_theater_patterns",
+          "line": 130,
+          "description": "Theater pattern detected: dummy.*control"
+        },
+        {
+          "type": "security_theater",
+          "severity": "high",
+          "function": "unknown_function",
+          "line": 134,
+          "description": "Theater pattern detected: # TODO.*crypto"
+        },
+        {
+          "type": "security_theater",
+          "severity": "critical",
+          "function": "unknown_function",
+          "line": 137,
+          "description": "Theater pattern detected: fake.*validation"
+        },
+        {
+          "type": "security_theater",
+          "severity": "critical",
+          "function": "unknown_function",
+          "line": 138,
+          "description": "Theater pattern detected: dummy.*check"
+        },
+        {
+          "type": "security_theater",
+          "severity": "critical",
+          "function": "unknown_function",
+          "line": 139,
+          "description": "Theater pattern detected: mock.*authentication"
+        },
+        {
+          "type": "functionality_theater",
+          "severity": "high",
+          "function": "unknown_function",
+          "line": 145,
+          "description": "Theater pattern detected: # STUB.*implementation"
+        }
+      ]
+    },
+    "src.security.fips_crypto_module": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "7eacca5921df3037dd53efc46ca83aa306f11ed71e548ba9dfc6ba3fff0b3c75",
+      "critical_findings": []
+    },
+    "src.security.incident_response_system": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "4bc9129a1917c32aa7854edb28ce822dc0d10b74d449894b5fb6fe9e9a4d4bc3",
+      "critical_findings": []
+    },
+    "src.security.path_validator": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 6,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "22e9ca6c7cc9008399c3b3a5a6c0901a4d69019975a39bc86d930b804a6e2812",
+      "critical_findings": []
+    },
+    "src.security.real_security_scanner": {
+      "theater_level": "medium",
+      "compliance_score": 0.5,
+      "defense_ready": false,
+      "violations_count": 4,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "43a5d8744406bf002a8015a4b7825b1b29560306b7cfcddcf6c3e612e16f1264",
+      "critical_findings": []
+    },
+    "src.security.tls_manager": {
+      "theater_level": "none",
+      "compliance_score": 1.0,
+      "defense_ready": true,
+      "violations_count": 0,
+      "validations_passed": 0,
+      "validations_failed": 0,
+      "forensic_hash": "0350d2c23d2f938d3ee9f9bfaeb4ad202804763ac9b6d3a67a511e9832cb92dc",
+      "critical_findings": []
+    }
+  },
+  "validation_summary": {
+    "total_validations": 25,
+    "passed_validations": 12,
+    "failed_validations": 13
+  },
+  "defense_industry_certification": {
+    "zero_tolerance_met": false,
+    "performance_claims_verified": false,
+    "mathematical_accuracy_verified": true,
+    "security_controls_genuine": true
+  }
+}

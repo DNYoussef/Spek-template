@@ -1,0 +1,113 @@
+{
+  "timestamp": "2025-09-11T12:29:55.262134",
+  "analysis_type": "unknown",
+  "quality_gates": {
+    "overall_gate_passed": false,
+    "critical_gates": {
+      "passed": false,
+      "status": "FAIL"
+    },
+    "quality_gates": {
+      "passed": true,
+      "status": "PASS"
+    }
+  },
+  "metrics": {
+    "nasa_compliance_score": 0.85,
+    "god_objects_count": 0,
+    "critical_violations": 0,
+    "total_violations": 0,
+    "mece_score": 0.85,
+    "overall_quality_score": 0.75,
+    "architecture_health": 0.85,
+    "maintainability_index": 75
+  },
+  "summary": {
+    "overall_status": "PASS",
+    "recommendations": []
+  },
+  "original_structure": {
+    "test_name": "JSON Schema Validation",
+    "timestamp": "2025-09-10T22:40:21",
+    "total_files": 59,
+    "valid_files": 59,
+    "invalid_files": 0,
+    "schema_issues": [],
+    "policy_consistency": {
+      "status": "consistent",
+      "issues": []
+    },
+    "violation_consistency": {
+      "status": "inconsistent",
+      "issues": [
+        {
+          "file": "quality_test.json",
+          "expected_fields": {
+            "type": "str",
+            "severity": "str",
+            "file": "str",
+            "line": "int",
+            "description": "str"
+          },
+          "actual_fields": {
+            "analysis_mode": "str",
+            "description": "str",
+            "file_path": "str",
+            "id": "str",
+            "line_number": "int",
+            "rule_id": "str",
+            "severity": "str",
+            "type": "str",
+            "weight": "float"
+          },
+          "issue": "violation_schema_mismatch"
+        },
+        {
+          "file": "test_analysis.json",
+          "expected_fields": {
+            "type": "str",
+            "severity": "str",
+            "file": "str",
+            "line": "int",
+            "description": "str"
+          },
+          "actual_fields": {
+            "analysis_mode": "str",
+            "description": "str",
+            "file_path": "str",
+            "id": "str",
+            "line_number": "int",
+            "rule_id": "str",
+            "severity": "str",
+            "type": "str",
+            "weight": "float"
+          },
+          "issue": "violation_schema_mismatch"
+        },
+        {
+          "file": "validation_report.json",
+          "expected_fields": {
+            "type": "str",
+            "severity": "str",
+            "file": "str",
+            "line": "int",
+            "description": "str"
+          },
+          "actual_fields": {
+            "workflows": "dict",
+            "analyzer_imports": "dict",
+            "quality_gates": "dict",
+            "artifacts": "dict",
+            "quality_thresholds": "dict"
+          },
+          "issue": "violation_schema_mismatch"
+        }
+      ]
+    },
+    "performance": {
+      "load_time": 0.011967897415161133,
+      "validation_time": 0.011967897415161133
+    },
+    "status": "PASSED_WITH_WARNINGS"
+  }
+}

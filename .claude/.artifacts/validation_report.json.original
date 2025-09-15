@@ -1,0 +1,262 @@
+{
+  "timestamp": "2025-09-10T20:58:35.583758",
+  "working_directory": "C:\\Users\\17175\\Desktop\\spek template",
+  "total_checks": 5,
+  "passed_checks": 3,
+  "overall_status": "partial",
+  "results": {
+    "workflows": {
+      "architecture-analysis": {
+        "file_path": ".github\\workflows\\architecture-analysis.yml",
+        "syntax_valid": true,
+        "syntax_message": "Valid YAML syntax",
+        "python_scripts": {
+          "total_python_blocks": 0,
+          "multi_line_blocks": 0,
+          "single_line_blocks": 0,
+          "properly_formatted": true
+        }
+      },
+      "auto-repair": {
+        "file_path": ".github\\workflows\\auto-repair.yml",
+        "syntax_valid": false,
+        "syntax_message": "Error reading file: 'charmap' codec can't decode byte 0x8d in position 1099: character maps to <undefined>",
+        "python_scripts": {
+          "error": "'charmap' codec can't decode byte 0x8d in position 1099: character maps to <undefined>"
+        }
+      },
+      "cache-optimization": {
+        "file_path": ".github\\workflows\\cache-optimization.yml",
+        "syntax_valid": false,
+        "syntax_message": "Error reading file: 'charmap' codec can't decode byte 0x9d in position 4006: character maps to <undefined>",
+        "python_scripts": {
+          "error": "'charmap' codec can't decode byte 0x9d in position 4006: character maps to <undefined>"
+        }
+      },
+      "codeql-analysis": {
+        "file_path": ".github\\workflows\\codeql-analysis.yml",
+        "syntax_valid": false,
+        "syntax_message": "Error reading file: 'charmap' codec can't decode byte 0x8f in position 1593: character maps to <undefined>",
+        "python_scripts": {
+          "error": "'charmap' codec can't decode byte 0x8f in position 1593: character maps to <undefined>"
+        }
+      },
+      "connascence-analysis": {
+        "file_path": ".github\\workflows\\connascence-analysis.yml",
+        "syntax_valid": false,
+        "syntax_message": "YAML syntax error: while scanning a simple key\n  in \".github\\workflows\\connascence-analysis.yml\", line 135, column 1\ncould not find expected ':'\n  in \".github\\workflows\\connascence-analysis.yml\", line 136, column 5",
+        "python_scripts": {
+          "total_python_blocks": 8,
+          "multi_line_blocks": 8,
+          "single_line_blocks": 0,
+          "properly_formatted": false
+        }
+      },
+      "connascence-core-analysis": {
+        "file_path": ".github\\workflows\\connascence-core-analysis.yml",
+        "syntax_valid": false,
+        "syntax_message": "Error reading file: 'charmap' codec can't decode byte 0x8d in position 1179: character maps to <undefined>",
+        "python_scripts": {
+          "error": "'charmap' codec can't decode byte 0x8d in position 1179: character maps to <undefined>"
+        }
+      },
+      "enhanced-quality-gates": {
+        "file_path": ".github\\workflows\\enhanced-quality-gates.yml",
+        "syntax_valid": false,
+        "syntax_message": "Error reading file: 'charmap' codec can't decode byte 0x8f in position 4216: character maps to <undefined>",
+        "python_scripts": {
+          "error": "'charmap' codec can't decode byte 0x8f in position 36984: character maps to <undefined>"
+        }
+      },
+      "mece-duplication-analysis": {
+        "file_path": ".github\\workflows\\mece-duplication-analysis.yml",
+        "syntax_valid": true,
+        "syntax_message": "Valid YAML syntax",
+        "python_scripts": {
+          "total_python_blocks": 4,
+          "multi_line_blocks": 4,
+          "single_line_blocks": 0,
+          "properly_formatted": false
+        }
+      },
+      "monitoring-dashboard": {
+        "file_path": ".github\\workflows\\monitoring-dashboard.yml",
+        "syntax_valid": true,
+        "syntax_message": "Valid YAML syntax",
+        "python_scripts": {
+          "total_python_blocks": 3,
+          "multi_line_blocks": 3,
+          "single_line_blocks": 0,
+          "properly_formatted": false
+        }
+      },
+      "nasa-compliance-check": {
+        "file_path": ".github\\workflows\\nasa-compliance-check.yml",
+        "syntax_valid": false,
+        "syntax_message": "Error reading file: 'charmap' codec can't decode byte 0x8f in position 980: character maps to <undefined>",
+        "python_scripts": {
+          "error": "'charmap' codec can't decode byte 0x8f in position 980: character maps to <undefined>"
+        }
+      },
+      "performance-monitoring": {
+        "file_path": ".github\\workflows\\performance-monitoring.yml",
+        "syntax_valid": true,
+        "syntax_message": "Valid YAML syntax",
+        "python_scripts": {
+          "total_python_blocks": 3,
+          "multi_line_blocks": 3,
+          "single_line_blocks": 0,
+          "properly_formatted": false
+        }
+      },
+      "quality-gate-enforcer": {
+        "file_path": ".github\\workflows\\quality-gate-enforcer.yml",
+        "syntax_valid": true,
+        "syntax_message": "Valid YAML syntax",
+        "python_scripts": {
+          "total_python_blocks": 3,
+          "multi_line_blocks": 3,
+          "single_line_blocks": 0,
+          "properly_formatted": false
+        }
+      },
+      "quality-gates": {
+        "file_path": ".github\\workflows\\quality-gates.yml",
+        "syntax_valid": true,
+        "syntax_message": "Valid YAML syntax",
+        "python_scripts": {
+          "total_python_blocks": 0,
+          "multi_line_blocks": 0,
+          "single_line_blocks": 0,
+          "properly_formatted": true
+        }
+      },
+      "quality-orchestrator-parallel": {
+        "file_path": ".github\\workflows\\quality-orchestrator-parallel.yml",
+        "syntax_valid": false,
+        "syntax_message": "Error reading file: 'charmap' codec can't decode byte 0x8f in position 2284: character maps to <undefined>",
+        "python_scripts": {
+          "error": "'charmap' codec can't decode byte 0x8f in position 2284: character maps to <undefined>"
+        }
+      },
+      "quality-orchestrator": {
+        "file_path": ".github\\workflows\\quality-orchestrator.yml",
+        "syntax_valid": true,
+        "syntax_message": "Valid YAML syntax",
+        "python_scripts": {
+          "total_python_blocks": 0,
+          "multi_line_blocks": 0,
+          "single_line_blocks": 0,
+          "properly_formatted": true
+        }
+      },
+      "rollback-automation": {
+        "file_path": ".github\\workflows\\rollback-automation.yml",
+        "syntax_valid": true,
+        "syntax_message": "Valid YAML syntax",
+        "python_scripts": {
+          "total_python_blocks": 4,
+          "multi_line_blocks": 4,
+          "single_line_blocks": 0,
+          "properly_formatted": false
+        }
+      },
+      "security-pipeline": {
+        "file_path": ".github\\workflows\\security-pipeline.yml",
+        "syntax_valid": true,
+        "syntax_message": "Valid YAML syntax",
+        "python_scripts": {
+          "total_python_blocks": 0,
+          "multi_line_blocks": 0,
+          "single_line_blocks": 0,
+          "properly_formatted": true
+        }
+      },
+      "self-dogfooding": {
+        "file_path": ".github\\workflows\\self-dogfooding.yml",
+        "syntax_valid": true,
+        "syntax_message": "Valid YAML syntax",
+        "python_scripts": {
+          "total_python_blocks": 5,
+          "multi_line_blocks": 5,
+          "single_line_blocks": 0,
+          "properly_formatted": false
+        }
+      },
+      "setup-branch-protection": {
+        "file_path": ".github\\workflows\\setup-branch-protection.yml",
+        "syntax_valid": false,
+        "syntax_message": "Error reading file: 'charmap' codec can't decode byte 0x9d in position 4422: character maps to <undefined>",
+        "python_scripts": {
+          "error": "'charmap' codec can't decode byte 0x9d in position 4422: character maps to <undefined>"
+        }
+      },
+      "validate-artifacts": {
+        "file_path": ".github\\workflows\\validate-artifacts.yml",
+        "syntax_valid": false,
+        "syntax_message": "Error reading file: 'charmap' codec can't decode byte 0x9d in position 2517: character maps to <undefined>",
+        "python_scripts": {
+          "error": "'charmap' codec can't decode byte 0x9d in position 2517: character maps to <undefined>"
+        }
+      },
+      "vscode-extension-ci": {
+        "file_path": ".github\\workflows\\vscode-extension-ci.yml",
+        "syntax_valid": false,
+        "syntax_message": "Error reading file: 'charmap' codec can't decode byte 0x8f in position 1135: character maps to <undefined>",
+        "python_scripts": {
+          "error": "'charmap' codec can't decode byte 0x8f in position 1135: character maps to <undefined>"
+        }
+      }
+    },
+    "analyzer_imports": {
+      "ConnascenceAnalyzer": {
+        "status": "available",
+        "module": "analyzer.connascence_analyzer"
+      },
+      "ArchitectureOrchestrator": {
+        "status": "invalid",
+        "error": "module 'analyzer.architecture.orchestrator' has no attribute 'ArchitectureOrchestrator'"
+      },
+      "StreamingPerformanceMonitor": {
+        "status": "missing",
+        "error": "No module named 'analyzer.optimization.performance_monitor'"
+      },
+      "FileContentCache": {
+        "status": "available",
+        "module": "analyzer.optimization.file_cache"
+      },
+      "MECEAnalyzer": {
+        "status": "available",
+        "module": "analyzer.dup_detection.mece_analyzer"
+      }
+    },
+    "quality_gates": {
+      "status": "available",
+      "file_size": 8681,
+      "required_functions": 5,
+      "missing_functions": [],
+      "functional": true
+    },
+    "artifacts": {
+      "exists": true,
+      "writable": true,
+      "subdirs": [
+        "agents_backup",
+        "analyzer_improvement",
+        "baselines",
+        "budgets",
+        "final-validation",
+        "mcp-diagnostics",
+        "nasa-compliance",
+        "reality_validation",
+        "security",
+        "swarm-coordination",
+        "theater-detection"
+      ]
+    },
+    "quality_thresholds": {
+      "status": "not_configured",
+      "message": "QUALITY_THRESHOLDS not found in analyzer module"
+    }
+  }
+}

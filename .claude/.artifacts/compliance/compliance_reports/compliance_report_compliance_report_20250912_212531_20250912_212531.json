@@ -1,0 +1,154 @@
+{
+  "executive_summary": {
+    "assessment_date": "2025-09-12",
+    "reporting_period": "Current State Assessment",
+    "organization_name": "Development Organization",
+    "frameworks_assessed": 3,
+    "overall_compliance_score": 50.27,
+    "overall_compliance_level": "Inadequate",
+    "total_high_risk_gaps": 0,
+    "total_controls_assessed": 0,
+    "automation_percentage": 78.3,
+    "key_findings": [
+      {
+        "severity": "HIGH",
+        "description": "1 framework(s) below acceptable compliance threshold",
+        "frameworks": [
+          "SOC2"
+        ],
+        "impact": "Significant regulatory risk"
+      }
+    ],
+    "cross_framework_synergies": 7,
+    "common_gaps_identified": 3,
+    "executive_recommendations": [
+      {
+        "priority": "CRITICAL",
+        "title": "Address fundamental compliance gaps",
+        "description": "Immediate action required for SOC2",
+        "timeline": "30-60 days",
+        "effort": "High",
+        "impact": "Risk mitigation"
+      },
+      {
+        "priority": "HIGH",
+        "title": "Implement cross-framework improvements",
+        "description": "7 synergy opportunities identified for efficient remediation",
+        "timeline": "60-90 days",
+        "effort": "Medium",
+        "impact": "Multiple framework improvement"
+      }
+    ]
+  },
+  "technical_assessment": {
+    "assessment_metadata": {
+      "generation_timestamp": "2025-09-12T21:25:31.653057",
+      "assessment_type": "automated_multi_framework",
+      "evidence_collection_automated": true
+    },
+    "framework_details": {
+      "SOC2": {
+        "compliance_score": 0,
+        "implementation_status": {
+          "implemented": 0,
+          "partially_implemented": 0,
+          "not_implemented": 0
+        },
+        "risk_distribution": {
+          "high": 0,
+          "medium": 0,
+          "low": 0
+        },
+        "automation_level": 85.0,
+        "last_assessment": "2025-09-12T21:25:31.619149",
+        "detailed_results": {
+          "status": "success",
+          "collection_timestamp": "2025-09-12T21:25:31.619149",
+          "trust_services_criteria": [
+            "Security",
+            "Availability"
+          ],
+          "controls_tested": 8,
+          "automated_evidence_pct": 85.0
+        }
+      },
+      "ISO27001": {
+        "compliance_score": 78.5,
+        "implementation_status": {
+          "implemented": 0,
+          "partially_implemented": 0,
+          "not_implemented": 0
+        },
+        "risk_distribution": {
+          "high": 0,
+          "medium": 0,
+          "low": 0
+        },
+        "automation_level": 70.0,
+        "last_assessment": "2025-09-12T21:25:31.619149",
+        "detailed_results": {
+          "status": "success",
+          "assessment_timestamp": "2025-09-12T21:25:31.619149",
+          "controls_assessed": 15,
+          "overall_compliance_score": 78.5
+        }
+      },
+      "NIST-SSDF": {
+        "compliance_score": 72.3,
+        "implementation_status": {
+          "implemented": 0,
+          "partially_implemented": 0,
+          "not_implemented": 0
+        },
+        "risk_distribution": {
+          "high": 0,
+          "medium": 0,
+          "low": 0
+        },
+        "automation_level": 80.0,
+        "last_assessment": "2025-09-12T21:25:31.619149",
+        "detailed_results": {
+          "status": "success",
+          "analysis_timestamp": "2025-09-12T21:25:31.619149",
+          "practices_assessed": 12,
+          "overall_compliance_score": 72.3,
+          "implementation_tier": {
+            "overall_implementation_tier": 2
+          }
+        }
+      }
+    },
+    "risk_assessment": {},
+    "automation_analysis": {},
+    "technical_recommendations": []
+  },
+  "gap_analysis": {
+    "summary": {
+      "total_gaps": 0,
+      "critical_gaps": 0,
+      "frameworks_with_critical_gaps": 0
+    },
+    "gap_categories": {},
+    "remediation_roadmap": {
+      "phases": [],
+      "total_duration_weeks": 0,
+      "total_gaps": 0
+    },
+    "effort_estimation": {}
+  },
+  "audit_package": {
+    "package_id": "compliance_report_20250912_212531",
+    "package_path": ".claude\\.artifacts\\compliance\\audit_packages\\compliance_report_20250912_212531",
+    "files_included": 7,
+    "package_files": [
+      "executive_summary.json",
+      "technical_assessment.json",
+      "framework_evidence/soc2_evidence.json",
+      "framework_evidence/iso27001_evidence.json",
+      "framework_evidence/nist-ssdf_evidence.json",
+      "cross_framework_mapping.json",
+      "package_metadata.json"
+    ],
+    "generation_timestamp": "2025-09-12T21:25:31.656050"
+  }
+}

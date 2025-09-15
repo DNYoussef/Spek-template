@@ -1,0 +1,163 @@
+{
+  "report_metadata": {
+    "timestamp": "2025-09-11T23:50:25.377482",
+    "execution_time_seconds": 11.13501763343811,
+    "validator_version": "1.0.0",
+    "config_file": "configs/security_gates.yaml"
+  },
+  "executive_summary": {
+    "overall_status": "PASS",
+    "total_findings": 0,
+    "critical_findings": 0,
+    "high_findings": 0,
+    "gates_passed": 7,
+    "gates_failed": 0,
+    "blocking_failures": 0
+  },
+  "tool_results": {
+    "bandit": {
+      "status": "success",
+      "findings_count": 0,
+      "execution_time": 0.0,
+      "findings_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "top_findings": []
+    },
+    "semgrep": {
+      "status": "success",
+      "findings_count": 0,
+      "execution_time": 0.0,
+      "findings_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "top_findings": []
+    },
+    "codeql": {
+      "status": "success",
+      "findings_count": 0,
+      "execution_time": 0.0,
+      "findings_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "top_findings": []
+    },
+    "npm_audit": {
+      "status": "success",
+      "findings_count": 0,
+      "execution_time": 0.005983829498291016,
+      "findings_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "top_findings": []
+    },
+    "safety": {
+      "status": "success",
+      "findings_count": 0,
+      "execution_time": 4.450548887252808,
+      "findings_by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "top_findings": []
+    }
+  },
+  "gate_validation": {
+    "gates_evaluated": 7,
+    "gates_passed": 7,
+    "gates_failed": 0,
+    "blocking_failures": 0,
+    "overall_status": "PASS",
+    "gate_results": {
+      "critical_vulnerabilities": {
+        "passed": true,
+        "threshold": 0,
+        "actual_count": 0,
+        "blocking": true,
+        "status": "PASS"
+      },
+      "high_vulnerabilities": {
+        "passed": true,
+        "threshold": 5,
+        "actual_count": 0,
+        "blocking": true,
+        "status": "PASS"
+      },
+      "medium_vulnerabilities": {
+        "passed": true,
+        "threshold": 20,
+        "actual_count": 0,
+        "blocking": false,
+        "status": "PASS"
+      },
+      "low_vulnerabilities": {
+        "passed": true,
+        "threshold": 50,
+        "actual_count": 0,
+        "blocking": false,
+        "status": "PASS"
+      },
+      "secrets": {
+        "passed": true,
+        "threshold": 0,
+        "actual_count": 0,
+        "blocking": true,
+        "status": "PASS"
+      },
+      "outdated_dependencies": {
+        "passed": true,
+        "threshold": 10,
+        "actual_count": 0,
+        "blocking": false,
+        "status": "PASS"
+      },
+      "license_violations": {
+        "passed": true,
+        "threshold": 0,
+        "actual_count": 0,
+        "blocking": true,
+        "status": "PASS"
+      }
+    },
+    "summary": {
+      "total_findings": 0,
+      "critical_findings": 0,
+      "high_findings": 0,
+      "medium_findings": 0,
+      "low_findings": 0,
+      "info_findings": 0
+    }
+  },
+  "compliance_status": {
+    "soc2_compliant": true,
+    "nist_compliant": true,
+    "production_ready": true
+  },
+  "recommendations": [
+    "Security posture is good - maintain current security practices"
+  ],
+  "next_steps": [
+    "1. Continue regular security monitoring",
+    "2. Update security tools and rules",
+    "3. Review and improve security processes"
+  ]
+}

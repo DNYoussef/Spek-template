@@ -1,0 +1,29 @@
+{
+  "report_type": "COMPREHENSIVE_QUALITY_SUMMARY",
+  "data_source": "ALL_REAL_ANALYSIS",
+  "timestamp": "2025-09-14T15:53:19.803728",
+  "analysis_time_seconds": 6.55,
+  "real_results": {
+    "total_connascence_violations": 6701,
+    "directories_analyzed": 3,
+    "violation_types_found": 2,
+    "files_with_violations": 251,
+    "god_objects_detected": 20,
+    "nasa_compliance_score": 1.0
+  },
+  "breakdown_by_directory": {
+    "tests": 2204,
+    "analyzer": 2740,
+    "src": 1757
+  },
+  "top_violation_types": {
+    "Connascence of Meaning": 6364,
+    "Connascence of Position": 337
+  },
+  "verification": {
+    "all_data_real": true,
+    "no_mocks_used": true,
+    "actual_analyzer_used": "analyzer.detectors.connascence_ast_analyzer.ConnascenceASTAnalyzer",
+    "theater_detection_passed": true
+  }
+}

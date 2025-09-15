@@ -1,0 +1,110 @@
+{
+  "report_metadata": {
+    "timestamp": "2025-09-11T13:27:41.702711",
+    "scan_duration_seconds": 65.84639930725098,
+    "scanner_version": "1.0.0",
+    "work_directory": "C:\\Users\\17175\\Desktop\\spek template"
+  },
+  "executive_summary": {
+    "overall_status": "PASS",
+    "total_findings": 0,
+    "critical_findings": 0,
+    "high_findings": 0,
+    "medium_findings": 0,
+    "low_findings": 0,
+    "gates_passed": 5,
+    "gates_failed": 0,
+    "blocking_failures": 0
+  },
+  "scan_results": {
+    "semgrep": {
+      "execution_time": 61.51005411148071,
+      "exit_code": 2,
+      "findings_count": 0,
+      "files_scanned": 1047,
+      "command_executed": "semgrep --config=p/owasp-top-ten --config=p/security-audit --config=p/secrets --sarif --output=C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\security\\semgrep_results.sarif --verbose C:\\Users\\17175\\Desktop\\spek template",
+      "sarif_file": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\security\\semgrep_results.sarif"
+    },
+    "bandit": {
+      "execution_time": 0.4069850444793701,
+      "exit_code": 2,
+      "findings_count": 0,
+      "files_scanned": 284,
+      "command_executed": "bandit -r C:\\Users\\17175\\Desktop\\spek template -f sarif -o C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\security\\bandit_results.sarif --confidence medium --severity low --exclude */node_modules/*,*/.git/*,*/venv/*,*/__pycache__/*",
+      "sarif_file": null
+    },
+    "safety": {
+      "execution_time": 3.9293601512908936,
+      "exit_code": 2,
+      "findings_count": 0,
+      "files_scanned": 1,
+      "command_executed": "safety check --json --output C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\security\\safety_results.json",
+      "sarif_file": null
+    }
+  },
+  "security_gates": {
+    "critical_vulnerabilities": {
+      "passed": true,
+      "threshold": 0,
+      "actual_count": 0,
+      "blocking": true,
+      "findings_count": 0
+    },
+    "high_vulnerabilities": {
+      "passed": true,
+      "threshold": 0,
+      "actual_count": 0,
+      "blocking": true,
+      "findings_count": 0
+    },
+    "medium_vulnerabilities": {
+      "passed": true,
+      "threshold": 10,
+      "actual_count": 0,
+      "blocking": false,
+      "findings_count": 0
+    },
+    "secrets_detected": {
+      "passed": true,
+      "threshold": 0,
+      "actual_count": 0,
+      "blocking": true,
+      "findings_count": 0
+    },
+    "outdated_critical_deps": {
+      "passed": true,
+      "threshold": 0,
+      "actual_count": 0,
+      "blocking": true,
+      "findings_count": 0
+    }
+  },
+  "findings_summary": {
+    "by_tool": {
+      "semgrep": 0,
+      "bandit": 0,
+      "safety": 0
+    },
+    "by_severity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    "top_findings": []
+  },
+  "compliance_status": {
+    "production_ready": true,
+    "zero_critical_policy": true,
+    "zero_high_policy": true
+  },
+  "recommendations": [
+    "Security scan completed successfully - maintain current security practices"
+  ],
+  "artifacts": {
+    "sarif_report": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\security\\consolidated_security_results.sarif",
+    "individual_reports": [
+      "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\security\\semgrep_results.sarif"
+    ]
+  }
+}

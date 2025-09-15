@@ -1,0 +1,537 @@
+{
+  "domain": "QV",
+  "timestamp": "2025-09-13T01:37:38.858Z",
+  "project": "SPEK Test Project",
+  "config": {
+    "domain": "QV",
+    "version": "1.0.0",
+    "performanceTarget": 1.1,
+    "nasaComplianceTarget": 95,
+    "artifactsPath": ".claude/.artifacts/quality_validation/",
+    "realTimeMonitoring": true,
+    "integrationMode": "enterprise"
+  },
+  "results": {
+    "validationId": "qv-1757727458859",
+    "timestamp": "2025-09-13T01:37:38.862Z",
+    "project": "SPEK Test Project",
+    "theaterDetection": {
+      "timestamp": "2025-09-13T01:37:38.860Z",
+      "domain": "all",
+      "patterns": [
+        {
+          "file": "src/test.js",
+          "theaterScore": 2.7,
+          "patterns": [
+            {
+              "type": "vanity-metrics",
+              "severity": "HIGH",
+              "confidence": 0.9,
+              "location": {
+                "line": 4
+              },
+              "description": "Code appears artificially complex to game metrics",
+              "recommendation": "Simplify logic and remove unnecessary complexity",
+              "estimatedEffort": "MEDIUM"
+            }
+          ]
+        }
+      ],
+      "severity": "LOW",
+      "recommendations": [
+        {}
+      ]
+    },
+    "realityValidation": {
+      "timestamp": "2025-09-13T01:37:38.860Z",
+      "totalClaims": 2,
+      "validatedClaims": 0,
+      "rejectedClaims": 2,
+      "confidenceScore": 0,
+      "evidenceGaps": [
+        "Missing performance metric: response_time",
+        "Missing performance metric: throughput",
+        "Missing performance metric: resource_usage",
+        "Missing test evidence for functionality claims",
+        "Missing documentation for functionality claims"
+      ],
+      "recommendations": [
+        {
+          "type": "EVIDENCE_GAPS",
+          "priority": "HIGH",
+          "description": "Address evidence gaps to improve claim validation",
+          "actions": [
+            "Collect evidence for: Missing performance metric: response_time",
+            "Collect evidence for: Missing performance metric: throughput",
+            "Collect evidence for: Missing performance metric: resource_usage",
+            "Collect evidence for: Missing test evidence for functionality claims",
+            "Collect evidence for: Missing documentation for functionality claims"
+          ]
+        }
+      ]
+    },
+    "qualityGates": {
+      "timestamp": "2025-09-13T01:37:38.860Z",
+      "project": "SPEK Test Project",
+      "totalGates": 7,
+      "passedGates": 7,
+      "violations": [],
+      "overallStatus": "PASSED"
+    },
+    "nasaCompliance": {
+      "timestamp": "2025-09-13T01:37:38.860Z",
+      "project": "SPEK Test Project",
+      "overallScore": 87.16666666666666,
+      "targetScore": 95,
+      "status": "NON_COMPLIANT",
+      "categories": {
+        "Code Standards": 66.66666666666666,
+        "Documentation": 70,
+        "Testing": 100,
+        "Security": 100,
+        "Maintainability": 100,
+        "Process Compliance": 100
+      },
+      "recommendations": [
+        {
+          "priority": "HIGH",
+          "category": "Code Standards",
+          "description": "Address 1 violations in Code Standards",
+          "actions": [
+            "Add try-catch blocks and proper error handling"
+          ]
+        },
+        {
+          "priority": "HIGH",
+          "category": "Documentation",
+          "description": "Address 2 violations in Documentation",
+          "actions": [
+            "Create API_DOCUMENTATION.md with comprehensive content",
+            "Create DEPLOYMENT_GUIDE.md with comprehensive content"
+          ]
+        }
+      ],
+      "criticalIssues": []
+    },
+    "dashboard": {
+      "timestamp": "2025-09-13T01:37:38.859Z",
+      "metrics": {
+        "theaterDetections": 2,
+        "realityValidations": 4,
+        "qualityGateViolations": 0,
+        "nasaComplianceScore": 87.16666666666666,
+        "performanceOverhead": 0
+      },
+      "performanceOverhead": 0.00011469500000000003,
+      "recentAlerts": [
+        {
+          "id": "alert-1757727458855-18scbnxgn",
+          "type": "COMPLIANCE_NASA_COMPLIANCE_BELOW_TARGET",
+          "timestamp": "2025-09-13T01:37:38.855Z",
+          "data": {
+            "currentScore": 93.25,
+            "targetScore": 95,
+            "criticalIssues": [],
+            "category": "compliance"
+          },
+          "severity": "MEDIUM",
+          "status": "ACTIVE",
+          "source": "Quality Validation System",
+          "context": {
+            "environment": "development",
+            "timestamp": "2025-09-13T01:37:38.855Z",
+            "source": "Quality Validation System",
+            "alertCount": 0
+          },
+          "notifications": {
+            "channels": [
+              "slack"
+            ],
+            "urgency": "normal",
+            "retryPolicy": {
+              "maxRetries": 2,
+              "backoffMs": 300000
+            }
+          },
+          "deliveryResults": [
+            {
+              "channel": "slack",
+              "status": "SUCCESS",
+              "timestamp": "2025-09-13T01:37:38.855Z"
+            }
+          ]
+        }
+      ],
+      "trends": {
+        "theaterDetectionTrend": "IMPROVING",
+        "realityValidationTrend": "STABLE",
+        "qualityGateTrend": "IMPROVING",
+        "complianceTrend": "STABLE"
+      },
+      "recommendations": [
+        {
+          "category": "Theater Detection",
+          "priority": "HIGH",
+          "recommendation": "Focus on reducing vanity metrics and over-engineering patterns"
+        },
+        {
+          "category": "Reality Validation",
+          "priority": "MEDIUM",
+          "recommendation": "Improve evidence correlation for validation claims"
+        }
+      ]
+    },
+    "performanceMetrics": {
+      "overheadPercentage": 0.00022798200000000003,
+      "totalOperations": 11,
+      "operationBreakdown": {
+        "reality-validation": {
+          "count": 2,
+          "averageDuration": 1.9799,
+          "totalDuration": 3.9598,
+          "minDuration": 1.9685,
+          "maxDuration": 1.9913,
+          "overhead": 0.8237037999999999
+        },
+        "theater-detection": {
+          "count": 2,
+          "averageDuration": 2.13725,
+          "totalDuration": 4.2745,
+          "minDuration": 2.1329,
+          "maxDuration": 2.1416,
+          "overhead": 0.8264185
+        },
+        "nasa-compliance": {
+          "count": 2,
+          "averageDuration": 2.02645,
+          "totalDuration": 4.0529,
+          "minDuration": 2.0116,
+          "maxDuration": 2.0413,
+          "overhead": 0.8168609
+        },
+        "quality-gates": {
+          "count": 2,
+          "averageDuration": 2.12705,
+          "totalDuration": 4.2541,
+          "minDuration": 2.0792,
+          "maxDuration": 2.1749,
+          "overhead": 0.8290621
+        },
+        "dashboard-generation": {
+          "count": 2,
+          "averageDuration": 3.12845,
+          "totalDuration": 6.2569,
+          "minDuration": 3.1137,
+          "maxDuration": 3.1432,
+          "overhead": 0.5853449
+        },
+        "comprehensive-validation": {
+          "count": 1,
+          "averageDuration": 4.3884,
+          "totalDuration": 4.3884,
+          "minDuration": 4.3884,
+          "maxDuration": 4.3884,
+          "overhead": 0.3018444
+        }
+      },
+      "performanceProfile": {
+        "mostExpensiveOperations": [
+          {
+            "operation": "dashboard-generation",
+            "totalTime": 6.2569,
+            "averageTime": 3.12845,
+            "count": 2
+          },
+          {
+            "operation": "comprehensive-validation",
+            "totalTime": 4.3884,
+            "averageTime": 4.3884,
+            "count": 1
+          },
+          {
+            "operation": "theater-detection",
+            "totalTime": 4.2745,
+            "averageTime": 2.13725,
+            "count": 2
+          },
+          {
+            "operation": "quality-gates",
+            "totalTime": 4.2541,
+            "averageTime": 2.12705,
+            "count": 2
+          },
+          {
+            "operation": "nasa-compliance",
+            "totalTime": 4.0529,
+            "averageTime": 2.02645,
+            "count": 2
+          }
+        ],
+        "memoryIntensiveOperations": [
+          {
+            "operation": "quality-gates",
+            "averageMemoryDelta": 412404,
+            "peakMemoryDelta": 622352,
+            "count": 2
+          },
+          {
+            "operation": "theater-detection",
+            "averageMemoryDelta": 411072,
+            "peakMemoryDelta": 628480,
+            "count": 2
+          },
+          {
+            "operation": "reality-validation",
+            "averageMemoryDelta": 409872,
+            "peakMemoryDelta": 634800,
+            "count": 2
+          },
+          {
+            "operation": "nasa-compliance",
+            "averageMemoryDelta": 406404,
+            "peakMemoryDelta": 629448,
+            "count": 2
+          },
+          {
+            "operation": "comprehensive-validation",
+            "averageMemoryDelta": 297456,
+            "peakMemoryDelta": 297456,
+            "count": 1
+          }
+        ],
+        "frequentOperations": [
+          {
+            "operation": "reality-validation",
+            "count": 2,
+            "averageTime": 1.9799,
+            "totalTime": 3.9598
+          },
+          {
+            "operation": "theater-detection",
+            "count": 2,
+            "averageTime": 2.13725,
+            "totalTime": 4.2745
+          },
+          {
+            "operation": "nasa-compliance",
+            "count": 2,
+            "averageTime": 2.02645,
+            "totalTime": 4.0529
+          },
+          {
+            "operation": "quality-gates",
+            "count": 2,
+            "averageTime": 2.12705,
+            "totalTime": 4.2541
+          },
+          {
+            "operation": "dashboard-generation",
+            "count": 2,
+            "averageTime": 3.12845,
+            "totalTime": 6.2569
+          }
+        ],
+        "systemResourceUsage": {
+          "currentMemory": 5239608,
+          "currentCpu": 109000,
+          "activeSessions": 1,
+          "trackingOverhead": {
+            "sessionsCount": 1,
+            "metricsCount": 11,
+            "memoryFootprint": 11264
+          }
+        }
+      },
+      "alerts": []
+    },
+    "overallStatus": "REQUIRES_ATTENTION"
+  },
+  "metrics": {
+    "theaterDetections": 2,
+    "realityValidations": 4,
+    "qualityGateViolations": 0,
+    "nasaComplianceScore": 87.16666666666666,
+    "performanceOverhead": 0
+  },
+  "performance": {
+    "overheadPercentage": 0.00011469500000000003,
+    "totalOperations": 6,
+    "operationBreakdown": {
+      "reality-validation": {
+        "count": 1,
+        "averageDuration": 1.9685,
+        "totalDuration": 1.9685,
+        "minDuration": 1.9685,
+        "maxDuration": 1.9685,
+        "overhead": 0.1869125
+      },
+      "theater-detection": {
+        "count": 1,
+        "averageDuration": 2.1416,
+        "totalDuration": 2.1416,
+        "minDuration": 2.1416,
+        "maxDuration": 2.1416,
+        "overhead": 0.1958056
+      },
+      "nasa-compliance": {
+        "count": 1,
+        "averageDuration": 2.0413,
+        "totalDuration": 2.0413,
+        "minDuration": 2.0413,
+        "maxDuration": 2.0413,
+        "overhead": 0.1854013
+      },
+      "quality-gates": {
+        "count": 1,
+        "averageDuration": 2.1749,
+        "totalDuration": 2.1749,
+        "minDuration": 2.1749,
+        "maxDuration": 2.1749,
+        "overhead": 0.2046309
+      },
+      "dashboard-generation": {
+        "count": 1,
+        "averageDuration": 3.1432,
+        "totalDuration": 3.1432,
+        "minDuration": 3.1432,
+        "maxDuration": 3.1432,
+        "overhead": 0.2186472
+      },
+      "comprehensive-validation": {
+        "count": 1,
+        "averageDuration": 4.3884,
+        "totalDuration": 4.3884,
+        "minDuration": 4.3884,
+        "maxDuration": 4.3884,
+        "overhead": 0.3018444
+      }
+    },
+    "performanceProfile": {
+      "mostExpensiveOperations": [
+        {
+          "operation": "comprehensive-validation",
+          "totalTime": 4.3884,
+          "averageTime": 4.3884,
+          "count": 1
+        },
+        {
+          "operation": "dashboard-generation",
+          "totalTime": 3.1432,
+          "averageTime": 3.1432,
+          "count": 1
+        },
+        {
+          "operation": "quality-gates",
+          "totalTime": 2.1749,
+          "averageTime": 2.1749,
+          "count": 1
+        },
+        {
+          "operation": "theater-detection",
+          "totalTime": 2.1416,
+          "averageTime": 2.1416,
+          "count": 1
+        },
+        {
+          "operation": "nasa-compliance",
+          "totalTime": 2.0413,
+          "averageTime": 2.0413,
+          "count": 1
+        }
+      ],
+      "memoryIntensiveOperations": [
+        {
+          "operation": "comprehensive-validation",
+          "averageMemoryDelta": 297456,
+          "peakMemoryDelta": 297456,
+          "count": 1
+        },
+        {
+          "operation": "dashboard-generation",
+          "averageMemoryDelta": 215504,
+          "peakMemoryDelta": 215504,
+          "count": 1
+        },
+        {
+          "operation": "quality-gates",
+          "averageMemoryDelta": 202456,
+          "peakMemoryDelta": 202456,
+          "count": 1
+        },
+        {
+          "operation": "theater-detection",
+          "averageMemoryDelta": 193664,
+          "peakMemoryDelta": 193664,
+          "count": 1
+        },
+        {
+          "operation": "reality-validation",
+          "averageMemoryDelta": 184944,
+          "peakMemoryDelta": 184944,
+          "count": 1
+        }
+      ],
+      "frequentOperations": [
+        {
+          "operation": "reality-validation",
+          "count": 1,
+          "averageTime": 1.9685,
+          "totalTime": 1.9685
+        },
+        {
+          "operation": "theater-detection",
+          "count": 1,
+          "averageTime": 2.1416,
+          "totalTime": 2.1416
+        },
+        {
+          "operation": "nasa-compliance",
+          "count": 1,
+          "averageTime": 2.0413,
+          "totalTime": 2.0413
+        },
+        {
+          "operation": "quality-gates",
+          "count": 1,
+          "averageTime": 2.1749,
+          "totalTime": 2.1749
+        },
+        {
+          "operation": "dashboard-generation",
+          "count": 1,
+          "averageTime": 3.1432,
+          "totalTime": 3.1432
+        }
+      ],
+      "systemResourceUsage": {
+        "currentMemory": 5531832,
+        "currentCpu": 109000,
+        "activeSessions": 0,
+        "trackingOverhead": {
+          "sessionsCount": 0,
+          "metricsCount": 6,
+          "memoryFootprint": 6144
+        }
+      }
+    },
+    "alerts": []
+  },
+  "health": {
+    "status": "healthy",
+    "timestamp": "2025-09-13T01:37:38.858Z",
+    "checks": {
+      "initialization": "PASS",
+      "performance": "PASS",
+      "artifactsDirectory": "PASS",
+      "components": {
+        "theaterDetector": "PASS",
+        "realityValidator": "PASS",
+        "qualityGates": "PASS",
+        "nasaMonitor": "PASS",
+        "dashboard": "PASS",
+        "alerting": "PASS"
+      }
+    },
+    "performanceOverhead": 0.00011469500000000003
+  }
+}

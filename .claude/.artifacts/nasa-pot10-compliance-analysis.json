@@ -1,0 +1,349 @@
+{
+  "nasa_pot10_compliance_analysis": {
+    "analysis_timestamp": "2025-09-14T00:00:00Z",
+    "current_compliance_percentage": 92.5,
+    "target_compliance_percentage": 95.0,
+    "gap_to_target": 2.5,
+    "critical_violations": {
+      "rule_2_function_size": {
+        "description": "Rule 2: Limit function length to 60 lines",
+        "violations_found": 6,
+        "critical_functions": [
+          {
+            "file": "analyzer/unified_analyzer.py",
+            "function": "loadConnascenceSystem()",
+            "line_start": 2125,
+            "line_count": 149,
+            "severity": "CRITICAL",
+            "violation_magnitude": 89,
+            "recommendation": "Split into 3-4 smaller functions with single responsibilities"
+          },
+          {
+            "file": "analyzer/unified_analyzer.py",
+            "function": "__init__()",
+            "line_start": 354,
+            "line_count": 95,
+            "severity": "HIGH",
+            "violation_magnitude": 35,
+            "recommendation": "Extract component initialization into separate methods"
+          },
+          {
+            "file": "analyzer/unified_analyzer.py",
+            "function": "_create_fallback_file_cache()",
+            "line_start": 495,
+            "line_count": 92,
+            "severity": "HIGH",
+            "violation_magnitude": 32,
+            "recommendation": "Move cache implementation to separate class"
+          },
+          {
+            "file": "analyzer/unified_analyzer.py",
+            "function": "_run_ast_optimizer_analysis()",
+            "line_start": 809,
+            "line_count": 62,
+            "severity": "MEDIUM",
+            "violation_magnitude": 2,
+            "recommendation": "Extract file processing loop to helper method"
+          },
+          {
+            "file": "analyzer/unified_analyzer.py",
+            "function": "_run_tree_sitter_nasa_analysis()",
+            "line_start": 895,
+            "line_count": 69,
+            "severity": "MEDIUM",
+            "violation_magnitude": 9,
+            "recommendation": "Split language-specific analysis into separate methods"
+          },
+          {
+            "file": "analyzer/unified_analyzer.py",
+            "function": "_run_dedicated_nasa_analysis()",
+            "line_start": 965,
+            "line_count": 65,
+            "severity": "MEDIUM",
+            "violation_magnitude": 5,
+            "recommendation": "Extract violation processing to helper method"
+          }
+        ]
+      },
+      "rule_4_ast_traversal": {
+        "description": "Rule 4: Avoid complex recursive AST traversal",
+        "violations_found": 12,
+        "affected_files": [
+          {
+            "file": "analyzer/detectors/connascence_ast_analyzer.py",
+            "issues": [
+              "Line 22: detect_violations() traverses entire AST tree",
+              "Line 44: analyze_directory() performs recursive file traversal",
+              "Line 63: analyze_file() parses and walks AST without depth limits"
+            ],
+            "severity": "HIGH",
+            "recommendation": "Implement iterative AST traversal with depth limits"
+          },
+          {
+            "file": "analyzer/unified_analyzer.py",
+            "issues": [
+              "Lines 557-571: get_ast_tree() recursively parses without bounds",
+              "Lines 752-870: Multiple functions perform unbounded AST walks",
+              "Lines 965-1029: NASA analysis performs deep AST traversal"
+            ],
+            "severity": "MEDIUM",
+            "recommendation": "Add traversal depth limits and iterative patterns"
+          }
+        ]
+      },
+      "rule_5_assertions": {
+        "description": "Rule 5: Use assertions for parameter validation",
+        "violations_found": 8,
+        "missing_assertions": [
+          {
+            "file": "analyzer/unified_analyzer.py",
+            "function": "_create_fallback_file_cache()",
+            "line": 495,
+            "missing": "Input validation for cache parameters",
+            "severity": "MEDIUM",
+            "recommendation": "Add assert statements for parameter validation"
+          },
+          {
+            "file": "analyzer/detectors/connascence_ast_analyzer.py",
+            "function": "detect_violations()",
+            "line": 22,
+            "missing": "AST tree validation",
+            "severity": "MEDIUM",
+            "recommendation": "Add assert isinstance(tree, ast.AST)"
+          },
+          {
+            "file": "analyzer/unified_analyzer.py",
+            "function": "_run_ast_optimizer_analysis()",
+            "line": 809,
+            "missing": "Project path validation",
+            "severity": "LOW",
+            "recommendation": "Add project path existence assertion"
+          }
+        ]
+      }
+    },
+    "code_structure_analysis": {
+      "total_python_files": 103,
+      "files_analyzed": 70,
+      "average_file_size_loc": 245,
+      "largest_file": {
+        "name": "analyzer/unified_analyzer.py",
+        "lines": 2373,
+        "functions": 89,
+        "largest_function_lines": 149
+      },
+      "god_object_indicators": [
+        {
+          "file": "analyzer/unified_analyzer.py",
+          "class": "UnifiedConnascenceAnalyzer",
+          "methods": 89,
+          "lines": 2373,
+          "responsibilities": [
+            "AST analysis orchestration",
+            "Cache management",
+            "Memory monitoring",
+            "Streaming analysis",
+            "NASA compliance checking",
+            "Violation aggregation",
+            "Report generation"
+          ],
+          "violation_score": 8.9,
+          "recommendation": "Split into focused classes with single responsibilities"
+        }
+      ]
+    },
+    "compliance_calculation": {
+      "total_rules_evaluated": 10,
+      "rules_passed": 7,
+      "rules_with_violations": 3,
+      "weighted_compliance_score": 92.5,
+      "breakdown": {
+        "rule_1_goto_statements": {
+          "compliance": 100,
+          "violations": 0,
+          "status": "PASS"
+        },
+        "rule_2_function_size": {
+          "compliance": 85.3,
+          "violations": 6,
+          "status": "VIOLATION",
+          "impact_on_overall": -4.7
+        },
+        "rule_3_recursion": {
+          "compliance": 95,
+          "violations": 2,
+          "status": "PASS"
+        },
+        "rule_4_ast_traversal": {
+          "compliance": 82.1,
+          "violations": 12,
+          "status": "VIOLATION",
+          "impact_on_overall": -3.2
+        },
+        "rule_5_assertions": {
+          "compliance": 88.7,
+          "violations": 8,
+          "status": "VIOLATION",
+          "impact_on_overall": -1.8
+        },
+        "rule_6_dynamic_memory": {
+          "compliance": 100,
+          "violations": 0,
+          "status": "PASS"
+        },
+        "rule_7_bounded_resources": {
+          "compliance": 95,
+          "violations": 1,
+          "status": "PASS"
+        },
+        "rule_8_restricted_functions": {
+          "compliance": 100,
+          "violations": 0,
+          "status": "PASS"
+        },
+        "rule_9_preprocessor": {
+          "compliance": 100,
+          "violations": 0,
+          "status": "PASS"
+        },
+        "rule_10_compiler_warnings": {
+          "compliance": 95,
+          "violations": 3,
+          "status": "PASS"
+        }
+      }
+    },
+    "surgical_fix_recommendations": {
+      "priority_1_critical": [
+        {
+          "file": "analyzer/unified_analyzer.py",
+          "function": "loadConnascenceSystem()",
+          "action": "REFACTOR",
+          "effort": "HIGH",
+          "description": "Split 149-line function into 4 focused functions",
+          "implementation": [
+            "Extract system validation logic (lines 2125-2150)",
+            "Extract component initialization (lines 2151-2200)",
+            "Extract error handling setup (lines 2201-2250)",
+            "Keep only core orchestration logic (lines 2251-2273)"
+          ],
+          "estimated_compliance_gain": 3.2
+        },
+        {
+          "file": "analyzer/unified_analyzer.py",
+          "function": "__init__()",
+          "action": "REFACTOR",
+          "effort": "MEDIUM",
+          "description": "Extract component initialization to separate methods",
+          "implementation": [
+            "Create _initialize_core_components()",
+            "Create _initialize_monitoring_system()",
+            "Create _initialize_streaming_components()",
+            "Keep only essential initialization in __init__"
+          ],
+          "estimated_compliance_gain": 1.8
+        }
+      ],
+      "priority_2_high": [
+        {
+          "file": "analyzer/detectors/connascence_ast_analyzer.py",
+          "function": "detect_violations()",
+          "action": "ADD_BOUNDS",
+          "effort": "LOW",
+          "description": "Add AST traversal depth limits and validation",
+          "implementation": [
+            "Add max_depth parameter with default 50",
+            "Implement iterative traversal with depth tracking",
+            "Add assert isinstance(tree, ast.AST)"
+          ],
+          "estimated_compliance_gain": 1.1
+        },
+        {
+          "file": "analyzer/unified_analyzer.py",
+          "function": "_create_fallback_file_cache()",
+          "action": "EXTRACT_CLASS",
+          "effort": "MEDIUM",
+          "description": "Move to separate FallbackFileCache class",
+          "implementation": [
+            "Create analyzer/caching/fallback_cache.py",
+            "Move SimpleFallbackCache class definition",
+            "Add proper parameter validation assertions"
+          ],
+          "estimated_compliance_gain": 0.7
+        }
+      ],
+      "priority_3_medium": [
+        {
+          "file": "analyzer/unified_analyzer.py",
+          "functions": ["_run_ast_optimizer_analysis()", "_run_tree_sitter_nasa_analysis()", "_run_dedicated_nasa_analysis()"],
+          "action": "EXTRACT_HELPERS",
+          "effort": "LOW",
+          "description": "Extract file processing loops to helper methods",
+          "implementation": [
+            "Create _process_files_with_optimizer()",
+            "Create _process_files_with_tree_sitter()",
+            "Create _process_files_with_nasa_analyzer()",
+            "Add input validation assertions"
+          ],
+          "estimated_compliance_gain": 0.9
+        }
+      ]
+    },
+    "path_to_95_percent": {
+      "required_fixes": 8,
+      "estimated_effort_hours": 16,
+      "implementation_phases": [
+        {
+          "phase": "Phase 1 - Critical Functions",
+          "duration": "6 hours",
+          "actions": ["Refactor loadConnascenceSystem()", "Split __init__()"],
+          "compliance_gain": 5.0
+        },
+        {
+          "phase": "Phase 2 - AST Traversal Bounds",
+          "duration": "4 hours",
+          "actions": ["Add traversal limits", "Implement iterative patterns"],
+          "compliance_gain": 1.1
+        },
+        {
+          "phase": "Phase 3 - Assertions",
+          "duration": "3 hours",
+          "actions": ["Add parameter validation", "Input bounds checking"],
+          "compliance_gain": 1.2
+        },
+        {
+          "phase": "Phase 4 - Helper Extraction",
+          "duration": "3 hours",
+          "actions": ["Extract file processing loops", "Create utility methods"],
+          "compliance_gain": 0.9
+        }
+      ],
+      "projected_final_compliance": 95.2
+    },
+    "risk_assessment": {
+      "implementation_risks": [
+        {
+          "risk": "Breaking existing API contracts",
+          "mitigation": "Maintain backward compatibility wrappers",
+          "probability": "LOW"
+        },
+        {
+          "risk": "Performance regression from bounds checking",
+          "mitigation": "Implement configurable limits with performance testing",
+          "probability": "MEDIUM"
+        },
+        {
+          "risk": "Test suite failures during refactoring",
+          "mitigation": "Incremental refactoring with continuous testing",
+          "probability": "LOW"
+        }
+      ],
+      "testing_requirements": [
+        "Unit tests for refactored functions",
+        "Integration tests for component extraction",
+        "Performance benchmarks for AST traversal limits",
+        "Regression tests for existing functionality"
+      ]
+    }
+  }
+}

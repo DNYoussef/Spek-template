@@ -1,0 +1,306 @@
+{
+  "duplication_analysis": {
+    "available": false,
+    "score": 1.0,
+    "violations": []
+  },
+  "god_objects": [],
+  "mece_analysis": {
+    "duplications": [
+      {
+        "block_count": 3,
+        "blocks": [
+          {
+            "end_line": 53,
+            "file_path": "src\\adapters\\bandit_adapter.py",
+            "lines": [
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53
+            ],
+            "start_line": 40
+          },
+          {
+            "end_line": 49,
+            "file_path": "src\\adapters\\flake8_adapter.py",
+            "lines": [
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49
+            ],
+            "start_line": 36
+          },
+          {
+            "end_line": 55,
+            "file_path": "src\\adapters\\mypy_adapter.py",
+            "lines": [
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55
+            ],
+            "start_line": 42
+          }
+        ],
+        "description": "Found 3 similar code blocks with 90.4% average similarity",
+        "files_involved": [
+          "src\\adapters\\flake8_adapter.py",
+          "src\\adapters\\mypy_adapter.py",
+          "src\\adapters\\bandit_adapter.py"
+        ],
+        "id": "cluster_1",
+        "similarity_score": 0.904
+      },
+      {
+        "block_count": 4,
+        "blocks": [
+          {
+            "end_line": 78,
+            "file_path": "src\\linter-integration\\mesh-coordinator.py",
+            "lines": [
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78
+            ],
+            "start_line": 69
+          },
+          {
+            "end_line": 460,
+            "file_path": "src\\linter-integration\\agents\\backend_dev_node.py",
+            "lines": [
+              451,
+              452,
+              453,
+              454,
+              455,
+              456,
+              457,
+              458,
+              459,
+              460
+            ],
+            "start_line": 451
+          },
+          {
+            "end_line": 49,
+            "file_path": "src\\linter-integration\\agents\\system_architect_node.py",
+            "lines": [
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49
+            ],
+            "start_line": 40
+          },
+          {
+            "end_line": 55,
+            "file_path": "src\\linter-integration\\pipeline\\tool_orchestrator.py",
+            "lines": [
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55
+            ],
+            "start_line": 46
+          }
+        ],
+        "description": "Found 4 similar code blocks with 90.9% average similarity",
+        "files_involved": [
+          "src\\linter-integration\\mesh-coordinator.py",
+          "src\\linter-integration\\agents\\backend_dev_node.py",
+          "src\\linter-integration\\agents\\system_architect_node.py",
+          "src\\linter-integration\\pipeline\\tool_orchestrator.py"
+        ],
+        "id": "cluster_2",
+        "similarity_score": 0.909
+      }
+    ],
+    "passing": true,
+    "score": 1.0
+  },
+  "metrics": {
+    "analysis_time": 13.127,
+    "connascence_index": 60.0,
+    "files_analyzed": 0,
+    "timestamp": 1757877031.0333662
+  },
+  "nasa_compliance": {
+    "passing": true,
+    "score": 1.0,
+    "violations": []
+  },
+  "path": "src",
+  "policy": "lenient",
+  "quality_gates": {
+    "mece_passing": true,
+    "nasa_passing": true,
+    "overall_passing": true
+  },
+  "success": true,
+  "summary": {
+    "critical_violations": 0,
+    "overall_quality_score": 1.0,
+    "total_violations": 15
+  },
+  "violations": [
+    {
+      "description": "God Object detected: Class 'ByzantineConsensusCoordinator' has 18 methods (threshold: 15)",
+      "file_path": "src\\byzantium\\byzantine_coordinator.py",
+      "id": "god_object_ByzantineConsensusCoordinator_byzantine_coordinator",
+      "line_number": 109,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    },
+    {
+      "description": "God Object detected: Class 'DetectorPoolRaceDetector' has 23 methods (threshold: 15)",
+      "file_path": "src\\byzantium\\race_condition_detector.py",
+      "id": "god_object_DetectorPoolRaceDetector_race_condition_detector",
+      "line_number": 222,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    },
+    {
+      "description": "God Object detected: Class 'DFARSAuditTrailManager' has 16 methods (threshold: 15)",
+      "file_path": "src\\security\\audit_trail_manager.py",
+      "id": "god_object_DFARSAuditTrailManager_audit_trail_manager",
+      "line_number": 102,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    },
+    {
+      "description": "God Object detected: Class 'CDIProtectionFramework' has 26 methods (threshold: 15)",
+      "file_path": "src\\security\\cdi_protection_framework.py",
+      "id": "god_object_CDIProtectionFramework_cdi_protection_framework",
+      "line_number": 119,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    },
+    {
+      "description": "God Object detected: Class 'DFARSContinuousRiskAssessment' has 22 methods (threshold: 15)",
+      "file_path": "src\\security\\continuous_risk_assessment.py",
+      "id": "god_object_DFARSContinuousRiskAssessment_continuous_risk_assessment",
+      "line_number": 110,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    },
+    {
+      "description": "God Object detected: Class 'DFARSComplianceEngine' has 29 methods (threshold: 15)",
+      "file_path": "src\\security\\dfars_compliance_engine.py",
+      "id": "god_object_DFARSComplianceEngine_dfars_compliance_engine",
+      "line_number": 47,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    },
+    {
+      "description": "God Object detected: Class 'EnhancedDFARSAuditTrailManager' has 34 methods (threshold: 15)",
+      "file_path": "src\\security\\enhanced_audit_trail_manager.py",
+      "id": "god_object_EnhancedDFARSAuditTrailManager_enhanced_audit_trail_manager",
+      "line_number": 146,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    },
+    {
+      "description": "God Object detected: Class 'FIPSCryptoModule' has 16 methods (threshold: 15)",
+      "file_path": "src\\security\\fips_crypto_module.py",
+      "id": "god_object_FIPSCryptoModule_fips_crypto_module",
+      "line_number": 45,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    },
+    {
+      "description": "God Object detected: Class 'ContinuousTheaterMonitor' has 16 methods (threshold: 15)",
+      "file_path": "src\\theater-detection\\continuous-monitor.py",
+      "id": "god_object_ContinuousTheaterMonitor_continuous-monitor",
+      "line_number": 49,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    },
+    {
+      "description": "God Object detected: Class 'RealityValidationSystem' has 22 methods (threshold: 15)",
+      "file_path": "src\\theater-detection\\reality-validator.py",
+      "id": "god_object_RealityValidationSystem_reality-validator",
+      "line_number": 48,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    },
+    {
+      "description": "God Object detected: Class 'TheaterDetector' has 23 methods (threshold: 15)",
+      "file_path": "src\\theater-detection\\theater-detector.py",
+      "id": "god_object_TheaterDetector_theater-detector",
+      "line_number": 49,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    },
+    {
+      "description": "God Object detected: Class 'ComplianceMatrix' has 16 methods (threshold: 15)",
+      "file_path": "src\\enterprise\\compliance\\matrix.py",
+      "id": "god_object_ComplianceMatrix_matrix",
+      "line_number": 82,
+      "rule_id": "",
+      "severity": "high",
+      "type": ""
+    }
+  ]
+}

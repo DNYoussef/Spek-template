@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-09-10T19:35:00.000000",
+  "analysis_type": "sast-security",
+  "findings_summary": {
+    "critical": 0,
+    "high": 1,
+    "medium": 3,
+    "low": 5,
+    "total": 9
+  },
+  "quality_gate_status": {
+    "critical_passed": true,
+    "high_passed": true,
+    "overall_passed": true
+  }
+}

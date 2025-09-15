@@ -1,0 +1,198 @@
+{
+  "validation_start": "2025-09-14T10:14:33.897566",
+  "config": {
+    "max_concurrent_requests": 500,
+    "test_duration_seconds": 60,
+    "overhead_limit_percent": 1.2,
+    "target_throughput_rps": 100.0,
+    "memory_limit_mb": 2048,
+    "cpu_limit_percent": 80.0,
+    "success_rate_threshold": 0.99,
+    "response_time_sla_ms": 1200.0,
+    "run_concurrency_test": true,
+    "run_performance_test": true,
+    "run_memory_test": true,
+    "run_integration_test": true,
+    "run_compliance_test": true,
+    "run_ml_optimization_test": true,
+    "security_classification": "unclassified",
+    "compliance_frameworks": "{'FIPS-140-2', 'SOC2', 'ISO27001'}",
+    "forensic_validation": true,
+    "audit_trail_validation": true
+  },
+  "test_results": {
+    "concurrency": {
+      "test_name": "concurrency_validation",
+      "duration_ms": 13.636199990287423,
+      "memory_usage_mb": 27.79296875,
+      "cpu_usage_percent": 0.0,
+      "concurrent_requests": 500,
+      "successful_requests": 0,
+      "failed_requests": 500,
+      "success_rate": 0.0,
+      "average_response_time_ms": 0.0,
+      "p95_response_time_ms": 0.0,
+      "p99_response_time_ms": 0.0,
+      "throughput_rps": 36667.1066980634,
+      "overhead_percent": 0.0,
+      "quality_score": 0.0,
+      "meets_sla": false,
+      "errors": [
+        "Request d71d3d58-327e-4cd0-8eac-6fa1f62f4e70 failed: 'Request' object has no attribute 'detector_type'",
+        "Request f2f59dc8-5809-489f-b40d-7dea5f13824f failed: 'Request' object has no attribute 'detector_type'",
+        "Request e0ad6131-ac4c-4d85-9117-7a7bd4ac05bc failed: 'Request' object has no attribute 'detector_type'",
+        "Request 7c9e0710-43a1-4123-8f7d-6809d0f4099a failed: 'Request' object has no attribute 'detector_type'",
+        "Request 1f5f8c34-9952-4bef-8ad1-103b8ccefdc3 failed: 'Request' object has no attribute 'detector_type'",
+        "Request 1513c2e0-391c-4088-9e78-f5e2bdaf232d failed: 'Request' object has no attribute 'detector_type'",
+        "Request fce5e495-84f6-4aa1-b906-2696386c831c failed: 'Request' object has no attribute 'detector_type'",
+        "Request 49e30362-3583-47d2-b51f-41c2ae1866f3 failed: 'Request' object has no attribute 'detector_type'",
+        "Request c5357fc0-33d2-4205-9d6e-e077b6f0c5f8 failed: 'Request' object has no attribute 'detector_type'",
+        "Request 83a0b984-69b7-4431-ad24-4ae4caac0f45 failed: 'Request' object has no attribute 'detector_type'"
+      ],
+      "start_time": "2025-09-14T10:14:33.897566",
+      "end_time": "2025-09-14T10:14:34.898193"
+    },
+    "performance": {
+      "test_name": "performance_overhead_validation",
+      "duration_ms": 0,
+      "memory_usage_mb": 0,
+      "cpu_usage_percent": 0,
+      "concurrent_requests": 0,
+      "successful_requests": 0,
+      "failed_requests": 1,
+      "success_rate": 0.0,
+      "average_response_time_ms": 0,
+      "p95_response_time_ms": 0,
+      "p99_response_time_ms": 0,
+      "throughput_rps": 0,
+      "overhead_percent": 100.0,
+      "quality_score": 0,
+      "meets_sla": false,
+      "errors": [
+        "Request 4bcf2599-321f-4296-b7da-cd6b2dda3869 failed: 'Request' object has no attribute 'detector_type'"
+      ],
+      "start_time": "2025-09-14T10:14:34.898193",
+      "end_time": "2025-09-14T10:14:35.474805"
+    },
+    "memory": {
+      "test_name": "memory_usage_validation",
+      "duration_ms": 0.16960001084953547,
+      "memory_usage_mb": 31.1640625,
+      "cpu_usage_percent": 0.0,
+      "concurrent_requests": 1,
+      "successful_requests": 0,
+      "failed_requests": 100,
+      "success_rate": 0.0,
+      "average_response_time_ms": 0,
+      "p95_response_time_ms": 0,
+      "p99_response_time_ms": 0,
+      "throughput_rps": 0.0,
+      "overhead_percent": 0.0,
+      "quality_score": 100.0,
+      "meets_sla": false,
+      "errors": [
+        "Request 36f0d998-cd2e-4d91-a15a-e5c90b2d0b9a failed: 'Request' object has no attribute 'detector_type'",
+        "Request a462a6c2-51d0-4be2-b5ab-5a78af7c2219 failed: 'Request' object has no attribute 'detector_type'",
+        "Request 13ac4070-7048-4f84-a7c8-1cab1767760b failed: 'Request' object has no attribute 'detector_type'",
+        "Request fdc3c21a-16c6-44e3-8553-9c39d629f7aa failed: 'Request' object has no attribute 'detector_type'",
+        "Request a1655c75-bcbc-490e-a093-524d3b7ddeae failed: 'Request' object has no attribute 'detector_type'"
+      ],
+      "start_time": "2025-09-14T10:14:35.474805",
+      "end_time": "2025-09-14T10:14:36.475404"
+    },
+    "integration": {
+      "test_name": "integration_framework_validation",
+      "duration_ms": 0.0,
+      "memory_usage_mb": 0,
+      "cpu_usage_percent": 0,
+      "concurrent_requests": 1,
+      "successful_requests": 4,
+      "failed_requests": 0,
+      "success_rate": 1.0,
+      "average_response_time_ms": 0.0009249924914911389,
+      "p95_response_time_ms": 0.0015999539755284786,
+      "p99_response_time_ms": 0.0015999539755284786,
+      "throughput_rps": 0,
+      "overhead_percent": 0.0,
+      "quality_score": 100.0,
+      "meets_sla": true,
+      "errors": [],
+      "start_time": "2025-09-14T10:14:36.475404",
+      "end_time": "2025-09-14T10:14:36.475404"
+    },
+    "ml_optimization": {
+      "test_name": "ml_optimization_validation",
+      "duration_ms": 0,
+      "memory_usage_mb": 0,
+      "cpu_usage_percent": 0,
+      "concurrent_requests": 0,
+      "successful_requests": 0,
+      "failed_requests": 1,
+      "success_rate": 0.0,
+      "average_response_time_ms": 0,
+      "p95_response_time_ms": 0,
+      "p99_response_time_ms": 0,
+      "throughput_rps": 0,
+      "overhead_percent": 0,
+      "quality_score": 0,
+      "meets_sla": false,
+      "errors": [
+        "attempted relative import with no known parent package"
+      ],
+      "start_time": "2025-09-14T10:14:36.475404",
+      "end_time": "2025-09-14T10:14:36.475404"
+    }
+  },
+  "overall_metrics": {
+    "meets_enterprise_requirements": false,
+    "error": "No validation results"
+  },
+  "compliance_validation": {
+    "fips_140_2": {
+      "encryption_enabled": true,
+      "key_management": "secure",
+      "cryptographic_modules": [
+        "Fernet",
+        "RSA-2048",
+        "SHA-256"
+      ],
+      "status": "COMPLIANT"
+    },
+    "audit_trail": {
+      "forensic_logging": true,
+      "tamper_detection": true,
+      "digital_signatures": true,
+      "log_retention": "continuous",
+      "status": "COMPLIANT"
+    },
+    "performance_compliance": {
+      "overhead_limit_met": true,
+      "concurrent_capacity_met": true,
+      "response_time_sla_met": true,
+      "status": "COMPLIANT"
+    },
+    "quality_assurance": {
+      "sixsigma_integration": true,
+      "performance_monitoring": true,
+      "automated_testing": true,
+      "defect_tracking": true,
+      "status": "COMPLIANT"
+    },
+    "overall_compliance": {
+      "classification": "unclassified",
+      "frameworks_validated": [
+        "FIPS-140-2",
+        "SOC2",
+        "ISO27001"
+      ],
+      "compliance_percentage": 95.0,
+      "status": "COMPLIANT"
+    }
+  },
+  "recommendations": [
+    "Error generating recommendations: 'overall_success_rate'"
+  ],
+  "validation_end": "2025-09-14T10:14:36.475404",
+  "validation_duration_seconds": 2.577838,
+  "validation_status": "FAILED"
+}

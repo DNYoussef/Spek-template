@@ -1,0 +1,519 @@
+{
+  "scan_results": {
+    "timestamp": "2025-09-14T20:01:34.716444",
+    "scan_duration_seconds": 0.128659,
+    "compliance_score": 0.0,
+    "findings": [
+      {
+        "control_id": "3.1.1",
+        "control_name": "Access Control",
+        "finding_type": "violation",
+        "severity": "critical",
+        "description": "Hardcoded credentials detected",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 145,
+        "remediation": "Move credentials to secure configuration or environment variables",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.1.1",
+        "control_name": "Access Control",
+        "finding_type": "violation",
+        "severity": "critical",
+        "description": "Hardcoded credentials detected",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 180,
+        "remediation": "Move credentials to secure configuration or environment variables",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.1.1",
+        "control_name": "Access Control",
+        "finding_type": "violation",
+        "severity": "critical",
+        "description": "Hardcoded credentials detected",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 310,
+        "remediation": "Move credentials to secure configuration or environment variables",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.1.1",
+        "control_name": "Access Control",
+        "finding_type": "violation",
+        "severity": "critical",
+        "description": "Hardcoded credentials detected",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 311,
+        "remediation": "Move credentials to secure configuration or environment variables",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.1.1",
+        "control_name": "Access Control",
+        "finding_type": "violation",
+        "severity": "critical",
+        "description": "Hardcoded credentials detected",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 339,
+        "remediation": "Move credentials to secure configuration or environment variables",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.1.1",
+        "control_name": "Access Control",
+        "finding_type": "violation",
+        "severity": "critical",
+        "description": "Hardcoded credentials detected",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 144,
+        "remediation": "Move credentials to secure configuration or environment variables",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.1.1",
+        "control_name": "Access Control",
+        "finding_type": "violation",
+        "severity": "critical",
+        "description": "Hardcoded credentials detected",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 297,
+        "remediation": "Move credentials to secure configuration or environment variables",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.1.1",
+        "control_name": "Access Control",
+        "finding_type": "violation",
+        "severity": "critical",
+        "description": "Hardcoded credentials detected",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 341,
+        "remediation": "Move credentials to secure configuration or environment variables",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.1.1",
+        "control_name": "Access Control",
+        "finding_type": "violation",
+        "severity": "critical",
+        "description": "Hardcoded credentials detected",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 307,
+        "remediation": "Move credentials to secure configuration or environment variables",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.3.1",
+        "control_name": "Audit and Accountability",
+        "finding_type": "gap",
+        "severity": "medium",
+        "description": "Logging present but no security event logging detected",
+        "file_path": "artifact_manager.py",
+        "line_number": 0,
+        "remediation": "Add security event logging for authentication and authorization events",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.3.1",
+        "control_name": "Audit and Accountability",
+        "finding_type": "gap",
+        "severity": "medium",
+        "description": "Logging present but no security event logging detected",
+        "file_path": "quality_validator.py",
+        "line_number": 0,
+        "remediation": "Add security event logging for authentication and authorization events",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.3.1",
+        "control_name": "Audit and Accountability",
+        "finding_type": "gap",
+        "severity": "medium",
+        "description": "Logging present but no security event logging detected",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 0,
+        "remediation": "Add security event logging for authentication and authorization events",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.3.1",
+        "control_name": "Audit and Accountability",
+        "finding_type": "gap",
+        "severity": "medium",
+        "description": "Logging present but no security event logging detected",
+        "file_path": "compliance\\compliance_packager.py",
+        "line_number": 0,
+        "remediation": "Add security event logging for authentication and authorization events",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.3.1",
+        "control_name": "Audit and Accountability",
+        "finding_type": "gap",
+        "severity": "medium",
+        "description": "Logging present but no security event logging detected",
+        "file_path": "final-validation\\final_validation_test_suite.py",
+        "line_number": 0,
+        "remediation": "Add security event logging for authentication and authorization events",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.3.1",
+        "control_name": "Audit and Accountability",
+        "finding_type": "gap",
+        "severity": "medium",
+        "description": "Logging present but no security event logging detected",
+        "file_path": "six-sigma\\six_sigma_reporter.py",
+        "line_number": 0,
+        "remediation": "Add security event logging for authentication and authorization events",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.3.1",
+        "control_name": "Audit and Accountability",
+        "finding_type": "gap",
+        "severity": "medium",
+        "description": "Logging present but no security event logging detected",
+        "file_path": "supply-chain\\sbom_generator.py",
+        "line_number": 0,
+        "remediation": "Add security event logging for authentication and authorization events",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.3.1",
+        "control_name": "Audit and Accountability",
+        "finding_type": "gap",
+        "severity": "medium",
+        "description": "Logging present but no security event logging detected",
+        "file_path": "workflows\\workflow_orchestrator.py",
+        "line_number": 0,
+        "remediation": "Add security event logging for authentication and authorization events",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "artifact_manager.py",
+        "line_number": 6,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: md5",
+        "file_path": "dfars_compliance_framework.py",
+        "line_number": 289,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: sha1",
+        "file_path": "dfars_compliance_framework.py",
+        "line_number": 289,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "dfars_compliance_framework.py",
+        "line_number": 65,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: rc4",
+        "file_path": "dfars_compliance_framework.py",
+        "line_number": 289,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "integration_config.py",
+        "line_number": 6,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: md5",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 179,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "security_pipeline_test_suite.py",
+        "line_number": 170,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "security_pipeline_validation_report.py",
+        "line_number": 90,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "stub_replacement_implementations.py",
+        "line_number": 27,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "compliance\\compliance_packager.py",
+        "line_number": 271,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "final-validation\\edge_case_tests.py",
+        "line_number": 38,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "final-validation\\nasa_compliance_investigation.py",
+        "line_number": 257,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: md5",
+        "file_path": "sandbox-validation\\risk_mitigation_validator.py",
+        "line_number": 55,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "sandbox-validation\\risk_mitigation_validator.py",
+        "line_number": 40,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: sha1",
+        "file_path": "supply-chain\\sbom_generator.py",
+        "line_number": 134,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "supply-chain\\sbom_generator.py",
+        "line_number": 378,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      },
+      {
+        "control_id": "3.13.1",
+        "control_name": "System and Communications Protection",
+        "finding_type": "violation",
+        "severity": "high",
+        "description": "Weak cryptographic algorithm detected: des",
+        "file_path": "workflows\\workflow_orchestrator.py",
+        "line_number": 64,
+        "remediation": "Replace with FIPS 140-2 approved algorithms (AES, SHA-256, etc.)",
+        "cui_impact": true
+      }
+    ],
+    "cui_assets": [
+      {
+        "file_path": "dfars_compliance_framework.py",
+        "cui_level": "CUI//SP-PRIV",
+        "classification_rationale": "Contains privacy indicators",
+        "access_controls": [
+          "role_based_access",
+          "encryption_at_rest"
+        ],
+        "handling_requirements": [
+          "access_logging",
+          "data_loss_prevention"
+        ],
+        "retention_period": 1095
+      },
+      {
+        "file_path": "integration_config.py",
+        "cui_level": "CUI//BASIC",
+        "classification_rationale": "Contains export_controlled indicators",
+        "access_controls": [
+          "role_based_access",
+          "encryption_at_rest"
+        ],
+        "handling_requirements": [
+          "access_logging",
+          "data_loss_prevention"
+        ],
+        "retention_period": 1095
+      },
+      {
+        "file_path": "production_validation_tests.py",
+        "cui_level": "CUI//BASIC",
+        "classification_rationale": "Contains export_controlled indicators",
+        "access_controls": [
+          "role_based_access",
+          "encryption_at_rest"
+        ],
+        "handling_requirements": [
+          "access_logging",
+          "data_loss_prevention"
+        ],
+        "retention_period": 1095
+      },
+      {
+        "file_path": "security_pipeline_test_suite.py",
+        "cui_level": "CUI//SP-PRIV",
+        "classification_rationale": "Contains privacy indicators",
+        "access_controls": [
+          "role_based_access",
+          "encryption_at_rest"
+        ],
+        "handling_requirements": [
+          "access_logging",
+          "data_loss_prevention"
+        ],
+        "retention_period": 1095
+      },
+      {
+        "file_path": "stub_replacement_implementations.py",
+        "cui_level": "CUI//BASIC",
+        "classification_rationale": "Contains export_controlled indicators",
+        "access_controls": [
+          "role_based_access",
+          "encryption_at_rest"
+        ],
+        "handling_requirements": [
+          "access_logging",
+          "data_loss_prevention"
+        ],
+        "retention_period": 1095
+      },
+      {
+        "file_path": "compliance\\compliance_packager.py",
+        "cui_level": "CUI//SP-PROP",
+        "classification_rationale": "Contains proprietary indicators",
+        "access_controls": [
+          "role_based_access",
+          "encryption_at_rest"
+        ],
+        "handling_requirements": [
+          "access_logging",
+          "data_loss_prevention"
+        ],
+        "retention_period": 1095
+      },
+      {
+        "file_path": "sandbox-validation\\sarif_compliance_validator.py",
+        "cui_level": "CUI//BASIC",
+        "classification_rationale": "Contains export_controlled indicators",
+        "access_controls": [
+          "role_based_access",
+          "encryption_at_rest"
+        ],
+        "handling_requirements": [
+          "access_logging",
+          "data_loss_prevention"
+        ],
+        "retention_period": 1095
+      }
+    ],
+    "metrics": {
+      "controls_implemented": 0,
+      "controls_total": 14,
+      "findings_critical": 9,
+      "findings_high": 18,
+      "findings_medium": 8,
+      "findings_low": 0,
+      "cui_assets_identified": 7,
+      "cui_assets_protected": 0,
+      "compliance_score": 0.0
+    },
+    "summary": {
+      "total_findings": 35,
+      "critical_findings": 9,
+      "high_findings": 18,
+      "cui_assets_found": 7,
+      "compliance_percentage": 0.0,
+      "dfars_ready": false
+    }
+  },
+  "remediation_plan": {
+    "remediation_phases": {
+      "phase_1_critical": {
+        "timeline": "0-30 days",
+        "priority": "IMMEDIATE",
+        "findings": [
+          

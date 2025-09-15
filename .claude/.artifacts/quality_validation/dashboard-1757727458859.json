@@ -1,0 +1,215 @@
+{
+  "id": "dashboard-1757727458859",
+  "timestamp": "2025-09-13T01:37:38.859Z",
+  "title": "SPEK Quality Validation Dashboard",
+  "metadata": {
+    "generatedAt": "2025-09-13T01:37:38.859Z",
+    "dataSource": "Quality Validation System",
+    "version": "1.0.0"
+  },
+  "overview": {
+    "qualityScore": 96.29942652500002,
+    "complianceStatus": "WARNING",
+    "activeAlerts": 1,
+    "performanceOverhead": 0.00011469500000000003,
+    "lastUpdate": "2025-09-13T01:37:38.859Z",
+    "keyMetrics": {
+      "theaterDetections": 1,
+      "realityValidations": 2,
+      "qualityGateViolations": 0,
+      "nasaComplianceScore": 93.25
+    }
+  },
+  "widgets": [
+    {
+      "id": "theater-detection",
+      "type": "metric-card",
+      "title": "Theater Detection",
+      "value": 1,
+      "unit": "patterns",
+      "status": "WARNING",
+      "trend": "UP",
+      "config": {
+        "threshold": 5,
+        "color": "#ff6b6b"
+      }
+    },
+    {
+      "id": "reality-validation",
+      "type": "metric-card",
+      "title": "Reality Validation",
+      "value": 2,
+      "unit": "validations",
+      "status": "CRITICAL",
+      "trend": "DOWN",
+      "config": {
+        "threshold": 10,
+        "color": "#4ecdc4"
+      }
+    },
+    {
+      "id": "quality-gates",
+      "type": "status-grid",
+      "title": "Quality Gates",
+      "data": [
+        {
+          "name": "Code Coverage",
+          "status": "PASSED"
+        },
+        {
+          "name": "Security Scan",
+          "status": "PASSED"
+        },
+        {
+          "name": "Performance",
+          "status": "WARNING"
+        },
+        {
+          "name": "NASA Compliance",
+          "status": "PASSED"
+        }
+      ],
+      "config": {
+        "color": "#45b7d1"
+      }
+    },
+    {
+      "id": "nasa-compliance",
+      "type": "gauge",
+      "title": "NASA POT10 Compliance",
+      "value": 93.25,
+      "unit": "%",
+      "target": 95,
+      "status": "WARNING",
+      "config": {
+        "target": 95,
+        "color": "#96ceb4"
+      }
+    },
+    {
+      "id": "performance-overhead",
+      "type": "metric-card",
+      "title": "Performance Overhead",
+      "value": 0.00011469500000000003,
+      "unit": "%",
+      "status": "GOOD",
+      "threshold": 1.1,
+      "config": {
+        "threshold": 1.1,
+        "color": "#feca57"
+      }
+    },
+    {
+      "id": "recent-alerts",
+      "type": "alert-list",
+      "title": "Recent Alerts",
+      "data": [
+        {
+          "id": "alert-1757727458855-18scbnxgn",
+          "type": "COMPLIANCE_NASA_COMPLIANCE_BELOW_TARGET",
+          "timestamp": "2025-09-13T01:37:38.855Z",
+          "data": {
+            "currentScore": 93.25,
+            "targetScore": 95,
+            "criticalIssues": [],
+            "category": "compliance"
+          },
+          "severity": "MEDIUM",
+          "status": "ACTIVE",
+          "source": "Quality Validation System",
+          "context": {
+            "environment": "development",
+            "timestamp": "2025-09-13T01:37:38.855Z",
+            "source": "Quality Validation System",
+            "alertCount": 0
+          },
+          "notifications": {
+            "channels": [
+              "slack"
+            ],
+            "urgency": "normal",
+            "retryPolicy": {
+              "maxRetries": 2,
+              "backoffMs": 300000
+            }
+          },
+          "deliveryResults": [
+            {
+              "channel": "slack",
+              "status": "SUCCESS",
+              "timestamp": "2025-09-13T01:37:38.855Z"
+            }
+          ]
+        }
+      ],
+      "config": {
+        "maxItems": 5
+      }
+    }
+  ],
+  "charts": [
+    {
+      "id": "quality-trends",
+      "type": "line-chart",
+      "title": "Quality Trends Over Time",
+      "data": [],
+      "config": {
+        "xAxis": "timestamp",
+        "yAxes": [
+          "quality_score",
+          "compliance_score"
+        ],
+        "timeRange": "30d"
+      }
+    },
+    {
+      "id": "theater-patterns",
+      "type": "bar-chart",
+      "title": "Theater Detection Patterns",
+      "data": [],
+      "config": {
+        "xAxis": "pattern_type",
+        "yAxis": "count",
+        "colorScheme": "theater-severity"
+      }
+    },
+    {
+      "id": "compliance-categories",
+      "type": "radar-chart",
+      "title": "NASA Compliance by Category",
+      "data": [],
+      "config": {
+        "categories": [
+          "Code Standards",
+          "Documentation",
+          "Testing",
+          "Security",
+          "Maintainability"
+        ],
+        "scale": {
+          "min": 0,
+          "max": 100
+        }
+      }
+    },
+    {
+      "id": "quality-gate-status",
+      "type": "donut-chart",
+      "title": "Quality Gate Status Distribution",
+      "data": [],
+      "config": {
+        "valueField": "count",
+        "categoryField": "status",
+        "colorScheme": "status"
+      }
+    }
+  ],
+  "alerts": [],
+  "trends": {
+    "qualityScore": "STABLE",
+    "complianceScore": "IMPROVING",
+    "theaterDetections": "DECREASING",
+    "performanceOverhead": "STABLE"
+  },
+  "recommendations": []
+}

@@ -1,0 +1,83 @@
+{
+  "integration_tests_integration": [
+    {
+      "timestamp": "2025-09-14T23:41:36.207230",
+      "success": false,
+      "duration": 5.376528739929199,
+      "test_count": 0,
+      "coverage": null
+    }
+  ],
+  "security_tests_security": [
+    {
+      "timestamp": "2025-09-14T23:41:36.208228",
+      "success": false,
+      "duration": 5.344434976577759,
+      "test_count": 0,
+      "coverage": null
+    }
+  ],
+  "unit_tests_unit": [
+    {
+      "timestamp": "2025-09-14T23:41:36.209225",
+      "success": false,
+      "duration": 5.39659571647644,
+      "test_count": 0,
+      "coverage": null
+    }
+  ],
+  "nasa_compliance_tests_nasa-compliance": [
+    {
+      "timestamp": "2025-09-14T23:41:36.217204",
+      "success": false,
+      "duration": 5.39049220085144,
+      "test_count": 0,
+      "coverage": null
+    }
+  ],
+  "theater_detection_tests_theater-detection": [
+    {
+      "timestamp": "2025-09-14T23:41:36.221193",
+      "success": false,
+      "duration": 5.398589611053467,
+      "test_count": 0,
+      "coverage": null
+    }
+  ],
+  "validation_tests_validation": [
+    {
+      "timestamp": "2025-09-14T23:41:36.232323",
+      "success": false,
+      "duration": 5.3575599193573,
+      "test_count": 0,
+      "coverage": null
+    }
+  ],
+  "security_tests_compliance": [
+    {
+      "timestamp": "2025-09-14T23:41:36.240302",
+      "success": false,
+      "duration": 5.371522426605225,
+      "test_count": 0,
+      "coverage": null
+    }
+  ],
+  "integration_tests_enterprise_integration": [
+    {
+      "timestamp": "2025-09-14T23:41:36.824982",
+      "success": false,
+      "duration": 5.988295555114746,
+      "test_count": 0,
+      "coverage": null
+    }
+  ],
+  "unit_tests_enterprise_unit": [
+    {
+      "timestamp": "2025-09-14T23:41:36.844005",
+      "success": false,
+      "duration": 6.025357484817505,
+      "test_count": 0,
+      "coverage": null
+    }
+  ]
+}

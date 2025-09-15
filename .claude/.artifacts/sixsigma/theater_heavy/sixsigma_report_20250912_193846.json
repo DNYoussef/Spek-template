@@ -1,0 +1,24 @@
+{
+  "dpmo": 19696.97,
+  "rty": 0.8718,
+  "sigma_level": 3.56,
+  "process_capability": 0.89,
+  "defect_categories": {
+    "cosmetic": 80,
+    "critical": 5
+  },
+  "stage_yields": {
+    "Requirements": 0.975,
+    "Design": 0.95,
+    "Implementation": 0.98,
+    "Testing": 0.98,
+    "Deployment": 0.98
+  },
+  "improvement_opportunities": [
+    "Sigma level (3.56) below target (4.0)",
+    "RTY (87.18%) below 95% target",
+    "Too many cosmetic defects: 80 > 50 threshold",
+    "Too many critical defects: 5 > 0 threshold"
+  ],
+  "timestamp": "2025-09-12T19:38:46.311306"
+}

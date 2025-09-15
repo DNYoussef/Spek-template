@@ -1,0 +1,189 @@
+{
+  "report_type": "GOD_OBJECT_ANALYSIS",
+  "data_source": "REAL_DETECTION",
+  "timestamp": "2025-09-14T15:53:19.803728",
+  "god_objects_detected": 20,
+  "sample_god_objects": [
+    {
+      "id": "god_object_ByzantineConsensusCoordinator_byzantine_coordinator",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'ByzantineConsensusCoordinator' has 18 methods (threshold: 15)",
+      "file_path": "src\\byzantium\\byzantine_coordinator.py",
+      "line_number": 109
+    },
+    {
+      "id": "god_object_DetectorPoolRaceDetector_race_condition_detector",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'DetectorPoolRaceDetector' has 23 methods (threshold: 15)",
+      "file_path": "src\\byzantium\\race_condition_detector.py",
+      "line_number": 222
+    },
+    {
+      "id": "god_object_WeeklyScheduler_scheduler",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'WeeklyScheduler' has 18 methods (threshold: 15)",
+      "file_path": "src\\cycles\\scheduler.py",
+      "line_number": 66
+    },
+    {
+      "id": "god_object_DFARSAuditTrailManager_audit_trail_manager",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'DFARSAuditTrailManager' has 16 methods (threshold: 15)",
+      "file_path": "src\\security\\audit_trail_manager.py",
+      "line_number": 102
+    },
+    {
+      "id": "god_object_CDIProtectionFramework_cdi_protection_framework",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'CDIProtectionFramework' has 26 methods (threshold: 15)",
+      "file_path": "src\\security\\cdi_protection_framework.py",
+      "line_number": 119
+    },
+    {
+      "id": "god_object_DFARSContinuousRiskAssessment_continuous_risk_assessment",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'DFARSContinuousRiskAssessment' has 22 methods (threshold: 15)",
+      "file_path": "src\\security\\continuous_risk_assessment.py",
+      "line_number": 110
+    },
+    {
+      "id": "god_object_DFARSComplianceEngine_dfars_compliance_engine",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'DFARSComplianceEngine' has 29 methods (threshold: 15)",
+      "file_path": "src\\security\\dfars_compliance_engine.py",
+      "line_number": 47
+    },
+    {
+      "id": "god_object_EnhancedDFARSAuditTrailManager_enhanced_audit_trail_manager",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'EnhancedDFARSAuditTrailManager' has 34 methods (threshold: 15)",
+      "file_path": "src\\security\\enhanced_audit_trail_manager.py",
+      "line_number": 146
+    },
+    {
+      "id": "god_object_FIPSCryptoModule_fips_crypto_module",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'FIPSCryptoModule' has 16 methods (threshold: 15)",
+      "file_path": "src\\security\\fips_crypto_module.py",
+      "line_number": 45
+    },
+    {
+      "id": "god_object_ContinuousTheaterMonitor_continuous-monitor",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'ContinuousTheaterMonitor' has 16 methods (threshold: 15)",
+      "file_path": "src\\theater-detection\\continuous-monitor.py",
+      "line_number": 49
+    },
+    {
+      "id": "god_object_RealityValidationSystem_reality-validator",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'RealityValidationSystem' has 22 methods (threshold: 15)",
+      "file_path": "src\\theater-detection\\reality-validator.py",
+      "line_number": 48
+    },
+    {
+      "id": "god_object_TheaterDetector_theater-detector",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'TheaterDetector' has 23 methods (threshold: 15)",
+      "file_path": "src\\theater-detection\\theater-detector.py",
+      "line_number": 49
+    },
+    {
+      "id": "god_object_MarketDataProvider_market_data_provider",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'MarketDataProvider' has 20 methods (threshold: 15)",
+      "file_path": "src\\trading\\market_data_provider.py",
+      "line_number": 113
+    },
+    {
+      "id": "god_object_TradeExecutor_trade_executor",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'TradeExecutor' has 16 methods (threshold: 15)",
+      "file_path": "src\\trading\\trade_executor.py",
+      "line_number": 116
+    },
+    {
+      "id": "god_object_ComplianceMatrix_matrix",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'ComplianceMatrix' has 16 methods (threshold: 15)",
+      "file_path": "src\\enterprise\\compliance\\matrix.py",
+      "line_number": 82
+    },
+    {
+      "id": "god_object_FailoverManager_failover_manager",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'FailoverManager' has 20 methods (threshold: 15)",
+      "file_path": "src\\safety\\core\\failover_manager.py",
+      "line_number": 70
+    },
+    {
+      "id": "god_object_SafetyManager_safety_manager",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'SafetyManager' has 19 methods (threshold: 15)",
+      "file_path": "src\\safety\\core\\safety_manager.py",
+      "line_number": 51
+    },
+    {
+      "id": "god_object_TradingSafetyBridge_trading_safety_bridge",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'TradingSafetyBridge' has 21 methods (threshold: 15)",
+      "file_path": "src\\safety\\integration\\trading_safety_bridge.py",
+      "line_number": 71
+    },
+    {
+      "id": "god_object_RecoverySystem_recovery_system",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'RecoverySystem' has 24 methods (threshold: 15)",
+      "file_path": "src\\safety\\recovery\\recovery_system.py",
+      "line_number": 83
+    },
+    {
+      "id": "god_object_RefactoredDFARSAuditManager_refactored_audit_manager",
+      "rule_id": "",
+      "type": "",
+      "severity": "high",
+      "description": "God Object detected: Class 'RefactoredDFARSAuditManager' has 19 methods (threshold: 15)",
+      "file_path": "src\\security\\audit_components\\refactored_audit_manager.py",
+      "line_number": 17
+    }
+  ],
+  "detection_method": "AST analysis with method counting"
+}

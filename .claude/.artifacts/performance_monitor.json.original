@@ -1,0 +1,11 @@
+{
+  "metrics": {},
+  "resource_utilization": {
+    "cpu_usage": {
+      "efficiency_score": 0.75
+    }
+  },
+  "optimization_recommendations": [
+    "Performance monitoring unavailable"
+  ]
+}

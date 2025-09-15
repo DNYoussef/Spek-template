@@ -1,0 +1,41 @@
+{
+  "assessment_date": "2025-09-12",
+  "reporting_period": "Current State Assessment",
+  "organization_name": "Development Organization",
+  "frameworks_assessed": 3,
+  "overall_compliance_score": 50.27,
+  "overall_compliance_level": "Inadequate",
+  "total_high_risk_gaps": 0,
+  "total_controls_assessed": 0,
+  "automation_percentage": 78.3,
+  "key_findings": [
+    {
+      "severity": "HIGH",
+      "description": "1 framework(s) below acceptable compliance threshold",
+      "frameworks": [
+        "SOC2"
+      ],
+      "impact": "Significant regulatory risk"
+    }
+  ],
+  "cross_framework_synergies": 7,
+  "common_gaps_identified": 3,
+  "executive_recommendations": [
+    {
+      "priority": "CRITICAL",
+      "title": "Address fundamental compliance gaps",
+      "description": "Immediate action required for SOC2",
+      "timeline": "30-60 days",
+      "effort": "High",
+      "impact": "Risk mitigation"
+    },
+    {
+      "priority": "HIGH",
+      "title": "Implement cross-framework improvements",
+      "description": "7 synergy opportunities identified for efficient remediation",
+      "timeline": "60-90 days",
+      "effort": "Medium",
+      "impact": "Multiple framework improvement"
+    }
+  ]
+}

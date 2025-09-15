@@ -1,0 +1,52 @@
+{
+  "timestamp": "2025-09-11T12:28:07.083775",
+  "deployment_decision": {
+    "can_deploy": false,
+    "deployment_environment": "BLOCKED",
+    "blocking_issues_count": 4,
+    "defense_industry_ready": false
+  },
+  "quality_summary": {
+    "json_validation_passed": false,
+    "quality_gates_passed": false,
+    "critical_systems_passed": false,
+    "nasa_compliance_score": 0.85,
+    "defense_readiness_score": 0.85
+  },
+  "blocking_issues": [
+    "JSON validation failed",
+    "Quality gates failed",
+    "Critical systems failed: tests_pass, typescript_compile, linting_pass",
+    "NASA compliance insufficient: 85.0%"
+  ],
+  "recommendations": [
+    "Fix JSON validation issues in artifacts",
+    "Improve NASA compliance from 85.0% to >=90%"
+  ],
+  "next_steps": [
+    "Run: python scripts/json_validator.py --fix",
+    "Execute quality gate fixes: npm run qa:fix",
+    "Fix failing tests and compilation issues",
+    "Execute NASA compliance improvement: /codex:micro NASA rule violations"
+  ],
+  "compliance_details": {
+    "nasa_pot10": {
+      "score": 0.85,
+      "passing": false,
+      "defense_threshold": false,
+      "certification_ready": false
+    },
+    "defense_industry": {
+      "nasa_score": 0.85,
+      "avg_compliance": 0.85,
+      "defense_ready": false,
+      "certification_eligible": false
+    },
+    "critical_systems": {
+      "tests_pass": false,
+      "typescript_compile": false,
+      "security_scan": true,
+      "linting_pass": false
+    }
+  }
+}

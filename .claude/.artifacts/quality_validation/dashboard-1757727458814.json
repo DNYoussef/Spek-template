@@ -1,0 +1,189 @@
+{
+  "id": "dashboard-1757727458814",
+  "timestamp": "2025-09-13T01:37:38.814Z",
+  "title": "SPEK Quality Validation Dashboard",
+  "metadata": {
+    "generatedAt": "2025-09-13T01:37:38.814Z",
+    "dataSource": "Quality Validation System",
+    "version": "1.0.0"
+  },
+  "overview": {
+    "qualityScore": 60,
+    "complianceStatus": "NON_COMPLIANT",
+    "activeAlerts": 0,
+    "performanceOverhead": 0,
+    "lastUpdate": "2025-09-13T01:37:38.814Z",
+    "keyMetrics": {
+      "theaterDetections": 0,
+      "realityValidations": 0,
+      "qualityGateViolations": 0,
+      "nasaComplianceScore": 0
+    }
+  },
+  "widgets": [
+    {
+      "id": "theater-detection",
+      "type": "metric-card",
+      "title": "Theater Detection",
+      "value": 0,
+      "unit": "patterns",
+      "status": "GOOD",
+      "trend": "DOWN",
+      "config": {
+        "threshold": 5,
+        "color": "#ff6b6b"
+      }
+    },
+    {
+      "id": "reality-validation",
+      "type": "metric-card",
+      "title": "Reality Validation",
+      "value": 0,
+      "unit": "validations",
+      "status": "CRITICAL",
+      "trend": "UP",
+      "config": {
+        "threshold": 10,
+        "color": "#4ecdc4"
+      }
+    },
+    {
+      "id": "quality-gates",
+      "type": "status-grid",
+      "title": "Quality Gates",
+      "data": [
+        {
+          "name": "Code Coverage",
+          "status": "PASSED"
+        },
+        {
+          "name": "Security Scan",
+          "status": "PASSED"
+        },
+        {
+          "name": "Performance",
+          "status": "WARNING"
+        },
+        {
+          "name": "NASA Compliance",
+          "status": "PASSED"
+        }
+      ],
+      "config": {
+        "color": "#45b7d1"
+      }
+    },
+    {
+      "id": "nasa-compliance",
+      "type": "gauge",
+      "title": "NASA POT10 Compliance",
+      "value": 0,
+      "unit": "%",
+      "target": 95,
+      "status": "NON_COMPLIANT",
+      "config": {
+        "target": 95,
+        "color": "#96ceb4"
+      }
+    },
+    {
+      "id": "performance-overhead",
+      "type": "metric-card",
+      "title": "Performance Overhead",
+      "value": 0,
+      "unit": "%",
+      "status": "GOOD",
+      "threshold": 1.1,
+      "config": {
+        "threshold": 1.1,
+        "color": "#feca57"
+      }
+    },
+    {
+      "id": "recent-alerts",
+      "type": "alert-list",
+      "title": "Recent Alerts",
+      "data": [],
+      "config": {
+        "maxItems": 5
+      }
+    }
+  ],
+  "charts": [
+    {
+      "id": "quality-trends",
+      "type": "line-chart",
+      "title": "Quality Trends Over Time",
+      "data": [],
+      "config": {
+        "xAxis": "timestamp",
+        "yAxes": [
+          "quality_score",
+          "compliance_score"
+        ],
+        "timeRange": "30d"
+      }
+    },
+    {
+      "id": "theater-patterns",
+      "type": "bar-chart",
+      "title": "Theater Detection Patterns",
+      "data": [],
+      "config": {
+        "xAxis": "pattern_type",
+        "yAxis": "count",
+        "colorScheme": "theater-severity"
+      }
+    },
+    {
+      "id": "compliance-categories",
+      "type": "radar-chart",
+      "title": "NASA Compliance by Category",
+      "data": [],
+      "config": {
+        "categories": [
+          "Code Standards",
+          "Documentation",
+          "Testing",
+          "Security",
+          "Maintainability"
+        ],
+        "scale": {
+          "min": 0,
+          "max": 100
+        }
+      }
+    },
+    {
+      "id": "quality-gate-status",
+      "type": "donut-chart",
+      "title": "Quality Gate Status Distribution",
+      "data": [],
+      "config": {
+        "valueField": "count",
+        "categoryField": "status",
+        "colorScheme": "status"
+      }
+    }
+  ],
+  "alerts": [
+    {
+      "id": "nasa-compliance-critical",
+      "type": "CRITICAL",
+      "category": "Compliance",
+      "message": "NASA compliance score 0% below critical threshold",
+      "timestamp": "2025-09-13T01:37:38.815Z",
+      "actions": [
+        "Review compliance violations",
+        "Implement immediate fixes"
+      ]
+    }
+  ],
+  "trends": {
+    "qualityScore": "STABLE",
+    "complianceScore": "IMPROVING",
+    "theaterDetections": "DECREASING",
+    "performanceOverhead": "STABLE"
+  },
+  "recommendations": []
+}

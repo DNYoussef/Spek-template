@@ -1,0 +1,9 @@
+{
+  "report_type": "NASA_POT10_COMPLIANCE",
+  "data_source": "REAL_NASA_ANALYZER",
+  "timestamp": "2025-09-14T15:53:19.803728",
+  "sample_size": 10,
+  "violations_found": 0,
+  "violation_types": {},
+  "compliance_score": 1.0
+}

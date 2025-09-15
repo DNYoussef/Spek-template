@@ -1,0 +1,5 @@
+Metric,Value,Target,Status
+DPMO,17821.78,<6210,FAIL
+RTY,75.12%,>95%,FAIL
+Sigma Level,3.6,4.0,FAIL
+Process Capability,0.9,>1.0,FAIL

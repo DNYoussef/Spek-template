@@ -1,0 +1,1175 @@
+{
+  "files_scanned": 577,
+  "requirements": {
+    "encryption": [
+      {
+        "file": "reality_check_test.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "test_compliance_demo.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "test_compliance_simple.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\cache_manager.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\comprehensive_analysis_engine.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\configuration_manager.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\consolidated_analyzer.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\constants.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\context_analyzer.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\formal_grammar.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\multi_agent_swarm_coordinator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\performance_monitoring_integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\quality_calculator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\result_aggregator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\smart_integration_engine.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\__init__.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\__main__.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "policy\\budgets.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\achieve_perfection.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\analyze_full_project.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\debug_unified_analyzer.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\e2e_validation_suite.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\generate_real_reports_efficient.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\github_integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\github_workflow_test.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\json_validator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\performance_monitor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\performance_regression_detector.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\phase2_validation.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\phase3_deployment_validator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\production_deployment_validation.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\quality_gate_integrator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\security_compliance_auditor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\security_dashboard_generator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\test_connascence_detection.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\test_real_security_validation.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\unicode_removal_linter.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\validate_github_fixes.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\validate_performance_improvements.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "scripts\\validate_theater_detection.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\linter_manager.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\phase1_critical_fixes.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\production_validation_test.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\simple_kill_switch_test.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\test_kill_switch_integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\test_supply_chain_security.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\test_yaml_validator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\unified_test_orchestrator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\.artifacts\\artifact_manager.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\.artifacts\\integration_test_phase2_imports.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\.artifacts\\security_pipeline_validation_report.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\.artifacts\\stub_replacement_implementations.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\artifacts\\memory_security_analysis.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\.artifacts\\final-validation\\final_validation_test_suite.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\.artifacts\\sandbox-validation\\json_schema_validator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\.artifacts\\sandbox-validation\\performance_validator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\.artifacts\\sandbox-validation\\sarif_compliance_validator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\performance\\baselines\\baseline_collector.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".claude\\performance\\monitoring\\realtime_monitor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\god-object-refactor\\refactored_analyzer.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\god-object-refactor\\test_refactor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\cache_manager.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\configuration_manager.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\constants.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\context_analyzer.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\formal_grammar.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\multi_agent_swarm_coordinator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\performance_monitoring_integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\quality_calculator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\result_aggregator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\smart_integration_engine.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\system_integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\__init__.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\__main__.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\architecture\\recommendation_engine.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\core\\unified_imports.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\dashboard\\ci_integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\detectors\\base.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\detectors\\execution_detector.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\detectors\\position_detector.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\detectors\\values_detector.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\interfaces\\detector_interface.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\optimization\\resource_manager.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\performance\\parallel_analyzer.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\performance\\real_time_monitor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\performance\\regression_detector.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\reporting\\coordinator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\reporting\\json.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\reporting\\markdown.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\streaming\\dashboard_reporter.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\streaming\\result_aggregator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\utils\\common_patterns.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\utils\\connascence_validator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\enterprise\\core\\performance_monitor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\architecture\\recommendation_engine.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\core\\unified_imports.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\dashboard\\ci_integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\detectors\\base.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\detectors\\execution_detector.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\detectors\\position_detector.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\detectors\\values_detector.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\interfaces\\detector_interface.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\optimization\\resource_manager.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\performance\\parallel_analyzer.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\performance\\real_time_monitor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\performance\\regression_detector.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\reporting\\coordinator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\reporting\\json.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\reporting\\markdown.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\streaming\\dashboard_reporter.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\streaming\\result_aggregator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\utils\\common_patterns.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\utils\\connascence_validator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\enterprise\\compliance\\integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\enterprise\\core\\performance_monitor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\enterprise\\integration\\EnterpriseIntegrationFramework.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\enterprise\\supply_chain\\config_loader.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "analyzer\\enterprise\\supply_chain\\integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "interfaces\\cli\\config_discovery.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "interfaces\\cli\\connascence.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "interfaces\\cli\\main_python.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "interfaces\\cli\\policy_detection.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\byzantium\\comprehensive_validation.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\byzantium\\race_condition_detector.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\cycles\\profit_calculator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\cycles\\scheduler.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\cycles\\weekly_siphon_automator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\linter-integration\\mesh-coordinator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\monitoring\\performance_monitor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\risk\\dynamic_position_sizing.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\risk\\kelly_criterion.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\security\\real_security_scanner.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\security\\tls_manager.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\sixsigma\\telemetry_config.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\theater-detection\\continuous-monitor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\trading\\portfolio_manager.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\trading\\trade_executor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\analyzers\\nasa\\bounded_ast_walker.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\analyzers\\nasa\\defensive_programming_specialist.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\analyzers\\nasa\\function_decomposer.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\analyzers\\nasa\\nasa_compliance_auditor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\analyzers\\nasa\\security_manager.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\enterprise\\cli\\enterprise_cli.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\enterprise\\compliance\\matrix.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\enterprise\\config\\enterprise_config.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\enterprise\\integration\\analyzer.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\enterprise\\telemetry\\six_sigma.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\enterprise\\tests\\test_runner.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\enterprise\\utils\\error_handling.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\intelligence\\data\\loaders.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\intelligence\\models\\gary_dpi.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\intelligence\\models\\taleb_antifragile.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\intelligence\\training\\callbacks.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\intelligence\\training\\trainer.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\linter-integration\\adapters\\base_adapter.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\linter-integration\\agents\\backend_dev_node.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\linter-integration\\agents\\integration_specialist_node.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\linter-integration\\pipeline\\tool_orchestrator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\safety\\monitoring\\availability_monitor.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\safety\\monitoring\\redundancy_validator.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "src\\safety\\recovery\\recovery_system.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\byzantium\\test_byzantine_stress.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\cache_analyzer\\test_cache_functionality.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\end_to_end\\complete_system_validation.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\integration\\test_enterprise_domains.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\integration\\test_enterprise_integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\integration\\test_error_handling.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\integration\\test_performance_load.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\json_schema_validation\\demo_test_execution.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\json_schema_validation\\test_risk_mitigation.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\json_schema_validation\\test_runner.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\linter_integration\\run_all_tests.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\linter_integration\\test_api_endpoints.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\linter_integration\\test_mesh_coordination.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\linter_integration\\test_severity_mapping.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\linter_integration\\test_tool_management.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\memory_integration\\test_cross_phase_memory.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\nasa-compliance\\test_nasa_agents.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\performance\\enterprise_overhead.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\self-dogfooding\\workflow_simulation_test.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\sixsigma\\test_integration.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\workflow-validation\\comprehensive_validation_report.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\workflow-validation\\json_validation_framework.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\workflow-validation\\workflow_test_suite.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\enterprise\\unit\\test_compliance_matrix.py",
+        "issue": "Sensitive data without encryption"
+      },
+      {
+        "file": "tests\\enterprise\\unit\\test_feature_flags.py",
+        "issue": "Sensitive data without encryption"
+      }
+    ],
+    "audit_trail": [
+      {
+        "file": "analyzer\\connascence_ast_analyzer.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\duplication_unified.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\language_strategies.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\refactored_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\smart_integration_engine.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "scripts\\achieve_perfection.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "scripts\\compare_baselines.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "scripts\\compare_self_analysis.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "scripts\\debug_unified_analyzer.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "scripts\\doc_validator.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "scripts\\e2e_validation_suite.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "scripts\\performance_regression_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "scripts\\simple_security_test.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "scripts\\unicode_removal_linter.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "scripts\\update_readme_metrics.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "scripts\\verify_counts.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\simplified_integration_test.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\test_import_fixes.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\test_kelly_dpi_integration.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".claude\\.artifacts\\integration_test_phase2_imports.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".claude\\.artifacts\\production_validation_tests.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".claude\\.artifacts\\quality_analysis.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".claude\\artifacts\\performance_scaling_test.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".claude\\.artifacts\\final-validation\\edge_case_tests.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".claude\\.artifacts\\final-validation\\nasa_compliance_investigation.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\mece-consolidation\\test_consolidation.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\duplication_unified.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\language_strategies.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\refactored_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\smart_integration_engine.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\core\\__init__.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\detectors\\convention_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\detectors\\execution_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\detectors\\god_object_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\detectors\\magic_literal_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\detectors\\timing_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\dup_detection\\mece_analyzer.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\integrations\\tool_coordinator.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\interfaces\\detector_interface.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\optimization\\file_cache.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\optimization\\performance_benchmark.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\performance\\__init__.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\reporting\\json.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\reporting\\__init__.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\streaming\\__init__.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\utils\\connascence_validator.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": ".sandboxes\\phase2-config-test\\analyzer\\enterprise\\detectors\\dfars_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\core\\__init__.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\detectors\\convention_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\detectors\\execution_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\detectors\\god_object_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\detectors\\magic_literal_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\detectors\\timing_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\dup_detection\\mece_analyzer.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\integrations\\tool_coordinator.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\interfaces\\detector_interface.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\optimization\\file_cache.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\optimization\\performance_benchmark.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\performance\\__init__.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\reporting\\json.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\reporting\\__init__.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\streaming\\__init__.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\utils\\connascence_validator.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\enterprise\\detectors\\dfars_detector.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\enterprise\\supply_chain\\crypto_signer.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "analyzer\\enterprise\\supply_chain\\sbom_generator.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "examples\\enterprise_integration\\dfars_example.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "interfaces\\cli\\config_discovery.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "interfaces\\cli\\connascence.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "interfaces\\core\\interface_base.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\adapters\\mypy_adapter.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\byzantium\\comprehensive_validation.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\risk\\dynamic_position_sizing.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\risk\\kelly_criterion.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\risk\\__init__.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\safety\\__init__.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\strategies\\__init__.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\analyzers\\nasa\\bounded_ast_walker.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\analyzers\\nasa\\defensive_programming_specialist.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\intelligence\\models\\gary_dpi.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\intelligence\\models\\taleb_antifragile.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "src\\linter-integration\\adapters\\base_adapter.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\integration\\test_enterprise_integration.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\integration\\test_error_handling.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\json_schema_validation\\demo_test_execution.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\json_schema_validation\\test_risk_mitigation.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\json_schema_validation\\test_runner.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\json_schema_validation\\test_sarif_compliance.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\memory_integration\\test_cross_phase_memory.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\phase4\\test_precision_validation.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\regression\\performance_regression_suite.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\safety\\test_import_validation.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\safety\\test_safety_system.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\self-dogfooding\\workflow_simulation_test.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\theater-detection\\test_theater_detection.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\enterprise\\integration\\test_analyzer_integration.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\enterprise\\performance\\test_zero_impact_disabled.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\enterprise\\unit\\test_compliance_matrix.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\enterprise\\unit\\test_feature_flags.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\enterprise\\unit\\test_sbom_generator.py",
+        "issue": "Modification without audit trail"
+      },
+      {
+        "file": "tests\\enterprise\\unit\\test_six_sigma_telemetry.py",
+        "issue": "Modification without audit trail"
+      }
+    ],
+    "access_control": [],
+    "data_retention": [],
+    "incident_response": [],
+    "supply_chain": []
+  },
+  "total_issues": 290,
+  "compliance_score": 0
+}

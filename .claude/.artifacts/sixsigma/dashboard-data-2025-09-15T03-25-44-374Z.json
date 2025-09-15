@@ -1,0 +1,66 @@
+{
+  "overview": {
+    "sigmaLevel": 3.99,
+    "dpmo": 6316,
+    "rty": 96.84,
+    "theaterRisk": "LOW"
+  },
+  "ctqMetrics": {
+    "security": {
+      "score": 0.968421052631579,
+      "status": "EXCELLENT",
+      "trend": "STABLE"
+    },
+    "nasaPOT10": {
+      "score": 1,
+      "status": "EXCELLENT",
+      "trend": "STABLE"
+    },
+    "connascence": {
+      "score": 1,
+      "status": "EXCELLENT",
+      "trend": "STABLE"
+    },
+    "godObjects": {
+      "score": 1,
+      "status": "EXCELLENT",
+      "trend": "STABLE"
+    },
+    "meceQuality": {
+      "score": 1,
+      "status": "EXCELLENT",
+      "trend": "STABLE"
+    },
+    "testsMutation": {
+      "score": 1,
+      "status": "EXCELLENT",
+      "trend": "STABLE"
+    },
+    "performance": {
+      "score": 1,
+      "status": "EXCELLENT",
+      "trend": "STABLE"
+    }
+  },
+  "spcStatus": {
+    "stable": true,
+    "violations": 0,
+    "capability": "MARGINAL"
+  },
+  "alerts": [],
+  "trends": {
+    "ctq": {
+      "overall": "STABLE",
+      "direction": "MAINTAINING",
+      "velocity": 0.02,
+      "prediction": "ON_TRACK"
+    },
+    "spc": {
+      "total": 0,
+      "increasing": 0,
+      "decreasing": 0
+    },
+    "theater": "LOW"
+  },
+  "actions": []
+}

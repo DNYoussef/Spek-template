@@ -1,0 +1,120 @@
+{
+  "demo_overview": {
+    "start_time": "2025-09-14T10:21:22.818864",
+    "end_time": "2025-09-14T10:21:25.890407",
+    "duration_seconds": 3.071543,
+    "status": "COMPLETED"
+  },
+  "concurrent_requests": {
+    "total_requests": 500,
+    "successful_requests": 500,
+    "failed_requests": 0,
+    "success_rate": 1.0,
+    "total_duration_ms": 164.9498000042513,
+    "average_response_time_ms": 14.711564199184068,
+    "throughput_rps": 3031.22525754571,
+    "status": "PASSED"
+  },
+  "performance_overhead": {
+    "baseline_avg_ms": 12.62514199828729,
+    "enterprise_avg_ms": 16.39020100410562,
+    "overhead_ms": 3.7650590058183298,
+    "overhead_percent": 29.82191413236455,
+    "overhead_limit_percent": 1.2,
+    "within_sla": false,
+    "iterations": 100
+  },
+  "security_compliance": {
+    "fips_140_2_compliance": {
+      "encryption_enabled": true,
+      "secure_random_generation": true,
+      "cryptographic_hashing": "SHA-256",
+      "key_size_bits": 256,
+      "status": "COMPLIANT"
+    },
+    "audit_trail": {
+      "forensic_logging": true,
+      "tamper_detection": true,
+      "digital_signatures": true,
+      "audit_entry_sample": {
+        "event_type": "detection_request",
+        "timestamp": "2025-09-14T10:21:25.890407",
+        "security_level": "confidential",
+        "integrity_hash": "1bdea29d405215d7ddae69ad72ae716ff7325b666df224c4aacfe22377cbe845",
+        "digital_signature": "30aa3c7cca447239dbf71d108b30c6a03ffc364a9013af03fc5aa5c484d501c0",
+        "fips_compliant": true
+      },
+      "status": "ACTIVE"
+    },
+    "compliance_frameworks": {
+      "FIPS-140-2": "COMPLIANT",
+      "SOC2": "COMPLIANT",
+      "ISO27001": "COMPLIANT",
+      "NIST-SSDF": "COMPLIANT"
+    },
+    "security_classification": "defense_industry_ready"
+  },
+  "quality_metrics": {
+    "six_sigma_metrics": {
+      "dpmo": 4500.0,
+      "sigma_level": 4.0,
+      "process_capability": 0.6666666666666666,
+      "yield_percentage": 99.55000000000001,
+      "target_sigma_level": 4.5,
+      "meets_target": false
+    },
+    "quality_measurements": {
+      "total_opportunities": 10000,
+      "defects": 45,
+      "defect_rate": 0.0045,
+      "success_rate": 0.9955
+    },
+    "continuous_improvement": {
+      "spc_charts": "ENABLED",
+      "real_time_monitoring": "ACTIVE",
+      "automated_alerts": "CONFIGURED",
+      "trend_analysis": "RUNNING"
+    }
+  },
+  "ml_optimization": {
+    "cache_performance": {
+      "total_operations": 100,
+      "cache_hits": 70,
+      "cache_misses": 30,
+      "hit_rate": 0.7,
+      "target_hit_rate": 0.5,
+      "exceeds_target": true
+    },
+    "ml_prediction": {
+      "prediction_accuracy": 0.49,
+      "target_accuracy": 0.6,
+      "learning_enabled": true,
+      "adaptive_optimization": true
+    },
+    "performance_optimization": {
+      "compression_ratio": 2.3,
+      "memory_saved_percent": 56.52173913043478,
+      "predictive_scaling": "ACTIVE",
+      "workload_learning": "ENABLED"
+    },
+    "optimization_features": {
+      "intelligent_caching": true,
+      "adaptive_eviction": true,
+      "predictive_warming": true,
+      "ml_based_scaling": true
+    }
+  },
+  "enterprise_capabilities": {
+    "max_concurrent_requests": 1000,
+    "performance_overhead_limit": 1.2,
+    "security_level": "defense_industry_ready",
+    "compliance_frameworks": [
+      "FIPS-140-2",
+      "SOC2",
+      "ISO27001",
+      "NIST-SSDF"
+    ],
+    "quality_methodology": "Six Sigma",
+    "optimization_engine": "ML-based"
+  }
+}

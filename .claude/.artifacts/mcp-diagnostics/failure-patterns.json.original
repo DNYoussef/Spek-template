@@ -1,0 +1,61 @@
+{
+  "common_patterns": {
+    "network_timeout": {
+      "pattern": "timeout|network error|connection refused|failed to connect",
+      "category": "network",
+      "fixes": [
+        "Check internet connectivity",
+        "Verify proxy settings",
+        "Retry with exponential backoff",
+        "Check firewall settings"
+      ],
+      "success_rate": 0.85
+    },
+    "auth_failure": {
+      "pattern": "authentication|unauthorized|invalid token|403|401",
+      "category": "authentication",
+      "fixes": [
+        "Verify API tokens in environment",
+        "Check token expiration",
+        "Refresh credentials",
+        "Verify token permissions"
+      ],
+      "success_rate": 0.92
+    },
+    "permission_denied": {
+      "pattern": "permission denied|access denied|EACCES|insufficient privileges",
+      "category": "permissions",
+      "fixes": [
+        "Run with appropriate permissions",
+        "Check file/directory ownership",
+        "Verify write permissions",
+        "Check system policies"
+      ],
+      "success_rate": 0.78
+    },
+    "version_mismatch": {
+      "pattern": "version|incompatible|unsupported|protocol mismatch",
+      "category": "compatibility",
+      "fixes": [
+        "Update Claude CLI",
+        "Check MCP server compatibility",
+        "Verify Node.js version",
+        "Clear CLI cache"
+      ],
+      "success_rate": 0.89
+    },
+    "missing_dependency": {
+      "pattern": "not found|missing|command not found|module not found",
+      "category": "dependencies",
+      "fixes": [
+        "Install missing dependencies",
+        "Check PATH environment",
+        "Verify installation completeness",
+        "Reinstall Claude CLI"
+      ],
+      "success_rate": 0.94
+    }
+  },
+  "sessions": [],
+  "learn_patterns": true
+}

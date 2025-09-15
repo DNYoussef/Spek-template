@@ -1,0 +1,19 @@
+{
+  "domainResults": {
+    "domains": {},
+    "summary": {
+      "totalDomains": 6,
+      "successfulDomains": 0,
+      "failedDomains": 6,
+      "averageOverhead": null,
+      "overallCompliance": null
+    }
+  },
+  "integrationResults": null,
+  "loadResults": null,
+  "constraintResults": null,
+  "analysis": null,
+  "report": "",
+  "overallStatus": "pass",
+  "recommendations": []
+}

@@ -1,0 +1,4802 @@
+{
+  "timestamp": "2025-09-11T12:29:55.269115",
+  "analysis_type": "unknown",
+  "quality_gates": {
+    "overall_gate_passed": false,
+    "critical_gates": {
+      "passed": false,
+      "status": "FAIL"
+    },
+    "quality_gates": {
+      "passed": true,
+      "status": "PASS"
+    }
+  },
+  "metrics": {
+    "nasa_compliance_score": 0.85,
+    "god_objects_count": 0,
+    "critical_violations": 0,
+    "total_violations": 0,
+    "mece_score": 0.85,
+    "overall_quality_score": 0.75,
+    "architecture_health": 0.85,
+    "maintainability_index": 75
+  },
+  "summary": {
+    "overall_status": "PASS",
+    "recommendations": []
+  },
+  "original_structure": {
+    "test_name": "Risk Mitigation Validation",
+    "timestamp": "2025-09-10T22:40:24",
+    "violation_id_determinism": {
+      "status": "passed",
+      "tests": [
+        {
+          "test_violation": 0,
+          "ids_generated": [
+            [
+              "simple",
+              "0f5c293d"
+            ],
+            [
+              "json",
+              "01faa453"
+            ],
+            [
+              "combined",
+              "e208e744"
+            ]
+          ],
+          "reproducible": true,
+          "unique_ids": true
+        },
+        {
+          "test_violation": 1,
+          "ids_generated": [
+            [
+              "simple",
+              "06106237"
+            ],
+            [
+              "json",
+              "f64fe228"
+            ],
+            [
+              "combined",
+              "f81ef47f"
+            ]
+          ],
+          "reproducible": true,
+          "unique_ids": true
+        }
+      ],
+      "collisions": []
+    },
+    "path_resolution": {
+      "status": "passed",
+      "tests": [
+        {
+          "original_path": "C:\\Users\\test\\file.py",
+          "normalized_path": "C:\\Users\\test\\file.py",
+          "absolute_path": "C:\\Users\\test\\file.py",
+          "pathlib_resolved": "C:\\Users\\test\\file.py",
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "original_path": "C:/Users/test/file.py",
+          "normalized_path": "C:\\Users\\test\\file.py",
+          "absolute_path": "C:/Users/test/file.py",
+          "pathlib_resolved": "C:\\Users\\test\\file.py",
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "original_path": "./relative/path.py",
+          "normalized_path": "relative\\path.py",
+          "absolute_path": "C:\\Users\\17175\\Desktop\\spek template\\relative\\path.py",
+          "pathlib_resolved": "relative\\path.py",
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "original_path": "../parent/file.py",
+          "normalized_path": "..\\parent\\file.py",
+          "absolute_path": "C:\\Users\\17175\\Desktop\\parent\\file.py",
+          "pathlib_resolved": "..\\parent\\file.py",
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "original_path": "simple_file.py",
+          "normalized_path": "simple_file.py",
+          "absolute_path": "C:\\Users\\17175\\Desktop\\spek template\\simple_file.py",
+          "pathlib_resolved": "simple_file.py",
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "original_path": "/absolute/unix/path.py",
+          "normalized_path": "\\absolute\\unix\\path.py",
+          "absolute_path": "/absolute/unix/path.py",
+          "pathlib_resolved": "\\absolute\\unix\\path.py",
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "8-agent-mesh-analysis.json",
+          "extracted_path": "check_connascence.py",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "8-agent-mesh-analysis.json",
+          "extracted_path": "core.py",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "8-agent-mesh-analysis.json",
+          "extracted_path": "Function entry points",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "8-agent-mesh-analysis.json",
+          "extracted_path": "Function exit points",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "codex_summary.json",
+          "extracted_path": "analyzer/unified_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "codex_summary.json",
+          "extracted_path": "analyzer/detectors/base.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "codex_summary.json",
+          "extracted_path": "analyzer/core.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "codex_summary.json",
+          "extracted_path": "analyzer/unified_analyzer.py:44",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "codex_summary.json",
+          "extracted_path": "analyzer/detectors/base.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "codex_summary.json",
+          "extracted_path": "analyzer/core.py:18",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "comprehensive_technical_analysis.json",
+          "extracted_path": ".claude/.artifacts",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "connascence_analysis.json",
+          "extracted_path": "example.py",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\check_connascence.py",
+          "exists": false,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\check_connascence.py",
+          "exists": false,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\check_connascence.py",
+          "exists": false,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\context_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\context_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\context_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\context_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\core.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\core.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\duplication_unified.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\duplication_unified.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\formal_grammar.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\language_strategies.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\language_strategies.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\language_strategies.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\language_strategies.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\smart_integration_engine.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\smart_integration_engine.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\smart_integration_engine.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\smart_integration_engine.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\smart_integration_engine.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\smart_integration_engine.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\smart_integration_engine.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\aggregator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\aggregator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\aggregator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\aggregator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\configuration_manager.py",
+          "exists": false,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\configuration_manager.py",
+          "exists": false,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\detector_pool.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\detector_pool.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\detector_pool.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\enhanced_metrics.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\enhanced_metrics.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\enhanced_metrics.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\enhanced_metrics.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\enhanced_metrics.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\recommendation_engine.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\recommendation_engine.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\ast_engine\\analyzer_orchestrator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\caching\\ast_cache.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\caching\\ast_cache.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\caching\\ast_cache.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\algorithm_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\convention_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\convention_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\execution_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\execution_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\execution_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\magic_literal_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\magic_literal_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\magic_literal_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\values_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\values_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\detectors\\values_detector.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\dup_detection\\mece_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\interfaces\\detector_interface.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\nasa_engine\\nasa_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\ast_optimizer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\file_cache.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\incremental_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\incremental_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\incremental_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\memory_monitor.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\memory_monitor.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\memory_monitor.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\memory_monitor.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\memory_monitor.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\resource_manager.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\resource_manager.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\resource_manager.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\resource_manager.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\resource_manager.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\streaming_performance_monitor.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\streaming_performance_monitor.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\optimization\\unified_visitor.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\performance\\parallel_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\performance\\parallel_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\performance\\parallel_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\performance\\parallel_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\performance\\parallel_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\performance\\parallel_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\performance\\parallel_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\performance\\parallel_analyzer.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\reporting\\coordinator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\reporting\\coordinator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\reporting\\coordinator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\dashboard_reporter.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\dashboard_reporter.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\dashboard_reporter.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\dashboard_reporter.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\incremental_cache.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\incremental_cache.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\incremental_cache.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\incremental_cache.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\result_aggregator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\result_aggregator.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\stream_processor.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\stream_processor.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\streaming\\stream_processor.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\utils\\common_patterns.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\utils\\error_handling.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\utils\\error_handling.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\utils\\error_handling.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\utils\\error_handling.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\utils\\error_handling.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\utils\\error_handling.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "connascence_fallback.json",
+          "extracted_path": "C:\\Users\\17175\\Desktop\\spek template\\analyzer\\utils\\injection\\container.py",
+          "exists": true,
+          "is_absolute": true,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\analysis_orchestrator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\optimization\\file_cache.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\optimization\\memory_monitor.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\optimization\\resource_manager.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\architecture\\aggregator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\architecture\\enhanced_metrics.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\detectors\\algorithm_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\detectors\\god_object_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\detectors\\timing_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\detectors\\position_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\detectors\\values_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer\\interfaces\\detector_interface.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_real_test.json",
+          "extracted_path": "analyzer",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "final_test.json",
+          "extracted_path": ".",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\analysis_orchestrator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\optimization\\file_cache.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\optimization\\memory_monitor.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\optimization\\resource_manager.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\architecture\\aggregator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\architecture\\enhanced_metrics.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\detectors\\algorithm_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\detectors\\god_object_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\detectors\\timing_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\detectors\\position_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\detectors\\values_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": "analyzer\\interfaces\\detector_interface.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "full_codebase_analysis.json",
+          "extracted_path": ".",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "self_analysis_nasa.json",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "self_mece_analysis.json",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "self_god_objects.json",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "tool_correlation_self_test.json",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "self_analysis_comparison.json",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "self_analysis_trends.json",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "analyzer/core.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "analyzer/dup_detection/mece_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "analyzer/dashboard/metrics.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "analyzer/dashboard/ci_integration.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "analyzer/integrations/tool_coordinator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "self_mece_analysis.json",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "gemini_self_dogfooding_analysis.json",
+          "extracted_path": "self_god_objects.json",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "github_hooks_fixes_summary.json",
+          "extracted_path": "analyzer/architecture/orchestrator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "github_hooks_fixes_summary.json",
+          "extracted_path": "analyzer/core.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "github_hooks_fixes_summary.json",
+          "extracted_path": "analyzer/core/unified_imports.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_analysis_report.json",
+          "extracted_path": "analyzer/unified_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_analysis_report.json",
+          "extracted_path": "analyzer/constants.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_analysis_report.json",
+          "extracted_path": "analyzer/core.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_analysis_report.json",
+          "extracted_path": "analyzer/unified_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_analysis_report.json",
+          "extracted_path": "analyzer/unified_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_decomposition_analysis.json",
+          "extracted_path": "analyzer/unified_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_decomposition_analysis.json",
+          "extracted_path": "interfaces/cli/main_python.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_decomposition_analysis.json",
+          "extracted_path": "analyzer/reporting/coordinator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_decomposition_analysis.json",
+          "extracted_path": "analyzer/optimization/incremental_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_decomposition_analysis.json",
+          "extracted_path": "analyzer/optimization/resource_manager.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_decomposition_analysis.json",
+          "extracted_path": "analyzer/streaming/dashboard_reporter.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_decomposition_analysis.json",
+          "extracted_path": "analyzer/unified_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_decomposition_analysis.json",
+          "extracted_path": "analyzer/core.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "god_object_decomposition_analysis.json",
+          "extracted_path": "analyzer/core.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "json_performance_benchmark_report.json",
+          "extracted_path": "self_god_objects.json",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "json_performance_benchmark_report.json",
+          "extracted_path": "test_sarif.json",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mcp_integration_analysis.json",
+          "extracted_path": "flow/workflows/spec-to-pr.yaml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "mcp_integration_analysis.json",
+          "extracted_path": "flow/workflows/after-edit.yaml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "mcp_integration_analysis.json",
+          "extracted_path": ".github/workflows/quality-gates.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "mcp_integration_analysis.json",
+          "extracted_path": ".github/workflows/connascence-analysis.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": ".",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\analysis_orchestrator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\optimization\\file_cache.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\optimization\\memory_monitor.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\optimization\\resource_manager.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\architecture\\aggregator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\architecture\\enhanced_metrics.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\detectors\\algorithm_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\detectors\\god_object_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\detectors\\timing_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\detectors\\position_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\detectors\\values_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "mece_analysis.json",
+          "extracted_path": "analyzer\\interfaces\\detector_interface.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "phase3_god_object_decomposition_complete.json",
+          "extracted_path": "analyzer/constants.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "phase3_god_object_decomposition_complete.json",
+          "extracted_path": "analyzer/core.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "phase3_god_object_decomposition_complete.json",
+          "extracted_path": "analyzer/performance/parallel_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "quality_test.json",
+          "extracted_path": ".",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "quality_test.json",
+          "extracted_path": "./mock_file.py",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "readme_update_recommendations.json",
+          "extracted_path": "After line 245 (end of current command documentation)",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "readme_update_recommendations.json",
+          "extracted_path": "Update existing command descriptions",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "readme_update_recommendations.json",
+          "extracted_path": "Line 40-51 (after Core Quality Stack header)",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "readme_update_recommendations.json",
+          "extracted_path": "Line 69-78 (MCP Server Assignments by Phase table)",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "readme_update_recommendations.json",
+          "extracted_path": "Line 60-67 (Quality Gates section)",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "readme_update_recommendations.json",
+          "extracted_path": "Line 55 (Claude Code - 17 specialized slash commands)",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "readme_update_recommendations.json",
+          "extracted_path": "Line 247 (Complete documentation reference)",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "readme_update_recommendations.json",
+          "extracted_path": "Line 205 (Available Commands section)",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "real_analysis.json",
+          "extracted_path": "analyzer",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "refactoring_operation_001_evidence.json",
+          "extracted_path": "analyzer/unified_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "refactoring_operation_001_evidence.json",
+          "extracted_path": "analyzer/unified_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "refactoring_operation_001_evidence.json",
+          "extracted_path": "analyzer/constants.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "refactoring_operation_001_evidence.json",
+          "extracted_path": "analyzer/core.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "test_analysis.json",
+          "extracted_path": ".",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "test_analysis.json",
+          "extracted_path": "./mock_file.py",
+          "exists": false,
+          "is_absolute": false,
+          "is_normalized": false,
+          "consistent": false,
+          "issues": [
+            "path_not_normalized"
+          ]
+        },
+        {
+          "source_file": "test_ci_output.json",
+          "extracted_path": ".",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\analysis_orchestrator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\optimization\\file_cache.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\optimization\\memory_monitor.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\optimization\\resource_manager.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\architecture\\aggregator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\architecture\\enhanced_metrics.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\architecture\\orchestrator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\detectors\\algorithm_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\detectors\\god_object_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\detectors\\timing_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\detectors\\position_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\detectors\\values_detector.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": "analyzer\\interfaces\\detector_interface.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_cleaned_analysis.json",
+          "extracted_path": ".",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "tests\\workflow-validation\\test_summary.json",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "AGENTS.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "CRITICAL-ISSUES-ACTION-PLAN.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "QUALITY.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "README-EXTENDED.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "README-MCP-SETUP.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "README.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\AGENT-WIRING-OPTIMIZATION.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\ANALYZER-CAPABILITIES.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\ANALYZER-CONSOLIDATION-PLAN.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\ARCHITECTURAL-ANALYSIS.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\audit-findings.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\CLI-INTEGRATION-GAPS.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\CONNASCENCE-VIOLATION-PATTERNS-RESEARCH.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\ENHANCED-CICD-INTEGRATION-SPECIFICATIONS.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\FINAL-PRODUCTION-ASSESSMENT.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\GOD-OBJECT-DECOMPOSITION-RESEARCH.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\MCP-AUTO-INITIALIZATION-GUIDE.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\MCP-ENHANCED-DEBUGGING-SYSTEM.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\MCP-INTELLIGENT-DEBUGGING-SYSTEM.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\MECE-CONSOLIDATION-PLAN.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\MECE-README-ANALYSIS.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\NASA-POT10-CODE-REVIEW-CHECKLIST.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\NASA-POT10-COMPLIANCE-STRATEGIES.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\PHASE-2-VALIDATION-REPORT.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\PHASE3-PERFORMANCE-OPTIMIZATION-STRATEGY.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\PRODUCTION-VALIDATION-REPORT.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\PROJECT-STRUCTURE.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\QUICK-REFERENCE-MCP-DEBUGGING.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\S-R-P-E-K-METHODOLOGY.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\SECURITY-INTEGRATION-ANALYSIS.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\SYSTEM-ARCHITECTURE-ANALYSIS.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\THEATER-DETECTION-AUDIT-REPORT.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\UNIFIED-INTEGRATION-STRATEGY.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\UNIFIED-MEMORY-ARCHITECTURE.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "examples\\getting-started.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "examples\\README.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "examples\\troubleshooting.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "memory\\constitution.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "memory\\constitution_update_checklist.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "templates\\plan-template.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "templates\\spec-template.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "templates\\tasks-template.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "tests\\PHASE1_DEPLOYMENT_TEST_REPORT.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "tests\\README.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": ".claude\\.artifacts\\performance_validation_report.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": ".claude\\.artifacts\\phase2_integration_analysis_report.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": ".claude\\.artifacts\\quality-orchestrator-fix-summary.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": ".claude\\.artifacts\\security-pipeline-fix-summary.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": ".claude\\.artifacts\\SECURITY_PIPELINE_COMPREHENSIVE_TEST_REPORT.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": ".claude\\.artifacts\\security_pipeline_functional_analysis.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": ".claude\\.artifacts\\final-validation\\DEPLOYMENT_EVIDENCE_PACKAGE.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": ".claude\\.artifacts\\final-validation\\EXECUTIVE_SUMMARY.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": ".claude\\.artifacts\\final-validation\\FINAL_PRODUCTION_READINESS_ASSESSMENT.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\optimization\\README.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\history\\PHASE-2-IMPLEMENTATION-SUMMARY.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\history\\PHASE-3-IMPLEMENTATION-SUMMARY.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\process\\GUARDRAILS.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\reference\\COMMANDS.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "docs\\reference\\QUICK-REFERENCE.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "examples\\sample-specs\\auth-system.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "examples\\workflows\\spec-to-pr.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "flow\\agents\\planner.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "flow\\agents\\tester.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "tests\\cache_analyzer\\CACHE_ANALYZER_TEST_REPORT.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "tests\\self-dogfooding\\VALIDATION_REPORT.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "tests\\workflow-validation\\final_validation_report.md",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\diff_coverage.js",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\smoke_test_agents.js",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "tests\\golden\\example.golden.test.js",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "interfaces\\cli\\src\\mcp\\server.ts",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\cache_manager.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\configuration_manager.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\core.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\result_aggregator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\unified_analyzer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\__main__.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\compare_baselines.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\compare_self_analysis.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\diff_coverage.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\phase2_validation.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\phase3_deployment_validator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\real_analysis_test.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\remove_unicode.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\reproduce_enterprise_demo.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\update_readme_metrics.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\verify_counts.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "tests\\production_validation_test.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": ".claude\\.artifacts\\integration_test_phase2_imports.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": ".claude\\.artifacts\\security_pipeline_validation_report.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\dashboard\\ci_integration.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\dashboard\\metrics.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\integrations\\tool_coordinator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\optimization\\performance_benchmark.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\reporting\\coordinator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "analyzer\\utils\\connascence_validator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "interfaces\\cli\\connascence.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "interfaces\\core\\interface_base.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "src\\theater-detection\\deploy_loop3.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "src\\theater-detection\\reality-validator.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "src\\analyzers\\nasa\\function_decomposer.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "src\\analyzers\\nasa\\nasa_compliance_auditor.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "src\\analyzers\\nasa\\security_manager.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "tests\\workflow-validation\\comprehensive_validation_report.py",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\analyzer_improvement_loop.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\apply_improvements.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\audit_swarm.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\batch_update_agents.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\calculate_consensus.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\codex_apply.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\common.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\comprehensive_verification_pipeline.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\contextual_loop.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\gate_fail_reason.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\generate-handoff-docs.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\impact_quickcheck.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\intelligent_failure_analysis.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\iterative_improvement_loop.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\lint_agents.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\mcp-auto-init-enhanced.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\mcp-auto-init.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\memory_bridge.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\ops_tripwires.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\performance-monitor.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\post-completion-cleanup.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\premortem_convergence.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\production-fixes.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\quality_loop_github.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\quality_measurement_reality_validation.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\reality_validator.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\run_complete_quality_loop.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\sandbox_janitor.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\self_correct.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\simple_quality_loop.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\surgical_fix_system.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\synthesize_improvements.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\update-agent-context.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\update_agents_spek_augment.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\update_remaining_agents.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\validate-mcp-environment.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\verify-fixes.sh",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\mcp-auto-init-enhanced.ps1",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "scripts\\windows_quality_loop.ps1",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "flow\\workflows\\after-edit.yaml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "flow\\workflows\\ci-auto-repair.yaml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "flow\\workflows\\pre-mortem-loop.yaml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "flow\\workflows\\spec-to-pr.yaml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "flow\\workflows\\swarm-audit-cycle.yaml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "unicode_violations_final.json",
+          "extracted_path": "flow\\workflows\\theater-detection.yaml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\architecture-analysis.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\auto-repair.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\cache-optimization.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\codeql-analysis.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\connascence-analysis.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\connascence-core-analysis.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\enhanced-quality-gates.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\mece-duplication-analysis.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\monitoring-dashboard.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\nasa-compliance-check.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\performance-monitoring.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\quality-gate-enforcer.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\quality-gates.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\quality-orchestrator-parallel.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\quality-orchestrator.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\rollback-automation.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\security-pipeline.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\self-dogfooding.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\setup-branch-protection.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\validate-artifacts.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        },
+        {
+          "source_file": "validation_report.json",
+          "extracted_path": ".github\\workflows\\vscode-extension-ci.yml",
+          "exists": true,
+          "is_absolute": false,
+          "is_normalized": true,
+          "consistent": true,
+          "issues": []
+        }
+      ]
+    },
+    "policy_enforcement": {
+      "status": "partial",
+      "tests": [
+        {
+          "policy_file": "codex.json",
+          "valid_structure": true,
+          "complete": true,
+          "missing_sections": [],
+          "consistent": true
+        },
+        {
+          "policy_file": "plane.json",
+          "valid_structure": true,
+          "complete": false,
+          "missing_sections": [
+            "budgets",
+            "allowlist",
+            "denylist",
+            "verification"
+          ],
+          "consistent": false
+        },
+        {
+          "data_file": "8-agent-mesh-analysis.json",
+          "policy_references": 0,
+          "enforcement_evidence": 39,
+          "consistent": true
+        },
+        {
+          "data_file": "codex_summary.json",
+          "policy_references": 0,
+          "enforcement_evidence": 6,
+          "consistent": true
+        },
+        {
+          "data_file": "comprehensive_analysis.json",
+          "policy_references": 1,
+          "enforcement_evidence": 14,
+          "consistent": true
+        },
+        {
+          "data_file": "comprehensive_codebase_analysis.json",
+          "policy_references": 0,
+          "enforcement_evidence": 20,
+          "consistent": true
+        },
+        {
+          "data_file": "comprehensive_technical_analysis.json",
+          "policy_references": 0,
+          "enforcement_evidence": 5,
+          "consistent": true
+        },
+        {
+          "data_file": "connascence_analysis.json",
+          "policy_references": 0,
+          "enforcement_evidence": 7,
+          "consistent": true
+        },
+        {
+          "data_file": "connascence_full.json",
+          "policy_references": 0,
+          "enforcement_evidence": 6,
+          "consistent": true
+        },
+        {
+          "data_file": "final_phase2_validation_summary.json",
+          "policy_references": 0,
+          "enforcement_evidence": 12,
+          "consistent": true
+        },
+        {
+          "data_file": "final_real_test.json",
+          "policy_references": 1,
+          "enforcement_evidence": 7,
+          "consistent": true
+        },
+        {
+          "data_file": "final_test.json",
+          "policy_references": 1,
+          "enforcement_evidence": 7,
+          "consistent": true
+        },
+        {
+          "data_file": "final_validation_report.json",
+          "policy_references": 0,
+          "enforcement_evidence": 7,
+          "consistent": true
+        },
+        {
+          "data_file": "full_codebase_analysis.json",
+          "policy_references": 1,
+          "enforcement_evidence": 7,
+          "consistent": true
+        },
+        {
+          "data_file": "gemini_audit_verification_report.json",
+          "policy_references": 0,
+          "enforcement_evidence": 4,
+          "consistent": true
+        },
+        {
+          "data_file": "gemini_self_dogfooding_analysis.json",
+          "policy_references": 0,
+          "enforcement_evidence": 1,
+          "consistent": true
+        },
+        {
+          "data_file": "github_hooks_fixes_summary.json",
+          "policy_references": 0,
+          "enforcement_evidence": 3,
+          "consistent": true
+        },
+        {
+          "data_file": "god_object_analysis_report.json",
+          "policy_references": 0,
+          "enforcement_evidence": 7,
+          "consistent": true
+        },
+        {
+          "data_file": "god_object_decomposition_analysis.json",
+          "policy_references": 0,
+          "enforcement_evidence": 17,
+          "consistent": true
+        },
+        {
+          "data_file": "json_performance_benchmark_report.json",
+          "policy_references": 0,
+          "enforcement_evidence": 4,
+          "consistent": true
+        },
+        {
+          "data_file": "mcp_integration_analysis.json",
+          "policy_references": 0,
+          "enforcement_evidence": 1,
+          "consistent": true
+        },
+        {
+          "data_file": "mece_analysis.json",
+          "policy_references": 0,
+          "enforcement_evidence": 1,
+          "consistent": true
+        },
+        {
+          "data_file": "mece_chart_comprehensive.json",
+          "policy_references": 0,
+          "enforcement_evidence": 4,
+          "consistent": true
+        },
+        {
+          "data_file": "memory_mcp_update_patterns.json",
+          "policy_references": 0,
+          "enforcement_evidence": 1,
+          "consistent": true
+        },
+        {
+          "data_file": "phase1-surgical-elimination-evidence.json",
+          "policy_references": 0,
+          "enforcement_evidence": 2,
+          "consistent": true
+        },
+        {
+          "data_file": "phase2_integration_report.json",
+          "policy_references": 6,
+          "enforcement_evidence": 1,
+          "consistent": true
+        },
+        {
+          "data_file": "phase2_validation_report.json",
+          "policy_references": 0,
+          "enforcement_evidence": 12,
+          "consistent": true
+        },
+        {
+          "data_file": "PHASE2_WORKFLOW_TEST_REPORT.json",
+          "policy_references": 0,
+          "enforcement_evidence": 9,
+          "consistent": true
+        },
+        {
+          "data_file": "phase3_god_object_decomposition_complete.json",
+          "policy_references": 0,
+          "enforcement_evidence": 17,
+          "consistent": true
+        },
+        {
+          "data_file": "production-validation-summary.json",
+          "policy_references": 0,
+          "enforcement_evidence": 4,
+          "consistent": true
+        },
+        {
+          "data_file": "production_validation_report.json",
+          "policy_references": 0,
+          "enforcement_evidence": 10,
+          "consistent": true
+        },
+        {
+          "data_file": "qa_summary.json",
+          "policy_references": 0,
+          "enforcement_evidence": 9,
+          "consistent": true
+        },
+        {
+          "data_file": "quality_gates_report.json",
+          "policy_references": 0,
+          "enforcement_evidence": 25,
+          "consistent": true
+        },
+        {
+          "data_file": "quality_gates_validation.json",
+          "policy_references": 0,
+          "enforcement_evidence": 4,
+          "consistent": true
+        },
+        {
+          "data_file": "quality_test.json",
+          "policy_references": 1,
+          "enforcement_evidence": 5,
+          "consistent": true
+        },
+        {
+          "data_file": "readme_update_recommendations.json",
+          "policy_references": 0,
+          "enforcement_evidence": 2,
+          "consistent": true
+        },
+        {
+          "data_file": "real_analysis.json",
+          "policy_references": 1,
+          "enforcement_evidence": 7,
+          "consistent": true
+        },
+        {
+          "data_file": "real_analysis_result.json",
+          "policy_references": 0,
+          "enforcement_evidence": 5,
+          "consistent": true
+        },
+        {
+          "data_file": "refactoring_operation_001_evidence.json",
+          "policy_references": 0,
+          "enforcement_evidence": 6,
+          "consistent": true
+        },
+        {
+          "data_file": "security_pipeline_test_report.json",
+          "policy_references": 0,
+          "enforcement_evidence": 1,
+          "consistent": true
+        },
+        {
+          "data_file": "security_pipeline_test_summary.json",
+          "policy_references": 1,
+          "enforcement_evidence": 25,
+          "consistent": true
+        },
+        {
+          "data_file": "self_dogfooding.json",
+          "policy_references": 1,
+          "enforcement_evidence": 0,
+          "consistent": true
+        },
+        {
+          "data_file": "test_analysis.json",
+          "policy_references": 1,
+          "enforcement_evidence": 5,
+          "consistent": true
+        },
+        {
+          "data_file": "test_ci_output.json",
+          "policy_references": 1,
+          "enforcement_evidence": 7,
+          "consistent": true
+        },
+        {
+          "data_file": "test_sarif_output.json",
+          "policy_references": 1,
+          "enforcement_evidence": 2,
+          "consistent": true
+        },
+        {
+          "data_file": "theater-detection-report.json",
+          "policy_references": 0,
+          "enforcement_evidence": 3,
+          "consistent": true
+        },
+        {
+          "data_file": "theater_detection_reality_validation.json",
+          "policy_references": 0,
+          "enforcement_evidence": 3,
+          "consistent": true
+        },
+        {
+          "data_file": "unicode_cleaned_analysis.json",
+          "policy_references": 1,
+          "enforcement_evidence": 7,
+          "consistent": true
+        },
+        {
+          "data_file": "unicode_violations_final.json",
+          "policy_references": 0,
+          "enforcement_evidence": 151,
+          "consistent": true
+        },
+        {
+          "data_file": "validation_report.json",
+          "policy_references": 0,
+          "enforcement_evidence": 8,
+          "consistent": true
+        }
+      ]
+    },
+    "data_integrity": {
+      "status": "passed",
+      "tests": [
+        {
+          "file": "8-agent-mesh-analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "architecture_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "cache_optimization.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "codex_summary.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "comprehensive_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "comprehensive_codebase_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "comprehensive_technical_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "connascence_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "connascence_fallback.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "connascence_full.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "documentation_gap_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "failure_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "final_phase2_validation_summary.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "final_real_test.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "final_test.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "final_validation_report.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "full_codebase_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "gemini_audit_verification_report.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "gemini_self_dogfooding_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "github_hooks_fixes_summary.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "god_objects.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "god_object_analysis_report.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "god_object_decomposition_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "json_performance_benchmark_report.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "mcp_integration_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "mece_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "mece_chart_comprehensive.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "memory_mcp_update_patterns.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "memory_sync_index.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "performance_monitor.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "performance_monitoring.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "performance_validation_test.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "phase1-surgical-elimination-evidence.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "phase2_integration_report.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "phase2_validation_report.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "PHASE2_WORKFLOW_TEST_REPORT.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "phase3_god_object_decomposition_complete.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "production-validation-summary.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "production_validation_report.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "qa_summary.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "quality_gates_report.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "quality_gates_validation.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "quality_test.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "readme_update_recommendations.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "real_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "real_analysis_result.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "refactoring_operation_001_evidence.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "security_pipeline_test_report.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "security_pipeline_test_summary.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "self_dogfooding.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "system_metrics.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "test_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "test_ci_output.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "test_sarif_output.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "theater-detection-report.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "theater_detection_reality_validation.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "unicode_cleaned_analysis.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "unicode_violations_final.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        },
+        {
+          "file": "validation_report.json",
+          "valid_json": true,
+          "integrity_issues": [],
+          "consistent": true
+        }
+      ]
+    },
+    "overall_risk_score": 0.875,
+    "status": "PASSED_WITH_WARNINGS"
+  }
+}

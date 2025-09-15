@@ -1,0 +1,136 @@
+{
+  "audit_trail_id": "938a0b06-a31a-4d62-a25f-10fac19ce94f",
+  "creation_timestamp": "2025-09-12T21:25:31.650066",
+  "collection_start_timestamp": "2025-09-12T21:25:31.619149",
+  "total_events": 3,
+  "total_evidence_packages": 3,
+  "frameworks_assessed": [
+    "ISO27001",
+    "SOC2",
+    "NIST-SSDF"
+  ],
+  "audit_events": [
+    {
+      "event_id": "b07ad6cd-7b8b-4661-a14e-7c2a7a343186",
+      "timestamp": "2025-09-12T21:25:31.619149",
+      "event_type": "framework_assessment",
+      "framework": "SOC2",
+      "source": "automated",
+      "description": "Automated SOC2 compliance assessment initiated",
+      "data_hash": "10f21717fbd9ef9f67abd9d5fd7d272fd1a6b2b6452fd8c6e698d4df308cd236",
+      "evidence_files": [],
+      "metadata": {
+        "assessment_type": "automated_compliance_check",
+        "evidence_collected": true,
+        "controls_assessed": 0,
+        "automation_level": "high"
+      },
+      "integrity_verified": true
+    },
+    {
+      "event_id": "d50f8adc-1c4e-41c7-91f7-2b01bf4a474e",
+      "timestamp": "2025-09-12T21:25:31.619149",
+      "event_type": "framework_assessment",
+      "framework": "ISO27001",
+      "source": "automated",
+      "description": "Automated ISO27001 compliance assessment initiated",
+      "data_hash": "28493b06220da8baf938c6fd0060be5d80dad9a5ad6a71eab82871f18f6a16f7",
+      "evidence_files": [],
+      "metadata": {
+        "assessment_type": "automated_compliance_check",
+        "evidence_collected": true,
+        "controls_assessed": 0,
+        "automation_level": "high"
+      },
+      "integrity_verified": true
+    },
+    {
+      "event_id": "6b97dd3a-9d94-481b-a320-1d4fba1b073e",
+      "timestamp": "2025-09-12T21:25:31.619149",
+      "event_type": "framework_assessment",
+      "framework": "NIST-SSDF",
+      "source": "automated",
+      "description": "Automated NIST-SSDF compliance assessment initiated",
+      "data_hash": "e3881f1c80cbca6594b781d09407c39fde319ee5648d778c3fb942d26a3b87c0",
+      "evidence_files": [],
+      "metadata": {
+        "assessment_type": "automated_compliance_check",
+        "evidence_collected": true,
+        "controls_assessed": 0,
+        "automation_level": "high"
+      },
+      "integrity_verified": true
+    }
+  ],
+  "evidence_packages": [
+    {
+      "package_id": "938a0b06-a31a-4d62-a25f-10fac19ce94f_SOC2_1757726731",
+      "creation_timestamp": "2025-09-12T21:25:31.619149",
+      "framework": "SOC2",
+      "evidence_type": "automated_compliance_assessment",
+      "files": [
+        "938a0b06-a31a-4d62-a25f-10fac19ce94f_SOC2_1757726731\\soc2_results.json",
+        "938a0b06-a31a-4d62-a25f-10fac19ce94f_SOC2_1757726731.zip"
+      ],
+      "package_hash": "45021ce22cb1e414132620b3620982a0afff09f53f7d0549af0e9d80ed1047eb",
+      "retention_until": "2025-12-11T21:25:31.619149",
+      "metadata": {
+        "framework": "SOC2",
+        "assessment_timestamp": "2025-09-12T21:25:31.619149",
+        "evidence_count": 8,
+        "automated": true,
+        "compliance_score": null
+      }
+    },
+    {
+      "package_id": "938a0b06-a31a-4d62-a25f-10fac19ce94f_ISO27001_1757726731",
+      "creation_timestamp": "2025-09-12T21:25:31.628124",
+      "framework": "ISO27001",
+      "evidence_type": "automated_compliance_assessment",
+      "files": [
+        "938a0b06-a31a-4d62-a25f-10fac19ce94f_ISO27001_1757726731\\iso27001_results.json",
+        "938a0b06-a31a-4d62-a25f-10fac19ce94f_ISO27001_1757726731.zip"
+      ],
+      "package_hash": "209f4e8bc509e517effc47b52fdffaa609a6ab0928cc6c08c04d8ae6b0216c8c",
+      "retention_until": "2025-12-11T21:25:31.628124",
+      "metadata": {
+        "framework": "ISO27001",
+        "assessment_timestamp": "2025-09-12T21:25:31.619149",
+        "evidence_count": 0,
+        "automated": true,
+        "compliance_score": 78.5
+      }
+    },
+    {
+      "package_id": "938a0b06-a31a-4d62-a25f-10fac19ce94f_NIST-SSDF_1757726731",
+      "creation_timestamp": "2025-09-12T21:25:31.637100",
+      "framework": "NIST-SSDF",
+      "evidence_type": "automated_compliance_assessment",
+      "files": [
+        "938a0b06-a31a-4d62-a25f-10fac19ce94f_NIST-SSDF_1757726731\\nist-ssdf_results.json",
+        "938a0b06-a31a-4d62-a25f-10fac19ce94f_NIST-SSDF_1757726731\\nist_ssdf_implementation_tier.json",
+        "938a0b06-a31a-4d62-a25f-10fac19ce94f_NIST-SSDF_1757726731.zip"
+      ],
+      "package_hash": "5b693db77172c7b3d15100f8a119596cde7138add9f00a91cbc7e5b9759e8061",
+      "retention_until": "2025-12-11T21:25:31.637100",
+      "metadata": {
+        "framework": "NIST-SSDF",
+        "assessment_timestamp": null,
+        "evidence_count": 12,
+        "automated": true,
+        "compliance_score": 72.3
+      }
+    }
+  ],
+  "retention_policy": {
+    "retention_days": 90,
+    "retention_until": "2025-12-11T21:25:31.650066",
+    "automated_cleanup": true
+  },
+  "integrity_measures": {
+    "hash_algorithm": "SHA-256",
+    "timestamp_accuracy": "second",
+    "chain_of_custody": true,
+    "tamper_detection": true
+  }
+}

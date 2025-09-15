@@ -1,0 +1,239 @@
+
+> spek-driven-template@1.0.0 coverage
+> jest --coverage
+
+FAIL tests/contract/example.contract.test.js
+  User API Contract Tests
+    sqrt getUserById returns valid user schema (5 ms)
+    * user schema rejects invalid data (20 ms)
+    sqrt user schema allows optional fields to be undefined
+  Configuration Contract Tests
+    sqrt loadConfig returns valid configuration schema (1 ms)
+    sqrt configuration schema applies defaults (2 ms)
+    * configuration schema rejects invalid values (7 ms)
+  API Response Contract Tests
+    sqrt successful API response matches schema (1 ms)
+    sqrt error API response structure
+    sqrt API response schema validates status codes (3 ms)
+  SPEK-AUGMENT Integration Contract Tests
+    sqrt gate results match expected schema
+    sqrt triage results match expected schema
+    sqrt schemas reject invalid SPEK data (2 ms)
+  CF v2 Alpha Integration Contract Tests
+    sqrt neural prediction results match schema
+    sqrt hive session data matches schema (1 ms)
+    sqrt CF schemas enforce required fields (1 ms)
+
+  [U+25CF] User API Contract Tests > user schema rejects invalid data
+
+    expect(received).toThrow(expected)
+
+    Expected substring: "Invalid user data case 1"
+    Received message:   "[
+      {
+        \"code\": \"too_small\",
+        \"minimum\": 1,
+        \"type\": \"string\",
+        \"inclusive\": true,
+        \"exact\": false,
+        \"message\": \"String must contain at least 1 character(s)\",
+        \"path\": [
+          \"id\"
+        ]
+      },
+      {
+        \"validation\": \"email\",
+        \"code\": \"invalid_string\",
+        \"message\": \"Invalid email\",
+        \"path\": [
+          \"email\"
+        ]
+      },
+      {
+        \"code\": \"invalid_type\",
+        \"expected\": \"string\",
+        \"received\": \"undefined\",
+        \"path\": [
+          \"createdAt\"
+        ],
+        \"message\": \"Required\"
+      },
+      {
+        \"code\": \"invalid_type\",
+        \"expected\": \"boolean\",
+        \"received\": \"undefined\",
+        \"path\": [
+          \"isActive\"
+        ],
+        \"message\": \"Required\"
+      }
+    ]"
+
+        [0m [90m 92 |[39m
+         [90m 93 |[39m     invalidUsers[33m.[39mforEach((invalidUser[33m,[39m index) [33m=>[39m {
+        [31m[1m>[22m[39m[90m 94 |[39m       expect(() [33m=>[39m [33mUserSchema[39m[33m.[39mparse(invalidUser))
+         [90m    |[39m                               [31m[1m^[22m[39m
+         [90m 95 |[39m         [33m.[39mtoThrow([32m`Invalid user data case ${index + 1}`[39m)[33m;[39m
+         [90m 96 |[39m     })[33m;[39m
+         [90m 97 |[39m   })[33m;[39m[0m
+
+      at Object.get error [as error] (node_modules/zod/v3/types.cjs:45:31)
+      at ZodObject.parse (node_modules/zod/v3/types.cjs:120:22)
+      at tests/contract/example.contract.test.js:94:31
+      at Object.<anonymous> (node_modules/expect/build/toThrowMatchers.js:74:11)
+      at Object.throwingMatcher [as toThrow] (node_modules/expect/build/index.js:320:21)
+      at tests/contract/example.contract.test.js:95:10
+                at Array.forEach (<anonymous>)
+      at Object.<anonymous> (tests/contract/example.contract.test.js:93:18)
+      at tests/contract/example.contract.test.js:95:10
+          at Array.forEach (<anonymous>)
+      at Object.<anonymous> (tests/contract/example.contract.test.js:93:18)
+
+  [U+25CF] Configuration Contract Tests > configuration schema rejects invalid values
+
+    expect(received).toThrow(expected)
+
+    Expected substring: "Invalid config case 1"
+    Received message:   "[
+      {
+        \"code\": \"too_small\",
+        \"minimum\": 0,
+        \"type\": \"number\",
+        \"inclusive\": false,
+        \"exact\": false,
+        \"message\": \"Number must be greater than 0\",
+        \"path\": [
+          \"database\",
+          \"port\"
+        ]
+      },
+      {
+        \"validation\": \"url\",
+        \"code\": \"invalid_string\",
+        \"message\": \"Invalid url\",
+        \"path\": [
+          \"api\",
+          \"baseUrl\"
+        ]
+      }
+    ]"
+
+        [0m [90m 173 |[39m     invalidConfigs[33m.[39mforEach((invalidConfig[33m,[39m index) [33m=>[39m {
+         [90m 174 |[39m       [36mconst[39m config [33m=[39m loadConfig(invalidConfig)[33m;[39m
+        [31m[1m>[22m[39m[90m 175 |[39m       expect(() [33m=>[39m [33mConfigSchema[39m[33m.[39mparse(config))
+         [90m     |[39m                                 [31m[1m^[22m[39m
+         [90m 176 |[39m         [33m.[39mtoThrow([32m`Invalid config case ${index + 1}`[39m)[33m;[39m
+         [90m 177 |[39m     })[33m;[39m
+         [90m 178 |[39m   })[33m;[39m[0m
+
+      at Object.get error [as error] (node_modules/zod/v3/types.cjs:45:31)
+      at ZodObject.parse (node_modules/zod/v3/types.cjs:120:22)
+      at tests/contract/example.contract.test.js:175:33
+      at Object.<anonymous> (node_modules/expect/build/toThrowMatchers.js:74:11)
+      at Object.throwingMatcher [as toThrow] (node_modules/expect/build/index.js:320:21)
+      at tests/contract/example.contract.test.js:176:10
+                at Array.forEach (<anonymous>)
+      at Object.<anonymous> (tests/contract/example.contract.test.js:173:20)
+      at tests/contract/example.contract.test.js:176:10
+          at Array.forEach (<anonymous>)
+      at Object.<anonymous> (tests/contract/example.contract.test.js:173:20)
+
+PASS tests/property/example.test.ts
+  Property-Based Test Example
+    sqrt sortNumbers produces ordered output (26 ms)
+    sqrt SPEKTemplate properties always hold (13 ms)
+
+PASS tests/property/example.property.test.js
+  Email Normalization (Property Tests)
+    sqrt normalization is idempotent (4 ms)
+    sqrt normalization removes leading/trailing whitespace (3 ms)
+    sqrt normalization converts to lowercase (3 ms)
+    sqrt empty/invalid inputs produce empty strings (1 ms)
+  Configuration Merging (Property Tests)
+    sqrt merge is associative (6 ms)
+    sqrt override properties are preserved (2 ms)
+    sqrt base properties are preserved when not overridden (2 ms)
+  Array Processing (Property Tests)
+    sqrt deduplication is idempotent (2 ms)
+    sqrt deduplication preserves all unique elements (1 ms)
+    sqrt deduplication maintains order of first occurrence (1 ms)
+    sqrt invalid input produces empty array (1 ms)
+  String Processing (Property Tests)
+    sqrt slug generation is deterministic (1 ms)
+    sqrt slugs contain only valid characters (1 ms)
+    sqrt slugs do not start or end with hyphens
+    sqrt identical normalized inputs produce identical slugs (6 ms)
+  Error Handling (Property Tests)
+    sqrt valid JSON strings parse successfully (1 ms)
+    sqrt invalid inputs return default value (1 ms)
+
+PASS tests/contract/example.test.ts
+  Configuration Contract Tests
+    sqrt validates codex config schema (1 ms)
+    sqrt rejects invalid configuration (6 ms)
+    sqrt validates SPEKTemplate creation
+    sqrt validates health check contract (1 ms)
+
+PASS tests/golden/example.test.ts
+  Golden Master Test Example
+    sqrt produces expected output format
+    sqrt SPEKTemplate produces consistent golden output
+
+PASS tests/golden/example.golden.test.js
+  Email Normalization (Golden Tests)
+    sqrt case 1: '  USER@EXAMPLE.COM  ' -> 'user@example.com'
+    sqrt case 2: 'Test.User+Tag@Domain.Org' -> 'test.user+tag@domain.org' (1 ms)
+    sqrt case 3: '' -> ''
+    sqrt case 4: '   ' -> ''
+    sqrt case 5: 'simple@test.com' -> 'simple@test.com'
+    sqrt case 6: 'CAPS@DOMAIN.NET' -> 'caps@domain.net'
+    sqrt case 7: '	
+ user@test.com 
+' -> 'user@test.com' (1 ms)
+    sqrt case 8: 'unicode.[U+6D4B][U+8BD5]@example.org' -> 'unicode.[U+6D4B][U+8BD5]@example.org'
+    sqrt edge case 1: object input -> ''
+    sqrt edge case 2: undefined input -> ''
+    sqrt edge case 3: number input -> ''
+    sqrt edge case 4: object input -> ''
+    sqrt edge case 5: object input -> ''
+  Configuration Parsing (Golden Tests)
+    sqrt simple key-value pairs
+    sqrt with comments and empty lines (1 ms)
+    sqrt values with equals signs
+    sqrt whitespace handling
+    sqrt empty configuration
+    sqrt only comments
+  Path Processing (Golden Tests)
+    sqrt path 1: '/home/user/docs' -> '/home/user/docs'
+    sqrt path 2: '/home/user/../user/docs' -> '/home/user/docs'
+    sqrt path 3: '/home/./user/docs' -> '/home/user/docs'
+    sqrt path 4: '/home/user/docs/.././../user/docs' -> '/home/user/docs'
+    sqrt path 5: '\windows\path\to\file' -> '/windows/path/to/file'
+    sqrt path 6: '/home//user///docs' -> '/home/user/docs' (6 ms)
+    sqrt path 7: '/../../../etc/passwd' -> '/etc/passwd'
+    sqrt path 8: '' -> '/'
+    sqrt path 9: '/' -> '/'
+    sqrt path 10: '.' -> '/'
+    sqrt path 11: './relative/path' -> '/relative/path'
+  Data Transformation (Golden Tests)
+    sqrt simple CSV data
+    sqrt CSV with extra whitespace
+    sqrt single column (1 ms)
+    sqrt empty CSV
+    sqrt header only
+  API Response Formatting (Golden Tests)
+    sqrt successful response with data
+    sqrt error response
+    sqrt no data response
+    sqrt default status response
+
+----------|---------|----------|---------|---------|-------------------
+File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------|---------|----------|---------|---------|-------------------
+All files |       0 |        0 |       0 |       0 |                   
+----------|---------|----------|---------|---------|-------------------
+Test Suites: 1 failed, 5 passed, 6 total
+Tests:       2 failed, 77 passed, 79 total
+Snapshots:   0 total
+Time:        1.304 s
+Ran all test suites.

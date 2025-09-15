@@ -1,0 +1,446 @@
+{
+  "timestamp": "2025-09-11T12:29:55.121511",
+  "analysis_type": "unknown",
+  "quality_gates": {
+    "overall_gate_passed": false,
+    "critical_gates": {
+      "passed": false,
+      "status": "FAIL"
+    },
+    "quality_gates": {
+      "passed": false,
+      "status": "FAIL"
+    }
+  },
+  "metrics": {
+    "nasa_compliance_score": 0.85,
+    "god_objects_count": 0,
+    "critical_violations": 0,
+    "total_violations": 0,
+    "mece_score": 0.85,
+    "overall_quality_score": 0.75,
+    "architecture_health": 0.85,
+    "maintainability_index": 75
+  },
+  "summary": {
+    "overall_status": "UNKNOWN",
+    "recommendations": []
+  },
+  "original_structure": {
+    "analysis_timestamp": "2024-09-08T19:18:00Z",
+    "methodology": "Sequential Thinking MCP with Gemini large context analysis",
+    "codebase_structure": {
+      "total_files": {
+        "all_files": 150,
+        "python_files": 70,
+        "typescript_files": 12,
+        "yaml_files": 14,
+        "markdown_files": 25,
+        "json_files": 13
+      },
+      "core_directories": {
+        "analyzer": {
+          "files": 70,
+          "loc": 25640,
+          "purpose": "Advanced connascence analysis engine with NASA POT10 compliance",
+          "subdirectories": [
+            "architecture",
+            "ast_engine",
+            "caching",
+            "config",
+            "detectors",
+            "dup_detection",
+            "interfaces",
+            "nasa_engine",
+            "optimization",
+            "performance",
+            "reporting",
+            "streaming",
+            "utils"
+          ],
+          "key_capabilities": [
+            "9 specialized detector modules (CoM, CoP, CoA, CoT, CoV, CoE, CoI, CoN, CoC)",
+            "God object detection with context awareness",
+            "MECE duplication analysis",
+            "NASA POT10 compliance (35+ files)",
+            "Architecture analysis with detector pools",
+            "Performance monitoring and optimization",
+            "Streaming analysis for CI/CD",
+            "SARIF integration for GitHub Security"
+          ]
+        },
+        ".github/workflows": {
+          "files": 8,
+          "loc": 3919,
+          "purpose": "Enhanced CI/CD pipelines with defense industry standards",
+          "workflows": [
+            "quality-gates.yml - Comprehensive quality gates",
+            "connascence-analysis.yml - Specialized connascence pipeline",
+            "nasa-compliance-check.yml - Defense industry compliance",
+            "auto-repair.yml - Intelligent repair workflows",
+            "validate-artifacts.yml - Artifact validation",
+            "self-dogfooding.yml - Template self-validation",
+            "codeql-analysis.yml - Security analysis",
+            "vscode-extension-ci.yml - Extension CI"
+          ]
+        },
+        "flow/workflows": {
+          "files": 3,
+          "loc": 270,
+          "purpose": "Claude Flow orchestration workflows",
+          "workflows": [
+            "spec-to-pr.yaml - Complete SPEC to PR workflow",
+            "after-edit.yaml - Post-edit quality loop",
+            "ci-auto-repair.yaml - CI failure auto-repair"
+          ]
+        },
+        ".claude": {
+          "purpose": "Claude Code configuration and artifacts",
+          "subdirectories": [
+            "commands",
+            "agents",
+            ".artifacts"
+          ],
+          "key_files": [
+            "settings.json - Hooks and environment configuration",
+            ".artifacts/ - QA outputs and analysis results"
+          ]
+        },
+        "docs": {
+          "files": 25,
+          "purpose": "Comprehensive documentation",
+          "key_files": [
+            "ANALYZER-CAPABILITIES.md - Complete 70-file analysis matrix",
+            "CLI-INTEGRATION-GAPS.md - Missing CLI features roadmap"
+          ]
+        }
+      }
+    },
+    "slash_commands_inventory": {
+      "core_spek": {
+        "/spec:plan": {
+          "implementation": "Converts SPEC.md to structured plan.json",
+          "status": "documented",
+          "cli_availability": "full"
+        },
+        "/specify": {
+          "implementation": "GitHub Spec Kit native command",
+          "status": "documented",
+          "cli_availability": "spec-kit"
+        },
+        "/plan": {
+          "implementation": "GitHub Spec Kit technical planning",
+          "status": "documented",
+          "cli_availability": "spec-kit"
+        },
+        "/tasks": {
+          "implementation": "GitHub Spec Kit task breakdown",
+          "status": "documented",
+          "cli_availability": "spec-kit"
+        }
+      },
+      "analysis_impact": {
+        "/gemini:impact": {
+          "implementation": "Large context change impact analysis with Sequential Thinking and Memory MCP",
+          "status": "enhanced_documented",
+          "cli_availability": "full",
+          "mcp_integration": [
+            "Sequential Thinking",
+            "Memory"
+          ],
+          "new_features": [
+            "structured reasoning",
+            "memory persistence",
+            "architecture context"
+          ]
+        },
+        "/qa:analyze": {
+          "implementation": "Intelligent failure analysis with fix strategy routing",
+          "status": "documented",
+          "cli_availability": "full"
+        }
+      },
+      "implementation": {
+        "/codex:micro": {
+          "implementation": "Sandboxed micro-edits <=25 LOC, <=2 files",
+          "status": "documented",
+          "cli_availability": "codex-cli"
+        },
+        "/codex:micro-fix": {
+          "implementation": "Surgical test failure fixes in sandbox",
+          "status": "documented",
+          "cli_availability": "codex-cli"
+        },
+        "/fix:planned": {
+          "implementation": "Multi-file fixes with bounded checkpoints",
+          "status": "documented",
+          "cli_availability": "full"
+        }
+      },
+      "quality_assurance": {
+        "/qa:run": {
+          "implementation": "Comprehensive QA suite with MCP integration",
+          "status": "enhanced_documented",
+          "cli_availability": "full",
+          "mcp_integration": [
+            "Sequential Thinking",
+            "Memory"
+          ],
+          "new_features": [
+            "structured QA reasoning",
+            "pattern learning",
+            "memory updates"
+          ]
+        },
+        "/qa:gate": {
+          "implementation": "SPEK-AUGMENT CTQ threshold application",
+          "status": "documented",
+          "cli_availability": "full"
+        }
+      },
+      "security_architecture": {
+        "/sec:scan": {
+          "implementation": "Semgrep security scanning with OWASP rules",
+          "status": "documented",
+          "cli_availability": "full"
+        },
+        "/conn:scan": {
+          "implementation": "Advanced connascence analysis with MCP integration",
+          "status": "enhanced_documented",
+          "cli_availability": "full",
+          "mcp_integration": [
+            "Sequential Thinking",
+            "Memory"
+          ],
+          "new_features": [
+            "structured analysis",
+            "memory pattern learning",
+            "enhanced flags"
+          ]
+        },
+        "/conn:arch": {
+          "implementation": "Architectural analysis with detector pools and MCP",
+          "status": "enhanced_documented",
+          "cli_availability": "full",
+          "mcp_integration": [
+            "Sequential Thinking",
+            "Memory",
+            "Gemini"
+          ],
+          "new_features": [
+            "systematic reasoning",
+            "architectural memory",
+            "large context integration"
+          ]
+        },
+        "/conn:cache": {
+          "implementation": "IncrementalCache management with performance optimization",
+          "status": "newly_documented",
+          "cli_availability": "full",
+          "mcp_integration": [
+            "Sequential Thinking",
+            "Memory"
+          ],
+          "analyzer_component": "IncrementalCache system"
+        },
+        "/conn:monitor": {
+          "implementation": "Performance monitoring with resource tracking",
+          "status": "newly_documented",
+          "cli_availability": "full",
+          "mcp_integration": [
+            "Sequential Thinking",
+            "Memory"
+          ],
+          "analyzer_component": "MemoryMonitor, ResourceManager"
+        }
+      },
+      "project_management": {
+        "/pm:sync": {
+          "implementation": "Bidirectional Plane MCP synchronization",
+          "status": "documented",
+          "cli_availability": "plane-mcp"
+        },
+        "/pr:open": {
+          "implementation": "Evidence-rich PR creation with comprehensive documentation",
+          "status": "documented",
+          "cli_availability": "full"
+        }
+      }
+    },
+    "mcp_integrations": {
+      "by_phase": {
+        "PLAN": [
+          "Sequential Thinking",
+          "Memory",
+          "Context7"
+        ],
+        "DISCOVER": [
+          "Ref",
+          "DeepWiki",
+          "Firecrawl",
+          "Huggingface",
+          "MarkItDown"
+        ],
+        "IMPLEMENT": [
+          "GitHub",
+          "MarkItDown"
+        ],
+        "VERIFY": [
+          "Playwright",
+          "eva"
+        ],
+        "REVIEW_DELIVER": [
+          "GitHub",
+          "MarkItDown"
+        ],
+        "LEARN": [
+          "Memory",
+          "Ref"
+        ]
+      },
+      "command_specific": {
+        "/gemini:impact": {
+          "mcp_servers": [
+            "Sequential Thinking",
+            "Memory"
+          ],
+          "purpose": "Systematic reasoning and impact pattern learning"
+        },
+        "/qa:run": {
+          "mcp_servers": [
+            "Sequential Thinking",
+            "Memory"
+          ],
+          "purpose": "Structured QA reasoning and quality pattern learning"
+        },
+        "/conn:scan": {
+          "mcp_servers": [
+            "Sequential Thinking",
+            "Memory"
+          ],
+          "purpose": "Systematic connascence analysis with pattern storage"
+        },
+        "/conn:arch": {
+          "mcp_servers": [
+            "Sequential Thinking",
+            "Memory",
+            "Gemini"
+          ],
+          "purpose": "Architectural reasoning with large context and memory persistence"
+        }
+      }
+    },
+    "quality_gates_analysis": {
+      "critical_gates": {
+        "tests": {
+          "threshold": "100% pass",
+          "implementation": "jest",
+          "status": "enforced"
+        },
+        "typescript": {
+          "threshold": "0 errors",
+          "implementation": "tsc",
+          "status": "enforced"
+        },
+        "security": {
+          "threshold": "0 critical/high",
+          "implementation": "semgrep",
+          "status": "enforced"
+        },
+        "nasa_compliance": {
+          "threshold": ">=90%",
+          "implementation": "35+ POT10 files",
+          "status": "enforced"
+        },
+        "god_objects": {
+          "threshold": "<=25",
+          "implementation": "context-aware detector",
+          "status": "enforced"
+        },
+        "critical_violations": {
+          "threshold": "<=50",
+          "implementation": "9 detector modules",
+          "status": "enforced"
+        },
+        "coverage": {
+          "threshold": "no regression",
+          "implementation": "differential analysis",
+          "status": "enforced"
+        }
+      },
+      "quality_gates": {
+        "lint": {
+          "threshold": "0 errors",
+          "warnings_allowed": true,
+          "implementation": "eslint",
+          "status": "enforced"
+        },
+        "mece_score": {
+          "threshold": ">=0.75",
+          "implementation": "MECEAnalyzer",
+          "status": "enforced"
+        },
+        "total_violations": {
+          "threshold": "<1000",
+          "implementation": "all detectors",
+          "status": "monitored"
+        },
+        "architecture_hotspots": {
+          "threshold": "monitored",
+          "implementation": "cross-component analysis",
+          "status": "monitored"
+        },
+        "performance": {
+          "threshold": "no regression",
+          "implementation": "resource monitoring",
+          "status": "monitored"
+        }
+      }
+    },
+    "analyzer_capabilities_summary": {
+      "implemented": {
+        "9_detector_modules": "100% - CoM, CoP, CoA, CoT, CoV, CoE, CoI, CoN, CoC",
+        "god_object_detection": "100% - Context-aware with domain thresholds",
+        "mece_analysis": "100% - Comprehensive duplication detection",
+        "nasa_compliance": "100% - Full POT10 rules with 35+ files",
+        "sarif_integration": "100% - GitHub Security tab integration"
+      },
+      "partially_implemented": {
+        "architecture_analysis": "60% - Missing CLI integration for detector pools",
+        "performance_monitoring": "40% - MemoryMonitor exists but limited CLI access",
+        "streaming_analysis": "50% - Basic watch mode, missing real-time thresholds",
+        "recommendation_engine": "30% - MCP only, no direct CLI access"
+      },
+      "missing_cli_integration": {
+        "cache_management": "IncrementalCache system needs CLI commands",
+        "enhanced_metrics": "Comprehensive scoring available but not exposed",
+        "detector_pool_optimization": "Performance optimization not accessible",
+        "cross_component_correlation": "Advanced analysis limited to basic flags",
+        "smart_recommendations": "AI guidance only via MCP server"
+      }
+    },
+    "timestamp": "2025-09-11T12:28:04.794362",
+    "analysis_type": "unknown",
+    "quality_gates": {
+      "overall_gate_passed": false,
+      "critical_gates": {
+        "passed": false,
+        "status": "FAIL"
+      },
+      "quality_gates": {
+        "passed": false,
+        "status": "FAIL"
+      }
+    },
+    "metrics": {
+      "nasa_compliance_score": 0.0,
+      "god_objects_count": 0,
+      "critical_violations": 0,
+      "total_violations": 0
+    },
+    "summary": {
+      "overall_status": "UNKNOWN",
+      "recommendations": []
+    }
+  }
+}

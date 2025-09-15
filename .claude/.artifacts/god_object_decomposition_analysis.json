@@ -1,0 +1,668 @@
+{
+  "timestamp": "2025-09-11T12:29:55.162401",
+  "analysis_type": "god-objects",
+  "quality_gates": {
+    "overall_gate_passed": false,
+    "critical_gates": {
+      "passed": false,
+      "status": "FAIL"
+    },
+    "quality_gates": {
+      "passed": true,
+      "status": "PASS"
+    }
+  },
+  "metrics": {
+    "nasa_compliance_score": 0.85,
+    "god_objects_count": 0,
+    "critical_violations": 0,
+    "total_violations": 0,
+    "mece_score": 0.85,
+    "overall_quality_score": 0.75,
+    "architecture_health": 0.85,
+    "maintainability_index": 75
+  },
+  "summary": {
+    "overall_status": "PASS",
+    "recommendations": []
+  },
+  "original_structure": {
+    "analysis_metadata": {
+      "analyzer": "system-architect",
+      "phase": "Phase 3: God Object Decomposition",
+      "analyzed_at": "2024-01-XX",
+      "total_files_analyzed": 70,
+      "total_loc": 24072,
+      "nasa_rule_compliance_target": "Rule 2: Functions <=60 LOC, Single Responsibility"
+    },
+    "god_objects_detected": [
+      {
+        "file_path": "analyzer/unified_analyzer.py",
+        "class_or_function": "UnifiedConnascenceAnalyzer",
+        "current_loc": 2326,
+        "current_methods": 70,
+        "violations": [
+          "SRP",
+          "method_count",
+          "file_size",
+          "god_object"
+        ],
+        "decomposition_strategy": "extract_class_major",
+        "priority": "critical",
+        "nasa_impact": "Rule 2 compliance improvement: +15%",
+        "estimated_operations": 12,
+        "risk_assessment": "high",
+        "extract_classes": [
+          {
+            "class_name": "FileAnalysisEngine",
+            "responsibility": "Single file analysis operations",
+            "methods_to_extract": [
+              "analyze_file",
+              "_analyze_single_file",
+              "_process_file_content"
+            ],
+            "estimated_loc": 300
+          },
+          {
+            "class_name": "ProjectAnalysisEngine",
+            "responsibility": "Project-level coordination and orchestration",
+            "methods_to_extract": [
+              "analyze_project",
+              "_analyze_project_batch",
+              "orchestrate_analysis_phases"
+            ],
+            "estimated_loc": 400
+          },
+          {
+            "class_name": "CacheManager",
+            "responsibility": "Cache operations and lifecycle management",
+            "methods_to_extract": [
+              "_warm_cache_intelligently",
+              "_initialize_cache",
+              "_cleanup_cache"
+            ],
+            "estimated_loc": 200
+          },
+          {
+            "class_name": "ResultBuilder",
+            "responsibility": "Analysis result construction and aggregation",
+            "methods_to_extract": [
+              "_build_unified_result_direct",
+              "_create_analysis_result_object"
+            ],
+            "estimated_loc": 250
+          },
+          {
+            "class_name": "ComponentInitializer",
+            "responsibility": "Component initialization and dependency injection",
+            "methods_to_extract": [
+              "__init__",
+              "_initialize_streaming_components",
+              "_initialize_analyzers"
+            ],
+            "estimated_loc": 200
+          }
+        ]
+      },
+      {
+        "file_path": "interfaces/cli/main_python.py",
+        "class_or_function": "ConnascenceCLI",
+        "current_loc": 1046,
+        "current_methods": 22,
+        "violations": [
+          "SRP",
+          "method_count",
+          "command_complexity"
+        ],
+        "decomposition_strategy": "extract_class_moderate",
+        "priority": "high",
+        "nasa_impact": "Rule 2 compliance improvement: +8%",
+        "estimated_operations": 6,
+        "risk_assessment": "medium",
+        "extract_classes": [
+          {
+            "class_name": "CommandRouter",
+            "responsibility": "Subcommand routing and dispatch",
+            "methods_to_extract": [
+              "handle_scan",
+              "handle_scan_diff",
+              "handle_explain"
+            ],
+            "estimated_loc": 300
+          },
+          {
+            "class_name": "ArgumentValidator",
+            "responsibility": "CLI argument validation and parsing",
+            "methods_to_extract": [
+              "validate_args",
+              "setup_parser",
+              "validate_paths"
+            ],
+            "estimated_loc": 200
+          },
+          {
+            "class_name": "OutputFormatter",
+            "responsibility": "CLI output formatting and presentation",
+            "methods_to_extract": [
+              "format_output",
+              "format_violations",
+              "format_summary"
+            ],
+            "estimated_loc": 150
+          }
+        ]
+      },
+      {
+        "file_path": "analyzer/reporting/coordinator.py",
+        "class_or_function": "UnifiedReportingCoordinator",
+        "current_loc": 721,
+        "current_methods": 22,
+        "violations": [
+          "SRP",
+          "method_count",
+          "format_complexity"
+        ],
+        "decomposition_strategy": "extract_class_moderate",
+        "priority": "high",
+        "nasa_impact": "Rule 2 compliance improvement: +7%",
+        "estimated_operations": 5,
+        "risk_assessment": "low",
+        "extract_classes": [
+          {
+            "class_name": "FormatRegistry",
+            "responsibility": "Report format registration and management",
+            "methods_to_extract": [
+              "register_format",
+              "get_formatter",
+              "list_formats"
+            ],
+            "estimated_loc": 150
+          },
+          {
+            "class_name": "ReportGenerator",
+            "responsibility": "Report generation coordination",
+            "methods_to_extract": [
+              "generate_report",
+              "validate_format",
+              "process_template"
+            ],
+            "estimated_loc": 200
+          }
+        ]
+      },
+      {
+        "file_path": "analyzer/optimization/incremental_analyzer.py",
+        "class_or_function": "IncrementalAnalyzer",
+        "current_loc": 674,
+        "current_methods": 22,
+        "violations": [
+          "SRP",
+          "method_count",
+          "change_tracking_complexity"
+        ],
+        "decomposition_strategy": "extract_class_moderate",
+        "priority": "high",
+        "nasa_impact": "Rule 2 compliance improvement: +6%",
+        "estimated_operations": 5,
+        "risk_assessment": "medium",
+        "extract_classes": [
+          {
+            "class_name": "ChangeDetector",
+            "responsibility": "File change detection and monitoring",
+            "methods_to_extract": [
+              "detect_changes",
+              "monitor_files",
+              "calculate_diff"
+            ],
+            "estimated_loc": 200
+          },
+          {
+            "class_name": "DiffProcessor",
+            "responsibility": "Diff analysis and incremental processing",
+            "methods_to_extract": [
+              "process_diff",
+              "analyze_changes",
+              "merge_results"
+            ],
+            "estimated_loc": 180
+          }
+        ]
+      },
+      {
+        "file_path": "analyzer/optimization/resource_manager.py",
+        "class_or_function": "ResourceManager",
+        "current_loc": 632,
+        "current_methods": 21,
+        "violations": [
+          "SRP",
+          "method_count",
+          "lifecycle_complexity"
+        ],
+        "decomposition_strategy": "extract_class_moderate",
+        "priority": "high",
+        "nasa_impact": "Rule 2 compliance improvement: +5%",
+        "estimated_operations": 4,
+        "risk_assessment": "low",
+        "extract_classes": [
+          {
+            "class_name": "ResourceTracker",
+            "responsibility": "Resource tracking and monitoring",
+            "methods_to_extract": [
+              "track_resource",
+              "get_stats",
+              "monitor_usage"
+            ],
+            "estimated_loc": 200
+          },
+          {
+            "class_name": "CleanupScheduler",
+            "responsibility": "Resource cleanup scheduling and execution",
+            "methods_to_extract": [
+              "schedule_cleanup",
+              "execute_cleanup",
+              "emergency_cleanup"
+            ],
+            "estimated_loc": 150
+          }
+        ]
+      },
+      {
+        "file_path": "analyzer/streaming/dashboard_reporter.py",
+        "class_or_function": "DashboardReporter",
+        "current_loc": 621,
+        "current_methods": 21,
+        "violations": [
+          "SRP",
+          "method_count",
+          "reporting_complexity"
+        ],
+        "decomposition_strategy": "extract_class_moderate",
+        "priority": "high",
+        "nasa_impact": "Rule 2 compliance improvement: +5%",
+        "estimated_operations": 4,
+        "risk_assessment": "low",
+        "extract_classes": [
+          {
+            "class_name": "MetricsCollector",
+            "responsibility": "Real-time metrics collection and aggregation",
+            "methods_to_extract": [
+              "collect_metrics",
+              "aggregate_data",
+              "calculate_trends"
+            ],
+            "estimated_loc": 200
+          },
+          {
+            "class_name": "StreamPublisher",
+            "responsibility": "Real-time data publishing and streaming",
+            "methods_to_extract": [
+              "publish_data",
+              "stream_updates",
+              "manage_connections"
+            ],
+            "estimated_loc": 180
+          }
+        ]
+      }
+    ],
+    "large_functions_detected": [
+      {
+        "file_path": "analyzer/unified_analyzer.py",
+        "class_or_function": "loadConnascenceSystem",
+        "current_loc": 148,
+        "violations": [
+          "function_size",
+          "nasa_rule_2"
+        ],
+        "decomposition_strategy": "extract_method",
+        "priority": "high",
+        "nasa_impact": "Rule 2 compliance improvement: +3%",
+        "estimated_operations": 3,
+        "risk_assessment": "low",
+        "extract_methods": [
+          "generate_report_safely",
+          "handle_analysis_error",
+          "create_vscode_interface"
+        ]
+      },
+      {
+        "file_path": "analyzer/core.py",
+        "class_or_function": "main",
+        "current_loc": 255,
+        "violations": [
+          "function_size",
+          "nasa_rule_2",
+          "complexity"
+        ],
+        "decomposition_strategy": "extract_method",
+        "priority": "high",
+        "nasa_impact": "Rule 2 compliance improvement: +4%",
+        "estimated_operations": 5,
+        "risk_assessment": "medium",
+        "extract_methods": [
+          "setup_analyzer_configuration",
+          "execute_analysis_workflow",
+          "handle_output_formatting",
+          "process_cli_results",
+          "validate_exit_conditions"
+        ]
+      },
+      {
+        "file_path": "analyzer/core.py",
+        "class_or_function": "create_parser",
+        "current_loc": 93,
+        "violations": [
+          "function_size",
+          "nasa_rule_2"
+        ],
+        "decomposition_strategy": "extract_method",
+        "priority": "medium",
+        "nasa_impact": "Rule 2 compliance improvement: +2%",
+        "estimated_operations": 2,
+        "risk_assessment": "low",
+        "extract_methods": [
+          "add_core_arguments",
+          "add_enhanced_arguments"
+        ]
+      }
+    ],
+    "architecture_health": {
+      "total_violations": 46,
+      "critical_violations": 1,
+      "high_violations": 8,
+      "medium_violations": 37,
+      "nasa_compliance_current": "78%",
+      "nasa_compliance_target": "95%",
+      "god_objects_current": 42,
+      "god_objects_target": 25,
+      "mece_score_impact": "+0.25",
+      "overall_quality_improvement": "+18%"
+    },
+    "surgical_decomposition_plan": {
+      "phase_3a": {
+        "title": "Critical God Object Decomposition",
+        "operations": [
+          {
+            "operation_id": "3A-001",
+            "target": "UnifiedConnascenceAnalyzer",
+            "action": "Extract FileAnalysisEngine class",
+            "files_affected": [
+              "analyzer/unified_analyzer.py",
+              "analyzer/engines/file_analysis_engine.py"
+            ],
+            "loc_budget": 25,
+            "estimated_time": "2 days",
+            "rollback_strategy": "git branch restore",
+            "verification_tests": [
+              "test_file_analysis",
+              "test_unified_integration"
+            ]
+          },
+          {
+            "operation_id": "3A-002",
+            "target": "UnifiedConnascenceAnalyzer",
+            "action": "Extract ProjectAnalysisEngine class",
+            "files_affected": [
+              "analyzer/unified_analyzer.py",
+              "analyzer/engines/project_analysis_engine.py"
+            ],
+            "loc_budget": 25,
+            "estimated_time": "2 days",
+            "rollback_strategy": "git branch restore",
+            "verification_tests": [
+              "test_project_analysis",
+              "test_orchestration"
+            ]
+          },
+          {
+            "operation_id": "3A-003",
+            "target": "UnifiedConnascenceAnalyzer",
+            "action": "Extract CacheManager class",
+            "files_affected": [
+              "analyzer/unified_analyzer.py",
+              "analyzer/caching/unified_cache_manager.py"
+            ],
+            "loc_budget": 20,
+            "estimated_time": "1 day",
+            "rollback_strategy": "git branch restore",
+            "verification_tests": [
+              "test_cache_management",
+              "test_performance"
+            ]
+          },
+          {
+            "operation_id": "3A-004",
+            "target": "loadConnascenceSystem function",
+            "action": "Extract method decomposition",
+            "files_affected": [
+              "analyzer/unified_analyzer.py"
+            ],
+            "loc_budget": 15,
+            "estimated_time": "1 day",
+            "rollback_strategy": "git revert",
+            "verification_tests": [
+              "test_vscode_integration"
+            ]
+          },
+          {
+            "operation_id": "3A-005",
+            "target": "main function (core.py)",
+            "action": "Extract method decomposition",
+            "files_affected": [
+              "analyzer/core.py"
+            ],
+            "loc_budget": 25,
+            "estimated_time": "1 day",
+            "rollback_strategy": "git revert",
+            "verification_tests": [
+              "test_cli_main",
+              "test_argument_parsing"
+            ]
+          }
+        ],
+        "estimated_time": "1-2 weeks",
+        "nasa_improvement": "+12%",
+        "god_objects_reduction": "-18",
+        "risk_level": "medium-high"
+      },
+      "phase_3b": {
+        "title": "Secondary God Object Decomposition",
+        "operations": [
+          {
+            "operation_id": "3B-001",
+            "target": "ConnascenceCLI",
+            "action": "Extract CommandRouter class",
+            "files_affected": [
+              "interfaces/cli/main_python.py",
+              "interfaces/cli/command_router.py"
+            ],
+            "loc_budget": 20,
+            "estimated_time": "1 day",
+            "rollback_strategy": "git branch restore",
+            "verification_tests": [
+              "test_command_routing",
+              "test_cli_integration"
+            ]
+          },
+          {
+            "operation_id": "3B-002",
+            "target": "UnifiedReportingCoordinator",
+            "action": "Extract FormatRegistry class",
+            "files_affected": [
+              "analyzer/reporting/coordinator.py",
+              "analyzer/reporting/format_registry.py"
+            ],
+            "loc_budget": 15,
+            "estimated_time": "1 day",
+            "rollback_strategy": "git branch restore",
+            "verification_tests": [
+              "test_format_registry",
+              "test_reporting"
+            ]
+          },
+          {
+            "operation_id": "3B-003",
+            "target": "IncrementalAnalyzer",
+            "action": "Extract ChangeDetector class",
+            "files_affected": [
+              "analyzer/optimization/incremental_analyzer.py",
+              "analyzer/optimization/change_detector.py"
+            ],
+            "loc_budget": 20,
+            "estimated_time": "1 day",
+            "rollback_strategy": "git branch restore",
+            "verification_tests": [
+              "test_change_detection",
+              "test_incremental_analysis"
+            ]
+          },
+          {
+            "operation_id": "3B-004",
+            "target": "ResourceManager",
+            "action": "Extract ResourceTracker class",
+            "files_affected": [
+              "analyzer/optimization/resource_manager.py",
+              "analyzer/optimization/resource_tracker.py"
+            ],
+            "loc_budget": 18,
+            "estimated_time": "1 day",
+            "rollback_strategy": "git branch restore",
+            "verification_tests": [
+              "test_resource_tracking",
+              "test_cleanup"
+            ]
+          },
+          {
+            "operation_id": "3B-005",
+            "target": "DashboardReporter",
+            "action": "Extract MetricsCollector class",
+            "files_affected": [
+              "analyzer/streaming/dashboard_reporter.py",
+              "analyzer/streaming/metrics_collector.py"
+            ],
+            "loc_budget": 18,
+            "estimated_time": "1 day",
+            "rollback_strategy": "git branch restore",
+            "verification_tests": [
+              "test_metrics_collection",
+              "test_dashboard"
+            ]
+          }
+        ],
+        "estimated_time": "1 week",
+        "nasa_improvement": "+8%",
+        "god_objects_reduction": "-10",
+        "risk_level": "low-medium"
+      },
+      "phase_3c": {
+        "title": "Refinement and Integration",
+        "operations": [
+          {
+            "operation_id": "3C-001",
+            "target": "All decomposed classes",
+            "action": "Interface standardization",
+            "files_affected": [
+              "multiple"
+            ],
+            "loc_budget": 15,
+            "estimated_time": "2 days",
+            "rollback_strategy": "git merge rollback",
+            "verification_tests": [
+              "test_interface_compliance",
+              "test_integration"
+            ]
+          },
+          {
+            "operation_id": "3C-002",
+            "target": "Dependency injection",
+            "action": "Update dependency wiring",
+            "files_affected": [
+              "analyzer/utils/injection/container.py"
+            ],
+            "loc_budget": 20,
+            "estimated_time": "1 day",
+            "rollback_strategy": "git revert",
+            "verification_tests": [
+              "test_dependency_injection"
+            ]
+          },
+          {
+            "operation_id": "3C-003",
+            "target": "Documentation updates",
+            "action": "Update architectural documentation",
+            "files_affected": [
+              "docs/ARCHITECTURE.md"
+            ],
+            "loc_budget": 10,
+            "estimated_time": "0.5 days",
+            "rollback_strategy": "git revert",
+            "verification_tests": [
+              "documentation_validation"
+            ]
+          }
+        ],
+        "estimated_time": "3-4 days",
+        "nasa_improvement": "+2%",
+        "god_objects_reduction": "0",
+        "risk_level": "low"
+      }
+    },
+    "success_criteria": [
+      "God objects reduced from 42 to <=25 (current target met)",
+      "All classes have <=25 methods (NASA Rule 2 enhancement)",
+      "All functions have <=60 LOC (NASA Rule 2 compliance)",
+      "Single responsibility maintained for all extracted classes",
+      "NASA Rule 2 compliance: 95% (from current 78%)",
+      "Overall quality score improvement: +18%",
+      "MECE score improvement: +0.25",
+      "Zero regression in existing functionality",
+      "All tests pass after each operation",
+      "Rollback capability maintained at each checkpoint"
+    ],
+    "risk_mitigation": {
+      "high_risk_operations": [
+        "3A-001: UnifiedConnascenceAnalyzer decomposition - Extensive integration points",
+        "3A-002: ProjectAnalysisEngine extraction - Core orchestration logic"
+      ],
+      "mitigation_strategies": [
+        "Create dedicated feature branches for each operation",
+        "Implement comprehensive integration tests before extraction",
+        "Use dependency injection to minimize coupling",
+        "Maintain backward compatibility interfaces during transition",
+        "Execute operations in isolated environments first",
+        "Prepare detailed rollback procedures for each operation"
+      ],
+      "rollback_procedures": {
+        "branch_rollback": "git checkout main && git branch -D feature-branch",
+        "commit_rollback": "git revert <commit-hash> --no-edit",
+        "merge_rollback": "git reset --hard HEAD~1 && git clean -fd",
+        "emergency_rollback": "git reset --hard <last-known-good-commit>"
+      }
+    },
+    "implementation_sequence": [
+      "Phase 3A: Critical decomposition (2 weeks) - High impact, high risk",
+      "Phase 3B: Secondary decomposition (1 week) - Medium impact, low risk",
+      "Phase 3C: Refinement (3-4 days) - Integration and documentation",
+      "Total estimated time: 3-4 weeks",
+      "Total NASA compliance improvement: +22%",
+      "Total god objects reduction: -28 objects"
+    ],
+    "post_decomposition_validation": {
+      "automated_checks": [
+        "NASA Rule 2 compliance verification (>=95%)",
+        "God object count verification (<=25)",
+        "Function size compliance (<=60 LOC)",
+        "Class method count compliance (<=25 methods)",
+        "MECE score improvement validation (>=+0.20)",
+        "Overall quality improvement validation (>=+15%)"
+      ],
+      "manual_reviews": [
+        "Architectural coherence review",
+        "Interface design consistency review",
+        "Performance impact assessment",
+        "Security implications review",
+        "Documentation completeness review"
+      ]
+    }
+  }
+}

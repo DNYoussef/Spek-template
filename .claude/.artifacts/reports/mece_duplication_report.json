@@ -1,0 +1,166 @@
+{
+  "report_type": "MECE_DUPLICATION_ANALYSIS",
+  "data_source": "REAL_UNIFIED_ANALYZER",
+  "timestamp": "2025-09-14T15:53:19.803728",
+  "duplication_clusters": 2,
+  "clusters": [
+    {
+      "id": "cluster_1",
+      "similarity_score": 0.904,
+      "block_count": 3,
+      "files_involved": [
+        "src\\adapters\\bandit_adapter.py",
+        "src\\adapters\\mypy_adapter.py",
+        "src\\adapters\\flake8_adapter.py"
+      ],
+      "blocks": [
+        {
+          "file_path": "src\\adapters\\bandit_adapter.py",
+          "start_line": 40,
+          "end_line": 53,
+          "lines": [
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ]
+        },
+        {
+          "file_path": "src\\adapters\\flake8_adapter.py",
+          "start_line": 36,
+          "end_line": 49,
+          "lines": [
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49
+          ]
+        },
+        {
+          "file_path": "src\\adapters\\mypy_adapter.py",
+          "start_line": 42,
+          "end_line": 55,
+          "lines": [
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55
+          ]
+        }
+      ],
+      "description": "Found 3 similar code blocks with 90.4% average similarity"
+    },
+    {
+      "id": "cluster_2",
+      "similarity_score": 0.909,
+      "block_count": 4,
+      "files_involved": [
+        "src\\linter-integration\\agents\\system_architect_node.py",
+        "src\\linter-integration\\pipeline\\tool_orchestrator.py",
+        "src\\linter-integration\\mesh-coordinator.py",
+        "src\\linter-integration\\agents\\backend_dev_node.py"
+      ],
+      "blocks": [
+        {
+          "file_path": "src\\linter-integration\\mesh-coordinator.py",
+          "start_line": 69,
+          "end_line": 78,
+          "lines": [
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78
+          ]
+        },
+        {
+          "file_path": "src\\linter-integration\\agents\\backend_dev_node.py",
+          "start_line": 451,
+          "end_line": 460,
+          "lines": [
+            451,
+            452,
+            453,
+            454,
+            455,
+            456,
+            457,
+            458,
+            459,
+            460
+          ]
+        },
+        {
+          "file_path": "src\\linter-integration\\agents\\system_architect_node.py",
+          "start_line": 40,
+          "end_line": 49,
+          "lines": [
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49
+          ]
+        },
+        {
+          "file_path": "src\\linter-integration\\pipeline\\tool_orchestrator.py",
+          "start_line": 46,
+          "end_line": 55,
+          "lines": [
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55
+          ]
+        }
+      ],
+      "description": "Found 4 similar code blocks with 90.9% average similarity"
+    }
+  ]
+}

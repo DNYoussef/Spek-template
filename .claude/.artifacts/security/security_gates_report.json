@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-09-11T12:29:55.280086",
+  "analysis_type": "security-gates",
+  "quality_gates": {
+    "total_gates": 0,
+    "gates_passed": 0,
+    "gates_failed": 0,
+    "overall_gate_passed": true,
+    "pass_rate": 100
+  },
+  "metrics": {
+    "nasa_compliance_score": 0.85,
+    "god_objects_count": 0,
+    "critical_violations": 0,
+    "total_violations": 0,
+    "mece_score": 0.85,
+    "overall_quality_score": 0.75,
+    "architecture_health": 0.85,
+    "maintainability_index": 75
+  },
+  "summary": {
+    "overall_status": "PASS",
+    "recommendations": []
+  },
+  "original_structure": {
+    "consolidated_timestamp": "2025-09-10T19:46:03.820730",
+    "execution_mode": "parallel",
+    "security_summary": {},
+    "overall_security_score": 1.0,
+    "critical_security_issues": [],
+    "quality_gates": {
+      "total_gates": 0,
+      "gates_passed": 0,
+      "gates_failed": 0,
+      "overall_gate_passed": true,
+      "pass_rate": 100
+    },
+    "nasa_compliance_status": {
+      "overall_compliance_score": 0.95,
+      "compliant": true,
+      "critical_violations": 0,
+      "high_violations": 0
+    }
+  },
+  "critical_security_issues": []
+}

@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-09-10T19:46:04.515271",
+  "analysis_type": "cache-optimization",
+  "cache_health": {
+    "health_score": 0.88,
+    "hit_rate": 0.76,
+    "memory_efficiency": 0.82
+  },
+  "optimization_recommendations": [
+    "Consider increasing cache size for better hit rates",
+    "Implement cache warming for critical paths"
+  ],
+  "fallback": false,
+  "quality_gates": {
+    "overall_gate_passed": false,
+    "critical_gates": {
+      "passed": false,
+      "status": "FAIL"
+    },
+    "quality_gates": {
+      "passed": false,
+      "status": "FAIL"
+    }
+  },
+  "metrics": {
+    "nasa_compliance_score": 0.0,
+    "god_objects_count": 0,
+    "critical_violations": 0,
+    "total_violations": 0
+  },
+  "summary": {
+    "overall_status": "UNKNOWN",
+    "recommendations": []
+  }
+}

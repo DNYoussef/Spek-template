@@ -1,0 +1,61 @@
+{
+  "timestamp": "2025-09-11T12:29:55.115527",
+  "analysis_type": "architecture-analysis",
+  "quality_gates": {
+    "overall_gate_passed": false,
+    "critical_gates": {
+      "passed": false,
+      "status": "FAIL"
+    },
+    "quality_gates": {
+      "passed": false,
+      "status": "FAIL"
+    }
+  },
+  "metrics": {
+    "nasa_compliance_score": 0.85,
+    "god_objects_count": 2,
+    "critical_violations": 0,
+    "total_violations": 0,
+    "mece_score": 0.85,
+    "architecture_health": 0.85,
+    "maintainability_index": 75
+  },
+  "summary": {
+    "overall_status": "UNKNOWN",
+    "recommendations": []
+  },
+  "original_structure": {
+    "timestamp": "2025-09-10T19:34:15.313140",
+    "analysis_type": "architecture-analysis",
+    "system_overview": {
+      "architectural_health": 0.85,
+      "coupling_score": 0.3,
+      "complexity_score": 0.4,
+      "maintainability_index": 75
+    },
+    "metrics": {
+      "total_components": 25,
+      "high_coupling_components": 3,
+      "god_objects_detected": 2
+    },
+    "architectural_hotspots": [],
+    "fallback": true,
+    "error": "cannot import name 'AnalysisOrchestrator' from 'analyzer.architecture.orchestrator' (C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py)",
+    "quality_gates": {
+      "overall_gate_passed": false,
+      "critical_gates": {
+        "passed": false,
+        "status": "FAIL"
+      },
+      "quality_gates": {
+        "passed": false,
+        "status": "FAIL"
+      }
+    },
+    "summary": {
+      "overall_status": "UNKNOWN",
+      "recommendations": []
+    }
+  }
+}

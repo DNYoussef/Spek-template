@@ -1,0 +1,45 @@
+{
+  "timestamp": "2025-09-11T12:29:55.201296",
+  "analysis_type": "unknown",
+  "quality_gates": {
+    "overall_gate_passed": false,
+    "critical_gates": {
+      "passed": false,
+      "status": "FAIL"
+    },
+    "quality_gates": {
+      "passed": true,
+      "status": "PASS"
+    }
+  },
+  "metrics": {
+    "nasa_compliance_score": 0.85,
+    "god_objects_count": 0,
+    "critical_violations": 0,
+    "total_violations": 0,
+    "mece_score": 0.85,
+    "overall_quality_score": 0.75,
+    "architecture_health": 0.85,
+    "maintainability_index": 75
+  },
+  "summary": {
+    "overall_status": "PASS",
+    "recommendations": []
+  },
+  "original_structure": {
+    "timestamp": "2025-09-10T21:44:53.219517",
+    "analysis_mode": "REAL_ANALYSIS",
+    "files_analyzed": 0,
+    "total_violations": 5,
+    "connascence_violations_count": 0,
+    "nasa_violations_count": 0,
+    "nasa_compliance_score": 1.0,
+    "overall_quality_score": 1.0,
+    "analysis_duration_ms": 10703,
+    "analysis_duration_seconds": 10.702634,
+    "errors": [],
+    "warnings": [],
+    "real_analysis_confirmed": true,
+    "connascence_violations": []
+  }
+}

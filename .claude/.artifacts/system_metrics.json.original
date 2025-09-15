@@ -1,0 +1,9 @@
+{
+  "auto_repair_attempts": 0,
+  "ci_p95_minutes": 0,
+  "waivers_open": 0,
+  "sandbox_count": 0,
+  "disk_free_percent": 100,
+  "secret_scan_hits": 0,
+  "last_update": "2025-09-08T05:47:06Z"
+}

@@ -1,0 +1,1573 @@
+{
+  "ctq": {
+    "timestamp": "2025-09-15T03:24:29.526Z",
+    "ctqScores": {
+      "security": {
+        "actual": 92,
+        "target": 95,
+        "score": 0.968421052631579,
+        "weight": 0.2,
+        "status": "EXCELLENT",
+        "variance": -3,
+        "description": "Security Compliance Score"
+      },
+      "nasaPOT10": {
+        "actual": 90,
+        "target": 90,
+        "score": 1,
+        "weight": 0.2,
+        "status": "EXCELLENT",
+        "variance": 0,
+        "description": "NASA POT10 Compliance"
+      },
+      "connascence": {
+        "actual": 95,
+        "target": 95,
+        "score": 1,
+        "weight": 0.15,
+        "status": "EXCELLENT",
+        "variance": 0,
+        "description": "Connascence Quality"
+      },
+      "godObjects": {
+        "actual": 100,
+        "target": 100,
+        "score": 1,
+        "weight": 0.15,
+        "status": "EXCELLENT",
+        "variance": 0,
+        "description": "God Objects Control"
+      },
+      "meceQuality": {
+        "actual": 75,
+        "target": 75,
+        "score": 1,
+        "weight": 0.1,
+        "status": "EXCELLENT",
+        "variance": 0,
+        "description": "MECE Duplication Quality"
+      },
+      "testsMutation": {
+        "actual": 60,
+        "target": 60,
+        "score": 1,
+        "weight": 0.1,
+        "status": "EXCELLENT",
+        "variance": 0,
+        "description": "Tests and Mutation Score"
+      },
+      "performance": {
+        "actual": 95,
+        "target": 95,
+        "score": 1,
+        "weight": 0.1,
+        "status": "EXCELLENT",
+        "variance": 0,
+        "description": "Performance Compliance"
+      }
+    },
+    "overallScore": 0.9936842105263157,
+    "sigmaLevel": 3,
+    "defectCount": 0,
+    "opportunities": 7,
+    "recommendations": []
+  },
+  "spc": {
+    "timestamp": "2025-09-15T03:24:29.527Z",
+    "charts": {
+      "security": {
+        "type": "individuals",
+        "ctq": "security",
+        "data": [
+          {
+            "timestamp": "2025-08-16T03:24:29.526Z",
+            "value": 92.01039873022914
+          },
+          {
+            "timestamp": "2025-08-17T03:24:29.526Z",
+            "value": 92.01177251433346
+          },
+          {
+            "timestamp": "2025-08-18T03:24:29.526Z",
+            "value": 92.03460650277164
+          },
+          {
+            "timestamp": "2025-08-19T03:24:29.526Z",
+            "value": 91.96286198377376
+          },
+          {
+            "timestamp": "2025-08-20T03:24:29.526Z",
+            "value": 92.0431527553484
+          },
+          {
+            "timestamp": "2025-08-21T03:24:29.526Z",
+            "value": 91.99111489967498
+          },
+          {
+            "timestamp": "2025-08-22T03:24:29.526Z",
+            "value": 92.03658883993394
+          },
+          {
+            "timestamp": "2025-08-23T03:24:29.526Z",
+            "value": 92.02294063634798
+          },
+          {
+            "timestamp": "2025-08-24T03:24:29.526Z",
+            "value": 92.01109647729766
+          },
+          {
+            "timestamp": "2025-08-25T03:24:29.526Z",
+            "value": 92.03023258353194
+          },
+          {
+            "timestamp": "2025-08-26T03:24:29.526Z",
+            "value": 92.02819247958851
+          },
+          {
+            "timestamp": "2025-08-27T03:24:29.526Z",
+            "value": 92.01949765331246
+          },
+          {
+            "timestamp": "2025-08-28T03:24:29.526Z",
+            "value": 91.99187904684516
+          },
+          {
+            "timestamp": "2025-08-29T03:24:29.526Z",
+            "value": 92.02216475468043
+          },
+          {
+            "timestamp": "2025-08-30T03:24:29.526Z",
+            "value": 91.98471167736369
+          },
+          {
+            "timestamp": "2025-08-31T03:24:29.526Z",
+            "value": 92.01377870157143
+          },
+          {
+            "timestamp": "2025-09-01T03:24:29.526Z",
+            "value": 92.0459808713838
+          },
+          {
+            "timestamp": "2025-09-02T03:24:29.526Z",
+            "value": 92.02224383270396
+          },
+          {
+            "timestamp": "2025-09-03T03:24:29.526Z",
+            "value": 91.95891031453081
+          },
+          {
+            "timestamp": "2025-09-04T03:24:29.526Z",
+            "value": 91.97346399511149
+          },
+          {
+            "timestamp": "2025-09-05T03:24:29.526Z",
+            "value": 92.02347795473266
+          },
+          {
+            "timestamp": "2025-09-06T03:24:29.526Z",
+            "value": 92.00195913338256
+          },
+          {
+            "timestamp": "2025-09-07T03:24:29.526Z",
+            "value": 91.97918263020334
+          },
+          {
+            "timestamp": "2025-09-08T03:24:29.526Z",
+            "value": 91.98997151450695
+          },
+          {
+            "timestamp": "2025-09-09T03:24:29.526Z",
+            "value": 91.97023285772543
+          },
+          {
+            "timestamp": "2025-09-10T03:24:29.526Z",
+            "value": 91.9511154334649
+          },
+          {
+            "timestamp": "2025-09-11T03:24:29.526Z",
+            "value": 91.98986576009169
+          },
+          {
+            "timestamp": "2025-09-12T03:24:29.526Z",
+            "value": 91.97492051548883
+          },
+          {
+            "timestamp": "2025-09-13T03:24:29.526Z",
+            "value": 91.97077239066871
+          },
+          {
+            "timestamp": "2025-09-14T03:24:29.526Z",
+            "value": 92.00283218089727
+          }
+        ],
+        "controlLimits": {
+          "ucl": 92.081,
+          "lcl": 91.9237,
+          "usl": 92.1071986613749,
+          "lsl": 91.89746264672493
+        },
+        "centerLine": 92.0023,
+        "violations": [],
+        "trends": [],
+        "patterns": []
+      },
+      "nasaPOT10": {
+        "type": "individuals",
+        "ctq": "nasaPOT10",
+        "data": [
+          {
+            "timestamp": "2025-08-16T03:24:29.526Z",
+            "value": 90.03818444403254
+          },
+          {
+            "timestamp": "2025-08-17T03:24:29.526Z",
+            "value": 89.9830024623772
+          },
+          {
+            "timestamp": "2025-08-18T03:24:29.526Z",
+            "value": 89.95143446578017
+          },
+          {
+            "timestamp": "2025-08-19T03:24:29.526Z",
+            "value": 90.00695552556392
+          },
+          {
+            "timestamp": "2025-08-20T03:24:29.526Z",
+            "value": 89.97251104916265
+          },
+          {
+            "timestamp": "2025-08-21T03:24:29.526Z",
+            "value": 89.96106217746845
+          },
+          {
+            "timestamp": "2025-08-22T03:24:29.526Z",
+            "value": 90.00533147642118
+          },
+          {
+            "timestamp": "2025-08-23T03:24:29.526Z",
+            "value": 89.99442576022359
+          },
+          {
+            "timestamp": "2025-08-24T03:24:29.526Z",
+            "value": 89.99722939156726
+          },
+          {
+            "timestamp": "2025-08-25T03:24:29.526Z",
+            "value": 90.0202698556107
+          },
+          {
+            "timestamp": "2025-08-26T03:24:29.526Z",
+            "value": 89.99767438997657
+          },
+          {
+            "timestamp": "2025-08-27T03:24:29.526Z",
+            "value": 90.01093420172444
+          },
+          {
+            "timestamp": "2025-08-28T03:24:29.526Z",
+            "value": 89.95611333764685
+          },
+          {
+            "timestamp": "2025-08-29T03:24:29.526Z",
+            "value": 89.98707827081388
+          },
+          {
+            "timestamp": "2025-08-30T03:24:29.526Z",
+            "value": 90.03940937173002
+          },
+          {
+            "timestamp": "2025-08-31T03:24:29.526Z",
+            "value": 90.01742466793293
+          },
+          {
+            "timestamp": "2025-09-01T03:24:29.526Z",
+            "value": 89.95888951265839
+          },
+          {
+            "timestamp": "2025-09-02T03:24:29.526Z",
+            "value": 89.97425996681011
+          },
+          {
+            "timestamp": "2025-09-03T03:24:29.526Z",
+            "value": 90.02467956058521
+          },
+          {
+            "timestamp": "2025-09-04T03:24:29.526Z",
+            "value": 89.98801650853798
+          },
+          {
+            "timestamp": "2025-09-05T03:24:29.526Z",
+            "value": 89.95127819614613
+          },
+          {
+            "timestamp": "2025-09-06T03:24:29.526Z",
+            "value": 90.01333739460445
+          },
+          {
+            "timestamp": "2025-09-07T03:24:29.526Z",
+            "value": 89.97888821254402
+          },
+          {
+            "timestamp": "2025-09-08T03:24:29.526Z",
+            "value": 89.98008088650265
+          },
+          {
+            "timestamp": "2025-09-09T03:24:29.526Z",
+            "value": 90.04037344323856
+          },
+          {
+            "timestamp": "2025-09-10T03:24:29.526Z",
+            "value": 89.99919036439239
+          },
+          {
+            "timestamp": "2025-09-11T03:24:29.526Z",
+            "value": 89.98682777606618
+          },
+          {
+            "timestamp": "2025-09-12T03:24:29.526Z",
+            "value": 89.96271545901676
+          },
+          {
+            "timestamp": "2025-09-13T03:24:29.526Z",
+            "value": 90.02284801922357
+          },
+          {
+            "timestamp": "2025-09-14T03:24:29.526Z",
+            "value": 89.98157301890376
+          }
+        ],
+        "controlLimits": {
+          "ucl": 90.0713,
+          "lcl": 89.9155,
+          "usl": 90.09726414722775,
+          "lsl": 89.8895357972564
+        },
+        "centerLine": 89.9934,
+        "violations": [],
+        "trends": [],
+        "patterns": []
+      },
+      "connascence": {
+        "type": "individuals",
+        "ctq": "connascence",
+        "data": [
+          {
+            "timestamp": "2025-08-16T03:24:29.526Z",
+            "value": 95.00429378004402
+          },
+          {
+            "timestamp": "2025-08-17T03:24:29.526Z",
+            "value": 94.96507716163593
+          },
+          {
+            "timestamp": "2025-08-18T03:24:29.526Z",
+            "value": 94.95381320294224
+          },
+          {
+            "timestamp": "2025-08-19T03:24:29.526Z",
+            "value": 95.01621444853257
+          },
+          {
+            "timestamp": "2025-08-20T03:24:29.526Z",
+            "value": 95.04695810491529
+          },
+          {
+            "timestamp": "2025-08-21T03:24:29.526Z",
+            "value": 95.02943008667269
+          },
+          {
+            "timestamp": "2025-08-22T03:24:29.526Z",
+            "value": 94.97741162131085
+          },
+          {
+            "timestamp": "2025-08-23T03:24:29.526Z",
+            "value": 95.02154066834474
+          },
+          {
+            "timestamp": "2025-08-24T03:24:29.526Z",
+            "value": 95.02094105629189
+          },
+          {
+            "timestamp": "2025-08-25T03:24:29.526Z",
+            "value": 94.95584097445888
+          },
+          {
+            "timestamp": "2025-08-26T03:24:29.526Z",
+            "value": 95.04059867097658
+          },
+          {
+            "timestamp": "2025-08-27T03:24:29.526Z",
+            "value": 94.98474428290196
+          },
+          {
+            "timestamp": "2025-08-28T03:24:29.526Z",
+            "value": 95.03347162505143
+          },
+          {
+            "timestamp": "2025-08-29T03:24:29.526Z",
+            "value": 94.98498103417525
+          },
+          {
+            "timestamp": "2025-08-30T03:24:29.526Z",
+            "value": 95.0499392325049
+          },
+          {
+            "timestamp": "2025-08-31T03:24:29.526Z",
+            "value": 95.01600785323821
+          },
+          {
+            "timestamp": "2025-09-01T03:24:29.526Z",
+            "value": 95.01533647702891
+          },
+          {
+            "timestamp": "2025-09-02T03:24:29.526Z",
+            "value": 95.04362966865467
+          },
+          {
+            "timestamp": "2025-09-03T03:24:29.526Z",
+            "value": 95.01564856623239
+          },
+          {
+            "timestamp": "2025-09-04T03:24:29.526Z",
+            "value": 94.95564704284965
+          },
+          {
+            "timestamp": "2025-09-05T03:24:29.526Z",
+            "value": 95.04802787734815
+          },
+          {
+            "timestamp": "2025-09-06T03:24:29.526Z",
+            "value": 94.97192853450038
+          },
+          {
+            "timestamp": "2025-09-07T03:24:29.526Z",
+            "value": 95.0437996291993
+          },
+          {
+            "timestamp": "2025-09-08T03:24:29.526Z",
+            "value": 95.00744067854532
+          },
+          {
+            "timestamp": "2025-09-09T03:24:29.526Z",
+            "value": 94.99821193331168
+          },
+          {
+            "timestamp": "2025-09-10T03:24:29.526Z",
+            "value": 94.98910718618377
+          },
+          {
+            "timestamp": "2025-09-11T03:24:29.526Z",
+            "value": 95.00136858955693
+          },
+          {
+            "timestamp": "2025-09-12T03:24:29.526Z",
+            "value": 94.98199537650028
+          },
+          {
+            "timestamp": "2025-09-13T03:24:29.526Z",
+            "value": 95.00877571423185
+          },
+          {
+            "timestamp": "2025-09-14T03:24:29.526Z",
+            "value": 95.02337288243197
+          }
+        ],
+        "controlLimits": {
+          "ucl": 95.0937,
+          "lcl": 94.92,
+          "usl": 95.12261543410888,
+          "lsl": 94.89108816326267
+        },
+        "centerLine": 95.0069,
+        "violations": [],
+        "trends": [],
+        "patterns": []
+      },
+      "godObjects": {
+        "type": "individuals",
+        "ctq": "godObjects",
+        "data": [
+          {
+            "timestamp": "2025-08-16T03:24:29.526Z",
+            "value": 99.98942356450976
+          },
+          {
+            "timestamp": "2025-08-17T03:24:29.526Z",
+            "value": 100.01441373209805
+          },
+          {
+            "timestamp": "2025-08-18T03:24:29.526Z",
+            "value": 100.01429280511147
+          },
+          {
+            "timestamp": "2025-08-19T03:24:29.526Z",
+            "value": 100.03098269473413
+          },
+          {
+            "timestamp": "2025-08-20T03:24:29.526Z",
+            "value": 99.98602276108903
+          },
+          {
+            "timestamp": "2025-08-21T03:24:29.526Z",
+            "value": 100.01940943164942
+          },
+          {
+            "timestamp": "2025-08-22T03:24:29.526Z",
+            "value": 100.04091024423202
+          },
+          {
+            "timestamp": "2025-08-23T03:24:29.526Z",
+            "value": 99.98683782849784
+          },
+          {
+            "timestamp": "2025-08-24T03:24:29.526Z",
+            "value": 100.011047424876
+          },
+          {
+            "timestamp": "2025-08-25T03:24:29.526Z",
+            "value": 100.02650475510677
+          },
+          {
+            "timestamp": "2025-08-26T03:24:29.526Z",
+            "value": 100.03049851141432
+          },
+          {
+            "timestamp": "2025-08-27T03:24:29.526Z",
+            "value": 100.03796982676619
+          },
+          {
+            "timestamp": "2025-08-28T03:24:29.526Z",
+            "value": 100.0478799681039
+          },
+          {
+            "timestamp": "2025-08-29T03:24:29.526Z",
+            "value": 100.04586357990198
+          },
+          {
+            "timestamp": "2025-08-30T03:24:29.526Z",
+            "value": 99.97318616158462
+          },
+          {
+            "timestamp": "2025-08-31T03:24:29.526Z",
+            "value": 100.02120616997047
+          },
+          {
+            "timestamp": "2025-09-01T03:24:29.526Z",
+            "value": 99.97050710587885
+          },
+          {
+            "timestamp": "2025-09-02T03:24:29.526Z",
+            "value": 99.98169097691255
+          },
+          {
+            "timestamp": "2025-09-03T03:24:29.526Z",
+            "value": 99.99604368286681
+          },
+          {
+            "timestamp": "2025-09-04T03:24:29.526Z",
+            "value": 100.03620861732897
+          },
+          {
+            "timestamp": "2025-09-05T03:24:29.526Z",
+            "value": 100.02873371098542
+          },
+          {
+            "timestamp": "2025-09-06T03:24:29.526Z",
+            "value": 99.97760565670123
+          },
+          {
+            "timestamp": "2025-09-07T03:24:29.526Z",
+            "value": 100.0355343381792
+          },
+          {
+            "timestamp": "2025-09-08T03:24:29.526Z",
+            "value": 100.01329683355691
+          },
+          {
+            "timestamp": "2025-09-09T03:24:29.526Z",
+            "value": 100.03817400453926
+          },
+          {
+            "timestamp": "2025-09-10T03:24:29.526Z",
+            "value": 99.9975560930583
+          },
+          {
+            "timestamp": "2025-09-11T03:24:29.526Z",
+            "value": 99.96368019259586
+          },
+          {
+            "timestamp": "2025-09-12T03:24:29.526Z",
+            "value": 100.0339436596431
+          },
+          {
+            "timestamp": "2025-09-13T03:24:29.526Z",
+            "value": 99.98949031312804
+          },
+          {
+            "timestamp": "2025-09-14T03:24:29.526Z",
+            "value": 99.95938682164905
+          }
+        ],
+        "controlLimits": {
+          "ucl": 100.0887,
+          "lcl": 99.9312,
+          "usl": 100.11499079286592,
+          "lsl": 99.90489597157868
+        },
+        "centerLine": 100.0099,
+        "violations": [],
+        "trends": [],
+        "patterns": []
+      },
+      "meceQuality": {
+        "type": "individuals",
+        "ctq": "meceQuality",
+        "data": [
+          {
+            "timestamp": "2025-08-16T03:24:29.526Z",
+            "value": 75.00438343240666
+          },
+          {
+            "timestamp": "2025-08-17T03:24:29.526Z",
+            "value": 75.01005262185414
+          },
+          {
+            "timestamp": "2025-08-18T03:24:29.526Z",
+            "value": 75.00774076587193
+          },
+          {
+            "timestamp": "2025-08-19T03:24:29.526Z",
+            "value": 74.97322341432434
+          },
+          {
+            "timestamp": "2025-08-20T03:24:29.526Z",
+            "value": 74.9585623114036
+          },
+          {
+            "timestamp": "2025-08-21T03:24:29.526Z",
+            "value": 74.99623886760234
+          },
+          {
+            "timestamp": "2025-08-22T03:24:29.526Z",
+            "value": 74.95380255477653
+          },
+          {
+            "timestamp": "2025-08-23T03:24:29.526Z",
+            "value": 75.02858479874239
+          },
+          {
+            "timestamp": "2025-08-24T03:24:29.526Z",
+            "value": 74.95522401099127
+          },
+          {
+            "timestamp": "2025-08-25T03:24:29.526Z",
+            "value": 75.02903395956984
+          },
+          {
+            "timestamp": "2025-08-26T03:24:29.526Z",
+            "value": 75.03395506226816
+          },
+          {
+            "timestamp": "2025-08-27T03:24:29.526Z",
+            "value": 74.97668555197012
+          },
+          {
+            "timestamp": "2025-08-28T03:24:29.526Z",
+            "value": 75.02086298062665
+          },
+          {
+            "timestamp": "2025-08-29T03:24:29.526Z",
+            "value": 75.02485093255119
+          },
+          {
+            "timestamp": "2025-08-30T03:24:29.526Z",
+            "value": 74.96710692798911
+          },
+          {
+            "timestamp": "2025-08-31T03:24:29.526Z",
+            "value": 74.97457710107554
+          },
+          {
+            "timestamp": "2025-09-01T03:24:29.526Z",
+            "value": 75.04536408041606
+          },
+          {
+            "timestamp": "2025-09-02T03:24:29.526Z",
+            "value": 75.04007411209705
+          },
+          {
+            "timestamp": "2025-09-03T03:24:29.526Z",
+            "value": 74.95857043300194
+          },
+          {
+            "timestamp": "2025-09-04T03:24:29.526Z",
+            "value": 74.9724637722087
+          },
+          {
+            "timestamp": "2025-09-05T03:24:29.526Z",
+            "value": 75.01929819123292
+          },
+          {
+            "timestamp": "2025-09-06T03:24:29.526Z",
+            "value": 75.01590669305847
+          },
+          {
+            "timestamp": "2025-09-07T03:24:29.526Z",
+            "value": 75.0482213602717
+          },
+          {
+            "timestamp": "2025-09-08T03:24:29.526Z",
+            "value": 74.9797580376218
+          },
+          {
+            "timestamp": "2025-09-09T03:24:29.526Z",
+            "value": 75.02891380178495
+          },
+          {
+            "timestamp": "2025-09-10T03:24:29.526Z",
+            "value": 74.98792945031092
+          },
+          {
+            "timestamp": "2025-09-11T03:24:29.526Z",
+            "value": 75.0380315815218
+          },
+          {
+            "timestamp": "2025-09-12T03:24:29.526Z",
+            "value": 74.96541329208705
+          },
+          {
+            "timestamp": "2025-09-13T03:24:29.526Z",
+            "value": 74.9869853805998
+          },
+          {
+            "timestamp": "2025-09-14T03:24:29.526Z",
+            "value": 75.01901031478508
+          }
+        ],
+        "controlLimits": {
+          "ucl": 75.0899,
+          "lcl": 74.9115,
+          "usl": 75.11967835516036,
+          "lsl": 74.88171003117448
+        },
+        "centerLine": 75.0007,
+        "violations": [],
+        "trends": [],
+        "patterns": []
+      },
+      "testsMutation": {
+        "type": "individuals",
+        "ctq": "testsMutation",
+        "data": [
+          {
+            "timestamp": "2025-08-16T03:24:29.526Z",
+            "value": 59.998711807407304
+          },
+          {
+            "timestamp": "2025-08-17T03:24:29.526Z",
+            "value": 60.00799200946578
+          },
+          {
+            "timestamp": "2025-08-18T03:24:29.526Z",
+            "value": 59.987541753466445
+          },
+          {
+            "timestamp": "2025-08-19T03:24:29.526Z",
+            "value": 59.98029764564151
+          },
+          {
+            "timestamp": "2025-08-20T03:24:29.526Z",
+            "value": 60.03239530322499
+          },
+          {
+            "timestamp": "2025-08-21T03:24:29.526Z",
+            "value": 60.02264868200765
+          },
+          {
+            "timestamp": "2025-08-22T03:24:29.526Z",
+            "value": 59.96631851507467
+          },
+          {
+            "timestamp": "2025-08-23T03:24:29.526Z",
+            "value": 60.01144601169226
+          },
+          {
+            "timestamp": "2025-08-24T03:24:29.526Z",
+            "value": 59.99797652728639
+          },
+          {
+            "timestamp": "2025-08-25T03:24:29.526Z",
+            "value": 60.00922966526051
+          },
+          {
+            "timestamp": "2025-08-26T03:24:29.526Z",
+            "value": 60.02885376385762
+          },
+          {
+            "timestamp": "2025-08-27T03:24:29.526Z",
+            "value": 59.96037093722003
+          },
+          {
+            "timestamp": "2025-08-28T03:24:29.526Z",
+            "value": 60.035081112879475
+          },
+          {
+            "timestamp": "2025-08-29T03:24:29.526Z",
+            "value": 59.972242831983586
+          },
+          {
+            "timestamp": "2025-08-30T03:24:29.526Z",
+            "value": 59.95754336055545
+          },
+          {
+            "timestamp": "2025-08-31T03:24:29.526Z",
+            "value": 59.96522440972185
+          },
+          {
+            "timestamp": "2025-09-01T03:24:29.526Z",
+            "value": 59.95835993442747
+          },
+          {
+            "timestamp": "2025-09-02T03:24:29.526Z",
+            "value": 60.03281572943628
+          },
+          {
+            "timestamp": "2025-09-03T03:24:29.526Z",
+            "value": 59.9720168825807
+          },
+          {
+            "timestamp": "2025-09-04T03:24:29.526Z",
+            "value": 60.00527259563712
+          },
+          {
+            "timestamp": "2025-09-05T03:24:29.526Z",
+            "value": 59.96020315509475
+          },
+          {
+            "timestamp": "2025-09-06T03:24:29.526Z",
+            "value": 59.95994923776485
+          },
+          {
+            "timestamp": "2025-09-07T03:24:29.526Z",
+            "value": 60.01884518504822
+          },
+          {
+            "timestamp": "2025-09-08T03:24:29.526Z",
+            "value": 60.01312108080918
+          },
+          {
+            "timestamp": "2025-09-09T03:24:29.526Z",
+            "value": 59.95915261538596
+          },
+          {
+            "timestamp": "2025-09-10T03:24:29.526Z",
+            "value": 59.972758550044475
+          },
+          {
+            "timestamp": "2025-09-11T03:24:29.526Z",
+            "value": 59.97474348631126
+          },
+          {
+            "timestamp": "2025-09-12T03:24:29.526Z",
+            "value": 59.99574527070207
+          },
+          {
+            "timestamp": "2025-09-13T03:24:29.526Z",
+            "value": 60.03275696754422
+          },
+          {
+            "timestamp": "2025-09-14T03:24:29.526Z",
+            "value": 59.98821632597049
+          }
+        ],
+        "controlLimits": {
+          "ucl": 60.0718,
+          "lcl": 59.9134,
+          "usl": 60.098202675400586,
+          "lsl": 59.8869860814996
+        },
+        "centerLine": 59.9926,
+        "violations": [],
+        "trends": [],
+        "patterns": []
+      },
+      "performance": {
+        "type": "individuals",
+        "ctq": "performance",
+        "data": [
+          {
+            "timestamp": "2025-08-16T03:24:29.526Z",
+            "value": 95.04854139454159
+          },
+          {
+            "timestamp": "2025-08-17T03:24:29.526Z",
+            "value": 95.02266551440539
+          },
+          {
+            "timestamp": "2025-08-18T03:24:29.526Z",
+            "value": 94.97650573279697
+          },
+          {
+            "timestamp": "2025-08-19T03:24:29.526Z",
+            "value": 94.95536541884665
+          },
+          {
+            "timestamp": "2025-08-20T03:24:29.526Z",
+            "value": 94.98850420922767
+          },
+          {
+            "timestamp": "2025-08-21T03:24:29.526Z",
+            "value": 95.01822427220343
+          },
+          {
+            "timestamp": "2025-08-22T03:24:29.526Z",
+            "value": 95.00025320409641
+          },
+          {
+            "timestamp": "2025-08-23T03:24:29.526Z",
+            "value": 94.97183001161903
+          },
+          {
+            "timestamp": "2025-08-24T03:24:29.526Z",
+            "value": 94.9854764333735
+          },
+          {
+            "timestamp": "2025-08-25T03:24:29.526Z",
+            "value": 94.95847039784354
+          },
+          {
+            "timestamp": "2025-08-26T03:24:29.526Z",
+            "value": 94.96821507671261
+          },
+          {
+            "timestamp": "2025-08-27T03:24:29.526Z",
+            "value": 94.96670819603818
+          },
+          {
+            "timestamp": "2025-08-28T03:24:29.527Z",
+            "value": 95.02145963546559
+          },
+          {
+            "timestamp": "2025-08-29T03:24:29.527Z",
+            "value": 94.98917196953805
+          },
+          {
+            "timestamp": "2025-08-30T03:24:29.527Z",
+            "value": 94.98829156983099
+          },
+          {
+            "timestamp": "2025-08-31T03:24:29.527Z",
+            "value": 95.02814222342754
+          },
+          {
+            "timestamp": "2025-09-01T03:24:29.527Z",
+            "value": 95.03099589324957
+          },
+          {
+            "timestamp": "2025-09-02T03:24:29.527Z",
+            "value": 94.96046268163815
+          },
+          {
+            "timestamp": "2025-09-03T03:24:29.527Z",
+            "value": 95.00419149841969
+          },
+          {
+            "timestamp": "2025-09-04T03:24:29.527Z",
+            "value": 95.03999635531044
+          },
+          {
+            "timestamp": "2025-09-05T03:24:29.527Z",
+            "value": 94.97170116134527
+          },
+          {
+            "timestamp": "2025-09-06T03:24:29.527Z",
+            "value": 95.02707355118557
+          },
+          {
+            "timestamp": "2025-09-07T03:24:29.527Z",
+            "value": 94.9580790269389
+          },
+          {
+            "timestamp": "2025-09-08T03:24:29.527Z",
+            "value": 95.02062458271041
+          },
+          {
+            "timestamp": "2025-09-09T03:24:29.527Z",
+            "value": 95.04882382585771
+          },
+          {
+            "timestamp": "2025-09-10T03:24:29.527Z",
+            "value": 94.96508259096537
+          },
+          {
+            "timestamp": "2025-09-11T03:24:29.527Z",
+            "value": 94.96571366723435
+          },
+          {
+            "timestamp": "2025-09-12T03:24:29.527Z",
+            "value": 95.0052003206668
+          },
+          {
+            "timestamp": "2025-09-13T03:24:29.527Z",
+            "value": 95.0019494191554
+          },
+          {
+            "timestamp": "2025-09-14T03:24:29.527Z",
+            "value": 94.97309663531144
+          }
+        ],
+        "controlLimits": {
+          "ucl": 95.0819,
+          "lcl": 94.9088,
+          "usl": 95.11078075206,
+          "lsl": 94.8799403459371
+        },
+        "centerLine": 94.9954,
+        "violations": [],
+        "trends": [],
+        "patterns": []
+      },
+      "overall": {
+        "type": "overall-process",
+        "data": [
+          {
+            "timestamp": "2025-08-16T03:24:29.527Z",
+            "value": 0.999957200777357
+          },
+          {
+            "timestamp": "2025-08-17T03:24:29.527Z",
+            "value": 1
+          },
+          {
+            "timestamp": "2025-08-18T03:24:29.527Z",
+            "value": 0.9767099129079326
+          },
+          {
+            "timestamp": "2025-08-19T03:24:29.527Z",
+            "value": 0.9701004216314413
+          },
+          {
+            "timestamp": "2025-08-20T03:24:29.527Z",
+            "value": 0.9728386616030048
+          },
+          {
+            "timestamp": "2025-08-21T03:24:29.527Z",
+            "value": 0.9930815207435492
+          },
+          {
+            "timestamp": "2025-08-22T03:24:29.527Z",
+            "value": 0.9967533842130012
+          },
+          {
+            "timestamp": "2025-08-23T03:24:29.527Z",
+            "value": 1
+          },
+          {
+            "timestamp": "2025-08-24T03:24:29.527Z",
+            "value": 0.972178111857669
+          },
+          {
+            "timestamp": "2025-08-25T03:24:29.527Z",
+            "value": 0.9996613124913493
+          },
+          {
+            "timestamp": "2025-08-26T03:24:29.527Z",
+            "value": 1
+          },
+          {
+            "timestamp": "2025-08-27T03:24:29.527Z",
+            "value": 0.999261731384168
+          },
+          {
+            "timestamp": "2025-08-28T03:24:29.527Z",
+            "value": 0.9857856321483105
+          },
+          {
+            "timestamp": "2025-08-29T03:24:29.527Z",
+            "value": 0.9867518541198721
+          },
+          {
+            "timestamp": "2025-08-30T03:24:29.527Z",
+            "value": 0.9999576748974008
+          },
+          {
+            "timestamp": "2025-08-31T03:24:29.527Z",
+            "value": 0.9751680983533038
+          },
+          {
+            "timestamp": "2025-09-01T03:24:29.527Z",
+            "value": 0.991059591231426
+          },
+          {
+            "timestamp": "2025-09-02T03:24:29.527Z",
+            "value": 1
+          },
+          {
+            "timestamp": "2025-09-03T03:24:29.527Z",
+            "value": 0.9947975063842456
+          },
+          {
+            "timestamp": "2025-09-04T03:24:29.527Z",
+            "value": 0.9835272286102579
+          },
+          {
+            "timestamp": "2025-09-05T03:24:29.527Z",
+            "value": 0.9707068093054061
+          },
+          {
+            "timestamp": "2025-09-06T03:24:29.527Z",
+            "value": 0.9774412440384477
+          },
+          {
+            "timestamp": "2025-09-07T03:24:29.527Z",
+            "value": 0.9735045707262747
+          },
+          {
+            "timestamp": "2025-09-08T03:24:29.527Z",
+            "value": 0.9897089286587953
+          },
+          {
+            "timestamp": "2025-09-09T03:24:29.527Z",
+            "value": 0.9775774045413425
+          },
+          {
+            "timestamp": "2025-09-10T03:24:29.527Z",
+            "value": 0.969752732640001
+          },
+          {
+            "timestamp": "2025-09-11T03:24:29.527Z",
+            "value": 1
+          },
+          {
+            "timestamp": "2025-09-12T03:24:29.527Z",
+            "value": 0.9754033872430554
+          },
+          {
+            "timestamp": "2025-09-13T03:24:29.527Z",
+            "value": 0.9802847344477219
+          },
+          {
+            "timestamp": "2025-09-14T03:24:29.527Z",
+            "value": 1
+          }
+        ],
+        "controlLimits": {
+          "ucl": 1.0215,
+          "lcl": 0.9527,
+          "usl": 1.032947538916019,
+          "lsl": 0.9411837714143363
+        },
+        "centerLine": 0.9871,
+        "sigmaLevel": 3,
+        "targetSigma": 4,
+        "processPerformance": {
+          "currentPerformance": 0.987,
+          "targetPerformance": 0.667,
+          "gap": -0.32,
+          "status": "ON_TARGET"
+        }
+      }
+    },
+    "controlLimits": {
+      "ucl": null,
+      "lcl": null,
+      "cl": null
+    },
+    "processCapability": {
+      "cp": 1,
+      "cpk": 0.906,
+      "pp": 0.95,
+      "ppk": 0.861,
+      "sigmaLevel": 3,
+      "interpretation": "MARGINAL"
+    },
+    "stability": {
+      "stable": true,
+      "violations": 0,
+      "trends": 0,
+      "patterns": 0,
+      "assessment": "STABLE",
+      "recommendation": "Process is in statistical control"
+    },
+    "recommendations": []
+  },
+  "dpmo": {
+    "timestamp": "2025-09-15T03:24:29.527Z",
+    "dpmo": {
+      "security": {
+        "value": 31579,
+        "defectRate": 3.16,
+        "yieldRate": 96.84,
+        "opportunities": 1,
+        "unitsProduced": 1,
+        "defectsFound": 0.03157894736842104
+      },
+      "nasaPOT10": {
+        "value": 0,
+        "defectRate": 0,
+        "yieldRate": 100,
+        "opportunities": 1,
+        "unitsProduced": 1,
+        "defectsFound": 0
+      },
+      "connascence": {
+        "value": 0,
+        "defectRate": 0,
+        "yieldRate": 100,
+        "opportunities": 1,
+        "unitsProduced": 1,
+        "defectsFound": 0
+      },
+      "godObjects": {
+        "value": 0,
+        "defectRate": 0,
+        "yieldRate": 100,
+        "opportunities": 1,
+        "unitsProduced": 1,
+        "defectsFound": 0
+      },
+      "meceQuality": {
+        "value": 0,
+        "defectRate": 0,
+        "yieldRate": 100,
+        "opportunities": 1,
+        "unitsProduced": 1,
+        "defectsFound": 0
+      },
+      "testsMutation": {
+        "value": 0,
+        "defectRate": 0,
+        "yieldRate": 100,
+        "opportunities": 1,
+        "unitsProduced": 1,
+        "defectsFound": 0
+      },
+      "performance": {
+        "value": 0,
+        "defectRate": 0,
+        "yieldRate": 100,
+        "opportunities": 1,
+        "unitsProduced": 1,
+        "defectsFound": 0
+      }
+    },
+    "rty": {
+      "security": {
+        "rty": 96.84,
+        "fty": 96.84,
+        "processSteps": 1,
+        "overallYield": 96.84
+      },
+      "nasaPOT10": {
+        "rty": 100,
+        "fty": 100,
+        "processSteps": 1,
+        "overallYield": 100
+      },
+      "connascence": {
+        "rty": 100,
+        "fty": 100,
+        "processSteps": 1,
+        "overallYield": 100
+      },
+      "godObjects": {
+        "rty": 100,
+        "fty": 100,
+        "processSteps": 1,
+        "overallYield": 100
+      },
+      "meceQuality": {
+        "rty": 100,
+        "fty": 100,
+        "processSteps": 1,
+        "overallYield": 100
+      },
+      "testsMutation": {
+        "rty": 100,
+        "fty": 100,
+        "processSteps": 1,
+        "overallYield": 100
+      },
+      "performance": {
+        "rty": 100,
+        "fty": 100,
+        "processSteps": 1,
+        "overallYield": 100
+      }
+    },
+    "sigmaLevels": {
+      "security": {
+        "sigmaLevel": 3,
+        "exactSigma": 3.36,
+        "dpmoThreshold": 66807,
+        "yieldThreshold": 93.32,
+        "classification": "AVERAGE",
+        "improvement": {
+          "sigmaGap": 1,
+          "improvementNeeded": true,
+          "effort": "HIGH"
+        }
+      },
+      "nasaPOT10": {
+        "sigmaLevel": 6,
+        "exactSigma": 6,
+        "dpmoThreshold": 3.4,
+        "yieldThreshold": 99.99966,
+        "classification": "WORLD_CLASS",
+        "improvement": {
+          "sigmaGap": 0,
+          "improvementNeeded": false,
+          "effort": "LOW"
+        }
+      },
+      "connascence": {
+        "sigmaLevel": 6,
+        "exactSigma": 6,
+        "dpmoThreshold": 3.4,
+        "yieldThreshold": 99.99966,
+        "classification": "WORLD_CLASS",
+        "improvement": {
+          "sigmaGap": 0,
+          "improvementNeeded": false,
+          "effort": "LOW"
+        }
+      },
+      "godObjects": {
+        "sigmaLevel": 6,
+        "exactSigma": 6,
+        "dpmoThreshold": 3.4,
+        "yieldThreshold": 99.99966,
+        "classification": "WORLD_CLASS",
+        "improvement": {
+          "sigmaGap": 0,
+          "improvementNeeded": false,
+          "effort": "LOW"
+        }
+      },
+      "meceQuality": {
+        "sigmaLevel": 6,
+        "exactSigma": 6,
+        "dpmoThreshold": 3.4,
+        "yieldThreshold": 99.99966,
+        "classification": "WORLD_CLASS",
+        "improvement": {
+          "sigmaGap": 0,
+          "improvementNeeded": false,
+          "effort": "LOW"
+        }
+      },
+      "testsMutation": {
+        "sigmaLevel": 6,
+        "exactSigma": 6,
+        "dpmoThreshold": 3.4,
+        "yieldThreshold": 99.99966,
+        "classification": "WORLD_CLASS",
+        "improvement": {
+          "sigmaGap": 0,
+          "improvementNeeded": false,
+          "effort": "LOW"
+        }
+      },
+      "performance": {
+        "sigmaLevel": 6,
+        "exactSigma": 6,
+        "dpmoThreshold": 3.4,
+        "yieldThreshold": 99.99966,
+        "classification": "WORLD_CLASS",
+        "improvement": {
+          "sigmaGap": 0,
+          "improvementNeeded": false,
+          "effort": "LOW"
+        }
+      }
+    },
+    "processMetrics": {
+      "overallDPMO": 6316,
+      "overallSigma": 3.99,
+      "targetSigma": 4,
+      "processRTY": 96.84,
+      "processYield": 99.37,
+      "ctqCount": 7,
+      "performanceGap": 0.01,
+      "costOfPoorQuality": {
+        "percentage": 0.19,
+        "category": "LOW",
+        "potentialSavings": 0.13
+      }
+    },
+    "benchmarking": {
+      "currentClass": "AVERAGE",
+      "industryBenchmarks": {
+        "worldClass": {
+          "sigma": 6,
+          "dpmo": 3.4
+        },
+        "excellent": {
+          "sigma": 5,
+          "dpmo": 233
+        },
+        "good": {
+          "sigma": 4,
+          "dpmo": 6210
+        },
+        "average": {
+          "sigma": 3,
+          "dpmo": 66807
+        },
+        "poor": {
+          "sigma": 2,
+          "dpmo": 308538
+        }
+      },
+      "competitivePosition": "AVERAGE",
+      "improvementOpportunity": {
+        "status": "IMPROVEMENT_NEEDED",
+        "opportunity": 1.7,
+        "focus": "INCREMENTAL_IMPROVEMENT"
+      }
+    },
+    "recommendations": []
+  },
+  "theater": {
+    "timestamp": "2025-09-15T03:24:29.527Z",
+    "theaterDetection": {
+      "codeTheater": {
+        "patterns": [],
+        "score": 0,
+        "risk": "LOW",
+        "fileCount": 1,
+        "issueCount": 0
+      },
+      "metricTheater": {
+        "patterns": [
+          {
+            "type": "METRIC_INCONSISTENCY",
+            "severity": "HIGH",
+            "description": "Metrics show inconsistent patterns"
+          }
+        ],
+        "score": 0.4,
+        "risk": "LOW",
+        "metricsAnalyzed": 9
+      },
+      "documentationTheater": {
+        "patterns": [],
+        "score": 0,
+        "risk": "LOW",
+        "fileCount": 0
+      },
+      "testTheater": {
+        "patterns": [],
+        "score": 0,
+        "risk": "LOW",
+        "testCount": 2
+      },
+      "performanceTheater": {
+        "patterns": [],
+        "score": 0,
+        "risk": "LOW",
+        "metricsChecked": 1
+      },
+      "overallScore": 0.08,
+      "overallRisk": "LOW"
+    },
+    "qualityCorrelation": {
+      "theaterQualityGap": {
+        "security": {
+          "expectedQuality": 0.92,
+          "actualQuality": 0.968,
+          "gap": 0.048,
+          "interpretation": "QUALITY_ALIGNS_WITH_EXPECTATIONS"
+        },
+        "nasaPOT10": {
+          "expectedQuality": 0.92,
+          "actualQuality": 1,
+          "gap": 0.08,
+          "interpretation": "QUALITY_ALIGNS_WITH_EXPECTATIONS"
+        },
+        "connascence": {
+          "expectedQuality": 0.92,
+          "actualQuality": 1,
+          "gap": 0.08,
+          "interpretation": "QUALITY_ALIGNS_WITH_EXPECTATIONS"
+        },
+        "godObjects": {
+          "expectedQuality": 0.92,
+          "actualQuality": 1,
+          "gap": 0.08,
+          "interpretation": "QUALITY_ALIGNS_WITH_EXPECTATIONS"
+        },
+        "meceQuality": {
+          "expectedQuality": 0.92,
+          "actualQuality": 1,
+          "gap": 0.08,
+          "interpretation": "QUALITY_ALIGNS_WITH_EXPECTATIONS"
+        },
+        "testsMutation": {
+          "expectedQuality": 0.92,
+          "actualQuality": 1,
+          "gap": 0.08,
+          "interpretation": "QUALITY_ALIGNS_WITH_EXPECTATIONS"
+        },
+        "performance": {
+          "expectedQuality": 0.92,
+          "actualQuality": 1,
+          "gap": 0.08,
+          "interpretation": "QUALITY_ALIGNS_WITH_EXPECTATIONS"
+        }
+      },
+      "correlationStrength": {
+        "security": {
+          "expected": 0.5,
+          "actual": 0.952,
+          "strength": "STRONG"
+        },
+        "nasaPOT10": {
+          "expected": 0.5,
+          "actual": 0.92,
+          "strength": "STRONG"
+        },
+        "connascence": {
+          "expected": 0.5,
+          "actual": 0.92,
+          "strength": "STRONG"
+        },
+        "godObjects": {
+          "expected": 0.5,
+          "actual": 0.92,
+          "strength": "STRONG"
+        },
+        "meceQuality": {
+          "expected": 0.5,
+          "actual": 0.92,
+          "strength": "STRONG"
+        },
+        "testsMutation": {
+          "expected": 0.5,
+          "actual": 0.92,
+          "strength": "STRONG"
+        },
+        "performance": {
+          "expected": 0.5,
+          "actual": 0.92,
+          "strength": "STRONG"
+        }
+      },
+      "validityAssessment": {
+        "averageGap": 0.075,
+        "validity": "HIGH",
+        "recommendation": "ACCEPTABLE"
+      },
+      "confidenceScore": 1
+    },
+    "riskAssessment": {
+      "overallRisk": "LOW",
+      "riskFactors": [],
+      "riskScore": 8,
+      "mitigation": []
+    },
+    "recommendations": [],
+    "overallTheaterRisk": "LOW"
+  },
+  "timestamp": "2025-09-15T03:24:29.527Z"
+}

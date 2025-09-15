@@ -1,0 +1,243 @@
+{
+  "timestamp": "2025-09-11T12:29:55.283078",
+  "analysis_type": "unknown",
+  "quality_gates": {
+    "overall_gate_passed": false,
+    "critical_gates": {
+      "passed": false,
+      "status": "FAIL"
+    },
+    "quality_gates": {
+      "passed": true,
+      "status": "PASS"
+    }
+  },
+  "metrics": {
+    "nasa_compliance_score": 0.85,
+    "god_objects_count": 0,
+    "critical_violations": 0,
+    "total_violations": 0,
+    "mece_score": 0.85,
+    "overall_quality_score": 0.75,
+    "architecture_health": 0.85,
+    "maintainability_index": 75
+  },
+  "summary": {
+    "overall_status": "PASS",
+    "recommendations": []
+  },
+  "original_structure": {
+    "swarm_id": "quality-gates-analysis-mesh",
+    "topology": "mesh",
+    "max_agents": 8,
+    "coordinator": "system-architect",
+    "session_id": "swarm-quality-gates-analysis",
+    "coordination_protocol": {
+      "type": "mesh_network",
+      "communication_mode": "peer_to_peer",
+      "resource_allocation": "dynamic",
+      "failure_tolerance": "high",
+      "consensus_mechanism": "distributed_voting"
+    },
+    "agents": [
+      {
+        "id": "researcher-gemini-001",
+        "type": "researcher-gemini",
+        "role": "large-context-analyzer",
+        "priority": "high",
+        "memory_namespace": "quality-analysis/research",
+        "capabilities": [
+          "large_context_analysis",
+          "codebase_comprehension",
+          "dependency_mapping"
+        ],
+        "resource_requirements": {
+          "memory": "high",
+          "context_window": "maximum",
+          "processing_priority": "high"
+        },
+        "coordination_channels": [
+          "broadcast",
+          "direct_peer",
+          "memory_shared"
+        ]
+      },
+      {
+        "id": "code-analyzer-002",
+        "type": "code-analyzer",
+        "role": "analyzer-structure-specialist",
+        "priority": "high",
+        "memory_namespace": "quality-analysis/code",
+        "capabilities": [
+          "structural_analysis",
+          "70_file_analyzer_expertise",
+          "code_quality_assessment"
+        ],
+        "resource_requirements": {
+          "memory": "medium",
+          "processing_priority": "high",
+          "file_access": "full"
+        },
+        "coordination_channels": [
+          "broadcast",
+          "direct_peer",
+          "memory_shared"
+        ]
+      },
+      {
+        "id": "performance-benchmarker-003",
+        "type": "performance-benchmarker",
+        "role": "metrics-baseline-specialist",
+        "priority": "medium",
+        "memory_namespace": "quality-analysis/performance",
+        "capabilities": [
+          "performance_measurement",
+          "baseline_establishment",
+          "bottleneck_identification"
+        ],
+        "resource_requirements": {
+          "memory": "medium",
+          "processing_priority": "medium",
+          "benchmark_access": "required"
+        },
+        "coordination_channels": [
+          "broadcast",
+          "direct_peer",
+          "memory_shared"
+        ]
+      },
+      {
+        "id": "fresh-eyes-gemini-004",
+        "type": "fresh-eyes-gemini",
+        "role": "premortem-risk-analyst",
+        "priority": "high",
+        "memory_namespace": "quality-analysis/risks",
+        "capabilities": [
+          "risk_assessment",
+          "premortem_analysis",
+          "failure_prediction",
+          "large_context_risk_modeling"
+        ],
+        "resource_requirements": {
+          "memory": "high",
+          "context_window": "maximum",
+          "processing_priority": "high"
+        },
+        "coordination_channels": [
+          "broadcast",
+          "direct_peer",
+          "memory_shared"
+        ]
+      },
+      {
+        "id": "architecture-005",
+        "type": "architecture",
+        "role": "system-design-assessor",
+        "priority": "high",
+        "memory_namespace": "quality-analysis/architecture",
+        "capabilities": [
+          "system_design",
+          "architectural_assessment",
+          "refactoring_strategy",
+          "design_patterns"
+        ],
+        "resource_requirements": {
+          "memory": "high",
+          "processing_priority": "high",
+          "design_tools": "full_access"
+        },
+        "coordination_channels": [
+          "broadcast",
+          "direct_peer",
+          "memory_shared"
+        ]
+      },
+      {
+        "id": "specification-006",
+        "type": "specification",
+        "role": "compliance-requirements-analyst",
+        "priority": "medium",
+        "memory_namespace": "quality-analysis/specs",
+        "capabilities": [
+          "requirements_analysis",
+          "compliance_verification",
+          "spec_validation",
+          "quality_gates_mapping"
+        ],
+        "resource_requirements": {
+          "memory": "medium",
+          "processing_priority": "medium",
+          "spec_access": "full"
+        },
+        "coordination_channels": [
+          "broadcast",
+          "direct_peer",
+          "memory_shared"
+        ]
+      },
+      {
+        "id": "security-manager-007",
+        "type": "security-manager",
+        "role": "nasa-pot10-compliance-auditor",
+        "priority": "high",
+        "memory_namespace": "quality-analysis/security",
+        "capabilities": [
+          "security_auditing",
+          "nasa_pot10_compliance",
+          "vulnerability_assessment",
+          "defense_standards"
+        ],
+        "resource_requirements": {
+          "memory": "high",
+          "processing_priority": "high",
+          "security_tools": "full_access"
+        },
+        "coordination_channels": [
+          "broadcast",
+          "direct_peer",
+          "memory_shared"
+        ]
+      },
+      {
+        "id": "memory-coordinator-008",
+        "type": "memory-coordinator",
+        "role": "cross-session-learning-coordinator",
+        "priority": "medium",
+        "memory_namespace": "quality-analysis/memory",
+        "capabilities": [
+          "pattern_learning",
+          "cross_session_coordination",
+          "knowledge_synthesis",
+          "memory_optimization"
+        ],
+        "resource_requirements": {
+          "memory": "high",
+          "processing_priority": "medium",
+          "persistent_storage": "required"
+        },
+        "coordination_channels": [
+          "broadcast",
+          "direct_peer",
+          "memory_shared",
+          "persistent_memory"
+        ]
+      }
+    ],
+    "communication_matrix": {
+      "mesh_connections": "all_to_all",
+      "primary_coordinator": "system-architect",
+      "backup_coordinators": [
+        "architecture-005",
+        "researcher-gemini-001"
+      ],
+      "message_routing": "distributed",
+      "conflict_resolution": "consensus_based"
+    },
+    "task_distribution": {
+      "strategy": "parallel_execution",
+      "load_balancing": "capability_based",
+      "fault_tolerance": "redundant_analysis",
+      "progress_tracking": "distributed_consensus"
+    }
+  }
+}

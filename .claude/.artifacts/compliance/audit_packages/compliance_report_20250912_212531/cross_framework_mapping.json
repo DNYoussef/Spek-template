@@ -1,0 +1,130 @@
+[
+  {
+    "primary_framework": "SOC2",
+    "primary_control": "CC6.1",
+    "mapped_frameworks": {
+      "ISO27001": [
+        "A.9.2",
+        "A.9.3",
+        "A.9.4"
+      ]
+    },
+    "confidence": "high",
+    "rationale": "Access control requirements directly align"
+  },
+  {
+    "primary_framework": "SOC2",
+    "primary_control": "CC8.1",
+    "mapped_frameworks": {
+      "ISO27001": [
+        "A.14.1",
+        "A.14.2"
+      ],
+      "NIST-SSDF": [
+        "PO.5.1",
+        "PW.1.1"
+      ]
+    },
+    "confidence": "high",
+    "rationale": "Change management and secure development practices"
+  },
+  {
+    "primary_framework": "SOC2",
+    "primary_control": "CC7.2",
+    "mapped_frameworks": {
+      "ISO27001": [
+        "A.12.2"
+      ],
+      "NIST-SSDF": [
+        "PW.5.1",
+        "RV.1.1"
+      ]
+    },
+    "confidence": "high",
+    "rationale": "Malware protection and vulnerability management"
+  },
+  {
+    "primary_framework": "ISO27001",
+    "primary_control": "A.14.1",
+    "mapped_frameworks": {
+      "NIST-SSDF": [
+        "PO.1.1",
+        "PW.1.1"
+      ],
+      "SOC2": [
+        "CC8.1"
+      ]
+    },
+    "confidence": "high",
+    "rationale": "Security requirements in development lifecycle"
+  },
+  {
+    "primary_framework": "ISO27001",
+    "primary_control": "A.9.2",
+    "mapped_frameworks": {
+      "SOC2": [
+        "CC6.1",
+        "CC6.2"
+      ],
+      "NIST-SSDF": [
+        "PS.2.1"
+      ]
+    },
+    "confidence": "high",
+    "rationale": "Access control and authentication"
+  },
+  {
+    "primary_framework": "ISO27001",
+    "primary_control": "A.16.1",
+    "mapped_frameworks": {
+      "NIST-SSDF": [
+        "RV.1.1",
+        "RV.2.1"
+      ]
+    },
+    "confidence": "medium",
+    "rationale": "Incident management and vulnerability response"
+  },
+  {
+    "primary_framework": "NIST-SSDF",
+    "primary_control": "PO.1.1",
+    "mapped_frameworks": {
+      "ISO27001": [
+        "A.14.1"
+      ],
+      "SOC2": [
+        "CC1.1"
+      ]
+    },
+    "confidence": "medium",
+    "rationale": "Security requirements definition and governance"
+  },
+  {
+    "primary_framework": "NIST-SSDF",
+    "primary_control": "PW.4.1",
+    "mapped_frameworks": {
+      "ISO27001": [
+        "A.14.1"
+      ],
+      "SOC2": [
+        "CC8.1"
+      ]
+    },
+    "confidence": "high",
+    "rationale": "Code review and secure development practices"
+  },
+  {
+    "primary_framework": "NIST-SSDF",
+    "primary_control": "RV.1.1",
+    "mapped_frameworks": {
+      "ISO27001": [
+        "A.16.1"
+      ],
+      "SOC2": [
+        "CC7.2"
+      ]
+    },
+    "confidence": "high",
+    "rationale": "Vulnerability identification and incident response"
+  }
+]

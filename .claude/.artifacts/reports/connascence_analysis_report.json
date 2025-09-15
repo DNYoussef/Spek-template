@@ -1,0 +1,414 @@
+{
+  "report_type": "CONNASCENCE_ANALYSIS",
+  "data_source": "REAL_ANALYSIS_NO_MOCKS",
+  "timestamp": "2025-09-14T15:53:19.803728",
+  "project": "SPEK Enhanced Development Platform",
+  "analysis_scope": "Key directories (src, analyzer, tests)",
+  "summary": {
+    "total_violations": 6701,
+    "unique_types": 2,
+    "files_analyzed": 251,
+    "analysis_duration_seconds": 6.55
+  },
+  "violations_by_type": {
+    "Connascence of Meaning": 6364,
+    "Connascence of Position": 337
+  },
+  "violations_by_severity": {
+    "medium": 6701
+  },
+  "top_violating_files": [
+    {
+      "file": "analyzer\\constants.py",
+      "count": 152
+    },
+    {
+      "file": "analyzer\\performance\\result_aggregation_profiler.py",
+      "count": 139
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_six_sigma_python.py",
+      "count": 138
+    },
+    {
+      "file": "src\\theater-detection\\theater-detector.py",
+      "count": 133
+    },
+    {
+      "file": "src\\theater-detection\\reality-validator.py",
+      "count": 131
+    },
+    {
+      "file": "src\\theater-detection\\continuous-monitor.py",
+      "count": 130
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_six_sigma_telemetry.py",
+      "count": 124
+    },
+    {
+      "file": "tests\\sixsigma\\sample_data.py",
+      "count": 106
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\nist_ssdf.py",
+      "count": 104
+    },
+    {
+      "file": "tests\\memory_integration\\test_cross_phase_memory.py",
+      "count": 82
+    }
+  ],
+  "sample_violations": [
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 154,
+      "description": "Magic number 6210.0 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 409,
+      "description": "Magic number 99 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 174,
+      "description": "Magic number 3 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 395,
+      "description": "Magic number 5.0 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 483,
+      "description": "Magic number 3.4 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 484,
+      "description": "Magic number 6.0 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 178,
+      "description": "Magic number 1000000 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 485,
+      "description": "Magic number 233 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 486,
+      "description": "Magic number 5.0 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 536,
+      "description": "Magic number 80 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 544,
+      "description": "Magic number 40 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 565,
+      "description": "Magic number 40 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 132,
+      "description": "Magic number 3 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 356,
+      "description": "Magic number 3210.0 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 357,
+      "description": "Magic number 4.2 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 375,
+      "description": "Magic number 0.92 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 487,
+      "description": "Magic number 6210 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 488,
+      "description": "Magic number 4.0 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 534,
+      "description": "Magic number 80 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 555,
+      "description": "Magic number 1000 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 585,
+      "description": "Magic number 80 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 489,
+      "description": "Magic number 66807 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 490,
+      "description": "Magic number 3.0 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 509,
+      "description": "Magic number 0.1 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 578,
+      "description": "Magic number 4.7 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 491,
+      "description": "Magic number 308537 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 506,
+      "description": "Magic number 5 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 507,
+      "description": "Magic number 0.8 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 516,
+      "description": "Magic number 3 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\integration_test_suite.py",
+      "line": 525,
+      "description": "Magic number 0.9 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\production_validation_test.py",
+      "line": 552,
+      "description": "Magic number 80 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\production_validation_test.py",
+      "line": 555,
+      "description": "Magic number 80 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\production_validation_test.py",
+      "line": 598,
+      "description": "Magic number 80 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\production_validation_test.py",
+      "line": 615,
+      "description": "Magic number 80 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\production_validation_test.py",
+      "line": 389,
+      "description": "Magic number 292 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\production_validation_test.py",
+      "line": 596,
+      "description": "Magic number 80 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\production_validation_test.py",
+      "line": 136,
+      "description": "Magic number 5 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\production_validation_test.py",
+      "line": 281,
+      "description": "Magic number 30 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\production_validation_test.py",
+      "line": 93,
+      "description": "Magic number 5 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\production_validation_test.py",
+      "line": 99,
+      "description": "Magic number 5 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\production_validation_test.py",
+      "line": 404,
+      "description": "Magic number 493 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\simple_kill_switch_test.py",
+      "line": 23,
+      "description": "Magic number 5 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\simple_kill_switch_test.py",
+      "line": 149,
+      "description": "Magic number 5 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\simple_kill_switch_test.py",
+      "line": 216,
+      "description": "Magic number 3 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\simple_kill_switch_test.py",
+      "line": 43,
+      "description": "Magic number 40 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\simple_kill_switch_test.py",
+      "line": 47,
+      "description": "Magic number 3 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\simple_kill_switch_test.py",
+      "line": 49,
+      "description": "Magic number 20 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\simple_kill_switch_test.py",
+      "line": 60,
+      "description": "Magic number 10000 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\simple_kill_switch_test.py",
+      "line": 74,
+      "description": "Magic number 1000 should be a named constant"
+    },
+    {
+      "type": "Connascence of Meaning",
+      "severity": "medium",
+      "file": "tests\\simple_kill_switch_test.py",
+      "line": 93,
+      "description": "Magic number 40 should be a named constant"
+    }
+  ]
+}

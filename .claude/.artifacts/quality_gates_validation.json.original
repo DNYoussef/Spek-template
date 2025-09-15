@@ -1,0 +1,12 @@
+{
+  "all_gates_pass": false,
+  "critical_gates_pass": false,
+  "defense_ready": false,
+  "detailed_results": {
+    "nasa_compliance": false,
+    "god_objects": true,
+    "critical_violations": true,
+    "mece_score": true,
+    "overall_quality": true
+  }
+}

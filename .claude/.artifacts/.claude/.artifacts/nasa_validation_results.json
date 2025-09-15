@@ -1,0 +1,276 @@
+{
+  "timestamp": "2025-09-14T20:09:16.336732",
+  "duration_seconds": 0.615157,
+  "rules_validated": [
+    {
+      "rule": "Rule 4 - Function Size",
+      "target": "< 60 lines per function",
+      "violations": [
+        {
+          "file": ".artifacts\\artifact_manager.py",
+          "function": "generate_all_artifacts",
+          "lines": 112,
+          "severity": "high"
+        },
+        {
+          "file": ".artifacts\\dfars_critical_remediation.py",
+          "function": "implement_audit_logging",
+          "lines": 107,
+          "severity": "high"
+        },
+        {
+          "file": ".artifacts\\dfars_critical_remediation.py",
+          "function": "implement_incident_response",
+          "lines": 159,
+          "severity": "high"
+        },
+        {
+          "file": ".artifacts\\dfars_critical_remediation.py",
+          "function": "implement_cui_protection",
+          "lines": 141,
+          "severity": "high"
+        },
+        {
+          "file": ".artifacts\\integration_test_phase2_imports.py",
+          "function": "validate_surgical_fixes",
+          "lines": 146,
+          "severity": "high"
+        },
+        {
+          "file": ".artifacts\\security_pipeline_test_suite.py",
+          "function": "create_test_vulnerable_code",
+          "lines": 153,
+          "severity": "high"
+        },
+        {
+          "file": ".artifacts\\security_pipeline_test_suite.py",
+          "function": "test_sast_analysis",
+          "lines": 120,
+          "severity": "high"
+        },
+        {
+          "file": ".artifacts\\security_pipeline_test_suite.py",
+          "function": "test_supply_chain_analysis",
+          "lines": 116,
+          "severity": "high"
+        },
+        {
+          "file": ".artifacts\\security_pipeline_validation_report.py",
+          "function": "validate_security_infrastructure",
+          "lines": 320,
+          "severity": "high"
+        },
+        {
+          "file": "artifacts\\memory_security_analysis.py",
+          "function": "main",
+          "lines": 117,
+          "severity": "high"
+        },
+        {
+          "file": ".artifacts\\sandbox-validation\\risk_mitigation_validator.py",
+          "function": "test_path_resolution_fixes",
+          "lines": 107,
+          "severity": "high"
+        },
+        {
+          "file": "artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+          "function": "_generate_aggregation_performance_test",
+          "lines": 119,
+          "severity": "high"
+        },
+        {
+          "file": "artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+          "function": "_generate_coordination_test",
+          "lines": 119,
+          "severity": "high"
+        },
+        {
+          "file": "artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+          "function": "_generate_memory_optimization_test",
+          "lines": 140,
+          "severity": "high"
+        },
+        {
+          "file": "artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+          "function": "_generate_visitor_efficiency_test",
+          "lines": 186,
+          "severity": "high"
+        },
+        {
+          "file": "artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+          "function": "_generate_integration_test",
+          "lines": 229,
+          "severity": "high"
+        },
+        {
+          "file": "artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+          "function": "_generate_cumulative_test",
+          "lines": 179,
+          "severity": "high"
+        }
+      ],
+      "improvements": [
+        {
+          "file": ".artifacts\\dfars_critical_remediation.py",
+          "type": "refactoring_marked",
+          "description": "Function refactoring TODO added"
+        },
+        {
+          "file": ".artifacts\\integration_test_phase2_imports.py",
+          "type": "refactoring_marked",
+          "description": "Function refactoring TODO added"
+        },
+        {
+          "file": ".artifacts\\nasa_compliance_validator.py",
+          "type": "refactoring_marked",
+          "description": "Function refactoring TODO added"
+        },
+        {
+          "file": ".artifacts\\nasa_pot10_optimizer.py",
+          "type": "refactoring_marked",
+          "description": "Function refactoring TODO added"
+        },
+        {
+          "file": ".artifacts\\security_pipeline_test_suite.py",
+          "type": "refactoring_marked",
+          "description": "Function refactoring TODO added"
+        },
+        {
+          "file": ".artifacts\\security_pipeline_validation_report.py",
+          "type": "refactoring_marked",
+          "description": "Function refactoring TODO added"
+        },
+        {
+          "file": "artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+          "type": "refactoring_marked",
+          "description": "Function refactoring TODO added"
+        }
+      ],
+      "metrics": {
+        "total_functions": 361,
+        "compliant_functions": 306,
+        "compliance_rate": 84.7645429362881,
+        "functions_marked_for_refactoring": 7,
+        "severe_violations": 17
+      }
+    },
+    {
+      "rule": "Rule 5 - Assertion Density",
+      "target": ">= 2% assertions",
+      "violations": [],
+      "improvements": [
+        {
+          "file": ".artifacts\\nasa_compliance_validator.py",
+          "type": "assertions_added",
+          "description": "NASA-compliant assertions added"
+        },
+        {
+          "file": ".artifacts\\nasa_pot10_optimizer.py",
+          "type": "assertions_added",
+          "description": "NASA-compliant assertions added"
+        },
+        {
+          "file": ".artifacts\\quality_validator.py",
+          "type": "assertions_added",
+          "description": "NASA-compliant assertions added"
+        },
+        {
+          "file": "performance\\baselines\\baseline_collector.py",
+          "type": "assertions_added",
+          "description": "NASA-compliant assertions added"
+        }
+      ],
+      "metrics": {
+        "total_functions": 361,
+        "functions_with_assertions": 0,
+        "assertion_coverage": 0.0,
+        "nasa_compliant_assertions": 4,
+        "improvement_rate": 1.10803324099723
+      }
+    },
+    {
+      "rule": "Rule 3 - Dynamic Memory",
+      "target": "Minimize dynamic allocation",
+      "violations": [],
+      "improvements": [
+        {
+          "file": ".artifacts\\dfars_compliance_framework.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        },
+        {
+          "file": ".artifacts\\nasa_compliance_validator.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        },
+        {
+          "file": ".artifacts\\nasa_pot10_optimizer.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        },
+        {
+          "file": ".artifacts\\production_validation_tests.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        },
+        {
+          "file": ".artifacts\\quality_analysis.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        },
+        {
+          "file": ".artifacts\\quality_validator.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        },
+        {
+          "file": "artifacts\\performance_scaling_test.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        },
+        {
+          "file": ".artifacts\\sandbox-validation\\performance_validator.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        },
+        {
+          "file": "coordination\\adaptive\\agent_deployment_protocol.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        },
+        {
+          "file": "performance\\baselines\\baseline_collector.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        },
+        {
+          "file": "performance\\monitoring\\realtime_monitor.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        },
+        {
+          "file": "performance\\validation\\theater_detector.py",
+          "type": "memory_guidance",
+          "description": "Memory optimization guidance added"
+        }
+      ],
+      "metrics": {
+        "total_comprehensions": 39,
+        "files_with_memory_guidance": 12,
+        "files_with_islice_guidance": 13,
+        "optimization_coverage": 108.33333333333333
+      }
+    }
+  ],
+  "overall_compliance_score": 68.49759002770082,
+  "total_improvements": 23,
+  "total_violations": 17,
+  "target_achieved": false,
+  "defense_industry_ready": false,
+  "summary": {
+    "rule_4_compliance": 84.7645429362881,
+    "rule_5_coverage": 0.0,
+    "rule_3_optimizations": 12,
+    "final_score": 68.49759002770082
+  }
+}

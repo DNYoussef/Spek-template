@@ -1,0 +1,223 @@
+{
+  "validation_timestamp": "2025-09-10T19:45:37.609757",
+  "project_root": "C:\\Users\\17175\\Desktop\\spek template",
+  "test_summary": {
+    "total_tests": 23,
+    "passed": 6,
+    "failed": 2,
+    "warnings": 0
+  },
+  "test_results": {
+    "Environment Setup": {
+      "status": "PASS",
+      "tests_run": 4,
+      "details": {
+        "python_environment": "OK",
+        "directory_.github/scripts": "EXISTS",
+        "directory_analyzer": "EXISTS",
+        "directory_.claude/.artifacts": "EXISTS",
+        "script_comprehensive_analysis.py": "EXECUTABLE",
+        "script_architecture_analysis.py": "EXECUTABLE",
+        "script_performance_optimization.py": "EXECUTABLE",
+        "script_mece_analysis.py": "EXECUTABLE",
+        "script_quality_gates.py": "EXECUTABLE",
+        "script_sarif_generation.py": "EXECUTABLE",
+        "analyzer_module_analysis_orchestrator.py": "EXISTS",
+        "analyzer_module_architecture": "EXISTS",
+        "analyzer_module_ast_engine": "EXISTS"
+      },
+      "issues": []
+    },
+    "Core Workflows": {
+      "status": "FAIL",
+      "tests_run": 6,
+      "workflow_results": {
+        "comprehensive_analysis.py": {
+          "status": "PASS",
+          "execution_time": 0.9322597980499268,
+          "stdout": "Running comprehensive analysis with enhanced fallback handling...\nChecking analyzer availability...\nSUCCESS: Base analyzer module importable\nWARNING: Analyzer import failed: module 'signal' has no attribute 'SIGALRM'\nWill use CI-compatible fallback mode\nUsing CI-compatible fallback analysis...\nSUCCESS: CI-compatible fallback analysis completed\nTotal analysis time: 0.9s\nSUCCESS: Comprehensive analysis pipeline with all detectors completed\n",
+          "stderr": null
+        },
+        "architecture_analysis.py": {
+          "status": "PASS",
+          "execution_time": 0.3690488338470459,
+          "stdout": "Warning: Optimization components not available for benchmarking\n[WARNING] Architecture analysis failed: cannot import name 'AnalysisOrchestrator' from 'analyzer.architecture.orchestrator' (C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py)\n[DEBUG] Traceback: Traceback (most recent call last):\n  File \"C:\\Users\\17175\\Desktop\\spek template\\.github\\scripts\\architecture_analysis.py\", line 15, in run_architecture_analysis\n    from analyzer.architecture.orchestrator import AnalysisOrchestrator as ArchitectureOrchestrator\nImportError: cannot import name 'AnalysisOrchestrator' from 'analyzer.architecture.orchestrator' (C:\\Users\\17175\\Desktop\\spek template\\analyzer\\architecture\\orchestrator.py). Did you mean: 'analysis_orchestrator'?\n\n",
+          "stderr": "Unified analyzer not available: cannot import name 'get_core_analyzer' from 'analyzer.core' (C:\\Users\\17175\\Desktop\\spek template\\analyzer\\core\\__init__.py)\n"
+        },
+        "performance_optimization.py": {
+          "status": "PASS",
+          "execution_time": 0.3481006622314453,
+          "stdout": "Running performance monitoring and cache optimization...\nWARNING: Performance monitoring failed: 'StreamingPerformanceMonitor' object has no attribute 'get_performance_metrics'\n",
+          "stderr": null
+        },
+        "mece_analysis.py": {
+          "status": "PASS",
+          "execution_time": 24.186543464660645,
+          "stdout": "Running MECE duplication analysis...\nSUCCESS: MECE analysis completed\n",
+          "stderr": null
+        },
+        "quality_gates.py": {
+          "status": "FAIL",
+          "execution_time": 0.09544849395751953,
+          "return_code": 1,
+          "stdout": "Generating comprehensive multi-tier quality report...\n\nMulti-Tier Quality Gates Results:\n============================================================\n\nCRITICAL GATES (Deployment Blockers):\n  SUCCESS: Tests Pass: PASS\n  SUCCESS: Typescript Compile: PASS\n  SUCCESS: Security Scan: PASS\n  ERROR: Nasa Compliance: FAIL\n  SUCCESS: God Objects: PASS\n  SUCCESS: Critical Violations: PASS\n  SUCCESS: High Violations: PASS\n\nStatus: FAIL - DEPLOYMENT BLOCKED\n\nQUALITY GATES (Warnings):\n  SUCCESS: Architecture Health: PASS\n  SUCCESS: Mece Score: PASS\n  SUCCESS: Coupling Quality: PASS\n  SUCCESS: Architecture Hotspots: PASS\n  SUCCESS: Cache Performance: PASS\n  SUCCESS: Performance Efficiency: PASS\n  SUCCESS: Overall Quality: PASS\n  SUCCESS: Total Violations: PASS\n  SUCCESS: Maintainability: PASS\n\nStatus: PASS\n\nDETECTOR GATES (All 8 Connascence Types):\n  SUCCESS: Algorithm: PASS\n  SUCCESS: Convention: PASS\n  SUCCESS: Execution: PASS\n  SUCCESS: Timing: PASS\n  SUCCESS: Magic Literal: PASS\n  SUCCESS: Positi",
+          "stderr": "",
+          "errors": [
+            "Non-zero exit code: 1"
+          ]
+        },
+        "sarif_generation.py": {
+          "status": "PASS",
+          "execution_time": 0.06815290451049805,
+          "stdout": "Generating comprehensive SARIF report for all detector types...\nSUCCESS: Comprehensive SARIF generation completed with 0 total findings\n",
+          "stderr": null
+        }
+      },
+      "issues": [
+        "Non-zero exit code: 1"
+      ]
+    },
+    "Quality Gates": {
+      "status": "FAIL",
+      "tests_run": 3,
+      "gate_tests": {
+        "quality_gates_execution": {
+          "status": "FAIL",
+          "execution_time": 0.06799960136413574,
+          "return_code": 1,
+          "stdout": "Generating comprehensive multi-tier quality report...\n\nMulti-Tier Quality Gates Results:\n============================================================\n\nCRITICAL GATES (Deployment Blockers):\n  SUCCESS: Tests Pass: PASS\n  SUCCESS: Typescript Compile: PASS\n  SUCCESS: Security Scan: PASS\n  ERROR: Nasa Compliance: FAIL\n  SUCCESS: God Objects: PASS\n  SUCCESS: Critical Violations: PASS\n  SUCCESS: High Violations: PASS\n\nStatus: FAIL - DEPLOYMENT BLOCKED\n\nQUALITY GATES (Warnings):\n  SUCCESS: Architecture Health: PASS\n  SUCCESS: Mece Score: PASS\n  SUCCESS: Coupling Quality: PASS\n  SUCCESS: Architecture Hotspots: PASS\n  SUCCESS: Cache Performance: PASS\n  SUCCESS: Performance Efficiency: PASS\n  SUCCESS: Overall Quality: PASS\n  SUCCESS: Total Violations: PASS\n  SUCCESS: Maintainability: PASS\n\nStatus: PASS\n\nDETECTOR GATES (All 8 Connascence Types):\n  SUCCESS: Algorithm: PASS\n  SUCCESS: Convention: PASS\n  SUCCESS: Execution: PASS\n  SUCCESS: Timing: PASS\n  SUCCESS: Magic Literal: PASS\n  SUCCESS: Positi",
+          "stderr": "",
+          "errors": [
+            "Non-zero exit code: 1"
+          ]
+        },
+        "artifact_quality_gates_report.json": "VALID_JSON",
+        "artifact_comprehensive_analysis.json": "VALID_JSON",
+        "artifact_architecture_analysis.json": "VALID_JSON",
+        "artifact_generation": "FUNCTIONAL"
+      },
+      "issues": [
+        "Quality gates script failed to execute"
+      ]
+    },
+    "Security Pipeline": {
+      "status": "PASS",
+      "tests_run": 3,
+      "security_tests": {
+        "sarif_generation": {
+          "status": "PASS",
+          "execution_time": 0.06572699546813965,
+          "stdout": "Generating comprehensive SARIF report for all detector types...\nSUCCESS: Comprehensive SARIF generation completed with 0 total findings\n",
+          "stderr": null
+        },
+        "security_artifact_comprehensive_analysis.sarif": "EXISTS",
+        "security_artifact_semgrep_results.json": "EXISTS_ROOT",
+        "security_artifact_bandit_results.json": "EXISTS_ROOT",
+        "security_consolidation": {
+          "status": "PASS",
+          "execution_time": 0.07074093818664551,
+          "stdout": "Consolidating all security analysis results...\nSUCCESS: Security consolidation completed\nOverall Security Score: 100.00%\nCritical Issues: 0\nQuality Gates: 0/0 passed\nNASA Compliance: 95.00%\n",
+          "stderr": null
+        }
+      },
+      "issues": []
+    },
+    "Performance & Reliability": {
+      "status": "PASS",
+      "tests_run": 2,
+      "performance_tests": {
+        "performance_optimization": {
+          "status": "PASS",
+          "execution_time": 0.35081911087036133,
+          "stdout": "Running performance monitoring and cache optimization...\nWARNING: Performance monitoring failed: 'StreamingPerformanceMonitor' object has no attribute 'get_performance_metrics'\n",
+          "stderr": null
+        },
+        "cache_optimization": {
+          "status": "PASS",
+          "execution_time": 0.3576850891113281,
+          "stdout": "Warning: Optimization components not available for benchmarking\nSUCCESS: Cache Optimization completed\nHealth Score: 88.00%\nHit Rate: 76.00%\n",
+          "stderr": "Unified analyzer not available: cannot import name 'get_core_analyzer' from 'analyzer.core' (C:\\Users\\17175\\Desktop\\spek template\\analyzer\\core\\__init__.py)\n"
+        }
+      },
+      "issues": []
+    },
+    "Integration Testing": {
+      "status": "PASS",
+      "tests_run": 2,
+      "integration_tests": {
+        "workflow_file": "EXISTS",
+        "workflow_syntax": "VALID",
+        "script_permissions": "GOOD"
+      },
+      "issues": []
+    },
+    "Error Handling": {
+      "status": "PASS",
+      "tests_run": 2,
+      "error_tests": {
+        "missing_file_handling": "PASS",
+        "graceful_degradation": "IMPLEMENTED"
+      },
+      "issues": []
+    },
+    "Production Readiness": {
+      "status": "PASS",
+      "readiness_score": 0.8499999999999999,
+      "criteria": {
+        "core_workflows": {
+          "score": 0.85,
+          "weight": 0.25,
+          "weighted_score": 0.2125
+        },
+        "quality_gates": {
+          "score": 0.85,
+          "weight": 0.2,
+          "weighted_score": 0.17
+        },
+        "security_pipeline": {
+          "score": 0.85,
+          "weight": 0.2,
+          "weighted_score": 0.17
+        },
+        "error_handling": {
+          "score": 0.85,
+          "weight": 0.15,
+          "weighted_score": 0.1275
+        },
+        "performance": {
+          "score": 0.85,
+          "weight": 0.1,
+          "weighted_score": 0.085
+        },
+        "documentation": {
+          "score": 0.85,
+          "weight": 0.1,
+          "weighted_score": 0.085
+        }
+      },
+      "blockers": [],
+      "warnings": [
+        "Readiness score below optimal: 0.85"
+      ],
+      "recommendations": [],
+      "readiness_level": "READY_WITH_WARNINGS",
+      "go_no_go": "GO_WITH_CAUTION"
+    }
+  },
+  "deployment_assessment": {
+    "timestamp": "2025-09-10T19:46:04.869099",
+    "overall_status": "PASS_WITH_WARNINGS",
+    "go_no_go_recommendation": "GO_WITH_CAUTION",
+    "readiness_score": 0.8,
+    "critical_blockers": [],
+    "warnings": [],
+    "recommendations": [
+      "Address critical issues before deployment",
+      "Re-run validation after fixes",
+      "Consider staged deployment approach"
+    ],
+    "next_steps": []
+  },
+  "critical_issues": [],
+  "recommendations": []
+}

@@ -1,0 +1,19 @@
+{
+  "dpmo": 1886.79,
+  "rty": 0.9897,
+  "sigma_level": 4.4,
+  "process_capability": 1.1,
+  "defect_categories": {
+    "cosmetic": 1,
+    "minor": 2
+  },
+  "stage_yields": {
+    "Requirements": 1.0,
+    "Design": 0.995,
+    "Implementation": 0.998,
+    "Testing": 0.9966666666666667,
+    "Deployment": 1.0
+  },
+  "improvement_opportunities": [],
+  "timestamp": "2025-09-12T19:38:46.307345"
+}

@@ -1,0 +1,318 @@
+{
+  "timestamp": "2025-09-11T12:29:55.153424",
+  "analysis_type": "unknown",
+  "quality_gates": {
+    "mece_passing": true,
+    "nasa_passing": true,
+    "overall_passing": true
+  },
+  "metrics": {
+    "nasa_compliance_score": 1.0,
+    "god_objects_count": 0,
+    "critical_violations": 0,
+    "total_violations": 5,
+    "mece_score": 0.85,
+    "overall_quality_score": 0.75,
+    "architecture_health": 0.85,
+    "maintainability_index": 75
+  },
+  "summary": {
+    "overall_status": "PASS",
+    "recommendations": [],
+    "critical_violations": 0,
+    "overall_quality_score": 1.0,
+    "total_violations": 5
+  },
+  "original_structure": {
+    "duplication_analysis": {
+      "available": false,
+      "score": 1.0,
+      "violations": []
+    },
+    "god_objects": [],
+    "mece_analysis": {
+      "duplications": [
+        {
+          "block_count": 4,
+          "blocks": [
+            {
+              "end_line": 477,
+              "file_path": "analyzer\\analysis_orchestrator.py",
+              "lines": [
+                475,
+                476,
+                477
+              ],
+              "start_line": 475
+            },
+            {
+              "end_line": 360,
+              "file_path": "analyzer\\optimization\\file_cache.py",
+              "lines": [
+                358,
+                359,
+                360
+              ],
+              "start_line": 358
+            },
+            {
+              "end_line": 465,
+              "file_path": "analyzer\\optimization\\memory_monitor.py",
+              "lines": [
+                462,
+                463,
+                464,
+                465
+              ],
+              "start_line": 462
+            },
+            {
+              "end_line": 510,
+              "file_path": "analyzer\\optimization\\resource_manager.py",
+              "lines": [
+                507,
+                508,
+                509,
+                510
+              ],
+              "start_line": 507
+            }
+          ],
+          "description": "Found 4 similar code blocks with 88.0% average similarity",
+          "files_involved": [
+            "analyzer\\optimization\\resource_manager.py",
+            "analyzer\\analysis_orchestrator.py",
+            "analyzer\\optimization\\memory_monitor.py",
+            "analyzer\\optimization\\file_cache.py"
+          ],
+          "id": "cluster_1",
+          "similarity_score": 0.88
+        },
+        {
+          "block_count": 3,
+          "blocks": [
+            {
+              "end_line": 307,
+              "file_path": "analyzer\\architecture\\aggregator.py",
+              "lines": [
+                305,
+                306,
+                307
+              ],
+              "start_line": 305
+            },
+            {
+              "end_line": 346,
+              "file_path": "analyzer\\architecture\\enhanced_metrics.py",
+              "lines": [
+                344,
+                345,
+                346
+              ],
+              "start_line": 344
+            },
+            {
+              "end_line": 355,
+              "file_path": "analyzer\\architecture\\orchestrator.py",
+              "lines": [
+                353,
+                354,
+                355
+              ],
+              "start_line": 353
+            }
+          ],
+          "description": "Found 3 similar code blocks with 100.0% average similarity",
+          "files_involved": [
+            "analyzer\\architecture\\orchestrator.py",
+            "analyzer\\architecture\\aggregator.py",
+            "analyzer\\architecture\\enhanced_metrics.py"
+          ],
+          "id": "cluster_2",
+          "similarity_score": 1.0
+        },
+        {
+          "block_count": 3,
+          "blocks": [
+            {
+              "end_line": 50,
+              "file_path": "analyzer\\detectors\\algorithm_detector.py",
+              "lines": [
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50
+              ],
+              "start_line": 22
+            },
+            {
+              "end_line": 43,
+              "file_path": "analyzer\\detectors\\god_object_detector.py",
+              "lines": [
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43
+              ],
+              "start_line": 20
+            },
+            {
+              "end_line": 40,
+              "file_path": "analyzer\\detectors\\timing_detector.py",
+              "lines": [
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40
+              ],
+              "start_line": 17
+            }
+          ],
+          "description": "Found 3 similar code blocks with 83.0% average similarity",
+          "files_involved": [
+            "analyzer\\detectors\\algorithm_detector.py",
+            "analyzer\\detectors\\timing_detector.py",
+            "analyzer\\detectors\\god_object_detector.py"
+          ],
+          "id": "cluster_3",
+          "similarity_score": 0.83
+        },
+        {
+          "block_count": 3,
+          "blocks": [
+            {
+              "end_line": 197,
+              "file_path": "analyzer\\detectors\\position_detector.py",
+              "lines": [
+                195,
+                196,
+                197
+              ],
+              "start_line": 195
+            },
+            {
+              "end_line": 287,
+              "file_path": "analyzer\\detectors\\values_detector.py",
+              "lines": [
+                285,
+                286,
+                287
+              ],
+              "start_line": 285
+            },
+            {
+              "end_line": 84,
+              "file_path": "analyzer\\interfaces\\detector_interface.py",
+              "lines": [
+                82,
+                83,
+                84
+              ],
+              "start_line": 82
+            }
+          ],
+          "description": "Found 3 similar code blocks with 83.3% average similarity",
+          "files_involved": [
+            "analyzer\\detectors\\position_detector.py",
+            "analyzer\\interfaces\\detector_interface.py",
+            "analyzer\\detectors\\values_detector.py"
+          ],
+          "id": "cluster_4",
+          "similarity_score": 0.833
+        }
+      ],
+      "passing": true,
+      "score": 1.0
+    },
+    "metrics": {
+      "analysis_time": 24.83,
+      "connascence_index": 0.0,
+      "files_analyzed": 0,
+      "timestamp": 1757554806.7362444
+    },
+    "nasa_compliance": {
+      "passing": true,
+      "score": 1.0,
+      "violations": []
+    },
+    "path": ".",
+    "policy": "standard",
+    "quality_gates": {
+      "mece_passing": true,
+      "nasa_passing": true,
+      "overall_passing": true
+    },
+    "success": true,
+    "summary": {
+      "critical_violations": 0,
+      "overall_quality_score": 1.0,
+      "total_violations": 5
+    },
+    "violations": []
+  }
+}

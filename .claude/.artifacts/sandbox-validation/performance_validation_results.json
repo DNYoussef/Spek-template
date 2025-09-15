@@ -1,0 +1,719 @@
+{
+  "timestamp": "2025-09-11T12:29:55.264129",
+  "analysis_type": "performance-validation",
+  "quality_gates": {
+    "overall_gate_passed": false,
+    "critical_gates": {
+      "passed": false,
+      "status": "FAIL"
+    },
+    "quality_gates": {
+      "passed": true,
+      "status": "PASS"
+    }
+  },
+  "metrics": {
+    "nasa_compliance_score": 0.85,
+    "god_objects_count": 0,
+    "critical_violations": 0,
+    "total_violations": 0,
+    "mece_score": 0.85,
+    "overall_quality_score": 0.75,
+    "architecture_health": 0.85,
+    "maintainability_index": 75
+  },
+  "summary": {
+    "overall_status": "PASS",
+    "recommendations": []
+  },
+  "original_structure": {
+    "test_name": "Performance Validation",
+    "timestamp": "2025-09-10T22:40:23",
+    "json_generation_timing": {
+      "status": "passed",
+      "results": [
+        {
+          "size": "small",
+          "data_size_bytes": 113,
+          "serialization_time": 0.0029926300048828125,
+          "parse_time": 0.0,
+          "total_time": 0.0029926300048828125,
+          "memory_delta_bytes": 1609728,
+          "throughput_mb_per_sec": 0.036010197578075206
+        },
+        {
+          "size": "medium",
+          "data_size_bytes": 2130,
+          "serialization_time": 0.001994609832763672,
+          "parse_time": 0.0,
+          "total_time": 0.001994609832763672,
+          "memory_delta_bytes": 0,
+          "throughput_mb_per_sec": 1.018407841262252
+        },
+        {
+          "size": "large",
+          "data_size_bytes": 27329,
+          "serialization_time": 0.00399017333984375,
+          "parse_time": 0.0,
+          "total_time": 0.00399017333984375,
+          "memory_delta_bytes": 2097152,
+          "throughput_mb_per_sec": 6.53178776290631
+        }
+      ]
+    },
+    "file_size_calculations": {
+      "status": "partial",
+      "results": [
+        {
+          "file": "8-agent-mesh-analysis.json",
+          "actual_file_size": 42811,
+          "content_size": 41808,
+          "compact_size": 29850,
+          "pretty_size": 42610,
+          "size_accuracy": false,
+          "compression_ratio": 0.7005397793945083,
+          "space_efficiency": 0.29946022060549166
+        },
+        {
+          "file": "architecture_analysis.json",
+          "actual_file_size": 605,
+          "content_size": 588,
+          "compact_size": 511,
+          "pretty_size": 588,
+          "size_accuracy": false,
+          "compression_ratio": 0.8690476190476191,
+          "space_efficiency": 0.13095238095238096
+        },
+        {
+          "file": "cache_optimization.json",
+          "actual_file_size": 374,
+          "content_size": 361,
+          "compact_size": 306,
+          "pretty_size": 361,
+          "size_accuracy": false,
+          "compression_ratio": 0.8476454293628809,
+          "space_efficiency": 0.1523545706371191
+        },
+        {
+          "file": "codex_summary.json",
+          "actual_file_size": 4024,
+          "content_size": 3889,
+          "compact_size": 3013,
+          "pretty_size": 3945,
+          "size_accuracy": false,
+          "compression_ratio": 0.7637515842839037,
+          "space_efficiency": 0.23624841571609634
+        },
+        {
+          "file": "comprehensive_analysis.json",
+          "actual_file_size": 12897,
+          "content_size": 12617,
+          "compact_size": 10564,
+          "pretty_size": 13467,
+          "size_accuracy": false,
+          "compression_ratio": 0.784436028811168,
+          "space_efficiency": 0.21556397118883197
+        },
+        {
+          "file": "comprehensive_codebase_analysis.json",
+          "actual_file_size": 11081,
+          "content_size": 10821,
+          "compact_size": 8516,
+          "pretty_size": 11996,
+          "size_accuracy": false,
+          "compression_ratio": 0.7099033011003668,
+          "space_efficiency": 0.2900966988996332
+        },
+        {
+          "file": "comprehensive_technical_analysis.json",
+          "actual_file_size": 16919,
+          "content_size": 16422,
+          "compact_size": 12011,
+          "pretty_size": 16406,
+          "size_accuracy": false,
+          "compression_ratio": 0.7321102035840547,
+          "space_efficiency": 0.2678897964159454
+        },
+        {
+          "file": "connascence_analysis.json",
+          "actual_file_size": 578,
+          "content_size": 554,
+          "compact_size": 428,
+          "pretty_size": 554,
+          "size_accuracy": false,
+          "compression_ratio": 0.7725631768953068,
+          "space_efficiency": 0.22743682310469315
+        },
+        {
+          "file": "connascence_fallback.json",
+          "actual_file_size": 70380,
+          "content_size": 68566,
+          "compact_size": 58092,
+          "pretty_size": 68566,
+          "size_accuracy": false,
+          "compression_ratio": 0.8472420733308054,
+          "space_efficiency": 0.15275792666919463
+        },
+        {
+          "file": "connascence_full.json",
+          "actual_file_size": 814,
+          "content_size": 779,
+          "compact_size": 611,
+          "pretty_size": 779,
+          "size_accuracy": false,
+          "compression_ratio": 0.7843388960205392,
+          "space_efficiency": 0.21566110397946084
+        },
+        {
+          "file": "documentation_gap_analysis.json",
+          "actual_file_size": 10210,
+          "content_size": 9997,
+          "compact_size": 7463,
+          "pretty_size": 10521,
+          "size_accuracy": false,
+          "compression_ratio": 0.7093432183252543,
+          "space_efficiency": 0.29065678167474573
+        },
+        {
+          "file": "failure_analysis.json",
+          "actual_file_size": 168,
+          "content_size": 168,
+          "compact_size": 130,
+          "pretty_size": 155,
+          "size_accuracy": true,
+          "compression_ratio": 0.8387096774193549,
+          "space_efficiency": 0.16129032258064516
+        },
+        {
+          "file": "final_phase2_validation_summary.json",
+          "actual_file_size": 5093,
+          "content_size": 4946,
+          "compact_size": 4040,
+          "pretty_size": 4942,
+          "size_accuracy": false,
+          "compression_ratio": 0.8174828004856334,
+          "space_efficiency": 0.18251719951436665
+        },
+        {
+          "file": "final_real_test.json",
+          "actual_file_size": 7208,
+          "content_size": 6917,
+          "compact_size": 3406,
+          "pretty_size": 6917,
+          "size_accuracy": false,
+          "compression_ratio": 0.4924100043371404,
+          "space_efficiency": 0.5075899956628597
+        },
+        {
+          "file": "final_test.json",
+          "actual_file_size": 765,
+          "content_size": 728,
+          "compact_size": 551,
+          "pretty_size": 728,
+          "size_accuracy": false,
+          "compression_ratio": 0.7568681318681318,
+          "space_efficiency": 0.24313186813186813
+        },
+        {
+          "file": "final_validation_report.json",
+          "actual_file_size": 11100,
+          "content_size": 10878,
+          "compact_size": 8849,
+          "pretty_size": 10878,
+          "size_accuracy": false,
+          "compression_ratio": 0.8134767420481707,
+          "space_efficiency": 0.1865232579518294
+        },
+        {
+          "file": "full_codebase_analysis.json",
+          "actual_file_size": 7201,
+          "content_size": 6910,
+          "compact_size": 3399,
+          "pretty_size": 6910,
+          "size_accuracy": false,
+          "compression_ratio": 0.4918958031837916,
+          "space_efficiency": 0.5081041968162084
+        },
+        {
+          "file": "gemini_audit_verification_report.json",
+          "actual_file_size": 9632,
+          "content_size": 9390,
+          "compact_size": 7857,
+          "pretty_size": 9383,
+          "size_accuracy": false,
+          "compression_ratio": 0.8373654481509112,
+          "space_efficiency": 0.1626345518490888
+        },
+        {
+          "file": "gemini_self_dogfooding_analysis.json",
+          "actual_file_size": 10510,
+          "content_size": 10255,
+          "compact_size": 8291,
+          "pretty_size": 10545,
+          "size_accuracy": false,
+          "compression_ratio": 0.7862494073020388,
+          "space_efficiency": 0.21375059269796112
+        },
+        {
+          "file": "github_hooks_fixes_summary.json",
+          "actual_file_size": 6350,
+          "content_size": 6201,
+          "compact_size": 5191,
+          "pretty_size": 6225,
+          "size_accuracy": false,
+          "compression_ratio": 0.8338955823293173,
+          "space_efficiency": 0.16610441767068274
+        },
+        {
+          "file": "god_objects.json",
+          "actual_file_size": 2,
+          "content_size": 2,
+          "compact_size": 2,
+          "pretty_size": 2,
+          "size_accuracy": true,
+          "compression_ratio": 1.0,
+          "space_efficiency": 0.0
+        },
+        {
+          "file": "god_object_analysis_report.json",
+          "actual_file_size": 4423,
+          "content_size": 4275,
+          "compact_size": 3031,
+          "pretty_size": 4247,
+          "size_accuracy": false,
+          "compression_ratio": 0.7136802448787379,
+          "space_efficiency": 0.28631975512126207
+        },
+        {
+          "file": "god_object_decomposition_analysis.json",
+          "actual_file_size": 18894,
+          "content_size": 18424,
+          "compact_size": 14124,
+          "pretty_size": 20273,
+          "size_accuracy": false,
+          "compression_ratio": 0.6966901790558871,
+          "space_efficiency": 0.30330982094411285
+        },
+        {
+          "file": "json_performance_benchmark_report.json",
+          "actual_file_size": 8340,
+          "content_size": 8092,
+          "compact_size": 6217,
+          "pretty_size": 8195,
+          "size_accuracy": false,
+          "compression_ratio": 0.7586333129957291,
+          "space_efficiency": 0.24136668700427089
+        },
+        {
+          "file": "mcp_integration_analysis.json",
+          "actual_file_size": 6253,
+          "content_size": 6100,
+          "compact_size": 4472,
+          "pretty_size": 6092,
+          "size_accuracy": false,
+          "compression_ratio": 0.7340774786605384,
+          "space_efficiency": 0.2659225213394616
+        },
+        {
+          "file": "mece_analysis.json",
+          "actual_file_size": 6233,
+          "content_size": 5965,
+          "compact_size": 3077,
+          "pretty_size": 5965,
+          "size_accuracy": false,
+          "compression_ratio": 0.5158424140821458,
+          "space_efficiency": 0.4841575859178541
+        },
+        {
+          "file": "mece_chart_comprehensive.json",
+          "actual_file_size": 11298,
+          "content_size": 11022,
+          "compact_size": 7354,
+          "pretty_size": 11882,
+          "size_accuracy": false,
+          "compression_ratio": 0.6189193738427874,
+          "space_efficiency": 0.3810806261572126
+        },
+        {
+          "file": "memory_mcp_update_patterns.json",
+          "actual_file_size": 11878,
+          "content_size": 11633,
+          "compact_size": 8101,
+          "pretty_size": 11843,
+          "size_accuracy": false,
+          "compression_ratio": 0.6840327619690957,
+          "space_efficiency": 0.3159672380309043
+        },
+        {
+          "file": "memory_sync_index.json",
+          "actual_file_size": 272,
+          "content_size": 272,
+          "compact_size": 225,
+          "pretty_size": 271,
+          "size_accuracy": true,
+          "compression_ratio": 0.8302583025830258,
+          "space_efficiency": 0.16974169741697417
+        },
+        {
+          "file": "performance_monitor.json",
+          "actual_file_size": 200,
+          "content_size": 190,
+          "compact_size": 147,
+          "pretty_size": 190,
+          "size_accuracy": false,
+          "compression_ratio": 0.7736842105263158,
+          "space_efficiency": 0.22631578947368422
+        },
+        {
+          "file": "performance_monitoring.json",
+          "actual_file_size": 567,
+          "content_size": 551,
+          "compact_size": 469,
+          "pretty_size": 551,
+          "size_accuracy": false,
+          "compression_ratio": 0.8511796733212341,
+          "space_efficiency": 0.14882032667876588
+        },
+        {
+          "file": "performance_validation_test.json",
+          "actual_file_size": 459,
+          "content_size": 440,
+          "compact_size": 346,
+          "pretty_size": 440,
+          "size_accuracy": false,
+          "compression_ratio": 0.7863636363636364,
+          "space_efficiency": 0.21363636363636362
+        },
+        {
+          "file": "phase1-surgical-elimination-evidence.json",
+          "actual_file_size": 4169,
+          "content_size": 4059,
+          "compact_size": 3392,
+          "pretty_size": 4055,
+          "size_accuracy": false,
+          "compression_ratio": 0.836498150431566,
+          "space_efficiency": 0.16350184956843403
+        },
+        {
+          "file": "phase2_integration_report.json",
+          "actual_file_size": 5097,
+          "content_size": 4939,
+          "compact_size": 3622,
+          "pretty_size": 4939,
+          "size_accuracy": false,
+          "compression_ratio": 0.733346831342377,
+          "space_efficiency": 0.266653168657623
+        },
+        {
+          "file": "phase2_validation_report.json",
+          "actual_file_size": 5914,
+          "content_size": 5719,
+          "compact_size": 3929,
+          "pretty_size": 5719,
+          "size_accuracy": false,
+          "compression_ratio": 0.6870082182199685,
+          "space_efficiency": 0.31299178178003145
+        },
+        {
+          "file": "PHASE2_WORKFLOW_TEST_REPORT.json",
+          "actual_file_size": 9790,
+          "content_size": 9544,
+          "compact_size": 7551,
+          "pretty_size": 9982,
+          "size_accuracy": false,
+          "compression_ratio": 0.7564616309356842,
+          "space_efficiency": 0.24353836906431578
+        },
+        {
+          "file": "phase3_god_object_decomposition_complete.json",
+          "actual_file_size": 7959,
+          "content_size": 7731,
+          "compact_size": 6116,
+          "pretty_size": 7891,
+          "size_accuracy": false,
+          "compression_ratio": 0.7750601951590419,
+          "space_efficiency": 0.22493980484095805
+        },
+        {
+          "file": "production-validation-summary.json",
+          "actual_file_size": 7481,
+          "content_size": 7280,
+          "compact_size": 5529,
+          "pretty_size": 7289,
+          "size_accuracy": false,
+          "compression_ratio": 0.7585402661544793,
+          "space_efficiency": 0.24145973384552064
+        },
+        {
+          "file": "production_validation_report.json",
+          "actual_file_size": 6562,
+          "content_size": 6383,
+          "compact_size": 5090,
+          "pretty_size": 6330,
+          "size_accuracy": false,
+          "compression_ratio": 0.8041074249605056,
+          "space_efficiency": 0.19589257503949448
+        },
+        {
+          "file": "qa_summary.json",
+          "actual_file_size": 6404,
+          "content_size": 6199,
+          "compact_size": 4797,
+          "pretty_size": 6415,
+          "size_accuracy": false,
+          "compression_ratio": 0.7477786438035854,
+          "space_efficiency": 0.25222135619641467
+        },
+        {
+          "file": "quality_gates_report.json",
+          "actual_file_size": 2424,
+          "content_size": 2339,
+          "compact_size": 1744,
+          "pretty_size": 2339,
+          "size_accuracy": false,
+          "compression_ratio": 0.7456177853783669,
+          "space_efficiency": 0.2543822146216332
+        },
+        {
+          "file": "quality_gates_validation.json",
+          "actual_file_size": 267,
+          "content_size": 256,
+          "compact_size": 206,
+          "pretty_size": 256,
+          "size_accuracy": false,
+          "compression_ratio": 0.8046875,
+          "space_efficiency": 0.1953125
+        },
+        {
+          "file": "quality_test.json",
+          "actual_file_size": 802,
+          "content_size": 766,
+          "compact_size": 572,
+          "pretty_size": 766,
+          "size_accuracy": false,
+          "compression_ratio": 0.7467362924281984,
+          "space_efficiency": 0.25326370757180156
+        },
+        {
+          "file": "readme_update_recommendations.json",
+          "actual_file_size": 12608,
+          "content_size": 12391,
+          "compact_size": 9654,
+          "pretty_size": 12600,
+          "size_accuracy": false,
+          "compression_ratio": 0.7661904761904762,
+          "space_efficiency": 0.2338095238095238
+        },
+        {
+          "file": "real_analysis.json",
+          "actual_file_size": 771,
+          "content_size": 734,
+          "compact_size": 557,
+          "pretty_size": 734,
+          "size_accuracy": false,
+          "compression_ratio": 0.7588555858310627,
+          "space_efficiency": 0.24114441416893734
+        },
+        {
+          "file": "real_analysis_result.json",
+          "actual_file_size": 453,
+          "content_size": 438,
+          "compact_size": 381,
+          "pretty_size": 438,
+          "size_accuracy": false,
+          "compression_ratio": 0.8698630136986302,
+          "space_efficiency": 0.13013698630136986
+        },
+        {
+          "file": "refactoring_operation_001_evidence.json",
+          "actual_file_size": 3388,
+          "content_size": 3277,
+          "compact_size": 2530,
+          "pretty_size": 3406,
+          "size_accuracy": false,
+          "compression_ratio": 0.7428068115091015,
+          "space_efficiency": 0.2571931884908984
+        },
+        {
+          "file": "security_pipeline_test_report.json",
+          "actual_file_size": 3214,
+          "content_size": 3152,
+          "compact_size": 2691,
+          "pretty_size": 3152,
+          "size_accuracy": false,
+          "compression_ratio": 0.853743654822335,
+          "space_efficiency": 0.14625634517766498
+        },
+        {
+          "file": "security_pipeline_test_summary.json",
+          "actual_file_size": 13603,
+          "content_size": 13243,
+          "compact_size": 9848,
+          "pretty_size": 13723,
+          "size_accuracy": false,
+          "compression_ratio": 0.7176273409604313,
+          "space_efficiency": 0.2823726590395686
+        },
+        {
+          "file": "self_dogfooding.json",
+          "actual_file_size": 299,
+          "content_size": 288,
+          "compact_size": 240,
+          "pretty_size": 288,
+          "size_accuracy": false,
+          "compression_ratio": 0.8333333333333334,
+          "space_efficiency": 0.16666666666666666
+        },
+        {
+          "file": "system_metrics.json",
+          "actual_file_size": 192,
+          "content_size": 192,
+          "compact_size": 162,
+          "pretty_size": 191,
+          "size_accuracy": true,
+          "compression_ratio": 0.8481675392670157,
+          "space_efficiency": 0.1518324607329843
+        },
+        {
+          "file": "test_analysis.json",
+          "actual_file_size": 805,
+          "content_size": 769,
+          "compact_size": 575,
+          "pretty_size": 769,
+          "size_accuracy": false,
+          "compression_ratio": 0.7477243172951885,
+          "space_efficiency": 0.25227568270481143
+        },
+        {
+          "file": "test_ci_output.json",
+          "actual_file_size": 765,
+          "content_size": 728,
+          "compact_size": 551,
+          "pretty_size": 728,
+          "size_accuracy": false,
+          "compression_ratio": 0.7568681318681318,
+          "space_efficiency": 0.24313186813186813
+        },
+        {
+          "file": "test_sarif_output.json",
+          "actual_file_size": 12055,
+          "content_size": 11735,
+          "compact_size": 6755,
+          "pretty_size": 11735,
+          "size_accuracy": false,
+          "compression_ratio": 0.5756284618662122,
+          "space_efficiency": 0.4243715381337878
+        },
+        {
+          "file": "theater-detection-report.json",
+          "actual_file_size": 11358,
+          "content_size": 11117,
+          "compact_size": 8706,
+          "pretty_size": 11111,
+          "size_accuracy": false,
+          "compression_ratio": 0.7835478354783548,
+          "space_efficiency": 0.21645216452164523
+        },
+        {
+          "file": "theater_detection_reality_validation.json",
+          "actual_file_size": 18704,
+          "content_size": 18288,
+          "compact_size": 15110,
+          "pretty_size": 18257,
+          "size_accuracy": false,
+          "compression_ratio": 0.8276277592156434,
+          "space_efficiency": 0.17237224078435667
+        },
+        {
+          "file": "unicode_cleaned_analysis.json",
+          "actual_file_size": 7201,
+          "content_size": 6910,
+          "compact_size": 3399,
+          "pretty_size": 6910,
+          "size_accuracy": false,
+          "compression_ratio": 0.4918958031837916,
+          "space_efficiency": 0.5081041968162084
+        },
+        {
+          "file": "unicode_violations_final.json",
+          "actual_file_size": 215413,
+          "content_size": 207055,
+          "compact_size": 118888,
+          "pretty_size": 207055,
+          "size_accuracy": false,
+          "compression_ratio": 0.5741856028591437,
+          "space_efficiency": 0.4258143971408563
+        },
+        {
+          "file": "validation_report.json",
+          "actual_file_size": 10388,
+          "content_size": 10127,
+          "compact_size": 7691,
+          "pretty_size": 10127,
+          "size_accuracy": false,
+          "compression_ratio": 0.7594549224844476,
+          "space_efficiency": 0.24054507751555249
+        }
+      ]
+    },
+    "memory_footprint": {
+      "status": "passed",
+      "results": [
+        {
+          "operation": "large_json_operations",
+          "baseline_memory_mb": 12878.0546875,
+          "serialize_memory_delta_mb": 0.19921875,
+          "parse_memory_delta_mb": -0.4453125,
+          "total_memory_delta_mb": -0.24609375,
+          "memory_efficient": true
+        },
+        {
+          "operation": "multiple_file_loads",
+          "files_loaded": 10,
+          "memory_delta_mb": 0.0,
+          "memory_per_file_mb": 0.0,
+          "memory_efficient": true
+        }
+      ]
+    },
+    "scalability_projections": {
+      "status": "passed",
+      "results": [
+        {
+          "scale_files": 100,
+          "projected_processing_time_sec": 0.2992471059163412,
+          "projected_storage_mb": 1.0759143506066275,
+          "projected_memory_mb": 2.151828701213255,
+          "acceptable_performance": true,
+          "acceptable_storage": true,
+          "acceptable_memory": true
+        },
+        {
+          "scale_files": 1000,
+          "projected_processing_time_sec": 2.9924710591634116,
+          "projected_storage_mb": 10.759143506066275,
+          "projected_memory_mb": 21.51828701213255,
+          "acceptable_performance": true,
+          "acceptable_storage": true,
+          "acceptable_memory": true
+        },
+        {
+          "scale_files": 10000,
+          "projected_processing_time_sec": 29.924710591634117,
+          "projected_storage_mb": 107.59143506066275,
+          "projected_memory_mb": 215.1828701213255,
+          "acceptable_performance": true,
+          "acceptable_storage": true,
+          "acceptable_memory": true
+        }
+      ]
+    },
+    "performance_summary": {
+      "total_files": 59,
+      "total_size_mb": 0.6347894668579102,
+      "avg_generation_time": 0.0029924710591634116,
+      "memory_efficiency": 1.0
+    },
+    "status": "FAILED"
+  }
+}

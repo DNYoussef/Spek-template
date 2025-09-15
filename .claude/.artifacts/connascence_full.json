@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "fallback_mode": true,
+  "analysis_mode": "ci_compatible_fallback",
+  "violations": [],
+  "summary": {
+    "total_violations": 0,
+    "critical_violations": 0,
+    "overall_quality_score": 0.75
+  },
+  "nasa_compliance": {
+    "score": 0.85,
+    "violations": [],
+    "reason": "fallback_mode_safe_defaults",
+    "passing": true
+  },
+  "mece_analysis": {
+    "score": 0.85,
+    "duplications": [],
+    "passing": true
+  },
+  "god_objects": [],
+  "metrics": {
+    "files_analyzed": 3522,
+    "analysis_time": 1.181765079498291,
+    "python_files": 480,
+    "js_files": 3042,
+    "mode": "ci_fallback"
+  },
+  "quality_gates": {
+    "overall_passing": true,
+    "nasa_passing": true,
+    "mece_passing": true
+  },
+  "timestamp": "2025-09-13T09:28:30.365547"
+}
