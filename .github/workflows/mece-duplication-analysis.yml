@@ -27,7 +27,7 @@ jobs:
   mece-analysis:
     runs-on: ubuntu-latest
     name: "MECE Duplication Analysis"
-    timeout-minutes: 30
+    timeout-minutes: 15
     
     steps:
     - name: Checkout Repository
@@ -78,4 +78,4 @@ jobs:
     - name: MECE Quality Gate
       run: |
         echo "=== MECE Quality Gate ==="
-        python -c "exec('''import json; import sys; data = json.load(open(\".claude/.artifacts/mece_analysis.json\", \"r\")); min_mece_score = 0.70; max_duplications = 10; max_high_similarity = 5; mece_score = data.get(\"mece_score\", 0); duplications = data.get(\"duplications\", []); high_similarity = sum(1 for dup in duplications if isinstance(dup, dict) and dup.get(\"similarity\", 0) > 0.9); failed = False; failed = True if mece_score < min_mece_score else (print(f\"SUCCESS: MECE score: {mece_score:.3f} >= {min_mece_score:.3f}\"), failed)[1]; failed = True if len(duplications) > max_duplications else (print(f\"SUCCESS: Total duplications: {len(duplications)} <= {max_duplications}\"), failed)[1]; failed = True if high_similarity > max_high_similarity else (print(f\"SUCCESS: High similarity duplications: {high_similarity} <= {max_high_similarity}\"), failed)[1]; print(f\"ERROR: MECE score: {mece_score:.3f} < {min_mece_score:.3f}\") if mece_score < min_mece_score else None; print(f\"ERROR: Total duplications: {len(duplications)} > {max_duplications}\") if len(duplications) > max_duplications else None; print(f\"ERROR: High similarity duplications: {high_similarity} > {max_high_similarity}\") if high_similarity > max_high_similarity else None; print(\"\\nWARNING: MECE quality gate has warnings\\nConsider refactoring duplicate code patterns\") if failed else print(\"\\nSUCCESS: MECE quality gate PASSED\")''')"
+        python .github/scripts/mece_quality_gate.py
