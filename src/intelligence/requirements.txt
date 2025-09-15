@@ -1,0 +1,55 @@
+# ML Framework Dependencies
+torch>=2.1.0
+torchvision>=0.16.0
+torchaudio>=2.1.0
+tensorflow>=2.14.0
+tensorflow-gpu>=2.14.0
+
+# Data Processing
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+polars>=0.19.0
+pyarrow>=14.0.0
+
+# ML Operations
+mlflow>=2.8.0
+optuna>=3.4.0
+hydra-core>=1.3.0
+wandb>=0.16.0
+
+# Time Series & Financial Data
+yfinance>=0.2.0
+ccxt>=4.1.0
+ta-lib>=0.4.0
+pandas-ta>=0.3.0
+arch>=6.2.0
+
+# Real-time Processing
+asyncio-mqtt>=0.13.0
+aioredis>=2.0.0
+uvloop>=0.19.0
+orjson>=3.9.0
+
+# Performance Optimization
+numba>=0.58.0
+cupy-cuda12x>=13.0.0
+rapids-cudf>=23.12.0
+
+# Monitoring & Observability
+prometheus-client>=0.19.0
+psutil>=5.9.0
+nvidia-ml-py>=12.535.0
+
+# Testing & Validation
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+hypothesis>=6.88.0
+
+# Development Tools
+jupyter>=1.0.0
+ipykernel>=6.26.0
+black>=23.11.0
+isort>=5.12.0
+mypy>=1.7.0

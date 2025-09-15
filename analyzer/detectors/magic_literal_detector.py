@@ -133,24 +133,17 @@ class MagicLiteralDetector(DetectorBase):
                 line_number=node.lineno,
                 column=node.col_offset,
                 description=description,
-                recommendation=recommendation,
-                code_snippet=self.get_code_snippet(node),
-                context={
-                    "literal_value": value,
-                    "formal_context": {
-                        "in_conditional": formal_context.in_conditional,
-                        "in_assignment": formal_context.in_assignment,
-                        "is_constant": formal_context.is_constant,
-                        "is_configuration": formal_context.is_configuration,
-                        "variable_name": formal_context.variable_name,
-                        "function_name": formal_context.function_name,
-                        "class_name": formal_context.class_name,
-                    },
-                    "severity_score": severity_score,
-                    "analysis_type": "formal_grammar",
-                },
+                # recommendation field not supported - include in description
+                # code_snippet field not supported
+                # context field not supported
+                nasa_rule="Rule 8",
+                connascence_type="CoM",
+                weight=severity_score
+                # formal_context removed - not supported
             )
         )
+
+        # Track that this was handled
     
     def _create_simple_violation(self, node: ast.AST, value: Any, context_info: Dict) -> None:
         """Create violation using simple analysis."""
@@ -170,14 +163,12 @@ class MagicLiteralDetector(DetectorBase):
                 line_number=node.lineno,
                 column=node.col_offset,
                 description=description,
-                recommendation=recommendation,
-                code_snippet=self.get_code_snippet(node),
-                context={
-                    "literal_value": value,
-                    "analysis_context": context_info,
-                    "in_conditional": context_info.get("in_conditional", False),
-                    "analysis_type": "simple",
-                },
+                # recommendation field not supported - include in description
+                # code_snippet field not supported
+                # context field not supported
+                nasa_rule="Rule 8",
+                connascence_type="CoM",
+                weight=5.0  # Default weight for simple violations
             )
         )
     

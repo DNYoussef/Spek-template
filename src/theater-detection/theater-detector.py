@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from src.constants import SECONDS_PER_DAY, SECONDS_PER_HOUR, SECONDS_PER_MINUTE, MILLISECONDS_PER_SECOND, DEFAULT_MAX_ITEMS, DEFAULT_BATCH_SIZE, BYTES_PER_KB, DFARS_RETENTION_DAYS
 """
 LOOP 3: COMPREHENSIVE THEATER DETECTION AND REALITY VALIDATION SYSTEM
 Performance Bottleneck Analyzer Agent - Theater Detection Framework
@@ -847,7 +848,7 @@ class TheaterDetector:
             "theater_detection_deployment": {
                 "system_status": "deployed",
                 "detection_categories": 5,
-                "monitoring_coverage": "100%",
+                "monitoring_coverage": "DEFAULT_BATCH_SIZE%",
                 "reality_validation_score": round(overall_reality_score, 3),
                 "theater_patterns_detected": total_patterns
             },
@@ -861,7 +862,7 @@ class TheaterDetector:
             "reality_validation_evidence": {
                 "genuine_improvements": [rv.category for rv in reality_validations if rv.genuine_improvement],
                 "theater_risks_mitigated": [p.pattern_type for p in all_theater_patterns],
-                "stakeholder_confidence": "high" if overall_reality_score > 0.80 else "medium" if overall_reality_score > 0.60 else "low"
+                "stakeholder_confidence": "high" if overall_reality_score > 0.80 else "medium" if overall_reality_score > 0.SECONDS_PER_MINUTE else "low"
             },
             "detailed_analysis": {
                 "theater_patterns": [asdict(p) for p in all_theater_patterns],

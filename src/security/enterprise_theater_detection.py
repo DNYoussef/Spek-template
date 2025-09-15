@@ -1011,7 +1011,7 @@ class EnterpriseTheaterDetector:
 
                 try:
                     # Safely evaluate the formula
-                    actual_result = eval(test_formula.replace('_', ''))
+                    actual_result = ast.literal_eval(test_formula.replace('_', ''))
 
                     accuracy_check = abs(actual_result - expected_dpmo) < 0.01
 

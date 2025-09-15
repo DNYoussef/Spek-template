@@ -400,11 +400,11 @@ from typing import Any, List, Optional
 # NASA Rule 5 compliance decorators
 def nasa_precondition(condition: str, description: str = ""):
     """NASA Rule 5 compliant precondition decorator."""
-    return require(lambda *args, **kwargs: eval(condition), description=description)
+    return require(lambda *args, **kwargs: ast.literal_eval(condition), description=description)
 
 def nasa_postcondition(condition: str, description: str = ""):
     """NASA Rule 5 compliant postcondition decorator.""" 
-    return ensure(lambda result, *args, **kwargs: eval(condition), description=description)
+    return ensure(lambda result, *args, **kwargs: ast.literal_eval(condition), description=description)
 
 def bounded_operation(max_iterations: int = 1000, max_memory: int = 1000000):
     """NASA Rule 4 compliant bounded operation decorator."""

@@ -1,0 +1,655 @@
+# Gary×Taleb Trading System - Load Balancer and Auto-scaling Configuration
+# HAProxy + NGINX + Istio Service Mesh for ultra-low latency
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: haproxy-config
+  namespace: gary-taleb-production
+  labels:
+    component: load-balancer
+    tier: edge
+data:
+  haproxy.cfg: |
+    global
+        daemon
+        maxconn 50000
+        log stdout local0 info
+        stats socket /var/run/haproxy.sock mode 600 level admin
+        stats timeout 2m
+
+    defaults
+        mode http
+        timeout connect 5s
+        timeout client 30s
+        timeout server 30s
+        option httplog
+        option dontlognull
+        option redispatch
+        retries 3
+        maxconn 10000
+
+    # Health check endpoint
+    listen stats
+        bind *:8404
+        mode http
+        stats enable
+        stats uri /stats
+        stats refresh 10s
+        stats admin if TRUE
+
+    # Frontend for market data (ultra-low latency)
+    frontend market_data_frontend
+        bind *:8001
+        mode http
+        option httpclose
+        option forwardfor
+        timeout client 5s
+
+        # Rate limiting for DDoS protection
+        stick-table type ip size 100k expire 30s store http_req_rate(10s)
+        http-request track-sc0 src
+        http-request reject if { sc_http_req_rate(0) gt 1000 }
+
+        # Market data specific routing
+        acl is_market_data path_beg /market-data
+        acl is_websocket hdr(Connection) -i upgrade
+        acl is_websocket hdr(Upgrade) -i websocket
+
+        use_backend market_data_ws if is_websocket
+        use_backend market_data_http if is_market_data
+        default_backend market_data_http
+
+    # Backend for market data HTTP
+    backend market_data_http
+        mode http
+        balance roundrobin
+        option httpchk GET /health
+        timeout server 5s
+
+        server mkt-data-1 market-data-gateway-service:8001 check inter 2s fall 3 rise 2
+        server mkt-data-2 market-data-gateway-service:8001 check inter 2s fall 3 rise 2 backup
+
+    # Backend for market data WebSocket
+    backend market_data_ws
+        mode http
+        balance source
+        hash-type consistent
+        timeout tunnel 1h
+        timeout server 1h
+
+        server mkt-ws-1 market-data-gateway-service:8001 check inter 10s
+        server mkt-ws-2 market-data-gateway-service:8001 check inter 10s
+
+    # Frontend for trading execution (critical latency)
+    frontend execution_frontend
+        bind *:8004
+        mode http
+        option httpclose
+        timeout client 2s
+
+        # Priority routing for different order types
+        acl is_market_order path_reg -i ^/execution/orders.*type=market
+        acl is_limit_order path_reg -i ^/execution/orders.*type=limit
+        acl is_cancel_order path_reg -i ^/execution/orders/.*/cancel
+
+        # Route to dedicated backends
+        use_backend execution_market_orders if is_market_order
+        use_backend execution_limit_orders if is_limit_order
+        use_backend execution_cancel_orders if is_cancel_order
+        default_backend execution_general
+
+    # Market order backend (highest priority)
+    backend execution_market_orders
+        mode http
+        balance roundrobin
+        timeout server 2s
+        option httpchk GET /health
+
+        server exec-1 execution-engine-service:8004 check inter 1s weight 100
+        server exec-2 execution-engine-service:8004 check inter 1s weight 100
+        server exec-3 execution-engine-service:8004 check inter 1s weight 50 backup
+
+    # Limit order backend
+    backend execution_limit_orders
+        mode http
+        balance leastconn
+        timeout server 5s
+        option httpchk GET /health
+
+        server exec-1 execution-engine-service:8004 check inter 2s
+        server exec-2 execution-engine-service:8004 check inter 2s
+
+    # Cancel order backend (ultra-high priority)
+    backend execution_cancel_orders
+        mode http
+        balance first
+        timeout server 1s
+        option httpchk GET /health
+
+        server exec-1 execution-engine-service:8004 check inter 1s
+        server exec-2 execution-engine-service:8004 check inter 1s backup
+
+    # General execution backend
+    backend execution_general
+        mode http
+        balance roundrobin
+        timeout server 10s
+        option httpchk GET /health
+
+        server exec-1 execution-engine-service:8004 check inter 5s
+        server exec-2 execution-engine-service:8004 check inter 5s
+        server exec-3 execution-engine-service:8004 check inter 5s
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: haproxy-lb
+  namespace: gary-taleb-production
+  labels:
+    app: haproxy-lb
+    component: load-balancer
+    tier: edge
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: haproxy-lb
+  template:
+    metadata:
+      labels:
+        app: haproxy-lb
+        component: load-balancer
+        tier: edge
+    spec:
+      containers:
+      - name: haproxy
+        image: haproxy:2.8-alpine
+        ports:
+        - containerPort: 8001
+        - containerPort: 8004
+        - containerPort: 8404
+        resources:
+          requests:
+            cpu: "2"
+            memory: 2Gi
+          limits:
+            cpu: "8"
+            memory: 8Gi
+        volumeMounts:
+        - name: config
+          mountPath: /usr/local/etc/haproxy/haproxy.cfg
+          subPath: haproxy.cfg
+        livenessProbe:
+          httpGet:
+            path: /stats
+            port: 8404
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /stats
+            port: 8404
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: config
+        configMap:
+          name: haproxy-config
+      nodeSelector:
+        node-type: edge
+        network-performance: high
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: haproxy-lb-service
+  namespace: gary-taleb-production
+  labels:
+    app: haproxy-lb
+    component: load-balancer
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: market-data
+    port: 8001
+    targetPort: 8001
+    protocol: TCP
+  - name: execution
+    port: 8004
+    targetPort: 8004
+    protocol: TCP
+  - name: stats
+    port: 8404
+    targetPort: 8404
+    protocol: TCP
+  selector:
+    app: haproxy-lb
+
+---
+# NGINX Configuration for API Gateway
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: gary-taleb-production
+  labels:
+    component: api-gateway
+    tier: edge
+data:
+  nginx.conf: |
+    worker_processes auto;
+    worker_cpu_affinity auto;
+    worker_rlimit_nofile 65535;
+
+    events {
+        worker_connections 10000;
+        use epoll;
+        multi_accept on;
+    }
+
+    http {
+        # Basic settings
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 30;
+        keepalive_requests 1000;
+        types_hash_max_size 2048;
+        server_tokens off;
+
+        # Buffer sizes
+        client_body_buffer_size 16K;
+        client_header_buffer_size 1k;
+        client_max_body_size 8m;
+        large_client_header_buffers 4 4k;
+
+        # Timeouts
+        client_body_timeout 12;
+        client_header_timeout 12;
+        send_timeout 10;
+
+        # Gzip compression
+        gzip on;
+        gzip_vary on;
+        gzip_min_length 1000;
+        gzip_proxied any;
+        gzip_comp_level 6;
+        gzip_types
+            application/json
+            application/javascript
+            application/xml
+            text/css
+            text/javascript
+            text/xml
+            text/plain;
+
+        # Rate limiting
+        limit_req_zone $binary_remote_addr zone=api:10m rate=100r/s;
+        limit_req_zone $binary_remote_addr zone=trading:10m rate=1000r/s;
+        limit_conn_zone $binary_remote_addr zone=connections:10m;
+
+        # Upstream definitions
+        upstream market_data_backend {
+            least_conn;
+            server haproxy-lb-service:8001 weight=100 max_fails=3 fail_timeout=30s;
+            keepalive 32;
+        }
+
+        upstream execution_backend {
+            least_conn;
+            server haproxy-lb-service:8004 weight=100 max_fails=3 fail_timeout=30s;
+            keepalive 32;
+        }
+
+        upstream gary_dpi_backend {
+            least_conn;
+            server gary-dpi-analyzer-service:8002 weight=100 max_fails=3 fail_timeout=30s;
+            keepalive 32;
+        }
+
+        upstream taleb_backend {
+            least_conn;
+            server taleb-antifragile-engine-service:8003 weight=100 max_fails=3 fail_timeout=30s;
+            keepalive 32;
+        }
+
+        # Default server
+        server {
+            listen 80 default_server;
+            server_name _;
+            return 444;
+        }
+
+        # Main API server
+        server {
+            listen 80;
+            server_name api.gary-taleb.com;
+
+            # Security headers
+            add_header X-Frame-Options DENY;
+            add_header X-Content-Type-Options nosniff;
+            add_header X-XSS-Protection "1; mode=block";
+            add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+            # Health check
+            location /health {
+                access_log off;
+                return 200 "healthy\n";
+                add_header Content-Type text/plain;
+            }
+
+            # Market data endpoints
+            location /market-data/ {
+                limit_req zone=api burst=20 nodelay;
+                limit_conn connections 10;
+
+                proxy_pass http://market_data_backend;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection $connection_upgrade;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+                proxy_connect_timeout 5s;
+                proxy_send_timeout 10s;
+                proxy_read_timeout 30s;
+
+                proxy_buffering off;
+                proxy_cache_bypass $http_upgrade;
+            }
+
+            # Trading execution endpoints (highest priority)
+            location /execution/ {
+                limit_req zone=trading burst=50 nodelay;
+                limit_conn connections 20;
+
+                proxy_pass http://execution_backend;
+                proxy_http_version 1.1;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+                proxy_connect_timeout 2s;
+                proxy_send_timeout 5s;
+                proxy_read_timeout 10s;
+
+                proxy_buffering off;
+                proxy_request_buffering off;
+            }
+
+            # Gary DPI endpoints
+            location /gary-dpi/ {
+                limit_req zone=api burst=10 nodelay;
+
+                proxy_pass http://gary_dpi_backend;
+                proxy_http_version 1.1;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+                proxy_connect_timeout 10s;
+                proxy_send_timeout 30s;
+                proxy_read_timeout 60s;
+            }
+
+            # Taleb antifragile endpoints
+            location /taleb/ {
+                limit_req zone=api burst=10 nodelay;
+
+                proxy_pass http://taleb_backend;
+                proxy_http_version 1.1;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+                proxy_connect_timeout 10s;
+                proxy_send_timeout 30s;
+                proxy_read_timeout 60s;
+            }
+        }
+
+        # WebSocket upgrade handling
+        map $http_upgrade $connection_upgrade {
+            default upgrade;
+            '' close;
+        }
+    }
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-gateway
+  namespace: gary-taleb-production
+  labels:
+    app: nginx-gateway
+    component: api-gateway
+    tier: edge
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-gateway
+  template:
+    metadata:
+      labels:
+        app: nginx-gateway
+        component: api-gateway
+        tier: edge
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25-alpine
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "1"
+            memory: 1Gi
+          limits:
+            cpu: "4"
+            memory: 4Gi
+        volumeMounts:
+        - name: config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: config
+        configMap:
+          name: nginx-config
+      nodeSelector:
+        node-type: edge
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-gateway-service
+  namespace: gary-taleb-production
+  labels:
+    app: nginx-gateway
+    component: api-gateway
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: nginx-gateway
+
+---
+# Istio Service Mesh Configuration
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gary-taleb-vs
+  namespace: gary-taleb-production
+spec:
+  hosts:
+  - gary-taleb-api
+  - api.gary-taleb.com
+  gateways:
+  - gary-taleb-gateway
+  http:
+  # High priority: Execution engine routing
+  - match:
+    - uri:
+        prefix: /execution/
+    route:
+    - destination:
+        host: execution-engine-service
+        port:
+          number: 8004
+      weight: 100
+    timeout: 5s
+    retries:
+      attempts: 2
+      perTryTimeout: 2s
+
+  # Market data routing
+  - match:
+    - uri:
+        prefix: /market-data/
+    route:
+    - destination:
+        host: market-data-gateway-service
+        port:
+          number: 8001
+      weight: 100
+    timeout: 10s
+
+  # Gary DPI routing
+  - match:
+    - uri:
+        prefix: /gary-dpi/
+    route:
+    - destination:
+        host: gary-dpi-analyzer-service
+        port:
+          number: 8002
+      weight: 100
+    timeout: 30s
+
+  # Taleb engine routing
+  - match:
+    - uri:
+        prefix: /taleb/
+    route:
+    - destination:
+        host: taleb-antifragile-engine-service
+        port:
+          number: 8003
+      weight: 100
+    timeout: 30s
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: gary-taleb-gateway
+  namespace: gary-taleb-production
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - api.gary-taleb.com
+    - gary-taleb-api
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: gary-taleb-tls
+    hosts:
+    - api.gary-taleb.com
+
+---
+# Destination Rules for Circuit Breaker and Load Balancing
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: execution-engine-dr
+  namespace: gary-taleb-production
+spec:
+  host: execution-engine-service
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+    connectionPool:
+      tcp:
+        maxConnections: 100
+        connectTimeout: 2s
+        keepAlive:
+          time: 30s
+          interval: 5s
+      http:
+        http1MaxPendingRequests: 50
+        http2MaxRequests: 100
+        maxRequestsPerConnection: 10
+        maxRetries: 2
+        consecutiveGatewayErrors: 3
+        interval: 5s
+        baseEjectionTime: 30s
+        maxEjectionPercent: 50
+    outlierDetection:
+      consecutive5xxErrors: 3
+      consecutiveGatewayErrors: 3
+      interval: 5s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+      minHealthPercent: 50
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: market-data-gateway-dr
+  namespace: gary-taleb-production
+spec:
+  host: market-data-gateway-service
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    connectionPool:
+      tcp:
+        maxConnections: 1000
+        connectTimeout: 5s
+      http:
+        http1MaxPendingRequests: 100
+        http2MaxRequests: 1000
+        maxRequestsPerConnection: 100
+    outlierDetection:
+      consecutive5xxErrors: 5
+      interval: 10s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 30

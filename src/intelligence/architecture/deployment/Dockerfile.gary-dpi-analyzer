@@ -1,0 +1,100 @@
+# Gary×Taleb Trading System - Gary DPI Analyzer
+# GPU-enabled Docker build with CUDA support
+
+# Base CUDA image for GPU acceleration
+FROM nvidia/cuda:12.2-runtime-ubuntu22.04 AS base
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3.11 \
+    python3.11-dev \
+    python3-pip \
+    build-essential \
+    curl \
+    git \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set Python aliases
+RUN ln -s /usr/bin/python3.11 /usr/bin/python
+
+# Build stage
+FROM base AS builder
+
+WORKDIR /app
+
+# Install Python build dependencies
+RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel
+
+# Copy requirements first for better layer caching
+COPY src/intelligence/architecture/microservices/gary-dpi-analyzer/requirements.txt ./
+
+# Install Python dependencies
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Install PyTorch with CUDA support
+RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+# Copy source code
+COPY src/intelligence/architecture/microservices/gary-dpi-analyzer/ ./
+
+# Build application
+RUN python setup.py build_ext --inplace
+
+# Production stage
+FROM base AS production
+
+# Security: Create non-root user
+RUN groupadd -r gary-taleb && useradd -r -g gary-taleb gary-taleb
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y \
+    dumb-init \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy built application from builder stage
+COPY --from=builder --chown=gary-taleb:gary-taleb /app ./
+
+# Create necessary directories
+RUN mkdir -p /app/models /app/cache /app/logs && \
+    chown -R gary-taleb:gary-taleb /app
+
+# Set environment variables
+ENV PYTHONPATH=/app \
+    CUDA_VISIBLE_DEVICES=0 \
+    OMP_NUM_THREADS=1 \
+    CUDA_LAUNCH_BLOCKING=0 \
+    TORCH_CUDA_ARCH_LIST="7.0 7.5 8.0 8.6 8.9 9.0+PTX" \
+    PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:128 \
+    GPU_MEMORY_FRACTION=0.8 \
+    MODEL_CACHE_SIZE=10GB \
+    BATCH_SIZE=32 \
+    INFERENCE_WORKERS=4
+
+# Copy configuration
+COPY --chown=gary-taleb:gary-taleb src/intelligence/architecture/deployment/configs/gary-dpi-analyzer.yml ./config/
+
+# Health check with GPU verification
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=2 \
+    CMD python -c "import torch; print('GPU available:', torch.cuda.is_available()); import requests; requests.get('http://localhost:8002/health')" || exit 1
+
+# Expose ports
+EXPOSE 8002 9002 8092
+
+# Switch to non-root user
+USER gary-taleb
+
+# Start application
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["python", "app.py"]
+
+# Labels for metadata
+LABEL maintainer="Gary×Taleb Platform Team" \
+      version="3.0.0" \
+      description="Gary DPI Analyzer - AI-powered pattern recognition with GPU acceleration" \
+      service="gary-dpi-analyzer" \
+      tier="core" \
+      requires="nvidia-gpu"

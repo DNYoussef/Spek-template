@@ -1,0 +1,291 @@
+# Gary×Taleb Trading System - Financial Compliance Security Rules
+# SEC, FINRA, SOX, and Defense Industry Standards
+
+rules:
+  # Sensitive Data Protection
+  - id: financial-sensitive-data-logging
+    patterns:
+      - pattern: log.info($MSG, $...ARGS)
+        where: |
+          any $ARG in $ARGS:
+            $ARG.type == "string" and (
+              $ARG.value =~ /\b\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}\b/ or  # Credit card
+              $ARG.value =~ /\b\d{3}-\d{2}-\d{4}\b/ or                    # SSN
+              $ARG.value =~ /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/ # Email
+            )
+    message: "Potential sensitive data in log statement"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # Trading Position Validation
+  - id: trading-position-size-validation
+    patterns:
+      - pattern: |
+          function $FUNC(...$ARGS) {
+            ...
+            $POSITION = { ..., size: $SIZE, ... }
+            ...
+          }
+        where: |
+          not exists $VALIDATION: (
+            $VALIDATION like "if ($SIZE > $LIMIT)" or
+            $VALIDATION like "validatePositionSize($SIZE)"
+          )
+    message: "Trading position size must be validated before execution"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # Risk Management Requirements
+  - id: risk-calculation-without-validation
+    patterns:
+      - pattern: |
+          function calculateRisk($...PARAMS) {
+            ...
+            return $RISK
+          }
+        where: |
+          not exists $VALIDATION: (
+            $VALIDATION like "if ($RISK > $MAX_RISK)" or
+            $VALIDATION like "validateRisk($RISK)"
+          )
+    message: "Risk calculations must include validation checks"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # Audit Trail Requirements
+  - id: financial-transaction-without-audit
+    patterns:
+      - pattern: |
+          function $FUNC(...$ARGS) {
+            ...
+            $DB.execute($QUERY)
+            ...
+          }
+        where: |
+          $QUERY like "%INSERT INTO trades%" or
+          $QUERY like "%UPDATE positions%" or
+          $QUERY like "%DELETE FROM orders%"
+        and not exists $AUDIT: (
+          $AUDIT like "auditLog.record($...)" or
+          $AUDIT like "logger.audit($...)"
+        )
+    message: "Financial transactions require audit logging"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # Authentication and Authorization
+  - id: trading-endpoint-without-auth
+    patterns:
+      - pattern: |
+          app.$METHOD($PATH, function($REQ, $RES) {
+            ...
+          })
+        where: |
+          $PATH like "*/trade*" or
+          $PATH like "*/order*" or
+          $PATH like "*/position*"
+        and not exists $AUTH: (
+          $AUTH like "requireAuth($...)" or
+          $AUTH like "authorize($...)" or
+          $AUTH like "authenticate($...)"
+        )
+    message: "Trading endpoints must require authentication"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # Data Encryption Requirements
+  - id: unencrypted-sensitive-data-storage
+    patterns:
+      - pattern: |
+          $DB.save({
+            ...
+            $FIELD: $VALUE,
+            ...
+          })
+        where: |
+          $FIELD in ["accountNumber", "socialSecurityNumber", "bankAccount", "creditCard"]
+        and not exists $ENCRYPTION: (
+          $ENCRYPTION like "encrypt($VALUE)" or
+          $ENCRYPTION like "$VALUE.encrypted()"
+        )
+    message: "Sensitive financial data must be encrypted before storage"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # Input Validation for Financial Data
+  - id: financial-input-without-validation
+    patterns:
+      - pattern: |
+          function $FUNC($AMOUNT, ...$ARGS) {
+            ...
+            return $RESULT
+          }
+        where: |
+          $FUNC like "*trade*" or
+          $FUNC like "*order*" or
+          $FUNC like "*transfer*"
+        and not exists $VALIDATION: (
+          $VALIDATION like "validateAmount($AMOUNT)" or
+          $VALIDATION like "if ($AMOUNT > 0)" or
+          $VALIDATION like "Number.isFinite($AMOUNT)"
+        )
+    message: "Financial amounts must be validated"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # Privileged Operations Logging
+  - id: privileged-operation-without-logging
+    patterns:
+      - pattern: |
+          function $FUNC(...$ARGS) {
+            ...
+            $ADMIN_ACTION
+            ...
+          }
+        where: |
+          $ADMIN_ACTION like "*deleteAccount*" or
+          $ADMIN_ACTION like "*changeRiskLimits*" or
+          $ADMIN_ACTION like "*overridePosition*"
+        and not exists $LOGGING: (
+          $LOGGING like "adminLog.record($...)" or
+          $LOGGING like "securityLog.log($...)"
+        )
+    message: "Privileged operations must be logged for compliance"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # Time-sensitive Operations
+  - id: trading-order-without-timestamp
+    patterns:
+      - pattern: |
+          function submitOrder($ORDER) {
+            ...
+            $DB.insert($ORDER)
+            ...
+          }
+        where: |
+          not exists $TIMESTAMP: (
+            $ORDER contains "timestamp" or
+            $ORDER contains "createdAt" or
+            $ORDER contains "submittedAt"
+          )
+    message: "Trading orders must include precise timestamps"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # Market Data Integrity
+  - id: market-data-without-validation
+    patterns:
+      - pattern: |
+          function processMarketData($DATA) {
+            ...
+            return $PROCESSED
+          }
+        where: |
+          not exists $VALIDATION: (
+            $VALIDATION like "validatePrice($DATA.price)" or
+            $VALIDATION like "checkDataIntegrity($DATA)" or
+            $VALIDATION like "validateTimestamp($DATA.timestamp)"
+          )
+    message: "Market data must be validated for integrity"
+    severity: WARNING
+    languages: [javascript, typescript]
+
+  # Configuration Security
+  - id: hardcoded-trading-limits
+    patterns:
+      - pattern: |
+          const $VAR = $VALUE
+        where: |
+          $VAR like "*LIMIT*" or
+          $VAR like "*THRESHOLD*" or
+          $VAR like "*MAX_*"
+        and $VALUE is number
+    message: "Trading limits should be configurable, not hardcoded"
+    severity: WARNING
+    languages: [javascript, typescript]
+
+  # Error Handling for Financial Operations
+  - id: financial-operation-without-error-handling
+    patterns:
+      - pattern: |
+          function $FUNC(...$ARGS) {
+            ...
+            $FINANCIAL_OP
+            ...
+          }
+        where: |
+          $FINANCIAL_OP like "*trade*" or
+          $FINANCIAL_OP like "*transfer*" or
+          $FINANCIAL_OP like "*settlement*"
+        and not exists $ERROR_HANDLING: (
+          $ERROR_HANDLING like "try {" or
+          $ERROR_HANDLING like "catch ($ERR)" or
+          $ERROR_HANDLING like ".catch($...)"
+        )
+    message: "Financial operations must include comprehensive error handling"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # Database Transaction Requirements
+  - id: financial-operation-without-transaction
+    patterns:
+      - pattern: |
+          function $FUNC(...$ARGS) {
+            ...
+            $DB.update($TABLE1, $DATA1)
+            ...
+            $DB.update($TABLE2, $DATA2)
+            ...
+          }
+        where: |
+          $TABLE1 in ["trades", "positions", "accounts", "balances"] or
+          $TABLE2 in ["trades", "positions", "accounts", "balances"]
+        and not exists $TRANSACTION: (
+          $TRANSACTION like "$DB.transaction($...)" or
+          $TRANSACTION like "BEGIN TRANSACTION" or
+          $TRANSACTION like "db.beginTransaction()"
+        )
+    message: "Multiple financial database operations must use transactions"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # Regulatory Reporting Requirements
+  - id: large-trade-without-reporting
+    patterns:
+      - pattern: |
+          function executeTrade($TRADE) {
+            ...
+            if ($TRADE.amount > $THRESHOLD) {
+              ...
+            }
+            ...
+          }
+        where: |
+          not exists $REPORTING: (
+            $REPORTING like "regulatoryReport.submit($...)" or
+            $REPORTING like "complianceAlert.send($...)" or
+            $REPORTING like "reportLargeTrade($...)"
+          )
+    message: "Large trades may require regulatory reporting"
+    severity: WARNING
+    languages: [javascript, typescript]
+
+  # API Rate Limiting for Trading
+  - id: trading-api-without-rate-limiting
+    patterns:
+      - pattern: |
+          app.$METHOD($PATH, function($REQ, $RES) {
+            ...
+          })
+        where: |
+          $PATH like "*/api/trade*" or
+          $PATH like "*/api/order*"
+        and not exists $RATE_LIMIT: (
+          $RATE_LIMIT like "rateLimit($...)" or
+          $RATE_LIMIT like "rateLimiter($...)" or
+          $RATE_LIMIT like "throttle($...)"
+        )
+    message: "Trading APIs should implement rate limiting"
+    severity: WARNING
+    languages: [javascript, typescript]

@@ -1,0 +1,585 @@
+# Gary×Taleb Trading System - Advanced Resource Optimization
+# GPU scheduling, CPU affinity, memory optimization, and cost management
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: resource-optimizer-config
+  namespace: gary-taleb-production
+  labels:
+    component: resource-optimization
+data:
+  config.yaml: |
+    # Resource Optimization Configuration
+    optimization:
+      # GPU Resource Management
+      gpu:
+        scheduling_strategy: "time-slicing"  # time-slicing, mps, exclusive
+        memory_fraction: 0.8
+        compute_mode: "default"  # default, exclusive_thread, exclusive_process
+        persistence_mode: true
+        power_limit: 300  # watts
+        clock_speeds:
+          graphics: 1800  # MHz
+          memory: 5500    # MHz
+        utilization_targets:
+          inference: 85   # Target GPU utilization for inference workloads
+          training: 95    # Target GPU utilization for training workloads
+        allocation:
+          gary_dpi_analyzer: 60    # % of total GPU time
+          ml_training: 30          # % of total GPU time
+          backtesting: 10          # % of total GPU time
+
+      # CPU Optimization
+      cpu:
+        affinity_strategy: "numa-aware"
+        performance_governor: "performance"  # performance, powersave, ondemand
+        turbo_boost: true
+        hyperthreading: true
+        isolation:
+          trading_cores: [0, 1, 2, 3]      # Dedicated cores for trading
+          analysis_cores: [4, 5, 6, 7]     # Dedicated cores for analysis
+          system_cores: [8, 9, 10, 11]     # System and other workloads
+        frequencies:
+          base: 2400      # MHz
+          turbo: 3800     # MHz
+          trading: 3600   # MHz for trading workloads
+
+      # Memory Optimization
+      memory:
+        huge_pages:
+          enabled: true
+          size: "2MB"
+          count: 1024
+        numa_balancing: true
+        transparent_huge_pages: "madvise"
+        swappiness: 10
+        cache_pressure: 50
+        allocation:
+          execution_engine: "8-16GB"
+          gary_dpi_analyzer: "16-64GB"
+          market_data_gateway: "4-16GB"
+
+      # Network Optimization
+      network:
+        kernel_bypass: true
+        dpdk_enabled: true
+        sr_iov: true
+        interrupt_coalescing: true
+        ring_buffer_size: 4096
+        tcp_settings:
+          congestion_control: "bbr"
+          window_scaling: true
+          timestamps: false
+          sack: true
+
+      # Storage Optimization
+      storage:
+        nvme_optimization: true
+        io_scheduler: "none"  # none, mq-deadline, kyber
+        queue_depth: 32
+        read_ahead: 256
+        cache_mode: "writethrough"
+
+      # Cost Optimization
+      cost:
+        spot_instances:
+          enabled: true
+          max_price: 0.5  # USD per hour
+          instance_types: ["c5.2xlarge", "c5.4xlarge", "m5.2xlarge"]
+        auto_scaling:
+          scale_down_delay: 300  # seconds
+          scale_up_threshold: 70  # CPU %
+          scale_down_threshold: 30  # CPU %
+        resource_limits:
+          max_cpu_cores: 500
+          max_memory_gb: 2000
+          max_storage_gb: 50000
+
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: resource-optimizer
+  namespace: gary-taleb-production
+  labels:
+    app: resource-optimizer
+    component: system-optimization
+spec:
+  selector:
+    matchLabels:
+      app: resource-optimizer
+  template:
+    metadata:
+      labels:
+        app: resource-optimizer
+        component: system-optimization
+    spec:
+      hostNetwork: true
+      hostPID: true
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
+      containers:
+      - name: resource-optimizer
+        image: gary-taleb/resource-optimizer:1.0.0
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+            - SYS_NICE
+            - SYS_RESOURCE
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: OPTIMIZATION_LEVEL
+          value: "aggressive"
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+        volumeMounts:
+        - name: proc
+          mountPath: /host/proc
+          readOnly: true
+        - name: sys
+          mountPath: /host/sys
+        - name: dev
+          mountPath: /host/dev
+        - name: config
+          mountPath: /etc/optimizer
+        command:
+        - /bin/sh
+        - -c
+        - |
+          #!/bin/sh
+          set -e
+
+          echo "Starting Gary×Taleb Resource Optimizer on node: $NODE_NAME"
+
+          # CPU Optimization
+          optimize_cpu() {
+            echo "Optimizing CPU settings..."
+
+            # Set CPU governor to performance for trading cores
+            for core in 0 1 2 3; do
+              echo performance > /host/sys/devices/system/cpu/cpu$core/cpufreq/scaling_governor
+              echo 3600000 > /host/sys/devices/system/cpu/cpu$core/cpufreq/scaling_min_freq
+            done
+
+            # Set CPU governor to ondemand for other cores
+            for core in 4 5 6 7 8 9 10 11; do
+              echo ondemand > /host/sys/devices/system/cpu/cpu$core/cpufreq/scaling_governor
+            done
+
+            # Enable turbo boost
+            echo 0 > /host/sys/devices/system/cpu/intel_pstate/no_turbo
+
+            # Disable CPU idle states for trading cores (low latency)
+            for core in 0 1 2 3; do
+              echo 1 > /host/sys/devices/system/cpu/cpu$core/cpuidle/state1/disable
+              echo 1 > /host/sys/devices/system/cpu/cpu$core/cpuidle/state2/disable
+            done
+
+            echo "CPU optimization completed"
+          }
+
+          # Memory Optimization
+          optimize_memory() {
+            echo "Optimizing memory settings..."
+
+            # Configure huge pages
+            echo 1024 > /host/sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+
+            # Optimize swappiness for trading workloads
+            echo 10 > /host/proc/sys/vm/swappiness
+
+            # Reduce cache pressure
+            echo 50 > /host/proc/sys/vm/vfs_cache_pressure
+
+            # Enable NUMA balancing
+            echo 1 > /host/proc/sys/kernel/numa_balancing
+
+            # Configure transparent huge pages
+            echo madvise > /host/sys/kernel/mm/transparent_hugepage/enabled
+
+            echo "Memory optimization completed"
+          }
+
+          # Network Optimization
+          optimize_network() {
+            echo "Optimizing network settings..."
+
+            # TCP optimization for low latency
+            echo bbr > /host/proc/sys/net/ipv4/tcp_congestion_control
+            echo 1 > /host/proc/sys/net/ipv4/tcp_window_scaling
+            echo 0 > /host/proc/sys/net/ipv4/tcp_timestamps
+            echo 1 > /host/proc/sys/net/ipv4/tcp_sack
+
+            # Increase network buffer sizes
+            echo 16777216 > /host/proc/sys/net/core/rmem_max
+            echo 16777216 > /host/proc/sys/net/core/wmem_max
+            echo 4096 > /host/proc/sys/net/core/netdev_max_backlog
+
+            # Optimize interrupt handling
+            echo 2 > /host/proc/sys/net/core/busy_read
+            echo 50 > /host/proc/sys/net/core/busy_poll
+
+            echo "Network optimization completed"
+          }
+
+          # GPU Optimization
+          optimize_gpu() {
+            echo "Optimizing GPU settings..."
+
+            # Check if NVIDIA GPUs are present
+            if [ -f /host/proc/driver/nvidia/version ]; then
+              # Set persistence mode
+              nvidia-smi -pm 1
+
+              # Set power limit
+              nvidia-smi -pl 300
+
+              # Set compute mode to default (allows multiple processes)
+              nvidia-smi -c 0
+
+              # Set clock speeds for optimal trading performance
+              nvidia-smi -ac 5500,1800
+
+              echo "GPU optimization completed"
+            else
+              echo "No NVIDIA GPUs detected, skipping GPU optimization"
+            fi
+          }
+
+          # Storage Optimization
+          optimize_storage() {
+            echo "Optimizing storage settings..."
+
+            # Set I/O scheduler for NVMe devices
+            for dev in /host/sys/block/nvme*; do
+              if [ -d "$dev" ]; then
+                echo none > $dev/queue/scheduler
+                echo 32 > $dev/queue/nr_requests
+                echo 256 > $dev/queue/read_ahead_kb
+              fi
+            done
+
+            echo "Storage optimization completed"
+          }
+
+          # Apply all optimizations
+          optimize_cpu
+          optimize_memory
+          optimize_network
+          optimize_gpu
+          optimize_storage
+
+          echo "All optimizations applied successfully"
+
+          # Monitor and maintain optimizations
+          while true; do
+            sleep 300  # Check every 5 minutes
+
+            # Monitor CPU frequencies
+            for core in 0 1 2 3; do
+              freq=$(cat /host/sys/devices/system/cpu/cpu$core/cpufreq/scaling_cur_freq)
+              if [ $freq -lt 3600000 ]; then
+                echo "Warning: Trading core $core frequency is low: ${freq}Hz"
+                echo performance > /host/sys/devices/system/cpu/cpu$core/cpufreq/scaling_governor
+              fi
+            done
+
+            # Monitor huge pages
+            hugepages=$(cat /host/proc/meminfo | grep HugePages_Total | awk '{print $2}')
+            if [ $hugepages -lt 1024 ]; then
+              echo "Warning: Huge pages count is low: $hugepages"
+              echo 1024 > /host/sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+            fi
+
+            # Monitor GPU status
+            if command -v nvidia-smi > /dev/null; then
+              gpu_power=$(nvidia-smi --query-gpu=power.limit --format=csv,noheader,nounits)
+              if [ "$gpu_power" != "300.00" ]; then
+                echo "Warning: GPU power limit changed: ${gpu_power}W"
+                nvidia-smi -pl 300
+              fi
+            fi
+          done
+
+      volumes:
+      - name: proc
+        hostPath:
+          path: /proc
+      - name: sys
+        hostPath:
+          path: /sys
+      - name: dev
+        hostPath:
+          path: /dev
+      - name: config
+        configMap:
+          name: resource-optimizer-config
+
+---
+# NVIDIA GPU Node Feature Discovery
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nvidia-device-plugin
+  namespace: gary-taleb-production
+  labels:
+    app: nvidia-device-plugin
+spec:
+  selector:
+    matchLabels:
+      app: nvidia-device-plugin
+  template:
+    metadata:
+      labels:
+        app: nvidia-device-plugin
+    spec:
+      hostNetwork: true
+      nodeSelector:
+        accelerator: nvidia
+      tolerations:
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: nvidia-device-plugin
+        image: nvcr.io/nvidia/k8s-device-plugin:v0.14.1
+        env:
+        - name: FAIL_ON_INIT_ERROR
+          value: "false"
+        - name: MPS_ROOT
+          value: "/run/nvidia/mps"
+        - name: CUDA_MPS_PIPE_DIRECTORY
+          value: "/run/nvidia/mps"
+        - name: CUDA_MPS_LOG_DIRECTORY
+          value: "/var/log/nvidia-mps"
+        securityContext:
+          capabilities:
+            add: ["SYS_ADMIN"]
+        volumeMounts:
+        - name: device-plugin
+          mountPath: /var/lib/kubelet/device-plugins
+        - name: dev
+          mountPath: /dev
+        - name: nvidia-mps
+          mountPath: /run/nvidia/mps
+        - name: nvidia-mps-log
+          mountPath: /var/log/nvidia-mps
+      volumes:
+      - name: device-plugin
+        hostPath:
+          path: /var/lib/kubelet/device-plugins
+      - name: dev
+        hostPath:
+          path: /dev
+      - name: nvidia-mps
+        hostPath:
+          path: /run/nvidia/mps
+      - name: nvidia-mps-log
+        hostPath:
+          path: /var/log/nvidia-mps
+
+---
+# Cluster Autoscaler Configuration with Cost Optimization
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cluster-autoscaler
+  namespace: kube-system
+  labels:
+    app: cluster-autoscaler
+spec:
+  selector:
+    matchLabels:
+      app: cluster-autoscaler
+  template:
+    metadata:
+      labels:
+        app: cluster-autoscaler
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8085"
+    spec:
+      serviceAccount: cluster-autoscaler
+      containers:
+      - image: k8s.gcr.io/autoscaling/cluster-autoscaler:v1.27.3
+        name: cluster-autoscaler
+        resources:
+          limits:
+            cpu: 100m
+            memory: 300Mi
+          requests:
+            cpu: 100m
+            memory: 300Mi
+        command:
+        - ./cluster-autoscaler
+        - --v=4
+        - --stderrthreshold=info
+        - --cloud-provider=aws
+        - --skip-nodes-with-local-storage=false
+        - --expander=least-waste,priority
+        - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/gary-taleb-cluster
+        - --balance-similar-node-groups
+        - --scale-down-enabled=true
+        - --scale-down-delay-after-add=2m
+        - --scale-down-delay-after-delete=10s
+        - --scale-down-delay-after-failure=3m
+        - --scale-down-unneeded-time=2m
+        - --scale-down-utilization-threshold=0.5
+        - --max-node-provision-time=15m
+        - --nodes=5:50:gary-taleb-workers
+        - --nodes=2:10:gary-taleb-gpu-workers
+        env:
+        - name: AWS_REGION
+          value: us-west-2
+        - name: AWS_STS_REGIONAL_ENDPOINTS
+          value: regional
+        volumeMounts:
+        - name: ssl-certs
+          mountPath: /etc/ssl/certs/ca-certificates.crt
+          readOnly: true
+        imagePullPolicy: "Always"
+      volumes:
+      - name: ssl-certs
+        hostPath:
+          path: "/etc/ssl/certs/ca-bundle.crt"
+
+---
+# Node Affinity and Resource Allocation Rules
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-allocation-rules
+  namespace: gary-taleb-production
+data:
+  rules.yaml: |
+    # Node allocation rules for optimal resource utilization
+    allocation_rules:
+      # Trading-critical workloads
+      execution_engine:
+        node_selector:
+          node-type: high-performance
+          network-performance: ultra-low-latency
+        affinity: required
+        resources:
+          cpu_cores: [0, 1, 2, 3]  # Dedicated cores
+          memory_gb: 16
+          network_bandwidth_gbps: 25
+
+      # AI/ML workloads
+      gary_dpi_analyzer:
+        node_selector:
+          accelerator: nvidia-tesla-a100
+          node-type: gpu-compute
+        affinity: required
+        resources:
+          gpu_count: 1
+          cpu_cores: [4, 5, 6, 7]
+          memory_gb: 32
+
+      # Data processing workloads
+      market_data_gateway:
+        node_selector:
+          node-type: compute
+          network-performance: high
+        affinity: preferred
+        resources:
+          cpu_cores: [8, 9, 10, 11]
+          memory_gb: 8
+
+      # Cost optimization strategies
+      cost_optimization:
+        spot_instances:
+          enabled: true
+          max_interruption_frequency: 5  # %
+          instance_types:
+            - c5.2xlarge
+            - c5.4xlarge
+            - m5.2xlarge
+            - r5.2xlarge
+        reserved_instances:
+          baseline_capacity: 60  # % of min capacity
+          instance_types:
+            - c5.4xlarge
+            - m5.4xlarge
+        scaling_policies:
+          scale_out_cooldown: 120  # seconds
+          scale_in_cooldown: 300   # seconds
+          target_utilization: 70  # %
+
+---
+# Resource Monitoring and Alerting
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: resource-optimization-alerts
+  namespace: gary-taleb-production
+  labels:
+    prometheus: gary-taleb
+    role: alert-rules
+spec:
+  groups:
+  - name: resource-optimization
+    rules:
+    - alert: CPUCoreNotOptimized
+      expr: node_cpu_scaling_frequency_hertz{cpu=~"[0-3]"} < 3600000000
+      for: 1m
+      labels:
+        severity: warning
+        component: cpu-optimization
+      annotations:
+        summary: "Trading CPU core frequency is suboptimal"
+        description: "CPU core {{ $labels.cpu }} on {{ $labels.instance }} is running at {{ $value | humanize }}Hz, below 3.6GHz target"
+
+    - alert: GPUUtilizationLow
+      expr: DCGM_FI_DEV_GPU_UTIL < 70 and gary_dpi_inference_active == 1
+      for: 2m
+      labels:
+        severity: warning
+        component: gpu-optimization
+      annotations:
+        summary: "GPU utilization is low during active inference"
+        description: "GPU {{ $labels.gpu }} utilization is {{ $value }}% while inference is active"
+
+    - alert: MemoryPressureHigh
+      expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 85
+      for: 1m
+      labels:
+        severity: critical
+        component: memory-optimization
+      annotations:
+        summary: "High memory pressure detected"
+        description: "Memory usage is {{ $value }}% on {{ $labels.instance }}"
+
+    - alert: NetworkLatencyHigh
+      expr: probe_duration_seconds{job="blackbox"} > 0.001
+      for: 30s
+      labels:
+        severity: warning
+        component: network-optimization
+      annotations:
+        summary: "Network latency is high"
+        description: "Network latency to {{ $labels.instance }} is {{ $value }}s"
+
+    - alert: CostBudgetExceeded
+      expr: aws_billing_estimated_charges > 10000
+      for: 5m
+      labels:
+        severity: critical
+        component: cost-optimization
+      annotations:
+        summary: "Monthly cost budget exceeded"
+        description: "Current estimated charges: ${{ $value }}"

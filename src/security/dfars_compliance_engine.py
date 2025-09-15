@@ -1,4 +1,5 @@
 """
+from src.constants import SECONDS_PER_DAY, SECONDS_PER_HOUR, SECONDS_PER_MINUTE, MILLISECONDS_PER_SECOND, DEFAULT_MAX_ITEMS, DEFAULT_BATCH_SIZE, BYTES_PER_KB, DFARS_RETENTION_DAYS
 DFARS Compliance Engine
 Comprehensive defense industry compliance automation and validation.
 """
@@ -90,7 +91,7 @@ class DFARSComplianceEngine:
                 },
                 "audit_logging": {
                     "comprehensive_logging": True,
-                    "log_retention_days": 2555,  # 7 years
+                    "log_retention_days": DFARS_RETENTION_DAYS,  # 7 years
                     "tamper_detection": True,
                     "real_time_monitoring": True
                 },
@@ -113,9 +114,9 @@ class DFARSComplianceEngine:
                 },
                 "compliance_targets": {
                     "data_protection": 95.0,
-                    "path_security": 100.0,
-                    "cryptographic_compliance": 100.0,
-                    "audit_coverage": 100.0,
+                    "path_security": DEFAULT_BATCH_SIZE.0,
+                    "cryptographic_compliance": DEFAULT_BATCH_SIZE.0,
+                    "audit_coverage": DEFAULT_BATCH_SIZE.0,
                     "incident_response": 90.0
                 }
             }
@@ -226,7 +227,7 @@ class DFARSComplianceEngine:
             'passed': passed,
             'total': total,
             'checks': checks,
-            'target': self.config['dfars']['compliance_targets']['data_protection'] / 100.0
+            'target': self.config['dfars']['compliance_targets']['data_protection'] / DEFAULT_BATCH_SIZE.0
         }
 
     def _check_encryption_at_rest(self) -> Dict[str, Any]:
@@ -498,7 +499,7 @@ class DFARSComplianceEngine:
             'passed': passed_tests,
             'total': total_tests,
             'test_results': test_results,
-            'target': self.config['dfars']['compliance_targets']['path_security'] / 100.0
+            'target': self.config['dfars']['compliance_targets']['path_security'] / DEFAULT_BATCH_SIZE.0
         }
 
     async def _assess_cryptographic_compliance(self) -> Dict[str, Any]:
@@ -523,7 +524,7 @@ class DFARSComplianceEngine:
             'total': total_crypto_usage,
             'weak_crypto_found': weak_crypto_found,
             'approved_crypto': approved_crypto,
-            'target': self.config['dfars']['compliance_targets']['cryptographic_compliance'] / 100.0
+            'target': self.config['dfars']['compliance_targets']['cryptographic_compliance'] / DEFAULT_BATCH_SIZE.0
         }
 
     def _scan_weak_cryptography(self) -> List[Dict[str, Any]]:
@@ -594,11 +595,11 @@ class DFARSComplianceEngine:
         coverage_score = 1.0 if audit_status['processor_active'] else 0.0
 
         # Check retention policy
-        retention_compliant = audit_status['retention_days'] >= 2555  # 7 years
+        retention_compliant = audit_status['retention_days'] >= DFARS_RETENTION_DAYS  # 7 years
 
         # Check tamper detection (integrity verification)
         integrity_failures = audit_status['event_counters'].get('integrity_failures', 0)
-        integrity_score = 1.0 if integrity_failures == 0 else max(0.0, 1.0 - (integrity_failures / 100))
+        integrity_score = 1.0 if integrity_failures == 0 else max(0.0, 1.0 - (integrity_failures / DEFAULT_BATCH_SIZE))
 
         overall_score = (coverage_score + (1.0 if retention_compliant else 0.0) + integrity_score) / 3
 
@@ -613,7 +614,7 @@ class DFARSComplianceEngine:
                 'integrity_score': integrity_score,
                 'audit_status': audit_status
             },
-            'target': self.config['dfars']['compliance_targets']['audit_coverage'] / 100.0
+            'target': self.config['dfars']['compliance_targets']['audit_coverage'] / DEFAULT_BATCH_SIZE.0
         }
 
     async def _assess_incident_response(self) -> Dict[str, Any]:
@@ -648,7 +649,7 @@ class DFARSComplianceEngine:
                 'backup_recovery': backup_recovery,
                 'business_continuity': business_continuity
             },
-            'target': self.config['dfars']['compliance_targets']['incident_response'] / 100.0
+            'target': self.config['dfars']['compliance_targets']['incident_response'] / DEFAULT_BATCH_SIZE.0
         }
 
     def _check_forensic_capabilities(self) -> float:

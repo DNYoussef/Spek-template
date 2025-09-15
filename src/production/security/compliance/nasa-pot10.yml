@@ -1,0 +1,335 @@
+# Gary×Taleb Trading System - NASA POT10 Compliance Rules
+# Defense Industry Security Standards
+
+rules:
+  # POT10-1: Input Validation
+  - id: pot10-input-validation-missing
+    patterns:
+      - pattern: |
+          function $FUNC($INPUT, ...$ARGS) {
+            ...
+            $DB.query($INPUT)
+            ...
+          }
+        where: |
+          not exists $VALIDATION: (
+            $VALIDATION like "validate($INPUT)" or
+            $VALIDATION like "sanitize($INPUT)" or
+            $VALIDATION like "escape($INPUT)"
+          )
+    message: "POT10-1: All inputs must be validated and sanitized"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-2: Buffer Overflow Prevention
+  - id: pot10-buffer-overflow-risk
+    patterns:
+      - pattern: |
+          const $BUFFER = Buffer.alloc($SIZE)
+        where: |
+          not exists $BOUNDS_CHECK: (
+            $BOUNDS_CHECK like "if ($SIZE > $MAX)" or
+            $BOUNDS_CHECK like "Math.min($SIZE, $MAX)"
+          )
+    message: "POT10-2: Buffer allocations must include bounds checking"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-3: Authentication Requirements
+  - id: pot10-missing-authentication
+    patterns:
+      - pattern: |
+          app.$METHOD($PATH, function($REQ, $RES) {
+            ...
+          })
+        where: |
+          $PATH like "*/admin*" or
+          $PATH like "*/api*" or
+          $PATH like "*/secure*"
+        and not exists $AUTH: (
+          $AUTH like "requireAuth($...)" or
+          $AUTH like "authenticate($...)" or
+          $AUTH like "verifyToken($...)"
+        )
+    message: "POT10-3: Secure endpoints require authentication"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-4: Authorization Checks
+  - id: pot10-missing-authorization
+    patterns:
+      - pattern: |
+          function $FUNC($USER, $RESOURCE, ...$ARGS) {
+            ...
+            return $RESOURCE
+          }
+        where: |
+          $FUNC like "*access*" or
+          $FUNC like "*retrieve*" or
+          $FUNC like "*modify*"
+        and not exists $AUTHZ: (
+          $AUTHZ like "checkPermission($USER, $RESOURCE)" or
+          $AUTHZ like "authorize($USER, $...)" or
+          $AUTHZ like "hasAccess($USER, $RESOURCE)"
+        )
+    message: "POT10-4: Resource access requires authorization checks"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-5: Secure Communication
+  - id: pot10-insecure-communication
+    patterns:
+      - pattern: |
+          const $CONFIG = {
+            ...
+            protocol: "http",
+            ...
+          }
+    message: "POT10-5: Use HTTPS for all communications"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-6: Session Management
+  - id: pot10-insecure-session-management
+    patterns:
+      - pattern: |
+          session({
+            ...
+            secure: false,
+            ...
+          })
+    message: "POT10-6: Sessions must use secure flag in production"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-7: Error Information Disclosure
+  - id: pot10-error-information-disclosure
+    patterns:
+      - pattern: |
+          catch ($ERR) {
+            ...
+            $RES.send($ERR.stack)
+            ...
+          }
+    message: "POT10-7: Do not expose stack traces in production"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-8: Logging Security Events
+  - id: pot10-missing-security-logging
+    patterns:
+      - pattern: |
+          function $FUNC(...$ARGS) {
+            ...
+            throw new Error("Authentication failed")
+            ...
+          }
+        where: |
+          not exists $LOGGING: (
+            $LOGGING like "securityLog.warn($...)" or
+            $LOGGING like "auditLog.record($...)" or
+            $LOGGING like "logger.security($...)"
+          )
+    message: "POT10-8: Security events must be logged"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-9: Cryptographic Standards
+  - id: pot10-weak-cryptography
+    patterns:
+      - pattern: crypto.createHash("md5")
+      - pattern: crypto.createHash("sha1")
+      - pattern: |
+          crypto.createCipher($ALGORITHM, $KEY)
+        where: |
+          $ALGORITHM in ["des", "3des", "rc4"]
+    message: "POT10-9: Use approved cryptographic algorithms (SHA-256+, AES)"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-10: Memory Management
+  - id: pot10-memory-leak-risk
+    patterns:
+      - pattern: |
+          function $FUNC() {
+            ...
+            setInterval($CALLBACK, $INTERVAL)
+            ...
+          }
+        where: |
+          not exists $CLEANUP: (
+            $CLEANUP like "clearInterval($...)" or
+            $CLEANUP like "process.on('exit', $...)"
+          )
+    message: "POT10-10: Timers must be properly cleaned up"
+    severity: WARNING
+    languages: [javascript, typescript]
+
+  # POT10-11: Race Condition Prevention
+  - id: pot10-race-condition-risk
+    patterns:
+      - pattern: |
+          let $VAR = $INITIAL
+          ...
+          function $FUNC() {
+            ...
+            $VAR = $NEW_VALUE
+            ...
+            if ($VAR === $CHECK_VALUE) {
+              ...
+            }
+            ...
+          }
+        where: |
+          exists $ASYNC: (
+            $ASYNC like "setTimeout($...)" or
+            $ASYNC like "setInterval($...)" or
+            $ASYNC like "async function"
+          )
+    message: "POT10-11: Shared variables require synchronization"
+    severity: WARNING
+    languages: [javascript, typescript]
+
+  # POT10-12: Resource Cleanup
+  - id: pot10-resource-cleanup-missing
+    patterns:
+      - pattern: |
+          function $FUNC() {
+            ...
+            const $RESOURCE = fs.createReadStream($PATH)
+            ...
+          }
+        where: |
+          not exists $CLEANUP: (
+            $CLEANUP like "$RESOURCE.close()" or
+            $CLEANUP like "$RESOURCE.end()" or
+            $CLEANUP like "finally { $RESOURCE.close() }"
+          )
+    message: "POT10-12: Resources must be properly cleaned up"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-13: Time-of-Check to Time-of-Use (TOCTOU)
+  - id: pot10-toctou-vulnerability
+    patterns:
+      - pattern: |
+          if (fs.existsSync($PATH)) {
+            ...
+            fs.readFileSync($PATH)
+            ...
+          }
+    message: "POT10-13: Avoid TOCTOU vulnerabilities in file operations"
+    severity: WARNING
+    languages: [javascript, typescript]
+
+  # POT10-14: Integer Overflow Prevention
+  - id: pot10-integer-overflow-risk
+    patterns:
+      - pattern: |
+          function $FUNC($NUM1, $NUM2) {
+            ...
+            return $NUM1 + $NUM2
+            ...
+          }
+        where: |
+          not exists $CHECK: (
+            $CHECK like "Number.isSafeInteger($...)" or
+            $CHECK like "if ($NUM1 > Number.MAX_SAFE_INTEGER)" or
+            $CHECK like "BigInt($...)"
+          )
+    message: "POT10-14: Check for integer overflow in arithmetic operations"
+    severity: WARNING
+    languages: [javascript, typescript]
+
+  # POT10-15: Command Injection Prevention
+  - id: pot10-command-injection-risk
+    patterns:
+      - pattern: |
+          exec($CMD)
+        where: |
+          $CMD contains "+" or
+          $CMD like "${$...}"
+      - pattern: |
+          spawn($CMD, $ARGS)
+        where: |
+          any $ARG in $ARGS: $ARG contains "${" or $ARG like "*user*"
+    message: "POT10-15: Sanitize inputs to prevent command injection"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-16: Path Traversal Prevention
+  - id: pot10-path-traversal-risk
+    patterns:
+      - pattern: |
+          fs.readFile($PATH, $CALLBACK)
+        where: |
+          $PATH like "*req.*" or
+          $PATH like "*user*" or
+          $PATH like "*input*"
+        and not exists $VALIDATION: (
+          $VALIDATION like "path.normalize($PATH)" or
+          $VALIDATION like "path.resolve($PATH)" or
+          $VALIDATION like "validatePath($PATH)"
+        )
+    message: "POT10-16: Validate file paths to prevent directory traversal"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-17: Secure Defaults
+  - id: pot10-insecure-defaults
+    patterns:
+      - pattern: |
+          const $CONFIG = {
+            ...
+            debug: true,
+            ...
+          }
+        where: |
+          $CONFIG like "*prod*" or
+          $CONFIG like "*production*"
+    message: "POT10-17: Disable debug mode in production"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-18: Privilege Escalation Prevention
+  - id: pot10-privilege-escalation-risk
+    patterns:
+      - pattern: |
+          process.setuid($UID)
+        where: |
+          $UID == 0
+      - pattern: |
+          process.setgid($GID)
+        where: |
+          $GID == 0
+    message: "POT10-18: Do not run with root privileges"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-19: Data Sanitization
+  - id: pot10-data-sanitization-missing
+    patterns:
+      - pattern: |
+          function $FUNC($DATA) {
+            ...
+            $DB.query("SELECT * FROM users WHERE id = " + $DATA)
+            ...
+          }
+    message: "POT10-19: Use parameterized queries to prevent SQL injection"
+    severity: ERROR
+    languages: [javascript, typescript]
+
+  # POT10-20: Fail-Safe Defaults
+  - id: pot10-fail-safe-missing
+    patterns:
+      - pattern: |
+          function checkPermission($USER, $RESOURCE) {
+            ...
+            if ($CONDITION) {
+              return true
+            }
+            // Missing explicit false return
+          }
+    message: "POT10-20: Implement fail-safe defaults (explicit deny)"
+    severity: ERROR
+    languages: [javascript, typescript]

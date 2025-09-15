@@ -1,0 +1,304 @@
+# Gary×Taleb Trading System - Critical Alert Rules
+# Defense Industry Compliance with Real-Time Monitoring
+
+groups:
+  # Critical Trading System Alerts
+  - name: trading_system_critical
+    rules:
+    - alert: TradingSystemDown
+      expr: up{job="gary-taleb-trading"} == 0
+      for: 30s
+      labels:
+        severity: critical
+        component: trading-app
+        compliance: defense-industry
+      annotations:
+        summary: "Trading system is down"
+        description: "Gary×Taleb trading system has been down for more than 30 seconds. Immediate attention required."
+        runbook_url: "https://runbooks.gary-taleb.trading/trading-system-down"
+        escalation: "page-on-call-immediately"
+
+    - alert: RiskManagerDown
+      expr: up{job="risk-manager"} == 0
+      for: 15s
+      labels:
+        severity: critical
+        component: risk-manager
+        compliance: defense-industry
+      annotations:
+        summary: "Risk management system is down"
+        description: "Risk manager has been down for more than 15 seconds. Trading should be halted immediately."
+        runbook_url: "https://runbooks.gary-taleb.trading/risk-manager-down"
+        escalation: "emergency-stop-trading"
+
+    - alert: OrderExecutorDown
+      expr: up{job="order-executor"} == 0
+      for: 10s
+      labels:
+        severity: critical
+        component: order-executor
+        compliance: defense-industry
+      annotations:
+        summary: "Order execution system is down"
+        description: "Order executor has been down for more than 10 seconds. No new orders can be processed."
+        runbook_url: "https://runbooks.gary-taleb.trading/order-executor-down"
+
+    - alert: MarketDataProcessorDown
+      expr: up{job="market-data-processor"} == 0
+      for: 30s
+      labels:
+        severity: critical
+        component: market-data-processor
+      annotations:
+        summary: "Market data processor is down"
+        description: "Market data processor has been down for more than 30 seconds. Trading decisions may be impaired."
+
+  # Performance and Latency Alerts
+  - name: trading_performance
+    rules:
+    - alert: HighOrderLatency
+      expr: histogram_quantile(0.95, rate(order_execution_duration_seconds_bucket[5m])) > 0.1
+      for: 1m
+      labels:
+        severity: warning
+        component: order-executor
+      annotations:
+        summary: "High order execution latency detected"
+        description: "95th percentile order execution latency is {{ $value }}s, above 100ms threshold"
+        runbook_url: "https://runbooks.gary-taleb.trading/high-latency"
+
+    - alert: CriticalOrderLatency
+      expr: histogram_quantile(0.95, rate(order_execution_duration_seconds_bucket[5m])) > 0.5
+      for: 30s
+      labels:
+        severity: critical
+        component: order-executor
+      annotations:
+        summary: "Critical order execution latency"
+        description: "95th percentile order execution latency is {{ $value }}s, above 500ms critical threshold"
+        escalation: "halt-trading-immediately"
+
+    - alert: HighAPILatency
+      expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job="api-gateway"}[5m])) > 1.0
+      for: 2m
+      labels:
+        severity: warning
+        component: api-gateway
+      annotations:
+        summary: "High API latency detected"
+        description: "99th percentile API latency is {{ $value }}s"
+
+    - alert: HighErrorRate
+      expr: rate(http_requests_total{job="gary-taleb-trading",status=~"5.."}[5m]) > 0.01
+      for: 1m
+      labels:
+        severity: warning
+        component: trading-app
+      annotations:
+        summary: "High error rate detected"
+        description: "Error rate is {{ $value }} errors per second"
+
+    - alert: CriticalErrorRate
+      expr: rate(http_requests_total{job="gary-taleb-trading",status=~"5.."}[5m]) > 0.05
+      for: 30s
+      labels:
+        severity: critical
+        component: trading-app
+      annotations:
+        summary: "Critical error rate detected"
+        description: "Error rate is {{ $value }} errors per second, above critical threshold"
+
+  # Financial Risk Alerts
+  - name: financial_risk
+    rules:
+    - alert: ExcessiveLossDetected
+      expr: financial:pnl_total < -10000
+      for: 1m
+      labels:
+        severity: critical
+        component: risk-manager
+        compliance: financial-regulation
+      annotations:
+        summary: "Excessive loss detected"
+        description: "Total P&L is {{ $value }} USD, below -$10,000 threshold"
+        escalation: "halt-trading-review-positions"
+
+    - alert: HighLeverageRatio
+      expr: risk:leverage_ratio > 10
+      for: 30s
+      labels:
+        severity: warning
+        component: risk-manager
+      annotations:
+        summary: "High leverage ratio detected"
+        description: "Leverage ratio is {{ $value }}, above 10x threshold"
+
+    - alert: CriticalLeverageRatio
+      expr: risk:leverage_ratio > 20
+      for: 15s
+      labels:
+        severity: critical
+        component: risk-manager
+      annotations:
+        summary: "Critical leverage ratio"
+        description: "Leverage ratio is {{ $value }}, above 20x critical threshold"
+        escalation: "emergency-position-reduction"
+
+    - alert: VaRLimitExceeded
+      expr: risk:var_95 > 50000
+      for: 1m
+      labels:
+        severity: warning
+        component: risk-manager
+      annotations:
+        summary: "VaR limit exceeded"
+        description: "95% VaR is {{ $value }} USD, above $50,000 limit"
+
+    - alert: PortfolioValueDrop
+      expr: (financial:portfolio_value - financial:portfolio_value offset 1h) / financial:portfolio_value offset 1h < -0.05
+      for: 5m
+      labels:
+        severity: warning
+        component: risk-manager
+      annotations:
+        summary: "Portfolio value dropped significantly"
+        description: "Portfolio value dropped by {{ $value | humanizePercentage }} in the last hour"
+
+  # System Resource Alerts
+  - name: system_resources
+    rules:
+    - alert: HighCPUUsage
+      expr: rate(container_cpu_usage_seconds_total{pod=~"gary-taleb-trading-.*"}[5m]) * 100 > 80
+      for: 5m
+      labels:
+        severity: warning
+        component: infrastructure
+      annotations:
+        summary: "High CPU usage detected"
+        description: "CPU usage is {{ $value }}% for pod {{ $labels.pod }}"
+
+    - alert: CriticalCPUUsage
+      expr: rate(container_cpu_usage_seconds_total{pod=~"gary-taleb-trading-.*"}[5m]) * 100 > 95
+      for: 2m
+      labels:
+        severity: critical
+        component: infrastructure
+      annotations:
+        summary: "Critical CPU usage"
+        description: "CPU usage is {{ $value }}% for pod {{ $labels.pod }}"
+
+    - alert: HighMemoryUsage
+      expr: container_memory_usage_bytes{pod=~"gary-taleb-trading-.*"} / container_spec_memory_limit_bytes * 100 > 85
+      for: 5m
+      labels:
+        severity: warning
+        component: infrastructure
+      annotations:
+        summary: "High memory usage detected"
+        description: "Memory usage is {{ $value }}% for pod {{ $labels.pod }}"
+
+    - alert: CriticalMemoryUsage
+      expr: container_memory_usage_bytes{pod=~"gary-taleb-trading-.*"} / container_spec_memory_limit_bytes * 100 > 95
+      for: 2m
+      labels:
+        severity: critical
+        component: infrastructure
+      annotations:
+        summary: "Critical memory usage"
+        description: "Memory usage is {{ $value }}% for pod {{ $labels.pod }}"
+
+    - alert: PodCrashLooping
+      expr: rate(kube_pod_container_status_restarts_total{pod=~"gary-taleb-trading-.*"}[5m]) > 0
+      for: 1m
+      labels:
+        severity: critical
+        component: infrastructure
+      annotations:
+        summary: "Pod is crash looping"
+        description: "Pod {{ $labels.pod }} is restarting frequently"
+
+    - alert: PodNotReady
+      expr: kube_pod_status_ready{condition="false", pod=~"gary-taleb-trading-.*"} == 1
+      for: 2m
+      labels:
+        severity: warning
+        component: infrastructure
+      annotations:
+        summary: "Pod not ready"
+        description: "Pod {{ $labels.pod }} has been not ready for more than 2 minutes"
+
+  # Database and Cache Alerts
+  - name: database_cache
+    rules:
+    - alert: DatabaseConnectionsHigh
+      expr: pg_stat_activity_count > 80
+      for: 2m
+      labels:
+        severity: warning
+        component: database
+      annotations:
+        summary: "High database connections"
+        description: "PostgreSQL has {{ $value }} active connections"
+
+    - alert: DatabaseQueryTimeHigh
+      expr: rate(pg_stat_statements_mean_time_ms[5m]) > 1000
+      for: 2m
+      labels:
+        severity: warning
+        component: database
+      annotations:
+        summary: "High database query time"
+        description: "Average query time is {{ $value }}ms"
+
+    - alert: RedisMemoryHigh
+      expr: redis_memory_used_bytes / redis_memory_max_bytes * 100 > 85
+      for: 2m
+      labels:
+        severity: warning
+        component: cache
+      annotations:
+        summary: "High Redis memory usage"
+        description: "Redis memory usage is {{ $value }}%"
+
+    - alert: RedisConnectionsHigh
+      expr: redis_connected_clients > 1000
+      for: 2m
+      labels:
+        severity: warning
+        component: cache
+      annotations:
+        summary: "High Redis connections"
+        description: "Redis has {{ $value }} connected clients"
+
+  # Network and Connectivity Alerts
+  - name: network_connectivity
+    rules:
+    - alert: ExternalAPILatency
+      expr: external_api_request_duration_seconds{quantile="0.95"} > 2.0
+      for: 2m
+      labels:
+        severity: warning
+        component: external-api
+      annotations:
+        summary: "High external API latency"
+        description: "95th percentile latency to external APIs is {{ $value }}s"
+
+    - alert: ExternalAPIErrors
+      expr: rate(external_api_requests_total{status=~"5.."}[5m]) > 0.1
+      for: 1m
+      labels:
+        severity: critical
+        component: external-api
+      annotations:
+        summary: "High external API error rate"
+        description: "External API error rate is {{ $value }} errors per second"
+
+    - alert: NetworkPacketLoss
+      expr: rate(node_network_receive_drop_total[5m]) > 0.01
+      for: 2m
+      labels:
+        severity: warning
+        component: network
+      annotations:
+        summary: "Network packet loss detected"
+        description: "Packet loss rate is {{ $value }} on {{ $labels.device }}"

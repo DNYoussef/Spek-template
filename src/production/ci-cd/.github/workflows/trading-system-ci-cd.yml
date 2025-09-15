@@ -1,0 +1,347 @@
+name: Gary×Taleb Trading System - Production CI/CD
+
+on:
+  push:
+    branches: [main, develop, release/*]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Daily security scans at 2 AM UTC
+    - cron: '0 2 * * *'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: gary-taleb-trading
+  CLAUDE_FLOW_SESSION: ${{ github.run_id }}
+  SWARM_COORDINATION: enabled
+  DEFENSE_COMPLIANCE_MODE: true
+
+jobs:
+  # Initialize Claude Flow Swarm for coordinated deployment
+  coordination:
+    runs-on: ubuntu-latest
+    outputs:
+      swarm_id: ${{ steps.init.outputs.swarm_id }}
+      deployment_strategy: ${{ steps.strategy.outputs.strategy }}
+    steps:
+      - name: Initialize Claude Flow Swarm
+        id: init
+        run: |
+          echo "swarm_id=${{ env.CLAUDE_FLOW_SESSION }}" >> $GITHUB_OUTPUT
+          echo "🚀 Initializing swarm for financial trading system deployment"
+
+      - name: Determine Deployment Strategy
+        id: strategy
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "strategy=blue-green" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            echo "strategy=rolling" >> $GITHUB_OUTPUT
+          else
+            echo "strategy=canary" >> $GITHUB_OUTPUT
+          fi
+
+  # Security and Compliance Gate
+  security-gate:
+    runs-on: ubuntu-latest
+    needs: coordination
+    outputs:
+      security_passed: ${{ steps.security-check.outputs.passed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: SAST Analysis with Semgrep
+        run: |
+          pip install semgrep
+          semgrep --config=p/owasp-top-ten --config=p/security-audit --json --output=sast-results.json .
+
+      - name: Financial Compliance Scan
+        run: |
+          # Custom financial compliance rules
+          semgrep --config=src/production/security/compliance/financial-rules.yml --json --output=compliance-results.json .
+
+      - name: Defense Industry Security Check
+        run: |
+          # NASA POT10 compliance validation
+          semgrep --config=src/production/security/compliance/nasa-pot10.yml --json --output=nasa-compliance.json .
+
+      - name: Dependency Security Audit
+        run: |
+          npm audit --audit-level=high --json > dependency-audit.json
+
+      - name: Secret Scanning
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: main
+          head: HEAD
+
+      - name: Security Gate Decision
+        id: security-check
+        run: |
+          # Parse security results and make gate decision
+          python src/production/scripts/security-gate-check.py \
+            --sast sast-results.json \
+            --compliance compliance-results.json \
+            --nasa nasa-compliance.json \
+            --deps dependency-audit.json
+          echo "passed=true" >> $GITHUB_OUTPUT
+
+      - name: Upload Security Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports
+          path: |
+            sast-results.json
+            compliance-results.json
+            nasa-compliance.json
+            dependency-audit.json
+
+  # Build and Test
+  build-test:
+    runs-on: ubuntu-latest
+    needs: [coordination, security-gate]
+    if: needs.security-gate.outputs.security_passed == 'true'
+    outputs:
+      image_digest: ${{ steps.build.outputs.digest }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: |
+          npm run test:unit -- --coverage --reporter=json --outputFile=unit-test-results.json
+
+      - name: Run integration tests
+        run: |
+          npm run test:integration -- --reporter=json --outputFile=integration-test-results.json
+
+      - name: Run financial simulation tests
+        run: |
+          npm run test:financial-simulation -- --reporter=json --outputFile=financial-test-results.json
+
+      - name: Code quality analysis
+        run: |
+          npm run lint:ci
+          npm run typecheck
+
+      - name: Build application
+        run: npm run build
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: src/production/infrastructure/docker/Dockerfile.production
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Upload test reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            unit-test-results.json
+            integration-test-results.json
+            financial-test-results.json
+
+  # Infrastructure Validation
+  infrastructure-validation:
+    runs-on: ubuntu-latest
+    needs: [coordination, security-gate]
+    if: needs.security-gate.outputs.security_passed == 'true'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.6.0"
+
+      - name: Terraform Format Check
+        run: |
+          cd src/production/infrastructure/terraform
+          terraform fmt -check -recursive
+
+      - name: Terraform Validate
+        run: |
+          cd src/production/infrastructure/terraform
+          terraform init -backend=false
+          terraform validate
+
+      - name: Terraform Security Scan
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          working_directory: src/production/infrastructure/terraform
+
+      - name: Helm Chart Validation
+        run: |
+          helm lint src/production/infrastructure/kubernetes/helm/gary-taleb-trading/
+          helm template gary-taleb-trading src/production/infrastructure/kubernetes/helm/gary-taleb-trading/ --validate
+
+  # Staging Deployment
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: [coordination, build-test, infrastructure-validation]
+    environment: staging
+    outputs:
+      staging_url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy to EKS Staging
+        id: deploy
+        run: |
+          aws eks update-kubeconfig --region us-east-1 --name gary-taleb-staging
+          helm upgrade --install gary-taleb-staging \
+            src/production/infrastructure/kubernetes/helm/gary-taleb-trading/ \
+            --namespace gary-taleb-staging \
+            --create-namespace \
+            --set image.tag=${{ needs.build-test.outputs.image_digest }} \
+            --set environment=staging \
+            --wait --timeout=10m
+          echo "url=https://staging.gary-taleb.trading" >> $GITHUB_OUTPUT
+
+      - name: Run smoke tests
+        run: |
+          npm run test:smoke -- --url=${{ steps.deploy.outputs.url }}
+
+      - name: Run load tests
+        run: |
+          npm run test:load -- --url=${{ steps.deploy.outputs.url }} --duration=5m
+
+  # Production Deployment (Blue-Green)
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: [coordination, build-test, deploy-staging]
+    environment: production
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+          aws-region: us-east-1
+
+      - name: Blue-Green Deployment
+        run: |
+          aws eks update-kubeconfig --region us-east-1 --name gary-taleb-production
+
+          # Deploy to green environment
+          helm upgrade --install gary-taleb-green \
+            src/production/infrastructure/kubernetes/helm/gary-taleb-trading/ \
+            --namespace gary-taleb-production \
+            --set image.tag=${{ needs.build-test.outputs.image_digest }} \
+            --set environment=production \
+            --set deployment.color=green \
+            --wait --timeout=15m
+
+          # Run production validation tests
+          npm run test:production-validation -- --url=https://green.gary-taleb.trading
+
+          # Switch traffic to green (blue-green flip)
+          kubectl patch service gary-taleb-trading \
+            -n gary-taleb-production \
+            -p '{"spec":{"selector":{"app.kubernetes.io/instance":"gary-taleb-green"}}}'
+
+          # Wait for traffic to settle
+          sleep 30
+
+          # Remove old blue deployment
+          helm uninstall gary-taleb-blue -n gary-taleb-production || true
+
+          # Rename green to blue for next deployment
+          helm upgrade gary-taleb-blue gary-taleb-green \
+            --reuse-values \
+            --set deployment.color=blue
+          helm uninstall gary-taleb-green -n gary-taleb-production
+
+  # Post-deployment monitoring and alerts
+  post-deployment:
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    if: always()
+    steps:
+      - name: Setup monitoring alerts
+        run: |
+          # Configure production monitoring
+          curl -X POST "${{ secrets.PROMETHEUS_WEBHOOK }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "deployment": "gary-taleb-trading",
+              "version": "${{ github.sha }}",
+              "environment": "production",
+              "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
+            }'
+
+      - name: Update deployment status
+        if: success()
+        run: |
+          echo "🎉 Production deployment successful"
+          echo "Version: ${{ github.sha }}"
+          echo "Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "❌ Production deployment failed"
+          # Send alerts to monitoring system
+          curl -X POST "${{ secrets.ALERT_WEBHOOK }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "alert": "Production deployment failed",
+              "deployment": "gary-taleb-trading",
+              "version": "${{ github.sha }}",
+              "environment": "production"
+            }'

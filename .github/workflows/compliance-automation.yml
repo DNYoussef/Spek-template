@@ -81,13 +81,18 @@ jobs:
 
       - name: Run SOC2 Compliance Validation
         if: matrix.framework.name == 'SOC2'
+        env:
+          EVIDENCE_COLLECTION: ${{ github.event.inputs.evidence_collection || 'true' }}
+          FRAMEWORK_ENGINE: ${{ matrix.framework.engine }}
+          FRAMEWORK_CONFIG: ${{ matrix.framework.config }}
+          AUDIT_HASH: ${{ steps.audit-hash.outputs.hash }}
         run: |
           echo "Running SOC2 compliance validation..."
-          node src/compliance/engines/${{ matrix.framework.engine }} \
-            --config config/compliance/${{ matrix.framework.config }} \
+          node "src/compliance/engines/$FRAMEWORK_ENGINE" \
+            --config "config/compliance/$FRAMEWORK_CONFIG" \
             --output-dir .claude/.artifacts/compliance/SOC2/ \
-            --audit-hash ${{ steps.audit-hash.outputs.hash }} \
-            --evidence-collection ${{ github.event.inputs.evidence_collection || 'true' }}
+            --audit-hash "$AUDIT_HASH" \
+            --evidence-collection "$EVIDENCE_COLLECTION"
 
       - name: Run ISO27001 Compliance Validation
         if: matrix.framework.name == 'ISO27001'
@@ -97,7 +102,7 @@ jobs:
             --config config/compliance/${{ matrix.framework.config }} \
             --output-dir .claude/.artifacts/compliance/ISO27001/ \
             --audit-hash ${{ steps.audit-hash.outputs.hash }} \
-            --evidence-collection ${{ github.event.inputs.evidence_collection || 'true' }}
+            --evidence-collection "$EVIDENCE_COLLECTION"
 
       - name: Run NIST-SSDF Compliance Validation
         if: matrix.framework.name == 'NIST-SSDF'
@@ -107,7 +112,7 @@ jobs:
             --config config/compliance/${{ matrix.framework.config }} \
             --output-dir .claude/.artifacts/compliance/NIST-SSDF/ \
             --audit-hash ${{ steps.audit-hash.outputs.hash }} \
-            --evidence-collection ${{ github.event.inputs.evidence_collection || 'true' }}
+            --evidence-collection "$EVIDENCE_COLLECTION"
 
       - name: Validate Compliance Score
         id: validate-score

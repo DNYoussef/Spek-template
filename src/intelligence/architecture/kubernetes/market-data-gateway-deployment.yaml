@@ -1,0 +1,442 @@
+# Gary×Taleb Trading System - Market Data Gateway Kubernetes Deployment
+# Real-time market data ingestion and distribution service
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: market-data-gateway
+  namespace: gary-taleb-production
+  labels:
+    app: market-data-gateway
+    component: core
+    tier: data-ingestion
+    version: v3.0.0
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    description: "Real-time market data ingestion and distribution"
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: market-data-gateway
+  template:
+    metadata:
+      labels:
+        app: market-data-gateway
+        component: core
+        tier: data-ingestion
+        version: v3.0.0
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8091"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: gary-taleb-service-account
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+      containers:
+      - name: market-data-gateway
+        image: gary-taleb/market-data-gateway:3.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8001
+          protocol: TCP
+        - name: grpc
+          containerPort: 9001
+          protocol: TCP
+        - name: metrics
+          containerPort: 8091
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PORT
+          value: "8001"
+        - name: GRPC_PORT
+          value: "9001"
+        - name: METRICS_PORT
+          value: "8091"
+        - name: LOG_LEVEL
+          value: "info"
+        - name: MAX_CONNECTIONS
+          value: "10000"
+        - name: BUFFER_SIZE
+          value: "1MB"
+        - name: REDIS_CLUSTER_ENDPOINTS
+          valueFrom:
+            configMapKeyRef:
+              name: gary-taleb-config
+              key: redis.cluster.endpoints
+        - name: KAFKA_BROKERS
+          valueFrom:
+            configMapKeyRef:
+              name: gary-taleb-config
+              key: kafka.brokers
+        - name: ENCRYPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: gary-taleb-secrets
+              key: encryption-key
+        resources:
+          requests:
+            cpu: "2"
+            memory: 4Gi
+            ephemeral-storage: 10Gi
+          limits:
+            cpu: "8"
+            memory: 16Gi
+            ephemeral-storage: 20Gi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
+        startupProbe:
+          httpGet:
+            path: /startup
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 30
+          successThreshold: 1
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+          readOnly: true
+        - name: logs-volume
+          mountPath: /app/logs
+        - name: cache-volume
+          mountPath: /app/cache
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+      - name: metrics-exporter
+        image: prom/node-exporter:v1.6.1
+        args:
+        - '--path.rootfs=/host'
+        - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+        ports:
+        - name: metrics
+          containerPort: 9100
+          protocol: TCP
+        resources:
+          requests:
+            cpu: "0.1"
+            memory: 64Mi
+          limits:
+            cpu: "0.2"
+            memory: 128Mi
+        volumeMounts:
+        - name: proc
+          mountPath: /host/proc
+          readOnly: true
+        - name: sys
+          mountPath: /host/sys
+          readOnly: true
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+      volumes:
+      - name: config-volume
+        configMap:
+          name: market-data-gateway-config
+      - name: logs-volume
+        emptyDir:
+          sizeLimit: 5Gi
+      - name: cache-volume
+        emptyDir:
+          sizeLimit: 10Gi
+      - name: proc
+        hostPath:
+          path: /proc
+      - name: sys
+        hostPath:
+          path: /sys
+      nodeSelector:
+        node-type: compute
+        network-performance: high
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - market-data-gateway
+              topologyKey: kubernetes.io/hostname
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - compute
+      tolerations:
+      - key: "high-frequency-trading"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: market-data-gateway-service
+  namespace: gary-taleb-production
+  labels:
+    app: market-data-gateway
+    component: core
+    tier: data-ingestion
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8091"
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8001
+    targetPort: http
+    protocol: TCP
+  - name: grpc
+    port: 9001
+    targetPort: grpc
+    protocol: TCP
+  - name: metrics
+    port: 8091
+    targetPort: metrics
+    protocol: TCP
+  selector:
+    app: market-data-gateway
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 300
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: market-data-gateway-config
+  namespace: gary-taleb-production
+  labels:
+    app: market-data-gateway
+    component: core
+data:
+  config.yml: |
+    server:
+      port: 8001
+      grpc_port: 9001
+      metrics_port: 8091
+      max_connections: 10000
+
+    redis:
+      cluster_mode: true
+      endpoints: ${REDIS_CLUSTER_ENDPOINTS}
+      pool_size: 100
+      timeout: 5000
+      retry_attempts: 3
+
+    kafka:
+      brokers: ${KAFKA_BROKERS}
+      producer:
+        acks: 1
+        retries: 3
+        batch_size: 16384
+        linger_ms: 5
+        buffer_memory: 33554432
+      consumer:
+        group_id: market-data-gateway
+        auto_offset_reset: latest
+        enable_auto_commit: false
+
+    market_data:
+      sources:
+        - name: coinbase
+          url: wss://ws-feed.pro.coinbase.com
+          symbols: ["BTC-USD", "ETH-USD", "SOL-USD"]
+        - name: binance
+          url: wss://stream.binance.com:9443/ws
+          symbols: ["BTCUSDT", "ETHUSDT", "SOLUSDT"]
+      buffer_size: 1MB
+      batch_size: 100
+      flush_interval: 100ms
+
+    logging:
+      level: info
+      format: json
+      output: stdout
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: market-data-gateway-hpa
+  namespace: gary-taleb-production
+  labels:
+    app: market-data-gateway
+    component: core
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: market-data-gateway
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Pods
+    pods:
+      metric:
+        name: message_ingestion_rate
+      target:
+        type: AverageValue
+        averageValue: "1000"
+  - type: Pods
+    pods:
+      metric:
+        name: connection_count
+      target:
+        type: AverageValue
+        averageValue: "8000"
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 60
+      - type: Pods
+        value: 2
+        periodSeconds: 60
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 10
+        periodSeconds: 60
+      - type: Pods
+        value: 1
+        periodSeconds: 60
+      selectPolicy: Min
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: market-data-gateway-pdb
+  namespace: gary-taleb-production
+  labels:
+    app: market-data-gateway
+    component: core
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: market-data-gateway
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: market-data-gateway-netpol
+  namespace: gary-taleb-production
+  labels:
+    app: market-data-gateway
+    component: core
+spec:
+  podSelector:
+    matchLabels:
+      app: market-data-gateway
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: gary-dpi-analyzer
+    - podSelector:
+        matchLabels:
+          app: taleb-antifragile-engine
+    - podSelector:
+        matchLabels:
+          app: analytics-engine
+    - namespaceSelector:
+        matchLabels:
+          name: gary-taleb-monitoring
+    ports:
+    - protocol: TCP
+      port: 8001
+    - protocol: TCP
+      port: 9001
+    - protocol: TCP
+      port: 8091
+  egress:
+  - to: []  # Allow all external egress for market data feeds
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+  - to:
+    - podSelector:
+        matchLabels:
+          app: redis-cluster
+    ports:
+    - protocol: TCP
+      port: 6379
+  - to:
+    - podSelector:
+        matchLabels:
+          app: kafka-cluster
+    ports:
+    - protocol: TCP
+      port: 9092

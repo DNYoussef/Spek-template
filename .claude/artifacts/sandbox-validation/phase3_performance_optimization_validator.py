@@ -1002,6 +1002,13 @@ if __name__ == "__main__":
     sys.exit(0 if result else 1)
 '''
     
+
+# TODO: NASA POT10 Rule 4 - Refactor _generate_memory_optimization_test (140 lines > 60 limit)
+# Consider breaking into smaller functions:
+# - Extract validation logic
+# - Separate data processing steps
+# - Create helper functions for complex operations
+
     def _generate_memory_optimization_test(self) -> str:
         """Generate memory optimization test code."""
         return '''
@@ -1144,6 +1151,13 @@ if __name__ == "__main__":
     sys.exit(0 if result else 1)
 '''
     
+
+# TODO: NASA POT10 Rule 4 - Refactor _generate_visitor_efficiency_test (186 lines > 60 limit)
+# Consider breaking into smaller functions:
+# - Extract validation logic
+# - Separate data processing steps
+# - Create helper functions for complex operations
+
     def _generate_visitor_efficiency_test(self) -> str:
         """Generate unified visitor efficiency test code."""
         return '''
@@ -1332,6 +1346,13 @@ if __name__ == "__main__":
     sys.exit(0 if result else 1)
 '''
     
+
+# TODO: NASA POT10 Rule 4 - Refactor _generate_integration_test (229 lines > 60 limit)
+# Consider breaking into smaller functions:
+# - Extract validation logic
+# - Separate data processing steps
+# - Create helper functions for complex operations
+
     def _generate_integration_test(self) -> str:
         """Generate cross-component integration test code."""
         return '''
@@ -1563,6 +1584,13 @@ if __name__ == "__main__":
     sys.exit(0 if result else 1)
 '''
     
+
+# TODO: NASA POT10 Rule 4 - Refactor _generate_cumulative_test (179 lines > 60 limit)
+# Consider breaking into smaller functions:
+# - Extract validation logic
+# - Separate data processing steps
+# - Create helper functions for complex operations
+
     def _generate_cumulative_test(self) -> str:
         """Generate cumulative performance improvement test code."""
         return '''

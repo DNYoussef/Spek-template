@@ -1,0 +1,1082 @@
+# Gary×Taleb Trading System - API Specifications
+# OpenAPI 3.0 specification for all microservices
+
+openapi: 3.0.3
+info:
+  title: Gary×Taleb Trading Platform APIs
+  description: Distributed trading system with Gary's DPI and Taleb's antifragility principles
+  version: 3.0.0
+  contact:
+    name: Trading System Team
+    email: platform@gary-taleb.com
+
+servers:
+  - url: https://api.gary-taleb.com/v3
+    description: Production API Gateway
+  - url: https://staging-api.gary-taleb.com/v3
+    description: Staging Environment
+  - url: http://localhost:8080/v3
+    description: Local Development
+
+security:
+  - BearerAuth: []
+  - ApiKeyAuth: []
+
+paths:
+  # Market Data Gateway Service
+  /market-data/streams:
+    get:
+      tags: [Market Data]
+      summary: Get available market data streams
+      operationId: getMarketStreams
+      responses:
+        '200':
+          description: Available market data streams
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  streams:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MarketStream'
+                  total_count:
+                    type: integer
+                  latency_ms:
+                    type: number
+                    format: float
+
+  /market-data/subscribe:
+    post:
+      tags: [Market Data]
+      summary: Subscribe to market data streams
+      operationId: subscribeToMarketData
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                symbols:
+                  type: array
+                  items:
+                    type: string
+                  example: ["BTCUSD", "ETHUSD"]
+                stream_types:
+                  type: array
+                  items:
+                    type: string
+                    enum: [trades, orderbook, ticker, ohlcv]
+                quality:
+                  type: string
+                  enum: [realtime, delayed, cached]
+                  default: realtime
+      responses:
+        '200':
+          description: Subscription successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subscription_id:
+                    type: string
+                    format: uuid
+                  websocket_url:
+                    type: string
+                    format: uri
+                  estimated_latency_ms:
+                    type: number
+
+  /market-data/unsubscribe:
+    delete:
+      tags: [Market Data]
+      summary: Unsubscribe from market data streams
+      operationId: unsubscribeFromMarketData
+      parameters:
+        - name: subscription_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Unsubscribed successfully
+
+  # Gary DPI Analyzer Service
+  /gary-dpi/analyze:
+    post:
+      tags: [Gary DPI]
+      summary: Analyze market data using Gary's DPI methodology
+      operationId: analyzeWithDPI
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data_window:
+                  type: object
+                  properties:
+                    start_time:
+                      type: string
+                      format: date-time
+                    end_time:
+                      type: string
+                      format: date-time
+                    symbols:
+                      type: array
+                      items:
+                        type: string
+                processing_mode:
+                  type: string
+                  enum: [realtime, batch, streaming]
+                  default: realtime
+                dpi_parameters:
+                  $ref: '#/components/schemas/DPIParameters'
+      responses:
+        '200':
+          description: DPI analysis results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DPIAnalysisResult'
+        '202':
+          description: Analysis queued for processing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  task_id:
+                    type: string
+                    format: uuid
+                  estimated_completion:
+                    type: string
+                    format: date-time
+
+  /gary-dpi/patterns:
+    get:
+      tags: [Gary DPI]
+      summary: Get detected patterns from DPI analysis
+      operationId: getDPIPatterns
+      parameters:
+        - name: symbol
+          in: query
+          schema:
+            type: string
+        - name: pattern_type
+          in: query
+          schema:
+            type: string
+            enum: [trend, reversal, breakout, consolidation]
+        - name: confidence_threshold
+          in: query
+          schema:
+            type: number
+            minimum: 0
+            maximum: 1
+            default: 0.7
+        - name: time_horizon
+          in: query
+          schema:
+            type: string
+            enum: [1h, 4h, 1d, 1w]
+            default: 1h
+      responses:
+        '200':
+          description: Detected patterns
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  patterns:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DPIPattern'
+                  analysis_timestamp:
+                    type: string
+                    format: date-time
+                  processing_time_ms:
+                    type: number
+
+  # Taleb Antifragile Engine Service
+  /taleb/volatility-assessment:
+    post:
+      tags: [Taleb Engine]
+      summary: Assess market volatility and antifragile opportunities
+      operationId: assessVolatility
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                portfolio_state:
+                  $ref: '#/components/schemas/PortfolioState'
+                market_conditions:
+                  $ref: '#/components/schemas/MarketConditions'
+                risk_tolerance:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                time_horizon:
+                  type: string
+                  enum: [short, medium, long]
+      responses:
+        '200':
+          description: Volatility assessment and recommendations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VolatilityAssessment'
+
+  /taleb/black-swan-detection:
+    get:
+      tags: [Taleb Engine]
+      summary: Detect potential black swan events
+      operationId: detectBlackSwanEvents
+      parameters:
+        - name: lookback_hours
+          in: query
+          schema:
+            type: integer
+            default: 24
+        - name: sensitivity
+          in: query
+          schema:
+            type: string
+            enum: [low, medium, high]
+            default: medium
+      responses:
+        '200':
+          description: Black swan event detection results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BlackSwanEvent'
+                  risk_level:
+                    type: string
+                    enum: [low, medium, high, extreme]
+                  recommended_actions:
+                    type: array
+                    items:
+                      type: string
+
+  /taleb/optionality-opportunities:
+    get:
+      tags: [Taleb Engine]
+      summary: Identify asymmetric optionality opportunities
+      operationId: getOptionalityOpportunities
+      parameters:
+        - name: portfolio_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: max_risk
+          in: query
+          schema:
+            type: number
+            default: 0.05
+      responses:
+        '200':
+          description: Optionality opportunities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  opportunities:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OptionalityOpportunity'
+                  total_potential_upside:
+                    type: number
+                  max_downside_risk:
+                    type: number
+
+  # Execution Engine Service
+  /execution/orders:
+    post:
+      tags: [Execution]
+      summary: Submit trading order
+      operationId: submitOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+      responses:
+        '201':
+          description: Order submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '400':
+          description: Invalid order request
+        '429':
+          description: Rate limit exceeded
+
+  /execution/orders/{order_id}:
+    get:
+      tags: [Execution]
+      summary: Get order status
+      operationId: getOrderStatus
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Order status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStatus'
+        '404':
+          description: Order not found
+
+    delete:
+      tags: [Execution]
+      summary: Cancel order
+      operationId: cancelOrder
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Order cancelled
+        '404':
+          description: Order not found
+        '409':
+          description: Order cannot be cancelled
+
+  /execution/portfolio/positions:
+    get:
+      tags: [Execution]
+      summary: Get current portfolio positions
+      operationId: getPositions
+      parameters:
+        - name: portfolio_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Current positions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  positions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Position'
+                  total_value:
+                    type: number
+                  unrealized_pnl:
+                    type: number
+                  cash_balance:
+                    type: number
+
+  # Risk Management Service
+  /risk/validate-order:
+    post:
+      tags: [Risk Management]
+      summary: Validate order against risk limits
+      operationId: validateOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order:
+                  $ref: '#/components/schemas/OrderRequest'
+                portfolio_id:
+                  type: string
+                  format: uuid
+      responses:
+        '200':
+          description: Order validation result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  approved:
+                    type: boolean
+                  risk_score:
+                    type: number
+                  violations:
+                    type: array
+                    items:
+                      type: string
+                  suggested_modifications:
+                    type: object
+
+  /risk/portfolio-var:
+    get:
+      tags: [Risk Management]
+      summary: Calculate portfolio Value at Risk
+      operationId: calculateVaR
+      parameters:
+        - name: portfolio_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confidence_level
+          in: query
+          schema:
+            type: number
+            default: 0.95
+        - name: time_horizon_days
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: VaR calculation results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  var_amount:
+                    type: number
+                  var_percentage:
+                    type: number
+                  expected_shortfall:
+                    type: number
+                  stress_scenarios:
+                    type: array
+                    items:
+                      type: object
+
+  # Analytics Engine Service
+  /analytics/performance:
+    get:
+      tags: [Analytics]
+      summary: Get portfolio performance metrics
+      operationId: getPerformanceMetrics
+      parameters:
+        - name: portfolio_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Performance metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerformanceMetrics'
+
+  /analytics/backtest:
+    post:
+      tags: [Analytics]
+      summary: Run strategy backtest
+      operationId: runBacktest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                strategy_config:
+                  type: object
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+                initial_capital:
+                  type: number
+                benchmark:
+                  type: string
+      responses:
+        '202':
+          description: Backtest started
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  task_id:
+                    type: string
+                    format: uuid
+                  estimated_completion:
+                    type: string
+                    format: date-time
+
+  # Health and Monitoring
+  /health:
+    get:
+      tags: [System]
+      summary: System health check
+      operationId: healthCheck
+      security: []
+      responses:
+        '200':
+          description: System is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [healthy, degraded, unhealthy]
+                  services:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                        latency_ms:
+                          type: number
+                        last_check:
+                          type: string
+                          format: date-time
+
+  /metrics:
+    get:
+      tags: [System]
+      summary: Get system metrics
+      operationId: getSystemMetrics
+      responses:
+        '200':
+          description: System metrics
+          content:
+            text/plain:
+              schema:
+                type: string
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas:
+    MarketStream:
+      type: object
+      properties:
+        stream_id:
+          type: string
+        symbol:
+          type: string
+        exchange:
+          type: string
+        data_type:
+          type: string
+          enum: [trades, orderbook, ticker, ohlcv]
+        latency_ms:
+          type: number
+        status:
+          type: string
+          enum: [active, inactive, error]
+
+    DPIParameters:
+      type: object
+      properties:
+        data_processing:
+          type: object
+          properties:
+            window_size:
+              type: integer
+              default: 100
+            smoothing_factor:
+              type: number
+              default: 0.1
+        intelligence_settings:
+          type: object
+          properties:
+            learning_rate:
+              type: number
+              default: 0.001
+            confidence_threshold:
+              type: number
+              default: 0.7
+        pattern_recognition:
+          type: object
+          properties:
+            min_pattern_length:
+              type: integer
+              default: 5
+            max_pattern_age_hours:
+              type: integer
+              default: 24
+
+    DPIAnalysisResult:
+      type: object
+      properties:
+        analysis_id:
+          type: string
+          format: uuid
+        timestamp:
+          type: string
+          format: date-time
+        processing_time_ms:
+          type: number
+        confidence_score:
+          type: number
+        patterns_detected:
+          type: array
+          items:
+            $ref: '#/components/schemas/DPIPattern'
+        recommendations:
+          type: array
+          items:
+            $ref: '#/components/schemas/TradingRecommendation'
+        market_state:
+          type: string
+          enum: [trending, ranging, volatile, stable]
+
+    DPIPattern:
+      type: object
+      properties:
+        pattern_id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum: [trend, reversal, breakout, consolidation]
+        symbol:
+          type: string
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        time_detected:
+          type: string
+          format: date-time
+        duration_hours:
+          type: number
+        strength:
+          type: number
+        direction:
+          type: string
+          enum: [bullish, bearish, neutral]
+        price_targets:
+          type: array
+          items:
+            type: number
+
+    PortfolioState:
+      type: object
+      properties:
+        portfolio_id:
+          type: string
+          format: uuid
+        total_value:
+          type: number
+        cash_balance:
+          type: number
+        positions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Position'
+        risk_metrics:
+          type: object
+          properties:
+            beta:
+              type: number
+            var_1d:
+              type: number
+            sharpe_ratio:
+              type: number
+
+    MarketConditions:
+      type: object
+      properties:
+        volatility_index:
+          type: number
+        market_trend:
+          type: string
+          enum: [bullish, bearish, sideways]
+        fear_greed_index:
+          type: number
+        correlation_matrix:
+          type: object
+        liquidity_conditions:
+          type: string
+          enum: [high, medium, low]
+
+    VolatilityAssessment:
+      type: object
+      properties:
+        current_volatility:
+          type: number
+        predicted_volatility:
+          type: number
+        volatility_regime:
+          type: string
+          enum: [low, medium, high, extreme]
+        antifragile_score:
+          type: number
+        recommended_exposure:
+          type: number
+        hedging_suggestions:
+          type: array
+          items:
+            type: string
+
+    BlackSwanEvent:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+        probability:
+          type: number
+        severity:
+          type: string
+          enum: [low, medium, high, extreme]
+        affected_assets:
+          type: array
+          items:
+            type: string
+        potential_impact:
+          type: number
+        time_horizon:
+          type: string
+        mitigation_strategies:
+          type: array
+          items:
+            type: string
+
+    OptionalityOpportunity:
+      type: object
+      properties:
+        opportunity_id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum: [long_vol, short_vol, convexity, dispersion]
+        symbol:
+          type: string
+        max_risk:
+          type: number
+        potential_upside:
+          type: number
+        probability_success:
+          type: number
+        time_to_expiry:
+          type: string
+        strategy_details:
+          type: object
+
+    OrderRequest:
+      type: object
+      required:
+        - symbol
+        - side
+        - quantity
+        - order_type
+      properties:
+        symbol:
+          type: string
+        side:
+          type: string
+          enum: [buy, sell]
+        quantity:
+          type: number
+          minimum: 0
+        order_type:
+          type: string
+          enum: [market, limit, stop, stop_limit]
+        price:
+          type: number
+        stop_price:
+          type: number
+        time_in_force:
+          type: string
+          enum: [GTC, IOC, FOK, DAY]
+        execution_instructions:
+          type: object
+          properties:
+            max_latency_ms:
+              type: integer
+            slippage_tolerance:
+              type: number
+            dark_pool_preference:
+              type: boolean
+
+    OrderResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        client_order_id:
+          type: string
+        status:
+          type: string
+          enum: [pending, accepted, rejected, partially_filled, filled, cancelled]
+        timestamp:
+          type: string
+          format: date-time
+        estimated_fill_time:
+          type: string
+          format: date-time
+
+    OrderStatus:
+      type: object
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [pending, accepted, rejected, partially_filled, filled, cancelled]
+        filled_quantity:
+          type: number
+        remaining_quantity:
+          type: number
+        average_fill_price:
+          type: number
+        total_commission:
+          type: number
+        fills:
+          type: array
+          items:
+            type: object
+            properties:
+              fill_id:
+                type: string
+              quantity:
+                type: number
+              price:
+                type: number
+              timestamp:
+                type: string
+                format: date-time
+
+    Position:
+      type: object
+      properties:
+        symbol:
+          type: string
+        quantity:
+          type: number
+        side:
+          type: string
+          enum: [long, short]
+        average_price:
+          type: number
+        current_price:
+          type: number
+        unrealized_pnl:
+          type: number
+        unrealized_pnl_percent:
+          type: number
+        market_value:
+          type: number
+
+    TradingRecommendation:
+      type: object
+      properties:
+        recommendation_id:
+          type: string
+          format: uuid
+        action:
+          type: string
+          enum: [buy, sell, hold, hedge]
+        symbol:
+          type: string
+        confidence:
+          type: number
+        reasoning:
+          type: string
+        risk_level:
+          type: string
+          enum: [low, medium, high]
+        time_horizon:
+          type: string
+          enum: [short, medium, long]
+        target_price:
+          type: number
+        stop_loss:
+          type: number
+
+    PerformanceMetrics:
+      type: object
+      properties:
+        total_return:
+          type: number
+        annualized_return:
+          type: number
+        volatility:
+          type: number
+        sharpe_ratio:
+          type: number
+        max_drawdown:
+          type: number
+        win_rate:
+          type: number
+        profit_factor:
+          type: number
+        beta:
+          type: number
+        alpha:
+          type: number
+        var_1d:
+          type: number
+        calmar_ratio:
+          type: number
+
+  parameters:
+    PortfolioId:
+      name: portfolio_id
+      in: query
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+    Symbol:
+      name: symbol
+      in: query
+      schema:
+        type: string
+
+    TimeRange:
+      name: time_range
+      in: query
+      schema:
+        type: string
+        enum: [1h, 4h, 1d, 1w, 1m]
+        default: 1h
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+              message:
+                type: string
+              code:
+                type: integer
+
+    Unauthorized:
+      description: Unauthorized access
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Unauthorized"
+              message:
+                type: string
+                example: "Valid authentication token required"
+
+    RateLimitExceeded:
+      description: Rate limit exceeded
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Rate limit exceeded"
+              retry_after:
+                type: integer
+
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+              message:
+                type: string
+              trace_id:
+                type: string
+
+tags:
+  - name: Market Data
+    description: Real-time and historical market data operations
+  - name: Gary DPI
+    description: Gary's Data-Processing-Intelligence analysis engine
+  - name: Taleb Engine
+    description: Antifragile trading strategy engine
+  - name: Execution
+    description: Order execution and portfolio management
+  - name: Risk Management
+    description: Risk assessment and compliance
+  - name: Analytics
+    description: Performance analytics and backtesting
+  - name: System
+    description: System health and monitoring

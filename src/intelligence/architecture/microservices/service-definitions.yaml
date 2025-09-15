@@ -1,0 +1,521 @@
+# Gary×Taleb Trading System - Microservices Definitions
+# Service architecture and inter-service communication patterns
+
+services:
+  # Core Trading Services
+  market-data-gateway:
+    description: Real-time market data ingestion and distribution
+    type: stateless
+    scaling: horizontal
+    latency_requirement: <5ms
+    throughput_requirement: 100k messages/second
+    dependencies:
+      external:
+        - exchange-apis
+        - market-data-vendors
+      internal:
+        - redis-cluster
+        - kafka-cluster
+    resources:
+      cpu: 2-8 cores
+      memory: 4-16GB
+      network: 10Gbps
+      storage: 100GB SSD (cache)
+    ports:
+      http: 8001
+      grpc: 9001
+      metrics: 8091
+    environment_variables:
+      REDIS_CLUSTER_ENDPOINTS: redis-cluster:6379
+      KAFKA_BROKERS: kafka-cluster:9092
+      MAX_CONNECTIONS: 10000
+      BUFFER_SIZE: 1MB
+    health_check:
+      endpoint: /health
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    monitoring:
+      metrics:
+        - message_ingestion_rate
+        - message_latency_p99
+        - connection_count
+        - error_rate
+      alerts:
+        - latency > 10ms
+        - error_rate > 0.1%
+        - connection_count > 8000
+
+  gary-dpi-analyzer:
+    description: Gary's Data-Processing-Intelligence analysis engine
+    type: stateful
+    scaling: vertical_and_horizontal
+    latency_requirement: <30ms
+    throughput_requirement: 1k analysis/second
+    gpu_required: true
+    dependencies:
+      external:
+        - nvidia-gpu-cluster
+      internal:
+        - market-data-gateway
+        - redis-cluster
+        - model-storage
+    resources:
+      gpu: 1-4 NVIDIA A100
+      cpu: 4-16 cores
+      memory: 16-64GB
+      storage: 500GB NVMe
+    ports:
+      http: 8002
+      grpc: 9002
+      metrics: 8092
+    environment_variables:
+      GPU_MEMORY_FRACTION: 0.8
+      MODEL_CACHE_SIZE: 10GB
+      BATCH_SIZE: 32
+      INFERENCE_WORKERS: 4
+    health_check:
+      endpoint: /health
+      interval: 30s
+      timeout: 10s
+      retries: 2
+    monitoring:
+      metrics:
+        - gpu_utilization
+        - inference_latency_p95
+        - model_accuracy
+        - pattern_detection_rate
+      alerts:
+        - gpu_utilization < 70%
+        - inference_latency > 50ms
+        - model_accuracy < 0.85
+
+  taleb-antifragile-engine:
+    description: Antifragile strategy engine with volatility optimization
+    type: stateful
+    scaling: horizontal
+    latency_requirement: <50ms
+    throughput_requirement: 500 assessments/second
+    dependencies:
+      internal:
+        - gary-dpi-analyzer
+        - risk-management
+        - portfolio-management
+        - market-data-gateway
+    resources:
+      cpu: 8-32 cores
+      memory: 32-128GB
+      storage: 1TB SSD
+    ports:
+      http: 8003
+      grpc: 9003
+      metrics: 8093
+    environment_variables:
+      VOLATILITY_WINDOW: 24h
+      BLACK_SWAN_THRESHOLD: 3.0
+      ANTIFRAGILE_FACTOR: 1.2
+      RISK_FREE_RATE: 0.02
+    health_check:
+      endpoint: /health
+      interval: 15s
+      timeout: 8s
+      retries: 3
+    monitoring:
+      metrics:
+        - volatility_assessment_latency
+        - black_swan_detection_rate
+        - optionality_opportunities
+        - antifragile_score
+      alerts:
+        - assessment_latency > 100ms
+        - black_swan_probability > 0.1
+
+  execution-engine:
+    description: Low-latency order execution and routing
+    type: stateful
+    scaling: horizontal
+    latency_requirement: <10ms
+    throughput_requirement: 10k orders/second
+    dependencies:
+      external:
+        - broker-apis
+        - exchange-connections
+      internal:
+        - risk-management
+        - portfolio-management
+        - order-management-system
+    resources:
+      cpu: 4-16 cores (high-frequency)
+      memory: 8-32GB
+      network: ultra-low-latency
+      storage: 200GB NVMe
+    ports:
+      http: 8004
+      grpc: 9004
+      fix: 9104
+      metrics: 8094
+    environment_variables:
+      MAX_ORDER_RATE: 1000/second
+      EXECUTION_TIMEOUT: 5s
+      RETRY_ATTEMPTS: 3
+      SLIPPAGE_TOLERANCE: 0.001
+    health_check:
+      endpoint: /health
+      interval: 5s
+      timeout: 2s
+      retries: 2
+    monitoring:
+      metrics:
+        - order_execution_latency
+        - fill_rate
+        - slippage
+        - rejection_rate
+      alerts:
+        - execution_latency > 15ms
+        - fill_rate < 95%
+        - rejection_rate > 1%
+
+  portfolio-management:
+    description: Real-time portfolio tracking and optimization
+    type: stateful
+    scaling: horizontal
+    latency_requirement: <20ms
+    throughput_requirement: 5k updates/second
+    dependencies:
+      internal:
+        - execution-engine
+        - risk-management
+        - analytics-engine
+        - position-store
+    resources:
+      cpu: 4-12 cores
+      memory: 16-48GB
+      storage: 500GB SSD
+    ports:
+      http: 8005
+      grpc: 9005
+      metrics: 8095
+    environment_variables:
+      POSITION_UPDATE_INTERVAL: 100ms
+      PNL_CALCULATION_INTERVAL: 1s
+      REBALANCING_THRESHOLD: 0.05
+    monitoring:
+      metrics:
+        - position_update_latency
+        - pnl_calculation_accuracy
+        - rebalancing_frequency
+      alerts:
+        - position_sync_lag > 1s
+        - unrealized_loss > 5%
+
+  risk-management:
+    description: Real-time risk monitoring and limit enforcement
+    type: stateful
+    scaling: horizontal
+    latency_requirement: <15ms
+    throughput_requirement: 20k checks/second
+    dependencies:
+      internal:
+        - portfolio-management
+        - market-data-gateway
+        - var-calculator
+        - limit-store
+    resources:
+      cpu: 6-18 cores
+      memory: 24-72GB
+      storage: 300GB SSD
+    ports:
+      http: 8006
+      grpc: 9006
+      metrics: 8096
+    environment_variables:
+      VAR_CONFIDENCE_LEVEL: 0.99
+      STRESS_TEST_SCENARIOS: 1000
+      LIMIT_CHECK_TIMEOUT: 5ms
+    monitoring:
+      metrics:
+        - risk_check_latency
+        - var_calculation_time
+        - limit_violations
+        - stress_test_results
+      alerts:
+        - risk_check_latency > 20ms
+        - limit_violation detected
+        - var > daily_limit
+
+  analytics-engine:
+    description: Performance analytics and backtesting framework
+    type: stateless
+    scaling: horizontal
+    latency_requirement: <100ms
+    throughput_requirement: 100 reports/second
+    dependencies:
+      internal:
+        - portfolio-management
+        - market-data-gateway
+        - timeseries-db
+        - ml-models
+    resources:
+      cpu: 8-24 cores
+      memory: 32-96GB
+      storage: 2TB SSD
+    ports:
+      http: 8007
+      grpc: 9007
+      metrics: 8097
+    environment_variables:
+      BACKTEST_WORKERS: 8
+      CACHE_TTL: 300s
+      MAX_SIMULATION_YEARS: 10
+    monitoring:
+      metrics:
+        - backtest_completion_time
+        - report_generation_latency
+        - cache_hit_rate
+      alerts:
+        - backtest_time > 10min
+        - cache_hit_rate < 80%
+
+  # Supporting Services
+  configuration-service:
+    description: Dynamic configuration and feature flag management
+    type: stateless
+    scaling: horizontal
+    latency_requirement: <5ms
+    throughput_requirement: 50k requests/second
+    dependencies:
+      internal:
+        - config-store
+        - audit-log
+    resources:
+      cpu: 2-6 cores
+      memory: 4-12GB
+      storage: 50GB SSD
+    ports:
+      http: 8008
+      grpc: 9008
+      metrics: 8098
+
+  monitoring-service:
+    description: Centralized monitoring and alerting
+    type: stateless
+    scaling: horizontal
+    dependencies:
+      internal:
+        - prometheus
+        - grafana
+        - alertmanager
+    resources:
+      cpu: 4-8 cores
+      memory: 8-16GB
+      storage: 1TB SSD
+    ports:
+      http: 8009
+      metrics: 8099
+
+  authentication-service:
+    description: JWT-based authentication and authorization
+    type: stateless
+    scaling: horizontal
+    latency_requirement: <10ms
+    throughput_requirement: 10k requests/second
+    dependencies:
+      internal:
+        - user-store
+        - session-cache
+    resources:
+      cpu: 2-6 cores
+      memory: 4-12GB
+      storage: 100GB SSD
+    ports:
+      http: 8010
+      grpc: 9010
+      metrics: 8100
+
+  logging-service:
+    description: Centralized logging and audit trail
+    type: stateless
+    scaling: horizontal
+    dependencies:
+      internal:
+        - elasticsearch
+        - kibana
+        - fluentd
+    resources:
+      cpu: 4-12 cores
+      memory: 16-48GB
+      storage: 5TB SSD
+    ports:
+      http: 8011
+      fluentd: 24224
+      metrics: 8101
+
+  health-check-service:
+    description: Service discovery and health monitoring
+    type: stateless
+    scaling: horizontal
+    latency_requirement: <5ms
+    dependencies:
+      internal:
+        - consul
+        - health-store
+    resources:
+      cpu: 2-4 cores
+      memory: 2-8GB
+      storage: 50GB SSD
+    ports:
+      http: 8012
+      metrics: 8102
+
+# Service Communication Patterns
+communication_patterns:
+  synchronous:
+    protocol: gRPC
+    timeout: 5s
+    retries: 3
+    circuit_breaker:
+      failure_threshold: 5
+      recovery_timeout: 30s
+      half_open_max_calls: 10
+    services:
+      - market-data-gateway <-> gary-dpi-analyzer
+      - gary-dpi-analyzer <-> taleb-antifragile-engine
+      - execution-engine <-> risk-management
+      - portfolio-management <-> risk-management
+
+  asynchronous:
+    protocol: Kafka
+    partitions: 12
+    replication_factor: 3
+    retention: 7days
+    topics:
+      market-data:
+        partitions: 24
+        consumers:
+          - gary-dpi-analyzer
+          - taleb-antifragile-engine
+          - analytics-engine
+      trading-signals:
+        partitions: 12
+        consumers:
+          - execution-engine
+          - risk-management
+      order-events:
+        partitions: 6
+        consumers:
+          - portfolio-management
+          - analytics-engine
+          - logging-service
+
+  caching:
+    protocol: Redis
+    clusters:
+      hot-data:
+        nodes: 6
+        memory_per_node: 64GB
+        eviction_policy: allkeys-lru
+        services:
+          - market-data-gateway
+          - gary-dpi-analyzer
+      session-data:
+        nodes: 3
+        memory_per_node: 16GB
+        ttl: 3600s
+        services:
+          - authentication-service
+          - configuration-service
+
+# Service Dependencies Graph
+dependency_graph:
+  level_0:  # External dependencies
+    - exchange-apis
+    - market-data-vendors
+    - broker-apis
+    - nvidia-gpu-cluster
+
+  level_1:  # Infrastructure
+    - redis-cluster
+    - kafka-cluster
+    - postgresql-cluster
+    - elasticsearch-cluster
+
+  level_2:  # Data ingestion
+    - market-data-gateway
+
+  level_3:  # Core analysis
+    - gary-dpi-analyzer
+    - taleb-antifragile-engine
+
+  level_4:  # Trading operations
+    - execution-engine
+    - portfolio-management
+    - risk-management
+
+  level_5:  # Analytics and monitoring
+    - analytics-engine
+    - monitoring-service
+    - logging-service
+
+  level_6:  # Supporting services
+    - configuration-service
+    - authentication-service
+    - health-check-service
+
+# Service Mesh Configuration
+service_mesh:
+  provider: istio
+  features:
+    - mutual_tls
+    - traffic_management
+    - policy_enforcement
+    - telemetry_collection
+
+  traffic_policies:
+    market-data-gateway:
+      load_balancing: round_robin
+      connection_pool:
+        max_connections: 1000
+        max_requests_per_connection: 100
+      circuit_breaker:
+        max_connections: 800
+        max_requests: 500
+
+    execution-engine:
+      load_balancing: least_conn
+      connection_pool:
+        max_connections: 500
+        max_requests_per_connection: 50
+      timeout: 10s
+      retry:
+        attempts: 2
+        per_try_timeout: 5s
+
+# Deployment Configuration
+deployment:
+  strategy: blue-green
+  environments:
+    - development
+    - staging
+    - production
+
+  resource_quotas:
+    development:
+      cpu: 50 cores
+      memory: 200GB
+      storage: 5TB
+    staging:
+      cpu: 100 cores
+      memory: 400GB
+      storage: 10TB
+    production:
+      cpu: 500 cores
+      memory: 2TB
+      storage: 50TB
+
+  scaling_policies:
+    cpu_threshold: 70%
+    memory_threshold: 80%
+    custom_metrics:
+      - trading_volume
+      - market_volatility
+      - order_queue_depth

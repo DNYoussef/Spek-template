@@ -1,0 +1,543 @@
+# Gary×Taleb Trading System - Advanced Auto-scaling Policies
+# Multi-dimensional scaling based on trading volume, volatility, and resource utilization
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: market-data-gateway-advanced-hpa
+  namespace: gary-taleb-production
+  labels:
+    app: market-data-gateway
+    scaling-policy: advanced
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: market-data-gateway
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+  # Resource-based scaling
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  # Custom metrics for trading-specific scaling
+  - type: Pods
+    pods:
+      metric:
+        name: message_ingestion_rate
+        selector:
+          matchLabels:
+            app: market-data-gateway
+      target:
+        type: AverageValue
+        averageValue: "5000"  # Messages per second per pod
+  - type: Pods
+    pods:
+      metric:
+        name: websocket_connections
+        selector:
+          matchLabels:
+            app: market-data-gateway
+      target:
+        type: AverageValue
+        averageValue: "1000"  # Connections per pod
+  - type: Pods
+    pods:
+      metric:
+        name: market_volatility_index
+        selector:
+          matchLabels:
+            app: market-data-gateway
+      target:
+        type: AverageValue
+        averageValue: "25"  # Scale up during high volatility
+  # External metrics from market conditions
+  - type: External
+    external:
+      metric:
+        name: trading_session_activity
+        selector:
+          matchLabels:
+            market: global
+      target:
+        type: AverageValue
+        averageValue: "0.8"  # Scale based on global trading activity
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      # Rapid scaling during market events
+      - type: Percent
+        value: 200
+        periodSeconds: 30
+      # Steady scaling for normal conditions
+      - type: Pods
+        value: 4
+        periodSeconds: 60
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      # Conservative scaling down to maintain availability
+      - type: Percent
+        value: 10
+        periodSeconds: 60
+      - type: Pods
+        value: 1
+        periodSeconds: 60
+      selectPolicy: Min
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gary-dpi-analyzer-advanced-hpa
+  namespace: gary-taleb-production
+  labels:
+    app: gary-dpi-analyzer
+    scaling-policy: gpu-aware
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gary-dpi-analyzer
+  minReplicas: 2
+  maxReplicas: 8
+  metrics:
+  # GPU-specific scaling
+  - type: Pods
+    pods:
+      metric:
+        name: gpu_utilization
+        selector:
+          matchLabels:
+            app: gary-dpi-analyzer
+      target:
+        type: AverageValue
+        averageValue: "85"  # Scale when GPU utilization > 85%
+  - type: Pods
+    pods:
+      metric:
+        name: gpu_memory_utilization
+        selector:
+          matchLabels:
+            app: gary-dpi-analyzer
+      target:
+        type: AverageValue
+        averageValue: "80"  # Scale when GPU memory > 80%
+  - type: Pods
+    pods:
+      metric:
+        name: inference_queue_depth
+        selector:
+          matchLabels:
+            app: gary-dpi-analyzer
+      target:
+        type: AverageValue
+        averageValue: "50"  # Scale when queue depth > 50
+  - type: Pods
+    pods:
+      metric:
+        name: pattern_detection_rate
+        selector:
+          matchLabels:
+            app: gary-dpi-analyzer
+      target:
+        type: AverageValue
+        averageValue: "100"  # Patterns per minute per pod
+  # Market volatility drives AI analysis demand
+  - type: External
+    external:
+      metric:
+        name: market_volatility_index
+        selector:
+          matchLabels:
+            source: market-data
+      target:
+        type: Value
+        value: "30"  # Scale up during volatile markets
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 120  # Longer stabilization for GPU resources
+      policies:
+      - type: Percent
+        value: 50  # Conservative GPU scaling
+        periodSeconds: 120
+      - type: Pods
+        value: 1
+        periodSeconds: 120
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 600  # Very conservative GPU scale-down
+      policies:
+      - type: Percent
+        value: 25
+        periodSeconds: 300
+      selectPolicy: Min
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: execution-engine-advanced-hpa
+  namespace: gary-taleb-production
+  labels:
+    app: execution-engine
+    scaling-policy: latency-critical
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: execution-engine
+  minReplicas: 3
+  maxReplicas: 12
+  metrics:
+  # Latency-focused scaling
+  - type: Pods
+    pods:
+      metric:
+        name: execution_latency_p95
+        selector:
+          matchLabels:
+            app: execution-engine
+      target:
+        type: AverageValue
+        averageValue: "8000"  # 8ms in microseconds
+  - type: Pods
+    pods:
+      metric:
+        name: order_queue_depth
+        selector:
+          matchLabels:
+            app: execution-engine
+      target:
+        type: AverageValue
+        averageValue: "20"  # Orders in queue per pod
+  - type: Pods
+    pods:
+      metric:
+        name: orders_per_second
+        selector:
+          matchLabels:
+            app: execution-engine
+      target:
+        type: AverageValue
+        averageValue: "500"  # Orders per second per pod
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 60  # Lower threshold for latency-critical
+  # Trading session intensity
+  - type: External
+    external:
+      metric:
+        name: trading_session_intensity
+        selector:
+          matchLabels:
+            exchange: multi
+      target:
+        type: Value
+        value: "0.7"
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 30  # Very fast scaling for execution
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 30
+      - type: Pods
+        value: 2
+        periodSeconds: 30
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 20
+        periodSeconds: 60
+      selectPolicy: Min
+
+---
+# Vertical Pod Autoscaler for resource optimization
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: gary-dpi-analyzer-vpa
+  namespace: gary-taleb-production
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gary-dpi-analyzer
+  updatePolicy:
+    updateMode: "Auto"
+    minReplicas: 2
+  resourcePolicy:
+    containerPolicies:
+    - containerName: gary-dpi-analyzer
+      minAllowed:
+        cpu: "2"
+        memory: "8Gi"
+      maxAllowed:
+        cpu: "32"
+        memory: "128Gi"
+      controlledResources: ["cpu", "memory"]
+      controlledValues: RequestsAndLimits
+
+---
+# Cluster Autoscaler configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-autoscaler-status
+  namespace: kube-system
+  labels:
+    k8s-app: cluster-autoscaler
+data:
+  nodes.max: "50"
+  nodes.min: "5"
+  scale-down-enabled: "true"
+  scale-down-delay-after-add: "10m"
+  scale-down-delay-after-delete: "10s"
+  scale-down-delay-after-failure: "3m"
+  scale-down-unneeded-time: "10m"
+  scale-down-utilization-threshold: "0.5"
+  skip-nodes-with-local-storage: "false"
+  skip-nodes-with-system-pods: "false"
+
+---
+# Custom Resource for Trading-Specific Scaling
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: tradingscalers.gary-taleb.com
+spec:
+  group: gary-taleb.com
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              targetRef:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                  kind:
+                    type: string
+                  name:
+                    type: string
+              marketConditions:
+                type: object
+                properties:
+                  volatilityThreshold:
+                    type: number
+                  volumeThreshold:
+                    type: number
+                  sessionActive:
+                    type: boolean
+              scalingPolicy:
+                type: object
+                properties:
+                  minReplicas:
+                    type: integer
+                  maxReplicas:
+                    type: integer
+                  scaleUpFactor:
+                    type: number
+                  scaleDownFactor:
+                    type: number
+          status:
+            type: object
+            properties:
+              currentReplicas:
+                type: integer
+              desiredReplicas:
+                type: integer
+              lastScaleTime:
+                type: string
+              conditions:
+                type: array
+                items:
+                  type: object
+  scope: Namespaced
+  names:
+    plural: tradingscalers
+    singular: tradingscaler
+    kind: TradingScaler
+
+---
+# Trading-specific scaler for market hours
+apiVersion: gary-taleb.com/v1
+kind: TradingScaler
+metadata:
+  name: market-hours-scaler
+  namespace: gary-taleb-production
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: market-data-gateway
+  marketConditions:
+    volatilityThreshold: 25.0
+    volumeThreshold: 1000000
+    sessionActive: true
+  scalingPolicy:
+    minReplicas: 5
+    maxReplicas: 25
+    scaleUpFactor: 2.0
+    scaleDownFactor: 0.5
+
+---
+# PodDisruptionBudget for scaling operations
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: critical-services-pdb
+  namespace: gary-taleb-production
+spec:
+  minAvailable: 60%
+  selector:
+    matchLabels:
+      tier: core
+
+---
+# Network-aware scaling based on latency
+apiVersion: v1
+kind: Service
+metadata:
+  name: latency-monitor
+  namespace: gary-taleb-production
+  labels:
+    app: latency-monitor
+    component: monitoring
+spec:
+  selector:
+    app: latency-monitor
+  ports:
+  - port: 8080
+    targetPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: latency-monitor
+  namespace: gary-taleb-production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: latency-monitor
+  template:
+    metadata:
+      labels:
+        app: latency-monitor
+        component: monitoring
+    spec:
+      containers:
+      - name: latency-monitor
+        image: gary-taleb/latency-monitor:1.0.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MONITORING_INTERVAL
+          value: "5s"
+        - name: LATENCY_THRESHOLD_MS
+          value: "100"
+        - name: METRICS_ENDPOINT
+          value: "http://prometheus:9090"
+        resources:
+          requests:
+            cpu: "0.1"
+            memory: "128Mi"
+          limits:
+            cpu: "0.5"
+            memory: "512Mi"
+
+---
+# Custom metrics for trading-specific autoscaling
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-metrics-config
+  namespace: gary-taleb-production
+data:
+  metrics.yaml: |
+    custom_metrics:
+      - name: message_ingestion_rate
+        description: "Market data messages ingested per second"
+        type: counter
+        labels: ["service", "symbol", "exchange"]
+
+      - name: websocket_connections
+        description: "Active WebSocket connections"
+        type: gauge
+        labels: ["service", "connection_type"]
+
+      - name: gpu_utilization
+        description: "GPU utilization percentage"
+        type: gauge
+        labels: ["gpu_id", "service"]
+
+      - name: inference_queue_depth
+        description: "ML inference queue depth"
+        type: gauge
+        labels: ["service", "model"]
+
+      - name: execution_latency_p95
+        description: "95th percentile execution latency in microseconds"
+        type: histogram
+        labels: ["service", "order_type"]
+
+      - name: order_queue_depth
+        description: "Orders waiting in execution queue"
+        type: gauge
+        labels: ["service", "priority"]
+
+      - name: market_volatility_index
+        description: "Real-time market volatility index"
+        type: gauge
+        labels: ["symbol", "timeframe"]
+
+      - name: trading_session_intensity
+        description: "Trading session activity intensity (0-1)"
+        type: gauge
+        labels: ["session", "exchange"]
+
+---
+# Scaling webhook configuration
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingAdmissionWebhook
+metadata:
+  name: gary-taleb-scaling-webhook
+spec:
+  clientConfig:
+    service:
+      name: scaling-webhook-service
+      namespace: gary-taleb-production
+      path: /mutate
+  rules:
+  - operations: ["CREATE", "UPDATE"]
+    apiGroups: ["apps"]
+    apiVersions: ["v1"]
+    resources: ["deployments"]
+  admissionReviewVersions: ["v1", "v1beta1"]

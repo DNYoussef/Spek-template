@@ -1,0 +1,481 @@
+# Gary×Taleb Trading System - CI/CD Pipeline
+# GitLab CI with automated testing, security scanning, and deployment
+
+stages:
+  - validate
+  - test
+  - security
+  - build
+  - deploy-staging
+  - performance-test
+  - deploy-production
+  - monitor
+
+variables:
+  DOCKER_REGISTRY: "registry.gary-taleb.com"
+  KUBECONFIG_FILE: $KUBECONFIG_PRODUCTION
+  KUBERNETES_NAMESPACE: "gary-taleb-production"
+  STAGING_NAMESPACE: "gary-taleb-staging"
+
+  # Performance thresholds
+  MAX_EXECUTION_LATENCY_MS: "15"
+  MIN_THROUGHPUT_TPS: "1000"
+  MAX_ERROR_RATE_PERCENT: "0.1"
+
+# Cache configuration for faster builds
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - node_modules/
+    - .m2/repository/
+    - __pycache__/
+    - .gradle/caches/
+
+# Validate code quality and standards
+validate:lint:
+  stage: validate
+  image: node:20-alpine
+  script:
+    - npm ci
+    - npm run lint
+    - npm run typecheck
+  artifacts:
+    reports:
+      junit: lint-results.xml
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+validate:architecture:
+  stage: validate
+  image: hadolint/hadolint:latest-debian
+  script:
+    - find . -name "Dockerfile*" -exec hadolint {} \;
+    - yamllint src/intelligence/architecture/kubernetes/
+  artifacts:
+    reports:
+      junit: architecture-validation.xml
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+# Unit and integration tests
+test:unit:
+  stage: test
+  image: node:20-alpine
+  services:
+    - redis:7.2-alpine
+    - postgres:15-alpine
+  variables:
+    POSTGRES_DB: test_db
+    POSTGRES_USER: test_user
+    POSTGRES_PASSWORD: test_password
+    REDIS_URL: redis://redis:6379
+  script:
+    - npm ci
+    - npm run test:unit
+    - npm run test:integration
+  coverage: '/Lines\s*:\s*(\d+\.\d+)%/'
+  artifacts:
+    reports:
+      junit: test-results.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+    paths:
+      - coverage/
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+test:gary-dpi:
+  stage: test
+  image: python:3.11-slim
+  services:
+    - name: nvidia/cuda:12.2-runtime-ubuntu22.04
+      alias: gpu-test
+  before_script:
+    - pip install -r src/intelligence/architecture/microservices/gary-dpi-analyzer/requirements.txt
+    - pip install pytest pytest-cov
+  script:
+    - cd src/intelligence/architecture/microservices/gary-dpi-analyzer
+    - python -m pytest tests/ --cov=. --cov-report=xml
+  artifacts:
+    reports:
+      junit: src/intelligence/architecture/microservices/gary-dpi-analyzer/test-results.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: src/intelligence/architecture/microservices/gary-dpi-analyzer/coverage.xml
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+test:execution-engine:
+  stage: test
+  image: maven:3.9-openjdk-21
+  script:
+    - cd src/intelligence/architecture/microservices/execution-engine
+    - mvn clean test -Dtest.profile=ci
+  artifacts:
+    reports:
+      junit: src/intelligence/architecture/microservices/execution-engine/target/surefire-reports/TEST-*.xml
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+# Security scanning
+security:secrets:
+  stage: security
+  image: trufflesecurity/trufflehog:latest
+  script:
+    - trufflehog git file://. --format=json --output=secrets-report.json
+  artifacts:
+    reports:
+      security: secrets-report.json
+  allow_failure: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+security:sast:
+  stage: security
+  image: securecodewarrior/gitlab-sast:latest
+  script:
+    - /analyzer run
+  artifacts:
+    reports:
+      sast: gl-sast-report.json
+  allow_failure: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+security:container:
+  stage: security
+  image: aquasec/trivy:latest
+  script:
+    - trivy fs --format template --template "@contrib/gitlab.tpl" -o gl-container-scanning-report.json .
+  artifacts:
+    reports:
+      container_scanning: gl-container-scanning-report.json
+  allow_failure: true
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+# Build and push Docker images
+build:market-data-gateway:
+  stage: build
+  image: docker:24-dind
+  services:
+    - docker:24-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $DOCKER_REGISTRY
+  script:
+    - docker build -t $DOCKER_REGISTRY/market-data-gateway:$CI_COMMIT_SHA
+      -f src/intelligence/architecture/deployment/Dockerfile.market-data-gateway .
+    - docker tag $DOCKER_REGISTRY/market-data-gateway:$CI_COMMIT_SHA
+      $DOCKER_REGISTRY/market-data-gateway:latest
+    - docker push $DOCKER_REGISTRY/market-data-gateway:$CI_COMMIT_SHA
+    - docker push $DOCKER_REGISTRY/market-data-gateway:latest
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+build:gary-dpi-analyzer:
+  stage: build
+  image: docker:24-dind
+  services:
+    - docker:24-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $DOCKER_REGISTRY
+  script:
+    - docker build -t $DOCKER_REGISTRY/gary-dpi-analyzer:$CI_COMMIT_SHA
+      -f src/intelligence/architecture/deployment/Dockerfile.gary-dpi-analyzer .
+    - docker tag $DOCKER_REGISTRY/gary-dpi-analyzer:$CI_COMMIT_SHA
+      $DOCKER_REGISTRY/gary-dpi-analyzer:latest
+    - docker push $DOCKER_REGISTRY/gary-dpi-analyzer:$CI_COMMIT_SHA
+    - docker push $DOCKER_REGISTRY/gary-dpi-analyzer:latest
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+build:execution-engine:
+  stage: build
+  image: docker:24-dind
+  services:
+    - docker:24-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $DOCKER_REGISTRY
+  script:
+    - docker build -t $DOCKER_REGISTRY/execution-engine:$CI_COMMIT_SHA
+      -f src/intelligence/architecture/deployment/Dockerfile.execution-engine .
+    - docker tag $DOCKER_REGISTRY/execution-engine:$CI_COMMIT_SHA
+      $DOCKER_REGISTRY/execution-engine:latest
+    - docker push $DOCKER_REGISTRY/execution-engine:$CI_COMMIT_SHA
+    - docker push $DOCKER_REGISTRY/execution-engine:latest
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+# Deploy to staging
+deploy:staging:
+  stage: deploy-staging
+  image: bitnami/kubectl:latest
+  environment:
+    name: staging
+    url: https://staging.gary-taleb.com
+  before_script:
+    - echo $KUBECONFIG_STAGING | base64 -d > /tmp/kubeconfig
+    - export KUBECONFIG=/tmp/kubeconfig
+    - kubectl cluster-info
+  script:
+    # Update image tags in deployment files
+    - sed -i "s|image: gary-taleb/market-data-gateway:.*|image: $DOCKER_REGISTRY/market-data-gateway:$CI_COMMIT_SHA|g"
+      src/intelligence/architecture/kubernetes/market-data-gateway-deployment.yaml
+    - sed -i "s|image: gary-taleb/gary-dpi-analyzer:.*|image: $DOCKER_REGISTRY/gary-dpi-analyzer:$CI_COMMIT_SHA|g"
+      src/intelligence/architecture/kubernetes/gary-dpi-analyzer-deployment.yaml
+    - sed -i "s|image: gary-taleb/execution-engine:.*|image: $DOCKER_REGISTRY/execution-engine:$CI_COMMIT_SHA|g"
+      src/intelligence/architecture/kubernetes/execution-engine-deployment.yaml
+
+    # Deploy to staging
+    - kubectl apply -f src/intelligence/architecture/kubernetes/namespace.yaml
+    - kubectl apply -f src/intelligence/architecture/kubernetes/ --namespace=$STAGING_NAMESPACE
+
+    # Wait for rollout
+    - kubectl rollout status deployment/market-data-gateway --namespace=$STAGING_NAMESPACE --timeout=600s
+    - kubectl rollout status deployment/gary-dpi-analyzer --namespace=$STAGING_NAMESPACE --timeout=600s
+    - kubectl rollout status deployment/execution-engine --namespace=$STAGING_NAMESPACE --timeout=600s
+
+    # Health checks
+    - sleep 30
+    - kubectl get pods --namespace=$STAGING_NAMESPACE
+    - |
+      for service in market-data-gateway gary-dpi-analyzer execution-engine; do
+        kubectl wait --for=condition=Ready pod -l app=$service --namespace=$STAGING_NAMESPACE --timeout=300s
+      done
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+# Performance testing in staging
+performance:latency:
+  stage: performance-test
+  image: grafana/k6:latest
+  environment:
+    name: staging
+  script:
+    - |
+      cat <<EOF > latency-test.js
+      import http from 'k6/http';
+      import { check, sleep } from 'k6';
+
+      export let options = {
+        vus: 50,
+        duration: '2m',
+        thresholds: {
+          http_req_duration: ['p(95)<${MAX_EXECUTION_LATENCY_MS}'],
+          http_req_failed: ['rate<${MAX_ERROR_RATE_PERCENT}'],
+        },
+      };
+
+      export default function() {
+        let response = http.post('https://staging.gary-taleb.com/execution/orders', JSON.stringify({
+          symbol: 'BTCUSD',
+          side: 'buy',
+          quantity: 0.001,
+          order_type: 'market'
+        }), {
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+        check(response, {
+          'status is 201': (r) => r.status === 201,
+          'latency < ${MAX_EXECUTION_LATENCY_MS}ms': (r) => r.timings.duration < ${MAX_EXECUTION_LATENCY_MS},
+        });
+
+        sleep(0.1);
+      }
+      EOF
+    - k6 run latency-test.js --out json=performance-results.json
+  artifacts:
+    reports:
+      performance: performance-results.json
+    paths:
+      - performance-results.json
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+performance:throughput:
+  stage: performance-test
+  image: grafana/k6:latest
+  environment:
+    name: staging
+  script:
+    - |
+      cat <<EOF > throughput-test.js
+      import http from 'k6/http';
+      import { check, sleep } from 'k6';
+
+      export let options = {
+        stages: [
+          { duration: '30s', target: 100 },
+          { duration: '1m', target: 500 },
+          { duration: '30s', target: 1000 },
+          { duration: '1m', target: 1000 },
+          { duration: '30s', target: 0 },
+        ],
+        thresholds: {
+          http_reqs: ['rate>${MIN_THROUGHPUT_TPS}'],
+          http_req_failed: ['rate<${MAX_ERROR_RATE_PERCENT}'],
+        },
+      };
+
+      export default function() {
+        let response = http.get('https://staging.gary-taleb.com/market-data/streams');
+        check(response, {
+          'status is 200': (r) => r.status === 200,
+        });
+      }
+      EOF
+    - k6 run throughput-test.js --out json=throughput-results.json
+  artifacts:
+    paths:
+      - throughput-results.json
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+# Production deployment with manual approval
+deploy:production:
+  stage: deploy-production
+  image: bitnami/kubectl:latest
+  environment:
+    name: production
+    url: https://api.gary-taleb.com
+  when: manual
+  before_script:
+    - echo $KUBECONFIG_PRODUCTION | base64 -d > /tmp/kubeconfig
+    - export KUBECONFIG=/tmp/kubeconfig
+    - kubectl cluster-info
+  script:
+    # Blue-green deployment preparation
+    - export DEPLOYMENT_COLOR=$(kubectl get deployment market-data-gateway -n $KUBERNETES_NAMESPACE -o jsonpath='{.metadata.labels.color}' || echo "blue")
+    - export NEW_COLOR=$([ "$DEPLOYMENT_COLOR" = "blue" ] && echo "green" || echo "blue")
+
+    # Update deployment configurations with new color
+    - |
+      for file in src/intelligence/architecture/kubernetes/*-deployment.yaml; do
+        sed -i "s|image: gary-taleb/|image: $DOCKER_REGISTRY/|g" $file
+        sed -i "s|:3.0.0|:$CI_COMMIT_SHA|g" $file
+        sed -i "s|name: \(.*\)$|name: \1-$NEW_COLOR|g" $file
+        sed -i "/labels:/a\\    color: $NEW_COLOR" $file
+      done
+
+    # Deploy new version
+    - kubectl apply -f src/intelligence/architecture/kubernetes/ --namespace=$KUBERNETES_NAMESPACE
+
+    # Wait for new deployment
+    - |
+      for service in market-data-gateway gary-dpi-analyzer execution-engine; do
+        kubectl rollout status deployment/${service}-${NEW_COLOR} --namespace=$KUBERNETES_NAMESPACE --timeout=900s
+        kubectl wait --for=condition=Ready pod -l app=${service},color=${NEW_COLOR} --namespace=$KUBERNETES_NAMESPACE --timeout=600s
+      done
+
+    # Health checks on new deployment
+    - sleep 60
+    - |
+      for service in market-data-gateway gary-dpi-analyzer execution-engine; do
+        kubectl exec -n $KUBERNETES_NAMESPACE deployment/${service}-${NEW_COLOR} -- curl -f http://localhost:8001/health || exit 1
+      done
+
+    # Switch traffic to new deployment
+    - |
+      for service in market-data-gateway gary-dpi-analyzer execution-engine; do
+        kubectl patch service ${service}-service -n $KUBERNETES_NAMESPACE -p '{"spec":{"selector":{"color":"'$NEW_COLOR'"}}}'
+      done
+
+    # Verify traffic switch
+    - sleep 30
+    - curl -f https://api.gary-taleb.com/health
+
+    # Cleanup old deployment after successful switch
+    - |
+      for service in market-data-gateway gary-dpi-analyzer execution-engine; do
+        kubectl delete deployment ${service}-${DEPLOYMENT_COLOR} -n $KUBERNETES_NAMESPACE --ignore-not-found=true
+      done
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+
+# Post-deployment monitoring
+monitor:alerts:
+  stage: monitor
+  image: curlimages/curl:latest
+  script:
+    # Check Prometheus alerts
+    - |
+      ALERT_COUNT=$(curl -s "http://prometheus.gary-taleb.com:9090/api/v1/alerts" | jq '.data | length')
+      if [ "$ALERT_COUNT" -gt 0 ]; then
+        echo "Warning: $ALERT_COUNT active alerts detected"
+        curl -s "http://prometheus.gary-taleb.com:9090/api/v1/alerts" | jq '.data'
+      else
+        echo "No active alerts - system healthy"
+      fi
+
+    # Check system metrics
+    - |
+      EXECUTION_LATENCY=$(curl -s "http://prometheus.gary-taleb.com:9090/api/v1/query?query=histogram_quantile(0.95,%20rate(execution_latency_seconds_bucket[5m]))" | jq -r '.data.result[0].value[1]')
+      if (( $(echo "$EXECUTION_LATENCY > 0.015" | bc -l) )); then
+        echo "Warning: Execution latency is ${EXECUTION_LATENCY}s (>15ms threshold)"
+        exit 1
+      fi
+
+    # Create deployment notification
+    - |
+      curl -X POST https://hooks.slack.com/services/$SLACK_WEBHOOK \
+        -H 'Content-type: application/json' \
+        --data '{"text":"🚀 Gary×Taleb Phase 3 deployment completed successfully!\nCommit: '$CI_COMMIT_SHA'\nPipeline: '$CI_PIPELINE_URL'"}'
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+# Rollback job (manual trigger)
+rollback:production:
+  stage: deploy-production
+  image: bitnami/kubectl:latest
+  environment:
+    name: production
+  when: manual
+  before_script:
+    - echo $KUBECONFIG_PRODUCTION | base64 -d > /tmp/kubeconfig
+    - export KUBECONFIG=/tmp/kubeconfig
+  script:
+    - echo "Rolling back to previous stable version..."
+    - |
+      for service in market-data-gateway gary-dpi-analyzer execution-engine; do
+        kubectl rollout undo deployment/$service --namespace=$KUBERNETES_NAMESPACE
+        kubectl rollout status deployment/$service --namespace=$KUBERNETES_NAMESPACE --timeout=600s
+      done
+    - echo "Rollback completed successfully"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+
+# Cleanup unused images
+cleanup:images:
+  stage: .post
+  image: docker:24-dind
+  services:
+    - docker:24-dind
+  script:
+    - docker system prune -af --filter "until=168h"  # Clean images older than 7 days
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+
+# Include additional pipeline configurations
+include:
+  - local: '.gitlab/ci/security.yml'
+  - local: '.gitlab/ci/quality.yml'
+  - template: 'Security/Secret-Detection.gitlab-ci.yml'
+  - template: 'Security/SAST.gitlab-ci.yml'

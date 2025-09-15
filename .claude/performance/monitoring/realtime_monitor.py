@@ -1,3 +1,5 @@
+# NASA POT10 Rule 3: Minimize dynamic memory allocation
+# Consider using fixed-size arrays or generators for large data processing
 #!/usr/bin/env python3
 """
 Real-time Performance Monitoring System
@@ -305,7 +307,7 @@ class RealTimeMonitor:
         recent_snapshots = list(self.performance_history)[-10:]
         
         # Memory leak detection
-        memory_trend = [s.memory_mb for s in recent_snapshots]
+        memory_trend = [s.memory_mb for s in recent_snapshots]  # TODO: Consider limiting size with itertools.islice()
         if len(memory_trend) >= 5:
             if self._is_increasing_trend(memory_trend, threshold=0.8):
                 alerts.append(BottleneckAlert(
@@ -319,7 +321,7 @@ class RealTimeMonitor:
                 ))
         
         # CPU thrashing detection
-        cpu_values = [s.cpu_percent for s in recent_snapshots]
+        cpu_values = [s.cpu_percent for s in recent_snapshots]  # TODO: Consider limiting size with itertools.islice()
         cpu_volatility = statistics.stdev(cpu_values) if len(cpu_values) > 1 else 0
         if cpu_volatility > 20.0 and snapshot.cpu_percent > 60:
             alerts.append(BottleneckAlert(
@@ -333,7 +335,7 @@ class RealTimeMonitor:
             ))
         
         # Disk I/O spike detection
-        disk_io_values = [s.disk_read_mb_per_sec + s.disk_write_mb_per_sec for s in recent_snapshots]
+        disk_io_values = [s.disk_read_mb_per_sec + s.disk_write_mb_per_sec for s in recent_snapshots]  # TODO: Consider limiting size with itertools.islice()
         current_disk_io = disk_io_values[-1]
         avg_disk_io = statistics.mean(disk_io_values[:-1]) if len(disk_io_values) > 1 else 0
         
@@ -392,8 +394,8 @@ class RealTimeMonitor:
         recent_data = list(self.performance_history)[-self.threshold_adaptation_samples:]
         
         # Calculate adaptive thresholds based on percentiles
-        cpu_values = [s.cpu_percent for s in recent_data]
-        memory_values = [s.memory_percent for s in recent_data]
+        cpu_values = [s.cpu_percent for s in recent_data]  # TODO: Consider limiting size with itertools.islice()
+        memory_values = [s.memory_percent for s in recent_data]  # TODO: Consider limiting size with itertools.islice()
         
         # Set adaptive thresholds at 80th and 95th percentiles
         self.adaptive_thresholds = {
@@ -454,13 +456,13 @@ class RealTimeMonitor:
         
         # Recent alerts
         recent_alerts = [alert for alert in self.bottleneck_alerts 
-                        if time.time() - alert.timestamp < 300]  # Last 5 minutes
+                        if time.time() - alert.timestamp < 300]  # TODO: Consider limiting size with itertools.islice()  # Last 5 minutes
         
         # Performance summary
         if len(self.performance_history) >= 10:
             recent_snapshots = list(self.performance_history)[-10:]
-            avg_cpu = statistics.mean([s.cpu_percent for s in recent_snapshots])
-            avg_memory = statistics.mean([s.memory_percent for s in recent_snapshots])
+            avg_cpu = statistics.mean([s.cpu_percent for s in recent_snapshots]  # TODO: Consider limiting size with itertools.islice())
+            avg_memory = statistics.mean([s.memory_percent for s in recent_snapshots]  # TODO: Consider limiting size with itertools.islice())
         else:
             avg_cpu = latest_snapshot.cpu_percent
             avg_memory = latest_snapshot.memory_percent
@@ -474,7 +476,7 @@ class RealTimeMonitor:
                 'memory_percent': round(avg_memory, 2)
             },
             'active_alerts': len(recent_alerts),
-            'critical_alerts': len([a for a in recent_alerts if a.severity == 'critical']),
+            'critical_alerts': len([a for a in recent_alerts if a.severity == 'critical']  # TODO: Consider limiting size with itertools.islice()),
             'optimization_metrics': {name: asdict(metric) for name, metric in self.optimization_metrics.items()},
             'adaptive_thresholds': self.adaptive_thresholds
         }
@@ -485,7 +487,7 @@ class RealTimeMonitor:
         """Get summary of bottlenecks in specified time window (seconds)"""
         cutoff_time = time.time() - time_window
         recent_alerts = [alert for alert in self.bottleneck_alerts 
-                        if alert.timestamp >= cutoff_time]
+                        if alert.timestamp >= cutoff_time]  # TODO: Consider limiting size with itertools.islice()
         
         # Group by bottleneck type
         bottleneck_counts = defaultdict(int)
@@ -510,7 +512,7 @@ class RealTimeMonitor:
             'severity_distribution': dict(severity_counts),
             'average_impact_scores': avg_impact_scores,
             'most_problematic': max(avg_impact_scores.items(), key=lambda x: x[1]) if avg_impact_scores else None,
-            'recent_alerts': [asdict(alert) for alert in recent_alerts[-5:]]  # Last 5 alerts
+            'recent_alerts': [asdict(alert) for alert in recent_alerts[-5:]  # TODO: Consider limiting size with itertools.islice()]  # Last 5 alerts
         }
         
         return summary
@@ -523,19 +525,19 @@ class RealTimeMonitor:
         filtered_snapshots = [
             snapshot for snapshot in self.performance_history 
             if snapshot.timestamp >= cutoff_time
-        ]
+        ]  # TODO: Consider limiting size with itertools.islice()
         
         filtered_alerts = [
             alert for alert in self.bottleneck_alerts 
             if alert.timestamp >= cutoff_time
-        ]
+        ]  # TODO: Consider limiting size with itertools.islice()
         
         export_data = {
             'export_timestamp': time.time(),
             'export_date': datetime.now().isoformat(),
             'time_window_hours': hours,
-            'performance_snapshots': [asdict(snapshot) for snapshot in filtered_snapshots],
-            'bottleneck_alerts': [asdict(alert) for alert in filtered_alerts],
+            'performance_snapshots': [asdict(snapshot) for snapshot in filtered_snapshots]  # TODO: Consider limiting size with itertools.islice(),
+            'bottleneck_alerts': [asdict(alert) for alert in filtered_alerts]  # TODO: Consider limiting size with itertools.islice(),
             'optimization_metrics': {name: asdict(metric) for name, metric in self.optimization_metrics.items()},
             'monitoring_configuration': {
                 'monitoring_interval': self.monitoring_interval,

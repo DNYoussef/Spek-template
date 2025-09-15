@@ -1,0 +1,527 @@
+# Gary×Taleb Trading System - Prometheus Monitoring Configuration
+# Comprehensive observability for distributed trading platform
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: gary-taleb-monitoring
+  labels:
+    app: prometheus
+    component: monitoring
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 5s        # High-frequency scraping for trading
+      scrape_timeout: 3s
+      evaluation_interval: 5s
+      external_labels:
+        cluster: 'gary-taleb-production'
+        environment: 'production'
+
+    # Rule files
+    rule_files:
+      - "trading_alerts.yml"
+      - "performance_alerts.yml"
+      - "infrastructure_alerts.yml"
+
+    # Alerting configuration
+    alerting:
+      alertmanagers:
+        - static_configs:
+            - targets:
+              - 'alertmanager:9093'
+          timeout: 5s
+          api_version: v2
+
+    # Scrape configurations
+    scrape_configs:
+      # Kubernetes API server
+      - job_name: 'kubernetes-apiservers'
+        kubernetes_sd_configs:
+          - role: endpoints
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+            action: keep
+            regex: default;kubernetes;https
+
+      # Kubernetes nodes
+      - job_name: 'kubernetes-nodes'
+        kubernetes_sd_configs:
+          - role: node
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabel_configs:
+          - action: labelmap
+            regex: __meta_kubernetes_node_label_(.+)
+          - target_label: __address__
+            replacement: kubernetes.default.svc:443
+          - source_labels: [__meta_kubernetes_node_name]
+            regex: (.+)
+            target_label: __metrics_path__
+            replacement: /api/v1/nodes/${1}/proxy/metrics
+
+      # Market Data Gateway - Critical for trading operations
+      - job_name: 'market-data-gateway'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: ['gary-taleb-production']
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            action: keep
+            regex: market-data-gateway
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            target_label: __address__
+        scrape_interval: 1s  # Ultra-high frequency for market data
+        scrape_timeout: 500ms
+        metrics_path: /metrics
+
+      # Gary DPI Analyzer - GPU and AI metrics
+      - job_name: 'gary-dpi-analyzer'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: ['gary-taleb-production']
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            action: keep
+            regex: gary-dpi-analyzer
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+        scrape_interval: 2s
+        scrape_timeout: 1s
+        metrics_path: /metrics
+
+      # Execution Engine - Ultra-critical latency monitoring
+      - job_name: 'execution-engine'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: ['gary-taleb-production']
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            action: keep
+            regex: execution-engine
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+        scrape_interval: 1s  # Highest frequency for execution metrics
+        scrape_timeout: 500ms
+        metrics_path: /metrics
+
+      # Taleb Antifragile Engine
+      - job_name: 'taleb-antifragile-engine'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: ['gary-taleb-production']
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            action: keep
+            regex: taleb-antifragile-engine
+        scrape_interval: 5s
+        metrics_path: /metrics
+
+      # Portfolio Management Service
+      - job_name: 'portfolio-management'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: ['gary-taleb-production']
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            action: keep
+            regex: portfolio-management
+        scrape_interval: 2s
+        metrics_path: /metrics
+
+      # Risk Management Service
+      - job_name: 'risk-management'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: ['gary-taleb-production']
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            action: keep
+            regex: risk-management
+        scrape_interval: 2s
+        metrics_path: /metrics
+
+      # Infrastructure services
+      - job_name: 'redis-cluster'
+        static_configs:
+          - targets:
+            - 'redis-cluster:6379'
+        metrics_path: /metrics
+        scrape_interval: 5s
+
+      - job_name: 'kafka-cluster'
+        static_configs:
+          - targets:
+            - 'kafka-cluster:9092'
+        metrics_path: /metrics
+        scrape_interval: 10s
+
+      # NVIDIA GPU metrics
+      - job_name: 'nvidia-dcgm'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: ['gary-taleb-production']
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            action: keep
+            regex: nvidia-dcgm-exporter
+        scrape_interval: 2s
+        metrics_path: /metrics
+
+      # Load balancer metrics
+      - job_name: 'haproxy'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: ['gary-taleb-production']
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            action: keep
+            regex: haproxy-lb
+        scrape_interval: 5s
+        metrics_path: /stats/prometheus
+
+      # Network latency probes
+      - job_name: 'blackbox'
+        static_configs:
+          - targets:
+            - http://market-data-gateway-service:8001/health
+            - http://execution-engine-service:8004/health
+            - http://gary-dpi-analyzer-service:8002/health
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox-exporter:9115
+        metrics_path: /probe
+        params:
+          module: [http_2xx]
+        scrape_interval: 2s
+
+  # Trading-specific alerting rules
+  trading_alerts.yml: |
+    groups:
+      - name: trading_latency
+        interval: 1s
+        rules:
+          - alert: ExecutionLatencyHigh
+            expr: histogram_quantile(0.95, execution_latency_seconds_bucket) > 0.015
+            for: 5s
+            labels:
+              severity: critical
+              service: execution-engine
+            annotations:
+              summary: "Execution latency is too high"
+              description: "95th percentile execution latency is {{ $value }}s, above 15ms threshold"
+
+          - alert: MarketDataLatencyHigh
+            expr: histogram_quantile(0.95, market_data_ingestion_latency_seconds_bucket) > 0.010
+            for: 10s
+            labels:
+              severity: warning
+              service: market-data-gateway
+            annotations:
+              summary: "Market data ingestion latency high"
+              description: "Market data latency is {{ $value }}s"
+
+      - name: trading_throughput
+        interval: 5s
+        rules:
+          - alert: OrderThroughputLow
+            expr: rate(orders_processed_total[1m]) < 100
+            for: 30s
+            labels:
+              severity: warning
+              service: execution-engine
+            annotations:
+              summary: "Order processing throughput is low"
+              description: "Processing only {{ $value }} orders per second"
+
+          - alert: MarketDataDrops
+            expr: rate(market_data_messages_dropped_total[1m]) > 10
+            for: 15s
+            labels:
+              severity: critical
+              service: market-data-gateway
+            annotations:
+              summary: "Market data messages being dropped"
+              description: "Dropping {{ $value }} messages per second"
+
+      - name: trading_errors
+        interval: 5s
+        rules:
+          - alert: OrderRejectionRateHigh
+            expr: rate(orders_rejected_total[1m]) / rate(orders_submitted_total[1m]) > 0.01
+            for: 30s
+            labels:
+              severity: warning
+              service: execution-engine
+            annotations:
+              summary: "High order rejection rate"
+              description: "{{ $value | humanizePercentage }} of orders being rejected"
+
+          - alert: TradingSystemDown
+            expr: up{job=~"execution-engine|market-data-gateway"} == 0
+            for: 0s
+            labels:
+              severity: critical
+              service: trading-platform
+            annotations:
+              summary: "Critical trading service is down"
+              description: "{{ $labels.job }} service is unreachable"
+
+      - name: gpu_monitoring
+        interval: 10s
+        rules:
+          - alert: GPUUtilizationLow
+            expr: DCGM_FI_DEV_GPU_UTIL < 70 and ON() gary_dpi_inference_active == 1
+            for: 2m
+            labels:
+              severity: warning
+              service: gary-dpi-analyzer
+            annotations:
+              summary: "GPU utilization is low during active inference"
+              description: "GPU utilization is {{ $value }}% while inference is active"
+
+          - alert: GPUMemoryHigh
+            expr: DCGM_FI_DEV_FB_USED / DCGM_FI_DEV_FB_TOTAL > 0.9
+            for: 1m
+            labels:
+              severity: critical
+              service: gary-dpi-analyzer
+            annotations:
+              summary: "GPU memory usage is critical"
+              description: "GPU memory usage is {{ $value | humanizePercentage }}"
+
+  # Performance monitoring rules
+  performance_alerts.yml: |
+    groups:
+      - name: resource_usage
+        interval: 15s
+        rules:
+          - alert: HighCPUUsage
+            expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+            for: 2m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High CPU usage detected"
+              description: "CPU usage is {{ $value }}% on {{ $labels.instance }}"
+
+          - alert: HighMemoryUsage
+            expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 90
+            for: 1m
+            labels:
+              severity: critical
+            annotations:
+              summary: "High memory usage detected"
+              description: "Memory usage is {{ $value }}% on {{ $labels.instance }}"
+
+      - name: network_performance
+        interval: 5s
+        rules:
+          - alert: NetworkLatencyHigh
+            expr: probe_duration_seconds{job="blackbox"} > 0.1
+            for: 30s
+            labels:
+              severity: warning
+            annotations:
+              summary: "Network latency is high"
+              description: "Network latency to {{ $labels.instance }} is {{ $value }}s"
+
+          - alert: NetworkPacketLoss
+            expr: probe_success{job="blackbox"} == 0
+            for: 10s
+            labels:
+              severity: critical
+            annotations:
+              summary: "Network probe failed"
+              description: "Network probe to {{ $labels.instance }} is failing"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: gary-taleb-monitoring
+  labels:
+    app: prometheus
+    component: monitoring
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+        component: monitoring
+    spec:
+      serviceAccount: prometheus
+      containers:
+      - name: prometheus
+        image: prom/prometheus:v2.45.0
+        args:
+          - '--config.file=/etc/prometheus/prometheus.yml'
+          - '--storage.tsdb.path=/prometheus'
+          - '--web.console.libraries=/etc/prometheus/console_libraries'
+          - '--web.console.templates=/etc/prometheus/consoles'
+          - '--storage.tsdb.retention.time=7d'
+          - '--storage.tsdb.retention.size=50GB'
+          - '--web.enable-lifecycle'
+          - '--web.enable-admin-api'
+          - '--log.level=info'
+        ports:
+        - name: web
+          containerPort: 9090
+        resources:
+          requests:
+            cpu: "2"
+            memory: 8Gi
+            ephemeral-storage: 10Gi
+          limits:
+            cpu: "8"
+            memory: 32Gi
+            ephemeral-storage: 100Gi
+        volumeMounts:
+        - name: prometheus-config
+          mountPath: /etc/prometheus
+        - name: prometheus-storage
+          mountPath: /prometheus
+        livenessProbe:
+          httpGet:
+            path: /-/healthy
+            port: 9090
+          initialDelaySeconds: 30
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /-/ready
+            port: 9090
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: prometheus-config
+        configMap:
+          name: prometheus-config
+      - name: prometheus-storage
+        persistentVolumeClaim:
+          claimName: prometheus-storage-pvc
+      nodeSelector:
+        node-type: monitoring
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - prometheus
+              topologyKey: kubernetes.io/hostname
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-storage-pvc
+  namespace: gary-taleb-monitoring
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: high-performance-ssd
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prometheus
+  namespace: gary-taleb-monitoring
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: prometheus
+rules:
+- apiGroups: [""]
+  resources:
+  - nodes
+  - nodes/proxy
+  - services
+  - endpoints
+  - pods
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - extensions
+  resources:
+  - ingresses
+  verbs: ["get", "list", "watch"]
+- nonResourceURLs: ["/metrics"]
+  verbs: ["get"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: prometheus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prometheus
+subjects:
+- kind: ServiceAccount
+  name: prometheus
+  namespace: gary-taleb-monitoring
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-service
+  namespace: gary-taleb-monitoring
+  labels:
+    app: prometheus
+    component: monitoring
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9090
+    targetPort: 9090
+    name: web
+  selector:
+    app: prometheus

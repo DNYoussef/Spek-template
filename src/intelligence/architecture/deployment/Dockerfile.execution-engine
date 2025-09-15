@@ -1,0 +1,123 @@
+# Gary×Taleb Trading System - Execution Engine
+# Ultra-low latency trading engine with optimized runtime
+
+# Build stage with Java 21 for performance
+FROM eclipse-temurin:21-jdk-alpine AS builder
+
+WORKDIR /app
+
+# Install build dependencies
+RUN apk add --no-cache maven
+
+# Copy Maven configuration
+COPY src/intelligence/architecture/microservices/execution-engine/pom.xml ./
+COPY src/intelligence/architecture/microservices/execution-engine/src ./src/
+
+# Build application with optimizations
+RUN mvn clean package -DskipTests \
+    -Dmaven.compiler.optimize=true \
+    -Dmaven.compiler.debug=false
+
+# Production stage with optimized JVM
+FROM eclipse-temurin:21-jre-alpine AS production
+
+# Security: Create non-root user
+RUN addgroup -g 1001 -S gary-taleb && \
+    adduser -S gary-taleb -u 1001
+
+# Install runtime dependencies for low-latency networking
+RUN apk add --no-cache \
+    dumb-init \
+    ca-certificates \
+    curl \
+    numactl \
+    && rm -rf /var/cache/apk/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy JAR from builder
+COPY --from=builder --chown=gary-taleb:gary-taleb /app/target/execution-engine-*.jar ./execution-engine.jar
+
+# Copy configuration
+COPY --chown=gary-taleb:gary-taleb src/intelligence/architecture/deployment/configs/execution-engine.yml ./config/
+
+# JVM optimization for low latency
+ENV JAVA_OPTS="-server \
+    -Xms8g \
+    -Xmx16g \
+    -XX:+UseG1GC \
+    -XX:MaxGCPauseMillis=10 \
+    -XX:G1HeapRegionSize=16m \
+    -XX:G1NewSizePercent=30 \
+    -XX:G1MaxNewSizePercent=40 \
+    -XX:+UseStringDeduplication \
+    -XX:+OptimizeStringConcat \
+    -XX:+UseCompressedOops \
+    -XX:+UseCompressedClassPointers \
+    -XX:+UnlockExperimentalVMOptions \
+    -XX:+UseJVMCICompiler \
+    -XX:+UnlockDiagnosticVMOptions \
+    -XX:+LogVMOutput \
+    -XX:+UseTransparentHugePages \
+    -XX:+AlwaysPreTouch \
+    -XX:+DisableExplicitGC \
+    -Djava.net.preferIPv4Stack=true \
+    -Djava.awt.headless=true \
+    -Dcom.sun.management.jmxremote=true \
+    -Dcom.sun.management.jmxremote.port=9999 \
+    -Dcom.sun.management.jmxremote.authenticate=false \
+    -Dcom.sun.management.jmxremote.ssl=false"
+
+# Application configuration
+ENV PORT=8004 \
+    GRPC_PORT=9004 \
+    FIX_PORT=9104 \
+    METRICS_PORT=8094 \
+    MAX_ORDER_RATE=1000 \
+    EXECUTION_TIMEOUT=5000 \
+    RETRY_ATTEMPTS=3 \
+    SLIPPAGE_TOLERANCE=0.001
+
+# Performance tuning
+ENV JVM_PERFORMANCE_OPTS="-XX:+AggressiveOpts \
+    -XX:+UseFastAccessorMethods \
+    -XX:+UseStringCache \
+    -XX:+OptimizeStringConcat \
+    -Xverify:none \
+    -XX:CompileThreshold=100"
+
+# GC tuning for low latency
+ENV GC_OPTS="-XX:+UseG1GC \
+    -XX:MaxGCPauseMillis=10 \
+    -XX:G1HeapRegionSize=16m \
+    -XX:G1MixedGCCountTarget=8 \
+    -XX:InitiatingHeapOccupancyPercent=35 \
+    -XX:G1MixedGCLiveThresholdPercent=85 \
+    -XX:G1RSetUpdatingPauseTimePercent=5 \
+    -XX:SurvivorRatio=32 \
+    -XX:+UnlockExperimentalVMOptions \
+    -XX:G1NewSizePercent=30 \
+    -XX:G1MaxNewSizePercent=40"
+
+# Health check optimized for trading hours
+HEALTHCHECK --interval=5s --timeout=2s --start-period=30s --retries=2 \
+    CMD curl -f http://localhost:8004/health || exit 1
+
+# Expose ports
+EXPOSE 8004 9004 9104 8094 9999
+
+# Switch to non-root user
+USER gary-taleb
+
+# CPU affinity and NUMA optimization
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["sh", "-c", "java $JAVA_OPTS $JVM_PERFORMANCE_OPTS $GC_OPTS -jar execution-engine.jar"]
+
+# Labels for metadata
+LABEL maintainer="Gary×Taleb Platform Team" \
+      version="3.0.0" \
+      description="Execution Engine - Ultra-low latency order execution" \
+      service="execution-engine" \
+      tier="core" \
+      latency="critical"

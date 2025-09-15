@@ -1,4 +1,5 @@
 """
+from src.constants import SECONDS_PER_DAY, SECONDS_PER_HOUR, SECONDS_PER_MINUTE, MILLISECONDS_PER_SECOND, DEFAULT_MAX_ITEMS, DEFAULT_BATCH_SIZE, BYTES_PER_KB, DFARS_RETENTION_DAYS
 Byzantine Consensus Coordinator for Detector Pool Thread Safety Validation
 =========================================================================
 
@@ -145,7 +146,7 @@ class ByzantineConsensusCoordinator:
         self.isolated_nodes: Set[str] = set()
         
         # Message handling
-        self.message_log: deque = deque(maxlen=10000)
+        self.message_log: deque = deque(maxlen=DEFAULT_MAX_ITEMS)
         self.prepare_messages: Dict[int, Dict[str, ByzantineMessage]] = defaultdict(dict)
         self.commit_messages: Dict[int, Dict[str, ByzantineMessage]] = defaultdict(dict)
         
@@ -164,7 +165,7 @@ class ByzantineConsensusCoordinator:
             'detected_byzantine_behaviors': 0,
             'isolated_malicious_nodes': 0,
             'thread_safety_violations_detected': 0,
-            'consensus_latency_ms': deque(maxlen=1000)
+            'consensus_latency_ms': deque(maxlen=MILLISECONDS_PER_SECOND)
         }
         
         # Thread safety
@@ -246,7 +247,7 @@ class ByzantineConsensusCoordinator:
                     'success': False,
                     'error': 'Prepare phase failed',
                     'byzantine_nodes_detected': prepare_result.get('byzantine_nodes', []),
-                    'consensus_time_ms': (time.time() - consensus_start) * 1000
+                    'consensus_time_ms': (time.time() - consensus_start) * MILLISECONDS_PER_SECOND
                 }
             
             # Phase 2: Commit - Thread safety validation
@@ -260,7 +261,7 @@ class ByzantineConsensusCoordinator:
                     'success': False,
                     'error': 'Commit phase failed',
                     'thread_safety_violations': commit_result.get('violations', []),
-                    'consensus_time_ms': (time.time() - consensus_start) * 1000
+                    'consensus_time_ms': (time.time() - consensus_start) * MILLISECONDS_PER_SECOND
                 }
             
             # Phase 3: Finalize - Consensus decision
@@ -269,7 +270,7 @@ class ByzantineConsensusCoordinator:
             )
             
             # Update metrics
-            consensus_time = (time.time() - consensus_start) * 1000
+            consensus_time = (time.time() - consensus_start) * MILLISECONDS_PER_SECOND
             with self._consensus_lock:
                 self.consensus_metrics['total_consensus_rounds'] += 1
                 self.consensus_metrics['consensus_latency_ms'].append(consensus_time)
@@ -289,7 +290,7 @@ class ByzantineConsensusCoordinator:
                 'validation_id': validation_id,
                 'success': False,
                 'error': str(e),
-                'consensus_time_ms': (time.time() - consensus_start) * 1000
+                'consensus_time_ms': (time.time() - consensus_start) * MILLISECONDS_PER_SECOND
             }
     
     def _execute_prepare_phase(self, 
@@ -676,7 +677,7 @@ class ByzantineConsensusCoordinator:
                     'successful_validations': self.consensus_metrics['successful_validations'],
                     'success_rate_percent': (
                         (self.consensus_metrics['successful_validations'] / 
-                         max(1, self.consensus_metrics['total_consensus_rounds'])) * 100
+                         max(1, self.consensus_metrics['total_consensus_rounds'])) * DEFAULT_BATCH_SIZE
                     ),
                     'average_consensus_latency_ms': avg_consensus_latency,
                     'detected_byzantine_behaviors': self.consensus_metrics['detected_byzantine_behaviors'],
@@ -686,7 +687,7 @@ class ByzantineConsensusCoordinator:
                     'thread_safety_violations_detected': self.consensus_metrics['thread_safety_violations_detected'],
                     'validation_success_rate': (
                         (self.consensus_metrics['successful_validations'] / 
-                         max(1, self.consensus_metrics['total_consensus_rounds'])) * 100
+                         max(1, self.consensus_metrics['total_consensus_rounds'])) * DEFAULT_BATCH_SIZE
                     )
                 },
                 'security_analysis': {
@@ -732,7 +733,7 @@ class ByzantineConsensusCoordinator:
         
         if self.consensus_metrics['consensus_latency_ms']:
             avg_latency = sum(self.consensus_metrics['consensus_latency_ms']) / len(self.consensus_metrics['consensus_latency_ms'])
-            if avg_latency > 1000:  # 1 second
+            if avg_latency > MILLISECONDS_PER_SECOND:  # 1 second
                 recommendations.append(
                     f"HIGH: Average consensus latency {avg_latency:.1f}ms exceeds 1000ms threshold. "
                     "Optimize network communication or reduce validation complexity."
@@ -753,7 +754,7 @@ class ThreadSafetyValidator:
     def __init__(self, node_id: str):
         """Initialize thread safety validator."""
         self.node_id = node_id
-        self.validation_history: deque = deque(maxlen=1000)
+        self.validation_history: deque = deque(maxlen=MILLISECONDS_PER_SECOND)
         self._validation_lock = threading.RLock()
     
     def validate_thread_safety(self, request: ThreadSafetyValidationRequest) -> Dict[str, Any]:
@@ -791,7 +792,7 @@ class ThreadSafetyValidator:
             violations_detected.extend(atomic_violations)
             
             thread_safety_passed = len(violations_detected) == 0
-            validation_time = (time.time() - validation_start) * 1000
+            validation_time = (time.time() - validation_start) * MILLISECONDS_PER_SECOND
             
             result = {
                 'node_id': self.node_id,
@@ -818,7 +819,7 @@ class ThreadSafetyValidator:
                 'node_id': self.node_id,
                 'thread_safety_passed': False,
                 'violations_detected': [f"Validation error: {str(e)}"],
-                'validation_time_ms': (time.time() - validation_start) * 1000,
+                'validation_time_ms': (time.time() - validation_start) * MILLISECONDS_PER_SECOND,
                 'error': str(e),
                 'timestamp': time.time()
             }

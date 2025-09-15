@@ -1,0 +1,324 @@
+name: Connascence Quality Gates - REAL Violations
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      strict_mode:
+        description: 'Fail on any violations'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  checks: write
+
+jobs:
+  connascence-analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install ast astor
+
+      - name: Create Analysis Directories
+        run: |
+          mkdir -p .claude/.artifacts/connascence/{reports,violations,metrics}
+          mkdir -p .github/quality-gates
+
+      - name: Run Connascence Analyzer - REAL Detection
+        id: analyze
+        run: |
+          echo "Running REAL connascence detection..."
+          python -c "
+import sys
+import json
+from pathlib import Path
+sys.path.insert(0, str(Path.cwd()))
+
+from analyzer.detectors.connascence_ast_analyzer import UnifiedConnascenceAnalyzer
+
+# Run the REAL analyzer
+analyzer = UnifiedConnascenceAnalyzer(
+    project_path='.',
+    policy_preset='strict-core',
+    enable_caching=False  # No caching - always fresh analysis
+)
+
+results = analyzer.analyze()
+
+# Save full results
+with open('.claude/.artifacts/connascence/reports/full-analysis.json', 'w') as f:
+    json.dump(results, f, indent=2)
+
+# Extract metrics
+total_violations = results.get('total_violations', 0)
+by_type = results.get('violations_by_type', {})
+critical_count = sum(1 for v in results.get('violations', []) if v.get('severity', 0) >= 8)
+high_count = sum(1 for v in results.get('violations', []) if 5 <= v.get('severity', 0) < 8)
+
+print(f'Total Violations: {total_violations}')
+print(f'Critical: {critical_count}')
+print(f'High: {high_count}')
+
+# Output for GitHub Actions
+print(f'::set-output name=total_violations::{total_violations}')
+print(f'::set-output name=critical_violations::{critical_count}')
+print(f'::set-output name=high_violations::{high_count}')
+
+# Save metrics
+metrics = {
+    'total': total_violations,
+    'critical': critical_count,
+    'high': high_count,
+    'by_type': by_type
+}
+with open('.github/quality-gates/connascence-metrics.json', 'w') as f:
+    json.dump(metrics, f, indent=2)
+"
+
+      - name: Theater Detection - Validate Real Analysis
+        id: theater_check
+        run: |
+          echo "Performing theater detection..."
+          python -c "
+import json
+import sys
+
+# Load analysis results
+with open('.claude/.artifacts/connascence/reports/full-analysis.json', 'r') as f:
+    results = json.load(f)
+
+violations = results.get('violations', [])
+total = results.get('total_violations', 0)
+
+# Theater detection checks
+checks = []
+
+# Check 1: Violations list matches count
+list_count = len(violations)
+if list_count != total:
+    checks.append(f'FAKE: Count mismatch - reported {total} but found {list_count}')
+
+# Check 2: Violations have real file paths
+fake_paths = [v for v in violations if not v.get('file_path') or v['file_path'] == 'unknown']
+if fake_paths:
+    checks.append(f'FAKE: {len(fake_paths)} violations with no real file path')
+
+# Check 3: Violations have line numbers
+no_lines = [v for v in violations if not v.get('line_number')]
+if no_lines:
+    checks.append(f'FAKE: {len(no_lines)} violations with no line numbers')
+
+# Check 4: At least some violations exist (we know there are 7000+)
+if total == 0:
+    checks.append('FAKE: Zero violations is impossible - analyzer returning stub')
+
+# Check 5: Reasonable distribution across types
+by_type = results.get('violations_by_type', {})
+if by_type and all(count == 0 for count in by_type.values()):
+    checks.append('FAKE: All violation types are zero')
+
+# Report results
+if checks:
+    print('THEATER DETECTED - Analysis is FAKE:')
+    for check in checks:
+        print(f'  - {check}')
+    sys.exit(1)
+else:
+    print('VALIDATED: Analysis is REAL')
+    print(f'  - {total} violations detected')
+    print(f'  - {len(set(v.get("file_path") for v in violations))} files affected')
+    print(f'  - {len(by_type)} violation types found')
+"
+
+      - name: Apply Quality Gates
+        id: gates
+        run: |
+          echo "Applying quality gates..."
+
+          TOTAL_VIOLATIONS=${{ steps.analyze.outputs.total_violations }}
+          CRITICAL_VIOLATIONS=${{ steps.analyze.outputs.critical_violations }}
+          HIGH_VIOLATIONS=${{ steps.analyze.outputs.high_violations }}
+          STRICT_MODE=${{ github.event.inputs.strict_mode }}
+
+          # Define thresholds
+          MAX_TOTAL=100  # Fail if >100 violations (we have 7000+)
+          MAX_CRITICAL=0  # Zero tolerance for critical
+          MAX_HIGH=10     # Allow up to 10 high severity
+
+          GATE_FAILED=false
+          FAILURES=""
+
+          # Check total violations
+          if [ "$TOTAL_VIOLATIONS" -gt "$MAX_TOTAL" ]; then
+            FAILURES="${FAILURES}\n  - Total violations: ${TOTAL_VIOLATIONS} > ${MAX_TOTAL}"
+            GATE_FAILED=true
+          fi
+
+          # Check critical violations
+          if [ "$CRITICAL_VIOLATIONS" -gt "$MAX_CRITICAL" ]; then
+            FAILURES="${FAILURES}\n  - Critical violations: ${CRITICAL_VIOLATIONS} > ${MAX_CRITICAL}"
+            GATE_FAILED=true
+          fi
+
+          # Check high violations
+          if [ "$HIGH_VIOLATIONS" -gt "$MAX_HIGH" ]; then
+            FAILURES="${FAILURES}\n  - High violations: ${HIGH_VIOLATIONS} > ${MAX_HIGH}"
+            GATE_FAILED=true
+          fi
+
+          # Strict mode - fail on ANY violations
+          if [ "$STRICT_MODE" = "true" ] && [ "$TOTAL_VIOLATIONS" -gt 0 ]; then
+            FAILURES="${FAILURES}\n  - Strict mode: ${TOTAL_VIOLATIONS} violations found"
+            GATE_FAILED=true
+          fi
+
+          # Report gate status
+          if [ "$GATE_FAILED" = "true" ]; then
+            echo "::error::Quality gates FAILED:${FAILURES}"
+            echo "gate_status=failed" >> $GITHUB_OUTPUT
+
+            # Don't actually fail the job yet - we want to generate reports
+          else
+            echo "::notice::Quality gates PASSED"
+            echo "gate_status=passed" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate Violation Report
+        if: always()
+        run: |
+          python -c "
+import json
+from datetime import datetime
+
+# Load results
+with open('.claude/.artifacts/connascence/reports/full-analysis.json', 'r') as f:
+    results = json.load(f)
+
+# Generate markdown report
+report = []
+report.append('# Connascence Analysis Report')
+report.append(f'Generated: {datetime.now().isoformat()}')
+report.append('')
+report.append('## Summary')
+report.append(f'- **Total Violations**: {results.get("total_violations", 0)}')
+report.append(f'- **Files Analyzed**: {results.get("files_analyzed", 0)}')
+report.append(f'- **Gate Status**: ${{ steps.gates.outputs.gate_status }}')
+report.append('')
+
+# Violations by type
+report.append('## Violations by Type')
+by_type = results.get('violations_by_type', {})
+for vtype, count in sorted(by_type.items(), key=lambda x: x[1], reverse=True):
+    if count > 0:
+        report.append(f'- **{vtype}**: {count}')
+report.append('')
+
+# Top violating files
+violations = results.get('violations', [])
+file_counts = {}
+for v in violations:
+    fp = v.get('file_path', 'unknown')
+    file_counts[fp] = file_counts.get(fp, 0) + 1
+
+report.append('## Top Violating Files')
+for fp, count in sorted(file_counts.items(), key=lambda x: x[1], reverse=True)[:10]:
+    report.append(f'- `{fp}`: {count} violations')
+
+# Write report
+with open('.claude/.artifacts/connascence/reports/summary.md', 'w') as f:
+    f.write('\\n'.join(report))
+
+print('Report generated successfully')
+"
+
+      - name: Upload Analysis Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: connascence-analysis-${{ github.run_id }}
+          path: |
+            .claude/.artifacts/connascence/
+            .github/quality-gates/
+          retention-days: 30
+
+      - name: Post PR Comment
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            // Read metrics
+            const metrics = JSON.parse(
+              fs.readFileSync('.github/quality-gates/connascence-metrics.json', 'utf8')
+            );
+
+            // Read summary
+            const summary = fs.readFileSync(
+              '.claude/.artifacts/connascence/reports/summary.md', 'utf8'
+            );
+
+            // Create comment
+            const comment = `## Connascence Analysis Results
+
+            **Total Violations**: ${metrics.total}
+            **Critical**: ${metrics.critical} | **High**: ${metrics.high}
+            **Gate Status**: ${{ steps.gates.outputs.gate_status }}
+
+            <details>
+            <summary>Full Report</summary>
+
+            ${summary}
+
+            </details>
+
+            *This is REAL analysis data from actual code scanning.*`;
+
+            // Post comment
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment
+            });
+
+      - name: Fail Job if Gates Failed
+        if: steps.gates.outputs.gate_status == 'failed'
+        run: |
+          echo "::error::Quality gates failed - blocking merge"
+          echo "Total violations: ${{ steps.analyze.outputs.total_violations }}"
+          echo "Critical violations: ${{ steps.analyze.outputs.critical_violations }}"
+          echo "High violations: ${{ steps.analyze.outputs.high_violations }}"
+          exit 1
+
+      - name: Success Summary
+        if: steps.gates.outputs.gate_status == 'passed'
+        run: |
+          echo "## Quality Gates Passed" >> $GITHUB_STEP_SUMMARY
+          echo "- Total Violations: ${{ steps.analyze.outputs.total_violations }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Critical: ${{ steps.analyze.outputs.critical_violations }}" >> $GITHUB_STEP_SUMMARY
+          echo "- High: ${{ steps.analyze.outputs.high_violations }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Code quality meets all thresholds." >> $GITHUB_STEP_SUMMARY

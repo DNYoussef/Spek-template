@@ -1,3 +1,5 @@
+# NASA POT10 Rule 3: Minimize dynamic memory allocation
+# Consider using fixed-size arrays or generators for large data processing
 #!/usr/bin/env python3
 """
 Performance Theater Detection System
@@ -424,12 +426,12 @@ class PerformanceTheaterDetector:
         # Generate summary
         summary = {
             'total_claims': len(claims),
-            'validated_claims': len([r for r in validation_results if r.is_valid]),
-            'rejected_claims': len([r for r in validation_results if not r.is_valid]),
-            'average_confidence': statistics.mean([r.confidence_score for r in validation_results]),
+            'validated_claims': len([r for r in validation_results if r.is_valid]  # TODO: Consider limiting size with itertools.islice()),
+            'rejected_claims': len([r for r in validation_results if not r.is_valid]  # TODO: Consider limiting size with itertools.islice()),
+            'average_confidence': statistics.mean([r.confidence_score for r in validation_results]  # TODO: Consider limiting size with itertools.islice()),
             'common_theater_patterns': self._identify_common_patterns(validation_results),
             'systemic_analysis': systemic_analysis,
-            'individual_results': [asdict(result) for result in validation_results]
+            'individual_results': [asdict(result) for result in validation_results]  # TODO: Consider limiting size with itertools.islice()
         }
         
         return summary
@@ -439,7 +441,7 @@ class PerformanceTheaterDetector:
         """Analyze patterns across multiple claims that might indicate systematic theater"""
         
         # Check for suspicious patterns across claims
-        improvements = [claim.improvement_percent for claim in claims]
+        improvements = [claim.improvement_percent for claim in claims]  # TODO: Consider limiting size with itertools.islice()
         
         systemic_indicators = []
         
@@ -458,7 +460,7 @@ class PerformanceTheaterDetector:
         
         # Multiple claims with insufficient evidence
         insufficient_evidence_count = len([r for r in results 
-                                         if r.evidence_quality in ['poor', 'insufficient']])
+                                         if r.evidence_quality in ['poor', 'insufficient']  # TODO: Consider limiting size with itertools.islice()])
         if insufficient_evidence_count > len(results) * 0.7:
             systemic_indicators.append("systematic_insufficient_evidence")
         
@@ -466,7 +468,7 @@ class PerformanceTheaterDetector:
             'systemic_theater_indicators': systemic_indicators,
             'improvement_variance': statistics.stdev(improvements) if len(improvements) > 1 else 0,
             'evidence_quality_distribution': {
-                quality: len([r for r in results if r.evidence_quality == quality])
+                quality: len([r for r in results if r.evidence_quality == quality]  # TODO: Consider limiting size with itertools.islice())
                 for quality in ['excellent', 'good', 'fair', 'poor', 'insufficient']
             }
         }

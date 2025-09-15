@@ -1,0 +1,490 @@
+# Gary×Taleb Trading System - Gary DPI Analyzer Kubernetes Deployment
+# GPU-accelerated pattern recognition and analysis engine
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gary-dpi-analyzer
+  namespace: gary-taleb-production
+  labels:
+    app: gary-dpi-analyzer
+    component: core
+    tier: ai-analysis
+    version: v3.0.0
+    requires: nvidia-gpu
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    description: "Gary's DPI - AI-powered pattern recognition with GPU acceleration"
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: gary-dpi-analyzer
+  template:
+    metadata:
+      labels:
+        app: gary-dpi-analyzer
+        component: core
+        tier: ai-analysis
+        version: v3.0.0
+        requires: nvidia-gpu
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8092"
+        prometheus.io/path: "/metrics"
+        nvidia.com/gpu.shared: "true"
+    spec:
+      serviceAccountName: gary-taleb-service-account
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+      containers:
+      - name: gary-dpi-analyzer
+        image: gary-taleb/gary-dpi-analyzer:3.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8002
+          protocol: TCP
+        - name: grpc
+          containerPort: 9002
+          protocol: TCP
+        - name: metrics
+          containerPort: 8092
+          protocol: TCP
+        env:
+        - name: PYTHONPATH
+          value: "/app"
+        - name: CUDA_VISIBLE_DEVICES
+          value: "0"
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: "all"
+        - name: NVIDIA_DRIVER_CAPABILITIES
+          value: "compute,utility"
+        - name: OMP_NUM_THREADS
+          value: "1"
+        - name: CUDA_LAUNCH_BLOCKING
+          value: "0"
+        - name: TORCH_CUDA_ARCH_LIST
+          value: "7.0 7.5 8.0 8.6 8.9 9.0+PTX"
+        - name: PYTORCH_CUDA_ALLOC_CONF
+          value: "max_split_size_mb:128"
+        - name: GPU_MEMORY_FRACTION
+          value: "0.8"
+        - name: MODEL_CACHE_SIZE
+          value: "10GB"
+        - name: BATCH_SIZE
+          value: "32"
+        - name: INFERENCE_WORKERS
+          value: "4"
+        - name: REDIS_CLUSTER_ENDPOINTS
+          valueFrom:
+            configMapKeyRef:
+              name: gary-taleb-config
+              key: redis.cluster.endpoints
+        - name: MODEL_STORAGE_PATH
+          value: "/app/models"
+        - name: CACHE_PATH
+          value: "/app/cache"
+        resources:
+          requests:
+            cpu: "4"
+            memory: 16Gi
+            nvidia.com/gpu: 1
+            ephemeral-storage: 20Gi
+          limits:
+            cpu: "16"
+            memory: 64Gi
+            nvidia.com/gpu: 1
+            ephemeral-storage: 50Gi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        startupProbe:
+          httpGet:
+            path: /startup
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 60
+          successThreshold: 1
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+          readOnly: true
+        - name: model-cache
+          mountPath: /app/models
+        - name: data-cache
+          mountPath: /app/cache
+        - name: logs-volume
+          mountPath: /app/logs
+        - name: shm-volume
+          mountPath: /dev/shm
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+      - name: model-downloader
+        image: gary-taleb/model-downloader:1.0.0
+        command: ["/bin/sh"]
+        args:
+        - -c
+        - |
+          echo "Downloading latest models..."
+          /app/download-models.sh
+          echo "Model download completed, keeping container alive..."
+          tail -f /dev/null
+        volumeMounts:
+        - name: model-cache
+          mountPath: /app/models
+        resources:
+          requests:
+            cpu: "0.5"
+            memory: 1Gi
+          limits:
+            cpu: "2"
+            memory: 4Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+      volumes:
+      - name: config-volume
+        configMap:
+          name: gary-dpi-analyzer-config
+      - name: model-cache
+        persistentVolumeClaim:
+          claimName: gary-dpi-model-cache-pvc
+      - name: data-cache
+        emptyDir:
+          sizeLimit: 50Gi
+          medium: Memory
+      - name: logs-volume
+        emptyDir:
+          sizeLimit: 10Gi
+      - name: shm-volume
+        emptyDir:
+          medium: Memory
+          sizeLimit: 8Gi
+      nodeSelector:
+        accelerator: nvidia-tesla-a100
+        node-type: gpu-compute
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - gary-dpi-analyzer
+              topologyKey: kubernetes.io/hostname
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: accelerator
+                operator: In
+                values:
+                - nvidia-tesla-a100
+                - nvidia-tesla-v100
+      tolerations:
+      - key: "nvidia.com/gpu"
+        operator: "Exists"
+        effect: "NoSchedule"
+      - key: "high-performance-computing"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+      terminationGracePeriodSeconds: 60
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gary-dpi-analyzer-service
+  namespace: gary-taleb-production
+  labels:
+    app: gary-dpi-analyzer
+    component: core
+    tier: ai-analysis
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8092"
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8002
+    targetPort: http
+    protocol: TCP
+  - name: grpc
+    port: 9002
+    targetPort: grpc
+    protocol: TCP
+  - name: metrics
+    port: 8092
+    targetPort: metrics
+    protocol: TCP
+  selector:
+    app: gary-dpi-analyzer
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 600
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gary-dpi-model-cache-pvc
+  namespace: gary-taleb-production
+  labels:
+    app: gary-dpi-analyzer
+    component: core
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Gi
+  storageClassName: high-performance-ssd
+  volumeMode: Filesystem
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gary-dpi-analyzer-config
+  namespace: gary-taleb-production
+  labels:
+    app: gary-dpi-analyzer
+    component: core
+data:
+  config.yml: |
+    server:
+      port: 8002
+      grpc_port: 9002
+      metrics_port: 8092
+      workers: 4
+
+    gpu:
+      device_id: 0
+      memory_fraction: 0.8
+      allow_growth: true
+      per_process_gpu_memory_fraction: 0.8
+
+    models:
+      cache_path: /app/models
+      download_path: /app/models/downloads
+      max_cache_size: 10GB
+      models:
+        pattern_recognition:
+          name: "gary-dpi-pattern-v3"
+          version: "3.0.0"
+          file: "pattern_recognition.pth"
+        trend_analysis:
+          name: "gary-dpi-trend-v3"
+          version: "3.0.0"
+          file: "trend_analysis.pth"
+        volatility_prediction:
+          name: "gary-dpi-volatility-v3"
+          version: "3.0.0"
+          file: "volatility_prediction.pth"
+
+    inference:
+      batch_size: 32
+      max_batch_delay: 50ms
+      timeout: 30s
+      workers: 4
+      queue_size: 1000
+
+    dpi:
+      data_processing:
+        window_size: 100
+        smoothing_factor: 0.1
+        normalization: z-score
+      intelligence:
+        learning_rate: 0.001
+        confidence_threshold: 0.7
+        adaptation_rate: 0.05
+      patterns:
+        min_pattern_length: 5
+        max_pattern_age_hours: 24
+        confidence_threshold: 0.75
+
+    redis:
+      cluster_endpoints: ${REDIS_CLUSTER_ENDPOINTS}
+      pool_size: 50
+      timeout: 5000
+      retry_attempts: 3
+
+    logging:
+      level: info
+      format: json
+      output: stdout
+      gpu_metrics: true
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gary-dpi-analyzer-hpa
+  namespace: gary-taleb-production
+  labels:
+    app: gary-dpi-analyzer
+    component: core
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gary-dpi-analyzer
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Pods
+    pods:
+      metric:
+        name: gpu_utilization
+      target:
+        type: AverageValue
+        averageValue: "80"
+  - type: Pods
+    pods:
+      metric:
+        name: inference_queue_depth
+      target:
+        type: AverageValue
+        averageValue: "100"
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 120
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+      - type: Pods
+        value: 1
+        periodSeconds: 60
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 10
+        periodSeconds: 60
+      selectPolicy: Min
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: gary-dpi-analyzer-pdb
+  namespace: gary-taleb-production
+  labels:
+    app: gary-dpi-analyzer
+    component: core
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: gary-dpi-analyzer
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: gary-dpi-analyzer-netpol
+  namespace: gary-taleb-production
+  labels:
+    app: gary-dpi-analyzer
+    component: core
+spec:
+  podSelector:
+    matchLabels:
+      app: gary-dpi-analyzer
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: taleb-antifragile-engine
+    - podSelector:
+        matchLabels:
+          app: execution-engine
+    - podSelector:
+        matchLabels:
+          app: analytics-engine
+    - namespaceSelector:
+        matchLabels:
+          name: gary-taleb-monitoring
+    ports:
+    - protocol: TCP
+      port: 8002
+    - protocol: TCP
+      port: 9002
+    - protocol: TCP
+      port: 8092
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: market-data-gateway
+    ports:
+    - protocol: TCP
+      port: 8001
+    - protocol: TCP
+      port: 9001
+  - to:
+    - podSelector:
+        matchLabels:
+          app: redis-cluster
+    ports:
+    - protocol: TCP
+      port: 6379
+  - to: []  # Allow external egress for model downloads
+    ports:
+    - protocol: TCP
+      port: 443

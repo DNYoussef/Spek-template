@@ -1,3 +1,5 @@
+# NASA POT10 Rule 3: Minimize dynamic memory allocation
+# Consider using fixed-size arrays or generators for large data processing
 #!/usr/bin/env python3
 """
 Performance Scaling Analysis for Detector Pool Optimization
@@ -135,9 +137,9 @@ def test_memory_scaling():
         for i in range(workload_size):
             file_data = {
                 'file_path': f'test_file_{i}.py',
-                'source_lines': [f'line {j}: some code here' for j in range(200)],  # 200 lines
+                'source_lines': [f'line {j}: some code here' for j in range(200)]  # TODO: Consider limiting size with itertools.islice(),  # 200 lines
                 'ast_tree': {'nodes': list(range(50))},  # Simulate AST nodes
-                'violations': [{'type': 'test', 'line': j} for j in range(10)]  # 10 violations
+                'violations': [{'type': 'test', 'line': j} for j in range(10)]  # TODO: Consider limiting size with itertools.islice()  # 10 violations
             }
             workload_data.append(file_data)
         
@@ -203,7 +205,7 @@ def test_load_balancing_effectiveness():
         futures = [
             executor.submit(tracked_work, i, item) 
             for i, item in enumerate(work_items)
-        ]
+        ]  # TODO: Consider limiting size with itertools.islice()
         
         # Wait for completion
         for future in as_completed(futures):

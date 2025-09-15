@@ -1,0 +1,79 @@
+{
+  "name": "division4-risk-dashboard",
+  "version": "1.0.0-complete",
+  "description": "Division 4: Complete Gary×Taleb×Kelly Risk Dashboard with Real-time P(ruin)",
+  "type": "module",
+  "main": "IntegratedServer.ts",
+  "bin": {
+    "risk-dashboard": "dist/server.js"
+  },
+  "scripts": {
+    "dev": "tsx watch server.ts",
+    "build": "tsc",
+    "build:client": "echo 'Client build placeholder - integrate with your preferred bundler'",
+    "start": "tsx IntegratedServer.ts",
+    "start:ws": "tsx server.ts",
+    "test": "tsx test-dashboard.js performance",
+    "test:watch": "jest --watch",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "start:production": "node dist/IntegratedServer.js",
+    "test:load": "tsx test-dashboard.js load 25 30000",
+    "division4": "tsx IntegratedServer.ts",
+    "gary": "echo \"🎯 Gary DPI Engine integrated in main system\"",
+    "taleb": "echo \"🏺 Taleb Barbell Engine integrated in main system\"",
+    "kelly": "echo \"🎲 Kelly Criterion Engine integrated in main system\""
+  },
+  "dependencies": {
+    "ws": "^8.14.2",
+    "express": "^4.18.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^2.8.0",
+    "events": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/ws": "^8.5.10",
+    "@types/express": "^4.17.21",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "typescript": "^5.3.3",
+    "tsx": "^4.6.2",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.8",
+    "eslint": "^8.55.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "tailwindcss": "^3.3.6"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/gary-taleb-risk-dashboard.git"
+  },
+  "keywords": [
+    "division4",
+    "risk-management",
+    "probability-of-ruin",
+    "real-time-dashboard",
+    "gary-dpi",
+    "taleb-barbell",
+    "kelly-criterion",
+    "antifragility",
+    "trading",
+    "portfolio-optimization",
+    "websocket",
+    "phase2-goal5-complete"
+  ],
+  "author": "Phase 2 Division 4 Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-org/gary-taleb-risk-dashboard/issues"
+  },
+  "homepage": "https://github.com/your-org/gary-taleb-risk-dashboard#readme"
+}

@@ -92,15 +92,20 @@ try:
     from .optimization.ast_optimizer import ConnascencePatternOptimizer
     from .nasa_engine.nasa_analyzer import NASAAnalyzer
 except ImportError:
-    # Fallback with comprehensive error handling
+    # Use fixed analyzer implementation
     try:
-        from detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
+        from detectors.connascence_ast_analyzer_fixed import ConnascenceASTAnalyzer
+        logger.info("Using FIXED connascence analyzer implementation")
     except ImportError:
-        # Minimal fallback analyzer class
-        class ConnascenceASTAnalyzer:
-            def __init__(self, *args, **kwargs):
-                pass
-        logger.warning("Using minimal fallback analyzer")
+        try:
+            from detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
+            logger.warning("Using original (broken) analyzer - expect 0 violations")
+        except ImportError:
+            # Minimal fallback analyzer class
+            class ConnascenceASTAnalyzer:
+                def __init__(self, *args, **kwargs):
+                    pass
+            logger.warning("Using minimal fallback analyzer")
     
     # Safe fallbacks for other components
     GodObjectOrchestrator = None

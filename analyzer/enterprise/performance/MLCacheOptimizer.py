@@ -215,14 +215,16 @@ class CompressionManager:
     def compress_data(self, data: Any) -> Tuple[bytes, float]:
         """Compress data and return compressed bytes with compression ratio."""
         if not self.config.compression_enabled:
-            serialized = pickle.dumps(data)
+            import json
+            serialized = json.dumps(data, default=str).encode('utf-8')
             return serialized, 1.0
         
         start_time = time.perf_counter()
         
         try:
             # Serialize data
-            serialized = pickle.dumps(data)
+            import json
+            serialized = json.dumps(data, default=str).encode('utf-8')
             original_size = len(serialized)
             
             # Compress using zlib
@@ -250,18 +252,21 @@ class CompressionManager:
             
         except Exception as e:
             logger.error(f"Compression failed: {e}")
-            serialized = pickle.dumps(data)
+            import json
+            serialized = json.dumps(data, default=str).encode('utf-8')
             return serialized, 1.0
     
     def decompress_data(self, compressed_data: bytes, compression_ratio: float) -> Any:
         """Decompress data."""
         if not self.config.compression_enabled or compression_ratio <= 1.01:  # Not compressed
-            return pickle.loads(compressed_data)
+            import json
+            return json.loads(compressed_data.decode('utf-8'))
         
         try:
             # Decompress
             decompressed = zlib.decompress(compressed_data)
-            data = pickle.loads(decompressed)
+            import json
+            data = json.loads(decompressed.decode('utf-8'))
             
             self.compression_stats["total_decompressed"] += 1
             
@@ -271,7 +276,8 @@ class CompressionManager:
             logger.error(f"Decompression failed: {e}")
             # Try direct deserialization as fallback
             try:
-                return pickle.loads(compressed_data)
+                import json
+            return json.loads(compressed_data.decode('utf-8'))
             except:
                 return None
     

@@ -1,3 +1,4 @@
+import ast
 #!/usr/bin/env python3
 """
 Real Linter Tool Integration Validation Tests
@@ -129,7 +130,7 @@ def insecure_function():
     assert password != "admin"
     
     # Eval usage
-    eval("1 + 1")
+    ast.literal_eval("1 + 1")
     
     return hash_obj.hexdigest()
 

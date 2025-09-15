@@ -1,0 +1,307 @@
+# Gary×Taleb Trading System - Prometheus Configuration
+# Defense Industry Monitoring with 99.9% Uptime Requirements
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'gary-taleb-trading'
+    environment: 'production'
+    compliance: 'defense-industry'
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+      timeout: 10s
+      api_version: v2
+
+# Load rules once and periodically evaluate them
+rule_files:
+  - "trading_alerts.yml"
+  - "financial_compliance_alerts.yml"
+  - "infrastructure_alerts.yml"
+  - "security_alerts.yml"
+
+# Scrape configurations for trading system components
+scrape_configs:
+
+  # Trading application metrics
+  - job_name: 'gary-taleb-trading'
+    kubernetes_sd_configs:
+    - role: endpoints
+      namespaces:
+        names:
+        - gary-taleb-trading
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_service_name]
+      action: keep
+      regex: gary-taleb-trading
+    - source_labels: [__meta_kubernetes_endpoint_port_name]
+      action: keep
+      regex: metrics
+    - source_labels: [__meta_kubernetes_pod_name]
+      target_label: pod
+    - source_labels: [__meta_kubernetes_service_name]
+      target_label: service
+    - source_labels: [__meta_kubernetes_namespace]
+      target_label: namespace
+    metric_relabel_configs:
+    - source_labels: [__name__]
+      regex: 'trading_.*'
+      target_label: system
+      replacement: 'gary-taleb'
+
+  # Market data processor metrics
+  - job_name: 'market-data-processor'
+    kubernetes_sd_configs:
+    - role: endpoints
+      namespaces:
+        names:
+        - gary-taleb-trading
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_service_name]
+      action: keep
+      regex: gary-taleb-trading-market-data
+    - source_labels: [__meta_kubernetes_endpoint_port_name]
+      action: keep
+      regex: metrics
+    - source_labels: [__meta_kubernetes_pod_name]
+      target_label: pod
+    - source_labels: [__meta_kubernetes_service_name]
+      target_label: service
+
+  # Risk manager metrics
+  - job_name: 'risk-manager'
+    kubernetes_sd_configs:
+    - role: endpoints
+      namespaces:
+        names:
+        - gary-taleb-trading
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_service_name]
+      action: keep
+      regex: gary-taleb-trading-risk-manager
+    - source_labels: [__meta_kubernetes_endpoint_port_name]
+      action: keep
+      regex: metrics
+    scrape_interval: 5s # More frequent for risk monitoring
+
+  # Order executor metrics (ultra-low latency monitoring)
+  - job_name: 'order-executor'
+    kubernetes_sd_configs:
+    - role: endpoints
+      namespaces:
+        names:
+        - gary-taleb-trading
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_service_name]
+      action: keep
+      regex: gary-taleb-trading-order-executor
+    - source_labels: [__meta_kubernetes_endpoint_port_name]
+      action: keep
+      regex: metrics
+    scrape_interval: 5s # Ultra-frequent for order execution monitoring
+
+  # API Gateway metrics
+  - job_name: 'api-gateway'
+    kubernetes_sd_configs:
+    - role: endpoints
+      namespaces:
+        names:
+        - gary-taleb-trading
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_service_name]
+      action: keep
+      regex: gary-taleb-trading-api-gateway
+    - source_labels: [__meta_kubernetes_endpoint_port_name]
+      action: keep
+      regex: metrics
+
+  # Infrastructure monitoring
+  - job_name: 'kubernetes-apiservers'
+    kubernetes_sd_configs:
+    - role: endpoints
+      namespaces:
+        names:
+        - default
+    scheme: https
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+      action: keep
+      regex: default;kubernetes;https
+
+  # Kubelet metrics
+  - job_name: 'kubernetes-nodes'
+    kubernetes_sd_configs:
+    - role: node
+    scheme: https
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    relabel_configs:
+    - action: labelmap
+      regex: __meta_kubernetes_node_label_(.+)
+    - target_label: __address__
+      replacement: kubernetes.default.svc:443
+    - source_labels: [__meta_kubernetes_node_name]
+      regex: (.+)
+      target_label: __metrics_path__
+      replacement: /api/v1/nodes/${1}/proxy/metrics
+
+  # Pod metrics
+  - job_name: 'kubernetes-pods'
+    kubernetes_sd_configs:
+    - role: pod
+      namespaces:
+        names:
+        - gary-taleb-trading
+        - monitoring
+        - kube-system
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+      action: keep
+      regex: true
+    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+      action: replace
+      target_label: __metrics_path__
+      regex: (.+)
+    - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+      action: replace
+      regex: ([^:]+)(?::\d+)?;(\d+)
+      replacement: $1:$2
+      target_label: __address__
+    - action: labelmap
+      regex: __meta_kubernetes_pod_label_(.+)
+    - source_labels: [__meta_kubernetes_namespace]
+      action: replace
+      target_label: kubernetes_namespace
+    - source_labels: [__meta_kubernetes_pod_name]
+      action: replace
+      target_label: kubernetes_pod_name
+
+  # Node exporter for system metrics
+  - job_name: 'node-exporter'
+    kubernetes_sd_configs:
+    - role: endpoints
+      namespaces:
+        names:
+        - monitoring
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_service_name]
+      action: keep
+      regex: node-exporter
+    - source_labels: [__meta_kubernetes_endpoint_port_name]
+      action: keep
+      regex: metrics
+
+  # Database monitoring (PostgreSQL)
+  - job_name: 'postgres-exporter'
+    static_configs:
+    - targets: ['postgres-exporter:9187']
+    scrape_interval: 30s
+
+  # Redis monitoring
+  - job_name: 'redis-exporter'
+    static_configs:
+    - targets: ['redis-exporter:9121']
+    scrape_interval: 30s
+
+  # NGINX Ingress Controller
+  - job_name: 'nginx-ingress'
+    kubernetes_sd_configs:
+    - role: pod
+      namespaces:
+        names:
+        - ingress-nginx
+    relabel_configs:
+    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+      action: keep
+      regex: true
+    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
+      action: replace
+      target_label: __scheme__
+      regex: (https?)
+    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+      action: replace
+      target_label: __metrics_path__
+      regex: (.+)
+    - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+      action: replace
+      regex: ([^:]+)(?::\d+)?;(\d+)
+      replacement: $1:$2
+      target_label: __address__
+
+  # Custom financial metrics endpoint
+  - job_name: 'financial-metrics'
+    static_configs:
+    - targets: ['financial-metrics-service:8080']
+    scrape_interval: 10s # Frequent scraping for financial data
+    metrics_path: '/metrics/financial'
+
+  # Security monitoring
+  - job_name: 'security-metrics'
+    static_configs:
+    - targets: ['security-monitor:9200']
+    scrape_interval: 30s
+    metrics_path: '/security/metrics'
+
+# Remote write configuration for long-term storage
+remote_write:
+  - url: "https://prometheus-remote-write.gary-taleb.trading/api/v1/write"
+    basic_auth:
+      username: prometheus
+      password_file: /etc/prometheus/remote-write-password
+    queue_config:
+      max_samples_per_send: 10000
+      max_shards: 200
+      capacity: 500000
+    write_relabel_configs:
+    - source_labels: [__name__]
+      regex: 'trading_.*|financial_.*|risk_.*|order_.*'
+      action: keep
+
+# Recording rules for performance optimization
+recording_rules:
+  - name: trading_aggregations
+    interval: 30s
+    rules:
+    - record: trading:request_rate_5m
+      expr: rate(http_requests_total{job="gary-taleb-trading"}[5m])
+    - record: trading:request_duration_99p_5m
+      expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket{job="gary-taleb-trading"}[5m]))
+    - record: trading:error_rate_5m
+      expr: rate(http_requests_total{job="gary-taleb-trading",status=~"5.."}[5m])
+
+  - name: financial_aggregations
+    interval: 15s
+    rules:
+    - record: financial:pnl_total
+      expr: sum(trading_position_pnl_usd) by (symbol)
+    - record: financial:portfolio_value
+      expr: sum(trading_portfolio_value_usd)
+    - record: financial:daily_volume
+      expr: sum(increase(trading_volume_usd[1d]))
+
+  - name: risk_aggregations
+    interval: 10s
+    rules:
+    - record: risk:var_95
+      expr: histogram_quantile(0.95, trading_var_bucket)
+    - record: risk:exposure_by_symbol
+      expr: sum(trading_position_exposure_usd) by (symbol)
+    - record: risk:leverage_ratio
+      expr: sum(trading_position_notional_usd) / sum(trading_account_equity_usd)
+
+# Storage configuration
+storage:
+  tsdb:
+    path: /prometheus/data
+    retention.time: 30d
+    retention.size: 100GB
+    wal-compression: true

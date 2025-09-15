@@ -1,0 +1,621 @@
+# Gary×Taleb Trading System - Jaeger Distributed Tracing Configuration
+# End-to-end request tracing for ultra-low latency optimization
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaeger-config
+  namespace: gary-taleb-monitoring
+  labels:
+    app: jaeger
+    component: tracing
+data:
+  jaeger.yml: |
+    # Jaeger Collector Configuration
+    collector:
+      zipkin:
+        host-port: ":9411"
+      otlp:
+        grpc:
+          host-port: ":14250"
+        http:
+          host-port: ":14268"
+      http:
+        host-port: ":14269"
+      grpc:
+        host-port: ":14250"
+      log-level: info
+      num-workers: 50
+      queue-size: 2000
+
+    # Storage Configuration - Elasticsearch for production
+    storage:
+      type: elasticsearch
+      options:
+        primary:
+          server-urls: http://elasticsearch:9200
+          index-prefix: gary-taleb-traces
+          max-doc-count: 10000000
+          max-span-age: 72h
+          num-shards: 5
+          num-replicas: 1
+          bulk:
+            size: 5000000
+            workers: 10
+            flush-interval: 1s
+
+    # Query Service Configuration
+    query:
+      base-path: /
+      port: 16686
+      static-files: /go/jaeger-ui/
+      log-level: info
+      max-clock-skew-adjustment: 0s
+
+    # Agent Configuration
+    agent:
+      collectors: jaeger-collector:14267
+      log-level: info
+      http-server:
+        host-port: ":5778"
+      thrift-compact:
+        host-port: ":6831"
+      thrift-binary:
+        host-port: ":6832"
+      grpc:
+        host-port: ":14250"
+
+    # Sampling Configuration for High-Frequency Trading
+    sampling:
+      default_strategy:
+        type: probabilistic
+        param: 0.01  # 1% sampling for normal operations
+      per_operation_strategies:
+        # Critical path sampling - higher rates
+        - operation: "execution-engine.*"
+          type: probabilistic
+          param: 0.1  # 10% for execution operations
+        - operation: "market-data-gateway.*"
+          type: probabilistic
+          param: 0.05  # 5% for market data
+        - operation: "gary-dpi-analyzer.*"
+          type: probabilistic
+          param: 0.02  # 2% for DPI analysis
+        # Error traces - always sample
+        - operation: ".*error.*"
+          type: probabilistic
+          param: 1.0
+        - operation: ".*timeout.*"
+          type: probabilistic
+          param: 1.0
+
+---
+# Jaeger Operator Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger-operator
+  namespace: gary-taleb-monitoring
+  labels:
+    app: jaeger-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger-operator
+  template:
+    metadata:
+      labels:
+        app: jaeger-operator
+    spec:
+      serviceAccount: jaeger-operator
+      containers:
+      - name: jaeger-operator
+        image: jaegertracing/jaeger-operator:1.47.0
+        ports:
+        - containerPort: 8383
+          name: http-metrics
+        - containerPort: 8686
+          name: cr-metrics
+        env:
+        - name: WATCH_NAMESPACE
+          value: gary-taleb-production
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: OPERATOR_NAME
+          value: "jaeger-operator"
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jaeger-operator
+  namespace: gary-taleb-monitoring
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: jaeger-operator
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  - endpoints
+  - persistentvolumeclaims
+  - events
+  - configmaps
+  - secrets
+  - serviceaccounts
+  verbs:
+  - "*"
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
+  verbs:
+  - "*"
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - servicemonitors
+  verbs:
+  - get
+  - create
+- apiGroups:
+  - extensions
+  resources:
+  - ingresses
+  verbs:
+  - "*"
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  - cronjobs
+  verbs:
+  - "*"
+- apiGroups:
+  - route.openshift.io
+  resources:
+  - routes
+  verbs:
+  - "*"
+- apiGroups:
+  - jaegertracing.io
+  resources:
+  - "*"
+  verbs:
+  - "*"
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: jaeger-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: jaeger-operator
+subjects:
+- kind: ServiceAccount
+  name: jaeger-operator
+  namespace: gary-taleb-monitoring
+
+---
+# Jaeger Instance for Gary×Taleb Trading System
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: gary-taleb-jaeger
+  namespace: gary-taleb-monitoring
+spec:
+  strategy: production
+
+  collector:
+    replicas: 3
+    maxReplicas: 10
+    resources:
+      requests:
+        cpu: "1"
+        memory: "2Gi"
+      limits:
+        cpu: "4"
+        memory: "8Gi"
+    config: |
+      collector:
+        num-workers: 50
+        queue-size: 2000
+        log-level: info
+      span-storage:
+        type: elasticsearch
+      es:
+        server-urls: http://elasticsearch:9200
+        index-prefix: gary-taleb-traces
+        max-doc-count: 10000000
+        max-span-age: 72h
+        num-shards: 5
+        num-replicas: 1
+        bulk:
+          size: 5000000
+          workers: 10
+          flush-interval: 1s
+
+  query:
+    replicas: 2
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
+      limits:
+        cpu: "2"
+        memory: "4Gi"
+    config: |
+      query:
+        base-path: /
+        log-level: info
+        max-clock-skew-adjustment: 0s
+
+  agent:
+    strategy: DaemonSet
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+    config: |
+      agent:
+        log-level: info
+      processors:
+        batch:
+          send_batch_size: 1024
+          timeout: 1s
+
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      nodeCount: 3
+      storage:
+        storageClassName: high-performance-ssd
+        size: 100Gi
+      redundancyPolicy: SingleRedundancy
+      resources:
+        requests:
+          cpu: "2"
+          memory: "8Gi"
+        limits:
+          cpu: "4"
+          memory: "16Gi"
+
+  sampling:
+    options:
+      default_strategy:
+        type: probabilistic
+        param: 0.01
+      per_operation_strategies:
+        # Trading execution - critical path
+        - operation: "/execution/orders"
+          type: probabilistic
+          param: 0.2
+        - operation: "execution-engine.*"
+          type: probabilistic
+          param: 0.15
+        # Market data ingestion
+        - operation: "/market-data/subscribe"
+          type: probabilistic
+          param: 0.1
+        - operation: "market-data-gateway.*"
+          type: probabilistic
+          param: 0.05
+        # Gary DPI analysis
+        - operation: "/gary-dpi/analyze"
+          type: probabilistic
+          param: 0.1
+        - operation: "gary-dpi-analyzer.*"
+          type: probabilistic
+          param: 0.05
+        # Taleb engine
+        - operation: "/taleb/volatility-assessment"
+          type: probabilistic
+          param: 0.1
+        # Error conditions - always trace
+        - operation: ".*error.*"
+          type: probabilistic
+          param: 1.0
+        - operation: ".*timeout.*"
+          type: probabilistic
+          param: 1.0
+        - operation: ".*reject.*"
+          type: probabilistic
+          param: 1.0
+
+  volumeMounts:
+  - name: jaeger-configuration-volume
+    mountPath: /etc/jaeger
+
+  volumes:
+  - name: jaeger-configuration-volume
+    configMap:
+      name: jaeger-config
+      items:
+      - key: jaeger.yml
+        path: jaeger.yml
+
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "14269"
+
+---
+# OpenTelemetry Collector Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-config
+  namespace: gary-taleb-monitoring
+data:
+  config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+      jaeger:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:14250
+          thrift_http:
+            endpoint: 0.0.0.0:14268
+          thrift_compact:
+            endpoint: 0.0.0.0:6831
+          thrift_binary:
+            endpoint: 0.0.0.0:6832
+
+    processors:
+      batch:
+        send_batch_size: 1024
+        timeout: 1s
+        send_batch_max_size: 2048
+      memory_limiter:
+        limit_mib: 512
+      resource:
+        attributes:
+          - key: service.namespace
+            value: gary-taleb-production
+            action: insert
+      tail_sampling:
+        decision_wait: 10s
+        num_traces: 100
+        expected_new_traces_per_sec: 10
+        policies:
+          # Always sample errors
+          - name: errors
+            type: status_code
+            status_code: {status_codes: [ERROR]}
+          # Always sample slow traces
+          - name: slow-traces
+            type: latency
+            latency: {threshold_ms: 100}
+          # Sample trading operations at higher rate
+          - name: trading-operations
+            type: string_attribute
+            string_attribute: {key: service.name, values: [execution-engine, market-data-gateway]}
+          # Probabilistic sampling for everything else
+          - name: probabilistic-policy
+            type: probabilistic
+            probabilistic: {sampling_percentage: 1}
+
+    exporters:
+      jaeger:
+        endpoint: gary-taleb-jaeger-collector:14250
+        tls:
+          insecure: true
+      prometheus:
+        endpoint: "0.0.0.0:8889"
+        resource_to_telemetry_conversion:
+          enabled: true
+      logging:
+        loglevel: debug
+
+    extensions:
+      health_check:
+        endpoint: 0.0.0.0:13133
+      pprof:
+        endpoint: 0.0.0.0:1777
+      zpages:
+        endpoint: 0.0.0.0:55679
+
+    service:
+      extensions: [health_check, pprof, zpages]
+      pipelines:
+        traces:
+          receivers: [otlp, jaeger]
+          processors: [memory_limiter, resource, batch, tail_sampling]
+          exporters: [jaeger]
+        metrics:
+          receivers: [otlp]
+          processors: [memory_limiter, resource, batch]
+          exporters: [prometheus]
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-collector
+  namespace: gary-taleb-monitoring
+  labels:
+    app: otel-collector
+    component: tracing
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: otel-collector
+  template:
+    metadata:
+      labels:
+        app: otel-collector
+        component: tracing
+    spec:
+      containers:
+      - name: otel-collector
+        image: otel/opentelemetry-collector-contrib:0.85.0
+        command:
+        - "/otelcol-contrib"
+        - "--config=/etc/config/config.yaml"
+        ports:
+        - name: otlp-grpc
+          containerPort: 4317
+          protocol: TCP
+        - name: otlp-http
+          containerPort: 4318
+          protocol: TCP
+        - name: jaeger-grpc
+          containerPort: 14250
+          protocol: TCP
+        - name: jaeger-http
+          containerPort: 14268
+          protocol: TCP
+        - name: jaeger-compact
+          containerPort: 6831
+          protocol: UDP
+        - name: jaeger-binary
+          containerPort: 6832
+          protocol: UDP
+        - name: metrics
+          containerPort: 8889
+          protocol: TCP
+        - name: health
+          containerPort: 13133
+          protocol: TCP
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 13133
+          initialDelaySeconds: 30
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 13133
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      volumes:
+      - name: config-volume
+        configMap:
+          name: otel-collector-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: otel-collector-service
+  namespace: gary-taleb-monitoring
+  labels:
+    app: otel-collector
+    component: tracing
+spec:
+  type: ClusterIP
+  ports:
+  - name: otlp-grpc
+    port: 4317
+    targetPort: 4317
+    protocol: TCP
+  - name: otlp-http
+    port: 4318
+    targetPort: 4318
+    protocol: TCP
+  - name: jaeger-grpc
+    port: 14250
+    targetPort: 14250
+    protocol: TCP
+  - name: jaeger-http
+    port: 14268
+    targetPort: 14268
+    protocol: TCP
+  - name: jaeger-compact
+    port: 6831
+    targetPort: 6831
+    protocol: UDP
+  - name: jaeger-binary
+    port: 6832
+    targetPort: 6832
+    protocol: UDP
+  - name: metrics
+    port: 8889
+    targetPort: 8889
+    protocol: TCP
+  selector:
+    app: otel-collector
+
+---
+# Service Monitor for Prometheus scraping
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: jaeger-service-monitor
+  namespace: gary-taleb-monitoring
+  labels:
+    app: jaeger
+spec:
+  selector:
+    matchLabels:
+      app: jaeger
+  endpoints:
+  - port: admin-http
+    interval: 30s
+    path: /metrics
+  - port: c-admin-http
+    interval: 30s
+    path: /metrics
+
+---
+# Tracing annotation webhook for automatic instrumentation
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingAdmissionWebhook
+metadata:
+  name: gary-taleb-tracing-webhook
+  namespace: gary-taleb-monitoring
+spec:
+  clientConfig:
+    service:
+      name: tracing-webhook-service
+      namespace: gary-taleb-monitoring
+      path: /mutate
+  rules:
+  - operations: ["CREATE", "UPDATE"]
+    apiGroups: ["apps"]
+    apiVersions: ["v1"]
+    resources: ["deployments"]
+  admissionReviewVersions: ["v1", "v1beta1"]

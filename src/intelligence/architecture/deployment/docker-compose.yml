@@ -1,0 +1,480 @@
+# Gary×Taleb Trading System - Docker Compose
+# Complete development and testing environment
+
+version: '3.8'
+
+# Shared networks
+networks:
+  gary-taleb-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+  gary-taleb-backend:
+    driver: bridge
+    internal: true
+
+# Shared volumes
+volumes:
+  redis-data:
+    driver: local
+  kafka-data:
+    driver: local
+  postgres-data:
+    driver: local
+  clickhouse-data:
+    driver: local
+  elasticsearch-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+  model-cache:
+    driver: local
+
+services:
+  # Infrastructure Services
+  redis-cluster:
+    image: redis:7.2-alpine
+    container_name: gary-taleb-redis
+    command: redis-server --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000 --appendonly yes --maxmemory 2gb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - gary-taleb-backend
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '2.0'
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: gary-taleb-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_NUM_PARTITIONS: 12
+      KAFKA_LOG_RETENTION_HOURS: 168
+      KAFKA_LOG_RETENTION_BYTES: 1073741824
+      KAFKA_LOG_SEGMENT_BYTES: 1073741824
+      KAFKA_MESSAGE_MAX_BYTES: 10485760
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    networks:
+      - gary-taleb-backend
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    container_name: gary-taleb-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - gary-taleb-backend
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: gary-taleb-postgres
+    environment:
+      POSTGRES_DB: gary_taleb
+      POSTGRES_USER: trading_user
+      POSTGRES_PASSWORD: secure_password_change_in_production
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --lc-collate=C --lc-ctype=C"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./deployment/configs/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - gary-taleb-backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U trading_user -d gary_taleb"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: '4.0'
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.8
+    container_name: gary-taleb-clickhouse
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    environment:
+      CLICKHOUSE_DB: gary_taleb_analytics
+      CLICKHOUSE_USER: analytics_user
+      CLICKHOUSE_PASSWORD: analytics_password_change_in_production
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - ./deployment/configs/clickhouse/config.xml:/etc/clickhouse-server/config.xml
+    networks:
+      - gary-taleb-backend
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8123/ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  # Core Trading Services
+  market-data-gateway:
+    build:
+      context: .
+      dockerfile: src/intelligence/architecture/deployment/Dockerfile.market-data-gateway
+    container_name: gary-taleb-market-data
+    depends_on:
+      - redis-cluster
+      - kafka
+    ports:
+      - "8001:8001"
+      - "9001:9001"
+      - "8091:8091"
+    environment:
+      NODE_ENV: development
+      REDIS_CLUSTER_ENDPOINTS: redis-cluster:6379
+      KAFKA_BROKERS: kafka:29092
+      LOG_LEVEL: debug
+    networks:
+      - gary-taleb-network
+      - gary-taleb-backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: '4.0'
+
+  gary-dpi-analyzer:
+    build:
+      context: .
+      dockerfile: src/intelligence/architecture/deployment/Dockerfile.gary-dpi-analyzer
+    container_name: gary-taleb-dpi-analyzer
+    depends_on:
+      - market-data-gateway
+      - redis-cluster
+    ports:
+      - "8002:8002"
+      - "9002:9002"
+      - "8092:8092"
+    environment:
+      CUDA_VISIBLE_DEVICES: 0
+      GPU_MEMORY_FRACTION: 0.6
+      REDIS_CLUSTER_ENDPOINTS: redis-cluster:6379
+    volumes:
+      - model-cache:/app/models
+    networks:
+      - gary-taleb-network
+      - gary-taleb-backend
+    # GPU support (uncomment for GPU-enabled systems)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8002/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 2
+
+  taleb-antifragile-engine:
+    build:
+      context: .
+      dockerfile: src/intelligence/architecture/deployment/Dockerfile.taleb-antifragile-engine
+    container_name: gary-taleb-antifragile
+    depends_on:
+      - gary-dpi-analyzer
+      - redis-cluster
+    ports:
+      - "8003:8003"
+      - "9003:9003"
+      - "8093:8093"
+    environment:
+      REDIS_CLUSTER_ENDPOINTS: redis-cluster:6379
+      VOLATILITY_WINDOW: 24h
+      BLACK_SWAN_THRESHOLD: 3.0
+    networks:
+      - gary-taleb-network
+      - gary-taleb-backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
+      interval: 15s
+      timeout: 8s
+      retries: 3
+
+  execution-engine:
+    build:
+      context: .
+      dockerfile: src/intelligence/architecture/deployment/Dockerfile.execution-engine
+    container_name: gary-taleb-execution
+    depends_on:
+      - postgres
+      - redis-cluster
+    ports:
+      - "8004:8004"
+      - "9004:9004"
+      - "9104:9104"
+      - "8094:8094"
+    environment:
+      DATABASE_URL: postgresql://trading_user:secure_password_change_in_production@postgres:5432/gary_taleb
+      REDIS_CLUSTER_ENDPOINTS: redis-cluster:6379
+      MAX_ORDER_RATE: 500
+    networks:
+      - gary-taleb-network
+      - gary-taleb-backend
+    # CPU and memory optimization
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+          cpus: '8.0'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/health"]
+      interval: 5s
+      timeout: 2s
+      retries: 2
+
+  portfolio-management:
+    build:
+      context: .
+      dockerfile: src/intelligence/architecture/deployment/Dockerfile.portfolio-management
+    container_name: gary-taleb-portfolio
+    depends_on:
+      - execution-engine
+      - postgres
+    ports:
+      - "8005:8005"
+      - "9005:9005"
+      - "8095:8095"
+    environment:
+      DATABASE_URL: postgresql://trading_user:secure_password_change_in_production@postgres:5432/gary_taleb
+      REDIS_CLUSTER_ENDPOINTS: redis-cluster:6379
+    networks:
+      - gary-taleb-network
+      - gary-taleb-backend
+
+  risk-management:
+    build:
+      context: .
+      dockerfile: src/intelligence/architecture/deployment/Dockerfile.risk-management
+    container_name: gary-taleb-risk
+    depends_on:
+      - portfolio-management
+      - postgres
+    ports:
+      - "8006:8006"
+      - "9006:9006"
+      - "8096:8096"
+    environment:
+      DATABASE_URL: postgresql://trading_user:secure_password_change_in_production@postgres:5432/gary_taleb
+      VAR_CONFIDENCE_LEVEL: 0.99
+      STRESS_TEST_SCENARIOS: 1000
+    networks:
+      - gary-taleb-network
+      - gary-taleb-backend
+
+  analytics-engine:
+    build:
+      context: .
+      dockerfile: src/intelligence/architecture/deployment/Dockerfile.analytics-engine
+    container_name: gary-taleb-analytics
+    depends_on:
+      - clickhouse
+      - postgres
+    ports:
+      - "8007:8007"
+      - "9007:9007"
+      - "8097:8097"
+    environment:
+      DATABASE_URL: postgresql://trading_user:secure_password_change_in_production@postgres:5432/gary_taleb
+      CLICKHOUSE_URL: http://clickhouse:8123
+      BACKTEST_WORKERS: 4
+    networks:
+      - gary-taleb-network
+      - gary-taleb-backend
+
+  # Monitoring Stack
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: gary-taleb-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    networks:
+      - gary-taleb-network
+      - gary-taleb-backend
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  grafana:
+    image: grafana/grafana:10.1.0
+    container_name: gary-taleb-grafana
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin_change_in_production
+      GF_SECURITY_ADMIN_USER: admin
+      GF_INSTALL_PLUGINS: grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - gary-taleb-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.0
+    container_name: gary-taleb-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - gary-taleb-backend
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.9.0
+    container_name: gary-taleb-kibana
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    networks:
+      - gary-taleb-network
+      - gary-taleb-backend
+
+  # API Gateway and Load Balancer
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: gary-taleb-nginx
+    depends_on:
+      - market-data-gateway
+      - execution-engine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deployment/configs/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./deployment/configs/nginx/ssl:/etc/nginx/ssl
+    networks:
+      - gary-taleb-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Development and Testing Tools
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: gary-taleb-kafka-ui
+    depends_on:
+      - kafka
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: gary-taleb-cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+    networks:
+      - gary-taleb-network
+    profiles:
+      - dev
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: gary-taleb-redis-ui
+    depends_on:
+      - redis-cluster
+    ports:
+      - "8081:8081"
+    environment:
+      REDIS_HOSTS: local:redis-cluster:6379
+    networks:
+      - gary-taleb-network
+    profiles:
+      - dev
+
+  # Load Testing
+  k6:
+    image: grafana/k6:latest
+    container_name: gary-taleb-k6
+    volumes:
+      - ./testing/load-tests:/scripts
+    networks:
+      - gary-taleb-network
+    profiles:
+      - testing
+    command: run /scripts/trading-load-test.js
+
+# Health check for the entire stack
+x-healthcheck-config: &healthcheck-config
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 30s

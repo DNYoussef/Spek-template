@@ -1,0 +1,110 @@
+# Gary×Taleb Trading System - Production Dockerfile
+# Defense Industry Ready with Security Hardening
+
+# Use official Node.js LTS Alpine image for minimal attack surface
+FROM node:20-alpine AS base
+
+# Security: Create non-root user
+RUN addgroup -g 1001 -S tradinguser && \
+    adduser -S tradinguser -u 1001 -G tradinguser
+
+# Install security updates and essential packages
+RUN apk update && \
+    apk upgrade && \
+    apk add --no-cache \
+        dumb-init \
+        curl \
+        ca-certificates && \
+    rm -rf /var/cache/apk/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files for dependency installation
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production && \
+    npm cache clean --force && \
+    rm -rf ~/.npm
+
+# Production build stage
+FROM base AS builder
+
+# Install dev dependencies for building
+COPY package*.json ./
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Build the application
+RUN npm run build && \
+    npm prune --production
+
+# Final production stage
+FROM base AS production
+
+# Security labels for container scanning
+LABEL \
+    org.opencontainers.image.title="Gary×Taleb Trading System" \
+    org.opencontainers.image.description="High-frequency trading system with defense industry compliance" \
+    org.opencontainers.image.vendor="Gary×Taleb Trading" \
+    org.opencontainers.image.version="1.0.0" \
+    org.opencontainers.image.created="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+    security.compliance="defense-industry" \
+    security.scan.required="true"
+
+# Set environment variables
+ENV NODE_ENV=production \
+    PORT=8080 \
+    METRICS_PORT=9090 \
+    HEALTH_PORT=8081 \
+    LOG_LEVEL=info \
+    LOG_FORMAT=json \
+    COMPLIANCE_MODE=defense-industry
+
+# Create required directories
+RUN mkdir -p /app/logs /app/tmp /app/data && \
+    chown -R tradinguser:tradinguser /app
+
+# Copy built application from builder stage
+COPY --from=builder --chown=tradinguser:tradinguser /app/dist ./dist
+COPY --from=builder --chown=tradinguser:tradinguser /app/node_modules ./node_modules
+COPY --from=builder --chown=tradinguser:tradinguser /app/package*.json ./
+
+# Copy production configuration
+COPY --chown=tradinguser:tradinguser config/production.json ./config/
+COPY --chown=tradinguser:tradinguser scripts/entrypoint.sh ./scripts/
+
+# Make entrypoint executable
+RUN chmod +x ./scripts/entrypoint.sh
+
+# Security: Remove unnecessary packages and files
+RUN apk del curl && \
+    rm -rf /var/cache/apk/* \
+           /tmp/* \
+           /var/tmp/* \
+           /usr/share/man \
+           /usr/share/doc
+
+# Switch to non-root user
+USER tradinguser
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD node scripts/health-check.js
+
+# Expose ports
+EXPOSE 8080 9090 8081
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+
+# Start the application
+CMD ["./scripts/entrypoint.sh"]
+
+# Security: Final verification
+RUN whoami && \
+    ls -la /app && \
+    node --version

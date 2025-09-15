@@ -1,4 +1,5 @@
 """
+from src.constants import SECONDS_PER_DAY, SECONDS_PER_HOUR, SECONDS_PER_MINUTE, MILLISECONDS_PER_SECOND, DEFAULT_MAX_ITEMS, DEFAULT_BATCH_SIZE, BYTES_PER_KB, DFARS_RETENTION_DAYS
 Enhanced DFARS Audit Trail Manager
 Comprehensive audit trail system with SHA-256 integrity verification and tamper detection.
 """
@@ -150,9 +151,9 @@ class EnhancedDFARSAuditTrailManager:
     """
 
     # DFARS audit retention requirements
-    DFARS_RETENTION_DAYS = 2555  # 7 years
-    INTEGRITY_CHECK_INTERVAL = 3600  # 1 hour
-    BACKUP_INTERVAL = 86400  # 24 hours
+    DFARS_RETENTION_DAYS = DFARS_RETENTION_DAYS  # 7 years
+    INTEGRITY_CHECK_INTERVAL = SECONDS_PER_HOUR  # 1 hour
+    BACKUP_INTERVAL = SECONDS_PER_DAY  # 24 hours
 
     def __init__(self, storage_path: str = ".claude/.artifacts/enhanced_audit"):
         """Initialize enhanced DFARS audit trail manager."""
@@ -163,7 +164,7 @@ class EnhancedDFARSAuditTrailManager:
         self.crypto_module = FIPSCryptoModule()
 
         # Audit event storage
-        self.audit_buffer = Queue(maxsize=10000)
+        self.audit_buffer = Queue(maxsize=DEFAULT_MAX_ITEMS)
         self.current_chain: Optional[AuditChain] = None
         self.chain_history: List[AuditChain] = []
 
@@ -187,7 +188,7 @@ class EnhancedDFARSAuditTrailManager:
         }
 
         # Storage configuration
-        self.max_events_per_file = 10000
+        self.max_events_per_file = DEFAULT_MAX_ITEMS
         self.compression_enabled = True
         self.encryption_enabled = True
 
@@ -407,7 +408,7 @@ class EnhancedDFARSAuditTrailManager:
 
     def _audit_processor_loop(self):
         """Main audit event processing loop."""
-        batch_size = 100
+        batch_size = DEFAULT_BATCH_SIZE
         batch_timeout = 1.0
         events_batch = []
 
@@ -654,7 +655,7 @@ class EnhancedDFARSAuditTrailManager:
 
     def _cleanup_old_files(self):
         """Clean up old audit files beyond retention period."""
-        cutoff_time = time.time() - (self.DFARS_RETENTION_DAYS * 24 * 3600)
+        cutoff_time = time.time() - (self.DFARS_RETENTION_DAYS * 24 * SECONDS_PER_HOUR)
 
         # Clean up old event files
         for event_file in self.storage_path.glob("audit_events_*.jsonl*"):
@@ -872,7 +873,7 @@ class EnhancedDFARSAuditTrailManager:
 
     def get_audit_statistics(self, days: int = 7) -> Dict[str, Any]:
         """Get audit trail statistics."""
-        cutoff_time = time.time() - (days * 24 * 3600)
+        cutoff_time = time.time() - (days * 24 * SECONDS_PER_HOUR)
 
         stats = {
             "period_days": days,
@@ -896,7 +897,7 @@ class EnhancedDFARSAuditTrailManager:
 
         return stats
 
-    def search_audit_events(self, query: Dict[str, Any], limit: int = 1000) -> List[Dict[str, Any]]:
+    def search_audit_events(self, query: Dict[str, Any], limit: int = MILLISECONDS_PER_SECOND) -> List[Dict[str, Any]]:
         """Search audit events based on criteria."""
         # This would implement full-text search across audit events
         # For now, return empty list as this requires indexing implementation
@@ -1037,7 +1038,7 @@ if __name__ == "__main__":
         audit_manager.log_user_authentication(
             user_id="admin",
             success=True,
-            source_ip="192.168.1.100",
+            source_ip="192.168.1.DEFAULT_BATCH_SIZE",
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
         )
 

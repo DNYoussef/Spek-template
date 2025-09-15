@@ -1,0 +1,579 @@
+# Gary×Taleb Trading System - Execution Engine Kubernetes Deployment
+# Ultra-low latency order execution and routing service
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: execution-engine
+  namespace: gary-taleb-production
+  labels:
+    app: execution-engine
+    component: core
+    tier: trading-execution
+    version: v3.0.0
+    latency: critical
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    description: "Ultra-low latency order execution and routing"
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 0  # No surge for latency-critical service
+  selector:
+    matchLabels:
+      app: execution-engine
+  template:
+    metadata:
+      labels:
+        app: execution-engine
+        component: core
+        tier: trading-execution
+        version: v3.0.0
+        latency: critical
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8094"
+        prometheus.io/path: "/metrics"
+        scheduler.alpha.kubernetes.io/critical-pod: "true"
+    spec:
+      serviceAccountName: gary-taleb-service-account
+      priorityClassName: high-priority
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+      containers:
+      - name: execution-engine
+        image: gary-taleb/execution-engine:3.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8004
+          protocol: TCP
+        - name: grpc
+          containerPort: 9004
+          protocol: TCP
+        - name: fix
+          containerPort: 9104
+          protocol: TCP
+        - name: metrics
+          containerPort: 8094
+          protocol: TCP
+        - name: jmx
+          containerPort: 9999
+          protocol: TCP
+        env:
+        - name: JAVA_OPTS
+          value: >-
+            -server
+            -Xms8g
+            -Xmx16g
+            -XX:+UseG1GC
+            -XX:MaxGCPauseMillis=10
+            -XX:G1HeapRegionSize=16m
+            -XX:G1NewSizePercent=30
+            -XX:G1MaxNewSizePercent=40
+            -XX:+UseStringDeduplication
+            -XX:+OptimizeStringConcat
+            -XX:+UseCompressedOops
+            -XX:+UseCompressedClassPointers
+            -XX:+UnlockExperimentalVMOptions
+            -XX:+UseJVMCICompiler
+            -XX:+AlwaysPreTouch
+            -XX:+DisableExplicitGC
+            -Djava.net.preferIPv4Stack=true
+            -Djava.awt.headless=true
+        - name: JVM_PERFORMANCE_OPTS
+          value: >-
+            -XX:+AggressiveOpts
+            -XX:+UseFastAccessorMethods
+            -XX:+UseStringCache
+            -XX:+OptimizeStringConcat
+            -Xverify:none
+            -XX:CompileThreshold=100
+        - name: GC_OPTS
+          value: >-
+            -XX:+UseG1GC
+            -XX:MaxGCPauseMillis=10
+            -XX:G1HeapRegionSize=16m
+            -XX:G1MixedGCCountTarget=8
+            -XX:InitiatingHeapOccupancyPercent=35
+            -XX:G1MixedGCLiveThresholdPercent=85
+            -XX:G1RSetUpdatingPauseTimePercent=5
+            -XX:SurvivorRatio=32
+            -XX:+UnlockExperimentalVMOptions
+            -XX:G1NewSizePercent=30
+            -XX:G1MaxNewSizePercent=40
+        - name: PORT
+          value: "8004"
+        - name: GRPC_PORT
+          value: "9004"
+        - name: FIX_PORT
+          value: "9104"
+        - name: METRICS_PORT
+          value: "8094"
+        - name: MAX_ORDER_RATE
+          value: "1000"
+        - name: EXECUTION_TIMEOUT
+          value: "5000"
+        - name: RETRY_ATTEMPTS
+          value: "3"
+        - name: SLIPPAGE_TOLERANCE
+          value: "0.001"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: gary-taleb-secrets
+              key: database-url
+        - name: REDIS_CLUSTER_ENDPOINTS
+          valueFrom:
+            configMapKeyRef:
+              name: gary-taleb-config
+              key: redis.cluster.endpoints
+        - name: BROKER_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: gary-taleb-secrets
+              key: broker-api-key
+        - name: BROKER_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: gary-taleb-secrets
+              key: broker-secret
+        resources:
+          requests:
+            cpu: "4"
+            memory: 8Gi
+            ephemeral-storage: 5Gi
+          limits:
+            cpu: "16"
+            memory: 32Gi
+            ephemeral-storage: 10Gi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 2
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 3
+          timeoutSeconds: 2
+          failureThreshold: 3
+          successThreshold: 1
+        startupProbe:
+          httpGet:
+            path: /startup
+            port: http
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          timeoutSeconds: 2
+          failureThreshold: 30
+          successThreshold: 1
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+          readOnly: true
+        - name: logs-volume
+          mountPath: /app/logs
+        - name: order-cache
+          mountPath: /app/cache
+        - name: jvm-heap-dumps
+          mountPath: /app/heap-dumps
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+            add:
+            - NET_BIND_SERVICE
+      - name: fix-gateway
+        image: gary-taleb/fix-gateway:1.0.0
+        ports:
+        - name: fix-admin
+          containerPort: 9105
+          protocol: TCP
+        env:
+        - name: FIX_CONFIG_PATH
+          value: /app/config/fix.cfg
+        - name: LOG_LEVEL
+          value: INFO
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2Gi
+          limits:
+            cpu: "4"
+            memory: 8Gi
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+          readOnly: true
+        - name: fix-logs
+          mountPath: /app/fix-logs
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+      volumes:
+      - name: config-volume
+        configMap:
+          name: execution-engine-config
+      - name: logs-volume
+        emptyDir:
+          sizeLimit: 10Gi
+      - name: order-cache
+        emptyDir:
+          sizeLimit: 5Gi
+          medium: Memory
+      - name: jvm-heap-dumps
+        emptyDir:
+          sizeLimit: 20Gi
+      - name: fix-logs
+        emptyDir:
+          sizeLimit: 5Gi
+      nodeSelector:
+        node-type: high-performance
+        network-performance: ultra-low-latency
+        cpu-performance: high-frequency
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - execution-engine
+            topologyKey: kubernetes.io/hostname
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - high-performance
+              - key: network-performance
+                operator: In
+                values:
+                - ultra-low-latency
+                - high
+      tolerations:
+      - key: "high-frequency-trading"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+      - key: "dedicated-trading"
+        operator: "Equal"
+        value: "execution"
+        effect: "NoSchedule"
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: execution-engine-service
+  namespace: gary-taleb-production
+  labels:
+    app: execution-engine
+    component: core
+    tier: trading-execution
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8094"
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8004
+    targetPort: http
+    protocol: TCP
+  - name: grpc
+    port: 9004
+    targetPort: grpc
+    protocol: TCP
+  - name: fix
+    port: 9104
+    targetPort: fix
+    protocol: TCP
+  - name: metrics
+    port: 8094
+    targetPort: metrics
+    protocol: TCP
+  selector:
+    app: execution-engine
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 600
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: execution-engine-config
+  namespace: gary-taleb-production
+  labels:
+    app: execution-engine
+    component: core
+data:
+  application.yml: |
+    server:
+      port: 8004
+      max-threads: 200
+      accept-count: 100
+      connection-timeout: 5000
+
+    grpc:
+      port: 9004
+      max-concurrent-calls-per-connection: 100
+      keepalive-time: 30s
+      keepalive-timeout: 5s
+      max-connection-idle: 60s
+
+    fix:
+      port: 9104
+      session-settings:
+        HeartBtInt: 30
+        ReconnectInterval: 5
+        ResetOnLogon: Y
+        ResetOnLogout: Y
+        ResetOnDisconnect: Y
+        UseDataDictionary: N
+        StartTime: "00:00:00"
+        EndTime: "23:59:59"
+
+    execution:
+      max-order-rate: 1000
+      timeout: 5000
+      retry-attempts: 3
+      slippage-tolerance: 0.001
+      order-queue-size: 10000
+      workers: 16
+
+    database:
+      url: ${DATABASE_URL}
+      hikari:
+        maximum-pool-size: 20
+        minimum-idle: 5
+        connection-timeout: 10000
+        idle-timeout: 300000
+        max-lifetime: 900000
+
+    redis:
+      cluster-nodes: ${REDIS_CLUSTER_ENDPOINTS}
+      lettuce:
+        pool:
+          max-active: 100
+          max-idle: 20
+          min-idle: 5
+        timeout: 5000ms
+        cluster:
+          max-redirects: 3
+
+    brokers:
+      coinbase:
+        api-key: ${BROKER_API_KEY}
+        secret: ${BROKER_SECRET}
+        sandbox: false
+        rate-limit: 10
+      binance:
+        api-key: ${BROKER_API_KEY}
+        secret: ${BROKER_SECRET}
+        rate-limit: 1200
+
+    risk:
+      max-position-size: 1000000
+      max-daily-loss: 100000
+      max-order-value: 100000
+      enable-pre-trade-checks: true
+
+    logging:
+      level:
+        root: INFO
+        com.gary.taleb: DEBUG
+      pattern:
+        console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
+
+  fix.cfg: |
+    [DEFAULT]
+    ConnectionType=initiator
+    ReconnectInterval=5
+    FileStorePath=/app/fix-store
+    FileLogPath=/app/fix-logs
+    StartTime=00:00:00
+    EndTime=23:59:59
+    HeartBtInt=30
+    CheckLatency=Y
+    UseDataDictionary=N
+
+    [SESSION]
+    BeginString=FIX.4.4
+    SenderCompID=GARY_TALEB
+    TargetCompID=BROKER
+    SocketConnectHost=broker.example.com
+    SocketConnectPort=9878
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: execution-engine-hpa
+  namespace: gary-taleb-production
+  labels:
+    app: execution-engine
+    component: core
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: execution-engine
+  minReplicas: 3
+  maxReplicas: 6
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 60  # Lower threshold for latency-critical
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Pods
+    pods:
+      metric:
+        name: order_execution_latency_p99
+      target:
+        type: AverageValue
+        averageValue: "15000"  # 15ms in microseconds
+  - type: Pods
+    pods:
+      metric:
+        name: order_queue_depth
+      target:
+        type: AverageValue
+        averageValue: "500"
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 30
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 30
+      - type: Pods
+        value: 1
+        periodSeconds: 30
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 25
+        periodSeconds: 60
+      selectPolicy: Min
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: execution-engine-pdb
+  namespace: gary-taleb-production
+  labels:
+    app: execution-engine
+    component: core
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: execution-engine
+
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority
+value: 1000
+globalDefault: false
+description: "High priority class for critical trading services"
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: execution-engine-netpol
+  namespace: gary-taleb-production
+  labels:
+    app: execution-engine
+    component: core
+spec:
+  podSelector:
+    matchLabels:
+      app: execution-engine
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: portfolio-management
+    - podSelector:
+        matchLabels:
+          app: risk-management
+    - podSelector:
+        matchLabels:
+          app: taleb-antifragile-engine
+    - namespaceSelector:
+        matchLabels:
+          name: gary-taleb-monitoring
+    ports:
+    - protocol: TCP
+      port: 8004
+    - protocol: TCP
+      port: 9004
+    - protocol: TCP
+      port: 8094
+  egress:
+  - to: []  # Allow all external egress for broker connections
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+    - protocol: TCP
+      port: 9878  # FIX protocol
+  - to:
+    - podSelector:
+        matchLabels:
+          app: redis-cluster
+    ports:
+    - protocol: TCP
+      port: 6379
+  - to:
+    - podSelector:
+        matchLabels:
+          app: postgres-cluster
+    ports:
+    - protocol: TCP
+      port: 5432

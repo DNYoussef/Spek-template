@@ -83,13 +83,13 @@ jobs:
       run: |
         cat > six-sigma-config.json << 'EOF'
         {
-          "targetSigma": ${{ github.event.inputs.target_sigma_level || '4.5' }},
+          "targetSigma": "${{ github.event.inputs.target_sigma_level || '4.5' }}",
           "dpmoThreshold": ${{ env.DPMO_TARGET }},
           "rtyThreshold": ${{ env.RTY_TARGET }},
           "performanceThreshold": ${{ env.PERFORMANCE_OVERHEAD_LIMIT }},
           "executionTimeLimit": ${{ env.EXECUTION_TIME_LIMIT }},
           "environment": "${{ github.event.inputs.environment || 'development' }}",
-          "bypassEnabled": ${{ github.event.inputs.bypass_threshold || false }},
+          "bypassEnabled": "${{ github.event.inputs.bypass_threshold || false }}",
           "enableSPCCharts": true,
           "enablePerformanceMonitoring": true,
           "enableRealTimeDashboard": true,

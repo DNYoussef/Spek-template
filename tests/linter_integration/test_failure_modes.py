@@ -1,3 +1,4 @@
+import ast
 #!/usr/bin/env python3
 """
 Failure Mode and Fault Tolerance Tests
@@ -618,7 +619,7 @@ def malicious_function():
     subprocess.call(evil_command, shell=True)
     
     # This should also be flagged
-    eval("__import__('os').system('whoami')")
+    ast.literal_eval("__import__('os').system('whoami')")
 '''
             malicious_file.write_text(malicious_content)
             

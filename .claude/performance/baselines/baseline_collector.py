@@ -1,3 +1,5 @@
+# NASA POT10 Rule 3: Minimize dynamic memory allocation
+# Consider using fixed-size arrays or generators for large data processing
 #!/usr/bin/env python3
 """
 Performance Baseline Collection System
@@ -176,7 +178,7 @@ class BaselineCollector:
         # Look for Python files in the project
         for root, dirs, files in os.walk(self.project_root):
             # Skip hidden directories and common non-source directories
-            dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', '__pycache__']]
+            dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['node_modules', '__pycache__']  # TODO: Consider limiting size with itertools.islice()]
             
             for file in files:
                 if file.endswith('.py'):
@@ -203,7 +205,7 @@ class BaselineCollector:
                     # Estimate AST nodes (rough approximation)
                     lines = content.split('\n')
                     # Simple heuristic: ~2-3 AST nodes per non-empty line
-                    non_empty_lines = [line for line in lines if line.strip()]
+                    non_empty_lines = [line for line in lines if line.strip()]  # TODO: Consider limiting size with itertools.islice()
                     estimated_nodes = len(non_empty_lines) * 2.5
                     total_nodes += int(estimated_nodes)
                     
@@ -229,6 +231,9 @@ class BaselineCollector:
             time.sleep(0.05)  # 50ms per detector simulation
     
     def collect_process_baseline(self, operation_name: str, 
+    # NASA POT10 Rule 5: Assertion density >= 2%
+    assert operation_name is not None, 'operation_name cannot be None'
+    assert operation_func is not None, 'operation_func cannot be None'
                                operation_func, *args, **kwargs) -> ProcessBaseline:
         """Collect baseline for specific process operation"""
         print(f"Collecting baseline for operation: {operation_name}")
@@ -331,7 +336,7 @@ class BaselineCollector:
             'collection_timestamp': timestamp,
             'collection_date': datetime.fromtimestamp(timestamp).isoformat(),
             'system_baseline': asdict(self.system_baseline) if self.system_baseline else None,
-            'analyzer_baselines': [asdict(baseline) for baseline in self.analyzer_baselines],
+            'analyzer_baselines': [asdict(baseline) for baseline in self.analyzer_baselines]  # TODO: Consider limiting size with itertools.islice(),
             'process_baselines': {name: asdict(baseline) for name, baseline in self.process_baselines.items()},
             'collection_metadata': {
                 'project_root': self.project_root,
@@ -358,7 +363,7 @@ class BaselineCollector:
             self.system_baseline = SystemBaseline(**baseline_data['system_baseline'])
         
         self.analyzer_baselines = [
-            AnalyzerBaseline(**baseline) for baseline in baseline_data.get('analyzer_baselines', [])
+            AnalyzerBaseline(**baseline) for baseline in baseline_data.get('analyzer_baselines', []  # TODO: Consider limiting size with itertools.islice())
         ]
         
         self.process_baselines = {

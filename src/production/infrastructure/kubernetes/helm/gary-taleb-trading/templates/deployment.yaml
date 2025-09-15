@@ -1,0 +1,410 @@
+{{/*
+Gary×Taleb Trading System - Main Application Deployment
+Defense Industry Ready with High Availability
+*/}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "gary-taleb-trading.fullname" . }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "gary-taleb-trading.labels" . | nindent 4 }}
+    app.kubernetes.io/component: trading-app
+  annotations:
+    deployment.kubernetes.io/revision: "{{ .Values.tradingApp.image.tag }}"
+    prometheus.io/scrape: "true"
+spec:
+  replicas: {{ .Values.tradingApp.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  selector:
+    matchLabels:
+      {{- include "gary-taleb-trading.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: trading-app
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+      labels:
+        {{- include "gary-taleb-trading.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: trading-app
+        version: {{ .Values.tradingApp.image.tag | quote }}
+    spec:
+      serviceAccountName: {{ include "gary-taleb-trading.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.global.securityContext | nindent 8 }}
+
+      # High-performance node selection
+      {{- with .Values.marketDataProcessor.nodeAffinity }}
+      affinity:
+        nodeAffinity:
+          {{- toYaml . | nindent 10 }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - {{ include "gary-taleb-trading.name" . }}
+              topologyKey: kubernetes.io/hostname
+      {{- end }}
+
+      {{- with .Values.orderExecutor.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      imagePullSecrets:
+        {{- toYaml .Values.global.imagePullSecrets | nindent 8 }}
+
+      # Init containers for database migration and health checks
+      initContainers:
+      - name: database-migration
+        image: "{{ .Values.global.imageRegistry }}/{{ .Values.tradingApp.image.repository }}:{{ .Values.tradingApp.image.tag }}"
+        command: ["/bin/sh"]
+        args:
+          - -c
+          - |
+            echo "Running database migrations..."
+            npm run migrate:up
+            echo "Database migrations completed"
+        env:
+          {{- toYaml .Values.tradingApp.env | nindent 10 }}
+        securityContext:
+          {{- toYaml .Values.global.securityContext | nindent 10 }}
+
+      - name: redis-check
+        image: redis:7-alpine
+        command: ["/bin/sh"]
+        args:
+          - -c
+          - |
+            echo "Checking Redis connectivity..."
+            redis-cli -h $REDIS_HOST -p 6379 -a $REDIS_AUTH_TOKEN ping
+            echo "Redis connection verified"
+        env:
+        - name: REDIS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: redis-credentials
+              key: host
+        - name: REDIS_AUTH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: redis-credentials
+              key: auth_token
+
+      containers:
+      - name: trading-app
+        image: "{{ .Values.global.imageRegistry }}/{{ .Values.tradingApp.image.repository }}:{{ .Values.tradingApp.image.tag }}"
+        imagePullPolicy: {{ .Values.tradingApp.image.pullPolicy }}
+
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
+        - name: health
+          containerPort: 8081
+          protocol: TCP
+
+        env:
+          {{- toYaml .Values.tradingApp.env | nindent 10 }}
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+
+        livenessProbe:
+          {{- toYaml .Values.tradingApp.livenessProbe | nindent 10 }}
+
+        readinessProbe:
+          {{- toYaml .Values.tradingApp.readinessProbe | nindent 10 }}
+
+        # Startup probe for slow-starting trading systems
+        startupProbe:
+          httpGet:
+            path: /startup
+            port: 8081
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30
+
+        resources:
+          {{- toYaml .Values.tradingApp.resources | nindent 10 }}
+
+        securityContext:
+          {{- toYaml .Values.global.securityContext | nindent 10 }}
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: config
+          mountPath: /app/config
+          readOnly: true
+        - name: logs
+          mountPath: /app/logs
+        {{- if .Values.persistence.enabled }}
+        - name: data
+          mountPath: /app/data
+        {{- end }}
+
+      # Sidecar container for log forwarding
+      - name: fluent-bit
+        image: fluent/fluent-bit:2.1.10
+        volumeMounts:
+        - name: fluent-bit-config
+          mountPath: /fluent-bit/etc
+        - name: logs
+          mountPath: /app/logs
+          readOnly: true
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+
+      volumes:
+      - name: tmp
+        emptyDir: {}
+      - name: config
+        configMap:
+          name: {{ include "gary-taleb-trading.fullname" . }}-config
+      - name: logs
+        emptyDir: {}
+      - name: fluent-bit-config
+        configMap:
+          name: {{ include "gary-taleb-trading.fullname" . }}-fluent-bit-config
+      {{- if .Values.persistence.enabled }}
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ include "gary-taleb-trading.fullname" . }}-data
+      {{- end }}
+
+---
+{{/*
+Market Data Processor Deployment
+*/}}
+{{- if .Values.marketDataProcessor.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "gary-taleb-trading.fullname" . }}-market-data
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "gary-taleb-trading.labels" . | nindent 4 }}
+    app.kubernetes.io/component: market-data-processor
+spec:
+  replicas: {{ .Values.marketDataProcessor.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      {{- include "gary-taleb-trading.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: market-data-processor
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
+      labels:
+        {{- include "gary-taleb-trading.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: market-data-processor
+    spec:
+      serviceAccountName: {{ include "gary-taleb-trading.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.global.securityContext | nindent 8 }}
+
+      {{- with .Values.marketDataProcessor.nodeAffinity }}
+      affinity:
+        nodeAffinity:
+          {{- toYaml . | nindent 10 }}
+      {{- end }}
+
+      containers:
+      - name: market-data-processor
+        image: "{{ .Values.global.imageRegistry }}/{{ .Values.marketDataProcessor.image.repository }}:{{ .Values.marketDataProcessor.image.tag }}"
+        imagePullPolicy: {{ .Values.marketDataProcessor.image.pullPolicy }}
+
+        ports:
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
+
+        env:
+        - name: SERVICE_TYPE
+          value: "market-data-processor"
+        {{- range .Values.tradingApp.env }}
+        - name: {{ .name }}
+          {{- if .value }}
+          value: {{ .value | quote }}
+          {{- else if .valueFrom }}
+          valueFrom:
+            {{- toYaml .valueFrom | nindent 12 }}
+          {{- end }}
+        {{- end }}
+
+        resources:
+          {{- toYaml .Values.marketDataProcessor.resources | nindent 10 }}
+
+        securityContext:
+          {{- toYaml .Values.global.securityContext | nindent 10 }}
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 30
+
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 10
+
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+
+      volumes:
+      - name: tmp
+        emptyDir: {}
+{{- end }}
+
+---
+{{/*
+Risk Manager Deployment
+*/}}
+{{- if .Values.riskManager.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "gary-taleb-trading.fullname" . }}-risk-manager
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "gary-taleb-trading.labels" . | nindent 4 }}
+    app.kubernetes.io/component: risk-manager
+spec:
+  replicas: {{ .Values.riskManager.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      {{- include "gary-taleb-trading.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: risk-manager
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+      labels:
+        {{- include "gary-taleb-trading.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: risk-manager
+    spec:
+      serviceAccountName: {{ include "gary-taleb-trading.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.global.securityContext | nindent 8 }}
+
+      containers:
+      - name: risk-manager
+        image: "{{ .Values.global.imageRegistry }}/{{ .Values.riskManager.image.repository }}:{{ .Values.riskManager.image.tag }}"
+        imagePullPolicy: {{ .Values.riskManager.image.pullPolicy }}
+
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
+
+        env:
+        - name: SERVICE_TYPE
+          value: "risk-manager"
+        {{- range .Values.tradingApp.env }}
+        - name: {{ .name }}
+          {{- if .value }}
+          value: {{ .value | quote }}
+          {{- else if .valueFrom }}
+          valueFrom:
+            {{- toYaml .valueFrom | nindent 12 }}
+          {{- end }}
+        {{- end }}
+
+        resources:
+          {{- toYaml .Values.riskManager.resources | nindent 10 }}
+
+        securityContext:
+          {{- toYaml .Values.global.securityContext | nindent 10 }}
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 30
+
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 10
+
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+
+      volumes:
+      - name: tmp
+        emptyDir: {}
+{{- end }}
