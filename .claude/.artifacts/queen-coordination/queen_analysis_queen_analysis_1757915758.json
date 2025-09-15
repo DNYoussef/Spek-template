@@ -1,0 +1,16 @@
+{
+  "analysis_metadata": {
+    "analysis_id": "queen_analysis_1757915758",
+    "timestamp": "2025-09-15T01:56:00.240774",
+    "total_issues_processed": 0,
+    "complexity_assessment": "low",
+    "confidence_score": 0.492
+  },
+  "root_causes": [],
+  "mece_divisions": [],
+  "agent_assignments": [],
+  "memory_integration": {
+    "entities_created": 1,
+    "sequential_thinking_chains": 0
+  }
+}
