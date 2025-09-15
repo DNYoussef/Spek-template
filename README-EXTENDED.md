@@ -46,8 +46,203 @@ graph TB
 
 #### [BRAIN] Intelligence Layer
 - **25,640 LOC Analysis Engine** with 9 specialized connascence detectors
-- **AI Agent Orchestration** with 54+ specialized agents for different domains
+- **AI Agent Orchestration** with 85+ specialized agents for different domains
 - **Research Intelligence** with web, GitHub, and model analysis capabilities
+
+## [ROCKET] Complete Agent Ecosystem: 85+ Specialized AI Agents
+
+The SPEK platform features the industry's most comprehensive AI agent ecosystem, with **85+ specialized agents** (54 core + 31 extended) working in coordinated swarms. Each agent is purpose-built for specific development tasks and integrates seamlessly with MCP servers and external platforms.
+
+### [SHIELD] Core Development Squadron (11 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `coder` | Code implementation and modification | TDD practices, clean architecture, security best practices |
+| `reviewer` | Code review and quality validation | Static analysis, pattern detection, compliance checking |
+| `tester` | Test creation and validation | Unit/integration tests, coverage analysis, test strategy |
+| `planner` | Project planning and task decomposition | Requirement analysis, resource allocation, timeline estimation |
+| `researcher` | Solution discovery and analysis | Web research, GitHub analysis, technology evaluation |
+| `code-analyzer` | Advanced code quality analysis | Complexity metrics, maintainability scoring, refactoring suggestions |
+| `coder-codex` | Micro-edits and surgical fixes | Bounded operations, automatic rollback, safety constraints |
+| `fresh-eyes-codex` | Independent code review | Unbiased analysis, pattern recognition, quality assessment |
+| `fresh-eyes-gemini` | Large-context analysis | Cross-file dependencies, architectural impact, system integration |
+| `analyze-code-quality` | Comprehensive quality auditing | Multi-dimensional analysis, compliance validation, improvement recommendations |
+| `test-results-analyzer` | Test failure analysis and resolution | Root cause analysis, fix strategies, regression prevention |
+
+### [BUILD] Architecture & System Design (6 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `system-architect` | High-level system design and patterns | Architectural decisions, technology selection, scalability planning |
+| `architecture` | Detailed architectural analysis | Component design, interface definition, dependency management |
+| `arch-system-design` | Enterprise system architecture | Large-scale design, integration patterns, performance optimization |
+| `repo-architect` | Repository structure and organization | Code organization, module design, build system configuration |
+| `specification` | Requirements specification and documentation | Requirement gathering, specification writing, acceptance criteria |
+| `pseudocode` | Algorithm design and logic specification | Algorithm design, step-by-step logic, implementation guidance |
+
+### [CHART] Swarm Coordination & Orchestration (15 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `hierarchical-coordinator` | Multi-level agent coordination | Agent hierarchy management, task delegation, progress tracking |
+| `mesh-coordinator` | Peer-to-peer agent coordination | Distributed coordination, conflict resolution, load balancing |
+| `adaptive-coordinator` | Dynamic coordination strategies | Adaptive algorithms, performance optimization, real-time adjustment |
+| `memory-coordinator` | Cross-session memory management | Knowledge persistence, context preservation, learning integration |
+| `swarm-init` | Agent swarm initialization | Topology optimization, agent selection, resource allocation |
+| `smart-agent` | Intelligent agent spawning | Dynamic agent creation, capability matching, workflow optimization |
+| `task-orchestrator` | Central task coordination | Task decomposition, execution planning, result synthesis |
+| `coordinator-swarm-init` | Specialized swarm initialization | Advanced topology setup, performance tuning, scalability configuration |
+| `automation-smart-agent` | Workflow automation coordination | Process automation, trigger management, efficiency optimization |
+| `orchestrator-task` | Advanced task orchestration | Complex workflow management, dependency resolution, parallel execution |
+| `sync-coordinator` | Synchronization management | State synchronization, consistency maintenance, conflict resolution |
+| `topology-optimizer` | Network topology optimization | Agent placement, communication optimization, performance tuning |
+| `feedback-synthesizer` | Multi-agent feedback integration | Feedback aggregation, insight synthesis, improvement recommendations |
+| `resource-allocator` | Resource management and allocation | Computational resource management, cost optimization, capacity planning |
+| `workflow-optimizer` | Workflow performance optimization | Process improvement, bottleneck identification, efficiency enhancement |
+
+### [LIGHTNING] SPARC/SPEK Methodology (6 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `sparc-coord` | SPARC methodology orchestration | Phase coordination, milestone tracking, quality gates |
+| `sparc-coder` | SPARC-based code implementation | Systematic development, TDD practices, quality validation |
+| `sparc-coordinator` | Advanced SPARC coordination | Multi-phase planning, resource coordination, progress monitoring |
+| `implementer-sparc-coder` | Implementation specialist | Code generation, architecture implementation, integration |
+| `refinement` | Code refinement and optimization | Performance optimization, code cleanup, maintainability improvement |
+| `completion-auditor` | Completion validation and auditing | Quality verification, completeness checking, audit trail generation |
+
+### [OK] Quality Assurance & Testing (8 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `production-validator` | Production readiness validation | Deployment checks, performance validation, security verification |
+| `tdd-london-swarm` | Test-driven development coordination | TDD workflow, test strategy, quality assurance |
+| `api-tester` | API testing and validation | Endpoint testing, contract validation, performance testing |
+| `reality-checker` | Reality validation and verification | Completion verification, quality validation, theater detection |
+| `theater-killer` | Performance theater detection | Fake work detection, quality gaming prevention, genuine improvement validation |
+| `performance-benchmarker` | Performance measurement and analysis | Benchmarking, performance regression detection, optimization recommendations |
+| `performance-analyzer` | Advanced performance analysis | Performance profiling, bottleneck identification, optimization strategies |
+| `performance-monitor` | Continuous performance monitoring | Real-time monitoring, alerting, trend analysis |
+
+### [TOOL] GitHub & DevOps Integration (17 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `github-modes` | GitHub workflow management | Repository management, branch strategies, workflow optimization |
+| `pr-manager` | Pull request management | PR creation, review coordination, merge strategies |
+| `github-pr-manager` | Advanced PR management | Complex PR workflows, conflict resolution, automated reviews |
+| `code-review-swarm` | Coordinated code reviews | Multi-reviewer coordination, review quality, feedback synthesis |
+| `issue-tracker` | Issue management and tracking | Issue lifecycle, priority management, resolution tracking |
+| `release-manager` | Release management and coordination | Release planning, version management, deployment coordination |
+| `workflow-automation` | CI/CD workflow automation | Pipeline automation, deployment strategies, quality gates |
+| `project-board-sync` | Project board synchronization | Project tracking, progress visualization, team coordination |
+| `multi-repo-swarm` | Multi-repository coordination | Cross-repo coordination, dependency management, consistency maintenance |
+| `swarm-pr` | Swarm-coordinated pull requests | Multi-agent PR creation, collaborative reviews, automated testing |
+| `swarm-issue` | Swarm-based issue resolution | Collaborative issue resolution, knowledge sharing, solution optimization |
+| `release-swarm` | Coordinated release management | Multi-component releases, dependency coordination, rollback strategies |
+| `cicd-engineer` | CI/CD pipeline engineering | Pipeline design, optimization, monitoring, troubleshooting |
+| `devops-automator` | DevOps automation specialist | Infrastructure automation, deployment automation, monitoring setup |
+| `ops-cicd-github` | GitHub-integrated operations | GitHub Actions, workflow optimization, operational excellence |
+| `sprint-prioritizer` | Sprint planning and prioritization | Backlog management, priority assessment, capacity planning |
+| `migration-planner` | Migration planning and execution | System migrations, data migrations, rollback planning |
+
+### [COMPUTER] Specialized Development (8 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `backend-dev` | Backend development specialist | API development, database design, server architecture |
+| `dev-backend-api` | API development and design | REST/GraphQL APIs, documentation, testing, versioning |
+| `mobile-dev` | Mobile application development | React Native, cross-platform development, mobile optimization |
+| `spec-mobile-react-native` | React Native specification | Mobile app architecture, component design, performance optimization |
+| `frontend-developer` | Frontend development specialist | UI development, responsive design, user experience |
+| `ml-developer` | Machine learning development | Model development, training pipelines, ML operations |
+| `data-ml-model` | Data science and ML modeling | Data analysis, model selection, validation, deployment |
+| `ai-engineer` | AI engineering specialist | AI system design, model integration, performance optimization |
+
+### [BOOK] Documentation & API (4 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `api-docs` | API documentation specialist | OpenAPI/Swagger documentation, API guides, integration examples |
+| `docs-api-openapi` | OpenAPI specification management | API specification, documentation generation, validation |
+| `visual-storyteller` | Visual content creation | Diagrams, documentation graphics, presentation materials |
+| `whimsy-injector` | Creative content enhancement | Engaging content, user experience improvement, personality injection |
+
+### [SHIELD] Consensus & Distributed Systems (7 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `byzantine-coordinator` | Byzantine fault tolerance | Consensus algorithms, fault tolerance, distributed coordination |
+| `raft-manager` | Raft consensus implementation | Leader election, log replication, cluster management |
+| `gossip-coordinator` | Gossip protocol management | Information dissemination, network resilience, scalability |
+| `crdt-synchronizer` | CRDT-based synchronization | Conflict-free replication, eventual consistency, offline support |
+| `quorum-manager` | Quorum-based decision making | Voting systems, consensus building, conflict resolution |
+| `security-manager` | Security coordination and management | Security policies, threat detection, compliance validation |
+| `load-balancer` | Load balancing and distribution | Traffic distribution, performance optimization, failover management |
+
+### [CHART] Business & Product Support (8 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `studio-producer` | Creative production coordination | Resource coordination, timeline management, quality assurance |
+| `project-shipper` | Project delivery coordination | Shipping coordination, milestone tracking, delivery optimization |
+| `experiment-tracker` | A/B testing and experimentation | Experiment design, data tracking, statistical analysis |
+| `support-responder` | Customer support automation | Issue resolution, knowledge base management, escalation handling |
+| `legal-compliance-checker` | Legal and compliance validation | Regulatory compliance, policy validation, risk assessment |
+| `infrastructure-maintainer` | Infrastructure maintenance | System maintenance, monitoring, performance optimization |
+| `finance-tracker` | Financial tracking and management | Budget tracking, cost analysis, financial reporting |
+| `analytics-reporter` | Analytics and reporting | Data analysis, report generation, insight extraction |
+
+### [SEARCH] Research & Intelligence (5 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `researcher-gemini` | Large-context research analysis | Comprehensive research, pattern recognition, insight synthesis |
+| `trend-researcher` | Technology trend analysis | Market research, technology evaluation, trend prediction |
+| `base-template-generator` | Template and boilerplate generation | Code templates, project scaffolding, best practices |
+| `migration-plan` | Migration strategy development | Migration planning, risk assessment, execution strategies |
+| `MIGRATION_SUMMARY` | Migration summary and documentation | Migration documentation, lessons learned, knowledge transfer |
+
+### [TREND] Performance & Benchmarking (3 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `perf-analyzer` | Performance bottleneck analysis | Performance profiling, optimization recommendations, monitoring |
+| `benchmark-suite` | Comprehensive benchmarking | Performance benchmarking, comparison analysis, trend tracking |
+| `rapid-prototyper` | Rapid prototyping and experimentation | Quick prototypes, proof of concepts, feasibility testing |
+
+### [CHART] Growth & Marketing (7 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `growth-hacker` | Growth strategy and optimization | User acquisition, retention strategies, conversion optimization |
+| `app-store-optimizer` | App store optimization | Store listing optimization, keyword research, conversion improvement |
+| `twitter-engager` | Twitter marketing and engagement | Social media strategy, community engagement, content creation |
+| `tiktok-strategist` | TikTok marketing strategy | Video content strategy, trend analysis, audience engagement |
+| `reddit-community-builder` | Reddit community management | Community building, content strategy, engagement optimization |
+| `instagram-curator` | Instagram content curation | Visual content strategy, hashtag optimization, engagement tracking |
+| `content-creator` | Content creation and management | Content strategy, creation workflows, publication management |
+
+### [ARTIST] Design & UX (5 agents)
+
+| Agent | Primary Function | Key Capabilities |
+|-------|------------------|------------------|
+| `ui-designer` | User interface design | UI/UX design, design systems, accessibility compliance |
+| `ux-researcher` | User experience research | User research, usability testing, experience optimization |
+| `brand-guardian` | Brand consistency and guidelines | Brand compliance, style guides, consistency enforcement |
+| `tool-evaluator` | Development tool evaluation | Tool assessment, recommendation systems, workflow optimization |
+| `visual-storyteller` | Visual narrative creation | Storytelling through visuals, presentation design, communication enhancement |
+
+### Agent Deployment and Coordination
+
+All 85+ agents can be deployed individually or in coordinated swarms depending on task complexity:
+
+- **Single Agent Tasks**: Simple, focused operations using individual agents
+- **Multi-Agent Coordination**: Complex tasks requiring multiple specialized agents
+- **Swarm Deployment**: Large-scale operations with hierarchical coordination
+- **Parallel Execution**: Multiple agents working simultaneously for maximum efficiency
+
+Each agent integrates with 15+ MCP servers for external platform access, maintains persistent memory across sessions, and follows strict quality gates and safety protocols.
 - **Pattern Recognition** for architectural quality and theater detection
 
 #### [CYCLE] Process Integration Layer

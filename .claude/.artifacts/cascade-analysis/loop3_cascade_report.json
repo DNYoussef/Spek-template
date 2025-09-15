@@ -1,0 +1,133 @@
+{
+  "timestamp": "2025-09-15T02:27:31.709648",
+  "total_failures": 16,
+  "cascade_analysis": {
+    "nasa": {
+      "failures": [
+        "Critical NASA Rules Validation",
+        "NASA POT10 Rule Validation (complexity-analysis)",
+        "NASA POT10 Rule Validation (function-size-analysis)",
+        "NASA POT10 Rule Validation (assertion-density)",
+        "NASA POT10 Rule Validation (zero-warning-compilation)",
+        "NASA POT10 Compliance Consolidation"
+      ],
+      "impact": "HIGH",
+      "cascade_to": [
+        "compliance",
+        "gate",
+        "deployment"
+      ],
+      "estimated_fixes": 7,
+      "priority": 1
+    },
+    "gate": {
+      "failures": [
+        "Pre-Production Validation Gate",
+        "Enforce Quality Gates (Analyzer-Based)",
+        "Quality Gates (Enhanced)"
+      ],
+      "impact": "HIGH",
+      "cascade_to": [
+        "deployment",
+        "sixsigma"
+      ],
+      "estimated_fixes": 5,
+      "priority": 2
+    },
+    "compliance": {
+      "failures": [
+        "DFARS Compliance Validation",
+        "Compliance Status Summary"
+      ],
+      "impact": "MEDIUM",
+      "cascade_to": [
+        "gate",
+        "deployment"
+      ],
+      "estimated_fixes": 3,
+      "priority": 3
+    },
+    "performance": {
+      "failures": [
+        "Performance Monitoring & Optimization"
+      ],
+      "impact": "MEDIUM",
+      "cascade_to": [
+        "sixsigma"
+      ],
+      "estimated_fixes": 2,
+      "priority": 4
+    },
+    "security": {
+      "failures": [
+        "Security Quality Gates"
+      ],
+      "impact": "LOW",
+      "cascade_to": [
+        "gate"
+      ],
+      "estimated_fixes": 1,
+      "priority": 5
+    }
+  },
+  "mece_strategy": {
+    "division_1": {
+      "name": "NASA Compliance Core",
+      "targets": [
+        "nasa",
+        "compliance"
+      ],
+      "agents": [
+        "nasa-compliance-specialist",
+        "code-analyzer",
+        "security-manager"
+      ],
+      "fixes": [
+        "Reduce function complexity below NASA thresholds",
+        "Add missing assertions for critical paths",
+        "Fix zero-warning compilation issues",
+        "Update compliance documentation"
+      ],
+      "expected_cascade": 10
+    },
+    "division_2": {
+      "name": "Quality Gate Infrastructure",
+      "targets": [
+        "gate"
+      ],
+      "agents": [
+        "quality-gate-engineer",
+        "performance-benchmarker",
+        "tester"
+      ],
+      "fixes": [
+        "Fix analyzer-based gate configurations",
+        "Update quality thresholds",
+        "Enhance gate orchestration logic"
+      ],
+      "expected_cascade": 5
+    },
+    "division_3": {
+      "name": "Performance & Monitoring",
+      "targets": [
+        "performance",
+        "analysis"
+      ],
+      "agents": [
+        "performance-analyzer",
+        "mece-analyst",
+        "monitoring-specialist"
+      ],
+      "fixes": [
+        "Optimize performance bottlenecks",
+        "Fix MECE duplication detection",
+        "Update monitoring thresholds"
+      ],
+      "expected_cascade": 3
+    }
+  },
+  "execution_result": {
+    "iterations": 0,
+    "git_safety_branch": "N/A"
+  }
+}

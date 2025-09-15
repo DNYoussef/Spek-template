@@ -8,11 +8,59 @@
 
 ### Key Benefits
 - **Research-First Development**: Find and integrate existing solutions before building from scratch
-- **Theater Detection**: Eliminate fake work and validate genuine quality improvements  
+- **Theater Detection**: Eliminate fake work and validate genuine quality improvements
 - **Defense Industry Standards**: 95% NASA POT10 compliance with comprehensive quality gates
 - **Parallel Execution**: 2.8-4.4x speed improvement through concurrent operations
 - **Automated Recovery**: Intelligent failure detection with surgical fixes and rollback safety
 - **AI Governance & Audit Trails**: Full model attribution and session tracking for enterprise compliance
+
+## 85+ Specialized AI Agents
+
+The SPEK platform leverages **85+ specialized AI agents** (54 core + 31 extended) working in coordinated swarms for maximum efficiency:
+
+### Core Development Squadron (11 agents)
+`coder`, `reviewer`, `tester`, `planner`, `researcher`, `code-analyzer`, `coder-codex`, `fresh-eyes-codex`, `fresh-eyes-gemini`, `analyze-code-quality`, `test-results-analyzer`
+
+### Architecture & System Design (6 agents)
+`system-architect`, `architecture`, `arch-system-design`, `repo-architect`, `specification`, `pseudocode`
+
+### Swarm Coordination & Orchestration (15 agents)
+`hierarchical-coordinator`, `mesh-coordinator`, `adaptive-coordinator`, `memory-coordinator`, `swarm-init`, `smart-agent`, `task-orchestrator`, `coordinator-swarm-init`, `automation-smart-agent`, `orchestrator-task`, `sync-coordinator`, `topology-optimizer`, `feedback-synthesizer`, `resource-allocator`, `workflow-optimizer`
+
+### SPARC/SPEK Methodology (6 agents)
+`sparc-coord`, `sparc-coder`, `sparc-coordinator`, `implementer-sparc-coder`, `refinement`, `completion-auditor`
+
+### Quality Assurance & Testing (8 agents)
+`production-validator`, `tdd-london-swarm`, `api-tester`, `reality-checker`, `theater-killer`, `performance-benchmarker`, `performance-analyzer`, `performance-monitor`
+
+### GitHub & DevOps Integration (17 agents)
+`github-modes`, `pr-manager`, `github-pr-manager`, `code-review-swarm`, `issue-tracker`, `release-manager`, `workflow-automation`, `project-board-sync`, `multi-repo-swarm`, `swarm-pr`, `swarm-issue`, `release-swarm`, `cicd-engineer`, `devops-automator`, `ops-cicd-github`, `sprint-prioritizer`, `migration-planner`
+
+### Specialized Development (8 agents)
+`backend-dev`, `dev-backend-api`, `mobile-dev`, `spec-mobile-react-native`, `frontend-developer`, `ml-developer`, `data-ml-model`, `ai-engineer`
+
+### Documentation & API (4 agents)
+`api-docs`, `docs-api-openapi`, `visual-storyteller`, `whimsy-injector`
+
+### Consensus & Distributed Systems (7 agents)
+`byzantine-coordinator`, `raft-manager`, `gossip-coordinator`, `crdt-synchronizer`, `quorum-manager`, `security-manager`, `load-balancer`
+
+### Business & Product Support (3 agents)
+`studio-producer`, `project-shipper`, `experiment-tracker`, `support-responder`, `legal-compliance-checker`, `infrastructure-maintainer`, `finance-tracker`, `analytics-reporter`
+
+### Research & Intelligence (5 agents)
+`researcher-gemini`, `trend-researcher`, `base-template-generator`, `migration-plan`, `MIGRATION_SUMMARY`
+
+### Performance & Benchmarking (3 agents)
+`perf-analyzer`, `benchmark-suite`, `rapid-prototyper`
+
+### Growth & Marketing (7 agents)
+`growth-hacker`, `app-store-optimizer`, `twitter-engager`, `tiktok-strategist`, `reddit-community-builder`, `instagram-curator`, `content-creator`
+
+### Design & UX (5 agents)
+`ui-designer`, `ux-researcher`, `brand-guardian`, `tool-evaluator`, `visual-storyteller`
+
+Each agent is specialized for specific tasks and can be invoked in parallel for maximum efficiency. All agents support MCP server integration and can leverage 15+ specialized tools for file operations, memory persistence, and external platform integrations.
 
 ## For Different User Types
 
