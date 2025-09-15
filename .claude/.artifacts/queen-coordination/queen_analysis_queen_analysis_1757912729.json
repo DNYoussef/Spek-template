@@ -1,0 +1,100 @@
+{
+  "analysis_metadata": {
+    "analysis_id": "queen_analysis_1757912729",
+    "timestamp": "2025-09-15T01:05:31.064834",
+    "total_issues_processed": 17,
+    "complexity_assessment": "critical",
+    "confidence_score": 0.705
+  },
+  "root_causes": [
+    {
+      "cause_id": "rc_0",
+      "pattern_type": "security_compliance_violation",
+      "root_cause_description": "Security policy violations blocking deployment pipeline progression",
+      "affected_systems": [
+        "security",
+        "compliance"
+      ],
+      "fix_complexity": "high",
+      "required_specialties": [
+        "security",
+        "compliance",
+        "policy_enforcement"
+      ],
+      "estimated_effort_hours": 8,
+      "risk_factors": [
+        "high_impact_changes",
+        "security_implications"
+      ],
+      "thinking_chain_id": "queen_analysis_1757912729_chain_0"
+    }
+  ],
+  "mece_divisions": [
+    {
+      "division_id": "mece_div_queen_analysis_1757912729_0",
+      "primary_objective": "Resolve all security category failures",
+      "task_boundaries": {
+        "primary_system": "security",
+        "scope": "All security-related failures and their root causes",
+        "exclusions": "Does not handle compliance issues",
+        "coordination_points": "Coordinates with other divisions through Queen"
+      },
+      "assigned_agents": [
+        "security-manager"
+      ],
+      "success_criteria": [
+        "All security failures resolved",
+        "No regressions in related systems",
+        "Documentation updated for changes",
+        "Tests pass for affected components"
+      ],
+      "parallel_safe": true,
+      "estimated_duration": 40,
+      "priority": "high"
+    },
+    {
+      "division_id": "mece_div_queen_analysis_1757912729_1",
+      "primary_objective": "Resolve all compliance category failures",
+      "task_boundaries": {
+        "primary_system": "compliance",
+        "scope": "All compliance-related failures and their root causes",
+        "exclusions": "Does not handle security issues",
+        "coordination_points": "Coordinates with other divisions through Queen"
+      },
+      "assigned_agents": [],
+      "success_criteria": [
+        "All compliance failures resolved",
+        "No regressions in related systems",
+        "Documentation updated for changes",
+        "Tests pass for affected components"
+      ],
+      "parallel_safe": true,
+      "estimated_duration": 40,
+      "priority": "high"
+    }
+  ],
+  "agent_assignments": [
+    {
+      "agent_name": "security-manager",
+      "agent_type": "security",
+      "task_description": "Handle security-manager responsibilities for Resolve all security category failures",
+      "mcp_integrations": [
+        "memory",
+        "sequential-thinking",
+        "ref"
+      ],
+      "success_metrics": [
+        "Complete assigned portion of Resolve all security category failures",
+        "Maintain coordination with Queen and other agents",
+        "Validate changes don't break other divisions",
+        "Document all changes made"
+      ],
+      "skill_match_score": 0.4,
+      "estimated_effort": 40
+    }
+  ],
+  "memory_integration": {
+    "entities_created": 2,
+    "sequential_thinking_chains": 1
+  }
+}

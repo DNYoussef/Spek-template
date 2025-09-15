@@ -1,0 +1,19 @@
+{
+  "total_checks": 58,
+  "total_failures": 17,
+  "successful_checks": 20,
+  "queued_checks": 4,
+  "cancelled_checks": 4,
+  "skipped_checks": 13,
+  "failure_rate_percent": 29.3,
+  "success_rate_percent": 34.48275862068966,
+  "category_distribution": {
+    "defense_industry": 2,
+    "nasa_pot10": 9,
+    "performance": 1,
+    "quality_gates": 3,
+    "security": 1,
+    "six_sigma": 1
+  },
+  "processing_timestamp": "2025-09-15T01:05:31.939068"
+}
