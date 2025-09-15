@@ -1,7 +1,7 @@
 /**
  * Real-Time Risk Monitoring Dashboard
  * Phase 2 Division 4: Comprehensive risk visualization and monitoring
- * Integrates with Gary×Taleb antifragility engine and existing risk assessment systems
+ * Integrates with GaryTaleb antifragility engine and existing risk assessment systems
  */
 import { EventEmitter } from 'events';
 import WebSocket from 'ws';
@@ -68,7 +68,7 @@ export class RiskMonitoringDashboard extends EventEmitter {
      * Initialize dashboard and start real-time monitoring
      */
     async initialize() {
-        console.log('🚀 Initializing Risk Monitoring Dashboard...');
+        console.log(' Initializing Risk Monitoring Dashboard...');
         try {
             // Connect to risk data stream
             await this.connectToRiskStream();
@@ -76,11 +76,11 @@ export class RiskMonitoringDashboard extends EventEmitter {
             this.startRealTimeUpdates();
             // Initialize performance monitoring
             this.performanceTracker.start();
-            console.log('✅ Risk Monitoring Dashboard initialized successfully');
+            console.log(' Risk Monitoring Dashboard initialized successfully');
             this.emit('initialized');
         }
         catch (error) {
-            console.error('❌ Failed to initialize Risk Monitoring Dashboard:', error);
+            console.error(' Failed to initialize Risk Monitoring Dashboard:', error);
             this.emit('error', error);
             throw error;
         }
@@ -93,7 +93,7 @@ export class RiskMonitoringDashboard extends EventEmitter {
             const wsUrl = process.env.RISK_WS_URL || 'ws://localhost:8080/risk-stream';
             this.wsConnection = new WebSocket(wsUrl);
             this.wsConnection.on('open', () => {
-                console.log('🔗 Connected to risk data stream');
+                console.log(' Connected to risk data stream');
                 this.state.isConnected = true;
                 this.emit('connected');
                 resolve();
@@ -107,7 +107,7 @@ export class RiskMonitoringDashboard extends EventEmitter {
                 reject(error);
             });
             this.wsConnection.on('close', () => {
-                console.log('❌ Risk data stream disconnected');
+                console.log(' Risk data stream disconnected');
                 this.state.isConnected = false;
                 this.emit('disconnected');
                 this.attemptReconnection();
@@ -162,7 +162,7 @@ export class RiskMonitoringDashboard extends EventEmitter {
                 }
             }
         }, this.state.refreshRate);
-        console.log(`⏰ Real-time updates started (${this.state.refreshRate}ms interval)`);
+        console.log(` Real-time updates started (${this.state.refreshRate}ms interval)`);
     }
     /**
      * Request latest risk calculations
@@ -204,7 +204,7 @@ export class RiskMonitoringDashboard extends EventEmitter {
             // Emit alert event
             this.emit('alert', alert);
             // Log alert
-            console.warn(`🚨 Risk Alert: ${alert.message}`);
+            console.warn(` Risk Alert: ${alert.message}`);
         }
         // Clean up acknowledged alerts older than 1 hour
         const cutoff = Date.now() - 3600000;
@@ -284,13 +284,13 @@ export class RiskMonitoringDashboard extends EventEmitter {
         if (this.updateInterval) {
             this.startRealTimeUpdates(); // Restart with new rate
         }
-        console.log(`⏰ Refresh rate updated to ${milliseconds}ms`);
+        console.log(` Refresh rate updated to ${milliseconds}ms`);
     }
     /**
      * Attempt to reconnect to risk stream
      */
     async attemptReconnection() {
-        console.log('🔄 Attempting to reconnect to risk stream...');
+        console.log(' Attempting to reconnect to risk stream...');
         setTimeout(async () => {
             try {
                 await this.connectToRiskStream();
@@ -340,7 +340,7 @@ export class RiskMonitoringDashboard extends EventEmitter {
      * Shutdown dashboard
      */
     async shutdown() {
-        console.log('🛑 Shutting down Risk Monitoring Dashboard...');
+        console.log(' Shutting down Risk Monitoring Dashboard...');
         // Stop updates
         if (this.updateInterval) {
             clearInterval(this.updateInterval);
@@ -352,7 +352,7 @@ export class RiskMonitoringDashboard extends EventEmitter {
         // Stop performance tracking
         this.performanceTracker.stop();
         this.emit('shutdown');
-        console.log('✅ Risk Monitoring Dashboard shut down successfully');
+        console.log(' Risk Monitoring Dashboard shut down successfully');
     }
 }
 /**

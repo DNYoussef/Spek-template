@@ -17,19 +17,19 @@ def test_dpi_import():
     print("Testing DPI import...")
     try:
         from strategies.dpi_calculator import DistributionalPressureIndex
-        print("✓ DistributionalPressureIndex import successful")
+        print(" DistributionalPressureIndex import successful")
 
         # Test instantiation
         dpi = DistributionalPressureIndex()
-        print("✓ DPI instantiation successful")
+        print(" DPI instantiation successful")
 
         # Test calculation
         dpi_value, components = dpi.calculate_dpi("TEST")
-        print(f"✓ DPI calculation successful: {dpi_value:.4f}")
+        print(f" DPI calculation successful: {dpi_value:.4f}")
 
         return True
     except Exception as e:
-        print(f"✗ DPI import failed: {e}")
+        print(f" DPI import failed: {e}")
         return False
 
 def test_kelly_import():
@@ -37,18 +37,18 @@ def test_kelly_import():
     print("\nTesting Kelly criterion import...")
     try:
         from risk.kelly_criterion import KellyCriterionCalculator, KellyInputs
-        print("✓ Kelly imports successful")
+        print(" Kelly imports successful")
 
         # Test with DPI integration (the failing import)
         from strategies.dpi_calculator import DistributionalPressureIndex
 
         dpi_calc = DistributionalPressureIndex()
         kelly_calc = KellyCriterionCalculator(dpi_calc)
-        print("✓ Kelly + DPI integration successful")
+        print(" Kelly + DPI integration successful")
 
         return True
     except Exception as e:
-        print(f"✗ Kelly import failed: {e}")
+        print(f" Kelly import failed: {e}")
         return False
 
 def test_position_sizing_import():
@@ -56,7 +56,7 @@ def test_position_sizing_import():
     print("\nTesting position sizing import...")
     try:
         from risk.dynamic_position_sizing import DynamicPositionSizer, RiskLevel
-        print("✓ Position sizing imports successful")
+        print(" Position sizing imports successful")
 
         # Test with dependencies
         from strategies.dpi_calculator import DistributionalPressureIndex
@@ -69,11 +69,11 @@ def test_position_sizing_import():
             kelly_calculator=kelly_calc,
             dpi_calculator=dpi_calc
         )
-        print("✓ Full integration chain successful")
+        print(" Full integration chain successful")
 
         return True
     except Exception as e:
-        print(f"✗ Position sizing import failed: {e}")
+        print(f" Position sizing import failed: {e}")
         return False
 
 def test_reality_checker_compatibility():
@@ -103,14 +103,14 @@ def test_reality_checker_compatibility():
         kelly_calc = create_kelly_calculator()
         result = kelly_calc.calculate_kelly_position(inputs)
 
-        print(f"✓ Reality checker compatibility confirmed")
+        print(f" Reality checker compatibility confirmed")
         print(f"  Kelly fraction: {result.kelly_fraction:.4f}")
         print(f"  DPI adjusted: {result.dpi_adjusted_fraction:.4f}")
         print(f"  Position: ${result.recommended_position_size}")
 
         return True
     except Exception as e:
-        print(f"✗ Reality checker compatibility failed: {e}")
+        print(f" Reality checker compatibility failed: {e}")
         return False
 
 def main():
@@ -139,11 +139,11 @@ def main():
     print(f"Tests passed: {passed}/{total}")
 
     if passed == total:
-        print("✓ ALL IMPORT FAILURES FIXED")
-        print("✓ System fully operational")
+        print(" ALL IMPORT FAILURES FIXED")
+        print(" System fully operational")
         return 0
     else:
-        print("✗ Some import failures remain")
+        print(" Some import failures remain")
         return 1
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 """Ensemble Framework Module
 
 Neural ensemble for combining LSTM, Transformer, CNN, and RL models.
-Implements voting, blending, and stacking strategies with Gary×Taleb integration.
+Implements voting, blending, and stacking strategies with GaryTaleb integration.
 """
 
 from .ensemble_framework import NeuralEnsemble

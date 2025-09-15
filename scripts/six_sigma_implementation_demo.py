@@ -74,8 +74,8 @@ class SixSigmaImprovementDemo:
         target_sigma = phase_info["target_sigma"]
 
         print(f"Scaling from {start_files} to {end_files} files")
-        print(f"Target DPMO: ≤ {target_dpmo}")
-        print(f"Target Sigma Level: ≥ {target_sigma}")
+        print(f"Target DPMO:  {target_dpmo}")
+        print(f"Target Sigma Level:  {target_sigma}")
 
         # Simulate daily measurements
         phase_results = {
@@ -148,9 +148,9 @@ class SixSigmaImprovementDemo:
         self.current_files = end_files
 
         print(f"Phase {phase} Results:")
-        print(f"  Final DPMO: {final_metrics['dpmo']} (target: ≤ {target_dpmo})")
-        print(f"  Final Sigma: {final_metrics['sigma_level']} (target: ≥ {target_sigma})")
-        print(f"  Success: {'✅ PASSED' if success else '❌ FAILED'}")
+        print(f"  Final DPMO: {final_metrics['dpmo']} (target:  {target_dpmo})")
+        print(f"  Final Sigma: {final_metrics['sigma_level']} (target:  {target_sigma})")
+        print(f"  Success: {' PASSED' if success else ' FAILED'}")
 
         return phase_results
 
@@ -211,22 +211,22 @@ class SixSigmaImprovementDemo:
 
     def _dmaic_define(self) -> Dict[str, Any]:
         """Define phase of DMAIC"""
-        print("🎯 DEFINE: Problem and Goal Statement")
+        print(" DEFINE: Problem and Goal Statement")
 
         define_phase = {
             "problem_statement": "Maintain Six Sigma Level 6 during 5x codebase scaling",
-            "goal_statement": "Sustain DPMO ≤ 1,500 and Sigma ≥ 4.5 through all growth phases",
+            "goal_statement": "Sustain DPMO  1,500 and Sigma  4.5 through all growth phases",
             "project_scope": "All development processes and quality gates",
             "critical_requirements": [
                 "Quality: Maintain current excellence",
                 "Speed: <25% cycle time increase",
                 "Reliability: 99.8%+ first pass yield",
-                "Compliance: NASA POT10 ≥ 90%"
+                "Compliance: NASA POT10  90%"
             ],
             "success_criteria": [
-                "Phase 1: DPMO ≤ 500, Sigma ≥ 5.0",
-                "Phase 2: DPMO ≤ 1,000, Sigma ≥ 4.7",
-                "Phase 3: DPMO ≤ 1,500, Sigma ≥ 4.5"
+                "Phase 1: DPMO  500, Sigma  5.0",
+                "Phase 2: DPMO  1,000, Sigma  4.7",
+                "Phase 3: DPMO  1,500, Sigma  4.5"
             ]
         }
 
@@ -236,7 +236,7 @@ class SixSigmaImprovementDemo:
 
     def _dmaic_measure(self) -> Dict[str, Any]:
         """Measure phase of DMAIC"""
-        print("📊 MEASURE: Current Performance Baseline")
+        print(" MEASURE: Current Performance Baseline")
 
         # Generate current measurements
         dashboard = self.spc_manager.generate_dashboard()
@@ -246,7 +246,7 @@ class SixSigmaImprovementDemo:
             "measurement_system": {
                 "data_sources": ["GitHub Actions", "SonarQube", "Semgrep", "Custom analyzers"],
                 "collection_frequency": "Per commit/build",
-                "accuracy": "±0.1% measurement precision",
+                "accuracy": "0.1% measurement precision",
                 "reliability": "99.9% system uptime"
             },
             "current_capability": {
@@ -265,7 +265,7 @@ class SixSigmaImprovementDemo:
 
     def _dmaic_analyze(self) -> Dict[str, Any]:
         """Analyze phase of DMAIC"""
-        print("🔍 ANALYZE: Root Cause Analysis")
+        print(" ANALYZE: Root Cause Analysis")
 
         analyze_phase = {
             "primary_risks": [
@@ -312,7 +312,7 @@ class SixSigmaImprovementDemo:
 
     def _dmaic_improve(self) -> Dict[str, Any]:
         """Improve phase of DMAIC"""
-        print("🚀 IMPROVE: Implementation of Solutions")
+        print(" IMPROVE: Implementation of Solutions")
 
         improve_phase = {
             "improvement_initiatives": [
@@ -363,7 +363,7 @@ class SixSigmaImprovementDemo:
 
     def _dmaic_control(self) -> Dict[str, Any]:
         """Control phase of DMAIC"""
-        print("🎛️ CONTROL: Sustaining Improvements")
+        print(" CONTROL: Sustaining Improvements")
 
         control_phase = {
             "control_plan": {
@@ -386,8 +386,8 @@ class SixSigmaImprovementDemo:
             ],
             "success_indicators": {
                 "stable_performance": "Control charts within limits",
-                "capability_maintenance": "Cpk ≥ 1.33",
-                "customer_satisfaction": "≥ 95%",
+                "capability_maintenance": "Cpk  1.33",
+                "customer_satisfaction": " 95%",
                 "team_engagement": "High quality culture adoption"
             }
         }
@@ -456,9 +456,9 @@ class SixSigmaImprovementDemo:
         # Generate summary
         self._print_report_summary(report)
 
-        print(f"\n📊 Comprehensive report saved: {report_file}")
-        print(f"📈 SPC plots generated: {len(plot_files)} files")
-        print(f"📋 Total artifacts: {report['artifacts_generated']['total_artifacts']}")
+        print(f"\n Comprehensive report saved: {report_file}")
+        print(f" SPC plots generated: {len(plot_files)} files")
+        print(f" Total artifacts: {report['artifacts_generated']['total_artifacts']}")
 
         return str(report_file)
 
@@ -473,20 +473,20 @@ class SixSigmaImprovementDemo:
         total_phases = len(scaling_results)
 
         if successful_phases == total_phases:
-            recommendations.append("🎉 EXCELLENT: All scaling phases successful - continue current approach")
-            recommendations.append("💡 Focus on continuous improvement and innovation")
+            recommendations.append(" EXCELLENT: All scaling phases successful - continue current approach")
+            recommendations.append(" Focus on continuous improvement and innovation")
         elif successful_phases >= total_phases * 0.8:
-            recommendations.append("✅ GOOD: Most phases successful - minor adjustments needed")
-            recommendations.append("🔧 Review failed phases for improvement opportunities")
+            recommendations.append(" GOOD: Most phases successful - minor adjustments needed")
+            recommendations.append(" Review failed phases for improvement opportunities")
         else:
-            recommendations.append("⚠️ ATTENTION: Multiple phase failures - comprehensive review required")
-            recommendations.append("🚨 Implement immediate corrective actions")
+            recommendations.append(" ATTENTION: Multiple phase failures - comprehensive review required")
+            recommendations.append(" Implement immediate corrective actions")
 
         # SPC-specific recommendations
-        recommendations.append("📊 Maintain real-time SPC monitoring for early detection")
-        recommendations.append("🎯 Continue DMAIC methodology for continuous improvement")
-        recommendations.append("🤖 Invest in AI-powered quality tools for predictive capabilities")
-        recommendations.append("👥 Ensure team training on Six Sigma principles")
+        recommendations.append(" Maintain real-time SPC monitoring for early detection")
+        recommendations.append(" Continue DMAIC methodology for continuous improvement")
+        recommendations.append(" Invest in AI-powered quality tools for predictive capabilities")
+        recommendations.append(" Ensure team training on Six Sigma principles")
 
         return recommendations
 
@@ -497,17 +497,17 @@ class SixSigmaImprovementDemo:
         print("=" * 60)
 
         summary = report["executive_summary"]
-        print(f"Overall Success: {'✅ ACHIEVED' if summary['overall_success'] else '❌ NEEDS IMPROVEMENT'}")
+        print(f"Overall Success: {' ACHIEVED' if summary['overall_success'] else ' NEEDS IMPROVEMENT'}")
         print(f"Final Sigma Level: {summary['final_sigma_level']}")
         print(f"Final DPMO: {summary['final_dpmo']}")
 
         print("\nKey Achievements:")
         for achievement in summary["key_achievements"]:
-            print(f"  ✓ {achievement}")
+            print(f"   {achievement}")
 
         print("\nRecommendations:")
         for recommendation in report["recommendations"]:
-            print(f"  • {recommendation}")
+            print(f"   {recommendation}")
 
         print(f"\nQuality Status: {report['quality_insights']['risk_assessment']} RISK")
         print(f"Process Stability: {report['spc_dashboard']['summary']['overall_status']}")
@@ -528,8 +528,8 @@ def main():
         # Generate comprehensive demonstration
         report_file = demo.generate_comprehensive_report()
 
-        print(f"\n✨ Demonstration completed successfully!")
-        print(f"📄 Full report available at: {report_file}")
+        print(f"\n Demonstration completed successfully!")
+        print(f" Full report available at: {report_file}")
         print("\nThis demo shows how the Six Sigma improvement plan:")
         print("  1. Maintains excellent quality during scaling")
         print("  2. Implements comprehensive monitoring")
@@ -537,7 +537,7 @@ def main():
         print("  4. Provides actionable insights and recommendations")
 
     except Exception as e:
-        print(f"❌ Demo failed with error: {e}")
+        print(f" Demo failed with error: {e}")
         import traceback
         traceback.print_exc()
 

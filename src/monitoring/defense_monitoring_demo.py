@@ -89,7 +89,7 @@ def demonstrate_performance_monitoring():
             avg_overhead = sum(overhead_times) / len(overhead_times)
             overhead_pct = ((avg_overhead - 0.1) / 0.1) * 100  # Calculate overhead
 
-            print(f"✓ Performance Test Results:")
+            print(f" Performance Test Results:")
             print(f"  Iterations: {iterations}")
             print(f"  Average response time: {avg_overhead:.3f}ms")
             print(f"  Monitoring overhead: {overhead_pct:.3f}%")
@@ -105,7 +105,7 @@ def demonstrate_performance_monitoring():
             mock_system = MockMonitoringSystem()
             metrics = mock_system.get_performance_metrics()
 
-            print(f"✓ Simulated Performance Results:")
+            print(f" Simulated Performance Results:")
             print(f"  Response time: {metrics['response_time_ms']}ms")
             print(f"  Monitoring overhead: {metrics['overhead_percentage']}%")
             print(f"  Defense requirement: {'PASS' if metrics['overhead_percentage'] < 1.2 else 'FAIL'}")
@@ -113,7 +113,7 @@ def demonstrate_performance_monitoring():
         mock_system = MockMonitoringSystem()
         metrics = mock_system.get_performance_metrics()
 
-        print(f"✓ Simulated Performance Results:")
+        print(f" Simulated Performance Results:")
         print(f"  Response time: {metrics['response_time_ms']}ms")
         print(f"  Monitoring overhead: {metrics['overhead_percentage']}%")
         print(f"  Memory usage: {metrics['memory_usage_mb']}MB")
@@ -150,7 +150,7 @@ def demonstrate_rollback_orchestration():
         }
     ]
 
-    print("✓ Rollback Decision Matrix:")
+    print(" Rollback Decision Matrix:")
     for scenario in scenarios:
         print(f"  Trigger: {scenario['trigger']}")
         print(f"    Current metrics: {scenario['metrics']}")
@@ -158,7 +158,7 @@ def demonstrate_rollback_orchestration():
         print(f"    Decision: {scenario['decision']}")
         print()
 
-    print("✓ Rollback Capabilities:")
+    print(" Rollback Capabilities:")
     print("  - State preservation with checksums")
     print("  - Database backup and restore")
     print("  - Service state management")
@@ -197,7 +197,7 @@ def demonstrate_detector_optimization():
         }
     }
 
-    print("✓ Current Detector Pool Status:")
+    print(" Current Detector Pool Status:")
     for detector, stats in detector_stats.items():
         load_factor = stats['queue_size'] / (stats['instances'] * 10)  # Assume 10 tasks per instance optimal
         status = "OPTIMAL" if load_factor < 0.8 else "HIGH_LOAD" if load_factor < 1.2 else "OVERLOADED"
@@ -211,7 +211,7 @@ def demonstrate_detector_optimization():
         print(f"    Status: {status}")
         print()
 
-    print("✓ Optimization Features:")
+    print(" Optimization Features:")
     print("  - Dynamic instance scaling")
     print("  - Intelligent load balancing")
     print("  - Performance profiling")
@@ -234,9 +234,9 @@ def demonstrate_cicd_integration():
         {"stage": "Monitor", "status": "WARNING", "duration": "ongoing", "issues": "Response time elevated"}
     ]
 
-    print("✓ Pipeline Execution:")
+    print(" Pipeline Execution:")
     for stage in pipeline_stages:
-        status_icon = "✓" if stage["status"] == "SUCCESS" else "⚠" if stage["status"] == "WARNING" else "✗"
+        status_icon = "" if stage["status"] == "SUCCESS" else "" if stage["status"] == "WARNING" else ""
         print(f"  {status_icon} {stage['stage']}: {stage['status']} ({stage['duration']})")
 
         if "findings" in stage:
@@ -246,7 +246,7 @@ def demonstrate_cicd_integration():
         if "issues" in stage:
             print(f"    Issues: {stage['issues']}")
 
-    print("\\n✓ Integration Features:")
+    print("\\n Integration Features:")
     print("  - GitHub Actions / Azure DevOps / Jenkins")
     print("  - Automated security scanning")
     print("  - Compliance validation hooks")
@@ -271,7 +271,7 @@ def demonstrate_compliance_validation():
             print("Running compliance validation...")
             report = validator.validate_all_frameworks(source_path, frameworks)
 
-            print(f"✓ Compliance Assessment Results:")
+            print(f" Compliance Assessment Results:")
             print(f"  Overall score: {report.overall_score:.1f}%")
             print(f"  Classification: {report.classification_level.value.upper()}")
             print(f"  Defense ready: {'YES' if report.defense_ready else 'NO'}")
@@ -293,7 +293,7 @@ def demonstrate_compliance_validation():
             mock_system = MockMonitoringSystem()
             compliance = mock_system.get_compliance_score()
 
-            print(f"✓ Simulated Compliance Results:")
+            print(f" Simulated Compliance Results:")
             print(f"  Overall score: {compliance['overall_score']}%")
             print(f"  NASA POT10: {compliance['nasa_pot10']}%")
             print(f"  DFARS: {compliance['dfars']}%")
@@ -302,13 +302,13 @@ def demonstrate_compliance_validation():
         mock_system = MockMonitoringSystem()
         compliance = mock_system.get_compliance_score()
 
-        print(f"✓ Simulated Compliance Results:")
+        print(f" Simulated Compliance Results:")
         print(f"  Overall score: {compliance['overall_score']}%")
         print(f"  NASA POT10: {compliance['nasa_pot10']}%")
         print(f"  DFARS: {compliance['dfars']}%")
         print(f"  Defense ready: {'YES' if compliance['defense_ready'] else 'NO'}")
 
-    print("\\n✓ Compliance Frameworks:")
+    print("\\n Compliance Frameworks:")
     print("  - NASA POT10 (Product of Ten safety)")
     print("  - DFARS (Defense Federal Acquisition)")
     print("  - FISMA (Federal Information Security)")
@@ -329,7 +329,7 @@ def demonstrate_real_time_configuration():
             # Get system analysis
             analysis = config_manager.analyzer.analyze_real_time_capability()
 
-            print(f"✓ System Analysis:")
+            print(f" System Analysis:")
             print(f"  Real-time capable: {analysis['real_time_capable']}")
             print(f"  Recommended mode: {analysis['recommended_mode'].value}")
             print(f"  System limitations: {len(analysis['limitations'])}")
@@ -337,7 +337,7 @@ def demonstrate_real_time_configuration():
             # Show configuration for different modes
             modes = [RealTimeMode.SOFT_REAL_TIME, RealTimeMode.HARD_REAL_TIME, RealTimeMode.MISSION_CRITICAL]
 
-            print(f"\\n✓ Available Real-Time Modes:")
+            print(f"\\n Available Real-Time Modes:")
             for mode in modes:
                 profile = config_manager.create_monitoring_profile(f"{mode.value}_demo", mode)
                 print(f"  {mode.value}:")
@@ -348,20 +348,20 @@ def demonstrate_real_time_configuration():
         except Exception as e:
             print(f"Note: Using mock configuration due to: {e}")
 
-            print(f"✓ Simulated Real-Time Configuration:")
+            print(f" Simulated Real-Time Configuration:")
             print(f"  Current mode: HARD_REAL_TIME")
             print(f"  Max response time: 1.0ms")
             print(f"  Max overhead: 1.0%")
             print(f"  Memory limit: 1536MB")
     else:
-        print(f"✓ Simulated Real-Time Configuration:")
+        print(f" Simulated Real-Time Configuration:")
         print(f"  Current mode: HARD_REAL_TIME")
         print(f"  Max response time: 1.0ms")
         print(f"  Max overhead: 1.0%")
         print(f"  Memory limit: 1536MB")
         print(f"  CPU limit: 20.0%")
 
-    print("\\n✓ Real-Time Features:")
+    print("\\n Real-Time Features:")
     print("  - Deterministic scheduling")
     print("  - Priority inversion protection")
     print("  - Thread affinity configuration")
@@ -409,10 +409,10 @@ def demonstrate_system_integration():
         }
     }
 
-    print("✓ Integrated System Status:")
+    print(" Integrated System Status:")
     for component, status in system_status.items():
         component_status = status.get("status", "UNKNOWN")
-        status_icon = "✓" if component_status in ["OPTIMAL", "READY", "ACTIVE", "COMPLIANT", "MONITORING"] else "⚠"
+        status_icon = "" if component_status in ["OPTIMAL", "READY", "ACTIVE", "COMPLIANT", "MONITORING"] else ""
 
         print(f"  {status_icon} {component.upper()}: {component_status}")
 
@@ -421,7 +421,7 @@ def demonstrate_system_integration():
                 print(f"    {key.replace('_', ' ').title()}: {value}")
         print()
 
-    print("✓ Integration Benefits:")
+    print(" Integration Benefits:")
     print("  - Unified monitoring dashboard")
     print("  - Coordinated response to issues")
     print("  - Cross-component optimization")
@@ -452,12 +452,12 @@ def main():
     print("DEMONSTRATION COMPLETE")
     print("=" * 60)
     print()
-    print("✓ All monitoring components demonstrated")
-    print("✓ Performance overhead <1.2% validated")
-    print("✓ Real-time constraints verified")
-    print("✓ Defense industry compliance confirmed")
-    print("✓ Automated rollback capabilities shown")
-    print("✓ Enterprise optimization features displayed")
+    print(" All monitoring components demonstrated")
+    print(" Performance overhead <1.2% validated")
+    print(" Real-time constraints verified")
+    print(" Defense industry compliance confirmed")
+    print(" Automated rollback capabilities shown")
+    print(" Enterprise optimization features displayed")
     print()
     print("SYSTEM STATUS: DEFENSE INDUSTRY READY")
     print()

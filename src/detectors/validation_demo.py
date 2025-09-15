@@ -571,25 +571,25 @@ class ValidationDemo:
         overhead = components.get("overhead_validation", {})
         if overhead.get("overhead_target_achieved", False):
             summary["key_achievements"].append(
-                f"✓ <1% overhead target achieved: {overhead.get('actual_overhead_percentage', 0):.3f}%"
+                f" <1% overhead target achieved: {overhead.get('actual_overhead_percentage', 0):.3f}%"
             )
 
         compliance = components.get("compliance_validation", {})
         if compliance.get("compliance_target_achieved", False):
             summary["key_achievements"].append(
-                f"✓ Defense industry compliance achieved: {compliance.get('overall_compliance_percentage', 0):.1f}%"
+                f" Defense industry compliance achieved: {compliance.get('overall_compliance_percentage', 0):.1f}%"
             )
 
         fault_tolerance = components.get("fault_tolerance", {})
         if fault_tolerance.get("fault_tolerance_effective", False):
             summary["key_achievements"].append(
-                f"✓ Fault tolerance validated: {fault_tolerance.get('success_rate', 0):.2f} success rate"
+                f" Fault tolerance validated: {fault_tolerance.get('success_rate', 0):.2f} success rate"
             )
 
         # Identify issues
         for component_name, component_data in components.items():
             if "error" in component_data:
-                summary["issues_identified"].append(f"✗ {component_name}: {component_data['error']}")
+                summary["issues_identified"].append(f" {component_name}: {component_data['error']}")
 
         return summary
 
@@ -611,7 +611,7 @@ def main():
     print("\nValidation Summary:")
     print("-" * 30)
     print(f"Overall Score: {results['overall_validation_score']:.1f}%")
-    print(f"Validation Passed: {'✓' if results['validation_passed'] else '✗'}")
+    print(f"Validation Passed: {'' if results['validation_passed'] else ''}")
 
     summary = results["summary"]
     print(f"\nComponents Tested: {summary['total_components_tested']}")

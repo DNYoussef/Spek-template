@@ -547,7 +547,7 @@ def test_model_registry():
     
     # Test model registration
     metadata = {
-        'description': 'Test Gary×Taleb model',
+        'description': 'Test GaryTaleb model',
         'tags': {'framework': 'pytorch', 'strategy': 'gary_taleb'},
         'metrics': {
             'sharpe_ratio': 1.8,

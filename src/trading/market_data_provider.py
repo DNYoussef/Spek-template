@@ -221,7 +221,7 @@ class MarketDataProvider:
         base_price = hash(symbol.upper()) % 200 + 50  # Price between $50-$250
         
         # Add some randomness
-        price_variation = random.uniform(-0.05, 0.05)  # ±5%
+        price_variation = random.uniform(-0.05, 0.05)  # 5%
         current_price = base_price * (1 + price_variation)
         
         # Generate bid/ask spread
@@ -327,7 +327,7 @@ class MarketDataProvider:
                 continue
             
             # Generate OHLC data with realistic price movement
-            price_change = random.uniform(-0.03, 0.03)  # ±3% daily change
+            price_change = random.uniform(-0.03, 0.03)  # 3% daily change
             open_price = base_price * (1 + price_change)
             
             daily_volatility = random.uniform(0.01, 0.05)  # 1-5% intraday range

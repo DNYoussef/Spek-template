@@ -327,8 +327,8 @@ Examples:
         print(f"Defense Certification Score: {defense_cert.get('overall_score', 'N/A'):.1f}%")
         print(f"Total Violations: {nasa_compliance.get('total_violations', 'N/A')}")
         print(f"Validation Duration: {summary.get('duration_seconds', 'N/A'):.1f} seconds")
-        print(f"Overall Success: {'✅ YES' if summary.get('overall_success') else '❌ NO'}")
-        print(f"Target Achieved: {'✅ YES' if summary.get('target_compliance_achieved') else '❌ NO'}")
+        print(f"Overall Success: {' YES' if summary.get('overall_success') else ' NO'}")
+        print(f"Target Achieved: {' YES' if summary.get('target_compliance_achieved') else ' NO'}")
 
         if args.fix and 'fixes_applied' in results:
             fixes = results['fixes_applied']

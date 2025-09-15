@@ -18,7 +18,7 @@ const SIX_SIGMA_CONTRACTS = {
 };
 
 function validateCTQ() {
-  console.log('📊 Validating CTQ (Critical to Quality) Metrics...');
+  console.log(' Validating CTQ (Critical to Quality) Metrics...');
 
   const results = {
     passed: 0,
@@ -58,7 +58,7 @@ function validateCTQ() {
 }
 
 function validateSPC() {
-  console.log('📈 Validating SPC (Statistical Process Control) Metrics...');
+  console.log(' Validating SPC (Statistical Process Control) Metrics...');
 
   const results = {
     passed: 0,
@@ -83,7 +83,7 @@ function validateSPC() {
   const controlLimitsTest = {
     name: 'SPC Control Limits',
     metric: 'control_limits',
-    target: `UCL ≤ ${SIX_SIGMA_CONTRACTS.SPC_UCL}ms, LCL ≥ ${SIX_SIGMA_CONTRACTS.SPC_LCL}ms`,
+    target: `UCL  ${SIX_SIGMA_CONTRACTS.SPC_UCL}ms, LCL  ${SIX_SIGMA_CONTRACTS.SPC_LCL}ms`,
     actual: `UCL: ${ucl.toFixed(2)}ms, LCL: ${lcl.toFixed(2)}ms`,
     passed: ucl <= SIX_SIGMA_CONTRACTS.SPC_UCL && lcl >= SIX_SIGMA_CONTRACTS.SPC_LCL
   };
@@ -98,7 +98,7 @@ function validateSPC() {
   const processCapabilityTest = {
     name: 'Process Capability (Cpk)',
     metric: 'process_capability',
-    target: 'Cpk ≥ 1.33 (Six Sigma capable)',
+    target: 'Cpk  1.33 (Six Sigma capable)',
     actual: `Cpk: ${cpk.toFixed(3)}`,
     passed: cpk >= 1.33
   };
@@ -111,7 +111,7 @@ function validateSPC() {
 }
 
 function validateDPMO() {
-  console.log('🎯 Validating DPMO (Defects Per Million Opportunities)...');
+  console.log(' Validating DPMO (Defects Per Million Opportunities)...');
 
   const results = {
     passed: 0,
@@ -152,7 +152,7 @@ function validateDPMO() {
 }
 
 function validateTheaterDetection() {
-  console.log('🎭 Validating Theater Detection Metrics...');
+  console.log(' Validating Theater Detection Metrics...');
 
   const results = {
     passed: 0,
@@ -199,7 +199,7 @@ function generateSixSigmaReport(ctqResults, spcResults, dpmoResults, theaterResu
   const totalTests = allResults.reduce((sum, result) => sum + result.tests.length, 0);
   const passRate = (totalPassed / totalTests * 100).toFixed(1);
 
-  console.log('\n📊 SIX SIGMA QUALITY VALIDATION REPORT');
+  console.log('\n SIX SIGMA QUALITY VALIDATION REPORT');
   console.log('=' .repeat(60));
   console.log(`Total Tests: ${totalTests}`);
   console.log(`Passed: ${totalPassed}`);
@@ -216,9 +216,9 @@ function generateSixSigmaReport(ctqResults, spcResults, dpmoResults, theaterResu
   ];
 
   categories.forEach(category => {
-    console.log(`\n📈 ${category.name}:`);
+    console.log(`\n ${category.name}:`);
     category.results.tests.forEach(test => {
-      const status = test.passed ? '✅ PASS' : '❌ FAIL';
+      const status = test.passed ? ' PASS' : ' FAIL';
       console.log(`  ${status} ${test.name}`);
       if (test.unit) {
         console.log(`    Target: ${test.target} ${test.unit}`);
@@ -232,8 +232,8 @@ function generateSixSigmaReport(ctqResults, spcResults, dpmoResults, theaterResu
 
   // Quality gates
   const meetsSixSigma = passRate >= 95;
-  console.log('\n🎯 SIX SIGMA QUALITY GATES:');
-  console.log(`Six Sigma Compliance: ${meetsSixSigma ? '✅ PASS' : '❌ FAIL'} (${passRate}% ≥ 95%)`);
+  console.log('\n SIX SIGMA QUALITY GATES:');
+  console.log(`Six Sigma Compliance: ${meetsSixSigma ? ' PASS' : ' FAIL'} (${passRate}%  95%)`);
 
   return {
     passRate: parseFloat(passRate),
@@ -251,7 +251,7 @@ function generateSixSigmaReport(ctqResults, spcResults, dpmoResults, theaterResu
 
 async function main() {
   try {
-    console.log('📊 SPEK Six Sigma Quality Validation Suite');
+    console.log(' SPEK Six Sigma Quality Validation Suite');
     console.log('Validating CTQ, SPC, DPMO, and Theater Detection...\n');
 
     const ctqResults = validateCTQ();
@@ -275,13 +275,13 @@ async function main() {
       }
     }, null, 2));
 
-    console.log(`\n💾 Results saved to: ${resultsPath}`);
+    console.log(`\n Results saved to: ${resultsPath}`);
 
     // Exit with appropriate code
     process.exit(report.meetsSixSigma ? 0 : 1);
 
   } catch (error) {
-    console.error('❌ Six Sigma validation failed:', error);
+    console.error(' Six Sigma validation failed:', error);
     process.exit(1);
   }
 }

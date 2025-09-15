@@ -680,7 +680,7 @@ if __name__ == "__main__":
     success = config_manager.apply_profile(recommended_profile)
 
     if success:
-        print("✓ Profile applied successfully")
+        print(" Profile applied successfully")
 
         # Display current configuration
         current_config = config_manager.get_current_configuration()
@@ -708,4 +708,4 @@ if __name__ == "__main__":
         print(f"\\nConfiguration exported to {export_path}")
 
     else:
-        print("✗ Failed to apply profile")
+        print(" Failed to apply profile")

@@ -1,5 +1,5 @@
 """
-Real-time inference engine for Gary×Taleb trading models.
+Real-time inference engine for GaryTaleb trading models.
 """
 
 from .inference_engine import RealTimeInferenceEngine, InferenceRequest, InferenceResponse

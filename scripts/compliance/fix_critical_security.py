@@ -273,10 +273,10 @@ def main():
     print(f"Backups Created: {len(results['fixes_applied'])}")
 
     if verification_passed:
-        print("\n🛡️ ALL CRITICAL SECURITY VULNERABILITIES RESOLVED")
-        print("✅ Ready to proceed to Phase 2: DFARS Compliance")
+        print("\n ALL CRITICAL SECURITY VULNERABILITIES RESOLVED")
+        print(" Ready to proceed to Phase 2: DFARS Compliance")
     else:
-        print("\n⚠️ SOME VULNERABILITIES MAY REMAIN - MANUAL REVIEW REQUIRED")
+        print("\n SOME VULNERABILITIES MAY REMAIN - MANUAL REVIEW REQUIRED")
 
     return verification_passed
 

@@ -100,7 +100,7 @@ export class KellyCriterionEngine extends EventEmitter {
     this.currentPortfolio = this.initializePortfolio();
     this.kellyMetrics = this.initializeMetrics();
 
-    console.log('🎲 Kelly Criterion Engine initialized - optimizing position sizes...');
+    console.log(' Kelly Criterion Engine initialized - optimizing position sizes...');
   }
 
   /**
@@ -108,7 +108,7 @@ export class KellyCriterionEngine extends EventEmitter {
    */
   start(): void {
     if (this.isRunning) {
-      console.log('⚠ Kelly Criterion Engine already running');
+      console.log(' Kelly Criterion Engine already running');
       return;
     }
 
@@ -119,7 +119,7 @@ export class KellyCriterionEngine extends EventEmitter {
       this.updateKellyAnalysis();
     }, 2000); // Update every 2 seconds
 
-    console.log('🚀 Kelly Criterion Engine started - calculating optimal positions...');
+    console.log(' Kelly Criterion Engine started - calculating optimal positions...');
     this.emit('started');
   }
 
@@ -136,7 +136,7 @@ export class KellyCriterionEngine extends EventEmitter {
       this.updateInterval = null;
     }
 
-    console.log('🛑 Kelly Criterion Engine stopped');
+    console.log(' Kelly Criterion Engine stopped');
     this.emit('stopped');
   }
 
@@ -207,7 +207,7 @@ export class KellyCriterionEngine extends EventEmitter {
       });
 
     } catch (error) {
-      console.error('❌ Kelly Engine analysis error:', error);
+      console.error(' Kelly Engine analysis error:', error);
       this.emit('error', error);
     }
   }
@@ -247,13 +247,13 @@ export class KellyCriterionEngine extends EventEmitter {
         const calc = this.kellyCalculations.get(asset)!;
 
         // Simulate parameter drift
-        calc.winRate += (Math.random() - 0.5) * 0.01; // ±1% drift
+        calc.winRate += (Math.random() - 0.5) * 0.01; // 1% drift
         calc.winRate = Math.max(0.1, Math.min(0.9, calc.winRate));
 
-        calc.averageWin += (Math.random() - 0.5) * 0.002; // ±0.2% drift
+        calc.averageWin += (Math.random() - 0.5) * 0.002; // 0.2% drift
         calc.averageWin = Math.max(0.005, calc.averageWin);
 
-        calc.averageLoss += (Math.random() - 0.5) * 0.001; // ±0.1% drift
+        calc.averageLoss += (Math.random() - 0.5) * 0.001; // 0.1% drift
         calc.averageLoss = Math.max(0.002, calc.averageLoss);
 
         // Recalculate Kelly

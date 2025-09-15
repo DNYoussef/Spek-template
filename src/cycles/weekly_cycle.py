@@ -2,7 +2,7 @@
 """
 WeeklyCycle - Core weekly trading automation system.
 
-Implements Gary×Taleb trading methodology with Friday 4:10pm ET / 6:00pm ET execution.
+Implements GaryTaleb trading methodology with Friday 4:10pm ET / 6:00pm ET execution.
 Addresses theater detection findings by implementing real business logic.
 
 Architecture:
@@ -69,7 +69,7 @@ class CycleConfig:
 class WeeklyCycle:
     """Weekly trading cycle orchestrator.
     
-    Implements the Gary×Taleb methodology:
+    Implements the GaryTaleb methodology:
     - Distributional edge analysis (DPI)
     - Antifragile position sizing
     - Barbell strategy allocation

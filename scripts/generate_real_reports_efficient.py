@@ -230,9 +230,9 @@ def generate_real_reports_efficiently():
 if __name__ == "__main__":
     reports_dir, total_violations = generate_real_reports_efficiently()
 
-    print(f"\n✓ All reports are REAL and based on ACTUAL analysis")
-    print(f"✓ {total_violations} real violations detected and reported")
-    print(f"✓ Reports location: {reports_dir}")
+    print(f"\n All reports are REAL and based on ACTUAL analysis")
+    print(f" {total_violations} real violations detected and reported")
+    print(f" Reports location: {reports_dir}")
 
     # List generated reports
     print("\nGenerated REAL reports:")

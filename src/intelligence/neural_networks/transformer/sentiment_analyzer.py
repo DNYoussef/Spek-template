@@ -49,7 +49,7 @@ class FinancialSentimentAnalyzer:
     """Real-time financial sentiment analyzer.
 
     Processes news, social media, earnings calls, and analyst reports
-    with <100ms inference time and Gary×Taleb integration.
+    with <100ms inference time and GaryTaleb integration.
     """
 
     def __init__(self, config: SentimentConfig):
@@ -563,7 +563,7 @@ def create_sentiment_analyzer(
     dpi_integration: bool = True,
     antifragile_enhancement: bool = True
 ) -> FinancialSentimentAnalyzer:
-    """Create financial sentiment analyzer with Gary×Taleb integration.
+    """Create financial sentiment analyzer with GaryTaleb integration.
 
     Args:
         max_length: Maximum sequence length for faster processing
@@ -582,7 +582,7 @@ def create_sentiment_analyzer(
     )
 
     analyzer = FinancialSentimentAnalyzer(config)
-    print(f\"Financial Sentiment Analyzer created with Gary×Taleb integration\")
+    print(f\"Financial Sentiment Analyzer created with GaryTaleb integration\")
     print(f\"Target inference time: <100ms\")
 
     return analyzer"

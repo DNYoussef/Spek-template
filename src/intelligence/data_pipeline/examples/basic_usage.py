@@ -1,5 +1,5 @@
 """
-Gary×Taleb Data Pipeline - Basic Usage Examples
+GaryTaleb Data Pipeline - Basic Usage Examples
 Demonstrates core functionality of the data pipeline system
 """
 
@@ -21,7 +21,7 @@ async def basic_pipeline_example():
     """
     Basic example showing how to start and use the complete pipeline
     """
-    print("=== Gary×Taleb Data Pipeline - Basic Usage Example ===")
+    print("=== GaryTaleb Data Pipeline - Basic Usage Example ===")
 
     # Initialize pipeline orchestrator
     pipeline = PipelineOrchestrator()
@@ -237,7 +237,7 @@ async def news_sentiment_example():
         if trending:
             print(f"\nTrending Sentiment (last hour):")
             for sent in trending[:5]:
-                direction = "📈" if sent.direction == "bullish" else "📉"
+                direction = "" if sent.direction == "bullish" else ""
                 print(f"  {direction} {sent.symbol}: {sent.weighted_score:.2f} "
                       f"({sent.total_articles} articles)")
 
@@ -399,7 +399,7 @@ async def main():
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )
 
-    print("Gary×Taleb Data Pipeline - Usage Examples")
+    print("GaryTaleb Data Pipeline - Usage Examples")
     print("=" * 50)
 
     try:

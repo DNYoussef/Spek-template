@@ -1,7 +1,7 @@
 /**
  * Real-Time Risk Monitoring Dashboard
  * Phase 2 Division 4: Comprehensive risk visualization and monitoring
- * Integrates with Gary×Taleb antifragility engine and existing risk assessment systems
+ * Integrates with GaryTaleb antifragility engine and existing risk assessment systems
  */
 import { EventEmitter } from 'events';
 export interface ProbabilityOfRuin {

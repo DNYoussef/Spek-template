@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Gary×Taleb Trading System - Security Gate Check Script
+GaryTaleb Trading System - Security Gate Check Script
 Defense Industry Compliance with Financial Regulations
 
 This script evaluates security scan results and makes gate decisions
@@ -326,7 +326,7 @@ class SecurityGateChecker:
 
 def main():
     """Main entry point"""
-    parser = argparse.ArgumentParser(description='Gary×Taleb Security Gate Checker')
+    parser = argparse.ArgumentParser(description='GaryTaleb Security Gate Checker')
     parser.add_argument('--sast', required=True, help='SAST results file (JSON)')
     parser.add_argument('--compliance', required=True, help='Compliance scan results file (JSON)')
     parser.add_argument('--nasa', required=True, help='NASA POT10 scan results file (JSON)')
@@ -362,14 +362,14 @@ def main():
 
         # Log results
         if gate_passed:
-            checker.logger.info("✅ Security gate PASSED")
-            print("\n✅ SECURITY GATE PASSED")
+            checker.logger.info(" Security gate PASSED")
+            print("\n SECURITY GATE PASSED")
             print(f"Compliance Level: {args.compliance_level}")
             print(f"NASA POT10 Score: {report['nasa_pot10_score']}%")
             print(f"Total Findings: {report['total_findings']}")
         else:
-            checker.logger.error("❌ Security gate FAILED")
-            print("\n❌ SECURITY GATE FAILED")
+            checker.logger.error(" Security gate FAILED")
+            print("\n SECURITY GATE FAILED")
             print(f"Compliance Level: {args.compliance_level}")
             print(f"NASA POT10 Score: {report['nasa_pot10_score']}%")
             print("Gate Issues:")

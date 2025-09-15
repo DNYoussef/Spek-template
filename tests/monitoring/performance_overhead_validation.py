@@ -172,15 +172,15 @@ def validate_monitoring_overhead():
     print("=== FINAL ASSESSMENT ===")
 
     if overhead_percentage <= 1.2:
-        print(f"✓ PRIMARY REQUIREMENT MET: {overhead_percentage:.3f}% <= 1.2% overhead")
+        print(f" PRIMARY REQUIREMENT MET: {overhead_percentage:.3f}% <= 1.2% overhead")
     else:
-        print(f"✗ PRIMARY REQUIREMENT FAILED: {overhead_percentage:.3f}% > 1.2% overhead")
+        print(f" PRIMARY REQUIREMENT FAILED: {overhead_percentage:.3f}% > 1.2% overhead")
 
     if all_passed:
-        print("✓ ALL DEFENSE INDUSTRY REQUIREMENTS PASSED")
-        print("✓ SYSTEM READY FOR REAL-TIME DEFENSE DEPLOYMENT")
+        print(" ALL DEFENSE INDUSTRY REQUIREMENTS PASSED")
+        print(" SYSTEM READY FOR REAL-TIME DEFENSE DEPLOYMENT")
     else:
-        print("✗ SOME REQUIREMENTS FAILED - REVIEW NEEDED")
+        print(" SOME REQUIREMENTS FAILED - REVIEW NEEDED")
 
     print()
     print(f"Monitoring system processed {getattr(monitor, 'metrics_count', iterations)} metrics")
@@ -253,14 +253,14 @@ def main():
         print("=" * 50)
 
         if overhead_passed and memory_passed:
-            print("🎯 ALL VALIDATIONS PASSED - DEFENSE READY")
+            print(" ALL VALIDATIONS PASSED - DEFENSE READY")
             return 0
         else:
-            print("❌ VALIDATION FAILURES - OPTIMIZATION NEEDED")
+            print(" VALIDATION FAILURES - OPTIMIZATION NEEDED")
             return 1
 
     except Exception as e:
-        print(f"❌ VALIDATION ERROR: {e}")
+        print(f" VALIDATION ERROR: {e}")
         return 1
 
 

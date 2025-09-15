@@ -1,5 +1,5 @@
 """
-Advanced feature engineering and data preprocessing for the Gary×Taleb trading system.
+Advanced feature engineering and data preprocessing for the GaryTaleb trading system.
 Implements Gary's DPI features and Taleb's antifragility indicators.
 """
 

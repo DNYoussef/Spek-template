@@ -8,7 +8,7 @@
     "findings_count": "1 finding identified",
     "severity_level": "LOW - No critical/high security issues",
     "owasp_top_ten": "Scanned successfully",
-    "status": "✅ PASSED - Zero critical security findings"
+    "status": " PASSED - Zero critical security findings"
   },
 
   "analyzer_self_audit": {
@@ -16,7 +16,7 @@
     "critical_violations": 0,
     "policy_used": "balanced (fallback from strict)",
     "nasa_analyzer_status": "ISSUE IDENTIFIED - missing analyze_file method",
-    "status": "⚠️ PASSED with issues to address"
+    "status": " PASSED with issues to address"
   },
 
   "infrastructure_issues_identified": [
@@ -41,10 +41,10 @@
   ],
 
   "progress_summary": {
-    "security_compliance": "✅ ACHIEVED - Zero critical findings",
-    "analyzer_violations": "✅ BASELINE ESTABLISHED - 37 violations (0 critical)",
-    "nasa_compliance": "⚠️ BLOCKED - NASA analyzer needs repair",
-    "overall_quality": "✅ GOOD - No critical issues identified"
+    "security_compliance": " ACHIEVED - Zero critical findings",
+    "analyzer_violations": " BASELINE ESTABLISHED - 37 violations (0 critical)",
+    "nasa_compliance": " BLOCKED - NASA analyzer needs repair",
+    "overall_quality": " GOOD - No critical issues identified"
   },
 
   "immediate_actions": [
@@ -56,8 +56,8 @@
 
   "lock_down_impact": {
     "current_status": "87/100 (increased from 85/100)",
-    "security_gate": "✅ PASSED",
-    "quality_gate": "⚠️ MOSTLY PASSED with improvements needed",
-    "nasa_compliance_gate": "❌ REQUIRES NASA ANALYZER FIX"
+    "security_gate": " PASSED",
+    "quality_gate": " MOSTLY PASSED with improvements needed",
+    "nasa_compliance_gate": " REQUIRES NASA ANALYZER FIX"
   }
 }

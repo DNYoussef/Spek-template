@@ -59,7 +59,7 @@ export class RiskWebSocketServer extends EventEmitter {
     });
     
     this.setupServerHandlers();
-    console.log(`🚀 Risk WebSocket Server initialized on port ${this.port}`);
+    console.log(` Risk WebSocket Server initialized on port ${this.port}`);
   }
   
   /**
@@ -67,7 +67,7 @@ export class RiskWebSocketServer extends EventEmitter {
    */
   start(): void {
     if (this.isRunning) {
-      console.log('⚠ Risk WebSocket Server is already running');
+      console.log(' Risk WebSocket Server is already running');
       return;
     }
     
@@ -79,7 +79,7 @@ export class RiskWebSocketServer extends EventEmitter {
     // Start health checks
     this.startHealthChecks();
     
-    console.log('✅ Risk WebSocket Server started successfully');
+    console.log(' Risk WebSocket Server started successfully');
     this.emit('started');
   }
   
@@ -110,7 +110,7 @@ export class RiskWebSocketServer extends EventEmitter {
     
     // Close server
     this.server.close(() => {
-      console.log('✅ Risk WebSocket Server stopped');
+      console.log(' Risk WebSocket Server stopped');
       this.emit('stopped');
     });
   }
@@ -123,7 +123,7 @@ export class RiskWebSocketServer extends EventEmitter {
       const clientId = this.generateClientId();
       const clientIp = request.socket.remoteAddress;
       
-      console.log(`🔗 New client connected: ${clientId} from ${clientIp}`);
+      console.log(` New client connected: ${clientId} from ${clientIp}`);
       
       // Create client connection
       const client: ClientConnection = {
@@ -153,12 +153,12 @@ export class RiskWebSocketServer extends EventEmitter {
     });
     
     this.server.on('error', (error) => {
-      console.error('❌ WebSocket Server error:', error);
+      console.error(' WebSocket Server error:', error);
       this.emit('error', error);
     });
     
     this.server.on('listening', () => {
-      console.log(`🌐 Risk WebSocket Server listening on port ${this.port}`);
+      console.log(` Risk WebSocket Server listening on port ${this.port}`);
       this.emit('listening');
     });
   }
@@ -174,7 +174,7 @@ export class RiskWebSocketServer extends EventEmitter {
         const message = JSON.parse(data.toString());
         this.handleClientMessage(client, message);
       } catch (error) {
-        console.error(`❌ Error parsing message from client ${id}:`, error);
+        console.error(` Error parsing message from client ${id}:`, error);
         this.sendError(client, 'Invalid message format');
       }
     });
@@ -184,13 +184,13 @@ export class RiskWebSocketServer extends EventEmitter {
     });
     
     ws.on('close', (code: number, reason: string) => {
-      console.log(`🔌 Client ${id} disconnected: ${code} - ${reason}`);
+      console.log(` Client ${id} disconnected: ${code} - ${reason}`);
       this.clients.delete(id);
       this.emit('clientDisconnected', { clientId: id, code, reason });
     });
     
     ws.on('error', (error) => {
-      console.error(`❌ Client ${id} error:`, error);
+      console.error(` Client ${id} error:`, error);
       this.clients.delete(id);
       this.emit('clientError', { clientId: id, error });
     });
@@ -268,7 +268,7 @@ export class RiskWebSocketServer extends EventEmitter {
         this.riskDataState.timeHorizon = config.timeHorizon;
       }
       
-      console.log(`⚙️ Configuration updated by client ${client.id}`);
+      console.log(` Configuration updated by client ${client.id}`);
       
       this.sendToClient(client, {
         type: 'config_updated',
@@ -295,7 +295,7 @@ export class RiskWebSocketServer extends EventEmitter {
       this.broadcastRiskUpdate();
     }, 1000); // 1 second interval
     
-    console.log('⏰ Risk data generation started (1s interval)');
+    console.log(' Risk data generation started (1s interval)');
   }
   
   /**
@@ -349,7 +349,7 @@ export class RiskWebSocketServer extends EventEmitter {
       this.riskDataState.equity[this.riskDataState.equity.length - 1] = lastEquity * (1 + spike);
       this.riskDataState.portfolioValue = this.riskDataState.equity[this.riskDataState.equity.length - 1];
       
-      console.log(`📈 Volatility spike generated: ${(spike * 100).toFixed(2)}%`);
+      console.log(` Volatility spike generated: ${(spike * 100).toFixed(2)}%`);
     }
   }
   
@@ -388,7 +388,7 @@ export class RiskWebSocketServer extends EventEmitter {
       try {
         client.ws.send(JSON.stringify(message));
       } catch (error) {
-        console.error(`❌ Error sending message to client ${client.id}:`, error);
+        console.error(` Error sending message to client ${client.id}:`, error);
         this.clients.delete(client.id);
       }
     }
@@ -416,7 +416,7 @@ export class RiskWebSocketServer extends EventEmitter {
       this.clients.forEach((client, clientId) => {
         // Check if client is still responsive
         if (now - client.lastPing > timeoutThreshold) {
-          console.log(`⏰ Client ${clientId} timed out, removing connection`);
+          console.log(` Client ${clientId} timed out, removing connection`);
           client.ws.close(1001, 'Timeout');
           this.clients.delete(clientId);
           return;
@@ -436,7 +436,7 @@ export class RiskWebSocketServer extends EventEmitter {
       
     }, 10000); // Check every 10 seconds
     
-    console.log('🔍 Health checks started (10s interval)');
+    console.log(' Health checks started (10s interval)');
   }
   
   /**
@@ -496,13 +496,13 @@ export const createRiskWebSocketServer = (port: number = 8080): RiskWebSocketSer
   
   // Handle process termination
   process.on('SIGINT', () => {
-    console.log('\n🛑 Shutting down Risk WebSocket Server...');
+    console.log('\n Shutting down Risk WebSocket Server...');
     server.stop();
     process.exit(0);
   });
   
   process.on('SIGTERM', () => {
-    console.log('\n🛑 Shutting down Risk WebSocket Server...');
+    console.log('\n Shutting down Risk WebSocket Server...');
     server.stop();
     process.exit(0);
   });

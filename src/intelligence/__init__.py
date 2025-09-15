@@ -1,5 +1,5 @@
 """
-Gary×Taleb Trading System - Machine Learning Intelligence Module
+GaryTaleb Trading System - Machine Learning Intelligence Module
 
 This module implements the complete ML infrastructure for the trading system,
 combining Gary's DPI (Dynamic Portfolio Intelligence) with Taleb's antifragility
@@ -13,7 +13,7 @@ Core Components:
 - A/B testing framework for model comparison
 - Comprehensive monitoring and alerting system
 
-Author: Gary×Taleb Trading System
+Author: GaryTaleb Trading System
 Version: 3.0.0
 License: Proprietary
 """
@@ -27,7 +27,7 @@ from .testing import ABTestFramework, ModelComparator
 from .monitoring import MLMonitor, PerformanceTracker
 
 __version__ = "3.0.0"
-__author__ = "Gary×Taleb Trading System"
+__author__ = "GaryTaleb Trading System"
 
 __all__ = [
     # Data Components

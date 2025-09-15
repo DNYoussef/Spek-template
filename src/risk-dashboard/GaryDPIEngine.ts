@@ -88,7 +88,7 @@ export class GaryDPIEngine extends EventEmitter {
       timestamp: Date.now()
     };
 
-    console.log('🎯 Gary DPI Engine initialized');
+    console.log(' Gary DPI Engine initialized');
   }
 
   /**
@@ -96,7 +96,7 @@ export class GaryDPIEngine extends EventEmitter {
    */
   start(): void {
     if (this.isRunning) {
-      console.log('⚠ Gary DPI Engine already running');
+      console.log(' Gary DPI Engine already running');
       return;
     }
 
@@ -110,7 +110,7 @@ export class GaryDPIEngine extends EventEmitter {
       this.updateMarketAnalysis();
     }, 1000); // Update every second
 
-    console.log('🚀 Gary DPI Engine started - analyzing markets...');
+    console.log(' Gary DPI Engine started - analyzing markets...');
     this.emit('started');
   }
 
@@ -127,7 +127,7 @@ export class GaryDPIEngine extends EventEmitter {
       this.updateInterval = null;
     }
 
-    console.log('🛑 Gary DPI Engine stopped');
+    console.log(' Gary DPI Engine stopped');
     this.emit('stopped');
   }
 
@@ -154,7 +154,7 @@ export class GaryDPIEngine extends EventEmitter {
       this.marketData.set(asset, prices);
     });
 
-    console.log(`📊 Initialized market data for ${assets.length} assets`);
+    console.log(` Initialized market data for ${assets.length} assets`);
   }
 
   /**
@@ -194,7 +194,7 @@ export class GaryDPIEngine extends EventEmitter {
       });
 
     } catch (error) {
-      console.error('❌ DPI Engine analysis error:', error);
+      console.error(' DPI Engine analysis error:', error);
       this.emit('error', error);
     }
   }
@@ -386,7 +386,7 @@ export class GaryDPIEngine extends EventEmitter {
 
         signals.push(signal);
 
-        console.log(`🎯 DPI Signal: ${asset} ${signalType} (${(strength * 100).toFixed(0)}% strength, ${(confidence * 100).toFixed(0)}% confidence)`);
+        console.log(` DPI Signal: ${asset} ${signalType} (${(strength * 100).toFixed(0)}% strength, ${(confidence * 100).toFixed(0)}% confidence)`);
       }
     }
 

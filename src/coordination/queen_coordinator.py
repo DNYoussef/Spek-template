@@ -407,8 +407,8 @@ class QueenCoordinator:
         # Save analysis to artifacts
         await self._save_analysis_artifacts(analysis)
 
-        logger.info(f"Queen Analysis Complete: {analysis.total_issues_processed} issues → "
-                   f"{len(analysis.mece_divisions)} MECE divisions → "
+        logger.info(f"Queen Analysis Complete: {analysis.total_issues_processed} issues  "
+                   f"{len(analysis.mece_divisions)} MECE divisions  "
                    f"{len(analysis.agent_assignments)} agent assignments")
 
         return analysis

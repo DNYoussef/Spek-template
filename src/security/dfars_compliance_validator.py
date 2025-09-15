@@ -721,11 +721,11 @@ def main():
 
         # Generate certification if compliance achieved
         if validation_results['target_achieved']:
-            print(f"\n🎉 95%+ DFARS COMPLIANCE ACHIEVED! 🎉")
+            print(f"\n 95%+ DFARS COMPLIANCE ACHIEVED! ")
             cert_id = validator.generate_compliance_certification(validation_results)
             print(f"Compliance certification generated: {cert_id}")
         else:
-            print(f"\n⚠️  95% compliance target not yet achieved")
+            print(f"\n  95% compliance target not yet achieved")
             print(f"Current: {validation_results['overall_compliance_percentage']:.1f}%")
             print(f"Needed: {95.0 - validation_results['overall_compliance_percentage']:.1f}% improvement")
 

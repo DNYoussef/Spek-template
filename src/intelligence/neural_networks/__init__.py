@@ -1,4 +1,4 @@
-"""Neural Network Package for Gary×Taleb Trading System
+"""Neural Network Package for GaryTaleb Trading System
 
 Core neural architectures for financial market prediction and strategy optimization.
 Optimized for <100ms inference with ensemble voting system.

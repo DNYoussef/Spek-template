@@ -670,7 +670,7 @@ class EdgeProfiler:
         max_temp = max((r.temperature_celsius for r in performance_results if r.success), default=0)
         if max_temp > self.hardware_specs.thermal_limit_celsius:
             thermal_within_limits = False
-            issues.append(f"Temperature {max_temp:.1f}°C exceeds limit {self.hardware_specs.thermal_limit_celsius}°C")
+            issues.append(f"Temperature {max_temp:.1f}C exceeds limit {self.hardware_specs.thermal_limit_celsius}C")
         
         # Functional tests (simulated)
         functional_tests_passed = True
@@ -821,7 +821,7 @@ ADAS Edge Device Profiling Report
 Platform: {self.target_platform.value}
 Hardware: {self.hardware_specs.cpu_cores} cores, {self.hardware_specs.memory_gb}GB RAM
 Power Budget: {self.hardware_specs.power_budget_watts}W
-Thermal Limit: {self.hardware_specs.thermal_limit_celsius}°C
+Thermal Limit: {self.hardware_specs.thermal_limit_celsius}C
 
 Profile Results ({len(self.profile_results)}):
 """

@@ -1,4 +1,4 @@
-"""Example Usage of Gary×Taleb Neural Networks
+"""Example Usage of GaryTaleb Neural Networks
 
 Comprehensive example demonstrating all neural network components
 for the Phase 3 trading system with $200 seed capital.
@@ -71,7 +71,7 @@ def generate_sample_news_data() -> List[str]:
 
 
 def demonstrate_lstm_predictor():
-    """Demonstrate LSTM price prediction with Gary×Taleb integration."""
+    """Demonstrate LSTM price prediction with GaryTaleb integration."""
     print("=== LSTM Price Predictor Demo ===")
 
     # Create LSTM model
@@ -106,7 +106,7 @@ def demonstrate_lstm_predictor():
     for key, value in dpi_factors.items():
         print(f"    {key}: {value:.4f}")
 
-    print(f"  Target <100ms: {'✓' if inference_time < 100 else '✗'}")
+    print(f"  Target <100ms: {'' if inference_time < 100 else ''}")
     print()
 
 
@@ -144,7 +144,7 @@ def demonstrate_sentiment_analyzer():
 
     avg_inference_time = (total_inference_time / 3) * 1000
     print(f"Average Inference Time: {avg_inference_time:.1f}ms")
-    print(f"Target <100ms: {'✓' if avg_inference_time < 100 else '✗'}")
+    print(f"Target <100ms: {'' if avg_inference_time < 100 else ''}")
     print()
 
 
@@ -197,7 +197,7 @@ def demonstrate_pattern_recognizer():
             print(f"    {key}: {value:.3f}")
 
     print(f"  Inference Time: {inference_time:.1f}ms")
-    print(f"  Target <100ms: {'✓' if inference_time < 100 else '✗'}")
+    print(f"  Target <100ms: {'' if inference_time < 100 else ''}")
     print()
 
 
@@ -304,7 +304,7 @@ def demonstrate_neural_ensemble():
         print(f"  Consensus Strength: {ensemble_result['consensus_strength']:.3f}")
 
         print(f"  Total Inference Time: {ensemble_result['total_inference_time_ms']:.1f}ms")
-        print(f"  Target <90ms: {'✓' if ensemble_result['total_inference_time_ms'] < 90 else '✗'}")
+        print(f"  Target <90ms: {'' if ensemble_result['total_inference_time_ms'] < 90 else ''}")
 
         print(f"  Individual Model Performance:")
         for model_name, pred_info in ensemble_result['individual_predictions'].items():
@@ -327,36 +327,36 @@ def demonstrate_neural_ensemble():
 
 
 def demonstrate_gary_taleb_integration():
-    """Demonstrate Gary×Taleb integration principles."""
-    print("=== Gary×Taleb Integration Principles ===")
+    """Demonstrate GaryTaleb integration principles."""
+    print("=== GaryTaleb Integration Principles ===")
 
     print("Gary's Dynamic Position Intelligence (DPI):")
-    print("  ✓ Momentum-based position sizing")
-    print("  ✓ Volume confirmation signals")
-    print("  ✓ Technical indicator alignment")
-    print("  ✓ Dynamic risk adjustment")
-    print("  ✓ Pattern-momentum correlation")
+    print("   Momentum-based position sizing")
+    print("   Volume confirmation signals")
+    print("   Technical indicator alignment")
+    print("   Dynamic risk adjustment")
+    print("   Pattern-momentum correlation")
 
     print("\nTaleb's Antifragility Principles:")
-    print("  ✓ Benefits from volatility and disorder")
-    print("  ✓ Asymmetric payoff structures (limited downside, unlimited upside)")
-    print("  ✓ Model uncertainty as opportunity")
-    print("  ✓ Tail risk protection")
-    print("  ✓ Convexity benefits from extreme moves")
+    print("   Benefits from volatility and disorder")
+    print("   Asymmetric payoff structures (limited downside, unlimited upside)")
+    print("   Model uncertainty as opportunity")
+    print("   Tail risk protection")
+    print("   Convexity benefits from extreme moves")
 
     print("\nIntegration in Neural Networks:")
-    print("  ✓ LSTM: DPI momentum factors + Antifragile volatility weighting")
-    print("  ✓ Transformer: DPI sentiment alignment + Antifragile contrarian signals")
-    print("  ✓ CNN: DPI pattern momentum + Antifragile pattern uncertainty")
-    print("  ✓ RL: DPI reward weighting + Antifragile exploration bonus")
-    print("  ✓ Ensemble: DPI consensus + Antifragile model disagreement value")
+    print("   LSTM: DPI momentum factors + Antifragile volatility weighting")
+    print("   Transformer: DPI sentiment alignment + Antifragile contrarian signals")
+    print("   CNN: DPI pattern momentum + Antifragile pattern uncertainty")
+    print("   RL: DPI reward weighting + Antifragile exploration bonus")
+    print("   Ensemble: DPI consensus + Antifragile model disagreement value")
 
     print("\n$200 Seed Capital Strategy:")
-    print("  ✓ Maximum 100% position size (no leverage initially)")
-    print("  ✓ 0.1% transaction costs modeled")
-    print("  ✓ 20% maximum drawdown limit")
-    print("  ✓ Target 20% annual return with <10% drawdown")
-    print("  ✓ <100ms inference for real-time trading")
+    print("   Maximum 100% position size (no leverage initially)")
+    print("   0.1% transaction costs modeled")
+    print("   20% maximum drawdown limit")
+    print("   Target 20% annual return with <10% drawdown")
+    print("   <100ms inference for real-time trading")
 
     print()
 
@@ -431,7 +431,7 @@ def run_comprehensive_performance_test():
     print("Individual Model Performance:")
     for model_name, perf in models_performance.items():
         if 'avg_time_ms' in perf:
-            status_symbol = '✓' if perf['target_met'] else '✗'
+            status_symbol = '' if perf['target_met'] else ''
             print(f"  {model_name}: {perf['avg_time_ms']:.1f}ms avg {status_symbol}")
         else:
             print(f"  {model_name}: {perf['status']}")
@@ -442,16 +442,16 @@ def run_comprehensive_performance_test():
 
     print(f"\nSystem Readiness:")
     print(f"  Models Meeting <100ms Target: {successful_models}/{total_models}")
-    print(f"  Gary×Taleb Integration: ✓ Implemented across all models")
-    print(f"  $200 Seed Capital Support: ✓ Configured in RL environment")
-    print(f"  Real-time Trading Ready: {'✓' if successful_models >= 2 else '✗'}")
+    print(f"  GaryTaleb Integration:  Implemented across all models")
+    print(f"  $200 Seed Capital Support:  Configured in RL environment")
+    print(f"  Real-time Trading Ready: {'' if successful_models >= 2 else ''}")
 
     print()
 
 
 def main():
     """Main demonstration function."""
-    print("Gary×Taleb Neural Networks - Phase 3 Trading System")
+    print("GaryTaleb Neural Networks - Phase 3 Trading System")
     print("=" * 55)
     print(f"PyTorch Version: {torch.__version__}")
     print(f"Device: {'CUDA' if torch.cuda.is_available() else 'CPU'}")

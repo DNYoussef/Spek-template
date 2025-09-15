@@ -851,10 +851,10 @@ def main():
                 if result['status'] == 'success':
                     total_functions_processed += result['functions_processed']
                     total_assertions_added += result['total_assertions_added']
-                    print(f"✓ Processed {file_path}: {result['successful_injections']} functions, "
+                    print(f" Processed {file_path}: {result['successful_injections']} functions, "
                           f"{result['total_assertions_added']} assertions added")
                 else:
-                    print(f"✗ Failed to process {file_path}: {result.get('error', 'Unknown error')}")
+                    print(f" Failed to process {file_path}: {result.get('error', 'Unknown error')}")
 
         except Exception as e:
             print(f"Error processing {file_path}: {str(e)}")

@@ -182,7 +182,7 @@ class RealTimeStreamer:
             # Create WebSocket connection
             connection = await websockets.connect(
                 ws_url,
-                extra_headers={"User-Agent": "Gary×Taleb-Pipeline/1.0"}
+                extra_headers={"User-Agent": "GaryTaleb-Pipeline/1.0"}
             )
 
             # Authenticate

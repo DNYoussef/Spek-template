@@ -64,13 +64,13 @@ class ThoughtGenerator:
         
         Mathematical Formulation:
         ========================
-        For position t, generate thoughts T_i where i ∈ [1, N]:
-        T_i = sample(P(x_{t+1:t+L} | x_{1:t}, θ))
+        For position t, generate thoughts T_i where i  [1, N]:
+        T_i = sample(P(x_{t+1:t+L} | x_{1:t}, ))
         
         Where:
         - L = thought_length
         - N = num_thoughts
-        - θ = model parameters
+        -  = model parameters
         
         Args:
             input_ids: Input token sequence [batch_size, seq_len]
@@ -190,13 +190,13 @@ class CoherenceScorer:
     ========================
     Coherence Score C(T, x) for thought T given context x:
     
-    C(T, x) = α·C_semantic(T, x) + β·C_syntactic(T) + γ·C_predictive(T, x)
+    C(T, x) = C_semantic(T, x) + C_syntactic(T) + C_predictive(T, x)
     
     Where:
     - C_semantic: Semantic coherence with context
     - C_syntactic: Internal syntactic coherence
     - C_predictive: Predictive utility for future tokens
-    - α, β, γ: Weighting parameters (α + β + γ = 1)
+    - , , : Weighting parameters ( +  +  = 1)
     """
     
     def __init__(self, config: QuietSTaRConfig):
@@ -269,7 +269,7 @@ class CoherenceScorer:
         
         Algorithm: Perplexity-based Coherence
         =====================================
-        Perplexity = exp(-1/N * Σ log P(token_i | context))
+        Perplexity = exp(-1/N *  log P(token_i | context))
         Coherence = 1 / (1 + log(Perplexity))
         """
         batch_size, num_thoughts, thought_len, vocab_size = thought_logits.shape
@@ -331,7 +331,7 @@ class MixingHead(nn.Module):
     
     Mathematical Formulation:
     ========================
-    final_logits = w_0 * original_logits + Σ(w_i * thought_logits_i)
+    final_logits = w_0 * original_logits + (w_i * thought_logits_i)
     where w_i = MixingHead([original_logits, all_thought_logits, coherence_scores])
     """
     
@@ -420,7 +420,7 @@ class ThoughtInjector:
         
         Algorithm: Multi-criteria Injection Point Scoring
         ================================================
-        Score(position) = α*difficulty(position) + β*boundary(position) + γ*attention(position)
+        Score(position) = *difficulty(position) + *boundary(position) + *attention(position)
         
         Where:
         - difficulty: Token prediction difficulty (perplexity)
@@ -547,7 +547,7 @@ class OptimizationStrategies:
         2. Complexity Loss: Prevent overly simple thoughts
         3. Coherence Loss: Maintain minimum coherence
         
-        L_reg = λ1*L_diversity + λ2*L_complexity + λ3*L_coherence
+        L_reg = 1*L_diversity + 2*L_complexity + 3*L_coherence
         """
         # Diversity loss: Encourage different thoughts
         thought_similarities = self._compute_thought_similarities(thoughts)

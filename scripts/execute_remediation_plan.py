@@ -90,16 +90,16 @@ class RemediationOrchestrator:
                 phase.violations_after = self._count_remaining_security_violations()
                 phase.progress = 100.0
                 phase.status = "COMPLETED"
-                logger.info("✅ Phase 1: Critical security fixes completed successfully")
+                logger.info(" Phase 1: Critical security fixes completed successfully")
             else:
                 phase.errors.append(f"Security fixes failed: {result['stderr']}")
                 phase.status = "FAILED"
-                logger.error("❌ Phase 1: Critical security fixes failed")
+                logger.error(" Phase 1: Critical security fixes failed")
 
         except Exception as e:
             phase.errors.append(f"Phase 1 execution error: {str(e)}")
             phase.status = "FAILED"
-            logger.error(f"❌ Phase 1 execution error: {e}")
+            logger.error(f" Phase 1 execution error: {e}")
 
         phase.end_time = datetime.now()
         return phase.status == "COMPLETED"
@@ -126,16 +126,16 @@ class RemediationOrchestrator:
                 phase.violations_after = self._count_remaining_dfars_violations()
                 phase.progress = 100.0
                 phase.status = "COMPLETED"
-                logger.info("✅ Phase 2: DFARS compliance completed successfully")
+                logger.info(" Phase 2: DFARS compliance completed successfully")
             else:
                 phase.errors.append(f"DFARS compliance failed: {result['stderr']}")
                 phase.status = "FAILED"
-                logger.error("❌ Phase 2: DFARS compliance failed")
+                logger.error(" Phase 2: DFARS compliance failed")
 
         except Exception as e:
             phase.errors.append(f"Phase 2 execution error: {str(e)}")
             phase.status = "FAILED"
-            logger.error(f"❌ Phase 2 execution error: {e}")
+            logger.error(f" Phase 2 execution error: {e}")
 
         phase.end_time = datetime.now()
         return phase.status == "COMPLETED"
@@ -162,16 +162,16 @@ class RemediationOrchestrator:
                 phase.violations_after = self._count_remaining_nasa_violations()
                 phase.progress = 100.0 if result['returncode'] == 0 else 80.0
                 phase.status = "COMPLETED"
-                logger.info("✅ Phase 3: NASA compliance analysis completed")
+                logger.info(" Phase 3: NASA compliance analysis completed")
             else:
                 phase.errors.append(f"NASA compliance failed: {result['stderr']}")
                 phase.status = "FAILED"
-                logger.error("❌ Phase 3: NASA compliance failed")
+                logger.error(" Phase 3: NASA compliance failed")
 
         except Exception as e:
             phase.errors.append(f"Phase 3 execution error: {str(e)}")
             phase.status = "FAILED"
-            logger.error(f"❌ Phase 3 execution error: {e}")
+            logger.error(f" Phase 3 execution error: {e}")
 
         phase.end_time = datetime.now()
         return phase.status == "COMPLETED"
@@ -198,16 +198,16 @@ class RemediationOrchestrator:
                 phase.violations_after = self._count_remaining_doc_violations()
                 phase.progress = 100.0 if result['returncode'] == 0 else 80.0
                 phase.status = "COMPLETED"
-                logger.info("✅ Phase 4: Documentation generation completed")
+                logger.info(" Phase 4: Documentation generation completed")
             else:
                 phase.errors.append(f"Documentation generation failed: {result['stderr']}")
                 phase.status = "FAILED"
-                logger.error("❌ Phase 4: Documentation generation failed")
+                logger.error(" Phase 4: Documentation generation failed")
 
         except Exception as e:
             phase.errors.append(f"Phase 4 execution error: {str(e)}")
             phase.status = "FAILED"
-            logger.error(f"❌ Phase 4 execution error: {e}")
+            logger.error(f" Phase 4 execution error: {e}")
 
         phase.end_time = datetime.now()
         return phase.status == "COMPLETED"
@@ -417,7 +417,7 @@ class RemediationOrchestrator:
 
     async def execute_full_remediation(self) -> bool:
         """Execute complete remediation plan across all phases."""
-        logger.info("🚀 STARTING COMPREHENSIVE COMPLIANCE REMEDIATION")
+        logger.info(" STARTING COMPREHENSIVE COMPLIANCE REMEDIATION")
         logger.info("=" * 60)
 
         start_time = datetime.now()
@@ -429,7 +429,7 @@ class RemediationOrchestrator:
             success = success and phase1_success
 
             if not phase1_success:
-                logger.critical("⚠️  Phase 1 failed - security vulnerabilities remain!")
+                logger.critical("  Phase 1 failed - security vulnerabilities remain!")
                 logger.critical("   Continuing with other phases but IMMEDIATE security review required")
 
             # Phase 2: DFARS Compliance (P1 - High Priority)
@@ -456,12 +456,12 @@ class RemediationOrchestrator:
             self._generate_final_summary(report, start_time)
 
             logger.info("=" * 60)
-            logger.info(f"🏁 REMEDIATION COMPLETE: {'SUCCESS' if success else 'PARTIAL SUCCESS'}")
+            logger.info(f" REMEDIATION COMPLETE: {'SUCCESS' if success else 'PARTIAL SUCCESS'}")
 
             return success
 
         except Exception as e:
-            logger.critical(f"❌ Critical error during remediation: {e}")
+            logger.critical(f" Critical error during remediation: {e}")
             return False
 
     def _generate_final_summary(self, report: Dict[str, Any], start_time: datetime):
@@ -479,11 +479,11 @@ PHASE RESULTS:
 
         for phase_name, phase_data in report['phases'].items():
             status_emoji = {
-                'COMPLETED': '✅',
-                'FAILED': '❌',
-                'IN_PROGRESS': '⏳',
-                'PENDING': '⏸️'
-            }.get(phase_data['status'], '❓')
+                'COMPLETED': '',
+                'FAILED': '',
+                'IN_PROGRESS': '',
+                'PENDING': ''
+            }.get(phase_data['status'], '')
 
             summary += f"{status_emoji} {phase_data['phase_name']}: {phase_data['status']}\n"
             if phase_data['violations_after'] is not None:
@@ -509,8 +509,8 @@ NEXT STEPS:
         with open(summary_path, 'w') as f:
             f.write(summary)
 
-        logger.info(f"📊 Final summary saved to: {summary_path}")
-        logger.info(f"📊 Detailed report saved to: remediation-progress-report.json")
+        logger.info(f" Final summary saved to: {summary_path}")
+        logger.info(f" Detailed report saved to: remediation-progress-report.json")
 
 async def main():
     """Main execution function."""
@@ -535,7 +535,7 @@ async def main():
             missing_scripts.append(script)
 
     if missing_scripts:
-        logger.error(f"❌ Missing required scripts: {missing_scripts}")
+        logger.error(f" Missing required scripts: {missing_scripts}")
         logger.error("Cannot proceed with remediation")
         return 2
 
@@ -543,11 +543,11 @@ async def main():
     success = await orchestrator.execute_full_remediation()
 
     if success:
-        logger.info("🎉 All critical phases completed successfully!")
+        logger.info(" All critical phases completed successfully!")
         logger.info("System is now compliant with major security and regulatory requirements.")
         return 0
     else:
-        logger.warning("⚠️  Some phases incomplete - manual intervention required")
+        logger.warning("  Some phases incomplete - manual intervention required")
         logger.warning("Review error logs and phase reports for details.")
         return 1
 

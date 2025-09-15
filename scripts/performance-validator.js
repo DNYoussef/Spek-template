@@ -15,7 +15,7 @@ const PERFORMANCE_CONTRACTS = {
 };
 
 async function validateApiPerformance() {
-  console.log('🚀 Validating API Performance Contracts...');
+  console.log(' Validating API Performance Contracts...');
 
   const testResults = {
     passed: 0,
@@ -44,7 +44,7 @@ async function validateApiPerformance() {
 }
 
 async function validateWebSocketPerformance() {
-  console.log('⚡ Validating WebSocket Performance Contracts...');
+  console.log(' Validating WebSocket Performance Contracts...');
 
   const testResults = {
     passed: 0,
@@ -67,7 +67,7 @@ async function validateWebSocketPerformance() {
 }
 
 async function validateSixSigmaMetrics() {
-  console.log('📊 Validating Six Sigma Performance Metrics...');
+  console.log(' Validating Six Sigma Performance Metrics...');
 
   const testResults = {
     passed: 0,
@@ -78,7 +78,7 @@ async function validateSixSigmaMetrics() {
   // CTQ (Critical to Quality) validation
   const ctqTest = {
     name: 'CTQ Performance Metrics',
-    expected: 'Response time ≤ 50ms, Uptime ≥ 99.9%',
+    expected: 'Response time  50ms, Uptime  99.9%',
     actual: 'Response time: 25ms, Uptime: 99.95%',
     passed: true
   };
@@ -86,7 +86,7 @@ async function validateSixSigmaMetrics() {
   // DPMO (Defects Per Million Opportunities) validation
   const dpmoTest = {
     name: 'DPMO Quality Metrics',
-    expected: 'DPMO ≤ 3.4 (Six Sigma level)',
+    expected: 'DPMO  3.4 (Six Sigma level)',
     actual: 'DPMO: 1.2',
     passed: true
   };
@@ -102,7 +102,7 @@ function generateReport(apiResults, wsResults, sigmaResults) {
   const totalTests = apiResults.tests.length + wsResults.tests.length + sigmaResults.tests.length;
   const passRate = (totalPassed / totalTests * 100).toFixed(1);
 
-  console.log('\n📋 PERFORMANCE VALIDATION REPORT');
+  console.log('\n PERFORMANCE VALIDATION REPORT');
   console.log('=' .repeat(50));
   console.log(`Total Tests: ${totalTests}`);
   console.log(`Passed: ${totalPassed}`);
@@ -112,7 +112,7 @@ function generateReport(apiResults, wsResults, sigmaResults) {
 
   // Detailed results
   [...apiResults.tests, ...wsResults.tests, ...sigmaResults.tests].forEach(test => {
-    const status = test.passed ? '✅ PASS' : '❌ FAIL';
+    const status = test.passed ? ' PASS' : ' FAIL';
     console.log(`${status} ${test.name}`);
     console.log(`  Expected: ${test.expected}`);
     console.log(`  Actual: ${test.actual}`);
@@ -120,8 +120,8 @@ function generateReport(apiResults, wsResults, sigmaResults) {
 
   // Quality gates
   const meetsPerformanceContract = passRate >= 95;
-  console.log('\n🎯 QUALITY GATES:');
-  console.log(`Performance Contract: ${meetsPerformanceContract ? '✅ PASS' : '❌ FAIL'} (${passRate}% ≥ 95%)`);
+  console.log('\n QUALITY GATES:');
+  console.log(`Performance Contract: ${meetsPerformanceContract ? ' PASS' : ' FAIL'} (${passRate}%  95%)`);
 
   return {
     passRate: parseFloat(passRate),
@@ -133,7 +133,7 @@ function generateReport(apiResults, wsResults, sigmaResults) {
 
 async function main() {
   try {
-    console.log('🎯 SPEK Performance Validation Suite');
+    console.log(' SPEK Performance Validation Suite');
     console.log('Validating performance contracts for 100% quality...\n');
 
     const apiResults = await validateApiPerformance();
@@ -156,13 +156,13 @@ async function main() {
       }
     }, null, 2));
 
-    console.log(`\n💾 Results saved to: ${resultsPath}`);
+    console.log(`\n Results saved to: ${resultsPath}`);
 
     // Exit with appropriate code
     process.exit(report.meetsContract ? 0 : 1);
 
   } catch (error) {
-    console.error('❌ Performance validation failed:', error);
+    console.error(' Performance validation failed:', error);
     process.exit(1);
   }
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Division 4 Deployment Script
- * Complete deployment of Gary×Taleb×Kelly Integrated Risk Dashboard
+ * Complete deployment of GaryTalebKelly Integrated Risk Dashboard
  * Resolves CRITICAL Phase 2 Goal 5 violation
  */
 
@@ -9,10 +9,10 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-console.log('🚀 DIVISION 4 DEPLOYMENT SCRIPT');
+console.log(' DIVISION 4 DEPLOYMENT SCRIPT');
 console.log('='.repeat(60));
-console.log('🎯 Gary DPI (Phase 1) + Taleb Barbell + Kelly Criterion (Phase 2)');
-console.log('⚠️ Resolving Phase 2 Goal 5: Real-time P(ruin) calculations');
+console.log(' Gary DPI (Phase 1) + Taleb Barbell + Kelly Criterion (Phase 2)');
+console.log(' Resolving Phase 2 Goal 5: Real-time P(ruin) calculations');
 console.log('='.repeat(60));
 
 const DEPLOYMENT_CONFIG = {
@@ -30,40 +30,40 @@ const DEPLOYMENT_CONFIG = {
  */
 async function deployDivision4() {
   try {
-    console.log('📋 Step 1: Pre-deployment validation');
+    console.log(' Step 1: Pre-deployment validation');
     validateEnvironment();
 
-    console.log('\n📦 Step 2: Prepare deployment package');
+    console.log('\n Step 2: Prepare deployment package');
     createDeploymentPackage();
 
-    console.log('\n🔧 Step 3: Install dependencies');
+    console.log('\n Step 3: Install dependencies');
     installDependencies();
 
-    console.log('\n🏗️ Step 4: Build TypeScript components');
+    console.log('\n Step 4: Build TypeScript components');
     buildComponents();
 
-    console.log('\n🧪 Step 5: Run system tests');
+    console.log('\n Step 5: Run system tests');
     runSystemTests();
 
-    console.log('\n🚀 Step 6: Start integrated system');
+    console.log('\n Step 6: Start integrated system');
     startSystem();
 
-    console.log('\n✅ DIVISION 4 DEPLOYMENT COMPLETE!');
+    console.log('\n DIVISION 4 DEPLOYMENT COMPLETE!');
     console.log('='.repeat(60));
-    console.log('🟢 All systems operational:');
-    console.log('  🎯 Gary DPI Engine: Market analysis & signals');
-    console.log('  🏺 Taleb Barbell: Antifragile portfolio allocation');
-    console.log('  🎲 Kelly Criterion: Optimal position sizing');
-    console.log('  ⚠️ Risk Monitor: Real-time P(ruin) calculations');
+    console.log(' All systems operational:');
+    console.log('   Gary DPI Engine: Market analysis & signals');
+    console.log('   Taleb Barbell: Antifragile portfolio allocation');
+    console.log('   Kelly Criterion: Optimal position sizing');
+    console.log('   Risk Monitor: Real-time P(ruin) calculations');
     console.log('='.repeat(60));
-    console.log(`📊 Dashboard: http://localhost:${DEPLOYMENT_CONFIG.ports.http}`);
-    console.log(`🌐 WebSocket: ws://localhost:${DEPLOYMENT_CONFIG.ports.websocket}`);
-    console.log(`📋 API Status: http://localhost:${DEPLOYMENT_CONFIG.ports.http}/api/status`);
+    console.log(` Dashboard: http://localhost:${DEPLOYMENT_CONFIG.ports.http}`);
+    console.log(` WebSocket: ws://localhost:${DEPLOYMENT_CONFIG.ports.websocket}`);
+    console.log(` API Status: http://localhost:${DEPLOYMENT_CONFIG.ports.http}/api/status`);
     console.log('='.repeat(60));
 
   } catch (error) {
-    console.error('\n❌ DEPLOYMENT FAILED:', error.message);
-    console.log('\n🔧 Troubleshooting steps:');
+    console.error('\n DEPLOYMENT FAILED:', error.message);
+    console.log('\n Troubleshooting steps:');
     console.log('  1. Check Node.js version (requires >= 18)');
     console.log('  2. Ensure ports 3000 and 8080 are available');
     console.log('  3. Verify TypeScript installation');
@@ -76,25 +76,25 @@ async function deployDivision4() {
  * Validate deployment environment
  */
 function validateEnvironment() {
-  console.log('  ✓ Checking Node.js version...');
+  console.log('   Checking Node.js version...');
   const nodeVersion = process.version;
   const majorVersion = parseInt(nodeVersion.split('.')[0].substring(1));
 
   if (majorVersion < 18) {
     throw new Error(`Node.js version ${nodeVersion} not supported. Requires >= 18.0.0`);
   }
-  console.log(`    Node.js ${nodeVersion} ✓`);
+  console.log(`    Node.js ${nodeVersion} `);
 
-  console.log('  ✓ Checking required ports...');
+  console.log('   Checking required ports...');
   // Port check would go here in a real implementation
-  console.log(`    HTTP port ${DEPLOYMENT_CONFIG.ports.http} available ✓`);
-  console.log(`    WebSocket port ${DEPLOYMENT_CONFIG.ports.websocket} available ✓`);
+  console.log(`    HTTP port ${DEPLOYMENT_CONFIG.ports.http} available `);
+  console.log(`    WebSocket port ${DEPLOYMENT_CONFIG.ports.websocket} available `);
 
-  console.log('  ✓ Checking file system permissions...');
+  console.log('   Checking file system permissions...');
   // Permission check would go here
-  console.log('    Write permissions verified ✓');
+  console.log('    Write permissions verified ');
 
-  console.log('  ✅ Environment validation complete');
+  console.log('   Environment validation complete');
 }
 
 /**
@@ -104,7 +104,7 @@ function createDeploymentPackage() {
   const packageJson = {
     name: DEPLOYMENT_CONFIG.projectName,
     version: DEPLOYMENT_CONFIG.version,
-    description: 'Division 4: Complete Gary×Taleb×Kelly Risk Dashboard with Real-time P(ruin)',
+    description: 'Division 4: Complete GaryTalebKelly Risk Dashboard with Real-time P(ruin)',
     type: 'module',
     main: 'IntegratedServer.js',
     bin: {
@@ -145,11 +145,11 @@ function createDeploymentPackage() {
     license: 'MIT'
   };
 
-  console.log('  ✓ Creating package.json...');
+  console.log('   Creating package.json...');
   fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
-  console.log('    package.json created ✓');
+  console.log('    package.json created ');
 
-  console.log('  ✓ Verifying TypeScript configuration...');
+  console.log('   Verifying TypeScript configuration...');
   const tsConfig = {
     compilerOptions: {
       target: 'ES2022',
@@ -172,51 +172,51 @@ function createDeploymentPackage() {
 
   if (!fs.existsSync('./tsconfig.json')) {
     fs.writeFileSync('./tsconfig.json', JSON.stringify(tsConfig, null, 2));
-    console.log('    tsconfig.json created ✓');
+    console.log('    tsconfig.json created ');
   } else {
-    console.log('    tsconfig.json exists ✓');
+    console.log('    tsconfig.json exists ');
   }
 
-  console.log('  ✅ Deployment package structure ready');
+  console.log('   Deployment package structure ready');
 }
 
 /**
  * Install required dependencies
  */
 function installDependencies() {
-  console.log('  ✓ Installing runtime dependencies...');
+  console.log('   Installing runtime dependencies...');
   try {
     execSync('npm install --production', { stdio: 'pipe' });
-    console.log('    Runtime dependencies installed ✓');
+    console.log('    Runtime dependencies installed ');
   } catch (error) {
     console.log('    Installing individual packages...');
     const deps = ['ws@^8.14.2', 'express@^4.18.2', 'events@^3.3.0'];
     deps.forEach(dep => {
       try {
         execSync(`npm install ${dep}`, { stdio: 'pipe' });
-        console.log(`      ${dep} installed ✓`);
+        console.log(`      ${dep} installed `);
       } catch (err) {
         console.log(`      ${dep} installation skipped (may already exist)`);
       }
     });
   }
 
-  console.log('  ✓ Installing development dependencies...');
+  console.log('   Installing development dependencies...');
   try {
     execSync('npm install --save-dev @types/node@^20.10.0 @types/ws@^8.5.10 @types/express@^4.17.21 typescript@^5.3.3 tsx@^4.6.2', { stdio: 'pipe' });
-    console.log('    Development dependencies installed ✓');
+    console.log('    Development dependencies installed ');
   } catch (error) {
     console.log('    Development dependencies installation skipped (optional)');
   }
 
-  console.log('  ✅ Dependencies installation complete');
+  console.log('   Dependencies installation complete');
 }
 
 /**
  * Build TypeScript components
  */
 function buildComponents() {
-  console.log('  ✓ Compiling TypeScript files...');
+  console.log('   Compiling TypeScript files...');
 
   const components = [
     'GaryDPIEngine.ts',
@@ -230,15 +230,15 @@ function buildComponents() {
   let compiledCount = 0;
   components.forEach(component => {
     if (fs.existsSync(component)) {
-      console.log(`    ✓ ${component} found`);
+      console.log(`     ${component} found`);
       compiledCount++;
     } else {
-      console.log(`    ⚠ ${component} missing`);
+      console.log(`     ${component} missing`);
     }
   });
 
   if (compiledCount >= 4) {
-    console.log(`    ✅ ${compiledCount}/${components.length} core components ready`);
+    console.log(`     ${compiledCount}/${components.length} core components ready`);
   } else {
     throw new Error(`Insufficient components found (${compiledCount}/${components.length})`);
   }
@@ -246,19 +246,19 @@ function buildComponents() {
   // Try to compile if TypeScript is available
   try {
     execSync('npx tsc --noEmit', { stdio: 'pipe' });
-    console.log('    TypeScript compilation check passed ✓');
+    console.log('    TypeScript compilation check passed ');
   } catch (error) {
     console.log('    TypeScript compilation skipped (optional)');
   }
 
-  console.log('  ✅ Component build complete');
+  console.log('   Component build complete');
 }
 
 /**
  * Run basic system tests
  */
 function runSystemTests() {
-  console.log('  ✓ Running system validation tests...');
+  console.log('   Running system validation tests...');
 
   // Test 1: Check main files exist
   const requiredFiles = [
@@ -270,43 +270,43 @@ function runSystemTests() {
 
   requiredFiles.forEach(file => {
     if (fs.existsSync(file)) {
-      console.log(`    ✓ ${file} exists`);
+      console.log(`     ${file} exists`);
     } else {
       throw new Error(`Required file missing: ${file}`);
     }
   });
 
   // Test 2: Validate file content (basic check)
-  console.log('    ✓ Validating file content...');
+  console.log('     Validating file content...');
   const serverContent = fs.readFileSync('IntegratedServer.ts', 'utf8');
 
   if (serverContent.includes('Division 4') &&
       serverContent.includes('GaryDPIEngine') &&
       serverContent.includes('TalebBarbellEngine') &&
       serverContent.includes('KellyCriterionEngine')) {
-    console.log('      Server integration validated ✓');
+    console.log('      Server integration validated ');
   } else {
     throw new Error('Server integration validation failed');
   }
 
   // Test 3: Check for critical functions
-  console.log('    ✓ Checking critical functions...');
+  console.log('     Checking critical functions...');
   if (serverContent.includes('startIntegratedRiskSystem') &&
       serverContent.includes('P(ruin)') &&
       serverContent.includes('Division 4')) {
-    console.log('      Critical functions validated ✓');
+    console.log('      Critical functions validated ');
   } else {
     throw new Error('Critical functions validation failed');
   }
 
-  console.log('  ✅ System validation tests passed');
+  console.log('   System validation tests passed');
 }
 
 /**
  * Start the integrated system
  */
 function startSystem() {
-  console.log('  ✓ Starting Division 4 Integrated System...');
+  console.log('   Starting Division 4 Integrated System...');
 
   // Create start script
   const startScript = `#!/usr/bin/env node
@@ -317,17 +317,17 @@ function startSystem() {
 
 import { startIntegratedRiskSystem } from './IntegratedServer.js';
 
-console.log('🚀 Launching Division 4: Integrated Risk Dashboard');
-console.log('🎯 Gary DPI + 🏺 Taleb Barbell + 🎲 Kelly Criterion + ⚠️ P(ruin) Monitor');
+console.log(' Launching Division 4: Integrated Risk Dashboard');
+console.log(' Gary DPI +  Taleb Barbell +  Kelly Criterion +  P(ruin) Monitor');
 
 startIntegratedRiskSystem()
   .then(() => {
-    console.log('✅ Division 4 system launched successfully');
-    console.log('📊 Dashboard: http://localhost:3000');
-    console.log('🌐 WebSocket: ws://localhost:8080');
+    console.log(' Division 4 system launched successfully');
+    console.log(' Dashboard: http://localhost:3000');
+    console.log(' WebSocket: ws://localhost:8080');
   })
   .catch((error) => {
-    console.error('❌ Failed to start Division 4:', error);
+    console.error(' Failed to start Division 4:', error);
     process.exit(1);
   });
 `;
@@ -335,7 +335,7 @@ startIntegratedRiskSystem()
   fs.writeFileSync('./start-division4.js', startScript);
   fs.chmodSync('./start-division4.js', '755');
 
-  console.log('    ✓ Production launcher created');
+  console.log('     Production launcher created');
 
   // Create Docker deployment (optional)
   const dockerfile = `# Division 4: Integrated Risk Dashboard
@@ -367,7 +367,7 @@ CMD ["tsx", "IntegratedServer.ts"]
 `;
 
   fs.writeFileSync('./Dockerfile', dockerfile);
-  console.log('    ✓ Docker configuration created');
+  console.log('     Docker configuration created');
 
   // Create docker-compose for complete deployment
   const dockerCompose = `version: '3.8'
@@ -396,16 +396,16 @@ networks:
 `;
 
   fs.writeFileSync('./docker-compose.yml', dockerCompose);
-  console.log('    ✓ Docker Compose configuration created');
+  console.log('     Docker Compose configuration created');
 
-  console.log('  ✅ System startup configuration complete');
+  console.log('   System startup configuration complete');
 }
 
 /**
  * Create production evidence package
  */
 function createEvidencePackage() {
-  console.log('\n📝 Creating Division 4 Evidence Package...');
+  console.log('\n Creating Division 4 Evidence Package...');
 
   const evidence = {
     deployment: {
@@ -452,7 +452,7 @@ function createEvidencePackage() {
 
   fs.writeFileSync('./DIVISION4-EVIDENCE.json', JSON.stringify(evidence, null, 2));
 
-  console.log('  ✅ Evidence package created: DIVISION4-EVIDENCE.json');
+  console.log('   Evidence package created: DIVISION4-EVIDENCE.json');
 }
 
 // Main execution
@@ -460,16 +460,16 @@ if (require.main === module) {
   deployDivision4()
     .then(() => {
       createEvidencePackage();
-      console.log('\n🎉 DIVISION 4 DEPLOYMENT SUCCESSFUL!');
-      console.log('\n🚀 To start the system:');
+      console.log('\n DIVISION 4 DEPLOYMENT SUCCESSFUL!');
+      console.log('\n To start the system:');
       console.log('   npm start              # Start with npm');
       console.log('   node start-division4.js # Direct start');
       console.log('   docker-compose up      # Docker deployment');
-      console.log('\n⚡ Division 4 resolves CRITICAL Phase 2 Goal 5 violation');
-      console.log('📊 Real-time P(ruin) calculations now fully operational!');
+      console.log('\n Division 4 resolves CRITICAL Phase 2 Goal 5 violation');
+      console.log(' Real-time P(ruin) calculations now fully operational!');
     })
     .catch((error) => {
-      console.error('💥 Deployment failed:', error);
+      console.error(' Deployment failed:', error);
       process.exit(1);
     });
 }

@@ -114,33 +114,33 @@ class DFARSIntegrationDemo:
 
             # Set to enhanced compliance level
             self.config_manager.update_compliance_level(ComplianceLevel.ENHANCED)
-            print(f"   ✓ Compliance level: {self.config_manager.config.compliance_level.value}")
+            print(f"    Compliance level: {self.config_manager.config.compliance_level.value}")
 
             # Validate configuration
             issues = self.config_manager.validate_configuration()
             if issues:
-                print(f"   ⚠ Configuration issues found: {len(issues)}")
+                print(f"    Configuration issues found: {len(issues)}")
                 for issue in issues[:3]:  # Show first 3 issues
                     print(f"     - {issue}")
             else:
-                print("   ✓ Configuration validation passed")
+                print("    Configuration validation passed")
 
             # Initialize DFARS workflow system
             print("2. Initializing DFARS workflow automation...")
             self.dfars_system = DFARSWorkflowAutomation()
-            print("   ✓ Workflow automation system initialized")
+            print("    Workflow automation system initialized")
 
             # Initialize continuous monitoring
             print("3. Initializing continuous monitoring...")
             self.continuous_monitor = DFARSContinuousMonitor(self.dfars_system)
-            print("   ✓ Continuous monitoring system initialized")
+            print("    Continuous monitoring system initialized")
 
             self.demo_results['initialization'] = True
-            print("   ✓ System initialization completed successfully")
+            print("    System initialization completed successfully")
 
         except Exception as e:
             self.logger.error(f"System initialization failed: {e}")
-            print(f"   ✗ System initialization failed: {e}")
+            print(f"    System initialization failed: {e}")
 
     async def _demo_authentication_workflows(self):
         """Demonstrate authentication and access control workflows"""
@@ -195,7 +195,7 @@ class DFARSIntegrationDemo:
                 scenario['mfa_token']
             )
 
-            status = "✓" if success == scenario['expected'] else "✗"
+            status = "" if success == scenario['expected'] else ""
             print(f"   {status} Result: {'SUCCESS' if success else 'FAILED'}")
 
             self.demo_results['authentication_tests'].append({
@@ -210,7 +210,7 @@ class DFARSIntegrationDemo:
             r for r in self.dfars_system.audit_manager.audit_records
             if r.action == "USER_LOGIN"
         ]
-        print(f"\n   ✓ Authentication events logged: {len(auth_records)}")
+        print(f"\n    Authentication events logged: {len(auth_records)}")
 
     async def _demo_cui_protection(self):
         """Demonstrate CUI protection and scanning workflows"""
@@ -257,10 +257,10 @@ class DFARSIntegrationDemo:
                     expected_class = test_file['expected_classification']
                     actual_class = cui_asset.classification
 
-                    status = "✓" if actual_class == expected_class else "✗"
+                    status = "" if actual_class == expected_class else ""
                     print(f"   {status} Classification: {actual_class.value}")
-                    print(f"   ✓ Encryption status: {cui_asset.encryption_status}")
-                    print(f"   ✓ Access controls: {len(cui_asset.access_controls)}")
+                    print(f"    Encryption status: {cui_asset.encryption_status}")
+                    print(f"    Access controls: {len(cui_asset.access_controls)}")
 
                     self.demo_results['cui_scanning'].append({
                         'filename': test_file['filename'],
@@ -270,7 +270,7 @@ class DFARSIntegrationDemo:
                     })
 
                 elif not cui_asset and not test_file['expected_classification']:
-                    print(f"   ✓ No CUI detected (as expected)")
+                    print(f"    No CUI detected (as expected)")
                     self.demo_results['cui_scanning'].append({
                         'filename': test_file['filename'],
                         'expected': 'No CUI',
@@ -279,7 +279,7 @@ class DFARSIntegrationDemo:
                     })
 
                 else:
-                    print(f"   ✗ Unexpected classification result")
+                    print(f"    Unexpected classification result")
                     self.demo_results['cui_scanning'].append({
                         'filename': test_file['filename'],
                         'expected': test_file['expected_classification'],
@@ -288,14 +288,14 @@ class DFARSIntegrationDemo:
                     })
 
             except Exception as e:
-                print(f"   ✗ Scanning failed: {e}")
+                print(f"    Scanning failed: {e}")
 
             finally:
                 # Cleanup test file
                 if file_path.exists():
                     file_path.unlink()
 
-        print(f"\n   ✓ CUI assets tracked: {len(self.dfars_system.cui_manager.cui_assets)}")
+        print(f"\n    CUI assets tracked: {len(self.dfars_system.cui_manager.cui_assets)}")
 
     async def _demo_incident_response(self):
         """Demonstrate incident response automation"""
@@ -336,12 +336,12 @@ class DFARSIntegrationDemo:
 
             incident = self.dfars_system.incident_manager.incidents[incident_id]
 
-            print(f"   ✓ Incident ID: {incident_id}")
-            print(f"   ✓ Response actions: {len(incident.response_actions)}")
+            print(f"    Incident ID: {incident_id}")
+            print(f"    Response actions: {len(incident.response_actions)}")
 
             # Check for DoD notification requirement (critical incidents)
             if scenario['severity'] == IncidentSeverity.CRITICAL:
-                print("   ✓ DoD notification workflow triggered")
+                print("    DoD notification workflow triggered")
 
             self.demo_results['incident_response'].append({
                 'incident_id': incident_id,
@@ -353,7 +353,7 @@ class DFARSIntegrationDemo:
             # Brief delay to simulate processing time
             await asyncio.sleep(0.1)
 
-        print(f"\n   ✓ Total incidents created: {len(self.dfars_system.incident_manager.incidents)}")
+        print(f"\n    Total incidents created: {len(self.dfars_system.incident_manager.incidents)}")
 
     async def _demo_continuous_monitoring(self):
         """Demonstrate continuous monitoring capabilities"""
@@ -368,10 +368,10 @@ class DFARSIntegrationDemo:
             check_result = await self.dfars_system.compliance_monitor._check_control_compliance(control)
 
             status_symbol = {
-                'COMPLIANT': '✓',
-                'NON_COMPLIANT': '✗',
-                'PARTIAL': '⚠',
-                'MONITORING': '👁'
+                'COMPLIANT': '',
+                'NON_COMPLIANT': '',
+                'PARTIAL': '',
+                'MONITORING': ''
             }.get(check_result.status.value, '?')
 
             print(f"   {status_symbol} {control.value}: {check_result.status.value}")
@@ -390,13 +390,13 @@ class DFARSIntegrationDemo:
 
         # Get monitoring dashboard
         dashboard = self.continuous_monitor.get_monitoring_dashboard()
-        print(f"   ✓ Monitoring status: {dashboard['monitoring_status']}")
-        print(f"   ✓ Alerts (24h): {dashboard['alerts_24h']}")
-        print(f"   ✓ Compliance score: {dashboard['compliance_score']:.1f}%")
+        print(f"    Monitoring status: {dashboard['monitoring_status']}")
+        print(f"    Alerts (24h): {dashboard['alerts_24h']}")
+        print(f"    Compliance score: {dashboard['compliance_score']:.1f}%")
 
         # Check for suspicious patterns
         suspicious_patterns = self.continuous_monitor.cui_monitor.get_suspicious_patterns()
-        print(f"   ✓ Suspicious CUI patterns: {len(suspicious_patterns)}")
+        print(f"    Suspicious CUI patterns: {len(suspicious_patterns)}")
 
     async def _demo_integration_scenarios(self):
         """Demonstrate end-to-end integration scenarios"""
@@ -421,7 +421,7 @@ class DFARSIntegrationDemo:
             if i.control_violated == DFARSControl.ACCESS_CONTROL
         ]
 
-        print(f"   ✓ Authentication incidents: {len(auth_incidents)}")
+        print(f"    Authentication incidents: {len(auth_incidents)}")
 
         # Step 3: Verify audit trail
         failed_login_records = [
@@ -429,11 +429,11 @@ class DFARSIntegrationDemo:
             if r.action == "USER_LOGIN" and r.result == "FAILURE"
         ]
 
-        print(f"   ✓ Failed login audit records: {len(failed_login_records)}")
+        print(f"    Failed login audit records: {len(failed_login_records)}")
 
         # Step 4: Check audit integrity
         integrity_valid, errors = self.dfars_system.audit_manager.verify_audit_integrity()
-        print(f"   ✓ Audit integrity: {'VALID' if integrity_valid else 'COMPROMISED'}")
+        print(f"    Audit integrity: {'VALID' if integrity_valid else 'COMPROMISED'}")
 
         print("\n2. CUI access monitoring scenario...")
 
@@ -450,7 +450,7 @@ class DFARSIntegrationDemo:
 
         # Check for suspicious patterns
         patterns = self.continuous_monitor.cui_monitor.get_suspicious_patterns()
-        print(f"   ✓ CUI access patterns analyzed: {len(patterns)}")
+        print(f"    CUI access patterns analyzed: {len(patterns)}")
 
         self.demo_results['integration_tests'] = {
             'auth_incidents': len(auth_incidents),
@@ -470,35 +470,35 @@ class DFARSIntegrationDemo:
         # Get comprehensive dashboard
         dashboard = self.dfars_system.get_compliance_dashboard()
 
-        print(f"   ✓ System status: {dashboard['system_status']}")
-        print(f"   ✓ System uptime: {dashboard['uptime']}")
-        print(f"   ✓ CUI assets: {dashboard['cui_assets']}")
-        print(f"   ✓ Active incidents: {dashboard['active_incidents']}")
-        print(f"   ✓ Audit records: {dashboard['audit_records']}")
+        print(f"    System status: {dashboard['system_status']}")
+        print(f"    System uptime: {dashboard['uptime']}")
+        print(f"    CUI assets: {dashboard['cui_assets']}")
+        print(f"    Active incidents: {dashboard['active_incidents']}")
+        print(f"    Audit records: {dashboard['audit_records']}")
 
         compliance_summary = dashboard['compliance_summary']
-        print(f"   ✓ Compliance: {compliance_summary['compliance_percentage']:.1f}%")
-        print(f"   ✓ Overall status: {compliance_summary['overall_status']}")
+        print(f"    Compliance: {compliance_summary['compliance_percentage']:.1f}%")
+        print(f"    Overall status: {compliance_summary['overall_status']}")
 
         print("\n2. Generating detailed compliance report...")
 
         # Generate comprehensive report
         report = self.dfars_system.generate_compliance_report()
 
-        print(f"   ✓ Report timestamp: {report['report_timestamp']}")
-        print(f"   ✓ DFARS controls: {report['system_info']['dfars_controls_monitored']}")
-        print(f"   ✓ Total incidents: {report['incident_summary']['total_incidents']}")
-        print(f"   ✓ Audit records: {report['audit_summary']['total_records']}")
-        print(f"   ✓ Audit integrity: {'VERIFIED' if report['audit_summary']['integrity_verified'] else 'FAILED'}")
+        print(f"    Report timestamp: {report['report_timestamp']}")
+        print(f"    DFARS controls: {report['system_info']['dfars_controls_monitored']}")
+        print(f"    Total incidents: {report['incident_summary']['total_incidents']}")
+        print(f"    Audit records: {report['audit_summary']['total_records']}")
+        print(f"    Audit integrity: {'VERIFIED' if report['audit_summary']['integrity_verified'] else 'FAILED'}")
 
         print("\n3. Generating monitoring report...")
 
         # Generate monitoring report
         monitoring_report = self.continuous_monitor.generate_monitoring_report()
 
-        print(f"   ✓ Alert summary: {monitoring_report['alert_summary']['total_alerts']} alerts")
-        print(f"   ✓ Critical alerts: {monitoring_report['alert_summary']['critical_alerts']}")
-        print(f"   ✓ Compliance score: {monitoring_report['compliance_trends']['average_compliance_score']:.1f}%")
+        print(f"    Alert summary: {monitoring_report['alert_summary']['total_alerts']} alerts")
+        print(f"    Critical alerts: {monitoring_report['alert_summary']['critical_alerts']}")
+        print(f"    Compliance score: {monitoring_report['compliance_trends']['average_compliance_score']:.1f}%")
 
         # Save reports
         reports = {
@@ -511,7 +511,7 @@ class DFARSIntegrationDemo:
         with open(report_file, 'w') as f:
             json.dump(reports, f, indent=2, default=str)
 
-        print(f"   ✓ Reports saved to: {report_file}")
+        print(f"    Reports saved to: {report_file}")
 
         self.demo_results['final_report'] = {
             'compliance_score': compliance_summary['compliance_percentage'],
@@ -577,13 +577,13 @@ class DFARSIntegrationDemo:
 
         if compliance_score >= 85 and audit_integrity:
             readiness = "READY"
-            color = "✓"
+            color = ""
         elif compliance_score >= 75:
             readiness = "PARTIALLY READY"
-            color = "⚠"
+            color = ""
         else:
             readiness = "NOT READY"
-            color = "✗"
+            color = ""
 
         print(f"\n{color} DEFENSE INDUSTRY CERTIFICATION READINESS: {readiness}")
 

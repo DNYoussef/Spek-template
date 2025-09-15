@@ -335,12 +335,12 @@ class SlashCommandDispatcher {
                 Object.keys(this.mcpServers).forEach(server => {
                     this.mcpServers[server] = true;
                 });
-                console.log('✓ All MCP servers available through VS Code');
+                console.log(' All MCP servers available through VS Code');
             } else {
-                console.log('⚠ Running outside VS Code - MCP servers limited');
+                console.log(' Running outside VS Code - MCP servers limited');
             }
         } catch (error) {
-            console.log('⚠ MCP availability check failed:', error.message);
+            console.log(' MCP availability check failed:', error.message);
         }
     }
 
@@ -362,7 +362,7 @@ class SlashCommandDispatcher {
             );
 
             if (!validation.valid) {
-                console.warn(`⚠ Missing MCP servers for ${command}: ${validation.missing.join(', ')}`);
+                console.warn(` Missing MCP servers for ${command}: ${validation.missing.join(', ')}`);
                 console.warn('  Command will run with limited functionality');
             }
 
@@ -375,7 +375,7 @@ class SlashCommandDispatcher {
             return result;
 
         } catch (error) {
-            console.error(`✗ Command dispatch failed for ${command}:`, error.message);
+            console.error(` Command dispatch failed for ${command}:`, error.message);
             throw error;
         }
     }
@@ -418,7 +418,7 @@ class SlashCommandDispatcher {
 
         // Log to console in development
         if (process.env.NODE_ENV !== 'production') {
-            console.log(`[${timestamp}] ${command} - ${result.success ? '✓' : '✗'} (${result.duration}ms)`);
+            console.log(`[${timestamp}] ${command} - ${result.success ? '' : ''} (${result.duration}ms)`);
         }
     }
 

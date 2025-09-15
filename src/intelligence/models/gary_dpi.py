@@ -570,7 +570,7 @@ class GaryTalebPredictor(BasePredictor):
         )
     
     def predict(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
-        """Generate comprehensive Gary×Taleb predictions."""
+        """Generate comprehensive GaryTaleb predictions."""
         self.eval()
         with torch.no_grad():
             output = self.forward(x)
@@ -644,7 +644,7 @@ def test_wealth_flow_tracking():
     assert flow_score_flat == 0.0, "No gains should result in zero flow score"
     assert 0.0 <= flow_score_high <= 1.0, "Flow score should be between 0 and 1"
     
-    print("✓ WealthFlowTracker tests passed!")
+    print(" WealthFlowTracker tests passed!")
     return True
 
 def test_enhanced_dpi():
@@ -676,7 +676,7 @@ def test_enhanced_dpi():
     diff = torch.abs(enhanced_dpi - expected_enhanced).max().item()
     assert diff < 1e-6, f"Enhanced DPI calculation incorrect, diff: {diff}"
     
-    print(f"✓ Enhanced DPI formula verified: enhanced_dpi = base_dpi * (1 + flow_score)")
+    print(f" Enhanced DPI formula verified: enhanced_dpi = base_dpi * (1 + flow_score)")
     print(f"  Base DPI mean: {base_dpi.mean().item():.4f}")
     print(f"  Enhanced DPI mean: {enhanced_dpi.mean().item():.4f}")
     print(f"  Enhancement factor: {(1 + flow_score).item():.4f}")
@@ -702,7 +702,7 @@ def test_gary_dpi_model():
     gary_taleb = GaryTalebPredictor(input_dim=input_dim)
     combined_output = gary_taleb(x)
     
-    print(f"\nGary×Taleb Model Output:")
+    print(f"\nGaryTaleb Model Output:")
     print(f"Predictions shape: {combined_output.predictions.shape}")
     print(f"Antifragility score shape: {combined_output.metadata['antifragility_score'].shape}")
     

@@ -1,7 +1,7 @@
 {
   "name": "division4-risk-dashboard",
   "version": "1.0.0-complete",
-  "description": "Division 4: Complete Gary×Taleb×Kelly Risk Dashboard with Real-time P(ruin)",
+  "description": "Division 4: Complete GaryTalebKelly Risk Dashboard with Real-time P(ruin)",
   "type": "module",
   "main": "IntegratedServer.ts",
   "bin": {
@@ -22,9 +22,9 @@
     "start:production": "node dist/IntegratedServer.js",
     "test:load": "tsx test-dashboard.js load 25 30000",
     "division4": "tsx IntegratedServer.ts",
-    "gary": "echo \"🎯 Gary DPI Engine integrated in main system\"",
-    "taleb": "echo \"🏺 Taleb Barbell Engine integrated in main system\"",
-    "kelly": "echo \"🎲 Kelly Criterion Engine integrated in main system\""
+    "gary": "echo \" Gary DPI Engine integrated in main system\"",
+    "taleb": "echo \" Taleb Barbell Engine integrated in main system\"",
+    "kelly": "echo \" Kelly Criterion Engine integrated in main system\""
   },
   "dependencies": {
     "ws": "^8.14.2",

@@ -1,7 +1,7 @@
 """Chart Pattern CNN Recognizer
 
 ResNet-based CNN for real-time chart pattern recognition.
-Identifies 20+ chart patterns with <100ms inference and Gary×Taleb integration.
+Identifies 20+ chart patterns with <100ms inference and GaryTaleb integration.
 """
 
 import torch
@@ -181,7 +181,7 @@ class ChartRenderer:
 
 
 class ChartPatternCNN(nn.Module):
-    """CNN for chart pattern recognition with Gary×Taleb integration.
+    """CNN for chart pattern recognition with GaryTaleb integration.
 
     Features:
     - 20+ chart pattern recognition
@@ -692,7 +692,7 @@ def create_pattern_recognizer(
     enable_antifragile: bool = True,
     fast_mode: bool = True
 ) -> ChartPatternCNN:
-    \"\"\"Create chart pattern recognizer with Gary×Taleb integration.
+    \"\"\"Create chart pattern recognizer with GaryTaleb integration.
 
     Args:
         image_size: Input image size
@@ -724,7 +724,7 @@ def create_pattern_recognizer(
             model = torch.compile(model, mode='max-autotune')
 
     print(f\"Chart Pattern CNN created with {len(CHART_PATTERNS)} patterns\")
-    print(f\"Gary×Taleb integration: DPI={enable_dpi}, Antifragile={enable_antifragile}\")
+    print(f\"GaryTaleb integration: DPI={enable_dpi}, Antifragile={enable_antifragile}\")
     print(f\"Target inference time: <100ms\")
 
     return model"

@@ -112,7 +112,7 @@ class TestClient {
       
       this.ws.on('open', () => {
         const connectTime = performance.now() - startTime;
-        console.log(`✅ Client ${this.id} connected in ${connectTime.toFixed(2)}ms`);
+        console.log(` Client ${this.id} connected in ${connectTime.toFixed(2)}ms`);
         
         this.isConnected = true;
         this.metrics.recordConnection(true);
@@ -126,14 +126,14 @@ class TestClient {
       });
       
       this.ws.on('error', (error) => {
-        console.error(`❌ Client ${this.id} connection error:`, error.message);
+        console.error(` Client ${this.id} connection error:`, error.message);
         this.metrics.recordConnection(false);
         this.metrics.recordError();
         reject(error);
       });
       
       this.ws.on('close', () => {
-        console.log(`🔌 Client ${this.id} disconnected`);
+        console.log(` Client ${this.id} disconnected`);
         this.isConnected = false;
       });
       
@@ -170,12 +170,12 @@ class TestClient {
         this.messageCount++;
         
         if (this.messageCount % 10 === 0) {
-          console.log(`📊 Client ${this.id} processed ${this.messageCount} messages`);
+          console.log(` Client ${this.id} processed ${this.messageCount} messages`);
         }
       }
       
     } catch (error) {
-      console.error(`❌ Client ${this.id} message parse error:`, error);
+      console.error(` Client ${this.id} message parse error:`, error);
       this.metrics.recordError();
     }
   }
@@ -213,7 +213,7 @@ class TestClient {
  * Main test runner
  */
 async function runPerformanceTest() {
-  console.log('🚀 Starting Risk Dashboard Performance Test');
+  console.log(' Starting Risk Dashboard Performance Test');
   console.log('='.repeat(50));
   console.log(`Clients: ${TEST_CONFIG.CLIENT_COUNT}`);
   console.log(`Duration: ${TEST_CONFIG.TEST_DURATION}ms`);
@@ -225,7 +225,7 @@ async function runPerformanceTest() {
   
   try {
     // Start test WebSocket server
-    console.log('🌐 Starting test WebSocket server...');
+    console.log(' Starting test WebSocket server...');
     const server = createRiskWebSocketServer(TEST_CONFIG.WS_PORT);
     
     // Wait for server to start
@@ -234,10 +234,10 @@ async function runPerformanceTest() {
       setTimeout(resolve, 1000); // Fallback timeout
     });
     
-    console.log('✅ Test server started');
+    console.log(' Test server started');
     
     // Create and connect test clients
-    console.log(`🔗 Creating ${TEST_CONFIG.CLIENT_COUNT} test clients...`);
+    console.log(` Creating ${TEST_CONFIG.CLIENT_COUNT} test clients...`);
     
     for (let i = 0; i < TEST_CONFIG.CLIENT_COUNT; i++) {
       const client = new TestClient(i + 1, TEST_CONFIG.WS_PORT, metrics);
@@ -252,10 +252,10 @@ async function runPerformanceTest() {
       }
     }
     
-    console.log(`✅ ${clients.filter(c => c.isConnected).length} clients connected`);
+    console.log(` ${clients.filter(c => c.isConnected).length} clients connected`);
     
     // Run test for specified duration
-    console.log(`⏰ Running performance test for ${TEST_CONFIG.TEST_DURATION / 1000}s...`);
+    console.log(` Running performance test for ${TEST_CONFIG.TEST_DURATION / 1000}s...`);
     
     const testInterval = setInterval(() => {
       // Request risk updates from all clients
@@ -272,7 +272,7 @@ async function runPerformanceTest() {
     // Clean up
     clearInterval(testInterval);
     
-    console.log('\n🛑 Cleaning up test clients...');
+    console.log('\n Cleaning up test clients...');
     clients.forEach(client => client.disconnect());
     
     // Stop server
@@ -285,7 +285,7 @@ async function runPerformanceTest() {
     generateTestReport(metrics);
     
   } catch (error) {
-    console.error('❌ Test failed:', error);
+    console.error(' Test failed:', error);
     process.exit(1);
   }
 }
@@ -297,28 +297,28 @@ function generateTestReport(metrics) {
   const stats = metrics.getStats();
   const targets = TEST_CONFIG.PERFORMANCE_TARGETS;
   
-  console.log('\n📊 PERFORMANCE TEST REPORT');
+  console.log('\n PERFORMANCE TEST REPORT');
   console.log('='.repeat(50));
   
   // Connection Statistics
-  console.log('\n🔗 Connection Statistics:');
+  console.log('\n Connection Statistics:');
   console.log(`Connection Success Rate: ${(stats.connectionSuccessRate * 100).toFixed(1)}% ${getStatusIcon(stats.connectionSuccessRate >= targets.CONNECTION_SUCCESS)}`);
   console.log(`Target: ${(targets.CONNECTION_SUCCESS * 100).toFixed(1)}%`);
   
   // Latency Statistics
-  console.log('\n⏱️ Latency Statistics:');
+  console.log('\n Latency Statistics:');
   console.log(`Average Update Latency: ${stats.averageUpdateLatency.toFixed(2)}ms ${getStatusIcon(stats.averageUpdateLatency <= targets.UPDATE_LATENCY)}`);
   console.log(`P95 Update Latency: ${stats.p95UpdateLatency.toFixed(2)}ms`);
   console.log(`P99 Update Latency: ${stats.p99UpdateLatency.toFixed(2)}ms`);
   console.log(`Target: <${targets.UPDATE_LATENCY}ms`);
   
   // Render Performance
-  console.log('\n🎨 Render Performance:');
+  console.log('\n Render Performance:');
   console.log(`Average Render Time: ${stats.averageRenderTime.toFixed(2)}ms ${getStatusIcon(stats.averageRenderTime <= targets.RENDER_TIME)}`);
   console.log(`Target: <${targets.RENDER_TIME}ms`);
   
   // Throughput Statistics
-  console.log('\n📊 Throughput Statistics:');
+  console.log('\n Throughput Statistics:');
   console.log(`Messages per Second: ${stats.messagesPerSecond.toFixed(2)} msgs/s`);
   console.log(`Total Messages Processed: ${stats.totalMessages}`);
   console.log(`Total Errors: ${stats.totalErrors}`);
@@ -330,19 +330,19 @@ function generateTestReport(metrics) {
     stats.averageUpdateLatency <= targets.UPDATE_LATENCY &&
     stats.averageRenderTime <= targets.RENDER_TIME;
   
-  console.log('\n🎆 OVERALL ASSESSMENT:');
-  console.log(`Performance Test: ${overallPass ? '✅ PASSED' : '❌ FAILED'}`);
+  console.log('\n OVERALL ASSESSMENT:');
+  console.log(`Performance Test: ${overallPass ? ' PASSED' : ' FAILED'}`);
   
   if (overallPass) {
-    console.log('✨ All performance targets met!');
-    console.log('🚀 Dashboard is ready for production deployment');
+    console.log(' All performance targets met!');
+    console.log(' Dashboard is ready for production deployment');
   } else {
-    console.log('⚠ Some performance targets not met');
-    console.log('🔧 Consider optimization before production deployment');
+    console.log(' Some performance targets not met');
+    console.log(' Consider optimization before production deployment');
   }
   
   // Recommendations
-  console.log('\n📝 RECOMMENDATIONS:');
+  console.log('\n RECOMMENDATIONS:');
   
   if (stats.connectionSuccessRate < targets.CONNECTION_SUCCESS) {
     console.log('- Improve connection reliability and error handling');
@@ -363,21 +363,21 @@ function generateTestReport(metrics) {
     console.log('- Add better error handling and recovery');
   }
   
-  console.log('\n🏁 Test completed successfully!');
+  console.log('\n Test completed successfully!');
 }
 
 /**
  * Get status icon for pass/fail
  */
 function getStatusIcon(passed) {
-  return passed ? '✅' : '❌';
+  return passed ? '' : '';
 }
 
 /**
  * Simple load test for multiple concurrent connections
  */
 async function runLoadTest(clientCount = 50, duration = 60000) {
-  console.log(`\n🔥 LOAD TEST: ${clientCount} clients for ${duration / 1000}s`);
+  console.log(`\n LOAD TEST: ${clientCount} clients for ${duration / 1000}s`);
   
   const metrics = new TestMetrics();
   const server = createRiskWebSocketServer(8082);
@@ -402,7 +402,7 @@ async function runLoadTest(clientCount = 50, duration = 60000) {
     await new Promise(resolve => setTimeout(resolve, 100)); // Small delay between batches
   }
   
-  console.log(`✅ ${clients.filter(c => c.isConnected).length}/${clientCount} clients connected`);
+  console.log(` ${clients.filter(c => c.isConnected).length}/${clientCount} clients connected`);
   
   // Run for duration
   await new Promise(resolve => setTimeout(resolve, duration));

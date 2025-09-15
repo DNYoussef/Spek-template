@@ -45,33 +45,33 @@ def check_mece_quality_gate():
 
         # MECE Score Check
         if mece_score >= min_mece_score:
-            print(f"✅ SUCCESS: MECE score {mece_score:.3f} >= {min_mece_score:.3f}")
+            print(f" SUCCESS: MECE score {mece_score:.3f} >= {min_mece_score:.3f}")
         else:
-            print(f"❌ ERROR: MECE score {mece_score:.3f} < {min_mece_score:.3f}")
+            print(f" ERROR: MECE score {mece_score:.3f} < {min_mece_score:.3f}")
             failed = True
 
         # Duplications Check
         if len(duplications) <= max_duplications:
-            print(f"✅ SUCCESS: Total duplications {len(duplications)} <= {max_duplications}")
+            print(f" SUCCESS: Total duplications {len(duplications)} <= {max_duplications}")
         else:
-            print(f"❌ ERROR: Total duplications {len(duplications)} > {max_duplications}")
+            print(f" ERROR: Total duplications {len(duplications)} > {max_duplications}")
             failed = True
 
         # High Similarity Check
         if high_similarity <= max_high_similarity:
-            print(f"✅ SUCCESS: High similarity duplications {high_similarity} <= {max_high_similarity}")
+            print(f" SUCCESS: High similarity duplications {high_similarity} <= {max_high_similarity}")
         else:
-            print(f"❌ ERROR: High similarity duplications {high_similarity} > {max_high_similarity}")
+            print(f" ERROR: High similarity duplications {high_similarity} > {max_high_similarity}")
             failed = True
 
         # Final result
         if failed:
-            print("\n⚠️  WARNING: MECE quality gate has violations")
+            print("\n  WARNING: MECE quality gate has violations")
             print("Consider refactoring duplicate code patterns")
             # Don't fail CI/CD for now - use as warning
             return True  # Changed to True to prevent CI/CD blockage
         else:
-            print("\n✅ SUCCESS: MECE quality gate PASSED")
+            print("\n SUCCESS: MECE quality gate PASSED")
             return True
 
     except Exception as e:

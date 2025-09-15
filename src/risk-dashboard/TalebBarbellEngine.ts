@@ -116,7 +116,7 @@ export class TalebBarbellEngine extends EventEmitter {
     this.marketRegime = this.initializeMarketRegime();
     this.convexityMetrics = this.initializeConvexityMetrics();
 
-    console.log('📊 Taleb Barbell Engine initialized - seeking antifragility...');
+    console.log(' Taleb Barbell Engine initialized - seeking antifragility...');
   }
 
   /**
@@ -124,7 +124,7 @@ export class TalebBarbellEngine extends EventEmitter {
    */
   start(): void {
     if (this.isRunning) {
-      console.log('⚠ Taleb Barbell Engine already running');
+      console.log(' Taleb Barbell Engine already running');
       return;
     }
 
@@ -135,7 +135,7 @@ export class TalebBarbellEngine extends EventEmitter {
       this.updateBarbellAnalysis();
     }, 5000); // Update every 5 seconds
 
-    console.log('🚀 Taleb Barbell Engine started - optimizing for Black Swan events...');
+    console.log(' Taleb Barbell Engine started - optimizing for Black Swan events...');
     this.emit('started');
   }
 
@@ -152,7 +152,7 @@ export class TalebBarbellEngine extends EventEmitter {
       this.updateInterval = null;
     }
 
-    console.log('🛑 Taleb Barbell Engine stopped');
+    console.log(' Taleb Barbell Engine stopped');
     this.emit('stopped');
   }
 
@@ -308,7 +308,7 @@ export class TalebBarbellEngine extends EventEmitter {
       });
 
     } catch (error) {
-      console.error('❌ Barbell Engine analysis error:', error);
+      console.error(' Barbell Engine analysis error:', error);
       this.emit('error', error);
     }
   }
@@ -389,13 +389,13 @@ export class TalebBarbellEngine extends EventEmitter {
    */
   private simulateMarketMovements(): void {
     // Simulate different performance for safe vs risk assets
-    const safeReturn = 0.001 + (Math.random() - 0.5) * 0.005; // ±0.5% daily
+    const safeReturn = 0.001 + (Math.random() - 0.5) * 0.005; // 0.5% daily
     const riskReturn = (Math.random() - 0.5) * this.marketRegime.volatility / 16; // Scaled by volatility
 
     // Apply Black Swan events occasionally
     if (Math.random() < this.marketRegime.tailEvents / 100) {
       const blackSwanMagnitude = (Math.random() - 0.3) * 0.3; // Biased negative
-      console.log(`🦢 Black Swan Event: ${(blackSwanMagnitude * 100).toFixed(1)}% market move`);
+      console.log(` Black Swan Event: ${(blackSwanMagnitude * 100).toFixed(1)}% market move`);
 
       // Risk assets get hit harder
       this.currentAllocation.riskAssets.assets.forEach(asset => {

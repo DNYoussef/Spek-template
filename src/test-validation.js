@@ -17,9 +17,9 @@ function validateEmail(email) {
 /**
  * Agent 2: REVIEWER - Code review task
  * Review findings for the above function:
- * - Security: ✅ Input validation handles null/undefined
- * - Performance: ✅ Efficient regex pattern
- * - Maintainability: ✅ Clear function name and logic
+ * - Security:  Input validation handles null/undefined
+ * - Performance:  Efficient regex pattern
+ * - Maintainability:  Clear function name and logic
  * - Suggestions: Consider more robust email validation for production
  */
 

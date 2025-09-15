@@ -2,7 +2,7 @@
 """
 Profit Calculator - 50/50 profit splitting logic for weekly siphon automation.
 
-Implements precise profit calculation and splitting algorithms for the Gary×Taleb
+Implements precise profit calculation and splitting algorithms for the GaryTaleb
 trading system. Addresses theater detection findings by providing verifiable
 profit calculation logic.
 

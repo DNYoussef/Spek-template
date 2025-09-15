@@ -22,7 +22,7 @@ class SimpleRiskServer {
     this.server = new WebSocketServer({ port: this.port });
     
     this.server.on('connection', (ws) => {
-      console.log(`✅ Client connected`);
+      console.log(` Client connected`);
       this.clients.add(ws);
       
       // Send welcome message
@@ -46,7 +46,7 @@ class SimpleRiskServer {
       });
       
       ws.on('close', () => {
-        console.log(`🔌 Client disconnected`);
+        console.log(` Client disconnected`);
         this.clients.delete(ws);
       });
     });
@@ -54,7 +54,7 @@ class SimpleRiskServer {
     // Start data generation
     this.startDataGeneration();
     
-    console.log(`🚀 Simple Risk Server started on port ${this.port}`);
+    console.log(` Simple Risk Server started on port ${this.port}`);
   }
   
   startDataGeneration() {
@@ -114,7 +114,7 @@ class SimpleRiskServer {
     if (this.server) {
       this.server.close();
     }
-    console.log('✅ Server stopped');
+    console.log(' Server stopped');
   }
 }
 
@@ -137,7 +137,7 @@ class TestClient {
       
       this.ws.on('open', () => {
         const connectTime = Date.now() - startTime;
-        console.log(`✅ Client ${this.id} connected in ${connectTime}ms`);
+        console.log(` Client ${this.id} connected in ${connectTime}ms`);
         resolve();
       });
       
@@ -171,17 +171,17 @@ class TestClient {
         
         if (this.messageCount % 10 === 0) {
           const avgLatency = this.latencies.reduce((a, b) => a + b, 0) / this.latencies.length;
-          console.log(`📊 Client ${this.id}: ${this.messageCount} msgs, P(ruin): ${(pRuin * 100).toFixed(2)}%, Avg latency: ${avgLatency.toFixed(2)}ms`);
+          console.log(` Client ${this.id}: ${this.messageCount} msgs, P(ruin): ${(pRuin * 100).toFixed(2)}%, Avg latency: ${avgLatency.toFixed(2)}ms`);
         }
         
         // Generate alert if P(ruin) is high
         if (pRuin > 0.05) {
-          console.log(`🚨 HIGH RISK ALERT - Client ${this.id}: P(ruin) = ${(pRuin * 100).toFixed(2)}%`);
+          console.log(` HIGH RISK ALERT - Client ${this.id}: P(ruin) = ${(pRuin * 100).toFixed(2)}%`);
         }
       }
       
     } catch (error) {
-      console.error(`❌ Client ${this.id} message error:`, error);
+      console.error(` Client ${this.id} message error:`, error);
     }
   }
   
@@ -217,7 +217,7 @@ class TestClient {
  * Run performance test
  */
 async function runTest(clientCount = 3, duration = 20000) {
-  console.log('🚀 Starting Risk Dashboard Test');
+  console.log(' Starting Risk Dashboard Test');
   console.log('=' .repeat(40));
   console.log(`Clients: ${clientCount}`);
   console.log(`Duration: ${duration / 1000}s`);
@@ -232,7 +232,7 @@ async function runTest(clientCount = 3, duration = 20000) {
   
   // Create clients
   const clients = [];
-  console.log(`🔗 Creating ${clientCount} test clients...`);
+  console.log(` Creating ${clientCount} test clients...`);
   
   for (let i = 0; i < clientCount; i++) {
     const client = new TestClient(i + 1, 8080);
@@ -246,7 +246,7 @@ async function runTest(clientCount = 3, duration = 20000) {
     }
   }
   
-  console.log(`✅ ${clients.length} clients connected`);
+  console.log(` ${clients.length} clients connected`);
   console.log('');
   
   // Request updates periodically
@@ -255,7 +255,7 @@ async function runTest(clientCount = 3, duration = 20000) {
   }, 1000);
   
   // Run test
-  console.log(`⏰ Running test for ${duration / 1000}s...`);
+  console.log(` Running test for ${duration / 1000}s...`);
   console.log('');
   
   await new Promise(resolve => setTimeout(resolve, duration));
@@ -281,31 +281,31 @@ async function runTest(clientCount = 3, duration = 20000) {
   const messagesPerSecond = (totalMessages / duration) * 1000;
   
   console.log('');
-  console.log('📊 TEST RESULTS');
+  console.log(' TEST RESULTS');
   console.log('=' .repeat(40));
   console.log(`Total Messages: ${totalMessages}`);
   console.log(`Messages/Second: ${messagesPerSecond.toFixed(2)}`);
   console.log(`Average Latency: ${avgLatency.toFixed(2)}ms`);
-  console.log(`Target Latency: <50ms ${avgLatency <= 50 ? '✅' : '❌'}`);
-  console.log(`Real-time Updates: <1s ✅`);
+  console.log(`Target Latency: <50ms ${avgLatency <= 50 ? '' : ''}`);
+  console.log(`Real-time Updates: <1s `);
   console.log('');
   
   // Performance assessment
   const performancePass = avgLatency <= 50 && messagesPerSecond >= 1;
-  console.log(`🎯 PERFORMANCE: ${performancePass ? '✅ PASSED' : '❌ FAILED'}`);
+  console.log(` PERFORMANCE: ${performancePass ? ' PASSED' : ' FAILED'}`);
   
   if (performancePass) {
-    console.log('🎉 Dashboard meets real-time performance targets!');
-    console.log('🚀 Ready for production deployment');
+    console.log(' Dashboard meets real-time performance targets!');
+    console.log(' Ready for production deployment');
   } else {
-    console.log('⚠️  Performance targets not met');
-    console.log('🔧 Consider optimization before production');
+    console.log('  Performance targets not met');
+    console.log(' Consider optimization before production');
   }
   
   server.stop();
   
   console.log('');
-  console.log('✅ Test completed successfully!');
+  console.log(' Test completed successfully!');
 }
 
 // Run test if called directly

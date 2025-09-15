@@ -277,11 +277,11 @@ class DFARSFinalValidator:
                     'last_modified': datetime.fromtimestamp(stat.st_mtime).isoformat()
                 }
 
-                logger.info(f"✓ {filename}: {lines_of_code} LOC, {stat.st_size} bytes")
+                logger.info(f" {filename}: {lines_of_code} LOC, {stat.st_size} bytes")
             else:
                 validation_results['missing_files'].append(filename)
                 validation_results['file_details'][filename] = {'exists': False}
-                logger.warning(f"✗ {filename}: Missing")
+                logger.warning(f" {filename}: Missing")
 
         return validation_results
 

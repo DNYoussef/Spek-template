@@ -392,7 +392,7 @@ class WeeklySiphonAutomator:
 
 def main():
     """Main entry point for automation."""
-    print("Weekly Siphon Automator - Gary×Taleb Trading System")
+    print("Weekly Siphon Automator - GaryTaleb Trading System")
     print("=====================================================")
     
     # Initialize automator

@@ -7,7 +7,7 @@ Implements all 10 NASA JPL Power of Ten rules for safety-critical software:
 2. Restrict dynamic memory allocation
 3. Limit function size to 60 lines
 4. Assert density in test files
-5. Cyclomatic complexity ≤10
+5. Cyclomatic complexity 10
 6. Declare data objects in smallest possible scope
 7. Check return values of functions
 8. Limit preprocessor use
@@ -309,7 +309,7 @@ class NASAPowerOfTenAnalyzer:
         if complexity > 10:
             violations.append(NASAViolation(
                 rule_number=5,
-                rule_name="Cyclomatic complexity ≤10",
+                rule_name="Cyclomatic complexity 10",
                 file_path=str(file_path),
                 line_number=func_start,
                 function_name=func_node.name,

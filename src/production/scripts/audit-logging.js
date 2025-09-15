@@ -1,5 +1,5 @@
 /**
- * Gary×Taleb Trading System - Audit Logging System
+ * GaryTaleb Trading System - Audit Logging System
  * Defense Industry Compliance with Immutable Audit Trails
  */
 

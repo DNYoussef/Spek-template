@@ -74,7 +74,7 @@ def test_kill_switch_imports():
     assert TriggerType.LOSS_LIMIT
     assert AuthMethod.YUBIKEY
     assert AuthMethod.MASTER_KEY
-    print("✓ All enums imported correctly")
+    print(" All enums imported correctly")
 
     # Test class instantiation
     mock_broker = MockBroker()
@@ -87,7 +87,7 @@ def test_kill_switch_imports():
 
     kill_switch = KillSwitchSystem(mock_broker, config)
     assert kill_switch.is_armed()
-    print("✓ KillSwitchSystem instantiation successful")
+    print(" KillSwitchSystem instantiation successful")
 
     auth_config = {
         'allowed_methods': ['master_key'],
@@ -97,7 +97,7 @@ def test_kill_switch_imports():
     auth_manager = HardwareAuthManager(auth_config)
     available_methods = auth_manager.get_available_methods()
     assert AuthMethod.MASTER_KEY in available_methods
-    print("✓ HardwareAuthManager instantiation successful")
+    print(" HardwareAuthManager instantiation successful")
 
     return True
 
@@ -150,8 +150,8 @@ async def test_kill_switch_performance():
 
         print(f"  Response Time: {reported_time:.1f}ms (actual: {actual_time:.1f}ms)")
         print(f"  Positions Closed: {result.positions_flattened}/{scenario['positions']}")
-        print(f"  Target Met (<500ms): {'✓' if reported_time < 500 else '✗'}")
-        print(f"  Success: {'✓' if result.success else '✗'}")
+        print(f"  Target Met (<500ms): {'' if reported_time < 500 else ''}")
+        print(f"  Success: {'' if result.success else ''}")
 
     # Performance summary
     print(f"\n=== Performance Summary ===")
@@ -159,7 +159,7 @@ async def test_kill_switch_performance():
     avg_response_time = sum(r['reported_time_ms'] for r in performance_results) / len(performance_results)
 
     print(f"Average Response Time: {avg_response_time:.1f}ms")
-    print(f"All Tests Met <500ms Target: {'✓' if all_met_target else '✗'}")
+    print(f"All Tests Met <500ms Target: {'' if all_met_target else ''}")
 
     return performance_results, all_met_target
 
@@ -193,7 +193,7 @@ async def test_hardware_authentication():
         'user_id': 'test_user'
     })
 
-    print(f"Master Key Auth (Valid): {'✓' if result.success else '✗'} - {result.error_message or 'Success'}")
+    print(f"Master Key Auth (Valid): {'' if result.success else ''} - {result.error_message or 'Success'}")
 
     # Test master key authentication (invalid)
     result = await auth_manager.authenticate({
@@ -202,7 +202,7 @@ async def test_hardware_authentication():
         'user_id': 'test_user_2'
     })
 
-    print(f"Master Key Auth (Invalid): {'✓' if not result.success else '✗'} - {result.error_message or 'Unexpected success'}")
+    print(f"Master Key Auth (Invalid): {'' if not result.success else ''} - {result.error_message or 'Unexpected success'}")
 
     # Test system status
     status = auth_manager.get_system_status()
@@ -211,7 +211,7 @@ async def test_hardware_authentication():
     # Test YubiKey detection (will show as unavailable unless actual hardware present)
     if 'yubikey' in status['hardware_capabilities']:
         yubikey_available = status['hardware_capabilities']['yubikey']
-        print(f"YubiKey Available: {'✓' if yubikey_available else '✗'}")
+        print(f"YubiKey Available: {'' if yubikey_available else ''}")
 
     return True
 
@@ -248,10 +248,10 @@ async def test_integration_scenario():
     })
 
     if not auth_result.success:
-        print(f"✗ Authentication failed: {auth_result.error_message}")
+        print(f" Authentication failed: {auth_result.error_message}")
         return False
 
-    print("✓ Authentication successful")
+    print(" Authentication successful")
 
     # Trigger kill switch
     print("2. Triggering kill switch...")
@@ -266,9 +266,9 @@ async def test_integration_scenario():
         authentication_method=auth_result.method.value
     )
 
-    print(f"✓ Kill switch executed in {kill_result.response_time_ms:.1f}ms")
-    print(f"✓ Positions flattened: {kill_result.positions_flattened}")
-    print(f"✓ Success: {kill_result.success}")
+    print(f" Kill switch executed in {kill_result.response_time_ms:.1f}ms")
+    print(f" Positions flattened: {kill_result.positions_flattened}")
+    print(f" Success: {kill_result.success}")
 
     # Verify audit log
     print("3. Verifying audit log...")
@@ -278,16 +278,16 @@ async def test_integration_scenario():
         with open(audit_file, 'r') as f:
             audit_entries = [json.loads(line) for line in f if line.strip()]
 
-        print(f"✓ Audit entries: {len(audit_entries)}")
+        print(f" Audit entries: {len(audit_entries)}")
 
         if audit_entries:
             latest_entry = audit_entries[-1]
-            print(f"✓ Latest trigger type: {latest_entry['trigger_type']}")
-            print(f"✓ Authentication method: {latest_entry['authentication_method']}")
+            print(f" Latest trigger type: {latest_entry['trigger_type']}")
+            print(f" Authentication method: {latest_entry['authentication_method']}")
 
     # Performance metrics
     metrics = kill_switch.get_performance_metrics()
-    print(f"✓ Performance metrics: {metrics}")
+    print(f" Performance metrics: {metrics}")
 
     return True
 
@@ -302,9 +302,9 @@ async def run_all_tests():
     # Test 1: Imports
     try:
         test_results['imports'] = test_kill_switch_imports()
-        print("✓ Import tests passed")
+        print(" Import tests passed")
     except Exception as e:
-        print(f"✗ Import tests failed: {e}")
+        print(f" Import tests failed: {e}")
         test_results['imports'] = False
         return test_results
 
@@ -315,25 +315,25 @@ async def run_all_tests():
             'target_met': target_met,
             'results': performance_results
         }
-        print("✓ Performance tests completed")
+        print(" Performance tests completed")
     except Exception as e:
-        print(f"✗ Performance tests failed: {e}")
+        print(f" Performance tests failed: {e}")
         test_results['performance'] = {'target_met': False, 'error': str(e)}
 
     # Test 3: Hardware Authentication
     try:
         test_results['authentication'] = await test_hardware_authentication()
-        print("✓ Authentication tests passed")
+        print(" Authentication tests passed")
     except Exception as e:
-        print(f"✗ Authentication tests failed: {e}")
+        print(f" Authentication tests failed: {e}")
         test_results['authentication'] = False
 
     # Test 4: Integration
     try:
         test_results['integration'] = await test_integration_scenario()
-        print("✓ Integration tests passed")
+        print(" Integration tests passed")
     except Exception as e:
-        print(f"✗ Integration tests failed: {e}")
+        print(f" Integration tests failed: {e}")
         test_results['integration'] = False
 
     return test_results
@@ -402,10 +402,10 @@ if __name__ == '__main__':
 
         # Exit with appropriate code
         if final_report['reality_score'] >= 8.0:
-            print("\n✓ KILL SWITCH SYSTEM VALIDATION SUCCESSFUL")
+            print("\n KILL SWITCH SYSTEM VALIDATION SUCCESSFUL")
             sys.exit(0)
         else:
-            print("\n✗ KILL SWITCH SYSTEM VALIDATION FAILED")
+            print("\n KILL SWITCH SYSTEM VALIDATION FAILED")
             sys.exit(1)
 
     asyncio.run(main())

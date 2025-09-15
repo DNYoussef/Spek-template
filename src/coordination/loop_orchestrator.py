@@ -715,10 +715,10 @@ class AutoRepairEngine:
 
                     if repair_result["success"]:
                         repair_results["repairs_successful"] += 1
-                        print(f"✓ Repair successful: {strategy_name}")
+                        print(f" Repair successful: {strategy_name}")
                     else:
                         repair_results["repairs_failed"] += 1
-                        print(f"✗ Repair failed: {strategy_name}")
+                        print(f" Repair failed: {strategy_name}")
 
                     repair_results["repair_details"].append({
                         "strategy": strategy_name,
@@ -1731,8 +1731,8 @@ Co-Authored-By: Claude <noreply@anthropic.com>"""
             "sequential_thinking_chains": self.queen_analysis.sequential_thinking_chains
         }
 
-        logger.info(f"Queen Analysis Complete: {self.queen_analysis.total_issues_processed} issues → "
-                   f"{len(self.queen_analysis.mece_divisions)} MECE divisions → "
+        logger.info(f"Queen Analysis Complete: {self.queen_analysis.total_issues_processed} issues  "
+                   f"{len(self.queen_analysis.mece_divisions)} MECE divisions  "
                    f"{len(self.queen_analysis.agent_assignments)} agent assignments")
 
     async def _step_2_5_mece_agent_deployment(self, execution: LoopExecution):

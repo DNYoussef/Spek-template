@@ -626,7 +626,7 @@ def test_ab_framework():
     # Create A/B test
     test = framework.create_test(
         test_id="model_comparison_001",
-        name="Gary×Taleb v1 vs v2",
+        name="GaryTaleb v1 vs v2",
         description="Compare current model with new version",
         variants=variants,
         primary_metric="sharpe_ratio",

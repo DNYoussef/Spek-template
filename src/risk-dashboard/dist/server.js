@@ -18,36 +18,36 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
  * Start Risk Monitoring Dashboard Server
  */
 async function startRiskDashboardServer() {
-    console.log('🚀 Starting Gary×Taleb Risk Monitoring Dashboard Server...');
+    console.log(' Starting GaryTaleb Risk Monitoring Dashboard Server...');
     console.log(`Environment: ${NODE_ENV}`);
     console.log(`WebSocket Port: ${WS_PORT}`);
     console.log(`HTTP Port: ${HTTP_PORT}`);
     console.log('='.repeat(60));
     try {
         // Start WebSocket server for real-time data
-        console.log('🌐 Starting WebSocket server...');
+        console.log(' Starting WebSocket server...');
         const wsServer = createRiskWebSocketServer(WS_PORT);
         // Setup WebSocket server event handlers
         wsServer.on('started', () => {
-            console.log('✅ WebSocket server started successfully');
+            console.log(' WebSocket server started successfully');
         });
         wsServer.on('clientConnected', ({ clientId, clientIp }) => {
-            console.log(`🔗 Client connected: ${clientId} (${clientIp})`);
+            console.log(` Client connected: ${clientId} (${clientIp})`);
         });
         wsServer.on('clientDisconnected', ({ clientId, code, reason }) => {
-            console.log(`🔌 Client disconnected: ${clientId} (${code}: ${reason})`);
+            console.log(` Client disconnected: ${clientId} (${code}: ${reason})`);
         });
         wsServer.on('healthCheck', ({ connectedClients }) => {
             if (connectedClients > 0) {
-                console.log(`🔍 Health check: ${connectedClients} connected clients`);
+                console.log(` Health check: ${connectedClients} connected clients`);
             }
         });
         wsServer.on('error', (error) => {
-            console.error('❌ WebSocket server error:', error);
+            console.error(' WebSocket server error:', error);
         });
         // Start HTTP server for dashboard UI (if in development)
         if (NODE_ENV === 'development') {
-            console.log('🎨 Starting development HTTP server...');
+            console.log(' Starting development HTTP server...');
             const app = express();
             // Serve static files
             app.use(express.static(path.join(__dirname, 'public')));
@@ -75,11 +75,11 @@ async function startRiskDashboardServer() {
                 res.send(generateDashboardHTML());
             });
             app.listen(HTTP_PORT, () => {
-                console.log(`✅ HTTP server started on port ${HTTP_PORT}`);
+                console.log(` HTTP server started on port ${HTTP_PORT}`);
                 console.log(`Dashboard: http://localhost:${HTTP_PORT}`);
             });
         }
-        console.log('\n🟢 Risk Monitoring Dashboard Server is running!');
+        console.log('\n Risk Monitoring Dashboard Server is running!');
         console.log(`WebSocket: ws://localhost:${WS_PORT}`);
         if (NODE_ENV === 'development') {
             console.log(`Dashboard: http://localhost:${HTTP_PORT}`);
@@ -87,7 +87,7 @@ async function startRiskDashboardServer() {
         console.log('\nPress Ctrl+C to stop the server');
     }
     catch (error) {
-        console.error('❌ Failed to start Risk Dashboard Server:', error);
+        console.error(' Failed to start Risk Dashboard Server:', error);
         process.exit(1);
     }
 }
@@ -101,7 +101,7 @@ function generateDashboardHTML() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gary×Taleb Risk Monitoring Dashboard</title>
+    <title>GaryTaleb Risk Monitoring Dashboard</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -281,7 +281,7 @@ function generateDashboardHTML() {
                             <div className="flex items-center justify-between h-16">
                                 <div className="flex items-center">
                                     <h1 className="text-2xl font-bold text-gray-900">
-                                        Gary×Taleb Risk Monitor
+                                        GaryTaleb Risk Monitor
                                     </h1>
                                     <div className="ml-4 text-sm text-gray-500">
                                         Phase 2 Division 4: Real-Time Risk Monitoring
@@ -397,7 +397,7 @@ function generateDashboardHTML() {
                                     <h3 className="text-lg font-semibold text-gray-800 mb-4">Active Alerts</h3>
                                     {alerts.length === 0 ? (
                                         <div className="text-center py-8 text-gray-500">
-                                            <div className="text-2xl mb-2">✓</div>
+                                            <div className="text-2xl mb-2"></div>
                                             <div>No active alerts</div>
                                         </div>
                                     ) : (

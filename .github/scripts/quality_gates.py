@@ -41,12 +41,12 @@ def check_quality_gates():
             'passed': passed
         }
         if passed:
-            print(f"  ✓ PASSED: Score {nasa_score:.2%} >= {nasa_threshold:.2%}")
+            print(f"   PASSED: Score {nasa_score:.2%} >= {nasa_threshold:.2%}")
         else:
-            print(f"  ✗ FAILED: Score {nasa_score:.2%} < {nasa_threshold:.2%}")
+            print(f"   FAILED: Score {nasa_score:.2%} < {nasa_threshold:.2%}")
             gates_passed = False
     else:
-        print("  ⚠ WARNING: No NASA compliance data available")
+        print("   WARNING: No NASA compliance data available")
         results['gates']['nasa_compliance'] = {'passed': False, 'reason': 'No data'}
 
     # Architecture Health Gate
@@ -62,12 +62,12 @@ def check_quality_gates():
             'passed': passed
         }
         if passed:
-            print(f"  ✓ PASSED: Health {arch_health:.2%} >= {arch_threshold:.2%}")
+            print(f"   PASSED: Health {arch_health:.2%} >= {arch_threshold:.2%}")
         else:
-            print(f"  ✗ FAILED: Health {arch_health:.2%} < {arch_threshold:.2%}")
+            print(f"   FAILED: Health {arch_health:.2%} < {arch_threshold:.2%}")
             gates_passed = False
     else:
-        print("  ⚠ WARNING: No architecture data available")
+        print("   WARNING: No architecture data available")
         results['gates']['architecture_health'] = {'passed': False, 'reason': 'No data'}
 
     # MECE Duplication Gate
@@ -83,12 +83,12 @@ def check_quality_gates():
             'passed': passed
         }
         if passed:
-            print(f"  ✓ PASSED: Score {mece_score:.2%} >= {mece_threshold:.2%}")
+            print(f"   PASSED: Score {mece_score:.2%} >= {mece_threshold:.2%}")
         else:
-            print(f"  ✗ FAILED: Score {mece_score:.2%} < {mece_threshold:.2%}")
+            print(f"   FAILED: Score {mece_score:.2%} < {mece_threshold:.2%}")
             gates_passed = False
     else:
-        print("  ⚠ WARNING: No MECE analysis data available")
+        print("   WARNING: No MECE analysis data available")
         results['gates']['mece_duplication'] = {'passed': False, 'reason': 'No data'}
 
     # God Objects Gate
@@ -103,12 +103,12 @@ def check_quality_gates():
             'passed': passed
         }
         if passed:
-            print(f"  ✓ PASSED: {god_objects} god objects <= {god_threshold}")
+            print(f"   PASSED: {god_objects} god objects <= {god_threshold}")
         else:
-            print(f"  ✗ FAILED: {god_objects} god objects > {god_threshold}")
+            print(f"   FAILED: {god_objects} god objects > {god_threshold}")
             gates_passed = False
     else:
-        print("  ⚠ WARNING: No god objects data available")
+        print("   WARNING: No god objects data available")
         results['gates']['god_objects'] = {'passed': False, 'reason': 'No data'}
 
     # Critical Violations Gate
@@ -123,21 +123,21 @@ def check_quality_gates():
             'passed': passed
         }
         if passed:
-            print(f"  ✓ PASSED: {critical_violations} critical violations <= {critical_threshold}")
+            print(f"   PASSED: {critical_violations} critical violations <= {critical_threshold}")
         else:
-            print(f"  ✗ FAILED: {critical_violations} critical violations > {critical_threshold}")
+            print(f"   FAILED: {critical_violations} critical violations > {critical_threshold}")
             gates_passed = False
     else:
-        print("  ⚠ WARNING: No violations data available")
+        print("   WARNING: No violations data available")
         results['gates']['critical_violations'] = {'passed': False, 'reason': 'No data'}
 
     # Overall Result
     print("\n" + "=" * 60)
     if gates_passed:
-        print("✅ ALL QUALITY GATES PASSED")
+        print(" ALL QUALITY GATES PASSED")
         results['overall_status'] = 'PASSED'
     else:
-        print("❌ QUALITY GATES FAILED")
+        print(" QUALITY GATES FAILED")
         results['overall_status'] = 'FAILED'
         print("\nRequired Actions:")
         if not results['gates'].get('nasa_compliance', {}).get('passed'):

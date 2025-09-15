@@ -1,5 +1,5 @@
 """
-Gary×Taleb Data Pipeline System
+GaryTaleb Data Pipeline System
 Phase 3: High-Performance Data Ingestion and Processing
 
 This module provides comprehensive data pipeline capabilities including:
@@ -10,7 +10,7 @@ This module provides comprehensive data pipeline capabilities including:
 - Alternative data integration
 - Data quality validation and monitoring
 
-Author: Gary×Taleb Trading System
+Author: GaryTaleb Trading System
 License: Proprietary
 """
 

@@ -530,8 +530,8 @@ SUMMARY:
 
 RULE VIOLATIONS:
 - Rule 3 (No dynamic memory): {len(report.rule3_violations)} violations
-- Rule 4 (Function length ≤60): {len(report.rule4_violations)} violations
-- Rule 5 (Assertion density ≥2%): {len(report.rule5_violations)} violations
+- Rule 4 (Function length 60): {len(report.rule4_violations)} violations
+- Rule 5 (Assertion density 2%): {len(report.rule5_violations)} violations
 
 DETAILED VIOLATIONS:
 

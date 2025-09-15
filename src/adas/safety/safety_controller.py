@@ -423,7 +423,7 @@ class SystemHealthMonitor(SafetyMonitor):
                     timestamp=time.time(),
                     threat_level=ThreatLevel.HIGH,
                     alert_type="thermal_warning",
-                    message=f"High system temperature: {temperature:.1f}°C",
+                    message=f"High system temperature: {temperature:.1f}C",
                     affected_systems=["hardware"],
                     recommended_action="THERMAL_THROTTLING",
                     metadata={'temperature': temperature}

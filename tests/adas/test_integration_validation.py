@@ -61,7 +61,7 @@ class TestIntegrationValidation:
             assert start_distance < 5.0, f"Path should start near start point, distance: {start_distance}"
             assert end_distance < 5.0, f"Path should end near goal point, distance: {end_distance}"
 
-        print(f"✅ Path planning integration: {len(path) if path else 0} waypoints")
+        print(f" Path planning integration: {len(path) if path else 0} waypoints")
 
     def test_v2x_honesty_integration(self):
         """Test V2X honest disclosure integration"""
@@ -78,7 +78,7 @@ class TestIntegrationValidation:
         assert capabilities['cv2x'].range_meters == 0.0, "C-V2X should honestly report 0m range"
         assert len(alternatives) > 0, "Should provide alternatives"
 
-        print("✅ V2X honesty integration: False claims eliminated")
+        print(" V2X honesty integration: False claims eliminated")
 
     @pytest.mark.asyncio
     async def test_honest_pipeline_integration(self):
@@ -119,7 +119,7 @@ class TestIntegrationValidation:
         assert roadmap['total_effort_estimate']['person_months'] > 0, "Should provide realistic estimates"
 
         pipeline.shutdown()
-        print("✅ Honest pipeline integration: Framework mode working")
+        print(" Honest pipeline integration: Framework mode working")
 
     def test_performance_measurement_integration(self):
         """Test real performance measurement integration"""
@@ -146,7 +146,7 @@ class TestIntegrationValidation:
         assert cpu_usage >= 0, "Should measure real CPU usage"
         assert cpu_usage <= 100, "CPU usage should be valid percentage"
 
-        print(f"✅ Performance measurement: {memory_overhead:.1f}MB overhead, {cpu_usage:.1f}% CPU")
+        print(f" Performance measurement: {memory_overhead:.1f}MB overhead, {cpu_usage:.1f}% CPU")
 
     def test_no_theater_patterns_detected(self):
         """Verify no theater patterns remain"""
@@ -172,7 +172,7 @@ class TestIntegrationValidation:
         memory_mb = psutil.Process().memory_info().rss / 1024 / 1024
         assert memory_mb > 10, "Should measure real memory (>10MB for Python process)"
 
-        print("✅ Theater elimination verified: No fake patterns detected")
+        print(" Theater elimination verified: No fake patterns detected")
 
     def test_honest_documentation_claims(self):
         """Test that capabilities match documentation claims"""
@@ -198,7 +198,7 @@ class TestIntegrationValidation:
         # Documentation claims 50-200ms realistic AI latency
         # Framework simulation should be in this range (when implemented)
 
-        print("✅ Documentation alignment: Claims match implementation")
+        print(" Documentation alignment: Claims match implementation")
 
 def run_integration_validation():
     """Run all integration validation tests"""
@@ -231,23 +231,23 @@ def run_integration_validation():
         validator.test_honest_documentation_claims()
 
         print("\n=== VALIDATION COMPLETE ===")
-        print("✅ ALL THEATER PATTERNS ELIMINATED")
-        print("✅ HONEST IMPLEMENTATIONS WORKING")
-        print("✅ INTEGRATION TESTS PASSED")
-        print("✅ DOCUMENTATION ALIGNED")
+        print(" ALL THEATER PATTERNS ELIMINATED")
+        print(" HONEST IMPLEMENTATIONS WORKING")
+        print(" INTEGRATION TESTS PASSED")
+        print(" DOCUMENTATION ALIGNED")
 
         return True
 
     except Exception as e:
-        print(f"\n❌ VALIDATION FAILED: {e}")
+        print(f"\n VALIDATION FAILED: {e}")
         return False
 
 if __name__ == "__main__":
     success = run_integration_validation()
 
     if success:
-        print("\n🎉 THEATER REMEDIATION SUCCESSFUL 🎉")
+        print("\n THEATER REMEDIATION SUCCESSFUL ")
         print("Phase 7 ADAS implementation is now theater-free!")
     else:
-        print("\n💥 THEATER REMEDIATION INCOMPLETE")
+        print("\n THEATER REMEDIATION INCOMPLETE")
         print("Additional work needed to eliminate all theater patterns.")

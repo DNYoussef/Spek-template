@@ -111,10 +111,10 @@ class SimpleSixSigmaDemo:
                 "test_coverage": {"usl": 100, "lsl": 80, "target": 90, "current": 85}
             },
             "scaling_targets": {
-                "maintain_cp": "≥ 1.67 (6-Sigma capability)",
-                "maintain_cpk": "≥ 1.67 (Process centering)",
-                "long_term_pp": "≥ 1.33 (Long-term performance)",
-                "long_term_ppk": "≥ 1.33 (Long-term capability)"
+                "maintain_cp": " 1.67 (6-Sigma capability)",
+                "maintain_cpk": " 1.67 (Process centering)",
+                "long_term_pp": " 1.33 (Long-term performance)",
+                "long_term_ppk": " 1.33 (Long-term capability)"
             }
         }
 
@@ -276,15 +276,15 @@ class SimpleSixSigmaDemo:
         dmaic = {
             "define": {
                 "problem_statement": "Maintain Six Sigma Level 6 during 5x codebase scaling",
-                "goal_statement": "Sustain DPMO ≤ 1,500 and Sigma ≥ 4.5 through growth phases",
+                "goal_statement": "Sustain DPMO  1,500 and Sigma  4.5 through growth phases",
                 "scope": "All development processes, quality gates, and CI/CD pipelines",
-                "success_criteria": ["Phase 1: DPMO ≤ 500", "Phase 2: DPMO ≤ 1,000", "Phase 3: DPMO ≤ 1,500"]
+                "success_criteria": ["Phase 1: DPMO  500", "Phase 2: DPMO  1,000", "Phase 3: DPMO  1,500"]
             },
             "measure": {
                 "baseline_dpmo": 0.00,
                 "baseline_sigma": 6.0,
                 "measurement_system": "Automated CI/CD with real-time collection",
-                "data_quality": "High - ±0.1% precision"
+                "data_quality": "High - 0.1% precision"
             },
             "analyze": {
                 "primary_risks": ["Code complexity increase", "Team coordination challenges", "Tool drift"],
@@ -337,15 +337,15 @@ class SimpleSixSigmaDemo:
                 "target_dpmo": phase_info["target_dpmo"],
                 "target_sigma": phase_info["target_sigma"],
                 "success": success,
-                "status": "✅ PASSED" if success else "❌ NEEDS IMPROVEMENT"
+                "status": " PASSED" if success else " NEEDS IMPROVEMENT"
             }
 
             results.append(phase_result)
             current_files = phase_info["files"]
 
             print(f"Phase {phase_info['phase']} ({current_files} files):")
-            print(f"  Predicted DPMO: {impact['predicted_dpmo']} (target: ≤ {phase_info['target_dpmo']})")
-            print(f"  Predicted Sigma: {impact['predicted_sigma']} (target: ≥ {phase_info['target_sigma']})")
+            print(f"  Predicted DPMO: {impact['predicted_dpmo']} (target:  {phase_info['target_dpmo']})")
+            print(f"  Predicted Sigma: {impact['predicted_sigma']} (target:  {phase_info['target_sigma']})")
             print(f"  Result: {phase_result['status']}")
 
         return results
@@ -452,13 +452,13 @@ class SimpleSixSigmaDemo:
                 "final_dpmo": scaling_results[-1]["predicted_dpmo"] if scaling_results else 0.0
             },
             "recommendations": [
-                "✅ IMPLEMENT: Enhanced SPC monitoring system",
-                "🚀 DEPLOY: Predictive quality analytics",
-                "🎯 ESTABLISH: Real-time control charts",
-                "📚 CONDUCT: Team Six Sigma training",
-                "🔄 MAINTAIN: DMAIC continuous improvement cycle",
-                "📊 MONITOR: Process capability during scaling",
-                "⚡ AUTOMATE: Quality gate enhancements"
+                " IMPLEMENT: Enhanced SPC monitoring system",
+                " DEPLOY: Predictive quality analytics",
+                " ESTABLISH: Real-time control charts",
+                " CONDUCT: Team Six Sigma training",
+                " MAINTAIN: DMAIC continuous improvement cycle",
+                " MONITOR: Process capability during scaling",
+                " AUTOMATE: Quality gate enhancements"
             ]
         }
 
@@ -470,17 +470,17 @@ class SimpleSixSigmaDemo:
             json.dump(report, f, indent=2, default=str)
 
         # Print executive summary
-        print(f"\n📊 EXECUTIVE SUMMARY")
+        print(f"\n EXECUTIVE SUMMARY")
         print(f"Current Status: {report['executive_summary']['current_status']}")
         print(f"Scaling Feasibility: {report['executive_summary']['scaling_feasibility']}")
         print(f"Success Rate: {report['success_metrics']['success_rate']}")
         print(f"Final Sigma Level: {report['success_metrics']['final_sigma_level']}")
 
-        print(f"\n🎯 KEY RECOMMENDATIONS:")
+        print(f"\n KEY RECOMMENDATIONS:")
         for recommendation in report["recommendations"]:
             print(f"  {recommendation}")
 
-        print(f"\n📄 Full report saved: {report_file}")
+        print(f"\n Full report saved: {report_file}")
 
         return str(report_file)
 
@@ -503,10 +503,10 @@ def main():
     try:
         report_file = demo.generate_comprehensive_report()
 
-        print(f"\n✨ Six Sigma improvement plan analysis completed!")
-        print(f"📈 All scaling phases analyzed with quality predictions")
-        print(f"🎛️ Control systems designed for continuous monitoring")
-        print(f"🔄 DMAIC framework established for improvement")
+        print(f"\n Six Sigma improvement plan analysis completed!")
+        print(f" All scaling phases analyzed with quality predictions")
+        print(f" Control systems designed for continuous monitoring")
+        print(f" DMAIC framework established for improvement")
 
         print(f"\nThis analysis demonstrates:")
         print(f"  1. Maintaining Six Sigma Level 6 excellence is achievable")
@@ -515,7 +515,7 @@ def main():
         print(f"  4. Predictive modeling enables proactive management")
 
     except Exception as e:
-        print(f"❌ Analysis failed: {e}")
+        print(f" Analysis failed: {e}")
         import traceback
         traceback.print_exc()
 

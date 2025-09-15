@@ -166,8 +166,8 @@ class WorkloadPredictor:
                 scaled_features_resource, resource_usage
             )
 
-            logging.info(f"Models retrained - Execution time R²: {self.execution_time_model.accuracy_score:.3f}, "
-                        f"Resource usage R²: {self.resource_usage_model.accuracy_score:.3f}")
+            logging.info(f"Models retrained - Execution time R: {self.execution_time_model.accuracy_score:.3f}, "
+                        f"Resource usage R: {self.resource_usage_model.accuracy_score:.3f}")
 
         except Exception as e:
             logging.error(f"Model retraining failed: {e}")

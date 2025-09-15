@@ -1,5 +1,5 @@
 """
-Deep learning models for the Gary×Taleb trading system.
+Deep learning models for the GaryTaleb trading system.
 """
 
 from .base_models import BasePredictor, BaseRiskModel

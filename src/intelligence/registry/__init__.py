@@ -1,5 +1,5 @@
 """
-Model registry and versioning system for the Gary×Taleb trading models.
+Model registry and versioning system for the GaryTaleb trading models.
 """
 
 from .model_registry import ModelRegistry, ModelVersion

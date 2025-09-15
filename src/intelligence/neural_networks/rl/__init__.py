@@ -1,6 +1,6 @@
 """Reinforcement Learning Module for Trading Strategy Optimization
 
-PPO and A3C agents for dynamic strategy optimization with Gary×Taleb integration.
+PPO and A3C agents for dynamic strategy optimization with GaryTaleb integration.
 Optimized for real-time trading decisions with continuous learning.
 """
 

@@ -751,10 +751,10 @@ This report presents the comprehensive compliance assessment for **{self.project
 **Status:** {cert_report.certification_status.upper().replace('_', ' ')}
 
 ### Component Scores
-- **NASA POT10:** {cert_report.nasa_pot10_score:.1f}% (Target: ≥95%)
-- **DFARS:** {cert_report.dfars_compliance_score:.1f}% (Target: ≥90%)
-- **NIST:** {cert_report.nist_compliance_score:.1f}% (Target: ≥85%)
-- **DoD:** {cert_report.dod_compliance_score:.1f}% (Target: ≥90%)
+- **NASA POT10:** {cert_report.nasa_pot10_score:.1f}% (Target: 95%)
+- **DFARS:** {cert_report.dfars_compliance_score:.1f}% (Target: 90%)
+- **NIST:** {cert_report.nist_compliance_score:.1f}% (Target: 85%)
+- **DoD:** {cert_report.dod_compliance_score:.1f}% (Target: 90%)
 
 ### Analysis Scope
 - **Files Analyzed:** {metrics.total_files_analyzed:,}
@@ -911,18 +911,18 @@ print(f"Overall: {{overall_score:.1f}}% (threshold: {OVERALL_THRESHOLD}%)")
 
 # Check thresholds
 if nasa_score < {NASA_THRESHOLD}:
-    print("❌ NASA POT10 compliance below threshold!")
+    print(" NASA POT10 compliance below threshold!")
     sys.exit(1)
 
 if dfars_score < {DFARS_THRESHOLD}:
-    print("❌ DFARS compliance below threshold!")
+    print(" DFARS compliance below threshold!")
     sys.exit(1)
 
 if overall_score < {OVERALL_THRESHOLD}:
-    print("❌ Overall compliance below threshold!")
+    print(" Overall compliance below threshold!")
     sys.exit(1)
 
-print("✅ All compliance checks passed!")
+print(" All compliance checks passed!")
 EOF
 
 echo "Compliance checks completed successfully!"

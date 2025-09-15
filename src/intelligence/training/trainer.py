@@ -1,5 +1,5 @@
 """
-Comprehensive training pipeline for Gary×Taleb trading models.
+Comprehensive training pipeline for GaryTaleb trading models.
 Implements advanced training techniques and financial-specific optimizations.
 """
 
@@ -487,7 +487,7 @@ class ModelTrainer:
         logger.info(f"Checkpoint loaded: {filepath}")
 
 class TrainingPipeline:
-    """High-level training pipeline for Gary×Taleb models."""
+    """High-level training pipeline for GaryTaleb models."""
     
     def __init__(self, mlflow_experiment: str = None):
         self.mlflow_experiment = mlflow_experiment

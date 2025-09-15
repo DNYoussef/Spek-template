@@ -1,6 +1,6 @@
 """
 Pipeline Orchestrator
-Main orchestration system for the Gary×Taleb data pipeline
+Main orchestration system for the GaryTaleb data pipeline
 """
 
 import asyncio
@@ -33,7 +33,7 @@ class PipelineStatus:
 
 class PipelineOrchestrator:
     """
-    Main orchestrator for the Gary×Taleb trading data pipeline
+    Main orchestrator for the GaryTaleb trading data pipeline
 
     Manages:
     - Historical data loading from multiple sources
@@ -120,7 +120,7 @@ class PipelineOrchestrator:
 
     async def start(self):
         """Start the complete data pipeline"""
-        self.logger.info("=== Starting Gary×Taleb Data Pipeline ===")
+        self.logger.info("=== Starting GaryTaleb Data Pipeline ===")
         self.start_time = datetime.now()
         self.status = "starting"
 
@@ -225,7 +225,7 @@ class PipelineOrchestrator:
                     await component.start()
 
                 started_components.add(component_name)
-                self.logger.info(f"✓ {component_name} started successfully")
+                self.logger.info(f" {component_name} started successfully")
 
             except Exception as e:
                 error_msg = f"Failed to start {component_name}: {str(e)}"
@@ -274,7 +274,7 @@ class PipelineOrchestrator:
                 # Setup quality monitoring callbacks
                 pass
 
-            self.logger.info("✓ Data flow connections established")
+            self.logger.info(" Data flow connections established")
 
         except Exception as e:
             error_msg = f"Failed to setup data flow: {str(e)}"
@@ -346,7 +346,7 @@ class PipelineOrchestrator:
         try:
             # This would start a web dashboard for monitoring
             # For now, just log status
-            self.logger.info("✓ Monitoring dashboard available")
+            self.logger.info(" Monitoring dashboard available")
 
         except Exception as e:
             self.logger.warning(f"Dashboard startup failed: {e}")
@@ -493,7 +493,7 @@ class PipelineOrchestrator:
 
     async def shutdown(self):
         """Gracefully shutdown the pipeline"""
-        self.logger.info("=== Shutting down Gary×Taleb Data Pipeline ===")
+        self.logger.info("=== Shutting down GaryTaleb Data Pipeline ===")
         self.status = "stopping"
 
         # Stop components in reverse order
@@ -511,7 +511,7 @@ class PipelineOrchestrator:
                 if hasattr(component, 'stop'):
                     await component.stop()
 
-                self.logger.info(f"✓ {component_name} stopped")
+                self.logger.info(f" {component_name} stopped")
 
             except Exception as e:
                 self.logger.error(f"Error stopping {component_name}: {e}")

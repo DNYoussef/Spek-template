@@ -228,7 +228,7 @@ class OptionsFlowAnalyzer:
                         contract_symbol=contract.symbol,
                         activity_type="volume",
                         severity=severity,
-                        description=f"Unusual volume: {contract.volume:,} vs avg {avg_volume:.0f} ({z_score:.1f}σ)",
+                        description=f"Unusual volume: {contract.volume:,} vs avg {avg_volume:.0f} ({z_score:.1f})",
                         detected_at=datetime.now(),
                         volume=contract.volume,
                         price_change_percent=0.0,

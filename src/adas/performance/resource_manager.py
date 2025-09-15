@@ -624,7 +624,7 @@ Hardware: {summary['hardware']['cpu_count']} cores, {summary['hardware']['memory
 Current Status:
 - CPU Usage: {summary['current_usage']['cpu_percent']:.1f}%
 - Memory Usage: {summary['current_usage']['memory_percent']:.1f}%
-- Temperature: {summary['current_usage']['temperature_c']:.1f}°C
+- Temperature: {summary['current_usage']['temperature_c']:.1f}C
 - Power: {summary['current_usage']['power_watts']:.1f}W
 - Thermal State: {summary['thermal_state']}
 - Power Mode: {summary['power_mode']}
@@ -642,7 +642,7 @@ Statistics:
 Resource Limits:
 - CPU: {summary['limits']['max_cpu_percent']}%
 - Memory: {summary['limits']['max_memory_percent']}%
-- Temperature: {summary['limits']['max_temperature_c']}°C
+- Temperature: {summary['limits']['max_temperature_c']}C
 - Power: {summary['limits']['max_power_watts']}W
 """
         

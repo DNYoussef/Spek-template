@@ -755,7 +755,7 @@ class DefenseComplianceValidator:
         if self.classification_level in [ComplianceLevel.SECRET, ComplianceLevel.TOP_SECRET]:
             if any(score < 95.0 for score in framework_scores.values()):
                 recommendations.append(
-                    "Classified systems require ≥95% compliance across all frameworks"
+                    "Classified systems require 95% compliance across all frameworks"
                 )
 
         # General recommendations

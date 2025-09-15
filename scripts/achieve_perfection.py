@@ -208,11 +208,11 @@ class PerfectionAchiever:
         print("EXPECTED OUTCOME: PERFECT CODEBASE")
         print("="*70)
         print("\nAfter fixes:")
-        print("  ✓ 0 Connascence violations")
-        print("  ✓ 0 God Objects")
-        print("  ✓ 0 Duplications")
-        print("  ✓ 100% NASA POT10 compliance")
-        print("  ✓ Enterprise-grade quality")
+        print("   0 Connascence violations")
+        print("   0 God Objects")
+        print("   0 Duplications")
+        print("   100% NASA POT10 compliance")
+        print("   Enterprise-grade quality")
         print("\nThis will demonstrate that SPEK framework produces")
         print("PERFECT, BEAUTIFUL, ENTERPRISE-GRADE CODE")
 
@@ -281,7 +281,7 @@ class PerfectionAchiever:
         print(f"\nBefore: {before_violations} violations")
         print(f"After: {after_violations} violations")
         print(f"Improvement: {certificate['metrics']['improvement']['improvement_percentage']:.1f}%")
-        print("\n✓ Certificate saved to .claude/.artifacts/perfection_certificate.json")
+        print("\n Certificate saved to .claude/.artifacts/perfection_certificate.json")
 
 def main():
     """Main execution to achieve perfection."""

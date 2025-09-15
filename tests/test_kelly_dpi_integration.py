@@ -340,7 +340,7 @@ class KellyDPIIntegrationTester:
 
             print(f"\n{component.upper().replace('_', ' ')}: {status_icon}")
             for evidence in result['evidence']:
-                print(f"  • {evidence}")
+                print(f"   {evidence}")
 
         print(f"\n" + "=" * 60)
         print("FINAL ASSESSMENT")

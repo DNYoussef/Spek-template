@@ -776,10 +776,10 @@ def main():
             )
 
             if gates_passed:
-                print("✓ All compliance gates passed")
+                print(" All compliance gates passed")
                 return 0
             else:
-                print("✗ Compliance gate failures:")
+                print(" Compliance gate failures:")
                 for failure in failures:
                     print(f"  - {failure}")
                 return 1

@@ -384,7 +384,7 @@ class RealityChecker:
 
             print(f"\n{component.upper().replace('_', ' ')}: {status_icon}")
             for evidence in result['evidence']:
-                print(f"  • {evidence}")
+                print(f"   {evidence}")
 
         print(f"\n" + "=" * 50)
         print("SUMMARY")
@@ -412,7 +412,7 @@ class RealityChecker:
         if failed_components:
             print(f"\nCRITICAL ISSUES:")
             for comp in failed_components:
-                print(f"  • {comp.replace('_', ' ').title()}: {self.results[comp]['status'].upper()}")
+                print(f"   {comp.replace('_', ' ').title()}: {self.results[comp]['status'].upper()}")
 
         return {
             'reality_score': reality_score,

@@ -793,9 +793,9 @@ def main():
                 result = refactorer.execute_refactoring_plan(plan)
                 if result.success:
                     total_refactored += 1
-                    print(f"✓ Refactored {plan.function_name}: {result.original_lines} -> {result.final_lines} lines")
+                    print(f" Refactored {plan.function_name}: {result.original_lines} -> {result.final_lines} lines")
                 else:
-                    print(f"✗ Failed to refactor {plan.function_name}: {result.reason}")
+                    print(f" Failed to refactor {plan.function_name}: {result.reason}")
 
         except Exception as e:
             print(f"Error processing {file_path}: {str(e)}")

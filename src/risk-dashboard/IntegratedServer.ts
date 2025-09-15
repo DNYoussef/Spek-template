@@ -34,7 +34,7 @@ let httpServer: Server | null = null;
  * Start Complete Integrated Risk Dashboard System
  */
 async function startIntegratedRiskSystem() {
-  console.log('🚀 Starting Division 4: Integrated Risk Dashboard System');
+  console.log(' Starting Division 4: Integrated Risk Dashboard System');
   console.log('='.repeat(70));
   console.log(`Environment: ${NODE_ENV}`);
   console.log(`WebSocket Port: ${WS_PORT}`);
@@ -43,52 +43,52 @@ async function startIntegratedRiskSystem() {
 
   try {
     // Step 1: Initialize all engines
-    console.log('🎯 Initializing Gary DPI Engine (Phase 1)...');
+    console.log(' Initializing Gary DPI Engine (Phase 1)...');
     garyEngine = new GaryDPIEngine();
     setupGaryEngineHandlers();
     garyEngine.start();
 
-    console.log('🏺 Initializing Taleb Barbell Engine (Phase 2)...');
+    console.log(' Initializing Taleb Barbell Engine (Phase 2)...');
     talebEngine = new TalebBarbellEngine();
     setupTalebEngineHandlers();
     talebEngine.start();
 
-    console.log('🎲 Initializing Kelly Criterion Engine (Phase 2)...');
+    console.log(' Initializing Kelly Criterion Engine (Phase 2)...');
     kellyEngine = new KellyCriterionEngine();
     setupKellyEngineHandlers();
     kellyEngine.start();
 
     // Step 2: Start WebSocket server
-    console.log('🌐 Starting Enhanced WebSocket server...');
+    console.log(' Starting Enhanced WebSocket server...');
     wsServer = createRiskWebSocketServer(WS_PORT);
 
     // Setup enhanced WebSocket handlers
     setupWebSocketHandlers();
 
     // Step 3: Start HTTP server
-    console.log('🎨 Starting HTTP server with integrated dashboard...');
+    console.log(' Starting HTTP server with integrated dashboard...');
     const app = await createHttpServer();
 
     httpServer = app.listen(HTTP_PORT, () => {
-      console.log('✅ HTTP server started successfully');
+      console.log(' HTTP server started successfully');
     });
 
     // Success message
-    console.log('\n🟢 DIVISION 4 SYSTEM FULLY OPERATIONAL!');
+    console.log('\n DIVISION 4 SYSTEM FULLY OPERATIONAL!');
     console.log('='.repeat(70));
-    console.log('🎯 Gary DPI: Real-time market analysis and signals');
-    console.log('🏺 Taleb Barbell: Antifragile portfolio allocation');
-    console.log('🎲 Kelly Criterion: Optimal position sizing');
-    console.log('⚠️ Risk Monitor: Real-time P(ruin) calculations');
+    console.log(' Gary DPI: Real-time market analysis and signals');
+    console.log(' Taleb Barbell: Antifragile portfolio allocation');
+    console.log(' Kelly Criterion: Optimal position sizing');
+    console.log(' Risk Monitor: Real-time P(ruin) calculations');
     console.log('='.repeat(70));
-    console.log(`🌐 WebSocket Stream: ws://localhost:${WS_PORT}`);
-    console.log(`📊 Dashboard: http://localhost:${HTTP_PORT}`);
-    console.log(`📋 API Status: http://localhost:${HTTP_PORT}/api/status`);
-    console.log('\n⚡ All systems integrated and running in real-time!');
+    console.log(` WebSocket Stream: ws://localhost:${WS_PORT}`);
+    console.log(` Dashboard: http://localhost:${HTTP_PORT}`);
+    console.log(` API Status: http://localhost:${HTTP_PORT}/api/status`);
+    console.log('\n All systems integrated and running in real-time!');
     console.log('Press Ctrl+C to stop all systems\n');
 
   } catch (error) {
-    console.error('❌ Failed to start Integrated Risk System:', error);
+    console.error(' Failed to start Integrated Risk System:', error);
     await shutdown();
     process.exit(1);
   }
@@ -101,11 +101,11 @@ function setupGaryEngineHandlers() {
   if (!garyEngine) return;
 
   garyEngine.on('started', () => {
-    console.log('✅ Gary DPI Engine: Market analysis started');
+    console.log(' Gary DPI Engine: Market analysis started');
   });
 
   garyEngine.on('signals', (signals) => {
-    console.log(`📊 Gary DPI: Generated ${signals.length} new signals`);
+    console.log(` Gary DPI: Generated ${signals.length} new signals`);
 
     // Broadcast to WebSocket clients
     if (wsServer) {
@@ -133,7 +133,7 @@ function setupGaryEngineHandlers() {
   });
 
   garyEngine.on('error', (error) => {
-    console.error('❌ Gary DPI Engine error:', error);
+    console.error(' Gary DPI Engine error:', error);
   });
 }
 
@@ -144,11 +144,11 @@ function setupTalebEngineHandlers() {
   if (!talebEngine) return;
 
   talebEngine.on('started', () => {
-    console.log('✅ Taleb Barbell Engine: Antifragile optimization started');
+    console.log(' Taleb Barbell Engine: Antifragile optimization started');
   });
 
   talebEngine.on('barbellUpdate', (data) => {
-    console.log(`🏺 Taleb Barbell: Antifragility ${(data.allocation.antifragilityScore * 100).toFixed(1)}%`);
+    console.log(` Taleb Barbell: Antifragility ${(data.allocation.antifragilityScore * 100).toFixed(1)}%`);
 
     // Broadcast to WebSocket clients
     if (wsServer) {
@@ -166,7 +166,7 @@ function setupTalebEngineHandlers() {
   });
 
   talebEngine.on('rebalanceRecommendation', (recommendation) => {
-    console.log(`🔄 Taleb Barbell: ${recommendation.urgency} rebalance recommended`);
+    console.log(` Taleb Barbell: ${recommendation.urgency} rebalance recommended`);
 
     if (wsServer) {
       broadcastToClients({
@@ -178,7 +178,7 @@ function setupTalebEngineHandlers() {
   });
 
   talebEngine.on('error', (error) => {
-    console.error('❌ Taleb Barbell Engine error:', error);
+    console.error(' Taleb Barbell Engine error:', error);
   });
 }
 
@@ -189,11 +189,11 @@ function setupKellyEngineHandlers() {
   if (!kellyEngine) return;
 
   kellyEngine.on('started', () => {
-    console.log('✅ Kelly Criterion Engine: Position optimization started');
+    console.log(' Kelly Criterion Engine: Position optimization started');
   });
 
   kellyEngine.on('kellyUpdate', (data) => {
-    console.log(`🎲 Kelly Criterion: ${data.portfolio.positions.length} positions, ${(data.portfolio.adjustedKellyPercent * 100).toFixed(1)}% allocated`);
+    console.log(` Kelly Criterion: ${data.portfolio.positions.length} positions, ${(data.portfolio.adjustedKellyPercent * 100).toFixed(1)}% allocated`);
 
     // Broadcast to WebSocket clients
     if (wsServer) {
@@ -213,7 +213,7 @@ function setupKellyEngineHandlers() {
   });
 
   kellyEngine.on('error', (error) => {
-    console.error('❌ Kelly Criterion Engine error:', error);
+    console.error(' Kelly Criterion Engine error:', error);
   });
 }
 
@@ -224,22 +224,22 @@ function setupWebSocketHandlers() {
   if (!wsServer) return;
 
   wsServer.on('started', () => {
-    console.log('✅ WebSocket server: Real-time data streaming started');
+    console.log(' WebSocket server: Real-time data streaming started');
   });
 
   wsServer.on('clientConnected', ({ clientId, clientIp }) => {
-    console.log(`🔗 New client connected: ${clientId} (${clientIp})`);
+    console.log(` New client connected: ${clientId} (${clientIp})`);
 
     // Send initial system status to new client
     sendSystemStatus(clientId);
   });
 
   wsServer.on('clientDisconnected', ({ clientId }) => {
-    console.log(`🔌 Client disconnected: ${clientId}`);
+    console.log(` Client disconnected: ${clientId}`);
   });
 
   wsServer.on('error', (error) => {
-    console.error('❌ WebSocket server error:', error);
+    console.error(' WebSocket server error:', error);
   });
 }
 
@@ -279,7 +279,7 @@ function sendSystemStatus(clientId: string) {
   // Send to specific client
   if (wsServer) {
     // Implementation would depend on WebSocket server structure
-    console.log(`📤 Sending system status to client ${clientId}`);
+    console.log(` Sending system status to client ${clientId}`);
   }
 }
 
@@ -288,7 +288,7 @@ function sendSystemStatus(clientId: string) {
  */
 function broadcastToClients(message: any) {
   // Implementation would broadcast to all connected WebSocket clients
-  console.log(`📡 Broadcasting: ${message.type}`);
+  console.log(` Broadcasting: ${message.type}`);
 }
 
 /**
@@ -531,13 +531,13 @@ function generateIntegratedDashboardHTML(): string {
 
             const connectWebSocket = () => {
                 const wsUrl = \`ws://localhost:${WS_PORT}\`;
-                console.log('🔗 Connecting to Integrated Risk Stream:', wsUrl);
+                console.log(' Connecting to Integrated Risk Stream:', wsUrl);
 
                 const ws = new WebSocket(wsUrl);
                 wsRef.current = ws;
 
                 ws.onopen = () => {
-                    console.log('✅ Connected to integrated risk stream');
+                    console.log(' Connected to integrated risk stream');
                     setConnectionStatus('connected');
                     setWsConnection(ws);
                 };
@@ -548,7 +548,7 @@ function generateIntegratedDashboardHTML(): string {
                 };
 
                 ws.onclose = () => {
-                    console.log('❌ Disconnected from risk stream');
+                    console.log(' Disconnected from risk stream');
                     setConnectionStatus('disconnected');
                     setWsConnection(null);
                     setTimeout(connectWebSocket, 3000);
@@ -563,7 +563,7 @@ function generateIntegratedDashboardHTML(): string {
             const handleMessage = (message) => {
                 switch (message.type) {
                     case 'connected':
-                        console.log('🎯 Connected to Division 4 System');
+                        console.log(' Connected to Division 4 System');
                         break;
 
                     case 'system_status':
@@ -689,7 +689,7 @@ function generateIntegratedDashboardHTML(): string {
                                         Division 4: Integrated Risk Monitor
                                     </h1>
                                     <div className="text-sm text-gray-500">
-                                        Gary×Taleb×Kelly Real-Time Dashboard
+                                        GaryTalebKelly Real-Time Dashboard
                                     </div>
                                 </div>
 
@@ -716,7 +716,7 @@ function generateIntegratedDashboardHTML(): string {
                                 {/* Gary DPI */}
                                 <div className="bg-white rounded-lg shadow p-4 border-l-4 border-blue-500">
                                     <div className="flex items-center justify-between mb-2">
-                                        <h3 className="font-semibold text-gray-800">🎯 Gary DPI</h3>
+                                        <h3 className="font-semibold text-gray-800"> Gary DPI</h3>
                                         <div className={\`w-2 h-2 rounded-full \${systemData.gary.running ? 'bg-green-500' : 'bg-red-500'}\`}></div>
                                     </div>
                                     <div className="text-2xl font-bold gary-color">
@@ -731,7 +731,7 @@ function generateIntegratedDashboardHTML(): string {
                                 {/* Taleb Barbell */}
                                 <div className="bg-white rounded-lg shadow p-4 border-l-4 border-green-500">
                                     <div className="flex items-center justify-between mb-2">
-                                        <h3 className="font-semibold text-gray-800">🏺 Taleb Barbell</h3>
+                                        <h3 className="font-semibold text-gray-800"> Taleb Barbell</h3>
                                         <div className={\`w-2 h-2 rounded-full \${systemData.taleb.running ? 'bg-green-500' : 'bg-red-500'}\`}></div>
                                     </div>
                                     <div className="text-2xl font-bold taleb-color">
@@ -746,7 +746,7 @@ function generateIntegratedDashboardHTML(): string {
                                 {/* Kelly Criterion */}
                                 <div className="bg-white rounded-lg shadow p-4 border-l-4 border-yellow-500">
                                     <div className="flex items-center justify-between mb-2">
-                                        <h3 className="font-semibold text-gray-800">🎲 Kelly Criterion</h3>
+                                        <h3 className="font-semibold text-gray-800"> Kelly Criterion</h3>
                                         <div className={\`w-2 h-2 rounded-full \${systemData.kelly.running ? 'bg-green-500' : 'bg-red-500'}\`}></div>
                                     </div>
                                     <div className="text-2xl font-bold kelly-color">
@@ -761,7 +761,7 @@ function generateIntegratedDashboardHTML(): string {
                                 {/* P(ruin) */}
                                 <div className="bg-white rounded-lg shadow p-4 border-l-4 border-red-500">
                                     <div className="flex items-center justify-between mb-2">
-                                        <h3 className="font-semibold text-gray-800">⚠️ P(ruin)</h3>
+                                        <h3 className="font-semibold text-gray-800"> P(ruin)</h3>
                                         <div className="w-2 h-2 rounded-full bg-green-500"></div>
                                     </div>
                                     <div className={\`text-2xl font-bold \${getRiskColor(pRuinData.value)}\`}>
@@ -823,7 +823,7 @@ function generateIntegratedDashboardHTML(): string {
                             {alerts.length > 0 && (
                                 <div className="bg-white rounded-lg shadow-lg p-6">
                                     <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                                        🚨 Active Risk Alerts
+                                         Active Risk Alerts
                                     </h3>
                                     <div className="space-y-3">
                                         {alerts.slice(0, 5).map((alert) => (
@@ -858,10 +858,10 @@ function generateIntegratedDashboardHTML(): string {
                             {/* Footer */}
                             <div className="text-center py-6 text-gray-500 border-t">
                                 <div className="mb-2">
-                                    Division 4: Complete Integration - Gary DPI × Taleb Barbell × Kelly Criterion
+                                    Division 4: Complete Integration - Gary DPI  Taleb Barbell  Kelly Criterion
                                 </div>
                                 <div className="text-sm">
-                                    Phase 2 Goal 5: ✅ COMPLETED - Real-time P(ruin) calculations with integrated risk monitoring
+                                    Phase 2 Goal 5:  COMPLETED - Real-time P(ruin) calculations with integrated risk monitoring
                                 </div>
                             </div>
 
@@ -882,42 +882,42 @@ function generateIntegratedDashboardHTML(): string {
  * Graceful shutdown handler
  */
 async function shutdown() {
-  console.log('\n🛑 Shutting down Division 4 System...');
+  console.log('\n Shutting down Division 4 System...');
 
   try {
     // Stop engines
     if (garyEngine) {
       garyEngine.stop();
-      console.log('✅ Gary DPI Engine stopped');
+      console.log(' Gary DPI Engine stopped');
     }
 
     if (talebEngine) {
       talebEngine.stop();
-      console.log('✅ Taleb Barbell Engine stopped');
+      console.log(' Taleb Barbell Engine stopped');
     }
 
     if (kellyEngine) {
       kellyEngine.stop();
-      console.log('✅ Kelly Criterion Engine stopped');
+      console.log(' Kelly Criterion Engine stopped');
     }
 
     // Stop WebSocket server
     if (wsServer) {
       wsServer.stop();
-      console.log('✅ WebSocket server stopped');
+      console.log(' WebSocket server stopped');
     }
 
     // Stop HTTP server
     if (httpServer) {
       httpServer.close(() => {
-        console.log('✅ HTTP server stopped');
+        console.log(' HTTP server stopped');
       });
     }
 
-    console.log('🏁 Division 4 System shutdown complete');
+    console.log(' Division 4 System shutdown complete');
 
   } catch (error) {
-    console.error('❌ Error during shutdown:', error);
+    console.error(' Error during shutdown:', error);
   }
 }
 
@@ -933,12 +933,12 @@ process.on('SIGTERM', async () => {
 });
 
 process.on('uncaughtException', (error) => {
-  console.error('❌ Uncaught Exception:', error);
+  console.error(' Uncaught Exception:', error);
   shutdown().then(() => process.exit(1));
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
+  console.error(' Unhandled Rejection at:', promise, 'reason:', reason);
   shutdown().then(() => process.exit(1));
 });
 

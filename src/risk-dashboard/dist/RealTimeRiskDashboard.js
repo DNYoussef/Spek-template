@@ -44,7 +44,7 @@ export const RealTimeRiskDashboard = ({ config, className = '' }) => {
     useEffect(() => {
         const initializeDashboard = async () => {
             try {
-                console.log('🚀 Initializing Real-Time Risk Dashboard...');
+                console.log(' Initializing Real-Time Risk Dashboard...');
                 // Create risk monitoring instance
                 riskMonitor.current = new RiskMonitoringDashboard(config);
                 // Set up event handlers
@@ -53,11 +53,11 @@ export const RealTimeRiskDashboard = ({ config, className = '' }) => {
                 await riskMonitor.current.initialize();
                 setIsInitialized(true);
                 setError(null);
-                console.log('✅ Real-Time Risk Dashboard initialized successfully');
+                console.log(' Real-Time Risk Dashboard initialized successfully');
             }
             catch (err) {
                 const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-                console.error('❌ Failed to initialize dashboard:', errorMessage);
+                console.error(' Failed to initialize dashboard:', errorMessage);
                 setError(errorMessage);
             }
         };
@@ -96,10 +96,10 @@ export const RealTimeRiskDashboard = ({ config, className = '' }) => {
         });
         // Handle connection events
         monitor.on('connected', () => {
-            console.log('🔗 Connected to risk data stream');
+            console.log(' Connected to risk data stream');
         });
         monitor.on('disconnected', () => {
-            console.log('❌ Disconnected from risk data stream');
+            console.log(' Disconnected from risk data stream');
         });
         // Handle errors
         monitor.on('error', (err) => {

@@ -6,55 +6,55 @@
   "detector_modules_verified": {
     "1_algorithm_detector": {
       "file": "analyzer/detectors/algorithm_detector.py",
-      "status": "✅ OPERATIONAL",
+      "status": " OPERATIONAL",
       "detects": "CoA - Connascence of Algorithm",
       "size_loc": "~230 lines"
     },
     "2_base_detector": {
       "file": "analyzer/detectors/base.py",
-      "status": "✅ OPERATIONAL",
+      "status": " OPERATIONAL",
       "detects": "Base interface for all detectors",
       "size_loc": "~142 lines"
     },
     "3_convention_detector": {
       "file": "analyzer/detectors/convention_detector.py",
-      "status": "✅ OPERATIONAL",
+      "status": " OPERATIONAL",
       "detects": "CoN - Connascence of Name, CoC - Connascence of Convention",
       "size_loc": "~237 lines"
     },
     "4_execution_detector": {
       "file": "analyzer/detectors/execution_detector.py",
-      "status": "✅ OPERATIONAL",
+      "status": " OPERATIONAL",
       "detects": "CoE - Connascence of Execution",
       "size_loc": "~352 lines"
     },
     "5_god_object_detector": {
       "file": "analyzer/detectors/god_object_detector.py",
-      "status": "✅ OPERATIONAL",
+      "status": " OPERATIONAL",
       "detects": "God objects and excessive complexity",
       "size_loc": "~unknown - need to check"
     },
     "6_magic_literal_detector": {
       "file": "analyzer/detectors/magic_literal_detector.py",
-      "status": "✅ OPERATIONAL",
+      "status": " OPERATIONAL",
       "detects": "CoV - Connascence of Value (magic numbers/literals)",
       "size_loc": "~unknown - need to check"
     },
     "7_position_detector": {
       "file": "analyzer/detectors/position_detector.py",
-      "status": "✅ OPERATIONAL",
+      "status": " OPERATIONAL",
       "detects": "CoP - Connascence of Position",
       "size_loc": "~unknown - need to check"
     },
     "8_timing_detector": {
       "file": "analyzer/detectors/timing_detector.py",
-      "status": "✅ OPERATIONAL",
+      "status": " OPERATIONAL",
       "detects": "CoT - Connascence of Timing",
       "size_loc": "~unknown - need to check"
     },
     "9_values_detector": {
       "file": "analyzer/detectors/values_detector.py",
-      "status": "✅ OPERATIONAL",
+      "status": " OPERATIONAL",
       "detects": "CoV - Connascence of Values",
       "size_loc": "~unknown - need to check"
     }
@@ -63,26 +63,26 @@
   "additional_detector": {
     "connascence_ast_analyzer": {
       "file": "analyzer/detectors/connascence_ast_analyzer.py",
-      "status": "✅ OPERATIONAL",
+      "status": " OPERATIONAL",
       "detects": "AST-based connascence analysis helper",
       "size_loc": "~73 lines"
     }
   },
 
   "all_nine_types_covered": {
-    "CoM": "Connascence of Meaning - ✅ Covered by convention_detector",
-    "CoN": "Connascence of Name - ✅ Covered by convention_detector",
-    "CoT": "Connascence of Type - ✅ Covered by timing_detector",
-    "CoP": "Connascence of Position - ✅ Covered by position_detector",
-    "CoA": "Connascence of Algorithm - ✅ Covered by algorithm_detector",
-    "CoV": "Connascence of Value - ✅ Covered by values_detector + magic_literal_detector",
-    "CoE": "Connascence of Execution - ✅ Covered by execution_detector",
-    "CoI": "Connascence of Identity - ✅ Covered by execution_detector",
-    "CoC": "Connascence of Convention - ✅ Covered by convention_detector"
+    "CoM": "Connascence of Meaning -  Covered by convention_detector",
+    "CoN": "Connascence of Name -  Covered by convention_detector",
+    "CoT": "Connascence of Type -  Covered by timing_detector",
+    "CoP": "Connascence of Position -  Covered by position_detector",
+    "CoA": "Connascence of Algorithm -  Covered by algorithm_detector",
+    "CoV": "Connascence of Value -  Covered by values_detector + magic_literal_detector",
+    "CoE": "Connascence of Execution -  Covered by execution_detector",
+    "CoI": "Connascence of Identity -  Covered by execution_detector",
+    "CoC": "Connascence of Convention -  Covered by convention_detector"
   },
 
   "mece_duplication_findings": {
-    "status": "✅ REPORT GENERATED",
+    "status": " REPORT GENERATED",
     "duplications_found": "3+ line blocks identified",
     "threshold_applied": "0.5 similarity threshold",
     "user_guidance": "Blocks under 3 lines kept inline per user preference",

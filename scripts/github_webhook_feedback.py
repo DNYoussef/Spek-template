@@ -302,7 +302,7 @@ class GitHubWebhookFeedback:
         loop_data = results_data.get("loop_execution", {})
         escalation_reason = loop_data.get("final_results", {}).get("escalation_reason", "Unknown")
 
-        title = "🚨 CI/CD Loop Escalation - Human Intervention Required"
+        title = " CI/CD Loop Escalation - Human Intervention Required"
 
         body = self._generate_escalation_issue_body(results_data, escalation_reason)
 
@@ -311,7 +311,7 @@ class GitHubWebhookFeedback:
     def _create_connascence_issue(self, results_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """Create GitHub issue for unresolved connascence coupling problems."""
 
-        title = "🔗 Connascence Coupling Issues Detected - Refactoring Required"
+        title = " Connascence Coupling Issues Detected - Refactoring Required"
 
         body = self._generate_connascence_issue_body(results_data)
 
@@ -323,7 +323,7 @@ class GitHubWebhookFeedback:
         theater_data = results_data.get("theater_audit", {})
         authenticity_score = theater_data.get("authenticity_score", 0.0)
 
-        title = f"🎭 Theater Detection Alert - Low Authenticity Score ({authenticity_score:.2f})"
+        title = f" Theater Detection Alert - Low Authenticity Score ({authenticity_score:.2f})"
 
         body = self._generate_theater_issue_body(results_data)
 
@@ -376,7 +376,7 @@ class GitHubWebhookFeedback:
         iterations = loop_data.get("execution_metadata", {}).get("iterations_completed", 0)
         max_iterations = loop_data.get("execution_metadata", {}).get("max_iterations", 5)
 
-        body = f"""## 🚨 CI/CD Loop Escalation
+        body = f"""##  CI/CD Loop Escalation
 
 The automated CI/CD failure resolution loop has been escalated to human intervention.
 
@@ -419,7 +419,7 @@ The automated CI/CD failure resolution loop has been escalated to human interven
         pattern_data = results_data.get("failure_pattern_analysis", {})
         connascence_count = pattern_data.get("analysis_metadata", {}).get("connascence_issues", 0)
 
-        body = f"""## 🔗 Connascence Coupling Issues Detected
+        body = f"""##  Connascence Coupling Issues Detected
 
 The CI/CD loop detected {connascence_count} connascence coupling issues that require refactoring attention.
 
@@ -467,7 +467,7 @@ Consider consulting with:
         authenticity_score = theater_data.get("authenticity_score", 0.0)
         theater_detected = theater_data.get("theater_detected", False)
 
-        body = f"""## 🎭 Theater Detection Alert
+        body = f"""##  Theater Detection Alert
 
 The CI/CD loop detected potential performance theater with low authenticity score.
 
@@ -533,9 +533,9 @@ The automated fixes may not represent genuine quality improvements. Manual valid
         theater_data = results_data.get("theater_audit", {})
 
         return f"""
-**Test Quality**: {'✅ Authentic' if theater_data.get('test_quality', {}).get('authentic', False) else '❌ Suspicious'}
-**Code Quality**: {'✅ Authentic' if theater_data.get('code_quality', {}).get('authentic', False) else '❌ Suspicious'}
-**Security Posture**: {'✅ Authentic' if theater_data.get('security_posture', {}).get('authentic', False) else '❌ Suspicious'}
+**Test Quality**: {' Authentic' if theater_data.get('test_quality', {}).get('authentic', False) else ' Suspicious'}
+**Code Quality**: {' Authentic' if theater_data.get('code_quality', {}).get('authentic', False) else ' Suspicious'}
+**Security Posture**: {' Authentic' if theater_data.get('security_posture', {}).get('authentic', False) else ' Suspicious'}
 
 **Reasons for Low Score**:
 {self._format_theater_reasons(theater_data)}
@@ -638,7 +638,7 @@ The automated fixes may not represent genuine quality improvements. Manual valid
     def _generate_summary_comment(self, results_data: Dict[str, Any], success: bool) -> str:
         """Generate summary comment for PR."""
 
-        status_emoji = "✅" if success else "❌"
+        status_emoji = "" if success else ""
 
         comment = f"""## {status_emoji} CI/CD Loop Execution Summary
 
@@ -680,7 +680,7 @@ The automated CI/CD failure resolution loop has {'completed successfully' if suc
         authenticity_score = theater_data.get("authenticity_score", 0.0)
         theater_detected = theater_data.get("theater_detected", True)
 
-        status = "✅ Authentic" if not theater_detected else "⚠️ Needs Review"
+        status = " Authentic" if not theater_detected else " Needs Review"
 
         return f"""- **Theater Detection**: {status}
 - **Authenticity Score**: {authenticity_score:.2f} / 1.00
@@ -698,7 +698,7 @@ The automated CI/CD failure resolution loop has {'completed successfully' if suc
 
         return f"""- **Overall Improvement**: {improvement_pct:.1f}%
 - **Authentic Fixes Applied**: {len(authentic_fixes)}
-- **Regression Check**: {'✅ Passed' if not diff_data.get('regression_detected', True) else '❌ Failed'}"""
+- **Regression Check**: {' Passed' if not diff_data.get('regression_detected', True) else ' Failed'}"""
 
     def _update_commit_status(self, results_data: Dict[str, Any], success: bool) -> Optional[Dict[str, Any]]:
         """Update overall commit status."""

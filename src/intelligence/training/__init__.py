@@ -1,5 +1,5 @@
 """
-Training pipeline for the Gary×Taleb trading system models.
+Training pipeline for the GaryTaleb trading system models.
 """
 
 from .trainer import TrainingPipeline, ModelTrainer
