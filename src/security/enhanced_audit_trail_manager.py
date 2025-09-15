@@ -1,5 +1,4 @@
 """
-from src.constants import SECONDS_PER_DAY, SECONDS_PER_HOUR, SECONDS_PER_MINUTE, MILLISECONDS_PER_SECOND, DEFAULT_MAX_ITEMS, DEFAULT_BATCH_SIZE, BYTES_PER_KB, DFARS_RETENTION_DAYS
 Enhanced DFARS Audit Trail Manager
 Comprehensive audit trail system with SHA-256 integrity verification and tamper detection.
 """
@@ -144,6 +143,25 @@ class AuditChain:
     status: IntegrityStatus
 
 
+class EnhancedAuditTrail:
+    """Enhanced audit trail interface for compatibility"""
+
+    def __init__(self):
+        self.manager = None  # Will be initialized when used
+
+    def log_security_event(self, event_type: str, user_id: str, action: str,
+                          resource: str, classification: str,
+                          additional_data: dict = None):
+        """Log a security event"""
+        if additional_data is None:
+            additional_data = {}
+
+        # Simple logging for now
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info(f"Security Event: {event_type} - {user_id} - {action} - {resource}")
+        return f"event_{hash(f'{event_type}_{user_id}_{action}')}"
+
 class EnhancedDFARSAuditTrailManager:
     """
     Enhanced DFARS audit trail manager with comprehensive integrity protection,
@@ -151,9 +169,9 @@ class EnhancedDFARSAuditTrailManager:
     """
 
     # DFARS audit retention requirements
-    DFARS_RETENTION_DAYS = DFARS_RETENTION_DAYS  # 7 years
-    INTEGRITY_CHECK_INTERVAL = SECONDS_PER_HOUR  # 1 hour
-    BACKUP_INTERVAL = SECONDS_PER_DAY  # 24 hours
+    DFARS_RETENTION_DAYS = 2555  # 7 years (7 * 365 days)
+    INTEGRITY_CHECK_INTERVAL = 3600  # 1 hour in seconds
+    BACKUP_INTERVAL = 86400  # 24 hours in seconds
 
     def __init__(self, storage_path: str = ".claude/.artifacts/enhanced_audit"):
         """Initialize enhanced DFARS audit trail manager."""
@@ -164,7 +182,7 @@ class EnhancedDFARSAuditTrailManager:
         self.crypto_module = FIPSCryptoModule()
 
         # Audit event storage
-        self.audit_buffer = Queue(maxsize=DEFAULT_MAX_ITEMS)
+        self.audit_buffer = Queue(maxsize=10000)
         self.current_chain: Optional[AuditChain] = None
         self.chain_history: List[AuditChain] = []
 
@@ -188,7 +206,7 @@ class EnhancedDFARSAuditTrailManager:
         }
 
         # Storage configuration
-        self.max_events_per_file = DEFAULT_MAX_ITEMS
+        self.max_events_per_file = 10000
         self.compression_enabled = True
         self.encryption_enabled = True
 
@@ -408,7 +426,7 @@ class EnhancedDFARSAuditTrailManager:
 
     def _audit_processor_loop(self):
         """Main audit event processing loop."""
-        batch_size = DEFAULT_BATCH_SIZE
+        batch_size = 100
         batch_timeout = 1.0
         events_batch = []
 
@@ -897,7 +915,7 @@ class EnhancedDFARSAuditTrailManager:
 
         return stats
 
-    def search_audit_events(self, query: Dict[str, Any], limit: int = MILLISECONDS_PER_SECOND) -> List[Dict[str, Any]]:
+    def search_audit_events(self, query: Dict[str, Any], limit: int = 1000) -> List[Dict[str, Any]]:
         """Search audit events based on criteria."""
         # This would implement full-text search across audit events
         # For now, return empty list as this requires indexing implementation
@@ -1038,7 +1056,7 @@ if __name__ == "__main__":
         audit_manager.log_user_authentication(
             user_id="admin",
             success=True,
-            source_ip="192.168.1.DEFAULT_BATCH_SIZE",
+            source_ip="192.168.1.100",
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
         )
 

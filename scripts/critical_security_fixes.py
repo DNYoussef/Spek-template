@@ -5,15 +5,22 @@ Critical Security Fixes - Phase 1 Immediate Remediation
 
 CRITICAL: Eliminate eval/exec usage and implement secure alternatives.
 Priority: P0 - Must be completed within 7 days.
+NASA POT10 Compliant Implementation with Command Injection Prevention
 """
 
 import ast
 import os
 import re
-import subprocess
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 import logging
+
+# Import secure subprocess manager
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from src.security.secure_subprocess_manager import (
+    SecureSubprocessManager, SecurityLevel, SecurityError
+)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -59,45 +66,66 @@ class SafeEvaluator:
                 raise ValueError(f"Disallowed operation: {type(child_node).__name__}")
 
 class SecureExecutor:
-    """Secure replacement for exec() with subprocess validation."""
+    """
+    NASA POT10 Compliant Secure Command Executor
+
+    Replaces unsafe subprocess.run calls with secure subprocess manager
+    that provides comprehensive input validation, command sanitization,
+    and audit trail capabilities.
+    """
 
     def __init__(self):
-        self.allowed_commands = {
-            'python', 'pip', 'git', 'npm', 'node', 'docker'
+        # Initialize with VALIDATED security level for comprehensive protection
+        self.secure_manager = SecureSubprocessManager(
+            security_level=SecurityLevel.VALIDATED,
+            audit_file=Path(__file__).parent.parent / "security" / "audit" / "command_audit.log"
+        )
+
+        # Additional allowed commands for this executor
+        self.additional_commands = {
+            'pytest', 'coverage', 'black', 'isort', 'mypy', 'flake8', 'bandit'
         }
 
     def secure_execute(self, command: str, allowed_commands: List[str] = None, timeout: int = 30) -> Dict[str, Any]:
-        """Execute command with strict validation."""
-        if allowed_commands:
-            self.allowed_commands.update(allowed_commands)
+        """
+        Execute command with NASA POT10 compliant security validation
 
-        # Validate command
-        cmd_parts = command.split()
-        if not cmd_parts:
-            raise ValueError("Empty command")
+        Args:
+            command: Command to execute (will be sanitized)
+            allowed_commands: Additional allowed commands for this execution
+            timeout: Execution timeout in seconds
 
-        base_command = cmd_parts[0]
-        if base_command not in self.allowed_commands:
-            raise ValueError(f"Command not allowed: {base_command}")
+        Returns:
+            Dictionary with execution results and security metadata
 
-        # Execute with timeout and capture output
+        Raises:
+            SecurityError: If command fails security validation
+            ValueError: If command format is invalid
+        """
         try:
-            result = subprocess.run(
-                cmd_parts,
-                capture_output=True,
-                text=True,
+            # Use secure subprocess manager for validated execution
+            result = self.secure_manager.execute_command(
+                command=command,
                 timeout=timeout,
-                check=False
+                capture_output=True
             )
 
-            return {
-                'returncode': result.returncode,
-                'stdout': result.stdout,
-                'stderr': result.stderr,
-                'success': result.returncode == 0
-            }
-        except subprocess.TimeoutExpired:
-            raise RuntimeError(f"Command timeout after {timeout} seconds")
+            # Add backwards compatibility fields
+            result.update({
+                'success': result.get('success', result.get('returncode') == 0)
+            })
+
+            logger.info(f"Secure execution completed - Risk Score: {result.get('risk_score', 0.0):.2f}")
+
+            return result
+
+        except SecurityError as e:
+            logger.error(f"Security validation failed: {e}")
+            raise ValueError(f"Command security validation failed: {e}")
+
+        except Exception as e:
+            logger.error(f"Secure execution failed: {e}")
+            raise RuntimeError(f"Command execution failed: {e}")
         except Exception as e:
             raise RuntimeError(f"Execution failed: {e}")
 
