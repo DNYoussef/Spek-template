@@ -1,0 +1,136 @@
+2025-09-14 15:30:16,551 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:16,551 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:16,552 - cycles.weekly_siphon_automator - INFO - Executing manual siphon operation
+2025-09-14 15:30:16,552 - cycles.weekly_siphon_automator - INFO - Starting weekly siphon execution: siphon_2025-09-14T19:30:16.552446+00:00
+2025-09-14 15:30:16,552 - cycles.weekly_siphon_automator - INFO - Weekly cycle status: complete
+2025-09-14 15:30:16,552 - cycles.weekly_siphon_automator - ERROR - Weekly siphon execution failed: 'split_amount'
+2025-09-14 15:30:35,079 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,079 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,079 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,079 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,079 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,079 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,080 - cycles.weekly_siphon_automator - INFO - Executing manual siphon operation
+2025-09-14 15:30:35,080 - cycles.weekly_siphon_automator - INFO - Executing manual siphon operation
+2025-09-14 15:30:35,080 - cycles.weekly_siphon_automator - INFO - Starting weekly siphon execution: siphon_2025-09-14T19:30:35.080772+00:00
+2025-09-14 15:30:35,080 - cycles.weekly_siphon_automator - INFO - Starting weekly siphon execution: siphon_2025-09-14T19:30:35.080772+00:00
+2025-09-14 15:30:35,080 - cycles.weekly_siphon_automator - INFO - Weekly cycle status: complete
+2025-09-14 15:30:35,080 - cycles.weekly_siphon_automator - INFO - Weekly cycle status: complete
+2025-09-14 15:30:35,080 - cycles.weekly_siphon_automator - ERROR - Weekly siphon execution failed: 'split_amount'
+2025-09-14 15:30:35,080 - cycles.weekly_siphon_automator - ERROR - Weekly siphon execution failed: 'split_amount'
+2025-09-14 15:30:35,081 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,081 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,081 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,081 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,081 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,081 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,084 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,084 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,084 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,084 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,084 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,084 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,084 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,084 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,086 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,086 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,086 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,086 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,086 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,087 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,087 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,087 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,087 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,087 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,088 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Executing manual siphon operation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Executing manual siphon operation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Executing manual siphon operation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Executing manual siphon operation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Executing manual siphon operation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Executing manual siphon operation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Executing manual siphon operation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Executing manual siphon operation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Starting weekly siphon execution: siphon_2025-09-14T19:30:35.089538+00:00
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Starting weekly siphon execution: siphon_2025-09-14T19:30:35.089538+00:00
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Starting weekly siphon execution: siphon_2025-09-14T19:30:35.089538+00:00
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Starting weekly siphon execution: siphon_2025-09-14T19:30:35.089538+00:00
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Starting weekly siphon execution: siphon_2025-09-14T19:30:35.089538+00:00
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Starting weekly siphon execution: siphon_2025-09-14T19:30:35.089538+00:00
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Starting weekly siphon execution: siphon_2025-09-14T19:30:35.089538+00:00
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Starting weekly siphon execution: siphon_2025-09-14T19:30:35.089538+00:00
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Weekly cycle status: complete
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Weekly cycle status: complete
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Weekly cycle status: complete
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Weekly cycle status: complete
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Weekly cycle status: complete
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Weekly cycle status: complete
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Weekly cycle status: complete
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Weekly cycle status: complete
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - ERROR - Weekly siphon execution failed: 'split_amount'
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - ERROR - Weekly siphon execution failed: 'split_amount'
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - ERROR - Weekly siphon execution failed: 'split_amount'
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - ERROR - Weekly siphon execution failed: 'split_amount'
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - ERROR - Weekly siphon execution failed: 'split_amount'
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - ERROR - Weekly siphon execution failed: 'split_amount'
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - ERROR - Weekly siphon execution failed: 'split_amount'
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - ERROR - Weekly siphon execution failed: 'split_amount'
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - Initialized WeeklyCycle for siphon automation
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully
+2025-09-14 15:30:35,089 - cycles.weekly_siphon_automator - INFO - WeeklySiphonAutomator initialized successfully

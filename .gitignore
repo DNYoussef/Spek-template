@@ -21,11 +21,25 @@ coverage/
 htmlcov/
 .coverage
 
-# Logs & Artifacts
+# Logs & Artifacts (moved to /logs/)
 .claude/.artifacts/**/*.log
 .claude/.artifacts/**/cache/
-*.log
-logs/
+logs/archive/
+*.db
+*.sqlite
+
+# Performance data (archived)
+.performance-validation/
+.performance-*.json
+
+# Cache directories (cleaned up)
+.mypy_cache/
+.connascence_cache/
+
+# Legacy directories (cleaned up)
+srcbyzantium/
+testsbyzantium/
+temp_artifacts/
 
 # Temporary files
 *.tmp

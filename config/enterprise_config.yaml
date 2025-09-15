@@ -1,198 +1,45 @@
-# Enterprise Configuration for SPEK Supply Chain Security
-# Comprehensive configuration for all supply chain security components
+# Enterprise Configuration for SPEK Enhanced Development Platform
+# Six Sigma and Quality Management Settings
 
-# Supply Chain Security Configuration
-supply_chain:
-  # Global settings
-  enabled: true
-  output_dir: ".claude/.artifacts/supply_chain"
-  performance_overhead_target: 1.8  # Maximum overhead percentage
-  enable_parallel_processing: true
-  max_workers: 4
-  timeout_seconds: 300
-  
-  # SBOM Generation Settings (SC-001)
-  sbom:
-    formats:
-      - "CycloneDX-1.4"
-      - "SPDX-2.3"
-    include_dev_dependencies: true
-    include_system_components: true
-    tool_name: "SPEK-Supply-Chain-Analyzer"
-    tool_version: "1.0.0"
-    
-  # SLSA Provenance Settings (SC-002)
-  slsa:
-    level: 3
-    builder_id: "https://spek.dev/builder/v1"
-    builder_version: "1.0.0"
-    build_type: "https://spek.dev/build-types/generic@v1"
-    fulcio_url: "https://fulcio.sigstore.dev"
-    rekor_url: "https://rekor.sigstore.dev"
-    reproducible_builds: false
-    
-  # Vulnerability Scanning Settings (SC-003)
-  vulnerability_scanning:
-    enabled: true
-    databases:
-      - "OSV"
-      - "GitHub"
-    osv_api_url: "https://api.osv.dev/v1"
-    severity_thresholds:
-      critical: 9.0
-      high: 7.0
-      medium: 4.0
-      low: 0.1
-    nvd_api_key: "${NVD_API_KEY}"  # Environment variable
-    github_api_key: "${GITHUB_API_KEY}"  # Environment variable
-    
-  # License Compliance Settings
-  license_compliance:
-    enabled: true
-    allowed_licenses:
-      - "MIT"
-      - "Apache-2.0"
-      - "BSD-3-Clause"
-      - "BSD-2-Clause"
-      - "ISC"
-    restricted_licenses:
-      - "GPL-3.0"
-      - "AGPL-3.0"
-      - "LGPL-3.0"
-      - "CDDL-1.0"
-      - "MPL-2.0"
-    prohibited_licenses:
-      - "SSPL-1.0"
-      - "Commons-Clause"
-      - "Elastic-2.0"
-      - "BUSL-1.1"
-    
-  # Cryptographic Signing Settings (SC-004)
-  cryptographic_signing:
-    enabled: true
-    signing_method: "cosign"  # Options: cosign, pki, keyless
-    cosign_binary: "cosign"
-    
-    # PKI Signing Configuration
-    signing_key_path: "${SIGNING_KEY_PATH}"
-    signing_cert_path: "${SIGNING_CERT_PATH}"
-    signing_key_password: "${SIGNING_KEY_PASSWORD}"
-    ca_cert_path: "${CA_CERT_PATH}"
-    intermediate_cert_path: "${INTERMEDIATE_CERT_PATH}"
-    
-    # Keyless Signing (OIDC)
-    oidc_issuer: "${OIDC_ISSUER}"
-    oidc_client_id: "${OIDC_CLIENT_ID}"
-    
-    # Signing Policies
-    require_timestamp: true
-    require_cert_chain: true
-    check_revocation: false
-    allowed_algorithms:
-      - "RSA-SHA256"
-      - "ECDSA-SHA256"
-    min_key_size: 2048
-    
-  # Evidence Packaging Settings (SC-005)
-  evidence_packaging:
-    enabled: true
-    package_format: "zip"  # Options: zip, tar, tar.gz
-    compression_level: 6
-    max_file_size_mb: 100
-    
-    # Evidence Types to Include
-    include_sbom: true
-    include_provenance: true
-    include_vulnerabilities: true
-    include_signatures: true
-    include_compliance: true
-    include_build_logs: false
-    include_source_code: false
-    
-    # Contact Information
-    contact_email: "security@company.com"
-    reviewer: "Security Team"
+sixSigma:
+  targetSigma: 4.0
+  sigmaShift: 1.5
+  performanceThreshold: 1.2  # <1.2% overhead
+  maxExecutionTime: 5000     # 5 seconds max
+  maxMemoryUsage: 100        # 100MB max
 
-# Integration Settings
-integration:
-  # Existing Analyzer Integration
-  non_breaking: true
-  priority: "normal"  # Options: low, normal, high, critical
-  
-  # Performance Monitoring
-  performance_monitoring:
-    enabled: true
-    baseline_duration: 10.0  # seconds
-    alert_threshold: 2.0  # percentage
-    
-  # Quality Gates Integration
-  quality_gates:
-    enabled: true
-    fail_on_critical_vulnerabilities: true
-    fail_on_prohibited_licenses: true
-    fail_on_signing_failures: true
-    max_critical_vulnerabilities: 0
-    max_high_vulnerabilities: 5
-    
-# Compliance Frameworks
+quality:
+  targetSigma: 4.0
+  sigmaShift: 1.5
+  nasaPOT10Target: 95        # 95%+ compliance
+  auditTrailEnabled: true
+
+performance:
+  maxOverhead: 1.2           # 1.2% maximum overhead
+  maxExecutionTime: 5000     # 5 seconds
+  maxMemoryUsage: 100        # 100MB
+  monitoringEnabled: true
+
 compliance:
-  frameworks:
-    - "SLSA Level 3"
-    - "SPDX 2.3"
-    - "CycloneDX 1.4"
-    - "NIST SSDF"
-    - "ISO/IEC 27001"
-    - "SOC 2 Type II"
-  
-  # Audit Settings
-  audit_trail: true
-  retention_days: 2555  # 7 years
-  export_format: "json"
-  
-# Notification Settings
-notifications:
-  enabled: true
-  channels:
-    slack:
-      enabled: false
-      webhook_url: "${SLACK_WEBHOOK_URL}"
-      channel: "#security-alerts"
-    email:
-      enabled: false
-      smtp_server: "${SMTP_SERVER}"
-      recipients:
-        - "security-team@company.com"
-  
-  # Alert Conditions
-  alert_on:
-    - "critical_vulnerabilities"
-    - "prohibited_licenses"
-    - "signing_failures"
-    - "compliance_failures"
-    - "performance_degradation"
+  nasaPOT10: 95              # NASA POT10 compliance target
+  auditTrailEnabled: true
+  evidenceRequirements:
+    ctqCalculations: true
+    spcCharts: true
+    dpmoAnalysis: true
+    theaterDetection: true
 
-# Advanced Settings
-advanced:
-  # Caching
-  enable_caching: true
-  cache_ttl_hours: 24
-  cache_directory: ".claude/.cache/supply_chain"
-  
-  # Parallelization
-  async_processing: true
-  batch_size: 100
-  rate_limiting:
-    requests_per_minute: 60
-    burst_limit: 10
-  
-  # Debugging
-  debug_mode: false
-  verbose_logging: false
-  log_level: "INFO"  # Options: DEBUG, INFO, WARN, ERROR
-  
-  # Feature Flags
-  feature_flags:
-    experimental_features: false
-    beta_vulnerability_sources: false
-    enhanced_license_detection: true
-    ai_powered_risk_assessment: false
+artifacts:
+  outputPath: ".claude/.artifacts/sixsigma/"
+  reportFormats:
+    - executive
+    - detailed
+    - technical
+    - dashboard
+
+theater:
+  enableDetection: true
+  riskThresholds:
+    low: 0.3
+    medium: 0.6
+    high: 0.8

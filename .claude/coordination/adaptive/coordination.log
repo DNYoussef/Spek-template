@@ -1,0 +1,44 @@
+2025-09-11 08:16:54,162 - AdaptiveCoordinator - INFO - Collecting baseline performance metrics
+2025-09-11 08:16:55,167 - AdaptiveCoordinator - INFO - Baseline established: CPU=2.0%, Memory=62.0%
+2025-09-11 08:16:55,374 - AdaptiveCoordinator - INFO - Allocated resources for perf-analyzer: CPU=2 cores, Memory=2929MB, Topology=hybrid
+2025-09-11 08:16:55,374 - AdaptiveCoordinator - INFO - Topology switch: hierarchical -> hybrid Reason: Optimal for perf-analyzer
+2025-09-11 08:16:55,582 - AdaptiveCoordinator - INFO - Allocated resources for memory-coordinator: CPU=3 cores, Memory=3417MB, Topology=hierarchical
+2025-09-11 08:16:55,582 - AdaptiveCoordinator - INFO - Topology switch: hybrid -> hierarchical Reason: Optimal for memory-coordinator
+2025-09-11 08:16:55,789 - AdaptiveCoordinator - INFO - Allocated resources for performance-benchmarker: CPU=3 cores, Memory=3905MB, Topology=mesh
+2025-09-11 08:16:55,789 - AdaptiveCoordinator - INFO - Topology switch: hierarchical -> mesh Reason: Optimal for performance-benchmarker
+2025-09-11 08:16:55,999 - AdaptiveCoordinator - INFO - Allocated resources for code-analyzer: CPU=2 cores, Memory=2440MB, Topology=hybrid
+2025-09-11 08:16:55,999 - AdaptiveCoordinator - INFO - Topology switch: mesh -> hybrid Reason: Optimal for code-analyzer
+2025-09-11 08:18:24,285 - AdaptiveCoordinator - INFO - Collecting baseline performance metrics
+2025-09-11 08:18:25,288 - AdaptiveCoordinator - INFO - Baseline established: CPU=3.9%, Memory=62.7%
+2025-09-11 08:18:25,497 - AdaptiveCoordinator - INFO - Allocated resources for perf-analyzer: CPU=2 cores, Memory=2929MB, Topology=hybrid
+2025-09-11 08:18:25,497 - AdaptiveCoordinator - INFO - Topology switch: hierarchical -> hybrid Reason: Optimal for perf-analyzer
+2025-09-11 08:18:25,704 - AdaptiveCoordinator - INFO - Allocated resources for memory-coordinator: CPU=3 cores, Memory=3417MB, Topology=hierarchical
+2025-09-11 08:18:25,704 - AdaptiveCoordinator - INFO - Topology switch: hybrid -> hierarchical Reason: Optimal for memory-coordinator
+2025-09-11 08:18:25,912 - AdaptiveCoordinator - INFO - Allocated resources for performance-benchmarker: CPU=3 cores, Memory=3905MB, Topology=mesh
+2025-09-11 08:18:25,912 - AdaptiveCoordinator - INFO - Topology switch: hierarchical -> mesh Reason: Optimal for performance-benchmarker
+2025-09-11 08:18:26,119 - AdaptiveCoordinator - INFO - Allocated resources for code-analyzer: CPU=2 cores, Memory=2440MB, Topology=hybrid
+2025-09-11 08:18:26,119 - AdaptiveCoordinator - INFO - Topology switch: mesh -> hybrid Reason: Optimal for code-analyzer
+2025-09-11 08:19:17,922 - AdaptiveCoordinator - INFO - Collecting baseline performance metrics
+2025-09-11 08:19:18,925 - AdaptiveCoordinator - INFO - Baseline established: CPU=5.2%, Memory=63.0%
+2025-09-11 08:19:18,926 - AgentDeploymentProtocol - INFO - Starting sequential agent deployment for Phase 3 optimization
+2025-09-11 08:19:19,133 - AdaptiveCoordinator - INFO - Allocated resources for perf-analyzer: CPU=2 cores, Memory=2929MB, Topology=hybrid
+2025-09-11 08:19:19,133 - AgentDeploymentProtocol - INFO - Deploying perf-analyzer with 2 cores, 2929MB memory
+2025-09-11 08:19:19,133 - AgentDeploymentProtocol - INFO - Executing: python analyzer/performance/unified_visitor_analyzer.py
+2025-09-11 08:19:21,134 - AgentDeploymentProtocol - WARNING - Criterion min_efficiency_gain below threshold: 0 < 0.8
+2025-09-11 08:19:21,134 - AgentDeploymentProtocol - ERROR - Deployment validation failed for perf-analyzer
+2025-09-11 08:19:23,341 - AdaptiveCoordinator - INFO - Allocated resources for memory-coordinator: CPU=3 cores, Memory=3417MB, Topology=hierarchical
+2025-09-11 08:19:23,341 - AgentDeploymentProtocol - INFO - Deploying memory-coordinator with 3 cores, 3417MB memory
+2025-09-11 08:19:23,341 - AgentDeploymentProtocol - INFO - Executing: python analyzer/performance/detector_pool_optimizer.py
+2025-09-11 08:19:25,342 - AgentDeploymentProtocol - WARNING - Missing required criterion: stability_maintenance
+2025-09-11 08:19:25,342 - AgentDeploymentProtocol - ERROR - Deployment validation failed for memory-coordinator
+2025-09-11 08:19:27,551 - AdaptiveCoordinator - INFO - Allocated resources for performance-benchmarker: CPU=3 cores, Memory=3905MB, Topology=mesh
+2025-09-11 08:19:27,551 - AgentDeploymentProtocol - INFO - Deploying performance-benchmarker with 3 cores, 3905MB memory
+2025-09-11 08:19:27,551 - AgentDeploymentProtocol - INFO - Executing: python analyzer/performance/result_aggregation_profiler.py
+2025-09-11 08:19:29,551 - AgentDeploymentProtocol - WARNING - Missing required criterion: bottleneck_identification
+2025-09-11 08:19:29,551 - AgentDeploymentProtocol - ERROR - Deployment validation failed for performance-benchmarker
+2025-09-11 08:19:31,759 - AdaptiveCoordinator - INFO - Allocated resources for code-analyzer: CPU=2 cores, Memory=2440MB, Topology=hybrid
+2025-09-11 08:19:31,759 - AgentDeploymentProtocol - INFO - Deploying code-analyzer with 2 cores, 2440MB memory
+2025-09-11 08:19:31,759 - AgentDeploymentProtocol - INFO - Executing: python analyzer/performance/cache_performance_profiler.py
+2025-09-11 08:19:33,760 - AgentDeploymentProtocol - WARNING - Missing required criterion: streaming_optimization_active
+2025-09-11 08:19:33,760 - AgentDeploymentProtocol - ERROR - Deployment validation failed for code-analyzer
+2025-09-11 08:19:35,760 - AgentDeploymentProtocol - INFO - Completed deployment of 4 specialist agents
