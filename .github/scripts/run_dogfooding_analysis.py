@@ -51,8 +51,8 @@ def run_dogfooding_analysis():
     # Ensure artifacts directory exists
     os.makedirs('.claude/.artifacts', exist_ok=True)
     
-    # Write results
-    with open('.claude/.artifacts/self_dogfooding.json', 'w') as f:
+    # Write results (filename matches workflow expectation)
+    with open('.claude/.artifacts/dogfooding_analysis.json', 'w') as f:
         json.dump(analysis_result, f, indent=2, default=str)
     
     # Print summary
