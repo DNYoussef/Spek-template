@@ -1,0 +1,980 @@
+{
+  "summary": {
+    "total_expected": 51,
+    "total_found": 74,
+    "workflows": [
+      {
+        "name": "architecture-analysis",
+        "display": "Architecture Analysis",
+        "file": "architecture-analysis.yml"
+      },
+      {
+        "name": "audit-reporting-system",
+        "display": "Comprehensive Audit & Reporting System",
+        "file": "audit-reporting-system.yml"
+      },
+      {
+        "name": "auto-repair",
+        "display": "Enhanced Auto-Repair with Closed-Loop Integration",
+        "file": "auto-repair.yml"
+      },
+      {
+        "name": "cache-optimization",
+        "display": "Cache Optimization",
+        "file": "cache-optimization.yml"
+      },
+      {
+        "name": "closed-loop-automation",
+        "display": "Enhanced CI/CD Loop Automation with Connascence Detection",
+        "file": "closed-loop-automation.yml"
+      },
+      {
+        "name": "codeql-analysis",
+        "display": "CodeQL Analysis",
+        "file": "codeql-analysis.yml"
+      },
+      {
+        "name": "compliance-automation",
+        "display": "Automated Compliance Validation",
+        "file": "compliance-automation.yml"
+      },
+      {
+        "name": "connascence-analysis",
+        "display": "Connascence Safety Analysis",
+        "file": "connascence-analysis.yml"
+      },
+      {
+        "name": "connascence-core-analysis",
+        "display": "Connascence Core Analysis",
+        "file": "connascence-core-analysis.yml"
+      },
+      {
+        "name": "connascence-quality-gates",
+        "display": "Connascence Quality Gates - REAL Violations",
+        "file": "connascence-quality-gates.yml"
+      },
+      {
+        "name": "defense-industry-certification",
+        "display": "Defense Industry Certification Pipeline",
+        "file": "defense-industry-certification.yml"
+      },
+      {
+        "name": "defense-integration-orchestrator",
+        "display": "Defense Integration Orchestrator",
+        "file": "defense-integration-orchestrator.yml"
+      },
+      {
+        "name": "enhanced-quality-gates",
+        "display": "Enhanced Quality Gates - 8-Stream Parallel Pipeline (Real Integration)",
+        "file": "enhanced-quality-gates.yml"
+      },
+      {
+        "name": "integration-validation",
+        "display": "Defense Industry CI/CD Integration Validation",
+        "file": "integration-validation.yml"
+      },
+      {
+        "name": "mece-duplication-analysis",
+        "display": "MECE Duplication Analysis",
+        "file": "mece-duplication-analysis.yml"
+      },
+      {
+        "name": "monitoring-dashboard",
+        "display": "Workflow Health Monitoring Dashboard",
+        "file": "monitoring-dashboard.yml"
+      },
+      {
+        "name": "nasa-compliance-check",
+        "display": "NASA Power of Ten Compliance Check",
+        "file": "nasa-compliance-check.yml"
+      },
+      {
+        "name": "nasa-pot10-compliance",
+        "display": "NASA POT10 Compliance Gates",
+        "file": "nasa-pot10-compliance.yml"
+      },
+      {
+        "name": "nasa-pot10-fix",
+        "display": "NASA POT10 Compliance Fix",
+        "file": "nasa-pot10-fix.yml"
+      },
+      {
+        "name": "nasa-pot10-validation",
+        "display": "NASA POT10 Validation Pipeline",
+        "file": "nasa-pot10-validation.yml"
+      },
+      {
+        "name": "performance-monitoring",
+        "display": "Performance Monitoring",
+        "file": "performance-monitoring.yml"
+      },
+      {
+        "name": "production-gate",
+        "display": "Production Gate - Multi-Stage Deployment Approval",
+        "file": "production-gate.yml"
+      },
+      {
+        "name": "quality-gate-enforcer",
+        "display": "Quality Gate Enforcer (Push Protection)",
+        "file": "quality-gate-enforcer.yml"
+      },
+      {
+        "name": "quality-gate-validation",
+        "display": "Quality Gate Validation",
+        "file": "quality-gate-validation.yml"
+      },
+      {
+        "name": "quality-gates",
+        "display": "Quality Gates (Enhanced)",
+        "file": "quality-gates.yml"
+      },
+      {
+        "name": "quality-orchestrator-parallel",
+        "display": "Quality Analysis Orchestrator",
+        "file": "quality-orchestrator-parallel.yml"
+      },
+      {
+        "name": "quality-orchestrator",
+        "display": "Quality Analysis Orchestrator",
+        "file": "quality-orchestrator.yml"
+      },
+      {
+        "name": "rollback-automation",
+        "display": "Automated Rollback & Circuit Breaker",
+        "file": "rollback-automation.yml"
+      },
+      {
+        "name": "security-orchestrator",
+        "display": "Security Quality Gate Orchestrator",
+        "file": "security-orchestrator.yml"
+      },
+      {
+        "name": "security-pipeline",
+        "display": "Security Pipeline (Standardized)",
+        "file": "security-pipeline.yml"
+      },
+      {
+        "name": "self-dogfooding",
+        "display": "Self-Dogfooding Analysis",
+        "file": "self-dogfooding.yml"
+      },
+      {
+        "name": "setup-branch-protection",
+        "display": "Setup Branch Protection",
+        "file": "setup-branch-protection.yml"
+      },
+      {
+        "name": "six-sigma-metrics",
+        "display": "Six Sigma CI/CD Metrics Integration",
+        "file": "six-sigma-metrics.yml"
+      },
+      {
+        "name": "validate-artifacts",
+        "display": "[TARGET] Connascence Artifact Validation Pipeline",
+        "file": "validate-artifacts.yml"
+      },
+      {
+        "name": "vscode-extension-ci",
+        "display": "VS Code Extension CI/CD Pipeline",
+        "file": "vscode-extension-ci.yml"
+      },
+      {
+        "name": "workflow-dependencies",
+        "display": "Workflow Dependencies Configuration",
+        "file": "workflow-dependencies.yml"
+      },
+      {
+        "name": "architecture-analysis",
+        "display": "Architecture Analysis",
+        "file": "architecture-analysis.yml"
+      },
+      {
+        "name": "audit-reporting-system",
+        "display": "Comprehensive Audit & Reporting System",
+        "file": "audit-reporting-system.yml"
+      },
+      {
+        "name": "auto-repair",
+        "display": "Enhanced Auto-Repair with Closed-Loop Integration",
+        "file": "auto-repair.yml"
+      },
+      {
+        "name": "cache-optimization",
+        "display": "Cache Optimization",
+        "file": "cache-optimization.yml"
+      },
+      {
+        "name": "closed-loop-automation",
+        "display": "Enhanced CI/CD Loop Automation with Connascence Detection",
+        "file": "closed-loop-automation.yml"
+      },
+      {
+        "name": "codeql-analysis",
+        "display": "CodeQL Analysis",
+        "file": "codeql-analysis.yml"
+      },
+      {
+        "name": "compliance-automation",
+        "display": "Automated Compliance Validation",
+        "file": "compliance-automation.yml"
+      },
+      {
+        "name": "connascence-analysis",
+        "display": "Connascence Safety Analysis",
+        "file": "connascence-analysis.yml"
+      },
+      {
+        "name": "connascence-core-analysis",
+        "display": "Connascence Core Analysis",
+        "file": "connascence-core-analysis.yml"
+      },
+      {
+        "name": "connascence-quality-gates",
+        "display": "Connascence Quality Gates - REAL Violations",
+        "file": "connascence-quality-gates.yml"
+      },
+      {
+        "name": "defense-industry-certification",
+        "display": "Defense Industry Certification Pipeline",
+        "file": "defense-industry-certification.yml"
+      },
+      {
+        "name": "defense-integration-orchestrator",
+        "display": "Defense Integration Orchestrator",
+        "file": "defense-integration-orchestrator.yml"
+      },
+      {
+        "name": "enhanced-quality-gates",
+        "display": "Enhanced Quality Gates - 8-Stream Parallel Pipeline (Real Integration)",
+        "file": "enhanced-quality-gates.yml"
+      },
+      {
+        "name": "integration-validation",
+        "display": "Defense Industry CI/CD Integration Validation",
+        "file": "integration-validation.yml"
+      },
+      {
+        "name": "mece-duplication-analysis",
+        "display": "MECE Duplication Analysis",
+        "file": "mece-duplication-analysis.yml"
+      },
+      {
+        "name": "monitoring-dashboard",
+        "display": "Workflow Health Monitoring Dashboard",
+        "file": "monitoring-dashboard.yml"
+      },
+      {
+        "name": "nasa-compliance-check",
+        "display": "NASA Power of Ten Compliance Check",
+        "file": "nasa-compliance-check.yml"
+      },
+      {
+        "name": "nasa-pot10-compliance",
+        "display": "NASA POT10 Compliance Gates",
+        "file": "nasa-pot10-compliance.yml"
+      },
+      {
+        "name": "nasa-pot10-fix",
+        "display": "NASA POT10 Compliance Fix",
+        "file": "nasa-pot10-fix.yml"
+      },
+      {
+        "name": "nasa-pot10-validation",
+        "display": "NASA POT10 Validation Pipeline",
+        "file": "nasa-pot10-validation.yml"
+      },
+      {
+        "name": "performance-monitoring",
+        "display": "Performance Monitoring",
+        "file": "performance-monitoring.yml"
+      },
+      {
+        "name": "production-gate",
+        "display": "Production Gate - Multi-Stage Deployment Approval",
+        "file": "production-gate.yml"
+      },
+      {
+        "name": "quality-gate-enforcer",
+        "display": "Quality Gate Enforcer (Push Protection)",
+        "file": "quality-gate-enforcer.yml"
+      },
+      {
+        "name": "quality-gate-validation",
+        "display": "Quality Gate Validation",
+        "file": "quality-gate-validation.yml"
+      },
+      {
+        "name": "quality-gates",
+        "display": "Quality Gates (Enhanced)",
+        "file": "quality-gates.yml"
+      },
+      {
+        "name": "quality-orchestrator-parallel",
+        "display": "Quality Analysis Orchestrator",
+        "file": "quality-orchestrator-parallel.yml"
+      },
+      {
+        "name": "quality-orchestrator",
+        "display": "Quality Analysis Orchestrator",
+        "file": "quality-orchestrator.yml"
+      },
+      {
+        "name": "rollback-automation",
+        "display": "Automated Rollback & Circuit Breaker",
+        "file": "rollback-automation.yml"
+      },
+      {
+        "name": "security-orchestrator",
+        "display": "Security Quality Gate Orchestrator",
+        "file": "security-orchestrator.yml"
+      },
+      {
+        "name": "security-pipeline",
+        "display": "Security Pipeline (Standardized)",
+        "file": "security-pipeline.yml"
+      },
+      {
+        "name": "self-dogfooding",
+        "display": "Self-Dogfooding Analysis",
+        "file": "self-dogfooding.yml"
+      },
+      {
+        "name": "setup-branch-protection",
+        "display": "Setup Branch Protection",
+        "file": "setup-branch-protection.yml"
+      },
+      {
+        "name": "six-sigma-metrics",
+        "display": "Six Sigma CI/CD Metrics Integration",
+        "file": "six-sigma-metrics.yml"
+      },
+      {
+        "name": "validate-artifacts",
+        "display": "[TARGET] Connascence Artifact Validation Pipeline",
+        "file": "validate-artifacts.yml"
+      },
+      {
+        "name": "vscode-extension-ci",
+        "display": "VS Code Extension CI/CD Pipeline",
+        "file": "vscode-extension-ci.yml"
+      },
+      {
+        "name": "workflow-dependencies",
+        "display": "Workflow Dependencies Configuration",
+        "file": "workflow-dependencies.yml"
+      },
+      {
+        "name": "performance-optimization",
+        "display": "performance-optimization.yml",
+        "file": "config\\performance-optimization.yml"
+      },
+      {
+        "name": "security-hardening",
+        "display": "security-hardening.yml",
+        "file": "config\\security-hardening.yml"
+      }
+    ]
+  },
+  "existing": {
+    "architecture-analysis": {
+      "file": "architecture-analysis.yml",
+      "display_name": "Architecture Analysis",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "audit-reporting-system": {
+      "file": "audit-reporting-system.yml",
+      "display_name": "Comprehensive Audit & Reporting System",
+      "needs": [
+        "audit-data-collection",
+        "generate-comprehensive-reports"
+      ],
+      "triggered_by": [
+        "Defense Industry Certification Pipeline",
+        "NASA POT10 Validation Pipeline",
+        "Production Gate - Multi-Stage Deployment Approval",
+        "Defense Integration Orchestrator"
+      ],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": []
+    },
+    "auto-repair": {
+      "file": "auto-repair.yml",
+      "display_name": "Enhanced Auto-Repair with Closed-Loop Integration",
+      "needs": [],
+      "triggered_by": [
+        "Enhanced Quality Gates",
+        "Quality Analysis Orchestrator",
+        "CodeQL Analysis",
+        "Security Scan"
+      ],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": []
+    },
+    "cache-optimization": {
+      "file": "cache-optimization.yml",
+      "display_name": "Cache Optimization",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "closed-loop-automation": {
+      "file": "closed-loop-automation.yml",
+      "display_name": "Enhanced CI/CD Loop Automation with Connascence Detection",
+      "needs": [
+        "event_detection_hub",
+        "intelligent_recovery_orchestrator",
+        "event_detection_hub",
+        "intelligent_recovery_orchestrator",
+        "event_detection_hub",
+        "intelligent_recovery_orchestrator",
+        "realtime_notification_hub",
+        "quality_gate_integration",
+        "event_detection_hub"
+      ],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "codeql-analysis": {
+      "file": "codeql-analysis.yml",
+      "display_name": "CodeQL Analysis",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": false,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "compliance-automation": {
+      "file": "compliance-automation.yml",
+      "display_name": "Automated Compliance Validation",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": []
+    },
+    "connascence-analysis": {
+      "file": "connascence-analysis.yml",
+      "display_name": "Connascence Safety Analysis",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": false,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "connascence-core-analysis": {
+      "file": "connascence-core-analysis.yml",
+      "display_name": "Connascence Core Analysis",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "connascence-quality-gates": {
+      "file": "connascence-quality-gates.yml",
+      "display_name": "Connascence Quality Gates - REAL Violations",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "defense-industry-certification": {
+      "file": "defense-industry-certification.yml",
+      "display_name": "Defense Industry Certification Pipeline",
+      "needs": [
+        "dfars-compliance-validation",
+        "automated-rollback-preparation"
+      ],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "defense-integration-orchestrator": {
+      "file": "defense-integration-orchestrator.yml",
+      "display_name": "Defense Integration Orchestrator",
+      "needs": [
+        "integration-coordinator",
+        "trigger-defense-workflows",
+        "integration-coordinator",
+        "monitor-workflow-execution"
+      ],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "enhanced-quality-gates": {
+      "file": "enhanced-quality-gates.yml",
+      "display_name": "Enhanced Quality Gates - 8-Stream Parallel Pipeline (Real Integration)",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "integration-validation": {
+      "file": "integration-validation.yml",
+      "display_name": "Defense Industry CI/CD Integration Validation",
+      "needs": [
+        "workflow-syntax-validation",
+        "monitoring-integration-validation",
+        "workflow-syntax-validation",
+        "monitoring-integration-validation",
+        "end-to-end-integration-test"
+      ],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "mece-duplication-analysis": {
+      "file": "mece-duplication-analysis.yml",
+      "display_name": "MECE Duplication Analysis",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "monitoring-dashboard": {
+      "file": "monitoring-dashboard.yml",
+      "display_name": "Workflow Health Monitoring Dashboard",
+      "needs": [],
+      "triggered_by": [
+        "Quality Analysis Orchestrator",
+        "Quality Analysis Orchestrator (Parallel Optimized)",
+        "Security Pipeline (Standardized)",
+        "Enhanced Quality Gates (Phase 3)",
+        "Defense Industry Certification Pipeline",
+        "NASA POT10 Validation Pipeline",
+        "Production Gate - Multi-Stage Deployment Approval"
+      ],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": []
+    },
+    "nasa-compliance-check": {
+      "file": "nasa-compliance-check.yml",
+      "display_name": "NASA Power of Ten Compliance Check",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": false,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "nasa-pot10-compliance": {
+      "file": "nasa-pot10-compliance.yml",
+      "display_name": "NASA POT10 Compliance Gates",
+      "needs": [
+        "critical-compliance-gates",
+        "high-priority-compliance-gates",
+        "memory-allocation-analysis",
+        "critical-compliance-gates",
+        "high-priority-compliance-gates",
+        "memory-allocation-analysis",
+        "overall-compliance-assessment",
+        "security-and-quality-integration"
+      ],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": false,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "nasa-pot10-fix": {
+      "file": "nasa-pot10-fix.yml",
+      "display_name": "NASA POT10 Compliance Fix",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push"
+      ]
+    },
+    "nasa-pot10-validation": {
+      "file": "nasa-pot10-validation.yml",
+      "display_name": "NASA POT10 Validation Pipeline",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "performance-monitoring": {
+      "file": "performance-monitoring.yml",
+      "display_name": "Performance Monitoring",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "production-gate": {
+      "file": "production-gate.yml",
+      "display_name": "Production Gate - Multi-Stage Deployment Approval",
+      "needs": [
+        "pre-production-validation",
+        "multi-stage-approval",
+        "pre-production-validation",
+        "multi-stage-approval",
+        "evidence-collection",
+        "pre-production-validation",
+        "multi-stage-approval",
+        "evidence-collection",
+        "secure-deployment-automation"
+      ],
+      "triggered_by": [
+        "Defense Industry Certification Pipeline",
+        "NASA POT10 Validation Pipeline",
+        "Six Sigma CI/CD Metrics Integration"
+      ],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push"
+      ]
+    },
+    "quality-gate-enforcer": {
+      "file": "quality-gate-enforcer.yml",
+      "display_name": "Quality Gate Enforcer (Push Protection)",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": false,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "quality-gate-validation": {
+      "file": "quality-gate-validation.yml",
+      "display_name": "Quality Gate Validation",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": false,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "quality-gates": {
+      "file": "quality-gates.yml",
+      "display_name": "Quality Gates (Enhanced)",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "quality-orchestrator-parallel": {
+      "file": "quality-orchestrator-parallel.yml",
+      "display_name": "Quality Analysis Orchestrator",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "quality-orchestrator": {
+      "file": "quality-orchestrator.yml",
+      "display_name": "Quality Analysis Orchestrator",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "rollback-automation": {
+      "file": "rollback-automation.yml",
+      "display_name": "Automated Rollback & Circuit Breaker",
+      "needs": [
+        "circuit-breaker-analysis",
+        "execute-rollback"
+      ],
+      "triggered_by": [
+        "Quality Analysis Orchestrator",
+        "Quality Analysis Orchestrator (Parallel Optimized)",
+        "Security Pipeline (Standardized)",
+        "Enhanced Quality Gates (Phase 3)"
+      ],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": []
+    },
+    "security-orchestrator": {
+      "file": "security-orchestrator.yml",
+      "display_name": "Security Quality Gate Orchestrator",
+      "needs": [
+        "security-gate-validation",
+        "codeql-analysis",
+        "security-gate-validation"
+      ],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "security-pipeline": {
+      "file": "security-pipeline.yml",
+      "display_name": "Security Pipeline (Standardized)",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "self-dogfooding": {
+      "file": "self-dogfooding.yml",
+      "display_name": "Self-Dogfooding Analysis",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "setup-branch-protection": {
+      "file": "setup-branch-protection.yml",
+      "display_name": "Setup Branch Protection",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": []
+    },
+    "six-sigma-metrics": {
+      "file": "six-sigma-metrics.yml",
+      "display_name": "Six Sigma CI/CD Metrics Integration",
+      "needs": [
+        "setup-six-sigma-environment",
+        "calculate-dpmo-metrics",
+        "setup-six-sigma-environment",
+        "calculate-dpmo-metrics",
+        "generate-spc-charts",
+        "setup-six-sigma-environment",
+        "aggregate-six-sigma-results"
+      ],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "validate-artifacts": {
+      "file": "validate-artifacts.yml",
+      "display_name": "[TARGET] Connascence Artifact Validation Pipeline",
+      "needs": [
+        "setup-validation",
+        "validate-artifacts",
+        "setup-validation",
+        "validate-artifacts",
+        "setup-validation",
+        "validate-artifacts",
+        "performance-benchmark",
+        "setup-validation",
+        "validate-artifacts",
+        "performance-benchmark",
+        "generate-badges"
+      ],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "vscode-extension-ci": {
+      "file": "vscode-extension-ci.yml",
+      "display_name": "VS Code Extension CI/CD Pipeline",
+      "needs": [
+        "validate",
+        "test",
+        "validate",
+        "test",
+        "build",
+        "security-scan",
+        "performance-test",
+        "nasa-compliance-validation",
+        "enterprise-validation",
+        "nasa-compliance-validation"
+      ],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": false,
+      "triggers": [
+        "push",
+        "pull_request"
+      ]
+    },
+    "workflow-dependencies": {
+      "file": "workflow-dependencies.yml",
+      "display_name": "Workflow Dependencies Configuration",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": true,
+      "triggers": []
+    },
+    "performance-optimization": {
+      "file": "config\\performance-optimization.yml",
+      "display_name": "performance-optimization.yml",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": false,
+      "triggers": []
+    },
+    "security-hardening": {
+      "file": "config\\security-hardening.yml",
+      "display_name": "security-hardening.yml",
+      "needs": [],
+      "triggered_by": [],
+      "is_reusable": false,
+      "is_manual": false,
+      "triggers": []
+    }
+  },
+  "missing": [
+    "dfars-compliance",
+    "cmmc-validation",
+    "itar-compliance",
+    "god-object-detection",
+    "cyclomatic-complexity",
+    "performance-benchmarks",
+    "load-testing",
+    "stress-testing",
+    "resource-monitoring",
+    "failure-recovery",
+    "cascade-prevention",
+    "intelligent-retry",
+    "unit-tests",
+    "integration-tests",
+    "e2e-tests"
+  ],
+  "cascade_analysis": {
+    "critical_jobs": [
+      [
+        "event_detection_hub",
+        4
+      ],
+      [
+        "setup-validation",
+        4
+      ],
+      [
+        "validate-artifacts",
+        4
+      ],
+      [
+        "intelligent_recovery_orchestrator",
+        3
+      ],
+      [
+        "pre-production-validation",
+        3
+      ],
+      [
+        "multi-stage-approval",
+        3
+      ],
+      [
+        "setup-six-sigma-environment",
+        3
+      ],
+      [
+        "integration-coordinator",
+        2
+      ],
+      [
+        "workflow-syntax-validation",
+        2
+      ],
+      [
+        "monitoring-integration-validation",
+        2
+      ]
+    ]
+  },
+  "trigger_chains": {}
+}

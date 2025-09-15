@@ -1,41 +1,12 @@
 {
-  "timestamp": "2025-09-11T12:29:55.208278",
-  "analysis_type": "unknown",
-  "quality_gates": {
-    "overall_gate_passed": false,
-    "critical_gates": {
-      "passed": false,
-      "status": "FAIL"
-    },
-    "quality_gates": {
-      "passed": true,
-      "status": "PASS"
-    }
+  "timestamp": "2025-09-15T10:28:22.327438",
+  "analysis_type": "self-dogfooding",
+  "dogfooding_metrics": {
+    "policy_integration": false,
+    "cli_functionality": false,
+    "workflow_syntax": true,
+    "sequential_execution": true
   },
-  "metrics": {
-    "nasa_compliance_score": 0.85,
-    "god_objects_count": 0,
-    "critical_violations": 0,
-    "total_violations": 0,
-    "mece_score": 0.85,
-    "overall_quality_score": 0.75,
-    "architecture_health": 0.85,
-    "maintainability_index": 75
-  },
-  "summary": {
-    "overall_status": "PASS",
-    "recommendations": []
-  },
-  "original_structure": {
-    "timestamp": "2025-09-10T19:34:16.498115",
-    "analysis_type": "self-dogfooding",
-    "dogfooding_metrics": {
-      "policy_integration": true,
-      "cli_functionality": true,
-      "workflow_syntax": true,
-      "sequential_execution": true
-    },
-    "overall_health": 0.92,
-    "fallback": false
-  }
+  "overall_health": 0.6,
+  "fallback": false
 }

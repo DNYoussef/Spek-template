@@ -45,7 +45,9 @@
       "Bash(gh run view:*)",
       "Bash(git commit:*)",
       "Read(//c/tmp/**)",
-      "mcp__memory__search_nodes"
+      "mcp__memory__search_nodes",
+      "Bash(gh api:*)",
+      "Bash(git log:*)"
     ],
     "deny": [],
     "ask": []

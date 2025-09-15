@@ -1,0 +1,277 @@
+{
+  "summary": {
+    "total_expected": 53,
+    "total_found": 19,
+    "total_missing": 36,
+    "workflows_with_dependencies": 6,
+    "reusable_workflows": 0,
+    "manual_workflows": 0
+  },
+  "existing_workflows": {
+    "architecture-analysis.yml": {
+      "display_name": "Architecture Analysis",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "codeql-analysis.yml": {
+      "display_name": "CodeQL Analysis",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "compliance-automation.yml": {
+      "display_name": "Automated Compliance Validation",
+      "dependencies": [
+        "compliance-validation"
+      ],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "mece-duplication-analysis.yml": {
+      "display_name": "MECE Duplication Analysis",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "monitoring-dashboard.yml": {
+      "display_name": "Workflow Health Monitoring Dashboard",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "nasa-pot10-fix.yml": {
+      "display_name": "NASA POT10 Compliance Fix",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "performance-monitoring.yml": {
+      "display_name": "Performance Monitoring",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "quality-gate-enforcer.yml": {
+      "display_name": "Quality Gate Enforcer (Push Protection)",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "quality-gates.yml": {
+      "display_name": "Quality Gates (Enhanced)",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "quality-orchestrator-parallel.yml": {
+      "display_name": "Quality Analysis Orchestrator",
+      "dependencies": [
+        "quality-analyses"
+      ],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "quality-orchestrator.yml": {
+      "display_name": "Quality Analysis Orchestrator",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "rollback-automation.yml": {
+      "display_name": "Automated Rollback & Circuit Breaker",
+      "dependencies": [
+        "circuit-breaker-analysis",
+        "circuit-breaker-analysis",
+        "execute-rollback"
+      ],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "security-orchestrator.yml": {
+      "display_name": "Security Quality Gate Orchestrator",
+      "dependencies": [
+        "security-gate-validation",
+        "codeql-analysis",
+        "security-gate-validation"
+      ],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "security-pipeline.yml": {
+      "display_name": "Security Pipeline (Standardized)",
+      "dependencies": [
+        "security-analysis"
+      ],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "self-dogfooding.yml": {
+      "display_name": "Self-Dogfooding Analysis",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "setup-branch-protection.yml": {
+      "display_name": "Setup Branch Protection",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "vscode-extension-ci.yml": {
+      "display_name": "VS Code Extension CI/CD Pipeline",
+      "dependencies": [
+        "validate",
+        "test",
+        "validate",
+        "build",
+        "validate",
+        "test",
+        "build",
+        "security-scan",
+        "performance-test",
+        "nasa-compliance-validation",
+        "enterprise-validation",
+        "enterprise-validation",
+        "nasa-compliance-validation"
+      ],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "config\\performance-optimization.yml": {
+      "display_name": "config\\performance-optimization.yml",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    },
+    "config\\security-hardening.yml": {
+      "display_name": "config\\security-hardening.yml",
+      "dependencies": [],
+      "triggered_by": [],
+      "triggers": []
+    }
+  },
+  "missing_workflows": [
+    "config/performance-optimization.yml",
+    "god-object-detection.yml",
+    "dfars-compliance.yml",
+    "failure-recovery.yml",
+    "six-sigma-metrics.yml",
+    "validate-artifacts.yml",
+    "integration-tests.yml",
+    "production-gate.yml",
+    "closed-loop-automation.yml",
+    "performance-benchmarks.yml",
+    "nasa-pot10-compliance.yml",
+    "intelligent-retry.yml",
+    "enhanced-quality-gates.yml",
+    "defense-industry-certification.yml",
+    "connascence-quality-gates.yml",
+    "unit-tests.yml",
+    "auto-repair.yml",
+    "load-testing.yml",
+    "defense-integration-orchestrator.yml",
+    "cmmc-validation.yml",
+    "cyclomatic-complexity.yml",
+    "audit-reporting-system.yml",
+    "config/security-hardening.yml",
+    "connascence-analysis.yml",
+    "integration-validation.yml",
+    "resource-monitoring.yml",
+    "nasa-pot10-validation.yml",
+    "stress-testing.yml",
+    "cascade-prevention.yml",
+    "itar-compliance.yml",
+    "quality-gate-validation.yml",
+    "cache-optimization.yml",
+    "workflow-dependencies.yml",
+    "nasa-compliance-check.yml",
+    "connascence-core-analysis.yml",
+    "e2e-tests.yml"
+  ],
+  "dependency_chains": {
+    "compliance-automation.yml": [
+      "compliance-automation.yml",
+      "compliance-validation"
+    ],
+    "quality-orchestrator-parallel.yml": [
+      "quality-orchestrator-parallel.yml",
+      "quality-analyses"
+    ],
+    "rollback-automation.yml": [
+      "rollback-automation.yml",
+      "circuit-breaker-analysis",
+      "circuit-breaker-analysis",
+      "execute-rollback"
+    ],
+    "security-orchestrator.yml": [
+      "security-orchestrator.yml",
+      "security-gate-validation",
+      "codeql-analysis",
+      "security-gate-validation"
+    ],
+    "security-pipeline.yml": [
+      "security-pipeline.yml",
+      "security-analysis"
+    ],
+    "vscode-extension-ci.yml": [
+      "vscode-extension-ci.yml",
+      "validate",
+      "test",
+      "validate",
+      "build",
+      "validate",
+      "test",
+      "build",
+      "security-scan",
+      "performance-test",
+      "nasa-compliance-validation",
+      "enterprise-validation",
+      "enterprise-validation",
+      "nasa-compliance-validation"
+    ]
+  },
+  "trigger_relationships": {},
+  "cascade_points": [
+    {
+      "workflow": "validate",
+      "dependent_count": 3
+    },
+    {
+      "workflow": "circuit-breaker-analysis",
+      "dependent_count": 2
+    },
+    {
+      "workflow": "security-gate-validation",
+      "dependent_count": 2
+    },
+    {
+      "workflow": "test",
+      "dependent_count": 2
+    },
+    {
+      "workflow": "build",
+      "dependent_count": 2
+    },
+    {
+      "workflow": "nasa-compliance-validation",
+      "dependent_count": 2
+    },
+    {
+      "workflow": "enterprise-validation",
+      "dependent_count": 2
+    },
+    {
+      "workflow": "compliance-validation",
+      "dependent_count": 1
+    },
+    {
+      "workflow": "quality-analyses",
+      "dependent_count": 1
+    },
+    {
+      "workflow": "execute-rollback",
+      "dependent_count": 1
+    }
+  ]
+}
