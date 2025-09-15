@@ -1,0 +1,2302 @@
+[
+  {
+    "timestamp": 1757900893.0425649,
+    "event_type": "detector_registered",
+    "data": {
+      "name": "reliable_detector",
+      "priority": 1,
+      "complexity_score": 1.0
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900893.0425649,
+    "event_type": "detector_registered",
+    "data": {
+      "name": "unreliable_detector",
+      "priority": 1,
+      "complexity_score": 1.0
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900893.0425649,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.0
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 1.0217931270599365
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.5108965635299683
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.3405977090199788
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.25544828176498413
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.2043586254119873
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.1702988545099894
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.14597044672284806
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.12772414088249207
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.11353256967332628
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.10217931270599365
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.09289028427817604
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.0851494272549947
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.07859947131230281
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.07298522336142403
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.06811954180399576
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.06386207044124603
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.060105478062349206
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.05676628483666314
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.0537785856347335
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.05108965635299682
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.04865681557428269
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.04644514213908802
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.04442578813304072
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.04257471362749735
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.04087172508239746
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.039299735656151406
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.03784418989110876
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.036492611680712016
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.03523424576068747
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.03405977090199788
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.032961068614836664
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.031931035220623016
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.03096342809272535
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.030052739031174603
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.029194089344569615
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.02838314241833157
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.027616030461079365
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.02688929281736675
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.026199823770767603
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.02554482817649841
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.02492178358682772
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.024328407787141345
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.02376263086185899
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.02322257106954401
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.022706513934665256
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.02221289406652036
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.021740279299147586
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.021287356813748676
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.02085292096040687
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.02043586254119873
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.020035159354116403
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.019649867828075703
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.019279115604904463
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01892209494555438
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01857805685563521
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.018246305840356008
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.017926195211577834
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.017617122880343734
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01731852757728706
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01702988545099894
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.016750707000982565
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.064358,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.016480534307418332
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.016233429076179626
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01597978174686432
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.015733938950758714
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.015495545936353279
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01526426913133308
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.015039794585284065
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01482182654781618
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.014610086168561662
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.014404310307032625
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.014204250441657173
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.014009671668483787
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.013820351781071844
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.013636080423990886
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.0134566583131489
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01328189651687424
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.013111615792298928
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.012945645972143245
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.012783825397491455
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.012626000392584153
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.012472024778040445
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.012321759419268873
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01217507180713472
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.012031835668227252
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.011891930602317633
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.011755241744819728
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01162165945226496
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.011491079008981083
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.011363400353325738
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01123852782197051
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.011116369910862135
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.010996839051605553
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.010879851402120387
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01076532665051912
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01065318783124288
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.010543361152570272
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.010435775834686902
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.010330363957568853
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.010227060317993164
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.010125802295042736
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.01002652972352271
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.009929184774750644
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.009833711844224196
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.009740057445707776
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.009648170111314306
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.009558000297189872
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.009469500294438115
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.009382624144947857
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.009297327561811968
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.009213567854047896
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.009131303855351039
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.009050495856631119
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.008971105542099267
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.008893095928689709
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.008816431308614796
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.008741077194865951
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.008667000269485732
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_start",
+    "data": {
+      "name": "unreliable_detector",
+      "args_count": 0,
+      "kwargs_keys": []
+    },
+    "thread_id": 15656
+  },
+  {
+    "timestamp": 1757900894.065271,
+    "event_type": "detector_execution_success",
+    "data": {
+      "name": "unreliable_detector",
+      "execution_time": 0.008594168334448036
+    },
+    "thread_id": 15656
+  }
+]

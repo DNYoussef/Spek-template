@@ -1,0 +1,38 @@
+{
+  "report_timestamp": "2025-09-14T20:53:23.136963",
+  "system_info": {
+    "uptime": "0:00:00.004207",
+    "dfars_controls_monitored": 14,
+    "audit_integrity": true
+  },
+  "compliance_status": {},
+  "cui_protection": {
+    "total_cui_assets": 1,
+    "classified_assets": {
+      "CUI//SP-PRIV": 1
+    }
+  },
+  "incident_summary": {
+    "total_incidents": 1,
+    "by_severity": {
+      "CRITICAL": 0,
+      "HIGH": 1,
+      "MEDIUM": 0,
+      "LOW": 0,
+      "INFO": 0
+    },
+    "open_incidents": [
+      {
+        "incident_id": "DFARS-20250914-EA9A927A",
+        "severity": "HIGH",
+        "control": "3.1.1",
+        "age_hours": 0.0
+      }
+    ]
+  },
+  "audit_summary": {
+    "total_records": 1,
+    "integrity_verified": true,
+    "integrity_errors": []
+  }
+}

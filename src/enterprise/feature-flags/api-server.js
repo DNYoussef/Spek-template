@@ -556,14 +556,19 @@ class FeatureFlagAPIServer {
         // Close HTTP server
         this.server.close(() => {
             console.log('Server shut down complete');
-            process.exit(0);
+            // Don't call process.exit in tests
+            if (process.env.NODE_ENV !== 'test') {
+                process.exit(0);
+            }
         });
 
-        // Force shutdown after 10 seconds
-        setTimeout(() => {
-            console.error('Forced shutdown after timeout');
-            process.exit(1);
-        }, 10000);
+        // Force shutdown after 10 seconds (only in production)
+        if (process.env.NODE_ENV !== 'test') {
+            setTimeout(() => {
+                console.error('Forced shutdown after timeout');
+                process.exit(1);
+            }, 10000);
+        }
     }
 }
 

@@ -10,6 +10,127 @@ Orchestrates the complete 9-step swarm development process for implementing SPEC
 
 ## 9-Step Development Process Implementation
 
+### Step 0: Initialize Task Tracking Documentation
+```bash
+step0_initialize_task_tracking() {
+    local feature_description="$1"
+    local session_id="dev-swarm-$(date +%s)"
+    local tracking_file=".claude/.artifacts/dev-swarm-tasks-${session_id}.md"
+
+    echo "Step 0: Creating task tracking documentation to prevent confusion..."
+
+    # Create task tracking MD file
+    cat > "$tracking_file" << 'EOF'
+# Dev Swarm Task Tracking
+
+## Session Information
+- **Session ID**: SESSION_ID_PLACEHOLDER
+- **Feature**: FEATURE_PLACEHOLDER
+- **Started**: TIMESTAMP_PLACEHOLDER
+- **Status**: In Progress
+
+## Current Progress
+
+### ✅ Step 0: Task Tracking Initialized
+- Created tracking document
+- Session ID generated
+- Ready to proceed
+
+### ⏳ Step 1: Swarm Initialization
+- Status: Pending
+- Queen coordinator: Not initialized
+- Memory systems: Not connected
+
+### ⏳ Step 2: Agent Discovery
+- Status: Pending
+- Available agents: Not discovered
+- MCP servers: Not listed
+
+### ⏳ Step 3: MECE Task Division
+- Status: Pending
+- Task breakdown: Not created
+- Agent assignments: Not made
+
+### ⏳ Step 4-5: Implementation Loop
+- Status: Pending
+- Code completion: 0%
+- Theater detection: Not run
+- Iterations: 0
+
+### ⏳ Step 6: Integration Loop
+- Status: Pending
+- Integration status: 0%
+- Sandbox tests: Not run
+- Working status: Unknown
+
+### ⏳ Step 7: Documentation Updates
+- Status: Pending
+- Docs updated: 0
+- Tests updated: 0
+
+### ⏳ Step 8: Test Validation
+- Status: Pending
+- Coverage: 0%
+- Validation: Not run
+
+### ⏳ Step 9: Cleanup & Completion
+- Status: Pending
+- Cleanup done: No
+- Phase complete: No
+
+## Notes
+- This document prevents confusion by tracking all work
+- Updated after each step completion
+- Provides clear visibility into progress
+
+EOF
+
+    # Replace placeholders
+    sed -i "s/SESSION_ID_PLACEHOLDER/$session_id/g" "$tracking_file"
+    sed -i "s/FEATURE_PLACEHOLDER/$feature_description/g" "$tracking_file"
+    sed -i "s/TIMESTAMP_PLACEHOLDER/$(date -Iseconds)/g" "$tracking_file"
+
+    echo "Task tracking initialized at: $tracking_file"
+    echo "$session_id"
+}
+
+# Helper function to update task tracking after each step
+update_task_tracking() {
+    local session_id="$1"
+    local step_number="$2"
+    local step_status="$3"
+    local details="$4"
+    local tracking_file=".claude/.artifacts/dev-swarm-tasks-${session_id}.md"
+
+    if [[ ! -f "$tracking_file" ]]; then
+        echo "Warning: Task tracking file not found"
+        return 1
+    fi
+
+    # Update the specific step section
+    case "$step_number" in
+        1) sed -i "/### .* Step 1:/,/^###/s/Status: .*/Status: $step_status/" "$tracking_file" ;;
+        2) sed -i "/### .* Step 2:/,/^###/s/Status: .*/Status: $step_status/" "$tracking_file" ;;
+        3) sed -i "/### .* Step 3:/,/^###/s/Status: .*/Status: $step_status/" "$tracking_file" ;;
+        "4-5")
+            sed -i "/### .* Step 4-5:/,/^###/s/Status: .*/Status: $step_status/" "$tracking_file"
+            sed -i "/### .* Step 4-5:/,/^###/s/Code completion: .*/Code completion: $details/" "$tracking_file"
+            ;;
+        6)
+            sed -i "/### .* Step 6:/,/^###/s/Status: .*/Status: $step_status/" "$tracking_file"
+            sed -i "/### .* Step 6:/,/^###/s/Integration status: .*/Integration status: $details/" "$tracking_file"
+            ;;
+        7) sed -i "/### .* Step 7:/,/^###/s/Status: .*/Status: $step_status/" "$tracking_file" ;;
+        8) sed -i "/### .* Step 8:/,/^###/s/Status: .*/Status: $step_status/" "$tracking_file" ;;
+        9) sed -i "/### .* Step 9:/,/^###/s/Status: .*/Status: $step_status/" "$tracking_file" ;;
+    esac
+
+    # Add timestamp for last update
+    echo "" >> "$tracking_file"
+    echo "Last updated: $(date -Iseconds) - Step $step_number: $step_status" >> "$tracking_file"
+}
+```
+
 ### Step 1: Initialize Swarm with Queen and Dual Memory System
 ```bash
 #!/bin/bash
@@ -202,78 +323,116 @@ step3_mece_task_division() {
 }
 ```
 
-### Step 4: Implement Memory-Linked Agents in Parallel with Sequential Thinking
+### Step 4-5: Implementation Loop - Deploy Agents and Validate Until 100% Code Completion
 ```bash
-step4_parallel_agent_deployment() {
+step4_5_implementation_loop() {
     local session_id="$1"
-    
-    echo "Step 4: Deploying memory-linked agents in parallel with Sequential Thinking..."
-    
-    # Retrieve MECE task division
-    local mece_division
-    mece_division=$(scripts/memory_bridge.sh retrieve "swarm/mece" "task_division" 2>/dev/null || echo '{}')
-    
-    # Deploy all agents in parallel (single message execution per SPEK requirements)
-    local deployment_pids=()
-    local deployment_results=()
+    local max_iterations="${2:-10}"
+    local current_iteration=1
+    local code_completion=0
+    local tracking_file=".claude/.artifacts/dev-swarm-tasks-${session_id}.md"
+    local theater_feedback=""  # Accumulates feedback from theater detection
+
+    echo "Step 4-5: Starting implementation loop until 100% code completion..."
+
+    while [[ $code_completion -lt 100 ]] && [[ $current_iteration -le $max_iterations ]]; do
+        echo "Implementation Loop - Iteration $current_iteration (Current completion: ${code_completion}%)..."
+
+        # Update tracking
+        update_task_tracking "$session_id" "4-5" "In Progress" "${code_completion}% (Iteration $current_iteration)"
+
+        # Step 4: Deploy agents with theater feedback if available
+        echo "Step 4: Deploying memory-linked agents in parallel with Sequential Thinking..."
+
+        if [[ $current_iteration -gt 1 ]] && [[ -n "$theater_feedback" ]]; then
+            echo "Including theater detection feedback in agent prompts..."
+        fi
+
+        # Retrieve MECE task division
+        local mece_division
+        mece_division=$(scripts/memory_bridge.sh retrieve "swarm/mece" "task_division" 2>/dev/null || echo '{}')
+
+        # Deploy all agents in parallel with enhanced prompts if we have feedback
+        local deployment_pids=()
+        local deployment_results=()
     
     # Deploy research agents
     {
         echo "Deploying researcher with deepwiki and sequential-thinking..."
+        local researcher_task="requirements_research"
+        if [[ -n "$theater_feedback" ]]; then
+            researcher_task="$researcher_task. IMPORTANT FEEDBACK FROM THEATER DETECTION: $theater_feedback"
+        fi
         npx claude-flow@alpha agent spawn \
             --type researcher \
             --session "$session_id" \
             --memory-linked \
             --mcp-tools "deepwiki,sequential-thinking" \
-            --task "requirements_research" &
+            --task "$researcher_task" &
         deployment_pids+=($!)
     }
-    
-    # Deploy architecture agents  
+
+    # Deploy architecture agents
     {
         echo "Deploying system-architect with memory and sequential-thinking..."
+        local architect_task="system_design"
+        if [[ -n "$theater_feedback" ]]; then
+            architect_task="$architect_task. IMPORTANT FEEDBACK FROM THEATER DETECTION: $theater_feedback"
+        fi
         npx claude-flow@alpha agent spawn \
             --type system-architect \
             --session "$session_id" \
             --memory-linked \
             --mcp-tools "memory,sequential-thinking" \
-            --task "system_design" &
+            --task "$architect_task" &
         deployment_pids+=($!)
     }
-    
+
     # Deploy implementation agents
     {
         echo "Deploying coder with github and sequential-thinking..."
+        local coder_task="core_logic"
+        if [[ -n "$theater_feedback" ]]; then
+            coder_task="$coder_task. CRITICAL IMPLEMENTATION GAPS DETECTED: $theater_feedback. You MUST implement real functionality, not mocks or stubs."
+        fi
         npx claude-flow@alpha agent spawn \
             --type coder \
             --session "$session_id" \
             --memory-linked \
             --mcp-tools "github,sequential-thinking" \
-            --task "core_logic" &
+            --task "$coder_task" &
         deployment_pids+=($!)
     }
     
     # Deploy quality agents
     {
         echo "Deploying code-analyzer with eva and sequential-thinking..."
+        local analyzer_task="code_review"
+        if [[ -n "$theater_feedback" ]]; then
+            analyzer_task="$analyzer_task. Focus on these detected issues: $theater_feedback"
+        fi
         npx claude-flow@alpha agent spawn \
             --type code-analyzer \
             --session "$session_id" \
             --memory-linked \
             --mcp-tools "eva,sequential-thinking" \
-            --task "code_review" &
+            --task "$analyzer_task" &
         deployment_pids+=($!)
     }
-    
+
     # Deploy theater detection agents
     {
         echo "Deploying production-validator with playwright and sequential-thinking..."
+        local validator_task="reality_validation"
+        if [[ -n "$theater_feedback" ]]; then
+            validator_task="$validator_task. Previously detected: $theater_feedback. Verify these are now fixed."
+        fi
         npx claude-flow@alpha agent spawn \
             --type production-validator \
             --session "$session_id" \
             --memory-linked \
             --mcp-tools "playwright,sequential-thinking" \
-            --task "reality_validation" &
+            --task "$validator_task" &
         deployment_pids+=($!)
     }
     
@@ -299,14 +458,130 @@ step4_parallel_agent_deployment() {
             deployment_timestamp: now | strftime("%Y-%m-%dT%H:%M:%SZ")
         }')
     
-    # Store deployment results
-    scripts/memory_bridge.sh store "swarm/deployment" "parallel_agents" "$deployment_summary" '{"type": "parallel_deployment", "step": 4}'
-    
+        # Store deployment results
+        scripts/memory_bridge.sh store "swarm/deployment" "parallel_agents_iter_$current_iteration" "$deployment_summary" '{"type": "parallel_deployment", "step": 4}'
+
+        # Step 5: Theater Detection
+        echo "Step 5: Theater detection - auditing all subagent work for fake work and lies..."
+
+        local theater_results
+        theater_results=$(step5_theater_detection_core "$session_id" "$current_iteration")
+
+        # Check for lies and extract detailed feedback
+        local lies_detected
+        lies_detected=$(echo "$theater_results" | jq -r '.lies_detected // 0')
+
+        if [[ "$lies_detected" -gt 0 ]]; then
+            echo "Theater patterns detected - extracting detailed feedback..."
+
+            # Extract specific gaps and mock methods for feedback
+            theater_feedback=$(extract_theater_feedback "$theater_results")
+
+            echo "Detected issues that need fixing:"
+            echo "$theater_feedback"
+
+            # Store feedback for next iteration
+            scripts/memory_bridge.sh store "swarm/theater_feedback" "iteration_$current_iteration" "$theater_feedback" '{"type": "theater_feedback"}'
+        else
+            # Clear feedback if no issues detected
+            theater_feedback=""
+        fi
+
+        # Calculate code completion percentage
+        code_completion=$(calculate_code_completion "$session_id" "$current_iteration")
+        echo "Code completion after iteration $current_iteration: ${code_completion}%"
+
+        # Update tracking
+        update_task_tracking "$session_id" "4-5" "In Progress" "${code_completion}% (Iteration $current_iteration)"
+
+        ((current_iteration++))
+
+        # Brief pause between iterations
+        if [[ $code_completion -lt 100 ]]; then
+            if [[ -n "$theater_feedback" ]]; then
+                echo "Re-deploying agents with specific feedback about gaps and mock methods..."
+                echo "Feedback being sent to agents: $theater_feedback"
+            else
+                echo "Preparing next iteration..."
+            fi
+            sleep 2
+        fi
+    done
+
+    if [[ $code_completion -ge 100 ]]; then
+        echo "Step 4-5: Implementation loop completed - 100% code completion achieved!"
+        update_task_tracking "$session_id" "4-5" "Completed" "100% (Final)"
+    else
+        echo "Step 4-5: Maximum iterations reached with ${code_completion}% completion"
+        update_task_tracking "$session_id" "4-5" "Partial" "${code_completion}% (Max iterations)"
+    fi
+
     echo "$deployment_summary"
 }
-```
 
-### Step 5: Theater Detection Step - Audit All Work for Fake Work and Lies
+# Helper function to calculate code completion
+calculate_code_completion() {
+    local session_id="$1"
+    local iteration="$2"
+
+    # Check various completion metrics
+    local tests_pass=$(claude /qa:run --quick --output-format json 2>/dev/null | jq -r '.summary.pass_rate // 0')
+    local coverage=$(claude /qa:run --coverage-only --output-format json 2>/dev/null | jq -r '.coverage.line_coverage // 0')
+    local implementation_tasks=$(scripts/memory_bridge.sh retrieve "swarm/tasks" "completed_count" 2>/dev/null || echo '0')
+    local total_tasks=$(scripts/memory_bridge.sh retrieve "swarm/tasks" "total_count" 2>/dev/null || echo '1')
+
+    # Calculate weighted completion score
+    local task_completion=$((implementation_tasks * 100 / total_tasks))
+    local test_completion=$(echo "$tests_pass * 100" | bc -l | cut -d. -f1)
+    local coverage_score=$(echo "$coverage * 100" | bc -l | cut -d. -f1)
+
+    # Weighted average: 50% tasks, 30% tests, 20% coverage
+    local completion=$(( (task_completion * 50 + test_completion * 30 + coverage_score * 20) / 100 ))
+
+    # Ensure we don't exceed 100
+    if [[ $completion -gt 100 ]]; then
+        completion=100
+    fi
+
+    echo "$completion"
+}
+
+# Extract detailed theater feedback for agent re-deployment
+extract_theater_feedback() {
+    local theater_results="$1"
+
+    # Extract mock methods, gaps, and fake implementations
+    local feedback
+    feedback=$(echo "$theater_results" | jq -r '
+        [
+            (.theater_findings // [] | map("MOCK METHOD DETECTED: " + .description)),
+            (.reality_vs_claims.quality_reality_gap // [] | map("IMPLEMENTATION GAP: " + .)),
+            (.audit_analysis.fake_implementations // [] | map("FAKE/STUB CODE: " + .)),
+            (.missing_functionality // [] | map("MISSING FEATURE: " + .)),
+            (.incomplete_tests // [] | map("INCOMPLETE TEST: " + .))
+        ] | flatten | join(". ")
+    ' 2>/dev/null || echo "General implementation gaps detected")
+
+    # Add specific instructions based on pattern types
+    if echo "$theater_results" | jq -e '.theater_patterns | contains(["mock_methods"])' > /dev/null 2>&1; then
+        feedback="$feedback. CRITICAL: Replace ALL mock methods with real implementations."
+    fi
+
+    if echo "$theater_results" | jq -e '.theater_patterns | contains(["todo_comments"])' > /dev/null 2>&1; then
+        feedback="$feedback. CRITICAL: Complete ALL TODO comments with actual code."
+    fi
+
+    if echo "$theater_results" | jq -e '.theater_patterns | contains(["placeholder_returns"])' > /dev/null 2>&1; then
+        feedback="$feedback. CRITICAL: Replace placeholder return values with real logic."
+    fi
+
+    echo "$feedback"
+}
+
+# Core theater detection function (extracted from original Step 5)
+step5_theater_detection_core() {
+    local session_id="$1"
+    local iteration="$2"
 ```bash
 step5_theater_detection_audit() {
     local session_id="$1"
@@ -377,8 +652,73 @@ step5_theater_detection_audit() {
 }
 ```
 
-### Step 5A: Remediation Loop if Lies Detected
+### Step 5: Theater Detection Core Function Implementation
 ```bash
+step5_theater_detection_core() {
+    local session_id="$1"
+    local iteration="$2"
+
+    echo "Step 5: Theater detection - auditing all subagent work for fake work and lies..."
+
+    # Execute comprehensive theater detection using existing commands
+    claude /theater:scan \
+        --scope comprehensive \
+        --patterns theater_pattern_library \
+        --quality-correlation \
+        --evidence-level detailed \
+        --output-format json > .claude/.artifacts/theater_detection_iter_${iteration}.json
+
+    # Execute reality validation
+    claude /reality:check \
+        --scope user-journey \
+        --deployment-validation \
+        --integration-tests \
+        --evidence-package \
+        --output-format json > .claude/.artifacts/reality_validation_iter_${iteration}.json
+
+    # Analyze for mock methods and implementation gaps specifically
+    local mock_analysis
+    mock_analysis=$(jq -n \
+        --argjson theater "$(cat .claude/.artifacts/theater_detection_iter_${iteration}.json 2>/dev/null || echo '{}')" \
+        --argjson reality "$(cat .claude/.artifacts/reality_validation_iter_${iteration}.json 2>/dev/null || echo '{}')" \
+        '{
+            mock_methods: (
+                $theater.theater_findings // [] |
+                map(select(.type == "mock_method" or .type == "stub_implementation"))
+            ),
+            implementation_gaps: (
+                $reality.reality_vs_claims.implementation_gaps // []
+            ),
+            fake_implementations: (
+                $theater.audit_analysis.fake_patterns // [] |
+                map(select(.severity == "high" or .severity == "critical"))
+            ),
+            todo_comments: (
+                $theater.code_analysis.todo_patterns // []
+            ),
+            placeholder_returns: (
+                $theater.code_analysis.placeholder_patterns // []
+            ),
+            lies_detected: (
+                (($theater.theater_findings // []) | length) +
+                (($reality.reality_vs_claims.quality_reality_gap // []) | length)
+            )
+        }')
+
+    # Combine all results
+    local theater_results
+    theater_results=$(jq -s '.[0] + .[1] + .[2]' \
+        .claude/.artifacts/theater_detection_iter_${iteration}.json \
+        .claude/.artifacts/reality_validation_iter_${iteration}.json \
+        <(echo "$mock_analysis") 2>/dev/null || echo '{"lies_detected": 0}')
+
+    # Store results
+    echo "$theater_results" > .claude/.artifacts/theater_combined_iter_${iteration}.json
+
+    echo "$theater_results"
+}
+
+### Step 5A: Full Remediation Loop if Lies Detected (Original - kept for reference)
 step5a_remediation_loop() {
     local session_id="$1"
     local theater_results="$2"
@@ -473,13 +813,25 @@ step5b_validation_passed() {
 }
 ```
 
-### Step 6: Use Codex Sandbox to Try and Run the Changes
+### Step 6: Integration Loop - Sandbox Testing Until 100% Integrated and Working
 ```bash
-step6_codex_sandbox_integration() {
+step6_integration_loop() {
     local session_id="$1"
     local sandbox_path="${SANDBOX_PATH:-./.sandboxes}"
-    
-    echo "Step 6: Using Codex sandbox to test and run changes..."
+    local max_iterations="${2:-10}"
+    local current_iteration=1
+    local integration_status=0
+    local tracking_file=".claude/.artifacts/dev-swarm-tasks-${session_id}.md"
+
+    echo "Step 6: Starting integration loop until 100% integrated and working..."
+
+    while [[ $integration_status -lt 100 ]] && [[ $current_iteration -le $max_iterations ]]; do
+        echo "Integration Loop - Iteration $current_iteration (Current status: ${integration_status}%)..."
+
+        # Update tracking
+        update_task_tracking "$session_id" "6" "In Progress" "${integration_status}% (Iteration $current_iteration)"
+
+        echo "Step 6: Using Codex sandbox to test and run changes..."
     
     # Create sandbox environment
     mkdir -p "$sandbox_path/dev-swarm-$session_id"
@@ -504,33 +856,104 @@ step6_codex_sandbox_integration() {
     local test_status
     test_status=$(echo "$test_results" | jq -r '.status // "unknown"')
     
-    if [[ "$test_status" != "passed" ]]; then
-        echo "Step 6A: Sandbox tests failed - executing root cause analysis..."
-        step6a_root_cause_analysis "$session_id" "$test_results" "$sandbox_dir"
-    else
-        echo "Step 6: Sandbox validation passed - proceeding to step 7"
+        if [[ "$test_status" != "passed" ]]; then
+            echo "Step 6A: Sandbox tests failed - executing root cause analysis..."
+            step6a_root_cause_analysis "$session_id" "$test_results" "$sandbox_dir"
+
+            # Recalculate integration status after fixes
+            integration_status=$(calculate_integration_status "$session_id" "$current_iteration")
+        else
+            # Tests passed, check full integration
+            integration_status=$(calculate_integration_status "$session_id" "$current_iteration")
+
+            if [[ $integration_status -ge 100 ]]; then
+                echo "Step 6: Full integration achieved - 100% working!"
+                update_task_tracking "$session_id" "6" "Completed" "100% (Final)"
+                break
+            fi
+        fi
+
+        # Return to original directory
+        cd -
+
+        echo "Integration status after iteration $current_iteration: ${integration_status}%"
+        update_task_tracking "$session_id" "6" "In Progress" "${integration_status}% (Iteration $current_iteration)"
+
+        ((current_iteration++))
+
+        # Brief pause between iterations
+        if [[ $integration_status -lt 100 ]]; then
+            echo "Preparing next integration attempt..."
+            sleep 2
+        fi
+    done
+
+    if [[ $integration_status -ge 100 ]]; then
+        echo "Step 6: Integration loop completed - 100% integrated and working!"
         step7_documentation_updates "$session_id"
+    else
+        echo "Step 6: Maximum iterations reached with ${integration_status}% integration"
+        update_task_tracking "$session_id" "6" "Partial" "${integration_status}% (Max iterations)"
     fi
-    
-    # Return to original directory
-    cd -
-    
+
     local sandbox_summary
     sandbox_summary=$(jq -n \
         --arg session "$session_id" \
         --arg sandbox "$sandbox_dir" \
         --arg status "$test_status" \
+        --arg integration "$integration_status" \
+        --arg iterations "$current_iteration" \
         --argjson results "$test_results" \
         '{
             step: 6,
             session_id: $session,
             sandbox_path: $sandbox,
             test_status: $status,
+            integration_percentage: ($integration | tonumber),
+            iterations_required: ($iterations | tonumber),
             test_results: $results,
             sandbox_timestamp: now | strftime("%Y-%m-%dT%H:%M:%SZ")
         }')
-    
+
     echo "$sandbox_summary"
+}
+
+# Helper function to calculate integration status
+calculate_integration_status() {
+    local session_id="$1"
+    local iteration="$2"
+
+    # Check various integration metrics
+    local all_tests_pass=$(claude /qa:run --comprehensive --output-format json 2>/dev/null | jq -r '.all_pass // false')
+    local integration_tests=$(claude /qa:run --integration-only --output-format json 2>/dev/null | jq -r '.integration.pass_rate // 0')
+    local e2e_tests=$(claude /qa:run --e2e-only --output-format json 2>/dev/null | jq -r '.e2e.pass_rate // 0')
+    local build_success=$(npm run build > /dev/null 2>&1 && echo "100" || echo "0")
+
+    # Check deployment readiness
+    local deployment_ready=$(claude /qa:gate --deployment-check --output-format json 2>/dev/null | jq -r '.deployment_ready // false')
+
+    # Calculate weighted integration score
+    local test_score=0
+    if [[ "$all_tests_pass" == "true" ]]; then
+        test_score=100
+    else
+        test_score=$(echo "($integration_tests + $e2e_tests) / 2" | bc -l | cut -d. -f1)
+    fi
+
+    local deployment_score=0
+    if [[ "$deployment_ready" == "true" ]]; then
+        deployment_score=100
+    fi
+
+    # Weighted average: 40% unit/integration tests, 30% E2E, 20% build, 10% deployment
+    local integration=$(( (test_score * 40 + e2e_tests * 30 + build_success * 20 + deployment_score * 10) / 100 ))
+
+    # Ensure we don't exceed 100
+    if [[ $integration -gt 100 ]]; then
+        integration=100
+    fi
+
+    echo "$integration"
 }
 ```
 
@@ -574,12 +997,11 @@ step6a_root_cause_analysis() {
     if [[ "$retry_status" == "passed" ]]; then
         echo "Step 6A: Minimal edits successful - tests now passing"
         cd -
-        step7_documentation_updates "$session_id"
+        # Continue with integration loop
     else
-        echo "Step 6A: Minimal edits insufficient - escalating to step 4 re-deployment"
+        echo "Step 6A: Minimal edits insufficient - continuing integration loop"
         cd -
-        # Return to step 4 with enhanced context
-        step4_parallel_agent_deployment "$session_id"
+        # Continue with integration loop for next iteration
     fi
     
     local rca_summary
@@ -857,31 +1279,30 @@ echo "Starting 9-step swarm development process for: $FEATURE_DESCRIPTION"
 # Execute all 9 steps in sequence
 SESSION_ID=""
 
+# Step 0: Initialize task tracking
+SESSION_ID=$(step0_initialize_task_tracking "$FEATURE_DESCRIPTION")
+echo "Session initialized with tracking: $SESSION_ID"
+
 # Step 1: Initialize swarm with Queen and dual memory
 INIT_RESULT=$(step1_initialize_swarm "$FEATURE_DESCRIPTION" "$PHASE")
-SESSION_ID=$(echo "$INIT_RESULT" | jq -r '.session_id')
+update_task_tracking "$SESSION_ID" "1" "Completed" "Swarm initialized"
 
 # Step 2: Agent discovery
 DISCOVERY_RESULT=$(step2_agent_discovery "$SESSION_ID")
+update_task_tracking "$SESSION_ID" "2" "Completed" "Agents discovered"
 
 # Step 3: MECE task division
 MECE_RESULT=$(step3_mece_task_division "$SESSION_ID" "$FEATURE_DESCRIPTION" "$PHASE")
+update_task_tracking "$SESSION_ID" "3" "Completed" "Tasks divided"
 
-# Step 4: Parallel agent deployment
-DEPLOYMENT_RESULT=$(step4_parallel_agent_deployment "$SESSION_ID")
+# Step 4-5: Implementation loop (continues until 100% code completion)
+IMPLEMENTATION_RESULT=$(step4_5_implementation_loop "$SESSION_ID" "$MAX_CYCLES")
 
-# Step 5: Theater detection audit
-THEATER_RESULT=$(step5_theater_detection_audit "$SESSION_ID" "$MAX_CYCLES")
+# Step 6: Integration loop (continues until 100% integrated and working)
+INTEGRATION_RESULT=$(step6_integration_loop "$SESSION_ID" "$MAX_CYCLES")
 
-# Check if lies were detected and handle accordingly
-LIES_DETECTED=$(echo "$THEATER_RESULT" | jq -r '.lies_detected // 0')
-if [[ "$LIES_DETECTED" -gt 0 ]]; then
-    echo "Theater patterns detected - entering remediation loop..."
-    step5a_remediation_loop "$SESSION_ID" "$THEATER_RESULT" "$MAX_CYCLES"
-else
-    echo "No theater patterns detected - proceeding to sandbox integration..."
-    step5b_validation_passed "$SESSION_ID" "$THEATER_RESULT"
-fi
+# Steps 7-9 proceed normally after successful integration
+# These are already called from within the integration loop when successful
 
 echo "9-step swarm development process completed successfully"
 echo "Session ID: $SESSION_ID"

@@ -43,7 +43,8 @@
       "Bash(gh run list:*)",
       "Bash(gh workflow:*)",
       "Bash(gh run view:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Read(//c/tmp/**)"
     ],
     "deny": [],
     "ask": []

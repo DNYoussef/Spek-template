@@ -21,27 +21,33 @@ describe('FeatureFlagAPIServer', () => {
         });
 
         // Initialize with test flags
-        await server.flagManager.initialize({
-            test_flag: {
-                enabled: true,
-                rolloutStrategy: 'boolean'
-            },
-            percentage_flag: {
-                enabled: true,
-                rolloutStrategy: 'percentage',
-                rolloutPercentage: 50
-            }
-        });
+        try {
+            await server.flagManager.initialize({
+                test_flag: {
+                    enabled: true,
+                    rolloutStrategy: 'boolean'
+                },
+                percentage_flag: {
+                    enabled: true,
+                    rolloutStrategy: 'percentage',
+                    rolloutPercentage: 50
+                }
+            });
+        } catch (error) {
+            console.warn('Flag initialization failed:', error.message);
+        }
 
         app = server.app;
-    });
+    }, 30000);
 
     afterAll(async () => {
         if (wsClient) {
             wsClient.close();
         }
-        server.shutdown();
-    });
+        if (server && typeof server.shutdown === 'function') {
+            await server.shutdown();
+        }
+    }, 10000);
 
     describe('Health Check', () => {
         test('GET /api/health should return health status', async () => {

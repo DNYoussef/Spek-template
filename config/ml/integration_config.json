@@ -1,0 +1,211 @@
+{
+  "models": {
+    "quality_predictor_path": "models/quality",
+    "theater_classifier_path": "models/theater",
+    "compliance_forecaster_path": "models/compliance",
+    "auto_load_on_startup": true,
+    "model_refresh_interval_hours": 24,
+    "fallback_to_rules": true
+  },
+  "bridges": {
+    "quality_gate": {
+      "enabled": true,
+      "confidence_threshold": 0.8,
+      "integration_weight": 0.3,
+      "fallback_enabled": true,
+      "timeout_seconds": 30
+    },
+    "ci_integration": {
+      "enabled": true,
+      "supported_systems": ["github_actions", "jenkins", "azure_devops", "gitlab_ci"],
+      "webhook_timeout": 15,
+      "retry_attempts": 3,
+      "parallel_execution": true
+    },
+    "monitoring": {
+      "enabled": true,
+      "monitoring_interval_seconds": 300,
+      "metrics_retention_days": 30,
+      "alert_integration": true,
+      "performance_tracking": true
+    }
+  },
+  "alerts": {
+    "enabled": true,
+    "config_file": "config/ml/alerts_config.json",
+    "real_time_alerts": true,
+    "batch_processing": false,
+    "alert_aggregation_window_minutes": 5
+  },
+  "performance": {
+    "max_prediction_time_seconds": 30,
+    "fallback_on_failure": true,
+    "cache_predictions": true,
+    "cache_ttl_seconds": 300,
+    "parallel_processing": true,
+    "max_concurrent_predictions": 10
+  },
+  "quality_gates": {
+    "ml_quality_gate": {
+      "enabled": true,
+      "threshold": 0.85,
+      "weight": 0.3,
+      "required": false,
+      "timeout_seconds": 30
+    },
+    "theater_detection_gate": {
+      "enabled": true,
+      "threshold": 0.7,
+      "weight": 0.2,
+      "required": true,
+      "timeout_seconds": 25
+    },
+    "compliance_gate": {
+      "enabled": true,
+      "threshold": 0.75,
+      "weight": 0.25,
+      "required": true,
+      "timeout_seconds": 45
+    },
+    "anomaly_detection_gate": {
+      "enabled": true,
+      "weight": 0.1,
+      "required": false,
+      "timeout_seconds": 20
+    }
+  },
+  "ci_cd_integration": {
+    "github_actions": {
+      "enabled": true,
+      "workflow_trigger": "pull_request",
+      "quality_check_step": "ml_quality_validation",
+      "theater_check_step": "ml_theater_detection",
+      "compliance_check_step": "ml_compliance_check"
+    },
+    "jenkins": {
+      "enabled": false,
+      "pipeline_stage": "ML_Validation",
+      "webhook_url": "",
+      "credentials": ""
+    },
+    "azure_devops": {
+      "enabled": false,
+      "organization": "",
+      "project": "",
+      "pipeline_id": "",
+      "pat_token": ""
+    },
+    "gitlab_ci": {
+      "enabled": false,
+      "project_id": "",
+      "api_token": "",
+      "pipeline_trigger": "merge_request"
+    }
+  },
+  "monitoring_integration": {
+    "prometheus": {
+      "enabled": false,
+      "metrics_port": 9090,
+      "metrics_path": "/metrics",
+      "custom_metrics": [
+        "ml_prediction_accuracy",
+        "ml_prediction_latency",
+        "ml_model_drift",
+        "ml_alert_count"
+      ]
+    },
+    "grafana": {
+      "enabled": false,
+      "dashboard_url": "",
+      "api_key": "",
+      "alert_notifications": true
+    },
+    "datadog": {
+      "enabled": false,
+      "api_key": "",
+      "app_key": "",
+      "tags": ["service:ml-validation", "environment:production"]
+    },
+    "new_relic": {
+      "enabled": false,
+      "license_key": "",
+      "app_name": "ML Quality Validation"
+    }
+  },
+  "data_pipeline": {
+    "feature_store": {
+      "enabled": false,
+      "type": "feast",
+      "connection_string": "",
+      "feature_refresh_interval_hours": 6
+    },
+    "model_registry": {
+      "enabled": false,
+      "type": "mlflow",
+      "tracking_uri": "",
+      "model_versioning": true
+    },
+    "data_validation": {
+      "enabled": true,
+      "schema_validation": true,
+      "data_drift_detection": true,
+      "outlier_detection": true
+    }
+  },
+  "security": {
+    "encryption_at_rest": false,
+    "encryption_in_transit": true,
+    "api_authentication": true,
+    "rbac_enabled": false,
+    "audit_logging": true,
+    "sensitive_data_masking": true
+  },
+  "logging": {
+    "level": "INFO",
+    "structured_logging": true,
+    "log_aggregation": false,
+    "correlation_ids": true,
+    "performance_logging": true,
+    "error_tracking": true
+  },
+  "experimental": {
+    "a_b_testing": {
+      "enabled": false,
+      "test_percentage": 10,
+      "control_model": "current",
+      "experiment_model": "candidate"
+    },
+    "auto_retraining": {
+      "enabled": false,
+      "trigger_threshold": 0.05,
+      "min_samples": 1000,
+      "validation_holdout": 0.2
+    },
+    "federated_learning": {
+      "enabled": false,
+      "aggregation_strategy": "fedavg",
+      "privacy_budget": 1.0
+    }
+  },
+  "disaster_recovery": {
+    "model_backup": {
+      "enabled": true,
+      "backup_interval_hours": 24,
+      "retention_days": 30,
+      "backup_location": "backup/models"
+    },
+    "failover": {
+      "enabled": true,
+      "fallback_to_rules": true,
+      "health_check_interval": 60,
+      "max_failure_count": 3
+    }
+  },
+  "compliance": {
+    "gdpr_compliance": false,
+    "data_retention_days": 90,
+    "anonymization": false,
+    "audit_trail": true,
+    "model_explainability": true
+  }
+}

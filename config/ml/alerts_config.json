@@ -1,0 +1,161 @@
+{
+  "models": {
+    "quality_predictor_path": "models/quality",
+    "theater_classifier_path": "models/theater",
+    "compliance_forecaster_path": "models/compliance"
+  },
+  "thresholds": {
+    "quality_degradation": 0.8,
+    "theater_probability": 0.7,
+    "compliance_risk": 0.75,
+    "anomaly_score": -0.5
+  },
+  "channels": {
+    "email": {
+      "enabled": false,
+      "recipients": [
+        "quality-team@company.com",
+        "dev-leads@company.com"
+      ],
+      "smtp_server": "smtp.company.com",
+      "smtp_port": 587,
+      "username": "",
+      "password": ""
+    },
+    "slack": {
+      "enabled": true,
+      "channel": "#quality-alerts",
+      "webhook_url": "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK",
+      "username": "ML Quality Bot",
+      "icon_emoji": ":warning:"
+    },
+    "webhook": {
+      "enabled": true,
+      "webhook_url": "https://api.company.com/alerts/ml",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN",
+        "Content-Type": "application/json"
+      },
+      "timeout_seconds": 30
+    },
+    "teams": {
+      "enabled": false,
+      "webhook_url": "https://outlook.office.com/webhook/YOUR/TEAMS/WEBHOOK"
+    }
+  },
+  "alert_rules": {
+    "deduplication_window_minutes": 30,
+    "escalation_delay_minutes": 60,
+    "auto_resolve_hours": 24,
+    "max_alerts_per_hour": 10,
+    "severity_escalation": {
+      "low": {
+        "escalate_after_hours": 8,
+        "escalate_to": "medium"
+      },
+      "medium": {
+        "escalate_after_hours": 4,
+        "escalate_to": "high"
+      },
+      "high": {
+        "escalate_after_hours": 2,
+        "escalate_to": "critical"
+      }
+    }
+  },
+  "monitoring": {
+    "check_interval_seconds": 300,
+    "batch_size": 100,
+    "history_retention_days": 30,
+    "metrics_collection": true,
+    "performance_tracking": true
+  },
+  "formatting": {
+    "timezone": "UTC",
+    "date_format": "%Y-%m-%d %H:%M:%S",
+    "include_model_version": true,
+    "include_confidence_scores": true,
+    "truncate_long_messages": true,
+    "max_message_length": 1000
+  },
+  "integrations": {
+    "jira": {
+      "enabled": false,
+      "server_url": "https://company.atlassian.net",
+      "username": "",
+      "api_token": "",
+      "project_key": "QUAL",
+      "issue_type": "Bug"
+    },
+    "pagerduty": {
+      "enabled": false,
+      "integration_key": "",
+      "service_key": "",
+      "escalation_policy": "critical-only"
+    },
+    "datadog": {
+      "enabled": false,
+      "api_key": "",
+      "app_key": "",
+      "tags": ["environment:production", "service:ml-quality"]
+    }
+  },
+  "filters": {
+    "environment_filters": {
+      "production": {
+        "min_severity": "medium",
+        "max_alerts_per_day": 50
+      },
+      "staging": {
+        "min_severity": "low",
+        "max_alerts_per_day": 100
+      },
+      "development": {
+        "enabled": false
+      }
+    },
+    "component_filters": {
+      "quality_predictor": {
+        "enabled": true,
+        "confidence_threshold": 0.8
+      },
+      "theater_classifier": {
+        "enabled": true,
+        "confidence_threshold": 0.7
+      },
+      "compliance_forecaster": {
+        "enabled": true,
+        "confidence_threshold": 0.75
+      }
+    }
+  },
+  "templates": {
+    "quality_degradation": {
+      "title": "Code Quality Degradation Detected",
+      "description": "ML model detected potential quality issues in code changes",
+      "recommended_actions": [
+        "Review code changes for potential issues",
+        "Run additional quality checks",
+        "Consider code review with senior developer"
+      ]
+    },
+    "theater_detection": {
+      "title": "Performance Theater Detected",
+      "description": "Changes appear to be theatrical with minimal genuine improvement",
+      "recommended_actions": [
+        "Review change impact and value",
+        "Assess effort vs benefit ratio",
+        "Consider alternative implementation approaches"
+      ]
+    },
+    "compliance_violation": {
+      "title": "Compliance Risk Detected",
+      "description": "Potential compliance violations or drift detected",
+      "recommended_actions": [
+        "Review compliance requirements",
+        "Implement corrective measures",
+        "Update compliance documentation"
+      ]
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "compliance_level": "CRITICAL",
+  "organization_info": {
+    "company_name": "Defense Contractor Inc.",
+    "cage_code": "XXXXX",
+    "duns_number": "XXXXXXXXX",
+    "primary_contact": "security@company.com",
+    "compliance_officer": "compliance@company.com"
+  },
+  "encryption": {
+    "algorithm": "AES-256-GCM",
+    "key_rotation_interval": 90,
+    "at_rest_encryption": true,
+    "in_transit_encryption": true,
+    "key_escrow_required": true,
+    "fips_140_2_required": true
+  },
+  "access_control": {
+    "multi_factor_auth_required": true,
+    "session_timeout_minutes": 30,
+    "max_failed_attempts": 2,
+    "account_lockout_duration": 30,
+    "password_complexity_required": true,
+    "min_password_length": 12,
+    "privilege_escalation_monitoring": true,
+    "role_based_access_control": true
+  },
+  "audit": {
+    "audit_retention_days": 2555,
+    "real_time_monitoring": true,
+    "cryptographic_integrity": true,
+    "tamper_detection": true,
+    "log_all_access_attempts": true,
+    "log_privileged_operations": true,
+    "log_cui_access": true,
+    "automated_log_analysis": true
+  },
+  "incident_response": {
+    "reporting_deadline_hours": 24,
+    "automated_containment": true,
+    "forensic_preservation": true,
+    "escalation_matrix": {
+      "CRITICAL": [
+        "CISO",
+        "DoD_CIO",
+        "Legal"
+      ],
+      "HIGH": [
+        "Security_Manager",
+        "IT_Manager"
+      ],
+      "MEDIUM": [
+        "Security_Team"
+      ],
+      "LOW": [
+        "System_Admin"
+      ]
+    },
+    "notification_endpoints": [
+      "security@company.com",
+      "incident-response@company.com"
+    ],
+    "response_team_contacts": [
+      "security-oncall@company.com",
+      "legal@company.com"
+    ]
+  },
+  "cui_protection": {
+    "auto_classification": true,
+    "real_time_scanning": true,
+    "data_loss_prevention": true,
+    "access_logging": true,
+    "encryption_required": true,
+    "retention_policies": {
+      "CUI//BASIC": 1095,
+      "CUI//SP-PRIV": 2555,
+      "CUI//SP-PROP": 1825,
+      "CUI//SP-EXPT": 3650
+    },
+    "handling_procedures": {
+      "CUI//BASIC": "Standard CUI handling procedures apply",
+      "CUI//SP-PRIV": "Enhanced privacy protection required - GDPR/CCPA compliance",
+      "CUI//SP-PROP": "Proprietary information - trade secret protection",
+      "CUI//SP-EXPT": "Export controlled - ITAR/EAR compliance required"
+    },
+    "marking_requirements": true
+  },
+  "monitoring": {
+    "real_time_monitoring": true,
+    "monitoring_interval_seconds": 30,
+    "baseline_learning_period_days": 30,
+    "anomaly_detection_threshold": 2.0,
+    "automated_response": true,
+    "alert_escalation_enabled": true,
+    "performance_monitoring": true,
+    "network_monitoring": true
+  },
+  "thresholds": {
+    "minimum_compliance_score": 95.0,
+    "critical_findings_threshold": 0,
+    "high_findings_threshold": 5,
+    "audit_integrity_required": true,
+    "cui_protection_score": 100.0,
+    "incident_response_time_hours": 4,
+    "vulnerability_remediation_days": 30
+  }
+}

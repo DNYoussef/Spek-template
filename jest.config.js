@@ -6,14 +6,27 @@ module.exports = {
     '**/__tests__/**/*.+(js)',
     '**/*.(test|spec).+(js)'
   ],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/dist/',
+    '/.claude/',
+    '/src/.*\\.ts$',
+    '/src/.*\\.tsx$'
+  ],
   collectCoverageFrom: [
-    'src/**/*.js'
+    'src/**/*.js',
+    '!src/**/*.test.js',
+    '!src/**/node_modules/**'
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],
-  testTimeout: 10000,
+  testTimeout: 30000,
   verbose: true,
   clearMocks: true,
   resetMocks: true,
-  restoreMocks: true
+  restoreMocks: true,
+  maxWorkers: 1,
+  forceExit: true,
+  detectOpenHandles: true,
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.js']
 };

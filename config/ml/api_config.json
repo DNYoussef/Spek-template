@@ -1,0 +1,175 @@
+{
+  "api": {
+    "title": "ML Quality Validation API",
+    "version": "1.0.0",
+    "description": "Real-time ML predictions for code quality validation, theater detection, and compliance forecasting",
+    "host": "0.0.0.0",
+    "port": 8000,
+    "debug": false,
+    "workers": 4,
+    "reload": false,
+    "access_log": true,
+    "log_level": "info"
+  },
+  "models": {
+    "quality_predictor_path": "models/quality",
+    "theater_classifier_path": "models/theater",
+    "compliance_forecaster_path": "models/compliance",
+    "auto_load": true,
+    "lazy_loading": false,
+    "model_versioning": true
+  },
+  "security": {
+    "enabled": true,
+    "api_key": "your-secure-api-key-here",
+    "jwt_secret": "your-jwt-secret-here",
+    "jwt_expiry_hours": 24,
+    "rate_limit_per_minute": 100,
+    "rate_limit_per_hour": 1000,
+    "ip_whitelist": [],
+    "cors_origins": ["*"],
+    "https_only": false
+  },
+  "performance": {
+    "max_batch_size": 100,
+    "timeout_seconds": 30,
+    "cache_enabled": true,
+    "cache_ttl_seconds": 300,
+    "connection_pool_size": 10,
+    "max_concurrent_requests": 50,
+    "request_timeout": 60,
+    "keep_alive_timeout": 5
+  },
+  "cors": {
+    "enabled": true,
+    "origins": ["*"],
+    "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    "headers": ["*"],
+    "credentials": true,
+    "max_age": 86400
+  },
+  "monitoring": {
+    "metrics_enabled": true,
+    "health_check_interval": 60,
+    "performance_tracking": true,
+    "error_tracking": true,
+    "request_logging": true,
+    "response_time_tracking": true,
+    "prometheus_metrics": false,
+    "grafana_dashboard": false
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file_logging": true,
+    "log_file": "logs/api.log",
+    "max_file_size": "10MB",
+    "backup_count": 5,
+    "json_logging": false
+  },
+  "database": {
+    "enabled": false,
+    "url": "postgresql://user:password@localhost/ml_api",
+    "pool_size": 10,
+    "max_overflow": 20,
+    "pool_timeout": 30,
+    "pool_recycle": 3600
+  },
+  "redis": {
+    "enabled": false,
+    "host": "localhost",
+    "port": 6379,
+    "db": 0,
+    "password": "",
+    "socket_timeout": 5,
+    "connection_pool_size": 10
+  },
+  "prediction_endpoints": {
+    "quality": {
+      "enabled": true,
+      "path": "/predict/quality",
+      "timeout": 30,
+      "cache_results": true,
+      "require_auth": true
+    },
+    "theater": {
+      "enabled": true,
+      "path": "/predict/theater",
+      "timeout": 30,
+      "cache_results": true,
+      "require_auth": true
+    },
+    "compliance": {
+      "enabled": true,
+      "path": "/predict/compliance",
+      "timeout": 45,
+      "cache_results": true,
+      "require_auth": true
+    },
+    "batch": {
+      "enabled": true,
+      "path": "/predict/batch",
+      "timeout": 300,
+      "max_batch_size": 100,
+      "require_auth": true
+    }
+  },
+  "response_formats": {
+    "include_model_version": true,
+    "include_processing_time": true,
+    "include_confidence_scores": true,
+    "include_feature_importance": false,
+    "pretty_print": false,
+    "compression": "gzip"
+  },
+  "error_handling": {
+    "include_stack_trace": false,
+    "log_errors": true,
+    "custom_error_messages": true,
+    "error_codes": {
+      "model_not_found": 1001,
+      "invalid_input": 1002,
+      "prediction_failed": 1003,
+      "rate_limit_exceeded": 1004,
+      "authentication_failed": 1005
+    }
+  },
+  "webhooks": {
+    "enabled": false,
+    "prediction_webhook": "",
+    "error_webhook": "",
+    "health_webhook": "",
+    "timeout": 10,
+    "retry_attempts": 3
+  },
+  "feature_flags": {
+    "enable_new_quality_model": false,
+    "enable_experimental_features": false,
+    "enable_a_b_testing": false,
+    "enable_model_explanation": true,
+    "enable_batch_optimization": true
+  },
+  "model_specific": {
+    "quality_predictor": {
+      "confidence_threshold": 0.8,
+      "feature_importance_top_k": 10,
+      "explanation_enabled": true
+    },
+    "theater_classifier": {
+      "theater_threshold": 0.7,
+      "uncertainty_samples": 10,
+      "ensemble_voting": "weighted"
+    },
+    "compliance_forecaster": {
+      "forecast_horizon_days": 30,
+      "risk_threshold": 0.75,
+      "alert_generation": true
+    }
+  },
+  "development": {
+    "mock_predictions": false,
+    "debug_mode": false,
+    "profiling_enabled": false,
+    "test_endpoints": false
+  }
+}

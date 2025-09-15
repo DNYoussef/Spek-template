@@ -1,0 +1,64 @@
+# Six Sigma Configuration for SPEK Platform
+schema:
+  version: "1.0.0"
+
+# DPMO calculation settings
+dpmo_calculation:
+  opportunities_per_unit: 1
+  defect_types:
+    - critical
+    - major
+    - minor
+  sigma_levels:
+    6: 3.4
+    5: 233
+    4: 6210
+    3: 66807
+    2: 308537
+    1: 691462
+
+# RTY (Rolled Throughput Yield) thresholds
+rty_thresholds:
+  excellent: 0.99
+  good: 0.95
+  acceptable: 0.90
+  poor: 0.80
+
+# Process stages for RTY calculation
+process_stages:
+  - name: "planning"
+    weight: 0.1
+  - name: "implementation"
+    weight: 0.4
+  - name: "testing"
+    weight: 0.3
+  - name: "deployment"
+    weight: 0.2
+
+# Theater detection configuration
+theater_detection:
+  vanity_metrics:
+    - lines_of_code
+    - commit_frequency
+    - pr_count
+  quality_indicators:
+    - defect_escape_rate
+    - customer_satisfaction
+    - mean_time_to_recovery
+  correlation_threshold: 0.7
+
+# Telemetry collection
+telemetry:
+  collection_interval_seconds: 300
+  retention_days: 365
+  export_formats:
+    - json
+    - csv
+    - statistical_report
+
+# Continuous improvement triggers
+improvement_triggers:
+  sigma_level_drop: true
+  rty_threshold_breach: true
+  defect_trend_increase: true
+  customer_escalation: true

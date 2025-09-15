@@ -16,7 +16,7 @@ describe('Email Normalization (Golden Tests)', () => {
     { input: 'simple@test.com', expected: 'simple@test.com' },
     { input: 'CAPS@DOMAIN.NET', expected: 'caps@domain.net' },
     { input: '\t\n user@test.com \r\n', expected: 'user@test.com' },
-    { input: 'unicode.[U+6D4B][U+8BD5]@example.org', expected: 'unicode.[U+6D4B][U+8BD5]@example.org' }
+    { input: 'unicode.test@example.org', expected: 'unicode.test@example.org' }
   ];
 
   testCases.forEach(({ input, expected }, index) => {

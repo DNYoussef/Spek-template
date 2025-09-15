@@ -1,0 +1,86 @@
+# ML Training Configuration
+# Comprehensive configuration for training quality validation models
+
+data:
+  validation_split: 0.2
+  test_split: 0.15
+  random_state: 42
+  min_samples: 100
+  max_samples: 10000
+  data_augmentation: true
+  feature_selection: true
+
+training:
+  parallel_training: true
+  max_workers: 3
+  cross_validation_folds: 5
+  early_stopping: true
+  model_selection: 'best'
+  hyperparameter_tuning: true
+
+quality:
+  target_accuracy: 0.85
+  feature_selection: true
+  hyperparameter_tuning: true
+  model_type: 'xgboost'
+  parameters:
+    n_estimators: 100
+    max_depth: 6
+    learning_rate: 0.1
+    subsample: 0.8
+    colsample_bytree: 0.8
+
+theater:
+  target_accuracy: 0.85
+  ensemble_method: 'weighted_voting'
+  uncertainty_estimation: true
+  deep_learning:
+    epochs: 100
+    batch_size: 32
+    learning_rate: 0.001
+    hidden_layers: [128, 64, 32]
+    dropout: 0.3
+    early_stopping_patience: 10
+  random_forest:
+    n_estimators: 100
+    max_depth: 10
+    min_samples_split: 5
+
+compliance:
+  target_accuracy: 0.85
+  forecast_validation: true
+  risk_calibration: true
+  drift_detection:
+    method: 'arima'
+    seasonal_periods: [7, 30]
+    confidence_interval: 0.95
+  risk_classification:
+    algorithm: 'gradient_boosting'
+    n_estimators: 100
+    learning_rate: 0.1
+
+output:
+  model_dir: 'models'
+  metrics_dir: 'metrics/ml'
+  reports_dir: 'reports/ml'
+  logs_dir: 'logs/ml'
+  save_predictions: true
+  save_feature_importance: true
+
+monitoring:
+  mlflow_tracking: true
+  model_versioning: true
+  performance_tracking: true
+  drift_monitoring: true
+
+optimization:
+  enable_gpu: false
+  memory_optimization: true
+  feature_caching: true
+  incremental_learning: false
+
+validation:
+  stratified_splits: true
+  time_series_validation: true
+  bootstrap_samples: 1000
+  confidence_intervals: true

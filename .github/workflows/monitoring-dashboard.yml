@@ -19,7 +19,10 @@ on:
       "Quality Analysis Orchestrator",
       "Quality Analysis Orchestrator (Parallel Optimized)",
       "Security Pipeline (Standardized)",
-      "Enhanced Quality Gates (Phase 3)"
+      "Enhanced Quality Gates (Phase 3)",
+      "Defense Industry Certification Pipeline",
+      "NASA POT10 Validation Pipeline",
+      "Production Gate - Multi-Stage Deployment Approval"
     ]
     types: [completed]
 

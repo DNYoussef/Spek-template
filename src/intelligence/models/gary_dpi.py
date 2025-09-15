@@ -203,9 +203,59 @@ class MomentumPersistenceModule(nn.Module):
             'directional_momentum': directional_momentum
         }
 
+class WealthFlowTracker:
+    """
+    Simple wealth flow tracking for Follow the Flow principle.
+    Tracks who benefits from price changes and wealth concentration patterns.
+    """
+
+    @staticmethod
+    def track_wealth_flow(income_data: Dict, asset_prices: Dict) -> float:
+        """
+        Track wealth flow and concentration - Follow the Flow principle
+
+        Args:
+            income_data: Dict with keys like 'high_income', 'middle_income', 'low_income' (percentages)
+            asset_prices: Dict with asset symbols and their recent price changes
+
+        Returns:
+            flow_score: 0-1 indicating wealth concentration/flow patterns
+        """
+        try:
+            # Calculate wealth concentration ratio
+            high_income_share = income_data.get('high_income', 0.1)  # Top 10% default
+            total_asset_gains = sum(max(0, change) for change in asset_prices.values())
+
+            if total_asset_gains == 0:
+                return 0.0
+
+            # Simple wealth flow calculation
+            # Higher concentration when assets benefit higher income groups more
+            asset_benefit_concentration = 0.0
+
+            for symbol, price_change in asset_prices.items():
+                if price_change > 0:
+                    # Assume assets like stocks benefit higher income groups more
+                    if symbol.upper() in ['SPY', 'QQQ', 'VTI', 'AMDY', 'ULTY']:
+                        asset_benefit_concentration += price_change * high_income_share
+                    else:
+                        # Other assets benefit more evenly
+                        asset_benefit_concentration += price_change * 0.5
+
+            # Normalize concentration score
+            concentration_ratio = asset_benefit_concentration / total_asset_gains
+
+            # Flow score: higher when wealth flows to fewer people
+            flow_score = min(1.0, concentration_ratio * 2.0)
+
+            return flow_score
+
+        except Exception:
+            return 0.0
+
 class DynamicPortfolioModel(BasePredictor):
     """Gary's Dynamic Portfolio Intelligence model."""
-    
+
     def __init__(
         self,
         input_dim: int,
@@ -334,6 +384,65 @@ class DynamicPortfolioModel(BasePredictor):
             }
         )
     
+    def calculate_enhanced_dpi(self, x: torch.Tensor, income_data: Dict = None, related_assets: List[str] = None) -> Dict[str, torch.Tensor]:
+        """
+        Calculate DPI enhanced with wealth flow tracking
+        
+        Args:
+            x: Input features (batch_size, seq_len, input_dim)
+            income_data: Income distribution data (optional)
+            related_assets: Related assets for flow analysis (optional)
+            
+        Returns:
+            Dict with base_dpi, enhanced_dpi, flow_score, and other metrics
+        """
+        self.eval()
+        with torch.no_grad():
+            # Get base DPI prediction
+            base_output = self.forward(x)
+            base_dpi = base_output.predictions
+            
+            # Default income data if not provided
+            if income_data is None:
+                income_data = {
+                    'high_income': 0.1,    # Top 10%
+                    'middle_income': 0.4,  # Middle 40%
+                    'low_income': 0.5      # Bottom 50%
+                }
+            
+            # Simulate asset price changes for flow analysis
+            if related_assets is None:
+                related_assets = ['SPY', 'QQQ', 'ULTY', 'AMDY']
+            
+            # Simulate recent price changes (in real implementation, fetch real data)
+            import random
+            random.seed(42)  # Reproducible for demo
+            asset_prices = {}
+            for asset in related_assets:
+                # Simulate price changes based on base DPI signal
+                base_change = float(base_dpi.mean().item()) * 0.1  # Scale DPI to price change
+                noise = random.uniform(-0.02, 0.02)  # Add some noise
+                asset_prices[asset] = base_change + noise
+            
+            # Calculate wealth flow score
+            flow_score = WealthFlowTracker.track_wealth_flow(income_data, asset_prices)
+            
+            # Enhance DPI with flow score
+            # enhanced_dpi = base_dpi * (1 + flow_score)
+            flow_tensor = torch.tensor(flow_score, device=base_dpi.device, dtype=base_dpi.dtype)
+            enhanced_dpi = base_dpi * (1 + flow_tensor)
+            
+            return {
+                'base_dpi': base_dpi,
+                'enhanced_dpi': enhanced_dpi,
+                'flow_score': flow_tensor,
+                'asset_prices': asset_prices,
+                'income_data': income_data,
+                'confidence': base_output.confidence,
+                'risk_estimate': base_output.metadata['risk_estimate'],
+                'regime_probabilities': base_output.metadata['regime_probabilities'][:, -1, :]
+            }
+
     def predict(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
         """Generate comprehensive predictions."""
         self.eval()
@@ -477,6 +586,92 @@ class GaryTalebPredictor(BasePredictor):
             return predictions
 
 # Example usage and testing
+def test_wealth_flow_tracking():
+    """Test wealth flow tracking functionality."""
+    print("Testing WealthFlowTracker...")
+    
+    # Test case 1: High concentration scenario
+    income_data_high_concentration = {
+        'high_income': 0.2,   # Top 20% have more income
+        'middle_income': 0.3, # Middle 30%
+        'low_income': 0.5     # Bottom 50%
+    }
+    
+    asset_prices_bullish = {
+        'SPY': 0.05,   # Stock market up 5%
+        'QQQ': 0.08,   # Tech stocks up 8%
+        'ULTY': 0.03,  # Real estate up 3%
+        'BONDS': 0.01  # Bonds up 1%
+    }
+    
+    flow_score_high = WealthFlowTracker.track_wealth_flow(income_data_high_concentration, asset_prices_bullish)
+    print(f"High concentration scenario flow score: {flow_score_high:.4f}")
+    
+    # Test case 2: Low concentration scenario
+    income_data_low_concentration = {
+        'high_income': 0.05,  # Top 5% have less income
+        'middle_income': 0.45, # Middle 45%
+        'low_income': 0.5     # Bottom 50%
+    }
+    
+    flow_score_low = WealthFlowTracker.track_wealth_flow(income_data_low_concentration, asset_prices_bullish)
+    print(f"Low concentration scenario flow score: {flow_score_low:.4f}")
+    
+    # Test case 3: No gains scenario
+    asset_prices_flat = {
+        'SPY': 0.0,
+        'QQQ': 0.0,
+        'ULTY': 0.0,
+        'BONDS': 0.0
+    }
+    
+    flow_score_flat = WealthFlowTracker.track_wealth_flow(income_data_high_concentration, asset_prices_flat)
+    print(f"No gains scenario flow score: {flow_score_flat:.4f}")
+    
+    # Verify expected behavior
+    assert flow_score_high > flow_score_low, "High concentration should have higher flow score"
+    assert flow_score_flat == 0.0, "No gains should result in zero flow score"
+    assert 0.0 <= flow_score_high <= 1.0, "Flow score should be between 0 and 1"
+    
+    print("✓ WealthFlowTracker tests passed!")
+    return True
+
+def test_enhanced_dpi():
+    """Test enhanced DPI calculation with wealth flow."""
+    print("\nTesting Enhanced DPI calculation...")
+    
+    # Create sample data
+    batch_size, seq_len, input_dim = 2, 10, 50  # Smaller for testing
+    x = torch.randn(batch_size, seq_len, input_dim)
+    
+    # Test Enhanced DPI
+    dpi_model = DynamicPortfolioModel(input_dim=input_dim, hidden_dim=64)  # Smaller for testing
+    enhanced_results = dpi_model.calculate_enhanced_dpi(x)
+    
+    print(f"Enhanced DPI results keys: {list(enhanced_results.keys())}")
+    print(f"Base DPI shape: {enhanced_results['base_dpi'].shape}")
+    print(f"Enhanced DPI shape: {enhanced_results['enhanced_dpi'].shape}")
+    print(f"Flow score: {enhanced_results['flow_score'].item():.4f}")
+    print(f"Asset prices: {enhanced_results['asset_prices']}")
+    
+    # Verify enhanced DPI formula: enhanced_dpi = base_dpi * (1 + flow_score)
+    base_dpi = enhanced_results['base_dpi']
+    enhanced_dpi = enhanced_results['enhanced_dpi']
+    flow_score = enhanced_results['flow_score']
+    
+    expected_enhanced = base_dpi * (1 + flow_score)
+    
+    # Check if calculation is correct (within floating point tolerance)
+    diff = torch.abs(enhanced_dpi - expected_enhanced).max().item()
+    assert diff < 1e-6, f"Enhanced DPI calculation incorrect, diff: {diff}"
+    
+    print(f"✓ Enhanced DPI formula verified: enhanced_dpi = base_dpi * (1 + flow_score)")
+    print(f"  Base DPI mean: {base_dpi.mean().item():.4f}")
+    print(f"  Enhanced DPI mean: {enhanced_dpi.mean().item():.4f}")
+    print(f"  Enhancement factor: {(1 + flow_score).item():.4f}")
+    
+    return True
+
 def test_gary_dpi_model():
     """Test the Gary DPI model."""
     # Create sample data
@@ -487,7 +682,7 @@ def test_gary_dpi_model():
     dpi_model = DynamicPortfolioModel(input_dim=input_dim)
     dpi_output = dpi_model(x)
     
-    print(f"DPI Model Output:")
+    print(f"\nDPI Model Output:")
     print(f"Predictions shape: {dpi_output.predictions.shape}")
     print(f"Confidence shape: {dpi_output.confidence.shape}")
     print(f"Attention weights shape: {dpi_output.attention_weights.shape}")
@@ -503,6 +698,10 @@ def test_gary_dpi_model():
     # Test prediction method
     predictions = gary_taleb.predict(x)
     print(f"\nPrediction keys: {list(predictions.keys())}")
+    
+    # Test wealth flow functionality
+    test_wealth_flow_tracking()
+    test_enhanced_dpi()
 
 if __name__ == "__main__":
     test_gary_dpi_model()
