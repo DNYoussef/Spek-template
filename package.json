@@ -7,27 +7,35 @@
     "test": "jest --verbose",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "typecheck": "echo 'TypeScript checking placeholder - requires tsc setup'",
+    "typecheck": "tsc --noEmit",
     "lint": "echo 'Linting placeholder - requires eslint setup'",
     "example:sixsigma": "node examples/six-sigma-example.js",
     "example:sbom": "node examples/sbom-example.js",
     "example:compliance": "node examples/compliance-example.js",
     "examples": "npm run example:sixsigma && npm run example:sbom && npm run example:compliance"
   },
-  "keywords": ["spek", "six-sigma", "enterprise", "compliance"],
+  "keywords": [
+    "spek",
+    "six-sigma",
+    "enterprise",
+    "compliance"
+  ],
   "author": "SPEK Platform",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.4.0",
     "jest": "^29.0.0",
     "js-yaml": "^4.1.0",
-    "supertest": "^6.3.0"
+    "supertest": "^6.3.0",
+    "typescript": "^5.9.2"
   },
   "dependencies": {
-    "uuid": "^9.0.0",
+    "cors": "^2.8.5",
     "express": "^4.18.0",
-    "ws": "^8.13.0",
     "express-rate-limit": "^6.7.0",
     "helmet": "^6.1.0",
-    "cors": "^2.8.5"
+    "uuid": "^9.0.0",
+    "ws": "^8.13.0"
   }
 }

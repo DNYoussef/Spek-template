@@ -2,12 +2,13 @@
 """
 Comprehensive Test Runner with 100% Success Rate Integration
 Orchestrates all test types with intelligent execution, auto-repair, and success prediction
+
+NASA POT10 Compliant - Secure Command Execution Implementation
 """
 
 import json
 import os
 import sys
-import subprocess
 import time
 import asyncio
 import concurrent.futures
@@ -19,6 +20,12 @@ from collections import defaultdict
 import threading
 import shutil
 import tempfile
+
+# Import secure subprocess manager
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from src.security.secure_subprocess_manager import (
+    SecureSubprocessManager, SecurityLevel, SecurityError
+)
 
 @dataclass
 class TestSuite:
