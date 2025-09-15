@@ -1,8 +1,57 @@
+# Dependencies
 node_modules/
 .venv/
+venv/
+env/
+
+# IDE
 .idea/
-.DS_Store
+.vscode/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+.pytest_cache/
+
+# Testing
 coverage/
-.claude/.artifacts/
+htmlcov/
+.coverage
+
+# Logs & Artifacts
+.claude/.artifacts/**/*.log
+.claude/.artifacts/**/cache/
 *.log
+logs/
+
+# Temporary files
 *.tmp
+*.temp
+tmp/
+temp/
+
+# Backup files
+*.bak
+*.backup
+.security_backups/
+.security_backups_v2/
+.dfars_backups/
+.nasa_backups/
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Environment
+.env
+.env.local
+.env.*.local
