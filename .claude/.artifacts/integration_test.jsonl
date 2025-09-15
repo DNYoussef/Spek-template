@@ -1,1 +1,0 @@
-{"timestamp": 1757877615.9517667, "trigger_type": "loss_limit", "trigger_data": {"current_loss": -1500, "authenticated_by": "emergency_user"}, "response_time_ms": 49.22771453857422, "positions_flattened": 5, "authentication_method": "master_key", "success": true, "error": null}

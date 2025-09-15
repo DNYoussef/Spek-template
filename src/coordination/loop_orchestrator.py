@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """
-CI/CD Loop Orchestrator with Enhanced Connascence Detection
+Enhanced CI/CD Loop Orchestrator with Queen Coordinator Integration
 
-Coordinates the 8-step automated failure resolution loop with special handling
-for connascence issues and multi-file coupling problems. Ensures AI specialists
-receive complete context for refactoring recommendations.
+Coordinates the enhanced 8-step automated failure resolution loop with:
+- Gemini-powered Queen Coordinator for comprehensive issue ingestion
+- MECE task division for parallel agent coordination
+- Enhanced connascence detection and multi-file coupling analysis
+- Full MCP integration (memory, sequential thinking, context7, ref)
+- 85+ agent registry with optimal agent selection
 """
 
 import json
@@ -22,6 +25,13 @@ import logging
 import hashlib
 import tempfile
 import shutil
+
+# Import Queen Coordinator
+try:
+    from .queen_coordinator import QueenCoordinator, QueenAnalysis, MECETaskDivision, AgentAssignment
+except ImportError:
+    # Fallback import for direct execution
+    from queen_coordinator import QueenCoordinator, QueenAnalysis, MECETaskDivision, AgentAssignment
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -832,7 +842,14 @@ class AutoRepairEngine:
 
 class LoopOrchestrator:
     """
-    Main orchestrator for the CI/CD failure resolution loop with comprehensive testing integration.
+    Enhanced CI/CD Loop Orchestrator with Queen Coordinator Integration.
+
+    NEW Features:
+    - Gemini-powered Queen Coordinator for comprehensive issue ingestion
+    - MECE task division for parallel agent coordination
+    - 85+ agent registry with optimal selection
+    - Full MCP integration (memory, sequential thinking, context7, ref)
+    - Cross-session learning and pattern recognition
 
     Enhanced Features:
     - Comprehensive test coordination and execution
@@ -845,6 +862,39 @@ class LoopOrchestrator:
 
     def __init__(self, config: Dict[str, Any] = None):
         self.config = config or {}
+
+        # NEW: Queen Coordinator Integration
+        self.queen_coordinator = QueenCoordinator(config)
+        self.queen_analysis: Optional[QueenAnalysis] = None
+
+        # NEW: Git Safety Manager Integration
+        git_safety_enabled = self.config.get("git_safety_enabled", True)
+        if git_safety_enabled:
+            try:
+                # Try relative import first
+                from .git_safety_manager import GitSafetyManager
+                self.git_safety_manager = GitSafetyManager(config)
+                self.git_safety_enabled = True
+                logger.info("Git Safety Manager initialized")
+            except ImportError:
+                try:
+                    # Fallback to direct import
+                    import sys
+                    from pathlib import Path
+                    sys.path.append(str(Path(__file__).parent))
+                    from git_safety_manager import GitSafetyManager
+                    self.git_safety_manager = GitSafetyManager(config)
+                    self.git_safety_enabled = True
+                    logger.info("Git Safety Manager initialized (fallback import)")
+                except ImportError:
+                    logger.warning("Git Safety Manager not available, proceeding without Git safety")
+                    self.git_safety_manager = None
+                    self.git_safety_enabled = False
+        else:
+            self.git_safety_manager = None
+            self.git_safety_enabled = False
+
+        # Original components
         self.connascence_detector = ConnascenceDetector()
         self.current_execution: Optional[LoopExecution] = None
         self.specialist_agents = self._initialize_specialist_agents()
@@ -915,7 +965,7 @@ class LoopOrchestrator:
         }
 
     async def execute_loop(self, failure_data: Dict[str, Any], max_iterations: int = 5) -> LoopExecution:
-        """Execute the complete 8-step CI/CD failure resolution loop."""
+        """Execute the enhanced 8-step CI/CD failure resolution loop with Queen Coordinator."""
         loop_id = f"loop_{int(time.time())}"
 
         execution = LoopExecution(
@@ -928,26 +978,47 @@ class LoopOrchestrator:
 
         self.current_execution = execution
 
-        logger.info(f"Starting CI/CD loop execution {loop_id}")
+        logger.info(f"Starting Enhanced CI/CD loop execution {loop_id} with Queen Coordinator and Git Safety")
 
+        # Git Safety: Create isolated safety branch
+        safety_branch = None
         try:
-            # Step 1: GitHub Failure Detection & Download (already done)
+            if self.git_safety_enabled:
+                execution.current_step = "git_safety_branch_creation"
+                failure_categories = list(failure_data.get("failure_categories", {}).keys())
+                safety_branch = await self.git_safety_manager.create_safety_branch(loop_id, failure_categories)
+                execution.step_results["git_safety_branch"] = {
+                    "branch_name": safety_branch.branch_name,
+                    "creation_successful": True,
+                    "safety_level": safety_branch.safety_level
+                }
+                logger.info(f"Git safety branch created: {safety_branch.branch_name}")
+
+            # NEW Step 1.5: Queen Coordinator Gemini Analysis
+            execution.current_step = "queen_gemini_analysis"
+            await self._step_1_5_queen_gemini_analysis(execution, failure_data)
+
+            # Step 1: GitHub Failure Detection & Download (enhanced with Queen results)
             execution.current_step = "failure_analysis"
             await self._step_1_analyze_failures(execution, failure_data)
 
-            # Main loop with iterations
-            while execution.current_iteration <= max_iterations:
-                logger.info(f"=== LOOP ITERATION {execution.current_iteration} ===")
+            # NEW Step 2.5: MECE Agent Deployment
+            execution.current_step = "mece_agent_deployment"
+            await self._step_2_5_mece_agent_deployment(execution)
 
-                # Step 2: Multi-Agent Analysis with Connascence Detection
+            # Main loop with iterations (enhanced with Queen coordination)
+            while execution.current_iteration <= max_iterations:
+                logger.info(f"=== LOOP ITERATION {execution.current_iteration} (Queen Coordinated) ===")
+
+                # Step 2: Multi-Agent Analysis (now coordinated by Queen)
                 execution.current_step = "multi_agent_analysis"
                 await self._step_2_multi_agent_analysis(execution)
 
-                # Step 3: Root Cause with Coupling Analysis
+                # Step 3: Root Cause with Queen Analysis Integration
                 execution.current_step = "root_cause_analysis"
                 await self._step_3_root_cause_analysis(execution)
 
-                # Step 4: Automated Fix Implementation
+                # Step 4: Automated Fix Implementation (parallel agent execution)
                 execution.current_step = "fix_implementation"
                 await self._step_4_fix_implementation(execution)
 
@@ -970,16 +1041,30 @@ class LoopOrchestrator:
                 execution.current_step = "git_integration"
                 await self._step_7_git_integration(execution)
 
-            # Step 8: GitHub feedback
+            # Step 8: GitHub feedback (enhanced with Queen analysis)
             execution.current_step = "github_feedback"
             await self._step_8_github_feedback(execution)
+
+            # Git Safety: Validate and merge safety branch
+            if self.git_safety_enabled and safety_branch:
+                execution.current_step = "git_safety_validation_and_merge"
+                await self._git_safety_validation_and_merge(execution, safety_branch)
 
         except Exception as e:
             logger.error(f"Loop execution failed: {e}")
             execution.escalation_triggered = True
             await self._handle_escalation(execution, str(e))
 
-        logger.info(f"Loop execution {loop_id} completed after {execution.current_iteration} iterations")
+            # Git Safety: Handle failed execution
+            if self.git_safety_enabled and safety_branch:
+                logger.warning(f"Loop failed, safety branch preserved: {safety_branch.branch_name}")
+                execution.step_results["git_safety_failure"] = {
+                    "safety_branch_preserved": True,
+                    "branch_name": safety_branch.branch_name,
+                    "reason": "Loop execution failed, manual review required"
+                }
+
+        logger.info(f"Enhanced loop execution {loop_id} completed after {execution.current_iteration} iterations")
         return execution
 
     async def _step_1_analyze_failures(self, execution: LoopExecution, failure_data: Dict[str, Any]):
@@ -1625,6 +1710,146 @@ Co-Authored-By: Claude <noreply@anthropic.com>"""
             json.dump(escalation_report, f, indent=2)
 
         execution.step_results["escalation"] = escalation_report
+
+    async def _step_1_5_queen_gemini_analysis(self, execution: LoopExecution, failure_data: Dict[str, Any]):
+        """NEW Step 1.5: Queen Coordinator Gemini Analysis with comprehensive issue ingestion."""
+        logger.info("Step 1.5: Queen Coordinator - Gemini comprehensive analysis...")
+
+        # Use Queen Coordinator to ingest and analyze all failures
+        self.queen_analysis = await self.queen_coordinator.ingest_and_analyze_failures(failure_data)
+
+        # Store Queen analysis results in execution
+        execution.step_results["queen_gemini_analysis"] = {
+            "analysis_id": self.queen_analysis.analysis_id,
+            "total_issues_processed": self.queen_analysis.total_issues_processed,
+            "complexity_assessment": self.queen_analysis.complexity_assessment,
+            "root_causes_identified": len(self.queen_analysis.root_causes_identified),
+            "mece_divisions_created": len(self.queen_analysis.mece_divisions),
+            "agents_selected": len(self.queen_analysis.agent_assignments),
+            "confidence_score": self.queen_analysis.confidence_score,
+            "memory_entities_created": self.queen_analysis.memory_entities_created,
+            "sequential_thinking_chains": self.queen_analysis.sequential_thinking_chains
+        }
+
+        logger.info(f"Queen Analysis Complete: {self.queen_analysis.total_issues_processed} issues → "
+                   f"{len(self.queen_analysis.mece_divisions)} MECE divisions → "
+                   f"{len(self.queen_analysis.agent_assignments)} agent assignments")
+
+    async def _step_2_5_mece_agent_deployment(self, execution: LoopExecution):
+        """NEW Step 2.5: Deploy agents in parallel using MECE divisions."""
+        logger.info("Step 2.5: MECE Agent Deployment - Parallel specialist deployment...")
+
+        if not self.queen_analysis:
+            logger.warning("No Queen analysis available for agent deployment")
+            execution.step_results["mece_agent_deployment"] = {"error": "No Queen analysis available"}
+            return
+
+        # Deploy all agents in parallel using Queen coordination
+        deployment_results = await self.queen_coordinator.deploy_agents_parallel(
+            self.queen_analysis.agent_assignments
+        )
+
+        # Store deployment results
+        execution.step_results["mece_agent_deployment"] = {
+            "total_agents_deployed": deployment_results["total_agents"],
+            "parallel_deployments": deployment_results["parallel_deployments"],
+            "sequential_deployments": deployment_results["sequential_deployments"],
+            "successful_deployments": deployment_results["successful_deployments"],
+            "failed_deployments": deployment_results["failed_deployments"],
+            "deployment_success_rate": deployment_results["successful_deployments"] / deployment_results["total_agents"] if deployment_results["total_agents"] > 0 else 0.0,
+            "mece_coordination_enabled": True,
+            "queen_coordination_active": True
+        }
+
+        logger.info(f"MECE Agent Deployment Complete: {deployment_results['successful_deployments']}/{deployment_results['total_agents']} agents deployed successfully")
+
+        # Update execution with Queen's MECE divisions and assignments
+        if hasattr(execution, 'mece_divisions'):
+            execution.mece_divisions = self.queen_analysis.mece_divisions
+        if hasattr(execution, 'agent_assignments'):
+            execution.agent_assignments = self.queen_analysis.agent_assignments
+
+    async def _git_safety_validation_and_merge(self, execution: LoopExecution, safety_branch) -> None:
+        """Validate safety branch and attempt merge with conflict resolution."""
+
+        logger.info(f"Starting Git safety validation and merge for: {safety_branch.branch_name}")
+
+        try:
+            # Step 1: Validate safety branch changes
+            validation_results = await self.git_safety_manager.validate_safety_branch(safety_branch)
+
+            execution.step_results["git_safety_validation"] = validation_results
+
+            if not validation_results["ready_for_merge"]:
+                logger.warning(f"Safety branch validation failed: {safety_branch.branch_name}")
+                execution.step_results["git_safety_merge"] = {
+                    "merge_attempted": False,
+                    "reason": "Validation failed",
+                    "safety_branch_preserved": True
+                }
+                return
+
+            # Step 2: Attempt merge with conflict detection
+            merge_results = await self.git_safety_manager.attempt_merge_with_conflict_detection(safety_branch)
+
+            execution.step_results["git_safety_merge"] = merge_results
+
+            if merge_results["merge_successful"]:
+                logger.info(f"Git safety merge successful: {safety_branch.branch_name}")
+
+                # Generate final safety report
+                safety_report = await self.git_safety_manager.generate_git_safety_report()
+                execution.step_results["git_safety_report"] = safety_report
+
+            elif merge_results["conflicts_detected"]:
+                logger.warning(f"Merge conflicts detected in {len(merge_results['conflicted_files'])} files")
+
+                # Get the latest conflict report
+                if self.git_safety_manager.conflict_reports:
+                    latest_conflict = self.git_safety_manager.conflict_reports[-1]
+
+                    # Step 3: Trigger recursive conflict resolution loop
+                    logger.info("Triggering Queen Coordinator conflict resolution loop...")
+
+                    conflict_resolution_results = await self.git_safety_manager.trigger_conflict_resolution_loop(
+                        latest_conflict
+                    )
+
+                    execution.step_results["git_conflict_resolution"] = conflict_resolution_results
+
+                    if conflict_resolution_results["resolution_successful"]:
+                        logger.info("Conflict resolution successful, re-attempting merge...")
+
+                        # Re-attempt merge after conflict resolution
+                        retry_merge_results = await self.git_safety_manager.attempt_merge_with_conflict_detection(
+                            safety_branch
+                        )
+
+                        execution.step_results["git_safety_merge_retry"] = retry_merge_results
+
+                        if retry_merge_results["merge_successful"]:
+                            logger.info("Git safety merge successful after conflict resolution!")
+                        else:
+                            logger.warning("Merge still failed after conflict resolution - manual intervention required")
+
+                    else:
+                        logger.warning("Conflict resolution failed - preserving safety branch for manual review")
+                        execution.step_results["git_safety_merge"]["safety_branch_preserved"] = True
+
+            # Generate comprehensive safety report
+            final_safety_report = await self.git_safety_manager.generate_git_safety_report()
+            execution.step_results["git_safety_final_report"] = final_safety_report
+
+            logger.info("Git safety validation and merge process completed")
+
+        except Exception as e:
+            logger.error(f"Git safety validation and merge failed: {e}")
+            execution.step_results["git_safety_error"] = {
+                "error": str(e),
+                "safety_branch_preserved": True,
+                "branch_name": safety_branch.branch_name,
+                "manual_intervention_required": True
+            }
 
 
 # Import required modules for regex

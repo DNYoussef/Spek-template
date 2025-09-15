@@ -1,10 +1,23 @@
-# /cicd:loop
+# /cicd:loop - Enhanced with Queen Coordinator
 
 ## Purpose
-Automated CI/CD failure detection and resolution loop that downloads GitHub failure reports, uses AI agents for root cause analysis, implements fixes, validates with theater detection, and provides feedback to GitHub. Integrates reverse engineering principles with authentic quality improvements.
+Enhanced automated CI/CD failure detection and resolution loop with Gemini-powered Queen Coordinator. Downloads GitHub failure reports, uses comprehensive issue ingestion, MECE task division, and 85+ specialized agents for parallel root cause analysis and fixes. Validates with theater detection and provides feedback to GitHub.
+
+## NEW Features
+- **Queen Coordinator**: Gemini-powered comprehensive issue ingestion and analysis
+- **MECE Task Division**: Mutually exclusive, collectively exhaustive parallel agent coordination
+- **85+ Agent Registry**: Optimal agent selection from comprehensive specialist pool
+- **Full MCP Integration**: Memory, sequential thinking, context7, and ref MCPs for each agent
+- **Cross-Session Learning**: Memory system integration for pattern recognition and improvement
 
 ## Usage
-/cicd:loop [--mode=auto|supervised|analysis] [--max-iterations=5] [--target-failures=all|category]
+/cicd:loop [--mode=auto|supervised|analysis] [--max-iterations=5] [--target-failures=all|category] [--queen-analysis=true] [--mece-parallel=true]
+
+### NEW Parameters
+- `--queen-analysis=true`: Enable Gemini Queen comprehensive analysis (default: true)
+- `--mece-parallel=true`: Enable parallel MECE agent coordination (default: true)
+- `--agent-pool=85+`: Use full 85+ agent registry for optimal selection (default: enabled)
+- `--mcp-integration=full`: Enable all MCP integrations (memory, sequential-thinking, context7, ref)
 
 ## Implementation
 
