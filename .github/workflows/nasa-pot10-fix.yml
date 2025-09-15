@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install --upgrade pip || python -m pip install --upgrade pip || python -m pip install --upgrade pip || python -m pip install --upgrade pip || python -m pip install --upgrade pip || python -m pip install --upgrade pip || python -m pip install --upgrade pip || python -m pip install --upgrade pip
+          pip install --upgrade pip
           pip install radon pylint mypy flake8 bandit
 
       - name: Check Cyclomatic Complexity (NASA Rule 1)
