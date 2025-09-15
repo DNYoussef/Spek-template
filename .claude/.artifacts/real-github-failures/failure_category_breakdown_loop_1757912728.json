@@ -1,0 +1,150 @@
+{
+  "defense_industry": [
+    {
+      "category": "defense_industry",
+      "workflow": "Defense Industry CI/CD Integration Validation",
+      "job": "Workflow Syntax & Structure Validation",
+      "duration": "9s",
+      "step_name": "Validate YAML structure",
+      "failure_reason": "Syntax validation failed"
+    },
+    {
+      "category": "defense_industry",
+      "workflow": "Defense Industry Certification Pipeline",
+      "job": "DFARS Compliance Validation",
+      "duration": "40s",
+      "step_name": "DFARS 252.204-7012 compliance check",
+      "failure_reason": "Compliance validation failed"
+    }
+  ],
+  "quality_gates": [
+    {
+      "category": "quality_gates",
+      "workflow": "MECE Duplication Analysis",
+      "job": "MECE Duplication Analysis",
+      "duration": "12m",
+      "step_name": "Duplication detection",
+      "failure_reason": "Analysis timeout"
+    },
+    {
+      "category": "quality_gates",
+      "workflow": "Production Gate - Multi-Stage Deployment Approval",
+      "job": "Pre-Production Validation Gate",
+      "duration": "8s",
+      "step_name": "Pre-production validation",
+      "failure_reason": "Validation gate failed"
+    },
+    {
+      "category": "quality_gates",
+      "workflow": "Quality Gate Enforcer (Push Protection)",
+      "job": "Enforce Quality Gates (Analyzer-Based)",
+      "duration": "39s",
+      "step_name": "Quality gate enforcement",
+      "failure_reason": "Quality threshold not met"
+    },
+    {
+      "category": "quality_gates",
+      "workflow": "Quality Gates (Enhanced)",
+      "job": "gates",
+      "duration": "1m",
+      "step_name": "Enhanced quality gates",
+      "failure_reason": "Quality gate validation failed"
+    },
+    {
+      "category": "quality_gates",
+      "workflow": "Production Gate - Multi-Stage Deployment Approval",
+      "job": "Deployment Notification & Reporting",
+      "duration": "4s",
+      "step_name": "Notification system",
+      "failure_reason": "Notification delivery failed"
+    }
+  ],
+  "nasa_pot10": [
+    {
+      "category": "nasa_pot10",
+      "workflow": "NASA POT10 Compliance Gates",
+      "job": "Critical NASA Rules Validation",
+      "duration": "2s",
+      "step_name": "Critical rule validation",
+      "failure_reason": "Rule validation failed"
+    },
+    {
+      "category": "nasa_pot10",
+      "workflow": "NASA POT10 Validation Pipeline",
+      "job": "NASA POT10 Rule Validation (complexity-analysis)",
+      "duration": "54s",
+      "step_name": "Complexity analysis",
+      "failure_reason": "Complexity threshold exceeded"
+    },
+    {
+      "category": "nasa_pot10",
+      "workflow": "NASA POT10 Validation Pipeline",
+      "job": "NASA POT10 Rule Validation (function-size-analysis)",
+      "duration": "53s",
+      "step_name": "Function size analysis",
+      "failure_reason": "Function size exceeded"
+    },
+    {
+      "category": "nasa_pot10",
+      "workflow": "NASA POT10 Validation Pipeline",
+      "job": "NASA POT10 Rule Validation (assertion-density)",
+      "duration": "44s",
+      "step_name": "Assertion density analysis",
+      "failure_reason": "Assertion density too low"
+    },
+    {
+      "category": "nasa_pot10",
+      "workflow": "NASA POT10 Validation Pipeline",
+      "job": "NASA POT10 Rule Validation (zero-warning-compilation)",
+      "duration": "51s",
+      "step_name": "Zero warning compilation",
+      "failure_reason": "Compilation warnings detected"
+    },
+    {
+      "category": "nasa_pot10",
+      "workflow": "NASA POT10 Validation Pipeline",
+      "job": "NASA POT10 Compliance Consolidation",
+      "duration": "11s",
+      "step_name": "Compliance consolidation",
+      "failure_reason": "Consolidation failed"
+    },
+    {
+      "category": "nasa_pot10",
+      "workflow": "NASA POT10 Compliance Gates",
+      "job": "Compliance Status Summary",
+      "duration": "3s",
+      "step_name": "Status summary generation",
+      "failure_reason": "Summary generation failed"
+    }
+  ],
+  "performance": [
+    {
+      "category": "performance",
+      "workflow": "Performance Monitoring",
+      "job": "Performance Monitoring & Optimization",
+      "duration": "56s",
+      "step_name": "Performance benchmarking",
+      "failure_reason": "Performance regression detected"
+    }
+  ],
+  "security": [
+    {
+      "category": "security",
+      "workflow": "Security Quality Gate Orchestrator",
+      "job": "Security Quality Gates",
+      "duration": "4m",
+      "step_name": "Security gate validation",
+      "failure_reason": "Security validation failed"
+    }
+  ],
+  "six_sigma": [
+    {
+      "category": "six_sigma",
+      "workflow": "Six Sigma CI/CD Metrics Integration",
+      "job": "Calculate DPMO & RTY Metrics (compliance)",
+      "duration": "12s",
+      "step_name": "DPMO calculation",
+      "failure_reason": "Metrics calculation failed"
+    }
+  ]
+}
