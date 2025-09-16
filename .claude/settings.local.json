@@ -56,7 +56,17 @@
       "Bash(git config:*)",
       "Bash(gh repo view:*)",
       "Bash(gh secret:*)",
-      "Bash(npm --version)"
+      "Bash(npm --version)",
+      "WebFetch(domain:docs.libp2p.io)",
+      "WebFetch(domain:yggdrasil-network.github.io)",
+      "WebFetch(domain:tailscale.com)",
+      "Read(//c/c/Users/17175/Desktop/**)",
+      "Bash(dir:*)",
+      "Bash(git reset:*)",
+      "Bash(while read file)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(head:*)",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []
