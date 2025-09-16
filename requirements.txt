@@ -18,9 +18,9 @@ flake8>=4.0.0
 bandit>=1.7.0
 
 # Additional dependencies for MECE analysis
-python-levenshtein>=0.20.0  # String similarity calculations
-difflib-data>=1.0.0         # Code difference analysis
-ast-utils>=0.3.0            # AST manipulation utilities
+Levenshtein>=0.20.0         # String similarity calculations (correct package name)
+# difflib is built-in, no package needed
+astunparse>=1.6.0           # AST manipulation utilities
 
 # Performance optimization
 cachetools>=5.0.0           # Result caching

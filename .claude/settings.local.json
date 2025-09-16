@@ -47,7 +47,16 @@
       "Read(//c/tmp/**)",
       "mcp__memory__search_nodes",
       "Bash(gh api:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "mcp__filesystem__read_multiple_files",
+      "mcp__memory__delete_entities",
+      "mcp__filesystem__list_allowed_directories",
+      "mcp__filesystem__search_files",
+      "Bash(od:*)",
+      "Bash(git config:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh secret:*)",
+      "Bash(npm --version)"
     ],
     "deny": [],
     "ask": []

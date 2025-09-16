@@ -31,6 +31,9 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^6.0.0",
+    "@octokit/rest": "^20.0.0",
     "cors": "^2.8.5",
     "express": "^4.18.0",
     "express-rate-limit": "^6.7.0",

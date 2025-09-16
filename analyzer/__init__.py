@@ -1,22 +1,28 @@
-# SPDX-License-Identifier: MIT
-# Analyzer module main exports for workflow compatibility
+"""
+Analyzer Module
+Main entry point for the SPEK analyzer system
+"""
 
-# Import canonical ConnascenceViolation from single source of truth
-from .utils.types import ConnascenceViolation
-
-# Import key analyzers for workflow compatibility
+# Import with fallback for missing modules
 try:
-    from .connascence_analyzer import ConnascenceAnalyzer
+    from .core import IMPORT_MANAGER, UNIFIED_IMPORTS_AVAILABLE
 except ImportError:
-    ConnascenceAnalyzer = None
+    IMPORT_MANAGER = None
+    UNIFIED_IMPORTS_AVAILABLE = False
 
-try:
-    from .analysis_orchestrator import AnalysisOrchestrator
-except ImportError:
-    AnalysisOrchestrator = None
+__version__ = '1.0.0'
 
 __all__ = [
-    "ConnascenceViolation", 
-    "ConnascenceAnalyzer",
-    "AnalysisOrchestrator"
+    'connascence_scanner',
+    'architecture_analyzer',
+    'quality_metrics',
+    'compliance_manager',
+    'quality_validation',
+    'risk_assessment',
+    'real_time_monitor',
+    'performance_tracker',
+    'cache_manager',
+    'performance_optimizer',
+    'semgrep_scanner',
+    'vulnerability_analyzer'
 ]
