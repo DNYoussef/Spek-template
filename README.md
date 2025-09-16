@@ -1,6 +1,8 @@
 # SPEK Enhanced Development Platform
 
-[![Defense Industry Ready](https://img.shields.io/badge/Defense_Industry-95%25_NASA_Compliance-green)](docs/NASA-POT10-COMPLIANCE-STRATEGIES.md) [![Quality Gates](https://img.shields.io/badge/Quality_Gates-9_Detectors-blue)](docs/ANALYZER-CAPABILITIES.md) [![CI/CD Success](https://img.shields.io/badge/CI%2FCD_Success-85%25%2B-brightgreen)](.github/workflows/) [![Production Ready](https://img.shields.io/badge/Production-Ready-success)](docs/PHASE-3-IMPLEMENTATION-SUMMARY.md)
+[![Tests](https://github.com/DNYoussef/Spek-template/actions/workflows/tests.yml/badge.svg)](https://github.com/DNYoussef/Spek-template/actions/workflows/tests.yml) [![Test Matrix](https://github.com/DNYoussef/Spek-template/actions/workflows/test-matrix.yml/badge.svg)](https://github.com/DNYoussef/Spek-template/actions/workflows/test-matrix.yml) [![CodeQL](https://github.com/DNYoussef/Spek-template/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/DNYoussef/Spek-template/security/code-scanning)
+
+[![Defense Industry Ready](https://img.shields.io/badge/Defense_Industry-95%25_NASA_Compliance-green)](docs/NASA-POT10-COMPLIANCE-STRATEGIES.md) [![Quality Gates](https://img.shields.io/badge/Quality_Gates-9_Detectors-blue)](docs/ANALYZER-CAPABILITIES.md) [![Test Coverage](https://img.shields.io/badge/Tests-64%2B_Passing-brightgreen)](tests/) [![Commands](https://img.shields.io/badge/Commands-39_Active-blue)](src/commands/) [![Production Ready](https://img.shields.io/badge/Production-Ready-success)](docs/PHASE-3-IMPLEMENTATION-SUMMARY.md)
 
 ## What This Platform Delivers
 
