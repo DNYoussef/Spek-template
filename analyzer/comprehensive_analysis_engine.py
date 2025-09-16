@@ -354,14 +354,30 @@ class ComprehensiveAnalysisEngine:
         lines = source_code.split('\n')
 
         for line_num, line in enumerate(lines, 1):
-            # Check for common C issues
-            if 'TODO' in line or 'FIXME' in line:
+            # Check for common code quality issues
+            if 'eval(' in line or 'exec(' in line:
                 issues.append({
-                    "type": "code_debt",
+                    "type": "security_risk",
+                    "severity": "high",
+                    "line": line_num,
+                    "message": "Dangerous eval/exec usage detected",
+                    "recommendation": "Replace with safe alternatives like ast.literal_eval"
+                })
+            elif 'import *' in line:
+                issues.append({
+                    "type": "import_quality",
+                    "severity": "medium",
+                    "line": line_num,
+                    "message": "Wildcard import detected",
+                    "recommendation": "Use explicit imports for better code clarity"
+                })
+            elif '==' in line and 'None' in line:
+                issues.append({
+                    "type": "code_style",
                     "severity": "low",
                     "line": line_num,
-                    "message": "Code debt marker detected",
-                    "recommendation": "Address TODO/FIXME before production"
+                    "message": "Use 'is None' instead of '== None'",
+                    "recommendation": "Use identity comparison for None checks"
                 })
 
         return issues
@@ -606,5 +622,9 @@ def calculate_metrics(data):
 
     # Test syntax analysis
     result = engine.analyze_syntax(sample_code)
-    print("Analysis Results:")
-    print(json.dumps(result, indent=2))
+
+    # Log results for debugging instead of printing
+    logger.info(f"Analysis completed: {len(result.syntax_issues)} issues found")
+    logger.debug(f"Analysis results: {json.dumps(result.__dict__, indent=2, default=str)}")
+
+    return result

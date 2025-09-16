@@ -66,7 +66,8 @@
       "Bash(while read file)",
       "Bash(do echo \"=== $file ===\")",
       "Bash(head:*)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(sed:*)"
     ],
     "deny": [],
     "ask": []

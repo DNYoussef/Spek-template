@@ -7,9 +7,11 @@ const SPEKGateway = require('./src/api-gateway');
 const commandSystem = require('./src/commands');
 const path = require('path');
 const fs = require('fs');
+const { EventEmitter } = require('events');
 
-class SPEKPlatform {
+class SPEKPlatform extends EventEmitter {
   constructor() {
+    super();
     this.gateway = null;
     this.config = this.loadConfig();
     this.version = '1.0.0';
@@ -44,7 +46,8 @@ class SPEKPlatform {
         return { ...defaultConfig, ...userConfig };
       }
     } catch (error) {
-      console.warn('Failed to load config file, using defaults:', error.message);
+      // For loadConfig during construction, emit after construction is complete
+      this._configWarning = { message: 'Failed to load config file, using defaults', error: error.message };
     }
 
     return defaultConfig;
