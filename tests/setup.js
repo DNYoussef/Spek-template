@@ -1,55 +1,70 @@
 /**
- * Jest test setup file
- * Configures global test environment and handles cleanup
+ * Jest Test Setup
+ * Global test configuration and utilities
  */
 
-// Set test environment variables
-process.env.NODE_ENV = 'test';
+// Increase timeout for integration tests
+if (process.env.TEST_TIMEOUT) {
+  jest.setTimeout(parseInt(process.env.TEST_TIMEOUT, 10));
+}
 
-// Increase timeout for async operations
-jest.setTimeout(30000);
-
-// Global test utilities
-global.testTimeout = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-// Mock console methods to reduce test noise
-const originalConsoleWarn = console.warn;
-const originalConsoleError = console.error;
-
-beforeAll(() => {
-  // Suppress expected warnings during tests
-  console.warn = jest.fn((message) => {
-    if (typeof message === 'string' && (
-      message.includes('Theater remediation validation failed') ||
-      message.includes('Flag initialization failed')
-    )) {
-      return; // Suppress expected warnings
+// Suppress console warnings during tests unless debugging
+if (!process.env.DEBUG_TESTS) {
+  global.console.warn = jest.fn();
+  global.console.error = jest.fn((message) => {
+    // Still show actual errors, just not warnings
+    if (message && message.includes('Error')) {
+      console.log(message);
     }
-    originalConsoleWarn(message);
   });
+}
 
-  console.error = jest.fn((message) => {
-    // Only suppress known test-related errors
-    if (typeof message === 'string' && message.includes('ENOENT')) {
-      return;
-    }
-    originalConsoleError(message);
-  });
-});
+// Global test helpers
+global.testHelpers = {
+  // Wait for async operations
+  wait: (ms) => new Promise(resolve => setTimeout(resolve, ms)),
 
-afterAll(() => {
-  // Restore console methods
-  console.warn = originalConsoleWarn;
-  console.error = originalConsoleError;
-});
+  // Mock file system operations
+  mockFs: () => ({
+    readFile: jest.fn().mockResolvedValue('mock content'),
+    writeFile: jest.fn().mockResolvedValue(undefined),
+    readdir: jest.fn().mockResolvedValue(['file1.js', 'file2.js']),
+    stat: jest.fn().mockResolvedValue({ isFile: () => true, isDirectory: () => false })
+  }),
 
-// Global cleanup for hanging processes
-afterEach(async () => {
-  // Clean up any hanging timers
-  jest.clearAllTimers();
+  // Mock command execution
+  mockExec: () => ({
+    stdout: 'mock output',
+    stderr: '',
+    code: 0
+  }),
 
-  // Force garbage collection if available
-  if (global.gc) {
-    global.gc();
+  // Create mock request/response for Express tests
+  mockReq: (overrides = {}) => ({
+    body: {},
+    params: {},
+    query: {},
+    headers: {},
+    ...overrides
+  }),
+
+  mockRes: () => {
+    const res = {};
+    res.status = jest.fn().mockReturnValue(res);
+    res.json = jest.fn().mockReturnValue(res);
+    res.send = jest.fn().mockReturnValue(res);
+    res.end = jest.fn().mockReturnValue(res);
+    return res;
   }
+};
+
+// Clean up after each test
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
+// Global error handler for unhandled rejections
+process.on('unhandledRejection', (error) => {
+  console.error('Unhandled promise rejection in test:', error);
+  // Don't exit the process during tests
 });
