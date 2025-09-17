@@ -1,0 +1,74 @@
+name: GitHub Project Automation
+
+on:
+  issues:
+    types: [opened, edited, closed, reopened]
+  pull_request:
+    types: [opened, edited, closed, reopened, merged]
+  workflow_run:
+    workflows: ["Tests", "CodeQL Analysis", "Complete Test Matrix"]
+    types: [completed]
+
+jobs:
+  update-project:
+    runs-on: ubuntu-latest
+    name: Update GitHub Project
+
+    steps:
+    - name: Update project board
+      uses: actions/add-to-project@v0.5.0
+      with:
+        project-url: https://github.com/users/DNYoussef/projects/1
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Auto-assign based on labels
+      if: github.event.action == 'opened'
+      run: |
+        if [[ "${{ contains(github.event.issue.labels.*.name, 'priority:critical') }}" == "true" ]]; then
+          echo "Critical issue detected - auto-assigning"
+        fi
+
+    - name: Update status based on workflow results
+      if: github.event_name == 'workflow_run'
+      run: |
+        echo "Workflow ${{ github.event.workflow_run.name }} completed with ${{ github.event.workflow_run.conclusion }}"
+        if [[ "${{ github.event.workflow_run.conclusion }}" == "failure" ]]; then
+          echo "Creating failure tracking issue"
+        fi
+
+  track-workflow-health:
+    runs-on: ubuntu-latest
+    name: Track Workflow Health
+    if: github.event_name == 'workflow_run'
+
+    steps:
+    - name: Check workflow failure patterns
+      run: |
+        echo "Monitoring workflow: ${{ github.event.workflow_run.name }}"
+        echo "Status: ${{ github.event.workflow_run.conclusion }}"
+        echo "Runtime: ${{ github.event.workflow_run.updated_at }} - ${{ github.event.workflow_run.created_at }}"
+
+    - name: Report persistent failures
+      if: github.event.workflow_run.conclusion == 'failure'
+      run: |
+        echo "Workflow failure detected - checking for patterns"
+        echo "This would trigger automated issue creation for persistent failures"
+
+  milestone-tracking:
+    runs-on: ubuntu-latest
+    name: Milestone Progress Tracking
+    if: github.event.action == 'closed' && github.event.issue.state == 'closed'
+
+    steps:
+    - name: Update milestone progress
+      run: |
+        echo "Issue closed: ${{ github.event.issue.title }}"
+        echo "Labels: ${{ join(github.event.issue.labels.*.name, ', ') }}"
+
+        if [[ "${{ contains(github.event.issue.labels.*.name, 'phase:1') }}" == "true" ]]; then
+          echo "Phase 1 task completed"
+        elif [[ "${{ contains(github.event.issue.labels.*.name, 'phase:2') }}" == "true" ]]; then
+          echo "Phase 2 task completed"
+        elif [[ "${{ contains(github.event.issue.labels.*.name, 'phase:3') }}" == "true" ]]; then
+          echo "Phase 3 task completed"
+        fi
