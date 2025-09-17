@@ -9,7 +9,7 @@ import ast
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Protocol
 
-from utils.types import ConnascenceViolation
+from ..utils.types import ConnascenceViolation
 
 
 class DetectorInterface(Protocol):

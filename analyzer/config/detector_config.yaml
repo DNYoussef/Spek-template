@@ -40,9 +40,10 @@ values_detector:
       - 10
       - 100
 
-# Position Detector Configuration  
+# Position Detector Configuration
 position_detector:
-  max_positional_params: 3
+  thresholds:
+    max_positional_params: 3
   severity_mapping:
     4-6: medium
     7-10: high
@@ -59,13 +60,28 @@ algorithm_detector:
 
 # Magic Literal Detector Configuration
 magic_literal_detector:
+  thresholds:
+    number_repetition: 3
+    string_repetition: 2
+  exclusions:
+    common_numbers:
+      - 0
+      - 1
+      - -1
+      - 2
+      - 10
+      - 100
+    common_strings:
+      - ""
+      - " "
+      - "\n"
+      - "\t"
+      - "utf-8"
+      - "ascii"
   severity_rules:
     in_conditionals: high
     large_numbers: medium
     string_literals: low
-  thresholds:
-    number_repetition: 3
-    string_repetition: 2
     
 # God Object Detector Configuration
 god_object_detector:

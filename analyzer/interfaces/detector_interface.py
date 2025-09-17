@@ -183,37 +183,87 @@ class StandardDetectorInterface(ABC):
 
 class ConfigurableDetectorMixin:
     """
-    Mixin that provides configuration management for detectors.
+    REAL Mixin that provides WORKING configuration management for detectors.
     Eliminates hardcoded configuration values and provides
-    standardized configuration access.
+    standardized configuration access with REAL YAML loading.
     """
-    
+
     def __init__(self):
-        from ..utils.config_manager import get_detector_config
         self._detector_config = None
-        self._detector_name = self.__class__.__name__.lower().replace('detector', '_detector')
-    
+        self._config_manager = None
+        # Fix detector name mapping to match YAML keys exactly
+        detector_class_name = self.__class__.__name__.lower()
+
+        # Special handling for class names that don't map cleanly
+        if detector_class_name == 'magicliteraldetector':
+            self._detector_name = 'magic_literal_detector'
+        elif detector_class_name == 'positiondetector':
+            self._detector_name = 'position_detector'
+        elif detector_class_name.endswith('detector'):
+            # Convert "PositionDetector" -> "position_detector" with underscores
+            base_name = detector_class_name[:-8]  # Remove 'detector'
+            # Add underscores before capitals
+            import re
+            base_name = re.sub(r'([a-z])([A-Z])', r'\1_\2', base_name).lower()
+            self._detector_name = base_name + '_detector'
+        else:
+            self._detector_name = detector_class_name + '_detector'
+
+    def _get_config_manager(self):
+        """Get global configuration manager instance."""
+        if self._config_manager is None:
+            from ..utils.config_manager import get_config_manager
+            self._config_manager = get_config_manager()
+        return self._config_manager
+
     def get_config(self):
-        """Get detector-specific configuration."""
+        """Get detector-specific configuration from REAL YAML loading."""
         if self._detector_config is None:
-            from ..utils.config_manager import get_detector_config
-            self._detector_config = get_detector_config(self._detector_name)
+            config_manager = self._get_config_manager()
+            self._detector_config = config_manager.get_detector_config(self._detector_name)
         return self._detector_config
-    
+
     def get_threshold(self, threshold_name: str, default_value: Any = None) -> Any:
-        """Get a threshold value from configuration."""
-        config = self.get_config()
-        return config.thresholds.get(threshold_name, default_value)
-    
+        """Get a threshold value from REAL configuration."""
+        try:
+            config = self.get_config()
+            return config.thresholds.get(threshold_name, default_value)
+        except Exception as e:
+            # Log the configuration access attempt for debugging
+            print(f"WARNING: Configuration access failed for {self._detector_name}.{threshold_name}: {e}")
+            return default_value
+
     def get_exclusions(self, exclusion_type: str) -> List[Any]:
-        """Get exclusion list from configuration."""
-        config = self.get_config()
-        return config.exclusions.get(exclusion_type, [])
-    
+        """Get exclusion list from REAL configuration."""
+        try:
+            config = self.get_config()
+            return config.exclusions.get(exclusion_type, [])
+        except Exception as e:
+            print(f"WARNING: Exclusions access failed for {self._detector_name}.{exclusion_type}: {e}")
+            return []
+
     def is_excluded_value(self, value: Any, exclusion_type: str) -> bool:
-        """Check if a value should be excluded from analysis."""
+        """Check if a value should be excluded from analysis using REAL config."""
         exclusions = self.get_exclusions(exclusion_type)
         return value in exclusions
+
+    def get_nested_config(self, path: str, default_value: Any = None) -> Any:
+        """Get nested configuration value using dot notation."""
+        try:
+            config = self.get_config()
+            parts = path.split('.')
+            current = config.__dict__
+
+            for part in parts:
+                if isinstance(current, dict) and part in current:
+                    current = current[part]
+                else:
+                    return default_value
+
+            return current if current is not None else default_value
+        except Exception as e:
+            print(f"WARNING: Nested config access failed for {self._detector_name}.{path}: {e}")
+            return default_value
 
 
 class DetectorFactory:

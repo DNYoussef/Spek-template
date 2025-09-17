@@ -430,7 +430,63 @@ class ResourceManager:
                 
         logger.info(f"Cleaned up all resources: {cleaned_count} resources")
         return cleaned_count
-    
+
+    def trigger_cleanup(self) -> None:
+        """Trigger immediate cleanup of resources."""
+        try:
+            # Force garbage collection
+            gc.collect()
+
+            # Cleanup old resources (older than 5 minutes)
+            old_cleaned = self.cleanup_old_resources(max_age_seconds=300.0)
+
+            # Cleanup large resources (>10MB)
+            large_cleaned = self.cleanup_large_resources(min_size_mb=10.0)
+
+            logger.info(f"Triggered cleanup: {old_cleaned} old resources, {large_cleaned} large resources")
+
+        except Exception as e:
+            logger.error(f"Cleanup trigger failed: {e}")
+
+    def record_file_analyzed(self, violation_count: int) -> None:
+        """Record that a file has been analyzed with violation count."""
+        try:
+            # Register analysis session as a tracked resource
+            analysis_id = f"analysis_{int(time.time() * 1000)}_{violation_count}"
+
+            self.register_resource(
+                resource_type="analysis_session",
+                resource_id=analysis_id,
+                size_bytes=violation_count * 100,  # Estimate memory per violation
+                metadata={
+                    "violations_found": violation_count,
+                    "analyzed_at": time.time()
+                }
+            )
+
+            # Update stats
+            with self._lock:
+                stats = self._stats_by_type["analysis_session"]
+                stats.total_created += 1
+
+        except Exception as e:
+            logger.error(f"Failed to record file analysis: {e}")
+
+    def get_usage_stats(self) -> Dict[str, Any]:
+        """Get resource usage statistics."""
+        with self._lock:
+            total_resources = len(self._resources)
+            total_size = sum(tracker.size_bytes for tracker in self._resources.values())
+
+            return {
+                "total_tracked_resources": total_resources,
+                "total_size_bytes": total_size,
+                "total_size_mb": total_size / (1024 * 1024),
+                "resource_types": list(self._resources_by_type.keys()),
+                "max_capacity": self.max_tracked_resources,
+                "utilization_percent": (total_resources / self.max_tracked_resources) * 100
+            }
+
     def get_resource_stats(self) -> Dict[str, ResourceStats]:
         """Get resource statistics by type."""
         with self._lock:

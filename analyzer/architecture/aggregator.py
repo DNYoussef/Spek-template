@@ -21,9 +21,40 @@ logger = logging.getLogger(__name__)
 class ViolationAggregator:
     """Aggregates and processes analysis results with standardization."""
 
-    def __init__(self):
+    def __init__(self, aggregation_method: str = "weighted"):
         """Initialize aggregator with minimal state."""
         self.aggregation_metadata = {}
+        self.aggregation_method = aggregation_method
+        self.recommendation_engine = None
+
+    def set_recommendation_engine(self, engine):
+        """Set recommendation engine for enhanced aggregation."""
+        self.recommendation_engine = engine
+
+    def aggregate(self, results: list) -> dict:
+        """Aggregate analysis results from multiple sources."""
+        aggregated_violations = []
+        total_files = 0
+
+        for result in results:
+            if isinstance(result, dict):
+                violations = result.get("violations", [])
+                aggregated_violations.extend(violations)
+                total_files += result.get("files_analyzed", 0)
+
+        return {
+            "violations": aggregated_violations,
+            "total_violations": len(aggregated_violations),
+            "files_analyzed": total_files,
+            "aggregation_method": self.aggregation_method
+        }
+
+    def update(self, result: dict):
+        """Update aggregator with new result."""
+        # Store result for later aggregation
+        if "latest_results" not in self.aggregation_metadata:
+            self.aggregation_metadata["latest_results"] = []
+        self.aggregation_metadata["latest_results"].append(result)
 
     def build_unified_result(
         self,
@@ -309,3 +340,7 @@ class ViolationAggregator:
     def get_aggregation_stats(self) -> Dict[str, Any]:
         """Get aggregation statistics."""
         return self.aggregation_metadata.copy()
+
+
+# Alias for component integration compatibility
+ResultAggregator = ViolationAggregator

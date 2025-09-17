@@ -243,16 +243,18 @@ class FileWatcher(FileSystemEventHandler):
 class StreamProcessor:
     """
     Core stream processing engine for incremental analysis.
-    
+
     Handles event-driven analysis with intelligent caching, dependency tracking,
     and real-time result streaming.
     """
-    
+
     def __init__(self,
-                 analyzer_factory: Callable[[], Any],
+                 analyzer_factory: Optional[Callable[[], Any]] = None,
                  max_queue_size: int = 1000,
                  max_workers: int = 4,
-                 cache_size: int = 10000):
+                 cache_size: int = 10000,
+                 buffer_size: int = 1000,
+                 flush_interval: float = 5.0):
         """
         Initialize stream processor.
         
@@ -266,9 +268,15 @@ class StreamProcessor:
         assert 1 <= max_workers <= 16, "max_workers must be 1-16"
         assert 100 <= cache_size <= 100000, "cache_size must be 100-100000"
         
-        self.analyzer_factory = analyzer_factory
+        self.analyzer_factory = analyzer_factory or self._default_analyzer_factory
         self.max_queue_size = max_queue_size
         self.max_workers = max_workers
+        self.buffer_size = buffer_size
+        self.flush_interval = flush_interval
+
+        # Component integrations
+        self._cache = None
+        self._aggregator = None
         
         # Request processing
         self._request_queue: deque = deque(maxlen=max_queue_size)
@@ -307,6 +315,174 @@ class StreamProcessor:
         # Result callbacks
         self._result_callbacks: List[Callable[[AnalysisResult], None]] = []
         self._batch_callbacks: List[Callable[[List[AnalysisResult]], None]] = []
+
+    def _default_analyzer_factory(self):
+        """Default analyzer factory if none provided."""
+        try:
+            from ..unified_analyzer import UnifiedConnascenceAnalyzer
+            return UnifiedConnascenceAnalyzer()
+        except ImportError:
+            return None
+
+    def set_cache(self, cache):
+        """Set incremental cache for the processor."""
+        self._cache = cache
+
+    def set_aggregator(self, aggregator):
+        """Set result aggregator for the processor."""
+        self._aggregator = aggregator
+
+    def process_content(self, content: str) -> Dict[str, Any]:
+        """Process file content and return analysis results."""
+        try:
+            import ast
+            import sys
+            from pathlib import Path
+
+            # Add parent directory to path for imports
+            analyzer_path = Path(__file__).parent.parent
+            if str(analyzer_path) not in sys.path:
+                sys.path.insert(0, str(analyzer_path))
+
+            from detectors import (
+                PositionDetector, MagicLiteralDetector, AlgorithmDetector,
+                GodObjectDetector, TimingDetector, ConventionDetector,
+                ValuesDetector, ExecutionDetector
+            )
+
+            # Parse AST
+            tree = ast.parse(content)
+            source_lines = content.splitlines()
+
+            # Run detectors
+            all_violations = []
+            detectors = [
+                PositionDetector("stream", source_lines),
+                MagicLiteralDetector("stream", source_lines),
+                AlgorithmDetector("stream", source_lines),
+                GodObjectDetector("stream", source_lines),
+                TimingDetector("stream", source_lines),
+                ConventionDetector("stream", source_lines),
+                ValuesDetector("stream", source_lines),
+                ExecutionDetector("stream", source_lines)
+            ]
+
+            for detector in detectors:
+                try:
+                    violations = detector.detect_violations(tree)
+                    all_violations.extend(violations)
+                except Exception as e:
+                    logger.error(f"Detector {detector.__class__.__name__} failed: {e}")
+
+            return {
+                "violations": [self._violation_to_dict(v) for v in all_violations],
+                "lines_analyzed": len(source_lines),
+                "detectors_run": len(detectors)
+            }
+
+        except Exception as e:
+            logger.error(f"Content processing failed: {e}")
+            return {"violations": [], "error": str(e)}
+
+    def process_file_stream(self, file_path: str, content: str) -> Dict[str, Any]:
+        """Process file stream for analysis with real implementation."""
+        try:
+            import ast
+            violations = []
+
+            # Parse the content to detect real violations
+            try:
+                tree = ast.parse(content)
+                source_lines = content.splitlines()
+
+                # Real AST analysis for violations
+                for node in ast.walk(tree):
+                    if isinstance(node, ast.FunctionDef):
+                        # Check for too many parameters (Position connascence)
+                        if len(node.args.args) > 5:
+                            violations.append({
+                                "type": "position",
+                                "line": node.lineno,
+                                "description": f"Function {node.name} has too many parameters ({len(node.args.args)})",
+                                "severity": "medium",
+                                "file_path": file_path
+                            })
+
+                        # Check for long functions (complexity connascence)
+                        func_lines = getattr(node, 'end_lineno', node.lineno) - node.lineno + 1
+                        if func_lines > 60:  # NASA Rule 4
+                            violations.append({
+                                "type": "execution",
+                                "line": node.lineno,
+                                "description": f"Function {node.name} is too long ({func_lines} lines)",
+                                "severity": "high",
+                                "file_path": file_path
+                            })
+
+                    elif isinstance(node, ast.ClassDef):
+                        # Check for god objects
+                        class_methods = [n for n in node.body if isinstance(n, ast.FunctionDef)]
+                        if len(class_methods) > 20:
+                            violations.append({
+                                "type": "identity",
+                                "line": node.lineno,
+                                "description": f"Class {node.name} is a god object ({len(class_methods)} methods)",
+                                "severity": "critical",
+                                "file_path": file_path
+                            })
+
+                # Check for magic literals
+                for node in ast.walk(tree):
+                    if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+                        if node.value not in [0, 1, -1] and not isinstance(node.value, bool):
+                            violations.append({
+                                "type": "value",
+                                "line": node.lineno,
+                                "description": f"Magic literal detected: {node.value}",
+                                "severity": "low",
+                                "file_path": file_path
+                            })
+
+            except SyntaxError as e:
+                violations.append({
+                    "type": "syntax",
+                    "line": e.lineno or 1,
+                    "description": f"Syntax error: {e.msg}",
+                    "severity": "critical",
+                    "file_path": file_path
+                })
+
+            result = {
+                "violations": violations,
+                "file_path": file_path,
+                "lines_analyzed": len(content.splitlines()),
+                "violations_found": len(violations)
+            }
+
+            # Update aggregator if available
+            if self._aggregator:
+                self._aggregator.update(result)
+
+            return result
+
+        except Exception as e:
+            logger.error(f"File stream processing failed for {file_path}: {e}")
+            return {"error": str(e), "file_path": file_path, "violations": []}
+
+    def process_file_change(self, file_path: str, changes: Dict[str, Any]):
+        """Process file change event for streaming analysis."""
+        try:
+            if not Path(file_path).exists():
+                return
+
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            return self.process_file_stream(file_path, content)
+
+        except Exception as e:
+            logger.error(f"File change processing failed for {file_path}: {e}")
+            return {"error": str(e)}
     
     async def start(self) -> None:
         """Start the stream processor."""
@@ -776,29 +952,29 @@ def create_stream_processor(analyzer_factory: Callable[[], Any], **kwargs) -> St
 
 async def process_file_changes_stream(
     directories: List[Union[str, Path]],
-    analyzer_factory: Callable[[], Any],
+    analyzer_factory: Optional[Callable[[], Any]] = None,
     result_callback: Optional[Callable[[AnalysisResult], None]] = None
 ) -> AsyncGenerator[AnalysisResult, None]:
     """
     High-level function for streaming file change analysis.
-    
+
     Args:
         directories: Directories to watch for changes
         analyzer_factory: Factory function for analyzer instances
         result_callback: Optional callback for results
-        
+
     Yields:
         Analysis results as they become available
     """
     processor = StreamProcessor(analyzer_factory)
-    
+
     if result_callback:
         processor.add_result_callback(result_callback)
-    
+
     async with processor:
         # Start watching directories
         processor.start_watching(directories)
-        
+
         # Yield results as they arrive
         async for result in processor.get_results():
             yield result

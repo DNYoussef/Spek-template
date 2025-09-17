@@ -1,0 +1,298 @@
+# Detector Configuration for SPEK Enhanced Analyzer
+# Production-ready configuration for all 9 connascence detectors and quality analysis
+
+version: "2.0.0"
+environment: "production"
+
+# Global detector settings
+global:
+  timeout_seconds: 30
+  max_memory_mb: 512
+  enable_parallel: true
+  max_workers: 8
+  enable_caching: true
+  cache_size: 10000
+  log_level: "INFO"
+
+# Core Connascence Detectors (9 types)
+detectors:
+  # Connascence of Name
+  position:
+    enabled: true
+    priority: "high"
+    thresholds:
+      max_parameters: 5
+      max_positional_args: 3
+      warning_threshold: 4
+      critical_threshold: 6
+    patterns:
+      - "function_definitions"
+      - "method_definitions"
+      - "constructor_calls"
+    severity_mapping:
+      3: "low"
+      4: "medium"
+      5: "high"
+      6: "critical"
+
+  # Connascence of Meaning
+  magic_literal:
+    enabled: true
+    priority: "high"
+    thresholds:
+      allowed_literals: [0, 1, -1, 2, 10, 100, 1000]
+      max_string_length: 50
+      numeric_threshold: 2
+    exclusions:
+      - "test_*.py"
+      - "*_test.py"
+      - "__init__.py"
+    patterns:
+      - "numeric_constants"
+      - "string_literals"
+      - "boolean_literals"
+    severity: "medium"
+
+  # Connascence of Algorithm
+  algorithm:
+    enabled: true
+    priority: "medium"
+    thresholds:
+      similarity_threshold: 0.8
+      min_line_count: 5
+      max_duplicates: 3
+    analysis:
+      normalize_whitespace: true
+      ignore_comments: true
+      ignore_variable_names: false
+    patterns:
+      - "function_bodies"
+      - "loop_structures"
+      - "conditional_logic"
+    severity: "high"
+
+  # God Object Detection
+  god_object:
+    enabled: true
+    priority: "critical"
+    thresholds:
+      max_methods: 20
+      max_attributes: 15
+      max_lines_of_code: 500
+      max_dependencies: 10
+    analysis:
+      include_private_methods: true
+      include_properties: true
+      weight_by_complexity: true
+    patterns:
+      - "class_definitions"
+      - "method_counts"
+      - "attribute_counts"
+    severity: "critical"
+
+  # Connascence of Timing
+  timing:
+    enabled: true
+    priority: "medium"
+    thresholds:
+      max_async_depth: 3
+      max_callback_chain: 5
+      timeout_threshold: 30
+    patterns:
+      - "async_functions"
+      - "callback_chains"
+      - "timer_functions"
+      - "threading_operations"
+    analysis:
+      check_deadlocks: true
+      check_race_conditions: true
+    severity: "high"
+
+  # Connascence of Convention
+  convention:
+    enabled: true
+    priority: "low"
+    thresholds:
+      naming_consistency: 0.9
+      style_consistency: 0.85
+    patterns:
+      - "naming_conventions"
+      - "import_ordering"
+      - "formatting_style"
+    style_rules:
+      snake_case_functions: true
+      pascal_case_classes: true
+      uppercase_constants: true
+    severity: "low"
+
+  # Connascence of Values
+  values:
+    enabled: true
+    priority: "medium"
+    thresholds:
+      max_shared_values: 5
+      consistency_threshold: 0.9
+    patterns:
+      - "shared_constants"
+      - "configuration_values"
+      - "enum_values"
+    analysis:
+      track_value_propagation: true
+      check_value_consistency: true
+    severity: "medium"
+
+  # Connascence of Execution
+  execution:
+    enabled: true
+    priority: "high"
+    thresholds:
+      max_execution_depth: 5
+      max_call_chain: 10
+    patterns:
+      - "function_calls"
+      - "method_invocations"
+      - "control_flow"
+    analysis:
+      track_side_effects: true
+      check_order_dependencies: true
+    severity: "high"
+
+# Quality Thresholds
+quality_gates:
+  nasa_pot10:
+    enabled: true
+    rules:
+      rule_1_simple_control_flow: true
+      rule_2_fixed_loop_bounds: true
+      rule_3_no_dynamic_memory: false  # Python specific
+      rule_4_function_size_limit: 60
+      rule_5_assertion_density: 0.1
+      rule_6_restricted_scope: true
+      rule_7_parameter_checking: true
+      rule_8_preprocessor_use: false   # Not applicable
+      rule_9_pointer_use: false       # Not applicable
+      rule_10_compilation_warnings: true
+    compliance_threshold: 0.9
+
+  six_sigma:
+    enabled: true
+    target_sigma_level: 4.0
+    metrics:
+      defects_per_million_opportunities: 6210
+      process_capability_index: 1.33
+      control_limits:
+        upper: 3.0
+        lower: -3.0
+    measurements:
+      sample_size: 100
+      measurement_frequency: "daily"
+
+  mece:
+    enabled: true
+    thresholds:
+      completeness_score: 0.8
+      mutual_exclusivity: 0.9
+      overlap_tolerance: 0.1
+    analysis:
+      check_coverage: true
+      check_gaps: true
+      check_overlaps: true
+
+# Enterprise Features
+enterprise:
+  dfars_compliance:
+    enabled: false  # Enable for defense contracts
+    requirements:
+      - "252.204-7012"  # Safeguarding Covered Defense Information
+      - "252.239-7018"  # Supply Chain Risk
+    audit_trail: true
+
+  supply_chain:
+    enabled: true
+    scan_dependencies: true
+    check_vulnerabilities: true
+    whitelist_registries:
+      - "pypi.org"
+      - "conda-forge"
+
+  security:
+    enabled: true
+    scan_secrets: true
+    check_permissions: true
+    validate_inputs: true
+
+# File Processing
+file_processing:
+  include_patterns:
+    - "**/*.py"
+  exclude_patterns:
+    - "**/venv/**"
+    - "**/env/**"
+    - "**/__pycache__/**"
+    - "**/node_modules/**"
+    - "**/.git/**"
+    - "**/build/**"
+    - "**/dist/**"
+  max_file_size_mb: 10
+  encoding: "utf-8"
+
+# Reporting
+reporting:
+  formats:
+    - "json"
+    - "yaml"
+    - "markdown"
+    - "sarif"
+  output_directory: "./reports"
+  include_metrics: true
+  include_recommendations: true
+  group_by_severity: true
+
+# Performance Optimization
+performance:
+  parallel_processing:
+    enabled: true
+    max_workers: 8
+    chunk_size: 100
+  memory_management:
+    max_memory_mb: 1024
+    gc_threshold: 0.8
+    cache_cleanup_interval: 300
+  caching:
+    enabled: true
+    cache_size: 10000
+    ttl_seconds: 3600
+
+# Monitoring and Observability
+monitoring:
+  metrics_collection: true
+  performance_tracking: true
+  error_tracking: true
+  export_metrics: true
+  metrics_format: "prometheus"
+
+# Integration Settings
+integrations:
+  github:
+    enabled: true
+    post_pr_comments: true
+    create_status_checks: true
+    issue_creation: true
+
+  ci_cd:
+    enabled: true
+    fail_on_critical: true
+    fail_on_high_count: 10
+    export_results: true
+
+  ide:
+    enabled: true
+    real_time_analysis: true
+    inline_suggestions: true
+
+# Development Mode
+development:
+  debug_mode: false
+  verbose_logging: false
+  save_intermediate_results: false
+  profiling: false

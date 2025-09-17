@@ -247,7 +247,42 @@ class IncrementalCache:
             self._metrics["delta_updates"] += 1
             
             return delta
-    
+
+    def get(self, file_path: Union[str, Path]) -> Optional[Dict[str, Any]]:
+        """Get cached result for file (simplified interface)."""
+        file_path_str = str(file_path)
+        with self._lock:
+            # Check if we have any cached results for this file
+            if file_path_str in self._results_by_file:
+                result_keys = self._results_by_file[file_path_str]
+                if result_keys:
+                    # Return the first available result
+                    first_key = next(iter(result_keys))
+                    result = self._partial_results.get(first_key)
+                    if result:
+                        return {
+                            "hash": result.content_hash,
+                            "result": result.data,
+                            "timestamp": result.created_at
+                        }
+            return None
+
+    def set(self, file_path: Union[str, Path], data: Dict[str, Any]) -> None:
+        """Set cached result for file (simplified interface)."""
+        file_path_str = str(file_path)
+        content_hash = data.get("hash", "unknown")
+        result_data = data.get("result", {})
+
+        # Store as partial result
+        self.store_partial_result(
+            file_path_str,
+            "generic",
+            result_data,
+            content_hash,
+            dependencies=set(),
+            metadata={"stored_via_set": True}
+        )
+
     def get_partial_result(self, 
                           file_path: Union[str, Path],
                           result_type: str,

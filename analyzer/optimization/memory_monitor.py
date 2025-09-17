@@ -406,13 +406,27 @@ class MemoryMonitor:
         for _ in range(3):
             gc.collect()
     
+    def get_current_usage(self) -> float:
+        """Get real current memory usage in MB."""
+        try:
+            import psutil
+            process = psutil.Process()
+            return process.memory_info().rss / 1024 / 1024  # Convert bytes to MB
+        except Exception as e:
+            logger.error(f"Failed to get memory usage: {e}")
+            return 0.0
+
     def get_current_stats(self) -> MemoryStats:
         """Get current memory statistics."""
         with self._lock:
+            # Update current usage with real data
+            current_usage = self.get_current_usage()
+            self._stats.current_usage_mb = current_usage
+
             # Create copy to avoid concurrent modification
             return MemoryStats(
-                current_usage_mb=self._stats.current_usage_mb,
-                peak_usage_mb=self._stats.peak_usage_mb,
+                current_usage_mb=current_usage,
+                peak_usage_mb=max(self._stats.peak_usage_mb, current_usage),
                 average_usage_mb=self._stats.average_usage_mb,
                 leak_detected=self._stats.leak_detected,
                 growth_rate_mb_s=self._stats.growth_rate_mb_s,

@@ -1,0 +1,335 @@
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["sequential-thinking-mcp-server"],
+      "description": "Enhanced reasoning capabilities for Claude Sonnet and Gemini Flash models",
+      "env": {
+        "REASONING_MODE": "enhanced",
+        "ENABLE_STEP_BY_STEP": "true",
+        "ENABLE_REFLECTION": "true",
+        "ENABLE_MULTI_PERSPECTIVE": "true"
+      }
+    },
+
+    "claude-flow": {
+      "command": "npx",
+      "args": ["claude-flow@alpha", "mcp", "start"],
+      "description": "Claude Flow orchestration with 87 MCP tools",
+      "env": {
+        "CLAUDE_FLOW_MODE": "production",
+        "SWARM_TOPOLOGY": "adaptive",
+        "MAX_AGENTS": "25",
+        "ENABLE_HIVE_MIND": "true"
+      }
+    },
+
+    "ruv-swarm": {
+      "command": "npx",
+      "args": ["@ruv/swarm-server"],
+      "description": "Advanced swarm coordination with neural networks",
+      "env": {
+        "SWARM_MODE": "distributed",
+        "NEURAL_ACCELERATION": "true",
+        "WASM_OPTIMIZATION": "true"
+      }
+    },
+
+    "flow-nexus": {
+      "command": "npx",
+      "args": ["@flow-nexus/mcp-server"],
+      "description": "Flow Nexus cloud platform integration",
+      "env": {
+        "PLATFORM_MODE": "cloud",
+        "E2B_INTEGRATION": "true",
+        "SANDBOX_TEMPLATES": "node,python,react,nextjs"
+      }
+    },
+
+    "memory": {
+      "command": "npx",
+      "args": ["@anthropic/memory-mcp-server"],
+      "description": "Persistent knowledge graph and cross-session memory",
+      "env": {
+        "MEMORY_PERSISTENCE": "true",
+        "GRAPH_MODE": "distributed",
+        "ENABLE_RELATIONS": "true"
+      }
+    },
+
+    "filesystem": {
+      "command": "npx",
+      "args": ["@anthropic/filesystem-mcp-server"],
+      "description": "Secure filesystem operations for agent coordination",
+      "env": {
+        "SECURITY_MODE": "strict",
+        "ALLOWED_DIRECTORIES": "/src,/tests,/docs,/config,/scripts,/examples"
+      }
+    },
+
+    "github": {
+      "command": "npx",
+      "args": ["@anthropic/github-mcp-server"],
+      "description": "GitHub repository management and automation",
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}",
+        "REPO_ACCESS": "read-write",
+        "ENABLE_WEBHOOKS": "true"
+      }
+    },
+
+    "playwright": {
+      "command": "npx",
+      "args": ["@anthropic/playwright-mcp-server"],
+      "description": "Browser automation for UI testing",
+      "env": {
+        "BROWSER_TYPE": "chromium",
+        "HEADLESS": "true",
+        "SCREENSHOT_MODE": "auto"
+      }
+    },
+
+    "puppeteer": {
+      "command": "npx",
+      "args": ["@anthropic/puppeteer-mcp-server"],
+      "description": "Advanced browser automation and device simulation",
+      "env": {
+        "DEVICE_SIMULATION": "true",
+        "PERFORMANCE_MONITORING": "true",
+        "GESTURE_SUPPORT": "true"
+      }
+    },
+
+    "eva": {
+      "command": "npx",
+      "args": ["@anthropic/eva-mcp-server"],
+      "description": "Performance evaluation and quality metrics",
+      "env": {
+        "BENCHMARK_MODE": "comprehensive",
+        "QUALITY_GATES": "true",
+        "METRICS_EXPORT": "true"
+      }
+    }
+  },
+
+  "agentModelPlatforms": {
+    "gemini": {
+      "baseCommand": "gemini",
+      "models": {
+        "gemini-2.5-pro": {
+          "contextWindow": 1000000,
+          "capabilities": ["large_context", "web_search", "multimodal"],
+          "cost": "free",
+          "flags": "--model gemini-2.5-pro"
+        },
+        "gemini-2.5-flash": {
+          "contextWindow": 100000,
+          "capabilities": ["fast_response", "cost_effective"],
+          "cost": "free",
+          "flags": "--model gemini-2.5-flash"
+        }
+      },
+      "sequentialThinkingIntegration": {
+        "enabled": true,
+        "flag": "--reasoning-mode sequential",
+        "mcpServer": "sequential-thinking"
+      },
+      "authentication": {
+        "method": "google_oauth",
+        "required": true
+      }
+    },
+
+    "openai": {
+      "baseCommand": "codex",
+      "models": {
+        "gpt-5": {
+          "contextWindow": 128000,
+          "capabilities": ["general_purpose", "balanced_performance"],
+          "cost": "paid",
+          "flags": "/model gpt-5"
+        },
+        "gpt-5-codex": {
+          "contextWindow": 128000,
+          "capabilities": ["autonomous_coding", "browser_automation", "github_integration", "7_hour_sessions"],
+          "cost": "paid",
+          "flags": "/model gpt-5-codex"
+        }
+      },
+      "browserAutomation": {
+        "enabled": true,
+        "capabilities": ["screenshot_capture", "ui_iteration", "gesture_control"],
+        "requirements": ["gpt-5-codex"]
+      },
+      "githubIntegration": {
+        "enabled": true,
+        "nativeTagging": "@codex",
+        "prIntegration": true
+      },
+      "authentication": {
+        "method": "chatgpt_plus",
+        "required": true
+      }
+    },
+
+    "claude": {
+      "baseCommand": "claude",
+      "models": {
+        "claude-opus-4.1": {
+          "contextWindow": 200000,
+          "capabilities": ["code_review", "quality_analysis", "72.7_swe_bench"],
+          "cost": "paid",
+          "flags": "--model claude-opus-4.1"
+        },
+        "claude-sonnet-4": {
+          "contextWindow": 200000,
+          "capabilities": ["coordination", "reasoning", "enterprise_features"],
+          "cost": "paid",
+          "flags": "--model claude-sonnet-4"
+        }
+      },
+      "sequentialThinkingIntegration": {
+        "enabled": true,
+        "mcpServer": "sequential-thinking",
+        "flag": "--mcp-server sequential-thinking"
+      },
+      "authentication": {
+        "method": "anthropic_api_key",
+        "required": true
+      }
+    }
+  },
+
+  "agentPlatformMappings": {
+    "browser_automation_agents": {
+      "agents": ["frontend-developer", "ui-designer", "mobile-dev", "rapid-prototyper"],
+      "requiredPlatform": "openai",
+      "requiredModel": "gpt-5-codex",
+      "reason": "Browser automation and screenshot capabilities"
+    },
+
+    "large_context_agents": {
+      "agents": ["researcher", "research-agent", "specification", "architecture", "system-architect"],
+      "preferredPlatform": "gemini",
+      "preferredModel": "gemini-2.5-pro",
+      "reason": "1M token context window for comprehensive analysis"
+    },
+
+    "quality_assurance_agents": {
+      "agents": ["reviewer", "code-analyzer", "security-manager", "tester", "production-validator"],
+      "preferredPlatform": "claude",
+      "preferredModel": "claude-opus-4.1",
+      "reason": "72.7% SWE-bench performance and superior code analysis"
+    },
+
+    "coordination_agents": {
+      "agents": ["sparc-coord", "hierarchical-coordinator", "mesh-coordinator", "adaptive-coordinator"],
+      "preferredPlatform": "claude",
+      "preferredModel": "claude-sonnet-4",
+      "sequentialThinking": true,
+      "reason": "Enhanced coordination with sequential thinking"
+    },
+
+    "cost_effective_agents": {
+      "agents": ["planner", "refinement", "pr-manager", "issue-tracker", "performance-benchmarker"],
+      "preferredPlatform": "gemini",
+      "preferredModel": "gemini-2.5-flash",
+      "sequentialThinking": true,
+      "reason": "Cost-effective with enhanced reasoning"
+    },
+
+    "github_integration_agents": {
+      "agents": ["github-modes", "workflow-automation", "code-review-swarm"],
+      "preferredPlatform": "openai",
+      "preferredModel": "gpt-5-codex",
+      "reason": "Native GitHub integration with @codex tagging"
+    },
+
+    "autonomous_coding_agents": {
+      "agents": ["coder", "sparc-coder", "backend-dev", "ml-developer", "cicd-engineer"],
+      "preferredPlatform": "openai",
+      "preferredModel": "gpt-5-codex",
+      "reason": "7+ hour autonomous coding sessions with iterative testing"
+    }
+  },
+
+  "initializationSequence": {
+    "step1_platform_detection": {
+      "description": "Detect available AI platforms",
+      "commands": [
+        "gemini --version 2>/dev/null && echo 'Gemini CLI: Available' || echo 'Gemini CLI: Not found'",
+        "codex --version 2>/dev/null && echo 'OpenAI Codex: Available' || echo 'OpenAI Codex: Not found'",
+        "claude --version 2>/dev/null && echo 'Claude Code: Available' || echo 'Claude Code: Not found'"
+      ]
+    },
+
+    "step2_mcp_server_initialization": {
+      "description": "Initialize MCP servers for all platforms",
+      "commands": [
+        "claude mcp add sequential-thinking npx sequential-thinking-mcp-server",
+        "claude mcp add claude-flow npx claude-flow@alpha mcp start",
+        "claude mcp add memory npx @anthropic/memory-mcp-server",
+        "claude mcp add filesystem npx @anthropic/filesystem-mcp-server",
+        "claude mcp add github npx @anthropic/github-mcp-server"
+      ]
+    },
+
+    "step3_agent_model_validation": {
+      "description": "Validate agent-model assignments",
+      "script": "node src/flow/core/validate-agent-assignments.js"
+    },
+
+    "step4_sequential_thinking_setup": {
+      "description": "Setup sequential thinking for designated agents",
+      "script": "node src/flow/core/setup-sequential-thinking.js"
+    }
+  },
+
+  "testConfiguration": {
+    "mockAgents": [
+      {
+        "type": "frontend-developer",
+        "task": "Create a responsive navigation component",
+        "expectedModel": "gpt-5-codex",
+        "expectedPlatform": "openai",
+        "expectedCapabilities": ["browser_automation", "screenshot_capture"]
+      },
+      {
+        "type": "researcher",
+        "task": "Analyze the entire codebase for architectural patterns",
+        "expectedModel": "gemini-2.5-pro",
+        "expectedPlatform": "gemini",
+        "expectedCapabilities": ["large_context"]
+      },
+      {
+        "type": "reviewer",
+        "task": "Comprehensive code review for security compliance",
+        "expectedModel": "claude-opus-4.1",
+        "expectedPlatform": "claude",
+        "expectedCapabilities": ["code_review", "security_analysis"]
+      },
+      {
+        "type": "sparc-coord",
+        "task": "Coordinate multi-agent SPARC workflow",
+        "expectedModel": "claude-sonnet-4",
+        "expectedPlatform": "claude",
+        "sequentialThinking": true
+      }
+    ]
+  },
+
+  "performanceMonitoring": {
+    "metrics": [
+      "agent_spawn_success_rate",
+      "model_selection_accuracy",
+      "platform_availability",
+      "sequential_thinking_effectiveness",
+      "browser_automation_success_rate"
+    ],
+    "alertThresholds": {
+      "spawn_failure_rate": 0.05,
+      "platform_downtime": 0.02,
+      "model_selection_errors": 0.01
+    }
+  }
+}

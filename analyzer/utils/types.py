@@ -42,14 +42,19 @@ class ConnascenceViolation:
     line_number: int = 0
     column: int = 0
     id: Optional[str] = None
-    
+
+    # FIXED: Add missing fields used by detector interface
+    recommendation: Optional[str] = None
+    code_snippet: Optional[str] = None
+    context: Optional[Dict[str, Any]] = None
+
     # Extended fields for enhanced analysis
     rule_id: Optional[str] = None
     connascence_type: Optional[Union[str, ConnascenceType]] = None
     weight: float = 1.0
     nasa_rule: Optional[str] = None
     defense_criticality: Optional[str] = None
-    
+
     # Context information
     function_name: Optional[str] = None
     class_name: Optional[str] = None

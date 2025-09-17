@@ -21,11 +21,22 @@ logger = logging.getLogger(__name__)
 class ArchitectureOrchestrator:
     """Orchestrates analysis phases with comprehensive coordination."""
 
-    def __init__(self):
+    def __init__(self, coordination_strategy: str = "adaptive"):
         """Initialize orchestrator with minimal state."""
         self.current_phase = None
         self.audit_trail = []
         self.phase_metadata = {}
+        self.coordination_strategy = coordination_strategy
+        self.detector_pool = None
+        self.aggregator = None
+
+    def set_detector_pool(self, pool):
+        """Set detector pool for orchestration."""
+        self.detector_pool = pool
+
+    def set_aggregator(self, aggregator):
+        """Set result aggregator for orchestration."""
+        self.aggregator = aggregator
 
     def orchestrate_analysis_phases(
         self, project_path: Path, policy_preset: str, analyzers: Dict[str, Any]

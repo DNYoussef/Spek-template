@@ -872,6 +872,67 @@ class RealTimePerformanceMonitor:
         self.start_monitoring()
         return self
     
+    def begin_analysis(self, target: str):
+        """Mark beginning of analysis operation."""
+        # Use existing basic metric collection
+        self._analysis_start_time = time.time()
+        self._files_analyzed = 0
+        self._violations_found = 0
+        logger.info(f"Analysis started for: {target}")
+
+    def end_analysis(self) -> Dict[str, Any]:
+        """Mark end of analysis and return final metrics."""
+        if hasattr(self, '_analysis_start_time'):
+            analysis_duration = time.time() - self._analysis_start_time
+        else:
+            analysis_duration = 0
+
+        files_analyzed = getattr(self, '_files_analyzed', 0)
+        violations_found = getattr(self, '_violations_found', 0)
+
+        # Get basic system metrics
+        current_metrics = self._collect_basic_system_metrics()
+        peak_memory = current_metrics.memory_usage_mb
+
+        final_metrics = {
+            "analysis_duration_s": analysis_duration,
+            "files_analyzed": files_analyzed,
+            "violations_found": violations_found,
+            "peak_memory_mb": peak_memory,
+            "avg_cpu_percent": current_metrics.cpu_usage_percent,
+            "throughput_files_per_sec": files_analyzed / max(analysis_duration, 0.001)
+        }
+
+        logger.info(f"Analysis completed: {final_metrics}")
+        return final_metrics
+
+    def record_file_analyzed(self, violation_count: int = 0):
+        """Record that a file was analyzed."""
+        if not hasattr(self, '_files_analyzed'):
+            self._files_analyzed = 0
+            self._violations_found = 0
+
+        self._files_analyzed += 1
+        self._violations_found += violation_count
+
+    def get_metrics(self) -> Dict[str, Any]:
+        """Get current metrics in expected format."""
+        if hasattr(self, 'last_metrics') and self.last_metrics:
+            return {
+                "memory_mb": self.last_metrics.memory_usage_mb,
+                "cpu_percent": self.last_metrics.cpu_usage_percent,
+                "files_analyzed": getattr(self, '_files_analyzed', 0),
+                "violations_found": getattr(self, '_violations_found', 0)
+            }
+        else:
+            current = self._collect_basic_system_metrics()
+            return {
+                "memory_mb": current.memory_usage_mb,
+                "cpu_percent": current.cpu_usage_percent,
+                "files_analyzed": getattr(self, '_files_analyzed', 0),
+                "violations_found": getattr(self, '_violations_found', 0)
+            }
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         """Context manager exit."""
         self.stop_monitoring()

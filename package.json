@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/natural": "^5.1.5",
+    "natural": "^8.1.0"
+  }
+}

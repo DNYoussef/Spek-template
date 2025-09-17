@@ -11,29 +11,29 @@ from typing import Dict, List, Set
 
 from utils.types import ConnascenceViolation
 from .base import DetectorBase
-# Temporarily disabled broken imports
-# from ..interfaces.detector_interface import (
-#     StandardDetectorInterface, AnalysisContext, DetectorResult,
-#     ConfigurableDetectorMixin, register_detector, ViolationSeverity, ConnascenceType
-# )
+# FIXED: Enable real configuration imports
+from ..interfaces.detector_interface import (
+    ConfigurableDetectorMixin, ViolationSeverity, ConnascenceType
+)
 # Temporarily disabled broken utility imports
 # from ..utils.common_patterns import ASTUtils, PatternMatcher, ViolationFactory
 # from ..utils.config_manager import get_detector_config
 
 
-# Removed broken decorator and interfaces
-class ValuesDetector(DetectorBase):
+# FIXED: Enable real configuration support
+class ValuesDetector(DetectorBase, ConfigurableDetectorMixin):
     """
     Detects value-based coupling and shared constant dependencies.
     Refactored to eliminate Connascence of Values through configuration externalization.
     """
     
     def __init__(self, file_path: str, source_lines: List[str]):
-        super().__init__(file_path, source_lines)
-        
-        # Simplified settings (avoiding broken config system)
-        self.config = get_detector_config('values_detector')
-        self.config_keywords = set(self.config.config_keywords)
+        DetectorBase.__init__(self, file_path, source_lines)
+        ConfigurableDetectorMixin.__init__(self)
+
+        # FIXED: Use real configuration system instead of broken imports
+        config = self.get_config()
+        self.config_keywords = set(config.config_keywords)
         
         # Track shared values across different contexts
         self.string_literals: Dict[str, List[ast.AST]] = defaultdict(list)

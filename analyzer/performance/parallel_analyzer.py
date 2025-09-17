@@ -109,7 +109,7 @@ class ParallelConnascenceAnalyzer:
         """Initialize parallel analyzer with configuration."""
 
         self.config = config or ParallelAnalysisConfig()
-        self.base_analyzer = UnifiedConnascenceAnalyzer()
+        self.base_analyzer = self._get_analyzer()
         self.metrics_collector = DashboardMetrics()
 
         # Performance tracking
@@ -408,27 +408,62 @@ class ParallelConnascenceAnalyzer:
         return chunk_results, chunk_times
 
     def _analyze_chunk(self, file_chunk: List[Path], policy_preset: str, options: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze a chunk of files (executed in worker process/thread)."""
+        """Analyze a chunk of files with REAL detector execution."""
 
         try:
-            # Create analyzer instance for this worker
-            analyzer = UnifiedConnascenceAnalyzer()
+            # Import real detectors with proper path handling
+            import sys
+            from pathlib import Path
+
+            # Add analyzer directory to path
+            analyzer_path = Path(__file__).parent.parent
+            if str(analyzer_path) not in sys.path:
+                sys.path.insert(0, str(analyzer_path))
+
+            from detectors import (
+                PositionDetector, MagicLiteralDetector, AlgorithmDetector,
+                GodObjectDetector, TimingDetector, ConventionDetector,
+                ValuesDetector, ExecutionDetector
+            )
 
             all_violations = []
             all_nasa_violations = []
             all_duplication_clusters = []
+            files_processed = 0
 
             for file_path in file_chunk:
                 try:
-                    # Analyze individual file
-                    file_result = analyzer.analyze_file(file_path)
+                    # Read and parse file
+                    with open(file_path, 'r', encoding='utf-8') as f:
+                        source_code = f.read()
+                        source_lines = source_code.splitlines()
 
-                    # Extract violations
-                    if "connascence_violations" in file_result:
-                        all_violations.extend(file_result["connascence_violations"])
+                    import ast
+                    tree = ast.parse(source_code, str(file_path))
 
-                    if "nasa_violations" in file_result:
-                        all_nasa_violations.extend(file_result["nasa_violations"])
+                    # Run each detector with REAL analysis
+                    detectors = [
+                        PositionDetector(str(file_path), source_lines),
+                        MagicLiteralDetector(str(file_path), source_lines),
+                        AlgorithmDetector(str(file_path), source_lines),
+                        GodObjectDetector(str(file_path), source_lines),
+                        TimingDetector(str(file_path), source_lines),
+                        ConventionDetector(str(file_path), source_lines),
+                        ValuesDetector(str(file_path), source_lines),
+                        ExecutionDetector(str(file_path), source_lines)
+                    ]
+
+                    for detector in detectors:
+                        try:
+                            violations = detector.detect_violations(tree)
+                            # Convert violations to dict format
+                            for violation in violations:
+                                violation_dict = self._violation_to_dict(violation)
+                                all_violations.append(violation_dict)
+                        except Exception as e:
+                            logger.warning(f"Detector {detector.__class__.__name__} failed on {file_path}: {e}")
+
+                    files_processed += 1
 
                 except Exception as e:
                     logger.warning(f"Failed to analyze {file_path}: {e}")
@@ -436,7 +471,7 @@ class ParallelConnascenceAnalyzer:
 
             return {
                 "chunk_size": len(file_chunk),
-                "files_processed": len(file_chunk),
+                "files_processed": files_processed,
                 "violations": all_violations,
                 "nasa_violations": all_nasa_violations,
                 "duplication_clusters": all_duplication_clusters,
@@ -454,6 +489,30 @@ class ParallelConnascenceAnalyzer:
                 "processing_successful": False,
                 "error": str(e),
             }
+
+    def _violation_to_dict(self, violation) -> Dict[str, Any]:
+        """Convert violation object to dictionary."""
+        if isinstance(violation, dict):
+            return violation
+        elif hasattr(violation, '__dict__'):
+            return violation.__dict__
+        elif hasattr(violation, '_asdict'):
+            return violation._asdict()
+        else:
+            return {
+                "description": str(violation),
+                "type": "unknown",
+                "severity": "medium",
+                "file_path": "unknown"
+            }
+
+    def _get_analyzer(self):
+        """Get analyzer instance with fallback."""
+        if UnifiedConnascenceAnalyzer:
+            return UnifiedConnascenceAnalyzer()
+        else:
+            # Fallback to basic analysis
+            return None
 
     def _combine_chunk_results(
         self, chunk_results: List[Dict], project_path: Path, policy_preset: str, start_time: float

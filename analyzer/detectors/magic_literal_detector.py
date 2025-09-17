@@ -2,23 +2,41 @@
 Magic Literal Detector
 
 Detects Connascence of Meaning violations - magic literals that should be named constants.
+FIXED: Now uses ConfigurableDetectorMixin for REAL configuration instead of hardcoded values.
 """
 
 import ast
 from typing import List, Tuple, Any, Dict
 
-from utils.types import ConnascenceViolation
+from ..utils.types import ConnascenceViolation, SeverityLevel, ConnascenceType
 from .base import DetectorBase
+# FIXED: Import ConfigurableDetectorMixin for real configuration
+try:
+    from ..interfaces.detector_interface import ConfigurableDetectorMixin
+    print("DEBUG: MagicLiteralDetector successfully imported ConfigurableDetectorMixin")
+except ImportError as e:
+    print(f"DEBUG: MagicLiteralDetector failed to import ConfigurableDetectorMixin: {e}")
+    # Fallback dummy class
+    class ConfigurableDetectorMixin:
+        def get_threshold(self, name, default):
+            return default
 
 
-class MagicLiteralDetector(DetectorBase):
+class MagicLiteralDetector(DetectorBase, ConfigurableDetectorMixin):
     """Detects magic literals that should be named constants."""
     
     def __init__(self, file_path: str, source_lines: List[str]):
-        super().__init__(file_path, source_lines)
+        DetectorBase.__init__(self, file_path, source_lines)
+        ConfigurableDetectorMixin.__init__(self)
         self.magic_literals: List[Tuple[ast.AST, Any, Dict]] = []
         self.current_class = None
         self.current_function = None
+
+        # FIXED: Use configured thresholds instead of hardcoded values
+        self.number_repetition_threshold = self.get_threshold('number_repetition', 3)
+        self.string_repetition_threshold = self.get_threshold('string_repetition', 2)
+
+        print(f"DEBUG: MagicLiteralDetector using thresholds: number={self.number_repetition_threshold}, string={self.string_repetition_threshold}")
     
     def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         """
@@ -80,14 +98,23 @@ class MagicLiteralDetector(DetectorBase):
                 self.magic_literals.append((node, node.value, {}))
     
     def _is_magic_literal(self, value: Any) -> bool:
-        """Simple check for whether a value is a magic literal."""
+        """Check if value is a magic literal using CONFIGURED exclusions."""
+        # FIXED: Use configured exclusions instead of hardcoded values
         if isinstance(value, (int, float)):
-            # Skip common safe numbers
-            return value not in [0, 1, -1, 2, 10, 100, 1000]
+            # Use configured common numbers exclusions
+            excluded_numbers = self.get_exclusions('common_numbers')
+            if not excluded_numbers:
+                # Fallback to default if config loading failed
+                excluded_numbers = [0, 1, -1, 2, 10, 100, 1000]
+            return value not in excluded_numbers
         elif isinstance(value, str) and len(value) > 1:
-            # Skip obvious safe strings
-            return value not in ["", " ", "\n", "\t", "utf-8", "ascii"]
-        
+            # Use configured common strings exclusions
+            excluded_strings = self.get_exclusions('common_strings')
+            if not excluded_strings:
+                # Fallback to default if config loading failed
+                excluded_strings = ["", " ", "\n", "\t", "utf-8", "ascii"]
+            return value not in excluded_strings
+
         return False
     
     def _finalize_magic_literal_analysis(self) -> None:

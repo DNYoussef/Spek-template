@@ -105,25 +105,65 @@ Requirements  Solutions   Strategy     Features    Quality
 - **Analyzer README**: `analyzer/optimization/README.md` - Analysis optimization
 - **Constitution**: `memory/constitution.md` - System constitution and principles
 
-## [TARGET] Essential Agent Coordination
+## [TARGET] Essential Agent Coordination with AI Model Optimization
 
-### **Specialized Agent Categories (85 Total: 54 Core + 31 Extended)**
-- **Core Development**: `coder`, `reviewer`, `tester`, `planner`, `researcher`
-- **SPEK Methodology**: `sparc-coord`, `specification`, `architecture`, `refinement`
-- **Quality Assurance**: `code-analyzer`, `security-manager`, `performance-benchmarker`
-- **GitHub Integration**: `pr-manager`, `github-modes`, `workflow-automation`
-- **Swarm Coordination**: `hierarchical-coordinator`, `mesh-coordinator`, `adaptive-coordinator`
+### **Agent Registry & Configuration**
+- **Primary Registry**: `src/flow/config/agent-model-registry.js`
+- **Model Selector**: `src/flow/core/model-selector.js`
+- **Agent Spawner**: `src/flow/core/agent-spawner.js`
+- **MCP Configuration**: `src/flow/config/mcp-multi-platform.json`
 
-### **Agent Deployment Pattern**
-```bash
-# CORRECT: Single message with all agents
-Task("agent1: specific instructions")
-Task("agent2: specific instructions")  
-Task("agent3: specific instructions")
+### **Specialized Agent Categories (85+ Total with Optimal AI Models)**
 
-# WRONG: Multiple messages
-Message 1: Task("agent1")
-Message 2: Task("agent2")
+#### **Browser Automation & Visual (GPT-5 Codex)**
+- `frontend-developer` → Codex + [claude-flow, memory, github, playwright, figma]
+- `ui-designer` → Codex + [claude-flow, memory, playwright, figma, puppeteer]
+- `mobile-dev` → Codex + [claude-flow, memory, github, playwright, puppeteer]
+- `rapid-prototyper` → Codex + [claude-flow, memory, playwright, figma]
+
+#### **Large Context & Research (Gemini 2.5 Pro - 1M tokens)**
+- `researcher` → Gemini Pro + [claude-flow, memory, deepwiki, firecrawl, ref, context7]
+- `specification` → Gemini Pro + [claude-flow, memory, deepwiki, ref, context7, markitdown]
+- `architecture` → Gemini Pro + [claude-flow, memory, deepwiki, ref, context7]
+- `system-architect` → Gemini Pro + [claude-flow, memory, deepwiki, ref, context7]
+
+#### **Quality Assurance (Claude Opus 4.1 - 72.7% SWE-bench)**
+- `reviewer` → Claude Opus + [claude-flow, memory, github, eva]
+- `code-analyzer` → Claude Opus + [claude-flow, memory, eva]
+- `security-manager` → Claude Opus + [claude-flow, memory, eva]
+- `tester` → Claude Opus + [claude-flow, memory, github, playwright, eva]
+- `production-validator` → Claude Opus + [claude-flow, memory, eva]
+
+#### **Coordination & Orchestration (Claude Sonnet 4 + Sequential)**
+- `sparc-coord` → Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
+- `hierarchical-coordinator` → Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
+- `mesh-coordinator` → Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
+- `task-orchestrator` → Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
+
+#### **Cost-Effective Operations (Gemini Flash + Sequential)**
+- `planner` → Flash + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
+- `refinement` → Flash + Sequential + [claude-flow, memory, sequential-thinking]
+- `pr-manager` → Flash + Sequential + [claude-flow, memory, github, sequential-thinking]
+- `issue-tracker` → Flash + Sequential + [claude-flow, memory, github, sequential-thinking, github-project-manager]
+
+### **Agent Deployment Pattern with Automatic Model Selection**
+```javascript
+// Automatic model and MCP assignment based on agent type
+const { agentSpawner } = require('./src/flow/core/agent-spawner');
+
+// Frontend agent → Gets Codex + browser automation MCP servers
+await agentSpawner.spawnAgent(
+  'frontend-developer',
+  'Create responsive UI with screenshots'
+);
+// Auto-assigns: GPT-5 Codex + [playwright, figma, ...]
+
+// Research agent → Gets Gemini Pro + research MCP servers
+await agentSpawner.spawnAgent(
+  'researcher',
+  'Analyze large codebase patterns'
+);
+// Auto-assigns: Gemini 2.5 Pro + [deepwiki, firecrawl, ...]
 ```
 
 ## [CHART] Quality Gate Essentials
@@ -185,7 +225,7 @@ Pattern detection -> Evidence validation -> Quality verification -> Learning
 - **figma**: Design system integration, mockups, visual assets, brand consistency
 
 **Project Management:**
-- **plane**: Issue tracking, sprint planning, team coordination, workload balancing
+- **github-project-manager**: AI-powered GitHub project management, PRD generation, task traceability
 
 ### MCP IDE Integration Tools (VS Code)
 - **mcp__ide__getDiagnostics**: Language diagnostics (errors/warnings) from VS Code
@@ -216,6 +256,39 @@ Pattern detection -> Evidence validation -> Quality verification -> Learning
 - **mcp__memory__read_graph**: Read entire knowledge graph
 - **mcp__memory__search_nodes**: Query-based node search
 - **mcp__memory__open_nodes**: Retrieve specific entities
+
+## [BRAIN] AI Model & MCP Server Intelligence System
+
+### **Automatic Model Selection Logic**
+```javascript
+// Registry location: src/flow/config/agent-model-registry.js
+const { modelSelector } = require('./src/flow/core/model-selector');
+
+// Model selection based on agent type and task context
+const result = modelSelector.selectModel('frontend-developer', {
+  description: 'Create UI with visual validation',
+  complexity: 'medium'
+});
+// Returns: {
+//   model: 'gpt-5-codex',
+//   platform: 'openai',
+//   mcpServers: ['claude-flow', 'memory', 'github', 'playwright', 'figma'],
+//   initialization: 'codex /model gpt-5-codex --mcp-server playwright ...'
+// }
+```
+
+### **Model Distribution Across 85+ Agents**
+- **GPT-5 Codex**: 25 agents (browser automation, GitHub, autonomous coding)
+- **Gemini 2.5 Pro**: 18 agents (large context research, architecture)
+- **Claude Opus 4.1**: 12 agents (quality analysis, security, testing)
+- **Claude Sonnet 4**: 15 agents (coordination with sequential thinking)
+- **Gemini Flash**: 10 agents (cost-effective operations)
+- **GPT-5 Standard**: 5 agents (general purpose)
+
+### **Platform Capabilities**
+- **Gemini CLI (Free)**: 1M context, web search, sequential thinking
+- **OpenAI Codex ($)**: Browser automation, 7+ hour sessions, GitHub native
+- **Claude Code ($)**: 72.7% SWE-bench, enterprise compliance, quality gates
 
 ## [TARGET] Claude Code vs MCP Tools - ACCURATE SEPARATION
 
@@ -256,7 +329,7 @@ Pattern detection -> Evidence validation -> Quality verification -> Learning
 
 4. **External Platform MCPs**:
    - **github**: GitHub API operations beyond git CLI
-   - **plane**: Project management integration
+   - **github-project-manager**: AI-powered project management with GitHub integration
    - **figma**: Design system access (visual agents)
    - **playwright/puppeteer**: Browser automation (testing agents)
    - **eva**: Performance benchmarking (QA agents)
@@ -338,7 +411,7 @@ Pattern detection -> Evidence validation -> Quality verification -> Learning
 ### **[CHART] Project Management Commands**
 | Command | Description | Reference |
 |---------|-------------|-----------|
-| `/pm:sync` | Bidirectional sync with Plane MCP | `.claude/commands/pm-sync.md` |
+| `/pm:sync` | Bidirectional sync with GitHub Project Manager MCP | `.claude/commands/pm-sync.md` |
 | `/pr:open` | Evidence-rich pull request creation | `.claude/commands/pr-open.md` |
 
 ### **[BRAIN] Memory & System Commands**
@@ -353,6 +426,19 @@ Pattern detection -> Evidence validation -> Quality verification -> Learning
 
 ---
 
-**Key Principle**: Claude Flow coordinates, Claude Code executes! [ROCKET]
+**Key Principles**:
+- **Claude Flow coordinates** → Swarm orchestration
+- **Claude Code executes** → Direct implementation
+- **AI Models optimize** → Task-specific performance
+- **MCP Servers enhance** → Specialized capabilities
+
+### **Quick Model Selection Guide**
+- **Need browser automation?** → GPT-5 Codex + playwright/puppeteer
+- **Need large context?** → Gemini 2.5 Pro + deepwiki/firecrawl
+- **Need quality analysis?** → Claude Opus 4.1 + eva
+- **Need coordination?** → Claude Sonnet 4 + sequential-thinking
+- **Need cost efficiency?** → Gemini Flash + sequential-thinking
+
+**Agent Registry**: `src/flow/config/agent-model-registry.js` [ROCKET]
 
 *This streamlined configuration maximizes context window efficiency while maintaining full system functionality through comprehensive documentation references.*

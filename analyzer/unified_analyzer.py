@@ -43,39 +43,50 @@ logger = logging.getLogger(__name__)
 
 # Import extracted architecture components
 try:
-    from .configuration_manager import AnalysisConfigurationManager
-    from .cache_manager import AnalysisCacheManager
+    from .architecture.detector_pool import DetectorPool
+    from .architecture.orchestrator import ArchitectureOrchestrator
+    from .architecture.aggregator import ResultAggregator
+    from .architecture.recommendation_engine import RecommendationEngine
+    from .architecture.enhanced_metrics import EnhancedMetricsCalculator
     ARCHITECTURE_COMPONENTS_AVAILABLE = True
 except ImportError:
     ARCHITECTURE_COMPONENTS_AVAILABLE = False
+    DetectorPool = None
+    ArchitectureOrchestrator = None
+    ResultAggregator = None
+    RecommendationEngine = None
+    EnhancedMetricsCalculator = None
     logger.warning("Architecture components not available")
 
 # Import memory monitoring and resource management
 try:
-    from .optimization.memory_monitor import (
-        MemoryMonitor, MemoryWatcher, get_global_memory_monitor,
-        start_global_monitoring, stop_global_monitoring
-    )
-    from .optimization.resource_manager import (
-        get_global_resource_manager, managed_ast_tree, managed_file_handle,
-        cleanup_all_resources, get_resource_report
-    )
+    from .optimization.memory_monitor import MemoryMonitor
+    from .optimization.resource_manager import ResourceManager
+    from .performance.real_time_monitor import RealTimeMonitor
+    from .performance.parallel_analyzer import ParallelAnalyzer
+    from .performance.cache_performance_profiler import CachePerformanceProfiler
     ADVANCED_MONITORING_AVAILABLE = True
 except ImportError:
     ADVANCED_MONITORING_AVAILABLE = False
+    MemoryMonitor = None
+    ResourceManager = None
+    RealTimeMonitor = None
+    ParallelAnalyzer = None
+    CachePerformanceProfiler = None
 
 # Import streaming and incremental analysis components
 try:
-    from .streaming.stream_processor import (
-        StreamProcessor, create_stream_processor, AnalysisRequest, 
-        AnalysisResult, process_file_changes_stream
-    )
-    from .streaming.incremental_cache import (
-        get_global_incremental_cache, IncrementalCache
-    )
+    from .streaming.stream_processor import StreamProcessor
+    from .streaming.incremental_cache import IncrementalCache
+    from .streaming.result_aggregator import StreamingResultAggregator
+    from .streaming.dashboard_reporter import DashboardReporter
     STREAMING_AVAILABLE = True
 except ImportError:
     STREAMING_AVAILABLE = False
+    StreamProcessor = None
+    IncrementalCache = None
+    StreamingResultAggregator = None
+    DashboardReporter = None
 
 # Add parent directories to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
