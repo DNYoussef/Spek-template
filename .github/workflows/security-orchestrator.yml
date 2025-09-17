@@ -18,6 +18,13 @@ on:
   # SCHEDULE REMOVED - no more daily notification spam
   # Only run on security-relevant changes
 
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  statuses: write
+
 jobs:
   security-gate-validation:
     name: Security Quality Gates

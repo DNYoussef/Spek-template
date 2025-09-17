@@ -28,8 +28,15 @@ from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_compl
 from dataclasses import dataclass, field
 import logging
 import multiprocessing as mp
-from typing import Any, List, Dict, Optional, Union
+import time
+import threading
+from typing import Any, List, Dict, Optional, Union, Tuple
 from pathlib import Path
+
+try:
+    import psutil
+except ImportError:
+    psutil = None
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +44,12 @@ logger = logging.getLogger(__name__)
 class UnifiedAnalysisResult:
     """Placeholder for unified analysis results."""
     pass
+
+# Define DashboardMetrics if not available
+class DashboardMetrics:
+    """Placeholder for metrics collection."""
+    def record_performance(self, **kwargs):
+        pass
 
 
 @dataclass
@@ -488,9 +501,10 @@ class ParallelConnascenceAnalyzer:
 
     def _get_analyzer(self):
         """Get analyzer instance with fallback."""
-        if UnifiedConnascenceAnalyzer:
+        try:
+            from analyzer.architecture import UnifiedConnascenceAnalyzer
             return UnifiedConnascenceAnalyzer()
-        else:
+        except ImportError:
             # Fallback to basic analysis
             return None
 
@@ -545,28 +559,28 @@ class ParallelConnascenceAnalyzer:
         if len(all_duplication_clusters) > 0:
             improvement_actions.append(f"Refactor {len(all_duplication_clusters)} code duplication clusters")
 
-        # Create unified result
-        return UnifiedAnalysisResult(
-            connascence_violations=all_connascence_violations,
-            duplication_clusters=all_duplication_clusters,
-            nasa_violations=all_nasa_violations,
-            total_violations=len(all_connascence_violations),
-            critical_count=severity_counts["critical"],
-            high_count=severity_counts["high"],
-            medium_count=severity_counts["medium"],
-            low_count=severity_counts["low"],
-            connascence_index=connascence_index,
-            nasa_compliance_score=nasa_compliance_score,
-            duplication_score=duplication_score,
-            overall_quality_score=overall_quality_score,
-            project_path=str(project_path),
-            policy_preset=policy_preset,
-            analysis_duration_ms=int((time.time() - start_time) * 1000),
-            files_analyzed=files_processed,
-            timestamp=time.strftime("%Y-%m-%dT%H:%M:%S"),
-            priority_fixes=priority_fixes,
-            improvement_actions=improvement_actions,
-        )
+        # Create unified result (as a simple object with attributes)
+        result = UnifiedAnalysisResult()
+        result.connascence_violations = all_connascence_violations
+        result.duplication_clusters = all_duplication_clusters
+        result.nasa_violations = all_nasa_violations
+        result.total_violations = len(all_connascence_violations)
+        result.critical_count = severity_counts["critical"]
+        result.high_count = severity_counts["high"]
+        result.medium_count = severity_counts["medium"]
+        result.low_count = severity_counts["low"]
+        result.connascence_index = connascence_index
+        result.nasa_compliance_score = nasa_compliance_score
+        result.duplication_score = duplication_score
+        result.overall_quality_score = overall_quality_score
+        result.project_path = str(project_path)
+        result.policy_preset = policy_preset
+        result.analysis_duration_ms = int((time.time() - start_time) * 1000)
+        result.files_analyzed = files_processed
+        result.timestamp = time.strftime("%Y-%m-%dT%H:%M:%S")
+        result.priority_fixes = priority_fixes
+        result.improvement_actions = improvement_actions
+        return result
 
     def _calculate_performance_metrics(
         self, total_time: float, chunk_times: List[float], chunk_results: List[Dict]
@@ -643,27 +657,26 @@ class ParallelConnascenceAnalyzer:
     def _create_empty_result(self, project_path: Path, policy_preset: str, start_time: float) -> ParallelAnalysisResult:
         """Create empty result when no files are found."""
 
-        empty_unified = UnifiedAnalysisResult(
-            connascence_violations=[],
-            duplication_clusters=[],
-            nasa_violations=[],
-            total_violations=0,
-            critical_count=0,
-            high_count=0,
-            medium_count=0,
-            low_count=0,
-            connascence_index=0.0,
-            nasa_compliance_score=1.0,
-            duplication_score=1.0,
-            overall_quality_score=1.0,
-            project_path=str(project_path),
-            policy_preset=policy_preset,
-            analysis_duration_ms=int((time.time() - start_time) * 1000),
-            files_analyzed=0,
-            timestamp=time.strftime("%Y-%m-%dT%H:%M:%S"),
-            priority_fixes=[],
-            improvement_actions=[],
-        )
+        empty_unified = UnifiedAnalysisResult()
+        empty_unified.connascence_violations = []
+        empty_unified.duplication_clusters = []
+        empty_unified.nasa_violations = []
+        empty_unified.total_violations = 0
+        empty_unified.critical_count = 0
+        empty_unified.high_count = 0
+        empty_unified.medium_count = 0
+        empty_unified.low_count = 0
+        empty_unified.connascence_index = 0.0
+        empty_unified.nasa_compliance_score = 1.0
+        empty_unified.duplication_score = 1.0
+        empty_unified.overall_quality_score = 1.0
+        empty_unified.project_path = str(project_path)
+        empty_unified.policy_preset = policy_preset
+        empty_unified.analysis_duration_ms = int((time.time() - start_time) * 1000)
+        empty_unified.files_analyzed = 0
+        empty_unified.timestamp = time.strftime("%Y-%m-%dT%H:%M:%S")
+        empty_unified.priority_fixes = []
+        empty_unified.improvement_actions = []
 
         return ParallelAnalysisResult(
             unified_result=empty_unified,

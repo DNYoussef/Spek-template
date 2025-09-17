@@ -30,7 +30,17 @@ import ast
 from dataclasses import asdict, dataclass
 import json
 import logging
+import sys
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 logger = logging.getLogger(__name__)
+
+# Import analyzer types
+try:
+    from .analyzer_types import UnifiedAnalysisResult
+except ImportError:
+    # Fallback if not available
+    UnifiedAnalysisResult = None
 
 # Import extracted architecture components
 try:
@@ -215,13 +225,13 @@ class ErrorHandler:
         file_path: Optional[str] = None,
         line_number: Optional[int] = None,
         suggestions: Optional[List[str]] = None,
-    ) -> StandardError:
+    ) -> Dict[str, Any]:
         """Create standardized error response."""
         from datetime import datetime
 
         error_code = ERROR_CODE_MAPPING.get(error_type, ERROR_CODE_MAPPING["INTERNAL_ERROR"])
 
-        return StandardError(
+        return Dict[str, Any](
             code=error_code,
             message=message,
             severity=severity,
@@ -237,7 +247,7 @@ class ErrorHandler:
 
     def handle_exception(
         self, exception: Exception, context: Optional[Dict[str, Any]] = None, file_path: Optional[str] = None
-    ) -> StandardError:
+    ) -> Dict[str, Any]:
         """Convert exception to standardized error."""
         # Map common exceptions to error types
         exception_mapping = {
@@ -261,7 +271,7 @@ class ErrorHandler:
             error_type=error_type, message=str(exception), severity=severity, context=context, file_path=file_path
         )
 
-    def log_error(self, error: StandardError):
+    def log_error(self, error: Dict[str, Any]):
         """Log error with appropriate level."""
         log_level_mapping = {
             ERROR_SEVERITY["CRITICAL"]: logger.critical,
@@ -692,7 +702,7 @@ class UnifiedConnascenceAnalyzer:
         project_path: Union[str, Path],
         policy_preset: str = "service-defaults",
         options: Optional[Dict[str, Any]] = None,
-    ) -> UnifiedAnalysisResult:
+    ) -> Any:  # UnifiedAnalysisResult when available
         """
         Perform comprehensive connascence analysis on a project.
         Supports batch, streaming, and hybrid analysis modes.
@@ -718,7 +728,7 @@ class UnifiedConnascenceAnalyzer:
         project_path: Path, 
         policy_preset: str, 
         options: Dict[str, Any]
-    ) -> UnifiedAnalysisResult:
+    ) -> Any:  # UnifiedAnalysisResult when available
         """Execute traditional batch analysis."""
         start_time = self._get_timestamp_ms()
         
@@ -766,7 +776,7 @@ class UnifiedConnascenceAnalyzer:
         project_path: Path, 
         policy_preset: str, 
         options: Dict[str, Any]
-    ) -> UnifiedAnalysisResult:
+    ) -> Any:  # UnifiedAnalysisResult when available
         """Execute streaming analysis with real-time processing."""
         if not STREAMING_AVAILABLE or not self.stream_processor:
             logger.warning("Streaming mode requested but not available, falling back to batch")
@@ -793,7 +803,7 @@ class UnifiedConnascenceAnalyzer:
         project_path: Path, 
         policy_preset: str, 
         options: Dict[str, Any]
-    ) -> UnifiedAnalysisResult:
+    ) -> Any:  # UnifiedAnalysisResult when available
         """Execute hybrid analysis combining batch and streaming."""
         if not STREAMING_AVAILABLE or not self.stream_processor:
             logger.warning("Hybrid mode requested but streaming not available, using batch only")
@@ -1680,9 +1690,9 @@ class UnifiedConnascenceAnalyzer:
         project_path: Path,
         policy_preset: str,
         analysis_time: int,
-        errors: List[StandardError] = None,
-        warnings: List[StandardError] = None,
-    ) -> UnifiedAnalysisResult:
+        errors: List[Dict[str, Any]] = None,
+        warnings: List[Dict[str, Any]] = None,
+    ) -> Any:  # UnifiedAnalysisResult when available
         """Legacy method - delegates to aggregator component."""
         # NASA Rule 5: Input validation assertions
         assert violations is not None, "violations cannot be None"
@@ -1705,9 +1715,9 @@ class UnifiedConnascenceAnalyzer:
         project_path: Path,
         policy_preset: str,
         analysis_time: int,
-        errors: List[StandardError] = None,
-        warnings: List[StandardError] = None,
-    ) -> UnifiedAnalysisResult:
+        errors: List[Dict[str, Any]] = None,
+        warnings: List[Dict[str, Any]] = None,
+    ) -> Any:  # UnifiedAnalysisResult when available
         """Build result using aggregator component. NASA Rule 4 compliant."""
         # NASA Rule 5: Input validation assertions
         assert violations is not None, "violations cannot be None"
@@ -1757,9 +1767,9 @@ class UnifiedConnascenceAnalyzer:
         project_path: Path,
         policy_preset: str,
         analysis_time: int,
-        errors: List[StandardError] = None,
-        warnings: List[StandardError] = None,
-    ) -> UnifiedAnalysisResult:
+        errors: List[Dict[str, Any]] = None,
+        warnings: List[Dict[str, Any]] = None,
+    ) -> Any:  # UnifiedAnalysisResult when available
         """Build result directly without aggregator component."""
         # NASA Rule 5: Input validation assertions
         assert violations is not None, "violations cannot be None"
@@ -1918,7 +1928,7 @@ class UnifiedConnascenceAnalyzer:
 
         return result
 
-    def _get_empty_file_result(self, file_path: Path, errors: List[StandardError]) -> Dict[str, Any]:
+    def _get_empty_file_result(self, file_path: Path, errors: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Return empty result structure when file analysis fails."""
         return {
             "file_path": str(file_path),
@@ -2136,8 +2146,8 @@ class UnifiedConnascenceAnalyzer:
     def _create_analysis_result_object(
         self, violations: Dict, metrics: Dict, enhanced_recommendations: Dict,
         project_path: Path, policy_preset: str, analysis_time: int,
-        errors: List[StandardError], warnings: List[StandardError]
-    ) -> UnifiedAnalysisResult:
+        errors: List[Dict[str, Any]], warnings: List[Dict[str, Any]]
+    ) -> Any:  # UnifiedAnalysisResult when available
         """Create the analysis result object. NASA Rule 4 compliant."""
         # NASA Rule 5: Input validation assertions
         assert violations is not None, "violations cannot be None"
@@ -2211,14 +2221,14 @@ class UnifiedConnascenceAnalyzer:
 
     def create_integration_error(
         self, integration: str, error_type: str, message: str, context: Optional[Dict[str, Any]] = None
-    ) -> StandardError:
+    ) -> Dict[str, Any]:
         """Create integration-specific error with proper mapping."""
         temp_handler = ErrorHandler(integration)
         return temp_handler.create_error(error_type, message, context=context)
 
     def convert_exception_to_standard_error(
         self, exception: Exception, integration: str = "analyzer", context: Optional[Dict[str, Any]] = None
-    ) -> StandardError:
+    ) -> Dict[str, Any]:
         """Convert any exception to standardized error format."""
         temp_handler = ErrorHandler(integration)
         return temp_handler.handle_exception(exception, context)

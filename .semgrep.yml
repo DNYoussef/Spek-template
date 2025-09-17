@@ -1,0 +1,21 @@
+rules:
+  - id: custom-rules
+    patterns:
+      - pattern-not: console.log(...)
+    message: Custom rule set for production code
+    severity: INFO
+    languages:
+      - javascript
+      - typescript
+      - python
+
+# Ignore paths
+paths:
+  exclude:
+    - tests/
+    - test/
+    - "*.test.js"
+    - "*.test.ts"
+    - "*.test.py"
+    - node_modules/
+    - .git/

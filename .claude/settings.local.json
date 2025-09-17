@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(for file in integration_test_suite.py simplified_integration_test.py)"
+      "Bash(for file in integration_test_suite.py simplified_integration_test.py)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []

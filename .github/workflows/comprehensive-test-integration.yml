@@ -252,7 +252,8 @@ jobs:
         import sys
         sys.path.insert(0, '.')
 
-        print('Testing analyzer integration...')
+        import sys
+print('Testing analyzer integration...')
 
         # Test 1: Basic import
         try:

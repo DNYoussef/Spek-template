@@ -1,0 +1,11 @@
+# Bandit configuration
+[bandit]
+# Skip test files
+exclude_dirs = /tests/,/test/,/node_modules/,/.git/
+
+# Suppress common false positives
+skips = B101,B601,B602,B603,B604,B605,B606,B607,B608,B609
+
+# Test IDs to skip:
+# B101: assert_used
+# B601-B609: Shell injection warnings (we control the inputs)

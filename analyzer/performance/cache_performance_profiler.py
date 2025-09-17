@@ -24,6 +24,23 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Union, Tuple, Callable
 import logging
+
+# Import cache types - with fallbacks for missing imports
+try:
+    from ..optimization.file_cache import FileContentCache
+except ImportError:
+    FileContentCache = None
+
+try:
+    from ..caching.ast_cache import ASTCache
+except ImportError:
+    ASTCache = None
+
+try:
+    from ..streaming.incremental_cache import IncrementalCache
+except ImportError:
+    IncrementalCache = None
+
 logger = logging.getLogger(__name__)
 
 
@@ -174,11 +191,11 @@ class CacheCoherenceManager:
 
 class IntelligentCacheWarmer:
     """Intelligent cache warming with predictive algorithms."""
-    
-    def __init__(self, 
-                 file_cache: Optional[FileContentCache] = None,
-                 ast_cache: Optional[ASTCache] = None,
-                 incremental_cache: Optional[IncrementalCache] = None):
+
+    def __init__(self,
+                 file_cache: Optional[Any] = None,  # FileContentCache when available
+                 ast_cache: Optional[Any] = None,  # ASTCache when available
+                 incremental_cache: Optional[Any] = None):  # IncrementalCache when available
         """Initialize intelligent cache warmer."""
         self.file_cache = file_cache
         self.ast_cache = ast_cache
