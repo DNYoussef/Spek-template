@@ -4,84 +4,8 @@ Real-time options flow analysis for unusual activity detection
 """
 
 import asyncio
-import logging
-from typing import Dict, List, Optional, Any, Set, Tuple
-from datetime import datetime, timedelta
-import pandas as pd
-import numpy as np
-from dataclasses import dataclass, field
-from collections import deque, defaultdict
-import time
-import json
-
-from ..config.pipeline_config import config
-
-
-@dataclass
-class OptionContract:
-    """Options contract data structure"""
-    symbol: str
-    underlying: str
-    contract_type: str  # "call" or "put"
-    strike_price: float
-    expiration_date: datetime
-    premium: float
-    volume: int
-    open_interest: int
-    implied_volatility: float
-    delta: Optional[float] = None
-    gamma: Optional[float] = None
-    theta: Optional[float] = None
-    vega: Optional[float] = None
-
-
-@dataclass
-class UnusualActivity:
-    """Unusual options activity alert"""
-    id: str
-    underlying_symbol: str
-    contract_symbol: str
-    activity_type: str  # "volume", "price", "iv", "flow"
-    severity: str  # "low", "medium", "high", "extreme"
-    description: str
-    detected_at: datetime
-    volume: int
-    price_change_percent: float
-    iv_change_percent: float
-    unusual_score: float
-    contract_details: OptionContract
-    market_context: Dict[str, Any] = field(default_factory=dict)
-
-
-@dataclass
-class FlowMetrics:
-    """Options flow metrics for a symbol"""
-    symbol: str
-    timestamp: datetime
-    call_volume: int
-    put_volume: int
-    call_put_ratio: float
-    total_premium: float
-    avg_iv: float
-    unusual_activities: List[UnusualActivity] = field(default_factory=list)
-
-
-class OptionsFlowAnalyzer:
-    """
-    Advanced options flow analyzer for unusual activity detection
-
-    Features:
-    - Real-time options data processing
-    - Unusual volume detection (>3 standard deviations)
-    - Large block trade identification ($1M+ threshold)
-    - Implied volatility spikes detection
-    - Call/Put ratio analysis
-    - Dark pool activity correlation
-    - Sweep detection (multi-exchange orders)
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
         # Configuration
         self.unusual_volume_threshold = 3.0  # Standard deviations

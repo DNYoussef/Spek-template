@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Pattern Detector ML Module
 Detects code patterns and anti-patterns using machine learning.
@@ -214,7 +215,7 @@ class PatternDetector:
 
     def detect_patterns_in_file(self, file_path: str) -> List[CodePattern]:
         """Detect all patterns in a single file."""
-        if not os.path.exists(file_path):
+        if not path_exists(file_path):
             return []
 
         try:

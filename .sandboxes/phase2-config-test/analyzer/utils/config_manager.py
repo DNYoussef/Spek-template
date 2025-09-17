@@ -11,9 +11,8 @@ import yaml
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 from dataclasses import dataclass
-import logging
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

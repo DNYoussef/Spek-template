@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 DFARS Compliance Testing Suite
@@ -108,7 +109,7 @@ class TestTLSCompliance:
         assert default_config.min_version == ssl.TLSVersion.TLSv1_3, "Should require TLS 1.3 minimum"
         assert default_config.max_version == ssl.TLSVersion.TLSv1_3, "Should enforce TLS 1.3 maximum"
 
-    @pytest.mark.skipif(not Path('/usr/bin/openssl').exists(), reason="OpenSSL not available")
+    @pytest.mark.skipif(not path_exists('/usr/bin/openssl'), reason="OpenSSL not available")
     def test_certificate_generation(self):
         """Test self-signed certificate generation with strong cryptography."""
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -124,8 +125,8 @@ class TestTLSCompliance:
             # Verify certificate properties
             assert cert.key_size >= 2048, "Key size should meet DFARS minimum"
             assert cert.algorithm == "RSA", "Should use approved algorithm"
-            assert Path(cert.cert_file).exists(), "Certificate file should exist"
-            assert Path(cert.key_file).exists(), "Key file should exist"
+            assert path_exists(cert.cert_file), "Certificate file should exist"
+            assert path_exists(cert.key_file), "Key file should exist"
 
 
 class TestAuditTrail:

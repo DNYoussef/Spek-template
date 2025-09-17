@@ -12,15 +12,8 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
-import logging
-import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass
-from datetime import datetime
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -442,7 +435,7 @@ class SystemIntegrationController:
     def __init__(self, config: IntegrationConfig = None):
         """Initialize system integration controller."""
         self.config = config or IntegrationConfig()
-        self.logger = logging.getLogger(__name__)
+        self.logger = get_logger(__name__)
         
         # Initialize phase managers
         self.phase_managers = {

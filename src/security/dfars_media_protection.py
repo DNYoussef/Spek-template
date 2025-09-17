@@ -5,28 +5,8 @@ Implements DFARS 252.204-7012 media protection requirements.
 """
 
 import json
-import logging
-import os
-import shutil
-import tempfile
-from datetime import datetime, timezone, timedelta
-from typing import Dict, List, Any, Optional, Set, BinaryIO
-from dataclasses import dataclass, asdict
-from enum import Enum
-import uuid
-import hashlib
-from pathlib import Path
-from cryptography.fernet import Fernet
-from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.asymmetric import rsa, padding
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-import base64
-
-from .fips_crypto_module import FIPSCryptoModule
-from .audit_trail_manager import DFARSAuditTrailManager, AuditEventType, SeverityLevel
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class MediaType(Enum):

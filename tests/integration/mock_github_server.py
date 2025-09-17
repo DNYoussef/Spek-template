@@ -7,15 +7,8 @@ and handles authentication properly - no theater allowed.
 """
 
 import json
-import logging
-from datetime import datetime
-from http.server import HTTPServer, BaseHTTPRequestHandler
-from urllib.parse import urlparse, parse_qs
-from threading import Thread
-import time
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class MockGitHubHandler(BaseHTTPRequestHandler):

@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 PHASE 1 FUNCTIONAL VERIFICATION TEST
@@ -209,8 +210,8 @@ def test_integration_workflow():
         output_file = os.path.join(temp_dir, "integration_output.json")
 
         # Test that files were created correctly
-        assert os.path.exists(analysis_file), "Analysis file not created"
-        assert os.path.exists(github_event_file), "GitHub event file not created"
+        assert path_exists(analysis_file), "Analysis file not created"
+        assert path_exists(github_event_file), "GitHub event file not created"
 
         # Verify file contents are correct
         with open(analysis_file, 'r') as f:

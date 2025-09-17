@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 # SPDX-License-Identifier: MIT
 """
 Defensive Programming Specialist - NASA Compliance Agent
@@ -124,7 +125,7 @@ class DefensiveProgrammingSpecialist:
         """
         # NASA Rule 5: Input validation
         assert file_path is not None, "file_path cannot be None"
-        assert Path(file_path).exists(), f"File must exist: {file_path}"
+        assert path_exists(file_path), f"File must exist: {file_path}"
         
         # Parse source code
         with open(file_path, 'r', encoding='utf-8') as f:

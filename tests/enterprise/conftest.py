@@ -173,25 +173,8 @@ def create_realistic_project_structure(project_root: Path):
 """Main application module"""
 import os
 import json
-import logging
-from typing import List, Dict, Optional
-from dataclasses import dataclass
-import requests
-
-@dataclass
-class APIResponse:
-    status_code: int
-    data: Dict[str, Any]
-    success: bool = True
-
-class APIClient:
-    """HTTP API client for enterprise services"""
-    
-    def __init__(self, base_url: str, api_key: Optional[str] = None):
-        self.base_url = base_url
-        self.api_key = api_key
-        self.session = requests.Session()
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
     def get_data(self, endpoint: str) -> APIResponse:
         """Fetch data from API endpoint"""

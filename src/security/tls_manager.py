@@ -5,17 +5,8 @@ Implements defense-grade TLS 1.3 configuration for internal communications.
 
 import ssl
 import socket
-import logging
-from typing import Dict, List, Optional, Any, Tuple
-from dataclasses import dataclass
-from pathlib import Path
-import json
-from datetime import datetime, timedelta
-import subprocess
-import tempfile
-import os
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -250,7 +241,7 @@ class DFARSTLSManager:
         try:
             # Check file existence
             for file_path, file_type in [(cert_file, 'certificate'), (key_file, 'private key')]:
-                if not Path(file_path).exists():
+                if not path_exists(file_path):
                     validation['errors'].append(f"{file_type} file not found: {file_path}")
                     return validation
 
@@ -278,7 +269,7 @@ class DFARSTLSManager:
                 )
 
             # Validate CA file if provided
-            if ca_file and Path(ca_file).exists():
+            if ca_file and path_exists(ca_file):
                 ca_info = self._parse_certificate(ca_file)
                 validation['certificate_info']['ca'] = ca_info
 

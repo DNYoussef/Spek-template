@@ -13,23 +13,8 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
-import logging
-import time
-from dataclasses import dataclass, field
-from datetime import datetime
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
-
-# Import integration components
-try:
-    from .system_integration import SystemIntegrationController, IntegrationConfig, IntegratedAnalysisResult
-    from .phase_correlation import PhaseCorrelationEngine
-except ImportError:
-    # Fallback for direct execution
-    from system_integration import SystemIntegrationController, IntegrationConfig, IntegratedAnalysisResult
-    from phase_correlation import PhaseCorrelationEngine
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -129,7 +114,7 @@ class UnifiedAnalyzerAPI:
     def __init__(self, config: Optional[UnifiedAnalysisConfig] = None):
         """Initialize unified analyzer with configuration."""
         self.config = config or UnifiedAnalysisConfig()
-        self.logger = logging.getLogger(__name__)
+        self.logger = get_logger(__name__)
         
         # Initialize integration controller
         integration_config = IntegrationConfig(

@@ -12,9 +12,8 @@ system while maintaining 92% NASA POT10 compliance.
 
 from typing import Dict, Any, Optional
 from .core.feature_flags import EnterpriseFeatureManager, FeatureState
-import logging
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 # Enterprise module version
 __version__ = "1.0.0"

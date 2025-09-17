@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Refactored Unified Analyzer - Breaking God Object into Single Responsibility Classes
 Each class now has a focused purpose with <15 methods.
@@ -39,7 +40,7 @@ class AnalyzerConfiguration:
 
     def _load_custom_config(self):
         """Load custom configuration from file."""
-        if self.config_path and Path(self.config_path).exists():
+        if self.config_path and path_exists(self.config_path):
             with open(self.config_path, 'r') as f:
                 custom = json.load(f)
                 self.config.update(custom)

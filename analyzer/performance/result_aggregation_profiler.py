@@ -30,26 +30,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
 from contextlib import contextmanager
-import logging
-import psutil
-import gc
-import sys
-from concurrent.futures import ThreadPoolExecutor, as_completed
-
-# Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-try:
-    from analyzer.result_aggregator import ResultAggregator, AggregationResult, CorrelationCluster
-    from analyzer.smart_integration_engine import SmartIntegrationEngine
-    from analyzer.architecture.aggregator import ViolationAggregator
-    from analyzer.streaming.result_aggregator import StreamResultAggregator, StreamAnalysisResult, AggregatedResult
-    AGGREGATION_IMPORTS_AVAILABLE = True
-except ImportError as e:
-    print(f"Warning: Could not import aggregation modules: {e}")
-    AGGREGATION_IMPORTS_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

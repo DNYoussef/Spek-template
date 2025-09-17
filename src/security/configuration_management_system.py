@@ -6,20 +6,8 @@ Security baseline enforcement and drift detection for defense industry complianc
 import json
 import time
 import hashlib
-import logging
-from datetime import datetime, timezone
-from typing import Dict, Any, List, Optional, Tuple, Set
-from dataclasses import dataclass, asdict
-from enum import Enum
-from pathlib import Path
-import yaml
-import asyncio
-import subprocess
-from concurrent.futures import ThreadPoolExecutor
-
-from .audit_trail_manager import DFARSAuditTrailManager, AuditEventType, SeverityLevel
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ConfigurationLevel(Enum):
@@ -134,7 +122,7 @@ class DFARSConfigurationManager:
             }
         }
 
-        if config_path and Path(config_path).exists():
+        if config_path and path_exists(config_path):
             try:
                 with open(config_path, 'r') as f:
                     loaded_config = json.load(f)

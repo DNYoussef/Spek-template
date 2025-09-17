@@ -5,67 +5,8 @@ High-throughput news ingestion and preprocessing for sentiment analysis
 
 import asyncio
 import aiohttp
-import logging
-from typing import Dict, List, Optional, Any, Set, Callable
-from datetime import datetime, timedelta
-import pandas as pd
-from dataclasses import dataclass, asdict
-import json
-import re
-from concurrent.futures import ThreadPoolExecutor
-import hashlib
-import nltk
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize, sent_tokenize
-from collections import deque
-import time
-
-from ..config.pipeline_config import config
-
-
-@dataclass
-class NewsArticle:
-    """Structured news article data"""
-    id: str
-    title: str
-    content: str
-    source: str
-    author: Optional[str]
-    published_at: datetime
-    url: str
-    symbols: List[str]
-    category: str
-    sentiment_score: Optional[float] = None
-    relevance_score: Optional[float] = None
-    processed: bool = False
-
-
-@dataclass
-class ProcessingStats:
-    """News processing performance statistics"""
-    articles_per_minute: float = 0.0
-    total_processed: int = 0
-    total_filtered: int = 0
-    average_processing_time_ms: float = 0.0
-    error_rate: float = 0.0
-    duplicate_rate: float = 0.0
-
-
-class NewsProcessor:
-    """
-    High-performance news processing pipeline
-
-    Features:
-    - Multi-source news aggregation (NewsAPI, Alpha Vantage, RSS)
-    - Real-time processing capability (1000+ articles/minute)
-    - Intelligent filtering and deduplication
-    - Symbol extraction and relevance scoring
-    - Content preprocessing for ML models
-    - Configurable processing rules
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.session: Optional[aiohttp.ClientSession] = None
         self.executor = ThreadPoolExecutor(max_workers=config.processing.processing_threads)
 

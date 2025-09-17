@@ -5,17 +5,8 @@ Generates comprehensive SBOMs in multiple formats for supply chain transparency.
 Supports SPDX and CycloneDX standards.
 """
 
-import logging
-import json
-import hashlib
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Set
-from datetime import datetime
-from dataclasses import dataclass, field
-from enum import Enum
-import uuid
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class SBOMFormat(Enum):

@@ -15,10 +15,8 @@ import yaml
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, List
-import logging
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class JSONSchemaMigrator:

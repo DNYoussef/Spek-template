@@ -21,21 +21,8 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Any, Set
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
-import logging
-import hashlib
-import tempfile
-import shutil
-
-# Import Queen Coordinator
-try:
-    from .queen_coordinator import QueenCoordinator, QueenAnalysis, MECETaskDivision, AgentAssignment
-except ImportError:
-    # Fallback import for direct execution
-    from queen_coordinator import QueenCoordinator, QueenAnalysis, MECETaskDivision, AgentAssignment
-
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -1108,7 +1095,7 @@ class LoopOrchestrator:
                 matches = re.findall(pattern, f"{step_name} {job_name}")
                 for match in matches:
                     file_path = match[0] if isinstance(match, tuple) else match
-                    if Path(file_path).exists():
+                    if path_exists(file_path):
                         affected_files.append(str(Path(file_path).resolve()))
 
         # Also scan current directory for recently modified files
@@ -1121,7 +1108,7 @@ class LoopOrchestrator:
                 if result.returncode == 0:
                     git_files = result.stdout.strip().split('\n')
                     for file_path in git_files:
-                        if file_path and Path(file_path).exists():
+                        if file_path and path_exists(file_path):
                             affected_files.append(str(Path(file_path).resolve()))
             except:
                 pass
@@ -1173,7 +1160,7 @@ class LoopOrchestrator:
             all_files = [issue.primary_file] + issue.coupled_files
 
             for file_path in all_files:
-                if Path(file_path).exists():
+                if path_exists(file_path):
                     dest_path = bundle_dir / Path(file_path).name
                     shutil.copy2(file_path, dest_path)
 
@@ -1472,7 +1459,7 @@ class LoopOrchestrator:
 
         # Copy affected files to workspace
         for file_path in fix.affected_files:
-            if Path(file_path).exists():
+            if path_exists(file_path):
                 dest_path = workspace_dir / Path(file_path).name
                 shutil.copy2(file_path, dest_path)
 
@@ -1873,7 +1860,7 @@ def main():
 
     # Load configuration
     config = {}
-    if args.config and Path(args.config).exists():
+    if args.config and path_exists(args.config):
         with open(args.config, 'r') as f:
             config = json.load(f)
 

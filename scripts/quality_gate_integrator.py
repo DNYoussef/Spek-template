@@ -20,11 +20,8 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 from datetime import datetime
 import subprocess
-import logging
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class QualityGateIntegrator:

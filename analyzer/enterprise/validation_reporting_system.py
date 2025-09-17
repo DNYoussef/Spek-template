@@ -14,22 +14,8 @@ Target: Comprehensive compliance visibility and tracking.
 """
 
 import json
-import logging
-import subprocess
-import sys
-from collections import defaultdict, Counter
-from dataclasses import dataclass, field, asdict
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Set, Tuple
-import base64
-import hashlib
-
-from .nasa_pot10_analyzer import NASAPowerOfTenAnalyzer, ComplianceMetrics, NASAViolation
-from .defense_certification_tool import DefenseCertificationTool, DefenseCertificationReport
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class ComplianceTrend:

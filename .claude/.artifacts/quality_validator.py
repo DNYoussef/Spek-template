@@ -10,82 +10,8 @@ Ensures enterprise-grade quality and NASA POT10 compliance maintenance.
 
 import os
 import json
-import logging
-import hashlib
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, asdict
-from datetime import datetime, timedelta
-from pathlib import Path
-from enum import Enum
-
-# Import Phase 3 components for validation
-from .integration_config import get_phase3_config, validate_nasa_pot10_compliance, get_performance_impact_assessment
-from .artifact_manager import get_artifact_manager
-
-class ValidationLevel(Enum):
-    """Quality validation levels"""
-    BASIC = "basic"
-    STANDARD = "standard"
-    ENTERPRISE = "enterprise"
-    DEFENSE_GRADE = "defense_grade"
-
-class ValidationResult(Enum):
-    """Validation result status"""
-    PASS = "pass"
-    WARN = "warn"  
-    FAIL = "fail"
-    CRITICAL = "critical"
-
-@dataclass
-class QualityMetric:
-    """Individual quality metric"""
-    name: str
-    value: float
-    threshold: float
-    operator: str  # >=, <=, ==, !=
-    weight: float = 1.0
-    category: str = "general"
-    
-    @property
-    def passes(self) -> bool:
-        """Check if metric passes threshold"""
-        if self.operator == ">=":
-            return self.value >= self.threshold
-        elif self.operator == "<=":
-            return self.value <= self.threshold
-        elif self.operator == "==":
-            return self.value == self.threshold
-        elif self.operator == "!=":
-            return self.value != self.threshold
-        return False
-    
-    @property
-    def score(self) -> float:
-        """Calculate weighted score"""
-        return self.weight if self.passes else 0.0
-
-@dataclass
-class ValidationReport:
-    """Comprehensive validation report"""
-    validation_id: str
-    timestamp: str
-    validation_level: ValidationLevel
-    overall_result: ValidationResult
-    overall_score: float
-    metrics: List[QualityMetric]
-    categories: Dict[str, Dict[str, Any]]
-    recommendations: List[str]
-    critical_issues: List[str]
-    compliance_status: Dict[str, Any]
-    performance_impact: Dict[str, Any]
-    
-class QualityValidationCoordinator:
-    """Main quality validation coordination system"""
-    
-    def __init__(self, output_dir: str = ".claude/.artifacts"):
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
         # Initialize validation thresholds
         self.defense_grade_thresholds = self._initialize_defense_grade_thresholds()

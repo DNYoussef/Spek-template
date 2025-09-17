@@ -13,10 +13,8 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 
 from functools import wraps
 from typing import Callable, Any, Dict, List, Optional
-import logging
-import time
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class EnterpriseEnhancer:

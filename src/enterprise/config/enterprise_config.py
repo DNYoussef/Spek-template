@@ -5,17 +5,8 @@ Centralized configuration system for all enterprise features with
 environment-specific settings and security controls.
 """
 
-import logging
-import json
-import os
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Union
-from datetime import datetime
-from dataclasses import dataclass, field, asdict
-from enum import Enum
-import yaml
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class EnvironmentType(Enum):

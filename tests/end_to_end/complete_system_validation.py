@@ -9,20 +9,8 @@ maintained 58.3% performance improvements.
 """
 
 import asyncio
-import logging
-import os
-import sys
-import time
-import threading
-import unittest
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from pathlib import Path
-from typing import Dict, List, Any, Optional
-import traceback
-
-# Setup logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 # Add project paths
 PROJECT_ROOT = Path(__file__).parent.parent.parent

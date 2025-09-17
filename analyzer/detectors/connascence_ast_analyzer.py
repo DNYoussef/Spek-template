@@ -1,3 +1,4 @@
+from lib.shared.utilities import validate_file
 """
 Unified Connascence AST Analyzer - REAL Implementation
 
@@ -173,7 +174,7 @@ class UnifiedConnascenceAnalyzer:
         violations_by_type = {}
 
         # Determine what to analyze
-        if os.path.isfile(self.project_path):
+        if validate_file(self.project_path):
             # Single file
             files_to_analyze = [self.project_path]
         else:

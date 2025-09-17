@@ -19,27 +19,8 @@ Usage:
 """
 
 import json
-import logging
-import math
-import sys
-import time
-from collections import defaultdict
-from dataclasses import dataclass, asdict
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
-
-# Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from utils.types import ConnascenceViolation
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

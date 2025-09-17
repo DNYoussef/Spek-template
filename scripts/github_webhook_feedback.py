@@ -15,13 +15,8 @@ import argparse
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
-import logging
-import hashlib
-import subprocess
-
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class GitHubWebhookFeedback:
@@ -803,7 +798,7 @@ def main():
 
     # Load configuration
     config = {}
-    if args.config and Path(args.config).exists():
+    if args.config and path_exists(args.config):
         with open(args.config, 'r') as f:
             config = json.load(f)
 

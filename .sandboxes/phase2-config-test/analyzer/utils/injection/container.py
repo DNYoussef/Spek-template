@@ -9,9 +9,8 @@ components and eliminates hardcoded instantiation patterns.
 from typing import Any, Callable, Dict, Optional, Type, TypeVar, Union
 from functools import wraps
 import inspect
-import logging
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 T = TypeVar('T')
 

@@ -9,11 +9,8 @@ import tensorflow as tf
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Union
 from pathlib import Path
-import logging
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class GPUConfig:
@@ -215,7 +212,7 @@ class ConfigManager:
         self.testing = TestingConfig()
         
         # Load custom configuration if provided
-        if self.config_path and os.path.exists(self.config_path):
+        if self.config_path and path_exists(self.config_path):
             self._load_config()
     
     def _load_config(self):

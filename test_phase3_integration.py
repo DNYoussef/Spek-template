@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Phase 3 Integration Reality Test Suite
@@ -615,7 +616,7 @@ class Phase3IntegrationTester:
 
     def cleanup(self):
         """Clean up test environment."""
-        if self.temp_dir and os.path.exists(self.temp_dir):
+        if self.temp_dir and path_exists(self.temp_dir):
             shutil.rmtree(self.temp_dir)
             print(f"[CLEANUP] Removed test directory: {self.temp_dir}")
 

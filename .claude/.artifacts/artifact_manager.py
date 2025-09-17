@@ -8,27 +8,8 @@ Provides unified interface for Six Sigma, Supply Chain, Compliance, and Workflow
 
 import os
 import json
-import logging
-from typing import Dict, List, Any, Optional
-from pathlib import Path
-from datetime import datetime
-
-# Import artifact generators
-from .six_sigma.six_sigma_reporter import SixSigmaReporter, generate_six_sigma_report
-from .supply_chain.sbom_generator import SupplyChainGenerator, generate_sbom_artifact, generate_slsa_provenance_artifact
-from .compliance.compliance_packager import CompliancePackager, generate_compliance_evidence
-from .workflows.workflow_orchestrator import WorkflowOrchestrator, create_artifact_workflow, execute_artifact_workflow
-
-# Master feature flag for Phase 3
-ENABLE_PHASE3_ARTIFACTS = os.getenv('ENABLE_PHASE3_ARTIFACTS', 'false').lower() == 'true'
-
-class ArtifactManager:
-    """Central artifact management system"""
-    
-    def __init__(self, output_dir: str = ".claude/.artifacts"):
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
         # Initialize subsystem managers
         self.six_sigma_reporter = SixSigmaReporter()

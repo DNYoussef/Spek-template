@@ -8,13 +8,8 @@ Every component does REAL work and FAILS when broken.
 
 import ast
 import json
-import logging
-import time
-from pathlib import Path
-from typing import Dict, List, Any, Optional
-from dataclasses import dataclass
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

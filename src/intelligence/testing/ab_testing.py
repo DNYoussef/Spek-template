@@ -9,16 +9,8 @@ from typing import Dict, List, Optional, Tuple, Union, Any
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
-import logging
-import json
-from scipy import stats
-import matplotlib.pyplot as plt
-import seaborn as sns
-from pathlib import Path
-
-from ..config import config
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 class TestStatus(Enum):
     """Status of an A/B test."""

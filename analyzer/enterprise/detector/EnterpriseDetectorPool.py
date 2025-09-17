@@ -21,59 +21,12 @@ NASA POT10 Rule 7: Bounded resource management
 import asyncio
 import hashlib
 import json
-import logging
-import secrets
-import threading
-import time
-import uuid
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from contextlib import asynccontextmanager, contextmanager
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
-import weakref
-from collections import defaultdict, deque
-import psutil
-import cryptography.fernet
-from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.asymmetric import rsa
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-import yaml
+from lib.shared.utilities.logging_setup import get_analyzer_logger
+from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
+from lib.shared.utilities.path_validation import validate_file, validate_directory
 
-try:
-    from ..core.performance_monitor import EnterprisePerformanceMonitor
-    from ..sixsigma import SixSigmaTelemetry, collect_method_metrics
-    from ...detectors.base import DetectorBase
-    from ...utils.types import ConnascenceViolation
-except ImportError:
-    # Fallback for testing
-    import sys
-    from pathlib import Path
-    sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-    from detectors.base import DetectorBase
-    from utils.types import ConnascenceViolation
-    
-    class EnterprisePerformanceMonitor:
-        def __init__(self, *args, **kwargs):
-            pass
-        def measure_enterprise_impact(self, name):
-            return self
-        def __enter__(self):
-            return self
-        def __exit__(self, *args):
-            pass
-    
-    class SixSigmaTelemetry:
-        def __init__(self, *args, **kwargs):
-            pass
-        def record_method_execution(self, *args, **kwargs):
-            pass
-    
-    def collect_method_metrics(func):
-        return func
-
-logger = logging.getLogger(__name__)
+# Use shared logging for enterprise detector
+logger = get_analyzer_logger(__name__)
 
 
 @dataclass
@@ -193,7 +146,7 @@ class CryptographicSecurityManager:
     def _initialize_encryption_key(self) -> Optional[bytes]:
         """Initialize FIPS 140-2 compliant encryption key."""
         try:
-            if self.config.encryption_key_path and Path(self.config.encryption_key_path).exists():
+            if self.config.encryption_key_path and path_exists(self.config.encryption_key_path):
                 with open(self.config.encryption_key_path, 'rb') as f:
                     return f.read()
             else:
@@ -285,7 +238,7 @@ class ForensicAuditLogger:
         self.audit_log_path.parent.mkdir(parents=True, exist_ok=True)
         
         # Initialize forensic logger
-        self.forensic_logger = logging.getLogger('enterprise_forensic')
+        self.forensic_logger = get_logger("\1")
         self.forensic_logger.setLevel(logging.INFO)
         
         if not self.forensic_logger.handlers:

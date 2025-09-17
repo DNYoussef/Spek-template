@@ -9,9 +9,8 @@ and reduce Connascence of Algorithm across the analyzer system.
 import ast
 from typing import List, Dict, Any, Optional, Set, Tuple, Union
 from dataclasses import dataclass
-import logging
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

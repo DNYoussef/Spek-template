@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 # NASA POT10 Rule 3: Minimize dynamic memory allocation
 # Consider using fixed-size arrays or generators for large data processing
 #!/usr/bin/env python3
@@ -246,7 +247,7 @@ class PerformanceTheaterDetector:
         for evidence_file in claim.evidence_files:
             total_possible_points += 5  # Maximum points per file
             
-            if Path(evidence_file).exists():
+            if path_exists(evidence_file):
                 evidence_quality_points += 1  # File exists
                 
                 # Analyze file content if possible
@@ -347,7 +348,7 @@ class PerformanceTheaterDetector:
             genuine_indicators.append("realistic_measurement_precision")
         
         # Context indicators
-        if any(Path(f).exists() for f in claim.evidence_files):
+        if any(path_exists(f) for f in claim.evidence_files):
             genuine_indicators.append("evidence_files_exist")
         
         return genuine_indicators

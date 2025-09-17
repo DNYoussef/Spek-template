@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Six Sigma Integration Tests
@@ -129,7 +130,7 @@ class TestSixSigmaIntegration(unittest.TestCase):
         report_file = self.scorer.generate_report(self.test_dir)
         
         # Verify files were created
-        self.assertTrue(Path(report_file).exists())
+        self.assertTrue(path_exists(report_file))
         
         # Verify JSON report content
         with open(report_file, 'r') as f:

@@ -5,29 +5,8 @@ Implements DFARS 252.204-7012 system and communications protection requirements.
 """
 
 import json
-import logging
-import ssl
-import socket
-import time
-from datetime import datetime, timezone, timedelta
-from typing import Dict, List, Any, Optional, Set, Tuple
-from dataclasses import dataclass, asdict
-from enum import Enum
-import uuid
-import hashlib
-import hmac
-from cryptography import x509
-from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.asymmetric import rsa, padding
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.x509.oid import NameOID, ExtendedKeyUsageOID
-import ipaddress
-
-from .fips_crypto_module import FIPSCryptoModule
-from .audit_trail_manager import DFARSAuditTrailManager, AuditEventType, SeverityLevel
-from .tls_manager import DFARSTLSManager
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class CommunicationType(Enum):

@@ -26,37 +26,8 @@ with the existing single-threaded analyzer infrastructure.
 
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
-import logging
-import multiprocessing as mp
-from pathlib import Path
-import sys
-import threading
-import time
-from typing import Any, Dict, List, Optional, Tuple, Union
-
-import psutil
-
-# Add parent directories to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-# Import existing infrastructure
-try:
-    from analyzer.unified_analyzer import UnifiedAnalysisResult, UnifiedConnascenceAnalyzer
-except ImportError:
-    # Fallback for when unified analyzer is not available
-    UnifiedConnascenceAnalyzer = None
-    UnifiedAnalysisResult = None
-
-try:
-    from dashboard.metrics import DashboardMetrics
-except ImportError:
-    # Fallback metrics collector
-    class DashboardMetrics:
-        def record_performance(self, **kwargs):
-            pass
-
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

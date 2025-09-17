@@ -14,33 +14,8 @@ import sys
 import json
 import time
 import asyncio
-import logging
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any, Union
-from dataclasses import dataclass, asdict
-from enum import Enum
-import traceback
-
-# Third-party imports
-try:
-    import requests
-    from github import Github, GithubException
-    import yaml
-    from pathlib import Path
-except ImportError as e:
-    print(f"Error: Required dependencies not installed. Run: pip install pygithub requests pyyaml")
-    sys.exit(1)
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout),
-        logging.FileHandler('.github/automation/github_integration.log', mode='a')
-    ]
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 class FailureCategory(Enum):
     """Enumeration of failure categories for intelligent routing"""
@@ -496,13 +471,13 @@ class GitHubIntegration:
             
             # Check for Python requirements.txt
             python_vulns = 0
-            if Path('requirements.txt').exists():
+            if path_exists('requirements.txt'):
                 # This would run safety check in a real implementation
                 python_vulns = await self._simulate_vulnerability_check('python')
             
             # Check for Node.js package.json
             node_vulns = 0
-            if Path('package.json').exists():
+            if path_exists('package.json'):
                 # This would run npm audit in a real implementation  
                 node_vulns = await self._simulate_vulnerability_check('nodejs')
             

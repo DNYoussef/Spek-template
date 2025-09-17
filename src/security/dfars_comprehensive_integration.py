@@ -5,27 +5,8 @@ Provides unified compliance validation and reporting for 95%+ compliance achieve
 """
 
 import json
-import logging
-import hashlib
-import hmac
-from datetime import datetime, timezone, timedelta
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, asdict
-from enum import Enum
-import uuid
-import asyncio
-from concurrent.futures import ThreadPoolExecutor, as_completed
-
-from .dfars_access_control import DFARSAccessControl
-from .dfars_incident_response import DFARSIncidentResponse
-from .dfars_media_protection import DFARSMediaProtection
-from .dfars_system_communications import DFARSSystemCommunications
-from .dfars_personnel_security import DFARSPersonnelSecurity
-from .dfars_physical_protection import DFARSPhysicalProtection
-from .fips_crypto_module import FIPSCryptoModule
-from .audit_trail_manager import DFARSAuditTrailManager, AuditEventType, SeverityLevel
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ComplianceLevel(Enum):

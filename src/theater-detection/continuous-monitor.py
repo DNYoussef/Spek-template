@@ -15,12 +15,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, asdict
-import logging
-from concurrent.futures import ThreadPoolExecutor
-
-from .theater_detector import TheaterDetector, TheaterPattern, RealityValidationResult
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class MonitoringAlert:

@@ -179,7 +179,7 @@ def test_correlation_logic_reality():
         # Test compliance average
         actual_avg = result['consolidated_findings']['nasa_compliance']
         avg_correct = abs(actual_avg - expected_avg_compliance) < 0.01
-        print(f" Compliance Average: {actual_avg:.3f} ≈ {expected_avg_compliance:.3f} {'[OK]' if avg_correct else '[FAIL]'}")
+        print(f" Compliance Average: {actual_avg:.3f}  {expected_avg_compliance:.3f} {'[OK]' if avg_correct else '[FAIL]'}")
 
         # Test correlation score bounds
         corr_score = result['correlation_analysis']['correlation_score']

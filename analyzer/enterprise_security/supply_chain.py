@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Supply Chain Security Module
 Manages software supply chain security including SBOM and SLSA validation.
@@ -86,17 +87,17 @@ class SupplyChainSecurity:
 
         # Check requirements.txt
         req_file = os.path.join(project_path, 'requirements.txt')
-        if os.path.exists(req_file):
+        if path_exists(req_file):
             components.extend(self._parse_requirements_file(req_file))
 
         # Check Pipfile
         pipfile = os.path.join(project_path, 'Pipfile')
-        if os.path.exists(pipfile):
+        if path_exists(pipfile):
             components.extend(self._parse_pipfile(pipfile))
 
         # Check pyproject.toml
         pyproject = os.path.join(project_path, 'pyproject.toml')
-        if os.path.exists(pyproject):
+        if path_exists(pyproject):
             components.extend(self._parse_pyproject_toml(pyproject))
 
         return components
@@ -141,7 +142,7 @@ class SupplyChainSecurity:
         components = []
 
         package_json = os.path.join(project_path, 'package.json')
-        if os.path.exists(package_json):
+        if path_exists(package_json):
             try:
                 with open(package_json, 'r') as f:
                     data = json.load(f)
@@ -244,7 +245,7 @@ class SupplyChainSecurity:
 
     def _calculate_file_hash(self, file_path: str) -> str:
         """Calculate SHA-256 hash of a file."""
-        if not os.path.exists(file_path):
+        if not path_exists(file_path):
             return ""
 
         sha256_hash = hashlib.sha256()

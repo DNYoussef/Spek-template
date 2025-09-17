@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 DFARS Compliance Validation - Simple Version
@@ -27,7 +28,7 @@ def validate_dfars_compliance():
     total = len(security_files)
 
     for filepath in security_files:
-        if Path(filepath).exists():
+        if path_exists(filepath):
             implemented += 1
             print(f"[PASS] {filepath}")
         else:

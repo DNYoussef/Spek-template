@@ -5,18 +5,8 @@ Implements DFARS 252.204-7012 personnel security requirements.
 """
 
 import json
-import logging
-from datetime import datetime, timezone, timedelta
-from typing import Dict, List, Any, Optional, Set
-from dataclasses import dataclass, asdict
-from enum import Enum
-import uuid
-import hashlib
-
-from .fips_crypto_module import FIPSCryptoModule
-from .audit_trail_manager import DFARSAuditTrailManager, AuditEventType, SeverityLevel
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ClearanceLevel(Enum):

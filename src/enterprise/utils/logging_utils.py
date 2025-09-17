@@ -1,3 +1,4 @@
+from lib.shared.utilities import get_logger
 """
 Enterprise Logging Utilities
 
@@ -322,7 +323,7 @@ class AuditLogger:
         self.audit_file.parent.mkdir(parents=True, exist_ok=True)
         
         # Setup audit logger
-        self.logger = logging.getLogger("enterprise.audit")
+        self.logger = get_logger("\1")
         self.logger.setLevel(LogLevel.AUDIT.value)
         
         # Add rotating file handler for audit logs

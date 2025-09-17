@@ -1,3 +1,4 @@
+from lib.shared.utilities import get_logger
 # NASA POT10 Rule 3: Minimize dynamic memory allocation
 # Consider using fixed-size arrays or generators for large data processing
 #!/usr/bin/env python3
@@ -110,7 +111,7 @@ class RealTimeMonitor:
                 logging.StreamHandler()
             ]
         )
-        self.logger = logging.getLogger('RealTimeMonitor')
+        self.logger = get_logger("\1")
     
     def set_baselines(self, baselines: Dict[str, float]):
         """Set performance baselines for optimization tracking"""

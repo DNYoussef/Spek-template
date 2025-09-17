@@ -5,20 +5,8 @@ Non-breaking integration layer that adds enterprise features to existing
 analyzer components while maintaining full backward compatibility.
 """
 
-import logging
-import asyncio
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Callable, Type
-from datetime import datetime
-import inspect
-import functools
-
-from ..telemetry.six_sigma import SixSigmaTelemetry
-from ..security.supply_chain import SupplyChainSecurity
-from ..compliance.matrix import ComplianceMatrix, ComplianceFramework
-from ..flags.feature_flags import flag_manager, enterprise_feature
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class EnterpriseAnalyzerIntegration:

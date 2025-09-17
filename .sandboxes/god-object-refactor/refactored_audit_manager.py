@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Refactored DFARS Audit Trail Manager - Breaking God Object
 Original: 34 methods in 1 class, 872 lines
@@ -60,7 +61,7 @@ class IntegrityManager:
 
     def _initialize_key(self) -> str:
         """Initialize or load integrity key."""
-        if self.key_path and Path(self.key_path).exists():
+        if self.key_path and path_exists(self.key_path):
             with open(self.key_path, 'r') as f:
                 return f.read().strip()
         else:

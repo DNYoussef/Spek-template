@@ -108,9 +108,9 @@ class TestGitHubBridgeReality(unittest.TestCase):
         self.assertIn('God Object', comment_body)  # Real violation type
         self.assertIn('UserManager', comment_body)  # Real class name
 
-        print(f"✅ REALITY VERIFIED: Real HTTP POST to {request['path']}")
-        print(f"✅ REALITY VERIFIED: Real auth header present")
-        print(f"✅ REALITY VERIFIED: Real analysis data in comment")
+        print(f" REALITY VERIFIED: Real HTTP POST to {request['path']}")
+        print(f" REALITY VERIFIED: Real auth header present")
+        print(f" REALITY VERIFIED: Real analysis data in comment")
 
     def test_reality_check_status_checks_work(self):
         """REALITY CHECK: Verify status checks make real API calls."""
@@ -133,8 +133,8 @@ class TestGitHubBridgeReality(unittest.TestCase):
         self.assertIn('critical violations', status_data['description'])
         self.assertEqual(status_data['context'], 'connascence-analyzer')
 
-        print(f"✅ REALITY VERIFIED: Real status check API call")
-        print(f"✅ REALITY VERIFIED: Real failure state based on analysis")
+        print(f" REALITY VERIFIED: Real status check API call")
+        print(f" REALITY VERIFIED: Real failure state based on analysis")
 
     def test_reality_check_authentication_required(self):
         """REALITY CHECK: Verify authentication is actually checked."""
@@ -157,7 +157,7 @@ class TestGitHubBridgeReality(unittest.TestCase):
         self.assertEqual(len(requests), 1)
         # Server should have received request but rejected it
 
-        print("✅ REALITY VERIFIED: Authentication is actually validated")
+        print(" REALITY VERIFIED: Authentication is actually validated")
 
     def test_reality_check_pr_files_fetching(self):
         """REALITY CHECK: Verify PR file listing works."""
@@ -175,7 +175,7 @@ class TestGitHubBridgeReality(unittest.TestCase):
         self.assertEqual(request['method'], 'GET')
         self.assertIn('/pulls/1/files', request['path'])
 
-        print("✅ REALITY VERIFIED: Real PR files API call")
+        print(" REALITY VERIFIED: Real PR files API call")
 
     def test_reality_check_issue_creation(self):
         """REALITY CHECK: Verify issue creation works."""
@@ -199,7 +199,7 @@ class TestGitHubBridgeReality(unittest.TestCase):
         self.assertIn('UserManager', issue_data['body'])  # Real violation
         self.assertIn('code-quality', issue_data['labels'])
 
-        print("✅ REALITY VERIFIED: Real issue creation API call")
+        print(" REALITY VERIFIED: Real issue creation API call")
 
 
 class TestToolCoordinatorReality(unittest.TestCase):
@@ -250,9 +250,9 @@ class TestToolCoordinatorReality(unittest.TestCase):
         self.assertAlmostEqual(consolidated['nasa_compliance'], 0.875, places=3)  # (0.85 + 0.90) / 2
         self.assertEqual(consolidated['total_violations'], 5)  # 3 + 2
 
-        print("✅ REALITY VERIFIED: Correlation logic uses real calculations")
-        print(f"✅ REALITY VERIFIED: Real overlap count: {correlation['overlapping_files']}")
-        print(f"✅ REALITY VERIFIED: Real compliance average: {consolidated['nasa_compliance']:.3f}")
+        print(" REALITY VERIFIED: Correlation logic uses real calculations")
+        print(f" REALITY VERIFIED: Real overlap count: {correlation['overlapping_files']}")
+        print(f" REALITY VERIFIED: Real compliance average: {consolidated['nasa_compliance']:.3f}")
 
     def test_reality_check_recommendations_not_hardcoded(self):
         """REALITY CHECK: Verify recommendations are based on real data."""
@@ -292,7 +292,7 @@ class TestToolCoordinatorReality(unittest.TestCase):
 
         self.assertIn("High duplication", recommendations[0])
 
-        print("✅ REALITY VERIFIED: Recommendations based on real data thresholds")
+        print(" REALITY VERIFIED: Recommendations based on real data thresholds")
 
 
 class TestEndToEndIntegration(unittest.TestCase):
@@ -402,9 +402,9 @@ class TestEndToEndIntegration(unittest.TestCase):
             self.assertIn('/issues/999/comments', github_request['path'])
             self.assertIn('78.0%', github_request['data']['body'])  # Real compliance score
 
-            print("✅ REALITY VERIFIED: End-to-end workflow with real data processing")
-            print("✅ REALITY VERIFIED: Real GitHub API integration")
-            print("✅ REALITY VERIFIED: Real correlation calculations")
+            print(" REALITY VERIFIED: End-to-end workflow with real data processing")
+            print(" REALITY VERIFIED: Real GitHub API integration")
+            print(" REALITY VERIFIED: Real correlation calculations")
 
             # Clean up env vars
             for key in ['GITHUB_TOKEN', 'GITHUB_OWNER', 'GITHUB_REPO', 'GITHUB_API_URL']:
@@ -429,14 +429,14 @@ def calculate_reality_score():
 
     # Assessment based on code review and tests
     scores = {
-        "real_http_requests": 20,      # ✅ Uses requests.Session, real HTTP
-        "real_authentication": 15,     # ✅ Real token validation in headers
-        "real_data_processing": 18,    # ✅ Processes real UnifiedAnalysisResult
-        "real_correlation_logic": 12,  # ⚠️  Some hardcoded limits (0.88 cap)
-        "real_error_handling": 8,      # ⚠️  Basic try/catch, could be better
-        "real_status_integration": 10, # ✅ Real GitHub status API calls
-        "real_file_operations": 5,     # ✅ Real JSON file handling
-        "production_ready": 3          # ⚠️  Missing rate limiting, retries
+        "real_http_requests": 20,      #  Uses requests.Session, real HTTP
+        "real_authentication": 15,     #  Real token validation in headers
+        "real_data_processing": 18,    #  Processes real UnifiedAnalysisResult
+        "real_correlation_logic": 12,  #   Some hardcoded limits (0.88 cap)
+        "real_error_handling": 8,      #   Basic try/catch, could be better
+        "real_status_integration": 10, #  Real GitHub status API calls
+        "real_file_operations": 5,     #  Real JSON file handling
+        "production_ready": 3          #   Missing rate limiting, retries
     }
 
     total_possible = sum(criteria.values())
@@ -447,29 +447,29 @@ def calculate_reality_score():
 
 
 if __name__ == "__main__":
-    print("🔍 STARTING BRUTAL REALITY CHECK OF PHASE 2 GITHUB INTEGRATION")
+    print(" STARTING BRUTAL REALITY CHECK OF PHASE 2 GITHUB INTEGRATION")
     print("=" * 60)
 
     # Run the test suite
     unittest.main(argv=[''], exit=False, verbosity=2)
 
     print("\n" + "=" * 60)
-    print("📊 CALCULATING REALITY SCORE")
+    print(" CALCULATING REALITY SCORE")
 
     reality_score, scores, criteria = calculate_reality_score()
 
-    print(f"\n🎯 PHASE 2 REALITY SCORE: {reality_score:.1f}%")
+    print(f"\n PHASE 2 REALITY SCORE: {reality_score:.1f}%")
     print("\nDetailed Assessment:")
     for criterion, max_score in criteria.items():
         actual = scores[criterion]
-        status = "✅" if actual == max_score else "⚠️" if actual >= max_score * 0.7 else "❌"
+        status = "" if actual == max_score else "" if actual >= max_score * 0.7 else ""
         print(f"  {status} {criterion}: {actual}/{max_score} ({actual/max_score*100:.0f}%)")
 
     if reality_score >= 81:
-        print(f"\n🚀 PRODUCTION READY: {reality_score:.1f}% reality score")
+        print(f"\n PRODUCTION READY: {reality_score:.1f}% reality score")
     elif reality_score >= 61:
-        print(f"\n⚠️  MOSTLY REAL: {reality_score:.1f}% with minor gaps")
+        print(f"\n  MOSTLY REAL: {reality_score:.1f}% with minor gaps")
     elif reality_score >= 31:
-        print(f"\n🔧 PARTIAL REALITY: {reality_score:.1f}% - significant work needed")
+        print(f"\n PARTIAL REALITY: {reality_score:.1f}% - significant work needed")
     else:
-        print(f"\n❌ THEATER DETECTED: {reality_score:.1f}% - major overhaul required")
+        print(f"\n THEATER DETECTED: {reality_score:.1f}% - major overhaul required")

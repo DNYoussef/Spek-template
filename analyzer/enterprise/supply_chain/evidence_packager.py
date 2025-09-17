@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 SC-005: Supply Chain Evidence Package Generator
 Comprehensive evidence packaging for supply chain security attestation.
@@ -585,7 +586,7 @@ class EvidencePackager:
     
     def _get_file_size(self, file_path: Optional[str]) -> int:
         """Get file size in bytes."""
-        if file_path and Path(file_path).exists():
+        if file_path and path_exists(file_path):
             return Path(file_path).stat().st_size
         return 0
     
@@ -593,7 +594,7 @@ class EvidencePackager:
         """Calculate multiple hash algorithms for file."""
         hashes = {}
         
-        if not file_path or not Path(file_path).exists():
+        if not file_path or not path_exists(file_path):
             return hashes
         
         try:
@@ -616,7 +617,7 @@ class EvidencePackager:
     
     def _calculate_file_hash(self, file_path: str) -> str:
         """Calculate SHA256 hash of file."""
-        if not file_path or not Path(file_path).exists():
+        if not file_path or not path_exists(file_path):
             return ''
         
         try:

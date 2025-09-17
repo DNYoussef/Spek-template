@@ -27,20 +27,8 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
-import logging
-import math
-from enum import Enum
-
-# Import performance monitoring components
-try:
-    from .real_time_monitor import PerformanceAlert, AlertSeverity
-    from .optimizer import get_global_optimization_engine
-    MONITORING_AVAILABLE = True
-except ImportError as e:
-    logging.warning(f"Performance monitoring not available: {e}")
-    MONITORING_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class RegressionSeverity(Enum):

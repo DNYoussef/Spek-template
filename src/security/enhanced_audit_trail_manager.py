@@ -7,27 +7,8 @@ import json
 import time
 import hashlib
 import hmac
-import logging
-from datetime import datetime, timezone
-from typing import Dict, Any, List, Optional, Tuple, Set
-from dataclasses import dataclass, asdict
-from enum import Enum
-from pathlib import Path
-import asyncio
-import threading
-from queue import Queue, Empty
-import gzip
-import struct
-from concurrent.futures import ThreadPoolExecutor
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.backends import default_backend
-import secrets
-
-from .fips_crypto_module import FIPSCryptoModule
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class AuditEventType(Enum):
@@ -157,8 +138,8 @@ class EnhancedAuditTrail:
             additional_data = {}
 
         # Simple logging for now
-        import logging
-        logger = logging.getLogger(__name__)
+        from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         logger.info(f"Security Event: {event_type} - {user_id} - {action} - {resource}")
         return f"event_{hash(f'{event_type}_{user_id}_{action}')}"
 

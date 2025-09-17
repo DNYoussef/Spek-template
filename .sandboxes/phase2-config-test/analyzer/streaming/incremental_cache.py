@@ -21,18 +21,8 @@ from collections import defaultdict, deque
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
-import logging
-
-# Import existing cache system for integration
-try:
-    from ..optimization.file_cache import FileContentCache, get_global_cache
-    CACHE_INTEGRATION_AVAILABLE = True
-except ImportError:
-    FileContentCache = None
-    get_global_cache = None
-    CACHE_INTEGRATION_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -178,7 +168,7 @@ class IncrementalCache:
             if new_content is not None:
                 new_hash = hashlib.sha256(new_content.encode('utf-8')).hexdigest()[:16]
                 new_size = len(new_content)
-            elif Path(file_path).exists():
+            elif path_exists(file_path):
                 # Read file if content not provided
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:

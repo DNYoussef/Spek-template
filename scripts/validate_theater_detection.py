@@ -9,37 +9,8 @@ with defense industry zero-tolerance standards.
 
 import asyncio
 import json
-import logging
-import os
-import sys
-from pathlib import Path
-from datetime import datetime, timezone
-from typing import Dict, List, Any, Optional
-
-# Add src directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-
-from security.enterprise_theater_detection import (
-    EnterpriseTheaterDetector,
-    TheaterSeverity,
-    create_enterprise_theater_detector
-)
-from security.continuous_theater_monitor import (
-    ContinuousTheaterMonitor,
-    create_continuous_theater_monitor
-)
-from security.defense_industry_evidence_generator import (
-    DefenseIndustryEvidenceGenerator,
-    create_defense_evidence_generator
-)
-
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class TheaterDetectionValidator:

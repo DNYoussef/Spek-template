@@ -23,26 +23,8 @@ from collections import defaultdict, deque
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
-import logging
-import psutil
-from threading import RLock
-import sys
-
-# Try to import line_profiler for fine-grained profiling
-try:
-    import line_profiler
-    LINE_PROFILER_AVAILABLE = True
-except ImportError:
-    LINE_PROFILER_AVAILABLE = False
-
-# Try to import py-spy for thread profiling
-try:
-    import subprocess
-    PY_SPY_AVAILABLE = True
-except ImportError:
-    PY_SPY_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

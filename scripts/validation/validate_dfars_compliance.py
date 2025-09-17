@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 DFARS Compliance Validation Script
@@ -28,7 +29,7 @@ def validate_dfars_implementation():
     missing = []
 
     for name, filepath in security_files.items():
-        if Path(filepath).exists():
+        if path_exists(filepath):
             implemented.append(f"[OK] {name}")
         else:
             missing.append(f"[FAIL] {name}")

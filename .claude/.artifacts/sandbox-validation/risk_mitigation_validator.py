@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Risk Mitigation Validation Test for Phase 1 Recommendations
@@ -178,7 +179,7 @@ class RiskMitigationValidator:
                 for file_path in file_paths:
                     if file_path and isinstance(file_path, str):
                         # Test if path exists or is resolvable
-                        path_exists = os.path.exists(file_path)
+                        path_exists = path_exists(file_path)
                         is_absolute = os.path.isabs(file_path)
                         is_normalized = file_path == os.path.normpath(file_path)
                         

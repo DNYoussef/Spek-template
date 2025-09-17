@@ -29,11 +29,8 @@ from pathlib import Path
 from typing import Dict, List, Tuple, Any, Optional
 from dataclasses import dataclass
 from datetime import datetime
-import logging
-
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class ValidationResult:

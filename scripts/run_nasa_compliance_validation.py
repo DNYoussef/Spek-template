@@ -16,29 +16,8 @@ Usage:
 
 import argparse
 import json
-import logging
-import sys
-import time
-from pathlib import Path
-from datetime import datetime
-
-# Add analyzer to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "analyzer"))
-
-try:
-    from enterprise.nasa_pot10_analyzer import NASAPowerOfTenAnalyzer, AutomatedNASAFixer
-    from enterprise.defense_certification_tool import DefenseCertificationTool
-    from enterprise.validation_reporting_system import ValidationReportingSystem
-except ImportError as e:
-    logging.error(f"Failed to import NASA compliance modules: {e}")
-    logging.error("Ensure all required modules are installed and paths are correct")
-    sys.exit(1)
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 class NASAComplianceValidator:
     """Main NASA POT10 compliance validation coordinator."""

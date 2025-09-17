@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Reality Validation Engine
 Validates that quality improvements are real, not theater.
@@ -77,7 +78,7 @@ class RealityValidator:
             if result.returncode == 0:
                 # Look for coverage report
                 coverage_file = os.path.join(directory, "coverage.json")
-                if os.path.exists(coverage_file):
+                if path_exists(coverage_file):
                     with open(coverage_file, 'r') as f:
                         coverage_data = json.load(f)
                         results["coverage_percentage"] = coverage_data.get("totals", {}).get("percent_covered", 0.0)

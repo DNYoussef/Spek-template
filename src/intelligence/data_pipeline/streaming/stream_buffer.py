@@ -9,39 +9,8 @@ import time
 from collections import deque
 from typing import List, Optional, Dict, Any
 from dataclasses import dataclass
-import logging
-
-from ..config.pipeline_config import config
-from .real_time_streamer import StreamData
-
-
-@dataclass
-class BufferStats:
-    """Buffer performance statistics"""
-    size: int
-    capacity: int
-    utilization: float
-    write_rate: float
-    read_rate: float
-    overflows: int
-    underflows: int
-
-
-class StreamBuffer:
-    """
-    High-performance circular buffer for streaming data
-
-    Features:
-    - Lock-free circular buffer design
-    - Automatic batching for efficiency
-    - Backpressure handling
-    - Memory-efficient storage
-    - Real-time performance monitoring
-    """
-
-    def __init__(self, capacity: Optional[int] = None):
-        self.capacity = capacity or config.streaming.buffer_size
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
         # Circular buffer implementation
         self.buffer: deque = deque(maxlen=self.capacity)

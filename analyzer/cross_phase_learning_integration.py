@@ -18,29 +18,8 @@ Features:
 
 import asyncio
 import json
-import logging
-import statistics
-import threading
-import time
-from collections import defaultdict, deque
-from dataclasses import dataclass, field
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Callable, Union
-import hashlib
-import pickle
-
-# Import memory system components
-try:
-    from .unified_memory_model import (
-        UnifiedMemoryModel, MemoryCorrelation, PerformanceCorrelation, 
-        PhaseMemoryEntry, get_global_memory_model
-    )
-    from .phase_correlation_storage import PhaseCorrelationStorage, get_global_storage
-    MEMORY_SYSTEM_AVAILABLE = True
-except ImportError:
-    MEMORY_SYSTEM_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

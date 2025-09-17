@@ -20,26 +20,8 @@ Usage:
 
 import ast
 import json
-import logging
-import time
-from collections import defaultdict
-from dataclasses import dataclass, asdict
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
-import sys
-import re
-
-# Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from utils.types import ConnascenceViolation
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -422,7 +404,7 @@ class AssertionInjectionEngine:
     def analyze_assertion_gaps(self, file_path: str) -> List[AssertionGap]:
         """Identify functions with insufficient assertion density."""
         assert file_path is not None, "File path cannot be None"
-        assert Path(file_path).exists(), f"File not found: {file_path}"
+        assert path_exists(file_path), f"File not found: {file_path}"
 
         try:
             content = Path(file_path).read_text(encoding='utf-8')
@@ -702,7 +684,7 @@ class AssertionInjectionEngine:
     def process_file(self, file_path: str, output_path: Optional[str] = None) -> Dict[str, Any]:
         """Process a single file for assertion injection."""
         assert file_path is not None, "File path cannot be None"
-        assert Path(file_path).exists(), f"File not found: {file_path}"
+        assert path_exists(file_path), f"File not found: {file_path}"
 
         gaps = self.analyze_assertion_gaps(file_path)
         results = []

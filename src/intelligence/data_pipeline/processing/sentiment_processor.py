@@ -4,65 +4,8 @@ Advanced sentiment analysis for news and social media content
 """
 
 import asyncio
-import logging
-from typing import Dict, List, Optional, Any, Tuple
-import pandas as pd
-import numpy as np
-from datetime import datetime, timedelta
-from dataclasses import dataclass
-import torch
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline
-from concurrent.futures import ThreadPoolExecutor
-import time
-from collections import deque, defaultdict
-import json
-import re
-
-from ..config.pipeline_config import config
-from .news_processor import NewsArticle
-
-
-@dataclass
-class SentimentResult:
-    """Sentiment analysis result"""
-    text: str
-    sentiment: str  # "positive", "negative", "neutral"
-    confidence: float
-    scores: Dict[str, float]  # Raw scores for each sentiment
-    processing_time_ms: float
-    model_used: str
-
-
-@dataclass
-class AggregatedSentiment:
-    """Aggregated sentiment for a symbol over time"""
-    symbol: str
-    timeframe: str  # "1h", "4h", "1d"
-    timestamp: datetime
-    overall_sentiment: str
-    confidence: float
-    positive_ratio: float
-    negative_ratio: float
-    neutral_ratio: float
-    total_articles: int
-    weighted_score: float  # Volume-weighted sentiment score
-
-
-class SentimentProcessor:
-    """
-    Advanced sentiment analysis processor
-
-    Features:
-    - Multiple transformer models (BERT, RoBERTa, FinBERT)
-    - Financial domain-specific sentiment analysis
-    - Batch processing for high throughput
-    - Sentiment aggregation and trending
-    - Real-time processing pipeline
-    - Model ensemble for improved accuracy
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.executor = ThreadPoolExecutor(max_workers=config.processing.processing_threads)
 
         # Models and tokenizers

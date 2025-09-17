@@ -5,9 +5,8 @@ NASA POT10 Critical Fixes - Address specific compliance violations
 
 from typing import Dict, Any, List
 import subprocess
-import logging
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 def apply_nasa_assertions():

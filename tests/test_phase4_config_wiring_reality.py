@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Phase 4 Configuration Wiring Reality Test
 
@@ -99,7 +100,7 @@ class ConfigWiringRealityTest:
 
     def cleanup_test_config(self):
         """Clean up temporary config directory."""
-        if self.config_dir and os.path.exists(self.config_dir):
+        if self.config_dir and path_exists(self.config_dir):
             import shutil
             shutil.rmtree(self.config_dir)
             self.config_dir = None

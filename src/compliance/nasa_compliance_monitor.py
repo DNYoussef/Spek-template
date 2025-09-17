@@ -19,35 +19,8 @@ Usage:
 """
 
 import json
-import logging
-import time
-import sys
-from collections import defaultdict
-from dataclasses import dataclass, asdict
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
-
-# Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from utils.types import ConnascenceViolation
-
-# Import compliance tools
-try:
-    from src.compliance.automated_function_refactorer import AutomatedFunctionRefactorer
-    from src.compliance.assertion_injection_engine import AssertionInjectionEngine
-    from src.compliance.memory_allocation_analyzer import MemoryAllocationAnalyzer
-    COMPLIANCE_TOOLS_AVAILABLE = True
-except ImportError:
-    COMPLIANCE_TOOLS_AVAILABLE = False
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -419,7 +392,7 @@ class ComplianceMonitor:
     def monitor_project_compliance(self, project_path: str) -> ComplianceStatus:
         """Monitor project compliance in real-time."""
         assert project_path is not None, "Project path cannot be None"
-        assert Path(project_path).exists(), f"Project path not found: {project_path}"
+        assert path_exists(project_path), f"Project path not found: {project_path}"
 
         self.logger.info(f"Starting compliance monitoring for {project_path}")
 

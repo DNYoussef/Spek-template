@@ -195,21 +195,21 @@ class PROpenExecutor {
     // Add test results
     body += '## Test Results\n\n';
     if (evidence.tests.success) {
-      body += `✅ **All tests passing**\n`;
+      body += ` **All tests passing**\n`;
       body += `- Passed: ${evidence.tests.passed}\n`;
       body += `- Failed: ${evidence.tests.failed}\n`;
       body += `- Skipped: ${evidence.tests.skipped}\n`;
     } else if (evidence.tests.error) {
-      body += `⚠️ Tests not run: ${evidence.tests.error}\n`;
+      body += ` Tests not run: ${evidence.tests.error}\n`;
     } else {
-      body += `❌ **Tests failing**: ${evidence.tests.failed} failed\n`;
+      body += ` **Tests failing**: ${evidence.tests.failed} failed\n`;
     }
     body += '\n';
 
     // Add quality metrics
     body += '## Quality Metrics\n\n';
     if (evidence.quality.available !== false) {
-      body += `- Linting: ${evidence.quality.lintPassed ? '✅ Passed' : '❌ Failed'}\n`;
+      body += `- Linting: ${evidence.quality.lintPassed ? ' Passed' : ' Failed'}\n`;
       body += `- Warnings: ${evidence.quality.warnings}\n`;
       body += `- Errors: ${evidence.quality.errors}\n`;
     } else {
@@ -245,8 +245,8 @@ class PROpenExecutor {
 
     // Add footer
     body += '---\n';
-    body += '🤖 Generated with SPEK Enhanced Development Platform\n';
-    body += `📊 Evidence collected at ${new Date().toISOString()}\n`;
+    body += ' Generated with SPEK Enhanced Development Platform\n';
+    body += ` Evidence collected at ${new Date().toISOString()}\n`;
 
     return body;
   }

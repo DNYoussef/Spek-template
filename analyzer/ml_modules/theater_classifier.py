@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Theater Classifier ML Module
 Uses machine learning to classify and predict theater patterns.
@@ -389,7 +390,7 @@ class TheaterClassifier:
 
     def classify_theater_type(self, file_path: str, theater_type: TheaterType) -> TheaterPrediction:
         """Classify a specific type of theater in a file."""
-        if not os.path.exists(file_path):
+        if not path_exists(file_path):
             return TheaterPrediction(
                 theater_type=theater_type,
                 probability=0.0,

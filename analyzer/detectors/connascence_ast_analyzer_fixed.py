@@ -7,12 +7,8 @@ Replaces the stub implementation that was returning empty lists.
 
 import ast
 from typing import List, Optional
-import logging
-
-from utils.types import ConnascenceViolation
-from .base import DetectorBase
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ConnascenceASTAnalyzer(DetectorBase):

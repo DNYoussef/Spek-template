@@ -26,32 +26,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
-import logging
-import json
-import hashlib
-import statistics
-import psutil
-from contextlib import contextmanager
-
-# Import existing performance monitoring components
-try:
-    from .real_time_monitor import (
-        RealTimePerformanceMonitor, PerformanceAlert, AlertSeverity,
-        get_global_real_time_monitor
-    )
-    from .cache_performance_profiler import (
-        CachePerformanceProfiler, WarmingStrategy, IntelligentCacheWarmer,
-        get_global_profiler
-    )
-    from ..optimization.file_cache import get_global_cache
-    from ..caching.ast_cache import global_ast_cache
-    from ..streaming.incremental_cache import get_global_incremental_cache
-    MONITORING_AVAILABLE = True
-except ImportError as e:
-    logging.warning(f"Performance monitoring components not available: {e}")
-    MONITORING_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

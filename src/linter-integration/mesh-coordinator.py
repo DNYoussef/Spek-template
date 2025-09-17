@@ -1,3 +1,4 @@
+from lib.shared.utilities import get_logger
 #!/usr/bin/env python3
 """
 Mesh Queen Coordinator for Phase 2 Linter Integration Architecture Swarm
@@ -67,7 +68,7 @@ class MeshQueenCoordinator:
         self.logger = self._setup_logging()
         
     def _setup_logging(self) -> logging.Logger:
-        logger = logging.getLogger("MeshQueenCoordinator")
+        logger = get_logger("\1")
         logger.setLevel(logging.INFO)
         handler = logging.StreamHandler()
         formatter = logging.Formatter(

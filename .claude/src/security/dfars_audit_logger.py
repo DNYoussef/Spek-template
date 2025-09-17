@@ -1,3 +1,4 @@
+from lib.shared.utilities import get_logger
 """
 DFARS-Compliant Audit Logger
 Implements DFARS 252.204-7012 audit and accountability requirements
@@ -17,7 +18,7 @@ class DFARSAuditLogger:
         self.log_dir.mkdir(exist_ok=True)
 
         # Configure DFARS audit logger
-        self.logger = logging.getLogger('dfars_audit')
+        self.logger = get_logger("\1")
         self.logger.setLevel(logging.INFO)
 
         # Create file handler with rotation

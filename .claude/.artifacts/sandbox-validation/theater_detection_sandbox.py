@@ -20,15 +20,8 @@ import tempfile
 import traceback
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple
-import logging
-
-# Setup non-Unicode logging for Windows compatibility
-logging.basicConfig(
-    level=logging.INFO,
-    format='[%(levelname)s] %(asctime)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 class TheaterDetectionSandbox:
     """
@@ -195,11 +188,11 @@ class ConstructorViolation:
         ]
 
         unicode_patterns = {
-            "✅": "[OK]",
-            "❌": "[ERROR]",
-            "⚠️": "[WARNING]",
-            "🎯": "[TARGET]",
-            "🚀": "[ROCKET]"
+            "": "[OK]",
+            "": "[ERROR]",
+            "": "[WARNING]",
+            "": "[TARGET]",
+            "": "[ROCKET]"
         }
 
         for test_file in test_files:

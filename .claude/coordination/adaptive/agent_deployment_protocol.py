@@ -1,3 +1,4 @@
+from lib.shared.utilities import get_logger
 # NASA POT10 Rule 3: Minimize dynamic memory allocation
 # Consider using fixed-size arrays or generators for large data processing
 #!/usr/bin/env python3
@@ -71,7 +72,7 @@ class AgentDeploymentProtocol:
                 logging.StreamHandler()
             ]
         )
-        self.logger = logging.getLogger('AgentDeploymentProtocol')
+        self.logger = get_logger("\1")
     
     def _initialize_agent_configurations(self) -> Dict[AgentType, AgentConfiguration]:
         """Initialize configurations for each specialist agent"""

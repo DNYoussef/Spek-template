@@ -109,13 +109,13 @@ def create_test_data():
 
 def test_correlation_sandbox():
     """Test correlation logic in sandbox environment."""
-    print("🧪 SANDBOX TEST: ToolCoordinator Correlation Logic")
+    print(" SANDBOX TEST: ToolCoordinator Correlation Logic")
     print("-" * 50)
 
     # Create test data
     connascence_data, external_data = create_test_data()
 
-    print(f"📊 Test Data Overview:")
+    print(f" Test Data Overview:")
     print(f"  Connascence violations: {len(connascence_data['violations'])}")
     print(f"  External issues: {len(external_data['issues'])}")
     print(f"  NASA compliance: {connascence_data['nasa_compliance']:.1%}")
@@ -125,15 +125,15 @@ def test_correlation_sandbox():
     coordinator = ToolCoordinator()
 
     # Run correlation
-    print(f"\n🔄 Running correlation analysis...")
+    print(f"\n Running correlation analysis...")
     correlation = coordinator.correlate_results(connascence_data, external_data)
 
     # Analyze results
-    print(f"\n📈 Correlation Results:")
+    print(f"\n Correlation Results:")
     print(f"  Status: {correlation['coordination_status']}")
 
     correlation_analysis = correlation['correlation_analysis']
-    print(f"\n🔍 Correlation Analysis:")
+    print(f"\n Correlation Analysis:")
     print(f"  Tools integrated: {correlation_analysis['tools_integrated']}")
     print(f"  Correlation score: {correlation_analysis['correlation_score']:.1%}")
     print(f"  Consistency check: {correlation_analysis['consistency_check']}")
@@ -142,14 +142,14 @@ def test_correlation_sandbox():
     print(f"  Unique external findings: {correlation_analysis['unique_external_findings']}")
 
     consolidated = correlation['consolidated_findings']
-    print(f"\n📊 Consolidated Findings:")
+    print(f"\n Consolidated Findings:")
     print(f"  NASA compliance: {consolidated['nasa_compliance']:.1%}")
     print(f"  Total violations: {consolidated['total_violations']}")
     print(f"  Critical violations: {consolidated['critical_violations']}")
     print(f"  Confidence level: {consolidated['confidence_level']}")
     print(f"  Quality score: {consolidated['quality_score']:.1%}")
 
-    print(f"\n💡 Recommendations:")
+    print(f"\n Recommendations:")
     for i, rec in enumerate(correlation['recommendations'], 1):
         print(f"  {i}. {rec}")
 
@@ -261,7 +261,7 @@ def validate_correlation_results(correlation, connascence_data, external_data):
 
 def test_command_line_interface():
     """Test the command-line interface of tool_coordinator.py"""
-    print(f"\n🖥️  SANDBOX TEST: Command Line Interface")
+    print(f"\n  SANDBOX TEST: Command Line Interface")
     print("-" * 50)
 
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -282,7 +282,7 @@ def test_command_line_interface():
         coordinator_script = Path(__file__).parent.parent.parent / "analyzer" / "integrations" / "tool_coordinator.py"
 
         if not coordinator_script.exists():
-            print(f"❌ Script not found: {coordinator_script}")
+            print(f" Script not found: {coordinator_script}")
             return False
 
         cmd = [
@@ -292,78 +292,78 @@ def test_command_line_interface():
             "--output", str(output_file)
         ]
 
-        print(f"🔄 Running command: {' '.join(cmd)}")
+        print(f" Running command: {' '.join(cmd)}")
 
         try:
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
 
-            print(f"📤 Exit code: {result.returncode}")
-            print(f"📝 STDOUT:\n{result.stdout}")
+            print(f" Exit code: {result.returncode}")
+            print(f" STDOUT:\n{result.stdout}")
             if result.stderr:
-                print(f"⚠️  STDERR:\n{result.stderr}")
+                print(f"  STDERR:\n{result.stderr}")
 
             # Check output file was created
             if output_file.exists():
                 with open(output_file, 'r') as f:
                     output_data = json.load(f)
 
-                print(f"✅ Output file created successfully")
-                print(f"📊 Correlation score: {output_data['correlation_analysis']['correlation_score']:.1%}")
-                print(f"📊 Quality score: {output_data['consolidated_findings']['quality_score']:.1%}")
+                print(f" Output file created successfully")
+                print(f" Correlation score: {output_data['correlation_analysis']['correlation_score']:.1%}")
+                print(f" Quality score: {output_data['consolidated_findings']['quality_score']:.1%}")
 
                 return True
             else:
-                print(f"❌ Output file not created")
+                print(f" Output file not created")
                 return False
 
         except subprocess.TimeoutExpired:
-            print(f"❌ Command timed out after 30 seconds")
+            print(f" Command timed out after 30 seconds")
             return False
         except Exception as e:
-            print(f"❌ Command failed: {e}")
+            print(f" Command failed: {e}")
             return False
 
 
 def main():
     """Main sandbox testing function."""
-    print("🏖️  STARTING TOOL COORDINATOR SANDBOX TESTING")
+    print("  STARTING TOOL COORDINATOR SANDBOX TESTING")
     print("=" * 60)
 
     # Test 1: Correlation logic
     try:
         correlation, validation = test_correlation_sandbox()
 
-        print(f"\n✅ VALIDATION RESULTS:")
+        print(f"\n VALIDATION RESULTS:")
         print(f"  Tests passed: {validation['passed']}")
         print(f"  Tests failed: {validation['failed']}")
         print(f"  Reality score: {validation['reality_score']:.1f}%")
 
-        print(f"\n📋 Test Details:")
+        print(f"\n Test Details:")
         for test in validation["tests"]:
-            status = "✅" if test["passed"] else "❌"
+            status = "" if test["passed"] else ""
             print(f"  {status} {test['name']}: {test['details']}")
 
         correlation_success = validation['reality_score'] >= 70
 
     except Exception as e:
-        print(f"❌ Correlation test failed: {e}")
+        print(f" Correlation test failed: {e}")
         correlation_success = False
 
     # Test 2: Command line interface
     try:
         cli_success = test_command_line_interface()
     except Exception as e:
-        print(f"❌ CLI test failed: {e}")
+        print(f" CLI test failed: {e}")
         cli_success = False
 
     # Final assessment
     print(f"\n" + "=" * 60)
-    print(f"🎯 SANDBOX TEST SUMMARY")
-    print(f"  Correlation Logic: {'✅ PASS' if correlation_success else '❌ FAIL'}")
-    print(f"  CLI Interface: {'✅ PASS' if cli_success else '❌ FAIL'}")
+    print(f" SANDBOX TEST SUMMARY")
+    print(f"  Correlation Logic: {' PASS' if correlation_success else ' FAIL'}")
+    print(f"  CLI Interface: {' PASS' if cli_success else ' FAIL'}")
 
     overall_success = correlation_success and cli_success
-    print(f"\n🏆 OVERALL: {'✅ PRODUCTION READY' if overall_success else '❌ NEEDS WORK'}")
+    print(f"\n OVERALL: {' PRODUCTION READY' if overall_success else ' NEEDS WORK'}")
 
     return overall_success
 

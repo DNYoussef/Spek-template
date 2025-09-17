@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Reality Audit for Perfection Achievement
@@ -28,7 +29,7 @@ def run_reality_audit():
 
     # Check if our new constants file has violations
     constants_path = 'src/constants.py'
-    if Path(constants_path).exists():
+    if path_exists(constants_path):
         violations = analyzer.analyze_file(constants_path)
         print(f"  Constants file violations: {len(violations)}")
 
@@ -41,7 +42,7 @@ def run_reality_audit():
     print("\n[TEST 2] Verifying configuration objects pattern...")
 
     config_path = 'src/patterns/configuration_objects.py'
-    if Path(config_path).exists():
+    if path_exists(config_path):
         violations = analyzer.analyze_file(config_path)
 
         # Count parameter violations
@@ -157,8 +158,8 @@ def generate_audit_report(improvement: int, remaining: int):
             "percentage_improved": (improvement / (improvement + remaining) * 100) if remaining > 0 else 100
         },
         "validation": {
-            "constants_file_created": Path('src/constants.py').exists(),
-            "configuration_pattern_applied": Path('src/patterns/configuration_objects.py').exists(),
+            "constants_file_created": path_exists('src/constants.py'),
+            "configuration_pattern_applied": path_exists('src/patterns/configuration_objects.py'),
             "analyzer_still_functional": True,
             "fixes_are_real": improvement > 0
         },

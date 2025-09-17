@@ -7,18 +7,12 @@ components into the unified analyzer system. Eliminates all theater and provides
 genuine functionality for production use.
 """
 
-import logging
-import time
-import asyncio
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, field
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-import threading
-import queue
-import json
+from lib.shared.utilities.logging_setup import get_analyzer_logger
+from lib.shared.utilities.path_validation import validate_file, validate_directory, path_exists
+from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
 
-logger = logging.getLogger(__name__)
+# Use shared logging
+logger = get_analyzer_logger(__name__)
 
 
 @dataclass
@@ -833,12 +827,18 @@ class UnifiedComponentIntegrator:
             return self._analyze_sequential(files, detectors)
 
     def _get_target_files(self, target: str) -> List[str]:
-        """Get list of files to analyze from target."""
-        path = Path(target)
-        if path.is_file():
-            return [str(path)]
-        elif path.is_dir():
-            return [str(f) for f in path.rglob("*.py")]
+        """Get list of files to analyze from target using shared path validation."""
+        # Use shared path validation instead of direct Path operations
+        file_result = validate_file(target, must_exist=True)
+        dir_result = validate_directory(target, must_exist=True)
+
+        if file_result.is_valid:
+            return [str(file_result.path)]
+        elif dir_result.is_valid:
+            # Use pathlib for directory traversal (keeping existing functionality)
+            from pathlib import Path
+            dir_path = Path(target)
+            return [str(f) for f in dir_path.rglob("*.py")]
         return []
 
     def _determine_best_mode(self, files: List[str]) -> str:

@@ -6,58 +6,8 @@ High-performance streaming system targeting <50ms latency
 import asyncio
 import websockets
 import json
-import logging
-import time
-from typing import Dict, List, Optional, Callable, Any, Set
-from datetime import datetime
-from dataclasses import dataclass, asdict
-import numpy as np
-from collections import deque
-import threading
-from concurrent.futures import ThreadPoolExecutor
-
-from ..config.pipeline_config import config
-from .stream_buffer import StreamBuffer
-from .failover_manager import FailoverManager
-
-
-@dataclass
-class StreamData:
-    """Standard streaming data format"""
-    symbol: str
-    timestamp: datetime
-    data_type: str  # "quote", "trade", "bar", "news"
-    data: Dict[str, Any]
-    source: str
-    latency_ms: float = 0.0
-
-
-@dataclass
-class StreamMetrics:
-    """Streaming performance metrics"""
-    messages_per_second: float = 0.0
-    average_latency_ms: float = 0.0
-    max_latency_ms: float = 0.0
-    buffer_utilization: float = 0.0
-    connection_count: int = 0
-    error_rate: float = 0.0
-
-
-class RealTimeStreamer:
-    """
-    High-performance real-time data streaming system
-
-    Features:
-    - Sub-50ms latency targeting
-    - Multi-source WebSocket management
-    - Intelligent buffering and batching
-    - Automatic failover and reconnection
-    - Real-time performance monitoring
-    - Backpressure handling
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.subscribers: Dict[str, List[Callable]] = {}
         self.stream_buffer = StreamBuffer()
         self.failover_manager = FailoverManager()

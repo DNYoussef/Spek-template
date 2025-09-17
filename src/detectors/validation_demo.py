@@ -16,25 +16,8 @@ Key Demonstrations:
 
 import time
 import json
-import logging
-import statistics
-from typing import Dict, List, Any, Tuple
-import numpy as np
-
-# Import enterprise detector pool components
-from enterprise_detector_pool import EnterpriseDetectorPool, create_enterprise_pool
-from workload_optimizer import WorkloadOptimizer, WorkloadMetrics
-from parallel_executor import ParallelExecutor
-from comprehensive_benchmark import ComprehensiveBenchmark
-from defense_compliance_monitor import RealTimeComplianceMonitor
-
-
-# Setup logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class RealWorldDetectors:

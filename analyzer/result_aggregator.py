@@ -9,14 +9,8 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 """
 
 import json
-import logging
-from collections import defaultdict
-from typing import Any, Dict, List, Optional, Set, Tuple
-from dataclasses import dataclass, field
-from datetime import datetime
-from pathlib import Path
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

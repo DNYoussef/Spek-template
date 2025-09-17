@@ -7,13 +7,8 @@ analysis to prevent quality regression.
 """
 
 import json
-import logging
-from pathlib import Path
-from datetime import datetime, timedelta
-from typing import Dict, Any, Optional, List
-from dataclasses import dataclass, asdict
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass 

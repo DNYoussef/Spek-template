@@ -12,14 +12,8 @@ from typing import Dict, List, Optional, Union, AsyncGenerator, Tuple
 from datetime import datetime, timedelta
 import aioredis
 import orjson
-import logging
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
-import polars as pl
-
-from ..config import config
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class MarketData:

@@ -6,15 +6,8 @@ Standardized error handling patterns that eliminate duplicate error handling
 algorithms across the analyzer system and provide consistent error responses.
 """
 
-import logging
-import traceback
-from typing import Any, Dict, List, Optional, Callable, Type
-from dataclasses import dataclass
-from enum import Enum
-import time
-from functools import wraps
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ErrorSeverity(Enum):

@@ -5,19 +5,8 @@ Comprehensive error handling system with enterprise-grade logging,
 recovery mechanisms, and audit trail capabilities.
 """
 
-import logging
-import traceback
-import functools
-import asyncio
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Callable, Type, Union
-from datetime import datetime
-from dataclasses import dataclass, field
-from enum import Enum
-import json
-import uuid
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ErrorSeverity(Enum):
@@ -164,7 +153,7 @@ class ErrorHandler:
         self.error_log_file.parent.mkdir(parents=True, exist_ok=True)
         
         # Configure structured error logging
-        self.error_logger = logging.getLogger("enterprise.errors")
+        self.error_logger = get_logger("\1")
         if not self.error_logger.handlers:
             handler = logging.FileHandler(str(self.error_log_file).replace('.json', '.log'))
             formatter = logging.Formatter(

@@ -12,65 +12,8 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 import threading
 import queue
-import logging
-from collections import deque, defaultdict
-
-
-@dataclass
-class TelemetryDataPoint:
-    """Individual telemetry data point"""
-    metric_name: str
-    value: float
-    timestamp: datetime
-    tags: Dict[str, str] = None
-    
-    def __post_init__(self):
-        if self.tags is None:
-            self.tags = {}
-    
-    def to_dict(self) -> Dict[str, Any]:
-        result = asdict(self)
-        result['timestamp'] = self.timestamp.isoformat()
-        return result
-
-
-@dataclass
-class AlertRule:
-    """Alert configuration"""
-    metric_name: str
-    threshold: float
-    direction: str  # "above", "below"
-    severity: str   # "info", "warning", "critical"
-    callback: Optional[Callable] = None
-
-
-class TelemetryCollector:
-    """
-    Collects and aggregates Six Sigma telemetry data
-    Provides real-time monitoring and alerting
-    """
-    
-    def __init__(self, config: Dict[str, Any], buffer_size: int = 1000):
-        """Initialize telemetry collector"""
-        self.config = config
-        self.buffer_size = buffer_size
-        
-        # Data storage
-        self.data_points: deque = deque(maxlen=buffer_size)
-        self.aggregated_data: Dict[str, Dict[str, List[float]]] = defaultdict(lambda: defaultdict(list))
-        
-        # Threading
-        self.collection_queue: queue.Queue = queue.Queue()
-        self.running = False
-        self.collector_thread: Optional[threading.Thread] = None
-        
-        # Alerts
-        self.alert_rules: List[AlertRule] = []
-        self.alert_history: List[Dict[str, Any]] = []
-        
-        # Setup logging
-        logging.basicConfig(level=logging.INFO)
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
         # Initialize from config
         self._setup_from_config()

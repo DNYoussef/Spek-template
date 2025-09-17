@@ -23,31 +23,8 @@ import uuid
 from collections import defaultdict
 from typing import Any, Dict, List, Tuple
 import pytest
-import logging
-
-# Import the Byzantine coordinator
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
-
-try:
-    from byzantium.byzantine_coordinator import (
-        ByzantineConsensusCoordinator,
-        ThreadSafetyValidationRequest,
-        NodeState,
-        MessageType
-    )
-except ImportError as e:
-    # Fallback for direct execution
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
-    from src.byzantium.byzantine_coordinator import (
-        ByzantineConsensusCoordinator,
-        ThreadSafetyValidationRequest,
-        NodeState,
-        MessageType
-    )
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class MaliciousActorSimulator:

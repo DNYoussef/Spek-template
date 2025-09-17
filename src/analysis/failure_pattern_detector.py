@@ -18,11 +18,8 @@ from typing import Dict, List, Optional, Tuple, Any, Set
 from dataclasses import dataclass, field
 from collections import defaultdict, Counter
 from datetime import datetime, timedelta
-import logging
-
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -1632,7 +1629,7 @@ def main():
 
     # Load configuration
     config = {}
-    if args.config and Path(args.config).exists():
+    if args.config and path_exists(args.config):
         with open(args.config, 'r') as f:
             config = json.load(f)
 
@@ -1652,7 +1649,7 @@ def main():
     detector.save_analysis_results(signatures, root_causes, output_path)
 
     # Learn from previous fixes if provided
-    if args.learn and Path(args.learn).exists():
+    if args.learn and path_exists(args.learn):
         with open(args.learn, 'r') as f:
             fix_results = json.load(f)
         detector.learn_from_fixes(fix_results)

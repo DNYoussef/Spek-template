@@ -10,22 +10,8 @@ Integrates the compliance evidence system with the existing SPEK analyzer:
 """
 
 import asyncio
-import logging
-from pathlib import Path
-from typing import Dict, List, Optional, Any
-from datetime import datetime
-
-from .core import ComplianceOrchestrator
-from ..core.analyzer_integration import EnterpriseAnalyzerIntegration
-
-
-class ComplianceAnalyzerIntegration(EnterpriseAnalyzerIntegration):
-    """Integration of compliance module with main analyzer infrastructure"""
-    
-    def __init__(self, config_path: Optional[str] = None):
-        super().__init__("compliance", "CE")
-        self.compliance_orchestrator = ComplianceOrchestrator(config_path)
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
     async def register_analyzers(self, analyzer_registry):
         """Register compliance analyzers with the main analyzer"""
@@ -125,7 +111,7 @@ class ComplianceCLICommands:
     
     def __init__(self, compliance_integration: ComplianceAnalyzerIntegration):
         self.integration = compliance_integration
-        self.logger = logging.getLogger(__name__)
+        self.logger = get_logger(__name__)
     
     async def run_compliance_assessment(self, project_path: str, frameworks: Optional[List[str]] = None) -> Dict[str, Any]:
         """Run compliance assessment for specified frameworks"""

@@ -13,14 +13,8 @@ from enum import Enum
 import time
 import json
 from pathlib import Path
-import logging
-from cryptography.hazmat.primitives import hashes, serialization, padding
-from cryptography.hazmat.primitives.asymmetric import rsa, padding as asym_padding
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from cryptography.hazmat.backends import default_backend
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class FIPSComplianceLevel(Enum):

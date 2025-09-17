@@ -23,24 +23,8 @@ from collections import defaultdict, deque
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Union, Tuple, Callable
-import logging
-import json
-import hashlib
-import weakref
-
-# Import existing cache systems for integration
-try:
-    from ..optimization.file_cache import FileContentCache, get_global_cache
-    from ..caching.ast_cache import ASTCache, ast_cache as global_ast_cache
-    from ..streaming.incremental_cache import IncrementalCache, get_global_incremental_cache
-    CACHE_INTEGRATION_AVAILABLE = True
-except ImportError:
-    FileContentCache = None
-    ASTCache = None
-    IncrementalCache = None
-    CACHE_INTEGRATION_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -413,7 +397,7 @@ class IntelligentCacheWarmer:
             memory_used = 0
             
             # Check if file exists
-            if not Path(file_path).exists():
+            if not path_exists(file_path):
                 return False, 0
             
             # Warm file content cache
@@ -904,7 +888,7 @@ class CachePerformanceProfiler:
         # Test delta tracking performance
         delta_count = 0
         for file_path in test_files[:10]:  # Test with subset
-            if Path(file_path).exists():
+            if path_exists(file_path):
                 delta = self.incremental_cache.track_file_change(file_path)
                 if delta:
                     delta_count += 1

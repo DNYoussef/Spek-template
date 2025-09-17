@@ -12,18 +12,8 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
-import logging
-import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass, field
-from datetime import datetime
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
-import unittest
-import subprocess
-import sys
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

@@ -9,21 +9,8 @@ Priority: P1 - Must be completed within 21 days.
 
 import hashlib
 import json
-import logging
-import os
-import re
-import sqlite3
-import time
-from cryptography.fernet import Fernet
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Any
-import base64
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 class EncryptionManager:
     """FIPS 140-2 compliant encryption for sensitive data."""

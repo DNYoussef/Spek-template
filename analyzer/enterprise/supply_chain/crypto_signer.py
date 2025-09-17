@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 SC-004: Cryptographic Artifact Signing with Cosign Integration
 Enterprise-grade cryptographic signing and verification for supply chain artifacts.
@@ -81,7 +82,7 @@ class CryptographicSigner:
         """Sign a single artifact."""
         
         artifact_path = artifact.get('path')
-        if not artifact_path or not Path(artifact_path).exists():
+        if not artifact_path or not path_exists(artifact_path):
             raise ValueError(f"Artifact path not found: {artifact_path}")
         
         result = {
@@ -103,7 +104,7 @@ class CryptographicSigner:
             result.update(signature_result)
             result['signing_method'] = 'cosign'
             
-        elif self.key_path and Path(self.key_path).exists():
+        elif self.key_path and path_exists(self.key_path):
             # Use traditional PKI signing
             signature_result = self._sign_with_pki(artifact_path, artifact)
             result.update(signature_result)
@@ -302,7 +303,7 @@ class CryptographicSigner:
         """Verify cryptographic signature."""
         
         try:
-            if not signature_path or not Path(signature_path).exists():
+            if not signature_path or not path_exists(signature_path):
                 return False
             
             # Try cosign verification first
@@ -310,7 +311,7 @@ class CryptographicSigner:
                 return self._verify_with_cosign(artifact_path, signature_path, certificate_path)
             
             # Try OpenSSL verification
-            elif certificate_path and Path(certificate_path).exists():
+            elif certificate_path and path_exists(certificate_path):
                 return self._verify_with_openssl(artifact_path, signature_path, certificate_path)
             
         except Exception as e:
@@ -327,7 +328,7 @@ class CryptographicSigner:
         try:
             cmd = [self.cosign_binary, 'verify-blob']
             
-            if certificate_path and Path(certificate_path).exists():
+            if certificate_path and path_exists(certificate_path):
                 cmd.extend(['--certificate', certificate_path])
                 # For keyless verification, need to specify certificate identity
                 cmd.extend(['--certificate-identity-regexp', '.*'])
@@ -408,7 +409,7 @@ class CryptographicSigner:
             
             result = subprocess.run(cmd, capture_output=True, text=True, env=env, timeout=30)
             
-            if result.returncode == 0 and Path(public_key_path).exists():
+            if result.returncode == 0 and path_exists(public_key_path):
                 return public_key_path
                 
         except Exception as e:
@@ -442,7 +443,7 @@ class CryptographicSigner:
         }
         
         # Add certificate information
-        if certificate_path and Path(certificate_path).exists():
+        if certificate_path and path_exists(certificate_path):
             cert_info = self._get_certificate_info(certificate_path)
             metadata['certificate'] = cert_info
         
@@ -512,7 +513,7 @@ class CryptographicSigner:
         }
         
         # Add certificate subject if available
-        if self.cert_path and Path(self.cert_path).exists():
+        if self.cert_path and path_exists(self.cert_path):
             try:
                 cmd = ['openssl', 'x509', '-subject', '-noout', '-in', self.cert_path]
                 result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
@@ -572,7 +573,7 @@ class CryptographicSigner:
             
             # Check for existing signature
             signature_path = f"{artifact.get('path')}.sig"
-            if Path(signature_path).exists():
+            if path_exists(signature_path):
                 artifact_info['signed'] = True
                 artifact_info['signature_path'] = signature_path
                 

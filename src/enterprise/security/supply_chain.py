@@ -5,21 +5,8 @@ Orchestrates comprehensive supply chain security including SBOM generation,
 SLSA attestation, and vulnerability management.
 """
 
-import logging
-import json
-import hashlib
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Set
-from datetime import datetime
-from dataclasses import dataclass, field
-from enum import Enum
-
-from .sbom_generator import SBOMGenerator, SBOMFormat
-from .slsa_generator import SLSAGenerator, SLSALevel
-from .vulnerability_scanner import VulnerabilityScanner
-from .dependency_analyzer import DependencyAnalyzer
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class SecurityLevel(Enum):
@@ -276,7 +263,7 @@ class SupplyChainSecurity:
         
         # Copy artifacts to output directory
         for artifact_type, artifact_path in report.artifacts.items():
-            if artifact_path and Path(artifact_path).exists():
+            if artifact_path and path_exists(artifact_path):
                 dest_path = output_dir / f"{artifact_type}-{Path(artifact_path).name}"
                 dest_path.write_bytes(Path(artifact_path).read_bytes())
                 exported_files[artifact_type] = str(dest_path)

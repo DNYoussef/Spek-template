@@ -17,24 +17,8 @@ import asyncio
 import time
 import sys
 import json
-import logging
-import statistics
-import threading
-import traceback
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple, Union
-from dataclasses import dataclass, field
-from contextlib import contextmanager
-import subprocess
-import tempfile
-import shutil
-import gc
-import psutil
-
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class ValidationResult:

@@ -7,26 +7,8 @@ import json
 import time
 import hashlib
 import hmac
-import logging
-import secrets
-from datetime import datetime, timezone
-from typing import Dict, Any, List, Optional, Tuple, Set, Union
-from dataclasses import dataclass, asdict
-from enum import Enum
-from pathlib import Path
-import asyncio
-import threading
-from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from cryptography.hazmat.backends import default_backend
-import sqlite3
-import uuid
-
-from .fips_crypto_module import FIPSCryptoModule
-from .enhanced_audit_trail_manager import EnhancedDFARSAuditTrailManager, AuditEventType, SeverityLevel
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class CDIClassification(Enum):
@@ -443,7 +425,7 @@ class CDIProtectionFramework:
 
     async def _encrypt_file_at_rest(self, asset: CDIAsset, key: bytes):
         """Encrypt file at rest with FIPS-compliant encryption."""
-        if not asset.file_path or not Path(asset.file_path).exists():
+        if not asset.file_path or not path_exists(asset.file_path):
             return
 
         try:
@@ -976,7 +958,7 @@ class CDIProtectionFramework:
             raise PermissionError(f"User {user_id} not authorized to access asset {asset_id}")
 
         asset = self.cdi_assets[asset_id]
-        if not asset.file_path or not Path(asset.file_path).exists():
+        if not asset.file_path or not path_exists(asset.file_path):
             raise FileNotFoundError(f"CDI asset file not found: {asset_id}")
 
         protection_key = self.protection_keys.get(asset_id)

@@ -1,3 +1,4 @@
+from lib.shared.utilities import get_logger
 #!/usr/bin/env python3
 """
 External Tool Pipeline Orchestrator for Linter Integration.
@@ -44,7 +45,7 @@ class ToolOrchestrator:
         }
         
     def _setup_logging(self) -> logging.Logger:
-        logger = logging.getLogger("ToolOrchestrator")
+        logger = get_logger("\1")
         logger.setLevel(logging.INFO)
         handler = logging.StreamHandler()
         formatter = logging.Formatter(

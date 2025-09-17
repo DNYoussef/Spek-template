@@ -29,14 +29,8 @@ This provides a single entry point for all connascence analysis functionality.
 import ast
 from dataclasses import asdict, dataclass
 import json
-import logging
-from pathlib import Path
-import sys
-from typing import Any, Dict, List, Optional, Tuple, Union
-
-# Setup logger before first usage
-import logging
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 # Import extracted architecture components
 try:
@@ -161,7 +155,7 @@ except ImportError:
     PolicyManager = None
     BudgetTracker = None
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 @dataclass

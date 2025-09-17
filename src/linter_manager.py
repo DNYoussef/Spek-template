@@ -1,24 +1,8 @@
 """Async execution manager for concurrent linting operations."""
 
 import asyncio
-import logging
-from pathlib import Path
-from typing import List, Dict, Any, Optional, Set
-import time
-from concurrent.futures import ThreadPoolExecutor
-import threading
-
-from src.models.linter_models import (
-    LinterResult, LinterViolation, StandardSeverity, ViolationType
-)
-from src.config.linter_config import LinterConfigManager, LinterSuiteConfig
-from src.adapters.flake8_adapter import Flake8Adapter
-from src.adapters.pylint_adapter import PylintAdapter
-from src.adapters.ruff_adapter import RuffAdapter
-from src.adapters.mypy_adapter import MypyAdapter
-from src.adapters.bandit_adapter import BanditAdapter
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class LinterManager:

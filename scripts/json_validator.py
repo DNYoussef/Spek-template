@@ -20,19 +20,8 @@ import yaml
 import sys
 import os
 import argparse
-import logging
-from pathlib import Path
-from typing import Dict, List, Any, Tuple, Optional, Union
-from datetime import datetime
-import jsonschema
-from jsonschema import validate, ValidationError
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class QualityGateValidator:

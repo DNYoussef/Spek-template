@@ -8,87 +8,8 @@ and comprehensive audit logging.
 import asyncio
 import hashlib
 import json
-import logging
-import time
-from dataclasses import dataclass
-from datetime import datetime, timezone
-from enum import Enum
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Protocol, Union
-
-
-class TriggerType(Enum):
-    """Types of kill switch triggers."""
-    MANUAL_PANIC = "manual_panic"
-    LOSS_LIMIT = "loss_limit"
-    POSITION_LIMIT = "position_limit"
-    API_FAILURE = "api_failure"
-    HEARTBEAT_TIMEOUT = "heartbeat_timeout"
-    SYSTEM_ERROR = "system_error"
-    HARDWARE_AUTH_FAIL = "hardware_auth_fail"
-
-
-@dataclass
-class KillSwitchEvent:
-    """Kill switch execution event with audit trail."""
-    timestamp: float
-    trigger_type: TriggerType
-    trigger_data: Dict[str, Any]
-    response_time_ms: float
-    positions_flattened: int
-    authentication_method: str
-    success: bool
-    error: Optional[str] = None
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary for JSON serialization."""
-        return {
-            'timestamp': self.timestamp,
-            'trigger_type': self.trigger_type.value,
-            'trigger_data': self.trigger_data,
-            'response_time_ms': self.response_time_ms,
-            'positions_flattened': self.positions_flattened,
-            'authentication_method': self.authentication_method,
-            'success': self.success,
-            'error': self.error
-        }
-
-
-class BrokerInterface(Protocol):
-    """Protocol for broker implementations."""
-
-    async def get_positions(self) -> List[Any]:
-        """Get current positions."""
-        ...
-
-    async def close_position(self, symbol: str, qty: float, side: str, order_type: str) -> bool:
-        """Close a specific position."""
-        ...
-
-
-class KillSwitchSystem:
-    """
-    High-performance kill switch with hardware authentication and audit logging.
-
-    Features:
-    - <500ms response time guarantee
-    - Hardware authentication integration
-    - Comprehensive audit trail
-    - Concurrent position liquidation
-    - Real-time risk monitoring
-    """
-
-    def __init__(self, broker: BrokerInterface, config: Dict[str, Any]):
-        """
-        Initialize kill switch system.
-
-        Args:
-            broker: Broker interface for position management
-            config: Configuration including limits and authentication
-        """
-        self.broker = broker
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
         # Performance tracking
         self._last_execution_time = 0.0

@@ -16,16 +16,8 @@ import re
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Any
-import logging
-
-# Import secure subprocess manager
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from src.security.secure_subprocess_manager import (
-    SecureSubprocessManager, SecurityLevel, SecurityError
-)
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 class SafeEvaluator:
     """Secure replacement for eval() with restricted operations."""

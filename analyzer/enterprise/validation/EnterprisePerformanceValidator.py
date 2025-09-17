@@ -19,37 +19,12 @@ NASA POT10 Rule 7: Bounded resource management
 
 import asyncio
 import json
-import logging
-import multiprocessing
-import random
-import statistics
-import threading
-import time
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
-import uuid
-import psutil
-import sys
-import traceback
-from contextlib import contextmanager
+from lib.shared.utilities.logging_setup import get_performance_logger
+from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
+from lib.shared.utilities.path_validation import validate_directory, ensure_dir
 
-try:
-    from ..detector.EnterpriseDetectorPool import (
-        EnterpriseDetectorPool, EnterprisePoolConfig, DetectionRequest, 
-        create_detection_request, run_enterprise_analysis
-    )
-    from ..integration.EnterpriseIntegrationFramework import (
-        EnterpriseIntegrationFramework, IntegrationConfig, 
-        run_enterprise_integrated_analysis
-    )
-    from ..performance.MLCacheOptimizer import MLCacheOptimizer, MLCacheConfig
-    from ..sixsigma import SixSigmaTelemetry, SixSigmaScorer
-except ImportError:
-    # Fallback for testing
-    logger = logging.getLogger(__name__)
+# Use specialized performance logging for enterprise validation
+logger = get_performance_logger(__name__)
     logger.warning("Enterprise modules not available - using mock implementations")
     
     class EnterpriseDetectorPool:
@@ -70,7 +45,7 @@ except ImportError:
     
     def create_detection_request(*args, **kwargs): return type('Request', (), {'request_id': str(uuid.uuid4())})()
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 @dataclass

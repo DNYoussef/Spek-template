@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 REAL Performance Modules - NO MOCKS, NO THEATER
 
@@ -328,7 +329,7 @@ class RealAnalysisProfiler:
         }
 
         # Update violation detection rates
-        file_size_kb = Path(file_path).stat().st_size / 1024 if Path(file_path).exists() else 0
+        file_size_kb = Path(file_path).stat().st_size / 1024 if path_exists(file_path) else 0
         if file_size_kb > 0:
             detection_rate = violations_found / file_size_kb
             self.profiling_data["violation_detection_rates"][file_path] = detection_rate

@@ -13,21 +13,8 @@ Comprehensive security validation for production deployment including:
 
 import asyncio
 import hashlib
-import logging
-import os
-import random
-import re
-import sys
-import time
-import threading
-from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Set, Tuple
-
-# Setup logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))

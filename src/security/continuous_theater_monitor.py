@@ -9,28 +9,8 @@ for enterprise modules and defense industry compliance.
 import asyncio
 import hashlib
 import json
-import logging
-import os
-import time
-from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass, field
-from datetime import datetime, timezone, timedelta
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Set, Callable
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
-import threading
-
-from .enterprise_theater_detection import (
-    EnterpriseTheaterDetector,
-    TheaterType,
-    TheaterSeverity,
-    TheaterEvidence,
-    TheaterDetectionReport
-)
-
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

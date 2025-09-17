@@ -5,19 +5,8 @@ Validates all implemented DFARS controls to achieve 95%+ compliance.
 """
 
 import json
-import logging
-import sys
-from datetime import datetime, timezone, timedelta
-from pathlib import Path
-import hashlib
-import hmac
-
-# Setup logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class DFARSFinalValidator:

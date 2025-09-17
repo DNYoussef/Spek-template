@@ -10,20 +10,8 @@ analyzes changed files and their dependencies.
 from dataclasses import dataclass, field
 import hashlib
 import json
-import logging
-from pathlib import Path
-import subprocess
-import sys
-import time
-from typing import Any, Dict, List, Optional, Union
-
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from analyzer.caching.ast_cache import ast_cache
-from analyzer.core import ConnascenceAnalyzer
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

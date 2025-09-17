@@ -9,12 +9,8 @@ Provides centralized import management for all analyzer components.
 Fixes the missing import infrastructure causing cascade failures.
 """
 
-import logging
-import sys
-from pathlib import Path
-from typing import Any, Dict, Optional, NamedTuple
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ImportResult(NamedTuple):

@@ -8,26 +8,8 @@ import pandas as pd
 from datetime import datetime, timedelta
 from typing import Optional, Dict, Any
 import asyncio
-import logging
-from dataclasses import asdict
-
-from ..config.pipeline_config import DataSourceConfig
-
-
-class AlpacaSource:
-    """
-    Alpaca Markets data source connector
-
-    Supports:
-    - Stock market data (NYSE, NASDAQ)
-    - Crypto data
-    - Real-time and historical data
-    - Paper and live trading accounts
-    """
-
-    def __init__(self, config: DataSourceConfig):
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.session = None
         self.base_headers = {
             "APCA-API-KEY-ID": config.api_key,

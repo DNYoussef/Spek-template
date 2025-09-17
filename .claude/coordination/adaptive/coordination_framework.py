@@ -1,3 +1,4 @@
+from lib.shared.utilities import get_logger
 #!/usr/bin/env python3
 """
 Adaptive Coordination Framework for Phase 3 Performance Optimization
@@ -91,7 +92,7 @@ class AdaptiveCoordinator:
                 logging.StreamHandler()
             ]
         )
-        self.logger = logging.getLogger('AdaptiveCoordinator')
+        self.logger = get_logger("\1")
     
     def collect_baseline_metrics(self) -> PerformanceMetrics:
         """Collect initial performance baseline before optimization"""

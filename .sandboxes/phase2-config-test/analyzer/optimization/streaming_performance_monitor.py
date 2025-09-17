@@ -10,16 +10,8 @@ NASA Rule 7 Compliant: Bounded resource usage with automatic cleanup.
 """
 
 import time
-import logging
-from collections import deque, defaultdict
-from dataclasses import dataclass, field
-from threading import Lock, RLock
-from typing import Any, Dict, List, Optional, Tuple, Callable
-import weakref
-
-from .memory_monitor import MemoryLeakDetector, MemorySnapshot, MemoryStats
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

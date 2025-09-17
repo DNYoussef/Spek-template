@@ -25,12 +25,8 @@ from collections import defaultdict, deque
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
-import logging
-import psutil
-import json
-from threading import RLock
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class AlertSeverity(Enum):

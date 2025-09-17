@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 # SPDX-License-Identifier: MIT
 """
 NASA Compliance Auditor - Specialized Agent for POT10 Rule Assessment
@@ -169,7 +170,7 @@ class NASAComplianceAuditor:
         """
         # NASA Rule 5: Input validation assertions
         assert project_path is not None, "project_path cannot be None"
-        assert Path(project_path).exists(), f"Project path must exist: {project_path}"
+        assert path_exists(project_path), f"Project path must exist: {project_path}"
         
         # Check cache first
         cache_key = f"{project_path}_{int(time.time() // 300)}"  # 5-minute cache

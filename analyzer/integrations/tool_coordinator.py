@@ -10,25 +10,8 @@ import argparse
 import json
 import sys
 import os
-import logging
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Any, Optional
-
-# Import analyzer components
-try:
-    from ..unified_analyzer import UnifiedAnalyzer
-    from ..analyzer_types import UnifiedAnalysisResult, AnalysisConfiguration
-    from .github_bridge import GitHubBridge, GitHubConfig, AnalysisMetrics
-except ImportError:
-    # Fallback for direct script execution
-    sys.path.append(str(Path(__file__).parent.parent))
-    from unified_analyzer import UnifiedAnalyzer
-    from analyzer_types import UnifiedAnalysisResult, AnalysisConfiguration
-    from github_bridge import GitHubBridge, GitHubConfig, AnalysisMetrics
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ToolCoordinator:

@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 PHASE 1 THEATER DETECTION & REALITY CHECK AUDIT
@@ -489,7 +490,7 @@ def test_function():
                             test_results["workflow_test"] = False
 
                         # Check output file
-                        if os.path.exists(output_file):
+                        if path_exists(output_file):
                             with open(output_file, 'r') as f:
                                 output_data = json.load(f)
                                 if "integration_success" in output_data:

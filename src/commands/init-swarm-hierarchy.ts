@@ -34,12 +34,12 @@ class SwarmHierarchyInitializer {
    */
   async initialize(): Promise<void> {
     console.log(`
-╔════════════════════════════════════════════════════════════════╗
-║                 UNIFIED HIERARCHICAL SWARM SYSTEM                ║
-║                   Anti-Degradation Architecture                  ║
-╚════════════════════════════════════════════════════════════════╝
 
-🎯 INITIALIZING 6 PRINCESS DOMAINS WITH 85+ AGENTS
+                 UNIFIED HIERARCHICAL SWARM SYSTEM                
+                   Anti-Degradation Architecture                  
+
+
+ INITIALIZING 6 PRINCESS DOMAINS WITH 85+ AGENTS
 `);
 
     try {
@@ -63,11 +63,11 @@ class SwarmHierarchyInitializer {
       }
 
       console.log(`
-╔════════════════════════════════════════════════════════════════╗
-║                    INITIALIZATION COMPLETE                       ║
-╚════════════════════════════════════════════════════════════════╝
 
-✨ Swarm Queen initialized with:
+                    INITIALIZATION COMPLETE                       
+
+
+ Swarm Queen initialized with:
    - 6 Princess Domains (Development, Quality, Security, Research, Infrastructure, Coordination)
    - 85+ specialized agents
    - Triple-layer truth system (GitHub Project Manager, Memory, Context DNA)
@@ -75,14 +75,14 @@ class SwarmHierarchyInitializer {
    - <15% degradation threshold
    - Cross-hive communication protocol
 
-🚀 Ready to execute tasks with anti-degradation guarantees!
+ Ready to execute tasks with anti-degradation guarantees!
 
 Usage:
   await queen.executeTask("Your task description", context, { priority: 'high' });
 `);
 
     } catch (error) {
-      console.error('\n❌ Initialization failed:', error);
+      console.error('\n Initialization failed:', error);
       process.exit(1);
     } finally {
       this.rl.close();
@@ -93,7 +93,7 @@ Usage:
    * Check system prerequisites
    */
   private async checkPrerequisites(): Promise<void> {
-    console.log('\n📋 Checking prerequisites...');
+    console.log('\n Checking prerequisites...');
 
     const checks = [
       { name: 'Node.js version', cmd: 'node --version', min: 'v18' },
@@ -110,9 +110,9 @@ Usage:
           throw new Error(`${check.name} ${version} is below minimum ${check.min}`);
         }
 
-        console.log(`  ✅ ${check.name}: ${version}`);
+        console.log(`   ${check.name}: ${version}`);
       } catch (error) {
-        console.log(`  ⚠️  ${check.name}: Not found or version check failed`);
+        console.log(`    ${check.name}: Not found or version check failed`);
       }
     }
   }
@@ -121,7 +121,7 @@ Usage:
    * Initialize MCP servers
    */
   private async initializeMCPServers(): Promise<void> {
-    console.log('\n🔌 Initializing MCP servers...');
+    console.log('\n Initializing MCP servers...');
 
     const mcpServers = [
       { name: 'claude-flow', cmd: 'npx claude-flow@alpha mcp start' },
@@ -130,7 +130,7 @@ Usage:
     ];
 
     if (!this.options.skipMCP) {
-      console.log('\n⚠️  MCP servers need to be configured in your Claude Code settings.');
+      console.log('\n  MCP servers need to be configured in your Claude Code settings.');
       console.log('Add these to your MCP configuration:\n');
 
       for (const server of mcpServers) {
@@ -146,14 +146,14 @@ Usage:
       }
     }
 
-    console.log('  ✅ MCP servers configured');
+    console.log('   MCP servers configured');
   }
 
   /**
    * Initialize the Swarm Queen
    */
   private async initializeSwarmQueen(): Promise<void> {
-    console.log('\n👑 Initializing Swarm Queen...');
+    console.log('\n Initializing Swarm Queen...');
 
     // Set up event listeners
     this.setupQueenEventListeners();
@@ -161,7 +161,7 @@ Usage:
     // Initialize the queen
     await this.queen.initialize();
 
-    console.log('  ✅ Swarm Queen initialized');
+    console.log('   Swarm Queen initialized');
   }
 
   /**
@@ -171,24 +171,24 @@ Usage:
     if (!this.options.verbose) return;
 
     this.queen.on('queen:initialized', (metrics) => {
-      console.log('\n📊 Initial metrics:', metrics);
+      console.log('\n Initial metrics:', metrics);
     });
 
     this.queen.on('task:created', (task) => {
-      console.log(`\n📝 Task created: ${task.id}`);
+      console.log(`\n Task created: ${task.id}`);
     });
 
     this.queen.on('task:completed', (task) => {
-      console.log(`\n✅ Task completed: ${task.id}`);
+      console.log(`\n Task completed: ${task.id}`);
     });
 
     this.queen.on('princess:quarantined', ({ princess }) => {
-      console.log(`\n⚠️  Princess quarantined: ${princess}`);
+      console.log(`\n  Princess quarantined: ${princess}`);
     });
 
     this.queen.on('health:checked', (results) => {
       const healthy = results.filter(r => r.healthy).length;
-      console.log(`\n💚 Health check: ${healthy}/${results.length} healthy`);
+      console.log(`\n Health check: ${healthy}/${results.length} healthy`);
     });
   }
 
@@ -196,7 +196,7 @@ Usage:
    * Verify the system is working
    */
   private async verifySystem(): Promise<void> {
-    console.log('\n🔍 Verifying system...');
+    console.log('\n Verifying system...');
 
     const metrics = this.queen.getMetrics();
 
@@ -207,21 +207,21 @@ Usage:
     console.log(`  - Consensus Success: ${(metrics.consensusSuccess * 100).toFixed(1)}%`);
 
     if (metrics.activePrincesses < metrics.totalPrincesses) {
-      console.warn('\n⚠️  Some princesses are not active');
+      console.warn('\n  Some princesses are not active');
     }
 
     if (metrics.contextIntegrity < 0.85) {
-      console.warn('\n⚠️  Context integrity below threshold');
+      console.warn('\n  Context integrity below threshold');
     }
 
-    console.log('\n  ✅ System verification complete');
+    console.log('\n   System verification complete');
   }
 
   /**
    * Run a test task
    */
   private async runTestTask(): Promise<void> {
-    console.log('\n🧪 Running test task...');
+    console.log('\n Running test task...');
 
     const testContext = {
       test: true,
@@ -240,14 +240,14 @@ Usage:
         }
       );
 
-      console.log('\n  ✅ Test task completed successfully');
+      console.log('\n   Test task completed successfully');
 
       if (this.options.verbose) {
-        console.log('\n📄 Test results:', JSON.stringify(result, null, 2));
+        console.log('\n Test results:', JSON.stringify(result, null, 2));
       }
 
     } catch (error) {
-      console.error('\n  ❌ Test task failed:', error);
+      console.error('\n   Test task failed:', error);
     }
   }
 
@@ -288,7 +288,7 @@ Usage:
    * Cleanup and shutdown
    */
   async shutdown(): Promise<void> {
-    console.log('\n🔚 Shutting down swarm hierarchy...');
+    console.log('\n Shutting down swarm hierarchy...');
     await this.queen.shutdown();
     this.rl.close();
   }

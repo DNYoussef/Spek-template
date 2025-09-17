@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Self-analysis comparison script.
@@ -25,7 +26,7 @@ def main():
     
     # Load current results if they exist
     current_data = {}
-    if os.path.exists(args.current):
+    if path_exists(args.current):
         try:
             with open(args.current, 'r') as f:
                 current_data = json.load(f)
@@ -39,8 +40,8 @@ def main():
         "files": {
             "current": args.current,
             "baseline": args.baseline,
-            "current_exists": os.path.exists(args.current),
-            "baseline_exists": os.path.exists(args.baseline)
+            "current_exists": path_exists(args.current),
+            "baseline_exists": path_exists(args.baseline)
         },
         "metrics": {
             "nasa_compliance": {

@@ -10,17 +10,8 @@ finds 11 violations (1 god object, 7 magic literals, 3 position violations).
 import os
 import sys
 import json
-import logging
-from pathlib import Path
-from dataclasses import dataclass
-from typing import List, Dict, Any
-
-# Add current directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent))
-
-# Setup logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class AnalyzerResult:

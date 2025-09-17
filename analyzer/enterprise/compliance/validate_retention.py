@@ -12,23 +12,8 @@ Validates the 90-day evidence retention system and compliance with enterprise re
 
 import asyncio
 import json
-import logging
-import tempfile
-import time
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Any
-
-from .core import ComplianceOrchestrator, ComplianceConfig
-from .integration import demonstrate_compliance_system
-
-
-class ComplianceRetentionValidator:
-    """Validator for compliance evidence retention system"""
-    
-    def __init__(self, test_project_path: str = None):
-        self.test_project_path = test_project_path or "."
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
         # Create test configuration with short retention for testing
         self.test_config = ComplianceConfig(

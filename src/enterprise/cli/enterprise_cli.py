@@ -5,24 +5,8 @@ Command-line interface for all enterprise features with seamless integration
 into existing CLI systems and comprehensive command support.
 """
 
-import logging
-import asyncio
-import argparse
-import sys
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Callable
-from datetime import datetime
-import json
-
-from ..telemetry.six_sigma import SixSigmaTelemetry
-from ..security.supply_chain import SupplyChainSecurity, SecurityLevel
-from ..compliance.matrix import ComplianceMatrix, ComplianceFramework
-from ..flags.feature_flags import flag_manager
-from ..integration.analyzer import EnterpriseAnalyzerIntegration
-from ..config.enterprise_config import EnterpriseConfig, EnvironmentType
-from ..tests.test_runner import EnterpriseTestRunner
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class EnterpriseCommand:

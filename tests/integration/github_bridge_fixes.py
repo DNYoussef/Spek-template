@@ -170,12 +170,8 @@ but provides real correlation functionality.
 
 import json
 import sys
-import logging
-from datetime import datetime
-from typing import Dict, List, Any, Optional
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class FixedToolCoordinator:
@@ -433,7 +429,7 @@ def test_fixed_correlation_logic():
 
     # Test compliance average
     actual_avg = consolidated['nasa_compliance']
-    tests.append(("Compliance Average", abs(actual_avg - expected_avg_compliance) < 0.01, f"{actual_avg:.3f} ≈ {expected_avg_compliance:.3f}"))
+    tests.append(("Compliance Average", abs(actual_avg - expected_avg_compliance) < 0.01, f"{actual_avg:.3f}  {expected_avg_compliance:.3f}"))
 
     # Test critical count
     actual_critical = consolidated['critical_violations']
@@ -442,7 +438,7 @@ def test_fixed_correlation_logic():
     # Test correlation score is not hardcoded
     corr_score = correlation['correlation_score']
     expected_corr = 1.0 - (2 / 6)  # 1 - (overlap / total)
-    tests.append(("Correlation Score", abs(corr_score - expected_corr) < 0.01, f"{corr_score:.3f} ≈ {expected_corr:.3f}"))
+    tests.append(("Correlation Score", abs(corr_score - expected_corr) < 0.01, f"{corr_score:.3f}  {expected_corr:.3f}"))
 
     # Test recommendations generated
     recommendations = result['recommendations']

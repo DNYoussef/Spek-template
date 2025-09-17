@@ -1,3 +1,9 @@
+from lib.shared.utilities.logging_setup import get_security_logger
+from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
+from lib.shared.utilities.path_validation import path_exists, validate_file, validate_directory
+
+# Use specialized security logging for supply chain
+logger = get_security_logger(__name__)
 """
 Supply Chain Security Analyzer - Main Orchestrator
 Coordinates all supply chain security components and provides unified interface.
@@ -179,7 +185,7 @@ class SupplyChainAnalyzer:
         
         # Try to load CycloneDX SBOM first
         cyclone_dx_path = sbom_results.get('cyclone_dx')
-        if cyclone_dx_path and Path(cyclone_dx_path).exists():
+        if cyclone_dx_path and path_exists(cyclone_dx_path):
             try:
                 with open(cyclone_dx_path, 'r', encoding='utf-8') as f:
                     sbom_data = json.load(f)
@@ -246,7 +252,7 @@ class SupplyChainAnalyzer:
         
         # Add SBOM files as artifacts
         for format_name, sbom_path in sbom_results.items():
-            if sbom_path and Path(sbom_path).exists():
+            if sbom_path and path_exists(sbom_path):
                 artifacts.append({
                     'name': Path(sbom_path).name,
                     'path': sbom_path,

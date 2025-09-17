@@ -6,21 +6,8 @@ Real-time threat intelligence and risk monitoring for defense industry complianc
 import json
 import time
 import hashlib
-import logging
-from datetime import datetime, timezone, timedelta
-from typing import Dict, Any, List, Optional, Tuple, Set
-from dataclasses import dataclass, asdict
-from enum import Enum
-from pathlib import Path
-import asyncio
-import aiohttp
-import numpy as np
-from collections import defaultdict, deque
-
-from .audit_trail_manager import DFARSAuditTrailManager, AuditEventType, SeverityLevel
-from .incident_response_system import DFARSIncidentResponseSystem, IncidentSeverity, IncidentCategory
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class RiskLevel(Enum):
@@ -190,7 +177,7 @@ class DFARSContinuousRiskAssessment:
             }
         }
 
-        if config_path and Path(config_path).exists():
+        if config_path and path_exists(config_path):
             try:
                 with open(config_path, 'r') as f:
                     loaded_config = json.load(f)

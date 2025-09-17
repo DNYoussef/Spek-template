@@ -16,45 +16,12 @@ Evidence Types:
 
 import asyncio
 import json
-import logging
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Set
-from dataclasses import dataclass, field
-import hashlib
+from lib.shared.utilities.logging_setup import get_security_logger
+from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
+from lib.shared.utilities.path_validation import validate_directory, ensure_dir
 
-
-@dataclass 
-class SOC2Control:
-    """SOC2 Trust Services Control definition"""
-    criteria: str  # CC, A1, PI1, C1, P1-P9
-    control_id: str
-    description: str
-    control_type: str  # Entity-level, Activity-level, IT General Controls
-    evidence_types: List[str] = field(default_factory=list)
-    testing_frequency: str = "quarterly"  # daily, weekly, monthly, quarterly, annually
-    automated: bool = False
-
-
-@dataclass
-class SOC2Evidence:
-    """SOC2 evidence artifact"""
-    control_id: str
-    evidence_type: str  # design, implementation, operating_effectiveness
-    description: str
-    source_file: Optional[str] = None
-    automated: bool = True
-    collection_timestamp: datetime = field(default_factory=datetime.now)
-    evidence_data: Dict[str, Any] = field(default_factory=dict)
-    validation_status: str = "collected"  # collected, validated, exception
-
-
-class SOC2EvidenceCollector:
-    """SOC2 Type II evidence collector with automated matrix generation"""
-    
-    def __init__(self, config):
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+# Use specialized security logging for SOC2 compliance
+logger = get_security_logger(__name__)
         self.evidence_artifacts: List[SOC2Evidence] = []
         
         # SOC2 Trust Services Controls mapping

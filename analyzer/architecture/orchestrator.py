@@ -10,12 +10,8 @@ NASA Rule 4 Compliant: Functions under 60 lines.
 Handles phase coordination and pipeline management.
 """
 
-import logging
-from pathlib import Path
-from typing import Any, Dict, List, Optional
-from datetime import datetime
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ArchitectureOrchestrator:

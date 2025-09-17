@@ -4,29 +4,8 @@ Multi-factor authentication and role-based access control for defense industry c
 """
 
 import json
-import logging
-import time
-import hashlib
-import hmac
-import secrets
-from datetime import datetime, timezone, timedelta
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple, Set
-from dataclasses import dataclass, asdict
-from enum import Enum
-import asyncio
-import bcrypt
-import jwt
-from cryptography.fernet import Fernet
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-
-from .enhanced_audit_trail_manager import (
-    EnhancedDFARSAuditTrailManager, AuditEventType, SeverityLevel
-)
-from .fips_crypto_module import FIPSCryptoModule
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class AuthenticationMethod(Enum):

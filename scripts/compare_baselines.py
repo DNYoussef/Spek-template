@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Baseline comparison script.
@@ -30,8 +31,8 @@ def main():
         "files": {
             "current": args.current,
             "previous": args.previous,
-            "current_exists": os.path.exists(args.current),
-            "previous_exists": os.path.exists(args.previous)
+            "current_exists": path_exists(args.current),
+            "previous_exists": path_exists(args.previous)
         },
         "trends": {
             "nasa_compliance": {

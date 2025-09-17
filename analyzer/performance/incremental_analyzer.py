@@ -26,23 +26,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
-import logging
-import ast
-import json
-from contextlib import contextmanager
-
-# Import existing analyzer components
-try:
-    from ..streaming.incremental_cache import get_global_incremental_cache
-    from ..optimization.file_cache import get_global_cache
-    from ..caching.ast_cache import global_ast_cache
-    from .optimizer import get_global_optimization_engine
-    ANALYZER_COMPONENTS_AVAILABLE = True
-except ImportError as e:
-    logging.warning(f"Analyzer components not available: {e}")
-    ANALYZER_COMPONENTS_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -151,7 +136,7 @@ class DependencyGraphAnalyzer:
         """
         assert file_path, "file_path cannot be empty"
         
-        if not Path(file_path).exists():
+        if not path_exists(file_path):
             return set()
         
         dependencies = set()
@@ -965,7 +950,7 @@ class FileChangeTracker:
         
         with self.tracking_lock:
             for file_path in changed_file_paths:
-                if Path(file_path).exists():
+                if path_exists(file_path):
                     current_hash = self._calculate_file_hash(file_path)
                     if current_hash is None:
                         continue

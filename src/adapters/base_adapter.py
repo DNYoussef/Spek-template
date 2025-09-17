@@ -6,14 +6,8 @@ import subprocess
 import time
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Tuple
-import logging
-
-from src.models.linter_models import (
-    LinterAdapter, LinterConfig, LinterResult, LinterViolation,
-    StandardSeverity, ViolationType, Position
-)
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class BaseLinterAdapter(LinterAdapter):

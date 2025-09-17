@@ -6,15 +6,8 @@ Manages analysis policies, compliance rules, and integrates with
 existing policy engine and detection systems.
 """
 
-import logging
-from pathlib import Path
-from typing import Dict, Any, Optional
-import sys
-
-# Add parent directories to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 try:
     from analyzer.policy_engine import PolicyEngine, ComplianceResult, QualityGateResult

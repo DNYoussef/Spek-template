@@ -5,23 +5,8 @@ Comprehensive defense industry compliance automation and validation.
 """
 
 import json
-import logging
-from datetime import datetime, timezone
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass
-from enum import Enum
-import subprocess
-import hashlib
-import asyncio
-import ssl
-from concurrent.futures import ThreadPoolExecutor, as_completed
-
-from .path_validator import PathSecurityValidator, SecurityError
-from .tls_manager import DFARSTLSManager, TLSConfiguration
-from .audit_trail_manager import DFARSAuditTrailManager, AuditEventType, SeverityLevel
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ComplianceStatus(Enum):
@@ -122,7 +107,7 @@ class DFARSComplianceEngine:
             }
         }
 
-        if config_path and Path(config_path).exists():
+        if config_path and path_exists(config_path):
             try:
                 with open(config_path, 'r') as f:
                     loaded_config = json.load(f)
@@ -436,7 +421,7 @@ class DFARSComplianceEngine:
             ".claude/data_policy.yaml"
         ]
 
-        implemented = sum(1 for f in classification_files if Path(f).exists())
+        implemented = sum(1 for f in classification_files if path_exists(f))
         return implemented / len(classification_files)
 
     def _check_data_destruction_procedures(self) -> float:
@@ -448,7 +433,7 @@ class DFARSComplianceEngine:
             ".claude/cleanup_procedures.md"
         ]
 
-        implemented = sum(1 for f in destruction_indicators if Path(f).exists())
+        implemented = sum(1 for f in destruction_indicators if path_exists(f))
         return implemented / len(destruction_indicators)
 
     def _check_dlp_controls(self) -> float:
@@ -460,7 +445,7 @@ class DFARSComplianceEngine:
             ".claude/data_monitoring.json"
         ]
 
-        implemented = sum(1 for f in dlp_controls if Path(f).exists())
+        implemented = sum(1 for f in dlp_controls if path_exists(f))
         return implemented / len(dlp_controls)
 
     async def _assess_path_security(self) -> Dict[str, Any]:
@@ -620,7 +605,7 @@ class DFARSComplianceEngine:
     async def _assess_incident_response(self) -> Dict[str, Any]:
         """Assess incident response capabilities."""
         # Check for incident response plan
-        ir_plan_exists = Path("incident_response_plan.md").exists() or Path("docs/incident_response.md").exists()
+        ir_plan_exists = path_exists("incident_response_plan.md") or path_exists("docs/incident_response.md")
 
         # Check for forensic capabilities
         forensic_tools = self._check_forensic_capabilities()
@@ -660,7 +645,7 @@ class DFARSComplianceEngine:
             "scripts/incident_collection.sh"
         ]
 
-        implemented = sum(1 for f in forensic_indicators if Path(f).exists())
+        implemented = sum(1 for f in forensic_indicators if path_exists(f))
         return implemented / len(forensic_indicators)
 
     def _check_backup_recovery(self) -> float:
@@ -671,7 +656,7 @@ class DFARSComplianceEngine:
             "docs/recovery_procedures.md"
         ]
 
-        implemented = sum(1 for f in backup_indicators if Path(f).exists())
+        implemented = sum(1 for f in backup_indicators if path_exists(f))
         return implemented / len(backup_indicators)
 
     def _check_business_continuity(self) -> float:
@@ -682,7 +667,7 @@ class DFARSComplianceEngine:
             "scripts/emergency_procedures.sh"
         ]
 
-        implemented = sum(1 for f in bc_indicators if Path(f).exists())
+        implemented = sum(1 for f in bc_indicators if path_exists(f))
         return implemented / len(bc_indicators)
 
     async def _assess_system_integrity(self) -> Dict[str, Any]:
@@ -719,7 +704,7 @@ class DFARSComplianceEngine:
             ".claude/security_scanning.json"
         ]
 
-        implemented = sum(1 for f in protection_indicators if Path(f).exists())
+        implemented = sum(1 for f in protection_indicators if path_exists(f))
         return implemented / len(protection_indicators)
 
     def _check_vulnerability_management(self) -> float:
@@ -730,7 +715,7 @@ class DFARSComplianceEngine:
             "docs/vulnerability_management.md"
         ]
 
-        implemented = sum(1 for f in vuln_indicators if Path(f).exists())
+        implemented = sum(1 for f in vuln_indicators if path_exists(f))
         return implemented / len(vuln_indicators)
 
     def _check_configuration_management(self) -> float:
@@ -741,7 +726,7 @@ class DFARSComplianceEngine:
             "scripts/config_validation.py"
         ]
 
-        implemented = sum(1 for f in config_indicators if Path(f).exists())
+        implemented = sum(1 for f in config_indicators if path_exists(f))
         return implemented / len(config_indicators)
 
     async def _assess_media_protection(self) -> Dict[str, Any]:
@@ -778,7 +763,7 @@ class DFARSComplianceEngine:
             "docs/sanitization_procedures.md"
         ]
 
-        implemented = sum(1 for f in sanitization_indicators if Path(f).exists())
+        implemented = sum(1 for f in sanitization_indicators if path_exists(f))
         return implemented / len(sanitization_indicators)
 
     def _check_media_access_restrictions(self) -> float:
@@ -789,7 +774,7 @@ class DFARSComplianceEngine:
             ".claude/access_restrictions.json"
         ]
 
-        implemented = sum(1 for f in access_indicators if Path(f).exists())
+        implemented = sum(1 for f in access_indicators if path_exists(f))
         return implemented / len(access_indicators)
 
     def _compile_assessment_results(self, results: List[Any]) -> ComplianceResult:

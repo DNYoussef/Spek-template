@@ -1,3 +1,4 @@
+from lib.shared.utilities import get_logger
 #!/usr/bin/env python3
 """
 DFARS Critical Remediation - Phase 2 Implementation
@@ -103,7 +104,7 @@ class DFARSAuditLogger:
         self.log_dir.mkdir(exist_ok=True)
 
         # Configure DFARS audit logger
-        self.logger = logging.getLogger('dfars_audit')
+        self.logger = get_logger("\1")
         self.logger.setLevel(logging.INFO)
 
         # Create file handler with rotation

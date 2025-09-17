@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 End-to-End Validation Suite
@@ -264,7 +265,7 @@ class E2EValidationSuite:
         
         # Check for requirements files
         req_files = ['requirements.txt', 'setup.py', 'pyproject.toml']
-        existing_req_files = [f for f in req_files if Path(f).exists()]
+        existing_req_files = [f for f in req_files if path_exists(f)]
         
         dependency_tests['requirements_file_exists'] = len(existing_req_files) > 0
         dependency_tests['requirements_files'] = existing_req_files

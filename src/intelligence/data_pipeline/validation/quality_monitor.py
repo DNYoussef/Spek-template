@@ -4,68 +4,8 @@ Real-time data quality monitoring and alerting system
 """
 
 import asyncio
-import logging
-from typing import Dict, List, Optional, Any, Callable
-from datetime import datetime, timedelta
-import pandas as pd
-import numpy as np
-from dataclasses import dataclass, field
-from collections import deque, defaultdict
-import json
-import time
-
-from ..config.pipeline_config import config
-from .data_validator import DataValidator, ValidationResult, ValidationSeverity
-
-
-@dataclass
-class QualityAlert:
-    """Quality monitoring alert"""
-    id: str
-    alert_type: str
-    severity: str
-    title: str
-    description: str
-    timestamp: datetime
-    source: str
-    symbol: Optional[str] = None
-    metric_value: Optional[float] = None
-    threshold: Optional[float] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
-
-
-@dataclass
-class QualityMetrics:
-    """Data quality metrics snapshot"""
-    timestamp: datetime
-    source: str
-    symbol: Optional[str] = None
-    completeness_score: float = 0.0
-    accuracy_score: float = 0.0
-    consistency_score: float = 0.0
-    timeliness_score: float = 0.0
-    overall_score: float = 0.0
-    record_count: int = 0
-    error_count: int = 0
-    validation_issues: List[Dict[str, Any]] = field(default_factory=list)
-
-
-class QualityMonitor:
-    """
-    Real-time data quality monitoring system
-
-    Features:
-    - Continuous quality assessment
-    - Real-time alerting on quality degradation
-    - Quality trend analysis
-    - Source-specific monitoring
-    - Custom quality rules
-    - Quality SLA tracking
-    - Dashboard metrics generation
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.validator = DataValidator()
 
         # Configuration

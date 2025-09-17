@@ -4,78 +4,8 @@ Advanced metrics collection and aggregation system
 """
 
 import asyncio
-import logging
-import time
-from typing import Dict, List, Optional, Any, Union
-from datetime import datetime, timedelta
-from dataclasses import dataclass, field
-from collections import deque, defaultdict
-import json
-import numpy as np
-from enum import Enum
-
-from ..config.pipeline_config import config
-
-
-class MetricType(Enum):
-    """Types of metrics that can be collected"""
-    COUNTER = "counter"
-    GAUGE = "gauge"
-    HISTOGRAM = "histogram"
-    TIMER = "timer"
-
-
-@dataclass
-class Metric:
-    """Individual metric data point"""
-    name: str
-    value: Union[int, float]
-    timestamp: datetime
-    labels: Dict[str, str] = field(default_factory=dict)
-    metric_type: MetricType = MetricType.GAUGE
-    metadata: Dict[str, Any] = field(default_factory=dict)
-
-
-@dataclass
-class HistogramData:
-    """Histogram metric data"""
-    name: str
-    count: int
-    sum: float
-    min: float
-    max: float
-    percentiles: Dict[str, float]  # "p50", "p95", "p99"
-    timestamp: datetime
-    labels: Dict[str, str] = field(default_factory=dict)
-
-
-@dataclass
-class MetricsSummary:
-    """Summary of metrics for a component or system"""
-    component: str
-    timestamp: datetime
-    counters: Dict[str, int] = field(default_factory=dict)
-    gauges: Dict[str, float] = field(default_factory=dict)
-    timers: Dict[str, Dict[str, float]] = field(default_factory=dict)  # name -> {avg, p95, p99}
-    throughput: Dict[str, float] = field(default_factory=dict)  # operations per second
-
-
-class MetricsCollector:
-    """
-    High-performance metrics collection system
-
-    Features:
-    - Multiple metric types (counters, gauges, histograms, timers)
-    - Label-based dimensional metrics
-    - Automatic aggregation and percentile calculation
-    - Time-series data storage
-    - Metrics export (Prometheus format)
-    - Real-time dashboards support
-    - Custom metrics registration
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
         # Metric storage
         self.raw_metrics: deque = deque(maxlen=50000)  # Raw metric points

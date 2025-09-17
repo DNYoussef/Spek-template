@@ -388,7 +388,7 @@ export class GitHubProjectIntegration extends EventEmitter {
   ): Promise<GitHubTask> {
     const issue: GitHubTask = {
       id: `CTX-${transferId}`,
-      title: `Context Transfer: ${sourceAgent} → ${targetAgent}`,
+      title: `Context Transfer: ${sourceAgent}  ${targetAgent}`,
       description: JSON.stringify({
         context: context,
         metadata: {

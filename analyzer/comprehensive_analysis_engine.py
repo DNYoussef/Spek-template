@@ -16,13 +16,8 @@ import ast
 import re
 import json
 import time
-import logging
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple, Union
-from dataclasses import dataclass
-from datetime import datetime
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -58,7 +53,7 @@ class ComprehensiveAnalysisEngine:
 
     def __init__(self):
         """Initialize the comprehensive analysis engine."""
-        self.logger = logging.getLogger(__name__)
+        self.logger = get_logger(__name__)
         self.syntax_analyzers = self._initialize_syntax_analyzers()
         self.pattern_detectors = self._initialize_pattern_detectors()
         self.compliance_validators = self._initialize_compliance_validators()

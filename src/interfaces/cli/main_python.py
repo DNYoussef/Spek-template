@@ -47,56 +47,8 @@ Usage Examples:
 """
 
 import argparse
-import logging
-from pathlib import Path
-import sys
-from typing import List, Optional
-
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-# Import constants and handlers to reduce connascence
-# Note: Experimental handlers commented out - using simplified implementation
-# from experimental.src.cli_handlers import (
-#     AutofixCommandHandler,
-#     BaselineCommandHandler,
-#     ExplainCommandHandler,
-#     LicenseCommandHandler,
-#     MCPCommandHandler,
-#     ScanCommandHandler,
-#     ScanDiffCommandHandler,
-# )
-# from experimental.src.constants import ExitCode, ValidationMessages
-
-# Simple constants replacement
-class ExitCode:
-    SUCCESS = 0
-    VIOLATIONS_FOUND = 1
-    CONFIGURATION_ERROR = 2
-    SYSTEM_ERROR = 3
-    CLI_ERROR = 4
-    USER_INTERRUPTED = 5
-    LICENSE_ERROR = 6
-    RUNTIME_ERROR = 7
-
-class ValidationMessages:
-    INVALID_PATH = "Invalid path provided"
-    MISSING_CONFIG = "Configuration file missing"
-    ANALYSIS_FAILED = "Analysis failed"
-    LICENSE_VALIDATION_FAILED = "License validation failed"
-    LICENSE_VALIDATION_PASSED = "License validation passed"
-    USE_LICENSE_VALIDATE_CMD = "Use 'connascence license validate' for detailed information"
-
-from policy.baselines import BaselineManager
-from policy.budgets import BudgetTracker
-from policy.manager import PolicyManager
-
-# Configure logging first
-logging.basicConfig(
-    level=logging.WARNING,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 # Import license validation system
 try:

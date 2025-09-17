@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 STUB KILLER REPLACEMENT IMPLEMENTATIONS
@@ -48,7 +49,7 @@ class RealConnascenceASTAnalyzer:
         Replaces: return []  # STUB
         """
         try:
-            if not os.path.exists(file_path):
+            if not path_exists(file_path):
                 return []
             
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -334,7 +335,7 @@ class RealDetectorFactory:
             
             def detect(self) -> List[ConnascenceViolation]:
                 """Basic detection using file analysis."""
-                if not os.path.exists(self.path):
+                if not path_exists(self.path):
                     return []
                 
                 try:
@@ -606,7 +607,7 @@ class RealCoverageAnalyzer:
                             else:
                                 files.append(line)
                         
-                        return [f for f in files if f and os.path.exists(f)]
+                        return [f for f in files if f and path_exists(f)]
                         
                 except subprocess.TimeoutExpired:
                     continue

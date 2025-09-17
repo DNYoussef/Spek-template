@@ -245,46 +245,8 @@ import os
 import sys
 from pathlib import Path
 from typing import List, Dict, Any, Optional
-import logging
-
-# Import fixed types
-try:
-    from analyzer.analyzer_types import (
-        Violation, ViolationType, Severity, UnifiedAnalysisResult
-    )
-except ImportError:
-    # Fallback if types not available
-    from dataclasses import dataclass
-    from enum import Enum
-
-    class ViolationType(Enum):
-        GOD_OBJECT = "god_object"
-        MAGIC_LITERAL = "magic_literal"
-        POSITION = "position"
-
-    class Severity(Enum):
-        HIGH = "high"
-        MEDIUM = "medium"
-        LOW = "low"
-
-    @dataclass
-    class Violation:
-        type: ViolationType
-        severity: Severity
-        file_path: str
-        line_number: int
-        description: str
-        suggestion: Optional[str] = None
-
-    @dataclass
-    class UnifiedAnalysisResult:
-        total_violations: int
-        violations: List[Violation]
-        metrics: Dict[str, Any]
-        execution_time: float
-
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class WorkingUnifiedAnalyzer:

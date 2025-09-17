@@ -4,69 +4,8 @@ Intelligent failover management for data sources with health monitoring
 """
 
 import asyncio
-import logging
-import time
-from typing import Dict, List, Optional, Any, Callable
-from datetime import datetime, timedelta
-from dataclasses import dataclass, field
-from enum import Enum
-import statistics
-
-from ..config.pipeline_config import config
-
-
-class HealthStatus(Enum):
-    """Health status levels"""
-    HEALTHY = "healthy"
-    DEGRADED = "degraded"
-    UNHEALTHY = "unhealthy"
-    CRITICAL = "critical"
-    OFFLINE = "offline"
-
-
-@dataclass
-class HealthMetrics:
-    """Health metrics for a data source"""
-    source_name: str
-    status: HealthStatus = HealthStatus.OFFLINE
-    uptime: float = 0.0
-    error_rate: float = 0.0
-    average_latency: float = 0.0
-    success_rate: float = 0.0
-    last_success: Optional[datetime] = None
-    last_error: Optional[datetime] = None
-    consecutive_errors: int = 0
-    total_requests: int = 0
-    total_successes: int = 0
-    total_errors: int = 0
-
-
-@dataclass
-class FailoverRule:
-    """Failover rule configuration"""
-    name: str
-    trigger_conditions: Dict[str, Any]
-    action: str  # "switch", "disable", "alert"
-    priority: int = 0
-    cooldown_seconds: int = 300  # 5 minutes
-    last_triggered: Optional[datetime] = None
-
-
-class FailoverManager:
-    """
-    Intelligent failover management system
-
-    Features:
-    - Real-time health monitoring
-    - Configurable failover rules
-    - Automatic source switching
-    - Performance-based routing
-    - Circuit breaker pattern
-    - Health recovery detection
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.health_metrics: Dict[str, HealthMetrics] = {}
         self.failover_rules: List[FailoverRule] = []
 

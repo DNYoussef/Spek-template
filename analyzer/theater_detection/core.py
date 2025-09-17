@@ -10,57 +10,8 @@ import json
 from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
-import logging
-
-
-class TheaterType(Enum):
-    """Types of theater patterns detected."""
-    TEST_GAMING = "test_gaming"
-    METRICS_INFLATION = "metrics_inflation"
-    FAKE_COVERAGE = "fake_coverage"
-    DOCUMENTATION_THEATER = "documentation_theater"
-    COMPLEXITY_HIDING = "complexity_hiding"
-    ERROR_MASKING = "error_masking"
-    QUALITY_FACADE = "quality_facade"
-
-
-class SeverityLevel(Enum):
-    """Severity levels for theater patterns."""
-    LOW = "low"
-    MEDIUM = "medium"
-    HIGH = "high"
-    CRITICAL = "critical"
-
-
-@dataclass
-class TheaterPattern:
-    """Represents a detected theater pattern."""
-    pattern_type: TheaterType
-    severity: SeverityLevel
-    file_path: str
-    line_number: int
-    description: str
-    evidence: Dict[str, Any]
-    recommendation: str
-    confidence: float
-
-
-@dataclass
-class RealityValidationResult:
-    """Results of reality validation checks."""
-    is_valid: bool
-    score: float
-    issues: List[TheaterPattern]
-    metrics: Dict[str, Any]
-    timestamp: str
-
-
-class TheaterDetector:
-    """Main theater detection engine."""
-
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
-        self.config = config or {}
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.patterns = []
 
     def detect_test_gaming(self, file_path: str, content: str) -> List[TheaterPattern]:
@@ -173,7 +124,7 @@ class TheaterDetector:
 
     def detect_all_patterns(self, file_path: str) -> List[TheaterPattern]:
         """Detect all theater patterns in a file."""
-        if not os.path.exists(file_path):
+        if not path_exists(file_path):
             return []
 
         try:

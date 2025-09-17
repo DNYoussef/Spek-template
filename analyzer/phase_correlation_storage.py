@@ -20,48 +20,8 @@ import json
 import sqlite3
 import threading
 import time
-import logging
-import pickle
-import gzip
-import shutil
-from collections import defaultdict
-from contextlib import contextmanager
-from dataclasses import asdict
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
-import statistics
-
-# Import correlation types from unified memory model
-try:
-    from .unified_memory_model import MemoryCorrelation, PerformanceCorrelation, PhaseMemoryEntry
-    UNIFIED_MODEL_AVAILABLE = True
-except ImportError:
-    # Fallback definitions if unified model not available
-    from dataclasses import dataclass, field
-    
-    @dataclass
-    class MemoryCorrelation:
-        source_phase: str
-        target_phase: str
-        correlation_type: str
-        correlation_strength: float
-        metadata: Dict[str, Any] = field(default_factory=dict)
-        timestamp: float = field(default_factory=time.time)
-    
-    @dataclass
-    class PerformanceCorrelation:
-        phase: str
-        metric_name: str
-        baseline_value: float
-        current_value: float
-        improvement_percentage: float
-        correlation_factors: List[str]
-        measurement_timestamp: float = field(default_factory=time.time)
-        validation_status: str = "pending"
-    
-    UNIFIED_MODEL_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ConnectionPool:

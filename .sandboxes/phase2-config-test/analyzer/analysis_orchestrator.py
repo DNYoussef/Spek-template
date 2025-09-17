@@ -9,26 +9,8 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
-import logging
-import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
-from dataclasses import dataclass
-from datetime import datetime
-
-# Import the other decomposed components
-try:
-    from .policy_engine import PolicyEngine, ComplianceResult, QualityGateResult
-    from .quality_calculator import QualityCalculator, QualityMetrics
-    from .result_aggregator import ResultAggregator, AggregationResult
-except ImportError:
-    # Fallback for direct execution
-    from policy_engine import PolicyEngine, ComplianceResult, QualityGateResult
-    from quality_calculator import QualityCalculator, QualityMetrics
-    from result_aggregator import ResultAggregator, AggregationResult
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

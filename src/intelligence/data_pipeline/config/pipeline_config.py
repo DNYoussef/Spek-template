@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Pipeline Configuration Management
 Centralized configuration for all data pipeline components
@@ -80,7 +81,7 @@ class PipelineConfig:
         self.monitoring = MonitoringConfig()
 
         # Load from file if exists
-        if os.path.exists(self.config_file):
+        if path_exists(self.config_file):
             self.load_config()
 
     def _load_data_sources(self) -> Dict[str, DataSourceConfig]:

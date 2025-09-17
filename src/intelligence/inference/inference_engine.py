@@ -11,19 +11,8 @@ import time
 from typing import Dict, List, Optional, Union, Tuple, Any
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
-import logging
-from concurrent.futures import ThreadPoolExecutor
-import threading
-from queue import Queue, Empty
-import psutil
-import orjson
-
-from .caching import PredictionCache, FeatureCache
-from .optimizations import ModelOptimizer
-from ..registry.model_registry import ModelRegistry, ModelVersion
-from ..config import config
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class InferenceRequest:

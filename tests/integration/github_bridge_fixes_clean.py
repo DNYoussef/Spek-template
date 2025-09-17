@@ -29,12 +29,8 @@ Fixed Tool Coordinator - Real Implementation without Import Issues
 
 import json
 import sys
-import logging
-from datetime import datetime
-from typing import Dict, List, Any, Optional
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class FixedToolCoordinator:

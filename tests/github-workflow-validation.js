@@ -122,7 +122,7 @@ class GitHubWorkflowValidator {
 
     triggeredWorkflows.forEach(workflow => {
       const isFailure = Math.random() < workflow.failureRate;
-      const duration = workflow.avgDuration + (Math.random() * 60 - 30); // ±30 seconds variance
+      const duration = workflow.avgDuration + (Math.random() * 60 - 30); // 30 seconds variance
 
       if (isFailure) {
         result.workflowsFailure++;
@@ -165,7 +165,7 @@ class GitHubWorkflowValidator {
    * Run comprehensive test scenarios
    */
   runComprehensiveTest() {
-    console.log('🧪 GITHUB WORKFLOW VALIDATION TEST');
+    console.log(' GITHUB WORKFLOW VALIDATION TEST');
     console.log('=====================================\n');
 
     const scenarios = [
@@ -176,7 +176,7 @@ class GitHubWorkflowValidator {
     const results = {};
 
     scenarios.forEach(scenario => {
-      console.log(`\n🔄 Testing: ${scenario.name}`);
+      console.log(`\n Testing: ${scenario.name}`);
       console.log(`Simulating ${scenario.pushes} pushes...`);
 
       const scenarioResults = [];
@@ -218,7 +218,7 @@ class GitHubWorkflowValidator {
 
       results[scenario.config] = metrics;
 
-      console.log(`✅ Completed: ${totalEmails} emails, ${totalFailures} failures`);
+      console.log(` Completed: ${totalEmails} emails, ${totalFailures} failures`);
     });
 
     return this.generateComparisonReport(results);
@@ -317,42 +317,42 @@ class GitHubWorkflowValidator {
   }
 
   printReport(report) {
-    console.log('\n📊 COMPREHENSIVE VALIDATION REPORT');
+    console.log('\n COMPREHENSIVE VALIDATION REPORT');
     console.log('===================================\n');
 
-    console.log('📧 EMAIL NOTIFICATION ANALYSIS:');
+    console.log(' EMAIL NOTIFICATION ANALYSIS:');
     console.log(`Current State:  ${report.currentState.totalEmails} emails in ${report.currentState.totalPushes} pushes (${report.currentState.emailsPerPush} per push)`);
     console.log(`Proposed State: ${report.proposedState.totalEmails} emails in ${report.proposedState.totalPushes} pushes (${report.proposedState.emailsPerPush} per push)`);
-    console.log(`📈 REDUCTION:   ${report.improvements.emailReduction.absolute} emails (${report.improvements.emailReduction.percentage}% decrease)\n`);
+    console.log(` REDUCTION:   ${report.improvements.emailReduction.absolute} emails (${report.improvements.emailReduction.percentage}% decrease)\n`);
 
-    console.log('⚠️ WORKFLOW FAILURE ANALYSIS:');
+    console.log(' WORKFLOW FAILURE ANALYSIS:');
     console.log(`Current Failure Rate:  ${report.currentState.failureRate}%`);
     console.log(`Proposed Failure Rate: ${report.proposedState.failureRate}%`);
     console.log(`Improvement: ${report.improvements.failureRateChange.improvement} better\n`);
 
-    console.log('🔧 ANALYZER-SPECIFIC ISSUES:');
+    console.log(' ANALYZER-SPECIFIC ISSUES:');
     console.log(`Current Analyzer Failures:  ${report.currentState.analyzerFailures}`);
     console.log(`Proposed Analyzer Failures: ${report.proposedState.analyzerFailures}`);
     console.log(`Reduction: ${report.improvements.analyzerImprovements.reduction} fewer failures\n`);
 
-    console.log('📅 DAILY IMPACT PROJECTION:');
+    console.log(' DAILY IMPACT PROJECTION:');
     console.log(`Current:  ${report.dailyProjections.currentEmailsPerDay} emails/day`);
     console.log(`Proposed: ${report.dailyProjections.proposedEmailsPerDay} emails/day`);
     console.log(`Savings:  ${report.dailyProjections.dailySavings} fewer emails/day\n`);
 
-    console.log('🎯 KEY FINDINGS:');
+    console.log(' KEY FINDINGS:');
     report.keyFindings.forEach((finding, i) => {
       console.log(`${i + 1}. ${finding}`);
     });
 
-    console.log('\n✅ RECOMMENDATIONS (Priority Order):');
+    console.log('\n RECOMMENDATIONS (Priority Order):');
     report.recommendations.forEach((rec, i) => {
       console.log(`\n${i + 1}. [${rec.priority}] ${rec.action}`);
       console.log(`   Impact: ${rec.impact}`);
       console.log(`   Implementation: ${rec.implementation}`);
     });
 
-    console.log('\n🏁 VALIDATION COMPLETE');
+    console.log('\n VALIDATION COMPLETE');
     console.log('Evidence-based metrics confirm significant email reduction potential');
     console.log('with maintained or improved workflow reliability.\n');
   }
@@ -374,5 +374,5 @@ if (typeof window === 'undefined' && require.main === module) {
 
   const resultsFile = path.join(__dirname, 'workflow-validation-results.json');
   fs.writeFileSync(resultsFile, JSON.stringify(results, null, 2));
-  console.log(`📄 Detailed results saved to: ${resultsFile}`);
+  console.log(` Detailed results saved to: ${resultsFile}`);
 }

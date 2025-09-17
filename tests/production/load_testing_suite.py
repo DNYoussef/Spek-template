@@ -9,22 +9,8 @@ that 58.3% performance improvements are maintained under stress.
 """
 
 import asyncio
-import logging
-import multiprocessing
-import os
-import random
-import statistics
-import sys
-import time
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Dict, List, Any, Optional
-import threading
-
-# Setup logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 

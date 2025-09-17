@@ -8,67 +8,8 @@ Feature flag controlled with zero breaking changes to existing functionality.
 
 import os
 import json
-import logging
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, asdict
-from datetime import datetime, timedelta
-from pathlib import Path
-from enum import Enum
-import hashlib
-
-# Feature flags for compliance frameworks
-ENABLE_SOC2_EVIDENCE = os.getenv('ENABLE_SOC2_EVIDENCE', 'false').lower() == 'true'
-ENABLE_ISO27001_COMPLIANCE = os.getenv('ENABLE_ISO27001_COMPLIANCE', 'false').lower() == 'true'
-ENABLE_NIST_SSDF_MAPPING = os.getenv('ENABLE_NIST_SSDF_MAPPING', 'false').lower() == 'true'
-
-class ComplianceStatus(Enum):
-    """Compliance status enumeration"""
-    COMPLIANT = "compliant"
-    NON_COMPLIANT = "non_compliant"
-    PARTIALLY_COMPLIANT = "partially_compliant"
-    NOT_APPLICABLE = "not_applicable"
-    PENDING_REVIEW = "pending_review"
-
-@dataclass
-class ControlEvidence:
-    """Evidence for a specific control"""
-    control_id: str
-    control_name: str
-    status: ComplianceStatus
-    evidence_type: str
-    evidence_data: Dict[str, Any]
-    assessment_date: str
-    assessor: str
-    comments: str = ""
-    artifacts: List[str] = None
-    
-    def __post_init__(self):
-        if self.artifacts is None:
-            self.artifacts = []
-
-@dataclass
-class ComplianceReport:
-    """Comprehensive compliance report"""
-    framework: str
-    version: str
-    assessment_period: Tuple[str, str]
-    overall_status: ComplianceStatus
-    controls: List[ControlEvidence]
-    summary: Dict[str, Any]
-    recommendations: List[str]
-    timestamp: str = ""
-    
-    def __post_init__(self):
-        if not self.timestamp:
-            self.timestamp = datetime.now().isoformat()
-
-class CompliancePackager:
-    """Main compliance evidence packaging engine"""
-    
-    def __init__(self, output_dir: str = ".claude/.artifacts/compliance"):
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
         # Initialize control mappings
         self.soc2_controls = self._initialize_soc2_controls()

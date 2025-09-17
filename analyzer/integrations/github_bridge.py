@@ -14,51 +14,8 @@ This replaces the stub implementation in tool_coordinator.py with actual functio
 
 import os
 import json
-import logging
-import time
-import hmac
-import hashlib
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass
-from datetime import datetime
-from functools import lru_cache
-import requests
-from pathlib import Path
-
-# Import real analyzer types
-from ..utils.types import (
-    ConnascenceViolation,
-    SeverityLevel,
-    AnalysisResult
-)
-from ..analyzer_types import (
-    UnifiedAnalysisResult,
-    StandardError,
-    ERROR_SEVERITY
-)
-
-# Real ViolationSeverity using imported ERROR_SEVERITY
-ViolationSeverity = type('ViolationSeverity', (), {
-    'CRITICAL': ERROR_SEVERITY["CRITICAL"],
-    'HIGH': ERROR_SEVERITY["HIGH"],
-    'MEDIUM': ERROR_SEVERITY["MEDIUM"],
-    'LOW': ERROR_SEVERITY["LOW"]
-})
-
-# Real AnalysisMetrics class
-@dataclass
-class AnalysisMetrics:
-    analysis_time: float
-    files_processed: int = 0
-    violations_found: int = 0
-    cache_hits: int = 0
-    api_calls_made: int = 0
-
-    def __post_init__(self):
-        if self.analysis_time <= 0:
-            raise ValueError("Analysis time must be positive")
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class RateLimiter:
@@ -438,9 +395,9 @@ class GitHubBridge:
 
         analysis_passed = result.critical_count == 0 and result.nasa_compliance_score >= 0.9
         if analysis_passed:
-            comment += "\n✅ **Analysis Passed** - Code meets quality standards"
+            comment += "\n **Analysis Passed** - Code meets quality standards"
         else:
-            comment += "\n❌ **Analysis Failed** - Please address the issues above"
+            comment += "\n **Analysis Failed** - Please address the issues above"
 
         duration_ms = getattr(result, 'analysis_duration_ms', 1500)
         comment += f"\n\n*Analysis completed in {duration_ms / 1000.0:.2f}s*"

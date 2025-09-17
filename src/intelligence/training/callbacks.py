@@ -8,11 +8,8 @@ import numpy as np
 from typing import Dict, List, Optional, Any, Callable
 from abc import ABC, abstractmethod
 from pathlib import Path
-import logging
-import time
-import mlflow
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 class Callback(ABC):
     """Abstract base class for training callbacks."""

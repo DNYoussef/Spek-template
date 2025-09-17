@@ -11,14 +11,8 @@ NASA Rule 7 Compliant: Bounded memory usage with LRU eviction.
 
 import time
 import json
-import logging
-from collections import defaultdict, deque
-from dataclasses import dataclass, field, asdict
-from threading import RLock
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
-import weakref
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

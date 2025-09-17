@@ -3,63 +3,8 @@ Data Validator
 Comprehensive data quality validation and cleansing
 """
 
-import logging
-import pandas as pd
-import numpy as np
-from typing import Dict, List, Optional, Any, Tuple
-from datetime import datetime, timedelta
-from dataclasses import dataclass, field
-import json
-from enum import Enum
-
-from ..config.pipeline_config import config
-
-
-class ValidationSeverity(Enum):
-    """Validation issue severity levels"""
-    INFO = "info"
-    WARNING = "warning"
-    ERROR = "error"
-    CRITICAL = "critical"
-
-
-@dataclass
-class ValidationResult:
-    """Result of data validation"""
-    passed: bool
-    score: float  # 0.0 to 1.0
-    issues: List[Dict[str, Any]] = field(default_factory=list)
-    metrics: Dict[str, Any] = field(default_factory=dict)
-    timestamp: datetime = field(default_factory=datetime.now)
-
-
-@dataclass
-class ValidationIssue:
-    """Individual validation issue"""
-    severity: ValidationSeverity
-    category: str
-    description: str
-    affected_rows: Optional[int] = None
-    suggested_action: Optional[str] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
-
-
-class DataValidator:
-    """
-    Comprehensive data validation system
-
-    Features:
-    - OHLCV data integrity checks
-    - Statistical anomaly detection
-    - Completeness validation
-    - Temporal consistency checks
-    - Cross-source validation
-    - Business rule enforcement
-    - Data quality scoring
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.validation_rules = self._load_validation_rules()
         self.quality_thresholds = config.validation
 

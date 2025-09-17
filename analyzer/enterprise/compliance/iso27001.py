@@ -22,49 +22,8 @@ Assessment includes risk evaluation, control implementation status, and gap anal
 
 import asyncio
 import json
-import logging
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Set
-from dataclasses import dataclass, field
-import yaml
-
-
-@dataclass
-class ISO27001Control:
-    """ISO27001:2022 Annex A control definition"""
-    control_id: str  # A.5.1, A.6.1, etc.
-    category: str    # A.5, A.6, etc.
-    title: str
-    objective: str
-    guidance: str = ""
-    implementation_guidance: List[str] = field(default_factory=list)
-    risk_level: str = "medium"  # low, medium, high, critical
-    mandatory: bool = True
-    evidence_types: List[str] = field(default_factory=list)
-    automation_possible: bool = False
-
-
-@dataclass 
-class ControlAssessment:
-    """Assessment of ISO27001 control implementation"""
-    control_id: str
-    implementation_status: str  # not_implemented, partially, implemented, not_applicable
-    effectiveness_rating: str  # ineffective, partially_effective, effective, highly_effective
-    evidence_collected: List[Dict[str, Any]] = field(default_factory=list)
-    risk_rating: str = "medium"  # low, medium, high, critical
-    gaps_identified: List[str] = field(default_factory=list)
-    recommendations: List[str] = field(default_factory=list)
-    assessment_timestamp: datetime = field(default_factory=datetime.now)
-    assessor: str = "automated"
-
-
-class ISO27001ControlMapper:
-    """ISO27001:2022 control mapping and assessment engine"""
-    
-    def __init__(self, config):
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.assessments: List[ControlAssessment] = []
         
         # ISO27001:2022 Annex A controls catalog

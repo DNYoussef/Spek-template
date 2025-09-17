@@ -6,84 +6,8 @@ Monitors system availability in real-time with 99.9% SLA validation.
 Provides comprehensive uptime tracking, SLA breach detection, and reporting.
 """
 
-import logging
-import threading
-import time
-import statistics
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any, Tuple, Union
-from enum import Enum
-from dataclasses import dataclass, field
-from collections import deque, defaultdict
-import concurrent.futures
-
-
-class AvailabilityState(Enum):
-    """System availability states."""
-    AVAILABLE = "available"
-    DEGRADED = "degraded"
-    UNAVAILABLE = "unavailable"
-    MAINTENANCE = "maintenance"
-    UNKNOWN = "unknown"
-
-
-class SLAThreshold(Enum):
-    """SLA threshold levels."""
-    GOLD = 0.9999    # 99.99% - 52.6 minutes/year
-    SILVER = 0.999   # 99.9% - 8.77 hours/year
-    BRONZE = 0.99    # 99% - 87.7 hours/year
-    BASIC = 0.95     # 95% - 438.3 hours/year
-
-
-@dataclass
-class AvailabilityIncident:
-    """Individual availability incident record."""
-    component: str
-    start_time: datetime
-    end_time: Optional[datetime] = None
-    state: AvailabilityState = AvailabilityState.UNAVAILABLE
-    impact_level: str = "high"  # low, medium, high, critical
-    root_cause: Optional[str] = None
-    resolution_actions: List[str] = field(default_factory=list)
-    mttr_seconds: Optional[float] = None  # Mean Time To Recovery
-
-
-@dataclass
-class SLAMetrics:
-    """SLA performance metrics."""
-    availability_percentage: float = 0.0
-    uptime_seconds: float = 0.0
-    downtime_seconds: float = 0.0
-    total_incidents: int = 0
-    mttr_average: float = 0.0  # Mean Time To Recovery
-    mtbf_average: float = 0.0  # Mean Time Between Failures
-    sla_target: float = 0.999
-    sla_met: bool = True
-    downtime_budget_used: float = 0.0
-    downtime_budget_remaining: float = 0.0
-
-
-class AvailabilityMonitor:
-    """
-    Real-time availability monitor with 99.9% SLA validation.
-
-    Features:
-    - Real-time availability tracking
-    - SLA threshold monitoring
-    - Incident detection and recording
-    - Downtime budget tracking
-    - Performance metrics calculation
-    """
-
-    def __init__(self, config: Dict[str, Any]):
-        """
-        Initialize AvailabilityMonitor with configuration.
-
-        Args:
-            config: Monitor configuration dictionary
-        """
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
         # SLA configuration
         self.sla_target = config.get('sla_target', 0.999)  # 99.9% default

@@ -27,23 +27,8 @@ This provides a single entry point for generating reports in any format
 while maintaining compatibility with all existing components.
 """
 
-import logging
-from pathlib import Path
-import sys
-from typing import Any, Dict, List, Optional, Union
-
-# Add parent directories to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-# Import existing reporting modules
-from analyzer.reporting.json import JSONReporter
-from analyzer.reporting.markdown import MarkdownReporter
-from analyzer.reporting.sarif import SARIFReporter
-
-# Import unified analyzer
-from analyzer.unified_analyzer import UnifiedAnalysisResult
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class UnifiedReportingCoordinator:

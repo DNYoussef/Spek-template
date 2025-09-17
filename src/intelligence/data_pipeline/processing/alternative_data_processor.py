@@ -5,78 +5,8 @@ Integration and processing of alternative data sources for enhanced trading sign
 
 import asyncio
 import aiohttp
-import logging
-from typing import Dict, List, Optional, Any, Tuple
-from datetime import datetime, timedelta
-import pandas as pd
-import numpy as np
-from dataclasses import dataclass, field
-from collections import deque, defaultdict
-import json
-import time
-import re
-from concurrent.futures import ThreadPoolExecutor
-
-from ..config.pipeline_config import config
-
-
-@dataclass
-class SocialSentimentData:
-    """Social sentiment data structure"""
-    platform: str  # "twitter", "reddit", "stocktwits"
-    symbol: str
-    timestamp: datetime
-    message_count: int
-    positive_count: int
-    negative_count: int
-    neutral_count: int
-    sentiment_score: float  # -1 to 1
-    volume_mentions: int
-    influencer_mentions: int
-    raw_messages: List[str] = field(default_factory=list)
-
-
-@dataclass
-class EconomicIndicator:
-    """Economic indicator data"""
-    indicator_name: str
-    value: float
-    timestamp: datetime
-    previous_value: Optional[float] = None
-    change_percent: Optional[float] = None
-    impact_level: str = "medium"  # "low", "medium", "high"
-    source: str = "fred"
-
-
-@dataclass
-class AlternativeSignal:
-    """Processed alternative data signal"""
-    signal_type: str  # "social", "economic", "insider", "satellite"
-    symbol: str
-    strength: float  # 0-1
-    direction: str  # "bullish", "bearish", "neutral"
-    confidence: float  # 0-1
-    timestamp: datetime
-    data_points: int
-    raw_data: Dict[str, Any] = field(default_factory=dict)
-    expires_at: Optional[datetime] = None
-
-
-class AlternativeDataProcessor:
-    """
-    Alternative data processing engine
-
-    Features:
-    - Social sentiment aggregation (Twitter, Reddit, StockTwits)
-    - Economic indicators integration (FRED API)
-    - Insider trading tracking
-    - Satellite data processing (experimental)
-    - Cross-platform sentiment correlation
-    - Signal generation and scoring
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.session: Optional[aiohttp.ClientSession] = None
         self.executor = ThreadPoolExecutor(max_workers=2)
 

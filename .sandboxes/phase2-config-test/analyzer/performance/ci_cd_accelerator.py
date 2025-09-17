@@ -28,23 +28,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
-import logging
-import statistics
-import hashlib
-from enum import Enum
-from contextlib import contextmanager
-
-# Import optimization components
-try:
-    from .optimizer import get_global_optimization_engine
-    from .incremental_analyzer import get_global_incremental_engine
-    from ..optimization.file_cache import get_global_cache
-    OPTIMIZATION_COMPONENTS_AVAILABLE = True
-except ImportError as e:
-    logging.warning(f"Optimization components not available: {e}")
-    OPTIMIZATION_COMPONENTS_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class PipelineStage(Enum):

@@ -222,10 +222,8 @@ DEFAULT_CONFIG = {{
                 module_path = package_path / f"module_{module_idx}.py"
                 module_path.write_text(f"""
 import json
-import logging
-from typing import Dict, List, Any
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 CONFIG_TIMEOUT = {30 + package_idx}  # Magic literal
 MAX_RETRIES = {3 + package_idx}      # Magic literal

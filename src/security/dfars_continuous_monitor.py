@@ -1,3 +1,4 @@
+from lib.shared.utilities import get_logger
 #!/usr/bin/env python3
 """
 DFARS Continuous Compliance Monitoring System
@@ -6,7 +7,7 @@ Real-time monitoring for DFARS 252.204-7012 compliance with automated alerting
 
 import asyncio
 import json
-import logging
+
 import time
 from datetime import datetime, timedelta
 from enum import Enum
@@ -262,7 +263,7 @@ class DFARSContinuousMonitor:
 
     def __init__(self, dfars_workflow_system):
         self.dfars_system = dfars_workflow_system
-        self.logger = logging.getLogger("DFARS_Monitor")
+        self.logger = get_logger("\1")
 
         # Monitoring components
         self.performance_baseline = PerformanceBaseline()

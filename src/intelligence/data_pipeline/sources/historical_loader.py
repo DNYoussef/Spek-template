@@ -9,44 +9,8 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Tuple, Any
 import numpy as np
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import logging
-from dataclasses import dataclass
-
-from ..config.pipeline_config import config
-from .alpaca_source import AlpacaSource
-from .polygon_source import PolygonSource
-from .yahoo_source import YahooSource
-
-
-@dataclass
-class DataRequest:
-    """Data request specification"""
-    symbol: str
-    start_date: datetime
-    end_date: datetime
-    timeframe: str = "1D"  # 1Min, 5Min, 15Min, 1H, 1D
-    source: str = "yahoo"  # Primary source
-    fallback_sources: List[str] = None
-
-    def __post_init__(self):
-        if self.fallback_sources is None:
-            self.fallback_sources = ["alpaca", "polygon"]
-
-
-class HistoricalDataLoader:
-    """
-    High-performance historical data loader with multi-source support
-
-    Features:
-    - Parallel data fetching from multiple sources
-    - Automatic failover and data quality validation
-    - Efficient batch processing for large datasets
-    - Data normalization and cleaning
-    - Progress tracking and error handling
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.sources = self._initialize_sources()
         self.executor = ThreadPoolExecutor(max_workers=config.processing.processing_threads)
 

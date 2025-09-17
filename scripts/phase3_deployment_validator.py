@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Phase 3 Deployment Validator
@@ -341,7 +342,7 @@ class Phase3DeploymentValidator:
             '.claude/.artifacts/monitoring/security_compliance_audit.json'
         ]
         
-        monitoring_coverage = sum(1 for artifact in monitoring_artifacts if Path(artifact).exists()) / len(monitoring_artifacts)
+        monitoring_coverage = sum(1 for artifact in monitoring_artifacts if path_exists(artifact)) / len(monitoring_artifacts)
         deployment_readiness['monitoring_readiness_score'] = monitoring_coverage
         
         if monitoring_coverage < 0.5:
@@ -354,7 +355,7 @@ class Phase3DeploymentValidator:
             '.github/workflows/enhanced-quality-gates.yml'
         ]
         
-        automation_coverage = sum(1 for workflow in automation_workflows if Path(workflow).exists()) / len(automation_workflows)
+        automation_coverage = sum(1 for workflow in automation_workflows if path_exists(workflow)) / len(automation_workflows)
         deployment_readiness['automation_readiness_score'] = automation_coverage
         
         if automation_coverage < 0.75:

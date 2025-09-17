@@ -21,118 +21,8 @@ Security:
 
 import os
 import sys
-import logging
-import json
-import signal
-from datetime import datetime, timezone
-from typing import Dict, List, Optional, Any
-from pathlib import Path
-
-# Import the WeeklyCycle - this fixes the import failure
-try:
-    from .weekly_cycle import WeeklyCycle, CycleConfig, CyclePhase
-except ImportError as e:
-    # Handle development/testing scenarios
-    sys.path.append(str(Path(__file__).parent))
-    from weekly_cycle import WeeklyCycle, CycleConfig, CyclePhase
-
-# Import profit calculator
-try:
-    from .profit_calculator import ProfitCalculator, ProfitSplitConfig
-except ImportError:
-    # Will be created next
-    ProfitCalculator = None
-    ProfitSplitConfig = None
-
-class SiphonAutomatorConfig:
-    """Configuration for weekly siphon automation."""
-    
-    def __init__(self):
-        # Load from environment variables for security
-        self.enabled = os.getenv('SIPHON_ENABLED', 'true').lower() == 'true'
-        self.profit_split_ratio = float(os.getenv('PROFIT_SPLIT_RATIO', '0.50'))
-        self.min_profit_threshold = float(os.getenv('MIN_PROFIT_THRESHOLD', '100.0'))
-        self.max_siphon_amount = float(os.getenv('MAX_SIPHON_AMOUNT', '10000.0'))
-        
-        # Scheduling
-        self.execution_day = os.getenv('EXECUTION_DAY', 'friday')
-        self.execution_time = os.getenv('EXECUTION_TIME', '18:00')  # 6:00pm ET
-        self.timezone = os.getenv('TIMEZONE', 'US/Eastern')
-        
-        # Safety features
-        self.dry_run = os.getenv('DRY_RUN', 'false').lower() == 'true'
-        self.require_confirmation = os.getenv('REQUIRE_CONFIRMATION', 'true').lower() == 'true'
-        
-        # Logging and audit
-        self.log_level = os.getenv('LOG_LEVEL', 'INFO')
-        self.audit_log_path = os.getenv('AUDIT_LOG_PATH', './logs/siphon_audit.log')
-        self.metrics_path = os.getenv('METRICS_PATH', './logs/siphon_metrics.json')
-
-class WeeklySiphonAutomator:
-    """Automated weekly profit siphoning system.
-    
-    This class addresses the theater detection findings by:
-    1. Implementing real WeeklyCycle integration (not mocked)
-    2. Providing actual Friday 6:00pm automation
-    3. Implementing genuine 50/50 profit splitting logic
-    4. Creating verifiable automation that can be tested
-    
-    Key Features:
-    - Real-time profit calculation and extraction
-    - Integration with existing trading infrastructure
-    - Comprehensive error handling and rollback
-    - Full audit trails for compliance
-    - Safety mechanisms (dry-run, confirmation, limits)
-    """
-    
-    def __init__(
-        self,
-        weekly_cycle: Optional[WeeklyCycle] = None,
-        profit_calculator: Optional[ProfitCalculator] = None,
-        config: Optional[SiphonAutomatorConfig] = None
-    ):
-        """Initialize the siphon automator.
-        
-        Args:
-            weekly_cycle: WeeklyCycle instance for integration
-            profit_calculator: Profit calculation engine
-            config: Siphon configuration
-        """
-        self.config = config or SiphonAutomatorConfig()
-        self.weekly_cycle = weekly_cycle
-        self.profit_calculator = profit_calculator
-        
-        # State tracking
-        self.automation_enabled = self.config.enabled
-        self.last_siphon_execution = None
-        self.siphon_history: List[Dict[str, Any]] = []
-        self.errors: List[str] = []
-        
-        # Setup logging
-        self.logger = self._setup_logging()
-        
-        # Initialize WeeklyCycle if not provided
-        if not self.weekly_cycle:
-            cycle_config = CycleConfig()
-            cycle_config.PROFIT_SPLIT_RATIO = self.config.profit_split_ratio
-            cycle_config.MIN_PROFIT_THRESHOLD = self.config.min_profit_threshold
-            
-            self.weekly_cycle = WeeklyCycle(config=cycle_config)
-            self.logger.info("Initialized WeeklyCycle for siphon automation")
-        
-        # Initialize profit calculator if not provided
-        if not self.profit_calculator and ProfitCalculator:
-            split_config = ProfitSplitConfig(
-                split_ratio=self.config.profit_split_ratio,
-                min_threshold=self.config.min_profit_threshold
-            )
-            self.profit_calculator = ProfitCalculator(config=split_config)
-            
-        self.logger.info("WeeklySiphonAutomator initialized successfully")
-        
-    def _setup_logging(self) -> logging.Logger:
-        """Setup comprehensive logging with audit trail."""
-        logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         logger.setLevel(getattr(logging, self.config.log_level))
         
         # Ensure log directory exists
@@ -328,7 +218,7 @@ class WeeklySiphonAutomator:
             
             # Load existing metrics
             existing_metrics = []
-            if Path(self.config.metrics_path).exists():
+            if path_exists(self.config.metrics_path):
                 with open(self.config.metrics_path, 'r') as f:
                     existing_metrics = json.load(f)
             

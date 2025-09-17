@@ -5,24 +5,8 @@ Validates all 14 control families and generates compliance certification.
 """
 
 import json
-import logging
-import sys
-from datetime import datetime, timezone
-from pathlib import Path
-from typing import Dict, List, Any, Tuple
-
-# Add src to path for imports
-sys.path.append(str(Path(__file__).parent.parent))
-
-from security.dfars_comprehensive_integration import DFARSComprehensiveIntegration, ComplianceLevel
-from security.dfars_access_control import DFARSAccessControl
-from security.dfars_incident_response import DFARSIncidentResponse
-from security.dfars_media_protection import DFARSMediaProtection
-from security.dfars_system_communications import DFARSSystemCommunications
-from security.dfars_personnel_security import DFARSPersonnelSecurity
-from security.dfars_physical_protection import DFARSPhysicalProtection
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class DFARSComplianceValidator:

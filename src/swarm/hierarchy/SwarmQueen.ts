@@ -80,7 +80,7 @@ export class SwarmQueen extends EventEmitter {
   async initialize(): Promise<void> {
     if (this.initialized) return;
 
-    console.log('👑 Initializing Swarm Queen with 6 Princess Domains...');
+    console.log(' Initializing Swarm Queen with 6 Princess Domains...');
 
     // Create princess configurations
     this.createPrincessConfigurations();
@@ -105,7 +105,7 @@ export class SwarmQueen extends EventEmitter {
     this.initialized = true;
     this.emit('queen:initialized', this.getMetrics());
 
-    console.log('👑 Swarm Queen initialized with 85+ agents across 6 domains');
+    console.log(' Swarm Queen initialized with 85+ agents across 6 domains');
   }
 
   /**
@@ -199,7 +199,7 @@ export class SwarmQueen extends EventEmitter {
 
         this.princesses.set(id, princess);
         
-        console.log(`✨ Princess ${id} initialized with ${config.agentCount} agents`);
+        console.log(` Princess ${id} initialized with ${config.agentCount} agents`);
       }
     );
 
@@ -379,7 +379,7 @@ export class SwarmQueen extends EventEmitter {
     princessId: string,
     degradation: number
   ): Promise<void> {
-    console.log(`🚨 Handling degradation for task ${task.id} from ${princessId}`);
+    console.log(` Handling degradation for task ${task.id} from ${princessId}`);
 
     // Escalate to consensus
     await this.consensus.propose(
@@ -410,7 +410,7 @@ export class SwarmQueen extends EventEmitter {
    * Synchronize all princesses
    */
   private async synchronizeAllPrincesses(): Promise<void> {
-    console.log('🔄 Synchronizing all princess domains...');
+    console.log(' Synchronizing all princess domains...');
 
     // Get truth from GitHub MCP
     const githubTruth = await this.githubIntegration.getProcessTruth();
@@ -447,10 +447,10 @@ export class SwarmQueen extends EventEmitter {
     const averageIntegrity = results.reduce((sum, r) => sum + r.integrity, 0) / results.length;
 
     if (averageIntegrity < 0.85) {
-      console.warn(`⚠️ Low average integrity: ${averageIntegrity}`);
+      console.warn(` Low average integrity: ${averageIntegrity}`);
       await this.initiateRecovery();
     } else {
-      console.log(`✅ Synchronization verified: ${(averageIntegrity * 100).toFixed(1)}% integrity`);
+      console.log(` Synchronization verified: ${(averageIntegrity * 100).toFixed(1)}% integrity`);
     }
   }
 
@@ -458,7 +458,7 @@ export class SwarmQueen extends EventEmitter {
    * Initiate recovery procedures
    */
   private async initiateRecovery(): Promise<void> {
-    console.log('🔧 Initiating recovery procedures...');
+    console.log(' Initiating recovery procedures...');
 
     // Use consensus for recovery strategy
     await this.consensus.propose(
@@ -494,7 +494,7 @@ export class SwarmQueen extends EventEmitter {
     const unhealthyPrincesses = results.filter(r => !r.healthy);
 
     if (unhealthyPrincesses.length > 0) {
-      console.warn(`⚠️ ${unhealthyPrincesses.length} unhealthy princesses detected`);
+      console.warn(` ${unhealthyPrincesses.length} unhealthy princesses detected`);
       
       for (const { princess, error } of unhealthyPrincesses) {
         await this.healPrincess(princess, error);
@@ -508,7 +508,7 @@ export class SwarmQueen extends EventEmitter {
    * Heal an unhealthy princess
    */
   private async healPrincess(princessId: string, error: any): Promise<void> {
-    console.log(`💊 Healing princess ${princessId}...`);
+    console.log(` Healing princess ${princessId}...`);
 
     const princess = this.princesses.get(princessId);
     if (!princess) return;
@@ -528,7 +528,7 @@ export class SwarmQueen extends EventEmitter {
         await princess.restoreContext(context);
       }
 
-      console.log(`✅ Princess ${princessId} healed successfully`);
+      console.log(` Princess ${princessId} healed successfully`);
 
     } catch (healError) {
       console.error(`Failed to heal princess ${princessId}:`, healError);
@@ -542,7 +542,7 @@ export class SwarmQueen extends EventEmitter {
    * Quarantine a problematic princess
    */
   private async quarantinePrincess(princessId: string): Promise<void> {
-    console.warn(`🔒 Quarantining princess ${princessId}`);
+    console.warn(` Quarantining princess ${princessId}`);
     
     const princess = this.princesses.get(princessId);
     if (!princess) return;
@@ -576,7 +576,7 @@ export class SwarmQueen extends EventEmitter {
     }
 
     // Distribute evenly among candidates
-    console.log(`📊 Redistributing ${failedType} workload to ${candidates.length} princesses`);
+    console.log(` Redistributing ${failedType} workload to ${candidates.length} princesses`);
     
     for (const [id, princess] of candidates) {
       await princess.increaseCapacity(20); // Increase capacity by 20%
@@ -589,31 +589,31 @@ export class SwarmQueen extends EventEmitter {
   private setupEventHandlers(): void {
     // Consensus events
     this.consensus.on('consensus:reached', (proposal) => {
-      console.log(`✅ Consensus reached: ${proposal.id}`);
+      console.log(` Consensus reached: ${proposal.id}`);
     });
 
     this.consensus.on('byzantine:detected', ({ princess, pattern }) => {
-      console.warn(`⚠️ Byzantine behavior detected: ${princess} - ${pattern}`);
+      console.warn(` Byzantine behavior detected: ${princess} - ${pattern}`);
     });
 
     // Protocol events
     this.protocol.on('message:failed', ({ message, target }) => {
-      console.error(`❌ Message delivery failed to ${target}`);
+      console.error(` Message delivery failed to ${target}`);
     });
 
     this.protocol.on('princess:unresponsive', ({ princess }) => {
-      console.warn(`⚠️ Princess ${princess} unresponsive`);
+      console.warn(` Princess ${princess} unresponsive`);
       this.healPrincess(princess, new Error('Unresponsive'));
     });
 
     // Router events
     this.router.on('circuit:open', ({ princess }) => {
-      console.warn(`⚡ Circuit breaker opened for ${princess}`);
+      console.warn(` Circuit breaker opened for ${princess}`);
     });
 
     // Degradation events
     this.degradationMonitor.on('degradation:critical', (data) => {
-      console.error(`🚨 Critical degradation detected:`, data);
+      console.error(` Critical degradation detected:`, data);
       this.initiateRecovery();
     });
 
@@ -750,7 +750,7 @@ export class SwarmQueen extends EventEmitter {
    * Shutdown the queen and all systems
    */
   async shutdown(): Promise<void> {
-    console.log('👑 Shutting down Swarm Queen...');
+    console.log(' Shutting down Swarm Queen...');
     
     // Save state
     await this.saveState();
@@ -779,6 +779,6 @@ export class SwarmQueen extends EventEmitter {
     };
     
     // Would persist to disk or database
-    console.log('💾 Queen state saved');
+    console.log(' Queen state saved');
   }
 }

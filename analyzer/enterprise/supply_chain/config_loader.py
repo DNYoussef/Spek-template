@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Configuration Loader for Supply Chain Security
 Loads and validates enterprise configuration settings.
@@ -51,7 +52,7 @@ class SupplyChainConfigLoader:
         ]
         
         for path in search_paths:
-            if Path(path).exists():
+            if path_exists(path):
                 return str(Path(path).resolve())
         
         # Return default path if none found

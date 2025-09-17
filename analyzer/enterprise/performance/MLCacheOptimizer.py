@@ -20,47 +20,8 @@ NASA POT10 Rule 7: Bounded resource management
 import asyncio
 import hashlib
 import json
-import logging
-import pickle
-import threading
-import time
-from collections import defaultdict, deque, OrderedDict
-from contextlib import contextmanager
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
-import uuid
-import weakref
-import numpy as np
-from concurrent.futures import ThreadPoolExecutor
-import psutil
-import zlib
-
-try:
-    from sklearn.linear_model import LinearRegression
-    from sklearn.ensemble import RandomForestRegressor
-    from sklearn.preprocessing import StandardScaler
-    SKLEARN_AVAILABLE = True
-except ImportError:
-    SKLEARN_AVAILABLE = False
-    # Fallback simple implementations
-    class LinearRegression:
-        def __init__(self): self.coef_ = None
-        def fit(self, X, y): pass
-        def predict(self, X): return [0.5] * len(X)
-    
-    class RandomForestRegressor:
-        def __init__(self, *args, **kwargs): pass
-        def fit(self, X, y): pass
-        def predict(self, X): return [0.5] * len(X)
-    
-    class StandardScaler:
-        def __init__(self): pass
-        def fit_transform(self, X): return X
-        def transform(self, X): return X
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

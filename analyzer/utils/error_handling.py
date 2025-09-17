@@ -1,20 +1,28 @@
 """
-Centralized Error Handling - Eliminates Connascence of Algorithm
-================================================================
+ANALYZER ERROR HANDLER - USES SHARED UTILITIES
+==============================================
 
-Standardized error handling patterns that eliminate duplicate error handling
-algorithms across the analyzer system and provide consistent error responses.
+This module migrates from analyzer-specific error handling to the unified
+shared utilities system, providing consistent error management.
+
+Migrated from: analyzer/utils/error_handling.py
+To use: lib/shared/utilities/error_handling.py
+
+Eliminated patterns:
+- Direct logging.getLogger calls → get_analyzer_logger
+- Duplicate error classification → unified ErrorCategory
+- Local exception handling → shared ErrorHandler
 """
 
-import logging
-import traceback
-from typing import Any, Dict, List, Optional, Callable, Type
-from dataclasses import dataclass
+from lib.shared.utilities.logging_setup import get_analyzer_logger
 from enum import Enum
 import time
+import traceback
+from typing import Any, Dict, List, Optional, Callable
+from dataclasses import dataclass
 from functools import wraps
 
-logger = logging.getLogger(__name__)
+logger = get_analyzer_logger(__name__)
 
 
 class ErrorSeverity(Enum):

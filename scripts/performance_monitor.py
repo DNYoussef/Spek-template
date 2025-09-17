@@ -31,35 +31,8 @@ import sys
 from dataclasses import asdict
 from pathlib import Path
 from typing import Dict, List, Optional, Any
-import logging
-from datetime import datetime, timedelta
-
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-# Import performance monitoring components
-try:
-    from analyzer.performance.optimizer import (
-        get_global_optimization_engine, optimize_analyzer_performance
-    )
-    from analyzer.performance.real_time_monitor import (
-        get_global_real_time_monitor, PerformanceAlert, AlertSeverity
-    )
-    from analyzer.performance.cache_performance_profiler import get_global_profiler
-    PERFORMANCE_MONITORING_AVAILABLE = True
-except ImportError as e:
-    print(f"Warning: Performance monitoring components not available: {e}")
-    PERFORMANCE_MONITORING_AVAILABLE = False
-
-# Import configuration management
-try:
-    import yaml
-    YAML_AVAILABLE = True
-except ImportError:
-    YAML_AVAILABLE = False
-    print("Warning: PyYAML not available. Using JSON configuration fallback.")
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class PerformanceMonitoringDashboard:
@@ -583,7 +556,7 @@ class PerformanceRegressionChecker:
         self.baseline_data: Optional[Dict[str, Any]] = None
         self.regression_threshold = 15.0  # 15% degradation threshold
         
-        if self.baseline_file and Path(self.baseline_file).exists():
+        if self.baseline_file and path_exists(self.baseline_file):
             self._load_baseline_data()
     
     def _load_baseline_data(self) -> None:
@@ -605,7 +578,7 @@ class PerformanceRegressionChecker:
         assert project_path, "project_path cannot be empty"
         
         # Get current performance metrics
-        if current_metrics_file and Path(current_metrics_file).exists():
+        if current_metrics_file and path_exists(current_metrics_file):
             with open(current_metrics_file, 'r') as f:
                 current_metrics = json.load(f)
         else:
@@ -713,7 +686,7 @@ class PerformanceRegressionChecker:
 
 def load_config(config_file: Optional[str]) -> Dict[str, Any]:
     """Load configuration from YAML or JSON file."""
-    if not config_file or not Path(config_file).exists():
+    if not config_file or not path_exists(config_file):
         return {}
     
     try:

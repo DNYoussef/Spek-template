@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 CI integration dashboard for self-analysis visualization.
@@ -38,7 +39,7 @@ def main():
         (args.god_object_results, 'god_objects'),
         (args.correlation_results, 'correlation')
     ]:
-        if result_file and os.path.exists(result_file):
+        if result_file and path_exists(result_file):
             try:
                 with open(result_file, 'r') as f:
                     data[key] = json.load(f)

@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 # NASA POT10 Rule 3: Minimize dynamic memory allocation
 # Consider using fixed-size arrays or generators for large data processing
 #!/usr/bin/env python3
@@ -9,7 +10,7 @@ def safe_load_json(filepath, default=None):
     if default is None:
         default = {}
     try:
-        if os.path.exists(filepath):
+        if path_exists(filepath):
             with open(filepath, 'r') as f:
                 return json.load(f)
     except:

@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Enterprise Integration Test Suite
@@ -28,7 +29,7 @@ class TestEnterpriseIntegration(unittest.TestCase):
     def _cleanup_test_dir(self):
         """Clean up test environment."""
         import shutil
-        if os.path.exists(self.test_dir):
+        if path_exists(self.test_dir):
             shutil.rmtree(self.test_dir, ignore_errors=True)
     
     def test_core_analyzer_initialization(self):

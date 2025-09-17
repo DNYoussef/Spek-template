@@ -19,25 +19,8 @@ Usage:
 
 import ast
 import json
-import logging
-import time
-from collections import defaultdict
-from dataclasses import dataclass, asdict
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
-import sys
-
-# Add project root to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from utils.types import ConnascenceViolation
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -339,7 +322,7 @@ class AutomatedFunctionRefactorer:
     def analyze_oversized_functions(self, file_path: str) -> List[FunctionRefactoringPlan]:
         """Identify functions exceeding line limits and create refactoring plans."""
         assert file_path is not None, "File path cannot be None"
-        assert Path(file_path).exists(), f"File does not exist: {file_path}"
+        assert path_exists(file_path), f"File does not exist: {file_path}"
 
         try:
             content = Path(file_path).read_text(encoding='utf-8')

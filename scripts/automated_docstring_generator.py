@@ -12,10 +12,8 @@ import os
 import re
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Tuple
-import logging
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 class DocstringGenerator:
     """AI-powered docstring generation for Python code."""

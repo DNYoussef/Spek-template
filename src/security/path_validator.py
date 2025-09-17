@@ -8,9 +8,8 @@ import re
 from pathlib import Path
 from typing import List, Set, Optional, Dict, Any
 from urllib.parse import unquote
-import logging
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class PathSecurityValidator:

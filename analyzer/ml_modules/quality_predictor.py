@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Quality Predictor ML Module
 Predicts code quality using machine learning techniques.
@@ -84,7 +85,7 @@ class QualityPredictor:
 
     def extract_features(self, file_path: str) -> Dict[str, float]:
         """Extract features from code file for ML prediction."""
-        if not os.path.exists(file_path):
+        if not path_exists(file_path):
             return {}
 
         try:

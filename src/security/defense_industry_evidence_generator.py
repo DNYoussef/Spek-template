@@ -9,28 +9,8 @@ audits with complete theater detection documentation.
 import asyncio
 import hashlib
 import json
-import logging
-import os
-import tarfile
-import zipfile
-from dataclasses import dataclass, field
-from datetime import datetime, timezone, timedelta
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Set, Tuple
-import subprocess
-import tempfile
-
-from .enterprise_theater_detection import (
-    EnterpriseTheaterDetector,
-    TheaterDetectionReport,
-    TheaterEvidence,
-    TheaterSeverity,
-    ValidationMetrics
-)
-from .continuous_theater_monitor import ContinuousTheaterMonitor
-
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

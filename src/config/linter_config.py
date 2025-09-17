@@ -6,11 +6,8 @@ from typing import Dict, List, Optional, Any, Union
 import json
 import yaml
 import configparser
-import logging
-
-from src.models.linter_models import LinterConfig, StandardSeverity
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

@@ -11,17 +11,8 @@ MISSION: Fix security validation theater - deliver REAL security scanning.
 
 import asyncio
 import json
-import logging
-import os
-import subprocess
-import time
-from dataclasses import dataclass, asdict
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Set, Any
-import tempfile
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

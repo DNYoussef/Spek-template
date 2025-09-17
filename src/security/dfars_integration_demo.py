@@ -1,3 +1,4 @@
+from lib.shared.utilities import get_logger
 #!/usr/bin/env python3
 """
 DFARS Compliance Integration Demonstration
@@ -52,7 +53,7 @@ class DFARSIntegrationDemo:
 
     def _setup_logging(self) -> logging.Logger:
         """Setup demonstration logging"""
-        logger = logging.getLogger("DFARS_Demo")
+        logger = get_logger("\1")
         logger.setLevel(logging.INFO)
 
         # Console handler

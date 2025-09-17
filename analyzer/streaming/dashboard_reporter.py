@@ -11,16 +11,8 @@ NASA Rule 7 Compliant: Bounded data structures with automatic cleanup.
 
 import json
 import time
-import logging
-from collections import deque, defaultdict
-from dataclasses import dataclass, field, asdict
-from typing import Any, Dict, List, Optional, Tuple, Union
-from threading import RLock
-
-from .result_aggregator import get_global_stream_aggregator, AggregatedResult
-from ..optimization.streaming_performance_monitor import get_global_streaming_monitor
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

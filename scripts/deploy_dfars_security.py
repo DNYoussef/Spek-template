@@ -5,28 +5,8 @@ Automated deployment of defense-grade security controls with compliance validati
 """
 
 import json
-import logging
-import time
-import asyncio
-import subprocess
-import sys
-from pathlib import Path
-from typing import Dict, List, Any, Optional
-from dataclasses import dataclass, asdict
-from enum import Enum
-import argparse
-import yaml
-
-# Add src to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-
-from src.security.dfars_remediation_engine import create_dfars_remediation_engine
-from src.security.access_control_system import create_access_control_system
-from src.security.enhanced_incident_response_system import create_enhanced_incident_response_system
-from src.security.dfars_compliance_validation_system import create_dfars_validation_system, ValidationLevel
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class DeploymentPhase(Enum):
@@ -132,7 +112,7 @@ class DFARSSecurityDeployment:
             }
         }
 
-        if config_path and Path(config_path).exists():
+        if config_path and path_exists(config_path):
             try:
                 with open(config_path, 'r') as f:
                     if config_path.endswith('.yaml') or config_path.endswith('.yml'):

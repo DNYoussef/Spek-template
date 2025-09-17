@@ -8,26 +8,8 @@ import pandas as pd
 from datetime import datetime, timedelta
 from typing import Optional, Dict, Any, List
 import asyncio
-import logging
-from dataclasses import asdict
-
-from ..config.pipeline_config import DataSourceConfig
-
-
-class PolygonSource:
-    """
-    Polygon.io data source connector
-
-    Supports:
-    - Stocks, options, forex, crypto
-    - Real-time and historical data
-    - News and market events
-    - Corporate actions and dividends
-    """
-
-    def __init__(self, config: DataSourceConfig):
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.session = None
 
     async def _get_session(self) -> aiohttp.ClientSession:

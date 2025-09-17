@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 # SPDX-License-Identifier: MIT
 """
 Function Decomposer - NASA Rule 2 Compliance Agent
@@ -119,7 +120,7 @@ class FunctionDecomposer:
         """
         # NASA Rule 5: Input validation
         assert project_path is not None, "project_path cannot be None"
-        assert Path(project_path).exists(), f"Project path must exist: {project_path}"
+        assert path_exists(project_path), f"Project path must exist: {project_path}"
         
         violations = []
         project_path_obj = Path(project_path)
@@ -149,7 +150,7 @@ class FunctionDecomposer:
         """
         # NASA Rule 5: Input validation
         assert file_path is not None, "file_path cannot be None"
-        assert Path(file_path).exists(), f"File must exist: {file_path}"
+        assert path_exists(file_path), f"File must exist: {file_path}"
         
         violations = []
         
@@ -300,7 +301,7 @@ class FunctionDecomposer:
         """
         # NASA Rule 5: Input validation
         assert plan is not None, "decomposition plan cannot be None"
-        assert Path(plan.file_path).exists(), f"Target file must exist: {plan.file_path}"
+        assert path_exists(plan.file_path), f"Target file must exist: {plan.file_path}"
         
         result = DecompositionResult(
             original_function=plan.target_function,

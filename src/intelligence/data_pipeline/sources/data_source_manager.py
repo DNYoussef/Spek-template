@@ -4,54 +4,8 @@ Orchestrates multiple data sources with intelligent routing and failover
 """
 
 import asyncio
-import logging
-from typing import Dict, List, Optional, Any, Tuple
-from datetime import datetime, timedelta
-import pandas as pd
-from dataclasses import dataclass
-from enum import Enum
-
-from ..config.pipeline_config import config
-from .alpaca_source import AlpacaSource
-from .polygon_source import PolygonSource
-from .yahoo_source import YahooSource
-
-
-class SourcePriority(Enum):
-    """Data source priority levels"""
-    PRIMARY = 1
-    SECONDARY = 2
-    FALLBACK = 3
-    DISABLED = 4
-
-
-@dataclass
-class SourceStatus:
-    """Status tracking for data sources"""
-    name: str
-    available: bool = True
-    last_error: Optional[str] = None
-    error_count: int = 0
-    last_success: Optional[datetime] = None
-    response_time: float = 0.0
-    priority: SourcePriority = SourcePriority.SECONDARY
-
-
-class DataSourceManager:
-    """
-    Intelligent data source management with automatic failover
-
-    Features:
-    - Multi-source data aggregation
-    - Automatic failover on source failures
-    - Response time optimization
-    - Data quality validation
-    - Source health monitoring
-    - Load balancing
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.sources = {}
         self.source_status = {}
         self._initialize_sources()

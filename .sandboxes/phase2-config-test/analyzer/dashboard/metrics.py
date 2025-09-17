@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Metrics management for self-analysis tracking.
@@ -30,7 +31,7 @@ def main():
         (args.mece_results, 'mece'),
         (args.god_object_results, 'god_objects')
     ]:
-        if result_file and os.path.exists(result_file):
+        if result_file and path_exists(result_file):
             try:
                 with open(result_file, 'r') as f:
                     results[name] = json.load(f)

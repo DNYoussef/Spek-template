@@ -8,59 +8,8 @@ Feature flag controlled with zero breaking changes to existing functionality.
 
 import os
 import json
-import logging
-import hashlib
-import subprocess
-from typing import Dict, List, Any, Optional
-from dataclasses import dataclass, asdict
-from datetime import datetime
-from pathlib import Path
-import uuid
-
-# Feature flags for supply chain artifacts
-ENABLE_SBOM_GENERATION = os.getenv('ENABLE_SBOM_GENERATION', 'false').lower() == 'true'
-ENABLE_SLSA_PROVENANCE = os.getenv('ENABLE_SLSA_PROVENANCE', 'false').lower() == 'true'
-
-@dataclass
-class PackageInfo:
-    """Package information for SBOM"""
-    name: str
-    version: str
-    license: str
-    supplier: str
-    download_location: str
-    files_analyzed: bool
-    license_concluded: str
-    license_info_from_files: List[str]
-    copyright_text: str
-    checksum: str = ""
-    vulnerability_count: int = 0
-    
-    def __post_init__(self):
-        if not self.checksum:
-            self.checksum = hashlib.sha256(f"{self.name}{self.version}".encode()).hexdigest()
-
-@dataclass
-class SLSAProvenance:
-    """SLSA provenance attestation"""
-    builder_id: str
-    build_type: str
-    invocation: Dict[str, Any]
-    build_config: Dict[str, Any]
-    materials: List[Dict[str, Any]]
-    timestamp: str = ""
-    
-    def __post_init__(self):
-        if not self.timestamp:
-            self.timestamp = datetime.now().isoformat()
-
-class SupplyChainGenerator:
-    """Main supply chain artifacts generator"""
-    
-    def __init__(self, output_dir: str = ".claude/.artifacts/supply-chain"):
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
         # SPDX document metadata
         self.spdx_version = "SPDX-2.3"
@@ -236,11 +185,11 @@ class SupplyChainGenerator:
         packages = []
         
         # Analyze npm dependencies
-        if Path("package.json").exists():
+        if path_exists("package.json"):
             packages.extend(self._analyze_npm_dependencies())
         
         # Analyze Python dependencies  
-        if Path("requirements.txt").exists() or Path("pyproject.toml").exists():
+        if path_exists("requirements.txt") or path_exists("pyproject.toml"):
             packages.extend(self._analyze_python_dependencies())
         
         # Add project itself as root package
@@ -292,7 +241,7 @@ class SupplyChainGenerator:
         packages = []
         try:
             # Read requirements.txt
-            if Path("requirements.txt").exists():
+            if path_exists("requirements.txt"):
                 with open("requirements.txt", 'r') as f:
                     for line in f:
                         line = line.strip()
@@ -348,7 +297,7 @@ class SupplyChainGenerator:
         # Build configuration materials
         config_files = ['package.json', 'requirements.txt', 'Dockerfile', '.github/workflows']
         for config_file in config_files:
-            if Path(config_file).exists():
+            if path_exists(config_file):
                 materials.append({
                     "uri": f"file://{config_file}",
                     "digest": self._calculate_file_hash(config_file)

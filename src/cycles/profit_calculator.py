@@ -20,69 +20,8 @@ Security:
 - Rollback and verification capabilities
 """
 
-import logging
-import json
-from datetime import datetime, timezone, timedelta
-from typing import Dict, List, Optional, Any, Tuple
-from decimal import Decimal, ROUND_HALF_UP
-from dataclasses import dataclass
-from enum import Enum
-
-class CalculationMethod(Enum):
-    """Profit calculation methods."""
-    PORTFOLIO_DELTA = "portfolio_delta"  # Compare portfolio values
-    POSITION_BASED = "position_based"    # Sum individual position P&L
-    CASH_FLOW = "cash_flow"              # Track cash flows in/out
-    REALIZED_ONLY = "realized_only"      # Only realized gains/losses
-    MARK_TO_MARKET = "mark_to_market"    # Include unrealized P&L
-
-@dataclass
-class ProfitSplitConfig:
-    """Configuration for profit splitting calculations."""
-    # Core split parameters
-    split_ratio: float = 0.50  # 50/50 split
-    min_threshold: float = 100.0  # Minimum profit to trigger split
-    max_siphon_amount: float = 10000.0  # Maximum single siphon
-    
-    # Calculation settings
-    calculation_method: CalculationMethod = CalculationMethod.PORTFOLIO_DELTA
-    include_unrealized: bool = True
-    fee_deduction_method: str = "gross_first"  # "gross_first" or "net_split"
-    
-    # Risk adjustments
-    risk_adjustment_factor: float = 0.95  # 5% haircut for risk
-    drawdown_protection: float = 0.10  # Hold 10% for drawdown protection
-    
-    # Precision and rounding
-    decimal_precision: int = 2
-    rounding_method: str = ROUND_HALF_UP
-    
-    # Audit and compliance
-    audit_enabled: bool = True
-    detailed_breakdown: bool = True
-
-class ProfitCalculator:
-    """Advanced profit calculation and splitting engine.
-    
-    This class addresses theater detection findings by implementing:
-    1. Verifiable 50/50 profit splitting logic
-    2. Multiple calculation methods for validation
-    3. Comprehensive fee and cost accounting
-    4. Audit trails for compliance
-    5. Risk-adjusted calculations
-    
-    The calculator provides both simple and sophisticated calculation modes,
-    allowing for basic testing and advanced production usage.
-    """
-    
-    def __init__(self, config: Optional[ProfitSplitConfig] = None):
-        """Initialize profit calculator.
-        
-        Args:
-            config: Calculation configuration
-        """
-        self.config = config or ProfitSplitConfig()
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
         # Calculation history for audit
         self.calculation_history: List[Dict[str, Any]] = []

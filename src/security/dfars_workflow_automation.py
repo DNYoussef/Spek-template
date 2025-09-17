@@ -1,3 +1,4 @@
+from lib.shared.utilities import get_logger
 #!/usr/bin/env python3
 """
 DFARS Compliance Workflow Automation System
@@ -643,7 +644,7 @@ class DFARSWorkflowAutomation:
 
     def _setup_logging(self) -> logging.Logger:
         """Setup secure audit logging"""
-        logger = logging.getLogger("DFARS_Workflow")
+        logger = get_logger("\1")
         logger.setLevel(logging.INFO)
 
         # Create secure log directory

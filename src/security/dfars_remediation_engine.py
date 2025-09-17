@@ -4,27 +4,8 @@ Automated deployment and validation of defense-grade security controls.
 """
 
 import json
-import logging
-import asyncio
-import time
-from datetime import datetime, timezone
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, asdict
-from enum import Enum
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import hashlib
-import secrets
-import subprocess
-import shutil
-
-from .fips_crypto_module import FIPSCryptoModule, FIPSComplianceLevel
-from .enhanced_audit_trail_manager import (
-    EnhancedDFARSAuditTrailManager, AuditEventType, SeverityLevel
-)
-from .dfars_compliance_engine import DFARSComplianceEngine, ComplianceStatus
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class RemediationPhase(Enum):

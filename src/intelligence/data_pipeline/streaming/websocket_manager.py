@@ -6,73 +6,8 @@ Advanced WebSocket connection management with automatic reconnection
 import asyncio
 import websockets
 import json
-import logging
-import time
-from typing import Dict, List, Optional, Callable, Any, Set
-from datetime import datetime
-from dataclasses import dataclass, field
-from enum import Enum
-import ssl
-from urllib.parse import urlparse
-
-from ..config.pipeline_config import config
-
-
-class ConnectionState(Enum):
-    """WebSocket connection states"""
-    DISCONNECTED = "disconnected"
-    CONNECTING = "connecting"
-    CONNECTED = "connected"
-    AUTHENTICATING = "authenticating"
-    AUTHENTICATED = "authenticated"
-    SUBSCRIBING = "subscribing"
-    ACTIVE = "active"
-    RECONNECTING = "reconnecting"
-    FAILED = "failed"
-
-
-@dataclass
-class ConnectionConfig:
-    """WebSocket connection configuration"""
-    name: str
-    url: str
-    headers: Dict[str, str] = field(default_factory=dict)
-    auth_data: Optional[Dict[str, Any]] = None
-    heartbeat_interval: float = 30.0
-    reconnect_attempts: int = 5
-    reconnect_delay: float = 5.0
-    ssl_context: Optional[ssl.SSLContext] = None
-
-
-@dataclass
-class ConnectionMetrics:
-    """Connection performance metrics"""
-    state: ConnectionState
-    connected_since: Optional[datetime] = None
-    last_message: Optional[datetime] = None
-    messages_sent: int = 0
-    messages_received: int = 0
-    reconnect_count: int = 0
-    error_count: int = 0
-    average_latency_ms: float = 0.0
-
-
-class WebSocketManager:
-    """
-    Advanced WebSocket connection manager
-
-    Features:
-    - Multiple concurrent connections
-    - Automatic reconnection with exponential backoff
-    - Connection health monitoring
-    - Message queuing during disconnections
-    - Heartbeat management
-    - SSL/TLS support
-    - Performance metrics
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.connections: Dict[str, websockets.WebSocketServerProtocol] = {}
         self.connection_configs: Dict[str, ConnectionConfig] = {}
         self.connection_metrics: Dict[str, ConnectionMetrics] = {}

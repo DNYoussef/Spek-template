@@ -8,84 +8,8 @@ Phase 2: Defense Federal Acquisition Regulation Supplement compliance for CUI pr
 
 import ast
 import json
-import logging
-import os
-import hashlib
-import secrets
-import time
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, Any, List, Optional, Tuple
-from dataclasses import dataclass
-from enum import Enum
-
-# Configure logging for audit trail
-log_dir = Path('.claude/.artifacts')
-log_dir.mkdir(parents=True, exist_ok=True)
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler(log_dir / 'dfars_compliance.log'),
-        logging.StreamHandler()
-    ]
-)
-
-class CUILevel(Enum):
-    """Controlled Unclassified Information classification levels"""
-    BASIC = "CUI//BASIC"
-    SPECIFIED = "CUI//SP-"
-    PRIVACY = "CUI//SP-PRIV"
-    LAW_ENFORCEMENT = "CUI//SP-LEI"
-    PROPRIETARY = "CUI//SP-PROP"
-
-class DFARSControl(Enum):
-    """DFARS 252.204-7012 Security Controls"""
-    ACCESS_CONTROL = "3.1.1"
-    AWARENESS_TRAINING = "3.1.2"
-    AUDIT_ACCOUNTABILITY = "3.3.1"
-    CONFIGURATION_MGMT = "3.4.1"
-    IDENTIFICATION_AUTH = "3.5.1"
-    INCIDENT_RESPONSE = "3.6.1"
-    MAINTENANCE = "3.7.1"
-    MEDIA_PROTECTION = "3.8.1"
-    PERSONNEL_SECURITY = "3.9.1"
-    PHYSICAL_PROTECTION = "3.10.1"
-    RISK_ASSESSMENT = "3.11.1"
-    SECURITY_ASSESSMENT = "3.12.1"
-    SYSTEM_COMMS_PROTECTION = "3.13.1"
-    SYSTEM_INFO_INTEGRITY = "3.14.1"
-
-@dataclass
-class DFARSFinding:
-    """DFARS compliance finding"""
-    control_id: str
-    control_name: str
-    finding_type: str  # 'violation', 'gap', 'enhancement'
-    severity: str  # 'critical', 'high', 'medium', 'low'
-    description: str
-    file_path: str
-    line_number: int
-    remediation: str
-    cui_impact: bool = False
-
-@dataclass
-class CUIAsset:
-    """Controlled Unclassified Information asset"""
-    file_path: str
-    cui_level: CUILevel
-    classification_rationale: str
-    access_controls: List[str]
-    handling_requirements: List[str]
-    retention_period: int  # days
-
-class DFARSComplianceFramework:
-    """DFARS 252.204-7012 compliance implementation"""
-
-    def __init__(self, project_path: str = "."):
-        self.project_path = Path(project_path)
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.findings: List[DFARSFinding] = []
         self.cui_assets: List[CUIAsset] = []
         self.compliance_metrics = {

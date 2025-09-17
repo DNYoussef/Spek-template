@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
 #
@@ -246,7 +247,7 @@ class ConnascenceCLI:
 
         # Check each path
         for path in paths:
-            if not Path(path).exists():
+            if not path_exists(path):
                 error = self.error_handler.create_error(
                     'FILE_NOT_FOUND',
                     f'Path does not exist: {path}',

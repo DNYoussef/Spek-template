@@ -58,13 +58,13 @@ class SPEKPlatform extends EventEmitter {
    */
   async initialize() {
     console.log(`
-╔════════════════════════════════════════════════╗
-║     SPEK Enhanced Development Platform         ║
-║              Version ${this.version}                      ║
-║                                                ║
-║  Specification -> Research -> Planning ->      ║
-║      Execution -> Knowledge                    ║
-╚════════════════════════════════════════════════╝
+
+     SPEK Enhanced Development Platform         
+              Version ${this.version}                      
+                                                
+  Specification -> Research -> Planning ->      
+      Execution -> Knowledge                    
+
     `);
 
     console.log('[SPEK] Initializing platform...');

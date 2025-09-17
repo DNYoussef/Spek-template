@@ -20,25 +20,8 @@ import time
 import statistics
 import hashlib
 import json
-import logging
-from collections import defaultdict
-from dataclasses import dataclass, field
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Set, Tuple
-from contextlib import contextmanager
-import sys
-
-# REAL system imports - NO fallbacks
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from analyzer.optimization.file_cache import FileContentCache, get_global_cache
-from analyzer.caching.ast_cache import ASTCache, ast_cache as global_ast_cache
-from analyzer.streaming.incremental_cache import IncrementalCache, get_global_incremental_cache
-from analyzer.performance.cache_performance_profiler import (
-    CachePerformanceProfiler, IntelligentCacheWarmer, WarmingStrategy, get_global_profiler
-)
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -215,7 +198,7 @@ class RealCacheOptimizationValidator:
         
         # Measure file access performance
         for file_path in self.test_files[:100]:  # Test with 100 files
-            if not Path(file_path).exists():
+            if not path_exists(file_path):
                 continue
                 
             operation_start = time.time()
@@ -272,7 +255,7 @@ class RealCacheOptimizationValidator:
         
         test_file = None
         for file_path in self.test_files:
-            if Path(file_path).exists() and file_path.endswith('.py'):
+            if path_exists(file_path) and file_path.endswith('.py'):
                 test_file = file_path
                 break
         
@@ -385,7 +368,7 @@ class RealCacheOptimizationValidator:
         total_accesses = 0
         
         for file_path in self.test_files[:30]:  # Test 30 files post-warming
-            if not Path(file_path).exists():
+            if not path_exists(file_path):
                 continue
                 
             access_start = time.time()
@@ -400,7 +383,7 @@ class RealCacheOptimizationValidator:
         
         # Calculate warming effectiveness
         files_warmed = warming_results.get('files_warmed', 0)
-        expected_files = len([f for f in warming_strategy.priority_files if Path(f).exists()])
+        expected_files = len([f for f in warming_strategy.priority_files if path_exists(f)])
         warming_effectiveness = (files_warmed / max(expected_files, 1)) * 100
         fast_access_rate = (fast_accesses / max(total_accesses, 1)) * 100
         
@@ -439,7 +422,7 @@ class RealCacheOptimizationValidator:
         baseline_operations = []
         
         for file_path in streaming_files:
-            if not Path(file_path).exists():
+            if not path_exists(file_path):
                 continue
                 
             op_start = time.time()
@@ -468,7 +451,7 @@ class RealCacheOptimizationValidator:
         cache_hits = 0
         
         for file_path in streaming_files:
-            if not Path(file_path).exists():
+            if not path_exists(file_path):
                 continue
                 
             op_start = time.time()
@@ -554,7 +537,7 @@ class RealCacheOptimizationValidator:
         
         # Test performance with warmed caches
         for file_path in self.test_files[:100]:  # Same files as baseline
-            if not Path(file_path).exists():
+            if not path_exists(file_path):
                 continue
                 
             operation_start = time.time()

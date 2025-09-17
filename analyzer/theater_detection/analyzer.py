@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists, validate_file
 """
 Theater Analysis Engine
 Orchestrates theater detection across multiple pattern detectors.
@@ -32,7 +33,7 @@ class TheaterAnalyzer:
 
     def analyze_file(self, file_path: str) -> List[TheaterPattern]:
         """Analyze a single file for all theater patterns."""
-        if not os.path.exists(file_path):
+        if not path_exists(file_path):
             return []
 
         try:
@@ -154,7 +155,7 @@ class TheaterAnalyzer:
 
     def analyze_and_report(self, target_path: str, output_path: Optional[str] = None) -> Dict[str, Any]:
         """Complete analysis workflow with report generation."""
-        if os.path.isfile(target_path):
+        if validate_file(target_path):
             patterns = self.analyze_file(target_path)
         else:
             patterns = self.analyze_directory(target_path)

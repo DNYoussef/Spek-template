@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Safety Compliance Testing for ADAS Phase 7
@@ -473,7 +474,7 @@ class TestSafetyEventLogging:
             json.dump(audit_data, f, indent=2)
 
         # Verify audit file was created and contains expected data
-        assert os.path.exists(audit_file), "Audit trail file not created"
+        assert path_exists(audit_file), "Audit trail file not created"
 
         with open(audit_file, "r") as f:
             loaded_data = json.load(f)

@@ -20,16 +20,8 @@ import sys
 import time
 import threading
 import concurrent.futures
-import logging
-import traceback
-from collections import defaultdict, deque
-from dataclasses import dataclass, field
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
-
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -674,7 +666,7 @@ def main():
     
     # Analyze each file
     for file_path in streaming_files:
-        if os.path.exists(file_path):
+        if path_exists(file_path):
             logger.info(f"Analyzing {file_path}...")
             violations = analyzer.analyze_file(file_path)
             all_violations.extend(violations)

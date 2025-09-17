@@ -4,27 +4,8 @@ Comprehensive validation and reporting system for defense industry compliance re
 """
 
 import json
-import logging
-import time
-import asyncio
-from datetime import datetime, timezone, timedelta
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple, Set
-from dataclasses import dataclass, asdict
-from enum import Enum
-import hashlib
-import secrets
-import subprocess
-import re
-from concurrent.futures import ThreadPoolExecutor, as_completed
-
-from .enhanced_audit_trail_manager import (
-    EnhancedDFARSAuditTrailManager, AuditEventType, SeverityLevel
-)
-from .fips_crypto_module import FIPSCryptoModule
-from .dfars_compliance_engine import DFARSComplianceEngine, ComplianceStatus
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ValidationCategory(Enum):

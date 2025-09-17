@@ -23,15 +23,8 @@ from collections import defaultdict, deque
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Union, Tuple, Callable
-import logging
-import hashlib
-import statistics
-import pickle
-import sqlite3
-from concurrent.futures import ThreadPoolExecutor
-from contextlib import contextmanager
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

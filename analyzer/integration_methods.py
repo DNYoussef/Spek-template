@@ -6,11 +6,8 @@ This module provides the component integration methods that connect
 the UnifiedAnalyzer with the ComponentIntegrator for seamless operation.
 """
 
-import logging
-from pathlib import Path
-from typing import Dict, List, Any, Optional
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class AnalyzerIntegrationMixin:

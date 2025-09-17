@@ -5,16 +5,8 @@ Generates comprehensive compliance matrices for multiple regulatory frameworks
 and provides evidence mapping for audit purposes.
 """
 
-import logging
-import json
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Set
-from datetime import datetime, date
-from dataclasses import dataclass, field
-from enum import Enum
-import uuid
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class ComplianceFramework(Enum):

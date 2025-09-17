@@ -10,11 +10,12 @@ NASA Rule 2 Compliant: All methods under 60 lines.
 NASA Rule 4 Compliant: Single responsibility pattern.
 """
 
-import logging
-from pathlib import Path
-from typing import Any, Dict, Optional
+from lib.shared.utilities.logging_setup import get_analyzer_logger
+from lib.shared.utilities.path_validation import validate_file, validate_directory
+from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
 
-logger = logging.getLogger(__name__)
+# Use shared logging
+logger = get_analyzer_logger(__name__)
 
 
 class AnalysisConfigurationManager:
@@ -47,8 +48,10 @@ class AnalysisConfigurationManager:
             return default_config
             
         try:
-            config_file = Path(config_path)
-            if config_file.exists():
+            # Use shared path validation instead of direct Path operations
+            config_validation = validate_file(config_path, must_exist=True)
+            if config_validation.is_valid:
+                config_file = config_validation.path
                 import json
                 with open(config_file, 'r') as f:
                     loaded_config = json.load(f)

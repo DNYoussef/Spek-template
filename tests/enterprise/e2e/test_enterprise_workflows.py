@@ -610,21 +610,8 @@ class TestRealWorldIntegrationScenarios:
         (self.project_root / "src" / "myapp" / "main.py").write_text("""
 import os
 import json
-import logging
-from typing import List, Dict, Optional
-from dataclasses import dataclass
-import requests
-
-@dataclass
-class User:
-    id: int
-    name: str
-    email: str
-
-class UserService:
-    def __init__(self, api_url: str):
-        self.api_url = api_url
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
     def get_users(self) -> List[User]:
         \"\"\"Fetch all users from API\"\"\"
@@ -913,7 +900,7 @@ addopts = "--cov=myapp --cov-report=html --cov-report=term"
         
         # Verify all reports were generated
         for report_file in pipeline_results["enterprise_reports"].values():
-            assert Path(report_file).exists()
+            assert path_exists(report_file)
             
         # Verify enterprise features were utilized
         with open(enterprise_report_file) as f:
@@ -960,7 +947,7 @@ addopts = "--cov=myapp --cov-report=html --cov-report=term"
             # Run team-specific analyses
             team_analyses = []
             for file_path in team_config["files"]:
-                if Path(self.project_root / file_path).exists() or team_name != "frontend_team":
+                if path_exists(self.project_root / file_path) or team_name != "frontend_team":
                     # Use first analyzer for the team
                     result = await team_integration.analyze_with_enterprise_features(
                         team_config["analyzers"][0],

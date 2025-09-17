@@ -12,13 +12,12 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 """
 
 import time
-import logging
-from contextlib import contextmanager
-from typing import Dict, Any, Optional, List
 from dataclasses import dataclass
-from datetime import datetime
+from lib.shared.utilities.logging_setup import get_performance_logger
+from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
 
-logger = logging.getLogger(__name__)
+# Use specialized performance logging
+logger = get_performance_logger(__name__)
 
 
 @dataclass

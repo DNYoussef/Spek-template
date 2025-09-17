@@ -5,24 +5,8 @@ Automated incident detection, response, and reporting for defense industry compl
 
 import json
 import time
-import logging
-from datetime import datetime, timezone, timedelta
-from typing import Dict, Any, List, Optional, Tuple
-from dataclasses import dataclass, asdict
-from enum import Enum
-from pathlib import Path
-import asyncio
-import aiohttp
-import hashlib
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-import subprocess
-
-from .audit_trail_manager import DFARSAuditTrailManager, AuditEventType, SeverityLevel
-from .fips_crypto_module import FIPSCryptoModule
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class IncidentSeverity(Enum):
@@ -149,7 +133,7 @@ class DFARSIncidentResponseSystem:
             }
         }
 
-        if config_path and Path(config_path).exists():
+        if config_path and path_exists(config_path):
             try:
                 with open(config_path, 'r') as f:
                     loaded_config = json.load(f)

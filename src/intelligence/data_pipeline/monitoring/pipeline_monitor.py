@@ -4,78 +4,8 @@ Comprehensive monitoring system for data pipeline performance and health
 """
 
 import asyncio
-import logging
-import time
-import psutil
-import threading
-from typing import Dict, List, Optional, Any, Callable
-from datetime import datetime, timedelta
-from dataclasses import dataclass, field
-from collections import deque, defaultdict
-import json
-import numpy as np
-
-from ..config.pipeline_config import config
-
-
-@dataclass
-class ComponentStatus:
-    """Status information for pipeline component"""
-    name: str
-    status: str  # "running", "stopped", "error", "warning"
-    uptime_seconds: float
-    last_activity: datetime
-    processing_rate: float  # items per second
-    error_count: int
-    warning_count: int
-    memory_usage_mb: float
-    cpu_usage_percent: float
-    metadata: Dict[str, Any] = field(default_factory=dict)
-
-
-@dataclass
-class SystemMetrics:
-    """System-level metrics snapshot"""
-    timestamp: datetime
-    cpu_usage_percent: float
-    memory_usage_percent: float
-    memory_available_gb: float
-    disk_usage_percent: float
-    network_io_bytes: Dict[str, int]
-    process_count: int
-    thread_count: int
-
-
-@dataclass
-class PerformanceAlert:
-    """Performance monitoring alert"""
-    id: str
-    component: str
-    alert_type: str
-    severity: str
-    message: str
-    timestamp: datetime
-    metric_value: Optional[float] = None
-    threshold: Optional[float] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
-
-
-class PipelineMonitor:
-    """
-    Comprehensive pipeline monitoring system
-
-    Features:
-    - Component health monitoring
-    - Performance metrics collection
-    - Resource usage tracking
-    - Error rate monitoring
-    - SLA tracking
-    - Real-time alerting
-    - Performance bottleneck detection
-    """
-
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
         # Component tracking
         self.components: Dict[str, ComponentStatus] = {}

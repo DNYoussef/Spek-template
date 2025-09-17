@@ -8,13 +8,8 @@ import pandas as pd
 from typing import Dict, List, Optional, Tuple, Union
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-import logging
-from enum import Enum
-
-from .loaders import MarketData
-from ..config import config
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 class ValidationLevel(Enum):
     """Data validation severity levels."""

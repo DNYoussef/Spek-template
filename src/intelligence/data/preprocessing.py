@@ -12,13 +12,8 @@ import talib
 import pandas_ta as ta
 from sklearn.preprocessing import RobustScaler, StandardScaler, MinMaxScaler
 from sklearn.ensemble import IsolationForest
-import logging
-from abc import ABC, abstractmethod
-
-from .loaders import MarketData
-from ..config import config
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class FeatureSet:

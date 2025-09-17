@@ -5,18 +5,8 @@ Generates SLSA attestations and provenance for secure software supply chains.
 Supports SLSA levels 1-4 with appropriate security guarantees.
 """
 
-import logging
-import json
-import hashlib
-import base64
-from pathlib import Path
-from typing import Dict, List, Optional, Any
-from datetime import datetime
-from dataclasses import dataclass, field
-from enum import Enum
-import uuid
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class SLSALevel(Enum):

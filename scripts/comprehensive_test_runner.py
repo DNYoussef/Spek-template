@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Comprehensive Test Runner with 100% Success Rate Integration
@@ -497,7 +498,7 @@ class ComprehensiveTestRunner:
         elif runner == 'jest':
             # Parse jest JSON output
             try:
-                if os.path.exists('/tmp/jest_report.json'):
+                if path_exists('/tmp/jest_report.json'):
                     with open('/tmp/jest_report.json', 'r') as f:
                         jest_data = json.load(f)
                         test_count = jest_data.get('numTotalTests', 0)
@@ -512,11 +513,11 @@ class ComprehensiveTestRunner:
     def _parse_coverage(self, runner: str) -> Optional[float]:
         """Parse coverage percentage from test runner output."""
         try:
-            if runner == 'pytest' and os.path.exists('/tmp/coverage_report.json'):
+            if runner == 'pytest' and path_exists('/tmp/coverage_report.json'):
                 with open('/tmp/coverage_report.json', 'r') as f:
                     coverage_data = json.load(f)
                     return coverage_data.get('totals', {}).get('percent_covered')
-            elif runner == 'jest' and os.path.exists('/tmp/coverage/coverage-summary.json'):
+            elif runner == 'jest' and path_exists('/tmp/coverage/coverage-summary.json'):
                 with open('/tmp/coverage/coverage-summary.json', 'r') as f:
                     coverage_data = json.load(f)
                     return coverage_data.get('total', {}).get('lines', {}).get('pct')
@@ -531,7 +532,7 @@ class ComprehensiveTestRunner:
         if runner == 'pytest':
             # Look for pytest JSON report
             try:
-                if os.path.exists('/tmp/pytest_report.json'):
+                if path_exists('/tmp/pytest_report.json'):
                     with open('/tmp/pytest_report.json', 'r') as f:
                         pytest_data = json.load(f)
                         for test in pytest_data.get('tests', []):

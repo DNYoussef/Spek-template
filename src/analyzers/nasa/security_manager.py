@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 # SPDX-License-Identifier: MIT
 """
 Consensus Security Manager - Specialized NASA Compliance Agent
@@ -129,7 +130,7 @@ class ConsensusSecurityManager:
         """Analyze individual file for NASA compliance gaps."""
         # NASA Rule 5: Defensive assertions
         assert file_path is not None, "file_path cannot be None"
-        assert Path(file_path).exists(), f"File must exist: {file_path}"
+        assert path_exists(file_path), f"File must exist: {file_path}"
         
         gaps = []
         violations = self.nasa_analyzer.analyze_file(file_path)
@@ -188,7 +189,7 @@ class ConsensusSecurityManager:
         """
         # NASA Rule 5: Input validation
         assert file_path is not None, "file_path cannot be None"
-        assert Path(file_path).exists(), f"File must exist: {file_path}"
+        assert path_exists(file_path), f"File must exist: {file_path}"
         
         plan = {
             "file_path": file_path,
@@ -288,7 +289,7 @@ class BoundedASTWalker:
         """
         # NASA Rule 5: Input validation
         assert file_path is not None, "file_path cannot be None"
-        assert Path(file_path).exists(), f"File must exist: {file_path}"
+        assert path_exists(file_path), f"File must exist: {file_path}"
         
         framework = {
             "file_path": file_path,
@@ -332,7 +333,7 @@ class BoundedASTWalker:
         # NASA Rule 5: Input validation
         assert gap is not None, "compliance gap cannot be None"
         assert target_file is not None, "target_file cannot be None"
-        assert Path(target_file).exists(), f"Target file must exist: {target_file}"
+        assert path_exists(target_file), f"Target file must exist: {target_file}"
         
         fix_result = {
             "gap_id": gap.rule_id,

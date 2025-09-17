@@ -601,7 +601,7 @@ export class AdaptiveThresholdManager {
     rule: ThresholdRule,
     condition: SystemCondition
   ): void {
-    console.warn(`🚨 Threshold Alert: ${thresholdName}`);
+    console.warn(` Threshold Alert: ${thresholdName}`);
     console.warn(`Rule: ${rule.condition}`);
     console.warn(`Priority: ${rule.priority}`);
     console.warn(`Current condition:`, condition);

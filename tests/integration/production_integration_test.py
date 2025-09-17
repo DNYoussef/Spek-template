@@ -162,7 +162,7 @@ def test_cli_integration():
 
                 print(f"  [{'OK' if has_structure else 'FAIL'}] Output structure complete")
                 print(f"  [{'OK' if overlap_correct else 'FAIL'}] Overlap calculation: {overlapping_files} == {expected_overlap}")
-                print(f"  [{'OK' if compliance_correct else 'FAIL'}] Compliance average: {nasa_compliance:.3f} ≈ 0.78")
+                print(f"  [{'OK' if compliance_correct else 'FAIL'}] Compliance average: {nasa_compliance:.3f}  0.78")
                 print(f"  [{'OK' if violations_correct else 'FAIL'}] Total violations: {total_violations} == 6")
 
                 cli_success = has_structure and overlap_correct and compliance_correct and violations_correct

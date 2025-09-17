@@ -25,20 +25,8 @@ from collections import defaultdict, deque
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, AsyncGenerator, Callable, Dict, List, Optional, Set, Union
-import logging
-
-# File watching capabilities
-try:
-    from watchdog.observers import Observer
-    from watchdog.events import FileSystemEventHandler, FileSystemEvent
-    WATCHDOG_AVAILABLE = True
-except ImportError:
-    Observer = None
-    FileSystemEventHandler = None
-    FileSystemEvent = None  
-    WATCHDOG_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

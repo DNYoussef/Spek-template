@@ -11,20 +11,8 @@ from typing import Dict, List, Optional, Tuple, Union, Callable
 import numpy as np
 import pandas as pd
 from dataclasses import dataclass, field
-import logging
-import time
-from pathlib import Path
-import mlflow
-import mlflow.pytorch
-from tqdm import tqdm
-
-from .losses import CompositeLoss, SharpeRatioLoss, MaxDrawdownLoss
-from .callbacks import Callback, EarlyStopping, ModelCheckpoint, LearningRateMonitor
-from ..models.base_models import BasePredictor, ModelOutput
-from ..data.preprocessing import FeatureSet
-from ..config import config
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class TrainingConfig:

@@ -18,22 +18,8 @@ NASA POT10 Compliance: All methods under 60 lines
 """
 
 import json
-import logging
-import math
-import statistics
-import numpy as np
-import matplotlib.pyplot as plt
-from collections import deque, defaultdict
-from dataclasses import dataclass, field, asdict
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Any, Union
-import warnings
-
-# Suppress matplotlib warnings for cleaner output
-warnings.filterwarnings('ignore', category=UserWarning, module='matplotlib')
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

@@ -13,20 +13,8 @@ Validates that the system is ready for production deployment by:
 
 import asyncio
 import json
-import logging
-import os
-import shutil
-import subprocess
-import sys
-import time
-from dataclasses import dataclass, asdict
-from pathlib import Path
-from typing import Dict, List, Any, Optional
-import tempfile
-
-# Setup logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))

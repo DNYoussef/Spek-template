@@ -6,24 +6,8 @@ Final validation and certification system for 100% DFARS compliance.
 import json
 import time
 import hashlib
-import logging
-from datetime import datetime, timezone, timedelta
-from typing import Dict, Any, List, Optional, Tuple
-from dataclasses import dataclass, asdict
-from enum import Enum
-from pathlib import Path
-import asyncio
-import uuid
-
-from .dfars_compliance_engine import DFARSComplianceEngine, ComplianceStatus
-from .fips_crypto_module import FIPSCryptoModule
-from .incident_response_system import DFARSIncidentResponseSystem
-from .configuration_management_system import DFARSConfigurationManager
-from .continuous_risk_assessment import DFARSContinuousRiskAssessment
-from .enhanced_audit_trail_manager import EnhancedDFARSAuditTrailManager, AuditEventType, SeverityLevel
-from .cdi_protection_framework import CDIProtectionFramework
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class CertificationLevel(Enum):
@@ -269,7 +253,7 @@ class DFARSComplianceCertification:
             }
         }
 
-        if config_path and Path(config_path).exists():
+        if config_path and path_exists(config_path):
             try:
                 with open(config_path, 'r') as f:
                     loaded_config = json.load(f)

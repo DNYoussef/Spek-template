@@ -14,9 +14,8 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 from dataclasses import dataclass
 from typing import Dict, Any, Optional, List
 from enum import Enum
-import logging
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class FeatureState(Enum):

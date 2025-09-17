@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Compliance Forecaster ML Module
 Predicts compliance issues and forecasts compliance trends.
@@ -191,7 +192,7 @@ class ComplianceForecaster:
         policy_file_count = 0
 
         for config_file in config_files:
-            if os.path.exists(os.path.join(directory, config_file)):
+            if path_exists(os.path.join(directory, config_file)):
                 policy_file_count += 1
 
         features["policy_file_coverage"] = policy_file_count / len(config_files)

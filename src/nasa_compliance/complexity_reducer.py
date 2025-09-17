@@ -6,9 +6,8 @@ Fixes complexity violations to achieve NASA compliance
 
 from typing import Dict, Any, List, Optional
 import subprocess
-import logging
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class NASACompliantGitOperations:

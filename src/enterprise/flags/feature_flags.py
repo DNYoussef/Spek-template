@@ -5,18 +5,8 @@ Provides comprehensive feature flag management with decorator patterns
 for non-breaking integration with existing systems.
 """
 
-import logging
-import json
-import threading
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Callable, Union
-from datetime import datetime, timedelta
-from dataclasses import dataclass, field
-from enum import Enum
-import functools
-import time
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class FlagStatus(Enum):

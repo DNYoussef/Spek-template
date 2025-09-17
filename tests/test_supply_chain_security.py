@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Test Suite for Supply Chain Security Domain SC
 Comprehensive tests for SC-001 through SC-005 tasks.
@@ -134,7 +135,7 @@ class TestSupplyChainSecuritySuite:
         provenance_path = generator.generate_provenance(artifacts, build_metadata)
         
         # Verify provenance file exists
-        assert Path(provenance_path).exists()
+        assert path_exists(provenance_path)
         
         # Verify provenance content
         with open(provenance_path, 'r') as f:

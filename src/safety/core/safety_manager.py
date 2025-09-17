@@ -6,69 +6,8 @@ Coordinates all safety subsystems to ensure 99.9% availability with <60s recover
 Implements comprehensive monitoring, failover orchestration, and recovery validation.
 """
 
-import logging
-import threading
-import time
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Callable, Any
-from enum import Enum
-from dataclasses import dataclass, field
-
-
-class SafetyState(Enum):
-    """Safety system operational states."""
-    HEALTHY = "healthy"
-    DEGRADED = "degraded"
-    CRITICAL = "critical"
-    RECOVERING = "recovering"
-    FAILED = "failed"
-
-
-class SystemComponent(Enum):
-    """System components under safety management."""
-    TRADING_ENGINE = "trading_engine"
-    DATA_FEED = "data_feed"
-    RISK_MANAGEMENT = "risk_management"
-    ORDER_GATEWAY = "order_gateway"
-    POSITION_TRACKER = "position_tracker"
-    COMPLIANCE_SYSTEM = "compliance_system"
-
-
-@dataclass
-class SafetyMetrics:
-    """Safety system performance metrics."""
-    uptime_percentage: float = 0.0
-    recovery_times: List[float] = field(default_factory=list)
-    failover_count: int = 0
-    health_checks_passed: int = 0
-    health_checks_failed: int = 0
-    last_incident: Optional[datetime] = None
-    incidents_24h: int = 0
-    mean_recovery_time: float = 0.0
-    availability_sla_met: bool = True
-
-
-class SafetyManager:
-    """
-    Central safety system orchestrating all safety subsystems.
-
-    Ensures:
-    - 99.9% availability (8.77 hours downtime/year max)
-    - <60 second recovery times
-    - Automated failover with validation
-    - Comprehensive health monitoring
-    - Integration with trading systems
-    """
-
-    def __init__(self, config: Dict[str, Any]):
-        """
-        Initialize SafetyManager with configuration.
-
-        Args:
-            config: Safety system configuration dictionary
-        """
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
         # Safety state management
         self._state = SafetyState.HEALTHY

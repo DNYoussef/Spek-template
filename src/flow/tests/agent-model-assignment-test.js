@@ -21,7 +21,7 @@ class AgentModelAssignmentTest {
    * Run comprehensive test suite
    */
   async runAllTests() {
-    console.log('🚀 Starting Agent Model Assignment Test Suite\n');
+    console.log(' Starting Agent Model Assignment Test Suite\n');
 
     try {
       await this.testModelSelectionLogic();
@@ -37,7 +37,7 @@ class AgentModelAssignmentTest {
       return this.generateTestReport();
 
     } catch (error) {
-      console.error('❌ Test suite failed:', error.message);
+      console.error(' Test suite failed:', error.message);
       throw error;
     }
   }
@@ -46,7 +46,7 @@ class AgentModelAssignmentTest {
    * Test core model selection logic
    */
   async testModelSelectionLogic() {
-    console.log('🧪 Testing Model Selection Logic...');
+    console.log(' Testing Model Selection Logic...');
 
     const testCases = [
       {
@@ -94,7 +94,7 @@ class AgentModelAssignmentTest {
         rationale: result.rationale
       });
 
-      console.log(`  ${passed ? '✅' : '❌'} ${testCase.testName}`);
+      console.log(`  ${passed ? '' : ''} ${testCase.testName}`);
       if (!passed) {
         console.log(`     Expected: ${testCase.expectedModel}@${testCase.expectedPlatform}`);
         console.log(`     Actual: ${result.model}@${result.platform}`);
@@ -106,7 +106,7 @@ class AgentModelAssignmentTest {
    * Test browser automation agent assignments
    */
   async testBrowserAutomationAssignments() {
-    console.log('\n🌐 Testing Browser Automation Assignments...');
+    console.log('\n Testing Browser Automation Assignments...');
 
     const browserAgents = ['frontend-developer', 'ui-designer', 'mobile-dev', 'rapid-prototyper'];
     const browserTasks = [
@@ -137,7 +137,7 @@ class AgentModelAssignmentTest {
           }
         );
 
-        console.log(`  ${passed ? '✅' : '❌'} ${agentType}: ${assignedCodex ? 'Codex' : 'Other'}`);
+        console.log(`  ${passed ? '' : ''} ${agentType}: ${assignedCodex ? 'Codex' : 'Other'}`);
       }
     }
   }
@@ -146,7 +146,7 @@ class AgentModelAssignmentTest {
    * Test large context agent assignments
    */
   async testLargeContextAssignments() {
-    console.log('\n📊 Testing Large Context Assignments...');
+    console.log('\n Testing Large Context Assignments...');
 
     const largeContextAgents = ['researcher', 'research-agent', 'specification', 'architecture'];
     const largeContextTasks = [
@@ -175,7 +175,7 @@ class AgentModelAssignmentTest {
         }
       );
 
-      console.log(`  ${passed ? '✅' : '❌'} ${agentType}: ${result.model}`);
+      console.log(`  ${passed ? '' : ''} ${agentType}: ${result.model}`);
     }
   }
 
@@ -183,7 +183,7 @@ class AgentModelAssignmentTest {
    * Test quality assurance agent assignments
    */
   async testQualityAssuranceAssignments() {
-    console.log('\n🛡️ Testing Quality Assurance Assignments...');
+    console.log('\n Testing Quality Assurance Assignments...');
 
     const qaAgents = ['reviewer', 'code-analyzer', 'security-manager', 'tester', 'production-validator'];
 
@@ -206,7 +206,7 @@ class AgentModelAssignmentTest {
         }
       );
 
-      console.log(`  ${passed ? '✅' : '❌'} ${agentType}: ${result.model}`);
+      console.log(`  ${passed ? '' : ''} ${agentType}: ${result.model}`);
     }
   }
 
@@ -214,7 +214,7 @@ class AgentModelAssignmentTest {
    * Test sequential thinking integration
    */
   async testSequentialThinkingIntegration() {
-    console.log('\n🧠 Testing Sequential Thinking Integration...');
+    console.log('\n Testing Sequential Thinking Integration...');
 
     const thinkingAgents = [
       'sparc-coord', 'hierarchical-coordinator', 'planner', 'refinement'
@@ -240,7 +240,7 @@ class AgentModelAssignmentTest {
         }
       );
 
-      console.log(`  ${passed ? '✅' : '❌'} ${agentType}: ${hasThinking ? 'Enabled' : 'Disabled'}`);
+      console.log(`  ${passed ? '' : ''} ${agentType}: ${hasThinking ? 'Enabled' : 'Disabled'}`);
     }
   }
 
@@ -248,7 +248,7 @@ class AgentModelAssignmentTest {
    * Test agent spawning process
    */
   async testAgentSpawning() {
-    console.log('\n🚀 Testing Agent Spawning Process...');
+    console.log('\n Testing Agent Spawning Process...');
 
     const spawnTests = [
       {
@@ -290,7 +290,7 @@ class AgentModelAssignmentTest {
           }
         );
 
-        console.log(`  ${passed ? '✅' : '❌'} ${test.agentType}: ${spawnResult.success ? 'Spawned' : 'Failed'}`);
+        console.log(`  ${passed ? '' : ''} ${test.agentType}: ${spawnResult.success ? 'Spawned' : 'Failed'}`);
 
         // Clean up spawned agent
         if (spawnResult.success) {
@@ -303,7 +303,7 @@ class AgentModelAssignmentTest {
           false,
           { error: error.message }
         );
-        console.log(`  ❌ ${test.agentType}: Error - ${error.message}`);
+        console.log(`   ${test.agentType}: Error - ${error.message}`);
       }
     }
   }
@@ -312,7 +312,7 @@ class AgentModelAssignmentTest {
    * Test platform availability detection
    */
   async testPlatformAvailability() {
-    console.log('\n🔌 Testing Platform Availability...');
+    console.log('\n Testing Platform Availability...');
 
     const platforms = ['gemini', 'openai', 'claude'];
 
@@ -330,7 +330,7 @@ class AgentModelAssignmentTest {
         }
       );
 
-      console.log(`  ✅ ${platform}: ${available ? 'Available' : 'Unavailable'}`);
+      console.log(`   ${platform}: ${available ? 'Available' : 'Unavailable'}`);
     }
   }
 
@@ -338,7 +338,7 @@ class AgentModelAssignmentTest {
    * Test fallback mechanisms
    */
   async testFallbackMechanisms() {
-    console.log('\n🔄 Testing Fallback Mechanisms...');
+    console.log('\n Testing Fallback Mechanisms...');
 
     // Test fallback when primary model unavailable
     const testCases = [
@@ -370,7 +370,7 @@ class AgentModelAssignmentTest {
         }
       );
 
-      console.log(`  ${passed ? '✅' : '❌'} ${testCase.agentType}: ${fallbackModel}`);
+      console.log(`  ${passed ? '' : ''} ${testCase.agentType}: ${fallbackModel}`);
     }
   }
 
@@ -390,7 +390,7 @@ class AgentModelAssignmentTest {
    * Print test summary
    */
   printTestSummary() {
-    console.log('\n📊 Test Summary');
+    console.log('\n Test Summary');
     console.log('================');
 
     const totalTests = this.testResults.length;
@@ -399,12 +399,12 @@ class AgentModelAssignmentTest {
     const successRate = ((passedTests / totalTests) * 100).toFixed(1);
 
     console.log(`Total Tests: ${totalTests}`);
-    console.log(`Passed: ${passedTests} ✅`);
-    console.log(`Failed: ${failedTests} ❌`);
+    console.log(`Passed: ${passedTests} `);
+    console.log(`Failed: ${failedTests} `);
     console.log(`Success Rate: ${successRate}%`);
 
     if (failedTests > 0) {
-      console.log('\n❌ Failed Tests:');
+      console.log('\n Failed Tests:');
       this.testResults
         .filter(result => !result.passed)
         .forEach(result => {
@@ -478,7 +478,7 @@ class AgentModelAssignmentTest {
  * Quick test runner function
  */
 async function runQuickTest() {
-  console.log('🧪 Running Quick Agent Model Assignment Test...\n');
+  console.log(' Running Quick Agent Model Assignment Test...\n');
 
   try {
     // Test a few key scenarios
@@ -512,15 +512,15 @@ async function runQuickTest() {
       const success = result.model === test.expectedModel;
       passed += success ? 1 : 0;
 
-      console.log(`${success ? '✅' : '❌'} ${test.agent}: ${result.model} (expected: ${test.expectedModel})`);
+      console.log(`${success ? '' : ''} ${test.agent}: ${result.model} (expected: ${test.expectedModel})`);
     }
 
-    console.log(`\n📊 Quick Test Results: ${passed}/${total} passed (${((passed/total)*100).toFixed(1)}%)`);
+    console.log(`\n Quick Test Results: ${passed}/${total} passed (${((passed/total)*100).toFixed(1)}%)`);
 
     return { passed, total, successRate: (passed/total)*100 };
 
   } catch (error) {
-    console.error('❌ Quick test failed:', error.message);
+    console.error(' Quick test failed:', error.message);
     throw error;
   }
 }

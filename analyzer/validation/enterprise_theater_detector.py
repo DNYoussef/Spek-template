@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Enterprise Theater Detector
 Detects performance theater patterns in enterprise environments.
@@ -310,7 +311,7 @@ class EnterpriseTheaterDetector:
 
     def analyze_file(self, file_path: str, metrics: Optional[QualityMetrics] = None) -> List[TheaterPattern]:
         """Analyze a file for all theater patterns."""
-        if not os.path.exists(file_path):
+        if not path_exists(file_path):
             return []
 
         try:

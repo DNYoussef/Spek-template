@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 SC-002: SLSA Level 3 Provenance Attestation System
 Generates SLSA provenance attestations for supply chain security.
@@ -260,7 +261,7 @@ class SLSAProvenanceGenerator:
     def _calculate_file_hash(self, file_path: str) -> str:
         """Calculate SHA256 hash of file."""
         try:
-            if Path(file_path).exists():
+            if path_exists(file_path):
                 with open(file_path, 'rb') as f:
                     return hashlib.sha256(f.read()).hexdigest()
         except Exception:

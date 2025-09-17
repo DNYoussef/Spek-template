@@ -4,26 +4,8 @@ Defense-grade audit logging and trail management for compliance requirements.
 """
 
 import json
-import logging
-import hashlib
-from datetime import datetime, timezone
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Union
-from dataclasses import dataclass, asdict
-from enum import Enum
-import threading
-import queue
-import sqlite3
-import uuid
-from contextlib import contextmanager
-import os
-
-# Configure secure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class AuditEventType(Enum):

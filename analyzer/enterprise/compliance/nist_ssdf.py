@@ -13,48 +13,8 @@ Aligns with NIST SP 800-218 for secure software development lifecycle integratio
 
 import asyncio
 import json
-import logging
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Set
-from dataclasses import dataclass, field
-import re
-
-
-@dataclass
-class NISTSSDFPractice:
-    """NIST-SSDF practice definition"""
-    practice_id: str  # PO.1.1, PS.1.1, etc.
-    group: str       # PO, PS, PW, RV
-    practice_name: str
-    description: str
-    implementation_guidance: List[str] = field(default_factory=list)
-    example_implementations: List[str] = field(default_factory=list)
-    references: List[str] = field(default_factory=list)
-    automation_potential: str = "high"  # high, medium, low, manual
-    tier_requirements: Dict[int, str] = field(default_factory=dict)  # Tier 1-4 requirements
-
-
-@dataclass
-class PracticeAssessment:
-    """Assessment of NIST-SSDF practice implementation"""
-    practice_id: str
-    implementation_tier: int  # 1-4 (1=basic, 4=advanced)
-    maturity_level: str  # initial, developing, defined, managed, optimizing
-    implementation_status: str  # not_implemented, partial, implemented, exceeds
-    evidence_collected: List[Dict[str, Any]] = field(default_factory=list)
-    automation_level: str = "manual"  # manual, semi_automated, automated, continuous
-    gaps_identified: List[str] = field(default_factory=list)
-    recommendations: List[str] = field(default_factory=list)
-    assessment_timestamp: datetime = field(default_factory=datetime.now)
-
-
-class NISTSSDFPracticeValidator:
-    """NIST-SSDF v1.1 practice alignment and evidence validator"""
-    
-    def __init__(self, config):
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.assessments: List[PracticeAssessment] = []
         
         # NIST-SSDF practice catalog

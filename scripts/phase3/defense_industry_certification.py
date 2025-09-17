@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Phase 3: Defense Industry Certification with DFARS Compliance
@@ -166,7 +167,7 @@ class DefenseIndustryCertificationEngine:
 
         evidence_count = 0
         for file_path in dfars_files:
-            if Path(file_path).exists():
+            if path_exists(file_path):
                 evidence_count += 1
                 # Mark related compliance checks as passed
                 if "audit" in file_path:
@@ -276,7 +277,7 @@ class DefenseIndustryCertificationEngine:
         ]
 
         for file_path in crypto_files:
-            if Path(file_path).exists():
+            if path_exists(file_path):
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:
                         content = f.read()
@@ -328,7 +329,7 @@ class DefenseIndustryCertificationEngine:
 
         monitoring_count = 0
         for file_path in perf_files:
-            if Path(file_path).exists():
+            if path_exists(file_path):
                 monitoring_count += 1
 
         performance_metrics["monitoring_coverage"] = monitoring_count / len(perf_files)
@@ -339,7 +340,7 @@ class DefenseIndustryCertificationEngine:
         performance_metrics["overhead_percentage"] = (with_monitoring_time - baseline_time) / baseline_time
 
         # Check for rollback and optimization features
-        if Path("analyzer/enterprise/performance").exists():
+        if path_exists("analyzer/enterprise/performance"):
             performance_metrics["detector_pool_optimized"] = True
             performance_metrics["cross_module_metrics"] = True
 
@@ -426,7 +427,7 @@ class DefenseIndustryCertificationEngine:
 
         evidence_count = 0
         for file_path in audit_files:
-            if Path(file_path).exists():
+            if path_exists(file_path):
                 evidence_count += 1
                 try:
                     with open(file_path, 'r', encoding='utf-8') as f:
@@ -479,7 +480,7 @@ class DefenseIndustryCertificationEngine:
         ]
 
         for file_path in ci_files:
-            if Path(file_path).exists():
+            if path_exists(file_path):
                 integration_checks["ci_cd_pipeline"] = True
                 break
 
@@ -490,7 +491,7 @@ class DefenseIndustryCertificationEngine:
         ]
 
         for file_path in doc_files:
-            if Path(file_path).exists():
+            if path_exists(file_path):
                 integration_checks["documentation_complete"] = True
                 break
 

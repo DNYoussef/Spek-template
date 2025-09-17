@@ -18,11 +18,8 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import subprocess
 import statistics
-import logging
-
-# Configure logging for theater detection
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class TheaterPattern:

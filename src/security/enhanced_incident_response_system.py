@@ -4,30 +4,8 @@ Automated security incident detection, response, and forensic capabilities with 
 """
 
 import json
-import logging
-import time
-import asyncio
-from datetime import datetime, timezone, timedelta
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple, Set
-from dataclasses import dataclass, asdict
-from enum import Enum
-import hashlib
-import secrets
-import threading
-from queue import Queue, PriorityQueue
-import smtplib
-from email.mime.text import MimeText
-from email.mime.multipart import MimeMultipart
-import subprocess
-import tarfile
-
-from .enhanced_audit_trail_manager import (
-    EnhancedDFARSAuditTrailManager, AuditEventType, SeverityLevel
-)
-from .fips_crypto_module import FIPSCryptoModule
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class IncidentType(Enum):

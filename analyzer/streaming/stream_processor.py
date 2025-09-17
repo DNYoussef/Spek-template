@@ -25,38 +25,8 @@ from collections import defaultdict, deque
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, AsyncGenerator, Callable, Dict, List, Optional, Set, Union
-import logging
-
-# File watching capabilities
-try:
-    from watchdog.observers import Observer
-    from watchdog.events import FileSystemEventHandler, FileSystemEvent
-    WATCHDOG_AVAILABLE = True
-except ImportError:
-    # Create dummy classes for when watchdog is not available
-    class Observer:
-        def __init__(self):
-            pass
-        def start(self):
-            pass
-        def stop(self):
-            pass
-        def join(self):
-            pass
-        def schedule(self, handler, path, recursive=False):
-            pass
-
-    class FileSystemEventHandler:
-        def __init__(self):
-            pass
-
-    class FileSystemEvent:
-        def __init__(self):
-            pass
-
-    WATCHDOG_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -472,7 +442,7 @@ class StreamProcessor:
     def process_file_change(self, file_path: str, changes: Dict[str, Any]):
         """Process file change event for streaming analysis."""
         try:
-            if not Path(file_path).exists():
+            if not path_exists(file_path):
                 return
 
             with open(file_path, 'r', encoding='utf-8') as f:

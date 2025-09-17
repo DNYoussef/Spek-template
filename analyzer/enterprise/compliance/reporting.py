@@ -19,50 +19,8 @@ Report Formats:
 
 import asyncio
 import json
-import logging
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Set
-from dataclasses import dataclass, field
-import yaml
-from jinja2 import Template
-import base64
-
-
-@dataclass
-class ComplianceScorecard:
-    """Compliance scorecard for a specific framework"""
-    framework: str
-    overall_score: float
-    compliance_level: str  # Excellent, Good, Adequate, Developing, Inadequate
-    total_controls: int
-    implemented_controls: int
-    partially_implemented: int
-    not_implemented: int
-    high_risk_gaps: int
-    medium_risk_gaps: int
-    low_risk_gaps: int
-    automation_percentage: float
-    last_assessment: datetime
-    trend: str  # improving, stable, declining
-
-
-@dataclass
-class CrossFrameworkMapping:
-    """Cross-framework control mapping"""
-    primary_framework: str
-    primary_control: str
-    mapped_frameworks: Dict[str, List[str]]  # framework -> control IDs
-    mapping_confidence: str  # high, medium, low
-    rationale: str
-
-
-class ComplianceReportGenerator:
-    """Multi-framework compliance report generator"""
-    
-    def __init__(self, config):
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
         # Report templates
         self.report_templates = self._initialize_report_templates()

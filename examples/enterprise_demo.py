@@ -18,21 +18,8 @@ This demo showcases:
 
 import asyncio
 import json
-import logging
-import random
-import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, Any, List
-import uuid
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 def create_mock_detector_types():
     """Create mock detector types for demonstration."""

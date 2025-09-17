@@ -1,3 +1,4 @@
+from lib.shared.utilities import validate_file
 """
 Security Analyzer
 Orchestrates comprehensive security analysis.
@@ -284,7 +285,7 @@ class SecurityAnalyzer:
 
     def analyze_and_report(self, target_path: str, output_path: Optional[str] = None) -> Dict[str, Any]:
         """Complete security analysis workflow with report generation."""
-        if os.path.isfile(target_path):
+        if validate_file(target_path):
             results = self.analyze_file(target_path)
         else:
             results = self.analyze_directory(target_path)

@@ -20,54 +20,8 @@ Features:
 import asyncio
 import hashlib
 import json
-import logging
-import time
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Set
-from dataclasses import dataclass, field
-import uuid
-import zipfile
-import tempfile
-
-
-@dataclass
-class AuditEvent:
-    """Individual audit event record"""
-    event_id: str
-    timestamp: datetime
-    event_type: str  # evidence_collection, framework_assessment, policy_change, etc.
-    framework: str   # SOC2, ISO27001, NIST-SSDF, etc.
-    source: str      # system, user, automated
-    description: str
-    data_hash: Optional[str] = None
-    evidence_files: List[str] = field(default_factory=list)
-    metadata: Dict[str, Any] = field(default_factory=dict)
-    chain_of_custody: List[str] = field(default_factory=list)
-    integrity_verified: bool = False
-
-
-@dataclass
-class EvidencePackage:
-    """Evidence package with audit trail"""
-    package_id: str
-    creation_timestamp: datetime
-    framework: str
-    evidence_type: str
-    files: List[str] = field(default_factory=list)
-    package_hash: Optional[str] = None
-    digital_signature: Optional[str] = None
-    retention_until: datetime = field(default_factory=lambda: datetime.now() + timedelta(days=90))
-    chain_of_custody: List[AuditEvent] = field(default_factory=list)
-    metadata: Dict[str, Any] = field(default_factory=dict)
-
-
-class AuditTrailGenerator:
-    """Automated audit trail generation and evidence packaging system"""
-    
-    def __init__(self, config):
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.audit_events: List[AuditEvent] = []
         self.evidence_packages: List[EvidencePackage] = []
         

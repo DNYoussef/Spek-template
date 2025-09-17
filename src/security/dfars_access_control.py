@@ -5,25 +5,8 @@ Implements DFARS 252.204-7012 access control requirements.
 """
 
 import json
-import logging
-import hashlib
-import secrets
-import time
-from datetime import datetime, timezone, timedelta
-from typing import Dict, List, Any, Optional, Set, Tuple
-from dataclasses import dataclass, asdict
-from enum import Enum
-import pyotp
-import jwt
-from cryptography.fernet import Fernet
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-import base64
-
-from .fips_crypto_module import FIPSCryptoModule
-from .audit_trail_manager import DFARSAuditTrailManager, AuditEventType, SeverityLevel
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class AccessLevel(Enum):

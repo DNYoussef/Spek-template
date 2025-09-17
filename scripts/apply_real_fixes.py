@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Apply REAL fixes that actually eliminate violations
@@ -97,7 +98,7 @@ def apply_fixes_to_worst_offenders():
     total_after = 0
 
     for file_path in target_files:
-        if not Path(file_path).exists():
+        if not path_exists(file_path):
             continue
 
         # Analyze before

@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Security Gate Validator - Comprehensive Security Quality Gate Implementation
@@ -347,7 +348,7 @@ class SecurityValidator:
         """Run NPM audit for JavaScript dependencies."""
         findings = []
         
-        if not Path("package.json").exists():
+        if not path_exists("package.json"):
             return findings
         
         try:

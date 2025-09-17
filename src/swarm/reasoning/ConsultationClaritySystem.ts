@@ -200,9 +200,9 @@ export class ConsultationClaritySystem extends EventEmitter {
           'Use percentage-based criteria'
         ],
         examples: [
-          '"some users" → "at least 80% of users"',
-          '"many features" → "15-20 features"',
-          '"few errors" → "< 5 errors per 1000 requests"'
+          '"some users"  "at least 80% of users"',
+          '"many features"  "15-20 features"',
+          '"few errors"  "< 5 errors per 1000 requests"'
         ],
         relatedRequirements: []
       });
@@ -226,7 +226,7 @@ export class ConsultationClaritySystem extends EventEmitter {
           'Use bullet points for complex requirements'
         ],
         examples: [
-          '"When it processes this" → "When the system processes the user request"'
+          '"When it processes this"  "When the system processes the user request"'
         ],
         relatedRequirements: []
       });
@@ -249,8 +249,8 @@ export class ConsultationClaritySystem extends EventEmitter {
           'Clarify optional vs required functionality'
         ],
         examples: [
-          '"should validate" → "must validate"',
-          '"might include" → "will include" or "may optionally include"'
+          '"should validate"  "must validate"',
+          '"might include"  "will include" or "may optionally include"'
         ],
         relatedRequirements: []
       });
@@ -307,9 +307,9 @@ export class ConsultationClaritySystem extends EventEmitter {
           'Create phase-based implementation plan'
         ],
         examples: [
-          '"All components" → List specific components',
-          '"Entire system" → Define system boundaries',
-          '"Complete redesign" → Specify affected areas'
+          '"All components"  List specific components',
+          '"Entire system"  Define system boundaries',
+          '"Complete redesign"  Specify affected areas'
         ],
         relatedRequirements: []
       });
@@ -348,8 +348,8 @@ export class ConsultationClaritySystem extends EventEmitter {
             'Define prerequisite conditions'
           ],
           examples: [
-            '"Once login is complete" → Add dependency on REQ-AUTH-001',
-            '"When database is ready" → Add dependency on REQ-DB-001'
+            '"Once login is complete"  Add dependency on REQ-AUTH-001',
+            '"When database is ready"  Add dependency on REQ-DB-001'
           ],
           relatedRequirements: []
         });
@@ -436,8 +436,8 @@ export class ConsultationClaritySystem extends EventEmitter {
           'Use user testing criteria'
         ],
         examples: [
-          '"user-friendly" → "90% of users complete task in <5 minutes"',
-          '"good performance" → "responds within 200ms for 95% of requests"'
+          '"user-friendly"  "90% of users complete task in <5 minutes"',
+          '"good performance"  "responds within 200ms for 95% of requests"'
         ],
         relatedRequirements: []
       });
@@ -472,9 +472,9 @@ export class ConsultationClaritySystem extends EventEmitter {
           'List compatibility requirements'
         ],
         examples: [
-          '"secure" → "AES-256 encryption, HTTPS only"',
-          '"scalable" → "Support 10x current load"',
-          '"compatible" → "Works with Chrome 90+, Firefox 88+"'
+          '"secure"  "AES-256 encryption, HTTPS only"',
+          '"scalable"  "Support 10x current load"',
+          '"compatible"  "Works with Chrome 90+, Firefox 88+"'
         ],
         relatedRequirements: []
       });
@@ -499,8 +499,8 @@ export class ConsultationClaritySystem extends EventEmitter {
           'List integration requirements'
         ],
         examples: [
-          '"database" → "PostgreSQL 13+"',
-          '"API" → "REST API with OpenAPI 3.0 specification"'
+          '"database"  "PostgreSQL 13+"',
+          '"API"  "REST API with OpenAPI 3.0 specification"'
         ],
         relatedRequirements: []
       });
@@ -1060,12 +1060,12 @@ ${session.ambiguities.filter(a =>
 
 Recommendations:
 ${metrics.implementationReadiness >= 0.8
-  ? '✅ Ready for implementation - all critical ambiguities resolved'
-  : '⚠️ Additional clarification needed before implementation'
+  ? ' Ready for implementation - all critical ambiguities resolved'
+  : ' Additional clarification needed before implementation'
 }
 ${metrics.decisionConfidence < 0.7
-  ? '⚠️ Low confidence decisions detected - consider additional review'
-  : '✅ High confidence in recorded decisions'
+  ? ' Low confidence decisions detected - consider additional review'
+  : ' High confidence in recorded decisions'
 }
 `.trim();
   }

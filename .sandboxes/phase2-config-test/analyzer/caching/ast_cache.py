@@ -12,17 +12,8 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, asdict, field
 import hashlib
 import json
-import logging
-from pathlib import Path
-import sys
-import threading
-import time
-from typing import Any, Dict, List, Optional, Union
-
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

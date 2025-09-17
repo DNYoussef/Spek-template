@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 """
 Security Compliance Checker
 Validates code against security standards and regulations.
@@ -340,7 +341,7 @@ class ComplianceChecker:
 
     def check_compliance(self, file_path: str, standards: List[SecurityStandard] = None) -> List[ComplianceViolation]:
         """Check compliance against specified standards."""
-        if not os.path.exists(file_path):
+        if not path_exists(file_path):
             return []
 
         try:

@@ -10,16 +10,8 @@ in connascence analysis.
 import ast
 from collections import defaultdict
 from dataclasses import dataclass
-import logging
-from pathlib import Path
-import sys
-import time
-from typing import Any, Callable, Dict, Iterator, List, Optional, Set, Union
-
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass

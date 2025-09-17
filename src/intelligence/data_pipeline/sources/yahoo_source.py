@@ -8,28 +8,8 @@ import pandas as pd
 from datetime import datetime, timedelta
 from typing import Optional, Dict, Any
 import asyncio
-import logging
-import json
-import re
-
-from ..config.pipeline_config import DataSourceConfig
-
-
-class YahooSource:
-    """
-    Yahoo Finance data source connector
-
-    Supports:
-    - Historical stock data (free)
-    - Real-time quotes
-    - Financial statements
-    - Market statistics
-    - No API key required
-    """
-
-    def __init__(self, config: DataSourceConfig):
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         self.session = None
         self.crumb = None
         self.cookies = None

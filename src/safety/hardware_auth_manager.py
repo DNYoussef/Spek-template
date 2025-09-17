@@ -8,57 +8,8 @@ with fail-safe fallback mechanisms.
 import asyncio
 import hashlib
 import hmac
-import logging
-import os
-import platform
-import time
-from dataclasses import dataclass
-from enum import Enum
-from typing import Any, Dict, List, Optional, Set
-
-
-class AuthMethod(Enum):
-    """Supported authentication methods."""
-    YUBIKEY = "yubikey"
-    TOUCH_ID = "touch_id"
-    BIOMETRIC = "biometric"
-    MASTER_KEY = "master_key"
-    PIN_CODE = "pin_code"
-    HARDWARE_TOKEN = "hardware_token"
-
-
-@dataclass
-class AuthResult:
-    """Authentication attempt result."""
-    success: bool
-    method: AuthMethod
-    user_id: Optional[str] = None
-    timestamp: float = 0.0
-    error_message: Optional[str] = None
-    challenge_token: Optional[str] = None
-
-    def __post_init__(self):
-        if self.timestamp == 0.0:
-            self.timestamp = time.time()
-
-
-class HardwareAuthManager:
-    """
-    Hardware authentication manager with multi-factor support.
-
-    Provides secure authentication for kill switch operations with
-    hardware token integration and fallback mechanisms.
-    """
-
-    def __init__(self, config: Dict[str, Any]):
-        """
-        Initialize hardware authentication manager.
-
-        Args:
-            config: Authentication configuration
-        """
-        self.config = config
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
         # Supported methods from config
         self.allowed_methods = set(

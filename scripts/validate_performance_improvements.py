@@ -24,33 +24,8 @@ import time
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
-import logging
-import sys
-
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-# Import optimization components for validation
-try:
-    from analyzer.performance.optimizer import (
-        get_global_optimization_engine, optimize_analyzer_performance
-    )
-    from analyzer.performance.incremental_analyzer import (
-        get_global_incremental_engine, analyze_project_changes
-    )
-    from analyzer.performance.ci_cd_accelerator import (
-        get_global_cicd_engine, accelerate_ci_cd_pipeline, PipelineTask, PipelineStage
-    )
-    from analyzer.performance.regression_detector import (
-        get_global_regression_engine, detect_performance_regression, RegressionType
-    )
-    from analyzer.performance.cache_performance_profiler import get_global_profiler
-    OPTIMIZATION_COMPONENTS_AVAILABLE = True
-except ImportError as e:
-    print(f"Warning: Optimization components not available: {e}")
-    OPTIMIZATION_COMPONENTS_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class PerformanceValidationSuite:

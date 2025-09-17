@@ -19,58 +19,12 @@ NASA POT10 Rule 7: Bounded resource management
 
 import asyncio
 import json
-import logging
-import threading
-import time
-from collections import defaultdict, deque
-from contextlib import asynccontextmanager
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
-import uuid
-import yaml
-import psutil
-import numpy as np
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+from lib.shared.utilities.logging_setup import get_analyzer_logger
+from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
+from lib.shared.utilities.path_validation import validate_directory, ensure_dir
 
-try:
-    from ..sixsigma import SixSigmaTelemetry, SixSigmaScorer, SPCChartGenerator, collect_method_metrics
-    from ..core.feature_flags import EnterpriseFeatureFlags
-    from ..core.performance_monitor import EnterprisePerformanceMonitor
-    from ..compliance.core import ComplianceOrchestrator
-    from .EnterpriseDetectorPool import EnterpriseDetectorPool, EnterprisePoolConfig
-except ImportError:
-    # Fallback for testing
-    class SixSigmaTelemetry:
-        def record_method_execution(self, *args, **kwargs): pass
-        def get_quality_metrics(self): return {"dpmo": 0, "sigma_level": 6.0}
-    
-    class SixSigmaScorer:
-        def calculate_sigma_level(self, *args): return 6.0
-        def calculate_dpmo(self, *args): return 0
-    
-    class SPCChartGenerator:
-        def generate_control_chart(self, *args): return {"status": "mock"}
-    
-    class EnterpriseFeatureFlags:
-        def __init__(self, *args, **kwargs): pass
-        def is_enabled(self, flag): return True
-    
-    class EnterprisePerformanceMonitor:
-        def __init__(self, *args, **kwargs): pass
-        def measure_enterprise_impact(self, name): return self
-        def __enter__(self): return self
-        def __exit__(self, *args): pass
-    
-    class ComplianceOrchestrator:
-        def __init__(self, *args, **kwargs): pass
-        async def collect_all_evidence(self, *args): return {"status": "mock"}
-    
-    def collect_method_metrics(func):
-        return func
-
-logger = logging.getLogger(__name__)
+# Use shared logging for enterprise integration
+logger = get_analyzer_logger(__name__)
 
 
 @dataclass

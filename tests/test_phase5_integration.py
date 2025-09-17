@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Phase 5 Integration Test - Unified Analyzer System (Theater-Free)
@@ -149,7 +150,7 @@ def test_unified_analyzer_integration():
             config_manager = ConfigurationManager()
 
             # Try to load configuration
-            if Path("config/detector_config.yaml").exists():
+            if path_exists("config/detector_config.yaml"):
                 config_manager.load_from_file("config/detector_config.yaml")
                 print("[OK] Configuration loaded successfully")
             else:

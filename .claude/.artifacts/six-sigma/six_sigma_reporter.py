@@ -8,68 +8,8 @@ Feature flag controlled with zero breaking changes to existing functionality.
 
 import os
 import json
-import logging
-from typing import Dict, List, Any, Optional
-from dataclasses import dataclass, asdict
-from datetime import datetime, timedelta
-import numpy as np
-import matplotlib.pyplot as plt
-from pathlib import Path
-
-# Feature flag for Six Sigma reporting
-ENABLE_SIX_SIGMA_REPORTING = os.getenv('ENABLE_SIX_SIGMA_REPORTING', 'false').lower() == 'true'
-
-@dataclass
-class CTQMetric:
-    """Critical-to-Quality metric definition"""
-    name: str
-    current_value: float
-    target_value: float
-    tolerance: float
-    unit: str
-    trend: List[float]
-    timestamp: str = ""
-    
-    def __post_init__(self):
-        if not self.timestamp:
-            self.timestamp = datetime.now().isoformat()
-    
-    @property
-    def is_within_spec(self) -> bool:
-        """Check if current value is within specification limits"""
-        return abs(self.current_value - self.target_value) <= self.tolerance
-    
-    @property
-    def sigma_level(self) -> float:
-        """Calculate sigma level for this metric"""
-        if self.tolerance == 0:
-            return 6.0 if self.current_value == self.target_value else 0.0
-        
-        deviation = abs(self.current_value - self.target_value)
-        sigma = deviation / (self.tolerance / 3)  # 3-sigma tolerance
-        return max(0, 6 - sigma)
-
-@dataclass 
-class DPMOMetrics:
-    """Defects Per Million Opportunities metrics"""
-    defects: int
-    opportunities: int
-    dpmo: float
-    sigma_level: float
-    category: str
-    timestamp: str = ""
-    
-    def __post_init__(self):
-        if not self.timestamp:
-            self.timestamp = datetime.now().isoformat()
-
-class SixSigmaReporter:
-    """Main Six Sigma reporting engine"""
-    
-    def __init__(self, output_dir: str = ".claude/.artifacts/six-sigma"):
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
         
         # Initialize CTQ metrics with NASA POT10 targets
         self.ctq_definitions = {

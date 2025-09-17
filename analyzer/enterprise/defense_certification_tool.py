@@ -12,20 +12,8 @@ Target: 95%+ compliance across all defense standards.
 """
 
 import json
-import logging
-import subprocess
-import sys
-from dataclasses import dataclass, field
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Set
-import hashlib
-import yaml
-
-from .nasa_pot10_analyzer import NASAPowerOfTenAnalyzer, ComplianceMetrics, NASAViolation
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 @dataclass
 class SecurityRequirement:

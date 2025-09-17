@@ -24,28 +24,8 @@ import json
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass, field
-import logging
-from contextlib import contextmanager
-
-# Import cache systems - REAL INTEGRATION (NO MOCKS)
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-try:
-    from analyzer.optimization.file_cache import FileContentCache, get_global_cache
-    from analyzer.caching.ast_cache import ASTCache, ast_cache as global_ast_cache
-    from analyzer.streaming.incremental_cache import IncrementalCache, get_global_incremental_cache
-    from analyzer.performance.cache_performance_profiler import (
-        CachePerformanceProfiler, IntelligentCacheWarmer, WarmingStrategy,
-        get_global_profiler
-    )
-    CACHE_INTEGRATION_AVAILABLE = True
-except ImportError as e:
-    print(f"CRITICAL ERROR: Cache system import failed: {e}")
-    CACHE_INTEGRATION_AVAILABLE = False
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -224,7 +204,7 @@ class CacheOptimizationValidator:
         successful_accesses = 0
         
         for file_path in self.test_files[:100]:  # Test with 100 files
-            if not Path(file_path).exists():
+            if not path_exists(file_path):
                 continue
                 
             # Test file cache performance
@@ -313,7 +293,7 @@ class CacheOptimizationValidator:
         access_performance = []
         
         for file_path in self.test_files[:50]:
-            if not Path(file_path).exists():
+            if not path_exists(file_path):
                 continue
                 
             # Measure actual access time for each file
@@ -329,7 +309,7 @@ class CacheOptimizationValidator:
         # STEP 5: Calculate REAL performance metrics
         avg_access_time = statistics.mean(access_performance) if access_performance else float('inf')
         files_warmed = warming_results.get('files_warmed', 0)
-        expected_files = len([f for f in warming_strategy.priority_files if Path(f).exists()])
+        expected_files = len([f for f in warming_strategy.priority_files if path_exists(f)])
         warming_effectiveness = (files_warmed / max(expected_files, 1)) * 100
         
         # Get REAL cache statistics
@@ -380,7 +360,7 @@ class CacheOptimizationValidator:
         
         for file_path in streaming_files:
             # Simulate file analysis operations
-            if Path(file_path).exists():
+            if path_exists(file_path):
                 # Simulate reading and processing
                 with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                     content = f.read()
@@ -399,7 +379,7 @@ class CacheOptimizationValidator:
         
         for file_path in streaming_files:
             # Use incremental cache for delta processing
-            if Path(file_path).exists():
+            if path_exists(file_path):
                 # Track file change (creates cache entry)
                 with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                     content = f.read()

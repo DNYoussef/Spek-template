@@ -21,7 +21,7 @@ def log_action(message: str, level: str = "INFO") -> None:
     import datetime
     timestamp = datetime.datetime.now().strftime("%H:%M:%S")
     # Remove emojis for Windows compatibility
-    clean_message = message.replace("🚀", "").replace("🎉", "").replace("💥", "").replace("✅", "[OK]").replace("⚠️", "[WARN]").replace("❌", "[FAIL]")
+    clean_message = message.replace("", "").replace("", "").replace("", "").replace("", "[OK]").replace("", "[WARN]").replace("", "[FAIL]")
     print(f"[{timestamp}] {level}: {clean_message}")
 
 
@@ -66,7 +66,7 @@ def replace_unified_analyzer_import():
         with open(core_py, 'w') as f:
             f.write(content)
 
-        log_action("✓ Updated analyzer/core.py to use real analyzer")
+        log_action(" Updated analyzer/core.py to use real analyzer")
 
 
 def update_test_imports():
@@ -107,7 +107,7 @@ def test_real_analyzer_availability():
         # Verify it's actually real, not a mock
         assert analyzer.__class__.__name__ == "RealUnifiedAnalyzer"
 
-        print("✓ Real analyzer successfully imported and verified")
+        print(" Real analyzer successfully imported and verified")
 
     except ImportError as e:
         pytest.fail(f"FATAL: Cannot import real analyzer: {e}")
@@ -125,7 +125,7 @@ def test_no_mock_components():
         assert analyzer.nasa_analyzer.__class__.__name__ == "RealNASAAnalyzer"
         assert analyzer.duplication_analyzer.__class__.__name__ == "RealDuplicationAnalyzer"
 
-        print("✓ All components verified as real (no mocks)")
+        print(" All components verified as real (no mocks)")
 
     except Exception as e:
         pytest.fail(f"FATAL: Mock components detected or analyzer broken: {e}")
@@ -147,7 +147,7 @@ def test_analyzer_produces_real_results():
         # Must have real analysis flag
         assert result.get("real_analysis") is True, "Analysis not marked as real!"
 
-        print("✓ Analyzer produces real results")
+        print(" Analyzer produces real results")
 
     except Exception as e:
         pytest.fail(f"FATAL: Analyzer does not produce real results: {e}")
@@ -157,13 +157,13 @@ if __name__ == "__main__":
     test_real_analyzer_availability()
     test_no_mock_components()
     test_analyzer_produces_real_results()
-    print("🎉 ALL THEATER ELIMINATION TESTS PASSED!")
+    print(" ALL THEATER ELIMINATION TESTS PASSED!")
 '''
 
         with open(test_analyzer_py, 'w') as f:
             f.write(new_content)
 
-        log_action("✓ Updated tests/test_analyzer.py with real tests")
+        log_action(" Updated tests/test_analyzer.py with real tests")
 
 
 def replace_git_hook():
@@ -183,9 +183,9 @@ def replace_git_hook():
     if new_hook.exists():
         shutil.copy2(new_hook, old_hook)
         old_hook.chmod(0o755)  # Make executable
-        log_action("✓ Installed real pre-commit hook")
+        log_action(" Installed real pre-commit hook")
     else:
-        log_action("⚠️  Real pre-commit hook not found, skipping")
+        log_action("  Real pre-commit hook not found, skipping")
 
 
 def validate_real_analyzer():
@@ -241,7 +241,7 @@ class TestClass:
             if not god_class_found:
                 raise RuntimeError("God class not detected - analyzer is broken")
 
-            log_action(f"✓ Real analyzer working: found {len(violations)} violations")
+            log_action(f" Real analyzer working: found {len(violations)} violations")
 
         finally:
             if test_file.exists():
@@ -266,7 +266,7 @@ def run_real_tests():
             log_action(f"REAL TESTS FAILED:\n{result.stdout}\n{result.stderr}", "ERROR")
             raise RuntimeError("Real tests failed - theater not fully eliminated")
 
-        log_action("✓ All real tests passed")
+        log_action(" All real tests passed")
 
     except FileNotFoundError:
         log_action("Real test file not found, creating minimal test...", "WARNING")
@@ -316,15 +316,15 @@ Generated: {__import__('datetime').datetime.now().isoformat()}
 
 ## Validation Results
 
-- ✅ Real analyzer successfully detects violations
-- ✅ Tests fail when analyzer is broken
-- ✅ Git hooks block bad commits
-- ✅ Performance monitoring tracks real metrics
-- ✅ Detection modules find actual issues
+-  Real analyzer successfully detects violations
+-  Tests fail when analyzer is broken
+-  Git hooks block bad commits
+-  Performance monitoring tracks real metrics
+-  Detection modules find actual issues
 
 ## Summary
 
-🎉 **THEATER ELIMINATION COMPLETE**
+ **THEATER ELIMINATION COMPLETE**
 
 All mock implementations have been replaced with real, working components.
 The analyzer now does genuine work and fails appropriately when broken.
@@ -339,12 +339,12 @@ The analyzer now does genuine work and fails appropriately when broken.
     report_file.parent.mkdir(parents=True, exist_ok=True)
     report_file.write_text(report_content)
 
-    log_action(f"✓ Theater elimination report saved to {report_file}")
+    log_action(f" Theater elimination report saved to {report_file}")
 
 
 def main():
     """Main theater elimination process."""
-    log_action("🚀 Starting theater elimination process...")
+    log_action(" Starting theater elimination process...")
 
     try:
         # Step 1: Replace mock implementations
@@ -359,23 +359,23 @@ def main():
         # Step 3: Generate report
         generate_theater_elimination_report()
 
-        log_action("🎉 THEATER ELIMINATION COMPLETE - NO MOCKS REMAINING!", "SUCCESS")
+        log_action(" THEATER ELIMINATION COMPLETE - NO MOCKS REMAINING!", "SUCCESS")
         print("\n" + "="*60)
-        print("✅ ALL THEATER ELIMINATED")
-        print("✅ REAL IMPLEMENTATIONS WORKING")
-        print("✅ TESTS FAIL WHEN BROKEN")
-        print("✅ GIT HOOKS BLOCK BAD COMMITS")
-        print("✅ NO NOTIFICATION SPAM")
+        print(" ALL THEATER ELIMINATED")
+        print(" REAL IMPLEMENTATIONS WORKING")
+        print(" TESTS FAIL WHEN BROKEN")
+        print(" GIT HOOKS BLOCK BAD COMMITS")
+        print(" NO NOTIFICATION SPAM")
         print("="*60)
 
         return 0
 
     except Exception as e:
-        log_action(f"💥 THEATER ELIMINATION FAILED: {e}", "ERROR")
+        log_action(f" THEATER ELIMINATION FAILED: {e}", "ERROR")
         print("\n" + "="*60)
-        print("❌ THEATER ELIMINATION FAILED")
-        print(f"❌ ERROR: {e}")
-        print("❌ SOME THEATER MAY REMAIN")
+        print(" THEATER ELIMINATION FAILED")
+        print(f" ERROR: {e}")
+        print(" SOME THEATER MAY REMAIN")
         print("="*60)
         return 1
 

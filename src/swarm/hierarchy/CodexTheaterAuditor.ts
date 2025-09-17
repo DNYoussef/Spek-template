@@ -57,13 +57,13 @@ export class CodexTheaterAuditor {
     this.auditCounter++;
 
     if (this.auditCounter % this.AUDIT_INTERVAL === 0) {
-      console.log(`\n🔍 CODEX AUDIT TRIGGERED (Step ${stepNumber})`);
+      console.log(`\n CODEX AUDIT TRIGGERED (Step ${stepNumber})`);
       const auditResults = await this.performTheaterAudit(filesCreated, context);
 
       // If theater found, immediately fix
       const theatricalFiles = auditResults.filter(r => r.theaterFound);
       if (theatricalFiles.length > 0) {
-        console.log(`⚠️  Theater detected in ${theatricalFiles.length} files. Initiating fixes...`);
+        console.log(`  Theater detected in ${theatricalFiles.length} files. Initiating fixes...`);
         await this.fixTheaterIssues(theatricalFiles);
       }
 
@@ -201,7 +201,7 @@ export class CodexTheaterAuditor {
   private async fixTheaterIssues(
     detections: TheaterDetection[]
   ): Promise<void> {
-    console.log('\n🔧 FIXING THEATER ISSUES...\n');
+    console.log('\n FIXING THEATER ISSUES...\n');
 
     for (const detection of detections) {
       console.log(`Fixing ${detection.fileAudited}:`);
@@ -224,9 +224,9 @@ export class CodexTheaterAuditor {
       );
 
       if (postFixValidation.compiled && postFixValidation.testsPass) {
-        console.log(`  ✅ Fixed and validated successfully`);
+        console.log(`   Fixed and validated successfully`);
       } else {
-        console.log(`  ⚠️  Additional fixes needed`);
+        console.log(`    Additional fixes needed`);
       }
     }
   }

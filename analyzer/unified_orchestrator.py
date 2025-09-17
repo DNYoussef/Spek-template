@@ -14,82 +14,8 @@ Provides a single, production-ready entry point for all analysis capabilities.
 
 import ast
 import json
-import logging
-import time
-from dataclasses import dataclass, asdict
-from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple
-import sys
-import asyncio
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-
-# Import analyzer types
-from utils.types import (
-    UnifiedAnalysisResult,
-    ConnascenceViolation,
-    ViolationSeverity,
-    DetectorResult,
-    AnalysisMetrics,
-    ConnascenceType
-)
-
-# Import all detectors
-from detectors import (
-    PositionDetector,
-    MagicLiteralDetector,
-    AlgorithmDetector,
-    GodObjectDetector,
-    TimingDetector,
-    ConventionDetector,
-    ValuesDetector,
-    ExecutionDetector
-)
-
-# Import architecture components
-try:
-    from architecture.detector_pool import DetectorPool
-    from architecture.orchestrator import AnalysisOrchestrator
-    from architecture.aggregator import ResultAggregator
-    from architecture.recommendation_engine import RecommendationEngine
-    ARCHITECTURE_AVAILABLE = True
-except ImportError:
-    ARCHITECTURE_AVAILABLE = False
-    logging.warning("Architecture components not available - using fallback")
-
-# Import streaming components
-try:
-    from streaming.stream_processor import StreamProcessor
-    from streaming.incremental_cache import IncrementalCache
-    from streaming.result_aggregator import StreamingResultAggregator
-    from streaming.dashboard_reporter import DashboardReporter
-    STREAMING_AVAILABLE = True
-except ImportError:
-    STREAMING_AVAILABLE = False
-    logging.warning("Streaming components not available")
-
-# Import performance monitoring
-try:
-    from optimization.memory_monitor import MemoryMonitor
-    from optimization.resource_manager import ResourceManager
-    from performance.real_time_monitor import RealTimeMonitor
-    from performance.parallel_analyzer import ParallelAnalyzer
-    PERFORMANCE_AVAILABLE = True
-except ImportError:
-    PERFORMANCE_AVAILABLE = False
-    logging.warning("Performance monitoring not available")
-
-# Import enterprise features
-try:
-    from nasa_engine.nasa_analyzer import NASAAnalyzer
-    from enterprise.sixsigma.telemetry import SixSigmaTelemetry
-    from enterprise.detectors.dfars_detector import DFARSDetector
-    from duplication_unified import UnifiedDuplicationAnalyzer
-    ENTERPRISE_AVAILABLE = True
-except ImportError:
-    ENTERPRISE_AVAILABLE = False
-    logging.warning("Enterprise features not available")
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 
 class UnifiedOrchestrator:
@@ -101,7 +27,7 @@ class UnifiedOrchestrator:
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         """Initialize the unified orchestrator with all components."""
         self.config = config or self._default_config()
-        self.logger = logging.getLogger(__name__)
+        self.logger = get_logger(__name__)
 
         # Initialize core detectors (always available)
         self.detectors = self._initialize_detectors()
@@ -524,7 +450,7 @@ def main():
         print(f"  Files analyzed: {result.metrics.total_files}")
         print(f"  Violations found: {len(result.violations)}")
         print(f"  NASA compliance: {result.nasa_compliance_score:.1%}")
-        print(f"  Six Sigma level: {result.six_sigma_level:.1f}σ")
+        print(f"  Six Sigma level: {result.six_sigma_level:.1f}")
         print(f"  MECE score: {result.mece_score:.2f}")
         print(f"  God objects: {result.god_objects_found}")
         print(f"  Duplication: {result.duplication_percentage:.1%}")

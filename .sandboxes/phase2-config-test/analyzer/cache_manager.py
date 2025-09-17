@@ -10,11 +10,8 @@ NASA Rule 2 Compliant: All methods under 60 lines.
 NASA Rule 4 Compliant: Single responsibility pattern.
 """
 
-import logging
-from pathlib import Path
-from typing import Any, Dict, List, Optional
-
-logger = logging.getLogger(__name__)
+from lib.shared.utilities import get_logger
+logger = get_logger(__name__)
 
 # Import optimization components with fallback
 try:

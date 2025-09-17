@@ -1,3 +1,4 @@
+from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Theater Detection System - Validates that analyzer fix is real work
@@ -70,7 +71,7 @@ def bad_function(a, b, c, d, e, f, g):  # Too many parameters
     # Test 3: Verify violations are diverse and realistic
     print("\nTest 3: Checking violation diversity...")
     test_file = 'src/security/dfars_compliance_engine.py'
-    if Path(test_file).exists():
+    if path_exists(test_file):
         file_violations = analyzer.analyze_file(test_file)
         types = Counter(v.type for v in file_violations)
 
