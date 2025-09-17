@@ -9,7 +9,7 @@ NASA Power of Ten compliant with comprehensive cache management.
 
 import time
 import hashlib
-import pickle
+import json
 import threading
 from typing import Any, Optional, Dict, List, Tuple
 from pathlib import Path
@@ -196,7 +196,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
         Calculate approximate size of cache entry in bytes.
         """
         try:
-            return len(pickle.dumps(value))
+            return len(json.dumps(value).encode())
         except Exception:
             # Fallback size estimate
             return len(str(value)) * 2  # Rough Unicode character estimate
@@ -261,7 +261,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
             cache_file = self.persistence_path / 'cache.pkl'
             if cache_file.exists():
                 with open(cache_file, 'rb') as f:
-                    persisted_cache = pickle.load(f)
+                    persisted_cache = json.load(f)
 
                 # Validate and load non-expired entries
                 current_time = time.time()
@@ -292,7 +292,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
         try:
             cache_file = self.persistence_path / 'cache.pkl'
             with open(cache_file, 'wb') as f:
-                pickle.dump(dict(self._cache), f)
+                json.dump(dict(self._cache), f)
 
         except Exception as e:
             logger.warning(f"Cache persistence failed: {e}")

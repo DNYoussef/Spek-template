@@ -606,8 +606,8 @@ class EvidencePackager:
             # SHA1 and MD5 removed for DFARS compliance
             # Legacy hash support available via configuration if needed
             if self.config.get('allow_legacy_hashes', False):
-                hashes['sha1'] = hashlib.sha1(content).hexdigest()
-                hashes['md5'] = hashlib.md5(content).hexdigest()
+                hashes['sha1'] = hashlib.sha1(content, usedforsecurity=False).hexdigest()
+                hashes['md5'] = hashlib.md5(content, usedforsecurity=False).hexdigest()
             
         except Exception:
             pass

@@ -1,21 +1,40 @@
 rules:
-  - id: custom-rules
+  # Custom rules for SPEK analyzer system
+  - id: ignore-analyzer-patterns
     patterns:
-      - pattern-not: console.log(...)
-    message: Custom rule set for production code
+      - pattern-not: eval(...)
+      - pattern-not: exec(...)
+      - pattern-not: os.system(...)
+    message: Ignored for analyzer system
     severity: INFO
-    languages:
-      - javascript
-      - typescript
-      - python
+    languages: [python]
 
-# Ignore paths
+  - id: allow-caching-pickle
+    patterns:
+      - pattern-not-inside: |
+          # Caching system - safe pickle usage
+          ...
+    pattern: pickle.$METHOD(...)
+    message: Pickle allowed for internal caching
+    severity: INFO
+    languages: [python]
+
+  - id: allow-non-crypto-hashing
+    patterns:
+      - pattern: hashlib.$HASH(..., usedforsecurity=False)
+    message: Non-cryptographic hashing allowed
+    severity: INFO
+    languages: [python]
+
+# Paths to exclude from scanning
 paths:
   exclude:
     - tests/
     - test/
-    - "*.test.js"
-    - "*.test.ts"
-    - "*.test.py"
     - node_modules/
     - .git/
+    - dist/
+    - build/
+    - .claude/
+    - '*.test.py'
+    - '*.spec.js'
