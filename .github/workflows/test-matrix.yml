@@ -3,6 +3,13 @@ name: Complete Test Matrix
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'tests/**'
+      - 'src/**'
+      - '**/*.js'
+      - '**/*.py'
+      - 'package.json'
+      - 'jest.config.js'
   pull_request:
     branches: [ main ]
   workflow_dispatch:
