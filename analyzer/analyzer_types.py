@@ -128,13 +128,18 @@ class AnalysisConfiguration:
     include_duplications: bool = True
     include_nasa_rules: bool = True
     include_god_objects: bool = True
-    duplication_threshold: float = 0.7
+    # Configuration constants
+    DEFAULT_DUPLICATION_THRESHOLD = 0.7
+    DEFAULT_MAX_WORKERS = 4
+    DEFAULT_MEMORY_LIMIT_MB = 1024
+
+    duplication_threshold: float = DEFAULT_DUPLICATION_THRESHOLD
 
     # Performance options
     enable_caching: bool = True
     enable_streaming: bool = False
-    max_workers: int = 4
-    memory_limit_mb: int = 1024
+    max_workers: int = DEFAULT_MAX_WORKERS
+    memory_limit_mb: int = DEFAULT_MEMORY_LIMIT_MB
 
     # Output options
     verbose: bool = False

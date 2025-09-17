@@ -39,7 +39,9 @@ class AnalysisRequest:
     detectors: Optional[List[str]] = None
     parallel: bool = True
     cache_enabled: bool = True
-    timeout_seconds: int = 300
+    # Configuration constants
+    DEFAULT_TIMEOUT_SECONDS = 300
+    timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS
 
 
 @dataclass
@@ -75,7 +77,9 @@ class AnalysisOrchestrator:
         
         # Analysis state
         self.active_analyses = {}
-        self.executor = ThreadPoolExecutor(max_workers=4)
+        # Processing constants
+        MAX_WORKER_THREADS = 4
+        self.executor = ThreadPoolExecutor(max_workers=MAX_WORKER_THREADS)
 
     def orchestrate_analysis(self, request: AnalysisRequest) -> AnalysisResult:
         """
@@ -145,7 +149,9 @@ class AnalysisOrchestrator:
         """
         # NASA Rule 5: Input validation
         assert isinstance(requests, list), "requests must be a list"
-        assert len(requests) <= 10, "Too many parallel requests (max 10)"
+        # Parallel processing limits
+        MAX_PARALLEL_REQUESTS = 10
+        assert len(requests) <= MAX_PARALLEL_REQUESTS, f"Too many parallel requests (max {MAX_PARALLEL_REQUESTS})"
         assert all(isinstance(r, AnalysisRequest) for r in requests), "All items must be AnalysisRequest"
 
         if not requests:
@@ -159,7 +165,9 @@ class AnalysisOrchestrator:
 
         # Collect results as they complete
         results = []
-        for future in as_completed(future_to_request, timeout=600):  # 10 minute timeout
+        # Timeout constants
+        PARALLEL_TIMEOUT_SECONDS = 600  # 10 minutes
+        for future in as_completed(future_to_request, timeout=PARALLEL_TIMEOUT_SECONDS):
             try:
                 result = future.result()
                 results.append(result)
@@ -217,7 +225,9 @@ class AnalysisOrchestrator:
         if status == 'running':
             elapsed = time.time() - analysis_info['start_time']
             result['elapsed_seconds'] = elapsed
-            result['estimated_remaining'] = max(0, 300 - elapsed)  # 5 minute estimate
+            # Estimation constants
+            ESTIMATED_MAX_DURATION = 300  # 5 minutes
+            result['estimated_remaining'] = max(0, ESTIMATED_MAX_DURATION - elapsed)
         elif status == 'completed':
             result['result_available'] = True
             result['execution_time'] = analysis_info.get('result', {}).execution_time
