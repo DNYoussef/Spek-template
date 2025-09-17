@@ -16,10 +16,9 @@ jobs:
 
     steps:
     - name: Update project board
-      uses: actions/add-to-project@v0.5.0
-      with:
-        project-url: https://github.com/users/DNYoussef/projects/1
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "Project board integration disabled - no valid project URL configured"
+        echo "Skipping project board update to prevent workflow failures"
 
     - name: Auto-assign based on labels
       if: github.event.action == 'opened'

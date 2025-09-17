@@ -28,45 +28,16 @@ jobs:
 
     - name: Test analyzer integration
       id: analyzer-test
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        TEST_COMMIT_SHA: ${{ github.sha }}
       run: |
-        echo "Testing analyzer system integration..."
+        echo "Running production-ready analyzer with GitHub integration..."
         cd analyzer
 
-        # Test basic imports
-        python -c "
-        import sys
-        sys.path.insert(0, '.')
-        try:
-            from utils.types import ConnascenceViolation, ViolationSeverity
-            print('✅ Core types import successful')
-        except ImportError as e:
-            print(f'❌ Import failed: {e}')
-            sys.exit(1)
-        "
-
-        # Test GitHub bridge
-        python -c "
-        import sys
-        sys.path.insert(0, '.')
-        try:
-            from integrations.github_bridge import GitHubBridge
-            print('✅ GitHub bridge import successful')
-        except ImportError as e:
-            print(f'❌ GitHub bridge import failed: {e}')
-            sys.exit(1)
-        "
-
-        # Test unified analyzer
-        python -c "
-        import sys
-        sys.path.insert(0, '.')
-        try:
-            from unified_analyzer import UnifiedAnalyzer
-            print('✅ Unified analyzer import successful')
-        except ImportError as e:
-            print(f'❌ Unified analyzer import failed: {e}')
-            sys.exit(1)
-        "
+        # Run the GitHub analyzer runner (uses proven reality-tested logic)
+        python github_analyzer_runner.py
 
     - name: Run Phase 5 reality test
       id: reality-test
