@@ -50,9 +50,9 @@ interface SwarmTask {
 export class SwarmQueen extends EventEmitter {
   private princesses: Map<string, HivePrincess> = new Map();
   private princessConfigs: Map<string, PrincessConfig> = new Map();
-  private consensus: PrincessConsensus;
-  private router: ContextRouter;
-  private protocol: CrossHiveProtocol;
+  private consensus!: PrincessConsensus;
+  private router!: ContextRouter;
+  private protocol!: CrossHiveProtocol;
   private contextDNA: ContextDNA;
   private validator: ContextValidator;
   private degradationMonitor: DegradationMonitor;
@@ -176,20 +176,12 @@ export class SwarmQueen extends EventEmitter {
       async ([id, config]) => {
         let princess: HivePrincess;
 
-        // Create specialized princess based on type
-        if (config.type === 'coordination') {
-          princess = new CoordinationPrincess(
-            id,
-            config.agentCount,
-            config.mcpServers
-          );
-        } else {
-          princess = new HivePrincess(
-            id,
-            config.type,
-            config.agentCount
-          );
-        }
+        // Create princess instance
+        princess = new HivePrincess(
+          id,
+          config.model,
+          config.agentCount
+        );
 
         // Initialize princess
         await princess.initialize();

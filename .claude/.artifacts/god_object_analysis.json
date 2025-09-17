@@ -1,0 +1,1071 @@
+{
+  "god_objects": [
+    {
+      "file": "analyzer\\analysis_orchestrator.py",
+      "class_name": "AnalysisOrchestrator",
+      "line_number": 44,
+      "method_count": 32,
+      "estimated_loc": 550,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 32 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\comprehensive_analysis_engine.py",
+      "class_name": "ComprehensiveAnalysisEngine",
+      "line_number": 48,
+      "method_count": 32,
+      "estimated_loc": 546,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 32 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\language_strategies.py",
+      "class_name": "LanguageStrategy",
+      "line_number": 34,
+      "method_count": 22,
+      "estimated_loc": 471,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 22 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\phase_correlation_storage.py",
+      "class_name": "PhaseCorrelationStorage",
+      "line_number": 156,
+      "method_count": 15,
+      "estimated_loc": 718,
+      "severity": "high",
+      "violations": [
+        "Too many lines: 718 > 700"
+      ]
+    },
+    {
+      "file": "analyzer\\policy_engine.py",
+      "class_name": "PolicyEngine",
+      "line_number": 37,
+      "method_count": 24,
+      "estimated_loc": 414,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 24 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\quality_calculator.py",
+      "class_name": "QualityCalculator",
+      "line_number": 38,
+      "method_count": 23,
+      "estimated_loc": 409,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 23 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\result_aggregator.py",
+      "class_name": "ResultAggregator",
+      "line_number": 38,
+      "method_count": 26,
+      "estimated_loc": 479,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 26 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\unified_analyzer.py",
+      "class_name": "UnifiedConnascenceAnalyzer",
+      "line_number": 367,
+      "method_count": 79,
+      "estimated_loc": 1857,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 79 > 18",
+        "Too many lines: 1857 > 700"
+      ]
+    },
+    {
+      "file": "scripts\\comprehensive_test_runner.py",
+      "class_name": "ComprehensiveTestRunner",
+      "line_number": 71,
+      "method_count": 12,
+      "estimated_loc": 749,
+      "severity": "high",
+      "violations": [
+        "Too many lines: 749 > 700"
+      ]
+    },
+    {
+      "file": "scripts\\deploy_dfars_security.py",
+      "class_name": "DFARSSecurityDeployment",
+      "line_number": 48,
+      "method_count": 4,
+      "estimated_loc": 900,
+      "severity": "high",
+      "violations": [
+        "Too many lines: 900 > 700"
+      ]
+    },
+    {
+      "file": "scripts\\github_integration.py",
+      "class_name": "GitHubIntegration",
+      "line_number": 75,
+      "method_count": 11,
+      "estimated_loc": 1307,
+      "severity": "critical",
+      "violations": [
+        "Too many lines: 1307 > 700"
+      ]
+    },
+    {
+      "file": "scripts\\github_webhook_feedback.py",
+      "class_name": "GitHubWebhookFeedback",
+      "line_number": 22,
+      "method_count": 28,
+      "estimated_loc": 763,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 28 > 18",
+        "Too many lines: 763 > 700"
+      ]
+    },
+    {
+      "file": "scripts\\security_dashboard_generator.py",
+      "class_name": "SecurityDashboardGenerator",
+      "line_number": 24,
+      "method_count": 25,
+      "estimated_loc": 793,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 25 > 18",
+        "Too many lines: 793 > 700"
+      ]
+    },
+    {
+      "file": "scripts\\security_validator.py",
+      "class_name": "SecurityValidator",
+      "line_number": 66,
+      "method_count": 24,
+      "estimated_loc": 673,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 24 > 18"
+      ]
+    },
+    {
+      "file": ".claude\\artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+      "class_name": "Phase3PerformanceValidator",
+      "line_number": 78,
+      "method_count": 19,
+      "estimated_loc": 1868,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 19 > 18",
+        "Too many lines: 1868 > 700"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\analysis_orchestrator.py",
+      "class_name": "AnalysisOrchestrator",
+      "line_number": 42,
+      "method_count": 21,
+      "estimated_loc": 421,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 21 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\phase_correlation_storage.py",
+      "class_name": "PhaseCorrelationStorage",
+      "line_number": 156,
+      "method_count": 15,
+      "estimated_loc": 718,
+      "severity": "high",
+      "violations": [
+        "Too many lines: 718 > 700"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\policy_engine.py",
+      "class_name": "PolicyEngine",
+      "line_number": 37,
+      "method_count": 24,
+      "estimated_loc": 414,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 24 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\quality_calculator.py",
+      "class_name": "QualityCalculator",
+      "line_number": 38,
+      "method_count": 23,
+      "estimated_loc": 409,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 23 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\result_aggregator.py",
+      "class_name": "ResultAggregator",
+      "line_number": 38,
+      "method_count": 26,
+      "estimated_loc": 479,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 26 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\unified_analyzer.py",
+      "class_name": "UnifiedConnascenceAnalyzer",
+      "line_number": 405,
+      "method_count": 74,
+      "estimated_loc": 1683,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 74 > 18",
+        "Too many lines: 1683 > 700"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\architecture\\aggregator.py",
+      "class_name": "ViolationAggregator",
+      "line_number": 17,
+      "method_count": 21,
+      "estimated_loc": 290,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 21 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\architecture\\enhanced_metrics.py",
+      "class_name": "EnhancedMetricsCalculator",
+      "line_number": 17,
+      "method_count": 20,
+      "estimated_loc": 352,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 20 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\architecture\\orchestrator.py",
+      "class_name": "ArchitectureOrchestrator",
+      "line_number": 17,
+      "method_count": 26,
+      "estimated_loc": 624,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 26 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\detectors\\execution_detector.py",
+      "class_name": "ExecutionDetector",
+      "line_number": 16,
+      "method_count": 20,
+      "estimated_loc": 293,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 20 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\optimization\\incremental_analyzer.py",
+      "class_name": "IncrementalAnalyzer",
+      "line_number": 62,
+      "method_count": 22,
+      "estimated_loc": 593,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 22 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\optimization\\resource_manager.py",
+      "class_name": "ResourceManager",
+      "line_number": 78,
+      "method_count": 21,
+      "estimated_loc": 435,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 21 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\optimization\\unified_visitor.py",
+      "class_name": "UnifiedASTVisitor",
+      "line_number": 67,
+      "method_count": 30,
+      "estimated_loc": 299,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 30 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\performance\\detector_pool_optimizer.py",
+      "class_name": "OptimizedDetectorPool",
+      "line_number": 145,
+      "method_count": 30,
+      "estimated_loc": 638,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 30 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\performance\\real_time_monitor.py",
+      "class_name": "RealTimePerformanceMonitor",
+      "line_number": 536,
+      "method_count": 20,
+      "estimated_loc": 337,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 20 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\performance\\unified_visitor_profiler.py",
+      "class_name": "UnifiedVisitorProfiler",
+      "line_number": 86,
+      "method_count": 20,
+      "estimated_loc": 562,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 20 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\reporting\\coordinator.py",
+      "class_name": "UnifiedReportingCoordinator",
+      "line_number": 34,
+      "method_count": 22,
+      "estimated_loc": 667,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 22 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\streaming\\dashboard_reporter.py",
+      "class_name": "DashboardReporter",
+      "line_number": 63,
+      "method_count": 21,
+      "estimated_loc": 522,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 21 > 18"
+      ]
+    },
+    {
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\streaming\\result_aggregator.py",
+      "class_name": "StreamResultAggregator",
+      "line_number": 56,
+      "method_count": 19,
+      "estimated_loc": 451,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\architecture\\aggregator.py",
+      "class_name": "ViolationAggregator",
+      "line_number": 19,
+      "method_count": 24,
+      "estimated_loc": 321,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 24 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\architecture\\enhanced_metrics.py",
+      "class_name": "EnhancedMetricsCalculator",
+      "line_number": 18,
+      "method_count": 20,
+      "estimated_loc": 352,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 20 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\architecture\\orchestrator.py",
+      "class_name": "ArchitectureOrchestrator",
+      "line_number": 19,
+      "method_count": 28,
+      "estimated_loc": 635,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 28 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\detectors\\execution_detector.py",
+      "class_name": "ExecutionDetector",
+      "line_number": 16,
+      "method_count": 20,
+      "estimated_loc": 293,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 20 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\ml_modules\\compliance_forecaster.py",
+      "class_name": "ComplianceForecaster",
+      "line_number": 48,
+      "method_count": 24,
+      "estimated_loc": 708,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 24 > 18",
+        "Too many lines: 708 > 700"
+      ]
+    },
+    {
+      "file": "analyzer\\optimization\\incremental_analyzer.py",
+      "class_name": "IncrementalAnalyzer",
+      "line_number": 62,
+      "method_count": 22,
+      "estimated_loc": 593,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 22 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\optimization\\resource_manager.py",
+      "class_name": "ResourceManager",
+      "line_number": 78,
+      "method_count": 24,
+      "estimated_loc": 491,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 24 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\optimization\\unified_visitor.py",
+      "class_name": "UnifiedASTVisitor",
+      "line_number": 67,
+      "method_count": 30,
+      "estimated_loc": 299,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 30 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\performance\\detector_pool_optimizer.py",
+      "class_name": "OptimizedDetectorPool",
+      "line_number": 145,
+      "method_count": 30,
+      "estimated_loc": 638,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 30 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\performance\\parallel_analyzer.py",
+      "class_name": "ParallelConnascenceAnalyzer",
+      "line_number": 71,
+      "method_count": 20,
+      "estimated_loc": 696,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 20 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\performance\\real_time_monitor.py",
+      "class_name": "RealTimePerformanceMonitor",
+      "line_number": 536,
+      "method_count": 24,
+      "estimated_loc": 398,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 24 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\performance\\unified_visitor_profiler.py",
+      "class_name": "UnifiedVisitorProfiler",
+      "line_number": 86,
+      "method_count": 20,
+      "estimated_loc": 562,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 20 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\reporting\\coordinator.py",
+      "class_name": "UnifiedReportingCoordinator",
+      "line_number": 34,
+      "method_count": 22,
+      "estimated_loc": 667,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 22 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\streaming\\dashboard_reporter.py",
+      "class_name": "DashboardReporter",
+      "line_number": 63,
+      "method_count": 21,
+      "estimated_loc": 522,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 21 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\streaming\\result_aggregator.py",
+      "class_name": "StreamResultAggregator",
+      "line_number": 56,
+      "method_count": 19,
+      "estimated_loc": 451,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\streaming\\stream_processor.py",
+      "class_name": "StreamProcessor",
+      "line_number": 213,
+      "method_count": 19,
+      "estimated_loc": 700,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\utils\\config_manager.py",
+      "class_name": "ConfigurationManager",
+      "line_number": 46,
+      "method_count": 24,
+      "estimated_loc": 544,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 24 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\validation\\validator.py",
+      "class_name": "InputValidator",
+      "line_number": 50,
+      "method_count": 19,
+      "estimated_loc": 302,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\crypto_signer.py",
+      "class_name": "CryptographicSigner",
+      "line_number": 17,
+      "method_count": 19,
+      "estimated_loc": 594,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\evidence_packager.py",
+      "class_name": "EvidencePackager",
+      "line_number": 19,
+      "method_count": 30,
+      "estimated_loc": 797,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 30 > 18",
+        "Too many lines: 797 > 700"
+      ]
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\slsa_provenance.py",
+      "class_name": "SLSAProvenanceGenerator",
+      "line_number": 16,
+      "method_count": 19,
+      "estimated_loc": 397,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\vulnerability_scanner.py",
+      "class_name": "VulnerabilityScanner",
+      "line_number": 18,
+      "method_count": 20,
+      "estimated_loc": 603,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 20 > 18"
+      ]
+    },
+    {
+      "file": "scripts\\validation\\comprehensive_defense_validation.py",
+      "class_name": "ComprehensiveDefenseValidator",
+      "line_number": 32,
+      "method_count": 16,
+      "estimated_loc": 811,
+      "severity": "high",
+      "violations": [
+        "Too many lines: 811 > 700"
+      ]
+    },
+    {
+      "file": "src\\analysis\\failure_pattern_detector.py",
+      "class_name": "FailurePatternDetector",
+      "line_number": 55,
+      "method_count": 32,
+      "estimated_loc": 1298,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 32 > 18",
+        "Too many lines: 1298 > 700"
+      ]
+    },
+    {
+      "file": "src\\byzantium\\race_condition_detector.py",
+      "class_name": "DetectorPoolRaceDetector",
+      "line_number": 218,
+      "method_count": 23,
+      "estimated_loc": 590,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 23 > 18"
+      ]
+    },
+    {
+      "file": "src\\compliance\\risk_assessment_matrix.py",
+      "class_name": "RiskAssessmentEngine",
+      "line_number": 488,
+      "method_count": 24,
+      "estimated_loc": 423,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 24 > 18"
+      ]
+    },
+    {
+      "file": "src\\coordination\\loop_orchestrator.py",
+      "class_name": "LoopOrchestrator",
+      "line_number": 830,
+      "method_count": 11,
+      "estimated_loc": 1009,
+      "severity": "critical",
+      "violations": [
+        "Too many lines: 1009 > 700"
+      ]
+    },
+    {
+      "file": "src\\coordination\\queen_coordinator.py",
+      "class_name": "QueenCoordinator",
+      "line_number": 324,
+      "method_count": 15,
+      "estimated_loc": 820,
+      "severity": "high",
+      "violations": [
+        "Too many lines: 820 > 700"
+      ]
+    },
+    {
+      "file": "src\\detectors\\enterprise_detector_pool.py",
+      "class_name": "EnterpriseDetectorPool",
+      "line_number": 283,
+      "method_count": 19,
+      "estimated_loc": 484,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "src\\security\\access_control_system.py",
+      "class_name": "DFARSAccessControlSystem",
+      "line_number": 113,
+      "method_count": 21,
+      "estimated_loc": 745,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 21 > 18",
+        "Too many lines: 745 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\cdi_protection_framework.py",
+      "class_name": "CDIProtectionFramework",
+      "line_number": 101,
+      "method_count": 26,
+      "estimated_loc": 1012,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 26 > 18",
+        "Too many lines: 1012 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\configuration_management_system.py",
+      "class_name": "DFARSConfigurationManager",
+      "line_number": 67,
+      "method_count": 13,
+      "estimated_loc": 779,
+      "severity": "high",
+      "violations": [
+        "Too many lines: 779 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\continuous_risk_assessment.py",
+      "class_name": "DFARSContinuousRiskAssessment",
+      "line_number": 97,
+      "method_count": 22,
+      "estimated_loc": 1147,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 22 > 18",
+        "Too many lines: 1147 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\defense_industry_evidence_generator.py",
+      "class_name": "DefenseIndustryEvidenceGenerator",
+      "line_number": 44,
+      "method_count": 4,
+      "estimated_loc": 1066,
+      "severity": "critical",
+      "violations": [
+        "Too many lines: 1066 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\dfars_access_control.py",
+      "class_name": "DFARSAccessControl",
+      "line_number": 74,
+      "method_count": 19,
+      "estimated_loc": 442,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "src\\security\\dfars_compliance_certification.py",
+      "class_name": "DFARSComplianceCertification",
+      "line_number": 68,
+      "method_count": 8,
+      "estimated_loc": 951,
+      "severity": "high",
+      "violations": [
+        "Too many lines: 951 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\dfars_compliance_validation_system.py",
+      "class_name": "DFARSComplianceValidationSystem",
+      "line_number": 98,
+      "method_count": 23,
+      "estimated_loc": 1308,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 23 > 18",
+        "Too many lines: 1308 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\dfars_compliance_validator.py",
+      "class_name": "DFARSComplianceValidator",
+      "line_number": 12,
+      "method_count": 21,
+      "estimated_loc": 655,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 21 > 18"
+      ]
+    },
+    {
+      "file": "src\\security\\dfars_comprehensive_integration.py",
+      "class_name": "DFARSComprehensiveIntegration",
+      "line_number": 71,
+      "method_count": 20,
+      "estimated_loc": 650,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 20 > 18"
+      ]
+    },
+    {
+      "file": "src\\security\\dfars_incident_response.py",
+      "class_name": "DFARSIncidentResponse",
+      "line_number": 120,
+      "method_count": 21,
+      "estimated_loc": 515,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 21 > 18"
+      ]
+    },
+    {
+      "file": "src\\security\\dfars_media_protection.py",
+      "class_name": "DFARSMediaProtection",
+      "line_number": 103,
+      "method_count": 25,
+      "estimated_loc": 672,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 25 > 18"
+      ]
+    },
+    {
+      "file": "src\\security\\dfars_personnel_security.py",
+      "class_name": "DFARSPersonnelSecurity",
+      "line_number": 135,
+      "method_count": 26,
+      "estimated_loc": 784,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 26 > 18",
+        "Too many lines: 784 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\dfars_physical_protection.py",
+      "class_name": "DFARSPhysicalProtection",
+      "line_number": 133,
+      "method_count": 34,
+      "estimated_loc": 811,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 34 > 18",
+        "Too many lines: 811 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\dfars_remediation_engine.py",
+      "class_name": "DFARSRemediationEngine",
+      "line_number": 59,
+      "method_count": 12,
+      "estimated_loc": 915,
+      "severity": "high",
+      "violations": [
+        "Too many lines: 915 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\dfars_system_communications.py",
+      "class_name": "DFARSSystemCommunications",
+      "line_number": 91,
+      "method_count": 29,
+      "estimated_loc": 675,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 29 > 18"
+      ]
+    },
+    {
+      "file": "src\\security\\enhanced_incident_response_system.py",
+      "class_name": "EnhancedIncidentResponseSystem",
+      "line_number": 149,
+      "method_count": 33,
+      "estimated_loc": 1384,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 33 > 18",
+        "Too many lines: 1384 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\enterprise_theater_detection.py",
+      "class_name": "EnterpriseTheaterDetector",
+      "line_number": 77,
+      "method_count": 13,
+      "estimated_loc": 1129,
+      "severity": "critical",
+      "violations": [
+        "Too many lines: 1129 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\incident_response_system.py",
+      "class_name": "DFARSIncidentResponseSystem",
+      "line_number": 66,
+      "method_count": 6,
+      "estimated_loc": 737,
+      "severity": "high",
+      "violations": [
+        "Too many lines: 737 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\real_security_scanner.py",
+      "class_name": "RealSecurityScanner",
+      "line_number": 61,
+      "method_count": 7,
+      "estimated_loc": 864,
+      "severity": "high",
+      "violations": [
+        "Too many lines: 864 > 700"
+      ]
+    },
+    {
+      "file": "src\\theater-detection\\reality-validator.py",
+      "class_name": "RealityValidationSystem",
+      "line_number": 47,
+      "method_count": 22,
+      "estimated_loc": 831,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 22 > 18",
+        "Too many lines: 831 > 700"
+      ]
+    },
+    {
+      "file": "src\\interfaces\\cli\\config_discovery.py",
+      "class_name": "ConfigDiscovery",
+      "line_number": 36,
+      "method_count": 22,
+      "estimated_loc": 558,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 22 > 18"
+      ]
+    },
+    {
+      "file": "src\\interfaces\\cli\\main_python.py",
+      "class_name": "ConnascenceCLI",
+      "line_number": 62,
+      "method_count": 22,
+      "estimated_loc": 925,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 22 > 18",
+        "Too many lines: 925 > 700"
+      ]
+    },
+    {
+      "file": "src\\security\\audit_components\\refactored_audit_manager.py",
+      "class_name": "RefactoredDFARSAuditManager",
+      "line_number": 17,
+      "method_count": 19,
+      "estimated_loc": 276,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+      "class_name": "TestFullPipelineIntegration",
+      "line_number": 31,
+      "method_count": 19,
+      "estimated_loc": 585,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_json_schema_validation.py",
+      "class_name": "TestJSONSchemaValidation",
+      "line_number": 35,
+      "method_count": 23,
+      "estimated_loc": 428,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 23 > 18"
+      ]
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_sarif_compliance.py",
+      "class_name": "TestSARIFCompliance",
+      "line_number": 31,
+      "method_count": 19,
+      "estimated_loc": 425,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "tests\\linter_integration\\test_severity_mapping.py",
+      "class_name": "TestUnifiedSeverityMapper",
+      "line_number": 27,
+      "method_count": 19,
+      "estimated_loc": 420,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    },
+    {
+      "file": "tests\\ml\\test_compliance_forecaster.py",
+      "class_name": "TestComplianceForecaster",
+      "line_number": 23,
+      "method_count": 29,
+      "estimated_loc": 577,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 29 > 18"
+      ]
+    },
+    {
+      "file": "tests\\ml\\test_quality_predictor.py",
+      "class_name": "TestQualityPredictor",
+      "line_number": 22,
+      "method_count": 26,
+      "estimated_loc": 445,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 26 > 18"
+      ]
+    },
+    {
+      "file": "tests\\ml\\test_theater_classifier.py",
+      "class_name": "TestTheaterClassifier",
+      "line_number": 23,
+      "method_count": 29,
+      "estimated_loc": 553,
+      "severity": "critical",
+      "violations": [
+        "Too many methods: 29 > 18"
+      ]
+    },
+    {
+      "file": "tests\\regression\\performance_regression_suite.py",
+      "class_name": "PerformanceRegressionSuite",
+      "line_number": 28,
+      "method_count": 19,
+      "estimated_loc": 488,
+      "severity": "high",
+      "violations": [
+        "Too many methods: 19 > 18"
+      ]
+    }
+  ],
+  "summary": {
+    "total_god_objects": 95,
+    "files_analyzed": 769,
+    "critical_violations": 30
+  }
+}

@@ -26,6 +26,21 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, AsyncGenerator, Callable, Dict, List, Optional, Set, Union
 import logging
+
+try:
+    from watchdog.events import FileSystemEventHandler, FileSystemEvent
+except ImportError:
+    # Fallback for when watchdog is not available
+    class FileSystemEventHandler:
+        """Fallback file system event handler."""
+        pass
+
+    class FileSystemEvent:
+        """Fallback file system event."""
+        def __init__(self, src_path=''):
+            self.src_path = src_path
+            self.is_directory = False
+
 logger = logging.getLogger(__name__)
 
 

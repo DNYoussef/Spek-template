@@ -1,0 +1,1077 @@
+{
+  "total_violations": 35973,
+  "target_fixes": 28778,
+  "strategies": {
+    "name": {
+      "count": 11619,
+      "agent": "NameDecoupler",
+      "techniques": [
+        "Introduce dependency injection interfaces",
+        "Extract configuration objects",
+        "Use factory patterns for object creation",
+        "Implement service locator pattern",
+        "Create abstract base classes"
+      ]
+    },
+    "algorithm": {
+      "count": 13410,
+      "agent": "AlgorithmRefactorer",
+      "techniques": [
+        "Extract shared algorithms to utility modules",
+        "Create strategy pattern implementations",
+        "Implement template method pattern",
+        "Use command pattern for complex operations",
+        "Create algorithm registry/factory"
+      ]
+    },
+    "type": {
+      "count": 5701,
+      "agent": "TypeStandardizer",
+      "techniques": [
+        "Standardize type definitions across modules",
+        "Create shared type definition files",
+        "Implement duck typing with protocols",
+        "Use generic types for flexibility",
+        "Create type unions for compatibility"
+      ]
+    },
+    "execution": {
+      "count": 4894,
+      "agent": "ExecutionOrderResolver",
+      "techniques": [
+        "Remove order dependencies in imports",
+        "Use lazy loading patterns",
+        "Implement event-driven architecture",
+        "Create initialization ordering system",
+        "Use dependency injection containers"
+      ]
+    },
+    "position": {
+      "count": 349,
+      "agent": "PositionEliminator",
+      "techniques": [
+        "Convert positional args to named parameters",
+        "Use dataclasses for parameter objects",
+        "Implement builder pattern",
+        "Create configuration dictionaries",
+        "Use keyword-only arguments"
+      ]
+    }
+  },
+  "top_files": [
+    [
+      "analyzer\\unified_analyzer.py",
+      295,
+      {
+        "execution": 67,
+        "name": 133,
+        "algorithm": 85,
+        "type": 2,
+        "position": 8
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\unified_analyzer.py",
+      267,
+      {
+        "execution": 43,
+        "name": 116,
+        "type": 34,
+        "algorithm": 66,
+        "position": 8
+      }
+    ],
+    [
+      "tests\\enterprise\\unit\\test_compliance_matrix.py",
+      250,
+      {
+        "execution": 16,
+        "name": 64,
+        "algorithm": 170
+      }
+    ],
+    [
+      "tests\\linter_integration\\test_adapter_patterns.py",
+      241,
+      {
+        "execution": 18,
+        "name": 58,
+        "algorithm": 165
+      }
+    ],
+    [
+      "tests\\enterprise\\unit\\test_feature_flags.py",
+      238,
+      {
+        "execution": 14,
+        "name": 72,
+        "position": 1,
+        "algorithm": 151
+      }
+    ],
+    [
+      "tests\\enterprise\\unit\\test_six_sigma_telemetry.py",
+      226,
+      {
+        "execution": 11,
+        "name": 77,
+        "algorithm": 138
+      }
+    ],
+    [
+      "src\\analysis\\failure_pattern_detector.py",
+      224,
+      {
+        "execution": 14,
+        "name": 55,
+        "type": 24,
+        "algorithm": 131
+      }
+    ],
+    [
+      "tests\\enterprise\\unit\\test_sbom_generator.py",
+      224,
+      {
+        "execution": 10,
+        "name": 34,
+        "algorithm": 180
+      }
+    ],
+    [
+      "tests\\linter_integration\\test_severity_mapping.py",
+      194,
+      {
+        "execution": 11,
+        "name": 32,
+        "algorithm": 151
+      }
+    ],
+    [
+      "tests\\enterprise\\integration\\test_analyzer_integration.py",
+      194,
+      {
+        "execution": 16,
+        "name": 53,
+        "algorithm": 125
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\performance\\result_aggregation_profiler.py",
+      192,
+      {
+        "execution": 14,
+        "name": 66,
+        "type": 63,
+        "algorithm": 48,
+        "position": 1
+      }
+    ],
+    [
+      "analyzer\\performance\\result_aggregation_profiler.py",
+      192,
+      {
+        "execution": 14,
+        "name": 66,
+        "type": 63,
+        "algorithm": 48,
+        "position": 1
+      }
+    ],
+    [
+      "tests\\enterprise\\unit\\test_six_sigma_python.py",
+      192,
+      {
+        "execution": 10,
+        "name": 71,
+        "position": 1,
+        "algorithm": 110
+      }
+    ],
+    [
+      "tests\\linter_integration\\test_tool_management.py",
+      182,
+      {
+        "execution": 13,
+        "name": 29,
+        "algorithm": 139,
+        "position": 1
+      }
+    ],
+    [
+      "src\\theater-detection\\reality-validator.py",
+      169,
+      {
+        "execution": 8,
+        "name": 25,
+        "type": 18,
+        "algorithm": 118
+      }
+    ],
+    [
+      "src\\security\\dfars_physical_protection.py",
+      158,
+      {
+        "execution": 2,
+        "name": 44,
+        "type": 62,
+        "algorithm": 50
+      }
+    ],
+    [
+      "src\\security\\enhanced_incident_response_system.py",
+      158,
+      {
+        "execution": 2,
+        "name": 44,
+        "type": 63,
+        "algorithm": 49
+      }
+    ],
+    [
+      "src\\compliance\\risk_assessment_matrix.py",
+      155,
+      {
+        "execution": 3,
+        "name": 57,
+        "type": 37,
+        "algorithm": 57,
+        "position": 1
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\performance\\regression_detector.py",
+      151,
+      {
+        "execution": 12,
+        "name": 34,
+        "type": 30,
+        "algorithm": 73,
+        "position": 2
+      }
+    ],
+    [
+      "analyzer\\performance\\regression_detector.py",
+      151,
+      {
+        "execution": 12,
+        "name": 34,
+        "type": 30,
+        "algorithm": 73,
+        "position": 2
+      }
+    ],
+    [
+      "src\\coordination\\loop_orchestrator.py",
+      151,
+      {
+        "execution": 21,
+        "name": 46,
+        "type": 30,
+        "algorithm": 52,
+        "position": 2
+      }
+    ],
+    [
+      "src\\detectors\\parallel_executor.py",
+      146,
+      {
+        "execution": 19,
+        "name": 45,
+        "type": 35,
+        "algorithm": 46,
+        "position": 1
+      }
+    ],
+    [
+      "src\\detectors\\comprehensive_benchmark.py",
+      145,
+      {
+        "execution": 28,
+        "name": 38,
+        "type": 40,
+        "algorithm": 38,
+        "position": 1
+      }
+    ],
+    [
+      "tests\\phase7_adas\\test_perception_accuracy.py",
+      145,
+      {
+        "execution": 13,
+        "name": 33,
+        "type": 34,
+        "algorithm": 65
+      }
+    ],
+    [
+      "tests\\ml\\test_compliance_forecaster.py",
+      143,
+      {
+        "execution": 11,
+        "name": 32,
+        "algorithm": 100
+      }
+    ],
+    [
+      "tests\\linter_integration\\test_api_endpoints.py",
+      142,
+      {
+        "execution": 17,
+        "name": 12,
+        "algorithm": 113
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\performance\\detector_pool_optimizer.py",
+      141,
+      {
+        "execution": 12,
+        "name": 52,
+        "type": 26,
+        "algorithm": 51
+      }
+    ],
+    [
+      "analyzer\\performance\\detector_pool_optimizer.py",
+      141,
+      {
+        "execution": 12,
+        "name": 52,
+        "type": 26,
+        "algorithm": 51
+      }
+    ],
+    [
+      "src\\security\\dfars_workflow_automation.py",
+      140,
+      {
+        "execution": 21,
+        "name": 46,
+        "type": 43,
+        "algorithm": 26,
+        "position": 4
+      }
+    ],
+    [
+      "tests\\linter_integration\\test_real_time_processing.py",
+      140,
+      {
+        "execution": 11,
+        "name": 29,
+        "algorithm": 100
+      }
+    ],
+    [
+      "src\\compliance\\memory_allocation_analyzer.py",
+      139,
+      {
+        "execution": 4,
+        "name": 68,
+        "type": 25,
+        "algorithm": 42
+      }
+    ],
+    [
+      "tests\\safety\\test_safety_system.py",
+      139,
+      {
+        "execution": 15,
+        "name": 60,
+        "algorithm": 61,
+        "position": 3
+      }
+    ],
+    [
+      "src\\security\\dfars_personnel_security.py",
+      137,
+      {
+        "execution": 2,
+        "name": 36,
+        "type": 59,
+        "algorithm": 40
+      }
+    ],
+    [
+      "tests\\ml\\test_theater_classifier.py",
+      137,
+      {
+        "execution": 11,
+        "name": 32,
+        "algorithm": 93,
+        "position": 1
+      }
+    ],
+    [
+      "src\\byzantium\\byzantine_coordinator.py",
+      135,
+      {
+        "execution": 11,
+        "name": 37,
+        "type": 35,
+        "algorithm": 51,
+        "position": 1
+      }
+    ],
+    [
+      "src\\compliance\\automated_function_refactorer.py",
+      135,
+      {
+        "execution": 5,
+        "name": 37,
+        "type": 31,
+        "algorithm": 62
+      }
+    ],
+    [
+      "src\\detectors\\enterprise_detector_pool.py",
+      135,
+      {
+        "execution": 21,
+        "name": 52,
+        "type": 31,
+        "algorithm": 31
+      }
+    ],
+    [
+      "src\\security\\dfars_continuous_monitor.py",
+      135,
+      {
+        "execution": 14,
+        "name": 38,
+        "type": 27,
+        "algorithm": 50,
+        "position": 6
+      }
+    ],
+    [
+      "analyzer\\component_integrator.py",
+      133,
+      {
+        "name": 83,
+        "type": 6,
+        "algorithm": 18,
+        "execution": 26
+      }
+    ],
+    [
+      "src\\security\\dfars_compliance_validation_system.py",
+      133,
+      {
+        "execution": 2,
+        "name": 31,
+        "type": 39,
+        "algorithm": 61
+      }
+    ],
+    [
+      "tests\\phase7_adas\\test_simulation_scenarios.py",
+      133,
+      {
+        "execution": 12,
+        "name": 32,
+        "type": 38,
+        "algorithm": 51
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\core.py",
+      131,
+      {
+        "execution": 18,
+        "name": 75,
+        "algorithm": 38
+      }
+    ],
+    [
+      "src\\detectors\\defense_compliance_monitor.py",
+      131,
+      {
+        "execution": 20,
+        "name": 33,
+        "type": 41,
+        "algorithm": 32,
+        "position": 5
+      }
+    ],
+    [
+      "src\\security\\continuous_risk_assessment.py",
+      131,
+      {
+        "execution": 4,
+        "name": 30,
+        "type": 44,
+        "algorithm": 53
+      }
+    ],
+    [
+      "analyzer\\performance\\real_time_monitor.py",
+      130,
+      {
+        "execution": 11,
+        "name": 45,
+        "type": 39,
+        "algorithm": 35
+      }
+    ],
+    [
+      "tests\\phase7_adas\\test_sensor_fusion.py",
+      129,
+      {
+        "execution": 13,
+        "name": 36,
+        "type": 25,
+        "algorithm": 55
+      }
+    ],
+    [
+      "analyzer\\cross_phase_learning_integration.py",
+      128,
+      {
+        "execution": 3,
+        "name": 31,
+        "type": 42,
+        "algorithm": 51,
+        "position": 1
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\cross_phase_learning_integration.py",
+      128,
+      {
+        "execution": 3,
+        "name": 31,
+        "type": 42,
+        "algorithm": 51,
+        "position": 1
+      }
+    ],
+    [
+      "src\\security\\cdi_protection_framework.py",
+      127,
+      {
+        "execution": 5,
+        "name": 34,
+        "type": 51,
+        "algorithm": 33,
+        "position": 4
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\performance\\real_time_monitor.py",
+      126,
+      {
+        "execution": 11,
+        "name": 41,
+        "type": 39,
+        "algorithm": 35
+      }
+    ],
+    [
+      "src\\byzantium\\race_condition_detector.py",
+      124,
+      {
+        "execution": 10,
+        "name": 38,
+        "type": 28,
+        "algorithm": 48
+      }
+    ],
+    [
+      "tests\\memory_integration\\test_cross_phase_memory.py",
+      124,
+      {
+        "execution": 12,
+        "name": 34,
+        "algorithm": 75,
+        "position": 3
+      }
+    ],
+    [
+      "src\\detectors\\workload_optimizer.py",
+      122,
+      {
+        "execution": 18,
+        "name": 39,
+        "type": 34,
+        "algorithm": 29,
+        "position": 2
+      }
+    ],
+    [
+      "src\\compliance\\assertion_injection_engine.py",
+      121,
+      {
+        "execution": 5,
+        "name": 42,
+        "type": 33,
+        "algorithm": 41
+      }
+    ],
+    [
+      "analyzer\\unified_memory_model.py",
+      120,
+      {
+        "execution": 10,
+        "name": 32,
+        "type": 41,
+        "algorithm": 37
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\unified_memory_model.py",
+      120,
+      {
+        "execution": 10,
+        "name": 32,
+        "type": 41,
+        "algorithm": 37
+      }
+    ],
+    [
+      "src\\security\\access_control_system.py",
+      119,
+      {
+        "execution": 4,
+        "name": 31,
+        "type": 50,
+        "algorithm": 27,
+        "position": 7
+      }
+    ],
+    [
+      "analyzer\\enterprise\\integration\\EnterpriseIntegrationFramework.py",
+      116,
+      {
+        "execution": 4,
+        "name": 35,
+        "type": 43,
+        "algorithm": 32,
+        "position": 2
+      }
+    ],
+    [
+      "src\\intelligence\\testing\\ab_testing.py",
+      116,
+      {
+        "execution": 7,
+        "name": 21,
+        "type": 49,
+        "algorithm": 37,
+        "position": 2
+      }
+    ],
+    [
+      "analyzer\\streaming\\stream_processor.py",
+      115,
+      {
+        "execution": 19,
+        "name": 35,
+        "type": 35,
+        "algorithm": 25,
+        "position": 1
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\performance\\cache_performance_profiler.py",
+      114,
+      {
+        "execution": 10,
+        "name": 30,
+        "type": 33,
+        "algorithm": 41
+      }
+    ],
+    [
+      "analyzer\\performance\\cache_performance_profiler.py",
+      114,
+      {
+        "execution": 10,
+        "name": 30,
+        "type": 33,
+        "algorithm": 41
+      }
+    ],
+    [
+      "src\\security\\enterprise_theater_detection.py",
+      114,
+      {
+        "execution": 5,
+        "name": 27,
+        "type": 26,
+        "algorithm": 55,
+        "position": 1
+      }
+    ],
+    [
+      "tests\\linter_integration\\test_real_linter_validation.py",
+      114,
+      {
+        "execution": 15,
+        "name": 24,
+        "algorithm": 75
+      }
+    ],
+    [
+      ".claude\\artifacts\\memory_security_analysis.py",
+      113,
+      {
+        "execution": 9,
+        "name": 35,
+        "type": 17,
+        "algorithm": 52
+      }
+    ],
+    [
+      "src\\security\\dfars_config.py",
+      113,
+      {
+        "execution": 7,
+        "name": 25,
+        "type": 61,
+        "algorithm": 20
+      }
+    ],
+    [
+      "analyzer\\context_analyzer.py",
+      112,
+      {
+        "execution": 5,
+        "name": 22,
+        "type": 15,
+        "algorithm": 68,
+        "position": 2
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\context_analyzer.py",
+      112,
+      {
+        "execution": 5,
+        "name": 22,
+        "type": 15,
+        "algorithm": 68,
+        "position": 2
+      }
+    ],
+    [
+      "tests\\ml\\test_quality_predictor.py",
+      112,
+      {
+        "execution": 10,
+        "name": 29,
+        "algorithm": 73
+      }
+    ],
+    [
+      "analyzer\\enterprise\\detector\\EnterpriseDetectorPool.py",
+      111,
+      {
+        "execution": 6,
+        "name": 44,
+        "type": 41,
+        "algorithm": 18,
+        "position": 2
+      }
+    ],
+    [
+      "tests\\test_supply_chain_security.py",
+      110,
+      {
+        "execution": 18,
+        "name": 13,
+        "algorithm": 79
+      }
+    ],
+    [
+      "src\\enterprise\\telemetry\\spc_control_charts.py",
+      110,
+      {
+        "execution": 3,
+        "name": 38,
+        "type": 24,
+        "algorithm": 45
+      }
+    ],
+    [
+      "tests\\linter_integration\\test_full_pipeline.py",
+      109,
+      {
+        "execution": 20,
+        "name": 6,
+        "algorithm": 83
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\performance\\incremental_analyzer.py",
+      108,
+      {
+        "execution": 12,
+        "name": 32,
+        "type": 30,
+        "algorithm": 34
+      }
+    ],
+    [
+      "analyzer\\performance\\incremental_analyzer.py",
+      108,
+      {
+        "execution": 12,
+        "name": 32,
+        "type": 30,
+        "algorithm": 34
+      }
+    ],
+    [
+      "analyzer\\formal_grammar.py",
+      105,
+      {
+        "execution": 7,
+        "name": 50,
+        "type": 19,
+        "algorithm": 29
+      }
+    ],
+    [
+      "scripts\\github_integration.py",
+      105,
+      {
+        "execution": 16,
+        "name": 17,
+        "type": 24,
+        "algorithm": 48
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\formal_grammar.py",
+      105,
+      {
+        "execution": 7,
+        "name": 50,
+        "type": 19,
+        "algorithm": 29
+      }
+    ],
+    [
+      "src\\coordination\\queen_coordinator.py",
+      105,
+      {
+        "execution": 10,
+        "name": 27,
+        "type": 29,
+        "algorithm": 39
+      }
+    ],
+    [
+      "src\\intelligence\\training\\callbacks.py",
+      105,
+      {
+        "execution": 7,
+        "name": 53,
+        "algorithm": 39,
+        "type": 6
+      }
+    ],
+    [
+      "analyzer\\performance\\optimizer.py",
+      104,
+      {
+        "execution": 16,
+        "name": 23,
+        "type": 24,
+        "algorithm": 41
+      }
+    ],
+    [
+      "analyzer\\cross_phase_security_validator.py",
+      103,
+      {
+        "execution": 3,
+        "name": 24,
+        "type": 39,
+        "algorithm": 37
+      }
+    ],
+    [
+      "analyzer\\multi_agent_swarm_coordinator.py",
+      103,
+      {
+        "execution": 2,
+        "name": 33,
+        "type": 36,
+        "algorithm": 32
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\cross_phase_security_validator.py",
+      103,
+      {
+        "execution": 3,
+        "name": 24,
+        "type": 39,
+        "algorithm": 37
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\multi_agent_swarm_coordinator.py",
+      103,
+      {
+        "execution": 2,
+        "name": 33,
+        "type": 36,
+        "algorithm": 32
+      }
+    ],
+    [
+      "analyzer\\performance_monitoring_integration.py",
+      102,
+      {
+        "execution": 2,
+        "name": 37,
+        "type": 36,
+        "algorithm": 23,
+        "position": 4
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\performance_monitoring_integration.py",
+      102,
+      {
+        "execution": 2,
+        "name": 37,
+        "type": 36,
+        "algorithm": 23,
+        "position": 4
+      }
+    ],
+    [
+      "src\\security\\dfars_media_protection.py",
+      102,
+      {
+        "execution": 2,
+        "name": 33,
+        "type": 39,
+        "algorithm": 28
+      }
+    ],
+    [
+      "src\\security\\dfars_system_communications.py",
+      102,
+      {
+        "execution": 2,
+        "name": 36,
+        "type": 35,
+        "algorithm": 29
+      }
+    ],
+    [
+      "tests\\linter_integration\\test_mesh_coordination.py",
+      102,
+      {
+        "execution": 9,
+        "name": 6,
+        "algorithm": 87
+      }
+    ],
+    [
+      "tests\\enterprise\\performance\\test_zero_impact_disabled.py",
+      102,
+      {
+        "execution": 17,
+        "name": 44,
+        "algorithm": 41
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\performance\\thread_contention_profiler.py",
+      101,
+      {
+        "execution": 10,
+        "name": 30,
+        "type": 22,
+        "algorithm": 39
+      }
+    ],
+    [
+      "analyzer\\core\\unified_imports.py",
+      101,
+      {
+        "execution": 14,
+        "name": 66,
+        "type": 3,
+        "algorithm": 18
+      }
+    ],
+    [
+      "analyzer\\optimization\\memory_monitor.py",
+      101,
+      {
+        "execution": 14,
+        "name": 37,
+        "type": 25,
+        "algorithm": 25
+      }
+    ],
+    [
+      "analyzer\\performance\\thread_contention_profiler.py",
+      101,
+      {
+        "execution": 10,
+        "name": 30,
+        "type": 22,
+        "algorithm": 39
+      }
+    ],
+    [
+      "analyzer\\streaming\\incremental_cache.py",
+      101,
+      {
+        "execution": 8,
+        "name": 25,
+        "type": 32,
+        "algorithm": 35,
+        "position": 1
+      }
+    ],
+    [
+      "src\\compliance\\nasa_compliance_monitor.py",
+      101,
+      {
+        "execution": 3,
+        "name": 32,
+        "type": 23,
+        "algorithm": 42,
+        "position": 1
+      }
+    ],
+    [
+      "scripts\\comprehensive_test_runner.py",
+      100,
+      {
+        "execution": 20,
+        "name": 16,
+        "type": 31,
+        "algorithm": 33
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\optimization\\memory_monitor.py",
+      99,
+      {
+        "execution": 13,
+        "name": 36,
+        "type": 25,
+        "algorithm": 25
+      }
+    ],
+    [
+      ".sandboxes\\phase2-config-test\\analyzer\\performance\\optimizer.py",
+      99,
+      {
+        "execution": 12,
+        "name": 22,
+        "type": 24,
+        "algorithm": 41
+      }
+    ]
+  ]
+}

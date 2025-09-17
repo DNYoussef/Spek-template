@@ -1,0 +1,54 @@
+{
+  "audit_summary": {
+    "overall_score": 0.0,
+    "grade": "F",
+    "production_ready": false,
+    "error": "'charmap' codec can't encode character '\\u2713' in position 0: character maps to <undefined>"
+  },
+  "stage_results": {
+    "stage_1": {
+      "name": "Structural Analysis",
+      "description": "Validates decomposition of god object into focused components",
+      "checks": [
+        {
+          "name": "Component Decomposition",
+          "status": "PASS",
+          "detail": "Found 7 focused components"
+        },
+        {
+          "name": "Single Responsibility Principle",
+          "status": "FAIL",
+          "detail": "1 SRP violations found"
+        },
+        {
+          "name": "Interface Segregation",
+          "status": "PASS",
+          "detail": "Proper interface definitions found"
+        },
+        {
+          "name": "Dependency Injection",
+          "status": "PASS",
+          "detail": "Proper dependency injection implemented"
+        },
+        {
+          "name": "Strategy Pattern",
+          "status": "PASS",
+          "detail": "Strategy pattern properly implemented"
+        },
+        {
+          "name": "Observer Pattern",
+          "status": "PASS",
+          "detail": "Observer pattern properly implemented"
+        },
+        {
+          "name": "Backward Compatibility",
+          "status": "PASS",
+          "detail": "Backward compatibility layer implemented"
+        }
+      ],
+      "score": 8.571428571428571,
+      "max_score": 10.0
+    }
+  },
+  "deployment_recommendation": "FAILED: Audit process failed"
+}
