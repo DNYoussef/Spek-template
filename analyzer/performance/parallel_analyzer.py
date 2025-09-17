@@ -28,7 +28,8 @@ from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_compl
 from dataclasses import dataclass, field
 import logging
 import multiprocessing as mp
-from typing import Any, List, Dict, Optional
+from typing import Any, List, Dict, Optional, Union
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
