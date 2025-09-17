@@ -27,7 +27,15 @@ with the existing single-threaded analyzer infrastructure.
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 import logging
+import multiprocessing as mp
+from typing import Any, List, Dict, Optional
+
 logger = logging.getLogger(__name__)
+
+# Define UnifiedAnalysisResult if not available
+class UnifiedAnalysisResult:
+    """Placeholder for unified analysis results."""
+    pass
 
 
 @dataclass
