@@ -2,7 +2,7 @@ name: NASA POT10 Compliance Gates
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
     paths:
       - 'analyzer/**'
       - 'src/**'
@@ -12,10 +12,9 @@ on:
       - '**/*.yaml'
       - '**/*.yml'
   pull_request:
-    branches: [main, develop]
-  schedule:
-    # Daily compliance audit at 3 AM UTC
-    - cron: '0 3 * * *'
+    branches: [main]
+  # SCHEDULE REMOVED - no more daily notification spam
+  # Only run on actual code changes
 
 env:
   PYTHON_VERSION: '3.11'
@@ -28,6 +27,9 @@ jobs:
     name: NASA POT10 Compliance Validation
     runs-on: ubuntu-latest
     timeout-minutes: 25
+
+    # Critical compliance gate - must pass for production deployment
+    needs: []
 
     outputs:
       compliance-score: ${{ steps.compliance.outputs.score }}
@@ -51,7 +53,7 @@ jobs:
 
     - name: NASA POT10 Rule Validation
       id: nasa-rules
-      continue-on-error: true
+      continue-on-error: false
       run: |
         echo "Validating NASA POT10 compliance rules..."
         mkdir -p .claude/.artifacts
@@ -270,9 +272,13 @@ jobs:
 
         if [ "$SCORE_INT" -lt "$NASA_COMPLIANCE_THRESHOLD" ]; then
           echo "❌ NASA POT10 compliance FAILED: $COMPLIANCE_SCORE% < $NASA_COMPLIANCE_THRESHOLD%"
+          echo "compliance-gate-failure=true" >> $GITHUB_OUTPUT
+          echo "blocks-deployment=true" >> $GITHUB_OUTPUT
           exit 1
         else
           echo "✅ NASA POT10 compliance PASSED: $COMPLIANCE_SCORE% ≥ $NASA_COMPLIANCE_THRESHOLD%"
+          echo "compliance-gate-failure=false" >> $GITHUB_OUTPUT
+          echo "blocks-deployment=false" >> $GITHUB_OUTPUT
         fi
 
     - name: Upload compliance artifacts

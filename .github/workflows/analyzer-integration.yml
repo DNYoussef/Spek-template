@@ -2,9 +2,12 @@ name: Analyzer Integration & GitHub Visibility
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
+    paths:
+      - 'analyzer/**'
+      - '.github/workflows/analyzer-integration.yml'
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:

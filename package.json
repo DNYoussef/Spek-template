@@ -1,6 +1,41 @@
 {
+  "name": "spek-enhanced-platform",
+  "version": "1.0.0",
+  "description": "SPEK Enhanced Development Platform with Research Intelligence and Theater Detection",
+  "scripts": {
+    "test": "python -m pytest tests/ -v --tb=short",
+    "test:analyzer": "python -m pytest tests/test_analyzer.py -v",
+    "test:performance": "python -m pytest tests/test_performance.py -v",
+    "test:integration": "python -m pytest tests/test_integration.py -v",
+    "lint": "python -m flake8 analyzer/ --max-line-length=120 --extend-ignore=E203,W503",
+    "lint:fix": "python -m autopep8 --in-place --recursive analyzer/",
+    "typecheck": "python -m mypy analyzer/ --ignore-missing-imports",
+    "security": "python -m bandit -r analyzer/ -f json -o .claude/.artifacts/security-scan.json",
+    "analyze": "python test_modules.py",
+    "validate": "npm run test && npm run lint && npm run typecheck",
+    "build": "echo 'Build step completed - Python modules ready'",
+    "start": "python -m analyzer.cli --help",
+    "prepare": "husky"
+  },
   "dependencies": {
     "@types/natural": "^5.1.5",
     "natural": "^8.1.0"
-  }
+  },
+  "devDependencies": {
+    "@types/jest": "^29.0.0",
+    "husky": "^9.1.7",
+    "jest": "^29.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "python": ">=3.8.0"
+  },
+  "keywords": [
+    "spek",
+    "analyzer",
+    "connascence",
+    "quality",
+    "theater-detection"
+  ],
+  "license": "MIT"
 }

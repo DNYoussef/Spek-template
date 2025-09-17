@@ -1,0 +1,202 @@
+name: Enhanced Notification Strategy
+
+on:
+  workflow_run:
+    workflows:
+      - "Connascence Quality Gates"
+      - "NASA POT10 Compliance Gates"
+      - "Security Quality Gate Orchestrator"
+      - "Analyzer Integration"
+    types: [completed]
+
+jobs:
+  smart-notifications:
+    name: Smart Failure Notifications
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'failure'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Analyze failure severity
+      id: analyze
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const workflowRun = context.payload.workflow_run;
+          const workflowName = workflowRun.name.toLowerCase();
+
+          console.log(`Analyzing failure for: ${workflowRun.name}`);
+
+          // Categorize failures by severity and notification strategy
+          let notificationLevel = 'none';
+          let notificationMethod = [];
+          let isCritical = false;
+
+          // CRITICAL failures - require immediate attention
+          if (workflowName.includes('security') ||
+              workflowName.includes('nasa-pot10') ||
+              workflowName.includes('compliance')) {
+            notificationLevel = 'critical';
+            notificationMethod = ['github-issue', 'slack']; // NO EMAIL
+            isCritical = true;
+          }
+          // HIGH priority failures - important but not critical
+          else if (workflowName.includes('connascence') ||
+                   workflowName.includes('analyzer')) {
+            notificationLevel = 'high';
+            notificationMethod = ['github-issue', 'discord'];
+          }
+          // MEDIUM priority - GitHub only
+          else {
+            notificationLevel = 'medium';
+            notificationMethod = ['github-issue'];
+          }
+
+          core.setOutput('notification-level', notificationLevel);
+          core.setOutput('notification-methods', JSON.stringify(notificationMethod));
+          core.setOutput('is-critical', isCritical.toString());
+          core.setOutput('workflow-name', workflowRun.name);
+          core.setOutput('workflow-url', workflowRun.html_url);
+          core.setOutput('run-id', workflowRun.id.toString());
+
+    - name: Create GitHub issue for failures
+      if: steps.analyze.outputs.notification-level != 'none'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const level = '${{ steps.analyze.outputs.notification-level }}';
+          const workflowName = '${{ steps.analyze.outputs.workflow-name }}';
+          const workflowUrl = '${{ steps.analyze.outputs.workflow-url }}';
+          const isCritical = '${{ steps.analyze.outputs.is-critical }}' === 'true';
+
+          // Check for existing similar issues to prevent spam
+          const existingIssues = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            labels: [`workflow-failure`, `level-${level}`],
+            state: 'open'
+          });
+
+          // Only create new issue if no similar open issue exists
+          if (existingIssues.data.length === 0) {
+            const titleEmoji = isCritical ? '🚨' : level === 'high' ? '⚠️' : '📋';
+            const title = `${titleEmoji} ${level.toUpperCase()}: ${workflowName} Failure`;
+
+            const body = `
+            **Workflow Failure Detected**
+
+            **Severity**: ${level.toUpperCase()}
+            **Workflow**: [${workflowName}](${workflowUrl})
+            **Run ID**: ${{ steps.analyze.outputs.run-id }}
+            **Commit**: ${{ github.event.workflow_run.head_sha }}
+            **Critical**: ${isCritical ? 'YES' : 'NO'}
+
+            **Notification Strategy**:
+            ${JSON.parse('${{ steps.analyze.outputs.notification-methods }}').map(method => `- ${method}`).join('\n')}
+
+            **Required Actions**:
+            ${isCritical ? '- 🚨 **IMMEDIATE ATTENTION REQUIRED**' : '- Review failure details'}
+            - Check workflow artifacts for detailed reports
+            - Address root cause before next deployment
+            ${isCritical ? '- This blocks production deployment' : ''}
+
+            **Auto-Resolution**: This issue will close when the workflow passes.
+            `;
+
+            const labels = [
+              'workflow-failure',
+              `level-${level}`,
+              workflowName.toLowerCase().replace(/\s+/g, '-')
+            ];
+
+            if (isCritical) {
+              labels.push('critical', 'blocks-deployment');
+            }
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: labels
+            });
+
+            console.log(`Created ${level} severity issue for ${workflowName}`);
+          } else {
+            console.log(`Skipping issue creation - similar issue already exists`);
+          }
+
+    - name: Send Slack notification for critical failures
+      if: |
+        steps.analyze.outputs.is-critical == 'true' &&
+        contains(fromJSON(steps.analyze.outputs.notification-methods), 'slack')
+      run: |
+        echo "🚨 CRITICAL workflow failure detected"
+        echo "Workflow: ${{ steps.analyze.outputs.workflow-name }}"
+        echo "URL: ${{ steps.analyze.outputs.workflow-url }}"
+        echo "Note: In production, this would send a Slack notification"
+        echo "Slack webhook configuration needed for actual notifications"
+
+    - name: Send Discord notification for high priority failures
+      if: |
+        steps.analyze.outputs.notification-level == 'high' &&
+        contains(fromJSON(steps.analyze.outputs.notification-methods), 'discord')
+      run: |
+        echo "⚠️ HIGH priority workflow failure detected"
+        echo "Workflow: ${{ steps.analyze.outputs.workflow-name }}"
+        echo "URL: ${{ steps.analyze.outputs.workflow-url }}"
+        echo "Note: In production, this would send a Discord notification"
+        echo "Discord webhook configuration needed for actual notifications"
+
+    # NO EMAIL NOTIFICATIONS - Eliminated email spam
+    # All notifications go through GitHub Issues + optional chat integrations
+
+    - name: Auto-close resolved issues
+      uses: actions/github-script@v7
+      with:
+        script: |
+          // If this workflow is now passing, close related failure issues
+          if (context.payload.workflow_run.conclusion === 'success') {
+            const workflowName = context.payload.workflow_run.name;
+
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['workflow-failure'],
+              state: 'open'
+            });
+
+            for (const issue of issues.data) {
+              if (issue.title.includes(workflowName)) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  state: 'closed'
+                });
+
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body: `✅ Auto-closing: ${workflowName} workflow is now passing.`
+                });
+              }
+            }
+          }
+
+    - name: Summary
+      if: always()
+      run: |
+        echo "## Smart Notification Summary" >> $GITHUB_STEP_SUMMARY
+        echo "**Level**: ${{ steps.analyze.outputs.notification-level }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Critical**: ${{ steps.analyze.outputs.is-critical }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Methods**: ${{ steps.analyze.outputs.notification-methods }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Key Improvements" >> $GITHUB_STEP_SUMMARY
+        echo "- ❌ **NO EMAIL SPAM**: Email notifications completely eliminated" >> $GITHUB_STEP_SUMMARY
+        echo "- 🎯 **Smart Routing**: Critical → Slack, High → Discord, Medium → GitHub only" >> $GITHUB_STEP_SUMMARY
+        echo "- 🔄 **Auto-Resolution**: Issues automatically close when workflows pass" >> $GITHUB_STEP_SUMMARY
+        echo "- 📊 **Failure Grouping**: Prevents duplicate notifications for same issue" >> $GITHUB_STEP_SUMMARY

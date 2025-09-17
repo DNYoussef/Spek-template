@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Pre-commit hook: Run linting and basic checks
+echo "Running pre-commit checks..."
+
+# Check analyzer imports
+echo "Checking analyzer imports..."
+python -c "
+from analyzer import UnifiedAnalyzer
+if UnifiedAnalyzer is None:
+    print('UnifiedAnalyzer not available!')
+    exit(1)
+else:
+    print('UnifiedAnalyzer imports successfully')
+" || exit 1
+
+# Run Python linting (if Python files changed)
+if git diff --cached --name-only | grep -q '\.py$'; then
+    echo "Linting Python files..."
+    python -m flake8 analyzer/ --max-line-length=120 --extend-ignore=E203,W503 --count --select=E9,F63,F7,F82 --show-source --statistics || exit 1
+fi
+
+echo "Pre-commit checks passed!"

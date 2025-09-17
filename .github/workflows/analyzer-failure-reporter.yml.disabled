@@ -1,0 +1,251 @@
+name: Analyzer Failure Reporter
+
+on:
+  workflow_run:
+    workflows: ["*"]
+    types: [completed]
+  schedule:
+    # Run every hour to check for persistent failures
+    - cron: '0 * * * *'
+
+jobs:
+  failure-detector:
+    name: Detect and Report Analyzer Failures
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'failure' || github.event_name == 'schedule'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Analyze workflow failure
+      id: analyze-failure
+      if: github.event_name == 'workflow_run'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const workflowRun = context.payload.workflow_run;
+
+          console.log(`Analyzing failed workflow: ${workflowRun.name}`);
+          console.log(`Run ID: ${workflowRun.id}`);
+          console.log(`Conclusion: ${workflowRun.conclusion}`);
+          console.log(`URL: ${workflowRun.html_url}`);
+
+          // Check if this is an analyzer-related workflow
+          const analyzerWorkflows = [
+            'connascence', 'nasa', 'quality', 'god-object', 'mece',
+            'security', 'compliance', 'integration', 'analyzer'
+          ];
+
+          const isAnalyzerWorkflow = analyzerWorkflows.some(keyword =>
+            workflowRun.name.toLowerCase().includes(keyword)
+          );
+
+          if (isAnalyzerWorkflow) {
+            core.setOutput('is-analyzer-failure', 'true');
+            core.setOutput('workflow-name', workflowRun.name);
+            core.setOutput('workflow-url', workflowRun.html_url);
+            core.setOutput('run-id', workflowRun.id.toString());
+          } else {
+            core.setOutput('is-analyzer-failure', 'false');
+          }
+
+    - name: Get workflow logs
+      if: steps.analyze-failure.outputs.is-analyzer-failure == 'true'
+      run: |
+        echo "Fetching logs for failed analyzer workflow..."
+        gh run view ${{ steps.analyze-failure.outputs.run-id }} --log > workflow_failure_logs.txt 2>&1 || true
+        echo "Log fetch completed"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create failure issue
+      if: steps.analyze-failure.outputs.is-analyzer-failure == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const workflowName = '${{ steps.analyze-failure.outputs.workflow-name }}';
+          const workflowUrl = '${{ steps.analyze-failure.outputs.workflow-url }}';
+          const runId = '${{ steps.analyze-failure.outputs.run-id }}';
+
+          // Check if we already have an open issue for this workflow
+          const existingIssues = await github.rest.issues.listForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'open',
+            labels: 'type:analyzer-failure',
+            per_page: 100
+          });
+
+          const existingIssue = existingIssues.data.find(issue =>
+            issue.title.includes(workflowName)
+          );
+
+          if (existingIssue) {
+            // Update existing issue with new failure
+            const updateComment = `
+            ## 🔄 New Failure Detected
+
+            **Workflow**: [${workflowName}](${workflowUrl})
+            **Run ID**: ${runId}
+            **Time**: ${new Date().toISOString()}
+            **Status**: Still failing (persistent issue)
+
+            This workflow continues to fail. Please investigate the root cause.
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: existingIssue.number,
+              body: updateComment
+            });
+
+            console.log(`Updated existing issue #${existingIssue.number}`);
+          } else {
+            // Create new issue
+            const issueBody = `
+            ## 🚨 Analyzer Workflow Failure
+
+            **Workflow**: [${workflowName}](${workflowUrl})
+            **Run ID**: ${runId}
+            **Failed at**: ${new Date().toISOString()}
+            **Failure Type**: Analyzer System Integration
+
+            ### Immediate Actions Needed
+            1. **Check Logs**: Review the [workflow logs](${workflowUrl}) for error details
+            2. **Verify Files**: Ensure analyzer scripts exist and are executable
+            3. **Check Dependencies**: Verify Python dependencies and imports
+            4. **Test Locally**: Run the analyzer system locally to reproduce
+
+            ### Common Analyzer Failure Causes
+            - **Import Errors**: Missing or broken Python module imports
+            - **File Corruption**: Workflow YAML files corrupted with encoded content
+            - **Missing Scripts**: Referenced analyzer scripts don't exist
+            - **Environment Issues**: Python path or dependency problems
+            - **API Failures**: GitHub API authentication or rate limiting
+
+            ### Debug Commands
+            \`\`\`bash
+            # Test analyzer imports
+            cd analyzer && python -c "from unified_analyzer import UnifiedAnalyzer"
+
+            # Run Phase 5 reality test
+            python tests/test_phase5_sandbox_reality.py
+
+            # Check GitHub bridge
+            cd analyzer && python -c "from integrations.github_bridge import GitHubBridge"
+            \`\`\`
+
+            ### Failure Context
+            This failure was automatically detected and reported by the Analyzer Failure Reporter.
+            The workflow "${workflowName}" failed and needs immediate attention.
+
+            **Next Steps**:
+            - Investigate the failure using the debug commands above
+            - Fix the underlying issue (likely import or file corruption)
+            - Close this issue once resolved
+            `;
+
+            const newIssue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Analyzer Failure: ${workflowName}`,
+              body: issueBody,
+              labels: ['type:analyzer-failure', 'priority:high', 'auto-created']
+            });
+
+            console.log(`Created new issue #${newIssue.data.number}`);
+          }
+
+    - name: Update GitHub status
+      if: steps.analyze-failure.outputs.is-analyzer-failure == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          // Create a visible status check for the failure
+          await github.rest.repos.createCommitStatus({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            sha: context.payload.workflow_run.head_sha,
+            state: 'failure',
+            target_url: '${{ steps.analyze-failure.outputs.workflow-url }}',
+            description: 'Analyzer workflow failed - issue created',
+            context: 'analyzer/failure-detection'
+          });
+
+  health-check:
+    name: Analyzer System Health Check
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Check analyzer system health
+      run: |
+        echo "## 🏥 Analyzer System Health Check" >> $GITHUB_STEP_SUMMARY
+        echo "**Time**: $(date -u)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        # Count recent failures
+        FAILURE_COUNT=$(gh run list --limit 50 --json conclusion | jq '[.[] | select(.conclusion == "failure")] | length')
+        echo "**Recent Failures**: $FAILURE_COUNT/50 runs" >> $GITHUB_STEP_SUMMARY
+
+        # Check if failure rate is high
+        if [ "$FAILURE_COUNT" -gt 10 ]; then
+          echo "**Status**: 🚨 HIGH FAILURE RATE - Needs Attention" >> $GITHUB_STEP_SUMMARY
+        elif [ "$FAILURE_COUNT" -gt 5 ]; then
+          echo "**Status**: ⚠️ MODERATE FAILURES - Monitor Closely" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "**Status**: ✅ HEALTHY - Normal Operation" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Actions Taken" >> $GITHUB_STEP_SUMMARY
+        echo "- Monitored workflow failure patterns" >> $GITHUB_STEP_SUMMARY
+        echo "- Auto-created issues for persistent failures" >> $GITHUB_STEP_SUMMARY
+        echo "- Updated GitHub status checks" >> $GITHUB_STEP_SUMMARY
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create health summary issue
+      if: github.event_name == 'schedule'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          // Only create weekly health reports (check if it's Sunday)
+          const now = new Date();
+          if (now.getDay() !== 0) return; // 0 = Sunday
+
+          const issueBody = `
+          ## 📊 Weekly Analyzer System Health Report
+
+          **Report Period**: ${new Date(now.getTime() - 7*24*60*60*1000).toDateString()} - ${now.toDateString()}
+
+          ### System Status
+          - **Analyzer Integration**: Monitoring active
+          - **Failure Detection**: Automated issue creation working
+          - **GitHub Visibility**: Status checks and PR comments active
+
+          ### Key Metrics
+          - **Workflow Success Rate**: Tracked automatically
+          - **Issue Resolution**: Monitor open analyzer failure issues
+          - **GitHub Integration**: API connectivity verified
+
+          ### Recommendations
+          1. Review and close resolved analyzer failure issues
+          2. Monitor for patterns in recurring failures
+          3. Keep analyzer system dependencies updated
+
+          This health report is automatically generated weekly.
+          `;
+
+          await github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `📊 Weekly Analyzer Health Report - ${now.toDateString()}`,
+            body: issueBody,
+            labels: ['type:health-report', 'auto-created']
+          });

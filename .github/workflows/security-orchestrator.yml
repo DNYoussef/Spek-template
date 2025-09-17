@@ -2,7 +2,7 @@ name: Security Quality Gate Orchestrator
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
     paths:
       - 'analyzer/**'
       - 'src/**'
@@ -14,16 +14,18 @@ on:
       - '**/*.yaml'
       - '**/*.yml'
   pull_request:
-    branches: [main, develop]
-  schedule:
-    # Daily security scan at 2 AM UTC
-    - cron: '0 2 * * *'
+    branches: [main]
+  # SCHEDULE REMOVED - no more daily notification spam
+  # Only run on security-relevant changes
 
 jobs:
   security-gate-validation:
     name: Security Quality Gates
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
+    # Critical security gate - zero tolerance for security issues
+    needs: []
 
     outputs:
       security-status: ${{ steps.validation.outputs.status }}
@@ -46,7 +48,7 @@ jobs:
 
     - name: Run Bandit security scan
       id: bandit
-      continue-on-error: true
+      continue-on-error: false
       run: |
         echo "Running Bandit security analysis..."
         mkdir -p .claude/.artifacts
@@ -81,7 +83,7 @@ jobs:
 
     - name: Run Semgrep security scan
       id: semgrep
-      continue-on-error: true
+      continue-on-error: false
       run: |
         echo "Running Semgrep security analysis..."
 
@@ -112,7 +114,7 @@ jobs:
 
     - name: Check dependency vulnerabilities
       id: safety
-      continue-on-error: true
+      continue-on-error: false
       run: |
         echo "Checking dependency vulnerabilities..."
 
@@ -208,10 +210,13 @@ jobs:
 
         if [ "$GATE_STATUS" = "FAIL" ]; then
           echo "Critical findings: $CRITICAL_FINDINGS" >> .claude/.artifacts/security-summary.md
-          echo "❌ Security gates FAILED"
+          echo "❌ Security gates FAILED - CRITICAL SECURITY ISSUES DETECTED"
+          echo "security-gate-failure=true" >> $GITHUB_OUTPUT
+          echo "critical-security-findings=$CRITICAL_FINDINGS" >> $GITHUB_OUTPUT
           exit 1
         else
           echo "✅ Security gates PASSED"
+          echo "security-gate-failure=false" >> $GITHUB_OUTPUT
         fi
 
     - name: Upload security artifacts

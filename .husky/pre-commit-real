@@ -1,0 +1,130 @@
+#!/bin/sh
+
+# REAL Pre-commit hook - NO THEATER
+# This hook ACTUALLY blocks bad commits and FAILS when things are broken
+
+echo "🔍 Running REAL pre-commit validation (NO THEATER)..."
+
+EXIT_CODE=0
+
+# Function to report failure and exit
+fail_commit() {
+    echo "❌ COMMIT BLOCKED: $1"
+    echo "Fix the issues above before committing."
+    exit 1
+}
+
+# Check if real analyzer is available and working
+echo "Checking real analyzer functionality..."
+python -c "
+import sys
+import os
+sys.path.insert(0, '.')
+
+try:
+    from analyzer.real_unified_analyzer import RealUnifiedAnalyzer
+    analyzer = RealUnifiedAnalyzer()
+
+    # Test that it actually works by analyzing a small code snippet
+    test_file = 'temp_precommit_test.py'
+    with open(test_file, 'w') as f:
+        f.write('def test(): return 42  # Magic literal')
+
+    violations = analyzer.connascence_detector.analyze_file(test_file)
+    os.remove(test_file)
+
+    if len(violations) == 0:
+        print('ERROR: Analyzer found no violations in code with known issues!')
+        print('This indicates the analyzer is broken or mocked.')
+        exit(1)
+
+    print(f'✓ Real analyzer working - found {len(violations)} violations in test code')
+
+except ImportError as e:
+    print(f'ERROR: Cannot import real analyzer: {e}')
+    exit(1)
+except Exception as e:
+    print(f'ERROR: Real analyzer test failed: {e}')
+    exit(1)
+" || fail_commit "Real analyzer is not working"
+
+# Run real tests that must pass
+if [ -f "tests/test_real_analyzer.py" ]; then
+    echo "Running real analyzer tests..."
+    python tests/test_real_analyzer.py || fail_commit "Real analyzer tests failed"
+else
+    fail_commit "Real test file missing: tests/test_real_analyzer.py"
+fi
+
+# Check Python syntax on changed files
+echo "Checking Python syntax on changed files..."
+CHANGED_PY_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$' || true)
+
+if [ -n "$CHANGED_PY_FILES" ]; then
+    echo "Validating syntax for: $CHANGED_PY_FILES"
+    for file in $CHANGED_PY_FILES; do
+        if [ -f "$file" ]; then
+            python -m py_compile "$file" || fail_commit "Syntax error in $file"
+        fi
+    done
+    echo "✓ Python syntax validation passed"
+else
+    echo "No Python files changed"
+fi
+
+# Run real connascence analysis on changed files
+if [ -n "$CHANGED_PY_FILES" ]; then
+    echo "Running real connascence analysis on changed files..."
+    python -c "
+import sys
+sys.path.insert(0, '.')
+
+from analyzer.real_unified_analyzer import RealUnifiedAnalyzer
+analyzer = RealUnifiedAnalyzer()
+
+files = '$CHANGED_PY_FILES'.split()
+total_critical = 0
+
+for file_path in files:
+    if file_path.strip():
+        try:
+            violations = analyzer.connascence_detector.analyze_file(file_path.strip())
+            critical_violations = [v for v in violations if v.severity == 'critical']
+
+            if critical_violations:
+                print(f'CRITICAL violations in {file_path}:')
+                for v in critical_violations[:3]:  # Show first 3
+                    print(f'  Line {v.line_number}: {v.description}')
+                total_critical += len(critical_violations)
+        except Exception as e:
+            print(f'Analysis failed for {file_path}: {e}')
+            exit(1)
+
+if total_critical > 0:
+    print(f'Found {total_critical} critical violations in changed files')
+    exit(1)
+else:
+    print('✓ No critical violations in changed files')
+" || fail_commit "Critical violations found in changed files"
+fi
+
+# Check for test theater patterns
+echo "Checking for test theater patterns..."
+if git diff --cached | grep -i "assert.*None.*is.*OK\|if not available.*assert\|mock.*pass" > /dev/null; then
+    fail_commit "Test theater detected in staged changes - tests must FAIL when broken"
+fi
+
+# Check for notification spam patterns
+echo "Checking for notification spam..."
+if git diff --cached | grep -E "notification|email.*daily|cron.*[0-9].*\*.*\*.*\*" > /dev/null; then
+    echo "⚠️  Notification-related changes detected - verify these are not adding spam"
+fi
+
+# Verify no mock implementations are being added
+echo "Checking for new mock implementations..."
+if git diff --cached | grep -i "mock\|fallback.*None\|if.*None.*else.*None" > /dev/null; then
+    fail_commit "Mock implementations detected in staged changes - only real implementations allowed"
+fi
+
+echo "✅ All pre-commit checks passed - commit allowed"
+exit 0

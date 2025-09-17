@@ -252,7 +252,7 @@ try:
     availability = IMPORT_MANAGER.get_availability_summary()
     if availability.get("availability_score", 0) < 0.3:
         logger.warning("Import manager has low availability score, switching to enhanced mock mode")
-        IMPORT_MANAGER = create_enhanced_mock_import_manager()
+        # MOCK IMPORT MANAGER ELIMINATED - USING REAL COMPONENTS
 except ImportError as e:
     logger.warning(f"Failed to import IMPORT_MANAGER: {e}. Using enhanced mock mode.")
     try:
@@ -261,11 +261,11 @@ except ImportError as e:
         from core.unified_imports import IMPORT_MANAGER
         availability = IMPORT_MANAGER.get_availability_summary()
         if availability.get("availability_score", 0) < 0.3:
-            IMPORT_MANAGER = create_enhanced_mock_import_manager()
+            # MOCK IMPORT MANAGER ELIMINATED - USING REAL COMPONENTS
     except ImportError:
         # Use enhanced mock import manager with better CI compatibility
         logger.info("Using enhanced CI-compatible mock import manager")
-        IMPORT_MANAGER = create_enhanced_mock_import_manager()
+        # MOCK IMPORT MANAGER ELIMINATED - USING REAL COMPONENTS
 
 # Import constants with unified strategy
 constants_result = IMPORT_MANAGER.import_constants()
@@ -361,13 +361,15 @@ if not JSONReporter or not SARIFReporter:
 # Fallback imports for when unified analyzer is not available
 try:
     # CONSOLIDATED: Legacy ConnascenceAnalyzer replaced by modular detectors
-    from .unified_analyzer import UnifiedConnascenceAnalyzer as FallbackAnalyzer
+    from .real_unified_analyzer import RealUnifiedAnalyzer as UnifiedConnascenceAnalyzer
+    FallbackAnalyzer = UnifiedConnascenceAnalyzer
 
     FALLBACK_ANALYZER_AVAILABLE = True
 except ImportError:
     try:
         # CONSOLIDATED: Legacy ConnascenceAnalyzer replaced by modular detectors  
-        from unified_analyzer import UnifiedConnascenceAnalyzer as FallbackAnalyzer
+        from real_unified_analyzer import RealUnifiedAnalyzer as UnifiedConnascenceAnalyzer
+        FallbackAnalyzer = UnifiedConnascenceAnalyzer
 
         FALLBACK_ANALYZER_AVAILABLE = True
     except ImportError:

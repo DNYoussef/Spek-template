@@ -2,11 +2,15 @@ name: "CodeQL Analysis"
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "main" ]
+    paths:
+      - '**.js'
+      - '**.ts'
+      - '**.py'
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "main" ]
   schedule:
-    - cron: '23 18 * * 0'
+    - cron: '23 18 * * 0'  # Weekly security scan
 
 # Permissions required for CodeQL analysis
 permissions:

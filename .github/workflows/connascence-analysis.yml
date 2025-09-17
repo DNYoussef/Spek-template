@@ -2,7 +2,7 @@ name: Connascence Quality Gates
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
     paths:
       - 'analyzer/**'
       - 'src/**'
@@ -12,10 +12,9 @@ on:
       - '**/*.yaml'
       - '**/*.yml'
   pull_request:
-    branches: [main, develop]
-  schedule:
-    # Daily connascence analysis at 4 AM UTC
-    - cron: '0 4 * * *'
+    branches: [main]
+  # SCHEDULE REMOVED - no more daily notification spam
+  # Only run on actual code changes that matter
 
 env:
   PYTHON_VERSION: '3.11'
@@ -28,6 +27,9 @@ jobs:
     name: Connascence Quality Analysis
     runs-on: ubuntu-latest
     timeout-minutes: 20
+
+    # This is a critical quality gate - ensure it runs independently
+    needs: []
 
     outputs:
       critical-violations: ${{ steps.analysis.outputs.critical-violations }}
@@ -53,7 +55,7 @@ jobs:
 
     - name: Run connascence analysis
       id: analysis
-      continue-on-error: true
+      continue-on-error: false
       run: |
         echo "Running connascence analysis..."
         mkdir -p .claude/.artifacts
@@ -288,10 +290,12 @@ jobs:
         echo "gate-status=$GATE_STATUS" >> $GITHUB_OUTPUT
 
         if [ "$GATE_STATUS" = "FAIL" ]; then
-          echo "Connascence quality gates FAILED"
+          echo "❌ Connascence quality gates FAILED - blocking deployment"
+          echo "critical-gate-failure=true" >> $GITHUB_OUTPUT
           exit 1
         else
           echo "✅ Connascence quality gates PASSED"
+          echo "critical-gate-failure=false" >> $GITHUB_OUTPUT
         fi
 
     - name: Generate detailed report

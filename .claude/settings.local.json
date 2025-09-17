@@ -71,7 +71,11 @@
       "Bash(PRE_COMMIT_ALLOW_NO_CONFIG=1 git commit -m \"feat: Complete Phase 4 Constitutional Compliance with Zero-Knowledge Proofs\n\n- Add complete ZK proof system (CircuitCompiler, ProofGenerator, ProofVerifier, PerformanceOptimizer)\n- Implement real snarkjs integration with groth16 proof system\n- Add constitutional compliance bridge orchestration\n- Include comprehensive monitoring and performance infrastructure\n- Add TypeScript configuration and dependencies\n- Implement real cryptographic validation (100% theater elimination)\n- Target <75ms P95 latency for constitutional validation\n- Production-ready with defense industry compliance\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\")",
       "Bash(PRE_COMMIT_ALLOW_NO_CONFIG=1 git commit -m \"feat: Add 100% theater-free analyzer components\n\n- Add performance optimizer with real implementations\n- Add analysis orchestrator with genuine detection\n- All theatrical elements eliminated per user requirements\n- Files synced from spek template as requested\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\")",
       "WebFetch(domain:codelabs.developers.google.com)",
-      "WebFetch(domain:blog.google)"
+      "WebFetch(domain:blog.google)",
+      "Bash(gh issue list:*)",
+      "Bash(xargs:*)",
+      "Bash(for file in .github/workflows/*.yml)",
+      "Bash(npm run:*)"
     ],
     "deny": [],
     "ask": []

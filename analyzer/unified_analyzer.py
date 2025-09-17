@@ -35,7 +35,11 @@ import sys
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 # Import shared types to avoid circular dependencies
-from .analyzer_types import UnifiedAnalysisResult, StandardError, ERROR_SEVERITY, ERROR_CODE_MAPPING
+try:
+    from .analyzer_types import UnifiedAnalysisResult, StandardError, ERROR_SEVERITY, ERROR_CODE_MAPPING
+except ImportError:
+    # Running as script, use absolute imports
+    from analyzer_types import UnifiedAnalysisResult, StandardError, ERROR_SEVERITY, ERROR_CODE_MAPPING
 
 # Setup logger before first usage
 import logging
@@ -48,6 +52,13 @@ try:
     from .architecture.aggregator import ResultAggregator
     from .architecture.recommendation_engine import RecommendationEngine
     from .architecture.enhanced_metrics import EnhancedMetricsCalculator
+except ImportError:
+    # Running as script, use absolute imports
+    from architecture.detector_pool import DetectorPool
+    from architecture.orchestrator import ArchitectureOrchestrator
+    from architecture.aggregator import ResultAggregator
+    from architecture.recommendation_engine import RecommendationEngine
+    from architecture.enhanced_metrics import EnhancedMetricsCalculator
     ARCHITECTURE_COMPONENTS_AVAILABLE = True
 except ImportError:
     ARCHITECTURE_COMPONENTS_AVAILABLE = False
@@ -62,11 +73,12 @@ except ImportError:
 try:
     from .optimization.memory_monitor import MemoryMonitor
     from .optimization.resource_manager import ResourceManager
-    from .performance.real_time_monitor import RealTimeMonitor
-    from .performance.parallel_analyzer import ParallelAnalyzer
+    from .performance.real_time_monitor import RealTimePerformanceMonitor as RealTimeMonitor
+    from .performance.parallel_analyzer import ParallelConnascenceAnalyzer as ParallelAnalyzer
     from .performance.cache_performance_profiler import CachePerformanceProfiler
     ADVANCED_MONITORING_AVAILABLE = True
-except ImportError:
+except ImportError as e:
+    logger.warning(f"Advanced monitoring components not available: {e}")
     ADVANCED_MONITORING_AVAILABLE = False
     MemoryMonitor = None
     ResourceManager = None
@@ -103,20 +115,31 @@ try:
     from .optimization.ast_optimizer import ConnascencePatternOptimizer
     from .nasa_engine.nasa_analyzer import NASAAnalyzer
 except ImportError:
-    # Use fixed analyzer implementation
+    # Running as script, use absolute imports
     try:
-        from detectors.connascence_ast_analyzer_fixed import ConnascenceASTAnalyzer
-        logger.info("Using FIXED connascence analyzer implementation")
+        from ast_engine.analyzer_orchestrator import AnalyzerOrchestrator as GodObjectOrchestrator
+        from detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
+        from dup_detection.mece_analyzer import MECEAnalyzer
+        from smart_integration_engine import SmartIntegrationEngine
+        from detectors.timing_detector import TimingDetector
+        from refactored_detector import RefactoredConnascenceDetector
+        from optimization.ast_optimizer import ConnascencePatternOptimizer
+        from nasa_engine.nasa_analyzer import NASAAnalyzer
     except ImportError:
+        # Use fixed analyzer implementation
         try:
-            from detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
-            logger.warning("Using original (broken) analyzer - expect 0 violations")
+            from detectors.connascence_ast_analyzer_fixed import ConnascenceASTAnalyzer
+            logger.info("Using FIXED connascence analyzer implementation")
         except ImportError:
-            # Minimal fallback analyzer class
-            class ConnascenceASTAnalyzer:
-                def __init__(self, *args, **kwargs):
-                    pass
-            logger.warning("Using minimal fallback analyzer")
+            try:
+                from detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
+                logger.warning("Using original (broken) analyzer - expect 0 violations")
+            except ImportError:
+                # Minimal fallback analyzer class
+                class ConnascenceASTAnalyzer:
+                    def __init__(self, *args, **kwargs):
+                        pass
+                logger.warning("Using minimal fallback analyzer")
     
     # Safe fallbacks for other components
     GodObjectOrchestrator = None
@@ -360,7 +383,7 @@ class UnifiedConnascenceAnalyzer:
 
     This class provides a single, consistent interface to all connascence
     analysis features while maintaining the modularity of individual components.
-    
+
     Supports multiple analysis modes:
     - batch: Traditional full project analysis
     - streaming: Real-time incremental analysis with file watching
@@ -2532,12 +2555,18 @@ def _get_fallback_functions():
     return fallback_functions
 
 
-# Singleton instance for global access with new architecture
-# unified_analyzer = UnifiedConnascenceAnalyzer()  # Removed auto-instantiation
+# Alias for backwards compatibility
+UnifiedAnalyzer = UnifiedConnascenceAnalyzer
+
+# Singleton instance for global access with new architecture - only create when needed
+unified_analyzer = None  # Will be initialized on first use
 
 # Architecture validation: Ensure all components follow NASA Rule 4
 def validate_architecture_compliance():
     """Validate that all architecture components follow NASA Rule 4 compliance."""
+    global unified_analyzer
+    if unified_analyzer is None:
+        unified_analyzer = UnifiedConnascenceAnalyzer()
     components = unified_analyzer.get_architecture_components()
     
     for name, component in components.items():
@@ -2553,6 +2582,9 @@ def get_specialized_components():
 
 def validate_extraction_success():
     """Validate that god object extraction was successful."""
+    global unified_analyzer
+    if unified_analyzer is None:
+        unified_analyzer = UnifiedConnascenceAnalyzer()
     validation = unified_analyzer.validate_architecture_extraction()
     logger.info(f"Architecture extraction validation: {validation}")
     return validation["overall_success"]
