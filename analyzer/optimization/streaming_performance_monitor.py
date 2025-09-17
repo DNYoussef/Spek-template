@@ -12,7 +12,7 @@ NASA Rule 7 Compliant: Bounded resource usage with automatic cleanup.
 import time
 import logging
 from dataclasses import dataclass, field
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 
 logger = logging.getLogger(__name__)
 
