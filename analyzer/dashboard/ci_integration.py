@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 CI integration dashboard for self-analysis visualization.

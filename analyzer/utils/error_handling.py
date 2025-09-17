@@ -14,7 +14,7 @@ Eliminated patterns:
 - Local exception handling → shared ErrorHandler
 """
 
-from lib.shared.utilities.logging_setup import get_analyzer_logger
+# from lib.shared.utilities.logging_setup import get_analyzer_logger
 from enum import Enum
 import time
 import traceback

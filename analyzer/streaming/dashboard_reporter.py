@@ -11,8 +11,8 @@ NASA Rule 7 Compliant: Bounded data structures with automatic cleanup.
 
 import json
 import time
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass

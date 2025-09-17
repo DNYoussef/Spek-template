@@ -10,8 +10,10 @@ NASA Rule 4 Compliant: Functions under 60 lines.
 Handles violation formatting, standardization, and metrics coordination.
 """
 
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+from pathlib import Path
+from typing import Dict, Any, List, Optional
+logger = logging.getLogger(__name__)
 
 
 class ViolationAggregator:

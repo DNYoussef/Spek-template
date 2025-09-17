@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 """
 SC-002: SLSA Level 3 Provenance Attestation System
 Generates SLSA provenance attestations for supply chain security.

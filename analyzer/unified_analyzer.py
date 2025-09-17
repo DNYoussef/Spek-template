@@ -29,8 +29,8 @@ This provides a single entry point for all connascence analysis functionality.
 import ast
 from dataclasses import asdict, dataclass
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 # Import extracted architecture components
 try:
@@ -190,7 +190,7 @@ except ImportError:
     PolicyManager = None
     BudgetTracker = None
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class ErrorHandler:

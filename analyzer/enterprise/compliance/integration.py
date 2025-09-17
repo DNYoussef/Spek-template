@@ -10,8 +10,8 @@ Integrates the compliance evidence system with the existing SPEK analyzer:
 """
 
 import asyncio
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
         
     async def register_analyzers(self, analyzer_registry):
         """Register compliance analyzers with the main analyzer"""
@@ -111,7 +111,7 @@ class ComplianceCLICommands:
     
     def __init__(self, compliance_integration: ComplianceAnalyzerIntegration):
         self.integration = compliance_integration
-        self.logger = get_logger(__name__)
+        self.logger = logging.getLogger(__name__)
     
     async def run_compliance_assessment(self, project_path: str, frameworks: Optional[List[str]] = None) -> Dict[str, Any]:
         """Run compliance assessment for specified frameworks"""

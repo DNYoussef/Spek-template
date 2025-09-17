@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 """
 Theater Classifier ML Module
 Uses machine learning to classify and predict theater patterns.

@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 """
 Enterprise Theater Detector
 Detects performance theater patterns in enterprise environments.

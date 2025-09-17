@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists, validate_file
 """
 Theater Analysis Engine
 Orchestrates theater detection across multiple pattern detectors.

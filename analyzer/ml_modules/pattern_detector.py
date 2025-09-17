@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 """
 Pattern Detector ML Module
 Detects code patterns and anti-patterns using machine learning.

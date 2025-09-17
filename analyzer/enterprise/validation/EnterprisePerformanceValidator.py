@@ -19,9 +19,9 @@ NASA POT10 Rule 7: Bounded resource management
 
 import asyncio
 import json
-from lib.shared.utilities.logging_setup import get_performance_logger
-from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
-from lib.shared.utilities.path_validation import validate_directory, ensure_dir
+# from lib.shared.utilities.logging_setup import get_performance_logger
+# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
+# from lib.shared.utilities.path_validation import validate_directory, ensure_dir
 
 # Use specialized performance logging for enterprise validation
 logger = get_performance_logger(__name__)
@@ -45,7 +45,7 @@ logger = get_performance_logger(__name__)
     
     def create_detection_request(*args, **kwargs): return type('Request', (), {'request_id': str(uuid.uuid4())})()
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 @dataclass

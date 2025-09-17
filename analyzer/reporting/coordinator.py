@@ -27,8 +27,8 @@ This provides a single entry point for generating reports in any format
 while maintaining compatibility with all existing components.
 """
 
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 
 class UnifiedReportingCoordinator:

@@ -10,8 +10,8 @@ analyzes changed files and their dependencies.
 from dataclasses import dataclass, field
 import hashlib
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass

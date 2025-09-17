@@ -10,9 +10,9 @@ NASA Rule 2 Compliant: All methods under 60 lines.
 NASA Rule 4 Compliant: Single responsibility pattern.
 """
 
-from lib.shared.utilities.logging_setup import get_analyzer_logger
-from lib.shared.utilities.path_validation import validate_file, validate_directory
-from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
+# from lib.shared.utilities.logging_setup import get_analyzer_logger
+# from lib.shared.utilities.path_validation import validate_file, validate_directory
+# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
 
 # Use shared logging
 logger = get_analyzer_logger(__name__)

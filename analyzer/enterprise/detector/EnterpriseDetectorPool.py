@@ -21,9 +21,9 @@ NASA POT10 Rule 7: Bounded resource management
 import asyncio
 import hashlib
 import json
-from lib.shared.utilities.logging_setup import get_analyzer_logger
-from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
-from lib.shared.utilities.path_validation import validate_file, validate_directory
+# from lib.shared.utilities.logging_setup import get_analyzer_logger
+# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
+# from lib.shared.utilities.path_validation import validate_file, validate_directory
 
 # Use shared logging for enterprise detector
 logger = get_analyzer_logger(__name__)

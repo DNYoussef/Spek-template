@@ -12,9 +12,9 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
-from lib.shared.utilities.logging_setup import get_analyzer_logger
-from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
-from lib.shared.utilities.path_validation import validate_directory, ensure_dir
+# from lib.shared.utilities.logging_setup import get_analyzer_logger
+# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
+# from lib.shared.utilities.path_validation import validate_directory, ensure_dir
 
 # Use shared logging
 logger = get_analyzer_logger(__name__)
@@ -788,7 +788,7 @@ class SystemIntegrationController:
     def __init__(self, config: IntegrationConfig = None):
         """Initialize system integration controller."""
         self.config = config or IntegrationConfig()
-        self.logger = get_logger(__name__)
+        self.logger = logging.getLogger(__name__)
         
         # Initialize phase managers
         self.phase_managers = {

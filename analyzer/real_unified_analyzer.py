@@ -8,8 +8,8 @@ Every component does REAL work and FAILS when broken.
 
 import ast
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass

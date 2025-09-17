@@ -9,8 +9,8 @@ Coordinates multi-framework compliance evidence generation with:
 """
 
 import asyncio
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
         self.performance_monitor = PerformanceMonitor(self.config.performance_overhead_limit)
         
         # Initialize framework-specific collectors

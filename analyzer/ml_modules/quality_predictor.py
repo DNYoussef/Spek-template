@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 """
 Quality Predictor ML Module
 Predicts code quality using machine learning techniques.

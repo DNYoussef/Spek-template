@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 #!/usr/bin/env python3
 """
 Metrics management for self-analysis tracking.

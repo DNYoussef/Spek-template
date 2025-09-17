@@ -14,8 +14,8 @@ Provides a single, production-ready entry point for all analysis capabilities.
 
 import ast
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 
 class UnifiedOrchestrator:
@@ -27,7 +27,7 @@ class UnifiedOrchestrator:
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         """Initialize the unified orchestrator with all components."""
         self.config = config or self._default_config()
-        self.logger = get_logger(__name__)
+        self.logger = logging.getLogger(__name__)
 
         # Initialize core detectors (always available)
         self.detectors = self._initialize_detectors()

@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 """
 SC-005: Supply Chain Evidence Package Generator
 Comprehensive evidence packaging for supply chain security attestation.

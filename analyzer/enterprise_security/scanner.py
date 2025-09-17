@@ -12,8 +12,47 @@ import subprocess
 from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
+
+@dataclass
+class SecurityVulnerability:
+    """A detected security vulnerability."""
+    vuln_type: 'VulnerabilityType'
+    severity: 'SecurityLevel'
+    file_path: str
+    line_number: int
+    description: str
+    evidence: Dict[str, Any]
+    recommendation: str
+    cwe_id: str
+    confidence: float
+
+class VulnerabilityType(Enum):
+    """Types of security vulnerabilities."""
+    HARDCODED_SECRETS = "hardcoded_secrets"
+    SQL_INJECTION = "sql_injection"
+    XSS = "xss"
+    WEAK_CRYPTO = "weak_crypto"
+    COMMAND_INJECTION = "command_injection"
+    PATH_TRAVERSAL = "path_traversal"
+
+class SecurityLevel(Enum):
+    """Security vulnerability severity levels."""
+    CRITICAL = "critical"
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+
+def path_exists(path):
+    """Check if path exists."""
+    return os.path.exists(path)
+
+class SecurityScanner:
+    """Security vulnerability scanner."""
+
+    def __init__(self):
+        self.logger = logger
 
     def scan_hardcoded_secrets(self, file_path: str, content: str) -> List[SecurityVulnerability]:
         """Scan for hardcoded secrets and credentials."""

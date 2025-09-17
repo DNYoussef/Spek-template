@@ -16,9 +16,9 @@ Evidence Types:
 
 import asyncio
 import json
-from lib.shared.utilities.logging_setup import get_security_logger
-from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
-from lib.shared.utilities.path_validation import validate_directory, ensure_dir
+# from lib.shared.utilities.logging_setup import get_security_logger
+# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
+# from lib.shared.utilities.path_validation import validate_directory, ensure_dir
 
 # Use specialized security logging for SOC2 compliance
 logger = get_security_logger(__name__)

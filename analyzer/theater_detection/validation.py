@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 """
 Reality Validation Engine
 Validates that quality improvements are real, not theater.

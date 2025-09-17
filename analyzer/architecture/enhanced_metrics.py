@@ -10,8 +10,9 @@ NASA Rule 4 Compliant: Functions under 60 lines.
 Handles quality score calculations, performance tracking, and compliance scoring.
 """
 
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+from typing import Dict, Any, List, Optional
+logger = logging.getLogger(__name__)
 
 
 class EnhancedMetricsCalculator:

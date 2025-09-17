@@ -13,8 +13,8 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -114,7 +114,7 @@ class UnifiedAnalyzerAPI:
     def __init__(self, config: Optional[UnifiedAnalysisConfig] = None):
         """Initialize unified analyzer with configuration."""
         self.config = config or UnifiedAnalysisConfig()
-        self.logger = get_logger(__name__)
+        self.logger = logging.getLogger(__name__)
         
         # Initialize integration controller
         integration_config = IntegrationConfig(

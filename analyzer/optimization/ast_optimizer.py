@@ -10,8 +10,8 @@ in connascence analysis.
 import ast
 from collections import defaultdict
 from dataclasses import dataclass
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass

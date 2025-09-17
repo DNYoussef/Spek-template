@@ -10,8 +10,44 @@ import json
 from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
+
+class TheaterType(Enum):
+    """Types of theater patterns."""
+    TEST_GAMING = "test_gaming"
+    ERROR_MASKING = "error_masking"
+    METRICS_INFLATION = "metrics_inflation"
+
+class SeverityLevel(Enum):
+    """Severity levels for theater patterns."""
+    CRITICAL = "critical"
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+
+@dataclass
+class TheaterPattern:
+    """A detected theater pattern."""
+    pattern_type: TheaterType
+    severity: SeverityLevel
+    file_path: str
+    line_number: int
+    description: str
+    evidence: Dict[str, Any]
+    recommendation: str
+    confidence: float
+
+@dataclass
+class RealityValidationResult:
+    """Result of reality validation."""
+    is_real: bool
+    confidence: float
+    evidence: List[str]
+    theater_indicators: List[str]
+
+class TheaterDetector:
+    def __init__(self):
         self.patterns = []
 
     def detect_test_gaming(self, file_path: str, content: str) -> List[TheaterPattern]:

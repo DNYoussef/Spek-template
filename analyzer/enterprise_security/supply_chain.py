@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 """
 Supply Chain Security Module
 Manages software supply chain security including SBOM and SLSA validation.

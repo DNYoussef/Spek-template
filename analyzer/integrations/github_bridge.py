@@ -14,8 +14,18 @@ This replaces the stub implementation in tool_coordinator.py with actual functio
 
 import os
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+import time
+import hashlib
+from typing import Dict, List, Optional, Any, Tuple
+from dataclasses import dataclass
+logger = logging.getLogger(__name__)
+
+# Optional import with fallback
+try:
+    import requests
+except ImportError:
+    requests = None
 
 
 class RateLimiter:
@@ -168,7 +178,7 @@ class GitHubBridge:
         return session
 
     @retry_with_backoff(max_retries=3)
-    def post_pr_comment(self, pr_number: int, analysis_result: UnifiedAnalysisResult) -> bool:
+    def post_pr_comment(self, pr_number: int, analysis_result: Dict[str, Any]) -> bool:
         """
         Post analysis results as a PR comment.
 
@@ -208,7 +218,7 @@ class GitHubBridge:
     def update_status_check(
         self,
         commit_sha: str,
-        analysis_result: UnifiedAnalysisResult,
+        analysis_result: Dict[str, Any],
         context: str = "connascence-analyzer"
     ) -> bool:
         """
@@ -257,7 +267,7 @@ class GitHubBridge:
     @retry_with_backoff(max_retries=3)
     def create_issue_for_violations(
         self,
-        violations: List[ConnascenceViolation],
+        violations: List[Dict[str, Any]],
         title: Optional[str] = None
     ) -> Optional[int]:
         """
@@ -360,21 +370,21 @@ class GitHubBridge:
             logger.error(f"Webhook signature verification failed: {e}")
             return False
 
-    def _format_pr_comment(self, result: UnifiedAnalysisResult) -> str:
+    def _format_pr_comment(self, result: Dict[str, Any]) -> str:
         """Format analysis results as markdown PR comment."""
-        # Get violations from real UnifiedAnalysisResult structure
-        violations = result.connascence_violations if hasattr(result, 'connascence_violations') else []
-        critical_violations = [v for v in violations if v.get('severity') == ViolationSeverity.CRITICAL]
-        high_violations = [v for v in violations if v.get('severity') == ViolationSeverity.HIGH]
+        # Get violations from real Dict[str, Any] structure
+        violations = result.get('connascence_violations', [])
+        critical_violations = [v for v in violations if v.get('severity') == 'critical']
+        high_violations = [v for v in violations if v.get('severity') == 'high']
 
         comment = f"""## Code Quality Analysis Results
 
 ### Summary
-- **NASA POT10 Compliance**: {result.nasa_compliance_score:.1%}
-- **Overall Quality Score**: {result.overall_quality_score:.2f}
-- **Duplication Score**: {result.duplication_score:.2f}
-- **Total Violations**: {result.total_violations}
-- **Critical Count**: {result.critical_count}
+- **NASA POT10 Compliance**: {result.get('nasa_compliance_score', 0.92):.1%}
+- **Overall Quality Score**: {result.get("overall_quality_score", 0.88):.2f}
+- **Duplication Score**: {result.get("duplication_score", 0.95):.2f}
+- **Total Violations**: {result.get("total_violations", 0)}
+- **Critical Count**: {result.get("critical_count", 0)}
 
 ### Violations Found
 - **Critical**: {len(critical_violations)}
@@ -393,55 +403,57 @@ class GitHubBridge:
                 line_number = v.get('line_number', 0)
                 comment += f"- **{violation_type}**: {description} (`{file_path}:{line_number}`)\n"
 
-        analysis_passed = result.critical_count == 0 and result.nasa_compliance_score >= 0.9
+        analysis_passed = result.get("critical_count", 0) == 0 and result.nasa_compliance_score >= 0.9
         if analysis_passed:
             comment += "\n **Analysis Passed** - Code meets quality standards"
         else:
             comment += "\n **Analysis Failed** - Please address the issues above"
 
-        duration_ms = getattr(result, 'analysis_duration_ms', 1500)
+        duration_ms = result.get('analysis_duration_ms', 1500)
         comment += f"\n\n*Analysis completed in {duration_ms / 1000.0:.2f}s*"
 
         return comment
 
-    def _format_issue_body(self, violations: List[ConnascenceViolation]) -> str:
+    def _format_issue_body(self, violations: List[Dict[str, Any]]) -> str:
         """Format violations as issue body."""
         body = "## Critical Code Quality Violations\n\n"
         body += "The following critical issues were detected during automated analysis:\n\n"
 
         # Group by file
-        by_file: Dict[str, List[ConnascenceViolation]] = {}
+        by_file: Dict[str, List[Dict[str, Any]]] = {}
         for v in violations:
-            if v.file_path not in by_file:
-                by_file[v.file_path] = []
-            by_file[v.file_path].append(v)
+            file_path = v.get('file_path', 'unknown')
+            if file_path not in by_file:
+                by_file[file_path] = []
+            by_file[file_path].append(v)
 
         for file_path, file_violations in by_file.items():
             body += f"### `{file_path}`\n"
             for v in file_violations:
-                body += f"- **Line {v.line_number}**: {v.description}\n"
-                if hasattr(v, 'recommendation') and v.recommendation:
-                    body += f"  - *Recommendation*: {v.recommendation}\n"
+                body += f"- **Line {v.get('line_number', 0)}**: {v.get('description', 'No description')}\n"
+                recommendation = v.get('recommendation')
+                if recommendation:
+                    body += f"  - *Recommendation*: {recommendation}\n"
             body += "\n"
 
         body += "---\n*This issue was automatically generated by the Connascence Analyzer*"
 
         return body
 
-    def _determine_status_state(self, result: UnifiedAnalysisResult) -> Tuple[str, str]:
+    def _determine_status_state(self, result: Dict[str, Any]) -> Tuple[str, str]:
         """Determine GitHub status state from analysis results."""
         # Use real analysis result fields
-        if result.critical_count > 0:
-            return "failure", f"{result.critical_count} critical violations found"
+        if result.get("critical_count", 0) > 0:
+            return "failure", f"{result.get("critical_count", 0)} critical violations found"
 
-        if result.high_count > 5:
-            return "failure", f"Too many high severity violations ({result.high_count})"
+        if result.get("high_count", 0) > 5:
+            return "failure", f"Too many high severity violations ({result.get("high_count", 0)})"
 
         if result.nasa_compliance_score < 0.9:
             return "failure", f"NASA compliance below threshold ({result.nasa_compliance_score:.1%})"
 
-        if result.high_count > 0:
-            return "success", f"Passed with {result.high_count} warnings"
+        if result.get("high_count", 0) > 0:
+            return "success", f"Passed with {result.get("high_count", 0)} warnings"
 
         return "success", "All quality checks passed"
 
@@ -472,28 +484,28 @@ def integrate_with_workflow(
         with open(connascence_results_file, 'r') as f:
             analysis_data = json.load(f)
 
-        # Convert to real UnifiedAnalysisResult
-        result = UnifiedAnalysisResult(
-            connascence_violations=analysis_data.get("violations", []),
-            duplication_clusters=analysis_data.get("duplication_clusters", []),
-            nasa_violations=analysis_data.get("nasa_violations", []),
-            total_violations=analysis_data.get("total_violations", 0),
-            critical_count=analysis_data.get("critical_count", 0),
-            high_count=analysis_data.get("high_count", 0),
-            medium_count=analysis_data.get("medium_count", 0),
-            low_count=analysis_data.get("low_count", 0),
-            connascence_index=analysis_data.get("connascence_index", 0.85),
-            nasa_compliance_score=analysis_data.get("nasa_compliance", 0.92),
-            duplication_score=analysis_data.get("duplication_score", 0.95),
-            overall_quality_score=analysis_data.get("overall_quality_score", 0.88),
-            project_path=analysis_data.get("project_path", ""),
-            policy_preset=analysis_data.get("policy_preset", "standard"),
-            analysis_duration_ms=analysis_data.get("analysis_duration_ms", 1500),
-            files_analyzed=analysis_data.get("files_analyzed", 0),
-            timestamp=datetime.now().isoformat(),
-            priority_fixes=analysis_data.get("priority_fixes", []),
-            improvement_actions=analysis_data.get("improvement_actions", [])
-        )
+        # Convert to real dict
+        result = {
+            "connascence_violations": analysis_data.get("violations", []),
+            "duplication_clusters": analysis_data.get("duplication_clusters", []),
+            "nasa_violations": analysis_data.get("nasa_violations", []),
+            "total_violations": analysis_data.get("total_violations", 0),
+            "critical_count": analysis_data.get("critical_count", 0),
+            "high_count": analysis_data.get("high_count", 0),
+            "medium_count": analysis_data.get("medium_count", 0),
+            "low_count": analysis_data.get("low_count", 0),
+            "connascence_index": analysis_data.get("connascence_index", 0.85),
+            "nasa_compliance_score": analysis_data.get("nasa_compliance", 0.92),
+            "duplication_score": analysis_data.get("duplication_score", 0.95),
+            "overall_quality_score": analysis_data.get("overall_quality_score", 0.88),
+            "project_path": analysis_data.get("project_path", ""),
+            "policy_preset": analysis_data.get("policy_preset", "standard"),
+            "analysis_duration_ms": analysis_data.get("analysis_duration_ms", 1500),
+            "files_analyzed": analysis_data.get("files_analyzed", 0),
+            "timestamp": time.time(),
+            "priority_fixes": analysis_data.get("priority_fixes", []),
+            "improvement_actions": analysis_data.get("improvement_actions", [])
+        }
 
         # Load GitHub event data
         with open(github_event_path, 'r') as f:
@@ -523,7 +535,7 @@ def integrate_with_workflow(
         integration_result = {
             "timestamp": datetime.now().isoformat(),
             "integration_success": success,
-            "analysis_passed": result.critical_count == 0 and result.nasa_compliance_score >= 0.9,
+            "analysis_passed": result.get("critical_count", 0) == 0 and result.nasa_compliance_score >= 0.9,
             "github_updated": success,
             "api_calls_made": bridge.metrics.api_calls_made if hasattr(bridge, 'metrics') else 0
         }

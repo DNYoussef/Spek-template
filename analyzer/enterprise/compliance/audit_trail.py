@@ -20,8 +20,8 @@ Features:
 import asyncio
 import hashlib
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
         self.audit_events: List[AuditEvent] = []
         self.evidence_packages: List[EvidencePackage] = []
         

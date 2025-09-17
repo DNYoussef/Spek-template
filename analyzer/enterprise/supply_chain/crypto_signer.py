@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 """
 SC-004: Cryptographic Artifact Signing with Cosign Integration
 Enterprise-grade cryptographic signing and verification for supply chain artifacts.

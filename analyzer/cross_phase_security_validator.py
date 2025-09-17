@@ -13,8 +13,8 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 
 import asyncio
 import hashlib
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 
 class SecurityLevel(Enum):

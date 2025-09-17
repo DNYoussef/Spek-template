@@ -13,8 +13,8 @@ Aligns with NIST SP 800-218 for secure software development lifecycle integratio
 
 import asyncio
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
         self.assessments: List[PracticeAssessment] = []
         
         # NIST-SSDF practice catalog

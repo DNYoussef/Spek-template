@@ -9,8 +9,8 @@ No more email-only notifications - everything visible in GitHub UI.
 
 import os
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass

@@ -6,8 +6,8 @@ Provides the primary interface for connascence analysis that workflows expect.
 This module acts as a facade over the existing unified analyzer infrastructure.
 """
 
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 # Add parent directories for imports
 sys.path.insert(0, str(Path(__file__).parent))

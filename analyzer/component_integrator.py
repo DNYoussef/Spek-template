@@ -7,9 +7,9 @@ components into the unified analyzer system. Eliminates all theater and provides
 genuine functionality for production use.
 """
 
-from lib.shared.utilities.logging_setup import get_analyzer_logger
-from lib.shared.utilities.path_validation import validate_file, validate_directory, path_exists
-from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
+# from lib.shared.utilities.logging_setup import get_analyzer_logger
+# from lib.shared.utilities.path_validation import validate_file, validate_directory, path_exists
+# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
 
 # Use shared logging
 logger = get_analyzer_logger(__name__)

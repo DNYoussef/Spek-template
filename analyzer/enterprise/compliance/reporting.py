@@ -19,8 +19,8 @@ Report Formats:
 
 import asyncio
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
         
         # Report templates
         self.report_templates = self._initialize_report_templates()

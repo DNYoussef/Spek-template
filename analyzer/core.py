@@ -7,8 +7,8 @@ Provides the main entry point for connascence analysis.
 import argparse
 from datetime import datetime
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 # Enhanced import strategy with dependency validation
 sys.path.insert(0, str(Path(__file__).parent.parent))

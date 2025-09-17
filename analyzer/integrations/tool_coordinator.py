@@ -10,8 +10,8 @@ import argparse
 import json
 import sys
 import os
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 
 class ToolCoordinator:

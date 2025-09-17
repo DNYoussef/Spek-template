@@ -10,8 +10,8 @@ NASA Rule 7 Compliant: Bounded resource usage with automatic cleanup.
 """
 
 import time
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
 
 
 @dataclass

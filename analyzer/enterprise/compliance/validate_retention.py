@@ -12,8 +12,8 @@ Validates the 90-day evidence retention system and compliance with enterprise re
 
 import asyncio
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+logger = logging.getLogger(__name__)
         
         # Create test configuration with short retention for testing
         self.test_config = ComplianceConfig(

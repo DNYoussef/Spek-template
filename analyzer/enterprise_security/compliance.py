@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 """
 Security Compliance Checker
 Validates code against security standards and regulations.
