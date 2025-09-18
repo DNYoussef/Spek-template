@@ -9,6 +9,16 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      test_scenario:
+        description: 'Test scenario to run'
+        required: false
+        default: 'normal'
+        type: choice
+        options:
+          - normal
+          - failure_simulation
+          - high_violations
 
 
 permissions:
@@ -42,12 +52,29 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_REPOSITORY: ${{ github.repository }}
         TEST_COMMIT_SHA: ${{ github.sha }}
+        TEST_SCENARIO: ${{ github.event.inputs.test_scenario || 'normal' }}
       run: |
         echo "Running production-ready analyzer with GitHub integration..."
+        echo "Test scenario: $TEST_SCENARIO"
         cd analyzer
 
-        # Run the GitHub analyzer runner (uses proven reality-tested logic)
-        python github_analyzer_runner.py
+        # Run the enhanced analyzer with real engineering solutions
+        python enhanced_github_analyzer.py
+
+        # Also test individual components
+        echo "Testing violation remediation..."
+        python violation_remediation.py > /dev/null
+
+        echo "Testing NASA compliance calculator..."
+        python nasa_compliance_calculator.py > /dev/null
+
+        # Mark test scenario in output for transparency
+        if [ "$TEST_SCENARIO" = "failure_simulation" ]; then
+          echo "::notice::This is a failure simulation test for CI/CD visibility validation"
+          echo "TEST_SCENARIO_TYPE=simulation" >> $GITHUB_OUTPUT
+        else
+          echo "TEST_SCENARIO_TYPE=normal" >> $GITHUB_OUTPUT
+        fi
 
     - name: Run Phase 5 reality test
       id: reality-test
@@ -67,11 +94,20 @@ jobs:
             ref: context.sha
           });
 
-          // Create status check
+          // Create status check with scenario awareness
           const status = '${{ steps.analyzer-test.outcome }}' === 'success' ? 'success' : 'failure';
-          const description = status === 'success'
-            ? 'Analyzer integration tests passed'
-            : 'Analyzer integration tests failed';
+          const scenarioType = '${{ steps.analyzer-test.outputs.TEST_SCENARIO_TYPE }}';
+
+          let description;
+          if (scenarioType === 'simulation') {
+            description = status === 'success'
+              ? 'Failure simulation test executed (visibility validation)'
+              : 'Failure simulation test failed (CI/CD issue)';
+          } else {
+            description = status === 'success'
+              ? 'Analyzer integration tests passed'
+              : 'Analyzer integration tests failed';
+          }
 
           await github.rest.repos.createCommitStatus({
             owner: context.repo.owner,

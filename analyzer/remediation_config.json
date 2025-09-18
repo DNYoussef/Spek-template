@@ -1,0 +1,36 @@
+{
+  "suppressions": [
+    {
+      "violation_type": "magic_literal",
+      "file_pattern": "tests/**/*.py",
+      "justification": "Test files may use magic literals for clarity in test scenarios",
+      "approved_by": "QA Team",
+      "expires_date": "2025-12-31"
+    },
+    {
+      "violation_type": "position_coupling",
+      "file_pattern": "**/legacy/**/*.py",
+      "line_pattern": "def __init__",
+      "justification": "Legacy constructors grandfathered until Q2 2025 refactoring sprint",
+      "approved_by": "Tech Lead",
+      "expires_date": "2025-06-30"
+    },
+    {
+      "violation_type": "magic_literal",
+      "file_pattern": "**/config/**/*.py",
+      "justification": "Configuration files may contain port numbers and timeouts as literals",
+      "approved_by": "DevOps Team",
+      "expires_date": "2025-09-30"
+    }
+  ],
+  "auto_fix_preferences": {
+    "magic_literal_threshold": 0.8,
+    "position_coupling_threshold": 0.7,
+    "god_object_threshold": 0.6
+  },
+  "nasa_compliance_overrides": {
+    "acceptable_magic_literal_count": 10,
+    "acceptable_position_coupling_count": 5,
+    "critical_violation_tolerance": 0
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "version": "1.0.0",
+  "name": "3-Loop System Configuration",
+  "description": "Configuration for the integrated 3-loop development system",
+
+  "loops": {
+    "loop1": {
+      "name": "Planning & Research Loop",
+      "purpose": "Discovery, specification, and risk mitigation",
+      "tools": [
+        "/research:web",
+        "/research:github",
+        "/spec:plan",
+        "/pre-mortem-loop"
+      ],
+      "inputs": ["requirements", "existing_code_analysis"],
+      "outputs": ["SPEC.md", "plan.json", "risk-register.json"],
+      "quality_gates": {
+        "spec_completeness": 0.9,
+        "risk_mitigation_coverage": 0.8,
+        "pre_mortem_convergence": true
+      }
+    },
+
+    "loop2": {
+      "name": "Development & Implementation Loop",
+      "purpose": "Execute implementation with quality validation",
+      "tools": [
+        "/dev:swarm",
+        "sparc-executor",
+        "theater-detection"
+      ],
+      "inputs": ["SPEC.md", "plan.json"],
+      "outputs": ["source_code", "tests", "theater_report"],
+      "quality_gates": {
+        "test_coverage": 0.8,
+        "lint_clean": true,
+        "theater_score": 60,
+        "security_clean": true
+      }
+    },
+
+    "loop3": {
+      "name": "Quality & Debugging Loop",
+      "purpose": "Validate quality and identify improvements",
+      "tools": [
+        "analyzer",
+        "github_cli",
+        "npm_audit",
+        "test_runners"
+      ],
+      "inputs": ["source_code", "github_data"],
+      "outputs": ["analysis_results", "quality_report", "improvement_plan"],
+      "quality_gates": {
+        "overall_quality": "good",
+        "critical_issues": 0,
+        "test_passing": true
+      }
+    }
+  },
+
+  "transitions": {
+    "loop1_to_loop2": {
+      "trigger": "spec_complete",
+      "validation": {
+        "spec_exists": true,
+        "plan_exists": true,
+        "risks_mitigated": true
+      },
+      "data_transfer": {
+        "spec": "${ARTIFACTS_DIR}/SPEC-generated.md",
+        "plan": "${ARTIFACTS_DIR}/plan.json"
+      }
+    },
+
+    "loop2_to_loop3": {
+      "trigger": "implementation_complete",
+      "validation": {
+        "code_exists": true,
+        "tests_exist": true,
+        "theater_check_passed": true
+      },
+      "data_transfer": {
+        "code_path": "${PROJECT_PATH}/src",
+        "test_results": "${ARTIFACTS_DIR}/test-output.log"
+      }
+    },
+
+    "loop3_to_loop1": {
+      "trigger": "analysis_complete",
+      "condition": "needs_improvement",
+      "validation": {
+        "analysis_exists": true,
+        "issues_identified": true
+      },
+      "data_transfer": {
+        "analysis": "${ARTIFACTS_DIR}/analysis-results.json",
+        "recommendations": "${ARTIFACTS_DIR}/improvement-recommendations.md"
+      }
+    }
+  },
+
+  "modes": {
+    "forward": {
+      "description": "New project development flow",
+      "sequence": ["loop1", "loop2", "loop3"],
+      "iterations": 1,
+      "convergence": "quality_gates_met"
+    },
+
+    "reverse": {
+      "description": "Existing codebase remediation flow",
+      "sequence": ["loop3", "loop1", "loop2", "loop3"],
+      "iterations": 10,
+      "convergence": "quality_improvement"
+    },
+
+    "continuous": {
+      "description": "Continuous improvement flow",
+      "sequence": ["loop3", "loop1", "loop2", "loop3"],
+      "iterations": -1,
+      "convergence": "manual_stop"
+    }
+  },
+
+  "convergence_criteria": {
+    "quality_improvement": {
+      "min_score_increase": 20,
+      "max_iterations": 10,
+      "target_quality": "good"
+    },
+
+    "quality_gates_met": {
+      "all_loops_pass": true,
+      "critical_issues": 0,
+      "overall_score": 80
+    },
+
+    "manual_stop": {
+      "user_intervention": true
+    }
+  },
+
+  "feedback_mechanisms": {
+    "loop3_to_loop1": {
+      "type": "analysis_to_spec",
+      "script": "scripts/loop-feedback/analyze-to-spec.sh"
+    },
+
+    "loop1_to_loop2": {
+      "type": "spec_to_tasks",
+      "script": "scripts/loop-feedback/spec-to-tasks.sh"
+    },
+
+    "loop2_to_loop3": {
+      "type": "results_to_validation",
+      "script": "scripts/loop-feedback/results-to-improvements.sh"
+    }
+  },
+
+  "monitoring": {
+    "metrics": [
+      "iteration_count",
+      "quality_score",
+      "test_coverage",
+      "security_vulnerabilities",
+      "technical_debt",
+      "time_per_loop"
+    ],
+
+    "dashboards": {
+      "progress": "${ARTIFACTS_DIR}/loop-progress.html",
+      "quality": "${ARTIFACTS_DIR}/quality-dashboard.html",
+      "metrics": "${ARTIFACTS_DIR}/metrics-dashboard.html"
+    },
+
+    "alerts": {
+      "max_iterations_exceeded": 15,
+      "quality_regression": true,
+      "critical_failure": true
+    }
+  },
+
+  "integration": {
+    "github": {
+      "enabled": true,
+      "hooks": ["pre-commit", "post-merge", "workflow-failure"],
+      "auto_remediation": true
+    },
+
+    "ci_cd": {
+      "enabled": true,
+      "pipelines": ["test", "build", "deploy"],
+      "quality_gates_enforcement": true
+    },
+
+    "mcp_servers": {
+      "memory": true,
+      "sequential_thinking": true,
+      "github_project_manager": true
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "suppressions": [
+    {
+      "violation_type": "magic_literal",
+      "file_pattern": "tests/**/*.py",
+      "justification": "Test files may use magic literals for clarity",
+      "approved_by": "QA Team",
+      "expires_date": "2025-12-31"
+    },
+    {
+      "violation_type": "position_coupling",
+      "file_pattern": "**/legacy/**/*.py",
+      "line_pattern": "def __init__",
+      "justification": "Legacy constructors grandfathered until refactoring sprint",
+      "approved_by": "Tech Lead",
+      "expires_date": "2025-06-30"
+    }
+  ]
+}

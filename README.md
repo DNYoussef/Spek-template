@@ -17,6 +17,51 @@
 - **15+ MCP Server Integrations**: Memory, GitHub, browser automation, sequential thinking
 - **9-Step Dev Swarm Process**: Complete implementation workflow with audit gates
 
+## 3-Loop Development System
+
+### Revolutionary Iterative Development Methodology
+
+The SPEK platform introduces a **3-Loop System** that provides comprehensive development workflows for both new projects and existing codebase remediation:
+
+#### Loop Architecture
+```
+Loop 1: Discovery & Planning (spec→research→premortem→plan)
+  ↓ Feeds planning data & risk analysis
+Loop 2: Development & Implementation (swarm→MECE→deploy→theater)
+  ↓ Feeds implementation & theater detection data
+Loop 3: CI/CD Quality & Debugging (analysis→root cause→fixes→validation)
+  ↓ Feeds failure analysis back to planning
+```
+
+#### Quick Start Commands
+```bash
+# Auto-detect mode and run 3-loop system
+./scripts/3-loop-orchestrator.sh
+
+# New project (forward flow: Loop 1→2→3)
+./scripts/3-loop-orchestrator.sh forward
+
+# Existing codebase (reverse flow: Loop 3→1→2→3)
+./scripts/3-loop-orchestrator.sh reverse
+
+# Remediate existing project progressively
+./scripts/codebase-remediation.sh /path/to/project progressive 10
+```
+
+#### Flow Patterns
+- **Forward Flow (New Projects)**: Loop 1 → Loop 2 → Loop 3
+  - Start with planning, implement with quality gates, validate
+- **Reverse Flow (Existing Codebases)**: Loop 3 → Loop 1 → Loop 2 → Loop 3
+  - Analyze current state, plan improvements, implement fixes, validate
+
+#### Key Features
+- **Zero Production Theater**: All implementations are real with evidence-based validation
+- **Automatic Convergence**: System determines when quality goals are met
+- **37+ Tool Integrations**: Real npm, eslint, jest, GitHub CLI integrations
+- **Session Management**: Unique IDs track progress across iterations
+
+See [docs/3-LOOP-SYSTEM.md](docs/3-LOOP-SYSTEM.md) for complete documentation.
+
 ## Core Architecture: Hierarchical Swarm System with Multi-AI Platform Integration
 
 The SPEK platform implements a **Queen-Princess-Drone swarm architecture** with:
@@ -228,6 +273,29 @@ The platform integrates **15+ MCP (Model Context Protocol) servers** for enhance
 ---
 
 ## Quick Start
+
+### 3-Loop System Quick Start
+
+```bash
+# 1. For new projects - Forward Flow
+./scripts/3-loop-orchestrator.sh forward
+# Automatically runs: Planning → Development → Quality
+
+# 2. For existing codebases - Reverse Flow
+./scripts/3-loop-orchestrator.sh reverse
+# Automatically runs: Analysis → Planning → Fixes → Validation
+
+# 3. Progressive remediation with convergence
+./scripts/codebase-remediation.sh . progressive 10
+# Iteratively improves until quality gates pass
+```
+
+### Loop Configuration
+
+Edit `.roo/loops/loop-config.json` to customize:
+- Quality gate thresholds (test coverage, lint, security)
+- Convergence criteria (iterations, quality scores)
+- Tool integrations (npm, GitHub, analyzers)
 
 ### Prerequisites
 ```bash

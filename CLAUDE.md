@@ -6,14 +6,19 @@
 
 ## [TARGET] Project Overview
 
-**SPEK Enhanced Development Platform** is a complete multi-agent workflow orchestration system with Queen-Princess-Drone swarm hierarchy. The platform integrates 85+ specialized AI agents, 163+ slash commands, 15+ MCP servers, and comprehensive theater detection for enterprise-grade development automation.
+**SPEK Enhanced Development Platform** is a complete multi-agent workflow orchestration system with Queen-Princess-Drone swarm hierarchy. The platform integrates 85+ specialized AI agents, 163+ slash commands, 15+ MCP servers, comprehensive theater detection, and the **3-Loop Development System** for both new projects and existing codebase remediation.
 
-### Core Pipeline: S-R-P-E-K Methodology
+### Core Pipeline: S-R-P-E-K Methodology with 3-Loop System
 ```
 Specification -> Research -> Planning -> Execution -> Knowledge
      v             v          v           v          v
   Define       Discover   Generate    Implement   Validate
 Requirements  Solutions   Strategy     Features    Quality
+
+3-LOOP SYSTEM:
+Loop 1: Planning (spec->research->premortem->plan)
+Loop 2: Development (swarm->MECE->deploy->theater)
+Loop 3: Quality (analysis->root cause->fixes->validation)
 ```
 
 **Key Components:**
@@ -23,6 +28,8 @@ Requirements  Solutions   Strategy     Features    Quality
 - **MCP Integration**: 15+ servers including memory, GitHub, browser automation
 - **Theater Detection**: Zero-tolerance audit gates for fake work elimination
 - **9-Step Dev Process**: Complete implementation workflow with reality validation
+- **3-Loop System**: Forward flow for new projects, reverse flow for remediation
+- **Real Implementations**: 37+ tool integrations with evidence-based validation
 
 ## [U+1F6A8] CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT
 
@@ -50,6 +57,62 @@ Requirements  Solutions   Strategy     Features    Quality
 - `/scripts` - Utility scripts
 - `/examples` - Example code
 - `.claude/.artifacts` - QA outputs and analysis results
+
+## [CYCLE] 3-Loop Development System
+
+### Quick Start Commands
+
+#### New Project Development (Forward Flow)
+```bash
+# Automatic forward flow: Loop 1 -> 2 -> 3
+./scripts/3-loop-orchestrator.sh forward
+
+# Manual execution by loop:
+npx claude-flow sparc run spec "<requirements>"  # Loop 1: Planning
+npx claude-flow sparc tdd "<feature>"           # Loop 2: Development
+./scripts/simple_quality_loop.sh                 # Loop 3: Quality
+```
+
+#### Existing Codebase Remediation (Reverse Flow)
+```bash
+# Automatic reverse flow: Loop 3 -> 1 -> 2 -> 3
+./scripts/3-loop-orchestrator.sh reverse
+
+# Progressive remediation with convergence
+./scripts/codebase-remediation.sh /path/to/project progressive 10
+```
+
+### Loop Architecture
+- **Loop 1: Discovery & Planning**
+  - Tools: /research:web, /research:github, /spec:plan, /pre-mortem-loop
+  - Output: Risk-mitigated foundation with evidence-based planning
+  - Quality Gates: Spec completeness >=90%, Risk mitigation >=80%
+
+- **Loop 2: Development & Implementation**
+  - Tools: /dev:swarm, 54 AI agents, MECE task division, parallel execution
+  - Output: Theater-free, reality-validated implementation
+  - Quality Gates: Test coverage >=80%, Theater score >=60/100
+
+- **Loop 3: CI/CD Quality & Debugging**
+  - Tools: /cicd-loop, failure patterns, comprehensive tests, auto-repair
+  - Output: 100% test success with authentic quality improvements
+  - Quality Gates: Zero critical issues, All tests passing
+
+### Loop Configuration
+Edit `.roo/loops/loop-config.json` for:
+- Quality gate thresholds
+- Convergence criteria (quality improvement, iterations)
+- Tool integrations (npm, GitHub, analyzers)
+- Transition rules between loops
+
+### Real Implementation Features
+- **37+ Tool Integrations**: Real npm, eslint, jest, GitHub CLI
+- **Evidence-Based Validation**: All checks can actually fail
+- **Session Management**: Unique IDs track progress
+- **Automatic Convergence**: Stops when quality goals met
+- **Zero Theater**: All implementations are genuine
+
+See [docs/3-LOOP-SYSTEM.md](docs/3-LOOP-SYSTEM.md) for complete documentation.
 
 ## [U+1F4D1] Complete Documentation Table of Contents
 
