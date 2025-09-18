@@ -78,23 +78,25 @@ jobs:
 
           HTTP_CODE=$(echo "$RESPONSE" | cut -d':' -f1)
           RESPONSE_TIME=$(echo "$RESPONSE" | cut -d':' -f2)
-          # More robust calculation using bash string manipulation
-          if [[ "$RESPONSE_TIME" =~ ^[0-9]+\.?[0-9]*$ ]]; then
-            # Remove decimal point and pad/truncate to get milliseconds
-            # e.g., 0.199784 -> 199, 1.234 -> 1234, 2 -> 2000
-            TEMP=$(echo "$RESPONSE_TIME" | tr -d '.')
+          # Bulletproof calculation with proper integer handling
+          if [[ -n "$RESPONSE_TIME" ]] && [[ "$RESPONSE_TIME" =~ ^[0-9]+\.?[0-9]*$ ]]; then
             if [[ "$RESPONSE_TIME" == *"."* ]]; then
-              # Has decimal - take first 3 digits after decimal
+              # Has decimal point - split and process
+              INTEGER_PART="${RESPONSE_TIME%%.*}"
               DECIMAL_PART="${RESPONSE_TIME#*.}"
-              INTEGER_PART="${RESPONSE_TIME%.*}"
-              DECIMAL_PART="${DECIMAL_PART}000"  # Pad with zeros
-              RESPONSE_TIME_MS="${INTEGER_PART}${DECIMAL_PART:0:3}"
+              # Take first 3 digits of decimal, pad with zeros if needed
+              DECIMAL_PART="${DECIMAL_PART}000"
+              DECIMAL_PART="${DECIMAL_PART:0:3}"
+              # Combine and ensure no leading zeros for the final number
+              RESPONSE_TIME_MS="$((10#${INTEGER_PART:-0}))${DECIMAL_PART}"
+              # Remove any leading zeros from the result
+              RESPONSE_TIME_MS="$((10#$RESPONSE_TIME_MS))"
             else
-              # No decimal - multiply by 1000
-              RESPONSE_TIME_MS="${RESPONSE_TIME}000"
+              # Integer - multiply by 1000
+              RESPONSE_TIME_MS="$((10#$RESPONSE_TIME * 1000))"
             fi
           else
-            RESPONSE_TIME_MS="999000"  # Default for invalid input
+            RESPONSE_TIME_MS="999000"
           fi
 
           ((TOTAL_CHECKS++))
@@ -317,22 +319,26 @@ jobs:
         THEATER_PATTERNS=()
 
         # Pattern 1: Excessive success logging
-        FAKE_SUCCESS_COUNT=$(find . -name "*.py" -o -name "*.js" -exec grep -c "success\|✅\|passed" {} \; 2>/dev/null | awk '{sum+=$1} END {print sum+0}')
+        FAKE_SUCCESS_COUNT=$(find . -name "*.py" -o -name "*.js" -exec grep -c "success\|✅\|passed" {} \; 2>/dev/null | { sum=0; while read n; do sum=$((sum + n)); done; echo $sum; })
+        FAKE_SUCCESS_COUNT=${FAKE_SUCCESS_COUNT:-0}
         if [[ $FAKE_SUCCESS_COUNT -gt 50 ]]; then
           THEATER_PATTERNS+=("Excessive success messaging: $FAKE_SUCCESS_COUNT instances")
           ((THEATER_VIOLATIONS++))
         fi
 
         # Pattern 2: Hardcoded test passes
-        TRIVIAL_TESTS=$(find . -name "*test*" -exec grep -c "assert True\|expect.*true.*toBe.*true" {} \; 2>/dev/null | awk '{sum+=$1} END {print sum+0}')
+        TRIVIAL_TESTS=$(find . -name "*test*" -exec grep -c "assert True\|expect.*true.*toBe.*true" {} \; 2>/dev/null | { sum=0; while read n; do sum=$((sum + n)); done; echo $sum; })
+        TRIVIAL_TESTS=${TRIVIAL_TESTS:-0}
         if [[ $TRIVIAL_TESTS -gt 10 ]]; then
           THEATER_PATTERNS+=("Trivial test assertions: $TRIVIAL_TESTS instances")
           ((THEATER_VIOLATIONS++))
         fi
 
         # Pattern 3: Mock implementations without real logic
-        MOCK_COUNT=$(find . -name "*.py" -o -name "*.js" -exec grep -c "mock\|stub\|fake" {} \; 2>/dev/null | awk '{sum+=$1} END {print sum+0}')
-        REAL_LOGIC=$(find . -name "*.py" -o -name "*.js" -exec wc -l {} \; 2>/dev/null | awk '{sum+=$1} END {print sum+0}')
+        MOCK_COUNT=$(find . -name "*.py" -o -name "*.js" -exec grep -c "mock\|stub\|fake" {} \; 2>/dev/null | { sum=0; while read n; do sum=$((sum + n)); done; echo $sum; })
+        MOCK_COUNT=${MOCK_COUNT:-0}
+        REAL_LOGIC=$(find . -name "*.py" -o -name "*.js" -exec wc -l {} \; 2>/dev/null | { sum=0; while read n; do sum=$((sum + n)); done; echo $sum; })
+        REAL_LOGIC=${REAL_LOGIC:-1}
 
         if [[ $REAL_LOGIC -gt 0 && $MOCK_COUNT -gt $((REAL_LOGIC / 10)) ]]; then
           THEATER_PATTERNS+=("Excessive mocking relative to real code")
