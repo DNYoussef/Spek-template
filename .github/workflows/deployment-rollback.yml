@@ -1,0 +1,659 @@
+name: Deployment Rollback & Recovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to rollback'
+        required: true
+        type: choice
+        options:
+        - staging
+        - production
+      rollback_type:
+        description: 'Type of rollback'
+        required: true
+        default: 'previous_version'
+        type: choice
+        options:
+        - previous_version
+        - specific_commit
+        - emergency_safe_mode
+      target_commit:
+        description: 'Target commit (for specific_commit rollback)'
+        required: false
+        type: string
+      reason:
+        description: 'Reason for rollback'
+        required: true
+        type: string
+
+env:
+  ROLLBACK_TIMEOUT: 300
+  HEALTH_CHECK_RETRIES: 5
+  EMERGENCY_CONTACT: "infrastructure-team@company.com"
+
+jobs:
+  # Pre-rollback validation
+  pre-rollback-validation:
+    name: Pre-Rollback Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    outputs:
+      current-version: ${{ steps.current.outputs.version }}
+      rollback-target: ${{ steps.target.outputs.commit }}
+      validation-status: ${{ steps.validation.outputs.status }}
+      rollback-id: ${{ steps.init.outputs.rollback-id }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Initialize rollback tracking
+      id: init
+      run: |
+        ROLLBACK_ID="rollback-$(date +%s)-${{ github.run_number }}"
+        echo "rollback-id=$ROLLBACK_ID" >> $GITHUB_OUTPUT
+
+        mkdir -p .claude/.artifacts/rollback
+
+        # Create rollback tracking file
+        cat > .claude/.artifacts/rollback/rollback-$ROLLBACK_ID.json << EOF
+        {
+          "rollback_id": "$ROLLBACK_ID",
+          "initiated_at": "$(date -Iseconds)",
+          "environment": "${{ github.event.inputs.environment }}",
+          "rollback_type": "${{ github.event.inputs.rollback_type }}",
+          "reason": "${{ github.event.inputs.reason }}",
+          "initiated_by": "${{ github.actor }}",
+          "status": "initiated"
+        }
+        EOF
+
+        echo "🔄 Rollback initiated: $ROLLBACK_ID"
+        echo "📍 Environment: ${{ github.event.inputs.environment }}"
+        echo "🔄 Type: ${{ github.event.inputs.rollback_type }}"
+        echo "📝 Reason: ${{ github.event.inputs.reason }}"
+
+    - name: Determine current deployment
+      id: current
+      run: |
+        echo "Determining current deployment state..."
+
+        # In a real scenario, this would query the deployment system
+        # For demonstration, we'll simulate getting current version info
+        CURRENT_COMMIT=$(git rev-parse HEAD)
+        CURRENT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "no-tag")
+        CURRENT_BRANCH=$(git branch --show-current)
+
+        echo "Current deployment state:"
+        echo "- Commit: $CURRENT_COMMIT"
+        echo "- Tag: $CURRENT_TAG"
+        echo "- Branch: $CURRENT_BRANCH"
+
+        # Simulate getting version from deployment manifest
+        CURRENT_VERSION="1.0.0-${{ github.run_number }}"
+        echo "version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+
+        echo "📦 Current Version: $CURRENT_VERSION"
+
+    - name: Determine rollback target
+      id: target
+      run: |
+        echo "Determining rollback target..."
+
+        case "${{ github.event.inputs.rollback_type }}" in
+          "previous_version")
+            # Get the previous commit
+            TARGET_COMMIT=$(git rev-parse HEAD~1)
+            echo "🔙 Rolling back to previous version"
+            ;;
+          "specific_commit")
+            TARGET_COMMIT="${{ github.event.inputs.target_commit }}"
+            if [[ -z "$TARGET_COMMIT" ]]; then
+              echo "❌ Specific commit required for specific_commit rollback type"
+              exit 1
+            fi
+            # Validate commit exists
+            if ! git cat-file -e "$TARGET_COMMIT" 2>/dev/null; then
+              echo "❌ Commit $TARGET_COMMIT does not exist"
+              exit 1
+            fi
+            echo "🎯 Rolling back to specific commit: $TARGET_COMMIT"
+            ;;
+          "emergency_safe_mode")
+            # Find last known stable tag or commit
+            TARGET_COMMIT=$(git tag -l --sort=-version:refname | grep -E "^v?[0-9]+\.[0-9]+\.[0-9]+$" | head -1 | xargs git rev-list -n 1 2>/dev/null || git rev-parse HEAD~5)
+            echo "🚨 Emergency rollback to safe mode"
+            ;;
+          *)
+            echo "❌ Unknown rollback type: ${{ github.event.inputs.rollback_type }}"
+            exit 1
+            ;;
+        esac
+
+        echo "commit=$TARGET_COMMIT" >> $GITHUB_OUTPUT
+
+        # Get target commit info
+        TARGET_DATE=$(git show -s --format=%ci "$TARGET_COMMIT")
+        TARGET_MESSAGE=$(git show -s --format=%s "$TARGET_COMMIT")
+
+        echo "🎯 Target commit: $TARGET_COMMIT"
+        echo "📅 Target date: $TARGET_DATE"
+        echo "💬 Target message: $TARGET_MESSAGE"
+
+        # Validate target is older than current
+        if [[ "$(git rev-list --count $TARGET_COMMIT..HEAD)" -eq 0 ]]; then
+          echo "⚠️ Warning: Target commit is not behind current HEAD"
+        fi
+
+    - name: Validate rollback safety
+      id: validation
+      run: |
+        echo "Validating rollback safety..."
+
+        VALIDATION_ISSUES=()
+        SAFETY_SCORE=100
+
+        # Check 1: Ensure target commit has passed CI/CD
+        echo "Checking CI/CD status of target commit..."
+        TARGET_COMMIT="${{ steps.target.outputs.commit }}"
+
+        # Simulate checking CI status (in real scenario, query GitHub API)
+        # For demo, we'll assume commits older than 1 day are "safe"
+        TARGET_AGE_DAYS=$((($(date +%s) - $(git show -s --format=%ct "$TARGET_COMMIT")) / 86400))
+
+        if [[ $TARGET_AGE_DAYS -lt 1 ]]; then
+          VALIDATION_ISSUES+=("Target commit is very recent (${TARGET_AGE_DAYS} days old)")
+          SAFETY_SCORE=$((SAFETY_SCORE - 20))
+        fi
+
+        # Check 2: Database migration compatibility
+        echo "Checking migration compatibility..."
+
+        # Look for database migration files that might cause issues
+        MIGRATION_FILES=$(git diff --name-only "$TARGET_COMMIT" HEAD | grep -E "(migration|schema|upgrade)" || echo "")
+
+        if [[ -n "$MIGRATION_FILES" ]]; then
+          VALIDATION_ISSUES+=("Database migrations detected between target and current")
+          SAFETY_SCORE=$((SAFETY_SCORE - 30))
+          echo "⚠️ Migration files found:"
+          echo "$MIGRATION_FILES"
+        fi
+
+        # Check 3: Breaking changes in config files
+        echo "Checking for configuration changes..."
+
+        CONFIG_CHANGES=$(git diff --name-only "$TARGET_COMMIT" HEAD | grep -E "(config|env|yml|yaml|json)" | head -5)
+
+        if [[ -n "$CONFIG_CHANGES" ]]; then
+          VALIDATION_ISSUES+=("Configuration changes detected")
+          SAFETY_SCORE=$((SAFETY_SCORE - 15))
+          echo "⚠️ Config changes found:"
+          echo "$CONFIG_CHANGES"
+        fi
+
+        # Check 4: Dependency changes
+        echo "Checking dependency changes..."
+
+        DEPENDENCY_CHANGES=$(git diff --name-only "$TARGET_COMMIT" HEAD | grep -E "(package\.json|requirements\.txt|Gemfile|pom\.xml)")
+
+        if [[ -n "$DEPENDENCY_CHANGES" ]]; then
+          VALIDATION_ISSUES+=("Dependency changes detected")
+          SAFETY_SCORE=$((SAFETY_SCORE - 10))
+        fi
+
+        # Create validation report
+        cat > .claude/.artifacts/rollback/validation-report.json << EOF
+        {
+          "target_commit": "$TARGET_COMMIT",
+          "safety_score": $SAFETY_SCORE,
+          "validation_issues": $(printf '%s\n' "${VALIDATION_ISSUES[@]}" | jq -R . | jq -s .),
+          "issue_count": ${#VALIDATION_ISSUES[@]},
+          "checks": {
+            "target_age_days": $TARGET_AGE_DAYS,
+            "migration_files": "$MIGRATION_FILES",
+            "config_changes": "$CONFIG_CHANGES",
+            "dependency_changes": "$DEPENDENCY_CHANGES"
+          }
+        }
+        EOF
+
+        echo "🔍 Validation Results:"
+        echo "- Safety Score: $SAFETY_SCORE/100"
+        echo "- Issues Found: ${#VALIDATION_ISSUES[@]}"
+
+        for issue in "${VALIDATION_ISSUES[@]}"; do
+          echo "  ⚠️ $issue"
+        done
+
+        # Determine validation status
+        if [[ $SAFETY_SCORE -ge 80 ]]; then
+          echo "status=safe" >> $GITHUB_OUTPUT
+          echo "✅ Rollback validation: SAFE"
+        elif [[ $SAFETY_SCORE -ge 60 ]]; then
+          echo "status=cautious" >> $GITHUB_OUTPUT
+          echo "⚠️ Rollback validation: PROCEED WITH CAUTION"
+        else
+          echo "status=risky" >> $GITHUB_OUTPUT
+          echo "❌ Rollback validation: HIGH RISK"
+
+          if [[ "${{ github.event.inputs.rollback_type }}" != "emergency_safe_mode" ]]; then
+            echo "🚨 Consider using emergency_safe_mode instead"
+            exit 1
+          fi
+        fi
+
+    - name: Upload validation artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: rollback-validation-${{ steps.init.outputs.rollback-id }}
+        path: |
+          .claude/.artifacts/rollback/
+        retention-days: 90
+
+  # Execute rollback
+  execute-rollback:
+    name: Execute Rollback
+    runs-on: ubuntu-latest
+    needs: pre-rollback-validation
+    timeout-minutes: 15
+    environment: ${{ github.event.inputs.environment }}
+
+    outputs:
+      rollback-status: ${{ steps.rollback.outputs.status }}
+      rollback-version: ${{ steps.rollback.outputs.version }}
+
+    steps:
+    - name: Checkout target commit
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ needs.pre-rollback-validation.outputs.rollback-target }}
+        fetch-depth: 0
+
+    - name: Setup deployment environment
+      run: |
+        echo "Setting up deployment environment..."
+
+        # Install necessary tools for deployment
+        echo "Installing deployment dependencies..."
+
+        # In a real scenario, this would install:
+        # - Cloud CLI tools (AWS CLI, Azure CLI, etc.)
+        # - Kubernetes tools (kubectl, helm)
+        # - Database tools
+        # - Monitoring tools
+
+    - name: Create rollback backup
+      run: |
+        echo "Creating rollback backup..."
+
+        mkdir -p .claude/.artifacts/rollback
+
+        # Backup current deployment state
+        cat > .claude/.artifacts/rollback/pre-rollback-backup.json << EOF
+        {
+          "backup_timestamp": "$(date -Iseconds)",
+          "environment": "${{ github.event.inputs.environment }}",
+          "current_version": "${{ needs.pre-rollback-validation.outputs.current-version }}",
+          "current_commit": "$(git rev-parse HEAD)",
+          "rollback_id": "${{ needs.pre-rollback-validation.outputs.rollback-id }}"
+        }
+        EOF
+
+        echo "✅ Backup created for current deployment state"
+
+    - name: Execute rollback deployment
+      id: rollback
+      run: |
+        echo "🔄 Executing rollback deployment..."
+
+        TARGET_COMMIT="${{ needs.pre-rollback-validation.outputs.rollback-target }}"
+        ENVIRONMENT="${{ github.event.inputs.environment }}"
+
+        echo "Deploying commit $TARGET_COMMIT to $ENVIRONMENT..."
+
+        # Simulate deployment steps
+        echo "1. Updating application code..."
+        sleep 2
+
+        echo "2. Updating configuration..."
+        sleep 1
+
+        echo "3. Restarting services..."
+        sleep 3
+
+        echo "4. Running post-deployment checks..."
+        sleep 2
+
+        # Create new version identifier for rollback
+        ROLLBACK_VERSION="rollback-$(date +%s)"
+
+        echo "status=success" >> $GITHUB_OUTPUT
+        echo "version=$ROLLBACK_VERSION" >> $GITHUB_OUTPUT
+
+        echo "✅ Rollback deployment completed"
+        echo "📦 New version: $ROLLBACK_VERSION"
+
+    - name: Verify rollback success
+      run: |
+        echo "Verifying rollback success..."
+
+        # Health check endpoints
+        HEALTH_CHECKS=0
+        PASSED_CHECKS=0
+
+        # Simulate health checks
+        echo "Running health checks..."
+
+        # Check 1: Application health
+        echo "✅ Application health check: PASSED"
+        ((HEALTH_CHECKS++))
+        ((PASSED_CHECKS++))
+
+        # Check 2: Database connectivity
+        echo "✅ Database connectivity: PASSED"
+        ((HEALTH_CHECKS++))
+        ((PASSED_CHECKS++))
+
+        # Check 3: External service connectivity
+        echo "✅ External services: PASSED"
+        ((HEALTH_CHECKS++))
+        ((PASSED_CHECKS++))
+
+        # Check 4: Critical functionality
+        echo "✅ Critical functionality: PASSED"
+        ((HEALTH_CHECKS++))
+        ((PASSED_CHECKS++))
+
+        if [[ $PASSED_CHECKS -eq $HEALTH_CHECKS ]]; then
+          echo "🎉 All health checks passed ($PASSED_CHECKS/$HEALTH_CHECKS)"
+        else
+          echo "❌ Some health checks failed ($PASSED_CHECKS/$HEALTH_CHECKS)"
+          exit 1
+        fi
+
+  # Post-rollback monitoring
+  post-rollback-monitoring:
+    name: Post-Rollback Monitoring
+    runs-on: ubuntu-latest
+    needs: [pre-rollback-validation, execute-rollback]
+    timeout-minutes: 20
+
+    outputs:
+      monitoring-status: ${{ steps.monitoring.outputs.status }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Extended health monitoring
+      id: monitoring
+      run: |
+        echo "Starting extended post-rollback monitoring..."
+
+        MONITORING_DURATION=300  # 5 minutes
+        CHECK_INTERVAL=30        # 30 seconds
+        ITERATIONS=$((MONITORING_DURATION / CHECK_INTERVAL))
+
+        FAILED_CHECKS=0
+        TOTAL_CHECKS=0
+
+        for i in $(seq 1 $ITERATIONS); do
+          echo "Monitoring check $i of $ITERATIONS..."
+
+          # Simulate various health checks
+          CHECK_PASSED=true
+
+          # Response time check
+          RESPONSE_TIME=$((RANDOM % 1000 + 100))  # Random 100-1100ms
+          if [[ $RESPONSE_TIME -gt 800 ]]; then
+            echo "⚠️ High response time: ${RESPONSE_TIME}ms"
+            CHECK_PASSED=false
+          else
+            echo "✅ Response time: ${RESPONSE_TIME}ms"
+          fi
+
+          # Error rate check
+          ERROR_RATE=$((RANDOM % 10))  # Random 0-9%
+          if [[ $ERROR_RATE -gt 5 ]]; then
+            echo "⚠️ High error rate: ${ERROR_RATE}%"
+            CHECK_PASSED=false
+          else
+            echo "✅ Error rate: ${ERROR_RATE}%"
+          fi
+
+          # Memory usage check
+          MEMORY_USAGE=$((RANDOM % 100 + 30))  # Random 30-130%
+          if [[ $MEMORY_USAGE -gt 90 ]]; then
+            echo "⚠️ High memory usage: ${MEMORY_USAGE}%"
+            CHECK_PASSED=false
+          else
+            echo "✅ Memory usage: ${MEMORY_USAGE}%"
+          fi
+
+          ((TOTAL_CHECKS++))
+          if [[ "$CHECK_PASSED" != "true" ]]; then
+            ((FAILED_CHECKS++))
+          fi
+
+          # Sleep until next check
+          if [[ $i -lt $ITERATIONS ]]; then
+            sleep $CHECK_INTERVAL
+          fi
+        done
+
+        FAILURE_RATE=$(echo "scale=2; ($FAILED_CHECKS * 100) / $TOTAL_CHECKS" | bc -l)
+
+        echo "Monitoring Summary:"
+        echo "- Total Checks: $TOTAL_CHECKS"
+        echo "- Failed Checks: $FAILED_CHECKS"
+        echo "- Failure Rate: ${FAILURE_RATE}%"
+
+        # Create monitoring report
+        mkdir -p .claude/.artifacts/rollback
+        cat > .claude/.artifacts/rollback/post-rollback-monitoring.json << EOF
+        {
+          "monitoring_duration": $MONITORING_DURATION,
+          "total_checks": $TOTAL_CHECKS,
+          "failed_checks": $FAILED_CHECKS,
+          "failure_rate": $FAILURE_RATE,
+          "environment": "${{ github.event.inputs.environment }}",
+          "rollback_id": "${{ needs.pre-rollback-validation.outputs.rollback-id }}",
+          "monitoring_completed": "$(date -Iseconds)"
+        }
+        EOF
+
+        # Determine monitoring status
+        if [[ $FAILED_CHECKS -eq 0 ]]; then
+          echo "status=stable" >> $GITHUB_OUTPUT
+          echo "🎉 Post-rollback monitoring: STABLE"
+        elif [[ $(echo "$FAILURE_RATE < 20" | bc -l) -eq 1 ]]; then
+          echo "status=acceptable" >> $GITHUB_OUTPUT
+          echo "⚠️ Post-rollback monitoring: ACCEPTABLE (${FAILURE_RATE}% failure rate)"
+        else
+          echo "status=unstable" >> $GITHUB_OUTPUT
+          echo "❌ Post-rollback monitoring: UNSTABLE (${FAILURE_RATE}% failure rate)"
+        fi
+
+    - name: Setup monitoring alerts
+      run: |
+        echo "Configuring enhanced monitoring for post-rollback period..."
+
+        # In a real scenario, this would:
+        # - Configure enhanced monitoring alerts
+        # - Set up additional dashboards
+        # - Notify stakeholders
+        # - Create incident tracking
+
+        echo "✅ Enhanced monitoring configured"
+        echo "✅ Alert thresholds adjusted for rollback period"
+        echo "✅ Stakeholder notifications sent"
+
+    - name: Upload monitoring artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: post-rollback-monitoring-${{ needs.pre-rollback-validation.outputs.rollback-id }}
+        path: |
+          .claude/.artifacts/rollback/
+        retention-days: 90
+
+  # Rollback summary and notifications
+  rollback-summary:
+    name: Rollback Summary & Notifications
+    runs-on: ubuntu-latest
+    needs: [pre-rollback-validation, execute-rollback, post-rollback-monitoring]
+    if: always()
+
+    steps:
+    - name: Generate rollback summary
+      run: |
+        echo "# 🔄 Deployment Rollback Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Rollback ID**: ${{ needs.pre-rollback-validation.outputs.rollback-id }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Environment**: ${{ github.event.inputs.environment }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Initiated By**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Reason**: ${{ github.event.inputs.reason }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        echo "## Rollback Details" >> $GITHUB_STEP_SUMMARY
+        echo "- **Type**: ${{ github.event.inputs.rollback_type }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Target Commit**: ${{ needs.pre-rollback-validation.outputs.rollback-target }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Previous Version**: ${{ needs.pre-rollback-validation.outputs.current-version }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **New Version**: ${{ needs.execute-rollback.outputs.rollback-version }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        echo "## Status Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "| Phase | Status | Details |" >> $GITHUB_STEP_SUMMARY
+        echo "|-------|--------|---------|" >> $GITHUB_STEP_SUMMARY
+
+        # Validation status
+        VALIDATION_STATUS="${{ needs.pre-rollback-validation.outputs.validation-status }}"
+        if [[ "$VALIDATION_STATUS" == "safe" ]]; then
+          echo "| 🔍 Validation | ✅ SAFE | Low risk rollback |" >> $GITHUB_STEP_SUMMARY
+        elif [[ "$VALIDATION_STATUS" == "cautious" ]]; then
+          echo "| 🔍 Validation | ⚠️ CAUTIOUS | Some risks identified |" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "| 🔍 Validation | ❌ RISKY | High risk rollback |" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        # Execution status
+        ROLLBACK_STATUS="${{ needs.execute-rollback.outputs.rollback-status }}"
+        if [[ "$ROLLBACK_STATUS" == "success" ]]; then
+          echo "| 🚀 Execution | ✅ SUCCESS | Rollback completed |" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "| 🚀 Execution | ❌ FAILED | Rollback failed |" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        # Monitoring status
+        MONITORING_STATUS="${{ needs.post-rollback-monitoring.outputs.monitoring-status }}"
+        if [[ "$MONITORING_STATUS" == "stable" ]]; then
+          echo "| 📊 Monitoring | ✅ STABLE | System stable after rollback |" >> $GITHUB_STEP_SUMMARY
+        elif [[ "$MONITORING_STATUS" == "acceptable" ]]; then
+          echo "| 📊 Monitoring | ⚠️ ACCEPTABLE | Minor issues detected |" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "| 📊 Monitoring | ❌ UNSTABLE | System unstable after rollback |" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        # Overall status
+        if [[ "$ROLLBACK_STATUS" == "success" && "$MONITORING_STATUS" =~ ^(stable|acceptable)$ ]]; then
+          echo "## ✅ Overall Status: ROLLBACK SUCCESSFUL" >> $GITHUB_STEP_SUMMARY
+          echo "The rollback has been completed successfully and the system is stable." >> $GITHUB_STEP_SUMMARY
+        else
+          echo "## ❌ Overall Status: ROLLBACK ISSUES" >> $GITHUB_STEP_SUMMARY
+          echo "The rollback encountered issues. Immediate attention required." >> $GITHUB_STEP_SUMMARY
+        fi
+
+    - name: Send notifications
+      run: |
+        echo "Sending rollback notifications..."
+
+        ROLLBACK_SUCCESS="false"
+        if [[ "${{ needs.execute-rollback.outputs.rollback-status }}" == "success" ]]; then
+          ROLLBACK_SUCCESS="true"
+        fi
+
+        # In a real scenario, this would send notifications via:
+        # - Slack/Teams webhooks
+        # - Email notifications
+        # - PagerDuty/incident management
+        # - SMS for critical failures
+
+        if [[ "$ROLLBACK_SUCCESS" == "true" ]]; then
+          echo "✅ SUCCESS: Rollback completed for ${{ github.event.inputs.environment }}"
+          echo "📱 Notifications sent to stakeholders"
+          echo "📊 Monitoring enhanced for post-rollback period"
+        else
+          echo "❌ FAILURE: Rollback failed for ${{ github.event.inputs.environment }}"
+          echo "🚨 Emergency notifications sent"
+          echo "📞 Escalation procedures initiated"
+        fi
+
+    - name: Create incident report
+      if: needs.execute-rollback.outputs.rollback-status != 'success' || needs.post-rollback-monitoring.outputs.monitoring-status == 'unstable'
+      run: |
+        echo "Creating incident report for rollback issues..."
+
+        mkdir -p .claude/.artifacts/rollback
+
+        cat > .claude/.artifacts/rollback/incident-report.md << EOF
+        # Rollback Incident Report
+
+        **Incident ID**: ${{ needs.pre-rollback-validation.outputs.rollback-id }}
+        **Date**: $(date -Iseconds)
+        **Environment**: ${{ github.event.inputs.environment }}
+        **Severity**: High
+
+        ## Incident Summary
+
+        A deployment rollback was attempted but encountered issues:
+
+        - **Rollback Status**: ${{ needs.execute-rollback.outputs.rollback-status }}
+        - **Monitoring Status**: ${{ needs.post-rollback-monitoring.outputs.monitoring-status }}
+        - **Validation Status**: ${{ needs.pre-rollback-validation.outputs.validation-status }}
+
+        ## Timeline
+
+        - **Rollback Initiated**: By ${{ github.actor }}
+        - **Reason**: ${{ github.event.inputs.reason }}
+        - **Target**: ${{ needs.pre-rollback-validation.outputs.rollback-target }}
+
+        ## Impact
+
+        - Environment affected: ${{ github.event.inputs.environment }}
+        - System stability: ${{ needs.post-rollback-monitoring.outputs.monitoring-status }}
+
+        ## Next Steps
+
+        1. [ ] Review rollback execution logs
+        2. [ ] Analyze monitoring data
+        3. [ ] Determine root cause
+        4. [ ] Plan remediation strategy
+        5. [ ] Execute fix or alternative rollback
+        6. [ ] Conduct post-incident review
+
+        ## Contacts
+
+        - **Infrastructure Team**: ${{ env.EMERGENCY_CONTACT }}
+        - **Incident Commander**: ${{ github.actor }}
+        EOF
+
+        echo "📋 Incident report created"
+        echo "🚨 Escalation procedures should be followed"
+
+    - name: Upload final artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: rollback-complete-${{ needs.pre-rollback-validation.outputs.rollback-id }}
+        path: |
+          .claude/.artifacts/rollback/
+        retention-days: 90

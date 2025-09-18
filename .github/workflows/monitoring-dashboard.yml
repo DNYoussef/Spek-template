@@ -1,0 +1,658 @@
+name: Production Monitoring & Alerting Dashboard
+
+on:
+  schedule:
+    # Run monitoring checks every 15 minutes
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+    inputs:
+      check_type:
+        description: 'Type of monitoring check'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+        - full
+        - performance
+        - security
+        - quality
+        - theater
+      alert_threshold:
+        description: 'Alert threshold (1-100)'
+        required: false
+        default: '80'
+        type: number
+
+env:
+  PERFORMANCE_THRESHOLD: 500  # milliseconds
+  ERROR_RATE_THRESHOLD: 5     # percentage
+  QUALITY_DEGRADATION_THRESHOLD: 10  # percentage drop
+  THEATER_MONITORING_ENABLED: true
+
+jobs:
+  # Real-time Performance Monitoring
+  performance-monitoring:
+    name: Performance Monitoring
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event.inputs.check_type == 'performance' || github.event.inputs.check_type == 'full' || github.event_name == 'schedule'
+
+    outputs:
+      performance-status: ${{ steps.performance.outputs.status }}
+      response-time: ${{ steps.performance.outputs.response-time }}
+      error-rate: ${{ steps.performance.outputs.error-rate }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up monitoring tools
+      run: |
+        # Install monitoring dependencies
+        sudo apt-get update
+        sudo apt-get install -y curl jq bc
+
+    - name: Performance health checks
+      id: performance
+      run: |
+        mkdir -p .claude/.artifacts/monitoring
+
+        echo "Running performance monitoring checks..."
+
+        # Initialize metrics
+        TOTAL_CHECKS=0
+        PASSED_CHECKS=0
+        ALERTS=()
+
+        # Function to test endpoint
+        test_endpoint() {
+          local url="$1"
+          local name="$2"
+          local timeout="$3"
+
+          echo "Testing $name endpoint: $url"
+
+          START_TIME=$(date +%s%3N)
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}:%{time_total}" --max-time "$timeout" "$url" 2>/dev/null || echo "000:999")
+          END_TIME=$(date +%s%3N)
+
+          HTTP_CODE=$(echo "$RESPONSE" | cut -d':' -f1)
+          RESPONSE_TIME=$(echo "$RESPONSE" | cut -d':' -f2)
+          RESPONSE_TIME_MS=$(echo "$RESPONSE_TIME * 1000" | bc -l | cut -d'.' -f1)
+
+          ((TOTAL_CHECKS++))
+
+          if [[ "$HTTP_CODE" == "200" || "$HTTP_CODE" == "201" ]]; then
+            ((PASSED_CHECKS++))
+            echo "✅ $name: $HTTP_CODE (${RESPONSE_TIME_MS}ms)"
+
+            # Check response time threshold
+            if [[ $RESPONSE_TIME_MS -gt $PERFORMANCE_THRESHOLD ]]; then
+              ALERTS+=("$name response time ${RESPONSE_TIME_MS}ms exceeds threshold ${PERFORMANCE_THRESHOLD}ms")
+            fi
+          else
+            echo "❌ $name: $HTTP_CODE (${RESPONSE_TIME_MS}ms)"
+            ALERTS+=("$name endpoint returned $HTTP_CODE")
+          fi
+
+          echo "$name,$HTTP_CODE,$RESPONSE_TIME_MS,$(date -Iseconds)" >> .claude/.artifacts/monitoring/performance-log.csv
+        }
+
+        # Test endpoints (these would be real application endpoints in production)
+        echo "timestamp,endpoint,status_code,response_time_ms" > .claude/.artifacts/monitoring/performance-log.csv
+
+        # Health check endpoints
+        test_endpoint "https://httpbin.org/status/200" "health-check" 5
+        test_endpoint "https://httpbin.org/delay/1" "api-response" 10
+        test_endpoint "https://httpbin.org/json" "data-endpoint" 5
+
+        # Calculate metrics
+        if [[ $TOTAL_CHECKS -gt 0 ]]; then
+          ERROR_RATE=$(echo "scale=2; (($TOTAL_CHECKS - $PASSED_CHECKS) * 100) / $TOTAL_CHECKS" | bc)
+          SUCCESS_RATE=$(echo "scale=2; ($PASSED_CHECKS * 100) / $TOTAL_CHECKS" | bc)
+        else
+          ERROR_RATE="100.00"
+          SUCCESS_RATE="0.00"
+        fi
+
+        # Average response time from last 5 entries
+        AVG_RESPONSE_TIME=$(tail -5 .claude/.artifacts/monitoring/performance-log.csv | awk -F',' 'NR>1 {sum+=$3; count++} END {if(count>0) print sum/count; else print 0}')
+
+        echo "Performance Summary:"
+        echo "- Total Checks: $TOTAL_CHECKS"
+        echo "- Passed: $PASSED_CHECKS"
+        echo "- Error Rate: $ERROR_RATE%"
+        echo "- Average Response Time: ${AVG_RESPONSE_TIME}ms"
+
+        # Create performance report
+        cat > .claude/.artifacts/monitoring/performance-report.json << EOF
+        {
+          "timestamp": "$(date -Iseconds)",
+          "total_checks": $TOTAL_CHECKS,
+          "passed_checks": $PASSED_CHECKS,
+          "error_rate": $ERROR_RATE,
+          "success_rate": $SUCCESS_RATE,
+          "average_response_time": $AVG_RESPONSE_TIME,
+          "alerts": $(printf '%s\n' "${ALERTS[@]}" | jq -R . | jq -s .),
+          "threshold_violations": ${#ALERTS[@]}
+        }
+        EOF
+
+        # Set outputs
+        echo "response-time=$AVG_RESPONSE_TIME" >> $GITHUB_OUTPUT
+        echo "error-rate=$ERROR_RATE" >> $GITHUB_OUTPUT
+
+        # Determine overall status
+        ERROR_RATE_INT=$(echo "$ERROR_RATE" | cut -d'.' -f1)
+        if [[ $ERROR_RATE_INT -le $ERROR_RATE_THRESHOLD && ${#ALERTS[@]} -eq 0 ]]; then
+          echo "status=healthy" >> $GITHUB_OUTPUT
+          echo "✅ Performance monitoring: HEALTHY"
+        else
+          echo "status=degraded" >> $GITHUB_OUTPUT
+          echo "⚠️ Performance monitoring: DEGRADED"
+
+          # Print alerts
+          for alert in "${ALERTS[@]}"; do
+            echo "🚨 ALERT: $alert"
+          done
+        fi
+
+    - name: Upload performance artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: performance-monitoring-${{ github.run_number }}
+        path: |
+          .claude/.artifacts/monitoring/performance-log.csv
+          .claude/.artifacts/monitoring/performance-report.json
+        retention-days: 7
+
+  # Quality Monitoring & Theater Detection
+  quality-monitoring:
+    name: Quality & Theater Monitoring
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: github.event.inputs.check_type == 'quality' || github.event.inputs.check_type == 'theater' || github.event.inputs.check_type == 'full' || github.event_name == 'schedule'
+
+    outputs:
+      quality-status: ${{ steps.quality.outputs.status }}
+      theater-score: ${{ steps.theater.outputs.score }}
+      quality-trend: ${{ steps.quality.outputs.trend }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install quality monitoring tools
+      run: |
+        pip install --upgrade pip
+        pip install pytest radon complexity-validator
+        pip install -r requirements.txt || echo "No requirements.txt found"
+
+    - name: Quality metrics monitoring
+      id: quality
+      run: |
+        mkdir -p .claude/.artifacts/monitoring
+
+        echo "Monitoring quality metrics..."
+
+        # Initialize quality tracking
+        CURRENT_TIMESTAMP=$(date -Iseconds)
+        QUALITY_ISSUES=()
+
+        # Test coverage monitoring
+        if command -v pytest >/dev/null 2>&1; then
+          echo "Checking test coverage..."
+          COVERAGE_OUTPUT=$(pytest --cov=. --cov-report=term-missing 2>&1 || echo "Coverage check failed")
+
+          # Extract coverage percentage (simplified)
+          COVERAGE_PERCENT=$(echo "$COVERAGE_OUTPUT" | grep -o '[0-9]\+%' | tail -1 | tr -d '%' || echo "0")
+
+          if [[ $COVERAGE_PERCENT -lt 70 ]]; then
+            QUALITY_ISSUES+=("Low test coverage: ${COVERAGE_PERCENT}%")
+          fi
+
+          echo "Test Coverage: ${COVERAGE_PERCENT}%"
+        else
+          COVERAGE_PERCENT="0"
+          QUALITY_ISSUES+=("No test runner available")
+        fi
+
+        # Code complexity monitoring
+        if command -v radon >/dev/null 2>&1; then
+          echo "Checking code complexity..."
+          COMPLEXITY_OUTPUT=$(radon cc . -s 2>/dev/null || echo "Complexity check failed")
+
+          # Count high complexity functions (simplified)
+          HIGH_COMPLEXITY=$(echo "$COMPLEXITY_OUTPUT" | grep -c " F " || echo "0")
+
+          if [[ $HIGH_COMPLEXITY -gt 5 ]]; then
+            QUALITY_ISSUES+=("High complexity functions: $HIGH_COMPLEXITY")
+          fi
+
+          echo "High Complexity Functions: $HIGH_COMPLEXITY"
+        else
+          HIGH_COMPLEXITY="0"
+        fi
+
+        # File count and structure monitoring
+        TOTAL_FILES=$(find . -name "*.py" -o -name "*.js" -o -name "*.ts" | grep -v node_modules | wc -l)
+        TEST_FILES=$(find . -name "*test*" -name "*.py" -o -name "*test*" -name "*.js" | wc -l)
+
+        if [[ $TOTAL_FILES -gt 0 ]]; then
+          TEST_RATIO=$(echo "scale=2; ($TEST_FILES * 100) / $TOTAL_FILES" | bc -l 2>/dev/null || echo "0")
+        else
+          TEST_RATIO="0"
+        fi
+
+        if [[ $(echo "$TEST_RATIO < 20" | bc -l) -eq 1 ]]; then
+          QUALITY_ISSUES+=("Low test file ratio: ${TEST_RATIO}%")
+        fi
+
+        # Create quality metrics report
+        cat > .claude/.artifacts/monitoring/quality-metrics.json << EOF
+        {
+          "timestamp": "$CURRENT_TIMESTAMP",
+          "metrics": {
+            "test_coverage": $COVERAGE_PERCENT,
+            "high_complexity_functions": $HIGH_COMPLEXITY,
+            "total_files": $TOTAL_FILES,
+            "test_files": $TEST_FILES,
+            "test_ratio": $TEST_RATIO
+          },
+          "issues": $(printf '%s\n' "${QUALITY_ISSUES[@]}" | jq -R . | jq -s .),
+          "issue_count": ${#QUALITY_ISSUES[@]}
+        }
+        EOF
+
+        # Determine quality status and trend
+        if [[ ${#QUALITY_ISSUES[@]} -eq 0 ]]; then
+          echo "status=excellent" >> $GITHUB_OUTPUT
+          echo "trend=stable" >> $GITHUB_OUTPUT
+          echo "✅ Quality monitoring: EXCELLENT"
+        elif [[ ${#QUALITY_ISSUES[@]} -le 2 ]]; then
+          echo "status=good" >> $GITHUB_OUTPUT
+          echo "trend=minor_issues" >> $GITHUB_OUTPUT
+          echo "⚠️ Quality monitoring: GOOD (minor issues)"
+        else
+          echo "status=degraded" >> $GITHUB_OUTPUT
+          echo "trend=declining" >> $GITHUB_OUTPUT
+          echo "❌ Quality monitoring: DEGRADED"
+        fi
+
+        echo "Quality Issues: ${#QUALITY_ISSUES[@]}"
+        for issue in "${QUALITY_ISSUES[@]}"; do
+          echo "  - $issue"
+        done
+
+    - name: Theater detection monitoring
+      id: theater
+      run: |
+        echo "Running continuous theater detection..."
+
+        # Theater pattern monitoring
+        THEATER_VIOLATIONS=0
+        THEATER_PATTERNS=()
+
+        # Pattern 1: Excessive success logging
+        FAKE_SUCCESS_COUNT=$(find . -name "*.py" -o -name "*.js" -exec grep -c "success\|✅\|passed" {} \; 2>/dev/null | awk '{sum+=$1} END {print sum+0}')
+        if [[ $FAKE_SUCCESS_COUNT -gt 50 ]]; then
+          THEATER_PATTERNS+=("Excessive success messaging: $FAKE_SUCCESS_COUNT instances")
+          ((THEATER_VIOLATIONS++))
+        fi
+
+        # Pattern 2: Hardcoded test passes
+        TRIVIAL_TESTS=$(find . -name "*test*" -exec grep -c "assert True\|expect.*true.*toBe.*true" {} \; 2>/dev/null | awk '{sum+=$1} END {print sum+0}')
+        if [[ $TRIVIAL_TESTS -gt 10 ]]; then
+          THEATER_PATTERNS+=("Trivial test assertions: $TRIVIAL_TESTS instances")
+          ((THEATER_VIOLATIONS++))
+        fi
+
+        # Pattern 3: Mock implementations without real logic
+        MOCK_COUNT=$(find . -name "*.py" -o -name "*.js" -exec grep -c "mock\|stub\|fake" {} \; 2>/dev/null | awk '{sum+=$1} END {print sum+0}')
+        REAL_LOGIC=$(find . -name "*.py" -o -name "*.js" -exec wc -l {} \; 2>/dev/null | awk '{sum+=$1} END {print sum+0}')
+
+        if [[ $REAL_LOGIC -gt 0 && $MOCK_COUNT -gt $((REAL_LOGIC / 10)) ]]; then
+          THEATER_PATTERNS+=("Excessive mocking relative to real code")
+          ((THEATER_VIOLATIONS++))
+        fi
+
+        # Calculate theater score (0-100, higher is better)
+        THEATER_SCORE=$((100 - (THEATER_VIOLATIONS * 20)))
+        THEATER_SCORE=$(($THEATER_SCORE > 0 ? $THEATER_SCORE : 0))
+
+        # Create theater detection report
+        cat > .claude/.artifacts/monitoring/theater-detection.json << EOF
+        {
+          "timestamp": "$(date -Iseconds)",
+          "theater_score": $THEATER_SCORE,
+          "violations": $THEATER_VIOLATIONS,
+          "patterns": $(printf '%s\n' "${THEATER_PATTERNS[@]}" | jq -R . | jq -s .),
+          "metrics": {
+            "fake_success_count": $FAKE_SUCCESS_COUNT,
+            "trivial_tests": $TRIVIAL_TESTS,
+            "mock_count": $MOCK_COUNT,
+            "real_logic_lines": $REAL_LOGIC
+          }
+        }
+        EOF
+
+        echo "score=$THEATER_SCORE" >> $GITHUB_OUTPUT
+
+        if [[ $THEATER_SCORE -ge 80 ]]; then
+          echo "✅ Theater monitoring: CLEAN (Score: $THEATER_SCORE/100)"
+        elif [[ $THEATER_SCORE -ge 60 ]]; then
+          echo "⚠️ Theater monitoring: MINOR CONCERNS (Score: $THEATER_SCORE/100)"
+        else
+          echo "❌ Theater monitoring: SIGNIFICANT THEATER DETECTED (Score: $THEATER_SCORE/100)"
+        fi
+
+        for pattern in "${THEATER_PATTERNS[@]}"; do
+          echo "🎭 Theater Pattern: $pattern"
+        done
+
+    - name: Upload quality artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: quality-monitoring-${{ github.run_number }}
+        path: |
+          .claude/.artifacts/monitoring/quality-metrics.json
+          .claude/.artifacts/monitoring/theater-detection.json
+        retention-days: 7
+
+  # Security Monitoring
+  security-monitoring:
+    name: Security Monitoring
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event.inputs.check_type == 'security' || github.event.inputs.check_type == 'full' || github.event_name == 'schedule'
+
+    outputs:
+      security-status: ${{ steps.security.outputs.status }}
+      vulnerability-count: ${{ steps.security.outputs.vulnerability-count }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install security monitoring tools
+      run: |
+        pip install --upgrade pip
+        pip install bandit safety
+        pip install -r requirements.txt || echo "No requirements.txt found"
+
+    - name: Security vulnerability monitoring
+      id: security
+      run: |
+        mkdir -p .claude/.artifacts/monitoring
+
+        echo "Running security monitoring..."
+
+        SECURITY_ISSUES=()
+        VULNERABILITY_COUNT=0
+
+        # Bandit security scan
+        echo "Running Bandit security scan..."
+        if command -v bandit >/dev/null 2>&1; then
+          BANDIT_OUTPUT=$(bandit -r . -f json 2>/dev/null || echo '{"results": []}')
+          echo "$BANDIT_OUTPUT" > .claude/.artifacts/monitoring/bandit-scan.json
+
+          # Count high and medium severity issues
+          HIGH_ISSUES=$(echo "$BANDIT_OUTPUT" | jq '.results[] | select(.issue_severity == "HIGH")' | jq -s length 2>/dev/null || echo "0")
+          MEDIUM_ISSUES=$(echo "$BANDIT_OUTPUT" | jq '.results[] | select(.issue_severity == "MEDIUM")' | jq -s length 2>/dev/null || echo "0")
+
+          VULNERABILITY_COUNT=$((HIGH_ISSUES + MEDIUM_ISSUES))
+
+          if [[ $HIGH_ISSUES -gt 0 ]]; then
+            SECURITY_ISSUES+=("High severity vulnerabilities: $HIGH_ISSUES")
+          fi
+          if [[ $MEDIUM_ISSUES -gt 0 ]]; then
+            SECURITY_ISSUES+=("Medium severity vulnerabilities: $MEDIUM_ISSUES")
+          fi
+
+          echo "Security Scan Results:"
+          echo "- High Severity: $HIGH_ISSUES"
+          echo "- Medium Severity: $MEDIUM_ISSUES"
+        else
+          SECURITY_ISSUES+=("Bandit security scanner not available")
+        fi
+
+        # Safety check for known vulnerabilities
+        echo "Running Safety vulnerability check..."
+        if command -v safety >/dev/null 2>&1 && [[ -f "requirements.txt" ]]; then
+          SAFETY_OUTPUT=$(safety check --json 2>/dev/null || echo '[]')
+          echo "$SAFETY_OUTPUT" > .claude/.artifacts/monitoring/safety-scan.json
+
+          SAFETY_VULNS=$(echo "$SAFETY_OUTPUT" | jq length 2>/dev/null || echo "0")
+          if [[ $SAFETY_VULNS -gt 0 ]]; then
+            SECURITY_ISSUES+=("Known vulnerabilities in dependencies: $SAFETY_VULNS")
+            VULNERABILITY_COUNT=$((VULNERABILITY_COUNT + SAFETY_VULNS))
+          fi
+
+          echo "- Known Vulnerabilities: $SAFETY_VULNS"
+        fi
+
+        # File permission check
+        echo "Checking file permissions..."
+        EXECUTABLE_FILES=$(find . -type f -executable -not -path "./.git/*" -not -path "./node_modules/*" | wc -l)
+        SCRIPT_FILES=$(find . -name "*.sh" -o -name "*.py" -o -name "*.js" | wc -l)
+
+        if [[ $EXECUTABLE_FILES -gt $((SCRIPT_FILES * 2)) ]]; then
+          SECURITY_ISSUES+=("Excessive executable files: $EXECUTABLE_FILES")
+        fi
+
+        # Create security monitoring report
+        cat > .claude/.artifacts/monitoring/security-report.json << EOF
+        {
+          "timestamp": "$(date -Iseconds)",
+          "vulnerability_count": $VULNERABILITY_COUNT,
+          "security_issues": $(printf '%s\n' "${SECURITY_ISSUES[@]}" | jq -R . | jq -s .),
+          "issue_count": ${#SECURITY_ISSUES[@]},
+          "scan_results": {
+            "bandit_high": ${HIGH_ISSUES:-0},
+            "bandit_medium": ${MEDIUM_ISSUES:-0},
+            "safety_vulnerabilities": ${SAFETY_VULNS:-0},
+            "executable_files": $EXECUTABLE_FILES
+          }
+        }
+        EOF
+
+        echo "vulnerability-count=$VULNERABILITY_COUNT" >> $GITHUB_OUTPUT
+
+        # Determine security status
+        if [[ ${#SECURITY_ISSUES[@]} -eq 0 ]]; then
+          echo "status=secure" >> $GITHUB_OUTPUT
+          echo "✅ Security monitoring: SECURE"
+        elif [[ $VULNERABILITY_COUNT -le 3 ]]; then
+          echo "status=minor_issues" >> $GITHUB_OUTPUT
+          echo "⚠️ Security monitoring: MINOR ISSUES"
+        else
+          echo "status=vulnerable" >> $GITHUB_OUTPUT
+          echo "❌ Security monitoring: VULNERABLE"
+        fi
+
+        echo "Total Security Issues: ${#SECURITY_ISSUES[@]}"
+        echo "Total Vulnerabilities: $VULNERABILITY_COUNT"
+        for issue in "${SECURITY_ISSUES[@]}"; do
+          echo "🔒 Security Issue: $issue"
+        done
+
+    - name: Upload security artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: security-monitoring-${{ github.run_number }}
+        path: |
+          .claude/.artifacts/monitoring/security-report.json
+          .claude/.artifacts/monitoring/bandit-scan.json
+          .claude/.artifacts/monitoring/safety-scan.json
+        retention-days: 30
+
+  # Consolidated Monitoring Dashboard
+  monitoring-dashboard:
+    name: Monitoring Dashboard & Alerts
+    runs-on: ubuntu-latest
+    needs: [performance-monitoring, quality-monitoring, security-monitoring]
+    if: always()
+
+    steps:
+    - name: Create monitoring dashboard
+      run: |
+        mkdir -p .claude/.artifacts/dashboard
+
+        echo "# 📊 Production Monitoring Dashboard" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Monitoring Timestamp**: $(date -Iseconds)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        echo "## System Health Overview" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "| Component | Status | Key Metrics |" >> $GITHUB_STEP_SUMMARY
+        echo "|-----------|--------|-------------|" >> $GITHUB_STEP_SUMMARY
+
+        # Performance status
+        PERF_STATUS="${{ needs.performance-monitoring.outputs.performance-status }}"
+        RESPONSE_TIME="${{ needs.performance-monitoring.outputs.response-time }}"
+        ERROR_RATE="${{ needs.performance-monitoring.outputs.error-rate }}"
+
+        if [[ "$PERF_STATUS" == "healthy" ]]; then
+          echo "| 🚀 Performance | ✅ HEALTHY | Response: ${RESPONSE_TIME}ms, Errors: ${ERROR_RATE}% |" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "| 🚀 Performance | ⚠️ DEGRADED | Response: ${RESPONSE_TIME}ms, Errors: ${ERROR_RATE}% |" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        # Quality status
+        QUALITY_STATUS="${{ needs.quality-monitoring.outputs.quality-status }}"
+        QUALITY_TREND="${{ needs.quality-monitoring.outputs.quality-trend }}"
+
+        if [[ "$QUALITY_STATUS" == "excellent" ]]; then
+          echo "| 📈 Quality | ✅ EXCELLENT | Trend: $QUALITY_TREND |" >> $GITHUB_STEP_SUMMARY
+        elif [[ "$QUALITY_STATUS" == "good" ]]; then
+          echo "| 📈 Quality | ⚠️ GOOD | Trend: $QUALITY_TREND |" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "| 📈 Quality | ❌ DEGRADED | Trend: $QUALITY_TREND |" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        # Theater detection
+        THEATER_SCORE="${{ needs.quality-monitoring.outputs.theater-score }}"
+        if [[ $THEATER_SCORE -ge 80 ]]; then
+          echo "| 🎭 Theater Detection | ✅ CLEAN | Score: $THEATER_SCORE/100 |" >> $GITHUB_STEP_SUMMARY
+        elif [[ $THEATER_SCORE -ge 60 ]]; then
+          echo "| 🎭 Theater Detection | ⚠️ CONCERNS | Score: $THEATER_SCORE/100 |" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "| 🎭 Theater Detection | ❌ ISSUES | Score: $THEATER_SCORE/100 |" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        # Security status
+        SECURITY_STATUS="${{ needs.security-monitoring.outputs.security-status }}"
+        VULN_COUNT="${{ needs.security-monitoring.outputs.vulnerability-count }}"
+
+        if [[ "$SECURITY_STATUS" == "secure" ]]; then
+          echo "| 🔒 Security | ✅ SECURE | Vulnerabilities: $VULN_COUNT |" >> $GITHUB_STEP_SUMMARY
+        elif [[ "$SECURITY_STATUS" == "minor_issues" ]]; then
+          echo "| 🔒 Security | ⚠️ MINOR ISSUES | Vulnerabilities: $VULN_COUNT |" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "| 🔒 Security | ❌ VULNERABLE | Vulnerabilities: $VULN_COUNT |" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        # Alert summary
+        ALERT_COUNT=0
+
+        if [[ "$PERF_STATUS" != "healthy" ]]; then ((ALERT_COUNT++)); fi
+        if [[ "$QUALITY_STATUS" == "degraded" ]]; then ((ALERT_COUNT++)); fi
+        if [[ $THEATER_SCORE -lt 60 ]]; then ((ALERT_COUNT++)); fi
+        if [[ "$SECURITY_STATUS" == "vulnerable" ]]; then ((ALERT_COUNT++)); fi
+
+        echo "## Alert Summary" >> $GITHUB_STEP_SUMMARY
+        if [[ $ALERT_COUNT -eq 0 ]]; then
+          echo "✅ **No active alerts** - All systems operating normally" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "🚨 **$ALERT_COUNT active alerts** requiring attention" >> $GITHUB_STEP_SUMMARY
+        fi
+
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## Monitoring Configuration" >> $GITHUB_STEP_SUMMARY
+        echo "- **Performance Threshold**: ${{ env.PERFORMANCE_THRESHOLD }}ms response time" >> $GITHUB_STEP_SUMMARY
+        echo "- **Error Rate Threshold**: ${{ env.ERROR_RATE_THRESHOLD }}%" >> $GITHUB_STEP_SUMMARY
+        echo "- **Theater Detection**: ${{ env.THEATER_MONITORING_ENABLED }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Check Frequency**: Every 15 minutes" >> $GITHUB_STEP_SUMMARY
+
+        # Create consolidated dashboard JSON
+        cat > .claude/.artifacts/dashboard/monitoring-summary.json << EOF
+        {
+          "timestamp": "$(date -Iseconds)",
+          "overall_status": "$([[ $ALERT_COUNT -eq 0 ]] && echo "healthy" || echo "degraded")",
+          "alert_count": $ALERT_COUNT,
+          "components": {
+            "performance": {
+              "status": "$PERF_STATUS",
+              "response_time": "$RESPONSE_TIME",
+              "error_rate": "$ERROR_RATE"
+            },
+            "quality": {
+              "status": "$QUALITY_STATUS",
+              "trend": "$QUALITY_TREND"
+            },
+            "theater_detection": {
+              "score": $THEATER_SCORE,
+              "status": "$([[ $THEATER_SCORE -ge 80 ]] && echo "clean" || [[ $THEATER_SCORE -ge 60 ]] && echo "concerns" || echo "issues")"
+            },
+            "security": {
+              "status": "$SECURITY_STATUS",
+              "vulnerability_count": $VULN_COUNT
+            }
+          },
+          "thresholds": {
+            "performance_ms": ${{ env.PERFORMANCE_THRESHOLD }},
+            "error_rate_percent": ${{ env.ERROR_RATE_THRESHOLD }},
+            "theater_score_min": 60
+          }
+        }
+        EOF
+
+    - name: Send critical alerts
+      if: |
+        needs.performance-monitoring.outputs.performance-status == 'degraded' ||
+        needs.security-monitoring.outputs.security-status == 'vulnerable' ||
+        needs.quality-monitoring.outputs.theater-score < '60'
+      run: |
+        echo "🚨 CRITICAL ALERTS DETECTED"
+        echo ""
+        echo "The following systems require immediate attention:"
+
+        if [[ "${{ needs.performance-monitoring.outputs.performance-status }}" == "degraded" ]]; then
+          echo "❌ Performance: Response time or error rate exceeded thresholds"
+        fi
+
+        if [[ "${{ needs.security-monitoring.outputs.security-status }}" == "vulnerable" ]]; then
+          echo "❌ Security: High-risk vulnerabilities detected"
+        fi
+
+        if [[ ${{ needs.quality-monitoring.outputs.theater-score }} -lt 60 ]]; then
+          echo "❌ Theater Detection: Significant performance theater patterns detected"
+        fi
+
+        echo ""
+        echo "Review the monitoring dashboard and take corrective action."
+
+    - name: Upload dashboard artifacts
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: monitoring-dashboard-${{ github.run_number }}
+        path: |
+          .claude/.artifacts/dashboard/
+        retention-days: 30

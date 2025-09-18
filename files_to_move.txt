@@ -1,0 +1,12 @@
+.claude/settings.local.json
+.sandbox/comprehensive-validation-report.json
+.sandbox/generate-comprehensive-report.js
+.sandbox/test-agent-spawner.js
+.sandbox/test-api-integrations.js
+.sandbox/test-nine-stage-system.js
+.sandbox/test-reality-validation.js
+.sandbox/test-results/agent-spawner-results.json
+.sandbox/test-results/api-integrations-results.json
+.sandbox/test-results/nine-stage-system-results.json
+.sandbox/test-theater-detection.js
+.sandbox/validation-summary.md
