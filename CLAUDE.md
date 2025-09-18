@@ -6,7 +6,7 @@
 
 ## [TARGET] Project Overview
 
-**SPEK Enhanced Development Platform** is a complete multi-agent workflow orchestration system with Queen-Princess-Drone swarm hierarchy. The platform integrates 85+ specialized AI agents, 163+ slash commands, 15+ MCP servers, comprehensive theater detection, and the **3-Loop Development System** for both new projects and existing codebase remediation.
+**SPEK Enhanced Development Platform** is a complete multi-agent workflow orchestration system with Queen-Princess-Drone swarm hierarchy. The platform integrates 90+ specialized AI agents (including 5 desktop automation specialists via Bytebot), 163+ slash commands, 16+ MCP servers (including Bytebot desktop control), comprehensive theater detection, and the **3-Loop Development System** for both new projects and existing codebase remediation.
 
 ### Core Pipeline: S-R-P-E-K Methodology with 3-Loop System
 ```
@@ -23,9 +23,9 @@ Loop 3: Quality (analysis->root cause->fixes->validation)
 
 **Key Components:**
 - **Swarm Architecture**: Queen-Princess-Drone hierarchy with 6 domain princesses
-- **AI Agent System**: 85+ specialized agents with automatic model optimization
+- **AI Agent System**: 90+ specialized agents with automatic model optimization
 - **Command Framework**: 163+ slash commands for complete workflow automation
-- **MCP Integration**: 15+ servers including memory, GitHub, browser automation
+- **MCP Integration**: 16+ servers including memory, GitHub, browser automation, desktop control
 - **Theater Detection**: Zero-tolerance audit gates for fake work elimination
 - **9-Step Dev Process**: Complete implementation workflow with reality validation
 - **3-Loop System**: Forward flow for new projects, reverse flow for remediation

@@ -42,8 +42,9 @@ def some_function():
     assert violations[0].type == "NASA-Global-Scope"
     assert "6 global variables" in violations[0].description
     assert violations[0].severity == "warning"  # Since we have 6 globals (>5)
-    print(f"✓ NASA Rule 6 (data scope): Found {len(violations)} violation(s)")
-    print(f"  - {violations[0].description}")
+    # Verify NASA Rule 6 detection
+    assert len(violations) > 0
+    assert violations[0].description
 
     # Test _check_return_values with unused function returns
     test_code2 = """
@@ -66,11 +67,12 @@ result = get_value()  # This is OK
 
     assert len(violations2) == 2, f"NASA Rule 7: Should detect 2 unused returns, found {len(violations2)}"
     assert all(v.type == "NASA-Return-Check" for v in violations2)
-    print(f"✓ NASA Rule 7 (return values): Found {len(violations2)} violation(s)")
+    # Verify NASA Rule 7 detection
+    assert len(violations2) == 2
     for v in violations2:
-        print(f"  - Line {v.line_number}: {v.description}")
+        assert v.line_number > 0
 
-    print("✅ NASA Analyzer tests passed!")
+    # NASA Analyzer tests successful
     return True
 
 
@@ -87,7 +89,7 @@ def test_core_analyzer_delegation():
 
     # If ConsolidatedConnascenceAnalyzer is available, it should be initialized
     if analyzer._analyzer is not None:
-        print("✓ Core analyzer successfully delegating to ConsolidatedConnascenceAnalyzer")
+        # Core analyzer delegating successfully
 
         # Test that analyze_file returns proper results (not empty list)
         # Create a test file
@@ -109,7 +111,8 @@ def bad_function(a, b, c, d, e, f):  # Too many parameters
             # Even if no violations are found, the important thing is it doesn't crash
             # and returns a list (not None)
             assert isinstance(violations, list), "Should return a list of violations"
-            print(f"✓ analyze_file() returned {len(violations)} violations (delegation working)")
+            # analyze_file() delegation working
+            assert isinstance(violations, list)
 
         finally:
             # Clean up test file
@@ -120,9 +123,9 @@ def bad_function(a, b, c, d, e, f):  # Too many parameters
         # In stub mode, should still return empty list without crashing
         violations = analyzer.analyze_file("nonexistent.py")
         assert violations == [], "Stub mode should return empty list"
-        print("✓ Stub mode returns empty list as expected")
+        # Stub mode working as expected
 
-    print("✅ Core Analyzer delegation tests passed!")
+    # Core Analyzer delegation tests successful
     return True
 
 
@@ -133,21 +136,21 @@ def test_fixed_analyzer_imports():
     try:
         # This should not raise ImportError anymore
         from analyzer.detectors.connascence_ast_analyzer_fixed import ConnascenceASTAnalyzer
-        print("✓ Successfully imported ConnascenceASTAnalyzer from fixed module")
+        # Successfully imported ConnascenceASTAnalyzer
 
         # Check that it inherits from DetectorBase
         from analyzer.detectors.base import DetectorBase
         assert issubclass(ConnascenceASTAnalyzer, DetectorBase), "Should inherit from DetectorBase"
-        print("✓ ConnascenceASTAnalyzer properly inherits from DetectorBase")
+        # Proper inheritance verified
 
         # Try to instantiate it
         analyzer = ConnascenceASTAnalyzer(file_path="test.py", source_lines=["# test"])
-        print("✓ Successfully instantiated ConnascenceASTAnalyzer")
+        # Successfully instantiated analyzer
 
         # Check it has required methods
         assert hasattr(analyzer, 'detect_violations'), "Should have detect_violations method"
         assert hasattr(analyzer, 'analyze_directory'), "Should have analyze_directory method"
-        print("✓ All required methods present")
+        # All required methods verified
 
         # Test basic detection
         import ast
@@ -157,7 +160,8 @@ def test_fixed_analyzer_imports():
 
         # Should return a list (even if empty)
         assert isinstance(violations, list), "detect_violations should return a list"
-        print(f"✓ detect_violations() returned {len(violations)} violations")
+        # detect_violations() working
+        assert isinstance(violations, list)
 
     except ImportError as e:
         print(f"❌ Import failed: {e}")
@@ -166,7 +170,7 @@ def test_fixed_analyzer_imports():
         print(f"❌ Unexpected error: {e}")
         return False
 
-    print("✅ Fixed Analyzer import tests passed!")
+    # Fixed Analyzer import tests successful
     return True
 
 
