@@ -78,10 +78,21 @@ jobs:
 
           HTTP_CODE=$(echo "$RESPONSE" | cut -d':' -f1)
           RESPONSE_TIME=$(echo "$RESPONSE" | cut -d':' -f2)
-          # More robust calculation using bc with simple integer conversion
+          # More robust calculation using bash string manipulation
           if [[ "$RESPONSE_TIME" =~ ^[0-9]+\.?[0-9]*$ ]]; then
-            # Multiply by 1000 and remove decimal part
-            RESPONSE_TIME_MS=$(echo "$RESPONSE_TIME * 1000 / 1" | bc)
+            # Remove decimal point and pad/truncate to get milliseconds
+            # e.g., 0.199784 -> 199, 1.234 -> 1234, 2 -> 2000
+            TEMP=$(echo "$RESPONSE_TIME" | tr -d '.')
+            if [[ "$RESPONSE_TIME" == *"."* ]]; then
+              # Has decimal - take first 3 digits after decimal
+              DECIMAL_PART="${RESPONSE_TIME#*.}"
+              INTEGER_PART="${RESPONSE_TIME%.*}"
+              DECIMAL_PART="${DECIMAL_PART}000"  # Pad with zeros
+              RESPONSE_TIME_MS="${INTEGER_PART}${DECIMAL_PART:0:3}"
+            else
+              # No decimal - multiply by 1000
+              RESPONSE_TIME_MS="${RESPONSE_TIME}000"
+            fi
           else
             RESPONSE_TIME_MS="999000"  # Default for invalid input
           fi
