@@ -12,7 +12,14 @@
       "mcp__memory__create_entities",
       "mcp__memory__create_relations",
       "mcp__memory__add_observations",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "Bash(GITHUB_ACTIONS=true python github_analyzer_runner.py)",
+      "Bash(set GITHUB_ACTIONS=true)",
+      "Bash(echo \"Exit code: $?\")",
+      "Bash(cat:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
