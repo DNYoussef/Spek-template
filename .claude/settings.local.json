@@ -5,7 +5,8 @@
       "Bash(python:*)",
       "Bash(gh run view:*)",
       "Bash(gh run download:*)",
-      "Bash(bandit:*)"
+      "Bash(bandit:*)",
+      "Bash(gh run list:*)"
     ],
     "deny": [],
     "ask": []

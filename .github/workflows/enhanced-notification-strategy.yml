@@ -9,6 +9,12 @@ on:
       - "Analyzer Integration"
     types: [completed]
 
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  actions: read
+
 jobs:
   smart-notifications:
     name: Smart Failure Notifications
