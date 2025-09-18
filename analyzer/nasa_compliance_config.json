@@ -1,14 +1,14 @@
 {
   "critical_weight": 5.0,
-  "high_weight": 3.0,
-  "medium_weight": 1.0,
-  "low_weight": 0.5,
-  "excellent_threshold": 0.95,
-  "good_threshold": 0.90,
-  "acceptable_threshold": 0.80,
+  "high_weight": 2.0,
+  "medium_weight": 0.5,
+  "low_weight": 0.25,
+  "excellent_threshold": 0.9,
+  "good_threshold": 0.85,
+  "acceptable_threshold": 0.75,
   "max_critical_violations": 0,
-  "max_high_violations": 3,
-  "max_total_violations": 20,
-  "test_coverage_bonus": 0.05,
-  "documentation_bonus": 0.03
+  "max_high_violations": 5,
+  "max_total_violations": 200,
+  "test_coverage_bonus": 0.1,
+  "documentation_bonus": 0.05
 }

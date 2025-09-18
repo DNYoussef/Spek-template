@@ -186,8 +186,8 @@ Usage:
       console.log(`\n  Princess quarantined: ${princess}`);
     });
 
-    this.queen.on('health:checked', (results) => {
-      const healthy = results.filter(r => r.healthy).length;
+    this.queen.on('health:checked', (results: any[]) => {
+      const healthy = results.filter((r: any) => r.healthy).length;
       console.log(`\n Health check: ${healthy}/${results.length} healthy`);
     });
   }
