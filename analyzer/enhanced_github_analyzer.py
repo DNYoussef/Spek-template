@@ -129,7 +129,8 @@ class EnhancedGitHubAnalyzer:
     """Enhanced analyzer with real engineering solutions."""
 
     def __init__(self):
-        self.remediation_engine = ViolationRemediationEngine()
+        # Use the correct config path - we're already in analyzer directory
+        self.remediation_engine = ViolationRemediationEngine("remediation_config.json")
         self.nasa_calculator = NASAComplianceCalculator()
         self.detector = RealityViolationDetector()
 
@@ -138,19 +139,23 @@ class EnhancedGitHubAnalyzer:
         logger.info("Starting enhanced analysis with real engineering solutions...")
 
         # Detect violations using proven detector
-        violations = self._detect_violations(project_path)
+        all_violations = self._detect_violations(project_path)
 
-        # Apply remediation analysis
-        remediation_report = self.remediation_engine.generate_remediation_report(violations)
+        # Apply suppressions to filter out justified violations
+        active_violations, suppressed_violations = self.remediation_engine.apply_suppressions(all_violations)
 
-        # Calculate legitimate NASA compliance
+        # Apply remediation analysis on active violations only
+        remediation_report = self.remediation_engine.generate_remediation_report(active_violations)
+
+        # Calculate legitimate NASA compliance on ACTIVE violations only
         compliance_result = self.nasa_calculator.calculate_compliance(
-            violations=violations,
+            violations=active_violations,  # Use active violations, not all
             file_count=self._count_source_files(project_path)
         )
 
-        # Aggregate results
-        return self._create_enhanced_result(violations, remediation_report, compliance_result)
+        # Aggregate results (pass all violations for reporting, but use active for scoring)
+        return self._create_enhanced_result(active_violations, remediation_report, compliance_result,
+                                           suppressed_count=len(suppressed_violations))
 
     def _detect_violations(self, project_path: str) -> List[Dict]:
         """Detect violations in real project files."""
@@ -204,7 +209,8 @@ class EnhancedGitHubAnalyzer:
         self,
         violations: List[Dict],
         remediation_report: Dict,
-        compliance_result
+        compliance_result,
+        suppressed_count: int = 0
     ) -> EnhancedAnalyzerResult:
         """Create enhanced result with all engineering data."""
 
@@ -248,8 +254,8 @@ class EnhancedGitHubAnalyzer:
             analysis_time=2.5,
 
             # Remediation data
-            active_violations=remediation_report['summary']['active_violations'],
-            suppressed_violations=remediation_report['summary']['suppressed_violations'],
+            active_violations=len(violations),  # violations are already filtered to active only
+            suppressed_violations=suppressed_count,
             auto_fixable_violations=remediation_report['summary']['auto_fixable'],
             manual_review_required=remediation_report['summary']['needs_manual_review'],
 

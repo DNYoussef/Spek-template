@@ -47,41 +47,47 @@ class ViolationRemediationEngine:
 
     def _load_suppressions(self) -> List[ViolationSuppression]:
         """Load violation suppressions from configuration."""
-        if not self.config_path.exists():
-            # Create default configuration
-            default_config = {
-                "suppressions": [
-                    {
-                        "violation_type": "magic_literal",
-                        "file_pattern": "tests/**/*.py",
-                        "justification": "Test files may use magic literals for clarity",
-                        "approved_by": "QA Team",
-                        "expires_date": "2025-12-31"
-                    },
-                    {
-                        "violation_type": "position_coupling",
-                        "file_pattern": "**/legacy/**/*.py",
-                        "line_pattern": "def __init__",
-                        "justification": "Legacy constructors grandfathered until refactoring sprint",
-                        "approved_by": "Tech Lead",
-                        "expires_date": "2025-06-30"
-                    }
-                ]
-            }
+        # Try to load existing config first
+        if self.config_path.exists():
+            try:
+                with open(self.config_path) as f:
+                    config = json.load(f)
+                    suppressions = [ViolationSuppression(**item) for item in config.get("suppressions", [])]
+                    logger.info(f"Loaded {len(suppressions)} suppressions from {self.config_path}")
+                    return suppressions
+            except Exception as e:
+                logger.error(f"Failed to load suppressions: {e}")
+                # Fall through to create defaults if load fails
 
-            self.config_path.parent.mkdir(parents=True, exist_ok=True)
-            with open(self.config_path, 'w') as f:
-                json.dump(default_config, f, indent=2)
+        # Create default configuration only if file doesn't exist
+        default_config = {
+            "suppressions": [
+                {
+                    "violation_type": "magic_literal",
+                    "file_pattern": "tests/**/*.py",
+                    "justification": "Test files may use magic literals for clarity",
+                    "approved_by": "QA Team",
+                    "expires_date": "2025-12-31"
+                },
+                {
+                    "violation_type": "position_coupling",
+                    "file_pattern": "**/legacy/**/*.py",
+                    "line_pattern": "def __init__",
+                    "justification": "Legacy constructors grandfathered until refactoring sprint",
+                    "approved_by": "Tech Lead",
+                    "expires_date": "2025-06-30"
+                }
+            ]
+        }
 
-            logger.info(f"Created default remediation config at {self.config_path}")
+        self.config_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(self.config_path, 'w') as f:
+            json.dump(default_config, f, indent=2)
 
-        try:
-            with open(self.config_path) as f:
-                config = json.load(f)
-                return [ViolationSuppression(**item) for item in config.get("suppressions", [])]
-        except Exception as e:
-            logger.error(f"Failed to load suppressions: {e}")
-            return []
+        logger.info(f"Created default remediation config at {self.config_path}")
+
+        # Return the defaults we just created
+        return [ViolationSuppression(**item) for item in default_config.get("suppressions", [])]
 
     def is_violation_suppressed(self, violation: Dict) -> Tuple[bool, str]:
         """Check if a violation is legitimately suppressed."""
@@ -118,10 +124,61 @@ class ViolationRemediationEngine:
         return False, ""
 
     def _matches_pattern(self, file_path: str, pattern: str) -> bool:
-        """Simple glob pattern matching."""
-        # Convert glob pattern to regex
-        regex_pattern = pattern.replace("**", ".*").replace("*", "[^/]*")
-        return bool(re.match(regex_pattern, file_path))
+        """Proper glob pattern matching that handles ** wildcards."""
+        from pathlib import Path
+        import fnmatch
+
+        # Normalize paths for cross-platform compatibility
+        file_path = file_path.replace('\\', '/')
+        pattern = pattern.replace('\\', '/')
+
+        # Handle ** wildcard which means "any number of directories"
+        if '**' in pattern:
+            # Convert ** pattern to work with fnmatch
+            # **/*.py should match test.py, dir/test.py, dir/subdir/test.py
+            if pattern.startswith('**/'):
+                # **/*.py matches any .py file at any depth
+                simple_pattern = pattern[3:]  # Remove **/
+                # Check if the file ends with the pattern
+                if fnmatch.fnmatch(Path(file_path).name, simple_pattern):
+                    return True
+                # Also check the full path
+                if fnmatch.fnmatch(file_path, pattern):
+                    return True
+            elif pattern.endswith('/**'):
+                # dir/** matches everything under dir/
+                prefix = pattern[:-3]  # Remove /**
+                if file_path.startswith(prefix + '/'):
+                    return True
+            elif '/**/' in pattern:
+                # Pattern like tests/**/*.py or dir/**/file.py
+                # Split pattern and check if file is under the directory and matches the ending
+                parts = pattern.split('/**/')
+                if len(parts) == 2:
+                    dir_prefix, file_pattern = parts
+                    # Check if file is under the directory
+                    if file_path.startswith(dir_prefix + '/'):
+                        # Check if the filename or remaining path matches
+                        remaining = file_path[len(dir_prefix) + 1:]
+                        if fnmatch.fnmatch(remaining, file_pattern) or fnmatch.fnmatch(Path(file_path).name, file_pattern):
+                            return True
+            else:
+                # Other patterns with **
+                # Convert to regex-like pattern for fnmatch
+                import re
+                regex_pattern = pattern.replace('**', '*')
+                if fnmatch.fnmatch(file_path, regex_pattern):
+                    return True
+
+        # Standard glob patterns
+        if fnmatch.fnmatch(file_path, pattern):
+            return True
+
+        # Also try matching just the filename for patterns like *.py
+        if '/' not in pattern and fnmatch.fnmatch(Path(file_path).name, pattern):
+            return True
+
+        return False
 
     def generate_auto_fixes(self, violations: List[Dict]) -> List[FixSuggestion]:
         """Generate automatic fix suggestions for violations."""
