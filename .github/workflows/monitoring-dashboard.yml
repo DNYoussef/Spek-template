@@ -59,11 +59,6 @@ jobs:
 
         echo "Running performance monitoring checks..."
 
-        # Initialize metrics
-        TOTAL_CHECKS=0
-        PASSED_CHECKS=0
-        ALERTS=()
-
         # Function to test endpoint
         test_endpoint() {
           local url="$1"
@@ -115,6 +110,11 @@ jobs:
 
           echo "$name,$HTTP_CODE,$RESPONSE_TIME_MS,$(date -Iseconds)" >> .claude/.artifacts/monitoring/performance-log.csv
         }
+
+        # Initialize metrics variables AFTER function definition
+        TOTAL_CHECKS=0
+        PASSED_CHECKS=0
+        ALERTS=()
 
         # Test endpoints (these would be real application endpoints in production)
         echo "timestamp,endpoint,status_code,response_time_ms" > .claude/.artifacts/monitoring/performance-log.csv
