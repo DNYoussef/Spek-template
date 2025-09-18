@@ -6,11 +6,50 @@ Coordinates all safety subsystems to ensure 99.9% availability with <60s recover
 Implements comprehensive monitoring, failover orchestration, and recovery validation.
 """
 
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+import threading
+from datetime import datetime, timedelta
+from enum import Enum
+from typing import Dict, Callable, Any
+from dataclasses import dataclass
+
+logger = logging.getLogger(__name__)
+
+class SafetyState(Enum):
+    """Safety system states."""
+    HEALTHY = "healthy"
+    DEGRADED = "degraded"
+    CRITICAL = "critical"
+    OFFLINE = "offline"
+
+class SystemComponent(Enum):
+    """System component identifiers."""
+    DATABASE = "database"
+    BROKER = "broker"
+    AUTHENTICATION = "authentication"
+    MONITORING = "monitoring"
+    KILL_SWITCH = "kill_switch"
+
+@dataclass
+class SafetyMetrics:
+    """Safety system metrics."""
+    uptime_seconds: float = 0.0
+    failures_count: int = 0
+    recovery_time_seconds: float = 0.0
+    health_check_success_rate: float = 100.0
+
+class SafetyManager:
+    """Central safety system orchestration."""
+
+    def __init__(self, config: Dict[str, Any] = None):
+        """Initialize safety manager."""
+        self.config = config or {}
 
         # Safety state management
         self._state = SafetyState.HEALTHY
+        self._state_lock = threading.RLock()
+        self._startup_time = datetime.utcnow()
+
         self._state_lock = threading.RLock()
         self._startup_time = datetime.utcnow()
 
@@ -27,6 +66,20 @@ logger = get_logger(__name__)
         self.recovery_system = None
         self.availability_monitor = None
         self.redundancy_validator = None
+
+        logger.info("Safety manager initialized")
+
+    def get_health_status(self) -> Dict[str, Any]:
+        """Get current health status."""
+        return {
+            "state": self._state.value,
+            "uptime": (datetime.utcnow() - self._startup_time).total_seconds(),
+            "components": {comp.value: health for comp, health in self._component_health.items()}
+        }
+
+    def is_healthy(self) -> bool:
+        """Check if system is healthy."""
+        return self._state == SafetyState.HEALTHY
 
         # Control threads
         self._monitoring_thread: Optional[threading.Thread] = None

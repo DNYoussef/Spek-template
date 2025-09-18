@@ -8,8 +8,44 @@ with fail-safe fallback mechanisms.
 import asyncio
 import hashlib
 import hmac
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import logging
+import time
+from enum import Enum
+from dataclasses import dataclass
+from typing import Dict, Any, Set
+
+logger = logging.getLogger(__name__)
+
+class AuthMethod(Enum):
+    """Authentication methods."""
+    YUBIKEY = "yubikey"
+    MASTER_KEY = "master_key"
+    PIN_CODE = "pin_code"
+    TOUCH_ID = "touch_id"
+    BIOMETRIC = "biometric"
+
+@dataclass
+class AuthResult:
+    """Authentication result."""
+    success: bool
+    method: AuthMethod
+    user_id: str = ""
+    session_id: str = ""
+    error_message: str = ""
+    timestamp: float = 0.0
+
+    def __post_init__(self):
+        if self.timestamp == 0.0:
+            self.timestamp = time.time()
+
+class HardwareAuthManager:
+    """Hardware authentication manager."""
+
+    def __init__(self, config: Dict[str, Any]):
+        """Initialize authentication manager."""
+        self.config = config
+        self.logger = logger
+
 
         # Supported methods from config
         self.allowed_methods = set(
@@ -24,11 +60,130 @@ logger = get_logger(__name__)
         self._failed_attempts: Dict[str, int] = {}
         self._lockout_until: Dict[str, float] = {}
 
+        # Configuration
+        self.max_attempts = config.get('max_auth_attempts', 3)
+        self.lockout_duration = config.get('lockout_duration', 60)
+        self.pin_code = config.get('pin_code', '')
+
         # Hardware detection
         self._hardware_capabilities = self._detect_hardware_capabilities()
 
         self.logger.info(f"Hardware auth initialized with methods: {[m.value for m in self.allowed_methods]}")
         self.logger.info(f"Hardware capabilities detected: {list(self._hardware_capabilities.keys())}")
+
+    def get_available_methods(self) -> Set[AuthMethod]:
+        """Get available authentication methods."""
+        return self.allowed_methods
+
+    def get_system_status(self) -> Dict[str, Any]:
+        """Get system status."""
+        return {
+            "allowed_methods": [m.value for m in self.allowed_methods],
+            "hardware_capabilities": self._hardware_capabilities,
+            "active_sessions": len(self._authenticated_sessions)
+        }
+
+    async def authenticate(self, auth_data: Dict[str, Any]) -> AuthResult:
+        """Authenticate user with provided data."""
+        method_str = auth_data.get('method', 'master_key')
+        try:
+            method = AuthMethod(method_str)
+        except ValueError:
+            return AuthResult(
+                success=False,
+                method=AuthMethod.MASTER_KEY,
+                error_message=f"Unsupported authentication method: {method_str}"
+            )
+
+        user_id = auth_data.get('user_id', '')
+
+        # Check lockout
+        if self._is_locked_out(user_id):
+            return AuthResult(
+                success=False,
+                method=method,
+                user_id=user_id,
+                error_message="Account temporarily locked due to too many failed attempts"
+            )
+
+        # Perform authentication based on method
+        if method == AuthMethod.MASTER_KEY:
+            return await self._authenticate_master_key(auth_data)
+        elif method == AuthMethod.PIN_CODE:
+            return await self._authenticate_pin(auth_data)
+        else:
+            return AuthResult(
+                success=False,
+                method=method,
+                user_id=user_id,
+                error_message=f"Authentication method {method.value} not implemented"
+            )
+
+    async def _authenticate_master_key(self, auth_data: Dict[str, Any]) -> AuthResult:
+        """Authenticate using master key."""
+        provided_key = auth_data.get('key', '')
+        user_id = auth_data.get('user_id', '')
+
+        # Check against all master keys
+        for key_name, master_key in self.master_keys.items():
+            if provided_key == master_key:
+                session_id = hashlib.sha256(f"{user_id}_{time.time()}".encode()).hexdigest()[:16]
+                self._authenticated_sessions.add(session_id)
+                return AuthResult(
+                    success=True,
+                    method=AuthMethod.MASTER_KEY,
+                    user_id=user_id,
+                    session_id=session_id
+                )
+
+        # Failed authentication
+        self._record_failed_attempt(user_id)
+        return AuthResult(
+            success=False,
+            method=AuthMethod.MASTER_KEY,
+            user_id=user_id,
+            error_message="Invalid master key"
+        )
+
+    async def _authenticate_pin(self, auth_data: Dict[str, Any]) -> AuthResult:
+        """Authenticate using PIN code."""
+        provided_pin = auth_data.get('pin', '')
+        user_id = auth_data.get('user_id', '')
+
+        if provided_pin == self.pin_code:
+            session_id = hashlib.sha256(f"{user_id}_{time.time()}".encode()).hexdigest()[:16]
+            self._authenticated_sessions.add(session_id)
+            return AuthResult(
+                success=True,
+                method=AuthMethod.PIN_CODE,
+                user_id=user_id,
+                session_id=session_id
+            )
+
+        self._record_failed_attempt(user_id)
+        return AuthResult(
+            success=False,
+            method=AuthMethod.PIN_CODE,
+            user_id=user_id,
+            error_message="Invalid PIN code"
+        )
+
+    def _record_failed_attempt(self, user_id: str):
+        """Record failed authentication attempt."""
+        self._failed_attempts[user_id] = self._failed_attempts.get(user_id, 0) + 1
+        if self._failed_attempts[user_id] >= self.max_attempts:
+            self._lockout_until[user_id] = time.time() + self.lockout_duration
+
+    def _is_locked_out(self, user_id: str) -> bool:
+        """Check if user is locked out."""
+        if user_id in self._lockout_until:
+            if time.time() < self._lockout_until[user_id]:
+                return True
+            else:
+                # Lockout expired, clear it
+                del self._lockout_until[user_id]
+                self._failed_attempts[user_id] = 0
+        return False
 
     def _detect_hardware_capabilities(self) -> Dict[str, bool]:
         """Detect available hardware authentication capabilities."""
@@ -47,6 +202,22 @@ logger = get_logger(__name__)
         capabilities['master_key'] = True
 
         return capabilities
+
+    def _check_yubikey_available(self) -> bool:
+        """Check if YubiKey is available."""
+        # In production, this would check for actual YubiKey hardware
+        # For testing, we simulate based on config
+        return 'yubikey' in self.allowed_methods
+
+    def _check_touch_id_available(self) -> bool:
+        """Check if Touch ID is available."""
+        import platform
+        return platform.system() == 'Darwin'  # macOS only
+
+    def _check_biometric_available(self) -> bool:
+        """Check if biometric auth is available."""
+        import platform
+        return platform.system() == 'Windows'  # Windows Hello
 
     def _check_yubikey_available(self) -> bool:
         """Check if YubiKey is available."""
