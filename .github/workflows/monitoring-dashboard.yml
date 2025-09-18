@@ -78,9 +78,10 @@ jobs:
 
           HTTP_CODE=$(echo "$RESPONSE" | cut -d':' -f1)
           RESPONSE_TIME=$(echo "$RESPONSE" | cut -d':' -f2)
-          # More robust calculation using awk instead of bc
+          # More robust calculation using pure bash
           if [[ "$RESPONSE_TIME" =~ ^[0-9]+\.?[0-9]*$ ]]; then
-            RESPONSE_TIME_MS=$(echo "$RESPONSE_TIME" | awk '{printf "%.0f", $1 * 1000}')
+            # Multiply by 1000 and convert to integer using bash arithmetic
+            RESPONSE_TIME_MS=$(printf "%.0f" $(echo "$RESPONSE_TIME * 1000" | bc -l))
           else
             RESPONSE_TIME_MS="999000"  # Default for invalid input
           fi
