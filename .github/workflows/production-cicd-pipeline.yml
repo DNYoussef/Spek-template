@@ -358,7 +358,7 @@ jobs:
         REALITY_PASSED=0
 
         # Check 1: Test files actually contain meaningful assertions
-        if find . -name "*test*" -name "*.py" -o -name "*test*" -name "*.js" | head -5 | xargs grep -l "assert\|expect" >/dev/null 2>&1; then
+        if find . \( -name "*test*.py" -o -name "*test*.js" \) -type f 2>/dev/null | head -5 | xargs grep -l "assert\|expect" >/dev/null 2>&1; then
           ((REALITY_PASSED++))
           echo "✅ Tests contain real assertions"
         else
