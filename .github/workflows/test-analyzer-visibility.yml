@@ -39,8 +39,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_REPOSITORY: ${{ github.repository }}
         TEST_COMMIT_SHA: ${{ github.sha }}
+        TEST_MODE: 'true'  # This ensures test data is used, not real analyzer results
       run: |
-        echo "Testing GitHub Status Reporter with real credentials..."
+        echo "Testing GitHub Status Reporter in TEST MODE..."
+        echo "TEST_MODE is set - will use test data for visibility testing"
         cd analyzer
         python github_status_reporter.py
         echo "test_result=success" >> $GITHUB_OUTPUT
