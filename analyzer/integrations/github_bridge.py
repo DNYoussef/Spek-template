@@ -444,16 +444,16 @@ class GitHubBridge:
         """Determine GitHub status state from analysis results."""
         # Use real analysis result fields
         if result.get("critical_count", 0) > 0:
-            return "failure", f"{result.get("critical_count", 0)} critical violations found"
+            return "failure", f"{result.get('critical_count', 0)} critical violations found"
 
         if result.get("high_count", 0) > 5:
-            return "failure", f"Too many high severity violations ({result.get("high_count", 0)})"
+            return "failure", f"Too many high severity violations ({result.get('high_count', 0)})"
 
         if result.nasa_compliance_score < 0.9:
             return "failure", f"NASA compliance below threshold ({result.nasa_compliance_score:.1%})"
 
         if result.get("high_count", 0) > 0:
-            return "success", f"Passed with {result.get("high_count", 0)} warnings"
+            return "success", f"Passed with {result.get('high_count', 0)} warnings"
 
         return "success", "All quality checks passed"
 
