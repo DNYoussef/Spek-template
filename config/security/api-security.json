@@ -1,0 +1,158 @@
+{
+  "apiSecurity": {
+    "rateLimiting": {
+      "globalLimit": {
+        "requests": 1000,
+        "windowMs": 900000,
+        "message": "Too many requests from this IP"
+      },
+      "endpointLimits": {
+        "/api/auth": {
+          "requests": 5,
+          "windowMs": 900000,
+          "skipSuccessfulRequests": true
+        },
+        "/api/analyze": {
+          "requests": 100,
+          "windowMs": 600000
+        },
+        "/api/upload": {
+          "requests": 10,
+          "windowMs": 600000
+        }
+      }
+    },
+    "cors": {
+      "origin": [
+        "https://localhost:3000",
+        "https://spek-analyzer.app"
+      ],
+      "credentials": true,
+      "optionsSuccessStatus": 200,
+      "allowedHeaders": [
+        "Authorization",
+        "Content-Type",
+        "X-Requested-With"
+      ],
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    },
+    "headers": {
+      "contentSecurityPolicy": {
+        "directives": {
+          "defaultSrc": ["'self'"],
+          "scriptSrc": ["'self'", "'unsafe-inline'"],
+          "styleSrc": ["'self'", "'unsafe-inline'"],
+          "imgSrc": ["'self'", "data:", "https:"],
+          "connectSrc": ["'self'"],
+          "fontSrc": ["'self'"],
+          "objectSrc": ["'none'"],
+          "mediaSrc": ["'self'"],
+          "frameSrc": ["'none'"]
+        }
+      },
+      "strictTransportSecurity": {
+        "maxAge": 31536000,
+        "includeSubDomains": true,
+        "preload": true
+      },
+      "xFrameOptions": "DENY",
+      "xContentTypeOptions": "nosniff",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "permissions": {
+        "camera": "none",
+        "microphone": "none",
+        "geolocation": "none"
+      }
+    },
+    "authentication": {
+      "jwt": {
+        "algorithm": "HS256",
+        "expiresIn": "1h",
+        "issuer": "spek-analyzer",
+        "audience": "spek-users"
+      },
+      "session": {
+        "secure": true,
+        "httpOnly": true,
+        "sameSite": "strict",
+        "maxAge": 3600000
+      },
+      "bcrypt": {
+        "saltRounds": 12
+      }
+    },
+    "validation": {
+      "inputSanitization": true,
+      "maxPayloadSize": "10mb",
+      "fileUpload": {
+        "allowedTypes": [".py", ".js", ".ts", ".json", ".md"],
+        "maxFileSize": "5mb",
+        "virusScanning": true
+      }
+    },
+    "monitoring": {
+      "logLevel": "info",
+      "auditTrail": true,
+      "failedAuthAttempts": {
+        "maxAttempts": 5,
+        "windowMs": 900000,
+        "blockDuration": 3600000
+      },
+      "suspiciousActivity": {
+        "rapidRequests": true,
+        "unusualPatterns": true,
+        "ipWhitelist": []
+      }
+    }
+  },
+  "compliance": {
+    "dataProtection": {
+      "encryption": {
+        "algorithm": "AES-256-GCM",
+        "keyRotation": "monthly"
+      },
+      "retention": {
+        "logFiles": "90d",
+        "userSessions": "24h",
+        "auditTrail": "365d"
+      },
+      "privacy": {
+        "dataMinimization": true,
+        "consentTracking": true,
+        "rightToErasure": true
+      }
+    },
+    "apiProviders": {
+      "openai": {
+        "dataProcessing": "compliant",
+        "retention": "per-terms",
+        "privacy": "enterprise-grade"
+      },
+      "neo4j": {
+        "dataProcessing": "local",
+        "encryption": "at-rest-in-transit",
+        "compliance": "gdpr-ready"
+      }
+    },
+    "legal": {
+      "contentAttribution": {
+        "paizoPolicy": {
+          "compliance": true,
+          "attribution": "This game uses trademarks and/or copyrights owned by Paizo Inc.",
+          "restriction": "community-use-only",
+          "commercialUse": false
+        },
+        "openSource": {
+          "license": "MIT",
+          "attribution": "required",
+          "copyleft": false
+        }
+      },
+      "termsOfService": {
+        "userAcceptance": "required",
+        "dataUsage": "transparent",
+        "liability": "limited"
+      }
+    }
+  }
+}

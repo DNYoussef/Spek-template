@@ -1,0 +1,27 @@
+{
+  "name": "spek-desktop-automation-mcp",
+  "version": "1.0.0",
+  "description": "SPEK Desktop Automation MCP Server Bridge for Bytebot Integration",
+  "main": "desktop-automation-mcp.js",
+  "scripts": {
+    "start": "node desktop-automation-mcp.js",
+    "test": "node test-desktop-mcp.js",
+    "health-check": "node health-check.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "axios": "^1.6.0"
+  },
+  "keywords": [
+    "mcp",
+    "desktop-automation",
+    "bytebot",
+    "spek",
+    "ai-agents"
+  ],
+  "author": "SPEK Development Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

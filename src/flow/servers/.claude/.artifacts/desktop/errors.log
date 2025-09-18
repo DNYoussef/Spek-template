@@ -1,0 +1,2 @@
+{"timestamp":"2025-09-18T16:19:02.266Z","operation":"desktop_click","error":"X coordinate 5000 exceeds security bounds","sessionId":"desktop-mock-805e3296"}
+{"timestamp":"2025-09-18T16:19:02.274Z","operation":"unknown_tool","error":"Unknown tool: unknown_tool","sessionId":"desktop-mock-0d9154cf"}

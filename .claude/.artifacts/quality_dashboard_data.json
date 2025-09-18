@@ -1,0 +1,359 @@
+{
+  "current_metrics": {
+    "timestamp": "2025-09-18T11:59:46.551733",
+    "overall_score": 75.0,
+    "theater_detection_score": 65.0,
+    "test_coverage": 70.0,
+    "security_violations": 0,
+    "complexity_score": 8.5,
+    "nasa_compliance": 85.0,
+    "gate_pass_rate": 75.0,
+    "trend": "improving"
+  },
+  "historical_data": [
+    {
+      "timestamp": "2025-08-19T11:59:46.551733",
+      "overall_score": 50.0,
+      "theater_detection_score": 40.0,
+      "test_coverage": 60.0,
+      "security_violations": 5,
+      "complexity_score": 15.0,
+      "nasa_compliance": 70.0,
+      "gate_pass_rate": 60.0,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-20T11:59:46.551733",
+      "overall_score": 51.03448275862069,
+      "theater_detection_score": 41.206896551724135,
+      "test_coverage": 60.86206896551724,
+      "security_violations": 4,
+      "complexity_score": 14.758620689655173,
+      "nasa_compliance": 70.86206896551724,
+      "gate_pass_rate": 61.03448275862069,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-21T11:59:46.551733",
+      "overall_score": 52.06896551724138,
+      "theater_detection_score": 42.41379310344828,
+      "test_coverage": 61.724137931034484,
+      "security_violations": 4,
+      "complexity_score": 14.517241379310345,
+      "nasa_compliance": 71.72413793103448,
+      "gate_pass_rate": 62.06896551724138,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-22T11:59:46.551733",
+      "overall_score": 53.10344827586207,
+      "theater_detection_score": 43.62068965517241,
+      "test_coverage": 62.58620689655172,
+      "security_violations": 4,
+      "complexity_score": 14.275862068965518,
+      "nasa_compliance": 72.58620689655173,
+      "gate_pass_rate": 63.10344827586207,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-23T11:59:46.551733",
+      "overall_score": 54.13793103448276,
+      "theater_detection_score": 44.827586206896555,
+      "test_coverage": 63.44827586206897,
+      "security_violations": 4,
+      "complexity_score": 14.03448275862069,
+      "nasa_compliance": 73.44827586206897,
+      "gate_pass_rate": 64.13793103448276,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-24T11:59:46.551733",
+      "overall_score": 55.172413793103445,
+      "theater_detection_score": 46.03448275862069,
+      "test_coverage": 64.3103448275862,
+      "security_violations": 4,
+      "complexity_score": 13.793103448275861,
+      "nasa_compliance": 74.3103448275862,
+      "gate_pass_rate": 65.17241379310344,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-25T11:59:46.551733",
+      "overall_score": 56.206896551724135,
+      "theater_detection_score": 47.241379310344826,
+      "test_coverage": 65.17241379310344,
+      "security_violations": 3,
+      "complexity_score": 13.551724137931034,
+      "nasa_compliance": 75.17241379310344,
+      "gate_pass_rate": 66.20689655172414,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-26T11:59:46.551733",
+      "overall_score": 57.241379310344826,
+      "theater_detection_score": 48.44827586206897,
+      "test_coverage": 66.03448275862068,
+      "security_violations": 3,
+      "complexity_score": 13.310344827586206,
+      "nasa_compliance": 76.03448275862068,
+      "gate_pass_rate": 67.24137931034483,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-27T11:59:46.551733",
+      "overall_score": 58.275862068965516,
+      "theater_detection_score": 49.6551724137931,
+      "test_coverage": 66.89655172413794,
+      "security_violations": 3,
+      "complexity_score": 13.068965517241379,
+      "nasa_compliance": 76.89655172413794,
+      "gate_pass_rate": 68.27586206896552,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-28T11:59:46.551733",
+      "overall_score": 59.310344827586206,
+      "theater_detection_score": 50.86206896551724,
+      "test_coverage": 67.75862068965517,
+      "security_violations": 3,
+      "complexity_score": 12.827586206896552,
+      "nasa_compliance": 77.75862068965517,
+      "gate_pass_rate": 69.3103448275862,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-29T11:59:46.551733",
+      "overall_score": 60.3448275862069,
+      "theater_detection_score": 52.06896551724138,
+      "test_coverage": 68.62068965517241,
+      "security_violations": 3,
+      "complexity_score": 12.586206896551724,
+      "nasa_compliance": 78.62068965517241,
+      "gate_pass_rate": 70.34482758620689,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-30T11:59:46.551733",
+      "overall_score": 61.37931034482759,
+      "theater_detection_score": 53.275862068965516,
+      "test_coverage": 69.48275862068965,
+      "security_violations": 3,
+      "complexity_score": 12.344827586206897,
+      "nasa_compliance": 79.48275862068965,
+      "gate_pass_rate": 71.37931034482759,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-08-31T11:59:46.551733",
+      "overall_score": 62.41379310344828,
+      "theater_detection_score": 54.48275862068965,
+      "test_coverage": 70.34482758620689,
+      "security_violations": 2,
+      "complexity_score": 12.10344827586207,
+      "nasa_compliance": 80.34482758620689,
+      "gate_pass_rate": 72.41379310344827,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-01T11:59:46.551733",
+      "overall_score": 63.44827586206897,
+      "theater_detection_score": 55.689655172413794,
+      "test_coverage": 71.20689655172414,
+      "security_violations": 2,
+      "complexity_score": 11.862068965517242,
+      "nasa_compliance": 81.20689655172414,
+      "gate_pass_rate": 73.44827586206897,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-02T11:59:46.551733",
+      "overall_score": 64.48275862068965,
+      "theater_detection_score": 56.896551724137936,
+      "test_coverage": 72.06896551724138,
+      "security_violations": 2,
+      "complexity_score": 11.620689655172413,
+      "nasa_compliance": 82.06896551724138,
+      "gate_pass_rate": 74.48275862068965,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-03T11:59:46.551733",
+      "overall_score": 65.51724137931035,
+      "theater_detection_score": 58.10344827586207,
+      "test_coverage": 72.93103448275862,
+      "security_violations": 2,
+      "complexity_score": 11.379310344827585,
+      "nasa_compliance": 82.93103448275862,
+      "gate_pass_rate": 75.51724137931035,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-04T11:59:46.551733",
+      "overall_score": 66.55172413793103,
+      "theater_detection_score": 59.310344827586206,
+      "test_coverage": 73.79310344827586,
+      "security_violations": 2,
+      "complexity_score": 11.137931034482758,
+      "nasa_compliance": 83.79310344827586,
+      "gate_pass_rate": 76.55172413793103,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-05T11:59:46.551733",
+      "overall_score": 67.58620689655172,
+      "theater_detection_score": 60.51724137931034,
+      "test_coverage": 74.6551724137931,
+      "security_violations": 2,
+      "complexity_score": 10.896551724137932,
+      "nasa_compliance": 84.6551724137931,
+      "gate_pass_rate": 77.58620689655172,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-06T11:59:46.551733",
+      "overall_score": 68.62068965517241,
+      "theater_detection_score": 61.724137931034484,
+      "test_coverage": 75.51724137931035,
+      "security_violations": 1,
+      "complexity_score": 10.655172413793103,
+      "nasa_compliance": 85.51724137931035,
+      "gate_pass_rate": 78.62068965517241,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-07T11:59:46.551733",
+      "overall_score": 69.65517241379311,
+      "theater_detection_score": 62.93103448275862,
+      "test_coverage": 76.37931034482759,
+      "security_violations": 1,
+      "complexity_score": 10.413793103448276,
+      "nasa_compliance": 86.37931034482759,
+      "gate_pass_rate": 79.65517241379311,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-08T11:59:46.551733",
+      "overall_score": 70.6896551724138,
+      "theater_detection_score": 64.13793103448276,
+      "test_coverage": 77.24137931034483,
+      "security_violations": 1,
+      "complexity_score": 10.172413793103448,
+      "nasa_compliance": 87.24137931034483,
+      "gate_pass_rate": 80.6896551724138,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-09T11:59:46.551733",
+      "overall_score": 71.72413793103448,
+      "theater_detection_score": 65.34482758620689,
+      "test_coverage": 78.10344827586206,
+      "security_violations": 1,
+      "complexity_score": 9.931034482758621,
+      "nasa_compliance": 88.10344827586206,
+      "gate_pass_rate": 81.72413793103448,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-10T11:59:46.551733",
+      "overall_score": 72.75862068965517,
+      "theater_detection_score": 66.55172413793103,
+      "test_coverage": 78.9655172413793,
+      "security_violations": 1,
+      "complexity_score": 9.689655172413794,
+      "nasa_compliance": 88.9655172413793,
+      "gate_pass_rate": 82.75862068965517,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-11T11:59:46.551733",
+      "overall_score": 73.79310344827587,
+      "theater_detection_score": 67.75862068965517,
+      "test_coverage": 79.82758620689656,
+      "security_violations": 1,
+      "complexity_score": 9.448275862068964,
+      "nasa_compliance": 89.82758620689656,
+      "gate_pass_rate": 83.79310344827587,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-12T11:59:46.551733",
+      "overall_score": 74.82758620689656,
+      "theater_detection_score": 68.9655172413793,
+      "test_coverage": 80.6896551724138,
+      "security_violations": 0,
+      "complexity_score": 9.206896551724139,
+      "nasa_compliance": 90.6896551724138,
+      "gate_pass_rate": 84.82758620689656,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-13T11:59:46.551733",
+      "overall_score": 75.86206896551724,
+      "theater_detection_score": 70.17241379310344,
+      "test_coverage": 81.55172413793103,
+      "security_violations": 0,
+      "complexity_score": 8.96551724137931,
+      "nasa_compliance": 91.55172413793103,
+      "gate_pass_rate": 85.86206896551724,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-14T11:59:46.551733",
+      "overall_score": 76.89655172413794,
+      "theater_detection_score": 71.37931034482759,
+      "test_coverage": 82.41379310344828,
+      "security_violations": 0,
+      "complexity_score": 8.724137931034482,
+      "nasa_compliance": 92.41379310344828,
+      "gate_pass_rate": 86.89655172413794,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-15T11:59:46.551733",
+      "overall_score": 77.93103448275862,
+      "theater_detection_score": 72.58620689655172,
+      "test_coverage": 83.27586206896552,
+      "security_violations": 0,
+      "complexity_score": 8.482758620689655,
+      "nasa_compliance": 93.27586206896552,
+      "gate_pass_rate": 87.93103448275862,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-16T11:59:46.551733",
+      "overall_score": 78.96551724137932,
+      "theater_detection_score": 73.79310344827587,
+      "test_coverage": 84.13793103448276,
+      "security_violations": 0,
+      "complexity_score": 8.241379310344827,
+      "nasa_compliance": 94.13793103448276,
+      "gate_pass_rate": 88.96551724137932,
+      "trend": "improving"
+    },
+    {
+      "timestamp": "2025-09-17T11:59:46.551733",
+      "overall_score": 80.0,
+      "theater_detection_score": 75.0,
+      "test_coverage": 85.0,
+      "security_violations": 0,
+      "complexity_score": 8.0,
+      "nasa_compliance": 95.0,
+      "gate_pass_rate": 90.0,
+      "trend": "improving"
+    }
+  ],
+  "gate_status": {
+    "gate_results": [],
+    "summary": {
+      "overall_status": "UNKNOWN",
+      "blocking_failures": 0
+    }
+  },
+  "recommendations": [
+    "Increase test coverage from 70.0% to 80.0% minimum",
+    "Improve NASA compliance from 85.0% to 90.0% for defense industry readiness",
+    "Quality trend is improving - Continue current practices and maintain momentum"
+  ],
+  "alerts": [],
+  "generated_at": "2025-09-18T11:59:46.552243"
+}

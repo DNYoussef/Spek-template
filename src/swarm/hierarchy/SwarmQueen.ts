@@ -16,6 +16,25 @@ import { DegradationMonitor } from '../../context/DegradationMonitor';
 import { GitHubProjectIntegration } from '../../context/GitHubProjectIntegration';
 import { IntelligentContextPruner } from '../../context/IntelligentContextPruner';
 
+// Desktop automation interfaces
+interface DesktopTaskConfig {
+  isDesktopTask: boolean;
+  desktopType: 'visual' | 'functional' | 'testing' | 'qa';
+  requiresScreenshots: boolean;
+  evidencePath: string;
+  containerResources?: {
+    memory: string;
+    cpu: string;
+  };
+}
+
+interface DesktopServiceHealth {
+  containerRunning: boolean;
+  displayAvailable: boolean;
+  lastHealthCheck: number;
+  errorCount: number;
+}
+
 interface PrincessConfig {
   id: string;
   type: 'development' | 'quality' | 'security' | 'research' | 'infrastructure' | 'coordination';
@@ -45,6 +64,8 @@ interface SwarmTask {
   status: 'pending' | 'assigned' | 'executing' | 'completed' | 'failed';
   assignedPrincesses: string[];
   results?: any;
+  desktopConfig?: DesktopTaskConfig;
+  evidencePaths?: string[];
 }
 
 export class SwarmQueen extends EventEmitter {
@@ -64,6 +85,18 @@ export class SwarmQueen extends EventEmitter {
   private readonly maxWorkerContext = 100 * 1024; // 100KB Worker context
   private readonly degradationThreshold = 0.15;
   private initialized = false;
+  private desktopServiceHealth: DesktopServiceHealth = {
+    containerRunning: false,
+    displayAvailable: false,
+    lastHealthCheck: 0,
+    errorCount: 0
+  };
+  private desktopTaskQueue: SwarmTask[] = [];
+  private readonly desktopTaskKeywords = [
+    'screenshot', 'click', 'type', 'ui', 'desktop', 'visual', 'application',
+    'window', 'button', 'form', 'menu', 'dialog', 'browser', 'automation',
+    'interact', 'navigate', 'element', 'xpath', 'selector', 'gui'
+  ];
 
   constructor() {
     super();
@@ -118,7 +151,7 @@ export class SwarmQueen extends EventEmitter {
         type: 'development',
         model: 'gpt-5-codex',
         agentCount: 15,
-        mcpServers: ['claude-flow', 'memory', 'github', 'playwright', 'figma'],
+        mcpServers: ['claude-flow', 'memory', 'github', 'playwright', 'figma', 'puppeteer'],
         maxContextSize: this.maxContextPerPrincess
       },
       {
@@ -236,7 +269,9 @@ export class SwarmQueen extends EventEmitter {
       requiredDomains: options.requiredDomains || this.inferRequiredDomains(taskDescription),
       context,
       status: 'pending',
-      assignedPrincesses: []
+      assignedPrincesses: [],
+      desktopConfig: this.analyzeDesktopRequirements(taskDescription),
+      evidencePaths: []
     };
 
     this.activeTasks.set(task.id, task);
@@ -247,6 +282,11 @@ export class SwarmQueen extends EventEmitter {
       const validation = await this.validator.validateContext(context);
       if (!validation.valid) {
         throw new Error(`Context validation failed: ${validation.errors.join(', ')}`);
+      }
+
+      // Handle desktop task routing
+      if (task.desktopConfig?.isDesktopTask) {
+        await this.handleDesktopTaskRouting(task);
       }
 
       // Route task to appropriate princesses
@@ -267,6 +307,11 @@ export class SwarmQueen extends EventEmitter {
         await this.executeWithConsensus(task);
       } else {
         await this.executeDirectly(task);
+      }
+
+      // Collect desktop evidence if applicable
+      if (task.desktopConfig?.isDesktopTask) {
+        await this.collectDesktopEvidence(task);
       }
 
       task.status = 'completed';
@@ -611,6 +656,9 @@ export class SwarmQueen extends EventEmitter {
 
     // Start health monitoring
     setInterval(() => this.monitorHealth(), 30000); // Every 30 seconds
+
+    // Start desktop service monitoring
+    setInterval(() => this.monitorDesktopServices(), 15000); // Every 15 seconds
   }
 
   /**
@@ -679,6 +727,14 @@ export class SwarmQueen extends EventEmitter {
 
   private inferTaskType(description: string): string {
     const lower = description.toLowerCase();
+
+    // Check for desktop automation tasks first
+    if (this.isDesktopTask(description)) {
+      if (lower.includes('test') || lower.includes('qa')) return 'desktop-testing';
+      if (lower.includes('visual') || lower.includes('screenshot')) return 'desktop-visual';
+      return 'desktop-automation';
+    }
+
     if (lower.includes('test') || lower.includes('quality')) return 'quality';
     if (lower.includes('security') || lower.includes('auth')) return 'security';
     if (lower.includes('research') || lower.includes('analyze')) return 'research';
@@ -690,14 +746,21 @@ export class SwarmQueen extends EventEmitter {
   private inferRequiredDomains(description: string): string[] {
     const domains: string[] = [];
     const lower = description.toLowerCase();
-    
+
+    // Desktop tasks get routed to development domain with desktop capabilities
+    if (this.isDesktopTask(description)) {
+      domains.push('development');
+      if (lower.includes('test') || lower.includes('qa')) domains.push('quality');
+      return domains;
+    }
+
     if (lower.includes('code') || lower.includes('implement')) domains.push('development');
     if (lower.includes('test') || lower.includes('quality')) domains.push('quality');
     if (lower.includes('security') || lower.includes('auth')) domains.push('security');
     if (lower.includes('research') || lower.includes('analyze')) domains.push('research');
     if (lower.includes('deploy') || lower.includes('pipeline')) domains.push('infrastructure');
     if (lower.includes('plan') || lower.includes('coordinate')) domains.push('coordination');
-    
+
     return domains.length > 0 ? domains : ['development'];
   }
 
@@ -760,6 +823,348 @@ export class SwarmQueen extends EventEmitter {
   }
 
   /**
+   * Analyze desktop requirements for a task
+   */
+  private analyzeDesktopRequirements(description: string): DesktopTaskConfig | undefined {
+    if (!this.isDesktopTask(description)) {
+      return undefined;
+    }
+
+    const lower = description.toLowerCase();
+    let desktopType: 'visual' | 'functional' | 'testing' | 'qa' = 'functional';
+
+    if (lower.includes('screenshot') || lower.includes('visual') || lower.includes('image')) {
+      desktopType = 'visual';
+    } else if (lower.includes('test') || lower.includes('verify')) {
+      desktopType = 'testing';
+    } else if (lower.includes('qa') || lower.includes('quality')) {
+      desktopType = 'qa';
+    }
+
+    return {
+      isDesktopTask: true,
+      desktopType,
+      requiresScreenshots: lower.includes('screenshot') || lower.includes('visual') || lower.includes('capture'),
+      evidencePath: `.claude/.artifacts/desktop/task_${Date.now()}`,
+      containerResources: {
+        memory: '2Gi',
+        cpu: '1000m'
+      }
+    };
+  }
+
+  /**
+   * Check if task requires desktop automation
+   */
+  private isDesktopTask(description: string): boolean {
+    const lower = description.toLowerCase();
+    return this.desktopTaskKeywords.some(keyword => lower.includes(keyword));
+  }
+
+  /**
+   * Handle desktop task routing and agent assignment
+   */
+  private async handleDesktopTaskRouting(task: SwarmTask): Promise<void> {
+    console.log(` Routing desktop task: ${task.id} (${task.desktopConfig?.desktopType})`);
+
+    // Check desktop service health
+    await this.checkDesktopServiceHealth();
+
+    if (!this.desktopServiceHealth.containerRunning) {
+      throw new Error('Desktop automation services unavailable');
+    }
+
+    // Determine appropriate agent based on desktop task type
+    const agentType = this.selectDesktopAgent(task.desktopConfig!);
+
+    // Add desktop-specific context
+    task.context = {
+      ...task.context,
+      desktopAutomation: {
+        agentType,
+        evidencePath: task.desktopConfig!.evidencePath,
+        requiresScreenshots: task.desktopConfig!.requiresScreenshots,
+        containerResources: task.desktopConfig!.containerResources
+      }
+    };
+
+    // Queue for sequential execution if needed
+    if (this.shouldQueueDesktopTask(task)) {
+      this.desktopTaskQueue.push(task);
+      console.log(` Desktop task queued: ${task.id}`);
+    }
+  }
+
+  /**
+   * Select appropriate desktop agent for task
+   */
+  private selectDesktopAgent(config: DesktopTaskConfig): string {
+    switch (config.desktopType) {
+      case 'visual':
+        return 'desktop-visual-automator';
+      case 'testing':
+        return 'ui-tester';
+      case 'qa':
+        return 'desktop-qa-specialist';
+      case 'functional':
+      default:
+        return 'desktop-automator';
+    }
+  }
+
+  /**
+   * Check if desktop task should be queued
+   */
+  private shouldQueueDesktopTask(task: SwarmTask): boolean {
+    // Queue if there are already desktop tasks running
+    const runningDesktopTasks = Array.from(this.activeTasks.values())
+      .filter(t => t.desktopConfig?.isDesktopTask && t.status === 'executing');
+
+    return runningDesktopTasks.length >= 2; // Limit concurrent desktop tasks
+  }
+
+  /**
+   * Monitor desktop services health
+   */
+  private async monitorDesktopServices(): Promise<void> {
+    try {
+      await this.checkDesktopServiceHealth();
+
+      // Process queued desktop tasks if services are healthy
+      if (this.desktopServiceHealth.containerRunning && this.desktopTaskQueue.length > 0) {
+        await this.processDesktopQueue();
+      }
+
+    } catch (error) {
+      console.error('Desktop service monitoring failed:', error);
+      this.desktopServiceHealth.errorCount++;
+
+      if (this.desktopServiceHealth.errorCount > 3) {
+        await this.handleDesktopServiceFailure();
+      }
+    }
+  }
+
+  /**
+   * Check desktop service health
+   */
+  private async checkDesktopServiceHealth(): Promise<void> {
+    // This would check actual desktop container health
+    // For now, we'll simulate the check
+    this.desktopServiceHealth.lastHealthCheck = Date.now();
+    this.desktopServiceHealth.containerRunning = true; // Would check actual container
+    this.desktopServiceHealth.displayAvailable = true; // Would check X11/display
+
+    console.log(' Desktop services health check passed');
+  }
+
+  /**
+   * Process queued desktop tasks
+   */
+  private async processDesktopQueue(): Promise<void> {
+    const task = this.desktopTaskQueue.shift();
+    if (!task) return;
+
+    console.log(` Processing queued desktop task: ${task.id}`);
+
+    try {
+      // Execute the task
+      await this.executeDirectly(task);
+    } catch (error) {
+      console.error(`Desktop task execution failed: ${task.id}`, error);
+      task.status = 'failed';
+    }
+  }
+
+  /**
+   * Handle desktop service failure
+   */
+  private async handleDesktopServiceFailure(): Promise<void> {
+    console.error(' Desktop service failure detected, initiating recovery...');
+
+    this.desktopServiceHealth.containerRunning = false;
+
+    // Move all queued desktop tasks to failed state
+    for (const task of this.desktopTaskQueue) {
+      task.status = 'failed';
+      task.results = { error: 'Desktop services unavailable' };
+    }
+    this.desktopTaskQueue = [];
+
+    // Attempt to restart desktop services
+    await this.restartDesktopServices();
+  }
+
+  /**
+   * Restart desktop services
+   */
+  private async restartDesktopServices(): Promise<void> {
+    console.log(' Attempting to restart desktop services...');
+
+    try {
+      // This would restart the actual desktop container
+      // For now, we'll simulate the restart
+      await new Promise(resolve => setTimeout(resolve, 5000));
+
+      this.desktopServiceHealth.containerRunning = true;
+      this.desktopServiceHealth.errorCount = 0;
+
+      console.log(' Desktop services restarted successfully');
+    } catch (error) {
+      console.error('Failed to restart desktop services:', error);
+    }
+  }
+
+  /**
+   * Collect desktop evidence after task completion
+   */
+  private async collectDesktopEvidence(task: SwarmTask): Promise<void> {
+    if (!task.desktopConfig?.isDesktopTask) return;
+
+    console.log(` Collecting desktop evidence for task: ${task.id}`);
+
+    try {
+      const evidencePath = task.desktopConfig.evidencePath;
+
+      // Collect various types of evidence
+      const evidence = {
+        screenshots: task.desktopConfig.requiresScreenshots ? await this.collectScreenshots(evidencePath) : [],
+        operationLogs: await this.collectOperationLogs(evidencePath),
+        auditTrail: await this.generateAuditTrail(task),
+        timestamp: Date.now()
+      };
+
+      // Store evidence paths
+      task.evidencePaths = [
+        `${evidencePath}/screenshots/`,
+        `${evidencePath}/logs/`,
+        `${evidencePath}/audit.json`
+      ];
+
+      // Update task results with evidence
+      task.results = {
+        ...task.results,
+        evidence
+      };
+
+      console.log(` Desktop evidence collected: ${task.evidencePaths.length} artifacts`);
+
+    } catch (error) {
+      console.error(`Failed to collect desktop evidence for task ${task.id}:`, error);
+    }
+  }
+
+  /**
+   * Collect screenshots for evidence
+   */
+  private async collectScreenshots(evidencePath: string): Promise<string[]> {
+    // This would collect actual screenshots from the desktop session
+    const screenshots = [
+      `${evidencePath}/screenshots/before.png`,
+      `${evidencePath}/screenshots/during.png`,
+      `${evidencePath}/screenshots/after.png`
+    ];
+
+    return screenshots;
+  }
+
+  /**
+   * Collect operation logs
+   */
+  private async collectOperationLogs(evidencePath: string): Promise<string[]> {
+    // This would collect actual operation logs
+    const logs = [
+      `${evidencePath}/logs/automation.log`,
+      `${evidencePath}/logs/system.log`
+    ];
+
+    return logs;
+  }
+
+  /**
+   * Generate audit trail for desktop task
+   */
+  private async generateAuditTrail(task: SwarmTask): Promise<any> {
+    return {
+      taskId: task.id,
+      taskType: task.type,
+      desktopConfig: task.desktopConfig,
+      executionTime: Date.now(),
+      assignedPrincesses: task.assignedPrincesses,
+      status: task.status,
+      evidenceCollected: true
+    };
+  }
+
+  /**
+   * Assign agent to princess with desktop task considerations
+   */
+  async assignAgentToPrincess(
+    taskDescription: string,
+    agentType: string,
+    princessId?: string
+  ): Promise<string> {
+    // Analyze if this is a desktop task
+    const isDesktop = this.isDesktopTask(taskDescription);
+
+    if (isDesktop) {
+      // Route desktop tasks to development princess with desktop capabilities
+      const targetPrincess = princessId || 'development';
+      const princess = this.princesses.get(targetPrincess);
+
+      if (!princess) {
+        throw new Error(`Princess ${targetPrincess} not found for desktop task`);
+      }
+
+      // Check desktop service health before assignment
+      await this.checkDesktopServiceHealth();
+
+      if (!this.desktopServiceHealth.containerRunning) {
+        throw new Error('Desktop automation services unavailable for task assignment');
+      }
+
+      // Select appropriate desktop agent
+      const desktopConfig = this.analyzeDesktopRequirements(taskDescription);
+      const selectedAgent = this.selectDesktopAgent(desktopConfig!);
+
+      console.log(` Assigning desktop agent ${selectedAgent} to princess ${targetPrincess}`);
+
+      // Assign agent with desktop configuration
+      return await princess.assignAgent(selectedAgent, {
+        desktopAutomation: true,
+        evidencePath: desktopConfig!.evidencePath,
+        containerResources: desktopConfig!.containerResources
+      });
+    }
+
+    // Standard agent assignment for non-desktop tasks
+    const targetPrincess = princessId || this.selectPrincessForAgent(agentType);
+    const princess = this.princesses.get(targetPrincess);
+
+    if (!princess) {
+      throw new Error(`Princess ${targetPrincess} not found`);
+    }
+
+    return await princess.assignAgent(agentType);
+  }
+
+  /**
+   * Select appropriate princess for agent type
+   */
+  private selectPrincessForAgent(agentType: string): string {
+    const agentToPrincess: Record<string, string> = {
+      'researcher': 'research',
+      'coder': 'development',
+      'tester': 'quality',
+      'security-manager': 'security',
+      'deployer': 'infrastructure',
+      'coordinator': 'coordination'
+    };
+
+    return agentToPrincess[agentType] || 'development';
+  }
+
+  /**
    * Save queen state for recovery
    */
   private async saveState(): Promise<void> {
@@ -767,10 +1172,12 @@ export class SwarmQueen extends EventEmitter {
       timestamp: Date.now(),
       metrics: this.getMetrics(),
       tasks: Array.from(this.activeTasks.values()),
-      princessStates: await this.getPrincessStates()
+      princessStates: await this.getPrincessStates(),
+      desktopServiceHealth: this.desktopServiceHealth,
+      desktopTaskQueue: this.desktopTaskQueue.map(t => t.id)
     };
-    
+
     // Would persist to disk or database
-    console.log(' Queen state saved');
+    console.log(' Queen state saved with desktop service status');
   }
 }

@@ -1,0 +1,411 @@
+# SPEK Enhanced Development Platform - Desktop Automation Integration
+# Production-ready Docker Compose configuration for Bytebot desktop automation
+# Version: 1.0.0
+# Last Updated: 2024-09-18
+
+version: '3.8'
+
+name: spek-desktop-automation
+
+services:
+  # Bytebot Desktop Virtual Environment
+  bytebot-desktop:
+    image: ghcr.io/bytebot-ai/bytebot-desktop:edge
+    container_name: spek-bytebot-desktop
+    hostname: spek-desktop-agent
+    restart: unless-stopped
+    privileged: false  # Security: Remove privileged mode
+    shm_size: "2g"
+    
+    ports:
+      - "${BYTEBOT_DESKTOP_PORT:-9990}:9990"  # Desktop service & noVNC
+      - "${VNC_PORT:-5900}:5900"              # VNC access
+    
+    environment:
+      - DISPLAY=:0
+      - VNC_PASSWORD=${VNC_PASSWORD:-spek2024}
+      - DESKTOP_WIDTH=${DESKTOP_WIDTH:-1920}
+      - DESKTOP_HEIGHT=${DESKTOP_HEIGHT:-1080}
+      - SCREEN_DEPTH=${SCREEN_DEPTH:-24}
+      - SPEK_AGENT_MODE=desktop
+      - EVIDENCE_COLLECTION=enabled
+      - SESSION_TIMEOUT=${SESSION_TIMEOUT:-3600}
+    
+    volumes:
+      - desktop_evidence:/app/evidence
+      - desktop_screenshots:/app/screenshots
+      - desktop_logs:/app/logs
+      - type: bind
+        source: ${SPEK_ARTIFACTS_PATH:-./.claude/.artifacts/desktop}
+        target: /app/spek-artifacts
+        read_only: false
+    
+    networks:
+      - spek-desktop-network
+      - spek-internal
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9990/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '${DESKTOP_CPU_LIMIT:-2.0}'
+          memory: ${DESKTOP_MEMORY_LIMIT:-4G}
+        reservations:
+          cpus: '${DESKTOP_CPU_RESERVE:-0.5}'
+          memory: ${DESKTOP_MEMORY_RESERVE:-1G}
+    
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:unconfined  # Required for desktop automation
+    
+    cap_add:
+      - SYS_ADMIN  # Required for desktop operations
+    
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "spek-desktop"
+
+  # PostgreSQL Database for Bytebot
+  postgres:
+    image: postgres:16-alpine
+    container_name: spek-bytebot-postgres
+    restart: unless-stopped
+    
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-spekdesktop}
+      - POSTGRES_USER=${POSTGRES_USER:-spekuser}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
+    
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./bytebot/init-scripts:/docker-entrypoint-initdb.d:ro
+    
+    networks:
+      - spek-desktop-network
+    
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-spekuser} -d ${POSTGRES_DB:-spekdesktop}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '${DB_CPU_LIMIT:-1.0}'
+          memory: ${DB_MEMORY_LIMIT:-1G}
+        reservations:
+          cpus: '${DB_CPU_RESERVE:-0.25}'
+          memory: ${DB_MEMORY_RESERVE:-256M}
+    
+    security_opt:
+      - no-new-privileges:true
+    
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "spek-postgres"
+
+  # Bytebot Agent API
+  bytebot-agent:
+    image: ghcr.io/bytebot-ai/bytebot-agent:edge
+    container_name: spek-bytebot-agent
+    restart: unless-stopped
+    
+    ports:
+      - "${BYTEBOT_AGENT_PORT:-9991}:9991"
+    
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-spekuser}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-spekdesktop}
+      - BYTEBOT_DESKTOP_BASE_URL=http://bytebot-desktop:9990
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - SPEK_INTEGRATION=enabled
+      - EVIDENCE_ENDPOINT=http://spek-evidence-collector:8080/collect
+      - SESSION_SECRET=${SESSION_SECRET}
+      - CORS_ORIGIN=${CORS_ORIGIN:-http://localhost:3000}
+      - RATE_LIMIT_WINDOW=${RATE_LIMIT_WINDOW:-900}
+      - RATE_LIMIT_MAX=${RATE_LIMIT_MAX:-100}
+    
+    volumes:
+      - agent_data:/app/data
+      - type: bind
+        source: ${SPEK_ARTIFACTS_PATH:-./.claude/.artifacts/desktop}
+        target: /app/spek-artifacts
+        read_only: false
+    
+    depends_on:
+      postgres:
+        condition: service_healthy
+      bytebot-desktop:
+        condition: service_healthy
+    
+    networks:
+      - spek-desktop-network
+      - spek-internal
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9991/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '${AGENT_CPU_LIMIT:-1.5}'
+          memory: ${AGENT_MEMORY_LIMIT:-2G}
+        reservations:
+          cpus: '${AGENT_CPU_RESERVE:-0.25}'
+          memory: ${AGENT_MEMORY_RESERVE:-512M}
+    
+    security_opt:
+      - no-new-privileges:true
+    
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "spek-agent"
+
+  # Bytebot UI Dashboard
+  bytebot-ui:
+    image: ghcr.io/bytebot-ai/bytebot-ui:edge
+    container_name: spek-bytebot-ui
+    restart: unless-stopped
+    
+    ports:
+      - "${BYTEBOT_UI_PORT:-9992}:9992"
+    
+    environment:
+      - NODE_ENV=production
+      - BYTEBOT_AGENT_BASE_URL=http://bytebot-agent:9991
+      - BYTEBOT_DESKTOP_VNC_URL=http://bytebot-desktop:9990/websockify
+      - SPEK_BRANDING=enabled
+      - UI_THEME=${UI_THEME:-spek-dark}
+      - SECURITY_HEADERS=enabled
+    
+    depends_on:
+      bytebot-agent:
+        condition: service_healthy
+    
+    networks:
+      - spek-desktop-network
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9992/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '${UI_CPU_LIMIT:-0.5}'
+          memory: ${UI_MEMORY_LIMIT:-512M}
+        reservations:
+          cpus: '${UI_CPU_RESERVE:-0.1}'
+          memory: ${UI_MEMORY_RESERVE:-128M}
+    
+    security_opt:
+      - no-new-privileges:true
+    
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+        tag: "spek-ui"
+
+  # SPEK Evidence Collector Service
+  spek-evidence-collector:
+    image: nginx:alpine
+    container_name: spek-evidence-collector
+    restart: unless-stopped
+    
+    ports:
+      - "${EVIDENCE_PORT:-8080}:80"
+    
+    volumes:
+      - type: bind
+        source: ${SPEK_ARTIFACTS_PATH:-./.claude/.artifacts/desktop}
+        target: /usr/share/nginx/html/evidence
+        read_only: false
+      - ./bytebot/nginx.conf:/etc/nginx/nginx.conf:ro
+    
+    networks:
+      - spek-desktop-network
+    
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 64M
+    
+    security_opt:
+      - no-new-privileges:true
+    
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
+        tag: "spek-evidence"
+
+  # Redis for Caching and Session Management
+  redis:
+    image: redis:7-alpine
+    container_name: spek-redis
+    restart: unless-stopped
+    
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    
+    command: redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 256mb --maxmemory-policy allkeys-lru
+    
+    volumes:
+      - redis_data:/data
+    
+    networks:
+      - spek-desktop-network
+    
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
+    
+    security_opt:
+      - no-new-privileges:true
+    
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
+        tag: "spek-redis"
+
+# Network Configuration
+networks:
+  spek-desktop-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+    driver_opts:
+      com.docker.network.bridge.name: spek-desktop-br
+  
+  spek-internal:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
+
+# Volume Configuration
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_VOLUME_PATH:-./data/postgres}
+  
+  desktop_evidence:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${EVIDENCE_VOLUME_PATH:-./data/evidence}
+  
+  desktop_screenshots:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SCREENSHOTS_VOLUME_PATH:-./data/screenshots}
+  
+  desktop_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${LOGS_VOLUME_PATH:-./data/logs}
+  
+  agent_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${AGENT_DATA_PATH:-./data/agent}
+  
+  redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${REDIS_DATA_PATH:-./data/redis}
+
+# Health Check and Monitoring Labels
+x-healthcheck-defaults: &healthcheck-defaults
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 30s
+
+x-logging-defaults: &logging-defaults
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+x-security-defaults: &security-defaults
+  - no-new-privileges:true
+
+# Metadata
+labels:
+  - "com.spek.project=desktop-automation"
+  - "com.spek.version=1.0.0"
+  - "com.spek.environment=${ENVIRONMENT:-development}"
+  - "com.spek.maintainer=spek-team"

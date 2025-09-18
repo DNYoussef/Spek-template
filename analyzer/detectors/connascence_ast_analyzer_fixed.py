@@ -8,6 +8,11 @@ Replaces the stub implementation that was returning empty lists.
 import ast
 from typing import List, Optional
 import logging
+
+# Import base classes and types
+from .base import DetectorBase
+from ..utils.types import ConnascenceViolation
+
 logger = logging.getLogger(__name__)
 
 

@@ -1,0 +1,1874 @@
+Run started:2025-09-18 15:52:02.801421
+
+Test results:
+>> Issue: [B405:blacklist] Using xml.etree.ElementTree to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree with the equivalent defusedxml package, or make sure defusedxml.defuse_stdlib() is called.
+   Severity: Low   Confidence: High
+   CWE: CWE-20 (https://cwe.mitre.org/data/definitions/20.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b405-import-xml-etree
+   Location: analyzer/architecture\connascence_reporter.py:15:0
+14	from pathlib import Path
+15	import xml.etree.ElementTree as ET
+16	from dataclasses import asdict
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/architecture\refactoring_audit_report.py:739:12
+738	
+739	            except Exception:
+740	                pass
+741	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/architecture\refactoring_audit_report.py:770:12
+769	
+770	            except Exception:
+771	                pass
+772	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/architecture\refactoring_audit_report.py:793:12
+792	
+793	            except Exception:
+794	                pass
+795	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/architecture\refactoring_audit_report.py:815:12
+814	
+815	            except Exception:
+816	                pass
+817	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/architecture\refactoring_audit_report.py:836:12
+835	
+836	            except Exception:
+837	                pass
+838	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/architecture\refactoring_audit_report.py:874:12
+873	
+874	            except Exception:
+875	                pass
+876	
+
+--------------------------------------------------
+>> Issue: [B405:blacklist] Using xml.etree.ElementTree to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree with the equivalent defusedxml package, or make sure defusedxml.defuse_stdlib() is called.
+   Severity: Low   Confidence: High
+   CWE: CWE-20 (https://cwe.mitre.org/data/definitions/20.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b405-import-xml-etree
+   Location: analyzer/architecture\report_generator.py:12:0
+11	import json
+12	import xml.etree.ElementTree as ET
+13	from abc import ABC, abstractmethod
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/consolidated_analyzer.py:128:20
+127	                        violations.extend(detector_violations)
+128	                    except:
+129	                        pass
+130	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/detectors\connascence_ast_analyzer.py:39:8
+38	            detectors_to_run.append(('MagicLiteral', detector))
+39	        except:
+40	            pass
+41	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/detectors\connascence_ast_analyzer.py:47:8
+46	            detectors_to_run.append(('Position', detector))
+47	        except:
+48	            pass
+49	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/detectors\connascence_ast_analyzer.py:55:8
+54	            detectors_to_run.append(('Algorithm', detector))
+55	        except:
+56	            pass
+57	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/detectors\connascence_ast_analyzer.py:63:8
+62	            detectors_to_run.append(('Type', detector))
+63	        except:
+64	            pass
+65	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/detectors\connascence_ast_analyzer.py:71:8
+70	            detectors_to_run.append(('Name', detector))
+71	        except:
+72	            pass
+73	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/detectors\connascence_ast_analyzer.py:79:8
+78	            detectors_to_run.append(('Execution', detector))
+79	        except:
+80	            pass
+81	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/detectors\connascence_ast_analyzer.py:87:8
+86	            detectors_to_run.append(('Identity', detector))
+87	        except:
+88	            pass
+89	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/detectors\connascence_ast_analyzer.py:95:8
+94	            detectors_to_run.append(('Values', detector))
+95	        except:
+96	            pass
+97	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/detectors\connascence_ast_analyzer.py:103:12
+102	                violations.extend(detector_violations)
+103	            except:
+104	                pass
+105	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/detectors\connascence_ast_analyzer.py:213:12
+212	
+213	            except Exception as e:
+214	                # Skip files that can't be analyzed
+215	                pass
+216	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/detectors\real_detectors.py:139:12
+138	
+139	            except Exception:
+140	                continue  # Skip files that can't be parsed
+141	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/enterprise\defense_certification_tool.py:210:12
+209	                            break
+210	            except Exception:
+211	                continue
+212	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/enterprise\defense_certification_tool.py:275:12
+274	                            break
+275	            except Exception:
+276	                continue
+277	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/enterprise\defense_certification_tool.py:422:12
+421	                        relevant_files.append(py_file)
+422	            except Exception:
+423	                continue
+424	
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: analyzer/enterprise\nasa_pot10_analyzer.py:22:0
+21	import re
+22	import subprocess
+23	import sys
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: analyzer/enterprise\supply_chain\crypto_signer.py:9:0
+8	import base64
+9	import subprocess
+10	from datetime import datetime, timezone
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\crypto_signer.py:387:16
+386	                    os.unlink(public_key_path)
+387	                except Exception:
+388	                    pass
+389	            
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\crypto_signer.py:500:8
+499	        
+500	        except Exception:
+501	            pass
+502	        
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\crypto_signer.py:524:12
+523	            
+524	            except Exception:
+525	                pass
+526	        
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\evidence_packager.py:540:12
+539	                }
+540	            except Exception:
+541	                pass
+542	        
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\evidence_packager.py:581:12
+580	                    return data.get('version', '1.0.0')
+581	            except Exception:
+582	                pass
+583	        
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\evidence_packager.py:612:8
+611	            
+612	        except Exception:
+613	            pass
+614	        
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: analyzer/enterprise\supply_chain\evidence_packager.py:675:16
+674	            try:
+675	                import subprocess
+676	                result = subprocess.run(command, capture_output=True, text=True, timeout=10)
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/enterprise\supply_chain\evidence_packager.py:684:12
+683	                    })
+684	            except Exception:
+685	                continue
+686	        
+
+--------------------------------------------------
+>> Issue: [B202:tarfile_unsafe_members] tarfile.extractall used without any validation. Please check and discard dangerous members.
+   Severity: High   Confidence: High
+   CWE: CWE-22 (https://cwe.mitre.org/data/definitions/22.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b202_tarfile_unsafe_members.html
+   Location: analyzer/enterprise\supply_chain\evidence_packager.py:753:16
+752	            with zipfile.ZipFile(package_path, 'r') as zf:
+753	                zf.extractall(extract_dir)
+754	        elif package_path.suffix in ['.tar', '.gz']:
+
+--------------------------------------------------
+>> Issue: [B202:tarfile_unsafe_members] tarfile.extractall used without any validation. Please check and discard dangerous members.
+   Severity: High   Confidence: High
+   CWE: CWE-22 (https://cwe.mitre.org/data/definitions/22.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b202_tarfile_unsafe_members.html
+   Location: analyzer/enterprise\supply_chain\evidence_packager.py:756:16
+755	            with tarfile.open(package_path, 'r:*') as tf:
+756	                tf.extractall(extract_dir)
+757	        else:
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: analyzer/enterprise\supply_chain\sbom_generator.py:14:0
+13	import re
+14	import subprocess
+15	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\sbom_generator.py:315:8
+314	                    return pkg_info.get('version')
+315	        except Exception:
+316	            pass
+317	        return None
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\sbom_generator.py:440:12
+439	                    return data.get('version', '1.0.0')
+440	            except Exception:
+441	                pass
+442	        
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\sbom_generator.py:453:12
+452	                            return version
+453	            except Exception:
+454	                pass
+455	        
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: analyzer/enterprise\supply_chain\slsa_provenance.py:12:0
+11	from typing import Dict, List, Any, Optional
+12	import subprocess
+13	import os
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/enterprise\supply_chain\slsa_provenance.py:240:12
+239	                    })
+240	            except Exception:
+241	                continue
+242	                
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\slsa_provenance.py:255:8
+254	                return result.stdout.strip().split('\n')[0]
+255	        except Exception:
+256	            pass
+257	        
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\slsa_provenance.py:266:8
+265	                    return hashlib.sha256(f.read()).hexdigest()
+266	        except Exception:
+267	            pass
+268	        
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\slsa_provenance.py:335:12
+334	                os.chdir(original_cwd)
+335	            except Exception:
+336	                pass
+337	        
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: analyzer/enterprise\supply_chain\vulnerability_scanner.py:14:0
+13	import re
+14	import subprocess
+15	import os
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\vulnerability_scanner.py:293:8
+292	                
+293	        except Exception:
+294	            pass
+295	            
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\vulnerability_scanner.py:387:8
+386	                affected_versions.extend(versions)
+387	        except Exception:
+388	            pass
+389	            
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\supply_chain\vulnerability_scanner.py:405:8
+404	                            fixed_versions.append(event['fixed'])
+405	        except Exception:
+406	            pass
+407	            
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise\validation_reporting_system.py:666:16
+665	                            total_functions += 1
+666	                except:
+667	                    pass
+668	            except:
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/enterprise\validation_reporting_system.py:668:12
+667	                    pass
+668	            except:
+669	                continue
+670	
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: analyzer/enterprise_security\scanner.py:11:0
+10	import hashlib
+11	import subprocess
+12	from typing import List, Dict, Any, Optional, Tuple
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: analyzer/enterprise_security\supply_chain.py:9:0
+8	import hashlib
+9	import subprocess
+10	from typing import List, Dict, Any, Optional
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise_security\supply_chain.py:122:8
+121	                            ))
+122	        except Exception:
+123	            pass
+124	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise_security\supply_chain.py:163:12
+162	
+163	            except Exception:
+164	                pass
+165	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise_security\vulnerability_scanner.py:202:8
+201	
+202	        except Exception:
+203	            pass
+204	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise_security\vulnerability_scanner.py:245:8
+244	
+245	        except Exception:
+246	            pass
+247	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/enterprise_security\vulnerability_scanner.py:271:12
+270	                vulnerabilities.extend(self.scan_ast_vulnerabilities(file_path, content))
+271	            except Exception:
+272	                pass
+273	        else:
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/enterprise_security\vulnerability_scanner.py:285:24
+284	                            vulnerabilities.extend(self.scan_ast_vulnerabilities(full_path, content))
+285	                        except Exception:
+286	                            continue
+287	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\compliance_forecaster.py:177:20
+176	
+177	                    except Exception:
+178	                        continue
+179	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\compliance_forecaster.py:230:20
+229	
+230	                    except Exception:
+231	                        continue
+232	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\compliance_forecaster.py:257:20
+256	
+257	                    except Exception:
+258	                        continue
+259	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\compliance_forecaster.py:284:20
+283	
+284	                    except Exception:
+285	                        continue
+286	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\compliance_forecaster.py:320:20
+319	
+320	                    except Exception:
+321	                        continue
+322	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\compliance_forecaster.py:347:20
+346	
+347	                    except Exception:
+348	                        continue
+349	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\compliance_forecaster.py:384:20
+383	
+384	                    except Exception:
+385	                        continue
+386	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\compliance_forecaster.py:420:20
+419	
+420	                    except Exception:
+421	                        continue
+422	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\compliance_forecaster.py:456:20
+455	
+456	                    except Exception:
+457	                        continue
+458	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\compliance_forecaster.py:495:24
+494	
+495	                        except Exception:
+496	                            continue
+497	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\compliance_forecaster.py:534:24
+533	
+534	                        except Exception:
+535	                            continue
+536	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/ml_modules\pattern_detector.py:233:12
+232	                all_patterns.extend(patterns)
+233	            except Exception as e:
+234	                # Log error but continue with other algorithms
+235	                continue
+236	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/optimization\incremental_analyzer.py:372:20
+371	                        change_info.content_hash = content_hash
+372	                    except Exception:
+373	                        pass
+374	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/optimization\performance_benchmark.py:150:20
+149	                        lines = content.splitlines()
+150	                    except Exception:
+151	                        pass
+152	            times_traditional.append(timer())
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/optimization\performance_benchmark.py:203:20
+202	                        tree = ast.parse(content, filename=str(file_path))
+203	                    except Exception:
+204	                        pass
+205	            times_traditional.append(timer())
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/performance\optimizer.py:587:12
+586	                    task()
+587	            except Exception:
+588	                pass  # Ignore errors for timing purposes
+589	        
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/performance\optimizer.py:792:12
+791	                    content = f.read()
+792	            except Exception:
+793	                pass
+794	        file_access_time = time.time() - file_access_start
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/performance\optimizer.py:805:12
+804	                ast.parse(content, filename=file_path)
+805	            except Exception:
+806	                pass
+807	        ast_parse_time = time.time() - ast_parse_start
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/performance\real_cache_optimization_validator.py:439:12
+438	                    
+439	            except Exception:
+440	                continue
+441	                
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/performance\real_cache_optimization_validator.py:488:12
+487	                
+488	            except Exception:
+489	                continue
+490	                
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/performance\real_file_profiler.py:206:28
+205	                                detector.analyze_from_data(ast_data)
+206	                            except Exception as e:
+207	                                # Some detectors may not fully implement analyze_from_data
+208	                                pass
+209	                    
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/performance\real_file_profiler.py:259:20
+258	                        total_traversals += 1
+259	                    except Exception as e:
+260	                        # Some detector classes may have initialization issues
+261	                        pass
+262	                
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/system_integration.py:291:12
+290	                errors.extend(phase_security_errors)
+291	            except:
+292	                # Continue if phase-specific validation not available
+293	                pass
+294	
+
+--------------------------------------------------
+>> Issue: [B108:hardcoded_tmp_directory] Probable insecure usage of temp file/directory.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-377 (https://cwe.mitre.org/data/definitions/377.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b108_hardcoded_tmp_directory.html
+   Location: analyzer/system_integration.py:310:81
+309	            # Check for suspicious path patterns
+310	            suspicious_patterns = ['../', '..\\', '/etc/', '/proc/', 'system32', '/tmp/', '%temp%']
+311	
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b324_hashlib.html
+   Location: analyzer/system_integration.py:388:15
+387	        config_str = str(sorted(config.items()))
+388	        return hashlib.md5(config_str.encode()).hexdigest()
+389	
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: analyzer/test_critical_violations.py:9:0
+8	import os
+9	import subprocess
+10	
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'except[^:]*:\s*\n\s*pass'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: analyzer/theater_detection\core.py:117:30
+116	        # Look for pass in except blocks
+117	        except_pass_pattern = r'except[^:]*:\s*\n\s*pass'
+118	        for match in re.finditer(except_pass_pattern, content, re.MULTILINE):
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: analyzer/theater_detection\validation.py:8:0
+7	import json
+8	import subprocess
+9	import re
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/theater_detection\validation.py:70:12
+69	
+70	            except Exception:
+71	                continue
+72	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/theater_detection\validation.py:84:8
+83	                        results["coverage_percentage"] = coverage_data.get("totals", {}).get("percent_covered", 0.0)
+84	        except Exception:
+85	            pass
+86	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: analyzer/theater_detection\validation.py:184:8
+183	
+184	        except Exception:
+185	            pass
+186	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/theater_detection\validation.py:294:20
+293	
+294	                    except Exception:
+295	                        continue
+296	
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: analyzer/validation\reality_validation_engine.py:9:0
+8	import json
+9	import subprocess
+10	import ast
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/validation\reality_validation_engine.py:103:20
+102	
+103	                    except Exception:
+104	                        continue
+105	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/validation\reality_validation_engine.py:268:12
+267	
+268	            except Exception:
+269	                continue
+270	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: analyzer/validation\reality_validation_engine.py:322:12
+321	
+322	            except Exception:
+323	                continue
+324	
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: src/adapters\base_adapter.py:5:0
+4	import json
+5	import subprocess
+6	import time
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: src/analysis\failure_pattern_detector.py:15:0
+14	import hashlib
+15	import subprocess
+16	from pathlib import Path
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b324_hashlib.html
+   Location: src/analysis\failure_pattern_detector.py:403:27
+402	            context_data = f"{category}:{step_name}:{error_pattern}"
+403	            context_hash = hashlib.md5(context_data.encode()).hexdigest()[:12]
+404	
+
+--------------------------------------------------
+>> Issue: [B108:hardcoded_tmp_directory] Probable insecure usage of temp file/directory.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-377 (https://cwe.mitre.org/data/definitions/377.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b108_hardcoded_tmp_directory.html
+   Location: src/analysis\failure_pattern_detector.py:846:31
+845	        if output_path is None:
+846	            output_path = Path("/tmp/failure_pattern_analysis.json")
+847	
+
+--------------------------------------------------
+>> Issue: [B108:hardcoded_tmp_directory] Probable insecure usage of temp file/directory.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-377 (https://cwe.mitre.org/data/definitions/377.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b108_hardcoded_tmp_directory.html
+   Location: src/analysis\failure_pattern_detector.py:1648:61
+1647	    # Save results
+1648	    output_path = Path(args.output) if args.output else Path("/tmp/failure_pattern_analysis.json")
+1649	    detector.save_analysis_results(signatures, root_causes, output_path)
+
+--------------------------------------------------
+>> Issue: [B104:hardcoded_bind_all_interfaces] Possible binding to all interfaces.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-605 (https://cwe.mitre.org/data/definitions/605.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b104_hardcoded_bind_all_interfaces.html
+   Location: src/api_server.py:104:30
+103	if __name__ == '__main__':
+104	    app.run(debug=False, host='0.0.0.0', port=8000)
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/byzantium\comprehensive_validation.py:254:16
+253	                    coordinator.validate_detector_pool_thread_safety(validation_request)
+254	                except:
+255	                    pass  # Ignore validation failures for performance testing
+256	            
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: src/compliance\nasa_compliance_monitor.py:581:12
+580	                total_lines += lines
+581	            except Exception:
+582	                continue
+583	
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: src/coordination\git_safety_manager.py:15:0
+14	import os
+15	import subprocess
+16	import time
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/coordination\git_safety_manager.py:441:16
+440	                        ]
+441	                except:
+442	                    pass  # Non-critical operation
+443	
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: src/coordination\loop_orchestrator.py:17:0
+16	import time
+17	import subprocess
+18	import asyncio
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: src/coordination\loop_orchestrator.py:331:12
+330	
+331	            except Exception:
+332	                continue
+333	
+
+--------------------------------------------------
+>> Issue: [B108:hardcoded_tmp_directory] Probable insecure usage of temp file/directory.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-377 (https://cwe.mitre.org/data/definitions/377.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b108_hardcoded_tmp_directory.html
+   Location: src/coordination\loop_orchestrator.py:419:33
+418	            # Load baseline results
+419	            baseline_file = Path("/tmp/baseline_test_results.json")
+420	            if baseline_file.exists():
+
+--------------------------------------------------
+>> Issue: [B108:hardcoded_tmp_directory] Probable insecure usage of temp file/directory.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-377 (https://cwe.mitre.org/data/definitions/377.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b108_hardcoded_tmp_directory.html
+   Location: src/coordination\loop_orchestrator.py:459:32
+458	            # Load test results
+459	            results_file = Path("/tmp/targeted_test_results.json")
+460	            if results_file.exists():
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/coordination\loop_orchestrator.py:518:12
+517	                    return json.load(f)
+518	            except Exception:
+519	                pass
+520	        return {"predictions": [], "accuracy_metrics": {}}
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/coordination\loop_orchestrator.py:1113:12
+1112	                            affected_files.append(str(Path(file_path).resolve()))
+1113	            except:
+1114	                pass
+1115	
+
+--------------------------------------------------
+>> Issue: [B108:hardcoded_tmp_directory] Probable insecure usage of temp file/directory.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-377 (https://cwe.mitre.org/data/definitions/377.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b108_hardcoded_tmp_directory.html
+   Location: src/coordination\loop_orchestrator.py:1156:32
+1155	            # Create context bundle directory
+1156	            bundle_dir = Path(f"/tmp/context_bundles/{issue.issue_type}_{hash(issue.primary_file)}")
+1157	            bundle_dir.mkdir(parents=True, exist_ok=True)
+
+--------------------------------------------------
+>> Issue: [B108:hardcoded_tmp_directory] Probable insecure usage of temp file/directory.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-377 (https://cwe.mitre.org/data/definitions/377.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b108_hardcoded_tmp_directory.html
+   Location: src/coordination\loop_orchestrator.py:1457:31
+1456	        """Prepare isolated workspace for coordinated fix."""
+1457	        workspace_dir = Path(f"/tmp/fix_workspaces/{fix.fix_id}")
+1458	        workspace_dir.mkdir(parents=True, exist_ok=True)
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: src/coordination\recursive_merge_resolver.py:15:0
+14	import os
+15	import subprocess
+16	import time
+
+--------------------------------------------------
+>> Issue: [B403:blacklist] Consider possible security implications associated with pickle module.
+   Severity: Low   Confidence: High
+   CWE: CWE-502 (https://cwe.mitre.org/data/definitions/502.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b403-import-pickle
+   Location: src/detectors\comprehensive_benchmark.py:24:0
+23	import json
+24	import pickle
+25	import csv
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/detectors\defense_compliance_monitor.py:343:8
+342	            pass
+343	        except Exception:
+344	            pass
+345	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/detectors\defense_compliance_monitor.py:361:8
+360	                detector_pool.execute_detector("test_detector", timeout=1.0)
+361	        except Exception:
+362	            pass
+363	
+
+--------------------------------------------------
+>> Issue: [B403:blacklist] Consider possible security implications associated with pickle module.
+   Severity: Low   Confidence: High
+   CWE: CWE-502 (https://cwe.mitre.org/data/definitions/502.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b403-import-pickle
+   Location: src/detectors\enterprise_detector_pool.py:31:0
+30	from pathlib import Path
+31	import pickle
+32	import sqlite3
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b324_hashlib.html
+   Location: src/detectors\enterprise_detector_pool.py:425:15
+424	        combined = f"{detector_name}:{arg_str}:{kwarg_str}"
+425	        return hashlib.md5(combined.encode()).hexdigest()
+426	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/detectors\enterprise_detector_pool.py:815:12
+814	                times.append(end_time - start_time)
+815	            except Exception:
+816	                pass  # Skip failed executions
+817	
+
+--------------------------------------------------
+>> Issue: [B403:blacklist] Consider possible security implications associated with pickle module.
+   Severity: Low   Confidence: High
+   CWE: CWE-502 (https://cwe.mitre.org/data/definitions/502.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b403-import-pickle
+   Location: src/detectors\parallel_executor.py:34:0
+33	from queue import PriorityQueue, Empty
+34	import pickle
+35	import signal
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/detectors\validation_demo.py:414:16
+413	                        success_count += 1
+414	                except Exception:
+415	                    pass  # Expected failures
+416	
+
+--------------------------------------------------
+>> Issue: [B403:blacklist] Consider possible security implications associated with pickle module.
+   Severity: Low   Confidence: High
+   CWE: CWE-502 (https://cwe.mitre.org/data/definitions/502.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b403-import-pickle
+   Location: src/detectors\workload_optimizer.py:22:0
+21	import json
+22	import pickle
+23	from dataclasses import dataclass, field
+
+--------------------------------------------------
+>> Issue: [B301:blacklist] Pickle and modules that wrap it can be unsafe when used to deserialize untrusted data, possible security issue.
+   Severity: Medium   Confidence: High
+   CWE: CWE-502 (https://cwe.mitre.org/data/definitions/502.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_calls.html#b301-pickle
+   Location: src/detectors\workload_optimizer.py:666:24
+665	            with open(filepath, 'rb') as f:
+666	                state = pickle.load(f)
+667	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/enterprise\security\sbom_generator.py:178:16
+177	                        ]
+178	                except:
+179	                    pass
+180	                    
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'top_secret'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/enterprise\security\supply_chain.py:17:17
+16	    CRITICAL = "critical"
+17	    TOP_SECRET = "top_secret"
+18	
+
+--------------------------------------------------
+>> Issue: [B403:blacklist] Consider possible security implications associated with pickle module.
+   Severity: Low   Confidence: High
+   CWE: CWE-502 (https://cwe.mitre.org/data/definitions/502.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b403-import-pickle
+   Location: src/intelligence\inference\caching.py:9:0
+8	import hashlib
+9	import pickle
+10	from typing import Dict, Any, Optional, List, Tuple
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b324_hashlib.html
+   Location: src/intelligence\inference\caching.py:233:15
+232	        array_bytes = rounded.tobytes()
+233	        return hashlib.md5(array_bytes).hexdigest()[:16]
+234	    
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b324_hashlib.html
+   Location: src/intelligence\inference\caching.py:240:15
+239	        data_str = str(sorted_items)
+240	        return hashlib.md5(data_str.encode()).hexdigest()[:16]
+241	
+
+--------------------------------------------------
+>> Issue: [B324:hashlib] Use of weak MD5 hash for security. Consider usedforsecurity=False
+   Severity: High   Confidence: High
+   CWE: CWE-327 (https://cwe.mitre.org/data/definitions/327.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b324_hashlib.html
+   Location: src/intelligence\inference\inference_engine.py:521:23
+520	        # Create hash of features and metadata
+521	        feature_hash = hashlib.md5(request.features.tobytes()).hexdigest()[:16]
+522	        return f"{request.symbol}:{feature_hash}"
+
+--------------------------------------------------
+>> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+   Severity: Low   Confidence: High
+   CWE: CWE-330 (https://cwe.mitre.org/data/definitions/330.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_calls.html#b311-random
+   Location: src/intelligence\models\gary_dpi.py:435:24
+434	                base_change = float(base_dpi.mean().item()) * 0.1
+435	                noise = random.uniform(-0.02, 0.02)
+436	                asset_prices[asset] = base_change + noise
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/intelligence\training\callbacks.py:241:16
+240	                    mlflow.log_metric("learning_rate", current_lr, step=epoch)
+241	                except:
+242	                    pass
+243	                
+
+--------------------------------------------------
+>> Issue: [B614:pytorch_load] Use of unsafe PyTorch load
+   Severity: Medium   Confidence: High
+   CWE: CWE-502 (https://cwe.mitre.org/data/definitions/502.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b614_pytorch_load.html
+   Location: src/intelligence\training\trainer.py:457:21
+456	        """Load training checkpoint."""
+457	        checkpoint = torch.load(filepath, map_location=self.device)
+458	        
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: src/interfaces\cli\config_discovery.py:60:12
+59	                    break
+60	            except Exception:
+61	                continue
+62	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/interfaces\cli\config_discovery.py:122:8
+121	
+122	        except Exception:
+123	            pass
+124	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/interfaces\cli\config_discovery.py:146:8
+145	
+146	        except Exception:
+147	            pass
+148	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/interfaces\cli\config_discovery.py:165:8
+164	
+165	        except Exception:
+166	            pass
+167	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/interfaces\cli\config_discovery.py:188:8
+187	
+188	        except Exception:
+189	            pass
+190	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/interfaces\cli\config_discovery.py:295:8
+294	                return self._normalize_config(data["connascence"])
+295	        except Exception:
+296	            pass
+297	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/interfaces\cli\config_discovery.py:311:8
+310	                return self._normalize_config(dict(parser[first_section]))
+311	        except Exception:
+312	            pass
+313	
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/interfaces\cli\config_discovery.py:328:8
+327	
+328	        except Exception:
+329	            pass
+330	
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: src/linter-integration\adapters\base_adapter.py:12:0
+11	import json
+12	import subprocess
+13	import asyncio
+
+--------------------------------------------------
+>> Issue: [B405:blacklist] Using xml.etree.ElementTree to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree with the equivalent defusedxml package, or make sure defusedxml.defuse_stdlib() is called.
+   Severity: Low   Confidence: High
+   CWE: CWE-20 (https://cwe.mitre.org/data/definitions/20.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b405-import-xml-etree
+   Location: src/linter-integration\agents\backend_dev_node.py:13:0
+12	from dataclasses import dataclass
+13	import xml.etree.ElementTree as ET
+14	from pathlib import Path
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: src/linter-integration\agents\system_architect_node.py:12:0
+11	from dataclasses import dataclass, asdict
+12	import subprocess
+13	import shutil
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: src/linter-integration\pipeline\tool_orchestrator.py:15:0
+14	from pathlib import Path
+15	import subprocess
+16	
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: src/nasa_compliance\complexity_reducer.py:8:0
+7	from typing import Dict, Any, List, Optional
+8	import subprocess
+9	from lib.shared.utilities import get_logger
+
+--------------------------------------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: src/nasa_compliance\critical_fixes.py:7:0
+6	from typing import Dict, Any, List
+7	import subprocess
+8	from lib.shared.utilities import get_logger
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'password'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\access_control_system.py:13:15
+12	    """Supported authentication methods."""
+13	    PASSWORD = "password"
+14	    MULTI_FACTOR = "multi_factor"
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'hardware_token'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\access_control_system.py:17:21
+16	    BIOMETRIC = "biometric"
+17	    HARDWARE_TOKEN = "hardware_token"
+18	
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'top_secret'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\access_control_system.py:26:17
+25	    RESTRICTED = "restricted"
+26	    TOP_SECRET = "top_secret"
+27	
+
+--------------------------------------------------
+>> Issue: [B106:hardcoded_password_funcarg] Possible hardcoded password: 'SecurePassword123!'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b106_hardcoded_password_funcarg.html
+   Location: src/security\access_control_system.py:872:19
+871	        # Create admin user
+872	        admin_id = acs.create_user(
+873	            username="admin",
+874	            email="admin@defense-company.com",
+875	            full_name="System Administrator",
+876	            role=UserRole.SYSTEM_ADMIN,
+877	            clearance_level=AuthorizationLevel.TOP_SECRET,
+878	            password="SecurePassword123!"
+879	        )
+880	
+
+--------------------------------------------------
+>> Issue: [B106:hardcoded_password_funcarg] Possible hardcoded password: 'SecurePassword123!'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b106_hardcoded_password_funcarg.html
+   Location: src/security\access_control_system.py:884:34
+883	        # Authenticate user
+884	        session_id, auth_result = acs.authenticate_user(
+885	            username="admin",
+886	            password="SecurePassword123!",
+887	            source_ip="192.168.1.100",
+888	            user_agent="DefenseApp/1.0"
+889	        )
+890	
+
+--------------------------------------------------
+>> Issue: [B104:hardcoded_bind_all_interfaces] Possible binding to all interfaces.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-605 (https://cwe.mitre.org/data/definitions/605.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b104_hardcoded_bind_all_interfaces.html
+   Location: src/security\audit_components\audit_event_manager.py:148:86
+147	    def log_security_event(self, event_type: AuditEventType, severity: SeverityLevel,
+148	                          description: str, user_id: str = "system", source_ip: str = "0.0.0.0",
+149	                          details: Optional[Dict] = None) -> AuditEvent:
+150	        """Log security-related event."""
+151	        return self.create_event(
+
+--------------------------------------------------
+>> Issue: [B104:hardcoded_bind_all_interfaces] Possible binding to all interfaces.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-605 (https://cwe.mitre.org/data/definitions/605.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b104_hardcoded_bind_all_interfaces.html
+   Location: src/security\audit_components\audit_event_manager.py:170:22
+169	            user_id="system",
+170	            source_ip="0.0.0.0",
+171	            component="compliance",
+
+--------------------------------------------------
+>> Issue: [B104:hardcoded_bind_all_interfaces] Possible binding to all interfaces.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-605 (https://cwe.mitre.org/data/definitions/605.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b104_hardcoded_bind_all_interfaces.html
+   Location: src/security\audit_components\audit_event_manager.py:184:22
+183	            user_id=user_id,
+184	            source_ip="0.0.0.0",
+185	            component=component,
+
+--------------------------------------------------
+>> Issue: [B110:try_except_pass] Try, Except, Pass detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b110_try_except_pass.html
+   Location: src/security\defense_industry_evidence_generator.py:1084:12
+1083	                    })
+1084	            except:
+1085	                pass
+1086	
+
+--------------------------------------------------
+>> Issue: [B112:try_except_continue] Try, Except, Continue detected.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b112_try_except_continue.html
+   Location: src/security\defense_industry_evidence_generator.py:1107:16
+1106	                            hash_sha256.update(chunk)
+1107	                except:
+1108	                    continue
+1109	
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'password'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\dfars_access_control.py:23:15
+22	    """Multi-factor authentication types."""
+23	    PASSWORD = "password"
+24	    TOTP = "totp"
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'hardware_token'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\dfars_access_control.py:25:21
+24	    TOTP = "totp"
+25	    HARDWARE_TOKEN = "hardware_token"
+26	    BIOMETRIC = "biometric"
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'SECRET'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\dfars_config.py:26:13
+25	    CONFIDENTIAL = "CONFIDENTIAL"
+26	    SECRET = "SECRET"
+27	
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'secret'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\dfars_personnel_security.py:16:13
+15	    CONFIDENTIAL = "confidential"
+16	    SECRET = "secret"
+17	    TOP_SECRET = "top_secret"
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'top_secret'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\dfars_personnel_security.py:17:17
+16	    SECRET = "secret"
+17	    TOP_SECRET = "top_secret"
+18	    TOP_SECRET_SCI = "top_secret_sci"
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'top_secret_sci'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\dfars_personnel_security.py:18:21
+17	    TOP_SECRET = "top_secret"
+18	    TOP_SECRET_SCI = "top_secret_sci"
+19	    NONE = "none"
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'classified_secret'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\dfars_personnel_security.py:48:24
+47	    CLASSIFIED_CONFIDENTIAL = "classified_confidential"
+48	    CLASSIFIED_SECRET = "classified_secret"
+49	    CLASSIFIED_TOP_SECRET = "classified_top_secret"
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'classified_top_secret'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\dfars_personnel_security.py:49:28
+48	    CLASSIFIED_SECRET = "classified_secret"
+49	    CLASSIFIED_TOP_SECRET = "classified_top_secret"
+50	    COMPARTMENTED_INFORMATION = "compartmented_information"
+
+--------------------------------------------------
+>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'top_secret'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b105_hardcoded_password_string.html
+   Location: src/security\dfars_physical_protection.py:30:17
+29	    SECURE = "secure"
+30	    TOP_SECRET = "top_secret"
+31	
+
+--------------------------------------------------
+>> Issue: [B108:hardcoded_tmp_directory] Probable insecure usage of temp file/directory.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-377 (https://cwe.mitre.org/data/definitions/377.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b108_hardcoded_tmp_directory.html
+   Location: src/security\path_validator.py:319:8
+318	        str(Path.home() / 'projects'),  # User projects
+319	        '/tmp',  # Temp directory (Linux)
+320	        str(Path.home() / 'AppData' / 'Local' / 'Temp')  # Temp (Windows)
+321	    ]
+322	
+323	    return PathSecurityValidator(allowed_paths)
+324	
+325	
+
+--------------------------------------------------
+>> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+   Severity: Low   Confidence: High
+   CWE: CWE-330 (https://cwe.mitre.org/data/definitions/330.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_calls.html#b311-random
+   Location: src/wealth_flow_demo.py:126:20
+125	            base_change = base_dpi * 0.1  # Scale DPI to price change
+126	            noise = random.uniform(-0.02, 0.02)  # Add some noise
+127	            asset_prices[asset] = base_change + noise
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 144883
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 145
+		Medium: 14
+		High: 8
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 28
+		High: 139
+Files skipped (62):
+	analyzer/core.py (syntax error while parsing AST from file)
+	analyzer/enterprise\compliance\audit_trail.py (syntax error while parsing AST from file)
+	analyzer/enterprise\compliance\core.py (syntax error while parsing AST from file)
+	analyzer/enterprise\compliance\integration.py (syntax error while parsing AST from file)
+	analyzer/enterprise\compliance\iso27001.py (syntax error while parsing AST from file)
+	analyzer/enterprise\compliance\nist_ssdf.py (syntax error while parsing AST from file)
+	analyzer/enterprise\compliance\reporting.py (syntax error while parsing AST from file)
+	analyzer/enterprise\compliance\soc2.py (syntax error while parsing AST from file)
+	analyzer/enterprise\compliance\validate_retention.py (syntax error while parsing AST from file)
+	analyzer/enterprise\performance\MLCacheOptimizer.py (syntax error while parsing AST from file)
+	analyzer/enterprise\validation\EnterprisePerformanceValidator.py (syntax error while parsing AST from file)
+	analyzer/integrations\tool_coordinator.py (syntax error while parsing AST from file)
+	analyzer/performance\ci_cd_accelerator.py (syntax error while parsing AST from file)
+	src/cycles\profit_calculator.py (syntax error while parsing AST from file)
+	src/cycles\scheduler.py (syntax error while parsing AST from file)
+	src/cycles\weekly_cycle.py (syntax error while parsing AST from file)
+	src/cycles\weekly_siphon_automator.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\monitoring\metrics_collector.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\monitoring\pipeline_monitor.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\processing\alternative_data_processor.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\processing\news_processor.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\processing\options_flow_analyzer.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\processing\sentiment_processor.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\sources\alpaca_source.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\sources\data_source_manager.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\sources\historical_loader.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\sources\polygon_source.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\sources\yahoo_source.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\streaming\failover_manager.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\streaming\real_time_streamer.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\streaming\stream_buffer.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\streaming\websocket_manager.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\validation\data_validator.py (syntax error while parsing AST from file)
+	src/intelligence\data_pipeline\validation\quality_monitor.py (syntax error while parsing AST from file)
+	src/intelligence\neural_networks\cnn\pattern_definitions.py (syntax error while parsing AST from file)
+	src/intelligence\neural_networks\cnn\pattern_recognizer.py (syntax error while parsing AST from file)
+	src/intelligence\neural_networks\cnn\resnet_backbone.py (syntax error while parsing AST from file)
+	src/intelligence\neural_networks\ensemble\ensemble_framework.py (syntax error while parsing AST from file)
+	src/intelligence\neural_networks\lstm\attention_mechanism.py (syntax error while parsing AST from file)
+	src/intelligence\neural_networks\lstm\lstm_predictor.py (syntax error while parsing AST from file)
+	src/intelligence\neural_networks\rl\ppo_agent.py (syntax error while parsing AST from file)
+	src/intelligence\neural_networks\rl\strategy_optimizer.py (syntax error while parsing AST from file)
+	src/intelligence\neural_networks\rl\trading_environment.py (syntax error while parsing AST from file)
+	src/intelligence\neural_networks\transformer\financial_bert.py (syntax error while parsing AST from file)
+	src/intelligence\neural_networks\transformer\sentiment_analyzer.py (syntax error while parsing AST from file)
+	src/linter-integration\agents\api_docs_node.py (syntax error while parsing AST from file)
+	src/linter-integration\agents\integration_specialist_node.py (syntax error while parsing AST from file)
+	src/safety\core\failover_manager.py (syntax error while parsing AST from file)
+	src/safety\core\safety_manager.py (syntax error while parsing AST from file)
+	src/safety\hardware_auth_manager.py (syntax error while parsing AST from file)
+	src/safety\integration\trading_safety_bridge.py (syntax error while parsing AST from file)
+	src/safety\kill_switch_system.py (syntax error while parsing AST from file)
+	src/safety\monitoring\availability_monitor.py (syntax error while parsing AST from file)
+	src/safety\monitoring\redundancy_validator.py (syntax error while parsing AST from file)
+	src/safety\recovery\recovery_system.py (syntax error while parsing AST from file)
+	src/security\dfars_compliance_engine.py (syntax error while parsing AST from file)
+	src/security\enhanced_audit_trail_manager.py (syntax error while parsing AST from file)
+	src/sixsigma\telemetry_config.py (syntax error while parsing AST from file)
+	src/theater-detection\theater-detector.py (syntax error while parsing AST from file)
+	src/trading\market_data_provider.py (syntax error while parsing AST from file)
+	src/trading\portfolio_manager.py (syntax error while parsing AST from file)
+	src/trading\trade_executor.py (syntax error while parsing AST from file)

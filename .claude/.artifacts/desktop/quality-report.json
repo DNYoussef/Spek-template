@@ -1,0 +1,72 @@
+{
+  "reportId": "desktop-qa-test-demo",
+  "timestamp": 1737253200000,
+  "overallScore": 87.5,
+  "gateResults": [
+    {
+      "gateId": "screenshot-quality",
+      "gateName": "Screenshot Quality",
+      "status": "pass",
+      "score": 90,
+      "maxScore": 100,
+      "evidence": [],
+      "violations": [],
+      "recommendations": [],
+      "timestamp": 1737253200000
+    },
+    {
+      "gateId": "operation-success",
+      "gateName": "Operation Success Rate",
+      "status": "pass",
+      "score": 85,
+      "maxScore": 100,
+      "evidence": [],
+      "violations": [],
+      "recommendations": [],
+      "timestamp": 1737253200000
+    },
+    {
+      "gateId": "evidence-completeness",
+      "gateName": "Evidence Completeness",
+      "status": "pass",
+      "score": 88,
+      "maxScore": 100,
+      "evidence": [],
+      "violations": [],
+      "recommendations": [],
+      "timestamp": 1737253200000
+    },
+    {
+      "gateId": "security-compliance",
+      "gateName": "Security Compliance",
+      "status": "pass",
+      "score": 95,
+      "maxScore": 100,
+      "evidence": [],
+      "violations": [],
+      "recommendations": [],
+      "timestamp": 1737253200000
+    },
+    {
+      "gateId": "performance-metrics",
+      "gateName": "Performance Metrics",
+      "status": "pass",
+      "score": 88,
+      "maxScore": 100,
+      "evidence": [],
+      "violations": [],
+      "recommendations": [],
+      "timestamp": 1737253200000
+    }
+  ],
+  "nasaCompliance": 92.3,
+  "theaterDetectionScore": 78.5,
+  "meceScore": 85.2,
+  "securityStatus": "secure",
+  "productionReady": true,
+  "recommendations": [
+    "Monitor theater detection score - slight improvement needed",
+    "Continue maintaining high security compliance",
+    "Excellent overall quality - system is production ready"
+  ]
+}

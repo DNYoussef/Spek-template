@@ -1,0 +1,313 @@
+# SPEK Enhanced Development Platform - Desktop Automation Services
+# Production-ready Docker Compose configuration for Bytebot desktop automation
+# Compatible with Docker Desktop and Docker Compose V2
+version: '3.9'
+
+services:
+  # ==========================================
+  # BYTEBOT DESKTOP SERVICE
+  # Virtual desktop environment with VNC access
+  # ==========================================
+  bytebot-desktop:
+    image: bytebotai/desktop:latest
+    container_name: spek-bytebot-desktop
+    hostname: bytebot-desktop
+    environment:
+      - DISPLAY_WIDTH=${DISPLAY_WIDTH:-1920}
+      - DISPLAY_HEIGHT=${DISPLAY_HEIGHT:-1080}
+      - VNC_PASSWORD=${VNC_PASSWORD:-spek123}
+      - ENABLE_VNC=${ENABLE_VNC:-true}
+      - ENABLE_RECORDING=${ENABLE_RECORDING:-false}
+      - MAX_SESSION_TIME=${MAX_SESSION_TIME:-3600}
+      - SECURITY_LEVEL=${SECURITY_LEVEL:-high}
+    ports:
+      - "${BYTEBOT_DESKTOP_PORT:-9990}:9990"
+      - "${VNC_PORT:-5900}:5900"
+      - "${VNC_WEB_PORT:-6080}:6080"
+    volumes:
+      - desktop-screenshots:/screenshots
+      - desktop-recordings:/recordings
+      - desktop-workspace:/workspace
+      - ./evidence:/evidence:rw
+    networks:
+      - spek-desktop-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9990/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2048M
+        reservations:
+          cpus: '1'
+          memory: 1024M
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # BYTEBOT AGENT SERVICE
+  # AI agent coordination and task execution
+  # ==========================================
+  bytebot-agent:
+    image: bytebotai/agent:latest
+    container_name: spek-bytebot-agent
+    hostname: bytebot-agent
+    environment:
+      - DESKTOP_URL=http://bytebot-desktop:9990
+      - POSTGRES_URL=postgresql://${POSTGRES_USER:-spekuser}:${POSTGRES_PASSWORD:-spekpass}@postgres:5432/${POSTGRES_DB:-spekdb}
+      - REDIS_URL=redis://redis:6379
+      - AGENT_MODE=${AGENT_MODE:-autonomous}
+      - MAX_AGENTS=${MAX_AGENTS:-10}
+      - TASK_QUEUE_SIZE=${TASK_QUEUE_SIZE:-100}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - API_KEY=${BYTEBOT_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    ports:
+      - "${BYTEBOT_AGENT_PORT:-9991}:9991"
+    volumes:
+      - agent-data:/data
+      - agent-logs:/logs
+      - ./evidence:/evidence:rw
+    networks:
+      - spek-desktop-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      bytebot-desktop:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9991/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # BYTEBOT UI SERVICE
+  # Web dashboard for monitoring and control
+  # ==========================================
+  bytebot-ui:
+    image: bytebotai/ui:latest
+    container_name: spek-bytebot-ui
+    hostname: bytebot-ui
+    environment:
+      - AGENT_URL=http://bytebot-agent:9991
+      - DESKTOP_URL=http://bytebot-desktop:9990
+      - POSTGRES_URL=postgresql://${POSTGRES_USER:-spekuser}:${POSTGRES_PASSWORD:-spekpass}@postgres:5432/${POSTGRES_DB:-spekdb}
+      - REDIS_URL=redis://redis:6379
+      - UI_THEME=${UI_THEME:-dark}
+      - ENABLE_ANALYTICS=${ENABLE_ANALYTICS:-false}
+    ports:
+      - "${BYTEBOT_UI_PORT:-9992}:3000"
+    volumes:
+      - ui-config:/config
+    networks:
+      - spek-desktop-network
+    depends_on:
+      - bytebot-agent
+      - bytebot-desktop
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # POSTGRESQL DATABASE
+  # Persistent storage for sessions and data
+  # ==========================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: spek-postgres
+    hostname: postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-spekuser}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-spekpass}
+      - POSTGRES_DB=${POSTGRES_DB:-spekdb}
+      - POSTGRES_MAX_CONNECTIONS=${POSTGRES_MAX_CONNECTIONS:-100}
+      - POSTGRES_SHARED_BUFFERS=${POSTGRES_SHARED_BUFFERS:-256MB}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./docker/bytebot/init-scripts:/docker-entrypoint-initdb.d:ro
+    networks:
+      - spek-desktop-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-spekuser}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # REDIS CACHE
+  # Session management and caching
+  # ==========================================
+  redis:
+    image: redis:7-alpine
+    container_name: spek-redis
+    hostname: redis
+    command: redis-server --appendonly yes --maxmemory ${REDIS_MAX_MEMORY:-256mb} --maxmemory-policy allkeys-lru
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - spek-desktop-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # EVIDENCE COLLECTOR
+  # SPEK integration for quality gates
+  # ==========================================
+  evidence-collector:
+    image: nginx:alpine
+    container_name: spek-evidence-collector
+    hostname: evidence-collector
+    ports:
+      - "${EVIDENCE_PORT:-8080}:80"
+    volumes:
+      - ./evidence:/usr/share/nginx/html:ro
+      - ./docker/bytebot/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - spek-desktop-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 64M
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# ==========================================
+# NETWORKS
+# ==========================================
+networks:
+  spek-desktop-network:
+    name: spek-desktop-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/24
+          gateway: 172.28.0.1
+
+# ==========================================
+# VOLUMES
+# ==========================================
+volumes:
+  desktop-screenshots:
+    name: spek-desktop-screenshots
+  desktop-recordings:
+    name: spek-desktop-recordings
+  desktop-workspace:
+    name: spek-desktop-workspace
+  agent-data:
+    name: spek-agent-data
+  agent-logs:
+    name: spek-agent-logs
+  ui-config:
+    name: spek-ui-config
+  postgres-data:
+    name: spek-postgres-data
+  redis-data:
+    name: spek-redis-data

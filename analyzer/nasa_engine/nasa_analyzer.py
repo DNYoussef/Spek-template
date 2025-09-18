@@ -206,13 +206,67 @@ class NASAAnalyzer:
 
     def _check_data_scope(self, tree: ast.AST, file_path: str) -> List[ConnascenceViolation]:
         """Check data objects are declared at smallest scope (NASA Rule 6)."""
-        # This is largely handled by Python's scoping rules
-        return []
+        violations = []
+
+        # Count global (module-level) variable assignments
+        global_count = 0
+        for node in getattr(tree, "body", []):
+            if isinstance(node, (ast.Assign, ast.AnnAssign)):
+                # Consider all targets of the assignment
+                targets = node.targets if isinstance(node, ast.Assign) else ([node.target] if node.target else [])
+                for target in targets:
+                    if isinstance(target, ast.Name):
+                        global_count += 1
+
+        if global_count > 0:
+            # Determine severity based on threshold (default threshold = 5 globals)
+            threshold = 5  # NASA_GLOBAL_THRESHOLD from constants
+            if global_count > threshold:
+                severity = "warning"
+                description = (f"Project defines {global_count} global variables (limit {threshold}). "
+                             f"Move declarations to narrower scopes.")
+            else:
+                severity = "info"
+                description = (f"Project defines {global_count} global variables. "
+                             f"Declare objects in local scope when possible.")
+
+            violations.append(ConnascenceViolation(
+                type="NASA-Global-Scope",
+                severity=severity,
+                file_path=file_path,
+                line_number=1,
+                description=description,
+                nasa_rule="Rule 6"
+            ))
+
+        return violations
 
     def _check_return_values(self, tree: ast.AST, file_path: str) -> List[ConnascenceViolation]:
         """Check return values of functions are used (NASA Rule 7)."""
-        # Simplified implementation - could be more sophisticated
-        return []
+        violations = []
+
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Expr) and isinstance(node.value, ast.Call):
+                # Identify function name if possible
+                if isinstance(node.value.func, ast.Name):
+                    func_name = node.value.func.id
+                elif isinstance(node.value.func, ast.Attribute):
+                    func_name = node.value.func.attr
+                else:
+                    func_name = "<anonymous>"
+
+                # Skip common functions where return value is often ignored
+                if func_name not in ['print', 'logging', 'logger', 'debug', 'info', 'warning', 'error']:
+                    violations.append(ConnascenceViolation(
+                        type="NASA-Return-Check",
+                        severity="warning",
+                        file_path=file_path,
+                        line_number=getattr(node, "lineno", 0),
+                        description=f"Return value of function call '{func_name}' is not used",
+                        nasa_rule="Rule 7"
+                    ))
+
+        return violations
 
     def _check_preprocessor_use(self, tree: ast.AST, file_path: str) -> List[ConnascenceViolation]:
         """Check preprocessor usage (NASA Rule 8) - limited in Python."""

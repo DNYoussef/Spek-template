@@ -544,6 +544,64 @@ const AGENT_MODEL_REGISTRY = {
     capabilities: ['template_generation', 'boilerplate_creation', 'project_scaffolding'],
     mcpServers: ['claude-flow', 'memory', 'filesystem', 'markitdown'],
     rationale: 'Template generation with file operations and documentation'
+  },
+
+  // =============================================================================
+  // DESKTOP AUTOMATION AGENTS → GPT-5 CODEX + DESKTOP AUTOMATION
+  // =============================================================================
+  'desktop-automator': {
+    primaryModel: AIModel.GPT5_CODEX,
+    fallbackModel: AIModel.CLAUDE_OPUS,
+    sequentialThinking: false,
+    contextThreshold: 80000,
+    reasoningComplexity: ReasoningComplexity.HIGH,
+    capabilities: ['desktop_automation', 'screenshot_capture', 'ui_interaction', 'application_control'],
+    mcpServers: ['claude-flow', 'memory', 'desktop-automation', 'eva'],
+    rationale: 'Desktop automation with comprehensive UI interaction and evidence collection'
+  },
+
+  'ui-tester': {
+    primaryModel: AIModel.GPT5_CODEX,
+    fallbackModel: AIModel.CLAUDE_OPUS,
+    sequentialThinking: false,
+    contextThreshold: 70000,
+    reasoningComplexity: ReasoningComplexity.HIGH,
+    capabilities: ['ui_testing', 'desktop_automation', 'screenshot_validation', 'user_flow_testing'],
+    mcpServers: ['claude-flow', 'memory', 'desktop-automation', 'playwright', 'eva'],
+    rationale: 'UI testing with both desktop automation and browser testing capabilities'
+  },
+
+  'app-integration-tester': {
+    primaryModel: AIModel.GPT5_CODEX,
+    fallbackModel: AIModel.CLAUDE_OPUS,
+    sequentialThinking: false,
+    contextThreshold: 90000,
+    reasoningComplexity: ReasoningComplexity.HIGH,
+    capabilities: ['application_testing', 'desktop_automation', 'integration_testing', 'file_operations'],
+    mcpServers: ['claude-flow', 'memory', 'desktop-automation', 'filesystem', 'eva'],
+    rationale: 'Application integration testing with desktop automation and file operations'
+  },
+
+  'desktop-qa-specialist': {
+    primaryModel: AIModel.CLAUDE_OPUS,
+    fallbackModel: AIModel.GPT5_CODEX,
+    sequentialThinking: false,
+    contextThreshold: 85000,
+    reasoningComplexity: ReasoningComplexity.HIGH,
+    capabilities: ['quality_assurance', 'desktop_validation', 'evidence_collection', 'compliance_testing'],
+    mcpServers: ['claude-flow', 'memory', 'desktop-automation', 'eva'],
+    rationale: 'Desktop QA with superior quality analysis and evidence-based validation'
+  },
+
+  'desktop-workflow-automator': {
+    primaryModel: AIModel.GPT5_CODEX,
+    fallbackModel: AIModel.GEMINI_PRO,
+    sequentialThinking: true,
+    contextThreshold: 75000,
+    reasoningComplexity: ReasoningComplexity.HIGH,
+    capabilities: ['workflow_automation', 'desktop_scripting', 'task_orchestration', 'multi_app_coordination'],
+    mcpServers: ['claude-flow', 'memory', 'desktop-automation', 'sequential-thinking'],
+    rationale: 'Desktop workflow automation with sequential thinking for complex multi-step processes'
   }
 };
 

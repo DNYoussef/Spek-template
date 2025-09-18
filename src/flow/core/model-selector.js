@@ -123,6 +123,22 @@ class ModelSelector {
       }
     }
 
+    // Desktop automation override for desktop tasks
+    if (this.requiresDesktopAutomation(agentType, taskContext)) {
+      // Desktop QA agents use Claude Opus for superior analysis
+      if (agentType === 'desktop-qa-specialist') {
+        selectedModel = AIModel.CLAUDE_OPUS;
+        platform = 'claude';
+      } else {
+        selectedModel = AIModel.GPT5_CODEX;
+        platform = 'openai';
+      }
+      // Ensure desktop automation MCP server is included
+      if (!mcpServers.includes('desktop-automation')) {
+        mcpServers = [...mcpServers, 'desktop-automation'];
+      }
+    }
+
     // Add sequential thinking MCP server if needed
     if (sequentialThinking && !mcpServers.includes('sequential-thinking')) {
       mcpServers = [...mcpServers, 'sequential-thinking'];
@@ -171,6 +187,28 @@ class ModelSelector {
 
     return browserAutomationAgents.includes(agentType) ||
            (taskContext.description && browserKeywords.some(keyword =>
+             taskContext.description.toLowerCase().includes(keyword)));
+  }
+
+  /**
+   * Check if agent requires desktop automation capabilities
+   */
+  requiresDesktopAutomation(agentType, taskContext) {
+    const desktopAutomationAgents = [
+      'desktop-automator',
+      'ui-tester',
+      'app-integration-tester',
+      'desktop-qa-specialist',
+      'desktop-workflow-automator'
+    ];
+
+    const desktopKeywords = [
+      'desktop', 'application', 'window', 'native app', 'system',
+      'automation', 'click', 'type', 'keyboard', 'mouse', 'gui'
+    ];
+
+    return desktopAutomationAgents.includes(agentType) ||
+           (taskContext.description && desktopKeywords.some(keyword =>
              taskContext.description.toLowerCase().includes(keyword)));
   }
 
@@ -266,6 +304,10 @@ class ModelSelector {
 
     if (this.requiresBrowserAutomation(agentType, taskContext)) {
       rationale += ' | Browser automation capabilities required for visual validation';
+    }
+
+    if (this.requiresDesktopAutomation(agentType, taskContext)) {
+      rationale += ' | Desktop automation capabilities required for native application interaction';
     }
 
     // Add MCP server capabilities info

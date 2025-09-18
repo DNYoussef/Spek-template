@@ -120,6 +120,7 @@ class AgentSpawner {
       complexity: options.complexity || this.assessComplexity(taskDescription),
       contextSize: options.contextSize || this.estimateContextSize(taskDescription),
       requiresBrowser: this.detectBrowserRequirement(taskDescription),
+      requiresDesktop: this.detectDesktopRequirement(taskDescription),
       requiresLargeContext: this.detectLargeContextRequirement(taskDescription),
       deadline: options.deadline || null,
       priority: options.priority || 'medium'
@@ -186,6 +187,20 @@ class AgentSpawner {
     ];
 
     return browserKeywords.some(keyword =>
+      description.toLowerCase().includes(keyword));
+  }
+
+  /**
+   * Detect if task requires desktop automation
+   */
+  detectDesktopRequirement(description) {
+    const desktopKeywords = [
+      'desktop', 'application', 'native app', 'window', 'system',
+      'automation', 'click', 'type', 'keyboard', 'mouse', 'gui',
+      'file explorer', 'windows', 'macos', 'linux'
+    ];
+
+    return desktopKeywords.some(keyword =>
       description.toLowerCase().includes(keyword));
   }
 
@@ -373,6 +388,9 @@ QUALITY FOCUS INSTRUCTIONS:
         case 'filesystem':
           instructions += '- Filesystem: Secure file operations in allowed directories\n';
           break;
+        case 'desktop-automation':
+          instructions += '- Desktop Automation: Native application control, screenshot capture, UI interaction\n';
+          break;
         default:
           instructions += `- ${server}: Specialized capabilities available\n`;
       }
@@ -413,7 +431,21 @@ QUALITY FOCUS INSTRUCTIONS:
 - Use Eva for performance evaluation
 - Check for security vulnerabilities
 - Validate architectural compliance
-- Ensure test coverage and documentation`
+- Ensure test coverage and documentation`,
+
+      'desktop-automator': `\nDESKTOP AUTOMATION FOCUS:
+- Use desktop-automation MCP for native application control
+- Capture screenshots for evidence and validation
+- Implement robust error handling for UI interactions
+- Validate application state before and after operations
+- Store evidence in .claude/.artifacts/desktop for quality gates`,
+
+      'desktop-qa-specialist': `\nDESKTOP QUALITY ASSURANCE:
+- Apply comprehensive quality analysis to desktop applications
+- Use desktop-automation and eva MCPs for validation
+- Collect evidence for compliance and audit requirements
+- Validate application behavior against specifications
+- Ensure security and accessibility standards compliance`
     };
 
     return instructions[agentType] || '\nApply best practices for your specialized domain.';

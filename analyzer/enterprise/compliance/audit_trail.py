@@ -21,10 +21,17 @@ import asyncio
 import hashlib
 import json
 import logging
+from pathlib import Path
+from typing import List, Dict, Any, Optional
+
 logger = logging.getLogger(__name__)
-        self.audit_events: List[AuditEvent] = []
-        self.evidence_packages: List[EvidencePackage] = []
-        
+
+class AuditTrailGenerator:
+    def __init__(self, config):
+        self.config = config
+        self.audit_events: List[Dict] = []
+        self.evidence_packages: List[Dict] = []
+
         # Audit trail configuration
         self.audit_log_path = Path(self.config.artifacts_path) / "audit_trails"
         self.evidence_packages_path = Path(self.config.artifacts_path) / "evidence_packages"

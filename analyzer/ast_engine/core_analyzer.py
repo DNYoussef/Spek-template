@@ -2,18 +2,62 @@
 # Core analyzer stub for backward compatibility
 from utils.types import ConnascenceViolation
 
+# Import the consolidated analyzer for delegation
+try:
+    from ..consolidated_analyzer import ConsolidatedConnascenceAnalyzer
+except ImportError:
+    # Handle different execution contexts
+    try:
+        from analyzer.consolidated_analyzer import ConsolidatedConnascenceAnalyzer
+    except ImportError:
+        # If consolidated analyzer is not available, fall back to stub behavior
+        ConsolidatedConnascenceAnalyzer = None
+
 
 class ConnascenceASTAnalyzer:
-    """Mock AST analyzer for backward compatibility."""
+    """AST analyzer that delegates to the consolidated connascence analyzer."""
 
     def __init__(self):
-        pass
+        """Initialize the analyzer, delegating to consolidated analyzer if available."""
+        if ConsolidatedConnascenceAnalyzer is not None:
+            self._analyzer = ConsolidatedConnascenceAnalyzer()
+        else:
+            self._analyzer = None
 
     def analyze_file(self, file_path):
-        return []
+        """Analyze a single file for connascence violations."""
+        if self._analyzer is None:
+            return []
+
+        result = self._analyzer.analyze_file(file_path)
+        violations = []
+
+        if result and 'violations' in result:
+            for v in result['violations']:
+                if isinstance(v, dict):
+                    # Convert dict to ConnascenceViolation object
+                    violations.append(ConnascenceViolation(**v))
+                elif isinstance(v, ConnascenceViolation):
+                    violations.append(v)
+
+        return violations
 
     def analyze_directory(self, dir_path):
-        return []
+        """Analyze an entire directory for connascence violations."""
+        if self._analyzer is None:
+            return []
+
+        result = self._analyzer.analyze_directory(dir_path)
+        violations = []
+
+        if result and 'violations' in result:
+            for v in result['violations']:
+                if isinstance(v, dict):
+                    violations.append(ConnascenceViolation(**v))
+                elif isinstance(v, ConnascenceViolation):
+                    violations.append(v)
+
+        return violations
 
 
 class AnalysisResult:

@@ -1,0 +1,11 @@
+{"timestamp":"2025-09-18T16:19:02.258Z","operation":"desktop_screenshot","args":{"area":"full","quality":"medium"},"sessionId":"desktop-mock-93a06576","requestId":"8979e83d-d72f-4bc9-8a9d-d65bded6884d"}
+{"timestamp":"2025-09-18T16:19:02.262Z","operation":"desktop_click","args":{"x":100,"y":200,"button":"left"},"sessionId":"desktop-mock-5e6e4b81","requestId":"de5d5d78-6986-475c-9c9b-09530856f671"}
+{"timestamp":"2025-09-18T16:19:02.264Z","operation":"desktop_type","args":{"text":"[REDACTED]","delay":50},"sessionId":"desktop-mock-a0d11271","requestId":"a82fb6ec-e8bf-4e52-a38a-48ab87f708fd"}
+{"timestamp":"2025-09-18T16:19:02.265Z","operation":"desktop_health_check","args":{"detailed":true},"sessionId":"desktop-mock-df48ab75","requestId":"d17989ee-7eef-4478-aa02-b0bdb4c13453"}
+{"timestamp":"2025-09-18T16:19:02.267Z","operation":"desktop_click","args":{"x":100,"y":100},"sessionId":"desktop-mock-d63b979c","requestId":"fa369369-d768-44e2-974b-fdeeeae87f92"}
+{"timestamp":"2025-09-18T16:19:02.268Z","operation":"desktop_app_launch","args":{"application":"notepad.exe"},"sessionId":"desktop-mock-ea8a5fd6","requestId":"c4ee1805-49b2-43e0-bb44-812099c0f871"}
+{"timestamp":"2025-09-18T16:19:02.270Z","operation":"desktop_screenshot","args":{"area":"full","quality":"medium"},"sessionId":"desktop-mock-711761e2","requestId":"20837247-a004-4cb1-8df3-b40eb0784924"}
+{"timestamp":"2025-09-18T16:19:02.272Z","operation":"desktop_health_check","args":{"detailed":false},"sessionId":"desktop-mock-2368f37c","requestId":"abf42e87-9984-4705-b765-c9a6b12c3a47"}
+{"timestamp":"2025-09-18T16:19:02.273Z","operation":"desktop_health_check","args":{"detailed":true},"sessionId":"desktop-mock-13bbb09c","requestId":"f2dba6f6-02ef-488d-89a5-71a536cadeb9"}
+{"timestamp":"2025-09-18T16:19:02.274Z","operation":"unknown_tool","args":{},"sessionId":"desktop-mock-67e6929d","requestId":"c93e99ed-8fb0-4509-a5e7-e84109e19c71"}
+{"timestamp":"2025-09-18T16:19:02.275Z","operation":"desktop_click","args":{},"sessionId":"desktop-mock-f67b0d2e","requestId":"a66f0536-5340-4079-aeb3-551d81306fc3"}

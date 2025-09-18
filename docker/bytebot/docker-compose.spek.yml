@@ -1,0 +1,86 @@
+name: spek-bytebot
+
+services:
+  spek-desktop:
+    # Build from SPEK adapted source
+    build:
+      context: ../../src/services/desktop-agent/
+      dockerfile: ../../../docker/bytebot/bytebot-desktop.Dockerfile
+    # Use pre-built image as fallback
+    image: ghcr.io/bytebot-ai/bytebot-desktop:edge
+    shm_size: "2g"
+    container_name: spek-desktop
+    restart: unless-stopped
+    hostname: computer
+    privileged: true
+    ports:
+      - "9990:9990" # bytebotd service & noVNC
+    environment:
+      - DISPLAY=:0
+    networks:
+      - spek-network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: spek-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=spekdb
+    networks:
+      - spek-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  spek-agent:
+    build:
+      context: ../../src/services/desktop-agent/
+      dockerfile: ../../../docker/bytebot/bytebot-desktop.Dockerfile
+    # Use pre-built image
+    image: ghcr.io/bytebot-ai/bytebot-agent:edge
+    container_name: spek-agent
+    restart: unless-stopped
+    ports:
+      - "9991:9991"
+    environment:
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@postgres:5432/spekdb}
+      - SPEK_DESKTOP_BASE_URL=${SPEK_DESKTOP_BASE_URL:-http://spek-desktop:9990}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - postgres
+    networks:
+      - spek-network
+
+  spek-ui:
+    build:
+      context: ../../src/services/desktop-agent/
+      dockerfile: ../../../docker/bytebot/bytebot-desktop.Dockerfile
+      args:
+        - SPEK_AGENT_BASE_URL=${SPEK_AGENT_BASE_URL:-http://spek-agent:9991}
+        - SPEK_DESKTOP_VNC_URL=${SPEK_DESKTOP_VNC_URL:-http://spek-desktop:9990/websockify}
+    # Use pre-built image
+    image: ghcr.io/bytebot-ai/bytebot-ui:edge
+    container_name: spek-ui
+    restart: unless-stopped
+    ports:
+      - "9992:9992"
+    environment:
+      - NODE_ENV=production
+      - SPEK_AGENT_BASE_URL=${SPEK_AGENT_BASE_URL:-http://spek-agent:9991}
+      - SPEK_DESKTOP_VNC_URL=${SPEK_DESKTOP_VNC_URL:-http://spek-desktop:9990/websockify}
+    depends_on:
+      - spek-agent
+    networks:
+      - spek-network
+
+networks:
+  spek-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

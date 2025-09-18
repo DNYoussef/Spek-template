@@ -109,6 +109,22 @@
         "QUALITY_GATES": "true",
         "METRICS_EXPORT": "true"
       }
+    },
+
+    "desktop-automation": {
+      "command": "node",
+      "args": ["src/flow/servers/desktop-automation-mcp.js"],
+      "description": "Desktop automation bridge to Bytebot containers",
+      "env": {
+        "BYTEBOT_DESKTOP_URL": "http://localhost:9990",
+        "BYTEBOT_AGENT_URL": "http://localhost:9991",
+        "MCP_SERVER_PORT": "9995",
+        "EVIDENCE_DIR": ".claude/.artifacts/desktop",
+        "ALLOWED_APPS": "*",
+        "SECURITY_MODE": "strict",
+        "AUDIT_TRAIL": "true",
+        "MAX_COORDINATE_VALUE": "4096"
+      }
     }
   },
 
@@ -250,6 +266,20 @@
       "preferredPlatform": "openai",
       "preferredModel": "gpt-5-codex",
       "reason": "7+ hour autonomous coding sessions with iterative testing"
+    },
+
+    "desktop_automation_agents": {
+      "agents": ["desktop-automator", "ui-tester", "app-integration-tester", "desktop-workflow-automator"],
+      "preferredPlatform": "openai",
+      "preferredModel": "gpt-5-codex",
+      "reason": "Desktop automation requires visual feedback and iterative testing capabilities"
+    },
+
+    "desktop_qa_agents": {
+      "agents": ["desktop-qa-specialist"],
+      "preferredPlatform": "claude",
+      "preferredModel": "claude-opus-4.1",
+      "reason": "Superior quality analysis for desktop application validation and compliance"
     }
   },
 
@@ -270,7 +300,8 @@
         "claude mcp add claude-flow npx claude-flow@alpha mcp start",
         "claude mcp add memory npx @anthropic/memory-mcp-server",
         "claude mcp add filesystem npx @anthropic/filesystem-mcp-server",
-        "claude mcp add github npx @anthropic/github-mcp-server"
+        "claude mcp add github npx @anthropic/github-mcp-server",
+        "claude mcp add desktop-automation node src/flow/servers/desktop-automation-mcp.js"
       ]
     },
 
@@ -314,6 +345,20 @@
         "expectedModel": "claude-sonnet-4",
         "expectedPlatform": "claude",
         "sequentialThinking": true
+      },
+      {
+        "type": "desktop-automator",
+        "task": "Automate desktop application testing workflow",
+        "expectedModel": "gpt-5-codex",
+        "expectedPlatform": "openai",
+        "expectedCapabilities": ["desktop_automation", "screenshot_capture", "ui_interaction"]
+      },
+      {
+        "type": "desktop-qa-specialist",
+        "task": "Validate desktop application quality and compliance",
+        "expectedModel": "claude-opus-4.1",
+        "expectedPlatform": "claude",
+        "expectedCapabilities": ["quality_assurance", "desktop_validation", "evidence_collection"]
       }
     ]
   },

@@ -1,0 +1,81 @@
+{
+  "domain": "quality",
+  "gate_results": [
+    {
+      "gate_name": "Theater Detection Score",
+      "actual_value": 0,
+      "threshold": 60.0,
+      "passed": false,
+      "blocking": true,
+      "evidence": [
+        "Analysis failed: attempted relative import with no known parent package"
+      ],
+      "timestamp": "2025-09-18T12:01:58.343768"
+    },
+    {
+      "gate_name": "Test Coverage",
+      "actual_value": 0.0,
+      "threshold": 80.0,
+      "passed": false,
+      "blocking": true,
+      "evidence": [
+        "Coverage command exit code: 1",
+        "Test coverage: 0.0%",
+        "Threshold: 80.0%",
+        "Remediation: Add unit tests for uncovered code paths"
+      ],
+      "timestamp": "2025-09-18T12:02:00.323979"
+    },
+    {
+      "gate_name": "Security Violations",
+      "actual_value": 0,
+      "threshold": 0,
+      "passed": true,
+      "blocking": true,
+      "evidence": [
+        "Bandit found 0 high/medium severity issues",
+        "Total security violations: 0"
+      ],
+      "timestamp": "2025-09-18T12:02:01.196214"
+    },
+    {
+      "gate_name": "Linting Errors",
+      "actual_value": 0,
+      "threshold": 0,
+      "passed": true,
+      "blocking": true,
+      "evidence": [
+        "Pylint found 0 errors",
+        "Total linting errors: 0"
+      ],
+      "timestamp": "2025-09-18T12:02:04.865785"
+    },
+    {
+      "gate_name": "Type Checking",
+      "actual_value": 1,
+      "threshold": 0,
+      "passed": false,
+      "blocking": true,
+      "evidence": [
+        "MyPy found 1 type errors",
+        "Total type errors: 1",
+        "Remediation: Fix all TypeScript/mypy type errors"
+      ],
+      "timestamp": "2025-09-18T12:02:05.173960"
+    },
+    {
+      "gate_name": "NASA POT10 Compliance",
+      "actual_value": 85.0,
+      "threshold": 90.0,
+      "passed": false,
+      "blocking": true,
+      "evidence": [
+        "NASA POT10 compliance analysis completed",
+        "Compliance score: 85.0%",
+        "Remediation: Follow NASA coding standards for mission-critical software"
+      ],
+      "timestamp": "2025-09-18T12:02:05.173960"
+    }
+  ],
+  "timestamp": "2025-09-18T12:02:05.174958"
+}
