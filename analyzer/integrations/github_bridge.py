@@ -98,7 +98,7 @@ class APICache:
     def _make_cache_key(self, url: str, params: Dict = None) -> str:
         """Generate cache key from URL and parameters."""
         cache_data = f"{url}:{json.dumps(params or {}, sort_keys=True)}"
-        return hashlib.md5(cache_data.encode(, usedforsecurity=False)).hexdigest()
+        return hashlib.md5(cache_data.encode(, usedforsecurity=False, usedforsecurity=False)).hexdigest()
 
     def get_or_fetch(self, url: str, fetcher, params: Dict = None):
         """Get from cache or fetch using provided function."""

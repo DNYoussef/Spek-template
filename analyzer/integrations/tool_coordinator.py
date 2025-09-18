@@ -60,7 +60,7 @@ class ToolCoordinator:
 
                             # Check for duplicate line patterns
                             for i, line in enumerate(lines):
-                                line_hash = hashlib.md5(line.strip(, usedforsecurity=False).encode()).hexdigest()
+                                line_hash = hashlib.md5(line.strip(, usedforsecurity=False, usedforsecurity=False).encode()).hexdigest()
                                 if line_hash in file_hashes:
                                     duplicates += 1
                                 else:
