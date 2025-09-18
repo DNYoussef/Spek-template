@@ -76,42 +76,48 @@ class GitHubStatusReporter:
             logger.error(f"GitHub API request failed: {e}")
             return None
 
-    def create_status_check(self, commit_sha: str, result: AnalyzerResult) -> bool:
+    def create_status_check(self, commit_sha: str, result: AnalyzerResult, test_mode: bool = False) -> bool:
         """Create GitHub status check for analyzer results."""
+        # Use different context names in test mode to avoid overwriting production checks
+        context_name = 'test-analyzer/quality-gate' if test_mode else 'analyzer/quality-gate'
+
         if result.success:
             state = "success"
-            description = f"Analysis passed: {result.violations_count} issues, {result.nasa_compliance_score:.1%} NASA compliance"
+            description = f"{'TEST: ' if test_mode else ''}Analysis passed: {result.violations_count} issues, {result.nasa_compliance_score:.1%} NASA compliance"
         else:
             state = "failure"
-            description = f"Analysis failed: {result.critical_count} critical, {result.high_count} high severity issues"
+            description = f"{'TEST: ' if test_mode else ''}Analysis failed: {result.critical_count} critical, {result.high_count} high severity issues"
 
         status_data = {
             'state': state,
             'target_url': f"https://github.com/{self.repo}/actions",
             'description': description,
-            'context': 'analyzer/quality-gate'
+            'context': context_name
         }
 
         response = self._make_api_request('POST', f'statuses/{commit_sha}', status_data)
         return response is not None
 
-    def create_detailed_status_checks(self, commit_sha: str, result: AnalyzerResult) -> bool:
+    def create_detailed_status_checks(self, commit_sha: str, result: AnalyzerResult, test_mode: bool = False) -> bool:
         """Create multiple detailed status checks for different analyzer aspects."""
+        # Use different context names in test mode to avoid overwriting production checks
+        context_prefix = 'test-analyzer' if test_mode else 'analyzer'
+
         checks = [
             {
-                'context': 'analyzer/nasa-compliance',
+                'context': f'{context_prefix}/nasa-compliance',
                 'state': 'success' if result.nasa_compliance_score >= 0.9 else 'failure',
-                'description': f'NASA POT10: {result.nasa_compliance_score:.1%} compliance'
+                'description': f'{"TEST: " if test_mode else ""}NASA POT10: {result.nasa_compliance_score:.1%} compliance'
             },
             {
-                'context': 'analyzer/critical-issues',
+                'context': f'{context_prefix}/critical-issues',
                 'state': 'success' if result.critical_count == 0 else 'failure',
-                'description': f'Critical issues: {result.critical_count} found'
+                'description': f'{"TEST: " if test_mode else ""}Critical issues: {result.critical_count} found'
             },
             {
-                'context': 'analyzer/performance',
+                'context': f'{context_prefix}/performance',
                 'state': 'success' if result.analysis_time < 60 else 'failure',
-                'description': f'Analysis time: {result.analysis_time:.1f}s ({result.file_count} files)'
+                'description': f'{"TEST: " if test_mode else ""}Analysis time: {result.analysis_time:.1f}s ({result.file_count} files)'
             }
         ]
 
@@ -362,8 +368,8 @@ def main():
         else:
             print(f"Creating REAL status checks for commit: {commit_sha}")
 
-        reporter.create_status_check(commit_sha, test_result)
-        reporter.create_detailed_status_checks(commit_sha, test_result)
+        reporter.create_status_check(commit_sha, test_result, test_mode=test_mode)
+        reporter.create_detailed_status_checks(commit_sha, test_result, test_mode=test_mode)
 
     # Test PR comment (if PR number provided)
     if os.environ.get('TEST_PR_NUMBER'):
