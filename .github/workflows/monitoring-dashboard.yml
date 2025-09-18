@@ -78,7 +78,12 @@ jobs:
 
           HTTP_CODE=$(echo "$RESPONSE" | cut -d':' -f1)
           RESPONSE_TIME=$(echo "$RESPONSE" | cut -d':' -f2)
-          RESPONSE_TIME_MS=$(echo "$RESPONSE_TIME * 1000" | bc -l | cut -d'.' -f1)
+          # More robust calculation using awk instead of bc
+          if [[ "$RESPONSE_TIME" =~ ^[0-9]+\.?[0-9]*$ ]]; then
+            RESPONSE_TIME_MS=$(awk "BEGIN {printf \"%.0f\", $RESPONSE_TIME * 1000}")
+          else
+            RESPONSE_TIME_MS="999000"  # Default for invalid input
+          fi
 
           ((TOTAL_CHECKS++))
 
@@ -191,7 +196,7 @@ jobs:
     - name: Install quality monitoring tools
       run: |
         pip install --upgrade pip
-        pip install pytest radon complexity-validator
+        pip install pytest radon || echo "Warning: Some packages failed to install"
         pip install -r requirements.txt || echo "No requirements.txt found"
 
     - name: Quality metrics monitoring
