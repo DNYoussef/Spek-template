@@ -22,9 +22,21 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 # Import real engineering modules
-from analyzer.violation_remediation import ViolationRemediationEngine
-from analyzer.nasa_compliance_calculator import NASAComplianceCalculator
-from analyzer.github_analyzer_runner import AnalyzerResult
+import sys
+import os
+# Add current directory to path for CI/CD compatibility
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+try:
+    # Try absolute imports first (for when run as module)
+    from analyzer.violation_remediation import ViolationRemediationEngine
+    from analyzer.nasa_compliance_calculator import NASAComplianceCalculator
+    from analyzer.github_analyzer_runner import AnalyzerResult
+except ImportError:
+    # Fall back to relative imports (for when run from analyzer directory)
+    from violation_remediation import ViolationRemediationEngine
+    from nasa_compliance_calculator import NASAComplianceCalculator
+    from github_analyzer_runner import AnalyzerResult
 
 # Define RealityViolationDetector locally to avoid import issues
 import ast
@@ -141,75 +153,52 @@ class EnhancedGitHubAnalyzer:
         return self._create_enhanced_result(violations, remediation_report, compliance_result)
 
     def _detect_violations(self, project_path: str) -> List[Dict]:
-        """Detect violations using the proven reality detector."""
-        # Use the same test files that consistently find 11 violations
-        test_violations = {
-            "god_object.py": '''
-class MassiveController:
-    def method_1(self): pass
-    def method_2(self): pass
-    def method_3(self): pass
-    def method_4(self): pass
-    def method_5(self): pass
-    def method_6(self): pass
-    def method_7(self): pass
-    def method_8(self): pass
-    def method_9(self): pass
-    def method_10(self): pass
-    def method_11(self): pass
-    def method_12(self): pass
-    def method_13(self): pass
-    def method_14(self): pass
-    def method_15(self): pass
-    def method_16(self): pass
-    def method_17(self): pass
-    def method_18(self): pass
-    def method_19(self): pass
-    def method_20(self): pass
-    def method_21(self): pass
-    def method_22(self): pass
-''',
-            "magic_literals.py": '''
-def example():
-    timeout = 30      # Magic literal 1
-    max_retries = 5   # Magic literal 2
-    buffer_size = 1024  # Magic literal 3
-    port = 8080       # Magic literal 4
-    delay = 2.5       # Magic literal 5
-    threshold = 0.95  # Magic literal 6
-    limit = 999       # Magic literal 7
-''',
-            "position_coupling.py": '''
-class PositionDependent:
-    def __init__(self, a, b, c, d, e, f):  # 6 params = violation 1
-        self.values = [a, b, c, d, e, f]
+        """Detect violations in real project files."""
+        violations = []
+        project_dir = Path(project_path)
 
-    def complex_method(self, x, y, z, w, q):  # 5 params = violation 2
-        return x + y + z + w + q
+        # Scan Python files in the project
+        python_files = []
+        if project_dir.exists():
+            # Find Python files to analyze (limit scope for performance)
+            for pattern in ['*.py', 'src/**/*.py', 'analyzer/**/*.py']:
+                python_files.extend(project_dir.glob(pattern))
 
-    def process_data(self, data, config, options, callbacks):  # 4 params = violation 3
-        pass
-'''
-        }
+        # If no files found or path doesn't exist, scan current directory
+        if not python_files:
+            current_dir = Path('.')
+            # Analyze a limited set of files for demonstration
+            test_files = [
+                'enhanced_github_analyzer.py',
+                'nasa_compliance_calculator.py',
+                'violation_remediation.py',
+                'github_analyzer_runner.py'
+            ]
+            for filename in test_files:
+                file_path = current_dir / filename
+                if file_path.exists():
+                    python_files.append(file_path)
 
-        # Create temporary directory and run analysis
-        with tempfile.TemporaryDirectory() as temp_dir:
-            temp_path = Path(temp_dir)
-
-            # Write test files
-            for filename, content in test_violations.items():
-                (temp_path / filename).write_text(content)
-
-            # Run detector on test files
-            for filename in test_violations.keys():
-                self.detector.detect_violations(temp_path / filename)
+        # Analyze files (limit to first 10 for performance)
+        for file_path in python_files[:10]:
+            try:
+                self.detector.detect_violations(file_path)
+            except Exception as e:
+                logger.debug(f"Skipped {file_path}: {e}")
 
         return self.detector.violations
 
     def _count_source_files(self, project_path: str) -> int:
         """Count source files in project."""
-        # For test purposes, return consistent count
-        return 3
+        count = 0
+        project_dir = Path(project_path)
+
+        if project_dir.exists():
+            for pattern in ['*.py', 'src/**/*.py', 'analyzer/**/*.py']:
+                count += len(list(project_dir.glob(pattern)))
+
+        # Minimum of 1 to avoid division by zero
+        return max(count, 1)
 
     def _create_enhanced_result(
         self,
@@ -352,7 +341,10 @@ def main():
 
         # Connect to GitHub reporting
         try:
-            from analyzer.github_status_reporter import GitHubStatusReporter
+            try:
+                from analyzer.github_status_reporter import GitHubStatusReporter
+            except ImportError:
+                from github_status_reporter import GitHubStatusReporter
 
             # Convert to legacy format for GitHub reporting
             legacy_result = AnalyzerResult(

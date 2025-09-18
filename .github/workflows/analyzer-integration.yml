@@ -53,6 +53,7 @@ jobs:
         GITHUB_REPOSITORY: ${{ github.repository }}
         TEST_COMMIT_SHA: ${{ github.sha }}
         TEST_SCENARIO: ${{ github.event.inputs.test_scenario || 'normal' }}
+        PYTHONPATH: ${{ github.workspace }}
       run: |
         echo "Running production-ready analyzer with GitHub integration..."
         echo "Test scenario: $TEST_SCENARIO"
