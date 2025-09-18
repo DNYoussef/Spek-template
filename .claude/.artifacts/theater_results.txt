@@ -1,2 +1,2 @@
-theater_detected=false
-theater_confidence=low
+theater_detected=true
+theater_confidence=medium
