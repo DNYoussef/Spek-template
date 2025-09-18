@@ -93,10 +93,10 @@ jobs:
             RESPONSE_TIME_MS="999000"
           fi
 
-          ((TOTAL_CHECKS++))
+          : $((TOTAL_CHECKS++))
 
           if [[ "$HTTP_CODE" == "200" || "$HTTP_CODE" == "201" ]]; then
-            ((PASSED_CHECKS++))
+            : $((PASSED_CHECKS++))
             echo "✅ $name: $HTTP_CODE (${RESPONSE_TIME_MS}ms)"
 
             # Check response time threshold
@@ -322,7 +322,7 @@ jobs:
         FAKE_SUCCESS_COUNT=${FAKE_SUCCESS_COUNT:-0}
         if [[ $FAKE_SUCCESS_COUNT -gt 50 ]]; then
           THEATER_PATTERNS+=("Excessive success messaging: $FAKE_SUCCESS_COUNT instances")
-          ((THEATER_VIOLATIONS++))
+          : $((THEATER_VIOLATIONS++))
         fi
 
         # Pattern 2: Hardcoded test passes
@@ -330,7 +330,7 @@ jobs:
         TRIVIAL_TESTS=${TRIVIAL_TESTS:-0}
         if [[ $TRIVIAL_TESTS -gt 10 ]]; then
           THEATER_PATTERNS+=("Trivial test assertions: $TRIVIAL_TESTS instances")
-          ((THEATER_VIOLATIONS++))
+          : $((THEATER_VIOLATIONS++))
         fi
 
         # Pattern 3: Mock implementations without real logic
@@ -341,7 +341,7 @@ jobs:
 
         if [[ $REAL_LOGIC -gt 0 && $MOCK_COUNT -gt $((REAL_LOGIC / 10)) ]]; then
           THEATER_PATTERNS+=("Excessive mocking relative to real code")
-          ((THEATER_VIOLATIONS++))
+          : $((THEATER_VIOLATIONS++))
         fi
 
         # Calculate theater score (0-100, higher is better)
