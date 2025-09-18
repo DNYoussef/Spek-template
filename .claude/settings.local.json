@@ -8,7 +8,10 @@
       "Bash(bandit:*)",
       "Bash(gh run list:*)",
       "Bash(find:*)",
-      "Bash(gh workflow run:*)"
+      "Bash(gh workflow run:*)",
+      "mcp__memory__create_entities",
+      "mcp__memory__create_relations",
+      "mcp__memory__add_observations"
     ],
     "deny": [],
     "ask": []

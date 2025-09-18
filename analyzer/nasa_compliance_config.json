@@ -10,14 +10,5 @@
   "max_high_violations": 3,
   "max_total_violations": 20,
   "test_coverage_bonus": 0.05,
-  "documentation_bonus": 0.03,
-  "comments": {
-    "critical_weight": "Critical violations (security, crashes) have 5x impact",
-    "high_weight": "High violations (god objects, major coupling) have 3x impact",
-    "medium_weight": "Medium violations (magic literals, minor coupling) have 1x impact",
-    "low_weight": "Low violations (style issues) have 0.5x impact",
-    "thresholds": "Compliance levels based on weighted violation score",
-    "max_violations": "Hard limits that override score calculation",
-    "bonuses": "Bonus points for good practices like test coverage and documentation"
-  }
+  "documentation_bonus": 0.03
 }

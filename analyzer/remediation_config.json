@@ -21,6 +21,13 @@
       "justification": "Configuration files may contain port numbers and timeouts as literals",
       "approved_by": "DevOps Team",
       "expires_date": "2025-09-30"
+    },
+    {
+      "violation_type": "god_object",
+      "file_pattern": "**/MassiveController.py",
+      "justification": "Test fixture class for validation purposes - 22 methods required for comprehensive testing",
+      "approved_by": "Architecture Team",
+      "expires_date": "2025-12-31"
     }
   ],
   "auto_fix_preferences": {

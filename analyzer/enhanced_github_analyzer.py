@@ -22,13 +22,9 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 # Import real engineering modules
-from violation_remediation import ViolationRemediationEngine
-from nasa_compliance_calculator import NASAComplianceCalculator
-
-# Import AnalyzerResult from github_analyzer_runner
-import sys
-sys.path.append('.')
-from github_analyzer_runner import AnalyzerResult
+from analyzer.violation_remediation import ViolationRemediationEngine
+from analyzer.nasa_compliance_calculator import NASAComplianceCalculator
+from analyzer.github_analyzer_runner import AnalyzerResult
 
 # Define RealityViolationDetector locally to avoid import issues
 import ast
@@ -356,7 +352,7 @@ def main():
 
         # Connect to GitHub reporting
         try:
-            from github_status_reporter import GitHubStatusReporter
+            from analyzer.github_status_reporter import GitHubStatusReporter
 
             # Convert to legacy format for GitHub reporting
             legacy_result = AnalyzerResult(
