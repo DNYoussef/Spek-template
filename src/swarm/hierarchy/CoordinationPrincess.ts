@@ -395,7 +395,7 @@ export class CoordinationPrincess extends HivePrincess {
       `Decision rationale: ${decision}`,
       `Risk mitigation: Built-in monitoring and rollback capabilities`,
       `Performance considerations: Optimized for ${task.priority} priority execution`,
-      `Integration points: Memory MCP persistence, Plane MCP audit trail`,
+      `Integration points: Memory MCP persistence, GitHub Project Manager audit trail`,
       `Quality gates: Validation checkpoints and degradation monitoring`
     ];
 

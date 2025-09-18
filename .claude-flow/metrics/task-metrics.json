@@ -1,18 +1,10 @@
 [
   {
-    "id": "cmd-mcp-1758042222035",
-    "type": "mcp",
+    "id": "cmd-sparc-1758167624010",
+    "type": "sparc",
     "success": true,
-    "duration": 1.9966999999999757,
-    "timestamp": 1758042222037,
-    "metadata": {}
-  },
-  {
-    "id": "cmd-hooks-1758042275028",
-    "type": "hooks",
-    "success": true,
-    "duration": 4318.195,
-    "timestamp": 1758042279346,
+    "duration": 2.921100000000024,
+    "timestamp": 1758167624013,
     "metadata": {}
   }
 ]

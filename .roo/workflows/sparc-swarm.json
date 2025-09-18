@@ -1,0 +1,286 @@
+{
+  "name": "SPARC Swarm Coordination",
+  "version": "1.0.0",
+  "description": "Multi-agent swarm workflow for parallel SPARC execution",
+  "topology": "hierarchical",
+  "coordination": {
+    "queen": {
+      "role": "master-orchestrator",
+      "agents": ["sparc-coord", "hierarchical-coordinator"],
+      "responsibilities": ["task-distribution", "quality-enforcement", "resource-management"]
+    },
+    "princesses": {
+      "roles": ["domain-specialists"],
+      "agents": ["specification", "architecture", "coder", "tester", "reviewer"],
+      "responsibilities": ["domain-execution", "princess-coordination", "context-transfer"]
+    },
+    "drones": {
+      "roles": ["workers"],
+      "agents": ["researcher", "analyzer", "optimizer", "documenter"],
+      "responsibilities": ["task-execution", "data-processing", "report-generation"]
+    }
+  },
+  "steps": [
+    {
+      "id": "1-swarm-init",
+      "name": "Initialize Swarm",
+      "command": "swarm init",
+      "agents": ["swarm-init", "coordinator-swarm-init"],
+      "configuration": {
+        "topology": "hierarchical",
+        "maxAgents": 20,
+        "strategy": "adaptive",
+        "byzantineFaultTolerance": true
+      },
+      "outputs": ["swarm-config.json", "agent-registry.json"]
+    },
+    {
+      "id": "2-task-decomposition",
+      "name": "Decompose Tasks",
+      "command": "swarm decompose",
+      "agents": ["task-orchestrator", "orchestrator-task"],
+      "inputs": ["requirements.md"],
+      "outputs": ["task-tree.json", "dependency-graph.json", "resource-allocation.json"],
+      "parallel": false
+    },
+    {
+      "id": "3-parallel-research",
+      "name": "Parallel Research Phase",
+      "command": "swarm research",
+      "agents": ["researcher", "researcher-gemini", "fresh-eyes-gemini"],
+      "inputs": ["task-tree.json"],
+      "outputs": ["research-corpus/", "knowledge-graph.json"],
+      "parallel": true,
+      "maxAgents": 5,
+      "strategy": "divide-and-conquer"
+    },
+    {
+      "id": "4-spec-generation",
+      "name": "Collaborative Specification",
+      "command": "swarm spec",
+      "agents": ["specification", "planner", "researcher"],
+      "inputs": ["research-corpus/", "requirements.md"],
+      "outputs": ["SPEC.md", "spec-consensus.json"],
+      "consensus": {
+        "algorithm": "byzantine-fault-tolerant",
+        "threshold": 0.75,
+        "validators": ["reviewer", "reality-checker"]
+      }
+    },
+    {
+      "id": "5-architecture-swarm",
+      "name": "Architecture Design Swarm",
+      "command": "swarm architect",
+      "agents": ["architecture", "system-architect", "arch-system-design"],
+      "inputs": ["SPEC.md"],
+      "outputs": ["architecture/", "design-decisions.json"],
+      "parallel": true,
+      "coordination": "mesh",
+      "voting": {
+        "enabled": true,
+        "mechanism": "weighted",
+        "quorum": 2
+      }
+    },
+    {
+      "id": "6-implementation-swarm",
+      "name": "Parallel Implementation",
+      "command": "swarm implement",
+      "agents": ["coder", "sparc-coder", "implementer-sparc-coder", "backend-dev", "frontend-developer"],
+      "inputs": ["SPEC.md", "architecture/"],
+      "outputs": ["src/", "implementation-log.json"],
+      "parallel": true,
+      "maxAgents": 8,
+      "distribution": {
+        "strategy": "component-based",
+        "load-balancing": "dynamic",
+        "context-sharing": "crdt"
+      }
+    },
+    {
+      "id": "7-testing-swarm",
+      "name": "Distributed Testing",
+      "command": "swarm test",
+      "agents": ["tester", "tdd-london-swarm", "api-tester", "test-results-analyzer"],
+      "inputs": ["src/"],
+      "outputs": ["test-results/", "coverage-aggregate.json"],
+      "parallel": true,
+      "strategy": "test-suite-partitioning",
+      "aggregation": {
+        "method": "merge",
+        "conflict-resolution": "union"
+      }
+    },
+    {
+      "id": "8-review-consensus",
+      "name": "Distributed Code Review",
+      "command": "swarm review",
+      "agents": ["reviewer", "code-analyzer", "fresh-eyes-codex", "security-manager"],
+      "inputs": ["src/", "test-results/"],
+      "outputs": ["review-consensus.json", "quality-report.md"],
+      "consensus": {
+        "algorithm": "raft",
+        "leaders": ["reviewer"],
+        "followers": ["code-analyzer", "fresh-eyes-codex"],
+        "threshold": 0.8
+      }
+    },
+    {
+      "id": "9-optimization-swarm",
+      "name": "Performance Optimization Swarm",
+      "command": "swarm optimize",
+      "agents": ["perf-analyzer", "performance-benchmarker", "workflow-optimizer", "resource-allocator"],
+      "inputs": ["src/", "test-results/"],
+      "outputs": ["optimized-src/", "performance-gains.json"],
+      "parallel": true,
+      "coordination": "gossip",
+      "knowledge-sharing": {
+        "protocol": "gossip",
+        "frequency": "continuous",
+        "convergence": "eventual"
+      }
+    },
+    {
+      "id": "10-validation-swarm",
+      "name": "Multi-Agent Validation",
+      "command": "swarm validate",
+      "agents": ["theater-killer", "reality-checker", "production-validator", "completion-auditor"],
+      "inputs": ["*"],
+      "outputs": ["validation-matrix.json", "consensus-report.md"],
+      "parallel": true,
+      "validation": {
+        "cross-validation": true,
+        "blind-review": true,
+        "majority-voting": true
+      }
+    },
+    {
+      "id": "11-documentation-collective",
+      "name": "Documentation Collective",
+      "command": "swarm document",
+      "agents": ["docs-api-openapi", "content-creator", "technical-writer"],
+      "inputs": ["src/", "architecture/", "test-results/"],
+      "outputs": ["docs/", "api-docs/", "user-guide/"],
+      "parallel": true,
+      "collaboration": {
+        "mode": "collaborative-editing",
+        "conflict-resolution": "last-write-wins",
+        "review-required": true
+      }
+    },
+    {
+      "id": "12-integration-mesh",
+      "name": "Integration Testing Mesh",
+      "command": "swarm integrate",
+      "agents": ["tester", "api-tester", "e2e-tester"],
+      "inputs": ["src/", "test-results/"],
+      "outputs": ["integration-matrix.json", "e2e-report.json"],
+      "topology": "mesh",
+      "communication": {
+        "protocol": "direct-peer",
+        "failure-detection": "heartbeat",
+        "recovery": "automatic"
+      }
+    },
+    {
+      "id": "13-deployment-orchestration",
+      "name": "Deployment Orchestration",
+      "command": "swarm deploy",
+      "agents": ["cicd-engineer", "ops-cicd-github", "devops-automator"],
+      "inputs": ["src/", "docs/"],
+      "outputs": ["deployment/", "ci-cd/", "monitoring/"],
+      "coordination": "hierarchical",
+      "stages": ["build", "test", "stage", "production"],
+      "rollback": {
+        "automatic": true,
+        "threshold": "any-failure"
+      }
+    },
+    {
+      "id": "14-collective-intelligence",
+      "name": "Collective Intelligence Analysis",
+      "command": "swarm analyze",
+      "agents": ["collective-intelligence-coordinator", "swarm-memory-manager"],
+      "inputs": ["*"],
+      "outputs": ["insights.json", "learnings.md", "improvements.json"],
+      "analysis": {
+        "pattern-recognition": true,
+        "trend-analysis": true,
+        "predictive-modeling": true
+      }
+    },
+    {
+      "id": "15-swarm-convergence",
+      "name": "Final Swarm Convergence",
+      "command": "swarm converge",
+      "agents": ["*"],
+      "inputs": ["*"],
+      "outputs": ["final-report.md", "artifacts.zip", "handoff-package.json"],
+      "convergence": {
+        "algorithm": "consensus-convergence",
+        "iterations": "until-stable",
+        "acceptance-criteria": "unanimous"
+      }
+    }
+  ],
+  "swarmConfiguration": {
+    "communication": {
+      "channels": ["direct", "broadcast", "gossip", "consensus"],
+      "protocols": ["tcp", "websocket", "grpc"],
+      "encryption": true
+    },
+    "resilience": {
+      "faultTolerance": "byzantine",
+      "redundancy": 3,
+      "failover": "automatic",
+      "recovery": "self-healing"
+    },
+    "scalability": {
+      "autoScaling": true,
+      "minAgents": 5,
+      "maxAgents": 50,
+      "scaleUpThreshold": 0.8,
+      "scaleDownThreshold": 0.3
+    },
+    "coordination": {
+      "algorithms": ["raft", "paxos", "gossip", "crdt"],
+      "consensusRequired": ["spec", "architecture", "validation"],
+      "votingMechanism": "weighted-majority"
+    },
+    "memory": {
+      "shared": true,
+      "type": "distributed-graph",
+      "persistence": "checkpoint",
+      "gcStrategy": "generational"
+    },
+    "monitoring": {
+      "metrics": ["agent-health", "task-progress", "resource-usage", "communication-latency"],
+      "dashboards": ["swarm-overview", "agent-details", "task-tracking"],
+      "alerts": ["agent-failure", "deadlock", "resource-exhaustion", "consensus-failure"]
+    }
+  },
+  "qualityGates": {
+    "swarmHealth": {
+      "minActiveAgents": 0.8,
+      "maxFailureRate": 0.1,
+      "consensusThreshold": 0.75
+    },
+    "performance": {
+      "parallelEfficiency": 0.7,
+      "communicationOverhead": 0.2,
+      "taskCompletionRate": 0.95
+    },
+    "quality": {
+      "coverage": 85,
+      "security": "zero-critical",
+      "documentation": "complete",
+      "validation": "consensus-approved"
+    }
+  },
+  "artifacts": {
+    "aggregation": "automatic",
+    "deduplication": true,
+    "compression": "enabled",
+    "storage": ".roo/artifacts/swarm/"
+  }
+}

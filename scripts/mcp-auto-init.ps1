@@ -139,16 +139,16 @@ function Initialize-McpServers {
     # Tier 2: Conditional Auto-Start
     Log-Info "Initializing Tier 2: Conditional MCPs"
     
-    # Plane MCP - Only if configured
-    if (Test-EnvVar -VarName "PLANE_API_TOKEN") {
-        Log-Info "PLANE_API_TOKEN found - enabling Plane MCP"
+    # GitHub Project Manager - Only if configured
+    if (Test-EnvVar -VarName "GITHUB_TOKEN") {
+        Log-Info "GITHUB_TOKEN found - enabling GitHub Project Manager"
         $totalCount++
         if (Add-McpServer -ServerName "plane" -ServerCommand "plane") {
             $successCount++
         }
     }
     else {
-        Log-Warning "PLANE_API_TOKEN not configured - skipping Plane MCP"
+        Log-Warning "GITHUB_TOKEN not configured - skipping GitHub Project Manager"
     }
     
     # Report results
@@ -192,7 +192,7 @@ function Show-Usage {
     Write-Host "  -Help     Show this help message"
     Write-Host ""
     Write-Host "Environment Variables (for conditional MCPs):"
-    Write-Host "  PLANE_API_TOKEN    - Enables Plane MCP if set"
+    Write-Host "  GITHUB_TOKEN    - Enables GitHub Project Manager if set"
     Write-Host ""
     Write-Host "Examples:"
     Write-Host "  .\mcp-auto-init.ps1 -Init         # Initialize all MCP servers"

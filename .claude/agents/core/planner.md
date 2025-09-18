@@ -66,7 +66,7 @@ SPECIFY -> PLAN -> DISCOVER -> IMPLEMENT -> VERIFY -> REVIEW -> DELIVER -> LEARN
 ## Tool routing
 - **Gemini** -> wide repo context (impact maps, call graphs, configs)
 - **Codex (global CLI)** -> bounded code edits + sandbox QA (tests/typecheck/lint/security/coverage/connascence)
-- **Plane MCP** -> create/update issues & cycles from plan.json (if configured)
+- **GitHub Project Manager** -> create/update issues & project cards from plan.json (if configured)
 - **Context7** -> minimal context packs (only referenced files/functions)
 - **Playwright MCP** -> E2E smokes
 - **eva MCP** -> flakiness/perf scoring

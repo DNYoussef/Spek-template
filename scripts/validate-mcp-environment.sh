@@ -117,21 +117,21 @@ validate_mcp_environment() {
     # Project Management Integration
     log_info "Validating Project Management Integration..."
     
-    # Plane MCP Configuration
-    if check_env_var "PLANE_API_TOKEN" "Plane MCP project management sync" "false"; then
-        validate_api_key "PLANE_API_TOKEN" "" 20 || ((validation_warnings++))
+    # GitHub Project Manager Configuration
+    if check_env_var "GITHUB_TOKEN" "GitHub Project Manager project management sync" "false"; then
+        validate_api_key "GITHUB_TOKEN" "" 20 || ((validation_warnings++))
         
         # Additional Plane configuration
-        check_env_var "PLANE_API_URL" "Plane instance URL" "false"
-        check_env_var "PLANE_PROJECT_ID" "Plane project ID" "false"
-        check_env_var "PLANE_WORKSPACE_SLUG" "Plane workspace slug" "false"
+        check_env_var "GITHUB_API_URL" "Plane instance URL" "false"
+        check_env_var "GITHUB_PROJECT_NUMBER" "Plane project ID" "false"
+        check_env_var "GITHUB_OWNER_SLUG" "Plane workspace slug" "false"
         
         # Test Plane endpoint if configured
-        if [[ -n "$PLANE_API_URL" ]]; then
-            test_endpoint "$PLANE_API_URL/api/health" "Plane API" 5 || ((validation_warnings++))
+        if [[ -n "$GITHUB_API_URL" ]]; then
+            test_endpoint "$GITHUB_API_URL/api/health" "Plane API" 5 || ((validation_warnings++))
         fi
     else
-        log_info "Plane MCP will be skipped (PLANE_API_TOKEN not configured)"
+        log_info "GitHub Project Manager will be skipped (GITHUB_TOKEN not configured)"
     fi
     
     # GitHub Integration
@@ -208,12 +208,12 @@ GEMINI_API_KEY=your_gemini_key_here
 # PROJECT MANAGEMENT (CONDITIONAL MCP)
 # =====================================
 
-# Plane Project Management (enables Plane MCP)
-PLANE_API_URL=https://your-plane-instance.com
-PLANE_API_TOKEN=your_plane_token
-PLANE_PROJECT_ID=your_project_id
-PLANE_WORKSPACE_SLUG=your_workspace
-PLANE_CYCLE_ID=current_cycle_id
+# Plane Project Management (enables GitHub Project Manager)
+GITHUB_API_URL=https://your-plane-instance.com
+GITHUB_TOKEN=your_plane_token
+GITHUB_PROJECT_NUMBER=your_project_id
+GITHUB_OWNER_SLUG=your_workspace
+GITHUB_MILESTONE_ID=current_cycle_id
 
 # =====================================
 # GITHUB INTEGRATION
@@ -266,10 +266,10 @@ show_mcp_recommendations() {
     echo ""
     
     echo "[CYCLE] Conditionally Enabled:"
-    if [[ -n "$PLANE_API_TOKEN" ]]; then
-        echo "  [OK] plane - Project management sync (PLANE_API_TOKEN configured)"
+    if [[ -n "$GITHUB_TOKEN" ]]; then
+        echo "  [OK] plane - Project management sync (GITHUB_TOKEN configured)"
     else
-        echo "  [FAIL] plane - Project management sync (PLANE_API_TOKEN not configured)"
+        echo "  [FAIL] plane - Project management sync (GITHUB_TOKEN not configured)"
     fi
     echo ""
     

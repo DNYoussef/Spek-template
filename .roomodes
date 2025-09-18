@@ -1,0 +1,181 @@
+{
+  "version": "2.0.0",
+  "name": "SPEK Enhanced SPARC Modes",
+  "description": "17+ SPARC development modes with SPEK integration",
+  "modes": {
+    "spec": {
+      "name": "Specification",
+      "description": "Requirements analysis and specification",
+      "command": "spec",
+      "agents": ["specification", "researcher", "planner"],
+      "artifacts": ["SPEC.md", "requirements.json"],
+      "workflow": "specification -> research -> planning -> validation"
+    },
+    "spec-pseudocode": {
+      "name": "Specification & Pseudocode",
+      "description": "Combined requirements and algorithm design",
+      "command": "spec-pseudocode",
+      "agents": ["specification", "pseudocode", "researcher"],
+      "artifacts": ["SPEC.md", "pseudocode.md", "algorithms.json"],
+      "workflow": "specification -> pseudocode -> validation"
+    },
+    "architect": {
+      "name": "Architecture",
+      "description": "System design and architecture planning",
+      "command": "architect",
+      "agents": ["architecture", "system-architect", "researcher"],
+      "artifacts": ["architecture.md", "system-design.json", "diagrams/"],
+      "workflow": "research -> design -> validation -> documentation"
+    },
+    "tdd": {
+      "name": "Test-Driven Development",
+      "description": "TDD with red-green-refactor cycle",
+      "command": "tdd",
+      "agents": ["tester", "coder", "reviewer"],
+      "artifacts": ["tests/", "src/", "coverage.json"],
+      "workflow": "test-first -> implementation -> refactor -> validate"
+    },
+    "tdd-london": {
+      "name": "London School TDD",
+      "description": "Outside-in TDD with mocking",
+      "command": "tdd-london",
+      "agents": ["tdd-london-swarm", "tester", "coder"],
+      "artifacts": ["tests/integration/", "tests/unit/", "mocks/"],
+      "workflow": "acceptance-test -> unit-test -> implementation -> integration"
+    },
+    "integration": {
+      "name": "Integration",
+      "description": "Component integration and system assembly",
+      "command": "integration",
+      "agents": ["coder", "tester", "reviewer"],
+      "artifacts": ["src/", "tests/integration/", "integration-report.json"],
+      "workflow": "component-check -> integration -> testing -> validation"
+    },
+    "refactor": {
+      "name": "Refactoring",
+      "description": "Code improvement and optimization",
+      "command": "refactor",
+      "agents": ["code-analyzer", "coder", "reviewer"],
+      "artifacts": ["refactoring-plan.md", "src/", "metrics.json"],
+      "workflow": "analyze -> plan -> refactor -> validate"
+    },
+    "coder": {
+      "name": "Implementation",
+      "description": "Direct code implementation",
+      "command": "coder",
+      "agents": ["coder", "sparc-coder", "implementer-sparc-coder"],
+      "artifacts": ["src/", "implementation-notes.md"],
+      "workflow": "plan -> implement -> test -> review"
+    },
+    "research": {
+      "name": "Research",
+      "description": "Technical research and solution discovery",
+      "command": "research",
+      "agents": ["researcher", "researcher-gemini", "research-agent"],
+      "artifacts": ["research-findings.md", "references.json"],
+      "workflow": "discover -> analyze -> synthesize -> document"
+    },
+    "review": {
+      "name": "Code Review",
+      "description": "Comprehensive code review and quality assurance",
+      "command": "review",
+      "agents": ["reviewer", "code-analyzer", "security-manager"],
+      "artifacts": ["review-report.md", "issues.json", "security-scan.json"],
+      "workflow": "analyze -> review -> security-check -> report"
+    },
+    "test": {
+      "name": "Testing",
+      "description": "Comprehensive testing suite execution",
+      "command": "test",
+      "agents": ["tester", "api-tester", "test-results-analyzer"],
+      "artifacts": ["test-results.json", "coverage/", "test-report.md"],
+      "workflow": "unit-test -> integration-test -> e2e-test -> report"
+    },
+    "debug": {
+      "name": "Debugging",
+      "description": "Issue identification and resolution",
+      "command": "debug",
+      "agents": ["coder", "tester", "analyzer"],
+      "artifacts": ["debug-log.md", "fixes/", "test-results.json"],
+      "workflow": "reproduce -> diagnose -> fix -> validate"
+    },
+    "optimize": {
+      "name": "Optimization",
+      "description": "Performance optimization and tuning",
+      "command": "optimize",
+      "agents": ["perf-analyzer", "benchmark-suite", "optimizer"],
+      "artifacts": ["performance-report.md", "benchmarks.json", "optimizations/"],
+      "workflow": "benchmark -> analyze -> optimize -> validate"
+    },
+    "document": {
+      "name": "Documentation",
+      "description": "Comprehensive documentation generation",
+      "command": "document",
+      "agents": ["coder", "api-docs", "content-creator"],
+      "artifacts": ["docs/", "API.md", "README.md"],
+      "workflow": "analyze -> generate -> review -> publish"
+    },
+    "pipeline": {
+      "name": "Full Pipeline",
+      "description": "Complete SPARC pipeline execution",
+      "command": "pipeline",
+      "agents": ["sparc-coord", "orchestrator-task", "completion-auditor"],
+      "artifacts": ["pipeline-report.json", "artifacts/", "metrics/"],
+      "workflow": "spec -> architect -> tdd -> integration -> optimize -> document"
+    },
+    "swarm": {
+      "name": "Swarm Mode",
+      "description": "Multi-agent swarm coordination",
+      "command": "swarm",
+      "agents": ["swarm-init", "hierarchical-coordinator", "mesh-coordinator"],
+      "artifacts": ["swarm-report.json", "coordination-log.md"],
+      "workflow": "init -> coordinate -> execute -> aggregate"
+    },
+    "theater-detect": {
+      "name": "Theater Detection",
+      "description": "Detect and eliminate fake work patterns",
+      "command": "theater-detect",
+      "agents": ["theater-killer", "reality-checker", "production-validator"],
+      "artifacts": ["theater-report.json", "validation-results.md"],
+      "workflow": "scan -> detect -> validate -> report"
+    }
+  },
+  "configuration": {
+    "defaultMode": "spec",
+    "autoSave": true,
+    "artifactsDir": ".roo/artifacts",
+    "templatesDir": ".roo/templates",
+    "logsDir": ".roo/logs",
+    "parallelExecution": true,
+    "maxAgents": 10,
+    "qualityGates": {
+      "enabled": true,
+      "thresholds": {
+        "coverage": 80,
+        "security": "zero-critical",
+        "performance": "no-regression",
+        "theater": "zero-tolerance"
+      }
+    }
+  },
+  "integration": {
+    "claudeFlow": {
+      "version": "2.0.0-alpha",
+      "autoInit": true
+    },
+    "mcp": {
+      "servers": [
+        "claude-flow",
+        "memory",
+        "github",
+        "filesystem",
+        "sequential-thinking"
+      ]
+    },
+    "github": {
+      "autoCommit": false,
+      "prTemplate": true,
+      "issueTracking": true
+    }
+  }
+}

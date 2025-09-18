@@ -1,0 +1,97 @@
+{
+  "name": "SPARC TDD Workflow",
+  "version": "1.0.0",
+  "description": "Test-Driven Development workflow following SPARC methodology",
+  "steps": [
+    {
+      "id": "1-specification",
+      "name": "Define Specifications",
+      "command": "sparc spec",
+      "agents": ["specification", "researcher"],
+      "inputs": ["requirements.md"],
+      "outputs": ["SPEC.md", "acceptance-criteria.json"],
+      "validation": {
+        "required": ["clear requirements", "acceptance criteria", "success metrics"]
+      }
+    },
+    {
+      "id": "2-test-first",
+      "name": "Write Tests First",
+      "command": "sparc tdd --red",
+      "agents": ["tester", "tdd-london-swarm"],
+      "inputs": ["SPEC.md"],
+      "outputs": ["tests/", "test-plan.md"],
+      "validation": {
+        "required": ["failing tests", "coverage targets", "test scenarios"]
+      }
+    },
+    {
+      "id": "3-implementation",
+      "name": "Implement Code",
+      "command": "sparc tdd --green",
+      "agents": ["coder", "sparc-coder"],
+      "inputs": ["tests/", "SPEC.md"],
+      "outputs": ["src/", "implementation-notes.md"],
+      "validation": {
+        "required": ["passing tests", "code coverage >= 80%", "no security issues"]
+      }
+    },
+    {
+      "id": "4-refactor",
+      "name": "Refactor Code",
+      "command": "sparc tdd --refactor",
+      "agents": ["code-analyzer", "reviewer"],
+      "inputs": ["src/", "tests/"],
+      "outputs": ["src/", "refactoring-report.md"],
+      "validation": {
+        "required": ["maintained test pass", "improved metrics", "code quality"]
+      }
+    },
+    {
+      "id": "5-integration",
+      "name": "Integration Testing",
+      "command": "sparc integration",
+      "agents": ["tester", "api-tester"],
+      "inputs": ["src/", "tests/"],
+      "outputs": ["integration-report.json", "e2e-results.json"],
+      "validation": {
+        "required": ["integration pass", "e2e scenarios", "performance baseline"]
+      }
+    },
+    {
+      "id": "6-validation",
+      "name": "Theater Detection & Validation",
+      "command": "sparc theater-detect",
+      "agents": ["theater-killer", "reality-checker", "production-validator"],
+      "inputs": ["src/", "tests/", "metrics/"],
+      "outputs": ["validation-report.json", "theater-scan.json"],
+      "validation": {
+        "required": ["zero theater patterns", "real functionality", "production ready"]
+      }
+    }
+  ],
+  "qualityGates": {
+    "coverage": {
+      "threshold": 80,
+      "enforcement": "strict"
+    },
+    "security": {
+      "criticalIssues": 0,
+      "highIssues": 0,
+      "enforcement": "strict"
+    },
+    "performance": {
+      "regression": "not-allowed",
+      "baseline": "maintain-or-improve"
+    },
+    "theater": {
+      "tolerance": "zero",
+      "validation": "mandatory"
+    }
+  },
+  "rollback": {
+    "enabled": true,
+    "triggers": ["test-failure", "security-issue", "performance-regression"],
+    "strategy": "checkpoint-restore"
+  }
+}

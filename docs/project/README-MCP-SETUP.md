@@ -26,7 +26,7 @@ npm run setup
 [OK] **context7** - Large-context analysis for complex decisions
 
 ### Tier 2: Conditionally Enabled
-[CYCLE] **plane** - Project management sync (only if `PLANE_API_TOKEN` is configured)
+[CYCLE] **plane** - Project management sync (only if `GITHUB_TOKEN` is configured)
 
 ## Available Commands
 
@@ -79,10 +79,10 @@ GEMINI_API_KEY=your_gemini_key_here
 # GitHub Integration (enhanced functionality)
 GITHUB_TOKEN=ghp_your_github_token
 
-# Project Management (enables Plane MCP)
-PLANE_API_TOKEN=your_plane_token
-PLANE_API_URL=https://your-plane-instance.com
-PLANE_PROJECT_ID=your_project_id
+# Project Management (enables GitHub Project Manager)
+GITHUB_TOKEN=your_plane_token
+GITHUB_API_URL=https://your-plane-instance.com
+GITHUB_PROJECT_NUMBER=your_project_id
 PLANE_WORKSPACE_SLUG=your_workspace
 ```
 
@@ -102,7 +102,7 @@ With auto-initialization, every agent gets:
 - **Parallel Coordination** (Claude-Flow MCP) - 2.8-4.4x speed improvement through concurrent operations
 - **GitHub Integration** (GitHub MCP) - Seamless PR creation, issue tracking, workflow automation
 - **Complex Analysis** (Context7 MCP) - Large-context architectural decisions and impact analysis
-- **PM Sync** (Plane MCP, if configured) - Automatic project management updates and stakeholder visibility
+- **PM Sync** (GitHub Project Manager, if configured) - Automatic project management updates and stakeholder visibility
 
 ## Troubleshooting
 
@@ -133,9 +133,9 @@ bash scripts/validate-mcp-environment.sh --template
 - Install Claude Code from https://claude.ai/code
 - Ensure `claude` command is in your PATH
 
-**"PLANE_API_TOKEN not configured"**  
-- This is normal if you're not using Plane project management
-- Plane MCP will be automatically skipped
+**"GITHUB_TOKEN not configured"**  
+- This is normal if you're not using GitHub project management
+- GitHub Project Manager will be automatically skipped
 
 **"Failed to add MCP server"**
 - Check your internet connection
@@ -179,7 +179,7 @@ Edit `scripts/mcp-auto-init.sh` to modify initialization order or add custom ser
 ### Conditional Logic
 The system automatically detects your environment configuration and enables appropriate MCP servers:
 - **Always**: memory, sequential-thinking, claude-flow, github, context7
-- **If PLANE_API_TOKEN set**: plane
+- **If GITHUB_TOKEN set**: plane
 - **On-demand**: deepwiki, firecrawl, playwright, eva (loaded by specific commands)
 
 ### Performance Optimization

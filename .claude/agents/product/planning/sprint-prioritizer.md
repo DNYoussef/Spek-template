@@ -147,7 +147,7 @@ mcp__claude-flow__agent_spawn({
 
 ## Tool Routing
 - TodoWrite: Sprint task creation and tracking
-- Plane MCP: Project management integration
+- GitHub Project Manager: Project management integration
 - GitHub MCP: Development workflow coordination
 - Claude Flow MCP: Multi-agent task coordination
 - Memory MCP: Velocity and pattern tracking

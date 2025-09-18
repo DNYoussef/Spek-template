@@ -1,0 +1,69 @@
+/**
+ * TDD Test Template - {{FEATURE_NAME}}
+ * Following Red-Green-Refactor cycle
+ */
+
+describe('{{FEATURE_NAME}}', () => {
+  // Setup
+  beforeEach(() => {
+    // {{SETUP_DESCRIPTION}}
+  });
+
+  // Teardown
+  afterEach(() => {
+    // {{CLEANUP_DESCRIPTION}}
+  });
+
+  describe('{{SCENARIO_1}}', () => {
+    it('should {{EXPECTED_BEHAVIOR_1}}', () => {
+      // Arrange
+      const input = {{TEST_INPUT}};
+      const expected = {{EXPECTED_OUTPUT}};
+
+      // Act
+      const result = {{FUNCTION_UNDER_TEST}}(input);
+
+      // Assert
+      expect(result).toEqual(expected);
+    });
+
+    it('should handle {{EDGE_CASE_1}}', () => {
+      // Arrange
+      const invalidInput = {{INVALID_INPUT}};
+
+      // Act & Assert
+      expect(() => {
+        {{FUNCTION_UNDER_TEST}}(invalidInput);
+      }).toThrow({{EXPECTED_ERROR}});
+    });
+  });
+
+  describe('{{SCENARIO_2}}', () => {
+    it('should {{EXPECTED_BEHAVIOR_2}}', async () => {
+      // Arrange
+      const mockData = {{MOCK_DATA}};
+
+      // Act
+      const result = await {{ASYNC_FUNCTION}}(mockData);
+
+      // Assert
+      expect(result).toHaveProperty('{{PROPERTY}}');
+      expect(result.{{PROPERTY}}).toBe({{EXPECTED_VALUE}});
+    });
+  });
+
+  // Integration tests
+  describe('Integration: {{INTEGRATION_SCENARIO}}', () => {
+    it('should integrate with {{COMPONENT}}', () => {
+      // Test integration points
+      const component = new {{COMPONENT}}();
+      const feature = new {{FEATURE_CLASS}}();
+
+      // Act
+      const result = feature.integrateWith(component);
+
+      // Assert
+      expect(result.isIntegrated).toBe(true);
+    });
+  });
+});

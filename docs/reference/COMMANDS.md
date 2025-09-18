@@ -551,7 +551,7 @@ wait
 
 ### `/pm:sync`
 
-**Purpose**: Bidirectional synchronization with Plane MCP
+**Purpose**: Bidirectional synchronization with GitHub Project Manager
 
 **Usage**: `/pm:sync [operation=sync|status|update] [project_id=auto]`
 

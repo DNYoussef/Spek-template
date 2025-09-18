@@ -1,0 +1,74 @@
+{
+  "project": "{{PROJECT_NAME}}",
+  "version": "1.0.0",
+  "created": "{{TIMESTAMP}}",
+  "methodology": "SPARC",
+  "phases": {
+    "specification": {
+      "status": "pending",
+      "artifacts": ["SPEC.md"],
+      "agents": ["specification", "researcher"]
+    },
+    "pseudocode": {
+      "status": "pending",
+      "artifacts": ["pseudocode.md", "algorithms.json"],
+      "agents": ["pseudocode", "architect"]
+    },
+    "architecture": {
+      "status": "pending",
+      "artifacts": ["architecture.md", "system-design.json"],
+      "agents": ["architecture", "system-architect"]
+    },
+    "refinement": {
+      "status": "pending",
+      "artifacts": ["implementation/", "tests/"],
+      "agents": ["coder", "tester", "reviewer"]
+    },
+    "completion": {
+      "status": "pending",
+      "artifacts": ["docs/", "README.md", "metrics.json"],
+      "agents": ["completion-auditor", "production-validator"]
+    }
+  },
+  "tasks": [
+    {
+      "id": "task-001",
+      "title": "{{TASK_TITLE}}",
+      "type": "small",
+      "phase": "specification",
+      "status": "pending",
+      "assignedAgents": [],
+      "dependencies": [],
+      "acceptance": [
+        "{{ACCEPTANCE_1}}",
+        "{{ACCEPTANCE_2}}"
+      ],
+      "budget": {
+        "loc": 25,
+        "files": 2,
+        "time": "2h"
+      }
+    }
+  ],
+  "risks": [
+    {
+      "id": "risk-001",
+      "description": "{{RISK_DESCRIPTION}}",
+      "probability": "medium",
+      "impact": "high",
+      "mitigation": "{{MITIGATION_STRATEGY}}"
+    }
+  ],
+  "qualityGates": {
+    "coverage": 80,
+    "security": "zero-critical",
+    "performance": "no-regression",
+    "theater": "zero-tolerance"
+  },
+  "metadata": {
+    "author": "SPARC System",
+    "reviewers": [],
+    "approvals": [],
+    "tags": ["sparc", "automated", "spek"]
+  }
+}

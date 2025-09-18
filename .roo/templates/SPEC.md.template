@@ -1,0 +1,40 @@
+# Specification: {{PROJECT_NAME}}
+
+## Overview
+{{BRIEF_DESCRIPTION}}
+
+## Requirements
+
+### Functional Requirements
+1. **{{REQUIREMENT_1}}**
+   - {{DETAIL_1}}
+   - {{DETAIL_2}}
+
+2. **{{REQUIREMENT_2}}**
+   - {{DETAIL_1}}
+   - {{DETAIL_2}}
+
+### Non-Functional Requirements
+- **Performance**: {{PERFORMANCE_REQUIREMENTS}}
+- **Security**: {{SECURITY_REQUIREMENTS}}
+- **Scalability**: {{SCALABILITY_REQUIREMENTS}}
+
+## User Stories
+- As a {{USER_ROLE}}, I want to {{ACTION}} so that {{BENEFIT}}
+
+## Acceptance Criteria
+- [ ] {{CRITERION_1}}
+- [ ] {{CRITERION_2}}
+- [ ] {{CRITERION_3}}
+
+## Technical Constraints
+- {{CONSTRAINT_1}}
+- {{CONSTRAINT_2}}
+
+## Dependencies
+- {{DEPENDENCY_1}}
+- {{DEPENDENCY_2}}
+
+## Success Metrics
+- {{METRIC_1}}
+- {{METRIC_2}}

@@ -21,7 +21,7 @@ All 6 TypeScript files have been upgraded from placeholder implementations to fu
 
 ### 2. ContextValidator.ts ✅ COMPLETE
 **Previous Issues:**
-- Simulated Plane MCP connection
+- Simulated GitHub Project Manager connection
 - Hardcoded semantic scoring
 - Mock validation checks
 

@@ -183,7 +183,7 @@ scripts/impact_quickcheck.sh report <target>         # Comprehensive report
 
 ### GitHub Integration
 - **PR management**: CF GitHub modes for evidence-rich PRs
-- **Issue linking**: Idempotent Plane MCP sync
+- **Issue linking**: Idempotent GitHub Project Manager sync
 - **Release coordination**: CF release-manager workflows
 
 ## Monitoring and Alerting

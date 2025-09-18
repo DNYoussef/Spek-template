@@ -1,7 +1,7 @@
 # /pm:sync
 
 ## Purpose
-Synchronize development progress with project management systems via Plane MCP. Maintains bidirectional sync between code implementation status and PM tracking, ensuring accurate project visibility and stakeholder alignment. Integrates with SPEK workflow phases for automated progress reporting.
+Synchronize development progress with GitHub Project Manager. Maintains bidirectional sync between code implementation status and GitHub Projects, ensuring accurate project visibility and stakeholder alignment. Integrates with SPEK workflow phases for automated progress reporting using native GitHub integration.
 
 ## Usage
 /pm:sync [operation=sync|status|update] [project_id=auto]
@@ -10,22 +10,23 @@ Synchronize development progress with project management systems via Plane MCP. 
 
 ### 1. Project Management Integration Setup
 
-#### Plane MCP Configuration:
+#### GitHub Project Manager Configuration:
 ```javascript
-// MCP connection configuration for Plane
-const PLANE_CONFIG = {
-  server_url: process.env.PLANE_SERVER_URL || 'https://app.plane.so',
-  workspace_slug: process.env.PLANE_WORKSPACE,
-  project_id: process.env.PROJECT_ID || detectProjectId(),
-  api_token: process.env.PLANE_API_TOKEN,
-  mcp_endpoint: 'plane-mcp://sync'
+// Configuration for GitHub Project Manager integration
+const GITHUB_PROJECT_CONFIG = {
+  owner: process.env.GITHUB_OWNER || detectGitHubOwner(),
+  repo: process.env.GITHUB_REPO || detectGitHubRepo(),
+  project_number: process.env.GITHUB_PROJECT_NUMBER || detectProjectNumber(),
+  token: process.env.GITHUB_TOKEN,
+  api_endpoint: 'https://api.github.com'
 };
 
-function initializePlaneConnection() {
+function initializeGitHubProjectConnection() {
   return {
-    workspace: PLANE_CONFIG.workspace_slug,
-    project: PLANE_CONFIG.project_id,
-    authenticated: !!PLANE_CONFIG.api_token,
+    owner: GITHUB_PROJECT_CONFIG.owner,
+    repo: GITHUB_PROJECT_CONFIG.repo,
+    project: GITHUB_PROJECT_CONFIG.project_number,
+    authenticated: !!GITHUB_PROJECT_CONFIG.token,
     connection_status: 'pending'
   };
 }
@@ -50,18 +51,18 @@ function detectProjectContext() {
     console.warn('Could not detect git remote');
   }
   
-  // Try to detect from existing Plane configuration
-  if (fs.existsSync('.plane/config.json')) {
-    const planeConfig = JSON.parse(fs.readFileSync('.plane/config.json', 'utf8'));
-    context.project_id = planeConfig.project_id;
-    context.current_milestone = planeConfig.current_milestone;
+  // Try to detect from existing GitHub Project configuration
+  if (fs.existsSync('config/github-project.json')) {
+    const githubConfig = JSON.parse(fs.readFileSync('config/github-project.json', 'utf8'));
+    context.project_id = githubConfig.project_number;
+    context.current_milestone = githubConfig.current_milestone;
   }
   
   // Try to detect from package.json or project metadata
   if (fs.existsSync('package.json')) {
     const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-    if (pkg.plane?.project_id) {
-      context.project_id = pkg.plane.project_id;
+    if (pkg.github?.project_number) {
+      context.project_id = pkg.github.project_number;
     }
   }
   
@@ -71,18 +72,18 @@ function detectProjectContext() {
 
 ### 2. Bidirectional Synchronization
 
-#### Development Status -> PM System:
+#### Development Status -> GitHub Projects:
 ```javascript
-async function syncDevelopmentToPlane(planJson, qaResults) {
+async function syncDevelopmentToGitHub(planJson, qaResults) {
   const sync_payload = {
     timestamp: new Date().toISOString(),
     sync_type: 'dev_to_pm',
     project_context: detectProjectContext(),
     
-    // Map SPEK tasks to Plane issues
+    // Map SPEK tasks to GitHub issues
     task_updates: planJson.tasks.map(task => ({
       spek_task_id: task.id,
-      plane_issue_id: findLinkedIssue(task),
+      github_issue_id: findLinkedIssue(task),
       status_update: determineTaskStatus(task, qaResults),
       progress_metrics: {
         completion_percentage: calculateTaskProgress(task, qaResults),
@@ -142,7 +143,7 @@ function determineTaskStatus(task, qaResults) {
 #### PM System -> Development Sync:
 ```javascript
 async function syncPlaneToDevlopment() {
-  const plane_updates = await callPlaneMCP('get_project_updates', {
+  const github_updates = await callGitHubAPI('get_project_updates', {
     project_id: PLANE_CONFIG.project_id,
     since_timestamp: getLastSyncTimestamp()
   });
@@ -154,10 +155,10 @@ async function syncPlaneToDevlopment() {
     requirement_changes: []
   };
   
-  for (const update of plane_updates.updates) {
+  for (const update of github_updates.updates) {
     if (update.type === 'issue_created') {
       sync_actions.new_issues.push({
-        plane_issue_id: update.issue_id,
+        github_issue_id: update.issue_id,
         title: update.title,
         description: update.description,
         priority: update.priority,
@@ -336,7 +337,7 @@ Generate detailed pm-sync.json:
   },
   
   "sync_status": {
-    "plane_connection": "connected",
+    "github_connection": "connected",
     "last_sync": "2024-09-08T14:30:00Z",
     "sync_direction": "bidirectional",
     "conflicts_detected": 0,
@@ -351,7 +352,7 @@ Generate detailed pm-sync.json:
     "task_mappings": [
       {
         "spek_task_id": "auth-001",
-        "plane_issue_id": "ISS-234",
+        "github_issue_id": "#234",
         "status_change": "backlog -> in_progress",
         "completion_percentage": 75,
         "quality_score": 85,
@@ -359,7 +360,7 @@ Generate detailed pm-sync.json:
       },
       {
         "spek_task_id": "auth-002", 
-        "plane_issue_id": "ISS-235",
+        "github_issue_id": "#235",
         "status_change": "in_progress -> done",
         "completion_percentage": 100,
         "quality_score": 92,
@@ -383,7 +384,7 @@ Generate detailed pm-sync.json:
     "incoming_changes": [
       {
         "type": "new_issue",
-        "plane_issue_id": "ISS-238",
+        "github_issue_id": "#238",
         "title": "Add rate limiting to login endpoint",
         "priority": "high", 
         "assignee": "dev-team",
@@ -396,7 +397,7 @@ Generate detailed pm-sync.json:
       },
       {
         "type": "priority_change",
-        "plane_issue_id": "ISS-236",
+        "github_issue_id": "#236",
         "old_priority": "medium",
         "new_priority": "high",
         "affected_spek_tasks": ["auth-003"],
@@ -500,7 +501,7 @@ function detectSyncConflicts(dev_data, pm_data) {
         conflicts.push({
           type: 'status_conflict',
           spek_task: task.id,
-          plane_issue: linked_issue.id,
+          github_issue: linked_issue.id,
           dev_status,
           pm_status,
           resolution_options: getStatusResolutionOptions(dev_status, pm_status)
@@ -564,7 +565,7 @@ async function resolveConflicts(conflicts) {
 ### Consumes:
 - `plan.json` - SPEK task definitions and status
 - `qa.json` - Quality metrics and test results
-- Plane MCP project data
+- GitHub Project data
 - Git repository metadata and commit history
 
 ## Examples
@@ -604,7 +605,7 @@ async function resolveConflicts(conflicts) {
 
 ## Error Handling
 
-### Plane MCP Connection Issues:
+### GitHub Project Manager Connection Issues:
 - Graceful degradation when Plane is unavailable
 - Offline mode with sync queue for later processing
 - Clear error reporting for authentication failures

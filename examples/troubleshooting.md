@@ -268,13 +268,13 @@ rm -rf node_modules && npm install
 - Synchronization conflicts
 
 **Solutions**:
-1. **Configure Plane MCP**:
+1. **Configure GitHub Project Manager**:
    ```bash
    # Set environment variables
    export PLANE_SERVER_URL=https://app.plane.so
    export PLANE_WORKSPACE=your-workspace
    export PROJECT_ID=your-project-id
-   export PLANE_API_TOKEN=your-token
+   export GITHUB_TOKEN=your-token
    ```
 
 2. **Manual Project ID**:

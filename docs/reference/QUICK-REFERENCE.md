@@ -27,7 +27,7 @@
 | `/theater:scan` | Theater pattern detection | - | `theater.json` |
 | `/reality:check` | End-user validation | - | `reality-check.json` |
 | `/memory:unified` | Unified memory operations | - | `memory.json` |
-| `/pm:sync` | Plane MCP sync | - | `pm-sync.json` |
+| `/pm:sync` | GitHub Project Manager sync | - | `pm-sync.json` |
 | `/pr:open` | Evidence-rich PRs | - | GitHub PR URL |
 
 ## [CLIPBOARD] Enhanced S-R-P-E-K Workflow

@@ -1,0 +1,232 @@
+# Code Review Report - {{PROJECT_NAME}}
+
+## Review Summary
+**Date**: {{REVIEW_DATE}}
+**Reviewer**: {{REVIEWER}}
+**Review Type**: {{REVIEW_TYPE}}
+**Status**: {{OVERALL_STATUS}}
+**Score**: {{REVIEW_SCORE}}/100
+
+## Executive Summary
+{{EXECUTIVE_SUMMARY}}
+
+## Review Scope
+- **Files Reviewed**: {{FILES_COUNT}}
+- **Lines of Code**: {{LOC_COUNT}}
+- **Time Spent**: {{TIME_SPENT}}
+- **Focus Areas**: {{FOCUS_AREAS}}
+
+## Quality Metrics
+
+### Code Quality
+| Metric | Score | Target | Status |
+|--------|-------|--------|--------|
+| Maintainability | {{MAINTAINABILITY}} | >80 | {{MAINT_STATUS}} |
+| Readability | {{READABILITY}} | >85 | {{READ_STATUS}} |
+| Complexity | {{COMPLEXITY}} | <10 | {{COMPLEX_STATUS}} |
+| Duplication | {{DUPLICATION}}% | <5% | {{DUP_STATUS}} |
+| Test Coverage | {{COVERAGE}}% | >80% | {{COV_STATUS}} |
+
+### NASA POT10 Compliance
+| Criterion | Score | Required | Status |
+|-----------|-------|----------|--------|
+| {{POT10_1}} | {{SCORE_1}}% | 90% | {{STATUS_1}} |
+| {{POT10_2}} | {{SCORE_2}}% | 90% | {{STATUS_2}} |
+| {{POT10_3}} | {{SCORE_3}}% | 90% | {{STATUS_3}} |
+
+## Findings
+
+### Critical Issues (Must Fix)
+#### Issue #1: {{CRITICAL_ISSUE_1}}
+- **File**: `{{FILE_1}}`
+- **Line**: {{LINE_1}}
+- **Description**: {{ISSUE_1_DESC}}
+- **Impact**: {{ISSUE_1_IMPACT}}
+- **Recommendation**: {{ISSUE_1_FIX}}
+```{{LANG_1}}
+// Current
+{{CURRENT_CODE_1}}
+
+// Suggested
+{{SUGGESTED_CODE_1}}
+```
+
+### High Priority Issues
+#### Issue #2: {{HIGH_ISSUE_1}}
+- **File**: `{{FILE_2}}`
+- **Line**: {{LINE_2}}
+- **Category**: {{CATEGORY_2}}
+- **Description**: {{ISSUE_2_DESC}}
+- **Recommendation**: {{ISSUE_2_FIX}}
+
+### Medium Priority Issues
+#### Issue #3: {{MEDIUM_ISSUE_1}}
+- **File**: `{{FILE_3}}`
+- **Line**: {{LINE_3}}
+- **Category**: {{CATEGORY_3}}
+- **Description**: {{ISSUE_3_DESC}}
+
+### Low Priority Suggestions
+- {{LOW_ISSUE_1}}
+- {{LOW_ISSUE_2}}
+- {{LOW_ISSUE_3}}
+
+## Security Analysis
+
+### Security Scan Results
+| Tool | Critical | High | Medium | Low |
+|------|----------|------|--------|-----|
+| {{TOOL_1}} | {{CRIT_1}} | {{HIGH_1}} | {{MED_1}} | {{LOW_1}} |
+| {{TOOL_2}} | {{CRIT_2}} | {{HIGH_2}} | {{MED_2}} | {{LOW_2}} |
+
+### Security Recommendations
+1. {{SEC_REC_1}}
+2. {{SEC_REC_2}}
+3. {{SEC_REC_3}}
+
+## Performance Analysis
+
+### Performance Issues
+| Issue | Impact | Location | Fix |
+|-------|--------|----------|-----|
+| {{PERF_ISSUE_1}} | {{PERF_IMPACT_1}} | {{PERF_LOC_1}} | {{PERF_FIX_1}} |
+| {{PERF_ISSUE_2}} | {{PERF_IMPACT_2}} | {{PERF_LOC_2}} | {{PERF_FIX_2}} |
+
+### Optimization Opportunities
+- {{OPT_1}}
+- {{OPT_2}}
+- {{OPT_3}}
+
+## Architecture Review
+
+### Design Patterns
+- **Good Practices**: {{GOOD_PATTERNS}}
+- **Anti-patterns Found**: {{ANTI_PATTERNS}}
+- **Recommendations**: {{PATTERN_RECS}}
+
+### Coupling & Cohesion
+- **Connascence Score**: {{CONN_SCORE}}
+- **High Coupling Areas**: {{HIGH_COUPLING}}
+- **Low Cohesion Modules**: {{LOW_COHESION}}
+
+## Testing Review
+
+### Test Coverage Analysis
+```
+{{COVERAGE_REPORT}}
+```
+
+### Missing Tests
+- {{MISSING_TEST_1}}
+- {{MISSING_TEST_2}}
+- {{MISSING_TEST_3}}
+
+### Test Quality Issues
+- {{TEST_ISSUE_1}}
+- {{TEST_ISSUE_2}}
+
+## Documentation Review
+
+### Documentation Coverage
+- **Code Comments**: {{COMMENT_COVERAGE}}%
+- **API Documentation**: {{API_DOC_COVERAGE}}%
+- **README Completeness**: {{README_SCORE}}/10
+
+### Documentation Issues
+- {{DOC_ISSUE_1}}
+- {{DOC_ISSUE_2}}
+
+## Best Practices Compliance
+
+### Adherence to Standards
+| Standard | Compliance | Notes |
+|----------|------------|-------|
+| {{STANDARD_1}} | {{COMPLIANCE_1}}% | {{NOTES_1}} |
+| {{STANDARD_2}} | {{COMPLIANCE_2}}% | {{NOTES_2}} |
+| {{STANDARD_3}} | {{COMPLIANCE_3}}% | {{NOTES_3}} |
+
+## Positive Observations
+- {{POSITIVE_1}}
+- {{POSITIVE_2}}
+- {{POSITIVE_3}}
+- {{POSITIVE_4}}
+
+## Action Items
+
+### Immediate (Before Merge)
+- [ ] {{ACTION_1}}
+- [ ] {{ACTION_2}}
+- [ ] {{ACTION_3}}
+
+### Short-term (Next Sprint)
+- [ ] {{ACTION_4}}
+- [ ] {{ACTION_5}}
+
+### Long-term (Technical Debt)
+- [ ] {{ACTION_6}}
+- [ ] {{ACTION_7}}
+
+## Theater Detection Results
+
+### Reality Validation
+- **Fake Improvements**: {{FAKE_COUNT}}
+- **Theater Patterns**: {{THEATER_PATTERNS}}
+- **Genuine Quality**: {{GENUINE_SCORE}}%
+
+### Evidence of Real Work
+- {{EVIDENCE_1}}
+- {{EVIDENCE_2}}
+- {{EVIDENCE_3}}
+
+## Recommendations
+
+### For This PR/Commit
+{{PR_RECOMMENDATIONS}}
+
+### For Future Development
+{{FUTURE_RECOMMENDATIONS}}
+
+### Process Improvements
+{{PROCESS_RECOMMENDATIONS}}
+
+## Review Checklist
+
+### Code Quality
+- [x] Code compiles without warnings
+- [x] No critical security issues
+- [ ] {{CHECKLIST_1}}
+- [ ] {{CHECKLIST_2}}
+
+### Testing
+- [x] Unit tests pass
+- [x] Integration tests pass
+- [ ] {{TEST_CHECK_1}}
+- [ ] {{TEST_CHECK_2}}
+
+### Documentation
+- [x] Code is commented
+- [ ] API docs updated
+- [ ] README updated
+
+## Approval Status
+
+**Decision**: {{APPROVAL_DECISION}}
+
+**Conditions for Approval**:
+1. {{CONDITION_1}}
+2. {{CONDITION_2}}
+3. {{CONDITION_3}}
+
+**Sign-off Required From**:
+- [ ] {{SIGNOFF_1}}
+- [ ] {{SIGNOFF_2}}
+
+## Follow-up Actions
+- **Next Review Date**: {{NEXT_REVIEW}}
+- **Tracking Issue**: {{TRACKING_ISSUE}}
+- **Monitoring**: {{MONITORING_PLAN}}
+
+---
+*Generated by SPARC Review Phase*
+*Review ID: {{REVIEW_ID}}*
+*Template Version: 1.0.0*

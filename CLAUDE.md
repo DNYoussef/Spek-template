@@ -6,7 +6,7 @@
 
 ## [TARGET] Project Overview
 
-**SPEK Enhanced Development Platform** is a comprehensive AI-driven development environment that extends GitHub's Spec Kit with Research Intelligence, Theater Detection, and Reality Validation. The platform integrates 85+ AI agents (54 core + 31 specialized), 29 specialized slash commands, and comprehensive quality gates to deliver **30-60% faster development** with **zero-defect production delivery**.
+**SPEK Enhanced Development Platform** is a complete multi-agent workflow orchestration system with Queen-Princess-Drone swarm hierarchy. The platform integrates 85+ specialized AI agents, 163+ slash commands, 15+ MCP servers, and comprehensive theater detection for enterprise-grade development automation.
 
 ### Core Pipeline: S-R-P-E-K Methodology
 ```
@@ -16,13 +16,13 @@ Specification -> Research -> Planning -> Execution -> Knowledge
 Requirements  Solutions   Strategy     Features    Quality
 ```
 
-**Key Differentiators:**
-- **Research-First Approach**: Discover existing solutions before building from scratch
-- **Theater Detection**: Eliminate fake work and validate genuine quality improvements  
-- **Defense Industry Ready**: 95% NASA POT10 compliance with comprehensive quality gates
-- **Parallel Execution**: 2.8-4.4x speed improvement through concurrent operations
-- **Reality Validation**: Evidence-based verification preventing completion theater
-- **AI Governance**: Full model attribution and audit trails via transcript mode and enhanced hooks
+**Key Components:**
+- **Swarm Architecture**: Queen-Princess-Drone hierarchy with 6 domain princesses
+- **AI Agent System**: 85+ specialized agents with automatic model optimization
+- **Command Framework**: 163+ slash commands for complete workflow automation
+- **MCP Integration**: 15+ servers including memory, GitHub, browser automation
+- **Theater Detection**: Zero-tolerance audit gates for fake work elimination
+- **9-Step Dev Process**: Complete implementation workflow with reality validation
 
 ## [U+1F6A8] CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT
 
@@ -411,7 +411,7 @@ const result = modelSelector.selectModel('frontend-developer', {
 ### **[CHART] Project Management Commands**
 | Command | Description | Reference |
 |---------|-------------|-----------|
-| `/pm:sync` | Bidirectional sync with GitHub Project Manager MCP | `.claude/commands/pm-sync.md` |
+| `/pm:sync` | Bidirectional sync with GitHub Project Manager | `.claude/commands/pm-sync.md` |
 | `/pr:open` | Evidence-rich pull request creation | `.claude/commands/pr-open.md` |
 
 ### **[BRAIN] Memory & System Commands**

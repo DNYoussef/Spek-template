@@ -20,7 +20,7 @@ Welcome to the comprehensive tutorial collection for the SPEK-AUGMENT developmen
 ### Intermediate Level  
 - [Complex Workflow](complex-workflow.md) - Multi-file changes with checkpoints
 - [Security Scanning](security-scanning.md) - OWASP compliance and vulnerability management
-- [Project Management](project-management.md) - Plane MCP integration
+- [Project Management](project-management.md) - GitHub Project Manager integration
 
 ### Advanced Level
 - [Architecture Changes](workflows/architecture-migration.md) - Large-scale refactoring

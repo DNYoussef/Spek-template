@@ -389,18 +389,18 @@ initialize_mcp_servers() {
     # Tier 2: Conditional Auto-Start - Enhanced with Environment Analysis
     log_info "[CYCLE] Initializing Tier 2: Conditional MCPs (Enhanced)"
     
-    # Enhanced Plane MCP initialization with validation
-    if check_env_var "PLANE_API_TOKEN"; then
-        log_info "[U+1F6EB] PLANE_API_TOKEN found - enabling Plane MCP with validation"
+    # Enhanced GitHub Project Manager initialization with validation
+    if check_env_var "GITHUB_TOKEN"; then
+        log_info "[U+1F6EB] GITHUB_TOKEN found - enabling GitHub Project Manager with validation"
         
         # Additional Plane configuration validation
         local plane_config_valid=true
-        if ! check_env_var "PLANE_API_URL"; then
-            log_warning "[WARN] PLANE_API_URL not configured - Plane MCP may have issues"
+        if ! check_env_var "GITHUB_API_URL"; then
+            log_warning "[WARN] GITHUB_API_URL not configured - GitHub Project Manager may have issues"
             plane_config_valid=false
         fi
-        if ! check_env_var "PLANE_PROJECT_ID"; then
-            log_warning "[WARN] PLANE_PROJECT_ID not configured - Plane MCP may have issues"
+        if ! check_env_var "GITHUB_PROJECT_NUMBER"; then
+            log_warning "[WARN] GITHUB_PROJECT_NUMBER not configured - GitHub Project Manager may have issues"
             plane_config_valid=false
         fi
         
@@ -408,20 +408,20 @@ initialize_mcp_servers() {
         if add_mcp_server "plane" "plane"; then
             ((success_count++))
             if [[ "$plane_config_valid" == "true" ]]; then
-                log_success "[OK] Plane MCP initialized with full configuration"
+                log_success "[OK] GitHub Project Manager initialized with full configuration"
             else
-                log_warning "[WARN] Plane MCP initialized but configuration incomplete"
+                log_warning "[WARN] GitHub Project Manager initialized but configuration incomplete"
                 partial_success_servers+=("plane")
             fi
         else
             failed_servers+=("plane")
-            log_error "[FAIL] Plane MCP failed despite token configuration"
+            log_error "[FAIL] GitHub Project Manager failed despite token configuration"
         fi
     else
-        log_info "[INFO] PLANE_API_TOKEN not configured - skipping Plane MCP"
+        log_info "[INFO] GITHUB_TOKEN not configured - skipping GitHub Project Manager"
         log_info "   To enable Plane integration:"
-        log_info "   [U+2022] Set PLANE_API_TOKEN in your .env file"
-        log_info "   [U+2022] Also configure PLANE_API_URL, PLANE_PROJECT_ID"
+        log_info "   [U+2022] Set GITHUB_TOKEN in your .env file"
+        log_info "   [U+2022] Also configure GITHUB_API_URL, GITHUB_PROJECT_NUMBER"
         log_info "   [U+2022] Run: bash scripts/validate-mcp-environment.sh --template"
     fi
     
@@ -504,7 +504,7 @@ show_usage() {
     echo "  --help, -h    Show this help message"
     echo ""
     echo "Environment Variables (for conditional MCPs):"
-    echo "  PLANE_API_TOKEN    - Enables Plane MCP if set"
+    echo "  GITHUB_TOKEN    - Enables GitHub Project Manager if set"
     echo ""
     echo "Examples:"
     echo "  $0 --init         # Initialize all MCP servers"
@@ -571,9 +571,9 @@ show_enhanced_usage() {
     echo "  [U+2022] Metrics: $SUCCESS_METRICS"
     echo ""
     echo "Environment Variables (for conditional MCPs):"
-    echo "  PLANE_API_TOKEN    - Enables Plane MCP if set"
-    echo "  PLANE_API_URL      - Plane instance URL"
-    echo "  PLANE_PROJECT_ID   - Plane project identifier"
+    echo "  GITHUB_TOKEN    - Enables GitHub Project Manager if set"
+    echo "  GITHUB_API_URL      - Plane instance URL"
+    echo "  GITHUB_PROJECT_NUMBER   - Plane project identifier"
     echo ""
     echo "Examples:"
     echo "  $0 --init         # Initialize with intelligent analysis"
@@ -638,7 +638,7 @@ run_comprehensive_diagnostics() {
     
     # Environment variables analysis
     log_info "[U+1F30D] Environment Configuration Analysis:"
-    local env_vars=("PLANE_API_TOKEN" "GITHUB_TOKEN" "CLAUDE_API_KEY" "GEMINI_API_KEY")
+    local env_vars=("GITHUB_TOKEN" "GITHUB_TOKEN" "CLAUDE_API_KEY" "GEMINI_API_KEY")
     for var in "${env_vars[@]}"; do
         if check_env_var "$var"; then
             log_success "[OK] $var is configured"

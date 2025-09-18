@@ -2,7 +2,7 @@
  * Context Validator - Multi-Layer Validation System
  *
  * Implements triple-layer validation:
- * 1. Process Truth (Plane MCP)
+ * 1. Process Truth (GitHub Project Manager)
  * 2. Semantic Truth (Memory MCP)
  * 3. Integrity Truth (Context DNA)
  */
@@ -68,7 +68,7 @@ export class ContextValidator {
   }
 
   /**
-   * Initialize Plane MCP connection for process truth
+   * Initialize GitHub Project Manager connection for process truth
    */
   private async initializePlaneConnection(): Promise<void> {
     try {
@@ -81,7 +81,7 @@ export class ContextValidator {
 
         if (connectionResult.success) {
           this.planeProjectId = connectionResult.projectId || `swarm-truth-${Date.now()}`;
-          console.log(`Plane MCP connected successfully: ${this.planeProjectId}`);
+          console.log(`GitHub Project Manager connected successfully: ${this.planeProjectId}`);
 
           // Initialize validation project
           await this.createValidationProject();
@@ -89,10 +89,10 @@ export class ContextValidator {
           throw new Error('Plane connection failed');
         }
       } else {
-        throw new Error('Plane MCP not available');
+        throw new Error('GitHub Project Manager not available');
       }
     } catch (error) {
-      console.warn('Plane MCP connection failed, using local fallback:', error);
+      console.warn('GitHub Project Manager connection failed, using local fallback:', error);
       this.planeProjectId = 'swarm-truth-local-' + Date.now();
       await this.initializeLocalValidation();
     }
@@ -163,7 +163,7 @@ export class ContextValidator {
 
     const layers: LayerValidation[] = [];
 
-    // Layer 1: Process Truth (Plane MCP)
+    // Layer 1: Process Truth (GitHub Project Manager)
     const processValidation = await this.validateProcessTruth(context, fingerprint, gate);
     layers.push(processValidation);
 
@@ -213,7 +213,7 @@ export class ContextValidator {
   }
 
   /**
-   * Layer 1: Validate Process Truth via Plane MCP
+   * Layer 1: Validate Process Truth via GitHub Project Manager
    */
   private async validateProcessTruth(
     context: any,
@@ -444,7 +444,7 @@ export class ContextValidator {
   }
 
   /**
-   * Plane MCP integration helpers with real implementation
+   * GitHub Project Manager integration helpers with real implementation
    */
   private async checkPlaneRecord(fingerprint: ContextFingerprint): Promise<any> {
     try {
@@ -1070,7 +1070,7 @@ export class ContextValidator {
 
       // Attempt to notify Queen via appropriate channels
       if (typeof globalThis !== 'undefined') {
-        // Try Plane MCP for issue creation
+        // Try GitHub Project Manager for issue creation
         if ((globalThis as any).mcp__plane__createIssue) {
           try {
             await (globalThis as any).mcp__plane__createIssue({

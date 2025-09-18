@@ -229,9 +229,9 @@ class SlashCommandDispatcher {
 
         // Project Management Commands (2)
         this.registry.register('/pm:sync', {
-            description: 'Bidirectional sync with Plane MCP',
+            description: 'Bidirectional sync with GitHub Project Manager',
             category: 'project',
-            mcpRequired: ['plane'],
+            mcpRequired: ['github-project-manager'],
             handler: 'pm-sync'
         });
 

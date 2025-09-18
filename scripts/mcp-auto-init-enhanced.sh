@@ -566,15 +566,15 @@ initialize_mcp_servers_enhanced() {
     # Tier 2: Conditional Auto-Start
     log_info "Initializing Tier 2: Conditional MCPs (Enhanced)"
     
-    # Plane MCP - Only if configured
-    if [[ -n "${PLANE_API_TOKEN:-}" ]]; then
-        log_info "PLANE_API_TOKEN found - enabling Plane MCP with enhanced debugging"
+    # GitHub Project Manager - Only if configured
+    if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+        log_info "GITHUB_TOKEN found - enabling GitHub Project Manager with enhanced debugging"
         ((total_count++))
         if add_mcp_server_enhanced "plane" "plane" "$available_mcps"; then
             ((success_count++))
         fi
     else
-        log_warning "PLANE_API_TOKEN not configured - skipping Plane MCP"
+        log_warning "GITHUB_TOKEN not configured - skipping GitHub Project Manager"
     fi
     
     # Report results with intelligence
@@ -654,7 +654,7 @@ run_comprehensive_diagnostics() {
         --arg claude_api_key "${CLAUDE_API_KEY:+configured}" \
         --arg gemini_api_key "${GEMINI_API_KEY:+configured}" \
         --arg github_token "${GITHUB_TOKEN:+configured}" \
-        --arg plane_token "${PLANE_API_TOKEN:+configured}" \
+        --arg plane_token "${GITHUB_TOKEN:+configured}" \
         '{
             claude_api_key: $claude_api_key,
             gemini_api_key: $gemini_api_key,
@@ -746,7 +746,7 @@ Enhanced Features:
   [SEARCH] Comprehensive Diagnostics      System, network, and environment analysis
 
 Environment Variables (for conditional MCPs):
-  PLANE_API_TOKEN      Enables Plane MCP if configured
+  GITHUB_TOKEN      Enables GitHub Project Manager if configured
   CLAUDE_API_KEY       Claude API access
   GEMINI_API_KEY       Enhanced analysis capabilities
   GITHUB_TOKEN         GitHub MCP functionality

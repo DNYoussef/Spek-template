@@ -1,0 +1,23 @@
+{
+  "github_owner": "${GITHUB_OWNER}",
+  "github_repo": "${GITHUB_REPO}",
+  "github_token": "${GITHUB_TOKEN}",
+  "project_number": "${GITHUB_PROJECT_NUMBER}",
+  "default_labels": ["spek-driven", "auto-generated"],
+  "priority_mapping": {
+    "small": "low",
+    "multi": "medium",
+    "big": "high"
+  },
+  "state_mapping": {
+    "pending": "Todo",
+    "in_progress": "In Progress",
+    "completed": "Done"
+  },
+  "integration_features": {
+    "auto_create_issues": true,
+    "sync_pr_status": true,
+    "update_project_cards": true,
+    "track_milestones": true
+  }
+}

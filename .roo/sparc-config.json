@@ -1,0 +1,152 @@
+{
+  "name": "SPEK SPARC Configuration",
+  "version": "2.0.0",
+  "claudeFlowVersion": "2.0.0-alpha.108",
+  "enabled": true,
+  "settings": {
+    "autoMode": true,
+    "defaultMode": "spec",
+    "parallelExecution": true,
+    "maxConcurrentAgents": 10,
+    "artifactsPath": ".roo/artifacts",
+    "templatesPath": ".roo/templates",
+    "logsPath": ".roo/logs",
+    "workflowsPath": ".roo/workflows"
+  },
+  "modes": {
+    "available": [
+      "spec",
+      "spec-pseudocode",
+      "architect",
+      "tdd",
+      "tdd-london",
+      "integration",
+      "refactor",
+      "coder",
+      "research",
+      "review",
+      "test",
+      "debug",
+      "optimize",
+      "document",
+      "pipeline",
+      "swarm",
+      "theater-detect"
+    ],
+    "aliases": {
+      "s": "spec",
+      "sp": "spec-pseudocode",
+      "a": "architect",
+      "t": "tdd",
+      "tl": "tdd-london",
+      "i": "integration",
+      "r": "refactor",
+      "c": "coder",
+      "res": "research",
+      "rev": "review",
+      "d": "debug",
+      "o": "optimize",
+      "doc": "document",
+      "p": "pipeline",
+      "sw": "swarm",
+      "td": "theater-detect"
+    }
+  },
+  "agentMapping": {
+    "specification": ["specification", "researcher", "planner"],
+    "architecture": ["architecture", "system-architect", "arch-system-design"],
+    "implementation": ["coder", "sparc-coder", "implementer-sparc-coder"],
+    "testing": ["tester", "tdd-london-swarm", "api-tester", "test-results-analyzer"],
+    "review": ["reviewer", "code-analyzer", "security-manager"],
+    "optimization": ["perf-analyzer", "benchmark-suite", "workflow-optimizer"],
+    "coordination": ["sparc-coord", "hierarchical-coordinator", "task-orchestrator"],
+    "validation": ["theater-killer", "reality-checker", "production-validator", "completion-auditor"]
+  },
+  "qualityGates": {
+    "enabled": true,
+    "enforcement": "strict",
+    "criteria": {
+      "testCoverage": {
+        "threshold": 80,
+        "required": true
+      },
+      "security": {
+        "criticalIssues": 0,
+        "highIssues": 0,
+        "required": true
+      },
+      "performance": {
+        "regressionAllowed": false,
+        "benchmarkRequired": true
+      },
+      "codeQuality": {
+        "complexity": 10,
+        "duplication": 5,
+        "maintainability": "A"
+      },
+      "theater": {
+        "tolerance": 0,
+        "validationRequired": true
+      }
+    }
+  },
+  "integration": {
+    "claudeCode": {
+      "enabled": true,
+      "autoConnect": true,
+      "transcriptMode": true
+    },
+    "mcp": {
+      "servers": [
+        "claude-flow",
+        "memory",
+        "github",
+        "filesystem",
+        "sequential-thinking",
+        "github-project-manager"
+      ],
+      "autoInit": true
+    },
+    "github": {
+      "enabled": true,
+      "autoCommit": false,
+      "prTemplate": true,
+      "issueTracking": true,
+      "projectSync": true
+    },
+    "swarm": {
+      "enabled": true,
+      "queenPrincessMode": true,
+      "byzantineFaultTolerance": true,
+      "maxSwarmSize": 85
+    }
+  },
+  "hooks": {
+    "preTask": "npx claude-flow@alpha hooks pre-task",
+    "postTask": "npx claude-flow@alpha hooks post-task",
+    "sessionEnd": "npx claude-flow@alpha hooks session-end --export-metrics",
+    "onFailure": "npx claude-flow@alpha hooks rollback",
+    "onSuccess": "npx claude-flow@alpha hooks record-success"
+  },
+  "templates": {
+    "spec": "SPEC.md.template",
+    "plan": "plan.json.template",
+    "test": "tdd-test.js.template",
+    "review": "review-report.md.template"
+  },
+  "workflows": {
+    "tdd": "sparc-tdd.json",
+    "pipeline": "sparc-pipeline.json",
+    "swarm": "sparc-swarm.json"
+  },
+  "logging": {
+    "level": "info",
+    "format": "json",
+    "destination": ".roo/logs/sparc.log",
+    "rotation": {
+      "enabled": true,
+      "maxSize": "10MB",
+      "maxFiles": 5
+    }
+  }
+}
