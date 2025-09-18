@@ -299,13 +299,43 @@ rm -rf node_modules && npm install
 Enable detailed logging for diagnosis:
 
 ```bash
-# Set debug environment
-export DEBUG=spek:*
-export VERBOSE_LOGGING=true
+# Set debug environment (Python components)
+export ENABLE_DEBUG_LOGGING=true
+export PYTHON_LOG_LEVEL=DEBUG
+
+# Set debug environment (JavaScript components)
+export NODE_ENV=development
+export CLAUDE_FLOW_DEBUG=true
 
 # Run command with debugging
 /qa:run
 ```
+
+### Error Classification System
+
+The platform uses standardized error categories for consistent troubleshooting:
+
+**Python Error Categories** (from ErrorHandler):
+- `ANALYSIS` - Core analysis engine failures
+- `CONFIGURATION` - Config file or setting issues
+- `FILE_IO` - File reading/writing problems
+- `PARSING` - Code parsing or AST generation failures
+- `VALIDATION` - Data validation or compliance check failures
+- `DEPENDENCY` - Missing dependencies or import failures
+- `INTERNAL` - Internal system errors
+
+**JavaScript Error Categories**:
+- Performance threshold violations
+- Quality gate enforcement failures
+- Alert escalation system errors
+- Theater detection engine failures
+
+**Error Severity Levels**:
+- `CRITICAL` - System-breaking errors requiring immediate attention
+- `HIGH` - Major functionality impacted
+- `MEDIUM` - Moderate impact, degraded functionality
+- `LOW` - Minor issues, minimal impact
+- `INFO` - Informational messages
 
 ### Artifact Analysis
 
@@ -320,6 +350,38 @@ cat .claude/.artifacts/qa.json | jq '.results.tests.details.failed_tests'
 
 # Check gate decisions
 cat .claude/.artifacts/gate.json | jq '.blocking_issues'
+
+# Examine Python error logs (structured)
+cat .claude/.artifacts/*.json | jq '.errors[] | select(.severity == "CRITICAL")'
+
+# Check JavaScript quality validation logs
+cat .claude/.artifacts/quality_validation/*.json | jq '.validationMetrics'
+```
+
+### Error Log Analysis
+
+**Python Error Patterns**:
+```bash
+# Find critical errors by category
+grep -r "CRITICAL\|ErrorSeverity.CRITICAL" .claude/.artifacts/
+
+# Check error handler summaries
+find .claude/.artifacts/ -name "*.json" -exec jq '.error_summary' {} \;
+
+# Analyze error trends
+grep -r "AnalysisError" .claude/.artifacts/ | grep -E "(ANALYSIS|CONFIGURATION|FILE_IO)"
+```
+
+**JavaScript Error Patterns**:
+```bash
+# Check alert escalations
+grep -r "Escalating alert" .claude/.artifacts/
+
+# Find performance violations
+grep -r "Performance overhead" .claude/.artifacts/
+
+# Check theater detection issues
+grep -r "theater" .claude/.artifacts/quality_validation/
 ```
 
 ### Command Sequencing

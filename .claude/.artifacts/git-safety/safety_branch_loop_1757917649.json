@@ -1,9 +1,0 @@
-{
-  "branch_name": "loop3-safety-20250915-022729--loop_175",
-  "parent_branch": "main",
-  "creation_timestamp": "2025-09-15T02:27:29.666451",
-  "loop_id": "loop_1757917649",
-  "failure_categories": [],
-  "branch_hash": "a97e18b749dff83993de980bf2e5fdcf059fe98f",
-  "safety_level": "isolated"
-}

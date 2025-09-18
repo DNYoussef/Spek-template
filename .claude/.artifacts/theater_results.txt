@@ -1,2 +1,0 @@
-theater_detected=true
-theater_confidence=medium
