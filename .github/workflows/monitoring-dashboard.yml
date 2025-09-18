@@ -80,7 +80,7 @@ jobs:
           RESPONSE_TIME=$(echo "$RESPONSE" | cut -d':' -f2)
           # More robust calculation using awk instead of bc
           if [[ "$RESPONSE_TIME" =~ ^[0-9]+\.?[0-9]*$ ]]; then
-            RESPONSE_TIME_MS=$(awk "BEGIN {printf \"%.0f\", $RESPONSE_TIME * 1000}")
+            RESPONSE_TIME_MS=$(echo "$RESPONSE_TIME" | awk '{printf "%.0f", $1 * 1000}')
           else
             RESPONSE_TIME_MS="999000"  # Default for invalid input
           fi
