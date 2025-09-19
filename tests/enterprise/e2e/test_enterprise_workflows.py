@@ -119,11 +119,20 @@ class TestCompleteEnterpriseWorkflow:
         integration.register_hook("on_success", success_hook)
         
         # Perform comprehensive analysis
-        test_files = [\n            "src/secure_code.py",\n            "src/high_quality_code.py",\n            "src/code_with_issues.py",\n            "src/regular_code.py"\n        ]
+        test_files = [
+            "src/secure_code.py",
+            "src/high_quality_code.py",
+            "src/code_with_issues.py",
+            "src/regular_code.py"
+        ]
         
         results = []
         for file_path in test_files:
-            result = await integration.analyze_with_enterprise_features(\n                "production",\n                file_path,\n                options={"deep_analysis": True}\n            )
+            result = await integration.analyze_with_enterprise_features(
+                "production",
+                file_path,
+                options={"deep_analysis": True}
+            )
             results.append(result)
             
         # Verify all analyses completed
@@ -386,8 +395,39 @@ pydantic>=1.8.0
         
         for task_name, passed, opportunities in development_tasks:
             telemetry.record_unit_processed(passed=passed, opportunities=opportunities)
-            if not passed:\n                telemetry.record_defect(f"defect_in_{task_name}", opportunities=1)
-                \n        # Generate initial metrics snapshot\n        phase1_metrics = telemetry.generate_metrics_snapshot()\n        \n        assert phase1_metrics.sample_size == 6\n        assert phase1_metrics.defect_count == 4  # 2 failed units + 2 recorded defects\n        assert phase1_metrics.opportunity_count == 30  # Total opportunities: 5+8+3+2+6+4+1+1\n        \n        # Verify quality level determination\n        dpmo = telemetry.calculate_dpmo()\n        quality_level = telemetry.get_quality_level()\n        sigma_level = telemetry.calculate_sigma_level()\n        \n        assert dpmo > 0\n        assert isinstance(quality_level, QualityLevel)\n        assert sigma_level > 0\n        \n        # Phase 2: Process improvement - reduce defects\n        improvement_tasks = [\n            ("refactor_module_a", True, 10),\n            ("add_unit_tests", True, 15),\n            ("implement_feature_e", True, 7),\n            ("code_review", True, 5),\n            ("integration_test", True, 8),\n            ("performance_opt", False, 4),  # One failure for realism\n        ]\n        \n        for task_name, passed, opportunities in improvement_tasks:\n            telemetry.record_unit_processed(passed=passed, opportunities=opportunities)\n            if not passed:\n                telemetry.record_defect(f"defect_in_{task_name}")
+            if not passed:
+                telemetry.record_defect(f"defect_in_{task_name}", opportunities=1)
+
+        # Generate initial metrics snapshot
+        phase1_metrics = telemetry.generate_metrics_snapshot()
+
+        assert phase1_metrics.sample_size == 6
+        assert phase1_metrics.defect_count == 4  # 2 failed units + 2 recorded defects
+        assert phase1_metrics.opportunity_count == 30  # Total opportunities: 5+8+3+2+6+4+1+1
+
+        # Verify quality level determination
+        dpmo = telemetry.calculate_dpmo()
+        quality_level = telemetry.get_quality_level()
+        sigma_level = telemetry.calculate_sigma_level()
+
+        assert dpmo > 0
+        assert isinstance(quality_level, QualityLevel)
+        assert sigma_level > 0
+
+        # Phase 2: Process improvement - reduce defects
+        improvement_tasks = [
+            ("refactor_module_a", True, 10),
+            ("add_unit_tests", True, 15),
+            ("implement_feature_e", True, 7),
+            ("code_review", True, 5),
+            ("integration_test", True, 8),
+            ("performance_opt", False, 4),  # One failure for realism
+        ]
+
+        for task_name, passed, opportunities in improvement_tasks:
+            telemetry.record_unit_processed(passed=passed, opportunities=opportunities)
+            if not passed:
+                telemetry.record_defect(f"defect_in_{task_name}")
                 
         # Generate final metrics
         phase2_metrics = telemetry.generate_metrics_snapshot()

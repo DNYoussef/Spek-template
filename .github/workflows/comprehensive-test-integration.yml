@@ -107,9 +107,13 @@ jobs:
         echo "Running Python test suite..."
         mkdir -p .claude/.artifacts
 
+        # Set up Python path for proper module discovery
+        export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+        echo "PYTHONPATH=$PYTHONPATH"
+
         # Run tests with coverage
         if [ -d "tests" ] || find . -name "test_*.py" -o -name "*_test.py" | grep -v __pycache__ | head -1; then
-          pytest -v --cov=analyzer --cov=src --cov-report=html --cov-report=xml --cov-report=term \
+          pytest -v --cov=analyzer --cov=src --cov=lib --cov-report=html --cov-report=xml --cov-report=term \
                  --html=.claude/.artifacts/pytest-report.html --self-contained-html \
                  tests/ || find . -name "test_*.py" -o -name "*_test.py" | grep -v __pycache__ | head -5
 
@@ -247,6 +251,9 @@ jobs:
       run: |
         echo "Testing analyzer integration..."
 
+        # Set up Python path
+        export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+
         # Test analyzer can run without errors
         python3 -c "
         import sys
@@ -254,6 +261,14 @@ jobs:
 
         import sys
         print('Testing analyzer integration...')
+
+        # Test 0: Test lib module import
+        try:
+            from lib.shared.utilities import get_logger
+            print('✓ Lib module import successful')
+        except Exception as e:
+            print(f'✗ Lib module import failed: {e}')
+            sys.exit(1)
 
         # Test 1: Basic import
         try:
