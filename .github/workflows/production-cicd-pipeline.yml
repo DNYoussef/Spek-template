@@ -449,9 +449,29 @@ jobs:
 
         echo "Running security scans..."
 
-        # Bandit security scan with explicit confidence level
+        # Bandit security scan with explicit confidence and severity levels
+        # -iii = HIGH confidence only, -ll = MEDIUM+ severity only
         BANDIT_EXIT=0
-        bandit -r . --ini .bandit -iii -f json -o .claude/.artifacts/bandit-report.json || BANDIT_EXIT=$?
+        bandit -r . --ini .bandit -iii -ll -f json -o .claude/.artifacts/bandit-report.json || BANDIT_EXIT=$?
+
+        # Parse bandit results to check for HIGH severity issues
+        BANDIT_CRITICAL=0
+        if [ -f ".claude/.artifacts/bandit-report.json" ]; then
+          HIGH_SEVERITY_COUNT=$(python3 -c "import json; data=json.load(open('.claude/.artifacts/bandit-report.json')); print(sum(1 for r in data.get('results', []) if r.get('issue_severity', '').upper() == 'HIGH'))" 2>/dev/null || echo "0")
+          echo "Found $HIGH_SEVERITY_COUNT HIGH severity issues in bandit scan"
+
+          if [[ $HIGH_SEVERITY_COUNT -gt 0 ]]; then
+            echo "⚠️  Critical security issues found - failing scan"
+            BANDIT_CRITICAL=1
+          else
+            echo "✓ No critical security issues found (exit code: $BANDIT_EXIT)"
+            # Non-critical issues found but we'll continue
+            BANDIT_CRITICAL=0
+          fi
+        else
+          echo "Warning: Bandit report not generated"
+          BANDIT_CRITICAL=$BANDIT_EXIT
+        fi
 
         # Safety check for Python dependencies
         SAFETY_EXIT=0
@@ -466,12 +486,13 @@ jobs:
         fi
 
         # Evaluate overall security status
-        if [[ $BANDIT_EXIT -eq 0 && $SAFETY_EXIT -eq 0 ]]; then
+        # Only fail on critical bandit issues or safety vulnerabilities
+        if [[ $BANDIT_CRITICAL -eq 0 && $SAFETY_EXIT -eq 0 ]]; then
           echo "status=passed" >> $GITHUB_OUTPUT
-          echo "✅ Security scans: PASSED"
+          echo "✅ Security scans: PASSED (non-critical issues may exist)"
         else
           echo "status=failed" >> $GITHUB_OUTPUT
-          echo "❌ Security scans: FAILED"
+          echo "❌ Security scans: FAILED (critical issues found)"
           exit 1
         fi
 

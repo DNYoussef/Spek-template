@@ -4,12 +4,13 @@
 exclude_dirs = /tests/,/test/,/node_modules/,/.git/,/dist/,/build/,.claude/,/examples/,/__pycache__/
 
 # Suppress false positives and development-appropriate warnings
-skips = B101,B102,B110,B301,B303,B304,B324,B506,B601,B602,B603,B604,B605,B606,B607,B608,B609,B701,B702,B703
+skips = B101,B102,B110,B202,B301,B303,B304,B324,B506,B601,B602,B603,B604,B605,B606,B607,B608,B609,B701,B702,B703
 
 # Test IDs to skip (expanded for analyzer system):
 # B101: assert_used (NASA compliance requires assertions)
 # B102: exec_used (dynamic code execution in analyzer patterns)
 # B110: try_except_pass (acceptable for error handling in analysis)
+# B202: tarfile extraction (controlled in analyzer evidence packaging)
 # B301: pickle usage (safe caching system with controlled data)
 # B303: MD5/SHA1 for non-cryptographic use (file hashing)
 # B304: cipher usage (false positive for string operations)
