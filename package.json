@@ -24,8 +24,10 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@playwright/test": "^1.55.0",
     "@types/natural": "^5.1.5",
-    "natural": "^8.1.0"
+    "natural": "^8.1.0",
+    "playwright": "^1.55.0"
   },
   "devDependencies": {
     "@types/jest": "^29.0.0",

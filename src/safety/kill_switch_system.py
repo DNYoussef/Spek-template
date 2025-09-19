@@ -8,8 +8,70 @@ and comprehensive audit logging.
 import asyncio
 import hashlib
 import json
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Dict, Any, List, Optional
+from enum import Enum
+from dataclasses import dataclass, asdict
 from lib.shared.utilities import get_logger
+
 logger = get_logger(__name__)
+
+
+class TriggerType(Enum):
+    """Kill switch trigger types."""
+    LOSS_LIMIT = "loss_limit"
+    POSITION_LIMIT = "position_limit"
+    HEARTBEAT_TIMEOUT = "heartbeat_timeout"
+    MANUAL = "manual"
+    SYSTEM_ERROR = "system_error"
+
+
+@dataclass
+class KillSwitchEvent:
+    """Kill switch execution event."""
+    timestamp: float
+    trigger_type: TriggerType
+    trigger_data: Dict[str, Any]
+    response_time_ms: float
+    positions_flattened: int
+    authentication_method: str
+    success: bool
+    error: Optional[str] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        result = asdict(self)
+        result['trigger_type'] = self.trigger_type.value
+        return result
+
+
+class BrokerInterface:
+    """Mock broker interface for testing."""
+
+    async def get_positions(self):
+        """Get current positions."""
+        return []
+
+    async def close_position(self, symbol, qty, side, order_type):
+        """Close a position."""
+        return True
+
+
+class KillSwitchSystem:
+    """High-Performance Kill Switch System."""
+
+    def __init__(self, broker: BrokerInterface, config: Dict[str, Any]):
+        """Initialize the kill switch system.
+
+        Args:
+            broker: Broker interface for position management
+            config: Configuration dictionary
+        """
+        self.broker = broker
+        self.config = config
+        self.logger = get_logger(__name__)
 
         # Performance tracking
         self._last_execution_time = 0.0

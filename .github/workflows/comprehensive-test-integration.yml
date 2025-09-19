@@ -144,16 +144,7 @@ jobs:
         echo "Generating coverage analysis..."
 
         if [ -f "coverage.xml" ]; then
-          COVERAGE_PERCENT=$(python3 -c "
-          import xml.etree.ElementTree as ET
-          try:
-              tree = ET.parse('coverage.xml')
-              root = tree.getroot()
-              line_rate = float(root.attrib.get('line-rate', 0))
-              print(f'{line_rate * 100:.1f}')
-          except:
-              print('0.0')
-          ")
+          COVERAGE_PERCENT=$(python3 -c "import xml.etree.ElementTree as ET; tree = ET.parse('coverage.xml'); root = tree.getroot(); line_rate = float(root.attrib.get('line-rate', 0)); print(f'{line_rate * 100:.1f}')" 2>/dev/null || echo "0.0")
 
           echo "percent=$COVERAGE_PERCENT" >> $GITHUB_OUTPUT
           echo "Coverage: $COVERAGE_PERCENT%"

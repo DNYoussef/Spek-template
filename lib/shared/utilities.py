@@ -66,11 +66,23 @@ def setup_python_path() -> None:
     """Add project root to Python path if not already present."""
     project_root = get_project_root()
     project_root_str = str(project_root.absolute())
-    
+
     if project_root_str not in sys.path:
         sys.path.insert(0, project_root_str)
-        
+
         # Also add current directory for immediate imports
         current_dir = str(Path.cwd())
         if current_dir not in sys.path:
             sys.path.insert(0, current_dir)
+
+
+def path_exists(path: Union[str, Path]) -> bool:
+    """Check if a path exists.
+
+    Args:
+        path: Path to check (string or Path object).
+
+    Returns:
+        True if path exists, False otherwise.
+    """
+    return Path(path).exists()
