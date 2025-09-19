@@ -93,10 +93,10 @@ jobs:
             RESPONSE_TIME_MS="999000"
           fi
 
-          : $((TOTAL_CHECKS++))
+          TOTAL_CHECKS=$((TOTAL_CHECKS + 1))
 
           if [[ "$HTTP_CODE" == "200" || "$HTTP_CODE" == "201" ]]; then
-            : $((PASSED_CHECKS++))
+            PASSED_CHECKS=$((PASSED_CHECKS + 1))
             echo "✅ $name: $HTTP_CODE (${RESPONSE_TIME_MS}ms)"
 
             # Check response time threshold
@@ -119,10 +119,15 @@ jobs:
         # Test endpoints (these would be real application endpoints in production)
         echo "timestamp,endpoint,status_code,response_time_ms" > .claude/.artifacts/monitoring/performance-log.csv
 
-        # Health check endpoints
-        test_endpoint "https://httpbin.org/status/200" "health-check" 5
-        test_endpoint "https://httpbin.org/delay/1" "api-response" 10
-        test_endpoint "https://httpbin.org/json" "data-endpoint" 5
+        # Health check endpoints - Use real application URLs
+        APP_HEALTH_URL="${APP_HEALTH_URL:-http://localhost:3000/health}"
+        APP_API_URL="${APP_API_URL:-http://localhost:3000/api/status}"
+        APP_DATA_URL="${APP_DATA_URL:-http://localhost:3000/api/data}"
+
+        # Test real application endpoints (with fallback to localhost)
+        test_endpoint "$APP_HEALTH_URL" "health-check" 5
+        test_endpoint "$APP_API_URL" "api-response" 10
+        test_endpoint "$APP_DATA_URL" "data-endpoint" 5
 
         # Calculate metrics
         if [[ $TOTAL_CHECKS -gt 0 ]]; then
@@ -322,7 +327,7 @@ jobs:
         FAKE_SUCCESS_COUNT=${FAKE_SUCCESS_COUNT:-0}
         if [[ $FAKE_SUCCESS_COUNT -gt 50 ]]; then
           THEATER_PATTERNS+=("Excessive success messaging: $FAKE_SUCCESS_COUNT instances")
-          : $((THEATER_VIOLATIONS++))
+          THEATER_VIOLATIONS=$((THEATER_VIOLATIONS + 1))
         fi
 
         # Pattern 2: Hardcoded test passes
@@ -330,7 +335,7 @@ jobs:
         TRIVIAL_TESTS=${TRIVIAL_TESTS:-0}
         if [[ $TRIVIAL_TESTS -gt 10 ]]; then
           THEATER_PATTERNS+=("Trivial test assertions: $TRIVIAL_TESTS instances")
-          : $((THEATER_VIOLATIONS++))
+          THEATER_VIOLATIONS=$((THEATER_VIOLATIONS + 1))
         fi
 
         # Pattern 3: Mock implementations without real logic
@@ -341,7 +346,7 @@ jobs:
 
         if [[ $REAL_LOGIC -gt 0 && $MOCK_COUNT -gt $((REAL_LOGIC / 10)) ]]; then
           THEATER_PATTERNS+=("Excessive mocking relative to real code")
-          : $((THEATER_VIOLATIONS++))
+          THEATER_VIOLATIONS=$((THEATER_VIOLATIONS + 1))
         fi
 
         # Calculate theater score (0-100, higher is better)
@@ -593,10 +598,10 @@ jobs:
         # Alert summary
         ALERT_COUNT=0
 
-        if [[ "$PERF_STATUS" != "healthy" ]]; then ((ALERT_COUNT++)); fi
-        if [[ "$QUALITY_STATUS" == "degraded" ]]; then ((ALERT_COUNT++)); fi
-        if [[ $THEATER_SCORE -lt 60 ]]; then ((ALERT_COUNT++)); fi
-        if [[ "$SECURITY_STATUS" == "vulnerable" ]]; then ((ALERT_COUNT++)); fi
+        if [[ "$PERF_STATUS" != "healthy" ]]; then ALERT_COUNT=$((ALERT_COUNT + 1)); fi
+        if [[ "$QUALITY_STATUS" == "degraded" ]]; then ALERT_COUNT=$((ALERT_COUNT + 1)); fi
+        if [[ $THEATER_SCORE -lt 60 ]]; then ALERT_COUNT=$((ALERT_COUNT + 1)); fi
+        if [[ "$SECURITY_STATUS" == "vulnerable" ]]; then ALERT_COUNT=$((ALERT_COUNT + 1)); fi
 
         echo "## Alert Summary" >> $GITHUB_STEP_SUMMARY
         if [[ $ALERT_COUNT -eq 0 ]]; then
