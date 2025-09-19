@@ -19,8 +19,8 @@ skips = B101,B102,B110,B301,B303,B304,B324,B506,B601,B602,B603,B604,B605,B606,B6
 # B701-B703: Jinja2 autoescape (not applicable to analyzer)
 
 # Only report high-confidence, medium+ severity issues
-confidence = 3  # Only HIGH confidence
-severity = 2    # Only MEDIUM+ severity
+# confidence = 3  # Removed - using command line flag instead
+# severity = 2    # Removed - using command line flag instead
 
 # Exclude specific files with legitimate security patterns
 exclude = */examples/*,*/test_*,*_test.py,*/docs/*

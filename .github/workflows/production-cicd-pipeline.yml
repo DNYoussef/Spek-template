@@ -449,9 +449,9 @@ jobs:
 
         echo "Running security scans..."
 
-        # Bandit security scan
+        # Bandit security scan with explicit confidence level
         BANDIT_EXIT=0
-        bandit -r . --ini .bandit -f json -o .claude/.artifacts/bandit-report.json || BANDIT_EXIT=$?
+        bandit -r . --ini .bandit -iii -f json -o .claude/.artifacts/bandit-report.json || BANDIT_EXIT=$?
 
         # Safety check for Python dependencies
         SAFETY_EXIT=0
