@@ -21,6 +21,7 @@ import ast
 import re
 import subprocess
 import sys
+import json
 from collections import defaultdict, Counter
 from dataclasses import dataclass, field
 from pathlib import Path
