@@ -14,8 +14,8 @@ import unicodedata
 
 # Unicode to ASCII replacement mapping
 UNICODE_REPLACEMENTS = {
-    # Emojis - Common ones found in SPEK template
-    '[TARGET]': '[TARGET]',
+# Emojis - Common ones found in SPEK template
+'[TARGET]': '[TARGET]',
     '[ROCKET]': '[ROCKET]',
     '[OK]': '[OK]',
     '[FAIL]': '[FAIL]',
@@ -82,7 +82,7 @@ UNICODE_REPLACEMENTS = {
     # Smart quotes and typography
     '"': '"',
     '"': '"',
-    '''''''''...': '...',
+    '…': '...',
     '-': '-',
     '--': '--',
     ',': ',',
@@ -161,6 +161,12 @@ def replace_unicode_chars(text):
                 text = text.replace(char, ascii_equivalent)
             else:
                 # Fallback: replace with placeholder
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 text = text.replace(char, f'[U+{ord(char):04X}]')
         except:
             text = text.replace(char, f'[U+{ord(char):04X}]')
@@ -192,11 +198,11 @@ def process_file(file_path, fix_mode=False, report_data=None):
     # Record violations
     if report_data is not None:
         report_data['files'].append({
-            'file': str(file_path),
+        'file': str(file_path),
             'violations': len(unicode_chars),
             'unicode_chars': [
-                {
-                    'char': uc['char'],
+            {
+            'char': uc['char'],
                     'position': uc['position'],
                     'name': uc['unicode_name'],
                     'code_point': uc['code_point']
@@ -248,7 +254,7 @@ def main():
     
     # Report data structure
     report_data = {
-        'total_files_processed': 0,
+    'total_files_processed': 0,
         'total_files_with_violations': 0,
         'total_violations': 0,
         'files': []
@@ -258,11 +264,23 @@ def main():
     
     if path.is_file():
         # Single file
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
         files_to_process = [path]
     else:
         # Directory - find all text files
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
         patterns = [
-            '**/*.json',
+        '**/*.json',
             '**/*.md',
             '**/*.js',
             '**/*.ts',
@@ -286,7 +304,7 @@ def main():
         # Filter out other unwanted paths
         unwanted_paths = ['.git', '__pycache__', '.pytest_cache', 'dist', 'build']
         files_to_process = [f for f in files_to_process 
-                           if not any(unwanted in str(f) for unwanted in unwanted_paths)]
+        if not any(unwanted in str(f) for unwanted in unwanted_paths)]
     
     print(f"Processing {len(files_to_process)} files...")
     

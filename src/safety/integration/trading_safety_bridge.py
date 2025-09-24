@@ -10,7 +10,7 @@ from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
         # Trading state management
-        self._trading_state = TradingState.ACTIVE
+self._trading_state = TradingState.ACTIVE
         self._state_lock = threading.RLock()
 
         # Circuit breakers
@@ -56,14 +56,14 @@ logger = get_logger(__name__)
 
         # Start processing threads
         self._processing_thread = threading.Thread(
-            target=self._processing_loop,
+        target=self._processing_loop,
             name="TradingSafetyBridge-Processor",
             daemon=True
         )
         self._processing_thread.start()
 
         self._monitoring_thread = threading.Thread(
-            target=self._monitoring_loop,
+        target=self._monitoring_loop,
             name="TradingSafetyBridge-Monitor",
             daemon=True
         )
@@ -91,8 +91,8 @@ logger = get_logger(__name__)
         """Register a circuit breaker configuration."""
         self._circuit_breaker_configs[config.name] = config
         self._circuit_breakers[config.name] = {
-            'state': 'closed',  # closed, open, half_open
-            'failure_count': 0,
+        'state': 'closed',  # closed, open, half_open
+        'failure_count': 0,
             'last_failure_time': None,
             'success_count': 0,
             'failures_in_window': []
@@ -108,7 +108,7 @@ logger = get_logger(__name__)
             self._daily_pnl[limit.symbol] = 0.0
 
         self.logger.info(
-            "Set position limit for %s: max_size=%.2f, max_loss=%.2f",
+        "Set position limit for %s: max_size=%.2f, max_loss=%.2f",
             limit.symbol, limit.max_position_size, limit.max_daily_loss
         )
 
@@ -126,7 +126,7 @@ logger = get_logger(__name__)
         """
         start_time = time.time()
         validation_result = {
-            'approved': True,
+        'approved': True,
             'reasons': [],
             'risk_level': self._current_risk_level.name,
             'circuit_breaker_state': {},
@@ -135,9 +135,14 @@ logger = get_logger(__name__)
 
         try:
             # Check trading state
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if self._trading_state != TradingState.ACTIVE:
                 validation_result['approved'] = False
-                validation_result['reasons'].append(f"Trading state is {self._trading_state.value}")
+                validation_result['reasons'].append(f"Trading state is {self._trading_state.value)")
 
             # Check circuit breakers
             cb_result = self._check_circuit_breakers(symbol)
@@ -158,14 +163,14 @@ logger = get_logger(__name__)
             # Check risk level
             if self._current_risk_level >= RiskLevel.CRITICAL:
                 validation_result['approved'] = False
-                validation_result['reasons'].append(f"Risk level too high: {self._current_risk_level.name}")
+                validation_result['reasons'].append(f"Risk level too high: {self._current_risk_level.name)")
 
             # Update metrics
             response_time_ms = (time.time() - start_time) * 1000
             self._response_times.append(response_time_ms)
 
             if len(self._response_times) > 1000:  # Keep last 1000 samples
-                self._response_times = self._response_times[-1000:]
+            self._response_times = self._response_times[-1000:]
 
             self.metrics.average_response_time_ms = sum(self._response_times) / len(self._response_times)
 
@@ -179,7 +184,7 @@ logger = get_logger(__name__)
         except Exception as e:
             self.logger.error("Trade validation error: %s", e)
             return {
-                'approved': False,
+            'approved': False,
                 'reasons': [f"Validation error: {str(e)}"],
                 'risk_level': 'UNKNOWN',
                 'circuit_breaker_state': {},
@@ -201,6 +206,11 @@ logger = get_logger(__name__)
         """
         try:
             # Update positions
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             previous_position = self._current_positions.get(symbol, 0.0)
             new_position = previous_position + size
             self._current_positions[symbol] = new_position
@@ -211,20 +221,19 @@ logger = get_logger(__name__)
 
             # Log trade execution
             self.logger.info(
-                "Trade executed: %s %+.4f @ %.4f (position: %.4f -> %.4f)",
+            "Trade executed: %s %+.4f @ %.4f (position: %.4f -> %.4f)",
                 symbol, size, price, previous_position, new_position
             )
 
             # Queue for processing
             trade_event = {
-                'type': 'trade_executed',
+            'type': 'trade_executed',
                 'trade_id': trade_id,
                 'symbol': symbol,
                 'size': size,
                 'price': price,
                 'timestamp': datetime.utcnow(),
-                'new_position': new_position
-            }
+                'new_position': new_position)
 
             try:
                 self._trade_queue.put_nowait(trade_event)
@@ -244,7 +253,7 @@ logger = get_logger(__name__)
             self._trading_state = state
 
         self.logger.warning(
-            "Trading state changed: %s -> %s (%s)",
+        "Trading state changed: %s -> %s (%s)",
             previous_state.value, state.value, reason
         )
 
@@ -254,7 +263,7 @@ logger = get_logger(__name__)
 
         # Queue alert
         alert = {
-            'type': 'state_change',
+        'type': 'state_change',
             'previous_state': previous_state.value,
             'new_state': state.value,
             'reason': reason,
@@ -281,22 +290,22 @@ logger = get_logger(__name__)
     def get_safety_status(self) -> Dict[str, Any]:
         """Get current safety system status."""
         return {
-            'timestamp': datetime.utcnow(),
+        'timestamp': datetime.utcnow(),
             'trading_state': self._trading_state.value,
             'risk_level': self._current_risk_level.value,
             'circuit_breakers': {
-                name: {
-                    'state': cb['state'],
+            name: {
+            'state': cb['state'],
                     'failure_count': cb['failure_count']
                 } for name, cb in self._circuit_breakers.items()
             },
             'positions': dict(self._current_positions),
             'daily_pnl': dict(self._daily_pnl),
             'metrics': {
-                'total_trades': self.metrics.total_trades,
+            'total_trades': self.metrics.total_trades,
                 'blocked_trades': self.metrics.blocked_trades,
                 'block_rate': (
-                    self.metrics.blocked_trades / max(1, self.metrics.total_trades + self.metrics.blocked_trades)
+                self.metrics.blocked_trades / max(1, self.metrics.total_trades + self.metrics.blocked_trades)
                 ),
                 'circuit_breaker_trips': self.metrics.circuit_breaker_trips,
                 'emergency_stops': self.metrics.emergency_stops,
@@ -308,7 +317,7 @@ logger = get_logger(__name__)
     def _check_circuit_breakers(self, symbol: str) -> Dict[str, Any]:
         """Check circuit breaker states."""
         result = {
-            'all_closed': True,
+        'all_closed': True,
             'open_breakers': [],
             'states': {}
         }
@@ -350,12 +359,11 @@ logger = get_logger(__name__)
     def _check_position_limits(self, symbol: str, size: float, price: float) -> Dict[str, Any]:
         """Check position limits for a trade."""
         result = {
-            'within_limits': True,
+        'within_limits': True,
             'violations': [],
             'current_position': self._current_positions.get(symbol, 0.0),
             'new_position': 0.0,
-            'exposure_impact': 0.0
-        }
+            'exposure_impact': 0.0)
 
         if symbol not in self._position_limits:
             return result
@@ -369,7 +377,7 @@ logger = get_logger(__name__)
         if abs(new_position) > limit.max_position_size:
             result['within_limits'] = False
             result['violations'].append(
-                f"Position size limit exceeded: {abs(new_position):.2f} > {limit.max_position_size:.2f}"
+            f"Position size limit exceeded: {abs(new_position):.2f) > {limit.max_position_size:.2f)"
             )
 
         # Check daily loss limit
@@ -380,7 +388,7 @@ logger = get_logger(__name__)
         if projected_pnl < -limit.max_daily_loss:
             result['within_limits'] = False
             result['violations'].append(
-                f"Daily loss limit exceeded: {projected_pnl:.2f} < -{limit.max_daily_loss:.2f}"
+            f"Daily loss limit exceeded: {projected_pnl:.2f) < -{limit.max_daily_loss:.2f)"
             )
             self.metrics.position_limit_violations += 1
 
@@ -391,7 +399,7 @@ logger = get_logger(__name__)
         if exposure > limit.max_exposure:
             result['within_limits'] = False
             result['violations'].append(
-                f"Exposure limit exceeded: {exposure:.2f} > {limit.max_exposure:.2f}"
+            f"Exposure limit exceeded: {exposure:.2f) > {limit.max_exposure:.2f)"
             )
 
         return result
@@ -401,6 +409,11 @@ logger = get_logger(__name__)
         while not self._shutdown_event.wait(0.1):
             try:
                 # Process trades
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 while not self._trade_queue.empty():
                     try:
                         trade_event = self._trade_queue.get_nowait()
@@ -433,7 +446,7 @@ logger = get_logger(__name__)
     def _monitoring_loop(self):
         """Monitor system health and risk levels."""
         while not self._shutdown_event.wait(5.0):  # Check every 5 seconds
-            try:
+        try:
                 self._update_risk_level()
                 self._update_uptime_metrics()
             except Exception as e:
@@ -475,7 +488,7 @@ logger = get_logger(__name__)
             self._current_risk_level = new_level
 
             self.logger.warning(
-                "Risk level changed: %s -> %s (factors: %d)",
+            "Risk level changed: %s -> %s (factors: %d)",
                 previous_level.name, new_level.name, risk_factors
             )
 
@@ -494,6 +507,11 @@ logger = get_logger(__name__)
         total_runtime = datetime.utcnow() - self._start_time
         if total_runtime.total_seconds() > 0:
             # Simplified uptime calculation
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             # In real system, this would track actual downtime
             self.metrics.uptime_percentage = 99.9  # Placeholder
 

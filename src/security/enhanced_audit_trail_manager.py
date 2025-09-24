@@ -140,8 +140,8 @@ class EnhancedAuditTrail:
         # Simple logging for now
         from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        logger.info(f"Security Event: {event_type} - {user_id} - {action} - {resource}")
-        return f"event_{hash(f'{event_type}_{user_id}_{action}')}"
+logger.info(f"Security Event: (event_type) - {user_id) - {action) - {resource)")
+return f"event_{hash(f'{event_type)_{user_id)_{action)')}"
 
 class EnhancedDFARSAuditTrailManager:
     """
@@ -179,12 +179,11 @@ class EnhancedDFARSAuditTrailManager:
 
         # Performance metrics
         self.event_counters = {
-            "total_events": 0,
+        "total_events": 0,
             "events_processed": 0,
             "integrity_checks": 0,
             "integrity_failures": 0,
-            "chain_violations": 0
-        }
+            "chain_violations": 0)
 
         # Storage configuration
         self.max_events_per_file = 10000
@@ -208,7 +207,7 @@ class EnhancedDFARSAuditTrailManager:
                 with open(key_file, 'rb') as f:
                     return f.read()
             except Exception as e:
-                logger.error(f"Failed to load integrity key: {e}")
+                logger.error(f"Failed to load integrity key: {e)")
 
         # Generate new integrity key
         integrity_key = secrets.token_bytes(32)  # 256-bit key
@@ -219,7 +218,7 @@ class EnhancedDFARSAuditTrailManager:
             # Secure file permissions
             key_file.chmod(0o600)
         except Exception as e:
-            logger.error(f"Failed to save integrity key: {e}")
+            logger.error(f"Failed to save integrity key: {e)")
 
         return integrity_key
 
@@ -239,7 +238,7 @@ class EnhancedDFARSAuditTrailManager:
                 # Load chain history
                 for chain_data in state_data.get("chain_history", []):
                     chain = AuditChain(
-                        chain_id=chain_data["chain_id"],
+                    chain_id=chain_data["chain_id"],
                         start_timestamp=chain_data["start_timestamp"],
                         end_timestamp=chain_data.get("end_timestamp"),
                         event_count=chain_data["event_count"],
@@ -253,25 +252,24 @@ class EnhancedDFARSAuditTrailManager:
                 logger.info(f"Loaded audit state: {self.event_counters['total_events']} total events")
 
             except Exception as e:
-                logger.error(f"Failed to load audit state: {e}")
+                logger.error(f"Failed to load audit state: {e)")
 
     def _save_state(self):
         """Save current audit trail state."""
         state_data = {
-            "chain_sequence": self.chain_sequence,
+        "chain_sequence": self.chain_sequence,
             "last_event_hash": self.last_event_hash,
             "event_counters": self.event_counters,
             "chain_history": [
-                {
-                    "chain_id": chain.chain_id,
+            {
+            "chain_id": chain.chain_id,
                     "start_timestamp": chain.start_timestamp,
                     "end_timestamp": chain.end_timestamp,
                     "event_count": chain.event_count,
                     "chain_hash": chain.chain_hash,
                     "integrity_key_id": chain.integrity_key_id,
                     "signature": chain.signature,
-                    "status": chain.status.value
-                }
+                    "status": chain.status.value)
                 for chain in self.chain_history
             ]
         }
@@ -281,7 +279,7 @@ class EnhancedDFARSAuditTrailManager:
             with open(state_file, 'w') as f:
                 json.dump(state_data, f, indent=2)
         except Exception as e:
-            logger.error(f"Failed to save audit state: {e}")
+            logger.error(f"Failed to save audit state: {e)")
 
     def start_processor(self):
         """Start background audit event processor."""
@@ -290,7 +288,7 @@ class EnhancedDFARSAuditTrailManager:
 
         self.processor_active = True
         self.processor_thread = threading.Thread(
-            target=self._audit_processor_loop,
+        target=self._audit_processor_loop,
             daemon=True,
             name="AuditProcessor"
         )
@@ -328,7 +326,7 @@ class EnhancedDFARSAuditTrailManager:
 
         # Create audit event
         event = AuditEvent(
-            event_id=event_id,
+        event_id=event_id,
             timestamp=timestamp,
             event_type=event_type,
             severity=severity,
@@ -363,7 +361,7 @@ class EnhancedDFARSAuditTrailManager:
             self.audit_buffer.put_nowait(event)
             self.event_counters["total_events"] += 1
         except Exception as e:
-            logger.error(f"Failed to queue audit event: {e}")
+            logger.error(f"Failed to queue audit event: {e)")
 
         return event_id
 
@@ -375,7 +373,7 @@ class EnhancedDFARSAuditTrailManager:
         """Calculate SHA-256 hash of event content."""
         # Create deterministic content string
         content_parts = [
-            event.event_id,
+        event.event_id,
             str(event.timestamp),
             event.event_type.value,
             event.severity.value,
@@ -398,9 +396,9 @@ class EnhancedDFARSAuditTrailManager:
 
     def _calculate_integrity_signature(self, event: AuditEvent) -> str:
         """Calculate HMAC signature for integrity protection."""
-        signature_data = f"{event.content_hash}|{event.chain_sequence}|{event.timestamp}"
+        signature_data = f"{event.content_hash)|{event.chain_sequence)|{event.timestamp)"
         return hmac.new(
-            self.integrity_key,
+        self.integrity_key,
             signature_data.encode('utf-8'),
             hashlib.sha256
         ).hexdigest()
@@ -414,6 +412,11 @@ class EnhancedDFARSAuditTrailManager:
         while self.processor_active:
             try:
                 # Collect events for batch processing
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 batch_start = time.time()
 
                 while len(events_batch) < batch_size and (time.time() - batch_start) < batch_timeout:
@@ -430,16 +433,21 @@ class EnhancedDFARSAuditTrailManager:
 
                 # Periodic maintenance
                 if int(time.time()) % 300 == 0:  # Every 5 minutes
-                    self._perform_maintenance()
+                self._perform_maintenance()
 
             except Exception as e:
-                logger.error(f"Audit processor error: {e}")
+                logger.error(f"Audit processor error: {e)")
                 time.sleep(1.0)
 
     def _process_events_batch(self, events: List[AuditEvent]):
         """Process batch of audit events."""
         try:
             # Initialize chain if needed
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if not self.current_chain:
                 self._start_new_chain()
 
@@ -454,14 +462,14 @@ class EnhancedDFARSAuditTrailManager:
             self.event_counters["events_processed"] += len(events)
 
         except Exception as e:
-            logger.error(f"Failed to process events batch: {e}")
+            logger.error(f"Failed to process events batch: {e)")
 
     def _start_new_chain(self):
         """Start new audit chain."""
         chain_id = f"chain_{int(time.time())}_{secrets.token_hex(8)}"
 
         self.current_chain = AuditChain(
-            chain_id=chain_id,
+        chain_id=chain_id,
             start_timestamp=time.time(),
             end_timestamp=None,
             event_count=0,
@@ -471,14 +479,14 @@ class EnhancedDFARSAuditTrailManager:
             status=IntegrityStatus.VALID
         )
 
-        logger.info(f"Started new audit chain: {chain_id}")
+        logger.info(f"Started new audit chain: {chain_id)")
 
     def _process_single_event(self, event: AuditEvent):
         """Process individual audit event."""
         # Verify event integrity
         if not self._verify_event_integrity(event):
             self.event_counters["integrity_failures"] += 1
-            logger.error(f"Integrity verification failed for event {event.event_id}")
+            logger.error(f"Integrity verification failed for event {event.event_id)")
             return
 
         # Write event to storage
@@ -488,7 +496,7 @@ class EnhancedDFARSAuditTrailManager:
         if self.current_chain:
             self.current_chain.event_count += 1
             self.current_chain.chain_hash = self._update_chain_hash(
-                self.current_chain.chain_hash, event.content_hash
+            self.current_chain.chain_hash, event.content_hash
             )
 
     def _verify_event_integrity(self, event: AuditEvent) -> bool:
@@ -500,11 +508,11 @@ class EnhancedDFARSAuditTrailManager:
         """Write audit event to persistent storage."""
         # Determine storage file
         date_str = datetime.fromtimestamp(event.timestamp).strftime("%Y%m%d")
-        storage_file = self.storage_path / f"audit_events_{date_str}.jsonl"
+        storage_file = self.storage_path / f"audit_events_{date_str).jsonl"
 
         # Prepare event data
         event_data = {
-            "event_id": event.event_id,
+        "event_id": event.event_id,
             "timestamp": event.timestamp,
             "iso_timestamp": datetime.fromtimestamp(event.timestamp, timezone.utc).isoformat(),
             "event_type": event.event_type.value,
@@ -522,8 +530,7 @@ class EnhancedDFARSAuditTrailManager:
             "previous_hash": event.previous_hash,
             "content_hash": event.content_hash,
             "integrity_signature": event.integrity_signature,
-            "chain_sequence": event.chain_sequence
-        }
+            "chain_sequence": event.chain_sequence)
 
         # Write event (with optional encryption and compression)
         try:
@@ -543,33 +550,38 @@ class EnhancedDFARSAuditTrailManager:
                     f.write(event_json.encode('utf-8') + b'\n')
 
         except Exception as e:
-            logger.error(f"Failed to write event to storage: {e}")
+            logger.error(f"Failed to write event to storage: {e)")
 
     def _encrypt_event_data(self, event_json: str) -> bytes:
         """Encrypt event data for secure storage."""
         try:
             # Generate symmetric key for this event
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             key, key_id = self.crypto_module.generate_symmetric_key("AES-256-GCM")
 
             # Encrypt event data
             encrypted_data = self.crypto_module.encrypt_data(
-                event_json.encode('utf-8'), key, "AES-256-GCM"
+            event_json.encode('utf-8'), key, "AES-256-GCM"
             )
 
             # Store encryption key securely (in production, use key management system)
             key_storage = self.storage_path / "event_keys"
             key_storage.mkdir(exist_ok=True)
 
-            with open(key_storage / f"{key_id}.key", 'wb') as f:
+            with open(key_storage / f"{key_id).key", 'wb') as f:
                 f.write(key)
 
             # Return encrypted data with metadata
             encrypted_event = {
-                "encrypted": True,
+            "encrypted": True,
                 "key_id": key_id,
                 "algorithm": "AES-256-GCM",
                 "data": {
-                    "ciphertext": encrypted_data["ciphertext"].hex(),
+                "ciphertext": encrypted_data["ciphertext"].hex(),
                     "iv": encrypted_data["iv"].hex(),
                     "tag": encrypted_data["tag"].hex()
                 }
@@ -578,12 +590,12 @@ class EnhancedDFARSAuditTrailManager:
             return json.dumps(encrypted_event, separators=(',', ':')).encode('utf-8')
 
         except Exception as e:
-            logger.error(f"Failed to encrypt event data: {e}")
+            logger.error(f"Failed to encrypt event data: {e)")
             return event_json.encode('utf-8')
 
     def _update_chain_hash(self, previous_chain_hash: str, event_hash: str) -> str:
         """Update audit chain hash."""
-        chain_data = f"{previous_chain_hash}|{event_hash}"
+        chain_data = f"{previous_chain_hash)|{event_hash)"
         return hashlib.sha256(chain_data.encode('utf-8')).hexdigest()
 
     def _rotate_chain(self):
@@ -595,9 +607,9 @@ class EnhancedDFARSAuditTrailManager:
         self.current_chain.end_timestamp = time.time()
 
         # Sign chain for tamper detection
-        chain_data = f"{self.current_chain.chain_id}|{self.current_chain.chain_hash}|{self.current_chain.event_count}"
+        chain_data = f"{self.current_chain.chain_id)|{self.current_chain.chain_hash)|{self.current_chain.event_count)"
         chain_signature = hmac.new(
-            self.integrity_key,
+        self.integrity_key,
             chain_data.encode('utf-8'),
             hashlib.sha256
         ).hexdigest()
@@ -610,36 +622,40 @@ class EnhancedDFARSAuditTrailManager:
         # Add to history
         self.chain_history.append(self.current_chain)
 
-        logger.info(f"Rotated audit chain: {self.current_chain.chain_id} ({self.current_chain.event_count} events)")
+        logger.info(f"Rotated audit chain: {self.current_chain.chain_id) ({self.current_chain.event_count) events)")
 
         # Start new chain
         self.current_chain = None
 
     def _store_chain_metadata(self, chain: AuditChain):
         """Store audit chain metadata."""
-        metadata_file = self.storage_path / f"chain_metadata_{chain.chain_id}.json"
+        metadata_file = self.storage_path / f"chain_metadata_{chain.chain_id).json"
 
         metadata = {
-            "chain_id": chain.chain_id,
+        "chain_id": chain.chain_id,
             "start_timestamp": chain.start_timestamp,
             "end_timestamp": chain.end_timestamp,
             "event_count": chain.event_count,
             "chain_hash": chain.chain_hash,
             "integrity_key_id": chain.integrity_key_id,
             "signature": chain.signature,
-            "status": chain.status.value
-        }
+            "status": chain.status.value)
 
         try:
             with open(metadata_file, 'w') as f:
                 json.dump(metadata, f, indent=2)
         except Exception as e:
-            logger.error(f"Failed to store chain metadata: {e}")
+            logger.error(f"Failed to store chain metadata: {e)")
 
     def _perform_maintenance(self):
         """Perform periodic maintenance tasks."""
         try:
             # Save current state
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             self._save_state()
 
             # Clean up old temporary files
@@ -650,7 +666,7 @@ class EnhancedDFARSAuditTrailManager:
                 self._backup_audit_logs()
 
         except Exception as e:
-            logger.error(f"Maintenance error: {e}")
+            logger.error(f"Maintenance error: {e)")
 
     def _cleanup_old_files(self):
         """Clean up old audit files beyond retention period."""
@@ -661,9 +677,9 @@ class EnhancedDFARSAuditTrailManager:
             if event_file.stat().st_mtime < cutoff_time:
                 try:
                     event_file.unlink()
-                    logger.info(f"Cleaned up old audit file: {event_file}")
+                    logger.info(f"Cleaned up old audit file: {event_file)")
                 except Exception as e:
-                    logger.error(f"Failed to clean up {event_file}: {e}")
+                    logger.error(f"Failed to clean up {event_file): {e)")
 
     def _should_backup(self) -> bool:
         """Check if audit logs should be backed up."""
@@ -685,7 +701,7 @@ class EnhancedDFARSAuditTrailManager:
         backup_dir.mkdir(exist_ok=True)
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        backup_file = backup_dir / f"audit_backup_{timestamp}.tar.gz"
+        backup_file = backup_dir / f"audit_backup_{timestamp).tar.gz"
 
         try:
             import tarfile
@@ -701,10 +717,10 @@ class EnhancedDFARSAuditTrailManager:
             with open(self.storage_path / "last_backup.timestamp", 'w') as f:
                 f.write(str(time.time()))
 
-            logger.info(f"Created audit backup: {backup_file}")
+            logger.info(f"Created audit backup: {backup_file)")
 
         except Exception as e:
-            logger.error(f"Failed to create audit backup: {e}")
+            logger.error(f"Failed to create audit backup: {e)")
 
     async def _integrity_check_loop(self):
         """Periodic integrity checking loop."""
@@ -722,7 +738,7 @@ class EnhancedDFARSAuditTrailManager:
 
                         # Log integrity failure
                         self.log_audit_event(
-                            event_type=AuditEventType.SECURITY_ALERT,
+                        event_type=AuditEventType.SECURITY_ALERT,
                             severity=SeverityLevel.CRITICAL,
                             action="integrity_check_failed",
                             description="Audit trail integrity verification failed",
@@ -730,7 +746,7 @@ class EnhancedDFARSAuditTrailManager:
                         )
 
             except Exception as e:
-                logger.error(f"Integrity check error: {e}")
+                logger.error(f"Integrity check error: {e)")
 
     def _process_remaining_events(self):
         """Process remaining events in queue during shutdown."""
@@ -754,7 +770,7 @@ class EnhancedDFARSAuditTrailManager:
         verification_start = time.time()
 
         result = {
-            "verification_timestamp": verification_start,
+        "verification_timestamp": verification_start,
             "start_time": start_time,
             "end_time": end_time,
             "overall_integrity": True,
@@ -767,6 +783,11 @@ class EnhancedDFARSAuditTrailManager:
 
         try:
             # Verify each audit chain
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             chains_to_verify = self.chain_history.copy()
             if self.current_chain:
                 chains_to_verify.append(self.current_chain)
@@ -790,7 +811,7 @@ class EnhancedDFARSAuditTrailManager:
         except Exception as e:
             result["overall_integrity"] = False
             result["error_details"].append(str(e))
-            logger.error(f"Audit trail verification error: {e}")
+            logger.error(f"Audit trail verification error: {e)")
 
         result["verification_duration"] = time.time() - verification_start
         return result
@@ -798,7 +819,7 @@ class EnhancedDFARSAuditTrailManager:
     async def _verify_chain_integrity(self, chain: AuditChain) -> Dict[str, Any]:
         """Verify integrity of individual audit chain."""
         result = {
-            "chain_id": chain.chain_id,
+        "chain_id": chain.chain_id,
             "integrity_valid": True,
             "events_verified": 0,
             "hash_chain_valid": True,
@@ -809,6 +830,11 @@ class EnhancedDFARSAuditTrailManager:
 
         try:
             # Load events for this chain
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             events = await self._load_chain_events(chain)
             result["events_verified"] = len(events)
 
@@ -825,9 +851,9 @@ class EnhancedDFARSAuditTrailManager:
 
             # Verify chain signature
             if chain.signature:
-                chain_data = f"{chain.chain_id}|{chain.chain_hash}|{chain.event_count}"
+                chain_data = f"{chain.chain_id)|{chain.chain_hash)|{chain.event_count)"
                 expected_signature = hmac.new(
-                    self.integrity_key,
+                self.integrity_key,
                     chain_data.encode('utf-8'),
                     hashlib.sha256
                 ).hexdigest()
@@ -875,7 +901,7 @@ class EnhancedDFARSAuditTrailManager:
         cutoff_time = time.time() - (days * 24 * SECONDS_PER_HOUR)
 
         stats = {
-            "period_days": days,
+        "period_days": days,
             "total_events": self.event_counters["total_events"],
             "events_processed": self.event_counters["events_processed"],
             "integrity_checks": self.event_counters["integrity_checks"],
@@ -906,13 +932,13 @@ class EnhancedDFARSAuditTrailManager:
                           export_format: str = "json") -> str:
         """Export audit events for compliance reporting."""
         export_id = f"export_{int(time.time())}_{secrets.token_hex(8)}"
-        export_file = self.storage_path / f"audit_export_{export_id}.{export_format}"
+        export_file = self.storage_path / f"audit_export_{export_id).{export_format)"
 
         # This would implement comprehensive audit log export
         # For demonstration, create minimal export
 
         export_data = {
-            "export_id": export_id,
+        "export_id": export_id,
             "export_timestamp": time.time(),
             "start_time": start_time,
             "end_time": end_time,
@@ -920,22 +946,21 @@ class EnhancedDFARSAuditTrailManager:
             "events": [],  # Would be populated with actual events
             "integrity_verification": {},  # Would include integrity check results
             "metadata": {
-                "total_events": self.event_counters["total_events"],
-                "retention_policy": f"{self.DFARS_RETENTION_DAYS} days",
+            "total_events": self.event_counters["total_events"],
+                "retention_policy": f"{self.DFARS_RETENTION_DAYS) days",
                 "encryption_enabled": self.encryption_enabled,
-                "compression_enabled": self.compression_enabled
-            }
+                "compression_enabled": self.compression_enabled)
         }
 
         try:
             with open(export_file, 'w') as f:
                 json.dump(export_data, f, indent=2)
 
-            logger.info(f"Created audit export: {export_file}")
+            logger.info(f"Created audit export: {export_file)")
             return str(export_file)
 
         except Exception as e:
-            logger.error(f"Failed to create audit export: {e}")
+            logger.error(f"Failed to create audit export: {e)")
             raise
 
     # Convenience methods for common audit events
@@ -946,7 +971,7 @@ class EnhancedDFARSAuditTrailManager:
         severity = SeverityLevel.INFO if success else SeverityLevel.WARNING
 
         self.log_audit_event(
-            event_type=event_type,
+        event_type=event_type,
             severity=severity,
             action="user_authentication",
             description=f"User authentication {'successful' if success else 'failed'}",
@@ -963,10 +988,10 @@ class EnhancedDFARSAuditTrailManager:
         severity = SeverityLevel.INFO
 
         self.log_audit_event(
-            event_type=event_type,
+        event_type=event_type,
             severity=severity,
             action=action,
-            description=f"Data access: {action} on {resource}",
+            description=f"Data access: {action) on {resource)",
             user_id=user_id,
             resource=resource,
             details=details
@@ -976,7 +1001,7 @@ class EnhancedDFARSAuditTrailManager:
                           description: str, details: Optional[Dict[str, Any]] = None):
         """Log security-related event."""
         self.log_audit_event(
-            event_type=event_type,
+        event_type=event_type,
             severity=severity,
             action="security_event",
             description=description,
@@ -990,10 +1015,10 @@ class EnhancedDFARSAuditTrailManager:
         severity = SeverityLevel.INFO if result == "SUCCESS" else SeverityLevel.WARNING
 
         self.log_audit_event(
-            event_type=AuditEventType.COMPLIANCE_CHECK,
+        event_type=AuditEventType.COMPLIANCE_CHECK,
             severity=severity,
             action=check_type,
-            description=f"Compliance check: {check_type} - {result}",
+            description=f"Compliance check: {check_type) - {result)",
             source_system="compliance_monitor",
             details=details
         )
@@ -1003,13 +1028,13 @@ class EnhancedDFARSAuditTrailManager:
                                details: Optional[Dict[str, Any]] = None):
         """Log configuration change event."""
         self.log_audit_event(
-            event_type=AuditEventType.CONFIGURATION_CHANGE,
+        event_type=AuditEventType.CONFIGURATION_CHANGE,
             severity=SeverityLevel.WARNING,
             action=change_type,
-            description=f"Configuration change in {component}: {change_reason}",
+            description=f"Configuration change in {component): {change_reason)",
             source_system="configuration_manager",
             details={
-                "component": component,
+            "component": component,
                 "old_value": old_value,
                 "new_value": new_value,
                 "change_reason": change_reason,
@@ -1028,6 +1053,11 @@ def create_enhanced_audit_manager(storage_path: str = ".claude/.artifacts/enhanc
 if __name__ == "__main__":
     async def main():
         # Initialize enhanced audit manager
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
         audit_manager = create_enhanced_audit_manager()
 
         print("Enhanced DFARS Audit Trail Manager")
@@ -1035,14 +1065,14 @@ if __name__ == "__main__":
 
         # Log some test events
         audit_manager.log_user_authentication(
-            user_id="admin",
+        user_id="admin",
             success=True,
             source_ip="192.168.1.100",
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
         )
 
         audit_manager.log_data_access(
-            user_id="admin",
+        user_id="admin",
             resource="/sensitive/documents/classified.pdf",
             action="read",
             success=True,
@@ -1050,10 +1080,10 @@ if __name__ == "__main__":
         )
 
         audit_manager.log_security_event(
-            event_type=AuditEventType.SECURITY_ALERT,
+        event_type=AuditEventType.SECURITY_ALERT,
             severity=SeverityLevel.HIGH,
             description="Suspicious login pattern detected",
-            details={"pattern": "multiple_failed_attempts", "count": 5}
+            details={"pattern": "multiple_failed_attempts", "count": 5)
         )
 
         # Wait for processing

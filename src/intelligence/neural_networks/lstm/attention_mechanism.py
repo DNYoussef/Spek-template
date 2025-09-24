@@ -84,6 +84,11 @@ class AttentionLayer(nn.Module):
         # Apply mask if provided
         if mask is not None:
             # Expand mask for multi-head attention
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             mask = mask.unsqueeze(1).unsqueeze(2)  # [batch_size, 1, 1, seq_len]
             attention_scores.masked_fill_(mask == 0, float('-inf'))
 
@@ -96,7 +101,7 @@ class AttentionLayer(nn.Module):
 
         # Reshape back to [batch_size, seq_len, hidden_size]
         attended_values = attended_values.transpose(1, 2).contiguous().view(
-            batch_size, seq_len, self.hidden_size
+        batch_size, seq_len, self.hidden_size
         )
 
         # Apply output projection

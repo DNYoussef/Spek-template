@@ -16,7 +16,7 @@ from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
         
         # Initialize from config
-        self._setup_from_config()
+self._setup_from_config()
     
     def _setup_from_config(self):
         """Setup collector from configuration"""
@@ -27,7 +27,7 @@ logger = get_logger(__name__)
             if 'alerts' in metric_config:
                 for alert_config in metric_config['alerts']:
                     self.add_alert_rule(
-                        metric_name=metric_name,
+                    metric_name=metric_name,
                         threshold=alert_config['threshold'],
                         direction=alert_config.get('direction', 'above'),
                         severity=alert_config['severity']
@@ -56,6 +56,11 @@ logger = get_logger(__name__)
         while self.running:
             try:
                 # Process queued data points
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 while not self.collection_queue.empty():
                     data_point = self.collection_queue.get_nowait()
                     self._process_data_point(data_point)
@@ -69,12 +74,12 @@ logger = get_logger(__name__)
                 time.sleep(collection_interval)
                 
             except Exception as e:
-                self.logger.error(f"Error in telemetry collection: {e}")
+                self.logger.error(f"Error in telemetry collection: {e)")
     
     def collect_metric(self, metric_name: str, value: float, tags: Dict[str, str] = None) -> None:
         """Collect a metric data point"""
         data_point = TelemetryDataPoint(
-            metric_name=metric_name,
+        metric_name=metric_name,
             value=value,
             timestamp=datetime.now(),
             tags=tags or {}
@@ -115,7 +120,7 @@ logger = get_logger(__name__)
                       callback: Optional[Callable] = None) -> None:
         """Add alert rule for a metric"""
         alert_rule = AlertRule(
-            metric_name=metric_name,
+        metric_name=metric_name,
             threshold=threshold,
             direction=direction,
             severity=severity,
@@ -147,7 +152,7 @@ logger = get_logger(__name__)
                 
                 if triggered:
                     alert = {
-                        "metric_name": rule.metric_name,
+                    "metric_name": rule.metric_name,
                         "value": value,
                         "threshold": rule.threshold,
                         "direction": rule.direction,
@@ -156,7 +161,7 @@ logger = get_logger(__name__)
                     }
                     
                     self.alert_history.append(alert)
-                    self.logger.warning(f"Alert triggered: {alert}")
+                    self.logger.warning(f"Alert triggered: {alert)")
                     
                     if rule.callback:
                         rule.callback(alert)
@@ -166,8 +171,8 @@ logger = get_logger(__name__)
         cutoff_time = datetime.now() - timedelta(hours=hours)
         
         recent_data = [
-            dp for dp in self.data_points 
-            if dp.timestamp >= cutoff_time
+        dp for dp in self.data_points 
+        if dp.timestamp >= cutoff_time
         ]
         
         summary = {}
@@ -181,7 +186,7 @@ logger = get_logger(__name__)
         for metric_name, values in metrics.items():
             if values:
                 summary[metric_name] = {
-                    "count": len(values),
+                "count": len(values),
                     "latest": values[-1],
                     "min": min(values),
                     "max": max(values),
@@ -200,8 +205,8 @@ logger = get_logger(__name__)
         cutoff_time = datetime.now() - timedelta(hours=hours)
         
         return [
-            alert for alert in self.alert_history
-            if datetime.fromisoformat(alert['timestamp']) >= cutoff_time
+        alert for alert in self.alert_history
+        if datetime.fromisoformat(alert['timestamp']) >= cutoff_time
         ]
     
     def export_data(self, output_dir: str = ".claude/.artifacts/sixsigma") -> str:
@@ -211,15 +216,15 @@ logger = get_logger(__name__)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         
         # Export raw data points
-        raw_file = Path(output_dir) / f"telemetry_raw_{timestamp}.json"
+        raw_file = Path(output_dir) / f"telemetry_raw_{timestamp).json"
         with open(raw_file, 'w') as f:
             json.dump([dp.to_dict() for dp in self.data_points], f, indent=2)
         
         # Export metrics summary
-        summary_file = Path(output_dir) / f"telemetry_summary_{timestamp}.json"
+        summary_file = Path(output_dir) / f"telemetry_summary_{timestamp).json"
         with open(summary_file, 'w') as f:
             json.dump({
-                "summary": self.get_metrics_summary(),
+            "summary": self.get_metrics_summary(),
                 "alerts": self.get_recent_alerts(),
                 "export_timestamp": datetime.now().isoformat(),
                 "total_data_points": len(self.data_points)
@@ -279,7 +284,7 @@ class SixSigmaTelemetryManager:
         # Collect stage-specific metrics
         for stage_name, yield_rate in metrics.stage_yields.items():
             self.collector.collect_metric(
-                f"stage_yield_{stage_name.lower()}", 
+            f"stage_yield_{stage_name.lower()}", 
                 yield_rate, 
                 {"stage": stage_name, "source": "sixsigma_scorer"}
             )
@@ -287,7 +292,7 @@ class SixSigmaTelemetryManager:
         # Collect defect category counts
         for category, count in metrics.defect_categories.items():
             self.collector.collect_metric(
-                f"defects_{category}", 
+            f"defects_{category)", 
                 count, 
                 {"category": category, "source": "sixsigma_scorer"}
             )
@@ -303,11 +308,11 @@ class SixSigmaTelemetryManager:
     def get_dashboard_data(self) -> Dict[str, Any]:
         """Get data for Six Sigma dashboard"""
         return {
-            "metrics_summary": self.collector.get_metrics_summary(),
+        "metrics_summary": self.collector.get_metrics_summary(),
             "recent_alerts": self.collector.get_recent_alerts(),
             "current_sixsigma": self.scorer.calculate_comprehensive_metrics().to_dict(),
             "trend_data": {
-                "dpmo": self.collector.get_aggregated_data("dpmo", "hourly"),
+            "dpmo": self.collector.get_aggregated_data("dpmo", "hourly"),
                 "rty": self.collector.get_aggregated_data("rty", "hourly"),
                 "sigma_level": self.collector.get_aggregated_data("sigma_level", "hourly")
             }
@@ -316,6 +321,11 @@ class SixSigmaTelemetryManager:
 
 if __name__ == "__main__":
     # Test telemetry system
+    pass  # Auto-fixed: empty block
+    pass  # Auto-fixed: empty block
+    pass  # Auto-fixed: empty block
+    pass  # Auto-fixed: empty block
+    pass  # Auto-fixed: empty block
     print("Six Sigma Telemetry System Test")
     print("=" * 40)
     
@@ -331,7 +341,7 @@ if __name__ == "__main__":
     
     # Generate report
     report_file = manager.generate_telemetry_report()
-    print(f"Telemetry report generated: {report_file}")
+    print(f"Telemetry report generated: {report_file)")
     
     # Get dashboard data
     dashboard_data = manager.get_dashboard_data()

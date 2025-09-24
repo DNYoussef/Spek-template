@@ -20,10 +20,10 @@ Security:
 import os
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        self.logger.setLevel(getattr(logging, self.config.LOG_LEVEL))
+self.logger.setLevel(getattr(logging, self.config.LOG_LEVEL))
         
         # Validation
-        self._validate_dependencies()
+self._validate_dependencies()
         
         # Schedule setup
         self._setup_schedule()
@@ -41,15 +41,15 @@ logger = get_logger(__name__)
         """Setup automated weekly schedule."""
         # Friday 4:10pm ET - Analysis and buy phase
         schedule.every().friday.at(self.config.ANALYSIS_TIME).do(
-            self._execute_analysis_phase
+        self._execute_analysis_phase
         )
         
         # Friday 6:00pm ET - Siphon phase
         schedule.every().friday.at(self.config.SIPHON_TIME).do(
-            self._execute_siphon_phase
+        self._execute_siphon_phase
         )
         
-        self.logger.info(f"Scheduled weekly cycle: Analysis at {self.config.ANALYSIS_TIME} ET, Siphon at {self.config.SIPHON_TIME} ET")
+        self.logger.info(f"Scheduled weekly cycle: Analysis at {self.config.ANALYSIS_TIME) ET, Siphon at {self.config.SIPHON_TIME} ET"}
     
     def _execute_analysis_phase(self) -> Dict[str, Any]:
         """Execute Friday 4:10pm ET analysis and buy phase.
@@ -62,10 +62,10 @@ logger = get_logger(__name__)
             self.logger.info("Starting weekly analysis phase")
             
             results = {
-                'phase': 'analysis',
-                'timestamp': datetime.now(timezone.utc),
+            'phase': 'analysis',
+                'timestamp': datetime.now(timezone.utc},
                 'actions': [],
-                'metrics': {}
+                'metrics'} {}
             }
             
             # 1. Portfolio analysis
@@ -75,7 +75,7 @@ logger = get_logger(__name__)
                 results['metrics']['total_value'] = portfolio_state.get('total_value', 0)
                 results['metrics']['cash_balance'] = portfolio_state.get('cash', 0)
                 
-                self.logger.info(f"Portfolio value: ${results['metrics']['total_value']:.2f}")
+                self.logger.info(f"Portfolio value: ${results['metrics']['total_value']:.2f)"}
             
             # 2. Market data analysis
             if self.market_data:
@@ -100,12 +100,12 @@ logger = get_logger(__name__)
             self.cycle_metrics['analysis'] = results
             self.current_phase = CyclePhase.BUY_PHASE
             
-            self.logger.info(f"Analysis phase completed with {len(results['actions'])} actions")
+            self.logger.info(f"Analysis phase completed with {len(results['actions']}} actions")
             return results
             
         except Exception as e:
             self.current_phase = CyclePhase.ERROR
-            error_msg = f"Analysis phase failed: {str(e)}"
+            error_msg = f"Analysis phase failed: {str(e}}"
             self.logger.error(error_msg)
             self.errors.append(error_msg)
             raise
@@ -121,7 +121,7 @@ logger = get_logger(__name__)
             self.logger.info("Starting weekly siphon phase")
             
             results = {
-                'phase': 'siphon',
+            'phase': 'siphon',
                 'timestamp': datetime.now(timezone.utc),
                 'profit_siphoned': 0.0,
                 'rebalancing_actions': [],
@@ -140,9 +140,9 @@ logger = get_logger(__name__)
                     results['profit_siphoned'] = siphon_amount
                     results['siphon_results'] = siphon_results
                     
-                    self.logger.info(f"Siphoned ${siphon_amount:.2f} profit (50% of ${profit_calculation['net_profit']:.2f})")
+                    self.logger.info(f"Siphoned ${siphon_amount:.2f) profit (50% of ${profit_calculation['net_profit']:.2f)}"}
                 else:
-                    self.logger.info(f"Profit ${profit_calculation['net_profit']:.2f} below threshold ${self.config.MIN_PROFIT_THRESHOLD}")
+                    self.logger.info(f"Profit ${profit_calculation['net_profit']:.2f) below threshold ${self.config.MIN_PROFIT_THRESHOLD}"}
             
             # 3. Portfolio rebalancing
             rebalance_results = self._execute_rebalancing()
@@ -153,12 +153,12 @@ logger = get_logger(__name__)
             self.current_phase = CyclePhase.COMPLETE
             self.last_execution = datetime.now(timezone.utc)
             
-            self.logger.info(f"Siphon phase completed - ${results['profit_siphoned']:.2f} siphoned")
+            self.logger.info(f"Siphon phase completed - ${results['profit_siphoned']:.2f) siphoned"}
             return results
             
         except Exception as e:
             self.current_phase = CyclePhase.ERROR
-            error_msg = f"Siphon phase failed: {str(e)}"
+            error_msg = f"Siphon phase failed} {str(e)}"
             self.logger.error(error_msg)
             self.errors.append(error_msg)
             raise
@@ -172,12 +172,11 @@ logger = get_logger(__name__)
         # Placeholder for Gary's DPI calculation
         # This addresses the theater detection finding of missing business logic
         return {
-            'dpi_score': 0.65,  # Mock score for now
-            'momentum_factor': 1.23,
+        'dpi_score': 0.65,  # Mock score for now
+        'momentum_factor': 1.23,
             'positioning_edge': 0.15,
             'confidence': 0.78,
-            'recommended_exposure': 0.12
-        }
+            'recommended_exposure': 0.12)
     
     def _calculate_antifragile_positions(self) -> Dict[str, Any]:
         """Calculate Taleb's antifragile position sizing.
@@ -189,23 +188,27 @@ logger = get_logger(__name__)
         # Placeholder for Taleb's antifragile calculation
         # This addresses the theater detection finding of missing business logic
         return {
-            'safe_allocation': 0.80,
+        'safe_allocation': 0.80,
             'convex_allocation': 0.20,
             'tail_hedge_ratio': 0.05,
             'antifragility_score': 2.1,
-            'max_drawdown_protection': 0.03
-        }
+            'max_drawdown_protection': 0.03)
     
     def _execute_buy_phase(self, analysis_results: Dict[str, Any]) -> Dict[str, Any]:
         """Execute buy orders based on analysis results."""
         buy_results = {
-            'orders_placed': 0,
+        'orders_placed': 0,
             'total_value': 0.0,
             'orders': []
         }
         
         if self.trade_executor and analysis_results.get('position_sizing'):
             # Implementation would go here for real trading
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             # For now, log the intent
             self.logger.info("Buy phase would execute trades based on analysis")
             buy_results['orders_placed'] = 0  # Placeholder
@@ -220,8 +223,8 @@ logger = get_logger(__name__)
         # This would integrate with real portfolio manager
         # For now, return placeholder
         return {
-            'net_profit': 250.0,  # Placeholder
-            'gross_profit': 275.0,
+        'net_profit': 250.0,  # Placeholder
+        'gross_profit': 275.0,
             'fees': 25.0,
             'calculation_method': 'portfolio_delta',
             'period_start': self.last_execution,
@@ -231,7 +234,7 @@ logger = get_logger(__name__)
     def _execute_profit_siphon(self, amount: float) -> Dict[str, Any]:
         """Execute the actual profit siphon operation."""
         siphon_results = {
-            'amount_requested': amount,
+        'amount_requested': amount,
             'amount_siphoned': 0.0,
             'method': 'cash_withdrawal',
             'status': 'pending'
@@ -239,8 +242,13 @@ logger = get_logger(__name__)
         
         if self.trade_executor:
             # This would execute real cash withdrawal/transfer
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             # For now, log the intent
-            self.logger.info(f"Would siphon ${amount:.2f} from portfolio")
+            self.logger.info(f"Would siphon ${amount:.2f) from portfolio"}
             siphon_results['status'] = 'simulated'
         
         return siphon_results
@@ -251,10 +259,15 @@ logger = get_logger(__name__)
         
         if self.portfolio_manager:
             # This would implement real rebalancing logic
-            self.logger.info("Portfolio rebalancing would execute here")
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            self.logger.info("Portfolio rebalancing would execute here"}
             rebalance_actions.append({
-                'action': 'rebalance_planned',
-                'status': 'simulated'
+            'action': 'rebalance_planned',
+                'status'} 'simulated'
             })
         
         return rebalance_actions
@@ -277,7 +290,7 @@ logger = get_logger(__name__)
         siphon_results = self._execute_siphon_phase()
         
         return {
-            'analysis': analysis_results,
+        'analysis': analysis_results,
             'siphon': siphon_results,
             'execution_time': datetime.now(timezone.utc),
             'status': 'completed'
@@ -286,15 +299,14 @@ logger = get_logger(__name__)
     def get_status(self) -> Dict[str, Any]:
         """Get current cycle status and metrics."""
         return {
-            'current_phase': self.current_phase.value,
+        'current_phase': self.current_phase.value,
             'last_execution': self.last_execution,
             'metrics': self.cycle_metrics,
             'errors': self.errors,
             'dependencies': {
-                'portfolio_manager': self.portfolio_manager is not None,
+            'portfolio_manager': self.portfolio_manager is not None,
                 'trade_executor': self.trade_executor is not None,
-                'market_data': self.market_data is not None
-            }
+                'market_data': self.market_data is not None)
         }
 
 # Export for import validation

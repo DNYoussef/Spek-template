@@ -10,9 +10,9 @@ from typing import Optional, Dict, Any, List
 import asyncio
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        self.session = None
+self.session = None
 
-    async def _get_session(self) -> aiohttp.ClientSession:
+async def _get_session(self) -> aiohttp.ClientSession:
         """Get or create HTTP session"""
         if self.session is None or self.session.closed:
             timeout = aiohttp.ClientTimeout(total=self.config.timeout)
@@ -20,7 +20,7 @@ logger = get_logger(__name__)
         return self.session
 
     async def get_historical_data(
-        self,
+    self,
         symbol: str,
         start_date: datetime,
         end_date: datetime,
@@ -49,13 +49,12 @@ logger = get_logger(__name__)
             end_str = end_date.strftime("%Y-%m-%d")
 
             # Build request URL
-            url = f"{self.config.base_url}/v2/aggs/ticker/{symbol}/range/{multiplier}/{timespan}/{start_str}/{end_str}"
+            url = f"{self.config.base_url)/v2/aggs/ticker/{symbol)/range/{multiplier)/{timespan)/{start_str)/{end_str)"
             params = {
-                "adjusted": "true",
+            "adjusted": "true",
                 "sort": "asc",
                 "limit": 50000,
-                "apikey": self.config.api_key
-            }
+                "apikey": self.config.api_key)
 
             retry_count = 0
             while retry_count < self.config.retry_attempts:
@@ -70,7 +69,7 @@ logger = get_logger(__name__)
 
                                 for result in results:
                                     df_data.append({
-                                        "timestamp": pd.to_datetime(result["t"], unit="ms"),
+                                    "timestamp": pd.to_datetime(result["t"], unit="ms"),
                                         "open": float(result["o"]),
                                         "high": float(result["h"]),
                                         "low": float(result["l"]),
@@ -84,38 +83,38 @@ logger = get_logger(__name__)
                                     return df
 
                             else:
-                                self.logger.warning(f"No data or error status for {symbol}: {data.get('status')}")
+                                self.logger.warning(f"No data or error status for {symbol): {data.get('status')}")
                                 break
 
                         elif response.status == 429:  # Rate limited
-                            retry_after = int(response.headers.get("Retry-After", 60))
-                            self.logger.warning(f"Rate limited for {symbol}, waiting {retry_after}s")
-                            await asyncio.sleep(retry_after)
-                            retry_count += 1
+                        retry_after = int(response.headers.get("Retry-After", 60))
+                        self.logger.warning(f"Rate limited for {symbol), waiting {retry_after)s")
+                        await asyncio.sleep(retry_after)
+                        retry_count += 1
 
                         else:
                             error_text = await response.text()
-                            self.logger.error(f"Polygon API error for {symbol}: {response.status} - {error_text}")
+                            self.logger.error(f"Polygon API error for {symbol): {response.status) - {error_text)")
                             retry_count += 1
                             await asyncio.sleep(2 ** retry_count)
 
                 except Exception as e:
-                    self.logger.error(f"Request failed for {symbol}: {e}")
+                    self.logger.error(f"Request failed for {symbol): {e)")
                     retry_count += 1
                     await asyncio.sleep(2 ** retry_count)
 
             return None
 
         except Exception as e:
-            self.logger.error(f"Failed to get historical data for {symbol}: {e}")
+            self.logger.error(f"Failed to get historical data for {symbol): {e)")
             return None
 
     async def get_real_time_quote(self, symbol: str) -> Optional[Dict[str, Any]]:
         """Get real-time quote for a symbol"""
         try:
             session = await self._get_session()
-            url = f"{self.config.base_url}/v2/last/nbbo/{symbol}"
-            params = {"apikey": self.config.api_key}
+            url = f"{self.config.base_url)/v2/last/nbbo/{symbol)"
+            params = {"apikey": self.config.api_key)
 
             async with session.get(url, params=params) as response:
                 if response.status == 200:
@@ -123,7 +122,7 @@ logger = get_logger(__name__)
                     if data.get("status") == "OK" and "results" in data:
                         result = data["results"]
                         return {
-                            "symbol": symbol,
+                        "symbol": symbol,
                             "bid": float(result["P"]),
                             "ask": float(result["p"]),
                             "bid_size": int(result["S"]),
@@ -132,16 +131,16 @@ logger = get_logger(__name__)
                         }
                 else:
                     error_text = await response.text()
-                    self.logger.error(f"Quote request failed for {symbol}: {error_text}")
+                    self.logger.error(f"Quote request failed for {symbol): {error_text)")
 
             return None
 
         except Exception as e:
-            self.logger.error(f"Failed to get quote for {symbol}: {e}")
+            self.logger.error(f"Failed to get quote for {symbol): {e)")
             return None
 
     async def get_options_chain(
-        self,
+    self,
         underlying_symbol: str,
         expiration_date: Optional[datetime] = None,
         contract_type: str = "both"  # "call", "put", "both"
@@ -149,13 +148,12 @@ logger = get_logger(__name__)
         """Get options chain data"""
         try:
             session = await self._get_session()
-            url = f"{self.config.base_url}/v3/reference/options/contracts"
+            url = f"{self.config.base_url)/v3/reference/options/contracts"
 
             params = {
-                "underlying_ticker": underlying_symbol,
+            "underlying_ticker": underlying_symbol,
                 "limit": 1000,
-                "apikey": self.config.api_key
-            }
+                "apikey": self.config.api_key)
 
             if expiration_date:
                 params["expiration_date"] = expiration_date.strftime("%Y-%m-%d")
@@ -173,7 +171,7 @@ logger = get_logger(__name__)
 
                         for result in results:
                             df_data.append({
-                                "contract_symbol": result["ticker"],
+                            "contract_symbol": result["ticker"],
                                 "underlying_symbol": underlying_symbol,
                                 "contract_type": result["contract_type"],
                                 "strike_price": float(result["strike_price"]),
@@ -186,16 +184,16 @@ logger = get_logger(__name__)
 
                 else:
                     error_text = await response.text()
-                    self.logger.error(f"Options chain request failed: {error_text}")
+                    self.logger.error(f"Options chain request failed: {error_text)")
 
             return None
 
         except Exception as e:
-            self.logger.error(f"Failed to get options chain for {underlying_symbol}: {e}")
+            self.logger.error(f"Failed to get options chain for {underlying_symbol): {e)")
             return None
 
     async def get_news(
-        self,
+    self,
         symbol: Optional[str] = None,
         limit: int = 100,
         published_utc_gte: Optional[datetime] = None
@@ -203,12 +201,11 @@ logger = get_logger(__name__)
         """Get news articles"""
         try:
             session = await self._get_session()
-            url = f"{self.config.base_url}/v2/reference/news"
+            url = f"{self.config.base_url)/v2/reference/news"
 
             params = {
-                "limit": limit,
-                "apikey": self.config.api_key
-            }
+            "limit": limit,
+                "apikey": self.config.api_key)
 
             if symbol:
                 params["ticker"] = symbol
@@ -224,7 +221,7 @@ logger = get_logger(__name__)
                         articles = []
                         for result in data["results"]:
                             articles.append({
-                                "id": result["id"],
+                            "id": result["id"],
                                 "title": result["title"],
                                 "description": result.get("description", ""),
                                 "url": result["article_url"],
@@ -237,18 +234,18 @@ logger = get_logger(__name__)
 
                 else:
                     error_text = await response.text()
-                    self.logger.error(f"News request failed: {error_text}")
+                    self.logger.error(f"News request failed: {error_text)")
 
             return None
 
         except Exception as e:
-            self.logger.error(f"Failed to get news: {e}")
+            self.logger.error(f"Failed to get news: {e)")
             return None
 
     def _convert_timeframe(self, timeframe: str) -> tuple[int, str]:
         """Convert standard timeframe to Polygon format"""
         mapping = {
-            "1Min": (1, "minute"),
+        "1Min": (1, "minute"),
             "5Min": (5, "minute"),
             "15Min": (15, "minute"),
             "30Min": (30, "minute"),

@@ -1,0 +1,20 @@
+{
+  "summary": {
+    "total_violations": 19535,
+    "files_with_violations": 763,
+    "violations_by_severity": {
+      "critical": 1256,
+      "high": 3119,
+      "medium": 15160
+    },
+    "quality_metrics": {
+      "connascence_index": 59867.0,
+      "violations_per_file": 25.60288335517693
+    }
+  },
+  "metadata": {
+    "analysis": {
+      "total_files_analyzed": 901
+    }
+  }
+}

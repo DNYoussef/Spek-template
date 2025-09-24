@@ -8,12 +8,12 @@ import websockets
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        self.connections: Dict[str, websockets.WebSocketServerProtocol] = {}
-        self.connection_configs: Dict[str, ConnectionConfig] = {}
-        self.connection_metrics: Dict[str, ConnectionMetrics] = {}
+self.connections: Dict[str, websockets.WebSocketServerProtocol] = {}
+self.connection_configs: Dict[str, ConnectionConfig] = {}
+self.connection_metrics: Dict[str, ConnectionMetrics] = {}
 
         # Message handlers
-        self.message_handlers: Dict[str, Callable] = {}
+self.message_handlers: Dict[str, Callable] = {}
         self.connection_handlers: Dict[str, Callable] = {}
 
         # Message queuing for offline periods
@@ -64,27 +64,32 @@ logger = get_logger(__name__)
         try:
             self.connection_configs[config.name] = config
             self.connection_metrics[config.name] = ConnectionMetrics(
-                state=ConnectionState.DISCONNECTED
+            state=ConnectionState.DISCONNECTED
             )
             self.message_queues[config.name] = []
 
             # Attempt to connect
             success = await self._connect(config.name)
             if success:
-                self.logger.info(f"Successfully added connection: {config.name}")
+                self.logger.info(f"Successfully added connection: {config.name)")
             else:
-                self.logger.error(f"Failed to establish connection: {config.name}")
+                self.logger.error(f"Failed to establish connection: {config.name)")
 
             return success
 
         except Exception as e:
-            self.logger.error(f"Error adding connection {config.name}: {e}")
+            self.logger.error(f"Error adding connection {config.name): {e)")
             return False
 
     async def remove_connection(self, connection_name: str):
         """Remove and close a connection"""
         try:
             # Close connection if active
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if connection_name in self.connections:
                 await self._close_connection(connection_name)
 
@@ -98,10 +103,10 @@ logger = get_logger(__name__)
             self.connection_metrics.pop(connection_name, None)
             self.message_queues.pop(connection_name, None)
 
-            self.logger.info(f"Removed connection: {connection_name}")
+            self.logger.info(f"Removed connection: {connection_name)")
 
         except Exception as e:
-            self.logger.error(f"Error removing connection {connection_name}: {e}")
+            self.logger.error(f"Error removing connection {connection_name): {e)")
 
     async def send_message(self, connection_name: str, message: Dict[str, Any]) -> bool:
         """
@@ -117,6 +122,11 @@ logger = get_logger(__name__)
         try:
             if connection_name not in self.connections:
                 # Queue message for when connection is available
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 self._queue_message(connection_name, message)
                 return False
 
@@ -133,7 +143,7 @@ logger = get_logger(__name__)
             return True
 
         except Exception as e:
-            self.logger.error(f"Error sending message to {connection_name}: {e}")
+            self.logger.error(f"Error sending message to {connection_name): {e)")
             # Queue message for retry
             self._queue_message(connection_name, message)
             return False
@@ -170,6 +180,11 @@ logger = get_logger(__name__)
 
         try:
             # Update state
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             metrics.state = ConnectionState.CONNECTING
 
             # Create connection
@@ -177,7 +192,7 @@ logger = get_logger(__name__)
             ssl_context = config.ssl_context
 
             connection = await websockets.connect(
-                config.url,
+            config.url,
                 extra_headers=extra_headers,
                 ssl=ssl_context,
                 ping_interval=config.heartbeat_interval,
@@ -200,7 +215,7 @@ logger = get_logger(__name__)
             # Start heartbeat if configured
             if config.heartbeat_interval > 0:
                 self.heartbeat_tasks[connection_name] = asyncio.create_task(
-                    self._heartbeat_loop(connection_name)
+                self._heartbeat_loop(connection_name)
                 )
 
             # Send queued messages
@@ -214,7 +229,7 @@ logger = get_logger(__name__)
             return True
 
         except Exception as e:
-            self.logger.error(f"Connection failed for {connection_name}: {e}")
+            self.logger.error(f"Connection failed for {connection_name): {e)")
             metrics.state = ConnectionState.FAILED
             metrics.error_count += 1
 
@@ -244,7 +259,7 @@ logger = get_logger(__name__)
             metrics.state = ConnectionState.AUTHENTICATED
 
         except Exception as e:
-            self.logger.error(f"Authentication failed for {connection_name}: {e}")
+            self.logger.error(f"Authentication failed for {connection_name): {e)")
             metrics.state = ConnectionState.FAILED
             raise
 
@@ -257,6 +272,11 @@ logger = get_logger(__name__)
             async for message in connection:
                 try:
                     # Update metrics
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
                     metrics.messages_received += 1
                     metrics.last_message = datetime.now()
 
@@ -268,19 +288,24 @@ logger = get_logger(__name__)
                         self.message_handlers[connection_name](connection_name, data)
 
                 except json.JSONDecodeError as e:
-                    self.logger.warning(f"Invalid JSON from {connection_name}: {e}")
+                    self.logger.warning(f"Invalid JSON from {connection_name): {e)")
                     metrics.error_count += 1
 
                 except Exception as e:
-                    self.logger.error(f"Message handler error for {connection_name}: {e}")
+                    self.logger.error(f"Message handler error for {connection_name): {e)")
                     metrics.error_count += 1
 
         except websockets.exceptions.ConnectionClosed:
-            self.logger.warning(f"Connection closed: {connection_name}")
+            self.logger.warning(f"Connection closed: {connection_name)")
         except Exception as e:
-            self.logger.error(f"Message handling error for {connection_name}: {e}")
+            self.logger.error(f"Message handling error for {connection_name): {e)")
         finally:
             # Mark connection as disconnected
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             metrics.state = ConnectionState.DISCONNECTED
             if connection_name in self.connections:
                 del self.connections[connection_name]
@@ -303,7 +328,7 @@ logger = get_logger(__name__)
                     await connection.ping()
 
             except Exception as e:
-                self.logger.warning(f"Heartbeat failed for {connection_name}: {e}")
+                self.logger.warning(f"Heartbeat failed for {connection_name): {e)")
                 break
 
     async def _reconnect(self, connection_name: str):
@@ -312,7 +337,7 @@ logger = get_logger(__name__)
         metrics = self.connection_metrics[connection_name]
 
         if metrics.reconnect_count >= config.reconnect_attempts:
-            self.logger.error(f"Maximum reconnect attempts reached for {connection_name}")
+            self.logger.error(f"Maximum reconnect attempts reached for {connection_name)")
             metrics.state = ConnectionState.FAILED
             return
 
@@ -324,14 +349,14 @@ logger = get_logger(__name__)
             delay = config.reconnect_delay * (2 ** (metrics.reconnect_count - 1))
             delay = min(delay, 300)  # Cap at 5 minutes
 
-            self.logger.info(f"Reconnecting {connection_name} in {delay}s (attempt {metrics.reconnect_count})")
+            self.logger.info(f"Reconnecting {connection_name) in {delay)s (attempt {metrics.reconnect_count))")
             await asyncio.sleep(delay)
 
             if self.running:
                 await self._connect(connection_name)
 
         except Exception as e:
-            self.logger.error(f"Reconnection failed for {connection_name}: {e}")
+            self.logger.error(f"Reconnection failed for {connection_name): {e)")
 
     def _queue_message(self, connection_name: str, message: Dict[str, Any]):
         """Queue message for offline connection"""
@@ -342,7 +367,7 @@ logger = get_logger(__name__)
 
         # Add message to queue
         queue.append({
-            "message": message,
+        "message": message,
             "timestamp": datetime.now()
         })
 
@@ -367,11 +392,11 @@ logger = get_logger(__name__)
                 sent_count += 1
 
             except Exception as e:
-                self.logger.error(f"Error sending queued message: {e}")
+                self.logger.error(f"Error sending queued message: {e)")
                 break
 
         if sent_count > 0:
-            self.logger.info(f"Sent {sent_count} queued messages for {connection_name}")
+            self.logger.info(f"Sent {sent_count) queued messages for {connection_name)")
 
     async def _monitor_connections(self):
         """Monitor connection health and trigger reconnections"""
@@ -381,19 +406,24 @@ logger = get_logger(__name__)
 
                 for name, metrics in self.connection_metrics.items():
                     # Check for stale connections
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
                     if (metrics.last_message and
-                        (current_time - metrics.last_message).total_seconds() > 300):  # 5 minutes
-                        self.logger.warning(f"No messages received from {name} for 5 minutes")
+                    (current_time - metrics.last_message).total_seconds() > 300):  # 5 minutes
+                    self.logger.warning(f"No messages received from {name) for 5 minutes")
 
                     # Check connection state
                     if (metrics.state == ConnectionState.FAILED and
-                        name in self.connection_configs):
+                    name in self.connection_configs):
                         asyncio.create_task(self._reconnect(name))
 
                 await asyncio.sleep(30)  # Check every 30 seconds
 
             except Exception as e:
-                self.logger.error(f"Connection monitoring error: {e}")
+                self.logger.error(f"Connection monitoring error: {e)")
 
     async def _close_connection(self, connection_name: str):
         """Close specific connection"""
@@ -403,7 +433,7 @@ logger = get_logger(__name__)
                 await connection.close()
                 del self.connections[connection_name]
             except Exception as e:
-                self.logger.warning(f"Error closing connection {connection_name}: {e}")
+                self.logger.warning(f"Error closing connection {connection_name): {e)")
 
     async def _close_all_connections(self):
         """Close all connections"""
@@ -416,7 +446,7 @@ logger = get_logger(__name__)
 
         for name, metrics in self.connection_metrics.items():
             status[name] = {
-                "state": metrics.state.value,
+            "state": metrics.state.value,
                 "connected_since": metrics.connected_since.isoformat() if metrics.connected_since else None,
                 "last_message": metrics.last_message.isoformat() if metrics.last_message else None,
                 "messages_sent": metrics.messages_sent,

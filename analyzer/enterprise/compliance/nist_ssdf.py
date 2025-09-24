@@ -15,10 +15,10 @@ import asyncio
 import json
 import logging
 logger = logging.getLogger(__name__)
-        self.assessments: List[PracticeAssessment] = []
+self.assessments: List[PracticeAssessment] = []
         
         # NIST-SSDF practice catalog
-        self.ssdf_practices = self._initialize_ssdf_practices()
+self.ssdf_practices = self._initialize_ssdf_practices()
         
     def _initialize_ssdf_practices(self) -> Dict[str, NISTSSDFPractice]:
         """Initialize NIST-SSDF v1.1 practice catalog"""

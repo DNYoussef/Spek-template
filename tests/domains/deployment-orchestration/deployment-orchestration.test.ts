@@ -15,6 +15,7 @@ import { CrossPlatformAbstraction } from '../../../src/domains/deployment-orches
 import { PipelineOrchestrator } from '../../../src/domains/deployment-orchestration/pipelines/pipeline-orchestrator';
 import { DeploymentConfigManager } from '../../../src/domains/deployment-orchestration/config/deployment-config';
 import { DeploymentComplianceValidator } from '../../../src/domains/deployment-orchestration/compliance/deployment-compliance';
+const { cleanupTestResources } = require('../../setup/test-environment');
 
 import {
   DeploymentArtifact,
@@ -57,6 +58,10 @@ describe('Deployment Orchestration Domain', () => {
 
     // Initialize test fixtures
     await initializeTestFixtures();
+  });
+
+  afterEach(async () => {
+    await cleanupTestResources();
   });
 
   async function initializeTestFixtures() {

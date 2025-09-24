@@ -2,17 +2,17 @@
 
 [![Tests](https://github.com/DNYoussef/Spek-template/actions/workflows/tests.yml/badge.svg)](https://github.com/DNYoussef/Spek-template/actions/workflows/tests.yml) [![Test Matrix](https://github.com/DNYoussef/Spek-template/actions/workflows/test-matrix.yml/badge.svg)](https://github.com/DNYoussef/Spek-template/actions/workflows/test-matrix.yml) [![CodeQL](https://github.com/DNYoussef/Spek-template/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/DNYoussef/Spek-template/security/code-scanning)
 
-[![Swarm Architecture](https://img.shields.io/badge/Queen--Princess--Drone-Hierarchical_Swarm-purple)](src/swarm/hierarchy/) [![Commands](https://img.shields.io/badge/Commands-163%2B_Available-blue)](.claude/commands/) [![AI Agents](https://img.shields.io/badge/AI_Agents-90%2B_Specialized-green)](src/flow/config/agent-model-registry.js) [![MCP Servers](https://img.shields.io/badge/MCP_Servers-15%2B_Integrated-orange)](src/flow/config/mcp-multi-platform.json) [![Production Ready](https://img.shields.io/badge/Status-Complete_Platform-success)](docs/IMPLEMENTATION-STATUS.md)
+[![Swarm Architecture](https://img.shields.io/badge/Queen--Princess--Drone-Hierarchical_Swarm-purple)](src/swarm/hierarchy/) [![Commands](https://img.shields.io/badge/Commands-172_Available-blue)](.claude/commands/) [![AI Agents](https://img.shields.io/badge/AI_Agents-90%2B_Specialized-green)](src/flow/config/agent/) [![MCP Servers](https://img.shields.io/badge/MCP_Servers-15%2B_Integrated-orange)](src/flow/config/mcp-multi-platform.json) [![Production Ready](https://img.shields.io/badge/Status-Complete_Platform-success)](docs/IMPLEMENTATION-STATUS.md)
 
 ## What This Platform Delivers
 
-**Complete Multi-Agent Workflow Orchestration System** with Queen-Princess-Drone swarm hierarchy, 90+ specialized AI agents (including desktop automation), 163+ slash commands, theater detection, reality validation, comprehensive MCP server integration, and **Bytebot desktop automation** for enterprise-grade development automation.
+**Complete Multi-Agent Workflow Orchestration System** with Queen-Princess-Drone swarm hierarchy, 90+ specialized AI agents (including desktop automation), 172 slash commands, theater detection, reality validation, comprehensive MCP server integration, and **Bytebot desktop automation** for enterprise-grade development automation.
 
 ### Key Capabilities
 - **Queen-Princess-Drone Swarm Hierarchy**: Hierarchical orchestration with 6 domain princesses
 - **90+ Specialized AI Agents**: Automatic model optimization (GPT-5 Codex, Gemini Pro, Claude Opus)
 - **Desktop Automation with Bytebot**: AI-powered desktop control via Bytebot integration (100% production ready)
-- **163+ Slash Commands**: Complete development workflow automation
+- **172 Slash Commands**: Complete development workflow automation
 - **Theater Detection & Reality Validation**: Zero-tolerance for fake work patterns
 - **Multi-Platform AI Integration**: Seamless coordination across OpenAI, Gemini, and Claude
 - **15+ MCP Server Integrations**: Memory, GitHub, browser automation, desktop control, sequential thinking
@@ -82,9 +82,9 @@ The SPEK platform implements a **Queen-Princess-Drone swarm architecture** with:
 **Swarm Orchestration System**:
 - **Swarm Queen**: `src/swarm/hierarchy/SwarmQueen.ts` - Master orchestrator
 - **Hive Princesses**: `src/swarm/hierarchy/HivePrincess.ts` - Domain management
-- **Agent Registry**: `src/flow/config/agent-model-registry.js` (614 lines)
+- **Agent Registry**: `src/flow/config/agent/` - Decomposed into 5 classes (AgentRegistry facade)
 - **Model Selector**: `src/flow/core/model-selector.js` (385 lines)
-- **163+ Command Templates**: Complete workflow automation in `.claude/commands/`
+- **172 Command Templates**: Complete workflow automation in `.claude/commands/`
 
 **Development Tooling**:
 - **Commands**: Python-based (flake8, bandit, pytest, mypy)
@@ -356,7 +356,7 @@ vim SPEC.md
 ```
 
 #### Using Slash Commands in Claude Code
-The 163+ slash commands are documentation templates in `.claude/commands/` that guide Claude Code's behavior. To use them:
+The 172 slash commands are documentation templates in `.claude/commands/` that guide Claude Code's behavior. To use them:
 
 1. Open Claude Code CLI
 2. Reference the command documentation: "Use the /research:web approach for finding authentication libraries"
@@ -896,7 +896,7 @@ Start with your first project: `vim SPEC.md` -> Define requirements -> Let the s
 ### What's Actually Working:
 - ✅ **Queen-Princess-Drone Swarm**: Full hierarchical orchestration system
 - ✅ **85+ AI Agents**: Complete registry with automatic model optimization
-- ✅ **163+ Slash Commands**: Full workflow automation framework
+- ✅ **172 Slash Commands**: Full workflow automation framework
 - ✅ **15+ MCP Servers**: Memory, GitHub, browser automation, sequential thinking
 - ✅ **Theater Detection**: Zero-tolerance audit gates with reality validation
 - ✅ **9-Step Dev Swarm**: Complete implementation workflow

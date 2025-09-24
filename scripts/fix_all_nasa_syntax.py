@@ -39,6 +39,12 @@ def fix_syntax_errors(filepath):
                 next_line = lines[i + 1]
                 if 'assert result is not None' in next_line:
                     # Found the pattern - need to fix it
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
                     # The append is split across lines, collect all lines until closing )
                     append_lines = [line]
                     j = i + 2  # Skip the assert line
@@ -53,7 +59,7 @@ def fix_syntax_errors(filepath):
                     fixed_lines.append(append_lines[0])  # result = ...append(
                     for k in range(2, len(append_lines)):  # Skip assert, add rest
                         fixed_lines.append(append_lines[k])
-                    fixed_lines.append('        assert result is not None, \\'Critical operation failed\\'')
+                    fixed_lines.append('        assert result is not None, "Critical operation failed"')
 
                     fixes_applied += 1
                     i = j

@@ -8,6 +8,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const globals_1 = require("@jest/globals");
+const { cleanupTestResources } = require('../../setup/test-environment');
 const compliance_automation_agent_1 = require("../../../src/domains/ec/compliance-automation-agent");
 const soc2_automation_1 = require("../../../src/domains/ec/frameworks/soc2-automation");
 const iso27001_mapper_1 = require("../../../src/domains/ec/frameworks/iso27001-mapper");
@@ -42,6 +43,7 @@ const mockConfig = {
         if (complianceAgent) {
             await complianceAgent.stop();
         }
+        await cleanupTestResources();
     });
     (0, globals_1.describe)('Agent Initialization', () => {
         (0, globals_1.test)('should initialize with all frameworks', async () => {

@@ -27,7 +27,7 @@ class PythonScriptTester:
     def test_all_python_scripts(self) -> Dict[str, Any]:
         """Test all Python scripts in all workflows"""
         workflows = [
-            'architecture-analysis.yml',
+        'architecture-analysis.yml',
             'connascence-core-analysis.yml',
             'cache-optimization.yml', 
             'security-pipeline.yml',
@@ -39,13 +39,12 @@ class PythonScriptTester:
         ]
         
         results = {
-            'summary': {
-                'total_workflows': 0,
+        'summary': {
+        'total_workflows': 0,
                 'total_scripts': 0,
                 'syntax_valid': 0,
                 'execution_tested': 0,
-                'execution_successful': 0
-            },
+                'execution_successful': 0},
             'workflow_results': {},
             'critical_issues': [],
             'recommendations': []
@@ -78,7 +77,7 @@ class PythonScriptTester:
         scripts = self.extract_python_scripts(content)
         
         result = {
-            'script_count': len(scripts),
+        'script_count': len(scripts),
             'syntax_valid': 0,
             'execution_tested': 0,
             'execution_successful': 0,
@@ -116,7 +115,7 @@ class PythonScriptTester:
         # Original: # SECURITY FIX: exec() usage disabled
         pass  # TODO: Implement safe alternative
         pass  # TODO: Implement safe alternative"
-        pattern1 = r'python\s+-c\s+"exec\([\'\"]{3}(.*?)[\'\"]{3}\)"'
+        pattern1 = r'python\s+-c\s+"exec\([\'\"]{3)(.*?)[\'\"]{3)\)"'
         matches1 = re.findall(pattern1, content, re.MULTILINE | re.DOTALL)
         scripts.extend(matches1)
         
@@ -137,6 +136,11 @@ class PythonScriptTester:
         cleaned_scripts = []
         for script in scripts:
             # Skip if already processed (avoid duplicates)
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if script in cleaned_scripts:
                 continue
                 
@@ -163,10 +167,10 @@ class PythonScriptTester:
                             inner = exec_content[start:end]
                             # Remove surrounding quotes
                             if ((inner.startswith('"""') and inner.endswith('"""')) or 
-                                (inner.startswith("'''") and inner.endswith("'''"))):
+                            (inner.startswith("'''") and inner.endswith("'''"))):
                                 cleaned = inner[3:-3]
                             elif ((inner.startswith('"') and inner.endswith('"')) or 
-                                  (inner.startswith("'") and inner.endswith("'"))):
+                            (inner.startswith("'") and inner.endswith("'"))):
                                 cleaned = inner[1:-1]
                             else:
                                 cleaned = inner
@@ -181,7 +185,7 @@ class PythonScriptTester:
     def test_single_script(self, script: str, script_name: str) -> Dict[str, Any]:
         """Test a single Python script"""
         result = {
-            'script_name': script_name,
+        'script_name': script_name,
             'script_length': len(script),
             'syntax_valid': False,
             'execution_tested': False,
@@ -199,11 +203,11 @@ class PythonScriptTester:
             ast.parse(script)
             result['syntax_valid'] = True
         except SyntaxError as e:
-            result['syntax_errors'].append(f"Line {e.lineno}: {e.msg}")
-            result['critical_issues'].append(f"Syntax error: {e.msg}")
+            result['syntax_errors'].append(f"Line {e.lineno): {e.msg)")
+            result['critical_issues'].append(f"Syntax error: {e.msg)")
         except Exception as e:
-            result['syntax_errors'].append(f"Parse error: {e}")
-            result['critical_issues'].append(f"Parse error: {e}")
+            result['syntax_errors'].append(f"Parse error: {e)")
+            result['critical_issues'].append(f"Parse error: {e)")
             
         if not result['syntax_valid']:
             return result
@@ -250,7 +254,7 @@ class PythonScriptTester:
                 elif isinstance(node, ast.ImportFrom):
                     module = node.module or ''
                     for alias in node.names:
-                        imports.append(f"{module}.{alias.name}" if module else alias.name)
+                        imports.append(f"{module).{alias.name)" if module else alias.name)
         except:
             pass
             
@@ -260,24 +264,29 @@ class PythonScriptTester:
         """Determine if script should be execution tested"""
         # Don't test scripts that:
         # - Have risky operations
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
         # - Require external dependencies
         # - Are too complex
         
         risky_patterns = [
-            'subprocess.run',
+        'subprocess.run',
             'os.system',
             '# SECURITY FIX: exec() replaced - use subprocess for external commands
         # Original: # SECURITY FIX: exec() usage disabled
         pass  # TODO: Implement safe alternative
         pass  # TODO: Implement safe alternative > 5000:  # Very large scripts
-            return False
+        return False
             
         return True
         
     def simulate_execution(self, script: str, script_name: str) -> Dict[str, Any]:
         """Simulate script execution in safe environment"""
         result = {
-            'success': False,
+        'success': False,
             'errors': [],
             'warnings': [],
             'outputs': []
@@ -285,8 +294,8 @@ class PythonScriptTester:
         
         # Create safe execution environment
         safe_globals = {
-            '__builtins__': {
-                'print': lambda *args, **kwargs: result['outputs'].append(' '.join(str(a) for a in args)),
+        '__builtins__': {
+        'print': lambda *args, **kwargs: result['outputs'].append(' '.join(str(a) for a in args)),
                 'len': len,
                 'str': str,
                 'int': int,
@@ -313,26 +322,31 @@ class PythonScriptTester:
         
         # Mock common modules
         safe_globals.update({
-            'json': MockJson(),
+        'json': MockJson(),
             'datetime': MockDateTime(),
             'os': MockOs(),
             'sys': MockSys(),
             'Path': MockPath,
-            'pathlib': type('MockPathlib', (), {'Path': MockPath})()
+            'pathlib': type('MockPathlib', (), {'Path': MockPath))()
         })
         
         try:
             # Execute in safe environment
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             # SECURITY FIX: exec() replaced - use subprocess for external commands
         # Original: # SECURITY FIX: exec() usage disabled
         pass  # TODO: Implement safe alternative
         pass  # TODO: Implement safe alternative
-            result['success'] = True
+        result['success'] = True
         except ImportError as e:
-            result['warnings'].append(f"Import not available in test environment: {e}")
+            result['warnings'].append(f"Import not available in test environment: {e)")
             result['success'] = True  # Not critical for testing
         except Exception as e:
-            result['errors'].append(f"Runtime error: {e}")
+            result['errors'].append(f"Runtime error: {e)")
             
         return result
         
@@ -342,7 +356,7 @@ class PythonScriptTester:
         
         # Check for proper JSON structure
         json_patterns = [
-            (r'json\.dump\([^,]+,\s*[^,]+\)', 'JSON dump with file'),
+        (r'json\.dump\([^,]+,\s*[^,]+\)', 'JSON dump with file'),
             (r'\.json"', 'JSON file extension'),
             (r'{[^}]*}', 'Dictionary structure'),
             (r'\[[^\]]*\]', 'List structure')
@@ -368,7 +382,7 @@ class PythonScriptTester:
         
         # Check for hardcoded paths
         if '/' in script and 'C:' not in script:  # Unix paths
-            if '/home/' in script or '/usr/' in script:
+        if '/home/' in script or '/usr/' in script:
                 issues.append("Hardcoded system paths detected")
                 
         # Check for Unicode issues
@@ -402,16 +416,16 @@ class PythonScriptTester:
         
         if summary['syntax_valid'] < summary['total_scripts']:
             failed_syntax = summary['total_scripts'] - summary['syntax_valid']
-            recommendations.append(f"Fix {failed_syntax} Python syntax errors before deployment")
+            recommendations.append(f"Fix {failed_syntax) Python syntax errors before deployment")
             
         if summary['execution_tested'] > 0:
             success_rate = summary['execution_successful'] / summary['execution_tested'] * 100
             if success_rate < 80:
-                recommendations.append(f"Improve Python script reliability ({success_rate:.1f}% success rate)")
+                recommendations.append(f"Improve Python script reliability ({success_rate:.1f)% success rate)")
                 
         critical_count = len(results['critical_issues'])
         if critical_count > 0:
-            recommendations.append(f"Address {critical_count} critical Python script issues")
+            recommendations.append(f"Address {critical_count) critical Python script issues")
             
         # Specific recommendations for common issues
         all_issues = ' '.join(results['critical_issues'])
@@ -440,10 +454,10 @@ class MockJson:
         return str(obj)
         
     def load(self, fp):
-        return {'mock': True}
+        return {'mock': True)
         
     def loads(self, s):
-        return {'mock': True}
+        return {'mock': True)
 
 class MockDateTime:
     """Mock datetime module"""
@@ -451,7 +465,7 @@ class MockDateTime:
         @staticmethod
         def now():
             return type('MockDateTime', (), {
-                'isoformat': lambda: '2023-01-01T00:00:00Z'
+            'isoformat': lambda: '2023-01-01T00:00:00Z'
             })()
 
 class MockOs:
@@ -460,7 +474,7 @@ class MockOs:
     def makedirs(path, exist_ok=False):
         pass
         
-    path = type('path', (), {'exists': lambda p: True})()
+    path = type('path', (), {'exists': lambda p: True))()
 
 class MockSys:
     """Mock sys module"""
@@ -521,20 +535,20 @@ def main():
     
     if summary['execution_tested'] > 0:
         success_rate = summary['execution_successful'] / summary['execution_tested'] * 100
-        print(f"Success Rate: {success_rate:.1f}%")
+        print(f"Success Rate: {success_rate:.1f)%")
     
     print()
     
     if results['critical_issues']:
         print("CRITICAL ISSUES:")
         for issue in results['critical_issues'][:5]:
-            print(f"  - {issue}")
+            print(f"  - {issue)")
         print()
         
     if results['recommendations']:
         print("RECOMMENDATIONS:")
         for rec in results['recommendations'][:5]:
-            print(f"  - {rec}")
+            print(f"  - {rec)")
         print()
         
     print("="*60)

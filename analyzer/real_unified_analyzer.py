@@ -9,6 +9,11 @@ Every component does REAL work and FAILS when broken.
 import ast
 import json
 import logging
+import time
+from dataclasses import dataclass
+from typing import List, Dict, Set, Any, Optional
+from pathlib import Path
+
 logger = logging.getLogger(__name__)
 
 
@@ -22,6 +27,57 @@ class RealViolation:
     description: str
     connascence_type: str
     weight: float = 1.0
+    locality: str = "unknown"
+    id: str = ""
+    column: int = 0
+    end_line: int = 0
+    end_column: int = 0
+    recommendation: str = ""
+    function_name: str = ""
+    class_name: str = ""
+    code_snippet: str = ""
+    context: dict = None
+
+    def __post_init__(self):
+        if self.context is None:
+            self.context = {}
+        if not self.id:
+            self.id = f"{self.rule_id}_{self.file_path}_{self.line_number}"
+
+    @property
+    def type(self):
+        """Compatibility property for violation type."""
+        class ViolationType:
+            def __init__(self, value):
+                self.value = value if isinstance(value, str) else str(value)
+
+        val = self.connascence_type
+        if isinstance(val, str):
+            return ViolationType(val)
+        elif hasattr(val, 'value'):
+            return ViolationType(val.value)
+        else:
+            return ViolationType(str(val))
+
+    def __getitem__(self, key):
+        """Allow dict-like access for compatibility."""
+        return getattr(self, key)
+
+    def get(self, key, default=None):
+        """Allow dict-like .get() for compatibility."""
+        return getattr(self, key, default)
+
+    def to_dict(self):
+        """Convert to dictionary for JSON serialization."""
+        return {
+            'rule_id': self.rule_id,
+            'file_path': self.file_path,
+            'line_number': self.line_number,
+            'severity': self.severity,
+            'description': self.description,
+            'type': self.connascence_type,
+            'weight': self.weight
+        }
 
 
 @dataclass
@@ -38,6 +94,45 @@ class RealAnalysisResult:
     connascence_index: float
     files_analyzed: int
     analysis_duration_ms: float
+    timestamp: str = ""
+    project_root: str = ""
+    total_files_analyzed: int = 0
+    policy_preset: str = "strict"
+    file_stats: Dict[str, Any] = None
+    budget_status: str = "within_budget"
+    baseline_comparison: Dict[str, Any] = None
+
+    def __post_init__(self):
+        if self.file_stats is None:
+            self.file_stats = {}
+        if self.baseline_comparison is None:
+            self.baseline_comparison = {}
+        # Compatibility property
+        self.violations = self.connascence_violations + self.nasa_violations
+
+    def get(self, key, default=None):
+        """Allow dict-like .get() for compatibility."""
+        return getattr(self, key, default)
+
+    def __getitem__(self, key):
+        """Allow dict-like access for compatibility."""
+        return getattr(self, key)
+
+    def to_dict(self):
+        """Convert to dictionary for JSON serialization."""
+        return {
+            'connascence_violations': [v.to_dict() for v in self.connascence_violations],
+            'nasa_violations': [v.to_dict() for v in self.nasa_violations],
+            'duplication_clusters': self.duplication_clusters,
+            'total_violations': self.total_violations,
+            'critical_count': self.critical_count,
+            'overall_quality_score': self.overall_quality_score,
+            'nasa_compliance_score': self.nasa_compliance_score,
+            'duplication_score': self.duplication_score,
+            'connascence_index': self.connascence_index,
+            'files_analyzed': self.files_analyzed,
+            'analysis_duration_ms': self.analysis_duration_ms
+        }
 
 
 class RealConnascenceDetector:
@@ -307,6 +402,10 @@ class RealUnifiedAnalyzer:
 
         logger.info("Real Unified Analyzer initialized - NO MOCKS")
 
+    def analyze_path(self, path: str, policy: str = "strict", **kwargs) -> RealAnalysisResult:
+        """Unified analyze_path method for compatibility."""
+        return self.analyze_project(project_path=path, policy_preset=policy, options=kwargs)
+
     def analyze_project(self, project_path: str, policy_preset: str = "strict",
                        options: Optional[Dict[str, Any]] = None) -> RealAnalysisResult:
         """Analyze entire project with REAL analysis."""
@@ -393,7 +492,11 @@ class RealUnifiedAnalyzer:
             duplication_score=duplication_result["score"],
             connascence_index=connascence_index,
             files_analyzed=files_analyzed,
-            analysis_duration_ms=analysis_time
+            analysis_duration_ms=analysis_time,
+            timestamp=str(time.time()),
+            project_root=str(project_path),
+            total_files_analyzed=files_analyzed,
+            policy_preset=policy_preset
         )
 
     def analyze_file(self, file_path: str) -> Dict[str, Any]:
@@ -418,30 +521,8 @@ class RealUnifiedAnalyzer:
         self.analysis_stats["analysis_time_ms"] += analysis_time
 
         return {
-            "connascence_violations": [
-                {
-                    "rule_id": v.rule_id,
-                    "file_path": v.file_path,
-                    "line_number": v.line_number,
-                    "severity": v.severity,
-                    "description": v.description,
-                    "type": v.connascence_type,
-                    "weight": v.weight
-                }
-                for v in conn_violations
-            ],
-            "nasa_violations": [
-                {
-                    "rule_id": v.rule_id,
-                    "file_path": v.file_path,
-                    "line_number": v.line_number,
-                    "severity": v.severity,
-                    "description": v.description,
-                    "type": v.connascence_type,
-                    "weight": v.weight
-                }
-                for v in nasa_violations
-            ],
+            "connascence_violations": [v.to_dict() for v in conn_violations],
+            "nasa_violations": [v.to_dict() for v in nasa_violations],
             "nasa_compliance_score": nasa_score,
             "analysis_time_ms": analysis_time,
             "real_analysis": True

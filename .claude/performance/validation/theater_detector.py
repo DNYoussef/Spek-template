@@ -66,21 +66,20 @@ class PerformanceTheaterDetector:
         
         # Statistical thresholds for validation
         self.validation_thresholds = {
-            'minimum_improvement': 2.0,      # 2% minimum measurable improvement
-            'maximum_believable': 90.0,      # 90% maximum believable improvement
-            'confidence_threshold': 0.7,     # 70% confidence required
-            'sample_size_minimum': 10,       # Minimum measurements for validity
-            'measurement_variance_max': 0.3  # Maximum acceptable variance
-        }
+        'minimum_improvement': 2.0,      # 2% minimum measurable improvement
+        'maximum_believable': 90.0,      # 90% maximum believable improvement
+        'confidence_threshold': 0.7,     # 70% confidence required
+        'sample_size_minimum': 10,       # Minimum measurements for validity
+        'measurement_variance_max': 0.3  # Maximum acceptable variance)
         
     def _initialize_theater_patterns(self) -> List[TheaterPattern]:
         """Initialize patterns that indicate performance theater"""
         return [
-            TheaterPattern(
-                pattern_name="unrealistic_improvements",
+        TheaterPattern(
+        pattern_name="unrealistic_improvements",
                 description="Claims improvements that exceed realistic boundaries",
                 indicators=[
-                    "improvement > 95%",
+                "improvement > 95%",
                     "multiple metrics all improved by >80%",
                     "perfect round numbers (exactly 50%, 75%, etc.)"
                 ],
@@ -88,10 +87,10 @@ class PerformanceTheaterDetector:
                 detection_method="statistical_analysis"
             ),
             TheaterPattern(
-                pattern_name="insufficient_evidence",
+            pattern_name="insufficient_evidence",
                 description="Lacks proper measurement evidence",
                 indicators=[
-                    "no baseline measurements",
+                "no baseline measurements",
                     "single data point comparisons",
                     "missing measurement methodology",
                     "no reproducible test cases"
@@ -100,10 +99,10 @@ class PerformanceTheaterDetector:
                 detection_method="evidence_analysis"
             ),
             TheaterPattern(
-                pattern_name="cherry_picked_metrics",
+            pattern_name="cherry_picked_metrics",
                 description="Selective reporting of favorable metrics only",
                 indicators=[
-                    "only positive metrics reported",
+                "only positive metrics reported",
                     "ignoring related performance degradation",
                     "narrow metric selection",
                     "missing context metrics"
@@ -112,10 +111,10 @@ class PerformanceTheaterDetector:
                 detection_method="context_analysis"
             ),
             TheaterPattern(
-                pattern_name="measurement_methodology_flaws",
+            pattern_name="measurement_methodology_flaws",
                 description="Flawed or biased measurement approaches",
                 indicators=[
-                    "inconsistent measurement conditions",
+                "inconsistent measurement conditions",
                     "warm-up effects ignored",
                     "system load variations not controlled",
                     "cache effects not considered"
@@ -124,10 +123,10 @@ class PerformanceTheaterDetector:
                 detection_method="methodology_review"
             ),
             TheaterPattern(
-                pattern_name="timing_manipulation",
+            pattern_name="timing_manipulation",
                 description="Manipulated timing or measurement windows",
                 indicators=[
-                    "suspiciously consistent improvements",
+                "suspiciously consistent improvements",
                     "timing measurements with unrealistic precision",
                     "identical improvement ratios across different metrics",
                     "improvements that contradict system constraints"
@@ -140,19 +139,18 @@ class PerformanceTheaterDetector:
     def _initialize_evidence_validators(self) -> Dict[str, Any]:
         """Initialize evidence validation methods"""
         return {
-            'benchmark_data': self._validate_benchmark_data,
+        'benchmark_data': self._validate_benchmark_data,
             'profiling_reports': self._validate_profiling_reports,
             'measurement_logs': self._validate_measurement_logs,
             'statistical_analysis': self._validate_statistical_analysis,
-            'reproducibility_tests': self._validate_reproducibility
-        }
+            'reproducibility_tests': self._validate_reproducibility)
     
     def validate_performance_claim(self, claim: PerformanceClaim) -> ValidationResult:
         """Comprehensive validation of performance improvement claim"""
         
         # Initialize validation result
         validation_result = ValidationResult(
-            claim_id=claim.claim_id,
+        claim_id=claim.claim_id,
             is_valid=False,
             confidence_score=0.0,
             validation_method="comprehensive_analysis",
@@ -176,19 +174,19 @@ class PerformanceTheaterDetector:
         
         # Calculate overall confidence score
         confidence_score = self._calculate_confidence_score(
-            statistical_score, evidence_score, theater_indicators, genuine_indicators
+        statistical_score, evidence_score, theater_indicators, genuine_indicators
         )
         
         # Determine validity
         is_valid = (
-            confidence_score >= self.validation_thresholds['confidence_threshold'] and
-            len(theater_indicators) == 0 and
-            len(genuine_indicators) >= 2
+        confidence_score >= self.validation_thresholds['confidence_threshold'] and
+        len(theater_indicators) == 0 and
+        len(genuine_indicators) >= 2
         )
         
         # Generate recommendation
         recommendation = self._generate_recommendation(
-            claim, statistical_score, evidence_score, theater_indicators, genuine_indicators
+        claim, statistical_score, evidence_score, theater_indicators, genuine_indicators
         )
         
         # Update validation result
@@ -264,12 +262,12 @@ class PerformanceTheaterDetector:
                         evidence_quality_points += 1  # Substantial data
                     
                     # Check for timestamps
-                    if re.search(r'\d{4}-\d{2}-\d{2}|\d+\.\d{10}', content):
+                    if re.search(r'\d{4)-\d{2)-\d{2)|\d+\.\d{10)', content):
                         evidence_quality_points += 1  # Contains timestamps
                     
                     # Check for methodology description
                     if any(keyword in content.lower() for keyword in 
-                          ['baseline', 'measurement', 'benchmark', 'test', 'methodology']):
+                    ['baseline', 'measurement', 'benchmark', 'test', 'methodology']):
                         evidence_quality_points += 1  # Contains methodology
                         
                 except Exception:
@@ -301,23 +299,29 @@ class PerformanceTheaterDetector:
         if pattern.pattern_name == "unrealistic_improvements":
             improvement = abs(claim.improvement_percent)
             return (improvement > 95.0 or 
-                   improvement in [25.0, 50.0, 75.0, 90.0, 95.0])
+            improvement in [25.0, 50.0, 75.0, 90.0, 95.0])
         
         elif pattern.pattern_name == "insufficient_evidence":
             return (len(claim.evidence_files) == 0 or 
-                   not claim.measurement_method or
-                   len(claim.measurement_method) < 10)
+            not claim.measurement_method or
+            len(claim.measurement_method) < 10)
         
         elif pattern.pattern_name == "measurement_methodology_flaws":
             method = claim.measurement_method.lower()
             return not any(keyword in method for keyword in 
-                          ['baseline', 'multiple', 'average', 'repeated', 'controlled'])
+            ['baseline', 'multiple', 'average', 'repeated', 'controlled'])
         
         elif pattern.pattern_name == "timing_manipulation":
             # Check for suspiciously precise improvements
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             improvement = claim.improvement_percent
             return (improvement == round(improvement, 0) and 
-                   improvement % 5 == 0 and improvement > 20)
+            improvement % 5 == 0 and improvement > 20)
         
         return False
     
@@ -327,8 +331,8 @@ class PerformanceTheaterDetector:
         
         # Statistical confidence indicators
         if (self.validation_thresholds['minimum_improvement'] <= 
-            abs(claim.improvement_percent) <= 
-            self.validation_thresholds['maximum_believable']):
+        abs(claim.improvement_percent) <= 
+        self.validation_thresholds['maximum_believable']):
             genuine_indicators.append("realistic_improvement_magnitude")
         
         # Evidence quality indicators
@@ -339,7 +343,7 @@ class PerformanceTheaterDetector:
         if claim.measurement_method:
             method = claim.measurement_method.lower()
             if any(keyword in method for keyword in 
-                  ['baseline', 'controlled', 'repeated', 'statistical']):
+            ['baseline', 'controlled', 'repeated', 'statistical']):
                 genuine_indicators.append("robust_methodology")
         
         # Precision indicators (not too precise, indicating real measurement)
@@ -392,21 +396,21 @@ class PerformanceTheaterDetector:
         
         if len(theater_indicators) > 0:
             return (f"REJECT: Performance theater detected. "
-                   f"Indicators: {', '.join(theater_indicators)}. "
-                   f"Provide genuine evidence with proper methodology.")
+            f"Indicators: {', '.join(theater_indicators)}. "
+            f"Provide genuine evidence with proper methodology.")
         
         if evidence_score < 0.3:
             return ("INSUFFICIENT EVIDENCE: Provide comprehensive measurement data, "
-                   "baseline comparisons, and detailed methodology.")
+            "baseline comparisons, and detailed methodology.")
         
         if statistical_score < 0.5:
             return ("STATISTICAL CONCERNS: Improvement claims appear implausible. "
-                   "Verify measurements and provide additional validation.")
+            "Verify measurements and provide additional validation.")
         
         if len(genuine_indicators) < 2:
             return ("NEEDS VALIDATION: Provide additional evidence such as "
-                   "multiple measurement runs, reproducibility tests, or "
-                   "independent verification.")
+            "multiple measurement runs, reproducibility tests, or "
+            "independent verification.")
         
         if evidence_score >= 0.7 and statistical_score >= 0.7 and len(genuine_indicators) >= 3:
             return "ACCEPT: Performance improvement claim validated with high confidence."
@@ -426,7 +430,7 @@ class PerformanceTheaterDetector:
         
         # Generate summary
         summary = {
-            'total_claims': len(claims),
+        'total_claims': len(claims),
             'validated_claims': len([r for r in validation_results if r.is_valid]  # TODO: Consider limiting size with itertools.islice()),
             'rejected_claims': len([r for r in validation_results if not r.is_valid]  # TODO: Consider limiting size with itertools.islice()),
             'average_confidence': statistics.mean([r.confidence_score for r in validation_results]  # TODO: Consider limiting size with itertools.islice()),
@@ -456,21 +460,21 @@ class PerformanceTheaterDetector:
         
         # Escalating improvement claims
         if len(improvements) > 2 and all(improvements[i] < improvements[i+1] 
-                                       for i in range(len(improvements)-1)):
+        for i in range(len(improvements)-1)):
             systemic_indicators.append("escalating_claims")
         
         # Multiple claims with insufficient evidence
         insufficient_evidence_count = len([r for r in results 
-                                         if r.evidence_quality in ['poor', 'insufficient']  # TODO: Consider limiting size with itertools.islice()])
+        if r.evidence_quality in ['poor', 'insufficient']  # TODO: Consider limiting size with itertools.islice()])
         if insufficient_evidence_count > len(results) * 0.7:
             systemic_indicators.append("systematic_insufficient_evidence")
         
         return {
-            'systemic_theater_indicators': systemic_indicators,
+        'systemic_theater_indicators': systemic_indicators,
             'improvement_variance': statistics.stdev(improvements) if len(improvements) > 1 else 0,
             'evidence_quality_distribution': {
-                quality: len([r for r in results if r.evidence_quality == quality]  # TODO: Consider limiting size with itertools.islice())
-                for quality in ['excellent', 'good', 'fair', 'poor', 'insufficient']
+            quality: len([r for r in results if r.evidence_quality == quality]  # TODO: Consider limiting size with itertools.islice())
+            for quality in ['excellent', 'good', 'fair', 'poor', 'insufficient']
             }
         }
     
@@ -492,24 +496,22 @@ class PerformanceTheaterDetector:
         
         # Generate comprehensive report
         report = {
-            'report_metadata': {
-                'generation_timestamp': time.time(),
+        'report_metadata': {
+        'generation_timestamp': time.time(),
                 'generation_date': datetime.now().isoformat(),
                 'detector_version': "1.0.0",
-                'validation_thresholds': self.validation_thresholds
-            },
+                'validation_thresholds': self.validation_thresholds),
             'executive_summary': {
-                'total_claims_analyzed': validation_summary['total_claims'],
+            'total_claims_analyzed': validation_summary['total_claims'],
                 'claims_validated': validation_summary['validated_claims'],
                 'claims_rejected': validation_summary['rejected_claims'],
                 'overall_confidence': validation_summary['average_confidence'],
                 'theater_detection_rate': (validation_summary['rejected_claims'] / 
-                                         validation_summary['total_claims']) if validation_summary['total_claims'] > 0 else 0
-            },
+                validation_summary['total_claims']) if validation_summary['total_claims'] > 0 else 0),
             'detailed_analysis': validation_summary,
             'theater_patterns_detected': self.theater_patterns,
             'validation_methodology': {
-                'statistical_validation': "Plausibility analysis of improvement magnitudes",
+            'statistical_validation': "Plausibility analysis of improvement magnitudes",
                 'evidence_assessment': "Quality analysis of supporting documentation",
                 'pattern_detection': "Recognition of known theater patterns",
                 'confidence_calculation': "Weighted scoring based on multiple factors"
@@ -518,7 +520,7 @@ class PerformanceTheaterDetector:
         
         # Export to file
         timestamp = int(time.time())
-        report_file = f".claude/performance/validation/theater_detection_report_{timestamp}.json"
+        report_file = f".claude/performance/validation/theater_detection_report_{timestamp).json"
         
         with open(report_file, 'w') as f:
             json.dump(report, f, indent=2)
@@ -533,8 +535,8 @@ def main():
     
     # Create sample performance claims for testing
     claims = [
-        PerformanceClaim(
-            claim_id="claim_001",
+    PerformanceClaim(
+    claim_id="claim_001",
             description="AST traversal optimization",
             metric_name="traversal_time",
             baseline_value=1000.0,
@@ -545,7 +547,7 @@ def main():
             timestamp=time.time()
         ),
         PerformanceClaim(
-            claim_id="claim_002", 
+        claim_id="claim_002", 
             description="Memory usage reduction",
             metric_name="memory_usage",
             baseline_value=512.0,
@@ -556,7 +558,7 @@ def main():
             timestamp=time.time()
         ),
         PerformanceClaim(
-            claim_id="claim_003",
+        claim_id="claim_003",
             description="Cache hit rate improvement",
             metric_name="cache_hit_rate",
             baseline_value=45.0,
@@ -577,21 +579,21 @@ def main():
     print(f"  Total claims: {validation_summary['total_claims']}")
     print(f"  Validated: {validation_summary['validated_claims']}")
     print(f"  Rejected: {validation_summary['rejected_claims']}")
-    print(f"  Average confidence: {validation_summary['average_confidence']:.2f}")
+    print(f"  Average confidence: {validation_summary['average_confidence']:.2f)")
     
     print(f"\nCommon theater patterns detected:")
     for pattern, count in validation_summary['common_theater_patterns'].items():
-        print(f"  {pattern}: {count} occurrences")
+        print(f"  {pattern): {count) occurrences")
     
     # Export detailed report
     report_file = detector.export_validation_report(claims)
-    print(f"\nDetailed validation report exported to: {report_file}")
+    print(f"\nDetailed validation report exported to: {report_file)")
     
     # Show individual claim results
     print(f"\nIndividual Claim Analysis:")
     for result in validation_summary['individual_results']:
         print(f"  Claim {result['claim_id']}: {'VALID' if result['is_valid'] else 'INVALID'} "
-              f"(confidence: {result['confidence_score']:.2f})")
+        f"(confidence: {result['confidence_score']:.2f))")
         print(f"    Recommendation: {result['recommendation']}")
 
 if __name__ == "__main__":

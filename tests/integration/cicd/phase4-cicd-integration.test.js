@@ -19,9 +19,10 @@
  * - Ensure no theater patterns remain in integration points
  */
 
-const { describe, test, beforeAll, afterAll, expect } = require('@jest/globals');
+const { describe, test, beforeAll, afterAll, afterEach, expect } = require('@jest/globals');
 const path = require('path');
 const fs = require('fs').promises;
+const { cleanupTestResources } = require('../../setup/test-environment');
 
 // Import Phase 4 CI/CD domain agents
 const { DeploymentOrchestrationAgent } = require('../../../src/domains/deployment-orchestration/deployment-agent-real');
@@ -76,12 +77,17 @@ describe('Phase 4 CI/CD Integration Testing Suite', () => {
     };
   });
 
+  afterEach(async () => {
+    await cleanupTestResources();
+  });
+
   afterAll(async () => {
     // Cleanup and generate final integration report
     integrationMetrics.endTime = Date.now();
     integrationMetrics.totalDuration = integrationMetrics.endTime - integrationMetrics.startTime;
 
     await generateIntegrationReport(integrationMetrics);
+    await cleanupTestResources();
   });
 
   describe('End-to-End CI/CD Pipeline Integration', () => {

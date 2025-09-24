@@ -4,9 +4,10 @@
  */
 
 import React from 'react';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, waitFor, within, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Phase5Dashboard } from '../../../src/pages/Phase5Dashboard';
+const { cleanupTestResources } = require('../../setup/test-environment');
 
 const mockDashboardData = {
   edgeOfChaos: {
@@ -40,8 +41,10 @@ describe('Phase5Dashboard Component', () => {
     global.fetch = jest.fn();
   });
 
-  afterEach(() => {
+  afterEach(async () => {
+    cleanup();
     jest.restoreAllMocks();
+    await cleanupTestResources();
   });
 
   describe('Metrics Sections Rendering', () => {
@@ -431,9 +434,9 @@ describe('Phase5Dashboard Component', () => {
       unmount();
 
       const countBeforeWait = callCount;
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      expect(callCount).toBe(countBeforeWait); // No new calls after unmount
+      await waitFor(() => {
+        expect(callCount).toBe(countBeforeWait);
+      }, { timeout: 1500 });
     });
   });
 });

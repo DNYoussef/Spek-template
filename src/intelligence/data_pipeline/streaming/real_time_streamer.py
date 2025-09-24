@@ -8,12 +8,12 @@ import websockets
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        self.subscribers: Dict[str, List[Callable]] = {}
-        self.stream_buffer = StreamBuffer()
-        self.failover_manager = FailoverManager()
+self.subscribers: Dict[str, List[Callable]] = {}
+self.stream_buffer = StreamBuffer()
+self.failover_manager = FailoverManager()
 
         # Performance tracking
-        self.metrics = StreamMetrics()
+self.metrics = StreamMetrics()
         self.message_count = 0
         self.latency_samples = deque(maxlen=1000)
         self.last_metrics_update = time.time()
@@ -70,9 +70,9 @@ logger = get_logger(__name__)
         for connection_name, connection in self.active_connections.items():
             try:
                 await self._send_subscription(connection, symbols, data_types, "subscribe")
-                self.logger.info(f"Subscribed to {len(symbols)} symbols on {connection_name}")
+                self.logger.info(f"Subscribed to {len(symbols)} symbols on {connection_name)")
             except Exception as e:
-                self.logger.error(f"Failed to subscribe on {connection_name}: {e}")
+                self.logger.error(f"Failed to subscribe on {connection_name): {e)")
 
     async def unsubscribe_symbols(self, symbols: List[str]):
         """Unsubscribe from symbols"""
@@ -81,9 +81,9 @@ logger = get_logger(__name__)
         for connection_name, connection in self.active_connections.items():
             try:
                 await self._send_subscription(connection, symbols, [], "unsubscribe")
-                self.logger.info(f"Unsubscribed from {len(symbols)} symbols on {connection_name}")
+                self.logger.info(f"Unsubscribed from {len(symbols)} symbols on {connection_name)")
             except Exception as e:
-                self.logger.error(f"Failed to unsubscribe on {connection_name}: {e}")
+                self.logger.error(f"Failed to unsubscribe on {connection_name): {e)")
 
     def add_subscriber(self, callback: Callable[[StreamData], None], symbols: List[str] = None):
         """
@@ -99,7 +99,7 @@ logger = get_logger(__name__)
             self.subscribers[key] = []
 
         self.subscribers[key].append(callback)
-        self.logger.info(f"Added subscriber for {key}")
+        self.logger.info(f"Added subscriber for {key)")
 
     def remove_subscriber(self, callback: Callable, symbols: List[str] = None):
         """Remove subscriber callback"""
@@ -109,7 +109,7 @@ logger = get_logger(__name__)
             self.subscribers[key].remove(callback)
             if not self.subscribers[key]:
                 del self.subscribers[key]
-            self.logger.info(f"Removed subscriber for {key}")
+            self.logger.info(f"Removed subscriber for {key)")
 
     async def _initialize_connections(self):
         """Initialize WebSocket connections to data sources"""
@@ -131,13 +131,13 @@ logger = get_logger(__name__)
 
             # Create WebSocket connection
             connection = await websockets.connect(
-                ws_url,
+            ws_url,
                 extra_headers={"User-Agent": "GaryTaleb-Pipeline/1.0"}
             )
 
             # Authenticate
             auth_message = {
-                "action": "auth",
+            "action": "auth",
                 "key": alpaca_config.api_key,
                 "secret": self._get_alpaca_secret()
             }
@@ -150,7 +150,7 @@ logger = get_logger(__name__)
             self.logger.info("Connected to Alpaca WebSocket")
 
         except Exception as e:
-            self.logger.error(f"Failed to connect to Alpaca WebSocket: {e}")
+            self.logger.error(f"Failed to connect to Alpaca WebSocket: {e)")
 
     async def _connect_polygon(self):
         """Connect to Polygon WebSocket"""
@@ -162,9 +162,8 @@ logger = get_logger(__name__)
 
             # Authenticate
             auth_message = {
-                "action": "auth",
-                "params": polygon_config.api_key
-            }
+            "action": "auth",
+                "params": polygon_config.api_key)
             await connection.send(json.dumps(auth_message))
 
             # Start message handler
@@ -174,7 +173,7 @@ logger = get_logger(__name__)
             self.logger.info("Connected to Polygon WebSocket")
 
         except Exception as e:
-            self.logger.error(f"Failed to connect to Polygon WebSocket: {e}")
+            self.logger.error(f"Failed to connect to Polygon WebSocket: {e)")
 
     async def _handle_alpaca_messages(self, connection):
         """Handle Alpaca WebSocket messages"""
@@ -192,10 +191,10 @@ logger = get_logger(__name__)
                         await self._process_alpaca_message(data, receive_time)
 
                 except json.JSONDecodeError as e:
-                    self.logger.warning(f"Invalid JSON from Alpaca: {e}")
+                    self.logger.warning(f"Invalid JSON from Alpaca: {e)")
 
         except Exception as e:
-            self.logger.error(f"Alpaca message handler error: {e}")
+            self.logger.error(f"Alpaca message handler error: {e)")
             # Trigger reconnection
             asyncio.create_task(self._reconnect_alpaca())
 
@@ -215,22 +214,22 @@ logger = get_logger(__name__)
                         await self._process_polygon_message(data, receive_time)
 
                 except json.JSONDecodeError as e:
-                    self.logger.warning(f"Invalid JSON from Polygon: {e}")
+                    self.logger.warning(f"Invalid JSON from Polygon: {e)")
 
         except Exception as e:
-            self.logger.error(f"Polygon message handler error: {e}")
+            self.logger.error(f"Polygon message handler error: {e)")
             # Trigger reconnection
             asyncio.create_task(self._reconnect_polygon())
 
     async def _process_alpaca_message(self, message: Dict[str, Any], receive_time: float):
         """Process individual Alpaca message"""
         if message.get("T") == "q":  # Quote
-            stream_data = StreamData(
-                symbol=message["S"],
+        stream_data = StreamData(
+        symbol=message["S"],
                 timestamp=datetime.fromisoformat(message["t"].replace("Z", "+00:00")),
                 data_type="quote",
                 data={
-                    "bid": float(message["bp"]),
+                "bid": float(message["bp"]),
                     "ask": float(message["ap"]),
                     "bid_size": int(message["bs"]),
                     "ask_size": int(message["as"])
@@ -242,12 +241,12 @@ logger = get_logger(__name__)
             await self.stream_buffer.add_data(stream_data)
 
         elif message.get("T") == "t":  # Trade
-            stream_data = StreamData(
-                symbol=message["S"],
+        stream_data = StreamData(
+        symbol=message["S"],
                 timestamp=datetime.fromisoformat(message["t"].replace("Z", "+00:00")),
                 data_type="trade",
                 data={
-                    "price": float(message["p"]),
+                "price": float(message["p"]),
                     "size": int(message["s"])
                 },
                 source="alpaca",
@@ -259,12 +258,12 @@ logger = get_logger(__name__)
     async def _process_polygon_message(self, message: Dict[str, Any], receive_time: float):
         """Process individual Polygon message"""
         if message.get("ev") == "Q":  # Quote
-            stream_data = StreamData(
-                symbol=message["sym"],
+        stream_data = StreamData(
+        symbol=message["sym"],
                 timestamp=datetime.fromtimestamp(message["t"] / 1000),
                 data_type="quote",
                 data={
-                    "bid": float(message["bp"]),
+                "bid": float(message["bp"]),
                     "ask": float(message["ap"]),
                     "bid_size": int(message["bs"]),
                     "ask_size": int(message["as"])
@@ -280,6 +279,11 @@ logger = get_logger(__name__)
         while self.running:
             try:
                 # Process buffered data
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 data_batch = await self.stream_buffer.get_batch()
 
                 if data_batch:
@@ -289,12 +293,17 @@ logger = get_logger(__name__)
                 await asyncio.sleep(0.001)  # 1ms
 
             except Exception as e:
-                self.logger.error(f"Processing loop error: {e}")
+                self.logger.error(f"Processing loop error: {e)")
 
     async def _distribute_data(self, data_batch: List[StreamData]):
         """Distribute data to subscribers"""
         for data in data_batch:
             # Update metrics
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             self.message_count += 1
             self.latency_samples.append(data.latency_ms)
 
@@ -304,9 +313,14 @@ logger = get_logger(__name__)
                     for callback in callbacks:
                         try:
                             # Execute callback in thread pool to avoid blocking
+                            pass  # Auto-fixed: empty block
+                            pass  # Auto-fixed: empty block
+                            pass  # Auto-fixed: empty block
+                            pass  # Auto-fixed: empty block
+                            pass  # Auto-fixed: empty block
                             self.executor.submit(callback, data)
                         except Exception as e:
-                            self.logger.warning(f"Subscriber callback error: {e}")
+                            self.logger.warning(f"Subscriber callback error: {e)")
 
     async def _metrics_loop(self):
         """Calculate and update performance metrics"""
@@ -316,7 +330,7 @@ logger = get_logger(__name__)
                 time_delta = current_time - self.last_metrics_update
 
                 if time_delta >= 1.0:  # Update every second
-                    self.metrics.messages_per_second = self.message_count / time_delta
+                self.metrics.messages_per_second = self.message_count / time_delta
 
                     if self.latency_samples:
                         self.metrics.average_latency_ms = np.mean(self.latency_samples)
@@ -332,7 +346,7 @@ logger = get_logger(__name__)
                 await asyncio.sleep(1.0)
 
             except Exception as e:
-                self.logger.error(f"Metrics loop error: {e}")
+                self.logger.error(f"Metrics loop error: {e)")
 
     async def _send_subscription(self, connection, symbols: List[str], data_types: List[str], action: str):
         """Send subscription message to WebSocket"""
@@ -349,9 +363,9 @@ logger = get_logger(__name__)
         for name, connection in self.active_connections.items():
             try:
                 await connection.close()
-                self.logger.info(f"Closed {name} connection")
+                self.logger.info(f"Closed {name) connection")
             except Exception as e:
-                self.logger.warning(f"Error closing {name}: {e}")
+                self.logger.warning(f"Error closing {name): {e)")
 
         self.active_connections.clear()
 

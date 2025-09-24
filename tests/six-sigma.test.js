@@ -4,12 +4,17 @@
  */
 
 const SixSigmaTelemetry = require('../src/telemetry/six-sigma');
+const { cleanupTestResources } = require('./setup/test-environment');
 
 describe('SixSigmaTelemetry', () => {
   let telemetry;
 
   beforeEach(() => {
     telemetry = new SixSigmaTelemetry();
+  });
+
+  afterEach(async () => {
+    await cleanupTestResources();
   });
 
   describe('DPMO Calculations', () => {

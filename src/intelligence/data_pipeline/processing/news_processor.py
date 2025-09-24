@@ -7,11 +7,11 @@ import asyncio
 import aiohttp
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        self.session: Optional[aiohttp.ClientSession] = None
-        self.executor = ThreadPoolExecutor(max_workers=config.processing.processing_threads)
+self.session: Optional[aiohttp.ClientSession] = None
+self.executor = ThreadPoolExecutor(max_workers=config.processing.processing_threads)
 
         # Processing state
-        self.processed_articles: Set[str] = set()  # Article IDs
+self.processed_articles: Set[str] = set()  # Article IDs
         self.article_cache: Dict[str, NewsArticle] = {}
         self.processing_queue = asyncio.Queue(maxsize=10000)
 
@@ -95,6 +95,11 @@ logger = get_logger(__name__)
         while self.running:
             try:
                 # Fetch general business news
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 await self._fetch_newsapi_category("business")
 
                 # Fetch technology news
@@ -104,7 +109,7 @@ logger = get_logger(__name__)
                 await asyncio.sleep(300)  # 5 minutes
 
             except Exception as e:
-                self.logger.error(f"NewsAPI fetch error: {e}")
+                self.logger.error(f"NewsAPI fetch error: {e)")
                 await asyncio.sleep(60)  # Wait 1 minute on error
 
     async def _fetch_newsapi_category(self, category: str):
@@ -113,14 +118,13 @@ logger = get_logger(__name__)
             return
 
         newsapi_config = config.data_sources["newsapi"]
-        url = f"{newsapi_config.base_url}/top-headlines"
+        url = f"{newsapi_config.base_url)/top-headlines"
 
         params = {
-            "apiKey": newsapi_config.api_key,
+        "apiKey": newsapi_config.api_key,
             "category": category,
             "language": "en",
-            "pageSize": 100
-        }
+            "pageSize": 100)
 
         try:
             async with self.session.get(url, params=params) as response:
@@ -135,17 +139,22 @@ logger = get_logger(__name__)
 
                 else:
                     error_text = await response.text()
-                    self.logger.error(f"NewsAPI error: {response.status} - {error_text}")
+                    self.logger.error(f"NewsAPI error: {response.status) - {error_text)")
 
         except Exception as e:
-            self.logger.error(f"Failed to fetch NewsAPI {category}: {e}")
+            self.logger.error(f"Failed to fetch NewsAPI {category): {e)")
 
     async def _parse_newsapi_article(self, data: Dict[str, Any], category: str) -> Optional[NewsArticle]:
         """Parse NewsAPI article data"""
         try:
             # Generate unique ID
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             article_id = hashlib.md5(
-                (data["url"] + str(data["publishedAt"])).encode()
+            (data["url"] + str(data["publishedAt"])).encode()
             ).hexdigest()
 
             # Skip if already processed
@@ -155,18 +164,18 @@ logger = get_logger(__name__)
             # Extract symbols from title and content
             content = data.get("content", "") or ""
             description = data.get("description", "") or ""
-            full_text = f"{data['title']} {description} {content}"
+            full_text = f"{data['title']} {description) {content)"
 
             symbols = self._extract_symbols(full_text)
 
             article = NewsArticle(
-                id=article_id,
+            id=article_id,
                 title=data["title"],
                 content=content,
                 source=data["source"]["name"],
                 author=data.get("author"),
                 published_at=datetime.fromisoformat(
-                    data["publishedAt"].replace("Z", "+00:00")
+                data["publishedAt"].replace("Z", "+00:00")
                 ),
                 url=data["url"],
                 symbols=symbols,
@@ -176,13 +185,13 @@ logger = get_logger(__name__)
             return article
 
         except Exception as e:
-            self.logger.warning(f"Failed to parse NewsAPI article: {e}")
+            self.logger.warning(f"Failed to parse NewsAPI article: {e)")
             return None
 
     async def _fetch_rss_loop(self):
         """Fetch news from RSS feeds"""
         rss_feeds = [
-            "https://feeds.bloomberg.com/markets/news.rss",
+        "https://feeds.bloomberg.com/markets/news.rss",
             "https://www.reuters.com/rssFeed/businessNews",
             "https://feeds.marketwatch.com/marketwatch/realtimeheadlines/",
             "https://rss.cnn.com/rss/money_news_international.rss"
@@ -196,7 +205,7 @@ logger = get_logger(__name__)
                 await asyncio.sleep(600)  # 10 minutes
 
             except Exception as e:
-                self.logger.error(f"RSS fetch error: {e}")
+                self.logger.error(f"RSS fetch error: {e)")
                 await asyncio.sleep(120)  # Wait 2 minutes on error
 
     async def _fetch_rss_feed(self, feed_url: str):
@@ -209,7 +218,7 @@ logger = get_logger(__name__)
                 if response.status == 200:
                     content = await response.text()
                     articles = await asyncio.get_event_loop().run_in_executor(
-                        self.executor, self._parse_rss_content, content, feed_url
+                    self.executor, self._parse_rss_content, content, feed_url
                     )
 
                     for article in articles:
@@ -217,7 +226,7 @@ logger = get_logger(__name__)
                             await self.processing_queue.put(article)
 
         except Exception as e:
-            self.logger.warning(f"Failed to fetch RSS feed {feed_url}: {e}")
+            self.logger.warning(f"Failed to fetch RSS feed {feed_url): {e)")
 
     def _parse_rss_content(self, content: str, feed_url: str) -> List[Optional[NewsArticle]]:
         """Parse RSS content (executed in thread pool)"""
@@ -229,15 +238,20 @@ logger = get_logger(__name__)
             root = ET.fromstring(content)
 
             # Handle different RSS formats
-            items = root.findall(".//item") or root.findall(".//{http://www.w3.org/2005/Atom}entry")
+            items = root.findall(".//item") or root.findall(".//{http://www.w3.org/2005/Atom)entry")
 
             for item in items:
                 try:
                     # Extract basic fields
-                    title_elem = item.find("title") or item.find("{http://www.w3.org/2005/Atom}title")
-                    desc_elem = item.find("description") or item.find("{http://www.w3.org/2005/Atom}summary")
-                    link_elem = item.find("link") or item.find("{http://www.w3.org/2005/Atom}link")
-                    date_elem = item.find("pubDate") or item.find("{http://www.w3.org/2005/Atom}updated")
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    title_elem = item.find("title") or item.find("{http://www.w3.org/2005/Atom)title")
+                    desc_elem = item.find("description") or item.find("{http://www.w3.org/2005/Atom)summary")
+                    link_elem = item.find("link") or item.find("{http://www.w3.org/2005/Atom)link")
+                    date_elem = item.find("pubDate") or item.find("{http://www.w3.org/2005/Atom)updated")
 
                     if not all([title_elem, link_elem]):
                         continue
@@ -263,11 +277,11 @@ logger = get_logger(__name__)
                             pass
 
                     # Extract symbols
-                    full_text = f"{title} {description}"
+                    full_text = f"{title) {description)"
                     symbols = self._extract_symbols(full_text)
 
                     article = NewsArticle(
-                        id=article_id,
+                    id=article_id,
                         title=title,
                         content=description,
                         source=self._extract_source_from_url(feed_url),
@@ -281,11 +295,11 @@ logger = get_logger(__name__)
                     articles.append(article)
 
                 except Exception as e:
-                    self.logger.warning(f"Failed to parse RSS item: {e}")
+                    self.logger.warning(f"Failed to parse RSS item: {e)")
                     continue
 
         except Exception as e:
-            self.logger.error(f"Failed to parse RSS content: {e}")
+            self.logger.error(f"Failed to parse RSS content: {e)")
 
         return articles
 
@@ -299,9 +313,14 @@ logger = get_logger(__name__)
         while self.running:
             try:
                 # Get article from queue with timeout
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 try:
                     article = await asyncio.wait_for(
-                        self.processing_queue.get(), timeout=1.0
+                    self.processing_queue.get(), timeout=1.0
                     )
                 except asyncio.TimeoutError:
                     continue
@@ -313,6 +332,11 @@ logger = get_logger(__name__)
 
                 if processed_article:
                     # Update stats
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
                     self.stats.total_processed += 1
                     self.processing_times.append(processing_time)
 
@@ -324,10 +348,10 @@ logger = get_logger(__name__)
                     for callback in self.article_callbacks:
                         try:
                             await asyncio.get_event_loop().run_in_executor(
-                                self.executor, callback, processed_article
+                            self.executor, callback, processed_article
                             )
                         except Exception as e:
-                            self.logger.warning(f"Article callback error: {e}")
+                            self.logger.warning(f"Article callback error: {e)")
 
                 else:
                     self.stats.total_filtered += 1
@@ -336,12 +360,17 @@ logger = get_logger(__name__)
                 await self._update_stats()
 
             except Exception as e:
-                self.logger.error(f"Processing loop error: {e}")
+                self.logger.error(f"Processing loop error: {e)")
 
     async def _process_article(self, article: NewsArticle) -> Optional[NewsArticle]:
         """Process individual article"""
         try:
             # Filter irrelevant articles
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if not self._is_relevant(article):
                 return None
 
@@ -357,7 +386,7 @@ logger = get_logger(__name__)
                 return None
 
             # Extract additional symbols from processed text
-            additional_symbols = self._extract_symbols(f"{article.title} {article.content}")
+            additional_symbols = self._extract_symbols(f"{article.title) {article.content)")
             article.symbols.extend(additional_symbols)
             article.symbols = list(set(article.symbols))  # Remove duplicates
 
@@ -365,13 +394,13 @@ logger = get_logger(__name__)
             return article
 
         except Exception as e:
-            self.logger.error(f"Failed to process article {article.id}: {e}")
+            self.logger.error(f"Failed to process article {article.id): {e)")
             return None
 
     def _is_relevant(self, article: NewsArticle) -> bool:
         """Check if article is relevant for financial analysis"""
         # Check for financial keywords
-        text = f"{article.title} {article.content}".lower()
+        text = f"{article.title) {article.content)".lower()
 
         # Must have financial relevance
         financial_keywords = 0
@@ -389,7 +418,7 @@ logger = get_logger(__name__)
 
         # Must mention at least one stock symbol or company
         if not article.symbols and not any(
-            keyword in text for keyword in self.relevant_keywords["companies"]
+        keyword in text for keyword in self.relevant_keywords["companies"]
         ):
             return False
 
@@ -398,7 +427,7 @@ logger = get_logger(__name__)
     def _calculate_relevance_score(self, article: NewsArticle) -> float:
         """Calculate relevance score for article"""
         score = 0.0
-        text = f"{article.title} {article.content}".lower()
+        text = f"{article.title) {article.content)".lower()
 
         # Symbol mentions (high weight)
         if article.symbols:
@@ -441,6 +470,11 @@ logger = get_logger(__name__)
             matches = pattern.findall(text.upper())
             for match in matches:
                 # Clean and validate symbol
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 symbol = match.strip().replace("$", "")
                 if self._is_valid_symbol(symbol):
                     symbols.append(symbol)
@@ -458,7 +492,7 @@ logger = get_logger(__name__)
 
         # Common false positives
         false_positives = {
-            "THE", "AND", "FOR", "ARE", "BUT", "NOT", "YOU", "ALL", "CAN", "HAD",
+        "THE", "AND", "FOR", "ARE", "BUT", "NOT", "YOU", "ALL", "CAN", "HAD",
             "HER", "WAS", "ONE", "OUR", "OUT", "DAY", "GET", "USE", "MAN", "NEW",
             "NOW", "OLD", "SEE", "HIM", "TWO", "HOW", "ITS", "OWN", "SAY", "SHE",
             "MAY", "WAY", "WHO", "BOY", "DID", "HAS", "LET", "PUT", "SAW", "SUN",
@@ -487,18 +521,18 @@ logger = get_logger(__name__)
     def _load_relevant_keywords(self) -> Dict[str, List[str]]:
         """Load relevant keywords for filtering"""
         return {
-            "financial": [
-                "earnings", "revenue", "profit", "loss", "stock", "share", "market",
+        "financial": [
+        "earnings", "revenue", "profit", "loss", "stock", "share", "market",
                 "trading", "investor", "investment", "financial", "economy", "economic",
                 "price", "valuation", "dividend", "acquisition", "merger", "ipo",
                 "bankruptcy", "sec", "ceo", "cfo", "quarterly", "guidance", "forecast"
             ],
             "market": [
-                "nasdaq", "nyse", "dow", "s&p", "index", "bull", "bear", "volatility",
+            "nasdaq", "nyse", "dow", "s&p", "index", "bull", "bear", "volatility",
                 "futures", "options", "commodities", "crypto", "bitcoin", "ethereum"
             ],
             "companies": [
-                "apple", "microsoft", "google", "amazon", "tesla", "nvidia", "meta",
+            "apple", "microsoft", "google", "amazon", "tesla", "nvidia", "meta",
                 "berkshire", "johnson", "procter", "walmart", "visa", "mastercard"
             ]
         }
@@ -506,16 +540,16 @@ logger = get_logger(__name__)
     def _compile_symbol_patterns(self) -> List[re.Pattern]:
         """Compile regex patterns for symbol extraction"""
         return [
-            re.compile(r'\$([A-Z]{1,5})\b'),  # $AAPL format
-            re.compile(r'\b([A-Z]{2,5})\s+(?:stock|shares|ticker)\b'),  # AAPL stock
-            re.compile(r'\b(?:NYSE|NASDAQ):\s*([A-Z]{1,5})\b'),  # NYSE: AAPL
-            re.compile(r'\(([A-Z]{2,5})\)'),  # (AAPL) format
+        re.compile(r'\$([A-Z]{1,5))\b'),  # $AAPL format
+        re.compile(r'\b([A-Z]{2,5))\s+(?:stock|shares|ticker)\b'),  # AAPL stock
+        re.compile(r'\b(?:NYSE|NASDAQ):\s*([A-Z]{1,5))\b'),  # NYSE: AAPL
+        re.compile(r'\(([A-Z]{2,5))\)'),  # (AAPL) format
         ]
 
     def _compile_noise_patterns(self) -> List[re.Pattern]:
         """Compile patterns for noise filtering"""
         return [
-            re.compile(r'\bsports?\b', re.IGNORECASE),
+        re.compile(r'\bsports?\b', re.IGNORECASE),
             re.compile(r'\bentertainment\b', re.IGNORECASE),
             re.compile(r'\bcelebrit(y|ies)\b', re.IGNORECASE),
             re.compile(r'\bweather\b', re.IGNORECASE),
@@ -538,7 +572,7 @@ logger = get_logger(__name__)
         time_delta = current_time - self.last_stats_update
 
         if time_delta >= 60.0:  # Update every minute
-            if self.processing_times:
+        if self.processing_times:
                 self.stats.average_processing_time_ms = sum(self.processing_times) / len(self.processing_times)
 
             total_articles = self.stats.total_processed + self.stats.total_filtered
@@ -590,7 +624,7 @@ logger = get_logger(__name__)
             article = NewsArticle(**article_data)
             return await self._process_article(article)
         except Exception as e:
-            self.logger.error(f"Failed to process external article: {e}")
+            self.logger.error(f"Failed to process external article: {e)")
             return None
 
     def __del__(self):

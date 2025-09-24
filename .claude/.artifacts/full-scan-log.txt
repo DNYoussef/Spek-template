@@ -1,0 +1,17 @@
+Analyzer error: 'RealUnifiedAnalyzer' object has no attribute 'analyze_path'
+Traceback (most recent call last):
+  File "C:\Users\17175\Desktop\spek template\analyzer\core.py", line 824, in main
+    result = _run_analysis(analyzer, args, policy, include_duplication)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17175\Desktop\spek template\analyzer\core.py", line 867, in _run_analysis
+    return enhanced_analyzer.analyze_path(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'RealUnifiedAnalyzer' object has no attribute 'analyze_path'. Did you mean: 'analyze_file'?
+DEBUG: Successfully imported ConfigurableDetectorMixin
+DEBUG: MagicLiteralDetector successfully imported ConfigurableDetectorMixin
+[WARNING] Unified duplication analyzer not available
+CRITICAL: UnifiedAnalyzer import failed: cannot import name 'UnifiedAnalyzer' from 'analyzer.unified_analyzer' (C:\Users\17175\Desktop\spek template\analyzer\unified_analyzer.py)
+SUCCESS: All critical modules loaded successfully
+[WARNING] Unified duplication analyzer not available
+Using enhanced unified analyzer for cross-phase analysis...
+Minimal JSON report written for CI compatibility

@@ -52,7 +52,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     # === REVERSAL PATTERNS ===
 
     "head_and_shoulders": PatternCharacteristics(
-        name="Head and Shoulders",
+    name="Head and Shoulders",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.VERY_STRONG,
         min_bars=15,
@@ -71,7 +71,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "inverse_head_and_shoulders": PatternCharacteristics(
-        name="Inverse Head and Shoulders",
+    name="Inverse Head and Shoulders",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.VERY_STRONG,
         min_bars=15,
@@ -90,7 +90,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "double_top": PatternCharacteristics(
-        name="Double Top",
+    name="Double Top",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.STRONG,
         min_bars=20,
@@ -109,7 +109,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "double_bottom": PatternCharacteristics(
-        name="Double Bottom",
+    name="Double Bottom",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.STRONG,
         min_bars=20,
@@ -128,7 +128,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "triple_top": PatternCharacteristics(
-        name="Triple Top",
+    name="Triple Top",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.STRONG,
         min_bars=25,
@@ -147,7 +147,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "triple_bottom": PatternCharacteristics(
-        name="Triple Bottom",
+    name="Triple Bottom",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.STRONG,
         min_bars=25,
@@ -168,7 +168,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     # === CONTINUATION PATTERNS ===
 
     "ascending_triangle": PatternCharacteristics(
-        name="Ascending Triangle",
+    name="Ascending Triangle",
         pattern_type=PatternType.CONTINUATION,
         strength=PatternStrength.STRONG,
         min_bars=10,
@@ -187,7 +187,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "descending_triangle": PatternCharacteristics(
-        name="Descending Triangle",
+    name="Descending Triangle",
         pattern_type=PatternType.CONTINUATION,
         strength=PatternStrength.STRONG,
         min_bars=10,
@@ -206,7 +206,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "symmetrical_triangle": PatternCharacteristics(
-        name="Symmetrical Triangle",
+    name="Symmetrical Triangle",
         pattern_type=PatternType.BILATERAL,
         strength=PatternStrength.MODERATE,
         min_bars=8,
@@ -225,7 +225,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "bull_flag": PatternCharacteristics(
-        name="Bull Flag",
+    name="Bull Flag",
         pattern_type=PatternType.CONTINUATION,
         strength=PatternStrength.STRONG,
         min_bars=5,
@@ -244,7 +244,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "bear_flag": PatternCharacteristics(
-        name="Bear Flag",
+    name="Bear Flag",
         pattern_type=PatternType.CONTINUATION,
         strength=PatternStrength.STRONG,
         min_bars=5,
@@ -263,7 +263,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "bull_pennant": PatternCharacteristics(
-        name="Bull Pennant",
+    name="Bull Pennant",
         pattern_type=PatternType.CONTINUATION,
         strength=PatternStrength.STRONG,
         min_bars=5,
@@ -282,7 +282,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "bear_pennant": PatternCharacteristics(
-        name="Bear Pennant",
+    name="Bear Pennant",
         pattern_type=PatternType.CONTINUATION,
         strength=PatternStrength.STRONG,
         min_bars=5,
@@ -303,7 +303,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     # === RECTANGULAR PATTERNS ===
 
     "rectangle_bullish": PatternCharacteristics(
-        name="Bullish Rectangle",
+    name="Bullish Rectangle",
         pattern_type=PatternType.CONTINUATION,
         strength=PatternStrength.MODERATE,
         min_bars=10,
@@ -322,7 +322,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "rectangle_bearish": PatternCharacteristics(
-        name="Bearish Rectangle",
+    name="Bearish Rectangle",
         pattern_type=PatternType.CONTINUATION,
         strength=PatternStrength.MODERATE,
         min_bars=10,
@@ -343,7 +343,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     # === WEDGE PATTERNS ===
 
     "rising_wedge": PatternCharacteristics(
-        name="Rising Wedge",
+    name="Rising Wedge",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.MODERATE,
         min_bars=12,
@@ -362,7 +362,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "falling_wedge": PatternCharacteristics(
-        name="Falling Wedge",
+    name="Falling Wedge",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.MODERATE,
         min_bars=12,
@@ -383,7 +383,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     # === MOMENTUM PATTERNS ===
 
     "cup_and_handle": PatternCharacteristics(
-        name="Cup and Handle",
+    name="Cup and Handle",
         pattern_type=PatternType.CONTINUATION,
         strength=PatternStrength.STRONG,
         min_bars=30,
@@ -402,7 +402,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "rounding_bottom": PatternCharacteristics(
-        name="Rounding Bottom",
+    name="Rounding Bottom",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.MODERATE,
         min_bars=20,
@@ -421,7 +421,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "rounding_top": PatternCharacteristics(
-        name="Rounding Top",
+    name="Rounding Top",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.MODERATE,
         min_bars=20,
@@ -442,7 +442,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     # === DIAMOND PATTERNS ===
 
     "diamond_top": PatternCharacteristics(
-        name="Diamond Top",
+    name="Diamond Top",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.MODERATE,
         min_bars=15,
@@ -461,7 +461,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     ),
 
     "diamond_bottom": PatternCharacteristics(
-        name="Diamond Bottom",
+    name="Diamond Bottom",
         pattern_type=PatternType.REVERSAL,
         strength=PatternStrength.MODERATE,
         min_bars=15,
@@ -482,7 +482,7 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     # === GAP PATTERNS ===
 
     "breakaway_gap": PatternCharacteristics(
-        name="Breakaway Gap",
+    name="Breakaway Gap",
         pattern_type=PatternType.MOMENTUM,
         strength=PatternStrength.STRONG,
         min_bars=2,
@@ -515,7 +515,7 @@ def get_pattern_by_name(pattern_name: str) -> PatternCharacteristics:
         KeyError: If pattern not found
     """
     if pattern_name not in CHART_PATTERNS:
-        raise KeyError(f"Pattern '{pattern_name}' not found. Available patterns: {list(CHART_PATTERNS.keys())}")
+        raise KeyError(f"Pattern '(pattern_name)' not found. Available patterns: {list(CHART_PATTERNS.keys())}")
 
     return CHART_PATTERNS[pattern_name]
 
@@ -530,7 +530,7 @@ def get_patterns_by_type(pattern_type: PatternType) -> List[PatternCharacteristi
         List of matching pattern characteristics
     """
     return [pattern for pattern in CHART_PATTERNS.values()
-            if pattern.pattern_type == pattern_type]
+    if pattern.pattern_type == pattern_type]
 
 
 def get_patterns_by_strength(min_strength: PatternStrength) -> List[PatternCharacteristics]:
@@ -543,7 +543,7 @@ def get_patterns_by_strength(min_strength: PatternStrength) -> List[PatternChara
         List of patterns meeting strength criteria
     """
     return [pattern for pattern in CHART_PATTERNS.values()
-            if pattern.strength.value >= min_strength.value]
+    if pattern.strength.value >= min_strength.value]
 
 
 def get_high_gary_dpi_patterns(min_weight: float = 0.7) -> List[PatternCharacteristics]:
@@ -556,7 +556,7 @@ def get_high_gary_dpi_patterns(min_weight: float = 0.7) -> List[PatternCharacter
         List of patterns with high DPI significance
     """
     return [pattern for pattern in CHART_PATTERNS.values()
-            if pattern.gary_dpi_weight >= min_weight]
+    if pattern.gary_dpi_weight >= min_weight]
 
 
 def get_antifragile_patterns(min_factor: float = 0.6) -> List[PatternCharacteristics]:
@@ -569,12 +569,12 @@ def get_antifragile_patterns(min_factor: float = 0.6) -> List[PatternCharacteris
         List of patterns with high antifragility significance
     """
     return [pattern for pattern in CHART_PATTERNS.values()
-            if pattern.taleb_antifragility_factor >= min_factor]
+    if pattern.taleb_antifragility_factor >= min_factor]
 
 
 # Pattern statistics
 PATTERN_STATS = {
-    'total_patterns': len(CHART_PATTERNS),
+'total_patterns': len(CHART_PATTERNS),
     'reversal_patterns': len(get_patterns_by_type(PatternType.REVERSAL)),
     'continuation_patterns': len(get_patterns_by_type(PatternType.CONTINUATION)),
     'bilateral_patterns': len(get_patterns_by_type(PatternType.BILATERAL)),
@@ -584,4 +584,4 @@ PATTERN_STATS = {
     'antifragile_patterns': len(get_antifragile_patterns()),
     'avg_success_rate': sum(p.success_rate for p in CHART_PATTERNS.values()) / len(CHART_PATTERNS),
     'avg_move_pct': sum(p.avg_move_pct for p in CHART_PATTERNS.values()) / len(CHART_PATTERNS)
-}"
+}

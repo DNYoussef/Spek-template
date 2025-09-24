@@ -1,0 +1,2 @@
+usage: nasa_pot10_analyzer.py [-h] [--path PATH] [--fix] [--report REPORT]
+nasa_pot10_analyzer.py: error: unrecognized arguments: --compliance-check --json

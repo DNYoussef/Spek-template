@@ -6,10 +6,10 @@ Advanced sentiment analysis for news and social media content
 import asyncio
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        self.executor = ThreadPoolExecutor(max_workers=config.processing.processing_threads)
+self.executor = ThreadPoolExecutor(max_workers=config.processing.processing_threads)
 
         # Models and tokenizers
-        self.models = {}
+self.models = {}
         self.tokenizers = {}
         self.pipelines = {}
 
@@ -61,16 +61,14 @@ logger = get_logger(__name__)
     async def _load_models(self):
         """Load pre-trained sentiment models"""
         models_to_load = [
-            {
-                "name": "finbert",
+        {
+        "name": "finbert",
                 "model_id": "ProsusAI/finbert",
-                "primary": True
-            },
+                "primary": True),
             {
-                "name": "distilbert",
+            "name": "distilbert",
                 "model_id": config.processing.sentiment_model,
-                "primary": False
-            }
+                "primary": False)
         ]
 
         for model_config in models_to_load:
@@ -78,21 +76,21 @@ logger = get_logger(__name__)
                 model_name = model_config["name"]
                 model_id = model_config["model_id"]
 
-                self.logger.info(f"Loading {model_name} model...")
+                self.logger.info(f"Loading {model_name) model...")
 
                 # Load in executor to avoid blocking
                 tokenizer, model, sentiment_pipeline = await asyncio.get_event_loop().run_in_executor(
-                    self.executor, self._load_model_sync, model_id
+                self.executor, self._load_model_sync, model_id
                 )
 
                 self.tokenizers[model_name] = tokenizer
                 self.models[model_name] = model
                 self.pipelines[model_name] = sentiment_pipeline
 
-                self.logger.info(f"Successfully loaded {model_name}")
+                self.logger.info(f"Successfully loaded {model_name)")
 
             except Exception as e:
-                self.logger.error(f"Failed to load model {model_config['name']}: {e}")
+                self.logger.error(f"Failed to load model {model_config['name']}: {e)")
 
         if not self.models:
             raise RuntimeError("No sentiment models could be loaded")
@@ -104,7 +102,7 @@ logger = get_logger(__name__)
 
         # Create pipeline
         sentiment_pipeline = pipeline(
-            "sentiment-analysis",
+        "sentiment-analysis",
             model=model,
             tokenizer=tokenizer,
             truncation=True,
@@ -117,7 +115,7 @@ logger = get_logger(__name__)
     async def analyze_article(self, article: NewsArticle) -> SentimentResult:
         """Analyze sentiment of a single article"""
         # Check cache first
-        cache_key = f"{article.id}:{hash(article.content)}"
+        cache_key = f"{article.id):{hash(article.content)}"
         if cache_key in self.sentiment_cache:
             cached_result, timestamp = self.sentiment_cache[cache_key]
             if time.time() - timestamp < self.cache_ttl:
@@ -145,10 +143,10 @@ logger = get_logger(__name__)
 
         # Fallback result
         return SentimentResult(
-            text=text[:100],
+        text=text[:100],
             sentiment="neutral",
             confidence=0.5,
-            scores={"positive": 0.33, "negative": 0.33, "neutral": 0.34},
+            scores={"positive": 0.33, "negative": 0.33, "neutral": 0.34),
             processing_time_ms=processing_time,
             model_used="fallback"
         )
@@ -192,9 +190,14 @@ logger = get_logger(__name__)
 
         try:
             # Run in executor to avoid blocking
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             start_time = time.time()
             raw_results = await asyncio.get_event_loop().run_in_executor(
-                self.executor, pipeline_obj, texts
+            self.executor, pipeline_obj, texts
             )
             processing_time = (time.time() - start_time) * 1000
 
@@ -202,8 +205,13 @@ logger = get_logger(__name__)
             results = []
             for i, (text, raw_result) in enumerate(zip(texts, raw_results)):
                 # Handle different output formats
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 if isinstance(raw_result, list):
-                    raw_result = raw_result[0] if raw_result else {"label": "NEUTRAL", "score": 0.5}
+                    raw_result = raw_result[0] if raw_result else {"label": "NEUTRAL", "score": 0.5)
 
                 sentiment = self._normalize_sentiment_label(raw_result["label"])
                 confidence = raw_result["score"]
@@ -213,12 +221,12 @@ logger = get_logger(__name__)
 
                 # Apply financial domain adjustments
                 adjusted_sentiment, adjusted_confidence = self._apply_financial_adjustments(
-                    text, sentiment, confidence
+                text, sentiment, confidence
                 )
 
                 result = SentimentResult(
-                    text=text[:100],  # Store truncated text for reference
-                    sentiment=adjusted_sentiment,
+                text=text[:100],  # Store truncated text for reference
+                sentiment=adjusted_sentiment,
                     confidence=adjusted_confidence,
                     scores=scores,
                     processing_time_ms=processing_time / len(texts),
@@ -234,14 +242,14 @@ logger = get_logger(__name__)
             return results
 
         except Exception as e:
-            self.logger.error(f"Batch sentiment analysis failed: {e}")
+            self.logger.error(f"Batch sentiment analysis failed: {e)")
             # Return neutral results as fallback
             return [
-                SentimentResult(
-                    text=text[:100],
+            SentimentResult(
+            text=text[:100],
                     sentiment="neutral",
                     confidence=0.5,
-                    scores={"positive": 0.33, "negative": 0.33, "neutral": 0.34},
+                    scores={"positive": 0.33, "negative": 0.33, "neutral": 0.34),
                     processing_time_ms=0.0,
                     model_used="error_fallback"
                 )
@@ -252,7 +260,7 @@ logger = get_logger(__name__)
         """Prepare text for sentiment analysis"""
         # Combine title and content with title having higher weight
         if title and content:
-            text = f"{title}. {content}"
+            text = f"{title). {content)"
         elif title:
             text = title
         elif content:
@@ -265,7 +273,7 @@ logger = get_logger(__name__)
 
         # Truncate if too long
         if len(text) > self.max_length * 4:  # Rough character limit
-            text = text[:self.max_length * 4]
+        text = text[:self.max_length * 4]
 
         return text
 
@@ -303,22 +311,19 @@ logger = get_logger(__name__)
         """Create detailed sentiment scores"""
         if sentiment == "positive":
             return {
-                "positive": confidence,
+            "positive": confidence,
                 "negative": (1 - confidence) * 0.3,
-                "neutral": (1 - confidence) * 0.7
-            }
+                "neutral": (1 - confidence) * 0.7)
         elif sentiment == "negative":
             return {
-                "positive": (1 - confidence) * 0.3,
+            "positive": (1 - confidence) * 0.3,
                 "negative": confidence,
-                "neutral": (1 - confidence) * 0.7
-            }
+                "neutral": (1 - confidence) * 0.7)
         else:
             return {
-                "positive": (1 - confidence) * 0.4,
+            "positive": (1 - confidence) * 0.4,
                 "negative": (1 - confidence) * 0.4,
-                "neutral": confidence + (1 - confidence) * 0.2
-            }
+                "neutral": confidence + (1 - confidence) * 0.2)
 
     def _apply_financial_adjustments(self, text: str, sentiment: str, confidence: float) -> Tuple[str, float]:
         """Apply financial domain-specific adjustments to sentiment"""
@@ -365,14 +370,14 @@ logger = get_logger(__name__)
     def _load_financial_patterns(self) -> Dict[str, List]:
         """Load financial domain patterns"""
         return {
-            "positive": [
-                re.compile(r'\b(?:earnings|revenue|profit)\s+(?:beat|exceed|surpass)\b'),
+        "positive": [
+        re.compile(r'\b(?:earnings|revenue|profit)\s+(?:beat|exceed|surpass)\b'),
                 re.compile(r'\b(?:strong|robust|solid)\s+(?:growth|performance|results)\b'),
                 re.compile(r'\b(?:raise|increase|boost)\s+(?:guidance|forecast|target)\b'),
                 re.compile(r'\b(?:acquisition|merger|deal)\s+(?:approved|completed|announced)\b')
             ],
             "negative": [
-                re.compile(r'\b(?:earnings|revenue|profit)\s+(?:miss|fall\s+short|disappoint)\b'),
+            re.compile(r'\b(?:earnings|revenue|profit)\s+(?:miss|fall\s+short|disappoint)\b'),
                 re.compile(r'\b(?:weak|poor|disappointing)\s+(?:growth|performance|results)\b'),
                 re.compile(r'\b(?:lower|cut|reduce)\s+(?:guidance|forecast|target)\b'),
                 re.compile(r'\b(?:investigation|lawsuit|fine|penalty)\b')
@@ -383,7 +388,7 @@ logger = get_logger(__name__)
         """Store sentiment result for aggregation"""
         for symbol in article.symbols:
             self.sentiment_history[symbol].append({
-                "timestamp": article.published_at,
+            "timestamp": article.published_at,
                 "sentiment": result.sentiment,
                 "confidence": result.confidence,
                 "scores": result.scores,
@@ -398,13 +403,13 @@ logger = get_logger(__name__)
                 await self._aggregate_sentiments()
                 await asyncio.sleep(300)  # 5 minutes
             except Exception as e:
-                self.logger.error(f"Sentiment aggregation error: {e}")
+                self.logger.error(f"Sentiment aggregation error: {e)")
 
     async def _aggregate_sentiments(self):
         """Aggregate sentiment data for symbols"""
         current_time = datetime.now()
         timeframes = [
-            ("1h", timedelta(hours=1)),
+        ("1h", timedelta(hours=1)),
             ("4h", timedelta(hours=4)),
             ("1d", timedelta(days=1))
         ]
@@ -418,8 +423,8 @@ logger = get_logger(__name__)
 
                 # Filter relevant data
                 relevant_data = [
-                    item for item in history
-                    if item["timestamp"] >= cutoff_time
+                item for item in history
+                if item["timestamp"] >= cutoff_time
                 ]
 
                 if not relevant_data:
@@ -427,15 +432,15 @@ logger = get_logger(__name__)
 
                 # Calculate aggregated metrics
                 aggregated = self._calculate_aggregated_sentiment(
-                    symbol, timeframe_name, current_time, relevant_data
+                symbol, timeframe_name, current_time, relevant_data
                 )
 
                 # Store aggregated data
-                key = f"{symbol}_{timeframe_name}"
+                key = f"{symbol)_{timeframe_name)"
                 self.aggregated_sentiments[key] = aggregated
 
     def _calculate_aggregated_sentiment(
-        self,
+    self,
         symbol: str,
         timeframe: str,
         timestamp: datetime,
@@ -444,7 +449,7 @@ logger = get_logger(__name__)
         """Calculate aggregated sentiment metrics"""
         if not data:
             return AggregatedSentiment(
-                symbol=symbol,
+            symbol=symbol,
                 timeframe=timeframe,
                 timestamp=timestamp,
                 overall_sentiment="neutral",
@@ -494,7 +499,7 @@ logger = get_logger(__name__)
         confidence = np.mean([item["confidence"] for item in data])
 
         return AggregatedSentiment(
-            symbol=symbol,
+        symbol=symbol,
             timeframe=timeframe,
             timestamp=timestamp,
             overall_sentiment=overall_sentiment,
@@ -507,16 +512,16 @@ logger = get_logger(__name__)
         )
 
     def get_symbol_sentiment(
-        self,
+    self,
         symbol: str,
         timeframe: str = "4h"
     ) -> Optional[AggregatedSentiment]:
         """Get aggregated sentiment for a symbol"""
-        key = f"{symbol}_{timeframe}"
+        key = f"{symbol)_{timeframe)"
         return self.aggregated_sentiments.get(key)
 
     def get_multiple_symbols_sentiment(
-        self,
+    self,
         symbols: List[str],
         timeframe: str = "4h"
     ) -> Dict[str, AggregatedSentiment]:
@@ -531,13 +536,13 @@ logger = get_logger(__name__)
     def get_trending_sentiment(self, timeframe: str = "1h", limit: int = 20) -> List[AggregatedSentiment]:
         """Get symbols with trending sentiment"""
         sentiments = [
-            sentiment for key, sentiment in self.aggregated_sentiments.items()
-            if key.endswith(f"_{timeframe}")
+        sentiment for key, sentiment in self.aggregated_sentiments.items()
+        if key.endswith(f"_{timeframe)")
         ]
 
         # Sort by weighted score and total articles
         sentiments.sort(
-            key=lambda x: (abs(x.weighted_score), x.total_articles),
+        key=lambda x: (abs(x.weighted_score), x.total_articles),
             reverse=True
         )
 
@@ -547,13 +552,12 @@ logger = get_logger(__name__)
         """Get processing performance statistics"""
         if not self.processing_times:
             return {
-                "total_processed": self.total_processed,
+            "total_processed": self.total_processed,
                 "average_processing_time_ms": 0.0,
-                "processing_rate_per_minute": 0.0
-            }
+                "processing_rate_per_minute": 0.0)
 
         return {
-            "total_processed": self.total_processed,
+        "total_processed": self.total_processed,
             "average_processing_time_ms": np.mean(self.processing_times),
             "max_processing_time_ms": np.max(self.processing_times),
             "min_processing_time_ms": np.min(self.processing_times),

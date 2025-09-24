@@ -1,0 +1,56 @@
+{
+  "analysis_timestamp": "2025-09-24T00:00:00Z",
+  "analyst": "code-analyzer",
+  "scope": "Top 5 God Objects for Decomposition",
+  "methodology": "Extract Class + Facade Pattern",
+  "target_reduction": "85-90%",
+
+  "god_objects_analyzed": [
+    {
+      "file": "analyzer/unified_analyzer_god_object_backup.py",
+      "current_loc": 1860,
+      "target_loc": 650,
+      "reduction_percent": 65,
+      "status": "strategy_complete",
+      "pattern": "Facade + Service Layer"
+    },
+    {
+      "file": "src/coordination/loop_orchestrator.py",
+      "current_loc": 1323,
+      "target_loc": 670,
+      "reduction_percent": 49,
+      "status": "strategy_complete",
+      "pattern": "Facade + Domain Services"
+    },
+    {
+      "file": "src/swarm/hierarchy/SwarmQueen.ts",
+      "original_loc": 1299,
+      "current_loc": 128,
+      "reduction_percent": 90,
+      "status": "refactored_complete",
+      "achievement": "SUCCESS"
+    },
+    {
+      "file": "src/swarm/hierarchy/HivePrincess.ts",
+      "original_loc": 1217,
+      "current_loc": 133,
+      "reduction_percent": 89,
+      "status": "refactored_complete",
+      "achievement": "SUCCESS"
+    }
+  ],
+
+  "overall_metrics": {
+    "total_reduction_percent": 72.8,
+    "files_already_refactored": 2,
+    "files_pending_refactor": 2
+  },
+
+  "expected_outcomes": {
+    "combined_with_existing": {
+      "before": "5,816 LOC",
+      "after": "1,581 LOC",
+      "reduction": "72.8% overall"
+    }
+  }
+}

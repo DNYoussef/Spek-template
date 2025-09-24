@@ -156,29 +156,28 @@ class ComplianceForecaster:
             for file in files:
                 if file.endswith('.py'):
                     total_files += 1
-                    file_path = os.path.join(root, file)
-
-                    try:
-                        with open(file_path, 'r', encoding='utf-8') as f:
-                            content = f.read()
-
-                        # Check documentation
-                        if '"""' in content or "'''" in content:
-                            documented_files += 1
-
-                        # Check for security patterns
-                        security_patterns = [
-                            r'encrypt', r'decrypt', r'hash', r'authenticate',
-                            r'authorize', r'validate', r'sanitize'
-                        ]
-                        if any(re.search(pattern, content, re.IGNORECASE) for pattern in security_patterns):
-                            security_files += 1
-
-                    except Exception:
-                        continue
-
+                    has_docs, has_security = self._check_python_file_features(os.path.join(root, file))
+                    if has_docs:
+                        documented_files += 1
+                    if has_security:
+                        security_files += 1
                 elif 'test' in file and file.endswith('.py'):
                     tested_files += 1
+
+    def _check_python_file_features(self, file_path):
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            has_docs = '"""' in content or "'''" in content
+            security_patterns = [
+                r'encrypt', r'decrypt', r'hash', r'authenticate',
+                r'authorize', r'validate', r'sanitize'
+            ]
+            has_security = any(re.search(pattern, content, re.IGNORECASE) for pattern in security_patterns)
+            return has_docs, has_security
+        except Exception:
+            return False, False
 
         features.update({
             "documentation_coverage": documented_files / max(1, total_files),
@@ -219,16 +218,15 @@ class ComplianceForecaster:
                 if file.endswith('.py'):
                     file_count += 1
                     file_path = os.path.join(root, file)
+                    integrity_score += self._count_pattern_matches(file_path, integrity_patterns)
 
-                    try:
-                        with open(file_path, 'r', encoding='utf-8') as f:
-                            content = f.read()
-
-                        for pattern in integrity_patterns:
-                            integrity_score += len(re.findall(pattern, content, re.IGNORECASE))
-
-                    except Exception:
-                        continue
+    def _count_pattern_matches(self, file_path, patterns):
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            return sum(len(re.findall(pattern, content, re.IGNORECASE)) for pattern in patterns)
+        except Exception:
+            return 0
 
         features["data_integrity"] = min(1.0, integrity_score / max(1, file_count * 5))
 
@@ -246,16 +244,7 @@ class ComplianceForecaster:
             for file in files:
                 if file.endswith('.py'):
                     file_path = os.path.join(root, file)
-
-                    try:
-                        with open(file_path, 'r', encoding='utf-8') as f:
-                            content = f.read()
-
-                        for pattern in access_patterns:
-                            access_score += len(re.findall(pattern, content, re.IGNORECASE))
-
-                    except Exception:
-                        continue
+                    access_score += self._count_pattern_matches(file_path, access_patterns)
 
         features["access_controls"] = min(1.0, access_score / max(1, file_count * 3))
 
@@ -273,16 +262,7 @@ class ComplianceForecaster:
             for file in files:
                 if file.endswith('.py'):
                     file_path = os.path.join(root, file)
-
-                    try:
-                        with open(file_path, 'r', encoding='utf-8') as f:
-                            content = f.read()
-
-                        for pattern in audit_patterns:
-                            audit_score += len(re.findall(pattern, content, re.IGNORECASE))
-
-                    except Exception:
-                        continue
+                    audit_score += self._count_pattern_matches(file_path, audit_patterns)
 
         features["audit_trail"] = min(1.0, audit_score / max(1, file_count * 2))
 
@@ -309,16 +289,7 @@ class ComplianceForecaster:
                 if file.endswith('.py'):
                     file_count += 1
                     file_path = os.path.join(root, file)
-
-                    try:
-                        with open(file_path, 'r', encoding='utf-8') as f:
-                            content = f.read()
-
-                        for pattern in data_protection_patterns:
-                            protection_score += len(re.findall(pattern, content, re.IGNORECASE))
-
-                    except Exception:
-                        continue
+                    protection_score += self._count_pattern_matches(file_path, data_protection_patterns)
 
         features["data_protection"] = min(1.0, protection_score / max(1, file_count * 3))
 
@@ -336,16 +307,7 @@ class ComplianceForecaster:
             for file in files:
                 if file.endswith('.py'):
                     file_path = os.path.join(root, file)
-
-                    try:
-                        with open(file_path, 'r', encoding='utf-8') as f:
-                            content = f.read()
-
-                        for pattern in consent_patterns:
-                            consent_score += len(re.findall(pattern, content, re.IGNORECASE))
-
-                    except Exception:
-                        continue
+                    consent_score += self._count_pattern_matches(file_path, consent_patterns)
 
         features["consent_management"] = min(1.0, consent_score / max(1, file_count * 2))
 
@@ -373,16 +335,7 @@ class ComplianceForecaster:
                 if file.endswith('.py'):
                     file_count += 1
                     file_path = os.path.join(root, file)
-
-                    try:
-                        with open(file_path, 'r', encoding='utf-8') as f:
-                            content = f.read()
-
-                        for pattern in encryption_patterns:
-                            encryption_score += len(re.findall(pattern, content, re.IGNORECASE))
-
-                    except Exception:
-                        continue
+                    encryption_score += self._count_pattern_matches(file_path, encryption_patterns)
 
         features["data_encryption"] = min(1.0, encryption_score / max(1, file_count * 2))
 
@@ -409,16 +362,7 @@ class ComplianceForecaster:
                 if file.endswith('.py'):
                     file_count += 1
                     file_path = os.path.join(root, file)
-
-                    try:
-                        with open(file_path, 'r', encoding='utf-8') as f:
-                            content = f.read()
-
-                        for pattern in card_patterns:
-                            card_protection_score += len(re.findall(pattern, content, re.IGNORECASE))
-
-                    except Exception:
-                        continue
+                    card_protection_score += self._count_pattern_matches(file_path, card_patterns)
 
         features["cardholder_data_protection"] = min(1.0, card_protection_score / max(1, file_count * 2))
 
@@ -445,16 +389,7 @@ class ComplianceForecaster:
                 if file.endswith('.py'):
                     file_count += 1
                     file_path = os.path.join(root, file)
-
-                    try:
-                        with open(file_path, 'r', encoding='utf-8') as f:
-                            content = f.read()
-
-                        for pattern in risk_patterns:
-                            risk_score += len(re.findall(pattern, content, re.IGNORECASE))
-
-                    except Exception:
-                        continue
+                    risk_score += self._count_pattern_matches(file_path, risk_patterns)
 
         features["risk_management"] = min(1.0, risk_score / max(1, file_count * 3))
 

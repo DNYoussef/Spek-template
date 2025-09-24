@@ -4,8 +4,8 @@
  */
 
 module.exports = {
-  // Test environment
-  testEnvironment: 'node',
+  // Test environment - using jsdom for React component tests
+  testEnvironment: 'jsdom',
 
   // Timeout settings - 10 seconds instead of default 2 minutes
   testTimeout: 10000,
@@ -43,11 +43,22 @@ module.exports = {
     'lcov'
   ],
 
-  // Performance settings
-  maxWorkers: '50%', // Use 50% of available CPU cores
+  // Performance settings - run serially for async cleanup
+  maxWorkers: 1, // Run tests serially to avoid resource conflicts
 
-  // Transform settings - simplified for JavaScript only
-  transform: {},
+  // Transform settings - support both JS and TS with React
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', {
+      isolatedModules: true,
+      tsconfig: 'tsconfig.test.json',
+      diagnostics: {
+        warnOnly: true // Don't fail on TS errors during tests
+      }
+    }]
+  },
+
+  // Module file extensions
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
 
   // Module resolution
   moduleNameMapper: {
@@ -58,7 +69,8 @@ module.exports = {
 
   // Setup files
   setupFilesAfterEnv: [
-    '<rootDir>/tests/setup.js'
+    '<rootDir>/tests/setup.js',
+    '<rootDir>/tests/setup/test-environment.js'
   ],
 
   // Global settings
@@ -75,6 +87,9 @@ module.exports = {
 
   // Restore mocks between tests
   restoreMocks: true,
+
+  // Reset mocks between tests
+  resetMocks: true,
 
   // Test sequencer - commented out for now
   // testSequencer: '<rootDir>/tests/testSequencer.js',

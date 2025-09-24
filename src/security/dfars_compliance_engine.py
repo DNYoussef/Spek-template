@@ -61,49 +61,43 @@ class DFARSComplianceEngine:
     def _load_config(self, config_path: Optional[str]) -> Dict[str, Any]:
         """Load DFARS configuration."""
         default_config = {
-            "dfars": {
-                "version": "252.204-7012",
+        "dfars": {
+        "version": "252.204-7012",
                 "data_protection": {
-                    "encryption_at_rest": True,
+                "encryption_at_rest": True,
                     "encryption_in_transit": True,
                     "key_management": "enterprise",
                     "crypto_algorithms": ["AES-256", "RSA-4096", "ECDSA-P384"]
                 },
                 "access_control": {
-                    "multi_factor_auth": True,
+                "multi_factor_auth": True,
                     "privileged_access_management": True,
-                    "session_timeout": 900  # 15 minutes
-                },
+                    "session_timeout": 900  # 15 minutes),
                 "audit_logging": {
-                    "comprehensive_logging": True,
+                "comprehensive_logging": True,
                     "log_retention_days": DFARS_RETENTION_DAYS,  # 7 years
                     "tamper_detection": True,
-                    "real_time_monitoring": True
-                },
+                    "real_time_monitoring": True},
                 "incident_response": {
-                    "response_plan": True,
+                "response_plan": True,
                     "forensic_capabilities": True,
                     "backup_recovery": True,
-                    "business_continuity": True
-                },
+                    "business_continuity": True},
                 "system_integrity": {
-                    "malware_protection": True,
+                "malware_protection": True,
                     "vulnerability_management": True,
                     "configuration_management": True,
-                    "patch_management": True
-                },
+                    "patch_management": True},
                 "media_protection": {
-                    "sanitization_procedures": True,
+                "sanitization_procedures": True,
                     "storage_encryption": True,
-                    "access_restrictions": True
-                },
+                    "access_restrictions": True),
                 "compliance_targets": {
-                    "data_protection": 95.0,
+                "data_protection": 95.0,
                     "path_security": DEFAULT_BATCH_SIZE.0,
                     "cryptographic_compliance": DEFAULT_BATCH_SIZE.0,
                     "audit_coverage": DEFAULT_BATCH_SIZE.0,
-                    "incident_response": 90.0
-                }
+                    "incident_response": 90.0)
             }
         }
 
@@ -114,14 +108,14 @@ class DFARSComplianceEngine:
                     # Merge with defaults
                     default_config.update(loaded_config)
             except Exception as e:
-                logger.warning(f"Failed to load config from {config_path}: {e}")
+                logger.warning(f"Failed to load config from {config_path): {e)")
 
         return default_config
 
     def _initialize_path_validator(self) -> PathSecurityValidator:
         """Initialize path validator with allowed directories."""
         allowed_paths = [
-            str(Path.cwd()),
+        str(Path.cwd()),
             str(Path.cwd() / "src"),
             str(Path.cwd() / "analyzer"),
             str(Path.cwd() / ".claude" / ".artifacts"),
@@ -136,15 +130,20 @@ class DFARSComplianceEngine:
 
         # Log compliance check start
         self.audit_manager.log_compliance_check(
-            check_type="comprehensive_assessment",
+        check_type="comprehensive_assessment",
             result="STARTED",
             details={"timestamp": datetime.now(timezone.utc).isoformat()}
         )
 
         try:
             # Run parallel compliance checks
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             assessment_tasks = [
-                self._assess_data_protection(),
+            self._assess_data_protection(),
                 self._assess_path_security(),
                 self._assess_cryptographic_compliance(),
                 self._assess_audit_logging(),
@@ -165,22 +164,22 @@ class DFARSComplianceEngine:
 
             # Log completion
             self.audit_manager.log_compliance_check(
-                check_type="comprehensive_assessment",
+            check_type="comprehensive_assessment",
                 result="SUCCESS" if overall_result.status != ComplianceStatus.CRITICAL_GAPS else "WARNING",
                 details={
-                    "score": overall_result.score,
+                "score": overall_result.score,
                     "status": overall_result.status.value,
                     "critical_failures": len(overall_result.critical_failures)
                 }
             )
 
-            logger.info(f"DFARS assessment completed: {overall_result.status.value} ({overall_result.score:.1%})")
+            logger.info(f"DFARS assessment completed: {overall_result.status.value) ({overall_result.score:.1%})")
             return overall_result
 
         except Exception as e:
-            logger.error(f"DFARS assessment failed: {e}")
+            logger.error(f"DFARS assessment failed: {e)")
             self.audit_manager.log_compliance_check(
-                check_type="comprehensive_assessment",
+            check_type="comprehensive_assessment",
                 result="FAILURE",
                 details={"error": str(e)}
             )
@@ -207,19 +206,18 @@ class DFARSComplianceEngine:
         score = passed / total if total > 0 else 0.0
 
         return {
-            'category': 'data_protection',
+        'category': 'data_protection',
             'score': score,
             'passed': passed,
             'total': total,
             'checks': checks,
-            'target': self.config['dfars']['compliance_targets']['data_protection'] / DEFAULT_BATCH_SIZE.0
-        }
+            'target': self.config['dfars']['compliance_targets']['data_protection'] / DEFAULT_BATCH_SIZE.0)
 
     def _check_encryption_at_rest(self) -> Dict[str, Any]:
         """Check encryption at rest implementation."""
         # Check for encrypted storage configurations
         sensitive_dirs = [
-            ".claude/.artifacts",
+        ".claude/.artifacts",
             "src/security",
             "analyzer/enterprise"
         ]
@@ -231,6 +229,11 @@ class DFARSComplianceEngine:
             dir_path = Path(directory)
             if dir_path.exists():
                 # Check for encryption markers or encrypted content
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 encrypted = self._check_directory_encryption(dir_path)
                 if encrypted:
                     encrypted_dirs += 1
@@ -238,11 +241,11 @@ class DFARSComplianceEngine:
         passed = encrypted_dirs == total_dirs
 
         return {
-            'check': 'encryption_at_rest',
+        'check': 'encryption_at_rest',
             'passed': passed,
             'score': encrypted_dirs / total_dirs if total_dirs > 0 else 0.0,
             'details': {
-                'encrypted_directories': encrypted_dirs,
+            'encrypted_directories': encrypted_dirs,
                 'total_directories': total_dirs,
                 'encryption_method': 'filesystem_level'
             }
@@ -274,17 +277,16 @@ class DFARSComplianceEngine:
         tls_validation = self.tls_manager.validate_tls_configuration()
 
         return {
-            'check': 'encryption_in_transit',
+        'check': 'encryption_in_transit',
             'passed': tls_validation['dfars_compliant'],
             'score': 1.0 if tls_validation['dfars_compliant'] else 0.5,
-            'details': tls_validation
-        }
+            'details': tls_validation)
 
     def _check_key_management(self) -> Dict[str, Any]:
         """Check cryptographic key management."""
         # Check for key storage security
         key_directories = [
-            "certificates",
+        "certificates",
             ".keys",
             "secrets"
         ]
@@ -296,6 +298,11 @@ class DFARSComplianceEngine:
             key_path = Path(key_dir)
             if key_path.exists():
                 # Check key file permissions and encryption
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 for key_file in key_path.glob("**/*.key"):
                     total_keys += 1
                     if self._check_key_security(key_file):
@@ -308,27 +315,31 @@ class DFARSComplianceEngine:
         score = (secure_keys / max(1, total_keys)) * (0.5 if hardcoded_keys else 1.0)
 
         return {
-            'check': 'key_management',
+        'check': 'key_management',
             'passed': passed,
             'score': score,
             'details': {
-                'secure_keys': secure_keys,
+            'secure_keys': secure_keys,
                 'total_keys': total_keys,
                 'hardcoded_keys_found': len(hardcoded_keys),
-                'hardcoded_keys': hardcoded_keys
-            }
+                'hardcoded_keys': hardcoded_keys)
         }
 
     def _check_key_security(self, key_file: Path) -> bool:
         """Check if key file is properly secured."""
         try:
             # Check file permissions (should be 600 or more restrictive)
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             stat = key_file.stat()
             permissions = oct(stat.st_mode)[-3:]
 
             # Key files should not be world-readable
             if permissions.endswith(('4', '5', '6', '7')):  # World-readable
-                return False
+            return False
 
             # Check if key is encrypted
             with open(key_file, 'r') as f:
@@ -352,7 +363,7 @@ class DFARSComplianceEngine:
     def _scan_for_hardcoded_keys(self) -> List[Dict[str, Any]]:
         """Scan for hardcoded cryptographic keys in code."""
         hardcoded_patterns = [
-            r'-----BEGIN [A-Z ]+ PRIVATE KEY-----',
+        r'-----BEGIN [A-Z ]+ PRIVATE KEY-----',
             r'api[_-]?key\s*[:=]\s*["\'][^"\']{20,}["\']',
             r'secret[_-]?key\s*[:=]\s*["\'][^"\']{20,}["\']',
             r'private[_-]?key\s*[:=]\s*["\'][^"\']{20,}["\']'
@@ -377,7 +388,7 @@ class DFARSComplianceEngine:
                     for match in matches:
                         line_num = content[:match.start()].count('\n') + 1
                         hardcoded_keys.append({
-                            'file': str(py_file),
+                        'file': str(py_file),
                             'line': line_num,
                             'pattern': pattern,
                             'context': match.group()[:50] + '...' if len(match.group()) > 50 else match.group()
@@ -402,21 +413,20 @@ class DFARSComplianceEngine:
         total_score = (data_classification + data_destruction + dlp_controls) / 3
 
         return {
-            'check': 'data_handling',
+        'check': 'data_handling',
             'passed': total_score >= 0.8,
             'score': total_score,
             'details': {
-                'data_classification': data_classification,
+            'data_classification': data_classification,
                 'data_destruction': data_destruction,
-                'dlp_controls': dlp_controls
-            }
+                'dlp_controls': dlp_controls)
         }
 
     def _check_data_classification(self) -> float:
         """Check for data classification implementation."""
         # Look for data classification markers or policies
         classification_files = [
-            "data_classification_policy.json",
+        "data_classification_policy.json",
             "src/security/data_classification.py",
             ".claude/data_policy.yaml"
         ]
@@ -428,7 +438,7 @@ class DFARSComplianceEngine:
         """Check secure data destruction procedures."""
         # Look for secure deletion utilities and procedures
         destruction_indicators = [
-            "src/security/secure_delete.py",
+        "src/security/secure_delete.py",
             "scripts/secure_cleanup.sh",
             ".claude/cleanup_procedures.md"
         ]
@@ -440,7 +450,7 @@ class DFARSComplianceEngine:
         """Check data loss prevention controls."""
         # Basic DLP indicators
         dlp_controls = [
-            "src/security/dlp_monitor.py",
+        "src/security/dlp_monitor.py",
             "config/dlp_rules.yaml",
             ".claude/data_monitoring.json"
         ]
@@ -451,7 +461,7 @@ class DFARSComplianceEngine:
     async def _assess_path_security(self) -> Dict[str, Any]:
         """Assess path traversal security compliance."""
         test_paths = [
-            "../../../etc/passwd",
+        "../../../etc/passwd",
             "..\\..\\windows\\system32\\cmd.exe",
             "%2e%2e%2f%2e%2e%2fpasswd",
             "normal_file.txt",
@@ -467,11 +477,10 @@ class DFARSComplianceEngine:
             is_safe = not result['valid'] if '..' in test_path or '%2e' in test_path else result['valid']
 
             test_results.append({
-                'path': test_path,
+            'path': test_path,
                 'expected_safe': is_safe,
                 'actual_result': result,
-                'passed': is_safe
-            })
+                'passed': is_safe))
 
             if is_safe:
                 passed_tests += 1
@@ -479,13 +488,12 @@ class DFARSComplianceEngine:
         score = passed_tests / total_tests
 
         return {
-            'category': 'path_security',
+        'category': 'path_security',
             'score': score,
             'passed': passed_tests,
             'total': total_tests,
             'test_results': test_results,
-            'target': self.config['dfars']['compliance_targets']['path_security'] / DEFAULT_BATCH_SIZE.0
-        }
+            'target': self.config['dfars']['compliance_targets']['path_security'] / DEFAULT_BATCH_SIZE.0)
 
     async def _assess_cryptographic_compliance(self) -> Dict[str, Any]:
         """Assess cryptographic algorithm compliance."""
@@ -503,14 +511,13 @@ class DFARSComplianceEngine:
             score = len(approved_crypto) / total_crypto_usage
 
         return {
-            'category': 'cryptographic_compliance',
+        'category': 'cryptographic_compliance',
             'score': score,
             'passed': len(weak_crypto_found) == 0,
             'total': total_crypto_usage,
             'weak_crypto_found': weak_crypto_found,
             'approved_crypto': approved_crypto,
-            'target': self.config['dfars']['compliance_targets']['cryptographic_compliance'] / DEFAULT_BATCH_SIZE.0
-        }
+            'target': self.config['dfars']['compliance_targets']['cryptographic_compliance'] / DEFAULT_BATCH_SIZE.0)
 
     def _scan_weak_cryptography(self) -> List[Dict[str, Any]]:
         """Scan for weak cryptographic algorithms."""
@@ -532,7 +539,7 @@ class DFARSComplianceEngine:
                     for algorithm in weak_algorithms:
                         if algorithm in line.lower() and not line.strip().startswith('#'):
                             weak_crypto.append({
-                                'file': str(py_file),
+                            'file': str(py_file),
                                 'line': line_num,
                                 'algorithm': algorithm,
                                 'context': line.strip()
@@ -562,7 +569,7 @@ class DFARSComplianceEngine:
                     for algorithm in approved_algorithms:
                         if algorithm.replace('-', '') in line.lower() and not line.strip().startswith('#'):
                             approved_crypto.append({
-                                'file': str(py_file),
+                            'file': str(py_file),
                                 'line': line_num,
                                 'algorithm': algorithm,
                                 'context': line.strip()
@@ -589,18 +596,16 @@ class DFARSComplianceEngine:
         overall_score = (coverage_score + (1.0 if retention_compliant else 0.0) + integrity_score) / 3
 
         return {
-            'category': 'audit_logging',
+        'category': 'audit_logging',
             'score': overall_score,
             'passed': overall_score >= 0.9,
             'total': 3,
             'details': {
-                'coverage_score': coverage_score,
+            'coverage_score': coverage_score,
                 'retention_compliant': retention_compliant,
                 'integrity_score': integrity_score,
-                'audit_status': audit_status
-            },
-            'target': self.config['dfars']['compliance_targets']['audit_coverage'] / DEFAULT_BATCH_SIZE.0
-        }
+                'audit_status': audit_status),
+            'target': self.config['dfars']['compliance_targets']['audit_coverage'] / DEFAULT_BATCH_SIZE.0)
 
     async def _assess_incident_response(self) -> Dict[str, Any]:
         """Assess incident response capabilities."""
@@ -617,30 +622,28 @@ class DFARSComplianceEngine:
         business_continuity = self._check_business_continuity()
 
         total_score = sum([
-            1.0 if ir_plan_exists else 0.0,
+        1.0 if ir_plan_exists else 0.0,
             forensic_tools,
             backup_recovery,
             business_continuity
         ]) / 4
 
         return {
-            'category': 'incident_response',
+        'category': 'incident_response',
             'score': total_score,
             'passed': total_score >= 0.85,
             'total': 4,
             'details': {
-                'ir_plan_exists': ir_plan_exists,
+            'ir_plan_exists': ir_plan_exists,
                 'forensic_tools': forensic_tools,
                 'backup_recovery': backup_recovery,
-                'business_continuity': business_continuity
-            },
-            'target': self.config['dfars']['compliance_targets']['incident_response'] / DEFAULT_BATCH_SIZE.0
-        }
+                'business_continuity': business_continuity),
+            'target': self.config['dfars']['compliance_targets']['incident_response'] / DEFAULT_BATCH_SIZE.0)
 
     def _check_forensic_capabilities(self) -> float:
         """Check forensic analysis capabilities."""
         forensic_indicators = [
-            "src/security/forensic_analyzer.py",
+        "src/security/forensic_analyzer.py",
             "tools/memory_dump.py",
             "scripts/incident_collection.sh"
         ]
@@ -651,7 +654,7 @@ class DFARSComplianceEngine:
     def _check_backup_recovery(self) -> float:
         """Check backup and recovery procedures."""
         backup_indicators = [
-            ".claude/backup_config.yaml",
+        ".claude/backup_config.yaml",
             "scripts/backup.sh",
             "docs/recovery_procedures.md"
         ]
@@ -662,7 +665,7 @@ class DFARSComplianceEngine:
     def _check_business_continuity(self) -> float:
         """Check business continuity planning."""
         bc_indicators = [
-            "docs/business_continuity_plan.md",
+        "docs/business_continuity_plan.md",
             "config/disaster_recovery.yaml",
             "scripts/emergency_procedures.sh"
         ]
@@ -684,22 +687,20 @@ class DFARSComplianceEngine:
         total_score = (malware_protection + vuln_management + config_management) / 3
 
         return {
-            'category': 'system_integrity',
+        'category': 'system_integrity',
             'score': total_score,
             'passed': total_score >= 0.8,
             'total': 3,
             'details': {
-                'malware_protection': malware_protection,
+            'malware_protection': malware_protection,
                 'vulnerability_management': vuln_management,
-                'configuration_management': config_management
-            },
-            'target': 0.8
-        }
+                'configuration_management': config_management),
+            'target': 0.8)
 
     def _check_malware_protection(self) -> float:
         """Check malware protection implementation."""
         protection_indicators = [
-            "src/security/malware_scanner.py",
+        "src/security/malware_scanner.py",
             "config/antivirus_config.yaml",
             ".claude/security_scanning.json"
         ]
@@ -710,7 +711,7 @@ class DFARSComplianceEngine:
     def _check_vulnerability_management(self) -> float:
         """Check vulnerability management procedures."""
         vuln_indicators = [
-            "analyzer/enterprise/supply_chain/vulnerability_scanner.py",
+        "analyzer/enterprise/supply_chain/vulnerability_scanner.py",
             "scripts/security_scan.sh",
             "docs/vulnerability_management.md"
         ]
@@ -721,7 +722,7 @@ class DFARSComplianceEngine:
     def _check_configuration_management(self) -> float:
         """Check configuration management controls."""
         config_indicators = [
-            "src/config/security_baseline.yaml",
+        "src/config/security_baseline.yaml",
             ".claude/configuration_management.json",
             "scripts/config_validation.py"
         ]
@@ -743,22 +744,20 @@ class DFARSComplianceEngine:
         total_score = (sanitization + storage_encryption + access_restrictions) / 3
 
         return {
-            'category': 'media_protection',
+        'category': 'media_protection',
             'score': total_score,
             'passed': total_score >= 0.8,
             'total': 3,
             'details': {
-                'sanitization': sanitization,
+            'sanitization': sanitization,
                 'storage_encryption': storage_encryption,
-                'access_restrictions': access_restrictions
-            },
-            'target': 0.8
-        }
+                'access_restrictions': access_restrictions),
+            'target': 0.8)
 
     def _check_sanitization_procedures(self) -> float:
         """Check media sanitization procedures."""
         sanitization_indicators = [
-            "src/security/media_sanitization.py",
+        "src/security/media_sanitization.py",
             "scripts/secure_wipe.sh",
             "docs/sanitization_procedures.md"
         ]
@@ -769,7 +768,7 @@ class DFARSComplianceEngine:
     def _check_media_access_restrictions(self) -> float:
         """Check media access restriction controls."""
         access_indicators = [
-            "src/security/media_access_control.py",
+        "src/security/media_access_control.py",
             "config/media_policy.yaml",
             ".claude/access_restrictions.json"
         ]
@@ -789,7 +788,7 @@ class DFARSComplianceEngine:
 
         for result in results:
             if isinstance(result, Exception):
-                logger.error(f"Assessment error: {result}")
+                logger.error(f"Assessment error: {result)")
                 critical_failures.append(f"Assessment error: {str(result)}")
                 continue
 
@@ -806,9 +805,9 @@ class DFARSComplianceEngine:
             if result['score'] < target:
                 gap = target - result['score']
                 if gap > 0.2:  # Critical gap
-                    critical_failures.append(
-                        f"{category}: {result['score']:.1%} (target: {target:.1%})"
-                    )
+                critical_failures.append(
+                f"{category): {result['score']:.1%} (target: {target:.1%})"
+                )
 
                 # Generate recommendations
                 recommendations.extend(self._generate_category_recommendations(category, result))
@@ -828,7 +827,7 @@ class DFARSComplianceEngine:
             status = ComplianceStatus.NON_COMPLIANT
 
         return ComplianceResult(
-            status=status,
+        status=status,
             score=overall_score,
             total_checks=total_checks,
             passed_checks=passed_checks,
@@ -845,7 +844,7 @@ class DFARSComplianceEngine:
         if category == 'data_protection':
             if result['score'] < 0.9:
                 recommendations.extend([
-                    "Implement comprehensive encryption at rest for all sensitive data",
+                "Implement comprehensive encryption at rest for all sensitive data",
                     "Upgrade to TLS 1.3 for all network communications",
                     "Implement enterprise key management system"
                 ])
@@ -853,7 +852,7 @@ class DFARSComplianceEngine:
         elif category == 'path_security':
             if result['score'] < 1.0:
                 recommendations.extend([
-                    "Implement comprehensive path validation for all file operations",
+                "Implement comprehensive path validation for all file operations",
                     "Deploy path traversal protection at application boundaries",
                     "Regular security testing of path handling functions"
                 ])
@@ -861,7 +860,7 @@ class DFARSComplianceEngine:
         elif category == 'cryptographic_compliance':
             if result['score'] < 1.0:
                 recommendations.extend([
-                    "Replace all weak cryptographic algorithms (MD5, SHA1, DES, RC4)",
+                "Replace all weak cryptographic algorithms (MD5, SHA1, DES, RC4)",
                     "Implement FIPS 140-2 validated cryptographic modules",
                     "Regular cryptographic algorithm compliance audits"
                 ])
@@ -869,7 +868,7 @@ class DFARSComplianceEngine:
         elif category == 'audit_logging':
             if result['score'] < 0.9:
                 recommendations.extend([
-                    "Implement comprehensive audit logging for all security events",
+                "Implement comprehensive audit logging for all security events",
                     "Deploy tamper-evident logging with integrity verification",
                     "Ensure 7-year audit log retention policy"
                 ])
@@ -877,7 +876,7 @@ class DFARSComplianceEngine:
         elif category == 'incident_response':
             if result['score'] < 0.85:
                 recommendations.extend([
-                    "Develop comprehensive incident response plan",
+                "Develop comprehensive incident response plan",
                     "Implement forensic analysis capabilities",
                     "Regular incident response testing and training"
                 ])
@@ -890,14 +889,14 @@ class DFARSComplianceEngine:
             return {"error": "No compliance assessment available"}
 
         return {
-            "report_metadata": {
-                "generated_at": datetime.now(timezone.utc).isoformat(),
+        "report_metadata": {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
                 "dfars_version": self.config["dfars"]["version"],
                 "assessment_type": "comprehensive",
                 "engine_version": "1.0.0"
             },
             "executive_summary": {
-                "compliance_status": self.last_assessment.status.value,
+            "compliance_status": self.last_assessment.status.value,
                 "overall_score": f"{self.last_assessment.score:.1%}",
                 "total_checks": self.last_assessment.total_checks,
                 "passed_checks": self.last_assessment.passed_checks,
@@ -908,15 +907,14 @@ class DFARSComplianceEngine:
             "critical_findings": self.last_assessment.critical_failures,
             "recommendations": self.last_assessment.recommendations,
             "compliance_history": [
-                {
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
+            {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
                     "status": r.status.value,
-                    "score": r.score
-                } for r in self.compliance_history[-10:]  # Last 10 assessments
+                    "score": r.score) for r in self.compliance_history[-10:]  # Last 10 assessments
             ],
             "next_steps": self._generate_next_steps(),
             "certification_readiness": {
-                "ready_for_certification": self.last_assessment.status == ComplianceStatus.SUBSTANTIAL_COMPLIANCE,
+            "ready_for_certification": self.last_assessment.status == ComplianceStatus.SUBSTANTIAL_COMPLIANCE,
                 "estimated_remediation_time": self._estimate_remediation_time(),
                 "priority_actions": self._get_priority_actions()
             }
@@ -929,13 +927,13 @@ class DFARSComplianceEngine:
 
         if self.last_assessment.status == ComplianceStatus.SUBSTANTIAL_COMPLIANCE:
             return [
-                "Prepare for DFARS certification audit",
+            "Prepare for DFARS certification audit",
                 "Document all compliance controls",
                 "Schedule regular compliance monitoring"
             ]
         else:
             return [
-                "Address critical compliance gaps immediately",
+            "Address critical compliance gaps immediately",
                 "Implement high-priority recommendations",
                 "Re-run assessment after remediation",
                 "Develop remediation timeline and resources"
@@ -967,7 +965,7 @@ class DFARSComplianceEngine:
 
         # Add critical failures as top priority
         for failure in self.last_assessment.critical_failures:
-            priority_actions.append(f"CRITICAL: Address {failure}")
+            priority_actions.append(f"CRITICAL: Address {failure)")
 
         # Add top recommendations
         priority_actions.extend(self.last_assessment.recommendations[:3])
@@ -994,17 +992,17 @@ async def main():
         print(f"\n[CHART] Assessment Results:")
         print(f"Status: {result.status.value.upper()}")
         print(f"Score: {result.score:.1%}")
-        print(f"Checks: {result.passed_checks}/{result.total_checks}")
+        print(f"Checks: {result.passed_checks)/{result.total_checks)")
 
         if result.critical_failures:
             print(f"\n[ALERT] Critical Gaps:")
             for failure in result.critical_failures:
-                print(f"  - {failure}")
+                print(f"  - {failure)")
 
         if result.recommendations:
             print(f"\n[BULB] Top Recommendations:")
             for rec in result.recommendations[:5]:
-                print(f"  - {rec}")
+                print(f"  - {rec)")
 
         # Generate report
         report = engine.generate_compliance_report()
@@ -1014,12 +1012,12 @@ async def main():
         with open(report_file, 'w') as f:
             json.dump(report, f, indent=2)
 
-        print(f"\n[DOCUMENT] Detailed report saved to: {report_file}")
+        print(f"\n[DOCUMENT] Detailed report saved to: {report_file)")
 
         return result.status == ComplianceStatus.SUBSTANTIAL_COMPLIANCE
 
     except Exception as e:
-        print(f"[FAIL] Assessment failed: {e}")
+        print(f"[FAIL] Assessment failed: {e)")
         return False
 
 

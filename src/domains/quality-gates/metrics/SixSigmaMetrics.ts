@@ -238,21 +238,21 @@ export class SixSigmaMetrics extends EventEmitter {
     const processCapability = this.calculateProcessCapability(metricsData);
     
     // Calculate yield metrics
-    const yield = this.calculateYieldMetrics(metricsData);
-    
+    const yieldMetrics = this.calculateYieldMetrics(metricsData);
+
     // Calculate sigma level
-    const sigma = this.calculateSigmaLevel(defectRate, yield);
+    const sigma = this.calculateSigmaLevel(defectRate, yieldMetrics);
     
     // Calculate DPMO (Defects Per Million Opportunities)
     const dpmo = this.calculateDPMO(metricsData);
     
     // Calculate overall quality score
-    const qualityScore = this.calculateQualityScore(defectRate, processCapability, yield, sigma);
+    const qualityScore = this.calculateQualityScore(defectRate, processCapability, yieldMetrics, sigma);
 
     return {
       defectRate,
       processCapability,
-      yield,
+      yield: yieldMetrics,
       sigma,
       dpmo,
       qualityScore
@@ -332,7 +332,7 @@ export class SixSigmaMetrics extends EventEmitter {
   /**
    * Calculate sigma level and score
    */
-  private calculateSigmaLevel(defectRate: number, yield: any): {
+  private calculateSigmaLevel(defectRate: number, yieldMetrics: any): {
     level: number;
     score: number;
   } {
@@ -346,7 +346,7 @@ export class SixSigmaMetrics extends EventEmitter {
     else level = 1;
     
     // Calculate overall sigma score
-    const yieldFactor = yield.firstTimeYield / 100;
+    const yieldFactor = yieldMetrics.firstTimeYield / 100;
     const score = level * yieldFactor * 100;
     
     return { level, score };
@@ -370,12 +370,12 @@ export class SixSigmaMetrics extends EventEmitter {
   private calculateQualityScore(
     defectRate: number,
     processCapability: any,
-    yield: any,
+    yieldMetrics: any,
     sigma: any
   ): number {
     const defectScore = Math.max(0, 100 - (defectRate / 1000));
     const capabilityScore = Math.min(100, processCapability.cpk * 50);
-    const yieldScore = yield.firstTimeYield;
+    const yieldScore = yieldMetrics.firstTimeYield;
     const sigmaScore = sigma.score;
     
     return (defectScore * 0.3 + capabilityScore * 0.2 + yieldScore * 0.3 + sigmaScore * 0.2);

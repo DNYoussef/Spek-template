@@ -73,15 +73,14 @@ class RealTimeMonitor:
         
         # Thresholds and configuration
         self.thresholds = {
-            'cpu_warning': 70.0,
+        'cpu_warning': 70.0,
             'cpu_critical': 85.0,
             'memory_warning': 75.0,
             'memory_critical': 90.0,
             'disk_io_warning': 50.0,  # MB/s
             'disk_io_critical': 100.0,
             'network_warning': 25.0,  # MB/s
-            'network_critical': 50.0
-        }
+            'network_critical': 50.0)
         
         # Adaptive thresholds based on historical data
         self.adaptive_thresholds = {}
@@ -104,10 +103,10 @@ class RealTimeMonitor:
     def setup_logging(self):
         """Setup comprehensive logging for monitoring system"""
         logging.basicConfig(
-            level=logging.INFO,
+        level=logging.INFO,
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             handlers=[
-                logging.FileHandler('.claude/performance/monitoring/realtime_monitor.log'),
+            logging.FileHandler('.claude/performance/monitoring/realtime_monitor.log'),
                 logging.StreamHandler()
             ]
         )
@@ -149,6 +148,12 @@ class RealTimeMonitor:
         while self.monitoring_active:
             try:
                 # Collect current performance snapshot
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 snapshot = self._collect_snapshot(last_disk_io, last_network_io, last_time)
                 self.performance_history.append(snapshot)
                 
@@ -169,7 +174,7 @@ class RealTimeMonitor:
                 time.sleep(self.monitoring_interval)
                 
             except Exception as e:
-                self.logger.error(f"Error in monitoring loop: {e}")
+                self.logger.error(f"Error in monitoring loop: {e)")
                 time.sleep(self.monitoring_interval)
     
     def _collect_snapshot(self, last_disk_io, last_network_io, last_time) -> PerformanceSnapshot:
@@ -197,7 +202,7 @@ class RealTimeMonitor:
         
         if time_delta > 0:
             total_network_bytes = ((current_network_io.bytes_sent + current_network_io.bytes_recv) -
-                                 (last_network_io.bytes_sent + last_network_io.bytes_recv))
+            (last_network_io.bytes_sent + last_network_io.bytes_recv))
             network_mb_per_sec = total_network_bytes / (1024**2) / time_delta
         
         # Process information
@@ -205,7 +210,7 @@ class RealTimeMonitor:
         process_count = len(psutil.pids())
         
         return PerformanceSnapshot(
-            timestamp=current_time,
+        timestamp=current_time,
             cpu_percent=cpu_percent,
             memory_percent=memory.percent,
             memory_mb=memory_mb,
@@ -222,7 +227,7 @@ class RealTimeMonitor:
         
         # CPU bottleneck analysis
         cpu_alert = self._check_threshold(
-            'cpu', snapshot.cpu_percent,
+        'cpu', snapshot.cpu_percent,
             self.thresholds['cpu_warning'],
             self.thresholds['cpu_critical'],
             "High CPU usage detected"
@@ -232,7 +237,7 @@ class RealTimeMonitor:
         
         # Memory bottleneck analysis
         memory_alert = self._check_threshold(
-            'memory', snapshot.memory_percent,
+        'memory', snapshot.memory_percent,
             self.thresholds['memory_warning'],
             self.thresholds['memory_critical'],
             "High memory usage detected"
@@ -243,7 +248,7 @@ class RealTimeMonitor:
         # Disk I/O bottleneck analysis
         total_disk_io = snapshot.disk_read_mb_per_sec + snapshot.disk_write_mb_per_sec
         disk_alert = self._check_threshold(
-            'disk_io', total_disk_io,
+        'disk_io', total_disk_io,
             self.thresholds['disk_io_warning'],
             self.thresholds['disk_io_critical'],
             "High disk I/O detected"
@@ -253,7 +258,7 @@ class RealTimeMonitor:
         
         # Network bottleneck analysis
         network_alert = self._check_threshold(
-            'network', snapshot.network_mb_per_sec,
+        'network', snapshot.network_mb_per_sec,
             self.thresholds['network_warning'],
             self.thresholds['network_critical'],
             "High network usage detected"
@@ -278,17 +283,17 @@ class RealTimeMonitor:
             severity = 'critical'
             threshold = critical_threshold
             impact_score = min(1.0, value / critical_threshold)
-            action = f"Immediate action required: {base_message}"
+            action = f"Immediate action required: {base_message)"
         elif value >= warning_threshold:
             severity = 'warning'
             threshold = warning_threshold
             impact_score = min(0.7, value / warning_threshold * 0.7)
-            action = f"Monitor closely: {base_message}"
+            action = f"Monitor closely: {base_message)"
         else:
             return None
         
         return BottleneckAlert(
-            timestamp=time.time(),
+        timestamp=time.time(),
             severity=severity,
             bottleneck_type=metric_type,
             metric_value=value,
@@ -312,7 +317,7 @@ class RealTimeMonitor:
         if len(memory_trend) >= 5:
             if self._is_increasing_trend(memory_trend, threshold=0.8):
                 alerts.append(BottleneckAlert(
-                    timestamp=time.time(),
+                timestamp=time.time(),
                     severity='warning',
                     bottleneck_type='memory_leak',
                     metric_value=memory_trend[-1] - memory_trend[0],
@@ -326,7 +331,7 @@ class RealTimeMonitor:
         cpu_volatility = statistics.stdev(cpu_values) if len(cpu_values) > 1 else 0
         if cpu_volatility > 20.0 and snapshot.cpu_percent > 60:
             alerts.append(BottleneckAlert(
-                timestamp=time.time(),
+            timestamp=time.time(),
                 severity='warning',
                 bottleneck_type='cpu_thrashing',
                 metric_value=cpu_volatility,
@@ -342,7 +347,7 @@ class RealTimeMonitor:
         
         if current_disk_io > avg_disk_io * 3 and current_disk_io > 10:
             alerts.append(BottleneckAlert(
-                timestamp=time.time(),
+            timestamp=time.time(),
                 severity='warning',
                 bottleneck_type='disk_io_spike',
                 metric_value=current_disk_io,
@@ -374,9 +379,9 @@ class RealTimeMonitor:
         
         # Log alert
         self.logger.warning(
-            f"BOTTLENECK ALERT [{alert.severity.upper()}]: {alert.bottleneck_type} - "
-            f"Value: {alert.metric_value:.2f}, Threshold: {alert.threshold:.2f}, "
-            f"Impact: {alert.impact_score:.2f} - {alert.recommended_action}"
+        f"BOTTLENECK ALERT [{alert.severity.upper()}]: {alert.bottleneck_type) - "
+        f"Value: {alert.metric_value:.2f), Threshold: {alert.threshold:.2f), "
+        f"Impact: {alert.impact_score:.2f) - {alert.recommended_action)"
         )
         
         # Notify callbacks
@@ -384,7 +389,7 @@ class RealTimeMonitor:
             try:
                 callback(alert)
             except Exception as e:
-                self.logger.error(f"Error in alert callback: {e}")
+                self.logger.error(f"Error in alert callback: {e)")
     
     def _update_adaptive_thresholds(self):
         """Update thresholds based on historical performance patterns"""
@@ -400,9 +405,9 @@ class RealTimeMonitor:
         
         # Set adaptive thresholds at 80th and 95th percentiles
         self.adaptive_thresholds = {
-            'cpu_adaptive_warning': statistics.quantiles(cpu_values, n=10)[7],  # 80th percentile
-            'cpu_adaptive_critical': statistics.quantiles(cpu_values, n=20)[18], # 95th percentile
-            'memory_adaptive_warning': statistics.quantiles(memory_values, n=10)[7],
+        'cpu_adaptive_warning': statistics.quantiles(cpu_values, n=10)[7],  # 80th percentile
+        'cpu_adaptive_critical': statistics.quantiles(cpu_values, n=20)[18], # 95th percentile
+        'memory_adaptive_warning': statistics.quantiles(memory_values, n=10)[7],
             'memory_adaptive_critical': statistics.quantiles(memory_values, n=20)[18]
         }
     
@@ -412,12 +417,11 @@ class RealTimeMonitor:
             return
         
         current_metrics = {
-            'cpu_usage': snapshot.cpu_percent,
+        'cpu_usage': snapshot.cpu_percent,
             'memory_usage': snapshot.memory_percent,
             'memory_mb': snapshot.memory_mb,
             'disk_io_rate': snapshot.disk_read_mb_per_sec + snapshot.disk_write_mb_per_sec,
-            'network_rate': snapshot.network_mb_per_sec
-        }
+            'network_rate': snapshot.network_mb_per_sec)
         
         for metric_name, current_value in current_metrics.items():
             if metric_name in self.baselines:
@@ -440,7 +444,7 @@ class RealTimeMonitor:
                 confidence = min(1.0, len(self.performance_history) / 100.0)
                 
                 self.optimization_metrics[metric_name] = OptimizationMetric(
-                    metric_name=metric_name,
+                metric_name=metric_name,
                     baseline_value=baseline_value,
                     current_value=current_value,
                     improvement_percent=improvement_percent,
@@ -457,7 +461,7 @@ class RealTimeMonitor:
         
         # Recent alerts
         recent_alerts = [alert for alert in self.bottleneck_alerts 
-                        if time.time() - alert.timestamp < 300]  # TODO: Consider limiting size with itertools.islice()  # Last 5 minutes
+        if time.time() - alert.timestamp < 300]  # TODO: Consider limiting size with itertools.islice()  # Last 5 minutes
         
         # Performance summary
         if len(self.performance_history) >= 10:
@@ -469,18 +473,17 @@ class RealTimeMonitor:
             avg_memory = latest_snapshot.memory_percent
         
         status = {
-            'monitoring_active': self.monitoring_active,
+        'monitoring_active': self.monitoring_active,
             'data_points_collected': len(self.performance_history),
             'current_performance': asdict(latest_snapshot),
             'recent_averages': {
-                'cpu_percent': round(avg_cpu, 2),
+            'cpu_percent': round(avg_cpu, 2),
                 'memory_percent': round(avg_memory, 2)
             },
             'active_alerts': len(recent_alerts),
             'critical_alerts': len([a for a in recent_alerts if a.severity == 'critical']  # TODO: Consider limiting size with itertools.islice()),
             'optimization_metrics': {name: asdict(metric) for name, metric in self.optimization_metrics.items()},
-            'adaptive_thresholds': self.adaptive_thresholds
-        }
+            'adaptive_thresholds': self.adaptive_thresholds)
         
         return status
     
@@ -488,7 +491,7 @@ class RealTimeMonitor:
         """Get summary of bottlenecks in specified time window (seconds)"""
         cutoff_time = time.time() - time_window
         recent_alerts = [alert for alert in self.bottleneck_alerts 
-                        if alert.timestamp >= cutoff_time]  # TODO: Consider limiting size with itertools.islice()
+        if alert.timestamp >= cutoff_time]  # TODO: Consider limiting size with itertools.islice()
         
         # Group by bottleneck type
         bottleneck_counts = defaultdict(int)
@@ -502,19 +505,18 @@ class RealTimeMonitor:
         
         # Calculate average impact scores
         avg_impact_scores = {
-            bottleneck_type: statistics.mean(scores) 
-            for bottleneck_type, scores in impact_scores.items()
+        bottleneck_type: statistics.mean(scores) 
+        for bottleneck_type, scores in impact_scores.items()
         }
         
         summary = {
-            'time_window_hours': time_window / 3600,
+        'time_window_hours': time_window / 3600,
             'total_alerts': len(recent_alerts),
             'bottleneck_types': dict(bottleneck_counts),
             'severity_distribution': dict(severity_counts),
             'average_impact_scores': avg_impact_scores,
             'most_problematic': max(avg_impact_scores.items(), key=lambda x: x[1]) if avg_impact_scores else None,
-            'recent_alerts': [asdict(alert) for alert in recent_alerts[-5:]  # TODO: Consider limiting size with itertools.islice()]  # Last 5 alerts
-        }
+            'recent_alerts': [asdict(alert) for alert in recent_alerts[-5:]  # TODO: Consider limiting size with itertools.islice()]  # Last 5 alerts)
         
         return summary
     
@@ -524,33 +526,32 @@ class RealTimeMonitor:
         
         # Filter data by time window
         filtered_snapshots = [
-            snapshot for snapshot in self.performance_history 
-            if snapshot.timestamp >= cutoff_time
+        snapshot for snapshot in self.performance_history 
+        if snapshot.timestamp >= cutoff_time
         ]  # TODO: Consider limiting size with itertools.islice()
         
         filtered_alerts = [
-            alert for alert in self.bottleneck_alerts 
-            if alert.timestamp >= cutoff_time
+        alert for alert in self.bottleneck_alerts 
+        if alert.timestamp >= cutoff_time
         ]  # TODO: Consider limiting size with itertools.islice()
         
         export_data = {
-            'export_timestamp': time.time(),
+        'export_timestamp': time.time(),
             'export_date': datetime.now().isoformat(),
             'time_window_hours': hours,
             'performance_snapshots': [asdict(snapshot) for snapshot in filtered_snapshots]  # TODO: Consider limiting size with itertools.islice(),
             'bottleneck_alerts': [asdict(alert) for alert in filtered_alerts]  # TODO: Consider limiting size with itertools.islice(),
             'optimization_metrics': {name: asdict(metric) for name, metric in self.optimization_metrics.items()},
             'monitoring_configuration': {
-                'monitoring_interval': self.monitoring_interval,
+            'monitoring_interval': self.monitoring_interval,
                 'thresholds': self.thresholds,
-                'adaptive_thresholds': self.adaptive_thresholds
-            },
+                'adaptive_thresholds': self.adaptive_thresholds),
             'summary_statistics': self.get_bottleneck_summary(hours * 3600)
         }
         
         # Export to file
         timestamp = int(time.time())
-        export_file = f".claude/performance/monitoring/monitoring_export_{timestamp}.json"
+        export_file = f".claude/performance/monitoring/monitoring_export_{timestamp).json"
         
         with open(export_file, 'w') as f:
             json.dump(export_data, f, indent=2)
@@ -566,16 +567,15 @@ def main():
     
     # Set example baselines
     monitor.set_baselines({
-        'cpu_usage': 30.0,
+    'cpu_usage': 30.0,
         'memory_usage': 60.0,
         'memory_mb': 2048.0,
         'disk_io_rate': 5.0,
-        'network_rate': 1.0
-    })
+        'network_rate': 1.0))
     
     # Add alert callback
     def alert_handler(alert: BottleneckAlert):
-        print(f"ALERT: {alert.severity} - {alert.bottleneck_type} - {alert.recommended_action}")
+        print(f"ALERT: {alert.severity) - {alert.bottleneck_type) - {alert.recommended_action)")
     
     monitor.add_alert_callback(alert_handler)
     
@@ -587,23 +587,29 @@ def main():
         for i in range(6):
             time.sleep(5)
             status = monitor.get_current_status()
-            print(f"Status update {i+1}: CPU={status['current_performance']['cpu_percent']:.1f}%, "
-                  f"Memory={status['current_performance']['memory_percent']:.1f}%, "
-                  f"Active alerts={status['active_alerts']}")
+            print(f"Status update {i+1): CPU={status['current_performance']['cpu_percent']:.1f)%, "
+            f"Memory={status['current_performance']['memory_percent']:.1f)%, "
+            f"Active alerts={status['active_alerts']}")
     
     except KeyboardInterrupt:
         print("Monitoring interrupted by user")
     
     finally:
         # Stop monitoring and export data
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
         monitor.stop_monitoring()
         export_file = monitor.export_monitoring_data(hours=1)
-        print(f"Monitoring data exported to: {export_file}")
+        print(f"Monitoring data exported to: {export_file)")
         
         # Show summary
         summary = monitor.get_bottleneck_summary(1800)  # Last 30 minutes
         print(f"Bottleneck Summary: {summary['total_alerts']} alerts, "
-              f"Types: {list(summary['bottleneck_types'].keys())}")
+        f"Types: {list(summary['bottleneck_types'].keys())}")
 
 if __name__ == "__main__":
     main()

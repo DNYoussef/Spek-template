@@ -1,0 +1,17 @@
+{
+  "connascence_violations": [
+    {
+      "rule_id": "FILE_ERROR",
+      "file_path": ".",
+      "line_number": 1,
+      "severity": "high",
+      "description": "File analysis error: [Errno 13] Permission denied: '.'",
+      "type": "CoI",
+      "weight": 5.0
+    }
+  ],
+  "nasa_violations": [],
+  "nasa_compliance_score": 0.75,
+  "analysis_time_ms": 0.0,
+  "real_analysis": true
+}

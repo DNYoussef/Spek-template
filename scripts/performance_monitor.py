@@ -95,8 +95,9 @@ class PerformanceMonitoringDashboard:
         if not PERFORMANCE_MONITORING_AVAILABLE:
             logger.error("Performance monitoring components not available")
             return
-        
-        logger.info(f"Starting performance monitoring for: {project_path}")\n        self.monitoring_active = True
+
+        logger.info(f"Starting performance monitoring for: {project_path}")
+        self.monitoring_active = True
         self.dashboard_data["status"] = "monitoring"
         
         # Start real-time monitor
@@ -105,7 +106,8 @@ class PerformanceMonitoringDashboard:
         
         # Start cache profiler monitoring
         if self.cache_profiler:
-            await self.cache_profiler.start_monitoring(\n                interval_seconds=self.config.get("monitoring_interval", 30.0)
+            await self.cache_profiler.start_monitoring(
+                interval_seconds=self.config.get("monitoring_interval", 30.0)
             )
         
         # Monitoring loop

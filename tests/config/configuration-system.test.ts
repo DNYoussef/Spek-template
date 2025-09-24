@@ -4,7 +4,6 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
-import fs from 'fs/promises';
 import yaml from 'js-yaml';
 import { EnterpriseConfigValidator, EnterpriseConfig } from '../../src/config/schema-validator';
 import { BackwardCompatibilityManager } from '../../src/config/backward-compatibility';
@@ -12,8 +11,11 @@ import { ConfigurationManager } from '../../src/config/configuration-manager';
 import { EnvironmentOverrideSystem } from '../../src/config/environment-overrides';
 import { ConfigurationMigrationManager } from '../../src/config/migration-versioning';
 
+const { cleanupTestResources } = require('../setup/test-environment');
+
 // Mock file system operations
 jest.mock('fs/promises');
+import fs from 'fs/promises';
 const mockFs = fs as jest.Mocked<typeof fs>;
 
 describe('Enterprise Configuration System', () => {
@@ -21,8 +23,9 @@ describe('Enterprise Configuration System', () => {
     jest.clearAllMocks();
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     jest.resetAllMocks();
+    await cleanupTestResources();
   });
 
   describe('EnterpriseConfigValidator', () => {

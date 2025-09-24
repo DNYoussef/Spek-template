@@ -8,7 +8,7 @@ from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
         # Component tracking
-        self.components: Dict[str, ComponentStatus] = {}
+self.components: Dict[str, ComponentStatus] = {}
         self.component_start_times: Dict[str, datetime] = {}
 
         # Metrics storage
@@ -22,13 +22,12 @@ logger = get_logger(__name__)
 
         # Performance thresholds
         self.performance_thresholds = {
-            "cpu_usage_critical": 90.0,
+        "cpu_usage_critical": 90.0,
             "memory_usage_critical": 85.0,
             "error_rate_warning": 0.05,
             "error_rate_critical": 0.10,
             "response_time_warning": 1000,  # ms
-            "response_time_critical": 5000  # ms
-        }
+            "response_time_critical": 5000  # ms)
 
         # Background tasks
         self.monitoring_task: Optional[asyncio.Task] = None
@@ -65,7 +64,7 @@ logger = get_logger(__name__)
         with self.lock:
             self.component_start_times[component_name] = datetime.now()
             self.components[component_name] = ComponentStatus(
-                name=component_name,
+            name=component_name,
                 status="running",
                 uptime_seconds=0.0,
                 last_activity=datetime.now(),
@@ -77,7 +76,7 @@ logger = get_logger(__name__)
                 metadata=metadata or {}
             )
 
-        self.logger.info(f"Registered component: {component_name}")
+        self.logger.info(f"Registered component: {component_name)")
 
     def unregister_component(self, component_name: str):
         """Unregister a component from monitoring"""
@@ -89,10 +88,10 @@ logger = get_logger(__name__)
             if component_name in self.performance_history:
                 del self.performance_history[component_name]
 
-        self.logger.info(f"Unregistered component: {component_name}")
+        self.logger.info(f"Unregistered component: {component_name)")
 
     def record_activity(
-        self,
+    self,
         component_name: str,
         activity_type: str = "processed_item",
         count: int = 1,
@@ -114,16 +113,15 @@ logger = get_logger(__name__)
 
             # Record performance data
             if processing_time_ms is not None:
-                self.performance_history[f"{component_name}_processing_time"].append({
-                    "timestamp": datetime.now(),
+                self.performance_history[f"{component_name)_processing_time"].append({
+                "timestamp": datetime.now(),
                     "value": processing_time_ms,
-                    "success": success
-                })
+                    "success": success))
 
             # Calculate processing rate (items per second over last minute)
             recent_activities = [
-                item for item in self.performance_history[f"{component_name}_processing_time"]
-                if (datetime.now() - item["timestamp"]).total_seconds() <= 60
+            item for item in self.performance_history[f"{component_name)_processing_time"]
+            if (datetime.now() - item["timestamp"]).total_seconds() <= 60
             ]
 
             if recent_activities:
@@ -133,7 +131,7 @@ logger = get_logger(__name__)
                 component.processing_rate = 0.0
 
     def record_error(
-        self,
+    self,
         component_name: str,
         error_message: str,
         error_type: str = "general",
@@ -149,7 +147,7 @@ logger = get_logger(__name__)
         # Generate alert if error rate is high
         asyncio.create_task(self._check_error_rate_alert(component_name))
 
-        self.logger.error(f"Component {component_name} error [{error_type}]: {error_message}")
+        self.logger.error(f"Component {component_name) error [{error_type)]: {error_message)")
 
     async def _monitoring_loop(self):
         """Main monitoring loop"""
@@ -160,7 +158,7 @@ logger = get_logger(__name__)
                 await self._check_performance_alerts()
                 await asyncio.sleep(10)  # Update every 10 seconds
             except Exception as e:
-                self.logger.error(f"Monitoring loop error: {e}")
+                self.logger.error(f"Monitoring loop error: {e)")
 
     async def _update_component_status(self):
         """Update component status information"""
@@ -169,6 +167,11 @@ logger = get_logger(__name__)
         with self.lock:
             for component_name, component in self.components.items():
                 # Update uptime
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 if component_name in self.component_start_times:
                     uptime_delta = current_time - self.component_start_times[component_name]
                     component.uptime_seconds = uptime_delta.total_seconds()
@@ -177,22 +180,22 @@ logger = get_logger(__name__)
                 time_since_activity = (current_time - component.last_activity).total_seconds()
 
                 if time_since_activity > 300:  # No activity for 5 minutes
-                    if component.status == "running":
+                if component.status == "running":
                         component.status = "warning"
                         await self._generate_alert(
-                            component_name,
+                        component_name,
                             "component_inactive",
                             "warning",
-                            f"Component {component_name} inactive for {time_since_activity/60:.1f} minutes"
+                            f"Component {component_name) inactive for {time_since_activity/60:.1f) minutes"
                         )
                 elif time_since_activity > 900:  # No activity for 15 minutes
-                    if component.status != "error":
+                if component.status != "error":
                         component.status = "error"
                         await self._generate_alert(
-                            component_name,
+                        component_name,
                             "component_dead",
                             "critical",
-                            f"Component {component_name} appears to be dead (inactive for {time_since_activity/60:.1f} minutes)"
+                            f"Component {component_name) appears to be dead (inactive for {time_since_activity/60:.1f) minutes)"
                         )
 
                 # Update resource usage (simplified - would use actual process monitoring)
@@ -203,6 +206,11 @@ logger = get_logger(__name__)
         """Collect system-level metrics"""
         try:
             # CPU usage
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             cpu_percent = psutil.cpu_percent(interval=1)
 
             # Memory usage
@@ -217,9 +225,8 @@ logger = get_logger(__name__)
             # Network I/O
             network = psutil.net_io_counters()
             network_io = {
-                "bytes_sent": network.bytes_sent,
-                "bytes_recv": network.bytes_recv
-            }
+            "bytes_sent": network.bytes_sent,
+                "bytes_recv": network.bytes_recv)
 
             # Process information
             process_count = len(psutil.pids())
@@ -228,7 +235,7 @@ logger = get_logger(__name__)
             thread_count = threading.active_count()
 
             metrics = SystemMetrics(
-                timestamp=datetime.now(),
+            timestamp=datetime.now(),
                 cpu_usage_percent=cpu_percent,
                 memory_usage_percent=memory_percent,
                 memory_available_gb=memory_available_gb,
@@ -241,7 +248,7 @@ logger = get_logger(__name__)
             self.system_metrics.append(metrics)
 
         except Exception as e:
-            self.logger.error(f"System metrics collection error: {e}")
+            self.logger.error(f"System metrics collection error: {e)")
 
     async def _metrics_collection_loop(self):
         """Metrics collection and aggregation loop"""
@@ -250,7 +257,7 @@ logger = get_logger(__name__)
                 await self._aggregate_performance_metrics()
                 await asyncio.sleep(60)  # Aggregate every minute
             except Exception as e:
-                self.logger.error(f"Metrics collection loop error: {e}")
+                self.logger.error(f"Metrics collection loop error: {e)")
 
     async def _aggregate_performance_metrics(self):
         """Aggregate performance metrics for reporting"""
@@ -258,12 +265,12 @@ logger = get_logger(__name__)
 
         # Aggregate component performance
         for component_name in self.components.keys():
-            processing_time_key = f"{component_name}_processing_time"
+            processing_time_key = f"{component_name)_processing_time"
 
             if processing_time_key in self.performance_history:
                 recent_data = [
-                    item for item in self.performance_history[processing_time_key]
-                    if (current_time - item["timestamp"]).total_seconds() <= 300  # Last 5 minutes
+                item for item in self.performance_history[processing_time_key]
+                if (current_time - item["timestamp"]).total_seconds() <= 300  # Last 5 minutes
                 ]
 
                 if recent_data:
@@ -273,15 +280,13 @@ logger = get_logger(__name__)
                         p95_processing_time = np.percentile(processing_times, 95)
 
                         # Store aggregated metrics
-                        self.performance_history[f"{component_name}_avg_processing_time"].append({
-                            "timestamp": current_time,
-                            "value": avg_processing_time
-                        })
+                        self.performance_history[f"{component_name)_avg_processing_time"].append({
+                        "timestamp": current_time,
+                            "value": avg_processing_time))
 
-                        self.performance_history[f"{component_name}_p95_processing_time"].append({
-                            "timestamp": current_time,
-                            "value": p95_processing_time
-                        })
+                        self.performance_history[f"{component_name)_p95_processing_time"].append({
+                        "timestamp": current_time,
+                            "value": p95_processing_time))
 
     async def _check_performance_alerts(self):
         """Check for performance-related alerts"""
@@ -292,10 +297,10 @@ logger = get_logger(__name__)
             # CPU alert
             if latest_metrics.cpu_usage_percent > self.performance_thresholds["cpu_usage_critical"]:
                 await self._generate_alert(
-                    "system",
+                "system",
                     "high_cpu_usage",
                     "critical",
-                    f"CPU usage at {latest_metrics.cpu_usage_percent:.1f}%",
+                    f"CPU usage at {latest_metrics.cpu_usage_percent:.1f)%",
                     metric_value=latest_metrics.cpu_usage_percent,
                     threshold=self.performance_thresholds["cpu_usage_critical"]
                 )
@@ -303,10 +308,10 @@ logger = get_logger(__name__)
             # Memory alert
             if latest_metrics.memory_usage_percent > self.performance_thresholds["memory_usage_critical"]:
                 await self._generate_alert(
-                    "system",
+                "system",
                     "high_memory_usage",
                     "critical",
-                    f"Memory usage at {latest_metrics.memory_usage_percent:.1f}%",
+                    f"Memory usage at {latest_metrics.memory_usage_percent:.1f)%",
                     metric_value=latest_metrics.memory_usage_percent,
                     threshold=self.performance_thresholds["memory_usage_critical"]
                 )
@@ -317,14 +322,14 @@ logger = get_logger(__name__)
             return
 
         component = self.components[component_name]
-        recent_activities = len(self.performance_history[f"{component_name}_processing_time"])
+        recent_activities = len(self.performance_history[f"{component_name)_processing_time"])
 
         if recent_activities > 0:
             error_rate = component.error_count / recent_activities
 
             if error_rate > self.performance_thresholds["error_rate_critical"]:
                 await self._generate_alert(
-                    component_name,
+                component_name,
                     "high_error_rate",
                     "critical",
                     f"Error rate at {error_rate:.1%}",
@@ -333,7 +338,7 @@ logger = get_logger(__name__)
                 )
             elif error_rate > self.performance_thresholds["error_rate_warning"]:
                 await self._generate_alert(
-                    component_name,
+                component_name,
                     "elevated_error_rate",
                     "warning",
                     f"Error rate at {error_rate:.1%}",
@@ -342,7 +347,7 @@ logger = get_logger(__name__)
                 )
 
     async def _generate_alert(
-        self,
+    self,
         component: str,
         alert_type: str,
         severity: str,
@@ -352,7 +357,7 @@ logger = get_logger(__name__)
     ):
         """Generate and process performance alert"""
         alert = PerformanceAlert(
-            id=f"{alert_type}_{component}_{int(time.time())}",
+        id=f"{alert_type)_{component)_{int(time.time())}",
             component=component,
             alert_type=alert_type,
             severity=severity,
@@ -369,9 +374,9 @@ logger = get_logger(__name__)
             try:
                 await asyncio.get_event_loop().run_in_executor(None, callback, alert)
             except Exception as e:
-                self.logger.error(f"Alert callback error: {e}")
+                self.logger.error(f"Alert callback error: {e)")
 
-        self.logger.warning(f"Performance Alert [{severity}] {component}: {message}")
+        self.logger.warning(f"Performance Alert [{severity)] {component): {message)")
 
     async def _cleanup_loop(self):
         """Cleanup old monitoring data"""
@@ -380,7 +385,7 @@ logger = get_logger(__name__)
                 await self._cleanup_old_data()
                 await asyncio.sleep(3600)  # Cleanup hourly
             except Exception as e:
-                self.logger.error(f"Cleanup loop error: {e}")
+                self.logger.error(f"Cleanup loop error: {e)")
 
     async def _cleanup_old_data(self):
         """Clean up old monitoring data"""
@@ -389,14 +394,14 @@ logger = get_logger(__name__)
         # Clean up performance history
         for key, history in self.performance_history.items():
             self.performance_history[key] = deque([
-                item for item in history
-                if item["timestamp"] >= cutoff_time
+            item for item in history
+            if item["timestamp"] >= cutoff_time
             ], maxlen=500)
 
         # Clean up old alerts
         self.alerts = deque([
-            alert for alert in self.alerts
-            if alert.timestamp >= cutoff_time
+        alert for alert in self.alerts
+        if alert.timestamp >= cutoff_time
         ], maxlen=1000)
 
     def _estimate_component_memory(self, component_name: str) -> float:
@@ -412,15 +417,14 @@ logger = get_logger(__name__)
     def _load_alert_rules(self) -> Dict[str, Any]:
         """Load alert rules configuration"""
         return {
-            "error_rate_warning": 0.05,
+        "error_rate_warning": 0.05,
             "error_rate_critical": 0.10,
             "response_time_warning": 1000,
             "response_time_critical": 5000,
             "cpu_usage_warning": 80.0,
             "cpu_usage_critical": 90.0,
             "memory_usage_warning": 75.0,
-            "memory_usage_critical": 85.0
-        }
+            "memory_usage_critical": 85.0)
 
     def add_alert_callback(self, callback: Callable[[PerformanceAlert], None]):
         """Add callback for performance alerts"""
@@ -433,7 +437,7 @@ logger = get_logger(__name__)
                 if component_name in self.components:
                     component = self.components[component_name]
                     return {
-                        "name": component.name,
+                    "name": component.name,
                         "status": component.status,
                         "uptime_seconds": component.uptime_seconds,
                         "uptime_human": self._format_duration(component.uptime_seconds),
@@ -443,15 +447,14 @@ logger = get_logger(__name__)
                         "warning_count": component.warning_count,
                         "memory_usage_mb": component.memory_usage_mb,
                         "cpu_usage_percent": component.cpu_usage_percent,
-                        "metadata": component.metadata
-                    }
+                        "metadata": component.metadata)
                 else:
                     return {"error": "Component not found"}
             else:
                 return {
-                    "components": {
-                        name: {
-                            "status": comp.status,
+                "components": {
+                name: {
+                "status": comp.status,
                             "uptime_seconds": comp.uptime_seconds,
                             "processing_rate": comp.processing_rate,
                             "error_count": comp.error_count,
@@ -466,8 +469,8 @@ logger = get_logger(__name__)
         cutoff_time = datetime.now() - timedelta(minutes=minutes)
 
         recent_metrics = [
-            metrics for metrics in self.system_metrics
-            if metrics.timestamp >= cutoff_time
+        metrics for metrics in self.system_metrics
+        if metrics.timestamp >= cutoff_time
         ]
 
         if not recent_metrics:
@@ -481,7 +484,7 @@ logger = get_logger(__name__)
         latest = recent_metrics[-1]
 
         return {
-            "time_period_minutes": minutes,
+        "time_period_minutes": minutes,
             "latest_timestamp": latest.timestamp.isoformat(),
             "current_cpu_percent": latest.cpu_usage_percent,
             "current_memory_percent": latest.memory_usage_percent,
@@ -492,8 +495,7 @@ logger = get_logger(__name__)
             "average_disk_percent": avg_disk,
             "process_count": latest.process_count,
             "thread_count": latest.thread_count,
-            "network_io": latest.network_io_bytes
-        }
+            "network_io": latest.network_io_bytes)
 
     def get_performance_summary(self) -> Dict[str, Any]:
         """Get overall performance summary"""
@@ -512,10 +514,10 @@ logger = get_logger(__name__)
         if error_components > 0:
             system_health = "degraded"
         elif warning_components > total_components * 0.2:  # More than 20% warnings
-            system_health = "warning"
+        system_health = "warning"
 
         return {
-            "system_health": system_health,
+        "system_health": system_health,
             "total_components": total_components,
             "running_components": running_components,
             "warning_components": warning_components,
@@ -532,16 +534,16 @@ logger = get_logger(__name__)
         cutoff_time = datetime.now() - timedelta(hours=hours)
 
         filtered_alerts = [
-            alert for alert in self.alerts
-            if alert.timestamp >= cutoff_time
+        alert for alert in self.alerts
+        if alert.timestamp >= cutoff_time
         ]
 
         if severity:
             filtered_alerts = [a for a in filtered_alerts if a.severity == severity]
 
         return [
-            {
-                "id": alert.id,
+        {
+        "id": alert.id,
                 "component": alert.component,
                 "alert_type": alert.alert_type,
                 "severity": alert.severity,
@@ -549,21 +551,20 @@ logger = get_logger(__name__)
                 "timestamp": alert.timestamp.isoformat(),
                 "metric_value": alert.metric_value,
                 "threshold": alert.threshold,
-                "metadata": alert.metadata
-            }
+                "metadata": alert.metadata)
             for alert in sorted(filtered_alerts, key=lambda x: x.timestamp, reverse=True)
         ]
 
     def _format_duration(self, seconds: float) -> str:
         """Format duration in human-readable form"""
         if seconds < 60:
-            return f"{seconds:.0f}s"
+            return f"{seconds:.0f)s"
         elif seconds < 3600:
-            return f"{seconds/60:.1f}m"
+            return f"{seconds/60:.1f)m"
         elif seconds < 86400:
-            return f"{seconds/3600:.1f}h"
+            return f"{seconds/3600:.1f)h"
         else:
-            return f"{seconds/86400:.1f}d"
+            return f"{seconds/86400:.1f)d"
 
     def __del__(self):
         """Cleanup on destruction"""

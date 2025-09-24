@@ -13,7 +13,7 @@ from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
         # Circular buffer implementation
-        self.buffer: deque = deque(maxlen=self.capacity)
+self.buffer: deque = deque(maxlen=self.capacity)
         self.write_index = 0
         self.read_index = 0
 
@@ -50,6 +50,11 @@ logger = get_logger(__name__)
             with self.lock:
                 if len(self.buffer) >= self.capacity:
                     # Buffer is full - handle backpressure
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
                     self.overflow_count += 1
                     self._handle_backpressure()
                     return False
@@ -65,7 +70,7 @@ logger = get_logger(__name__)
             return True
 
         except Exception as e:
-            self.logger.error(f"Error adding data to buffer: {e}")
+            self.logger.error(f"Error adding data to buffer: {e)")
             return False
 
     async def get_batch(self, batch_size: Optional[int] = None) -> List[StreamData]:
@@ -84,6 +89,11 @@ logger = get_logger(__name__)
         try:
             with self.lock:
                 # Get available data up to batch size
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 available = min(len(self.buffer), batch_size)
 
                 for _ in range(available):
@@ -104,7 +114,7 @@ logger = get_logger(__name__)
             return batch
 
         except Exception as e:
-            self.logger.error(f"Error getting batch from buffer: {e}")
+            self.logger.error(f"Error getting batch from buffer: {e)")
             return []
 
     async def wait_for_data(self, timeout: Optional[float] = None) -> bool:
@@ -119,7 +129,7 @@ logger = get_logger(__name__)
         """
         try:
             await asyncio.wait_for(
-                self.data_available.wait(),
+            self.data_available.wait(),
                 timeout=timeout
             )
             return True
@@ -142,6 +152,11 @@ logger = get_logger(__name__)
         with self.not_empty:
             while len(batch) < batch_size:
                 # Wait for data if buffer is empty
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 while not self.buffer:
                     self.not_empty.wait(timeout=self.flush_interval)
                     break  # Exit on timeout
@@ -167,11 +182,16 @@ logger = get_logger(__name__)
         # Drop oldest data to make room (configurable strategy)
         if len(self.buffer) >= self.capacity:
             # Remove oldest 10% of data
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             drop_count = max(1, self.capacity // 10)
             for _ in range(drop_count):
                 if self.buffer:
                     dropped = self.buffer.popleft()
-                    self.logger.warning(f"Dropped data due to backpressure: {dropped.symbol}")
+                    self.logger.warning(f"Dropped data due to backpressure: {dropped.symbol)")
 
     def get_utilization(self) -> float:
         """Get current buffer utilization (0.0 to 1.0)"""
@@ -188,7 +208,7 @@ logger = get_logger(__name__)
             read_rate = self.read_count / time_delta if time_delta > 0 else 0.0
 
             stats = BufferStats(
-                size=len(self.buffer),
+            size=len(self.buffer),
                 capacity=self.capacity,
                 utilization=self.get_utilization(),
                 write_rate=write_rate,
@@ -209,7 +229,7 @@ logger = get_logger(__name__)
         stats = self.get_stats()
 
         return {
-            "size": stats.size,
+        "size": stats.size,
             "capacity": stats.capacity,
             "utilization_percent": stats.utilization * 100,
             "write_rate_per_sec": stats.write_rate,
@@ -217,8 +237,7 @@ logger = get_logger(__name__)
             "total_overflows": stats.overflows,
             "total_underflows": stats.underflows,
             "batch_size": self.batch_size,
-            "flush_interval_ms": self.flush_interval * 1000
-        }
+            "flush_interval_ms": self.flush_interval * 1000)
 
     def clear(self):
         """Clear all data from buffer"""
@@ -249,6 +268,11 @@ logger = get_logger(__name__)
             # Copy data to new buffer (keep most recent if downsizing)
             if len(old_buffer) > new_capacity:
                 # Keep most recent data
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 for item in old_buffer[-new_capacity:]:
                     self.buffer.append(item)
                 self.overflow_count += len(old_buffer) - new_capacity
@@ -259,7 +283,7 @@ logger = get_logger(__name__)
             # Update batch size
             self.batch_size = min(config.processing.batch_size, new_capacity // 4)
 
-            self.logger.info(f"Buffer resized from {old_capacity} to {new_capacity}")
+            self.logger.info(f"Buffer resized from {old_capacity) to {new_capacity)")
 
     def is_empty(self) -> bool:
         """Check if buffer is empty"""

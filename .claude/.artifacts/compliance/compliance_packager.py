@@ -12,7 +12,7 @@ from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
         
         # Initialize control mappings
-        self.soc2_controls = self._initialize_soc2_controls()
+self.soc2_controls = self._initialize_soc2_controls()
         self.iso27001_controls = self._initialize_iso27001_controls()
         self.nist_ssdf_practices = self._initialize_nist_ssdf_practices()
     
@@ -47,16 +47,16 @@ logger = get_logger(__name__)
             
             # Create compliance report
             report = ComplianceReport(
-                framework="SOC2 Type II",
+            framework="SOC2 Type II",
                 version="2017",
                 assessment_period=(
-                    (datetime.now() - timedelta(days=365)).isoformat(),
+                (datetime.now() - timedelta(days=365)).isoformat(),
                     datetime.now().isoformat()
                 ),
                 overall_status=overall_status,
                 controls=evidence_list,
                 summary={
-                    "total_controls": len(evidence_list),
+                "total_controls": len(evidence_list),
                     "compliant_controls": compliant_count,
                     "compliance_percentage": (compliant_count / len(evidence_list)) * 100,
                     "critical_findings": self._get_critical_findings(evidence_list)
@@ -69,11 +69,11 @@ logger = get_logger(__name__)
             with open(output_file, 'w') as f:
                 json.dump(asdict(report), f, indent=2, default=str)
             
-            self.logger.info(f"SOC2 evidence package generated: {output_file}")
+            self.logger.info(f"SOC2 evidence package generated: {output_file)")
             return asdict(report)
             
         except Exception as e:
-            self.logger.error(f"Error generating SOC2 evidence: {e}")
+            self.logger.error(f"Error generating SOC2 evidence: {e)")
             return {"status": "error", "message": str(e)}
     
     def generate_iso27001_matrix(self, isms_controls: Dict[str, Any]) -> Dict[str, Any]:
@@ -94,12 +94,12 @@ logger = get_logger(__name__)
             
             # Create compliance matrix
             matrix = {
-                "framework": "ISO27001:2022",
+            "framework": "ISO27001:2022",
                 "assessment_date": datetime.now().isoformat(),
                 "controls": [asdict(e) for e in evidence_list],
                 "maturity_assessment": maturity_scores,
                 "compliance_summary": {
-                    "total_controls": len(evidence_list),
+                "total_controls": len(evidence_list),
                     "implemented_controls": sum(1 for e in evidence_list if e.status == ComplianceStatus.COMPLIANT),
                     "partially_implemented": sum(1 for e in evidence_list if e.status == ComplianceStatus.PARTIALLY_COMPLIANT),
                     "not_implemented": sum(1 for e in evidence_list if e.status == ComplianceStatus.NON_COMPLIANT)
@@ -113,11 +113,11 @@ logger = get_logger(__name__)
             with open(output_file, 'w') as f:
                 json.dump(matrix, f, indent=2, default=str)
             
-            self.logger.info(f"ISO27001 compliance matrix generated: {output_file}")
+            self.logger.info(f"ISO27001 compliance matrix generated: {output_file)")
             return matrix
             
         except Exception as e:
-            self.logger.error(f"Error generating ISO27001 matrix: {e}")
+            self.logger.error(f"Error generating ISO27001 matrix: {e)")
             return {"status": "error", "message": str(e)}
     
     def generate_nist_ssdf_alignment(self, dev_practices: Dict[str, Any]) -> Dict[str, Any]:
@@ -138,7 +138,7 @@ logger = get_logger(__name__)
             
             # Create alignment report
             alignment_report = {
-                "framework": "NIST SSDF v1.1",
+            "framework": "NIST SSDF v1.1",
                 "assessment_date": datetime.now().isoformat(),
                 "practices": [asdict(a) for a in alignment_data],
                 "maturity_level": ssdf_maturity,
@@ -152,18 +152,18 @@ logger = get_logger(__name__)
             with open(output_file, 'w') as f:
                 json.dump(alignment_report, f, indent=2, default=str)
             
-            self.logger.info(f"NIST SSDF alignment generated: {output_file}")
+            self.logger.info(f"NIST SSDF alignment generated: {output_file)")
             return alignment_report
             
         except Exception as e:
-            self.logger.error(f"Error generating NIST SSDF alignment: {e}")
+            self.logger.error(f"Error generating NIST SSDF alignment: {e)")
             return {"status": "error", "message": str(e)}
     
     def generate_comprehensive_audit_package(self, analysis_results: Dict[str, Any]) -> Dict[str, Any]:
         """Generate comprehensive audit package across all frameworks"""
         try:
             audit_package = {
-                "package_id": hashlib.sha256(str(datetime.now()).encode()).hexdigest()[:16],
+            "package_id": hashlib.sha256(str(datetime.now()).encode()).hexdigest()[:16],
                 "generation_date": datetime.now().isoformat(),
                 "scope": "Enterprise Analyzer System",
                 "frameworks": {},
@@ -196,43 +196,43 @@ logger = get_logger(__name__)
             with open(output_file, 'w') as f:
                 json.dump(audit_package, f, indent=2, default=str)
             
-            self.logger.info(f"Comprehensive audit package generated: {output_file}")
+            self.logger.info(f"Comprehensive audit package generated: {output_file)")
             return audit_package
             
         except Exception as e:
-            self.logger.error(f"Error generating comprehensive audit package: {e}")
+            self.logger.error(f"Error generating comprehensive audit package: {e)")
             return {"status": "error", "message": str(e)}
     
     def _initialize_soc2_controls(self) -> Dict[str, Dict[str, Any]]:
         """Initialize SOC2 control definitions"""
         return {
-            "CC1.1": {
-                "name": "Control Environment - Integrity and Ethical Values",
+        "CC1.1": {
+        "name": "Control Environment - Integrity and Ethical Values",
                 "category": "Common Criteria",
                 "description": "Demonstrates commitment to integrity and ethical values"
             },
             "CC2.1": {
-                "name": "Communication and Information - Internal Communication",
+            "name": "Communication and Information - Internal Communication",
                 "category": "Common Criteria", 
                 "description": "Communicates quality information internally"
             },
             "CC3.1": {
-                "name": "Risk Assessment - Risk Assessment Process",
+            "name": "Risk Assessment - Risk Assessment Process",
                 "category": "Common Criteria",
                 "description": "Specifies suitable objectives for risk assessment"
             },
             "CC5.1": {
-                "name": "Control Activities - Selection and Development",
+            "name": "Control Activities - Selection and Development",
                 "category": "Common Criteria",
                 "description": "Selects and develops control activities"
             },
             "CC6.1": {
-                "name": "Logical and Physical Access - Access Management",
+            "name": "Logical and Physical Access - Access Management",
                 "category": "Security",
                 "description": "Implements logical access security measures"
             },
             "A1.1": {
-                "name": "Availability - Performance Monitoring",
+            "name": "Availability - Performance Monitoring",
                 "category": "Availability",
                 "description": "Monitors system performance and capacity"
             }
@@ -241,28 +241,28 @@ logger = get_logger(__name__)
     def _initialize_iso27001_controls(self) -> Dict[str, Dict[str, Any]]:
         """Initialize ISO27001 control definitions"""
         return {
-            "A.5.1": {
-                "name": "Information Security Policies",
+        "A.5.1": {
+        "name": "Information Security Policies",
                 "category": "Organizational",
                 "description": "Information security policy and topic-specific policies"
             },
             "A.8.1": {
-                "name": "Asset Management",
+            "name": "Asset Management",
                 "category": "Asset Management",
                 "description": "Asset inventory and classification"
             },
             "A.9.1": {
-                "name": "Access Control Policy",
+            "name": "Access Control Policy",
                 "category": "Access Control",
                 "description": "Business requirements for access control"
             },
             "A.14.2": {
-                "name": "Security in Development",
+            "name": "Security in Development",
                 "category": "System Development",
                 "description": "Security requirements in development lifecycle"
             },
             "A.16.1": {
-                "name": "Incident Response",
+            "name": "Incident Response",
                 "category": "Incident Management",
                 "description": "Management of information security incidents"
             }
@@ -271,28 +271,28 @@ logger = get_logger(__name__)
     def _initialize_nist_ssdf_practices(self) -> Dict[str, Dict[str, Any]]:
         """Initialize NIST SSDF practice definitions"""
         return {
-            "PO.1.1": {
-                "name": "Define Security Requirements",
+        "PO.1.1": {
+        "name": "Define Security Requirements",
                 "category": "Prepare the Organization",
                 "description": "Identify and document security requirements"
             },
             "PS.1.1": {
-                "name": "Protect Code Integrity",
+            "name": "Protect Code Integrity",
                 "category": "Protect the Software",
                 "description": "Store source code in version control systems"
             },
             "PW.1.1": {
-                "name": "Design Software Architecture",
+            "name": "Design Software Architecture",
                 "category": "Produce Well-Secured Software",
                 "description": "Design software to meet security requirements"
             },
             "PW.7.1": {
-                "name": "Review Code",
+            "name": "Review Code",
                 "category": "Produce Well-Secured Software",
                 "description": "Review code to identify vulnerabilities"
             },
             "RV.1.1": {
-                "name": "Monitor Vulnerabilities",
+            "name": "Monitor Vulnerabilities",
                 "category": "Respond to Vulnerabilities",
                 "description": "Monitor for vulnerabilities in third-party software"
             }
@@ -301,16 +301,16 @@ logger = get_logger(__name__)
     def _assess_soc2_control(self, control_id: str, control_info: Dict[str, Any], security_controls: Dict[str, Any]) -> ControlEvidence:
         """Assess a specific SOC2 control"""
         # Mock assessment logic - in production this would integrate with actual security controls
-        status = ComplianceStatus.COMPLIANT if security_controls.get(f'soc2_{control_id}', True) else ComplianceStatus.NON_COMPLIANT
+        status = ComplianceStatus.COMPLIANT if security_controls.get(f'soc2_{control_id)', True) else ComplianceStatus.NON_COMPLIANT
         
         return ControlEvidence(
-            control_id=control_id,
+        control_id=control_id,
             control_name=control_info["name"],
             status=status,
             evidence_type="automated_assessment",
             evidence_data={
-                "assessment_method": "analyzer_integration",
-                "test_results": security_controls.get(f'test_{control_id}', {}),
+            "assessment_method": "analyzer_integration",
+                "test_results": security_controls.get(f'test_{control_id)', {}),
                 "control_effectiveness": "effective" if status == ComplianceStatus.COMPLIANT else "needs_improvement"
             },
             assessment_date=datetime.now().isoformat(),
@@ -321,17 +321,17 @@ logger = get_logger(__name__)
     def _assess_iso27001_control(self, control_id: str, control_info: Dict[str, Any], isms_controls: Dict[str, Any]) -> ControlEvidence:
         """Assess a specific ISO27001 control"""
         # Mock assessment logic
-        status = ComplianceStatus.COMPLIANT if isms_controls.get(f'iso_{control_id}', True) else ComplianceStatus.PARTIALLY_COMPLIANT
+        status = ComplianceStatus.COMPLIANT if isms_controls.get(f'iso_{control_id)', True) else ComplianceStatus.PARTIALLY_COMPLIANT
         
         return ControlEvidence(
-            control_id=control_id,
+        control_id=control_id,
             control_name=control_info["name"],
             status=status,
             evidence_type="isms_assessment",
             evidence_data={
-                "implementation_level": "level_3",
+            "implementation_level": "level_3",
                 "documentation_complete": True,
-                "testing_results": isms_controls.get(f'test_{control_id}', {}),
+                "testing_results": isms_controls.get(f'test_{control_id)', {}),
                 "risk_treatment": "accepted"
             },
             assessment_date=datetime.now().isoformat(),
@@ -341,18 +341,18 @@ logger = get_logger(__name__)
     def _assess_nist_ssdf_practice(self, practice_id: str, practice_info: Dict[str, Any], dev_practices: Dict[str, Any]) -> ControlEvidence:
         """Assess a specific NIST SSDF practice"""
         # Mock assessment logic
-        status = ComplianceStatus.COMPLIANT if dev_practices.get(f'ssdf_{practice_id}', True) else ComplianceStatus.NON_COMPLIANT
+        status = ComplianceStatus.COMPLIANT if dev_practices.get(f'ssdf_{practice_id)', True) else ComplianceStatus.NON_COMPLIANT
         
         return ControlEvidence(
-            control_id=practice_id,
+        control_id=practice_id,
             control_name=practice_info["name"],
             status=status,
             evidence_type="development_practice_assessment",
             evidence_data={
-                "maturity_level": "defined",
+            "maturity_level": "defined",
                 "automation_level": "high",
                 "process_documentation": True,
-                "tool_integration": dev_practices.get(f'tools_{practice_id}', [])
+                "tool_integration": dev_practices.get(f'tools_{practice_id)', [])
             },
             assessment_date=datetime.now().isoformat(),
             assessor="SPEK-Analyzer-v1.0"
@@ -363,7 +363,7 @@ logger = get_logger(__name__)
         findings = []
         for evidence in evidence_list:
             if evidence.status == ComplianceStatus.NON_COMPLIANT:
-                findings.append(f"Critical: {evidence.control_name} is non-compliant")
+                findings.append(f"Critical: {evidence.control_name) is non-compliant")
         return findings
     
     def _generate_soc2_recommendations(self, evidence_list: List[ControlEvidence]) -> List[str]:
@@ -371,15 +371,15 @@ logger = get_logger(__name__)
         recommendations = []
         for evidence in evidence_list:
             if evidence.status != ComplianceStatus.COMPLIANT:
-                recommendations.append(f"Implement corrective actions for {evidence.control_name}")
+                recommendations.append(f"Implement corrective actions for {evidence.control_name)")
         return recommendations
     
     def _calculate_iso27001_maturity(self, evidence_list: List[ControlEvidence]) -> Dict[str, Any]:
         """Calculate ISO27001 maturity assessment"""
         return {
-            "overall_maturity": "level_3_defined",
+        "overall_maturity": "level_3_defined",
             "category_maturity": {
-                "organizational": "level_3",
+            "organizational": "level_3",
                 "technical": "level_4",
                 "physical": "level_2"
             }
@@ -401,9 +401,9 @@ logger = get_logger(__name__)
         for evidence in evidence_list:
             if evidence.status != ComplianceStatus.COMPLIANT:
                 plan.append({
-                    "control": evidence.control_id,
+                "control": evidence.control_id,
                     "priority": "high" if evidence.status == ComplianceStatus.NON_COMPLIANT else "medium",
-                    "action": f"Implement {evidence.control_name}",
+                    "action": f"Implement {evidence.control_name)",
                     "timeline": "30_days"
                 })
         return plan
@@ -428,7 +428,7 @@ logger = get_logger(__name__)
         for data in alignment_data:
             category = data.evidence_data.get('category', 'unknown')
             if category not in categories:
-                categories[category] = {'total': 0, 'compliant': 0}
+                categories[category] = {'total': 0, 'compliant': 0)
             categories[category]['total'] += 1
             if data.status == ComplianceStatus.COMPLIANT:
                 categories[category]['compliant'] += 1
@@ -440,7 +440,7 @@ logger = get_logger(__name__)
         gaps = []
         for data in alignment_data:
             if data.status != ComplianceStatus.COMPLIANT:
-                gaps.append(f"Gap in {data.control_name}: requires implementation")
+                gaps.append(f"Gap in {data.control_name): requires implementation")
         return gaps
     
     def _generate_ssdf_roadmap(self, alignment_data: List[ControlEvidence]) -> List[Dict[str, Any]]:
@@ -449,7 +449,7 @@ logger = get_logger(__name__)
         for data in alignment_data:
             if data.status != ComplianceStatus.COMPLIANT:
                 roadmap.append({
-                    "practice": data.control_id,
+                "practice": data.control_id,
                     "phase": "phase_1" if data.status == ComplianceStatus.NON_COMPLIANT else "phase_2",
                     "effort": "medium",
                     "dependencies": []
@@ -462,7 +462,7 @@ logger = get_logger(__name__)
         for framework, data in frameworks.items():
             if isinstance(data, dict) and 'status' not in data:
                 consolidated.append({
-                    "framework": framework,
+                "framework": framework,
                     "overall_status": data.get('overall_status', 'unknown'),
                     "critical_issues": len(data.get('critical_findings', [])),
                     "recommendations_count": len(data.get('recommendations', []))
@@ -472,17 +472,17 @@ logger = get_logger(__name__)
     def _generate_executive_summary(self, audit_package: Dict[str, Any]) -> Dict[str, Any]:
         """Generate executive summary for audit package"""
         return {
-            "overall_compliance_posture": "strong",
+        "overall_compliance_posture": "strong",
             "frameworks_assessed": len(audit_package["frameworks"]),
             "critical_findings": sum(f.get('critical_issues', 0) for f in audit_package["consolidated_findings"]),
             "certification_readiness": "high",
             "key_strengths": [
-                "Comprehensive automated analysis",
+            "Comprehensive automated analysis",
                 "NASA POT10 compliance achieved",
                 "Strong security controls implementation"
             ],
             "improvement_areas": [
-                "Documentation standardization",
+            "Documentation standardization",
                 "Continuous monitoring enhancement",
                 "Third-party risk management"
             ]
@@ -491,7 +491,7 @@ logger = get_logger(__name__)
     def _generate_attestations(self, audit_package: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Generate digital attestations for audit package"""
         return [{
-            "type": "system_attestation",
+        "type": "system_attestation",
             "statement": "This audit package was generated by SPEK Analyzer v1.0",
             "timestamp": datetime.now().isoformat(),
             "hash": hashlib.sha256(json.dumps(audit_package, sort_keys=True).encode()).hexdigest(),

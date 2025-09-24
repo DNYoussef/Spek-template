@@ -6,6 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const SBOMGenerator = require('../src/sbom/generator');
+const { cleanupTestResources } = require('./setup/test-environment');
 
 describe('SBOMGenerator', () => {
   let sbom;
@@ -14,7 +15,7 @@ describe('SBOMGenerator', () => {
   beforeEach(() => {
     sbom = new SBOMGenerator();
     testProjectPath = path.join(__dirname, 'fixtures', 'test-project');
-    
+
     // Create test fixtures directory structure
     if (!fs.existsSync(path.dirname(testProjectPath))) {
       fs.mkdirSync(path.dirname(testProjectPath), { recursive: true });
@@ -24,11 +25,28 @@ describe('SBOMGenerator', () => {
     }
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     // Cleanup test fixtures
     if (fs.existsSync(testProjectPath)) {
       fs.rmSync(testProjectPath, { recursive: true, force: true });
     }
+
+    // Clean any temporary SBOM files that may have been created
+    const possibleSbomPaths = [
+      path.join(testProjectPath, 'sbom.cyclonedx.json'),
+      path.join(testProjectPath, 'sbom.spdx.json'),
+      path.join(__dirname, 'sbom.cyclonedx.json'),
+      path.join(__dirname, 'sbom.spdx.json')
+    ];
+
+    possibleSbomPaths.forEach(sbomPath => {
+      if (fs.existsSync(sbomPath)) {
+        fs.unlinkSync(sbomPath);
+      }
+    });
+
+    // Clean test resources (async cleanup)
+    await cleanupTestResources();
   });
 
   describe('Component Management', () => {

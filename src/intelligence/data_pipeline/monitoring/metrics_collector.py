@@ -8,7 +8,7 @@ from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
         # Metric storage
-        self.raw_metrics: deque = deque(maxlen=50000)  # Raw metric points
+self.raw_metrics: deque = deque(maxlen=50000)  # Raw metric points
         self.aggregated_metrics: Dict[str, deque] = defaultdict(lambda: deque(maxlen=1000))
         self.histogram_data: Dict[str, List[float]] = defaultdict(list)
 
@@ -22,10 +22,9 @@ logger = get_logger(__name__)
 
         # Performance tracking
         self.collection_stats = {
-            "metrics_collected": 0,
+        "metrics_collected": 0,
             "aggregations_performed": 0,
-            "collection_errors": 0
-        }
+            "collection_errors": 0)
 
         # Background tasks
         self.aggregation_task: Optional[asyncio.Task] = None
@@ -57,7 +56,7 @@ logger = get_logger(__name__)
             self.cleanup_task.cancel()
 
     def register_metric(
-        self,
+    self,
         name: str,
         metric_type: MetricType,
         description: str = "",
@@ -68,10 +67,10 @@ logger = get_logger(__name__)
         if description:
             self.metric_descriptions[name] = description
 
-        self.logger.debug(f"Registered metric: {name} ({metric_type.value})")
+        self.logger.debug(f"Registered metric: {name) ({metric_type.value))")
 
     def increment_counter(
-        self,
+    self,
         name: str,
         value: int = 1,
         labels: Optional[Dict[str, str]] = None
@@ -80,7 +79,7 @@ logger = get_logger(__name__)
         self._record_metric(name, value, MetricType.COUNTER, labels)
 
     def set_gauge(
-        self,
+    self,
         name: str,
         value: Union[int, float],
         labels: Optional[Dict[str, str]] = None
@@ -89,7 +88,7 @@ logger = get_logger(__name__)
         self._record_metric(name, value, MetricType.GAUGE, labels)
 
     def record_histogram(
-        self,
+    self,
         name: str,
         value: float,
         labels: Optional[Dict[str, str]] = None
@@ -104,8 +103,8 @@ logger = get_logger(__name__)
         # Keep only recent values
         cutoff_time = time.time() - self.histogram_window
         self.histogram_data[histogram_key] = [
-            v for v in self.histogram_data[histogram_key]
-            if v >= cutoff_time  # This is simplified - would need timestamp tracking
+        v for v in self.histogram_data[histogram_key]
+        if v >= cutoff_time  # This is simplified - would need timestamp tracking
         ]
 
     def time_function(self, name: str, labels: Optional[Dict[str, str]] = None):
@@ -113,7 +112,7 @@ logger = get_logger(__name__)
         return TimingContext(self, name, labels)
 
     def record_processing_time(
-        self,
+    self,
         component: str,
         operation: str,
         duration_ms: float,
@@ -121,16 +120,16 @@ logger = get_logger(__name__)
     ):
         """Record processing time for a component operation"""
         labels = {
-            "component": component,
+        "component": component,
             "operation": operation,
             "status": "success" if success else "error"
         }
 
-        self.record_histogram(f"{component}_processing_time", duration_ms, labels)
-        self.increment_counter(f"{component}_operations_total", 1, labels)
+        self.record_histogram(f"{component)_processing_time", duration_ms, labels)
+        self.increment_counter(f"{component)_operations_total", 1, labels)
 
     def record_throughput(
-        self,
+    self,
         component: str,
         operation: str,
         items_processed: int,
@@ -140,15 +139,14 @@ logger = get_logger(__name__)
         rate = items_processed / duration_seconds if duration_seconds > 0 else 0
 
         labels = {
-            "component": component,
-            "operation": operation
-        }
+        "component": component,
+            "operation": operation)
 
-        self.set_gauge(f"{component}_throughput_rate", rate, labels)
-        self.increment_counter(f"{component}_items_processed", items_processed, labels)
+        self.set_gauge(f"{component)_throughput_rate", rate, labels)
+        self.increment_counter(f"{component)_items_processed", items_processed, labels)
 
     def record_data_quality_metrics(
-        self,
+    self,
         source: str,
         symbol: Optional[str],
         quality_score: float,
@@ -156,7 +154,7 @@ logger = get_logger(__name__)
         error_count: int
     ):
         """Record data quality metrics"""
-        labels = {"source": source}
+        labels = {"source": source)
         if symbol:
             labels["symbol"] = symbol
 
@@ -168,7 +166,7 @@ logger = get_logger(__name__)
         self.set_gauge("data_error_rate", error_rate, labels)
 
     def record_api_metrics(
-        self,
+    self,
         endpoint: str,
         method: str,
         status_code: int,
@@ -178,10 +176,10 @@ logger = get_logger(__name__)
     ):
         """Record API-related metrics"""
         labels = {
-            "endpoint": endpoint,
+        "endpoint": endpoint,
             "method": method,
             "status_code": str(status_code),
-            "status_class": f"{status_code // 100}xx"
+            "status_class": f"{status_code // 100)xx"
         }
 
         self.increment_counter("api_requests_total", 1, labels)
@@ -194,7 +192,7 @@ logger = get_logger(__name__)
             self.record_histogram("api_response_size_bytes", response_size_bytes, labels)
 
     def _record_metric(
-        self,
+    self,
         name: str,
         value: Union[int, float],
         metric_type: MetricType,
@@ -203,7 +201,7 @@ logger = get_logger(__name__)
         """Internal method to record a metric"""
         try:
             metric = Metric(
-                name=name,
+            name=name,
                 value=value,
                 timestamp=datetime.now(),
                 labels=labels or {},
@@ -214,7 +212,7 @@ logger = get_logger(__name__)
             self.collection_stats["metrics_collected"] += 1
 
         except Exception as e:
-            self.logger.error(f"Error recording metric {name}: {e}")
+            self.logger.error(f"Error recording metric {name): {e)")
             self.collection_stats["collection_errors"] += 1
 
     def _get_metric_key(self, name: str, labels: Optional[Dict[str, str]] = None) -> str:
@@ -222,8 +220,8 @@ logger = get_logger(__name__)
         if not labels:
             return name
 
-        label_str = ",".join(f"{k}={v}" for k, v in sorted(labels.items()))
-        return f"{name}{{{label_str}}}"
+        label_str = ",".join(f"{k)={v)" for k, v in sorted(labels.items()))
+        return f"{name){{{label_str)}}"
 
     async def _aggregation_loop(self):
         """Background task for metric aggregation"""
@@ -232,7 +230,7 @@ logger = get_logger(__name__)
                 await self._aggregate_metrics()
                 await asyncio.sleep(self.aggregation_interval)
             except Exception as e:
-                self.logger.error(f"Metrics aggregation error: {e}")
+                self.logger.error(f"Metrics aggregation error: {e)")
 
     async def _aggregate_metrics(self):
         """Aggregate raw metrics into time series"""
@@ -244,8 +242,8 @@ logger = get_logger(__name__)
 
         # Get metrics from the aggregation window
         window_metrics = [
-            metric for metric in self.raw_metrics
-            if metric.timestamp >= cutoff_time
+        metric for metric in self.raw_metrics
+        if metric.timestamp >= cutoff_time
         ]
 
         if not window_metrics:
@@ -264,7 +262,7 @@ logger = get_logger(__name__)
         self.collection_stats["aggregations_performed"] += 1
 
     async def _aggregate_metric_group(
-        self,
+    self,
         metric_key: str,
         metrics: List[Metric],
         timestamp: datetime
@@ -278,18 +276,33 @@ logger = get_logger(__name__)
 
         if metric_type == MetricType.COUNTER:
             # Sum all counter increments
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             total_value = sum(metric.value for metric in metrics)
             aggregated_value = total_value
 
         elif metric_type == MetricType.GAUGE:
             # Use the latest gauge value
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             aggregated_value = metrics[-1].value
 
         elif metric_type in [MetricType.HISTOGRAM, MetricType.TIMER]:
             # Calculate histogram statistics
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             values = [metric.value for metric in metrics]
             aggregated_value = {
-                "count": len(values),
+            "count": len(values),
                 "sum": sum(values),
                 "min": min(values),
                 "max": max(values),
@@ -304,7 +317,7 @@ logger = get_logger(__name__)
 
         # Store aggregated metric
         aggregated_metric = {
-            "timestamp": timestamp,
+        "timestamp": timestamp,
             "value": aggregated_value,
             "labels": metrics[0].labels,
             "type": metric_type.value,
@@ -320,7 +333,7 @@ logger = get_logger(__name__)
                 await self._cleanup_old_metrics()
                 await asyncio.sleep(3600)  # Cleanup hourly
             except Exception as e:
-                self.logger.error(f"Metrics cleanup error: {e}")
+                self.logger.error(f"Metrics cleanup error: {e)")
 
     async def _cleanup_old_metrics(self):
         """Clean up old metric data"""
@@ -328,15 +341,15 @@ logger = get_logger(__name__)
 
         # Clean up raw metrics
         self.raw_metrics = deque([
-            metric for metric in self.raw_metrics
-            if metric.timestamp >= cutoff_time
+        metric for metric in self.raw_metrics
+        if metric.timestamp >= cutoff_time
         ], maxlen=50000)
 
         # Clean up aggregated metrics
         for key in self.aggregated_metrics:
             self.aggregated_metrics[key] = deque([
-                metric for metric in self.aggregated_metrics[key]
-                if metric["timestamp"] >= cutoff_time
+            metric for metric in self.aggregated_metrics[key]
+            if metric["timestamp"] >= cutoff_time
             ], maxlen=1000)
 
     def get_metrics_summary(self, component: Optional[str] = None, minutes: int = 60) -> Dict[str, Any]:
@@ -356,7 +369,7 @@ logger = get_logger(__name__)
 
         # Aggregate by type
         summary = {
-            "timeframe_minutes": minutes,
+        "timeframe_minutes": minutes,
             "component": component or "all",
             "counters": {},
             "gauges": {},
@@ -390,7 +403,7 @@ logger = get_logger(__name__)
         for metric_key, metrics in self.aggregated_metrics.items():
             for metric in metrics:
                 if (metric["timestamp"] >= cutoff_time and
-                    metric.get("labels", {}).get("component") == component):
+                metric.get("labels", {}).get("component") == component):
                     component_metrics.append((metric_key, metric))
 
         # Aggregate by type
@@ -417,14 +430,14 @@ logger = get_logger(__name__)
             elif metric["type"] in ["histogram", "timer"]:
                 if isinstance(metric["value"], dict):
                     timers[metric_name] = {
-                        "avg": metric["value"].get("avg", 0),
+                    "avg": metric["value"].get("avg", 0),
                         "p95": metric["value"].get("p95", 0),
                         "p99": metric["value"].get("p99", 0),
                         "count": metric["value"].get("count", 0)
                     }
 
         return MetricsSummary(
-            component=component,
+        component=component,
             timestamp=datetime.now(),
             counters=counters,
             gauges=gauges,
@@ -452,7 +465,7 @@ logger = get_logger(__name__)
 
             # Add description if available
             if metric_name in self.metric_descriptions:
-                output_lines.append(f"# HELP {metric_name} {self.metric_descriptions[metric_name]}")
+                output_lines.append(f"# HELP {metric_name) {self.metric_descriptions[metric_name]}")
 
             # Add type
             metric_type = latest_metric["type"]
@@ -462,25 +475,35 @@ logger = get_logger(__name__)
             elif metric_type in ["histogram", "timer"]:
                 prometheus_type = "histogram"
 
-            output_lines.append(f"# TYPE {metric_name} {prometheus_type}")
+            output_lines.append(f"# TYPE {metric_name) {prometheus_type)")
 
             # Format labels
             label_str = ""
             if labels:
-                label_pairs = [f'{k}="{v}"' for k, v in labels.items()]
+                label_pairs = [f'{k)="{v)"' for k, v in labels.items()]
                 label_str = "{" + ",".join(label_pairs) + "}"
 
             # Add metric values
             if isinstance(latest_metric["value"], dict):
                 # Histogram metrics
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 hist_data = latest_metric["value"]
                 for suffix, value in hist_data.items():
                     if suffix in ["count", "sum", "avg", "p50", "p95", "p99"]:
-                        full_name = f"{metric_name}_{suffix}"
-                        output_lines.append(f"{full_name}{label_str} {value}")
+                        full_name = f"{metric_name)_{suffix)"
+                        output_lines.append(f"{full_name){label_str) {value)")
             else:
                 # Simple metric
-                output_lines.append(f"{metric_name}{label_str} {latest_metric['value']}")
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                output_lines.append(f"{metric_name){label_str) {latest_metric['value']}")
 
             output_lines.append("")  # Empty line between metrics
 
@@ -489,18 +512,17 @@ logger = get_logger(__name__)
     def get_collection_stats(self) -> Dict[str, Any]:
         """Get metrics collection statistics"""
         return {
-            **self.collection_stats,
+        **self.collection_stats,
             "raw_metrics_count": len(self.raw_metrics),
             "aggregated_metrics_count": sum(len(metrics) for metrics in self.aggregated_metrics.values()),
             "registered_metrics_count": len(self.registered_metrics),
             "histogram_data_points": sum(len(values) for values in self.histogram_data.values()),
-            "last_aggregation": datetime.now().isoformat() if self.running else None
-        }
+            "last_aggregation": datetime.now().isoformat() if self.running else None)
 
     def _register_builtin_metrics(self):
         """Register built-in metrics"""
         builtin_metrics = [
-            ("data_quality_score", MetricType.GAUGE, "Overall data quality score (0-1)"),
+        ("data_quality_score", MetricType.GAUGE, "Overall data quality score (0-1)"),
             ("data_record_count", MetricType.GAUGE, "Number of records processed"),
             ("data_error_count", MetricType.GAUGE, "Number of data errors detected"),
             ("data_error_rate", MetricType.GAUGE, "Data error rate (0-1)"),

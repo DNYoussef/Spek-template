@@ -1,7 +1,0 @@
-session_id=simple-loop-main-1758677320
-timestamp=2025-09-24T01:28:40Z
-git_branch=main
-git_commit=6ad48fe
-working_directory=/c/Users/17175/Desktop/spek template
-platform=simple-bash
-max_iterations=3

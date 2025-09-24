@@ -26,9 +26,38 @@ describe('Theater Remediation Validation', () => {
   });
 
   afterEach(async () => {
-    // Cleanup
-    if (complianceAgent && typeof complianceAgent.shutdown === 'function') {
-      await complianceAgent.shutdown();
+    // Reset theater detection state
+    if (complianceAgent) {
+      if (typeof complianceAgent.reset === 'function') {
+        complianceAgent.reset();
+      }
+      if (typeof complianceAgent.clearCache === 'function') {
+        complianceAgent.clearCache();
+      }
+      if (typeof complianceAgent.shutdown === 'function') {
+        await complianceAgent.shutdown();
+      }
+    }
+
+    // Reset deployment agent state
+    if (deploymentAgent && typeof deploymentAgent.reset === 'function') {
+      deploymentAgent.reset();
+    }
+
+    // Reset workflow optimizer state
+    if (workflowOptimizer && typeof workflowOptimizer.clearCache === 'function') {
+      workflowOptimizer.clearCache();
+    }
+
+    // Clear any global state
+    if (global.theaterDetector && typeof global.theaterDetector.reset === 'function') {
+      global.theaterDetector.reset();
+    }
+    if (global.scanCache && typeof global.scanCache.clear === 'function') {
+      global.scanCache.clear();
+    }
+    if (global.detectionMetrics && typeof global.detectionMetrics.reset === 'function') {
+      global.detectionMetrics.reset();
     }
   });
 

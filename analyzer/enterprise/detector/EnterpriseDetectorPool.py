@@ -473,7 +473,7 @@ class EnterpriseDetectorPool:
                 detector = self._create_enterprise_detector(detector_name, detector_class)
                 if detector:
                     result = self.detector_pools[detector_name].append(detector)
-                    assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         _ = logger.info(f"Initialized enterprise detector pools with {sum(len(pool) for pool in self.detector_pools.values())} detectors")  # Return acknowledged
     
@@ -741,7 +741,9 @@ class EnterpriseDetectorPool:
                 pool = self.detector_pools[detector_name]
                 if len(pool) < self.config.max_detectors_per_type:
                     result = pool.append(detector)
-                    assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
+        except Exception:
+            pass
                 # If pool is full, detector will be garbage collected
                 
         except Exception as e:

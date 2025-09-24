@@ -1,0 +1,118 @@
+# Python Syntax Errors Found by Connascence Analyzer
+
+## Critical Syntax Errors (67 files)
+
+### Core Analyzer Errors
+1. analyzer\core.py:257 - expected an indented block after 'if' statement
+2. analyzer\integrations\tool_coordinator.py:63 - invalid syntax
+3. analyzer\performance\ci_cd_accelerator.py:181 - unexpected character after line continuation
+
+### Script Errors
+4. scripts\fix_all_nasa_syntax.py:56 - invalid syntax. Perhaps you forgot a comma?
+5. scripts\performance_monitor.py:99 - unexpected character after line continuation character
+6. scripts\remove_unicode.py:85 - unterminated triple-quoted string literal (starts line 331)
+7. scripts\unicode_removal_linter.py:116 - unterminated triple-quoted string literal (starts line 372)
+
+### Artifacts Errors
+8. .claude\.artifacts\artifact_manager.py:15 - unexpected indent
+9. .claude\.artifacts\dfars_compliance_framework.py:13 - unexpected indent
+10. .claude\.artifacts\quality_analysis.py:25 - invalid syntax. Perhaps you forgot a comma?
+11. .claude\.artifacts\quality_validator.py:17 - unexpected indent
+12. .claude\.artifacts\compliance\compliance_packager.py:15 - unexpected indent
+
+### Coordination Errors
+13. .claude\coordination\adaptive\agent_deployment_protocol.py:430 - closing parenthesis '}' does not match '(' on line 418
+14. .claude\performance\baselines\baseline_collector.py:367 - closing ']' does not match '(' on line 366
+15. .claude\performance\monitoring\realtime_monitor.py:483 - closing '}' does not match '(' on line 480
+16. .claude\performance\validation\theater_detector.py - unexpected indent
+
+### Enterprise Compliance Errors
+17. analyzer\enterprise\compliance\reporting.py:26 - unexpected indent
+18. analyzer\enterprise\compliance\soc2.py:25 - unexpected indent
+19. analyzer\enterprise\compliance\validate_retention.py:19 - unexpected indent
+20. analyzer\enterprise\compliance\core.py:14 - unexpected indent
+21. analyzer\enterprise\compliance\integration.py:16 - unexpected indent
+22. analyzer\enterprise\compliance\iso27001.py:27 - unexpected indent
+23. analyzer\enterprise\performance\MLCacheOptimizer.py:241 - expected 'except' or 'finally' block
+
+### Sandbox Test Errors
+24. .sandboxes\phase2-config-test\analyzer\system_integration.py:357 - invalid syntax
+25. .sandboxes\phase2-config-test\analyzer\performance\ci_cd_accelerator.py:181 - unexpected character after line continuation
+
+### Cycles/Trading Errors
+26. src\cycles\profit_calculator.py:27 - unexpected indent
+27. src\cycles\scheduler.py:25 - unexpected indent
+28. src\cycles\weekly_cycle.py:23 - unexpected indent
+29. src\cycles\weekly_siphon_automator.py:26 - unexpected indent
+30. src\trading\market_data_provider.py:25 - unexpected indent
+31. src\trading\portfolio_manager.py:25 - unexpected indent
+32. src\trading\trade_executor.py:26 - unexpected indent
+
+### Security Errors
+33. src\security\dfars_compliance_engine.py:102 - invalid syntax. Perhaps you forgot a comma?
+34. src\security\enhanced_audit_trail_manager.py:143 - unexpected indent
+
+### Six Sigma Errors
+35. src\sixsigma\telemetry_config.py:19 - unexpected indent
+
+### Theater Detection Errors
+36. src\theater-detection\theater-detector.py:862 - invalid decimal literal
+
+### Intelligence Data Pipeline Errors
+37. src\intelligence\data_pipeline\monitoring\metrics_collector.py:11 - unexpected indent
+38. src\intelligence\data_pipeline\monitoring\pipeline_monitor.py:11 - unexpected indent
+39. src\intelligence\data_pipeline\processing\alternative_data_processor.py:10 - unexpected indent
+40. src\intelligence\data_pipeline\processing\news_processor.py:10 - unexpected indent
+41. src\intelligence\data_pipeline\processing\options_flow_analyzer.py:11 - unexpected indent
+42. src\intelligence\data_pipeline\processing\sentiment_processor.py:9 - unexpected indent
+43. src\intelligence\data_pipeline\sources\alpaca_source.py:13 - unexpected indent
+44. src\intelligence\data_pipeline\sources\data_source_manager.py:9 - unexpected indent
+45. src\intelligence\data_pipeline\sources\historical_loader.py:14 - unexpected indent
+46. src\intelligence\data_pipeline\sources\polygon_source.py:13 - unexpected indent
+47. src\intelligence\data_pipeline\sources\yahoo_source.py:13 - unexpected indent
+48. src\intelligence\data_pipeline\streaming\failover_manager.py:9 - unexpected indent
+49. src\intelligence\data_pipeline\streaming\real_time_streamer.py:11 - unexpected indent
+50. src\intelligence\data_pipeline\streaming\stream_buffer.py:16 - unexpected indent
+51. src\intelligence\data_pipeline\streaming\websocket_manager.py:11 - unexpected indent
+52. src\intelligence\data_pipeline\validation\data_validator.py:8 - unexpected indent
+53. src\intelligence\data_pipeline\validation\quality_monitor.py:9 - unexpected indent
+
+### Neural Network Errors
+54. src\intelligence\neural_networks\cnn\pattern_definitions.py:587 - unterminated string literal
+55. src\intelligence\neural_networks\cnn\pattern_recognizer.py:663 - unexpected character after line continuation
+56. src\intelligence\neural_networks\cnn\resnet_backbone.py:527 - unexpected character after line continuation
+57. src\intelligence\neural_networks\ensemble\ensemble_framework.py:196 - unexpected character after line continuation
+58. src\intelligence\neural_networks\lstm\attention_mechanism.py:108 - unexpected character after line continuation
+59. src\intelligence\neural_networks\lstm\lstm_predictor.py:293 - unexpected character after line continuation
+60. src\intelligence\neural_networks\rl\ppo_agent.py:160 - unexpected character after line continuation
+61. src\intelligence\neural_networks\rl\strategy_optimizer.py:185 - unexpected character after line continuation
+62. src\intelligence\neural_networks\rl\trading_environment.py:92 - unexpected character after line continuation
+63. src\intelligence\neural_networks\transformer\financial_bert.py:416 - unexpected character after line continuation
+64. src\intelligence\neural_networks\transformer\sentiment_analyzer.py:585 - unexpected character after line continuation
+
+### Linter Integration Errors
+65. src\linter-integration\agents\api_docs_node.py:16 - invalid syntax
+66. src\linter-integration\agents\integration_specialist_node.py:18 - invalid syntax
+
+### Safety Integration Errors
+67. src\safety\integration\trading_safety_bridge.py:13 - unexpected indent
+
+### Test Errors
+68. tests\workflow-validation\comprehensive_validation_report.py:313 - unterminated string literal
+69. tests\workflow-validation\python_execution_tests.py:149 - unterminated string literal
+
+## Error Categories
+
+### Most Common Issues:
+1. Unexpected indent (28 files) - Indentation errors
+2. Unexpected character after line continuation (11 files) - Backslash issues
+3. Unterminated string literal (4 files) - Unclosed quotes
+4. Invalid syntax (6 files) - General syntax errors
+5. Mismatched parentheses (3 files) - Bracket/paren errors
+
+## Fix Priority:
+1. HIGH: Core analyzer files (analyzer/core.py, etc.)
+2. HIGH: Scripts (fix_all_nasa_syntax.py, etc.)
+3. MEDIUM: Intelligence/neural network files
+4. LOW: Test files
+5. LOW: Sandbox test files

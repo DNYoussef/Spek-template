@@ -695,16 +695,16 @@ class RefactoringAuditPipeline:
         violations = 0
 
         for component_file in self.refactored_path.glob("connascence_*.py"):
-            try:
-                with open(component_file, 'r') as f:
-                    content = f.read()
+            violations += self._check_component_srp(component_file)
 
-                # Count class definitions - should be 1 main class per file
-                class_count = content.count('class ')
-                if class_count > 2:  # Allow for helper classes
-                    violations += 1
-            except Exception:
-                violations += 1
+    def _check_component_srp(self, component_file):
+        try:
+            with open(component_file, 'r') as f:
+                content = f.read()
+            class_count = content.count('class ')
+            return 1 if class_count > 2 else 0
+        except Exception:
+            return 1
 
         return violations
 
@@ -726,18 +726,20 @@ class RefactoringAuditPipeline:
         violations = 0
 
         for py_file in self.refactored_path.glob("*.py"):
-            try:
-                with open(py_file, 'r') as f:
-                    content = f.read()
+            violations += self._check_file_flow_constructs(py_file)
 
-                # Simple checks for complex constructs
-                if 'goto' in content.lower():
-                    violations += 1
-                if content.count('while') > 2:  # Excessive while loops
-                    violations += 1
-
-            except Exception:
-                pass
+    def _check_file_flow_constructs(self, py_file):
+        try:
+            with open(py_file, 'r') as f:
+                content = f.read()
+            violations = 0
+            if 'goto' in content.lower():
+                violations += 1
+            if content.count('while') > 2:
+                violations += 1
+            return violations
+        except Exception:
+            return 0
 
         return violations
 
@@ -750,27 +752,34 @@ class RefactoringAuditPipeline:
                 with open(py_file, 'r') as f:
                     lines = f.readlines()
 
-                in_function = False
-                function_line_count = 0
+                    in_function = False
+                    function_line_count = 0
 
-                for line in lines:
-                    if line.strip().startswith('def '):
-                        if in_function and function_line_count > 60:
-                            violations += 1
-                        in_function = True
-                        function_line_count = 1
-                    elif in_function:
-                        if line.strip() and not line.startswith(' ') and not line.startswith('\t'):
-                            if function_line_count > 60:
-                                violations += 1
-                            in_function = False
-                        else:
-                            function_line_count += 1
+                    for line in lines:
+                        violations += self._check_function_line(line, in_function, function_line_count)
+                        in_function, function_line_count = self._update_function_state(line, in_function, function_line_count)
 
             except Exception:
                 pass
 
         return violations
+
+    def _check_function_line(self, line, in_function, function_line_count):
+        if line.strip().startswith('def '):
+            return 1 if in_function and function_line_count > 60 else 0
+        if in_function:
+            if line.strip() and not line.startswith(' ') and not line.startswith('\t'):
+                return 1 if function_line_count > 60 else 0
+        return 0
+
+    def _update_function_state(self, line, in_function, function_line_count):
+        if line.strip().startswith('def '):
+            return True, 1
+        if in_function:
+            if line.strip() and not line.startswith(' ') and not line.startswith('\t'):
+                return False, 0
+            return True, function_line_count + 1
+        return in_function, function_line_count
 
     def _check_parameter_limits(self) -> int:
         """Check for functions with too many parameters."""
@@ -800,20 +809,22 @@ class RefactoringAuditPipeline:
         magic_count = 0
 
         for py_file in self.refactored_path.glob("*.py"):
-            try:
-                with open(py_file, 'r') as f:
-                    content = f.read()
+            magic_count += self._count_magic_literals_in_file(py_file)
 
-                tree = ast.parse(content)
-
-                for node in ast.walk(tree):
-                    if isinstance(node, ast.Constant):
-                        if isinstance(node.value, (int, float)):
-                            if node.value not in (0, 1, -1, 2, 10, 100, 1000):
-                                magic_count += 1
-
-            except Exception:
-                pass
+    def _count_magic_literals_in_file(self, py_file):
+        try:
+            with open(py_file, 'r') as f:
+                content = f.read()
+            tree = ast.parse(content)
+            count = 0
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Constant):
+                    if isinstance(node.value, (int, float)):
+                        if node.value not in (0, 1, -1, 2, 10, 100, 1000):
+                            count += 1
+            return count
+        except Exception:
+            return 0
 
         return magic_count
 

@@ -8,6 +8,7 @@ const AgentConfigLoader = require('../../src/flow/config/agent/AgentConfigLoader
 const ModelSelector = require('../../src/flow/config/agent/ModelSelector');
 const MCPServerAssigner = require('../../src/flow/config/agent/MCPServerAssigner');
 const CapabilityMapper = require('../../src/flow/config/agent/CapabilityMapper');
+const { cleanupTestResources } = require('../setup/test-environment');
 
 describe('Agent Registry Decomposition', () => {
   describe('Backward Compatibility', () => {
@@ -43,6 +44,10 @@ describe('Agent Registry Decomposition', () => {
 
     beforeEach(() => {
       loader = new AgentConfigLoader();
+    });
+
+    afterEach(async () => {
+      await cleanupTestResources();
     });
 
     test('loads existing agent configuration', () => {
@@ -85,6 +90,10 @@ describe('Agent Registry Decomposition', () => {
 
     beforeEach(() => {
       selector = new ModelSelector();
+    });
+
+    afterEach(async () => {
+      await cleanupTestResources();
     });
 
     test('selects GPT-5 for browser automation', () => {
@@ -137,6 +146,10 @@ describe('Agent Registry Decomposition', () => {
 
     beforeEach(() => {
       assigner = new MCPServerAssigner();
+    });
+
+    afterEach(async () => {
+      await cleanupTestResources();
     });
 
     test('assigns base MCP servers to all agents', () => {
@@ -204,6 +217,10 @@ describe('Agent Registry Decomposition', () => {
 
     beforeEach(() => {
       mapper = new CapabilityMapper();
+    });
+
+    afterEach(async () => {
+      await cleanupTestResources();
     });
 
     test('gets capabilities from configuration', () => {

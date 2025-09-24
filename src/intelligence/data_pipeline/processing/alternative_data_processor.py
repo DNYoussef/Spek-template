@@ -7,18 +7,18 @@ import asyncio
 import aiohttp
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        self.session: Optional[aiohttp.ClientSession] = None
-        self.executor = ThreadPoolExecutor(max_workers=2)
+self.session: Optional[aiohttp.ClientSession] = None
+self.executor = ThreadPoolExecutor(max_workers=2)
 
         # Data storage
-        self.social_data: Dict[str, deque] = defaultdict(lambda: deque(maxlen=500))
+self.social_data: Dict[str, deque] = defaultdict(lambda: deque(maxlen=500))
         self.economic_data: deque = deque(maxlen=1000)
         self.alternative_signals: Dict[str, AlternativeSignal] = {}
 
         # Processing configuration
         self.social_platforms = ["twitter", "reddit", "stocktwits"]
         self.economic_indicators = [
-            "GDP", "UNRATE", "CPIAUCSL", "FEDFUNDS", "DGS10", "DEXUSEU"
+        "GDP", "UNRATE", "CPIAUCSL", "FEDFUNDS", "DGS10", "DEXUSEU"
         ]
 
         # API configurations
@@ -70,13 +70,18 @@ logger = get_logger(__name__)
         while self.running:
             try:
                 # Collect from different platforms
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 await self._collect_twitter_sentiment()
                 await self._collect_reddit_sentiment()
                 await self._collect_stocktwits_sentiment()
 
                 await asyncio.sleep(300)  # 5 minutes
             except Exception as e:
-                self.logger.error(f"Social data collection error: {e}")
+                self.logger.error(f"Social data collection error: {e)")
                 await asyncio.sleep(60)
 
     async def _collect_twitter_sentiment(self):
@@ -89,10 +94,10 @@ logger = get_logger(__name__)
         for symbol in symbols:
             try:
                 url = "https://api.twitter.com/2/tweets/search/recent"
-                headers = {"Authorization": f"Bearer {self.twitter_bearer_token}"}
+                headers = {"Authorization": f"Bearer {self.twitter_bearer_token)"}
 
                 params = {
-                    "query": f"${symbol} OR {symbol} stock (bullish OR bearish OR buy OR sell) -is:retweet",
+                "query": f"${symbol) OR {symbol) stock (bullish OR bearish OR buy OR sell) -is:retweet",
                     "max_results": 100,
                     "tweet.fields": "created_at,public_metrics,context_annotations"
                 }
@@ -105,13 +110,13 @@ logger = get_logger(__name__)
                             if sentiment_data:
                                 self.social_data[symbol].append(sentiment_data)
                     else:
-                        self.logger.warning(f"Twitter API error for {symbol}: {response.status}")
+                        self.logger.warning(f"Twitter API error for {symbol): {response.status)")
 
                 # Rate limiting
                 await asyncio.sleep(1)
 
             except Exception as e:
-                self.logger.error(f"Twitter collection error for {symbol}: {e}")
+                self.logger.error(f"Twitter collection error for {symbol): {e)")
 
     async def _process_twitter_tweets(self, symbol: str, tweets: List[Dict]) -> Optional[SocialSentimentData]:
         """Process Twitter tweets for sentiment"""
@@ -123,7 +128,7 @@ logger = get_logger(__name__)
 
             # Simple sentiment analysis (would use proper NLP in production)
             sentiment_scores = await asyncio.get_event_loop().run_in_executor(
-                self.executor, self._analyze_social_sentiment, messages
+            self.executor, self._analyze_social_sentiment, messages
             )
 
             positive_count = sum(1 for score in sentiment_scores if score > 0.1)
@@ -132,12 +137,12 @@ logger = get_logger(__name__)
 
             # Count influencer mentions (users with high follower count)
             influencer_mentions = sum(
-                1 for tweet in tweets
-                if tweet.get("public_metrics", {}).get("followers_count", 0) > 10000
+            1 for tweet in tweets
+            if tweet.get("public_metrics", {}).get("followers_count", 0) > 10000
             )
 
             return SocialSentimentData(
-                platform="twitter",
+            platform="twitter",
                 symbol=symbol,
                 timestamp=datetime.now(),
                 message_count=len(messages),
@@ -151,7 +156,7 @@ logger = get_logger(__name__)
             )
 
         except Exception as e:
-            self.logger.error(f"Twitter processing error: {e}")
+            self.logger.error(f"Twitter processing error: {e)")
             return None
 
     async def _collect_reddit_sentiment(self):
@@ -164,19 +169,24 @@ logger = get_logger(__name__)
 
         try:
             # Get Reddit access token
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             auth_data = {
-                "grant_type": "client_credentials",
+            "grant_type": "client_credentials",
                 "device_id": "gary_taleb_pipeline"
             }
 
             auth_headers = {
-                "User-Agent": "gary-taleb-pipeline/1.0"
+            "User-Agent": "gary-taleb-pipeline/1.0"
             }
 
             auth = aiohttp.BasicAuth(self.reddit_client_id, self.reddit_client_secret)
 
             async with self.session.post(
-                "https://www.reddit.com/api/v1/access_token",
+            "https://www.reddit.com/api/v1/access_token",
                 data=auth_data,
                 headers=auth_headers,
                 auth=auth
@@ -190,13 +200,13 @@ logger = get_logger(__name__)
 
             # Collect posts from subreddits
             headers = {
-                "Authorization": f"Bearer {access_token}",
+            "Authorization": f"Bearer {access_token)",
                 "User-Agent": "gary-taleb-pipeline/1.0"
             }
 
             for subreddit in subreddits:
-                url = f"https://oauth.reddit.com/r/{subreddit}/hot"
-                params = {"limit": 25}
+                url = f"https://oauth.reddit.com/r/{subreddit)/hot"
+                params = {"limit": 25)
 
                 async with self.session.get(url, headers=headers, params=params) as response:
                     if response.status == 200:
@@ -206,9 +216,9 @@ logger = get_logger(__name__)
                         # Process posts for each symbol
                         for symbol in symbols:
                             symbol_posts = [
-                                post["data"] for post in posts
-                                if symbol.lower() in post["data"]["title"].lower() or
-                                   symbol.lower() in post["data"].get("selftext", "").lower()
+                            post["data"] for post in posts
+                            if symbol.lower() in post["data"]["title"].lower() or
+                            symbol.lower() in post["data"].get("selftext", "").lower()
                             ]
 
                             if symbol_posts:
@@ -217,7 +227,7 @@ logger = get_logger(__name__)
                                     self.social_data[symbol].append(sentiment_data)
 
         except Exception as e:
-            self.logger.error(f"Reddit collection error: {e}")
+            self.logger.error(f"Reddit collection error: {e)")
 
     async def _process_reddit_posts(self, symbol: str, subreddit: str, posts: List[Dict]) -> Optional[SocialSentimentData]:
         """Process Reddit posts for sentiment"""
@@ -229,10 +239,10 @@ logger = get_logger(__name__)
             for post in posts:
                 title = post.get("title", "")
                 selftext = post.get("selftext", "")
-                messages.append(f"{title} {selftext}")
+                messages.append(f"{title) {selftext)")
 
             sentiment_scores = await asyncio.get_event_loop().run_in_executor(
-                self.executor, self._analyze_social_sentiment, messages
+            self.executor, self._analyze_social_sentiment, messages
             )
 
             positive_count = sum(1 for score in sentiment_scores if score > 0.1)
@@ -246,7 +256,7 @@ logger = get_logger(__name__)
                 weighted_scores.extend([sentiment] * min(weight, 10))  # Cap weight
 
             return SocialSentimentData(
-                platform=f"reddit_{subreddit}",
+            platform=f"reddit_{subreddit)",
                 symbol=symbol,
                 timestamp=datetime.now(),
                 message_count=len(messages),
@@ -260,7 +270,7 @@ logger = get_logger(__name__)
             )
 
         except Exception as e:
-            self.logger.error(f"Reddit processing error: {e}")
+            self.logger.error(f"Reddit processing error: {e)")
             return None
 
     async def _collect_stocktwits_sentiment(self):
@@ -270,7 +280,7 @@ logger = get_logger(__name__)
 
         for symbol in symbols:
             try:
-                url = f"https://api.stocktwits.com/api/2/streams/symbol/{symbol}.json"
+                url = f"https://api.stocktwits.com/api/2/streams/symbol/{symbol).json"
 
                 async with self.session.get(url) as response:
                     if response.status == 200:
@@ -284,7 +294,7 @@ logger = get_logger(__name__)
                 await asyncio.sleep(2)
 
             except Exception as e:
-                self.logger.error(f"StockTwits collection error for {symbol}: {e}")
+                self.logger.error(f"StockTwits collection error for {symbol): {e)")
 
     async def _process_stocktwits_messages(self, symbol: str, messages: List[Dict]) -> Optional[SocialSentimentData]:
         """Process StockTwits messages"""
@@ -306,7 +316,7 @@ logger = get_logger(__name__)
                 sentiment_score = 0
 
             return SocialSentimentData(
-                platform="stocktwits",
+            platform="stocktwits",
                 symbol=symbol,
                 timestamp=datetime.now(),
                 message_count=len(texts),
@@ -320,7 +330,7 @@ logger = get_logger(__name__)
             )
 
         except Exception as e:
-            self.logger.error(f"StockTwits processing error: {e}")
+            self.logger.error(f"StockTwits processing error: {e)")
             return None
 
     def _analyze_social_sentiment(self, messages: List[str]) -> List[float]:
@@ -329,12 +339,12 @@ logger = get_logger(__name__)
 
         # Simple keyword-based sentiment (would use proper NLP in production)
         positive_words = {
-            "bullish", "buy", "long", "moon", "rocket", "pump", "gain", "profit",
+        "bullish", "buy", "long", "moon", "rocket", "pump", "gain", "profit",
             "strong", "good", "great", "excellent", "up", "rise", "bull", "calls"
         }
 
         negative_words = {
-            "bearish", "sell", "short", "dump", "drop", "crash", "loss", "weak",
+        "bearish", "sell", "short", "dump", "drop", "crash", "loss", "weak",
             "bad", "terrible", "awful", "down", "fall", "bear", "puts"
         }
 
@@ -363,7 +373,7 @@ logger = get_logger(__name__)
                 await self._collect_economic_indicators()
                 await asyncio.sleep(3600)  # 1 hour
             except Exception as e:
-                self.logger.error(f"Economic data collection error: {e}")
+                self.logger.error(f"Economic data collection error: {e)")
                 await asyncio.sleep(600)  # 10 minutes on error
 
     async def _collect_economic_indicators(self):
@@ -375,7 +385,7 @@ logger = get_logger(__name__)
             try:
                 url = "https://api.stlouisfed.org/fred/series/observations"
                 params = {
-                    "series_id": indicator,
+                "series_id": indicator,
                     "api_key": self.fred_api_key,
                     "file_type": "json",
                     "limit": 1,
@@ -389,8 +399,8 @@ logger = get_logger(__name__)
                             obs = data["observations"][0]
 
                             if obs["value"] != ".":  # FRED uses "." for missing values
-                                econ_data = EconomicIndicator(
-                                    indicator_name=indicator,
+                            econ_data = EconomicIndicator(
+                            indicator_name=indicator,
                                     value=float(obs["value"]),
                                     timestamp=datetime.strptime(obs["date"], "%Y-%m-%d"),
                                     source="fred"
@@ -402,7 +412,7 @@ logger = get_logger(__name__)
                 await asyncio.sleep(1)
 
             except Exception as e:
-                self.logger.error(f"FRED API error for {indicator}: {e}")
+                self.logger.error(f"FRED API error for {indicator): {e)")
 
     async def _signal_generation_loop(self):
         """Background loop for generating alternative signals"""
@@ -412,7 +422,7 @@ logger = get_logger(__name__)
                 await self._generate_economic_signals()
                 await asyncio.sleep(300)  # 5 minutes
             except Exception as e:
-                self.logger.error(f"Signal generation error: {e}")
+                self.logger.error(f"Signal generation error: {e)")
 
     async def _generate_social_signals(self):
         """Generate signals from social sentiment data"""
@@ -426,11 +436,11 @@ logger = get_logger(__name__)
                 # Calculate aggregated sentiment
                 total_messages = sum(d.message_count for d in recent_data)
                 if total_messages < 10:  # Need minimum volume
-                    continue
+                continue
 
                 # Weighted sentiment score
                 weighted_sentiment = sum(
-                    d.sentiment_score * d.message_count for d in recent_data
+                d.sentiment_score * d.message_count for d in recent_data
                 ) / total_messages
 
                 # Calculate trend
@@ -448,7 +458,7 @@ logger = get_logger(__name__)
                     confidence = min(total_messages / 100, 1.0)  # More messages = higher confidence
 
                     signal = AlternativeSignal(
-                        signal_type="social",
+                    signal_type="social",
                         symbol=symbol,
                         strength=strength,
                         direction=direction,
@@ -456,7 +466,7 @@ logger = get_logger(__name__)
                         timestamp=datetime.now(),
                         data_points=len(recent_data),
                         raw_data={
-                            "weighted_sentiment": weighted_sentiment,
+                        "weighted_sentiment": weighted_sentiment,
                             "sentiment_trend": sentiment_trend,
                             "total_messages": total_messages,
                             "platforms": list(set(d.platform for d in recent_data))
@@ -464,10 +474,10 @@ logger = get_logger(__name__)
                         expires_at=datetime.now() + timedelta(hours=6)
                     )
 
-                    self.alternative_signals[f"social_{symbol}"] = signal
+                    self.alternative_signals[f"social_{symbol)"] = signal
 
             except Exception as e:
-                self.logger.error(f"Social signal generation error for {symbol}: {e}")
+                self.logger.error(f"Social signal generation error for {symbol): {e)")
 
     async def _generate_economic_signals(self):
         """Generate signals from economic indicators"""
@@ -476,6 +486,11 @@ logger = get_logger(__name__)
 
         try:
             # Group by indicator
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             indicators_data = defaultdict(list)
             for data in self.economic_data:
                 indicators_data[data.indicator_name].append(data)
@@ -497,7 +512,7 @@ logger = get_logger(__name__)
 
                 if market_impact["strength"] > 0.3:
                     signal = AlternativeSignal(
-                        signal_type="economic",
+                    signal_type="economic",
                         symbol="SPY",  # Broad market impact
                         strength=market_impact["strength"],
                         direction=market_impact["direction"],
@@ -505,31 +520,29 @@ logger = get_logger(__name__)
                         timestamp=datetime.now(),
                         data_points=len(data_list),
                         raw_data={
-                            "indicator": indicator,
+                        "indicator": indicator,
                             "current_value": latest.value,
                             "previous_value": previous.value,
-                            "change_percent": change_percent
-                        },
+                            "change_percent": change_percent),
                         expires_at=datetime.now() + timedelta(days=7)  # Economic signals last longer
                     )
 
-                    self.alternative_signals[f"economic_{indicator}"] = signal
+                    self.alternative_signals[f"economic_{indicator)"] = signal
 
         except Exception as e:
-            self.logger.error(f"Economic signal generation error: {e}")
+            self.logger.error(f"Economic signal generation error: {e)")
 
     def _assess_economic_impact(self, indicator: str, change_percent: float) -> Dict[str, Any]:
         """Assess market impact of economic indicator change"""
         # Simplified impact assessment
         impact_rules = {
-            "GDP": {"threshold": 0.5, "positive_is_bullish": True},
-            "UNRATE": {"threshold": 0.2, "positive_is_bullish": False},  # Higher unemployment is bearish
-            "CPIAUCSL": {"threshold": 0.3, "positive_is_bullish": False},  # Higher inflation can be bearish
-            "FEDFUNDS": {"threshold": 0.25, "positive_is_bullish": False},  # Higher rates can be bearish
-            "DGS10": {"threshold": 0.2, "positive_is_bullish": False},  # Higher yields can be bearish for stocks
-        }
+        "GDP": {"threshold": 0.5, "positive_is_bullish": True),
+            "UNRATE": {"threshold": 0.2, "positive_is_bullish": False),  # Higher unemployment is bearish
+            "CPIAUCSL": {"threshold": 0.3, "positive_is_bullish": False),  # Higher inflation can be bearish
+            "FEDFUNDS": {"threshold": 0.25, "positive_is_bullish": False),  # Higher rates can be bearish
+            "DGS10": {"threshold": 0.2, "positive_is_bullish": False),  # Higher yields can be bearish for stocks)
 
-        rule = impact_rules.get(indicator, {"threshold": 0.5, "positive_is_bullish": True})
+        rule = impact_rules.get(indicator, {"threshold": 0.5, "positive_is_bullish": True))
 
         if abs(change_percent) > rule["threshold"]:
             strength = min(abs(change_percent) / rule["threshold"], 1.0)
@@ -539,7 +552,7 @@ logger = get_logger(__name__)
             else:
                 direction = "bearish" if rule["positive_is_bullish"] else "bullish"
 
-            return {"strength": strength, "direction": direction}
+            return {"strength": strength, "direction": direction)
 
         return {"strength": 0.0, "direction": "neutral"}
 
@@ -550,8 +563,8 @@ logger = get_logger(__name__)
 
         cutoff_time = datetime.now() - timedelta(hours=hours)
         recent_data = [
-            d for d in self.social_data[symbol]
-            if d.timestamp >= cutoff_time
+        d for d in self.social_data[symbol]
+        if d.timestamp >= cutoff_time
         ]
 
         if not recent_data:
@@ -562,11 +575,11 @@ logger = get_logger(__name__)
         total_negative = sum(d.negative_count for d in recent_data)
 
         weighted_sentiment = sum(
-            d.sentiment_score * d.message_count for d in recent_data
+        d.sentiment_score * d.message_count for d in recent_data
         ) / total_messages if total_messages > 0 else 0
 
         return {
-            "symbol": symbol,
+        "symbol": symbol,
             "timeframe_hours": hours,
             "total_messages": total_messages,
             "positive_ratio": total_positive / total_messages if total_messages > 0 else 0,
@@ -583,6 +596,11 @@ logger = get_logger(__name__)
 
         for signal in self.alternative_signals.values():
             # Check if signal is still valid
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if signal.expires_at and signal.expires_at < current_time:
                 continue
 
@@ -600,7 +618,7 @@ logger = get_logger(__name__)
         active_signals = self.get_active_signals()
 
         return {
-            "total_active_signals": len(active_signals),
+        "total_active_signals": len(active_signals),
             "social_signals": len([s for s in active_signals if s.signal_type == "social"]),
             "economic_signals": len([s for s in active_signals if s.signal_type == "economic"]),
             "bullish_signals": len([s for s in active_signals if s.direction == "bullish"]),

@@ -218,43 +218,18 @@ class ContextAnalyzer:
 
         # Class name analysis
         class_name = class_node.name.lower()
-        for context, indicators in [
-            (ClassContext.CONFIG, self.config_indicators),
-            (ClassContext.DATA_MODEL, self.data_model_indicators),
-            (ClassContext.API_CONTROLLER, self.api_controller_indicators),
-            (ClassContext.UTILITY, self.utility_indicators),
-        ]:
-            for pattern in indicators["name_patterns"]:
-                if re.match(pattern, class_name):
-                    scores[context] += 2
-                    break
+        self._score_class_name_patterns(class_name, scores)
 
         # Base class analysis
         for base in class_node.bases:
             base_name = ast.unparse(base) if hasattr(ast, "unparse") else str(base)
-            for context, indicators in [
-                (ClassContext.CONFIG, self.config_indicators),
-                (ClassContext.DATA_MODEL, self.data_model_indicators),
-                (ClassContext.API_CONTROLLER, self.api_controller_indicators),
-                (ClassContext.UTILITY, self.utility_indicators),
-            ]:
-                if base_name in indicators["base_classes"]:
-                    scores[context] += 3
+            self._score_base_class(base_name, scores)
 
         # Method pattern analysis
         methods = [node for node in class_node.body if isinstance(node, ast.FunctionDef)]
         for method in methods:
             method_name = method.name.lower()
-            for context, indicators in [
-                (ClassContext.CONFIG, self.config_indicators),
-                (ClassContext.DATA_MODEL, self.data_model_indicators),
-                (ClassContext.API_CONTROLLER, self.api_controller_indicators),
-                (ClassContext.UTILITY, self.utility_indicators),
-            ]:
-                for pattern in indicators["method_patterns"]:
-                    if re.match(pattern, method_name):
-                        scores[context] += 1
-                        break
+            self._score_method_patterns(method_name, scores)
 
         # Static method ratio for utilities
         if methods:
@@ -276,6 +251,60 @@ class ContextAnalyzer:
         # Return the highest scoring context
         best_context = max(scores.items(), key=lambda x: x[1])
         return best_context[0] if best_context[1] > 0 else ClassContext.UNKNOWN
+
+    def _score_class_name_patterns(self, class_name, scores):
+        for context, indicators in [
+            (ClassContext.CONFIG, self.config_indicators),
+            (ClassContext.DATA_MODEL, self.data_model_indicators),
+            (ClassContext.API_CONTROLLER, self.api_controller_indicators),
+            (ClassContext.UTILITY, self.utility_indicators),
+        ]:
+            for pattern in indicators["name_patterns"]:
+                if re.match(pattern, class_name):
+                    scores[context] += 2
+                    break
+
+    def _score_base_class(self, base_name, scores):
+        for context, indicators in [
+            (ClassContext.CONFIG, self.config_indicators),
+            (ClassContext.DATA_MODEL, self.data_model_indicators),
+            (ClassContext.API_CONTROLLER, self.api_controller_indicators),
+            (ClassContext.UTILITY, self.utility_indicators),
+        ]:
+            if base_name in indicators["base_classes"]:
+                scores[context] += 3
+
+    def _score_method_patterns(self, method_name, scores):
+        for context, indicators in [
+            (ClassContext.CONFIG, self.config_indicators),
+            (ClassContext.DATA_MODEL, self.data_model_indicators),
+            (ClassContext.API_CONTROLLER, self.api_controller_indicators),
+            (ClassContext.UTILITY, self.utility_indicators),
+        ]:
+            for pattern in indicators["method_patterns"]:
+                if re.match(pattern, method_name):
+                    scores[context] += 1
+                    break
+
+    def _assess_context_specific_issues(self, context, method_count, loc, cohesion_score):
+        if context == ClassContext.CONFIG:
+            if cohesion_score < 0.2 and method_count > 40:
+                return "Configuration class lacks cohesion with excessive methods"
+            if method_count > 50:
+                return "Configuration class has too many methods even for config context"
+        elif context == ClassContext.DATA_MODEL:
+            if method_count > 30 and cohesion_score < 0.5:
+                return "Data model has too many disparate operations"
+        elif context == ClassContext.API_CONTROLLER:
+            if method_count > 25:
+                return "API controller handling too many endpoints"
+        elif context == ClassContext.UTILITY:
+            if method_count > 50 and cohesion_score < 0.2:
+                return "Utility class is too broad and unfocused"
+        elif context == ClassContext.BUSINESS_LOGIC:
+            if method_count > 15 or loc > 300:
+                return "Business logic class violates Single Responsibility Principle"
+        return None
 
     def _count_methods(self, class_node: ast.ClassDef) -> int:
         """Count methods in a class, excluding special methods."""
@@ -523,29 +552,9 @@ class ContextAnalyzer:
             issues.append(f"Very low cohesion ({cohesion_score:.2f})")
 
         # Context-specific god object assessment
-        if context == ClassContext.CONFIG:
-            # Config classes can be large, focus on cohesion and responsibility
-            # Only flag if both cohesion is very low AND method count is excessive
-            if cohesion_score < 0.2 and method_count > 40:
-                issues.append("Configuration class lacks cohesion with excessive methods")
-            elif method_count > 50:  # Very high threshold for config classes
-                issues.append("Configuration class has too many methods even for config context")
-        elif context == ClassContext.DATA_MODEL:
-            # Data models should focus on data coherence
-            if method_count > 30 and cohesion_score < 0.5:
-                issues.append("Data model has too many disparate operations")
-        elif context == ClassContext.API_CONTROLLER:
-            # Controllers should have focused endpoint handling
-            if method_count > 25:
-                issues.append("API controller handling too many endpoints")
-        elif context == ClassContext.UTILITY:
-            # Utilities can be large but should be well-organized
-            if method_count > 50 and cohesion_score < 0.2:
-                issues.append("Utility class is too broad and unfocused")
-        elif context == ClassContext.BUSINESS_LOGIC:
-            # Business logic should be strictly controlled
-            if method_count > 15 or loc > 300:
-                issues.append("Business logic class violates Single Responsibility Principle")
+        context_issue = self._assess_context_specific_issues(context, method_count, loc, cohesion_score)
+        if context_issue:
+            issues.append(context_issue)
 
         return "; ".join(issues) if issues else None
 

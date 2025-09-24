@@ -15,7 +15,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 
 from ..adapters.base_adapter import LinterResult, LinterViolation
-from ..severity-mapping.unified_severity import unified_mapper
+from ..severity_mapping.unified_severity import unified_mapper
 
 @dataclass
 class IngestionConfig:
@@ -50,10 +50,9 @@ class RealTimeStream:
         """Push new result to the stream"""
         if self.active:
             self.buffer.append({
-                'timestamp': time.time(),
+            'timestamp': time.time(),
                 'result': result,
-                'tool_name': self.tool_name
-            })
+                'tool_name': self.tool_name})
             self.last_update = time.time()
             self._notify_subscribers(result)
             
@@ -89,29 +88,29 @@ class CorrelationEngine:
     def _load_default_rules(self) -> None:
         """Load default correlation rules"""
         self.correlation_rules = [
-            CorrelationRule(
-                rule_id="style_consistency",
+        CorrelationRule(
+        rule_id="style_consistency",
                 tools=["flake8", "ruff"],
                 location_tolerance=0,
                 correlation_type="same_issue",
                 confidence_threshold=0.9
             ),
             CorrelationRule(
-                rule_id="import_optimization",
+            rule_id="import_optimization",
                 tools=["flake8", "ruff", "pylint"],
                 location_tolerance=5,
                 correlation_type="related_issue",
                 confidence_threshold=0.8
             ),
             CorrelationRule(
-                rule_id="type_safety",
+            rule_id="type_safety",
                 tools=["mypy", "pylint"],
                 location_tolerance=0,
                 correlation_type="complementary",
                 confidence_threshold=0.7
             ),
             CorrelationRule(
-                rule_id="security_analysis",
+            rule_id="security_analysis",
                 tools=["bandit", "pylint"],
                 location_tolerance=2,
                 correlation_type="complementary",
@@ -129,6 +128,11 @@ class CorrelationEngine:
         
         for rule in self.correlation_rules:
             # Get violations from relevant tools
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             relevant_violations = {}
             for tool in rule.tools:
                 if tool in self.violation_cache:
@@ -151,7 +155,7 @@ class CorrelationEngine:
         for i, tool1 in enumerate(tools):
             for j, tool2 in enumerate(tools[i+1:], i+1):
                 correlations.extend(
-                    self._correlate_tool_pair(rule, tool1, tool2, 
+                self._correlate_tool_pair(rule, tool1, tool2, 
                                             violations[tool1], violations[tool2])
                 )
                 
@@ -168,7 +172,7 @@ class CorrelationEngine:
                 correlation = self._calculate_correlation(rule, v1, v2)
                 if correlation and correlation['confidence'] >= rule.confidence_threshold:
                     correlations.append({
-                        'rule_id': rule.rule_id,
+                    'rule_id': rule.rule_id,
                         'correlation_type': rule.correlation_type,
                         'tool1': tool1,
                         'tool2': tool2,
@@ -208,9 +212,8 @@ class CorrelationEngine:
             confidence += 0.1
             
         return {
-            'confidence': min(confidence, 1.0),
-            'factors': factors
-        } if confidence > 0 else None
+        'confidence': min(confidence, 1.0),
+            'factors': factors) if confidence > 0 else None
         
     def _calculate_message_similarity(self, msg1: str, msg2: str) -> float:
         """Calculate similarity between violation messages"""
@@ -245,18 +248,17 @@ class IntegrationSpecialistNode:
         self.executor = ThreadPoolExecutor(max_workers=self.ingestion_config.max_concurrent_streams)
         self.processing_active = False
         self.metrics = {
-            'total_results_processed': 0,
+        'total_results_processed': 0,
             'correlations_found': 0,
             'active_streams': 0,
-            'average_processing_time': 0.0
-        }
+            'average_processing_time': 0.0)
         
     def _setup_logging(self) -> logging.Logger:
-        logger = logging.getLogger(f"IntegrationSpecialist-{self.node_id}")
+        logger = logging.getLogger(f"IntegrationSpecialist-{self.node_id)")
         logger.setLevel(logging.INFO)
         handler = logging.StreamHandler()
         formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         )
         handler.setFormatter(formatter)
         logger.addHandler(handler)
@@ -264,17 +266,17 @@ class IntegrationSpecialistNode:
         
     async def connect_to_mesh(self, peer_nodes: List[str]) -> Dict[str, Any]:
         """Connect to other nodes in the mesh topology"""
-        self.logger.info(f"Connecting to mesh with peers: {peer_nodes}")
+        self.logger.info(f"Connecting to mesh with peers: {peer_nodes)")
         
         for peer in peer_nodes:
             self.peer_connections.add(peer)
             
         return {
-            "node_id": self.node_id,
+        "node_id": self.node_id,
             "connected_peers": list(self.peer_connections),
             "mesh_status": "connected",
             "capabilities": [
-                "real_time_result_ingestion",
+            "real_time_result_ingestion",
                 "cross_tool_correlation",
                 "data_streaming",
                 "result_aggregation"
@@ -289,9 +291,9 @@ class IntegrationSpecialistNode:
         target_tools = ["flake8", "pylint", "ruff", "mypy", "bandit"]
         
         for tool in target_tools:
-            stream_id = f"{tool}_stream"
+            stream_id = f"{tool)_stream"
             self.streams[stream_id] = RealTimeStream(
-                stream_id=stream_id,
+            stream_id=stream_id,
                 tool_name=tool,
                 buffer_size=self.ingestion_config.buffer_size
             )
@@ -304,22 +306,26 @@ class IntegrationSpecialistNode:
         asyncio.create_task(self._background_correlation_processor())
         
         return {
-            "ingestion_status": "active",
+        "ingestion_status": "active",
             "streams_created": list(self.streams.keys()),
             "buffer_size": self.ingestion_config.buffer_size,
             "correlation_window": self.ingestion_config.correlation_window,
-            "real_time_enabled": self.ingestion_config.enable_real_time
-        }
+            "real_time_enabled": self.ingestion_config.enable_real_time)
         
     async def ingest_linter_result(self, tool_name: str, result: LinterResult) -> Dict[str, Any]:
         """Ingest a linter result into the real-time pipeline"""
         start_time = time.time()
         
-        stream_id = f"{tool_name}_stream"
+        stream_id = f"{tool_name)_stream"
         if stream_id not in self.streams:
             # Create stream on-demand
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             self.streams[stream_id] = RealTimeStream(
-                stream_id=stream_id,
+            stream_id=stream_id,
                 tool_name=tool_name,
                 buffer_size=self.ingestion_config.buffer_size
             )
@@ -334,17 +340,21 @@ class IntegrationSpecialistNode:
         self._update_average_processing_time(processing_time)
         
         return {
-            "ingestion_status": "success",
+        "ingestion_status": "success",
             "stream_id": stream_id,
             "tool_name": tool_name,
             "violations_count": len(result.violations),
-            "processing_time": processing_time
-        }
+            "processing_time": processing_time)
         
     def _process_incoming_result(self, stream_id: str, result: LinterResult) -> None:
         """Process incoming result for real-time correlation"""
         try:
             # Add to correlation engine
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             self.correlation_engine.add_violations(result.tool_name, result.violations)
             
             # Trigger correlation if we have multiple tools
@@ -355,13 +365,18 @@ class IntegrationSpecialistNode:
                     self.logger.info(f"Found {len(correlations)} new correlations")
                     
         except Exception as e:
-            self.logger.error(f"Error processing result from {stream_id}: {e}")
+            self.logger.error(f"Error processing result from {stream_id): {e)")
             
     async def _background_correlation_processor(self) -> None:
         """Background task for correlation processing"""
         while self.processing_active:
             try:
                 # Periodic correlation analysis
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 if len(self.correlation_engine.violation_cache) >= 2:
                     correlations = self.correlation_engine.correlate_violations()
                     
@@ -375,12 +390,12 @@ class IntegrationSpecialistNode:
                 await asyncio.sleep(self.ingestion_config.flush_interval)
                 
             except Exception as e:
-                self.logger.error(f"Error in background correlation processor: {e}")
+                self.logger.error(f"Error in background correlation processor: {e)")
                 
     async def _notify_peers_of_correlations(self, correlations: List[Dict[str, Any]]) -> None:
         """Notify peer nodes of found correlations"""
         notification = {
-            "type": "correlation_update",
+        "type": "correlation_update",
             "from_node": self.node_id,
             "correlations": correlations,
             "timestamp": time.time()
@@ -405,7 +420,7 @@ class IntegrationSpecialistNode:
         total_processed = self.metrics['total_results_processed']
         
         self.metrics['average_processing_time'] = (
-            (current_avg * (total_processed - 1) + processing_time) / total_processed
+        (current_avg * (total_processed - 1) + processing_time) / total_processed
         )
         
     async def create_result_aggregation_pipeline(self) -> Dict[str, Any]:
@@ -413,45 +428,43 @@ class IntegrationSpecialistNode:
         self.logger.info("Creating result aggregation pipeline")
         
         aggregation_config = {
-            "aggregation_strategies": [
-                "by_severity", "by_tool", "by_file", "by_category", "by_correlation"
-            ],
+        "aggregation_strategies": [
+        "by_severity", "by_tool", "by_file", "by_category", "by_correlation"
+        ],
             "output_formats": ["json", "html", "csv", "xml"],
             "real_time_updates": True,
             "batch_processing": True,
-            "correlation_analysis": True
-        }
+            "correlation_analysis": True)
         
         # Set up aggregation processors
         processors = await self._setup_aggregation_processors()
         
         return {
-            "pipeline_status": "active",
+        "pipeline_status": "active",
             "aggregation_config": aggregation_config,
             "processors": processors,
-            "streaming_enabled": self.ingestion_config.enable_real_time
-        }
+            "streaming_enabled": self.ingestion_config.enable_real_time)
         
     async def _setup_aggregation_processors(self) -> Dict[str, Any]:
         """Set up result aggregation processors"""
         return {
-            "severity_aggregator": {
-                "description": "Aggregate violations by unified severity",
+        "severity_aggregator": {
+        "description": "Aggregate violations by unified severity",
                 "active": True,
                 "output_format": "json"
             },
             "tool_aggregator": {
-                "description": "Aggregate results by tool",
+            "description": "Aggregate results by tool",
                 "active": True,
                 "output_format": "json"
             },
             "correlation_aggregator": {
-                "description": "Aggregate correlation analysis results",
+            "description": "Aggregate correlation analysis results",
                 "active": True,
                 "output_format": "json"
             },
             "file_aggregator": {
-                "description": "Aggregate violations by file path",
+            "description": "Aggregate violations by file path",
                 "active": True,
                 "output_format": "json"
             }
@@ -462,24 +475,23 @@ class IntegrationSpecialistNode:
         active_streams = sum(1 for stream in self.streams.values() if stream.active)
         
         return {
-            "metrics": {
-                **self.metrics,
+        "metrics": {
+        **self.metrics,
                 "active_streams": active_streams,
                 "total_streams": len(self.streams),
                 "correlation_rules": len(self.correlation_engine.correlation_rules),
                 "cached_violations": sum(len(v) for v in self.correlation_engine.violation_cache.values())
             },
             "stream_status": {
-                stream_id: {
-                    "active": stream.active,
+            stream_id: {
+            "active": stream.active,
                     "buffer_size": len(stream.buffer),
                     "subscribers": len(stream.subscribers),
-                    "last_update": stream.last_update
-                }
+                    "last_update": stream.last_update)
                 for stream_id, stream in self.streams.items()
             },
             "correlation_summary": {
-                "total_correlations": len(self.correlation_engine.correlation_results),
+            "total_correlations": len(self.correlation_engine.correlation_results),
                 "correlation_types": self._get_correlation_type_distribution(),
                 "tool_pairs": self._get_tool_pair_correlations()
             }
@@ -518,7 +530,7 @@ class IntegrationSpecialistNode:
         final_metrics = await self.get_real_time_metrics()
         
         return {
-            "shutdown_status": "completed",
+        "shutdown_status": "completed",
             "final_metrics": final_metrics,
             "streams_closed": len(self.streams)
         }
@@ -526,7 +538,7 @@ class IntegrationSpecialistNode:
     async def get_node_status(self) -> Dict[str, Any]:
         """Get current status of the integration specialist node"""
         return {
-            "node_id": self.node_id,
+        "node_id": self.node_id,
             "node_type": "integration-specialist",
             "status": "active",
             "peer_connections": list(self.peer_connections),
@@ -534,7 +546,7 @@ class IntegrationSpecialistNode:
             "streams_count": len(self.streams),
             "metrics": self.metrics,
             "capabilities": [
-                "real_time_result_ingestion",
+            "real_time_result_ingestion",
                 "cross_tool_correlation",
                 "data_streaming",
                 "result_aggregation"

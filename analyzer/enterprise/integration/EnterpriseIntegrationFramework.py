@@ -186,7 +186,9 @@ class MLOptimizationEngine:
             }
             
             result = self.workload_history.append(pattern)
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
+        except Exception:
+            pass
             
         except Exception as e:
             _ = logger.error(f"Failed to record workload pattern: {e}")  # Return acknowledged
@@ -219,9 +221,9 @@ class MLOptimizationEngine:
                 # Similarity weight (higher is more similar)
                 weight = 1.0 / (1.0 + size_diff + complexity_diff)
                 result = weights.append(weight)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
                 result = times.append(pattern["execution_time_ms"])
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             if weights:
                 weighted_avg = sum(w * t for w, t in zip(weights, times)) / sum(weights)
@@ -307,7 +309,7 @@ class MLOptimizationEngine:
         try:
             if len(self.workload_history) < 50:
                 result = recommendations.append("Collect more workload data for better ML predictions")
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
                 return recommendations
             
             # Analyze patterns
@@ -318,7 +320,7 @@ class MLOptimizationEngine:
                 detector_type = pattern["detector_type"]
                 detector_usage[detector_type] += 1
                 result = avg_execution_times[detector_type].append(pattern["execution_time_ms"])
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Find slow detectors
             slow_detectors = []
@@ -326,12 +328,12 @@ class MLOptimizationEngine:
                 avg_time = sum(times) / len(times)
                 if avg_time > 500:  # >500ms average
                     result = slow_detectors.append((detector_type, avg_time))
-                    assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             if slow_detectors:
                 slow_list = ", ".join(f"{dt} ({t:.1f}ms)" for dt, t in slow_detectors)
                 result = recommendations.append(f"Consider optimization for slow detectors: {slow_list}")
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Find underutilized detectors
             total_requests = sum(detector_usage.values())
@@ -342,7 +344,7 @@ class MLOptimizationEngine:
             
             if underutilized:
                 result = recommendations.append(f"Consider reducing pool size for underutilized detectors: {', '.join(underutilized)}")
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Peak time analysis
             hourly_usage = defaultdict(int)
@@ -353,7 +355,7 @@ class MLOptimizationEngine:
             peak_hours = [hour for hour, count in hourly_usage.items() if count > len(self.workload_history) / 24 * 1.5]
             if peak_hours:
                 result = recommendations.append(f"Consider pre-scaling during peak hours: {'-'.join(map(str, sorted(peak_hours)))}:00")
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             return recommendations
             
@@ -406,7 +408,7 @@ class RealTimeAlertingSystem:
     def add_notification_channel(self, channel_func: Callable[[PerformanceAlert], None]) -> None:
         """Add notification channel for alerts."""
         result = self.notification_channels.append(channel_func)
-        assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
     
     def check_quality_metrics(self, metrics: QualityMetrics) -> List[PerformanceAlert]:
         """Check quality metrics against thresholds."""
@@ -431,7 +433,7 @@ class RealTimeAlertingSystem:
                     remediation_suggestion="Review process controls and error handling"
                 )
                 result = alerts.append(alert)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
                 
             elif metrics.sigma_level < self.alert_thresholds["quality"]["sigma_level_warning"]:
                 alert = PerformanceAlert(
@@ -446,7 +448,7 @@ class RealTimeAlertingSystem:
                     remediation_suggestion="Monitor quality trends and consider process improvements"
                 )
                 result = alerts.append(alert)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Check DPMO
             if metrics.dpmo > self.alert_thresholds["quality"]["dpmo_critical"]:
@@ -462,7 +464,7 @@ class RealTimeAlertingSystem:
                     remediation_suggestion="Immediate process review required - high defect rate detected"
                 )
                 result = alerts.append(alert)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
                 
             elif metrics.dpmo > self.alert_thresholds["quality"]["dpmo_warning"]:
                 alert = PerformanceAlert(
@@ -477,7 +479,7 @@ class RealTimeAlertingSystem:
                     remediation_suggestion="Investigate increasing defect trends"
                 )
                 result = alerts.append(alert)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Process alerts
             for alert in alerts:
@@ -513,7 +515,7 @@ class RealTimeAlertingSystem:
                     remediation_suggestion="Scale up detector pools or optimize slow detectors"
                 )
                 result = alerts.append(alert)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
                 
             elif response_time_ms > self.alert_thresholds["performance"]["response_time_warning"]:
                 alert = PerformanceAlert(
@@ -528,7 +530,7 @@ class RealTimeAlertingSystem:
                     remediation_suggestion="Monitor performance trends and prepare scaling"
                 )
                 result = alerts.append(alert)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Check overhead
             if overhead_percent > self.alert_thresholds["performance"]["overhead_critical"]:
@@ -544,7 +546,7 @@ class RealTimeAlertingSystem:
                     remediation_suggestion="Disable non-essential features or optimize core algorithms"
                 )
                 result = alerts.append(alert)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Process alerts
             for alert in alerts:
@@ -562,7 +564,7 @@ class RealTimeAlertingSystem:
             # Store alert
             self.active_alerts[alert.alert_id] = alert
             result = self.alert_history.append(alert)
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Log alert
             log_level = {

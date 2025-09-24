@@ -8,6 +8,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const QualityGateEngine_1 = require("../../../src/domains/quality-gates/core/QualityGateEngine");
+const { cleanupTestResources } = require('../../setup/test-environment');
 describe('QualityGateEngine', () => {
     let engine;
     let config;
@@ -44,8 +45,9 @@ describe('QualityGateEngine', () => {
         };
         engine = new QualityGateEngine_1.QualityGateEngine(config);
     });
-    afterEach(() => {
-        // Cleanup if needed
+    afterEach(async () => {
+        if (engine) await engine.shutdown?.();
+        await cleanupTestResources();
     });
     describe('Initialization', () => {
         it('should initialize with provided configuration', () => {

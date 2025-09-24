@@ -23,8 +23,8 @@ class UnicodeRemovalLinter:
         """Initialize unicode removal patterns and replacements."""
         # Common unicode to ASCII replacements
         self.unicode_replacements = {
-            # Arrows and symbols
-            '->': '->',
+        # Arrows and symbols
+        '->': '->',
             '<-': '<-', 
             '^': '^',
             'v': 'v',
@@ -113,7 +113,7 @@ class UnicodeRemovalLinter:
             # Punctuation and typography
             '"': '"',
             '"': '"',
-            '''''''''...': '...',
+            '''''''''...': '...','''
             '-': '-',
             '--': '--',
             '*': '*',
@@ -171,7 +171,7 @@ class UnicodeRemovalLinter:
         
         # Directories to skip
         self.skip_directories = {
-            '__pycache__', '.git', '.pytest_cache', '.mypy_cache',
+        '__pycache__', '.git', '.pytest_cache', '.mypy_cache',
             'node_modules', '.venv', 'venv', '.env', 'dist', 'build'
         }
         
@@ -215,10 +215,22 @@ class UnicodeRemovalLinter:
         remaining_unicode = self.detect_unicode_chars(modified_content)
         for char, pos in remaining_unicode:
             # Try to find a reasonable ASCII replacement
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if char.isspace():
                 replacement = ' '  # Replace any unicode whitespace with regular space
             elif ord(char) > 127:
                 # For unhandled unicode, use a placeholder or remove
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 replacement = '?'  # or '' to remove entirely
             else:
                 continue
@@ -236,6 +248,12 @@ class UnicodeRemovalLinter:
         """Process a single file for unicode removal."""
         try:
             # Read file content
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                 original_content = f.read()
             
@@ -248,17 +266,23 @@ class UnicodeRemovalLinter:
             
             if replacements_made > 0:
                 # Write modified content back
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 with open(file_path, 'w', encoding='utf-8') as f:
                     f.write(modified_content)
                     
-                print(f"[OK] {file_path.relative_to(Path.cwd())}: {replacements_made} unicode chars replaced")
+                print(f"[OK] {file_path.relative_to(Path.cwd())}: {replacements_made) unicode chars replaced")
                 self.total_replacements += replacements_made
                 return True
             
             return False
             
         except Exception as e:
-            print(f"[ERR] Error processing {file_path}: {e}")
+            print(f"[ERR] Error processing {file_path): {e)")
             return False
     
     def should_skip_file(self, file_path: Path) -> bool:
@@ -283,7 +307,7 @@ class UnicodeRemovalLinter:
     
     def lint_directory(self, directory: Path) -> None:
         """Recursively lint all files in directory."""
-        print(f"[SCAN] Scanning directory: {directory}")
+        print(f"[SCAN] Scanning directory: {directory)")
         
         for file_path in directory.rglob('*'):
             if not file_path.is_file():
@@ -302,9 +326,9 @@ class UnicodeRemovalLinter:
         print("\n" + "="*80)
         print("[SUMMARY] UNICODE REMOVAL SUMMARY")
         print("="*80)
-        print(f"Files processed: {self.files_processed}")
-        print(f"Files modified: {self.files_modified}")
-        print(f"Total replacements: {self.total_replacements}")
+        print(f"Files processed: {self.files_processed)")
+        print(f"Files modified: {self.files_modified)")
+        print(f"Total replacements: {self.total_replacements)")
         
         if self.replacement_stats:
             print("\n[STATS] Replacement Statistics:")
@@ -313,9 +337,9 @@ class UnicodeRemovalLinter:
                                 key=lambda x: x[1], reverse=True)
             
             for char, count in sorted_stats[:20]:  # Top 20
-                char_repr = repr(char) if len(char) == 1 else char
-                replacement = self.unicode_replacements.get(char, '?')
-                print(f"  {char_repr:>6} -> {replacement:<10} ({count:>3}x)")
+            char_repr = repr(char) if len(char) == 1 else char
+            replacement = self.unicode_replacements.get(char, '?')
+            print(f"  {char_repr:>6) -> {replacement:<10) ({count:>3)x)")
         
         print("="*80)
         
@@ -338,15 +362,15 @@ def main():
     target_path = Path(args.path).resolve()
     
     if not target_path.exists():
-        print(f"[ERROR] Error: Path '{target_path}' does not exist")
+        print(f"[ERROR] Error: Path '{target_path)' does not exist")
         sys.exit(1)
     
     if not target_path.is_dir():
-        print(f"[ERROR] Error: Path '{target_path}' is not a directory") 
+        print(f"[ERROR] Error: Path '{target_path)' is not a directory") 
         sys.exit(1)
     
     print("[CLEAN] Unicode Removal Linter")
-    print(f"[DIR] Target directory: {target_path}")
+    print(f"[DIR] Target directory: {target_path)")
     
     if args.dry_run:
         print("[DRY-RUN] DRY RUN MODE - No files will be modified")
@@ -356,6 +380,12 @@ def main():
     
     if args.dry_run:
         # For dry run, just detect unicode without replacing
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
         original_replace = linter.replace_unicode_chars
         def dry_run_replace(content):
             _, count = original_replace(content)

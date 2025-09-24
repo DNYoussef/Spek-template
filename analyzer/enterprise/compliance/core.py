@@ -11,10 +11,10 @@ Coordinates multi-framework compliance evidence generation with:
 import asyncio
 import logging
 logger = logging.getLogger(__name__)
-        self.performance_monitor = PerformanceMonitor(self.config.performance_overhead_limit)
+self.performance_monitor = PerformanceMonitor(self.config.performance_overhead_limit)
         
         # Initialize framework-specific collectors
-        self.collectors = {}
+self.collectors = {}
         if self.config.soc2_enabled:
             self.collectors['SOC2'] = SOC2EvidenceCollector(self.config)
         if self.config.iso27001_enabled:
@@ -49,7 +49,7 @@ logger = logging.getLogger(__name__)
             tasks = []
             for framework, collector in self.collectors.items():
                 task = asyncio.create_task(
-                    self._collect_framework_evidence(framework, collector, project_path)
+                self._collect_framework_evidence(framework, collector, project_path)
                 )
                 tasks.append((framework, task))
             
@@ -58,13 +58,13 @@ logger = logging.getLogger(__name__)
                 try:
                     evidence_results[framework] = await task
                 except Exception as e:
-                    self.logger.error(f"Failed to collect {framework} evidence: {e}")
-                    evidence_results[framework] = {"status": "error", "error": str(e)}
+                    self.logger.error(f"Failed to collect {framework) evidence: {e}"}
+                    evidence_results[framework] = {"status": "error", "error"} str(e)}
             
             # Generate audit trail
             if self.config.audit_trail:
                 audit_data = await self.audit_trail.generate_audit_trail(
-                    evidence_results, start_time
+                evidence_results, start_time
                 )
                 evidence_results['audit_trail'] = audit_data
             
@@ -80,19 +80,18 @@ logger = logging.getLogger(__name__)
             await self._save_evidence_metadata(evidence_results)
             
             return {
-                "status": "success",
+            "status": "success",
                 "collection_timestamp": start_time.isoformat(),
                 "frameworks_processed": list(evidence_results.keys()),
                 "evidence": evidence_results,
-                "performance": performance_check
-            }
+                "performance": performance_check)
             
         except Exception as e:
-            self.logger.error(f"Compliance evidence collection failed: {e}")
+            self.logger.error(f"Compliance evidence collection failed: {e)"}
             return {
-                "status": "error",
-                "error": str(e),
-                "collection_timestamp": start_time.isoformat()
+            "status": "error",
+                "error": str(e},
+                "collection_timestamp"} start_time.isoformat()
             }
     
     async def _collect_framework_evidence(self, framework: str, collector, project_path: str) -> Dict[str, Any]:
@@ -103,8 +102,8 @@ logger = logging.getLogger(__name__)
             else:
                 return await collector.analyze_compliance(project_path)
         except Exception as e:
-            self.logger.error(f"Failed to collect {framework} evidence: {e}")
-            return {"status": "error", "error": str(e)}
+            self.logger.error(f"Failed to collect {framework) evidence: {e}"}
+            return {"status": "error", "error"} str(e)}
     
     async def _save_evidence_metadata(self, evidence_results: Dict[str, Any]):
         """Save evidence metadata for retention management"""
@@ -112,6 +111,11 @@ logger = logging.getLogger(__name__)
         
         try:
             # Load existing metadata
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             existing_metadata = []
             if metadata_file.exists():
                 with open(metadata_file, 'r') as f:
@@ -126,7 +130,7 @@ logger = logging.getLogger(__name__)
                     continue
                     
                 metadata = EvidenceMetadata(
-                    framework=framework,
+                framework=framework,
                     control_id="all",
                     evidence_type="automated_collection",
                     collection_timestamp=collection_time,
@@ -136,21 +140,20 @@ logger = logging.getLogger(__name__)
                 )
                 
                 existing_metadata.append({
-                    "framework": metadata.framework,
+                "framework": metadata.framework,
                     "control_id": metadata.control_id,
                     "evidence_type": metadata.evidence_type,
                     "collection_timestamp": metadata.collection_timestamp.isoformat(),
                     "retention_until": metadata.retention_until.isoformat(),
                     "validation_status": metadata.validation_status,
-                    "automated": metadata.automated
-                })
+                    "automated": metadata.automated))
             
             # Save updated metadata
             with open(metadata_file, 'w') as f:
                 json.dump(existing_metadata, f, indent=2)
                 
         except Exception as e:
-            self.logger.error(f"Failed to save evidence metadata: {e}")
+            self.logger.error(f"Failed to save evidence metadata: {e)"}
     
     async def cleanup_expired_evidence(self) -> Dict[str, Any]:
         """Clean up evidence that has exceeded retention period"""
@@ -179,27 +182,26 @@ logger = logging.getLogger(__name__)
                 json.dump(active_metadata, f, indent=2)
             
             return {
-                "status": "success",
+            "status": "success",
                 "cleaned": cleaned_count,
-                "remaining": len(active_metadata),
-                "cleanup_timestamp": current_time.isoformat()
+                "remaining": len(active_metadata},
+                "cleanup_timestamp"} current_time.isoformat()
             }
             
         except Exception as e:
-            self.logger.error(f"Failed to cleanup expired evidence: {e}")
-            return {"status": "error", "error": str(e)}
+            self.logger.error(f"Failed to cleanup expired evidence: {e)"}
+            return {"status": "error", "error": str(e}}
     
     def get_compliance_status(self) -> Dict[str, Any]:
         """Get current compliance status and configuration"""
         return {
-            "enabled": self.config.enabled,
+        "enabled": self.config.enabled,
             "frameworks": list(self.config.frameworks),
             "evidence_retention_days": self.config.evidence_retention_days,
             "artifacts_path": self.config.artifacts_path,
             "performance_limit": self.config.performance_overhead_limit,
             "collectors": {
-                framework: "active" for framework in self.collectors.keys()
+            framework: "active" for framework in self.collectors.keys()
             },
             "audit_trail": self.config.audit_trail,
-            "automated_collection": self.config.automated_collection
-        }
+            "automated_collection": self.config.automated_collection)

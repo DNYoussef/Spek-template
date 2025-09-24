@@ -1,0 +1,55 @@
+================================================================================
+NASA POT10 COMPLIANCE BOOST RECOMMENDATIONS
+================================================================================
+
+RULE 2: Long Functions (>60 LOC) - 92 violations
+--------------------------------------------------------------------------------
+Top 10 files to fix:
+   4 violations: analyzer\core.py
+   4 violations: analyzer\architecture\refactoring_audit_report.py
+   4 violations: analyzer\enterprise\validation_reporting_system.py
+   3 violations: analyzer\component_integrator.py
+   3 violations: analyzer\github_analyzer_runner.py
+   3 violations: analyzer\ml_modules\compliance_forecaster.py
+   3 violations: analyzer\performance\parallel_analyzer.py
+   3 violations: analyzer\theater_detection\validation.py
+   2 violations: analyzer\consolidated_analyzer.py
+   2 violations: analyzer\context_analyzer.py
+
+Quick fixes:
+  1. Extract helper functions for complex logic blocks
+  2. Move validation logic to separate functions
+  3. Extract loop bodies into dedicated functions
+
+RULE 3: Nesting Depth (>4) - 113 violations
+--------------------------------------------------------------------------------
+Top 10 files to fix:
+   9 violations: analyzer\ml_modules\compliance_forecaster.py
+   4 violations: analyzer\context_analyzer.py
+   4 violations: analyzer\architecture\refactoring_audit_report.py
+   4 violations: analyzer\components\AnalysisOrchestrator.py
+   4 violations: analyzer\validation\reality_validation_engine.py
+   3 violations: analyzer\detectors\enhanced_timing_detector.py
+   3 violations: analyzer\enterprise_security\vulnerability_scanner.py
+   3 violations: analyzer\ml_modules\theater_classifier.py
+   3 violations: analyzer\optimization\ast_optimizer.py
+   3 violations: analyzer\enterprise\supply_chain\sbom_generator.py
+
+Quick fixes:
+  1. Use early returns (guard clauses) to reduce nesting
+  2. Extract nested blocks into helper functions
+  3. Invert conditions to flatten code structure
+
+================================================================================
+COMPLIANCE TARGET
+--------------------------------------------------------------------------------
+Current Score: 47.2%
+Target Score: 70.0%
+Total Violations: 205
+Violations to Fix: ~739
+
+PRIORITY:
+  1. Fix top 3 files with Rule 2 violations (easy wins)
+  2. Fix top 3 files with Rule 3 violations (bigger impact)
+  3. Re-run analyzer to measure progress
+================================================================================

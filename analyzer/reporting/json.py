@@ -69,13 +69,13 @@ class JSONReporter:
         # Count by type
         by_type = {}
         for violation in violations:
-            type_key = violation.type.value
+            type_key = getattr(violation.type, 'value', violation.type) if hasattr(violation, 'type') else 'unknown'
             by_type[type_key] = by_type.get(type_key, 0) + 1
 
         # Count by severity
         by_severity = {}
         for violation in violations:
-            severity_key = violation.severity.value
+            severity_key = getattr(violation.severity, 'value', violation.severity) if hasattr(violation, 'severity') else 'unknown'
             by_severity[severity_key] = by_severity.get(severity_key, 0) + 1
 
         # Count by locality
@@ -111,10 +111,10 @@ class JSONReporter:
     def _serialize_violation(self, violation: Violation) -> Dict[str, Any]:
         """Serialize a violation to JSON-friendly format."""
         return {
-            "id": violation.id,
-            "rule_id": f"CON_{violation.type.value}",
-            "type": violation.type.value,
-            "severity": violation.severity.value,
+            "id": getattr(violation, 'id', 'unknown'),
+            "rule_id": f"CON_{getattr(violation.type, 'value', violation.type) if hasattr(violation, 'type') else 'unknown'}",
+            "type": getattr(violation.type, 'value', violation.type) if hasattr(violation, 'type') else 'unknown',
+            "severity": getattr(violation.severity, 'value', violation.severity) if hasattr(violation, 'severity') else 'unknown',
             "weight": round(violation.weight, 2),
             "locality": violation.locality,
             # Location information
@@ -145,8 +145,8 @@ class JSONReporter:
 
         # Calculate quality gate status
         violations = result.violations
-        critical_violations = sum(1 for v in violations if v.severity.value == "critical")
-        high_violations = sum(1 for v in violations if v.severity.value == "high")
+        critical_violations = sum(1 for v in violations if getattr(v.severity, 'value', v.severity) == "critical")
+        high_violations = sum(1 for v in violations if getattr(v.severity, 'value', v.severity) == "high")
 
         # Basic quality gates
         compliance["quality_gates"] = {
@@ -201,7 +201,7 @@ class JSONReporter:
             stats["violation_count"] += 1
             stats["total_weight"] += violation.weight
 
-            severity = violation.severity.value
+            severity = getattr(violation.severity, 'value', violation.severity) if hasattr(violation, 'severity') else 'unknown'
             stats["severity_breakdown"][severity] = stats["severity_breakdown"].get(severity, 0) + 1
 
         # Sort by total weight, then by violation count

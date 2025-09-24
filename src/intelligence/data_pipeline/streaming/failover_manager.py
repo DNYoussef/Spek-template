@@ -6,11 +6,11 @@ Intelligent failover management for data sources with health monitoring
 import asyncio
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        self.health_metrics: Dict[str, HealthMetrics] = {}
-        self.failover_rules: List[FailoverRule] = []
+self.health_metrics: Dict[str, HealthMetrics] = {}
+self.failover_rules: List[FailoverRule] = []
 
         # Primary and fallback sources
-        self.primary_source: Optional[str] = None
+self.primary_source: Optional[str] = None
         self.active_source: Optional[str] = None
         self.available_sources: List[str] = []
 
@@ -55,17 +55,16 @@ logger = get_logger(__name__)
 
         # Initialize circuit breaker
         self.circuit_breakers[source_name] = {
-            "state": "closed",  # closed, open, half_open
-            "failure_count": 0,
+        "state": "closed",  # closed, open, half_open
+        "failure_count": 0,
             "last_failure_time": None,
-            "success_count": 0
-        }
+            "success_count": 0)
 
         if is_primary or self.primary_source is None:
             self.primary_source = source_name
             self.active_source = source_name
 
-        self.logger.info(f"Registered source: {source_name} (primary: {is_primary})")
+        self.logger.info(f"Registered source: {source_name) (primary: {is_primary))")
 
     def unregister_source(self, source_name: str):
         """Unregister a data source"""
@@ -84,10 +83,10 @@ logger = get_logger(__name__)
         if self.primary_source == source_name:
             self.primary_source = None
 
-        self.logger.info(f"Unregistered source: {source_name}")
+        self.logger.info(f"Unregistered source: {source_name)")
 
     def record_request_result(
-        self,
+    self,
         source_name: str,
         success: bool,
         latency_ms: float = 0.0,
@@ -113,9 +112,9 @@ logger = get_logger(__name__)
             if breaker["state"] == "half_open":
                 breaker["success_count"] += 1
                 if breaker["success_count"] >= 3:  # Close circuit after 3 successes
-                    breaker["state"] = "closed"
-                    breaker["failure_count"] = 0
-                    self.logger.info(f"Circuit breaker closed for {source_name}")
+                breaker["state"] = "closed"
+                breaker["failure_count"] = 0
+                self.logger.info(f"Circuit breaker closed for {source_name)")
 
         else:
             metrics.total_errors += 1
@@ -129,7 +128,7 @@ logger = get_logger(__name__)
 
             if breaker["state"] == "closed" and breaker["failure_count"] >= 5:
                 breaker["state"] = "open"
-                self.logger.warning(f"Circuit breaker opened for {source_name}")
+                self.logger.warning(f"Circuit breaker opened for {source_name)")
 
         # Update derived metrics
         if metrics.total_requests > 0:
@@ -169,7 +168,7 @@ logger = get_logger(__name__)
 
         # Check error rate
         elif metrics.total_requests > 10:  # Need sufficient sample size
-            if metrics.error_rate > 0.5:
+        if metrics.error_rate > 0.5:
                 metrics.status = HealthStatus.CRITICAL
             elif metrics.error_rate > 0.2:
                 metrics.status = HealthStatus.UNHEALTHY
@@ -180,6 +179,11 @@ logger = get_logger(__name__)
 
         else:
             # Not enough data, check recent activity
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if metrics.last_success and (datetime.now() - metrics.last_success).seconds < 60:
                 metrics.status = HealthStatus.HEALTHY
             else:
@@ -192,8 +196,13 @@ logger = get_logger(__name__)
 
         for rule in self.failover_rules:
             # Check cooldown
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if (rule.last_triggered and
-                (current_time - rule.last_triggered).seconds < rule.cooldown_seconds):
+            (current_time - rule.last_triggered).seconds < rule.cooldown_seconds):
                 continue
 
             # Check trigger conditions
@@ -219,27 +228,37 @@ logger = get_logger(__name__)
 
     async def _apply_failover_action(self, rule: FailoverRule, source_name: str):
         """Apply failover action"""
-        self.logger.warning(f"Applying failover rule '{rule.name}' for source {source_name}")
+        self.logger.warning(f"Applying failover rule '{rule.name)' for source {source_name)")
 
         if rule.action == "switch" and source_name == self.active_source:
             # Switch to next best source
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             new_source = self._select_best_source(exclude=[source_name])
             if new_source and new_source != source_name:
                 self.active_source = new_source
-                self.logger.info(f"Switched active source from {source_name} to {new_source}")
+                self.logger.info(f"Switched active source from {source_name) to {new_source)")
 
                 # Notify callbacks
                 for callback in self.failover_callbacks:
                     try:
                         await callback(source_name, new_source, rule.name)
                     except Exception as e:
-                        self.logger.error(f"Failover callback error: {e}")
+                        self.logger.error(f"Failover callback error: {e)")
 
         elif rule.action == "disable":
             # Temporarily disable source
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if source_name in self.available_sources:
                 self.available_sources.remove(source_name)
-                self.logger.info(f"Temporarily disabled source: {source_name}")
+                self.logger.info(f"Temporarily disabled source: {source_name)")
 
     def _select_best_source(self, exclude: List[str] = None) -> Optional[str]:
         """Select the best available source based on health metrics"""
@@ -257,11 +276,16 @@ logger = get_logger(__name__)
             breaker = self.circuit_breakers.get(source_name, {})
             if breaker.get("state") == "open":
                 # Check if circuit breaker should move to half-open
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 if (breaker.get("last_failure_time") and
-                    (datetime.now() - breaker["last_failure_time"]).seconds > 60):
+                (datetime.now() - breaker["last_failure_time"]).seconds > 60):
                     breaker["state"] = "half_open"
                     breaker["success_count"] = 0
-                    self.logger.info(f"Circuit breaker half-opened for {source_name}")
+                    self.logger.info(f"Circuit breaker half-opened for {source_name)")
                 else:
                     continue  # Skip sources with open circuit breaker
 
@@ -277,8 +301,8 @@ logger = get_logger(__name__)
 
         # Prefer primary source if it's healthy
         if (self.primary_source and
-            self.primary_source in [c[0] for c in candidates[:3]] and  # Top 3
-            self.health_metrics[self.primary_source].status in [HealthStatus.HEALTHY, HealthStatus.DEGRADED]):
+        self.primary_source in [c[0] for c in candidates[:3]] and  # Top 3
+        self.health_metrics[self.primary_source].status in [HealthStatus.HEALTHY, HealthStatus.DEGRADED]):
             return self.primary_source
 
         return candidates[0][0]
@@ -289,12 +313,11 @@ logger = get_logger(__name__)
 
         # Health status weight
         status_weights = {
-            HealthStatus.HEALTHY: 100,
+        HealthStatus.HEALTHY: 100,
             HealthStatus.DEGRADED: 70,
             HealthStatus.UNHEALTHY: 30,
             HealthStatus.CRITICAL: 10,
-            HealthStatus.OFFLINE: 0
-        }
+            HealthStatus.OFFLINE: 0)
         score += status_weights.get(metrics.status, 0)
 
         # Success rate weight
@@ -323,7 +346,7 @@ logger = get_logger(__name__)
                 await self._perform_health_checks()
                 await asyncio.sleep(self.health_check_interval)
             except Exception as e:
-                self.logger.error(f"Health monitor error: {e}")
+                self.logger.error(f"Health monitor error: {e)")
 
     async def _perform_health_checks(self):
         """Perform health checks on all sources"""
@@ -331,16 +354,26 @@ logger = get_logger(__name__)
 
         for source_name, metrics in self.health_metrics.items():
             # Check for stale sources
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if (metrics.last_success and
-                (current_time - metrics.last_success).seconds > 300):  # 5 minutes
-                if metrics.status != HealthStatus.OFFLINE:
+            (current_time - metrics.last_success).seconds > 300):  # 5 minutes
+            if metrics.status != HealthStatus.OFFLINE:
                     metrics.status = HealthStatus.OFFLINE
-                    self.logger.warning(f"Source {source_name} marked as offline")
+                    self.logger.warning(f"Source {source_name) marked as offline")
 
             # Try to recover half-open circuit breakers
             breaker = self.circuit_breakers[source_name]
             if breaker["state"] == "half_open":
                 # Send test request (implementation specific)
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 pass
 
         # Notify health callbacks
@@ -348,35 +381,35 @@ logger = get_logger(__name__)
             try:
                 await callback(dict(self.health_metrics))
             except Exception as e:
-                self.logger.error(f"Health callback error: {e}")
+                self.logger.error(f"Health callback error: {e)")
 
     def _initialize_default_rules(self):
         """Initialize default failover rules"""
         self.failover_rules = [
-            FailoverRule(
-                name="high_error_rate",
-                trigger_conditions={"error_rate": 0.3},
+        FailoverRule(
+        name="high_error_rate",
+                trigger_conditions={"error_rate": 0.3),
                 action="switch",
                 priority=1,
                 cooldown_seconds=180
             ),
             FailoverRule(
-                name="consecutive_failures",
-                trigger_conditions={"consecutive_errors": 5},
+            name="consecutive_failures",
+                trigger_conditions={"consecutive_errors": 5),
                 action="switch",
                 priority=2,
                 cooldown_seconds=120
             ),
             FailoverRule(
-                name="critical_health",
+            name="critical_health",
                 trigger_conditions={"health_status": "critical"},
                 action="switch",
                 priority=3,
                 cooldown_seconds=300
             ),
             FailoverRule(
-                name="high_latency",
-                trigger_conditions={"average_latency": 5000},  # 5 seconds
+            name="high_latency",
+                trigger_conditions={"average_latency": 5000),  # 5 seconds
                 action="switch",
                 priority=4,
                 cooldown_seconds=240
@@ -402,7 +435,7 @@ logger = get_logger(__name__)
         for name, metrics in self.health_metrics.items():
             breaker = self.circuit_breakers.get(name, {})
             status[name] = {
-                "status": metrics.status.value,
+            "status": metrics.status.value,
                 "success_rate": round(metrics.success_rate, 3),
                 "error_rate": round(metrics.error_rate, 3),
                 "average_latency_ms": round(metrics.average_latency, 2),
@@ -410,8 +443,7 @@ logger = get_logger(__name__)
                 "total_requests": metrics.total_requests,
                 "circuit_breaker_state": breaker.get("state", "unknown"),
                 "last_success": metrics.last_success.isoformat() if metrics.last_success else None,
-                "last_error": metrics.last_error.isoformat() if metrics.last_error else None
-            }
+                "last_error": metrics.last_error.isoformat() if metrics.last_error else None)
 
         return status
 
@@ -421,17 +453,17 @@ logger = get_logger(__name__)
             if target_source in self.available_sources:
                 old_source = self.active_source
                 self.active_source = target_source
-                self.logger.info(f"Forced failover from {old_source} to {target_source}")
+                self.logger.info(f"Forced failover from {old_source) to {target_source)")
                 return True
             else:
-                self.logger.error(f"Cannot failover to unavailable source: {target_source}")
+                self.logger.error(f"Cannot failover to unavailable source: {target_source)")
                 return False
         else:
             new_source = self._select_best_source(exclude=[self.active_source] if self.active_source else [])
             if new_source:
                 old_source = self.active_source
                 self.active_source = new_source
-                self.logger.info(f"Forced failover from {old_source} to {new_source}")
+                self.logger.info(f"Forced failover from {old_source) to {new_source)")
                 return True
             else:
                 self.logger.error("No alternative source available for failover")

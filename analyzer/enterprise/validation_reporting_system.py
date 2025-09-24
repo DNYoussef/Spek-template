@@ -138,8 +138,19 @@ class HTMLReportGenerator:
 
     def _generate_charts_javascript(self, data: Dict) -> str:
         """Generate JavaScript for charts and visualizations."""
+        scores_chart = self._generate_scores_chart(data)
+        violations_chart = self._generate_violations_chart(data)
+        trends_chart = self._generate_trends_chart(data)
+        return f"""{scores_chart}
+
+{violations_chart}
+
+{trends_chart}
+        """
+
+    def _generate_scores_chart(self, data: Dict) -> str:
+        """Generate compliance scores doughnut chart."""
         return f"""
-        // Compliance Scores Chart
         const scoresCtx = document.getElementById('complianceScoresChart').getContext('2d');
         new Chart(scoresCtx, {{
             type: 'doughnut',
@@ -153,14 +164,14 @@ class HTMLReportGenerator:
             options: {{
                 responsive: true,
                 plugins: {{
-                    legend: {{
-                        position: 'bottom'
-                    }}
+                    legend: {{ position: 'bottom' }}
                 }}
             }}
-        }});
+        }});"""
 
-        // Violations by Severity Chart
+    def _generate_violations_chart(self, data: Dict) -> str:
+        """Generate violations by severity bar chart."""
+        return f"""
         const violationsCtx = document.getElementById('violationsSeverityChart').getContext('2d');
         new Chart(violationsCtx, {{
             type: 'bar',
@@ -175,14 +186,14 @@ class HTMLReportGenerator:
             options: {{
                 responsive: true,
                 scales: {{
-                    y: {{
-                        beginAtZero: true
-                    }}
+                    y: {{ beginAtZero: true }}
                 }}
             }}
-        }});
+        }});"""
 
-        // Compliance Trends Chart
+    def _generate_trends_chart(self, data: Dict) -> str:
+        """Generate compliance trends line chart."""
+        return f"""
         const trendsData = {json.dumps(data['compliance_trends'])};
         if (trendsData.length > 0) {{
             const trendsCtx = document.getElementById('complianceTrendsChart').getContext('2d');
@@ -204,141 +215,58 @@ class HTMLReportGenerator:
                 }},
                 options: {{
                     responsive: true,
-                    scales: {{
-                        y: {{
-                            beginAtZero: true,
-                            max: 100
-                        }}
-                    }}
+                    scales: {{ y: {{ beginAtZero: true, max: 100 }} }}
                 }}
             }});
-        }}
-        """
+        }}"""
 
     def _get_html_template(self) -> str:
         """Get HTML template for compliance report."""
+        html_header = self._get_html_header()
+        html_styles = self._get_html_styles()
+        html_body = self._get_html_body()
+        return f"{html_header}\n{html_styles}\n{html_body}"
+
+    def _get_html_header(self) -> str:
+        """Get HTML header section."""
         return """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Defense Certification Compliance Report - {project_name}</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {{
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }}
-        .container {{
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }}
-        .header {{
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }}
-        .status-badge {{
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-        }}
-        .status-certified {{ background-color: #4CAF50; }}
-        .status-conditional {{ background-color: #FF9800; }}
-        .status-remediation {{ background-color: #FF5722; }}
-        .status-non-compliant {{ background-color: #F44336; }}
-        .metrics-grid {{
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 30px;
-        }}
-        .metric-card {{
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 20px;
-            border-radius: 4px;
-        }}
-        .metric-value {{
-            font-size: 2em;
-            font-weight: bold;
-            color: #333;
-        }}
-        .metric-label {{
-            color: #666;
-            margin-top: 5px;
-        }}
-        .chart-container {{
-            padding: 30px;
-            border-top: 1px solid #eee;
-        }}
-        .chart-grid {{
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-        }}
-        .chart-box {{
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            height: 300px;
-        }}
-        .violations-table {{
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }}
-        .violations-table th,
-        .violations-table td {{
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }}
-        .violations-table th {{
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }}
-        .severity-critical {{ color: #F44336; font-weight: bold; }}
-        .severity-high {{ color: #FF5722; font-weight: bold; }}
-        .severity-medium {{ color: #FF9800; }}
-        .severity-low {{ color: #4CAF50; }}
-        .remediation-plan {{
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 4px;
-            padding: 20px;
-            margin: 20px 30px;
-        }}
-        .remediation-plan h3 {{
-            margin-top: 0;
-            color: #856404;
-        }}
-        .remediation-plan ol {{
-            margin: 0;
-            padding-left: 20px;
-        }}
-        .section {{
-            padding: 30px;
-            border-top: 1px solid #eee;
-        }}
-        .section h2 {{
-            margin-top: 0;
-            color: #333;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
-        }}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>"""
+
+    def _get_html_styles(self) -> str:
+        """Get HTML CSS styles."""
+        return """    <style>
+        body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }}
+        .container {{ max-width: 1200px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }}
+        .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }}
+        .status-badge {{ display: inline-block; padding: 8px 16px; border-radius: 20px; font-weight: bold; margin-top: 10px; }}
+        .status-certified {{ background-color: #4CAF50; }} .status-conditional {{ background-color: #FF9800; }}
+        .status-remediation {{ background-color: #FF5722; }} .status-non-compliant {{ background-color: #F44336; }}
+        .metrics-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 30px; }}
+        .metric-card {{ background: #f8f9fa; border-left: 4px solid #667eea; padding: 20px; border-radius: 4px; }}
+        .metric-value {{ font-size: 2em; font-weight: bold; color: #333; }} .metric-label {{ color: #666; margin-top: 5px; }}
+        .chart-container {{ padding: 30px; border-top: 1px solid #eee; }}
+        .chart-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; }}
+        .chart-box {{ background: #f8f9fa; padding: 20px; border-radius: 8px; height: 300px; }}
+        .violations-table {{ width: 100%; border-collapse: collapse; margin-top: 20px; }}
+        .violations-table th, .violations-table td {{ padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }}
+        .violations-table th {{ background-color: #f2f2f2; font-weight: bold; }}
+        .severity-critical {{ color: #F44336; font-weight: bold; }} .severity-high {{ color: #FF5722; font-weight: bold; }}
+        .severity-medium {{ color: #FF9800; }} .severity-low {{ color: #4CAF50; }}
+        .remediation-plan {{ background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 4px; padding: 20px; margin: 20px 30px; }}
+        .remediation-plan h3 {{ margin-top: 0; color: #856404; }} .remediation-plan ol {{ margin: 0; padding-left: 20px; }}
+        .section {{ padding: 30px; border-top: 1px solid #eee; }}
+        .section h2 {{ margin-top: 0; color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px; }}
     </style>
-</head>
-<body>
+</head>"""
+
+    def _get_html_body(self) -> str:
+        """Get HTML body section."""
+        return """<body>
     <div class="container">
         <div class="header">
             <h1>Defense Certification Compliance Report</h1>
@@ -348,86 +276,31 @@ class HTMLReportGenerator:
                 {certification_status.upper().replace('_', ' ')}
             </div>
         </div>
-
         <div class="metrics-grid">
-            <div class="metric-card">
-                <div class="metric-value">{overall_score:.1f}%</div>
-                <div class="metric-label">Overall Compliance Score</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">{nasa_score:.1f}%</div>
-                <div class="metric-label">NASA POT10 Compliance</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">{dfars_score:.1f}%</div>
-                <div class="metric-label">DFARS Compliance</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">{total_violations}</div>
-                <div class="metric-label">Total Violations</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">{auto_fixable_violations}</div>
-                <div class="metric-label">Auto-Fixable Violations</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">{total_files}</div>
-                <div class="metric-label">Files Analyzed</div>
-            </div>
+            <div class="metric-card"><div class="metric-value">{overall_score:.1f}%</div><div class="metric-label">Overall Compliance Score</div></div>
+            <div class="metric-card"><div class="metric-value">{nasa_score:.1f}%</div><div class="metric-label">NASA POT10 Compliance</div></div>
+            <div class="metric-card"><div class="metric-value">{dfars_score:.1f}%</div><div class="metric-label">DFARS Compliance</div></div>
+            <div class="metric-card"><div class="metric-value">{total_violations}</div><div class="metric-label">Total Violations</div></div>
+            <div class="metric-card"><div class="metric-value">{auto_fixable_violations}</div><div class="metric-label">Auto-Fixable Violations</div></div>
+            <div class="metric-card"><div class="metric-value">{total_files}</div><div class="metric-label">Files Analyzed</div></div>
         </div>
-
         <div class="chart-container">
             <h2>Compliance Overview</h2>
             <div class="chart-grid">
-                <div class="chart-box">
-                    <h3>Compliance Scores by Standard</h3>
-                    <canvas id="complianceScoresChart"></canvas>
-                </div>
-                <div class="chart-box">
-                    <h3>Violations by Severity</h3>
-                    <canvas id="violationsSeverityChart"></canvas>
-                </div>
+                <div class="chart-box"><h3>Compliance Scores by Standard</h3><canvas id="complianceScoresChart"></canvas></div>
+                <div class="chart-box"><h3>Violations by Severity</h3><canvas id="violationsSeverityChart"></canvas></div>
             </div>
         </div>
-
-        <div class="section">
-            <h2>Compliance Trends</h2>
-            <div class="chart-box" style="height: 400px;">
-                <canvas id="complianceTrendsChart"></canvas>
-            </div>
-        </div>
-
-        <div class="remediation-plan">
-            <h3>Remediation Plan</h3>
-            <ol>
-                {remediation_items}
-            </ol>
-        </div>
-
-        <div class="section">
-            <h2>Violation Details</h2>
+        <div class="section"><h2>Compliance Trends</h2><div class="chart-box" style="height: 400px;"><canvas id="complianceTrendsChart"></canvas></div></div>
+        <div class="remediation-plan"><h3>Remediation Plan</h3><ol>{remediation_items}</ol></div>
+        <div class="section"><h2>Violation Details</h2>
             <table class="violations-table">
-                <thead>
-                    <tr>
-                        <th>Rule</th>
-                        <th>File</th>
-                        <th>Line</th>
-                        <th>Function</th>
-                        <th>Severity</th>
-                        <th>Description</th>
-                        <th>Auto-Fix</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {violation_rows}
-                </tbody>
+                <thead><tr><th>Rule</th><th>File</th><th>Line</th><th>Function</th><th>Severity</th><th>Description</th><th>Auto-Fix</th></tr></thead>
+                <tbody>{violation_rows}</tbody>
             </table>
         </div>
     </div>
-
-    <script>
-        {charts_javascript}
-    </script>
+    <script>{charts_javascript}</script>
 </body>
 </html>"""
 
@@ -578,55 +451,11 @@ class ValidationReportingSystem:
     def generate_comprehensive_report(self, codebase_path: Path) -> Dict[str, Any]:
         """Generate comprehensive validation and compliance report."""
         logger.info("Starting comprehensive validation reporting...")
-
         start_time = datetime.now()
 
-        # Run defense certification analysis
-        cert_tool = DefenseCertificationTool(self.project_name)
-        cert_report = cert_tool.run_comprehensive_certification(codebase_path)
-
-        # Collect additional metrics
-        metrics = self._collect_validation_metrics(codebase_path, cert_report)
-        metrics.analysis_duration = (datetime.now() - start_time).total_seconds()
-
-        # Perform risk assessment
-        metrics.risk_assessments = self._perform_risk_assessment(cert_report)
-
-        # Generate reports in multiple formats
-        report_files = {}
-
-        # JSON Report
-        json_path = self.output_dir / f"{self.project_name}_compliance_report.json"
-        cert_tool.export_certification_report(cert_report, json_path)
-        report_files['json'] = json_path
-
-        # HTML Report
-        html_path = self.output_dir / f"{self.project_name}_compliance_report.html"
-        self.html_generator.generate_html_report(cert_report, metrics, html_path)
-        report_files['html'] = html_path
-
-        # PDF Report (if possible)
-        pdf_path = self.output_dir / f"{self.project_name}_compliance_report.pdf"
-        self.pdf_generator.generate_pdf_report(cert_report, metrics, pdf_path)
-        if pdf_path.exists():
-            report_files['pdf'] = pdf_path
-
-        # Update dashboard
+        cert_report, metrics = self._run_certification_analysis(codebase_path, start_time)
+        report_files = self._generate_all_report_formats(cert_report, metrics)
         self.dashboard.update_metrics(cert_report, metrics)
-
-        # Generate executive summary
-        exec_summary = self._generate_executive_summary(cert_report, metrics)
-        exec_path = self.output_dir / f"{self.project_name}_executive_summary.md"
-        with open(exec_path, 'w') as f:
-            f.write(exec_summary)
-        report_files['executive_summary'] = exec_path
-
-        # Generate CI/CD integration script
-        ci_script = self._generate_ci_integration_script(cert_report)
-        ci_path = self.output_dir / "compliance_check.sh"
-        with open(ci_path, 'w') as f:
-            f.write(ci_script)
-        report_files['ci_script'] = ci_path
 
         end_time = datetime.now()
         logger.info(f"Comprehensive reporting completed in {(end_time - start_time).total_seconds():.1f}s")
@@ -637,6 +466,44 @@ class ValidationReportingSystem:
             'report_files': report_files,
             'dashboard_data': self.dashboard.generate_dashboard_data()
         }
+
+    def _run_certification_analysis(self, codebase_path: Path, start_time: datetime):
+        """Run certification analysis and collect metrics."""
+        cert_tool = DefenseCertificationTool(self.project_name)
+        cert_report = cert_tool.run_comprehensive_certification(codebase_path)
+        metrics = self._collect_validation_metrics(codebase_path, cert_report)
+        metrics.analysis_duration = (datetime.now() - start_time).total_seconds()
+        metrics.risk_assessments = self._perform_risk_assessment(cert_report)
+        return cert_report, metrics
+
+    def _generate_all_report_formats(self, cert_report, metrics) -> Dict:
+        """Generate reports in all formats."""
+        report_files = {}
+
+        json_path = self.output_dir / f"{self.project_name}_compliance_report.json"
+        DefenseCertificationTool(self.project_name).export_certification_report(cert_report, json_path)
+        report_files['json'] = json_path
+
+        html_path = self.output_dir / f"{self.project_name}_compliance_report.html"
+        self.html_generator.generate_html_report(cert_report, metrics, html_path)
+        report_files['html'] = html_path
+
+        pdf_path = self.output_dir / f"{self.project_name}_compliance_report.pdf"
+        self.pdf_generator.generate_pdf_report(cert_report, metrics, pdf_path)
+        if pdf_path.exists():
+            report_files['pdf'] = pdf_path
+
+        exec_path = self.output_dir / f"{self.project_name}_executive_summary.md"
+        with open(exec_path, 'w') as f:
+            f.write(self._generate_executive_summary(cert_report, metrics))
+        report_files['executive_summary'] = exec_path
+
+        ci_path = self.output_dir / "compliance_check.sh"
+        with open(ci_path, 'w') as f:
+            f.write(self._generate_ci_integration_script(cert_report))
+        report_files['ci_script'] = ci_path
+
+        return report_files
 
     def _collect_validation_metrics(self, codebase_path: Path,
                                   cert_report: DefenseCertificationReport) -> ValidationMetrics:
@@ -726,12 +593,23 @@ class ValidationReportingSystem:
     def _generate_executive_summary(self, cert_report: DefenseCertificationReport,
                                    metrics: ValidationMetrics) -> str:
         """Generate executive summary in markdown format."""
+        header = self._format_summary_header(cert_report, metrics)
+        findings = self._format_key_findings(cert_report, metrics)
+        recommendations = self._format_recommendations_section(cert_report, metrics)
+        timeline = self._format_certification_timeline(cert_report)
+        return f"{header}\n\n{findings}\n\n{recommendations}\n\n{timeline}\n\n{self._format_next_steps(cert_report)}"
+
+    def _format_summary_header(self, cert_report, metrics):
+        """Format executive summary header."""
         return f"""# Executive Summary: {self.project_name} Compliance Report
 
 ## Overview
-This report presents the comprehensive compliance assessment for **{self.project_name}** against defense industry standards including NASA POT10, DFARS, NIST, and DoD requirements.
+This report presents the comprehensive compliance assessment for **{self.project_name}** against defense industry standards including NASA POT10, DFARS, NIST, and DoD requirements."""
 
-## Key Findings
+    def _format_key_findings(self, cert_report, metrics):
+        """Format key findings section."""
+        auto_fixable = len([v for v in cert_report.violations if v.auto_fixable])
+        return f"""## Key Findings
 
 ### Overall Compliance Score: {cert_report.overall_certification_score:.1f}%
 **Status:** {cert_report.certification_status.upper().replace('_', ' ')}
@@ -754,9 +632,11 @@ This report presents the comprehensive compliance assessment for **{self.project
 - **High:** {metrics.nasa_violations_by_severity.get('high', 0)}
 - **Medium:** {metrics.nasa_violations_by_severity.get('medium', 0)}
 - **Low:** {metrics.nasa_violations_by_severity.get('low', 0)}
-- **Auto-Fixable:** {len([v for v in cert_report.violations if v.auto_fixable])}
+- **Auto-Fixable:** {auto_fixable}"""
 
-## Risk Assessment
+    def _format_recommendations_section(self, cert_report, metrics):
+        """Format recommendations section."""
+        return f"""## Risk Assessment
 
 {self._format_risk_assessments(metrics.risk_assessments)}
 
@@ -769,17 +649,27 @@ This report presents the comprehensive compliance assessment for **{self.project
 {self._format_short_term_actions(cert_report)}
 
 ### Long-term Actions (6+ weeks)
-{self._format_long_term_actions(cert_report)}
+{self._format_long_term_actions(cert_report)}"""
 
-## Certification Timeline
+    def _format_certification_timeline(self, cert_report):
+        """Format certification timeline section."""
+        score = cert_report.overall_certification_score
+        timeline = []
+        if score >= 95:
+            timeline.append("- **Immediate Certification:** Possible with minor remediation")
+        elif 85 <= score < 95:
+            timeline.append("- **Conditional Certification:** 2-4 weeks with focused remediation")
+        elif score < 85:
+            timeline.append("- **Full Remediation Required:** 4-8 weeks for comprehensive fixes")
+        return f"""## Certification Timeline
 
 Based on current compliance levels, estimated certification timeline:
 
-{'- **Immediate Certification:** Possible with minor remediation' if cert_report.overall_certification_score >= 95 else ''}
-{'- **Conditional Certification:** 2-4 weeks with focused remediation' if 85 <= cert_report.overall_certification_score < 95 else ''}
-{'- **Full Remediation Required:** 4-8 weeks for comprehensive fixes' if cert_report.overall_certification_score < 85 else ''}
+{chr(10).join(timeline)}"""
 
-## Next Steps
+    def _format_next_steps(self, cert_report):
+        """Format next steps section."""
+        return f"""## Next Steps
 
 1. Review detailed compliance report for specific violations
 2. Implement automated fixes for auto-fixable violations
@@ -789,8 +679,7 @@ Based on current compliance levels, estimated certification timeline:
 
 ---
 *Report generated on {cert_report.timestamp.strftime('%Y-%m-%d at %H:%M:%S')}*
-*Compliance validation system version 1.0*
-"""
+*Compliance validation system version 1.0*"""
 
     def _format_risk_assessments(self, risks: List[RiskAssessment]) -> str:
         """Format risk assessments for markdown."""

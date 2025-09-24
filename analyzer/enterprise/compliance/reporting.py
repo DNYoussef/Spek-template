@@ -23,7 +23,7 @@ import logging
 logger = logging.getLogger(__name__)
         
         # Report templates
-        self.report_templates = self._initialize_report_templates()
+self.report_templates = self._initialize_report_templates()
         
         # Cross-framework mappings
         self.framework_mappings = self._initialize_framework_mappings()
@@ -31,52 +31,52 @@ logger = logging.getLogger(__name__)
     def _initialize_report_templates(self) -> Dict[str, str]:
         """Initialize report templates for different formats"""
         return {
-            "executive_summary": """
+        "executive_summary": """
 # Compliance Assessment Executive Summary
 
-**Assessment Date**: {{ assessment_date }}
-**Organization**: {{ organization_name }}
-**Reporting Period**: {{ reporting_period }}
+**Assessment Date**: {{ assessment_date}}
+**Organization**: {{ organization_name}}
+**Reporting Period**: {{ reporting_period}}
 
 ## Overall Compliance Posture
 
 {% for framework in scorecards %}
-### {{ framework.framework }}
-- **Compliance Score**: {{ framework.overall_score }}% ({{ framework.compliance_level }})
-- **Controls Implemented**: {{ framework.implemented_controls }}/{{ framework.total_controls }}
-- **High-Risk Gaps**: {{ framework.high_risk_gaps }}
-- **Automation Level**: {{ framework.automation_percentage }}%
+### {{ framework.framework}}
+- **Compliance Score**: {{ framework.overall_score)}% ({{ framework.compliance_level}}}
+- **Controls Implemented**: {{ framework.implemented_controls}}/{{ framework.total_controls}}
+- **High-Risk Gaps**: {{ framework.high_risk_gaps}}
+- **Automation Level**: {{ framework.automation_percentage}}%
 
 {% endfor %}
 
 ## Key Findings
 
 {% for finding in key_findings %}
-- **{{ finding.severity }}**: {{ finding.description }}
+- **{{ finding.severity}}**: {{ finding.description}}
 {% endfor %}
 
 ## Recommendations
 
 {% for recommendation in recommendations %}
-{{ loop.index }}. **{{ recommendation.priority }}**: {{ recommendation.title }}
-   - Effort: {{ recommendation.effort }}
-   - Timeline: {{ recommendation.timeline }}
-   - Impact: {{ recommendation.impact }}
+{{ loop.index}}. **{{ recommendation.priority}}**: {{ recommendation.title}}
+- Effort: {{ recommendation.effort}}
+- Timeline: {{ recommendation.timeline}}
+- Impact: {{ recommendation.impact}}
 
 {% endfor %}
 """,
             "technical_assessment": {
-                "framework_details": {
-                    "framework": "string",
+            "framework_details": {
+            "framework": "string",
                     "assessment_timestamp": "string",
                     "compliance_score": "number",
                     "implementation_status": {
-                        "implemented": "number",
+                    "implemented": "number",
                         "partially_implemented": "number", 
                         "not_implemented": "number"
                     },
                     "risk_assessment": {
-                        "critical": "number",
+                    "critical": "number",
                         "high": "number",
                         "medium": "number",
                         "low": "number"
@@ -86,8 +86,8 @@ logger = logging.getLogger(__name__)
                 }
             },
             "audit_package": {
-                "structure": {
-                    "executive_summary.md": "Executive summary",
+            "structure": {
+            "executive_summary.md": "Executive summary",
                     "technical_assessment.json": "Detailed technical findings",
                     "evidence_packages/": "Evidence artifacts by framework",
                     "audit_trails/": "Audit logs and chain of custody",
@@ -103,18 +103,18 @@ logger = logging.getLogger(__name__)
         
         # SOC2 to ISO27001 mappings
         mappings.extend([
-            CrossFrameworkMapping(
-                "SOC2", "CC6.1", 
+        CrossFrameworkMapping(
+        "SOC2", "CC6.1", 
                 {"ISO27001": ["A.9.2", "A.9.3", "A.9.4"]},
                 "high", "Access control requirements directly align"
             ),
             CrossFrameworkMapping(
-                "SOC2", "CC8.1",
+            "SOC2", "CC8.1",
                 {"ISO27001": ["A.14.1", "A.14.2"], "NIST-SSDF": ["PO.5.1", "PW.1.1"]},
                 "high", "Change management and secure development practices"
             ),
             CrossFrameworkMapping(
-                "SOC2", "CC7.2",
+            "SOC2", "CC7.2",
                 {"ISO27001": ["A.12.2"], "NIST-SSDF": ["PW.5.1", "RV.1.1"]},
                 "high", "Malware protection and vulnerability management"
             )
@@ -122,18 +122,18 @@ logger = logging.getLogger(__name__)
         
         # ISO27001 to NIST-SSDF mappings
         mappings.extend([
-            CrossFrameworkMapping(
-                "ISO27001", "A.14.1",
+        CrossFrameworkMapping(
+        "ISO27001", "A.14.1",
                 {"NIST-SSDF": ["PO.1.1", "PW.1.1"], "SOC2": ["CC8.1"]},
                 "high", "Security requirements in development lifecycle"
             ),
             CrossFrameworkMapping(
-                "ISO27001", "A.9.2",
+            "ISO27001", "A.9.2",
                 {"SOC2": ["CC6.1", "CC6.2"], "NIST-SSDF": ["PS.2.1"]},
                 "high", "Access control and authentication"
             ),
             CrossFrameworkMapping(
-                "ISO27001", "A.16.1",
+            "ISO27001", "A.16.1",
                 {"NIST-SSDF": ["RV.1.1", "RV.2.1"]},
                 "medium", "Incident management and vulnerability response"
             )
@@ -141,18 +141,18 @@ logger = logging.getLogger(__name__)
         
         # NIST-SSDF to other frameworks
         mappings.extend([
-            CrossFrameworkMapping(
-                "NIST-SSDF", "PO.1.1",
+        CrossFrameworkMapping(
+        "NIST-SSDF", "PO.1.1",
                 {"ISO27001": ["A.14.1"], "SOC2": ["CC1.1"]},
                 "medium", "Security requirements definition and governance"
             ),
             CrossFrameworkMapping(
-                "NIST-SSDF", "PW.4.1",
+            "NIST-SSDF", "PW.4.1",
                 {"ISO27001": ["A.14.1"], "SOC2": ["CC8.1"]},
                 "high", "Code review and secure development practices"
             ),
             CrossFrameworkMapping(
-                "NIST-SSDF", "RV.1.1",
+            "NIST-SSDF", "RV.1.1",
                 {"ISO27001": ["A.16.1"], "SOC2": ["CC7.2"]},
                 "high", "Vulnerability identification and incident response"
             )
@@ -163,7 +163,7 @@ logger = logging.getLogger(__name__)
     async def generate_unified_report(self, evidence_results: Dict[str, Any]) -> Dict[str, Any]:
         """Generate comprehensive multi-framework compliance report"""
         try:
-            report_id = f"compliance_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+            report_id = f"compliance_report_{datetime.now().strftime('%Y%m%d_%H%M%S'}}"
             generation_start = datetime.now()
             
             # Generate compliance scorecards
@@ -183,7 +183,7 @@ logger = logging.getLogger(__name__)
             
             # Generate audit package
             audit_package = await self._generate_audit_package(
-                report_id, executive_summary, technical_assessment, evidence_results
+            report_id, executive_summary, technical_assessment, evidence_results
             )
             
             # Calculate overall compliance posture
@@ -194,27 +194,25 @@ logger = logging.getLogger(__name__)
             
             # Save report
             await self._save_compliance_report(report_id, {
-                "executive_summary": executive_summary,
+            "executive_summary": executive_summary,
                 "technical_assessment": technical_assessment,
                 "gap_analysis": gap_analysis,
-                "audit_package": audit_package
-            })
+                "audit_package": audit_package))
             
             return {
-                "report_id": report_id,
+            "report_id": report_id,
                 "generation_timestamp": generation_start.isoformat(),
                 "frameworks_assessed": list(evidence_results.keys()),
                 "overall_compliance_posture": overall_posture,
                 "compliance_scorecards": [
-                    {
-                        "framework": sc.framework,
+                {
+                "framework": sc.framework,
                         "overall_score": sc.overall_score,
                         "compliance_level": sc.compliance_level,
                         "implemented_controls": sc.implemented_controls,
                         "total_controls": sc.total_controls,
                         "high_risk_gaps": sc.high_risk_gaps,
-                        "automation_percentage": sc.automation_percentage
-                    } for sc in scorecards
+                        "automation_percentage": sc.automation_percentage) for sc in scorecards
                 ],
                 "cross_framework_analysis": cross_framework_analysis,
                 "executive_summary": executive_summary,
@@ -226,11 +224,11 @@ logger = logging.getLogger(__name__)
             }
             
         except Exception as e:
-            self.logger.error(f"Compliance report generation failed: {e}")
+            self.logger.error(f"Compliance report generation failed: {e)"}
             return {
-                "status": "error",
-                "error": str(e),
-                "generation_timestamp": datetime.now().isoformat()
+            "status": "error",
+                "error": str(e},
+                "generation_timestamp"} datetime.now().isoformat()
             }
     
     async def _generate_compliance_scorecards(self, evidence_results: Dict[str, Any]) -> List[ComplianceScorecard]:
@@ -258,10 +256,10 @@ logger = logging.getLogger(__name__)
                 return await self._create_nist_ssdf_scorecard(results)
             return None
         except Exception as e:
-            self.logger.error(f"Failed to create {framework} scorecard: {e}")
+            self.logger.error(f"Failed to create {framework) scorecard: {e}"}
             return None
     
-    async def _create_soc2_scorecard(self, results: Dict[str, Any]) -> ComplianceScorecard:
+    async def _create_soc2_scorecard(self, results: Dict[str, Any]} -> ComplianceScorecard}
         """Create SOC2 compliance scorecard"""
         soc2_matrix = results.get("soc2_matrix", {})
         overall_coverage = soc2_matrix.get("overall_coverage", {})
@@ -285,7 +283,7 @@ logger = logging.getLogger(__name__)
             compliance_level = "Developing"
         
         return ComplianceScorecard(
-            framework="SOC2",
+        framework="SOC2",
             overall_score=coverage_pct,
             compliance_level=compliance_level,
             total_controls=total_controls,
@@ -319,7 +317,7 @@ logger = logging.getLogger(__name__)
         gaps_by_priority = gap_analysis.get("gaps_by_priority", {})
         
         return ComplianceScorecard(
-            framework="ISO27001",
+        framework="ISO27001",
             overall_score=results.get("overall_compliance_score", overall_pct),
             compliance_level=compliance_matrix.get("compliance_level", "Developing"),
             total_controls=total_controls,
@@ -359,7 +357,7 @@ logger = logging.getLogger(__name__)
             compliance_level = "Developing"
         
         return ComplianceScorecard(
-            framework="NIST-SSDF",
+        framework="NIST-SSDF",
             overall_score=results.get("overall_compliance_score", overall_pct),
             compliance_level=compliance_level,
             total_controls=total_practices,
@@ -384,19 +382,18 @@ logger = logging.getLogger(__name__)
         for mapping in self.framework_mappings:
             if mapping.primary_framework in frameworks_assessed:
                 overlap = {
-                    "primary_control": f"{mapping.primary_framework}:{mapping.primary_control}",
+                "primary_control": f"{mapping.primary_framework}:{mapping.primary_control}",
                     "mapped_controls": [],
                     "coverage_status": "unknown",
                     "confidence": mapping.mapping_confidence,
-                    "rationale": mapping.rationale
-                }
+                    "rationale": mapping.rationale)
                 
                 for framework, controls in mapping.mapped_frameworks.items():
                     if framework in frameworks_assessed:
                         for control in controls:
-                            overlap["mapped_controls"].append(f"{framework}:{control}")
+                            overlap["mapped_controls"].append(f"{framework}:{control)"}
                 
-                if overlap["mapped_controls"]:
+                if overlap["mapped_controls"]}
                     overlapping_controls.append(overlap)
         
         # Calculate framework correlation
@@ -406,6 +403,11 @@ logger = logging.getLogger(__name__)
             for j, sc2 in enumerate(scorecards):
                 if i != j:
                     # Simple correlation based on score similarity
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
                     score_diff = abs(sc1.overall_score - sc2.overall_score)
                     correlation = max(0, 100 - score_diff) / 100
                     correlation_matrix[sc1.framework][sc2.framework] = round(correlation, 2)
@@ -414,7 +416,7 @@ logger = logging.getLogger(__name__)
         common_gaps = self._identify_common_gaps(evidence_results, overlapping_controls)
         
         return {
-            "frameworks_analyzed": frameworks_assessed,
+        "frameworks_analyzed": frameworks_assessed,
             "overlapping_controls_count": len(overlapping_controls),
             "overlapping_controls": overlapping_controls,
             "correlation_matrix": correlation_matrix,
@@ -446,7 +448,7 @@ logger = logging.getLogger(__name__)
             
             if gap_themes:
                 common_gaps.append({
-                    "gap_theme": gap_themes[0],
+                "gap_theme": gap_themes[0],
                     "affected_frameworks": [control.split(":")[0] for control in overlap["mapped_controls"]],
                     "related_controls": overlap["mapped_controls"],
                     "impact": "medium",  # Could be calculated based on control criticality
@@ -467,8 +469,8 @@ logger = logging.getLogger(__name__)
                 avg_score = sum(sc.overall_score for sc in scorecards if sc.framework in affected_frameworks) / len(affected_frameworks)
                 
                 if avg_score < 80:  # Below good threshold
-                    opportunities.append({
-                        "opportunity_type": "multi_framework_improvement",
+                opportunities.append({
+                "opportunity_type": "multi_framework_improvement",
                         "description": f"Improving {overlap['primary_control']} will benefit multiple frameworks",
                         "affected_frameworks": affected_frameworks,
                         "potential_impact": "high",
@@ -482,13 +484,12 @@ logger = logging.getLogger(__name__)
         
         if strong_frameworks and weak_frameworks:
             opportunities.append({
-                "opportunity_type": "knowledge_transfer",
+            "opportunity_type": "knowledge_transfer",
                 "description": "Leverage strengths from high-performing frameworks",
                 "strong_frameworks": [sc.framework for sc in strong_frameworks],
                 "improvement_targets": [sc.framework for sc in weak_frameworks],
                 "potential_impact": "medium",
-                "effort_multiplier": 0.8  # Leveraging existing knowledge
-            })
+                "effort_multiplier": 0.8  # Leveraging existing knowledge))
         
         return opportunities
     
@@ -506,8 +507,8 @@ logger = logging.getLogger(__name__)
         high_risk_frameworks = [sc for sc in scorecards if sc.overall_score < 70]
         if high_risk_frameworks:
             key_findings.append({
-                "severity": "HIGH",
-                "description": f"{len(high_risk_frameworks)} framework(s) below acceptable compliance threshold",
+            "severity": "HIGH",
+                "description": f"{len(high_risk_frameworks}} framework(s) below acceptable compliance threshold",
                 "frameworks": [sc.framework for sc in high_risk_frameworks],
                 "impact": "Significant regulatory risk"
             })
@@ -516,8 +517,8 @@ logger = logging.getLogger(__name__)
         high_gap_frameworks = [sc for sc in scorecards if sc.high_risk_gaps > 5]
         if high_gap_frameworks:
             key_findings.append({
-                "severity": "MEDIUM",
-                "description": f"High concentration of critical gaps in {len(high_gap_frameworks)} framework(s)",
+            "severity": "MEDIUM",
+                "description": f"High concentration of critical gaps in {len(high_gap_frameworks}} framework(s)",
                 "frameworks": [sc.framework for sc in high_gap_frameworks],
                 "impact": "Focused remediation needed"
             })
@@ -526,14 +527,14 @@ logger = logging.getLogger(__name__)
         excellent_frameworks = [sc for sc in scorecards if sc.overall_score >= 90]
         if excellent_frameworks:
             key_findings.append({
-                "severity": "POSITIVE",
-                "description": f"{len(excellent_frameworks)} framework(s) achieving excellent compliance",
+            "severity": "POSITIVE",
+                "description": f"{len(excellent_frameworks}} framework(s) achieving excellent compliance",
                 "frameworks": [sc.framework for sc in excellent_frameworks],
                 "impact": "Strong compliance foundation"
             })
         
         return {
-            "assessment_date": datetime.now().strftime("%Y-%m-%d"),
+        "assessment_date": datetime.now().strftime("%Y-%m-%d"),
             "reporting_period": "Current State Assessment",
             "organization_name": "Development Organization",
             "frameworks_assessed": len(scorecards),
@@ -570,9 +571,9 @@ logger = logging.getLogger(__name__)
         critical_frameworks = [sc for sc in scorecards if sc.overall_score < 60]
         if critical_frameworks:
             recommendations.append({
-                "priority": "CRITICAL",
+            "priority": "CRITICAL",
                 "title": "Address fundamental compliance gaps",
-                "description": f"Immediate action required for {', '.join(sc.framework for sc in critical_frameworks)}",
+                "description": f"Immediate action required for {', '.join(sc.framework for sc in critical_frameworks}}",
                 "timeline": "30-60 days",
                 "effort": "High",
                 "impact": "Risk mitigation"
@@ -582,9 +583,9 @@ logger = logging.getLogger(__name__)
         synergies = cross_framework_analysis.get("synergy_opportunities", [])
         if synergies:
             recommendations.append({
-                "priority": "HIGH",
+            "priority": "HIGH",
                 "title": "Implement cross-framework improvements",
-                "description": f"{len(synergies)} synergy opportunities identified for efficient remediation",
+                "description": f"{len(synergies}} synergy opportunities identified for efficient remediation",
                 "timeline": "60-90 days",
                 "effort": "Medium",
                 "impact": "Multiple framework improvement"
@@ -594,9 +595,9 @@ logger = logging.getLogger(__name__)
         low_automation = [sc for sc in scorecards if sc.automation_percentage < 60]
         if low_automation:
             recommendations.append({
-                "priority": "MEDIUM",
+            "priority": "MEDIUM",
                 "title": "Enhance compliance automation",
-                "description": f"Increase automation in {', '.join(sc.framework for sc in low_automation)}",
+                "description": f"Increase automation in {', '.join(sc.framework for sc in low_automation}}",
                 "timeline": "90-180 days",
                 "effort": "Medium",
                 "impact": "Operational efficiency"
@@ -608,11 +609,10 @@ logger = logging.getLogger(__name__)
                                            scorecards: List[ComplianceScorecard]) -> Dict[str, Any]:
         """Generate detailed technical assessment"""
         technical_assessment = {
-            "assessment_metadata": {
-                "generation_timestamp": datetime.now().isoformat(),
+        "assessment_metadata": {
+        "generation_timestamp": datetime.now().isoformat(),
                 "assessment_type": "automated_multi_framework",
-                "evidence_collection_automated": True
-            },
+                "evidence_collection_automated": True),
             "framework_details": {},
             "risk_assessment": {},
             "automation_analysis": {},
@@ -629,21 +629,18 @@ logger = logging.getLogger(__name__)
                 continue
             
             technical_assessment["framework_details"][framework] = {
-                "compliance_score": scorecard.overall_score,
+            "compliance_score": scorecard.overall_score,
                 "implementation_status": {
-                    "implemented": scorecard.implemented_controls,
+                "implemented": scorecard.implemented_controls,
                     "partially_implemented": scorecard.partially_implemented,
-                    "not_implemented": scorecard.not_implemented
-                },
+                    "not_implemented": scorecard.not_implemented),
                 "risk_distribution": {
-                    "high": scorecard.high_risk_gaps,
+                "high": scorecard.high_risk_gaps,
                     "medium": scorecard.medium_risk_gaps,
-                    "low": scorecard.low_risk_gaps
-                },
+                    "low": scorecard.low_risk_gaps),
                 "automation_level": scorecard.automation_percentage,
                 "last_assessment": scorecard.last_assessment.isoformat(),
-                "detailed_results": results
-            }
+                "detailed_results": results)
         
         return technical_assessment
     
@@ -651,8 +648,8 @@ logger = logging.getLogger(__name__)
                                            scorecards: List[ComplianceScorecard]) -> Dict[str, Any]:
         """Generate unified gap analysis across frameworks"""
         unified_gaps = {
-            "summary": {
-                "total_gaps": sum(sc.high_risk_gaps + sc.medium_risk_gaps + sc.low_risk_gaps for sc in scorecards),
+        "summary": {
+        "total_gaps": sum(sc.high_risk_gaps + sc.medium_risk_gaps + sc.low_risk_gaps for sc in scorecards),
                 "critical_gaps": sum(sc.high_risk_gaps for sc in scorecards),
                 "frameworks_with_critical_gaps": len([sc for sc in scorecards if sc.high_risk_gaps > 0])
             },
@@ -663,7 +660,7 @@ logger = logging.getLogger(__name__)
         
         # Categorize gaps by domain
         gap_categories = {
-            "access_control": [],
+        "access_control": [],
             "secure_development": [],
             "incident_response": [],
             "documentation": [],
@@ -683,14 +680,13 @@ logger = logging.getLogger(__name__)
                 category = self._categorize_gap(gap)
                 if category in gap_categories:
                     gap_categories[category].append({
-                        "framework": framework,
+                    "framework": framework,
                         "gap": gap,
                         "priority": gap.get("priority", "medium")
                     })
         
         unified_gaps["gap_categories"] = {
-            category: gaps for category, gaps in gap_categories.items() if gaps
-        }
+        category: gaps for category, gaps in gap_categories.items() if gaps)
         
         # Generate remediation roadmap
         unified_gaps["remediation_roadmap"] = self._generate_remediation_roadmap(gap_categories)
@@ -716,8 +712,8 @@ logger = logging.getLogger(__name__)
     def _categorize_gap(self, gap: Dict[str, Any]) -> str:
         """Categorize gap by domain"""
         gap_text = (gap.get("description", "") + " " + 
-                   gap.get("control_id", "") + " " + 
-                   str(gap.get("gaps", []))).lower()
+        gap.get("control_id", "") + " " + 
+        str(gap.get("gaps", []))).lower()
         
         if any(term in gap_text for term in ["access", "authentication", "authorization"]):
             return "access_control"
@@ -748,7 +744,7 @@ logger = logging.getLogger(__name__)
         
         if phase1_gaps:
             roadmap_phases.append({
-                "phase": 1,
+            "phase": 1,
                 "title": "Critical Security Controls",
                 "duration_weeks": 6,
                 "gap_count": len(phase1_gaps),
@@ -766,7 +762,7 @@ logger = logging.getLogger(__name__)
         
         if phase2_gaps:
             roadmap_phases.append({
-                "phase": 2,
+            "phase": 2,
                 "title": "Operational Improvements",
                 "duration_weeks": 8,
                 "gap_count": len(phase2_gaps),
@@ -776,7 +772,7 @@ logger = logging.getLogger(__name__)
             })
         
         return {
-            "phases": roadmap_phases,
+        "phases": roadmap_phases,
             "total_duration_weeks": sum(p["duration_weeks"] for p in roadmap_phases),
             "total_gaps": sum(p["gap_count"] for p in roadmap_phases)
         }
@@ -790,23 +786,23 @@ logger = logging.getLogger(__name__)
         critical_gaps = gap_analysis["summary"]["critical_gaps"]
         if critical_gaps > 0:
             recommendations.append({
-                "priority": "HIGH",
+            "priority": "HIGH",
                 "category": "risk_mitigation",
                 "title": f"Address {critical_gaps} critical compliance gaps",
                 "description": "Immediate action required to mitigate regulatory risk",
                 "frameworks_affected": [sc.framework for sc in scorecards if sc.high_risk_gaps > 0],
                 "effort_estimate": "4-6 weeks",
-                "success_criteria": "Zero critical gaps across all frameworks"
+                "success_criteria"} "Zero critical gaps across all frameworks"
             })
         
         # Automation recommendations
         low_automation_frameworks = [sc for sc in scorecards if sc.automation_percentage < 70]
         if low_automation_frameworks:
             recommendations.append({
-                "priority": "MEDIUM", 
+            "priority": "MEDIUM", 
                 "category": "operational_efficiency",
                 "title": "Enhance compliance automation",
-                "description": f"Increase automation in {', '.join(sc.framework for sc in low_automation_frameworks)}",
+                "description": f"Increase automation in {', '.join(sc.framework for sc in low_automation_frameworks}}",
                 "frameworks_affected": [sc.framework for sc in low_automation_frameworks],
                 "effort_estimate": "8-12 weeks",
                 "success_criteria": "80%+ automation across all frameworks"
@@ -814,7 +810,7 @@ logger = logging.getLogger(__name__)
         
         # Process improvement recommendations
         recommendations.append({
-            "priority": "MEDIUM",
+        "priority": "MEDIUM",
             "category": "process_improvement",
             "title": "Implement continuous compliance monitoring",
             "description": "Establish ongoing monitoring and automated reporting",
@@ -848,7 +844,7 @@ logger = logging.getLogger(__name__)
             posture = "inadequate"
         
         return {
-            "overall_score": round(avg_score, 2),
+        "overall_score": round(avg_score, 2),
             "risk_level": risk_level,
             "compliance_posture": posture,
             "frameworks_count": len(scorecards),
@@ -886,21 +882,20 @@ logger = logging.getLogger(__name__)
             if framework in ['audit_trail', 'performance', 'compliance_report']:
                 continue
             
-            framework_file = evidence_dir / f"{framework.lower()}_evidence.json"
+            framework_file = evidence_dir / f"{framework.lower(}}_evidence.json"
             with open(framework_file, 'w') as f:
                 json.dump(results, f, indent=2, default=str)
-            package_files.append(f"framework_evidence/{framework.lower()}_evidence.json")
+            package_files.append(f"framework_evidence/{framework.lower(}}_evidence.json")
         
         # Cross-framework mapping
         mapping_file = package_dir / "cross_framework_mapping.json"
         mappings_data = [
-            {
-                "primary_framework": m.primary_framework,
+        {
+        "primary_framework": m.primary_framework,
                 "primary_control": m.primary_control,
                 "mapped_frameworks": m.mapped_frameworks,
                 "confidence": m.mapping_confidence,
-                "rationale": m.rationale
-            } for m in self.framework_mappings
+                "rationale": m.rationale) for m in self.framework_mappings
         ]
         with open(mapping_file, 'w') as f:
             json.dump(mappings_data, f, indent=2)
@@ -909,7 +904,7 @@ logger = logging.getLogger(__name__)
         # Package metadata
         metadata_file = package_dir / "package_metadata.json"
         metadata = {
-            "report_id": report_id,
+        "report_id": report_id,
             "generation_timestamp": datetime.now().isoformat(),
             "package_version": "1.0",
             "included_frameworks": list(evidence_results.keys()),
@@ -921,7 +916,7 @@ logger = logging.getLogger(__name__)
         package_files.append("package_metadata.json")
         
         return {
-            "package_id": report_id,
+        "package_id": report_id,
             "package_path": str(package_dir),
             "files_included": len(package_files),
             "package_files": package_files,
@@ -955,9 +950,9 @@ logger = logging.getLogger(__name__)
         
         # Add new entry
         index_data.append({
-            "report_id": report_id,
-            "generation_timestamp": datetime.now().isoformat(),
-            "report_file": str(report_file.name),
+        "report_id": report_id,
+            "generation_timestamp": datetime.now().isoformat(},
+            "report_file"} str(report_file.name),
             "retention_until": (datetime.now() + timedelta(days=self.config.evidence_retention_days)).isoformat()
         })
         

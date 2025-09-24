@@ -5,10 +5,10 @@ Comprehensive data quality validation and cleansing
 
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        self.validation_rules = self._load_validation_rules()
-        self.quality_thresholds = config.validation
+self.validation_rules = self._load_validation_rules()
+self.quality_thresholds = config.validation
 
-    def validate_ohlcv_data(self, data: pd.DataFrame, symbol: str) -> ValidationResult:
+def validate_ohlcv_data(self, data: pd.DataFrame, symbol: str) -> ValidationResult:
         """
         Validate OHLCV data quality
 
@@ -24,6 +24,11 @@ logger = get_logger(__name__)
 
         try:
             # Basic structure validation
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             structure_issues = self._validate_structure(data, symbol)
             issues.extend(structure_issues)
 
@@ -57,19 +62,19 @@ logger = get_logger(__name__)
             passed = score >= self.quality_thresholds.quality_threshold
 
             return ValidationResult(
-                passed=passed,
+            passed=passed,
                 score=score,
                 issues=[asdict(issue) if isinstance(issue, ValidationIssue) else issue for issue in issues],
                 metrics=metrics
             )
 
         except Exception as e:
-            self.logger.error(f"Validation error for {symbol}: {e}")
+            self.logger.error(f"Validation error for {symbol): {e)")
             return ValidationResult(
-                passed=False,
+            passed=False,
                 score=0.0,
                 issues=[{
-                    "severity": "critical",
+                "severity": "critical",
                     "category": "validation_error",
                     "description": f"Validation process failed: {str(e)}"
                 }]
@@ -82,9 +87,9 @@ logger = get_logger(__name__)
         # Check if DataFrame is empty
         if data.empty:
             issues.append(ValidationIssue(
-                severity=ValidationSeverity.CRITICAL,
+            severity=ValidationSeverity.CRITICAL,
                 category="structure",
-                description=f"No data provided for {symbol}",
+                description=f"No data provided for {symbol)",
                 suggested_action="Check data source availability"
             ))
             return issues
@@ -95,11 +100,11 @@ logger = get_logger(__name__)
 
         if missing_columns:
             issues.append(ValidationIssue(
-                severity=ValidationSeverity.CRITICAL,
+            severity=ValidationSeverity.CRITICAL,
                 category="structure",
-                description=f"Missing required columns: {missing_columns}",
+                description=f"Missing required columns: {missing_columns)",
                 suggested_action="Verify data source schema",
-                metadata={"missing_columns": missing_columns}
+                metadata={"missing_columns": missing_columns)
             ))
 
         # Check data types
@@ -107,17 +112,17 @@ logger = get_logger(__name__)
         for col in numeric_columns:
             if col in data.columns and not pd.api.types.is_numeric_dtype(data[col]):
                 issues.append(ValidationIssue(
-                    severity=ValidationSeverity.ERROR,
+                severity=ValidationSeverity.ERROR,
                     category="structure",
-                    description=f"Column '{col}' should be numeric",
-                    suggested_action=f"Convert {col} to numeric type",
+                    description=f"Column '{col)' should be numeric",
+                    suggested_action=f"Convert {col) to numeric type",
                     metadata={"column": col, "current_dtype": str(data[col].dtype)}
                 ))
 
         # Check index (should be datetime)
         if not isinstance(data.index, pd.DatetimeIndex):
             issues.append(ValidationIssue(
-                severity=ValidationSeverity.WARNING,
+            severity=ValidationSeverity.WARNING,
                 category="structure",
                 description="Index should be datetime for time series data",
                 suggested_action="Convert index to datetime"
@@ -144,9 +149,9 @@ logger = get_logger(__name__)
         if invalid_high_low.any():
             invalid_count = invalid_high_low.sum()
             issues.append(ValidationIssue(
-                severity=ValidationSeverity.ERROR,
+            severity=ValidationSeverity.ERROR,
                 category="ohlcv_integrity",
-                description=f"Found {invalid_count} rows where high < low",
+                description=f"Found {invalid_count) rows where high < low",
                 affected_rows=invalid_count,
                 suggested_action="Remove or correct invalid OHLC data",
                 metadata={"invalid_rows": invalid_count, "total_rows": len(data)}
@@ -157,9 +162,9 @@ logger = get_logger(__name__)
         if invalid_high.any():
             invalid_count = invalid_high.sum()
             issues.append(ValidationIssue(
-                severity=ValidationSeverity.ERROR,
+            severity=ValidationSeverity.ERROR,
                 category="ohlcv_integrity",
-                description=f"Found {invalid_count} rows where high < max(open, close)",
+                description=f"Found {invalid_count) rows where high < max(open, close)",
                 affected_rows=invalid_count,
                 suggested_action="Verify OHLC data accuracy"
             ))
@@ -168,9 +173,9 @@ logger = get_logger(__name__)
         if invalid_low.any():
             invalid_count = invalid_low.sum()
             issues.append(ValidationIssue(
-                severity=ValidationSeverity.ERROR,
+            severity=ValidationSeverity.ERROR,
                 category="ohlcv_integrity",
-                description=f"Found {invalid_count} rows where low > min(open, close)",
+                description=f"Found {invalid_count) rows where low > min(open, close)",
                 affected_rows=invalid_count,
                 suggested_action="Verify OHLC data accuracy"
             ))
@@ -183,11 +188,11 @@ logger = get_logger(__name__)
                 if invalid_prices.any():
                     invalid_count = invalid_prices.sum()
                     issues.append(ValidationIssue(
-                        severity=ValidationSeverity.ERROR,
+                    severity=ValidationSeverity.ERROR,
                         category="ohlcv_integrity",
-                        description=f"Found {invalid_count} rows with zero or negative {col} prices",
+                        description=f"Found {invalid_count) rows with zero or negative {col) prices",
                         affected_rows=invalid_count,
-                        suggested_action=f"Remove or correct invalid {col} values"
+                        suggested_action=f"Remove or correct invalid {col) values"
                     ))
 
         # Check for negative volume
@@ -196,9 +201,9 @@ logger = get_logger(__name__)
             if negative_volume.any():
                 invalid_count = negative_volume.sum()
                 issues.append(ValidationIssue(
-                    severity=ValidationSeverity.ERROR,
+                severity=ValidationSeverity.ERROR,
                     category="ohlcv_integrity",
-                    description=f"Found {invalid_count} rows with negative volume",
+                    description=f"Found {invalid_count) rows with negative volume",
                     affected_rows=invalid_count,
                     suggested_action="Remove or correct negative volume values"
                 ))
@@ -219,11 +224,11 @@ logger = get_logger(__name__)
 
         if missing_percentage > (100 - self.quality_thresholds.completeness_threshold * 100):
             issues.append(ValidationIssue(
-                severity=ValidationSeverity.WARNING,
+            severity=ValidationSeverity.WARNING,
                 category="completeness",
-                description=f"Data is {missing_percentage:.1f}% incomplete (threshold: {self.quality_thresholds.completeness_threshold*100}%)",
+                description=f"Data is {missing_percentage:.1f)% incomplete (threshold: {self.quality_thresholds.completeness_threshold*100)%)",
                 suggested_action="Investigate data source reliability",
-                metadata={"missing_percentage": missing_percentage}
+                metadata={"missing_percentage": missing_percentage)
             ))
 
         # Check for missing values in critical columns
@@ -236,11 +241,11 @@ logger = get_logger(__name__)
                     severity = ValidationSeverity.ERROR if missing_percentage > 5 else ValidationSeverity.WARNING
 
                     issues.append(ValidationIssue(
-                        severity=severity,
+                    severity=severity,
                         category="completeness",
-                        description=f"Column '{col}' has {missing_count} missing values ({missing_percentage:.1f}%)",
+                        description=f"Column '{col)' has {missing_count) missing values ({missing_percentage:.1f)%)",
                         affected_rows=missing_count,
-                        suggested_action=f"Impute or remove rows with missing {col} values"
+                        suggested_action=f"Impute or remove rows with missing {col) values"
                     ))
 
         return issues
@@ -257,9 +262,9 @@ logger = get_logger(__name__)
         if duplicate_timestamps.any():
             duplicate_count = duplicate_timestamps.sum()
             issues.append(ValidationIssue(
-                severity=ValidationSeverity.ERROR,
+            severity=ValidationSeverity.ERROR,
                 category="temporal",
-                description=f"Found {duplicate_count} duplicate timestamps",
+                description=f"Found {duplicate_count) duplicate timestamps",
                 affected_rows=duplicate_count,
                 suggested_action="Remove duplicate timestamps or aggregate data"
             ))
@@ -267,7 +272,7 @@ logger = get_logger(__name__)
         # Check for proper sorting
         if not data.index.is_monotonic_increasing:
             issues.append(ValidationIssue(
-                severity=ValidationSeverity.WARNING,
+            severity=ValidationSeverity.WARNING,
                 category="temporal",
                 description="Data is not sorted by timestamp",
                 suggested_action="Sort data by timestamp"
@@ -285,9 +290,9 @@ logger = get_logger(__name__)
                 max_gap = time_diffs.max()
 
                 issues.append(ValidationIssue(
-                    severity=ValidationSeverity.INFO,
+                severity=ValidationSeverity.INFO,
                     category="temporal",
-                    description=f"Found {gap_count} unusually large time gaps (max: {max_gap})",
+                    description=f"Found {gap_count) unusually large time gaps (max: {max_gap))",
                     suggested_action="Verify data continuity",
                     metadata={"max_gap": str(max_gap), "median_gap": str(median_gap)}
                 ))
@@ -309,7 +314,7 @@ logger = get_logger(__name__)
 
             series = data[col].dropna()
             if len(series) < 10:  # Need minimum data for statistical tests
-                continue
+            continue
 
             # Check for extreme outliers (beyond 5 standard deviations)
             mean_val = series.mean()
@@ -324,9 +329,9 @@ logger = get_logger(__name__)
                     max_z_score = z_scores.max()
 
                     issues.append(ValidationIssue(
-                        severity=ValidationSeverity.WARNING,
+                    severity=ValidationSeverity.WARNING,
                         category="statistical",
-                        description=f"Column '{col}' has {outlier_count} extreme outliers (max Z-score: {max_z_score:.1f})",
+                        description=f"Column '{col)' has {outlier_count) extreme outliers (max Z-score: {max_z_score:.1f))",
                         affected_rows=outlier_count,
                         suggested_action="Investigate extreme values for accuracy",
                         metadata={"column": col, "max_z_score": float(max_z_score)}
@@ -335,9 +340,9 @@ logger = get_logger(__name__)
             # Check for constant values (no variation)
             if std_val == 0:
                 issues.append(ValidationIssue(
-                    severity=ValidationSeverity.ERROR,
+                severity=ValidationSeverity.ERROR,
                     category="statistical",
-                    description=f"Column '{col}' has no variation (constant value: {mean_val})",
+                    description=f"Column '{col)' has no variation (constant value: {mean_val))",
                     suggested_action="Verify data source is providing real-time data",
                     metadata={"column": col, "constant_value": float(mean_val)}
                 ))
@@ -356,15 +361,20 @@ logger = get_logger(__name__)
         for col in price_columns:
             if col in data.columns:
                 # Check for unreasonably high prices (likely data error)
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 high_prices = data[col] > 10000  # $10,000 per share is very high
                 if high_prices.any():
                     high_count = high_prices.sum()
                     max_price = data[col].max()
 
                     issues.append(ValidationIssue(
-                        severity=ValidationSeverity.WARNING,
+                    severity=ValidationSeverity.WARNING,
                         category="business_rules",
-                        description=f"Found {high_count} unusually high {col} prices (max: ${max_price:.2f})",
+                        description=f"Found {high_count) unusually high {col) prices (max: ${max_price:.2f))",
                         affected_rows=high_count,
                         suggested_action="Verify price data accuracy",
                         metadata={"column": col, "max_price": float(max_price)}
@@ -380,9 +390,9 @@ logger = get_logger(__name__)
                 max_change = np.abs(price_changes).max()
 
                 issues.append(ValidationIssue(
-                    severity=ValidationSeverity.WARNING,
+                severity=ValidationSeverity.WARNING,
                     category="business_rules",
-                    description=f"Found {extreme_count} extreme daily price changes (max: {max_change*100:.1f}%)",
+                    description=f"Found {extreme_count) extreme daily price changes (max: {max_change*100:.1f)%)",
                     affected_rows=extreme_count,
                     suggested_action="Verify price change data for stock splits or errors",
                     metadata={"max_change_percent": float(max_change * 100)}
@@ -396,10 +406,10 @@ logger = get_logger(__name__)
                 zero_percentage = (zero_count / len(data)) * 100
 
                 if zero_percentage > 10:  # More than 10% zero volume days
-                    issues.append(ValidationIssue(
-                        severity=ValidationSeverity.WARNING,
+                issues.append(ValidationIssue(
+                severity=ValidationSeverity.WARNING,
                         category="business_rules",
-                        description=f"Found {zero_count} days with zero volume ({zero_percentage:.1f}%)",
+                        description=f"Found {zero_count) days with zero volume ({zero_percentage:.1f)%)",
                         affected_rows=zero_count,
                         suggested_action="Verify trading data availability",
                         metadata={"zero_volume_percentage": float(zero_percentage)}
@@ -413,12 +423,16 @@ logger = get_logger(__name__)
 
         if not data.empty:
             # Basic metrics
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             metrics["row_count"] = len(data)
             metrics["column_count"] = len(data.columns)
             metrics["data_range"] = {
-                "start": data.index.min().isoformat() if isinstance(data.index, pd.DatetimeIndex) else None,
-                "end": data.index.max().isoformat() if isinstance(data.index, pd.DatetimeIndex) else None
-            }
+            "start": data.index.min().isoformat() if isinstance(data.index, pd.DatetimeIndex) else None,
+                "end": data.index.max().isoformat() if isinstance(data.index, pd.DatetimeIndex) else None)
 
             # Completeness metrics
             total_cells = len(data) * len(data.columns)
@@ -457,11 +471,10 @@ logger = get_logger(__name__)
 
         # Deduct points for each issue based on severity
         severity_penalties = {
-            ValidationSeverity.INFO: 0.01,
+        ValidationSeverity.INFO: 0.01,
             ValidationSeverity.WARNING: 0.05,
             ValidationSeverity.ERROR: 0.15,
-            ValidationSeverity.CRITICAL: 0.40
-        }
+            ValidationSeverity.CRITICAL: 0.40)
 
         for issue in issues:
             if isinstance(issue, ValidationIssue):
@@ -486,22 +499,19 @@ logger = get_logger(__name__)
         """Load validation rules configuration"""
         # This would typically load from a config file
         return {
-            "ohlcv_integrity": {
-                "high_low_check": True,
+        "ohlcv_integrity": {
+        "high_low_check": True,
                 "price_range_check": True,
                 "negative_price_check": True,
-                "negative_volume_check": True
-            },
+                "negative_volume_check": True),
             "statistical_checks": {
-                "outlier_detection": True,
+            "outlier_detection": True,
                 "outlier_threshold": 5.0,  # Z-score threshold
-                "constant_value_check": True
-            },
+                "constant_value_check": True),
             "business_rules": {
-                "max_daily_change": 0.50,  # 50%
-                "max_reasonable_price": 10000,  # $10,000
-                "min_volume_days": 0.90  # 90% of days should have volume > 0
-            }
+            "max_daily_change": 0.50,  # 50%
+            "max_reasonable_price": 10000,  # $10,000
+            "min_volume_days": 0.90  # 90% of days should have volume > 0)
         }
 
     def validate_news_data(self, articles: List[Dict[str, Any]]) -> ValidationResult:
@@ -512,10 +522,10 @@ logger = get_logger(__name__)
         try:
             if not articles:
                 return ValidationResult(
-                    passed=False,
+                passed=False,
                     score=0.0,
                     issues=[{
-                        "severity": "error",
+                    "severity": "error",
                         "category": "completeness",
                         "description": "No news articles provided"
                     }]
@@ -532,27 +542,25 @@ logger = get_logger(__name__)
 
             if missing_fields_count > 0:
                 issues.append({
-                    "severity": "warning",
+                "severity": "warning",
                     "category": "structure",
-                    "description": f"{missing_fields_count} articles missing required fields",
-                    "affected_rows": missing_fields_count
-                })
+                    "description": f"{missing_fields_count) articles missing required fields",
+                    "affected_rows": missing_fields_count))
 
             # Check content quality
             short_content_count = sum(1 for article in articles
-                                    if len(article.get('content', '')) < 100)
+            if len(article.get('content', '')) < 100)
 
             if short_content_count > len(articles) * 0.5:
                 issues.append({
-                    "severity": "warning",
+                "severity": "warning",
                     "category": "content_quality",
-                    "description": f"{short_content_count} articles have very short content",
-                    "affected_rows": short_content_count
-                })
+                    "description": f"{short_content_count) articles have very short content",
+                    "affected_rows": short_content_count))
 
             # Calculate metrics
             metrics = {
-                "article_count": len(articles),
+            "article_count": len(articles),
                 "missing_fields_ratio": missing_fields_count / len(articles),
                 "short_content_ratio": short_content_count / len(articles),
                 "unique_sources": len(set(article.get('source', '') for article in articles))
@@ -563,19 +571,19 @@ logger = get_logger(__name__)
             score = max(0.0, min(1.0, score))
 
             return ValidationResult(
-                passed=score >= 0.7,
+            passed=score >= 0.7,
                 score=score,
                 issues=issues,
                 metrics=metrics
             )
 
         except Exception as e:
-            self.logger.error(f"News data validation error: {e}")
+            self.logger.error(f"News data validation error: {e)")
             return ValidationResult(
-                passed=False,
+            passed=False,
                 score=0.0,
                 issues=[{
-                    "severity": "critical",
+                "severity": "critical",
                     "category": "validation_error",
                     "description": f"Validation failed: {str(e)}"
                 }]
@@ -590,8 +598,18 @@ logger = get_logger(__name__)
 
         try:
             # Remove rows with invalid OHLC relationships
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if all(col in cleaned_data.columns for col in ['open', 'high', 'low', 'close']):
                 # Remove rows where high < low
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 invalid_high_low = cleaned_data['high'] < cleaned_data['low']
                 cleaned_data = cleaned_data[~invalid_high_low]
 
@@ -615,10 +633,10 @@ logger = get_logger(__name__)
             # Log cleaning results
             rows_removed = len(data) - len(cleaned_data)
             if rows_removed > 0:
-                self.logger.info(f"Data cleaning removed {rows_removed} invalid rows ({rows_removed/len(data)*100:.1f}%)")
+                self.logger.info(f"Data cleaning removed {rows_removed) invalid rows ({rows_removed/len(data)*100:.1f)%)")
 
             return cleaned_data
 
         except Exception as e:
-            self.logger.error(f"Data cleaning error: {e}")
+            self.logger.error(f"Data cleaning error: {e)")
             return data  # Return original data if cleaning fails

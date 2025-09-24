@@ -28,6 +28,13 @@ while maintaining compatibility with all existing components.
 """
 
 import logging
+from typing import Any, Dict, List, Optional, Union
+from pathlib import Path
+from analyzer.analyzer_types import UnifiedAnalysisResult
+from analyzer.reporting.json import JSONReporter
+from analyzer.reporting.sarif import SARIFReporter
+from analyzer.reporting.markdown import MarkdownReporter
+
 logger = logging.getLogger(__name__)
 
 

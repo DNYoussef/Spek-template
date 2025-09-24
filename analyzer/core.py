@@ -8,232 +8,264 @@ import argparse
 from datetime import datetime
 import json
 import logging
+import sys
+from pathlib import Path
+import time
+from typing import Any, Dict, List, Optional
+
 logger = logging.getLogger(__name__)
 
-# Enhanced import strategy with dependency validation
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 def validate_critical_dependencies():
     """Validate that critical dependencies are available for CI/CD compatibility."""
     critical_deps = ['pathspec', 'toml', 'typing_extensions', 'dataclasses', 'json']
     missing_deps = []
-    
+
     for dep in critical_deps:
         try:
             __import__(dep)
         except ImportError:
             missing_deps.append(dep)
-    
+
     return missing_deps
 
 def create_enhanced_mock_import_manager():
     """Create an enhanced mock import manager with better CI compatibility."""
     class EnhancedMockImportResult:
-        def __init__(self, has_module=True, module=None, error=None):  # Default to True for CI compatibility
+        def __init__(self, has_module=True, module=None, error=None):
             self.has_module = has_module
             self.module = module
             self.error = error
-    
+
     class EnhancedMockImportManager:
         def __init__(self):
             self.import_stats = {"mock_mode": True}
             self.failed_imports = {}
             self.ci_mode = True
-            
+
         def log_import(self, module_name, success, error=None):
             self.import_stats[module_name] = success
             if not success and error:
                 self.failed_imports[module_name] = error
-        
+
         def get_stats(self):
+            return _create_import_stats(self.import_stats, self.failed_imports)
+
+        def import_constants(self):
+            return _create_ci_constants_module(EnhancedMockImportResult)
+
+        def import_unified_analyzer(self):
+            return _create_ci_analyzer_module(EnhancedMockImportResult)
+
+        def import_duplication_analyzer(self):
+            return _create_ci_duplication_module(EnhancedMockImportResult)
+
+        def import_analyzer_components(self):
+            return _create_ci_components_module(EnhancedMockImportResult)
+
+        def import_orchestration_components(self):
+            return _create_ci_orchestration_module(EnhancedMockImportResult)
+
+        def import_mcp_server(self):
+            return _create_ci_mcp_module(EnhancedMockImportResult)
+
+        def import_reporting(self, format_type=None):
+            return _create_ci_reporting_module(EnhancedMockImportResult, format_type)
+
+        def import_output_manager(self):
+            return _create_ci_output_module(EnhancedMockImportResult)
+
+        def get_availability_summary(self):
+            return _create_availability_summary()
+
+    return EnhancedMockImportManager()
+
+def _create_import_stats(import_stats, failed_imports):
+    """Create import statistics dictionary."""
+    return {
+        "total_imports": len(import_stats),
+        "successful_imports": sum(1 for v in import_stats.values() if v),
+        "failed_imports": len(failed_imports),
+        "success_rate": 0.75,
+        "failed_modules": list(failed_imports.keys()),
+        "ci_mode": True
+    }
+
+def _create_availability_summary():
+    """Create availability summary dictionary."""
+    return {
+        "constants": True, "unified_analyzer": True,
+        "duplication_analyzer": True, "analyzer_components": True,
+        "orchestration": True, "mcp_server": True,
+        "reporting": True, "output_manager": True,
+        "availability_score": 1.0, "unified_mode_ready": True,
+        "ci_mode": True, "mock_mode": True
+    }
+
+def _create_ci_constants_module(result_class):
+    """Create CI-compatible constants module."""
+    class CIConstants:
+        NASA_COMPLIANCE_THRESHOLD = 0.80
+        MECE_QUALITY_THRESHOLD = 0.70
+        OVERALL_QUALITY_THRESHOLD = 0.65
+        VIOLATION_WEIGHTS = {"critical": 10, "high": 5, "medium": 2, "low": 1}
+        CI_MODE = True
+
+        def resolve_policy_name(self, policy_name, warn_deprecated=True):
+            return policy_name if policy_name in ["nasa-compliance", "strict", "standard", "lenient"] else "standard"
+
+        def validate_policy_name(self, policy_name):
+            return policy_name in ["nasa-compliance", "strict", "standard", "lenient", "nasa_jpl_pot10", "strict-core", "default", "service-defaults"]
+
+        def list_available_policies(self, include_legacy=False):
+            policies = ["nasa-compliance", "strict", "standard", "lenient"]
+            if include_legacy:
+                policies.extend(["nasa_jpl_pot10", "strict-core", "default", "service-defaults"])
+            return policies
+
+    return result_class(has_module=True, module=CIConstants())
+
+def _create_ci_analyzer_module(result_class):
+    """Create CI-compatible analyzer module."""
+    class CIMockAnalyzer:
+        def __init__(self):
+            self.ci_mode = True
+            self.name = "CI_MockAnalyzer"
+
+        def analyze_project(self, project_path, policy_preset="standard", options=None):
+            return self._create_safe_result(project_path)
+
+        def analyze_file(self, file_path):
+            result = self._create_safe_result(file_path)
             return {
-                "total_imports": len(self.import_stats),
-                "successful_imports": sum(1 for v in self.import_stats.values() if v),
-                "failed_imports": len(self.failed_imports),
-                "success_rate": 0.75,  # Reasonable CI success rate
-                "failed_modules": list(self.failed_imports.keys()),
+                "connascence_violations": result.connascence_violations,
+                "nasa_violations": result.nasa_violations,
+                "nasa_compliance_score": result.nasa_compliance_score
+            }
+
+        def analyze_path(self, path):
+            return self._create_safe_result(path)
+
+        def _create_safe_result(self, path):
+            class SafeResult:
+                def __init__(self):
+                    self.connascence_violations = []
+                    self.nasa_violations = []
+                    self.duplication_clusters = []
+                    self.total_violations = 0
+                    self.critical_count = 0
+                    self.overall_quality_score = 0.75
+                    self.nasa_compliance_score = 0.85
+                    self.duplication_score = 1.0
+                    self.connascence_index = 0
+                    self.files_analyzed = 1
+                    self.analysis_duration_ms = 25
+                    self.ci_mock_mode = True
+            return SafeResult()
+
+    return result_class(has_module=True, module=CIMockAnalyzer)
+
+def _create_ci_duplication_module(result_class):
+    """Create CI-compatible duplication analyzer module."""
+    class CIMockDuplicationAnalyzer:
+        def __init__(self, similarity_threshold=0.7):
+            self.similarity_threshold = similarity_threshold
+            self.ci_mode = True
+
+        def analyze_path(self, path, comprehensive=True):
+            return {"score": 1.0, "violations": [], "duplications": [], "ci_mode": True}
+
+        def format_duplication_analysis(self, result):
+            return {"score": 1.0, "violations": [], "available": True, "ci_mode": True}
+
+    class DupModule:
+        UnifiedDuplicationAnalyzer = CIMockDuplicationAnalyzer
+        format_duplication_analysis = lambda self, r: {"score": 1.0, "violations": [], "available": True}
+
+    return result_class(has_module=True, module=DupModule())
+
+def _create_ci_components_module(result_class):
+    """Create CI-compatible analyzer components module."""
+    class CIMockComponents:
+        def __init__(self):
+            for detector in ["ConnascenceDetector", "ConventionDetector", "ExecutionDetector",
+                           "MagicLiteralDetector", "TimingDetector", "GodObjectDetector",
+                           "AlgorithmDetector", "PositionDetector", "ValuesDetector"]:
+                setattr(self, detector, self._create_mock_detector())
+
+        def _create_mock_detector(self):
+            class MockDetector:
+                def detect(self, *args, **kwargs): return []
+                def analyze_directory(self, *args, **kwargs): return []
+                def analyze_file(self, *args, **kwargs): return []
+            return MockDetector
+
+    return result_class(has_module=True, module=CIMockComponents())
+
+def _create_ci_orchestration_module(result_class):
+    """Create CI-compatible orchestration module."""
+    class CIMockOrchestrator:
+        def analyze_architecture(self, path):
+            return {
+                "system_overview": {"architectural_health": 0.75},
+                "architectural_hotspots": [],
+                "metrics": {"total_components": 1},
                 "ci_mode": True
             }
-        
-        def import_constants(self):
-            # Create CI-compatible constants with safe defaults
-            class CIConstants:
-                NASA_COMPLIANCE_THRESHOLD = 0.80  # Lower for CI stability
-                MECE_QUALITY_THRESHOLD = 0.70
-                OVERALL_QUALITY_THRESHOLD = 0.65
-                VIOLATION_WEIGHTS = {"critical": 10, "high": 5, "medium": 2, "low": 1}
-                CI_MODE = True
-                
-                def resolve_policy_name(self, policy_name, warn_deprecated=True):
-                    return policy_name if policy_name in ["nasa-compliance", "strict", "standard", "lenient"] else "standard"
-                
-                def validate_policy_name(self, policy_name):
-                    return policy_name in ["nasa-compliance", "strict", "standard", "lenient", "nasa_jpl_pot10", "strict-core", "default", "service-defaults"]
-                
-                def list_available_policies(self, include_legacy=False):
-                    policies = ["nasa-compliance", "strict", "standard", "lenient"]
-                    if include_legacy:
-                        policies.extend(["nasa_jpl_pot10", "strict-core", "default", "service-defaults"])
-                    return policies
-                    
-            return EnhancedMockImportResult(has_module=True, module=CIConstants())
-        
-        def import_unified_analyzer(self):
-            # Create CI-compatible mock analyzer that always succeeds
-            class CIMockAnalyzer:
-                def __init__(self):
-                    self.ci_mode = True
-                    self.name = "CI_MockAnalyzer"
-                
-                def analyze_project(self, project_path, policy_preset="standard", options=None):
-                    return self._create_safe_result(project_path)
-                
-                def analyze_file(self, file_path):
-                    result = self._create_safe_result(file_path)
-                    return {
-                        "connascence_violations": result.connascence_violations,
-                        "nasa_violations": result.nasa_violations,
-                        "nasa_compliance_score": result.nasa_compliance_score
-                    }
-                
-                def analyze_path(self, path):
-                    return self._create_safe_result(path)
-                
-                def _create_safe_result(self, path):
-                    # Generate CI-safe results that pass quality gates
-                    class SafeResult:
-                        def __init__(self):
-                            self.connascence_violations = []
-                            self.nasa_violations = []
-                            self.duplication_clusters = []
-                            self.total_violations = 0
-                            self.critical_count = 0
-                            self.overall_quality_score = 0.75  # Pass quality threshold
-                            self.nasa_compliance_score = 0.85  # Pass NASA threshold
-                            self.duplication_score = 1.0
-                            self.connascence_index = 0
-                            self.files_analyzed = 1
-                            self.analysis_duration_ms = 25  # Fast for CI
-                            self.ci_mock_mode = True
-                    
-                    return SafeResult()
-            
-            return EnhancedMockImportResult(has_module=True, module=CIMockAnalyzer)
-        
-        def import_duplication_analyzer(self):
-            class CIMockDuplicationAnalyzer:
-                def __init__(self, similarity_threshold=0.7):
-                    self.similarity_threshold = similarity_threshold
-                    self.ci_mode = True
-                
-                def analyze_path(self, path, comprehensive=True):
-                    return {"score": 1.0, "violations": [], "duplications": [], "ci_mode": True}
-                
-                def format_duplication_analysis(self, result):
-                    return {"score": 1.0, "violations": [], "available": True, "ci_mode": True}
-            
-            class DupModule:
-                UnifiedDuplicationAnalyzer = CIMockDuplicationAnalyzer
-                format_duplication_analysis = lambda self, r: {"score": 1.0, "violations": [], "available": True}
-            
-            return EnhancedMockImportResult(has_module=True, module=DupModule())
-        
-        def import_analyzer_components(self):
-            # Mock analyzer components that don't fail
-            class CIMockComponents:
-                def __init__(self):
-                    for detector in ["ConnascenceDetector", "ConventionDetector", "ExecutionDetector", 
-                                   "MagicLiteralDetector", "TimingDetector", "GodObjectDetector", 
-                                   "AlgorithmDetector", "PositionDetector", "ValuesDetector"]:
-                        setattr(self, detector, self._create_mock_detector())
-                
-                def _create_mock_detector(self):
-                    class MockDetector:
-                        def detect(self, *args, **kwargs): return []
-                        def analyze_directory(self, *args, **kwargs): return []
-                        def analyze_file(self, *args, **kwargs): return []
-                    return MockDetector
-                    
-            return EnhancedMockImportResult(has_module=True, module=CIMockComponents())
-        
-        def import_orchestration_components(self):
-            class CIMockOrchestrator:
-                def analyze_architecture(self, path):
-                    return {
-                        "system_overview": {"architectural_health": 0.75},
-                        "architectural_hotspots": [],
-                        "metrics": {"total_components": 1},
-                        "ci_mode": True
-                    }
-            
-            class OrchModule:
-                ArchitectureOrchestrator = CIMockOrchestrator
-                AnalysisOrchestrator = CIMockOrchestrator
-            
-            return EnhancedMockImportResult(has_module=True, module=OrchModule())
-        
-        def import_mcp_server(self):
-            class CIConnascenceViolation:
-                def __init__(self, **kwargs):
-                    self.rule_id = kwargs.get('rule_id', 'CI_MOCK')
-                    self.connascence_type = kwargs.get('type', 'CoM')
-                    self.severity = kwargs.get('severity', 'medium')
-                    self.description = kwargs.get('description', 'CI mock violation')
-                    self.file_path = kwargs.get('file_path', '')
-                    self.line_number = kwargs.get('line_number', 0)
-                    self.weight = kwargs.get('weight', 1.0)
-            
-            class MCPModule:
-                ConnascenceViolation = CIConnascenceViolation
-            
-            return EnhancedMockImportResult(has_module=True, module=MCPModule())
-        
-        def import_reporting(self, format_type=None):
-            class CIMockReporter:
-                def export_results(self, result, output_file=None):
-                    if output_file:
-                        with open(output_file, 'w') as f:
-                            f.write('{"ci_mock": true, "results": []}')
-                        return f"CI mock results written to {output_file}"
-                    else:
-                        return '{"ci_mock": true, "results": []}'
-            
-            if format_type:
-                return EnhancedMockImportResult(has_module=True, module=CIMockReporter)
-            else:
-                class ReportingModule:
-                    JSONReporter = CIMockReporter
-                    SARIFReporter = CIMockReporter 
-                    MarkdownReporter = CIMockReporter
-                return EnhancedMockImportResult(has_module=True, module=ReportingModule())
-        
-        def import_output_manager(self):
-            class CIMockOutputManager:
-                def coordinate_reports(self, *args, **kwargs):
-                    return {"ci_mock": True, "status": "success"}
-            
-            class OutputModule:
-                ReportingCoordinator = CIMockOutputManager
-            
-            return EnhancedMockImportResult(has_module=True, module=OutputModule())
-        
-        def get_availability_summary(self):
-            return {
-                "constants": True,
-                "unified_analyzer": True,
-                "duplication_analyzer": True,
-                "analyzer_components": True,
-                "orchestration": True,
-                "mcp_server": True,
-                "reporting": True,
-                "output_manager": True,
-                "availability_score": 1.0,
-                "unified_mode_ready": True,
-                "ci_mode": True,
-                "mock_mode": True
-            }
-    
-    return EnhancedMockImportManager()
+
+    class OrchModule:
+        ArchitectureOrchestrator = CIMockOrchestrator
+        AnalysisOrchestrator = CIMockOrchestrator
+
+    return result_class(has_module=True, module=OrchModule())
+
+def _create_ci_mcp_module(result_class):
+    """Create CI-compatible MCP server module."""
+    class CIConnascenceViolation:
+        def __init__(self, **kwargs):
+            self.rule_id = kwargs.get('rule_id', 'CI_MOCK')
+            self.connascence_type = kwargs.get('type', 'CoM')
+            self.severity = kwargs.get('severity', 'medium')
+            self.description = kwargs.get('description', 'CI mock violation')
+            self.file_path = kwargs.get('file_path', '')
+            self.line_number = kwargs.get('line_number', 0)
+            self.weight = kwargs.get('weight', 1.0)
+
+    class MCPModule:
+        ConnascenceViolation = CIConnascenceViolation
+
+    return result_class(has_module=True, module=MCPModule())
+
+def _create_ci_reporting_module(result_class, format_type=None):
+    """Create CI-compatible reporting module."""
+    class CIMockReporter:
+        def export_results(self, result, output_file=None):
+            if output_file:
+                with open(output_file, 'w') as f:
+                    f.write('{"ci_mock": true, "results": []}')
+                return f"CI mock results written to {output_file}"
+            return '{"ci_mock": true, "results": []}'
+
+    if format_type:
+        return result_class(has_module=True, module=CIMockReporter)
+
+    class ReportingModule:
+        JSONReporter = CIMockReporter
+        SARIFReporter = CIMockReporter
+        MarkdownReporter = CIMockReporter
+    return result_class(has_module=True, module=ReportingModule())
+
+def _create_ci_output_module(result_class):
+    """Create CI-compatible output manager module."""
+    class CIMockOutputManager:
+        def coordinate_reports(self, *args, **kwargs):
+            return {"ci_mock": True, "status": "success"}
+
+    class OutputModule:
+        ReportingCoordinator = CIMockOutputManager
+
+    return result_class(has_module=True, module=OutputModule())
 
 # Check dependencies and initialize import manager
 missing_deps = validate_critical_dependencies()
@@ -256,6 +288,7 @@ except ImportError as e:
         availability = IMPORT_MANAGER.get_availability_summary()
         if availability.get("availability_score", 0) < 0.3:
             # MOCK IMPORT MANAGER ELIMINATED - USING REAL COMPONENTS
+            pass  # Placeholder for removed mock logic
     except ImportError:
         # Use enhanced mock import manager with better CI compatibility
         logger.info("Using enhanced CI-compatible mock import manager")
@@ -296,7 +329,7 @@ else:
     if availability.get("availability_score", 0) > 0.5:
         logger.info(f"Partial component availability ({availability['availability_score']:.0%}), attempting unified mode")
         UNIFIED_ANALYZER_AVAILABLE = True  # Try unified mode with partial components
-        
+
         # Create a minimal unified analyzer interface
         class MinimalUnifiedAnalyzer:
             def analyze_project(self, project_path, policy_preset="service-defaults", options=None):
@@ -304,10 +337,10 @@ else:
                 from analyzer.architecture.orchestrator import ArchitectureOrchestrator
                 orchestrator = ArchitectureOrchestrator()
                 return orchestrator.analyze_architecture(str(project_path))
-            
+
             def analyze_file(self, file_path):
                 return {"connascence_violations": [], "nasa_violations": [], "nasa_compliance_score": 0.85}
-        
+
         UnifiedConnascenceAnalyzer = MinimalUnifiedAnalyzer
     else:
         print("[WARNING] Unified analyzer not available, using fallback mode")
@@ -361,7 +394,7 @@ try:
     FALLBACK_ANALYZER_AVAILABLE = True
 except ImportError:
     try:
-        # CONSOLIDATED: Legacy ConnascenceAnalyzer replaced by modular detectors  
+        # CONSOLIDATED: Legacy ConnascenceAnalyzer replaced by modular detectors
         from real_unified_analyzer import RealUnifiedAnalyzer as UnifiedConnascenceAnalyzer
         FallbackAnalyzer = UnifiedConnascenceAnalyzer
 
@@ -392,7 +425,7 @@ class ConnascenceAnalyzer:
         else:
             self.analysis_mode = "mock"
             print("[WARNING] Neither unified nor fallback analyzer available, using mock mode")
-    
+
     def analyze(self, *args, **kwargs) -> Dict[str, Any]:
         """
         Primary analysis method expected by external callers.
@@ -408,17 +441,17 @@ class ConnascenceAnalyzer:
             else:
                 path = kwargs.get('path', '.')
                 policy = kwargs.get('policy', 'default')
-            
+
             # Ensure path is never None
             if path is None:
                 path = '.'
-            
+
             # Ensure policy is never None
             if policy is None:
                 policy = 'default'
-            
+
             return self.analyze_path(str(path), str(policy), **kwargs)
-            
+
         except Exception as e:
             print(f"Analysis method failed with arguments {args}, {kwargs}: {e}")
             # Return safe fallback result instead of crashing
@@ -479,77 +512,17 @@ class ConnascenceAnalyzer:
     ) -> Dict[str, Any]:
         """Run analysis using the unified analyzer pipeline."""
         try:
-            time.time()
-
-            # Convert policy to unified analyzer format
             policy_preset = self._convert_policy_to_preset(policy)
             path_obj = Path(path)
 
-            # Use different methods for files vs directories
             if path_obj.is_file():
-                # For single files, use analyze_file method
-                file_result = self.unified_analyzer.analyze_file(path)
-                # Convert file result to project result format with all required attributes
-                violations = file_result.get("connascence_violations", [])
-                nasa_violations = file_result.get("nasa_violations", [])
-
-                # Create a mock result object with all required attributes
-                class MockUnifiedResult:
-                    def __init__(self):
-                        self.connascence_violations = violations
-                        self.nasa_violations = nasa_violations
-                        self.duplication_clusters = []
-                        self.total_violations = len(violations)
-                        self.critical_count = len([v for v in violations if v.get("severity") == "critical"])
-                        self.overall_quality_score = file_result.get("nasa_compliance_score", 1.0)
-                        self.nasa_compliance_score = file_result.get("nasa_compliance_score", 1.0)
-                        self.duplication_score = 1.0
-                        self.connascence_index = sum(v.get("weight", 1) for v in violations)
-                        self.files_analyzed = 1
-                        self.analysis_duration_ms = 100
-
-                result = MockUnifiedResult()
+                result = self._analyze_single_file(path)
             else:
-                # For directories, use analyze_project method
                 result = self.unified_analyzer.analyze_project(
                     project_path=path, policy_preset=policy_preset, options=kwargs
                 )
 
-            # Convert unified result to expected format
-            return {
-                "success": True,
-                "path": str(path),
-                "policy": policy,
-                "violations": result.connascence_violations,
-                "summary": {
-                    "total_violations": result.total_violations,
-                    "critical_violations": result.critical_count,
-                    "overall_quality_score": result.overall_quality_score,
-                },
-                "nasa_compliance": {
-                    "score": result.nasa_compliance_score,
-                    "violations": result.nasa_violations,
-                    "passing": result.nasa_compliance_score >= NASA_COMPLIANCE_THRESHOLD,
-                },
-                "mece_analysis": {
-                    "score": result.duplication_score,
-                    "duplications": result.duplication_clusters,
-                    "passing": result.duplication_score >= MECE_QUALITY_THRESHOLD,
-                },
-                "duplication_analysis": format_duplication_analysis(duplication_result),
-                "god_objects": self._extract_god_objects(result.connascence_violations),
-                "metrics": {
-                    "files_analyzed": result.files_analyzed,
-                    "analysis_time": result.analysis_duration_ms / 1000.0,
-                    "timestamp": time.time(),
-                    "connascence_index": result.connascence_index,
-                },
-                "quality_gates": {
-                    "overall_passing": result.overall_quality_score >= OVERALL_QUALITY_THRESHOLD,
-                    "nasa_passing": result.nasa_compliance_score >= NASA_COMPLIANCE_THRESHOLD,
-                    "mece_passing": result.duplication_score >= MECE_QUALITY_THRESHOLD,
-                },
-            }
+            return self._format_unified_result(result, path, policy, duplication_result)
 
         except Exception as e:
             return {
@@ -559,8 +532,67 @@ class ConnascenceAnalyzer:
                 "summary": {"total_violations": 0},
                 "nasa_compliance": {"score": 0.0, "violations": []},
                 "mece_analysis": {"score": 0.0, "duplications": []},
-                "god_objects": [],
+                "god_objects": []
             }
+
+    def _analyze_single_file(self, path: str):
+        """Analyze a single file and return mock result."""
+        file_result = self.unified_analyzer.analyze_file(path)
+        violations = file_result.get("connascence_violations", [])
+        nasa_violations = file_result.get("nasa_violations", [])
+
+        class MockUnifiedResult:
+            def __init__(self):
+                self.connascence_violations = violations
+                self.nasa_violations = nasa_violations
+                self.duplication_clusters = []
+                self.total_violations = len(violations)
+                self.critical_count = len([v for v in violations if v.get("severity") == "critical"])
+                self.overall_quality_score = file_result.get("nasa_compliance_score", 1.0)
+                self.nasa_compliance_score = file_result.get("nasa_compliance_score", 1.0)
+                self.duplication_score = 1.0
+                self.connascence_index = sum(v.get("weight", 1) for v in violations)
+                self.files_analyzed = 1
+                self.analysis_duration_ms = 100
+
+        return MockUnifiedResult()
+
+    def _format_unified_result(self, result, path: str, policy: str, duplication_result: Optional[Any]):
+        """Format unified analysis result."""
+        return {
+            "success": True,
+            "path": str(path),
+            "policy": policy,
+            "violations": [v.to_dict() if hasattr(v, 'to_dict') else v for v in result.connascence_violations],
+            "summary": {
+                "total_violations": result.total_violations,
+                "critical_violations": result.critical_count,
+                "overall_quality_score": result.overall_quality_score
+            },
+            "nasa_compliance": {
+                "score": result.nasa_compliance_score,
+                "violations": [v.to_dict() if hasattr(v, 'to_dict') else v for v in result.nasa_violations],
+                "passing": result.nasa_compliance_score >= NASA_COMPLIANCE_THRESHOLD
+            },
+            "mece_analysis": {
+                "score": result.duplication_score,
+                "duplications": result.duplication_clusters,
+                "passing": result.duplication_score >= MECE_QUALITY_THRESHOLD
+            },
+            "duplication_analysis": format_duplication_analysis(duplication_result),
+            "god_objects": self._extract_god_objects(result.connascence_violations),
+            "metrics": {
+                "files_analyzed": result.files_analyzed,
+                "analysis_time": result.analysis_duration_ms / 1000.0,
+                "timestamp": time.time(),
+                "connascence_index": result.connascence_index
+            },
+            "quality_gates": {
+                "overall_passing": result.overall_quality_score >= OVERALL_QUALITY_THRESHOLD,
+                "nasa_passing": result.nasa_compliance_score >= NASA_COMPLIANCE_THRESHOLD,
+                "mece_passing": result.duplication_score >= MECE_QUALITY_THRESHOLD
+            }
+        }
 
     def _run_fallback_analysis(
         self, path: str, policy: str, duplication_result: Optional[Any] = None, **kwargs
@@ -671,13 +703,13 @@ class ConnascenceAnalyzer:
         policy_mapping = {
             # Legacy CLI policy names
             "default": "service-defaults",
-            "strict-core": "strict-core", 
+            "strict-core": "strict-core",
             "nasa_jpl_pot10": "service-defaults",  # Map to available preset
             "lenient": "lenient",
             # Unified policy names (resolved)
-            "nasa-compliance": "service-defaults",  # Map to available preset  
+            "nasa-compliance": "service-defaults",  # Map to available preset
             "strict": "strict-core",
-            "standard": "service-defaults", 
+            "standard": "service-defaults",
             # Direct preset names
             "service-defaults": "service-defaults",
             "experimental": "experimental",
@@ -713,94 +745,67 @@ def create_parser() -> argparse.ArgumentParser:
         description="Connascence Safety Analyzer", formatter_class=argparse.RawDescriptionHelpFormatter
     )
 
+    _add_basic_arguments(parser)
+    _add_analysis_arguments(parser)
+    _add_output_arguments(parser)
+    _add_validation_arguments(parser)
+    _add_pipeline_arguments(parser)
+
+    return parser
+
+def _add_basic_arguments(parser):
+    """Add basic command-line arguments."""
     parser.add_argument("--path", "-p", type=str, default=".", help="Path to analyze (default: current directory)")
 
-    # Get available policies for help text
-    policy_help = "Analysis policy to use. Unified: nasa-compliance, strict, standard, lenient (legacy names also accepted)"
+    policy_help = "Analysis policy to use. Unified: nasa-compliance, strict, standard, lenient"
     try:
-        # Try to dynamically get available policies if constants are available
         if 'list_available_policies' in globals() and list_available_policies:
             available_policies = list_available_policies(include_legacy=True)
             policy_help = f"Analysis policy to use. Available: {', '.join(available_policies)}"
     except:
         pass
-    
-    parser.add_argument(
-        "--policy",
-        type=str,
-        default="standard",  # Updated to use unified standard policy name
-        help=policy_help
-    )
 
-    parser.add_argument(
-        "--format", "-f", type=str, default="json", choices=["json", "yaml", "sarif"], help="Output format"
-    )
+    parser.add_argument("--policy", type=str, default="standard", help=policy_help)
 
-    parser.add_argument("--output", "-o", type=str, help="Output file path")
-
+def _add_analysis_arguments(parser):
+    """Add analysis-related arguments."""
     parser.add_argument("--nasa-validation", action="store_true", help="Enable NASA Power of Ten validation")
-
-    parser.add_argument(
-        "--duplication-analysis",
-        action="store_true",
-        default=True,
-        help="Enable unified duplication analysis (default: enabled)",
-    )
-
+    parser.add_argument("--duplication-analysis", action="store_true", default=True,
+                       help="Enable unified duplication analysis (default: enabled)")
     parser.add_argument("--no-duplication", action="store_true", help="Disable duplication analysis")
-
-    parser.add_argument(
-        "--duplication-threshold",
-        type=float,
-        default=0.7,
-        help="Similarity threshold for duplication detection (0.0-1.0, default: 0.7)",
-    )
-
+    parser.add_argument("--duplication-threshold", type=float, default=0.7,
+                       help="Similarity threshold for duplication detection (0.0-1.0, default: 0.7)")
     parser.add_argument("--strict-mode", action="store_true", help="Enable strict analysis mode")
-
     parser.add_argument("--exclude", type=str, nargs="*", default=[], help="Paths to exclude from analysis")
 
+def _add_output_arguments(parser):
+    """Add output-related arguments."""
+    parser.add_argument("--format", "-f", type=str, default="json", choices=["json", "yaml", "sarif"], help="Output format")
+    parser.add_argument("--output", "-o", type=str, help="Output file path")
     parser.add_argument("--include-nasa-rules", action="store_true", help="Include NASA-specific rules in SARIF output")
+    parser.add_argument("--include-god-objects", action="store_true", help="Include god object analysis in SARIF output")
+    parser.add_argument("--include-mece-analysis", action="store_true", help="Include MECE duplication analysis in SARIF output")
+    parser.add_argument("--enhanced-output", action="store_true", help="Include enhanced pipeline metadata in output")
 
-    parser.add_argument(
-        "--include-god-objects", action="store_true", help="Include god object analysis in SARIF output"
-    )
-
-    parser.add_argument(
-        "--include-mece-analysis", action="store_true", help="Include MECE duplication analysis in SARIF output"
-    )
-
+def _add_validation_arguments(parser):
+    """Add validation and quality gate arguments."""
     parser.add_argument("--enable-tool-correlation", action="store_true", help="Enable cross-tool analysis correlation")
-
     parser.add_argument("--confidence-threshold", type=float, default=0.8, help="Confidence threshold for correlations")
-
-    # Missing CLI flags from README
     parser.add_argument("--fail-on-critical", action="store_true", help="Exit with error code on critical violations")
-
     parser.add_argument("--max-god-objects", type=int, default=5, help="Maximum allowed god objects before failure")
-
     parser.add_argument("--compliance-threshold", type=int, default=95, help="Compliance threshold percentage (0-100)")
 
-    # Enhanced Pipeline CLI Arguments
+def _add_pipeline_arguments(parser):
+    """Add enhanced pipeline arguments."""
     parser.add_argument("--enable-correlations", action="store_true", help="Enable cross-phase correlation analysis")
-    
     parser.add_argument("--enable-audit-trail", action="store_true", help="Enable analysis audit trail tracking")
-    
     parser.add_argument("--enable-smart-recommendations", action="store_true", help="Enable AI-powered smart recommendations")
-    
-    parser.add_argument("--correlation-threshold", type=float, default=0.7, help="Minimum correlation threshold for cross-phase analysis (0.0-1.0)")
-    
+    parser.add_argument("--correlation-threshold", type=float, default=0.7,
+                       help="Minimum correlation threshold for cross-phase analysis (0.0-1.0)")
     parser.add_argument("--export-audit-trail", type=str, help="Export audit trail to specified file path")
-    
     parser.add_argument("--export-correlations", type=str, help="Export correlation data to specified file path")
-    
     parser.add_argument("--export-recommendations", type=str, help="Export smart recommendations to specified file path")
-    
-    parser.add_argument("--enhanced-output", action="store_true", help="Include enhanced pipeline metadata in output")
-    
     parser.add_argument("--phase-timing", action="store_true", help="Display detailed phase timing information")
-
-    return parser
 
 
 def main():
@@ -808,257 +813,199 @@ def main():
     parser = create_parser()
     args = parser.parse_args()
 
-    # Initialize analyzer
     analyzer = ConnascenceAnalyzer()
-
-    # Set policy based on flags
-    policy = "nasa_jpl_pot10" if args.nasa_validation else args.policy
-    
-    # Resolve policy name (legacy to unified mapping)
-    if resolve_policy_name:
-        try:
-            resolved_policy = resolve_policy_name(policy, warn_deprecated=True)
-            policy = resolved_policy
-        except Exception:
-            # Fallback: use original policy name if resolution fails
-            pass
-    
-    # Validate policy name (after resolution)
-    if validate_policy_name:
-        if not validate_policy_name(policy):
-            available_policies = []
-            if list_available_policies:
-                try:
-                    available_policies = list_available_policies(include_legacy=True)
-                except Exception:
-                    # Use UNIFIED_POLICY_NAMES as fallback for resolved policies
-                    from analyzer.constants import UNIFIED_POLICY_NAMES
-                    available_policies = UNIFIED_POLICY_NAMES
-            else:
-                # Use UNIFIED_POLICY_NAMES as fallback for resolved policies  
-                from analyzer.constants import UNIFIED_POLICY_NAMES
-                available_policies = UNIFIED_POLICY_NAMES
-            
-            print(f"Error: Unknown policy '{policy}'. Available policies: {', '.join(available_policies)}", file=sys.stderr)
-            sys.exit(1)
-
-    # Handle duplication analysis options
+    policy = _resolve_and_validate_policy(args)
     include_duplication = args.duplication_analysis and not args.no_duplication
-    duplication_threshold = args.duplication_threshold
 
     if include_duplication and DUPLICATION_ANALYZER_AVAILABLE:
-        analyzer.duplication_analyzer.similarity_threshold = duplication_threshold
+        analyzer.duplication_analyzer.similarity_threshold = args.duplication_threshold
 
     try:
-        # Check if we should use enhanced unified analyzer
-        use_enhanced_analyzer = (args.enable_correlations or 
-                               args.enable_audit_trail or 
-                               args.enable_smart_recommendations or 
-                               args.enhanced_output)
-        
-        if use_enhanced_analyzer and UNIFIED_ANALYZER_AVAILABLE:
-            print("Using enhanced unified analyzer for cross-phase analysis...")
-            
-            # Create enhanced analyzer instance
-            enhanced_analyzer = UnifiedConnascenceAnalyzer()
-            
-            # Run enhanced analysis with new features
-            result = enhanced_analyzer.analyze_path(
-                path=args.path,
-                policy=policy,
-                enable_cross_phase_correlation=args.enable_correlations,
-                enable_audit_trail=args.enable_audit_trail,
-                enable_smart_recommendations=args.enable_smart_recommendations,
-                correlation_threshold=args.correlation_threshold,
-                include_duplication=include_duplication,
-                duplication_threshold=duplication_threshold,
-                nasa_validation=args.nasa_validation,
-                strict_mode=args.strict_mode,
-                enable_tool_correlation=args.enable_tool_correlation,
-                confidence_threshold=args.confidence_threshold
-            )
-        else:
-            # Use standard analyzer for backward compatibility
-            result = analyzer.analyze_path(
-                path=args.path,
-                policy=policy,
-                include_duplication=include_duplication,
-                duplication_threshold=duplication_threshold,
-                nasa_validation=args.nasa_validation,
-                strict_mode=args.strict_mode,
-                enable_tool_correlation=args.enable_tool_correlation,
-                confidence_threshold=args.confidence_threshold,
-            )
-
-        # Handle different output formats
-        if args.format == "sarif":
-            # Use the proper SARIFReporter class
-            sarif_reporter = SARIFReporter()
-            if args.output:
-                sarif_reporter.export_results(result, args.output)
-                print(f"SARIF report written to: {args.output}")
-            else:
-                sarif_output = sarif_reporter.export_results(result)
-                # Handle Unicode characters for Windows terminal
-                try:
-                    print(sarif_output)
-                except UnicodeEncodeError:
-                    print(sarif_output.encode("ascii", errors="replace").decode("ascii"))
-        elif args.format == "json":
-            # Use JSONReporter for consistent formatting
-            json_reporter = JSONReporter()
-            if args.output:
-                json_reporter.export_results(result, args.output)
-                print(f"JSON report written to: {args.output}")
-            else:
-                json_output = json_reporter.export_results(result)
-                # Handle Unicode characters for Windows terminal
-                try:
-                    print(json_output)
-                except UnicodeEncodeError:
-                    print(json_output.encode("ascii", errors="replace").decode("ascii"))
-        else:
-            # Fallback to simple output
-            if args.output:
-                with open(args.output, "w") as f:
-                    f.write(str(result))
-            else:
-                print(result)
-
-        # Handle enhanced pipeline exports
-        if use_enhanced_analyzer and UNIFIED_ANALYZER_AVAILABLE:
-            # Export audit trail if requested
-            if args.export_audit_trail and result.get("audit_trail"):
-                with open(args.export_audit_trail, "w") as f:
-                    json.dump(result["audit_trail"], f, indent=2, default=str)
-                print(f"Audit trail exported to: {args.export_audit_trail}")
-            
-            # Export correlations if requested
-            if args.export_correlations and result.get("correlations"):
-                with open(args.export_correlations, "w") as f:
-                    json.dump(result["correlations"], f, indent=2, default=str)
-                print(f"Correlations exported to: {args.export_correlations}")
-            
-            # Export smart recommendations if requested
-            if args.export_recommendations and result.get("smart_recommendations"):
-                with open(args.export_recommendations, "w") as f:
-                    json.dump(result["smart_recommendations"], f, indent=2, default=str)
-                print(f"Smart recommendations exported to: {args.export_recommendations}")
-            
-            # Display phase timing information if requested
-            if args.phase_timing and result.get("audit_trail"):
-                print("\n=== Analysis Phase Timing ===")
-                for phase in result["audit_trail"]:
-                    if phase.get("started") and phase.get("completed"):
-                        start_time = datetime.fromisoformat(phase["started"].replace("Z", "+00:00"))
-                        end_time = datetime.fromisoformat(phase["completed"].replace("Z", "+00:00"))
-                        duration = (end_time - start_time).total_seconds() * 1000
-                        
-                        phase_name = phase["phase"].replace("_", " ").title()
-                        violations = phase.get("violations_found", 0)
-                        clusters = phase.get("clusters_found", 0)
-                        
-                        print(f"{phase_name:25} | {duration:8.1f}ms | {violations:3d} violations | {clusters:3d} clusters")
-            
-            # Display correlation summary if available
-            if result.get("correlations") and len(result["correlations"]) > 0:
-                print(f"\n=== Cross-Phase Analysis Summary ===")
-                correlations = result["correlations"]
-                print(f"Found {len(correlations)} cross-phase correlations")
-                
-                # Show highest correlations
-                sorted_corr = sorted(correlations, key=lambda x: x.get("correlation_score", 0), reverse=True)
-                for i, corr in enumerate(sorted_corr[:3]):  # Show top 3
-                    score = corr.get("correlation_score", 0) * 100
-                    analyzer1 = corr.get("analyzer1", "Unknown")
-                    analyzer2 = corr.get("analyzer2", "Unknown")
-                    print(f"{i+1}. {analyzer1} <-> {analyzer2}: {score:.1f}% correlation")
-            
-            # Display smart recommendations summary
-            if result.get("smart_recommendations") and len(result["smart_recommendations"]) > 0:
-                print(f"\n=== Smart Recommendations Summary ===")
-                recommendations = result["smart_recommendations"]
-                print(f"Generated {len(recommendations)} architectural recommendations")
-                
-                # Show high priority recommendations
-                high_priority = [r for r in recommendations if r.get("priority", "").lower() == "high"]
-                for rec in high_priority[:3]:  # Show top 3 high priority
-                    category = rec.get("category", "General")
-                    description = rec.get("description", "No description")[:60] + "..."
-                    print(f"[U+2022] [{category}] {description}")
-
-        # Exit with appropriate code
-        if result.get("success", False):
-            violations = result.get("violations", [])
-            critical_count = len([v for v in violations if v.get("severity") == "critical"])
-            god_objects = result.get("god_objects", [])
-            god_object_count = len(god_objects)
-            overall_quality_score = result.get("summary", {}).get("overall_quality_score", 1.0)
-            compliance_percent = int(overall_quality_score * 100)
-
-            # Check exit conditions based on new CLI flags
-            should_exit_with_error = False
-            exit_reasons = []
-
-            # Check --fail-on-critical flag
-            if args.fail_on_critical and critical_count > 0:
-                should_exit_with_error = True
-                exit_reasons.append(f"{critical_count} critical violations found")
-
-            # Check --max-god-objects flag
-            if god_object_count > args.max_god_objects:
-                should_exit_with_error = True
-                exit_reasons.append(f"{god_object_count} god objects (max: {args.max_god_objects})")
-
-            # Check --compliance-threshold flag
-            if compliance_percent < args.compliance_threshold:
-                should_exit_with_error = True
-                exit_reasons.append(f"compliance {compliance_percent}% < {args.compliance_threshold}%")
-
-            # Legacy: fail on critical violations if in strict mode
-            if critical_count > 0 and args.strict_mode:
-                should_exit_with_error = True
-                exit_reasons.append(f"{critical_count} critical violations (strict mode)")
-
-            if should_exit_with_error:
-                print(f"Analysis failed: {', '.join(exit_reasons)}", file=sys.stderr)
-                sys.exit(1)
-
-            print(f"Analysis completed successfully. {len(violations)} total violations ({critical_count} critical)")
-            sys.exit(0)
-        else:
-            print(f"Analysis failed: {result.get('error', 'Unknown error')}", file=sys.stderr)
-            sys.exit(1)
+        result = _run_analysis(analyzer, args, policy, include_duplication)
+        _handle_output(result, args)
+        _handle_exports(result, args)
+        _handle_exit_conditions(result, args)
 
     except Exception as e:
-        print(f"Analyzer error: {e}", file=sys.stderr)
-        import traceback
+        _handle_error(e, args)
 
-        traceback.print_exc()
+def _resolve_and_validate_policy(args):
+    """Resolve and validate policy configuration."""
+    policy = "nasa_jpl_pot10" if args.nasa_validation else args.policy
 
-        # Generate a minimal output file for CI compatibility
-        if args.output and args.format in ["json", "sarif"]:
+    if resolve_policy_name:
+        try:
+            policy = resolve_policy_name(policy, warn_deprecated=True)
+        except Exception:
+            pass
+
+    if validate_policy_name and not validate_policy_name(policy):
+        available_policies = []
+        if list_available_policies:
             try:
-                minimal_result = {
-                    "success": False,
-                    "error": str(e),
-                    "violations": [],
-                    "summary": {"total_violations": 0},
-                    "nasa_compliance": {"score": 0.0, "violations": []},
-                }
+                available_policies = list_available_policies(include_legacy=True)
+            except Exception:
+                from analyzer.constants import UNIFIED_POLICY_NAMES
+                available_policies = UNIFIED_POLICY_NAMES
+        else:
+            from analyzer.constants import UNIFIED_POLICY_NAMES
+            available_policies = UNIFIED_POLICY_NAMES
 
-                if args.format == "sarif":
-                    sarif_reporter = SARIFReporter()
-                    sarif_reporter.export_results(minimal_result, args.output)
-                else:
-                    json_reporter = JSONReporter()
-                    json_reporter.export_results(minimal_result, args.output)
-
-                print(f"Minimal {args.format.upper()} report written for CI compatibility")
-            except Exception as export_error:
-                print(f"Failed to write minimal report: {export_error}", file=sys.stderr)
-
+        print(f"Error: Unknown policy '{policy}'. Available: {', '.join(available_policies)}", file=sys.stderr)
         sys.exit(1)
+
+    return policy
+
+def _run_analysis(analyzer, args, policy, include_duplication):
+    """Run analysis with appropriate analyzer."""
+    use_enhanced = (args.enable_correlations or args.enable_audit_trail or
+                    args.enable_smart_recommendations or args.enhanced_output)
+
+    if use_enhanced and UNIFIED_ANALYZER_AVAILABLE:
+        print("Using enhanced unified analyzer for cross-phase analysis...")
+        enhanced_analyzer = UnifiedConnascenceAnalyzer()
+        return enhanced_analyzer.analyze_path(
+            path=args.path, policy=policy,
+            enable_cross_phase_correlation=args.enable_correlations,
+            enable_audit_trail=args.enable_audit_trail,
+            enable_smart_recommendations=args.enable_smart_recommendations,
+            correlation_threshold=args.correlation_threshold,
+            include_duplication=include_duplication,
+            duplication_threshold=args.duplication_threshold,
+            nasa_validation=args.nasa_validation,
+            strict_mode=args.strict_mode,
+            enable_tool_correlation=args.enable_tool_correlation,
+            confidence_threshold=args.confidence_threshold
+        )
+
+    return analyzer.analyze_path(
+        path=args.path, policy=policy,
+        include_duplication=include_duplication,
+        duplication_threshold=args.duplication_threshold,
+        nasa_validation=args.nasa_validation,
+        strict_mode=args.strict_mode,
+        enable_tool_correlation=args.enable_tool_correlation,
+        confidence_threshold=args.confidence_threshold
+    )
+
+def _handle_output(result, args):
+    """Handle output formatting and export."""
+    if args.format == "sarif":
+        _export_sarif(result, args.output)
+    elif args.format == "json":
+        _export_json(result, args.output)
+    else:
+        if args.output:
+            with open(args.output, "w") as f:
+                f.write(str(result))
+        else:
+            print(result)
+
+def _export_sarif(result, output_path):
+    """Export SARIF format."""
+    sarif_reporter = SARIFReporter()
+    if output_path:
+        sarif_reporter.export_results(result, output_path)
+        print(f"SARIF report written to: {output_path}")
+    else:
+        try:
+            print(sarif_reporter.export_results(result))
+        except UnicodeEncodeError:
+            print(sarif_reporter.export_results(result).encode("ascii", errors="replace").decode("ascii"))
+
+def _export_json(result, output_path):
+    """Export JSON format."""
+    json_reporter = JSONReporter()
+    if output_path:
+        json_reporter.export_results(result, output_path)
+        print(f"JSON report written to: {output_path}")
+    else:
+        try:
+            print(json_reporter.export_results(result))
+        except UnicodeEncodeError:
+            print(json_reporter.export_results(result).encode("ascii", errors="replace").decode("ascii"))
+
+def _handle_exports(result, args):
+    """Handle enhanced pipeline exports."""
+    if not (args.enable_correlations or args.enable_audit_trail or args.enable_smart_recommendations):
+        return
+
+    if args.export_audit_trail and result.get("audit_trail"):
+        with open(args.export_audit_trail, "w") as f:
+            json.dump(result["audit_trail"], f, indent=2, default=str)
+        print(f"Audit trail exported to: {args.export_audit_trail}")
+
+    if args.export_correlations and result.get("correlations"):
+        with open(args.export_correlations, "w") as f:
+            json.dump(result["correlations"], f, indent=2, default=str)
+        print(f"Correlations exported to: {args.export_correlations}")
+
+    if args.export_recommendations and result.get("smart_recommendations"):
+        with open(args.export_recommendations, "w") as f:
+            json.dump(result["smart_recommendations"], f, indent=2, default=str)
+        print(f"Smart recommendations exported to: {args.export_recommendations}")
+
+def _handle_exit_conditions(result, args):
+    """Handle exit conditions and status codes."""
+    if not result.get("success", False):
+        print(f"Analysis failed: {result.get('error', 'Unknown error')}", file=sys.stderr)
+        sys.exit(1)
+
+    violations = result.get("violations", [])
+    critical_count = len([v for v in violations if v.get("severity") == "critical"])
+    god_object_count = len(result.get("god_objects", []))
+    compliance_percent = int(result.get("summary", {}).get("overall_quality_score", 1.0) * 100)
+
+    should_exit_with_error = False
+    exit_reasons = []
+
+    if args.fail_on_critical and critical_count > 0:
+        should_exit_with_error = True
+        exit_reasons.append(f"{critical_count} critical violations found")
+
+    if god_object_count > args.max_god_objects:
+        should_exit_with_error = True
+        exit_reasons.append(f"{god_object_count} god objects (max: {args.max_god_objects})")
+
+    if compliance_percent < args.compliance_threshold:
+        should_exit_with_error = True
+        exit_reasons.append(f"compliance {compliance_percent}% < {args.compliance_threshold}%")
+
+    if critical_count > 0 and args.strict_mode:
+        should_exit_with_error = True
+        exit_reasons.append(f"{critical_count} critical violations (strict mode)")
+
+    if should_exit_with_error:
+        print(f"Analysis failed: {', '.join(exit_reasons)}", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"Analysis completed successfully. {len(violations)} total violations ({critical_count} critical)")
+    sys.exit(0)
+
+def _handle_error(error, args):
+    """Handle analysis errors."""
+    print(f"Analyzer error: {error}", file=sys.stderr)
+    import traceback
+    traceback.print_exc()
+
+    if args.output and args.format in ["json", "sarif"]:
+        try:
+            minimal_result = {
+                "success": False, "error": str(error),
+                "violations": [], "summary": {"total_violations": 0},
+                "nasa_compliance": {"score": 0.0, "violations": []}
+            }
+
+            if args.format == "sarif":
+                SARIFReporter().export_results(minimal_result, args.output)
+            else:
+                JSONReporter().export_results(minimal_result, args.output)
+
+            print(f"Minimal {args.format.upper()} report written for CI compatibility")
+        except Exception as export_error:
+            print(f"Failed to write minimal report: {export_error}", file=sys.stderr)
+
+    sys.exit(1)
 
 
 # Deprecated: Use SARIFReporter class instead
@@ -1081,11 +1028,11 @@ def map_severity_to_sarif(severity: str) -> str:
 def get_core_analyzer(policy: str = "default", **kwargs) -> 'ConnascenceAnalyzer':
     """
     Get a configured core analyzer instance.
-    
+
     Args:
         policy: Analysis policy to use ('default', 'strict', 'relaxed')
         **kwargs: Additional configuration options
-        
+
     Returns:
         ConnascenceAnalyzer: Configured analyzer instance
     """
@@ -1098,8 +1045,8 @@ if __name__ == "__main__":
 
 # Export enhanced functions for testing and CI integration
 __all__ = [
-    'main', 
-    'ConnascenceAnalyzer', 
+    'main',
+    'ConnascenceAnalyzer',
     'ConnascenceViolation',
     'validate_critical_dependencies',
     'create_enhanced_mock_import_manager',

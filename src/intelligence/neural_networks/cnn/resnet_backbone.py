@@ -37,7 +37,7 @@ class FinancialConv2d(nn.Module):
 
         # Standard convolution
         self.conv = nn.Conv2d(
-            in_channels, out_channels,
+        in_channels, out_channels,
             kernel_size=kernel_size,
             stride=stride,
             padding=padding,
@@ -50,7 +50,7 @@ class FinancialConv2d(nn.Module):
         # Price-aware attention if enabled
         if price_aware:
             self.price_attention = nn.Sequential(
-                nn.AdaptiveAvgPool2d(1),
+            nn.AdaptiveAvgPool2d(1),
                 nn.Conv2d(out_channels, out_channels // 4, 1),
                 nn.ReLU(inplace=True),
                 nn.Conv2d(out_channels // 4, out_channels, 1),
@@ -114,7 +114,7 @@ class FinancialBasicBlock(nn.Module):
 
         # First convolution
         self.conv1 = FinancialConv2d(
-            inplanes, planes,
+        inplanes, planes,
             kernel_size=3,
             stride=stride,
             padding=1,
@@ -123,7 +123,7 @@ class FinancialBasicBlock(nn.Module):
 
         # Second convolution
         self.conv2 = FinancialConv2d(
-            planes, planes,
+        planes, planes,
             kernel_size=3,
             stride=1,
             padding=1,
@@ -136,7 +136,7 @@ class FinancialBasicBlock(nn.Module):
         # Financial pattern attention
         if financial_enhancement:
             self.pattern_attention = nn.Sequential(
-                nn.AdaptiveAvgPool2d(1),
+            nn.AdaptiveAvgPool2d(1),
                 nn.Linear(planes, planes // 4),
                 nn.ReLU(inplace=True),
                 nn.Linear(planes // 4, planes),
@@ -169,7 +169,7 @@ class FinancialBasicBlock(nn.Module):
         if self.financial_enhancement:
             B, C, H, W = out.shape
             attention_weights = self.pattern_attention(
-                F.adaptive_avg_pool2d(out, 1).view(B, C)
+            F.adaptive_avg_pool2d(out, 1).view(B, C)
             ).view(B, C, 1, 1)
             out = out * attention_weights
 
@@ -210,7 +210,7 @@ class FinancialBottleneck(nn.Module):
 
         # 3x3 financial convolution
         self.conv2 = FinancialConv2d(
-            planes, planes,
+        planes, planes,
             kernel_size=3,
             stride=stride,
             padding=1,
@@ -227,8 +227,8 @@ class FinancialBottleneck(nn.Module):
         # Multi-scale feature extraction for patterns
         if financial_enhancement:
             self.multi_scale = nn.ModuleList([
-                nn.Conv2d(planes, planes // 4, kernel_size=k, padding=k//2)
-                for k in [1, 3, 5, 7]  # Different scales for pattern features
+            nn.Conv2d(planes, planes // 4, kernel_size=k, padding=k//2)
+            for k in [1, 3, 5, 7]  # Different scales for pattern features
             ])
             self.scale_fusion = nn.Conv2d(planes, planes, kernel_size=1)
 
@@ -300,7 +300,7 @@ class FinancialResNet(nn.Module):
 
         # Initial convolution for financial data
         self.conv1 = nn.Conv2d(
-            input_channels, self.inplanes,
+        input_channels, self.inplanes,
             kernel_size=7, stride=2, padding=3, bias=False
         )
         self.bn1 = nn.BatchNorm2d(self.inplanes)
@@ -321,7 +321,7 @@ class FinancialResNet(nn.Module):
 
         # Gary's DPI integration layer
         self.dpi_layer = nn.Sequential(
-            nn.Linear(256, 128),
+        nn.Linear(256, 128),
             nn.ReLU(),
             nn.Linear(128, 64),
             nn.ReLU(),
@@ -331,7 +331,7 @@ class FinancialResNet(nn.Module):
 
         # Taleb's antifragility enhancement
         self.antifragile_gate = nn.Sequential(
-            nn.Linear(256, 128),
+        nn.Linear(256, 128),
             nn.Tanh(),
             nn.Linear(128, 256),
             nn.Sigmoid()
@@ -342,7 +342,7 @@ class FinancialResNet(nn.Module):
 
         # Confidence estimation head
         self.confidence_head = nn.Sequential(
-            nn.Linear(256, 128),
+        nn.Linear(256, 128),
             nn.ReLU(),
             nn.Dropout(0.1),
             nn.Linear(128, 1),
@@ -351,7 +351,7 @@ class FinancialResNet(nn.Module):
 
         # Pattern strength estimation
         self.strength_head = nn.Sequential(
-            nn.Linear(256, 64),
+        nn.Linear(256, 64),
             nn.ReLU(),
             nn.Linear(64, 4),  # Weak, Moderate, Strong, Very Strong
             nn.Softmax(dim=-1)
@@ -372,7 +372,7 @@ class FinancialResNet(nn.Module):
         downsample = None
         if stride != 1 or self.inplanes != planes * block.expansion:
             downsample = nn.Sequential(
-                nn.Conv2d(self.inplanes, planes * block.expansion,
+            nn.Conv2d(self.inplanes, planes * block.expansion,
                          kernel_size=1, stride=stride, bias=False),
                 nn.BatchNorm2d(planes * block.expansion),
             )
@@ -455,7 +455,7 @@ class FinancialResNet(nn.Module):
         # Volume-weighted adjustments
         if volume_data is not None:
             volume_factor = torch.sigmoid(
-                torch.mean(volume_data.view(volume_data.size(0), -1), dim=-1, keepdim=True)
+            torch.mean(volume_data.view(volume_data.size(0), -1), dim=-1, keepdim=True)
             )
             volume_weights = torch.sigmoid(self.volume_importance).unsqueeze(0)
             adjusted_probs = probabilities * (1 + volume_factor * volume_weights)
@@ -464,7 +464,7 @@ class FinancialResNet(nn.Module):
             adjusted_probs = probabilities
 
         return {
-            'logits': logits,
+        'logits': logits,
             'probabilities': probabilities,
             'adjusted_probabilities': adjusted_probs,
             'pattern_features': pattern_features,
@@ -524,4 +524,7 @@ def create_fast_financial_resnet(**kwargs) -> FinancialResNet:
     model = FinancialResNet(FinancialBasicBlock, [2, 2, 2, 2], **kwargs)
 
     # Compile for faster inference if PyTorch 2.0+
-    if torch.__version__ >= \"2.0.0\":\n        model = torch.compile(model, mode='max-autotune')\n        \n    return model"
+    if torch.__version__ >= "2.0.0":
+        model = torch.compile(model, mode='max-autotune')
+
+    return model

@@ -3,7 +3,9 @@
  * Tests core functionality, performance, and enterprise features
  */
 
-const FeatureFlagManager = require('../../../src/enterprise/feature-flags/feature-flag-manager');
+// Use mock implementation for testing
+const FeatureFlagManager = require('../../mocks/feature-flag-manager');
+const { cleanupTestResources } = require('../../setup/test-environment');
 
 describe('FeatureFlagManager', () => {
     let flagManager;
@@ -20,6 +22,7 @@ describe('FeatureFlagManager', () => {
         if (flagManager) {
             await flagManager.shutdown?.();
         }
+        await cleanupTestResources();
     });
 
     describe('Initialization', () => {

@@ -1,0 +1,127 @@
+Sorry: IndentationError: unexpected indent (./.claude/.artifacts/artifact_manager.py, line 16)Sorry: IndentationError: unexpected indent (./.claude/.artifacts/compliance/compliance_packager.py, line 16)  File "./.claude/.artifacts/dfars_compliance_framework.py", line 24
+    'compliance_score': 0.0)
+                           ^
+SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' on line 15
+  File "./.claude/.artifacts/quality_analysis.py", line 25
+    critical_violations = len([v for v in violations if v.get('severity') == 'critical']  # TODO: Consider limiting size with itertools.islice())
+                              
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+Sorry: IndentationError: unexpected indent (./.claude/.artifacts/quality_validator.py, line 18)  File "./.claude/artifacts/performance_scaling_test.py", line 140
+    'source_lines': [f'line {j}: some code here' for j in range(200)]  # TODO: Consider limiting size with itertools.islice(),  # 200 lines
+                    
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+  File "./.claude/coordination/adaptive/agent_deployment_protocol.py", line 111
+    "stability_maintenance": True),
+                                 ^
+SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' on line 108
+  File "./.claude/performance/baselines/baseline_collector.py", line 126
+    print(f"System baseline collected: (cpu_count) cores, {total_memory_gb:.1f}GB RAM"}
+                                                                                      ^
+SyntaxError: closing parenthesis '}' does not match opening parenthesis '('
+  File "./.claude/performance/monitoring/realtime_monitor.py", line 83
+    'network_critical': 50.0)
+                            ^
+SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' on line 75
+  File "./.claude/performance/validation/theater_detector.py", line 146
+    'reproducibility_tests': self._validate_reproducibility)
+                                                           ^
+SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' on line 141
+  File "./.sandboxes/phase2-config-test/analyzer/performance/ci_cd_accelerator.py", line 181
+    sful: {acceleration_result.tasks_successful}\")\n            print(f\"Execution Time: {acceleration_result.total_execution_time_seconds:.2f}s\")\n            print(f\"Performance Improvement: {acceleration_result.performance_improvement_percent:.1f}%\")\n            print(f\"Parallelization Achieved: {acceleration_result.parallelization_achieved:.1%}\")\n            print(f\"Cache Hit Rate: {acceleration_result.cache_hit_rate_percent:.1f}%\")\n            print(f\"Target Achieved: {'YES' if results['target_improvement_achieved'] else 'NO'}\")\n            \n            print(\"\\nRecommendations:\")\n            for i, rec in enumerate(results['recommendations'], 1):\n                print(f\"{i}. {rec}\")\n            \n        except Exception as e:\n            print(f\"CI/CD acceleration failed: {e}\")\n            import traceback\n            traceback.print_exc()\n    \n    asyncio.run(main())\n
+                        ^
+SyntaxError: unexpected character after line continuation character
+  File "./.sandboxes/phase2-config-test/analyzer/system_integration.py", line 357
+    from src.theater-detection.theater_detector import TheaterDetector
+                    ^
+SyntaxError: invalid syntax
+Sorry: IndentationError: unexpected indent (./analyzer/enterprise/compliance/audit_trail.py, line 122)Sorry: IndentationError: unexpected indent (./analyzer/enterprise/compliance/core.py, line 18)  File "./analyzer/enterprise/compliance/integration.py", line 84
+    self.logger.error(f"Failed to register compliance analyzers: {e)"}
+                                                                   ^
+SyntaxError: f-string: unmatched ')'
+Sorry: IndentationError: unexpected indent (./analyzer/enterprise/compliance/iso27001.py, line 32)Sorry: IndentationError: unexpected indent (./analyzer/enterprise/compliance/nist_ssdf.py, line 23)Sorry: IndentationError: unexpected indent (./analyzer/enterprise/compliance/reporting.py, line 29)Sorry: IndentationError: unexpected indent (./analyzer/enterprise/compliance/soc2.py, line 30)Sorry: IndentationError: unexpected indent (./analyzer/enterprise/compliance/validate_retention.py, line 26)  File "./analyzer/enterprise/detector/EnterpriseDetectorPool.py", line 744
+    assert result is not None, "Critical operation failed"
+    ^^^^^^
+SyntaxError: expected 'except' or 'finally' block
+  File "./analyzer/enterprise/integration/EnterpriseIntegrationFramework.py", line 189
+    assert result is not None, "Critical operation failed"
+    ^^^^^^
+SyntaxError: expected 'except' or 'finally' block
+  File "./analyzer/enterprise/performance/MLCacheOptimizer.py", line 100
+    "prediction_accuracy": self.prediction_accuracy)
+                                                   ^
+SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' on line 89
+  File "./analyzer/enterprise/supply_chain/evidence_packager.py", line 621
+    hashes['sha1'] = hashlib.sha1(content, usedforsecurity=False, usedforsecurity=False).hexdigest()
+                                                                  ^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: keyword argument repeated: usedforsecurity
+  File "./analyzer/enterprise/validation/EnterprisePerformanceValidator.py", line 423
+    assert result is not None, "Critical operation failed"
+    ^^^^^^
+SyntaxError: expected 'except' or 'finally' block
+  File "./analyzer/integrations/tool_coordinator.py", line 41
+    self.enterprise_analyzers["duplication"] = DuplicationAnalyzer()
+SyntaxError: expected 'except' or 'finally' block
+  File "./analyzer/performance/ci_cd_accelerator.py", line 207
+    \"Tasks Successful: {acceleration_result.tasks_successful}\")\n            print(f\"Execution Time: {acceleration_result.total_execution_time_seconds:.2f}s\")\n            print(f\"Performance Improvement: {acceleration_result.performance_improvement_percent:.1f}%\")\n            print(f\"Parallelization Achieved: {acceleration_result.parallelization_achieved:.1%}\")\n            print(f\"Cache Hit Rate: {acceleration_result.cache_hit_rate_percent:.1f}%\")\n            print(f\"Target Achieved: {'YES' if results['target_improvement_achieved'] else 'NO'}\")\n            \n            print(\"\\nRecommendations:\")\n            for i, rec in enumerate(results['recommendations'], 1):\n                print(f\"{i}. {rec}\")\n            \n        except Exception as e:\n            print(f\"CI/CD acceleration failed: {e}\")\n            import traceback\n            traceback.print_exc()\n    \n    asyncio.run(main())\n
+                          ^
+SyntaxError: unexpected character after line continuation character
+  File "./scripts/unicode_removal_linter.py", line 278
+    print(f"[OK] {file_path.relative_to(Path.cwd())}: {replacements_made) unicode chars replaced")
+                                                                        ^
+SyntaxError: f-string: unmatched ')'
+Sorry: IndentationError: unexpected indent (./src/cycles/profit_calculator.py, line 30)Sorry: IndentationError: unexpected indent (./src/cycles/scheduler.py, line 29)Sorry: IndentationError: unexpected indent (./src/cycles/weekly_cycle.py, line 29)Sorry: IndentationError: unexpected indent (./src/cycles/weekly_siphon_automator.py, line 30)Sorry: IndentationError: unexpected indent (./src/intelligence/data_pipeline/monitoring/metrics_collector.py, line 12)Sorry: IndentationError: unexpected indent (./src/intelligence/data_pipeline/monitoring/pipeline_monitor.py, line 12)Sorry: IndentationError: unexpected indent (./src/intelligence/data_pipeline/processing/alternative_data_processor.py, line 15)Sorry: IndentationError: unexpected indent (./src/intelligence/data_pipeline/processing/news_processor.py, line 15)Sorry: IndentationError: unexpected indent (./src/intelligence/data_pipeline/processing/options_flow_analyzer.py, line 12)Sorry: IndentationError: unexpected indent (./src/intelligence/data_pipeline/processing/sentiment_processor.py, line 13)Sorry: IndentationError: unindent does not match any outer indentation level (./src/intelligence/data_pipeline/sources/alpaca_source.py, line 25)  File "./src/intelligence/data_pipeline/sources/data_source_manager.py", line 39
+    self.logger.info(f"Initialized {name) data source")
+                                        ^
+SyntaxError: f-string: unmatched ')'
+  File "./src/intelligence/data_pipeline/sources/historical_loader.py", line 34
+    self.logger.info(f"Initialized {name) data source")
+                                        ^
+SyntaxError: f-string: unmatched ')'
+Sorry: IndentationError: unindent does not match any outer indentation level (./src/intelligence/data_pipeline/sources/polygon_source.py, line 22)Sorry: IndentationError: unindent does not match any outer indentation level (./src/intelligence/data_pipeline/sources/yahoo_source.py, line 31)Sorry: IndentationError: unexpected indent (./src/intelligence/data_pipeline/streaming/failover_manager.py, line 14)Sorry: IndentationError: unexpected indent (./src/intelligence/data_pipeline/streaming/real_time_streamer.py, line 17)Sorry: IndentationError: unexpected indent (./src/intelligence/data_pipeline/streaming/stream_buffer.py, line 17)Sorry: IndentationError: unexpected indent (./src/intelligence/data_pipeline/streaming/websocket_manager.py, line 17)  File "./src/intelligence/data_pipeline/validation/data_validator.py", line 72
+    self.logger.error(f"Validation error for {symbol): {e)")
+                                                    ^
+SyntaxError: f-string: unmatched ')'
+Sorry: IndentationError: unexpected indent (./src/intelligence/data_pipeline/validation/quality_monitor.py, line 13)  File "./src/intelligence/neural_networks/cnn/pattern_recognizer.py", line 576
+    'target_calculation': pattern_char.target_calculation)
+                                                         ^
+SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' on line 566
+  File "./src/intelligence/neural_networks/ensemble/ensemble_framework.py", line 157
+    'tail_risk_assessment': 0.0)
+                               ^
+SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' on line 153
+  File "./src/intelligence/neural_networks/lstm/attention_mechanism.py", line 113
+    \n        # Generate market-aware weights\n        vol_weights = torch.sigmoid(self.volatility_weight(volatility))\n        volume_weights = torch.sigmoid(self.volume_weight(normalized_volume))\n        \n        # Combine with LSTM output\n        market_weighted_output = lstm_output * (vol_weights + volume_weights) / 2\n        \n        # Apply standard attention\n        attended_output, attention_weights = self.attention_layer(market_weighted_output)\n        \n        return attended_output, attention_weights"
+                                            ^
+SyntaxError: unexpected character after line continuation character
+Sorry: IndentationError: unexpected indent (./src/intelligence/neural_networks/lstm/lstm_predictor.py, line 55)Sorry: IndentationError: expected an indented block after 'if' statement on line 74 (./src/intelligence/neural_networks/rl/ppo_agent.py, line 75)Sorry: IndentationError: unindent does not match any outer indentation level (./src/intelligence/neural_networks/rl/strategy_optimizer.py, line 88)Sorry: IndentationError: unexpected indent (./src/intelligence/neural_networks/rl/trading_environment.py, line 90)Sorry: IndentationError: unexpected indent (./src/intelligence/neural_networks/transformer/financial_bert.py, line 40)Sorry: IndentationError: unexpected indent (./src/intelligence/neural_networks/transformer/sentiment_analyzer.py, line 75)  File "./src/linter-integration/agents/api_docs_node.py", line 16
+    from ..severity-mapping.unified_severity import UnifiedSeverityMapper, UnifiedSeverity, ViolationCategory
+                   ^
+SyntaxError: invalid syntax
+  File "./src/linter-integration/agents/integration_specialist_node.py", line 216
+    'factors': factors) if confidence > 0 else None
+                      ^
+SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' on line 214
+Sorry: IndentationError: unexpected indent (./src/safety/integration/trading_safety_bridge.py, line 14)  File "./src/security/dfars_compliance_engine.py", line 94
+    "access_restrictions": True),
+                               ^
+SyntaxError: closing parenthesis ')' does not match opening parenthesis '{' on line 91
+  File "./src/security/enhanced_audit_trail_manager.py", line 143
+    logger.info(f"Security Event: (event_type) - {user_id) - {action) - {resource)")
+                                                         ^
+SyntaxError: f-string: unmatched ')'
+Sorry: IndentationError: unexpected indent (./src/sixsigma/telemetry_config.py, line 21)  File "./src/theater-detection/theater-detector.py", line 862
+    "stakeholder_confidence": "high" if overall_reality_score > 0.80 else "medium" if overall_reality_score > 0.SECONDS_PER_MINUTE else "low"
+                                                                                                               ^
+SyntaxError: invalid decimal literal
+Sorry: IndentationError: unexpected indent (./src/trading/market_data_provider.py, line 26)Sorry: IndentationError: unexpected indent (./src/trading/portfolio_manager.py, line 26)Sorry: IndentationError: unexpected indent (./src/trading/trade_executor.py, line 27)  File "./tests/workflow-validation/comprehensive_validation_report.py", line 66
+    report['critical_blockers'].append(f"Missing workflow file: (workflow_file)"}
+                                                                                ^
+SyntaxError: closing parenthesis '}' does not match opening parenthesis '('
+  File "./tests/workflow-validation/python_execution_tests.py", line 153
+    if cleaned.strip().startswith('# SECURITY FIX: exec() replaced - use subprocess for external commands
+                                  ^
+SyntaxError: unterminated string literal (detected at line 153)
+  File "./tests/workflow-validation/workflow_test_suite.py", line 339
+    if cleaned.strip().startswith("# SECURITY FIX: exec() replaced - use subprocess for external commands
+                                  ^
+SyntaxError: unterminated string literal (detected at line 339)

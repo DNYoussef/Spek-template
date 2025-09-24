@@ -115,10 +115,10 @@ class AuditTrailGenerator:
             event.integrity_verified = True
             
             result = audit_events.append(event)
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Evidence collection events for each control/practice
-            evidence_events = await self._create_evidence_collection_events(framework, results, collection_start)
+evidence_events = await self._create_evidence_collection_events(framework, results, collection_start)
             result = audit_events.extend(evidence_events)
             assert result is not None, 'Critical operation failed'
         
@@ -173,7 +173,7 @@ class AuditTrailGenerator:
             event.data_hash = self._generate_data_hash(criteria_data)
             event.integrity_verified = True
             result = events.append(event)
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         return events
     
@@ -205,7 +205,7 @@ class AuditTrailGenerator:
             event.data_hash = self._generate_data_hash(assessment)
             event.integrity_verified = True
             result = events.append(event)
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         return events
     
@@ -238,7 +238,7 @@ class AuditTrailGenerator:
             event.data_hash = self._generate_data_hash(assessment)
             event.integrity_verified = True
             result = events.append(event)
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         return events
     
@@ -277,7 +277,7 @@ class AuditTrailGenerator:
             package.chain_of_custody = await self._create_chain_of_custody(package)
             
             result = packages.append(package)
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         return packages
     
@@ -294,7 +294,7 @@ class AuditTrailGenerator:
         with open(results_file, 'w') as f:
             json.dump(results, f, indent=2, default=str)
         result = evidence_files.append(str(results_file.relative_to(self.evidence_packages_path)))
-        assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         # Save specific evidence artifacts based on framework
         if framework == "SOC2":
@@ -318,7 +318,7 @@ class AuditTrailGenerator:
         
         # Add archive to evidence files list
         result = evidence_files.append(str(archive_file.relative_to(self.evidence_packages_path)))
-        assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         return evidence_files
     
@@ -332,7 +332,7 @@ class AuditTrailGenerator:
             with open(matrix_file, 'w') as f:
                 json.dump(results["soc2_matrix"], f, indent=2, default=str)
             result = evidence_files.append(str(matrix_file.relative_to(self.evidence_packages_path)))
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         # Save evidence summary
         if "evidence_summary" in results:
@@ -340,7 +340,7 @@ class AuditTrailGenerator:
             with open(summary_file, 'w') as f:
                 json.dump(results["evidence_summary"], f, indent=2, default=str)
             result = evidence_files.append(str(summary_file.relative_to(self.evidence_packages_path)))
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         return evidence_files
     
@@ -354,7 +354,7 @@ class AuditTrailGenerator:
             with open(matrix_file, 'w') as f:
                 json.dump(results["compliance_matrix"], f, indent=2, default=str)
             result = evidence_files.append(str(matrix_file.relative_to(self.evidence_packages_path)))
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         # Save risk assessment
         if "risk_assessment" in results:
@@ -362,7 +362,7 @@ class AuditTrailGenerator:
             with open(risk_file, 'w') as f:
                 json.dump(results["risk_assessment"], f, indent=2, default=str)
             result = evidence_files.append(str(risk_file.relative_to(self.evidence_packages_path)))
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         # Save gap analysis
         if "gap_analysis" in results:
@@ -370,7 +370,7 @@ class AuditTrailGenerator:
             with open(gap_file, 'w') as f:
                 json.dump(results["gap_analysis"], f, indent=2, default=str)
             result = evidence_files.append(str(gap_file.relative_to(self.evidence_packages_path)))
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         return evidence_files
     
@@ -384,7 +384,7 @@ class AuditTrailGenerator:
             with open(tier_file, 'w') as f:
                 json.dump(results["implementation_tier"], f, indent=2, default=str)
             result = evidence_files.append(str(tier_file.relative_to(self.evidence_packages_path)))
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         # Save maturity assessment
         if "maturity_assessment" in results:
@@ -392,7 +392,7 @@ class AuditTrailGenerator:
             with open(maturity_file, 'w') as f:
                 json.dump(results["maturity_assessment"], f, indent=2, default=str)
             result = evidence_files.append(str(maturity_file.relative_to(self.evidence_packages_path)))
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         # Save gap analysis
         if "gap_analysis" in results:
@@ -400,7 +400,7 @@ class AuditTrailGenerator:
             with open(gap_file, 'w') as f:
                 json.dump(results["gap_analysis"], f, indent=2, default=str)
             result = evidence_files.append(str(gap_file.relative_to(self.evidence_packages_path)))
-            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         return evidence_files
     
@@ -472,7 +472,7 @@ class AuditTrailGenerator:
                 integrity_checks["audit_events_verified"] += 1
             else:
                 result = integrity_checks["integrity_issues"].append(f"Event {event.event_id} integrity verification failed")
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         # Verify evidence packages
         for package in evidence_packages:
@@ -481,7 +481,7 @@ class AuditTrailGenerator:
                 integrity_checks["evidence_packages_verified"] += 1
             else:
                 result = integrity_checks["integrity_issues"].append(f"Package {package.package_id} hash verification failed")
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         # Overall integrity status
         integrity_checks["overall_integrity"] = len(integrity_checks["integrity_issues"]) == 0
@@ -509,7 +509,7 @@ class AuditTrailGenerator:
             }
         )
         result = custody_events.append(creation_event)
-        assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         # Package sealing event
         sealing_event = AuditEvent(
@@ -526,7 +526,7 @@ class AuditTrailGenerator:
             }
         )
         result = custody_events.append(sealing_event)
-        assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
         
         return custody_events
     
@@ -629,7 +629,7 @@ class AuditTrailGenerator:
                     for artifact in artifacts:
                         if isinstance(artifact, dict) and "file" in artifact:
                             result = files.append(artifact["file"])
-                            assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             if "evidence" in data:
                 evidence = data["evidence"]
                 if isinstance(evidence, dict) and "artifacts" in evidence:
@@ -660,7 +660,7 @@ class AuditTrailGenerator:
                 retention_until = datetime.fromisoformat(trail['retention_until'])
                 if retention_until > current_time:
                     result = active_trails.append(trail)
-                    assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
                 else:
                     # Clean up files
                     for file_key in ['audit_log_file', 'integrity_file']:

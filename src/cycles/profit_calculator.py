@@ -24,42 +24,42 @@ from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
         
         # Calculation history for audit
-        self.calculation_history: List[Dict[str, Any]] = []
+self.calculation_history: List[Dict[str, Any]] = []
         
         # Validation rules
         self._validate_config()
         
-        self.logger.info(f"ProfitCalculator initialized with method: {self.config.calculation_method.value}")
+        self.logger.info(f"ProfitCalculator initialized with method: {self.config.calculation_method.value)"}
     
     def _validate_config(self) -> None:
         """Validate configuration parameters."""
         if not 0 < self.config.split_ratio <= 1.0:
-            raise ValueError(f"Split ratio must be between 0 and 1, got {self.config.split_ratio}")
+            raise ValueError(f"Split ratio must be between 0 and 1, got {self.config.split_ratio)"}
         
         if self.config.min_threshold < 0:
-            raise ValueError(f"Min threshold cannot be negative, got {self.config.min_threshold}")
+            raise ValueError(f"Min threshold cannot be negative, got {self.config.min_threshold)"}
         
         if self.config.risk_adjustment_factor <= 0 or self.config.risk_adjustment_factor > 1:
-            raise ValueError(f"Risk adjustment factor must be between 0 and 1, got {self.config.risk_adjustment_factor}")
+            raise ValueError(f"Risk adjustment factor must be between 0 and 1, got {self.config.risk_adjustment_factor)"}
     
     def calculate_split(
-        self, 
+    self, 
         profit_data: Dict[str, Any],
         calculation_id: Optional[str] = None
-    ) -> Dict[str, Any]:
+    } -> Dict[str, Any]:
         """Calculate 50/50 profit split from profit data.
         
         Args:
             profit_data: Dictionary containing profit calculation data
             calculation_id: Optional ID for tracking
         
-        Returns:
+        Returns}
             Dictionary with detailed split calculation results
         """
-        calc_id = calculation_id or f"calc_{datetime.now(timezone.utc).isoformat()}"
+        calc_id = calculation_id or f"calc_{datetime.now(timezone.utc).isoformat(}}"
         
         try:
-            self.logger.info(f"Starting profit split calculation: {calc_id}")
+            self.logger.info(f"Starting profit split calculation: {calc_id)"}
             
             # Extract and validate profit data
             validated_data = self._validate_profit_data(profit_data)
@@ -75,19 +75,18 @@ logger = get_logger(__name__)
             
             # Create comprehensive results
             results = {
-                'calculation_id': calc_id,
-                'timestamp': datetime.now(timezone.utc),
+            'calculation_id': calc_id,
+                'timestamp': datetime.now(timezone.utc},
                 'method': self.config.calculation_method.value,
                 'input_data': validated_data,
                 'base_profit': base_profit,
                 'adjusted_profit': adjusted_profit,
                 'split_results': split_results,
                 'configuration': {
-                    'split_ratio': self.config.split_ratio,
+                'split_ratio': self.config.split_ratio,
                     'min_threshold': self.config.min_threshold,
                     'risk_adjustment': self.config.risk_adjustment_factor,
-                    'drawdown_protection': self.config.drawdown_protection
-                }
+                    'drawdown_protection'} self.config.drawdown_protection)
             }
             
             # Add detailed breakdown if enabled
@@ -99,23 +98,22 @@ logger = get_logger(__name__)
                 self.calculation_history.append(results)
             
             self.logger.info(
-                f"Profit split calculated: ${split_results['siphon_amount']:.2f} "
-                f"from ${adjusted_profit['net_profit']:.2f} profit"
-            )
+            f"Profit split calculated: ${split_results['siphon_amount']:.2f} "
+            f"from ${adjusted_profit['net_profit']:.2f} profit"
+            }
             
             return results
             
         except Exception as e:
-            error_msg = f"Profit calculation failed: {str(e)}"
+            error_msg = f"Profit calculation failed} {str(e)}"
             self.logger.error(error_msg)
             
             error_result = {
-                'calculation_id': calc_id,
+            'calculation_id': calc_id,
                 'timestamp': datetime.now(timezone.utc),
                 'status': 'error',
                 'error': str(e),
-                'input_data': profit_data
-            }
+                'input_data': profit_data)
             
             if self.config.audit_enabled:
                 self.calculation_history.append(error_result)
@@ -125,7 +123,7 @@ logger = get_logger(__name__)
     def _validate_profit_data(self, profit_data: Dict[str, Any]) -> Dict[str, Any]:
         """Validate and normalize profit data."""
         validated = {
-            'net_profit': float(profit_data.get('net_profit', 0.0)),
+        'net_profit': float(profit_data.get('net_profit', 0.0)),
             'gross_profit': float(profit_data.get('gross_profit', 0.0)),
             'fees': float(profit_data.get('fees', 0.0)),
             'period_start': profit_data.get('period_start'),
@@ -135,7 +133,7 @@ logger = get_logger(__name__)
         
         # Additional validation
         if validated['net_profit'] < 0 and abs(validated['net_profit']) > 1000:
-            self.logger.warning(f"Large negative profit detected: ${validated['net_profit']:.2f}")
+            self.logger.warning(f"Large negative profit detected: ${validated['net_profit']:.2f)"}
         
         return validated
     
@@ -147,26 +145,45 @@ logger = get_logger(__name__)
         
         if method == CalculationMethod.PORTFOLIO_DELTA:
             # Use portfolio value change
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             base_profit = net_profit
         elif method == CalculationMethod.POSITION_BASED:
             # Sum individual position P&L (placeholder - would integrate with positions)
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             base_profit = net_profit
         elif method == CalculationMethod.CASH_FLOW:
             # Track actual cash movements (placeholder)
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             base_profit = net_profit
         elif method == CalculationMethod.REALIZED_ONLY:
             # Only realized gains (conservative approach)
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             base_profit = min(net_profit, gross_profit * 0.8)  # Assume 80% realized
         else:  # MARK_TO_MARKET
-            # Include unrealized P&L
-            base_profit = net_profit
+        # Include unrealized P&L
+        base_profit = net_profit
         
         return {
-            'amount': base_profit,
+        'amount': base_profit,
             'method': method.value,
             'gross_component': gross_profit,
-            'net_component': net_profit
-        }
+            'net_component': net_profit)
     
     def _apply_adjustments(self, base_profit: Dict[str, Any], data: Dict[str, Any]) -> Dict[str, Any]:
         """Apply risk adjustments and fee deductions."""
@@ -183,22 +200,26 @@ logger = get_logger(__name__)
         # Fee handling
         if self.config.fee_deduction_method == "gross_first":
             # Deduct fees from gross before split calculation
-            net_available = max(0, available_profit - fees)
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            net_available = max(0, available_profit - fees}
         else:  # "net_split"
-            # Deduct fees proportionally from split
-            net_available = available_profit
+        # Deduct fees proportionally from split
+        net_available = available_profit
         
         return {
-            'base_amount': base_amount,
+        'base_amount': base_amount,
             'risk_adjusted': risk_adjusted,
             'drawdown_holdback': drawdown_holdback,
             'fees_deducted': fees if self.config.fee_deduction_method == "gross_first" else 0,
             'net_profit': net_available,
             'adjustments': {
-                'risk_factor': self.config.risk_adjustment_factor,
+            'risk_factor': self.config.risk_adjustment_factor,
                 'drawdown_rate': self.config.drawdown_protection,
-                'fee_method': self.config.fee_deduction_method
-            }
+                'fee_method'} self.config.fee_deduction_method)
         }
     
     def _calculate_split_amounts(self, adjusted_profit: Dict[str, Any]) -> Dict[str, Any]:
@@ -210,7 +231,7 @@ logger = get_logger(__name__)
         
         if not threshold_met:
             return {
-                'siphon_amount': 0.0,
+            'siphon_amount': 0.0,
                 'remaining_amount': net_profit,
                 'split_ratio_applied': 0.0,
                 'threshold_met': False,
@@ -222,7 +243,7 @@ logger = get_logger(__name__)
         split_decimal = Decimal(str(self.config.split_ratio))
         
         siphon_decimal = (net_decimal * split_decimal).quantize(
-            Decimal('0.01'), rounding=self.config.rounding_method
+        Decimal('0.01'), rounding=self.config.rounding_method
         )
         
         siphon_amount = float(siphon_decimal)
@@ -231,57 +252,55 @@ logger = get_logger(__name__)
         # Apply maximum siphon limit
         if siphon_amount > self.config.max_siphon_amount:
             self.logger.warning(
-                f"Calculated siphon ${siphon_amount:.2f} exceeds max ${self.config.max_siphon_amount:.2f}"
-            )
+            f"Calculated siphon ${siphon_amount:.2f} exceeds max ${self.config.max_siphon_amount:.2f}"
+            }
             original_siphon = siphon_amount
             siphon_amount = self.config.max_siphon_amount
             remaining_amount = net_profit - siphon_amount
             
             return {
-                'siphon_amount': siphon_amount,
+            'siphon_amount': siphon_amount,
                 'remaining_amount': remaining_amount,
                 'split_ratio_applied': siphon_amount / net_profit,
                 'threshold_met': True,
                 'max_limit_applied': True,
                 'original_siphon': original_siphon,
-                'limit_reason': 'max_siphon_amount_exceeded'
+                'limit_reason'} 'max_siphon_amount_exceeded'
             }
         
         return {
-            'siphon_amount': siphon_amount,
+        'siphon_amount': siphon_amount,
             'remaining_amount': remaining_amount,
             'split_ratio_applied': self.config.split_ratio,
             'threshold_met': True,
-            'max_limit_applied': False
-        }
+            'max_limit_applied': False)
     
     def _create_detailed_breakdown(self, results: Dict[str, Any]) -> Dict[str, Any]:
         """Create detailed calculation breakdown for audit."""
         return {
-            'profit_flow': {
-                'gross_profit': results['input_data']['gross_profit'],
+        'profit_flow': {
+        'gross_profit': results['input_data']['gross_profit'],
                 'fees_deducted': results['adjusted_profit']['fees_deducted'],
                 'risk_adjustment': results['base_profit']['amount'] - results['adjusted_profit']['risk_adjusted'],
                 'drawdown_holdback': results['adjusted_profit']['drawdown_holdback'],
                 'net_available': results['adjusted_profit']['net_profit']
             },
             'split_calculation': {
-                'net_profit': results['adjusted_profit']['net_profit'],
+            'net_profit': results['adjusted_profit']['net_profit'],
                 'split_ratio': results['configuration']['split_ratio'],
                 'calculated_siphon': results['split_results']['siphon_amount'],
                 'remaining_investment': results['split_results']['remaining_amount']
             },
             'verification': {
-                'total_check': results['split_results']['siphon_amount'] + results['split_results']['remaining_amount'],
+            'total_check': results['split_results']['siphon_amount'] + results['split_results']['remaining_amount'],
                 'matches_net': abs(results['adjusted_profit']['net_profit'] - 
-                                 (results['split_results']['siphon_amount'] + results['split_results']['remaining_amount'])) < 0.01
-            }
+                (results['split_results']['siphon_amount'] + results['split_results']['remaining_amount'])) < 0.01)
         }
     
     def verify_calculation(self, results: Dict[str, Any]) -> Dict[str, Any]:
         """Verify calculation accuracy and consistency."""
         verification = {
-            'calculation_id': results['calculation_id'],
+        'calculation_id': results['calculation_id'],
             'timestamp': datetime.now(timezone.utc),
             'checks_passed': 0,
             'total_checks': 0,
@@ -294,10 +313,10 @@ logger = get_logger(__name__)
         net_profit = results['adjusted_profit']['net_profit']
         
         if abs(split_sum - net_profit) < 0.01:  # Allow 1 cent rounding difference
-            verification['checks_passed'] += 1
+        verification['checks_passed'] += 1
         else:
             verification['issues'].append(
-                f"Split sum ${split_sum:.2f} != net profit ${net_profit:.2f}"
+            f"Split sum ${split_sum:.2f} != net profit ${net_profit:.2f}"
             )
         
         # Check 2: Split ratio is correct (if threshold met)
@@ -307,10 +326,10 @@ logger = get_logger(__name__)
             actual_ratio = results['split_results']['split_ratio_applied']
             
             if abs(expected_ratio - actual_ratio) < 0.001:  # Allow small floating point differences
-                verification['checks_passed'] += 1
+            verification['checks_passed'] += 1
             else:
                 verification['issues'].append(
-                    f"Split ratio {actual_ratio:.3f} != expected {expected_ratio:.3f}"
+                f"Split ratio {actual_ratio:.3f} != expected {expected_ratio:.3f}"
                 )
         
         # Check 3: Minimum threshold logic
@@ -355,36 +374,34 @@ logger = get_logger(__name__)
         
         return siphon_amount, remaining_amount
     
-    def export_audit_report(self) -> Dict[str, Any]:
+    def export_audit_report(self} -> Dict[str, Any]}
         """Export comprehensive audit report."""
         if not self.calculation_history:
             return {'error': 'No calculation history available'}
         
         total_calculations = len(self.calculation_history)
         successful_calculations = len([
-            calc for calc in self.calculation_history 
-            if calc.get('status') != 'error'
+        calc for calc in self.calculation_history 
+        if calc.get('status') != 'error'
         ])
         
         total_siphoned = sum([
-            calc.get('split_results', {}).get('siphon_amount', 0)
-            for calc in self.calculation_history
-            if calc.get('status') != 'error'
+        calc.get('split_results', {}).get('siphon_amount', 0)
+        for calc in self.calculation_history
+        if calc.get('status') != 'error'
         ])
         
         return {
-            'report_generated': datetime.now(timezone.utc),
+        'report_generated': datetime.now(timezone.utc),
             'configuration': {
-                'split_ratio': self.config.split_ratio,
+            'split_ratio': self.config.split_ratio,
                 'min_threshold': self.config.min_threshold,
-                'calculation_method': self.config.calculation_method.value
-            },
+                'calculation_method': self.config.calculation_method.value),
             'statistics': {
-                'total_calculations': total_calculations,
+            'total_calculations': total_calculations,
                 'successful_calculations': successful_calculations,
                 'success_rate': successful_calculations / total_calculations if total_calculations > 0 else 0,
-                'total_amount_siphoned': total_siphoned
-            },
+                'total_amount_siphoned': total_siphoned),
             'recent_calculations': self.calculation_history[-10:] if self.calculation_history else []
         }
 

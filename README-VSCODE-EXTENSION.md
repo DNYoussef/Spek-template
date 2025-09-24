@@ -1,7 +1,8 @@
 # VSCode Connascence Analyzer Extension - Complete User Guide
 
 **Version**: 2.0.2
-**Status**: Integration Complete - Ready for Testing
+**Wrapper Version**: 2.0.0 (Security Hardened)
+**Status**: Production Ready - Security Validated
 **Last Updated**: 2025-09-23
 
 ---
@@ -101,16 +102,18 @@ The **VSCode Connascence Analyzer Extension** is a real-time code quality analyz
    - Package: `spek-connascence-analyzer 2.0.0`
    - Location: `C:\Users\17175\AppData\Roaming\Python\Python312\Scripts\connascence.exe`
 
-3. **Wrapper Script** (already deployed):
+3. **Wrapper Script v2.0.0** (Security Hardened):
    - Files: `connascence-wrapper.bat`, `connascence.bat`
    - Location: `C:\Users\17175\AppData\Local\Programs\`
+   - Security Features: Command injection protection, dynamic paths, input validation
 
 ### What's Already Done:
 
 - ✅ Extension installed in VSCode
 - ✅ Python CLI operational
-- ✅ Wrapper script created
+- ✅ Wrapper v2.0.0 deployed with security hardening
 - ✅ 5 Python syntax errors fixed
+- ✅ All security vulnerabilities resolved (CVSS 8.1 → 0)
 
 ### What You Need to Do:
 
@@ -121,6 +124,34 @@ The **VSCode Connascence Analyzer Extension** is a real-time code quality analyz
 ---
 
 ## ⚙️ Configuration
+
+### 🎨 Visual Highlights vs Squiggles (NEW!)
+
+**Problem**: Many linters (ESLint, Pylint) use squiggles, causing visual overlap.
+
+**Solution**: Enable **color highlights with emojis** instead!
+
+**Quick Setup** (Copy to `settings.json`):
+```json
+{
+  // Enable visual highlighting (background colors + emojis)
+  "connascence.enableVisualHighlighting": true,
+  "connascence.highlightingIntensity": "normal",  // "subtle" | "normal" | "bright"
+  "connascence.showEmojis": true,
+
+  // Reduce squiggles to hints (avoid linter overlap)
+  "connascence.severityMap": {
+    "critical": "hint",  // Gray instead of red
+    "high": "hint",      // Gray instead of yellow
+    "medium": "hint",
+    "low": "hint"
+  }
+}
+```
+
+**Or use our ready-made config**: Copy `.vscode/connascence-highlights.json` → `settings.json`
+
+**See**: `.claude/.artifacts/VISUAL-HIGHLIGHTING-GUIDE.md` for complete details
 
 ### VSCode Settings
 
@@ -432,12 +463,54 @@ dir "C:\Users\17175\AppData\Local\Programs\connascence*.bat"
 **Expected**:
 ```
 connascence.bat
-connascence-wrapper.bat
+connascence-wrapper.bat (v2.0.0 Security Hardened - 260 lines)
+```
+
+**Verify Wrapper Version**:
+```bash
+connascence-wrapper.bat --wrapper-version
+```
+
+**Expected Output**:
+```
+VSCode Connascence Wrapper v2.0.0 (Security Hardened)
+CLI Executable: C:\Users\17175\AppData\Roaming\Python\Python312\Scripts\connascence.exe
 ```
 
 **Fix**: Re-create wrapper files (see Installation section)
 
-### Issue 5: Parse Errors
+### Issue 5: Security/Injection Warnings
+
+**Symptom**: `[ERROR] Invalid policy profile` or `[ERROR] Invalid output format`
+
+**Cause**: Wrapper v2.0.0 implements strict whitelisting for security
+
+**Valid Policies**:
+- `modern_general`, `strict`, `lenient`, `nasa-compliance`, `standard`
+- `nasa_jpl_pot10`, `pot10`, `basic`, `core`, `default`
+- `experimental`, `general_safety_strict`, `jpl`, `loose`, `nasa`, `power-of-ten`
+
+**Valid Formats**:
+- `json`, `yaml`, `sarif`, `text`
+
+**Fix**: Use only whitelisted values (protection against command injection)
+
+### Issue 6: Debug Mode
+
+**Enable Wrapper Debug Logging**:
+```bash
+set CONNASCENCE_DEBUG=1
+connascence-wrapper.bat analyze test.py --profile strict --format json
+```
+
+**Debug Output Shows**:
+- Wrapper version
+- Input arguments
+- Translated command
+- CLI path used
+- Exit code
+
+### Issue 7: Parse Errors
 
 **Symptom**: `Warning: Could not parse file.py`
 
@@ -516,10 +589,18 @@ VSCode Problems Panel + Squiggles
   - `diagnosticsProvider.js` - Problem visualization
   - `codeActionsProvider.js` - Quick fixes
 
-**2. Wrapper Script (Batch)**
+**2. Wrapper Script v2.0.0 (Batch) - Security Hardened**
 - Location: `C:\Users\17175\AppData\Local\Programs\`
-- Files: `connascence-wrapper.bat`, `connascence.bat`
-- Purpose: Translate extension's CLI arguments to correct format
+- Files: `connascence-wrapper.bat` (260 lines), `connascence.bat`
+- Purpose: Translate extension CLI args + security validation
+- Security Features:
+  - ✅ Command injection protection (argument whitelisting)
+  - ✅ Dynamic path resolution (no hardcoded paths)
+  - ✅ Input validation (policies, formats, file existence)
+  - ✅ DoS prevention (max 30 arguments)
+  - ✅ Special character escaping (&, |, <, >)
+  - ✅ Support for --arg=value format
+- Version Check: `connascence-wrapper.bat --wrapper-version`
 
 **3. Python CLI**
 - Package: `spek-connascence-analyzer 2.0.0`
@@ -626,12 +707,15 @@ connascence --path file.py --policy modern_general --format json
 
 ### Q: Can I use different Python versions?
 
-**A**: Yes, but wrapper path may need updating.
+**A**: Yes! Wrapper v2.0.0 automatically detects Python installations.
 
-**Fix**:
-1. Edit `connascence-wrapper.bat`
-2. Update line: `C:\Users\...\Python312\Scripts\connascence.exe`
-3. Change to your Python path
+**How it works**:
+1. Searches PATH for `connascence.exe`
+2. Fallback to Python 3.12 (if exists)
+3. Fallback to Python 3.11 (if exists)
+
+**Supported**: Python 3.11, 3.12
+**No manual configuration needed** - dynamic path resolution!
 
 ### Q: How do I disable real-time analysis?
 
@@ -713,7 +797,17 @@ Or add to `.connascence.json`:
 - **Integration Report**: `.claude/.artifacts/FINAL-INTEGRATION-REPORT.md`
 - **Test Results**: `.claude/.artifacts/VSCODE-EXTENSION-TEST-RESULTS.md`
 - **Security Audit**: `.claude/.artifacts/SECURITY-AUDIT-REPORT.md`
+- **Security Validation**: `.claude/.artifacts/SECURITY-WRAPPER-VALIDATION-REPORT.md` ⭐
+- **Security Changelog**: `.claude/.artifacts/WRAPPER-SECURITY-CHANGELOG.md` 🆕
+- **Specialist Findings**: `.claude/.artifacts/SPECIALIST-AGENTS-FINAL-REPORT.md`
 - **Dogfooding Report**: `.claude/.artifacts/DOGFOODING-VALIDATION-REPORT.md`
+
+### Security (Wrapper v2.0.0):
+- ✅ **CVSS 8.1** Command injection → BLOCKED (whitelisting)
+- ✅ **CVSS 7.3** Hardcoded paths → FIXED (dynamic resolution)
+- ✅ **CVSS 6.5** Path traversal → BLOCKED (file validation)
+- ✅ **CVSS 5.0** DoS attacks → PREVENTED (max 30 args)
+- 📊 **Security Score**: 95/100 (Production Ready)
 
 ### Support:
 - GitHub Issues: [Report bugs/features]

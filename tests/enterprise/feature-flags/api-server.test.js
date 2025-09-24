@@ -6,6 +6,7 @@
 const request = require('supertest');
 const WebSocket = require('ws');
 const FeatureFlagAPIServer = require('../../../src/enterprise/feature-flags/api-server');
+const { cleanupTestResources } = require('../../setup/test-environment');
 
 describe('FeatureFlagAPIServer', () => {
     let server;
@@ -47,6 +48,7 @@ describe('FeatureFlagAPIServer', () => {
         if (server && typeof server.shutdown === 'function') {
             await server.shutdown();
         }
+        await cleanupTestResources();
     }, 10000);
 
     describe('Health Check', () => {
@@ -315,54 +317,70 @@ describe('FeatureFlagAPIServer', () => {
     });
 
     describe('WebSocket Integration', () => {
-        test('should connect to WebSocket server', (done) => {
+        test('should connect to WebSocket server', async () => {
             wsClient = new WebSocket('ws://localhost:3101');
 
-            wsClient.on('open', () => {
-                expect(wsClient.readyState).toBe(WebSocket.OPEN);
-                done();
-            });
+            await new Promise((resolve, reject) => {
+                wsClient.on('open', () => {
+                    expect(wsClient.readyState).toBe(WebSocket.OPEN);
+                    resolve();
+                });
 
-            wsClient.on('error', done);
+                wsClient.on('error', reject);
+
+                // Timeout after 5 seconds
+                setTimeout(() => reject(new Error('WebSocket connection timeout')), 5000);
+            });
         });
 
-        test('should receive initial state on connection', (done) => {
+        test('should receive initial state on connection', async () => {
             if (!wsClient) {
                 wsClient = new WebSocket('ws://localhost:3101');
             }
 
-            wsClient.on('message', (data) => {
-                const message = JSON.parse(data.toString());
+            await new Promise((resolve, reject) => {
+                wsClient.on('message', (data) => {
+                    const message = JSON.parse(data.toString());
 
-                if (message.type === 'initial_state') {
-                    expect(message.data).toBeInstanceOf(Array);
-                    expect(message.data.length).toBeGreaterThan(0);
-                    done();
-                }
+                    if (message.type === 'initial_state') {
+                        expect(message.data).toBeInstanceOf(Array);
+                        expect(message.data.length).toBeGreaterThan(0);
+                        resolve();
+                    }
+                });
+
+                // Timeout after 5 seconds
+                setTimeout(() => reject(new Error('Initial state timeout')), 5000);
             });
         });
 
-        test('should receive flag update notifications', (done) => {
+        test('should receive flag update notifications', async () => {
             if (!wsClient) {
                 wsClient = new WebSocket('ws://localhost:3101');
             }
 
-            wsClient.on('message', (data) => {
-                const message = JSON.parse(data.toString());
+            const updatePromise = new Promise((resolve, reject) => {
+                wsClient.on('message', (data) => {
+                    const message = JSON.parse(data.toString());
 
-                if (message.type === 'flag_updated') {
-                    expect(message.data.key).toBeDefined();
-                    expect(message.data.flag).toBeDefined();
-                    done();
-                }
+                    if (message.type === 'flag_updated') {
+                        expect(message.data.key).toBeDefined();
+                        expect(message.data.flag).toBeDefined();
+                        resolve();
+                    }
+                });
+
+                // Timeout after 5 seconds
+                setTimeout(() => reject(new Error('Flag update notification timeout')), 5000);
             });
 
-            // Update a flag to trigger notification
-            setTimeout(async () => {
-                await request(app)
-                    .put('/api/flags/test_flag')
-                    .send({ metadata: { updated: Date.now() } });
-            }, 100);
+            // Update a flag to trigger notification (no setTimeout)
+            await new Promise(resolve => setImmediate(resolve)); // Allow message listener to be set
+            await request(app)
+                .put('/api/flags/test_flag')
+                .send({ metadata: { updated: Date.now() } });
+
+            await updatePromise;
         });
     });
 

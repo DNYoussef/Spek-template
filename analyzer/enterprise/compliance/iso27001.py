@@ -24,10 +24,10 @@ import asyncio
 import json
 import logging
 logger = logging.getLogger(__name__)
-        self.assessments: List[ControlAssessment] = []
+self.assessments: List[ControlAssessment] = []
         
         # ISO27001:2022 Annex A controls catalog
-        self.iso_controls = self._initialize_iso27001_controls()
+self.iso_controls = self._initialize_iso27001_controls()
         
     def _initialize_iso27001_controls(self) -> Dict[str, ISO27001Control]:
         """Initialize ISO27001:2022 Annex A controls catalog"""
@@ -35,22 +35,22 @@ logger = logging.getLogger(__name__)
         
         # A.5 - Organizational Information Security Policies
         org_controls = [
-            ISO27001Control(
-                "A.5.1", "A.5", "Policies for Information Security",
+        ISO27001Control(
+        "A.5.1", "A.5", "Policies for Information Security",
                 "Information security policy and topic-specific policies shall be defined, approved by management, published, communicated to and acknowledged by relevant personnel and relevant interested parties.",
                 "Management direction and support for information security in accordance with business requirements and relevant laws and regulations",
                 ["policy_documentation", "management_approval", "communication_records"],
                 "high", True, ["policy_docs", "approval_records", "training_records"], False
             ),
             ISO27001Control(
-                "A.5.2", "A.5", "Information Security Roles and Responsibilities", 
+            "A.5.2", "A.5", "Information Security Roles and Responsibilities", 
                 "Information security roles and responsibilities shall be defined and allocated according to the organization needs.",
                 "Ensure accountability for information security activities",
                 ["role_definitions", "responsibility_matrix", "accountability_framework"],
                 "medium", True, ["org_charts", "job_descriptions", "raci_matrix"], False
             ),
             ISO27001Control(
-                "A.5.3", "A.5", "Segregation of Duties",
+            "A.5.3", "A.5", "Segregation of Duties",
                 "Conflicting duties and conflicting areas of responsibility shall be segregated.",
                 "Reduce opportunities for unauthorized or unintentional modification or misuse of assets",
                 ["duty_segregation_analysis", "conflict_identification", "control_implementation"],
@@ -63,15 +63,15 @@ logger = logging.getLogger(__name__)
             
         # A.6 - Organization of Information Security
         org_sec_controls = [
-            ISO27001Control(
-                "A.6.1", "A.6", "Information Security Management System",
+        ISO27001Control(
+        "A.6.1", "A.6", "Information Security Management System",
                 "The information security management system shall be defined and managed in accordance with the organization's needs.",
                 "Provide management framework for implementing and managing information security",
                 ["isms_documentation", "management_system", "continuous_improvement"],
                 "high", True, ["isms_scope", "risk_assessments", "management_reviews"], False
             ),
             ISO27001Control(
-                "A.6.2", "A.6", "Information Security in Project Management",
+            "A.6.2", "A.6", "Information Security in Project Management",
                 "Information security shall be addressed in project management.",
                 "Ensure information security is considered throughout project lifecycle",
                 ["project_security_requirements", "security_in_sdlc", "project_reviews"],
@@ -84,22 +84,22 @@ logger = logging.getLogger(__name__)
             
         # A.8 - Asset Management
         asset_controls = [
-            ISO27001Control(
-                "A.8.1", "A.8", "Inventory of Assets",
+        ISO27001Control(
+        "A.8.1", "A.8", "Inventory of Assets",
                 "Assets associated with information and information processing facilities shall be identified, and an inventory of these assets shall be drawn up and maintained.",
                 "Ensure appropriate protection of assets",
                 ["asset_inventory", "asset_classification", "asset_ownership"],
                 "high", True, ["asset_registers", "inventory_systems", "classification_schemes"], True
             ),
             ISO27001Control(
-                "A.8.2", "A.8", "Ownership of Assets", 
+            "A.8.2", "A.8", "Ownership of Assets", 
                 "Assets maintained in the inventory shall be owned.",
                 "Ensure assets have designated owners responsible for appropriate protection",
                 ["ownership_assignment", "custodian_responsibilities", "accountability_matrix"],
                 "medium", True, ["ownership_records", "responsibility_assignments"], False
             ),
             ISO27001Control(
-                "A.8.3", "A.8", "Acceptable Use of Assets",
+            "A.8.3", "A.8", "Acceptable Use of Assets",
                 "Rules for the acceptable use of information and of assets associated with information and information processing facilities shall be identified, documented and implemented.",
                 "Prevent unauthorized use, damage or compromise of assets",
                 ["acceptable_use_policies", "usage_guidelines", "enforcement_procedures"],
@@ -112,29 +112,29 @@ logger = logging.getLogger(__name__)
             
         # A.9 - Access Control
         access_controls = [
-            ISO27001Control(
-                "A.9.1", "A.9", "Access Control Policy",
+        ISO27001Control(
+        "A.9.1", "A.9", "Access Control Policy",
                 "An access control policy shall be established, documented and reviewed based on business and information security requirements.",
                 "Limit access to information and information processing facilities",
                 ["access_control_policy", "access_requirements", "policy_reviews"],
                 "high", True, ["policy_docs", "access_procedures", "review_records"], False
             ),
             ISO27001Control(
-                "A.9.2", "A.9", "Access to Networks and Network Services",
+            "A.9.2", "A.9", "Access to Networks and Network Services",
                 "Users shall only be provided with access to the network and network services that they have been specifically authorized to use.",
                 "Prevent unauthorized access to networks and network services",
                 ["network_access_controls", "authorization_procedures", "access_monitoring"],
                 "high", True, ["network_configs", "access_logs", "firewall_rules"], True
             ),
             ISO27001Control(
-                "A.9.3", "A.9", "Management of Privileged Access Rights",
+            "A.9.3", "A.9", "Management of Privileged Access Rights",
                 "The allocation and use of privileged access rights shall be restricted and controlled.",
                 "Prevent misuse of privileged access",
                 ["privileged_access_management", "elevated_rights_control", "monitoring"],
                 "critical", True, ["pam_systems", "privilege_logs", "access_reviews"], True
             ),
             ISO27001Control(
-                "A.9.4", "A.9", "Management of Secret Authentication Information of Users",
+            "A.9.4", "A.9", "Management of Secret Authentication Information of Users",
                 "The allocation of secret authentication information shall be controlled through a formal management process.",
                 "Maintain security of authentication information",
                 ["credential_management", "authentication_controls", "lifecycle_management"],
@@ -147,8 +147,8 @@ logger = logging.getLogger(__name__)
             
         # A.10 - Cryptography
         crypto_controls = [
-            ISO27001Control(
-                "A.10.1", "A.10", "Cryptographic Controls",
+        ISO27001Control(
+        "A.10.1", "A.10", "Cryptographic Controls",
                 "A policy on the use of cryptographic controls for protection of information shall be developed and implemented.",
                 "Ensure proper and effective use of cryptography to protect information",
                 ["crypto_policy", "encryption_standards", "key_management"],
@@ -161,36 +161,36 @@ logger = logging.getLogger(__name__)
             
         # A.12 - Operations Security
         ops_controls = [
-            ISO27001Control(
-                "A.12.1", "A.12", "Operational Procedures and Responsibilities",
+        ISO27001Control(
+        "A.12.1", "A.12", "Operational Procedures and Responsibilities",
                 "Operational procedures shall be documented and made available to all users who need them.",
                 "Ensure correct and secure operation of information processing facilities",
                 ["operational_procedures", "responsibilities", "documentation"],
                 "medium", True, ["procedure_docs", "runbooks", "operational_guides"], False
             ),
             ISO27001Control(
-                "A.12.2", "A.12", "Protection from Malware",
+            "A.12.2", "A.12", "Protection from Malware",
                 "Detection, prevention and recovery controls to protect against malware shall be implemented, combined with appropriate user awareness.",
                 "Protect information and information processing facilities from malware",
                 ["malware_protection", "detection_systems", "incident_response"],
                 "high", True, ["antivirus_configs", "malware_logs", "detection_systems"], True
             ),
             ISO27001Control(
-                "A.12.3", "A.12", "Information Backup",
+            "A.12.3", "A.12", "Information Backup",
                 "Backup copies of information, software and system images shall be taken and tested regularly in accordance with an agreed backup policy.",
                 "Maintain availability and integrity of information and information processing facilities",
                 ["backup_procedures", "backup_testing", "recovery_procedures"],
                 "high", True, ["backup_logs", "restore_tests", "backup_policies"], True
             ),
             ISO27001Control(
-                "A.12.4", "A.12", "Event Logging",
+            "A.12.4", "A.12", "Event Logging",
                 "Event logs recording user activities, exceptions, faults and information security events shall be produced, kept and regularly reviewed.",
                 "Detect unauthorized activities and security incidents",
                 ["logging_procedures", "log_analysis", "monitoring_systems"],
                 "high", True, ["log_configs", "monitoring_systems", "siem_logs"], True
             ),
             ISO27001Control(
-                "A.12.5", "A.12", "Clock Synchronization",
+            "A.12.5", "A.12", "Clock Synchronization",
                 "The clocks of all relevant information processing systems within an organization or security domain shall be synchronized to a single reference time source.",
                 "Ensure accuracy of log records and forensic analysis",
                 ["time_synchronization", "ntp_configuration", "time_accuracy"],
@@ -203,22 +203,22 @@ logger = logging.getLogger(__name__)
             
         # A.14 - System Acquisition, Development and Maintenance
         dev_controls = [
-            ISO27001Control(
-                "A.14.1", "A.14", "Information Security Requirements Analysis and Specification",
+        ISO27001Control(
+        "A.14.1", "A.14", "Information Security Requirements Analysis and Specification",
                 "Information security requirements shall be included in the requirements for new information systems or enhancements to existing information systems.",
                 "Ensure security is designed into information systems",
                 ["security_requirements", "requirements_analysis", "security_design"],
                 "high", True, ["requirements_docs", "security_specs", "design_reviews"], True
             ),
             ISO27001Control(
-                "A.14.2", "A.14", "Securing Application Services on Public Networks",
+            "A.14.2", "A.14", "Securing Application Services on Public Networks",
                 "Information involved in application services passing over public networks shall be protected from fraudulent activity, contract dispute and unauthorized disclosure and modification.",
                 "Protect application services and information from network-based threats",
                 ["network_security", "application_protection", "secure_communications"],
                 "high", True, ["network_configs", "ssl_certs", "security_headers"], True
             ),
             ISO27001Control(
-                "A.14.3", "A.14", "Protecting Application Services Transactions",
+            "A.14.3", "A.14", "Protecting Application Services Transactions",
                 "Information involved in application service transactions shall be protected to prevent incomplete transmission, mis-routing, unauthorized message alteration, unauthorized disclosure, unauthorized message duplication or replay.",
                 "Ensure integrity and authenticity of application transactions",
                 ["transaction_security", "integrity_controls", "authentication"],
@@ -231,8 +231,8 @@ logger = logging.getLogger(__name__)
             
         # A.16 - Information Security Incident Management
         incident_controls = [
-            ISO27001Control(
-                "A.16.1", "A.16", "Management of Information Security Incidents and Improvements",
+        ISO27001Control(
+        "A.16.1", "A.16", "Management of Information Security Incidents and Improvements",
                 "Information security incidents shall be managed through the use of defined and communicated information security incident management procedures.",
                 "Ensure consistent and effective approach to information security incident management",
                 ["incident_procedures", "incident_response", "continuous_improvement"],
@@ -251,6 +251,11 @@ logger = logging.getLogger(__name__)
         
         try:
             # Perform control assessments
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             control_assessments = await self._assess_all_controls(project_path)
             
             # Generate risk assessment
@@ -266,7 +271,7 @@ logger = logging.getLogger(__name__)
             await self._save_iso27001_assessment(control_assessments, compliance_matrix, risk_assessment)
             
             return {
-                "status": "success",
+            "status": "success",
                 "assessment_timestamp": assessment_start.isoformat(),
                 "framework": "ISO27001_2022",
                 "standard_version": "2022",
@@ -280,11 +285,11 @@ logger = logging.getLogger(__name__)
             }
             
         except Exception as e:
-            self.logger.error(f"ISO27001 assessment failed: {e}")
+            self.logger.error(f"ISO27001 assessment failed: {e)"}
             return {
-                "status": "error",
-                "error": str(e),
-                "assessment_timestamp": assessment_start.isoformat()
+            "status": "error",
+                "error": str(e},
+                "assessment_timestamp"} assessment_start.isoformat()
             }
     
     async def _assess_all_controls(self, project_path: str) -> List[Dict[str, Any]]:
@@ -293,7 +298,7 @@ logger = logging.getLogger(__name__)
         
         # Assess controls by category
         assessment_tasks = [
-            self._assess_organizational_controls(project_path),
+        self._assess_organizational_controls(project_path),
             self._assess_asset_management_controls(project_path), 
             self._assess_access_control_controls(project_path),
             self._assess_cryptography_controls(project_path),
@@ -307,7 +312,7 @@ logger = logging.getLogger(__name__)
         
         for result in results:
             if isinstance(result, Exception):
-                self.logger.error(f"Control assessment failed: {result}")
+                self.logger.error(f"Control assessment failed: {result)"}
             else:
                 assessments.extend(result)
         
@@ -318,9 +323,9 @@ logger = logging.getLogger(__name__)
         assessments = []
         
         # A.5.1 - Information Security Policies
-        policy_assessment = await self._assess_security_policies(project_path)
+        policy_assessment = await self._assess_security_policies(project_path}
         assessments.append({
-            "control_id": "A.5.1",
+        "control_id": "A.5.1",
             "category": "Organizational",
             "title": "Policies for Information Security",
             "implementation_status": policy_assessment["status"],
@@ -328,13 +333,13 @@ logger = logging.getLogger(__name__)
             "evidence": policy_assessment["evidence"],
             "gaps": policy_assessment["gaps"],
             "recommendations": policy_assessment["recommendations"],
-            "risk_rating": "high" if policy_assessment["status"] == "not_implemented" else "medium"
+            "risk_rating"} "high" if policy_assessment["status"] == "not_implemented" else "medium"
         })
         
         # A.6.2 - Information Security in Project Management
         project_mgmt_assessment = await self._assess_project_security(project_path)
         assessments.append({
-            "control_id": "A.6.2",
+        "control_id": "A.6.2",
             "category": "Organizational",
             "title": "Information Security in Project Management",
             "implementation_status": project_mgmt_assessment["status"],
@@ -354,7 +359,7 @@ logger = logging.getLogger(__name__)
         # A.8.1 - Inventory of Assets
         inventory_assessment = await self._assess_asset_inventory(project_path)
         assessments.append({
-            "control_id": "A.8.1",
+        "control_id": "A.8.1",
             "category": "Asset Management",
             "title": "Inventory of Assets",
             "implementation_status": inventory_assessment["status"],
@@ -374,7 +379,7 @@ logger = logging.getLogger(__name__)
         # A.9.2 - Access to Networks and Network Services
         network_access_assessment = await self._assess_network_access(project_path)
         assessments.append({
-            "control_id": "A.9.2",
+        "control_id": "A.9.2",
             "category": "Access Control",
             "title": "Access to Networks and Network Services",
             "implementation_status": network_access_assessment["status"],
@@ -388,7 +393,7 @@ logger = logging.getLogger(__name__)
         # A.9.3 - Management of Privileged Access Rights
         privileged_access_assessment = await self._assess_privileged_access(project_path)
         assessments.append({
-            "control_id": "A.9.3",
+        "control_id": "A.9.3",
             "category": "Access Control", 
             "title": "Management of Privileged Access Rights",
             "implementation_status": privileged_access_assessment["status"],
@@ -408,7 +413,7 @@ logger = logging.getLogger(__name__)
         # A.10.1 - Cryptographic Controls
         crypto_assessment = await self._assess_cryptographic_controls(project_path)
         assessments.append({
-            "control_id": "A.10.1",
+        "control_id": "A.10.1",
             "category": "Cryptography",
             "title": "Cryptographic Controls",
             "implementation_status": crypto_assessment["status"],
@@ -428,7 +433,7 @@ logger = logging.getLogger(__name__)
         # A.12.2 - Protection from Malware
         malware_assessment = await self._assess_malware_protection(project_path)
         assessments.append({
-            "control_id": "A.12.2",
+        "control_id": "A.12.2",
             "category": "Operations Security",
             "title": "Protection from Malware",
             "implementation_status": malware_assessment["status"],
@@ -442,7 +447,7 @@ logger = logging.getLogger(__name__)
         # A.12.3 - Information Backup
         backup_assessment = await self._assess_backup_controls(project_path)
         assessments.append({
-            "control_id": "A.12.3",
+        "control_id": "A.12.3",
             "category": "Operations Security",
             "title": "Information Backup",
             "implementation_status": backup_assessment["status"],
@@ -456,7 +461,7 @@ logger = logging.getLogger(__name__)
         # A.12.4 - Event Logging
         logging_assessment = await self._assess_event_logging(project_path)
         assessments.append({
-            "control_id": "A.12.4",
+        "control_id": "A.12.4",
             "category": "Operations Security",
             "title": "Event Logging",
             "implementation_status": logging_assessment["status"],
@@ -476,7 +481,7 @@ logger = logging.getLogger(__name__)
         # A.14.1 - Security Requirements Analysis
         requirements_assessment = await self._assess_security_requirements(project_path)
         assessments.append({
-            "control_id": "A.14.1",
+        "control_id": "A.14.1",
             "category": "Development",
             "title": "Information Security Requirements Analysis and Specification",
             "implementation_status": requirements_assessment["status"],
@@ -496,7 +501,7 @@ logger = logging.getLogger(__name__)
         # A.16.1 - Information Security Incident Management
         incident_assessment = await self._assess_incident_management(project_path)
         assessments.append({
-            "control_id": "A.16.1",
+        "control_id": "A.16.1",
             "category": "Incident Management",
             "title": "Management of Information Security Incidents and Improvements",
             "implementation_status": incident_assessment["status"],
@@ -516,7 +521,7 @@ logger = logging.getLogger(__name__)
         
         # Check for security policy documentation
         policy_files = [
-            "SECURITY.md",
+        "SECURITY.md",
             "docs/security/",
             "policies/",
             ".github/SECURITY.md"
@@ -528,7 +533,7 @@ logger = logging.getLogger(__name__)
             if full_path.exists():
                 policy_found = True
                 evidence.append({
-                    "type": "security_policy",
+                "type": "security_policy",
                     "file": str(full_path.relative_to(project_path)),
                     "description": "Security policy documentation"
                 })
@@ -537,7 +542,7 @@ logger = logging.getLogger(__name__)
             gaps.append("No security policy documentation found")
         
         return {
-            "status": "implemented" if policy_found else "not_implemented",
+        "status": "implemented" if policy_found else "not_implemented",
             "effectiveness": "effective" if policy_found else "ineffective",
             "evidence": evidence,
             "gaps": gaps,
@@ -561,7 +566,7 @@ logger = logging.getLogger(__name__)
                     if any(term in content for term in ['security', 'vulnerability', 'dependency-check', 'snyk']):
                         security_integration = True
                         evidence.append({
-                            "type": "security_workflow",
+                        "type": "security_workflow",
                             "file": str(workflow.relative_to(project_path)),
                             "description": "Security integrated into CI/CD workflow"
                         })
@@ -570,7 +575,7 @@ logger = logging.getLogger(__name__)
             gaps.append("Security not integrated into project workflows")
         
         return {
-            "status": "implemented" if security_integration else "partially",
+        "status": "implemented" if security_integration else "partially",
             "effectiveness": "effective" if security_integration else "partially_effective",
             "evidence": evidence,
             "gaps": gaps,
@@ -584,7 +589,7 @@ logger = logging.getLogger(__name__)
         
         # Check for dependency management files (software assets)
         dependency_files = [
-            "package.json",
+        "package.json",
             "requirements.txt", 
             "pyproject.toml",
             "Gemfile",
@@ -598,7 +603,7 @@ logger = logging.getLogger(__name__)
             if file_path.exists():
                 assets_tracked = True
                 evidence.append({
-                    "type": "dependency_inventory",
+                "type": "dependency_inventory",
                     "file": dep_file,
                     "description": "Software dependency tracking"
                 })
@@ -607,7 +612,7 @@ logger = logging.getLogger(__name__)
             gaps.append("No software asset inventory found")
         
         return {
-            "status": "implemented" if assets_tracked else "not_implemented",
+        "status": "implemented" if assets_tracked else "not_implemented",
             "effectiveness": "effective" if assets_tracked else "ineffective",
             "evidence": evidence,
             "gaps": gaps,
@@ -627,8 +632,8 @@ logger = logging.getLogger(__name__)
         network_controls = len(network_configs) > 0
         
         for config in network_configs[:5]:  # Limit to first 5
-            evidence.append({
-                "type": "network_configuration",
+        evidence.append({
+        "type": "network_configuration",
                 "file": str(config.relative_to(project_path)),
                 "description": "Network access configuration"
             })
@@ -637,7 +642,7 @@ logger = logging.getLogger(__name__)
             gaps.append("No network access controls identified")
         
         return {
-            "status": "implemented" if network_controls else "not_implemented",
+        "status": "implemented" if network_controls else "not_implemented",
             "effectiveness": "effective" if network_controls else "ineffective", 
             "evidence": evidence,
             "gaps": gaps,
@@ -651,8 +656,8 @@ logger = logging.getLogger(__name__)
         
         # Check for privileged access configurations
         pam_indicators = [
-            ".github/workflows/",  # CI/CD privileged operations
-            "secrets/",
+        ".github/workflows/",  # CI/CD privileged operations
+        "secrets/",
             "vault/",
             "auth/"
         ]
@@ -663,7 +668,7 @@ logger = logging.getLogger(__name__)
             if path.exists():
                 pam_found = True
                 evidence.append({
-                    "type": "privileged_access_management",
+                "type": "privileged_access_management",
                     "path": indicator,
                     "description": "Privileged access management configuration"
                 })
@@ -672,7 +677,7 @@ logger = logging.getLogger(__name__)
             gaps.append("No privileged access management controls identified")
         
         return {
-            "status": "partially" if pam_found else "not_implemented",
+        "status": "partially" if pam_found else "not_implemented",
             "effectiveness": "partially_effective" if pam_found else "ineffective",
             "evidence": evidence,
             "gaps": gaps,
@@ -694,7 +699,7 @@ logger = logging.getLogger(__name__)
         
         for crypto_file in crypto_files[:5]:
             evidence.append({
-                "type": "cryptographic_implementation",
+            "type": "cryptographic_implementation",
                 "file": str(crypto_file.relative_to(project_path)),
                 "description": "Cryptographic control implementation"
             })
@@ -703,7 +708,7 @@ logger = logging.getLogger(__name__)
             gaps.append("No cryptographic controls identified")
         
         return {
-            "status": "implemented" if crypto_implemented else "not_implemented",
+        "status": "implemented" if crypto_implemented else "not_implemented",
             "effectiveness": "effective" if crypto_implemented else "ineffective",
             "evidence": evidence,
             "gaps": gaps,
@@ -726,7 +731,7 @@ logger = logging.getLogger(__name__)
                     if any(term in content for term in ['codeql', 'security', 'vulnerability', 'dependency-check']):
                         security_scans = True
                         evidence.append({
-                            "type": "automated_security_scanning",
+                        "type": "automated_security_scanning",
                             "file": str(workflow.relative_to(project_path)),
                             "description": "Automated security/malware scanning"
                         })
@@ -735,7 +740,7 @@ logger = logging.getLogger(__name__)
             gaps.append("No automated malware/security scanning identified")
         
         return {
-            "status": "implemented" if security_scans else "not_implemented",
+        "status": "implemented" if security_scans else "not_implemented",
             "effectiveness": "effective" if security_scans else "ineffective",
             "evidence": evidence,
             "gaps": gaps,
@@ -749,7 +754,7 @@ logger = logging.getLogger(__name__)
         
         # Check for backup configurations
         backup_indicators = [
-            "backup/",
+        "backup/",
             ".github/workflows/backup*",
             "scripts/backup*"
         ]
@@ -760,7 +765,7 @@ logger = logging.getLogger(__name__)
             if files:
                 backup_found = True
                 evidence.append({
-                    "type": "backup_configuration",
+                "type": "backup_configuration",
                     "pattern": indicator,
                     "description": "Backup procedure configuration"
                 })
@@ -769,7 +774,7 @@ logger = logging.getLogger(__name__)
             gaps.append("No backup procedures identified")
         
         return {
-            "status": "partially" if backup_found else "not_implemented",
+        "status": "partially" if backup_found else "not_implemented",
             "effectiveness": "partially_effective" if backup_found else "ineffective",
             "evidence": evidence,
             "gaps": gaps,
@@ -790,7 +795,7 @@ logger = logging.getLogger(__name__)
         
         for log_file in logging_files[:5]:
             evidence.append({
-                "type": "logging_configuration",
+            "type": "logging_configuration",
                 "file": str(log_file.relative_to(project_path)),
                 "description": "Event logging configuration"
             })
@@ -799,7 +804,7 @@ logger = logging.getLogger(__name__)
             gaps.append("No comprehensive event logging identified")
         
         return {
-            "status": "implemented" if logging_implemented else "not_implemented",
+        "status": "implemented" if logging_implemented else "not_implemented",
             "effectiveness": "effective" if logging_implemented else "ineffective",
             "evidence": evidence,
             "gaps": gaps,
@@ -820,7 +825,7 @@ logger = logging.getLogger(__name__)
             if doc.is_file() and doc.suffix in ['.md', '.txt', '.rst']:
                 security_requirements = True
                 evidence.append({
-                    "type": "security_requirements",
+                "type": "security_requirements",
                     "file": str(doc.relative_to(project_path)),
                     "description": "Security requirements documentation"
                 })
@@ -829,7 +834,7 @@ logger = logging.getLogger(__name__)
             gaps.append("No security requirements documentation found")
         
         return {
-            "status": "implemented" if security_requirements else "not_implemented",
+        "status": "implemented" if security_requirements else "not_implemented",
             "effectiveness": "effective" if security_requirements else "ineffective",
             "evidence": evidence,
             "gaps": gaps,
@@ -843,7 +848,7 @@ logger = logging.getLogger(__name__)
         
         # Check for incident response documentation
         incident_docs = [
-            "INCIDENT*",
+        "INCIDENT*",
             "docs/incident*",
             "runbooks/",
             "playbooks/"
@@ -855,7 +860,7 @@ logger = logging.getLogger(__name__)
             if files:
                 incident_procedures = True
                 evidence.append({
-                    "type": "incident_procedures",
+                "type": "incident_procedures",
                     "pattern": pattern,
                     "description": "Incident management procedures"
                 })
@@ -864,7 +869,7 @@ logger = logging.getLogger(__name__)
             gaps.append("No incident management procedures identified")
         
         return {
-            "status": "implemented" if incident_procedures else "not_implemented",
+        "status": "implemented" if incident_procedures else "not_implemented",
             "effectiveness": "effective" if incident_procedures else "ineffective",
             "evidence": evidence,
             "gaps": gaps,
@@ -874,11 +879,10 @@ logger = logging.getLogger(__name__)
     async def _perform_risk_assessment(self, control_assessments: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Perform risk assessment based on control implementation"""
         risk_summary = {
-            "critical": 0,
+        "critical": 0,
             "high": 0,
             "medium": 0,
-            "low": 0
-        }
+            "low": 0)
         
         high_risk_controls = []
         critical_gaps = []
@@ -902,7 +906,7 @@ logger = logging.getLogger(__name__)
             overall_risk = "medium"
         
         return {
-            "overall_risk_level": overall_risk,
+        "overall_risk_level": overall_risk,
             "risk_distribution": risk_summary,
             "critical_gaps": critical_gaps,
             "high_risk_controls": high_risk_controls,
@@ -921,11 +925,10 @@ logger = logging.getLogger(__name__)
             
             if category not in categories:
                 categories[category] = {
-                    "total": 0,
+                "total": 0,
                     "implemented": 0,
                     "partially": 0,
-                    "not_implemented": 0
-                }
+                    "not_implemented": 0)
             
             categories[category]["total"] += 1
             status = assessment["implementation_status"]
@@ -942,7 +945,7 @@ logger = logging.getLogger(__name__)
         overall_compliance = (total_implemented / total_controls * 100) if total_controls > 0 else 0
         
         return {
-            "overall_compliance_percentage": overall_compliance,
+        "overall_compliance_percentage": overall_compliance,
             "total_controls": total_controls,
             "implemented_controls": total_implemented,
             "categories": categories,
@@ -958,7 +961,7 @@ logger = logging.getLogger(__name__)
         for assessment in control_assessments:
             if assessment["implementation_status"] in ["not_implemented", "partially"]:
                 gap = {
-                    "control_id": assessment["control_id"],
+                "control_id": assessment["control_id"],
                     "title": assessment["title"],
                     "category": assessment["category"],
                     "current_status": assessment["implementation_status"],
@@ -970,9 +973,9 @@ logger = logging.getLogger(__name__)
                 priorities[assessment["risk_rating"]].append(gap)
         
         return {
-            "total_gaps": len(gaps),
+        "total_gaps": len(gaps),
             "gaps_by_priority": {
-                level: len(gap_list) for level, gap_list in priorities.items()
+            level: len(gap_list) for level, gap_list in priorities.items()
             },
             "detailed_gaps": gaps,
             "priority_recommendations": priorities,
@@ -1008,20 +1011,19 @@ logger = logging.getLogger(__name__)
     def _estimate_remediation_effort(self, gaps: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Estimate effort required to address gaps"""
         effort_map = {
-            "critical": 40,  # hours
-            "high": 24,
+        "critical": 40,  # hours
+        "high": 24,
             "medium": 16,
-            "low": 8
-        }
+            "low": 8)
         
         total_effort = sum(effort_map.get(gap["risk_level"], 16) for gap in gaps)
         
         return {
-            "total_hours": total_effort,
+        "total_hours": total_effort,
             "total_days": round(total_effort / 8, 1),
             "priority_breakdown": {
-                level: len([g for g in gaps if g["risk_level"] == level]) * effort_map[level]
-                for level in effort_map.keys()
+            level: len([g for g in gaps if g["risk_level"] == level]) * effort_map[level]
+            for level in effort_map.keys()
             }
         }
     
@@ -1033,10 +1035,10 @@ logger = logging.getLogger(__name__)
         high_gaps = gap_analysis["gaps_by_priority"]["high"]
         
         if critical_gaps > 0:
-            recommendations.append(f"URGENT: Address {critical_gaps} critical control gaps immediately")
+            recommendations.append(f"URGENT: Address {critical_gaps) critical control gaps immediately"}
         
         if high_gaps > 0:
-            recommendations.append(f"HIGH PRIORITY: Implement {high_gaps} high-risk controls")
+            recommendations.append(f"HIGH PRIORITY: Implement {high_gaps) high-risk controls"}
         
         total_effort = gap_analysis["remediation_estimate"]["total_days"]
         if total_effort > 30:
@@ -1075,10 +1077,10 @@ logger = logging.getLogger(__name__)
         # Save assessment index
         index_file = artifacts_path / "assessment_index.json"
         index_data = {
-            "last_assessment": timestamp,
+        "last_assessment": timestamp,
             "assessments_file": str(assessments_file.name),
-            "matrix_file": str(matrix_file.name),
-            "risk_file": str(risk_file.name),
+            "matrix_file": str(matrix_file.name},
+            "risk_file"} str(risk_file.name),
             "assessment_timestamp": datetime.now().isoformat()
         }
         

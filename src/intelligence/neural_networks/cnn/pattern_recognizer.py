@@ -207,7 +207,7 @@ class ChartPatternCNN(nn.Module):
 
         # ResNet backbone
         self.backbone = create_fast_financial_resnet(
-            num_classes=config.num_patterns,
+        num_classes=config.num_patterns,
             input_channels=3,  # RGB image input
             financial_enhancement=True
         )
@@ -216,7 +216,7 @@ class ChartPatternCNN(nn.Module):
         self.pattern_processors = nn.ModuleDict()
         for pattern_name in CHART_PATTERNS.keys():
             self.pattern_processors[pattern_name] = nn.Sequential(
-                nn.Linear(256, 128),
+            nn.Linear(256, 128),
                 nn.ReLU(),
                 nn.Dropout(0.1),
                 nn.Linear(128, 1),
@@ -225,8 +225,8 @@ class ChartPatternCNN(nn.Module):
 
         # Gary's DPI integration network
         self.dpi_network = nn.Sequential(
-            nn.Linear(256 + 5, 128),  # Features + OHLCV statistics
-            nn.ReLU(),
+        nn.Linear(256 + 5, 128),  # Features + OHLCV statistics
+        nn.ReLU(),
             nn.Dropout(0.1),
             nn.Linear(128, 64),
             nn.ReLU(),
@@ -236,7 +236,7 @@ class ChartPatternCNN(nn.Module):
 
         # Taleb's antifragility assessment
         self.antifragile_network = nn.Sequential(
-            nn.Linear(256, 128),
+        nn.Linear(256, 128),
             nn.Tanh(),  # Symmetric activation for antifragility
             nn.Linear(128, 64),
             nn.ReLU(),
@@ -246,8 +246,8 @@ class ChartPatternCNN(nn.Module):
 
         # Multi-timeframe fusion
         self.timeframe_fusion = nn.Sequential(
-            nn.Linear(256 * 3, 512),  # 3 timeframes
-            nn.ReLU(),
+        nn.Linear(256 * 3, 512),  # 3 timeframes
+        nn.ReLU(),
             nn.Dropout(0.2),
             nn.Linear(512, 256),
             nn.ReLU(),
@@ -278,24 +278,33 @@ class ChartPatternCNN(nn.Module):
 
         if multi_timeframe:
             # Split into timeframes and process separately
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             tf_features = []
             for i in range(3):  # 3 timeframes
-                tf_chart = chart_images[:, :, i*self.config.image_size[0]:(i+1)*self.config.image_size[0], :]
-                tf_output = self.backbone(tf_chart)
-                tf_features.append(tf_output['enhanced_features'])
+            tf_chart = chart_images[:, :, i*self.config.image_size[0]:(i+1)*self.config.image_size[0], :]
+            tf_output = self.backbone(tf_chart)
+            tf_features.append(tf_output['enhanced_features'])
 
             # Fuse timeframe features
             fused_features = torch.cat(tf_features, dim=1)
             main_logits = self.timeframe_fusion(fused_features)
             main_output = {
-                'logits': main_logits,
+            'logits': main_logits,
                 'probabilities': F.softmax(main_logits, dim=-1),
                 'enhanced_features': fused_features.mean(dim=1),  # Average for compatibility
                 'dpi_score': tf_features[0].new_zeros(batch_size, 1),  # Placeholder
-                'antifragile_boost': tf_features[0].new_zeros(batch_size, 1)  # Placeholder
-            }
+                'antifragile_boost': tf_features[0].new_zeros(batch_size, 1)  # Placeholder)
         else:
             # Single timeframe processing
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             main_output = self.backbone(chart_images)
 
         # Extract enhanced features
@@ -338,7 +347,7 @@ class ChartPatternCNN(nn.Module):
         self.inference_times.append(inference_time)
 
         return {
-            'probabilities': final_probabilities,
+        'probabilities': final_probabilities,
             'pattern_scores': pattern_scores,
             'pattern_strengths': pattern_strengths,
             'dpi_score': dpi_score,
@@ -346,8 +355,7 @@ class ChartPatternCNN(nn.Module):
             'enhanced_features': enhanced_features,
             'inference_time_ms': inference_time,
             'gary_dpi_integrated': self.config.dpi_weight > 0,
-            'taleb_antifragile_enhanced': self.config.antifragile_weight > 0
-        }
+            'taleb_antifragile_enhanced': self.config.antifragile_weight > 0}
 
     def _assess_pattern_strengths(self,
                                 pattern_scores: Dict[str, torch.Tensor],
@@ -365,7 +373,7 @@ class ChartPatternCNN(nn.Module):
 
         for i, pattern_name in enumerate(CHART_PATTERNS.keys()):
             if i < probabilities.size(1) - 1:  # Exclude background class
-                pattern_char = get_pattern_by_name(pattern_name)
+            pattern_char = get_pattern_by_name(pattern_name)
 
                 # Base strength from model
                 base_strength = pattern_scores[pattern_name]
@@ -400,9 +408,14 @@ class ChartPatternCNN(nn.Module):
 
         with torch.no_grad():
             # Render chart image
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             if multi_timeframe_data is not None:
                 chart_image = self.renderer.create_multi_timeframe_image(
-                    multi_timeframe_data.get('1m', ohlcv_data),
+                multi_timeframe_data.get('1m', ohlcv_data),
                     multi_timeframe_data.get('5m', ohlcv_data[::5]),
                     multi_timeframe_data.get('15m', ohlcv_data[::15])
                 )
@@ -434,27 +447,25 @@ class ChartPatternCNN(nn.Module):
 
             for i, prob in enumerate(probabilities):
                 if i < len(pattern_names) - 1:  # Exclude background
-                    pattern_name = pattern_names[i]
-                    if prob > self.config.confidence_threshold:
+                pattern_name = pattern_names[i]
+                if prob > self.config.confidence_threshold:
                         pattern_char = get_pattern_by_name(pattern_name)
 
                         detected_patterns.append({
-                            'pattern': pattern_name,
+                        'pattern': pattern_name,
                             'probability': float(prob),
                             'confidence': float(pattern_scores[pattern_name].item()),
                             'strength': float(pattern_strengths[pattern_name].item()),
                             'characteristics': {
-                                'type': pattern_char.pattern_type.value,
+                            'type': pattern_char.pattern_type.value,
                                 'strength_category': pattern_char.strength.name,
                                 'success_rate': pattern_char.success_rate,
                                 'avg_move_pct': pattern_char.avg_move_pct,
                                 'bullish_implications': pattern_char.bullish_implications,
-                                'bearish_implications': pattern_char.bearish_implications
-                            },
+                                'bearish_implications': pattern_char.bearish_implications},
                             'trading_signal': self._generate_pattern_trading_signal(pattern_name, prob, pattern_char),
                             'gary_dpi_weight': pattern_char.gary_dpi_weight,
-                            'taleb_antifragility_factor': pattern_char.taleb_antifragility_factor
-                        })
+                            'taleb_antifragility_factor': pattern_char.taleb_antifragility_factor}
 
             # Sort by probability
             detected_patterns.sort(key=lambda x: x['probability'], reverse=True)
@@ -464,11 +475,11 @@ class ChartPatternCNN(nn.Module):
 
             # Taleb's antifragility assessment
             antifragile_assessment = self._assess_antifragility(
-                detected_patterns, outputs['antifragile_score'][0].cpu().numpy()
+            detected_patterns, outputs['antifragile_score'][0].cpu().numpy()
             )
 
             result = {
-                'detected_patterns': detected_patterns,
+            'detected_patterns': detected_patterns,
                 'all_probabilities': {name: float(prob) for name, prob in zip(pattern_names, probabilities)},
                 'dpi_analysis': dpi_analysis,
                 'antifragile_assessment': antifragile_assessment,
@@ -502,11 +513,11 @@ class ChartPatternCNN(nn.Module):
         volumes = ohlcv_data[:, 4]
 
         stats = np.array([
-            np.mean(closes[-20:]),  # Recent average price
-            np.std(closes[-20:]),   # Recent volatility
-            np.mean(volumes[-20:]), # Recent average volume
-            (closes[-1] - closes[0]) / closes[0],  # Total return
-            np.mean(volumes[-5:]) / np.mean(volumes[-20:])  # Recent volume ratio
+        np.mean(closes[-20:]),  # Recent average price
+        np.std(closes[-20:]),   # Recent volatility
+        np.mean(volumes[-20:]), # Recent average volume
+        (closes[-1] - closes[0]) / closes[0],  # Total return
+        np.mean(volumes[-5:]) / np.mean(volumes[-20:])  # Recent volume ratio
         ])
 
         return stats
@@ -541,6 +552,11 @@ class ChartPatternCNN(nn.Module):
                 direction = 0
         elif pattern_char.pattern_type.value == 'continuation':
             # Continuation patterns depend on existing trend
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             signal = 'HOLD'  # Would need trend context
             direction = 0
         else:
@@ -548,7 +564,7 @@ class ChartPatternCNN(nn.Module):
             direction = 0
 
         return {
-            'signal': signal,
+        'signal': signal,
             'direction': direction,
             'strength': float(signal_strength),
             'expected_move_pct': pattern_char.avg_move_pct,
@@ -557,8 +573,7 @@ class ChartPatternCNN(nn.Module):
             'volume_importance': pattern_char.volume_importance,
             'entry_strategy': pattern_char.entry_strategy,
             'stop_loss_strategy': pattern_char.stop_loss_strategy,
-            'target_calculation': pattern_char.target_calculation
-        }
+            'target_calculation': pattern_char.target_calculation)
 
     def _analyze_dpi_factors(self, ohlcv_data: np.ndarray, dpi_score: float) -> Dict[str, Any]:
         """Analyze Gary's DPI factors for pattern context.
@@ -584,7 +599,7 @@ class ChartPatternCNN(nn.Module):
         volatility = np.std(closes[-20:]) / closes[-20:].mean()
 
         return {
-            'dpi_composite_score': float(dpi_score),
+        'dpi_composite_score': float(dpi_score),
             'short_term_momentum': float(short_momentum),
             'long_term_momentum': float(long_momentum),
             'volume_trend': float(volume_trend),
@@ -592,11 +607,10 @@ class ChartPatternCNN(nn.Module):
             'momentum_alignment': abs(short_momentum - long_momentum) < 0.02,
             'volume_confirmation': volume_trend > 0.1,
             'gary_dpi_signals': {
-                'momentum_strong': abs(short_momentum) > 0.05,
+            'momentum_strong': abs(short_momentum) > 0.05,
                 'volume_supporting': volume_trend > 0.05,
                 'volatility_manageable': volatility < 0.3,
-                'trend_consistent': short_momentum * long_momentum > 0
-            }
+                'trend_consistent': short_momentum * long_momentum > 0)
         }
 
     def _assess_antifragility(self,
@@ -619,20 +633,20 @@ class ChartPatternCNN(nn.Module):
             af_factor = pattern['taleb_antifragility_factor']
             if af_factor > 0.6:
                 high_antifragile_patterns.append({
-                    'pattern': pattern['pattern'],
+                'pattern': pattern['pattern'],
                     'antifragility_factor': af_factor,
                     'probability': pattern['probability']
                 })
             total_antifragile_weight += af_factor * pattern['probability']
 
         return {
-            'antifragile_composite_score': float(antifragile_score),
+        'antifragile_composite_score': float(antifragile_score),
             'total_antifragile_weight': float(total_antifragile_weight),
             'high_antifragile_patterns': high_antifragile_patterns,
             'market_stress_opportunity': antifragile_score > 0.7,
             'volatility_beneficial': len(high_antifragile_patterns) > 0,
             'taleb_principles': {
-                'benefits_from_disorder': antifragile_score > 0.6,
+            'benefits_from_disorder': antifragile_score > 0.6,
                 'asymmetric_payoff': any(p['characteristics']['avg_move_pct'] > 0.15 for p in detected_patterns),
                 'limited_downside': any('stop_loss' in p['trading_signal']['stop_loss_strategy'] for p in detected_patterns),
                 'unlimited_upside': any(p['characteristics']['success_rate'] > 0.75 for p in detected_patterns)
@@ -660,7 +674,7 @@ class ChartPatternCNN(nn.Module):
         image_base64 = base64.b64encode(buffer.read()).decode('utf-8')
         buffer.close()
 
-        return f\"data:image/png;base64,{image_base64}\"
+        return f\"data:image/png;base64,{image_base64)\"
 
     def get_performance_metrics(self) -> Dict[str, Any]:
         \"\"\"Get model performance metrics.\"\"\"
@@ -670,7 +684,7 @@ class ChartPatternCNN(nn.Module):
         recent_times = self.inference_times[-100:]
 
         return {
-            'avg_inference_time_ms': np.mean(recent_times),
+        'avg_inference_time_ms': np.mean(recent_times),
             'max_inference_time_ms': np.max(recent_times),
             'min_inference_time_ms': np.min(recent_times),
             'inference_target_met': np.mean(recent_times) < 100,
@@ -680,13 +694,12 @@ class ChartPatternCNN(nn.Module):
             'model_parameters': sum(p.numel() for p in self.parameters()),
             'supported_patterns': len(CHART_PATTERNS),
             'gary_dpi_integration': self.config.dpi_weight > 0,
-            'taleb_antifragile_enhancement': self.config.antifragile_weight > 0
-        }
+            'taleb_antifragile_enhancement': self.config.antifragile_weight > 0)
 
 
 # Factory function for easy creation
 def create_pattern_recognizer(
-    image_size: Tuple[int, int] = (224, 224),
+image_size: Tuple[int, int] = (224, 224),
     confidence_threshold: float = 0.7,
     enable_dpi: bool = True,
     enable_antifragile: bool = True,
@@ -705,7 +718,7 @@ def create_pattern_recognizer(
         Configured pattern recognizer
     \"\"\"
     config = PatternConfig(
-        image_size=image_size,
+    image_size=image_size,
         confidence_threshold=confidence_threshold,
         dpi_weight=0.25 if enable_dpi else 0.0,
         antifragile_weight=0.20 if enable_antifragile else 0.0
@@ -715,6 +728,11 @@ def create_pattern_recognizer(
 
     if fast_mode:
         # Optimize for fast inference
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
+        pass  # Auto-fixed: empty block
         model.eval()
         for param in model.parameters():
             param.requires_grad = False
@@ -724,7 +742,7 @@ def create_pattern_recognizer(
             model = torch.compile(model, mode='max-autotune')
 
     print(f\"Chart Pattern CNN created with {len(CHART_PATTERNS)} patterns\")
-    print(f\"GaryTaleb integration: DPI={enable_dpi}, Antifragile={enable_antifragile}\")
+    print(f\"GaryTaleb integration: DPI={enable_dpi), Antifragile={enable_antifragile)\")
     print(f\"Target inference time: <100ms\")
 
     return model"

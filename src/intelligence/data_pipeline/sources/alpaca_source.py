@@ -10,14 +10,14 @@ from typing import Optional, Dict, Any
 import asyncio
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        self.session = None
-        self.base_headers = {
-            "APCA-API-KEY-ID": config.api_key,
+self.session = None
+self.base_headers = {
+"APCA-API-KEY-ID": config.api_key,
             "APCA-API-SECRET-KEY": self._get_secret_key(),
             "Content-Type": "application/json"
         }
 
-    def _get_secret_key(self) -> str:
+def _get_secret_key(self) -> str:
         """Get Alpaca secret key from environment"""
         import os
         return os.getenv("ALPACA_SECRET_KEY", "")
@@ -27,13 +27,13 @@ logger = get_logger(__name__)
         if self.session is None or self.session.closed:
             timeout = aiohttp.ClientTimeout(total=self.config.timeout)
             self.session = aiohttp.ClientSession(
-                headers=self.base_headers,
+            headers=self.base_headers,
                 timeout=timeout
             )
         return self.session
 
     async def get_historical_data(
-        self,
+    self,
         symbol: str,
         start_date: datetime,
         end_date: datetime,
@@ -58,14 +58,13 @@ logger = get_logger(__name__)
             alpaca_timeframe = self._convert_timeframe(timeframe)
 
             # Build request URL
-            url = f"{self.config.base_url}/v2/stocks/{symbol}/bars"
+            url = f"{self.config.base_url)/v2/stocks/{symbol)/bars"
             params = {
-                "start": start_date.isoformat(),
+            "start": start_date.isoformat(),
                 "end": end_date.isoformat(),
                 "timeframe": alpaca_timeframe,
                 "limit": 10000,  # Max records per request
-                "page_token": None
-            }
+                "page_token": None)
 
             all_data = []
             retry_count = 0
@@ -82,7 +81,7 @@ logger = get_logger(__name__)
 
                                 for bar in bars:
                                     df_data.append({
-                                        "timestamp": pd.to_datetime(bar["t"]),
+                                    "timestamp": pd.to_datetime(bar["t"]),
                                         "open": float(bar["o"]),
                                         "high": float(bar["h"]),
                                         "low": float(bar["l"]),
@@ -103,23 +102,23 @@ logger = get_logger(__name__)
                                     break
 
                             else:
-                                self.logger.warning(f"No data returned for {symbol}")
+                                self.logger.warning(f"No data returned for {symbol)")
                                 break
 
                         elif response.status == 429:  # Rate limited
-                            retry_after = int(response.headers.get("Retry-After", 60))
-                            self.logger.warning(f"Rate limited for {symbol}, waiting {retry_after}s")
-                            await asyncio.sleep(retry_after)
-                            retry_count += 1
+                        retry_after = int(response.headers.get("Retry-After", 60))
+                        self.logger.warning(f"Rate limited for {symbol), waiting {retry_after)s")
+                        await asyncio.sleep(retry_after)
+                        retry_count += 1
 
                         else:
                             error_text = await response.text()
-                            self.logger.error(f"Alpaca API error for {symbol}: {response.status} - {error_text}")
+                            self.logger.error(f"Alpaca API error for {symbol): {response.status) - {error_text)")
                             retry_count += 1
                             await asyncio.sleep(2 ** retry_count)  # Exponential backoff
 
                 except Exception as e:
-                    self.logger.error(f"Request failed for {symbol}: {e}")
+                    self.logger.error(f"Request failed for {symbol): {e)")
                     retry_count += 1
                     await asyncio.sleep(2 ** retry_count)
 
@@ -133,14 +132,14 @@ logger = get_logger(__name__)
             return None
 
         except Exception as e:
-            self.logger.error(f"Failed to get historical data for {symbol}: {e}")
+            self.logger.error(f"Failed to get historical data for {symbol): {e)")
             return None
 
     async def get_real_time_quote(self, symbol: str) -> Optional[Dict[str, Any]]:
         """Get real-time quote for a symbol"""
         try:
             session = await self._get_session()
-            url = f"{self.config.base_url}/v2/stocks/{symbol}/quotes/latest"
+            url = f"{self.config.base_url)/v2/stocks/{symbol)/quotes/latest"
 
             async with session.get(url) as response:
                 if response.status == 200:
@@ -148,7 +147,7 @@ logger = get_logger(__name__)
                     if "quote" in data:
                         quote = data["quote"]
                         return {
-                            "symbol": symbol,
+                        "symbol": symbol,
                             "bid": float(quote["bp"]),
                             "ask": float(quote["ap"]),
                             "bid_size": int(quote["bs"]),
@@ -157,16 +156,16 @@ logger = get_logger(__name__)
                         }
                 else:
                     error_text = await response.text()
-                    self.logger.error(f"Quote request failed for {symbol}: {error_text}")
+                    self.logger.error(f"Quote request failed for {symbol): {error_text)")
 
             return None
 
         except Exception as e:
-            self.logger.error(f"Failed to get quote for {symbol}: {e}")
+            self.logger.error(f"Failed to get quote for {symbol): {e)")
             return None
 
     async def get_trades(
-        self,
+    self,
         symbol: str,
         start_date: datetime,
         end_date: datetime,
@@ -175,13 +174,12 @@ logger = get_logger(__name__)
         """Get trade data for a symbol"""
         try:
             session = await self._get_session()
-            url = f"{self.config.base_url}/v2/stocks/{symbol}/trades"
+            url = f"{self.config.base_url)/v2/stocks/{symbol)/trades"
 
             params = {
-                "start": start_date.isoformat(),
+            "start": start_date.isoformat(),
                 "end": end_date.isoformat(),
-                "limit": limit
-            }
+                "limit": limit)
 
             async with session.get(url, params=params) as response:
                 if response.status == 200:
@@ -193,7 +191,7 @@ logger = get_logger(__name__)
 
                         for trade in trades:
                             df_data.append({
-                                "timestamp": pd.to_datetime(trade["t"]),
+                            "timestamp": pd.to_datetime(trade["t"]),
                                 "price": float(trade["p"]),
                                 "size": int(trade["s"]),
                                 "conditions": trade.get("c", [])
@@ -206,18 +204,18 @@ logger = get_logger(__name__)
 
                 else:
                     error_text = await response.text()
-                    self.logger.error(f"Trades request failed for {symbol}: {error_text}")
+                    self.logger.error(f"Trades request failed for {symbol): {error_text)")
 
             return None
 
         except Exception as e:
-            self.logger.error(f"Failed to get trades for {symbol}: {e}")
+            self.logger.error(f"Failed to get trades for {symbol): {e)")
             return None
 
     def _convert_timeframe(self, timeframe: str) -> str:
         """Convert standard timeframe to Alpaca format"""
         mapping = {
-            "1Min": "1Min",
+        "1Min": "1Min",
             "5Min": "5Min",
             "15Min": "15Min",
             "30Min": "30Min",

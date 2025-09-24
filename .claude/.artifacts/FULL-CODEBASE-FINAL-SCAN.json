@@ -1,0 +1,12 @@
+{
+  "error": "'RealViolation' object has no attribute 'type'",
+  "nasa_compliance": {
+    "score": 0.0,
+    "violations": []
+  },
+  "success": false,
+  "summary": {
+    "total_violations": 0
+  },
+  "violations": []
+}

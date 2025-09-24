@@ -8,7 +8,7 @@ from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
         # Configuration
-        self.unusual_volume_threshold = 3.0  # Standard deviations
+self.unusual_volume_threshold = 3.0  # Standard deviations
         self.large_trade_threshold = config.processing.options_flow_threshold  # $1M
         self.iv_spike_threshold = 20.0  # Percent change
         self.flow_analysis_window = timedelta(hours=1)
@@ -63,13 +63,17 @@ logger = get_logger(__name__)
         for contract in options_data:
             try:
                 # Store contract data
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 self.options_data[contract.underlying].append({
-                    "timestamp": datetime.now(),
+                "timestamp": datetime.now(),
                     "contract": contract,
                     "volume": contract.volume,
                     "premium": contract.premium,
-                    "iv": contract.implied_volatility
-                })
+                    "iv": contract.implied_volatility))
 
                 # Analyze for unusual activity
                 contract_alerts = await self._analyze_contract(contract)
@@ -78,7 +82,7 @@ logger = get_logger(__name__)
                 self.processed_contracts += 1
 
             except Exception as e:
-                self.logger.error(f"Error processing contract {contract.symbol}: {e}")
+                self.logger.error(f"Error processing contract {contract.symbol): {e)")
 
         processing_time = (time.time() - start_time) * 1000
         self.processing_times.append(processing_time)
@@ -104,12 +108,12 @@ logger = get_logger(__name__)
         trade_value = contract.volume * contract.premium * 100  # Options multiplier
         if trade_value >= self.large_trade_threshold:
             alert = UnusualActivity(
-                id=f"large_trade_{contract.symbol}_{int(time.time())}",
+            id=f"large_trade_{contract.symbol)_{int(time.time())}",
                 underlying_symbol=contract.underlying,
                 contract_symbol=contract.symbol,
                 activity_type="flow",
                 severity=self._calculate_severity(trade_value / self.large_trade_threshold),
-                description=f"Large ${trade_value:,.0f} options trade detected",
+                description=f"Large ${trade_value:,.0f) options trade detected",
                 detected_at=current_time,
                 volume=contract.volume,
                 price_change_percent=0.0,  # Would need previous price data
@@ -133,7 +137,7 @@ logger = get_logger(__name__)
 
     def _check_unusual_volume(self, contract: OptionContract) -> Optional[UnusualActivity]:
         """Check for unusual volume activity"""
-        baseline_key = f"{contract.underlying}_{contract.contract_type}_{contract.strike_price}"
+        baseline_key = f"{contract.underlying)_{contract.contract_type)_{contract.strike_price)"
 
         if baseline_key in self.volume_baselines:
             baseline = self.volume_baselines[baseline_key]
@@ -147,26 +151,26 @@ logger = get_logger(__name__)
                     severity = self._calculate_severity(z_score / self.unusual_volume_threshold)
 
                     return UnusualActivity(
-                        id=f"volume_{contract.symbol}_{int(time.time())}",
+                    id=f"volume_{contract.symbol)_{int(time.time())}",
                         underlying_symbol=contract.underlying,
                         contract_symbol=contract.symbol,
                         activity_type="volume",
                         severity=severity,
-                        description=f"Unusual volume: {contract.volume:,} vs avg {avg_volume:.0f} ({z_score:.1f})",
+                        description=f"Unusual volume: {contract.volume:,} vs avg {avg_volume:.0f) ({z_score:.1f))",
                         detected_at=datetime.now(),
                         volume=contract.volume,
                         price_change_percent=0.0,
                         iv_change_percent=0.0,
                         unusual_score=z_score,
                         contract_details=contract,
-                        market_context={"z_score": z_score, "avg_volume": avg_volume}
+                        market_context={"z_score": z_score, "avg_volume": avg_volume)
                     )
 
         return None
 
     def _check_iv_spike(self, contract: OptionContract) -> Optional[UnusualActivity]:
         """Check for implied volatility spikes"""
-        baseline_key = f"{contract.underlying}_{contract.contract_type}_{contract.strike_price}"
+        baseline_key = f"{contract.underlying)_{contract.contract_type)_{contract.strike_price)"
 
         if baseline_key in self.iv_baselines:
             baseline = self.iv_baselines[baseline_key]
@@ -179,19 +183,19 @@ logger = get_logger(__name__)
                     severity = self._calculate_severity(iv_change_percent / self.iv_spike_threshold)
 
                     return UnusualActivity(
-                        id=f"iv_spike_{contract.symbol}_{int(time.time())}",
+                    id=f"iv_spike_{contract.symbol)_{int(time.time())}",
                         underlying_symbol=contract.underlying,
                         contract_symbol=contract.symbol,
                         activity_type="iv",
                         severity=severity,
-                        description=f"IV spike: {contract.implied_volatility:.1f}% vs avg {avg_iv:.1f}% (+{iv_change_percent:.1f}%)",
+                        description=f"IV spike: {contract.implied_volatility:.1f)% vs avg {avg_iv:.1f)% (+{iv_change_percent:.1f)%)",
                         detected_at=datetime.now(),
                         volume=contract.volume,
                         price_change_percent=0.0,
                         iv_change_percent=iv_change_percent,
                         unusual_score=iv_change_percent / self.iv_spike_threshold,
                         contract_details=contract,
-                        market_context={"avg_iv": avg_iv}
+                        market_context={"avg_iv": avg_iv)
                     )
 
         return None
@@ -214,7 +218,7 @@ logger = get_logger(__name__)
                 await self._calculate_flow_metrics()
                 await asyncio.sleep(60)  # Update every minute
             except Exception as e:
-                self.logger.error(f"Flow analysis loop error: {e}")
+                self.logger.error(f"Flow analysis loop error: {e)")
 
     async def _calculate_flow_metrics(self):
         """Calculate flow metrics for all symbols"""
@@ -227,8 +231,8 @@ logger = get_logger(__name__)
 
             # Filter recent data
             recent_data = [
-                item for item in data_deque
-                if item["timestamp"] >= cutoff_time
+            item for item in data_deque
+            if item["timestamp"] >= cutoff_time
             ]
 
             if not recent_data:
@@ -236,19 +240,19 @@ logger = get_logger(__name__)
 
             # Calculate metrics
             call_volume = sum(
-                item["volume"] for item in recent_data
-                if item["contract"].contract_type == "call"
+            item["volume"] for item in recent_data
+            if item["contract"].contract_type == "call"
             )
 
             put_volume = sum(
-                item["volume"] for item in recent_data
-                if item["contract"].contract_type == "put"
+            item["volume"] for item in recent_data
+            if item["contract"].contract_type == "put"
             )
 
             call_put_ratio = call_volume / put_volume if put_volume > 0 else float('inf')
 
             total_premium = sum(
-                item["volume"] * item["premium"] * 100 for item in recent_data
+            item["volume"] * item["premium"] * 100 for item in recent_data
             )
 
             iv_values = [item["iv"] for item in recent_data if item["iv"] > 0]
@@ -256,14 +260,14 @@ logger = get_logger(__name__)
 
             # Get recent unusual activities
             recent_alerts = [
-                alert for alert in self.unusual_activities
-                if (alert.underlying_symbol == symbol and
-                    alert.detected_at >= cutoff_time)
+            alert for alert in self.unusual_activities
+            if (alert.underlying_symbol == symbol and
+            alert.detected_at >= cutoff_time)
             ]
 
             # Store metrics
             self.flow_metrics[symbol] = FlowMetrics(
-                symbol=symbol,
+            symbol=symbol,
                 timestamp=current_time,
                 call_volume=call_volume,
                 put_volume=put_volume,
@@ -280,7 +284,7 @@ logger = get_logger(__name__)
                 await self._update_baselines()
                 await asyncio.sleep(3600)  # Update hourly
             except Exception as e:
-                self.logger.error(f"Baseline calculation error: {e}")
+                self.logger.error(f"Baseline calculation error: {e)")
 
     async def _update_baselines(self):
         """Update volume and IV baselines"""
@@ -290,7 +294,7 @@ logger = get_logger(__name__)
 
         for symbol, data_deque in self.options_data.items():
             if len(data_deque) < 10:  # Need minimum data
-                continue
+            continue
 
             # Group by contract characteristics
             contract_groups = defaultdict(list)
@@ -298,13 +302,13 @@ logger = get_logger(__name__)
             for item in data_deque:
                 if item["timestamp"] >= cutoff_time:
                     contract = item["contract"]
-                    key = f"{contract.underlying}_{contract.contract_type}_{contract.strike_price}"
+                    key = f"{contract.underlying)_{contract.contract_type)_{contract.strike_price)"
                     contract_groups[key].append(item)
 
             # Calculate baselines for each contract group
             for key, group_data in contract_groups.items():
                 if len(group_data) < 5:  # Need minimum samples
-                    continue
+                continue
 
                 volumes = [item["volume"] for item in group_data]
                 ivs = [item["iv"] for item in group_data if item["iv"] > 0]
@@ -312,7 +316,7 @@ logger = get_logger(__name__)
                 # Volume baseline
                 if volumes:
                     self.volume_baselines[key] = {
-                        "avg": np.mean(volumes),
+                    "avg": np.mean(volumes),
                         "std": np.std(volumes),
                         "median": np.median(volumes)
                     }
@@ -320,7 +324,7 @@ logger = get_logger(__name__)
                 # IV baseline
                 if ivs:
                     self.iv_baselines[key] = {
-                        "avg": np.mean(ivs),
+                    "avg": np.mean(ivs),
                         "std": np.std(ivs),
                         "median": np.median(ivs)
                     }
@@ -334,8 +338,8 @@ logger = get_logger(__name__)
         cutoff_time = datetime.now() - timedelta(hours=hours)
 
         alerts = [
-            alert for alert in self.unusual_activities
-            if alert.detected_at >= cutoff_time
+        alert for alert in self.unusual_activities
+        if alert.detected_at >= cutoff_time
         ]
 
         if symbol:
@@ -351,14 +355,13 @@ logger = get_logger(__name__)
             total_volume = metrics.call_volume + metrics.put_volume
             if total_volume > 0:
                 symbols_with_flow.append({
-                    "symbol": symbol,
+                "symbol": symbol,
                     "total_volume": total_volume,
                     "call_put_ratio": metrics.call_put_ratio,
                     "total_premium": metrics.total_premium,
                     "avg_iv": metrics.avg_iv,
                     "unusual_count": len(metrics.unusual_activities),
-                    "timestamp": metrics.timestamp
-                })
+                    "timestamp": metrics.timestamp))
 
         # Sort by total premium (dollar flow)
         symbols_with_flow.sort(key=lambda x: x["total_premium"], reverse=True)
@@ -370,7 +373,7 @@ logger = get_logger(__name__)
         recent_alerts = self.get_recent_alerts(hours=24)
 
         return {
-            "total_contracts_processed": self.processed_contracts,
+        "total_contracts_processed": self.processed_contracts,
             "total_alerts_generated": self.alerts_generated,
             "recent_alerts_24h": len(recent_alerts),
             "symbols_tracked": len(self.flow_metrics),
@@ -382,7 +385,7 @@ logger = get_logger(__name__)
 
     def _count_alerts_by_severity(self, alerts: List[UnusualActivity]) -> Dict[str, int]:
         """Count alerts by severity level"""
-        counts = {"low": 0, "medium": 0, "high": 0, "extreme": 0}
+        counts = {"low": 0, "medium": 0, "high": 0, "extreme": 0)
         for alert in alerts:
             counts[alert.severity] += 1
         return counts
@@ -401,36 +404,35 @@ class SweepDetector:
 
         # Add to recent trades
         trade = {
-            "timestamp": current_time,
+        "timestamp": current_time,
             "contract": contract,
             "symbol": contract.symbol,
             "underlying": contract.underlying,
             "volume": contract.volume,
-            "premium": contract.premium
-        }
+            "premium": contract.premium)
         self.recent_trades.append(trade)
 
         # Look for sweep pattern
         cutoff_time = current_time - self.sweep_window
 
         related_trades = [
-            t for t in self.recent_trades
-            if (t["underlying"] == contract.underlying and
-                t["timestamp"] >= cutoff_time)
+        t for t in self.recent_trades
+        if (t["underlying"] == contract.underlying and
+        t["timestamp"] >= cutoff_time)
         ]
 
         if len(related_trades) >= 3:  # Multiple trades in short window
-            total_volume = sum(t["volume"] for t in related_trades)
-            total_value = sum(t["volume"] * t["premium"] * 100 for t in related_trades)
+        total_volume = sum(t["volume"] for t in related_trades)
+        total_value = sum(t["volume"] * t["premium"] * 100 for t in related_trades)
 
             if total_value >= 500000:  # $500K+ sweep
-                return UnusualActivity(
-                    id=f"sweep_{contract.underlying}_{int(time.time())}",
+            return UnusualActivity(
+            id=f"sweep_{contract.underlying)_{int(time.time())}",
                     underlying_symbol=contract.underlying,
                     contract_symbol=contract.symbol,
                     activity_type="flow",
                     severity="high",
-                    description=f"Options sweep detected: {len(related_trades)} trades, ${total_value:,.0f} total",
+                    description=f"Options sweep detected: {len(related_trades)} trades, ${total_value:,.0f) total",
                     detected_at=current_time,
                     volume=total_volume,
                     price_change_percent=0.0,
@@ -438,9 +440,8 @@ class SweepDetector:
                     unusual_score=total_value / 500000,
                     contract_details=contract,
                     market_context={
-                        "sweep_trades": len(related_trades),
-                        "total_value": total_value
-                    }
+                    "sweep_trades": len(related_trades),
+                        "total_value": total_value)
                 )
 
         return None

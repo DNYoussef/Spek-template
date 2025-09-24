@@ -1,0 +1,8 @@
+Analysis failed: Unified analysis error: name 'time' is not defined
+DEBUG: Successfully imported ConfigurableDetectorMixin
+DEBUG: MagicLiteralDetector successfully imported ConfigurableDetectorMixin
+[WARNING] Unified duplication analyzer not available
+CRITICAL: UnifiedAnalyzer import failed: cannot import name 'UnifiedAnalyzer' from 'analyzer.unified_analyzer' (C:\Users\17175\Desktop\spek template\analyzer\unified_analyzer.py)
+SUCCESS: All critical modules loaded successfully
+[WARNING] Unified duplication analyzer not available
+JSON report written to: .claude/.artifacts/nasa-compliance-baseline.json

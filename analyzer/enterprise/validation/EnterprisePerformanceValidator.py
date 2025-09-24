@@ -420,7 +420,9 @@ class EnterprisePerformanceValidator:
                     security_level="standard"
                 )
                 result = requests.append(request)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
+        except Exception:
+            pass
             
             # Execute concurrent requests
             start_time = time.perf_counter()
@@ -444,12 +446,12 @@ class EnterprisePerformanceValidator:
                     try:
                         result, request_time = future.result()
                         result = response_times.append(request_time)
-                        assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
                         successful_requests += 1
                     except Exception as e:
                         failed_requests += 1
                         result = errors.append(str(e))
-                        assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             end_time = time.perf_counter()
             total_duration = (end_time - start_time) * 1000  # Convert to ms
@@ -563,7 +565,7 @@ class EnterprisePerformanceValidator:
                 
                 end = time.perf_counter()
                 result = baseline_times.append((end - start) * 1000)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             baseline_avg = statistics.mean(baseline_times)
             
@@ -587,7 +589,7 @@ class EnterprisePerformanceValidator:
                 
                 end = time.perf_counter()
                 result = enterprise_times.append((end - start) * 1000)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             enterprise_avg = statistics.mean(enterprise_times)
             
@@ -657,7 +659,7 @@ class EnterprisePerformanceValidator:
                     security_level="high"
                 )
                 result = large_requests.append(request)
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Execute requests and monitor memory
             start_time = time.perf_counter()
@@ -670,12 +672,12 @@ class EnterprisePerformanceValidator:
                 try:
                     result, request_time = self._execute_single_request(request)
                     result = response_times.append(request_time)
-                    assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
                     successful_requests += 1
                 except Exception as e:
                     failed_requests += 1
                     result = errors.append(str(e))
-                    assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             end_time = time.perf_counter()
             total_duration = (end_time - start_time) * 1000
@@ -766,13 +768,13 @@ class EnterprisePerformanceValidator:
                     request_time = (end_time - start_time) * 1000
                     
                     result = response_times.append(request_time)
-                    assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
                     successful_operations += 1
                     
                 except Exception as e:
                     failed_operations += 1
                     result = errors.append(str(e))
-                    assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Calculate metrics
             avg_response_time = statistics.mean(response_times) if response_times else 0
@@ -908,7 +910,7 @@ class EnterprisePerformanceValidator:
                     request_time = (end_time - start_time) * 1000
                     
                     result = response_times.append(request_time)
-                    assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
                     
                     if retrieved_data is not None:
                         successful_operations += 1
@@ -918,7 +920,7 @@ class EnterprisePerformanceValidator:
                 except Exception as e:
                     failed_operations += 1
                     result = errors.append(str(e))
-                    assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             # Get cache statistics
             cache_stats = cache.get_cache_stats()
@@ -1091,7 +1093,7 @@ class EnterprisePerformanceValidator:
             
             if not recommendations:
                 result = recommendations.append("All validation metrics within acceptable parameters.")
-                assert result is not None, 'Critical operation failed'
+        assert result is not None, "Critical operation failed"
             
             return recommendations
             

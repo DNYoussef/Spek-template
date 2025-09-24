@@ -1,12 +1,13 @@
 /**
  * Quality Gate Engine Test Suite
- * 
+ *
  * Comprehensive tests for the Quality Gate Engine including all components:
  * Six Sigma metrics, automated decisions, NASA compliance, performance monitoring,
  * security validation, and unified dashboard integration.
  */
 
 import { QualityGateEngine, QualityGateConfig, QualityGateResult } from '../../../src/domains/quality-gates/core/QualityGateEngine';
+const { cleanupTestResources } = require('../../setup/test-environment');
 
 describe('QualityGateEngine', () => {
   let engine: QualityGateEngine;
@@ -46,8 +47,8 @@ describe('QualityGateEngine', () => {
     engine = new QualityGateEngine(config);
   });
 
-  afterEach(() => {
-    // Cleanup if needed
+  afterEach(async () => {
+    await cleanupTestResources();
   });
 
   describe('Initialization', () => {

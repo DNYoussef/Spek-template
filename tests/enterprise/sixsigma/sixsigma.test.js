@@ -14,6 +14,7 @@ const { TheaterIntegrator } = require('../../../analyzer/enterprise/sixsigma/the
 const { ReportGenerator } = require('../../../analyzer/enterprise/sixsigma/report-generator');
 const { PerformanceMonitor } = require('../../../analyzer/enterprise/sixsigma/performance-monitor');
 const { sixSigmaConfig } = require('../../../analyzer/enterprise/sixsigma/config');
+const { cleanupTestResources } = require('../../setup/test-environment');
 
 describe('Six Sigma Reporting System', () => {
     let system;
@@ -48,6 +49,10 @@ describe('Six Sigma Reporting System', () => {
                 { name: 'another test', passed: true }
             ]
         };
+    });
+
+    afterEach(async () => {
+        await cleanupTestResources();
     });
 
     describe('SR-001: CTQ Metrics Collector and Calculator', () => {

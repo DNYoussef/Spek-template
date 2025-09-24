@@ -9,6 +9,7 @@
  */
 
 import { HivePrincess, DomainType } from '../../src/swarm/hierarchy/HivePrincess';
+import { cleanupTestResources } from '../setup/test-environment';
 import { PrincessBase } from '../../src/swarm/hierarchy/base/PrincessBase';
 import { ArchitecturePrincess } from '../../src/swarm/hierarchy/domains/ArchitecturePrincess';
 import { DevelopmentPrincess } from '../../src/swarm/hierarchy/domains/DevelopmentPrincess';
@@ -21,6 +22,11 @@ import { AuditGateManager } from '../../src/swarm/hierarchy/quality/AuditGateMan
 describe('HivePrincess Decomposition', () => {
   beforeEach(() => {
     HivePrincess.clearAll();
+  });
+
+  afterEach(async () => {
+    HivePrincess.clearAll();
+    await cleanupTestResources();
   });
 
   describe('Factory Pattern', () => {

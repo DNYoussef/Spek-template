@@ -3,12 +3,16 @@
  * Validates the refactored architecture maintains all functionality
  */
 
-import { describe, it, expect, beforeEach, afterEach } from '@jest/globals';
+import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
 import { SwarmQueen } from '../../src/swarm/hierarchy/SwarmQueen';
 import { QueenOrchestrator } from '../../src/swarm/hierarchy/core/QueenOrchestrator';
 import { PrincessManager } from '../../src/swarm/hierarchy/managers/PrincessManager';
 import { ConsensusCoordinator } from '../../src/swarm/hierarchy/consensus/ConsensusCoordinator';
 import { SwarmMetrics } from '../../src/swarm/hierarchy/metrics/SwarmMetrics';
+import { cleanupTestResources } from '../setup/test-environment';
+
+// Increase timeout for async tests
+jest.setTimeout(10000);
 
 describe('SwarmQueen Decomposition', () => {
   describe('SwarmQueen Facade', () => {
@@ -19,7 +23,10 @@ describe('SwarmQueen Decomposition', () => {
     });
 
     afterEach(async () => {
-      await queen.shutdown();
+      if (queen) {
+        await queen.shutdown();
+      }
+      await cleanupTestResources();
     });
 
     it('should maintain backward compatibility', async () => {
@@ -62,7 +69,10 @@ describe('SwarmQueen Decomposition', () => {
     });
 
     afterEach(async () => {
-      await orchestrator.shutdown();
+      if (orchestrator) {
+        await orchestrator.shutdown();
+      }
+      await cleanupTestResources();
     });
 
     it('should initialize all subsystems', async () => {
@@ -105,7 +115,10 @@ describe('SwarmQueen Decomposition', () => {
     });
 
     afterEach(async () => {
-      await manager.shutdownAll();
+      if (manager) {
+        await manager.shutdownAll();
+      }
+      await cleanupTestResources();
     });
 
     it('should initialize all 6 princess domains', async () => {
@@ -130,10 +143,13 @@ describe('SwarmQueen Decomposition', () => {
 
     it('should monitor princess health', async () => {
       await manager.initialize();
-      await manager.monitorHealth();
+      const healthReport = await manager.monitorHealth();
 
-      // Should complete without errors
-      expect(true).toBe(true);
+      // Real assertions on health monitoring
+      expect(healthReport).toBeDefined();
+      expect(healthReport.checks).toBeGreaterThan(0);
+      expect(healthReport.allHealthy).toBe(true);
+      expect(healthReport.timestamp).toBeDefined();
     });
 
     it('should heal unhealthy princesses', async () => {
@@ -156,7 +172,13 @@ describe('SwarmQueen Decomposition', () => {
     });
 
     afterEach(async () => {
-      await manager.shutdownAll();
+      if (coordinator) {
+        // Cleanup consensus coordinator if it has a cleanup method
+      }
+      if (manager) {
+        await manager.shutdownAll();
+      }
+      await cleanupTestResources();
     });
 
     it('should initialize consensus system', async () => {
@@ -251,7 +273,10 @@ describe('SwarmQueen Decomposition', () => {
     });
 
     afterEach(async () => {
-      await queen.shutdown();
+      if (queen) {
+        await queen.shutdown();
+      }
+      await cleanupTestResources();
     });
 
     it('should maintain all swarm functionality', async () => {

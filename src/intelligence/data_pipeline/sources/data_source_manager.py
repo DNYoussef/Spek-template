@@ -6,11 +6,11 @@ Orchestrates multiple data sources with intelligent routing and failover
 import asyncio
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-        self.sources = {}
-        self.source_status = {}
-        self._initialize_sources()
+self.sources = {}
+self.source_status = {}
+self._initialize_sources()
 
-    def _initialize_sources(self):
+def _initialize_sources(self):
         """Initialize all available data sources"""
         for name, source_config in config.data_sources.items():
             if not source_config.enabled:
@@ -20,35 +20,35 @@ logger = get_logger(__name__)
                 if name == "alpaca":
                     self.sources[name] = AlpacaSource(source_config)
                     self.source_status[name] = SourceStatus(
-                        name=name,
+                    name=name,
                         priority=SourcePriority.SECONDARY
                     )
                 elif name == "polygon":
                     self.sources[name] = PolygonSource(source_config)
                     self.source_status[name] = SourceStatus(
-                        name=name,
+                    name=name,
                         priority=SourcePriority.SECONDARY
                     )
                 elif name == "yahoo":
                     self.sources[name] = YahooSource(source_config)
                     self.source_status[name] = SourceStatus(
-                        name=name,
+                    name=name,
                         priority=SourcePriority.PRIMARY  # Yahoo is free and reliable
                     )
 
-                self.logger.info(f"Initialized {name} data source")
+                self.logger.info(f"Initialized {name) data source")
 
             except Exception as e:
-                self.logger.error(f"Failed to initialize {name}: {e}")
+                self.logger.error(f"Failed to initialize {name): {e)")
                 self.source_status[name] = SourceStatus(
-                    name=name,
+                name=name,
                     available=False,
                     last_error=str(e),
                     priority=SourcePriority.DISABLED
                 )
 
     async def get_historical_data(
-        self,
+    self,
         symbol: str,
         start_date: datetime,
         end_date: datetime,
@@ -79,39 +79,44 @@ logger = get_logger(__name__)
                 start_time = datetime.now()
                 source = self.sources[source_name]
 
-                self.logger.debug(f"Trying {source_name} for {symbol}")
+                self.logger.debug(f"Trying {source_name) for {symbol)")
 
                 data = await source.get_historical_data(
-                    symbol, start_date, end_date, timeframe
+                symbol, start_date, end_date, timeframe
                 )
 
                 response_time = (datetime.now() - start_time).total_seconds()
 
                 if data is not None and not data.empty:
                     # Update source status on success
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
+                    pass  # Auto-fixed: empty block
                     self._update_source_status(source_name, True, response_time)
 
                     # Validate data quality
                     if self._validate_data_quality(data, symbol, start_date, end_date):
                         self.logger.info(
-                            f"Successfully retrieved {len(data)} records for {symbol} from {source_name}"
+                        f"Successfully retrieved {len(data)} records for {symbol) from {source_name)"
                         )
                         return data
                     else:
-                        self.logger.warning(f"Data quality check failed for {symbol} from {source_name}")
+                        self.logger.warning(f"Data quality check failed for {symbol) from {source_name)")
 
                 else:
-                    self.logger.warning(f"No data returned for {symbol} from {source_name}")
+                    self.logger.warning(f"No data returned for {symbol) from {source_name)")
 
             except Exception as e:
-                self.logger.warning(f"{source_name} failed for {symbol}: {e}")
+                self.logger.warning(f"{source_name) failed for {symbol): {e)")
                 self._update_source_status(source_name, False, 0.0, str(e))
 
-        self.logger.error(f"All sources failed for {symbol}")
+        self.logger.error(f"All sources failed for {symbol)")
         return None
 
     async def get_real_time_quotes(
-        self,
+    self,
         symbols: List[str],
         preferred_sources: Optional[List[str]] = None
     ) -> Dict[str, Dict[str, Any]]:
@@ -125,7 +130,7 @@ logger = get_logger(__name__)
             for source_name in sources_to_try:
                 if self._is_source_available(source_name):
                     task = asyncio.create_task(
-                        self._get_quote_from_source(symbol, source_name)
+                    self._get_quote_from_source(symbol, source_name)
                     )
                     tasks.append((symbol, source_name, task))
                     break  # Only try first available source per symbol
@@ -136,14 +141,14 @@ logger = get_logger(__name__)
                 quote = await task
                 if quote:
                     quotes[symbol] = quote
-                    self.logger.debug(f"Got quote for {symbol} from {source_name}")
+                    self.logger.debug(f"Got quote for {symbol) from {source_name)")
             except Exception as e:
-                self.logger.warning(f"Quote failed for {symbol} from {source_name}: {e}")
+                self.logger.warning(f"Quote failed for {symbol) from {source_name): {e)")
 
         return quotes
 
     async def _get_quote_from_source(
-        self,
+    self,
         symbol: str,
         source_name: str
     ) -> Optional[Dict[str, Any]]:
@@ -173,9 +178,9 @@ logger = get_logger(__name__)
 
         # Add remaining sources by priority
         remaining_sources = [
-            (name, status.priority.value, status.response_time)
-            for name, status in self.source_status.items()
-            if self._is_source_available(name) and name not in available_sources
+        (name, status.priority.value, status.response_time)
+        for name, status in self.source_status.items()
+        if self._is_source_available(name) and name not in available_sources
         ]
 
         # Sort by priority (lower number = higher priority) then response time
@@ -200,7 +205,7 @@ logger = get_logger(__name__)
         return status.available and status.priority != SourcePriority.DISABLED
 
     def _update_source_status(
-        self,
+    self,
         source_name: str,
         success: bool,
         response_time: float = 0.0,
@@ -231,10 +236,10 @@ logger = get_logger(__name__)
             # Disable source temporarily if too many errors
             if status.error_count >= 3:
                 status.available = False
-                self.logger.warning(f"Temporarily disabled {source_name} due to errors")
+                self.logger.warning(f"Temporarily disabled {source_name) due to errors")
 
     def _validate_data_quality(
-        self,
+    self,
         data: pd.DataFrame,
         symbol: str,
         start_date: datetime,
@@ -248,13 +253,13 @@ logger = get_logger(__name__)
         required_columns = ['open', 'high', 'low', 'close', 'volume']
         missing_columns = [col for col in required_columns if col not in data.columns]
         if missing_columns:
-            self.logger.warning(f"Missing columns for {symbol}: {missing_columns}")
+            self.logger.warning(f"Missing columns for {symbol): {missing_columns)")
             return False
 
         # Check data integrity
         invalid_ohlc = (data['high'] < data['low']).any()
         if invalid_ohlc:
-            self.logger.warning(f"Invalid OHLC data for {symbol}")
+            self.logger.warning(f"Invalid OHLC data for {symbol)")
             return False
 
         # Check for reasonable data coverage
@@ -265,7 +270,7 @@ logger = get_logger(__name__)
         if expected_days > 0:
             coverage_ratio = actual_days / expected_days
             if coverage_ratio < 0.6:
-                self.logger.warning(f"Low data coverage for {symbol}: {coverage_ratio:.2f}")
+                self.logger.warning(f"Low data coverage for {symbol): {coverage_ratio:.2f)")
                 return False
 
         return True
@@ -276,7 +281,7 @@ logger = get_logger(__name__)
 
         for name, status in self.source_status.items():
             health[name] = {
-                "available": status.available,
+            "available": status.available,
                 "priority": status.priority.name,
                 "error_count": status.error_count,
                 "last_error": status.last_error,
@@ -292,7 +297,7 @@ logger = get_logger(__name__)
             try:
                 await source.close()
             except Exception as e:
-                self.logger.warning(f"Error closing source: {e}")
+                self.logger.warning(f"Error closing source: {e)")
 
     def __del__(self):
         """Cleanup on destruction"""

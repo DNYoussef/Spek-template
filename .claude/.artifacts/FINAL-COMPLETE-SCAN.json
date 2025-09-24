@@ -1,0 +1,12 @@
+{
+  "error": "'str' object has no attribute 'value'",
+  "nasa_compliance": {
+    "score": 0.0,
+    "violations": []
+  },
+  "success": false,
+  "summary": {
+    "total_violations": 0
+  },
+  "violations": []
+}

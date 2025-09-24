@@ -1,0 +1,17 @@
+{
+  "error": "Unified analysis error: 'RealViolation' object has no attribute 'get'",
+  "god_objects": [],
+  "mece_analysis": {
+    "duplications": [],
+    "score": 0.0
+  },
+  "nasa_compliance": {
+    "score": 0.0,
+    "violations": []
+  },
+  "success": false,
+  "summary": {
+    "total_violations": 0
+  },
+  "violations": []
+}

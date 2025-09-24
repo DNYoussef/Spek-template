@@ -22,17 +22,16 @@ from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
         
         # Portfolio state
-        self._positions: Dict[str, Position] = {}
+self._positions: Dict[str, Position] = {}
         self._cash_balance = initial_cash
         self._historical_values: List[Dict[str, Any]] = []
         
         # Risk management
         self.risk_limits = risk_limits or {
-            'max_position_size': 0.20,  # 20% max single position
-            'max_sector_concentration': 0.40,  # 40% max sector
-            'min_cash_reserve': 0.05,  # 5% min cash
-            'max_leverage': 1.0  # No leverage by default
-        }
+        'max_position_size': 0.20,  # 20% max single position
+        'max_sector_concentration': 0.40,  # 40% max sector
+        'min_cash_reserve': 0.05,  # 5% min cash
+        'max_leverage': 1.0  # No leverage by default)
         
         self.logger.info("PortfolioManager initialized")
         
@@ -44,6 +43,11 @@ logger = get_logger(__name__)
         """
         try:
             # Update positions with current market prices
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             self._update_position_values()
             
             # Calculate portfolio metrics
@@ -59,7 +63,7 @@ logger = get_logger(__name__)
             buying_power = self._calculate_buying_power()
             
             state = PortfolioState(
-                timestamp=datetime.now(timezone.utc),
+            timestamp=datetime.now(timezone.utc),
                 total_value=total_value,
                 cash=self._cash_balance,
                 positions=list(self._positions.values()),
@@ -75,13 +79,18 @@ logger = get_logger(__name__)
             return state
             
         except Exception as e:
-            self.logger.error(f"Failed to get portfolio state: {e}")
+            self.logger.error(f"Failed to get portfolio state: {e)")
             raise
     
     def _update_position_values(self) -> None:
         """Update all position values with current market prices."""
         if self.broker_adapter and hasattr(self.broker_adapter, 'get_current_prices'):
             # Get current prices from broker
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             symbols = list(self._positions.keys())
             if symbols:
                 current_prices = self.broker_adapter.get_current_prices(symbols)
@@ -93,8 +102,18 @@ logger = get_logger(__name__)
                         position.unrealized_pnl = position.market_value - position.cost_basis
         else:
             # Fallback: use last known prices or simulate small changes
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             for position in self._positions.values():
                 # Small random price movement for simulation
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
+                pass  # Auto-fixed: empty block
                 import random
                 price_change = random.uniform(-0.02, 0.02)  # +/- 2%
                 position.current_price = position.average_price * (1 + price_change)
@@ -110,7 +129,7 @@ logger = get_logger(__name__)
     def _record_historical_value(self, state: PortfolioState) -> None:
         """Record historical portfolio value for tracking."""
         historical_record = {
-            'timestamp': state.timestamp,
+        'timestamp': state.timestamp,
             'total_value': state.total_value,
             'cash': state.cash,
             'unrealized_pnl': state.total_unrealized_pnl,
@@ -124,7 +143,7 @@ logger = get_logger(__name__)
             self._historical_values = self._historical_values[-1000:]
     
     def add_position(
-        self,
+    self,
         symbol: str,
         quantity: float,
         price: float,
@@ -145,6 +164,11 @@ logger = get_logger(__name__)
         
         if symbol in self._positions:
             # Update existing position (average down/up)
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             existing = self._positions[symbol]
             total_cost = existing.cost_basis + cost_basis
             total_quantity = existing.quantity + quantity
@@ -155,7 +179,7 @@ logger = get_logger(__name__)
                 new_average_price = price
             
             self._positions[symbol] = Position(
-                symbol=symbol,
+            symbol=symbol,
                 quantity=total_quantity,
                 average_price=new_average_price,
                 current_price=price,
@@ -166,8 +190,13 @@ logger = get_logger(__name__)
             )
         else:
             # New position
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             self._positions[symbol] = Position(
-                symbol=symbol,
+            symbol=symbol,
                 quantity=quantity,
                 average_price=price,
                 current_price=price,
@@ -181,9 +210,9 @@ logger = get_logger(__name__)
         if position_type == PositionType.LONG:
             self._cash_balance -= cost_basis
         else:  # SHORT
-            self._cash_balance += cost_basis
+        self._cash_balance += cost_basis
         
-        self.logger.info(f"Added position: {symbol} {quantity}@{price}")
+        self.logger.info(f"Added position: {symbol) {quantity)@{price)")
         return self._positions[symbol]
     
     def remove_position(self, symbol: str, quantity: Optional[float] = None) -> float:
@@ -197,16 +226,21 @@ logger = get_logger(__name__)
             Realized P&L from the sale
         """
         if symbol not in self._positions:
-            raise ValueError(f"Position {symbol} not found")
+            raise ValueError(f"Position {symbol) not found")
         
         position = self._positions[symbol]
         
         if quantity is None:
             # Remove entire position
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             quantity = position.quantity
         
         if abs(quantity) > abs(position.quantity):
-            raise ValueError(f"Cannot remove {quantity} shares, only {position.quantity} available")
+            raise ValueError(f"Cannot remove {quantity) shares, only {position.quantity) available")
         
         # Calculate realized P&L
         avg_cost_per_share = position.cost_basis / abs(position.quantity)
@@ -217,11 +251,16 @@ logger = get_logger(__name__)
             del self._positions[symbol]
         else:
             # Partial close
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
+            pass  # Auto-fixed: empty block
             remaining_quantity = position.quantity - quantity
             remaining_cost_basis = position.cost_basis * (abs(remaining_quantity) / abs(position.quantity))
             
             self._positions[symbol] = Position(
-                symbol=symbol,
+            symbol=symbol,
                 quantity=remaining_quantity,
                 average_price=position.average_price,
                 current_price=position.current_price,
@@ -235,11 +274,11 @@ logger = get_logger(__name__)
         proceeds = abs(quantity) * position.current_price
         self._cash_balance += proceeds
         
-        self.logger.info(f"Removed position: {symbol} {quantity}@{position.current_price}, P&L: ${realized_pnl:.2f}")
+        self.logger.info(f"Removed position: {symbol) {quantity)@{position.current_price), P&L: ${realized_pnl:.2f)")
         return realized_pnl
     
     def calculate_period_profit(
-        self,
+    self,
         start_time: Optional[datetime] = None,
         end_time: Optional[datetime] = None
     ) -> Dict[str, float]:
@@ -254,7 +293,7 @@ logger = get_logger(__name__)
         """
         if not self._historical_values:
             return {
-                'net_profit': 0.0,
+            'net_profit': 0.0,
                 'gross_profit': 0.0,
                 'fees': 0.0,
                 'calculation_method': 'no_historical_data'
@@ -263,8 +302,8 @@ logger = get_logger(__name__)
         # Get start and end values
         if start_time:
             start_records = [
-                record for record in self._historical_values 
-                if record['timestamp'] >= start_time
+            record for record in self._historical_values 
+            if record['timestamp'] >= start_time
             ]
             start_value = start_records[0]['total_value'] if start_records else self._historical_values[0]['total_value']
         else:
@@ -282,7 +321,7 @@ logger = get_logger(__name__)
         net_profit = gross_profit - estimated_fees
         
         return {
-            'net_profit': net_profit,
+        'net_profit': net_profit,
             'gross_profit': gross_profit,
             'fees': estimated_fees,
             'start_value': start_value,
@@ -308,7 +347,7 @@ logger = get_logger(__name__)
             
             if position_pct > max_position_pct:
                 violations.append({
-                    'type': 'position_size',
+                'type': 'position_size',
                     'symbol': position.symbol,
                     'current': position_pct,
                     'limit': max_position_pct,
@@ -321,17 +360,17 @@ logger = get_logger(__name__)
         
         if cash_pct < min_cash_pct:
             violations.append({
-                'type': 'cash_reserve',
+            'type': 'cash_reserve',
                 'current': cash_pct,
                 'limit': min_cash_pct,
                 'severity': 'medium'
             })
         
         return {
-            'passed': len(violations) == 0,
+        'passed': len(violations) == 0,
             'violations': violations,
             'risk_score': len([v for v in violations if v['severity'] == 'high']) * 2 + 
-                         len([v for v in violations if v['severity'] == 'medium']),
+            len([v for v in violations if v['severity'] == 'medium']),
             'check_timestamp': datetime.now(timezone.utc)
         }
     
@@ -350,7 +389,7 @@ logger = get_logger(__name__)
         
         # Calculate other metrics (simplified)
         return {
-            'total_return_pct': total_return,
+        'total_return_pct': total_return,
             'current_value': current_value,
             'initial_value': initial_value,
             'unrealized_pnl': current_state.total_unrealized_pnl,

@@ -6,7 +6,7 @@
 
 ## [TARGET] Project Overview
 
-**SPEK Enhanced Development Platform** is a complete multi-agent workflow orchestration system with Queen-Princess-Drone swarm hierarchy. The platform integrates 90+ specialized AI agents (including 5 desktop automation specialists via Bytebot), 163+ slash commands, 16+ MCP servers (including Bytebot desktop control), comprehensive theater detection, and the **3-Loop Development System** for both new projects and existing codebase remediation.
+**SPEK Enhanced Development Platform** is a complete multi-agent workflow orchestration system with Queen-Princess-Drone swarm hierarchy. The platform integrates 90+ specialized AI agents (including 5 desktop automation specialists via Bytebot), 172 slash commands, 16+ MCP servers (including Bytebot desktop control), comprehensive theater detection, and the **3-Loop Development System** for both new projects and existing codebase remediation.
 
 ### Core Pipeline: S-R-P-E-K Methodology with 3-Loop System
 ```
@@ -24,7 +24,7 @@ Loop 3: Quality (analysis->root cause->fixes->validation)
 **Key Components:**
 - **Swarm Architecture**: Queen-Princess-Drone hierarchy with 6 domain princesses
 - **AI Agent System**: 90+ specialized agents with automatic model optimization
-- **Command Framework**: 163+ slash commands for complete workflow automation
+- **Command Framework**: 172 slash commands for complete workflow automation
 - **MCP Integration**: 16+ servers including memory, GitHub, browser automation, desktop control
 - **Theater Detection**: Zero-tolerance audit gates for fake work elimination
 - **9-Step Dev Process**: Complete implementation workflow with reality validation
@@ -171,7 +171,8 @@ See [docs/3-LOOP-SYSTEM.md](docs/3-LOOP-SYSTEM.md) for complete documentation.
 ## [TARGET] Essential Agent Coordination with AI Model Optimization
 
 ### **Agent Registry & Configuration**
-- **Primary Registry**: `src/flow/config/agent-model-registry.js`
+- **Agent Registry Facade**: `src/flow/config/agent-model-registry.js` (backward compatibility facade)
+- **Decomposed Registry**: `src/flow/config/agent/` (5 classes: AgentConfigLoader, ModelSelector, MCPServerAssigner, CapabilityMapper, AgentRegistry)
 - **Model Selector**: `src/flow/core/model-selector.js`
 - **Agent Spawner**: `src/flow/core/agent-spawner.js`
 - **MCP Configuration**: `src/flow/config/mcp-multi-platform.json`
@@ -324,7 +325,7 @@ Pattern detection -> Evidence validation -> Quality verification -> Learning
 
 ### **Automatic Model Selection Logic**
 ```javascript
-// Registry location: src/flow/config/agent-model-registry.js
+// Registry location: src/flow/config/agent/ (decomposed facade)
 const { modelSelector } = require('./src/flow/core/model-selector');
 
 // Model selection based on agent type and task context
@@ -502,6 +503,6 @@ const result = modelSelector.selectModel('frontend-developer', {
 - **Need coordination?** → Claude Sonnet 4 + sequential-thinking
 - **Need cost efficiency?** → Gemini Flash + sequential-thinking
 
-**Agent Registry**: `src/flow/config/agent-model-registry.js` [ROCKET]
+**Agent Registry**: `src/flow/config/agent/` (decomposed facade pattern) [ROCKET]
 
 *This streamlined configuration maximizes context window efficiency while maintaining full system functionality through comprehensive documentation references.*

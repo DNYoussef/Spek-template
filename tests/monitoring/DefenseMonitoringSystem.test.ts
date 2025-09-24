@@ -10,6 +10,7 @@ import { DefenseRollbackSystem, RollbackResult } from '../../src/rollback/system
 import { DefenseSecurityMonitor } from '../../src/security/monitoring/DefenseSecurityMonitor';
 import { ComplianceDriftDetector } from '../../src/compliance/monitoring/ComplianceDriftDetector';
 import { DefenseMonitoringOrchestrator } from '../../src/monitoring/DefenseMonitoringOrchestrator';
+const { cleanupTestResources } = require('../setup/test-environment');
 
 describe('Defense Monitoring System', () => {
   let performanceMonitor: DefenseGradeMonitor;
@@ -31,14 +32,15 @@ describe('Defense Monitoring System', () => {
   });
 
   afterEach(async () => {
-    // Cleanup
-    await performanceMonitor.stopMonitoring();
-    await rollbackSystem.stopRollbackSystem();
-    await securityMonitor.stopSecurityMonitoring();
-    await complianceDetector.stopDriftDetection();
-    await orchestrator.stopDefenseMonitoring();
+    // Cleanup monitoring systems
+    if (performanceMonitor) await performanceMonitor.stopMonitoring?.();
+    if (rollbackSystem) await rollbackSystem.stopRollbackSystem?.();
+    if (securityMonitor) await securityMonitor.stopSecurityMonitoring?.();
+    if (complianceDetector) await complianceDetector.stopDriftDetection?.();
+    if (orchestrator) await orchestrator.stopDefenseMonitoring?.();
 
     jest.useRealTimers();
+    await cleanupTestResources();
   });
 
   describe('DefenseGradeMonitor', () => {
