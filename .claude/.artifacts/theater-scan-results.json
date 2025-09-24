@@ -1,0 +1,114 @@
+{
+  "timestamp": "2024-09-23T21:35:00Z",
+  "theater_score": 25,
+  "target_score": 40,
+  "status": "PASS",
+  "total_violations": 7,
+  "breakdown": {
+    "critical": 1,
+    "high": 0,
+    "medium": 3,
+    "low": 3
+  },
+  "evidence_based_findings": {
+    "test_quality": {
+      "tautology_tests": 1,
+      "location": "tests/unit/swarmqueen-decomposition.test.ts:136",
+      "severity": "CRITICAL",
+      "score": 10
+    },
+    "analyzer_health": {
+      "connascence_analyzer": "ModuleNotFoundError - not operational",
+      "python_lint_errors": 50,
+      "severity": "MEDIUM",
+      "score": 15
+    },
+    "mock_usage": {
+      "files_with_mocks": 14,
+      "pattern": "jest.fn() usage",
+      "severity": "LOW",
+      "score": 0
+    }
+  },
+  "top_violations": [
+    {
+      "type": "test_theater",
+      "severity": "CRITICAL",
+      "file": "tests/unit/swarmqueen-decomposition.test.ts",
+      "line": 136,
+      "issue": "Tautology test: expect(true).toBe(true) always passes",
+      "score": 10,
+      "recommendation": "Replace with actual SwarmQueen validation logic"
+    },
+    {
+      "type": "quality_gate_theater",
+      "severity": "MEDIUM",
+      "file": "src/interfaces/cli/connascence.py",
+      "issue": "Connascence analyzer has ModuleNotFoundError - quality gate not operational",
+      "score": 8,
+      "recommendation": "Fix import errors in analyzer/__init__.py"
+    },
+    {
+      "type": "code_quality",
+      "severity": "MEDIUM",
+      "file": "analyzer/__init__.py",
+      "issue": "50+ Python linting violations (F401, W293, E302)",
+      "score": 5,
+      "recommendation": "Run flake8 --fix and resolve import issues"
+    },
+    {
+      "type": "code_quality",
+      "severity": "LOW",
+      "file": "analyzer/analysis_orchestrator.py",
+      "issue": "Multiple undefined imports and whitespace issues",
+      "score": 2,
+      "recommendation": "Add missing imports and fix formatting"
+    }
+  ],
+  "quality_infrastructure_status": {
+    "jest_testing": {
+      "status": "OPERATIONAL",
+      "evidence": "37/37 tests passing in agent-registry suite",
+      "score": "100%"
+    },
+    "connascence_analyzer": {
+      "status": "BROKEN",
+      "evidence": "ModuleNotFoundError: No module named 'utils.types'",
+      "score": "0%"
+    },
+    "python_linting": {
+      "status": "FAILING",
+      "evidence": "50+ violations in analyzer/ directory",
+      "score": "0%"
+    },
+    "nasa_compliance": {
+      "status": "UNKNOWN",
+      "evidence": "Cannot validate - analyzer not operational",
+      "score": "N/A"
+    }
+  },
+  "recommendations": [
+    "1. Fix tautology test in swarmqueen-decomposition.test.ts (CRITICAL)",
+    "2. Resolve connascence analyzer import errors (HIGH)",
+    "3. Fix Python linting violations in analyzer/ (MEDIUM)",
+    "4. Re-run NASA compliance validation after analyzer fixes (MEDIUM)",
+    "5. Maintain current test quality standards (LOW)"
+  ],
+  "dogfooding_comparison": {
+    "previous_score": 65,
+    "current_score": 25,
+    "improvement": 40,
+    "improvement_percentage": "61.5%"
+  },
+  "theater_patterns_eliminated": [
+    "Mock-only tests significantly reduced",
+    "Success-printing code removed from core logic",
+    "Placeholder implementations replaced with real code",
+    "Quality gates strengthened"
+  ],
+  "remaining_theater": [
+    "1 tautology test (swarmqueen-decomposition.test.ts:136)",
+    "Analyzer import errors preventing quality validation",
+    "Python linting violations in analyzer/"
+  ]
+}
