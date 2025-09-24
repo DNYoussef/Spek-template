@@ -1,16 +1,10 @@
 {
-  "timestamp": "2025-09-23T22:08:44.959290",
+  "timestamp": "2025-09-24T07:49:57.536473",
   "threshold": 500,
   "max_allowed": 100,
-  "total_god_objects": 243,
+  "total_god_objects": 245,
   "status": "FAIL",
   "god_objects": [
-    {
-      "file": "analyzer\\unified_analyzer_god_object_backup.py",
-      "loc": 1860,
-      "threshold": 500,
-      "excess": 1360
-    },
     {
       "file": ".sandboxes\\phase2-config-test\\analyzer\\unified_analyzer.py",
       "loc": 1658,
@@ -30,16 +24,16 @@
       "excess": 823
     },
     {
+      "file": "tests\\domains\\ec\\enterprise-compliance-automation.test.js",
+      "loc": 1285,
+      "threshold": 500,
+      "excess": 785
+    },
+    {
       "file": "analyzer\\enterprise\\compliance\\nist_ssdf.py",
       "loc": 1284,
       "threshold": 500,
       "excess": 784
-    },
-    {
-      "file": "tests\\domains\\ec\\enterprise-compliance-automation.test.js",
-      "loc": 1283,
-      "threshold": 500,
-      "excess": 783
     },
     {
       "file": "src\\analysis\\failure_pattern_detector.py",
@@ -156,6 +150,12 @@
       "excess": 420
     },
     {
+      "file": "tests\\domains\\deployment-orchestration\\deployment-orchestration.test.ts",
+      "loc": 919,
+      "threshold": 500,
+      "excess": 419
+    },
+    {
       "file": "src\\swarm\\validation\\MECEValidationProtocol.ts",
       "loc": 918,
       "threshold": 500,
@@ -163,12 +163,6 @@
     },
     {
       "file": "src\\security\\enterprise_theater_detection.py",
-      "loc": 915,
-      "threshold": 500,
-      "excess": 415
-    },
-    {
-      "file": "tests\\domains\\deployment-orchestration\\deployment-orchestration.test.ts",
       "loc": 915,
       "threshold": 500,
       "excess": 415
@@ -241,9 +235,9 @@
     },
     {
       "file": "analyzer\\enterprise\\compliance\\iso27001.py",
-      "loc": 854,
+      "loc": 856,
       "threshold": 500,
-      "excess": 354
+      "excess": 356
     },
     {
       "file": "analyzer\\performance\\optimizer.py",
@@ -282,12 +276,6 @@
       "excess": 328
     },
     {
-      "file": "src\\theater-detection\\theater-detector.py",
-      "loc": 820,
-      "threshold": 500,
-      "excess": 320
-    },
-    {
       "file": ".sandboxes\\phase2-config-test\\analyzer\\core.py",
       "loc": 814,
       "threshold": 500,
@@ -295,9 +283,9 @@
     },
     {
       "file": "analyzer\\core.py",
-      "loc": 813,
+      "loc": 814,
       "threshold": 500,
-      "excess": 313
+      "excess": 314
     },
     {
       "file": "analyzer\\architecture\\refactoring_audit_report.py",
@@ -324,6 +312,12 @@
       "excess": 305
     },
     {
+      "file": "src\\theater-detection\\theater-detector.py",
+      "loc": 803,
+      "threshold": 500,
+      "excess": 303
+    },
+    {
       "file": "tests\\workflow-validation\\workflow_test_suite.py",
       "loc": 802,
       "threshold": 500,
@@ -336,10 +330,22 @@
       "excess": 287
     },
     {
-      "file": "tests\\config\\configuration-system.test.ts",
-      "loc": 772,
+      "file": "analyzer\\enterprise\\performance\\MLCacheOptimizer.py",
+      "loc": 783,
       "threshold": 500,
-      "excess": 272
+      "excess": 283
+    },
+    {
+      "file": "src\\security\\enhanced_audit_trail_manager.py",
+      "loc": 780,
+      "threshold": 500,
+      "excess": 280
+    },
+    {
+      "file": "tests\\config\\configuration-system.test.ts",
+      "loc": 774,
+      "threshold": 500,
+      "excess": 274
     },
     {
       "file": "tests\\phase7_adas\\test_perception_accuracy.py",
@@ -414,12 +420,6 @@
       "excess": 250
     },
     {
-      "file": "src\\security\\enhanced_audit_trail_manager.py",
-      "loc": 750,
-      "threshold": 500,
-      "excess": 250
-    },
-    {
       "file": "analyzer\\component_integrator.py",
       "loc": 748,
       "threshold": 500,
@@ -462,12 +462,6 @@
       "excess": 239
     },
     {
-      "file": "src\\security\\dfars_compliance_engine.py",
-      "loc": 739,
-      "threshold": 500,
-      "excess": 239
-    },
-    {
       "file": ".sandboxes\\phase2-config-test\\analyzer\\performance\\incremental_analyzer.py",
       "loc": 738,
       "threshold": 500,
@@ -480,16 +474,22 @@
       "excess": 238
     },
     {
-      "file": "analyzer\\enterprise\\compliance\\reporting.py",
+      "file": "src\\risk-dashboard\\IntegratedRiskDashboard.tsx",
       "loc": 737,
       "threshold": 500,
       "excess": 237
     },
     {
-      "file": "src\\risk-dashboard\\IntegratedRiskDashboard.tsx",
+      "file": "src\\security\\dfars_compliance_engine.py",
       "loc": 737,
       "threshold": 500,
       "excess": 237
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting.py",
+      "loc": 732,
+      "threshold": 500,
+      "excess": 232
     },
     {
       "file": "src\\domains\\quality-gates\\compliance\\ComplianceGateManager.ts",
@@ -624,10 +624,10 @@
       "excess": 178
     },
     {
-      "file": "analyzer\\enterprise\\performance\\MLCacheOptimizer.py",
-      "loc": 674,
+      "file": "tests\\workflow-validation\\comprehensive_validation_report.py",
+      "loc": 678,
       "threshold": 500,
-      "excess": 174
+      "excess": 178
     },
     {
       "file": "src\\security\\configuration_management_system.py",
@@ -676,12 +676,6 @@
       "loc": 659,
       "threshold": 500,
       "excess": 159
-    },
-    {
-      "file": "tests\\workflow-validation\\comprehensive_validation_report.py",
-      "loc": 658,
-      "threshold": 500,
-      "excess": 158
     },
     {
       "file": "src\\linter-integration\\result-correlation-framework.ts",
@@ -823,9 +817,9 @@
     },
     {
       "file": "src\\linter-integration\\agents\\api_docs_node.py",
-      "loc": 628,
+      "loc": 627,
       "threshold": 500,
-      "excess": 128
+      "excess": 127
     },
     {
       "file": "src\\domains\\quality-gates\\integrations\\ArtifactSystemIntegration.ts",
@@ -841,6 +835,12 @@
     },
     {
       "file": "src\\context\\IntelligentContextPruner.ts",
+      "loc": 621,
+      "threshold": 500,
+      "excess": 121
+    },
+    {
+      "file": "src\\ui\\pages\\EvoMergeEnhanced.tsx",
       "loc": 621,
       "threshold": 500,
       "excess": 121
@@ -886,6 +886,12 @@
       "loc": 617,
       "threshold": 500,
       "excess": 117
+    },
+    {
+      "file": "scripts\\performance_monitor.py",
+      "loc": 615,
+      "threshold": 500,
+      "excess": 115
     },
     {
       "file": ".claude\\.artifacts\\stub_replacement_implementations.py",
@@ -1200,12 +1206,6 @@
       "excess": 55
     },
     {
-      "file": "scripts\\performance_monitor.py",
-      "loc": 555,
-      "threshold": 500,
-      "excess": 55
-    },
-    {
       "file": "analyzer\\enterprise\\quality_validation\\monitors\\nasa_compliance_monitor.js",
       "loc": 554,
       "threshold": 500,
@@ -1398,12 +1398,6 @@
       "excess": 22
     },
     {
-      "file": "analyzer\\enterprise\\compliance\\soc2.py",
-      "loc": 519,
-      "threshold": 500,
-      "excess": 19
-    },
-    {
       "file": "scripts\\validate_dfars_compliance_final.py",
       "loc": 519,
       "threshold": 500,
@@ -1416,6 +1410,12 @@
       "excess": 17
     },
     {
+      "file": "src\\intelligence\\neural_networks\\cnn\\pattern_recognizer.py",
+      "loc": 517,
+      "threshold": 500,
+      "excess": 17
+    },
+    {
       "file": "src\\security\\monitoring\\DefenseSecurityMonitor.ts",
       "loc": 512,
       "threshold": 500,
@@ -1423,6 +1423,12 @@
     },
     {
       "file": ".sandboxes\\phase2-config-test\\analyzer\\performance\\integration_optimizer.py",
+      "loc": 509,
+      "threshold": 500,
+      "excess": 9
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\soc2.py",
       "loc": 509,
       "threshold": 500,
       "excess": 9
@@ -1446,6 +1452,12 @@
       "excess": 6
     },
     {
+      "file": "tests\\domains\\quality-gates\\QualityGateEngine.test.js",
+      "loc": 505,
+      "threshold": 500,
+      "excess": 5
+    },
+    {
       "file": "src\\compliance\\automation\\enterprise-compliance-agent.js",
       "loc": 503,
       "threshold": 500,
@@ -1458,19 +1470,13 @@
       "excess": 2
     },
     {
-      "file": "tests\\domains\\quality-gates\\QualityGateEngine.test.js",
+      "file": "tests\\domains\\quality-gates\\QualityGateEngine.test.ts",
       "loc": 502,
       "threshold": 500,
       "excess": 2
     }
   ],
   "top_10_offenders": [
-    {
-      "file": "analyzer\\unified_analyzer_god_object_backup.py",
-      "loc": 1860,
-      "threshold": 500,
-      "excess": 1360
-    },
     {
       "file": ".sandboxes\\phase2-config-test\\analyzer\\unified_analyzer.py",
       "loc": 1658,
@@ -1490,16 +1496,16 @@
       "excess": 823
     },
     {
+      "file": "tests\\domains\\ec\\enterprise-compliance-automation.test.js",
+      "loc": 1285,
+      "threshold": 500,
+      "excess": 785
+    },
+    {
       "file": "analyzer\\enterprise\\compliance\\nist_ssdf.py",
       "loc": 1284,
       "threshold": 500,
       "excess": 784
-    },
-    {
-      "file": "tests\\domains\\ec\\enterprise-compliance-automation.test.js",
-      "loc": 1283,
-      "threshold": 500,
-      "excess": 783
     },
     {
       "file": "src\\analysis\\failure_pattern_detector.py",
@@ -1524,16 +1530,22 @@
       "loc": 1213,
       "threshold": 500,
       "excess": 713
+    },
+    {
+      "file": "src\\swarm\\workflow\\StageProgressionValidator.ts",
+      "loc": 1188,
+      "threshold": 500,
+      "excess": 688
     }
   ],
   "metrics": {
-    "total_excess_loc": 50005,
-    "avg_god_object_size": 705,
+    "total_excess_loc": 48983,
+    "avg_god_object_size": 699,
     "largest_god_object": {
-      "file": "analyzer\\unified_analyzer_god_object_backup.py",
-      "loc": 1860,
+      "file": ".sandboxes\\phase2-config-test\\analyzer\\unified_analyzer.py",
+      "loc": 1658,
       "threshold": 500,
-      "excess": 1360
+      "excess": 1158
     }
   }
 }
