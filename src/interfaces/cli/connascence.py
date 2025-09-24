@@ -1,4 +1,3 @@
-from lib.shared.utilities import path_exists
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
 #
@@ -23,6 +22,7 @@ import argparse
 from pathlib import Path
 import sys
 from typing import List, Optional
+from os.path import exists as path_exists
 
 # Import unified policy system
 sys.path.append(str(Path(__file__).parent.parent.parent))

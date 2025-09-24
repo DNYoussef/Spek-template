@@ -1,0 +1,12 @@
+# Quality Gate Results
+# Format: gate_name=status
+timestamp=2025-09-24T01:38:16Z
+package_json=passed
+test_structure=passed
+npm_test=failed
+typecheck=failed
+lint=warning
+analyzer=passed
+gates_passed=4
+gates_total=6
+overall_status=partial

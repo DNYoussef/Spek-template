@@ -1,0 +1,198 @@
+name: PR Quality Gate
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  quality-degradation-check:
+    name: Quality Degradation Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          pip install jq bc
+
+      - name: Get Base Branch Metrics
+        id: base-metrics
+        run: |
+          # Checkout base branch to get metrics
+          git checkout ${{ github.base_ref }}
+
+          # NASA Compliance (base)
+          if [ -f "analyzer/enterprise/nasa_pot10_analyzer.py" ]; then
+            python analyzer/enterprise/nasa_pot10_analyzer.py --json > base-nasa.json || echo '{"compliance_pct": 0}' > base-nasa.json
+            BASE_NASA=$(jq -r '.compliance_pct // 0' base-nasa.json)
+            echo "nasa=$BASE_NASA" >> $GITHUB_OUTPUT
+          fi
+
+          # Theater Score (base)
+          if [ -f "scripts/comprehensive_theater_scan.py" ]; then
+            python scripts/comprehensive_theater_scan.py --json > base-theater.json || echo '{"theater_score": 0}' > base-theater.json
+            BASE_THEATER=$(jq -r '.theater_score // 0' base-theater.json)
+            echo "theater=$BASE_THEATER" >> $GITHUB_OUTPUT
+          fi
+
+          # God Objects (base)
+          if [ -f "scripts/god_object_counter.py" ]; then
+            python scripts/god_object_counter.py --json > base-god.json || echo '{"total_god_objects": 0}' > base-god.json
+            BASE_GOD=$(jq -r '.total_god_objects // 0' base-god.json)
+            echo "god=$BASE_GOD" >> $GITHUB_OUTPUT
+          fi
+
+          # Test Coverage (base)
+          npm test -- --coverage --coverageReporters=json-summary > /dev/null 2>&1 || true
+          if [ -f "coverage/coverage-summary.json" ]; then
+            BASE_COVERAGE=$(jq -r '.total.lines.pct // 0' coverage/coverage-summary.json)
+            echo "coverage=$BASE_COVERAGE" >> $GITHUB_OUTPUT
+          fi
+
+          # Return to PR branch
+          git checkout -
+
+      - name: Get PR Branch Metrics
+        id: pr-metrics
+        run: |
+          # NASA Compliance (PR)
+          if [ -f "analyzer/enterprise/nasa_pot10_analyzer.py" ]; then
+            python analyzer/enterprise/nasa_pot10_analyzer.py --json > pr-nasa.json || echo '{"compliance_pct": 0}' > pr-nasa.json
+            PR_NASA=$(jq -r '.compliance_pct // 0' pr-nasa.json)
+            echo "nasa=$PR_NASA" >> $GITHUB_OUTPUT
+          fi
+
+          # Theater Score (PR)
+          if [ -f "scripts/comprehensive_theater_scan.py" ]; then
+            python scripts/comprehensive_theater_scan.py --json > pr-theater.json || echo '{"theater_score": 0}' > pr-theater.json
+            PR_THEATER=$(jq -r '.theater_score // 0' pr-theater.json)
+            echo "theater=$PR_THEATER" >> $GITHUB_OUTPUT
+          fi
+
+          # God Objects (PR)
+          if [ -f "scripts/god_object_counter.py" ]; then
+            python scripts/god_object_counter.py --json > pr-god.json || echo '{"total_god_objects": 0}' > pr-god.json
+            PR_GOD=$(jq -r '.total_god_objects // 0' pr-god.json)
+            echo "god=$PR_GOD" >> $GITHUB_OUTPUT
+          fi
+
+          # Test Coverage (PR)
+          npm test -- --coverage --coverageReporters=json-summary > /dev/null 2>&1 || true
+          if [ -f "coverage/coverage-summary.json" ]; then
+            PR_COVERAGE=$(jq -r '.total.lines.pct // 0' coverage/coverage-summary.json)
+            echo "coverage=$PR_COVERAGE" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Analyze Quality Changes
+        id: analysis
+        run: |
+          BASE_NASA="${{ steps.base-metrics.outputs.nasa }}"
+          PR_NASA="${{ steps.pr-metrics.outputs.nasa }}"
+          BASE_THEATER="${{ steps.base-metrics.outputs.theater }}"
+          PR_THEATER="${{ steps.pr-metrics.outputs.theater }}"
+          BASE_GOD="${{ steps.base-metrics.outputs.god }}"
+          PR_GOD="${{ steps.pr-metrics.outputs.god }}"
+          BASE_COVERAGE="${{ steps.base-metrics.outputs.coverage }}"
+          PR_COVERAGE="${{ steps.pr-metrics.outputs.coverage }}"
+
+          DEGRADED=false
+
+          # NASA Compliance check
+          if (( $(echo "$PR_NASA < $BASE_NASA" | bc -l) )); then
+            echo "nasa_degraded=true" >> $GITHUB_OUTPUT
+            DEGRADED=true
+          fi
+
+          # Theater Score check (lower is better)
+          if (( $(echo "$PR_THEATER > $BASE_THEATER" | bc -l) )); then
+            echo "theater_degraded=true" >> $GITHUB_OUTPUT
+            DEGRADED=true
+          fi
+
+          # God Objects check
+          if [ "$PR_GOD" -gt "$BASE_GOD" ]; then
+            echo "god_degraded=true" >> $GITHUB_OUTPUT
+            DEGRADED=true
+          fi
+
+          # Coverage check
+          if (( $(echo "$PR_COVERAGE < $BASE_COVERAGE" | bc -l) )); then
+            echo "coverage_degraded=true" >> $GITHUB_OUTPUT
+            DEGRADED=true
+          fi
+
+          echo "degraded=$DEGRADED" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR with Results
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const baseNasa = '${{ steps.base-metrics.outputs.nasa }}';
+            const prNasa = '${{ steps.pr-metrics.outputs.nasa }}';
+            const baseTheater = '${{ steps.base-metrics.outputs.theater }}';
+            const prTheater = '${{ steps.pr-metrics.outputs.theater }}';
+            const baseGod = '${{ steps.base-metrics.outputs.god }}';
+            const prGod = '${{ steps.pr-metrics.outputs.god }}';
+            const baseCoverage = '${{ steps.base-metrics.outputs.coverage }}';
+            const prCoverage = '${{ steps.pr-metrics.outputs.coverage }}';
+
+            const degraded = '${{ steps.analysis.outputs.degraded }}' === 'true';
+
+            const nasaIcon = prNasa >= baseNasa ? '✅' : '❌';
+            const theaterIcon = prTheater <= baseTheater ? '✅' : '❌';
+            const godIcon = prGod <= baseGod ? '✅' : '❌';
+            const coverageIcon = prCoverage >= baseCoverage ? '✅' : '❌';
+
+            const body = `## PR Quality Gate Analysis
+
+            | Metric | Base | PR | Change | Status |
+            |--------|------|----|----|--------|
+            | NASA POT10 Compliance | ${baseNasa}% | ${prNasa}% | ${(prNasa - baseNasa).toFixed(1)}% | ${nasaIcon} |
+            | Theater Score | ${baseTheater}/100 | ${prTheater}/100 | ${(prTheater - baseTheater).toFixed(0)} | ${theaterIcon} |
+            | God Objects | ${baseGod} | ${prGod} | ${prGod - baseGod} | ${godIcon} |
+            | Test Coverage | ${baseCoverage}% | ${prCoverage}% | ${(prCoverage - baseCoverage).toFixed(1)}% | ${coverageIcon} |
+
+            ${degraded ? '❌ **Quality Degradation Detected**\n\nThis PR degrades code quality metrics. Please fix before merging.' : '✅ **No Quality Degradation**\n\nThis PR maintains or improves quality standards.'}
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+      - name: Fail if Quality Degraded
+        if: steps.analysis.outputs.degraded == 'true'
+        run: |
+          echo "❌ PR degrades quality metrics"
+          echo "NASA Compliance: ${{ steps.base-metrics.outputs.nasa }}% → ${{ steps.pr-metrics.outputs.nasa }}%"
+          echo "Theater Score: ${{ steps.base-metrics.outputs.theater }} → ${{ steps.pr-metrics.outputs.theater }}"
+          echo "God Objects: ${{ steps.base-metrics.outputs.god }} → ${{ steps.pr-metrics.outputs.god }}"
+          echo "Test Coverage: ${{ steps.base-metrics.outputs.coverage }}% → ${{ steps.pr-metrics.outputs.coverage }}%"
+          exit 1
+
+      - name: Upload Analysis Reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr-quality-analysis
+          path: |
+            base-*.json
+            pr-*.json

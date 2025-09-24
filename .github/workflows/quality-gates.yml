@@ -1,0 +1,261 @@
+name: Quality Gates
+
+on:
+  push:
+    branches: [main, develop, feature/**]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  nasa-compliance:
+    name: NASA POT10 Compliance Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install jq bc
+
+      - name: Run NASA POT10 Compliance Check
+        id: nasa-check
+        run: |
+          if [ -f "analyzer/enterprise/nasa_pot10_analyzer.py" ]; then
+            python analyzer/enterprise/nasa_pot10_analyzer.py --path . --compliance-check --json > nasa-compliance.json
+            COMPLIANCE=$(jq -r '.compliance_pct' nasa-compliance.json)
+            echo "compliance=$COMPLIANCE" >> $GITHUB_OUTPUT
+
+            if (( $(echo "$COMPLIANCE < 90" | bc -l) )); then
+              echo "❌ NASA POT10 compliance: $COMPLIANCE% (minimum: 90%)"
+              exit 1
+            else
+              echo "✅ NASA POT10 compliance: $COMPLIANCE%"
+            fi
+          else
+            echo "⚠️ NASA analyzer not found, skipping"
+          fi
+
+      - name: Upload NASA Compliance Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: nasa-compliance-report
+          path: |
+            nasa-compliance.json
+            .claude/.artifacts/nasa-*.json
+
+      - name: Comment on PR
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const compliance = '${{ steps.nasa-check.outputs.compliance }}';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ **NASA POT10 Compliance Failed**\n\nCompliance: ${compliance}% (minimum: 90%)\n\nPlease fix compliance issues before merging.`
+            });
+
+  theater-detection:
+    name: Performance Theater Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Run Theater Detection
+        id: theater-scan
+        run: |
+          if [ -f "scripts/comprehensive_theater_scan.py" ]; then
+            python scripts/comprehensive_theater_scan.py --ci-mode --json > theater-results.json
+            SCORE=$(jq -r '.theater_score' theater-results.json)
+            echo "score=$SCORE" >> $GITHUB_OUTPUT
+
+            if [ "$SCORE" -gt 40 ]; then
+              echo "❌ Theater score: $SCORE/100 (maximum: 40/100)"
+              exit 1
+            else
+              echo "✅ Theater score: $SCORE/100"
+            fi
+          else
+            echo "⚠️ Theater scanner not found, skipping"
+          fi
+
+      - name: Upload Theater Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: theater-detection-report
+          path: |
+            theater-results.json
+            .claude/.artifacts/theater-*.json
+
+      - name: Comment on PR
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const score = '${{ steps.theater-scan.outputs.score }}';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ **Theater Detection Failed**\n\nTheater Score: ${score}/100 (maximum: 40/100)\n\nReduce fake work patterns before merging.`
+            });
+
+  god-object-monitor:
+    name: God Object Monitoring
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Count God Objects
+        id: god-count
+        run: |
+          python scripts/god_object_counter.py --ci-mode --json > god-objects.json
+          COUNT=$(jq -r '.total_god_objects' god-objects.json)
+          STATUS=$(jq -r '.status' god-objects.json)
+          echo "count=$COUNT" >> $GITHUB_OUTPUT
+          echo "status=$STATUS" >> $GITHUB_OUTPUT
+
+          if [ "$STATUS" = "FAIL" ]; then
+            echo "❌ God objects: $COUNT (maximum: 100)"
+            jq -r '.top_10_offenders[] | "  - \(.file): \(.loc) LOC"' god-objects.json
+            exit 1
+          else
+            echo "✅ God objects: $COUNT"
+          fi
+
+      - name: Upload God Object Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: god-object-report
+          path: |
+            god-objects.json
+            .claude/.artifacts/god-object-*.json
+
+      - name: Comment on PR
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const count = '${{ steps.god-count.outputs.count }}';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ **God Object Limit Exceeded**\n\nFound: ${count} god objects (maximum: 100)\n\nRefactor large files before merging.`
+            });
+
+  security-scan:
+    name: Security Vulnerability Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Semgrep
+        run: |
+          python3 -m pip install semgrep
+
+      - name: Run Semgrep Security Scan
+        id: security-scan
+        run: |
+          semgrep --config=auto --json --quiet . > security-results.json || true
+          CRITICAL=$(jq '[.results[] | select(.extra.severity == "ERROR")] | length' security-results.json)
+          HIGH=$(jq '[.results[] | select(.extra.severity == "WARNING")] | length' security-results.json)
+
+          echo "critical=$CRITICAL" >> $GITHUB_OUTPUT
+          echo "high=$HIGH" >> $GITHUB_OUTPUT
+
+          if [ "$CRITICAL" -gt 0 ]; then
+            echo "❌ Critical security issues: $CRITICAL"
+            jq -r '.results[] | select(.extra.severity == "ERROR") | "  - \(.check_id): \(.path)"' security-results.json
+            exit 1
+          elif [ "$HIGH" -gt 5 ]; then
+            echo "❌ High severity issues: $HIGH (maximum: 5)"
+            exit 1
+          else
+            echo "✅ Security scan passed (Critical: $CRITICAL, High: $HIGH)"
+          fi
+
+      - name: Upload Security Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: security-scan-report
+          path: security-results.json
+
+  test-coverage:
+    name: Test Coverage Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests with coverage
+        id: coverage
+        run: |
+          npm test -- --coverage --coverageReporters=json-summary
+          COVERAGE=$(jq -r '.total.lines.pct' coverage/coverage-summary.json)
+          echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+
+          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+            echo "❌ Test coverage: $COVERAGE% (minimum: 80%)"
+            exit 1
+          else
+            echo "✅ Test coverage: $COVERAGE%"
+          fi
+
+      - name: Upload Coverage Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage/
+
+  quality-summary:
+    name: Quality Gate Summary
+    runs-on: ubuntu-latest
+    needs: [nasa-compliance, theater-detection, god-object-monitor, security-scan, test-coverage]
+    if: always()
+    steps:
+      - name: Create Summary
+        run: |
+          echo "## Quality Gate Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Gate | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| NASA POT10 Compliance | ${{ needs.nasa-compliance.result == 'success' && '✅ PASS' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Theater Detection | ${{ needs.theater-detection.result == 'success' && '✅ PASS' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| God Object Monitor | ${{ needs.god-object-monitor.result == 'success' && '✅ PASS' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Security Scan | ${{ needs.security-scan.result == 'success' && '✅ PASS' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Test Coverage | ${{ needs.test-coverage.result == 'success' && '✅ PASS' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY

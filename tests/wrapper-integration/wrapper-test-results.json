@@ -1,0 +1,173 @@
+[
+    {
+        "Test":  "1.1: Extension format basic translation",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  660.431,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "Warning: Optimization components not available for benchmarking\r\ncmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connas"
+    },
+    {
+        "Test":  "1.2: Extension format with modern_general policy",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  527.5644,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "1.3: Extension format with strict + SARIF",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  492.68120000000005,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "1.4: Direct format passthrough",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  37.898700000000005,
+        "ExitCode":  255,
+        "Reason":  "Command failed (exit: 255)",
+        "Output":  "cmd : The syntax of the command is incorrect.\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "1.5: Help command passthrough",
+        "Category":  "",
+        "Passed":  true,
+        "Duration":  480.7282,
+        "ExitCode":  0,
+        "Reason":  "Success (exit: 0, 480.7282ms)",
+        "Output":  "Warning: Optimization components not available for benchmarking\r\nusage: connascence [-h] [--path PATH] [--policy POLICY]\r\n                   [--format {json,yaml,sarif}] [--output OUTPUT]\r\n           "
+    },
+    {
+        "Test":  "1.6: List policies command",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  481.71180000000004,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "2.1: Filename with spaces",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  483.00530000000003,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "2.2: Filename with parentheses",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  475.7278,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "2.3: Absolute Windows path",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  462.7626,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "2.4: Forward slashes in path",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  503.6533,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "3.1: Non-existent file",
+        "Category":  "",
+        "Passed":  true,
+        "Duration":  594.8547,
+        "ExitCode":  2,
+        "Reason":  "Failed as expected (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "3.2: Invalid policy name",
+        "Category":  "",
+        "Passed":  true,
+        "Duration":  615.35480000000007,
+        "ExitCode":  2,
+        "Reason":  "Failed as expected (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "3.3: Empty filename",
+        "Category":  "",
+        "Passed":  true,
+        "Duration":  38.895,
+        "ExitCode":  255,
+        "Reason":  "Failed as expected (exit: 255)",
+        "Output":  "cmd : else was unexpected at this time.\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "3.4: No arguments (should show help)",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  561.2874,
+        "ExitCode":  0,
+        "Reason":  "Should have failed but succeeded",
+        "Output":  "cmd : [analyzer:eb5027d5] \u0027UnifiedConnascenceAnalyzer\u0027 object has no attribute \u0027orchestrator_component\u0027 (Code: 5001)\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrap"
+    },
+    {
+        "Test":  "3.5: Missing file argument",
+        "Category":  "",
+        "Passed":  true,
+        "Duration":  496.90560000000005,
+        "ExitCode":  2,
+        "Reason":  "Failed as expected (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "4.1: Multiple spaces between args",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  480.9289,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "4.2: Verbose flag",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  472.76300000000003,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "4.3: Dry-run mode",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  500.66150000000005,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    },
+    {
+        "Test":  "4.4: Output file specification",
+        "Category":  "",
+        "Passed":  false,
+        "Duration":  507.6421,
+        "ExitCode":  2,
+        "Reason":  "Command failed (exit: 2)",
+        "Output":  "cmd : usage: connascence [-h] [--path PATH] [--policy POLICY]\r\nAt line:1 char:1\r\n+ cmd /c \"C:\\Users\\17175\\AppData\\Local\\Programs\\connascence-wrapper.bat ...\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    }
+]

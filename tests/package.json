@@ -1,0 +1,35 @@
+{
+  "name": "agent-forge-ui-tests",
+  "version": "1.0.0",
+  "description": "Comprehensive test suite for Agent Forge UI",
+  "scripts": {
+    "test:unit": "jest --config test-runner.config.ts --coverage",
+    "test:unit:watch": "jest --config test-runner.config.ts --watch",
+    "test:integration": "pytest integration/api/grokfast_forge_api.test.py -v",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --headed --debug",
+    "test:all": "npm run test:unit && npm run test:integration && npm run test:e2e",
+    "test:coverage": "jest --config test-runner.config.ts --coverage --coverageReporters=lcov",
+    "test:ci": "npm run test:unit -- --ci --maxWorkers=2 && npm run test:integration && npm run test:e2e",
+    "test:watch": "npm run test:unit:watch",
+    "test:report": "bash run-tests.sh"
+  },
+  "devDependencies": {
+    "@jest/types": "^29.6.4",
+    "@playwright/test": "^1.39.0",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.0.0",
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.8.7",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.6.4",
+    "jest-environment-jsdom": "^29.6.4",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

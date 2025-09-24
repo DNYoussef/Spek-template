@@ -27,7 +27,7 @@ const AGENT_CONFIGURATIONS = {
     sequentialThinking: false,
     contextThreshold: 30000,
     reasoningComplexity: ReasoningComplexity.MEDIUM,
-    capabilities: ['visual_design', 'browser_testing', 'screenshot_validation'],
+    capabilities: ['browser_automation', 'visual_design', 'browser_testing', 'screenshot_validation'],
     mcpServers: ['claude-flow', 'memory', 'playwright', 'figma', 'puppeteer'],
     rationale: 'Visual feedback loop with browser automation + design systems integration'
   },
@@ -528,6 +528,98 @@ const AGENT_CONFIGURATIONS = {
     capabilities: ['workflow_automation', 'desktop_scripting', 'task_orchestration', 'multi_app_coordination'],
     mcpServers: ['claude-flow', 'memory', 'desktop-automation', 'sequential-thinking'],
     rationale: 'Desktop workflow automation with sequential thinking for complex multi-step processes'
+  },
+
+  // Additional Strategic Agents (to reach 85+ total)
+  'consensus-builder': {
+    primaryModel: AIModel.CLAUDE_SONNET,
+    fallbackModel: AIModel.GEMINI_PRO,
+    sequentialThinking: true,
+    contextThreshold: 60000,
+    reasoningComplexity: ReasoningComplexity.HIGH,
+    capabilities: ['consensus_building', 'coordination', 'orchestration'],
+    mcpServers: ['claude-flow', 'memory', 'sequential-thinking'],
+    rationale: 'Consensus building for distributed agent coordination'
+  },
+  'swarm-memory-manager': {
+    primaryModel: AIModel.CLAUDE_SONNET,
+    fallbackModel: AIModel.GEMINI_PRO,
+    sequentialThinking: true,
+    contextThreshold: 70000,
+    reasoningComplexity: ReasoningComplexity.MEDIUM,
+    capabilities: ['memory_management', 'knowledge_coordination', 'state_management'],
+    mcpServers: ['claude-flow', 'memory', 'sequential-thinking'],
+    rationale: 'Swarm-level memory and knowledge management'
+  },
+  'byzantine-coordinator': {
+    primaryModel: AIModel.CLAUDE_SONNET,
+    fallbackModel: AIModel.GEMINI_PRO,
+    sequentialThinking: true,
+    contextThreshold: 65000,
+    reasoningComplexity: ReasoningComplexity.HIGH,
+    capabilities: ['byzantine_fault_tolerance', 'coordination', 'consensus_building'],
+    mcpServers: ['claude-flow', 'memory', 'sequential-thinking'],
+    rationale: 'Byzantine fault-tolerant coordination for robust swarms'
+  },
+  'raft-manager': {
+    primaryModel: AIModel.CLAUDE_SONNET,
+    fallbackModel: AIModel.GEMINI_FLASH,
+    sequentialThinking: true,
+    contextThreshold: 50000,
+    reasoningComplexity: ReasoningComplexity.MEDIUM,
+    capabilities: ['raft_consensus', 'leader_election', 'coordination'],
+    mcpServers: ['claude-flow', 'memory', 'sequential-thinking'],
+    rationale: 'Raft consensus protocol for agent coordination'
+  },
+  'gossip-coordinator': {
+    primaryModel: AIModel.GEMINI_FLASH,
+    fallbackModel: AIModel.CLAUDE_SONNET,
+    sequentialThinking: true,
+    contextThreshold: 45000,
+    reasoningComplexity: ReasoningComplexity.LOW,
+    capabilities: ['gossip_protocol', 'peer_coordination', 'distributed_management'],
+    mcpServers: ['claude-flow', 'memory', 'sequential-thinking'],
+    rationale: 'Gossip-based coordination for mesh networks'
+  },
+  'collective-intelligence-coordinator': {
+    primaryModel: AIModel.CLAUDE_SONNET,
+    fallbackModel: AIModel.GEMINI_PRO,
+    sequentialThinking: true,
+    contextThreshold: 75000,
+    reasoningComplexity: ReasoningComplexity.HIGH,
+    capabilities: ['collective_intelligence', 'swarm_coordination', 'emergent_behavior'],
+    mcpServers: ['claude-flow', 'memory', 'sequential-thinking'],
+    rationale: 'Collective intelligence emergence across agent swarms'
+  },
+  'crdt-synchronizer': {
+    primaryModel: AIModel.CLAUDE_SONNET,
+    fallbackModel: AIModel.GEMINI_PRO,
+    sequentialThinking: false,
+    contextThreshold: 55000,
+    reasoningComplexity: ReasoningComplexity.MEDIUM,
+    capabilities: ['crdt_synchronization', 'conflict_resolution', 'distributed_state'],
+    mcpServers: ['claude-flow', 'memory'],
+    rationale: 'CRDT-based state synchronization for distributed agents'
+  },
+  'quorum-manager': {
+    primaryModel: AIModel.CLAUDE_SONNET,
+    fallbackModel: AIModel.GEMINI_FLASH,
+    sequentialThinking: true,
+    contextThreshold: 50000,
+    reasoningComplexity: ReasoningComplexity.MEDIUM,
+    capabilities: ['quorum_management', 'consensus_building', 'coordination'],
+    mcpServers: ['claude-flow', 'memory', 'sequential-thinking'],
+    rationale: 'Quorum-based decision making for agent consensus'
+  },
+  'pseudocode': {
+    primaryModel: AIModel.GEMINI_PRO,
+    fallbackModel: AIModel.CLAUDE_OPUS,
+    sequentialThinking: false,
+    contextThreshold: 250000,
+    reasoningComplexity: ReasoningComplexity.HIGH,
+    capabilities: ['algorithm_design', 'pseudocode_generation', 'requirements_analysis'],
+    mcpServers: ['claude-flow', 'memory', 'deepwiki', 'ref', 'context7'],
+    rationale: 'Pseudocode generation from requirements with large context'
   }
 };
 

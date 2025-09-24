@@ -1,0 +1,29 @@
+{
+    "timestamp": "",
+    "pipeline_version": "1.0.0",
+    "critical_gates": {
+        "tests": {"status": "pending", "required": true, "threshold": "100% pass"},
+        "typecheck": {"status": "pending", "required": true, "threshold": "0 errors"},
+        "security": {"status": "pending", "required": true, "threshold": "0 critical/high"},
+        "nasa_compliance": {"status": "pending", "required": true, "threshold": ">=90%"},
+        "god_objects": {"status": "pending", "required": true, "threshold": "<=25"},
+        "critical_violations": {"status": "pending", "required": true, "threshold": "<=50"}
+    },
+    "quality_gates": {
+        "lint": {"status": "pending", "required": false, "allow_warnings": true},
+        "mece_score": {"status": "pending", "required": false, "threshold": ">=0.75"},
+        "architecture_health": {"status": "pending", "required": false, "threshold": ">=0.75"},
+        "cache_performance": {"status": "pending", "required": false, "threshold": ">=0.80"},
+        "performance_efficiency": {"status": "pending", "required": false, "threshold": ">=0.70"},
+        "coverage": {"status": "pending", "required": false, "threshold": "no regression"}
+    },
+    "specialized_analysis": {
+        "connascence": {"status": "pending", "detector_count": 9},
+        "duplication": {"status": "pending", "analysis_type": "MECE"},
+        "architectural": {"status": "pending", "scope": "cross-component"},
+        "performance": {"status": "pending", "monitoring": "resource_tracking"}
+    },
+    "overall_status": "running",
+    "pipeline_duration": 0,
+    "evidence_artifacts": []
+}

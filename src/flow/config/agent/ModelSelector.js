@@ -49,6 +49,16 @@ class ModelSelector {
       };
     }
 
+    // Quality assurance & analysis → Claude Opus (check BEFORE research)
+    if (this.hasQualityCapabilities(capabilities)) {
+      return {
+        primaryModel: AIModel.CLAUDE_OPUS,
+        fallbackModel: AIModel.GPT5,
+        sequentialThinking: false,
+        rationale: 'Quality analysis requires Claude Opus 4.1 (72.7% SWE-bench)'
+      };
+    }
+
     // Large context research → Gemini Pro
     if (contextSize > 200000 || this.hasResearchCapabilities(capabilities)) {
       return {
@@ -56,16 +66,6 @@ class ModelSelector {
         fallbackModel: AIModel.CLAUDE_OPUS,
         sequentialThinking: false,
         rationale: 'Large context analysis requires Gemini 2.5 Pro'
-      };
-    }
-
-    // Quality assurance & analysis → Claude Opus
-    if (this.hasQualityCapabilities(capabilities)) {
-      return {
-        primaryModel: AIModel.CLAUDE_OPUS,
-        fallbackModel: AIModel.GPT5,
-        sequentialThinking: false,
-        rationale: 'Quality analysis requires Claude Opus 4.1 (72.7% SWE-bench)'
       };
     }
 
