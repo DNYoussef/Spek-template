@@ -1,0 +1,71 @@
+{
+  "analysis_date": "2025-09-23",
+  "scope": "Full SPEK Template Codebase",
+  "analyzers_used": [
+    "NASA POT10",
+    "God Object Detector",
+    "Bandit Security",
+    "Theater Detector"
+  ],
+  "overall_status": "NOT PRODUCTION READY",
+  "scores": {
+    "nasa_pot10_compliance": {
+      "score": 43.45,
+      "status": "FAIL",
+      "target": 90.0,
+      "gap": 46.55
+    },
+    "god_objects": {
+      "count": 655,
+      "critical": 0,
+      "target": 25,
+      "status": "FAIL"
+    },
+    "security": {
+      "total_issues": 259,
+      "high_severity": 0,
+      "medium_severity": 49,
+      "low_severity": 210,
+      "status": "PASS"
+    },
+    "theater_detection": {
+      "score": 65,
+      "status": "PASS"
+    }
+  },
+  "quality_gates": {
+    "nasa_compliance_90": false,
+    "god_objects_under_25": false,
+    "zero_critical_security": true,
+    "zero_medium_security": false,
+    "theater_score_60": true
+  },
+  "critical_findings": [
+    {
+      "area": "NASA POT10",
+      "issue": "Function size violations (Rule 3)",
+      "count": 30118,
+      "severity": "CRITICAL"
+    },
+    {
+      "area": "Architecture",
+      "issue": "God object violations",
+      "count": 655,
+      "severity": "CRITICAL"
+    },
+    {
+      "area": "Security",
+      "issue": "Insecure temp file usage",
+      "count": 49,
+      "severity": "MEDIUM"
+    }
+  ],
+  "artifacts": {
+    "nasa_compliance": ".claude/.artifacts/dogfood-nasa-compliance.json",
+    "god_objects": ".claude/.artifacts/dogfood-god-objects.json",
+    "security": ".claude/.artifacts/dogfood-security.json",
+    "theater": ".claude/.artifacts/dogfood-theater.json",
+    "full_report": ".claude/.artifacts/DOGFOOD-ANALYSIS-REPORT.md",
+    "summary": ".claude/.artifacts/dogfood-summary.json"
+  }
+}

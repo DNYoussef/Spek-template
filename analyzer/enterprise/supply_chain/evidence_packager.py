@@ -38,15 +38,32 @@ class EvidencePackager:
         self.include_compliance = config.get('include_compliance', True)
         self.include_build_logs = config.get('include_build_logs', False)
         
-    def create_evidence_package(self, 
+    # NASA Rule 3 Compliance: Evidence packaging split into phases
+
+    def create_evidence_package(self,
                               project_path: str,
                               artifacts: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Create comprehensive evidence package."""
-        
+        """NASA Rule 3: Create comprehensive evidence package - orchestrator."""
+
         package_id = str(uuid.uuid4())
         package_timestamp = datetime.now(timezone.utc).isoformat()
-        
-        package_info = {
+        package_info = self._initialize_package_info(package_id, package_timestamp, project_path, artifacts)
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            evidence_dir = Path(temp_dir) / "evidence"
+            evidence_dir.mkdir()
+
+            manifest = self._create_package_manifest(project_path, artifacts, package_id, package_timestamp)
+            self._collect_evidence_files(evidence_dir, artifacts, project_path, package_info)
+            self._finalize_package(evidence_dir, manifest, package_id, package_info)
+
+        self._save_package_info(package_info, package_id)
+        return package_info
+
+    def _initialize_package_info(self, package_id: str, package_timestamp: str,
+                                project_path: str, artifacts: List) -> Dict[str, Any]:
+        """NASA Rule 3: Initialize package information structure."""
+        return {
             'package_id': package_id,
             'created': package_timestamp,
             'project_path': project_path,
@@ -58,78 +75,73 @@ class EvidencePackager:
             'manifest': {},
             'attestations': []
         }
-        
-        with tempfile.TemporaryDirectory() as temp_dir:
-            temp_path = Path(temp_dir)
-            evidence_dir = temp_path / "evidence"
-            evidence_dir.mkdir()
-            
-            # Create package manifest
-            manifest = self._create_package_manifest(project_path, artifacts, package_id, package_timestamp)
-            
-            # Include different evidence types
-            if self.include_sbom:
-                sbom_files = self._include_sbom_evidence(evidence_dir, artifacts)
-                package_info['files_included'].extend(sbom_files)
-                package_info['evidence_types'].append('sbom')
-            
-            if self.include_provenance:
-                provenance_files = self._include_provenance_evidence(evidence_dir, artifacts)
-                package_info['files_included'].extend(provenance_files)
-                package_info['evidence_types'].append('provenance')
-            
-            if self.include_vulnerabilities:
-                vuln_files = self._include_vulnerability_evidence(evidence_dir, artifacts)
-                package_info['files_included'].extend(vuln_files)
-                package_info['evidence_types'].append('vulnerabilities')
-            
-            if self.include_signatures:
-                sig_files = self._include_signature_evidence(evidence_dir, artifacts)
-                package_info['files_included'].extend(sig_files)
-                package_info['evidence_types'].append('signatures')
-            
-            if self.include_compliance:
-                compliance_files = self._include_compliance_evidence(evidence_dir, artifacts)
-                package_info['files_included'].extend(compliance_files)
-                package_info['evidence_types'].append('compliance')
-            
-            if self.include_build_logs:
-                build_files = self._include_build_evidence(evidence_dir, project_path)
-                package_info['files_included'].extend(build_files)
-                package_info['evidence_types'].append('build_logs')
-            
-            # Include source code if requested
-            if self.include_source_code:
-                source_files = self._include_source_code(evidence_dir, project_path)
-                package_info['files_included'].extend(source_files)
-                package_info['evidence_types'].append('source_code')
-            
-            # Save manifest
-            manifest_path = evidence_dir / "manifest.json"
-            with open(manifest_path, 'w', encoding='utf-8') as f:
-                json.dump(manifest, f, indent=2, ensure_ascii=False)
-            package_info['files_included'].append('manifest.json')
-            
-            # Create attestation document
-            attestation = self._create_attestation_document(manifest, package_info)
-            attestation_path = evidence_dir / "attestation.json"
-            with open(attestation_path, 'w', encoding='utf-8') as f:
-                json.dump(attestation, f, indent=2, ensure_ascii=False)
-            package_info['files_included'].append('attestation.json')
-            package_info['attestations'].append(attestation)
-            
-            # Create the evidence package
-            package_path = self._create_package(evidence_dir, package_id)
-            package_info['package_path'] = str(package_path)
-            package_info['package_size'] = package_path.stat().st_size
-            package_info['manifest'] = manifest
-        
-        # Save package information
+
+    def _collect_evidence_files(self, evidence_dir: Path, artifacts: List,
+                                project_path: str, package_info: Dict) -> None:
+        """NASA Rule 3: Collect all evidence files based on configuration."""
+        if self.include_sbom:
+            sbom_files = self._include_sbom_evidence(evidence_dir, artifacts)
+            package_info['files_included'].extend(sbom_files)
+            package_info['evidence_types'].append('sbom')
+
+        if self.include_provenance:
+            provenance_files = self._include_provenance_evidence(evidence_dir, artifacts)
+            package_info['files_included'].extend(provenance_files)
+            package_info['evidence_types'].append('provenance')
+
+        if self.include_vulnerabilities:
+            vuln_files = self._include_vulnerability_evidence(evidence_dir, artifacts)
+            package_info['files_included'].extend(vuln_files)
+            package_info['evidence_types'].append('vulnerabilities')
+
+        if self.include_signatures:
+            sig_files = self._include_signature_evidence(evidence_dir, artifacts)
+            package_info['files_included'].extend(sig_files)
+            package_info['evidence_types'].append('signatures')
+
+        if self.include_compliance:
+            compliance_files = self._include_compliance_evidence(evidence_dir, artifacts)
+            package_info['files_included'].extend(compliance_files)
+            package_info['evidence_types'].append('compliance')
+
+        if self.include_build_logs:
+            build_files = self._include_build_evidence(evidence_dir, project_path)
+            package_info['files_included'].extend(build_files)
+            package_info['evidence_types'].append('build_logs')
+
+        if self.include_source_code:
+            source_files = self._include_source_code(evidence_dir, project_path)
+            package_info['files_included'].extend(source_files)
+            package_info['evidence_types'].append('source_code')
+
+    def _finalize_package(self, evidence_dir: Path, manifest: Dict,
+                         package_id: str, package_info: Dict) -> None:
+        """NASA Rule 3: Finalize package with manifest, attestation, and archiving."""
+        # Save manifest
+        manifest_path = evidence_dir / "manifest.json"
+        with open(manifest_path, 'w', encoding='utf-8') as f:
+            json.dump(manifest, f, indent=2, ensure_ascii=False)
+        package_info['files_included'].append('manifest.json')
+
+        # Create attestation document
+        attestation = self._create_attestation_document(manifest, package_info)
+        attestation_path = evidence_dir / "attestation.json"
+        with open(attestation_path, 'w', encoding='utf-8') as f:
+            json.dump(attestation, f, indent=2, ensure_ascii=False)
+        package_info['files_included'].append('attestation.json')
+        package_info['attestations'].append(attestation)
+
+        # Create the evidence package
+        package_path = self._create_package(evidence_dir, package_id)
+        package_info['package_path'] = str(package_path)
+        package_info['package_size'] = package_path.stat().st_size
+        package_info['manifest'] = manifest
+
+    def _save_package_info(self, package_info: Dict, package_id: str) -> None:
+        """NASA Rule 3: Save package information to disk."""
         info_path = self.output_dir / f"package-info-{package_id}.json"
         with open(info_path, 'w', encoding='utf-8') as f:
             json.dump(package_info, f, indent=2, ensure_ascii=False)
-        
-        return package_info
     
     def _create_package_manifest(self, 
                                project_path: str,

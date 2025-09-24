@@ -1,0 +1,33 @@
+{
+  "total_fixes": 0,
+  "target_fixes": 1650,
+  "total_violations": 3301,
+  "percentage": 0.0,
+  "files": [
+    {
+      "file": "analyzer/enterprise/validation/EnterprisePerformanceValidator.py",
+      "expected": 298,
+      "fixed": 0,
+      "percentage": 0.0
+    },
+    {
+      "file": "analyzer/enterprise/compliance/audit_trail.py",
+      "expected": 265,
+      "fixed": 0,
+      "percentage": 0.0
+    },
+    {
+      "file": "analyzer/enterprise/integration/EnterpriseIntegrationFramework.py",
+      "expected": 284,
+      "fixed": 0,
+      "percentage": 0.0
+    },
+    {
+      "file": "analyzer/enterprise/detector/EnterpriseDetectorPool.py",
+      "expected": 241,
+      "fixed": 0,
+      "percentage": 0.0
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,1038 @@
+{
+  "found": [
+    {
+      "path": ".claude\\.artifacts\\arithmetic-increment-theater-audit.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\arithmetic-increment-theater-audit.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\desktop\\PRODUCTION_THEATER_AUDIT_REPORT.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\desktop\\PRODUCTION_THEATER_AUDIT_REPORT.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\FINAL_THEATER_AUDIT_REPORT.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\FINAL_THEATER_AUDIT_REPORT.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\loop-scripts-theater-audit.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\loop-scripts-theater-audit.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\QUALITY_PRINCESS_DEPLOYMENT_REPORT.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\QUALITY_PRINCESS_DEPLOYMENT_REPORT.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757912729.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757912729.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757915736.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757915736.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757915758.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757915758.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757917649.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757917649.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\research-princess-final-deliverables.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\research-princess-final-deliverables.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\security\\SECURITY-PRINCESS-DOMAIN-COMPLIANCE-REPORT.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\security\\SECURITY-PRINCESS-DOMAIN-COMPLIANCE-REPORT.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater-audit-report.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater-audit-report.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater-detection\\comprehensive_theater_detection_report.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater-detection\\comprehensive_theater_detection_report.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater-detection\\comprehensive_theater_detection_report.json.original",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater-detection\\comprehensive_theater_detection_report.json.original",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater-detection\\loop3_theater_detection_report.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater-detection\\loop3_theater_detection_report.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater-detection\\loop3_theater_detection_report.json.original",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater-detection\\loop3_theater_detection_report.json.original",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater-detection\\production-theater-audit-report.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater-detection\\production-theater-audit-report.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater-detection\\reality-validation\\system_wide_reality_validation.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater-detection\\reality-validation\\system_wide_reality_validation.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater-detection\\reality-validation\\system_wide_reality_validation.json.original",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater-detection\\reality-validation\\system_wide_reality_validation.json.original",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_101358.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_101358.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_101359.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_101359.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_102338.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_102338.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_102339.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_102339.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_104447.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_104447.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_104449.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_104449.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\THEATER_KILLER_DESKTOP_AUDIT_REPORT.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\THEATER_KILLER_DESKTOP_AUDIT_REPORT.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\validation-report\\20250918_234350_validation.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\validation-report\\20250918_234350_validation.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\validation-report\\20250918_234721_validation.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\validation-report\\20250918_234721_validation.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\.artifacts\\validation-reports\\mece-validation-mece-validation-1758211776964.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\.artifacts\\validation-reports\\mece-validation-mece-validation-1758211776964.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\agents\\theater-killer.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\agents\\theater-killer.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\commands\\theater-scan.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\commands\\theater-scan.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\coordination\\adaptive-topology\\queen-coordinator.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\coordination\\adaptive-topology\\queen-coordinator.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\coordination\\phase3-adaptive\\adaptive-queen-coordinator.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\coordination\\phase3-adaptive\\adaptive-queen-coordinator.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".claude\\performance\\validation\\theater_detector.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.claude\\performance\\validation\\theater_detector.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": ".hive-mind\\config\\queens.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\.hive-mind\\config\\queens.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\CodexTheaterAuditor.d.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\CodexTheaterAuditor.d.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\CodexTheaterAuditor.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\CodexTheaterAuditor.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\CodexTheaterAuditor.js.map",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\CodexTheaterAuditor.js.map",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\CoordinationPrincess.d.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\CoordinationPrincess.d.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\CoordinationPrincess.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\CoordinationPrincess.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\CoordinationPrincess.js.map",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\CoordinationPrincess.js.map",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\HivePrincess.d.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\HivePrincess.d.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\HivePrincess.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\HivePrincess.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\HivePrincess.js.map",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\HivePrincess.js.map",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\PrincessConsensus.d.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\PrincessConsensus.d.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\PrincessConsensus.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\PrincessConsensus.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\PrincessConsensus.js.map",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\PrincessConsensus.js.map",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\SwarmQueen.d.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\SwarmQueen.d.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\SwarmQueen.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\SwarmQueen.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "dist\\swarm\\hierarchy\\SwarmQueen.js.map",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\dist\\swarm\\hierarchy\\SwarmQueen.js.map",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "docs\\research\\RESEARCH-PRINCESS-COMPREHENSIVE-ANALYSIS.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\docs\\research\\RESEARCH-PRINCESS-COMPREHENSIVE-ANALYSIS.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "docs\\THEATER-ELIMINATION-REPORT.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\docs\\THEATER-ELIMINATION-REPORT.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "examples\\enterprise_integration\\compliance-demo.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\examples\\enterprise_integration\\compliance-demo.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\demo-working-system.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\demo-working-system.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\deploy_queen_loop3_real_failures.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\deploy_queen_loop3_real_failures.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\deploy_real_queen_swarm.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\deploy_real_queen_swarm.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\eliminate_theater.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\eliminate_theater.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\final_theater_validation.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\final_theater_validation.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\queen_debug_test_failures.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\queen_debug_test_failures.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\test-theater-elimination.sh",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\test-theater-elimination.sh",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\theater_detection_validation.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\theater_detection_validation.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\validate_theater_detection.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\validate_theater_detection.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\__pycache__\\eliminate_theater.cpython-312.pyc",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\__pycache__\\eliminate_theater.cpython-312.pyc",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\__pycache__\\final_theater_validation.cpython-312.pyc",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\__pycache__\\final_theater_validation.cpython-312.pyc",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\__pycache__\\theater_detection_validation.cpython-312.pyc",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\__pycache__\\theater_detection_validation.cpython-312.pyc",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "scripts\\__pycache__\\validate_theater_detection.cpython-312.pyc",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\scripts\\__pycache__\\validate_theater_detection.cpython-312.pyc",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\coordination\\queen_coordinator.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\coordination\\queen_coordinator.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\coordination\\__pycache__\\queen_coordinator.cpython-312.pyc",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\coordination\\__pycache__\\queen_coordinator.cpython-312.pyc",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\debug\\execute-queen-complete-security.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\debug\\execute-queen-complete-security.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\debug\\execute-queen-debug.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\debug\\execute-queen-debug.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\debug\\execute-queen-security-fix.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\debug\\execute-queen-security-fix.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\debug\\queen\\QueenDebugOrchestrator.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\debug\\queen\\QueenDebugOrchestrator.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\flow\\core\\agent-spawner.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\flow\\core\\agent-spawner.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\flow\\workflows\\theater-detection.yaml",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\flow\\workflows\\theater-detection.yaml",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\princess\\quality\\.claude\\.artifacts\\quality_quality_gate_report.json",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\princess\\quality\\.claude\\.artifacts\\quality_quality_gate_report.json",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\princess\\quality\\.claude\\.artifacts\\quality_validation_summary.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\princess\\quality\\.claude\\.artifacts\\quality_validation_summary.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\princess\\quality\\analysis-reports\\quality_dashboard.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\princess\\quality\\analysis-reports\\quality_dashboard.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\princess\\quality\\quality-gates\\cross_domain_validator.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\princess\\quality\\quality-gates\\cross_domain_validator.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\princess\\quality\\README.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\princess\\quality\\README.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\princess\\quality\\theater-detection\\comprehensive_analysis_engine.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\princess\\quality\\theater-detection\\comprehensive_analysis_engine.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\princess\\quality\\theater-detection\\test_theater_engine.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\princess\\quality\\theater-detection\\test_theater_engine.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\princess\\quality\\validation-engine\\quality_gate_enforcer.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\princess\\quality\\validation-engine\\quality_gate_enforcer.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\security\\continuous_theater_monitor.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\security\\continuous_theater_monitor.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\security\\enterprise_theater_detection.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\security\\enterprise_theater_detection.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\security\\__pycache__\\continuous_theater_monitor.cpython-312.pyc",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\security\\__pycache__\\continuous_theater_monitor.cpython-312.pyc",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\security\\__pycache__\\enterprise_theater_detection.cpython-312.pyc",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\security\\__pycache__\\enterprise_theater_detection.cpython-312.pyc",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\swarm\\communication\\PrincessCommunicationProtocol.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\swarm\\communication\\PrincessCommunicationProtocol.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\swarm\\controllers\\PrincessHiveDeployment.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\swarm\\controllers\\PrincessHiveDeployment.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\swarm\\hierarchy\\CodexTheaterAuditor.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\swarm\\hierarchy\\CodexTheaterAuditor.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\swarm\\hierarchy\\CoordinationPrincess.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\swarm\\hierarchy\\CoordinationPrincess.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\swarm\\hierarchy\\HivePrincess.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\swarm\\hierarchy\\HivePrincess.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\swarm\\hierarchy\\PrincessAuditGate.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\swarm\\hierarchy\\PrincessAuditGate.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\swarm\\hierarchy\\PrincessConsensus.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\swarm\\hierarchy\\PrincessConsensus.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\swarm\\hierarchy\\SwarmQueen.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\swarm\\hierarchy\\SwarmQueen.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\swarm\\remediation\\QueenRemediationOrchestrator.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\swarm\\remediation\\QueenRemediationOrchestrator.ts",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-detection\\continuous-monitor.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-detection\\continuous-monitor.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-detection\\deploy_loop3.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-detection\\deploy_loop3.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-detection\\reality-validator.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-detection\\reality-validator.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-detection\\theater-detector.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-detection\\theater-detector.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-detection\\__init__.py",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-detection\\__init__.py",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-detection\\__pycache__\\continuous-monitor.cpython-312.pyc",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-detection\\__pycache__\\continuous-monitor.cpython-312.pyc",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-detection\\__pycache__\\deploy_loop3.cpython-312.pyc",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-detection\\__pycache__\\deploy_loop3.cpython-312.pyc",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-detection\\__pycache__\\reality-validator.cpython-312.pyc",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-detection\\__pycache__\\reality-validator.cpython-312.pyc",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-detection\\__pycache__\\__init__.cpython-312.pyc",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-detection\\__pycache__\\__init__.cpython-312.pyc",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-elimination\\authentic-princess-system.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-elimination\\authentic-princess-system.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-elimination\\evidence-generator.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-elimination\\evidence-generator.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-elimination\\nine-stage-implementation.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-elimination\\nine-stage-implementation.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-elimination\\production-validation-runner.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-elimination\\production-validation-runner.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-elimination\\README.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-elimination\\README.md",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-elimination\\real-swarm-orchestrator.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-elimination\\real-swarm-orchestrator.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-elimination\\run-theater-elimination.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-elimination\\run-theater-elimination.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-elimination\\sandbox-validation-engine.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-elimination\\sandbox-validation-engine.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-elimination\\theater-elimination-demo.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-elimination\\theater-elimination-demo.js",
+      "reason": "Matches realtor pattern"
+    },
+    {
+      "path": "src\\theater-elimination\\theater-elimination-documentation.md",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\theater-elimination\\theater-elimination-documentation.md",
+      "reason": "Matches realtor pattern"
+    }
+  ],
+  "moved": [
+    {
+      "from": ".claude\\.artifacts\\arithmetic-increment-theater-audit.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\arithmetic-increment-theater-audit.md"
+    },
+    {
+      "from": ".claude\\.artifacts\\desktop\\PRODUCTION_THEATER_AUDIT_REPORT.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\desktop\\PRODUCTION_THEATER_AUDIT_REPORT.md"
+    },
+    {
+      "from": ".claude\\.artifacts\\FINAL_THEATER_AUDIT_REPORT.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\FINAL_THEATER_AUDIT_REPORT.md"
+    },
+    {
+      "from": ".claude\\.artifacts\\loop-scripts-theater-audit.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\loop-scripts-theater-audit.md"
+    },
+    {
+      "from": ".claude\\.artifacts\\QUALITY_PRINCESS_DEPLOYMENT_REPORT.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\QUALITY_PRINCESS_DEPLOYMENT_REPORT.md"
+    },
+    {
+      "from": ".claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757912729.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757912729.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757915736.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757915736.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757915758.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757915758.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757917649.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\queen-coordination\\queen_analysis_queen_analysis_1757917649.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\research-princess-final-deliverables.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\research-princess-final-deliverables.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\security\\SECURITY-PRINCESS-DOMAIN-COMPLIANCE-REPORT.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\security\\SECURITY-PRINCESS-DOMAIN-COMPLIANCE-REPORT.md"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater-audit-report.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater-audit-report.md"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater-detection\\comprehensive_theater_detection_report.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater-detection\\comprehensive_theater_detection_report.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater-detection\\comprehensive_theater_detection_report.json.original",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater-detection\\comprehensive_theater_detection_report.json.original"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater-detection\\loop3_theater_detection_report.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater-detection\\loop3_theater_detection_report.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater-detection\\loop3_theater_detection_report.json.original",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater-detection\\loop3_theater_detection_report.json.original"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater-detection\\production-theater-audit-report.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater-detection\\production-theater-audit-report.md"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater-detection\\reality-validation\\system_wide_reality_validation.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater-detection\\reality-validation\\system_wide_reality_validation.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater-detection\\reality-validation\\system_wide_reality_validation.json.original",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater-detection\\reality-validation\\system_wide_reality_validation.json.original"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_101358.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_101358.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_101359.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_101359.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_102338.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_102338.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_102339.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_102339.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_104447.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_104447.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_104449.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\theater_detection\\forensic_theater_evidence_20250914_104449.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\THEATER_KILLER_DESKTOP_AUDIT_REPORT.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\THEATER_KILLER_DESKTOP_AUDIT_REPORT.md"
+    },
+    {
+      "from": ".claude\\.artifacts\\validation-report\\20250918_234350_validation.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\validation-report\\20250918_234350_validation.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\validation-report\\20250918_234721_validation.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\validation-report\\20250918_234721_validation.json"
+    },
+    {
+      "from": ".claude\\.artifacts\\validation-reports\\mece-validation-mece-validation-1758211776964.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\.artifacts\\validation-reports\\mece-validation-mece-validation-1758211776964.json"
+    },
+    {
+      "from": ".claude\\agents\\theater-killer.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\agents\\theater-killer.md"
+    },
+    {
+      "from": ".claude\\commands\\theater-scan.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\commands\\theater-scan.md"
+    },
+    {
+      "from": ".claude\\coordination\\adaptive-topology\\queen-coordinator.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\coordination\\adaptive-topology\\queen-coordinator.md"
+    },
+    {
+      "from": ".claude\\coordination\\phase3-adaptive\\adaptive-queen-coordinator.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\coordination\\phase3-adaptive\\adaptive-queen-coordinator.json"
+    },
+    {
+      "from": ".claude\\performance\\validation\\theater_detector.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.claude\\performance\\validation\\theater_detector.py"
+    },
+    {
+      "from": ".hive-mind\\config\\queens.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\.hive-mind\\config\\queens.json"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\CodexTheaterAuditor.d.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\CodexTheaterAuditor.d.ts"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\CodexTheaterAuditor.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\CodexTheaterAuditor.js"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\CodexTheaterAuditor.js.map",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\CodexTheaterAuditor.js.map"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\CoordinationPrincess.d.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\CoordinationPrincess.d.ts"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\CoordinationPrincess.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\CoordinationPrincess.js"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\CoordinationPrincess.js.map",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\CoordinationPrincess.js.map"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\HivePrincess.d.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\HivePrincess.d.ts"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\HivePrincess.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\HivePrincess.js"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\HivePrincess.js.map",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\HivePrincess.js.map"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\PrincessConsensus.d.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\PrincessConsensus.d.ts"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\PrincessConsensus.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\PrincessConsensus.js"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\PrincessConsensus.js.map",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\PrincessConsensus.js.map"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\SwarmQueen.d.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\SwarmQueen.d.ts"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\SwarmQueen.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\SwarmQueen.js"
+    },
+    {
+      "from": "dist\\swarm\\hierarchy\\SwarmQueen.js.map",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\dist\\swarm\\hierarchy\\SwarmQueen.js.map"
+    },
+    {
+      "from": "docs\\research\\RESEARCH-PRINCESS-COMPREHENSIVE-ANALYSIS.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\docs\\research\\RESEARCH-PRINCESS-COMPREHENSIVE-ANALYSIS.md"
+    },
+    {
+      "from": "docs\\THEATER-ELIMINATION-REPORT.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\docs\\THEATER-ELIMINATION-REPORT.md"
+    },
+    {
+      "from": "examples\\enterprise_integration\\compliance-demo.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\examples\\enterprise_integration\\compliance-demo.js"
+    },
+    {
+      "from": "scripts\\demo-working-system.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\demo-working-system.js"
+    },
+    {
+      "from": "scripts\\deploy_queen_loop3_real_failures.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\deploy_queen_loop3_real_failures.py"
+    },
+    {
+      "from": "scripts\\deploy_real_queen_swarm.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\deploy_real_queen_swarm.py"
+    },
+    {
+      "from": "scripts\\eliminate_theater.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\eliminate_theater.py"
+    },
+    {
+      "from": "scripts\\final_theater_validation.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\final_theater_validation.py"
+    },
+    {
+      "from": "scripts\\queen_debug_test_failures.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\queen_debug_test_failures.py"
+    },
+    {
+      "from": "scripts\\test-theater-elimination.sh",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\test-theater-elimination.sh"
+    },
+    {
+      "from": "scripts\\theater_detection_validation.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\theater_detection_validation.py"
+    },
+    {
+      "from": "scripts\\validate_theater_detection.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\validate_theater_detection.py"
+    },
+    {
+      "from": "scripts\\__pycache__\\eliminate_theater.cpython-312.pyc",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\__pycache__\\eliminate_theater.cpython-312.pyc"
+    },
+    {
+      "from": "scripts\\__pycache__\\final_theater_validation.cpython-312.pyc",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\__pycache__\\final_theater_validation.cpython-312.pyc"
+    },
+    {
+      "from": "scripts\\__pycache__\\theater_detection_validation.cpython-312.pyc",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\__pycache__\\theater_detection_validation.cpython-312.pyc"
+    },
+    {
+      "from": "scripts\\__pycache__\\validate_theater_detection.cpython-312.pyc",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\scripts\\__pycache__\\validate_theater_detection.cpython-312.pyc"
+    },
+    {
+      "from": "src\\coordination\\queen_coordinator.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\coordination\\queen_coordinator.py"
+    },
+    {
+      "from": "src\\coordination\\__pycache__\\queen_coordinator.cpython-312.pyc",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\coordination\\__pycache__\\queen_coordinator.cpython-312.pyc"
+    },
+    {
+      "from": "src\\debug\\execute-queen-complete-security.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\debug\\execute-queen-complete-security.ts"
+    },
+    {
+      "from": "src\\debug\\execute-queen-debug.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\debug\\execute-queen-debug.ts"
+    },
+    {
+      "from": "src\\debug\\execute-queen-security-fix.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\debug\\execute-queen-security-fix.ts"
+    },
+    {
+      "from": "src\\debug\\queen\\QueenDebugOrchestrator.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\debug\\queen\\QueenDebugOrchestrator.ts"
+    },
+    {
+      "from": "src\\flow\\core\\agent-spawner.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\flow\\core\\agent-spawner.js"
+    },
+    {
+      "from": "src\\flow\\workflows\\theater-detection.yaml",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\flow\\workflows\\theater-detection.yaml"
+    },
+    {
+      "from": "src\\princess\\quality\\.claude\\.artifacts\\quality_quality_gate_report.json",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\princess\\quality\\.claude\\.artifacts\\quality_quality_gate_report.json"
+    },
+    {
+      "from": "src\\princess\\quality\\.claude\\.artifacts\\quality_validation_summary.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\princess\\quality\\.claude\\.artifacts\\quality_validation_summary.md"
+    },
+    {
+      "from": "src\\princess\\quality\\analysis-reports\\quality_dashboard.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\princess\\quality\\analysis-reports\\quality_dashboard.py"
+    },
+    {
+      "from": "src\\princess\\quality\\quality-gates\\cross_domain_validator.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\princess\\quality\\quality-gates\\cross_domain_validator.py"
+    },
+    {
+      "from": "src\\princess\\quality\\README.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\princess\\quality\\README.md"
+    },
+    {
+      "from": "src\\princess\\quality\\theater-detection\\comprehensive_analysis_engine.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\princess\\quality\\theater-detection\\comprehensive_analysis_engine.py"
+    },
+    {
+      "from": "src\\princess\\quality\\theater-detection\\test_theater_engine.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\princess\\quality\\theater-detection\\test_theater_engine.py"
+    },
+    {
+      "from": "src\\princess\\quality\\validation-engine\\quality_gate_enforcer.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\princess\\quality\\validation-engine\\quality_gate_enforcer.py"
+    },
+    {
+      "from": "src\\security\\continuous_theater_monitor.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\security\\continuous_theater_monitor.py"
+    },
+    {
+      "from": "src\\security\\enterprise_theater_detection.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\security\\enterprise_theater_detection.py"
+    },
+    {
+      "from": "src\\security\\__pycache__\\continuous_theater_monitor.cpython-312.pyc",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\security\\__pycache__\\continuous_theater_monitor.cpython-312.pyc"
+    },
+    {
+      "from": "src\\security\\__pycache__\\enterprise_theater_detection.cpython-312.pyc",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\security\\__pycache__\\enterprise_theater_detection.cpython-312.pyc"
+    },
+    {
+      "from": "src\\swarm\\communication\\PrincessCommunicationProtocol.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\swarm\\communication\\PrincessCommunicationProtocol.ts"
+    },
+    {
+      "from": "src\\swarm\\controllers\\PrincessHiveDeployment.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\swarm\\controllers\\PrincessHiveDeployment.ts"
+    },
+    {
+      "from": "src\\swarm\\hierarchy\\CodexTheaterAuditor.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\swarm\\hierarchy\\CodexTheaterAuditor.ts"
+    },
+    {
+      "from": "src\\swarm\\hierarchy\\CoordinationPrincess.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\swarm\\hierarchy\\CoordinationPrincess.ts"
+    },
+    {
+      "from": "src\\swarm\\hierarchy\\HivePrincess.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\swarm\\hierarchy\\HivePrincess.ts"
+    },
+    {
+      "from": "src\\swarm\\hierarchy\\PrincessAuditGate.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\swarm\\hierarchy\\PrincessAuditGate.ts"
+    },
+    {
+      "from": "src\\swarm\\hierarchy\\PrincessConsensus.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\swarm\\hierarchy\\PrincessConsensus.ts"
+    },
+    {
+      "from": "src\\swarm\\hierarchy\\SwarmQueen.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\swarm\\hierarchy\\SwarmQueen.ts"
+    },
+    {
+      "from": "src\\swarm\\remediation\\QueenRemediationOrchestrator.ts",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\swarm\\remediation\\QueenRemediationOrchestrator.ts"
+    },
+    {
+      "from": "src\\theater-detection\\continuous-monitor.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-detection\\continuous-monitor.py"
+    },
+    {
+      "from": "src\\theater-detection\\deploy_loop3.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-detection\\deploy_loop3.py"
+    },
+    {
+      "from": "src\\theater-detection\\reality-validator.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-detection\\reality-validator.py"
+    },
+    {
+      "from": "src\\theater-detection\\theater-detector.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-detection\\theater-detector.py"
+    },
+    {
+      "from": "src\\theater-detection\\__init__.py",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-detection\\__init__.py"
+    },
+    {
+      "from": "src\\theater-detection\\__pycache__\\continuous-monitor.cpython-312.pyc",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-detection\\__pycache__\\continuous-monitor.cpython-312.pyc"
+    },
+    {
+      "from": "src\\theater-detection\\__pycache__\\deploy_loop3.cpython-312.pyc",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-detection\\__pycache__\\deploy_loop3.cpython-312.pyc"
+    },
+    {
+      "from": "src\\theater-detection\\__pycache__\\reality-validator.cpython-312.pyc",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-detection\\__pycache__\\reality-validator.cpython-312.pyc"
+    },
+    {
+      "from": "src\\theater-detection\\__pycache__\\__init__.cpython-312.pyc",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-detection\\__pycache__\\__init__.cpython-312.pyc"
+    },
+    {
+      "from": "src\\theater-elimination\\authentic-princess-system.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-elimination\\authentic-princess-system.js"
+    },
+    {
+      "from": "src\\theater-elimination\\evidence-generator.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-elimination\\evidence-generator.js"
+    },
+    {
+      "from": "src\\theater-elimination\\nine-stage-implementation.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-elimination\\nine-stage-implementation.js"
+    },
+    {
+      "from": "src\\theater-elimination\\production-validation-runner.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-elimination\\production-validation-runner.js"
+    },
+    {
+      "from": "src\\theater-elimination\\README.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-elimination\\README.md"
+    },
+    {
+      "from": "src\\theater-elimination\\real-swarm-orchestrator.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-elimination\\real-swarm-orchestrator.js"
+    },
+    {
+      "from": "src\\theater-elimination\\run-theater-elimination.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-elimination\\run-theater-elimination.js"
+    },
+    {
+      "from": "src\\theater-elimination\\sandbox-validation-engine.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-elimination\\sandbox-validation-engine.js"
+    },
+    {
+      "from": "src\\theater-elimination\\theater-elimination-demo.js",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-elimination\\theater-elimination-demo.js"
+    },
+    {
+      "from": "src\\theater-elimination\\theater-elimination-documentation.md",
+      "to": "C:\\Users\\17175\\Desktop\\realtor-app-project\\src\\theater-elimination\\theater-elimination-documentation.md"
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "total": 114,
+    "moved": 114,
+    "errors": 0
+  }
+}

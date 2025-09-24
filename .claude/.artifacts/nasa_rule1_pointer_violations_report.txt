@@ -1,0 +1,145 @@
+================================================================================
+NASA POT10 Rule 1 (Pointer Restrictions) Violation Report
+================================================================================
+
+PATTERNS DETECTED:
+1. Nested attribute access (obj.attr1.attr2) - Law of Demeter violations
+2. Object reference passing - mutable objects passed between functions
+3. Global state mutations - global variable modifications
+4. Mutable attribute storage - storing references to mutable objects
+
+================================================================================
+
+
+File: C:\Users\17175\Desktop\spek template\analyzer\enterprise\core\performance_monitor.py
+Total violations: 18
+--------------------------------------------------------------------------------
+
+  Mutable Attribute Storage: 1 violations
+    Line 67: Storing mutable object in self._feature_stats
+
+  Nested Attribute Access: 10 violations
+    Line 154: Chain: _feature_stats.keys (depth 2) in get_performance_report()
+    Line 172: Chain: _feature_stats.copy (depth 2) in get_performance_report()
+    Line 221: Chain: metrics.clear (depth 2) in clear_metrics()
+    Line 222: Chain: alerts.clear (depth 2) in clear_metrics()
+    Line 223: Chain: _feature_stats.clear (depth 2) in clear_metrics()
+    Line 243: Chain: metrics.append (depth 2) in _record_metric()
+    Line 289: Chain: alerts.append (depth 2) in _check_performance_alerts()
+    Line 304: Chain: alerts.append (depth 2) in _check_performance_alerts()
+    Line 379: Chain: _feature_stats.items (depth 2) in _generate_recommendations()
+    Line 387: Chain: _feature_stats.items (depth 2) in _generate_recommendations()
+
+  Object Reference Argument: 7 violations
+    Line 153: Passing object reference as argument: self.metrics
+    Line 244: Passing object reference as argument: self.metrics
+    Line 262: Passing object reference as argument: metric.execution_time
+    Line 263: Passing object reference as argument: metric.execution_time
+    Line 290: Passing object reference as argument: alert.message
+    Line 305: Passing object reference as argument: alert.message
+    Line 394: Passing object reference as argument: self.alerts
+
+File: C:\Users\17175\Desktop\spek template\analyzer\enterprise\integration\EnterpriseIntegrationFramework.py
+Total violations: 51
+--------------------------------------------------------------------------------
+
+  Mutable Attribute Storage: 1 violations
+    Line 647: Storing mutable object in self.integration_metrics
+
+  Nested Attribute Access: 31 violations
+    Line 149: Chain: timestamp.isoformat (depth 2) in to_dict()
+    Line 188: Chain: workload_history.append (depth 2) in record_workload_pattern()
+    Line 248: Chain: cache_hit_predictions.get (depth 2) in should_cache_result()
+    Line 408: Chain: notification_channels.append (depth 2) in add_notification_channel()
+    Line 564: Chain: alert_history.append (depth 2) in _process_alert()
+    Line 589: Chain: active_alerts.values (depth 2) in get_active_alerts()
+    Line 700: Chain: alerting_system.check_quality_metrics (depth 2) in _quality_monitoring_loop()
+    Line 744: Chain: performance_monitor.measure_enterprise_impact (depth 2) 
+    Line 753: Chain: integration_metrics.copy (depth 2) 
+    Line 771: Chain: ml_engine.record_workload_pattern (depth 2) 
+    ... and 21 more
+
+  Object Reference Argument: 6 violations
+    Line 198: Passing object reference as argument: self.workload_history
+    Line 272: Passing object reference as argument: self.workload_history
+    Line 308: Passing object reference as argument: self.workload_history
+    Line 353: Passing object reference as argument: self.workload_history
+    Line 568: Passing object reference as argument: alert.severity
+    Line 568: Passing object reference as argument: logging.WARNING
+
+  Object Reference Passing: 13 violations
+    Line 160: Storing object reference: self._ml_optimization_enabled = config.ml_optimization
+    Line 161: Storing object reference: self._enable_workload_prediction = config.enable_workload_prediction
+    Line 162: Storing object reference: self._enable_predictive_caching = config.enable_predictive_caching
+    Line 163: Storing object reference: self._enable_adaptive_scaling = config.enable_adaptive_scaling
+    Line 370: Storing object reference: self._alerting_enabled = config.real_time_alerting
+    Line 371: Storing object reference: self._perf_sla_ms = config.performance_sla_ms
+    Line 372: Storing object reference: self._overhead_limit = config.overhead_limit_percent
+    Line 621: Storing object reference: self._integration_enabled = config_to_use.enabled
+    Line 622: Storing object reference: self._sixsigma_enabled = config_to_use.sixsigma_integration
+    Line 623: Storing object reference: self._compliance_enabled = config_to_use.compliance_integration
+    ... and 3 more
+
+File: C:\Users\17175\Desktop\spek template\analyzer\enterprise\validation\EnterprisePerformanceValidator.py
+Total violations: 40
+--------------------------------------------------------------------------------
+
+  Mutable Attribute Storage: 2 violations
+    Line 261: Storing mutable object in self.violations
+    Line 306: Storing mutable object in self.detector_types
+
+  Nested Attribute Access: 21 violations
+    Line 117: Chain: start_time.isoformat (depth 2) in to_dict()
+    Line 118: Chain: end_time.isoformat (depth 2) in to_dict()
+    Line 179: Chain: metrics.clear (depth 2) in start_monitoring()
+    Line 186: Chain: monitor_thread.start (depth 2) in start_monitoring()
+    Line 198: Chain: monitor_thread.is_alive (depth 2) in stop_monitoring()
+    Line 199: Chain: monitor_thread.join (depth 2) in stop_monitoring()
+    Line 239: Chain: metrics.append (depth 2) in _monitoring_loop()
+    Line 333: Chain: config.__dict__ (depth 2) 
+    Line 407: Chain: system_monitor.start_monitoring (depth 2) 
+    Line 416: Chain: detector_types.keys (depth 2) 
+    ... and 11 more
+
+  Object Reference Argument: 11 violations
+    Line 209: Passing object reference as argument: self.metrics
+    Line 222: Passing object reference as argument: self.metrics
+    Line 433: Passing object reference as argument: self.config.max_concurrent_requests
+    Line 437: Passing object reference as argument: self._execute_single_request
+    Line 520: Passing object reference as argument: request.detector_type
+    Line 521: Passing object reference as argument: request.file_path
+    Line 521: Passing object reference as argument: request.source_lines
+    Line 526: Passing object reference as argument: request.source_lines
+    Line 759: Passing object reference as argument: self.detector_types
+    Line 856: Passing object reference as argument: self.config.compliance_frameworks
+    ... and 1 more
+
+  Object Reference Passing: 6 violations
+    Line 295: Storing object reference: self._config_max_concurrent = config_to_use.max_concurrent_requests
+    Line 296: Storing object reference: self._config_test_duration = config_to_use.test_duration_seconds
+    Line 297: Storing object reference: self._config_overhead_limit = config_to_use.overhead_limit_percent
+    Line 298: Storing object reference: self._config_memory_limit = config_to_use.memory_limit_mb
+    Line 299: Storing object reference: self._config_success_threshold = config_to_use.success_rate_threshold
+    Line 300: Storing object reference: self._config_response_sla = config_to_use.response_time_sla_ms
+
+================================================================================
+SUMMARY
+================================================================================
+Total files analyzed: 3
+Total violations found: 109
+
+Violations by type:
+  - Nested Attribute Access: 62
+  - Object Reference Argument: 24
+  - Object Reference Passing: 19
+  - Mutable Attribute Storage: 4
+
+================================================================================
+RECOMMENDATIONS
+================================================================================
+1. Replace nested attribute access with facade methods
+2. Use value returns instead of mutable reference passing
+3. Apply copy.deepcopy() for necessary object passing
+4. Convert global variables to class-based configuration
+5. Use immutable data structures (dataclasses with frozen=True)
+6. Add NASA Rule 1 compliance comments to justify essential patterns

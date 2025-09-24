@@ -55,15 +55,20 @@ class EnterprisePerformanceMonitor:
     
     def __init__(self, config_manager=None, enabled: bool = True):
         """Initialize performance monitor."""
+        # NASA Rule 1 & 4: Input validation, avoid pointer-like references
+        assert isinstance(enabled, bool), f"NASA Rule 4: enabled must be bool, got {type(enabled).__name__}"
         # NASA Rule 5: Input validation
         self.enabled = enabled
-        self.config = config_manager
+        # NASA Rule 1: Store config values, not manager reference
+        self._perf_max_exec_time = 0.5  # Default
+        self._perf_max_memory_mb = 50  # Default
         self.metrics: List[PerformanceMetric] = []
         self.alerts: List[PerformanceAlert] = []
         self._feature_stats = {}  # Aggregated statistics per feature
-        
+
         # Load performance configuration
-        self.perf_config = self._load_performance_config()
+        if config_manager:
+            self._load_config_values(config_manager)
         
         if enabled:
             logger.info("Enterprise performance monitoring enabled")
@@ -128,10 +133,13 @@ class EnterprisePerformanceMonitor:
     def get_performance_report(self) -> Dict[str, Any]:
         """
         Get comprehensive performance report.
-        
+
         Returns:
             Performance report dictionary
         """
+        # NASA Rule 4: State validation
+        assert hasattr(self, 'enabled'), "NASA Rule 4: Object not properly initialized"
+
         if not self.enabled or not self.metrics:
             return {
                 "monitoring_enabled": self.enabled,
@@ -169,13 +177,16 @@ class EnterprisePerformanceMonitor:
     def get_feature_metrics(self, feature_name: str) -> Dict[str, Any]:
         """
         Get performance metrics for a specific feature.
-        
+
         Args:
             feature_name: Name of the enterprise feature
-            
+
         Returns:
             Feature-specific performance metrics
         """
+        # NASA Rule 4: Input validation
+        assert feature_name is not None, "NASA Rule 4: feature_name cannot be None"
+        assert isinstance(feature_name, str), f"NASA Rule 4: Expected str, got {type(feature_name).__name__}"
         # NASA Rule 5: Input validation
         assert feature_name is not None, "feature_name cannot be None"
         
@@ -204,6 +215,9 @@ class EnterprisePerformanceMonitor:
     
     def clear_metrics(self) -> None:
         """Clear all performance metrics (useful for testing)."""
+        # NASA Rule 4: State validation
+        assert hasattr(self, 'metrics'), "NASA Rule 4: metrics not initialized"
+
         self.metrics.clear()
         self.alerts.clear()
         self._feature_stats.clear()
@@ -211,6 +225,9 @@ class EnterprisePerformanceMonitor:
     
     def set_enabled(self, enabled: bool) -> None:
         """Enable or disable performance monitoring."""
+        # NASA Rule 4: Input validation
+        assert isinstance(enabled, bool), f"NASA Rule 4: enabled must be bool, got {type(enabled).__name__}"
+
         old_status = self.enabled
         self.enabled = enabled
         
@@ -219,6 +236,9 @@ class EnterprisePerformanceMonitor:
     
     def _record_metric(self, metric: PerformanceMetric) -> None:
         """Record a performance metric."""
+        # NASA Rule 4: Input validation
+        assert metric is not None, "NASA Rule 4: metric cannot be None"
+
         # Add to metrics list (keep last 1000 entries)
         self.metrics.append(metric)
         if len(self.metrics) > 1000:
@@ -250,10 +270,13 @@ class EnterprisePerformanceMonitor:
     
     def _check_performance_alerts(self, metric: PerformanceMetric) -> None:
         """Check if metric triggers any performance alerts."""
-        alerts_config = self.perf_config.get('performance_alerts', {})
-        
+        # NASA Rule 1 & 4: Input validation, use local values
+        assert metric is not None, "NASA Rule 4: metric cannot be None"
+
+        # NASA Rule 1: Use stored values, not config reference chain
+        max_time = self._perf_max_exec_time
+
         # Execution time alert
-        max_time = alerts_config.get('max_execution_time', 0.5)
         if metric.execution_time > max_time:
             alert = PerformanceAlert(
                 alert_type="execution_time",
@@ -266,8 +289,8 @@ class EnterprisePerformanceMonitor:
             self.alerts.append(alert)
             logger.warning(alert.message)
         
-        # Memory usage alert
-        max_memory_mb = alerts_config.get('max_memory_increase', 50)
+        # NASA Rule 1: Memory usage alert with local value
+        max_memory_mb = self._perf_max_memory_mb
         memory_mb = metric.memory_delta / (1024 * 1024)
         if memory_mb > max_memory_mb:
             alert = PerformanceAlert(
@@ -283,6 +306,9 @@ class EnterprisePerformanceMonitor:
     
     def _get_memory_usage(self) -> int:
         """Get current memory usage in bytes."""
+        # NASA Rule 4: State validation
+        assert hasattr(self, 'enabled'), "NASA Rule 4: Monitor not initialized"
+
         try:
             import psutil
             return psutil.Process().memory_info().rss
@@ -290,23 +316,27 @@ class EnterprisePerformanceMonitor:
             # Return 0 if psutil not available (graceful degradation)
             return 0
     
-    def _load_performance_config(self) -> Dict[str, Any]:
-        """Load performance monitoring configuration."""
-        if self.config:
-            enterprise_config = self.config.get_enterprise_config()
-            return enterprise_config.get('performance', {})
-        
-        # Default configuration
-        return {
-            'monitoring_enabled': True,
-            'performance_alerts': {
-                'max_execution_time': 0.5,  # 500ms
-                'max_memory_increase': 50   # 50MB
-            }
-        }
+    def _load_config_values(self, config_manager) -> None:
+        """Load performance configuration values (NASA Rule 1 compliant)."""
+        # NASA Rule 1: Extract values, don't store reference
+        try:
+            enterprise_config = config_manager.get_enterprise_config()
+            perf_config = enterprise_config.get('performance', {})
+            alerts_config = perf_config.get('performance_alerts', {})
+
+            self._perf_max_exec_time = alerts_config.get('max_execution_time', 0.5)
+            self._perf_max_memory_mb = alerts_config.get('max_memory_increase', 50)
+        except Exception:
+            # Use defaults on error
+            self._perf_max_exec_time = 0.5
+            self._perf_max_memory_mb = 50
     
     def _calculate_overall_impact(self, avg_time: float, total_memory: int) -> str:
         """Calculate overall performance impact level."""
+        # NASA Rule 4: Input validation
+        assert avg_time >= 0, "NASA Rule 4: avg_time must be non-negative"
+        assert isinstance(total_memory, int), f"NASA Rule 4: Expected int, got {type(total_memory).__name__}"
+
         memory_mb = total_memory / (1024 * 1024)
         
         if avg_time > 0.5 or memory_mb > 100:
@@ -320,6 +350,10 @@ class EnterprisePerformanceMonitor:
     
     def _get_feature_status(self, stats: Dict[str, Any]) -> str:
         """Get status classification for a feature."""
+        # NASA Rule 4: Input validation
+        assert stats is not None, "NASA Rule 4: stats cannot be None"
+        assert stats['call_count'] > 0, "NASA Rule 4: call_count must be positive"
+
         success_rate = stats['success_count'] / stats['call_count']
         avg_time = stats['total_time'] / stats['call_count']
         

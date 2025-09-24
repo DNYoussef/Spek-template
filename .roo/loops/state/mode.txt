@@ -1,0 +1,5 @@
+[0;35m[PHASE][0m Detecting Project Mode
+[0;36m[3-LOOP][0m Git repository detected
+[0;36m[3-LOOP][0m Large codebase detected (11991 source files)
+[0;36m[3-LOOP][0m Using manual mode: reverse
+reverse

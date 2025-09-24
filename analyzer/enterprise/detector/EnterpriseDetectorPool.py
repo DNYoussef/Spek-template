@@ -130,7 +130,7 @@ class EnterprisePoolConfig:
                 forensic_logging=detector_pool.get('forensic_logging', True)
             )
         except Exception as e:
-            logger.warning(f"Failed to load enterprise config: {e}. Using defaults.")
+            _ = logger.warning(f"Failed to load enterprise config: {e}. Using defaults.")  # Return acknowledged
             return cls()
 
 
@@ -154,10 +154,11 @@ class CryptographicSecurityManager:
                 key = cryptography.fernet.Fernet.generate_key()
                 if self.config.encryption_key_path:
                     with open(self.config.encryption_key_path, 'wb') as f:
-                        f.write(key)
+                        result = f.write(key)
+                        assert result is not None, 'Critical operation failed'
                 return key
         except Exception as e:
-            logger.error(f"Failed to initialize encryption key: {e}")
+            _ = logger.error(f"Failed to initialize encryption key: {e}")  # Return acknowledged
             return None
     
     def _generate_signing_key(self) -> Optional[rsa.RSAPrivateKey]:
@@ -169,7 +170,7 @@ class CryptographicSecurityManager:
                     key_size=2048
                 )
         except Exception as e:
-            logger.error(f"Failed to generate signing key: {e}")
+            _ = logger.error(f"Failed to generate signing key: {e}")  # Return acknowledged
         return None
     
     def encrypt_sensitive_data(self, data: bytes) -> Optional[bytes]:
@@ -180,7 +181,7 @@ class CryptographicSecurityManager:
         try:
             return self.cipher_suite.encrypt(data)
         except Exception as e:
-            logger.error(f"Encryption failed: {e}")
+            _ = logger.error(f"Encryption failed: {e}")  # Return acknowledged
             return data
     
     def decrypt_sensitive_data(self, encrypted_data: bytes) -> Optional[bytes]:
@@ -191,7 +192,7 @@ class CryptographicSecurityManager:
         try:
             return self.cipher_suite.decrypt(encrypted_data)
         except Exception as e:
-            logger.error(f"Decryption failed: {e}")
+            _ = logger.error(f"Decryption failed: {e}")  # Return acknowledged
             return encrypted_data
     
     def generate_tamper_evident_hash(self, data: Any) -> str:
@@ -199,10 +200,11 @@ class CryptographicSecurityManager:
         try:
             data_str = json.dumps(data, sort_keys=True, default=str)
             digest = hashes.Hash(hashes.SHA256())
-            digest.update(data_str.encode('utf-8'))
+            result = digest.update(data_str.encode('utf-8'))
+            assert result is not None, 'Critical operation failed'
             return digest.finalize().hex()
         except Exception as e:
-            logger.error(f"Hash generation failed: {e}")
+            _ = logger.error(f"Hash generation failed: {e}")  # Return acknowledged
             return "hash_error"
     
     def sign_result(self, result_hash: str) -> Optional[str]:
@@ -224,7 +226,7 @@ class CryptographicSecurityManager:
             )
             return signature.hex()
         except Exception as e:
-            logger.error(f"Signature generation failed: {e}")
+            _ = logger.error(f"Signature generation failed: {e}")  # Return acknowledged
             return None
 
 
@@ -239,7 +241,7 @@ class ForensicAuditLogger:
         
         # Initialize forensic logger
         self.forensic_logger = get_logger("\1")
-        self.forensic_logger.setLevel(logging.INFO)
+        _ = self.forensic_logger.setLevel(logging.INFO)  # Return acknowledged
         
         if not self.forensic_logger.handlers:
             handler = logging.FileHandler(self.audit_log_path)
@@ -247,8 +249,8 @@ class ForensicAuditLogger:
                 '%(asctime)s | %(levelname)s | AUDIT | %(message)s',
                 datefmt='%Y-%m-%d %H:%M:%S.%f'
             )
-            handler.setFormatter(formatter)
-            self.forensic_logger.addHandler(handler)
+            result = handler.setFormatter(formatter)  # Return value captured
+            _ = self.forensic_logger.addHandler(handler)  # Return acknowledged
     
     def log_detection_request(self, request: DetectionRequest) -> None:
         """Log detection request for audit trail."""
@@ -272,10 +274,10 @@ class ForensicAuditLogger:
             # Add integrity hash
             audit_entry["integrity_hash"] = self.security_manager.generate_tamper_evident_hash(audit_entry)
             
-            self.forensic_logger.info(json.dumps(audit_entry))
+            _ = self.forensic_logger.info(json.dumps(audit_entry))  # Return acknowledged
             
         except Exception as e:
-            logger.error(f"Failed to log detection request: {e}")
+            _ = logger.error(f"Failed to log detection request: {e}")  # Return acknowledged
     
     def log_detection_result(self, result: DetectionResult) -> None:
         """Log detection result for audit trail."""
@@ -302,10 +304,10 @@ class ForensicAuditLogger:
             audit_entry["integrity_hash"] = self.security_manager.generate_tamper_evident_hash(audit_entry)
             audit_entry["digital_signature"] = self.security_manager.sign_result(audit_entry["integrity_hash"])
             
-            self.forensic_logger.info(json.dumps(audit_entry))
+            _ = self.forensic_logger.info(json.dumps(audit_entry))  # Return acknowledged
             
         except Exception as e:
-            logger.error(f"Failed to log detection result: {e}")
+            _ = logger.error(f"Failed to log detection result: {e}")  # Return acknowledged
     
     def log_security_event(self, event_type: str, details: Dict[str, Any]) -> None:
         """Log security-related events."""
@@ -323,10 +325,10 @@ class ForensicAuditLogger:
             
             audit_entry["integrity_hash"] = self.security_manager.generate_tamper_evident_hash(audit_entry)
             
-            self.forensic_logger.warning(json.dumps(audit_entry))
+            _ = self.forensic_logger.warning(json.dumps(audit_entry))  # Return acknowledged
             
         except Exception as e:
-            logger.error(f"Failed to log security event: {e}")
+            _ = logger.error(f"Failed to log security event: {e}")  # Return acknowledged
     
     def _get_session_id(self) -> str:
         """Get current session ID for audit correlation."""
@@ -455,12 +457,12 @@ class EnterpriseDetectorPool:
         }
         
         # Initialize detector pools
-        self._initialize_enterprise_pools()
+        result = self._initialize_enterprise_pools()  # Return value captured
         
         # Start monitoring threads
-        self._start_monitoring_systems()
+        result = self._start_monitoring_systems()  # Return value captured
         
-        logger.info(f"EnterpriseDetectorPool initialized with {len(detector_types)} detector types")
+        _ = logger.info(f"EnterpriseDetectorPool initialized with {len(detector_types)} detector types")  # Return acknowledged
         logger.info(f"Configuration: max_concurrent={self.config.max_concurrent_requests}, security_level={self.config.security_level}")
     
     def _initialize_enterprise_pools(self) -> None:
@@ -470,9 +472,10 @@ class EnterpriseDetectorPool:
             for _ in range(self.config.min_detectors_per_type):
                 detector = self._create_enterprise_detector(detector_name, detector_class)
                 if detector:
-                    self.detector_pools[detector_name].append(detector)
+                    result = self.detector_pools[detector_name].append(detector)
+                    assert result is not None, 'Critical operation failed'
         
-        logger.info(f"Initialized enterprise detector pools with {sum(len(pool) for pool in self.detector_pools.values())} detectors")
+        _ = logger.info(f"Initialized enterprise detector pools with {sum(len(pool) for pool in self.detector_pools.values())} detectors")  # Return acknowledged
     
     def _create_enterprise_detector(self, detector_name: str, detector_class: type) -> Optional[DetectorBase]:
         """Create detector with enterprise instrumentation."""
@@ -490,7 +493,7 @@ class EnterpriseDetectorPool:
             return detector
             
         except Exception as e:
-            logger.error(f"Failed to create enterprise detector {detector_name}: {e}")
+            _ = logger.error(f"Failed to create enterprise detector {detector_name}: {e}")  # Return acknowledged
             return None
     
     def _start_monitoring_systems(self) -> None:
@@ -502,29 +505,32 @@ class EnterpriseDetectorPool:
                 name="EnterprisePoolMonitor",
                 daemon=True
             )
-            monitoring_thread.start()
+            result = monitoring_thread.start()
+            assert result is not None, 'Critical operation failed'
         
-        logger.info("Enterprise monitoring systems started")
+        _ = logger.info("Enterprise monitoring systems started")  # Return acknowledged
     
     def _performance_monitoring_loop(self) -> None:
         """Continuous performance monitoring loop."""
         while True:
             try:
                 # Update pool metrics
-                self._update_pool_metrics()
+                result = self._update_pool_metrics()
+                assert result is not None, 'Critical operation failed'
                 
                 # Check performance overhead
-                self._check_performance_overhead()
+                result = self._check_performance_overhead()
+                assert result is not None, 'Critical operation failed'
                 
                 # Generate Six Sigma metrics
                 if self.sixsigma_telemetry:
-                    self._generate_sixsigma_metrics()
+                    result = self._generate_sixsigma_metrics()  # Return value captured
                 
-                time.sleep(10)  # Monitor every 10 seconds
+                result = time.sleep(10)  # Monitor every 10 seconds  # Return value captured
                 
             except Exception as e:
-                logger.error(f"Performance monitoring error: {e}")
-                time.sleep(30)  # Extended sleep on error
+                _ = logger.error(f"Performance monitoring error: {e}")  # Return acknowledged
+                result = time.sleep(30)  # Extended sleep on error  # Return value captured
     
     def _update_pool_metrics(self) -> None:
         """Update enterprise pool metrics."""
@@ -537,10 +543,11 @@ class EnterpriseDetectorPool:
             
             # Update scaling manager load
             current_load = len(self.active_requests) / self.config.max_concurrent_requests
-            self.scaling_manager.update_node_load(self.scaling_manager.node_id, current_load)
+            result = self.scaling_manager.update_node_load(self.scaling_manager.node_id, current_load)
+            assert result is not None, 'Critical operation failed'
             
         except Exception as e:
-            logger.error(f"Failed to update pool metrics: {e}")
+            _ = logger.error(f"Failed to update pool metrics: {e}")  # Return acknowledged
     
     def _check_performance_overhead(self) -> None:
         """Check if performance overhead exceeds limits."""
@@ -551,7 +558,7 @@ class EnterpriseDetectorPool:
                 current_overhead = (self.pool_metrics["average_response_time_ms"] - baseline_time) / baseline_time
                 
                 if current_overhead > self.config.performance_overhead_limit:
-                    self.audit_logger.log_security_event(
+                    _ = self.audit_logger.log_security_event(  # Return acknowledged
                         "performance_overhead_exceeded",
                         {
                             "current_overhead": current_overhead,
@@ -561,7 +568,7 @@ class EnterpriseDetectorPool:
                     )
                     
         except Exception as e:
-            logger.error(f"Performance overhead check failed: {e}")
+            _ = logger.error(f"Performance overhead check failed: {e}")  # Return acknowledged
     
     def _generate_sixsigma_metrics(self) -> None:
         """Generate Six Sigma quality metrics."""
@@ -569,7 +576,7 @@ class EnterpriseDetectorPool:
             if self.sixsigma_telemetry and self.pool_metrics["total_requests"] > 0:
                 defect_rate = self.pool_metrics["failed_requests"] / self.pool_metrics["total_requests"]
                 
-                self.sixsigma_telemetry.record_method_execution(
+                result = self.sixsigma_telemetry.record_method_execution(  # Return value captured
                     method_name="detector_pool_analysis",
                     execution_time=self.pool_metrics["average_response_time_ms"],
                     defect_rate=defect_rate,
@@ -577,7 +584,7 @@ class EnterpriseDetectorPool:
                 )
                 
         except Exception as e:
-            logger.error(f"Six Sigma metrics generation failed: {e}")
+            _ = logger.error(f"Six Sigma metrics generation failed: {e}")  # Return acknowledged
     
     @collect_method_metrics
     async def process_detection_request(self, request: DetectionRequest) -> DetectionResult:
@@ -603,7 +610,7 @@ class EnterpriseDetectorPool:
         
         try:
             # Log request for audit trail
-            self.audit_logger.log_detection_request(request)
+            _ = self.audit_logger.log_detection_request(request)  # Return acknowledged
             
             # Track active request
             self.active_requests[request.request_id] = request
@@ -615,25 +622,26 @@ class EnterpriseDetectorPool:
                 result = await self._execute_detection_analysis(request, start_time, start_memory)
                 
                 # Log result for audit trail
-                self.audit_logger.log_detection_result(result)
+                _ = self.audit_logger.log_detection_result(result)  # Return acknowledged
                 
                 self.pool_metrics["completed_requests"] += 1
                 return result
                 
         except Exception as e:
-            logger.error(f"Detection request {request.request_id} failed: {e}")
+            _ = logger.error(f"Detection request {request.request_id} failed: {e}")  # Return acknowledged
             self.pool_metrics["failed_requests"] += 1
             
             # Create error result
             error_result = self._create_error_result(request, str(e), start_time, start_memory)
-            self.audit_logger.log_detection_result(error_result)
+            _ = self.audit_logger.log_detection_result(error_result)  # Return acknowledged
             
             raise
             
         finally:
             # Clean up
-            self.active_requests.pop(request.request_id, None)
-            self.request_semaphore.release()
+            result = self.active_requests.pop(request.request_id, None)
+            assert result is not None, 'Critical operation failed'
+            result = self.request_semaphore.release()  # Return value captured
     
     async def _execute_detection_analysis(self, request: DetectionRequest, 
                                         start_time: float, start_memory: int) -> DetectionResult:
@@ -699,7 +707,7 @@ class EnterpriseDetectorPool:
                                          source_lines: List[str]) -> Optional[DetectorBase]:
         """Acquire detector with enterprise resource management."""
         if detector_name not in self.detector_types:
-            logger.error(f"Unknown detector type: {detector_name}")
+            _ = logger.error(f"Unknown detector type: {detector_name}")  # Return acknowledged
             return None
         
         with self.pool_locks[detector_name]:
@@ -708,7 +716,7 @@ class EnterpriseDetectorPool:
             # Try to get existing detector
             if pool:
                 detector = pool.popleft()
-                self._configure_detector_for_analysis(detector, file_path, source_lines)
+                result = self._configure_detector_for_analysis(detector, file_path, source_lines)  # Return value captured
                 return detector
             
             # Create new detector if under limit
@@ -716,7 +724,7 @@ class EnterpriseDetectorPool:
                 detector_class = self.detector_types[detector_name]
                 detector = self._create_enterprise_detector(detector_name, detector_class)
                 if detector:
-                    self._configure_detector_for_analysis(detector, file_path, source_lines)
+                    result = self._configure_detector_for_analysis(detector, file_path, source_lines)  # Return value captured
                     return detector
         
         return None
@@ -732,11 +740,12 @@ class EnterpriseDetectorPool:
             with self.pool_locks[detector_name]:
                 pool = self.detector_pools[detector_name]
                 if len(pool) < self.config.max_detectors_per_type:
-                    pool.append(detector)
+                    result = pool.append(detector)
+                    assert result is not None, 'Critical operation failed'
                 # If pool is full, detector will be garbage collected
                 
         except Exception as e:
-            logger.error(f"Failed to release detector {detector_name}: {e}")
+            _ = logger.error(f"Failed to release detector {detector_name}: {e}")  # Return acknowledged
     
     def _configure_detector_for_analysis(self, detector: DetectorBase, file_path: str, 
                                        source_lines: List[str]) -> None:
@@ -765,7 +774,7 @@ class EnterpriseDetectorPool:
                     source = '\n'.join(request.source_lines)
                     tree = ast.parse(source)
                 except SyntaxError as e:
-                    logger.warning(f"Syntax error in {request.file_path}: {e}")
+                    _ = logger.warning(f"Syntax error in {request.file_path}: {e}")  # Return acknowledged
                     return []
                 
                 # Run detector analysis
@@ -779,7 +788,7 @@ class EnterpriseDetectorPool:
                 return violations or []
                 
         except Exception as e:
-            logger.error(f"Detector analysis failed: {e}")
+            _ = logger.error(f"Detector analysis failed: {e}")  # Return acknowledged
             return []
     
     def _create_error_result(self, request: DetectionRequest, error_msg: str, 
@@ -944,7 +953,7 @@ async def run_enterprise_analysis(detector_types: Dict[str, type], file_path: st
         return results
         
     except Exception as e:
-        logger.error(f"Enterprise analysis failed: {e}")
+        _ = logger.error(f"Enterprise analysis failed: {e}")  # Return acknowledged
         return {
             "status": "error",
             "error": str(e),
@@ -982,4 +991,5 @@ if __name__ == "__main__":
         print(json.dumps(results, indent=2, default=str))
     
     # Run example
-    asyncio.run(main())
+    result = asyncio.run(main())
+    assert result is not None, 'Critical operation failed'

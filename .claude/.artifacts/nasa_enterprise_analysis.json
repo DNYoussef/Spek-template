@@ -1,0 +1,266 @@
+{
+  "files_analyzed": 24,
+  "files_with_errors": 9,
+  "total_violations": 3868,
+  "summary_by_rule": {
+    "rule1_pointer": 427,
+    "rule2_dynamic_memory": 345,
+    "rule3_function_size": 25,
+    "rule4_assertions": 21,
+    "rule7_return_values": 3050
+  },
+  "file_results": [
+    {
+      "file": "analyzer/enterprise\\defense_certification_tool.py",
+      "total_lines": 691,
+      "rule1": 16,
+      "rule2": 14,
+      "rule3": 1,
+      "rule4": 0,
+      "rule7": 134
+    },
+    {
+      "file": "analyzer/enterprise\\nasa_pot10_analyzer.py",
+      "total_lines": 768,
+      "rule1": 24,
+      "rule2": 21,
+      "rule3": 2,
+      "rule4": 1,
+      "rule7": 193
+    },
+    {
+      "file": "analyzer/enterprise\\validation_reporting_system.py",
+      "total_lines": 961,
+      "rule1": 16,
+      "rule2": 19,
+      "rule3": 4,
+      "rule4": 1,
+      "rule7": 167
+    },
+    {
+      "file": "analyzer/enterprise\\__init__.py",
+      "total_lines": 124,
+      "rule1": 0,
+      "rule2": 0,
+      "rule3": 0,
+      "rule4": 1,
+      "rule7": 16
+    },
+    {
+      "file": "analyzer/enterprise\\compliance\\audit_trail.py",
+      "error": "invalid syntax (<unknown>, line 564)"
+    },
+    {
+      "file": "analyzer/enterprise\\compliance\\core.py",
+      "error": "unexpected indent (<unknown>, line 14)"
+    },
+    {
+      "file": "analyzer/enterprise\\compliance\\integration.py",
+      "error": "unexpected indent (<unknown>, line 16)"
+    },
+    {
+      "file": "analyzer/enterprise\\compliance\\iso27001.py",
+      "error": "unexpected indent (<unknown>, line 27)"
+    },
+    {
+      "file": "analyzer/enterprise\\compliance\\nist_ssdf.py",
+      "error": "unexpected indent (<unknown>, line 18)"
+    },
+    {
+      "file": "analyzer/enterprise\\compliance\\reporting.py",
+      "error": "unexpected indent (<unknown>, line 26)"
+    },
+    {
+      "file": "analyzer/enterprise\\compliance\\soc2.py",
+      "error": "unexpected indent (<unknown>, line 25)"
+    },
+    {
+      "file": "analyzer/enterprise\\compliance\\validate_retention.py",
+      "error": "unexpected indent (<unknown>, line 19)"
+    },
+    {
+      "file": "analyzer/enterprise\\compliance\\__init__.py",
+      "total_lines": 34,
+      "rule1": 0,
+      "rule2": 0,
+      "rule3": 0,
+      "rule4": 1,
+      "rule7": 0
+    },
+    {
+      "file": "analyzer/enterprise\\core\\decorators.py",
+      "total_lines": 363,
+      "rule1": 20,
+      "rule2": 9,
+      "rule3": 0,
+      "rule4": 1,
+      "rule7": 74
+    },
+    {
+      "file": "analyzer/enterprise\\core\\feature_flags.py",
+      "total_lines": 306,
+      "rule1": 9,
+      "rule2": 8,
+      "rule3": 0,
+      "rule4": 0,
+      "rule7": 47
+    },
+    {
+      "file": "analyzer/enterprise\\core\\performance_monitor.py",
+      "total_lines": 400,
+      "rule1": 27,
+      "rule2": 13,
+      "rule3": 0,
+      "rule4": 0,
+      "rule7": 68
+    },
+    {
+      "file": "analyzer/enterprise\\core\\__init__.py",
+      "total_lines": 20,
+      "rule1": 0,
+      "rule2": 0,
+      "rule3": 0,
+      "rule4": 1,
+      "rule7": 0
+    },
+    {
+      "file": "analyzer/enterprise\\detector\\EnterpriseDetectorPool.py",
+      "total_lines": 995,
+      "rule1": 29,
+      "rule2": 7,
+      "rule3": 0,
+      "rule4": 1,
+      "rule7": 247
+    },
+    {
+      "file": "analyzer/enterprise\\detectors\\dfars_detector.py",
+      "total_lines": 374,
+      "rule1": 6,
+      "rule2": 14,
+      "rule3": 0,
+      "rule4": 1,
+      "rule7": 84
+    },
+    {
+      "file": "analyzer/enterprise\\detectors\\dfars_detector_simple.py",
+      "total_lines": 307,
+      "rule1": 5,
+      "rule2": 11,
+      "rule3": 1,
+      "rule4": 1,
+      "rule7": 77
+    },
+    {
+      "file": "analyzer/enterprise\\integration\\EnterpriseIntegrationFramework.py",
+      "total_lines": 1158,
+      "rule1": 62,
+      "rule2": 25,
+      "rule3": 2,
+      "rule4": 1,
+      "rule7": 286
+    },
+    {
+      "file": "analyzer/enterprise\\performance\\MLCacheOptimizer.py",
+      "error": "expected 'except' or 'finally' block (<unknown>, line 241)"
+    },
+    {
+      "file": "analyzer/enterprise\\sixsigma\\__init__.py",
+      "total_lines": 24,
+      "rule1": 0,
+      "rule2": 0,
+      "rule3": 0,
+      "rule4": 1,
+      "rule7": 0
+    },
+    {
+      "file": "analyzer/enterprise\\supply_chain\\config_loader.py",
+      "total_lines": 558,
+      "rule1": 13,
+      "rule2": 10,
+      "rule3": 2,
+      "rule4": 1,
+      "rule7": 104
+    },
+    {
+      "file": "analyzer/enterprise\\supply_chain\\crypto_signer.py",
+      "total_lines": 611,
+      "rule1": 26,
+      "rule2": 14,
+      "rule3": 1,
+      "rule4": 1,
+      "rule7": 166
+    },
+    {
+      "file": "analyzer/enterprise\\supply_chain\\evidence_packager.py",
+      "total_lines": 828,
+      "rule1": 35,
+      "rule2": 39,
+      "rule3": 0,
+      "rule4": 1,
+      "rule7": 292
+    },
+    {
+      "file": "analyzer/enterprise\\supply_chain\\integration.py",
+      "total_lines": 497,
+      "rule1": 8,
+      "rule2": 27,
+      "rule3": 2,
+      "rule4": 1,
+      "rule7": 188
+    },
+    {
+      "file": "analyzer/enterprise\\supply_chain\\sbom_generator.py",
+      "total_lines": 465,
+      "rule1": 17,
+      "rule2": 8,
+      "rule3": 1,
+      "rule4": 1,
+      "rule7": 121
+    },
+    {
+      "file": "analyzer/enterprise\\supply_chain\\slsa_provenance.py",
+      "total_lines": 413,
+      "rule1": 18,
+      "rule2": 15,
+      "rule3": 0,
+      "rule4": 1,
+      "rule7": 125
+    },
+    {
+      "file": "analyzer/enterprise\\supply_chain\\supply_chain_analyzer.py",
+      "total_lines": 564,
+      "rule1": 20,
+      "rule2": 37,
+      "rule3": 2,
+      "rule4": 1,
+      "rule7": 171
+    },
+    {
+      "file": "analyzer/enterprise\\supply_chain\\vulnerability_scanner.py",
+      "total_lines": 621,
+      "rule1": 22,
+      "rule2": 25,
+      "rule3": 0,
+      "rule4": 1,
+      "rule7": 180
+    },
+    {
+      "file": "analyzer/enterprise\\supply_chain\\__init__.py",
+      "total_lines": 30,
+      "rule1": 0,
+      "rule2": 0,
+      "rule3": 0,
+      "rule4": 1,
+      "rule7": 0
+    },
+    {
+      "file": "analyzer/enterprise\\validation\\EnterprisePerformanceValidator.py",
+      "total_lines": 1209,
+      "rule1": 54,
+      "rule2": 29,
+      "rule3": 7,
+      "rule4": 1,
+      "rule7": 310
+    }
+  ]
+}

@@ -13,9 +13,13 @@ NASA Rule 5 Compliant: Comprehensive defensive assertions.
 """
 
 import ast
+from dataclasses import dataclass
+from typing import Dict, List, Any, Tuple
 import re
 import json
 import time
+from datetime import datetime
+from pathlib import Path
 import logging
 logger = logging.getLogger(__name__)
 
@@ -619,7 +623,5 @@ def calculate_metrics(data):
     result = engine.analyze_syntax(sample_code)
 
     # Log results for debugging instead of printing
-    logger.info(f"Analysis completed: {len(result.syntax_issues)} issues found")
-    logger.debug(f"Analysis results: {json.dumps(result.__dict__, indent=2, default=str)}")
-
-    return result
+    logger.info(f"Analysis completed: {len(result.get('syntax_issues', []))} issues found")
+    logger.debug(f"Analysis results: {json.dumps(result, indent=2, default=str)}")

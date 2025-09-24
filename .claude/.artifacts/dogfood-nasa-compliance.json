@@ -1,0 +1,36 @@
+{
+  "compliance_score": 43.45,
+  "total_violations": 108367,
+  "critical_violations": 73,
+  "high_violations": 30118,
+  "medium_violations": 78176,
+  "low_violations": 0,
+  "total_files": 809,
+  "total_functions": 0,
+  "rules_violated": [
+    7,
+    1,
+    2,
+    4,
+    3,
+    5,
+    8,
+    10,
+    6,
+    9
+  ],
+  "rule_compliance": {
+    "1": 0,
+    "2": 0,
+    "3": 16.44,
+    "4": 0,
+    "5": 50.93,
+    "6": 100.0,
+    "7": 0,
+    "8": 76.14,
+    "9": 100.0,
+    "10": 90.98
+  },
+  "summary": "43.4% NASA POT10 Compliance",
+  "status": "FAIL"
+}

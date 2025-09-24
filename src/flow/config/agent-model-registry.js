@@ -5,7 +5,10 @@
 
 const AIModel = {
   GPT5: 'gpt-5',
-  GPT5_CODEX: 'gpt-5-codex',
+  GPT5_MINI: 'gpt-5-mini',
+  GPT5_NANO: 'gpt-5-nano',
+  O3: 'o3',
+  O3_MINI: 'o3-mini',
   GEMINI_PRO: 'gemini-2.5-pro',
   GEMINI_FLASH: 'gemini-2.5-flash',
   CLAUDE_OPUS: 'claude-opus-4.1',
@@ -25,21 +28,21 @@ const ReasoningComplexity = {
 const AGENT_MODEL_REGISTRY = {
 
   // =============================================================================
-  // BROWSER AUTOMATION & VISUAL AGENTS → GPT-5 CODEX
+  // BROWSER AUTOMATION & VISUAL AGENTS → GPT-5 WITH CODEX CLI
   // =============================================================================
   'frontend-developer': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_SONNET,
     sequentialThinking: false,
     contextThreshold: 50000,
     reasoningComplexity: ReasoningComplexity.MEDIUM,
     capabilities: ['browser_automation', 'screenshot_capture', 'ui_testing', 'visual_validation'],
     mcpServers: ['claude-flow', 'memory', 'github', 'playwright', 'figma'],
-    rationale: 'Codex can spin up browser, take screenshots, iterate on UI implementation + Figma for design integration'
+    rationale: 'GPT-5 with Codex CLI for browser automation, screenshots, UI iteration + Figma integration'
   },
 
   'ui-designer': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.GEMINI_PRO,
     sequentialThinking: false,
     contextThreshold: 30000,
@@ -50,7 +53,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'mobile-dev': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_OPUS,
     sequentialThinking: false,
     contextThreshold: 60000,
@@ -61,7 +64,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'rapid-prototyper': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_SONNET,
     sequentialThinking: false,
     contextThreshold: 40000,
@@ -130,10 +133,10 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   // =============================================================================
-  // AUTONOMOUS CODING & COMPLEX IMPLEMENTATION → GPT-5 CODEX
+  // AUTONOMOUS CODING & COMPLEX IMPLEMENTATION → GPT-5
   // =============================================================================
   'coder': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_OPUS,
     sequentialThinking: false,
     contextThreshold: 100000,
@@ -144,7 +147,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'sparc-coder': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_OPUS,
     sequentialThinking: false,
     contextThreshold: 80000,
@@ -155,7 +158,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'backend-dev': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_OPUS,
     sequentialThinking: false,
     contextThreshold: 70000,
@@ -166,7 +169,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'ml-developer': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.GEMINI_PRO,
     sequentialThinking: false,
     contextThreshold: 90000,
@@ -177,7 +180,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'cicd-engineer': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_SONNET,
     sequentialThinking: false,
     contextThreshold: 50000,
@@ -214,7 +217,7 @@ const AGENT_MODEL_REGISTRY = {
 
   'security-manager': {
     primaryModel: AIModel.CLAUDE_OPUS,
-    fallbackModel: AIModel.GPT5,
+    fallbackModel: AIModel.GPT5_MINI,
     sequentialThinking: false,
     contextThreshold: 60000,
     reasoningComplexity: ReasoningComplexity.HIGH,
@@ -352,7 +355,7 @@ const AGENT_MODEL_REGISTRY = {
 
   'pr-manager': {
     primaryModel: AIModel.GEMINI_FLASH,
-    fallbackModel: AIModel.GPT5,
+    fallbackModel: AIModel.GPT5_MINI,
     sequentialThinking: true,
     contextThreshold: 35000,
     reasoningComplexity: ReasoningComplexity.LOW,
@@ -363,7 +366,7 @@ const AGENT_MODEL_REGISTRY = {
 
   'issue-tracker': {
     primaryModel: AIModel.GEMINI_FLASH,
-    fallbackModel: AIModel.GPT5,
+    fallbackModel: AIModel.GPT5_MINI,
     sequentialThinking: true,
     contextThreshold: 25000,
     reasoningComplexity: ReasoningComplexity.LOW,
@@ -384,21 +387,21 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   // =============================================================================
-  // SPECIALIZED GITHUB INTEGRATION → GPT-5 CODEX (NATIVE GITHUB INTEGRATION)
+  // SPECIALIZED GITHUB INTEGRATION → GPT-5 (WITH GITHUB COPILOT)
   // =============================================================================
   'github-modes': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.GEMINI_FLASH,
     sequentialThinking: false,
     contextThreshold: 40000,
     reasoningComplexity: ReasoningComplexity.MEDIUM,
     capabilities: ['github_integration', 'repository_management', 'workflow_automation'],
     mcpServers: ['claude-flow', 'memory', 'github'],
-    rationale: 'Comprehensive GitHub integration with native Codex capabilities'
+    rationale: 'Comprehensive GitHub integration with GPT-5 and GitHub Copilot'
   },
 
   'workflow-automation': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_SONNET,
     sequentialThinking: false,
     contextThreshold: 45000,
@@ -409,7 +412,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'code-review-swarm': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_OPUS,
     sequentialThinking: false,
     contextThreshold: 60000,
@@ -481,7 +484,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'release-manager': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_SONNET,
     sequentialThinking: false,
     contextThreshold: 60000,
@@ -514,7 +517,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'multi-repo-swarm': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.GEMINI_PRO,
     sequentialThinking: false,
     contextThreshold: 100000,
@@ -536,7 +539,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'base-template-generator': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.GEMINI_PRO,
     sequentialThinking: false,
     contextThreshold: 70000,
@@ -547,10 +550,10 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   // =============================================================================
-  // DESKTOP AUTOMATION AGENTS → GPT-5 CODEX + DESKTOP AUTOMATION
+  // DESKTOP AUTOMATION AGENTS → GPT-5 + DESKTOP AUTOMATION
   // =============================================================================
   'desktop-automator': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_OPUS,
     sequentialThinking: false,
     contextThreshold: 80000,
@@ -561,7 +564,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'ui-tester': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_OPUS,
     sequentialThinking: false,
     contextThreshold: 70000,
@@ -572,7 +575,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'app-integration-tester': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.CLAUDE_OPUS,
     sequentialThinking: false,
     contextThreshold: 90000,
@@ -594,7 +597,7 @@ const AGENT_MODEL_REGISTRY = {
   },
 
   'desktop-workflow-automator': {
-    primaryModel: AIModel.GPT5_CODEX,
+    primaryModel: AIModel.GPT5,
     fallbackModel: AIModel.GEMINI_PRO,
     sequentialThinking: true,
     contextThreshold: 75000,

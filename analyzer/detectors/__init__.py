@@ -14,15 +14,21 @@ from .timing_detector import TimingDetector
 from .convention_detector import ConventionDetector
 from .values_detector import ValuesDetector
 from .execution_detector import ExecutionDetector
+from .enhanced_algorithm_detector import detect_algorithm_violations
+from .enhanced_execution_detector import detect_execution_violations
+from .enhanced_timing_detector import detect_timing_violations
 
 __all__ = [
     "DetectorBase",
-    "PositionDetector", 
+    "PositionDetector",
     "MagicLiteralDetector",
     "AlgorithmDetector",
     "GodObjectDetector",
     "TimingDetector",
     "ConventionDetector",
     "ValuesDetector",
-    "ExecutionDetector"
+    "ExecutionDetector",
+    "detect_algorithm_violations",
+    "detect_execution_violations",
+    "detect_timing_violations"
 ]

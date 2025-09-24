@@ -1,0 +1,40 @@
+{
+  "movedToRealtor": [],
+  "stayedInSpek": [
+    {
+      "path": ".claude-flow/metrics/performance.json",
+      "reason": "SPEK system file"
+    },
+    {
+      "path": ".claude-flow/metrics/task-metrics.json",
+      "reason": "SPEK system file"
+    },
+    {
+      "path": "docs/REAL-SWARM-IMPLEMENTATION-EVIDENCE.md",
+      "reason": "SPEK system file"
+    },
+    {
+      "path": "package-lock.json",
+      "reason": "SPEK system file"
+    },
+    {
+      "path": "package.json",
+      "reason": "SPEK system file"
+    },
+    {
+      "path": "src/flow/core/agent-spawner.js",
+      "reason": "SPEK system file"
+    },
+    {
+      "path": "staged-files.txt",
+      "reason": "SPEK system file"
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "totalFiles": 169,
+    "movedFiles": 0,
+    "systemFiles": 7,
+    "errors": 0
+  }
+}

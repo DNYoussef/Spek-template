@@ -1,0 +1,98 @@
+{
+  "total_god_objects": 655,
+  "critical_count": 0,
+  "high_count": 0,
+  "god_objects": [
+    {
+      "file": "analyzer\\analysis_orchestrator.py",
+      "line": 44,
+      "severity": "critical",
+      "description": "Class 'AnalysisOrchestrator' is a God Object (config context): Very low cohesion (0.12)"
+    },
+    {
+      "file": "analyzer\\bridge.py",
+      "line": 16,
+      "severity": "critical",
+      "description": "Class 'AnalyzerBridge' is a God Object (business_logic context): Low cohesion (0.54) in business logic class"
+    },
+    {
+      "file": "analyzer\\component_integrator.py",
+      "line": 29,
+      "severity": "critical",
+      "description": "Class 'StreamingIntegrator' is a God Object (business_logic context): Low cohesion (0.10) in business logic class"
+    },
+    {
+      "file": "analyzer\\component_integrator.py",
+      "line": 256,
+      "severity": "critical",
+      "description": "Class 'PerformanceIntegrator' is a God Object (config context): Very low cohesion (0.10)"
+    },
+    {
+      "file": "analyzer\\component_integrator.py",
+      "line": 485,
+      "severity": "critical",
+      "description": "Class 'ArchitectureIntegrator' is a God Object (unknown context): Very low cohesion (0.10)"
+    },
+    {
+      "file": "analyzer\\component_integrator.py",
+      "line": 716,
+      "severity": "critical",
+      "description": "Class 'UnifiedComponentIntegrator' is a God Object (config context): Very low cohesion (0.20)"
+    },
+    {
+      "file": "analyzer\\comprehensive_analysis_engine.py",
+      "line": 52,
+      "severity": "critical",
+      "description": "Class 'ComprehensiveAnalysisEngine' is a God Object (business_logic context): Method count (31) exceeds business_logic threshold (15); Low cohesion (0"
+    },
+    {
+      "file": "analyzer\\configuration_manager.py",
+      "line": 21,
+      "severity": "critical",
+      "description": "Class 'AnalysisConfigurationManager' is a God Object (config context): Very low cohesion (0.23)"
+    },
+    {
+      "file": "analyzer\\connascence_analyzer.py",
+      "line": 24,
+      "severity": "critical",
+      "description": "Class 'ConnascenceAnalyzer' is a God Object (unknown context): Very low cohesion (0.27)"
+    },
+    {
+      "file": "analyzer\\consolidated_analyzer.py",
+      "line": 41,
+      "severity": "critical",
+      "description": "Class 'ConsolidatedConnascenceAnalyzer' is a God Object (business_logic context): Low cohesion (0.10) in business logic class"
+    },
+    {
+      "file": "analyzer\\context_analyzer.py",
+      "line": 76,
+      "severity": "critical",
+      "description": "Class 'ContextAnalyzer' is a God Object (config context): Very low cohesion (0.12)"
+    },
+    {
+      "file": "analyzer\\cross_phase_learning_integration.py",
+      "line": 76,
+      "severity": "critical",
+      "description": "Class 'PatternClassifier' is a God Object (business_logic context): Low cohesion (0.50) in business logic class"
+    },
+    {
+      "file": "analyzer\\cross_phase_learning_integration.py",
+      "line": 267,
+      "severity": "critical",
+      "description": "Class 'OptimizationRecommendationEngine' is a God Object (business_logic context): Low cohesion (0.47) in business logic class"
+    },
+    {
+      "file": "analyzer\\cross_phase_learning_integration.py",
+      "line": 644,
+      "severity": "critical",
+      "description": "Class 'CrossPhaseLearningIntegration' is a God Object (config context): Very low cohesion (0.10)"
+    },
+    {
+      "file": "analyzer\\cross_phase_security_validator.py",
+      "line": 98,
+      "severity": "critical",
+      "description": "Class 'NASAPot10Validator' is a God Object (unknown context): Very low cohesion (0.16)"
+    }
+  ],
+  "summary": "655 God Object violation(s) detected"
+}

@@ -1,0 +1,433 @@
+{
+  "threshold": 10,
+  "total_violations": 34,
+  "violations": [
+    {
+      "file": "analyzer\\github_analyzer_runner.py",
+      "function": "run_reality_analyzer",
+      "line": 40,
+      "complexity": 45,
+      "excess": 35,
+      "suggestions": [
+        "Extract method: 23 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 8 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 8 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)",
+        "Consider Strategy Pattern: Use polymorphism to replace complex conditionals"
+      ]
+    },
+    {
+      "file": "analyzer\\github_analyzer_runner.py",
+      "function": "detect_violations",
+      "line": 55,
+      "complexity": 38,
+      "excess": 28,
+      "suggestions": [
+        "Extract method: 18 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 7 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 8 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)",
+        "Consider Strategy Pattern: Use polymorphism to replace complex conditionals"
+      ]
+    },
+    {
+      "file": "analyzer\\component_integrator.py",
+      "function": "initialize",
+      "line": 41,
+      "complexity": 25,
+      "excess": 15,
+      "suggestions": [
+        "Extract method: 12 if statements - consider extracting validation logic to separate methods",
+        "Error handling: 6 try/except blocks - consider using error handler class",
+        "Reduce nesting: max depth 4 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)",
+        "Consider Strategy Pattern: Use polymorphism to replace complex conditionals"
+      ]
+    },
+    {
+      "file": "analyzer\\context_analyzer.py",
+      "function": "_classify_class_context",
+      "line": 197,
+      "complexity": 22,
+      "excess": 12,
+      "suggestions": [
+        "Extract method: 12 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 7 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 6 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)",
+        "Consider Strategy Pattern: Use polymorphism to replace complex conditionals"
+      ]
+    },
+    {
+      "file": "analyzer\\context_analyzer.py",
+      "function": "_assess_god_object_with_context",
+      "line": 496,
+      "complexity": 22,
+      "excess": 12,
+      "suggestions": [
+        "Extract method: 15 if statements - consider extracting validation logic to separate methods",
+        "Reduce nesting: max depth 6 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)",
+        "Consider Strategy Pattern: Use polymorphism to replace complex conditionals"
+      ]
+    },
+    {
+      "file": "analyzer\\nasa_compliance_calculator.py",
+      "function": "calculate_compliance",
+      "line": 92,
+      "complexity": 19,
+      "excess": 9,
+      "suggestions": [
+        "Extract method: 12 if statements - consider extracting validation logic to separate methods",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)",
+        "Consider Strategy Pattern: Use polymorphism to replace complex conditionals"
+      ]
+    },
+    {
+      "file": "analyzer\\context_analyzer.py",
+      "function": "_identify_method_responsibilities",
+      "line": 357,
+      "complexity": 16,
+      "excess": 6,
+      "suggestions": [
+        "Extract method: 14 if statements - consider extracting validation logic to separate methods",
+        "Reduce nesting: max depth 7 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)",
+        "Consider Strategy Pattern: Use polymorphism to replace complex conditionals"
+      ]
+    },
+    {
+      "file": "analyzer\\context_analyzer.py",
+      "function": "_generate_recommendations",
+      "line": 552,
+      "complexity": 16,
+      "excess": 6,
+      "suggestions": [
+        "Extract method: 15 if statements - consider extracting validation logic to separate methods",
+        "Reduce nesting: max depth 6 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)",
+        "Consider Strategy Pattern: Use polymorphism to replace complex conditionals"
+      ]
+    },
+    {
+      "file": "analyzer\\violation_remediation.py",
+      "function": "_matches_pattern",
+      "line": 126,
+      "complexity": 16,
+      "excess": 6,
+      "suggestions": [
+        "Extract method: 13 if statements - consider extracting validation logic to separate methods",
+        "Reduce nesting: max depth 7 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)",
+        "Consider Strategy Pattern: Use polymorphism to replace complex conditionals"
+      ]
+    },
+    {
+      "file": "analyzer\\analysis_orchestrator.py",
+      "function": "_get_detector_class",
+      "line": 378,
+      "complexity": 14,
+      "excess": 4,
+      "suggestions": [
+        "Extract method: 5 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 2 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 4 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\consolidated_analyzer.py",
+      "function": "_detect_basic_violations",
+      "line": 206,
+      "complexity": 14,
+      "excess": 4,
+      "suggestions": [
+        "Extract method: 10 if statements - consider extracting validation logic to separate methods",
+        "Reduce nesting: max depth 5 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\smart_integration_engine.py",
+      "function": "_find_file_level_correlations",
+      "line": 118,
+      "complexity": 14,
+      "excess": 4,
+      "suggestions": [
+        "Extract method: 7 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 4 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 5 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\component_integrator.py",
+      "function": "initialize",
+      "line": 269,
+      "complexity": 13,
+      "excess": 3,
+      "suggestions": [
+        "Extract method: 5 if statements - consider extracting validation logic to separate methods",
+        "Error handling: 7 try/except blocks - consider using error handler class",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\component_integrator.py",
+      "function": "initialize",
+      "line": 496,
+      "complexity": 13,
+      "excess": 3,
+      "suggestions": [
+        "Extract method: 5 if statements - consider extracting validation logic to separate methods",
+        "Error handling: 6 try/except blocks - consider using error handler class",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\duplication_unified.py",
+      "function": "_normalize_algorithm_pattern",
+      "line": 379,
+      "complexity": 13,
+      "excess": 3,
+      "suggestions": [
+        "Extract method: 11 if statements - consider extracting validation logic to separate methods",
+        "Reduce nesting: max depth 9 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\enhanced_github_analyzer.py",
+      "function": "detect_violations",
+      "line": 48,
+      "complexity": 13,
+      "excess": 3,
+      "suggestions": [
+        "Extract method: 6 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 3 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 4 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\github_analyzer_runner.py",
+      "function": "main",
+      "line": 321,
+      "complexity": 13,
+      "excess": 3,
+      "suggestions": [
+        "Extract method: 6 if statements - consider extracting validation logic to separate methods",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\language_strategies.py",
+      "function": "validate_implementation_completeness",
+      "line": 356,
+      "complexity": 13,
+      "excess": 3,
+      "suggestions": [
+        "Extract method: 6 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 5 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 5 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\unified_analyzer_god_object_backup.py",
+      "function": "_run_tree_sitter_nasa_analysis",
+      "line": 1007,
+      "complexity": 13,
+      "excess": 3,
+      "suggestions": [
+        "Extract method: 4 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 3 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 7 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\unified_analyzer_god_object_backup.py",
+      "function": "_run_nasa_analysis",
+      "line": 1201,
+      "complexity": 13,
+      "excess": 3,
+      "suggestions": [
+        "Extract method: 6 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 3 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 6 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\consolidated_analyzer.py",
+      "function": "_analyze_file",
+      "line": 104,
+      "complexity": 12,
+      "excess": 2,
+      "suggestions": [
+        "Extract method: 6 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 2 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 4 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\cross_phase_learning_integration.py",
+      "function": "_determine_pattern_type",
+      "line": 139,
+      "complexity": 12,
+      "excess": 2,
+      "suggestions": [
+        "Extract method: 6 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 5 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 5 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\duplication_unified.py",
+      "function": "_run_algorithm_analysis",
+      "line": 291,
+      "complexity": 12,
+      "excess": 2,
+      "suggestions": [
+        "Extract method: 5 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 3 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 4 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\formal_grammar.py",
+      "function": "_calculate_severity",
+      "line": 500,
+      "complexity": 12,
+      "excess": 2,
+      "suggestions": [
+        "Extract method: 8 if statements - consider extracting validation logic to separate methods",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\integration_methods.py",
+      "function": "_analyze_file_legacy",
+      "line": 163,
+      "complexity": 12,
+      "excess": 2,
+      "suggestions": [
+        "Extract method: 6 if statements - consider extracting validation logic to separate methods",
+        "Reduce nesting: max depth 6 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\real_unified_analyzer.py",
+      "function": "_analyze_ast",
+      "line": 89,
+      "complexity": 12,
+      "excess": 2,
+      "suggestions": [
+        "Extract method: 7 if statements - consider extracting validation logic to separate methods",
+        "Reduce nesting: max depth 4 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\unified_analyzer_god_object_backup.py",
+      "function": "_create_fallback_file_cache",
+      "line": 607,
+      "complexity": 12,
+      "excess": 2,
+      "suggestions": [
+        "Extract method: 6 if statements - consider extracting validation logic to separate methods",
+        "Error handling: 4 try/except blocks - consider using error handler class",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\unified_analyzer_god_object_backup.py",
+      "function": "_run_refactored_analysis",
+      "line": 864,
+      "complexity": 12,
+      "excess": 2,
+      "suggestions": [
+        "Extract method: 7 if statements - consider extracting validation logic to separate methods",
+        "Reduce nesting: max depth 5 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\unified_analyzer_god_object_backup.py",
+      "function": "_run_ast_optimizer_analysis",
+      "line": 921,
+      "complexity": 12,
+      "excess": 2,
+      "suggestions": [
+        "Extract method: 4 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 3 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 5 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\unified_memory_model.py",
+      "function": "_identify_optimization_opportunities",
+      "line": 673,
+      "complexity": 12,
+      "excess": 2,
+      "suggestions": [
+        "Extract method: 8 if statements - consider extracting validation logic to separate methods",
+        "Reduce nesting: max depth 4 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\github_status_reporter.py",
+      "function": "main",
+      "line": 290,
+      "complexity": 11,
+      "excess": 1,
+      "suggestions": [
+        "Extract method: 9 if statements - consider extracting validation logic to separate methods",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\language_strategies.py",
+      "function": "analyze_python_specific_patterns",
+      "line": 644,
+      "complexity": 11,
+      "excess": 1,
+      "suggestions": [
+        "Extract method: 4 if statements - consider extracting validation logic to separate methods",
+        "Reduce nesting: max depth 4 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\nasa_compliance_calculator.py",
+      "function": "_generate_recommendations",
+      "line": 196,
+      "complexity": 11,
+      "excess": 1,
+      "suggestions": [
+        "Extract method: 10 if statements - consider extracting validation logic to separate methods",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    },
+    {
+      "file": "analyzer\\unified_analyzer_god_object_backup.py",
+      "function": "_run_dedicated_nasa_analysis",
+      "line": 1077,
+      "complexity": 11,
+      "excess": 1,
+      "suggestions": [
+        "Extract method: 5 if statements - consider extracting validation logic to separate methods",
+        "Extract loops: 2 loops - consider extracting loop bodies to helper methods",
+        "Reduce nesting: max depth 6 - use guard clauses (early returns) to reduce nesting",
+        "Apply Extract Method refactoring: Break into smaller functions (<= 10 complexity each)"
+      ]
+    }
+  ]
+}

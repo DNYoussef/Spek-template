@@ -178,11 +178,11 @@ See [docs/3-LOOP-SYSTEM.md](docs/3-LOOP-SYSTEM.md) for complete documentation.
 
 ### **Specialized Agent Categories (85+ Total with Optimal AI Models)**
 
-#### **Browser Automation & Visual (GPT-5 Codex)**
-- `frontend-developer` → Codex + [claude-flow, memory, github, playwright, figma]
-- `ui-designer` → Codex + [claude-flow, memory, playwright, figma, puppeteer]
-- `mobile-dev` → Codex + [claude-flow, memory, github, playwright, puppeteer]
-- `rapid-prototyper` → Codex + [claude-flow, memory, playwright, figma]
+#### **Browser Automation & Visual (GPT-5 + Codex CLI)**
+- `frontend-developer` → GPT-5 + [claude-flow, memory, github, playwright, figma]
+- `ui-designer` → GPT-5 + [claude-flow, memory, playwright, figma, puppeteer]
+- `mobile-dev` → GPT-5 + [claude-flow, memory, github, playwright, puppeteer]
+- `rapid-prototyper` → GPT-5 + [claude-flow, memory, playwright, figma]
 
 #### **Large Context & Research (Gemini 2.5 Pro - 1M tokens)**
 - `researcher` → Gemini Pro + [claude-flow, memory, deepwiki, firecrawl, ref, context7]
@@ -219,7 +219,7 @@ await agentSpawner.spawnAgent(
   'frontend-developer',
   'Create responsive UI with screenshots'
 );
-// Auto-assigns: GPT-5 Codex + [playwright, figma, ...]
+// Auto-assigns: GPT-5 + [playwright, figma, ...] with Codex CLI tool
 
 // Research agent → Gets Gemini Pro + research MCP servers
 await agentSpawner.spawnAgent(
@@ -341,7 +341,7 @@ const result = modelSelector.selectModel('frontend-developer', {
 ```
 
 ### **Model Distribution Across 85+ Agents**
-- **GPT-5 Codex**: 25 agents (browser automation, GitHub, autonomous coding)
+- **GPT-5**: 25 agents (browser automation, GitHub, autonomous coding via Codex CLI)
 - **Gemini 2.5 Pro**: 18 agents (large context research, architecture)
 - **Claude Opus 4.1**: 12 agents (quality analysis, security, testing)
 - **Claude Sonnet 4**: 15 agents (coordination with sequential thinking)
@@ -496,7 +496,7 @@ const result = modelSelector.selectModel('frontend-developer', {
 - **MCP Servers enhance** → Specialized capabilities
 
 ### **Quick Model Selection Guide**
-- **Need browser automation?** → GPT-5 Codex + playwright/puppeteer
+- **Need browser automation?** → GPT-5 + Codex CLI + playwright/puppeteer
 - **Need large context?** → Gemini 2.5 Pro + deepwiki/firecrawl
 - **Need quality analysis?** → Claude Opus 4.1 + eva
 - **Need coordination?** → Claude Sonnet 4 + sequential-thinking

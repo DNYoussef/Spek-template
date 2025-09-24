@@ -1,0 +1,88 @@
+{
+  "timestamp": "2025-09-23T00:00:00Z",
+  "nasa_rule": "Rule 3: Function Size <= 60 lines",
+  "files_analyzed": 3,
+  "total_violations": 10,
+  "files": {
+    "analyzer/enterprise/validation/EnterprisePerformanceValidator.py": {
+      "violation_count": 7,
+      "functions": [
+        {
+          "name": "_validate_concurrency",
+          "start": 404,
+          "end": 513,
+          "size": 110,
+          "indent": 4
+        },
+        {
+          "name": "_validate_ml_optimization",
+          "start": 871,
+          "end": 975,
+          "size": 105,
+          "indent": 4
+        },
+        {
+          "name": "_validate_memory_usage",
+          "start": 640,
+          "end": 734,
+          "size": 95,
+          "indent": 4
+        },
+        {
+          "name": "_validate_performance_overhead",
+          "start": 550,
+          "end": 639,
+          "size": 90,
+          "indent": 4
+        },
+        {
+          "name": "_validate_integration_framework",
+          "start": 735,
+          "end": 823,
+          "size": 89,
+          "indent": 4
+        },
+        {
+          "name": "run_comprehensive_validation",
+          "start": 319,
+          "end": 403,
+          "size": 85,
+          "indent": 4
+        },
+        {
+          "name": "_generate_validation_recommendations",
+          "start": 1032,
+          "end": 1101,
+          "size": 70,
+          "indent": 4
+        }
+      ]
+    },
+    "analyzer/enterprise/integration/EnterpriseIntegrationFramework.py": {
+      "violation_count": 3,
+      "functions": [
+        {
+          "name": "check_quality_metrics",
+          "start": 411,
+          "end": 491,
+          "size": 81,
+          "indent": 4
+        },
+        {
+          "name": "check_performance_metrics",
+          "start": 492,
+          "end": 558,
+          "size": 67,
+          "indent": 4
+        },
+        {
+          "name": "get_optimization_recommendations",
+          "start": 303,
+          "end": 364,
+          "size": 62,
+          "indent": 4
+        }
+      ]
+    }
+  }
+}
