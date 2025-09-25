@@ -1,0 +1,4224 @@
+{
+  "total_files": 1400,
+  "files_with_errors": 526,
+  "valid_files": 874,
+  "error_rate": 37.57142857142857,
+  "categories": {
+    "other_syntax_errors": 128,
+    "missing_indentation": 28,
+    "invalid_literals": 68,
+    "bracket_errors": 18,
+    "unterminated_strings": 207,
+    "indentation_errors": 77
+  },
+  "all_errors": [
+    {
+      "file": "analyzer\\configuration_manager.py",
+      "error_type": "SyntaxError",
+      "message": "expected 'except' or 'finally' block",
+      "line": 53,
+      "column": 9,
+      "text": "return default_config"
+    },
+    {
+      "file": "analyzer\\core.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after function definition on line 80",
+      "line": 81,
+      "column": 5,
+      "text": "\"\"\"Create import statistics dictionary.\"\"\""
+    },
+    {
+      "file": "analyzer\\github_status_reporter.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 148,
+      "column": 45,
+      "text": "- **Analysis Time**: {result.analysis_time:.1f}s"
+    },
+    {
+      "file": "analyzer\\phase_correlation_storage.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 10,
+      "text": "Advanced persistent storage system for cross-phase memory correlations with"
+    },
+    {
+      "file": "analyzer\\policy_engine.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 68,
+      "column": 66,
+      "text": "overall_score = total_score / MAXIMUM_FUNCTION_PARAMETERS.0"
+    },
+    {
+      "file": "analyzer\\test_github_output.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 54,
+      "column": 118,
+      "text": "f\"MAXIMUM_NESTED_DEPTH high (got {result.high_count}), 82% NASA (got {result.nasa_compliance_score:.1%})\")"
+    },
+    {
+      "file": "analyzer\\unified_analyzer_god_object_backup.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 25)",
+      "line": 19,
+      "column": 1,
+      "text": "\"\"\""
+    },
+    {
+      "file": "scripts\\add_return_checks.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 311)",
+      "line": 234,
+      "column": 25,
+      "text": "\"\"\"Main entry point.\"\"\""
+    },
+    {
+      "file": "scripts\\complexity_reduction.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 261)",
+      "line": 201,
+      "column": 25,
+      "text": "\"\"\"Main entry point.\"\"\""
+    },
+    {
+      "file": "scripts\\comprehensive_test_runner.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 694,
+      "column": 86,
+      "text": "f\"estimated duration: {execution_plan.total_estimated_duration:.1f}s\")"
+    },
+    {
+      "file": "scripts\\deploy_real_queen_swarm.py",
+      "error_type": "IndentationError",
+      "message": "unindent does not match any outer indentation level",
+      "line": 114,
+      "column": 59,
+      "text": "def deploy_swarm(self, domain: str, tasks: List[str]):"
+    },
+    {
+      "file": "scripts\\dfars_compliance_fixer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 12,
+      "text": "Implements encryption for sensitive data and comprehensive audit trails."
+    },
+    {
+      "file": "scripts\\eliminate_theater.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 372)",
+      "line": 218,
+      "column": 1,
+      "text": "'''"
+    },
+    {
+      "file": "scripts\\execute_remediation_plan.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 453,
+      "column": 48,
+      "text": "Overall Progress: {report['overall_progress']:.1f}%"
+    },
+    {
+      "file": "scripts\\interface_segregator.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 9,
+      "text": "Applies the Interface Segregation Principle (ISP) to break down large interfaces"
+    },
+    {
+      "file": "scripts\\nasa_compliance_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 12,
+      "text": "Implements NASA POT10 rules enforcement:"
+    },
+    {
+      "file": "scripts\\performance_monitor.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 8,
+      "text": "return"
+    },
+    {
+      "file": "scripts\\phase_4_validation_demo.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 81,
+      "column": 28,
+      "text": "f\"({latest_metrics.hits} hits, {latest_metrics.misses} misses)\")"
+    },
+    {
+      "file": "scripts\\queen_debug_test_failures.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 352)",
+      "line": 312,
+      "column": 35,
+      "text": "\"\"\"Main orchestration flow\"\"\""
+    },
+    {
+      "file": "scripts\\replace_magic_numbers.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 140)",
+      "line": 140,
+      "column": 203,
+      "text": "def should_replace_i, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, SESSION_TIMEOUT_SECONDS, TAKE_PROFIT_PERCENTAGE, THEATER_DETECTION_FAILURE_THRESHOLDnstants import '), content)"
+    },
+    {
+      "file": "scripts\\run_nasa_compliance_validation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 349)",
+      "line": 247,
+      "column": 9,
+      "text": "\"\"\""
+    },
+    {
+      "file": "scripts\\run_performance_validation.py",
+      "error_type": "SyntaxError",
+      "message": "':' expected after dictionary key",
+      "line": 339,
+      "column": 105,
+      "text": "\"feature_flag_overhead_percent\": {\"warning\": 2.0, \"critical\": 3, MAXIMUM_NESTED_DEPTH},"
+    },
+    {
+      "file": "scripts\\security_compliance_auditor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 18,
+      "column": 22,
+      "text": "class SecurityComplia, QUALITY_GATE_MINIMUM_PASS_RATE, TAKE_PROFIT_PERCENTAGEnceAuditor:"
+    },
+    {
+      "file": "scripts\\security_dashboard_generator.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 673,
+      "column": 57,
+      "text": "body { font-family: Arial, sans-serif; margin: 20px; }"
+    },
+    {
+      "file": "scripts\\six_sigma_demo_simple.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 520)",
+      "line": 486,
+      "column": 35,
+      "text": "\"\"\"Main demonstration function\"\"\""
+    },
+    {
+      "file": "scripts\\unicode_eliminator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 502)",
+      "line": 131,
+      "column": 8,
+      "text": "''''''': \"'\","
+    },
+    {
+      "file": "scripts\\unicode_removal_linter.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 12,
+      "text": "\"\"\"Initialize unicode removal patterns and replacements.\"\"\"        # Common unicode to ASCII replacements        self.unicode_replacements = {"
+    },
+    {
+      "file": "scripts\\validate_performance_improvements.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 745)",
+      "line": 669,
+      "column": 52,
+      "text": "\"\"\"Main entry point for performance validation.\"\"\""
+    },
+    {
+      "file": "scripts\\validate_phase2_decomposition.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 478,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T16:20:0o0-0o4:0o0 | coder@Sonnet | Created Phase 2 validation script with comprehensive testing | validate_phase2_decomposition.py | OK | Complete validation framework | 0.0o7 | n9m0l1k |"
+    },
+    {
+      "file": "src\\wealth_flow_demo.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 17,
+      "column": 4,
+      "text": "Simple wealth flow tracking for Follow the Flow principle."
+    },
+    {
+      "file": "tests\\config_reality_check.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 201)",
+      "line": 173,
+      "column": 27,
+      "text": "\"\"\"Run reality checks.\"\"\""
+    },
+    {
+      "file": "tests\\phase1_functional_test.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 264)",
+      "line": 225,
+      "column": 52,
+      "text": "\"\"\"Run all functional tests and report results.\"\"\""
+    },
+    {
+      "file": "tests\\production_validation_test.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 137",
+      "line": 140,
+      "column": 9,
+      "text": "self.assertEqual(len(error_scenarios), 0,"
+    },
+    {
+      "file": "tests\\simple_test_runner.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 157)",
+      "line": 105,
+      "column": 43,
+      "text": "\"\"\"Run all tests and generate reports.\"\"\""
+    },
+    {
+      "file": "tests\\test_fixes.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 336)",
+      "line": 281,
+      "column": 33,
+      "text": "\"\"\"Run all validation tests.\"\"\""
+    },
+    {
+      "file": "tests\\test_kill_switch_integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 5,
+      "column": 30,
+      "text": "- Performance validation (<500ms)"
+    },
+    {
+      "file": "tests\\test_phase3_100_percent.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 15,
+      "text": "Comprehensive test suite to verify that ComponentIntegrator achieves 100% reality"
+    },
+    {
+      "file": "tests\\test_phase3_integration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 617)",
+      "line": 601,
+      "column": 59,
+      "text": "\"\"\"Run Phase MAXIMUM_RETRY_ATTEMPTS integration tests.\"\"\""
+    },
+    {
+      "file": "tests\\test_phase4_configuration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 194,
+      "column": 32,
+      "text": "'sigmaShift': 1.MAXIMUM_NESTED_DEPTH,"
+    },
+    {
+      "file": "tests\\test_phase4_config_wiring_reality.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 10,
+      "text": "CRITICAL TEST: Proves that detectors use REAL configuration values, not hardcoded defaults."
+    },
+    {
+      "file": "tests\\test_phase5_integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 4,
+      "column": 7,
+      "text": "Tests the complete integration of all analyzer components:"
+    },
+    {
+      "file": "tests\\test_utils.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 60,
+      "column": 34,
+      "text": "self.assertEqual(result, MAXIMUM_GOD_OBJECTS_ALLOWED.0)"
+    },
+    {
+      "file": "tests\\theater_detection_audit.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 677)",
+      "line": 627,
+      "column": 49,
+      "text": "\"\"\"Run the complete theater detection audit.\"\"\""
+    },
+    {
+      "file": "tests\\unified_test_orchestrator.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 25,
+      "column": 52,
+      "text": "estimated_duration: float = API_TIMEOUT_SECONDS.0  # seconds"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\configuration_manager.py",
+      "error_type": "SyntaxError",
+      "message": "expected 'except' or 'finally' block",
+      "line": 53,
+      "column": 9,
+      "text": "return default_config"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\core.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after function definition on line 80",
+      "line": 81,
+      "column": 5,
+      "text": "\"\"\"Create import statistics dictionary.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\cross_phase_learning_integration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1045)",
+      "line": 1036,
+      "column": 59,
+      "text": "\"\"\"Initialize cross-phase learning integration system.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\github_status_reporter.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 148,
+      "column": 45,
+      "text": "- **Analysis Time**: {result.analysis_time:.1f}s"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\language_strategies.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 54",
+      "line": 58,
+      "column": 9,
+      "text": "patterns = self.get_magic_literal_patterns()"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\phase_correlation_storage.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 10,
+      "text": "Advanced persistent storage system for cross-phase memory correlations with"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\policy_engine.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 445)",
+      "line": 428,
+      "column": 49,
+      "text": "\"\"\"Evaluate supply chain security gates.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\quality_calculator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 439)",
+      "line": 431,
+      "column": 50,
+      "text": "\"\"\"Extract component name from file path.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\refactored_detector.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 322)",
+      "line": 319,
+      "column": 50,
+      "text": "\"\"\"Get detector pool performance metrics.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\result_aggregator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 511)",
+      "line": 510,
+      "column": 57,
+      "text": "\"\"\"Check consistency of coverage across results.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\system_integration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 985)",
+      "line": 984,
+      "column": 46,
+      "text": "\"\"\"Context manager exit with cleanup.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\test_github_output.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 54,
+      "column": 118,
+      "text": "f\"MAXIMUM_NESTED_DEPTH high (got {result.high_count}), 82% NASA (got {result.nasa_compliance_score:.1%})\")"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\unified_analyzer_god_object_backup.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 5,
+      "column": 14,
+      "text": "Reduction: 16.DAYS_RETENTION_PERIOD% LOC reduction"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\add_return_checks.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 309)",
+      "line": 232,
+      "column": 25,
+      "text": "\"\"\"Main entry point.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\complexity_reduction.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 259)",
+      "line": 199,
+      "column": 25,
+      "text": "\"\"\"Main entry point.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\comprehensive_test_runner.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 864)",
+      "line": 814,
+      "column": 55,
+      "text": "\"\"\"Main entry point for comprehensive test runner.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\deploy_queen_loop3_real_failures.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 430)",
+      "line": 300,
+      "column": 77,
+      "text": "\"\"\"Generate comprehensive report for the real GitHub failures processed.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\deploy_real_queen_swarm.py",
+      "error_type": "IndentationError",
+      "message": "unindent does not match any outer indentation level",
+      "line": 114,
+      "column": 59,
+      "text": "def deploy_swarm(self, domain: str, tasks: List[str]):"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\dfars_compliance_fixer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 12,
+      "text": "Implements encryption for sensitive data and comprehensive audit trails."
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\doc_validator.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'if' statement on line 259",
+      "line": 262,
+      "column": 12,
+      "text": "except Exception as e:"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\eliminate_theater.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 369)",
+      "line": 333,
+      "column": 41,
+      "text": "\"\"\"Main theater elimination process.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\execute_remediation_plan.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 453,
+      "column": 48,
+      "text": "Overall Progress: {report['overall_progress']:.1f}%"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\github_integration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1457)",
+      "line": 1382,
+      "column": 45,
+      "text": "\"\"\"Main execution function for CLI usage\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\interface_segregator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 456)",
+      "line": 439,
+      "column": 25,
+      "text": "\"\"\"Main entry point.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\json_schema_migrator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 309)",
+      "line": 247,
+      "column": 62,
+      "text": "\"\"\"Migrate all JSON artifacts to standardized schema.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\nasa_compliance_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 12,
+      "text": "Implements NASA POT10 rules enforcement:"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\performance_monitor.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 8,
+      "text": "return"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\phase_4_validation_demo.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 81,
+      "column": 28,
+      "text": "f\"({latest_metrics.hits} hits, {latest_metrics.misses} misses)\")"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\production_deployment_validation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 777)",
+      "line": 736,
+      "column": 32,
+      "text": "\"\"\"Main execution function.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\quality_gate_integrator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 421)",
+      "line": 367,
+      "column": 27,
+      "text": "\"\"\"Main CLI interface.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\queen_debug_test_failures.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 350)",
+      "line": 310,
+      "column": 35,
+      "text": "\"\"\"Main orchestration flow\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\reality_audit_perfection.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'if' statement on line 108",
+      "line": 109,
+      "column": 5,
+      "text": "else:"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\replace_magic_numbers.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 138)",
+      "line": 138,
+      "column": 73,
+      "text": "content = re.sub(import_pattern, new_import.replace('from src.constants.base import \""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\run_nasa_compliance_validation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 349)",
+      "line": 247,
+      "column": 9,
+      "text": "\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\run_performance_validation.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 339,
+      "column": 84,
+      "text": "\"feature_flag_overhead_percent\": {\"warning\": 2.0, \"critical\": 3.MAXIMUM_NESTED_DEPTH},"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\security_compliance_auditor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 18,
+      "column": 22,
+      "text": "class SecurityComplia, QUALITY_GATE_MINIMUM_PASS_RATE, TAKE_PROFIT_PERCENTAGEnceAuditor:"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\security_dashboard_generator.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 673,
+      "column": 57,
+      "text": "body { font-family: Arial, sans-serif; margin: 20px; }"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\security_validator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 774)",
+      "line": 736,
+      "column": 47,
+      "text": "\"\"\"Main execution for security validation.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\six_sigma_demo_simple.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 518)",
+      "line": 484,
+      "column": 35,
+      "text": "\"\"\"Main demonstration function\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\unicode_eliminator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 501)",
+      "line": 130,
+      "column": 8,
+      "text": "''''''': \"'\","
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\unicode_removal_linter.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 12,
+      "text": "\"\"\"Initialize unicode removal patterns and replacements.\"\"\"        # Common unicode to ASCII replacements        self.unicode_replacements = {"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\validate_performance_improvements.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 745)",
+      "line": 669,
+      "column": 52,
+      "text": "\"\"\"Main entry point for performance validation.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\validate_phase2_decomposition.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 478,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T16:20:00-04:00 | coder@Sonnet | Created Phase 2 validation script with comprehensive testing | validate_phase2_decomposition.py | OK | Complete validation framework | 0.07 | n9m0l1k |"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\validate_theater_detection.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 773)",
+      "line": 715,
+      "column": 35,
+      "text": "\"\"\"Main validation entry point\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\wealth_flow_demo.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 216)",
+      "line": 141,
+      "column": 68,
+      "text": "\"\"\"Run demonstration of enhanced DPI with wealth flow tracking.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\config_reality_check.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 199)",
+      "line": 171,
+      "column": 27,
+      "text": "\"\"\"Run reality checks.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\phase1_functional_test.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 262)",
+      "line": 223,
+      "column": 52,
+      "text": "\"\"\"Run all functional tests and report results.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\production_validation_test.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 137",
+      "line": 140,
+      "column": 9,
+      "text": "self.assertEqual(len(error_scenarios), 0,"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\simple_kill_switch_test.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 221)",
+      "line": 181,
+      "column": 22,
+      "text": "\"\"\"Run all tests.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\simple_test_runner.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 155)",
+      "line": 103,
+      "column": 43,
+      "text": "\"\"\"Run all tests and generate reports.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_analyzer.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'else' statement on line 116",
+      "line": 118,
+      "column": 4,
+      "text": "except Exception as e:"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_fixes.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 334)",
+      "line": 279,
+      "column": 33,
+      "text": "\"\"\"Run all validation tests.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_kill_switch_integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 5,
+      "column": 30,
+      "text": "- Performance validation (<500ms)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_naming_standardization.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 74",
+      "line": 78,
+      "column": 13,
+      "text": "deprecation_warnings = [w for w in warning_list if issubclass(w.category, DeprecationWarning)]"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase3_100_percent.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 393)",
+      "line": 336,
+      "column": 50,
+      "text": "\"\"\"Run all tests and calculate reality score.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase3_integration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 615)",
+      "line": 599,
+      "column": 59,
+      "text": "\"\"\"Run Phase MAXIMUM_RETRY_ATTEMPTS integration tests.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase4_configuration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 472)",
+      "line": 408,
+      "column": 65,
+      "text": "\"\"\"Calculate overall configuration system reality score.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase4_config_wiring_reality.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 389)",
+      "line": 372,
+      "column": 37,
+      "text": "\"\"\"Main test execution function.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase5_integration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 283)",
+      "line": 269,
+      "column": 46,
+      "text": "\"\"\"A simple function with few parameters.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase5_sandbox_reality.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 320)",
+      "line": 244,
+      "column": 70,
+      "text": "\"\"\"Run comprehensive sandbox test to prove genuine functionality.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_utils.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 60,
+      "column": 34,
+      "text": "self.assertEqual(result, MAXIMUM_GOD_OBJECTS_ALLOWED.0)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\theater_detection_audit.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 677)",
+      "line": 627,
+      "column": 49,
+      "text": "\"\"\"Run the complete theater detection audit.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\unified_test_orchestrator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 678)",
+      "line": 677,
+      "column": 46,
+      "text": "\"\"\"Context manager exit with cleanup.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\artifact_manager.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 249,
+      "text": "r, Any]] = None) -> Optional[Dict[str, Any]]:        \"\"\"Main integration function for Phase 3 artifact generation\"\"\"        if not ENABLE_PHASE3_ARTIFACTS:            return None                manager = get_artifact_manager()            return manager.generate_all_artifacts(analysis_results, project_metadata, build_context)def get_phase3_status() -> Dict[str, Any]:        \"\"\"Get Phase 3 system status\"\"\"        manager = get_artifact_manager()        return manager.get_system_status()def cleanup_phase3_artifacts(retention_days: int = 30) -> Dict[str, Any]:        \"\"\"Cleanup old Phase 3 artifacts\"\"\"        manager = get_artifact_manager()        return manager.cleanup_old_artifacts(retention_days)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\dfars_compliance_framework.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 27,
+      "column": 4,
+      "text": "def scan_access_control_implementation(self) -> List[DFARSFinding]:"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\compliance\\compliance_packager.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 19,
+      "column": 4,
+      "text": "def is_soc2_enabled(self) -> bool:"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\connascence_detection_service.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 410,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T16:00:00-04:00 | coder@Sonnet | Extracted connascence detection service from loop orchestrator | connascence_detection_service.py | OK | Domain-driven design 280 LOC | 0.05 | k6j7i8h |"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\loop_orchestrator_facade.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 338,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T16:10:00-04:00 | coder@Sonnet | Created loop orchestrator facade with 4 domain services | loop_orchestrator_facade.py | OK | 51% LOC reduction, 100% API compatibility | 0.06 | l7k8j9i |"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\performance_measurement_service.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 196,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:35:00-04:00 | coder@Sonnet | Extracted performance measurement service from god object | performance_measurement_service.py | OK | Delegation pattern 250 LOC | 0.03 | f1e2d3c |"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\phase3_performance_validator_facade.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 282,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:55:00-04:00 | coder@Sonnet | Created backward-compatible facade for decomposed god object | phase3_performance_validator_facade.py | OK | 100% API compatibility, 45% LOC reduction | 0.05 | j5i6h7g |"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\reporting_service.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 323,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:50:00-04:00 | coder@Sonnet | Extracted reporting service from god object | reporting_service.py | OK | Delegation pattern 180 LOC | 0.04 | i4h5g6f |"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\sandbox_management_service.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 248,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:45:00-04:00 | coder@Sonnet | Extracted sandbox management service from god object | sandbox_management_service.py | OK | Delegation pattern 200 LOC | 0.03 | h3g4f5e |"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\validation_execution_service.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 287,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:40:00-04:00 | coder@Sonnet | Extracted validation execution service from god object | validation_execution_service.py | OK | Delegation pattern 250 LOC | 0.04 | g2f3e4d |"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\cache_performance_profiler_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 35,
+      "column": 4,
+      "text": "def hit_rate(self) -> float:"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\core_core.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 13,
+      "column": 4,
+      "text": "class EnhancedMockImportResult:"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\core_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 85,
+      "column": 8,
+      "text": "def __init__(self, has_module=True, module=None, error=None):"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\core_validation.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 28,
+      "column": 8,
+      "text": "def validate_policy_name(self, policy_name):"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\cross_phase_learning_integration_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 17,
+      "column": 4,
+      "text": "def __init__(self):"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_configuration.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 15,
+      "column": 12,
+      "text": "class MockConfigManager:"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 36,
+      "column": 4,
+      "text": "def __init__(self):"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\defense_industry_evidence_generator_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 18,
+      "column": 4,
+      "text": "def __init__(self, project_root: str = None):"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\enterprise_theater_detection_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 18,
+      "column": 4,
+      "text": "def __init__(self, project_root: str = None):"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\failure_pattern_detector_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 32,
+      "column": 4,
+      "text": "def __init__(self, config: Dict[str, Any] = None):"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\loop_orchestrator_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 33,
+      "column": 4,
+      "text": "def __init__(self):"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\queen_coordinator_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 16,
+      "column": 4,
+      "text": "def __init__(self):"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\coordination\\adaptive\\agent_deployment_protocol.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.coordinator = coordinator"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\performance\\baselines\\baseline_collector.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.project_root = project_root or os.getcwd()"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\performance\\monitoring\\realtime_monitor.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.monitoring_interval = monitoring_interval"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\performance\\validation\\theater_detector.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.validation_history: List[ValidationResult] = []"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\analysis_executor.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after function definition on line 274",
+      "line": 275,
+      "column": 5,
+      "text": "\"\"\"Factory function to create analysis executor.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\analysis_strategy.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 353)",
+      "line": 348,
+      "column": 39,
+      "text": "\"\"\"Register new strategy type.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\detector_pool.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 294)",
+      "line": 294,
+      "column": 49,
+      "text": "Handle cases where some detectors couldn't be acquired."
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\orchestrator.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 555,
+      "column": 12,
+      "text": "architectural_metrics = self._calculate_architectural_metrics(violations_result)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\refactoring_audit_report.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 856)",
+      "line": 856,
+      "column": 44,
+      "text": "if '\"\"\"' in content or \"'''\" in content:"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\report_generator.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 141,
+      "column": 58,
+      "text": "body {{ font-family: Arial, sans-serif; margin: 40px; }}"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\detectors\\connascence_ast_analyzer.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 211",
+      "line": 214,
+      "column": 8,
+      "text": "return {"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\defense_certification_tool.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 686)",
+      "line": 633,
+      "column": 32,
+      "text": "\"\"\"Main execution function.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\nasa_pot10_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 753)",
+      "line": 689,
+      "column": 32,
+      "text": "\"\"\"Main execution function.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\validation_reporting_system.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 241,
+      "column": 100,
+      "text": "body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }}"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\integrations\\tool_coordinator.py",
+      "error_type": "SyntaxError",
+      "message": "closing parenthesis '}' does not match opening parenthesis '('",
+      "line": 4,
+      "column": 115,
+      "text": "\"\"\"Create real duplication analyzer.\"\"\"class RealDuplicationAnalyzer:    def analyze_files(self, files}:"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\optimization\\incremental_analyzer.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'if' statement on line 576",
+      "line": 579,
+      "column": 16,
+      "text": "self.dependency_graph[relative_path] = {"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\optimization\\resource_manager.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 672)",
+      "line": 665,
+      "column": 44,
+      "text": "\"\"\"Shutdown global resource management.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\optimization\\unified_visitor.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 363)",
+      "line": 360,
+      "column": 38,
+      "text": "\"\"\"Get line content for node.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\cache_optimization_validator.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after function definition on line 674",
+      "line": 675,
+      "column": 5,
+      "text": "\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\cache_performance_profiler.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1091)",
+      "line": 1063,
+      "column": 63,
+      "text": "\"\"\"High-level function to run complete cache optimization.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\ci_cd_accelerator.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 8,
+      "text": "return optimized_batches"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\detector_pool_optimizer.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 897)",
+      "line": 873,
+      "column": 65,
+      "text": "\"\"\"Run comprehensive detector pool performance optimization.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\incremental_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1073)",
+      "line": 1035,
+      "column": 5,
+      "text": "\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\real_cache_optimization_validator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 867)",
+      "line": 818,
+      "column": 64,
+      "text": "\"\"\"Main entry point for REAL cache optimization validation.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\real_file_profiler.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 205",
+      "line": 208,
+      "column": 20,
+      "text": "self.detector_pool.release_all_detectors(detectors)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\real_time_monitor.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 992)",
+      "line": 961,
+      "column": 48,
+      "text": "\"\"\"Example alert handler for demonstration.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\result_aggregation_profiler.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 15,
+      "text": "Comprehensive performance benchmarking and optimization analysis for distributed"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\thread_contention_profiler.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 767)",
+      "line": 731,
+      "column": 69,
+      "text": "\"\"\"Generate specific detector pool optimization recommendations.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\unified_visitor_profiler.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after function definition on line 646",
+      "line": 647,
+      "column": 5,
+      "text": "\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\streaming\\dashboard_reporter.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 603)",
+      "line": 601,
+      "column": 56,
+      "text": "\"\"\"Add metrics sample to global dashboard reporter.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\streaming\\incremental_cache.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 595)",
+      "line": 588,
+      "column": 39,
+      "text": "\"\"\"Clear global incremental cache.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\streaming\\stream_processor.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after function definition on line 927",
+      "line": 928,
+      "column": 5,
+      "text": "\"\"\"Factory function to create configured stream processor.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\utils\\config_manager.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 621)",
+      "line": 620,
+      "column": 50,
+      "text": "\"\"\"Convenience function to get quality gates.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\utils\\error_handling.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after function definition on line 314",
+      "line": 320,
+      "column": 5,
+      "text": "\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\utils\\intelligent_magic_number_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 111)",
+      "line": 111,
+      "column": 67,
+      "text": "\"\"\"Analyze a number in its code context to determine if it's meaningful.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\utils\\metric_calculators.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 145)",
+      "line": 125,
+      "column": 5,
+      "text": "\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\audit_trail.py",
+      "error_type": "IndentationError",
+      "message": "unindent does not match any outer indentation level",
+      "line": 43,
+      "column": 63,
+      "text": "self.audit_log_path.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\core.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 16,
+      "column": 4,
+      "text": "self.collectors = {}"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\integration.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 16,
+      "column": 4,
+      "text": "async def register_analyzers(self, analyzer_registry):"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\iso27001.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 29,
+      "column": 4,
+      "text": "self.iso_controls = self._initialize_iso27001_controls()"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\reporting.py",
+      "error_type": "SyntaxError",
+      "message": "closing parenthesis ')' does not match opening parenthesis '{'",
+      "line": 45,
+      "column": 63,
+      "text": "- **Compliance Score**: {{ framework.overall_score)}% ({{ framework.compliance_level}}}"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\soc2.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 23,
+      "column": 8,
+      "text": "self.evidence_artifacts: List[SOC2Evidence] = []"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\validate_retention.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 486)",
+      "line": 461,
+      "column": 187,
+      "text": "\"\"\"Command-line interface for retention validation\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\core\\decorators.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 358)",
+      "line": 357,
+      "column": 64,
+      "text": "\"\"\"Get performance metrics for all enterprise features.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\core\\performance_monitor.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 393)",
+      "line": 363,
+      "column": 62,
+      "text": "\"\"\"Generate performance optimization recommendations.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\detector\\EnterpriseDetectorPool.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 12,
+      "text": "\"\"\"Initialize FIPS 140-2 compliant encryption key.\"\"\"        try:"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\detectors\\dfars_detector_simple.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 301)",
+      "line": 219,
+      "column": 5,
+      "text": "\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\integration\\EnterpriseIntegrationFramework.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 12,
+      "text": "\"\"\"Add notification channel for alerts.\"\"\"        result = self.notification_channels.append(channel_func)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\performance\\MLCacheOptimizer.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 8,
+      "text": "@dataclass"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\supply_chain\\config_loader.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 288,
+      "column": 38,
+      "text": "'baseline_duration': MAXIMUM_FUNCTION_PARAMETERS.0,"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\supply_chain\\integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 31,
+      "column": 76,
+      "text": "self.baseline_duration = self.perf_config.get('baseline_duration', MAXIMUM_FUNCTION_PARAMETERS.0)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\supply_chain\\vulnerability_scanner.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 41,
+      "column": 50,
+      "text": "'high': config.get('high_threshold', DAYS_RETENTION_PERIOD.0),"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\validation\\EnterprisePerformanceValidator.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 8,
+      "text": "async def run_enterprise_analysis(*args, **kwargs): return {\"status\": \"mock\"}        async def run_enterprise_integrated_analysis(*args, **kwargs): return {\"status\": \"mock\"}    def create_detection_request(*args, **kwargs): return type('Request', (), {'request_id': str(uuid.uuid4())})()"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\iso27001\\compliance_assessor.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 488,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created ISO27001 compliance assessor module | compliance_assessor.py | OK | Assessment and gap analysis extracted | 0.00 | f7e8b1a |"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\iso27001\\control_definitions.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 279,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created ISO27001 control definitions module | control_definitions.py | OK | Extracted from corrupted god object | 0.10 | e3b4d8c |"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\iso27001\\iso27001_core.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 357,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created ISO27001 core coordination module using delegation pattern | iso27001_core.py | OK | God object decomposition complete | 0.00 | a9c7f5e |"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\reporting\\reporting_core.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 416,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created reporting core coordination module using delegation pattern | reporting_core.py | OK | God object decomposition complete | 0.00 | f2a9d3c |"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\reporting\\report_generator.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 548,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created comprehensive report generator module | report_generator.py | OK | Report generation and packaging extracted | 0.00 | c8f5e2a |"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\reporting\\report_templates.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 478,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created comprehensive report templates module | report_templates.py | OK | Extracted from corrupted reporting.py | 0.00 | b4c7e9d |"
+    },
+    {
+      "file": ".backup_20250924_235553\\import_backup_20250924_222328\\src\\constants\\__init__.py",
+      "error_type": "SyntaxError",
+      "message": "expected 'except' or 'finally' block",
+      "line": 26,
+      "column": 1,
+      "text": "from .base import *"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\unicode_backup_20250924_225013\\validate_phase2_decomposition.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 478,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T16:20:00-04:00 | coder@Sonnet | Created Phase 2 validation script with comprehensive testing | validate_phase2_decomposition.py | OK | Complete validation framework | 0.07 | n9m0l1k |"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\validation\\achieve_100_percent.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 6,
+      "text": "This script addresses the remaining gaps to achieve 100% certification:"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\validation\\comprehensive_defense_validation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 712)",
+      "line": 712,
+      "column": 63,
+      "text": "if content.count('\"\"\"') >= 2 or content.count(\"'''\") >= 2:"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\failure_pattern_detector.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1650)",
+      "line": 1608,
+      "column": 55,
+      "text": "\"\"\"Main entry point for failure pattern detection.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\byzantium\\race_condition_detector.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 905)",
+      "line": 813,
+      "column": 70,
+      "text": "\"\"\"Run comprehensive race condition validation for detector pool.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\compliance\\assertion_injection_engine.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 844)",
+      "line": 776,
+      "column": 62,
+      "text": "\"\"\"Command-line interface for assertion injection engine.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\compliance\\automated_function_refactorer.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 787)",
+      "line": 724,
+      "column": 66,
+      "text": "\"\"\"Command-line interface for automated function refactoring.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\compliance\\nasa_compliance_monitor.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 782)",
+      "line": 707,
+      "column": 62,
+      "text": "\"\"\"Command-line interface for NASA compliance monitoring.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\compliance\\risk_assessment_matrix.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 847,
+      "column": 97,
+      "text": "- Critical Priority: {critical_count} violations ({critical_count/max(total_violations, 1)*100:.1f}%)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\coordination\\queen_coordinator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 139)",
+      "line": 139,
+      "column": 47,
+      "text": "1. Ingest all GitHub failures using Gemini's large context"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\coordination\\recursive_merge_resolver.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 772)",
+      "line": 739,
+      "column": 52,
+      "text": "\"\"\"Test Recursive Merge Resolver functionality.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\detectors\\comprehensive_benchmark.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1062)",
+      "line": 1018,
+      "column": 43,
+      "text": "\"\"\"Mock detector pool for testing.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\detectors\\defense_compliance_monitor.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 825)",
+      "line": 773,
+      "column": 50,
+      "text": "\"\"\"Get current compliance status summary.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\detectors\\enterprise_detector_pool.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 906)",
+      "line": 867,
+      "column": 48,
+      "text": "\"\"\"Another sample detector for testing.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\detectors\\parallel_executor.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 889)",
+      "line": 839,
+      "column": 33,
+      "text": "\"\"\"Context manager exit.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\detectors\\validation_demo.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 612)",
+      "line": 577,
+      "column": 38,
+      "text": "\"\"\"Main validation demonstration.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\linter-integration\\mesh-coordinator.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 205,
+      "column": 35,
+      "text": "\"heartbeat_interval\": MAXIMUM_NESTED_DEPTH.0,  # seconds"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\models\\linter_models.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'if' statement on line 144",
+      "line": 146,
+      "column": 9,
+      "text": "cmd.extend(self.extra_args)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\quiet_star\\algorithms.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 664)",
+      "line": 634,
+      "column": 5,
+      "text": "\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\safety\\kill_switch_system.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 3,
+      "column": 49,
+      "text": "Provides emergency position liquidation with <500ms response time"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\access_control_system.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'if' statement on line 712",
+      "line": 716,
+      "column": 9,
+      "text": "if \"allowed_ips\" in conditions:"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\continuous_risk_assessment.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 712,
+      "column": 49,
+      "text": "elif cvss_score >= DAYS_RETENTION_PERIOD.0:"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\continuous_theater_monitor.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 634)",
+      "line": 580,
+      "column": 60,
+      "text": "\"\"\"Main CLI interface for continuous theater monitoring\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\defense_industry_evidence_generator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1147)",
+      "line": 1114,
+      "column": 58,
+      "text": "\"\"\"Main CLI interface for defense evidence generation\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\dfars_compliance_engine.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1077)",
+      "line": 1021,
+      "column": 67,
+      "text": "\"\"\"Main CLI interface for DFARS compliance assessment.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\dfars_compliance_validation_system.py",
+      "error_type": "SyntaxError",
+      "message": "illegal target for annotation",
+      "line": 251,
+      "column": 13,
+      "text": "\"nmap\": {"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\dfars_integration_demo.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 617)",
+      "line": 590,
+      "column": 38,
+      "text": "\"\"\"Main demonstration entry point\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\dfars_workflow_automation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 893)",
+      "line": 845,
+      "column": 59,
+      "text": "\"\"\"Main function for testing DFARS workflow automation\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\enhanced_audit_trail_manager.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 4,
+      "text": "def _initialize_integrity_key(self) -> bytes:"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\enhanced_audit_wrapper.py",
+      "error_type": "SyntaxError",
+      "message": "'(' was never closed",
+      "line": 12,
+      "column": 31,
+      "text": "from .audit_components import ("
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\real_security_scanner.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 938)",
+      "line": 921,
+      "column": 52,
+      "text": "\"\"\"Main execution for real security validation.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\sixsigma\\sixsigma_scorer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 78,
+      "column": 48,
+      "text": "'minimum_sigma_level': MAXIMUM_RETRY_ATTEMPTS.0,"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\sixsigma\\telemetry_config.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 12,
+      "text": "\"\"\"Initialize with configuration\"\"\"        from .sixsigma_scorer import SixSigmaScorer"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\theater-detection\\continuous-monitor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 439,
+      "column": 56,
+      "text": "Overall Reality Score: {overall_reality_score:.2f}/1.00"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\theater-detection\\reality-validator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 899)",
+      "line": 865,
+      "column": 43,
+      "text": "\"\"\"Assess overall evidence quality\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\theater-detection\\theater-detector.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.artifacts_dir = Path(artifacts_dir)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\commands\\analysis_commands.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 687)",
+      "line": 682,
+      "column": 49,
+      "text": "\"\"\"Execute performance optimization command.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\failure_pattern_detection\\failure_pattern_detector_core.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 395,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created refactored core detector using delegation pattern | failure_pattern_detector_core.py | OK | God object decomposition complete | 0.00 | d7a9c2f |"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\failure_pattern_detection\\pattern_database.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 349,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created pattern database management module | pattern_database.py | OK | Extracted from god object | 0.10 | a7c3f9d |"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\failure_pattern_detection\\root_cause_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 384,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created root cause analysis engine module | root_cause_analyzer.py | OK | Extracted from god object | 0.10 | b9f2e4a |"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\failure_pattern_detection\\test_failure_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "line": 526,
+      "column": 18,
+      "text": "| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created test failure analysis module | test_failure_analyzer.py | OK | Extracted from god object | 0.00 | c8d5f7b |"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analyzers\\nasa\\bounded_ast_walker.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 383)",
+      "line": 346,
+      "column": 5,
+      "text": "\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analyzers\\nasa\\defensive_programming_specialist.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 541)",
+      "line": 524,
+      "column": 45,
+      "text": "\"\"\"Validate assertion injection results.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analyzers\\nasa\\function_decomposer.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 536)",
+      "line": 512,
+      "column": 66,
+      "text": "\"\"\"Estimate total effort required for function decomposition.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analyzers\\nasa\\nasa_compliance_auditor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 451,
+      "column": 6,
+      "text": "[U+251C][U+2500] Current: {report.current_compliance:.1%}"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analyzers\\nasa\\security_manager.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 548)",
+      "line": 534,
+      "column": 43,
+      "text": "\"\"\"Export compliance evidence to file.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\adapters\\integration_adapters.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1083)",
+      "line": 1004,
+      "column": 56,
+      "text": "\"\"\"Get distribution of adapters by system type.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\compliance\\matrix.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 589)",
+      "line": 567,
+      "column": 51,
+      "text": "\"\"\"Get coverage summary for all frameworks\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\factories\\enterprise_factories.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1032)",
+      "line": 926,
+      "column": 48,
+      "text": "\"\"\"Validate enterprise factory command.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\flags\\feature_flags.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'if' statement on line 68",
+      "line": 71,
+      "column": 13,
+      "text": "if self.status == FlagStatus.DISABLED:"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\security\\supply_chain.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 288)",
+      "line": 277,
+      "column": 47,
+      "text": "\"\"\"Get current security status summary\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\telemetry\\spc_control_charts.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 12,
+      "column": 26,
+      "text": "- Performance overhead <1.MAXIMUM_NESTED_DEPTH%"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\utils\\logging_utils.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 458)",
+      "line": 450,
+      "column": 53,
+      "text": "\"\"\"Context manager decorator for logging context\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\pipeline_orchestrator.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'if' statement on line 272",
+      "line": 275,
+      "column": 13,
+      "text": "self.logger.info(\" Data flow connections established\")"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\examples\\basic_usage.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 331,
+      "column": 55,
+      "text": "f\"({source_quality['trend']})\")"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\monitoring\\metrics_collector.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 74,
+      "text": "ds\"),            (\"processing_time\", MetricType.HISTOGRAM, \"Processing time in milliseconds\"),            (\"operations_total\", MetricType.COUNTER, \"Total number of operations\"),            (\"throughput_rate\", MetricType.GAUGE, \"Processing throughput rate (items/second)\"),            (\"items_processed\", MetricType.COUNTER, \"Total items processed\"),            (\"memory_usage_bytes\", MetricType.GAUGE, \"Memory usage in bytes\"),            (\"cpu_usage_percent\", MetricType.GAUGE, \"CPU usage percentage\"),            ]            for name, metric_type, description in builtin_metrics:                self.register_metric(name, metric_type, description)class TimingContext:        \"\"\"Context manager for timing operations\"\"\"    def __init__(self, collector: MetricsCollector, name: str, labels: Optional[Dict[str, str]] = None):"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\monitoring\\pipeline_monitor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 95,
+      "text": "str:            \"\"\"Format duration in human-readable form\"\"\"            if seconds < 60:                return f\"{seconds:.0f)s\"            elif seconds < 3600:                    return f\"{seconds/60:.1f)m\"                elif seconds < 86400:                        return f\"{seconds/3600:.1f)h\"                    else:                            return f\"{seconds/86400:.1f)d\"    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            if self.running:                try:                    loop = asyncio.get_event_loop()                    loop.create_task(self.stop())                except Exception:                        pass"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\sources\\alpaca_source.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 86,
+      "text": "}            return mapping.get(timeframe, \"1Day\")            async def close(self):                \"\"\"Close HTTP session\"\"\"                if self.session and not self.session.closed:                    await self.session.close()    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            if hasattr(self, 'session') and self.session and not self.session.closed:                try:                    loop = asyncio.get_event_loop()                    if loop.is_running():                        loop.create_task(self.session.close())                    else:                            loop.run_until_complete(self.session.close())                        except Exception:                                pass"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\sources\\data_source_manager.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 98,
+      "text": "source in self.sources.values():                        try:                            await source.close()                        except Exception as e:                                self.logger.warning(f\"Error closing source: {e)\")    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            try:                loop = asyncio.get_event_loop()                if loop.is_running():                    loop.create_task(self.close_all_sources())                except Exception:                        pass"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\sources\\historical_loader.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 110,
+      "text": "start_date, start_date + timedelta(days=7), \"1D\"                            ))                            if sample_data is not None and not sample_data.empty:                                coverage[symbol] = {                                \"available\": True,                                \"source\": source,                                \"sample_records\": len(sample_data),                                \"earliest_date\": sample_data.index.min() if len(sample_data) > 0 else None)                            else:                                    coverage[symbol] = {\"available\": False, \"source\": source)                                except Exception as e:                                        coverage[symbol] = {\"available\": False, \"error\": str(e)}                                        return coverage    def __del__(self):            \"\"\"Cleanup resources\"\"\"            if hasattr(self, 'executor'):                self.executor.shutdown(wait=True)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\sources\\polygon_source.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 90,
+      "text": "),            \"1H\": (1, \"hour\"),            \"1D\": (1, \"day\")            }            return mapping.get(timeframe, (1, \"day\"))            async def close(self):                \"\"\"Close HTTP session\"\"\"                if self.session and not self.session.closed:                    await self.session.close()    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            if hasattr(self, 'session') and self.session and not self.session.closed:                try:                    loop = asyncio.get_event_loop()                    if loop.is_running():                        loop.create_task(self.session.close())                    else:                            loop.run_until_complete(self.session.close())                        except Exception:                                pass"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\sources\\yahoo_source.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 90,
+      "text": "sed:                    await self.session.close()    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            if hasattr(self, 'session') and self.session and not self.session.closed:                try:                    loop = asyncio.get_event_loop()                    if loop.is_running():                        loop.create_task(self.session.close())                    else:                            loop.run_until_complete(self.session.close())                        except Exception:                                pass"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\streaming\\real_time_streamer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 87,
+      "text": "if self.running:                                            await self._connect_polygon()    def get_metrics(self) -> StreamMetrics:            \"\"\"Get current streaming metrics\"\"\"            return self.metrics    def get_buffer_status(self) -> Dict[str, Any]:            \"\"\"Get buffer status information\"\"\"            return self.stream_buffer.get_status()    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            if self.running:                try:                    loop = asyncio.get_event_loop()                    loop.create_task(self.stop())                except Exception:                        pass"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\streaming\\stream_buffer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 98,
+      "text": "with self.lock:                return len(self.buffer) == 0    def is_full(self) -> bool:            \"\"\"Check if buffer is full\"\"\"            with self.lock:                return len(self.buffer) >= self.capacity    def __len__(self) -> int:            \"\"\"Get current buffer size\"\"\"            with self.lock:                return len(self.buffer)    def __del__(self):            \"\"\"Cleanup buffer resources\"\"\"            try:                self.clear()            except Exception:                    pass"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\streaming\\websocket_manager.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 88,
+      "text": ".create_task(self.stop())                except Exception:                        pass"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\ensemble\\ensemble_framework.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 2,
+      "column": 198,
+      "text": "model_name: str,        prediction: Union[np.ndarray, Dict[str, Any]],        confidence: float,        inference_time_ms: float,        model_specific_data: Optional[Dict[str, Any]] = None):            \"\"\"Initialize model prediction.\"        Args:"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\lstm\\attention_mechanism.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 163,
+      "text": "\"\"\"Attention Mechanism for LSTM\"Implements scaled dot-product attention for time series prediction.Focuses on relevant temporal patterns for price forecasting.\"\"\"import torchimport torch.nn as nnimport torch.nn.functional as Fimport mathfrom typing import Tuple, Optionalclass AttentionLayer(nn.Module):        \"\"\"Scaled dot-product attention mechanism for LSTM outputs.\"\"\"    def __init__(self, hidden_size: int, num_heads: int = 8, dropout: float = 0.1):"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\lstm\\lstm_predictor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 178,
+      "text": "rue  # Gary's DPI calculations'        volatility_scaling: bool = True  # Dynamic volatility adjustmentclass LSTMPredictor(nn.Module):        \"\"\"2-Layer LSTM with attention for financial time series prediction.\"        Optimized for <100ms inference with GaryTaleb integration.        Supports antifragility principles and DPI calculations.        \"\"\"    def __init__(self, config: LSTMConfig):"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\rl\\ppo_agent.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 2,
+      "column": 93,
+      "text": "observation_shape: Tuple[int, ...],        action_dim: int,        config: PPOConfig):            \"\"\"Initialize Actor-Critic network.\"        Args:"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\rl\\strategy_optimizer.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 2,
+      "column": 65,
+      "text": "market_data: pd.DataFrame,        config: StrategyConfig):            \"\"\"Initialize strategy optimizer.\"        Args:"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\rl\\trading_environment.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 2,
+      "column": 68,
+      "text": "market_data: pd.DataFrame,        config: EnvironmentConfig):            \"\"\"Initialize trading environment.\"        Args:"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\transformer\\financial_bert.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 21)",
+      "line": 21,
+      "column": 202,
+      "text": "input_ids: torch.Tensor,        attention_mask: torch.Tensor,        token_type_ids: Optional[torch.Tensor] = None) -> Dict[str, torch.Tensor]:            \"\"\"Forward pass through FinancialBERT.\"        Args:"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\transformer\\sentiment_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 189,
+      "text": "rket impact weights        news_weight: float = 0.4        social_weight: float = 0.3        earnings_weight: float = 0.8        analyst_weight: float = 0.7    # GaryxTaleb integration        dpi_sentiment_factor: float = 0.2        antifragile_contrarian_boost: float = 0.15class FinancialSentimentAnalyzer:        \"\"\"Real-time financial sentiment analyzer.\"        Processes news, social media, earnings calls, and analyst reports        with <100ms inference time and GaryTaleb integration.        \"\"\"    def __init__(self, config: SentimentConfig):"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\interfaces\\cli\\policy_detection.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 248)",
+      "line": 224,
+      "column": 69,
+      "text": "\"\"\"Apply bonuses based on project structure characteristics.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\interfaces\\cli\\simple_cli.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 443)",
+      "line": 438,
+      "column": 40,
+      "text": "\"\"\"Main entry point for simple CLI.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\linter-integration\\agents\\api_docs_node.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 8,
+      "text": "logger.setLevel(logging.INFO)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\linter-integration\\agents\\backend_dev_node.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 197",
+      "line": 200,
+      "column": 8,
+      "text": "return violations"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\linter-integration\\agents\\integration_specialist_node.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.stream_id = stream_id"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\performance\\observers\\performance_observers.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 712)",
+      "line": 705,
+      "column": 48,
+      "text": "\"\"\"Initialize performance observer factory.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\princess\\quality\\analysis-reports\\quality_dashboard.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 413,
+      "column": 23,
+      "text": "padding: 20px;"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\princess\\quality\\quality-gates\\cross_domain_validator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 320)",
+      "line": 320,
+      "column": 74,
+      "text": "if 'docstring' in content.lower() or '\"\"\"' in content or \"'''\" in content:"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\princess\\quality\\theater-detection\\comprehensive_analysis_engine.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 595)",
+      "line": 532,
+      "column": 52,
+      "text": "\"\"\"Command-line interface for theater detection\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\production\\scripts\\security-gate-check.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 384)",
+      "line": 325,
+      "column": 24,
+      "text": "\"\"\"Main entry point\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\reporting\\factories\\report_factories.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 254,
+      "column": 58,
+      "text": "body {{ font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }}"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\safety\\core\\failover_manager.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 85,
+      "column": 49,
+      "text": "Execute failover for a component with <60s recovery guarantee."
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\factories\\scanner_factories.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 718)",
+      "line": 670,
+      "column": 54,
+      "text": "\"\"\"Create and configure security scanner factory.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\handlers\\security_handlers.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 804)",
+      "line": 789,
+      "column": 57,
+      "text": "\"\"\"Validate security handler command parameters.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 669)",
+      "line": 610,
+      "column": 51,
+      "text": "\"\"\"Run comprehensive Batch 3 validation tests.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\batches_10_18_validation\\test_suite_orchestrator.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 854,
+      "column": 48,
+      "text": "- Passed: {passed} ({passed/max(1, total)*100:.1f}%)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\byzantium\\test_byzantine_stress.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 709)",
+      "line": 695,
+      "column": 51,
+      "text": "\"\"\"Run comprehensive Byzantine stress testing.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\cache_analyzer\\comprehensive_cache_test.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 756)",
+      "line": 734,
+      "column": 52,
+      "text": "\"\"\"Run comprehensive cache analyzer test suite.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\cache_analyzer\\test_cache_functionality.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 535)",
+      "line": 513,
+      "column": 37,
+      "text": "\"\"\"Run all cache analyzer tests.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\compliance\\test_compliance_demo.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 217)",
+      "line": 41,
+      "column": 35,
+      "text": "\"\"\"Main demonstration function\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\compliance\\test_compliance_simple.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 180)",
+      "line": 161,
+      "column": 26,
+      "text": "\"\"\"Main test function\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\cycles\\test_integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 402,
+      "column": 32,
+      "text": "\"\"\"Test that Friday 6:00pm scheduling is correctly configured.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\end_to_end\\complete_system_validation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 605)",
+      "line": 545,
+      "column": 32,
+      "text": "\"\"\"Main execution function.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\conftest.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 722)",
+      "line": 709,
+      "column": 47,
+      "text": "\"\"\"Modify collected tests based on markers\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\github_bridge_fixes.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 4)",
+      "line": 4,
+      "column": 31,
+      "text": "1. Fix status check logic that's producing fake data"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\github_bridge_fixes_clean.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 4)",
+      "line": 4,
+      "column": 31,
+      "text": "1. Fix status check logic that's producing fake data"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\production_integration_test.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 404)",
+      "line": 363,
+      "column": 46,
+      "text": "\"\"\"Run production integration test suite.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\queen_remediation_test.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 412)",
+      "line": 407,
+      "column": 44,
+      "text": "\"\"\"Run the Queen remediation simulation\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\reality_check_simple.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 344)",
+      "line": 270,
+      "column": 73,
+      "text": "\"\"\"Calculate the final reality score for Phase 2 GitHub integration.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\reality_validation_simple.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 359)",
+      "line": 343,
+      "column": 33,
+      "text": "\"\"\"Main validation function.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_enterprise_domains.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 566)",
+      "line": 518,
+      "column": 68,
+      "text": "\"\"\"Test cumulative performance impact as domains are added.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_enterprise_integration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 218)",
+      "line": 218,
+      "column": 46,
+      "text": "\"\"\"Test: Enterprise integration doesn't break existing API.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_error_handling.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 497)",
+      "line": 442,
+      "column": 64,
+      "text": "\"\"\"Test: Handle feature dependency failures gracefully.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_github_bridge_reality.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 468)",
+      "line": 410,
+      "column": 71,
+      "text": "\"\"\"Calculate overall reality score for Phase 2 GitHub integration.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_performance_load.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 558,
+      "column": 53,
+      "text": "\"\"\"Test that enterprise features maintain <4.DAYS_RETENTION_PERIOD% performance overhead.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_phase2_reality_validation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 502)",
+      "line": 456,
+      "column": 74,
+      "text": "\"\"\"Test performance characteristics meet production requirements.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_tool_coordinator_sandbox.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 354)",
+      "line": 318,
+      "column": 38,
+      "text": "\"\"\"Main sandbox testing function.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\json_schema_validation\\demo_test_execution.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 179,
+      "column": 58,
+      "text": "\"\"\"Test 1: Mock Data Contamination Prevention (85.DAYS_RETENTION_PERIOD% -> <15%).\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\json_schema_validation\\test_full_pipeline_integration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 376)",
+      "line": 376,
+      "column": 70,
+      "text": "\"\"\"Test that all Phase 1 critical issues are resolved and won't regress.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\json_schema_validation\\test_json_schema_validation.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 282,
+      "column": 54,
+      "text": "\"\"\"Test SARIF generation overhead (baseline: 6x standard JSON).\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\json_schema_validation\\test_risk_mitigation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 519)",
+      "line": 447,
+      "column": 80,
+      "text": "\"\"\"Test graceful degradation when some violations cannot be serialized.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\json_schema_validation\\test_runner.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 341)",
+      "line": 308,
+      "column": 41,
+      "text": "\"\"\"Main entry point for test runner.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\linter_integration\\test_adapter_patterns.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 698,
+      "column": 44,
+      "text": "base_config = LinterConfig(timeout=API_TIMEOUT_SECONDS.0)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\linter_integration\\test_failure_modes.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 641",
+      "line": 644,
+      "column": 0,
+      "text": "if __name__ == \"__main__\":"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\linter_integration\\test_real_linter_validation.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 272",
+      "line": 275,
+      "column": 0,
+      "text": "class TestRuffIntegration:"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\memory_integration\\test_cross_phase_memory.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 697)",
+      "line": 663,
+      "column": 78,
+      "text": "\"\"\"Test calculation and tracking of cross-phase correlation strength.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\ml\\test_compliance_forecaster.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 706)",
+      "line": 604,
+      "column": 46,
+      "text": "\"\"\"Test complete end-to-end workflow.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\ml\\test_integration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 738)",
+      "line": 699,
+      "column": 65,
+      "text": "\"\"\"Test that response times meet real-time requirements.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\ml\\test_quality_predictor.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 562)",
+      "line": 471,
+      "column": 46,
+      "text": "\"\"\"Test complete end-to-end workflow.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\ml\\test_theater_classifier.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 693)",
+      "line": 581,
+      "column": 46,
+      "text": "\"\"\"Test complete end-to-end workflow.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\nasa-compliance\\test_nasa_agents.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 478)",
+      "line": 415,
+      "column": 76,
+      "text": "\"\"\"Test generation of defense industry compliance evidence package.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\phase4\\test_precision_validation.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 106,
+      "column": 36,
+      "text": "self.assertEqual(result, 96.DAYS_RETENTION_PERIOD * 0.9)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\phase7_adas\\test_perception_accuracy.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 369,
+      "column": 20,
+      "text": "\"\"\"Project 3D position to 2D bounding box (simplified)\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\phase7_adas\\test_sensor_fusion.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 4,
+      "column": 38,
+      "text": "- Sensor synchronization tolerance < 1ms"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\phase7_adas\\test_simulation_scenarios.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1197)",
+      "line": 1157,
+      "column": 62,
+      "text": "\"\"\"Test generation of comprehensive simulation report\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\production\\load_testing_suite.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 551)",
+      "line": 514,
+      "column": 32,
+      "text": "\"\"\"Main execution function.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\regression\\performance_regression_suite.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 372,
+      "column": 22,
+      "text": "return 95.MAXIMUM_NESTED_DEPTH  # Simulated integration score"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\safety\\test_safety_system.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 136,
+      "column": 61,
+      "text": "\"\"\"Test that recovery times are validated against <60s requirement.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\security\\complete_security_validation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 808)",
+      "line": 773,
+      "column": 32,
+      "text": "\"\"\"Main execution function.\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\sixsigma\\test_integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 175,
+      "column": 46,
+      "text": "self.assertLess(metrics.sigma_level, MAXIMUM_RETRY_ATTEMPTS.0)  # Below acceptable threshold"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\workflow-validation\\comprehensive_validation_report.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.repo_root = Path(repo_root)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\workflow-validation\\python_execution_tests.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.repo_root = Path(repo_root)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\workflow-validation\\workflow_test_suite.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 16,
+      "text": "reports = {}"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\e2e\\test_enterprise_workflows.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 7,
+      "text": "Tests complete enterprise workflows from start to finish including:"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\integration\\test_analyzer_integration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 336)",
+      "line": 336,
+      "column": 37,
+      "text": "\"\"\"Test that hook errors don't break analysis\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\performance\\test_zero_impact_disabled.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 423)",
+      "line": 423,
+      "column": 44,
+      "text": "\"\"\"Test that analysis history doesn't grow unbounded when disabled\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\unit\\test_feature_flags.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 947)",
+      "line": 916,
+      "column": 57,
+      "text": "\"\"\"Test simulation of concurrent access patterns\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\unit\\test_six_sigma_python.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 558)",
+      "line": 550,
+      "column": 40,
+      "text": "\"\"\"Test mathematical edge cases\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\unit\\test_six_sigma_telemetry.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 701)",
+      "line": 691,
+      "column": 49,
+      "text": "\"\"\"Test handling of unicode defect types\"\"\""
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\refactored\\batch2\\test_agent_database_builder.py",
+      "error_type": "SyntaxError",
+      "message": "'(' was never closed",
+      "line": 3,
+      "column": 53,
+      "text": "from src.coordination.agent_database_builder import ("
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\refactored\\batch2\\test_deployment_task_builder.py",
+      "error_type": "SyntaxError",
+      "message": "'(' was never closed",
+      "line": 3,
+      "column": 51,
+      "text": "from scripts.dfars_deployment_task_builder import ("
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\refactored\\batch2\\test_dfars_controls_builder.py",
+      "error_type": "SyntaxError",
+      "message": "'(' was never closed",
+      "line": 3,
+      "column": 49,
+      "text": "from src.security.dfars_controls_builder import ("
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\refactored\\batch2\\test_test_pattern_builder.py",
+      "error_type": "SyntaxError",
+      "message": "'(' was never closed",
+      "line": 3,
+      "column": 47,
+      "text": "from src.analysis.test_pattern_builder import ("
+    },
+    {
+      "file": ".claude\\.artifacts\\artifact_manager.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 249,
+      "text": "r, Any]] = None) -> Optional[Dict[str, Any]]:        \"\"\"Main integration function for Phase 3 artifact generation\"\"\"        if not ENABLE_PHASE3_ARTIFACTS:            return None                manager = get_artifact_manager()            return manager.generate_all_artifacts(analysis_results, project_metadata, build_context)def get_phase3_status() -> Dict[str, Any]:        \"\"\"Get Phase 3 system status\"\"\"        manager = get_artifact_manager()        return manager.get_system_status()def cleanup_phase3_artifacts(retention_days: int = 30) -> Dict[str, Any]:        \"\"\"Cleanup old Phase 3 artifacts\"\"\"        manager = get_artifact_manager()        return manager.cleanup_old_artifacts(retention_days)"
+    },
+    {
+      "file": ".claude\\.artifacts\\dfars_compliance_framework.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 27,
+      "column": 4,
+      "text": "def scan_access_control_implementation(self) -> List[DFARSFinding]:"
+    },
+    {
+      "file": ".claude\\.artifacts\\compliance\\compliance_packager.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 19,
+      "column": 4,
+      "text": "def is_soc2_enabled(self) -> bool:"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\connascence_detection_service.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 410,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T16:0o0:0o0-0o4:0o0 | coder@Sonnet | Extracted connascence detection service from loop orchestrator | connascence_detection_service.py | OK | Domain-driven design 280 LOC | 0.0o5 | k6j7i8h |"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\loop_orchestrator_facade.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 270,
+      "column": 85,
+      "text": "nasa_compliance = max(0.85, 0.95 - (critical_count * 0.1) - (high_count * 0.0o5))"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\performance_measurement_service.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 196,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:35:0o0-0o4:0o0 | coder@Sonnet | Extracted performance measurement service from god object | performance_measurement_service.py | OK | Delegation pattern 250 LOC | 0.0o3 | f1e2d3c |"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\phase3_performance_validator_facade.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 282,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:55:0o0-0o4:0o0 | coder@Sonnet | Created backward-compatible facade for decomposed god object | phase3_performance_validator_facade.py | OK | 100% API compatibility, 45% LOC reduction | 0.0o5 | j5i6h7g |"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\reporting_service.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 323,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:50:0o0-0o4:0o0 | coder@Sonnet | Extracted reporting service from god object | reporting_service.py | OK | Delegation pattern 180 LOC | 0.0o4 | i4h5g6f |"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\sandbox_management_service.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 248,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:45:0o0-0o4:0o0 | coder@Sonnet | Extracted sandbox management service from god object | sandbox_management_service.py | OK | Delegation pattern 200 LOC | 0.0o3 | h3g4f5e |"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\validation_execution_service.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 201,
+      "column": 35,
+      "text": "await asyncio.sleep(0.0o1)  # Minimal processing time"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\cache_performance_profiler_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 35,
+      "column": 4,
+      "text": "def hit_rate(self) -> float:"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\core_core.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 13,
+      "column": 4,
+      "text": "class EnhancedMockImportResult:"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\core_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 85,
+      "column": 8,
+      "text": "def __init__(self, has_module=True, module=None, error=None):"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\core_validation.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 28,
+      "column": 8,
+      "text": "def validate_policy_name(self, policy_name):"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\cross_phase_learning_integration_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 17,
+      "column": 4,
+      "text": "def __init__(self):"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_configuration.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 15,
+      "column": 12,
+      "text": "class MockConfigManager:"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 36,
+      "column": 4,
+      "text": "def __init__(self):"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored_src\\enterprise_theater_detection_operations.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 18,
+      "column": 4,
+      "text": "def __init__(self, project_root: str = None):"
+    },
+    {
+      "file": ".claude\\coordination\\adaptive\\agent_deployment_protocol.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.coordinator = coordinator"
+    },
+    {
+      "file": ".claude\\performance\\baselines\\baseline_collector.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.project_root = project_root or os.getcwd()"
+    },
+    {
+      "file": ".claude\\performance\\monitoring\\realtime_monitor.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.monitoring_interval = monitoring_interval"
+    },
+    {
+      "file": ".claude\\performance\\validation\\theater_detector.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.validation_history: List[ValidationResult] = []"
+    },
+    {
+      "file": "analyzer\\architecture\\analysis_strategy.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 355)",
+      "line": 350,
+      "column": 39,
+      "text": "\"\"\"Register new strategy type.\"\"\""
+    },
+    {
+      "file": "analyzer\\architecture\\detector_pool.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 367)",
+      "line": 363,
+      "column": 46,
+      "text": "\"\"\"Get the global detector pool instance.\"\"\""
+    },
+    {
+      "file": "analyzer\\architecture\\orchestrator.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 555,
+      "column": 12,
+      "text": "architectural_metrics = self._calculate_architectural_metrics(violations_result)"
+    },
+    {
+      "file": "analyzer\\architecture\\refactoring_audit_report.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 856)",
+      "line": 856,
+      "column": 44,
+      "text": "if '\"\"\"' in content or \"'''\" in content:'"
+    },
+    {
+      "file": "analyzer\\architecture\\report_generator.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 141,
+      "column": 58,
+      "text": "body {{ font-family: Arial, sans-serif; margin: 40px; }}"
+    },
+    {
+      "file": "analyzer\\dup_detection\\mece_analyzer.py",
+      "error_type": "IndentationError",
+      "message": "unexpected unindent",
+      "line": 31,
+      "column": 4,
+      "text": "class ConnascenceViolation:"
+    },
+    {
+      "file": "analyzer\\enterprise\\defense_certification_tool.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 688)",
+      "line": 635,
+      "column": 32,
+      "text": "\"\"\"Main execution function.\"\"\""
+    },
+    {
+      "file": "analyzer\\enterprise\\nasa_pot10_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 754)",
+      "line": 690,
+      "column": 32,
+      "text": "\"\"\"Main execution function.\"\"\""
+    },
+    {
+      "file": "analyzer\\enterprise\\validation_reporting_system.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 242,
+      "column": 100,
+      "text": "body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }}"
+    },
+    {
+      "file": "analyzer\\integrations\\tool_coordinator.py",
+      "error_type": "SyntaxError",
+      "message": "closing parenthesis '}' does not match opening parenthesis '('",
+      "line": 4,
+      "column": 115,
+      "text": "\"\"\"Create real duplication analyzer.\"\"\"class RealDuplicationAnalyzer:    def analyze_files(self, files}:"
+    },
+    {
+      "file": "analyzer\\optimization\\incremental_analyzer.py",
+      "error_type": "IndentationError",
+      "message": "unindent does not match any outer indentation level",
+      "line": 441,
+      "column": 79,
+      "text": "current_sigs = {violation_signature(v): v for v in current_violations}"
+    },
+    {
+      "file": "analyzer\\optimization\\resource_manager.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 672)",
+      "line": 665,
+      "column": 44,
+      "text": "\"\"\"Shutdown global resource management.\"\"\""
+    },
+    {
+      "file": "analyzer\\optimization\\unified_visitor.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 365)",
+      "line": 362,
+      "column": 38,
+      "text": "\"\"\"Get line content for node.\"\"\""
+    },
+    {
+      "file": "analyzer\\performance\\cache_performance_profiler.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1091)",
+      "line": 1063,
+      "column": 63,
+      "text": "\"\"\"High-level function to run complete cache optimization.\"\"\""
+    },
+    {
+      "file": "analyzer\\performance\\ci_cd_accelerator.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 8,
+      "text": "return optimized_batches"
+    },
+    {
+      "file": "analyzer\\performance\\detector_pool_optimizer.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 897)",
+      "line": 873,
+      "column": 65,
+      "text": "\"\"\"Run comprehensive detector pool performance optimization.\"\"\""
+    },
+    {
+      "file": "analyzer\\performance\\incremental_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1073)",
+      "line": 1035,
+      "column": 5,
+      "text": "\"\"\""
+    },
+    {
+      "file": "analyzer\\performance\\real_cache_optimization_validator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 867)",
+      "line": 818,
+      "column": 64,
+      "text": "\"\"\"Main entry point for REAL cache optimization validation.\"\"\""
+    },
+    {
+      "file": "analyzer\\performance\\real_file_profiler.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 205",
+      "line": 208,
+      "column": 20,
+      "text": "self.detector_pool.release_all_detectors(detectors)"
+    },
+    {
+      "file": "analyzer\\performance\\real_time_monitor.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 992)",
+      "line": 961,
+      "column": 48,
+      "text": "\"\"\"Example alert handler for demonstration.\"\"\""
+    },
+    {
+      "file": "analyzer\\performance\\result_aggregation_profiler.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 15,
+      "text": "Comprehensive performance benchmarking and optimization analysis for distributed"
+    },
+    {
+      "file": "analyzer\\performance\\thread_contention_profiler.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 767)",
+      "line": 731,
+      "column": 69,
+      "text": "\"\"\"Generate specific detector pool optimization recommendations.\"\"\""
+    },
+    {
+      "file": "analyzer\\streaming\\incremental_cache.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 595)",
+      "line": 588,
+      "column": 39,
+      "text": "\"\"\"Clear global incremental cache.\"\"\""
+    },
+    {
+      "file": "analyzer\\utils\\config_manager.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 183,
+      "column": 41,
+      "text": "'connascence_of_position': 2.MAXIMUM_NESTED_DEPTH,"
+    },
+    {
+      "file": "analyzer\\utils\\error_handling.py",
+      "error_type": "IndentationError",
+      "message": "unindent does not match any outer indentation level",
+      "line": 305,
+      "column": 34,
+      "text": "return self.safe_execute("
+    },
+    {
+      "file": "analyzer\\utils\\intelligent_magic_number_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 15,
+      "column": 8,
+      "text": "\"\"\"Categories for magic number analysis\"\"\""
+    },
+    {
+      "file": "analyzer\\utils\\metric_calculators.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 14,
+      "column": 4,
+      "text": "Calculate average latency from deque of measurements."
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\audit_trail.py",
+      "error_type": "IndentationError",
+      "message": "unindent does not match any outer indentation level",
+      "line": 43,
+      "column": 63,
+      "text": "self.audit_log_path.mkdir(parents=True, exist_ok=True)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\core.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 16,
+      "column": 4,
+      "text": "self.collectors = {}"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\integration.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 16,
+      "column": 4,
+      "text": "async def register_analyzers(self, analyzer_registry):"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 29,
+      "column": 4,
+      "text": "self.iso_controls = self._initialize_iso27001_controls()"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting.py",
+      "error_type": "SyntaxError",
+      "message": "closing parenthesis ')' does not match opening parenthesis '{'",
+      "line": 45,
+      "column": 63,
+      "text": "- **Compliance Score**: {{ framework.overall_score)}% ({{ framework.compliance_level}}}"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\soc2.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 23,
+      "column": 8,
+      "text": "self.evidence_artifacts: List[SOC2Evidence] = []"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\validate_retention.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 16,
+      "column": 4,
+      "text": "logger = logging.getLogger(__name__)"
+    },
+    {
+      "file": "analyzer\\enterprise\\detector\\EnterpriseDetectorPool.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 12,
+      "text": "\"\"\"Initialize FIPS 140-2 compliant encryption key.\"\"\"        try:"
+    },
+    {
+      "file": "analyzer\\enterprise\\detectors\\dfars_detector_simple.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 303)",
+      "line": 221,
+      "column": 5,
+      "text": "\"\"\""
+    },
+    {
+      "file": "analyzer\\enterprise\\integration\\EnterpriseIntegrationFramework.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 12,
+      "text": "\"\"\"Add notification channel for alerts.\"\"\"        result = self.notification_channels.append(channel_func)"
+    },
+    {
+      "file": "analyzer\\enterprise\\performance\\MLCacheOptimizer.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 8,
+      "text": "@dataclass"
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\config_loader.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 288,
+      "column": 38,
+      "text": "'baseline_duration': MAXIMUM_FUNCTION_PARAMETERS.0,"
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 31,
+      "column": 76,
+      "text": "self.baseline_duration = self.perf_config.get('baseline_duration', MAXIMUM_FUNCTION_PARAMETERS.0)"
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\vulnerability_scanner.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 41,
+      "column": 50,
+      "text": "'high': config.get('high_threshold', DAYS_RETENTION_PERIOD.0),"
+    },
+    {
+      "file": "analyzer\\enterprise\\validation\\EnterprisePerformanceValidator.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 8,
+      "text": "async def run_enterprise_analysis(*args, **kwargs): return {\"status\": \"mock\"}        async def run_enterprise_integrated_analysis(*args, **kwargs): return {\"status\": \"mock\"}    def create_detection_request(*args, **kwargs): return type('Request', (), {'request_id': str(uuid.uuid4())})()"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001\\compliance_assessor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 488,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created ISO27001 compliance assessor module | compliance_assessor.py | OK | Assessment and gap analysis extracted | 0.0o0 | f7e8b1a |"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001\\control_definitions.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 279,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created ISO27001 control definitions module | control_definitions.py | OK | Extracted from corrupted god object | 0.10 | e3b4d8c |"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001\\iso27001_core.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 357,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created ISO27001 core coordination module using delegation pattern | iso27001_core.py | OK | God object decomposition complete | 0.0o0 | a9c7f5e |"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting\\reporting_core.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 416,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created reporting core coordination module using delegation pattern | reporting_core.py | OK | God object decomposition complete | 0.0o0 | f2a9d3c |"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting\\report_generator.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 548,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created comprehensive report generator module | report_generator.py | OK | Report generation and packaging extracted | 0.0o0 | c8f5e2a |"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting\\report_templates.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 478,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created comprehensive report templates module | report_templates.py | OK | Extracted from corrupted reporting.py | 0.0o0 | b4c7e9d |"
+    },
+    {
+      "file": "analyzer\\utils\\injection\\container.py",
+      "error_type": "IndentationError",
+      "message": "unexpected unindent",
+      "line": 233,
+      "column": 4,
+      "text": "def wrapper(*args, **kwargs):"
+    },
+    {
+      "file": "import_backup_20250924_222328\\src\\constants\\__init__.py",
+      "error_type": "SyntaxError",
+      "message": "expected 'except' or 'finally' block",
+      "line": 26,
+      "column": 1,
+      "text": "from .base import *"
+    },
+    {
+      "file": "scripts\\unicode_backup_20250924_225013\\validate_phase2_decomposition.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 478,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T16:20:0o0-0o4:0o0 | coder@Sonnet | Created Phase 2 validation script with comprehensive testing | validate_phase2_decomposition.py | OK | Complete validation framework | 0.0o7 | n9m0l1k |"
+    },
+    {
+      "file": "scripts\\validation\\achieve_100_percent.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 6,
+      "text": "This script addresses the remaining gaps to achieve 100% certification:"
+    },
+    {
+      "file": "scripts\\validation\\comprehensive_defense_validation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 712)",
+      "line": 712,
+      "column": 63,
+      "text": "if content.count('\"\"\"') >= 2 or content.count(\"'''\") >= 2:'"
+    },
+    {
+      "file": "src\\byzantium\\race_condition_detector.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 905)",
+      "line": 813,
+      "column": 70,
+      "text": "\"\"\"Run comprehensive race condition validation for detector pool.\"\"\""
+    },
+    {
+      "file": "src\\compliance\\assertion_injection_engine.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 844)",
+      "line": 776,
+      "column": 62,
+      "text": "\"\"\"Command-line interface for assertion injection engine.\"\"\""
+    },
+    {
+      "file": "src\\compliance\\automated_function_refactorer.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 787)",
+      "line": 724,
+      "column": 66,
+      "text": "\"\"\"Command-line interface for automated function refactoring.\"\"\""
+    },
+    {
+      "file": "src\\compliance\\nasa_compliance_monitor.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 782)",
+      "line": 707,
+      "column": 62,
+      "text": "\"\"\"Command-line interface for NASA compliance monitoring.\"\"\""
+    },
+    {
+      "file": "src\\compliance\\risk_assessment_matrix.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 847,
+      "column": 97,
+      "text": "- Critical Priority: {critical_count} violations ({critical_count/max(total_violations, 1)*100:.1f}%)"
+    },
+    {
+      "file": "src\\coordination\\queen_coordinator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 225)",
+      "line": 225,
+      "column": 22,
+      "text": "\"\"\"Use Gemini's large context to ingest and understand all failures.\"\"\""
+    },
+    {
+      "file": "src\\detectors\\comprehensive_benchmark.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 6,
+      "text": "This module provides extensive benchmarking capabilities to validate performance"
+    },
+    {
+      "file": "src\\detectors\\defense_compliance_monitor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 6,
+      "text": "This module provides comprehensive compliance monitoring and validation for"
+    },
+    {
+      "file": "src\\detectors\\enterprise_detector_pool.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 908)",
+      "line": 869,
+      "column": 48,
+      "text": "\"\"\"Another sample detector for testing.\"\"\""
+    },
+    {
+      "file": "src\\detectors\\parallel_executor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 6,
+      "text": "This module provides advanced parallel processing capabilities with intelligent"
+    },
+    {
+      "file": "src\\detectors\\validation_demo.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 613)",
+      "line": 578,
+      "column": 38,
+      "text": "\"\"\"Main validation demonstration.\"\"\""
+    },
+    {
+      "file": "src\\linter-integration\\mesh-coordinator.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 205,
+      "column": 35,
+      "text": "\"heartbeat_interval\": MAXIMUM_NESTED_DEPTH.0,  # seconds"
+    },
+    {
+      "file": "src\\quiet_star\\algorithms.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 16,
+      "text": "Implementation of algorithmic components for Quiet-STaR reasoning enhancement"
+    },
+    {
+      "file": "src\\safety\\kill_switch_system.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 3,
+      "column": 49,
+      "text": "Provides emergency position liquidation with <500ms response time"
+    },
+    {
+      "file": "src\\security\\continuous_risk_assessment.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 712,
+      "column": 49,
+      "text": "elif cvss_score >= DAYS_RETENTION_PERIOD.0:"
+    },
+    {
+      "file": "src\\security\\dfars_compliance_engine.py",
+      "error_type": "IndentationError",
+      "message": "unexpected unindent",
+      "line": 17,
+      "column": 0,
+      "text": "class ComplianceResult:"
+    },
+    {
+      "file": "src\\security\\dfars_compliance_validation_system.py",
+      "error_type": "SyntaxError",
+      "message": "illegal target for annotation",
+      "line": 251,
+      "column": 13,
+      "text": "\"nmap\": {"
+    },
+    {
+      "file": "src\\security\\dfars_integration_demo.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 619)",
+      "line": 592,
+      "column": 38,
+      "text": "\"\"\"Main demonstration entry point\"\"\""
+    },
+    {
+      "file": "src\\security\\dfars_workflow_automation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 895)",
+      "line": 847,
+      "column": 59,
+      "text": "\"\"\"Main function for testing DFARS workflow automation\"\"\""
+    },
+    {
+      "file": "src\\security\\enhanced_audit_trail_manager.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 4,
+      "text": "def _initialize_integrity_key(self) -> bytes:"
+    },
+    {
+      "file": "src\\security\\enhanced_audit_wrapper.py",
+      "error_type": "SyntaxError",
+      "message": "'(' was never closed",
+      "line": 12,
+      "column": 31,
+      "text": "from .audit_components import ("
+    },
+    {
+      "file": "src\\sixsigma\\sixsigma_scorer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 78,
+      "column": 48,
+      "text": "'minimum_sigma_level': MAXIMUM_RETRY_ATTEMPTS.0,"
+    },
+    {
+      "file": "src\\sixsigma\\telemetry_config.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 12,
+      "text": "\"\"\"Initialize with configuration\"\"\"        from .sixsigma_scorer import SixSigmaScorer"
+    },
+    {
+      "file": "src\\theater-detection\\continuous-monitor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 439,
+      "column": 56,
+      "text": "Overall Reality Score: {overall_reality_score:.2f}/1.00"
+    },
+    {
+      "file": "src\\theater-detection\\theater-detector.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.artifacts_dir = Path(artifacts_dir)"
+    },
+    {
+      "file": "src\\analysis\\failure_pattern_detection\\failure_pattern_detector_core.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 395,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created refactored core detector using delegation pattern | failure_pattern_detector_core.py | OK | God object decomposition complete | 0.0o0 | d7a9c2f |"
+    },
+    {
+      "file": "src\\analysis\\failure_pattern_detection\\pattern_database.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 262,
+      "column": 86,
+      "text": "signature.confidence_score = max(0.1, signature.confidence_score - 0.0o5)"
+    },
+    {
+      "file": "src\\analysis\\failure_pattern_detection\\root_cause_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 384,
+      "column": 21,
+      "text": "| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created root cause analysis engine module | root_cause_analyzer.py | OK | Extracted from god object | 0.10 | b9f2e4a |"
+    },
+    {
+      "file": "src\\analysis\\failure_pattern_detection\\test_failure_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 206,
+      "column": 35,
+      "text": "base_probability *= 1.0o5"
+    },
+    {
+      "file": "src\\analyzers\\nasa\\bounded_ast_walker.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 383)",
+      "line": 346,
+      "column": 5,
+      "text": "\"\"\""
+    },
+    {
+      "file": "src\\analyzers\\nasa\\defensive_programming_specialist.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 4,
+      "column": 13,
+      "text": "Specialized agent for assertion injection and input validation framework"
+    },
+    {
+      "file": "src\\analyzers\\nasa\\function_decomposer.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 537)",
+      "line": 469,
+      "column": 1,
+      "text": "'''"
+    },
+    {
+      "file": "src\\analyzers\\nasa\\nasa_compliance_auditor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 451,
+      "column": 6,
+      "text": "[U+251C][U+2500] Current: {report.current_compliance:.1%}"
+    },
+    {
+      "file": "src\\analyzers\\nasa\\security_manager.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 548)",
+      "line": 534,
+      "column": 43,
+      "text": "\"\"\"Export compliance evidence to file.\"\"\""
+    },
+    {
+      "file": "src\\enterprise\\adapters\\integration_adapters.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 1085)",
+      "line": 1006,
+      "column": 56,
+      "text": "\"\"\"Get distribution of adapters by system type.\"\"\""
+    },
+    {
+      "file": "src\\enterprise\\factories\\enterprise_factories.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 621,
+      "column": 40,
+      "text": "\"performance_score\": 88.MAXIMUM_NESTED_DEPTH,"
+    },
+    {
+      "file": "src\\enterprise\\flags\\feature_flags.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'if' statement on line 68",
+      "line": 71,
+      "column": 13,
+      "text": "if self.status == FlagStatus.DISABLED:"
+    },
+    {
+      "file": "src\\enterprise\\security\\supply_chain.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 290)",
+      "line": 279,
+      "column": 47,
+      "text": "\"\"\"Get current security status summary\"\"\""
+    },
+    {
+      "file": "src\\enterprise\\telemetry\\spc_control_charts.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 369)",
+      "line": 369,
+      "column": 28,
+      "text": "\"\"\"CUSUM charts don't use traditional control limits\"\"\""
+    },
+    {
+      "file": "src\\enterprise\\utils\\logging_utils.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 179",
+      "line": 182,
+      "column": 4,
+      "text": "def close(self):"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\pipeline_orchestrator.py",
+      "error_type": "IndentationError",
+      "message": "unindent does not match any outer indentation level",
+      "line": 100,
+      "column": 53,
+      "text": "signal.signal(signal.SIGINT, signal_handler)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\examples\\basic_usage.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 331,
+      "column": 55,
+      "text": "f\"({source_quality['trend']})\")"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\monitoring\\metrics_collector.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 74,
+      "text": "ds\"),            (\"processing_time\", MetricType.HISTOGRAM, \"Processing time in milliseconds\"),            (\"operations_total\", MetricType.COUNTER, \"Total number of operations\"),            (\"throughput_rate\", MetricType.GAUGE, \"Processing throughput rate (items/second)\"),            (\"items_processed\", MetricType.COUNTER, \"Total items processed\"),            (\"memory_usage_bytes\", MetricType.GAUGE, \"Memory usage in bytes\"),            (\"cpu_usage_percent\", MetricType.GAUGE, \"CPU usage percentage\"),            ]            for name, metric_type, description in builtin_metrics:                self.register_metric(name, metric_type, description)class TimingContext:        \"\"\"Context manager for timing operations\"\"\"    def __init__(self, collector: MetricsCollector, name: str, labels: Optional[Dict[str, str]] = None):"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\monitoring\\pipeline_monitor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 95,
+      "text": "str:            \"\"\"Format duration in human-readable form\"\"\"            if seconds < 60:                return f\"{seconds:.0f)s\"            elif seconds < 3600:                    return f\"{seconds/60:.1f)m\"                elif seconds < 86400:                        return f\"{seconds/3600:.1f)h\"                    else:                            return f\"{seconds/86400:.1f)d\"    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            if self.running:                try:                    loop = asyncio.get_event_loop()                    loop.create_task(self.stop())                except Exception:                        pass"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\alpaca_source.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 86,
+      "text": "}            return mapping.get(timeframe, \"1Day\")            async def close(self):                \"\"\"Close HTTP session\"\"\"                if self.session and not self.session.closed:                    await self.session.close()    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            if hasattr(self, 'session') and self.session and not self.session.closed:                try:                    loop = asyncio.get_event_loop()                    if loop.is_running():                        loop.create_task(self.session.close())                    else:                            loop.run_until_complete(self.session.close())                        except Exception:                                pass"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\data_source_manager.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 98,
+      "text": "source in self.sources.values():                        try:                            await source.close()                        except Exception as e:                                self.logger.warning(f\"Error closing source: {e)\")    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            try:                loop = asyncio.get_event_loop()                if loop.is_running():                    loop.create_task(self.close_all_sources())                except Exception:                        pass"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\historical_loader.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 110,
+      "text": "start_date, start_date + timedelta(days=7), \"1D\"                            ))                            if sample_data is not None and not sample_data.empty:                                coverage[symbol] = {                                \"available\": True,                                \"source\": source,                                \"sample_records\": len(sample_data),                                \"earliest_date\": sample_data.index.min() if len(sample_data) > 0 else None)                            else:                                    coverage[symbol] = {\"available\": False, \"source\": source)                                except Exception as e:                                        coverage[symbol] = {\"available\": False, \"error\": str(e)}                                        return coverage    def __del__(self):            \"\"\"Cleanup resources\"\"\"            if hasattr(self, 'executor'):                self.executor.shutdown(wait=True)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\polygon_source.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 90,
+      "text": "),            \"1H\": (1, \"hour\"),            \"1D\": (1, \"day\")            }            return mapping.get(timeframe, (1, \"day\"))            async def close(self):                \"\"\"Close HTTP session\"\"\"                if self.session and not self.session.closed:                    await self.session.close()    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            if hasattr(self, 'session') and self.session and not self.session.closed:                try:                    loop = asyncio.get_event_loop()                    if loop.is_running():                        loop.create_task(self.session.close())                    else:                            loop.run_until_complete(self.session.close())                        except Exception:                                pass"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\yahoo_source.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 90,
+      "text": "sed:                    await self.session.close()    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            if hasattr(self, 'session') and self.session and not self.session.closed:                try:                    loop = asyncio.get_event_loop()                    if loop.is_running():                        loop.create_task(self.session.close())                    else:                            loop.run_until_complete(self.session.close())                        except Exception:                                pass"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\streaming\\real_time_streamer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 87,
+      "text": "if self.running:                                            await self._connect_polygon()    def get_metrics(self) -> StreamMetrics:            \"\"\"Get current streaming metrics\"\"\"            return self.metrics    def get_buffer_status(self) -> Dict[str, Any]:            \"\"\"Get buffer status information\"\"\"            return self.stream_buffer.get_status()    def __del__(self):            \"\"\"Cleanup on destruction\"\"\"            if self.running:                try:                    loop = asyncio.get_event_loop()                    loop.create_task(self.stop())                except Exception:                        pass"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\streaming\\stream_buffer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 98,
+      "text": "with self.lock:                return len(self.buffer) == 0    def is_full(self) -> bool:            \"\"\"Check if buffer is full\"\"\"            with self.lock:                return len(self.buffer) >= self.capacity    def __len__(self) -> int:            \"\"\"Get current buffer size\"\"\"            with self.lock:                return len(self.buffer)    def __del__(self):            \"\"\"Cleanup buffer resources\"\"\"            try:                self.clear()            except Exception:                    pass"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\streaming\\websocket_manager.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 88,
+      "text": ".create_task(self.stop())                except Exception:                        pass"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\ensemble\\ensemble_framework.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 2,
+      "column": 198,
+      "text": "model_name: str,        prediction: Union[np.ndarray, Dict[str, Any]],        confidence: float,        inference_time_ms: float,        model_specific_data: Optional[Dict[str, Any]] = None):            \"\"\"Initialize model prediction.\"        Args:"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\lstm\\attention_mechanism.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 163,
+      "text": "\"\"\"Attention Mechanism for LSTM\"Implements scaled dot-product attention for time series prediction.Focuses on relevant temporal patterns for price forecasting.\"\"\"import torchimport torch.nn as nnimport torch.nn.functional as Fimport mathfrom typing import Tuple, Optionalclass AttentionLayer(nn.Module):        \"\"\"Scaled dot-product attention mechanism for LSTM outputs.\"\"\"    def __init__(self, hidden_size: int, num_heads: int = 8, dropout: float = 0.1):"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\lstm\\lstm_predictor.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 178,
+      "text": "rue  # Gary's DPI calculations'        volatility_scaling: bool = True  # Dynamic volatility adjustmentclass LSTMPredictor(nn.Module):        \"\"\"2-Layer LSTM with attention for financial time series prediction.\"        Optimized for <100ms inference with GaryTaleb integration.        Supports antifragility principles and DPI calculations.        \"\"\"    def __init__(self, config: LSTMConfig):"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\rl\\ppo_agent.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 2,
+      "column": 93,
+      "text": "observation_shape: Tuple[int, ...],        action_dim: int,        config: PPOConfig):            \"\"\"Initialize Actor-Critic network.\"        Args:"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\rl\\strategy_optimizer.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 2,
+      "column": 65,
+      "text": "market_data: pd.DataFrame,        config: StrategyConfig):            \"\"\"Initialize strategy optimizer.\"        Args:"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\rl\\trading_environment.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 2,
+      "column": 68,
+      "text": "market_data: pd.DataFrame,        config: EnvironmentConfig):            \"\"\"Initialize trading environment.\"        Args:"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\transformer\\financial_bert.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 21)",
+      "line": 21,
+      "column": 202,
+      "text": "input_ids: torch.Tensor,        attention_mask: torch.Tensor,        token_type_ids: Optional[torch.Tensor] = None) -> Dict[str, torch.Tensor]:            \"\"\"Forward pass through FinancialBERT.\"        Args:"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\transformer\\sentiment_analyzer.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 1,
+      "column": 189,
+      "text": "rket impact weights        news_weight: float = 0.4        social_weight: float = 0.3        earnings_weight: float = 0.8        analyst_weight: float = 0.7    # GaryxTaleb integration        dpi_sentiment_factor: float = 0.2        antifragile_contrarian_boost: float = 0.15class FinancialSentimentAnalyzer:        \"\"\"Real-time financial sentiment analyzer.\"        Processes news, social media, earnings calls, and analyst reports        with <100ms inference time and GaryTaleb integration.        \"\"\"    def __init__(self, config: SentimentConfig):"
+    },
+    {
+      "file": "src\\interfaces\\cli\\policy_detection.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 250)",
+      "line": 226,
+      "column": 69,
+      "text": "\"\"\"Apply bonuses based on project structure characteristics.\"\"\""
+    },
+    {
+      "file": "src\\interfaces\\cli\\simple_cli.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 443)",
+      "line": 438,
+      "column": 40,
+      "text": "\"\"\"Main entry point for simple CLI.\"\"\""
+    },
+    {
+      "file": "src\\linter-integration\\agents\\api_docs_node.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 8,
+      "text": "logger.setLevel(logging.INFO)"
+    },
+    {
+      "file": "src\\linter-integration\\agents\\integration_specialist_node.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.stream_id = stream_id"
+    },
+    {
+      "file": "src\\performance\\observers\\performance_observers.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 647,
+      "column": 49,
+      "text": "self.monitoring_thread.join(timeout=MAXIMUM_NESTED_DEPTH.0)"
+    },
+    {
+      "file": "src\\princess\\quality\\analysis-reports\\quality_dashboard.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 413,
+      "column": 23,
+      "text": "padding: 20px;"
+    },
+    {
+      "file": "src\\princess\\quality\\quality-gates\\cross_domain_validator.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 320)",
+      "line": 320,
+      "column": 74,
+      "text": "if 'docstring' in content.lower() or '\"\"\"' in content or \"'''\" in content:'"
+    },
+    {
+      "file": "src\\princess\\quality\\theater-detection\\comprehensive_analysis_engine.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 597)",
+      "line": 534,
+      "column": 52,
+      "text": "\"\"\"Command-line interface for theater detection\"\"\""
+    },
+    {
+      "file": "src\\production\\scripts\\security-gate-check.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 386)",
+      "line": 327,
+      "column": 24,
+      "text": "\"\"\"Main entry point\"\"\""
+    },
+    {
+      "file": "src\\reporting\\factories\\report_factories.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 254,
+      "column": 58,
+      "text": "body {{ font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }}"
+    },
+    {
+      "file": "src\\safety\\core\\failover_manager.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 85,
+      "column": 49,
+      "text": "Execute failover for a component with <60s recovery guarantee."
+    },
+    {
+      "file": "src\\security\\handlers\\security_handlers.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 7,
+      "text": "Chain of Responsibility pattern for security incident handling and analysis."
+    },
+    {
+      "file": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 671)",
+      "line": 612,
+      "column": 51,
+      "text": "\"\"\"Run comprehensive Batch 3 validation tests.\"\"\""
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\test_suite_orchestrator.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 854,
+      "column": 48,
+      "text": "- Passed: {passed} ({passed/max(1, total)*100:.1f}%)"
+    },
+    {
+      "file": "tests\\byzantium\\test_byzantine_stress.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 709)",
+      "line": 695,
+      "column": 51,
+      "text": "\"\"\"Run comprehensive Byzantine stress testing.\"\"\""
+    },
+    {
+      "file": "tests\\cache_analyzer\\test_cache_functionality.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 536)",
+      "line": 514,
+      "column": 37,
+      "text": "\"\"\"Run all cache analyzer tests.\"\"\""
+    },
+    {
+      "file": "tests\\compliance\\test_compliance_demo.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 217)",
+      "line": 41,
+      "column": 35,
+      "text": "\"\"\"Main demonstration function\"\"\""
+    },
+    {
+      "file": "tests\\compliance\\test_compliance_simple.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 97,
+      "column": 47,
+      "text": "\"overall_compliance_score\": 78.MAXIMUM_NESTED_DEPTH"
+    },
+    {
+      "file": "tests\\cycles\\test_integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 402,
+      "column": 32,
+      "text": "\"\"\"Test that Friday 6:00pm scheduling is correctly configured.\"\"\""
+    },
+    {
+      "file": "tests\\integration\\github_bridge_fixes.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated string literal (detected at line 19)",
+      "line": 19,
+      "column": 39,
+      "text": "\"\"\"Fix the status check logic that's producing fake data.\"\"\""
+    },
+    {
+      "file": "tests\\integration\\github_bridge_fixes_clean.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 377)",
+      "line": 353,
+      "column": 39,
+      "text": "\"\"\"Apply fixes and run final test.\"\"\""
+    },
+    {
+      "file": "tests\\integration\\queen_remediation_test.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 414)",
+      "line": 409,
+      "column": 44,
+      "text": "\"\"\"Run the Queen remediation simulation\"\"\""
+    },
+    {
+      "file": "tests\\integration\\reality_check_simple.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 346)",
+      "line": 272,
+      "column": 73,
+      "text": "\"\"\"Calculate the final reality score for Phase 2 GitHub integration.\"\"\""
+    },
+    {
+      "file": "tests\\integration\\reality_validation_simple.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 361)",
+      "line": 345,
+      "column": 33,
+      "text": "\"\"\"Main validation function.\"\"\""
+    },
+    {
+      "file": "tests\\integration\\test_enterprise_domains.py",
+      "error_type": "SyntaxError",
+      "message": "unmatched ')'",
+      "line": 207,
+      "column": 4,
+      "text": "\"\"\")"
+    },
+    {
+      "file": "tests\\integration\\test_enterprise_integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 15,
+      "text": "Comprehensive integration tests for enterprise modules with the existing analyzer."
+    },
+    {
+      "file": "tests\\integration\\test_error_handling.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 498)",
+      "line": 443,
+      "column": 64,
+      "text": "\"\"\"Test: Handle feature dependency failures gracefully.\"\"\""
+    },
+    {
+      "file": "tests\\integration\\test_github_bridge_reality.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 470)",
+      "line": 412,
+      "column": 71,
+      "text": "\"\"\"Calculate overall reality score for Phase 2 GitHub integration.\"\"\""
+    },
+    {
+      "file": "tests\\integration\\test_performance_load.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 645)",
+      "line": 593,
+      "column": 46,
+      "text": "\"\"\"Create test configuration manager.\"\"\""
+    },
+    {
+      "file": "tests\\json_schema_validation\\demo_test_execution.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 409)",
+      "line": 398,
+      "column": 41,
+      "text": "\"\"\"Main execution for demonstration.\"\"\""
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 12,
+      "text": "End-to-end tests validating the complete JSON generation and validation pipeline:"
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_json_schema_validation.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 282,
+      "column": 54,
+      "text": "\"\"\"Test SARIF generation overhead (baseline: 6x standard JSON).\"\"\""
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_risk_mitigation.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 521)",
+      "line": 449,
+      "column": 80,
+      "text": "\"\"\"Test graceful degradation when some violations cannot be serialized.\"\"\""
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_runner.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 343)",
+      "line": 310,
+      "column": 41,
+      "text": "\"\"\"Main entry point for test runner.\"\"\""
+    },
+    {
+      "file": "tests\\linter_integration\\test_adapter_patterns.py",
+      "error_type": "IndentationError",
+      "message": "unindent does not match any outer indentation level",
+      "line": 60,
+      "column": 40,
+      "text": "return TestAdapter(base_config)"
+    },
+    {
+      "file": "tests\\linter_integration\\test_failure_modes.py",
+      "error_type": "IndentationError",
+      "message": "unindent does not match any outer indentation level",
+      "line": 351,
+      "column": 49,
+      "text": "engine.event_emitter.emit = failing_emit"
+    },
+    {
+      "file": "tests\\linter_integration\\test_real_linter_validation.py",
+      "error_type": "IndentationError",
+      "message": "expected an indented block after 'except' statement on line 272",
+      "line": 275,
+      "column": 0,
+      "text": "class TestRuffIntegration:"
+    },
+    {
+      "file": "tests\\memory_integration\\test_cross_phase_memory.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 697)",
+      "line": 663,
+      "column": 78,
+      "text": "\"\"\"Test calculation and tracking of cross-phase correlation strength.\"\"\""
+    },
+    {
+      "file": "tests\\ml\\test_integration.py",
+      "error_type": "SyntaxError",
+      "message": "unterminated triple-quoted string literal (detected at line 740)",
+      "line": 701,
+      "column": 65,
+      "text": "\"\"\"Test that response times meet real-time requirements.\"\"\""
+    },
+    {
+      "file": "tests\\phase7_adas\\test_perception_accuracy.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 369,
+      "column": 20,
+      "text": "\"\"\"Project 3D position to 2D bounding box (simplified)\"\"\""
+    },
+    {
+      "file": "tests\\phase7_adas\\test_sensor_fusion.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 4,
+      "column": 38,
+      "text": "- Sensor synchronization tolerance < 1ms"
+    },
+    {
+      "file": "tests\\production\\load_testing_suite.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 322,
+      "column": 31,
+      "text": "test_duration=API_TIMEOUT_SECONDS.0,"
+    },
+    {
+      "file": "tests\\safety\\test_safety_system.py",
+      "error_type": "SyntaxError",
+      "message": "invalid decimal literal",
+      "line": 136,
+      "column": 61,
+      "text": "\"\"\"Test that recovery times are validated against <60s requirement.\"\"\""
+    },
+    {
+      "file": "tests\\sixsigma\\test_integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax. Perhaps you forgot a comma?",
+      "line": 175,
+      "column": 46,
+      "text": "self.assertLess(metrics.sigma_level, MAXIMUM_RETRY_ATTEMPTS.0)  # Below acceptable threshold"
+    },
+    {
+      "file": "tests\\workflow-validation\\comprehensive_validation_report.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.repo_root = Path(repo_root)"
+    },
+    {
+      "file": "tests\\workflow-validation\\python_execution_tests.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 2,
+      "column": 8,
+      "text": "self.repo_root = Path(repo_root)"
+    },
+    {
+      "file": "tests\\workflow-validation\\workflow_test_suite.py",
+      "error_type": "IndentationError",
+      "message": "unexpected indent",
+      "line": 3,
+      "column": 16,
+      "text": "reports = {}"
+    },
+    {
+      "file": "tests\\enterprise\\e2e\\test_enterprise_workflows.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 7,
+      "text": "Tests complete enterprise workflows from start to finish including:"
+    },
+    {
+      "file": "tests\\enterprise\\integration\\test_analyzer_integration.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 7,
+      "text": "Tests all functionality of the enterprise analyzer integration including:"
+    },
+    {
+      "file": "tests\\enterprise\\performance\\test_zero_impact_disabled.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 3,
+      "column": 7,
+      "text": "Tests that enterprise features have zero performance impact when disabled,"
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_six_sigma_python.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 168,
+      "column": 54,
+      "text": "assert 2.8 <= sigma <= MAXIMUM_RETRY_ATTEMPTS.2  # Should be around 3 sigma"
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_six_sigma_telemetry.py",
+      "error_type": "SyntaxError",
+      "message": "invalid syntax",
+      "line": 253,
+      "column": 51,
+      "text": "assert sigma_level >= MAXIMUM_NESTED_DEPTH.9"
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_agent_database_builder.py",
+      "error_type": "SyntaxError",
+      "message": "'(' was never closed",
+      "line": 3,
+      "column": 53,
+      "text": "from src.coordination.agent_database_builder import ("
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_deployment_task_builder.py",
+      "error_type": "SyntaxError",
+      "message": "'(' was never closed",
+      "line": 3,
+      "column": 51,
+      "text": "from scripts.dfars_deployment_task_builder import ("
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_dfars_controls_builder.py",
+      "error_type": "SyntaxError",
+      "message": "'(' was never closed",
+      "line": 3,
+      "column": 49,
+      "text": "from src.security.dfars_controls_builder import ("
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_test_pattern_builder.py",
+      "error_type": "SyntaxError",
+      "message": "'(' was never closed",
+      "line": 3,
+      "column": 47,
+      "text": "from src.analysis.test_pattern_builder import ("
+    }
+  ]
+}

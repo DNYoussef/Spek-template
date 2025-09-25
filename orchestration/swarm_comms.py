@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class SwarmMessage:
     """Message between swarm entities"""
-    sender: str  # e.g., "Queen", "Princess:Development", "Drone:coder-01"
+    sender: str  # e.g., "Queen", "Princess:Development", "Drone:coder-1"
     receiver: str
     message_type: str  # "order", "report", "validation", "error"
     content: Dict[str, Any]
@@ -579,7 +579,7 @@ if __name__ == "__main__":
     order = {
         "task": "Implement authentication system",
         "requirements": ["OAuth2", "JWT tokens", "Rate limiting"],
-        "deadline": "2025-09-30"
+        "deadline": "2025-9-30"
     }
     validated_order, report = interceptor.intercept_queen_to_princess("Development", order)
     print(f"Queen->Princess validation: {report.passed} (pass_rate: {report.pass_rate:.2%})")
@@ -590,7 +590,7 @@ if __name__ == "__main__":
         "file_path": "/src/auth/controller.py",
         "prompt": "Implement OAuth2 authentication"
     }
-    validated_task, report = interceptor.intercept_princess_to_drone("Development", "coder-01", task)
+    validated_task, report = interceptor.intercept_princess_to_drone("Development", "coder-1", task)
     print(f"Princess->Drone validation: {report.passed}")
 
     # Test Drone to Princess
@@ -604,5 +604,5 @@ if __name__ == "__main__":
             "tools_used": ["filesystem", "github"]
         }
     }
-    validated_output, report = interceptor.validate_drone_to_princess("coder-01", "Development", output)
+    validated_output, report = interceptor.validate_drone_to_princess("coder-1", "Development", output)
     print(f"Drone->Princess validation: {report.passed} (theater_score: {report.theater_score})")

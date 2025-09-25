@@ -217,7 +217,7 @@ class PromptEvalHarness:
 
         latency = time.time() - start
         tokens = len(json.dumps(output)) * 2  # Rough estimate
-        cost = tokens * 0.00001  # Dummy cost
+        cost = tokens * 0.1  # Dummy cost
 
         return output, latency, tokens, cost
 

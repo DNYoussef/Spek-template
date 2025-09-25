@@ -1,0 +1,3415 @@
+{
+  "fixes_applied": {
+    "missing_indentation": [
+      {
+        "file": "analyzer\\bridge.py",
+        "error": "expected an indented block after function definition on line 269",
+        "line": 270,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\connascence_analyzer.py",
+        "error": "expected an indented block after function definition on line 203",
+        "line": 204,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\duplication_unified.py",
+        "error": "expected an indented block after function definition on line 560",
+        "line": 561,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\integration_methods.py",
+        "error": "expected an indented block after function definition on line 271",
+        "line": 272,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\test_high_severity_violations.py",
+        "error": "expected an indented block after function definition on line 55",
+        "line": 56,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\unified_orchestrator.py",
+        "error": "expected an indented block after function definition on line 405",
+        "line": 406,
+        "status": "fixed"
+      },
+      {
+        "file": "tests\\test_fixes_simple.py",
+        "error": "expected an indented block after 'if' statement on line 209",
+        "line": 210,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\bridge.py",
+        "error": "expected an indented block after function definition on line 269",
+        "line": 270,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\connascence_analyzer.py",
+        "error": "expected an indented block after function definition on line 203",
+        "line": 204,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\duplication_unified.py",
+        "error": "expected an indented block after function definition on line 560",
+        "line": 561,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\integration_methods.py",
+        "error": "expected an indented block after function definition on line 271",
+        "line": 272,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\test_high_severity_violations.py",
+        "error": "expected an indented block after function definition on line 55",
+        "line": 56,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\unified_orchestrator.py",
+        "error": "expected an indented block after function definition on line 405",
+        "line": 406,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\tests\\integration_test_suite.py",
+        "error": "expected an indented block after 'else' statement on line 533",
+        "line": 535,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\tests\\test_fixes_simple.py",
+        "error": "expected an indented block after 'if' statement on line 209",
+        "line": 210,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\architecture\\validation_tests.py",
+        "error": "expected an indented block after function definition on line 550",
+        "line": 551,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\ast_engine\\analyzer_orchestrator.py",
+        "error": "expected an indented block after function definition on line 117",
+        "line": 118,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\dup_detection\\mece_analyzer.py",
+        "error": "expected an indented block after function definition on line 494",
+        "line": 495,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\interfaces\\analysis_interfaces.py",
+        "error": "expected an indented block after function definition on line 386",
+        "line": 387,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\optimization\\performance_benchmark.py",
+        "error": "expected an indented block after function definition on line 457",
+        "line": 458,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\utils\\common_patterns.py",
+        "error": "expected an indented block after function definition on line 462",
+        "line": 463,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\utils\\connascence_validator.py",
+        "error": "expected an indented block after function definition on line 384",
+        "line": 385,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\nist_ssdf.py",
+        "error": "expected an indented block after function definition on line 33",
+        "line": 34,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\enterprise\\detectors\\dfars_detector.py",
+        "error": "expected an indented block after function definition on line 322",
+        "line": 323,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\analyzer\\utils\\injection\\container.py",
+        "error": "expected an indented block after function definition on line 288",
+        "line": 289,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\src\\enterprise\\cli\\enterprise_cli.py",
+        "error": "expected an indented block after 'else' statement on line 191",
+        "line": 193,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\src\\intelligence\\inference\\inference_engine.py",
+        "error": "expected an indented block after 'except' statement on line 704",
+        "line": 706,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\src\\intelligence\\registry\\model_registry.py",
+        "error": "expected an indented block after 'except' statement on line 590",
+        "line": 592,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\tests\\batch2_validation\\run_validation.py",
+        "error": "expected an indented block after 'else' statement on line 177",
+        "line": 179,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\tests\\integration\\integration_test_suite.py",
+        "error": "expected an indented block after 'else' statement on line 883",
+        "line": 885,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\tests\\integration\\test_swarm_hierarchy_integration.py",
+        "error": "expected an indented block after 'if' statement on line 504",
+        "line": 507,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\tests\\linter_integration\\run_all_tests.py",
+        "error": "expected an indented block after 'if' statement on line 108",
+        "line": 109,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\tests\\security\\test_dfars_workflow_automation.py",
+        "error": "expected an indented block after 'for' statement on line 705",
+        "line": 707,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\tests\\self-dogfooding\\workflow_simulation_test.py",
+        "error": "expected an indented block after 'if' statement on line 187",
+        "line": 188,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\architecture\\validation_tests.py",
+        "error": "expected an indented block after function definition on line 550",
+        "line": 551,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\ast_engine\\analyzer_orchestrator.py",
+        "error": "expected an indented block after function definition on line 117",
+        "line": 118,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\interfaces\\analysis_interfaces.py",
+        "error": "expected an indented block after function definition on line 386",
+        "line": 387,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\optimization\\performance_benchmark.py",
+        "error": "expected an indented block after function definition on line 457",
+        "line": 458,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\utils\\common_patterns.py",
+        "error": "expected an indented block after function definition on line 462",
+        "line": 463,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\utils\\connascence_validator.py",
+        "error": "expected an indented block after function definition on line 384",
+        "line": 385,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\enterprise\\compliance\\nist_ssdf.py",
+        "error": "expected an indented block after function definition on line 33",
+        "line": 34,
+        "status": "fixed"
+      },
+      {
+        "file": "analyzer\\enterprise\\detectors\\dfars_detector.py",
+        "error": "expected an indented block after function definition on line 322",
+        "line": 323,
+        "status": "fixed"
+      },
+      {
+        "file": "tests\\batch2_validation\\run_validation.py",
+        "error": "expected an indented block after 'if' statement on line 244",
+        "line": 245,
+        "status": "fixed"
+      },
+      {
+        "file": "tests\\linter_integration\\run_all_tests.py",
+        "error": "expected an indented block after 'if' statement on line 108",
+        "line": 109,
+        "status": "fixed"
+      },
+      {
+        "file": "tests\\nasa-compliance\\test_nasa_agents.py",
+        "error": "expected an indented block after 'for' statement on line 471",
+        "line": 473,
+        "status": "fixed"
+      },
+      {
+        "file": "tests\\self-dogfooding\\workflow_simulation_test.py",
+        "error": "expected an indented block after 'if' statement on line 187",
+        "line": 188,
+        "status": "fixed"
+      }
+    ],
+    "indentation_errors": [
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\cache_performance_profiler_utilities.py",
+        "error": "unexpected indent",
+        "line": 14,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\cache_performance_profiler_validation.py",
+        "error": "unexpected indent",
+        "line": 25,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\incremental_analyzer_configuration.py",
+        "error": "unexpected indent",
+        "line": 31,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\incremental_analyzer_operations.py",
+        "error": "unexpected indent",
+        "line": 34,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\optimizer_configuration.py",
+        "error": "unexpected indent",
+        "line": 16,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\optimizer_operations.py",
+        "error": "unexpected indent",
+        "line": 36,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\optimizer_processing.py",
+        "error": "unexpected indent",
+        "line": 214,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_persistence.py",
+        "error": "unexpected indent",
+        "line": 16,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_validation.py",
+        "error": "unexpected indent",
+        "line": 14,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\cdi_protection_framework_operations.py",
+        "error": "unexpected indent",
+        "line": 17,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\cdi_protection_framework_persistence.py",
+        "error": "unexpected indent",
+        "line": 16,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\cdi_protection_framework_validation.py",
+        "error": "unexpected indent",
+        "line": 16,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\continuous_risk_assessment_operations.py",
+        "error": "unexpected indent",
+        "line": 18,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\continuous_risk_assessment_persistence.py",
+        "error": "unexpected indent",
+        "line": 17,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\dfars_compliance_validation_system_operations.py",
+        "error": "unexpected indent",
+        "line": 15,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\dfars_compliance_validation_system_persistence.py",
+        "error": "unexpected indent",
+        "line": 16,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\enterprise_theater_detection_persistence.py",
+        "error": "unexpected indent",
+        "line": 14,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\failure_pattern_detector_persistence.py",
+        "error": "unexpected indent",
+        "line": 28,
+        "status": "fixed"
+      },
+      {
+        "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\loop_orchestrator_persistence.py",
+        "error": "unexpected indent",
+        "line": 28,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored\\cache_performance_profiler_utilities.py",
+        "error": "unexpected indent",
+        "line": 14,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored\\cache_performance_profiler_validation.py",
+        "error": "unexpected indent",
+        "line": 25,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored\\incremental_analyzer_configuration.py",
+        "error": "unexpected indent",
+        "line": 31,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored\\incremental_analyzer_operations.py",
+        "error": "unexpected indent",
+        "line": 34,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored\\optimizer_configuration.py",
+        "error": "unexpected indent",
+        "line": 16,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored\\optimizer_operations.py",
+        "error": "unexpected indent",
+        "line": 36,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored\\optimizer_processing.py",
+        "error": "unexpected indent",
+        "line": 214,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_persistence.py",
+        "error": "unexpected indent",
+        "line": 16,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_validation.py",
+        "error": "unexpected indent",
+        "line": 14,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored_src\\cdi_protection_framework_operations.py",
+        "error": "unexpected indent",
+        "line": 17,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored_src\\cdi_protection_framework_persistence.py",
+        "error": "unexpected indent",
+        "line": 16,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored_src\\cdi_protection_framework_validation.py",
+        "error": "unexpected indent",
+        "line": 16,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored_src\\continuous_risk_assessment_operations.py",
+        "error": "unexpected indent",
+        "line": 18,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored_src\\continuous_risk_assessment_persistence.py",
+        "error": "unexpected indent",
+        "line": 17,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored_src\\dfars_compliance_validation_system_operations.py",
+        "error": "unexpected indent",
+        "line": 15,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored_src\\dfars_compliance_validation_system_persistence.py",
+        "error": "unexpected indent",
+        "line": 16,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored_src\\enterprise_theater_detection_persistence.py",
+        "error": "unexpected indent",
+        "line": 14,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored_src\\failure_pattern_detector_persistence.py",
+        "error": "unexpected indent",
+        "line": 28,
+        "status": "fixed"
+      },
+      {
+        "file": ".claude\\artifacts\\phase3_refactored_src\\loop_orchestrator_persistence.py",
+        "error": "unexpected indent",
+        "line": 28,
+        "status": "fixed"
+      }
+    ]
+  },
+  "failed_fixes": [
+    {
+      "file": "analyzer\\cross_phase_learning_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1045)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\unified_analyzer_god_object_backup.py",
+      "error": "unterminated triple-quoted string literal (detected at line 25)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "scripts\\add_return_checks.py",
+      "error": "unterminated triple-quoted string literal (detected at line 311)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 16)"
+    },
+    {
+      "file": "scripts\\complexity_reduction.py",
+      "error": "unterminated triple-quoted string literal (detected at line 261)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 16)"
+    },
+    {
+      "file": "scripts\\eliminate_theater.py",
+      "error": "unterminated triple-quoted string literal (detected at line 372)",
+      "fix_attempt": "Fix validation failed: unterminated triple-quoted string literal (detected at line 372) (<unknown>, line 218)"
+    },
+    {
+      "file": "scripts\\queen_debug_test_failures.py",
+      "error": "unterminated triple-quoted string literal (detected at line 352)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 22)"
+    },
+    {
+      "file": "scripts\\replace_magic_numbers.py",
+      "error": "unterminated string literal (detected at line 140)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 140) (<unknown>, line 140)"
+    },
+    {
+      "file": "scripts\\run_nasa_compliance_validation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 349)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "scripts\\six_sigma_demo_simple.py",
+      "error": "unterminated triple-quoted string literal (detected at line 520)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 22)"
+    },
+    {
+      "file": "scripts\\unicode_eliminator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 502)",
+      "fix_attempt": "Fix validation failed: '{' was never closed (<unknown>, line 15)"
+    },
+    {
+      "file": "scripts\\validate_performance_improvements.py",
+      "error": "unterminated triple-quoted string literal (detected at line 745)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\config_reality_check.py",
+      "error": "unterminated triple-quoted string literal (detected at line 201)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 18)"
+    },
+    {
+      "file": "tests\\phase1_functional_test.py",
+      "error": "unterminated triple-quoted string literal (detected at line 264)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 25)"
+    },
+    {
+      "file": "tests\\simple_test_runner.py",
+      "error": "unterminated triple-quoted string literal (detected at line 157)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 14)"
+    },
+    {
+      "file": "tests\\test_fixes.py",
+      "error": "unterminated triple-quoted string literal (detected at line 336)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 21)"
+    },
+    {
+      "file": "tests\\test_phase3_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 617)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 23)"
+    },
+    {
+      "file": "tests\\theater_detection_audit.py",
+      "error": "unterminated triple-quoted string literal (detected at line 677)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\cross_phase_learning_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1045)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\policy_engine.py",
+      "error": "unterminated triple-quoted string literal (detected at line 445)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\quality_calculator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 439)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\refactored_detector.py",
+      "error": "unterminated triple-quoted string literal (detected at line 322)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\result_aggregator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 511)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\system_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 985)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\add_return_checks.py",
+      "error": "unterminated triple-quoted string literal (detected at line 309)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\complexity_reduction.py",
+      "error": "unterminated triple-quoted string literal (detected at line 259)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\comprehensive_test_runner.py",
+      "error": "unterminated triple-quoted string literal (detected at line 864)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\deploy_queen_loop3_real_failures.py",
+      "error": "unterminated triple-quoted string literal (detected at line 430)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\eliminate_theater.py",
+      "error": "unterminated triple-quoted string literal (detected at line 369)",
+      "fix_attempt": "Fix validation failed: unterminated triple-quoted string literal (detected at line 369) (<unknown>, line 333)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\github_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1457)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\interface_segregator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 456)",
+      "fix_attempt": "Fix validation failed: unterminated triple-quoted string literal (detected at line 457) (<unknown>, line 439)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\json_schema_migrator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 309)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\production_deployment_validation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 777)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\quality_gate_integrator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 421)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\queen_debug_test_failures.py",
+      "error": "unterminated triple-quoted string literal (detected at line 350)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\replace_magic_numbers.py",
+      "error": "unterminated string literal (detected at line 138)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 138) (<unknown>, line 138)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\run_nasa_compliance_validation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 349)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\security_validator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 774)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\six_sigma_demo_simple.py",
+      "error": "unterminated triple-quoted string literal (detected at line 518)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\unicode_eliminator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 501)",
+      "fix_attempt": "Fix validation failed: '{' was never closed (<unknown>, line 15)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\validate_performance_improvements.py",
+      "error": "unterminated triple-quoted string literal (detected at line 745)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\validate_theater_detection.py",
+      "error": "unterminated triple-quoted string literal (detected at line 773)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\wealth_flow_demo.py",
+      "error": "unterminated triple-quoted string literal (detected at line 216)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\config_reality_check.py",
+      "error": "unterminated triple-quoted string literal (detected at line 199)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\phase1_functional_test.py",
+      "error": "unterminated triple-quoted string literal (detected at line 262)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\simple_kill_switch_test.py",
+      "error": "unterminated triple-quoted string literal (detected at line 221)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\simple_test_runner.py",
+      "error": "unterminated triple-quoted string literal (detected at line 155)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_fixes.py",
+      "error": "unterminated triple-quoted string literal (detected at line 334)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase3_100_percent.py",
+      "error": "unterminated triple-quoted string literal (detected at line 393)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase3_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 615)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase4_configuration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 472)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase4_config_wiring_reality.py",
+      "error": "unterminated triple-quoted string literal (detected at line 389)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase5_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 283)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_phase5_sandbox_reality.py",
+      "error": "unterminated triple-quoted string literal (detected at line 320)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\theater_detection_audit.py",
+      "error": "unterminated triple-quoted string literal (detected at line 677)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\unified_test_orchestrator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 678)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\analysis_strategy.py",
+      "error": "unterminated triple-quoted string literal (detected at line 353)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\detector_pool.py",
+      "error": "unterminated string literal (detected at line 294)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 294) (<unknown>, line 294)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\refactoring_audit_report.py",
+      "error": "unterminated string literal (detected at line 856)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 856) (<unknown>, line 856)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\defense_certification_tool.py",
+      "error": "unterminated triple-quoted string literal (detected at line 686)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\nasa_pot10_analyzer.py",
+      "error": "unterminated triple-quoted string literal (detected at line 753)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\optimization\\resource_manager.py",
+      "error": "unterminated triple-quoted string literal (detected at line 672)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\optimization\\unified_visitor.py",
+      "error": "unterminated triple-quoted string literal (detected at line 363)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\cache_performance_profiler.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1091)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\detector_pool_optimizer.py",
+      "error": "unterminated triple-quoted string literal (detected at line 897)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\incremental_analyzer.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1073)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\real_cache_optimization_validator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 867)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\real_time_monitor.py",
+      "error": "unterminated triple-quoted string literal (detected at line 992)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\thread_contention_profiler.py",
+      "error": "unterminated triple-quoted string literal (detected at line 767)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\streaming\\dashboard_reporter.py",
+      "error": "unterminated triple-quoted string literal (detected at line 603)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\streaming\\incremental_cache.py",
+      "error": "unterminated triple-quoted string literal (detected at line 595)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\utils\\config_manager.py",
+      "error": "unterminated triple-quoted string literal (detected at line 621)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\utils\\intelligent_magic_number_analyzer.py",
+      "error": "unterminated string literal (detected at line 111)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 111) (<unknown>, line 111)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\utils\\metric_calculators.py",
+      "error": "unterminated triple-quoted string literal (detected at line 145)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\validate_retention.py",
+      "error": "unterminated triple-quoted string literal (detected at line 486)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\core\\decorators.py",
+      "error": "unterminated triple-quoted string literal (detected at line 358)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\core\\performance_monitor.py",
+      "error": "unterminated triple-quoted string literal (detected at line 393)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\detectors\\dfars_detector_simple.py",
+      "error": "unterminated triple-quoted string literal (detected at line 301)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\validation\\comprehensive_defense_validation.py",
+      "error": "unterminated string literal (detected at line 712)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 712) (<unknown>, line 712)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\failure_pattern_detector.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1650)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\byzantium\\race_condition_detector.py",
+      "error": "unterminated triple-quoted string literal (detected at line 905)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\compliance\\assertion_injection_engine.py",
+      "error": "unterminated triple-quoted string literal (detected at line 844)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\compliance\\automated_function_refactorer.py",
+      "error": "unterminated triple-quoted string literal (detected at line 787)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\compliance\\nasa_compliance_monitor.py",
+      "error": "unterminated triple-quoted string literal (detected at line 782)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\coordination\\queen_coordinator.py",
+      "error": "unterminated string literal (detected at line 139)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 139) (<unknown>, line 139)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\coordination\\recursive_merge_resolver.py",
+      "error": "unterminated triple-quoted string literal (detected at line 772)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\detectors\\comprehensive_benchmark.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1062)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\detectors\\defense_compliance_monitor.py",
+      "error": "unterminated triple-quoted string literal (detected at line 825)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\detectors\\enterprise_detector_pool.py",
+      "error": "unterminated triple-quoted string literal (detected at line 906)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\detectors\\parallel_executor.py",
+      "error": "unterminated triple-quoted string literal (detected at line 889)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\detectors\\validation_demo.py",
+      "error": "unterminated triple-quoted string literal (detected at line 612)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\quiet_star\\algorithms.py",
+      "error": "unterminated triple-quoted string literal (detected at line 664)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\continuous_theater_monitor.py",
+      "error": "unterminated triple-quoted string literal (detected at line 634)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\defense_industry_evidence_generator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1147)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\dfars_compliance_engine.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1077)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 9)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\dfars_integration_demo.py",
+      "error": "unterminated triple-quoted string literal (detected at line 617)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\dfars_workflow_automation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 893)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\real_security_scanner.py",
+      "error": "unterminated triple-quoted string literal (detected at line 938)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\theater-detection\\reality-validator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 899)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\commands\\analysis_commands.py",
+      "error": "unterminated triple-quoted string literal (detected at line 687)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analyzers\\nasa\\bounded_ast_walker.py",
+      "error": "unterminated triple-quoted string literal (detected at line 383)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analyzers\\nasa\\defensive_programming_specialist.py",
+      "error": "unterminated triple-quoted string literal (detected at line 541)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analyzers\\nasa\\function_decomposer.py",
+      "error": "unterminated triple-quoted string literal (detected at line 536)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analyzers\\nasa\\security_manager.py",
+      "error": "unterminated triple-quoted string literal (detected at line 548)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\adapters\\integration_adapters.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1083)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\compliance\\matrix.py",
+      "error": "unterminated triple-quoted string literal (detected at line 589)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\factories\\enterprise_factories.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1032)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\security\\supply_chain.py",
+      "error": "unterminated triple-quoted string literal (detected at line 288)",
+      "fix_attempt": "Fix validation failed: expected 'except' or 'finally' block (<unknown>, line 5)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\utils\\logging_utils.py",
+      "error": "unterminated triple-quoted string literal (detected at line 458)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\transformer\\financial_bert.py",
+      "error": "unterminated string literal (detected at line 21)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 21) (<unknown>, line 21)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\interfaces\\cli\\policy_detection.py",
+      "error": "unterminated triple-quoted string literal (detected at line 248)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\interfaces\\cli\\simple_cli.py",
+      "error": "unterminated triple-quoted string literal (detected at line 443)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\performance\\observers\\performance_observers.py",
+      "error": "unterminated triple-quoted string literal (detected at line 712)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\princess\\quality\\quality-gates\\cross_domain_validator.py",
+      "error": "unterminated string literal (detected at line 320)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 320) (<unknown>, line 320)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\princess\\quality\\theater-detection\\comprehensive_analysis_engine.py",
+      "error": "unterminated triple-quoted string literal (detected at line 595)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\production\\scripts\\security-gate-check.py",
+      "error": "unterminated triple-quoted string literal (detected at line 384)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\factories\\scanner_factories.py",
+      "error": "unterminated triple-quoted string literal (detected at line 718)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\handlers\\security_handlers.py",
+      "error": "unterminated triple-quoted string literal (detected at line 804)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 669)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\byzantium\\test_byzantine_stress.py",
+      "error": "unterminated triple-quoted string literal (detected at line 709)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\cache_analyzer\\comprehensive_cache_test.py",
+      "error": "unterminated triple-quoted string literal (detected at line 756)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\cache_analyzer\\test_cache_functionality.py",
+      "error": "unterminated triple-quoted string literal (detected at line 535)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\compliance\\test_compliance_demo.py",
+      "error": "unterminated triple-quoted string literal (detected at line 217)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\compliance\\test_compliance_simple.py",
+      "error": "unterminated triple-quoted string literal (detected at line 180)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\end_to_end\\complete_system_validation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 605)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\conftest.py",
+      "error": "unterminated triple-quoted string literal (detected at line 722)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\github_bridge_fixes.py",
+      "error": "unterminated string literal (detected at line 4)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 4) (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\github_bridge_fixes_clean.py",
+      "error": "unterminated string literal (detected at line 4)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 4) (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\production_integration_test.py",
+      "error": "unterminated triple-quoted string literal (detected at line 404)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\queen_remediation_test.py",
+      "error": "unterminated triple-quoted string literal (detected at line 412)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\reality_check_simple.py",
+      "error": "unterminated triple-quoted string literal (detected at line 344)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\reality_validation_simple.py",
+      "error": "unterminated triple-quoted string literal (detected at line 359)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_enterprise_domains.py",
+      "error": "unterminated triple-quoted string literal (detected at line 566)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_enterprise_integration.py",
+      "error": "unterminated string literal (detected at line 218)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 218) (<unknown>, line 218)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_error_handling.py",
+      "error": "unterminated triple-quoted string literal (detected at line 497)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_github_bridge_reality.py",
+      "error": "unterminated triple-quoted string literal (detected at line 468)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_phase2_reality_validation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 502)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_tool_coordinator_sandbox.py",
+      "error": "unterminated triple-quoted string literal (detected at line 354)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\json_schema_validation\\test_full_pipeline_integration.py",
+      "error": "unterminated string literal (detected at line 376)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 376) (<unknown>, line 376)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\json_schema_validation\\test_risk_mitigation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 519)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\json_schema_validation\\test_runner.py",
+      "error": "unterminated triple-quoted string literal (detected at line 341)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\memory_integration\\test_cross_phase_memory.py",
+      "error": "unterminated triple-quoted string literal (detected at line 697)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\ml\\test_compliance_forecaster.py",
+      "error": "unterminated triple-quoted string literal (detected at line 706)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\ml\\test_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 738)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\ml\\test_quality_predictor.py",
+      "error": "unterminated triple-quoted string literal (detected at line 562)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\ml\\test_theater_classifier.py",
+      "error": "unterminated triple-quoted string literal (detected at line 693)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\nasa-compliance\\test_nasa_agents.py",
+      "error": "unterminated triple-quoted string literal (detected at line 478)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\phase7_adas\\test_simulation_scenarios.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1197)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\production\\load_testing_suite.py",
+      "error": "unterminated triple-quoted string literal (detected at line 551)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\security\\complete_security_validation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 808)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\integration\\test_analyzer_integration.py",
+      "error": "unterminated string literal (detected at line 336)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 336) (<unknown>, line 336)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\performance\\test_zero_impact_disabled.py",
+      "error": "unterminated string literal (detected at line 423)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 423) (<unknown>, line 423)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\unit\\test_feature_flags.py",
+      "error": "unterminated triple-quoted string literal (detected at line 947)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\unit\\test_six_sigma_python.py",
+      "error": "unterminated triple-quoted string literal (detected at line 558)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\unit\\test_six_sigma_telemetry.py",
+      "error": "unterminated triple-quoted string literal (detected at line 701)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\architecture\\analysis_strategy.py",
+      "error": "unterminated triple-quoted string literal (detected at line 355)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 19)"
+    },
+    {
+      "file": "analyzer\\architecture\\detector_pool.py",
+      "error": "unterminated triple-quoted string literal (detected at line 367)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\architecture\\refactoring_audit_report.py",
+      "error": "unterminated string literal (detected at line 856)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 856) (<unknown>, line 856)"
+    },
+    {
+      "file": "analyzer\\enterprise\\defense_certification_tool.py",
+      "error": "unterminated triple-quoted string literal (detected at line 688)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 28)"
+    },
+    {
+      "file": "analyzer\\enterprise\\nasa_pot10_analyzer.py",
+      "error": "unterminated triple-quoted string literal (detected at line 754)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\optimization\\resource_manager.py",
+      "error": "unterminated triple-quoted string literal (detected at line 672)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\optimization\\unified_visitor.py",
+      "error": "unterminated triple-quoted string literal (detected at line 365)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 28)"
+    },
+    {
+      "file": "analyzer\\performance\\cache_performance_profiler.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1091)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\performance\\detector_pool_optimizer.py",
+      "error": "unterminated triple-quoted string literal (detected at line 897)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\performance\\incremental_analyzer.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1073)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\performance\\real_cache_optimization_validator.py",
+      "error": "unterminated triple-quoted string literal (detected at line 867)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\performance\\real_time_monitor.py",
+      "error": "unterminated triple-quoted string literal (detected at line 992)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\performance\\thread_contention_profiler.py",
+      "error": "unterminated triple-quoted string literal (detected at line 767)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\streaming\\incremental_cache.py",
+      "error": "unterminated triple-quoted string literal (detected at line 595)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\enterprise\\detectors\\dfars_detector_simple.py",
+      "error": "unterminated triple-quoted string literal (detected at line 303)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 15)"
+    },
+    {
+      "file": "scripts\\validation\\comprehensive_defense_validation.py",
+      "error": "unterminated string literal (detected at line 712)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 712) (<unknown>, line 712)"
+    },
+    {
+      "file": "src\\byzantium\\race_condition_detector.py",
+      "error": "unterminated triple-quoted string literal (detected at line 905)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\compliance\\assertion_injection_engine.py",
+      "error": "unterminated triple-quoted string literal (detected at line 844)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\compliance\\automated_function_refactorer.py",
+      "error": "unterminated triple-quoted string literal (detected at line 787)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\compliance\\nasa_compliance_monitor.py",
+      "error": "unterminated triple-quoted string literal (detected at line 782)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\coordination\\queen_coordinator.py",
+      "error": "unterminated string literal (detected at line 225)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 225) (<unknown>, line 225)"
+    },
+    {
+      "file": "src\\detectors\\enterprise_detector_pool.py",
+      "error": "unterminated triple-quoted string literal (detected at line 908)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\detectors\\validation_demo.py",
+      "error": "unterminated triple-quoted string literal (detected at line 613)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\security\\dfars_integration_demo.py",
+      "error": "unterminated triple-quoted string literal (detected at line 619)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 36)"
+    },
+    {
+      "file": "src\\security\\dfars_workflow_automation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 895)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 38)"
+    },
+    {
+      "file": "src\\analyzers\\nasa\\bounded_ast_walker.py",
+      "error": "unterminated triple-quoted string literal (detected at line 383)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\analyzers\\nasa\\function_decomposer.py",
+      "error": "unterminated triple-quoted string literal (detected at line 537)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": "src\\analyzers\\nasa\\security_manager.py",
+      "error": "unterminated triple-quoted string literal (detected at line 548)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": "src\\enterprise\\adapters\\integration_adapters.py",
+      "error": "unterminated triple-quoted string literal (detected at line 1085)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\enterprise\\security\\supply_chain.py",
+      "error": "unterminated triple-quoted string literal (detected at line 290)",
+      "fix_attempt": "Fix validation failed: expected 'except' or 'finally' block (<unknown>, line 4)"
+    },
+    {
+      "file": "src\\enterprise\\telemetry\\spc_control_charts.py",
+      "error": "unterminated string literal (detected at line 369)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 369) (<unknown>, line 369)"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\transformer\\financial_bert.py",
+      "error": "unterminated string literal (detected at line 21)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 21) (<unknown>, line 21)"
+    },
+    {
+      "file": "src\\interfaces\\cli\\policy_detection.py",
+      "error": "unterminated triple-quoted string literal (detected at line 250)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 14)"
+    },
+    {
+      "file": "src\\interfaces\\cli\\simple_cli.py",
+      "error": "unterminated triple-quoted string literal (detected at line 443)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\princess\\quality\\quality-gates\\cross_domain_validator.py",
+      "error": "unterminated string literal (detected at line 320)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 320) (<unknown>, line 320)"
+    },
+    {
+      "file": "src\\princess\\quality\\theater-detection\\comprehensive_analysis_engine.py",
+      "error": "unterminated triple-quoted string literal (detected at line 597)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 24)"
+    },
+    {
+      "file": "src\\production\\scripts\\security-gate-check.py",
+      "error": "unterminated triple-quoted string literal (detected at line 386)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 18)"
+    },
+    {
+      "file": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 671)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 22)"
+    },
+    {
+      "file": "tests\\byzantium\\test_byzantine_stress.py",
+      "error": "unterminated triple-quoted string literal (detected at line 709)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\cache_analyzer\\test_cache_functionality.py",
+      "error": "unterminated triple-quoted string literal (detected at line 536)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\compliance\\test_compliance_demo.py",
+      "error": "unterminated triple-quoted string literal (detected at line 217)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\integration\\github_bridge_fixes.py",
+      "error": "unterminated string literal (detected at line 19)",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 19) (<unknown>, line 19)"
+    },
+    {
+      "file": "tests\\integration\\github_bridge_fixes_clean.py",
+      "error": "unterminated triple-quoted string literal (detected at line 377)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\integration\\queen_remediation_test.py",
+      "error": "unterminated triple-quoted string literal (detected at line 414)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 20)"
+    },
+    {
+      "file": "tests\\integration\\reality_check_simple.py",
+      "error": "unterminated triple-quoted string literal (detected at line 346)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 25)"
+    },
+    {
+      "file": "tests\\integration\\reality_validation_simple.py",
+      "error": "unterminated triple-quoted string literal (detected at line 361)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 17)"
+    },
+    {
+      "file": "tests\\integration\\test_error_handling.py",
+      "error": "unterminated triple-quoted string literal (detected at line 498)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\integration\\test_github_bridge_reality.py",
+      "error": "unterminated triple-quoted string literal (detected at line 470)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 27)"
+    },
+    {
+      "file": "tests\\integration\\test_performance_load.py",
+      "error": "unterminated triple-quoted string literal (detected at line 645)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\json_schema_validation\\demo_test_execution.py",
+      "error": "unterminated triple-quoted string literal (detected at line 409)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_risk_mitigation.py",
+      "error": "unterminated triple-quoted string literal (detected at line 521)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 34)"
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_runner.py",
+      "error": "unterminated triple-quoted string literal (detected at line 343)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 23)"
+    },
+    {
+      "file": "tests\\memory_integration\\test_cross_phase_memory.py",
+      "error": "unterminated triple-quoted string literal (detected at line 697)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\ml\\test_integration.py",
+      "error": "unterminated triple-quoted string literal (detected at line 740)",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 34)"
+    },
+    {
+      "file": "analyzer\\core.py",
+      "error": "expected an indented block after function definition on line 80",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 198)"
+    },
+    {
+      "file": "analyzer\\language_strategies.py",
+      "error": "expected an indented block after 'except' statement on line 54",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 54 (<unknown>, line 58)"
+    },
+    {
+      "file": "analyzer\\refactored_detector.py",
+      "error": "expected an indented block after 'if' statement on line 152",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'if' statement on line 153 (<unknown>, line 157)"
+    },
+    {
+      "file": "analyzer\\system_integration.py",
+      "error": "expected an indented block after 'except' statement on line 282",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 282 (<unknown>, line 285)"
+    },
+    {
+      "file": "scripts\\doc_validator.py",
+      "error": "expected an indented block after 'if' statement on line 259",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'if' statement on line 259 (<unknown>, line 262)"
+    },
+    {
+      "file": "scripts\\reality_audit_perfection.py",
+      "error": "expected an indented block after 'if' statement on line 108",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'if' statement on line 108 (<unknown>, line 109)"
+    },
+    {
+      "file": "tests\\production_validation_test.py",
+      "error": "expected an indented block after 'except' statement on line 137",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 137 (<unknown>, line 140)"
+    },
+    {
+      "file": "tests\\test_analyzer.py",
+      "error": "expected an indented block after 'except' statement on line 119",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 119 (<unknown>, line 122)"
+    },
+    {
+      "file": "tests\\test_naming_standardization.py",
+      "error": "expected an indented block after 'except' statement on line 74",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 74 (<unknown>, line 78)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\core.py",
+      "error": "expected an indented block after function definition on line 80",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 198)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\language_strategies.py",
+      "error": "expected an indented block after 'except' statement on line 54",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 54 (<unknown>, line 58)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\doc_validator.py",
+      "error": "expected an indented block after 'if' statement on line 259",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'if' statement on line 259 (<unknown>, line 262)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\reality_audit_perfection.py",
+      "error": "expected an indented block after 'if' statement on line 108",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'if' statement on line 108 (<unknown>, line 109)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\production_validation_test.py",
+      "error": "expected an indented block after 'except' statement on line 137",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 137 (<unknown>, line 140)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_analyzer.py",
+      "error": "expected an indented block after 'else' statement on line 116",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 119 (<unknown>, line 122)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_naming_standardization.py",
+      "error": "expected an indented block after 'except' statement on line 74",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 74 (<unknown>, line 78)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\analysis_executor.py",
+      "error": "expected an indented block after function definition on line 274",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 40)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\detectors\\connascence_ast_analyzer.py",
+      "error": "expected an indented block after 'except' statement on line 211",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 211 (<unknown>, line 214)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\optimization\\incremental_analyzer.py",
+      "error": "expected an indented block after 'if' statement on line 576",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'if' statement on line 576 (<unknown>, line 579)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\cache_optimization_validator.py",
+      "error": "expected an indented block after function definition on line 674",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 573)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\real_file_profiler.py",
+      "error": "expected an indented block after 'except' statement on line 205",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 105)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\unified_visitor_profiler.py",
+      "error": "expected an indented block after function definition on line 646",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 117)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\streaming\\stream_processor.py",
+      "error": "expected an indented block after function definition on line 927",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 103)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\utils\\error_handling.py",
+      "error": "expected an indented block after function definition on line 314",
+      "fix_attempt": "Fix validation failed: expected an indented block after function definition on line 315 (<unknown>, line 321)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\models\\linter_models.py",
+      "error": "expected an indented block after 'if' statement on line 144",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'if' statement on line 144 (<unknown>, line 146)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\access_control_system.py",
+      "error": "expected an indented block after 'if' statement on line 712",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 370)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\flags\\feature_flags.py",
+      "error": "expected an indented block after 'if' statement on line 68",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 59)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\pipeline_orchestrator.py",
+      "error": "expected an indented block after 'if' statement on line 272",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'if' statement on line 273 (<unknown>, line 276)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\linter-integration\\agents\\backend_dev_node.py",
+      "error": "expected an indented block after 'except' statement on line 197",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 197 (<unknown>, line 200)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\linter_integration\\test_failure_modes.py",
+      "error": "expected an indented block after 'except' statement on line 641",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 216)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\linter_integration\\test_real_linter_validation.py",
+      "error": "expected an indented block after 'except' statement on line 272",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 272 (<unknown>, line 275)"
+    },
+    {
+      "file": "analyzer\\architecture\\analysis_executor.py",
+      "error": "expected an indented block after function definition on line 274",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 40)"
+    },
+    {
+      "file": "analyzer\\detectors\\connascence_ast_analyzer.py",
+      "error": "expected an indented block after 'except' statement on line 211",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 211 (<unknown>, line 214)"
+    },
+    {
+      "file": "analyzer\\performance\\cache_optimization_validator.py",
+      "error": "expected an indented block after function definition on line 674",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 573)"
+    },
+    {
+      "file": "analyzer\\performance\\real_file_profiler.py",
+      "error": "expected an indented block after 'except' statement on line 205",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 105)"
+    },
+    {
+      "file": "analyzer\\performance\\unified_visitor_profiler.py",
+      "error": "expected an indented block after function definition on line 646",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 117)"
+    },
+    {
+      "file": "analyzer\\streaming\\stream_processor.py",
+      "error": "expected an indented block after function definition on line 927",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 103)"
+    },
+    {
+      "file": "src\\models\\linter_models.py",
+      "error": "expected an indented block after 'if' statement on line 144",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'if' statement on line 144 (<unknown>, line 146)"
+    },
+    {
+      "file": "src\\security\\access_control_system.py",
+      "error": "expected an indented block after 'if' statement on line 712",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 370)"
+    },
+    {
+      "file": "src\\enterprise\\flags\\feature_flags.py",
+      "error": "expected an indented block after 'if' statement on line 68",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 59)"
+    },
+    {
+      "file": "src\\enterprise\\utils\\logging_utils.py",
+      "error": "expected an indented block after 'except' statement on line 179",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 179 (<unknown>, line 182)"
+    },
+    {
+      "file": "src\\linter-integration\\agents\\backend_dev_node.py",
+      "error": "expected an indented block after 'except' statement on line 197",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 197 (<unknown>, line 200)"
+    },
+    {
+      "file": "tests\\linter_integration\\test_real_linter_validation.py",
+      "error": "expected an indented block after 'except' statement on line 272",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'except' statement on line 272 (<unknown>, line 275)"
+    },
+    {
+      "file": "tests\\phase7_adas\\test_simulation_scenarios.py",
+      "error": "expected an indented block after 'for' statement on line 229",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'for' statement on line 230 (<unknown>, line 234)"
+    },
+    {
+      "file": "analyzer\\github_status_reporter.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 143)"
+    },
+    {
+      "file": "scripts\\execute_remediation_plan.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 439)"
+    },
+    {
+      "file": "scripts\\security_dashboard_generator.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 659)"
+    },
+    {
+      "file": "scripts\\validate_phase2_decomposition.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched '}' (<unknown>, line 367)"
+    },
+    {
+      "file": "tests\\test_kill_switch_integration.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 5)"
+    },
+    {
+      "file": "tests\\test_phase4_configuration.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 194)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\github_status_reporter.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 143)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\unified_analyzer_god_object_backup.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 5)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\execute_remediation_plan.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 439)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\run_performance_validation.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched '}' (<unknown>, line 87)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\security_dashboard_generator.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 659)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_kill_switch_integration.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 5)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\report_generator.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 138)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\validation_reporting_system.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 237)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\compliance\\risk_assessment_matrix.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 799)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\safety\\kill_switch_system.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\theater-detection\\continuous-monitor.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 415)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analyzers\\nasa\\nasa_compliance_auditor.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 433)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\enterprise\\telemetry\\spc_control_charts.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 12)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\princess\\quality\\analysis-reports\\quality_dashboard.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 396)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\reporting\\factories\\report_factories.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 250)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\safety\\core\\failover_manager.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 83)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\batches_10_18_validation\\test_suite_orchestrator.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 832)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\cycles\\test_integration.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 391)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\integration\\test_performance_load.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 534)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\json_schema_validation\\demo_test_execution.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 179)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\json_schema_validation\\test_json_schema_validation.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 271)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\phase4\\test_precision_validation.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 101)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\phase7_adas\\test_perception_accuracy.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 352)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\phase7_adas\\test_sensor_fusion.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\regression\\performance_regression_suite.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 57)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\safety\\test_safety_system.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 133)"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\connascence_detection_service.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 402)"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\loop_orchestrator_facade.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 149)"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\performance_measurement_service.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 189)"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\phase3_performance_validator_facade.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 86)"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\reporting_service.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 52)"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\sandbox_management_service.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched '}' (<unknown>, line 104)"
+    },
+    {
+      "file": ".claude\\.artifacts\\phase2_refactored\\validation_execution_service.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 197)"
+    },
+    {
+      "file": "analyzer\\architecture\\report_generator.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 138)"
+    },
+    {
+      "file": "analyzer\\enterprise\\validation_reporting_system.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 238)"
+    },
+    {
+      "file": "analyzer\\utils\\config_manager.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 180)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001\\compliance_assessor.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched '}' (<unknown>, line 249)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001\\control_definitions.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched ']' (<unknown>, line 59)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001\\iso27001_core.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 100)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting\\reporting_core.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 97)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting\\report_generator.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched '}' (<unknown>, line 456)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting\\report_templates.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 94)"
+    },
+    {
+      "file": "scripts\\unicode_backup_20250924_225013\\validate_phase2_decomposition.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched '}' (<unknown>, line 367)"
+    },
+    {
+      "file": "src\\compliance\\risk_assessment_matrix.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 799)"
+    },
+    {
+      "file": "src\\safety\\kill_switch_system.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\theater-detection\\continuous-monitor.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 415)"
+    },
+    {
+      "file": "src\\analysis\\failure_pattern_detection\\failure_pattern_detector_core.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched ']' (<unknown>, line 271)"
+    },
+    {
+      "file": "src\\analysis\\failure_pattern_detection\\pattern_database.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 260)"
+    },
+    {
+      "file": "src\\analysis\\failure_pattern_detection\\root_cause_analyzer.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched '}' (<unknown>, line 274)"
+    },
+    {
+      "file": "src\\analysis\\failure_pattern_detection\\test_failure_analyzer.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 202)"
+    },
+    {
+      "file": "src\\analyzers\\nasa\\nasa_compliance_auditor.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 433)"
+    },
+    {
+      "file": "src\\enterprise\\factories\\enterprise_factories.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unmatched '}' (<unknown>, line 147)"
+    },
+    {
+      "file": "src\\princess\\quality\\analysis-reports\\quality_dashboard.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 396)"
+    },
+    {
+      "file": "src\\reporting\\factories\\report_factories.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 250)"
+    },
+    {
+      "file": "src\\safety\\core\\failover_manager.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 83)"
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\test_suite_orchestrator.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 832)"
+    },
+    {
+      "file": "tests\\compliance\\test_compliance_simple.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 40)"
+    },
+    {
+      "file": "tests\\cycles\\test_integration.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 391)"
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_json_schema_validation.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 271)"
+    },
+    {
+      "file": "tests\\phase7_adas\\test_perception_accuracy.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 352)"
+    },
+    {
+      "file": "tests\\phase7_adas\\test_sensor_fusion.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 4)"
+    },
+    {
+      "file": "tests\\safety\\test_safety_system.py",
+      "error": "invalid decimal literal",
+      "fix_attempt": "Fix validation failed: invalid decimal literal (<unknown>, line 133)"
+    },
+    {
+      "file": "analyzer\\test_github_output.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 54)"
+    },
+    {
+      "file": "scripts\\comprehensive_test_runner.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 694)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\test_github_output.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 54)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\integrations\\tool_coordinator.py",
+      "error": "closing parenthesis '}' does not match opening parenthesis '('",
+      "fix_attempt": "Fix validation failed: closing parenthesis '}' does not match opening parenthesis '(' (<unknown>, line 4)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\reporting.py",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{'",
+      "fix_attempt": "Fix validation failed: closing parenthesis ')' does not match opening parenthesis '{' (<unknown>, line 45)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\examples\\basic_usage.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 331)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\ensemble\\ensemble_framework.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\rl\\ppo_agent.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\rl\\strategy_optimizer.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\rl\\trading_environment.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 2)"
+    },
+    {
+      "file": "analyzer\\integrations\\tool_coordinator.py",
+      "error": "closing parenthesis '}' does not match opening parenthesis '('",
+      "fix_attempt": "Fix validation failed: closing parenthesis '}' does not match opening parenthesis '(' (<unknown>, line 4)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting.py",
+      "error": "closing parenthesis ')' does not match opening parenthesis '{'",
+      "fix_attempt": "Fix validation failed: closing parenthesis ')' does not match opening parenthesis '{' (<unknown>, line 45)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\examples\\basic_usage.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 331)"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\ensemble\\ensemble_framework.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 2)"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\rl\\ppo_agent.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 2)"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\rl\\strategy_optimizer.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 2)"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\rl\\trading_environment.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 2)"
+    },
+    {
+      "file": "tests\\integration\\test_enterprise_domains.py",
+      "error": "unmatched ')'",
+      "fix_attempt": "Fix validation failed: unmatched ')' (<unknown>, line 207)"
+    },
+    {
+      "file": "--output-dir\\cache_performance_profiler_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\cache_performance_profiler_utilities.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\cache_performance_profiler_validation.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\core_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\core_validation.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\cross_phase_learning_integration_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\incremental_analyzer_configuration.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\incremental_analyzer_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\optimizer_configuration.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\optimizer_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\optimizer_processing.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\result_aggregation_profiler_configuration.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\result_aggregation_profiler_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\result_aggregation_profiler_persistence.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "--output-dir\\result_aggregation_profiler_validation.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "scripts\\performance_monitor.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": "scripts\\phase_4_validation_demo.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 81)"
+    },
+    {
+      "file": "scripts\\unicode_removal_linter.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": "src\\wealth_flow_demo.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 17)"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\cache_performance_profiler_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\cache_performance_profiler_utilities.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\cache_performance_profiler_validation.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\core_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\core_validation.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\cross_phase_learning_integration_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\incremental_analyzer_configuration.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\incremental_analyzer_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\optimizer_configuration.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\optimizer_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\optimizer_processing.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\result_aggregation_profiler_configuration.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\result_aggregation_profiler_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\result_aggregation_profiler_persistence.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\result_aggregation_profiler_validation.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\performance_monitor.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\phase_4_validation_demo.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 81)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\unicode_removal_linter.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\dfars_compliance_framework.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 27)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\compliance\\compliance_packager.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 19)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\cache_performance_profiler_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: f-string: expecting '}' (<unknown>, line 210)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\core_core.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 13)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\core_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 42)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\core_validation.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 28)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\cross_phase_learning_integration_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: f-string: expecting '}' (<unknown>, line 454)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_configuration.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 15)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'if' statement on line 279 (<unknown>, line 281)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\defense_industry_evidence_generator_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 18)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\enterprise_theater_detection_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 18)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\failure_pattern_detector_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 32)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\loop_orchestrator_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 33)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\artifacts\\phase3_refactored_src\\queen_coordinator_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 16)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\coordination\\adaptive\\agent_deployment_protocol.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\performance\\baselines\\baseline_collector.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\performance\\monitoring\\realtime_monitor.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\performance\\validation\\theater_detector.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\architecture\\orchestrator.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 383)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\ci_cd_accelerator.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\core.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 16)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\integration.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 16)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\iso27001.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 29)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\soc2.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 23)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\detector\\EnterpriseDetectorPool.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\integration\\EnterpriseIntegrationFramework.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\performance\\MLCacheOptimizer.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\validation\\EnterprisePerformanceValidator.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\enhanced_audit_trail_manager.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\sixsigma\\telemetry_config.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\theater-detection\\theater-detector.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\linter-integration\\agents\\api_docs_node.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\linter-integration\\agents\\integration_specialist_node.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\workflow-validation\\comprehensive_validation_report.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\workflow-validation\\python_execution_tests.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\workflow-validation\\workflow_test_suite.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": ".claude\\.artifacts\\dfars_compliance_framework.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 27)"
+    },
+    {
+      "file": ".claude\\.artifacts\\compliance\\compliance_packager.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 19)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\cache_performance_profiler_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: f-string: expecting '}' (<unknown>, line 210)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\core_core.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 13)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\core_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 42)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\core_validation.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 28)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\cross_phase_learning_integration_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: f-string: expecting '}' (<unknown>, line 454)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_configuration.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 15)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: expected an indented block after 'if' statement on line 279 (<unknown>, line 281)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored_src\\defense_industry_evidence_generator_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 18)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored_src\\enterprise_theater_detection_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 18)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored_src\\failure_pattern_detector_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 32)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored_src\\loop_orchestrator_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 33)"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored_src\\queen_coordinator_operations.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 16)"
+    },
+    {
+      "file": ".claude\\coordination\\adaptive\\agent_deployment_protocol.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".claude\\performance\\baselines\\baseline_collector.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".claude\\performance\\monitoring\\realtime_monitor.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": ".claude\\performance\\validation\\theater_detector.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": "analyzer\\architecture\\orchestrator.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 383)"
+    },
+    {
+      "file": "analyzer\\performance\\ci_cd_accelerator.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\utils\\metric_calculators.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 14)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\core.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 16)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\integration.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 16)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 29)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\soc2.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 23)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\validate_retention.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 16)"
+    },
+    {
+      "file": "analyzer\\enterprise\\detector\\EnterpriseDetectorPool.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\enterprise\\integration\\EnterpriseIntegrationFramework.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\enterprise\\performance\\MLCacheOptimizer.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\enterprise\\validation\\EnterprisePerformanceValidator.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\security\\enhanced_audit_trail_manager.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\sixsigma\\telemetry_config.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": "src\\theater-detection\\theater-detector.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": "src\\linter-integration\\agents\\api_docs_node.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": "src\\linter-integration\\agents\\integration_specialist_node.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": "tests\\workflow-validation\\comprehensive_validation_report.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": "tests\\workflow-validation\\python_execution_tests.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 2)"
+    },
+    {
+      "file": "tests\\workflow-validation\\workflow_test_suite.py",
+      "error": "unexpected indent",
+      "fix_attempt": "Fix validation failed: unexpected indent (<unknown>, line 3)"
+    },
+    {
+      "file": "--output-dir\\core_core.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": "analyzer\\configuration_manager.py",
+      "error": "expected 'except' or 'finally' block",
+      "fix_attempt": "Fix validation failed: expected 'except' or 'finally' block (<unknown>, line 53)"
+    },
+    {
+      "file": "analyzer\\phase_correlation_storage.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\policy_engine.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 68)"
+    },
+    {
+      "file": "scripts\\deploy_real_queen_swarm.py",
+      "error": "unindent does not match any outer indentation level",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 114)"
+    },
+    {
+      "file": "scripts\\dfars_compliance_fixer.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "scripts\\interface_segregator.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 182) (<unknown>, line 182)"
+    },
+    {
+      "file": "scripts\\nasa_compliance_analyzer.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "scripts\\run_performance_validation.py",
+      "error": "':' expected after dictionary key",
+      "fix_attempt": "Fix validation failed: closing parenthesis ')' does not match opening parenthesis '[' (<unknown>, line 100)"
+    },
+    {
+      "file": "scripts\\security_compliance_auditor.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 23) (<unknown>, line 23)"
+    },
+    {
+      "file": "tests\\test_phase3_100_percent.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\test_phase4_config_wiring_reality.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 47) (<unknown>, line 47)"
+    },
+    {
+      "file": "tests\\test_phase5_integration.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": "tests\\test_utils.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: invalid syntax. Perhaps you forgot a comma? (<unknown>, line 60)"
+    },
+    {
+      "file": "tests\\unified_test_orchestrator.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 177) (<unknown>, line 177)"
+    },
+    {
+      "file": ".backup_20250924_235553\\--output-dir\\core_core.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Skipped temporary output directory file"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\configuration_manager.py",
+      "error": "expected 'except' or 'finally' block",
+      "fix_attempt": "Fix validation failed: expected 'except' or 'finally' block (<unknown>, line 53)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\phase_correlation_storage.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\deploy_real_queen_swarm.py",
+      "error": "unindent does not match any outer indentation level",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 114)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\dfars_compliance_fixer.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\nasa_compliance_analyzer.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\security_compliance_auditor.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 23) (<unknown>, line 23)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\validate_phase2_decomposition.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: closing parenthesis ')' does not match opening parenthesis '[' (<unknown>, line 84)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\test_utils.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: invalid syntax. Perhaps you forgot a comma? (<unknown>, line 60)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\artifact_manager.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\connascence_detection_service.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers (<unknown>, line 410)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\loop_orchestrator_facade.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: invalid syntax. Perhaps you forgot a comma? (<unknown>, line 252)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\performance_measurement_service.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 42) (<unknown>, line 42)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\phase3_performance_validator_facade.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 73) (<unknown>, line 73)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\reporting_service.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: f-string: expecting '=', or '!', or ':', or '}' (<unknown>, line 168)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\sandbox_management_service.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers (<unknown>, line 248)"
+    },
+    {
+      "file": ".backup_20250924_235553\\.claude\\.artifacts\\phase2_refactored\\validation_execution_service.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 158) (<unknown>, line 158)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\performance\\result_aggregation_profiler.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\audit_trail.py",
+      "error": "unindent does not match any outer indentation level",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 43)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\supply_chain\\config_loader.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: closing parenthesis ')' does not match opening parenthesis '[' (<unknown>, line 69)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\supply_chain\\integration.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 56) (<unknown>, line 56)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\supply_chain\\vulnerability_scanner.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 42) (<unknown>, line 42)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\iso27001\\compliance_assessor.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers (<unknown>, line 488)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\iso27001\\control_definitions.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers (<unknown>, line 279)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\iso27001\\iso27001_core.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers (<unknown>, line 357)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\reporting\\reporting_core.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers (<unknown>, line 416)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\reporting\\report_generator.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: closing parenthesis '}' does not match opening parenthesis '[' on line 390 (<unknown>, line 391)"
+    },
+    {
+      "file": ".backup_20250924_235553\\analyzer\\enterprise\\compliance\\reporting\\report_templates.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers (<unknown>, line 478)"
+    },
+    {
+      "file": ".backup_20250924_235553\\import_backup_20250924_222328\\src\\constants\\__init__.py",
+      "error": "expected 'except' or 'finally' block",
+      "fix_attempt": "Fix validation failed: expected 'except' or 'finally' block (<unknown>, line 26)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\unicode_backup_20250924_225013\\validate_phase2_decomposition.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: closing parenthesis ')' does not match opening parenthesis '[' (<unknown>, line 84)"
+    },
+    {
+      "file": ".backup_20250924_235553\\scripts\\validation\\achieve_100_percent.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 87) (<unknown>, line 87)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\linter-integration\\mesh-coordinator.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: invalid syntax. Perhaps you forgot a comma? (<unknown>, line 205)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\continuous_risk_assessment.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 488) (<unknown>, line 488)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\dfars_compliance_validation_system.py",
+      "error": "illegal target for annotation",
+      "fix_attempt": "Fix validation failed: illegal target for annotation (<unknown>, line 251)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\security\\enhanced_audit_wrapper.py",
+      "error": "'(' was never closed",
+      "fix_attempt": "Fix validation failed: '(' was never closed (<unknown>, line 12)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\sixsigma\\sixsigma_scorer.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 80) (<unknown>, line 80)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\failure_pattern_detection\\failure_pattern_detector_core.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers (<unknown>, line 395)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\failure_pattern_detection\\pattern_database.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers (<unknown>, line 349)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\failure_pattern_detection\\root_cause_analyzer.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers (<unknown>, line 384)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\analysis\\failure_pattern_detection\\test_failure_analyzer.py",
+      "error": "leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 229) (<unknown>, line 229)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\monitoring\\metrics_collector.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\monitoring\\pipeline_monitor.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\sources\\alpaca_source.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\sources\\data_source_manager.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\sources\\historical_loader.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\sources\\polygon_source.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\sources\\yahoo_source.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\streaming\\real_time_streamer.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\streaming\\stream_buffer.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\data_pipeline\\streaming\\websocket_manager.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\lstm\\attention_mechanism.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\lstm\\lstm_predictor.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\src\\intelligence\\neural_networks\\transformer\\sentiment_analyzer.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\linter_integration\\test_adapter_patterns.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: unexpected character after line continuation character (<unknown>, line 122)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\sixsigma\\test_integration.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: invalid syntax. Perhaps you forgot a comma? (<unknown>, line 175)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\enterprise\\e2e\\test_enterprise_workflows.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\refactored\\batch2\\test_agent_database_builder.py",
+      "error": "'(' was never closed",
+      "fix_attempt": "Fix validation failed: '(' was never closed (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\refactored\\batch2\\test_deployment_task_builder.py",
+      "error": "'(' was never closed",
+      "fix_attempt": "Fix validation failed: '(' was never closed (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\refactored\\batch2\\test_dfars_controls_builder.py",
+      "error": "'(' was never closed",
+      "fix_attempt": "Fix validation failed: '(' was never closed (<unknown>, line 3)"
+    },
+    {
+      "file": ".backup_20250924_235553\\tests\\refactored\\batch2\\test_test_pattern_builder.py",
+      "error": "'(' was never closed",
+      "fix_attempt": "Fix validation failed: '(' was never closed (<unknown>, line 3)"
+    },
+    {
+      "file": ".claude\\.artifacts\\artifact_manager.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "analyzer\\dup_detection\\mece_analyzer.py",
+      "error": "unexpected unindent",
+      "fix_attempt": "Fix validation failed: unexpected unindent (<unknown>, line 31)"
+    },
+    {
+      "file": "analyzer\\optimization\\incremental_analyzer.py",
+      "error": "unindent does not match any outer indentation level",
+      "fix_attempt": "Fix validation failed: closing parenthesis ')' does not match opening parenthesis '[' on line 174 (<unknown>, line 175)"
+    },
+    {
+      "file": "analyzer\\performance\\result_aggregation_profiler.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "analyzer\\utils\\error_handling.py",
+      "error": "unindent does not match any outer indentation level",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 78) (<unknown>, line 78)"
+    },
+    {
+      "file": "analyzer\\utils\\intelligent_magic_number_analyzer.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 15)"
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\audit_trail.py",
+      "error": "unindent does not match any outer indentation level",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 43)"
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\config_loader.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: closing parenthesis ')' does not match opening parenthesis '[' (<unknown>, line 69)"
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\integration.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 56) (<unknown>, line 56)"
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\vulnerability_scanner.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 42) (<unknown>, line 42)"
+    },
+    {
+      "file": "analyzer\\utils\\injection\\container.py",
+      "error": "unexpected unindent",
+      "fix_attempt": "Fix validation failed: unexpected unindent (<unknown>, line 233)"
+    },
+    {
+      "file": "import_backup_20250924_222328\\src\\constants\\__init__.py",
+      "error": "expected 'except' or 'finally' block",
+      "fix_attempt": "Fix validation failed: expected 'except' or 'finally' block (<unknown>, line 26)"
+    },
+    {
+      "file": "scripts\\validation\\achieve_100_percent.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 87) (<unknown>, line 87)"
+    },
+    {
+      "file": "src\\detectors\\comprehensive_benchmark.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 145) (<unknown>, line 145)"
+    },
+    {
+      "file": "src\\detectors\\defense_compliance_monitor.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 233) (<unknown>, line 233)"
+    },
+    {
+      "file": "src\\detectors\\parallel_executor.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 217) (<unknown>, line 217)"
+    },
+    {
+      "file": "src\\linter-integration\\mesh-coordinator.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: invalid syntax. Perhaps you forgot a comma? (<unknown>, line 205)"
+    },
+    {
+      "file": "src\\quiet_star\\algorithms.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 122) (<unknown>, line 122)"
+    },
+    {
+      "file": "src\\security\\continuous_risk_assessment.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 488) (<unknown>, line 488)"
+    },
+    {
+      "file": "src\\security\\dfars_compliance_engine.py",
+      "error": "unexpected unindent",
+      "fix_attempt": "Fix validation failed: unexpected unindent (<unknown>, line 17)"
+    },
+    {
+      "file": "src\\security\\dfars_compliance_validation_system.py",
+      "error": "illegal target for annotation",
+      "fix_attempt": "Fix validation failed: illegal target for annotation (<unknown>, line 251)"
+    },
+    {
+      "file": "src\\security\\enhanced_audit_wrapper.py",
+      "error": "'(' was never closed",
+      "fix_attempt": "Fix validation failed: '(' was never closed (<unknown>, line 12)"
+    },
+    {
+      "file": "src\\sixsigma\\sixsigma_scorer.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 80) (<unknown>, line 80)"
+    },
+    {
+      "file": "src\\analyzers\\nasa\\defensive_programming_specialist.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 4)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\pipeline_orchestrator.py",
+      "error": "unindent does not match any outer indentation level",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 100)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\monitoring\\metrics_collector.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\monitoring\\pipeline_monitor.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\alpaca_source.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\data_source_manager.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\historical_loader.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\polygon_source.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\yahoo_source.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\streaming\\real_time_streamer.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\streaming\\stream_buffer.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\streaming\\websocket_manager.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\lstm\\attention_mechanism.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\lstm\\lstm_predictor.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\transformer\\sentiment_analyzer.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "file": "src\\performance\\observers\\performance_observers.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 62) (<unknown>, line 62)"
+    },
+    {
+      "file": "src\\security\\handlers\\security_handlers.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\integration\\test_enterprise_integration.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\linter_integration\\test_adapter_patterns.py",
+      "error": "unindent does not match any outer indentation level",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 60)"
+    },
+    {
+      "file": "tests\\linter_integration\\test_failure_modes.py",
+      "error": "unindent does not match any outer indentation level",
+      "fix_attempt": "Fix validation failed: unindent does not match any outer indentation level (<unknown>, line 351)"
+    },
+    {
+      "file": "tests\\production\\load_testing_suite.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 87) (<unknown>, line 87)"
+    },
+    {
+      "file": "tests\\sixsigma\\test_integration.py",
+      "error": "invalid syntax. Perhaps you forgot a comma?",
+      "fix_attempt": "Fix validation failed: invalid syntax. Perhaps you forgot a comma? (<unknown>, line 175)"
+    },
+    {
+      "file": "tests\\enterprise\\e2e\\test_enterprise_workflows.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\enterprise\\integration\\test_analyzer_integration.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 542) (<unknown>, line 542)"
+    },
+    {
+      "file": "tests\\enterprise\\performance\\test_zero_impact_disabled.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_six_sigma_python.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: unterminated string literal (detected at line 281) (<unknown>, line 281)"
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_six_sigma_telemetry.py",
+      "error": "invalid syntax",
+      "fix_attempt": "Fix validation failed: invalid syntax (<unknown>, line 253)"
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_agent_database_builder.py",
+      "error": "'(' was never closed",
+      "fix_attempt": "Fix validation failed: '(' was never closed (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_deployment_task_builder.py",
+      "error": "'(' was never closed",
+      "fix_attempt": "Fix validation failed: '(' was never closed (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_dfars_controls_builder.py",
+      "error": "'(' was never closed",
+      "fix_attempt": "Fix validation failed: '(' was never closed (<unknown>, line 3)"
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_test_pattern_builder.py",
+      "error": "'(' was never closed",
+      "fix_attempt": "Fix validation failed: '(' was never closed (<unknown>, line 3)"
+    }
+  ],
+  "summary": {
+    "total_fixes_attempted": 663,
+    "total_successful_fixes": 84,
+    "total_failed_fixes": 579,
+    "success_rate": 12.669683257918551
+  }
+}

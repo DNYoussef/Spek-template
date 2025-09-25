@@ -32,7 +32,7 @@ def create_mock_detector_types():
 
         def detect_violations(self, tree=None):
             # Simulate processing time
-            time.sleep(random.uniform(0.005, 0.020))  # 5-20ms
+            time.sleep(random.uniform(0.5, 0.20))  # 5-20ms
 
             # Generate mock violations occasionally
             if random.random() < 0.15:  # 15% chance
@@ -156,7 +156,7 @@ class EnterpriseDemo:
             detector = detector_class(f"test_file_{request_id}.py", source_lines)
 
             # Simulate enterprise processing (security, audit, etc.)
-            time.sleep(0.002)  # 2ms enterprise overhead
+            time.sleep(0.2)  # 2ms enterprise overhead
 
             violations = detector.detect_violations()
 
@@ -247,10 +247,10 @@ class EnterpriseDemo:
             detector = self.detector_types["algorithm"]("test.py", ["print('test')"])
 
             # Simulate enterprise features overhead
-            time.sleep(0.001)  # Security layer
-            time.sleep(0.0005) # Audit logging
-            time.sleep(0.0003) # Quality metrics
-            time.sleep(0.0002) # ML optimization
+            time.sleep(0.1)  # Security layer
+            time.sleep(0.5) # Audit logging
+            time.sleep(0.3) # Quality metrics
+            time.sleep(0.2) # ML optimization
 
             detector.detect_violations()
 

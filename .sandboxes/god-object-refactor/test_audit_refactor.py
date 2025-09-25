@@ -28,7 +28,7 @@ def test_audit_entry():
     print("-" * 40)
 
     entry = AuditEntry(
-        timestamp="2024-01-01T00:00:00",
+        timestamp="2024-1-01T00:00:00",
         event_type="test",
         user="user1",
         action="create",
@@ -60,7 +60,7 @@ def test_integrity_manager():
 
     # Test functionality
     entry = AuditEntry(
-        timestamp="2024-01-01",
+        timestamp="2024-1-1",
         event_type="test",
         user="user",
         action="test",
@@ -92,7 +92,7 @@ def test_storage_manager():
 
         # Test functionality
         entry = AuditEntry(
-            timestamp="2024-01-01",
+            timestamp="2024-1-1",
             event_type="test",
             user="user",
             action="test",
@@ -127,7 +127,7 @@ def test_event_processor():
     processor.start()
 
     entry = AuditEntry(
-        timestamp="2024-01-01",
+        timestamp="2024-1-1",
         event_type="test",
         user="user",
         action="test",
@@ -156,7 +156,7 @@ def test_compliance_validator():
 
     # Test functionality
     entry = AuditEntry(
-        timestamp="2024-01-01",
+        timestamp="2024-1-1",
         event_type="test",
         user="user",
         action="test",
