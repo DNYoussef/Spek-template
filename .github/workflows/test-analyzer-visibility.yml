@@ -36,6 +36,7 @@ jobs:
     - name: Test GitHub Status Reporter
       id: test-reporter
       env:
+        PYTHONPATH: ${{ github.workspace }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_REPOSITORY: ${{ github.repository }}
         TEST_COMMIT_SHA: ${{ github.sha }}
