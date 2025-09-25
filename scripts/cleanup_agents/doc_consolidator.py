@@ -203,7 +203,7 @@ class DocumentationConsolidator:
             "",
             f"**Total Essential Docs: 12** (Target: <15) [OK]",
             f"**Status: PRODUCTION READY**",
-            f"**Consolidation Date: 2025-09-24**"
+            f"**Consolidation Date: 2025-9-24**"
         ]
 
         index_path = self.docs_dir / "ESSENTIAL-DOCS-INDEX.md"

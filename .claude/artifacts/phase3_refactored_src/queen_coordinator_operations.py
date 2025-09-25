@@ -13,12 +13,12 @@ from typing import List
 from typing import Any
 
 
-    def __init__(self):
+def __init__(self):
         self.agent_database = self._initialize_agent_database()
         self.mcp_compatibility = self._initialize_mcp_compatibility()
 
 """Initialize comprehensive agent database with specialties."""
-    def _initialize_agent_database(self) -> Dict[str, Dict[str, Any]]:
+def _initialize_agent_database(self) -> Dict[str, Dict[str, Any]]:
         """Initialize comprehensive agent database with specialties."""
         return {
             # Core Development Agents
@@ -198,7 +198,7 @@ from typing import Any
         }
 
 """Initialize MCP server compatibility for each agent type."""
-    def _initialize_mcp_compatibility(self) -> Dict[str, List[str]]:
+def _initialize_mcp_compatibility(self) -> Dict[str, List[str]]:
         """Initialize MCP server compatibility for each agent type."""
         return {
             "development": ["memory", "sequential-thinking", "context7", "ref"],
@@ -216,7 +216,7 @@ from typing import Any
         }
 
 """Find the best agents for a specific task based on skills and complexity."""
-    def find_best_agents_for_task(self, task_type: str, required_skills: List[str],
+def find_best_agents_for_task(self, task_type: str, required_skills: List[str],
                                 complexity: str, max_agents: int = 3) -> List[Dict[str, Any]]:
         """Find the best agents for a specific task based on skills and complexity."""
         candidates = []
@@ -239,7 +239,7 @@ from typing import Any
         return candidates[:max_agents]
 
 """Calculate how well agent skills match required skills."""
-    def _calculate_skill_match(self, agent_skills: List[str], required_skills: List[str]) -> float:
+def _calculate_skill_match(self, agent_skills: List[str], required_skills: List[str]) -> float:
         """Calculate how well agent skills match required skills."""
         if not required_skills:
             return 0.5  # Default match if no specific requirements
@@ -254,7 +254,7 @@ from typing import Any
         return matches / len(required_skills)
 
 """Assess if agent complexity rating matches task complexity."""
-    def _assess_complexity_match(self, agent_complexity: str, task_complexity: str) -> bool:
+def _assess_complexity_match(self, agent_complexity: str, task_complexity: str) -> bool:
         """Assess if agent complexity rating matches task complexity."""
         complexity_levels = {"low": 1, "medium": 2, "high": 3, "critical": 4}
         agent_level = complexity_levels.get(agent_complexity, 2)
@@ -264,14 +264,14 @@ from typing import Any
         return agent_level >= task_level
 
 """Get recommended MCP integrations for a specific agent."""
-    def get_mcp_integrations_for_agent(self, agent_name: str) -> List[str]:
+def get_mcp_integrations_for_agent(self, agent_name: str) -> List[str]:
         """Get recommended MCP integrations for a specific agent."""
         if agent_name in self.agent_database:
             agent_type = self.agent_database[agent_name]["type"]
             return self.mcp_compatibility.get(agent_type, ["memory", "sequential-thinking"])
         return ["memory", "sequential-thinking"]  # Default MCPs
 
-    def __init__(self, config: Dict[str, Any] = None):
+def __init__(self, config: Dict[str, Any] = None):
         self.config = config or {}
         self.agent_registry = AgentRegistry()
         self.memory_entities = []
@@ -279,7 +279,7 @@ from typing import Any
         self.analysis_history = []
 
 """Identify critical failure patterns from context."""
-    def _identify_critical_patterns(self, failure_context: Dict[str, Any]) -> List[Dict[str, Any]]:
+def _identify_critical_patterns(self, failure_context: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Identify critical failure patterns from context."""
         patterns = []
 
@@ -313,7 +313,7 @@ from typing import Any
         return patterns
 
 """Detect cascading failure patterns."""
-    def _detect_failure_cascades(self, failure_context: Dict[str, Any]) -> List[Dict[str, Any]]:
+def _detect_failure_cascades(self, failure_context: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Detect cascading failure patterns."""
         cascades = []
 
@@ -331,7 +331,7 @@ from typing import Any
         return cascades
 
 """Assess overall complexity of the failure situation."""
-    def _assess_overall_complexity(self, failure_context: Dict[str, Any]) -> str:
+def _assess_overall_complexity(self, failure_context: Dict[str, Any]) -> str:
         """Assess overall complexity of the failure situation."""
         total_failures = failure_context.get("total_failures", 0)
         category_count = len(failure_context.get("failure_categories", {}))
@@ -346,7 +346,7 @@ from typing import Any
             return "low"
 
 """Determine what context agents will need."""
-    def _determine_context_requirements(self, failure_context: Dict[str, Any]) -> List[str]:
+def _determine_context_requirements(self, failure_context: Dict[str, Any]) -> List[str]:
         """Determine what context agents will need."""
         requirements = ["github_failure_logs", "repository_structure"]
 
@@ -362,7 +362,7 @@ from typing import Any
         return requirements
 
 """Generate detailed root cause description."""
-    def _generate_root_cause_description(self, pattern: Dict[str, Any]) -> str:
+def _generate_root_cause_description(self, pattern: Dict[str, Any]) -> str:
         """Generate detailed root cause description."""
         pattern_descriptions = {
             "test_cascade_failure": "Shared test dependency causing cascading test failures across multiple suites",
@@ -372,7 +372,7 @@ from typing import Any
         return pattern_descriptions.get(pattern["pattern_type"], f"Root cause for {pattern['pattern_type']}")
 
 """Assess fix complexity for a pattern."""
-    def _assess_fix_complexity(self, pattern: Dict[str, Any]) -> str:
+def _assess_fix_complexity(self, pattern: Dict[str, Any]) -> str:
         """Assess fix complexity for a pattern."""
         complexity_map = {
             "critical": "high",
@@ -383,7 +383,7 @@ from typing import Any
         return complexity_map.get(pattern["impact_level"], "medium")
 
 """Determine required agent specialties for this pattern."""
-    def _determine_required_specialties(self, pattern: Dict[str, Any]) -> List[str]:
+def _determine_required_specialties(self, pattern: Dict[str, Any]) -> List[str]:
         """Determine required agent specialties for this pattern."""
         specialty_map = {
             "test_cascade_failure": ["testing", "integration_testing", "dependency_management"],
@@ -393,7 +393,7 @@ from typing import Any
         return specialty_map.get(pattern["pattern_type"], ["general_development"])
 
 """Estimate effort hours for fixing this pattern."""
-    def _estimate_effort_hours(self, pattern: Dict[str, Any]) -> int:
+def _estimate_effort_hours(self, pattern: Dict[str, Any]) -> int:
         """Estimate effort hours for fixing this pattern."""
         effort_map = {
             "critical": 8,
@@ -404,7 +404,7 @@ from typing import Any
         return effort_map.get(pattern["impact_level"], 2)
 
 """Identify risk factors for fixing this pattern."""
-    def _identify_risk_factors(self, pattern: Dict[str, Any]) -> List[str]:
+def _identify_risk_factors(self, pattern: Dict[str, Any]) -> List[str]:
         """Identify risk factors for fixing this pattern."""
         risk_factors = []
 
@@ -420,7 +420,7 @@ from typing import Any
         return risk_factors or ["standard_development_risk"]
 
 """Assess if this division can work in parallel with others."""
-    def _assess_parallel_safety(self, current_system: str, all_systems: List[str]) -> bool:
+def _assess_parallel_safety(self, current_system: str, all_systems: List[str]) -> bool:
         """Assess if this division can work in parallel with others."""
 
         # Some systems have dependencies that prevent true parallel execution
@@ -439,7 +439,7 @@ from typing import Any
         return True
 
 """Identify dependencies between divisions."""
-    def _identify_division_dependencies(self, system: str, causes: List[Dict[str, Any]]) -> List[str]:
+def _identify_division_dependencies(self, system: str, causes: List[Dict[str, Any]]) -> List[str]:
         """Identify dependencies between divisions."""
         dependencies = []
 
@@ -460,7 +460,7 @@ from typing import Any
         return list(set(dependencies))  # Remove duplicates
 
 """Assess priority level for a division based on its root causes."""
-    def _assess_division_priority(self, causes: List[Dict[str, Any]]) -> str:
+def _assess_division_priority(self, causes: List[Dict[str, Any]]) -> str:
         """Assess priority level for a division based on its root causes."""
 
         # Check for critical patterns
@@ -476,7 +476,7 @@ from typing import Any
         return "low"
 
 """Extract required skills from a MECE division."""
-    def _extract_required_skills_from_division(self, division: MECETaskDivision) -> List[str]:
+def _extract_required_skills_from_division(self, division: MECETaskDivision) -> List[str]:
         """Extract required skills from a MECE division."""
 
         # Extract skills from primary objective and context requirements
@@ -507,7 +507,7 @@ from typing import Any
         return list(set(skills))  # Remove duplicates
 
 """Calculate overall confidence in the analysis."""
-    def _calculate_analysis_confidence(self, root_cause_analysis: Dict[str, Any],
+def _calculate_analysis_confidence(self, root_cause_analysis: Dict[str, Any],
                                      mece_divisions: List[MECETaskDivision]) -> float:
         """Calculate overall confidence in the analysis."""
 

@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
+"""
 
 Integrates NASA POT10 compliance with defense industry standards:
 - DFARS compliance validation
@@ -18,6 +19,7 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 from datetime import datetime
+"""
 
 logger = logging.getLogger(__name__)
 
@@ -629,7 +631,7 @@ class DefenseCertificationTool:
 
         logger.info(f"Certification report exported to {output_path}")
 
-def main():
+    def main():
     """Main execution function."""
     import argparse
 

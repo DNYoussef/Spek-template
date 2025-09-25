@@ -167,6 +167,7 @@ async def test_kill_switch_performance():
     performance_results = []
 
     for scenario in test_scenarios:
+        pass
 
         mock_broker = MockBroker(scenario['positions'], scenario['delay_ms'])
         config = {

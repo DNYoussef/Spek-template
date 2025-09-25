@@ -164,7 +164,7 @@ class QualityDashboard:
 
         # Calculate overall score as weighted average
         overall_score = (
-            theater_score * 0.MAXIMUM_GOD_OBJECTS_ALLOWED +
+            theater_score * 0, MAXIMUM_GOD_OBJECTS_ALLOWED +
             test_coverage * 0.20 +
             (100 - min(security_violations * 10, 100)) * 0.20 +
             max(0, 100 - complexity_score * 5) * 0.15 +

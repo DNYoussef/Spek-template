@@ -15,7 +15,7 @@ import json
 
 
 """Initialize DFARS continuous risk assessment system."""
-    def __init__(self, config_path: Optional[str] = None):
+def __init__(self, config_path: Optional[str] = None):
         """Initialize DFARS continuous risk assessment system."""
         self.config = self._load_config(config_path)
         self.threat_indicators: Dict[str, ThreatIndicator] = {}
@@ -51,7 +51,7 @@ import json
         logger.info("DFARS Continuous Risk Assessment System initialized")
 
 """Initialize threat intelligence feeds."""
-    def _initialize_threat_feeds(self):
+def _initialize_threat_feeds(self):
         """Initialize threat intelligence feeds."""
         if not self.config["risk_assessment"]["threat_intelligence"]["feeds_enabled"]:
             return
@@ -94,7 +94,7 @@ import json
         logger.info(f"Initialized {len(self.threat_feeds)} threat intelligence feeds")
 
 """Get URL for threat intelligence feed."""
-    def _get_feed_url(self, feed_name: str) -> str:
+def _get_feed_url(self, feed_name: str) -> str:
         """Get URL for threat intelligence feed."""
         feed_urls = {
             "cisa": "https://www.cisa.gov/cybersecurity-advisories/json",
@@ -104,13 +104,13 @@ import json
         return feed_urls.get(feed_name, "")
 
 """Get API key for commercial threat intelligence feed."""
-    def _get_api_key(self, feed_name: str) -> Optional[str]:
+def _get_api_key(self, feed_name: str) -> Optional[str]:
         """Get API key for commercial threat intelligence feed."""
         # In production, this would retrieve API keys from secure storage
         return None
 
 """Create threat indicator from raw data."""
-    def _create_threat_indicator(self, indicator_data: Dict[str, Any], source: str) -> Optional[ThreatIndicator]:
+def _create_threat_indicator(self, indicator_data: Dict[str, Any], source: str) -> Optional[ThreatIndicator]:
         """Create threat indicator from raw data."""
         try:
             indicator_id = hashlib.sha256(
@@ -136,7 +136,7 @@ import json
             return None
 
 """Create vulnerability assessment from scan data."""
-    def _create_vulnerability_assessment(self, vuln_data: Dict[str, Any]) -> Optional[VulnerabilityAssessment]:
+def _create_vulnerability_assessment(self, vuln_data: Dict[str, Any]) -> Optional[VulnerabilityAssessment]:
         """Create vulnerability assessment from scan data."""
         try:
             vulnerability_id = vuln_data.get("cve_id", f"VULN-{int(time.time())}")
@@ -178,7 +178,7 @@ import json
             return None
 
 """Assess business impact of vulnerability."""
-    def _assess_business_impact(self, affected_systems: List[str], cvss_score: float) -> str:
+def _assess_business_impact(self, affected_systems: List[str], cvss_score: float) -> str:
         """Assess business impact of vulnerability."""
         # Simplified business impact assessment
         critical_systems = ["database", "authentication", "payment"]
@@ -193,7 +193,7 @@ import json
             return "Low - Limited business impact expected"
 
 """Assess technical impact of vulnerability."""
-    def _assess_technical_impact(self, cvss_score: float, exploit_available: bool) -> str:
+def _assess_technical_impact(self, cvss_score: float, exploit_available: bool) -> str:
         """Assess technical impact of vulnerability."""
         if cvss_score >= 9.0:
             impact = "Critical technical impact"
@@ -210,7 +210,7 @@ import json
         return impact
 
 """Calculate current threat landscape."""
-    def _calculate_threat_landscape(self) -> Dict[ThreatCategory, float]:
+def _calculate_threat_landscape(self) -> Dict[ThreatCategory, float]:
         """Calculate current threat landscape."""
         threat_scores = {}
 
@@ -247,7 +247,7 @@ import json
         return threat_scores
 
 """Calculate vulnerability summary statistics."""
-    def _calculate_vulnerability_summary(self) -> Dict[str, int]:
+def _calculate_vulnerability_summary(self) -> Dict[str, int]:
         """Calculate vulnerability summary statistics."""
         summary = {
             "total": len(self.vulnerabilities),
@@ -278,7 +278,7 @@ import json
         return summary
 
 """Calculate overall organizational risk score."""
-    def _calculate_overall_risk_score(self, threat_landscape: Dict[ThreatCategory, float],
+def _calculate_overall_risk_score(self, threat_landscape: Dict[ThreatCategory, float],
                                     vulnerability_summary: Dict[str, int],
                                     asset_risk_scores: Dict[str, float]) -> float:
         """Calculate overall organizational risk score."""
@@ -308,7 +308,7 @@ import json
         return min(overall_score, 1.0)
 
 """Determine risk level from overall risk score."""
-    def _determine_risk_level(self, risk_score: float) -> RiskLevel:
+def _determine_risk_level(self, risk_score: float) -> RiskLevel:
         """Determine risk level from overall risk score."""
         thresholds = self.config["risk_assessment"]["risk_thresholds"]
 
@@ -324,7 +324,7 @@ import json
             return RiskLevel.VERY_LOW
 
 """Calculate risk trends over time."""
-    def _calculate_risk_trends(self) -> Dict[str, float]:
+def _calculate_risk_trends(self) -> Dict[str, float]:
         """Calculate risk trends over time."""
         trends = {}
 
@@ -346,7 +346,7 @@ import json
         return trends
 
 """Generate risk mitigation recommendations."""
-    def _generate_risk_recommendations(self, threat_landscape: Dict[ThreatCategory, float],
+def _generate_risk_recommendations(self, threat_landscape: Dict[ThreatCategory, float],
                                      vulnerability_summary: Dict[str, int],
                                      asset_risk_scores: Dict[str, float]) -> List[str]:
         """Generate risk mitigation recommendations."""
@@ -385,7 +385,7 @@ import json
         return recommendations
 
 """Identify current mitigating security controls."""
-    def _identify_mitigating_controls(self) -> List[str]:
+def _identify_mitigating_controls(self) -> List[str]:
         """Identify current mitigating security controls."""
         # This would integrate with security control inventory in production
         return [
@@ -399,7 +399,7 @@ import json
         ]
 
 """Calculate residual risks after considering mitigating controls."""
-    def _calculate_residual_risks(self, threat_landscape: Dict[ThreatCategory, float],
+def _calculate_residual_risks(self, threat_landscape: Dict[ThreatCategory, float],
                                 vulnerability_summary: Dict[str, int],
                                 mitigating_controls: List[str]) -> List[Dict[str, Any]]:
         """Calculate residual risks after considering mitigating controls."""
@@ -425,7 +425,7 @@ import json
         return residual_risks
 
 """Persist risk assessment to storage."""
-    def _persist_risk_assessment(self, assessment: RiskAssessment):
+def _persist_risk_assessment(self, assessment: RiskAssessment):
         """Persist risk assessment to storage."""
         assessment_file = self.storage_path / f"assessment_{assessment.assessment_id}.json"
 
@@ -441,7 +441,7 @@ import json
             json.dump(assessment_dict, f, indent=2)
 
 """Update risk trend metrics."""
-    def _update_risk_trends(self, risk_assessment: RiskAssessment):
+def _update_risk_trends(self, risk_assessment: RiskAssessment):
         """Update risk trend metrics."""
         # Update risk metrics time series
         self.risk_metrics["overall_risk"].append(risk_assessment.overall_risk_score)
@@ -454,13 +454,13 @@ import json
             self.baseline_metrics["overall_risk"] = np.mean(list(self.risk_metrics["overall_risk"]))
 
 """Stop continuous risk assessment monitoring."""
-    def stop_continuous_assessment(self):
+def stop_continuous_assessment(self):
         """Stop continuous risk assessment monitoring."""
         self.active_monitoring = False
         logger.info("Stopped continuous risk assessment monitoring")
 
 """Get data for risk assessment dashboard."""
-    def get_risk_dashboard_data(self) -> Dict[str, Any]:
+def get_risk_dashboard_data(self) -> Dict[str, Any]:
         """Get data for risk assessment dashboard."""
         latest_assessment = self.risk_history[-1] if self.risk_history else None
 

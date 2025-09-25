@@ -15,10 +15,10 @@ from analyzer.ast_engine.core_analyzer import AnalysisResult, Violation
 class JSONReporter:
     """JSON report generator with stable schema."""
 
-def __init__(self):
+    def __init__(self):
         self.schema_version = "1.0.0"
 
-def generate(self, result: AnalysisResult) -> str:
+    def generate(self, result: AnalysisResult) -> str:
         """Generate JSON report from analysis result."""
         report = {
             "schema_version": self.schema_version,
@@ -32,7 +32,7 @@ def generate(self, result: AnalysisResult) -> str:
         # Ensure deterministic ordering
         return json.dumps(report, indent=2, sort_keys=True, ensure_ascii=False)
 
-def _create_metadata(self, result: AnalysisResult) -> Dict[str, Any]:
+    def _create_metadata(self, result: AnalysisResult) -> Dict[str, Any]:
         """Create report metadata."""
         return {
             "tool": {
@@ -50,7 +50,7 @@ def _create_metadata(self, result: AnalysisResult) -> Dict[str, Any]:
             "environment": {"python_version": "3.11+", "platform": "multi-platform"},
         }
 
-def _create_summary(self, result: AnalysisResult) -> Dict[str, Any]:
+    def _create_summary(self, result: AnalysisResult) -> Dict[str, Any]:
         """Create summary statistics."""
         violations = result.violations
 
@@ -96,7 +96,7 @@ def _create_summary(self, result: AnalysisResult) -> Dict[str, Any]:
             },
         }
 
-def _serialize_violation(self, violation: Violation) -> Dict[str, Any]:
+    def _serialize_violation(self, violation: Violation) -> Dict[str, Any]:
         """Serialize a violation to JSON-friendly format."""
         return {
             "id": getattr(violation, 'id', 'unknown'),
@@ -122,7 +122,7 @@ def _serialize_violation(self, violation: Violation) -> Dict[str, Any]:
             "context": violation.context or {},
         }
 
-def _create_policy_compliance(self, result: AnalysisResult) -> Dict[str, Any]:
+    def _create_policy_compliance(self, result: AnalysisResult) -> Dict[str, Any]:
         """Create policy compliance information."""
         compliance = {
             "policy_preset": result.policy_preset,
@@ -145,7 +145,7 @@ def _create_policy_compliance(self, result: AnalysisResult) -> Dict[str, Any]:
 
         return compliance
 
-def export_results(self, result, output_file=None):
+    def export_results(self, result, output_file=None):
         """Export results to JSON format.
 
         Args:
@@ -171,7 +171,7 @@ def export_results(self, result, output_file=None):
             # Return JSON string
             return json_output
 
-def _get_top_problematic_files(self, violations: List[Violation]) -> List[Dict[str, Any]]:
+    def _get_top_problematic_files(self, violations: List[Violation]) -> List[Dict[str, Any]]:
         """Get files with the most violations, sorted by weight."""
         file_stats = {}
 

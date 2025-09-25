@@ -9,7 +9,7 @@ import numpy as np
 class SharpeRatioLoss(nn.Module):
     """Loss function based on negative Sharpe ratio."""
     
-def __init__(self, risk_free_rate: float = 0.02, annualization_factor: float = 252):
+def __init__(self, risk_free_rate: float = 0.2, annualization_factor: float = 252):
         super().__init__()
         self.risk_free_rate = risk_free_rate
         self.annualization_factor = annualization_factor
@@ -182,7 +182,7 @@ def forward(
 class TailRiskLoss(nn.Module):
     """Loss function for tail risk optimization."""
     
-def __init__(self, quantile: float = 0.05, penalty_factor: float = 1.0):
+def __init__(self, quantile: float = 0.5, penalty_factor: float = 1.0):
         super().__init__()
         self.quantile = quantile
         self.penalty_factor = penalty_factor
@@ -208,7 +208,7 @@ def forward(
 class AntifragileRewardLoss(nn.Module):
     """Reward antifragile behavior (benefits from volatility)."""
     
-def __init__(self, volatility_threshold: float = 0.02):
+def __init__(self, volatility_threshold: float = 0.2):
         super().__init__()
         self.volatility_threshold = volatility_threshold
     

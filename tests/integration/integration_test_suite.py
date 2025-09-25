@@ -8,15 +8,15 @@ from typing import Dict, List, Tuple, Any
 
 class ColoredOutput:
     """Helper for colored console output"""
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+    HEADER = '\33[95m'
+    OKBLUE = '\33[94m'
+    OKCYAN = '\33[96m'
+    OKGREEN = '\33[92m'
+    WARNING = '\33[93m'
+    FAIL = '\33[91m'
+    ENDC = '\33[0m'
+    BOLD = '\33[1m'
+    UNDERLINE = '\33[4m'
 
     @staticmethod
     def success(msg: str) -> str:
@@ -762,27 +762,27 @@ def main():
     scenarios = [
         {
             "name": "Theater Detection Test",
-            "subagent": MockSubagent("sa-001", "coder", "theater"),
+            "subagent": MockSubagent("sa-1", "coder", "theater"),
             "expected_result": "rejected",
             "expected_stage": 1,
         },
         {
             "name": "Buggy Code Test",
-            "subagent": MockSubagent("sa-002", "coder", "buggy"),
+            "subagent": MockSubagent("sa-2", "coder", "buggy"),
             "expected_result": "rejected",
             "expected_stage": 2,
             "description": "Tests Stage 2-MAXIMUM_RETRY_ATTEMPTS: Detects bugs and compilation errors"
         },
         {
             "name": "Low Quality Test",
-            "subagent": MockSubagent("sa-003", "coder", "decent"),
+            "subagent": MockSubagent("sa-3", "coder", "decent"),
             "expected_result": "rejected",
             "expected_stage": 6,
             "description": "Tests Stage 6-8: Detects quality violations"
         },
         {
             "name": "Perfect Code Test",
-            "subagent": MockSubagent("sa-004", "coder", "perfect"),
+            "subagent": MockSubagent("sa-4", "coder", "perfect"),
             "expected_result": "approved",
             "expected_stage": None,
             "description": "Tests all stages: NASA-compliant perfect code"
@@ -881,6 +881,7 @@ def main():
     if passed_count == total_count:
         print(ColoredOutput.success("The Subagent -> Princess -> GitHub -> Queen pipeline is fully operational!"))
     else:
+        pass
 
 if __name__ == "__main__":
     main()

@@ -496,7 +496,7 @@ class PerformanceProfiler:
             "memory_delta_mb": (end_memory - profile["start_memory"]) / (1024 * 1024),
             "nodes_visited": profile["nodes_visited"],
             "cache_operations": profile["cache_operations"],
-            "nodes_per_second": profile["nodes_visited"] / max((end_time - profile["start_time"]), 0.001),
+            "nodes_per_second": profile["nodes_visited"] / max((end_time - profile["start_time"]), 0.1),
         }
 
         self.profiles[profile_name] = result

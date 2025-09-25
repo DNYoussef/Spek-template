@@ -1,5 +1,6 @@
 """
 from src.constants.base import BYTES_PER_KB, CONNASCENCE_ANALYSIS_THRESHOLD, DEFAULT_BATCH_SIZE, DEFAULT_MAX_ITEMS, DFARS_RETENTION_DAYS
+"""
 
 import json
 from lib.shared.utilities import get_logger

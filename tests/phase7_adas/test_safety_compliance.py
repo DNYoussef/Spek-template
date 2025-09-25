@@ -111,7 +111,7 @@ class MockSafetySystem:
         detection_start = time.perf_counter()
 
         # Simulate detection delay
-        await asyncio.sleep(0.025)  # 25ms detection time
+        await asyncio.sleep(0.25)  # 25ms detection time
 
         detection_time = (time.perf_counter() - detection_start) * 1000
 
@@ -150,7 +150,7 @@ class MockSafetySystem:
                 self.state = SystemState.DEGRADED
 
         # Simulate fail-safe activation
-        await asyncio.sleep(0.05)  # 50ms activation time
+        await asyncio.sleep(0.5)  # 50ms activation time
 
         activation_time = (time.perf_counter() - activation_start) * 1000
 

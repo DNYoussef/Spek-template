@@ -344,7 +344,7 @@ class TestConcurrentMemoryOperations:
     
     def test_concurrent_memory_entry_operations(self, concurrent_memory_model):
         """Test concurrent memory entry operations."""
-        def store_entries(thread_id: int, entry_count: int) -> int:
+    def store_entries(thread_id: int, entry_count: int) -> int:
             stored_count = 0
             for i in range(entry_count):
                 entry = PhaseMemoryEntry(
@@ -382,7 +382,7 @@ class TestConcurrentMemoryOperations:
     
     def test_concurrent_correlation_operations(self, concurrent_memory_model):
         """Test concurrent correlation creation."""
-        def create_correlations(thread_id: int, correlation_count: int) -> int:
+    def create_correlations(thread_id: int, correlation_count: int) -> int:
             created_count = 0
             for i in range(correlation_count):
                 try:
@@ -421,7 +421,7 @@ class TestConcurrentMemoryOperations:
     
     def test_memory_safety_under_concurrency(self, concurrent_memory_model):
         """Test memory safety enforcement under concurrent load."""
-        def stress_memory_operations(thread_id: int) -> Dict[str, int]:
+    def stress_memory_operations(thread_id: int) -> Dict[str, int]:
             results = {"stored": 0, "rejected": 0, "retrieved": 0}
             
             # Create large entries to stress memory limits

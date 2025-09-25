@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple, Any
 from dataclasses import dataclass, field
 from collections import defaultdict
+"""
 
 @dataclass
 class InterfaceMethod:
@@ -324,6 +325,7 @@ Segregated from: {segregated.original_interface}
 
 from abc import ABC, abstractmethod
 from typing import Any, Optional
+"""
 
 class {segregated.name}(ABC):
     """{segregated.purpose}"""

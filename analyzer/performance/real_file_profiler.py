@@ -68,7 +68,7 @@ class RealFileProfiler:
     Provides concrete evidence for unified visitor efficiency claims.
     """
     
-def __init__(self, project_root: Path):
+    def __init__(self, project_root: Path):
         """Initialize profiler with project root."""
         assert isinstance(project_root, Path), "project_root must be Path"
         
@@ -81,7 +81,7 @@ def __init__(self, project_root: Path):
             TimingDetector, ConventionDetector, ValuesDetector, ExecutionDetector
         ]
     
-def collect_real_source_files(self) -> Dict[str, List[Path]]:
+    def collect_real_source_files(self) -> Dict[str, List[Path]]:
         """
         Collect real Python source files from project by size category.
         
@@ -124,7 +124,7 @@ def collect_real_source_files(self) -> Dict[str, List[Path]]:
         
         return categorized_files
     
-def measure_traversal_reduction_concrete(self, source_files: List[Path],
+    def measure_traversal_reduction_concrete(self, source_files: List[Path],
                                             iterations: int = 3) -> DetailedTraversalMetrics:
         """
         Measure concrete AST traversal reduction with real files.
@@ -167,7 +167,7 @@ def measure_traversal_reduction_concrete(self, source_files: List[Path],
         # Calculate aggregate metrics
         return self._aggregate_measurements(measurements)
     
-def _measure_unified_traversal(self, source_files: List[Path]) -> Dict[str, Any]:
+    def _measure_unified_traversal(self, source_files: List[Path]) -> Dict[str, Any]:
         """
         Measure performance of unified visitor approach on real files.
         """
@@ -225,7 +225,7 @@ def _measure_unified_traversal(self, source_files: List[Path]) -> Dict[str, Any]
             'files_processed': files_processed
         }
     
-def _measure_separate_traversal(self, source_files: List[Path]) -> Dict[str, Any]:
+    def _measure_separate_traversal(self, source_files: List[Path]) -> Dict[str, Any]:
         """
         Measure performance of separate detector approach on real files.
         """
@@ -275,7 +275,7 @@ def _measure_separate_traversal(self, source_files: List[Path]) -> Dict[str, Any
             'files_processed': files_processed
         }
     
-def _aggregate_measurements(self, measurements: List[DetailedTraversalMetrics]) -> DetailedTraversalMetrics:
+    def _aggregate_measurements(self, measurements: List[DetailedTraversalMetrics]) -> DetailedTraversalMetrics:
         """
         Aggregate multiple measurement iterations into final metrics.
         """
@@ -311,7 +311,7 @@ def _aggregate_measurements(self, measurements: List[DetailedTraversalMetrics]) 
         
         return aggregated
     
-def validate_ast_data_completeness_real(self, source_files: List[Path]) -> Dict[str, Any]:
+    def validate_ast_data_completeness_real(self, source_files: List[Path]) -> Dict[str, Any]:
         """
         Validate ASTNodeData completeness using real source files.
         """
@@ -360,7 +360,7 @@ def validate_ast_data_completeness_real(self, source_files: List[Path]) -> Dict[
         
         return validation_report
     
-def _validate_detector_data(self, ast_data: ASTNodeData, validation_dict: Dict[str, Dict[str, int]]):
+    def _validate_detector_data(self, ast_data: ASTNodeData, validation_dict: Dict[str, Dict[str, int]]):
         """
         Validate that AST data contains the required information for each detector.
         """
@@ -404,7 +404,7 @@ def _validate_detector_data(self, ast_data: ASTNodeData, validation_dict: Dict[s
             validation_dict['execution']['files_with_data'] += 1
             validation_dict['execution']['total_dependencies_found'] += len(ast_data.order_dependencies)
     
-def generate_evidence_report(self, metrics: DetailedTraversalMetrics,
+    def generate_evidence_report(self, metrics: DetailedTraversalMetrics,
                                 validation_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Generate comprehensive evidence report for unified visitor efficiency.
@@ -490,7 +490,7 @@ def generate_evidence_report(self, metrics: DetailedTraversalMetrics,
             }
         }
 
-def run_real_file_audit(project_root: Path = None) -> Dict[str, Any]:
+    def run_real_file_audit(project_root: Path = None) -> Dict[str, Any]:
     """
     Execute comprehensive performance audit using real project files.
     

@@ -15,13 +15,13 @@ from .compliance import ComplianceChecker, SecurityStandard, ComplianceViolation
 class SecurityAnalyzer:
     """Main security analysis orchestrator."""
 
-def __init__(self, config: Optional[Dict[str, Any]] = None):
+    def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
         self.security_scanner = SecurityScanner(config)
         self.vulnerability_scanner = VulnerabilityScanner(config)
         self.compliance_checker = ComplianceChecker(config)
 
-def analyze_file(self, file_path: str) -> Dict[str, Any]:
+    def analyze_file(self, file_path: str) -> Dict[str, Any]:
         """Perform comprehensive security analysis on a file."""
         results = {
             "file_path": file_path,
@@ -73,7 +73,7 @@ def analyze_file(self, file_path: str) -> Dict[str, Any]:
 
         return results
 
-def analyze_directory(self, directory: str) -> Dict[str, Any]:
+    def analyze_directory(self, directory: str) -> Dict[str, Any]:
         """Perform comprehensive security analysis on a directory."""
         results = {
             "directory": directory,
@@ -151,7 +151,7 @@ def analyze_directory(self, directory: str) -> Dict[str, Any]:
 
         return results
 
-def _parse_vulnerabilities_from_results(self, results: Dict[str, Any]) -> List[SecurityVulnerability]:
+    def _parse_vulnerabilities_from_results(self, results: Dict[str, Any]) -> List[SecurityVulnerability]:
         """Parse vulnerabilities from analysis results."""
         vulnerabilities = []
 
@@ -161,7 +161,7 @@ def _parse_vulnerabilities_from_results(self, results: Dict[str, Any]) -> List[S
 
         return vulnerabilities
 
-def _parse_violations_from_results(self, results: Dict[str, Any]) -> List[ComplianceViolation]:
+    def _parse_violations_from_results(self, results: Dict[str, Any]) -> List[ComplianceViolation]:
         """Parse compliance violations from analysis results."""
         violations = []
 
@@ -171,7 +171,7 @@ def _parse_violations_from_results(self, results: Dict[str, Any]) -> List[Compli
 
         return violations
 
-def _generate_file_summary(self, vulnerabilities: List[SecurityVulnerability], violations: List[ComplianceViolation]) -> Dict[str, Any]:
+    def _generate_file_summary(self, vulnerabilities: List[SecurityVulnerability], violations: List[ComplianceViolation]) -> Dict[str, Any]:
         """Generate summary for a single file."""
         vuln_severity_counts = {}
         violation_severity_counts = {}
@@ -201,7 +201,7 @@ def _generate_file_summary(self, vulnerabilities: List[SecurityVulnerability], v
             "risk_level": self._calculate_risk_level(security_score)
         }
 
-def _generate_directory_summary(self, vulnerabilities: List[SecurityVulnerability], violations: List[ComplianceViolation], directory: str) -> Dict[str, Any]:
+    def _generate_directory_summary(self, vulnerabilities: List[SecurityVulnerability], violations: List[ComplianceViolation], directory: str) -> Dict[str, Any]:
         """Generate summary for entire directory."""
         file_counts = {}
         vuln_type_counts = {}
@@ -240,7 +240,7 @@ def _generate_directory_summary(self, vulnerabilities: List[SecurityVulnerabilit
             "risk_assessment": self._assess_directory_risk(overall_score, critical_issues, total_issues)
         }
 
-def _calculate_risk_level(self, security_score: float) -> str:
+    def _calculate_risk_level(self, security_score: float) -> str:
         """Calculate risk level based on security score."""
         if security_score >= 90:
             return "LOW"
@@ -251,7 +251,7 @@ def _calculate_risk_level(self, security_score: float) -> str:
         else:
             return "CRITICAL"
 
-def _assess_directory_risk(self, overall_score: float, critical_issues: int, total_issues: int) -> Dict[str, Any]:
+    def _assess_directory_risk(self, overall_score: float, critical_issues: int, total_issues: int) -> Dict[str, Any]:
         """Assess overall risk for directory."""
         risk_level = self._calculate_risk_level(overall_score)
 
@@ -272,14 +272,14 @@ def _assess_directory_risk(self, overall_score: float, critical_issues: int, tot
             "requires_immediate_attention": critical_issues > 0 or overall_score < 50
         }
 
-def save_report(self, results: Dict[str, Any], output_path: str) -> None:
+    def save_report(self, results: Dict[str, Any], output_path: str) -> None:
         """Save security analysis report to file."""
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(results, f, indent=2, ensure_ascii=False)
 
-def analyze_and_report(self, target_path: str, output_path: Optional[str] = None) -> Dict[str, Any]:
+    def analyze_and_report(self, target_path: str, output_path: Optional[str] = None) -> Dict[str, Any]:
         """Complete security analysis workflow with report generation."""
         if validate_file(target_path):
             results = self.analyze_file(target_path)

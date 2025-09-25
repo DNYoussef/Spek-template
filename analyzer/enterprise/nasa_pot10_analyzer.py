@@ -1,6 +1,7 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 Implements all 10 NASA JPL Power of Ten rules for safety-critical software:
+    pass
 1. Restrict all pointer use
 2. Restrict dynamic memory allocation
 3. Limit function size to 60 lines
@@ -685,7 +686,7 @@ class AutomatedNASAFixer:
 
         return lines
 
-def main():
+    def main():
     """Main execution function."""
     import argparse
 

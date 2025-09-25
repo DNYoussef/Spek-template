@@ -211,7 +211,7 @@ class ParallelProcessingOptimizer:
         }
 
 """Initialize parallel processing optimizer."""
-    def __init__(self, max_workers: Optional[int] = None):
+def __init__(self, max_workers: Optional[int] = None):
         """Initialize parallel processing optimizer."""
         self.max_workers = max_workers or min(8, psutil.cpu_count())
         self.thread_pool: Optional[ThreadPoolExecutor] = None
@@ -229,7 +229,7 @@ class ParallelProcessingOptimizer:
         logger.info(f"Initialized parallel optimizer with {self.max_workers} workers")
 
 """Start thread pool for parallel operations."""
-    def start_thread_pool(self) -> None:
+def start_thread_pool(self) -> None:
         """Start thread pool for parallel operations."""
         if self.thread_pool is None:
             self.thread_pool = ThreadPoolExecutor(
@@ -239,7 +239,7 @@ class ParallelProcessingOptimizer:
             logger.info(f"Started thread pool with {self.max_workers} workers")
 
 """Stop thread pool and cleanup resources."""
-    def stop_thread_pool(self) -> None:
+def stop_thread_pool(self) -> None:
         """Stop thread pool and cleanup resources."""
         if self.thread_pool:
             self.thread_pool.shutdown(wait=True)
@@ -247,7 +247,7 @@ class ParallelProcessingOptimizer:
             logger.info("Stopped thread pool")
 
 """Get parallel processing statistics."""
-    def get_parallel_processing_stats(self) -> Dict[str, Any]:
+def get_parallel_processing_stats(self) -> Dict[str, Any]:
         """Get parallel processing statistics."""
         total_operations = (self.optimization_stats["parallel_operations"] + 
                           self.optimization_stats["sequential_operations"])

@@ -7,10 +7,10 @@ import subprocess
 from pathlib import Path
 
 # Colors
-RED = '\033[0;31m'
-GREEN = '\033[0;32m'
-YELLOW = '\033[1;33m'
-NC = '\033[0m'
+RED = '\33[0;31m'
+GREEN = '\33[0;32m'
+YELLOW = '\33[1;33m'
+NC = '\33[0m'
 
 # Configuration
 ROOT_DIR = Path(__file__).parent.parent

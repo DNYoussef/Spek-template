@@ -124,7 +124,7 @@ def _processor_loop(self):
 
                 while time.time() < deadline and len(events) < 100:
                     try:
-                        event = self.audit_buffer.get(timeout=0.01)
+                        event = self.audit_buffer.get(timeout=0.1)
                         events.append(event)
                     except:
                         break

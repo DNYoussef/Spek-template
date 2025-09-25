@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
+"""
 
 Implements ACTUAL security scanning with real tool execution, not simulation.
 Replaces theater-based security validation with functional vulnerability detection.

@@ -170,7 +170,7 @@ class ContinuousTheaterMonitor:
                 "execution_times": {
                     "test_suite": 45.2 * (1 + variance),
                     "analysis_pipeline": 23.1 * (1 - variance),
-                    "compliance_check": 12.MAXIMUM_NESTED_DEPTH * (1 + variance/2)
+                    "compliance_check": 12, MAXIMUM_NESTED_DEPTH * (1 + variance/2)
                 },
                 "memory_usage": int(512 * (1 + variance)),
                 "cache_performance": {

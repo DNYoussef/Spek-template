@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
-This module provides the component integration methods that connect
+"""This module provides the component integration methods that connect
 the UnifiedAnalyzer with the ComponentIntegrator for seamless operation.
 """
 
@@ -232,7 +232,7 @@ class AnalyzerIntegrationMixin:
         # NASA POT10 compliance
         critical_count = len([v for v in violations if hasattr(v, 'severity') and v.severity.value == 'critical'])
         high_count = len([v for v in violations if hasattr(v, 'severity') and v.severity.value == 'high'])
-        nasa_penalty = (critical_count * 0.1) + (high_count * 0.05)
+        nasa_penalty = (critical_count * 0.1) + (high_count * 0.5)
         nasa_compliance = max(0.0, min(1.0, 1.0 - nasa_penalty))
 
         # Six Sigma level
@@ -268,7 +268,8 @@ class AnalyzerIntegrationMixin:
             "duplication_percentage": duplication_percentage
         }
 
-def integrate_unified_analyzer_with_components(analyzer_class):
+    def integrate_unified_analyzer_with_components(analyzer_class):
+        pass
     """
     Class decorator to integrate UnifiedAnalyzer with component integrator.
 

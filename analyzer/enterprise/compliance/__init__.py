@@ -9,7 +9,7 @@ Provides comprehensive regulatory compliance support for:
 - Multi-framework evidence packaging
 
 Domain: CE (Compliance Evidence)
-Tasks: CE-001 through CE-005
+Tasks: CE-1 through CE-5
 Performance Target: <1.5% overhead
 Evidence Retention: 90 days
 """

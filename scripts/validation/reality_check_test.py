@@ -33,7 +33,7 @@ class RealityChecker:
             # Test basic functionality
             import numpy as np
             engine = EnhancedEVTEngine()
-            returns = np.random.normal(-0.001, 0.02, 500)
+            returns = np.random.normal(-0.1, 0.2, 500)
 
             start_time = time.time()
             model = engine.fit_multiple_models(returns, 'TEST')
@@ -73,8 +73,8 @@ class RealityChecker:
 
                 def _fetch_market_data(self, symbol, periods):
                     import pandas as pd
-                    dates = pd.date_range('2023-01-01', periods=periods)
-                    prices = 100 * (1 + np.random.normal(0, 0.02, periods)).cumprod()
+                    dates = pd.date_range('2023-1-1', periods=periods)
+                    prices = 100 * (1 + np.random.normal(0, 0.2, periods)).cumprod()
                     return pd.DataFrame({'Close': prices}, index=dates)
 
             class MockGateManager:
@@ -82,7 +82,7 @@ class RealityChecker:
                     return type('obj', (object,), {'is_valid': True})()
 
             # Test basic Kelly calculation logic manually since imports are complex
-            returns = np.random.normal(0.001, 0.02, 252)
+            returns = np.random.normal(0.1, 0.2, 252)
             win_rate = (returns > 0).mean()
             wins = returns[returns > 0]
             losses = returns[returns < 0]

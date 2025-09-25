@@ -413,6 +413,7 @@ def generate_command_pattern_implementation(self, plan: DecompositionPlan) -> st
 # Command Pattern Implementation for {plan.target_function} Decomposition
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List
+"""
 
 class ExtractMethodCommand(ABC):
     """Base command for Extract Method operations."""

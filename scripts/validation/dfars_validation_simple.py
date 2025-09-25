@@ -119,7 +119,7 @@ def validate_dfars_compliance():
         "components_implemented": implemented,
         "total_components": total,
         "dfars_version": "252.204-7012",
-        "assessment_date": "2025-09-14",
+        "assessment_date": "2025-9-14",
         "next_assessment_due": "2025-12-14",
         "waivers": [],
         "security_enhancements": {

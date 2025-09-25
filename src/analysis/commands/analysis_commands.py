@@ -1,4 +1,5 @@
 from src.constants.base import NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, QUALITY_GATE_MINIMUM_PASS_RATE
+"""
 
 Command pattern implementation for analysis operations, providing standardized
 execution, validation, and undo capabilities for all analysis functions.
@@ -12,9 +13,11 @@ from typing import Any, Dict, List, Optional, Union
 import time
 from datetime import datetime
 import logging
+"""
 
 from ...patterns.command_base import Command, CommandResult
 from ...patterns.factory_base import Factory, get_factory_registry
+"""
 
 logger = logging.getLogger(__name__)
 

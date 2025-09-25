@@ -439,12 +439,12 @@ class AggregationPipelineProfiler(PerformanceProfiler):
         if not AGGREGATION_IMPORTS_AVAILABLE or not self.result_aggregator:
             # Simulate performance metrics for fallback mode
             metrics.total_aggregation_time_ms = volume * 0.1  # 0.1ms per violation
-            metrics.violations_per_second = volume / max(metrics.total_aggregation_time_ms / 1000, 0.001)
-            metrics.processing_latency_p50_ms = volume * 0.05
+            metrics.violations_per_second = volume / max(metrics.total_aggregation_time_ms / 1000, 0.1)
+            metrics.processing_latency_p50_ms = volume * 0.5
             metrics.processing_latency_p95_ms = volume * 0.15
             metrics.processing_latency_p99_ms = volume * 0.25
-            metrics.peak_memory_mb = volume * 0.01  # 10KB per violation
-            metrics.memory_growth_mb = volume * 0.005
+            metrics.peak_memory_mb = volume * 0.1  # 10KB per violation
+            metrics.memory_growth_mb = volume * 0.5
             metrics.memory_efficiency_ratio = volume / max(metrics.peak_memory_mb, 1.0)
             return metrics
         
@@ -477,7 +477,7 @@ class AggregationPipelineProfiler(PerformanceProfiler):
         
         # Calculate throughput
         avg_time_seconds = metrics.total_aggregation_time_ms / 1000
-        metrics.violations_per_second = volume / max(avg_time_seconds, 0.001)
+        metrics.violations_per_second = volume / max(avg_time_seconds, 0.1)
         
         # Memory metrics
         metrics.peak_memory_mb = max(memory_measurements)
@@ -556,7 +556,7 @@ class AggregationPipelineProfiler(PerformanceProfiler):
         y_mean = sum_y / n
         ss_tot = sum((y - y_mean) ** 2 for y in metrics)
         ss_res = sum((metrics[i] - (slope * volumes[i])) ** 2 for i in range(n))
-        r_squared = 1 - (ss_res / max(ss_tot, 0.001))
+        r_squared = 1 - (ss_res / max(ss_tot, 0.1))
         
         return {'factor': slope, 'linearity': r_squared}
     
@@ -715,7 +715,7 @@ class CorrelationEngineProfiler(PerformanceProfiler):
         for i in range(cluster_count):
             cluster = {
                 'cluster_id': f'dup_cluster_{i}',
-                'similarity_score': 0.8 + (i % 3) * 0.05,  # 0.8-0.9 similarity
+                'similarity_score': 0.8 + (i % 3) * 0.5,  # 0.8-0.9 similarity
                 'files_involved': [f'file_{j}.py' for j in range(i % 3 + 2)],
                 'code_blocks': [f'block_{i}_{j}' for j in range(3)]
             }
@@ -756,8 +756,8 @@ class CorrelationEngineProfiler(PerformanceProfiler):
             metrics.correlations_processed = data_size // 5  # 20% correlation rate
             metrics.average_correlation_time_ms = metrics.correlation_calculation_time_ms / max(metrics.correlations_processed, 1)
             metrics.confidence_scoring_time_ms = data_size * 0.2
-            metrics.correlation_accuracy = 0.75 + (data_size % 10) * 0.02  # 75-95% accuracy
-            metrics.clustering_quality_score = 0.6 + (data_size % 15) * 0.02  # 60-90% quality
+            metrics.correlation_accuracy = 0.75 + (data_size % 10) * 0.2  # 75-95% accuracy
+            metrics.clustering_quality_score = 0.6 + (data_size % 15) * 0.2  # 60-90% quality
             return metrics
         
         findings = test_data['findings']
@@ -964,14 +964,14 @@ class StreamingAggregationProfiler(PerformanceProfiler):
                 self.stream_aggregator.add_result(result)
             else:
                 # Simulate processing time
-                await asyncio.sleep(0.001)
+                await asyncio.sleep(0.1)
             
             process_end = time.perf_counter()
             processing_times.append((process_end - process_start) * 1000)
             
             # Simulate real-time streaming with small delays
             if i % 100 == 0:  # Every 100 items, brief pause
-                await asyncio.sleep(0.001)  # 1ms pause
+                await asyncio.sleep(0.1)  # 1ms pause
         
         total_time = time.perf_counter() - start_time
         

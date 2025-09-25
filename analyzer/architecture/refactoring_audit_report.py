@@ -22,14 +22,14 @@ class RefactoringAuditPipeline:
     and defense industry compliance standards.
     """
 
-def __init__(self, refactored_path: str):
+    def __init__(self, refactored_path: str):
         self.refactored_path = Path(refactored_path)
         self.audit_results = {}
         self.overall_score = 0.0
         self.critical_issues = []
         self.recommendations = []
 
-def run_complete_audit(self) -> Dict[str, Any]:
+    def run_complete_audit(self) -> Dict[str, Any]:
         """
         Execute complete 9-stage audit pipeline.
 
@@ -97,7 +97,7 @@ def run_complete_audit(self) -> Dict[str, Any]:
             logger.error(f"Audit pipeline failed: {e}")
             return self._generate_error_report(str(e))
 
-def _stage_1_structural_analysis(self) -> Dict[str, Any]:
+    def _stage_1_structural_analysis(self) -> Dict[str, Any]:
         """Stage 1: Analyze refactored structure against god object anti-pattern."""
         results = {
             'name': 'Structural Analysis',
@@ -225,7 +225,7 @@ def _stage_1_structural_analysis(self) -> Dict[str, Any]:
         results['score'] = (passed_checks / total_checks) * 10.0
         return results
 
-def _stage_2_nasa_compliance(self) -> Dict[str, Any]:
+    def _stage_2_nasa_compliance(self) -> Dict[str, Any]:
         """Stage 2: Validate NASA Power of Ten compliance."""
         results = {
             'name': 'NASA POT10 Compliance',
@@ -322,7 +322,7 @@ def _stage_2_nasa_compliance(self) -> Dict[str, Any]:
         results['score'] = (compliance_score / max_compliance) * 10.0
         return results
 
-def _stage_3_api_compatibility(self) -> Dict[str, Any]:
+    def _stage_3_api_compatibility(self) -> Dict[str, Any]:
         """Stage 3: Validate API compatibility with original interface."""
         results = {
             'name': 'API Compatibility',
@@ -374,7 +374,7 @@ def _stage_3_api_compatibility(self) -> Dict[str, Any]:
 
         return results
 
-def _stage_4_performance_analysis(self) -> Dict[str, Any]:
+    def _stage_4_performance_analysis(self) -> Dict[str, Any]:
         """Stage 4: Analyze performance improvements."""
         results = {
             'name': 'Performance Analysis',
@@ -458,7 +458,7 @@ def _stage_4_performance_analysis(self) -> Dict[str, Any]:
         results['score'] = (performance_features / max_features) * 10.0
         return results
 
-def _stage_5_code_quality(self) -> Dict[str, Any]:
+    def _stage_5_code_quality(self) -> Dict[str, Any]:
         """Stage 5: Assess code quality metrics."""
         results = {
             'name': 'Code Quality Assessment',
@@ -514,7 +514,7 @@ def _stage_5_code_quality(self) -> Dict[str, Any]:
         results['score'] = (quality_score / max_quality) * 10.0
         return results
 
-def _stage_6_security_validation(self) -> Dict[str, Any]:
+    def _stage_6_security_validation(self) -> Dict[str, Any]:
         """Stage 6: Validate security aspects."""
         results = {
             'name': 'Security Validation',
@@ -539,7 +539,7 @@ def _stage_6_security_validation(self) -> Dict[str, Any]:
 
         return results
 
-def _stage_7_architecture_validation(self) -> Dict[str, Any]:
+    def _stage_7_architecture_validation(self) -> Dict[str, Any]:
         """Stage 7: Validate overall architecture."""
         results = {
             'name': 'Architecture Validation',
@@ -592,7 +592,7 @@ def _stage_7_architecture_validation(self) -> Dict[str, Any]:
         results['score'] = (arch_score / max_arch) * 10.0
         return results
 
-def _stage_8_testing_reliability(self) -> Dict[str, Any]:
+    def _stage_8_testing_reliability(self) -> Dict[str, Any]:
         """Stage 8: Assess testing and reliability."""
         results = {
             'name': 'Testing & Reliability',
@@ -620,7 +620,7 @@ def _stage_8_testing_reliability(self) -> Dict[str, Any]:
 
         return results
 
-def _stage_9_production_readiness(self) -> Dict[str, Any]:
+    def _stage_9_production_readiness(self) -> Dict[str, Any]:
         """Stage 9: Assess overall production readiness."""
         results = {
             'name': 'Production Readiness',
@@ -682,7 +682,7 @@ def _stage_9_production_readiness(self) -> Dict[str, Any]:
 
     # Helper methods for detailed checks
 
-def _check_single_responsibility(self) -> int:
+    def _check_single_responsibility(self) -> int:
         """Check for Single Responsibility Principle violations."""
         # Simple heuristic: Check if any component has too many responsibilities
         violations = 0
@@ -690,7 +690,7 @@ def _check_single_responsibility(self) -> int:
         for component_file in self.refactored_path.glob("connascence_*.py"):
             violations += self._check_component_srp(component_file)
 
-def _check_component_srp(self, component_file):
+    def _check_component_srp(self, component_file):
         try:
             with open(component_file, 'r') as f:
                 content = f.read()
@@ -701,7 +701,7 @@ def _check_component_srp(self, component_file):
 
         return violations
 
-def _check_dependency_injection(self, file_path: Path) -> bool:
+    def _check_dependency_injection(self, file_path: Path) -> bool:
         """Check if proper dependency injection is implemented."""
         try:
             with open(file_path, 'r') as f:
@@ -714,14 +714,14 @@ def _check_dependency_injection(self, file_path: Path) -> bool:
         except Exception:
             return False
 
-def _check_complex_flow_constructs(self) -> int:
+    def _check_complex_flow_constructs(self) -> int:
         """Check for complex flow constructs (NASA Rule 1)."""
         violations = 0
 
         for py_file in self.refactored_path.glob("*.py"):
             violations += self._check_file_flow_constructs(py_file)
 
-def _check_file_flow_constructs(self, py_file):
+    def _check_file_flow_constructs(self, py_file):
         try:
             with open(py_file, 'r') as f:
                 content = f.read()
@@ -736,7 +736,7 @@ def _check_file_flow_constructs(self, py_file):
 
         return violations
 
-def _check_function_sizes(self) -> int:
+    def _check_function_sizes(self) -> int:
         """Check for oversized functions (NASA Rule 4)."""
         violations = 0
 
@@ -757,7 +757,7 @@ def _check_function_sizes(self) -> int:
 
         return violations
 
-def _check_function_line(self, line, in_function, function_line_count):
+    def _check_function_line(self, line, in_function, function_line_count):
         if line.strip().startswith('def '):
             return 1 if in_function and function_line_count > 60 else 0
         if in_function:
@@ -765,7 +765,7 @@ def _check_function_line(self, line, in_function, function_line_count):
                 return 1 if function_line_count > 60 else 0
         return 0
 
-def _update_function_state(self, line, in_function, function_line_count):
+    def _update_function_state(self, line, in_function, function_line_count):
         if line.strip().startswith('def '):
             return True, 1
         if in_function:
@@ -774,7 +774,7 @@ def _update_function_state(self, line, in_function, function_line_count):
             return True, function_line_count + 1
         return in_function, function_line_count
 
-def _check_parameter_limits(self) -> int:
+    def _check_parameter_limits(self) -> int:
         """Check for functions with too many parameters."""
         violations = 0
 
@@ -797,14 +797,14 @@ def _check_parameter_limits(self) -> int:
 
         return violations
 
-def _check_magic_literals(self) -> int:
+    def _check_magic_literals(self) -> int:
         """Check for magic literal usage."""
         magic_count = 0
 
         for py_file in self.refactored_path.glob("*.py"):
             magic_count += self._count_magic_literals_in_file(py_file)
 
-def _count_magic_literals_in_file(self, py_file):
+    def _count_magic_literals_in_file(self, py_file):
         try:
             with open(py_file, 'r') as f:
                 content = f.read()
@@ -821,7 +821,7 @@ def _count_magic_literals_in_file(self, py_file):
 
         return magic_count
 
-def _calculate_average_complexity(self) -> float:
+    def _calculate_average_complexity(self) -> float:
         """Calculate average cyclomatic complexity."""
         # Simplified complexity calculation
         total_complexity = 0
@@ -842,7 +842,7 @@ def _calculate_average_complexity(self) -> float:
 
         return total_complexity / max(function_count, 1)
 
-def _check_documentation_coverage(self) -> float:
+    def _check_documentation_coverage(self) -> float:
         """Check documentation coverage."""
         documented = 0
         total = 0
@@ -853,7 +853,7 @@ def _check_documentation_coverage(self) -> float:
                     content = f.read()
 
                 total += 1
-                if '"""' in content or "'''" in content:
+                if '"""' in content or "'''" in content:'
                     documented += 1
 
             except Exception:
@@ -861,7 +861,7 @@ def _check_documentation_coverage(self) -> float:
 
         return documented / max(total, 1)
 
-def _check_type_annotations(self) -> float:
+    def _check_type_annotations(self) -> float:
         """Check type annotation coverage."""
         # Simplified check
         annotated_functions = 0
@@ -880,7 +880,7 @@ def _check_type_annotations(self) -> float:
 
         return annotated_functions / max(total_functions, 1)
 
-def _check_error_handling(self) -> float:
+    def _check_error_handling(self) -> float:
         """Check error handling coverage."""
         # Look for try/except blocks and error handling patterns
         files_with_error_handling = 0
@@ -900,23 +900,23 @@ def _check_error_handling(self) -> float:
 
         return files_with_error_handling / max(total_files, 1)
 
-def _check_naming_conventions(self) -> float:
+    def _check_naming_conventions(self) -> float:
         """Check naming convention compliance."""
         # This would be more sophisticated in production
         return 0.95  # Assume good naming
 
-def _check_separation_of_concerns(self) -> bool:
+    def _check_separation_of_concerns(self) -> bool:
         """Check if concerns are properly separated."""
         # Check if each component has a focused responsibility
         component_files = list(self.refactored_path.glob("connascence_*.py"))
         return len(component_files) >= 6
 
-def _check_dependency_direction(self) -> bool:
+    def _check_dependency_direction(self) -> bool:
         """Check if dependencies point toward abstractions."""
         interface_file = self.refactored_path / "interfaces.py"
         return interface_file.exists()
 
-def _check_testability(self) -> bool:
+    def _check_testability(self) -> bool:
         """Check if architecture supports testing."""
         # Look for dependency injection and interface usage
         orchestrator_file = self.refactored_path / "connascence_orchestrator.py"
@@ -927,7 +927,7 @@ def _check_testability(self) -> bool:
         except Exception:
             return False
 
-def _calculate_overall_assessment(self):
+    def _calculate_overall_assessment(self):
         """Calculate overall audit assessment."""
         stage_scores = []
 
@@ -952,7 +952,7 @@ def _calculate_overall_assessment(self):
                 stage_name = self.audit_results.get(f'stage_{i}', {}).get('name', f'Stage {i}')
                 self.critical_issues.append(f"{stage_name} failed with score {score:.1f}/10")
 
-def _generate_comprehensive_report(self) -> Dict[str, Any]:
+    def _generate_comprehensive_report(self) -> Dict[str, Any]:
         """Generate comprehensive audit report."""
         return {
             'audit_summary': {
@@ -976,7 +976,7 @@ def _generate_comprehensive_report(self) -> Dict[str, Any]:
             'audit_metadata': self.audit_results.get('audit_metadata', {})
         }
 
-def _calculate_grade(self, score: float) -> str:
+    def _calculate_grade(self, score: float) -> str:
         """Calculate letter grade from score."""
         if score >= 9 * MAXIMUM_NESTED_DEPTH:
             return 'A+'
@@ -991,7 +991,7 @@ def _calculate_grade(self, score: float) -> str:
         else:
             return 'F'
 
-def _get_deployment_recommendation(self) -> str:
+    def _get_deployment_recommendation(self) -> str:
         """Get deployment recommendation."""
         if self.overall_score >= 9.5:
             return "APPROVED: Ready for defense industry deployment"
@@ -1004,7 +1004,7 @@ def _get_deployment_recommendation(self) -> str:
         else:
             return "REJECTED: Major issues must be resolved"
 
-def _generate_error_report(self, error: str) -> Dict[str, Any]:
+    def _generate_error_report(self, error: str) -> Dict[str, Any]:
         """Generate error report when audit fails."""
         return {
             'audit_summary': {
@@ -1017,7 +1017,7 @@ def _generate_error_report(self, error: str) -> Dict[str, Any]:
             'deployment_recommendation': "FAILED: Audit process failed"
         }
 
-def generate_audit_report(architecture_path: str = None) -> Dict[str, Any]:
+    def generate_audit_report(architecture_path: str = None) -> Dict[str, Any]:
     """
     Generate comprehensive refactoring audit report.
 

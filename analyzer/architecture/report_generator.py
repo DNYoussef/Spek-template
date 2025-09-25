@@ -356,6 +356,6 @@ class ReportGenerator:
         else:  # markdown
             return f"# Report Generation Error\n\n**Error:** {error_message}\n\n**Time:** {datetime.now().isoformat()}"
 
-def create_report_generator() -> ReportGenerator:
+    def create_report_generator() -> ReportGenerator:
     """Factory function to create report generator."""
     return ReportGenerator()

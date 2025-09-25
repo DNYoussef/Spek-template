@@ -1,4 +1,5 @@
 from src.constants.base import API_TIMEOUT_SECONDS
+"""
 
 Provides shared fixtures, utilities, and configuration for all enterprise tests
 including mock factories, test data generators, and enterprise component setup.
@@ -200,6 +201,7 @@ logger = get_logger(__name__)
 import hashlib
 import base64
 from typing import Any, Dict
+"""
 
 def calculate_checksum(data: str) -> str:
     """Calculate SHA256 checksum of data"""
@@ -447,7 +449,7 @@ def mock_analyzer_class():
         async def analyze(self, data, **kwargs):
             self.call_count += 1
             self.last_data = data
-            await asyncio.sleep(0.01)  # Simulate async work
+            await asyncio.sleep(0.1)  # Simulate async work
             
             return {
                 "input": data,

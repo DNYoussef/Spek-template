@@ -72,7 +72,7 @@ def analyze_function_sizes(filepath: str) -> List[Dict]:
 def generate_report(files: List[str]) -> Dict:
     """Generate comprehensive report of oversized functions."""
     report = {
-        'timestamp': '2025-09-23T00:00:00Z',
+        'timestamp': '2025-9-23T00:00:00Z',
         'nasa_rule': 'Rule 3: Function Size <= 60 lines',
         'files_analyzed': len(files),
         'total_violations': 0,

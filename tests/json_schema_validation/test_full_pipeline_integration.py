@@ -373,7 +373,7 @@ def calculate_score(base, multiplier):
         self._validate_production_readiness(json_dict, sarif_dict)
 
     def test_regression_protection_for_phase1_findings(self):
-        """Test that all Phase 1 critical issues are resolved and won't regress."""
+        """Test that all Phase 1 critical issues are resolved and won't regress."""'
         # Test all Phase 1 critical issues:
         
         # 1. Mock Data Contamination Prevention (85.7% contamination detected)

@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
+"""
 
 Demonstrates the complete Queen-led remediation system with:
 - 6 Princess domains
@@ -13,6 +14,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Tuple, Any
+"""
 
 class Colors:
     """ANSI color codes for terminal output"""

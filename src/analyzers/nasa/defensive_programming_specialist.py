@@ -391,6 +391,7 @@ Systematic assertion framework with defensive programming patterns.
 
 from icontract import require, ensure, invariant, ViolationError
 from typing import Any, List, Optional
+"""
 
 # NASA Rule 5 compliance decorators
 def nasa_precondition(condition: str, description: str = ""):

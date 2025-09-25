@@ -27,7 +27,7 @@ class ReportGenerator:
     """
     Generates comprehensive DFARS compliance reports.
 
-    Extracted from dfars_compliance_validation_system (1, 054 LOC -> ~200 LOC component).
+    Extracted from dfars_compliance_validation_system (1, 54 LOC -> ~200 LOC component).
     Handles:
     - Report generation
     - Evidence packaging

@@ -427,7 +427,7 @@ class DynamicPortfolioModel(BasePredictor):
             for asset in related_assets:
                 # SIMULATION ONLY: Not real price data
                 base_change = float(base_dpi.mean().item()) * 0.1
-                noise = random.uniform(-0.02, 0.02)
+                noise = random.uniform(-0.2, 0.2)
                 asset_prices[asset] = base_change + noise
             
             # Calculate wealth flow score
@@ -482,7 +482,7 @@ class GaryTalebPredictor(BasePredictor):
         input_dim: int,
         hidden_dim: int = 256,
         num_regimes: int = 4,
-        tail_quantiles: List[float] = [0.05, 0.95]
+        tail_quantiles: List[float] = [0.5, 0.95]
     ):
         super().__init__(input_dim, hidden_dim)
         
@@ -602,10 +602,10 @@ def test_wealth_flow_tracking():
     }
     
     asset_prices_bullish = {
-        'SPY': 0.05,   # Stock market up 5%
-        'QQQ': 0.08,   # Tech stocks up 8%
-        'ULTY': 0.03,  # Real estate up 3%
-        'BONDS': 0.01  # Bonds up 1%
+        'SPY': 0.5,   # Stock market up 5%
+        'QQQ': 0.8,   # Tech stocks up 8%
+        'ULTY': 0.3,  # Real estate up 3%
+        'BONDS': 0.1  # Bonds up 1%
     }
     
     flow_score_high = WealthFlowTracker.track_wealth_flow(income_data_high_concentration, asset_prices_bullish)
@@ -613,7 +613,7 @@ def test_wealth_flow_tracking():
     
     # Test case 2: Low concentration scenario
     income_data_low_concentration = {
-        'high_income': 0.05,  # Top 5% have less income
+        'high_income': 0.5,  # Top 5% have less income
         'middle_income': 0.45, # Middle 45%
         'low_income': 0.5     # Bottom 50%
     }

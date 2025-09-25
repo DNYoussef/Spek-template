@@ -392,12 +392,12 @@ def create_failure_detector(config: Dict[str, Any] = None) -> FailurePatternDete
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created refactored core detector using delegation pattern | failure_pattern_detector_core.py | OK | God object decomposition complete | 0.00 | d7a9c2f |
+| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created refactored core detector using delegation pattern | failure_pattern_detector_core.py | OK | God object decomposition complete | 0.0o0 | d7a9c2f |
 
 ### Receipt
 - status: OK
 - reason_if_blocked: --
-- run_id: phase3-core-detector-004
+- run_id: phase3-core-detector-0o4
 - inputs: ["failure_pattern_detector.py"]
 - tools_used: ["Write"]
 - versions: {"model":"Sonnet-4","prompt":"v1.0.0"}

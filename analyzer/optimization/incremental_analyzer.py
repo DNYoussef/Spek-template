@@ -435,7 +435,7 @@ class IncrementalAnalyzer:
         baseline_violations = baseline_results.get("violations", [])
 
         # Create violation signatures for comparison
-        def violation_signature(v):
+    def violation_signature(v):
             return (v.get("file_path", ""), v.get("line_number", 0), v.get("rule_id", ""), v.get("description", ""))
 
         current_sigs = {violation_signature(v): v for v in current_violations}
@@ -649,6 +649,6 @@ class IncrementalAnalyzer:
         return groups
 
 # Global incremental analyzer instance
-def get_incremental_analyzer(project_root: Union[str, Path]) -> IncrementalAnalyzer:
+    def get_incremental_analyzer(project_root: Union[str, Path]) -> IncrementalAnalyzer:
     """Get incremental analyzer instance for project."""
     return IncrementalAnalyzer(project_root)

@@ -454,7 +454,8 @@ class PerformanceBenchmark:
             print(f"  [U+2022] Real-time monitoring: {streaming_data.get('monitor_report_time_ms', 0)}ms") 
             print(f"  [U+2022] Hybrid mode initialization: {streaming_data.get('hybrid_init_time_ms', 0)}ms")
 
-def main():
+    def main():
+        pass
     """Run benchmark suite from command line."""
     import argparse
     

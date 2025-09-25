@@ -17,12 +17,12 @@ T = TypeVar('T')
 class ComponentRegistry:
     """Registry for analyzer components."""
 
-def __init__(self):
+    def __init__(self):
         self.components: Dict[str, Any] = {}
         self.component_types: Dict[str, Type] = {}
         self.dependencies: Dict[str, List[str]] = {}
 
-def register(self,
+    def register(self,
                 name: str,
                 component_type: Type,
                 dependencies: Optional[List[str]] = None) -> None:
@@ -30,11 +30,11 @@ def register(self,
         self.component_types[name] = component_type
         self.dependencies[name] = dependencies or []
 
-def get(self, name: str) -> Optional[Any]:
+    def get(self, name: str) -> Optional[Any]:
         """Get a component instance."""
         return self.components.get(name)
 
-def create(self, name: str, **kwargs) -> Any:
+    def create(self, name: str, **kwargs) -> Any:
         """Create a new component instance."""
         if name not in self.component_types:
             raise ValueError(f"Unknown component type: {name}")
@@ -56,14 +56,14 @@ class ComponentFactory:
     - Component lifecycle management
     """
 
-def __init__(self, config: Optional[Dict[str, Any]] = None):
+    def __init__(self, config: Optional[Dict[str, Any]] = None):
         """Initialize the component factory."""
         self.config = config or {}
         self.registry = ComponentRegistry()
         self._initialized_components: Dict[str, Any] = {}
         self._setup_default_components()
 
-def _setup_default_components(self) -> None:
+    def _setup_default_components(self) -> None:
         """Setup default component registrations."""
         # Register core components
         self.registry.register("detector", type(None))  # Placeholder
@@ -72,7 +72,7 @@ def _setup_default_components(self) -> None:
         self.registry.register("reporter", type(None))  # Placeholder
         self.registry.register("cache_manager", type(None))  # Placeholder
 
-def create_component(self,
+    def create_component(self,
                         component_name: str,
                         component_class: Optional[Type[T]] = None,
                         **kwargs) -> T:
@@ -121,7 +121,7 @@ def create_component(self,
             logger.error(f"Failed to create component {component_name}: {e}")
             raise
 
-def _dynamic_import(self, component_name: str) -> Optional[Type]:
+    def _dynamic_import(self, component_name: str) -> Optional[Type]:
         """Dynamically import a component class."""
         try:
             # Convert component name to module path
@@ -145,7 +145,7 @@ def _dynamic_import(self, component_name: str) -> Optional[Type]:
             logger.warning(f"Cannot dynamically import {component_name}: {e}")
             return None
 
-def _resolve_dependencies(self, component_name: str) -> Dict[str, Any]:
+    def _resolve_dependencies(self, component_name: str) -> Dict[str, Any]:
         """Resolve component dependencies."""
         dependencies = {}
 
@@ -158,15 +158,15 @@ def _resolve_dependencies(self, component_name: str) -> Dict[str, Any]:
 
         return dependencies
 
-def get_component(self, component_name: str) -> Optional[Any]:
+    def get_component(self, component_name: str) -> Optional[Any]:
         """Get an initialized component."""
         return self._initialized_components.get(component_name)
 
-def has_component(self, component_name: str) -> bool:
+    def has_component(self, component_name: str) -> bool:
         """Check if a component is initialized."""
         return component_name in self._initialized_components
 
-def shutdown_component(self, component_name: str) -> None:
+    def shutdown_component(self, component_name: str) -> None:
         """Shutdown and cleanup a component."""
         if component_name in self._initialized_components:
             component = self._initialized_components[component_name]
@@ -186,17 +186,17 @@ def shutdown_component(self, component_name: str) -> None:
 
             logger.info(f"Shutdown component: {component_name}")
 
-def shutdown_all(self) -> None:
+    def shutdown_all(self) -> None:
         """Shutdown all components."""
         components = list(self._initialized_components.keys())
         for component_name in components:
             self.shutdown_component(component_name)
 
-def get_initialization_order(self) -> List[str]:
+    def get_initialization_order(self) -> List[str]:
         """Get the order in which components were initialized."""
         return list(self._initialized_components.keys())
 
-def get_component_stats(self) -> Dict[str, Any]:
+    def get_component_stats(self) -> Dict[str, Any]:
         """Get statistics about initialized components."""
         return {
             "total_components": len(self._initialized_components),

@@ -10,7 +10,7 @@ from .core import TheaterPattern, TheaterType, SeverityLevel
 class TestTheaterDetector:
     """Detects theater patterns in test code."""
 
-def __init__(self):
+    def __init__(self):
         self.suspicious_patterns = [
             r'assert\s+True',
             r'assert\s+1\s*==\s*1',
@@ -19,7 +19,7 @@ def __init__(self):
             r'@unittest\.skip',
         ]
 
-def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
+    def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect test theater patterns."""
         patterns = []
 
@@ -51,7 +51,7 @@ def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
 
         return patterns
 
-def _analyze_test_function(self, file_path: str, node: ast.FunctionDef, content: str) -> List[TheaterPattern]:
+    def _analyze_test_function(self, file_path: str, node: ast.FunctionDef, content: str) -> List[TheaterPattern]:
         """Analyze individual test function for theater patterns."""
         patterns = []
 
@@ -91,14 +91,14 @@ def _analyze_test_function(self, file_path: str, node: ast.FunctionDef, content:
 class DocumentationTheaterDetector:
     """Detects fake or misleading documentation patterns."""
 
-def __init__(self):
+    def __init__(self):
         self.theater_indicators = [
             r'# This function does something',
             r'# Magic happens here',
             r'# Implementation details',
         ]
 
-def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
+    def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect documentation theater patterns."""
         patterns = []
 
@@ -142,7 +142,7 @@ def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
 class MetricsTheaterDetector:
     """Detects inflated or fake metrics."""
 
-def __init__(self):
+    def __init__(self):
         self.suspicious_metrics = [
             r'coverage\s*=\s*100',
             r'quality\s*=\s*["\']?perfect["\']?',
@@ -151,7 +151,7 @@ def __init__(self):
             r'success_rate\s*=\s*100',
         ]
 
-def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
+    def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect metrics theater patterns."""
         patterns = []
 
@@ -174,7 +174,7 @@ def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
 class QualityTheaterDetector:
     """Detects fake quality improvements and facades."""
 
-def __init__(self):
+    def __init__(self):
         self.quality_facades = [
             r'# Quality improved',
             r'# Fixed all issues',
@@ -184,7 +184,7 @@ def __init__(self):
             r'pass\s*#.*implement',
         ]
 
-def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
+    def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect quality theater patterns."""
         patterns = []
 

@@ -33,19 +33,19 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 """Validate optimization target parameters."""
-    def __post_init__(self):
+def __post_init__(self):
         """Validate optimization target parameters."""
         assert 1 <= self.target_improvement_percent <= 90, "Improvement target must be 1-90%"
         assert 1 <= self.priority <= 3, "Priority must be 1-3"
         assert len(self.name) > 0, "Target name cannot be empty"
 
 """Check if optimization target was achieved."""
-    def target_achieved(self) -> bool:
+def target_achieved(self) -> bool:
         """Check if optimization target was achieved."""
         return self.success and self.improvement_percent > 0
 
 """Initialize intelligent cache manager."""
-    def __init__(self):
+def __init__(self):
         """Initialize intelligent cache manager."""
         self.file_cache = None
         self.ast_cache = None
@@ -81,7 +81,7 @@ from concurrent.futures import ThreadPoolExecutor
         }
 
 """Get comprehensive optimization summary."""
-    def get_optimization_summary(self) -> Dict[str, Any]:
+def get_optimization_summary(self) -> Dict[str, Any]:
         """Get comprehensive optimization summary."""
         return {
             "cache_systems_active": {
@@ -96,7 +96,7 @@ from concurrent.futures import ThreadPoolExecutor
         }
 
 """Initialize performance optimization engine."""
-    def __init__(self):
+def __init__(self):
         """Initialize performance optimization engine."""
         self.cache_manager = IntelligentCacheManager()
         self.parallel_optimizer = ParallelProcessingOptimizer()
@@ -122,13 +122,13 @@ from concurrent.futures import ThreadPoolExecutor
         logger.info("Performance optimization engine initialized")
 
 """Add performance optimization target."""
-    def add_optimization_target(self, target: OptimizationTarget) -> None:
+def add_optimization_target(self, target: OptimizationTarget) -> None:
         """Add performance optimization target."""
         self.performance_targets.append(target)
         logger.info(f"Added optimization target: {target.name} ({target.target_improvement_percent}%)")
 
 """Add default optimization targets for common bottlenecks."""
-    def add_default_optimization_targets(self) -> None:
+def add_default_optimization_targets(self) -> None:
         """Add default optimization targets for common bottlenecks."""
         default_targets = [
             OptimizationTarget(
@@ -167,7 +167,7 @@ from concurrent.futures import ThreadPoolExecutor
             self.add_optimization_target(target)
 
 """Mock file analysis task for parallel processing testing."""
-    def _mock_file_analysis(self, file_path: str) -> Dict[str, Any]:
+def _mock_file_analysis(self, file_path: str) -> Dict[str, Any]:
         """Mock file analysis task for parallel processing testing."""
         try:
             # Simulate analysis work
@@ -187,7 +187,7 @@ from concurrent.futures import ThreadPoolExecutor
             return {"file_path": file_path, "error": str(e)}
 
 """Generate comprehensive optimization report."""
-    def _generate_optimization_report(self, optimization_time: float) -> Dict[str, Any]:
+def _generate_optimization_report(self, optimization_time: float) -> Dict[str, Any]:
         """Generate comprehensive optimization report."""
         # Calculate summary statistics
         successful_optimizations = [r for r in self.optimization_results if r.success]
@@ -240,7 +240,7 @@ from concurrent.futures import ThreadPoolExecutor
         return report
 
 """Generate optimization recommendations based on results."""
-    def _generate_optimization_recommendations(self, avg_improvement: float) -> List[str]:
+def _generate_optimization_recommendations(self, avg_improvement: float) -> List[str]:
         """Generate optimization recommendations based on results."""
         recommendations = []
         
@@ -275,7 +275,7 @@ from concurrent.futures import ThreadPoolExecutor
         return recommendations
 
 """Perform real file analysis on content."""
-    def _perform_file_analysis(self, content: str) -> Dict[str, Any]:
+def _perform_file_analysis(self, content: str) -> Dict[str, Any]:
         """Perform real file analysis on content."""
         lines = content.splitlines()
 
@@ -294,7 +294,7 @@ from concurrent.futures import ThreadPoolExecutor
         return analysis
 
 """Get current optimization status."""
-    def get_optimization_status(self) -> Dict[str, Any]:
+def get_optimization_status(self) -> Dict[str, Any]:
         """Get current optimization status."""
         return {
             "optimization_active": self.optimization_active,

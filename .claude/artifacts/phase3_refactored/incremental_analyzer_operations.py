@@ -31,29 +31,29 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 """Validate file change record."""
-    def __post_init__(self):
+def __post_init__(self):
         """Validate file change record."""
         assert self.file_path, "file_path cannot be empty"
         assert self.change_type in ['added', 'modified', 'deleted'], "Invalid change_type"
         assert self.timestamp > 0, "timestamp must be positive"
 
 """Add dependency relationship."""
-    def add_dependency(self, dependency_path: str) -> None:
+def add_dependency(self, dependency_path: str) -> None:
         """Add dependency relationship."""
         self.dependencies.add(dependency_path)
 
 """Add dependent relationship."""
-    def add_dependent(self, dependent_path: str) -> None:
+def add_dependent(self, dependent_path: str) -> None:
         """Add dependent relationship."""
         self.dependents.add(dependent_path)
 
 """Get all files that could be impacted by changes to this file."""
-    def get_impact_scope(self) -> Set[str]:
+def get_impact_scope(self) -> Set[str]:
         """Get all files that could be impacted by changes to this file."""
         return self.dependents.copy()
 
 """Validate analysis task."""
-    def __post_init__(self):
+def __post_init__(self):
         """Validate analysis task."""
         assert self.task_id, "task_id cannot be empty"
         assert self.file_path, "file_path cannot be empty"
@@ -61,7 +61,7 @@ from concurrent.futures import ThreadPoolExecutor
         assert self.max_retries >= 0, "max_retries must be non-negative"
 
 """Initialize dependency graph analyzer."""
-    def __init__(self, max_depth: int = 10):
+def __init__(self, max_depth: int = 10):
         """Initialize dependency graph analyzer."""
         self.max_depth = max_depth
         self.dependency_graph: Dict[str, DependencyNode] = {}
@@ -76,7 +76,7 @@ from concurrent.futures import ThreadPoolExecutor
         logger.info(f"Initialized dependency graph analyzer with max depth: {max_depth}")
 
 """Add or update file node in dependency graph."""
-    def add_file_node(self, file_path: str, estimated_analysis_time: float = 100.0) -> DependencyNode:
+def add_file_node(self, file_path: str, estimated_analysis_time: float = 100.0) -> DependencyNode:
         """Add or update file node in dependency graph."""
         with self.graph_lock:
             if file_path not in self.dependency_graph:
@@ -90,7 +90,7 @@ from concurrent.futures import ThreadPoolExecutor
             return self.dependency_graph[file_path]
 
 """Resolve module import to file path."""
-    def _resolve_import_path(self, module_name: str, base_dir: Path) -> Optional[Path]:
+def _resolve_import_path(self, module_name: str, base_dir: Path) -> Optional[Path]:
         """Resolve module import to file path."""
         # Handle relative imports
         if module_name.startswith('.'):
@@ -124,7 +124,7 @@ from concurrent.futures import ThreadPoolExecutor
 """Analyze impact of file changes on dependent files.
 
 NASA Rule 4: Function under 60 lines"""
-    def analyze_change_impact(self, changed_files: List[str]) -> Dict[str, Set[str]]:
+def analyze_change_impact(self, changed_files: List[str]) -> Dict[str, Set[str]]:
         """
         Analyze impact of file changes on dependent files.
         
@@ -167,7 +167,7 @@ NASA Rule 4: Function under 60 lines"""
         return impact_map
 
 """Get files ordered by analysis priority."""
-    def get_analysis_priority_order(self, files_to_analyze: List[str]) -> List[str]:
+def get_analysis_priority_order(self, files_to_analyze: List[str]) -> List[str]:
         """Get files ordered by analysis priority."""
         with self.graph_lock:
             file_priorities = []
@@ -188,7 +188,7 @@ NASA Rule 4: Function under 60 lines"""
             return [file_path for _, file_path in file_priorities]
 
 """Get dependency graph statistics."""
-    def get_dependency_stats(self) -> Dict[str, Any]:
+def get_dependency_stats(self) -> Dict[str, Any]:
         """Get dependency graph statistics."""
         with self.graph_lock:
             total_dependencies = sum(len(node.dependencies) for node in self.dependency_graph.values())
@@ -204,7 +204,7 @@ NASA Rule 4: Function under 60 lines"""
             }
 
 """Initialize incremental analysis engine."""
-    def __init__(self, max_workers: Optional[int] = None):
+def __init__(self, max_workers: Optional[int] = None):
         """Initialize incremental analysis engine."""
         self.max_workers = max_workers or min(8, max(2, threading.active_count()))
         self.thread_pool: Optional[ThreadPoolExecutor] = None
@@ -239,7 +239,7 @@ NASA Rule 4: Function under 60 lines"""
         logger.info(f"Initialized incremental analysis engine with {self.max_workers} workers")
 
 """Determine analysis task type based on file change."""
-    def _determine_task_type(self, change: FileChangeRecord) -> str:
+def _determine_task_type(self, change: FileChangeRecord) -> str:
         """Determine analysis task type based on file change."""
         file_path = change.file_path
         
@@ -258,7 +258,7 @@ NASA Rule 4: Function under 60 lines"""
             return 'generic_analysis'
 
 """Estimate analysis time based on file characteristics."""
-    def _estimate_analysis_time(self, file_path: str) -> float:
+def _estimate_analysis_time(self, file_path: str) -> float:
         """Estimate analysis time based on file characteristics."""
         try:
             file_size = Path(file_path).stat().st_size
@@ -284,7 +284,7 @@ NASA Rule 4: Function under 60 lines"""
             return 100.0
 
 """Execute a single analysis task."""
-    def _execute_single_analysis_task(self, task: AnalysisTask) -> Dict[str, Any]:
+def _execute_single_analysis_task(self, task: AnalysisTask) -> Dict[str, Any]:
         """Execute a single analysis task."""
         start_time = time.time()
         
@@ -324,7 +324,7 @@ NASA Rule 4: Function under 60 lines"""
             }
 
 """Perform full analysis on Python file."""
-    def _analyze_python_file_full(self, file_path: str) -> Dict[str, Any]:
+def _analyze_python_file_full(self, file_path: str) -> Dict[str, Any]:
         """Perform full analysis on Python file."""
         try:
             # Get AST from cache if available
@@ -355,7 +355,7 @@ NASA Rule 4: Function under 60 lines"""
             return {"error": str(e), "analysis_type": "full_python"}
 
 """Perform incremental analysis on modified Python file."""
-    def _analyze_python_file_incremental(self, file_path: str) -> Dict[str, Any]:
+def _analyze_python_file_incremental(self, file_path: str) -> Dict[str, Any]:
         """Perform incremental analysis on modified Python file."""
         try:
             # For incremental analysis, we focus on changes only
@@ -378,7 +378,7 @@ NASA Rule 4: Function under 60 lines"""
             return {"error": str(e), "analysis_type": "incremental_python"}
 
 """Clean up analysis data for deleted file."""
-    def _cleanup_deleted_file_analysis(self, file_path: str) -> Dict[str, Any]:
+def _cleanup_deleted_file_analysis(self, file_path: str) -> Dict[str, Any]:
         """Clean up analysis data for deleted file."""
         # Remove from dependency graph
         with self.dependency_analyzer.graph_lock:
@@ -407,7 +407,7 @@ NASA Rule 4: Function under 60 lines"""
         }
 
 """Perform generic file analysis."""
-    def _analyze_generic_file(self, file_path: str) -> Dict[str, Any]:
+def _analyze_generic_file(self, file_path: str) -> Dict[str, Any]:
         """Perform generic file analysis."""
         try:
             file_stat = Path(file_path).stat()
@@ -422,7 +422,7 @@ NASA Rule 4: Function under 60 lines"""
             return {"error": str(e), "analysis_type": "generic"}
 
 """Get comprehensive performance statistics."""
-    def get_performance_stats(self) -> Dict[str, Any]:
+def get_performance_stats(self) -> Dict[str, Any]:
         """Get comprehensive performance statistics."""
         total_analyses = (self.analysis_stats["incremental_analyses"] + 
                          self.analysis_stats["full_analyses"])
@@ -452,7 +452,7 @@ NASA Rule 4: Function under 60 lines"""
         }
 
 """Initialize file change tracker."""
-    def __init__(self, max_tracked_files: int = 10000):
+def __init__(self, max_tracked_files: int = 10000):
         """Initialize file change tracker."""
         self.max_tracked_files = max_tracked_files
         self.file_hashes: Dict[str, str] = {}
@@ -462,7 +462,7 @@ NASA Rule 4: Function under 60 lines"""
         logger.info(f"Initialized file change tracker with max {max_tracked_files} files")
 
 """Calculate MD5 hash of file content."""
-    def _calculate_file_hash(self, file_path: str) -> Optional[str]:
+def _calculate_file_hash(self, file_path: str) -> Optional[str]:
         """Calculate MD5 hash of file content."""
         try:
             with open(file_path, 'rb') as f:
@@ -473,13 +473,13 @@ NASA Rule 4: Function under 60 lines"""
             return None
 
 """Get recent change history."""
-    def get_change_history(self, limit: int = 100) -> List[FileChangeRecord]:
+def get_change_history(self, limit: int = 100) -> List[FileChangeRecord]:
         """Get recent change history."""
         with self.tracking_lock:
             return list(self.change_history)[-limit:]
 
 """Get file tracking statistics."""
-    def get_tracking_stats(self) -> Dict[str, Any]:
+def get_tracking_stats(self) -> Dict[str, Any]:
         """Get file tracking statistics."""
         with self.tracking_lock:
             return {

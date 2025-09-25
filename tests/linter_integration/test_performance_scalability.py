@@ -79,9 +79,9 @@ class PerformanceBenchmark:
                 violations_count = result["total_violations"]
         
         # Calculate rates
-        violations_per_second = violations_count / max(execution_time, 0.001)
-        correlations_per_second = correlations_count / max(execution_time, 0.001)
-        files_per_second = files_count / max(execution_time, 0.001)
+        violations_per_second = violations_count / max(execution_time, 0.1)
+        correlations_per_second = correlations_count / max(execution_time, 0.1)
+        files_per_second = files_count / max(execution_time, 0.1)
         
         # Calculate throughput score (composite metric)
         throughput_score = (violations_per_second * 0.4 + 
@@ -113,8 +113,8 @@ class PerformanceBenchmark:
         return {
             "execution_time_ratio": metrics.execution_time / self.baseline_metrics.execution_time,
             "memory_ratio": metrics.memory_usage / max(self.baseline_metrics.memory_usage, 1),
-            "throughput_ratio": metrics.throughput_score / max(self.baseline_metrics.throughput_score, 0.001),
-            "cpu_ratio": metrics.cpu_usage / max(self.baseline_metrics.cpu_usage, 0.001)
+            "throughput_ratio": metrics.throughput_score / max(self.baseline_metrics.throughput_score, 0.1),
+            "cpu_ratio": metrics.cpu_usage / max(self.baseline_metrics.cpu_usage, 0.1)
         }
 
 class TestMeshCoordinationPerformance:
@@ -265,10 +265,10 @@ class TestToolManagementPerformance:
         for i in range(1000):
             mock_result = Mock(
                 success=True,
-                executionTime=i * 0.001,
+                executionTime=i * 0.1,
                 violationsFound=i % 10
             )
-            tool_manager.updateSuccessMetrics(tool_id, i * 0.001, mock_result)
+            tool_manager.updateSuccessMetrics(tool_id, i * 0.1, mock_result)
         
         update_time = time.time() - start_time
         
@@ -336,7 +336,7 @@ class TestRealTimeProcessingPerformance:
         assert processing_time < 30.0  # Under 30 seconds for 1000 violations
         
         # Calculate correlation throughput
-        correlations_per_second = result["total_correlations"] / max(processing_time, 0.001)
+        correlations_per_second = result["total_correlations"] / max(processing_time, 0.1)
         assert correlations_per_second >= 0  # Should complete without error
     
     @pytest.mark.performance

@@ -42,7 +42,7 @@ class TestBaseLinterAdapter:
     @pytest.fixture
     def base_adapter(self, base_config):
         """Create base adapter instance"""
-        class TestAdapter(BaseLinterAdapter):
+    class TestAdapter(BaseLinterAdapter):
             tool_name = "test_linter"
             
             def get_command_args(self, target_paths: List[str]) -> List[str]:

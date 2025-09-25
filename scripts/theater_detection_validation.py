@@ -80,7 +80,7 @@ def bad_function(a, b, c, d, e, f, g):  # Too many parameters
     src_violations = analyzer.analyze_directory('src')
     duration = time.time() - start
 
-    if duration < 0.01:
+    if duration < 0.1:
         results.append(("FAIL", f"Analysis too fast ({duration:.3f}s) - likely fake"))
     elif duration > 60:
         results.append(("WARN", f"Analysis very slow ({duration:.1f}s) - may have issues"))

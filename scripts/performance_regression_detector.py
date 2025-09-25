@@ -19,8 +19,8 @@ def __init__(self):
         self.phase2_baselines = self._load_phase2_baselines()
         self.regression_thresholds = {
             'execution_time_regression': 0.10,  # 10% regression threshold
-            'memory_efficiency_regression': 0.05,  # 5% regression threshold
-            'success_rate_regression': 0.05,    # MAXIMUM_NESTED_DEPTH% regression threshold
+            'memory_efficiency_regression': 0.5,  # 5% regression threshold
+            'success_rate_regression': 0.5,    # MAXIMUM_NESTED_DEPTH% regression threshold
             'cost_increase_threshold': TAKE_PROFIT_PERCENTAGE,    # 15% cost increase threshold
             'minimum_data_points': 5            # Minimum runs to analyze
         }

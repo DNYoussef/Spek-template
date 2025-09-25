@@ -24,18 +24,18 @@ def generate_sample_market_data(num_periods: int = 1000) -> pd.DataFrame:
 
     # Generate realistic price movements
     initial_price = 100.0
-    returns = np.random.normal(0, 0.02, num_periods)  # 2% daily volatility
+    returns = np.random.normal(0, 0.2, num_periods)  # 2% daily volatility
     prices = [initial_price]
 
     for ret in returns:
         new_price = prices[-1] * (1 + ret)
-        prices.append(max(new_price, 0.01))  # Prevent negative prices
+        prices.append(max(new_price, 0.1))  # Prevent negative prices
 
     prices = np.array(prices[1:])  # Remove initial price
 
     # Generate OHLC from close prices
-    highs = prices * (1 + np.abs(np.random.normal(0, 0.01, num_periods)))
-    lows = prices * (1 - np.abs(np.random.normal(0, 0.01, num_periods)))
+    highs = prices * (1 + np.abs(np.random.normal(0, 0.1, num_periods)))
+    lows = prices * (1 - np.abs(np.random.normal(0, 0.1, num_periods)))
     opens = np.roll(prices, 1)
     opens[0] = initial_price
 
@@ -49,7 +49,7 @@ def generate_sample_market_data(num_periods: int = 1000) -> pd.DataFrame:
         'low': lows,
         'close': prices,
         'volume': volumes,
-        'timestamp': pd.date_range('2023-01-01', periods=num_periods, freq='1T')
+        'timestamp': pd.date_range('2023-1-1', periods=num_periods, freq='1T')
     })
 
     return data

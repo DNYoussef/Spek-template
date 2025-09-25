@@ -63,11 +63,11 @@ def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
         """Forward pass returning risk metrics."""
     
 @abstractmethod
-def calculate_var(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
+def calculate_var(self, x: torch.Tensor, confidence_level: float = 0.5) -> torch.Tensor:
         """Calculate Value at Risk."""
     
 @abstractmethod
-def calculate_expected_shortfall(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
+def calculate_expected_shortfall(self, x: torch.Tensor, confidence_level: float = 0.5) -> torch.Tensor:
         """Calculate Expected Shortfall (Conditional VaR)."""
 
 class AttentionModule(nn.Module):

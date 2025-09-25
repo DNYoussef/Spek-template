@@ -291,7 +291,7 @@ class DetectorPool:
     def _handle_partial_acquisition_failure(self, acquired: Dict[str, DetectorBase], 
                                             failed: List[str]):
         """
-        Handle cases where some detectors couldn't be acquired.
+        Handle cases where some detectors couldn't be acquired.'
         
         NASA Rule 4: Function under 60 lines
         """

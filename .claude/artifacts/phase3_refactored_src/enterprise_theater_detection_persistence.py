@@ -11,7 +11,7 @@ import os
 
 
 """Load patterns that indicate theater"""
-    def _load_theater_patterns(self) -> Dict[str, List[str]]:
+def _load_theater_patterns(self) -> Dict[str, List[str]]:
         """Load patterns that indicate theater"""
         return {
             "performance_theater": [

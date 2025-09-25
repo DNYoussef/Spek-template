@@ -55,6 +55,7 @@ class LanguageStrategy:
             # Fallback to regex-based detection
 
         # Original regex-based detection as fallback
+            pass
         patterns = self.get_magic_literal_patterns()
 
         for line_num, line in enumerate(source_lines, 1):

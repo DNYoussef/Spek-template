@@ -709,7 +709,7 @@ def _test_python_file_functionality(self, file_path: Path) -> int:
                 score += min(len(functions) * 2, 20)  # Bonus for multiple functions
 
             # Check for docstrings (10 points)
-            if content.count('"""') >= 2 or content.count("'''") >= 2:
+            if content.count('"""') >= 2 or content.count("'''") >= 2:'
                 score += 10
 
             # Check for imports (10 points)

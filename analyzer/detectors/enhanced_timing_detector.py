@@ -29,13 +29,13 @@ class EnhancedTimingDetector:
         'asyncio.Lock', 'threading.Lock', 'multiprocessing.Lock'
     }
 
-def __init__(self):
+    def __init__(self):
         self.violations: List[Dict] = []
         self.shared_state: Set[str] = set()
         self.async_functions: Set[str] = set()
         self.synchronized_sections: Set[int] = set()
 
-def detect(self, file_path: str, source_code: str) -> List[Dict]:
+    def detect(self, file_path: str, source_code: str) -> List[Dict]:
         try:
             tree = ast.parse(source_code)
         except SyntaxError:
@@ -55,7 +55,7 @@ def detect(self, file_path: str, source_code: str) -> List[Dict]:
 
         return self.violations
 
-def _identify_shared_state(self, tree: ast.AST):
+    def _identify_shared_state(self, tree: ast.AST):
         for node in ast.walk(tree):
             if isinstance(node, ast.ClassDef):
                 for stmt in node.body:
@@ -68,12 +68,12 @@ def _identify_shared_state(self, tree: ast.AST):
                 for name in node.names:
                     self.shared_state.add(name)
 
-def _identify_async_functions(self, tree: ast.AST):
+    def _identify_async_functions(self, tree: ast.AST):
         for node in ast.walk(tree):
             if isinstance(node, ast.AsyncFunctionDef):
                 self.async_functions.add(node.name)
 
-def _identify_synchronized_sections(self, tree: ast.AST):
+    def _identify_synchronized_sections(self, tree: ast.AST):
         for node in ast.walk(tree):
             if isinstance(node, ast.With):
                 for item in node.items:
@@ -86,12 +86,12 @@ def _identify_synchronized_sections(self, tree: ast.AST):
                             if full_name in self.SYNC_PRIMITIVES:
                                 self.synchronized_sections.add(node.lineno)
 
-def _detect_race_conditions(self, file_path: str, tree: ast.AST):
+    def _detect_race_conditions(self, file_path: str, tree: ast.AST):
         for node in ast.walk(tree):
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 self._check_function_for_races(file_path, node)
 
-def _check_function_for_races(self, file_path: str, func_node):
+    def _check_function_for_races(self, file_path: str, func_node):
         accesses_shared_state = False
         is_synchronized = False
 
@@ -120,7 +120,7 @@ def _check_function_for_races(self, file_path: str, func_node):
                 "recommendation": "Use locks, semaphores, or atomic operations to synchronize shared state access"
             })
 
-def _detect_async_timing_issues(self, file_path: str, tree: ast.AST):
+    def _detect_async_timing_issues(self, file_path: str, tree: ast.AST):
         for node in ast.walk(tree):
             if isinstance(node, ast.AsyncFunctionDef):
                 await_calls = []
@@ -161,7 +161,7 @@ def _detect_async_timing_issues(self, file_path: str, tree: ast.AST):
                                 "recommendation": "Refactor to use explicit synchronization or state management"
                             })
 
-def _checks_async_result(self, test_node: ast.expr) -> bool:
+    def _checks_async_result(self, test_node: ast.expr) -> bool:
         for node in ast.walk(test_node):
             if isinstance(node, ast.Name):
                 if node.id in self.async_functions:

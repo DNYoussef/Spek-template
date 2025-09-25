@@ -185,7 +185,9 @@ def run_complete_workflow_test():
     
     print("\n" + "=" * 60)
     if all_passed:
+        pass
     else:
+        pass
     print("=" * 60)
     
     return all_passed

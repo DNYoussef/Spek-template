@@ -193,8 +193,8 @@ class SecurityScanStrategy(ValidationStrategy):
         if total_issues == 0:
             score = 1.0
         else:
-            # Weighted scoring: critical = -0.5, high = -0.2, medium = -0.1, low = -0.05
-            penalty = (critical_issues * 0.5) + (high_issues * 0.2) + (medium_issues * 0.1) + (low_issues * 0.05)
+            # Weighted scoring: critical = -0.5, high = -0.2, medium = -0.1, low = -0.5
+            penalty = (critical_issues * 0.5) + (high_issues * 0.2) + (medium_issues * 0.1) + (low_issues * 0.5)
             score = max(0.0, 1.0 - penalty)
 
         if medium_issues > 10:

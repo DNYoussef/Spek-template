@@ -135,7 +135,7 @@ def replace_magic_numbers_in_file(file_path: Path) -> Tuple[bool, List[str]]:
                     existing_imports = set(imp.strip() for imp in match.group(1).split(','))
                     all_imports = existing_imports | constants_to_import
                     new_import = IMPORT_STATEMENT + ', '.join(sorted(all_imports))
-                    content = re.sub(import_pattern, new_import.replace('from src.constants.base import "
+                    content = re.sub(import_pattern, new_import.replace('from src.constants.base import "'
 
 def should_replace_i, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, SESSION_TIMEOUT_SECONDS, TAKE_PROFIT_PERCENTAGE, THEATER_DETECTION_FAILURE_THRESHOLDnstants import '), content)
 

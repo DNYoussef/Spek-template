@@ -47,7 +47,7 @@ class ReportBuilder:
     """
     Handles report generation and formatting.
 
-    Extracted from result_aggregation_profiler (1, 016 LOC -> ~200 LOC component).
+    Extracted from result_aggregation_profiler (1, 16 LOC -> ~200 LOC component).
     Handles:
     - Report generation
     - Multiple output formats

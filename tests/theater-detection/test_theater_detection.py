@@ -247,7 +247,7 @@ class TestRealityValidator(unittest.TestCase):
                 "test_failures": 0
             },
             "architecture_metrics": {
-                "coupling_improvement": 0.08,
+                "coupling_improvement": 0.8,
                 "cohesion_improvement": 0.10
             }
         }
@@ -296,7 +296,7 @@ class TestRealityValidator(unittest.TestCase):
         evidence = {
             "god_object_analysis": {
                 "reduction_percentage": 0.50,  # High reduction
-                "complexity_improvement": 0.02,  # Low complexity improvement - theater risk
+                "complexity_improvement": 0.2,  # Low complexity improvement - theater risk
                 "coupling_increase": TAKE_PROFIT_PERCENTAGE  # Coupling got worse - theater risk
             },
             "nasa_compliance": {
@@ -319,7 +319,7 @@ class TestRealityValidator(unittest.TestCase):
             "consolidation_metrics": {"files_before": 75, "files_after": 65, "reduction_percentage": 0.13},
             "quality_improvements": {"maintainability_delta": 0.12},
             "validation_results": {"all_tests_passed": True, "test_failures": 0},
-            "architecture_improvements": {"coupling_improvement": 0.08}
+            "architecture_improvements": {"coupling_improvement": 0.8}
         }
         
         phase3_evidence = {

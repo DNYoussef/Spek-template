@@ -14,7 +14,7 @@ import json
 
 
 """Load risk assessment configuration."""
-    def _load_config(self, config_path: Optional[str]) -> Dict[str, Any]:
+def _load_config(self, config_path: Optional[str]) -> Dict[str, Any]:
         """Load risk assessment configuration."""
         default_config = {
             "risk_assessment": {
@@ -67,7 +67,7 @@ import json
         return default_config
 
 """Load existing risk assessment data."""
-    def _load_existing_data(self):
+def _load_existing_data(self):
         """Load existing risk assessment data."""
         # Load threat indicators
         indicator_files = self.storage_path.glob("threat_indicators_*.json")

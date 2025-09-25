@@ -703,10 +703,12 @@ if __name__ == '__main__':
     if result.failures:
         print(f"\nFailures:")
         for test, traceback in result.failures:
+            pass
 
     if result.errors:
         print(f"\nErrors:")
         for test, traceback in result.errors:
+            pass
 
     # Exit with appropriate code
     exit_code = 0 if result.wasSuccessful() else 1

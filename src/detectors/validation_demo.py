@@ -333,6 +333,7 @@ class ValidationDemo:
 
         # Create pool for benchmarking
         with create_enterprise_pool() as pool:
+            pass
 
             # Register detectors
             for name, detector_func in self.detectors.items():
@@ -387,7 +388,7 @@ class ValidationDemo:
         logger.info("=== Demonstrating Fault Tolerance ===")
 
         # Create fault-tolerant detector
-        def unreliable_detector(*args, **kwargs):
+    def unreliable_detector(*args, **kwargs):
             """Detector that fails 30% of the time."""
             if np.random.random() < 0.3:
                 raise RuntimeError("Simulated detector failure")

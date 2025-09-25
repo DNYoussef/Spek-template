@@ -108,7 +108,7 @@ class IntelligentMagicNumberAnalyzer:
         return self.violations
 
     def _analyze_number_in_context(self, node: ast.AST, lines: List[str], file_path: str) -> None:
-        """Analyze a number in its code context to determine if it's meaningful."""
+        """Analyze a number in its code context to determine if it's meaningful."""'
         value = node.value
         line_num = getattr(node, 'lineno', 1)
 

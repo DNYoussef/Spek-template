@@ -200,7 +200,8 @@ class ConnascenceAnalyzer:
         }
 
 # Compatibility exports for different import patterns
-def get_analyzer(config_manager=None) -> ConnascenceAnalyzer:
+    def get_analyzer(config_manager=None) -> ConnascenceAnalyzer:
+        pass
     """Factory function to get a configured analyzer instance."""
     return ConnascenceAnalyzer(config_manager)
 

@@ -1,6 +1,7 @@
 # Constants with fallback
 try:
     from src.constants.base import NASA_MAX_FUNCTION_LENGTH as MAXIMUM_FUNCTION_LENGTH_LINES
+"""
 
 Orchestrates comprehensive supply chain security including SBOM generation,
 SLSA attestation, and vulnerability management.
@@ -11,6 +12,7 @@ import logging
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Any
 from datetime import datetime
+"""
 
 logger = logging.getLogger(__name__)
 

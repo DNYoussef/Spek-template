@@ -1,5 +1,6 @@
 from lib.shared.utilities import get_logger
 from src.constants.base import MAXIMUM_NESTED_DEPTH
+"""
 
 Comprehensive logging system with structured logging, audit trails,
 and compliance-ready log management.
@@ -17,8 +18,10 @@ from enum import Enum
 import threading
 import queue
 import traceback
+"""
 
 from ..config.enterprise_config import EnterpriseConfig
+"""
 
 class LogLevel(Enum):
     """Extended log levels"""

@@ -33,7 +33,7 @@ class CacheStats:
     memory_usage: int = 0
     max_memory: int = 50 * 1024 * 1024  # 50MB
     
-def hit_rate(self) -> float:
+    def hit_rate(self) -> float:
         """Calculate cache hit rate."""
         total = self.hits + self.misses
         return self.hits / total if total > 0 else 0.0
@@ -48,7 +48,7 @@ class CacheEntry:
     file_size: int = 0
     parse_time: float = 0.0
     
-def __post_init__(self):
+    def __post_init__(self):
         """Initialize derived fields."""
         if not self.content_hash:
             self.content_hash = hashlib.sha256(
@@ -69,7 +69,7 @@ class FileContentCache:
     - Performance monitoring
     """
     
-def __init__(self, max_memory: int = 50 * 1024 * 1024):
+    def __init__(self, max_memory: int = 50 * 1024 * 1024):
         """
         Initialize file content cache.
         
@@ -96,7 +96,7 @@ def __init__(self, max_memory: int = 50 * 1024 * 1024):
         # Weak references for cleanup
         self._file_watchers: Set[weakref.ref] = set()
     
-def get_file_content(self, file_path: Union[str, Path]) -> Optional[str]:
+    def get_file_content(self, file_path: Union[str, Path]) -> Optional[str]:
         """
         Get file content from cache or disk.
         
@@ -154,7 +154,7 @@ def get_file_content(self, file_path: Union[str, Path]) -> Optional[str]:
             except Exception:
                 return None
     
-def get_ast_tree(self, file_path: Union[str, Path]) -> Optional[ast.AST]:
+    def get_ast_tree(self, file_path: Union[str, Path]) -> Optional[ast.AST]:
         """
         Get parsed AST tree from cache or parse from content.
         

@@ -15,7 +15,7 @@ import json
 import shutil
 
 
-    def __init__(self, project_root: str = None):
+def __init__(self, project_root: str = None):
         self.project_root = Path(project_root or os.getcwd())
         self.theater_detector = EnterpriseTheaterDetector(project_root)
         self.continuous_monitor = ContinuousTheaterMonitor(project_root)
@@ -29,7 +29,7 @@ import shutil
         self.evidence_output_dir.mkdir(parents=True, exist_ok=True)
 
 """Generate executive summary of evidence package"""
-    def _generate_executive_summary(self, *evidence_data) -> Dict[str, Any]:
+def _generate_executive_summary(self, *evidence_data) -> Dict[str, Any]:
         """Generate executive summary of evidence package"""
 
         theater_evidence, math_evidence, performance_evidence, security_evidence, compliance_evidence, monitoring_evidence = evidence_data
@@ -43,7 +43,7 @@ import shutil
         monitoring_score = monitoring_evidence["monitoring_summary"]["capability_completeness"]
 
         # Calculate weighted overall score
-        weights = [0.25, 0.20, 0.15, 0.25, 0.10, 0.05]  # Theater detection and security are most important
+        weights = [0.25, 0.20, 0.15, 0.25, 0.10, 0.5]  # Theater detection and security are most important
         scores = [theater_score, math_score, perf_score, security_score, compliance_score, monitoring_score]
         overall_score = sum(w * s for w, s in zip(weights, scores))
 
@@ -82,14 +82,14 @@ import shutil
         }
 
 """Generate unique package ID"""
-    def _generate_package_id(self) -> str:
+def _generate_package_id(self) -> str:
         """Generate unique package ID"""
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         project_hash = hashlib.sha256(str(self.project_root).encode()).hexdigest()[:8]
         return f"DEV_{timestamp}_{project_hash}"
 
 """Calculate hash of entire package for integrity verification"""
-    def _calculate_package_hash(self, package_dir: Path) -> str:
+def _calculate_package_hash(self, package_dir: Path) -> str:
         """Calculate hash of entire package for integrity verification"""
         hash_sha256 = hashlib.sha256()
 

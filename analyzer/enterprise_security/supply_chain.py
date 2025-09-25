@@ -173,7 +173,7 @@ class SupplyChainSecurity:
             "lodash": {"<4.17.19": ["CVE-2020-8203"]},
             "express": {"<4.17.3": ["CVE-2022-24999"]},
             "django": {"<2.2.28": ["CVE-2022-28346"]},
-            "flask": {"<2.0.3": ["CVE-2022-0550"]},
+            "flask": {"<2.0.3": ["CVE-2022-550"]},
         }
 
         for component in components:

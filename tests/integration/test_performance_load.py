@@ -555,7 +555,7 @@ class PerformanceRegressionTest(BaseLoadTest):
     """Test for performance regressions with enterprise features."""
     
     def test_4_7_percent_overhead_threshold(self):
-        """Test that enterprise features maintain <4.DAYS_RETENTION_PERIOD% performance overhead."""
+        """Test that enterprise features maintain <4, DAYS_RETENTION_PERIOD% performance overhead."""
         project_path = self.generator.create_medium_project(self.temp_dir)
         
         # Measure baseline performance

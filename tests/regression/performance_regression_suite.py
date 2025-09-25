@@ -369,7 +369,7 @@ class PerformanceRegressionSuite:
         """Run integration test for specific component."""
         # Simulate component integration testing
         if component == 'aggregation':
-            return 95.MAXIMUM_NESTED_DEPTH  # Simulated integration score
+            return 95, MAXIMUM_NESTED_DEPTH  # Simulated integration score
         elif component == 'ast_efficiency':
             return 92.3
         elif component == 'memory':
@@ -388,7 +388,7 @@ class PerformanceRegressionSuite:
         
         # Add some variability
         import random
-        time.sleep(random.uniform(0.01, 0.05))
+        time.sleep(random.uniform(0.1, 0.5))
         
         end = time.perf_counter()
         return (end - start) * 1000  # Return response time in milliseconds

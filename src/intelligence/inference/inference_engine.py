@@ -601,7 +601,7 @@ class BatchProcessor:
         while inference_engine.is_running:
             try:
                 # Collect requests for batching
-                request = inference_engine.request_queue.get(timeout=0.01)
+                request = inference_engine.request_queue.get(timeout=0.1)
                 if request:
                     self.pending_requests.append(request)
                 
@@ -702,6 +702,7 @@ async def test_inference_engine():
         await engine.stop()
         
     except Exception as e:
+        pass
 
 if __name__ == "__main__":
     asyncio.run(test_inference_engine())

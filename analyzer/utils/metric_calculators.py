@@ -1,5 +1,6 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
 
+"""
 Centralizes metric calculation logic to eliminate duplication
 across analyzer and consensus modules.
 """

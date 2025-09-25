@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
-Main analysis executor using strategy pattern to eliminate god object.
+"""Main analysis executor using strategy pattern to eliminate god object.
 NASA Rule 4 Compliant: All methods under 60 lines.
 NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
@@ -25,7 +25,7 @@ class AnalysisExecutor:
     Methods: 12 (under 18 limit)
     """
 
-def __init__(self, config_manager=None):
+    def __init__(self, config_manager=None):
         """Initialize analysis executor."""
         assert config_manager is not None, "config_manager cannot be None"
 
@@ -34,7 +34,7 @@ def __init__(self, config_manager=None):
         self.active_strategies = {}
         self.execution_history = []
 
-def execute_comprehensive_analysis(self, target_path: Path,
+    def execute_comprehensive_analysis(self, target_path: Path,
                                     strategies: List[str] = None) -> Dict[str, Any]:
         """
         Execute comprehensive analysis using multiple strategies.
@@ -96,7 +96,7 @@ def execute_comprehensive_analysis(self, target_path: Path,
             self._record_execution(error_result)
             return error_result
 
-def execute_single_strategy(self, strategy_name: str, target_path: Path) -> AnalysisResult:
+    def execute_single_strategy(self, strategy_name: str, target_path: Path) -> AnalysisResult:
         """
         Execute single analysis strategy.
         NASA Rule 4: Single strategy execution under 60 lines.
@@ -108,11 +108,11 @@ def execute_single_strategy(self, strategy_name: str, target_path: Path) -> Anal
 
         return self._execute_strategy(strategy_name, target_path)
 
-def get_available_strategies(self) -> List[str]:
+    def get_available_strategies(self) -> List[str]:
         """Get list of available analysis strategies."""
         return self.strategy_factory.get_available_strategies()
 
-def register_custom_strategy(self, name: str, strategy_class: type):
+    def register_custom_strategy(self, name: str, strategy_class: type):
         """Register custom analysis strategy."""
         assert isinstance(name, str), "name must be string"
         assert strategy_class is not None, "strategy_class cannot be None"
@@ -120,16 +120,16 @@ def register_custom_strategy(self, name: str, strategy_class: type):
         self.strategy_factory.register_strategy(name, strategy_class)
         logger.info(f"Registered custom strategy: {name}")
 
-def get_execution_history(self) -> List[Dict]:
+    def get_execution_history(self) -> List[Dict]:
         """Get analysis execution history."""
         return self.execution_history.copy()
 
-def clear_execution_history(self):
+    def clear_execution_history(self):
         """Clear execution history."""
         self.execution_history.clear()
         logger.info("Execution history cleared")
 
-def validate_target(self, target_path: Path) -> Dict[str, Any]:
+    def validate_target(self, target_path: Path) -> Dict[str, Any]:
         """
         Validate analysis target.
         NASA Rule 4: Validation logic under 60 lines.
@@ -166,7 +166,7 @@ def validate_target(self, target_path: Path) -> Dict[str, Any]:
             validation_result["errors"].append(f"Validation failed: {str(e)}")
             return validation_result
 
-def _execute_strategy(self, strategy_name: str, target_path: Path) -> AnalysisResult:
+    def _execute_strategy(self, strategy_name: str, target_path: Path) -> AnalysisResult:
         """Execute individual strategy."""
         try:
             strategy = self.strategy_factory.create_strategy(strategy_name)
@@ -195,7 +195,7 @@ def _execute_strategy(self, strategy_name: str, target_path: Path) -> AnalysisRe
                 error_message=str(e)
             )
 
-def _aggregate_strategy_results(self, strategy_results: Dict[str, AnalysisResult]) -> Dict[str, Any]:
+    def _aggregate_strategy_results(self, strategy_results: Dict[str, AnalysisResult]) -> Dict[str, Any]:
         """Aggregate results from multiple strategies."""
         all_violations = []
         all_metrics = {}
@@ -216,7 +216,7 @@ def _aggregate_strategy_results(self, strategy_results: Dict[str, AnalysisResult
         # Calculate overall score
         total_strategies = len(strategy_results)
         success_rate = successful_strategies / max(total_strategies, 1)
-        violation_penalty = min(0.5, len(all_violations) * 0.01)
+        violation_penalty = min(0.5, len(all_violations) * 0.1)
         overall_score = max(0.0, success_rate - violation_penalty)
 
         return {
@@ -227,7 +227,7 @@ def _aggregate_strategy_results(self, strategy_results: Dict[str, AnalysisResult
             "recommendations": list(set(all_recommendations))  # Remove duplicates
         }
 
-def _record_execution(self, result: Dict[str, Any]):
+    def _record_execution(self, result: Dict[str, Any]):
         """Record execution in history."""
         execution_record = {
             "timestamp": datetime.now().isoformat(),
@@ -244,7 +244,7 @@ def _record_execution(self, result: Dict[str, Any]):
         if len(self.execution_history) > 100:
             self.execution_history = self.execution_history[-100:]
 
-def get_strategy_performance(self) -> Dict[str, Dict]:
+    def get_strategy_performance(self) -> Dict[str, Dict]:
         """Get performance metrics for each strategy."""
         performance = {}
 
@@ -271,6 +271,7 @@ def get_strategy_performance(self) -> Dict[str, Dict]:
 
         return performance
 
-def create_analysis_executor(config_manager=None) -> AnalysisExecutor:
+    def create_analysis_executor(config_manager=None) -> AnalysisExecutor:
+        pass
     """Factory function to create analysis executor."""
     return AnalysisExecutor(config_manager)

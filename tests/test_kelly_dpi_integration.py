@@ -84,8 +84,8 @@ class KellyDPIIntegrationTester:
             inputs = KellyInputs(
                 symbol="TEST",
                 win_rate=0.55,
-                average_win=0.025,
-                average_loss=0.018,
+                average_win=0.25,
+                average_loss=0.18,
                 current_capital=Decimal('100000'),
                 max_position_size=0.1
             )
@@ -127,7 +127,7 @@ class KellyDPIIntegrationTester:
 
             # Test with returns data
             np.random.seed(42)  # Reproducible results
-            returns = np.random.normal(0.002, 0.02, 252)  # 1 year of daily returns
+            returns = np.random.normal(0.2, 0.2, 252)  # 1 year of daily returns
 
             result = calculate_position_from_returns(
                 symbol="INTEGRATION_TEST",
@@ -146,8 +146,8 @@ class KellyDPIIntegrationTester:
                 inputs = KellyInputs(
                     symbol=symbol,
                     win_rate=0.52 + np.random.uniform(-0.1, 0.1),
-                    average_win=0.015 + np.random.uniform(0, 0.01),
-                    average_loss=0.012 + np.random.uniform(0, 0.01),
+                    average_win=0.15 + np.random.uniform(0, 0.1),
+                    average_loss=0.12 + np.random.uniform(0, 0.1),
                     current_capital=Decimal('100000'),
                     max_position_size=0.1
                 )
@@ -187,8 +187,8 @@ class KellyDPIIntegrationTester:
             test_inputs = KellyInputs(
                 symbol="PERF_TEST",
                 win_rate=0.55,
-                average_win=0.02,
-                average_loss=0.015,
+                average_win=0.2,
+                average_loss=0.15,
                 current_capital=Decimal('100000'),
                 max_position_size=0.1
             )
@@ -249,7 +249,7 @@ class KellyDPIIntegrationTester:
 
             for symbol in symbols:
                 np.random.seed(hash(symbol) % 2**32)
-                returns = np.random.normal(0.001, 0.02, 50)
+                returns = np.random.normal(0.1, 0.2, 50)
                 market_data[symbol] = {
                     'returns': returns,
                     'price': 100 + np.random.uniform(-10, MAXIMUM_FUNCTION_PARAMETERS)

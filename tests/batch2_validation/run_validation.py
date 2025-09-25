@@ -175,6 +175,7 @@ class Batch2Validator:
         if failed > 0:
             self.results["issues"].append(f"{failed} unit tests failed")
         else:
+            pass
 
     def run_regression_tests(self):
         """Run regression tests"""
@@ -201,6 +202,7 @@ class Batch2Validator:
         if failed > 0:
             self.results["issues"].append(f"{failed} regression tests failed")
         else:
+            pass
 
     def validate_performance(self):
         """Validate performance metrics"""
@@ -240,6 +242,7 @@ class Batch2Validator:
         }
 
         if result.returncode == 0:
+            pass
         else:
             print(f"  [FAIL] Behavior preservation: FAILED")
             self.results["issues"].append("Behavior not preserved")

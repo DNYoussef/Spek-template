@@ -1,5 +1,6 @@
 from lib.shared.utilities import get_logger
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MINIMUM_TEST_COVERAGE_PERCENTAGE
+"""
 
 This module demonstrates the full DFARS compliance workflow including:
 - Integration with existing security components
@@ -29,6 +30,7 @@ from dfars_workflow_automation import (
 )
 from dfars_continuous_monitor import DFARSContinuousMonitor
 from dfars_config import DFARSConfigManager, ComplianceLevel
+"""
 
 class DFARSIntegrationDemo:
     """Comprehensive DFARS compliance integration demonstration"""

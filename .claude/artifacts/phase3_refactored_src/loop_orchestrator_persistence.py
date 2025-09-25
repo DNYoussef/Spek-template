@@ -25,7 +25,7 @@ import json
 
 
 """Load known connascence patterns and their characteristics."""
-    def _load_connascence_patterns(self) -> Dict[str, Dict[str, Any]]:
+def _load_connascence_patterns(self) -> Dict[str, Dict[str, Any]]:
         """Load known connascence patterns and their characteristics."""
         return {
             "coincidental": {
@@ -124,7 +124,7 @@ import json
         }
 
 """Load historical prediction data."""
-    def _load_prediction_history(self) -> Dict[str, Any]:
+def _load_prediction_history(self) -> Dict[str, Any]:
         """Load historical prediction data."""
         if self.history_file.exists():
             try:
@@ -135,7 +135,7 @@ import json
         return {"predictions": [], "accuracy_metrics": {}}
 
 """Load refactoring technique knowledge base."""
-    def _load_refactor_knowledge(self) -> Dict[str, Dict[str, Any]]:
+def _load_refactor_knowledge(self) -> Dict[str, Dict[str, Any]]:
         """Load refactoring technique knowledge base."""
         return {
             "extract_class": {

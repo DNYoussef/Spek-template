@@ -319,12 +319,14 @@ class DFARSDetector(DetectorBase):
         return datetime.now().isoformat()
 
 # Factory function for integration
-def create_dfars_detector(file_path: str = "", source_lines: List[str] = None) -> DFARSDetector:
+    def create_dfars_detector(file_path: str = "", source_lines: List[str] = None) -> DFARSDetector:
+        pass
     """Create a DFARS detector instance."""
     return DFARSDetector(file_path, source_lines)
 
 # Integration test function
-def test_dfars_detector():
+    def test_dfars_detector():
+        pass
     """Test DFARS detector functionality."""
     test_code = '''
 # DFARS compliance test

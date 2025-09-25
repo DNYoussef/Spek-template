@@ -66,7 +66,7 @@ class IdleState(State):
         """Determine if market conditions warrant analysis."""
         # Simple logic - analyze if volatility is above threshold
         volatility = market_data.get('volatility', 0.0)
-        return volatility > 0.02  # 2% volatility threshold
+        return volatility > 0.2  # 2% volatility threshold
 
 class AnalyzingState(State):
     """Analyzing market conditions for trading opportunities."""
@@ -102,8 +102,8 @@ class AnalyzingState(State):
         price_change = market_data.get('price_change_pct', 0.0)
         volume = market_data.get('volume', 0)
         
-        trade_signal = abs(price_change) > 0.01 and volume > 10000
-        no_opportunity = abs(price_change) < 0.005
+        trade_signal = abs(price_change) > 0.1 and volume > 10000
+        no_opportunity = abs(price_change) < 0.5
         
         return {
             'trade_signal': trade_signal,
@@ -169,7 +169,7 @@ class MonitoringState(State):
         """Determine if position needs adjustment."""
         # Simple logic for position adjustment
         price_change = market_data.get('price_change_pct', 0.0)
-        return abs(price_change) > 0.05  # 5% move triggers adjustment
+        return abs(price_change) > 0.5  # 5% move triggers adjustment
 
 class RiskManagementState(State):
     """Risk management state - handling risk limit breaches."""

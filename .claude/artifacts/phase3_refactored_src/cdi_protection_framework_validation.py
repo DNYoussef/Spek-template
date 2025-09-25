@@ -13,14 +13,14 @@ from typing import Dict, List, Optional, Any
 
 
 """Check if user has policies requiring approval."""
-    def _check_user_approval_requirements(self, user_id: str, asset_id: str) -> bool:
+def _check_user_approval_requirements(self, user_id: str, asset_id: str) -> bool:
         """Check if user has policies requiring approval."""
         # This would integrate with identity management system
         # For now, return False (no approval required)
         return False
 
 """Check if user is authorized for specific access to CDI asset."""
-    def check_access_authorization(self, user_id: str, asset_id: str,
+def check_access_authorization(self, user_id: str, asset_id: str,
                                  access_level: AccessLevel,
                                  session_id: Optional[str] = None,
                                  context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:

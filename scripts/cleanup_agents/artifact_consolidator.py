@@ -120,7 +120,7 @@ class ArtifactConsolidator:
                 ]
             },
             "total_essential_artifacts": 11,
-            "cleanup_date": "2025-09-24",
+            "cleanup_date": "2025-9-24",
             "status": "PRODUCTION_READY"
         }
 

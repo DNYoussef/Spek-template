@@ -37,7 +37,7 @@ class DataValidator:
         """Initialize validation rules."""
         return {
             'completeness': {
-                'missing_data_threshold': 0.05,  # Max 5% missing data
+                'missing_data_threshold': 0.5,  # Max 5% missing data
                 'gap_threshold_minutes': 60,  # Max 60 min gap
             },
             'consistency': {

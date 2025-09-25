@@ -51,7 +51,7 @@ class GitHubClient:
     """
     Handles core GitHub repository operations.
 
-    Extracted from github_integration (1, 037 LOC -> ~250 LOC component).
+    Extracted from github_integration (1, 37 LOC -> ~250 LOC component).
     Handles:
     - Repository management
     - Branch operations

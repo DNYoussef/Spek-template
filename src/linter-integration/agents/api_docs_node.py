@@ -77,7 +77,7 @@ from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE
         }
         }
         }
-            def _generate_tool_mappings(self) -> Dict[str, Any]:
+        def _generate_tool_mappings(self) -> Dict[str, Any]:
             """Generate detailed tool-specific mapping documentation"""        return {
         "flake8": {
         "description": "Python code style and error checking",
@@ -227,7 +227,7 @@ from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE
         ]
         }
         }
-            def _generate_usage_examples(self) -> List[Dict[str, Any]]:
+        def _generate_usage_examples(self) -> List[Dict[str, Any]]:
             """Generate comprehensive usage examples"""        return [
         {
         "title": "Basic Severity Mapping",
@@ -298,7 +298,7 @@ from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE
             ''','        "expected_output": "Identifies related violations across different tools"
         }
         ]
-            def _generate_validation_rules(self) -> Dict[str, Any]:
+        def _generate_validation_rules(self) -> Dict[str, Any]:
             """Generate validation rules for severity mapping"""        return {
         "severity_validation": {
         "required_fields": ["unified_severity", "tool_name", "rule_code"],
@@ -325,7 +325,7 @@ from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE
         }
         }
         }
-            def _create_implementation_guide(self) -> Dict[str, Any]:
+        def _create_implementation_guide(self) -> Dict[str, Any]:
             """Create comprehensive implementation guide"""        return {
         "getting_started": {
         "installation": [
@@ -370,7 +370,7 @@ from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE
         ]
         }
         }
-            def _create_api_specification(self) -> Dict[str, Any]:
+        def _create_api_specification(self) -> Dict[str, Any]:
             """Create comprehensive API specification"""        return {
         "api_version": "1.0.0",
         "endpoints": {
@@ -453,7 +453,7 @@ from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE
         "bandit": {"features": ["Security analysis", "Confidence scoring", "JSON output"]}
         }
         }
-            def _generate_api_documentation(self) -> Dict[str, Any]:
+        def _generate_api_documentation(self) -> Dict[str, Any]:
             """Generate API reference documentation"""        return {
         "classes": {
         "UnifiedSeverityMapper": {
@@ -488,7 +488,7 @@ from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE
         }
         }
         }
-            def _generate_configuration_documentation(self) -> Dict[str, Any]:
+        def _generate_configuration_documentation(self) -> Dict[str, Any]:
             """Generate configuration documentation"""        return {
         "configuration_files": {
         "severity_mapping.yaml": {
@@ -513,7 +513,7 @@ from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE
         "QUALITY_THRESHOLD_CONFIG": "Path to quality threshold configuration"
         }
         }
-            def _generate_schema_documentation(self) -> Dict[str, Any]:
+        def _generate_schema_documentation(self) -> Dict[str, Any]:
             """Generate schema documentation"""        return {
         "json_schemas": {
         "violation_schema": self._generate_severity_schema(),
@@ -528,7 +528,7 @@ from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE
         }
         }
         }
-            def _get_documentation_structure(self) -> Dict[str, List[str]]:
+        def _get_documentation_structure(self) -> Dict[str, List[str]]:
             """Get the structure of generated documentation"""        return {
         "user_guides": [
         "Getting Started",

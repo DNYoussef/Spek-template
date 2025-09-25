@@ -180,7 +180,7 @@ class VolatilityCalculator(Calculator[RiskInput, Dict[str, float]]):
         # Simplified GARCH implementation
         alpha = 0.1
         beta = 0.85
-        omega = 0.05
+        omega = 0.5
         
         variance = np.var(returns)
         for i in range(1, len(returns)):

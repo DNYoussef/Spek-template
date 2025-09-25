@@ -30,12 +30,12 @@ from typing import Tuple
 import asyncio
 
 
-    def __init__(self):
+def __init__(self):
         self.connascence_patterns = self._load_connascence_patterns()
         self.coupling_analyzers = self._initialize_coupling_analyzers()
 
 """Initialize tools for coupling analysis."""
-    def _initialize_coupling_analyzers(self) -> Dict[str, Any]:
+def _initialize_coupling_analyzers(self) -> Dict[str, Any]:
         """Initialize tools for coupling analysis."""
         return {
             "ast_analyzer": "python-ast or babel-parser for syntax trees",
@@ -46,7 +46,7 @@ import asyncio
         }
 
 """Detect connascence issues across multiple files."""
-    def detect_connascence_issues(self, file_paths: List[str]) -> List[ConnascenceIssue]:
+def detect_connascence_issues(self, file_paths: List[str]) -> List[ConnascenceIssue]:
         """Detect connascence issues across multiple files."""
         logger.info(f"Analyzing connascence across {len(file_paths)} files...")
 
@@ -64,7 +64,7 @@ import asyncio
         return grouped_issues
 
 """Analyze coupling patterns for a specific file."""
-    def _analyze_file_coupling(self, primary_file: str, all_files: List[str]) -> List[ConnascenceIssue]:
+def _analyze_file_coupling(self, primary_file: str, all_files: List[str]) -> List[ConnascenceIssue]:
         """Analyze coupling patterns for a specific file."""
         issues = []
 
@@ -88,7 +88,7 @@ import asyncio
         return issues
 
 """Extract dependencies from file content."""
-    def _extract_dependencies(self, content: str, file_path: str) -> List[str]:
+def _extract_dependencies(self, content: str, file_path: str) -> List[str]:
         """Extract dependencies from file content."""
         dependencies = []
 
@@ -117,7 +117,7 @@ import asyncio
         return dependencies
 
 """Detect a specific type of connascence."""
-    def _detect_specific_connascence(self, primary_file: str, content: str,
+def _detect_specific_connascence(self, primary_file: str, content: str,
                                    connascence_type: str, pattern_info: Dict[str, Any],
                                    all_files: List[str]) -> List[ConnascenceIssue]:
         """Detect a specific type of connascence."""
@@ -151,7 +151,7 @@ import asyncio
         return issues
 
 """Find files coupled to the primary file."""
-    def _find_coupled_files(self, primary_file: str, content: str,
+def _find_coupled_files(self, primary_file: str, content: str,
                           pattern_info: Dict[str, Any], all_files: List[str]) -> List[str]:
         """Find files coupled to the primary file."""
         coupled_files = []
@@ -173,7 +173,7 @@ import asyncio
         return list(set(coupled_files))
 
 """Find files coupled through naming conventions."""
-    def _find_naming_coupled_files(self, primary_file: str, content: str, all_files: List[str]) -> List[str]:
+def _find_naming_coupled_files(self, primary_file: str, content: str, all_files: List[str]) -> List[str]:
         """Find files coupled through naming conventions."""
         coupled_files = []
 
@@ -202,7 +202,7 @@ import asyncio
         return coupled_files
 
 """Calculate the strength of coupling between files."""
-    def _calculate_coupling_strength(self, primary_file: str, coupled_files: List[str],
+def _calculate_coupling_strength(self, primary_file: str, coupled_files: List[str],
                                    connascence_type: str) -> float:
         """Calculate the strength of coupling between files."""
         base_strength = {
@@ -229,7 +229,7 @@ import asyncio
         return min(1.0, final_strength)
 
 """Extract line numbers that show coupling context."""
-    def _extract_context_lines(self, file_path: str, content: str,
+def _extract_context_lines(self, file_path: str, content: str,
                              pattern_info: Dict[str, Any]) -> Dict[str, List[int]]:
         """Extract line numbers that show coupling context."""
         context_lines = {file_path: []}
@@ -244,7 +244,7 @@ import asyncio
         return context_lines
 
 """Group related connascence issues to avoid duplication."""
-    def _group_related_issues(self, issues: List[ConnascenceIssue]) -> List[ConnascenceIssue]:
+def _group_related_issues(self, issues: List[ConnascenceIssue]) -> List[ConnascenceIssue]:
         """Group related connascence issues to avoid duplication."""
         grouped = {}
 
@@ -263,13 +263,13 @@ import asyncio
 
         return list(grouped.values())
 
-    def __init__(self):
+def __init__(self):
         self.test_runner_script = "scripts/comprehensive_test_runner.py"
         self.baseline_results = None
         self.current_results = None
 
 """Calculate improvement in test success rate."""
-    def calculate_improvement(self) -> float:
+def calculate_improvement(self) -> float:
         """Calculate improvement in test success rate."""
         if not self.baseline_results or not self.current_results:
             return 0.0
@@ -280,13 +280,13 @@ import asyncio
         return current_rate - baseline_rate
 
 """Check if there's a test regression compared to baseline."""
-    def has_regression(self) -> bool:
+def has_regression(self) -> bool:
         """Check if there's a test regression compared to baseline."""
         improvement = self.calculate_improvement()
         return improvement < 0
 
 """Check if current test results meet the target success rate."""
-    def meets_target(self, target_rate: float = 100.0) -> bool:
+def meets_target(self, target_rate: float = 100.0) -> bool:
         """Check if current test results meet the target success rate."""
         if not self.current_results:
             return False
@@ -294,12 +294,12 @@ import asyncio
         current_rate = self.current_results.get('success_rate', 0.0)
         return current_rate >= target_rate
 
-    def __init__(self):
+def __init__(self):
         self.history_file = Path(".claude/.artifacts/test_prediction_history.json")
         self.prediction_history = self._load_prediction_history()
 
 """Predict the probability of test success for given changes."""
-    def predict_success_probability(self, change_context: Dict[str, Any]) -> float:
+def predict_success_probability(self, change_context: Dict[str, Any]) -> float:
         """Predict the probability of test success for given changes."""
         # Extract features for prediction
         features = self._extract_features(change_context)
@@ -313,7 +313,7 @@ import asyncio
         return self._pattern_based_prediction(features)
 
 """Extract features for prediction from change context."""
-    def _extract_features(self, change_context: Dict[str, Any]) -> Dict[str, Any]:
+def _extract_features(self, change_context: Dict[str, Any]) -> Dict[str, Any]:
         """Extract features for prediction from change context."""
         return {
             "file_count": len(change_context.get("affected_files", [])),
@@ -325,7 +325,7 @@ import asyncio
         }
 
 """Use heuristics for prediction when insufficient historical data."""
-    def _heuristic_prediction(self, features: Dict[str, Any]) -> float:
+def _heuristic_prediction(self, features: Dict[str, Any]) -> float:
         """Use heuristics for prediction when insufficient historical data."""
         base_probability = 0.7
 
@@ -355,7 +355,7 @@ import asyncio
         return max(0.0, min(1.0, base_probability))
 
 """Use historical patterns for prediction."""
-    def _pattern_based_prediction(self, features: Dict[str, Any]) -> float:
+def _pattern_based_prediction(self, features: Dict[str, Any]) -> float:
         """Use historical patterns for prediction."""
         predictions = self.prediction_history["predictions"]
 
@@ -376,7 +376,7 @@ import asyncio
         return weighted_sum / total_weight if total_weight > 0 else 0.5
 
 """Calculate similarity between two feature sets."""
-    def _calculate_similarity(self, features1: Dict[str, Any], features2: Dict[str, Any]) -> float:
+def _calculate_similarity(self, features1: Dict[str, Any], features2: Dict[str, Any]) -> float:
         """Calculate similarity between two feature sets."""
         similarity = 0.0
         total_features = 0
@@ -396,7 +396,7 @@ import asyncio
         return similarity / total_features if total_features > 0 else 0.0
 
 """Record prediction results for learning."""
-    def record_prediction(self, features: Dict[str, Any], predicted_success: float, actual_success: bool):
+def record_prediction(self, features: Dict[str, Any], predicted_success: float, actual_success: bool):
         """Record prediction results for learning."""
         self.prediction_history["predictions"].append({
             "timestamp": datetime.now().isoformat(),
@@ -427,12 +427,12 @@ import asyncio
         except Exception as e:
             print(f"Warning: Could not save prediction history: {e}")
 
-    def __init__(self):
+def __init__(self):
         self.repair_strategies = self._initialize_repair_strategies()
         self.repair_history = []
 
 """Initialize auto-repair strategies for different failure types."""
-    def _initialize_repair_strategies(self) -> Dict[str, Any]:
+def _initialize_repair_strategies(self) -> Dict[str, Any]:
         """Initialize auto-repair strategies for different failure types."""
         return {
             "import_errors": {
@@ -462,7 +462,7 @@ import asyncio
             }
         }
 
-    def __init__(self, config: Dict[str, Any] = None):
+def __init__(self, config: Dict[str, Any] = None):
         self.config = config or {}
 
         # NEW: Queen Coordinator Integration
@@ -509,7 +509,7 @@ import asyncio
         self.test_execution_history = []
 
 """Initialize specialist agents for different types of issues."""
-    def _initialize_specialist_agents(self) -> Dict[str, str]:
+def _initialize_specialist_agents(self) -> Dict[str, str]:
         """Initialize specialist agents for different types of issues."""
         return {
             "connascence_specialist": "Task tool with connascence-specific expertise",
@@ -521,7 +521,7 @@ import asyncio
         }
 
 """Extract file paths from failure data."""
-    def _extract_affected_files(self, failure_data: Dict[str, Any]) -> List[str]:
+def _extract_affected_files(self, failure_data: Dict[str, Any]) -> List[str]:
         """Extract file paths from failure data."""
         affected_files = []
 
@@ -563,7 +563,7 @@ import asyncio
         return list(set(affected_files))
 
 """Generate step-by-step implementation plan."""
-    def _generate_implementation_plan(self, issue: ConnascenceIssue, technique: str) -> List[str]:
+def _generate_implementation_plan(self, issue: ConnascenceIssue, technique: str) -> List[str]:
         """Generate step-by-step implementation plan."""
         base_plan = [
             f"1. Analyze current coupling in {issue.primary_file}",
@@ -589,7 +589,7 @@ import asyncio
         return base_plan
 
 """Assess risk level of refactoring."""
-    def _assess_refactoring_risk(self, issue: ConnascenceIssue) -> str:
+def _assess_refactoring_risk(self, issue: ConnascenceIssue) -> str:
         """Assess risk level of refactoring."""
         risk_factors = 0
 
@@ -613,7 +613,7 @@ import asyncio
             return "low"
 
 """Estimate effort in hours for refactoring."""
-    def _estimate_refactoring_effort(self, issue: ConnascenceIssue) -> int:
+def _estimate_refactoring_effort(self, issue: ConnascenceIssue) -> int:
         """Estimate effort in hours for refactoring."""
         base_effort = {
             "coincidental": 2,
@@ -631,7 +631,7 @@ import asyncio
         return max(1, int(base_effort * multiplier))
 
 """Create validation strategy for refactoring."""
-    def _create_validation_strategy(self, issue: ConnascenceIssue) -> List[str]:
+def _create_validation_strategy(self, issue: ConnascenceIssue) -> List[str]:
         """Create validation strategy for refactoring."""
         return [
             "Run existing test suite before refactoring",
@@ -644,7 +644,7 @@ import asyncio
         ]
 
 """Generate comprehensive commit message."""
-    def _generate_commit_message(self, execution: LoopExecution) -> str:
+def _generate_commit_message(self, execution: LoopExecution) -> str:
         """Generate comprehensive commit message."""
 
         fixes_applied = execution.step_results.get("fix_implementation", {}).get("successful_fixes", 0)
@@ -671,7 +671,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"""
         return message
 
 """Format multi-file fixes for commit message."""
-    def _format_multi_file_fixes(self, fixes: List[MultiFileFix]) -> str:
+def _format_multi_file_fixes(self, fixes: List[MultiFileFix]) -> str:
         """Format multi-file fixes for commit message."""
         if not fixes:
             return "- No multi-file coordination required"
@@ -683,7 +683,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"""
         return "\n".join(formatted)
 
 """Generate comprehensive execution report."""
-    def _generate_execution_report(self, execution: LoopExecution) -> Dict[str, Any]:
+def _generate_execution_report(self, execution: LoopExecution) -> Dict[str, Any]:
         """Generate comprehensive execution report."""
 
         return {

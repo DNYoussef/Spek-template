@@ -196,7 +196,7 @@ class TestBatch4AnalysisFunctions(unittest.TestCase):
             with profiler.profile("test_operation"):
                 # Simulate some work
                 import time
-                time.sleep(0.01)
+                time.sleep(0.1)
 
             session = profiler.end_profiling_session(session_id)
             self.assertIsNotNone(session)
@@ -242,7 +242,7 @@ class TestBatch6ReportGeneration(unittest.TestCase):
 
             # Add some test data
             profiler.add_data_point("response_time", 45.0)
-            profiler.add_data_point("error_rate", 0.02)
+            profiler.add_data_point("error_rate", 0.2)
 
             # Test report creation (factory pattern)
             report = profiler.create_report("Test Performance Report")
@@ -270,7 +270,7 @@ class TestBatch7PerformanceAnalysis(unittest.TestCase):
             # Simulate performance commands
             metric_id = profiler.start_metric("database_query")
             import time
-            time.sleep(0.001)  # Simulate work
+            time.sleep(0.1)  # Simulate work
             metric = profiler.end_metric(metric_id)
 
             self.assertIsNotNone(metric)

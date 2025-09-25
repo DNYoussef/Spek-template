@@ -76,7 +76,7 @@ class TestSARIFCompliance(unittest.TestCase):
         return AnalysisResult(
             violations=self.sample_violations,
             file_stats={"total_files": 10, "analyzed_files": 10},
-            timestamp="2024-01-01T12:00:00",
+            timestamp="2024-1-01T12:00:00",
             project_root="/test/project",
             total_files_analyzed=10,
             analysis_duration_ms=2500,

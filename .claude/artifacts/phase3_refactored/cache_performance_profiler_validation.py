@@ -22,7 +22,7 @@ from typing import Tuple
 
 
 """Invalidate entry across all dependent caches."""
-    def invalidate_entry(self, cache_name: str, entry_key: str) -> None:
+def invalidate_entry(self, cache_name: str, entry_key: str) -> None:
         """Invalidate entry across all dependent caches."""
         with self._lock:
             # Notify direct listeners
@@ -39,7 +39,7 @@ from typing import Tuple
             self.coherence_stats["invalidations_propagated"] += 1
 
 """Check current memory pressure across all caches."""
-    def _check_memory_pressure(self) -> float:
+def _check_memory_pressure(self) -> float:
         """Check current memory pressure across all caches."""
         total_used = 0
         total_max = 0

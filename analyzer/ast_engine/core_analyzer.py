@@ -15,14 +15,14 @@ except ImportError:
 class ConnascenceASTAnalyzer:
     """AST analyzer that delegates to the consolidated connascence analyzer."""
 
-def __init__(self):
+    def __init__(self):
         """Initialize the analyzer, delegating to consolidated analyzer if available."""
         if ConsolidatedConnascenceAnalyzer is not None:
             self._analyzer = ConsolidatedConnascenceAnalyzer()
         else:
             self._analyzer = None
 
-def analyze_file(self, file_path):
+    def analyze_file(self, file_path):
         """Analyze a single file for connascence violations."""
         if self._analyzer is None:
             return []
@@ -40,7 +40,7 @@ def analyze_file(self, file_path):
 
         return violations
 
-def analyze_directory(self, dir_path):
+    def analyze_directory(self, dir_path):
         """Analyze an entire directory for connascence violations."""
         if self._analyzer is None:
             return []
@@ -60,13 +60,13 @@ def analyze_directory(self, dir_path):
 class AnalysisResult:
     """Mock analysis result."""
 
-def __init__(self, violations=None):
+    def __init__(self, violations=None):
         self.violations = violations or []
 
 class Violation:
     """Mock violation class."""
 
-def __init__(self, **kwargs):
+    def __init__(self, **kwargs):
         for k, v in kwargs.items():
             setattr(self, k, v)
 

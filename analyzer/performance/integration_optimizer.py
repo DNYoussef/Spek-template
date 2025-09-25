@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
-Optimizes resource allocation and memory management for the integration
+"""Optimizes resource allocation and memory management for the integration
 between detector pool and unified visitor pattern. Addresses performance
 bottlenecks identified in the perf-analyzer audit.
 
@@ -285,9 +285,9 @@ class UnifiedResourceAllocator:
                 # Estimate memory usage (simplified)
                 pool_memory = (
                     len(pool.ast_cache) * 0.1 +  # ~100KB per AST
-                    len(pool.source_cache) * 0.05 +  # ~50KB per source
-                    len(pool.analysis_results_cache) * 0.01 +  # ~10KB per result
-                    len(pool.violation_patterns_cache) * 0.005  # ~5KB per pattern
+                    len(pool.source_cache) * 0.5 +  # ~50KB per source
+                    len(pool.analysis_results_cache) * 0.1 +  # ~10KB per result
+                    len(pool.violation_patterns_cache) * 0.5  # ~5KB per pattern
                 )
                 total_memory_mb += pool_memory
             

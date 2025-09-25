@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
-Validates the comprehensive caching strategy optimizations implemented in Phase 3.5.
+"""Validates the comprehensive caching strategy optimizations implemented in Phase 3.5.
 Demonstrates the integration with all previous Phase 3 optimizations and measures
 concrete performance improvements with statistical validation.
 
@@ -362,7 +362,7 @@ class CacheOptimizationValidator:
                     baseline_operations += 1
                     
                 # Small delay to simulate processing time
-                await asyncio.sleep(0.001)
+                await asyncio.sleep(0.1)
         
         baseline_time = time.time() - baseline_start
         baseline_throughput = baseline_operations / baseline_time if baseline_time > 0 else 0
@@ -394,7 +394,7 @@ class CacheOptimizationValidator:
                         hash(content) % 10000, set()
                     )
                 
-                await asyncio.sleep(0.0005)  # Faster with caching
+                await asyncio.sleep(0.5)  # Faster with caching
         
         optimized_time = time.time() - optimized_start
         optimized_throughput = optimized_operations / optimized_time if optimized_time > 0 else 0
@@ -671,7 +671,8 @@ class CacheOptimizationValidator:
         
         return weighted_score / total_weight if total_weight > 0 else 0.0
 
-def generate_validation_report(validation_results: Dict[str, Any]) -> str:
+    def generate_validation_report(validation_results: Dict[str, Any]) -> str:
+        pass
     """
     Generate comprehensive validation report.
     

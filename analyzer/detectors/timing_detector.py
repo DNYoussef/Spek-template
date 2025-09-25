@@ -13,7 +13,7 @@ from .base import DetectorBase
 class TimingDetector(DetectorBase):
     """Detects timing-based coupling and sleep dependencies."""
     
-def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
+    def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         """
         Detect timing violations in the AST tree.
         NASA Rule 5 compliant: Added input validation assertions.
@@ -38,7 +38,7 @@ def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         assert isinstance(self.violations, list), "violations must be a list"
         return self.violations
     
-def _analyze_call(self, node: ast.Call) -> None:
+    def _analyze_call(self, node: ast.Call) -> None:
         """Analyze function calls for timing-related patterns."""
         # NASA Rule 5: Input validation assertions
         assert node is not None, "Call node cannot be None"
@@ -52,7 +52,7 @@ def _analyze_call(self, node: ast.Call) -> None:
         if self._is_timing_related_call(node):
             self._create_timing_violation(node)
     
-def _is_sleep_call(self, node: ast.Call) -> bool:
+    def _is_sleep_call(self, node: ast.Call) -> bool:
         """Check if this is a sleep() call."""
         # Direct sleep() call
         if isinstance(node.func, ast.Name) and node.func.id == "sleep":
@@ -64,7 +64,7 @@ def _is_sleep_call(self, node: ast.Call) -> bool:
         
         return False
     
-def _is_timing_related_call(self, node: ast.Call) -> bool:
+    def _is_timing_related_call(self, node: ast.Call) -> bool:
         """Check if this is a timing-related call that might cause coupling."""
         timing_functions = [
             "wait", "delay", "pause", "timeout", "poll", "retry"
@@ -80,7 +80,7 @@ def _is_timing_related_call(self, node: ast.Call) -> bool:
         
         return False
     
-def _create_sleep_violation(self, node: ast.Call) -> None:
+    def _create_sleep_violation(self, node: ast.Call) -> None:
         """Create violation for sleep() calls."""
         self.violations.append(
             ConnascenceViolation(
@@ -99,7 +99,7 @@ def _create_sleep_violation(self, node: ast.Call) -> None:
             )
         )
     
-def _create_timing_violation(self, node: ast.Call) -> None:
+    def _create_timing_violation(self, node: ast.Call) -> None:
         """Create violation for other timing-related calls."""
         function_name = self._get_function_name(node)
         
@@ -120,7 +120,7 @@ def _create_timing_violation(self, node: ast.Call) -> None:
             )
         )
     
-def _get_function_name(self, node: ast.Call) -> str:
+    def _get_function_name(self, node: ast.Call) -> str:
         """Extract the function name being called."""
         if isinstance(node.func, ast.Name):
             return node.func.id

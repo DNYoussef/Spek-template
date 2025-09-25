@@ -13,7 +13,7 @@ from typing import Dict
 
 
 """Load baseline performance metrics from previous phases."""
-    def _load_phase_baselines(self) -> Dict[str, Any]:
+def _load_phase_baselines(self) -> Dict[str, Any]:
         """Load baseline performance metrics from previous phases."""
         return {
             'phase_3_2': {

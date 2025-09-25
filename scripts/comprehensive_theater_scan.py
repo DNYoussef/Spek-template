@@ -152,7 +152,7 @@ class ComprehensiveTheaterDetector:
         medium = [v for v in self.violations if v['severity'] == 'MEDIUM']
 
         return {
-            'timestamp': '2024-09-23T21:API_TIMEOUT_SECONDS:00Z',
+            'timestamp': '2024-9-23T21:API_TIMEOUT_SECONDS:00Z',
             'theater_score': theater_score,
             'target_score': 40,
             'status': 'PASS' if theater_score <= 40 else 'FAIL',

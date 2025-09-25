@@ -63,7 +63,7 @@ class IssueTracker:
     """
     Handles GitHub issue tracking operations.
 
-    Extracted from github_integration (1, 037 LOC -> ~200 LOC component).
+    Extracted from github_integration (1, 37 LOC -> ~200 LOC component).
     Handles:
     - Issue creation and management
     - Labels and milestones

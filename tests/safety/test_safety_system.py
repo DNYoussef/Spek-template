@@ -100,7 +100,7 @@ class TestSafetyManager:
 
     def test_health_check_registration(self, safety_manager):
         """Test health check registration."""
-        def mock_health_check():
+    def mock_health_check():
             return True
 
         safety_manager.register_health_check(
@@ -135,7 +135,7 @@ class TestSafetyManager:
     def test_recovery_time_validation(self, safety_manager):
         """Test that recovery times are validated against <60s requirement."""
         # Mock slow failover (>60s)
-        def slow_failover(*args):
+    def slow_failover(*args):
             time.sleep(0.1)  # Simulate work
             return True
 
@@ -300,7 +300,7 @@ class TestAvailabilityMonitor:
 
     def test_component_registration(self, availability_monitor):
         """Test component registration for monitoring."""
-        def mock_health_check():
+    def mock_health_check():
             return True
 
         availability_monitor.register_component("test_component", mock_health_check)
@@ -309,7 +309,7 @@ class TestAvailabilityMonitor:
 
     def test_sla_metrics_calculation(self, availability_monitor):
         """Test SLA metrics calculation."""
-        def healthy_check():
+    def healthy_check():
             return True
 
         availability_monitor.register_component("test_component", healthy_check)
@@ -330,7 +330,7 @@ class TestAvailabilityMonitor:
 
     def test_incident_tracking(self, availability_monitor):
         """Test availability incident tracking."""
-        def failing_check():
+    def failing_check():
             return False
 
         availability_monitor.register_component("test_component", failing_check)
@@ -527,7 +527,7 @@ class TestIntegrationScenarios:
         # This would test a complete failover scenario
 
         # Mock components for testing
-        def mock_health_check():
+    def mock_health_check():
             return False  # Simulate failure
 
         integrated_safety_system.register_health_check(
@@ -545,7 +545,7 @@ class TestIntegrationScenarios:
     def test_performance_under_load(self, integrated_safety_system):
         """Test system performance under load."""
         # Simulate multiple concurrent operations
-        def simulate_load():
+    def simulate_load():
             for _ in range(100):
                 metrics = integrated_safety_system.get_metrics()
                 time.sleep(0.001)  # Small delay

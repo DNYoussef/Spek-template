@@ -1,6 +1,6 @@
 from src.constants.base import API_TIMEOUT_SECONDS, DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
 
-Advanced performance optimization system that builds on the existing analysis infrastructure
+"""Advanced performance optimization system that builds on the existing analysis infrastructure
 to deliver 50%+ performance improvements through intelligent caching, parallel processing,
 and adaptive resource management.
 
@@ -1045,7 +1045,7 @@ class PerformanceOptimizationEngine:
         """Measure actual optimized AST parsing performance."""
         import ast
         test_code = '''
-def example_function(x, y):
+    def example_function(x, y):
     """Example function for AST parsing test."""
     result = x + y
     if result > 10:

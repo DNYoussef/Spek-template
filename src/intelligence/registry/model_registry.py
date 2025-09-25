@@ -588,6 +588,7 @@ def test_model_registry():
             print(comparison)
         
     except Exception as e:
+        pass
 
 if __name__ == "__main__":
     test_model_registry()

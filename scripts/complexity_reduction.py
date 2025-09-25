@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
+"""
 
 NASA POT10 Rule 1: All functions must have cyclomatic complexity <= 10
 """
@@ -8,6 +9,7 @@ import sys
 from pathlib import Path
 from typing import List, Dict, Tuple, Any
 from dataclasses import dataclass
+"""
 
 @dataclass
 class ComplexityViolation:

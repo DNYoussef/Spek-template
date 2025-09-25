@@ -24,6 +24,7 @@ from ..adapters.integration_adapters import (
     SystemType, IntegrationProtocol
 )
 from ...patterns.command_base import Command, CommandResult
+"""
 
 logger = logging.getLogger(__name__)
 

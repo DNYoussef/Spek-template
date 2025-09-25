@@ -1429,7 +1429,7 @@ class RealMemoryManager:
                 operation_start = time.perf_counter()
                 try:
                     # Real contended resource access with actual work
-                    if self.lock.acquire(timeout=0.005):  # Shorter timeout for real contention
+                    if self.lock.acquire(timeout=0.5):  # Shorter timeout for real contention
                         try:
                             # Perform real work that modifies shared state
                             shared_resource['counter'] += 1
@@ -1855,7 +1855,7 @@ class MockIntegratedSystem:
             init_start = time.perf_counter()
             
             # Simulate component initialization
-            await asyncio.sleep(0.01)  # Simulate init time
+            await asyncio.sleep(0.1)  # Simulate init time
             success = await self._initialize_component(component_name)
             
             init_time = (time.perf_counter() - init_start) * 1000

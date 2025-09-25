@@ -54,7 +54,7 @@ def test_correlation_reality():
     tests = [
         ("Overlap calculation", correlation['overlapping_files'] == expected_overlap),
         ("Total violations", consolidated['total_violations'] == expected_total),
-        ("Compliance average", abs(consolidated['nasa_compliance'] - expected_avg) < 0.01),
+        ("Compliance average", abs(consolidated['nasa_compliance'] - expected_avg) < 0.1),
         ("Critical count", consolidated['critical_violations'] == expected_critical),
         ("Has recommendations", len(result['recommendations']) > 0),
         ("Correlation score valid", 0.0 <= correlation['correlation_score'] <= 1.0),

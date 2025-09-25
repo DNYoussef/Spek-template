@@ -53,10 +53,10 @@ class QualityMetrics:
 class EnterpriseTheaterDetector:
     """Detects theater patterns in enterprise development."""
 
-def __init__(self, config: Optional[Dict[str, Any]] = None):
+    def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
 
-def detect_metrics_gaming(self, file_path: str, content: str, metrics: QualityMetrics) -> List[TheaterPattern]:
+    def detect_metrics_gaming(self, file_path: str, content: str, metrics: QualityMetrics) -> List[TheaterPattern]:
         """Detect metrics gaming patterns."""
         patterns = []
 
@@ -118,7 +118,7 @@ def detect_metrics_gaming(self, file_path: str, content: str, metrics: QualityMe
 
         return patterns
 
-def detect_testing_theater(self, file_path: str, content: str) -> List[TheaterPattern]:
+    def detect_testing_theater(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect testing theater patterns."""
         patterns = []
 
@@ -184,7 +184,7 @@ def detect_testing_theater(self, file_path: str, content: str) -> List[TheaterPa
 
         return patterns
 
-def detect_documentation_theater(self, file_path: str, content: str) -> List[TheaterPattern]:
+    def detect_documentation_theater(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect documentation theater patterns."""
         patterns = []
 
@@ -236,7 +236,7 @@ def detect_documentation_theater(self, file_path: str, content: str) -> List[The
 
         return patterns
 
-def detect_compliance_theater(self, file_path: str, content: str) -> List[TheaterPattern]:
+    def detect_compliance_theater(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect compliance theater patterns."""
         patterns = []
 
@@ -267,7 +267,7 @@ def detect_compliance_theater(self, file_path: str, content: str) -> List[Theate
 
         return patterns
 
-def detect_automation_theater(self, file_path: str, content: str) -> List[TheaterPattern]:
+    def detect_automation_theater(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect automation theater patterns."""
         patterns = []
 
@@ -297,7 +297,7 @@ def detect_automation_theater(self, file_path: str, content: str) -> List[Theate
 
         return patterns
 
-def analyze_file(self, file_path: str, metrics: Optional[QualityMetrics] = None) -> List[TheaterPattern]:
+    def analyze_file(self, file_path: str, metrics: Optional[QualityMetrics] = None) -> List[TheaterPattern]:
         """Analyze a file for all theater patterns."""
         if not path_exists(file_path):
             return []
@@ -331,7 +331,7 @@ def analyze_file(self, file_path: str, metrics: Optional[QualityMetrics] = None)
 
         return all_patterns
 
-def analyze_directory(self, directory: str) -> List[TheaterPattern]:
+    def analyze_directory(self, directory: str) -> List[TheaterPattern]:
         """Analyze all files in a directory for theater patterns."""
         all_patterns = []
 
@@ -347,7 +347,7 @@ def analyze_directory(self, directory: str) -> List[TheaterPattern]:
 
         return all_patterns
 
-def generate_theater_report(self, patterns: List[TheaterPattern]) -> Dict[str, Any]:
+    def generate_theater_report(self, patterns: List[TheaterPattern]) -> Dict[str, Any]:
         """Generate comprehensive theater detection report."""
         category_counts = {cat.value: 0 for cat in TheaterCategory}
         severity_counts = {sev.value: 0 for sev in SeverityLevel}
@@ -393,7 +393,7 @@ def generate_theater_report(self, patterns: List[TheaterPattern]) -> Dict[str, A
             ]
         }
 
-def _get_risk_level(self, theater_score: float) -> str:
+    def _get_risk_level(self, theater_score: float) -> str:
         """Calculate risk level based on theater score."""
         if theater_score >= 75:
             return "CRITICAL"

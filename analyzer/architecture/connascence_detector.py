@@ -29,7 +29,7 @@ class ConnascenceDetector(ConnascenceDetectorInterface):
     Performance optimized with early returns and efficient AST traversal.
     """
 
-def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
+    def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
         """
         Initialize detector with configuration.
 
@@ -60,7 +60,7 @@ def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
             'CoI',  # Connascence of Identity
         ]
 
-def detect_violations(self, tree: ast.AST, file_path: str, source_lines: List[str]) -> List[ConnascenceViolation]:
+    def detect_violations(self, tree: ast.AST, file_path: str, source_lines: List[str]) -> List[ConnascenceViolation]:
         """
         Main detection entry point - orchestrates all detection methods.
 
@@ -85,15 +85,15 @@ def detect_violations(self, tree: ast.AST, file_path: str, source_lines: List[st
 
         return violations
 
-def get_detector_name(self) -> str:
+    def get_detector_name(self) -> str:
         """Get unique detector name."""
         return self.detector_name
 
-def get_supported_connascence_types(self) -> List[str]:
+    def get_supported_connascence_types(self) -> List[str]:
         """Get list of supported connascence types."""
         return self.supported_types.copy()
 
-def _detect_magic_literals(self, node: ast.Constant, file_path: str) -> List[ConnascenceViolation]:
+    def _detect_magic_literals(self, node: ast.Constant, file_path: str) -> List[ConnascenceViolation]:
         """
         Detect magic literal violations with optimized patterns.
 
@@ -134,7 +134,7 @@ def _detect_magic_literals(self, node: ast.Constant, file_path: str) -> List[Con
 
         return violations
 
-def _detect_parameter_coupling(self, node: ast.FunctionDef, file_path: str) -> List[ConnascenceViolation]:
+    def _detect_parameter_coupling(self, node: ast.FunctionDef, file_path: str) -> List[ConnascenceViolation]:
         """
         Detect excessive parameter coupling violations.
 
@@ -160,7 +160,7 @@ def _detect_parameter_coupling(self, node: ast.FunctionDef, file_path: str) -> L
 
         return violations
 
-def _detect_method_coupling(self, node: ast.ClassDef, file_path: str) -> List[ConnascenceViolation]:
+    def _detect_method_coupling(self, node: ast.ClassDef, file_path: str) -> List[ConnascenceViolation]:
         """
         Detect excessive method coupling in classes.
 
@@ -187,7 +187,7 @@ def _detect_method_coupling(self, node: ast.ClassDef, file_path: str) -> List[Co
 
         return violations
 
-def _detect_god_objects(self, tree: ast.AST, file_path: str) -> List[ConnascenceViolation]:
+    def _detect_god_objects(self, tree: ast.AST, file_path: str) -> List[ConnascenceViolation]:
         """
         Detect god object violations with comprehensive analysis.
 
@@ -203,7 +203,7 @@ def _detect_god_objects(self, tree: ast.AST, file_path: str) -> List[Connascence
 
         return violations
 
-def _detect_configuration_coupling(self, tree: ast.AST, file_path: str,
+    def _detect_configuration_coupling(self, tree: ast.AST, file_path: str,
                                     source_lines: List[str]) -> List[ConnascenceViolation]:
         """
         Detect tight coupling to configuration values.
@@ -230,7 +230,7 @@ def _detect_configuration_coupling(self, tree: ast.AST, file_path: str,
 
         return violations
 
-def _detect_timing_dependencies(self, tree: ast.AST, file_path: str) -> List[ConnascenceViolation]:
+    def _detect_timing_dependencies(self, tree: ast.AST, file_path: str) -> List[ConnascenceViolation]:
         """
         Detect timing-dependent code patterns.
 
@@ -255,7 +255,7 @@ def _detect_timing_dependencies(self, tree: ast.AST, file_path: str) -> List[Con
 
         return violations
 
-def _analyze_class_complexity(self, node: ast.ClassDef, file_path: str) -> List[ConnascenceViolation]:
+    def _analyze_class_complexity(self, node: ast.ClassDef, file_path: str) -> List[ConnascenceViolation]:
         """Analyze class complexity metrics."""
         violations = []
 
@@ -282,7 +282,7 @@ def _analyze_class_complexity(self, node: ast.ClassDef, file_path: str) -> List[
 
         return violations
 
-def _analyze_function_complexity(self, node: ast.FunctionDef, file_path: str) -> List[ConnascenceViolation]:
+    def _analyze_function_complexity(self, node: ast.FunctionDef, file_path: str) -> List[ConnascenceViolation]:
         """Analyze function complexity metrics."""
         violations = []
 
@@ -306,13 +306,13 @@ def _analyze_function_complexity(self, node: ast.FunctionDef, file_path: str) ->
 
         return violations
 
-def _is_magic_number(self, value: float) -> bool:
+    def _is_magic_number(self, value: float) -> bool:
         """Check if numeric value is a magic number."""
         # Allow common non-magic numbers
         allowed_numbers = {0, 1, -1, 2, 10, 100, 1000}
         return value not in allowed_numbers
 
-def _get_magic_number_severity(self, value: float) -> str:
+    def _get_magic_number_severity(self, value: float) -> str:
         """Determine severity based on magic number characteristics."""
         if abs(value) > 1000000:  # Very large numbers
             return 'high'
@@ -321,7 +321,7 @@ def _get_magic_number_severity(self, value: float) -> str:
         else:                     # Small numbers
             return 'low'
 
-def _is_timing_dependent_call(self, node: ast.Call) -> bool:
+    def _is_timing_dependent_call(self, node: ast.Call) -> bool:
         """Check if function call is timing-dependent."""
         timing_functions = {'sleep', 'time', 'wait', 'delay', 'setTimeout'}
 
@@ -332,19 +332,19 @@ def _is_timing_dependent_call(self, node: ast.Call) -> bool:
 
         return False
 
-def _count_node_lines(self, node: ast.AST) -> int:
+    def _count_node_lines(self, node: ast.AST) -> int:
         """Count lines in AST node."""
         if hasattr(node, 'end_lineno') and hasattr(node, 'lineno'):
             return node.end_lineno - node.lineno + 1
         return 1
 
-def _get_config(self, key: str, default: Any) -> Any:
+    def _get_config(self, key: str, default: Any) -> Any:
         """Get configuration value with fallback."""
         if self.config_provider:
             return self.config_provider.get_config(key, default)
         return default
 
-def _create_error_violation(self, error: Exception, file_path: str) -> ConnascenceViolation:
+    def _create_error_violation(self, error: Exception, file_path: str) -> ConnascenceViolation:
         """Create violation from detection error."""
         return ConnascenceViolation(
             type='Detection Error',
@@ -363,23 +363,23 @@ class ConnascenceASTVisitor(ast.NodeVisitor):
     NASA Rule 4 Compliant: Focused visitor with minimal methods.
     """
 
-def __init__(self, detector: ConnascenceDetector, file_path: str, source_lines: List[str]):
+    def __init__(self, detector: ConnascenceDetector, file_path: str, source_lines: List[str]):
         self.detector = detector
         self.file_path = file_path
         self.source_lines = source_lines
         self.violations = []
 
-def visit_Constant(self, node: ast.Constant) -> None:
+    def visit_Constant(self, node: ast.Constant) -> None:
         """Visit constant nodes for magic literal detection."""
         self.violations.extend(self.detector._detect_magic_literals(node, self.file_path))
         self.generic_visit(node)
 
-def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
+    def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
         """Visit function definitions for parameter coupling."""
         self.violations.extend(self.detector._detect_parameter_coupling(node, self.file_path))
         self.generic_visit(node)
 
-def visit_ClassDef(self, node: ast.ClassDef) -> None:
+    def visit_ClassDef(self, node: ast.ClassDef) -> None:
         """Visit class definitions for method coupling."""
         self.violations.extend(self.detector._detect_method_coupling(node, self.file_path))
         self.generic_visit(node)

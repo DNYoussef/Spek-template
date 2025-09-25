@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
-Detects Connascence of Meaning violations - magic literals that should be named constants.
+"""Detects Connascence of Meaning violations - magic literals that should be named constants.
 FIXED: Now uses ConfigurableDetectorMixin for REAL configuration instead of hardcoded values.
 """
 

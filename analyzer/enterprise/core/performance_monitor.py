@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
+"""
 
 Zero-overhead performance monitoring for enterprise features.
 Ensures enterprise modules have no performance impact when disabled
@@ -336,7 +337,7 @@ class EnterprisePerformanceMonitor:
             return "high"
         elif avg_time > 0.1 or memory_mb > 20:
             return "medium"
-        elif avg_time > 0.01 or memory_mb > 5:
+        elif avg_time > 0.1 or memory_mb > 5:
             return "low"
         else:
             return "none"

@@ -61,7 +61,8 @@ class GodObjectDetector(DetectorBase):
                 
         except ImportError:
             # Fallback to basic analysis
-        
+            pass
+
         # Basic analysis fallback
         self._basic_god_object_analysis(node)
     

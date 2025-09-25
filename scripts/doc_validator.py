@@ -259,6 +259,7 @@ class DocumentationValidator:
                     if cmd in documented_commands:
                         # This would require actual command validation
                     
+                        pass
             except Exception as e:
                 command_issues.append(f"Error reading workflow {workflow_file}: {e}")
         

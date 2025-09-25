@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
+"""
 
 Non-breaking decorator patterns for enhancing existing analyzer methods
 with enterprise capabilities while maintaining zero performance impact

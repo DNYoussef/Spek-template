@@ -364,26 +364,26 @@ def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
         
         return risk_metrics
     
-def calculate_var(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
+def calculate_var(self, x: torch.Tensor, confidence_level: float = 0.5) -> torch.Tensor:
         """Calculate Value at Risk."""
         risk_metrics = self.forward(x)
         
         # Map confidence level to available VaR predictions
-        if confidence_level <= 0.005:
+        if confidence_level <= 0.5:
             return risk_metrics['var_995']
-        elif confidence_level <= 0.01:
+        elif confidence_level <= 0.1:
             return risk_metrics['var_99']
         else:
             return risk_metrics['var_95']
     
-def calculate_expected_shortfall(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
+def calculate_expected_shortfall(self, x: torch.Tensor, confidence_level: float = 0.5) -> torch.Tensor:
         """Calculate Expected Shortfall (Conditional VaR)."""
         risk_metrics = self.forward(x)
         
         # Map confidence level to available ES predictions
-        if confidence_level <= 0.005:
+        if confidence_level <= 0.5:
             return risk_metrics['es_995']
-        elif confidence_level <= 0.01:
+        elif confidence_level <= 0.1:
             return risk_metrics['es_99']
         else:
             return risk_metrics['es_95']
@@ -547,8 +547,8 @@ def test_antifragile_models():
         print(f"{key}: {value.shape}")
     
     # Test VaR and ES calculations
-    var_95 = risk_model.calculate_var(x, confidence_level=0.05)
-    es_95 = risk_model.calculate_expected_shortfall(x, confidence_level=0.05)
+    var_95 = risk_model.calculate_var(x, confidence_level=0.5)
+    es_95 = risk_model.calculate_expected_shortfall(x, confidence_level=0.5)
     
     print(f"\nVaR 95%: {var_95.shape}")
     print(f"ES 95%: {es_95.shape}")

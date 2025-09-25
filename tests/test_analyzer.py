@@ -114,10 +114,12 @@ def test_analyzer_basic_functionality():
             assert analyzer_instance is not None
             print("UnifiedAnalyzer instantiation successful")
         else:
+            pass
 
     except Exception as e:
         # Don't fail the test if import worked but instantiation failed
 
+        pass
 def test_analyzer_structure():
     """Test analyzer directory structure and module availability (from analyzer-import-test.py)."""
     analyzer_path = Path(__file__).parent.parent / 'analyzer'
@@ -169,6 +171,7 @@ def test_import_fallbacks():
     assert True
 
 if __name__ == "__main__":
+    pass
 
     # Run basic import tests
     test_analyzer_import()

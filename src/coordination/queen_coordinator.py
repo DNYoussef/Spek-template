@@ -136,7 +136,7 @@ class QueenCoordinator:
     Gemini-powered Queen Coordinator for Loop 3 CI/CD System.
 
     Responsibilities:
-    1. Ingest all GitHub failures using Gemini's large context
+    1. Ingest all GitHub failures using Gemini's large context'
     2. Perform comprehensive root cause analysis with sequential thinking
     3. Create MECE task divisions with clear boundaries
     4. Select optimal agents from 85+ agent registry

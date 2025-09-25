@@ -193,7 +193,7 @@ def predict_execution_time(self,
             scaled_features = self.execution_time_model.scaler.transform(features)
             prediction = self.execution_time_model.model.predict(scaled_features)[0]
 
-            return max(0.01, prediction)  # Ensure positive prediction
+            return max(0.1, prediction)  # Ensure positive prediction
 
         except Exception as e:
             logging.warning(f"Execution time prediction failed: {e}")
@@ -223,7 +223,7 @@ def predict_resource_usage(self,
             scaled_features = self.resource_usage_model.scaler.transform(features)
             prediction = self.resource_usage_model.model.predict(scaled_features)[0]
 
-            return max(0.01, min(2.0, prediction))  # Clamp between reasonable bounds
+            return max(0.1, min(2.0, prediction))  # Clamp between reasonable bounds
 
         except Exception as e:
             logging.warning(f"Resource usage prediction failed: {e}")
@@ -238,8 +238,8 @@ def __init__(self, initial_concurrency: int = 4):
         self.max_concurrency = min(32, psutil.cpu_count() * 2)
 
         # Control parameters
-        self.target_overhead = 0.01  # 1% target overhead
-        self.overhead_tolerance = 0.005  # 0.5% tolerance
+        self.target_overhead = 0.1  # 1% target overhead
+        self.overhead_tolerance = 0.5  # 0.5% tolerance
         self.adjustment_factor = 0.2  # How aggressively to adjust
 
         # Feedback tracking
@@ -488,7 +488,7 @@ def record_execution_metrics(self, metrics: WorkloadMetrics) -> None:
 
         # Record performance for concurrency control
         overhead = max(0, metrics.execution_time - 0.1) / max(0.1, metrics.execution_time)
-        throughput = 1.0 / max(0.01, metrics.execution_time)
+        throughput = 1.0 / max(0.1, metrics.execution_time)
 
         self.concurrency_controller.record_performance(overhead, throughput)
 
@@ -545,7 +545,7 @@ def optimize_allocation(self,
             priority_weights[detector_name] = base_weight * fairness_factor
 
         # Estimate overhead
-        base_overhead = 0.005  # 0.5% base overhead
+        base_overhead = 0.5  # 0.5% base overhead
         complexity_factor = sum(
             self.scheduler.detector_weights.get(name, 1.0)
             for name, _, _ in pending_tasks
@@ -595,7 +595,7 @@ def _get_default_allocation(self) -> ResourceAllocation:
             max_concurrent_detectors=4,
             cache_size=10000,
             priority_weights={},
-            estimated_overhead=0.01,
+            estimated_overhead=0.1,
             confidence_score=0.5
         )
 

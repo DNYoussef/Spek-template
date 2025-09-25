@@ -9,7 +9,7 @@ Features:
 - Automated out-of-control detection
 - Trend analysis and forecasting
 - Integration with Six Sigma DPMO calculations
-- Performance overhead <1.MAXIMUM_NESTED_DEPTH%
+- Performance overhead <1, MAXIMUM_NESTED_DEPTH%
 
 NASA POT10 Compliance: All methods under 60 lines
 """

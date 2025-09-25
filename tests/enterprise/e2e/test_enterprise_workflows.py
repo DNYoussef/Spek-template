@@ -480,12 +480,12 @@ pydantic>=1.8.0
         rollout_results = []
         
         @flag_manager.enterprise_feature("new_analysis_engine", "New analysis engine")
-        def new_analysis_method(data, user_id=None):
+    def new_analysis_method(data, user_id=None):
             """New analysis method behind feature flag"""
             return {"result": f"new_engine_analyzed_{data}", "engine": "v2"}
             
         @new_analysis_method.fallback
-        def old_analysis_method(data, user_id=None):
+    def old_analysis_method(data, user_id=None):
             """Fallback to old analysis method"""
             return {"result": f"old_engine_analyzed_{data}", "engine": "v1"}
             
@@ -543,7 +543,7 @@ pydantic>=1.8.0
         integration = EnterpriseAnalyzerIntegration(self.project_root)
         
         # Create analyzer that fails sometimes
-        class UnreliableAnalyzer:
+    class UnreliableAnalyzer:
             def __init__(self):
                 self.call_count = 0
                 

@@ -56,7 +56,7 @@ def count_existing_assertions(content: str) -> int:
 
 def calculate_required_assertions(line_count: int, existing: int) -> int:
     """Calculate assertions needed for 2% density"""
-    required = max(1, int(line_count * 0.02))
+    required = max(1, int(line_count * 0.2))
     return max(0, required - existing)
 
 def analyze_file(file_path: Path) -> Dict:

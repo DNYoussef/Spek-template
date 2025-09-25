@@ -148,7 +148,7 @@ def _detect_anomalies(self, trends: Dict[str, Dict[str, Any]]) -> List[Dict[str,
                 # Anomaly: Stagnation
                 if window_data["data_points"] >= 5:
                     recent_values = self._get_historical_values(metric_name, 24)  # Last 24 hours
-                    if len(recent_values) >= 3 and max(recent_values) - min(recent_values) < 0.01:
+                    if len(recent_values) >= 3 and max(recent_values) - min(recent_values) < 0.1:
                         anomalies.append({
                             "type": "stagnation",
                             "metric": metric_name,

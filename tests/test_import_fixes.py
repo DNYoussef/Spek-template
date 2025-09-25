@@ -89,8 +89,8 @@ def test_reality_checker_compatibility():
         inputs = KellyInputs(
             symbol="REALITY_TEST",
             win_rate=0.55,
-            average_win=0.02,
-            average_loss=0.015,
+            average_win=0.2,
+            average_loss=0.15,
             current_capital=Decimal('100000'),
             max_position_size=0.1
         )

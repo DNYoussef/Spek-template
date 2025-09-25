@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, TAKE_PROFIT_PERCENTAGE
+"""
 
 Comprehensive security validation for production deployment including:
 - NASA POT10 compliance verification
@@ -222,7 +223,7 @@ class NASAComplianceValidator:
         # Scoring: 1.0 = perfect, deduct points for violations
         score = 1.0
         score -= critical_violations * 0.1  # MAXIMUM_FUNCTION_PARAMETERS% per critical
-        score -= high_violations * 0.05     # 5% per high
+        score -= high_violations * 0.5     # 5% per high
         score = max(0.0, score)
         
         execution_time = time.time() - start_time

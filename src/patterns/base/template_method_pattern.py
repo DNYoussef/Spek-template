@@ -269,7 +269,7 @@ class NeuralNetworkAlgorithm(MachineLearningAlgorithm):
         for epoch in range(epochs):
             # Simulate training step
             loss = 1.0 / (epoch + 1)  # Decreasing loss
-            accuracy = min(0.9, 0.1 + (epoch * 0.08))  # Increasing accuracy
+            accuracy = min(0.9, 0.1 + (epoch * 0.8))  # Increasing accuracy
 
             self.training_history.append({
                 'epoch': epoch,

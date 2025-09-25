@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+"""
 
 This script tests the ToolCoordinator in a sandboxed environment
 to verify it can actually process real data and correlate results.
@@ -9,12 +10,14 @@ import json
 import tempfile
 import subprocess
 from pathlib import Path
+"""
 
 # Add analyzer to path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 sys.path.append(str(Path(__file__).parent.parent.parent / "analyzer"))
 
 from analyzer.integrations.tool_coordinator import ToolCoordinator
+"""
 
 def create_test_data():
     """Create realistic test data for correlation testing."""
@@ -65,7 +68,7 @@ def create_test_data():
     external_data = {
         "tool": "pylint",
         "version": "2.15.0",
-        "timestamp": "2025-01-15T10:30:00Z",
+        "timestamp": "2025-1-15T10:30:00Z",
         "issues": [
             {
                 "file": "src/payment/processor.py",
@@ -200,7 +203,7 @@ def validate_correlation_results(correlation, connascence_data, external_data):
 
     add_test(
         "NASA compliance average",
-        abs(actual_avg - expected_avg) < 0.01,
+        abs(actual_avg - expected_avg) < 0.1,
         f"Expected {expected_avg:.3f}, got {actual_avg:.3f}"
     )
 

@@ -1,4 +1,5 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH, MINIMUM_TEST_COVERAGE_PERCENTAGE
+"""
 
 Generates real-time reporting data for streaming analysis dashboards.
 Provides structured data for visualization of violations, performance metrics,

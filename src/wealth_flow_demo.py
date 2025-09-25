@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH
+"""
 
 This file demonstrates the "Follow the Flow" principle enhancement to the existing
 DPI calculator without requiring complex dependencies.
@@ -9,6 +10,7 @@ Usage:
 
 from typing import Dict
 import random
+"""
 
 class WealthFlowTracker:
     """

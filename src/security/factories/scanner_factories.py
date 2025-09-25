@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MINIMUM_TEST_COVERAGE_PERCENTAGE
+"""
 
 Factory pattern for creating security scanners and vulnerability detection tools.
 Supports different scanner types for various security analysis needs.
@@ -19,10 +20,12 @@ import re
 import hashlib
 import subprocess
 import json
+"""
 
 from ...patterns.factory_base import Factory, FactoryRegistry
 from ..enhanced_incident_response_system import SecurityIncident, IncidentType, IncidentSeverity
 from ...patterns.command_base import Command, CommandResult
+"""
 
 logger = logging.getLogger(__name__)
 

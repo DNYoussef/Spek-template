@@ -45,7 +45,7 @@ class KellyInputs:
     average_loss: float
     current_capital: Decimal
     max_position_size: float
-    risk_free_rate: float = 0.02
+    risk_free_rate: float = 0.2
 
 @dataclass
 class KellyResult:
@@ -85,7 +85,7 @@ def __init__(self, dpi_calculator: Optional[DistributionalPressureIndex] = None)
 
         # Risk management parameters
         self.max_kelly_fraction = 0.25  # Cap Kelly at 25% for safety
-        self.min_kelly_fraction = 0.01  # Minimum position size
+        self.min_kelly_fraction = 0.1  # Minimum position size
         self.confidence_threshold = 0.65  # Minimum confidence for trades
 
         # Performance tracking
@@ -232,7 +232,7 @@ def _calculate_position_size(self, kelly_fraction: float, current_capital: Decim
         position_size = min(kelly_amount, max_amount)
 
         # Round to reasonable precision
-        return position_size.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        return position_size.quantize(Decimal('0.1'), rounding=ROUND_HALF_UP)
 
 def _calculate_confidence(self, inputs: KellyInputs, dpi_value: float) -> float:
         """Calculate confidence level for the Kelly recommendation."""
@@ -287,14 +287,14 @@ def _create_conservative_result(self, inputs: KellyInputs, start_time: float) ->
             symbol=inputs.symbol,
             kelly_fraction=self.min_kelly_fraction,
             dpi_adjusted_fraction=self.min_kelly_fraction,
-            recommended_position_size=inputs.current_capital * Decimal('0.01'),
+            recommended_position_size=inputs.current_capital * Decimal('0.1'),
             confidence_level=0.1,
             risk_metrics={
                 "expected_return": 0.0,
                 "volatility": 0.1,
                 "sharpe_ratio": 0.0,
-                "max_drawdown": 0.01,
-                "var_95": -0.01,
+                "max_drawdown": 0.1,
+                "var_95": -0.1,
                 "kelly_fraction": self.min_kelly_fraction
             },
             calculation_time_ms=calculation_time,
@@ -359,10 +359,10 @@ def calculate_position_from_returns(symbol: str, returns: np.ndarray,
         inputs = KellyInputs(
             symbol=symbol,
             win_rate=0.5,
-            average_win=0.01,
-            average_loss=0.01,
+            average_win=0.1,
+            average_loss=0.1,
             current_capital=current_capital,
-            max_position_size=0.05
+            max_position_size=0.5
         )
     else:
         win_rate = len(positive_returns) / len(returns)
@@ -390,7 +390,7 @@ def benchmark_kelly_performance(iterations: int = 100) -> Dict[str, float]:
         symbol="TEST",
         win_rate=0.55,
         average_win=KELLY_CRITERION_FRACTION,
-        average_loss=0.015,
+        average_loss=0.15,
         current_capital=Decimal('100000'),
         max_position_size=0.1
     )

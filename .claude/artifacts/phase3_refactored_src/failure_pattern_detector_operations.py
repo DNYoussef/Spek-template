@@ -29,7 +29,7 @@ from lib.shared.utilities import get_logger
 from typing import Tuple
 
 
-    def __init__(self, config: Dict[str, Any] = None):
+def __init__(self, config: Dict[str, Any] = None):
         self.config = config or {}
         self.failure_patterns: Dict[str, FailureSignature] = {}
         self.root_cause_patterns: Dict[str, List[str]] = {}
@@ -50,7 +50,7 @@ from typing import Tuple
         self._initialize_pattern_databases()
 
 """Initialize pattern databases with existing knowledge."""
-    def _initialize_pattern_databases(self):
+def _initialize_pattern_databases(self):
         """Initialize pattern databases with existing knowledge."""
         logger.info("Initializing failure pattern databases...")
 
@@ -65,7 +65,7 @@ from typing import Tuple
                 logger.warning(f"Could not load historical patterns: {e}")
 
 """Analyze failure data to detect patterns and signatures."""
-    def analyze_failure_patterns(self, failure_data: Dict[str, Any]) -> List[FailureSignature]:
+def analyze_failure_patterns(self, failure_data: Dict[str, Any]) -> List[FailureSignature]:
         """Analyze failure data to detect patterns and signatures."""
         logger.info("Analyzing failure patterns...")
 
@@ -85,7 +85,7 @@ from typing import Tuple
         return clustered_signatures
 
 """Extract failure signature from individual failure data."""
-    def _extract_failure_signature(self, failure: Dict[str, Any]) -> Optional[FailureSignature]:
+def _extract_failure_signature(self, failure: Dict[str, Any]) -> Optional[FailureSignature]:
         """Extract failure signature from individual failure data."""
         try:
             step_name = failure.get("step_name", "unknown")
@@ -119,7 +119,7 @@ from typing import Tuple
             return None
 
 """Extract error pattern from failure data."""
-    def _extract_error_pattern(self, failure: Dict[str, Any]) -> str:
+def _extract_error_pattern(self, failure: Dict[str, Any]) -> str:
         """Extract error pattern from failure data."""
         # In a real implementation, this would parse log files
         # For now, simulate pattern extraction based on step name and category
@@ -147,7 +147,7 @@ from typing import Tuple
             return f"Generic failure in {category} category"
 
 """Match error pattern against known pattern database."""
-    def _match_known_patterns(self, error_pattern: str, category: str) -> Optional[Dict[str, Any]]:
+def _match_known_patterns(self, error_pattern: str, category: str) -> Optional[Dict[str, Any]]:
         """Match error pattern against known pattern database."""
         for pattern_name, pattern_info in self.error_pattern_db.items():
             if pattern_info["category"] == category:
@@ -162,7 +162,7 @@ from typing import Tuple
         return None
 
 """Cluster similar failure signatures to reduce noise."""
-    def _cluster_similar_signatures(self, signatures: List[FailureSignature]) -> List[FailureSignature]:
+def _cluster_similar_signatures(self, signatures: List[FailureSignature]) -> List[FailureSignature]:
         """Cluster similar failure signatures to reduce noise."""
         clustered = {}
 
@@ -186,14 +186,14 @@ from typing import Tuple
         return list(clustered.values())
 
 """Update pattern database with new signatures."""
-    def _update_pattern_database(self, signatures: List[FailureSignature]):
+def _update_pattern_database(self, signatures: List[FailureSignature]):
         """Update pattern database with new signatures."""
         for signature in signatures:
             pattern_id = f"{signature.category}_{signature.context_hash}"
             self.failure_patterns[pattern_id] = signature
 
 """Apply reverse engineering to determine root causes."""
-    def reverse_engineer_root_causes(self, signatures: List[FailureSignature]) -> List[RootCauseAnalysis]:
+def reverse_engineer_root_causes(self, signatures: List[FailureSignature]) -> List[RootCauseAnalysis]:
         """Apply reverse engineering to determine root causes."""
         logger.info("Reverse engineering root causes...")
 
@@ -210,7 +210,7 @@ from typing import Tuple
         return root_causes
 
 """Analyze root cause for a single failure signature."""
-    def _analyze_single_root_cause(self, signature: FailureSignature) -> Optional[RootCauseAnalysis]:
+def _analyze_single_root_cause(self, signature: FailureSignature) -> Optional[RootCauseAnalysis]:
         """Analyze root cause for a single failure signature."""
         try:
             # Build dependency chain through reverse engineering
@@ -251,7 +251,7 @@ from typing import Tuple
             return None
 
 """Trace dependency chain that led to the failure."""
-    def _trace_dependency_chain(self, signature: FailureSignature) -> List[str]:
+def _trace_dependency_chain(self, signature: FailureSignature) -> List[str]:
         """Trace dependency chain that led to the failure."""
         chain = []
 
@@ -293,7 +293,7 @@ from typing import Tuple
         return chain
 
 """Determine the primary root cause."""
-    def _determine_primary_cause(self, signature: FailureSignature, dependency_chain: List[str]) -> str:
+def _determine_primary_cause(self, signature: FailureSignature, dependency_chain: List[str]) -> str:
         """Determine the primary root cause."""
         if signature.root_cause_hypothesis:
             return signature.root_cause_hypothesis
@@ -350,7 +350,7 @@ from typing import Tuple
             return "Unknown or complex multi-factor issue"
 
 """Identify contributing factors to the failure."""
-    def _identify_contributing_factors(self, signature: FailureSignature, dependency_chain: List[str]) -> List[str]:
+def _identify_contributing_factors(self, signature: FailureSignature, dependency_chain: List[str]) -> List[str]:
         """Identify contributing factors to the failure."""
         factors = []
 
@@ -400,7 +400,7 @@ from typing import Tuple
         return factors[:5]  # Limit to top 5 factors
 
 """Select appropriate fix strategy based on root cause."""
-    def _select_fix_strategy(self, signature: FailureSignature, primary_cause: str) -> str:
+def _select_fix_strategy(self, signature: FailureSignature, primary_cause: str) -> str:
         """Select appropriate fix strategy based on root cause."""
         # Look for matching fix strategy in database
         for strategy_name, strategy_info in self.fix_strategy_db.items():
@@ -424,7 +424,7 @@ from typing import Tuple
             return "manual_investigation"
 
 """Calculate confidence score for root cause analysis."""
-    def _calculate_confidence_score(self, signature: FailureSignature, primary_cause: str) -> float:
+def _calculate_confidence_score(self, signature: FailureSignature, primary_cause: str) -> float:
         """Calculate confidence score for root cause analysis."""
         base_score = signature.confidence_score
 
@@ -443,7 +443,7 @@ from typing import Tuple
         return min(1.0, max(0.1, base_score))
 
 """Estimate effort in hours to fix the issue."""
-    def _estimate_fix_effort(self, signature: FailureSignature, fix_strategy: str) -> int:
+def _estimate_fix_effort(self, signature: FailureSignature, fix_strategy: str) -> int:
         """Estimate effort in hours to fix the issue."""
         if fix_strategy in self.fix_strategy_db:
             base_effort = self.fix_strategy_db[fix_strategy]["effort_hours"]
@@ -466,7 +466,7 @@ from typing import Tuple
         return max(1, int(base_effort * multiplier))
 
 """Identify components affected by the failure."""
-    def _identify_affected_components(self, signature: FailureSignature) -> List[str]:
+def _identify_affected_components(self, signature: FailureSignature) -> List[str]:
         """Identify components affected by the failure."""
         components = []
 
@@ -498,7 +498,7 @@ from typing import Tuple
         return list(set(components))
 
 """Determine how to verify the fix."""
-    def _determine_verification_method(self, signature: FailureSignature, fix_strategy: str) -> str:
+def _determine_verification_method(self, signature: FailureSignature, fix_strategy: str) -> str:
         """Determine how to verify the fix."""
         if fix_strategy in self.fix_strategy_db:
             return self.fix_strategy_db[fix_strategy]["validation"]
@@ -520,7 +520,7 @@ from typing import Tuple
             return "manual_verification"
 
 """Assess risk level of applying the fix."""
-    def _assess_risk_level(self, signature: FailureSignature, fix_strategy: str) -> str:
+def _assess_risk_level(self, signature: FailureSignature, fix_strategy: str) -> str:
         """Assess risk level of applying the fix."""
         # Base risk on fix difficulty
         difficulty = signature.fix_difficulty
@@ -550,7 +550,7 @@ from typing import Tuple
         return base_risk
 
 """Generate actionable recommendations based on analysis."""
-    def _generate_recommendations(self, signatures: List[FailureSignature],
+def _generate_recommendations(self, signatures: List[FailureSignature],
                                 root_causes: List[RootCauseAnalysis]) -> Dict[str, Any]:
         """Generate actionable recommendations based on analysis."""
         recommendations = {
@@ -616,7 +616,7 @@ from typing import Tuple
         return recommendations
 
 """Learn from fix results to improve future analysis."""
-    def learn_from_fixes(self, fix_results: Dict[str, Any]):
+def learn_from_fixes(self, fix_results: Dict[str, Any]):
         """Learn from fix results to improve future analysis."""
         logger.info("Learning from fix results...")
 
@@ -641,13 +641,13 @@ from typing import Tuple
                 if success:
                     signature.confidence_score = min(1.0, signature.confidence_score + 0.1)
                 else:
-                    signature.confidence_score = max(0.1, signature.confidence_score - 0.05)
+                    signature.confidence_score = max(0.1, signature.confidence_score - 0.5)
 
         # Save updated patterns
         self._save_pattern_database()
 
 """Analyze test-specific failure patterns and provide targeted insights."""
-    def analyze_test_specific_failures(self, test_results: Dict[str, Any]) -> List[Dict[str, Any]]:
+def analyze_test_specific_failures(self, test_results: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Analyze test-specific failure patterns and provide targeted insights."""
         test_failures = []
 
@@ -660,7 +660,7 @@ from typing import Tuple
         return test_failures
 
 """Analyze a single test suite failure."""
-    def _analyze_single_test_failure(self, suite_name: str, suite_result: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+def _analyze_single_test_failure(self, suite_name: str, suite_result: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """Analyze a single test suite failure."""
         error_output = suite_result.get("error_output", "")
         failure_details = suite_result.get("failure_details", [])
@@ -700,7 +700,7 @@ from typing import Tuple
         }
 
 """Determine test type from suite name."""
-    def _determine_test_type(self, suite_name: str) -> str:
+def _determine_test_type(self, suite_name: str) -> str:
         """Determine test type from suite name."""
         suite_lower = suite_name.lower()
 
@@ -722,7 +722,7 @@ from typing import Tuple
             return "unknown"
 
 """Calculate confidence score for pattern match."""
-    def _calculate_pattern_confidence(self, pattern: str, error_output: str) -> float:
+def _calculate_pattern_confidence(self, pattern: str, error_output: str) -> float:
         """Calculate confidence score for pattern match."""
         matches = len(re.findall(pattern, error_output, re.IGNORECASE))
         total_lines = len(error_output.split('\n'))
@@ -741,7 +741,7 @@ from typing import Tuple
         return confidence
 
 """Generate test-specific recommended actions."""
-    def _generate_test_specific_actions(self, pattern_info: Dict[str, Any]) -> List[str]:
+def _generate_test_specific_actions(self, pattern_info: Dict[str, Any]) -> List[str]:
         """Generate test-specific recommended actions."""
         strategy = pattern_info["auto_repair_strategy"]
         test_type = pattern_info["test_type"]
@@ -794,11 +794,11 @@ from typing import Tuple
 
         return actions
 
-    def __init__(self):
+def __init__(self):
         self.correlation_history = []
 
 """Find correlations between test failures."""
-    def correlate_failures(self, test_failures: List[Dict[str, Any]]) -> Dict[str, Any]:
+def correlate_failures(self, test_failures: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Find correlations between test failures."""
         correlations = {
             "cross_suite_patterns": [],
@@ -846,7 +846,7 @@ from typing import Tuple
         return correlations
 
 """Identify failures that are likely caused by other failures."""
-    def _identify_cascade_failures(self, test_failures: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def _identify_cascade_failures(self, test_failures: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Identify failures that are likely caused by other failures."""
         cascade_failures = []
 
@@ -868,7 +868,7 @@ from typing import Tuple
         return cascade_failures
 
 """Check if two failures are related."""
-    def _are_related_failures(self, failure1: Dict[str, Any], failure2: Dict[str, Any]) -> bool:
+def _are_related_failures(self, failure1: Dict[str, Any], failure2: Dict[str, Any]) -> bool:
         """Check if two failures are related."""
         # Simple heuristic: check if they share common causes
         causes1 = set(failure1.get("typical_causes", []))
@@ -876,11 +876,11 @@ from typing import Tuple
 
         return len(causes1.intersection(causes2)) > 0
 
-    def __init__(self):
+def __init__(self):
         self.prediction_model = TestPredictionModel()
 
 """Predict success probability for a specific test suite."""
-    def predict_test_success(self, change_context: Dict[str, Any], test_suite: str) -> Dict[str, Any]:
+def predict_test_success(self, change_context: Dict[str, Any], test_suite: str) -> Dict[str, Any]:
         """Predict success probability for a specific test suite."""
         features = self._extract_prediction_features(change_context, test_suite)
         probability = self.prediction_model.predict(features)
@@ -893,7 +893,7 @@ from typing import Tuple
         }
 
 """Extract features for prediction model."""
-    def _extract_prediction_features(self, change_context: Dict[str, Any], test_suite: str) -> Dict[str, Any]:
+def _extract_prediction_features(self, change_context: Dict[str, Any], test_suite: str) -> Dict[str, Any]:
         """Extract features for prediction model."""
         return {
             "change_size": len(change_context.get("affected_files", [])),
@@ -905,7 +905,7 @@ from typing import Tuple
         }
 
 """Determine test type from suite name."""
-    def _determine_test_type_from_suite(self, test_suite: str) -> str:
+def _determine_test_type_from_suite(self, test_suite: str) -> str:
         """Determine test type from suite name."""
         if "unit" in test_suite.lower():
             return "unit"
@@ -917,7 +917,7 @@ from typing import Tuple
             return "other"
 
 """Identify risk factors that might cause test failures."""
-    def _identify_risk_factors(self, features: Dict[str, Any]) -> List[str]:
+def _identify_risk_factors(self, features: Dict[str, Any]) -> List[str]:
         """Identify risk factors that might cause test failures."""
         risk_factors = []
 
@@ -936,7 +936,7 @@ from typing import Tuple
         return risk_factors
 
 """Generate recommendations based on prediction."""
-    def _generate_recommendations(self, features: Dict[str, Any], probability: float) -> List[str]:
+def _generate_recommendations(self, features: Dict[str, Any], probability: float) -> List[str]:
         """Generate recommendations based on prediction."""
         recommendations = []
 
@@ -955,7 +955,7 @@ from typing import Tuple
         return recommendations
 
 """Predict success probability using heuristics."""
-    def predict(self, features: Dict[str, Any]) -> float:
+def predict(self, features: Dict[str, Any]) -> float:
         """Predict success probability using heuristics."""
         base_probability = features.get("historical_success_rate", 0.8)
 
@@ -973,7 +973,7 @@ from typing import Tuple
 
         # Adjust based on test changes
         if features["has_test_changes"]:
-            base_probability *= 1.05
+            base_probability *= 1.5
 
         # Adjust based on recent failures
         failure_rate = features.get("recent_failure_rate", 0.0)
@@ -981,11 +981,11 @@ from typing import Tuple
 
         return max(0.0, min(1.0, base_probability))
 
-    def __init__(self):
+def __init__(self):
         self.repair_strategies = self._initialize_repair_strategies()
 
 """Initialize test-specific repair strategies."""
-    def _initialize_repair_strategies(self) -> Dict[str, Any]:
+def _initialize_repair_strategies(self) -> Dict[str, Any]:
         """Initialize test-specific repair strategies."""
         return {
             "assertion_analysis": {
@@ -1023,7 +1023,7 @@ from typing import Tuple
         }
 
 """Suggest repairs for a test failure."""
-    def suggest_repairs(self, test_failure: Dict[str, Any]) -> Dict[str, Any]:
+def suggest_repairs(self, test_failure: Dict[str, Any]) -> Dict[str, Any]:
         """Suggest repairs for a test failure."""
         strategy = test_failure.get("auto_repair_strategy", "manual")
 
@@ -1041,7 +1041,7 @@ from typing import Tuple
         }
 
 """Estimate effort required for repair."""
-    def _estimate_repair_effort(self, test_failure: Dict[str, Any]) -> str:
+def _estimate_repair_effort(self, test_failure: Dict[str, Any]) -> str:
         """Estimate effort required for repair."""
         difficulty = test_failure.get("fix_difficulty", "medium")
 

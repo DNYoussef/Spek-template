@@ -215,7 +215,7 @@ class TestClass:
                         f"Too many modules loaded: {module_increase}")
     
     def test_backward_compatibility(self):
-        """Test: Enterprise integration doesn't break existing API."""
+        """Test: Enterprise integration doesn't break existing API."""'
         from analyzer.core import ConnascenceAnalyzer
         
         analyzer = ConnascenceAnalyzer()

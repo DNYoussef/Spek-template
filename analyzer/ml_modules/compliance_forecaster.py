@@ -41,12 +41,12 @@ class ComplianceForecast:
 class ComplianceForecaster:
     """ML-based compliance forecasting engine."""
 
-def __init__(self, config: Optional[Dict[str, Any]] = None):
+    def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
         self.compliance_weights = self._initialize_compliance_weights()
         self.trend_analyzers = self._initialize_trend_analyzers()
 
-def _initialize_compliance_weights(self) -> Dict[str, Dict[str, float]]:
+    def _initialize_compliance_weights(self) -> Dict[str, Dict[str, float]]:
         """Initialize weights for different compliance standards."""
         return {
             ComplianceStandard.SOX.value: {
@@ -75,7 +75,7 @@ def _initialize_compliance_weights(self) -> Dict[str, Dict[str, float]]:
                 "encryption": 0.25,
                 "access_restrictions": 0.2,
                 "network_security": 0.15,
-                "monitoring": 0.05
+                "monitoring": 0.5
             },
             ComplianceStandard.ISO_27001.value: {
                 "risk_management": 0.3,
@@ -100,7 +100,7 @@ def _initialize_compliance_weights(self) -> Dict[str, Dict[str, float]]:
             }
         }
 
-def _initialize_trend_analyzers(self) -> Dict[str, callable]:
+    def _initialize_trend_analyzers(self) -> Dict[str, callable]:
         """Initialize trend analysis functions."""
         return {
             "code_quality_trend": self._analyze_code_quality_trend,
@@ -110,7 +110,7 @@ def _initialize_trend_analyzers(self) -> Dict[str, callable]:
             "change_management_trend": self._analyze_change_management_trend
         }
 
-def extract_compliance_features(self, directory: str, standard: ComplianceStandard) -> Dict[str, float]:
+    def extract_compliance_features(self, directory: str, standard: ComplianceStandard) -> Dict[str, float]:
         """Extract features relevant to a specific compliance standard."""
         features = {}
 
@@ -135,7 +135,7 @@ def extract_compliance_features(self, directory: str, standard: ComplianceStanda
 
         return features
 
-def _extract_base_compliance_features(self, directory: str) -> Dict[str, float]:
+    def _extract_base_compliance_features(self, directory: str) -> Dict[str, float]:
         """Extract base compliance features applicable to all standards."""
         features = {}
 
@@ -157,7 +157,7 @@ def _extract_base_compliance_features(self, directory: str) -> Dict[str, float]:
                 elif 'test' in file and file.endswith('.py'):
                     tested_files += 1
 
-def _check_python_file_features(self, file_path):
+    def _check_python_file_features(self, file_path):
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
@@ -190,7 +190,7 @@ def _check_python_file_features(self, file_path):
 
         return features
 
-def _extract_sox_features(self, directory: str) -> Dict[str, float]:
+    def _extract_sox_features(self, directory: str) -> Dict[str, float]:
         """Extract SOX-specific compliance features."""
         features = {}
 
@@ -213,7 +213,7 @@ def _extract_sox_features(self, directory: str) -> Dict[str, float]:
                     file_path = os.path.join(root, file)
                     integrity_score += self._count_pattern_matches(file_path, integrity_patterns)
 
-def _count_pattern_matches(self, file_path, patterns):
+    def _count_pattern_matches(self, file_path, patterns):
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
@@ -261,7 +261,7 @@ def _count_pattern_matches(self, file_path, patterns):
 
         return features
 
-def _extract_gdpr_features(self, directory: str) -> Dict[str, float]:
+    def _extract_gdpr_features(self, directory: str) -> Dict[str, float]:
         """Extract GDPR-specific compliance features."""
         features = {}
 
@@ -306,7 +306,7 @@ def _extract_gdpr_features(self, directory: str) -> Dict[str, float]:
 
         return features
 
-def _extract_hipaa_features(self, directory: str) -> Dict[str, float]:
+    def _extract_hipaa_features(self, directory: str) -> Dict[str, float]:
         """Extract HIPAA-specific compliance features."""
         features = {}
 
@@ -334,7 +334,7 @@ def _extract_hipaa_features(self, directory: str) -> Dict[str, float]:
 
         return features
 
-def _extract_pci_features(self, directory: str) -> Dict[str, float]:
+    def _extract_pci_features(self, directory: str) -> Dict[str, float]:
         """Extract PCI DSS-specific compliance features."""
         features = {}
 
@@ -361,7 +361,7 @@ def _extract_pci_features(self, directory: str) -> Dict[str, float]:
 
         return features
 
-def _extract_iso_features(self, directory: str) -> Dict[str, float]:
+    def _extract_iso_features(self, directory: str) -> Dict[str, float]:
         """Extract ISO 27001-specific compliance features."""
         features = {}
 
@@ -388,7 +388,7 @@ def _extract_iso_features(self, directory: str) -> Dict[str, float]:
 
         return features
 
-def _extract_nist_features(self, directory: str) -> Dict[str, float]:
+    def _extract_nist_features(self, directory: str) -> Dict[str, float]:
         """Extract NIST-specific compliance features."""
         features = {}
 
@@ -427,7 +427,7 @@ def _extract_nist_features(self, directory: str) -> Dict[str, float]:
 
         return features
 
-def _extract_owasp_features(self, directory: str) -> Dict[str, float]:
+    def _extract_owasp_features(self, directory: str) -> Dict[str, float]:
         """Extract OWASP-specific compliance features."""
         features = {}
 
@@ -466,7 +466,7 @@ def _extract_owasp_features(self, directory: str) -> Dict[str, float]:
 
         return features
 
-def _analyze_code_quality_trend(self, directory: str) -> Dict[str, Any]:
+    def _analyze_code_quality_trend(self, directory: str) -> Dict[str, Any]:
         """Analyze code quality trends."""
         # This would typically analyze git history
         return {
@@ -475,7 +475,7 @@ def _analyze_code_quality_trend(self, directory: str) -> Dict[str, Any]:
             "indicators": ["consistent_patterns", "adequate_documentation"]
         }
 
-def _analyze_security_trend(self, directory: str) -> Dict[str, Any]:
+    def _analyze_security_trend(self, directory: str) -> Dict[str, Any]:
         """Analyze security implementation trends."""
         return {
             "trend": "IMPROVING",
@@ -483,7 +483,7 @@ def _analyze_security_trend(self, directory: str) -> Dict[str, Any]:
             "indicators": ["security_patterns_present", "encryption_implemented"]
         }
 
-def _analyze_documentation_trend(self, directory: str) -> Dict[str, Any]:
+    def _analyze_documentation_trend(self, directory: str) -> Dict[str, Any]:
         """Analyze documentation trends."""
         return {
             "trend": "STABLE",
@@ -491,7 +491,7 @@ def _analyze_documentation_trend(self, directory: str) -> Dict[str, Any]:
             "indicators": ["moderate_documentation", "room_for_improvement"]
         }
 
-def _analyze_testing_trend(self, directory: str) -> Dict[str, Any]:
+    def _analyze_testing_trend(self, directory: str) -> Dict[str, Any]:
         """Analyze testing trends."""
         return {
             "trend": "STABLE",
@@ -499,7 +499,7 @@ def _analyze_testing_trend(self, directory: str) -> Dict[str, Any]:
             "indicators": ["test_files_present", "coverage_adequate"]
         }
 
-def _analyze_change_management_trend(self, directory: str) -> Dict[str, Any]:
+    def _analyze_change_management_trend(self, directory: str) -> Dict[str, Any]:
         """Analyze change management trends."""
         return {
             "trend": "STABLE",
@@ -507,7 +507,7 @@ def _analyze_change_management_trend(self, directory: str) -> Dict[str, Any]:
             "indicators": ["version_control", "basic_processes"]
         }
 
-def forecast_compliance(self,
+    def forecast_compliance(self,
                             directory: str,
                             standard: ComplianceStandard,
                             horizon: ForecastHorizon) -> ComplianceForecast:
@@ -572,7 +572,7 @@ def forecast_compliance(self,
             forecast_details=forecast_details
         )
 
-def _calculate_predicted_score(self,
+    def _calculate_predicted_score(self,
                                 current_score: float,
                                 trend_results: Dict[str, Any],
                                 horizon: ForecastHorizon) -> float:
@@ -598,7 +598,7 @@ def _calculate_predicted_score(self,
 
         return max(0.0, min(100.0, predicted_score))
 
-def _horizon_to_days(self, horizon: ForecastHorizon) -> int:
+    def _horizon_to_days(self, horizon: ForecastHorizon) -> int:
         """Convert horizon enum to days."""
         mapping = {
             ForecastHorizon.IMMEDIATE: 7,
@@ -608,7 +608,7 @@ def _horizon_to_days(self, horizon: ForecastHorizon) -> int:
         }
         return mapping[horizon]
 
-def _horizon_to_multiplier(self, horizon: ForecastHorizon) -> float:
+    def _horizon_to_multiplier(self, horizon: ForecastHorizon) -> float:
         """Convert horizon to trend multiplier."""
         mapping = {
             ForecastHorizon.IMMEDIATE: 0.1,
@@ -618,7 +618,7 @@ def _horizon_to_multiplier(self, horizon: ForecastHorizon) -> float:
         }
         return mapping[horizon]
 
-def _calculate_forecast_confidence(self,
+    def _calculate_forecast_confidence(self,
                                     features: Dict[str, float],
                                     trend_results: Dict[str, Any]) -> float:
         """Calculate confidence in the forecast."""
@@ -629,7 +629,7 @@ def _calculate_forecast_confidence(self,
         overall_confidence = (feature_strength + trend_confidence) / 2
         return min(1.0, max(0.1, overall_confidence))
 
-def _generate_compliance_risk_factors(self,
+    def _generate_compliance_risk_factors(self,
                                         standard: ComplianceStandard,
                                         features: Dict[str, float],
                                         predicted_score: float) -> List[str]:
@@ -654,7 +654,7 @@ def _generate_compliance_risk_factors(self,
 
         return risk_factors[:5]  # Limit to top 5
 
-def _generate_compliance_recommendations(self,
+    def _generate_compliance_recommendations(self,
                                             standard: ComplianceStandard,
                                             features: Dict[str, float],
                                             trend_direction: str) -> List[str]:

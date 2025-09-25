@@ -74,7 +74,7 @@ def run_final_validation():
     analyzer.analyze_directory('src/adapters')
     duration = time.time() - start
 
-    if 0.01 < duration < 30:
+    if 0.1 < duration < 30:
         validation_results.append(("PASS", f"Realistic processing time: {duration:.2f}s"))
     else:
         validation_results.append(("WARN", f"Unusual processing time: {duration:.2f}s"))

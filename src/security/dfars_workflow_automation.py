@@ -1,5 +1,6 @@
 from lib.shared.utilities import get_logger
 from src.constants.base import SESSION_TIMEOUT_SECONDS
+"""
 
 Comprehensive workflow automation for all 14 DFARS controls with:
 - Real-time compliance monitoring
@@ -30,6 +31,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 import threading
 import queue
 import re
+"""
 
 # DFARS Control Definitions
 class DFARSControl(Enum):

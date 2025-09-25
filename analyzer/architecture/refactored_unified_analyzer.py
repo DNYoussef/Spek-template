@@ -1,6 +1,6 @@
 from src.constants.base import API_TIMEOUT_SECONDS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, THEATER_DETECTION_WARNING_THRESHOLD
 
-Production-ready replacement for the god object UnifiedConnascenceAnalyzer.
+"""Production-ready replacement for the god object UnifiedConnascenceAnalyzer.
 Maintains 100% API compatibility while using the new decomposed architecture.
 """
 

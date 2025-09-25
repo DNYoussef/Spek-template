@@ -34,7 +34,7 @@ class ErrorSimulator:
     @staticmethod
     def create_failing_config_manager():
         """Create a config manager that raises exceptions."""
-        class FailingConfigManager:
+    class FailingConfigManager:
             def get_enterprise_config(self):
                 raise RuntimeError("Config system failure")
                 
@@ -46,7 +46,7 @@ class ErrorSimulator:
     @staticmethod
     def create_invalid_config_manager():
         """Create a config manager with invalid data."""
-        class InvalidConfigManager:
+    class InvalidConfigManager:
             def get_enterprise_config(self):
                 return {
                     "features": {
@@ -66,7 +66,7 @@ class ErrorSimulator:
     @staticmethod
     def create_partial_config_manager():
         """Create a config manager with missing required fields."""
-        class PartialConfigManager:
+    class PartialConfigManager:
             def get_enterprise_config(self):
                 return {
                     "features": {
@@ -88,7 +88,7 @@ class ErrorSimulator:
     @staticmethod
     def create_none_config_manager():
         """Create a config manager that returns None values."""
-        class NoneConfigManager:
+    class NoneConfigManager:
             def get_enterprise_config(self):
                 return None
                 
@@ -323,7 +323,7 @@ class GracefulDegradationTest(unittest.TestCase):
     def test_partial_enterprise_functionality(self):
         """Test: Handle partial enterprise functionality gracefully."""
         # Mock some enterprise modules as available, others as unavailable
-        class PartialConfigManager:
+    class PartialConfigManager:
             def get_enterprise_config(self):
                 return {
                     "features": {
@@ -350,6 +350,7 @@ class GracefulDegradationTest(unittest.TestCase):
         # Mock partial availability
         with patch('analyzer.enterprise.get_sixsigma_analyzer', return_value=MagicMock()):
             with patch('analyzer.enterprise.get_dfars_analyzer', return_value=None):
+                pass
                 
                 feature_manager = initialize_enterprise_features(config_manager)
                 
@@ -366,7 +367,7 @@ class ResourceConstraintTest(unittest.TestCase):
     def test_memory_constraint_handling(self):
         """Test: Handle memory constraints gracefully."""
         # Create a config with very low memory limit
-        class LowMemoryConfigManager:
+    class LowMemoryConfigManager:
             def get_enterprise_config(self):
                 return {"features": {}}
                 
@@ -388,7 +389,7 @@ class ResourceConstraintTest(unittest.TestCase):
     def test_timeout_constraint_handling(self):
         """Test: Handle timeout constraints gracefully."""
         # Create a config with very short timeout
-        class ShortTimeoutConfigManager:
+    class ShortTimeoutConfigManager:
             def get_enterprise_config(self):
                 return {"features": {}}
                 
@@ -412,7 +413,7 @@ class ErrorRecoveryTest(unittest.TestCase):
     
     def test_feature_manager_cache_recovery(self):
         """Test: Feature manager cache handles errors gracefully."""
-        class ValidConfigManager:
+    class ValidConfigManager:
             def get_enterprise_config(self):
                 return {
                     "features": {
@@ -440,7 +441,7 @@ class ErrorRecoveryTest(unittest.TestCase):
     
     def test_feature_dependency_failure_recovery(self):
         """Test: Handle feature dependency failures gracefully."""
-        class DependencyConfigManager:
+    class DependencyConfigManager:
             def get_enterprise_config(self):
                 return {
                     "features": {

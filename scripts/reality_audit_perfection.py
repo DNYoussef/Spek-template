@@ -106,7 +106,9 @@ def bad_function(a, b, c, d, e, f, g, h):  # Too many params
     test_violations = analyzer.detect_violations(tree)
 
     if len(test_violations) >= 2:  # Should detect parameter and magic number
+        pass
     else:
+        pass
 
     # FINAL VERDICT
     print("\n" + "="*70)

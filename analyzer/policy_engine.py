@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT, THEATER_DETECTION_WARNING_THRESHOLD
+"""
 
 Manages analysis policies, compliance rules, and quality gate evaluation.
 NASA Rule 4 Compliant: All methods under 60 lines.
@@ -34,7 +35,7 @@ class PolicyEngine:
     Extracted from UnifiedConnascenceAnalyzer to eliminate god object.
     """
 
-def __init__(self, config_manager=None):
+    def __init__(self, config_manager=None):
         """Initialize policy engine with configuration."""
         # NASA Rule 5: Input validation assertions
         assert config_manager is not None, "config_manager cannot be None"
@@ -44,7 +45,7 @@ def __init__(self, config_manager=None):
         self.nasa_rules = self._initialize_nasa_rules()
         self.quality_gates = self._initialize_quality_gates()
 
-def evaluate_nasa_compliance(self, violations: List[Dict]) -> ComplianceResult:
+    def evaluate_nasa_compliance(self, violations: List[Dict]) -> ComplianceResult:
         """
         Evaluate NASA Power of Ten compliance.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -86,7 +87,7 @@ def evaluate_nasa_compliance(self, violations: List[Dict]) -> ComplianceResult:
             passed=passed
         )
 
-def calculate_mece_score(self, duplications: List[Dict]) -> float:
+    def calculate_mece_score(self, duplications: List[Dict]) -> float:
         """
         Calculate MECE (Mutually Exclusive, Collectively Exhaustive) duplication score.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -122,7 +123,7 @@ def calculate_mece_score(self, duplications: List[Dict]) -> float:
         logger.info(f"MECE Score: {mece_score:.3f} (files: {files_with_duplications}/{total_files})")
         return mece_score
 
-def evaluate_quality_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
+    def evaluate_quality_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
         """
         Evaluate all quality gates against analysis results.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -145,7 +146,7 @@ def evaluate_quality_gates(self, analysis_results: Dict) -> List[QualityGateResu
 
         return gate_results
 
-def _evaluate_nasa_rule(self, rule_id: int, violations: List) -> float:
+    def _evaluate_nasa_rule(self, rule_id: int, violations: List) -> float:
         """Evaluate specific NASA rule compliance."""
         # NASA Rule 5: Input validation
         assert 1 <= rule_id <= 10, f"Invalid NASA rule ID: {rule_id}"
@@ -171,7 +172,7 @@ def _evaluate_nasa_rule(self, rule_id: int, violations: List) -> float:
             penalty = min(1.0, violation_count * 0.05)  # 5% penalty per violation
             return max(0.0, 1.0 - penalty)
 
-def _calculate_severity_penalty(self, duplications: List) -> float:
+    def _calculate_severity_penalty(self, duplications: List) -> float:
         """Calculate penalty based on duplication severity distribution."""
         severity_weights = {'critical': 0.4, 'high': 0.3, 'medium': 0.2, 'low': 0.1}
         total_penalty = 0.0
@@ -183,7 +184,7 @@ def _calculate_severity_penalty(self, duplications: List) -> float:
 
         return min(0.5, total_penalty / len(duplications) if duplications else 0.0)
 
-def _calculate_similarity_penalty(self, duplications: List) -> float:
+    def _calculate_similarity_penalty(self, duplications: List) -> float:
         """Calculate penalty based on similarity scores."""
         if not duplications:
             return 0.0
@@ -196,7 +197,7 @@ def _calculate_similarity_penalty(self, duplications: List) -> float:
         # Higher similarity = higher penalty (more problematic duplications)
         return min(0.3, avg_similarity * 0.3)
 
-def _evaluate_critical_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
+    def _evaluate_critical_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
         """Evaluate critical quality gates (must pass)."""
         gates = []
         
@@ -224,7 +225,7 @@ def _evaluate_critical_gates(self, violations: List, results: Dict) -> List[Qual
 
         return gates
 
-def _evaluate_quality_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
+    def _evaluate_quality_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
         """Evaluate quality gates (warn but allow)."""
         gates = []
         
@@ -241,7 +242,7 @@ def _evaluate_quality_gates(self, violations: List, results: Dict) -> List[Quali
 
         return gates
 
-def _evaluate_architecture_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
+    def _evaluate_architecture_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
         """Evaluate architecture quality gates."""
         gates = []
         
@@ -258,7 +259,7 @@ def _evaluate_architecture_gates(self, violations: List, results: Dict) -> List[
 
         return gates
 
-def _load_policies(self) -> Dict[str, Any]:
+    def _load_policies(self) -> Dict[str, Any]:
         """Load analysis policies from configuration."""
         return {
             'nasa_jpl_pot10': {
@@ -271,7 +272,7 @@ def _load_policies(self) -> Dict[str, Any]:
             }
         }
 
-def _initialize_nasa_rules(self) -> Dict[int, str]:
+    def _initialize_nasa_rules(self) -> Dict[int, str]:
         """Initialize NASA Power of Ten rules mapping."""
         return {
             1: "Guard clause pattern (no complex control flow)",
@@ -286,7 +287,7 @@ def _initialize_nasa_rules(self) -> Dict[int, str]:
             10: "Compiler warnings enabled"
         }
 
-def _initialize_quality_gates(self) -> Dict[str, Dict]:
+    def _initialize_quality_gates(self) -> Dict[str, Dict]:
         """Initialize quality gate configurations."""
         return {
             'critical': ['nasa_compliance', 'god_objects', 'critical_violations'],
@@ -294,7 +295,7 @@ def _initialize_quality_gates(self) -> Dict[str, Dict]:
             'architecture': ['architecture_health', 'coupling_score', 'hotspot_count']
         }
 
-def _maps_to_nasa_rule(self, violation: Dict, rule_id: int) -> bool:
+    def _maps_to_nasa_rule(self, violation: Dict, rule_id: int) -> bool:
         """Check if violation maps to specific NASA rule."""
         violation_type = violation.get('type', '')
         
@@ -310,7 +311,7 @@ def _maps_to_nasa_rule(self, violation: Dict, rule_id: int) -> bool:
             
         return False
 
-def _score_function_size_rule(self, violations: List) -> float:
+    def _score_function_size_rule(self, violations: List) -> float:
         """Score NASA Rule 2 (function size) compliance."""
         # Count functions over size limit
         oversized_count = len(violations)
@@ -319,27 +320,27 @@ def _score_function_size_rule(self, violations: List) -> float:
         compliance_ratio = max(0.0, 1.0 - (oversized_count / max(total_functions, 1)))
         return compliance_ratio
 
-def _score_loop_bounds_rule(self, violations: List) -> float:
+    def _score_loop_bounds_rule(self, violations: List) -> float:
         """Score NASA Rule 4 (loop bounds) compliance."""
         unbounded_count = len(violations)
         penalty = min(1.0, unbounded_count * 0.1)
         return max(0.0, 1.0 - penalty)
 
-def _score_assertions_rule(self, violations: List) -> float:
+    def _score_assertions_rule(self, violations: List) -> float:
         """Score NASA Rule MAXIMUM_NESTED_DEPTH (assertions) compliance."""
         missing_assertions = len(violations)
         penalty = min(1.0, missing_assertions * 0.05)
         return max(0.0, 1.0 - penalty)
 
-def _count_analyzed_files(self) -> int:
+    def _count_analyzed_files(self) -> int:
         """Count total number of analyzed files."""
         return getattr(self.config, 'total_files_analyzed', 100)  # Fallback estimate
 
-def _estimate_total_functions(self) -> int:
+    def _estimate_total_functions(self) -> int:
         """Estimate total number of functions analyzed."""
         return getattr(self.config, 'total_functions_analyzed', 500)  # Fallback estimate
 
-def _generate_nasa_recommendation(self, rule_scores: Dict, overall_score: float) -> str:
+    def _generate_nasa_recommendation(self, rule_scores: Dict, overall_score: float) -> str:
         """Generate NASA compliance improvement recommendation."""
         if overall_score >= 0.95:
             return "Excellent NASA compliance"
@@ -349,7 +350,7 @@ def _generate_nasa_recommendation(self, rule_scores: Dict, overall_score: float)
             failed_rules = [rule for rule, score in rule_scores.items() if score < 0.8]
             return f"Focus on improving: {', '.join(failed_rules)}"
     
-def evaluate_enterprise_gates(self, analysis_results: Dict,
+    def evaluate_enterprise_gates(self, analysis_results: Dict,
                                 feature_manager) -> List[QualityGateResult]:
         """
         Evaluate enterprise quality gates in addition to existing gates.
@@ -375,7 +376,7 @@ def evaluate_enterprise_gates(self, analysis_results: Dict,
         
         return enterprise_gates
     
-def _evaluate_sixsigma_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
+    def _evaluate_sixsigma_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
         """Evaluate Six Sigma quality gates."""
         gates = []
         sixsigma_results = analysis_results.get('sixsigma', {})
@@ -404,7 +405,7 @@ def _evaluate_sixsigma_gates(self, analysis_results: Dict) -> List[QualityGateRe
         
         return gates
     
-def _evaluate_dfars_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
+    def _evaluate_dfars_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
         """Evaluate DFARS compliance gates."""
         gates = []
         dfars_results = analysis_results.get('dfars_compliance', {})
@@ -424,7 +425,7 @@ def _evaluate_dfars_gates(self, analysis_results: Dict) -> List[QualityGateResul
         
         return gates
     
-def _evaluate_supply_chain_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
+    def _evaluate_supply_chain_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
         """Evaluate supply chain security gates."""
         gates = []
         supply_chain_results = analysis_results.get('supply_chain', {})

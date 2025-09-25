@@ -21,7 +21,7 @@ def main():
         print("[SEARCH] Checking if metrics changed significantly...")
         
         # Simulate change detection
-        significant_change = abs(args.nasa_score - NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD) > 0.05 or args.current_violations > MAXIMUM_NESTED_DEPTH
+        significant_change = abs(args.nasa_score - NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD) > 0.5 or args.current_violations > MAXIMUM_NESTED_DEPTH
         
         if not significant_change:
             print("[CHART] No significant changes detected, README update skipped")

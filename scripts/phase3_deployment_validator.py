@@ -20,7 +20,7 @@ class Phase3DeploymentValidator:
             'performance_regression_detection': {'required': True, 'weight': 0.15},
             'security_compliance_auditor': {'required': True, 'weight': 0.15},
             'enhanced_quality_gates': {'required': True, 'weight': 0.10},
-            'parallel_orchestrator_deployed': {'required': True, 'weight': 0.05}
+            'parallel_orchestrator_deployed': {'required': True, 'weight': 0.5}
         }
         
         self.success_targets = {

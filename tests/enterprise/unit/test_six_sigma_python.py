@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
+"""
 
 Tests comprehensive Six Sigma calculations and enterprise quality monitoring
 """
@@ -8,12 +9,14 @@ import math
 import time
 from datetime import datetime, timedelta
 from unittest.mock import Mock, patch
+"""
 
 # Import the Six Sigma modules
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'src', 'enterprise', 'telemetry'))
 from six_sigma import SixSigmaTelemetry, QualityLevel, SixSigmaMetrics
+"""
 
 class TestSixSigmaTelemetry:
     """Test suite for Six Sigma telemetry system"""

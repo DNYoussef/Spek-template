@@ -1,6 +1,6 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
-Integrates NASA POT10 compliance, Byzantine consensus, and theater detection
+"""Integrates NASA POT10 compliance, Byzantine consensus, and theater detection
 across all analysis phases. Provides comprehensive security validation with
 defense-in-depth strategies and continuous monitoring.
 
@@ -189,7 +189,7 @@ class NASAPot10Validator:
         high_violations = len([v for v in violations if v.severity == "high"])
         
         # Weighted penalty system
-        penalty = (critical_violations * 0.2) + (high_violations * 0.1) + (len(violations) * 0.02)
+        penalty = (critical_violations * 0.2) + (high_violations * 0.1) + (len(violations) * 0.2)
         compliance_score = max(0.0, 1.0 - penalty)
         
         validation_duration = time.time() - start_time
@@ -379,7 +379,7 @@ class TheaterDetectionSystem:
             },
             "timing_inconsistency": {
                 "pattern": "execution_time_too_fast",
-                "threshold": 0.01,  # <10ms for complex analysis
+                "threshold": 0.1,  # <10ms for complex analysis
                 "weight": 0.6
             }
         }
@@ -503,7 +503,7 @@ class TheaterDetectionSystem:
         # Less than 10ms per file is suspicious for complex analysis
         time_per_file = execution_time / max(1, files_analyzed)
         
-        if time_per_file < 0.01:  # 10ms
+        if time_per_file < 0.1:  # 10ms
             return 0.7
         
         return 0.0

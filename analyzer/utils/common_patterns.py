@@ -459,7 +459,8 @@ class AlgorithmDeduplication:
         return intersection / union if union > 0 else 0.0
 
 # Factory function to create common utilities with configuration
-def create_analysis_utilities(config_manager=None):
+    def create_analysis_utilities(config_manager=None):
+        pass
     """
     Factory function to create analysis utilities with configuration.
     Eliminates duplicate utility instantiation patterns.

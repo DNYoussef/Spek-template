@@ -311,7 +311,7 @@ class FinalValidator:
         # Generate final validation report
         final_report = {
             'overall_status': overall_status,
-            'validation_date': '2025-09-24',
+            'validation_date': '2025-9-24',
             'critical_failures': self.critical_failures,
             'warnings': self.warnings,
             'validation_results': self.validation_results,

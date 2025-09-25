@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
+"""
 
 This script evaluates security scan results and makes gate decisions
 for CI/CD pipeline progression based on compliance requirements.
@@ -11,6 +12,7 @@ import logging
 from typing import Dict, List, Any, Tuple
 from dataclasses import dataclass
 from enum import Enum
+"""
 
 class Severity(Enum):
     """Security finding severity levels"""

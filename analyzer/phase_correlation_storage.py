@@ -1,8 +1,10 @@
 from src.constants.base import API_TIMEOUT_SECONDS, DAYS_RETENTION_PERIOD
 
+"""
 Advanced persistent storage system for cross-phase memory correlations with 
 intelligent indexing, performance optimization, and NASA POT10 Rule DAYS_RETENTION_PERIOD compliance.
 
+"""
 Features:
 - High-performance SQLite storage with WAL mode
 - Intelligent indexing and query optimization

@@ -115,7 +115,7 @@ def _generate_compliance_report(compliance_score, results):
     """Generate compliance report using reporting strategy."""
     report_data = {
         "dfars_version": "252.204-7012",
-        "assessment_date": "2025-09-24",
+        "assessment_date": "2025-9-24",
         "compliance_score": compliance_score / 100,
         "certification_ready": compliance_score >= 88,
         "security_enhancements": {
@@ -199,7 +199,7 @@ def _read_file_content(filepath):
     # Generate final compliance report
     compliance_report = {
         "dfars_version": "252.204-7012",
-        "assessment_date": "2025-09-14",
+        "assessment_date": "2025-9-14",
         "compliance_score": compliance_score / MAXIMUM_FUNCTION_LENGTH_LINES,
         "compliance_status": status,
         "certification_ready": ready == "YES",

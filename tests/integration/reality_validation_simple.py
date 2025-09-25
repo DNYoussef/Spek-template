@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
+"""
 
 Direct validation of 100% reality score achievements without complex imports.
 Tests the specific theater elimination fixes implemented.
@@ -10,6 +11,7 @@ import json
 import time
 import inspect
 from pathlib import Path
+"""
 
 def test_github_bridge_reality():
     """Test GitHub bridge for 100% reality."""

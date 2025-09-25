@@ -317,7 +317,7 @@ class CrossDomainValidator:
                 score -= 15  # Too large
 
             # Documentation bonus
-            if 'docstring' in content.lower() or '"""' in content or "'''" in content:
+            if 'docstring' in content.lower() or '"""' in content or "'''" in content:'
                 score += 15
 
             # Error handling bonus

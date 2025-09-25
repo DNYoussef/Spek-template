@@ -1,6 +1,6 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
 
-Coordinates multiple analysis agents with Byzantine consensus, theater detection,
+"""Coordinates multiple analysis agents with Byzantine consensus, theater detection,
 and performance optimization. Implements swarm intelligence for distributed
 analysis with fault tolerance and reality validation.
 

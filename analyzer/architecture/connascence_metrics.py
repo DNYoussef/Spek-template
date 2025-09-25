@@ -1,5 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, QUALITY_GATE_MINIMUM_PASS_RATE, REGULATORY_FACTUALITY_REQUIREMENT, THEATER_DETECTION_FAILURE_THRESHOLD, THEATER_DETECTION_WARNING_THRESHOLD
 
+"""
 High-performance metrics calculator implementing 12 methods for comprehensive
 quality assessment including NASA POT10 compliance scoring.
 """
@@ -26,7 +27,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
     Implements empirically-validated quality metrics and scoring algorithms.
     """
 
-def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
+    def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
         """
         Initialize metrics calculator with configuration.
 
@@ -70,7 +71,7 @@ def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
         # Performance tracking
         self.enable_performance_tracking = self._get_config('enable_performance_tracking', True)
 
-def calculate_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+    def calculate_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """
         Calculate comprehensive metrics from violations.
 
@@ -108,7 +109,7 @@ def calculate_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str,
             logger.error(f"Metrics calculation failed: {e}")
             return self._get_fallback_metrics(violations)
 
-def calculate_nasa_compliance(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+    def calculate_nasa_compliance(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """
         Calculate NASA Power of Ten compliance score.
 
@@ -153,7 +154,7 @@ def calculate_nasa_compliance(self, violations: List[ConnascenceViolation]) -> D
             'compliance_grade': self._calculate_compliance_grade(overall_score)
         }
 
-def _calculate_basic_statistics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+    def _calculate_basic_statistics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Calculate basic violation statistics."""
         if not violations:
             return {
@@ -175,7 +176,7 @@ def _calculate_basic_statistics(self, violations: List[ConnascenceViolation]) ->
             'weight_standard_deviation': statistics.stdev(weights) if len(weights) > 1 else 0.0
         }
 
-def _calculate_quality_scores(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+    def _calculate_quality_scores(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Calculate comprehensive quality scores."""
         if not violations:
             return {'overall_score': 1.0, 'quality_grade': 'A'}
@@ -211,7 +212,7 @@ def _calculate_quality_scores(self, violations: List[ConnascenceViolation]) -> D
             'deployment_recommendation': self._get_deployment_recommendation(overall_score)
         }
 
-def _calculate_distributions(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+    def _calculate_distributions(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Calculate violation distribution statistics."""
         # Severity distribution
         severity_counts = Counter(v.severity for v in violations)
@@ -239,7 +240,7 @@ def _calculate_distributions(self, violations: List[ConnascenceViolation]) -> Di
             'distribution_entropy': self._calculate_distribution_entropy(type_counts)
         }
 
-def _calculate_complexity_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+    def _calculate_complexity_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Calculate connascence complexity metrics."""
         if not violations:
             return {'connascence_complexity_index': 0.0}
@@ -272,7 +273,7 @@ def _calculate_complexity_metrics(self, violations: List[ConnascenceViolation]) 
             'complexity_trend': self._analyze_complexity_trend(violations)
         }
 
-def _calculate_performance_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+    def _calculate_performance_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Calculate performance-related metrics."""
         performance_violations = [v for v in violations if 'performance' in v.description.lower()
                                 or 'timing' in v.type.lower() or v.connascence_type == 'CoE']
@@ -284,7 +285,7 @@ def _calculate_performance_metrics(self, violations: List[ConnascenceViolation])
             'scalability_concerns': self._identify_scalability_concerns(violations)
         }
 
-def _calculate_density_score(self, violations: List[ConnascenceViolation]) -> float:
+    def _calculate_density_score(self, violations: List[ConnascenceViolation]) -> float:
         """Calculate violation density score (higher is better)."""
         unique_files = len(set(v.file_path for v in violations))
         density = len(violations) / max(unique_files, 1)
@@ -301,7 +302,7 @@ def _calculate_density_score(self, violations: List[ConnascenceViolation]) -> fl
         else:
             return 0.2
 
-def _calculate_severity_score(self, violations: List[ConnascenceViolation]) -> float:
+    def _calculate_severity_score(self, violations: List[ConnascenceViolation]) -> float:
         """Calculate severity distribution score (balanced is better)."""
         severity_counts = Counter(v.severity for v in violations)
         total = len(violations)
@@ -315,14 +316,14 @@ def _calculate_severity_score(self, violations: List[ConnascenceViolation]) -> f
         # Penalize high ratios of critical and high severity violations
         if critical_ratio > 0.1:  # > 10% critical
             return 0.2
-        elif critical_ratio > 0.05 or high_ratio > 0.3:  # > 5% critical or > 30% high
+        elif critical_ratio > 0.5 or high_ratio > 0.3:  # > 5% critical or > 30% high
             return 0.5
         elif high_ratio > 0.2:  # > 20% high
             return 0.7
         else:
             return 1.0
 
-def _calculate_connascence_complexity_score(self, violations: List[ConnascenceViolation]) -> float:
+    def _calculate_connascence_complexity_score(self, violations: List[ConnascenceViolation]) -> float:
         """Calculate connascence complexity score (lower complexity is better)."""
         if not violations:
             return 1.0
@@ -342,7 +343,7 @@ def _calculate_connascence_complexity_score(self, violations: List[ConnascenceVi
         # Invert score - lower complexity gets higher score
         return 1.0 - (avg_complexity / max_complexity)
 
-def _calculate_quality_grade(self, score: float) -> str:
+    def _calculate_quality_grade(self, score: float) -> str:
         """Calculate letter grade from quality score."""
         if score >= 0.95:
             return 'A+'
@@ -361,7 +362,7 @@ def _calculate_quality_grade(self, score: float) -> str:
         else:
             return 'F'
 
-def _calculate_compliance_grade(self, score: float) -> str:
+    def _calculate_compliance_grade(self, score: float) -> str:
         """Calculate NASA compliance grade."""
         if score >= 0.98:
             return 'Excellent'
@@ -374,7 +375,7 @@ def _calculate_compliance_grade(self, score: float) -> str:
         else:
             return 'Non-Compliant'
 
-def _get_deployment_recommendation(self, score: float) -> str:
+    def _get_deployment_recommendation(self, score: float) -> str:
         """Get deployment recommendation based on quality score."""
         if score >= 0.95:
             return 'Deploy - Excellent Quality'
@@ -387,7 +388,7 @@ def _get_deployment_recommendation(self, score: float) -> str:
         else:
             return 'Do Not Deploy'
 
-def _calculate_distribution_entropy(self, counts: Counter) -> float:
+    def _calculate_distribution_entropy(self, counts: Counter) -> float:
         """Calculate entropy of violation type distribution."""
         if not counts:
             return 0.0
@@ -402,7 +403,7 @@ def _calculate_distribution_entropy(self, counts: Counter) -> float:
 
         return entropy
 
-def _get_highest_complexity_types(self, violations: List[ConnascenceViolation]) -> List[str]:
+    def _get_highest_complexity_types(self, violations: List[ConnascenceViolation]) -> List[str]:
         """Get connascence types with highest complexity."""
         type_counts = Counter(v.connascence_type for v in violations if v.connascence_type)
 
@@ -413,7 +414,7 @@ def _get_highest_complexity_types(self, violations: List[ConnascenceViolation]) 
 
         return [ctype for ctype, _ in sorted_types[:5]]
 
-def _analyze_complexity_trend(self, violations: List[ConnascenceViolation]) -> str:
+    def _analyze_complexity_trend(self, violations: List[ConnascenceViolation]) -> str:
         """Analyze overall complexity trend."""
         # This would typically analyze historical data
         high_complexity_count = len([v for v in violations
@@ -432,7 +433,7 @@ def _analyze_complexity_trend(self, violations: List[ConnascenceViolation]) -> s
         else:
             return 'stable'
 
-def _calculate_performance_risk_score(self, performance_violations: List[ConnascenceViolation]) -> float:
+    def _calculate_performance_risk_score(self, performance_violations: List[ConnascenceViolation]) -> float:
         """Calculate performance risk score."""
         if not performance_violations:
             return 0.0
@@ -447,7 +448,7 @@ def _calculate_performance_risk_score(self, performance_violations: List[Connasc
         # Normalize to 0-10 scale
         return min(risk_score / 10, 10.0)
 
-def _identify_scalability_concerns(self, violations: List[ConnascenceViolation]) -> List[str]:
+    def _identify_scalability_concerns(self, violations: List[ConnascenceViolation]) -> List[str]:
         """Identify scalability concerns from violations."""
         concerns = []
 
@@ -461,7 +462,7 @@ def _identify_scalability_concerns(self, violations: List[ConnascenceViolation])
 
         return concerns
 
-def _generate_calculation_metadata(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+    def _generate_calculation_metadata(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Generate metadata about the calculation process."""
         return {
             'calculator_version': '2.0.0',
@@ -471,7 +472,7 @@ def _generate_calculation_metadata(self, violations: List[ConnascenceViolation])
             'calculation_method': 'weighted_composite_scoring'
         }
 
-def _get_fallback_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+    def _get_fallback_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Get fallback metrics when calculation fails."""
         return {
             'total_violations': len(violations),
@@ -481,7 +482,7 @@ def _get_fallback_metrics(self, violations: List[ConnascenceViolation]) -> Dict[
             'calculation_error': True
         }
 
-def _get_config(self, key: str, default: Any) -> Any:
+    def _get_config(self, key: str, default: Any) -> Any:
         """Get configuration value with fallback."""
         if self.config_provider:
             return self.config_provider.get_config(key, default)

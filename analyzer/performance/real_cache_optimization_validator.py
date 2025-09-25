@@ -737,7 +737,7 @@ class RealCacheOptimizationValidator:
         
         return evidence
 
-def generate_production_report(validation_results: Dict[str, Any]) -> str:
+    def generate_production_report(validation_results: Dict[str, Any]) -> str:
     """Generate production-ready validation report."""
     
     report = []

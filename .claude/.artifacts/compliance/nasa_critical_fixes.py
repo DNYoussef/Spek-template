@@ -338,7 +338,7 @@ def apply_critical_fixes_safely(project_path: str) -> Dict[str, Any]:
         "fixes_applied": len(applied_fixes),
         "fixes_total": len(all_fixes),
         "validation_errors": validation_errors,
-        "compliance_improvement": len(applied_fixes) * 0.05,  # 5% per fix
+        "compliance_improvement": len(applied_fixes) * 0.5,  # 5% per fix
         "success_rate": len(applied_fixes) / max(len(all_fixes), 1)
     }
 

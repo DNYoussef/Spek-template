@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_FILE_LENGTH_LINES, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
-Provides context classification and domain-specific analysis for accurate
+"""Provides context classification and domain-specific analysis for accurate
 god object detection and connascence analysis. Reduces false positives by
 understanding the purpose and domain of code structures.
 """
@@ -50,7 +50,7 @@ class ClassAnalysis:
     god_object_reason: Optional[str] = None
     recommendations: List[str] = None
 
-def __post_init__(self):
+    def __post_init__(self):
         if self.recommendations is None:
             self.recommendations = []
 
@@ -68,7 +68,7 @@ class MethodAnalysis:
 class ContextAnalyzer:
     """Analyzes code context to provide domain-specific thresholds and rules."""
 
-def __init__(self):
+    def __init__(self):
         # Context classification patterns
         self.config_indicators = {
             "name_patterns": [r".*[Cc]onfig.*", r".*[Ss]ettings?.*", r".*[Pp]roperties.*", r".*[Cc]onstants.*"],
@@ -147,7 +147,7 @@ def __init__(self):
             },
         }
 
-def analyze_class_context(self, class_node: ast.ClassDef, source_lines: List[str], file_path: str) -> ClassAnalysis:
+    def analyze_class_context(self, class_node: ast.ClassDef, source_lines: List[str], file_path: str) -> ClassAnalysis:
         """Perform comprehensive context analysis of a class."""
 
         # Basic metrics
@@ -186,7 +186,7 @@ def analyze_class_context(self, class_node: ast.ClassDef, source_lines: List[str
             recommendations=recommendations,
         )
 
-def _classify_class_context(
+    def _classify_class_context(
         self, class_node: ast.ClassDef, source_lines: List[str], file_path: str
     ) -> ClassContext:
         """Classify the context/domain of a class using multiple indicators."""
@@ -244,7 +244,7 @@ def _classify_class_context(
         best_context = max(scores.items(), key=lambda x: x[1])
         return best_context[0] if best_context[1] > 0 else ClassContext.UNKNOWN
 
-def _score_class_name_patterns(self, class_name, scores):
+    def _score_class_name_patterns(self, class_name, scores):
         for context, indicators in [
             (ClassContext.CONFIG, self.config_indicators),
             (ClassContext.DATA_MODEL, self.data_model_indicators),
@@ -256,7 +256,7 @@ def _score_class_name_patterns(self, class_name, scores):
                     scores[context] += 2
                     break
 
-def _score_base_class(self, base_name, scores):
+    def _score_base_class(self, base_name, scores):
         for context, indicators in [
             (ClassContext.CONFIG, self.config_indicators),
             (ClassContext.DATA_MODEL, self.data_model_indicators),
@@ -266,7 +266,7 @@ def _score_base_class(self, base_name, scores):
             if base_name in indicators["base_classes"]:
                 scores[context] += 3
 
-def _score_method_patterns(self, method_name, scores):
+    def _score_method_patterns(self, method_name, scores):
         for context, indicators in [
             (ClassContext.CONFIG, self.config_indicators),
             (ClassContext.DATA_MODEL, self.data_model_indicators),
@@ -278,7 +278,7 @@ def _score_method_patterns(self, method_name, scores):
                     scores[context] += 1
                     break
 
-def _assess_context_specific_issues(self, context, method_count, loc, cohesion_score):
+    def _assess_context_specific_issues(self, context, method_count, loc, cohesion_score):
         if context == ClassContext.CONFIG:
             if cohesion_score < 0.2 and method_count > 40:
                 return "Configuration class lacks cohesion with excessive methods"
@@ -298,14 +298,14 @@ def _assess_context_specific_issues(self, context, method_count, loc, cohesion_s
                 return "Business logic class violates Single Responsibility Principle"
         return None
 
-def _count_methods(self, class_node: ast.ClassDef) -> int:
+    def _count_methods(self, class_node: ast.ClassDef) -> int:
         """Count methods in a class, excluding special methods."""
         methods = [node for node in class_node.body if isinstance(node, ast.FunctionDef)]
         # Exclude special methods like __init__, __str__, etc.
         regular_methods = [m for m in methods if not (m.name.startswith("__") and m.name.endswith("__"))]
         return len(regular_methods)
 
-def _calculate_lines_of_code(self, class_node: ast.ClassDef, source_lines: List[str]) -> int:
+    def _calculate_lines_of_code(self, class_node: ast.ClassDef, source_lines: List[str]) -> int:
         """Calculate lines of code for a class, excluding comments and blank lines."""
         if hasattr(class_node, "end_lineno") and class_node.end_lineno:
             start_line = class_node.lineno - 1  # Convert to 0-based indexing
@@ -324,7 +324,7 @@ def _calculate_lines_of_code(self, class_node: ast.ClassDef, source_lines: List[
                 len([node for node in class_node.body if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))]) * 8
             )
 
-def _analyze_methods(self, class_node: ast.ClassDef, source_lines: List[str]) -> List[MethodAnalysis]:
+    def _analyze_methods(self, class_node: ast.ClassDef, source_lines: List[str]) -> List[MethodAnalysis]:
         """Analyze individual methods for responsibility and complexity."""
         methods = []
 
@@ -361,7 +361,7 @@ def _analyze_methods(self, class_node: ast.ClassDef, source_lines: List[str]) ->
 
         return methods
 
-def _calculate_method_complexity(self, method_node: ast.FunctionDef) -> float:
+    def _calculate_method_complexity(self, method_node: ast.FunctionDef) -> float:
         """Calculate cyclomatic complexity of a method."""
         complexity = 1  # Base complexity
 
@@ -375,7 +375,7 @@ def _calculate_method_complexity(self, method_node: ast.FunctionDef) -> float:
 
         return float(complexity)
 
-def _identify_method_responsibilities(self, method_node: ast.FunctionDef) -> Set[ResponsibilityType]:
+    def _identify_method_responsibilities(self, method_node: ast.FunctionDef) -> Set[ResponsibilityType]:
         """Identify the responsibilities of a method based on its operations."""
         responsibilities = set()
 
@@ -419,7 +419,7 @@ def _identify_method_responsibilities(self, method_node: ast.FunctionDef) -> Set
 
         return responsibilities
 
-def _analyze_return_complexity(self, method_node: ast.FunctionDef) -> int:
+    def _analyze_return_complexity(self, method_node: ast.FunctionDef) -> int:
         """Analyze the complexity of return statements."""
         return_complexity = 0
 
@@ -434,7 +434,7 @@ def _analyze_return_complexity(self, method_node: ast.FunctionDef) -> int:
 
         return int(return_complexity)
 
-def _identify_responsibilities(
+    def _identify_responsibilities(
         self, class_node: ast.ClassDef, methods: List[MethodAnalysis]
     ) -> Set[ResponsibilityType]:
         """Identify all responsibilities handled by a class."""
@@ -445,7 +445,7 @@ def _identify_responsibilities(
 
         return all_responsibilities
 
-def _calculate_cohesion(self, methods: List[MethodAnalysis], responsibilities: Set[ResponsibilityType]) -> float:
+    def _calculate_cohesion(self, methods: List[MethodAnalysis], responsibilities: Set[ResponsibilityType]) -> float:
         """Calculate cohesion score based on responsibility distribution."""
         if not methods:
             return 1.0  # Empty class has perfect cohesion
@@ -488,7 +488,7 @@ def _calculate_cohesion(self, methods: List[MethodAnalysis], responsibilities: S
 
         return max(0.1, min(1.0, base_cohesion))  # Ensure reasonable bounds
 
-def _has_consistent_naming_pattern(self, methods: List[MethodAnalysis]) -> bool:
+    def _has_consistent_naming_pattern(self, methods: List[MethodAnalysis]) -> bool:
         """Check if methods follow consistent naming patterns."""
         if len(methods) < 3:
             return True  # Small classes are considered consistent
@@ -513,7 +513,7 @@ def _has_consistent_naming_pattern(self, methods: List[MethodAnalysis]) -> bool:
         # If any prefix accounts for >40% of methods, consider it consistent
         return any(count / total > 0.4 for count in prefixes.values())
 
-def _assess_god_object_with_context(
+    def _assess_god_object_with_context(
         self,
         class_name: str,
         context: ClassContext,
@@ -549,7 +549,7 @@ def _assess_god_object_with_context(
 
         return "; ".join(issues) if issues else None
 
-def _generate_recommendations(
+    def _generate_recommendations(
         self,
         context: ClassContext,
         method_count: int,
@@ -594,10 +594,10 @@ def _generate_recommendations(
 
         return recommendations
 
-def get_context_specific_thresholds(self, context: ClassContext) -> Dict[str, int]:
+    def get_context_specific_thresholds(self, context: ClassContext) -> Dict[str, int]:
         """Get the thresholds for a specific context."""
         return self.context_thresholds.get(context, self.context_thresholds[ClassContext.UNKNOWN])
 
-def is_god_object_with_context(self, class_analysis: ClassAnalysis) -> bool:
+    def is_god_object_with_context(self, class_analysis: ClassAnalysis) -> bool:
         """Determine if a class is a god object based on context-aware analysis."""
         return class_analysis.god_object_reason is not None

@@ -251,9 +251,9 @@ class SwarmHierarchyIntegrationTest:
         try:
             # Simulate degradation monitoring
             degradation_tests = [
-                ('initial', 0.02),
-                ('after_routing', 0.05),
-                ('after_consensus', 0.08),
+                ('initial', 0.2),
+                ('after_routing', 0.5),
+                ('after_consensus', 0.8),
                 ('after_execution', 0.12),
                 ('final', 0.14)
             ]
@@ -502,6 +502,7 @@ class SwarmHierarchyIntegrationTest:
             print("\n  SYSTEM REQUIRES ATTENTION")
             print(f"   - Success rate below 90% threshold")
             if error_tests > 0:
+                pass
 
         # Save detailed report
         report_path = '.claude/.artifacts/swarm-hierarchy-integration-report.json'

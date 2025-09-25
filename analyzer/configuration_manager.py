@@ -44,6 +44,9 @@ class AnalysisConfigurationManager:
             return default_config
             
         try:
+            pass
+        except Exception:
+            pass
             # Use shared path validation instead of direct Path operations
             config_validation = validate_file(config_path, must_exist=True)
             if config_validation.is_valid:

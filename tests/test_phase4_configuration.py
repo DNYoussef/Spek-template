@@ -25,6 +25,7 @@ from analyzer.utils.config_manager import ConfigurationManager, get_config_manag
 from analyzer.detectors.position_detector import PositionDetector
 from analyzer.detectors.magic_literal_detector import MagicLiteralDetector
 from analyzer.unified_analyzer import UnifiedConnascenceAnalyzer
+"""
 
 class TestPhase4ConfigurationReality(unittest.TestCase):
     """Test that configuration system actually controls analyzer behavior."""

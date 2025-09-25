@@ -196,15 +196,15 @@ class DynamicThresholdManager:
                 adjustment_factor += 0.1
             elif current_score < threshold.baseline_value:
                 # Performance below baseline - relax temporarily
-                adjustment_factor -= 0.05
+                adjustment_factor -= 0.5
 
             # Trend-based adjustment
             if trend_direction > 0:
                 # Improving trend - can be more strict
-                adjustment_factor += trend_direction * threshold.trend_weight * 0.01
+                adjustment_factor += trend_direction * threshold.trend_weight * 0.1
             else:
                 # Declining trend - maintain current threshold
-                adjustment_factor += trend_direction * threshold.trend_weight * 0.005
+                adjustment_factor += trend_direction * threshold.trend_weight * 0.5
 
             # Apply adjustment with bounds checking
             if gate_name in ["theater_score", "god_objects"]:

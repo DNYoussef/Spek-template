@@ -1,6 +1,7 @@
 from src.constants.base import QUALITY_GATE_MINIMUM_PASS_RATE
 
-This module wires together all analyzer components:
+"""This module wires together all analyzer components:
+    pass
 - Streaming analysis for real-time processing
 - Performance monitoring for optimization
 - Architecture components for parallel detection
@@ -369,7 +370,7 @@ class UnifiedOrchestrator:
         high_violations = len([v for v in violations if v.severity == ViolationSeverity.HIGH])
 
         # Weighted scoring
-        score = 1.0 - (critical_violations * 0.1 + high_violations * 0.05)
+        score = 1.0 - (critical_violations * 0.1 + high_violations * 0.5)
         return max(0.0, min(1.0, score))
 
     def _calculate_six_sigma_level(self, violations: List[ConnascenceViolation], file_count: int) -> float:
@@ -402,7 +403,8 @@ class UnifiedOrchestrator:
             "duplication_percentage": 5.0
         }
 
-def main():
+    def main():
+        pass
     """CLI entry point for unified orchestrator."""
     import argparse
 

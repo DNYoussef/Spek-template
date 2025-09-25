@@ -344,7 +344,7 @@ class TestRealTimeProcessingFailures:
         engine = MockRealTimeLinterIngestionEngine()
         
         # Mock failing event emitter
-        def failing_emit(event_type, data):
+    def failing_emit(event_type, data):
             if "violation" in event_type:
                 raise Exception("Event emission failed")
         

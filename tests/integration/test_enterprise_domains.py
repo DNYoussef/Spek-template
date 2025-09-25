@@ -197,6 +197,7 @@ class DataProcessor:
         (self.test_project / "test_main.py").write_text("""
 import unittest
 from main import DataProcessor
+"""
 
 class TestDataProcessor(unittest.TestCase):
     def test_calculate(self):

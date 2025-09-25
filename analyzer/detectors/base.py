@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
-Provides common functionality for all specialized connascence detectors.
+"""Provides common functionality for all specialized connascence detectors.
 Supports two-phase analysis: data collection and violation analysis.
 """
 
@@ -13,11 +13,11 @@ from ..utils.types import ConnascenceViolation
 class DetectorInterface(Protocol):
     """
     Protocol defining the interface for two-phase detector analysis.
-    
+
     NASA Rule 4 Compliant: Interface definition under 60 lines
     """
-    
-def analyze_from_data(self, collected_data: 'ASTNodeData') -> List[ConnascenceViolation]:
+
+    def analyze_from_data(self, collected_data: 'ASTNodeData') -> List[ConnascenceViolation]:
         """
         Analyze violations from pre-collected AST data.
         
@@ -32,15 +32,15 @@ def analyze_from_data(self, collected_data: 'ASTNodeData') -> List[ConnascenceVi
 class DetectorBase(ABC):
     """
     Abstract base class for all connascence detectors.
-    
+
     Supports both legacy single-pass detection and new two-phase analysis.
     Modified for detector pool compatibility - stateless operation.
     NASA Rule 4 Compliant: All methods under 60 lines
     NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Input assertions
     NASA Rule 6 Compliant: Clear variable scoping
     """
-    
-def __init__(self, file_path: str = "", source_lines: List[str] = None):
+
+    def __init__(self, file_path: str = "", source_lines: List[str] = None):
         # NASA Rule 5: Input validation - relaxed for pool compatibility
         assert isinstance(file_path, str), "file_path must be string"
         if source_lines is None:
@@ -54,8 +54,8 @@ def __init__(self, file_path: str = "", source_lines: List[str] = None):
         
         # Pool compatibility - track reuse
         self._pool_reuse_count = 0
-    
-def get_code_snippet(self, node: ast.AST, context_lines: int = 2) -> str:
+
+    def get_code_snippet(self, node: ast.AST, context_lines: int = 2) -> str:
         """
         Extract code snippet around the given node.
         
@@ -77,9 +77,9 @@ def get_code_snippet(self, node: ast.AST, context_lines: int = 2) -> str:
             lines.append(f"{marker} {i+1:3d}: {self.source_lines[i].rstrip()}")
 
         return "\n".join(lines)
-    
-@abstractmethod
-def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
+
+    @abstractmethod
+    def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         """
         Legacy method: Detect violations in the given AST tree.
         
@@ -89,8 +89,9 @@ def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         Returns:
             List of detected violations
         """
-    
-def analyze_from_data(self, collected_data: 'ASTNodeData') -> List[ConnascenceViolation]:
+        pass
+
+    def analyze_from_data(self, collected_data: 'ASTNodeData') -> List[ConnascenceViolation]:
         """
         New two-phase method: Analyze violations from pre-collected data.
         
@@ -114,19 +115,19 @@ def analyze_from_data(self, collected_data: 'ASTNodeData') -> List[ConnascenceVi
         
         # Fallback to legacy method - subclasses should override
         return []
-    
-def get_line_content(self, node: ast.AST) -> str:
+
+    def get_line_content(self, node: ast.AST) -> str:
         """Get the full line content containing the node."""
         if not hasattr(node, "lineno") or node.lineno > len(self.source_lines):
             return ""
         return self.source_lines[node.lineno - 1]
-    
-def is_in_conditional(self, node: ast.AST) -> bool:
+
+    def is_in_conditional(self, node: ast.AST) -> bool:
         """Check if node is within a conditional statement."""
         line_content = self.source_lines[node.lineno - 1] if node.lineno <= len(self.source_lines) else ""
         return any(keyword in line_content for keyword in ["if ", "elif ", "while ", "assert "])
-    
-def reset_for_reuse(self, file_path: str, source_lines: List[str]):
+
+    def reset_for_reuse(self, file_path: str, source_lines: List[str]):
         """
         Reset detector state for pool reuse.
         

@@ -95,7 +95,7 @@ class BackwardCompatibilityTests(unittest.TestCase):
         # Create a test file with known violations
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write("""
-def bad_function(a, b, c, d, e, f):  # Too many parameters
+    def bad_function(a, b, c, d, e, f):  # Too many parameters
     magic_number = 42  # Magic literal
     return a + b + c + d + e + f + magic_number
 """)
@@ -252,7 +252,8 @@ class PerformanceComparisonTests(unittest.TestCase):
         """Create a test project with multiple Python files."""
         test_files = [
             ("module1.py", """
-def function_with_many_params(a, b, c, d, e, f, g):
+    def function_with_many_params(a, b, c, d, e, f, g):
+        pass
     magic_number = 42
     another_magic = 3.14159
     return a + b + c + d + e + f + g + magic_number + another_magic
@@ -281,7 +282,7 @@ class GodClass:
 import time
 
 def timing_dependent_function():
-    time.sleep(0.001)  # Timing dependency
+    time.sleep(0.1)  # Timing dependency
     return "done"
 
 def another_bad_function(p1, p2, p3, p4, p5):
@@ -547,7 +548,8 @@ class NASAComplianceTests(unittest.TestCase):
         self.assertEqual(len(critical_violations), 0,
                         "Refactored code must have zero critical violations for NASA compliance")
 
-def run_validation_suite():
+    def run_validation_suite():
+        pass
     """Run the complete validation test suite."""
     print("=" * 80)
     print("REFACTORED CONNASCENCE ANALYZER VALIDATION SUITE")
@@ -581,10 +583,12 @@ def run_validation_suite():
     if result.failures:
         print("\nFAILURES:")
         for test, traceback in result.failures:
+            pass
 
     if result.errors:
         print("\nERRORS:")
         for test, traceback in result.errors:
+            pass
 
     return result.wasSuccessful()
 

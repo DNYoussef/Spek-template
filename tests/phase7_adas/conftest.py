@@ -71,7 +71,7 @@ def adas_test_config():
             "sync_tolerance_ms": 1.0,
             "fusion_accuracy_threshold": 95.0,
             "min_sensors_for_fusion": 2,
-            "calibration_drift_threshold": 0.05,
+            "calibration_drift_threshold": 0.5,
             "max_sensor_age_ms": 100.0
         },
         "perception": {

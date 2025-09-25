@@ -228,7 +228,7 @@ def _initialize_threat_indicators(self):
                 created_timestamp=time.time(),
                 last_seen=None,
                 hit_count=0,
-                false_positive_rate=0.05,
+                false_positive_rate=0.5,
                 mitigation_actions=[
                     ResponseAction.BLOCK_IP,
                     ResponseAction.DISABLE_ACCOUNT,
@@ -264,7 +264,7 @@ def _initialize_threat_indicators(self):
                 created_timestamp=time.time(),
                 last_seen=None,
                 hit_count=0,
-                false_positive_rate=0.02,
+                false_positive_rate=0.2,
                 mitigation_actions=[
                     ResponseAction.DISABLE_ACCOUNT,
                     ResponseAction.BACKUP_EVIDENCE,

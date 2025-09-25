@@ -333,7 +333,7 @@ class TestHookSystem:
         assert "Simulated analysis failure" in error_calls[0][2]
         
     def test_hook_error_handling(self):
-        """Test that hook errors don't break analysis"""
+        """Test that hook errors don't break analysis"""'
         def failing_hook(*args):
             raise Exception("Hook failure")
             

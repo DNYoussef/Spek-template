@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
-Routes and correlates data between all analysis phases while maintaining
+"""Routes and correlates data between all analysis phases while maintaining
 the 58.3% performance improvement. Provides intelligent correlation of
 findings across JSON Schema, Linter Integration, Performance Optimization,
 and Precision Validation phases.
@@ -404,8 +404,8 @@ class PhaseCorrelationEngine:
         base_confidence = correlation_score
         
         # Boost confidence based on evidence
-        violation_boost = min(0.2, shared_violation_count * 0.05)
-        file_boost = min(0.1, file_overlap * 0.02)
+        violation_boost = min(0.2, shared_violation_count * 0.5)
+        file_boost = min(0.1, file_overlap * 0.2)
         
         return min(1.0, base_confidence + violation_boost + file_boost)
     

@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
+"""
 
 This script validates:
 1. Missing lib module structure is working
@@ -14,6 +15,7 @@ import subprocess
 import json
 from pathlib import Path
 from typing import Dict, List, Tuple
+"""
 
 def setup_environment():
     """Set up the testing environment with proper Python path."""

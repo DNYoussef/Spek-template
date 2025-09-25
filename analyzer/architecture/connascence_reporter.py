@@ -1,5 +1,6 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
 
+"""
 Advanced report generator implementing 14 methods for multiple output formats.
 Defense industry compliant with audit trail generation and NASA POT10 reporting.
 """

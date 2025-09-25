@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
+"""
 
 This script completely eliminates all theater from the analyzer system:
 1. Replaces mock implementations with real ones
@@ -12,6 +13,7 @@ import shutil
 from pathlib import Path
 import subprocess
 import importlib.util
+"""
 
 def log_action(message: str, level: str = "INFO") -> None:
     """Log an action with timestamp."""
@@ -84,6 +86,7 @@ NO THEATER - these tests validate actual functionality.
 import pytest
 import sys
 import os
+"""
 
 # Add analyzer to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))

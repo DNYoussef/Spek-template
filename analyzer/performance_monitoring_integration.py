@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
-Monitors and maintains the 58.3% performance improvement across all analysis
+"""Monitors and maintains the 58.3% performance improvement across all analysis
 phases with real-time tracking, bottleneck detection, and optimization
 recommendations. Provides comprehensive performance visibility and control.
 
@@ -232,7 +232,7 @@ class PerformanceAlertManager:
                 'critical_threshold': 95         # 95% CPU usage
             },
             'performance_improvement': {
-                'target_threshold': 0.583,       # 58.MAXIMUM_RETRY_ATTEMPTS% target improvement
+                'target_threshold': 0.583,       # 58, MAXIMUM_RETRY_ATTEMPTS% target improvement
                 'minimum_threshold': 0.2         # 20% minimum improvement
             }
         }
@@ -356,7 +356,7 @@ class PerformanceMonitoringIntegration:
         self.lock = Lock()
         
         # Performance targets
-        self.target_improvement = 0.583  # 58.MAXIMUM_RETRY_ATTEMPTS%
+        self.target_improvement = 0.583  # 58, MAXIMUM_RETRY_ATTEMPTS%
         self.minimum_improvement = 0.2   # 20%
     
     async def start_phase_monitoring(self, phase_name: str):
@@ -578,7 +578,7 @@ class PerformanceMonitoringIntegration:
         
         if recent_avg < older_avg * 0.95:  # 5% improvement
             return 'improving'
-        elif recent_avg > older_avg * 1.05:  # 5% degradation
+        elif recent_avg > older_avg * 1.5:  # 5% degradation
             return 'degrading'
         else:
             return 'stable'

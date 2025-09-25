@@ -395,7 +395,7 @@ class AggregationPipelineProfiler(PerformanceProfiler):
         
         if AGGREGATION_IMPORTS_AVAILABLE:
             # Create mock config manager
-            class MockConfigManager:
+        class MockConfigManager:
                 def __init__(self):
                     pass
             
@@ -1393,7 +1393,7 @@ class CumulativePerformanceValidator:
             'scalability_multiplier': validation.overall_scalability_improvement_factor
         }
 
-def generate_comprehensive_report(benchmark_results: Dict[str, Any]) -> str:
+    def generate_comprehensive_report(benchmark_results: Dict[str, Any]) -> str:
     """
     Generate comprehensive performance benchmark report.
     

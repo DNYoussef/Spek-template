@@ -179,7 +179,7 @@ def audit_incident_response_services():
 def audit_performance_validator():
     """Audit the Performance Validator refactoring."""
     print("\nAUDITING: Performance Validator Refactoring")
-    print("   Testing claimed 2,007 LOC -> 1,100 LOC reduction...")
+    print("   Testing claimed 2,7 LOC -> 1,100 LOC reduction...")
 
     audit = IsolatedAuditResults()
 

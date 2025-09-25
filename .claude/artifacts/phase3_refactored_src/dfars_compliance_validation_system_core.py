@@ -238,7 +238,7 @@ class DFARSComplianceValidationSystem:
         """Initialize DFARS 252.204-7012 security controls."""
         dfars_controls = [
             SecurityControl(
-                control_id="AC-01",
+                control_id="AC-1",
                 title="Access Control Policy and Procedures",
                 description="Develop, document, and disseminate access control policy and procedures",
                 category=ValidationCategory.ACCESS_CONTROL,
@@ -265,7 +265,7 @@ class DFARSComplianceValidationSystem:
                 dfars_reference="DFARS 252.204-7012(b)(1)"
             ),
             SecurityControl(
-                control_id="AC-02",
+                control_id="AC-2",
                 title="Account Management",
                 description="Manage information system accounts including establishment, activation, modification, and removal",
                 category=ValidationCategory.ACCESS_CONTROL,
@@ -293,7 +293,7 @@ class DFARSComplianceValidationSystem:
                 dfars_reference="DFARS 252.204-7012(b)(1)(i)"
             ),
             SecurityControl(
-                control_id="AU-01",
+                control_id="AU-1",
                 title="Audit and Accountability Policy",
                 description="Develop and implement audit and accountability policy and procedures",
                 category=ValidationCategory.AUDIT_ACCOUNTABILITY,
@@ -321,7 +321,7 @@ class DFARSComplianceValidationSystem:
                 dfars_reference="DFARS 252.204-7012(b)(2)"
             ),
             SecurityControl(
-                control_id="IA-01",
+                control_id="IA-1",
                 title="Identification and Authentication Policy",
                 description="Develop and implement identification and authentication policy and procedures",
                 category=ValidationCategory.IDENTIFICATION_AUTHENTICATION,
@@ -349,7 +349,7 @@ class DFARSComplianceValidationSystem:
                 dfars_reference="DFARS 252.204-7012(b)(3)"
             ),
             SecurityControl(
-                control_id="SC-01",
+                control_id="SC-1",
                 title="System and Communications Protection Policy",
                 description="Develop and implement system and communications protection policy and procedures",
                 category=ValidationCategory.SYSTEM_COMMUNICATIONS_PROTECTION,
@@ -377,7 +377,7 @@ class DFARSComplianceValidationSystem:
                 dfars_reference="DFARS 252.204-7012(b)(4)"
             ),
             SecurityControl(
-                control_id="SI-01",
+                control_id="SI-1",
                 title="System and Information Integrity Policy",
                 description="Develop and implement system and information integrity policy and procedures",
                 category=ValidationCategory.SYSTEM_INFORMATION_INTEGRITY,

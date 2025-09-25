@@ -30,11 +30,13 @@ from pathlib import Path
 import pickle
 import sqlite3
 from contextlib import contextmanager
+"""
 
 # Performance monitoring imports
 import cProfile
 import pstats
 from memory_profiler import profile as memory_profile
+"""
 
 @dataclass
 class DetectorMetrics:

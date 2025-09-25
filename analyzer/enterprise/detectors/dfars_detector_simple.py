@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
+"""
 
 A concrete, working implementation that demonstrates enterprise integration
 without dependency issues.
@@ -8,6 +9,7 @@ import ast
 import re
 from typing import List, Dict, Any
 from pathlib import Path
+"""
 
 class SimpleDFARSViolation:
     """Simple violation class for DFARS compliance issues."""
@@ -210,7 +212,7 @@ class SimpleDFARSDetector:
         from datetime import datetime
         return datetime.now().isoformat()
 
-def demonstrate_enterprise_dfars_integration():
+    def demonstrate_enterprise_dfars_integration():
     """
     Demonstrate concrete enterprise DFARS integration.
     

@@ -27,7 +27,7 @@ with tempfile.TemporaryDirectory() as tmpdir:
         change_summary="Added hello function",
         artifacts_changed=["test_file.py"],
         status="OK",
-        cost_usd=0.05,
+        cost_usd=0.5,
     )
 
     # Read back the file

@@ -39,7 +39,7 @@ class NASAComplianceInvestigator:
     def investigate_compliance_failures(self) -> Dict[str, Any]:
         """Investigate detailed NASA compliance failures."""
         investigation = {
-            "timestamp": "2025-09-10T19:45:00Z",
+            "timestamp": "2025-9-10T19:45:00Z",
             "current_score": QUALITY_GATE_MINIMUM_PASS_RATE,
             "target_score": 0.90,
             "gap_analysis": {},

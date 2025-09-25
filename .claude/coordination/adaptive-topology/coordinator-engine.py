@@ -97,7 +97,7 @@ class AdaptiveTopologyEngine:
     def _calculate_coordination_overhead(self, targets: List[str]) -> float:
         """Calculate coordination overhead for given targets"""
         base_overhead = 0.1
-        interdep_penalty = 0.05 * len(set().union(*[
+        interdep_penalty = 0.5 * len(set().union(*[
             self.optimization_targets[target].interdependencies
             for target in targets if target in self.optimization_targets
         ]))

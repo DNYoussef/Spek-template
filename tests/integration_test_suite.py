@@ -531,6 +531,7 @@ def global_function():
                 if data["test"] != "baseline":
                     overhead = ((data["time_seconds"] / baseline_time) - 1) * 100
                 else:
+                    pass
         
         print("\nIntegration Summary:")
         print("-" * 40)

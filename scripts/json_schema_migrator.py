@@ -1,4 +1,5 @@
 from src.constants.base import REGULATORY_FACTUALITY_REQUIREMENT
+"""
 
 Features:
 - Preserves original data while adding standardized structure

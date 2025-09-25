@@ -11,12 +11,12 @@ from dataclasses import dataclass
 
 
 """Calculate memory utilization percentage."""
-    def memory_utilization(self) -> float:
+def memory_utilization(self) -> float:
         """Calculate memory utilization percentage."""
         return (self.memory_bytes / self.max_memory_bytes * 100) if self.max_memory_bytes > 0 else 0.0
 
 """Calculate entry count utilization percentage."""
-    def entry_utilization(self) -> float:
+def entry_utilization(self) -> float:
         """Calculate entry count utilization percentage."""
         return (self.entry_count / self.max_entry_count * 100) if self.max_entry_count > 0 else 0.0
 

@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
+"""
 
 Direct test of configuration loading and detector behavior to identify root causes.
 """
@@ -8,6 +9,7 @@ import sys
 import yaml
 import tempfile
 from pathlib import Path
+"""
 
 # Add analyzer to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "analyzer"))

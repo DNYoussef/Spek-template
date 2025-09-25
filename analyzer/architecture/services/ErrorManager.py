@@ -44,7 +44,7 @@ class ErrorManager:
     - Error recovery strategies
     """
 
-def __init__(self, max_errors: int = 1000, auto_recover: bool = True):
+    def __init__(self, max_errors: int = 1000, auto_recover: bool = True):
         """Initialize the error manager."""
         self.errors: List[AnalysisError] = []
         self.max_errors = max_errors
@@ -54,7 +54,7 @@ def __init__(self, max_errors: int = 1000, auto_recover: bool = True):
         }
         self.recovery_strategies: Dict[str, callable] = {}
 
-def add_error(self,
+    def add_error(self,
                     severity: ErrorSeverity,
                     component: str,
                     message: str,
@@ -82,13 +82,13 @@ def add_error(self,
         if self.auto_recover and severity == ErrorSeverity.CRITICAL:
             self._attempt_recovery(error)
 
-def _rotate_errors(self) -> None:
+    def _rotate_errors(self) -> None:
         """Rotate errors when max limit is reached."""
         # Keep only the most recent 80% of errors
         keep_count = int(self.max_errors * 0.8)
         self.errors = self.errors[-keep_count:]
 
-def _attempt_recovery(self, error: AnalysisError) -> bool:
+    def _attempt_recovery(self, error: AnalysisError) -> bool:
         """Attempt to recover from a critical error."""
         if error.component in self.recovery_strategies:
             try:
@@ -98,32 +98,32 @@ def _attempt_recovery(self, error: AnalysisError) -> bool:
                 logger.error(f"Recovery failed for {error.component}: {e}")
         return False
 
-def register_recovery_strategy(self,
+    def register_recovery_strategy(self,
                                     component: str,
                                     strategy: callable) -> None:
         """Register a recovery strategy for a component."""
         self.recovery_strategies[component] = strategy
 
-def get_errors_by_severity(self,
+    def get_errors_by_severity(self,
                                 severity: ErrorSeverity) -> List[AnalysisError]:
         """Get all errors of a specific severity."""
         return [e for e in self.errors if e.severity == severity]
 
-def get_errors_by_component(self, component: str) -> List[AnalysisError]:
+    def get_errors_by_component(self, component: str) -> List[AnalysisError]:
         """Get all errors from a specific component."""
         return [e for e in self.errors if e.component == component]
 
-def has_critical_errors(self) -> bool:
+    def has_critical_errors(self) -> bool:
         """Check if there are any critical errors."""
         return self.error_counts[ErrorSeverity.CRITICAL.value] > 0
 
-def clear_errors(self) -> None:
+    def clear_errors(self) -> None:
         """Clear all collected errors."""
         self.errors.clear()
         for key in self.error_counts:
             self.error_counts[key] = 0
 
-def generate_error_report(self) -> Dict[str, Any]:
+    def generate_error_report(self) -> Dict[str, Any]:
         """Generate a comprehensive error report."""
         return {
             "total_errors": len(self.errors),
@@ -144,7 +144,7 @@ def generate_error_report(self) -> Dict[str, Any]:
             )
         }
 
-def format_errors_for_display(self, max_errors: int = 10) -> str:
+    def format_errors_for_display(self, max_errors: int = 10) -> str:
         """Format errors for console display."""
         if not self.errors:
             return "No errors detected."

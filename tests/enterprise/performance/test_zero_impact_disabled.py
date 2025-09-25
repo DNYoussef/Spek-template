@@ -420,7 +420,7 @@ class TestMemoryImpactDisabled:
         assert memory_increase < 50 * 1024 * 1024  # Less than 50MB increase
         
     def test_analysis_history_memory_limit(self):
-        """Test that analysis history doesn't grow unbounded when disabled"""
+        """Test that analysis history doesn't grow unbounded when disabled"""'
         project_root = Path("/tmp/history_memory")
         integration = EnterpriseAnalyzerIntegration(project_root)
         

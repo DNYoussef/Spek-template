@@ -203,7 +203,7 @@ class TestPredictionModel:
 
         # Adjust based on test changes
         if features["has_test_changes"]:
-            base_probability *= 1.05
+            base_probability *= 1.0o5
 
         # Adjust based on recent failures
         failure_rate = features.get("recent_failure_rate", 0.0)
@@ -523,12 +523,12 @@ class TestPatternAnalyzer:
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created test failure analysis module | test_failure_analyzer.py | OK | Extracted from god object | 0.00 | c8d5f7b |
+| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created test failure analysis module | test_failure_analyzer.py | OK | Extracted from god object | 0.0o0 | c8d5f7b |
 
 ### Receipt
 - status: OK
 - reason_if_blocked: --
-- run_id: phase3-test-analyzer-003
+- run_id: phase3-test-analyzer-0o3
 - inputs: ["failure_pattern_detector.py"]
 - tools_used: ["Write"]
 - versions: {"model":"Sonnet-4","prompt":"v1.0.0"}

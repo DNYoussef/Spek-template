@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
+"""
 
 This test suite brutally validates that GitHubBridge makes REAL HTTP requests
 and handles authentication properly. No theater, no stubs, no fake correlation.
@@ -20,6 +21,7 @@ sys.path.append(str(Path(__file__).parent.parent.parent / "analyzer"))
 from mock_github_server import MockGitHubServer
 from analyzer.integrations.github_bridge import GitHubBridge, GitHubConfig, UnifiedAnalysisResult, ViolationSeverity
 from analyzer.integrations.tool_coordinator import ToolCoordinator
+"""
 
 class TestGitHubBridgeReality(unittest.TestCase):
     """Brutal reality check tests for GitHub Bridge."""

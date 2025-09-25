@@ -13,7 +13,7 @@ import json
 
 
 """Load existing CDI protection data."""
-    def _load_existing_data(self):
+def _load_existing_data(self):
         """Load existing CDI protection data."""
         # Load CDI assets
         assets_db = self.storage_path / "cdi_assets.db"

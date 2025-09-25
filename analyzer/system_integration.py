@@ -1,4 +1,5 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
+"""
 
 Orchestrates all phase interactions and coordinates the complete
 multi-agent analysis pipeline across JSON Schema, Linter Integration,
@@ -281,6 +282,7 @@ class PhaseManager:
             except:
                 # Continue if phase-specific validation not available
 
+                pass
         return {
             'is_valid': len(errors) == 0,
             'errors': errors,
@@ -491,7 +493,7 @@ class JSONSchemaPhaseManager(PhaseManager):
         high_count = len([v for v in violations if v.get('severity') == 'high'])
         
         # Penalty-based scoring
-        penalty = (critical_count * 0.1) + (high_count * 0.05)
+        penalty = (critical_count * 0.1) + (high_count * 0.5)
         return max(0.0, 1.0 - penalty)
 
 class LinterIntegrationPhaseManager(PhaseManager):

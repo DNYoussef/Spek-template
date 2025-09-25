@@ -1,4 +1,5 @@
 from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_LENGTH_LINES
+"""
 
 MISSION: Comprehensive theater detection with AST parsing and pattern recognition
 AUTHORITY: Theater Detection Gate enforcement (>=60/100 score required)
@@ -16,6 +17,7 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 import argparse
 from datetime import datetime
+"""
 
 @dataclass
 class TheaterPattern:

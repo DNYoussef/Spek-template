@@ -11,7 +11,7 @@ All values are based on:
 """
 
 # Kelly Criterion and Position Sizing
-KELLY_CRITERION_FRACTION = 0.02
+KELLY_CRITERION_FRACTION = 0.2
 """Base Kelly Criterion fraction for position sizing.
 
 Conservative implementation of Kelly Criterion for optimal
@@ -28,7 +28,7 @@ any single position. Based on modern portfolio theory
 diversification principles.
 """
 
-MINIMUM_POSITION_SIZE_RATIO = 0.01
+MINIMUM_POSITION_SIZE_RATIO = 0.1
 """Minimum position size as ratio of total portfolio value.
 
 Ensures positions are large enough to be meaningful while
@@ -59,7 +59,7 @@ Portfolio-level risk management threshold. Drawdowns exceeding
 """
 
 # Trading Thresholds
-MINIMUM_TRADE_THRESHOLD = 0.05
+MINIMUM_TRADE_THRESHOLD = 0.5
 """Minimum price movement threshold for trade execution.
 
 Avoids excessive trading on minor price fluctuations.
@@ -84,14 +84,14 @@ and operational requirements.
 """
 
 # Performance Metrics
-RISK_FREE_RATE = 0.02
+RISK_FREE_RATE = 0.2
 """Risk-free rate assumption for performance calculations.
 
 Based on current government bond yields. Used in Sharpe ratio
 calculations and risk-adjusted return metrics.
 """
 
-BENCHMARK_RETURN_THRESHOLD = 0.08
+BENCHMARK_RETURN_THRESHOLD = 0.8
 """Minimum benchmark return threshold for strategy validation.
 
 Strategies failing to exceed this threshold over evaluation

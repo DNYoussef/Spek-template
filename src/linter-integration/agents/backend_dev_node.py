@@ -197,6 +197,7 @@ class PylintAdapter(BaseLinterAdapter):
             except json.JSONDecodeError:
                 # Fallback to text parsing if JSON fails
                 
+                pass
         return violations
         
     def _parse_pylint_violation(self, item: Dict[str, Any]) -> LinterViolation:

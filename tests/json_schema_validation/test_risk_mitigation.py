@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MINIMUM_TEST_COVERAGE_PERCENTAGE
+"""
 
 Tests all failure modes and risk scenarios identified in Phase 1:
 - Data integrity maintenance under edge conditions
@@ -27,6 +28,7 @@ from analyzer.reporting.json import JSONReporter
 from analyzer.reporting.sarif import SARIFReporter
 from analyzer.ast_engine.core_analyzer import AnalysisResult, Violation
 from analyzer.thresholds import ConnascenceType, Severity
+"""
 
 class TestRiskMitigation(unittest.TestCase):
     """Risk mitigation and failure mode prevention tests."""

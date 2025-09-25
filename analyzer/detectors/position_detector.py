@@ -1,5 +1,6 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_RETRY_ATTEMPTS
 
+"""
 Detects Connascence of Position violations using standardized interfaces
 and configuration-driven thresholds to reduce parameter order coupling.
 """

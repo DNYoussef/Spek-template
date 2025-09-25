@@ -32,7 +32,9 @@ except ImportError as e:
 
 # Import UnifiedAnalyzer with proper error handling
 try:
-    from .unified_analyzer import UnifiedAnalyzer
+    from .unified_analyzer import UnifiedConnascenceAnalyzer
+    # Create alias for backward compatibility
+    UnifiedAnalyzer = UnifiedConnascenceAnalyzer
     UNIFIED_ANALYZER_AVAILABLE = True
 except ImportError as e:
     print(f"CRITICAL: UnifiedAnalyzer import failed: {e}")

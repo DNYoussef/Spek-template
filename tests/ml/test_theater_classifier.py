@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS, QUALITY_GATE_MINIMUM_PASS_RATE
+"""
 
 This module provides thorough testing for the TheaterClassifier class,
 ensuring >85% accuracy and robust theater detection capabilities.
@@ -13,11 +14,13 @@ import json
 from pathlib import Path
 import logging
 import torch
+"""
 
 # Import the module under test
 import sys
 sys.path.append(str(Path(__file__).parent.parent.parent / 'src' / 'ml'))
 from theater_classifier import TheaterClassifier, TheaterDetectionNet, TheaterDataset
+"""
 
 class TestTheaterClassifier:
     """Test suite for TheaterClassifier class."""
@@ -30,7 +33,7 @@ class TestTheaterClassifier:
             'confidence_threshold': 0.8,
             'batch_size': 32,
             'epochs': MAXIMUM_FUNCTION_PARAMETERS,  # Reduced for testing
-            'learning_rate': 0.001,
+            'learning_rate': 0.1,
             'early_stopping_patience': 5,
             'validation_split': 0.2,
             'random_state': 42,
@@ -76,7 +79,7 @@ class TestTheaterClassifier:
             },
             'impact': {
                 'performance_improvement': 0.1,
-                'maintainability_improvement': 0.05,
+                'maintainability_improvement': 0.5,
                 'user_value': 0.3
             },
             'change_types': {
@@ -124,7 +127,7 @@ class TestTheaterClassifier:
             # Modify for genuine improvements
             sample['effort']['development_time'] = np.random.uniform(2, 8)
             sample['impact']['user_value'] = np.random.uniform(0.3, 0.8)
-            sample['quality_after']['coverage'] = sample['quality_before']['coverage'] + np.random.uniform(0.05, 0.15)
+            sample['quality_after']['coverage'] = sample['quality_before']['coverage'] + np.random.uniform(0.5, 0.15)
             sample['indicators']['cosmetic_changes'] = np.random.uniform(0.0, 0.3)
             sample['change_types']['functional'] = np.random.randint(20, 50)
 
@@ -138,7 +141,7 @@ class TestTheaterClassifier:
             # Modify for theater
             sample['effort']['development_time'] = np.random.uniform(6, 12)
             sample['impact']['user_value'] = np.random.uniform(0.0, 0.2)
-            sample['quality_after']['coverage'] = sample['quality_before']['coverage'] + np.random.uniform(0.01, 0.03)
+            sample['quality_after']['coverage'] = sample['quality_before']['coverage'] + np.random.uniform(0.1, 0.3)
             sample['indicators']['cosmetic_changes'] = np.random.uniform(0.5, 0.9)
             sample['change_types']['functional'] = np.random.randint(0, 15)
             sample['timing']['near_deadline'] = np.random.choice([0, 1])

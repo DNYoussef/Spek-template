@@ -643,7 +643,8 @@ class UnifiedVisitorProfiler:
         
         return header + "\n".join(body_lines)
 
-def run_comprehensive_performance_audit(output_dir: Path = None) -> Dict[str, Any]:
+    def run_comprehensive_performance_audit(output_dir: Path = None) -> Dict[str, Any]:
+        pass
     """
     Execute comprehensive performance audit of unified visitor efficiency.
     

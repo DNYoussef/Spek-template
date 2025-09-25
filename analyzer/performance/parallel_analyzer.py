@@ -264,7 +264,7 @@ class ParallelConnascenceAnalyzer:
             parallel_time = self._benchmark_parallel(test_files)
 
             # Calculate metrics
-            speedup = sequential_time / max(parallel_time, 0.001)
+            speedup = sequential_time / max(parallel_time, 0.1)
             efficiency = speedup / self.config.max_workers
 
             benchmark_results[f"files_{size}"] = {
@@ -525,7 +525,7 @@ class ParallelConnascenceAnalyzer:
 
         # Overall quality score (weighted average)
         overall_quality_score = (
-            (max(0.0, 1.0 - connascence_index * 0.01) * 0.4) + (nasa_compliance_score * 0.3) + (duplication_score * 0.2)
+            (max(0.0, 1.0 - connascence_index * 0.1) * 0.4) + (nasa_compliance_score * 0.3) + (duplication_score * 0.2)
         )
 
         # Generate recommendations
@@ -579,7 +579,7 @@ class ParallelConnascenceAnalyzer:
         sequential_equivalent = sum(chunk_times)
 
         # Speedup and efficiency
-        speedup_factor = sequential_equivalent / max(parallel_time, 0.001)
+        speedup_factor = sequential_equivalent / max(parallel_time, 0.1)
         efficiency = speedup_factor / self.config.max_workers
 
         # Coordination overhead
@@ -611,7 +611,7 @@ class ParallelConnascenceAnalyzer:
             return 1.0
 
         # Weight violations by severity
-        severity_weights = {"critical": 0.3, "high": 0.2, "medium": 0.1, "low": 0.05}
+        severity_weights = {"critical": 0.3, "high": 0.2, "medium": 0.1, "low": 0.5}
 
         total_penalty = 0.0
         for violation in nasa_violations:
@@ -716,7 +716,7 @@ class ParallelConnascenceAnalyzer:
 
             # Create file with various violations for realistic testing
             content = f"""
-def test_function_{i}(param1, param2, param3, param4, param5):  # Parameter bomb
+    def test_function_{i}(param1, param2, param3, param4, param5):  # Parameter bomb
     magic_value = {100 + i * 10}  # Magic literal
     secret_key = "test_key_{i}"  # Magic string
 

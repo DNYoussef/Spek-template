@@ -1,6 +1,6 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
-Provides a single, coherent interface for all analysis capabilities
+"""Provides a single, coherent interface for all analysis capabilities
 across JSON Schema, Linter Integration, Performance Optimization,
 and Precision Validation phases. Maintains 58.3% performance improvement
 while offering comprehensive multi-phase analysis.

@@ -1,4 +1,5 @@
 from src.constants.base import DAYS_RETENTION_PERIOD
+"""
 
 NASA POT10 Rule 7: The return value of non-void functions must be checked by the calling code.
 """
@@ -8,6 +9,7 @@ import sys
 from pathlib import Path
 from typing import List, Dict, Tuple, Set
 from dataclasses import dataclass
+"""
 
 @dataclass
 class UncheckedReturn:

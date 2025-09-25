@@ -1,5 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, REGULATORY_FACTUALITY_REQUIREMENT
 
+"""
 Concrete observer implementations for analysis event handling.
 NASA Power of Ten compliant with focused observer classes.
 """

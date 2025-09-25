@@ -5,7 +5,7 @@ Phase 7 God Object Decomposition Audit
 
 Comprehensive audit of the claimed god object decomposition work to verify:
 1. Enhanced Incident Response System (1,570 LOC  92 LOC)
-2. Performance Validator (2,007 LOC  1,100 LOC)
+2. Performance Validator (2,7 LOC  1,100 LOC)
 3. Loop Orchestrator Core (1,838 LOC  880 LOC)
 
 This audit tests for theater vs genuine refactoring.
@@ -164,7 +164,7 @@ def audit_enhanced_incident_response_system():
 def audit_performance_validator():
     """Audit the Performance Validator decomposition."""
     print("\nAUDITING: Performance Validator")
-    print("   Claimed: 2,007 LOC -> 1,100 LOC (45% reduction)")
+    print("   Claimed: 2,7 LOC -> 1,100 LOC (45% reduction)")
 
     audit = Phase7AuditResults()
 

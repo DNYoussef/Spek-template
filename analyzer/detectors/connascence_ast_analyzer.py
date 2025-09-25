@@ -211,6 +211,7 @@ class UnifiedConnascenceAnalyzer:
             except Exception as e:
                 # Skip files that can't be analyzed
 
+                pass
         return {
             'total_violations': len(all_violations),
             'files_analyzed': files_analyzed,

@@ -207,6 +207,7 @@ def main():
         try:
             passed = test_func()
             if passed:
+                pass
             else:
                 all_passed = False
         except Exception as e:

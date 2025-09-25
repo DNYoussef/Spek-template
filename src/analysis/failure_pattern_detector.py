@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, THEATER_DETECTION_WARNING_THRESHOLD
+"""
 
 Applies machine learning, pattern recognition, and reverse engineering
 to detect root causes of CI/CD failures with high confidence.
@@ -978,7 +979,7 @@ class FailurePatternDetector:
                 if success:
                     signature.confidence_score = min(1.0, signature.confidence_score + 0.1)
                 else:
-                    signature.confidence_score = max(0.1, signature.confidence_score - 0.05)
+                    signature.confidence_score = max(0.1, signature.confidence_score - 0.5)
 
         # Save updated patterns
         self._save_pattern_database()
@@ -1525,7 +1526,7 @@ class TestPredictionModel:
 
         # Adjust based on test changes
         if features["has_test_changes"]:
-            base_probability *= 1.05
+            base_probability *= 1.5
 
         # Adjust based on recent failures
         failure_rate = features.get("recent_failure_rate", 0.0)

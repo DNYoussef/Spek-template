@@ -14,7 +14,7 @@ import json
 
 
 """Initialize CDI protection framework."""
-    def __init__(self, storage_path: str = ".claude/.artifacts/cdi_protection"):
+def __init__(self, storage_path: str = ".claude/.artifacts/cdi_protection"):
         """Initialize CDI protection framework."""
         self.storage_path = Path(storage_path)
         self.storage_path.mkdir(parents=True, exist_ok=True)
@@ -52,7 +52,7 @@ import json
         logger.info("CDI Protection Framework initialized")
 
 """Initialize CDI protection databases."""
-    def _initialize_databases(self):
+def _initialize_databases(self):
         """Initialize CDI protection databases."""
         # CDI Assets database
         assets_db = self.storage_path / "cdi_assets.db"
@@ -147,7 +147,7 @@ import json
             ''')
 
 """Register new CDI asset for protection."""
-    def register_cdi_asset(self, name: str, description: str,
+def register_cdi_asset(self, name: str, description: str,
                           classification: CDIClassification, owner: str,
                           data_type: str, file_path: Optional[str] = None,
                           sensitivity_markers: Optional[List[str]] = None,
@@ -208,7 +208,7 @@ import json
         return asset_id
 
 """Get default protection requirements for classification level."""
-    def _default_protection_requirements(self, classification: CDIClassification) -> Dict[str, Any]:
+def _default_protection_requirements(self, classification: CDIClassification) -> Dict[str, Any]:
         """Get default protection requirements for classification level."""
         base_requirements = {
             "encryption_required": True,
@@ -233,7 +233,7 @@ import json
         return base_requirements
 
 """Persist CDI asset to database."""
-    def _persist_cdi_asset(self, asset: CDIAsset):
+def _persist_cdi_asset(self, asset: CDIAsset):
         """Persist CDI asset to database."""
         assets_db = self.storage_path / "cdi_assets.db"
         with sqlite3.connect(assets_db) as conn:
@@ -256,7 +256,7 @@ import json
             ))
 
 """Generate protection key for CDI asset."""
-    def _generate_asset_protection_key(self, asset_id: str, classification: CDIClassification):
+def _generate_asset_protection_key(self, asset_id: str, classification: CDIClassification):
         """Generate protection key for CDI asset."""
         # Use stronger key for higher classifications
         key_size = "AES-256-GCM"
@@ -280,7 +280,7 @@ import json
         key_file.chmod(0o600)  # Restrict permissions
 
 """Get key rotation interval based on classification."""
-    def _get_key_rotation_interval(self, classification: CDIClassification) -> int:
+def _get_key_rotation_interval(self, classification: CDIClassification) -> int:
         """Get key rotation interval based on classification."""
         intervals = {
             CDIClassification.CONTROLLED_UNCLASSIFIED: 365 * 24 * 3600,  # 1 year
@@ -292,7 +292,7 @@ import json
         return intervals.get(classification, 90 * 24 * 3600)
 
 """Create access control policy for CDI resources."""
-    def create_access_policy(self, name: str, description: str,
+def create_access_policy(self, name: str, description: str,
                            subject_type: str, subject_id: str,
                            resource_pattern: str, access_level: AccessLevel,
                            created_by: str, conditions: Optional[Dict[str, Any]] = None,
@@ -347,7 +347,7 @@ import json
         return policy_id
 
 """Persist access policy to database."""
-    def _persist_access_policy(self, policy: AccessPolicy):
+def _persist_access_policy(self, policy: AccessPolicy):
         """Persist access policy to database."""
         policies_db = self.storage_path / "access_policies.db"
         with sqlite3.connect(policies_db) as conn:
@@ -370,7 +370,7 @@ import json
             ))
 
 """Request access to CDI asset."""
-    def request_data_access(self, user_id: str, asset_id: str,
+def request_data_access(self, user_id: str, asset_id: str,
                           access_level: AccessLevel, purpose: str,
                           justification: str, expires_at: Optional[float] = None,
                           session_id: Optional[str] = None) -> str:
@@ -431,7 +431,7 @@ import json
         return request_id
 
 """Determine if approval is required for access request."""
-    def _is_approval_required(self, user_id: str, asset: CDIAsset, access_level: AccessLevel) -> bool:
+def _is_approval_required(self, user_id: str, asset: CDIAsset, access_level: AccessLevel) -> bool:
         """Determine if approval is required for access request."""
         # High-value classifications require approval
         if asset.classification in [CDIClassification.DFARS_COVERED, CDIClassification.EXPORT_CONTROLLED]:
@@ -449,7 +449,7 @@ import json
         return self._check_user_approval_requirements(user_id, asset.asset_id)
 
 """Persist access request to database."""
-    def _persist_access_request(self, request: DataAccessRequest):
+def _persist_access_request(self, request: DataAccessRequest):
         """Persist access request to database."""
         requests_db = self.storage_path / "access_requests.db"
         with sqlite3.connect(requests_db) as conn:
@@ -469,7 +469,7 @@ import json
             ))
 
 """Auto-approve access request."""
-    def _auto_approve_request(self, request: DataAccessRequest):
+def _auto_approve_request(self, request: DataAccessRequest):
         """Auto-approve access request."""
         request.status = "approved"
         request.approved_at = time.time()
@@ -485,7 +485,7 @@ import json
         }
 
 """Approve pending access request."""
-    def approve_access_request(self, request_id: str, approver_id: str,
+def approve_access_request(self, request_id: str, approver_id: str,
                              conditions: Optional[Dict[str, Any]] = None) -> bool:
         """Approve pending access request."""
         if request_id not in self.access_requests:
@@ -534,7 +534,7 @@ import json
         return True
 
 """Check if granted access level is sufficient for required level."""
-    def _access_level_sufficient(self, granted_level: AccessLevel, required_level: AccessLevel) -> bool:
+def _access_level_sufficient(self, granted_level: AccessLevel, required_level: AccessLevel) -> bool:
         """Check if granted access level is sufficient for required level."""
         level_hierarchy = {
             AccessLevel.NONE: 0,
@@ -549,7 +549,7 @@ import json
         return level_hierarchy.get(granted_level, 0) >= level_hierarchy.get(required_level, 0)
 
 """Get policies applicable to user and asset."""
-    def _get_applicable_policies(self, user_id: str, asset_id: str) -> List[AccessPolicy]:
+def _get_applicable_policies(self, user_id: str, asset_id: str) -> List[AccessPolicy]:
         """Get policies applicable to user and asset."""
         applicable = []
 
@@ -565,7 +565,7 @@ import json
         return applicable
 
 """Check if resource pattern matches asset ID."""
-    def _resource_pattern_matches(self, pattern: str, asset_id: str) -> bool:
+def _resource_pattern_matches(self, pattern: str, asset_id: str) -> bool:
         """Check if resource pattern matches asset ID."""
         # Simple pattern matching - could be enhanced with regex
         if pattern == "*":
@@ -578,7 +578,7 @@ import json
         return False
 
 """Check if policy grants requested access level."""
-    def _policy_grants_access(self, policy: AccessPolicy, requested_level: AccessLevel,
+def _policy_grants_access(self, policy: AccessPolicy, requested_level: AccessLevel,
                             context: Optional[Dict[str, Any]] = None) -> bool:
         """Check if policy grants requested access level."""
         # Check access level
@@ -605,7 +605,7 @@ import json
         return True
 
 """Check if time constraints are met."""
-    def _time_constraints_met(self, constraints: Dict[str, Any], current_time: datetime) -> bool:
+def _time_constraints_met(self, constraints: Dict[str, Any], current_time: datetime) -> bool:
         """Check if time constraints are met."""
         # Simple time constraint checking
         if "allowed_hours" in constraints:
@@ -623,7 +623,7 @@ import json
         return True
 
 """Check if policy conditions are met."""
-    def _conditions_met(self, conditions: Dict[str, Any], context: Dict[str, Any]) -> bool:
+def _conditions_met(self, conditions: Dict[str, Any], context: Dict[str, Any]) -> bool:
         """Check if policy conditions are met."""
         # Simple condition checking - could be enhanced
         for key, required_value in conditions.items():
@@ -632,7 +632,7 @@ import json
         return True
 
 """Log CDI asset access attempt."""
-    def _log_asset_access(self, user_id: str, asset: CDIAsset, access_level: AccessLevel,
+def _log_asset_access(self, user_id: str, asset: CDIAsset, access_level: AccessLevel,
                          session_id: Optional[str], outcome: str):
         """Log CDI asset access attempt."""
         # Add to asset access history
@@ -672,7 +672,7 @@ import json
         )
 
 """Get CDI asset inventory."""
-    def get_cdi_inventory(self, classification_filter: Optional[CDIClassification] = None,
+def get_cdi_inventory(self, classification_filter: Optional[CDIClassification] = None,
                          owner_filter: Optional[str] = None) -> List[Dict[str, Any]]:
         """Get CDI asset inventory."""
         inventory = []
@@ -701,7 +701,7 @@ import json
         return inventory
 
 """Generate CDI access report."""
-    def get_access_report(self, days: int = 30) -> Dict[str, Any]:
+def get_access_report(self, days: int = 30) -> Dict[str, Any]:
         """Generate CDI access report."""
         cutoff_time = time.time() - (days * 24 * 3600)
 

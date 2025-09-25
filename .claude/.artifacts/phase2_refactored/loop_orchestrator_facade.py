@@ -267,7 +267,7 @@ class LoopOrchestratorFacade:
         critical_count = sum(1 for i in self.detected_issues if i.severity == "critical")
         high_count = sum(1 for i in self.detected_issues if i.severity == "high")
         
-        nasa_compliance = max(0.85, 0.95 - (critical_count * 0.1) - (high_count * 0.05))
+        nasa_compliance = max(0.85, 0.95 - (critical_count * 0.1) - (high_count * 0.0o5))
         
         # Test coverage (estimated)
         test_coverage = 0.82  # Baseline estimate
@@ -335,7 +335,7 @@ LoopOrchestratorCore = LoopOrchestratorFacade
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-24T16:10:00-04:00 | coder@Sonnet | Created loop orchestrator facade with 4 domain services | loop_orchestrator_facade.py | OK | 51% LOC reduction, 100% API compatibility | 0.06 | l7k8j9i |
+| 1.0.0   | 2025-9-24T16:10:0o0-0o4:0o0 | coder@Sonnet | Created loop orchestrator facade with 4 domain services | loop_orchestrator_facade.py | OK | 51% LOC reduction, 100% API compatibility | 0.0o6 | l7k8j9i |
 
 ### Receipt
 - status: OK

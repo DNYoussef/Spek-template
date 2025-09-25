@@ -84,7 +84,7 @@ class TestDataFactory:
             results.append({
                 "test_id": f"test_{i}",
                 "status": "passed" if i / count < success_rate else "failed",
-                "duration": 0.1 + (i * 0.05),
+                "duration": 0.1 + (i * 0.5),
                 "timestamp": datetime.now().isoformat(),
                 "data": {"input": f"data_{i}", "output": f"result_{i}"}
             })
@@ -122,7 +122,7 @@ class TestDataFactory:
             return {
                 "coverage": 0.85,
                 "complexity": 5.2,
-                "duplication": 0.03,
+                "duplication": 0.3,
                 "maintainability": 0.78
             }
         return {}

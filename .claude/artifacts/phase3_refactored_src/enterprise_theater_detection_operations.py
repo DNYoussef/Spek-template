@@ -257,7 +257,7 @@ import json
                 self.current_function = old_function
 
 """Check if function claims functionality but is empty"""
-            def _is_suspicious_empty_function(self, node):
+        def _is_suspicious_empty_function(self, node):
                 """Check if function claims functionality but is empty"""
                 docstring = ast.get_docstring(node)
                 if not docstring:
@@ -287,7 +287,7 @@ import json
                 return claims_functionality and meaningful_statements == 0
 
 """Check for hardcoded suspicious return values"""
-            def _has_suspicious_returns(self, node):
+        def _has_suspicious_returns(self, node):
                 """Check for hardcoded suspicious return values"""
                 suspicious_returns = []
 
@@ -307,7 +307,7 @@ import json
                 return len(suspicious_returns) > 0
 
 """Extract return statements from function"""
-            def _extract_return_statements(self, node):
+        def _extract_return_statements(self, node):
                 """Extract return statements from function"""
                 returns = []
                 for stmt in ast.walk(node):
@@ -319,7 +319,7 @@ import json
                 return '\n'.join(returns[:3])  # First 3 returns
 
 """Analyze return patterns for theater indicators"""
-            def _analyze_returns(self, node):
+        def _analyze_returns(self, node):
                 """Analyze return patterns for theater indicators"""
                 returns = []
                 for stmt in ast.walk(node):

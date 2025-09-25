@@ -55,7 +55,7 @@ class PRManager:
     """
     Handles GitHub pull request management.
 
-    Extracted from github_integration (1, 037 LOC -> ~250 LOC component).
+    Extracted from github_integration (1, 37 LOC -> ~250 LOC component).
     Handles:
     - PR creation and updates
     - Reviews and approvals

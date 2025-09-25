@@ -51,10 +51,10 @@ def path_exists(path):
 class SecurityScanner:
     """Security vulnerability scanner."""
 
-def __init__(self):
+    def __init__(self):
         self.logger = logger
 
-def scan_hardcoded_secrets(self, file_path: str, content: str) -> List[SecurityVulnerability]:
+    def scan_hardcoded_secrets(self, file_path: str, content: str) -> List[SecurityVulnerability]:
         """Scan for hardcoded secrets and credentials."""
         vulnerabilities = []
 
@@ -87,7 +87,7 @@ def scan_hardcoded_secrets(self, file_path: str, content: str) -> List[SecurityV
 
         return vulnerabilities
 
-def scan_sql_injection(self, file_path: str, content: str) -> List[SecurityVulnerability]:
+    def scan_sql_injection(self, file_path: str, content: str) -> List[SecurityVulnerability]:
         """Scan for SQL injection vulnerabilities."""
         vulnerabilities = []
 
@@ -120,7 +120,7 @@ def scan_sql_injection(self, file_path: str, content: str) -> List[SecurityVulne
 
         return vulnerabilities
 
-def scan_xss_vulnerabilities(self, file_path: str, content: str) -> List[SecurityVulnerability]:
+    def scan_xss_vulnerabilities(self, file_path: str, content: str) -> List[SecurityVulnerability]:
         """Scan for XSS vulnerabilities."""
         vulnerabilities = []
 
@@ -151,7 +151,7 @@ def scan_xss_vulnerabilities(self, file_path: str, content: str) -> List[Securit
 
         return vulnerabilities
 
-def scan_weak_cryptography(self, file_path: str, content: str) -> List[SecurityVulnerability]:
+    def scan_weak_cryptography(self, file_path: str, content: str) -> List[SecurityVulnerability]:
         """Scan for weak cryptographic implementations."""
         vulnerabilities = []
 
@@ -182,7 +182,7 @@ def scan_weak_cryptography(self, file_path: str, content: str) -> List[SecurityV
 
         return vulnerabilities
 
-def scan_command_injection(self, file_path: str, content: str) -> List[SecurityVulnerability]:
+    def scan_command_injection(self, file_path: str, content: str) -> List[SecurityVulnerability]:
         """Scan for command injection vulnerabilities."""
         vulnerabilities = []
 
@@ -224,7 +224,7 @@ def scan_command_injection(self, file_path: str, content: str) -> List[SecurityV
 
         return vulnerabilities
 
-def scan_path_traversal(self, file_path: str, content: str) -> List[SecurityVulnerability]:
+    def scan_path_traversal(self, file_path: str, content: str) -> List[SecurityVulnerability]:
         """Scan for path traversal vulnerabilities."""
         vulnerabilities = []
 
@@ -254,7 +254,7 @@ def scan_path_traversal(self, file_path: str, content: str) -> List[SecurityVuln
 
         return vulnerabilities
 
-def scan_file(self, file_path: str) -> List[SecurityVulnerability]:
+    def scan_file(self, file_path: str) -> List[SecurityVulnerability]:
         """Scan a single file for security vulnerabilities."""
         if not path_exists(file_path):
             return []
@@ -276,7 +276,7 @@ def scan_file(self, file_path: str) -> List[SecurityVulnerability]:
 
         return all_vulnerabilities
 
-def scan_directory(self, directory: str) -> List[SecurityVulnerability]:
+    def scan_directory(self, directory: str) -> List[SecurityVulnerability]:
         """Scan all files in a directory for security vulnerabilities."""
         all_vulnerabilities = []
 
@@ -292,7 +292,7 @@ def scan_directory(self, directory: str) -> List[SecurityVulnerability]:
 
         return all_vulnerabilities
 
-def generate_security_report(self, vulnerabilities: List[SecurityVulnerability]) -> Dict[str, Any]:
+    def generate_security_report(self, vulnerabilities: List[SecurityVulnerability]) -> Dict[str, Any]:
         """Generate comprehensive security report."""
         severity_counts = {s.value: 0 for s in SecurityLevel}
         type_counts = {t.value: 0 for t in VulnerabilityType}
@@ -315,7 +315,7 @@ def generate_security_report(self, vulnerabilities: List[SecurityVulnerability])
                 "total_vulnerabilities": total_vulns,
                 "security_score": security_score,
                 "files_affected": len(file_counts),
-                "scan_timestamp": "2025-09-17T13:25:00Z"
+                "scan_timestamp": "2025-9-17T13:25:00Z"
             },
             "severity_breakdown": severity_counts,
             "vulnerability_types": type_counts,

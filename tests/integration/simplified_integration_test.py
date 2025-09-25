@@ -566,25 +566,25 @@ def main():
     scenarios = [
         {
             "name": "Theater Detection Test",
-            "subagent": MockSubagent("sa-001", "coder", "theater"),
+            "subagent": MockSubagent("sa-1", "coder", "theater"),
             "expected_result": "rejected",
             "expected_stage": 1
         },
         {
             "name": "Buggy Code Test",
-            "subagent": MockSubagent("sa-002", "coder", "buggy"),
+            "subagent": MockSubagent("sa-2", "coder", "buggy"),
             "expected_result": "rejected",
             "expected_stage": 2
         },
         {
             "name": "Low Quality Test",
-            "subagent": MockSubagent("sa-003", "coder", "decent"),
+            "subagent": MockSubagent("sa-3", "coder", "decent"),
             "expected_result": "rejected",
             "expected_stage": 6
         },
         {
             "name": "Perfect Code Test",
-            "subagent": MockSubagent("sa-004", "coder", "perfect"),
+            "subagent": MockSubagent("sa-4", "coder", "perfect"),
             "expected_result": "approved",
             "expected_stage": None
         }

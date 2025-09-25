@@ -106,6 +106,7 @@ class LinterIntegrationTestRunner:
             
             # Print immediate results
             if result["passed"]:
+                pass
             else:
                 print(f"   [FAIL] {result['failures']} failures, {result['errors']} errors")
                 if result["error_summary"]:

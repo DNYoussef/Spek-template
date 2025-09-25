@@ -1,4 +1,5 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
+"""
 
 Result processing, correlation, and cross-validation system.
 NASA Rule 4 Compliant: All methods under 60 lines.
@@ -35,7 +36,7 @@ class ResultAggregator:
     Extracted from UnifiedConnascenceAnalyzer to eliminate god object.
     """
 
-def __init__(self, config_manager=None):
+    def __init__(self, config_manager=None):
         """Initialize result aggregator with configuration."""
         # NASA Rule 5: Input validation assertions
         assert config_manager is not None, "config_manager cannot be None"
@@ -44,7 +45,7 @@ def __init__(self, config_manager=None):
         self.correlation_threshold = 0.7
         self.deduplication_threshold = 0.9
 
-def aggregate_results(self, detector_results: List[Dict]) -> AggregationResult:
+    def aggregate_results(self, detector_results: List[Dict]) -> AggregationResult:
         """
         Aggregate and process results from multiple detectors.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -88,7 +89,7 @@ def aggregate_results(self, detector_results: List[Dict]) -> AggregationResult:
             }
         )
 
-def cross_correlate_violations(self, violations: List[Dict]) -> List[CorrelationCluster]:
+    def cross_correlate_violations(self, violations: List[Dict]) -> List[CorrelationCluster]:
         """
         Cross-correlate violations to identify related issues.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -136,7 +137,7 @@ def cross_correlate_violations(self, violations: List[Dict]) -> List[Correlation
         logger.info(f"Created {len(clusters)} correlation clusters")
         return clusters
 
-def validate_result_consistency(self, results: List[Dict]) -> Dict[str, Any]:
+    def validate_result_consistency(self, results: List[Dict]) -> Dict[str, Any]:
         """
         Validate consistency across detector results.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -184,7 +185,7 @@ def validate_result_consistency(self, results: List[Dict]) -> Dict[str, Any]:
 
         return consistency_report
 
-def _collect_violations(self, detector_results: List[Dict]) -> List[Dict]:
+    def _collect_violations(self, detector_results: List[Dict]) -> List[Dict]:
         """Collect violations from all detector results."""
         all_violations = []
         
@@ -200,7 +201,7 @@ def _collect_violations(self, detector_results: List[Dict]) -> List[Dict]:
 
         return all_violations
 
-def _deduplicate_violations(self, violations: List[Dict]) -> List[Dict]:
+    def _deduplicate_violations(self, violations: List[Dict]) -> List[Dict]:
         """Remove duplicate violations based on similarity threshold."""
         if not violations:
             return []
@@ -221,7 +222,7 @@ def _deduplicate_violations(self, violations: List[Dict]) -> List[Dict]:
         logger.info(f"Deduplicated {len(violations)} -> {len(unique_violations)} violations")
         return unique_violations
 
-def _cross_correlate_violations(self, violations: List[Dict]) -> List[Dict]:
+    def _cross_correlate_violations(self, violations: List[Dict]) -> List[Dict]:
         """Perform cross-correlation analysis between violations."""
         correlations = []
         
@@ -241,7 +242,7 @@ def _cross_correlate_violations(self, violations: List[Dict]) -> List[Dict]:
 
         return correlations
 
-def _calculate_aggregated_metrics(self, violations: List[Dict], detector_results: List[Dict]) -> Dict[str, float]:
+    def _calculate_aggregated_metrics(self, violations: List[Dict], detector_results: List[Dict]) -> Dict[str, float]:
         """Calculate aggregated quality metrics."""
         metrics = {}
         
@@ -275,7 +276,7 @@ def _calculate_aggregated_metrics(self, violations: List[Dict], detector_results
 
         return metrics
 
-def _generate_summary(self, violations: List[Dict], correlations: List[Dict], metrics: Dict) -> Dict[str, Any]:
+    def _generate_summary(self, violations: List[Dict], correlations: List[Dict], metrics: Dict) -> Dict[str, Any]:
         """Generate comprehensive result summary."""
         return {
             'violation_summary': {
@@ -299,7 +300,7 @@ def _generate_summary(self, violations: List[Dict], correlations: List[Dict], me
             }
         }
 
-def _generate_aggregated_recommendations(self, correlations: List[Dict], metrics: Dict) -> List[str]:
+    def _generate_aggregated_recommendations(self, correlations: List[Dict], metrics: Dict) -> List[str]:
         """Generate recommendations based on aggregated results."""
         recommendations = []
         
@@ -320,7 +321,7 @@ def _generate_aggregated_recommendations(self, correlations: List[Dict], metrics
 
         return recommendations[:5]  # Top 5 recommendations
 
-def _group_by_correlation_potential(self, violations: List[Dict]) -> Dict[str, List[Dict]]:
+    def _group_by_correlation_potential(self, violations: List[Dict]) -> Dict[str, List[Dict]]:
         """Group violations by their correlation potential."""
         groups = defaultdict(list)
         
@@ -336,7 +337,7 @@ def _group_by_correlation_potential(self, violations: List[Dict]) -> Dict[str, L
 
         return dict(groups)
 
-def _select_primary_violation(self, group_violations: List[Dict]) -> Dict[str, Any]:
+    def _select_primary_violation(self, group_violations: List[Dict]) -> Dict[str, Any]:
         """Select primary violation from a correlated group."""
         # Prioritize by severity, then by line number
         severity_order = {'critical': 0, 'high': 1, 'medium': 2, 'low': 3, 'informational': 4}
@@ -346,7 +347,7 @@ def _select_primary_violation(self, group_violations: List[Dict]) -> Dict[str, A
             v.get('line_number', 0)
         ))
 
-def _calculate_correlation_strength(self, primary: Dict, related: List[Dict]) -> float:
+    def _calculate_correlation_strength(self, primary: Dict, related: List[Dict]) -> float:
         """Calculate correlation strength between primary and related violations."""
         if not related:
             return 0.0
@@ -358,7 +359,7 @@ def _calculate_correlation_strength(self, primary: Dict, related: List[Dict]) ->
 
         return total_strength / len(related)
 
-def _calculate_pairwise_correlation(self, violation_a: Dict, violation_b: Dict) -> float:
+    def _calculate_pairwise_correlation(self, violation_a: Dict, violation_b: Dict) -> float:
         """Calculate correlation between two violations."""
         correlation_factors = 0.0
         total_factors = 0.0
@@ -390,7 +391,7 @@ def _calculate_pairwise_correlation(self, violation_a: Dict, violation_b: Dict) 
 
         return correlation_factors / max(total_factors, 0.1)
 
-def _calculate_impact_score(self, violations: List[Dict]) -> float:
+    def _calculate_impact_score(self, violations: List[Dict]) -> float:
         """Calculate impact score for a group of violations."""
         if not violations:
             return 0.0
@@ -402,7 +403,7 @@ def _calculate_impact_score(self, violations: List[Dict]) -> float:
         normalized_impact = total_impact / (len(violations) * 10)  # Max weight is 10
         return min(1.0, normalized_impact)
 
-def _generate_cluster_recommendation(self, violations: List[Dict]) -> str:
+    def _generate_cluster_recommendation(self, violations: List[Dict]) -> str:
         """Generate recommendation for a correlation cluster."""
         if not violations:
             return "No specific recommendation"
@@ -420,7 +421,7 @@ def _generate_cluster_recommendation(self, violations: List[Dict]) -> str:
         
         return type_recommendations.get(most_common_type, f"Address {most_common_type} violations systematically")
 
-def _generate_violation_signature(self, violation: Dict) -> str:
+    def _generate_violation_signature(self, violation: Dict) -> str:
         """Generate unique signature for violation deduplication."""
         components = [
             violation.get('file_path', ''),
@@ -430,7 +431,7 @@ def _generate_violation_signature(self, violation: Dict) -> str:
         ]
         return '|'.join(components)
 
-def _calculate_violation_correlation(self, violation_a: Dict, violation_b: Dict) -> Dict[str, Any]:
+    def _calculate_violation_correlation(self, violation_a: Dict, violation_b: Dict) -> Dict[str, Any]:
         """Calculate detailed correlation between two violations."""
         strength = self._calculate_pairwise_correlation(violation_a, violation_b)
         
@@ -456,7 +457,7 @@ def _calculate_violation_correlation(self, violation_a: Dict, violation_b: Dict)
             'factors': factors
         }
 
-def _count_by_severity(self, violations: List[Dict]) -> Dict[str, int]:
+    def _count_by_severity(self, violations: List[Dict]) -> Dict[str, int]:
         """Count violations by severity."""
         counts = defaultdict(int)
         for violation in violations:
@@ -464,7 +465,7 @@ def _count_by_severity(self, violations: List[Dict]) -> Dict[str, int]:
             counts[severity] += 1
         return dict(counts)
 
-def _count_by_type(self, violations: List[Dict]) -> Dict[str, int]:
+    def _count_by_type(self, violations: List[Dict]) -> Dict[str, int]:
         """Count violations by type."""
         counts = defaultdict(int)
         for violation in violations:
@@ -472,7 +473,7 @@ def _count_by_type(self, violations: List[Dict]) -> Dict[str, int]:
             counts[violation_type] += 1
         return dict(counts)
 
-def _count_by_file(self, violations: List[Dict]) -> Dict[str, int]:
+    def _count_by_file(self, violations: List[Dict]) -> Dict[str, int]:
         """Count violations by file."""
         counts = defaultdict(int)
         for violation in violations:
@@ -480,7 +481,7 @@ def _count_by_file(self, violations: List[Dict]) -> Dict[str, int]:
             counts[file_path] += 1
         return dict(counts)
 
-def _count_correlation_types(self, correlations: List[Dict]) -> Dict[str, int]:
+    def _count_correlation_types(self, correlations: List[Dict]) -> Dict[str, int]:
         """Count correlations by type."""
         counts = defaultdict(int)
         for correlation in correlations:
@@ -488,7 +489,7 @@ def _count_correlation_types(self, correlations: List[Dict]) -> Dict[str, int]:
             counts[correlation_type] += 1
         return dict(counts)
 
-def _create_empty_result(self) -> AggregationResult:
+    def _create_empty_result(self) -> AggregationResult:
         """Create empty result for no detector results."""
         return AggregationResult(
             violations=[],
@@ -498,14 +499,14 @@ def _create_empty_result(self) -> AggregationResult:
             recommendations=['No violations detected']
         )
 
-def _check_metric_consistency(self, results: List[Dict]) -> Dict[str, Any]:
+    def _check_metric_consistency(self, results: List[Dict]) -> Dict[str, Any]:
         """Check consistency of metrics across results."""
         return {'score': 1.0, 'issues': []}  # Simplified for now
 
-def _check_violation_consistency(self, results: List[Dict]) -> Dict[str, Any]:
+    def _check_violation_consistency(self, results: List[Dict]) -> Dict[str, Any]:
         """Check consistency of violations across results."""
         return {'score': 1.0, 'issues': []}  # Simplified for now
 
-def _check_coverage_consistency(self, results: List[Dict]) -> Dict[str, Any]:
+    def _check_coverage_consistency(self, results: List[Dict]) -> Dict[str, Any]:
         """Check consistency of coverage across results."""
         return {'score': 1.0, 'issues': []}  # Simplified for now

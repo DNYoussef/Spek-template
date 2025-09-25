@@ -40,6 +40,7 @@ from memory_profiler import profile as memory_profile
 import cProfile
 import pstats
 from concurrent.futures import ThreadPoolExecutor, as_completed
+"""
 
 @dataclass
 class BenchmarkResult:

@@ -1,6 +1,6 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, MINIMUM_TRADE_THRESHOLD
 
-Advanced regression detection system that provides statistical analysis,
+"""Advanced regression detection system that provides statistical analysis,
 baseline tracking, and automated alerting for performance degradation.
 
 Features:
@@ -200,7 +200,7 @@ class StatisticalAnalyzer:
             
             # Rough approximation of p-value for normal distribution
             if z_score > 3.0:
-                return 0.001  # Very significant
+                return 0.1  # Very significant
             elif z_score > 2.0:
                 return MINIMUM_TRADE_THRESHOLD   # Significant
             elif z_score > 1.0:
@@ -250,7 +250,7 @@ class StatisticalAnalyzer:
             if std_dev > 0:
                 for i, value in enumerate(data):
                     z_score = abs((value - mean) / std_dev)
-                    if z_score > 2.5:  # 2.MAXIMUM_NESTED_DEPTH standard deviations
+                    if z_score > 2.5:  # 2, MAXIMUM_NESTED_DEPTH standard deviations
                         outlier_indices.append(i)
         
         return outlier_indices
@@ -289,7 +289,7 @@ class StatisticalAnalyzer:
         r_squared = 1 - (ss_res / ss_tot) if ss_tot != 0 else 0.0
         
         # Determine trend direction
-        if abs(slope) < 0.01:  # Threshold for "stable"
+        if abs(slope) < 0.1:  # Threshold for "stable"
             trend = "stable"
         elif slope > 0:
             trend = "increasing"

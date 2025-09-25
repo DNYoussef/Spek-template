@@ -1,6 +1,6 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, REGULATORY_FACTUALITY_REQUIREMENT
 
-Provides genuine implementation for all abstract methods that were previously
+"""Provides genuine implementation for all abstract methods that were previously
 showing NotImplementedError theater. This engine delivers actual functionality
 for syntax analysis, pattern detection, report generation, compliance validation,
 and performance optimization.

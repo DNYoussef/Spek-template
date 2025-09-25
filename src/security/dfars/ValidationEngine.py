@@ -39,7 +39,7 @@ class ValidationEngine:
     """
     Performs DFARS-specific validation and verification.
 
-    Extracted from dfars_compliance_validation_system (1, 054 LOC -> ~250 LOC component).
+    Extracted from dfars_compliance_validation_system (1, 54 LOC -> ~250 LOC component).
     Handles:
     - NIST SP 800-171 control validation
     - Technical security validation

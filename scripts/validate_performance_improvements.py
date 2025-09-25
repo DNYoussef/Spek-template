@@ -201,7 +201,7 @@ class PerformanceValidationSuite:
             parallel_tasks = []
             
             # Simulate CPU-intensive tasks
-            def mock_cpu_task(task_id: int) -> Dict[str, Any]:
+        def mock_cpu_task(task_id: int) -> Dict[str, Any]:
                 # Simulate work
                 start_time = time.time()
                 # Simple CPU work simulation

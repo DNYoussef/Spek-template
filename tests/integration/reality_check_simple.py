@@ -1,4 +1,5 @@
 from src.constants.base import CONNASCENCE_ANALYSIS_THRESHOLD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
+"""
 
 Focused test that validates the GitHub integration without complex imports.
 Tests the actual HTTP functionality and correlation logic.
@@ -18,6 +19,7 @@ sys.path.append(str(Path(__file__).parent.parent.parent / "analyzer"))
 # Import just what we need for testing
 from mock_github_server import MockGitHubServer
 import time
+"""
 
 def test_github_bridge_reality():
     """Test GitHub Bridge makes real HTTP requests."""

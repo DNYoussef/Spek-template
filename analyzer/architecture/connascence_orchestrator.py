@@ -41,7 +41,7 @@ class ConnascenceOrchestrator(ConnascenceOrchestratorInterface):
     Implements dependency injection, Strategy pattern, and Observer pattern.
     """
 
-def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
+    def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
         """
         Initialize orchestrator with dependency injection.
 
@@ -74,7 +74,7 @@ def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
         self.total_analysis_time = 0.0
         self.error_count = 0
 
-def analyze_project(self, project_path: Union[str, Path],
+    def analyze_project(self, project_path: Union[str, Path],
                         config: Optional[Dict[str, Any]] = None) -> AnalysisResult:
         """
         Main project analysis entry point with comprehensive processing.
@@ -118,7 +118,7 @@ def analyze_project(self, project_path: Union[str, Path],
             logger.error(f"Project analysis failed: {e}")
             raise
 
-def analyze_file(self, file_path: Union[str, Path]) -> AnalysisResult:
+    def analyze_file(self, file_path: Union[str, Path]) -> AnalysisResult:
         """
         Single file analysis with optimized processing.
 
@@ -177,7 +177,7 @@ def analyze_file(self, file_path: Union[str, Path]) -> AnalysisResult:
             logger.error(f"File analysis failed: {e}")
             raise
 
-def add_observer(self, observer: AnalysisObserver) -> None:
+    def add_observer(self, observer: AnalysisObserver) -> None:
         """
         Add analysis observer for event notifications.
         """
@@ -185,14 +185,14 @@ def add_observer(self, observer: AnalysisObserver) -> None:
             self.observers.append(observer)
             logger.info(f"Observer added: {type(observer).__name__}")
 
-def set_strategy(self, strategy: AnalysisStrategy) -> None:
+    def set_strategy(self, strategy: AnalysisStrategy) -> None:
         """
         Set analysis strategy for customized processing.
         """
         self.analysis_strategy = strategy
         logger.info(f"Analysis strategy set: {strategy.get_strategy_name()}")
 
-def get_system_status(self) -> Dict[str, Any]:
+    def get_system_status(self) -> Dict[str, Any]:
         """
         Get comprehensive system status and health metrics.
         """
@@ -232,7 +232,7 @@ def get_system_status(self) -> Dict[str, Any]:
             }
         }
 
-def _execute_default_analysis(self, project_path: Path, config: Optional[Dict[str, Any]]) -> AnalysisResult:
+    def _execute_default_analysis(self, project_path: Path, config: Optional[Dict[str, Any]]) -> AnalysisResult:
         """
         Execute default comprehensive analysis strategy.
         """
@@ -274,11 +274,11 @@ def _execute_default_analysis(self, project_path: Path, config: Optional[Dict[st
             nasa_compliance=nasa_compliance,
             performance_stats={
                 'analysis_time_ms': analysis_time,
-                'files_per_second': files_analyzed / max((analysis_time / 1000), 0.001)
+                'files_per_second': files_analyzed / max((analysis_time / 1000), 0.1)
             }
         )
 
-def _process_files_parallel(self, files: List[Path]) -> List[ConnascenceViolation]:
+    def _process_files_parallel(self, files: List[Path]) -> List[ConnascenceViolation]:
         """Process files in parallel for improved performance."""
         all_violations = []
 
@@ -302,7 +302,7 @@ def _process_files_parallel(self, files: List[Path]) -> List[ConnascenceViolatio
 
         return all_violations
 
-def _process_files_sequential(self, files: List[Path]) -> List[ConnascenceViolation]:
+    def _process_files_sequential(self, files: List[Path]) -> List[ConnascenceViolation]:
         """Process files sequentially for simpler error handling."""
         all_violations = []
 
@@ -317,7 +317,7 @@ def _process_files_sequential(self, files: List[Path]) -> List[ConnascenceViolat
 
         return all_violations
 
-def _analyze_single_file(self, file_path: Path) -> List[ConnascenceViolation]:
+    def _analyze_single_file(self, file_path: Path) -> List[ConnascenceViolation]:
         """Analyze single file and return enhanced violations."""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -337,33 +337,33 @@ def _analyze_single_file(self, file_path: Path) -> List[ConnascenceViolation]:
             logger.error(f"Single file analysis failed for {file_path}: {e}")
             return []
 
-def _check_cache(self, project_path: Path) -> Optional[AnalysisResult]:
+    def _check_cache(self, project_path: Path) -> Optional[AnalysisResult]:
         """Check cache for existing analysis result."""
         cache_key = self._generate_project_cache_key(project_path)
         return self.cache.get(cache_key)
 
-def _cache_result(self, project_path: Path, result: AnalysisResult) -> None:
+    def _cache_result(self, project_path: Path, result: AnalysisResult) -> None:
         """Cache analysis result with appropriate TTL."""
         cache_key = self._generate_project_cache_key(project_path)
         # Cache for 1 hour by default
         self.cache.set(cache_key, result, ttl=3600)
 
-def _generate_project_cache_key(self, project_path: Path) -> str:
+    def _generate_project_cache_key(self, project_path: Path) -> str:
         """Generate cache key for project analysis."""
         return f"project:{project_path.name}:{project_path.stat().st_mtime}"
 
-def _generate_file_cache_key(self, file_path: Path) -> str:
+    def _generate_file_cache_key(self, file_path: Path) -> str:
         """Generate cache key for file analysis."""
         return f"file:{file_path.name}:{file_path.stat().st_mtime}"
 
-def _update_system_metrics(self, analysis_time: float, success: bool) -> None:
+    def _update_system_metrics(self, analysis_time: float, success: bool) -> None:
         """Update system performance metrics."""
         self.analysis_count += 1
         self.total_analysis_time += analysis_time
         if not success:
             self.error_count += 1
 
-def _notify_analysis_started(self, context: Dict[str, Any]) -> None:
+    def _notify_analysis_started(self, context: Dict[str, Any]) -> None:
         """Notify observers that analysis has started."""
         for observer in self.observers:
             try:
@@ -371,7 +371,7 @@ def _notify_analysis_started(self, context: Dict[str, Any]) -> None:
             except Exception as e:
                 logger.error(f"Observer notification failed: {e}")
 
-def _notify_file_analyzed(self, file_path: str, violations: List[ConnascenceViolation]) -> None:
+    def _notify_file_analyzed(self, file_path: str, violations: List[ConnascenceViolation]) -> None:
         """Notify observers that a file has been analyzed."""
         for observer in self.observers:
             try:
@@ -379,7 +379,7 @@ def _notify_file_analyzed(self, file_path: str, violations: List[ConnascenceViol
             except Exception as e:
                 logger.error(f"Observer notification failed: {e}")
 
-def _notify_analysis_completed(self, result: AnalysisResult) -> None:
+    def _notify_analysis_completed(self, result: AnalysisResult) -> None:
         """Notify observers that analysis has completed."""
         for observer in self.observers:
             try:
@@ -387,7 +387,7 @@ def _notify_analysis_completed(self, result: AnalysisResult) -> None:
             except Exception as e:
                 logger.error(f"Observer notification failed: {e}")
 
-def _notify_error(self, error: Exception, context: Dict[str, Any]) -> None:
+    def _notify_error(self, error: Exception, context: Dict[str, Any]) -> None:
         """Notify observers of an error."""
         for observer in self.observers:
             try:
@@ -395,7 +395,7 @@ def _notify_error(self, error: Exception, context: Dict[str, Any]) -> None:
             except Exception as e:
                 logger.error(f"Observer notification failed: {e}")
 
-def _get_config(self, key: str, default: Any) -> Any:
+    def _get_config(self, key: str, default: Any) -> Any:
         """Get configuration value with fallback."""
         if self.config_provider:
             return self.config_provider.get_config(key, default)

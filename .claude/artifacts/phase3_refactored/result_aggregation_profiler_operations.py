@@ -278,7 +278,7 @@ NASA Rule 5: Input validation"""
         
         if AGGREGATION_IMPORTS_AVAILABLE:
             # Create mock config manager
-            class MockConfigManager:
+        class MockConfigManager:
                 def __init__(self):
                     pass
             

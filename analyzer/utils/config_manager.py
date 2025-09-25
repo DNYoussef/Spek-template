@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FILE_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+"""
 
 Centralized configuration management that eliminates hardcoded values
 and magic constants throughout the analyzer system.
@@ -43,7 +44,7 @@ class ConfigurationManager:
     Eliminates theater by ensuring all configuration settings affect analyzer behavior.
     """
 
-def __init__(self, config_dir: Optional[str] = None):
+    def __init__(self, config_dir: Optional[str] = None):
         """Initialize configuration manager with YAML validation."""
         self.config_dir = Path(config_dir) if config_dir else self._get_default_config_dir()
         self._detector_config: Optional[Dict] = None
@@ -53,11 +54,11 @@ def __init__(self, config_dir: Optional[str] = None):
         self._load_configurations()
         self._validate_all_configurations()
     
-def _get_default_config_dir(self) -> Path:
+    def _get_default_config_dir(self) -> Path:
         """Get default configuration directory."""
         return Path(__file__).parent.parent / "config"
     
-def _load_configurations(self) -> None:
+    def _load_configurations(self) -> None:
         """Load all configuration files with REAL YAML loading."""
         try:
             # Load detector configuration
@@ -97,7 +98,7 @@ def _load_configurations(self) -> None:
             self._analysis_config = self._get_default_analysis_config()
             self._enterprise_config = self._get_default_enterprise_config()
     
-def get_detector_config(self, detector_name: str) -> DetectorConfig:
+    def get_detector_config(self, detector_name: str) -> DetectorConfig:
         """
         Get configuration for a specific detector with REAL YAML loading.
 
@@ -122,7 +123,7 @@ def get_detector_config(self, detector_name: str) -> DetectorConfig:
             severity_mapping=config_data.get('severity_mapping')
         )
 
-def get_nested(self, path: str, default_value: Any = None) -> Any:
+    def get_nested(self, path: str, default_value: Any = None) -> Any:
         """
         Get nested configuration value using dot notation.
         Enables ConfigurableDetectorMixin.get_threshold() to work with nested paths.
@@ -149,7 +150,7 @@ def get_nested(self, path: str, default_value: Any = None) -> Any:
 
         return current if current is not None else default_value
     
-def get_analysis_config(self) -> AnalysisConfig:
+    def get_analysis_config(self) -> AnalysisConfig:
         """Get main analysis configuration."""
         analysis_data = self._analysis_config.get('analysis', {})
         
@@ -161,7 +162,7 @@ def get_analysis_config(self) -> AnalysisConfig:
             cache_enabled=analysis_data.get('cache_enabled', True)
         )
     
-def get_quality_gates(self) -> QualityGates:
+    def get_quality_gates(self) -> QualityGates:
         """Get quality gate configuration."""
         quality_data = self._analysis_config.get('quality_gates', {})
         
@@ -172,7 +173,7 @@ def get_quality_gates(self) -> QualityGates:
             policies=quality_data.get('policies', {})
         )
     
-def get_connascence_weights(self) -> Dict[str, float]:
+    def get_connascence_weights(self) -> Dict[str, float]:
         """Get connascence type weights for scoring."""
         connascence_data = self._analysis_config.get('connascence', {})
         return connascence_data.get('type_weights', {
@@ -187,7 +188,7 @@ def get_connascence_weights(self) -> Dict[str, float]:
             'connascence_of_identity': 3.5
         })
     
-def get_severity_multipliers(self) -> Dict[str, float]:
+    def get_severity_multipliers(self) -> Dict[str, float]:
         """Get severity multipliers for scoring."""
         connascence_data = self._analysis_config.get('connascence', {})
         return connascence_data.get('severity_multipliers', {
@@ -197,7 +198,7 @@ def get_severity_multipliers(self) -> Dict[str, float]:
             'low': 1.0
         })
     
-def get_file_processing_config(self) -> Dict[str, Any]:
+    def get_file_processing_config(self) -> Dict[str, Any]:
         """Get file processing configuration."""
         return self._analysis_config.get('file_processing', {
             'supported_extensions': ['.py', '.pyx', '.pyi'],
@@ -206,7 +207,7 @@ def get_file_processing_config(self) -> Dict[str, Any]:
             'follow_symlinks': False
         })
     
-def get_error_handling_config(self) -> Dict[str, Any]:
+    def get_error_handling_config(self) -> Dict[str, Any]:
         """Get error handling configuration."""
         return self._analysis_config.get('error_handling', {
             'continue_on_syntax_error': True,
@@ -215,7 +216,7 @@ def get_error_handling_config(self) -> Dict[str, Any]:
             'max_retry_attempts': 3
         })
     
-def get_reporting_config(self) -> Dict[str, Any]:
+    def get_reporting_config(self) -> Dict[str, Any]:
         """Get reporting and output configuration.""" 
         return self._analysis_config.get('reporting', {
             'default_format': 'text',
@@ -224,7 +225,7 @@ def get_reporting_config(self) -> Dict[str, Any]:
             'max_code_snippet_lines': 5
         })
         
-def get_integration_config(self, integration_name: str) -> Dict[str, Any]:
+    def get_integration_config(self, integration_name: str) -> Dict[str, Any]:
         """
         Get configuration for a specific integration.
         
@@ -237,7 +238,7 @@ def get_integration_config(self, integration_name: str) -> Dict[str, Any]:
         integrations = self._analysis_config.get('integrations', {})
         return integrations.get(integration_name, {})
     
-def get_policy_config(self, policy_name: str) -> Dict[str, Any]:
+    def get_policy_config(self, policy_name: str) -> Dict[str, Any]:
         """
         Get configuration for a specific policy.
         
@@ -258,7 +259,7 @@ def get_policy_config(self, policy_name: str) -> Dict[str, Any]:
             }
         })
     
-def get_enterprise_config(self) -> Dict[str, Any]:
+    def get_enterprise_config(self) -> Dict[str, Any]:
         """
         Get enterprise module configuration from REAL YAML loading.
 
@@ -349,7 +350,7 @@ def get_enterprise_config(self) -> Dict[str, Any]:
             }
         })
     
-def _get_default_detector_config(self) -> Dict[str, Any]:
+    def _get_default_detector_config(self) -> Dict[str, Any]:
         """Get default detector configuration as fallback - MUST match YAML structure."""
         return {
             'values_detector': {
@@ -392,7 +393,7 @@ def _get_default_detector_config(self) -> Dict[str, Any]:
             }
         }
     
-def _get_default_analysis_config(self) -> Dict[str, Any]:
+    def _get_default_analysis_config(self) -> Dict[str, Any]:
         """Get default analysis configuration as fallback."""
         return {
             'analysis': {
@@ -415,7 +416,7 @@ def _get_default_analysis_config(self) -> Dict[str, Any]:
             }
         }
 
-def _get_default_enterprise_config(self) -> Dict[str, Any]:
+    def _get_default_enterprise_config(self) -> Dict[str, Any]:
         """Get default enterprise configuration as fallback."""
         return {
             'sixSigma': {
@@ -461,12 +462,12 @@ def _get_default_enterprise_config(self) -> Dict[str, Any]:
             }
         }
     
-def reload_configurations(self) -> None:
+    def reload_configurations(self) -> None:
         """Reload all configuration files."""
         self._load_configurations()
         logger.info("Configuration reloaded successfully")
     
-def _validate_all_configurations(self) -> None:
+    def _validate_all_configurations(self) -> None:
         """Validate all loaded configurations and store errors."""
         self._validation_errors = []
 
@@ -487,7 +488,7 @@ def _validate_all_configurations(self) -> None:
             for error in self._validation_errors:
                 logger.warning(f"  - {error}")
 
-def _validate_detector_config(self) -> None:
+    def _validate_detector_config(self) -> None:
         """Validate detector configuration settings."""
         # Iterate through all detector configurations (not just nested under 'detectors')
         for detector_name, config in self._detector_config.items():
@@ -522,7 +523,7 @@ def _validate_detector_config(self) -> None:
                 if loc_threshold is not None and loc_threshold < 1:
                     self._validation_errors.append(f"God object loc_threshold must be >= 1, got {loc_threshold}")
 
-def _validate_analysis_config(self) -> None:
+    def _validate_analysis_config(self) -> None:
         """Validate analysis configuration settings."""
         analysis = self._analysis_config.get('analysis', {})
 
@@ -542,7 +543,7 @@ def _validate_analysis_config(self) -> None:
         if threshold is not None and not (0.0 <= threshold <= 1.0):
             self._validation_errors.append(f"Quality threshold must be between 0.0 and 1.0, got {threshold}")
 
-def _validate_enterprise_config(self) -> None:
+    def _validate_enterprise_config(self) -> None:
         """Validate enterprise configuration settings."""
         if 'sixSigma' in self._enterprise_config:
             six_sigma = self._enterprise_config['sixSigma']
@@ -556,7 +557,7 @@ def _validate_enterprise_config(self) -> None:
             if nasa_target is not None and not (0 <= nasa_target <= 100):
                 self._validation_errors.append(f"NASA POT10 target must be between 0 and 100, got {nasa_target}")
 
-def validate_configuration(self) -> List[str]:
+    def validate_configuration(self) -> List[str]:
         """
         Validate configuration completeness and correctness.
 

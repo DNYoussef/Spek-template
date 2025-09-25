@@ -1,4 +1,5 @@
 from src.constants.base import QUALITY_GATE_MINIMUM_PASS_RATE
+"""
 
 This test ensures basic functionality works and provides
 coverage data for the CI/CD pipeline reality validation.
@@ -7,6 +8,7 @@ coverage data for the CI/CD pipeline reality validation.
 import json
 import time
 from pathlib import Path
+"""
 
 def test_basic_imports():
     """Test basic Python imports work."""

@@ -47,12 +47,12 @@ class CodePattern:
 class PatternDetector:
     """ML-based code pattern detection engine."""
 
-def __init__(self, config: Optional[Dict[str, Any]] = None):
+    def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
         self.pattern_definitions = self._initialize_pattern_definitions()
         self.detection_algorithms = self._initialize_detection_algorithms()
 
-def _initialize_pattern_definitions(self) -> Dict[str, Dict[str, Any]]:
+    def _initialize_pattern_definitions(self) -> Dict[str, Dict[str, Any]]:
         """Initialize pattern definitions with detection criteria."""
         return {
             # Design Patterns
@@ -199,7 +199,7 @@ def _initialize_pattern_definitions(self) -> Dict[str, Dict[str, Any]]:
             }
         }
 
-def _initialize_detection_algorithms(self) -> Dict[str, callable]:
+    def _initialize_detection_algorithms(self) -> Dict[str, callable]:
         """Initialize pattern detection algorithms."""
         return {
             "regex_based": self._detect_regex_patterns,
@@ -209,7 +209,7 @@ def _initialize_detection_algorithms(self) -> Dict[str, callable]:
             "duplication": self._detect_duplication_patterns
         }
 
-def detect_patterns_in_file(self, file_path: str) -> List[CodePattern]:
+    def detect_patterns_in_file(self, file_path: str) -> List[CodePattern]:
         """Detect all patterns in a single file."""
         if not path_exists(file_path):
             return []
@@ -233,7 +233,7 @@ def detect_patterns_in_file(self, file_path: str) -> List[CodePattern]:
 
         return all_patterns
 
-def _detect_regex_patterns(self, file_path: str, content: str) -> List[CodePattern]:
+    def _detect_regex_patterns(self, file_path: str, content: str) -> List[CodePattern]:
         """Detect patterns using regex matching."""
         patterns = []
 
@@ -270,7 +270,7 @@ def _detect_regex_patterns(self, file_path: str, content: str) -> List[CodePatte
 
         return patterns
 
-def _detect_ast_patterns(self, file_path: str, content: str) -> List[CodePattern]:
+    def _detect_ast_patterns(self, file_path: str, content: str) -> List[CodePattern]:
         """Detect patterns using AST analysis."""
         patterns = []
 
@@ -290,7 +290,7 @@ def _detect_ast_patterns(self, file_path: str, content: str) -> List[CodePattern
 
         return patterns
 
-def _detect_structural_patterns(self, file_path: str, content: str) -> List[CodePattern]:
+    def _detect_structural_patterns(self, file_path: str, content: str) -> List[CodePattern]:
         """Detect structural anti-patterns."""
         patterns = []
 
@@ -333,7 +333,7 @@ def _detect_structural_patterns(self, file_path: str, content: str) -> List[Code
 
         return patterns
 
-def _detect_complexity_patterns(self, file_path: str, content: str) -> List[CodePattern]:
+    def _detect_complexity_patterns(self, file_path: str, content: str) -> List[CodePattern]:
         """Detect complexity-related patterns."""
         patterns = []
 
@@ -363,7 +363,7 @@ def _detect_complexity_patterns(self, file_path: str, content: str) -> List[Code
 
         return patterns
 
-def _detect_duplication_patterns(self, file_path: str, content: str) -> List[CodePattern]:
+    def _detect_duplication_patterns(self, file_path: str, content: str) -> List[CodePattern]:
         """Detect code duplication patterns."""
         patterns = []
 
@@ -406,7 +406,7 @@ def _detect_duplication_patterns(self, file_path: str, content: str) -> List[Cod
 
         return patterns
 
-def _detect_god_object(self, file_path: str, tree: ast.AST) -> List[CodePattern]:
+    def _detect_god_object(self, file_path: str, tree: ast.AST) -> List[CodePattern]:
         """Detect god object anti-pattern."""
         patterns = []
 
@@ -449,7 +449,7 @@ def _detect_god_object(self, file_path: str, tree: ast.AST) -> List[CodePattern]
 
         return patterns
 
-def _detect_long_parameter_lists(self, file_path: str, tree: ast.AST) -> List[CodePattern]:
+    def _detect_long_parameter_lists(self, file_path: str, tree: ast.AST) -> List[CodePattern]:
         """Detect long parameter list anti-pattern."""
         patterns = []
 
@@ -479,7 +479,7 @@ def _detect_long_parameter_lists(self, file_path: str, tree: ast.AST) -> List[Co
 
         return patterns
 
-def _detect_complex_methods(self, file_path: str, tree: ast.AST) -> List[CodePattern]:
+    def _detect_complex_methods(self, file_path: str, tree: ast.AST) -> List[CodePattern]:
         """Detect overly complex methods."""
         patterns = []
 
@@ -507,7 +507,7 @@ def _detect_complex_methods(self, file_path: str, tree: ast.AST) -> List[CodePat
 
         return patterns
 
-def _calculate_cyclomatic_complexity(self, function_node: ast.FunctionDef) -> int:
+    def _calculate_cyclomatic_complexity(self, function_node: ast.FunctionDef) -> int:
         """Calculate cyclomatic complexity of a function."""
         complexity = 1  # Base complexity
 
@@ -526,7 +526,7 @@ def _calculate_cyclomatic_complexity(self, function_node: ast.FunctionDef) -> in
 
         return complexity
 
-def _calculate_regex_confidence(self, evidence: Dict[str, Any]) -> float:
+    def _calculate_regex_confidence(self, evidence: Dict[str, Any]) -> float:
         """Calculate confidence for regex-based pattern detection."""
         # Simple confidence based on number of matching indicators
         indicator_count = sum(1 for key, value in evidence.items()
@@ -536,7 +536,7 @@ def _calculate_regex_confidence(self, evidence: Dict[str, Any]) -> float:
         confidence = min(0.9, 0.3 + (indicator_count * 0.2))
         return confidence
 
-def _calculate_pattern_impact(self, pattern_type: PatternType, severity: PatternSeverity) -> str:
+    def _calculate_pattern_impact(self, pattern_type: PatternType, severity: PatternSeverity) -> str:
         """Calculate impact description for a pattern."""
         impact_matrix = {
             (PatternType.ANTI_PATTERN, PatternSeverity.CRITICAL): "Severe impact on code quality and maintainability",
@@ -550,7 +550,7 @@ def _calculate_pattern_impact(self, pattern_type: PatternType, severity: Pattern
 
         return impact_matrix.get((pattern_type, severity), "Impact assessment needed")
 
-def analyze_directory_patterns(self, directory: str) -> Dict[str, Any]:
+    def analyze_directory_patterns(self, directory: str) -> Dict[str, Any]:
         """Analyze patterns across an entire directory."""
         results = {
             "total_files": 0,

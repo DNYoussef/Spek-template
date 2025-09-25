@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
-Real-time memory usage tracking and leak detection for the connascence analyzer.
+"""Real-time memory usage tracking and leak detection for the connascence analyzer.
 Implements NASA Rule 7 compliance with bounded resource management and automatic
 recovery procedures.
 

@@ -56,7 +56,7 @@ class StandardError:
     line_number: Optional[int] = None
     suggestions: Optional[List[str]] = None
 
-def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return asdict(self)
 
@@ -97,15 +97,15 @@ class UnifiedAnalysisResult:
     errors: Optional[List[StandardError]] = None
     warnings: Optional[List[StandardError]] = None
 
-def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return asdict(self)
 
-def has_errors(self) -> bool:
+    def has_errors(self) -> bool:
         """Check if analysis has any errors."""
         return bool(self.errors)
 
-def has_critical_errors(self) -> bool:
+    def has_critical_errors(self) -> bool:
         """Check if analysis has critical errors."""
         if not self.errors:
             return False
@@ -143,7 +143,7 @@ class AnalysisConfiguration:
     debug: bool = False
     fail_on_critical: bool = False
 
-def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return asdict(self)
 

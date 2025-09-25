@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MINIMUM_TEST_COVERAGE_PERCENTAGE, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, QUALITY_GATE_MINIMUM_PASS_RATE, REGULATORY_FACTUALITY_REQUIREMENT, TAKE_PROFIT_PERCENTAGE, THEATER_DETECTION_FAILURE_THRESHOLD, THEATER_DETECTION_WARNING_THRESHOLD
+"""
 
 This system provides final validation that all improvements claimed across
 the 3-phase loop system are real, measurable, and beneficial rather than
@@ -55,13 +56,13 @@ def __init__(self, artifacts_dir: str = ".claude/.artifacts"):
         # Reality validation criteria
         self.validation_criteria = {
             "performance": {
-                "minimum_improvement": 0.05,  # MAXIMUM_NESTED_DEPTH% minimum real improvement
+                "minimum_improvement": 0.5,  # MAXIMUM_NESTED_DEPTH% minimum real improvement
                 "measurement_consistency": 0.90,  # 90% consistent measurements
                 "baseline_stability": 0.85,  # 85% stable baseline
                 "evidence_depth": 3  # Minimum 3 types of evidence
             },
             "quality": {
-                "minimum_improvement": 0.03,  # 3% minimum quality improvement
+                "minimum_improvement": 0.3,  # 3% minimum quality improvement
                 "test_depth_ratio": 0.60,  # 60% of coverage must come from meaningful tests
                 "complexity_correlation": 0.70,  # 70% correlation between metrics
                 "evidence_depth": 4
@@ -79,7 +80,7 @@ def __init__(self, artifacts_dir: str = ".claude/.artifacts"):
                 "evidence_depth": 4
             },
             "architecture": {
-                "coupling_reduction_minimum": 0.08,  # 8% minimum coupling reduction
+                "coupling_reduction_minimum": 0.8,  # 8% minimum coupling reduction
                 "duplication_elimination_rate": 0.75,  # 75% real duplication elimination
                 "maintainability_correlation": 0.70,  # 70% correlation with maintainability
                 "evidence_depth": 3
@@ -339,7 +340,7 @@ def _calculate_consolidation_reality_score(self, evidence_items: List[EvidenceIt
                     maintainability_improvement = value.get("maintainability_improvement", 0)
                     
                     # High file reduction with low maintainability improvement suggests superficial merging
-                    if reduction_rate > 0.30 and maintainability_improvement < 0.05:
+                    if reduction_rate > 0.30 and maintainability_improvement < 0.5:
                         scores.append(0.40)  # Theater risk
                     elif reduction_rate > 0.15 and maintainability_improvement >= 0.10:
                         scores.append(QUALITY_GATE_MINIMUM_PASS_RATE)  # Genuine improvement
@@ -430,7 +431,7 @@ def _calculate_decomposition_reality_score(self, evidence_items: List[EvidenceIt
                     # Check for genuine decomposition vs superficial splitting
                     if reduction > 0.30 and complexity_improvement >= 0.15:
                         scores.append(REGULATORY_FACTUALITY_REQUIREMENT)  # Genuine decomposition
-                    elif reduction > 0.20 and complexity_improvement >= 0.08:
+                    elif reduction > 0.20 and complexity_improvement >= 0.8:
                         scores.append(THEATER_DETECTION_WARNING_THRESHOLD)  # Good decomposition
                     elif reduction > TAKE_PROFIT_PERCENTAGE:
                         scores.append(THEATER_DETECTION_FAILURE_THRESHOLD)  # Some improvement
@@ -459,7 +460,7 @@ def _identify_consolidation_theater_risks(self, evidence: Dict) -> List[str]:
             if reduction_rate > 0.40:
                 risks.append("Extremely high file reduction rate may indicate superficial merging")
             
-            if reduction_rate > 0.20 and maintainability < 0.03:
+            if reduction_rate > 0.20 and maintainability < 0.3:
                 risks.append("File consolidation without maintainability improvement suggests theater")
             
             if file_data.get("complexity_increase", 0) > 0.10:
@@ -501,7 +502,7 @@ def _identify_decomposition_theater_risks(self, evidence: Dict) -> List[str]:
             reduction = god_data.get("reduction_percentage", 0)
             complexity_improvement = god_data.get("complexity_improvement", 0)
             
-            if reduction > 0.25 and complexity_improvement < 0.05:
+            if reduction > 0.25 and complexity_improvement < 0.5:
                 risks.append("High god object count reduction without complexity improvement suggests splitting theater")
             
             if god_data.get("coupling_increase", 0) > 0.10:
@@ -538,7 +539,7 @@ def _identify_consolidation_benefits(self, evidence: Dict) -> List[str]:
             if file_data.get("duplication_reduction", 0) >= 0.15:
                 benefits.append("Meaningful code duplication reduction")
             
-            if file_data.get("coupling_improvement", 0) >= 0.08:
+            if file_data.get("coupling_improvement", 0) >= 0.8:
                 benefits.append("Improved architectural coupling")
         
         if "test_validation" in evidence:

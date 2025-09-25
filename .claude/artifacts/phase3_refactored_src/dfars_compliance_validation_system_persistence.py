@@ -13,7 +13,7 @@ import json
 
 
 """Load existing validation data."""
-    def _load_system_data(self):
+def _load_system_data(self):
         """Load existing validation data."""
         # Load control assessments
         assessments_file = self.storage_path / "control_assessments.json"
@@ -74,7 +74,7 @@ import json
                 logger.error(f"Failed to load compliance gaps: {e}")
 
 """Save validation data to storage."""
-    def _save_system_data(self):
+def _save_system_data(self):
         """Save validation data to storage."""
         # Save control assessments
         assessments_data = [asdict(assessment) for assessment in self.control_assessments.values()]
@@ -98,7 +98,7 @@ import json
             logger.error(f"Failed to save compliance gaps: {e}")
 
 """Save validation results to storage."""
-    def _save_validation_results(self, validation_results: Dict[str, Any]):
+def _save_validation_results(self, validation_results: Dict[str, Any]):
         """Save validation results to storage."""
         results_file = self.storage_path / f"validation_results_{int(time.time())}.json"
 

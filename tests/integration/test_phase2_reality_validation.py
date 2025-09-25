@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
+"""
 
 Comprehensive test suite to validate 100% reality score for GitHub integration.
 Tests all fixes for theater elimination and ensures production readiness.
@@ -117,7 +118,7 @@ class TestPhase2RealityValidation(unittest.TestCase):
     def test_retry_logic_with_backoff(self):
         """Test 3: Verify retry logic handles failures correctly."""
 
-        @retry_with_backoff(max_retries=3, base_delay=0.01)  # Fast for testing
+        @retry_with_backoff(max_retries=3, base_delay=0.1)  # Fast for testing
         def failing_function():
             self.call_count += 1
             if self.call_count < 3:
@@ -134,7 +135,7 @@ class TestPhase2RealityValidation(unittest.TestCase):
             self.assertEqual(self.call_count, 3)  # Called 3 times total
 
         # Test max retries exceeded
-        @retry_with_backoff(max_retries=2, base_delay=0.01)
+        @retry_with_backoff(max_retries=2, base_delay=0.1)
         def always_failing_function():
             raise Exception("Always fails")
 
@@ -282,7 +283,7 @@ class TestPhase2RealityValidation(unittest.TestCase):
             policy_preset="enterprise",
             analysis_duration_ms=1500,
             files_analyzed=5,
-            timestamp="2024-01-01T00:00:00",
+            timestamp="2024-1-01T00:00:00",
             priority_fixes=["Fix high severity violations"],
             improvement_actions=["Regular monitoring"]
         )
@@ -364,7 +365,7 @@ class TestPhase2RealityValidation(unittest.TestCase):
             policy_preset="standard",
             analysis_duration_ms=2000,
             files_analyzed=10,
-            timestamp="2024-01-01T00:00:00",
+            timestamp="2024-1-01T00:00:00",
             priority_fixes=[],
             improvement_actions=[]
         )
@@ -439,7 +440,7 @@ class TestProductionReadiness(unittest.TestCase):
             policy_preset="standard",
             analysis_duration_ms=1000,
             files_analyzed=1,
-            timestamp="2024-01-01T00:00:00",
+            timestamp="2024-1-01T00:00:00",
             priority_fixes=[],
             improvement_actions=[]
         )
@@ -459,7 +460,7 @@ class TestProductionReadiness(unittest.TestCase):
         cache = APICache(ttl_seconds=300, max_size=100)
 
         def dummy_fetcher(url, params):
-            time.sleep(0.001)  # Simulate network delay
+            time.sleep(0.1)  # Simulate network delay
             return f"data_{url}"
 
         # First call should be slower (fetch)

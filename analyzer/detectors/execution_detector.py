@@ -15,7 +15,7 @@ from .base import DetectorBase
 class ExecutionDetector(DetectorBase):
     """Detects execution-based coupling and control flow dependencies."""
     
-def __init__(self, file_path: str, source_lines: List[str]):
+    def __init__(self, file_path: str, source_lines: List[str]):
         super().__init__(file_path, source_lines)
         
         # Track execution dependencies
@@ -30,7 +30,7 @@ def __init__(self, file_path: str, source_lines: List[str]):
         self.stateful_variables: Set[str] = set()
         self.initialization_patterns: Dict[str, ast.AST] = {}
     
-def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
+    def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         """
         Detect execution coupling violations in the AST tree.
         
@@ -68,13 +68,13 @@ def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         
         return self.violations
     
-def _track_global_usage(self, node: ast.Global) -> None:
+    def _track_global_usage(self, node: ast.Global) -> None:
         """Track global variable declarations and usage."""
         for name in node.names:
             self.stateful_variables.add(name)
         self.global_assignments.append(node)
     
-def _track_name_usage(self, node: ast.Name) -> None:
+    def _track_name_usage(self, node: ast.Name) -> None:
         """Track variable name usage patterns."""
         if isinstance(node.ctx, ast.Store):
             # Check for initialization patterns
@@ -87,7 +87,7 @@ def _track_name_usage(self, node: ast.Name) -> None:
             if node.id in self.stateful_variables:
                 self.global_reads.append(node)
     
-def _track_function_call(self, node: ast.Call) -> None:
+    def _track_function_call(self, node: ast.Call) -> None:
         """Track function calls that might indicate execution dependencies."""
         self.function_calls.append(node)
         
@@ -98,19 +98,19 @@ def _track_function_call(self, node: ast.Call) -> None:
                     ['init', 'setup', 'start', 'stop', 'open', 'close', 'connect', 'disconnect']):
                 self.initialization_patterns[func_name] = node
     
-def _track_exception_handling(self, node: ast.AST) -> None:
+    def _track_exception_handling(self, node: ast.AST) -> None:
         """Track exception handling patterns."""
         self.exception_handlers.append(node)
     
-def _track_control_flow(self, node: ast.AST) -> None:
+    def _track_control_flow(self, node: ast.AST) -> None:
         """Track control flow structures."""
         self.control_flow_nodes.append(node)
     
-def _track_imports(self, node: ast.AST) -> None:
+    def _track_imports(self, node: ast.AST) -> None:
         """Track import statements for order dependencies."""
         self.import_statements.append(node)
     
-def _track_assignments(self, node: ast.Assign) -> None:
+    def _track_assignments(self, node: ast.Assign) -> None:
         """Track assignments for state modification patterns."""
         for target in node.targets:
             if isinstance(target, ast.Name):
@@ -119,7 +119,7 @@ def _track_assignments(self, node: ast.Assign) -> None:
                 if var_name.islower() and not var_name.startswith('_'):
                     self.stateful_variables.add(var_name)
     
-def _check_global_state_coupling(self) -> None:
+    def _check_global_state_coupling(self) -> None:
         """Check for excessive global state dependencies."""
         if len(self.global_assignments) > 3 or len(self.stateful_variables) > 5:
             representative_node = self.global_assignments[0] if self.global_assignments else None
@@ -128,7 +128,7 @@ def _check_global_state_coupling(self) -> None:
                     representative_node, len(self.global_assignments), len(self.stateful_variables)
                 )
     
-def _check_initialization_order_coupling(self) -> None:
+    def _check_initialization_order_coupling(self) -> None:
         """Check for implicit initialization order dependencies."""
         if len(self.initialization_patterns) >= 3:
             # Look for patterns that suggest order matters
@@ -141,7 +141,7 @@ def _check_initialization_order_coupling(self) -> None:
                     representative_node, init_functions
                 )
     
-def _check_exception_flow_coupling(self) -> None:
+    def _check_exception_flow_coupling(self) -> None:
         """Check for exception handling that creates execution coupling."""
         if len(self.exception_handlers) > 5:
             # Many exception handlers might indicate complex execution flow coupling
@@ -150,7 +150,7 @@ def _check_exception_flow_coupling(self) -> None:
                 representative_node, len(self.exception_handlers)
             )
     
-def _check_side_effect_coupling(self) -> None:
+    def _check_side_effect_coupling(self) -> None:
         """Check for functions with side effects that create execution coupling."""
         side_effect_calls = []
         
@@ -164,7 +164,7 @@ def _check_side_effect_coupling(self) -> None:
                 representative_node, len(side_effect_calls)
             )
     
-def _check_import_order_dependencies(self) -> None:
+    def _check_import_order_dependencies(self) -> None:
         """Check for imports that might create execution order dependencies."""
         # Look for imports mixed with executable code
         if len(self.import_statements) > 0:
@@ -180,7 +180,7 @@ def _check_import_order_dependencies(self) -> None:
                     representative_node, len(early_code), last_import_line
                 )
     
-def _has_side_effects(self, call_node: ast.Call) -> bool:
+    def _has_side_effects(self, call_node: ast.Call) -> bool:
         """Check if a function call likely has side effects."""
         if isinstance(call_node.func, ast.Name):
             func_name = call_node.func.id.lower()
@@ -199,7 +199,7 @@ def _has_side_effects(self, call_node: ast.Call) -> bool:
         
         return False
     
-def _create_global_state_violation(
+    def _create_global_state_violation(
         self, node: ast.AST, global_assignments: int, stateful_vars: int
     ) -> None:
         """Create violation for excessive global state coupling."""
@@ -221,7 +221,7 @@ def _create_global_state_violation(
             )
         )
     
-def _create_initialization_order_violation(
+    def _create_initialization_order_violation(
         self, node: ast.AST, init_functions: List[str]
     ) -> None:
         """Create violation for initialization order dependencies."""
@@ -243,7 +243,7 @@ def _create_initialization_order_violation(
             )
         )
     
-def _create_exception_flow_violation(
+    def _create_exception_flow_violation(
         self, node: ast.AST, handler_count: int
     ) -> None:
         """Create violation for complex exception flow coupling."""
@@ -264,7 +264,7 @@ def _create_exception_flow_violation(
             )
         )
     
-def _create_side_effect_violation(
+    def _create_side_effect_violation(
         self, node: ast.AST, side_effect_count: int
     ) -> None:
         """Create violation for excessive side effect coupling."""
@@ -285,7 +285,7 @@ def _create_side_effect_violation(
             )
         )
     
-def _create_import_order_violation(
+    def _create_import_order_violation(
         self, node: ast.AST, early_code_count: int, last_import_line: int
     ) -> None:
         """Create violation for import order dependencies."""

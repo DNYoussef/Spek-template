@@ -19,8 +19,10 @@ import json
 import time
 import hashlib
 from datetime import datetime, timezone
+"""
 
 from ...patterns.command_base import Command, CommandResult
+"""
 
 logger = logging.getLogger(__name__)
 

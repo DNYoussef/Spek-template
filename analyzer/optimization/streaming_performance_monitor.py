@@ -63,7 +63,7 @@ class StreamingPerformanceMonitor:
     - Session-based statistics aggregation
     """
     
-def __init__(self,
+    def __init__(self,
                 max_metrics_history: int = 1000,
                 memory_sample_interval: float = 1.0):
         """
@@ -101,7 +101,7 @@ def __init__(self,
         
         logger.info(f"StreamingPerformanceMonitor initialized with {max_metrics_history} sample history")
     
-def start_session(self, session_id: str, watched_files: int = 0) -> None:
+    def start_session(self, session_id: str, watched_files: int = 0) -> None:
         """Start a new streaming analysis session."""
         with self._lock:
             session = StreamingSessionStats(
@@ -117,7 +117,7 @@ def start_session(self, session_id: str, watched_files: int = 0) -> None:
             
             logger.info(f"Started streaming session {session_id} with {watched_files} watched files")
     
-def end_session(self, session_id: str) -> StreamingSessionStats:
+    def end_session(self, session_id: str) -> StreamingSessionStats:
         """End streaming session and return final stats."""
         with self._lock:
             if session_id not in self.active_sessions:
@@ -142,7 +142,7 @@ def end_session(self, session_id: str) -> StreamingSessionStats:
             logger.info(f"Ended streaming session {session_id}")
             return session
     
-def record_file_event(self, event_type: str, file_path: str, processing_time_ms: float) -> None:
+    def record_file_event(self, event_type: str, file_path: str, processing_time_ms: float) -> None:
         """Record a file change event and processing time."""
         with self._lock:
             current_time = time.time()
@@ -166,7 +166,7 @@ def record_file_event(self, event_type: str, file_path: str, processing_time_ms:
             # Notify callbacks
             self._notify_event_callbacks(event_type, file_path, processing_time_ms)
     
-def record_cache_operation(self, hit: bool, operation_type: str = "file_content") -> None:
+    def record_cache_operation(self, hit: bool, operation_type: str = "file_content") -> None:
         """Record cache hit or miss."""
         with self._lock:
             if hit:
@@ -174,7 +174,7 @@ def record_cache_operation(self, hit: bool, operation_type: str = "file_content"
             else:
                 self.current_metrics.cache_misses += 1
     
-def record_memory_sample(self, memory_mb: float) -> None:
+    def record_memory_sample(self, memory_mb: float) -> None:
         """Record memory usage sample."""
         with self._lock:
             timestamp = time.time()
@@ -191,14 +191,14 @@ def record_memory_sample(self, memory_mb: float) -> None:
             # Store sample for analysis
             self.memory_samples.append((timestamp, memory_mb))
     
-def record_queue_metrics(self, queue_depth: int, backpressure: bool = False) -> None:
+    def record_queue_metrics(self, queue_depth: int, backpressure: bool = False) -> None:
         """Record queue depth and backpressure events."""
         with self._lock:
             self.current_metrics.queue_depth = queue_depth
             if backpressure:
                 self.current_metrics.backpressure_events += 1
     
-def record_debounce_delay(self, delay_ms: float) -> None:
+    def record_debounce_delay(self, delay_ms: float) -> None:
         """Record debounce delay for file change events."""
         with self._lock:
             self.current_metrics.debounce_delays_ms.append(delay_ms)
@@ -207,7 +207,7 @@ def record_debounce_delay(self, delay_ms: float) -> None:
             if len(self.current_metrics.debounce_delays_ms) > 200:
                 self.current_metrics.debounce_delays_ms = self.current_metrics.debounce_delays_ms[-150:]
     
-def get_current_metrics(self) -> StreamingMetrics:
+    def get_current_metrics(self) -> StreamingMetrics:
         """Get current streaming metrics snapshot."""
         with self._lock:
             # Create deep copy to avoid race conditions
@@ -227,7 +227,7 @@ def get_current_metrics(self) -> StreamingMetrics:
             
             return metrics
     
-def get_performance_report(self) -> Dict[str, Any]:
+    def get_performance_report(self) -> Dict[str, Any]:
         """Generate comprehensive performance report."""
         with self._lock:
             metrics = self.get_current_metrics()
@@ -264,11 +264,11 @@ def get_performance_report(self) -> Dict[str, Any]:
             
             return report
     
-def add_event_callback(self, callback: Callable[[str, str, float], None]) -> None:
+    def add_event_callback(self, callback: Callable[[str, str, float], None]) -> None:
         """Add callback for real-time event notifications."""
         self.event_callbacks.append(callback)
     
-def _update_throughput(self) -> None:
+    def _update_throughput(self) -> None:
         """Update throughput calculation based on recent events."""
         if len(self.current_metrics.analysis_latency_ms) < 10:
             return
@@ -281,26 +281,26 @@ def _update_throughput(self) -> None:
         if recent_events:
             self.current_metrics.throughput_files_per_second = len(recent_events) / 60.0
     
-def _calculate_cache_hit_rate(self) -> float:
+    def _calculate_cache_hit_rate(self) -> float:
         """Calculate cache hit rate percentage."""
         total_ops = self.current_metrics.cache_hits + self.current_metrics.cache_misses
         if total_ops == 0:
             return 0.0
         return (self.current_metrics.cache_hits / total_ops) * 100.0
     
-def _calculate_average_latency(self) -> float:
+    def _calculate_average_latency(self) -> float:
         """Calculate average analysis latency."""
         if not self.current_metrics.analysis_latency_ms:
             return 0.0
         return sum(self.current_metrics.analysis_latency_ms) / len(self.current_metrics.analysis_latency_ms)
     
-def _calculate_average_debounce(self) -> float:
+    def _calculate_average_debounce(self) -> float:
         """Calculate average debounce delay."""
         if not self.current_metrics.debounce_delays_ms:
             return 0.0
         return sum(self.current_metrics.debounce_delays_ms) / len(self.current_metrics.debounce_delays_ms)
     
-def _calculate_p95_latency(self) -> float:
+    def _calculate_p95_latency(self) -> float:
         """Calculate 95th percentile latency."""
         if not self.current_metrics.analysis_latency_ms:
             return 0.0
@@ -308,7 +308,7 @@ def _calculate_p95_latency(self) -> float:
         p95_index = int(len(sorted_latencies) * 0.95)
         return sorted_latencies[p95_index] if p95_index < len(sorted_latencies) else sorted_latencies[-1]
     
-def _notify_event_callbacks(self, event_type: str, file_path: str, processing_time_ms: float) -> None:
+    def _notify_event_callbacks(self, event_type: str, file_path: str, processing_time_ms: float) -> None:
         """Notify registered callbacks of events."""
         for callback in self.event_callbacks:
             try:

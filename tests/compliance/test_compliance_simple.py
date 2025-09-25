@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+"""
 
 This script demonstrates the compliance evidence generation system
 without Unicode characters for Windows compatibility.

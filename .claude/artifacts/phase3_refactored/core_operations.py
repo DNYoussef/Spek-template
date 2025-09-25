@@ -317,8 +317,8 @@ def _create_ci_components_module(result_class):
         def _create_mock_detector(self):
             class MockDetector:
                 def detect(self, *args, **kwargs): return []
-                def analyze_directory(self, *args, **kwargs): return []
-                def analyze_file(self, *args, **kwargs): return []
+            def analyze_directory(self, *args, **kwargs): return []
+            def analyze_file(self, *args, **kwargs): return []
             return MockDetector
 
     return result_class(has_module=True, module=CIMockComponents())
@@ -332,8 +332,8 @@ def _create_ci_components_module(result_class):
         def _create_mock_detector(self):
             class MockDetector:
                 def detect(self, *args, **kwargs): return []
-                def analyze_directory(self, *args, **kwargs): return []
-                def analyze_file(self, *args, **kwargs): return []
+            def analyze_directory(self, *args, **kwargs): return []
+            def analyze_file(self, *args, **kwargs): return []
             return MockDetector
 
                 def detect(self, *args, **kwargs): return []

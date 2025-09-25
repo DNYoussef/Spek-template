@@ -1493,7 +1493,7 @@ class LoopOrchestrator:
         # Boost score for coupling improvements
         coupling_improvements = await self._validate_coupling_improvements(execution)
         if coupling_improvements > 0:
-            base_score += min(0.2, coupling_improvements * 0.05)
+            base_score += min(0.2, coupling_improvements * 0.5)
 
         return min(1.0, base_score)
 

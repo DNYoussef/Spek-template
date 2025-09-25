@@ -59,7 +59,7 @@ class LockFreeDetectorQueue:
     using compare-and-swap operations and circular buffer design.
     """
     
-def __init__(self, capacity: int = 64):
+    def __init__(self, capacity: int = 64):
         """
         Initialize lock-free queue.
         
@@ -81,7 +81,7 @@ def __init__(self, capacity: int = 64):
         # Spin lock for critical operations (minimal contention)
         self._lock = threading.Lock()
     
-def enqueue(self, item: Any) -> bool:
+    def enqueue(self, item: Any) -> bool:
         """
         Add item to queue.
         
@@ -100,7 +100,7 @@ def enqueue(self, item: Any) -> bool:
             self.size += 1
             return True
     
-def dequeue(self) -> Optional[Any]:
+    def dequeue(self) -> Optional[Any]:
         """
         Remove and return item from queue.
         
@@ -117,22 +117,22 @@ def dequeue(self) -> Optional[Any]:
             self.size -= 1
             return item
     
-def peek(self) -> Optional[Any]:
+    def peek(self) -> Optional[Any]:
         """Peek at next item without removing."""
         with self._lock:
             if self.size == 0:
                 return None
             return self.buffer[self.head]
     
-def is_empty(self) -> bool:
+    def is_empty(self) -> bool:
         """Check if queue is empty."""
         return self.size == 0
     
-def is_full(self) -> bool:
+    def is_full(self) -> bool:
         """Check if queue is full."""
         return self.size >= self.capacity
     
-def current_size(self) -> int:
+    def current_size(self) -> int:
         """Get current queue size."""
         return self.size
 
@@ -148,7 +148,7 @@ class OptimizedDetectorPool:
     - Real-time performance monitoring
     """
     
-def __init__(self,
+    def __init__(self,
                 detector_types: Dict[str, type],
                 config: Optional[AdaptiveConfig] = None):
         """
@@ -189,7 +189,7 @@ def __init__(self,
         
         logger.info(f"OptimizedDetectorPool initialized with {len(detector_types)} detector types")
     
-def _initialize_detector_pools(self) -> None:
+    def _initialize_detector_pools(self) -> None:
         """Initialize detector pools with optimal configuration."""
         for detector_name in self.detector_types:
             # Create lock-free queue for this detector type
@@ -207,7 +207,7 @@ def _initialize_detector_pools(self) -> None:
         
         logger.info(f"Initialized detector pools with {self.metrics.pool_size} total detectors")
     
-def _create_optimized_detector(self, detector_name: str) -> bool:
+    def _create_optimized_detector(self, detector_name: str) -> bool:
         """
         Create optimized detector instance with memory pre-allocation.
         
@@ -250,7 +250,7 @@ def _create_optimized_detector(self, detector_name: str) -> bool:
             logger.error(f"Failed to create optimized detector {detector_name}: {e}")
             return False
     
-def acquire_detector(self, detector_name: str, file_path: str, source_lines: List[str]) -> Optional[Any]:
+    def acquire_detector(self, detector_name: str, file_path: str, source_lines: List[str]) -> Optional[Any]:
         """
         Acquire detector with optimized resource management.
         
@@ -304,7 +304,7 @@ def acquire_detector(self, detector_name: str, file_path: str, source_lines: Lis
             logger.error(f"Detector acquisition failed for {detector_name}: {e}")
             return None
     
-def release_detector(self, detector: Any) -> None:
+    def release_detector(self, detector: Any) -> None:
         """
         Release detector back to pool with optimization.
         
@@ -343,7 +343,7 @@ def release_detector(self, detector: Any) -> None:
         except Exception as e:
             logger.error(f"Detector release failed: {e}")
     
-def _can_create_new_detector(self, detector_name: str) -> bool:
+    def _can_create_new_detector(self, detector_name: str) -> bool:
         """Check if new detector can be created."""
         current_size = self.detector_queues[detector_name].current_size()
         
@@ -362,7 +362,7 @@ def _can_create_new_detector(self, detector_name: str) -> bool:
         
         return True
     
-def start_adaptive_optimization(self) -> None:
+    def start_adaptive_optimization(self) -> None:
         """Start adaptive pool optimization."""
         if self.optimization_active:
             logger.warning("Pool optimization already active")
@@ -378,7 +378,7 @@ def start_adaptive_optimization(self) -> None:
         
         logger.info("Adaptive pool optimization started")
     
-def stop_adaptive_optimization(self) -> None:
+    def stop_adaptive_optimization(self) -> None:
         """Stop adaptive pool optimization."""
         if not self.optimization_active:
             return
@@ -389,7 +389,7 @@ def stop_adaptive_optimization(self) -> None:
         
         logger.info("Adaptive pool optimization stopped")
     
-def _optimization_loop(self) -> None:
+    def _optimization_loop(self) -> None:
         """Main optimization loop."""
         logger.info("Pool optimization loop started")
         
@@ -403,7 +403,7 @@ def _optimization_loop(self) -> None:
         
         logger.info("Pool optimization loop ended")
     
-def _perform_optimization_cycle(self) -> None:
+    def _perform_optimization_cycle(self) -> None:
         """Perform single optimization cycle."""
         current_time = time.time()
         
@@ -439,7 +439,7 @@ def _perform_optimization_cycle(self) -> None:
         
         logger.debug(f"Optimization cycle completed: {len(optimization_actions)} actions executed")
     
-def _update_metrics(self) -> None:
+    def _update_metrics(self) -> None:
         """Update current pool metrics."""
         # Pool size metrics
         self.metrics.pool_size = sum(
@@ -463,7 +463,7 @@ def _update_metrics(self) -> None:
             ])
             self.metrics.throughput_ops_per_second = recent_acquisitions / 60.0
     
-def _analyze_workload_patterns(self) -> Dict[str, Any]:
+    def _analyze_workload_patterns(self) -> Dict[str, Any]:
         """Analyze workload patterns for optimization."""
         return {
             "average_queue_utilization": self._calculate_queue_utilization(),
@@ -473,7 +473,7 @@ def _analyze_workload_patterns(self) -> Dict[str, Any]:
             "detector_type_distribution": self._analyze_detector_usage_distribution()
         }
     
-def _calculate_queue_utilization(self) -> float:
+    def _calculate_queue_utilization(self) -> float:
         """Calculate average queue utilization."""
         if not self.detector_queues:
             return 0.0
@@ -485,7 +485,7 @@ def _calculate_queue_utilization(self) -> float:
         
         return total_utilization / len(self.detector_queues)
     
-def _assess_contention_level(self) -> str:
+    def _assess_contention_level(self) -> str:
         """Assess current contention level."""
         if self.metrics.average_wait_time_ms > self.config.contention_threshold_ms * 2:
             return "high"
@@ -494,7 +494,7 @@ def _assess_contention_level(self) -> str:
         else:
             return "low"
     
-def _assess_memory_pressure(self) -> str:
+    def _assess_memory_pressure(self) -> str:
         """Assess memory pressure level."""
         if self.metrics.memory_usage_mb > self.config.memory_pressure_threshold_mb * 1.5:
             return "high"
@@ -503,7 +503,7 @@ def _assess_memory_pressure(self) -> str:
         else:
             return "low"
     
-def _analyze_throughput_trend(self) -> str:
+    def _analyze_throughput_trend(self) -> str:
         """Analyze throughput trend."""
         if len(self.metrics_history) < 3:
             return "insufficient_data"
@@ -517,7 +517,7 @@ def _analyze_throughput_trend(self) -> str:
         else:
             return "stable"
     
-def _analyze_detector_usage_distribution(self) -> Dict[str, float]:
+    def _analyze_detector_usage_distribution(self) -> Dict[str, float]:
         """Analyze detector type usage distribution."""
         total_acquisitions = len(self.acquisition_times)
         if total_acquisitions == 0:
@@ -536,7 +536,7 @@ def _analyze_detector_usage_distribution(self) -> Dict[str, float]:
         
         return usage_distribution
     
-def _determine_optimization_actions(self, workload_analysis: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def _determine_optimization_actions(self, workload_analysis: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Determine optimization actions based on analysis."""
         actions = []
         
@@ -584,7 +584,7 @@ def _determine_optimization_actions(self, workload_analysis: Dict[str, Any]) -> 
         
         return actions
     
-def _execute_optimization_action(self, action: Dict[str, Any]) -> None:
+    def _execute_optimization_action(self, action: Dict[str, Any]) -> None:
         """Execute optimization action."""
         action_type = action["type"]
         
@@ -605,7 +605,7 @@ def _execute_optimization_action(self, action: Dict[str, Any]) -> None:
         except Exception as e:
             logger.error(f"Failed to execute optimization action {action_type}: {e}")
     
-def _scale_up_pools(self, target_increase: int) -> None:
+    def _scale_up_pools(self, target_increase: int) -> None:
         """Scale up detector pools."""
         for detector_name, queue in self.detector_queues.items():
             if queue.current_size() < self.config.max_pool_size:
@@ -613,7 +613,7 @@ def _scale_up_pools(self, target_increase: int) -> None:
                     if not self._create_optimized_detector(detector_name):
                         break
     
-def _scale_down_pools(self, target_decrease: int) -> None:
+    def _scale_down_pools(self, target_decrease: int) -> None:
         """Scale down detector pools."""
         for detector_name, queue in self.detector_queues.items():
             if queue.current_size() > self.config.min_pool_size:
@@ -628,14 +628,14 @@ def _scale_down_pools(self, target_decrease: int) -> None:
                     else:
                         break
     
-def _reduce_contention(self) -> None:
+    def _reduce_contention(self) -> None:
         """Reduce thread contention."""
         # Increase pool sizes for high-contention detector types
         for detector_name, queue in self.detector_queues.items():
             if queue.current_size() < self.config.max_pool_size * 0.8:
                 self._create_optimized_detector(detector_name)
     
-def _optimize_memory_usage(self) -> None:
+    def _optimize_memory_usage(self) -> None:
         """Optimize memory usage."""
         # Force garbage collection
         gc.collect()
@@ -652,7 +652,7 @@ def _optimize_memory_usage(self) -> None:
                 elif pooled_detector:
                     queue.enqueue(pooled_detector)  # Put back if not idle
     
-def _optimize_throughput(self) -> None:
+    def _optimize_throughput(self) -> None:
         """Optimize throughput performance."""
         # Rebalance queues based on usage patterns
         total_capacity = sum(queue.capacity for queue in self.detector_queues.values())
@@ -663,7 +663,7 @@ def _optimize_throughput(self) -> None:
             if queue.current_size() < avg_capacity * 0.5:
                 self._create_optimized_detector(detector_name)
     
-def get_optimization_report(self) -> Dict[str, Any]:
+    def get_optimization_report(self) -> Dict[str, Any]:
         """Generate comprehensive optimization report."""
         return {
             "pool_configuration": {
@@ -690,7 +690,7 @@ def get_optimization_report(self) -> Dict[str, Any]:
             "historical_trends": self._analyze_historical_trends()
         }
     
-def _calculate_pool_efficiency(self) -> float:
+    def _calculate_pool_efficiency(self) -> float:
         """Calculate pool efficiency percentage."""
         if self.metrics.pool_size == 0:
             return 0.0
@@ -700,7 +700,7 @@ def _calculate_pool_efficiency(self) -> float:
         
         return utilization_rate * wait_penalty * 100.0
     
-def _generate_optimization_recommendations(self) -> List[str]:
+    def _generate_optimization_recommendations(self) -> List[str]:
         """Generate optimization recommendations."""
         recommendations = []
         
@@ -737,7 +737,7 @@ def _generate_optimization_recommendations(self) -> List[str]:
         
         return recommendations
     
-def _analyze_historical_trends(self) -> Dict[str, Any]:
+    def _analyze_historical_trends(self) -> Dict[str, Any]:
         """Analyze historical performance trends."""
         if len(self.metrics_history) < 5:
             return {"insufficient_data": True}
@@ -767,19 +767,19 @@ def _analyze_historical_trends(self) -> Dict[str, Any]:
             }
         }
     
-def __enter__(self):
+    def __enter__(self):
         """Context manager entry."""
         self.start_adaptive_optimization()
         return self
     
-def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         """Context manager exit."""
         self.stop_adaptive_optimization()
 
 class OptimizedPooledDetector:
     """Optimized wrapper for pooled detector instances."""
     
-def __init__(self, detector: Any, detector_name: str, created_at: float, memory_pool: Dict):
+    def __init__(self, detector: Any, detector_name: str, created_at: float, memory_pool: Dict):
         self.detector = detector
         self.detector_name = detector_name
         self.created_at = created_at
@@ -791,7 +791,7 @@ def __init__(self, detector: Any, detector_name: str, created_at: float, memory_
         # Set back-reference for pool management
         detector._pooled_wrapper = self
     
-def acquire_for_analysis(self, file_path: str, source_lines: List[str]) -> Any:
+    def acquire_for_analysis(self, file_path: str, source_lines: List[str]) -> Any:
         """Configure detector for analysis."""
         self.detector.file_path = file_path
         self.detector.source_lines = source_lines
@@ -803,7 +803,7 @@ def acquire_for_analysis(self, file_path: str, source_lines: List[str]) -> Any:
         
         return self.detector
     
-def release_from_analysis(self) -> None:
+    def release_from_analysis(self) -> None:
         """Clean up detector after analysis."""
         self.detector.file_path = ""
         self.detector.source_lines = []
@@ -812,7 +812,7 @@ def release_from_analysis(self) -> None:
         self.is_in_use = False
         self.last_used = time.time()
     
-def cleanup(self) -> None:
+    def cleanup(self) -> None:
         """Clean up detector resources."""
         self.release_from_analysis()
         self.memory_pool.clear()
@@ -821,11 +821,11 @@ def cleanup(self) -> None:
 class OptimizedMemoryAllocator:
     """Memory allocator for detector optimization."""
     
-def __init__(self):
+    def __init__(self):
         self.allocated_pools: Dict[str, Dict] = {}
         self.allocation_count = 0
     
-def allocate_detector_memory(self, detector_name: str) -> Dict:
+    def allocate_detector_memory(self, detector_name: str) -> Dict:
         """Allocate optimized memory pool for detector."""
         memory_pool = {
             "violations_cache": [],
@@ -839,7 +839,7 @@ def allocate_detector_memory(self, detector_name: str) -> Dict:
         
         return memory_pool
     
-def cleanup_unused_pools(self, max_age_seconds: float = 3600) -> int:
+    def cleanup_unused_pools(self, max_age_seconds: float = 3600) -> int:
         """Clean up unused memory pools."""
         current_time = time.time()
         cleaned_count = 0

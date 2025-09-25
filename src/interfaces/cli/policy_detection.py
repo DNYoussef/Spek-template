@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
+"""
 
 Analyzes project structure and content to suggest the most appropriate
 connascence analysis policy.
@@ -7,6 +8,7 @@ connascence analysis policy.
 from pathlib import Path
 import re
 from typing import Any, Dict, List
+"""
 
 class PolicyDetection:
     """Detects appropriate analysis policy based on project characteristics."""

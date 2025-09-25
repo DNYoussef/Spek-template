@@ -45,7 +45,7 @@ def test_content_hasher():
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-24T15:12:03 | test@Model | Test | -- | OK | -- | 0.00 | abcdefg |
+| 1.0.0   | 2025-9-24T15:12:3 | test@Model | Test | -- | OK | -- | 0.00 | abcdefg |
 <!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->"""
 
     stripped = hasher.strip_footer(content_with_footer)
@@ -105,7 +105,7 @@ def test_footer_renderer():
     # Test footer rendering
     rows = [{
         'version': '1.0.0',
-        'timestamp': '2025-09-24T15:12:03',
+        'timestamp': '2025-9-24T15:12:3',
         'agent_model': 'test@Model',
         'change_summary': 'Initial test',
         'artifacts_changed': ['file1.py'],
@@ -156,7 +156,7 @@ def test_version_log_manager():
             change_summary="Added hello function",
             artifacts_changed=["test_file.py"],
             status="OK",
-            cost_usd=0.05,
+            cost_usd=0.5,
             versions={"python": "3.9", "model": "test-v1"},
             inputs=["spec.md"],
             tools_used=["editor", "linter"]
@@ -224,7 +224,7 @@ def test_integration():
                 agent_meta=f"creator@{filename.split('.')[-1].upper()}",
                 change_summary=f"Created {filename}",
                 status="OK",
-                cost_usd=0.01
+                cost_usd=0.1
             )
 
         # Validate all files

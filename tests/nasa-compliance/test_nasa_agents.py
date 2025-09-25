@@ -1,6 +1,8 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
+"""
 
 Comprehensive testing for NASA POT10 compliance improvement agents:
+    pass
 1. ConsensusSecurityManager - Gap analysis and systematic implementation
 2. NASAComplianceAuditor - Rule-by-rule assessment and recommendations  
 3. DefensiveProgrammingSpecialist - Assertion injection framework
@@ -405,7 +407,7 @@ class TestNASAAgentIntegration(unittest.TestCase):
         )
         
         # Should identify significant improvement potential
-        self.assertGreater(total_potential_improvement, 0.05)  # At least 5% improvement
+        self.assertGreater(total_potential_improvement, 0.5)  # At least 5% improvement
         
         # Projected compliance should exceed defense industry threshold
         projected_compliance = assessment.overall_compliance + total_potential_improvement
@@ -468,10 +470,12 @@ if __name__ == "__main__":
     if result.failures:
         print(f"\nFailures:")
         for test, traceback in result.failures:
+            pass
     
     if result.errors:
         print(f"\nErrors:")
         for test, traceback in result.errors:
+            pass
     
     # Exit with appropriate code
     exit_code = 0 if len(result.failures) == 0 and len(result.errors) == 0 else 1

@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
+"""
 
 Single-pass AST visitor that collects all data needed by detectors in one traversal,
 implementing NASA coding standards for performance-critical systems.
@@ -20,6 +21,7 @@ except ImportError:
     from pathlib import Path
     sys.path.insert(0, str(Path(__file__).parent.parent.parent))
     from utils.types import ConnascenceViolation
+"""
 
 @dataclass
 class ASTNodeData:

@@ -303,11 +303,11 @@ def enterprise_feature(name: str, description: str = "", default: bool = False,
     
     Usage:
         @enterprise_feature("new_algorithm", "Use new processing algorithm")
-        def process_data(data, user_id=None):
+    def process_data(data, user_id=None):
             # Implementation with new algorithm
             
         @process_data.fallback
-        def process_data_old(data, user_id=None):
+    def process_data_old(data, user_id=None):
             # Original implementation
     """
     def decorator(func: Callable) -> Callable:
@@ -323,7 +323,7 @@ def enterprise_feature(name: str, description: str = "", default: bool = False,
         fallback_func = None
         
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs):
             # Extract user_id and context from parameters
             user_id = kwargs.get(user_id_param)
             context = kwargs.get(context_param, {})
@@ -349,7 +349,7 @@ def enterprise_feature(name: str, description: str = "", default: bool = False,
                     return None
                     
         # Add method to register fallback
-        def register_fallback(fallback):
+    def register_fallback(fallback):
             nonlocal fallback_func
             fallback_func = fallback
             return fallback
@@ -389,11 +389,11 @@ def enterprise_gate(flags: Union[str, List[str]], require_all: bool = True):
     
     Usage:
         @enterprise_gate("premium_features") 
-        def premium_function():
+    def premium_function():
             pass
             
         @enterprise_gate(["feature_a", "feature_b"], require_all=False)
-        def multi_flag_function():
+    def multi_flag_function():
             pass
     """
     if isinstance(flags, str):
@@ -401,7 +401,7 @@ def enterprise_gate(flags: Union[str, List[str]], require_all: bool = True):
         
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs):
             user_id = kwargs.get("user_id")
             
             enabled_flags = [

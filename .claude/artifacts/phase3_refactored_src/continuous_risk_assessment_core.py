@@ -480,7 +480,7 @@ class DFARSContinuousRiskAssessment:
                 "category": "malware",
                 "confidence": 0.9,
                 "severity": "high",
-                "context": {"advisory_id": "CISA-2024-001", "description": "Malicious domain hosting malware"}
+                "context": {"advisory_id": "CISA-2024-1", "description": "Malicious domain hosting malware"}
             }
         ]
 
@@ -652,7 +652,7 @@ class DFARSContinuousRiskAssessment:
         # Simulate vulnerability scanner results
         return [
             {
-                "cve_id": "CVE-2024-0001",
+                "cve_id": "CVE-2024-1",
                 "title": "Example Vulnerability",
                 "description": "Example vulnerability for testing",
                 "affected_systems": ["web_server", "application_server"],
@@ -780,7 +780,7 @@ class DFARSContinuousRiskAssessment:
                 "asset_type": "web_server",
                 "ip_address": "192.168.1.10",
                 "hostname": "web01.internal",
-                "os": "Ubuntu 22.04",
+                "os": "Ubuntu 22.4",
                 "criticality": "high",
                 "services": ["http", "https", "ssh"],
                 "last_scan": time.time()

@@ -22,10 +22,10 @@ class QualityMetric:
 class RealityValidator:
     """Validates that claimed improvements are real."""
 
-def __init__(self, config: Optional[Dict[str, Any]] = None):
+    def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
 
-def validate_test_claims(self, directory: str) -> Tuple[bool, Dict[str, Any]]:
+    def validate_test_claims(self, directory: str) -> Tuple[bool, Dict[str, Any]]:
         """Validate test coverage and quality claims."""
         results = {
             "test_files_found": 0,
@@ -89,7 +89,7 @@ def validate_test_claims(self, directory: str) -> Tuple[bool, Dict[str, Any]]:
 
         return is_valid, results
 
-def validate_quality_metrics(self, metrics: Dict[str, Any]) -> Tuple[bool, List[str]]:
+    def validate_quality_metrics(self, metrics: Dict[str, Any]) -> Tuple[bool, List[str]]:
         """Validate quality metrics for suspicious values."""
         issues = []
 
@@ -108,7 +108,7 @@ def validate_quality_metrics(self, metrics: Dict[str, Any]) -> Tuple[bool, List[
 
         return len(issues) == 0, issues
 
-def validate_code_changes(self, directory: str) -> Tuple[bool, Dict[str, Any]]:
+    def validate_code_changes(self, directory: str) -> Tuple[bool, Dict[str, Any]]:
         """Validate that code changes are meaningful."""
         results = {
             "total_files": 0,
@@ -186,7 +186,7 @@ def validate_code_changes(self, directory: str) -> Tuple[bool, Dict[str, Any]]:
 
         return is_valid, results
 
-def perform_reality_check(self, directory: str, claims: Dict[str, Any]) -> RealityValidationResult:
+    def perform_reality_check(self, directory: str, claims: Dict[str, Any]) -> RealityValidationResult:
         """Perform comprehensive reality validation."""
         issues = []
         metrics = {}
@@ -259,7 +259,7 @@ def perform_reality_check(self, directory: str, claims: Dict[str, Any]) -> Reali
             timestamp=datetime.now().isoformat()
         )
 
-def _check_error_masking(self, directory: str) -> List[TheaterPattern]:
+    def _check_error_masking(self, directory: str) -> List[TheaterPattern]:
         """Check for error masking patterns."""
         patterns = []
 

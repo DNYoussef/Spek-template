@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+"""
 
 Generates comprehensive compliance matrices for multiple regulatory frameworks
 and provides evidence mapping for audit purposes.

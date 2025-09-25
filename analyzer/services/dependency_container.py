@@ -29,7 +29,7 @@ class DependencyContainer(IDependencyContainer):
     NASA Rule 5 Compliant: All operations validated with assertions
     """
 
-def __init__(self):
+    def __init__(self):
         """
         Initialize dependency container.
 
@@ -44,7 +44,7 @@ def __init__(self):
         assert isinstance(self._singletons, dict), "Singletons registry must be dictionary"
         assert isinstance(self._instances, dict), "Instances registry must be dictionary"
 
-def register_service(self, interface: Type[T], implementation: Type[T]) -> None:
+    def register_service(self, interface: Type[T], implementation: Type[T]) -> None:
         """
         Register service implementation for interface.
 
@@ -79,7 +79,7 @@ def register_service(self, interface: Type[T], implementation: Type[T]) -> None:
         assert interface in self._services, "Service registration failed"
         assert self._services[interface] == implementation, "Service registration verification failed"
 
-def register_singleton(self, interface: Type[T], instance: T) -> None:
+    def register_singleton(self, interface: Type[T], instance: T) -> None:
         """
         Register singleton instance for interface.
 
@@ -119,7 +119,7 @@ def register_singleton(self, interface: Type[T], instance: T) -> None:
         assert interface in self._singletons, "Singleton registration failed"
         assert self._singletons[interface] is instance, "Singleton registration verification failed"
 
-def resolve(self, interface: Type[T]) -> T:
+    def resolve(self, interface: Type[T]) -> T:
         """
         Resolve implementation for interface.
 
@@ -180,7 +180,7 @@ def resolve(self, interface: Type[T]) -> T:
         logger.error(error_msg)
         raise ValueError(error_msg)
 
-def has_registration(self, interface: Type[T]) -> bool:
+    def has_registration(self, interface: Type[T]) -> bool:
         """
         Check if interface has registered implementation.
 
@@ -208,7 +208,7 @@ def has_registration(self, interface: Type[T]) -> bool:
         assert isinstance(result, bool), "Return value must be boolean"
         return result
 
-def resolve_with_dependencies(self, interface: Type[T], **kwargs) -> T:
+    def resolve_with_dependencies(self, interface: Type[T], **kwargs) -> T:
         """
         Resolve implementation with constructor dependencies.
 
@@ -261,7 +261,7 @@ def resolve_with_dependencies(self, interface: Type[T], **kwargs) -> T:
         logger.error(error_msg)
         raise ValueError(error_msg)
 
-def clear_cache(self) -> None:
+    def clear_cache(self) -> None:
         """
         Clear all cached instances (but keep registrations).
 
@@ -276,7 +276,7 @@ def clear_cache(self) -> None:
         assert len(self._services) >= 0, "Service registrations should remain after clearing"
         assert len(self._singletons) >= 0, "Singleton registrations should remain after clearing"
 
-def get_registration_stats(self) -> Dict[str, int]:
+    def get_registration_stats(self) -> Dict[str, int]:
         """
         Get statistics about current registrations.
 

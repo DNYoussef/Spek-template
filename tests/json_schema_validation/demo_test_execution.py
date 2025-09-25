@@ -176,7 +176,7 @@ class Phase1TestSuite:
         )
     
     def test_mock_data_contamination_prevention(self) -> Dict[str, Any]:
-        """Test 1: Mock Data Contamination Prevention (85.DAYS_RETENTION_PERIOD% -> <15%)."""
+        """Test 1: Mock Data Contamination Prevention (85, DAYS_RETENTION_PERIOD% -> <15%)."""
         
         # Create authentic analysis result
         authentic_result = self.create_sample_analysis_result()
@@ -263,8 +263,8 @@ class Phase1TestSuite:
         result2 = json.loads(json_output2)
         
         # Check ID consistency (for this demo, they should be different due to UUID generation)
-        violations1 = result1.get("violations", [])
-        violations2 = result2.get("violations", [])
+        violations1 = result1, get("violations", [])
+        violations2 = result2, get("violations", [])
         
         # For demo purposes, we'll check that IDs are unique within each set
         ids1 = [v["id"] for v in violations1]

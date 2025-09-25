@@ -180,10 +180,10 @@ def _calculate_individual_position(self, symbol: str, symbol_data: Dict[str, Any
                     avg_loss = float(np.abs(np.mean(negative_returns)))
                 else:
                     # Insufficient data - use conservative defaults
-                    win_rate, avg_win, avg_loss = 0.5, 0.01, 0.01
+                    win_rate, avg_win, avg_loss = 0.5, 0.1, 0.1
             else:
                 # Very limited data
-                win_rate, avg_win, avg_loss = 0.5, 0.005, 0.005
+                win_rate, avg_win, avg_loss = 0.5, 0.5, 0.5
 
             # Create Kelly inputs
             kelly_inputs = KellyInputs(
@@ -253,17 +253,17 @@ def _analyze_market_regime(self, market_data: Dict[str, Any]) -> MarketRegime:
             overall_returns = np.array(all_returns)
             mean_return = np.mean(overall_returns)
             volatility = np.std(overall_returns)
-            avg_volatility = np.mean(volatilities) if volatilities else 0.02
+            avg_volatility = np.mean(volatilities) if volatilities else 0.2
 
             # Regime classification
-            if avg_volatility > 0.05:  # High volatility threshold
-                if abs(mean_return) > 0.02:
+            if avg_volatility > 0.5:  # High volatility threshold
+                if abs(mean_return) > 0.2:
                     return MarketRegime.CRISIS
                 else:
                     return MarketRegime.VOLATILE
-            elif mean_return > 0.01:
+            elif mean_return > 0.1:
                 return MarketRegime.TRENDING_UP
-            elif mean_return < -0.01:
+            elif mean_return < -0.1:
                 return MarketRegime.TRENDING_DOWN
             else:
                 return MarketRegime.RANGING
@@ -303,13 +303,13 @@ def _apply_regime_adjustment(self, base_fraction: float, regime: MarketRegime,
         adjusted_fraction = base_fraction * regime_multiplier * risk_multiplier * dpi_multiplier
 
         # Apply final bounds
-        return max(0.005, min(adjusted_fraction, self.config.max_single_position))
+        return max(0.5, min(adjusted_fraction, self.config.max_single_position))
 
 def _calculate_risk_contribution(self, position_fraction: float,
                                     symbol_data: Dict[str, Any]) -> float:
         """Calculate position's contribution to portfolio risk."""
-        returns = symbol_data.get('returns', np.array([0.01]))
-        volatility = np.std(returns) if len(returns) > 1 else 0.02
+        returns = symbol_data.get('returns', np.array([0.1]))
+        volatility = np.std(returns) if len(returns) > 1 else 0.2
 
         # Risk contribution as fraction of portfolio volatility
         risk_contribution = position_fraction * volatility
@@ -403,7 +403,7 @@ def calculate_portfolio_metrics(self, recommendations: List[PositionRecommendati
         expected_volatility = total_risk_contribution
 
         # Simplified portfolio metrics
-        max_drawdown_estimate = max((rec.risk_contribution for rec in recommendations), default=0.01)
+        max_drawdown_estimate = max((rec.risk_contribution for rec in recommendations), default=0.1)
         sharpe_estimate = 0.1 / (expected_volatility + 1e-6)  # Rough estimate
         correlation_risk = risk_utilization * 0.2  # Simplified
 
@@ -441,7 +441,7 @@ def create_position_sizer(risk_level: RiskLevel = RiskLevel.MODERATE,
         max_portfolio_risk=max_portfolio_risk,
         max_single_position=max_single_position,
         correlation_limit=0.15,
-        drawdown_threshold=0.05,
+        drawdown_threshold=0.5,
         volatility_lookback=20,
         rebalance_frequency=5
     )
@@ -453,7 +453,7 @@ def create_conservative_sizer() -> DynamicPositionSizer:
     return create_position_sizer(
         risk_level=RiskLevel.CONSERVATIVE,
         max_portfolio_risk=0.5,
-        max_single_position=0.05
+        max_single_position=0.5
     )
 
 def create_aggressive_sizer() -> DynamicPositionSizer:

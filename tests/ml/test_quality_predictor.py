@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+"""
 
 This module provides thorough testing for the QualityPredictor class,
 ensuring >85% accuracy and robust performance across various scenarios.
@@ -12,11 +13,13 @@ import tempfile
 import json
 from pathlib import Path
 import logging
+"""
 
 # Import the module under test
 import sys
 sys.path.append(str(Path(__file__).parent.parent.parent / 'src' / 'ml'))
 from quality_predictor import QualityPredictor
+"""
 
 class TestQualityPredictor:
     """Test suite for QualityPredictor class."""
@@ -67,10 +70,10 @@ class TestQualityPredictor:
             'quality': {
                 'test_coverage': 0.85,
                 'documentation_ratio': 0.7,
-                'code_duplication': 0.05,
+                'code_duplication': 0.5,
                 'security_issues': 0,
                 'performance_issues': 1,
-                'bug_density': 0.02
+                'bug_density': 0.2
             },
             'history': {
                 'commit_frequency': 5,
@@ -189,7 +192,7 @@ class TestQualityPredictor:
         for i in range(15):
             historical_data.append({
                 'timestamp': base_timestamp - pd.Timedelta(days=i),
-                'quality_score': 0.8 + np.random.normal(0, 0.05)
+                'quality_score': 0.8 + np.random.normal(0, 0.5)
             })
 
         trends = quality_predictor.analyze_quality_trends(historical_data)

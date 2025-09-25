@@ -295,7 +295,7 @@ def optimized_function():
     """
     # Simulated optimized implementation
     import time
-    time.sleep(0.001)  # 1ms operation
+    time.sleep(0.1)  # 1ms operation
     return "optimized_result"
 
 def fast_response_api():
@@ -306,7 +306,7 @@ def fast_response_api():
     import time
     start = time.perf_counter()
     # Simulate processing
-    time.sleep(0.01)  # 10ms
+    time.sleep(0.1)  # 10ms
     end = time.perf_counter()
     return {"response_time": end - start}
         '''
@@ -493,7 +493,7 @@ def actual_validation(data):
                     expected_result=100,
                     actual_result=100,
                     passed=True,
-                    execution_time=0.001,
+                    execution_time=0.1,
                     memory_usage=0
                 )
             ],

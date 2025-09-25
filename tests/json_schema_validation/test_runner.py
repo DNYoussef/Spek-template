@@ -1,4 +1,5 @@
 from src.constants.base import TAKE_PROFIT_PERCENTAGE
+"""
 
 Orchestrates all Phase 1 JSON schema validation tests with:
 - Comprehensive test execution
@@ -16,6 +17,7 @@ from pathlib import Path
 from typing import Dict, List, Any, Tuple
 import argparse
 from io import StringIO
+"""
 
 class JSONSchemaTestRunner:
     """Automated test runner for JSON schema validation."""

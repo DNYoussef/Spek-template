@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
-Core interfaces for the refactored connascence analysis system.
+"""Core interfaces for the refactored connascence analysis system.
 Implements defense industry compliant architecture with proper dependency injection.
 """
 
@@ -24,7 +24,7 @@ class ConnascenceViolation:
     weight: float = 1.0
     fix_suggestion: Optional[str] = None
 
-def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
             'type': self.type,
@@ -48,7 +48,7 @@ class AnalysisResult:
     nasa_compliance: Dict[str, Any]
     performance_stats: Dict[str, Any]
 
-def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
             'violations': [v.to_dict() for v in self.violations],
@@ -139,19 +139,19 @@ def get_stats(self) -> Dict[str, Any]:
 class AnalysisObserver(Protocol):
     """Observer protocol for analysis events."""
 
-def on_analysis_started(self, context: Dict[str, Any]) -> None:
+    def on_analysis_started(self, context: Dict[str, Any]) -> None:
         """Called when analysis starts."""
         ...
 
-def on_file_analyzed(self, file_path: str, violations: List[ConnascenceViolation]) -> None:
+    def on_file_analyzed(self, file_path: str, violations: List[ConnascenceViolation]) -> None:
         """Called when a file is analyzed."""
         ...
 
-def on_analysis_completed(self, result: AnalysisResult) -> None:
+    def on_analysis_completed(self, result: AnalysisResult) -> None:
         """Called when analysis completes."""
         ...
 
-def on_error(self, error: Exception, context: Dict[str, Any]) -> None:
+    def on_error(self, error: Exception, context: Dict[str, Any]) -> None:
         """Called when an error occurs."""
         ...
 

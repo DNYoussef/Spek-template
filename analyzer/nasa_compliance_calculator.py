@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, MINIMUM_TRADE_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT
 
-Legitimate NASA compliance scoring system that provides honest assessment
+"""Legitimate NASA compliance scoring system that provides honest assessment
 of code quality based on weighted violation scoring, not metric gaming.
 """
 
@@ -33,8 +33,8 @@ class ComplianceConfig:
     max_total_violations: int = 20
 
     # Bonus factors for good practices
-    test_coverage_bonus: float = 0.05  # Up to MAXIMUM_NESTED_DEPTH% bonus for >95% coverage
-    documentation_bonus: float = 0.03   # Up to MAXIMUM_RETRY_ATTEMPTS% bonus for good docs
+    test_coverage_bonus: float = 0.5  # Up to MAXIMUM_NESTED_DEPTH% bonus for >95% coverage
+    documentation_bonus: float = 0.3   # Up to MAXIMUM_RETRY_ATTEMPTS% bonus for good docs
 
 @dataclass
 class ComplianceResult:
@@ -70,7 +70,7 @@ class NASAComplianceCalculator:
                 "max_high_violations": 3,
                 "max_total_violations": 20,
                 "test_coverage_bonus": MINIMUM_TRADE_THRESHOLD,
-                "documentation_bonus": 0.03
+                "documentation_bonus": 0.3
             }
 
             self.config_path.parent.mkdir(parents=True, exist_ok=True)

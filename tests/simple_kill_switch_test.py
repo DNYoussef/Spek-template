@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
+"""
 
 Tests actual performance and functionality without Unicode issues.
 """
@@ -7,12 +8,14 @@ import asyncio
 import sys
 import time
 from pathlib import Path
+"""
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.safety.kill_switch_system import KillSwitchSystem, TriggerType, KillSwitchEvent
 from src.safety.hardware_auth_manager import HardwareAuthManager, AuthMethod, AuthResult
+"""
 
 class MockBroker:
     """Mock broker for testing."""
@@ -25,11 +28,11 @@ class MockBroker:
         self.close_calls = []
 
     async def get_positions(self):
-        await asyncio.sleep(0.03)  # 30ms delay
+        await asyncio.sleep(0.3)  # 30ms delay
         return self.positions
 
     async def close_position(self, symbol, qty, side, order_type):
-        await asyncio.sleep(0.01)  # 10ms per close
+        await asyncio.sleep(0.1)  # 10ms per close
         self.close_calls.append({'symbol': symbol, 'qty': qty})
         return True
 

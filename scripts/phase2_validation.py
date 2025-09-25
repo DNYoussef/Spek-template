@@ -111,7 +111,7 @@ class Phase2Validator:
         def simulate_analysis_task(task_name: str, duration: float):
             """Simulate an analysis task."""
             start = time.time()
-            time.sleep(duration * 0.01)  # Scale down for simulation
+            time.sleep(duration * 0.1)  # Scale down for simulation
             end = time.time()
             return {
                 'task': task_name,

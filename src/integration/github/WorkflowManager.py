@@ -69,7 +69,7 @@ class WorkflowManager:
     """
     Handles GitHub Actions workflow management.
 
-    Extracted from github_integration (1, 037 LOC -> ~200 LOC component).
+    Extracted from github_integration (1, 37 LOC -> ~200 LOC component).
     Handles:
     - Workflow listing and management
     - Workflow runs and jobs

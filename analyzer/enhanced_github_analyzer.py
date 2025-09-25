@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
-This enhanced analyzer integrates all real engineering solutions:
+"""This enhanced analyzer integrates all real engineering solutions:
 - Proper violation remediation with auto-fix suggestions
 - Legitimate NASA compliance scoring with weighted violations
 - Honest suppression management with justifications

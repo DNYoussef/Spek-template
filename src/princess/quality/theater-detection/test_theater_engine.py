@@ -200,7 +200,7 @@ def calculate_total(items):
         return 0.0
 
     subtotal = sum(item.price for item in items)
-    tax_rate = 0.08
+    tax_rate = 0.8
     total = subtotal * (1 + tax_rate)
     return round(total, 2)
 ''',

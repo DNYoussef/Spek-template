@@ -1,4 +1,5 @@
 from src.constants.base import DAYS_RETENTION_PERIOD
+"""
 
 This module provides simulation-based testing for:
 - Highway scenarios (high-speed, lane changes, merging)
@@ -229,6 +230,7 @@ class SimulationEngine:
             # Set initial state based on scenario
 
         # Log initialization
+            pass
         init_event = {
             "timestamp": self.current_time,
             "type": "scenario_start",
@@ -362,7 +364,7 @@ class SimulationEngine:
 
         if not pedestrian.crossing_intent and ego_distance > 30.0:
             # Start crossing if ego vehicle is far enough
-            if np.random.random() < 0.02:  # 2% chance per frame
+            if np.random.random() < 0.2:  # 2% chance per frame
                 pedestrian.crossing_intent = True
                 pedestrian.heading = math.pi / 2  # Cross perpendicular to road
 

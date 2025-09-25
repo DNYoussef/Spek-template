@@ -34,11 +34,11 @@ class QualityPrediction:
 class QualityPredictor:
     """ML-based code quality predictor."""
 
-def __init__(self, config: Optional[Dict[str, Any]] = None):
+    def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
         self.feature_weights = self._initialize_feature_weights()
 
-def _initialize_feature_weights(self) -> Dict[str, Dict[str, float]]:
+    def _initialize_feature_weights(self) -> Dict[str, Dict[str, float]]:
         """Initialize feature weights for different quality metrics."""
         return {
             "maintainability": {
@@ -80,7 +80,7 @@ def _initialize_feature_weights(self) -> Dict[str, Dict[str, float]]:
             }
         }
 
-def extract_features(self, file_path: str) -> Dict[str, float]:
+    def extract_features(self, file_path: str) -> Dict[str, float]:
         """Extract features from code file for ML prediction."""
         if not path_exists(file_path):
             return {}
@@ -112,7 +112,7 @@ def extract_features(self, file_path: str) -> Dict[str, float]:
 
         return features
 
-def _extract_basic_metrics(self, content: str) -> Dict[str, float]:
+    def _extract_basic_metrics(self, content: str) -> Dict[str, float]:
         """Extract basic code metrics."""
         lines = content.split('\n')
         non_empty_lines = [line for line in lines if line.strip()]
@@ -126,7 +126,7 @@ def _extract_basic_metrics(self, content: str) -> Dict[str, float]:
             "avg_line_length": np.mean([len(line) for line in non_empty_lines]) if non_empty_lines else 0
         }
 
-def _extract_ast_features(self, tree: ast.AST) -> Dict[str, float]:
+    def _extract_ast_features(self, tree: ast.AST) -> Dict[str, float]:
         """Extract features using AST analysis."""
         features = {}
 
@@ -181,7 +181,7 @@ def _extract_ast_features(self, tree: ast.AST) -> Dict[str, float]:
 
         return features
 
-def _extract_regex_features(self, content: str) -> Dict[str, float]:
+    def _extract_regex_features(self, content: str) -> Dict[str, float]:
         """Extract features using regex patterns (fallback)."""
         features = {}
 
@@ -203,7 +203,7 @@ def _extract_regex_features(self, content: str) -> Dict[str, float]:
 
         return features
 
-def _extract_security_features(self, content: str) -> Dict[str, float]:
+    def _extract_security_features(self, content: str) -> Dict[str, float]:
         """Extract security-related features."""
         features = {}
 
@@ -230,7 +230,7 @@ def _extract_security_features(self, content: str) -> Dict[str, float]:
 
         return features
 
-def _extract_performance_features(self, content: str) -> Dict[str, float]:
+    def _extract_performance_features(self, content: str) -> Dict[str, float]:
         """Extract performance-related features."""
         features = {}
 
@@ -268,7 +268,7 @@ def _extract_performance_features(self, content: str) -> Dict[str, float]:
 
         return features
 
-def _is_good_function_name(self, name: str) -> bool:
+    def _is_good_function_name(self, name: str) -> bool:
         """Check if function name follows good practices."""
         # Simple heuristics for good naming
         if len(name) < 3:
@@ -281,7 +281,7 @@ def _is_good_function_name(self, name: str) -> bool:
             return True
         return len(name) >= 5  # Descriptive length
 
-def _count_nested_loops(self, tree: ast.AST) -> int:
+    def _count_nested_loops(self, tree: ast.AST) -> int:
         """Count nested loops in AST."""
         nested_count = 0
 
@@ -293,12 +293,12 @@ def _count_nested_loops(self, tree: ast.AST) -> int:
 
         return nested_count
 
-def _count_conditionals(self, tree: ast.AST) -> int:
+    def _count_conditionals(self, tree: ast.AST) -> int:
         """Count conditional statements."""
         return len([node for node in ast.walk(tree)
                     if isinstance(node, (ast.If, ast.IfExp))])
 
-def predict_quality(self, file_path: str, metric: QualityMetric) -> QualityPrediction:
+    def predict_quality(self, file_path: str, metric: QualityMetric) -> QualityPrediction:
         """Predict quality metric for a file."""
         features = self.extract_features(file_path)
 
@@ -343,7 +343,7 @@ def predict_quality(self, file_path: str, metric: QualityMetric) -> QualityPredi
             recommendations=recommendations
         )
 
-def _generate_recommendations(self,
+    def _generate_recommendations(self,
                                 metric: QualityMetric,
                                 features: Dict[str, float],
                                 factors: Dict[str, float]) -> List[str]:
@@ -390,7 +390,7 @@ def _generate_recommendations(self,
 
         return recommendations[:3]  # Limit to top 3 recommendations
 
-def predict_all_metrics(self, file_path: str) -> List[QualityPrediction]:
+    def predict_all_metrics(self, file_path: str) -> List[QualityPrediction]:
         """Predict all quality metrics for a file."""
         predictions = []
 

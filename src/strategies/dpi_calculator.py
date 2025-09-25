@@ -177,8 +177,8 @@ def _fetch_market_data(self, symbol: str, periods: int) -> pd.DataFrame:
 
         # Create realistic price movement
         base_price = 100.0
-        volatility = 0.02
-        drift = 0.0001
+        volatility = 0.2
+        drift = 0.1
 
         returns = np.random.normal(drift, volatility, periods)
         prices = base_price * np.exp(np.cumsum(returns))
@@ -198,8 +198,8 @@ def _fetch_market_data(self, symbol: str, periods: int) -> pd.DataFrame:
             'timestamp': timestamps,
             'price': prices,
             'volume': volume,
-            'high': prices * (1 + np.abs(np.random.normal(0, 0.005, periods))),
-            'low': prices * (1 - np.abs(np.random.normal(0, 0.005, periods))),
+            'high': prices * (1 + np.abs(np.random.normal(0, 0.5, periods))),
+            'low': prices * (1 - np.abs(np.random.normal(0, 0.5, periods))),
             'open': np.roll(prices, 1)  # Previous period's close
         })
 

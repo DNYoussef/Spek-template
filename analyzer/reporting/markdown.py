@@ -15,11 +15,11 @@ from analyzer.ast_engine.core_analyzer import AnalysisResult, Violation
 class MarkdownReporter:
     """Markdown report generator for PR comments."""
 
-def __init__(self):
+    def __init__(self):
         self.max_violations_to_show = 10
         self.max_files_to_show = 5
 
-def generate(self, result: AnalysisResult) -> str:
+    def generate(self, result: AnalysisResult) -> str:
         """Generate markdown summary from analysis result."""
         sections = []
 
@@ -44,7 +44,7 @@ def generate(self, result: AnalysisResult) -> str:
 
         return "\n\n".join(sections)
 
-def _create_header(self, result: AnalysisResult) -> str:
+    def _create_header(self, result: AnalysisResult) -> str:
         """Create report header."""
         total_violations = len(result.violations)
         critical_count = sum(1 for v in result.violations if v.severity.value == "critical")

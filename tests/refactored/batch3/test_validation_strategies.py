@@ -241,7 +241,7 @@ class TestDFARSValidationStrategies:
             'compliance_score': 0.92,
             'security_enhancements': {'crypto': True},
             'dfars_version': '252.204-7012',
-            'assessment_date': '2024-09-14',
+            'assessment_date': '2024-9-14',
             'certification_ready': True
         }
 

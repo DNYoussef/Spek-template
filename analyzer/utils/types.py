@@ -58,12 +58,12 @@ class ConnascenceViolation:
     class_name: Optional[str] = None
     module_name: Optional[str] = None
     
-def __post_init__(self):
+    def __post_init__(self):
         """Ensure severity is valid."""
         if self.severity not in ["critical", "high", "medium", "low"]:
             self.severity = "medium"
     
-def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert violation to dictionary for JSON serialization."""
         return {
             "id": self.id,
@@ -90,7 +90,7 @@ class AnalysisResult:
     summary: Dict[str, Any]
     metadata: Dict[str, Any]
     
-def __post_init__(self):
+    def __post_init__(self):
         if not self.violations:
             self.violations = []
         if not self.summary:

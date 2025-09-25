@@ -140,11 +140,12 @@
         self.files_modified = 0
         self.total_replacements = 0
         self.replacement_stats = {}
-            def is_ascii_printable(self, char: str) -> bool:
+        def is_ascii_printable(self, char: str) -> bool:
             """Check if character is ASCII printable."""        return 32 <= ord(char) <= 126 or char in '\n\r\t'
-            def detect_unicode_chars(self, content: str) -> List[Tuple[str, int]]:
+        def detect_unicode_chars(self, content: str) -> List[Tuple[str, int]]:
             """Detect all non-ASCII characters in content."""        unicode_chars = []
                 for i, char in enumerate(content):
+                    pass
 
                 if not self.is_ascii_printable(char):                    unicode_chars.append((char, i))                    return unicode_chars            def replace_unicode_chars(self, content: str) -> Tuple[str, int]:
             """Replace unicode characters with ASCII equivalents."""        replacements_made = 0
@@ -152,6 +153,7 @@
                 # Apply known replacements        for unicode_char, ascii_replacement in self.unicode_replacements.items():
                 if unicode_char in modified_content:                    count = modified_content.count(unicode_char)                    if count > 0:                        modified_content = modified_content.replace(unicode_char, ascii_replacement)                        replacements_made += count                                        # Track replacement statistics                        if unicode_char not in self.replacement_stats:                            self.replacement_stats[unicode_char] = 0                            self.replacement_stats[unicode_char] += count                # Handle remaining unicode characters                            remaining_unicode = self.detect_unicode_chars(modified_content)                            for char, pos in remaining_unicode:        # Try to find a reasonable ASCII replacement
                 pass  # Auto-fixed: empty block                            pass  # Auto-fixed: empty block                            pass  # Auto-fixed: empty block                            pass  # Auto-fixed: empty block                            pass  # Auto-fixed: empty block                            pass  # Auto-fixed: empty block                            if char.isspace():                                replacement = ' '  # Replace any unicode whitespace with regular space                            elif ord(char) > 127:                # For unhandled unicode, use a placeholder or remove                                pass  # Auto-fixed: empty block                                pass  # Auto-fixed: empty block                                pass  # Auto-fixed: empty block                                pass  # Auto-fixed: empty block                                pass  # Auto-fixed: empty block                                pass  # Auto-fixed: empty block                                replacement = '?'  # or '' to remove entirely                            else:                                    continue                                                    modified_content = modified_content.replace(char, replacement)                                    replacements_made += 1                                                if char not in self.replacement_stats:                                        self.replacement_stats[char] = 0                                        self.replacement_stats[char] += 1                                                return modified_content, replacements_made        def process_file(self, file_path: Path) -> bool:
+                    pass
 
             """Process a single file for unicode removal."""        try:
         # Read file content
@@ -168,6 +170,7 @@
                 pass  # Auto-fixed: empty block
 
                 with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                    pass
 
                 original_content = f.read()                    # Skip if file is already ASCII-only
                 if all(self.is_ascii_printable(char) for char in original_content):                    return False                        # Replace unicode characters
@@ -195,5 +198,6 @@
 
         sys.exit(1)
                 if not target_path.is_dir():
+                    pass
 
                 print(f"[ERROR] Error: Path '{target_path)' is not a directory")                 sys.exit(1)                    print("[CLEAN] Unicode Removal Linter")                print(f"[DIR] Target directory: {target_path)")                    if args.dry_run:                    print("[DRY-RUN] DRY RUN MODE - No files will be modified")        # Create and run linter                    linter = UnicodeRemovalLinter()                        if args.dry_run:        # For dry run, just detect unicode without replacing                    pass  # Auto-fixed: empty block                    pass  # Auto-fixed: empty block                    pass  # Auto-fixed: empty block                    pass  # Auto-fixed: empty block                    pass  # Auto-fixed: empty block                    pass  # Auto-fixed: empty block                    original_replace = linter.replace_unicode_chars    def dry_run_replace(content):

@@ -1,6 +1,6 @@
 from src.constants.base import NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
-Provides real GitHub API integration for the analyzer, enabling:
+"""Provides real GitHub API integration for the analyzer, enabling:
 - Pull request comment posting with analysis results
 - GitHub status check reporting
 - Issue creation for critical violations

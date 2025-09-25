@@ -12,7 +12,7 @@ from typing import Dict, List, Optional, Any
 
 
 """Initialize DFARS compliance validation system."""
-    def __init__(self, storage_path: str = ".claude/.artifacts/dfars_validation"):
+def __init__(self, storage_path: str = ".claude/.artifacts/dfars_validation"):
         """Initialize DFARS compliance validation system."""
         self.storage_path = Path(storage_path)
         self.storage_path.mkdir(parents=True, exist_ok=True)
@@ -57,11 +57,11 @@ from typing import Dict, List, Optional, Any
         logger.info("DFARS Compliance Validation System initialized")
 
 """Initialize DFARS 252.204-7012 security controls."""
-    def _initialize_dfars_controls(self):
+def _initialize_dfars_controls(self):
         """Initialize DFARS 252.204-7012 security controls."""
         dfars_controls = [
             SecurityControl(
-                control_id="AC-01",
+                control_id="AC-1",
                 title="Access Control Policy and Procedures",
                 description="Develop, document, and disseminate access control policy and procedures",
                 category=ValidationCategory.ACCESS_CONTROL,
@@ -88,7 +88,7 @@ from typing import Dict, List, Optional, Any
                 dfars_reference="DFARS 252.204-7012(b)(1)"
             ),
             SecurityControl(
-                control_id="AC-02",
+                control_id="AC-2",
                 title="Account Management",
                 description="Manage information system accounts including establishment, activation, modification, and removal",
                 category=ValidationCategory.ACCESS_CONTROL,
@@ -116,7 +116,7 @@ from typing import Dict, List, Optional, Any
                 dfars_reference="DFARS 252.204-7012(b)(1)(i)"
             ),
             SecurityControl(
-                control_id="AU-01",
+                control_id="AU-1",
                 title="Audit and Accountability Policy",
                 description="Develop and implement audit and accountability policy and procedures",
                 category=ValidationCategory.AUDIT_ACCOUNTABILITY,
@@ -144,7 +144,7 @@ from typing import Dict, List, Optional, Any
                 dfars_reference="DFARS 252.204-7012(b)(2)"
             ),
             SecurityControl(
-                control_id="IA-01",
+                control_id="IA-1",
                 title="Identification and Authentication Policy",
                 description="Develop and implement identification and authentication policy and procedures",
                 category=ValidationCategory.IDENTIFICATION_AUTHENTICATION,
@@ -172,7 +172,7 @@ from typing import Dict, List, Optional, Any
                 dfars_reference="DFARS 252.204-7012(b)(3)"
             ),
             SecurityControl(
-                control_id="SC-01",
+                control_id="SC-1",
                 title="System and Communications Protection Policy",
                 description="Develop and implement system and communications protection policy and procedures",
                 category=ValidationCategory.SYSTEM_COMMUNICATIONS_PROTECTION,
@@ -200,7 +200,7 @@ from typing import Dict, List, Optional, Any
                 dfars_reference="DFARS 252.204-7012(b)(4)"
             ),
             SecurityControl(
-                control_id="SI-01",
+                control_id="SI-1",
                 title="System and Information Integrity Policy",
                 description="Develop and implement system and information integrity policy and procedures",
                 category=ValidationCategory.SYSTEM_INFORMATION_INTEGRITY,
@@ -235,7 +235,7 @@ from typing import Dict, List, Optional, Any
         self.validation_metrics["total_controls"] = len(self.security_controls)
 
 """Initialize validation tools and their configurations."""
-    def _initialize_validation_tools(self):
+def _initialize_validation_tools(self):
         """Initialize validation tools and their configurations."""
         self.validation_tools = {
             "nessus": {
@@ -271,7 +271,7 @@ from typing import Dict, List, Optional, Any
         }
 
 """Calculate control implementation score."""
-    def _calculate_implementation_score(self, control: SecurityControl, test_results: Dict[str, Any]) -> float:
+def _calculate_implementation_score(self, control: SecurityControl, test_results: Dict[str, Any]) -> float:
         """Calculate control implementation score."""
         total_score = 0.0
         weight_sum = 0.0
@@ -299,7 +299,7 @@ from typing import Dict, List, Optional, Any
             return 0.0
 
 """Calculate control effectiveness score."""
-    def _calculate_effectiveness_score(self, control: SecurityControl, test_results: Dict[str, Any]) -> float:
+def _calculate_effectiveness_score(self, control: SecurityControl, test_results: Dict[str, Any]) -> float:
         """Calculate control effectiveness score."""
         # Effectiveness is primarily determined by technical testing results
         if "technical_testing" in test_results:
@@ -310,7 +310,7 @@ from typing import Dict, List, Optional, Any
             return 0.5  # Moderate effectiveness if no technical testing
 
 """Determine control implementation status."""
-    def _determine_control_status(self, implementation_score: float, effectiveness_score: float) -> ControlStatus:
+def _determine_control_status(self, implementation_score: float, effectiveness_score: float) -> ControlStatus:
         """Determine control implementation status."""
         avg_score = (implementation_score + effectiveness_score) / 2
 
@@ -324,7 +324,7 @@ from typing import Dict, List, Optional, Any
             return ControlStatus.NOT_IMPLEMENTED
 
 """Estimate remediation timeline in days."""
-    def _estimate_remediation_timeline(self, control: SecurityControl, impl_score: float, eff_score: float) -> int:
+def _estimate_remediation_timeline(self, control: SecurityControl, impl_score: float, eff_score: float) -> int:
         """Estimate remediation timeline in days."""
         gap_severity = 1.0 - ((impl_score + eff_score) / 2)
 
@@ -342,7 +342,7 @@ from typing import Dict, List, Optional, Any
         return min(estimated_timeline, 365)  # Cap at 1 year
 
 """Analyze overall DFARS compliance based on control assessments."""
-    def _analyze_overall_compliance(self, assessment_results: Dict[str, Any]) -> Dict[str, Any]:
+def _analyze_overall_compliance(self, assessment_results: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze overall DFARS compliance based on control assessments."""
         total_controls = len(assessment_results)
         implemented_controls = 0
@@ -410,7 +410,7 @@ from typing import Dict, List, Optional, Any
         }
 
 """Identify compliance gaps from assessment results."""
-    def _identify_compliance_gaps(self, assessment_results: Dict[str, Any]) -> List[Dict[str, Any]]:
+def _identify_compliance_gaps(self, assessment_results: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Identify compliance gaps from assessment results."""
         gaps = []
         gap_counter = 1
@@ -444,7 +444,7 @@ from typing import Dict, List, Optional, Any
         return gaps
 
 """Determine the severity of a compliance gap."""
-    def _determine_gap_severity(self, assessment: ControlAssessment) -> str:
+def _determine_gap_severity(self, assessment: ControlAssessment) -> str:
         """Determine the severity of a compliance gap."""
         avg_score = (assessment.implementation_score + assessment.effectiveness_score) / 2
 
@@ -458,7 +458,7 @@ from typing import Dict, List, Optional, Any
             return "low"
 
 """Determine the type of compliance gap."""
-    def _determine_gap_type(self, assessment: ControlAssessment) -> str:
+def _determine_gap_type(self, assessment: ControlAssessment) -> str:
         """Determine the type of compliance gap."""
         if assessment.implementation_score < 0.5:
             return "implementation_gap"
@@ -468,7 +468,7 @@ from typing import Dict, List, Optional, Any
             return "minor_deficiency"
 
 """Assess the impact of a compliance gap."""
-    def _assess_gap_impact(self, control: SecurityControl, assessment: ControlAssessment) -> str:
+def _assess_gap_impact(self, control: SecurityControl, assessment: ControlAssessment) -> str:
         """Assess the impact of a compliance gap."""
         impact_factors = []
 
@@ -487,7 +487,7 @@ from typing import Dict, List, Optional, Any
         return f"Impact: {'; '.join(impact_factors)}"
 
 """Generate remediation plan for a compliance gap."""
-    def _generate_remediation_plan(self, control: SecurityControl, assessment: ControlAssessment) -> str:
+def _generate_remediation_plan(self, control: SecurityControl, assessment: ControlAssessment) -> str:
         """Generate remediation plan for a compliance gap."""
         plan_steps = []
 
@@ -511,7 +511,7 @@ from typing import Dict, List, Optional, Any
         return "; ".join(plan_steps)
 
 """Estimate remediation effort in person-hours."""
-    def _estimate_remediation_effort(self, control: SecurityControl, assessment: ControlAssessment) -> int:
+def _estimate_remediation_effort(self, control: SecurityControl, assessment: ControlAssessment) -> int:
         """Estimate remediation effort in person-hours."""
         base_effort = {
             1: 40,   # High priority: 40 hours
@@ -526,7 +526,7 @@ from typing import Dict, List, Optional, Any
         return int(base_effort * effort_multiplier)
 
 """Determine responsible party for control remediation."""
-    def _determine_responsible_party(self, control: SecurityControl) -> str:
+def _determine_responsible_party(self, control: SecurityControl) -> str:
         """Determine responsible party for control remediation."""
         responsibility_map = {
             ValidationCategory.ACCESS_CONTROL: "Identity and Access Management Team",
@@ -539,7 +539,7 @@ from typing import Dict, List, Optional, Any
         return responsibility_map.get(control.category, "Security Team")
 
 """Identify dependencies for control remediation."""
-    def _identify_dependencies(self, control: SecurityControl, assessment: ControlAssessment) -> List[str]:
+def _identify_dependencies(self, control: SecurityControl, assessment: ControlAssessment) -> List[str]:
         """Identify dependencies for control remediation."""
         dependencies = []
 
@@ -560,7 +560,7 @@ from typing import Dict, List, Optional, Any
         return dependencies
 
 """Generate high-level compliance recommendations."""
-    def _generate_compliance_recommendations(self, gaps: List[Dict[str, Any]], overall_compliance: Dict[str, Any]) -> List[str]:
+def _generate_compliance_recommendations(self, gaps: List[Dict[str, Any]], overall_compliance: Dict[str, Any]) -> List[str]:
         """Generate high-level compliance recommendations."""
         recommendations = []
 
@@ -598,7 +598,7 @@ from typing import Dict, List, Optional, Any
         return recommendations
 
 """Update validation metrics."""
-    def _update_validation_metrics(self, assessment_results: Dict[str, Any], gaps: List[Dict[str, Any]]):
+def _update_validation_metrics(self, assessment_results: Dict[str, Any], gaps: List[Dict[str, Any]]):
         """Update validation metrics."""
         self.validation_metrics.update({
             "last_assessment_date": time.time(),
@@ -607,7 +607,7 @@ from typing import Dict, List, Optional, Any
         })
 
 """Calculate overall compliance score."""
-    def _calculate_overall_score(self, assessment_results: Dict[str, Any]) -> float:
+def _calculate_overall_score(self, assessment_results: Dict[str, Any]) -> float:
         """Calculate overall compliance score."""
         if not assessment_results:
             return 0.0
@@ -620,7 +620,7 @@ from typing import Dict, List, Optional, Any
         return total_score / len(assessment_results)
 
 """Get current validation system status."""
-    def get_validation_status(self) -> Dict[str, Any]:
+def get_validation_status(self) -> Dict[str, Any]:
         """Get current validation system status."""
         return {
             "system_status": "operational",

@@ -1,4 +1,5 @@
 from src.constants.base import DAYS_RETENTION_PERIOD, KELLY_CRITERION_FRACTION, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, QUALITY_GATE_MINIMUM_PASS_RATE, THEATER_DETECTION_WARNING_THRESHOLD
+"""
 
 This module provides thorough testing for the ComplianceForecaster class,
 ensuring >85% accuracy and robust compliance risk prediction capabilities.
@@ -13,11 +14,13 @@ import json
 from pathlib import Path
 import logging
 from datetime import datetime, timedelta
+"""
 
 # Import the module under test
 import sys
 sys.path.append(str(Path(__file__).parent.parent.parent / 'src' / 'ml'))
 from compliance_forecaster import ComplianceForecaster
+"""
 
 class TestComplianceForecaster:
     """Test suite for ComplianceForecaster class."""
@@ -54,7 +57,7 @@ class TestComplianceForecaster:
                 'cyclomatic_complexity': 8,
                 'documentation_coverage': 0.9,
                 'security_score': 0.95,
-                'performance_regression': 0.02,
+                'performance_regression': 0.2,
                 'maintainability_index': 85,
                 'audit_trail_coverage': 1.0,
                 'data_integrity_score': 0.99,
@@ -63,7 +66,7 @@ class TestComplianceForecaster:
             'history': [
                 {
                     'timestamp': (datetime.now() - timedelta(days=i)).isoformat(),
-                    'overall_score': 0.9 - (i * 0.01),
+                    'overall_score': 0.9 - (i * 0.1),
                     'violations': {'critical': max(0, i - 5), 'high': i // 2}
                 }
                 for i in range(35)  # 35 days of history
@@ -124,11 +127,11 @@ class TestComplianceForecaster:
 
             # Create drift labels (compliance score change)
             if i % MAXIMUM_RETRY_ATTEMPTS == 0:
-                drift_score = np.random.uniform(-0.1, -0.02)  # Declining
+                drift_score = np.random.uniform(-0.1, -0.2)  # Declining
             elif i % MAXIMUM_RETRY_ATTEMPTS == 1:
                 drift_score = np.random.uniform(KELLY_CRITERION_FRACTION, 0.1)   # Improving
             else:
-                drift_score = np.random.uniform(-0.02, KELLY_CRITERION_FRACTION) # Stable
+                drift_score = np.random.uniform(-0.2, KELLY_CRITERION_FRACTION) # Stable
 
             # Create risk labels (high risk = 1, low risk = 0)
             risk_score = (
@@ -226,7 +229,7 @@ class TestComplianceForecaster:
         for i in range(30):
             declining_data.append({
                 'timestamp': (base_timestamp - timedelta(days=i)).isoformat(),
-                'overall_score': 0.9 - (i * 0.01)  # Declining by 1% per day
+                'overall_score': 0.9 - (i * 0.1)  # Declining by 1% per day
             })
 
         drift_result = compliance_forecaster.predict_compliance_drift(declining_data)
@@ -238,7 +241,7 @@ class TestComplianceForecaster:
         for i in range(30):
             improving_data.append({
                 'timestamp': (base_timestamp - timedelta(days=i)).isoformat(),
-                'overall_score': 0.7 + (i * 0.005)  # Improving by 0.5% per day
+                'overall_score': 0.7 + (i * 0.5)  # Improving by 0.5% per day
             })
 
         drift_result = compliance_forecaster.predict_compliance_drift(improving_data)
@@ -336,7 +339,7 @@ class TestComplianceForecaster:
         forecast_result = {
             'drift_detected': True,
             'drift_severity': 'moderate',
-            'trend_slope': -0.05,
+            'trend_slope': -0.5,
             'confidence': 0.85,
             'current_score': 0.8,
             'predicted_score_30d': 0.7
@@ -554,7 +557,7 @@ class TestComplianceForecaster:
         risk_results = []
         for i in range(5):
             modified_data = sample_compliance_data.copy()
-            modified_data['current_metrics']['code_coverage'] = 0.8 + i * 0.02
+            modified_data['current_metrics']['code_coverage'] = 0.8 + i * 0.2
 
             risk_result = compliance_forecaster.calculate_risk_score(modified_data)
             risk_results.append(risk_result)
@@ -634,7 +637,7 @@ class TestComplianceForecasterIntegration:
                     'history': [
                         {
                             'timestamp': (base_timestamp - timedelta(days=j)).isoformat(),
-                            'overall_score': QUALITY_GATE_MINIMUM_PASS_RATE + np.random.normal(0, 0.05)
+                            'overall_score': QUALITY_GATE_MINIMUM_PASS_RATE + np.random.normal(0, 0.5)
                         }
                         for j in range(30)
                     ]
@@ -647,7 +650,7 @@ class TestComplianceForecasterIntegration:
                     (1 - sample['violations']['critical_count'] / 10) * 0.3
                 )
 
-                drift_label = np.random.normal(0, 0.05)  # Small drift
+                drift_label = np.random.normal(0, 0.5)  # Small drift
                 risk_label = 1 if overall_compliance < THEATER_DETECTION_WARNING_THRESHOLD else 0
 
                 training_samples.append(sample)

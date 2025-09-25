@@ -75,6 +75,7 @@ class TestNamingStandardization(unittest.TestCase):
                 # Functions might fail due to missing dependencies
 
             # Check that deprecation warnings were issued
+                pass
             deprecation_warnings = [w for w in warning_list if issubclass(w.category, DeprecationWarning)]
             self.assertGreater(len(deprecation_warnings), 0, "Expected deprecation warnings for legacy functions")
 

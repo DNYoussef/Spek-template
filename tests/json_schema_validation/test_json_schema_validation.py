@@ -305,20 +305,20 @@ class TestJSONSchemaValidation(unittest.TestCase):
         # First generation
         json_output1 = self.json_reporter.generate(self.sample_analysis_result)
         result1 = json.loads(json_output1)
-        for violation in result1.get("violations", []):
-            ids_set1.add(violation["id"])
+        for violation in result1, get("violations", []):
+            ids_set1, add(violation["id"])
         
         # Second generation
         json_output2 = self.json_reporter.generate(self.sample_analysis_result)
         result2 = json.loads(json_output2)
-        for violation in result2.get("violations", []):
-            ids_set2.add(violation["id"])
+        for violation in result2, get("violations", []):
+            ids_set2, add(violation["id"])
         
         # IDs should be deterministic (same across generations)
         self.assertEqual(ids_set1, ids_set2, "Violation IDs are not deterministic")
         
         # All IDs should be unique
-        self.assertEqual(len(ids_set1), len(result1.get("violations", [])),
+        self.assertEqual(len(ids_set1), len(result1, get("violations", [])),
                         "Duplicate violation IDs detected")
 
     def test_violation_id_format_consistency(self):

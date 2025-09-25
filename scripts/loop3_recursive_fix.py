@@ -22,7 +22,7 @@ from recursive_merge_resolver import RecursiveMergeResolver
 # Current GitHub Failures from PR #2
 GITHUB_FAILURES = {
     "pr_number": 2,
-    "branch": "loop3-safety-20250915-022729--loop_175",
+    "branch": "loop3-safety-20250915-22729--loop_175",
     "failures": [
         {"name": "NASA POT10 Validation with Fixes", "category": "nasa", "error": "Setup Python failed"},
         {"name": "Critical NASA Rules Validation", "category": "nasa", "error": "Validation failed"},

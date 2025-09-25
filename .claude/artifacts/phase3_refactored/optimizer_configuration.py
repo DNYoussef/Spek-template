@@ -13,7 +13,7 @@ from typing import Dict
 
 
 """Get default optimization configuration."""
-    def _get_default_config(self) -> Dict[str, Any]:
+def _get_default_config(self) -> Dict[str, Any]:
         """Get default optimization configuration."""
         return {
             "optimize_caching": True,

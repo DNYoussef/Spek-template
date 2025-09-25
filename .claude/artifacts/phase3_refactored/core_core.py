@@ -152,14 +152,14 @@ from dataclasses import dataclass
         def _create_mock_detector(self):
             class MockDetector:
                 def detect(self, *args, **kwargs): return []
-                def analyze_directory(self, *args, **kwargs): return []
-                def analyze_file(self, *args, **kwargs): return []
+            def analyze_directory(self, *args, **kwargs): return []
+            def analyze_file(self, *args, **kwargs): return []
             return MockDetector
 
             class MockDetector:
                 def detect(self, *args, **kwargs): return []
-                def analyze_directory(self, *args, **kwargs): return []
-                def analyze_file(self, *args, **kwargs): return []
+            def analyze_directory(self, *args, **kwargs): return []
+            def analyze_file(self, *args, **kwargs): return []
 
     class CIMockOrchestrator:
         def analyze_architecture(self, path):

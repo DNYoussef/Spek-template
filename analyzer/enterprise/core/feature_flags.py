@@ -37,7 +37,7 @@ class FeatureFlag:
     performance_impact: str = "none"  # none, low, medium, high
     min_nasa_compliance: float = NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD  # Minimum NASA compliance required
     
-def __post_init__(self):
+    def __post_init__(self):
         """Post-initialization validation."""
         if self.dependencies is None:
             self.dependencies = []
@@ -59,7 +59,7 @@ class EnterpriseFeatureManager:
     NASA Rule 4 Compliant: All methods under 60 lines.
     """
     
-def __init__(self, config_manager):
+    def __init__(self, config_manager):
         """Initialize feature manager with configuration."""
         # NASA Rule 5: Input validation assertions
         assert config_manager is not None, "config_manager cannot be None"
@@ -73,7 +73,7 @@ def __init__(self, config_manager):
         enabled_count = len(self.get_enabled_modules())
         logger.info(f"Enterprise features initialized: {enabled_count} enabled, {len(self.features)} total")
         
-def is_enabled(self, feature_name: str) -> bool:
+    def is_enabled(self, feature_name: str) -> bool:
         """
         Check if enterprise feature is enabled (cached for performance).
         
@@ -107,7 +107,7 @@ def is_enabled(self, feature_name: str) -> bool:
         self._feature_cache[feature_name] = enabled
         return enabled
     
-def get_enabled_modules(self) -> List[str]:
+    def get_enabled_modules(self) -> List[str]:
         """
         Get list of enabled enterprise modules.
         
@@ -122,7 +122,7 @@ def get_enabled_modules(self) -> List[str]:
         
         return enabled_modules
     
-def get_feature_info(self, feature_name: str) -> Optional[FeatureFlag]:
+    def get_feature_info(self, feature_name: str) -> Optional[FeatureFlag]:
         """
         Get detailed information about a feature.
         
@@ -137,7 +137,7 @@ def get_feature_info(self, feature_name: str) -> Optional[FeatureFlag]:
         
         return self.features.get(feature_name)
     
-def validate_nasa_compliance(self, current_compliance: float) -> Dict[str, Any]:
+    def validate_nasa_compliance(self, current_compliance: float) -> Dict[str, Any]:
         """
         Validate that enabled features meet NASA compliance requirements.
         
@@ -175,7 +175,7 @@ def validate_nasa_compliance(self, current_compliance: float) -> Dict[str, Any]:
         
         return validation_result
     
-def get_performance_impact_summary(self) -> Dict[str, Any]:
+    def get_performance_impact_summary(self) -> Dict[str, Any]:
         """
         Get performance impact summary for enabled features.
         
@@ -219,12 +219,12 @@ def get_performance_impact_summary(self) -> Dict[str, Any]:
             "recommendations": self._generate_performance_recommendations(impact_counts)
         }
     
-def clear_cache(self) -> None:
+    def clear_cache(self) -> None:
         """Clear the feature flag cache (useful for testing)."""
         self._feature_cache.clear()
         logger.debug("Enterprise feature cache cleared")
     
-def _load_feature_config(self) -> Dict[str, FeatureFlag]:
+    def _load_feature_config(self) -> Dict[str, FeatureFlag]:
         """
         Load enterprise feature configuration from config manager.
         
@@ -261,7 +261,7 @@ def _load_feature_config(self) -> Dict[str, FeatureFlag]:
         
         return features
     
-def _get_default_features(self) -> Dict[str, FeatureFlag]:
+    def _get_default_features(self) -> Dict[str, FeatureFlag]:
         """Get default enterprise feature definitions."""
         return {
             'sixsigma': FeatureFlag(
@@ -287,7 +287,7 @@ def _get_default_features(self) -> Dict[str, FeatureFlag]:
             )
         }
     
-def _generate_performance_recommendations(self, impact_counts: Dict[str, int]) -> List[str]:
+    def _generate_performance_recommendations(self, impact_counts: Dict[str, int]) -> List[str]:
         """Generate performance optimization recommendations."""
         recommendations = []
         

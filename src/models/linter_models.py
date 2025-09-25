@@ -143,6 +143,7 @@ class LinterConfig:
         cmd = [self.executable_path or self.tool_name]
         if self.config_file:
             # Tool-specific config file flags will be added by adapters
+            pass
         cmd.extend(self.extra_args)
         return cmd
 

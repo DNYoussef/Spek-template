@@ -2,12 +2,12 @@
 Supply Chain Security Analyzer - Domain SC
 Enterprise-grade supply chain security artifacts and attestation.
 
-Tasks: SC-001 through SC-005
-- SC-001: SBOM (Software Bill of Materials) generator in CycloneDX/SPDX formats
-- SC-002: SLSA L3 provenance attestation system  
-- SC-003: Vulnerability scanning and license compliance engine
-- SC-004: Cryptographic artifact signing with cosign integration
-- SC-005: Supply chain evidence package generator
+Tasks: SC-1 through SC-5
+- SC-1: SBOM (Software Bill of Materials) generator in CycloneDX/SPDX formats
+- SC-2: SLSA L3 provenance attestation system  
+- SC-3: Vulnerability scanning and license compliance engine
+- SC-4: Cryptographic artifact signing with cosign integration
+- SC-5: Supply chain evidence package generator
 """
 
 from .crypto_signer import CryptographicSigner

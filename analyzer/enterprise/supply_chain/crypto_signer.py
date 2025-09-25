@@ -1,5 +1,5 @@
 """
-SC-004: Cryptographic Artifact Signing with Cosign Integration
+SC-4: Cryptographic Artifact Signing with Cosign Integration
 Enterprise-grade cryptographic signing and verification for supply chain artifacts.
 """
 
@@ -16,7 +16,7 @@ import tempfile
 class CryptographicSigner:
     """Enterprise cryptographic signing system with cosign integration."""
     
-def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any]):
         self.config = config
         self.output_dir = Path(config.get('output_dir', '.claude/.artifacts/supply_chain'))
         self.output_dir.mkdir(parents=True, exist_ok=True)
@@ -39,7 +39,7 @@ def __init__(self, config: Dict[str, Any]):
         self.ca_cert_path = config.get('ca_cert_path')
         self.intermediate_cert_path = config.get('intermediate_cert_path')
         
-def sign_artifacts(self, artifacts: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def sign_artifacts(self, artifacts: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Sign multiple artifacts with cryptographic signatures."""
         
         signing_results = {
@@ -76,7 +76,7 @@ def sign_artifacts(self, artifacts: List[Dict[str, Any]]) -> Dict[str, Any]:
             
         return signing_results
     
-def _sign_single_artifact(self, artifact: Dict[str, Any]) -> Dict[str, Any]:
+    def _sign_single_artifact(self, artifact: Dict[str, Any]) -> Dict[str, Any]:
         """Sign a single artifact."""
         
         artifact_path = artifact.get('path')
@@ -125,7 +125,7 @@ def _sign_single_artifact(self, artifact: Dict[str, Any]) -> Dict[str, Any]:
         
         return result
     
-def _sign_with_cosign(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
+    def _sign_with_cosign(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
         """Sign artifact using cosign."""
         
         result = {}
@@ -200,7 +200,7 @@ def _sign_with_cosign(self, artifact_path: str, artifact: Dict[str, Any]) -> Dic
         
         return result
     
-def _sign_with_pki(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
+    def _sign_with_pki(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
         """Sign artifact using traditional PKI."""
         
         result = {}
@@ -249,7 +249,7 @@ def _sign_with_pki(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[s
         
         return result
     
-def _sign_keyless(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
+    def _sign_keyless(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
         """Sign artifact using keyless signing (OIDC)."""
         
         result = {}
@@ -294,7 +294,7 @@ def _sign_keyless(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[st
         
         return result
     
-def _verify_signature(self,
+    def _verify_signature(self,
                         artifact_path: str,
                         signature_path: Optional[str],
                         certificate_path: Optional[str]) -> bool:
@@ -317,7 +317,7 @@ def _verify_signature(self,
         
         return False
     
-def _verify_with_cosign(self,
+    def _verify_with_cosign(self,
                             artifact_path: str,
                             signature_path: str,
                             certificate_path: Optional[str]) -> bool:
@@ -351,7 +351,7 @@ def _verify_with_cosign(self,
             print(f"Error verifying with cosign: {e}")
             return False
     
-def _verify_with_openssl(self,
+    def _verify_with_openssl(self,
                             artifact_path: str,
                             signature_path: str,
                             certificate_path: str) -> bool:
@@ -390,7 +390,7 @@ def _verify_with_openssl(self,
             print(f"Error verifying with OpenSSL: {e}")
             return False
     
-def _extract_public_key(self, private_key_path: str) -> Optional[str]:
+    def _extract_public_key(self, private_key_path: str) -> Optional[str]:
         """Extract public key from private key."""
         
         try:
@@ -415,7 +415,7 @@ def _extract_public_key(self, private_key_path: str) -> Optional[str]:
         
         return None
     
-def _create_signature_metadata(self,
+    def _create_signature_metadata(self,
                                     artifact_path: str,
                                     signature_path: str,
                                     certificate_path: str) -> Dict[str, Any]:
@@ -447,7 +447,7 @@ def _create_signature_metadata(self,
         
         return metadata
     
-def _get_certificate_info(self, certificate_path: str) -> Dict[str, Any]:
+    def _get_certificate_info(self, certificate_path: str) -> Dict[str, Any]:
         """Extract certificate information."""
         
         try:
@@ -475,7 +475,7 @@ def _get_certificate_info(self, certificate_path: str) -> Dict[str, Any]:
         
         return {'path': certificate_path, 'error': 'Could not parse certificate'}
     
-def _extract_cert_field(self, cert_text: str, field_name: str) -> str:
+    def _extract_cert_field(self, cert_text: str, field_name: str) -> str:
         """Extract field from certificate text."""
         
         lines = cert_text.split('\n')
@@ -485,7 +485,7 @@ def _extract_cert_field(self, cert_text: str, field_name: str) -> str:
         
         return 'unknown'
     
-def _get_certificate_fingerprint(self, certificate_path: str) -> str:
+    def _get_certificate_fingerprint(self, certificate_path: str) -> str:
         """Get certificate SHA256 fingerprint."""
         
         try:
@@ -501,7 +501,7 @@ def _get_certificate_fingerprint(self, certificate_path: str) -> str:
         
         return 'unknown'
     
-def _get_signer_info(self) -> Dict[str, Any]:
+    def _get_signer_info(self) -> Dict[str, Any]:
         """Get information about the signer."""
         
         signer_info = {
@@ -525,7 +525,7 @@ def _get_signer_info(self) -> Dict[str, Any]:
         
         return signer_info
     
-def _is_cosign_available(self) -> bool:
+    def _is_cosign_available(self) -> bool:
         """Check if cosign binary is available."""
         
         try:
@@ -537,7 +537,7 @@ def _is_cosign_available(self) -> bool:
         except Exception:
             return False
     
-def _calculate_file_hash(self, file_path: str) -> str:
+    def _calculate_file_hash(self, file_path: str) -> str:
         """Calculate SHA256 hash of file."""
         
         try:
@@ -546,7 +546,7 @@ def _calculate_file_hash(self, file_path: str) -> str:
         except Exception:
             return ''
     
-def create_signature_bundle(self, artifacts: List[Dict[str, Any]]) -> str:
+    def create_signature_bundle(self, artifacts: List[Dict[str, Any]]) -> str:
         """Create a comprehensive signature bundle."""
         
         bundle = {
@@ -594,7 +594,7 @@ def create_signature_bundle(self, artifacts: List[Dict[str, Any]]) -> str:
         
         return str(bundle_path)
     
-def _get_signing_policies(self) -> Dict[str, Any]:
+    def _get_signing_policies(self) -> Dict[str, Any]:
         """Get signing policies and requirements."""
         
         return {

@@ -1,5 +1,6 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS
 
+"""
 Detects Connascence of Values violations using standardized interfaces
 and configuration-driven thresholds to eliminate hardcoded coupling.
 """

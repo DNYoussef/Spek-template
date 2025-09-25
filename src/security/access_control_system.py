@@ -713,6 +713,7 @@ class DFARSAccessControlSystem:
             # Implement time-based access control
 
         # Check IP restrictions
+            pass
         if "allowed_ips" in conditions:
             if session.source_ip not in conditions["allowed_ips"]:
                 return False

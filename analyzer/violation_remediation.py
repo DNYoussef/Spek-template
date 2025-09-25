@@ -76,7 +76,7 @@ class ViolationRemediationEngine:
                     "line_pattern": "def __init__",
                     "justification": "Legacy constructors grandfathered until refactoring sprint",
                     "approved_by": "Tech Lead",
-                    "expires_date": "2025-06-30"
+                    "expires_date": "2025-6-30"
                 }
             ]
         }
@@ -265,7 +265,7 @@ class MethodParams:
     param5: Optional[str] = None
 
 # Refactor method:
-def method(self, params: MethodParams):"""
+    def method(self, params: MethodParams):"""
 
         return FixSuggestion(
             violation_id=f"position_{violation.get('line_number', 0)}",

@@ -1,5 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
+"""
 Advanced learning integration system that enables knowledge transfer and pattern
 recognition across all phases of the SPEK development platform with intelligent
 optimization recommendations and automated learning pattern application.

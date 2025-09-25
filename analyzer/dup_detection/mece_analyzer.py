@@ -28,7 +28,7 @@ except ImportError:
         MECE_SIMILARITY_THRESHOLD = 0.8
 
         @dataclass
-        class ConnascenceViolation:
+    class ConnascenceViolation:
             """Fallback ConnascenceViolation for MECE analysis."""
             type: str = ""
             severity: str = "medium"
@@ -491,7 +491,7 @@ class MECEAnalyzer:
 
         return True
 
-def main():
+    def main():
     """Main entry point for command-line usage."""
     parser = argparse.ArgumentParser(description="MECE duplication analyzer")
     parser.add_argument("--path", required=True, help="Path to analyze")

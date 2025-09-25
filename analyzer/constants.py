@@ -385,7 +385,7 @@ ERROR_CORRELATION_CONTEXT = {
     "user_action": None,  # What user action triggered the error
 }
 
-# MAGIC LITERAL CONSOLIDATION (addresses 92, 086 violations)
+# MAGIC LITERAL CONSOLIDATION (addresses 92, 86 violations)
 
 # SMART MAGIC NUMBER DETECTION
 

@@ -25,7 +25,7 @@ from collections import defaultdict
 
 
 """Load known error patterns and their characteristics."""
-    def _load_error_patterns(self) -> Dict[str, Dict[str, Any]]:
+def _load_error_patterns(self) -> Dict[str, Dict[str, Any]]:
         """Load known error patterns and their characteristics."""
         return {
             # Build/Compilation Errors
@@ -191,7 +191,7 @@ from collections import defaultdict
         }
 
 """Load fix strategies for different problem types."""
-    def _load_fix_strategies(self) -> Dict[str, Dict[str, Any]]:
+def _load_fix_strategies(self) -> Dict[str, Dict[str, Any]]:
         """Load fix strategies for different problem types."""
         return {
             "syntax_correction": {
@@ -292,7 +292,7 @@ from collections import defaultdict
         }
 
 """Load historical failure patterns for enhanced detection."""
-    def _load_historical_patterns(self, historical_data: Dict[str, Any]):
+def _load_historical_patterns(self, historical_data: Dict[str, Any]):
         """Load historical failure patterns for enhanced detection."""
         for pattern_id, pattern_data in historical_data.get("patterns", {}).items():
             signature = FailureSignature(
@@ -309,7 +309,7 @@ from collections import defaultdict
             self.failure_patterns[pattern_id] = signature
 
 """Save analysis results for use by the CI/CD loop."""
-    def save_analysis_results(self, signatures: List[FailureSignature],
+def save_analysis_results(self, signatures: List[FailureSignature],
                             root_causes: List[RootCauseAnalysis],
                             output_path: Path = None) -> Path:
         """Save analysis results for use by the CI/CD loop."""
@@ -366,7 +366,7 @@ from collections import defaultdict
         return output_path
 
 """Save updated pattern database for future use."""
-    def _save_pattern_database(self):
+def _save_pattern_database(self):
         """Save updated pattern database for future use."""
         pattern_data = {
             "timestamp": datetime.now().isoformat(),
@@ -396,7 +396,7 @@ from collections import defaultdict
         logger.info(f"Pattern database saved to {pattern_file}")
 
 """Load test-specific failure patterns and characteristics."""
-    def _load_test_patterns(self) -> Dict[str, Dict[str, Any]]:
+def _load_test_patterns(self) -> Dict[str, Dict[str, Any]]:
         """Load test-specific failure patterns and characteristics."""
         return {
             # Unit Test Patterns

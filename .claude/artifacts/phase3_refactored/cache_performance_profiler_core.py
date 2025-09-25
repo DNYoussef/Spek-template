@@ -329,7 +329,7 @@ class IntelligentCacheWarmer:
                 progress_callback(i + len(batch), len(files))
             
             # Brief pause between batches to prevent overwhelming the system
-            await asyncio.sleep(0.01)
+            await asyncio.sleep(0.1)
         
         return {
             "files_warmed": files_warmed,

@@ -50,7 +50,7 @@ class DataAggregator:
     """
     Handles data collection and aggregation.
 
-    Extracted from result_aggregation_profiler (1, 016 LOC -> ~250 LOC component).
+    Extracted from result_aggregation_profiler (1, 16 LOC -> ~250 LOC component).
     Handles:
     - Data collection from multiple sources
     - Time-based aggregation

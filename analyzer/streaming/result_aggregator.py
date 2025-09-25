@@ -25,7 +25,7 @@ class StreamAnalysisResult:
     dependencies: Set[str] = field(default_factory=set)
     change_type: str = 'modified'  # 'created', 'modified', 'deleted', 'moved'
     
-def __post_init__(self):
+    def __post_init__(self):
         """Validate result data."""
         assert self.file_path, "file_path cannot be empty"
         assert self.timestamp > 0, "timestamp must be positive"
@@ -62,7 +62,7 @@ class StreamResultAggregator:
     - Real-time dashboard data generation
     """
     
-def __init__(self,
+    def __init__(self,
                 max_file_history: int = 1000,
                 max_trend_points: int = 500,
                 aggregation_window_seconds: float = 300.0):
@@ -109,7 +109,7 @@ def __init__(self,
         
         logger.info(f"StreamResultAggregator initialized with {max_file_history} file history")
     
-def add_result(self, result: StreamAnalysisResult) -> None:
+    def add_result(self, result: StreamAnalysisResult) -> None:
         """
         Add new streaming analysis result and update aggregated state.
         
@@ -145,7 +145,7 @@ def add_result(self, result: StreamAnalysisResult) -> None:
             
             logger.debug(f"Added result for {result.file_path} in {processing_time:.2f}ms")
     
-def remove_result(self, file_path: str) -> bool:
+    def remove_result(self, file_path: str) -> bool:
         """
         Remove result for a file (e.g., when file is deleted).
         
@@ -174,7 +174,7 @@ def remove_result(self, file_path: str) -> bool:
             logger.info(f"Removed result for deleted file: {file_path}")
             return True
     
-def get_aggregated_result(self) -> AggregatedResult:
+    def get_aggregated_result(self) -> AggregatedResult:
         """Get current aggregated analysis result."""
         with self._lock:
             # Update timestamp
@@ -201,7 +201,7 @@ def get_aggregated_result(self) -> AggregatedResult:
                 file_analysis_history=self._copy_nested_dict(self.aggregated_result.file_analysis_history)
             )
     
-def get_real_time_dashboard_data(self) -> Dict[str, Any]:
+    def get_real_time_dashboard_data(self) -> Dict[str, Any]:
         """Generate real-time dashboard data."""
         with self._lock:
             current_time = time.time()
@@ -242,7 +242,7 @@ def get_real_time_dashboard_data(self) -> Dict[str, Any]:
             
             return dashboard_data
     
-def get_file_analysis_history(self, file_path: str, limit: int = 50) -> List[Dict[str, Any]]:
+    def get_file_analysis_history(self, file_path: str, limit: int = 50) -> List[Dict[str, Any]]:
         """Get analysis history for a specific file."""
         with self._lock:
             if file_path not in self.aggregated_result.file_analysis_history:
@@ -251,7 +251,7 @@ def get_file_analysis_history(self, file_path: str, limit: int = 50) -> List[Dic
             history = self.aggregated_result.file_analysis_history[file_path]
             return history[-limit:] if len(history) > limit else history
     
-def get_violation_trends(self,
+    def get_violation_trends(self,
                             violation_type: str, 
                             time_window_seconds: float = 3600.0) -> List[Tuple[float, int]]:
         """Get violation trend data for a specific type."""
@@ -268,7 +268,7 @@ def get_violation_trends(self,
             
             return recent_points
     
-def invalidate_file_results(self, file_paths: List[str]) -> int:
+    def invalidate_file_results(self, file_paths: List[str]) -> int:
         """
         Invalidate results for specific files (e.g., due to dependency changes).
         
@@ -296,7 +296,7 @@ def invalidate_file_results(self, file_paths: List[str]) -> int:
             
             return invalidated
     
-def get_aggregation_stats(self) -> Dict[str, Any]:
+    def get_aggregation_stats(self) -> Dict[str, Any]:
         """Get aggregation performance statistics."""
         with self._lock:
             return {
@@ -307,7 +307,7 @@ def get_aggregation_stats(self) -> Dict[str, Any]:
                 "memory_usage_estimate_mb": self._estimate_memory_usage()
             }
     
-def _update_dependencies(self, result: StreamAnalysisResult) -> None:
+    def _update_dependencies(self, result: StreamAnalysisResult) -> None:
         """Update dependency tracking for a result."""
         file_path = result.file_path
         
@@ -321,13 +321,13 @@ def _update_dependencies(self, result: StreamAnalysisResult) -> None:
         for dep in result.dependencies:
             self.reverse_dependencies[dep].add(file_path)
     
-def _invalidate_dependent_results(self, changed_file: str) -> None:
+    def _invalidate_dependent_results(self, changed_file: str) -> None:
         """Invalidate results that depend on a changed file."""
         dependent_files = self.reverse_dependencies.get(changed_file, set())
         if dependent_files:
             self.invalidate_file_results(list(dependent_files))
     
-def _update_aggregated_metrics(self,
+    def _update_aggregated_metrics(self,
                                 new_result: StreamAnalysisResult, 
                                 old_result: Optional[StreamAnalysisResult]) -> None:
         """Update aggregated metrics with new result."""
@@ -386,7 +386,7 @@ def _update_aggregated_metrics(self,
         if len(file_history) > 100:
             self.aggregated_result.file_analysis_history[new_result.file_path] = file_history[-80:]
     
-def _subtract_result_from_aggregated(self, old_result: StreamAnalysisResult) -> None:
+    def _subtract_result_from_aggregated(self, old_result: StreamAnalysisResult) -> None:
         """Subtract old result from aggregated metrics."""
         # Subtract violation counts
         violation_count = sum(len(v) if isinstance(v, list) else 1 
@@ -414,7 +414,7 @@ def _subtract_result_from_aggregated(self, old_result: StreamAnalysisResult) -> 
         else:
             self.aggregated_result.full_analyses = max(0, self.aggregated_result.full_analyses - 1)
     
-def _update_violation_trends(self, result: StreamAnalysisResult) -> None:
+    def _update_violation_trends(self, result: StreamAnalysisResult) -> None:
         """Update violation trend timeline."""
         timestamp = result.timestamp
         
@@ -437,7 +437,7 @@ def _update_violation_trends(self, result: StreamAnalysisResult) -> None:
                 if len(trend_list) > self.max_trend_points:
                     self.aggregated_result.violation_trends[violation_type] = trend_list[-(self.max_trend_points//2):]
     
-def _cleanup_dependencies(self, file_path: str) -> None:
+    def _cleanup_dependencies(self, file_path: str) -> None:
         """Clean up dependency tracking for removed file."""
         # Remove from dependencies
         if file_path in self.file_dependencies:
@@ -451,7 +451,7 @@ def _cleanup_dependencies(self, file_path: str) -> None:
             for dep_file in dependent_files:
                 self.file_dependencies[dep_file].discard(file_path)
     
-def _calculate_analysis_velocity(self) -> Dict[str, float]:
+    def _calculate_analysis_velocity(self) -> Dict[str, float]:
         """Calculate analysis velocity metrics."""
         current_time = time.time()
         
@@ -470,7 +470,7 @@ def _calculate_analysis_velocity(self) -> Dict[str, float]:
         
         return velocity
     
-def _get_top_violation_files(self, limit: int = 10) -> List[Dict[str, Any]]:
+    def _get_top_violation_files(self, limit: int = 10) -> List[Dict[str, Any]]:
         """Get files with most violations."""
         file_violation_counts = []
         
@@ -489,11 +489,11 @@ def _get_top_violation_files(self, limit: int = 10) -> List[Dict[str, Any]]:
         file_violation_counts.sort(key=lambda x: x["violation_count"], reverse=True)
         return file_violation_counts[:limit]
     
-def _copy_nested_dict(self, nested_dict: Dict[str, Any]) -> Dict[str, Any]:
+    def _copy_nested_dict(self, nested_dict: Dict[str, Any]) -> Dict[str, Any]:
         """Create deep copy of nested dictionary."""
         return {k: v.copy() if hasattr(v, 'copy') else v for k, v in nested_dict.items()}
     
-def _estimate_memory_usage(self) -> float:
+    def _estimate_memory_usage(self) -> float:
         """Estimate memory usage in MB."""
         # Rough estimate based on stored data
         file_results_size = len(self.file_results) * 2  # ~2KB per result

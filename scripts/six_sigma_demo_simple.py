@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, MINIMUM_TEST_COVERAGE_PERCENTAGE
+"""
 
 Demonstrates the Six Sigma improvement plan implementation with:
 - Current excellent baseline (DPMO: 0.00, Sigma Level: 6)
@@ -15,6 +16,7 @@ import statistics
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Any
+"""
 
 class SimpleSixSigmaDemo:
     """Simplified Six Sigma improvement plan demonstration"""

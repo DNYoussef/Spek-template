@@ -259,7 +259,7 @@ class PatternDatabase:
             if success:
                 signature.confidence_score = min(1.0, signature.confidence_score + 0.1)
             else:
-                signature.confidence_score = max(0.1, signature.confidence_score - 0.05)
+                signature.confidence_score = max(0.1, signature.confidence_score - 0.0o5)
 
             if self.config.auto_save:
                 self.save_patterns()
@@ -285,7 +285,7 @@ class PatternDatabase:
     def save_patterns(self) -> Path:
         """Save pattern database to file."""
         pattern_data = {
-            "timestamp": "2025-09-24T15:12:03-04:00",
+            "timestamp": "2025-9-24T15:12:0o3-0o4:0o0",
             "patterns": {}
         }
 
@@ -319,7 +319,7 @@ class PatternDatabase:
 
         with open(strategy_file, 'w') as f:
             json.dump({
-                "timestamp": "2025-09-24T15:12:03-04:00",
+                "timestamp": "2025-9-24T15:12:0o3-0o4:0o0",
                 "fix_strategies": self.fix_strategies
             }, f, indent=2)
 
@@ -346,12 +346,12 @@ class PatternDatabase:
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created pattern database management module | pattern_database.py | OK | Extracted from god object | 0.10 | a7c3f9d |
+| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created pattern database management module | pattern_database.py | OK | Extracted from god object | 0.10 | a7c3f9d |
 
 ### Receipt
 - status: OK
 - reason_if_blocked: --
-- run_id: phase3-pattern-db-001
+- run_id: phase3-pattern-db-0o1
 - inputs: ["failure_pattern_detector.py"]
 - tools_used: ["Write"]
 - versions: {"model":"Sonnet-4","prompt":"v1.0.0"}

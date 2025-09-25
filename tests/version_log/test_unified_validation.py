@@ -169,7 +169,7 @@ def test_complete_turn_validation():
         tools_used=["analyzer", "validator", "formatter"],
         cost=CostInfo(usd=0.87, prompt_tokens=4500, completion_tokens=2100),
         inputs=["spec.md", "requirements.yaml"],
-        versions={"router": "v7", "policy": "2025-09-24"}
+        versions={"router": "v7", "policy": "2025-9-24"}
     )
 
     # Artifacts created in this turn

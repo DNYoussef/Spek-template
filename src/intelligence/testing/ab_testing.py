@@ -20,8 +20,8 @@ class TestStatus(Enum):
 class SignificanceLevel(Enum):
     """Statistical significance levels."""
     LOW = 0.1      # 90% confidence
-    MEDIUM = 0.05  # 95% confidence  
-    HIGH = 0.01    # 99% confidence
+    MEDIUM = 0.5  # 95% confidence  
+    HIGH = 0.1    # 99% confidence
 
 @dataclass
 class TestVariant:
@@ -162,7 +162,7 @@ class ABTestFramework:
             raise ValueError("At least 2 variants required for A/B test")
         
         total_allocation = sum(v.allocation for v in variants)
-        if not (0.99 <= total_allocation <= 1.01):  # Allow small floating point errors
+        if not (0.99 <= total_allocation <= 1.1):  # Allow small floating point errors
             raise ValueError(f"Variant allocations must sum to 1.0, got {total_allocation}")
         
         variant_names = [v.name for v in variants]
@@ -631,8 +631,8 @@ def test_ab_framework():
         # Champion results (slightly lower performance)
         champion_metrics = {
             "sharpe_ratio": np.random.normal(1.5, 0.3),
-            "total_return": np.random.normal(0.15, 0.05),
-            "max_drawdown": abs(np.random.normal(0.08, 0.02)),
+            "total_return": np.random.normal(0.15, 0.5),
+            "max_drawdown": abs(np.random.normal(0.8, 0.2)),
             "win_rate": np.random.beta(6, 4)  # ~60% win rate
         }
         
@@ -642,8 +642,8 @@ def test_ab_framework():
         if i < 100:  # Challenger gets less data due to allocation
             challenger_metrics = {
                 "sharpe_ratio": np.random.normal(1.8, 0.3),
-                "total_return": np.random.normal(0.18, 0.05),
-                "max_drawdown": abs(np.random.normal(0.06, 0.02)),
+                "total_return": np.random.normal(0.18, 0.5),
+                "max_drawdown": abs(np.random.normal(0.6, 0.2)),
                 "win_rate": np.random.beta(7, 3)  # ~70% win rate
             }
             

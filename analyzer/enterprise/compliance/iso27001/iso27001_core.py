@@ -345,7 +345,7 @@ class ISO27001ComplianceSystem:
         return validation_results
 
 
-def create_iso27001_system(config: ISO27001Config = None) -> ISO27001ComplianceSystem:
+    def create_iso27001_system(config: ISO27001Config = None) -> ISO27001ComplianceSystem:
     """Factory function to create a properly configured ISO27001 system."""
     return ISO27001ComplianceSystem(config)
 
@@ -354,12 +354,12 @@ def create_iso27001_system(config: ISO27001Config = None) -> ISO27001ComplianceS
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-24T15:12:03-04:00 | coder@Sonnet-4 | Created ISO27001 core coordination module using delegation pattern | iso27001_core.py | OK | God object decomposition complete | 0.00 | a9c7f5e |
+| 1.0.0   | 2025-9-24T15:12:0o3-0o4:0o0 | coder@Sonnet-4 | Created ISO27001 core coordination module using delegation pattern | iso27001_core.py | OK | God object decomposition complete | 0.0o0 | a9c7f5e |
 
 ### Receipt
 - status: OK
 - reason_if_blocked: --
-- run_id: phase3-iso27001-core-003
+- run_id: phase3-iso27001-core-0o3
 - inputs: ["iso27001.py"]
 - tools_used: ["Write"]
 - versions: {"model":"Sonnet-4","prompt":"v1.0.0"}

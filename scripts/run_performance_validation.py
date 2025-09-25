@@ -336,7 +336,7 @@ class PerformanceValidationOrchestrator:
                 "history_retention_hours": 24,
                 "thresholds": {
                     "six_sigma_overhead_percent": {"warning": 2.5, "critical": 4.0},
-                    "feature_flag_overhead_percent": {"warning": 2.0, "critical": 3.MAXIMUM_NESTED_DEPTH},
+                    "feature_flag_overhead_percent": {"warning": 2.0, "critical": 3, MAXIMUM_NESTED_DEPTH},
                     "compliance_overhead_percent": {"warning": MAXIMUM_RETRY_ATTEMPTS.0, "critical": 5.0},
                     "pipeline_total_ms": {"warning": 8000, "critical": 12000}
                 }

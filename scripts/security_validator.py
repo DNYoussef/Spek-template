@@ -1,5 +1,6 @@
 from lib.shared.utilities import path_exists
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
+"""
 
 Validates security scanning integration and enforces comprehensive security quality gates
 for production-ready deployment with defense industry compliance standards.
@@ -17,12 +18,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
+"""
 
 # Security analysis imports
 import hashlib
 import re
 from dataclasses import dataclass
 from enum import Enum
+"""
 
 class SecuritySeverity(Enum):
     """Security finding severity levels."""

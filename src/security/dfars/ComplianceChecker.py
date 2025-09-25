@@ -51,7 +51,7 @@ class ComplianceChecker:
     """
     Handles DFARS compliance rule validation and checking.
 
-    Extracted from dfars_compliance_validation_system (1, 054 LOC -> ~250 LOC component).
+    Extracted from dfars_compliance_validation_system (1, 54 LOC -> ~250 LOC component).
     Handles:
     - Compliance rule management
     - Validation execution

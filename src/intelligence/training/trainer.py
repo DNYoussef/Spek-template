@@ -129,7 +129,7 @@ class ModelTrainer:
             return optim.lr_scheduler.CosineAnnealingLR(
                 self.optimizer,
                 T_max=self.config.epochs,
-                eta_min=self.config.learning_rate * 0.01
+                eta_min=self.config.learning_rate * 0.1
             )
         elif self.config.scheduler == 'reduce_on_plateau':
             return optim.lr_scheduler.ReduceLROnPlateau(

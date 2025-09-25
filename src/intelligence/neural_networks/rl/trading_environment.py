@@ -12,7 +12,7 @@
         loss = (-delta.where(delta < 0, 0)).rolling(window).mean()
         rs = gain / loss
         return 100 - (100 / (1 + rs))
-            def _calculate_macd(self, prices: pd.Series) -> Tuple[pd.Series, pd.Series]:
+        def _calculate_macd(self, prices: pd.Series) -> Tuple[pd.Series, pd.Series]:
         \"\"\"Calculate MACD indicator.\"\"\"
         ema_12 = prices.ewm(span=12).mean()
         ema_26 = prices.ewm(span=26).mean()
@@ -55,7 +55,7 @@
         vol_reward = confidence * (1 - abs(vol_regime - 1)) if vol_regime > 0 else 0
                 total_dpi_reward = momentum_alignment + volume_reward + rsi_reward + vol_reward
                 return total_dpi_reward * 10  # Scale factor
-            def _calculate_taleb_antifragile_reward(self,
+        def _calculate_taleb_antifragile_reward(self,
         current_data: pd.Series,        next_data: pd.Series,        position_change: float) -> float:        \"\"\"Calculate Taleb's antifragility reward.'
                 Rewards strategies that benefit from volatility and have asymmetric payoffs.
         \"\"\"
@@ -72,7 +72,7 @@
         flexibility_reward = position_flexibility * 0.5
                 total_antifragile_reward = vol_benefit + asymmetry_reward + convexity_reward + flexibility_reward
                 return total_antifragile_reward * 5  # Scale factor
-            def _calculate_risk_penalty(self) -> float:
+        def _calculate_risk_penalty(self) -> float:
         \"\"\"Calculate risk management penalties.\"\"\"
         penalty = 0.0
                 # Drawdown penalty        if self.episode_stats['max_drawdown'] > 0.1:  # 10% drawdown threshold

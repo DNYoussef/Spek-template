@@ -252,11 +252,11 @@ runTest().then(result => {{
         // Test 4: Update system conditions
         manager.updateSystemConditions({
             load: 0.5,
-            errorRate: 0.02,
+            errorRate: 0.2,
             responseTime: 1500,
             throughput: 120,
             memoryUsage: 0.65,
-            degradationRate: 0.08
+            degradationRate: 0.8
         });
         console.log('System conditions update working');
 
@@ -330,8 +330,8 @@ runTest().then(result => {{
             async validateContext() { return { valid: true, errors: [] }; }
         };
         global.DegradationMonitor = class {
-            async calculateDegradation() { return 0.05; }
-            getMetrics() { return { averageDegradation: 0.08 }; }
+            async calculateDegradation() { return 0.5; }
+            getMetrics() { return { averageDegradation: 0.8 }; }
             async initiateRecovery() {}
             on() {}
         };
@@ -419,7 +419,7 @@ runTest().then(result => {{
         // 5. Update thresholds based on system state
         thresholds.updateSystemConditions({
             load: 0.6,
-            errorRate: 0.03,
+            errorRate: 0.3,
             responseTime: 1800,
             throughput: 95,
             memoryUsage: 0.72,

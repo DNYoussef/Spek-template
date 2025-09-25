@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
-Advanced classifier implementing 12 methods for precise connascence type
+"""Advanced classifier implementing 12 methods for precise connascence type
 identification and severity assessment. NASA Power of Ten compliant.
 """
 
@@ -25,7 +25,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
     Implements comprehensive classification rules based on empirical analysis.
     """
 
-def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
+    def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
         """
         Initialize classifier with configuration and classification rules.
 
@@ -59,7 +59,7 @@ def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
             'low': 0.4
         }
 
-def classify_violation(self, violation: ConnascenceViolation) -> ConnascenceViolation:
+    def classify_violation(self, violation: ConnascenceViolation) -> ConnascenceViolation:
         """
         Main classification entry point - enhances violation with type information.
 
@@ -89,11 +89,11 @@ def classify_violation(self, violation: ConnascenceViolation) -> ConnascenceViol
             logger.error(f"Classification failed for violation: {e}")
             return violation
 
-def get_severity_mapping(self) -> Dict[str, str]:
+    def get_severity_mapping(self) -> Dict[str, str]:
         """Get connascence type to severity mapping."""
         return self.severity_mapping.copy()
 
-def _determine_connascence_type(self, violation: ConnascenceViolation) -> str:
+    def _determine_connascence_type(self, violation: ConnascenceViolation) -> str:
         """
         Determine connascence type using intelligent pattern matching.
 
@@ -124,7 +124,7 @@ def _determine_connascence_type(self, violation: ConnascenceViolation) -> str:
         # Advanced pattern analysis
         return self._classify_by_patterns(violation)
 
-def _classify_magic_literal(self, violation: ConnascenceViolation) -> str:
+    def _classify_magic_literal(self, violation: ConnascenceViolation) -> str:
         """
         Classify magic literal violations with nuanced analysis.
         """
@@ -140,7 +140,7 @@ def _classify_magic_literal(self, violation: ConnascenceViolation) -> str:
         else:
             return 'CoM'  # Default for magic literals
 
-def _classify_by_patterns(self, violation: ConnascenceViolation) -> str:
+    def _classify_by_patterns(self, violation: ConnascenceViolation) -> str:
         """
         Classify violations using advanced pattern analysis.
         """
@@ -155,7 +155,7 @@ def _classify_by_patterns(self, violation: ConnascenceViolation) -> str:
         # Default classification based on severity
         return self._classify_by_severity_heuristic(violation)
 
-def _classify_by_severity_heuristic(self, violation: ConnascenceViolation) -> str:
+    def _classify_by_severity_heuristic(self, violation: ConnascenceViolation) -> str:
         """
         Fallback classification using severity heuristics.
         """
@@ -168,7 +168,7 @@ def _classify_by_severity_heuristic(self, violation: ConnascenceViolation) -> st
 
         return severity_map.get(violation.severity, 'CoM')
 
-def _refine_severity(self, violation: ConnascenceViolation) -> str:
+    def _refine_severity(self, violation: ConnascenceViolation) -> str:
         """
         Refine severity based on connascence type and context.
 
@@ -186,7 +186,7 @@ def _refine_severity(self, violation: ConnascenceViolation) -> str:
 
         return adjusted_severity
 
-def _adjust_severity_by_context(self, violation: ConnascenceViolation, base_severity: str) -> str:
+    def _adjust_severity_by_context(self, violation: ConnascenceViolation, base_severity: str) -> str:
         """
         Adjust severity based on violation context and patterns.
         """
@@ -207,7 +207,7 @@ def _adjust_severity_by_context(self, violation: ConnascenceViolation, base_seve
 
         return severity_levels[current_index]
 
-def _calculate_violation_weight(self, violation: ConnascenceViolation) -> float:
+    def _calculate_violation_weight(self, violation: ConnascenceViolation) -> float:
         """
         Calculate violation weight based on type, severity, and context.
 
@@ -237,7 +237,7 @@ def _calculate_violation_weight(self, violation: ConnascenceViolation) -> float:
         # Ensure reasonable bounds
         return max(1.0, min(final_weight, 10.0))
 
-def _calculate_context_multiplier(self, violation: ConnascenceViolation) -> float:
+    def _calculate_context_multiplier(self, violation: ConnascenceViolation) -> float:
         """
         Calculate context-based weight multiplier.
         """
@@ -258,7 +258,7 @@ def _calculate_context_multiplier(self, violation: ConnascenceViolation) -> floa
 
         return multiplier
 
-def _determine_nasa_rule(self, violation: ConnascenceViolation) -> str:
+    def _determine_nasa_rule(self, violation: ConnascenceViolation) -> str:
         """
         Determine appropriate NASA Power of Ten rule mapping.
         """
@@ -279,7 +279,7 @@ def _determine_nasa_rule(self, violation: ConnascenceViolation) -> str:
         else:
             return 'Rule 1'  # General code simplicity
 
-def _initialize_classification_patterns(self) -> Dict[str, List[re.Pattern]]:
+    def _initialize_classification_patterns(self) -> Dict[str, List[re.Pattern]]:
         """
         Initialize compiled regex patterns for classification.
 
@@ -320,7 +320,7 @@ def _initialize_classification_patterns(self) -> Dict[str, List[re.Pattern]]:
             ]
         }
 
-def _initialize_severity_mapping(self) -> Dict[str, str]:
+    def _initialize_severity_mapping(self) -> Dict[str, str]:
         """
         Initialize connascence type to default severity mapping.
 

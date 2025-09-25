@@ -12,7 +12,7 @@ content_with_footer = content + """
 ## Version & Run Log
 | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
 |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-24T15:12:03 | test@Model | Test | -- | OK | -- | 0.00 | abcdefg |
+| 1.0.0   | 2025-9-24T15:12:3 | test@Model | Test | -- | OK | -- | 0.00 | abcdefg |
 <!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->"""
 
 print("Original content:")

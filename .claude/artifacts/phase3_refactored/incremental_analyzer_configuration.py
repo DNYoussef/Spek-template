@@ -28,7 +28,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 """Analyze configuration file."""
-    def _analyze_config_file(self, file_path: str) -> Dict[str, Any]:
+def _analyze_config_file(self, file_path: str) -> Dict[str, Any]:
         """Analyze configuration file."""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:

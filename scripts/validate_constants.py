@@ -53,7 +53,7 @@ def test_constants_import():
         assert NASA_POT10_TARGET_COMPLIANCE_THRESHOLD == 0.95, f"Expected 0.95, got {NASA_POT10_TARGET_COMPLIANCE_THRESHOLD}"
         assert MINIMUM_TEST_COVERAGE_PERCENTAGE == 80, f"Expected 80, got {MINIMUM_TEST_COVERAGE_PERCENTAGE}"
         assert MAXIMUM_RETRY_ATTEMPTS == 3, f"Expected 3, got {MAXIMUM_RETRY_ATTEMPTS}"
-        assert KELLY_CRITERION_FRACTION == 0.02, f"Expected 0.02, got {KELLY_CRITERION_FRACTION}"
+        assert KELLY_CRITERION_FRACTION == 0.2, f"Expected 0.2, got {KELLY_CRITERION_FRACTION}"
 
         print("[PASS] All constants have expected values")
 

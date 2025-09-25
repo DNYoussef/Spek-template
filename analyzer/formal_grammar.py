@@ -78,12 +78,12 @@ def detect_function_signatures(self, source_code: str) -> List[GrammarMatch]:
 class PythonGrammarAnalyzer(FormalGrammarAnalyzer):
     """Python-specific formal grammar analyzer using AST."""
 
-def __init__(self):
+    def __init__(self):
         self.magic_number_whitelist = {0, 1, -1, 2, 10, 100, 1000}
         self.magic_string_whitelist = {"", " ", "\n", "\t", "utf-8", "ascii", "None", "True", "False"}
         self.config_indicators = ["config", "setting", "const", "default", "option"]
 
-def analyze_file(self, file_path: str, source_code: str) -> List[GrammarMatch]:
+    def analyze_file(self, file_path: str, source_code: str) -> List[GrammarMatch]:
         """Comprehensive analysis using Python AST."""
         matches = []
 
@@ -109,7 +109,7 @@ def analyze_file(self, file_path: str, source_code: str) -> List[GrammarMatch]:
 
         return matches
 
-def detect_magic_literals(self, source_code: str) -> List[GrammarMatch]:
+    def detect_magic_literals(self, source_code: str) -> List[GrammarMatch]:
         """Detect magic literals with comprehensive context analysis."""
         matches = []
 
@@ -124,7 +124,7 @@ def detect_magic_literals(self, source_code: str) -> List[GrammarMatch]:
 
         return matches
 
-def detect_function_signatures(self, source_code: str) -> List[GrammarMatch]:
+    def detect_function_signatures(self, source_code: str) -> List[GrammarMatch]:
         """Detect function signatures using AST analysis."""
         matches = []
 
@@ -138,7 +138,7 @@ def detect_function_signatures(self, source_code: str) -> List[GrammarMatch]:
 
         return matches
 
-def _regex_fallback_magic_literals(self, source_code: str) -> List[GrammarMatch]:
+    def _regex_fallback_magic_literals(self, source_code: str) -> List[GrammarMatch]:
         """Fallback regex-based magic literal detection for malformed code."""
         matches = []
         lines = source_code.split("\n")
@@ -194,7 +194,7 @@ def _regex_fallback_magic_literals(self, source_code: str) -> List[GrammarMatch]
 class PythonASTVisitor(ast.NodeVisitor):
     """AST visitor for comprehensive Python code analysis."""
 
-def __init__(self, file_path: str, source_lines: List[str]):
+    def __init__(self, file_path: str, source_lines: List[str]):
         self.file_path = file_path
         self.source_lines = source_lines
         self.matches = []
@@ -202,7 +202,7 @@ def __init__(self, file_path: str, source_lines: List[str]):
         self.current_function = None
         self.scope_stack = []
 
-def visit_ClassDef(self, node: ast.ClassDef):
+    def visit_ClassDef(self, node: ast.ClassDef):
         """Visit class definitions."""
         self.current_class = node.name
         self.scope_stack.append(("class", node.name))
@@ -230,7 +230,7 @@ def visit_ClassDef(self, node: ast.ClassDef):
         self.scope_stack.pop()
         self.current_class = None
 
-def visit_FunctionDef(self, node: ast.FunctionDef):
+    def visit_FunctionDef(self, node: ast.FunctionDef):
         """Visit function definitions."""
         self.current_function = node.name
         self.scope_stack.append(("function", node.name))
@@ -266,7 +266,7 @@ def visit_FunctionDef(self, node: ast.FunctionDef):
         self.scope_stack.pop()
         self.current_function = None
 
-def visit_Import(self, node: ast.Import):
+    def visit_Import(self, node: ast.Import):
         """Visit import statements."""
         for alias in node.names:
             self.matches.append(
@@ -282,7 +282,7 @@ def visit_Import(self, node: ast.Import):
             )
         self.generic_visit(node)
 
-def visit_ImportFrom(self, node: ast.ImportFrom):
+    def visit_ImportFrom(self, node: ast.ImportFrom):
         """Visit from...import statements."""
         for alias in node.names:
             self.matches.append(
@@ -307,7 +307,7 @@ def visit_ImportFrom(self, node: ast.ImportFrom):
 class MagicLiteralDetector(ast.NodeVisitor):
     """Specialized detector for magic literals with context analysis."""
 
-def __init__(self, source_lines: List[str]):
+    def __init__(self, source_lines: List[str]):
         self.source_lines = source_lines
         self.violations = []
         self.current_class = None
@@ -327,21 +327,21 @@ def __init__(self, source_lines: List[str]):
         self.safe_strings = {"", " ", "\n", "\t", "utf-8", "ascii", "None", "True", "False"}
         self.config_patterns = [r".*[Cc]onfig.*", r".*[Ss]etting.*", r".*[Cc]onst.*", r".*[Dd]efault.*"]
 
-def visit_ClassDef(self, node: ast.ClassDef):
+    def visit_ClassDef(self, node: ast.ClassDef):
         """Track class context."""
         old_class = self.current_class
         self.current_class = node.name
         self.generic_visit(node)
         self.current_class = old_class
 
-def visit_FunctionDef(self, node: ast.FunctionDef):
+    def visit_FunctionDef(self, node: ast.FunctionDef):
         """Track function context."""
         old_function = self.current_function
         self.current_function = node.name
         self.generic_visit(node)
         self.current_function = old_function
 
-def visit_If(self, node: ast.If):
+    def visit_If(self, node: ast.If):
         """Track conditional context."""
         old_conditional = self.in_conditional
         self.in_conditional = True
@@ -354,21 +354,21 @@ def visit_If(self, node: ast.If):
         for stmt in node.orelse:
             self.visit(stmt)
 
-def visit_For(self, node: ast.For):
+    def visit_For(self, node: ast.For):
         """Track loop context."""
         old_loop = self.in_loop
         self.in_loop = True
         self.generic_visit(node)
         self.in_loop = old_loop
 
-def visit_While(self, node: ast.While):
+    def visit_While(self, node: ast.While):
         """Track loop context."""
         old_loop = self.in_loop
         self.in_loop = True
         self.generic_visit(node)
         self.in_loop = old_loop
 
-def visit_Return(self, node: ast.Return):
+    def visit_Return(self, node: ast.Return):
         """Track return context."""
         old_return = self.in_return
         self.in_return = True
@@ -376,7 +376,7 @@ def visit_Return(self, node: ast.Return):
             self.visit(node.value)
         self.in_return = old_return
 
-def visit_Assign(self, node: ast.Assign):
+    def visit_Assign(self, node: ast.Assign):
         """Track assignment context and constants."""
         old_assignment = self.in_assignment
         old_target = self.current_assignment_target
@@ -399,7 +399,7 @@ def visit_Assign(self, node: ast.Assign):
         self.in_assignment = old_assignment
         self.current_assignment_target = old_target
 
-def visit_Constant(self, node: ast.Constant):
+    def visit_Constant(self, node: ast.Constant):
         """Analyze constant literals with comprehensive context."""
         if self._should_ignore_literal(node):
             return
@@ -428,7 +428,7 @@ def visit_Constant(self, node: ast.Constant):
 
         self.generic_visit(node)
 
-def _should_ignore_literal(self, node: ast.Constant) -> bool:
+    def _should_ignore_literal(self, node: ast.Constant) -> bool:
         """Determine if a literal should be ignored based on whitelists."""
         value = node.value
 
@@ -450,7 +450,7 @@ def _should_ignore_literal(self, node: ast.Constant) -> bool:
 
         return False
 
-def _build_context(self, node: ast.Constant) -> MagicLiteralContext:
+    def _build_context(self, node: ast.Constant) -> MagicLiteralContext:
         """Build comprehensive context for a magic literal."""
         return MagicLiteralContext(
             literal_value=node.value,
@@ -466,7 +466,7 @@ def _build_context(self, node: ast.Constant) -> MagicLiteralContext:
             is_configuration=self._is_configuration_context(),
         )
 
-def _is_configuration_context(self) -> bool:
+    def _is_configuration_context(self) -> bool:
         """Check if the current context suggests configuration usage."""
         # Check class name
         if self.current_class:
@@ -488,7 +488,7 @@ def _is_configuration_context(self) -> bool:
 
         return False
 
-def _calculate_severity(self, context: MagicLiteralContext) -> float:
+    def _calculate_severity(self, context: MagicLiteralContext) -> float:
         """Calculate severity score for a magic literal based on context."""
         base_severity = 5.0  # Base severity
 
@@ -523,7 +523,7 @@ def _calculate_severity(self, context: MagicLiteralContext) -> float:
 
         return base_severity
 
-def _generate_recommendations(self, context: MagicLiteralContext) -> List[str]:
+    def _generate_recommendations(self, context: MagicLiteralContext) -> List[str]:
         """Generate context-specific recommendations for magic literal fixes."""
         recommendations = []
 
@@ -544,19 +544,19 @@ def _generate_recommendations(self, context: MagicLiteralContext) -> List[str]:
 
         return recommendations
 
-def get_violations(self) -> List[GrammarMatch]:
+    def get_violations(self) -> List[GrammarMatch]:
         """Get all detected magic literal violations."""
         return self.violations
 
 class FunctionSignatureDetector(ast.NodeVisitor):
     """Detector for function signature issues using formal grammar analysis."""
 
-def __init__(self, source_lines: List[str]):
+    def __init__(self, source_lines: List[str]):
         self.source_lines = source_lines
         self.violations = []
         self.nasa_param_threshold = 6  # NASA Power of Ten rule
 
-def visit_FunctionDef(self, node: ast.FunctionDef):
+    def visit_FunctionDef(self, node: ast.FunctionDef):
         """Analyze function signatures for parameter coupling."""
         param_count = len(node.args.args)
 
@@ -590,7 +590,7 @@ def visit_FunctionDef(self, node: ast.FunctionDef):
 
         self.generic_visit(node)
 
-def _get_parameter_recommendations(self, param_count: int, node: ast.FunctionDef) -> List[str]:
+    def _get_parameter_recommendations(self, param_count: int, node: ast.FunctionDef) -> List[str]:
         """Generate recommendations for reducing parameter count."""
         recommendations = []
 
@@ -609,19 +609,19 @@ def _get_parameter_recommendations(self, param_count: int, node: ast.FunctionDef
 
         return recommendations
 
-def get_violations(self) -> List[GrammarMatch]:
+    def get_violations(self) -> List[GrammarMatch]:
         """Get all detected function signature violations."""
         return self.violations
 
 class JavaScriptGrammarAnalyzer(FormalGrammarAnalyzer):
     """JavaScript-specific formal grammar analyzer."""
 
-def analyze_file(self, file_path: str, source_code: str) -> List[GrammarMatch]:
+    def analyze_file(self, file_path: str, source_code: str) -> List[GrammarMatch]:
         """Analyze JavaScript using regex patterns (AST parsing would require JS parser)."""
         # For JavaScript, we'd need a JavaScript AST parser
         return self._enhanced_regex_analysis(file_path, source_code)
 
-def detect_magic_literals(self, source_code: str) -> List[GrammarMatch]:
+    def detect_magic_literals(self, source_code: str) -> List[GrammarMatch]:
         """Detect JavaScript magic literals using enhanced regex."""
         matches = []
         lines = source_code.split("\n")
@@ -651,7 +651,7 @@ def detect_magic_literals(self, source_code: str) -> List[GrammarMatch]:
 
         return matches
 
-def detect_function_signatures(self, source_code: str) -> List[GrammarMatch]:
+    def detect_function_signatures(self, source_code: str) -> List[GrammarMatch]:
         """Detect JavaScript function signatures."""
         matches = []
         lines = source_code.split("\n")
@@ -692,7 +692,7 @@ def detect_function_signatures(self, source_code: str) -> List[GrammarMatch]:
 
         return matches
 
-def _enhanced_regex_analysis(self, file_path: str, source_code: str) -> List[GrammarMatch]:
+    def _enhanced_regex_analysis(self, file_path: str, source_code: str) -> List[GrammarMatch]:
         """Enhanced regex-based analysis for JavaScript."""
         matches = []
         matches.extend(self.detect_magic_literals(source_code))
@@ -702,14 +702,14 @@ def _enhanced_regex_analysis(self, file_path: str, source_code: str) -> List[Gra
 class FormalGrammarEngine:
     """Main engine that coordinates formal grammar analysis across languages."""
 
-def __init__(self):
+    def __init__(self):
         self.analyzers = {
             "python": PythonGrammarAnalyzer(),
             "javascript": JavaScriptGrammarAnalyzer(),
             "typescript": JavaScriptGrammarAnalyzer(),  # Use JS analyzer for TS
         }
 
-def analyze_file(self, file_path: str, source_code: str, language: Optional[str] = None) -> List[GrammarMatch]:
+    def analyze_file(self, file_path: str, source_code: str, language: Optional[str] = None) -> List[GrammarMatch]:
         """Analyze a file using the appropriate formal grammar analyzer."""
         if not language:
             language = self._detect_language(file_path)
@@ -720,7 +720,7 @@ def analyze_file(self, file_path: str, source_code: str, language: Optional[str]
 
         return analyzer.analyze_file(file_path, source_code)
 
-def _detect_language(self, file_path: str) -> Optional[str]:
+    def _detect_language(self, file_path: str) -> Optional[str]:
         """Detect language from file extension."""
         extension = Path(file_path).suffix.lower()
 
@@ -734,6 +734,6 @@ def _detect_language(self, file_path: str) -> Optional[str]:
 
         return extension_map.get(extension)
 
-def get_supported_languages(self) -> List[str]:
+    def get_supported_languages(self) -> List[str]:
         """Get list of supported languages."""
         return list(self.analyzers.keys())

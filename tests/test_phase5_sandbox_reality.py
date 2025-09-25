@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+"""
 
 This test creates a working sandbox environment that eliminates ALL theater
 and proves genuine detector functionality through real violation detection.
@@ -210,7 +211,7 @@ class GodObject:
 def calculate_price():
     """Function with magic literals - REAL violations."""
     base_price = 1500     # Magic literal
-    tax_rate = 0.0875     # Magic literal
+    tax_rate = 0.875     # Magic literal
     discount = 75         # Magic literal
     multiplier = MAXIMUM_RETRY_ATTEMPTS.14159  # Magic literal
     timeout = 3600        # Magic literal

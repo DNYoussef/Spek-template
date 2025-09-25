@@ -266,7 +266,8 @@ class AnalyzerBridge:
             else:
                 print(f'{spaces}{key}: {value}')
 
-def main():
+    def main():
+        pass
     """Main entry point for JSON-RPC mode"""
     if len(sys.argv) > 1:
         # CLI mode

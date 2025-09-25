@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
 
-Main analysis coordination and workflow management.
+"""Main analysis coordination and workflow management.
 NASA Rule 4 Compliant: All methods under 60 lines.
 NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """

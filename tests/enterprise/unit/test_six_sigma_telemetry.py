@@ -1,4 +1,5 @@
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
+"""
 
 Tests all functionality of the Six Sigma quality monitoring system including:
 - DPMO (Defects Per Million Opportunities) calculations

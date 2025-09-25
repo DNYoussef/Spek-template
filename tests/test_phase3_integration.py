@@ -1,5 +1,6 @@
 from lib.shared.utilities import path_exists
 from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
+"""
 
 Comprehensive tests to verify Phase 3 components actually work and integrate properly.
 Eliminates all theater by testing REAL functionality with REAL files and REAL violations.
@@ -13,6 +14,7 @@ import shutil
 import ast
 from pathlib import Path
 from typing import Dict, List, Any
+"""
 
 # Add analyzer to path
 sys.path.insert(0, str(Path(__file__).parent / "analyzer"))

@@ -74,7 +74,7 @@ class TestSupplyChainSecuritySuite:
         }
 
     def test_sc001_sbom_generation(self, supply_chain_config, temp_project_dir):
-        """Test SC-001: SBOM generation in CycloneDX and SPDX formats."""
+        """Test SC-1: SBOM generation in CycloneDX and SPDX formats."""
         
         generator = SBOMGenerator(supply_chain_config)
         
@@ -111,7 +111,7 @@ class TestSupplyChainSecuritySuite:
         assert len(spdx_data['packages']) > 0
 
     def test_sc002_slsa_provenance(self, supply_chain_config, temp_project_dir):
-        """Test SC-002: SLSA Level MAXIMUM_RETRY_ATTEMPTS provenance attestation."""
+        """Test SC-2: SLSA Level MAXIMUM_RETRY_ATTEMPTS provenance attestation."""
         
         generator = SLSAProvenanceGenerator(supply_chain_config)
         
@@ -154,7 +154,7 @@ class TestSupplyChainSecuritySuite:
 
     @pytest.mark.asyncio
     async def test_sc003_vulnerability_scanning(self, supply_chain_config):
-        """Test SC-003: Vulnerability scanning and license compliance."""
+        """Test SC-3: Vulnerability scanning and license compliance."""
         
         scanner = VulnerabilityScanner(supply_chain_config)
         
@@ -201,7 +201,7 @@ class TestSupplyChainSecuritySuite:
             assert gpl_violation is not None
 
     def test_sc004_cryptographic_signing(self, supply_chain_config, temp_project_dir):
-        """Test SC-004: Cryptographic artifact signing (mocked)."""
+        """Test SC-4: Cryptographic artifact signing (mocked)."""
         
         signer = CryptographicSigner(supply_chain_config)
         
@@ -234,7 +234,7 @@ class TestSupplyChainSecuritySuite:
                 assert 'signing_method' in artifact_result
 
     def test_sc005_evidence_packaging(self, supply_chain_config, temp_project_dir):
-        """Test SC-005: Supply chain evidence package generation."""
+        """Test SC-5: Supply chain evidence package generation."""
         
         packager = EvidencePackager(supply_chain_config)
         

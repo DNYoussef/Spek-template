@@ -37,7 +37,7 @@ except ImportError:
 
     class FileSystemEvent:
         """Fallback file system event."""
-        def __init__(self, src_path=''):
+    def __init__(self, src_path=''):
             self.src_path = src_path
             self.is_directory = False
 
@@ -924,7 +924,8 @@ class StreamProcessor:
 
 # Factory functions and utilities
 
-def create_stream_processor(analyzer_factory: Callable[[], Any], **kwargs) -> StreamProcessor:
+    def create_stream_processor(analyzer_factory: Callable[[], Any], **kwargs) -> StreamProcessor:
+        pass
     """Factory function to create configured stream processor."""
     return StreamProcessor(analyzer_factory=analyzer_factory, **kwargs)
 

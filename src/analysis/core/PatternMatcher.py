@@ -207,7 +207,7 @@ def evolve_patterns(self) -> List[FailurePattern]:
             # Increase confidence for frequently matched patterns
             if pattern.frequency > 10:
                 old_confidence = pattern.confidence
-                pattern.confidence = min(1.0, pattern.confidence + 0.05)
+                pattern.confidence = min(1.0, pattern.confidence + 0.5)
                 if pattern.confidence > old_confidence:
                     evolved.append(pattern)
 

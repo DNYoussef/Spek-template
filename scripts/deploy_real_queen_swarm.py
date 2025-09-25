@@ -79,7 +79,7 @@ class QueenSeraphina:
         for name, princess in self.princess_domains.items():
             print(f"  [PRINCESS] {princess.name} - {len(princess.drone_agents)} drones ready")
 
-def analyze_failures(self, failures: Dict) -> Dict:
+    def analyze_failures(self, failures: Dict) -> Dict:
         """Analyze failures and assign to appropriate Princess domains"""
 
         print("\n[QUEEN] Analyzing failures with Byzantine consensus...")
@@ -140,7 +140,7 @@ def analyze_failures(self, failures: Dict) -> Dict:
 
         return swarm
 
-def execute_9_stage_audit(self, target: str) -> List[Dict]:
+    def execute_9_stage_audit(self, target: str) -> List[Dict]:
         """Execute the mandatory 9-stage audit pipeline"""
 
         print(f"\n[QUEEN] Executing 9-Stage Audit Pipeline")
@@ -251,7 +251,7 @@ class PrincessBase:
             return self.interceptor.validate_drone_to_princess(drone_id, self.domain, output)
         return output, None
 
-def spawn_drone(self, agent: Dict, tasks: List[str]) -> Dict:
+    def spawn_drone(self, agent: Dict, tasks: List[str]) -> Dict:
         """Spawn individual drone with specific capabilities"""
 
         print(f"    [DRONE] Spawning {agent['name']} ({agent['model']})")
@@ -275,7 +275,7 @@ def spawn_drone(self, agent: Dict, tasks: List[str]) -> Dict:
 class DevelopmentPrincess(PrincessBase):
     """Development Princess - Code implementation and fixes"""
 
-def __init__(self):
+    def __init__(self):
         super().__init__("Development Princess", "development")
 
         self.drone_agents = [
@@ -314,7 +314,7 @@ def __init__(self):
 class QualityPrincess(PrincessBase):
     """Quality Princess - Testing and compliance"""
 
-def __init__(self):
+    def __init__(self):
         super().__init__("Quality Princess", "quality")
 
         self.drone_agents = [
@@ -353,7 +353,7 @@ def __init__(self):
 class SecurityPrincess(PrincessBase):
     """Security Princess - Security and compliance validation"""
 
-def __init__(self):
+    def __init__(self):
         super().__init__("Security Princess", "security")
 
         self.drone_agents = [
@@ -374,7 +374,7 @@ def __init__(self):
 class ResearchPrincess(PrincessBase):
     """Research Princess - Information gathering and analysis"""
 
-def __init__(self):
+    def __init__(self):
         super().__init__("Research Princess", "research")
 
         self.drone_agents = [
@@ -395,7 +395,7 @@ def __init__(self):
 class InfrastructurePrincess(PrincessBase):
     """Infrastructure Princess - DevOps and CI/CD"""
 
-def __init__(self):
+    def __init__(self):
         super().__init__("Infrastructure Princess", "infrastructure")
 
         self.drone_agents = [
@@ -422,7 +422,7 @@ def __init__(self):
 class CoordinationPrincess(PrincessBase):
     """Coordination Princess - Task orchestration and communication"""
 
-def __init__(self):
+    def __init__(self):
         super().__init__("Coordination Princess", "coordination")
 
         self.drone_agents = [
@@ -449,7 +449,7 @@ def __init__(self):
 class RealQueenDebugSystem:
     """Main system that deploys the real Queen-Princess-Drone hierarchy"""
 
-def __init__(self):
+    def __init__(self):
         self.queen = QueenSeraphina()
         self.test_failures = {
             "analyzer_integration": {
@@ -471,7 +471,7 @@ def __init__(self):
             }
         }
 
-def execute_full_remediation(self):
+    def execute_full_remediation(self):
         """Execute full remediation using Queen-Princess-Drone hierarchy"""
 
         print("\n[SYSTEM] Initializing Queen-Princess-Drone Hierarchy...")
@@ -503,7 +503,7 @@ def execute_full_remediation(self):
         # Final report
         self.generate_final_report(active_swarms, audit_results, verification)
 
-def deploy_actual_fixes(self):
+    def deploy_actual_fixes(self):
         """Deploy the actual code fixes through drones"""
 
         print("\n[QUALITY PRINCESS] Deploying NASA compliance fix...")
@@ -519,14 +519,14 @@ def deploy_actual_fixes(self):
         for fix in fixes:
             print(f"  [DRONE EXECUTION] {fix}")
 
-def verify_with_anti_degradation(self) -> Dict:
+    def verify_with_anti_degradation(self) -> Dict:
         """Verify fixes with anti-degradation system"""
 
         print("\n[ANTI-DEGRADATION] Verifying context integrity...")
 
         verification = {
             "context_integrity": 0.95,
-            "semantic_drift": 0.02,
+            "semantic_drift": 0.2,
             "byzantine_consensus": True,
             "theater_detected": False,
             "production_ready": True
@@ -539,7 +539,7 @@ def verify_with_anti_degradation(self) -> Dict:
 
         return verification
 
-def generate_final_report(self, swarms: List, audit: List, verification: Dict):
+    def generate_final_report(self, swarms: List, audit: List, verification: Dict):
         """Generate comprehensive final report"""
 
         print("\n" + "="*80)

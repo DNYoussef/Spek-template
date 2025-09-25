@@ -24,6 +24,7 @@ from ..enhanced_incident_response_system import (
     ResponseAction, ThreatLevel, ThreatIndicator
 )
 from ...patterns.command_base import Command, CommandResult
+"""
 
 logger = logging.getLogger(__name__)
 

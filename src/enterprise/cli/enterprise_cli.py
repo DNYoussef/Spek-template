@@ -189,6 +189,7 @@ class SecurityCommand(EnterpriseCommand):
                     output_path = Path(args.output)
                     output_path.write_bytes(attestation_file.read_bytes())
                 else:
+                    pass
                     
             elif args.security_action == 'report':
                 report = await security.generate_comprehensive_security_report()
@@ -348,6 +349,7 @@ class TestCommand(EnterpriseCommand):
             test_runner = EnterpriseTestRunner(project_root)
             
             if args.test_action == 'run':
+                pass
                 
                 if args.verbose:
                     logging.getLogger().setLevel(logging.INFO)
