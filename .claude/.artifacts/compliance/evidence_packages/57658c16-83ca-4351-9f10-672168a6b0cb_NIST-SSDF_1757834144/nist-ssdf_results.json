@@ -1,9 +1,0 @@
-{
-  "status": "success",
-  "analysis_timestamp": "2025-09-14T03:15:44.683921",
-  "practices_assessed": 12,
-  "overall_compliance_score": 72.3,
-  "implementation_tier": {
-    "overall_implementation_tier": 2
-  }
-}

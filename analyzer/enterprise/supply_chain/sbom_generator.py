@@ -3,16 +3,16 @@ SC-001: SBOM (Software Bill of Materials) Generator
 Supports CycloneDX 1.4 and SPDX 2.3 formats with enterprise-grade metadata.
 """
 
-import json
-import hashlib
-import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Union
+import hashlib
+import json
 import os
 import re
 import subprocess
 
+import uuid
 
 class SBOMGenerator:
     """Multi-format SBOM generator with CycloneDX and SPDX support."""

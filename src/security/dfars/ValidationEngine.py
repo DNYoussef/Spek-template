@@ -4,15 +4,15 @@ Performs DFARS-specific validation and verification
 Part of god object decomposition (Day 4)
 """
 
-import json
-import hashlib
-from typing import Dict, List, Optional, Tuple, Any, Set
-from dataclasses import dataclass, field
 from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Tuple, Any, Set
+import hashlib
+import json
 import logging
 
-logger = logging.getLogger(__name__)
+from dataclasses import dataclass, field
 
+logger = logging.getLogger(__name__)
 
 @dataclass
 class ValidationResult:
@@ -25,7 +25,6 @@ class ValidationResult:
     timestamp: datetime
     severity: str  # critical, high, medium, low
 
-
 @dataclass
 class SecurityControl:
     """Represents a NIST SP 800-171 security control."""
@@ -36,12 +35,11 @@ class SecurityControl:
     implementation_guidance: str
     validation_criteria: List[str]
 
-
 class ValidationEngine:
     """
     Performs DFARS-specific validation and verification.
 
-    Extracted from dfars_compliance_validation_system (1,054 LOC -> ~250 LOC component).
+    Extracted from dfars_compliance_validation_system (1, 054 LOC -> ~250 LOC component).
     Handles:
     - NIST SP 800-171 control validation
     - Technical security validation
@@ -50,7 +48,7 @@ class ValidationEngine:
     - Evidence validation
     """
 
-    def __init__(self):
+def __init__(self):
         """Initialize the validation engine."""
         self.security_controls: Dict[str, SecurityControl] = {}
         self.validation_results: List[ValidationResult] = []
@@ -59,7 +57,7 @@ class ValidationEngine:
         # Load NIST SP 800-171 controls
         self._load_nist_controls()
 
-    def _load_nist_controls(self) -> None:
+def _load_nist_controls(self) -> None:
         """Load NIST SP 800-171 security controls."""
         # Key NIST SP 800-171 controls for DFARS compliance
         controls = [
@@ -140,7 +138,7 @@ class ValidationEngine:
         for control in controls:
             self.security_controls[control.control_id] = control
 
-    def validate_control(self,
+def validate_control(self,
                         control_id: str,
                         system_config: Dict[str, Any],
                         evidence: Optional[List[str]] = None) -> ValidationResult:
@@ -189,10 +187,10 @@ class ValidationEngine:
 
         return result
 
-    def _perform_validation(self,
-                           control: SecurityControl,
-                           system_config: Dict[str, Any],
-                           evidence: Optional[List[str]]) -> Tuple[str, str, List[str]]:
+def _perform_validation(self,
+                            control: SecurityControl,
+                            system_config: Dict[str, Any],
+                            evidence: Optional[List[str]]) -> Tuple[str, str, List[str]]:
         """Perform actual validation of a control."""
         validation_evidence = evidence or []
         passed_criteria = 0
@@ -201,10 +199,10 @@ class ValidationEngine:
         for criterion in control.validation_criteria:
             if self._check_criterion(criterion, system_config):
                 passed_criteria += 1
-                validation_evidence.append(f"✓ {criterion}")
+                validation_evidence.append(f"[PASS] {criterion}")
             else:
                 failed_criteria.append(criterion)
-                validation_evidence.append(f"✗ {criterion}")
+                validation_evidence.append(f"[FAIL] {criterion}")
 
         # Determine status
         total_criteria = len(control.validation_criteria)
@@ -220,7 +218,7 @@ class ValidationEngine:
 
         return status, details, validation_evidence
 
-    def _check_criterion(self, criterion: str, system_config: Dict[str, Any]) -> bool:
+def _check_criterion(self, criterion: str, system_config: Dict[str, Any]) -> bool:
         """Check if a specific validation criterion is met."""
         criterion_lower = criterion.lower()
 
@@ -243,7 +241,7 @@ class ValidationEngine:
         # Default check
         return False
 
-    def _determine_severity(self, control: SecurityControl, status: str) -> str:
+def _determine_severity(self, control: SecurityControl, status: str) -> str:
         """Determine severity of validation result."""
         if status == "passed":
             return "low"
@@ -259,8 +257,8 @@ class ValidationEngine:
         else:
             return "medium" if status == "failed" else "low"
 
-    def validate_all_controls(self,
-                             system_config: Dict[str, Any]) -> List[ValidationResult]:
+def validate_all_controls(self,
+                            system_config: Dict[str, Any]) -> List[ValidationResult]:
         """Validate all security controls."""
         results = []
 
@@ -270,9 +268,9 @@ class ValidationEngine:
 
         return results
 
-    def validate_cmmc_requirements(self,
-                                  cmmc_level: int,
-                                  system_config: Dict[str, Any]) -> Dict[str, Any]:
+def validate_cmmc_requirements(self,
+                                    cmmc_level: int,
+                                    system_config: Dict[str, Any]) -> Dict[str, Any]:
         """Validate CMMC level requirements."""
         cmmc_controls = {
             1: ["3.1.1", "3.1.2"],  # Basic cyber hygiene
@@ -298,7 +296,7 @@ class ValidationEngine:
             "passed_controls": sum(1 for r in results if r.status == "passed")
         }
 
-    def continuous_monitoring(self,
+def continuous_monitoring(self,
                             system_config: Dict[str, Any],
                             interval_hours: int = 24) -> List[ValidationResult]:
         """Perform continuous monitoring validation."""
@@ -323,17 +321,17 @@ class ValidationEngine:
 
         return results
 
-    def _get_cache_key(self, control_id: str, system_config: Dict[str, Any]) -> str:
+def _get_cache_key(self, control_id: str, system_config: Dict[str, Any]) -> str:
         """Generate cache key for validation results."""
         config_str = json.dumps(system_config, sort_keys=True)
         return hashlib.md5(f"{control_id}:{config_str}".encode()).hexdigest()
 
-    def _is_cache_valid(self, result: ValidationResult) -> bool:
+def _is_cache_valid(self, result: ValidationResult) -> bool:
         """Check if cached result is still valid."""
         # Cache valid for 1 hour
         return datetime.now() - result.timestamp < timedelta(hours=1)
 
-    def get_validation_summary(self) -> Dict[str, Any]:
+def get_validation_summary(self) -> Dict[str, Any]:
         """Get summary of all validation results."""
         if not self.validation_results:
             return {"status": "no_validations_performed"}
@@ -357,7 +355,7 @@ class ValidationEngine:
             "last_validation": self.validation_results[-1].timestamp.isoformat() if self.validation_results else None
         }
 
-    def export_validation_evidence(self) -> List[Dict[str, Any]]:
+def export_validation_evidence(self) -> List[Dict[str, Any]]:
         """Export validation evidence for audit purposes."""
         return [
             {

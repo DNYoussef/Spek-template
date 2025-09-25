@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-GitHub Bridge Fixes - Eliminating Theater
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 This script fixes the detected theater in the GitHub integration:
 1. Fix status check logic that's producing fake data
@@ -16,7 +14,6 @@ from pathlib import Path
 # Add analyzer to path for fixes
 sys.path.append(str(Path(__file__).parent.parent.parent))
 sys.path.append(str(Path(__file__).parent.parent.parent / "analyzer"))
-
 
 def fix_github_bridge_status_logic():
     """Fix the status check logic that's producing fake data."""
@@ -94,7 +91,6 @@ def fix_github_bridge_status_logic():
         print("  [WARN] Status logic not found or already fixed")
         return False
 
-
 def fix_pr_comment_formatting():
     """Fix PR comment formatting to handle violations properly."""
     print("FIXING: PR Comment Formatting")
@@ -155,7 +151,6 @@ def fix_pr_comment_formatting():
         print("  [WARN] Comment logic not found or already fixed")
         return False
 
-
 def create_fixed_tool_coordinator():
     """Create a fixed version of ToolCoordinator that works without complex imports."""
     print("FIXING: Tool Coordinator Import Issues")
@@ -172,7 +167,6 @@ import json
 import sys
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class FixedToolCoordinator:
     """
@@ -259,7 +253,7 @@ class FixedToolCoordinator:
         quality_score = max(0.0, 1.0 - (total_issues / 100.0))
 
         return {
-            "nasa_compliance": round(avg_compliance, 3),
+            "nasa_compliance": round(avg_compliance, MAXIMUM_RETRY_ATTEMPTS),
             "total_violations": total_violations + total_external,
             "critical_violations": critical_violations,
             "confidence_level": "high" if critical_violations == 0 else "medium",
@@ -293,7 +287,6 @@ class FixedToolCoordinator:
             recommendations.append("Code quality meets standards - continue monitoring")
 
         return recommendations
-
 
 def main():
     """Main function for command line usage."""
@@ -337,7 +330,6 @@ def main():
 
     return 0
 
-
 if __name__ == '__main__':
     sys.exit(main())
 '''
@@ -350,10 +342,8 @@ if __name__ == '__main__':
     print(f"  [OK] Created fixed tool coordinator at {fixed_coordinator_path}")
     return True
 
-
 def create_improved_reality_test():
     """Create an improved reality test that uses the fixed components."""
-    print("CREATING: Improved Reality Test")
 
     improved_test_content = '''#!/usr/bin/env python3
 """
@@ -376,10 +366,8 @@ from mock_github_server import MockGitHubServer
 from fixed_tool_coordinator import FixedToolCoordinator
 import time
 
-
 def test_fixed_correlation_logic():
     """Test the fixed correlation logic with real data."""
-    print("TESTING: Fixed Correlation Logic")
     print("-" * 40)
 
     # Create test data with known expected results
@@ -448,19 +436,15 @@ def test_fixed_correlation_logic():
     passed = 0
     for test_name, passed_check, details in tests:
         status = "[OK]" if passed_check else "[FAIL]"
-        print(f"  {status} {test_name}: {details}")
         if passed_check:
             passed += 1
 
     success_rate = (passed / len(tests)) * 100
-    print(f"\\nFixed Correlation Logic: {success_rate:.1f}% ({passed}/{len(tests)} tests passed)")
 
     return success_rate >= 80
 
-
 def test_fixed_github_integration():
     """Test GitHub integration with fixed logic."""
-    print("\\nTESTING: Fixed GitHub Integration")
     print("-" * 40)
 
     # Start mock server
@@ -495,7 +479,7 @@ def test_fixed_github_integration():
             ],
             nasa_compliance_score=0.82,
             god_objects_found=1,
-            duplication_percentage=8.5
+            duplication_percentage=8.MAXIMUM_NESTED_DEPTH
         )
 
         # Test PR comment
@@ -533,17 +517,13 @@ def test_fixed_github_integration():
         github_tests_passed = sum([success, has_real_data, has_real_status])
         github_success_rate = (github_tests_passed / 3) * 100
 
-        print(f"\\nFixed GitHub Integration: {github_success_rate:.1f}% ({github_tests_passed}/3 tests passed)")
-
         return github_success_rate >= 70
 
     finally:
         server.stop()
 
-
 def test_end_to_end_fixed():
     """Test complete end-to-end workflow with fixes."""
-    print("\\nTESTING: End-to-End Fixed Workflow")
     print("-" * 40)
 
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -611,14 +591,11 @@ def test_end_to_end_fixed():
             print(f"  Realistic Values: {'[OK]' if realistic_values else '[FAIL]'}")
 
             e2e_success = has_structure and realistic_values
-            print(f"\\nEnd-to-End Test: {'[OK]' if e2e_success else '[FAIL]'}")
 
             return e2e_success
         else:
             print(f"  File Creation: [FAIL]")
-            print(f"\\nEnd-to-End Test: [FAIL]")
             return False
-
 
 def main():
     """Run all improved reality tests."""
@@ -634,7 +611,7 @@ def main():
     scores = {
         "Fixed Correlation Logic": (correlation_ok, 40),
         "Fixed GitHub Integration": (github_ok, 35),
-        "End-to-End Workflow": (e2e_ok, 25)
+        "End-to-End Workflow": (e2e_ok, MAXIMUM_GOD_OBJECTS_ALLOWED)
     }
 
     total_weight = 0
@@ -645,7 +622,7 @@ def main():
     print("=" * 60)
 
     for component, (passed, weight) in scores.items():
-        score = 100 if passed else 0
+        score = MAXIMUM_FUNCTION_LENGTH_LINES if passed else 0
         weighted_score += score * weight
         total_weight += weight
         status = "[OK]" if passed else "[FAIL]"
@@ -665,7 +642,6 @@ def main():
         print("ASSESSMENT: SIGNIFICANT THEATER REMAINS")
         return False
 
-
 if __name__ == "__main__":
     success = main()
     sys.exit(0 if success else 1)
@@ -676,9 +652,7 @@ if __name__ == "__main__":
     with open(improved_test_path, 'w', encoding='utf-8') as f:
         f.write(improved_test_content)
 
-    print(f"  [OK] Created improved reality test at {improved_test_path}")
     return True
-
 
 def main():
     """Apply all fixes to eliminate theater."""
@@ -710,7 +684,6 @@ def main():
         if create_improved_reality_test():
             fixes_applied.append("Reality Test Suite")
     except Exception as e:
-        print(f"  [ERROR] Failed to create improved test: {e}")
 
     print(f"\\nFIXES APPLIED:")
     for fix in fixes_applied:
@@ -723,14 +696,10 @@ def main():
         print(f"\\n[PARTIAL] Only {len(fixes_applied)} fixes applied")
         return False
 
-
 if __name__ == "__main__":
     success = main()
-    print(f"\\nReady for re-testing with: python improved_reality_check.py")
     sys.exit(0 if success else 1)
 
-
 if __name__ == "__main__":
     success = main()
-    print(f"\\nReady for re-testing with: python improved_reality_check.py")
     sys.exit(0 if success else 1)

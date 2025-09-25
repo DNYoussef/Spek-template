@@ -1,22 +1,21 @@
 """Pylint linter adapter implementation."""
 
-import json
 from typing import List, Dict, Any
+import json
 
 from src.adapters.base_adapter import BaseLinterAdapter
 from src.models.linter_models import (
     LinterConfig, LinterViolation, StandardSeverity, ViolationType
 )
 
-
 class PylintAdapter(BaseLinterAdapter):
     """Adapter for pylint Python linter."""
     
-    def __init__(self, config: LinterConfig):
+def __init__(self, config: LinterConfig):
         super().__init__(config)
         self.tool_name = "pylint"
     
-    def get_command_args(self, target_paths: List[str]) -> List[str]:
+def get_command_args(self, target_paths: List[str]) -> List[str]:
         """Build pylint command arguments."""
         cmd = self.config.get_command_base()
         
@@ -35,7 +34,7 @@ class PylintAdapter(BaseLinterAdapter):
         
         return cmd
     
-    def parse_output(self, raw_output: str, stderr: str = "") -> List[LinterViolation]:
+def parse_output(self, raw_output: str, stderr: str = "") -> List[LinterViolation]:
         """Parse pylint JSON output into standardized violations."""
         violations = []
         
@@ -84,7 +83,7 @@ class PylintAdapter(BaseLinterAdapter):
         
         return violations
     
-    def normalize_severity(self, tool_severity: str, rule_id: str = "") -> StandardSeverity:
+def normalize_severity(self, tool_severity: str, rule_id: str = "") -> StandardSeverity:
         """Convert pylint message type to standard severity."""
         # Apply user overrides first
         if rule_id:
@@ -111,7 +110,7 @@ class PylintAdapter(BaseLinterAdapter):
         
         return severity_map.get(tool_severity.lower(), StandardSeverity.WARNING)
     
-    def get_violation_type(self, rule_id: str, category: str = "") -> ViolationType:
+def get_violation_type(self, rule_id: str, category: str = "") -> ViolationType:
         """Determine violation type from pylint rule ID and category."""
         if not rule_id:
             return ViolationType.STYLE
@@ -151,7 +150,7 @@ class PylintAdapter(BaseLinterAdapter):
         
         return category_map.get(category.lower(), ViolationType.STYLE)
     
-    def _get_confidence_level(self, confidence: str) -> str:
+def _get_confidence_level(self, confidence: str) -> str:
         """Normalize pylint confidence levels."""
         confidence_map = {
             'HIGH': 'high',

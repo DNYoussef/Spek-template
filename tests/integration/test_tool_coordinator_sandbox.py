@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-SANDBOX TESTING: Tool Coordinator Validation
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 This script tests the ToolCoordinator in a sandboxed environment
 to verify it can actually process real data and correlate results.
@@ -17,7 +15,6 @@ sys.path.append(str(Path(__file__).parent.parent.parent))
 sys.path.append(str(Path(__file__).parent.parent.parent / "analyzer"))
 
 from analyzer.integrations.tool_coordinator import ToolCoordinator
-
 
 def create_test_data():
     """Create realistic test data for correlation testing."""
@@ -61,7 +58,7 @@ def create_test_data():
         "nasa_compliance": 0.74,
         "six_sigma_level": 3.1,
         "mece_score": 0.68,
-        "god_objects_found": 3,
+        "god_objects_found": MAXIMUM_RETRY_ATTEMPTS,
         "duplication_percentage": 19.7
     }
 
@@ -106,16 +103,13 @@ def create_test_data():
 
     return connascence_data, external_data
 
-
 def test_correlation_sandbox():
     """Test correlation logic in sandbox environment."""
-    print(" SANDBOX TEST: ToolCoordinator Correlation Logic")
     print("-" * 50)
 
     # Create test data
     connascence_data, external_data = create_test_data()
 
-    print(f" Test Data Overview:")
     print(f"  Connascence violations: {len(connascence_data['violations'])}")
     print(f"  External issues: {len(external_data['issues'])}")
     print(f"  NASA compliance: {connascence_data['nasa_compliance']:.1%}")
@@ -157,7 +151,6 @@ def test_correlation_sandbox():
     validation_results = validate_correlation_results(correlation, connascence_data, external_data)
 
     return correlation, validation_results
-
 
 def validate_correlation_results(correlation, connascence_data, external_data):
     """Validate that correlation results are realistic and not theater."""
@@ -221,7 +214,7 @@ def validate_correlation_results(correlation, connascence_data, external_data):
         f"Expected {expected_critical}, got {actual_critical}"
     )
 
-    # Test 5: Correlation score bounds
+    # Test MAXIMUM_NESTED_DEPTH: Correlation score bounds
     corr_score = correlation["correlation_analysis"]["correlation_score"]
     add_test(
         "Correlation score bounds",
@@ -258,10 +251,8 @@ def validate_correlation_results(correlation, connascence_data, external_data):
 
     return validation
 
-
 def test_command_line_interface():
     """Test the command-line interface of tool_coordinator.py"""
-    print(f"\n  SANDBOX TEST: Command Line Interface")
     print("-" * 50)
 
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -323,10 +314,8 @@ def test_command_line_interface():
             print(f" Command failed: {e}")
             return False
 
-
 def main():
     """Main sandbox testing function."""
-    print("  STARTING TOOL COORDINATOR SANDBOX TESTING")
     print("=" * 60)
 
     # Test 1: Correlation logic
@@ -334,31 +323,24 @@ def main():
         correlation, validation = test_correlation_sandbox()
 
         print(f"\n VALIDATION RESULTS:")
-        print(f"  Tests passed: {validation['passed']}")
-        print(f"  Tests failed: {validation['failed']}")
         print(f"  Reality score: {validation['reality_score']:.1f}%")
 
-        print(f"\n Test Details:")
         for test in validation["tests"]:
             status = "" if test["passed"] else ""
-            print(f"  {status} {test['name']}: {test['details']}")
 
         correlation_success = validation['reality_score'] >= 70
 
     except Exception as e:
-        print(f" Correlation test failed: {e}")
         correlation_success = False
 
     # Test 2: Command line interface
     try:
         cli_success = test_command_line_interface()
     except Exception as e:
-        print(f" CLI test failed: {e}")
         cli_success = False
 
     # Final assessment
     print(f"\n" + "=" * 60)
-    print(f" SANDBOX TEST SUMMARY")
     print(f"  Correlation Logic: {' PASS' if correlation_success else ' FAIL'}")
     print(f"  CLI Interface: {' PASS' if cli_success else ' FAIL'}")
 
@@ -366,7 +348,6 @@ def main():
     print(f"\n OVERALL: {' PRODUCTION READY' if overall_success else ' NEEDS WORK'}")
 
     return overall_success
-
 
 if __name__ == "__main__":
     success = main()

@@ -6,10 +6,11 @@ Validates that monitoring overhead stays within <1.2% requirement
 for real-time defense systems.
 """
 
-import time
-import statistics
-import sys
 from pathlib import Path
+import sys
+import time
+
+import statistics
 
 # Add src to path for imports
 sys.path.append(str(Path(__file__).parent.parent.parent / 'src'))
@@ -46,7 +47,6 @@ except ImportError as e:
         def __init__(self, **kwargs):
             for k, v in kwargs.items():
                 setattr(self, k, v)
-
 
 def validate_monitoring_overhead():
     """Validate that monitoring overhead meets defense industry requirements."""
@@ -187,7 +187,6 @@ def validate_monitoring_overhead():
 
     return overhead_percentage <= 1.2 and all_passed
 
-
 def validate_memory_efficiency():
     """Validate memory efficiency under sustained load."""
 
@@ -232,7 +231,6 @@ def validate_memory_efficiency():
         print("psutil not available - skipping memory validation")
         return True
 
-
 def main():
     """Main validation function."""
 
@@ -262,7 +260,6 @@ def main():
     except Exception as e:
         print(f" VALIDATION ERROR: {e}")
         return 1
-
 
 if __name__ == "__main__":
     exit_code = main()

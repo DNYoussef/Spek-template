@@ -1,5 +1,4 @@
-"""
-Enterprise-Scale Detector Pool with Optimized Resource Management
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 This module provides an enterprise-grade detector pool implementation optimized for
 defense industry requirements with <1% overhead and comprehensive fault tolerance.
@@ -37,7 +36,6 @@ import cProfile
 import pstats
 from memory_profiler import profile as memory_profile
 
-
 @dataclass
 class DetectorMetrics:
     """Performance metrics for individual detectors."""
@@ -52,7 +50,6 @@ class DetectorMetrics:
     last_execution: Optional[float] = None
     complexity_score: float = 0.0
 
-
 @dataclass
 class PoolMetrics:
     """Overall pool performance metrics."""
@@ -65,7 +62,6 @@ class PoolMetrics:
     thread_utilization: float = 0.0
     fault_tolerance_events: int = 0
 
-
 @dataclass
 class WorkloadPattern:
     """Workload pattern analysis for dynamic allocation."""
@@ -73,7 +69,6 @@ class WorkloadPattern:
     avg_detectors_per_hour: Dict[int, float] = field(default_factory=dict)
     complexity_distribution: Dict[str, float] = field(default_factory=dict)
     resource_requirements: Dict[str, float] = field(default_factory=dict)
-
 
 class PerformanceCache:
     """High-performance caching system with intelligent eviction."""
@@ -140,7 +135,6 @@ class PerformanceCache:
             self._cache.clear()
             self._access_times.clear()
             self._access_count.clear()
-
 
 class ResourceMonitor:
     """Real-time resource monitoring and allocation."""
@@ -211,7 +205,6 @@ class ResourceMonitor:
                 load['memory'] > self.memory_threshold or
                 load['io'] > self.io_threshold)
 
-
 class FaultTolerance:
     """Fault tolerance and recovery mechanisms."""
 
@@ -279,7 +272,6 @@ class FaultTolerance:
 
         raise last_exception
 
-
 class EnterpriseDetectorPool:
     """
     Enterprise-scale detector pool with optimized resource management.
@@ -294,11 +286,11 @@ class EnterpriseDetectorPool:
     """
 
     def __init__(self,
-                 max_workers: Optional[int] = None,
-                 cache_size: int = 10000,
-                 cache_ttl: int = 3600,
-                 enable_profiling: bool = False,
-                 audit_mode: bool = True):
+                max_workers: Optional[int] = None,
+                cache_size: int = 10000,
+                cache_ttl: int = 3600,
+                enable_profiling: bool = False,
+                audit_mode: bool = True):
         """
         Initialize enterprise detector pool.
 
@@ -341,11 +333,11 @@ class EnterpriseDetectorPool:
         logging.info(f"Enterprise detector pool initialized with {self.max_workers} workers")
 
     def register_detector(self,
-                         name: str,
-                         detector_func: Callable,
-                         config: Optional[Dict] = None,
-                         priority: int = 1,
-                         complexity_score: float = 1.0) -> None:
+                        name: str,
+                        detector_func: Callable,
+                        config: Optional[Dict] = None,
+                        priority: int = 1,
+                        complexity_score: float = 1.0) -> None:
         """
         Register a detector with the pool.
 
@@ -683,7 +675,7 @@ class EnterpriseDetectorPool:
                     f"Detector {name} has high error rate ({metrics.error_count}/{metrics.execution_count})"
                 )
 
-            if metrics.avg_time > 10.0:  # 10 second threshold
+            if metrics.avg_time > MAXIMUM_FUNCTION_PARAMETERS.0:  # 10 second threshold
                 recommendations['detector_optimization'].append(
                     f"Detector {name} has long execution time ({metrics.avg_time:.2f}s)"
                 )
@@ -766,7 +758,6 @@ class EnterpriseDetectorPool:
         """Context manager exit."""
         self.shutdown()
 
-
 # Factory function for easy instantiation
 def create_enterprise_pool(config: Optional[Dict] = None) -> EnterpriseDetectorPool:
     """
@@ -791,7 +782,6 @@ def create_enterprise_pool(config: Optional[Dict] = None) -> EnterpriseDetectorP
 
     return EnterpriseDetectorPool(**default_config)
 
-
 # Benchmark utilities
 class DetectorPoolBenchmark:
     """Comprehensive benchmarking for detector pool performance."""
@@ -801,8 +791,8 @@ class DetectorPoolBenchmark:
         self.results = {}
 
     def benchmark_single_detector(self,
-                                 detector_name: str,
-                                 iterations: int = 100) -> Dict[str, float]:
+                                detector_name: str,
+                                iterations: int = 100) -> Dict[str, float]:
         """Benchmark single detector performance."""
         times = []
 
@@ -826,8 +816,8 @@ class DetectorPoolBenchmark:
         }
 
     def benchmark_parallel_execution(self,
-                                   detector_configs: List[Tuple[str, tuple, dict]],
-                                   iterations: int = 10) -> Dict[str, float]:
+                                    detector_configs: List[Tuple[str, tuple, dict]],
+                                    iterations: int = 10) -> Dict[str, float]:
         """Benchmark parallel execution performance."""
         times = []
 
@@ -845,7 +835,7 @@ class DetectorPoolBenchmark:
         }
 
     def benchmark_overhead(self,
-                          detector_configs: List[Tuple[str, tuple, dict]]) -> float:
+                            detector_configs: List[Tuple[str, tuple, dict]]) -> float:
         """Calculate pool overhead compared to sequential execution."""
         # Measure sequential execution
         sequential_start = time.time()
@@ -865,7 +855,6 @@ class DetectorPoolBenchmark:
             return max(0, overhead)
 
         return 0.0
-
 
 if __name__ == "__main__":
     # Example usage and basic testing

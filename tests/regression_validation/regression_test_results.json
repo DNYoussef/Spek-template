@@ -1,0 +1,167 @@
+{
+  "test_summary": {
+    "total_tests": 4,
+    "passed_tests": 0,
+    "failed_tests": 4,
+    "overall_pass": false,
+    "total_execution_time": 3.196873188018799
+  },
+  "individual_results": {
+    "import_resolution": {
+      "passed": false,
+      "execution_time": 1.2637286186218262,
+      "error": "74 import failures",
+      "details": {
+        "total_files_tested": 835,
+        "failed_imports": [
+          {
+            "file": "analyzer\\cache_manager.py",
+            "error": "Failed to process analyzer\\cache_manager.py: Syntax error in import at analyzer\\cache_manager.py:19: from .optimization.file_cache import ("
+          },
+          {
+            "file": "analyzer\\component_integrator.py",
+            "error": "Failed to process analyzer\\component_integrator.py: Syntax error in import at analyzer\\component_integrator.py:953: from detectors import ("
+          },
+          {
+            "file": "analyzer\\comprehensive_analysis_engine.py",
+            "error": "Failed to process analyzer\\comprehensive_analysis_engine.py: Syntax error in import at analyzer\\comprehensive_analysis_engine.py:26: from .utils.validation_utils import ("
+          },
+          {
+            "file": "analyzer\\integration_methods.py",
+            "error": "Failed to process analyzer\\integration_methods.py: Syntax error in import at analyzer\\integration_methods.py:69: from .detectors import ("
+          },
+          {
+            "file": "analyzer\\language_strategies.py",
+            "error": "Failed to process analyzer\\language_strategies.py: Syntax error in import at analyzer\\language_strategies.py:16: from .constants import ("
+          },
+          {
+            "file": "analyzer\\refactored_detector.py",
+            "error": "Failed to process analyzer\\refactored_detector.py: Syntax error in import at analyzer\\refactored_detector.py:23: from .detectors import ("
+          },
+          {
+            "file": "analyzer\\unified_analyzer.py",
+            "error": "Failed to process analyzer\\unified_analyzer.py: Syntax error in import at analyzer\\unified_analyzer.py:34: from .utils.result_builders import ("
+          },
+          {
+            "file": "scripts\\performance_monitor.py",
+            "error": "Failed to process scripts\\performance_monitor.py: Syntax error in import at scripts\\performance_monitor.py:26: import statistics                            recent_avg = statistics.mean(recent_values)                            baseline_avg = statistics.mean(baseline_values)                    # Check for significant regression (>15% degradation)"
+          },
+          {
+            "file": "scripts\\run_intelligent_com_analysis.py",
+            "error": "Failed to process scripts\\run_intelligent_com_analysis.py: Syntax error in import at scripts\\run_intelligent_com_analysis.py:19: from analyzer.utils.intelligent_magic_number_analyzer import ("
+          },
+          {
+            "file": "scripts\\six_sigma_implementation_demo.py",
+            "error": "Failed to process scripts\\six_sigma_implementation_demo.py: Syntax error in import at scripts\\six_sigma_implementation_demo.py:32: from src.enterprise.telemetry.spc_control_charts import ("
+          }
+        ],
+        "total_failures": 74
+      }
+    },
+    "core_functionality": {
+      "passed": false,
+      "execution_time": 0.5072762966156006,
+      "error": "1 module failures",
+      "details": {
+        "modules_tested": 3,
+        "modules_passed": 2,
+        "test_results": [
+          {
+            "module": "analyzer.core.unified_imports",
+            "passed": false,
+            "error": "closing parenthesis ']' does not match opening parenthesis '(' (server.py, line 142)"
+          },
+          {
+            "module": "src.main",
+            "passed": true,
+            "result": "Successfully imported src.main"
+          },
+          {
+            "module": "analyzer.unified_analyzer",
+            "passed": true,
+            "result": "Successfully imported analyzer.unified_analyzer"
+          }
+        ]
+      }
+    },
+    "json_configuration": {
+      "passed": false,
+      "execution_time": 1.4168922901153564,
+      "error": "9 invalid JSON files",
+      "details": {
+        "files_tested": 354,
+        "valid_files": 345,
+        "results": [
+          {
+            "file": "complexity.json",
+            "valid": true
+          },
+          {
+            "file": "nasa-validation.json",
+            "valid": false,
+            "error": "Expecting value: line 1 column 1 (char 0)"
+          },
+          {
+            "file": "package.json",
+            "valid": true
+          },
+          {
+            "file": "tsconfig.json",
+            "valid": true
+          },
+          {
+            "file": "tsconfig.test.json",
+            "valid": true
+          },
+          {
+            "file": "--output-dir\\refactoring_stats.json",
+            "valid": true
+          },
+          {
+            "file": ".claude\\config.json",
+            "valid": true
+          },
+          {
+            "file": ".claude\\memory_config.json",
+            "valid": true
+          },
+          {
+            "file": ".claude\\settings.json",
+            "valid": true
+          },
+          {
+            "file": ".claude\\settings.local.json",
+            "valid": true
+          }
+        ]
+      }
+    },
+    "import_performance": {
+      "passed": false,
+      "execution_time": 0.008975982666015625,
+      "error": "2 slow imports",
+      "details": {
+        "modules_tested": 3,
+        "acceptable_performance": 1,
+        "import_times": [
+          {
+            "module": "analyzer.unified_analyzer",
+            "import_time": 0.0039899349212646484,
+            "acceptable": true
+          },
+          {
+            "module": "analyzer.core.unified_imports",
+            "import_time": 999.0,
+            "acceptable": false
+          },
+          {
+            "module": "src.constants",
+            "import_time": 999.0,
+            "acceptable": false
+          }
+        ]
+      }
+    }
+  },
+  "critical_failures": [
+    

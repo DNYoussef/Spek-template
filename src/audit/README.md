@@ -55,55 +55,55 @@ graph TB
 
 ```
 src/audit/
-├── README.md                          # This file
-├── core/
-│   ├── __init__.py
-│   ├── audit_engine.py               # Core audit processing engine
-│   ├── event_collector.py            # Event collection and queuing
-│   ├── integrity_manager.py          # Cryptographic integrity protection
-│   ├── retention_manager.py          # Automated retention policy enforcement
-│   └── chain_verifier.py             # Audit chain verification utilities
-├── processors/
-│   ├── __init__.py
-│   ├── real_time_processor.py        # Real-time event processing
-│   ├── batch_processor.py            # Batch processing for performance
-│   ├── correlation_engine.py         # Event correlation and analysis
-│   └── anomaly_detector.py           # AI-powered anomaly detection
-├── storage/
-│   ├── __init__.py
-│   ├── database_manager.py           # Database storage operations
-│   ├── object_storage.py             # Object storage for large files
-│   ├── encryption_manager.py         # Storage encryption management
-│   └── backup_manager.py             # Automated backup operations
-├── integrations/
-│   ├── __init__.py
-│   ├── siem_connector.py             # SIEM integration
-│   ├── dfars_compliance.py           # DFARS compliance integration
-│   ├── incident_response.py          # Incident response integration
-│   └── external_systems.py           # External system integrations
-├── apis/
-│   ├── __init__.py
-│   ├── audit_api.py                  # RESTful audit API
-│   ├── search_api.py                 # Audit log search API
-│   ├── report_api.py                 # Audit reporting API
-│   └── admin_api.py                  # Administrative API
-├── tools/
-│   ├── __init__.py
-│   ├── integrity_checker.py          # Manual integrity verification
-│   ├── export_utility.py             # Audit data export tools
-│   ├── migration_tools.py            # Data migration utilities
-│   └── forensic_tools.py             # Forensic analysis tools
-├── config/
-│   ├── __init__.py
-│   ├── audit_config.py               # Audit system configuration
-│   ├── retention_policies.py         # Retention policy definitions
-│   └── compliance_mappings.py        # Compliance framework mappings
-└── tests/
-    ├── __init__.py
-    ├── unit/                          # Unit tests
-    ├── integration/                   # Integration tests
-    ├── performance/                   # Performance tests
-    └── compliance/                    # Compliance validation tests
+___ README.md                          # This file
+___ core/
+_   ___ __init__.py
+_   ___ audit_engine.py               # Core audit processing engine
+_   ___ event_collector.py            # Event collection and queuing
+_   ___ integrity_manager.py          # Cryptographic integrity protection
+_   ___ retention_manager.py          # Automated retention policy enforcement
+_   ___ chain_verifier.py             # Audit chain verification utilities
+___ processors/
+_   ___ __init__.py
+_   ___ real_time_processor.py        # Real-time event processing
+_   ___ batch_processor.py            # Batch processing for performance
+_   ___ correlation_engine.py         # Event correlation and analysis
+_   ___ anomaly_detector.py           # AI-powered anomaly detection
+___ storage/
+_   ___ __init__.py
+_   ___ database_manager.py           # Database storage operations
+_   ___ object_storage.py             # Object storage for large files
+_   ___ encryption_manager.py         # Storage encryption management
+_   ___ backup_manager.py             # Automated backup operations
+___ integrations/
+_   ___ __init__.py
+_   ___ siem_connector.py             # SIEM integration
+_   ___ dfars_compliance.py           # DFARS compliance integration
+_   ___ incident_response.py          # Incident response integration
+_   ___ external_systems.py           # External system integrations
+___ apis/
+_   ___ __init__.py
+_   ___ audit_api.py                  # RESTful audit API
+_   ___ search_api.py                 # Audit log search API
+_   ___ report_api.py                 # Audit reporting API
+_   ___ admin_api.py                  # Administrative API
+___ tools/
+_   ___ __init__.py
+_   ___ integrity_checker.py          # Manual integrity verification
+_   ___ export_utility.py             # Audit data export tools
+_   ___ migration_tools.py            # Data migration utilities
+_   ___ forensic_tools.py             # Forensic analysis tools
+___ config/
+_   ___ __init__.py
+_   ___ audit_config.py               # Audit system configuration
+_   ___ retention_policies.py         # Retention policy definitions
+_   ___ compliance_mappings.py        # Compliance framework mappings
+___ tests/
+    ___ __init__.py
+    ___ unit/                          # Unit tests
+    ___ integration/                   # Integration tests
+    ___ performance/                   # Performance tests
+    ___ compliance/                    # Compliance validation tests
 ```
 
 ---

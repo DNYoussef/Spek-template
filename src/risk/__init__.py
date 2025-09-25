@@ -7,12 +7,8 @@ from .kelly_criterion import (
     KellyCriterionCalculator,
     KellyInputs,
     KellyResult,
-    RiskMetrics,
-    create_kelly_calculator,
-    calculate_position_from_returns,
-    benchmark_kelly_performance
+    RiskMetrics
 )
-
 from .dynamic_position_sizing import (
     DynamicPositionSizer,
     PositionSizingConfig,

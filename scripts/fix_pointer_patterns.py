@@ -13,29 +13,28 @@ NASA POT10 Rule 1: Restrict pointer use to a single dereference level
 In Python context: Avoid chained attribute access and mutable object passing
 """
 
-import ast
-import sys
+from collections import defaultdict
 from pathlib import Path
 from typing import Dict, List, Tuple
-from collections import defaultdict
-
+import ast
+import sys
 
 class PointerPatternDetector(ast.NodeVisitor):
     """Detects pointer-like violation patterns in Python AST."""
 
-    def __init__(self, file_path: str):
+def __init__(self, file_path: str):
         self.file_path = file_path
         self.violations: Dict[str, List[Tuple[int, str]]] = defaultdict(list)
         self.current_function = None
 
-    def visit_FunctionDef(self, node):
+def visit_FunctionDef(self, node):
         """Track current function context."""
         old_function = self.current_function
         self.current_function = node.name
         self.generic_visit(node)
         self.current_function = old_function
 
-    def visit_Attribute(self, node):
+def visit_Attribute(self, node):
         """Detect nested attribute access (obj.attr1.attr2.method())."""
         # Count the depth of attribute access
         depth = 0
@@ -60,7 +59,7 @@ class PointerPatternDetector(ast.NodeVisitor):
 
         self.generic_visit(node)
 
-    def visit_Assign(self, node):
+def visit_Assign(self, node):
         """Detect mutable object assignments and global mutations."""
         # Check for global keyword usage
         if isinstance(node, ast.Global):
@@ -88,7 +87,7 @@ class PointerPatternDetector(ast.NodeVisitor):
 
         self.generic_visit(node)
 
-    def visit_Call(self, node):
+def visit_Call(self, node):
         """Detect method calls with object references as arguments."""
         # Check for passing object attributes as arguments
         for arg in node.args:
@@ -101,7 +100,7 @@ class PointerPatternDetector(ast.NodeVisitor):
 
         self.generic_visit(node)
 
-    def visit_Return(self, node):
+def visit_Return(self, node):
         """Detect returning mutable objects or deep references."""
         if node.value:
             if isinstance(node.value, ast.Attribute):
@@ -113,7 +112,7 @@ class PointerPatternDetector(ast.NodeVisitor):
 
         self.generic_visit(node)
 
-    def _get_attribute_chain(self, node) -> List[str]:
+def _get_attribute_chain(self, node) -> List[str]:
         """Extract attribute access chain from AST node."""
         chain = []
         current = node
@@ -126,7 +125,6 @@ class PointerPatternDetector(ast.NodeVisitor):
         if isinstance(current, ast.Name):
             chain.append(current.id)
         return list(reversed(chain))
-
 
 def analyze_file(file_path: Path) -> Dict[str, List[Tuple[int, str]]]:
     """Analyze a Python file for pointer-like patterns."""
@@ -145,7 +143,6 @@ def analyze_file(file_path: Path) -> Dict[str, List[Tuple[int, str]]]:
     except Exception as e:
         print(f"Error analyzing {file_path}: {e}")
         return {}
-
 
 def generate_report(results: Dict[Path, Dict[str, List[Tuple[int, str]]]]) -> str:
     """Generate a comprehensive report of pointer pattern violations."""
@@ -216,7 +213,6 @@ def generate_report(results: Dict[Path, Dict[str, List[Tuple[int, str]]]]) -> st
 
     return "\n".join(report_lines)
 
-
 def main():
     """Main entry point for pointer pattern detection."""
     # Target files from the task
@@ -257,7 +253,6 @@ def main():
     # Return exit code based on violations found
     total_violations = sum(sum(len(v) for v in violations.values()) for violations in results.values())
     return 0 if total_violations == 0 else 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

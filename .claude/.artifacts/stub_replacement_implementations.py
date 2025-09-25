@@ -1,4 +1,5 @@
 from lib.shared.utilities import path_exists
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 #!/usr/bin/env python3
 """
 STUB KILLER REPLACEMENT IMPLEMENTATIONS
@@ -152,7 +153,7 @@ class RealConnascenceASTAnalyzer:
                 if node.args.kwarg:
                     param_count += 1
                 
-                if param_count > 5:  # NASA Rule threshold
+                if param_count > MAXIMUM_NESTED_DEPTH:  # NASA Rule threshold
                     violations.append(ConnascenceViolation(
                         id=f"long_params_{file_path}_{node.lineno}",
                         type="parameter_list",

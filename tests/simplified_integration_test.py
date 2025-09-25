@@ -1,7 +1,4 @@
-"""
-Phase 3 Step 7: Simplified Integration Testing
-Tests integration between enterprise system and existing analyzer with ASCII-only output.
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 import json
 import time
@@ -17,7 +14,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 def test_baseline_functionality():
     """Test baseline analyzer functionality"""
-    print("\n=== TEST 1: Baseline Analyzer Functionality ===")
     
     try:
         from analyzer.core import ConnascenceAnalyzer
@@ -45,7 +41,6 @@ def test_function():
         violations = result.get("violations", [])
         analysis_mode = getattr(analyzer, 'analysis_mode', 'unknown')
         
-        print(f"[PASS] Baseline test completed in {baseline_time:.3f}s")
         print(f"  - Analysis mode: {analysis_mode}")
         print(f"  - Success: {success}")
         print(f"  - Violations found: {len(violations)}")
@@ -62,7 +57,6 @@ def test_function():
         }
         
     except Exception as e:
-        print(f"[FAIL] Baseline test failed: {e}")
         return {
             "test": "baseline", 
             "status": "FAIL",
@@ -71,7 +65,6 @@ def test_function():
 
 def test_enterprise_config_loading():
     """Test enterprise configuration loading"""
-    print("\n=== TEST 2: Enterprise Configuration ===")
     
     try:
         from src.enterprise.config.enterprise_config import EnterpriseConfig, EnvironmentType
@@ -103,7 +96,6 @@ def test_enterprise_config_loading():
         }
         
     except Exception as e:
-        print(f"[FAIL] Enterprise config test failed: {e}")
         return {
             "test": "enterprise_config",
             "status": "FAIL", 
@@ -112,7 +104,6 @@ def test_enterprise_config_loading():
 
 def test_configuration_compatibility():
     """Test configuration file compatibility"""
-    print("\n=== TEST 3: Configuration Compatibility ===")
     
     try:
         import yaml
@@ -153,7 +144,6 @@ def test_configuration_compatibility():
         }
         
     except Exception as e:
-        print(f"[FAIL] Configuration compatibility test failed: {e}")
         return {
             "test": "config_compatibility",
             "status": "FAIL",
@@ -162,7 +152,6 @@ def test_configuration_compatibility():
 
 def test_artifact_generation():
     """Test enterprise artifact generation simulation"""
-    print("\n=== TEST 4: Artifact Generation ===")
     
     try:
         temp_dir = Path(tempfile.mkdtemp())
@@ -218,7 +207,6 @@ def test_artifact_generation():
         }
         
     except Exception as e:
-        print(f"[FAIL] Artifact generation test failed: {e}")
         return {
             "test": "artifact_generation",
             "status": "FAIL",
@@ -227,7 +215,6 @@ def test_artifact_generation():
 
 def test_performance_impact():
     """Test performance impact of enterprise features"""
-    print("\n=== TEST 5: Performance Impact Assessment ===")
     
     try:
         from analyzer.core import ConnascenceAnalyzer
@@ -266,7 +253,7 @@ class TestClass:
             performance_impact = 0
         
         # Determine result
-        target_threshold = 4.7  # Target <4.7% overhead
+        target_threshold = 4.7  # Target <4.DAYS_RETENTION_PERIOD% overhead
         status = "PASS" if performance_impact <= target_threshold else "WARN"
         
         print(f"[{status}] Performance impact assessment completed")
@@ -288,7 +275,6 @@ class TestClass:
         }
         
     except Exception as e:
-        print(f"[FAIL] Performance impact test failed: {e}")
         return {
             "test": "performance_impact",
             "status": "FAIL",
@@ -297,7 +283,6 @@ class TestClass:
 
 def test_error_handling():
     """Test error handling and graceful degradation"""
-    print("\n=== TEST 6: Error Handling ===")
     
     try:
         from analyzer.core import ConnascenceAnalyzer
@@ -312,7 +297,7 @@ def test_error_handling():
         result2 = analyzer.analyze_path(".", policy="invalid_policy")
         policy_handling = result2.get("success", False) or "error" in result2
         
-        # Test 3: Malformed file
+        # Test MAXIMUM_RETRY_ATTEMPTS: Malformed file
         temp_dir = Path(tempfile.mkdtemp())
         bad_file = temp_dir / "bad.py"
         bad_file.write_text("def incomplete(\n# Missing closing paren")
@@ -322,11 +307,9 @@ def test_error_handling():
         
         tests_passed = sum([graceful_failure, policy_handling, syntax_handling])
         
-        print(f"[PASS] Error handling tests completed")
         print(f"  - Non-existent path handling: {'OK' if graceful_failure else 'FAIL'}")
         print(f"  - Invalid policy handling: {'OK' if policy_handling else 'FAIL'}")
         print(f"  - Syntax error handling: {'OK' if syntax_handling else 'FAIL'}")
-        print(f"  - Tests passed: {tests_passed}/3")
         
         # Cleanup
         shutil.rmtree(temp_dir)
@@ -339,7 +322,6 @@ def test_error_handling():
         }
         
     except Exception as e:
-        print(f"[FAIL] Error handling test failed: {e}")
         return {
             "test": "error_handling",
             "status": "FAIL",
@@ -349,20 +331,16 @@ def test_error_handling():
 def generate_integration_report(test_results):
     """Generate comprehensive integration test report"""
     print("\n" + "="*80)
-    print("ENTERPRISE INTEGRATION TEST REPORT")
     print("="*80)
     
-    print(f"\nPhase 3 Step 7: Integration Testing with Existing Analyzer")
     print(f"Analyzer Version: 2.0.0")
     print(f"Enterprise Features: Six Sigma, Supply Chain, Compliance")
-    print(f"Total Tests: {len(test_results)}")
     
     # Count results
     passed = sum(1 for r in test_results if r.get("status") == "PASS")
     failed = sum(1 for r in test_results if r.get("status") == "FAIL")
     warned = sum(1 for r in test_results if r.get("status") == "WARN")
     
-    print(f"\nTest Results Summary:")
     print(f"  PASSED: {passed}")
     print(f"  FAILED: {failed}")
     print(f"  WARNINGS: {warned}")
@@ -372,7 +350,6 @@ def generate_integration_report(test_results):
     for result in test_results:
         test_name = result["test"].replace("_", " ").title()
         status = result["status"]
-        print(f"  {test_name:<30} | {status}")
         
         if "time_seconds" in result:
             print(f"    - Execution time: {result['time_seconds']:.3f}s")
@@ -412,12 +389,8 @@ def generate_integration_report(test_results):
         print("  + Configuration compatibility maintained")
         print("  + NASA POT10 compliance preserved")
     
-    print("\n" + "="*80)
-
 def main():
     """Run all integration tests"""
-    print("Starting Enterprise Integration Test Suite...")
-    print("Testing integration with existing 47,731 LOC analyzer")
     
     # Run all tests
     test_functions = [

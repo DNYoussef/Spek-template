@@ -3,9 +3,9 @@ Configuration Object Pattern - Eliminating Long Parameter Lists
 Enterprise-grade design pattern for perfect code quality
 """
 
-from dataclasses import dataclass
 from typing import Optional, Dict, Any
 
+from dataclasses import dataclass
 
 @dataclass
 class AnalysisConfig:
@@ -21,7 +21,7 @@ class AnalysisConfig:
     output_format: str = "json"
     verbose: bool = False
 
-    def to_dict(self) -> Dict[str, Any]:
+def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
             'project_path': self.project_path,
@@ -34,7 +34,6 @@ class AnalysisConfig:
             'output_format': self.output_format,
             'verbose': self.verbose
         }
-
 
 @dataclass
 class SecurityConfig:
@@ -49,7 +48,6 @@ class SecurityConfig:
     password_min_length: int = 12
     require_mfa: bool = True
 
-
 @dataclass
 class PerformanceConfig:
     """Performance tuning configuration - clean parameter passing."""
@@ -61,7 +59,6 @@ class PerformanceConfig:
     enable_profiling: bool = False
     memory_limit_mb: int = 1024
     cpu_limit_percent: int = 80
-
 
 @dataclass
 class ReportConfig:
@@ -76,7 +73,6 @@ class ReportConfig:
     timestamp_format: str = "ISO"
     include_metrics: bool = True
 
-
 @dataclass
 class IntegrationConfig:
     """External integration configuration - clean interface."""
@@ -89,48 +85,45 @@ class IntegrationConfig:
     pr_auto_create: bool = False
     issue_auto_create: bool = True
 
-
 class ConfigBuilder:
     """Builder pattern for complex configurations."""
 
-    def __init__(self):
+def __init__(self):
         self._config = {}
 
-    def with_analysis(self, **kwargs) -> 'ConfigBuilder':
+def with_analysis(self, **kwargs) -> 'ConfigBuilder':
         """Add analysis configuration."""
         self._config['analysis'] = AnalysisConfig(**kwargs)
         return self
 
-    def with_security(self, **kwargs) -> 'ConfigBuilder':
+def with_security(self, **kwargs) -> 'ConfigBuilder':
         """Add security configuration."""
         self._config['security'] = SecurityConfig(**kwargs)
         return self
 
-    def with_performance(self, **kwargs) -> 'ConfigBuilder':
+def with_performance(self, **kwargs) -> 'ConfigBuilder':
         """Add performance configuration."""
         self._config['performance'] = PerformanceConfig(**kwargs)
         return self
 
-    def with_reporting(self, **kwargs) -> 'ConfigBuilder':
+def with_reporting(self, **kwargs) -> 'ConfigBuilder':
         """Add reporting configuration."""
         self._config['reporting'] = ReportConfig(**kwargs)
         return self
 
-    def with_integration(self, **kwargs) -> 'ConfigBuilder':
+def with_integration(self, **kwargs) -> 'ConfigBuilder':
         """Add integration configuration."""
         self._config['integration'] = IntegrationConfig(**kwargs)
         return self
 
-    def build(self) -> Dict[str, Any]:
+def build(self) -> Dict[str, Any]:
         """Build the complete configuration."""
         return self._config
-
 
 # Example usage showing clean parameter passing
 def analyze_project_clean(config: AnalysisConfig) -> dict:
     """Clean function signature with configuration object."""
     # Previously would have been:
-    # def analyze_project(path, policy, cache, size, timeout, include, exclude, format, verbose)
 
     return {
         'status': 'success',
@@ -139,14 +132,11 @@ def analyze_project_clean(config: AnalysisConfig) -> dict:
         'message': 'Analysis complete with clean configuration'
     }
 
-
 def generate_report_clean(config: ReportConfig, data: dict) -> str:
     """Clean report generation without parameter explosion."""
     # Previously would have been:
-    # def generate_report(type, details, recommendations, max_violations, group_by, path, format, metrics, data)
 
     return f"Report of type {config.report_type} generated at {config.output_path}"
-
 
 # Demonstration of improvement
 if __name__ == "__main__":

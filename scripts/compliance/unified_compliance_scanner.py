@@ -3,18 +3,17 @@ Unified Compliance Scanner - Enterprise, Defense, NASA, and Six Sigma
 Comprehensive scanning for all compliance requirements.
 """
 
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, Any, List
 import ast
 import json
 import os
-from pathlib import Path
-from typing import Dict, Any, List
-from datetime import datetime
-
 
 class UnifiedComplianceScanner:
     """Scans for all compliance requirements in one pass."""
 
-    def __init__(self, project_path: str = "."):
+def __init__(self, project_path: str = "."):
         """Initialize scanner."""
         self.project_path = Path(project_path)
         self.results = {
@@ -27,7 +26,7 @@ class UnifiedComplianceScanner:
             'summary': {}
         }
 
-    def scan_nasa_compliance(self) -> Dict[str, Any]:
+def scan_nasa_compliance(self) -> Dict[str, Any]:
         """NASA POT10 Compliance Scanning."""
         print("Scanning NASA POT10 Compliance...")
 
@@ -102,7 +101,7 @@ class UnifiedComplianceScanner:
             'compliance_score': max(0, 100 - sum(len(v) for v in nasa_violations.values()))
         }
 
-    def scan_dfars_compliance(self) -> Dict[str, Any]:
+def scan_dfars_compliance(self) -> Dict[str, Any]:
         """DFARS Defense Industry Compliance Scanning."""
         print("Scanning DFARS Defense Compliance...")
 
@@ -153,7 +152,7 @@ class UnifiedComplianceScanner:
             'compliance_score': max(0, 100 - (sum(len(v) for v in dfars_requirements.values()) * 2))
         }
 
-    def scan_six_sigma_quality(self) -> Dict[str, Any]:
+def scan_six_sigma_quality(self) -> Dict[str, Any]:
         """Lean Six Sigma Quality Scanning."""
         print("Scanning Lean Six Sigma Quality...")
 
@@ -235,7 +234,7 @@ class UnifiedComplianceScanner:
             'quality_score': max(0, 100 - (dpmo / 1000))
         }
 
-    def scan_enterprise_compliance(self) -> Dict[str, Any]:
+def scan_enterprise_compliance(self) -> Dict[str, Any]:
         """Enterprise-grade compliance scanning."""
         print("Scanning Enterprise Compliance...")
 
@@ -292,7 +291,7 @@ class UnifiedComplianceScanner:
             'compliance_score': max(0, 100 - sum(len(v) for v in enterprise_issues.values()))
         }
 
-    def run_full_scan(self) -> Dict[str, Any]:
+def run_full_scan(self) -> Dict[str, Any]:
         """Run all compliance scans."""
         print("=" * 60)
         print("UNIFIED COMPLIANCE SCANNER")
@@ -329,7 +328,7 @@ class UnifiedComplianceScanner:
 
         return self.results
 
-    def save_results(self, output_dir: str = ".claude/.artifacts"):
+def save_results(self, output_dir: str = ".claude/.artifacts"):
         """Save results to JSON files."""
         output_path = Path(output_dir)
         output_path.mkdir(parents=True, exist_ok=True)
@@ -346,7 +345,6 @@ class UnifiedComplianceScanner:
         print(f"\nResults saved to {output_path}")
 
         return output_path
-
 
 if __name__ == "__main__":
     scanner = UnifiedComplianceScanner()

@@ -1,14 +1,13 @@
 """Configuration management system for all linter tools."""
 
-from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Union
 import json
-import yaml
-import configparser
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+from dataclasses import dataclass, field
+from lib.shared.utilities import get_logger
+import configparser
+import yaml
 
 @dataclass
 class LinterSuiteConfig:
@@ -34,19 +33,94 @@ class LinterSuiteConfig:
     include_patterns: List[str] = field(default_factory=lambda: ['**/*.py'])
     exclude_patterns: List[str] = field(default_factory=lambda: ['__pycache__/**', '.git/**'])
 
+class LinterConfigValidator(ConfigValidator):
+    """Validates linter configuration data."""
+
+    def validate(self, config: Dict[str, Any]) -> List[str]:
+        """Validate linter configuration."""
+        errors = []
+
+        # Validate enabled tools
+        if 'enabled_tools' in config:
+            supported_tools = {'flake8', 'pylint', 'ruff', 'mypy', 'bandit'}
+            for tool in config['enabled_tools']:
+                if tool not in supported_tools:
+                    errors.append(f"Unsupported linter tool: {tool}")
+
+        # Validate timeout values
+        if 'timeout_per_tool' in config and config['timeout_per_tool'] <= 0:
+            errors.append("timeout_per_tool must be positive")
+
+        # Validate max_workers
+        if 'max_workers' in config and config['max_workers'] <= 0:
+            errors.append("max_workers must be positive")
+
+        return errors
+
+    def get_validator_name(self) -> str:
+        return "LinterConfigValidator"
+
+class LinterSuiteConfigFactory(ConfigFactory[LinterSuiteConfig]):
+    """Factory for creating linter suite configurations."""
+
+    def __init__(self):
+        super().__init__()
+        self.add_validator(LinterConfigValidator())
+
+    def create_config(self, config_data: Dict[str, Any]) -> LinterSuiteConfig:
+        """Create LinterSuiteConfig from validated data."""
+        suite_config = LinterSuiteConfig()
+
+        # Apply configuration data
+        if 'enabled_tools' in config_data:
+            suite_config.enabled_tools = config_data['enabled_tools']
+        if 'concurrent_execution' in config_data:
+            suite_config.concurrent_execution = config_data['concurrent_execution']
+        if 'max_workers' in config_data:
+            suite_config.max_workers = config_data['max_workers']
+        if 'timeout_per_tool' in config_data:
+            suite_config.timeout_per_tool = config_data['timeout_per_tool']
+
+        return suite_config
 
 class LinterConfigManager:
-    """Manages configuration for all linter adapters."""
-    
+    """Manages configuration for all linter adapters using factory pattern."""
+
     def __init__(self, config_file: Optional[str] = None):
         self.config_file = config_file
-        self.suite_config = LinterSuiteConfig()
+        self._config_manager = ConfigurationManager()
+        self._setup_factories()
+
+        # Initialize with defaults
+        default_data = self._get_default_config_data()
+        result = self._config_manager.create_configuration('linter_suite', default_data)
+
+        if result.success:
+            self.suite_config = result.config
+        else:
+            logger.error(f"Failed to create default config: {result.errors}")
+            self.suite_config = LinterSuiteConfig()
+
         self._default_configs = self._get_default_tool_configs()
-        
+
         if config_file:
             self.load_config(config_file)
+
+    def _setup_factories(self):
+        """Setup configuration factories."""
+        factory = LinterSuiteConfigFactory()
+        self._config_manager.register_factory('linter_suite', factory)
+
+    def _get_default_config_data(self) -> Dict[str, Any]:
+        """Get default configuration data."""
+        return {
+            'enabled_tools': ['flake8', 'pylint', 'ruff', 'mypy', 'bandit'],
+            'concurrent_execution': True,
+            'max_workers': 5,
+            'timeout_per_tool': 300
+        }
     
-    def load_config(self, config_file: str) -> None:
+def load_config(self, config_file: str) -> None:
         """Load configuration from file."""
         config_path = Path(config_file)
         
@@ -64,21 +138,21 @@ class LinterConfigManager:
         except Exception as e:
             logger.error(f"Failed to load config from {config_file}: {e}")
     
-    def _load_yaml_config(self, config_path: Path) -> None:
+def _load_yaml_config(self, config_path: Path) -> None:
         """Load YAML configuration."""
         with open(config_path, 'r') as f:
             data = yaml.safe_load(f)
         
         self._apply_config_data(data)
     
-    def _load_json_config(self, config_path: Path) -> None:
+def _load_json_config(self, config_path: Path) -> None:
         """Load JSON configuration."""
         with open(config_path, 'r') as f:
             data = json.load(f)
         
         self._apply_config_data(data)
     
-    def _apply_config_data(self, data: Dict[str, Any]) -> None:
+def _apply_config_data(self, data: Dict[str, Any]) -> None:
         """Apply configuration data to suite config."""
         if 'enabled_tools' in data:
             self.suite_config.enabled_tools = data['enabled_tools']
@@ -100,7 +174,7 @@ class LinterConfigManager:
             for tool_name, tool_config in data['tools'].items():
                 self.suite_config.tool_configs[tool_name] = self._create_tool_config(tool_name, tool_config)
     
-    def _create_tool_config(self, tool_name: str, config_data: Dict[str, Any]) -> LinterConfig:
+def _create_tool_config(self, tool_name: str, config_data: Dict[str, Any]) -> LinterConfig:
         """Create LinterConfig from configuration data."""
         base_config = self._default_configs.get(tool_name, LinterConfig(tool_name=tool_name))
         
@@ -131,7 +205,7 @@ class LinterConfigManager:
         
         return base_config
     
-    def get_tool_config(self, tool_name: str) -> LinterConfig:
+def get_tool_config(self, tool_name: str) -> LinterConfig:
         """Get configuration for a specific tool."""
         if tool_name in self.suite_config.tool_configs:
             return self.suite_config.tool_configs[tool_name]
@@ -139,26 +213,26 @@ class LinterConfigManager:
         # Return default configuration
         return self._default_configs.get(tool_name, LinterConfig(tool_name=tool_name))
     
-    def get_enabled_tools(self) -> List[str]:
+def get_enabled_tools(self) -> List[str]:
         """Get list of enabled tools."""
         return self.suite_config.enabled_tools
     
-    def is_tool_enabled(self, tool_name: str) -> bool:
+def is_tool_enabled(self, tool_name: str) -> bool:
         """Check if a tool is enabled."""
         return tool_name in self.suite_config.enabled_tools
     
-    def _get_default_tool_configs(self) -> Dict[str, LinterConfig]:
+def _get_default_tool_configs(self) -> Dict[str, LinterConfig]:
         """Get default configurations for all supported tools."""
         return {
             'flake8': LinterConfig(
                 tool_name='flake8',
                 config_file=self._find_config_file('flake8', ['.flake8', 'setup.cfg', 'tox.ini']),
-                extra_args=['--max-line-length=88', '--extend-ignore=E203,W503']
+                extra_args=['--max-line-length=88', '--extend-ignore=E203, W503']
             ),
             'pylint': LinterConfig(
                 tool_name='pylint',
                 config_file=self._find_config_file('pylint', ['.pylintrc', 'pylintrc', 'pyproject.toml']),
-                extra_args=['--disable=C0114,C0115,C0116']  # Disable missing docstring warnings
+                extra_args=['--disable=C0114, C0115, C0116']  # Disable missing docstring warnings
             ),
             'ruff': LinterConfig(
                 tool_name='ruff',
@@ -177,7 +251,7 @@ class LinterConfigManager:
             )
         }
     
-    def _find_config_file(self, tool_name: str, possible_files: List[str]) -> Optional[str]:
+def _find_config_file(self, tool_name: str, possible_files: List[str]) -> Optional[str]:
         """Find configuration file for a tool."""
         for filename in possible_files:
             config_path = Path(filename)
@@ -191,7 +265,7 @@ class LinterConfigManager:
         
         return None
     
-    def _config_contains_tool_section(self, config_path: Path, tool_name: str) -> bool:
+def _config_contains_tool_section(self, config_path: Path, tool_name: str) -> bool:
         """Check if a config file contains a section for the specified tool."""
         try:
             if config_path.suffix == '.toml':
@@ -207,7 +281,7 @@ class LinterConfigManager:
         except Exception:
             return False
     
-    def save_config(self, output_file: str) -> None:
+def save_config(self, output_file: str) -> None:
         """Save current configuration to file."""
         config_data = {
             'enabled_tools': self.suite_config.enabled_tools,
@@ -242,7 +316,6 @@ class LinterConfigManager:
                 json.dump(config_data, f, indent=2)
         
         logger.info(f"Configuration saved to {output_file}")
-
 
 def create_default_config() -> LinterSuiteConfig:
     """Create a default configuration for the linter suite."""

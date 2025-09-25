@@ -6,16 +6,15 @@ Simple Security Test - Verify REAL Security Tools Work
 Basic test to verify security tools are working without complex testing.
 """
 
-import asyncio
+from pathlib import Path
 import json
 import subprocess
 import sys
-from pathlib import Path
 
+import asyncio
 
 async def test_semgrep_basic():
     """Test basic Semgrep execution."""
-    print("Testing Semgrep basic execution...")
     
     try:
         # Check if semgrep is available
@@ -65,13 +64,10 @@ def bad_function(user_input):
             return False
             
     except Exception as e:
-        print(f"[FAIL] Semgrep test failed: {e}")
         return False
-
 
 async def test_bandit_basic():
     """Test basic Bandit execution."""
-    print("Testing Bandit basic execution...")
     
     try:
         # Check if bandit is available
@@ -120,13 +116,10 @@ def unsafe_load(data):
             return False
             
     except Exception as e:
-        print(f"[FAIL] Bandit test failed: {e}")
         return False
-
 
 async def test_safety_basic():
     """Test basic Safety execution."""
-    print("Testing Safety basic execution...")
     
     try:
         # Check if safety is available
@@ -164,13 +157,10 @@ async def test_safety_basic():
             return False
             
     except Exception as e:
-        print(f"[FAIL] Safety test failed: {e}")
         return False
-
 
 async def main():
     """Main test execution."""
-    print("Simple Security Tools Test")
     print("=" * 40)
     
     tests = [
@@ -185,7 +175,6 @@ async def main():
     total_tests = len(tests)
     
     print("\n" + "=" * 40)
-    print(f"RESULTS: {passed_tests}/{total_tests} tests passed")
     
     if passed_tests > 0:
         print("[SUCCESS] Security tools are working!")
@@ -194,7 +183,6 @@ async def main():
     else:
         print("[FAILURE] No security tools are working")
         return 1
-
 
 if __name__ == "__main__":
     exit_code = asyncio.run(main())

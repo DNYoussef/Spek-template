@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Six Sigma Improvement Plan Demo (Simplified)
-===========================================
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 Demonstrates the Six Sigma improvement plan implementation with:
 - Current excellent baseline (DPMO: 0.00, Sigma Level: 6)
@@ -18,7 +15,6 @@ import statistics
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Any
-
 
 class SimpleSixSigmaDemo:
     """Simplified Six Sigma improvement plan demonstration"""
@@ -107,8 +103,8 @@ class SimpleSixSigmaDemo:
             "ctq_specifications": {
                 "code_quality": {"usl": 100, "lsl": 85, "target": 95, "current": 100},
                 "security_score": {"usl": 100, "lsl": 90, "target": 98, "current": 100},
-                "nasa_compliance": {"usl": 100, "lsl": 90, "target": 95, "current": 95},
-                "test_coverage": {"usl": 100, "lsl": 80, "target": 90, "current": 85}
+                "nasa_compliance": {"usl": MAXIMUM_FUNCTION_LENGTH_LINES, "lsl": 90, "target": 95, "current": 95},
+                "test_coverage": {"usl": MAXIMUM_FUNCTION_LENGTH_LINES, "lsl": MINIMUM_TEST_COVERAGE_PERCENTAGE, "target": 90, "current": 85}
             },
             "scaling_targets": {
                 "maintain_cp": " 1.67 (6-Sigma capability)",
@@ -242,7 +238,7 @@ class SimpleSixSigmaDemo:
             "current_stages": {
                 "specification": {"current": 2, "target": 1.5, "sigma": 5.2},
                 "planning": {"current": 4, "target": 3, "sigma": 4.8},
-                "implementation": {"current": 16, "target": 12, "sigma": 4.5},
+                "implementation": {"current": 16, "target": 12, "sigma": 4.MAXIMUM_NESTED_DEPTH},
                 "testing": {"current": 8, "target": 6, "sigma": 4.9},
                 "review": {"current": 4, "target": 3, "sigma": 5.1},
                 "deployment": {"current": 2, "target": 1.5, "sigma": 5.5}
@@ -276,9 +272,9 @@ class SimpleSixSigmaDemo:
         dmaic = {
             "define": {
                 "problem_statement": "Maintain Six Sigma Level 6 during 5x codebase scaling",
-                "goal_statement": "Sustain DPMO  1,500 and Sigma  4.5 through growth phases",
+                "goal_statement": "Sustain DPMO  1, 500 and Sigma  4.5 through growth phases",
                 "scope": "All development processes, quality gates, and CI/CD pipelines",
-                "success_criteria": ["Phase 1: DPMO  500", "Phase 2: DPMO  1,000", "Phase 3: DPMO  1,500"]
+                "success_criteria": ["Phase 1: DPMO  500", "Phase 2: DPMO  1, 000", "Phase 3: DPMO  1, 500"]
             },
             "measure": {
                 "baseline_dpmo": 0.00,
@@ -326,7 +322,7 @@ class SimpleSixSigmaDemo:
 
             # Determine success
             success = (impact["predicted_dpmo"] <= phase_info["target_dpmo"] and
-                      impact["predicted_sigma"] >= phase_info["target_sigma"])
+                        impact["predicted_sigma"] >= phase_info["target_sigma"])
 
             phase_result = {
                 "phase": phase_info["phase"],
@@ -484,7 +480,6 @@ class SimpleSixSigmaDemo:
 
         return str(report_file)
 
-
 def main():
     """Main demonstration function"""
     print("Six Sigma Quality Improvement Plan")
@@ -518,7 +513,6 @@ def main():
         print(f" Analysis failed: {e}")
         import traceback
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     main()

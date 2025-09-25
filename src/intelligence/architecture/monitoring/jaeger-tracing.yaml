@@ -1,4 +1,4 @@
-# Gary×Taleb Trading System - Jaeger Distributed Tracing Configuration
+# GaryxTaleb Trading System - Jaeger Distributed Tracing Configuration
 # End-to-end request tracing for ultra-low latency optimization
 
 apiVersion: v1
@@ -221,7 +221,7 @@ subjects:
   namespace: gary-taleb-monitoring
 
 ---
-# Jaeger Instance for Gary×Taleb Trading System
+# Jaeger Instance for GaryxTaleb Trading System
 apiVersion: jaegertracing.io/v1
 kind: Jaeger
 metadata:

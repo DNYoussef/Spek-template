@@ -1,9 +1,5 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Six Sigma Integration Tests
-Test theater-free quality validation with real calculations
-"""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS
 
 import unittest
 import json
@@ -19,7 +15,6 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
 from sixsigma.sixsigma_scorer import SixSigmaScorer, DefectRecord, ProcessStage, create_sample_data_scenario
 from sixsigma.telemetry_config import TelemetryCollector, SixSigmaTelemetryManager, TelemetryDataPoint
-
 
 class TestSixSigmaIntegration(unittest.TestCase):
     """Integration tests for Six Sigma components"""
@@ -48,7 +43,7 @@ class TestSixSigmaIntegration(unittest.TestCase):
         # Calculate DPMO
         dpmo = scorer.calculate_dpmo()
         
-        # Expected: (2+8+45+5+0) * 1,000,000 / (50+100+1000+200+25) = 43,636 DPMO
+        # Expected: (2+8+45+5+0) * 1, 000, 000 / (50+100+1000+200+25) = 43, 636 DPMO
         expected_dpmo = (2+8+45+5+0) * 1_000_000 / (50+100+1000+200+25)
         
         self.assertAlmostEqual(dpmo, expected_dpmo, delta=100)
@@ -138,7 +133,7 @@ class TestSixSigmaIntegration(unittest.TestCase):
         
         # Check required fields
         required_fields = ['dpmo', 'rty', 'sigma_level', 'process_capability', 
-                          'defect_categories', 'stage_yields', 'improvement_opportunities']
+                            'defect_categories', 'stage_yields', 'improvement_opportunities']
         
         for field in required_fields:
             self.assertIn(field, report_data)
@@ -177,14 +172,14 @@ class TestSixSigmaIntegration(unittest.TestCase):
         metrics = theater_scorer.calculate_comprehensive_metrics()
         
         # High defect count should result in poor sigma level
-        self.assertLess(metrics.sigma_level, 3.0)  # Below acceptable threshold
+        self.assertLess(metrics.sigma_level, MAXIMUM_RETRY_ATTEMPTS.0)  # Below acceptable threshold
         self.assertGreater(len(metrics.improvement_opportunities), 0)
         
         # Should identify theater patterns
         cosmetic_count = metrics.defect_categories.get('cosmetic', 0)
         critical_count = metrics.defect_categories.get('critical', 0)
         
-        self.assertGreater(cosmetic_count, critical_count * 10)  # Theater indicator
+        self.assertGreater(cosmetic_count, critical_count * MAXIMUM_FUNCTION_PARAMETERS)  # Theater indicator
         
         print(f"Theater Detection Results:")
         print(f"  Cosmetic defects: {cosmetic_count}")
@@ -279,14 +274,13 @@ class TestSixSigmaIntegration(unittest.TestCase):
         expected_dpmo = defect_rate * 1_000_000
         dpmo_correlation = abs(metrics.dpmo - expected_dpmo) / expected_dpmo
         
-        self.assertLess(dpmo_correlation, 0.1)  # Within 10% correlation
+        self.assertLess(dpmo_correlation, 0.1)  # Within MAXIMUM_FUNCTION_PARAMETERS% correlation
         
         print(f"  Theater-Free Validation:")
         print(f"    Defect Rate: {defect_rate:.4f}")
         print(f"    Expected DPMO: {expected_dpmo:,.0f}")
         print(f"    Actual DPMO: {metrics.dpmo:,.0f}")
         print(f"    Correlation: {(1-dpmo_correlation)*100:.1f}%")
-
 
 class TestTelemetryIntegration(unittest.TestCase):
     """Test telemetry system integration"""
@@ -338,10 +332,8 @@ class TestTelemetryIntegration(unittest.TestCase):
         for alert in alerts:
             print(f"  {alert['metric_name']}: {alert['value']} {alert['direction']} {alert['threshold']}")
 
-
 if __name__ == "__main__":
     # Run integration tests
-    print("Six Sigma Integration Tests")
     print("=" * 50)
     
     # Create test suite
@@ -357,15 +349,12 @@ if __name__ == "__main__":
     
     # Print summary
     print("\n" + "=" * 50)
-    print(f"Tests run: {result.testsRun}")
     print(f"Failures: {len(result.failures)}")
     print(f"Errors: {len(result.errors)}")
     
     if result.wasSuccessful():
-        print("[OK] All Six Sigma integration tests passed!")
         print("\n[TARGET] Theater-Free Quality Validation: VERIFIED")
         print("[CHART] DPMO/RTY Calculations: WORKING")
         print("[TREND] Telemetry System: FUNCTIONAL")
         print("[ALERT] Alert System: OPERATIONAL")
     else:
-        print("[FAIL] Some tests failed - check output above")

@@ -1,8 +1,5 @@
 from lib.shared.utilities import path_exists
-"""
-Test Suite for Supply Chain Security Domain SC
-Comprehensive tests for SC-001 through SC-005 tasks.
-"""
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 import pytest
 import asyncio
@@ -24,7 +21,6 @@ from analyzer.enterprise.supply_chain.evidence_packager import EvidencePackager
 from analyzer.enterprise.supply_chain.supply_chain_analyzer import SupplyChainAnalyzer
 from analyzer.enterprise.supply_chain.config_loader import SupplyChainConfigLoader
 from analyzer.enterprise.supply_chain.integration import SupplyChainIntegration, SupplyChainAdapter
-
 
 class TestSupplyChainSecuritySuite:
     """Comprehensive test suite for supply chain security."""
@@ -115,7 +111,7 @@ class TestSupplyChainSecuritySuite:
         assert len(spdx_data['packages']) > 0
 
     def test_sc002_slsa_provenance(self, supply_chain_config, temp_project_dir):
-        """Test SC-002: SLSA Level 3 provenance attestation."""
+        """Test SC-002: SLSA Level MAXIMUM_RETRY_ATTEMPTS provenance attestation."""
         
         generator = SLSAProvenanceGenerator(supply_chain_config)
         
@@ -275,15 +271,15 @@ class TestSupplyChainSecuritySuite:
         config_path = Path(temp_project_dir) / 'test_config.yaml'
         config_content = """
 supply_chain:
-  enabled: true
-  output_dir: ".artifacts/supply_chain"
-  sbom:
+    enabled: true
+    output_dir: ".artifacts/supply_chain"
+    sbom:
     formats: ["CycloneDX-1.4", "SPDX-2.3"]
-  vulnerability_scanning:
+    vulnerability_scanning:
     enabled: true
     severity_thresholds:
-      critical: 9.0
-      high: 7.0
+        critical: 9.0
+        high: 7.0
 """
         config_path.write_text(config_content)
         
@@ -454,7 +450,6 @@ supply_chain:
         assert 'overhead_percentage' in performance
         
         # The overhead should be reasonable (this is a mock test, so it should be very fast)
-        # In real scenarios, verify it's under the 1.8% target
         assert performance['overhead_percentage'] >= 0  # Should be non-negative
 
     def test_quality_gates(self, supply_chain_config, temp_project_dir):
@@ -501,7 +496,6 @@ supply_chain:
         # Check that prohibited licenses cause failure
         license_failure = any('Prohibited license' in failure for failure in gate_results['blocking_failures'])
         assert license_failure
-
 
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])

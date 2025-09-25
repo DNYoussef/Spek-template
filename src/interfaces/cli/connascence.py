@@ -1,15 +1,4 @@
 # SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
 
 """
 Basic CLI module for connascence analysis.
@@ -18,11 +7,12 @@ This module provides a basic CLI interface for connascence analysis
 after the core analyzer components were removed.
 """
 
-import argparse
-from pathlib import Path
-import sys
-from typing import List, Optional
 from os.path import exists as path_exists
+from pathlib import Path
+from typing import List, Optional
+import sys
+
+import argparse
 
 # Import unified policy system
 sys.path.append(str(Path(__file__).parent.parent.parent))
@@ -56,7 +46,6 @@ except ImportError:
             return StandardError(code=5001, message=message, **kwargs)
         def handle_exception(self, e, context=None):
             return StandardError(code=5001, message=str(e), context=context or {})
-
 
 class ConnascenceCLI:
     """Basic CLI interface for connascence analysis."""
@@ -100,7 +89,7 @@ class ConnascenceCLI:
             type=str,
             default="standard",
             help=f"Policy preset to use. Unified names: {', '.join(UNIFIED_POLICY_NAMES)}. "
-                 f"Legacy names supported with deprecation warnings."
+                f"Legacy names supported with deprecation warnings."
         )
 
         parser.add_argument(
@@ -229,7 +218,7 @@ class ConnascenceCLI:
         # Show relevant context
         if hasattr(error, 'context') and error.context:
             relevant_context = {k: v for k, v in error.context.items()
-                              if k in ['path', 'file_path', 'required_argument', 'config_path']}
+                                if k in ['path', 'file_path', 'required_argument', 'config_path']}
             if relevant_context:
                 print(f"  Context: {relevant_context}", file=sys.stderr)
 
@@ -259,7 +248,6 @@ class ConnascenceCLI:
 
         return True
 
-
 def main(args: Optional[List[str]] = None) -> int:
     """Main entry point for CLI with error handling."""
     try:
@@ -271,7 +259,6 @@ def main(args: Optional[List[str]] = None) -> int:
     except Exception as e:
         print(f"[U+1F4A5] CLI initialization failed: {e}", file=sys.stderr)
         return EXIT_ERROR
-
 
 if __name__ == "__main__":
     sys.exit(main())

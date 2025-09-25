@@ -9,14 +9,15 @@ Tests all functionality of the Software Bill of Materials generator including:
 - Error handling and edge cases
 """
 
-import pytest
-import asyncio
-import json
-import tempfile
-import hashlib
+from datetime import datetime
 from pathlib import Path
 from unittest.mock import Mock, patch, AsyncMock, MagicMock
-from datetime import datetime
+import hashlib
+import json
+import tempfile
+
+import asyncio
+import pytest
 
 # Import the modules under test
 import sys
@@ -25,7 +26,6 @@ sys.path.append(str(Path(__file__).parent.parent.parent.parent / 'src'))
 from enterprise.security.sbom_generator import (
     SBOMGenerator, Component, SBOMFormat
 )
-
 
 class TestComponent:
     """Test Component dataclass"""
@@ -80,7 +80,6 @@ class TestComponent:
         assert len(component.external_refs) == 1
         assert len(component.relationships) == 1
 
-
 class TestSBOMFormat:
     """Test SBOMFormat enum"""
     
@@ -90,7 +89,6 @@ class TestSBOMFormat:
         assert SBOMFormat.SPDX_TAG.value == "spdx-tag"
         assert SBOMFormat.CYCLONEDX_JSON.value == "cyclonedx-json"
         assert SBOMFormat.CYCLONEDX_XML.value == "cyclonedx-xml"
-
 
 class TestSBOMGeneratorInitialization:
     """Test SBOM generator initialization"""
@@ -113,7 +111,6 @@ class TestSBOMGeneratorInitialization:
             
             assert generator.project_root == Path(temp_dir)
             
-
 class TestDependencyAnalysis:
     """Test dependency analysis functionality"""
     
@@ -319,11 +316,10 @@ git+https://github.com/user/repo.git@v1.0#egg=custom-package
         mock_package.location = str(self.project_root / "test-package")
         
         # Mock _get_metadata method
-        mock_package._get_metadata = Mock(return_value="file1.py,hash1,size1\nfile2.py,hash2,size2")
+        mock_package._get_metadata = Mock(return_value="file1.py, hash1, size1\nfile2.py, hash2, size2")
         
         # Create location directory
         (self.project_root / "test-package").mkdir(exist_ok=True)
-        (self.project_root / "test-package" / "test.py").write_text("print('hello')")
         
         await self.generator._add_python_component(mock_package)
         
@@ -355,7 +351,6 @@ git+https://github.com/user/repo.git@v1.0#egg=custom-package
         
         # No component should be added
         assert len(self.generator.components) == 0
-
 
 class TestChecksumCalculation:
     """Test checksum calculation functionality"""
@@ -389,10 +384,7 @@ class TestChecksumCalculation:
         test_dir.mkdir()
         
         # Create test files
-        (test_dir / "file1.py").write_text("print('file1')")
-        (test_dir / "file2.py").write_text("print('file2')")
         (test_dir / "subdir").mkdir()
-        (test_dir / "subdir" / "file3.py").write_text("print('file3')")
         
         hash_value = await self.generator._calculate_directory_hash(test_dir)
         
@@ -427,7 +419,6 @@ class TestChecksumCalculation:
         # Should handle error gracefully
         assert isinstance(hash_value, str)
         assert len(hash_value) == 64
-
 
 class TestSBOMGeneration:
     """Test SBOM generation in different formats"""
@@ -599,7 +590,6 @@ class TestSBOMGeneration:
         assert output_file.exists()
         assert output_file.parent.exists()
 
-
 class TestSPDXGeneration:
     """Test SPDX format generation details"""
     
@@ -668,9 +658,8 @@ class TestSPDXGeneration:
         
         # Verify relationships include this component
         depends_on_rels = [r for r in sbom_data["relationships"] 
-                          if r["relationshipType"] == "DEPENDS_ON"]
+                            if r["relationshipType"] == "DEPENDS_ON"]
         assert len(depends_on_rels) >= 1
-
 
 class TestCycloneDXGeneration:
     """Test CycloneDX format generation details"""
@@ -742,7 +731,6 @@ class TestCycloneDXGeneration:
         sha256_hash = next(h for h in hashes if h["alg"] == "SHA256")
         assert sha256_hash["content"] == "abc123"
 
-
 class TestGeneratorStatus:
     """Test generator status and utility methods"""
     
@@ -777,7 +765,6 @@ class TestGeneratorStatus:
         
         assert status["components_count"] == 3
         assert status["project_root"] == "/tmp/test"
-
 
 class TestErrorHandlingAndEdgeCases:
     """Test error handling and edge cases"""
@@ -827,7 +814,7 @@ class TestErrorHandlingAndEdgeCases:
 # Empty lines and comments should be ignored
 
 # Package with extras
-requests[security,socks]>=2.25.0
+requests[security, socks]>=2.25.0
 
 # Package with environment markers
 pytest; python_version >= '3.6'
@@ -914,7 +901,6 @@ package>=1.0,!=1.2,<2.0
         # Both should be valid URLs
         assert generator1.document_namespace.startswith("https://sbom.example.com/")
         assert generator2.document_namespace.startswith("https://sbom.example.com/")
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

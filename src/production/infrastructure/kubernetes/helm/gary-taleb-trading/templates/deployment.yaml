@@ -1,5 +1,5 @@
 {{/*
-Gary×Taleb Trading System - Main Application Deployment
+GaryxTaleb Trading System - Main Application Deployment
 Defense Industry Ready with High Availability
 */}}
 apiVersion: apps/v1

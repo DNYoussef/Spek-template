@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Demo Test Execution for JSON Schema Validation Test Suite
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, TAKE_PROFIT_PERCENTAGE
 
 Demonstrates the test suite functionality with corrected imports and 
 simplified execution to validate Phase 1 findings protection.
@@ -11,7 +9,6 @@ import time
 import uuid
 from enum import Enum
 from typing import Dict, List, Any, NamedTuple
-
 
 # Mock the necessary classes for demonstration
 class ConnascenceType(Enum):
@@ -25,13 +22,11 @@ class ConnascenceType(Enum):
     VALUE = "value"
     IDENTITY = "identity"
 
-
 class SeverityLevel(Enum):
     CRITICAL = "critical"
     HIGH = "high"
     MEDIUM = "medium"
     LOW = "low"
-
 
 class Violation(NamedTuple):
     id: str
@@ -51,7 +46,6 @@ class Violation(NamedTuple):
     code_snippet: str = None
     context: Dict = None
 
-
 class AnalysisResult(NamedTuple):
     violations: List[Violation]
     file_stats: Dict
@@ -63,7 +57,6 @@ class AnalysisResult(NamedTuple):
     budget_status: Dict
     baseline_comparison: Dict
     summary_metrics: Dict
-
 
 class MockJSONReporter:
     """Mock JSON reporter for demonstration."""
@@ -128,7 +121,6 @@ class MockJSONReporter:
         
         return json.dumps(report, indent=2, sort_keys=True)
 
-
 class Phase1TestSuite:
     """Demonstration of Phase 1 test suite functionality."""
     
@@ -184,8 +176,7 @@ class Phase1TestSuite:
         )
     
     def test_mock_data_contamination_prevention(self) -> Dict[str, Any]:
-        """Test 1: Mock Data Contamination Prevention (85.7% -> <15%)."""
-        print("Running Test 1: Mock Data Contamination Prevention...")
+        """Test 1: Mock Data Contamination Prevention (85.DAYS_RETENTION_PERIOD% -> <15%)."""
         
         # Create authentic analysis result
         authentic_result = self.create_sample_analysis_result()
@@ -197,20 +188,18 @@ class Phase1TestSuite:
         
         test_result = {
             "test_name": "mock_data_contamination_prevention",
-            "status": "PASS" if mock_score < 0.15 else "FAIL",
-            "threshold": 0.15,
+            "status": "PASS" if mock_score < TAKE_PROFIT_PERCENTAGE else "FAIL",
+            "threshold": TAKE_PROFIT_PERCENTAGE,
             "actual_score": mock_score,
-            "baseline_improvement": f"85.7% -> {mock_score*100:.1f}%",
+            "baseline_improvement": f"85.7% -> {mock_score*MAXIMUM_FUNCTION_LENGTH_LINES:.1f}%",
             "details": f"Mock contamination score: {mock_score:.3f}"
         }
         
-        print(f"  Status: {test_result['status']}")
-        print(f"  Score: {mock_score:.3f} (threshold: 0.15)")
+        print(f"  Score: {mock_score:.3f} (threshold: TAKE_PROFIT_PERCENTAGE)")
         return test_result
     
     def test_schema_consistency_validation(self) -> Dict[str, Any]:
         """Test 2: Schema Consistency Validation (71% -> >80%)."""
-        print("Running Test 2: Schema Consistency Validation...")
         
         sample_result = self.create_sample_analysis_result()
         json_output = self.json_reporter.generate(sample_result)
@@ -236,13 +225,11 @@ class Phase1TestSuite:
             "details": f"Schema consistency score: {consistency_score:.3f}"
         }
         
-        print(f"  Status: {test_result['status']}")
         print(f"  Score: {consistency_score:.3f} (threshold: 0.80)")
         return test_result
     
     def test_performance_regression_detection(self) -> Dict[str, Any]:
         """Test 3: Performance Regression Detection (3.6% baseline)."""
-        print("Running Test 3: Performance Regression Detection...")
         
         sample_result = self.create_sample_analysis_result()
         
@@ -260,13 +247,11 @@ class Phase1TestSuite:
             "details": f"Generation time: {generation_time:.6f} seconds"
         }
         
-        print(f"  Status: {test_result['status']}")
         print(f"  Time: {generation_time:.6f}s (threshold: 0.1s)")
         return test_result
     
     def test_violation_id_determinism(self) -> Dict[str, Any]:
         """Test 4: Violation ID Determinism (85% -> >95%)."""
-        print("Running Test 4: Violation ID Determinism...")
         
         sample_result = self.create_sample_analysis_result()
         
@@ -291,20 +276,18 @@ class Phase1TestSuite:
         
         test_result = {
             "test_name": "violation_id_determinism",
-            "status": "PASS" if determinism_score > 0.95 else "FAIL",
-            "threshold": 0.95,
+            "status": "PASS" if determinism_score > NASA_POT10_TARGET_COMPLIANCE_THRESHOLD else "FAIL",
+            "threshold": NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,
             "actual_score": determinism_score,
             "baseline_improvement": f"85% -> {determinism_score*100:.1f}%",
             "details": f"ID uniqueness score: {determinism_score:.3f}"
         }
         
-        print(f"  Status: {test_result['status']}")
-        print(f"  Score: {determinism_score:.3f} (threshold: 0.95)")
+        print(f"  Score: {determinism_score:.3f} (threshold: NASA_POT10_TARGET_COMPLIANCE_THRESHOLD)")
         return test_result
     
     def test_policy_field_standardization(self) -> Dict[str, Any]:
         """Test 5: Policy Field Standardization."""
-        print("Running Test 5: Policy Field Standardization...")
         
         sample_result = self.create_sample_analysis_result()
         json_output = self.json_reporter.generate(sample_result)
@@ -321,18 +304,16 @@ class Phase1TestSuite:
             "status": "PASS" if standardization_score == 1.0 else "FAIL",
             "threshold": 1.0,
             "actual_score": standardization_score,
-            "baseline_improvement": "100% standardization achieved",
+            "baseline_improvement": "MAXIMUM_FUNCTION_LENGTH_LINES% standardization achieved",
             "details": f"Policy standardization score: {standardization_score:.3f}"
         }
         
-        print(f"  Status: {test_result['status']}")
         print(f"  Score: {standardization_score:.3f} (threshold: 1.0)")
         return test_result
     
     def run_all_tests(self) -> Dict[str, Any]:
         """Run all Phase 1 regression protection tests."""
         print("=" * 80)
-        print("PHASE 1 JSON SCHEMA VALIDATION TEST SUITE")
         print("=" * 80)
         print("Protecting against Phase 1 critical issues:")
         print("1. Mock Data Contamination (85.7% -> <15%)")
@@ -362,12 +343,8 @@ class Phase1TestSuite:
         
         # Summary
         print("=" * 80)
-        print("TEST EXECUTION SUMMARY")
         print("=" * 80)
-        print(f"Tests Run: {len(tests)}")
         print(f"Passed: {passed}")
-        print(f"Failed: {len(tests) - passed}")
-        print(f"Success Rate: {passed/len(tests)*100:.1f}%")
         print()
         
         if passed == len(tests):
@@ -378,7 +355,6 @@ class Phase1TestSuite:
         print("\nDetailed Results:")
         for result in results:
             status_emoji = "[OK]" if result["status"] == "PASS" else "[FAIL]"
-            print(f"{status_emoji} {result['test_name']}: {result['status']}")
             print(f"   {result['baseline_improvement']}")
         
         return {
@@ -418,7 +394,6 @@ class Phase1TestSuite:
         check_strings(result_dict)
         return contaminated_strings / total_strings if total_strings > 0 else 0.0
 
-
 def main():
     """Main execution for demonstration."""
     suite = Phase1TestSuite()
@@ -428,10 +403,7 @@ def main():
     with open("demo_test_results.json", "w") as f:
         json.dump(summary, f, indent=2)
     
-    print(f"\nDemo results saved to: demo_test_results.json")
-    print("\nThis demonstrates the comprehensive test suite that validates")
     print("all Phase 1 critical issues and prevents regression.")
-
 
 if __name__ == "__main__":
     main()

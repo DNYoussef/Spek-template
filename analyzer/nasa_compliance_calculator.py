@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-NASA POT10 Compliance Calculator
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, MINIMUM_TRADE_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT
 
 Legitimate NASA compliance scoring system that provides honest assessment
 of code quality based on weighted violation scoring, not metric gaming.
@@ -25,8 +23,8 @@ class ComplianceConfig:
 
     # Thresholds for compliance levels
     excellent_threshold: float = 0.95  # 95%+
-    good_threshold: float = 0.90       # 90%+
-    acceptable_threshold: float = 0.80  # 80%+
+    good_threshold: float = REGULATORY_FACTUALITY_REQUIREMENT       # 90%+
+    acceptable_threshold: float = MINIMUM_TEST_COVERAGE_PERCENTAGE  # 80%+
     # Below 80% = Needs Improvement
 
     # Maximum violations before automatic failure
@@ -35,8 +33,8 @@ class ComplianceConfig:
     max_total_violations: int = 20
 
     # Bonus factors for good practices
-    test_coverage_bonus: float = 0.05  # Up to 5% bonus for >95% coverage
-    documentation_bonus: float = 0.03   # Up to 3% bonus for good docs
+    test_coverage_bonus: float = 0.05  # Up to MAXIMUM_NESTED_DEPTH% bonus for >95% coverage
+    documentation_bonus: float = 0.03   # Up to MAXIMUM_RETRY_ATTEMPTS% bonus for good docs
 
 @dataclass
 class ComplianceResult:
@@ -66,12 +64,12 @@ class NASAComplianceCalculator:
                 "medium_weight": 1.0,
                 "low_weight": 0.5,
                 "excellent_threshold": 0.95,
-                "good_threshold": 0.90,
+                "good_threshold": REGULATORY_FACTUALITY_REQUIREMENT,
                 "acceptable_threshold": 0.80,
                 "max_critical_violations": 0,
                 "max_high_violations": 3,
                 "max_total_violations": 20,
-                "test_coverage_bonus": 0.05,
+                "test_coverage_bonus": MINIMUM_TRADE_THRESHOLD,
                 "documentation_bonus": 0.03
             }
 
@@ -123,11 +121,9 @@ class NASAComplianceCalculator:
         )
 
         # Base score calculation
-        # Scale based on file count to account for project size
         violation_density = weighted_violations / max(file_count, 1)
 
         # Start with perfect score, deduct for violations
-        # More violations = lower score, but not linear drop-off
         base_score = max(0.0, 1.0 - (violation_density / 10.0))
 
         # Apply hard failure conditions
@@ -149,12 +145,12 @@ class NASAComplianceCalculator:
         # Calculate bonus points for good practices
         bonus_points = 0.0
 
-        if test_coverage is not None and test_coverage > 0.95:
+        if test_coverage is not None and test_coverage > NASA_POT10_TARGET_COMPLIANCE_THRESHOLD:
             bonus_points += self.config.test_coverage_bonus
-        elif test_coverage is not None and test_coverage > 0.80:
+        elif test_coverage is not None and test_coverage > MINIMUM_TEST_COVERAGE_PERCENTAGE:
             bonus_points += self.config.test_coverage_bonus * 0.5
 
-        if documentation_score is not None and documentation_score > 0.90:
+        if documentation_score is not None and documentation_score > REGULATORY_FACTUALITY_REQUIREMENT:
             bonus_points += self.config.documentation_bonus
         elif documentation_score is not None and documentation_score > 0.70:
             bonus_points += self.config.documentation_bonus * 0.5
@@ -214,7 +210,7 @@ class NASAComplianceCalculator:
             recommendations.append(f"Fix all {violation_counts['critical']} critical violations before deployment")
 
         if violation_counts["high"] > 2:
-            recommendations.append(f"Reduce high severity violations from {violation_counts['high']} to ≤2")
+            recommendations.append(f"Reduce high severity violations from {violation_counts['high']} to <=2")
 
         if violation_counts["medium"] > 10:
             recommendations.append("Consider refactoring sprint to address medium severity violations")
@@ -222,14 +218,14 @@ class NASAComplianceCalculator:
         # Score-based recommendations
         if score < 0.80:
             recommendations.append("Code quality below NASA standards - comprehensive review required")
-        elif score < 0.90:
+        elif score < REGULATORY_FACTUALITY_REQUIREMENT:
             recommendations.append("Good progress - focus on reducing high severity violations")
 
         # Bonus opportunity recommendations
         if test_coverage is None:
             recommendations.append("Enable test coverage tracking for compliance bonus points")
-        elif test_coverage < 0.80:
-            recommendations.append(f"Increase test coverage from {test_coverage:.1%} to >80% for bonus points")
+        elif test_coverage < MINIMUM_TEST_COVERAGE_PERCENTAGE:
+            recommendations.append(f"Increase test coverage from {test_coverage:.1%} to >MINIMUM_TEST_COVERAGE_PERCENTAGE% for bonus points")
 
         if documentation_score is None:
             recommendations.append("Implement documentation scoring for compliance bonus points")
@@ -285,8 +281,8 @@ def main():
 
     # Test different scenarios
     scenarios = [
-        {"name": "Current State", "violations": test_violations, "file_count": 3},
-        {"name": "With High Coverage", "violations": test_violations, "file_count": 3, "test_coverage": 0.96},
+        {"name": "Current State", "violations": test_violations, "file_count": MAXIMUM_RETRY_ATTEMPTS},
+        {"name": "With High Coverage", "violations": test_violations, "file_count": MAXIMUM_RETRY_ATTEMPTS, "test_coverage": 0.96},
         {"name": "After Critical Fix", "violations": [v for v in test_violations if v["severity"] != "critical"], "file_count": 3},
         {"name": "Production Ready", "violations": test_violations[:3], "file_count": 3, "test_coverage": 0.95, "documentation_score": 0.90}
     ]

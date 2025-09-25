@@ -5,14 +5,14 @@ These detectors actually find real code issues and FAIL when broken.
 Every detector does genuine analysis work.
 """
 
+from collections import defaultdict, Counter
+from pathlib import Path
+from typing import List, Dict, Any, Set, Optional, Tuple
 import ast
 import re
 import sys
-from pathlib import Path
-from typing import List, Dict, Any, Set, Optional, Tuple
-from dataclasses import dataclass
-from collections import defaultdict, Counter
 
+from dataclasses import dataclass
 
 @dataclass
 class RealDetectionResult:
@@ -27,11 +27,10 @@ class RealDetectionResult:
     confidence: float
     context: Dict[str, Any]
 
-
 class RealConnascenceDetector:
     """REAL connascence detector that finds actual coupling violations."""
 
-    def __init__(self):
+def __init__(self):
         """Initialize with real detection capabilities."""
         self.connascence_types = {
             'CoN': 'Connascence of Name',
@@ -47,7 +46,7 @@ class RealConnascenceDetector:
         self.magic_numbers = set()
         self.global_names = set()
 
-    def analyze_directory(self, directory_path: str) -> List[RealDetectionResult]:
+def analyze_directory(self, directory_path: str) -> List[RealDetectionResult]:
         """Analyze entire directory for connascence violations."""
         violations = []
         directory = Path(directory_path)
@@ -80,7 +79,7 @@ class RealConnascenceDetector:
 
         return violations
 
-    def analyze_file(self, file_path: str) -> List[RealDetectionResult]:
+def analyze_file(self, file_path: str) -> List[RealDetectionResult]:
         """Analyze single file for real connascence violations."""
         violations = []
 
@@ -118,7 +117,7 @@ class RealConnascenceDetector:
 
         return violations
 
-    def _collect_global_context(self, file_paths: List[Path]) -> None:
+def _collect_global_context(self, file_paths: List[Path]) -> None:
         """Collect global context for cross-file analysis."""
         for file_path in file_paths:
             try:
@@ -139,7 +138,7 @@ class RealConnascenceDetector:
             except Exception:
                 continue  # Skip files that can't be parsed
 
-    def _detect_all_connascence_types(self, tree: ast.AST, file_path: str, source: str) -> List[RealDetectionResult]:
+def _detect_all_connascence_types(self, tree: ast.AST, file_path: str, source: str) -> List[RealDetectionResult]:
         """Detect all types of connascence violations."""
         violations = []
 
@@ -152,7 +151,7 @@ class RealConnascenceDetector:
 
         return violations
 
-    def _detect_connascence_of_name(self, tree: ast.AST, file_path: str) -> List[RealDetectionResult]:
+def _detect_connascence_of_name(self, tree: ast.AST, file_path: str) -> List[RealDetectionResult]:
         """Detect Connascence of Name (CoN) violations."""
         violations = []
         name_usage = defaultdict(list)
@@ -179,7 +178,7 @@ class RealConnascenceDetector:
 
         return violations
 
-    def _detect_connascence_of_meaning(self, tree: ast.AST, file_path: str) -> List[RealDetectionResult]:
+def _detect_connascence_of_meaning(self, tree: ast.AST, file_path: str) -> List[RealDetectionResult]:
         """Detect Connascence of Meaning (CoM) violations."""
         violations = []
 
@@ -218,7 +217,7 @@ class RealConnascenceDetector:
 
         return violations
 
-    def _detect_connascence_of_position(self, tree: ast.AST, file_path: str) -> List[RealDetectionResult]:
+def _detect_connascence_of_position(self, tree: ast.AST, file_path: str) -> List[RealDetectionResult]:
         """Detect Connascence of Position (CoP) violations."""
         violations = []
 
@@ -241,7 +240,7 @@ class RealConnascenceDetector:
 
         return violations
 
-    def _detect_connascence_of_algorithm(self, tree: ast.AST, file_path: str) -> List[RealDetectionResult]:
+def _detect_connascence_of_algorithm(self, tree: ast.AST, file_path: str) -> List[RealDetectionResult]:
         """Detect Connascence of Algorithm (CoA) violations."""
         violations = []
         algorithm_patterns = []
@@ -272,7 +271,7 @@ class RealConnascenceDetector:
 
         return violations
 
-    def _detect_connascence_of_execution(self, tree: ast.AST, file_path: str) -> List[RealDetectionResult]:
+def _detect_connascence_of_execution(self, tree: ast.AST, file_path: str) -> List[RealDetectionResult]:
         """Detect Connascence of Execution (CoE) violations."""
         violations = []
 
@@ -306,7 +305,7 @@ class RealConnascenceDetector:
 
         return violations
 
-    def _extract_loop_pattern(self, node: ast.For) -> str:
+def _extract_loop_pattern(self, node: ast.For) -> str:
         """Extract a pattern signature from a loop."""
         # Simple pattern extraction based on loop structure
         if isinstance(node.iter, ast.Call) and isinstance(node.iter.func, ast.Name):
@@ -316,16 +315,15 @@ class RealConnascenceDetector:
             return "simple_iteration"
         return "complex_loop"
 
-
 class RealGodObjectDetector:
     """REAL god object detector that finds actual oversized classes."""
 
-    def __init__(self, max_methods: int = 15, max_lines: int = 200):
+def __init__(self, max_methods: int = 15, max_lines: int = 200):
         """Initialize with real detection thresholds."""
         self.max_methods = max_methods
         self.max_lines = max_lines
 
-    def analyze_file(self, file_path: str) -> List[RealDetectionResult]:
+def analyze_file(self, file_path: str) -> List[RealDetectionResult]:
         """Analyze file for real god object violations."""
         violations = []
 
@@ -355,7 +353,7 @@ class RealGodObjectDetector:
 
         return violations
 
-    def _analyze_class(self, class_node: ast.ClassDef, file_path: str, lines: List[str]) -> List[RealDetectionResult]:
+def _analyze_class(self, class_node: ast.ClassDef, file_path: str, lines: List[str]) -> List[RealDetectionResult]:
         """Analyze a specific class for god object characteristics."""
         violations = []
 
@@ -426,7 +424,7 @@ class RealGodObjectDetector:
 
         return violations
 
-    def _calculate_class_complexity(self, class_node: ast.ClassDef) -> int:
+def _calculate_class_complexity(self, class_node: ast.ClassDef) -> int:
         """Calculate class complexity based on real metrics."""
         complexity = 0
 
@@ -443,11 +441,10 @@ class RealGodObjectDetector:
 
         return complexity
 
-
 class RealTimingDetector:
     """REAL timing detector that finds actual timing-related issues."""
 
-    def __init__(self):
+def __init__(self):
         """Initialize with real timing detection capabilities."""
         self.timing_patterns = {
             'sleep': r'\btime\.sleep\s*\(',
@@ -458,7 +455,7 @@ class RealTimingDetector:
             'asyncio': r'\basyncio\.',
         }
 
-    def analyze_file(self, file_path: str) -> List[RealDetectionResult]:
+def analyze_file(self, file_path: str) -> List[RealDetectionResult]:
         """Analyze file for real timing-related violations."""
         violations = []
 
@@ -485,7 +482,7 @@ class RealTimingDetector:
 
         return violations
 
-    def _detect_timing_issues(self, tree: ast.AST, file_path: str, lines: List[str]) -> List[RealDetectionResult]:
+def _detect_timing_issues(self, tree: ast.AST, file_path: str, lines: List[str]) -> List[RealDetectionResult]:
         """Detect real timing-related issues."""
         violations = []
 
@@ -544,7 +541,6 @@ class RealTimingDetector:
                 ))
 
         return violations
-
 
 # Export all real detectors
 __all__ = [

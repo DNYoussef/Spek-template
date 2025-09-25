@@ -7,9 +7,9 @@ Write-Output ""
 # Verify npm directory is present
 $npmPath = 'C:\Users\17175\AppData\Roaming\npm'
 if ($env:Path -split ';' | Where-Object { $_ -eq $npmPath }) {
-    Write-Output "✓ npm directory is in PATH: $npmPath"
+    Write-Output " npm directory is in PATH: $npmPath"
 } else {
-    Write-Output "✗ npm directory NOT found in PATH"
+    Write-Output " npm directory NOT found in PATH"
 }
 
 Write-Output ""
@@ -17,11 +17,11 @@ Write-Output ""
 # Test claude command
 try {
     $claudeVersion = & claude --version 2>&1
-    Write-Output "✓ claude command works: $claudeVersion"
+    Write-Output " claude command works: $claudeVersion"
     Write-Output ""
     Write-Output "You can now use: claude --dangerously-skip-permissions"
 } catch {
-    Write-Output "✗ claude command still not found"
+    Write-Output " claude command still not found"
     Write-Output ""
     Write-Output "Use this instead:"
     Write-Output "  npx @anthropic-ai/claude-code --dangerously-skip-permissions"

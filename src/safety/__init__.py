@@ -1,7 +1,4 @@
 """
-Safety System Architecture
-==========================
-
 Comprehensive safety, failover, and recovery system ensuring 99.9% availability
 with <60 second recovery times and proven redundancy validation.
 
@@ -12,6 +9,8 @@ Components:
 - AvailabilityMonitor: 99.9% SLA monitoring
 - RedundancyValidator: Multi-level redundancy verification
 """
+
+from src.constants.base import NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
 # Import core components with error handling
 try:
@@ -70,7 +69,7 @@ DEFAULT_CONFIG = {
     'max_recovery_time_seconds': 60,  # <60s recovery
     'redundancy_levels': 3,  # Triple redundancy
     'health_check_interval_seconds': 5,
-    'failover_trigger_threshold': 0.95,
+    'failover_trigger_threshold': NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,
     'monitoring_enabled': True
 }
 

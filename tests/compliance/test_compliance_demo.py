@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-SPEK Compliance Evidence System Demonstration Script
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 This script demonstrates the complete compliance evidence generation system
 for SOC2, ISO27001:2022, and NIST-SSDF v1.1 regulatory frameworks.
@@ -38,7 +36,6 @@ logging.basicConfig(
 
 # Add analyzer to Python path
 sys.path.append(str(Path(__file__).parent))
-
 
 async def main():
     """Main demonstration function"""
@@ -80,7 +77,6 @@ async def main():
         
         print(f"[OK] Validation completed in {validation_duration:.2f} seconds")
         print(f"   Overall Status: {validation_results['overall_status']}")
-        print(f"   Tests Passed: {validation_results.get('summary', {}).get('passed_tests', 0)}")
         print(f"   Success Rate: {validation_results.get('summary', {}).get('success_rate', 0):.1f}%")
         print()
         
@@ -156,7 +152,7 @@ async def main():
             print("To integrate with your project:")
             print("1. Enable compliance in enterprise_config.yaml")
             print("2. Configure desired frameworks (SOC2, ISO27001, NIST-SSDF)")
-            print("3. Set up automated CI/CD compliance checks")
+            print("MAXIMUM_RETRY_ATTEMPTS. Set up automated CI/CD compliance checks")
             print("4. Configure evidence retention policies")
             print()
             print("Available commands:")
@@ -208,7 +204,6 @@ async def main():
         print(f"[FAIL] Unexpected Error: {e}")
         print("Please check the logs for detailed error information.")
         return 1
-
 
 if __name__ == "__main__":
     try:

@@ -7,18 +7,17 @@ Intelligent caching system for AST parsing and analysis results
 to improve performance on repeated analysis runs.
 """
 
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 import ast
-from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass, asdict, field
 import hashlib
 import json
 import logging
-import threading
 import time
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
-logger = logging.getLogger(__name__)
 
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass, asdict, field
+import threading
 
 @dataclass
 class CacheEntry:
@@ -50,7 +49,6 @@ class CacheEntry:
         """Update access statistics."""
         self.accessed_at = time.time()
         self.access_count += 1
-
 
 class ASTCache:
     """
@@ -512,30 +510,24 @@ class ASTCache:
 
         logger.debug(f"Saved {saved_count} cache entries to disk")
 
-
 # Global cache instance
 ast_cache = ASTCache()
-
 
 def get_cached_ast(file_path: Union[str, Path]) -> Optional[ast.AST]:
     """Get cached AST for file (convenience function)."""
     return ast_cache.get_ast(file_path)
 
-
 def cache_ast(file_path: Union[str, Path], ast_tree: ast.AST, analysis_duration_ms: float = 0.0):
     """Cache AST for file (convenience function)."""
     ast_cache.put_ast(file_path, ast_tree, analysis_duration_ms)
-
 
 def get_cache_stats() -> Dict[str, Any]:
     """Get cache statistics (convenience function)."""
     return ast_cache.get_cache_statistics()
 
-
 def optimize_cache():
     """Optimize cache (convenience function)."""
     ast_cache.optimize_cache()
-
 
 def clear_cache():
     """Clear cache (convenience function)."""

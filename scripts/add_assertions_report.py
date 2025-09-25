@@ -7,11 +7,11 @@ Systematically adds assertions to achieve 2% density in target files.
 Tracks progress and generates comprehensive report.
 """
 
-import sys
-import json
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, List, Tuple
+import json
+import sys
 
 # Target files with highest violations
 TARGET_FILES = [

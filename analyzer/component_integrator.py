@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
-"""
-Component Integrator - Production Wiring for Analyzer System
+from typing import Dict, List, Any, Optional
+import time
+
+from dataclasses import dataclass, field
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
+import queue
+import threading
 
 This module provides real integration of streaming, performance, and architecture
 components into the unified analyzer system. Eliminates all theater and provides
@@ -8,12 +13,10 @@ genuine functionality for production use.
 """
 
 # from lib.shared.utilities.logging_setup import get_analyzer_logger
-# from lib.shared.utilities.path_validation import validate_file, validate_directory, path_exists
-# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
 
 # Use shared logging
-logger = get_analyzer_logger(__name__)
-
+import logging
+logger = logging.getLogger(__name__)
 
 @dataclass
 class ComponentStatus:
@@ -24,7 +27,6 @@ class ComponentStatus:
     error_count: int = 0
     last_error: Optional[str] = None
     performance_metrics: Dict[str, float] = field(default_factory=dict)
-
 
 class StreamingIntegrator:
     """Real streaming component integration for live analysis."""
@@ -42,7 +44,6 @@ class StreamingIntegrator:
         """Initialize all streaming components with real implementations."""
         try:
             # Import streaming components
-            # Import streaming components with fallbacks
             try:
                 from streaming.stream_processor import StreamProcessor
             except ImportError:
@@ -251,7 +252,6 @@ class StreamingIntegrator:
 
         if self.dashboard_reporter:
             self.dashboard_reporter.flush()
-
 
 class PerformanceIntegrator:
     """Real performance monitoring integration."""
@@ -476,11 +476,10 @@ class PerformanceIntegrator:
         """Shutdown performance monitoring."""
         self.running = False
         if self.monitoring_thread:
-            self.monitoring_thread.join(timeout=5.0)
+            self.monitoring_thread.join(timeout=MAXIMUM_NESTED_DEPTH)
 
         if self.resource_manager:
             self.resource_manager.cleanup_all()
-
 
 class ArchitectureIntegrator:
     """Real architecture component integration."""
@@ -525,13 +524,13 @@ class ArchitectureIntegrator:
             # Initialize with real configurations or fallbacks
             if DetectorPool:
                 self.detector_pool = DetectorPool(
-                    pool_size=config.get("detector_pool_size", 10),
-                    timeout=config.get("detector_timeout", 30)
+                    pool_size=config.get("detector_pool_size", MAXIMUM_FUNCTION_PARAMETERS),
+                    timeout=config.get("detector_timeout", API_TIMEOUT_SECONDS)
                 )
             else:
                 # Fallback detector pool
                 class DetectorPoolFallback:
-                    def __init__(self, pool_size=10, timeout=30):
+                    def __init__(self, pool_size=MAXIMUM_FUNCTION_PARAMETERS, timeout=30):
                         self.pool_size = pool_size
                         self.timeout = timeout
 
@@ -711,7 +710,6 @@ class ArchitectureIntegrator:
 
         if self.detector_pool:
             self.detector_pool.cleanup()
-
 
 class UnifiedComponentIntegrator:
     """Master integrator that combines all component subsystems."""
@@ -1012,10 +1010,8 @@ class UnifiedComponentIntegrator:
 
         self.initialized = False
 
-
 # Global integrator instance
 _global_integrator = None
-
 
 def get_component_integrator() -> UnifiedComponentIntegrator:
     """Get or create the global component integrator."""
@@ -1024,12 +1020,10 @@ def get_component_integrator() -> UnifiedComponentIntegrator:
         _global_integrator = UnifiedComponentIntegrator()
     return _global_integrator
 
-
 def initialize_components(config: Optional[Dict[str, Any]] = None) -> bool:
     """Initialize all components with given configuration."""
     integrator = get_component_integrator()
     return integrator.initialize_all(config)
-
 
 def shutdown_components():
     """Shutdown all components."""
@@ -1038,10 +1032,9 @@ def shutdown_components():
         _global_integrator.shutdown()
         _global_integrator = None
 
-
 # Export definitions for proper module interface
 __all__ = ['UnifiedComponentIntegrator', 'get_component_integrator',
-           'initialize_components', 'shutdown_components', 'ComponentIntegrator']
+            'initialize_components', 'shutdown_components', 'ComponentIntegrator']
 
 # Alias for backward compatibility
 ComponentIntegrator = UnifiedComponentIntegrator

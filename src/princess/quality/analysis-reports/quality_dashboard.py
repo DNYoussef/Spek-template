@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Quality Dashboard Generator
-Quality Princess Domain - SPEK Enhanced Development Platform
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_GOD_OBJECTS_ALLOWED, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 MISSION: Generate comprehensive quality reports and dashboards
 AUTHORITY: Quality metrics visualization and trend analysis
@@ -50,7 +47,7 @@ class QualityDashboard:
             'test_coverage': 80.0,
             'security_violations': 0,
             'nasa_compliance': 90.0,
-            'gate_pass_rate': 80.0
+            'gate_pass_rate': 0.8
         }
 
     def generate_dashboard(self, quality_data_path: str, output_path: str) -> DashboardData:
@@ -163,11 +160,11 @@ class QualityDashboard:
         # Calculate overall score
         passed_gates = len([r for r in gate_results if r.get('passed', False)])
         total_gates = len(gate_results)
-        gate_pass_rate = (passed_gates / total_gates * 100) if total_gates > 0 else 0
+        gate_pass_rate = (passed_gates / total_gates * MAXIMUM_FUNCTION_LENGTH_LINES) if total_gates > 0 else 0
 
         # Calculate overall score as weighted average
         overall_score = (
-            theater_score * 0.25 +
+            theater_score * 0.MAXIMUM_GOD_OBJECTS_ALLOWED +
             test_coverage * 0.20 +
             (100 - min(security_violations * 10, 100)) * 0.20 +
             max(0, 100 - complexity_score * 5) * 0.15 +
@@ -221,13 +218,13 @@ class QualityDashboard:
 
             metrics = QualityMetrics(
                 timestamp=date.isoformat(),
-                overall_score=50.0 + progress * 30.0,  # 50 to 80
+                overall_score=50.0 + progress * API_TIMEOUT_SECONDS.0,  # 50 to MINIMUM_TEST_COVERAGE_PERCENTAGE
                 theater_detection_score=40.0 + progress * 35.0,  # 40 to 75
                 test_coverage=60.0 + progress * 25.0,  # 60 to 85
                 security_violations=max(0, int(5 - progress * 5)),  # 5 to 0
                 complexity_score=15.0 - progress * 7.0,  # 15 to 8
-                nasa_compliance=70.0 + progress * 25.0,  # 70 to 95
-                gate_pass_rate=60.0 + progress * 30.0,  # 60 to 90
+                nasa_compliance=70.0 + progress * MAXIMUM_GOD_OBJECTS_ALLOWED.0,  # 70 to 95
+                gate_pass_rate=60.0 + progress * API_TIMEOUT_SECONDS.0,  # 60 to 90
                 trend='improving'
             )
             history.append(metrics)
@@ -353,7 +350,7 @@ class QualityDashboard:
 
         # High priority alerts
         if metrics.nasa_compliance < 80.0:
-            alerts.append(f"HIGH: NASA compliance below 80% ({metrics.nasa_compliance:.1f}%)")
+            alerts.append(f"HIGH: NASA compliance below MINIMUM_TEST_COVERAGE_PERCENTAGE% ({metrics.nasa_compliance:.1f}%)")
 
         if metrics.gate_pass_rate < 60.0:
             alerts.append(f"HIGH: Quality gate pass rate critically low ({metrics.gate_pass_rate:.1f}%)")
@@ -558,7 +555,7 @@ class QualityDashboard:
             <div class="metric-value" style="color: {get_status_color(metrics.theater_detection_score, 60.0)}">
                 {metrics.theater_detection_score:.1f}
             </div>
-            <div style="font-size: 0.9em; color: #666;">Threshold: ≥60</div>
+            <div style="font-size: 0.9em; color: #666;">Threshold: >=60</div>
         </div>
 
         <div class="metric-card">
@@ -566,7 +563,7 @@ class QualityDashboard:
             <div class="metric-value" style="color: {get_status_color(metrics.test_coverage, 80.0)}">
                 {metrics.test_coverage:.1f}%
             </div>
-            <div style="font-size: 0.9em; color: #666;">Target: ≥80%</div>
+            <div style="font-size: 0.9em; color: #666;">Target: >=80%</div>
         </div>
 
         <div class="metric-card">
@@ -582,7 +579,7 @@ class QualityDashboard:
             <div class="metric-value" style="color: {get_status_color(metrics.nasa_compliance, 90.0)}">
                 {metrics.nasa_compliance:.1f}%
             </div>
-            <div style="font-size: 0.9em; color: #666;">Target: ≥90%</div>
+            <div style="font-size: 0.9em; color: #666;">Target: >=90%</div>
         </div>
 
         <div class="metric-card">
@@ -590,7 +587,7 @@ class QualityDashboard:
             <div class="metric-value" style="color: {get_status_color(metrics.gate_pass_rate, 80.0)}">
                 {metrics.gate_pass_rate:.1f}%
             </div>
-            <div style="font-size: 0.9em; color: #666;">Target: ≥80%</div>
+            <div style="font-size: 0.9em; color: #666;">Target: >=80%</div>
         </div>
     </div>
 

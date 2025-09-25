@@ -5,14 +5,12 @@ Main entry point for the SPEK analyzer system
 
 # Import core analysis modules for enhanced analyzer
 try:
-    from .violation_remediation import ViolationRemediationEngine, ViolationSuppression, FixSuggestion
-    from .nasa_compliance_calculator import NASAComplianceCalculator, ComplianceConfig, ComplianceResult
     from .github_analyzer_runner import AnalyzerResult
     from .github_status_reporter import GitHubStatusReporter
-    ENHANCED_ANALYZER_AVAILABLE = True
+    from .nasa_compliance_calculator import NASAComplianceCalculator, ComplianceConfig, ComplianceResult
+    from .violation_remediation import ViolationRemediationEngine, ViolationSuppression, FixSuggestion
 except ImportError as e:
     print(f"Warning: Enhanced analyzer imports failed: {e}")
-    ENHANCED_ANALYZER_AVAILABLE = False
 
 # Core types and classes for Phase 1 implementation
 try:

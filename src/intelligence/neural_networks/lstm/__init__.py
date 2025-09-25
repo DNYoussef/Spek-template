@@ -4,7 +4,7 @@
 Optimized for financial time series with volatility modeling.
 """
 
-from .lstm_predictor import LSTMPredictor
 from .attention_mechanism import AttentionLayer
+from .lstm_predictor import LSTMPredictor
 
 __all__ = ['LSTMPredictor', 'AttentionLayer']

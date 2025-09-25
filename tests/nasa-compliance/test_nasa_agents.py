@@ -1,6 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-NASA Compliance Agent Swarm Test Suite
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Comprehensive testing for NASA POT10 compliance improvement agents:
 1. ConsensusSecurityManager - Gap analysis and systematic implementation
@@ -45,7 +43,6 @@ from src.analyzers.nasa.bounded_ast_walker import (
     TraversalBounds,
     create_bounded_walker
 )
-
 
 class TestConsensusSecurityManager(unittest.TestCase):
     """Test NASA compliance security manager for systematic POT10 improvements."""
@@ -100,7 +97,7 @@ class TestConsensusSecurityManager(unittest.TestCase):
             self.fail("Generated BoundedASTWalker code is not valid Python")
     
     def test_generate_assertion_injection_framework(self):
-        """Test assertion injection framework generation for Rule 5 compliance."""
+        """Test assertion injection framework generation for Rule MAXIMUM_NESTED_DEPTH compliance."""
         test_file = self.test_project_path / "analyzer" / "core.py"
         framework = self.security_manager.generate_assertion_injection_framework(str(test_file))
         
@@ -110,7 +107,6 @@ class TestConsensusSecurityManager(unittest.TestCase):
         self.assertIn("framework_type", framework)
         self.assertEqual(framework["framework_type"], "icontract_integration")
         self.assertGreaterEqual(framework["coverage_target"], 0.90)
-
 
 class TestNASAComplianceAuditor(unittest.TestCase):
     """Test NASA compliance auditor for rule-by-rule assessment."""
@@ -178,7 +174,6 @@ class TestNASAComplianceAuditor(unittest.TestCase):
             self.assertIn("timeline", phase_details)
             self.assertIn("operations", phase_details)
 
-
 class TestDefensiveProgrammingSpecialist(unittest.TestCase):
     """Test defensive programming specialist for assertion injection."""
     
@@ -245,7 +240,6 @@ class TestDefensiveProgrammingSpecialist(unittest.TestCase):
         except SyntaxError:
             self.fail("Generated icontract integration code is not valid Python")
 
-
 class TestFunctionDecomposer(unittest.TestCase):
     """Test function decomposer for NASA Rule 2 compliance."""
     
@@ -296,7 +290,6 @@ class TestFunctionDecomposer(unittest.TestCase):
                 self.assertGreater(plan.estimated_size_reduction, 0)
                 self.assertGreater(plan.bounded_operations_count, 0)
                 self.assertIsInstance(plan.extraction_operations, list)
-
 
 class TestBoundedASTWalker(unittest.TestCase):
     """Test bounded AST walker for NASA Rule 4 compliance."""
@@ -365,7 +358,6 @@ class TestClass:
         self.assertEqual(len(functions), 3)
         for func in functions:
             self.assertIsInstance(func, ast.FunctionDef)
-
 
 class TestNASAAgentIntegration(unittest.TestCase):
     """Integration tests for NASA compliance agent swarm coordination."""
@@ -445,7 +437,6 @@ class TestNASAAgentIntegration(unittest.TestCase):
         self.assertIn("certification_gaps", readiness)
         self.assertIn("success_criteria", readiness)
 
-
 if __name__ == "__main__":
     # Create comprehensive test suite
     test_suite = unittest.TestSuite()
@@ -470,22 +461,17 @@ if __name__ == "__main__":
     
     # Print summary
     print(f"\n{'='*60}")
-    print(f"NASA Compliance Agent Swarm Test Summary")
     print(f"{'='*60}")
-    print(f"Tests run: {result.testsRun}")
     print(f"Failures: {len(result.failures)}")
     print(f"Errors: {len(result.errors)}")
-    print(f"Success rate: {((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun * 100):.1f}%")
     
     if result.failures:
         print(f"\nFailures:")
         for test, traceback in result.failures:
-            print(f"  - {test}: {traceback.split('AssertionError: ')[-1].split('\n')[0]}")
     
     if result.errors:
         print(f"\nErrors:")
         for test, traceback in result.errors:
-            print(f"  - {test}: {traceback.split('Exception: ')[-1].split('\n')[0]}")
     
     # Exit with appropriate code
     exit_code = 0 if len(result.failures) == 0 and len(result.errors) == 0 else 1

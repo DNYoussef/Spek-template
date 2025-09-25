@@ -4,23 +4,23 @@ Specialized ResNet architecture optimized for candlestick chart analysis.
 Includes financial feature extraction and pattern-specific attention.
 """
 
+from typing import Tuple, Dict, List, Optional
+
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from typing import Tuple, Dict, List, Optional
-import numpy as np
-
 
 class FinancialConv2d(nn.Module):
     """Financial-specific convolutional layer with price-aware features."""
 
-    def __init__(self,
-                 in_channels: int,
-                 out_channels: int,
-                 kernel_size: int = 3,
-                 stride: int = 1,
-                 padding: int = 1,
-                 price_aware: bool = True):
+def __init__(self,
+                in_channels: int,
+                out_channels: int,
+                kernel_size: int = 3,
+                stride: int = 1,
+                padding: int = 1,
+                price_aware: bool = True):
         """Initialize financial convolution.
 
         Args:
@@ -60,7 +60,7 @@ class FinancialConv2d(nn.Module):
         # Volume-weighted features
         self.volume_weight = nn.Parameter(torch.ones(1))
 
-    def forward(self, x: torch.Tensor, volume_data: Optional[torch.Tensor] = None) -> torch.Tensor:
+def forward(self, x: torch.Tensor, volume_data: Optional[torch.Tensor] = None) -> torch.Tensor:
         """Forward pass through financial convolution.
 
         Args:
@@ -87,18 +87,17 @@ class FinancialConv2d(nn.Module):
 
         return F.relu(out, inplace=True)
 
-
 class FinancialBasicBlock(nn.Module):
     """ResNet basic block adapted for financial data."""
 
     expansion = 1
 
-    def __init__(self,
-                 inplanes: int,
-                 planes: int,
-                 stride: int = 1,
-                 downsample: Optional[nn.Module] = None,
-                 financial_enhancement: bool = True):
+def __init__(self,
+                inplanes: int,
+                planes: int,
+                stride: int = 1,
+                downsample: Optional[nn.Module] = None,
+                financial_enhancement: bool = True):
         """Initialize basic block.
 
         Args:
@@ -143,7 +142,7 @@ class FinancialBasicBlock(nn.Module):
                 nn.Sigmoid()
             )
 
-    def forward(self, x: torch.Tensor, volume_data: Optional[torch.Tensor] = None) -> torch.Tensor:
+def forward(self, x: torch.Tensor, volume_data: Optional[torch.Tensor] = None) -> torch.Tensor:
         """Forward pass through basic block.
 
         Args:
@@ -179,18 +178,17 @@ class FinancialBasicBlock(nn.Module):
 
         return out
 
-
 class FinancialBottleneck(nn.Module):
     """ResNet bottleneck block for deeper networks."""
 
     expansion = 4
 
-    def __init__(self,
-                 inplanes: int,
-                 planes: int,
-                 stride: int = 1,
-                 downsample: Optional[nn.Module] = None,
-                 financial_enhancement: bool = True):
+def __init__(self,
+                inplanes: int,
+                planes: int,
+                stride: int = 1,
+                downsample: Optional[nn.Module] = None,
+                financial_enhancement: bool = True):
         """Initialize bottleneck block.
 
         Args:
@@ -232,7 +230,7 @@ class FinancialBottleneck(nn.Module):
             ])
             self.scale_fusion = nn.Conv2d(planes, planes, kernel_size=1)
 
-    def forward(self, x: torch.Tensor, volume_data: Optional[torch.Tensor] = None) -> torch.Tensor:
+def forward(self, x: torch.Tensor, volume_data: Optional[torch.Tensor] = None) -> torch.Tensor:
         """Forward pass through bottleneck block."""
         identity = x
 
@@ -263,7 +261,6 @@ class FinancialBottleneck(nn.Module):
 
         return out
 
-
 class FinancialResNet(nn.Module):
     """ResNet backbone specialized for financial chart pattern recognition.
 
@@ -274,13 +271,13 @@ class FinancialResNet(nn.Module):
     - Financial attention mechanisms
     """
 
-    def __init__(self,
-                 block,
-                 layers: List[int],
-                 num_classes: int = 21,  # 20 patterns + background
-                 input_channels: int = 5,  # OHLCV
-                 width_per_group: int = 64,
-                 financial_enhancement: bool = True):
+def __init__(self,
+                block,
+                layers: List[int],
+                num_classes: int = 21,  # 20 patterns + background
+                input_channels: int = 5,  # OHLCV
+                width_per_group: int = 64,
+                financial_enhancement: bool = True):
         """Initialize FinancialResNet.
 
         Args:
@@ -362,7 +359,7 @@ class FinancialResNet(nn.Module):
 
         self._initialize_weights()
 
-    def _make_layer(self,
+def _make_layer(self,
                     block,
                     planes: int,
                     blocks: int,
@@ -373,7 +370,7 @@ class FinancialResNet(nn.Module):
         if stride != 1 or self.inplanes != planes * block.expansion:
             downsample = nn.Sequential(
             nn.Conv2d(self.inplanes, planes * block.expansion,
-                         kernel_size=1, stride=stride, bias=False),
+                        kernel_size=1, stride=stride, bias=False),
                 nn.BatchNorm2d(planes * block.expansion),
             )
 
@@ -385,7 +382,7 @@ class FinancialResNet(nn.Module):
 
         return nn.Sequential(*layers)
 
-    def _initialize_weights(self):
+def _initialize_weights(self):
         """Initialize network weights."""
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -398,7 +395,7 @@ class FinancialResNet(nn.Module):
                 if m.bias is not None:
                     nn.init.zeros_(m.bias)
 
-    def forward(self, x: torch.Tensor, volume_data: Optional[torch.Tensor] = None) -> Dict[str, torch.Tensor]:
+def forward(self, x: torch.Tensor, volume_data: Optional[torch.Tensor] = None) -> Dict[str, torch.Tensor]:
         """Forward pass through FinancialResNet.
 
         Args:
@@ -476,7 +473,7 @@ class FinancialResNet(nn.Module):
             'volume_importance': torch.sigmoid(self.volume_importance)
         }
 
-    def extract_features(self, x: torch.Tensor) -> torch.Tensor:
+def extract_features(self, x: torch.Tensor) -> torch.Tensor:
         """Extract features without classification.
 
         Args:
@@ -489,26 +486,21 @@ class FinancialResNet(nn.Module):
             outputs = self.forward(x)
             return outputs['enhanced_features']
 
-
 def create_financial_resnet18(**kwargs) -> FinancialResNet:
     """Create FinancialResNet-18."""
     return FinancialResNet(FinancialBasicBlock, [2, 2, 2, 2], **kwargs)
-
 
 def create_financial_resnet34(**kwargs) -> FinancialResNet:
     """Create FinancialResNet-34."""
     return FinancialResNet(FinancialBasicBlock, [3, 4, 6, 3], **kwargs)
 
-
 def create_financial_resnet50(**kwargs) -> FinancialResNet:
     """Create FinancialResNet-50."""
     return FinancialResNet(FinancialBottleneck, [3, 4, 6, 3], **kwargs)
 
-
 def create_financial_resnet101(**kwargs) -> FinancialResNet:
     """Create FinancialResNet-101."""
     return FinancialResNet(FinancialBottleneck, [3, 4, 23, 3], **kwargs)
-
 
 # Optimized model for <100ms inference
 def create_fast_financial_resnet(**kwargs) -> FinancialResNet:

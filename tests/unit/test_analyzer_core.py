@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 """Unit tests for analyzer core functionality."""
 
-import pytest
 from pathlib import Path
 import sys
-sys.path.append(str(Path(__file__).parent.parent.parent / 'analyzer'))
+
+import pytest
 
 from analyzer.core import UnifiedAnalyzer
 from analyzer.ast_engine.core_analyzer import CoreASTAnalyzer
 from analyzer.architecture.enhanced_metrics import EnhancedMetrics
-
 
 class TestUnifiedAnalyzer:
     """Test unified analyzer functionality."""
@@ -32,7 +31,6 @@ class TestUnifiedAnalyzer:
         assert 'metrics' in result
         assert 'violations' in result
 
-
 class TestCoreASTAnalyzer:
     """Test core AST analyzer."""
     
@@ -47,7 +45,6 @@ class TestCoreASTAnalyzer:
         code = "def hello(): return 'world'"
         result = analyzer.parse_code(code)
         assert result is not None
-
 
 class TestEnhancedMetrics:
     """Test enhanced metrics calculation."""

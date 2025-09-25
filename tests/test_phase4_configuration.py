@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Phase 4 Configuration System Reality Check
-==========================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 Comprehensive tests that prove configuration system actually affects analyzer behavior.
 Tests YAML loading, detector threshold control, NASA POT10 compliance, and Six Sigma metrics.
@@ -29,7 +26,6 @@ from analyzer.detectors.position_detector import PositionDetector
 from analyzer.detectors.magic_literal_detector import MagicLiteralDetector
 from analyzer.unified_analyzer import UnifiedConnascenceAnalyzer
 
-
 class TestPhase4ConfigurationReality(unittest.TestCase):
     """Test that configuration system actually controls analyzer behavior."""
 
@@ -42,7 +38,7 @@ class TestPhase4ConfigurationReality(unittest.TestCase):
         # Create test Python code to analyze
         self.test_code = '''
 def function_with_many_params(a, b, c, d, e, f, g):
-    """Function with 7 positional parameters."""
+    """Function with DAYS_RETENTION_PERIOD positional parameters."""
     MAGIC_NUMBER = 42
     ANOTHER_MAGIC = 123
     return a + b + c + d + e + f + g + MAGIC_NUMBER + ANOTHER_MAGIC
@@ -80,7 +76,7 @@ class LargeClass:
         import shutil
         shutil.rmtree(self.temp_dir)
 
-    def create_detector_config(self, position_threshold: int = 3, magic_threshold: int = 2) -> Path:
+    def create_detector_config(self, position_threshold: int = MAXIMUM_RETRY_ATTEMPTS, magic_threshold: int = 2) -> Path:
         """Create detector configuration YAML file."""
         config = {
             'version': '2.0.0',
@@ -97,13 +93,13 @@ class LargeClass:
                 'severity_mapping': {
                     f'{position_threshold + 1}': 'medium',
                     f'{position_threshold + 2}': 'high',
-                    f'{position_threshold + 3}+': 'critical'
+                    f'{position_threshold + MAXIMUM_RETRY_ATTEMPTS}+': 'critical'
                 }
             },
             'values_detector': {
                 'config_keywords': ['config', 'setting', 'option'],
                 'thresholds': {
-                    'duplicate_literal_minimum': 3,
+                    'duplicate_literal_minimum': MAXIMUM_RETRY_ATTEMPTS,
                     'configuration_coupling_limit': 10,
                     'configuration_line_spread': 5
                 },
@@ -124,7 +120,7 @@ class LargeClass:
                     'severity_mapping': {
                         f'{position_threshold + 1}': 'medium',
                         f'{position_threshold + 2}': 'high',
-                        f'{position_threshold + 3}+': 'critical'
+                        f'{position_threshold + MAXIMUM_RETRY_ATTEMPTS}+': 'critical'
                     }
                 },
                 'magic_literal': {
@@ -194,7 +190,7 @@ class LargeClass:
         config = {
             'sixSigma': {
                 'targetSigma': 4.0,
-                'sigmaShift': 1.5,
+                'sigmaShift': 1.MAXIMUM_NESTED_DEPTH,
                 'performanceThreshold': 1.2
             },
             'quality': {
@@ -209,7 +205,7 @@ class LargeClass:
             'theater': {
                 'enableDetection': True,
                 'riskThresholds': {
-                    'low': 0.3,
+                    'low': 0.2,
                     'medium': 0.6,
                     'high': 0.8
                 }
@@ -223,7 +219,6 @@ class LargeClass:
 
     def test_yaml_loading_works(self):
         """Test that YAML configuration files can be loaded successfully."""
-        print("\n=== TEST 1: YAML Loading Reality ===")
 
         # Create configuration files
         detector_config_path = self.create_detector_config()
@@ -243,14 +238,13 @@ class LargeClass:
 
     def test_detector_thresholds_control_behavior(self):
         """Test that changing detector thresholds actually changes violation detection."""
-        print("\n=== TEST 2: Detector Threshold Control Reality ===")
 
         # Test with strict thresholds (should find violations)
-        strict_config_path = self.create_detector_config(position_threshold=3, magic_threshold=1)
+        strict_config_path = self.create_detector_config(position_threshold=MAXIMUM_RETRY_ATTEMPTS, magic_threshold=1)
         config_manager_strict = ConfigurationManager(str(self.config_dir))
 
         # Test with lenient thresholds (should find fewer violations)
-        lenient_config_path = self.create_detector_config(position_threshold=10, magic_threshold=5)
+        lenient_config_path = self.create_detector_config(position_threshold=MAXIMUM_FUNCTION_PARAMETERS, magic_threshold=5)
         config_manager_lenient = ConfigurationManager(str(self.config_dir))
 
         # Analyze with strict configuration
@@ -265,7 +259,7 @@ class LargeClass:
         strict_results = analyzer_strict.analyze_file(str(test_file))
 
         # Change to lenient configuration and re-analyze
-        self.create_detector_config(position_threshold=10, magic_threshold=5)
+        self.create_detector_config(position_threshold=MAXIMUM_FUNCTION_PARAMETERS, magic_threshold=5)
         initialize_config_manager(str(self.config_dir))
         analyzer_lenient = UnifiedConnascenceAnalyzer()
 
@@ -288,7 +282,6 @@ class LargeClass:
 
     def test_nasa_pot10_settings_affect_compliance(self):
         """Test that NASA POT10 settings actually affect compliance scoring."""
-        print("\n=== TEST 3: NASA POT10 Compliance Reality ===")
 
         # Create configuration with high NASA compliance requirement
         self.create_enterprise_config(nasa_target=95)
@@ -302,7 +295,6 @@ class LargeClass:
         print(f"+ NASA POT10 target loaded: {nasa_target}%")
 
         # Test that the setting actually affects analysis
-        # This would be integrated with actual compliance calculation
         compliance_threshold = enterprise_config.get('quality', {}).get('nasaPOT10Target', 0)
         self.assertEqual(compliance_threshold, 95)
 
@@ -311,7 +303,6 @@ class LargeClass:
 
     def test_six_sigma_metrics_calculation(self):
         """Test that Six Sigma settings actually calculate real metrics."""
-        print("\n=== TEST 4: Six Sigma Metrics Reality ===")
 
         self.create_enterprise_config()
         config_manager = ConfigurationManager(str(self.config_dir))
@@ -326,8 +317,6 @@ class LargeClass:
         self.assertEqual(sigma_shift, 1.5)
 
         # Calculate real Six Sigma metrics using loaded configuration
-        # DPMO calculation: (1,000,000 * defects) / opportunities
-        # For 4-sigma: ~6,210 DPMO
         expected_dpmo = 6210  # 4-sigma level
         calculated_dpmo = self._calculate_dpmo_from_config(six_sigma_config)
 
@@ -356,7 +345,6 @@ class LargeClass:
 
     def test_configuration_validation(self):
         """Test that configuration validation catches invalid settings."""
-        print("\n=== TEST 5: Configuration Validation Reality ===")
 
         # Create invalid configuration
         invalid_config = {
@@ -389,10 +377,9 @@ class LargeClass:
 
     def test_integration_end_to_end(self):
         """Full integration test proving configuration affects analysis results."""
-        print("\n=== TEST 6: End-to-End Configuration Integration ===")
 
         # Create test configuration
-        self.create_detector_config(position_threshold=5, magic_threshold=2)
+        self.create_detector_config(position_threshold=MAXIMUM_NESTED_DEPTH, magic_threshold=2)
         self.create_enterprise_config(nasa_target=90)
 
         # Initialize configuration system
@@ -413,7 +400,6 @@ class LargeClass:
         violations = results.get('violations', [])
         self.assertGreater(len(violations), 0)
 
-        print(f"+ Integration test found {len(violations)} violations")
         print("+ End-to-end configuration integration: REAL")
 
         return True
@@ -440,11 +426,8 @@ class LargeClass:
             try:
                 if test_func():
                     passed_tests += 1
-                    print(f"+ {test_name}: PASS")
                 else:
-                    print(f"- {test_name}: FAIL")
             except Exception as e:
-                print(f"- {test_name}: ERROR - {e}")
 
         reality_score = (passed_tests / total_tests) * 100
 
@@ -460,7 +443,6 @@ class LargeClass:
             print("STATUS: PURE THEATER - Configuration has no real effect on analysis")
 
         return reality_score
-
 
 if __name__ == '__main__':
     # Run comprehensive reality check

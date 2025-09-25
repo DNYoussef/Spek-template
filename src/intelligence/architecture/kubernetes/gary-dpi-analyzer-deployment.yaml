@@ -1,4 +1,4 @@
-# Gary×Taleb Trading System - Gary DPI Analyzer Kubernetes Deployment
+# GaryxTaleb Trading System - Gary DPI Analyzer Kubernetes Deployment
 # GPU-accelerated pattern recognition and analysis engine
 
 apiVersion: apps/v1

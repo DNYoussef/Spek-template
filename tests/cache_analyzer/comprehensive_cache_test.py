@@ -1,6 +1,4 @@
-"""
-Comprehensive Cache Optimization Test Suite
-==========================================
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS, THEATER_DETECTION_FAILURE_THRESHOLD, THEATER_DETECTION_WARNING_THRESHOLD
 
 Complete test suite for both FileContentCache and IncrementalCache systems,
 including simulated get_cache_health functionality that would be expected
@@ -29,7 +27,6 @@ comprehensive_results = {
 
 def test_file_content_cache():
     """Test FileContentCache functionality."""
-    print("=== Testing FileContentCache ===")
     
     try:
         sys.path.insert(0, str(Path(__file__).parent.parent.parent))
@@ -43,7 +40,6 @@ def test_file_content_cache():
         
         for i in range(5):
             test_file = Path(temp_dir) / f"test_{i}.py"
-            content = f"# Test file {i}\nprint('File {i}')\n" * (i + 1)
             test_file.write_text(content)
             test_files.append(str(test_file))
         
@@ -98,7 +94,6 @@ def test_file_content_cache():
 
 def test_incremental_cache():
     """Test IncrementalCache functionality."""
-    print("\n=== Testing IncrementalCache ===")
     
     try:
         from analyzer.streaming.incremental_cache import IncrementalCache, FileDelta
@@ -239,7 +234,6 @@ def simulate_cache_health_analysis(file_cache, incremental_cache):
             }
         
         # Calculate combined health metrics
-        # Weights: File cache (60%), Incremental cache (40%)
         file_weight = 0.6
         incremental_weight = 0.4
         
@@ -401,8 +395,8 @@ def evaluate_quality_gates(health_data):
     try:
         # Define quality gates
         gates = {
-            "health_score": {"threshold": 0.75, "name": "Health Score >= 75%"},
-            "hit_rate": {"threshold": 0.60, "name": "Hit Rate >= 60%"},
+            "health_score": {"threshold": THEATER_DETECTION_WARNING_THRESHOLD, "name": "Health Score >= 75%"},
+            "hit_rate": {"threshold": THEATER_DETECTION_FAILURE_THRESHOLD, "name": "Hit Rate >= 60%"},
             "cache_efficiency": {"threshold": 0.70, "name": "Cache Efficiency >= 70%"},
             "memory_utilization": {"max_threshold": 0.85, "name": "Memory Utilization <= 85%"}
         }
@@ -501,7 +495,6 @@ def evaluate_quality_gates(health_data):
 
 def test_fallback_scenarios():
     """Test fallback behavior for various error conditions."""
-    print("\n=== Testing Fallback Scenarios ===")
     
     try:
         fallback_tests = {}
@@ -556,10 +549,10 @@ def test_fallback_scenarios():
         except Exception as e:
             fallback_tests["runtime_error"] = {"handled": False, "error": str(e)}
         
-        # Test 3: Partial failure simulation (one cache works, other fails)
+        # Test MAXIMUM_RETRY_ATTEMPTS: Partial failure simulation (one cache works, other fails)
         partial_failure_data = {
             "cache_health": {
-                "health_score": 0.60,  # Reduced due to partial failure
+                "health_score": THEATER_DETECTION_FAILURE_THRESHOLD,  # Reduced due to partial failure
                 "hit_rate": 0.35,      # Only from working cache
                 "optimization_potential": 0.65
             },
@@ -609,7 +602,6 @@ def test_fallback_scenarios():
     except Exception as e:
         comprehensive_results["fallback_scenarios"]["status"] = "failed"
         comprehensive_results["fallback_scenarios"]["details"] = {"error": str(e)}
-        print(f"[FAIL] Fallback scenario testing failed: {e}")
         return False
 
 def assess_production_readiness():
@@ -699,7 +691,6 @@ def assess_production_readiness():
 def generate_comprehensive_report():
     """Generate final comprehensive test report."""
     print("\n" + "="*70)
-    print("COMPREHENSIVE CACHE OPTIMIZATION ANALYZER TEST REPORT")
     print("="*70)
     
     readiness_details = comprehensive_results["production_readiness"]["details"]
@@ -735,16 +726,13 @@ def generate_comprehensive_report():
         print(f"Memory Utilization: {health_data['performance_metrics']['memory_utilization']:.1%}")
     
     print(f"\nNOTE:")
-    print("This test suite validates the expected functionality of the cache optimization analyzer.")
     print("The actual get_cache_health() method should be implemented to match this specification.")
     
     return comprehensive_results
 
 def main():
     """Run comprehensive cache analyzer test suite."""
-    print("COMPREHENSIVE CACHE OPTIMIZATION ANALYZER TEST SUITE")
     print("====================================================")
-    print("Testing both FileContentCache and IncrementalCache systems")
     
     # Run all test phases
     file_cache = test_file_content_cache()

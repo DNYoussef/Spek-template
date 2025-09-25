@@ -39,16 +39,16 @@ if [ -f "analyzer/enterprise/nasa_pot10_analyzer.py" ]; then
     echo "  Threshold: >=${THRESHOLD_NASA}%"
 
     if (( $(echo "$AFTER_NASA < $BEFORE_NASA" | bc -l) )); then
-        echo -e "  ${RED}❌ FAIL: NASA compliance degraded${NC}"
+        echo -e "  ${RED}[FAIL] FAIL: NASA compliance degraded${NC}"
         VALIDATION_PASSED=false
     elif (( $(echo "$AFTER_NASA < $THRESHOLD_NASA" | bc -l) )); then
-        echo -e "  ${RED}❌ FAIL: Below threshold${NC}"
+        echo -e "  ${RED}[FAIL] FAIL: Below threshold${NC}"
         VALIDATION_PASSED=false
     else
-        echo -e "  ${GREEN}✅ PASS${NC}"
+        echo -e "  ${GREEN}[OK] PASS${NC}"
     fi
 else
-    echo -e "  ${YELLOW}⚠️  NASA analyzer not found, skipping${NC}"
+    echo -e "  ${YELLOW}[WARN]  NASA analyzer not found, skipping${NC}"
 fi
 
 # 2. Theater Detection
@@ -61,13 +61,13 @@ if [ -f "scripts/comprehensive_theater_scan.py" ]; then
     echo "  Threshold: <=${THRESHOLD_THEATER}/100"
 
     if (( $(echo "$THEATER_SCORE > $THRESHOLD_THEATER" | bc -l) )); then
-        echo -e "  ${RED}❌ FAIL: Theater score too high${NC}"
+        echo -e "  ${RED}[FAIL] FAIL: Theater score too high${NC}"
         VALIDATION_PASSED=false
     else
-        echo -e "  ${GREEN}✅ PASS${NC}"
+        echo -e "  ${GREEN}[OK] PASS${NC}"
     fi
 else
-    echo -e "  ${YELLOW}⚠️  Theater scanner not found, skipping${NC}"
+    echo -e "  ${YELLOW}[WARN]  Theater scanner not found, skipping${NC}"
 fi
 
 # 3. God Object Count
@@ -81,13 +81,13 @@ echo "  Previous: ${BEFORE_GOD} god objects"
 echo "  Current:  ${AFTER_GOD} god objects"
 
 if [ "$AFTER_GOD" -gt "$BEFORE_GOD" ]; then
-    echo -e "  ${RED}❌ FAIL: God object count increased${NC}"
+    echo -e "  ${RED}[FAIL] FAIL: God object count increased${NC}"
     VALIDATION_PASSED=false
 elif [ "$AFTER_GOD" -gt 100 ]; then
-    echo -e "  ${RED}❌ FAIL: Too many god objects (max: 100)${NC}"
+    echo -e "  ${RED}[FAIL] FAIL: Too many god objects (max: 100)${NC}"
     VALIDATION_PASSED=false
 else
-    echo -e "  ${GREEN}✅ PASS${NC}"
+    echo -e "  ${GREEN}[OK] PASS${NC}"
 fi
 
 # 4. Test Coverage
@@ -101,16 +101,16 @@ if command -v npm &> /dev/null && [ -f "package.json" ]; then
         echo "  Threshold: >=80%"
 
         if (( $(echo "$COVERAGE < 80" | bc -l) )); then
-            echo -e "  ${RED}❌ FAIL: Coverage below threshold${NC}"
+            echo -e "  ${RED}[FAIL] FAIL: Coverage below threshold${NC}"
             VALIDATION_PASSED=false
         else
-            echo -e "  ${GREEN}✅ PASS${NC}"
+            echo -e "  ${GREEN}[OK] PASS${NC}"
         fi
     else
-        echo -e "  ${YELLOW}⚠️  Coverage report not found${NC}"
+        echo -e "  ${YELLOW}[WARN]  Coverage report not found${NC}"
     fi
 else
-    echo -e "  ${YELLOW}⚠️  npm not available, skipping${NC}"
+    echo -e "  ${YELLOW}[WARN]  npm not available, skipping${NC}"
 fi
 
 # 5. Security Scan
@@ -125,26 +125,26 @@ if command -v semgrep &> /dev/null; then
     echo "  High Issues: ${HIGH}"
 
     if [ "$CRITICAL" -gt 0 ]; then
-        echo -e "  ${RED}❌ FAIL: Critical security issues found${NC}"
+        echo -e "  ${RED}[FAIL] FAIL: Critical security issues found${NC}"
         VALIDATION_PASSED=false
     elif [ "$HIGH" -gt 5 ]; then
-        echo -e "  ${RED}❌ FAIL: Too many high-severity issues${NC}"
+        echo -e "  ${RED}[FAIL] FAIL: Too many high-severity issues${NC}"
         VALIDATION_PASSED=false
     else
-        echo -e "  ${GREEN}✅ PASS${NC}"
+        echo -e "  ${GREEN}[OK] PASS${NC}"
     fi
 else
-    echo -e "  ${YELLOW}⚠️  semgrep not installed, skipping${NC}"
+    echo -e "  ${YELLOW}[WARN]  semgrep not installed, skipping${NC}"
 fi
 
 # Final Report
 echo -e "\n=============================================="
 if [ "$VALIDATION_PASSED" = true ]; then
-    echo -e "${GREEN}✅ PR QUALITY GATE: PASSED${NC}"
+    echo -e "${GREEN}[OK] PR QUALITY GATE: PASSED${NC}"
     echo "=============================================="
     exit 0
 else
-    echo -e "${RED}❌ PR QUALITY GATE: FAILED${NC}"
+    echo -e "${RED}[FAIL] PR QUALITY GATE: FAILED${NC}"
     echo "=============================================="
     echo -e "\n${RED}PR cannot be merged until all quality gates pass.${NC}"
     exit 1

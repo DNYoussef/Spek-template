@@ -1,4 +1,4 @@
-# 🔍 Verification Commands
+# [SEARCH] Verification Commands
 
 Truth verification system for ensuring code quality and correctness with a 0.95 accuracy threshold.
 

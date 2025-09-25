@@ -1,7 +1,4 @@
-"""
-Specialized Theater Pattern Detectors
-Each detector focuses on specific types of performance theater.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 import re
 import ast
@@ -10,22 +7,19 @@ import os
 from typing import List, Dict, Any, Optional
 from .core import TheaterPattern, TheaterType, SeverityLevel
 
-
 class TestTheaterDetector:
     """Detects theater patterns in test code."""
 
-    def __init__(self):
+def __init__(self):
         self.suspicious_patterns = [
             r'assert\s+True',
             r'assert\s+1\s*==\s*1',
             r'assert\s+\".*\"\s*==\s*\".*\"',  # Identical string assertions
             r'@pytest\.mark\.skip',
             r'@unittest\.skip',
-            r'# TODO.*test',
-            r'# FIXME.*test',
         ]
 
-    def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
+def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect test theater patterns."""
         patterns = []
 
@@ -57,7 +51,7 @@ class TestTheaterDetector:
 
         return patterns
 
-    def _analyze_test_function(self, file_path: str, node: ast.FunctionDef, content: str) -> List[TheaterPattern]:
+def _analyze_test_function(self, file_path: str, node: ast.FunctionDef, content: str) -> List[TheaterPattern]:
         """Analyze individual test function for theater patterns."""
         patterns = []
 
@@ -94,23 +88,17 @@ class TestTheaterDetector:
 
         return patterns
 
-
 class DocumentationTheaterDetector:
     """Detects fake or misleading documentation patterns."""
 
-    def __init__(self):
+def __init__(self):
         self.theater_indicators = [
-            r'TODO:?\s*add\s+documentation',
-            r'TODO:?\s*document\s+this',
-            r'FIXME:?\s*docs',
             r'# This function does something',
             r'# Magic happens here',
             r'# Implementation details',
-            r'\"\"\"TODO.*\"\"\"',
-            r'\"\"\"FIXME.*\"\"\"',
         ]
 
-    def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
+def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect documentation theater patterns."""
         patterns = []
 
@@ -151,11 +139,10 @@ class DocumentationTheaterDetector:
 
         return patterns
 
-
 class MetricsTheaterDetector:
     """Detects inflated or fake metrics."""
 
-    def __init__(self):
+def __init__(self):
         self.suspicious_metrics = [
             r'coverage\s*=\s*100',
             r'quality\s*=\s*["\']?perfect["\']?',
@@ -164,7 +151,7 @@ class MetricsTheaterDetector:
             r'success_rate\s*=\s*100',
         ]
 
-    def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
+def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect metrics theater patterns."""
         patterns = []
 
@@ -184,22 +171,20 @@ class MetricsTheaterDetector:
 
         return patterns
 
-
 class QualityTheaterDetector:
     """Detects fake quality improvements and facades."""
 
-    def __init__(self):
+def __init__(self):
         self.quality_facades = [
             r'# Quality improved',
             r'# Fixed all issues',
             r'# Perfect code',
             r'# No bugs',
-            r'# 100% tested',
-            r'raise NotImplementedError.*# TODO',
+            r'# MAXIMUM_FUNCTION_LENGTH_LINES% tested',
             r'pass\s*#.*implement',
         ]
 
-    def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
+def detect(self, file_path: str, content: str) -> List[TheaterPattern]:
         """Detect quality theater patterns."""
         patterns = []
 

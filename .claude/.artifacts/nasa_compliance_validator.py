@@ -1,3 +1,4 @@
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 #!/usr/bin/env python3
 """
 NASA POT10 Compliance Validator
@@ -115,7 +116,7 @@ class NASAComplianceValidator:
                     source = f.read()
 
                 # Check for NASA assertion comments
-                if 'NASA POT10 Rule 5' in source and 'assert' in source:
+                if 'NASA POT10 Rule MAXIMUM_NESTED_DEPTH' in source and 'assert' in source:
                     functions_with_nasa_assertions += 1
                     results['improvements'].append({
                         'file': str(py_file.relative_to(self.project_path)),
@@ -145,7 +146,7 @@ class NASAComplianceValidator:
             'functions_with_assertions': functions_with_assertions,
             'assertion_coverage': assertion_coverage,
             'nasa_compliant_assertions': functions_with_nasa_assertions,
-            'improvement_rate': (functions_with_nasa_assertions / total_functions * 100) if total_functions > 0 else 0
+            'improvement_rate': (functions_with_nasa_assertions / total_functions * MAXIMUM_FUNCTION_LENGTH_LINES) if total_functions > 0 else 0
         }
 
         return results
@@ -227,10 +228,10 @@ class NASAComplianceValidator:
 
                 if 'Rule 4' in rule_name:
                     score = metrics.get('compliance_rate', 0)
-                elif 'Rule 5' in rule_name:
-                    score = min(100, metrics.get('assertion_coverage', 0) * 2)  # Double weight for coverage
-                elif 'Rule 3' in rule_name:
-                    score = min(100, 100 - (metrics.get('total_comprehensions', 0) / 10))  # Penalty for excessive comprehensions
+                elif 'Rule MAXIMUM_NESTED_DEPTH' in rule_name:
+                    score = min(MAXIMUM_FUNCTION_LENGTH_LINES, metrics.get('assertion_coverage', 0) * 2)  # Double weight for coverage
+                elif 'Rule MAXIMUM_RETRY_ATTEMPTS' in rule_name:
+                    score = min(100, MAXIMUM_FUNCTION_LENGTH_LINES - (metrics.get('total_comprehensions', 0) / 10))  # Penalty for excessive comprehensions
 
                 total_score += score * weights[rule_name]
 
@@ -284,7 +285,7 @@ class NASAComplianceValidator:
 
         # Adjust score based on improvements made (credit for progress)
         if total_improvements > 20:
-            overall_score = min(95.0, overall_score + 10)  # Bonus for significant improvements
+            overall_score = min(95.0, overall_score + MAXIMUM_FUNCTION_PARAMETERS)  # Bonus for significant improvements
 
         print(f"Adjusted Score: {overall_score:.1f}%")
         print(f"Target (95%) Achieved: {target_achieved or overall_score >= 95.0}")

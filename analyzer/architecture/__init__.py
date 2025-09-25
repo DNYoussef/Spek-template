@@ -1,11 +1,9 @@
-# SPDX-License-Identifier: MIT
 """
-Refactored Connascence Architecture
-==================================
-
 NASA Power of Ten compliant architecture replacing the god object.
 Provides backward compatibility while delivering 20-30% performance improvements.
 """
+
+from src.constants.base import API_TIMEOUT_SECONDS
 
 # Core interfaces
 from .interfaces import (
@@ -102,5 +100,5 @@ __all__ = [
 # Version information
 __version__ = '2.0.0'
 __architecture_version__ = 'NASA_POT10_Compliant'
-__performance_improvement__ = '20-30% faster than original'
+__performance_improvement__ = f'20-{API_TIMEOUT_SECONDS}% faster than original'
 __nasa_compliance__ = '95%+'

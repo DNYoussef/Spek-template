@@ -11,16 +11,15 @@ system while maintaining 92% NASA POT10 compliance.
 """
 
 from typing import Dict, Any, Optional
-from .core.feature_flags import EnterpriseFeatureManager, FeatureState
 import logging
-logger = logging.getLogger(__name__)
+
+from .core.feature_flags import EnterpriseFeatureManager, FeatureState
 
 # Enterprise module version
 __version__ = "1.0.0"
 
 # Global feature manager instance
 _feature_manager: Optional[EnterpriseFeatureManager] = None
-
 
 def initialize_enterprise_features(config_manager) -> EnterpriseFeatureManager:
     """
@@ -47,16 +46,13 @@ def initialize_enterprise_features(config_manager) -> EnterpriseFeatureManager:
     
     return _feature_manager
 
-
 def get_feature_manager() -> Optional[EnterpriseFeatureManager]:
     """Get the global enterprise feature manager instance."""
     return _feature_manager
 
-
 def is_enterprise_enabled() -> bool:
     """Check if any enterprise features are enabled."""
     return _feature_manager is not None and len(_feature_manager.get_enabled_modules()) > 0
-
 
 def get_enterprise_status() -> Dict[str, Any]:
     """
@@ -83,7 +79,6 @@ def get_enterprise_status() -> Dict[str, Any]:
         "version": __version__
     }
 
-
 # Conditional imports to avoid loading enterprise modules when not needed
 def get_sixsigma_analyzer():
     """Lazy load Six Sigma analyzer when needed."""
@@ -97,7 +92,6 @@ def get_sixsigma_analyzer():
         logger.warning(f"Six Sigma module not available: {e}")
         return None
 
-
 def get_dfars_analyzer():
     """Lazy load DFARS compliance analyzer when needed."""
     if not _feature_manager or not _feature_manager.is_enabled('dfars_compliance'):
@@ -109,7 +103,6 @@ def get_dfars_analyzer():
     except ImportError as e:
         logger.warning(f"DFARS compliance module not available: {e}")
         return None
-
 
 def get_supply_chain_analyzer():
     """Lazy load supply chain analyzer when needed."""

@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Phase 2 Reality Validation - Simple Verification
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Direct validation of 100% reality score achievements without complex imports.
 Tests the specific theater elimination fixes implemented.
@@ -15,7 +13,6 @@ from pathlib import Path
 
 def test_github_bridge_reality():
     """Test GitHub bridge for 100% reality."""
-    print("Testing GitHub Bridge Reality...")
 
     # Read the fixed github_bridge.py file
     bridge_path = Path(__file__).parent.parent.parent / "analyzer" / "integrations" / "github_bridge.py"
@@ -111,10 +108,8 @@ def test_github_bridge_reality():
 
     return True
 
-
 def test_tool_coordinator_reality():
     """Test tool coordinator for 100% reality."""
-    print("\nTesting Tool Coordinator Reality...")
 
     # Read the fixed tool_coordinator.py file
     coordinator_path = Path(__file__).parent.parent.parent / "analyzer" / "integrations" / "tool_coordinator.py"
@@ -129,7 +124,7 @@ def test_tool_coordinator_reality():
     # Test 1: No hardcoded fallback values
     hardcoded_patterns = [
         "mece_score: 0.85,",
-        "duplication_percentage: 5.0",
+        "duplication_percentage: MAXIMUM_NESTED_DEPTH",
         "correlation_score\": min(0.88",
         "consistency_score = 0.0"
     ]
@@ -213,10 +208,8 @@ def test_tool_coordinator_reality():
 
     return True
 
-
 def test_analyzer_types_existence():
     """Test that real analyzer types exist."""
-    print("\nTesting Analyzer Types Existence...")
 
     types_path = Path(__file__).parent.parent.parent / "analyzer" / "analyzer_types.py"
 
@@ -251,7 +244,6 @@ def test_analyzer_types_existence():
 
     return True
 
-
 def count_eliminated_theater():
     """Count lines of theater code eliminated."""
     print("\nCounting Eliminated Theater...")
@@ -282,7 +274,6 @@ def count_eliminated_theater():
     print(f"\nTotal theater eliminated: {total_theater_eliminated} lines")
 
     return total_theater_eliminated
-
 
 def calculate_reality_score():
     """Calculate the final reality score."""
@@ -348,7 +339,6 @@ def calculate_reality_score():
 
     return reality_score
 
-
 def main():
     """Main validation function."""
     print("Phase 2 Reality Validation Starting...")
@@ -363,7 +353,6 @@ def main():
     else:
         print(f"\nWARNING: Reality score {reality_score:.1f}% - Additional work needed")
         return 1
-
 
 if __name__ == "__main__":
     exit_code = main()

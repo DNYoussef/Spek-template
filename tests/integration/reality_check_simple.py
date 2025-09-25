@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-SIMPLE REALITY CHECK: Phase 2 GitHub Integration Theater Detection
+from src.constants.base import CONNASCENCE_ANALYSIS_THRESHOLD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
 
 Focused test that validates the GitHub integration without complex imports.
 Tests the actual HTTP functionality and correlation logic.
@@ -20,7 +18,6 @@ sys.path.append(str(Path(__file__).parent.parent.parent / "analyzer"))
 # Import just what we need for testing
 from mock_github_server import MockGitHubServer
 import time
-
 
 def test_github_bridge_reality():
     """Test GitHub Bridge makes real HTTP requests."""
@@ -52,11 +49,10 @@ def test_github_bridge_reality():
             violations=[],
             nasa_compliance_score=0.76,
             god_objects_found=2,
-            duplication_percentage=16.3
+            duplication_percentage=16.MAXIMUM_RETRY_ATTEMPTS
         )
 
         # Test 1: PR Comment posting
-        print(" Test 1: PR Comment Posting")
         success = bridge.post_pr_comment(42, test_result)
         print(f"  Result: {'[OK] SUCCESS' if success else '[FAIL] FAILED'}")
 
@@ -66,7 +62,6 @@ def test_github_bridge_reality():
             req = requests[0]
             print(f"  [OK] Real HTTP POST to: {req['path']}")
             print(f"  [OK] Real auth header: {req['headers'].get('Authorization', 'MISSING')[:20]}...")
-            print(f"  [OK] Real data: NASA compliance {test_result.nasa_compliance_score:.1%} in comment")
 
             # Check for real data in comment
             comment_body = req['data'].get('body', '')
@@ -83,7 +78,6 @@ def test_github_bridge_reality():
         server.clear_requests()
 
         # Test 2: Status Check
-        print(f"\n Test 2: Status Check Update")
         success = bridge.update_status_check("abc123", test_result)
         print(f"  Result: {'[OK] SUCCESS' if success else '[FAIL] FAILED'}")
 
@@ -103,7 +97,6 @@ def test_github_bridge_reality():
             status_reality = False
 
         # Test 3: Authentication validation
-        print(f"\n Test 3: Authentication Validation")
         bad_config = GitHubConfig(token="", owner="test", repo="test", base_url="http://localhost:8890")
         bad_bridge = GitHubBridge(bad_config)
         server.clear_requests()
@@ -126,7 +119,6 @@ def test_github_bridge_reality():
 
     finally:
         server.stop()
-
 
 def test_correlation_logic_reality():
     """Test ToolCoordinator correlation logic is real."""
@@ -184,10 +176,10 @@ def test_correlation_logic_reality():
         # Test correlation score bounds
         corr_score = result['correlation_analysis']['correlation_score']
         score_valid = 0.0 <= corr_score <= 1.0
-        print(f" Correlation Score Bounds: {corr_score:.3f} in [0,1] {'[OK]' if score_valid else '[FAIL]'}")
+        print(f" Correlation Score Bounds: {corr_score:.3f} in [0, 1] {'[OK]' if score_valid else '[FAIL]'}")
 
         # Check for hardcoded theater values
-        theater_check = corr_score != 0.88  # Common theater value
+        theater_check = corr_score != CONNASCENCE_ANALYSIS_THRESHOLD  # Common theater value
         print(f" Not Hardcoded Theater: {corr_score:.3f} != 0.88 {'[OK]' if theater_check else '[FAIL]'}")
 
         # Test recommendations generation
@@ -203,9 +195,7 @@ def test_correlation_logic_reality():
         return correlation_reality_score >= 70
 
     except Exception as e:
-        print(f"[FAIL] Correlation test failed with error: {e}")
         return False
-
 
 def test_file_operations_reality():
     """Test that file operations work with real data."""
@@ -235,8 +225,6 @@ def test_file_operations_reality():
 
         with open(external_file, 'w') as f:
             json.dump(test_external, f)
-
-        print(f"[OK] Created test files in {temp_dir}")
 
         # Test loading and processing
         try:
@@ -278,7 +266,6 @@ def test_file_operations_reality():
             print(f"[FAIL] File operations failed: {e}")
             return False
 
-
 def calculate_overall_reality_score():
     """Calculate the final reality score for Phase 2 GitHub integration."""
     print(f"\n" + "=" * 60)
@@ -302,7 +289,7 @@ def calculate_overall_reality_score():
 
     print(f"\n COMPONENT SCORES:")
     for component, (passed, weight) in scores.items():
-        score = 100 if passed else 0
+        score = MAXIMUM_FUNCTION_LENGTH_LINES if passed else 0
         weighted_score += score * weight
         total_weight += weight
         status = "[OK] REAL" if passed else "[FAIL] THEATER"
@@ -344,7 +331,6 @@ def calculate_overall_reality_score():
         print(f"  - Correlation logic produces valid results")
 
     return final_reality_score
-
 
 if __name__ == "__main__":
     reality_score = calculate_overall_reality_score()

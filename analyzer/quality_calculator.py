@@ -1,16 +1,12 @@
-# SPDX-License-Identifier: MIT
-"""
-Quality Calculator - Extracted from UnifiedConnascenceAnalyzer
-=============================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Quality metrics calculation and scoring system.
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class QualityMetrics:
@@ -23,7 +19,6 @@ class QualityMetrics:
     component_scores: Dict[str, float]
     recommendations: List[str]
 
-
 @dataclass
 class ArchitecturalMetrics:
     """Architectural health metrics."""
@@ -34,14 +29,13 @@ class ArchitecturalMetrics:
     hotspot_count: int
     god_object_count: int
 
-
 class QualityCalculator:
     """
     Quality metrics calculation and scoring system.
     Extracted from UnifiedConnascenceAnalyzer to eliminate god object.
     """
 
-    def __init__(self, config_manager=None):
+def __init__(self, config_manager=None):
         """Initialize quality calculator with configuration."""
         # NASA Rule 5: Input validation assertions
         assert config_manager is not None, "config_manager cannot be None"
@@ -50,7 +44,7 @@ class QualityCalculator:
         self.violation_weights = self._initialize_violation_weights()
         self.quality_thresholds = self._initialize_quality_thresholds()
 
-    def calculate_overall_quality(self, analysis_results: Dict) -> float:
+def calculate_overall_quality(self, analysis_results: Dict) -> float:
         """
         Calculate overall quality score from analysis results.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -84,7 +78,7 @@ class QualityCalculator:
         logger.info(f"Overall Quality: {quality_score:.3f} (penalty: {total_penalty:.3f})")
         return quality_score
 
-    def calculate_architecture_health(self, violations: List[Dict]) -> float:
+def calculate_architecture_health(self, violations: List[Dict]) -> float:
         """
         Calculate architecture health score.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -118,7 +112,7 @@ class QualityCalculator:
         logger.info(f"Architecture Health: {architecture_health:.3f}")
         return architecture_health
 
-    def calculate_coupling_score(self, violations: List[Dict]) -> float:
+def calculate_coupling_score(self, violations: List[Dict]) -> float:
         """
         Calculate coupling score (lower is better).
         NASA Rule 4 Compliant: Under 60 lines.
@@ -154,7 +148,7 @@ class QualityCalculator:
         logger.info(f"Coupling Score: {coupling_score:.3f} (lower is better)")
         return coupling_score
 
-    def calculate_maintainability_index(self, analysis_results: Dict) -> float:
+def calculate_maintainability_index(self, analysis_results: Dict) -> float:
         """
         Calculate maintainability index (0-100 scale).
         NASA Rule 4 Compliant: Under 60 lines.
@@ -174,8 +168,6 @@ class QualityCalculator:
         doc_factor = self._estimate_documentation_factor(analysis_results)
 
         # Maintainability index calculation (Microsoft-style formula adapted)
-        # MI = max(0, (171 - 5.2 * ln(V) - 0.23 * G - 16.2 * ln(LOC)) * 100 / 171)
-        # Adapted for our metrics
         base_score = (
             overall_quality * 40 +       # Overall quality impact
             arch_health * 30 +           # Architecture health impact  
@@ -188,7 +180,7 @@ class QualityCalculator:
         logger.info(f"Maintainability Index: {maintainability_index:.1f}/100")
         return maintainability_index
 
-    def calculate_comprehensive_metrics(self, analysis_results: Dict) -> QualityMetrics:
+def calculate_comprehensive_metrics(self, analysis_results: Dict) -> QualityMetrics:
         """
         Calculate comprehensive quality metrics.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -225,7 +217,7 @@ class QualityCalculator:
             recommendations=recommendations
         )
 
-    def _calculate_violation_penalty(self, violations: List[Dict]) -> float:
+def _calculate_violation_penalty(self, violations: List[Dict]) -> float:
         """Calculate penalty based on violation severity and count."""
         if not violations:
             return 0.0
@@ -242,7 +234,7 @@ class QualityCalculator:
         
         return normalized_penalty
 
-    def _calculate_distribution_penalty(self, violations: List[Dict], total_files: int) -> float:
+def _calculate_distribution_penalty(self, violations: List[Dict], total_files: int) -> float:
         """Calculate penalty for violation distribution across files."""
         if not violations or total_files <= 0:
             return 0.0
@@ -261,7 +253,7 @@ class QualityCalculator:
 
         return concentration_penalty
 
-    def _calculate_complexity_penalty(self, analysis_results: Dict) -> float:
+def _calculate_complexity_penalty(self, analysis_results: Dict) -> float:
         """Calculate penalty based on system complexity indicators."""
         violations = analysis_results.get('violations', [])
         
@@ -277,7 +269,7 @@ class QualityCalculator:
         complexity_ratio = len(complex_violations) / max(len(violations), 1)
         return min(0.3, complexity_ratio)  # Cap at 30% penalty
 
-    def _filter_architectural_violations(self, violations: List[Dict]) -> List[Dict]:
+def _filter_architectural_violations(self, violations: List[Dict]) -> List[Dict]:
         """Filter violations that impact architectural health."""
         architectural_types = [
             'god_object', 'connascence_of_type', 'connascence_of_algorithm',
@@ -289,7 +281,7 @@ class QualityCalculator:
             if v.get('type') in architectural_types
         ]
 
-    def _calculate_architectural_penalty(self, arch_violations: List[Dict]) -> float:
+def _calculate_architectural_penalty(self, arch_violations: List[Dict]) -> float:
         """Calculate penalty from architectural violations."""
         if not arch_violations:
             return 0.0
@@ -303,7 +295,7 @@ class QualityCalculator:
         penalty = min(1.0, total_impact / (len(arch_violations) * 15))  # Normalize
         return penalty
 
-    def _calculate_coupling_penalty(self, violations: List[Dict]) -> float:
+def _calculate_coupling_penalty(self, violations: List[Dict]) -> float:
         """Calculate coupling-specific penalty."""
         coupling_types = ['connascence_of_position', 'connascence_of_type', 'connascence_of_algorithm']
         coupling_violations = [v for v in violations if v.get('type') in coupling_types]
@@ -313,12 +305,12 @@ class QualityCalculator:
 
         return min(0.4, len(coupling_violations) / 50.0)  # 50 violations = max penalty
 
-    def _calculate_cohesion_penalty(self, violations: List[Dict]) -> float:
+def _calculate_cohesion_penalty(self, violations: List[Dict]) -> float:
         """Calculate cohesion-specific penalty."""
         cohesion_violations = [v for v in violations if v.get('type') == 'god_object']
         return min(0.3, len(cohesion_violations) / 25.0)  # 25 god objects = max penalty
 
-    def _calculate_modularity_penalty(self, violations: List[Dict]) -> float:
+def _calculate_modularity_penalty(self, violations: List[Dict]) -> float:
         """Calculate modularity-specific penalty."""
         modularity_violations = [
             v for v in violations 
@@ -326,7 +318,7 @@ class QualityCalculator:
         ]
         return min(0.2, len(modularity_violations) / 20.0)
 
-    def _calculate_technical_debt_ratio(self, violations: List[Dict]) -> float:
+def _calculate_technical_debt_ratio(self, violations: List[Dict]) -> float:
         """Calculate technical debt ratio estimate."""
         if not violations:
             return 0.0
@@ -345,7 +337,7 @@ class QualityCalculator:
         debt_ratio = min(1.0, total_effort / max(estimated_total_effort, 1))
         return debt_ratio
 
-    def _calculate_component_scores(self, violations: List[Dict]) -> Dict[str, float]:
+def _calculate_component_scores(self, violations: List[Dict]) -> Dict[str, float]:
         """Calculate quality scores for individual components."""
         component_violations = {}
         
@@ -365,7 +357,7 @@ class QualityCalculator:
 
         return component_scores
 
-    def _generate_quality_recommendations(
+def _generate_quality_recommendations(
         self, overall_quality: float, arch_health: float, coupling_score: float, violations: List
     ) -> List[str]:
         """Generate actionable quality improvement recommendations."""
@@ -392,7 +384,7 @@ class QualityCalculator:
 
         return recommendations[:5]  # Top 5 recommendations
 
-    def _initialize_violation_weights(self) -> Dict[str, int]:
+def _initialize_violation_weights(self) -> Dict[str, int]:
         """Initialize violation severity weights."""
         return {
             'critical': 10,
@@ -402,7 +394,7 @@ class QualityCalculator:
             'informational': 0
         }
 
-    def _initialize_quality_thresholds(self) -> Dict[str, float]:
+def _initialize_quality_thresholds(self) -> Dict[str, float]:
         """Initialize quality assessment thresholds."""
         return {
             'excellent': 0.9,
@@ -411,12 +403,12 @@ class QualityCalculator:
             'poor': 0.4
         }
 
-    def _estimate_total_components(self, violations: List[Dict]) -> int:
+def _estimate_total_components(self, violations: List[Dict]) -> int:
         """Estimate total number of components from violations."""
         unique_files = set(v.get('file_path', '') for v in violations)
         return max(len(unique_files), 10)  # Minimum baseline
 
-    def _calculate_complexity_factor(self, analysis_results: Dict) -> float:
+def _calculate_complexity_factor(self, analysis_results: Dict) -> float:
         """Calculate complexity factor for maintainability index."""
         violations = analysis_results.get('violations', [])
         complex_violations = [
@@ -430,12 +422,12 @@ class QualityCalculator:
         complexity_ratio = 1.0 - (len(complex_violations) / len(violations))
         return max(0.0, complexity_ratio)
 
-    def _estimate_documentation_factor(self, analysis_results: Dict) -> float:
+def _estimate_documentation_factor(self, analysis_results: Dict) -> float:
         """Estimate documentation quality factor."""
         # Placeholder - could be enhanced with actual documentation analysis
         return 0.7  # Assume moderate documentation
 
-    def _extract_component_name(self, file_path: str) -> str:
+def _extract_component_name(self, file_path: str) -> str:
         """Extract component name from file path."""
         if not file_path:
             return 'unknown'

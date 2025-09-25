@@ -1,6 +1,4 @@
-"""
-Thread Contention Profiler
-===========================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FILE_LENGTH_LINES, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH
 
 Advanced thread contention analysis for detector pool optimization.
 Provides real measurements using profiling tools to identify and resolve
@@ -26,7 +24,6 @@ from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 import logging
 logger = logging.getLogger(__name__)
 
-
 @dataclass
 class LockContentionStats:
     """Statistics for lock contention analysis."""
@@ -39,7 +36,6 @@ class LockContentionStats:
     threads_blocked: Set[int] = field(default_factory=set)
     acquisition_success_rate: float = 100.0
 
-
 @dataclass
 class ThreadContentionSnapshot:
     """Snapshot of thread contention at a point in time."""
@@ -50,7 +46,6 @@ class ThreadContentionSnapshot:
     lock_contentions: Dict[str, LockContentionStats]
     cpu_usage_percent: float
     memory_usage_mb: float
-
 
 class ProfilingLock:
     """
@@ -192,18 +187,17 @@ class ProfilingLock:
             self._acquisition_times.clear()
             self._waiting_threads.clear()
 
-
 class ThreadContentionProfiler:
     """
     Comprehensive thread contention profiler for detector pool optimization.
     
-    NASA Rule 7 Compliant: Bounded resource usage with automatic cleanup.
+    NASA Rule DAYS_RETENTION_PERIOD Compliant: Bounded resource usage with automatic cleanup.
     Provides real measurements and actionable optimization recommendations.
     """
     
     def __init__(self, 
-                 max_snapshots: int = 1000,
-                 profiling_interval: float = 0.5):
+                max_snapshots: int = 1000,
+                profiling_interval: float = 0.5):
         """
         Initialize thread contention profiler.
         
@@ -278,7 +272,7 @@ class ThreadContentionProfiler:
             
             self._profiling_active = False
             if self._profile_thread and self._profile_thread.is_alive():
-                self._profile_thread.join(timeout=5.0)
+                self._profile_thread.join(timeout=MAXIMUM_NESTED_DEPTH)
         
         logger.info("Thread contention profiling stopped")
     
@@ -535,11 +529,11 @@ class ThreadContentionProfiler:
             Load test results with contention measurements
         """
         assert 1 <= thread_count <= 16, "thread_count must be 1-16"
-        assert 100 <= operations_per_thread <= 10000, "operations_per_thread must be 100-10000"
-        assert 5.0 <= test_duration_seconds <= 300.0, "test_duration must be 5-300 seconds"
+        assert 100 <= operations_per_thread <= 10000, "operations_per_thread must be MAXIMUM_FUNCTION_LENGTH_LINES-10000"
+        assert 5.0 <= test_duration_seconds <= 300.0, "test_duration must be MAXIMUM_NESTED_DEPTH-300 seconds"
         
         logger.info(f"Starting concurrent load test: {thread_count} threads, "
-                   f"{operations_per_thread} ops/thread, {test_duration_seconds}s duration")
+                    f"{operations_per_thread} ops/thread, {test_duration_seconds}s duration")
         
         # Create test lock if not exists
         test_lock_name = "load_test_lock"
@@ -635,7 +629,7 @@ class ThreadContentionProfiler:
                 "operations_per_second": test_results["operations_completed"] / actual_duration,
                 "errors_encountered": test_results["errors_encountered"],
                 "error_rate_percent": (test_results["errors_encountered"] / 
-                                     max(1, test_results["operations_completed"])) * 100,
+                                    max(1, test_results["operations_completed"])) * 100,
                 "average_thread_completion_time": (
                     sum(test_results["thread_completion_times"]) / 
                     len(test_results["thread_completion_times"])
@@ -657,7 +651,7 @@ class ThreadContentionProfiler:
         }
         
         logger.info(f"Load test completed: {test_results['operations_completed']} operations, "
-                   f"{load_test_results['contention_results']['contention_events']} contentions")
+                    f"{load_test_results['contention_results']['contention_events']} contentions")
         
         return load_test_results
     
@@ -694,11 +688,9 @@ class ThreadContentionProfiler:
         """Context manager exit."""
         self.stop_profiling()
 
-
 # Global thread contention profiler
 _global_contention_profiler: Optional[ThreadContentionProfiler] = None
 _profiler_lock = threading.Lock()
-
 
 def get_global_contention_profiler() -> ThreadContentionProfiler:
     """Get or create global thread contention profiler."""
@@ -707,7 +699,6 @@ def get_global_contention_profiler() -> ThreadContentionProfiler:
         if _global_contention_profiler is None:
             _global_contention_profiler = ThreadContentionProfiler()
         return _global_contention_profiler
-
 
 def profile_detector_pool_contention() -> Dict[str, Any]:
     """Profile detector pool for thread contention issues."""
@@ -720,7 +711,7 @@ def profile_detector_pool_contention() -> Dict[str, Any]:
     # Run concurrent load test
     load_test_results = profiler.run_concurrent_load_test(
         thread_count=8,
-        operations_per_thread=500,
+        operations_per_thread=MAXIMUM_FILE_LENGTH_LINES,
         test_duration_seconds=30.0
     )
     
@@ -735,7 +726,6 @@ def profile_detector_pool_contention() -> Dict[str, Any]:
         "load_test_results": load_test_results,
         "recommendations": _generate_detector_pool_recommendations(contention_analysis, load_test_results)
     }
-
 
 def _generate_detector_pool_recommendations(contention_analysis: Dict, load_test_results: Dict) -> List[str]:
     """Generate specific detector pool optimization recommendations."""

@@ -14,12 +14,12 @@ Performance Target: <1.5% overhead
 Evidence Retention: 90 days
 """
 
+from .audit_trail import AuditTrailGenerator
 from .core import ComplianceOrchestrator
-from .soc2 import SOC2EvidenceCollector
 from .iso27001 import ISO27001ControlMapper
 from .nist_ssdf import NISTSSDFPracticeValidator
-from .audit_trail import AuditTrailGenerator
 from .reporting import ComplianceReportGenerator
+from .soc2 import SOC2EvidenceCollector
 
 __all__ = [
     'ComplianceOrchestrator',

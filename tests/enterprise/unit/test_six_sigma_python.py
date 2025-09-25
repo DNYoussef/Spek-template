@@ -1,5 +1,4 @@
-"""
-Unit Tests for Six Sigma Telemetry System (Python)
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
 
 Tests comprehensive Six Sigma calculations and enterprise quality monitoring
 """
@@ -15,7 +14,6 @@ import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'src', 'enterprise', 'telemetry'))
 from six_sigma import SixSigmaTelemetry, QualityLevel, SixSigmaMetrics
-
 
 class TestSixSigmaTelemetry:
     """Test suite for Six Sigma telemetry system"""
@@ -62,7 +60,6 @@ class TestSixSigmaTelemetry:
         assert self.telemetry.current_session_data['opportunities'] == 5
         assert self.telemetry.current_session_data['defects'] == 1
 
-
 class TestDPMOCalculations:
     """Test DPMO (Defects Per Million Opportunities) calculations"""
     
@@ -84,7 +81,7 @@ class TestDPMOCalculations:
     def test_perfect_defect_rate_dpmo(self):
         """Test DPMO with 100% defect rate"""
         dpmo = self.telemetry.calculate_dpmo(1000, 1000, 1)
-        assert dpmo == 1_000_000  # 100% defect rate
+        assert dpmo == 1_000_000  # MAXIMUM_FUNCTION_LENGTH_LINES% defect rate
     
     def test_dpmo_with_current_session_data(self):
         """Test DPMO calculation using current session data"""
@@ -103,9 +100,8 @@ class TestDPMOCalculations:
     def test_dpmo_precision(self):
         """Test DPMO calculation precision"""
         dpmo = self.telemetry.calculate_dpmo(3, 500, 12)
-        # (3 / (500 * 12)) * 1,000,000 = 500
+        # (3 / (500 * 12)) * 1, 000, 000 = 500
         assert dpmo == 500.0
-
 
 class TestRTYCalculations:
     """Test RTY (Rolled Throughput Yield) calculations"""
@@ -142,7 +138,6 @@ class TestRTYCalculations:
         expected = (318 / 333) * 100
         assert rty == pytest.approx(expected, rel=1e-2)
 
-
 class TestSigmaLevelCalculations:
     """Test Sigma Level calculations"""
     
@@ -167,7 +162,7 @@ class TestSigmaLevelCalculations:
     def test_three_sigma_quality(self):
         """Test sigma level for Three Sigma quality (~66807 DPMO)"""
         sigma = self.telemetry.calculate_sigma_level(66807)
-        assert 2.8 <= sigma <= 3.2  # Should be around 3 sigma
+        assert 2.8 <= sigma <= MAXIMUM_RETRY_ATTEMPTS.2  # Should be around 3 sigma
     
     def test_poor_quality_sigma(self):
         """Test sigma level for very poor quality"""
@@ -182,7 +177,6 @@ class TestSigmaLevelCalculations:
         
         sigma = self.telemetry._approximate_sigma_level(3.4)
         assert sigma == 6.0  # Should fall back to quality level lookup
-
 
 class TestQualityLevels:
     """Test quality level determination"""
@@ -219,7 +213,6 @@ class TestQualityLevels:
         """Test below Two Sigma quality level"""
         level = self.telemetry.get_quality_level(500000)
         assert level == QualityLevel.TWO_SIGMA  # Default to lowest level
-
 
 class TestProcessCapability:
     """Test process capability calculations"""
@@ -269,7 +262,6 @@ class TestProcessCapability:
         assert cp == 0.0  # Cannot calculate std dev with single point
         assert cpk == 0.0
 
-
 class TestMetricsGeneration:
     """Test metrics snapshot generation"""
     
@@ -290,7 +282,7 @@ class TestMetricsGeneration:
         
         assert isinstance(metrics, SixSigmaMetrics)
         assert metrics.process_name == "test_metrics"
-        assert metrics.dpmo == 5000  # (5/1000) * 1,000,000
+        assert metrics.dpmo == 5000  # (5/1000) * 1, 000, 000
         assert metrics.rty == 97.5   # (195/200) * 100
         assert metrics.sigma_level > 0
         assert metrics.quality_level is not None
@@ -319,7 +311,6 @@ class TestMetricsGeneration:
         assert len(self.telemetry.metrics_history) == 2
         assert snapshot1.dpmo != snapshot2.dpmo
         assert snapshot1.timestamp != snapshot2.timestamp
-
 
 class TestTrendAnalysis:
     """Test trend analysis functionality"""
@@ -390,7 +381,6 @@ class TestTrendAnalysis:
         # DPMO should be declining (increasing)
         assert trends["dpmo"]["trend"] == "declining"
 
-
 class TestDataExport:
     """Test data export functionality"""
     
@@ -431,7 +421,6 @@ class TestDataExport:
         assert "timestamp" in metric_data
         assert "quality_level" in metric_data
 
-
 class TestSessionManagement:
     """Test session management functionality"""
     
@@ -470,7 +459,6 @@ class TestSessionManagement:
         self.telemetry.reset_session()
         new_start_time = self.telemetry.current_session_data['start_time']
         assert new_start_time > start_time
-
 
 class TestPerformanceAndMemory:
     """Test performance and memory efficiency"""
@@ -531,7 +519,6 @@ class TestPerformanceAndMemory:
         # Object count should not grow excessively
         object_growth = final_objects - initial_objects
         assert object_growth < 1000  # Reasonable growth limit
-
 
 class TestErrorHandling:
     """Test error handling and edge cases"""

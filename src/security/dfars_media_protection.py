@@ -1,13 +1,8 @@
-"""
-DFARS Media Protection System (3.8.1 - 3.8.9)
-CUI data protection and encryption for defense contractors.
-Implements DFARS 252.204-7012 media protection requirements.
-"""
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class MediaType(Enum):
     """DFARS media classification types."""
@@ -19,7 +14,6 @@ class MediaType(Enum):
     PORTABLE_DEVICE = "portable_device"
     CLOUD_STORAGE = "cloud_storage"
 
-
 class CUICategory(Enum):
     """CUI (Controlled Unclassified Information) categories."""
     CUI_BASIC = "cui_basic"
@@ -30,7 +24,6 @@ class CUICategory(Enum):
     SP_FOIA = "sp_foia" # Freedom of Information Act
     SP_ITI = "sp_iti"   # Information Technology Infrastructure
 
-
 class MediaStatus(Enum):
     """Media lifecycle status tracking."""
     ACTIVE = "active"
@@ -40,14 +33,12 @@ class MediaStatus(Enum):
     QUARANTINED = "quarantined"
     ARCHIVED = "archived"
 
-
 class SanitizationMethod(Enum):
     """NIST 800-88 compliant sanitization methods."""
     CLEAR = "clear"
     PURGE = "purge"
     DESTROY = "destroy"
     CRYPTOGRAPHIC_ERASE = "cryptographic_erase"
-
 
 @dataclass
 class MediaAsset:
@@ -70,7 +61,6 @@ class MediaAsset:
     last_accessed: datetime
     sanitization_history: List[Dict[str, Any]]
 
-
 @dataclass
 class EncryptionKey:
     """Secure encryption key management."""
@@ -83,7 +73,6 @@ class EncryptionKey:
     status: str  # active, expired, revoked
     escrow_location: str
     access_log: List[Dict[str, Any]]
-
 
 @dataclass
 class MediaOperation:
@@ -99,13 +88,12 @@ class MediaOperation:
     cui_involved: bool
     authorization_level: str
 
-
 class DFARSMediaProtection:
     """
     DFARS 252.204-7012 Media Protection Implementation
 
     Implements all 9 media protection requirements:
-    3.8.1 - Protect media containing CUI
+    MAXIMUM_RETRY_ATTEMPTS.8.1 - Protect media containing CUI
     3.8.2 - Limit access to CUI on media
     3.8.3 - Sanitize or destroy media
     3.8.4 - Mark media containing CUI
@@ -116,7 +104,7 @@ class DFARSMediaProtection:
     3.8.9 - Protect backups of CUI
     """
 
-    def __init__(self, config: Dict[str, Any]):
+def __init__(self, config: Dict[str, Any]):
         """Initialize DFARS media protection system."""
         self.config = config
         self.crypto = FIPSCryptoModule()
@@ -142,10 +130,10 @@ class DFARSMediaProtection:
 
         logger.info("DFARS Media Protection System initialized")
 
-    def register_media_asset(self, asset_type: MediaType, serial_number: Optional[str],
-                           manufacturer: str, model: str, capacity: int,
-                           location: str, custodian: str,
-                           cui_categories: List[CUICategory]) -> str:
+def register_media_asset(self, asset_type: MediaType, serial_number: Optional[str],
+                            manufacturer: str, model: str, capacity: int,
+                            location: str, custodian: str,
+                            cui_categories: List[CUICategory]) -> str:
         """Register new media asset with CUI protection (3.8.1, 3.8.4)."""
         try:
             # Generate unique asset ID
@@ -217,7 +205,7 @@ class DFARSMediaProtection:
             )
             raise
 
-    def encrypt_cui_data(self, asset_id: str, data: bytes, cui_categories: List[CUICategory],
+def encrypt_cui_data(self, asset_id: str, data: bytes, cui_categories: List[CUICategory],
                         performed_by: str) -> bytes:
         """Encrypt CUI data using approved algorithms (3.8.6)."""
         if asset_id not in self.media_assets:
@@ -284,7 +272,7 @@ class DFARSMediaProtection:
             )
             raise
 
-    def decrypt_cui_data(self, asset_id: str, encrypted_data: bytes, performed_by: str,
+def decrypt_cui_data(self, asset_id: str, encrypted_data: bytes, performed_by: str,
                         authorization_level: str) -> bytes:
         """Decrypt CUI data with access control (3.8.2, 3.8.5)."""
         if asset_id not in self.media_assets:
@@ -347,8 +335,8 @@ class DFARSMediaProtection:
             )
             raise
 
-    def sanitize_media(self, asset_id: str, method: SanitizationMethod,
-                      performed_by: str, reason: str) -> Dict[str, Any]:
+def sanitize_media(self, asset_id: str, method: SanitizationMethod,
+                        performed_by: str, reason: str) -> Dict[str, Any]:
         """Sanitize or destroy media containing CUI (3.8.3)."""
         if asset_id not in self.media_assets:
             raise ValueError(f"Media asset not found: {asset_id}")
@@ -417,7 +405,7 @@ class DFARSMediaProtection:
             )
             raise
 
-    def control_removable_media(self, device_id: str, action: str, performed_by: str) -> bool:
+def control_removable_media(self, device_id: str, action: str, performed_by: str) -> bool:
         """Control use of removable media and portable devices (3.8.7, 3.8.8)."""
         try:
             # Check if device is approved for use
@@ -471,8 +459,8 @@ class DFARSMediaProtection:
             logger.error(f"Failed to control removable media: {e}")
             return False
 
-    def protect_cui_backups(self, backup_id: str, cui_categories: List[CUICategory],
-                           backup_location: str, performed_by: str) -> str:
+def protect_cui_backups(self, backup_id: str, cui_categories: List[CUICategory],
+                            backup_location: str, performed_by: str) -> str:
         """Protect backups containing CUI (3.8.9)."""
         try:
             # Generate backup protection ID
@@ -529,7 +517,7 @@ class DFARSMediaProtection:
             )
             raise
 
-    def get_compliance_status(self) -> Dict[str, Any]:
+def get_compliance_status(self) -> Dict[str, Any]:
         """Get DFARS media protection compliance status."""
         # Calculate encryption coverage
         cui_assets = [asset for asset in self.media_assets.values() if asset.cui_categories]
@@ -544,7 +532,7 @@ class DFARSMediaProtection:
 
         return {
             'dfars_controls': {
-                '3.8.1': {'implemented': True, 'status': 'CUI media protection active'},
+                'MAXIMUM_RETRY_ATTEMPTS.8.1': {'implemented': True, 'status': 'CUI media protection active'},
                 '3.8.2': {'implemented': True, 'status': 'CUI media access control enforced'},
                 '3.8.3': {'implemented': True, 'status': 'Media sanitization capability available'},
                 '3.8.4': {'implemented': True, 'status': 'CUI media marking implemented'},
@@ -565,12 +553,12 @@ class DFARSMediaProtection:
 
     # Private helper methods
 
-    def _initialize_secure_storage(self) -> None:
+def _initialize_secure_storage(self) -> None:
         """Initialize secure storage directories."""
         os.makedirs(self.secure_storage_path, exist_ok=True)
         os.makedirs(self.key_escrow_path, exist_ok=True)
 
-    def _determine_security_level(self, cui_categories: List[CUICategory]) -> str:
+def _determine_security_level(self, cui_categories: List[CUICategory]) -> str:
         """Determine security level based on CUI categories."""
         if not cui_categories:
             return "PUBLIC"
@@ -579,7 +567,7 @@ class DFARSMediaProtection:
         else:
             return "CUI_BASIC"
 
-    def _generate_encryption_key(self, asset_id: str, cui_categories: List[CUICategory]) -> str:
+def _generate_encryption_key(self, asset_id: str, cui_categories: List[CUICategory]) -> str:
         """Generate FIPS-compliant encryption key."""
         key_id = f"KEY-{datetime.now(timezone.utc).strftime('%Y%m%d')}-{uuid.uuid4().hex[:8].upper()}"
 
@@ -607,7 +595,7 @@ class DFARSMediaProtection:
 
         return key_id
 
-    def _escrow_key(self, key_id: str, key_material: bytes) -> None:
+def _escrow_key(self, key_id: str, key_material: bytes) -> None:
         """Securely escrow encryption key."""
         escrow_path = f"{self.key_escrow_path}/{key_id}.key"
 
@@ -618,7 +606,7 @@ class DFARSMediaProtection:
         with open(escrow_path, 'wb') as f:
             f.write(encrypted_key)
 
-    def _apply_cui_markings(self, asset: MediaAsset) -> None:
+def _apply_cui_markings(self, asset: MediaAsset) -> None:
         """Apply CUI markings to media (3.8.4)."""
         if asset.cui_categories:
             markings = {
@@ -634,7 +622,7 @@ class DFARSMediaProtection:
             with open(marking_path, 'w') as f:
                 json.dump(markings, f, indent=2)
 
-    def _get_dissemination_controls(self, cui_categories: List[CUICategory]) -> List[str]:
+def _get_dissemination_controls(self, cui_categories: List[CUICategory]) -> List[str]:
         """Get dissemination controls for CUI categories."""
         controls = []
         for category in cui_categories:
@@ -646,7 +634,7 @@ class DFARSMediaProtection:
                 controls.append("PrivacyControl")
         return controls
 
-    def _validate_access_authorization(self, asset: MediaAsset, user: str, auth_level: str) -> bool:
+def _validate_access_authorization(self, asset: MediaAsset, user: str, auth_level: str) -> bool:
         """Validate user authorization to access CUI media."""
         # Implement authorization logic based on user clearance and need-to-know
         required_level = asset.security_level
@@ -654,12 +642,12 @@ class DFARSMediaProtection:
 
         return self._check_clearance_level(user_clearance, required_level)
 
-    def _get_user_clearance(self, user: str) -> str:
+def _get_user_clearance(self, user: str) -> str:
         """Get user security clearance level."""
         # In a real implementation, this would query user management system
         return "CUI_BASIC"  # Placeholder
 
-    def _check_clearance_level(self, user_clearance: str, required_level: str) -> bool:
+def _check_clearance_level(self, user_clearance: str, required_level: str) -> bool:
         """Check if user clearance meets required level."""
         clearance_hierarchy = {
             "PUBLIC": 1,
@@ -674,7 +662,7 @@ class DFARSMediaProtection:
 
         return user_level >= required
 
-    def _perform_sanitization(self, asset: MediaAsset, method: SanitizationMethod) -> Dict[str, Any]:
+def _perform_sanitization(self, asset: MediaAsset, method: SanitizationMethod) -> Dict[str, Any]:
         """Perform NIST 800-88 compliant sanitization."""
         result = {
             'method': method.value,
@@ -704,23 +692,23 @@ class DFARSMediaProtection:
 
         return result
 
-    def _revoke_encryption_key(self, key_id: str) -> None:
+def _revoke_encryption_key(self, key_id: str) -> None:
         """Revoke encryption key."""
         if key_id in self.encryption_keys:
             self.encryption_keys[key_id].status = "revoked"
 
-    def _generate_verification_hash(self, asset_id: str, sanitization_id: str) -> str:
+def _generate_verification_hash(self, asset_id: str, sanitization_id: str) -> str:
         """Generate verification hash for sanitization."""
         data = f"{asset_id}{sanitization_id}{datetime.now(timezone.utc).isoformat()}"
         return hashlib.sha256(data.encode()).hexdigest()
 
-    def _validate_removable_media_access(self, user: str) -> bool:
+def _validate_removable_media_access(self, user: str) -> bool:
         """Validate user authorization for removable media access."""
         # Check user permissions for removable media use
         authorized_users = self.config.get('removable_media_users', [])
         return user in authorized_users
 
-    def _get_backup_access_controls(self, cui_categories: List[CUICategory]) -> Dict[str, Any]:
+def _get_backup_access_controls(self, cui_categories: List[CUICategory]) -> Dict[str, Any]:
         """Get access controls for CUI backups."""
         return {
             'encryption_required': True,
@@ -729,7 +717,7 @@ class DFARSMediaProtection:
             'geographic_restrictions': True
         }
 
-    def _get_retention_period(self, cui_categories: List[CUICategory]) -> int:
+def _get_retention_period(self, cui_categories: List[CUICategory]) -> int:
         """Get retention period for CUI backups (in days)."""
         # Base retention on CUI category requirements
         base_retention = 2555  # 7 years default
@@ -742,7 +730,7 @@ class DFARSMediaProtection:
 
         return base_retention
 
-    def _get_storage_requirements(self, cui_categories: List[CUICategory]) -> Dict[str, Any]:
+def _get_storage_requirements(self, cui_categories: List[CUICategory]) -> Dict[str, Any]:
         """Get storage requirements for CUI backups."""
         return {
             'geographic_separation': True,
@@ -752,7 +740,7 @@ class DFARSMediaProtection:
             'access_monitoring': True
         }
 
-    def _calculate_media_compliance_score(self) -> float:
+def _calculate_media_compliance_score(self) -> float:
         """Calculate overall media protection compliance score."""
         total_score = 0
         max_score = 9  # Number of DFARS media protection controls

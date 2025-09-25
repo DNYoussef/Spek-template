@@ -1498,5 +1498,3 @@ def function_499(x, y):
 
 def function_500(x, y):
     return x + y + 500
-
-

@@ -6,11 +6,12 @@ Benchmarks the performance improvements from file caching optimizations.
 Measures I/O reduction, cache hit rates, and analysis speed improvements.
 """
 
-import time
-import statistics
 from pathlib import Path
 from typing import Dict, List, Tuple
+import time
+
 from contextlib import contextmanager
+import statistics
 
 # Import optimization components
 try:
@@ -33,14 +34,12 @@ except ImportError:
     STREAMING_AVAILABLE = False
     print("Warning: Streaming components not available for benchmarking")
 
-
 @contextmanager
 def benchmark_timer():
     """Context manager for timing operations."""
     start_time = time.perf_counter()
     yield lambda: time.perf_counter() - start_time
     
-
 class PerformanceBenchmark:
     """Benchmark suite for file I/O optimizations."""
     
@@ -454,8 +453,6 @@ class PerformanceBenchmark:
             print(f"  [U+2022] Dashboard generation: {streaming_data.get('dashboard_generation_time_ms', 0)}ms")
             print(f"  [U+2022] Real-time monitoring: {streaming_data.get('monitor_report_time_ms', 0)}ms") 
             print(f"  [U+2022] Hybrid mode initialization: {streaming_data.get('hybrid_init_time_ms', 0)}ms")
-            print("  [U+2022] Full streaming stack available and tested")
-
 
 def main():
     """Run benchmark suite from command line."""
@@ -475,7 +472,6 @@ def main():
         with open(args.output, 'w') as f:
             json.dump(results, f, indent=2)
         print(f"\nResults saved to: {args.output}")
-
 
 if __name__ == "__main__":
     main()

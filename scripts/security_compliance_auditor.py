@@ -5,24 +5,25 @@ Phase 3: Continuous security compliance monitoring and NASA POT10 validation
 Target: Maintain 95% NASA compliance and zero critical security findings
 """
 
-import json
-import subprocess
-import sys
-import os
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Any, Optional
+import json
+import os
+import subprocess
+import sys
 
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_PARAMETERS, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
 
-class SecurityComplianceAuditor:
+class SecurityComplia, QUALITY_GATE_MINIMUM_PASS_RATE, TAKE_PROFIT_PERCENTAGEnceAuditor:
     """Continuous security compliance monitoring and auditing."""
     
-    def __init__(self):
+def __init__(self):
         self.nasa_pot10_rules = {
             'rule_3': {'name': 'Assertions', 'weight': 0.2, 'min_score': 0.9},
             'rule_7': {'name': 'Memory Bounds', 'weight': 0.25, 'min_score': 0.95},
-            'rule_8': {'name': 'Error Handling', 'weight': 0.2, 'min_score': 0.85},
-            'rule_9': {'name': 'Loop Bounds', 'weight': 0.15, 'min_score': 0.9},
+            'rule_8': {'name': 'Error Handling', 'weight': 0.2, 'min_score': QUALITY_GATE_MINIMUM_PASS_RATE},
+            'rule_9': {'name': 'Loop Bounds', 'weight': TAKE_PROFIT_PERCENTAGE, 'min_score': 0.9},
             'rule_10': {'name': 'Function Size', 'weight': 0.2, 'min_score': 0.8}
         }
         
@@ -31,7 +32,7 @@ class SecurityComplianceAuditor:
             'high_findings_max': 3,           # Phase 3 limit
             'medium_findings_max': 10,        # Acceptable level
             'secrets_max': 0,                 # Zero tolerance
-            'nasa_compliance_min': 0.92,     # 92% minimum
+            'nasa_compliance_min': NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD,     # 92% minimum
             'vulnerability_age_max_days': 30  # Max age for unfixed vulnerabilities
         }
         
@@ -47,7 +48,7 @@ class SecurityComplianceAuditor:
             'overall_compliance_score': 0.0
         }
     
-    def audit_nasa_pot10_compliance(self) -> Dict[str, Any]:
+def audit_nasa_pot10_compliance(self) -> Dict[str, Any]:
         """Audit NASA POT10 compliance across the codebase."""
         print("Auditing NASA POT10 compliance...")
         
@@ -83,7 +84,7 @@ class SecurityComplianceAuditor:
         self.audit_results['nasa_compliance'] = nasa_compliance
         return nasa_compliance
     
-    def _analyze_nasa_rule(self, rule_id: str, rule_info: Dict[str, Any], source_files: List[Path]) -> Dict[str, Any]:
+def _analyze_nasa_rule(self, rule_id: str, rule_info: Dict[str, Any], source_files: List[Path]) -> Dict[str, Any]:
         """Analyze specific NASA POT10 rule compliance."""
         rule_analysis = {
             'rule_id': rule_id,
@@ -129,7 +130,7 @@ class SecurityComplianceAuditor:
         
         return rule_analysis
     
-    def _check_nasa_rule_in_file(self, rule_id: str, content: str, file_path: Path) -> List[Dict[str, Any]]:
+def _check_nasa_rule_in_file(self, rule_id: str, content: str, file_path: Path) -> List[Dict[str, Any]]:
         """Check specific NASA rule violations in a file."""
         violations = []
         lines = content.split('\\n')
@@ -271,7 +272,7 @@ class SecurityComplianceAuditor:
         
         return violations
     
-    def audit_security_findings(self) -> Dict[str, Any]:
+def audit_security_findings(self) -> Dict[str, Any]:
         """Audit security findings from security pipeline."""
         print("Auditing security findings...")
         
@@ -356,7 +357,7 @@ class SecurityComplianceAuditor:
         self.audit_results['security_findings'] = security_findings
         return security_findings
     
-    def analyze_vulnerability_trends(self) -> Dict[str, Any]:
+def analyze_vulnerability_trends(self) -> Dict[str, Any]:
         """Analyze vulnerability trends and aging."""
         print("Analyzing vulnerability trends...")
         
@@ -394,7 +395,7 @@ class SecurityComplianceAuditor:
                 high_count = current_findings.get('high_count', 0)
                 secrets_count = current_findings.get('secrets_count', 0)
                 
-                risk_score = (critical_count * 10) + (high_count * 5) + (secrets_count * 15)
+                risk_score = (critical_count * MAXIMUM_FUNCTION_PARAMETERS) + (high_count * 5) + (secrets_count * 15)
                 
                 if risk_score == 0:
                     risk_level = 'very_low'
@@ -402,7 +403,7 @@ class SecurityComplianceAuditor:
                     risk_level = 'low'
                 elif risk_score <= 15:
                     risk_level = 'medium'
-                elif risk_score <= 30:
+                elif risk_score <= API_TIMEOUT_SECONDS:
                     risk_level = 'high'
                 else:
                     risk_level = 'critical'
@@ -421,7 +422,7 @@ class SecurityComplianceAuditor:
         self.audit_results['vulnerability_analysis'] = vulnerability_analysis
         return vulnerability_analysis
     
-    def calculate_overall_compliance_score(self) -> float:
+def calculate_overall_compliance_score(self) -> float:
         """Calculate overall security compliance score."""
         nasa_score = self.audit_results.get('nasa_compliance', {}).get('overall_score', 0.0)
         
@@ -457,7 +458,7 @@ class SecurityComplianceAuditor:
         self.audit_results['overall_compliance_score'] = overall_score
         return overall_score
     
-    def generate_compliance_alerts(self) -> List[Dict[str, Any]]:
+def generate_compliance_alerts(self) -> List[Dict[str, Any]]:
         """Generate compliance alerts based on audit results."""
         alerts = []
         
@@ -517,7 +518,7 @@ class SecurityComplianceAuditor:
         self.audit_results['alerts'] = alerts
         return alerts
     
-    def generate_compliance_recommendations(self) -> List[str]:
+def generate_compliance_recommendations(self) -> List[str]:
         """Generate actionable compliance recommendations."""
         recommendations = []
         
@@ -558,7 +559,7 @@ class SecurityComplianceAuditor:
         self.audit_results['recommendations'] = recommendations
         return recommendations
     
-    def run_security_compliance_audit(self) -> Dict[str, Any]:
+def run_security_compliance_audit(self) -> Dict[str, Any]:
         """Run complete security compliance audit."""
         print("Starting Security Compliance Audit")
         print("=" * 50)
@@ -592,7 +593,6 @@ class SecurityComplianceAuditor:
         self.audit_results['compliance_status'] = compliance_status
         
         return self.audit_results
-
 
 def main():
     """Main security compliance audit execution."""
@@ -653,7 +653,6 @@ def main():
         sys.exit(1)  # Non-compliant
     else:
         sys.exit(0)  # Compliant
-
 
 if __name__ == '__main__':
     main()

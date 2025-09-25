@@ -1,0 +1,110 @@
+{
+  "timestamp": "2025-09-24T16:07:42.382032",
+  "project_root": "C:\\Users\\17175\\Desktop\\spek template",
+  "batch_4_analysis": {
+    "import_success": true,
+    "instantiation_success": true,
+    "has_patterns_attr": true,
+    "has_cache_attr": true,
+    "initial_pattern_count": 15,
+    "methods": {
+      "match_pattern": {
+        "exists": true,
+        "callable": true
+      },
+      "add_pattern": {
+        "exists": true,
+        "callable": true
+      },
+      "get_pattern_statistics": {
+        "exists": true,
+        "callable": true
+      },
+      "evolve_patterns": {
+        "exists": false,
+        "callable": false
+      },
+      "export_patterns": {
+        "exists": false,
+        "callable": false
+      },
+      "import_patterns": {
+        "exists": false,
+        "callable": false
+      }
+    },
+    "errors": [],
+    "failure_pattern_class": true
+  },
+  "batch_5_cli": {
+    "files": {
+      "src/commands/dispatcher.js": {
+        "exists": true,
+        "size_bytes": 14335,
+        "lines": 443,
+        "has_content": true
+      },
+      "src/commands/executor.js": {
+        "exists": true,
+        "size_bytes": 9024,
+        "lines": 323,
+        "has_content": true
+      },
+      "src/commands/registry.js": {
+        "exists": true,
+        "size_bytes": 6717,
+        "lines": 251,
+        "has_content": true
+      },
+      "src/commands/validator.js": {
+        "exists": true,
+        "size_bytes": 9162,
+        "lines": 322,
+        "has_content": true
+      }
+    },
+    "command_concepts": {
+      "command_registration": true,
+      "command_dispatch": true,
+      "command_execution": true,
+      "mcp_integration": true,
+      "command_validation": true
+    },
+    "total_score": 100.0
+  },
+  "batch_9_enterprise": {
+    "files": {
+      "src/enterprise/integration/analyzer.py": {
+        "exists": true,
+        "size_bytes": 18430,
+        "lines": 390,
+        "has_content": true
+      },
+      "src/enterprise/integration/analyzer_validation_strategies.py": {
+        "exists": true,
+        "size_bytes": 9189,
+        "lines": 251,
+        "has_content": true
+      },
+      "src/enterprise/__init__.py": {
+        "exists": true,
+        "size_bytes": 1455,
+        "lines": 46,
+        "has_content": true
+      }
+    },
+    "integration_concepts": {
+      "wrapper_factory": true,
+      "validation_engine": true,
+      "enterprise_features": true,
+      "integration_class": true,
+      "factory_methods": true
+    },
+    "total_score": 100.0
+  },
+  "overall_scores": {
+    "batch_4": 87,
+    "batch_5": 100,
+    "batch_9": 100
+  }
+}

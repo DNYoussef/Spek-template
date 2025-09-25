@@ -1,6 +1,4 @@
-"""
-Real-time Performance Monitor with Bottleneck Detection
-======================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Advanced real-time monitoring system for detector pool performance with
 automatic bottleneck detection, alert generation, and adaptive optimization
@@ -28,14 +26,12 @@ from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 import logging
 logger = logging.getLogger(__name__)
 
-
 class AlertSeverity(Enum):
     """Alert severity levels."""
     INFO = "info"
     WARNING = "warning" 
     CRITICAL = "critical"
     EMERGENCY = "emergency"
-
 
 class BottleneckType(Enum):
     """Types of performance bottlenecks."""
@@ -47,7 +43,6 @@ class BottleneckType(Enum):
     RESOURCE_LEAK = "resource_leak"
     CPU_SATURATION = "cpu_saturation"
     IO_BOTTLENECK = "io_bottleneck"
-
 
 @dataclass
 class PerformanceAlert:
@@ -61,7 +56,6 @@ class PerformanceAlert:
     suggested_actions: List[str] = field(default_factory=list)
     auto_resolution_attempted: bool = False
     resolution_successful: bool = False
-
 
 @dataclass
 class RealTimeMetrics:
@@ -95,16 +89,15 @@ class RealTimeMetrics:
     latency_p95_ms: float = 0.0
     error_rate_percent: float = 0.0
 
-
 class BottleneckDetector:
     """
     Advanced bottleneck detection system with machine learning-inspired
     pattern recognition for performance anomaly detection.
     """
     
-    def __init__(self, 
-                 sensitivity: float = 1.0,
-                 history_window: int = 100):
+def __init__(self,
+                sensitivity: float = 1.0,
+                history_window: int = 100):
         """
         Initialize bottleneck detector.
         
@@ -153,7 +146,7 @@ class BottleneckDetector:
         
         logger.info(f"BottleneckDetector initialized with {sensitivity} sensitivity")
     
-    def analyze_metrics(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
+def analyze_metrics(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
         """
         Analyze metrics for performance bottlenecks.
         
@@ -185,7 +178,7 @@ class BottleneckDetector:
         
         return alerts
     
-    def _establish_baseline(self) -> None:
+def _establish_baseline(self) -> None:
         """Establish performance baseline from historical data."""
         if len(self.metrics_history) < 20:
             return
@@ -204,7 +197,7 @@ class BottleneckDetector:
         self.baseline_established = True
         logger.info("Performance baseline established", extra=self.baseline_metrics)
     
-    def _detect_thread_contention(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
+def _detect_thread_contention(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
         """Detect thread contention bottlenecks."""
         alerts = []
         thresholds = self.thresholds[BottleneckType.THREAD_CONTENTION]
@@ -262,7 +255,7 @@ class BottleneckDetector:
         
         return alerts
     
-    def _detect_memory_pressure(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
+def _detect_memory_pressure(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
         """Detect memory pressure bottlenecks."""
         alerts = []
         thresholds = self.thresholds[BottleneckType.MEMORY_PRESSURE]
@@ -322,7 +315,7 @@ class BottleneckDetector:
         
         return alerts
     
-    def _detect_detector_starvation(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
+def _detect_detector_starvation(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
         """Detect detector pool starvation."""
         alerts = []
         
@@ -372,7 +365,7 @@ class BottleneckDetector:
         
         return alerts
     
-    def _detect_gc_pressure(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
+def _detect_gc_pressure(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
         """Detect garbage collection pressure."""
         alerts = []
         thresholds = self.thresholds[BottleneckType.GC_PRESSURE]
@@ -400,7 +393,7 @@ class BottleneckDetector:
         
         return alerts
     
-    def _detect_cpu_saturation(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
+def _detect_cpu_saturation(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
         """Detect CPU saturation bottlenecks."""
         alerts = []
         
@@ -441,7 +434,7 @@ class BottleneckDetector:
         
         return alerts
     
-    def _detect_performance_degradation(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
+def _detect_performance_degradation(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
         """Detect overall performance degradation."""
         alerts = []
         
@@ -496,7 +489,7 @@ class BottleneckDetector:
         
         return alerts
     
-    def _detect_anomaly_patterns(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
+def _detect_anomaly_patterns(self, metrics: RealTimeMetrics) -> List[PerformanceAlert]:
         """Detect anomaly patterns using statistical analysis."""
         alerts = []
         
@@ -532,16 +525,15 @@ class BottleneckDetector:
         
         return alerts
 
-
 class RealTimePerformanceMonitor:
     """
     Comprehensive real-time performance monitor with bottleneck detection,
     alert generation, and adaptive optimization capabilities.
     """
     
-    def __init__(self,
-                 monitoring_interval: float = 2.0,
-                 alert_callback: Optional[Callable[[PerformanceAlert], None]] = None):
+def __init__(self,
+                monitoring_interval: float = 2.0,
+                alert_callback: Optional[Callable[[PerformanceAlert], None]] = None):
         """
         Initialize real-time performance monitor.
         
@@ -579,17 +571,17 @@ class RealTimePerformanceMonitor:
         
         logger.info(f"RealTimePerformanceMonitor initialized with {monitoring_interval}s interval")
     
-    def add_metrics_collector(self, collector: Callable[[], RealTimeMetrics]) -> None:
+def add_metrics_collector(self, collector: Callable[[], RealTimeMetrics]) -> None:
         """Add metrics collector function."""
         assert callable(collector), "collector must be callable"
         self.metrics_collectors.append(collector)
     
-    def add_resolution_callback(self, bottleneck_type: BottleneckType, callback: Callable[[PerformanceAlert], bool]) -> None:
+def add_resolution_callback(self, bottleneck_type: BottleneckType, callback: Callable[[PerformanceAlert], bool]) -> None:
         """Add auto-resolution callback for bottleneck type."""
         assert callable(callback), "callback must be callable"
         self.resolution_callbacks[bottleneck_type].append(callback)
     
-    def start_monitoring(self) -> None:
+def start_monitoring(self) -> None:
         """Start real-time performance monitoring."""
         with self._lock:
             if self.monitoring_active:
@@ -606,7 +598,7 @@ class RealTimePerformanceMonitor:
             
         logger.info("Real-time performance monitoring started")
     
-    def stop_monitoring(self) -> None:
+def stop_monitoring(self) -> None:
         """Stop real-time performance monitoring."""
         with self._lock:
             if not self.monitoring_active:
@@ -614,11 +606,11 @@ class RealTimePerformanceMonitor:
             
             self.monitoring_active = False
             if self.monitor_thread and self.monitor_thread.is_alive():
-                self.monitor_thread.join(timeout=5.0)
+                self.monitor_thread.join(timeout=MAXIMUM_NESTED_DEPTH)
         
         logger.info("Real-time performance monitoring stopped")
     
-    def _monitoring_loop(self) -> None:
+def _monitoring_loop(self) -> None:
         """Main monitoring loop."""
         logger.info("Real-time monitoring loop started")
         
@@ -632,7 +624,7 @@ class RealTimePerformanceMonitor:
         
         logger.info("Real-time monitoring loop ended")
     
-    def _collect_and_analyze_metrics(self) -> None:
+def _collect_and_analyze_metrics(self) -> None:
         """Collect metrics and analyze for bottlenecks."""
         try:
             # Collect metrics from all collectors
@@ -652,7 +644,7 @@ class RealTimePerformanceMonitor:
         except Exception as e:
             logger.error(f"Failed to collect and analyze metrics: {e}")
     
-    def _collect_metrics(self) -> Optional[RealTimeMetrics]:
+def _collect_metrics(self) -> Optional[RealTimeMetrics]:
         """Collect metrics from all registered collectors."""
         if not self.metrics_collectors:
             # Fallback to basic system metrics
@@ -673,7 +665,7 @@ class RealTimePerformanceMonitor:
         
         return aggregated_metrics
     
-    def _collect_basic_system_metrics(self) -> RealTimeMetrics:
+def _collect_basic_system_metrics(self) -> RealTimeMetrics:
         """Collect basic system metrics as fallback."""
         try:
             process = psutil.Process()
@@ -695,7 +687,7 @@ class RealTimePerformanceMonitor:
             logger.error(f"Failed to collect basic system metrics: {e}")
             return RealTimeMetrics(timestamp=time.time())
     
-    def _merge_metrics(self, metrics1: RealTimeMetrics, metrics2: RealTimeMetrics) -> RealTimeMetrics:
+def _merge_metrics(self, metrics1: RealTimeMetrics, metrics2: RealTimeMetrics) -> RealTimeMetrics:
         """Merge metrics from multiple collectors."""
         # Simplified merge - in practice this would be more sophisticated
         return RealTimeMetrics(
@@ -710,7 +702,7 @@ class RealTimePerformanceMonitor:
             throughput_ops_per_second=max(metrics1.throughput_ops_per_second, metrics2.throughput_ops_per_second)
         )
     
-    def _process_alert(self, alert: PerformanceAlert) -> None:
+def _process_alert(self, alert: PerformanceAlert) -> None:
         """Process performance alert."""
         with self._lock:
             # Check alert suppression
@@ -741,14 +733,14 @@ class RealTimePerformanceMonitor:
             # Set suppression to prevent spam
             self._set_alert_suppression(suppression_key)
     
-    def _is_alert_suppressed(self, suppression_key: Tuple[BottleneckType, AlertSeverity]) -> bool:
+def _is_alert_suppressed(self, suppression_key: Tuple[BottleneckType, AlertSeverity]) -> bool:
         """Check if alert type is suppressed."""
         last_alert_time = self.alert_suppression.get(suppression_key, 0)
         suppression_duration = self._get_suppression_duration(suppression_key[1])
         
         return time.time() - last_alert_time < suppression_duration
     
-    def _get_suppression_duration(self, severity: AlertSeverity) -> float:
+def _get_suppression_duration(self, severity: AlertSeverity) -> float:
         """Get suppression duration based on severity."""
         durations = {
             AlertSeverity.INFO: 300.0,      # 5 minutes
@@ -758,11 +750,11 @@ class RealTimePerformanceMonitor:
         }
         return durations.get(severity, 120.0)
     
-    def _set_alert_suppression(self, suppression_key: Tuple[BottleneckType, AlertSeverity]) -> None:
+def _set_alert_suppression(self, suppression_key: Tuple[BottleneckType, AlertSeverity]) -> None:
         """Set alert suppression timestamp."""
         self.alert_suppression[suppression_key] = time.time()
     
-    def _attempt_auto_resolution(self, alert: PerformanceAlert) -> bool:
+def _attempt_auto_resolution(self, alert: PerformanceAlert) -> bool:
         """Attempt automatic resolution of performance alert."""
         callbacks = self.resolution_callbacks.get(alert.bottleneck_type, [])
         
@@ -776,7 +768,7 @@ class RealTimePerformanceMonitor:
         
         return False
     
-    def _log_alert(self, alert: PerformanceAlert) -> None:
+def _log_alert(self, alert: PerformanceAlert) -> None:
         """Log performance alert."""
         log_level = {
             AlertSeverity.INFO: logging.INFO,
@@ -792,7 +784,7 @@ class RealTimePerformanceMonitor:
             "metrics": alert.metrics
         })
     
-    def get_monitoring_report(self) -> Dict[str, Any]:
+def get_monitoring_report(self) -> Dict[str, Any]:
         """Generate comprehensive monitoring report."""
         with self._lock:
             # Alert statistics
@@ -825,7 +817,7 @@ class RealTimePerformanceMonitor:
                 "performance_recommendations": self._generate_performance_recommendations()
             }
     
-    def _generate_performance_recommendations(self) -> List[str]:
+def _generate_performance_recommendations(self) -> List[str]:
         """Generate performance recommendations based on alert history."""
         recommendations = []
         
@@ -863,12 +855,12 @@ class RealTimePerformanceMonitor:
         
         return recommendations
     
-    def __enter__(self):
+def __enter__(self):
         """Context manager entry."""
         self.start_monitoring()
         return self
     
-    def begin_analysis(self, target: str):
+def begin_analysis(self, target: str):
         """Mark beginning of analysis operation."""
         # Use existing basic metric collection
         self._analysis_start_time = time.time()
@@ -876,7 +868,7 @@ class RealTimePerformanceMonitor:
         self._violations_found = 0
         logger.info(f"Analysis started for: {target}")
 
-    def end_analysis(self) -> Dict[str, Any]:
+def end_analysis(self) -> Dict[str, Any]:
         """Mark end of analysis and return final metrics."""
         if hasattr(self, '_analysis_start_time'):
             analysis_duration = time.time() - self._analysis_start_time
@@ -902,7 +894,7 @@ class RealTimePerformanceMonitor:
         logger.info(f"Analysis completed: {final_metrics}")
         return final_metrics
 
-    def record_file_analyzed(self, violation_count: int = 0):
+def record_file_analyzed(self, violation_count: int = 0):
         """Record that a file was analyzed."""
         if not hasattr(self, '_files_analyzed'):
             self._files_analyzed = 0
@@ -911,7 +903,7 @@ class RealTimePerformanceMonitor:
         self._files_analyzed += 1
         self._violations_found += violation_count
 
-    def get_metrics(self) -> Dict[str, Any]:
+def get_metrics(self) -> Dict[str, Any]:
         """Get current metrics in expected format."""
         if hasattr(self, 'last_metrics') and self.last_metrics:
             return {
@@ -929,15 +921,13 @@ class RealTimePerformanceMonitor:
                 "violations_found": getattr(self, '_violations_found', 0)
             }
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+def __exit__(self, exc_type, exc_val, exc_tb):
         """Context manager exit."""
         self.stop_monitoring()
-
 
 # Global real-time monitor instance
 _global_real_time_monitor: Optional[RealTimePerformanceMonitor] = None
 _monitor_lock = threading.Lock()
-
 
 def get_global_real_time_monitor() -> RealTimePerformanceMonitor:
     """Get or create global real-time performance monitor."""
@@ -947,14 +937,12 @@ def get_global_real_time_monitor() -> RealTimePerformanceMonitor:
             _global_real_time_monitor = RealTimePerformanceMonitor()
         return _global_real_time_monitor
 
-
 def start_real_time_monitoring(alert_callback: Optional[Callable[[PerformanceAlert], None]] = None) -> None:
     """Start global real-time performance monitoring."""
     monitor = get_global_real_time_monitor()
     if alert_callback:
         monitor.alert_callback = alert_callback
     monitor.start_monitoring()
-
 
 def stop_real_time_monitoring() -> None:
     """Stop global real-time performance monitoring."""
@@ -963,12 +951,10 @@ def stop_real_time_monitoring() -> None:
         if _global_real_time_monitor:
             _global_real_time_monitor.stop_monitoring()
 
-
 def get_real_time_monitoring_report() -> Dict[str, Any]:
     """Get comprehensive real-time monitoring report."""
     monitor = get_global_real_time_monitor()
     return monitor.get_monitoring_report()
-
 
 # Example alert handler
 def example_alert_handler(alert: PerformanceAlert) -> None:
@@ -978,7 +964,6 @@ def example_alert_handler(alert: PerformanceAlert) -> None:
         print("   Suggested actions:")
         for action in alert.suggested_actions:
             print(f"   - {action}")
-
 
 if __name__ == "__main__":
     # Demonstration of real-time monitoring

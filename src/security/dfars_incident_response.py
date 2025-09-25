@@ -5,9 +5,8 @@ Implements DFARS 252.204-7012 incident response requirements.
 """
 
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+from lib.shared.utilities import get_logger
 
 class IncidentType(Enum):
     """DFARS incident classification types."""
@@ -22,7 +21,6 @@ class IncidentType(Enum):
     INSIDER_THREAT = "insider_threat"
     SUPPLY_CHAIN_COMPROMISE = "supply_chain_compromise"
 
-
 class IncidentSeverity(Enum):
     """DFARS incident severity levels."""
     CRITICAL = "critical"
@@ -30,7 +28,6 @@ class IncidentSeverity(Enum):
     MEDIUM = "medium"
     LOW = "low"
     INFO = "info"
-
 
 class IncidentStatus(Enum):
     """Incident response status tracking."""
@@ -42,14 +39,12 @@ class IncidentStatus(Enum):
     RESOLVED = "resolved"
     CLOSED = "closed"
 
-
 class NotificationStatus(Enum):
     """DoD notification status tracking."""
     PENDING = "pending"
     SENT = "sent"
     ACKNOWLEDGED = "acknowledged"
     FAILED = "failed"
-
 
 @dataclass
 class IncidentEvidence:
@@ -64,7 +59,6 @@ class IncidentEvidence:
     collected_at: datetime
     chain_of_custody: List[str]
 
-
 @dataclass
 class DoDNotification:
     """DoD 72-hour notification tracking."""
@@ -78,7 +72,6 @@ class DoDNotification:
     confirmation_number: Optional[str] = None
     acknowledgment_received: Optional[datetime] = None
 
-
 @dataclass
 class IncidentTimeline:
     """Incident response timeline tracking."""
@@ -89,7 +82,6 @@ class IncidentTimeline:
     eradication_time: Optional[datetime]
     recovery_time: Optional[datetime]
     resolution_time: Optional[datetime]
-
 
 @dataclass
 class DFARSIncident:
@@ -116,7 +108,6 @@ class DFARSIncident:
     created_at: datetime
     updated_at: datetime
 
-
 class DFARSIncidentResponse:
     """
     DFARS 252.204-7012 Incident Response Implementation
@@ -129,7 +120,7 @@ class DFARSIncidentResponse:
     Includes mandatory 72-hour DoD notification for CUI incidents.
     """
 
-    def __init__(self, config: Dict[str, Any]):
+def __init__(self, config: Dict[str, Any]):
         """Initialize DFARS incident response system."""
         self.config = config
         self.crypto = FIPSCryptoModule()
@@ -153,10 +144,10 @@ class DFARSIncidentResponse:
 
         logger.info("DFARS Incident Response System initialized")
 
-    def create_incident(self, title: str, description: str, incident_type: IncidentType,
-                       severity: IncidentSeverity, affected_systems: List[str],
-                       cui_involved: bool, cui_categories: List[str],
-                       reported_by: str) -> str:
+def create_incident(self, title: str, description: str, incident_type: IncidentType,
+                        severity: IncidentSeverity, affected_systems: List[str],
+                        cui_involved: bool, cui_categories: List[str],
+                        reported_by: str) -> str:
         """Create new DFARS incident (3.6.1, 3.6.2)."""
         try:
             # Generate unique incident ID
@@ -236,8 +227,8 @@ class DFARSIncidentResponse:
             )
             raise
 
-    def update_incident_status(self, incident_id: str, new_status: IncidentStatus,
-                              actions_taken: List[str], updated_by: str) -> None:
+def update_incident_status(self, incident_id: str, new_status: IncidentStatus,
+                                actions_taken: List[str], updated_by: str) -> None:
         """Update incident status and timeline (3.6.2)."""
         if incident_id not in self.active_incidents:
             raise ValueError(f"Incident not found: {incident_id}")
@@ -283,7 +274,7 @@ class DFARSIncidentResponse:
             }
         )
 
-    def add_evidence(self, incident_id: str, evidence_type: str, description: str,
+def add_evidence(self, incident_id: str, evidence_type: str, description: str,
                     file_path: Optional[str], collected_by: str) -> str:
         """Add evidence to incident with chain of custody."""
         if incident_id not in self.active_incidents:
@@ -328,7 +319,7 @@ class DFARSIncidentResponse:
 
         return evidence_id
 
-    def send_dod_notification(self, incident_id: str, notification_type: str = "initial") -> str:
+def send_dod_notification(self, incident_id: str, notification_type: str = "initial") -> str:
         """Send 72-hour DoD notification for CUI incidents (3.6.2)."""
         if incident_id not in self.active_incidents:
             raise ValueError(f"Incident not found: {incident_id}")
@@ -390,7 +381,7 @@ class DFARSIncidentResponse:
             )
             raise
 
-    def test_incident_response(self) -> Dict[str, Any]:
+def test_incident_response(self) -> Dict[str, Any]:
         """Test incident response capability (3.6.3)."""
         test_results = {
             'test_timestamp': datetime.now(timezone.utc).isoformat(),
@@ -467,7 +458,7 @@ class DFARSIncidentResponse:
             test_results['success_rate'] = 0.0
             return test_results
 
-    def get_compliance_status(self) -> Dict[str, Any]:
+def get_compliance_status(self) -> Dict[str, Any]:
         """Get DFARS incident response compliance status."""
         # Check 72-hour notification compliance
         overdue_notifications = self._check_overdue_notifications()
@@ -489,7 +480,7 @@ class DFARSIncidentResponse:
 
     # Private helper methods
 
-    def _assign_incident_handler(self, severity: IncidentSeverity) -> str:
+def _assign_incident_handler(self, severity: IncidentSeverity) -> str:
         """Assign incident handler based on severity."""
         if severity == IncidentSeverity.CRITICAL:
             return self.escalation_matrix.get('critical', 'incident_manager')
@@ -498,20 +489,19 @@ class DFARSIncidentResponse:
         else:
             return self.escalation_matrix.get('default', 'analyst')
 
-    def _schedule_dod_notification(self, incident_id: str) -> None:
+def _schedule_dod_notification(self, incident_id: str) -> None:
         """Schedule automatic DoD notification for CUI incidents."""
         # In a real implementation, this would schedule a background task
-        # to send notification within 72 hours
         logger.info(f"DoD notification scheduled for incident: {incident_id}")
 
-    def _alert_response_team(self, incident: DFARSIncident) -> None:
+def _alert_response_team(self, incident: DFARSIncident) -> None:
         """Alert incident response team."""
         # Send alerts to response team based on severity
         for team_member in self.response_team:
             if self._should_alert_member(team_member, incident.severity):
                 self._send_alert(team_member, incident)
 
-    def _should_alert_member(self, member: Dict[str, Any], severity: IncidentSeverity) -> bool:
+def _should_alert_member(self, member: Dict[str, Any], severity: IncidentSeverity) -> bool:
         """Determine if team member should be alerted."""
         member_severity_threshold = member.get('alert_threshold', IncidentSeverity.MEDIUM)
         severity_levels = {
@@ -524,19 +514,19 @@ class DFARSIncidentResponse:
 
         return severity_levels[severity] >= severity_levels[member_severity_threshold]
 
-    def _send_alert(self, member: Dict[str, Any], incident: DFARSIncident) -> None:
+def _send_alert(self, member: Dict[str, Any], incident: DFARSIncident) -> None:
         """Send alert to team member."""
         # Implementation would send email, SMS, or other notification
         logger.info(f"Alert sent to {member.get('name')} for incident {incident.incident_id}")
 
-    def _send_dod_update_notification(self, incident_id: str, status: IncidentStatus) -> None:
+def _send_dod_update_notification(self, incident_id: str, status: IncidentStatus) -> None:
         """Send update notification to DoD."""
         try:
             self.send_dod_notification(incident_id, f"update_{status.value}")
         except Exception as e:
             logger.error(f"Failed to send DoD update notification: {e}")
 
-    def _prepare_dod_notification(self, incident: DFARSIncident, notification_type: str) -> Dict[str, Any]:
+def _prepare_dod_notification(self, incident: DFARSIncident, notification_type: str) -> Dict[str, Any]:
         """Prepare DoD notification content."""
         return {
             'incident_id': incident.incident_id,
@@ -557,7 +547,7 @@ class DFARSIncidentResponse:
             'contact_info': self.config.get('emergency_contact', {})
         }
 
-    def _send_notification_email(self, content: Dict[str, Any]) -> bool:
+def _send_notification_email(self, content: Dict[str, Any]) -> bool:
         """Send notification via email."""
         try:
             # Secure email implementation would go here
@@ -567,7 +557,7 @@ class DFARSIncidentResponse:
             logger.error(f"Failed to send email notification: {e}")
             return False
 
-    def _send_notification_portal(self, content: Dict[str, Any]) -> bool:
+def _send_notification_portal(self, content: Dict[str, Any]) -> bool:
         """Send notification via DoD portal."""
         try:
             # DoD portal API integration would go here
@@ -577,17 +567,15 @@ class DFARSIncidentResponse:
             logger.error(f"Failed to send portal notification: {e}")
             return False
 
-    def _test_notification_system(self) -> bool:
+def _test_notification_system(self) -> bool:
         """Test notification system functionality."""
         try:
             # Test email connectivity
-            # Test portal connectivity
-            # Test alert systems
             return True
         except Exception:
             return False
 
-    def _calculate_file_hash(self, file_path: str) -> str:
+def _calculate_file_hash(self, file_path: str) -> str:
         """Calculate SHA-256 hash of evidence file."""
         sha256_hash = hashlib.sha256()
         try:
@@ -599,7 +587,7 @@ class DFARSIncidentResponse:
             logger.error(f"Failed to calculate file hash: {e}")
             return ""
 
-    def _check_overdue_notifications(self) -> List[str]:
+def _check_overdue_notifications(self) -> List[str]:
         """Check for overdue DoD notifications."""
         overdue = []
         current_time = datetime.now(timezone.utc)
@@ -612,7 +600,7 @@ class DFARSIncidentResponse:
 
         return overdue
 
-    def _calculate_average_response_time(self) -> float:
+def _calculate_average_response_time(self) -> float:
         """Calculate average incident response time."""
         response_times = []
 
@@ -623,12 +611,12 @@ class DFARSIncidentResponse:
 
         return sum(response_times) / len(response_times) if response_times else 0.0
 
-    def _calculate_containment_rate(self) -> float:
+def _calculate_containment_rate(self) -> float:
         """Calculate incident containment rate."""
         contained_incidents = len([
             i for i in self.active_incidents.values()
             if i.status in [IncidentStatus.CONTAINED, IncidentStatus.ERADICATED,
-                           IncidentStatus.RECOVERING, IncidentStatus.RESOLVED]
+                            IncidentStatus.RECOVERING, IncidentStatus.RESOLVED]
         ])
 
         total_active = len(self.active_incidents)

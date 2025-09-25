@@ -1,8 +1,5 @@
 from lib.shared.utilities import get_logger
-#!/usr/bin/env python3
-"""
-DFARS Compliance Integration Demonstration
-Complete integration of DFARS workflow automation with existing infrastructure
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 This module demonstrates the full DFARS compliance workflow including:
 - Integration with existing security components
@@ -68,7 +65,6 @@ class DFARSIntegrationDemo:
 
     async def run_comprehensive_demo(self):
         """Run comprehensive DFARS integration demonstration"""
-        print("=" * 80)
         print("DFARS 252.204-7012 COMPLIANCE WORKFLOW AUTOMATION")
         print("Defense Industry Integration Demonstration")
         print("=" * 80)
@@ -181,7 +177,6 @@ class DFARSIntegrationDemo:
         ]
 
         for i, scenario in enumerate(test_scenarios, 1):
-            print(f"{i}. Testing: {scenario['description']}")
 
             # Simulate multiple failed attempts for lockout scenario
             if 'lockout' in scenario['description']:
@@ -244,7 +239,6 @@ class DFARSIntegrationDemo:
         ]
 
         for i, test_file in enumerate(test_files, 1):
-            print(f"{i}. Scanning: {test_file['filename']}")
 
             # Create test file
             file_path = Path(test_file['filename'])
@@ -537,15 +531,11 @@ class DFARSIntegrationDemo:
         total_tests += len(auth_tests)
         passed_tests += auth_passed
 
-        print(f"Authentication Tests: {auth_passed}/{len(auth_tests)} passed")
-
         # CUI scanning tests
         cui_tests = self.demo_results['cui_scanning']
         cui_passed = sum(1 for test in cui_tests if test['passed'])
         total_tests += len(cui_tests)
         passed_tests += cui_passed
-
-        print(f"CUI Scanning Tests: {cui_passed}/{len(cui_tests)} passed")
 
         # Incident response
         incident_count = len(self.demo_results['incident_response'])
@@ -557,7 +547,6 @@ class DFARSIntegrationDemo:
 
         # Integration tests
         integration = self.demo_results['integration_tests']
-        print(f"Integration Tests: Audit integrity {'PASSED' if integration['audit_integrity'] else 'FAILED'}")
 
         # Final metrics
         final_report = self.demo_results['final_report']
@@ -569,8 +558,7 @@ class DFARSIntegrationDemo:
 
         # Overall success rate
         if total_tests > 0:
-            success_rate = (passed_tests / total_tests) * 100
-            print(f"\nOverall Test Success Rate: {success_rate:.1f}% ({passed_tests}/{total_tests})")
+            success_rate = (passed_tests / total_tests) * MAXIMUM_FUNCTION_LENGTH_LINES
 
         # Defense industry readiness assessment
         compliance_score = final_report['compliance_score']
@@ -588,7 +576,6 @@ class DFARSIntegrationDemo:
 
         print(f"\n{color} DEFENSE INDUSTRY CERTIFICATION READINESS: {readiness}")
 
-        print("\n" + "=" * 80)
         print("DFARS 252.204-7012 COMPLIANCE DEMONSTRATION COMPLETED")
         print("=" * 80)
 

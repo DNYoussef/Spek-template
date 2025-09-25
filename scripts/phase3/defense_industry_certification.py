@@ -1,9 +1,5 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Phase 3: Defense Industry Certification with DFARS Compliance
-Advanced Integration for Enterprise-Grade Defense Deployment
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
 import sys
 import json
@@ -17,7 +13,6 @@ from enum import Enum
 # Add project root to path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-
 class DefenseRequirement(Enum):
     """Defense industry compliance requirements"""
     DFARS_252_204_7012 = "DFARS Safeguarding CUI"
@@ -29,14 +24,12 @@ class DefenseRequirement(Enum):
     ITAR_COMPLIANCE = "International Traffic in Arms"
     EAR_COMPLIANCE = "Export Administration Regulations"
 
-
 class TheaterDetectionLevel(Enum):
     """Theater detection confidence levels"""
     GENUINE = "Genuine implementation verified"
     PARTIAL = "Partial implementation detected"
     THEATRICAL = "Performance theater detected"
     UNKNOWN = "Unable to verify implementation"
-
 
 @dataclass
 class DefenseCertification:
@@ -49,13 +42,12 @@ class DefenseCertification:
     theater_detection: str
     notes: str
 
-
 class DefenseIndustryCertificationEngine:
     """
     Phase 3: Advanced Integration Engine for Defense Industry Certification
     """
 
-    def __init__(self, project_path: str = "."):
+def __init__(self, project_path: str = "."):
         self.project_path = Path(project_path)
         self.results = {
             "timestamp": datetime.now().isoformat(),
@@ -67,12 +59,12 @@ class DefenseIndustryCertificationEngine:
         }
 
         # Defense thresholds
-        self.DFARS_THRESHOLD = 0.95  # 95% DFARS compliance required
-        self.NASA_POT10_THRESHOLD = 0.95  # 95% NASA compliance required
+        self.DFARS_THRESHOLD = NASA_POT10_TARGET_COMPLIANCE_THRESHOLD  # 95% DFARS compliance required
+        self.NASA_POT10_THRESHOLD = NASA_POT10_TARGET_COMPLIANCE_THRESHOLD  # 95% NASA compliance required
         self.PERFORMANCE_OVERHEAD_LIMIT = 0.012  # 1.2% max overhead
         self.AUDIT_COVERAGE_MINIMUM = 0.90  # 90% audit trail coverage
 
-    def run_certification_suite(self) -> Dict[str, Any]:
+def run_certification_suite(self) -> Dict[str, Any]:
         """Execute complete defense industry certification suite"""
         print("[LOCK] Phase 3: Defense Industry Certification Suite")
         print("=" * 70)
@@ -113,7 +105,7 @@ class DefenseIndustryCertificationEngine:
 
         return self.results
 
-    def _initialize_certification_environment(self):
+def _initialize_certification_environment(self):
         """Initialize defense certification environment"""
         print("\n[TARGET] Initializing Defense Certification Environment")
         print("-" * 50)
@@ -131,7 +123,7 @@ class DefenseIndustryCertificationEngine:
 
         print("[OK] Certification environment initialized")
 
-    def _validate_dfars_compliance(self) -> DefenseCertification:
+def _validate_dfars_compliance(self) -> DefenseCertification:
         """Validate DFARS 252.204-7012 compliance"""
         print("\n[SHIELD] Validating DFARS 252.204-7012 Compliance")
         print("-" * 50)
@@ -205,7 +197,7 @@ class DefenseIndustryCertificationEngine:
             notes=f"Passed {passed_checks}/{total_checks} DFARS controls"
         )
 
-    def _validate_nasa_pot10(self) -> DefenseCertification:
+def _validate_nasa_pot10(self) -> DefenseCertification:
         """Validate NASA POT10 safety-critical rules"""
         print("\n[ROCKET] Validating NASA POT10 Compliance")
         print("-" * 50)
@@ -241,8 +233,8 @@ class DefenseIndustryCertificationEngine:
         total_rules = len(pot10_rules)
         compliance_score = passed_rules / total_rules if total_rules > 0 else 0
 
-        # Adjust based on previous Phase 3 results (68.5% achieved)
-        actual_score = 0.685  # From Phase 3 implementation
+        # Adjust based on previous Phase 3 results (68.MAXIMUM_NESTED_DEPTH% achieved)
+        actual_score = 0.685  # From Phase MAXIMUM_RETRY_ATTEMPTS implementation
 
         print(f"  NASA POT10 Score: {actual_score:.1%}")
         print(f"  Rules Validated: {passed_rules}/{total_rules}")
@@ -257,7 +249,7 @@ class DefenseIndustryCertificationEngine:
             notes=f"Achieved {actual_score:.1%} compliance (target: 95%)"
         )
 
-    def _validate_cryptography(self) -> DefenseCertification:
+def _validate_cryptography(self) -> DefenseCertification:
         """Validate cryptographic implementation"""
         print("\n[LOCK] Validating Cryptographic Standards")
         print("-" * 50)
@@ -308,7 +300,7 @@ class DefenseIndustryCertificationEngine:
             notes=f"Passed {passed_reqs}/{total_reqs} cryptographic requirements"
         )
 
-    def _validate_performance_monitoring(self) -> Dict[str, Any]:
+def _validate_performance_monitoring(self) -> Dict[str, Any]:
         """Validate performance monitoring systems"""
         print("\n[CHART] Validating Performance Monitoring")
         print("-" * 50)
@@ -352,7 +344,7 @@ class DefenseIndustryCertificationEngine:
 
         return performance_metrics
 
-    def _enhance_theater_detection(self) -> Dict[str, Any]:
+def _enhance_theater_detection(self) -> Dict[str, Any]:
         """Enhance theater detection for enterprise modules"""
         print("\n[SEARCH] Enhancing Theater Detection")
         print("-" * 50)
@@ -406,7 +398,7 @@ class DefenseIndustryCertificationEngine:
 
         return theater_detection
 
-    def _validate_audit_trails(self) -> DefenseCertification:
+def _validate_audit_trails(self) -> DefenseCertification:
         """Validate audit trail generation and retention"""
         print("\n[CLIPBOARD] Validating Audit Trail System")
         print("-" * 50)
@@ -460,7 +452,7 @@ class DefenseIndustryCertificationEngine:
             notes=f"Passed {passed_reqs}/{total_reqs} audit requirements"
         )
 
-    def _validate_enterprise_integration(self) -> DefenseCertification:
+def _validate_enterprise_integration(self) -> DefenseCertification:
         """Validate enterprise feature integration"""
         print("\n[BUILD] Validating Enterprise Integration")
         print("-" * 50)
@@ -513,7 +505,7 @@ class DefenseIndustryCertificationEngine:
             notes=f"Integrated {passed_checks}/{total_checks} enterprise features"
         )
 
-    def _assess_production_readiness(self):
+def _assess_production_readiness(self):
         """Final production readiness assessment"""
         print("\n[TROPHY] Production Readiness Assessment")
         print("=" * 70)
@@ -521,7 +513,7 @@ class DefenseIndustryCertificationEngine:
         # Calculate overall scores
         total_certs = len(self.results["certifications"])
         compliant_certs = sum(1 for cert in self.results["certifications"]
-                             if cert["status"] in ["COMPLIANT", "PARTIAL"])
+                            if cert["status"] in ["COMPLIANT", "PARTIAL"])
 
         # Performance assessment
         overhead = self.results["performance_metrics"].get("overhead_percentage", 0)
@@ -552,7 +544,7 @@ class DefenseIndustryCertificationEngine:
         print(f"  Theater Detection Confidence: {detection_confidence:.1%}")
         print(f"\n  Deployment Recommendation: {self.results['production_readiness']['deployment_recommendation']}")
 
-    def generate_certification_report(self) -> str:
+def generate_certification_report(self) -> str:
         """Generate final certification report"""
         report_path = Path(".claude/.artifacts/defense-certification/phase3_certification_report.json")
         report_path.parent.mkdir(parents=True, exist_ok=True)
@@ -561,7 +553,6 @@ class DefenseIndustryCertificationEngine:
             json.dump(self.results, f, indent=2, default=str)
 
         return str(report_path)
-
 
 def main():
     """Execute Phase 3 Defense Industry Certification"""
@@ -608,7 +599,6 @@ def main():
     except Exception as e:
         print(f"[FAIL] Certification Error: {e}")
         return 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

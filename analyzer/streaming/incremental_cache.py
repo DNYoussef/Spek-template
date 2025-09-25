@@ -1,6 +1,4 @@
-"""
-Incremental Delta-Based Caching System
-======================================
+from src.constants.base import SESSION_TIMEOUT_SECONDS
 
 Intelligent caching system for incremental analysis that tracks file changes,
 dependencies, and partial analysis results. Integrates with existing file_cache
@@ -24,7 +22,6 @@ from typing import Any, Dict, List, Optional, Set, Tuple, Union
 import logging
 logger = logging.getLogger(__name__)
 
-
 @dataclass
 class FileDelta:
     """Represents changes to a file since last analysis."""
@@ -39,15 +36,14 @@ class FileDelta:
     lines_removed: int = 0
     lines_modified: int = 0
     
-    def __post_init__(self):
+def __post_init__(self):
         """Validate delta data."""
         assert self.change_type in ['created', 'modified', 'deleted'], \
             f"Invalid change_type: {self.change_type}"
         assert self.new_size >= 0, "new_size cannot be negative"
         assert self.old_size >= 0, "old_size cannot be negative"
 
-
-@dataclass 
+@dataclass
 class DependencyNode:
     """Represents a file and its dependencies."""
     file_path: str
@@ -57,16 +53,14 @@ class DependencyNode:
     dependents: Set[str] = field(default_factory=set)   # Files that depend on this file
     analysis_results: Optional[Dict[str, Any]] = None
     
-    def is_stale(self, file_hashes: Dict[str, str]) -> bool:
+def is_stale(self, file_hashes: Dict[str, str]) -> bool:
         """Check if this node needs reanalysis based on dependency changes."""
         # Check if any dependencies have changed
         for dep_path in self.dependencies:
             if dep_path in file_hashes:
                 current_hash = file_hashes[dep_path]
                 # This would need to track dependency hashes - simplified for now
-                pass
         return False
-
 
 @dataclass
 class PartialResult:
@@ -79,10 +73,9 @@ class PartialResult:
     dependencies: Set[str] = field(default_factory=set)
     metadata: Dict[str, Any] = field(default_factory=dict)
     
-    def is_valid_for_hash(self, current_hash: str) -> bool:
+def is_valid_for_hash(self, current_hash: str) -> bool:
         """Check if this result is valid for the current file hash."""
         return self.content_hash == current_hash
-
 
 class IncrementalCache:
     """
@@ -92,10 +85,10 @@ class IncrementalCache:
     capabilities for streaming and incremental analysis workflows.
     """
     
-    def __init__(self, 
-                 max_partial_results: int = 5000,
-                 max_dependency_nodes: int = 10000,
-                 cache_retention_hours: float = 24.0):
+def __init__(self,
+                max_partial_results: int = 5000,
+                max_dependency_nodes: int = 10000,
+                cache_retention_hours: float = 24.0):
         """
         Initialize incremental cache.
         
@@ -110,7 +103,7 @@ class IncrementalCache:
         
         self.max_partial_results = max_partial_results
         self.max_dependency_nodes = max_dependency_nodes
-        self.cache_retention_seconds = cache_retention_hours * 3600
+        self.cache_retention_seconds = cache_retention_hours * SESSION_TIMEOUT_SECONDS
         
         # Partial results cache
         self._partial_results: Dict[str, PartialResult] = {}
@@ -142,9 +135,9 @@ class IncrementalCache:
             "partial_result_reuse": 0
         }
     
-    def track_file_change(self, file_path: Union[str, Path], 
-                         old_content: Optional[str] = None,
-                         new_content: Optional[str] = None) -> FileDelta:
+def track_file_change(self, file_path: Union[str, Path],
+                        old_content: Optional[str] = None,
+                        new_content: Optional[str] = None) -> FileDelta:
         """
         Track file change and create delta.
         
@@ -238,7 +231,7 @@ class IncrementalCache:
             
             return delta
 
-    def get(self, file_path: Union[str, Path]) -> Optional[Dict[str, Any]]:
+def get(self, file_path: Union[str, Path]) -> Optional[Dict[str, Any]]:
         """Get cached result for file (simplified interface)."""
         file_path_str = str(file_path)
         with self._lock:
@@ -257,7 +250,7 @@ class IncrementalCache:
                         }
             return None
 
-    def set(self, file_path: Union[str, Path], data: Dict[str, Any]) -> None:
+def set(self, file_path: Union[str, Path], data: Dict[str, Any]) -> None:
         """Set cached result for file (simplified interface)."""
         file_path_str = str(file_path)
         content_hash = data.get("hash", "unknown")
@@ -273,10 +266,10 @@ class IncrementalCache:
             metadata={"stored_via_set": True}
         )
 
-    def get_partial_result(self, 
-                          file_path: Union[str, Path],
-                          result_type: str,
-                          current_hash: Optional[str] = None) -> Optional[PartialResult]:
+def get_partial_result(self,
+                            file_path: Union[str, Path],
+                            result_type: str,
+                            current_hash: Optional[str] = None) -> Optional[PartialResult]:
         """
         Get cached partial result for file.
         
@@ -315,13 +308,13 @@ class IncrementalCache:
             self._metrics["partial_result_reuse"] += 1
             return result
     
-    def store_partial_result(self,
-                           file_path: Union[str, Path],
-                           result_type: str,
-                           data: Any,
-                           content_hash: str,
-                           dependencies: Optional[Set[str]] = None,
-                           metadata: Optional[Dict[str, Any]] = None) -> None:
+def store_partial_result(self,
+                            file_path: Union[str, Path],
+                            result_type: str,
+                            data: Any,
+                            content_hash: str,
+                            dependencies: Optional[Set[str]] = None,
+                            metadata: Optional[Dict[str, Any]] = None) -> None:
         """
         Store partial analysis result.
         
@@ -359,7 +352,7 @@ class IncrementalCache:
             # Update dependency tracking
             self._update_dependency_tracking(file_path_str, dependencies or set())
     
-    def _update_dependency_tracking(self, file_path: str, dependencies: Set[str]) -> None:
+def _update_dependency_tracking(self, file_path: str, dependencies: Set[str]) -> None:
         """Update dependency graph for file."""
         if file_path not in self._dependency_graph:
             self._dependency_graph[file_path] = DependencyNode(
@@ -389,7 +382,7 @@ class IncrementalCache:
             if dep_path in self._dependency_graph:
                 self._dependency_graph[dep_path].dependents.discard(file_path)
     
-    def _invalidate_dependent_results(self, changed_file: str, delta: FileDelta) -> None:
+def _invalidate_dependent_results(self, changed_file: str, delta: FileDelta) -> None:
         """Invalidate results that depend on changed file."""
         if changed_file not in self._dependency_graph:
             return
@@ -426,13 +419,13 @@ class IncrementalCache:
             logger.debug(f"Invalidated {invalidated_count} results due to change in {changed_file}")
             self._metrics["dependency_invalidations"] += invalidated_count
     
-    def _remove_partial_result(self, result_key: str) -> None:
+def _remove_partial_result(self, result_key: str) -> None:
         """Remove partial result from cache."""
         result = self._partial_results.pop(result_key, None)
         if result:
             self._results_by_file[result.file_path].discard(result_key)
     
-    def _evict_old_partial_results(self) -> None:
+def _evict_old_partial_results(self) -> None:
         """Evict oldest partial results to maintain cache size."""
         # Sort by creation time and remove oldest
         sorted_results = sorted(
@@ -445,9 +438,9 @@ class IncrementalCache:
         for result_key, result in sorted_results[:evict_count]:
             self._remove_partial_result(result_key)
     
-    def get_files_needing_analysis(self, 
-                                  file_paths: List[str],
-                                  analysis_type: str = "violations") -> List[str]:
+def get_files_needing_analysis(self,
+                                    file_paths: List[str],
+                                    analysis_type: str = "violations") -> List[str]:
         """
         Get list of files that need analysis based on cache status.
         
@@ -470,7 +463,7 @@ class IncrementalCache:
         
         return needs_analysis
     
-    def get_dependency_chain(self, file_path: str) -> Set[str]:
+def get_dependency_chain(self, file_path: str) -> Set[str]:
         """Get all files in the dependency chain for given file."""
         dependencies = set()
         to_process = deque([file_path])
@@ -493,7 +486,7 @@ class IncrementalCache:
         
         return dependencies - {file_path}  # Exclude the original file
     
-    def clear_file_cache(self, file_path: Union[str, Path]) -> int:
+def clear_file_cache(self, file_path: Union[str, Path]) -> int:
         """Clear all cached results for specific file."""
         file_path_str = str(file_path)
         
@@ -531,7 +524,7 @@ class IncrementalCache:
             
             return cleared_count
     
-    def get_cache_stats(self) -> Dict[str, Any]:
+def get_cache_stats(self) -> Dict[str, Any]:
         """Get comprehensive cache statistics."""
         with self._lock:
             total_requests = self._metrics["cache_hits"] + self._metrics["cache_misses"]
@@ -551,7 +544,7 @@ class IncrementalCache:
                 "file_cache_integration": CACHE_INTEGRATION_AVAILABLE
             }
     
-    def cleanup_expired_results(self) -> int:
+def cleanup_expired_results(self) -> int:
         """Clean up expired cache entries."""
         current_time = time.time()
         expired_keys = []
@@ -566,16 +559,14 @@ class IncrementalCache:
         
         return len(expired_keys)
     
-    def integrate_with_file_cache(self, file_cache: FileContentCache) -> None:
+def integrate_with_file_cache(self, file_cache: FileContentCache) -> None:
         """Integrate with existing FileContentCache system."""
         self.file_cache = file_cache
         logger.info("Integrated incremental cache with existing FileContentCache")
 
-
 # Global incremental cache instance
 _global_incremental_cache: Optional[IncrementalCache] = None
 _cache_lock = threading.Lock()
-
 
 def get_global_incremental_cache() -> IncrementalCache:
     """Get or create global incremental cache instance."""
@@ -592,7 +583,6 @@ def get_global_incremental_cache() -> IncrementalCache:
                     _global_incremental_cache.integrate_with_file_cache(existing_cache)
     
     return _global_incremental_cache
-
 
 def clear_incremental_cache() -> None:
     """Clear global incremental cache."""

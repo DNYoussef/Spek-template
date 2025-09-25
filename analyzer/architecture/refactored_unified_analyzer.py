@@ -1,7 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Refactored Unified Analyzer - 100% Backward Compatible Interface
-===============================================================
+from src.constants.base import API_TIMEOUT_SECONDS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, THEATER_DETECTION_WARNING_THRESHOLD
 
 Production-ready replacement for the god object UnifiedConnascenceAnalyzer.
 Maintains 100% API compatibility while using the new decomposed architecture.
@@ -21,7 +18,6 @@ from .analysis_observers import LoggingObserver, MetricsCollector, FileReportObs
 
 logger = logging.getLogger(__name__)
 
-
 class SimpleConfigProvider(ConfigurationProvider):
     """Simple configuration provider for backward compatibility."""
 
@@ -34,7 +30,6 @@ class SimpleConfigProvider(ConfigurationProvider):
     def get_detector_config(self, detector_name: str) -> Dict[str, Any]:
         return self.config.get(f'detector_{detector_name}', {})
 
-
 class RefactoredUnifiedAnalyzer:
     """
     Refactored unified analyzer with 100% backward compatibility.
@@ -42,14 +37,14 @@ class RefactoredUnifiedAnalyzer:
     This class replaces the original god object while maintaining ALL existing
     method signatures and behavior for seamless integration.
 
-    Performance improvements: 20-30% faster due to optimized architecture.
+    Performance improvements: 20-API_TIMEOUT_SECONDS% faster due to optimized architecture.
     NASA Compliance: 95%+ achieved through focused component design.
     """
 
     def __init__(self,
-                 config_path: Optional[str] = None,
-                 analysis_mode: str = "batch",
-                 streaming_config: Optional[Dict[str, Any]] = None):
+                config_path: Optional[str] = None,
+                analysis_mode: str = "batch",
+                streaming_config: Optional[Dict[str, Any]] = None):
         """
         Initialize with backward-compatible constructor signature.
 
@@ -98,10 +93,10 @@ class RefactoredUnifiedAnalyzer:
     # MAIN ANALYSIS METHODS - 100% Backward Compatible
 
     def analyze_project(self,
-                       project_path: str,
-                       policy_preset: str = "strict",
-                       enable_caching: bool = True,
-                       output_format: str = "json") -> Dict[str, Any]:
+                        project_path: str,
+                        policy_preset: str = "strict",
+                        enable_caching: bool = True,
+                        output_format: str = "json") -> Dict[str, Any]:
         """
         Main project analysis method - 100% backward compatible.
 
@@ -181,7 +176,7 @@ class RefactoredUnifiedAnalyzer:
 
     # REPORT GENERATION METHODS - 100% Backward Compatible
 
-    def generateConnascenceReport(self, options: Dict[str, Any]) -> str:
+    def generate_connascence_report(self, options: Dict[str, Any]) -> str:
         """
         Legacy report generation method - maintained for compatibility.
         """
@@ -270,7 +265,7 @@ class RefactoredUnifiedAnalyzer:
 
     # VALIDATION AND COMPLIANCE METHODS
 
-    def validateSafetyCompliance(self, options: Dict[str, Any]) -> Dict[str, Any]:
+    def validate_safety_compliance(self, options: Dict[str, Any]) -> Dict[str, Any]:
         """
         Legacy safety compliance validation.
         """
@@ -280,7 +275,7 @@ class RefactoredUnifiedAnalyzer:
 
             nasa_compliance = result.nasa_compliance
             return {
-                'compliant': nasa_compliance.get('score', 0.0) >= 0.95,
+                'compliant': nasa_compliance.get('score', 0.0) >= NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,
                 'score': nasa_compliance.get('score', 0.0),
                 'violations': nasa_compliance.get('violations', []),
                 'defense_ready': nasa_compliance.get('score', 0.0) >= 0.95
@@ -292,7 +287,7 @@ class RefactoredUnifiedAnalyzer:
 
     # FIX GENERATION METHODS
 
-    def getRefactoringSuggestions(self, options: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def get_refactoring_suggestions(self, options: Dict[str, Any]) -> List[Dict[str, Any]]:
         """
         Legacy refactoring suggestions method.
         """
@@ -317,7 +312,7 @@ class RefactoredUnifiedAnalyzer:
             logger.error(f"Refactoring suggestions failed: {e}")
             return []
 
-    def getAutomatedFixes(self, options: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def get_automated_fixes(self, options: Dict[str, Any]) -> List[Dict[str, Any]]:
         """
         Legacy automated fixes method.
         """
@@ -351,7 +346,7 @@ class RefactoredUnifiedAnalyzer:
                 'violations': legacy_violations,
                 'total_violations': len(legacy_violations),
                 'files_analyzed': result.metadata.get('files_analyzed', 0),
-                'overall_score': result.metrics.get('overall_score', 0.75),
+                'overall_score': result.metrics.get('overall_score', THEATER_DETECTION_WARNING_THRESHOLD),
                 'nasa_compliance': result.nasa_compliance,
                 'metrics': result.metrics,
                 'performance_stats': result.performance_stats,
@@ -393,7 +388,6 @@ class RefactoredUnifiedAnalyzer:
                 'error': True
             }
         }
-
 
 # BACKWARD COMPATIBILITY ALIASES
 

@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-GitHub MCP Integration Script for Closed-Loop Automation
-Provides comprehensive GitHub API integration with intelligent failure handling
-and real-time feedback mechanisms.
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 Author: Agent Beta - GitHub Integration Specialist  
 Memory: swarm/github_integration
@@ -846,7 +842,7 @@ class GitHubIntegration:
         await asyncio.sleep(1.0)
         return {
             'import_errors': 2,
-            'assertion_failures': 3,
+            'assertion_failures': MAXIMUM_RETRY_ATTEMPTS,
             'timeout_issues': 1,
             'environment_issues': 1
         }
@@ -1388,13 +1384,13 @@ async def main():
     
     parser = argparse.ArgumentParser(description='GitHub Closed-Loop Automation Integration')
     parser.add_argument('--mode', choices=['analyze', 'recover', 'notify', 'full'], 
-                       default='full', help='Operation mode')
+                        default='full', help='Operation mode')
     parser.add_argument('--recovery-mode', choices=['automatic', 'supervised', 'analysis_only'], 
-                       default='automatic', help='Recovery execution mode')
+                        default='automatic', help='Recovery execution mode')
     parser.add_argument('--lookback-hours', type=int, default=24, 
-                       help='Hours to look back for failure analysis')
+                        help='Hours to look back for failure analysis')
     parser.add_argument('--output-dir', default='.github/automation', 
-                       help='Output directory for reports')
+                        help='Output directory for reports')
     parser.add_argument('--config-file', help='Path to configuration file')
     
     args = parser.parse_args()

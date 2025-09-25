@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Comprehensive JSON Schema Validation Test Suite for Phase 1 Findings
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Tests all critical issues identified in Phase 1:
 - Mock data contamination prevention (85.7% contamination detected)
@@ -30,7 +28,6 @@ from analyzer.reporting.json import JSONReporter
 from analyzer.reporting.sarif import SARIFReporter
 from analyzer.ast_engine.core_analyzer import AnalysisResult, Violation
 from analyzer.thresholds import ConnascenceType, Severity
-
 
 class TestJSONSchemaValidation(unittest.TestCase):
     """Comprehensive JSON schema validation tests."""
@@ -107,7 +104,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
         
         mock_score = self._calculate_mock_contamination_score(result_dict)
         self.assertLess(mock_score, 0.2, 
-                       f"Real analysis data flagged as mock (score: {mock_score})")
+                        f"Real analysis data flagged as mock (score: {mock_score})")
         
         # Test synthetic mock data (should be flagged)
         mock_result = self._create_mock_analysis_result()
@@ -116,7 +113,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
         
         mock_score = self._calculate_mock_contamination_score(mock_dict)
         self.assertGreater(mock_score, 0.5, 
-                          f"Mock data not detected (score: {mock_score})")
+                            f"Mock data not detected (score: {mock_score})")
 
     def test_authentic_analysis_evidence_validation(self):
         """Test validation of authentic analysis evidence."""
@@ -193,7 +190,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
         for i, violation in enumerate(violations):
             for field in required_violation_fields:
                 self.assertIn(field, violation, 
-                             f"Violation {i} missing required field: {field}")
+                            f"Violation {i} missing required field: {field}")
             
             # Validate data types
             self.assertIsInstance(violation["weight"], (int, float))
@@ -221,7 +218,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
             policy_compliance = result.get("policy_compliance", {})
             for field in policy_fields:
                 self.assertIn(field, policy_compliance, 
-                             f"Inconsistent policy field: {field}")
+                            f"Inconsistent policy field: {field}")
 
     def test_standardized_policy_preset_values(self):
         """Test that policy preset values are standardized."""
@@ -232,7 +229,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
         
         policy_preset = result_dict["policy_compliance"]["policy_preset"]
         self.assertIn(policy_preset, valid_presets, 
-                     f"Invalid policy preset: {policy_preset}")
+                    f"Invalid policy preset: {policy_preset}")
 
     # PHASE 1 ISSUE 4: Performance Regression Detection Tests
     def test_json_generation_performance(self):
@@ -245,8 +242,8 @@ class TestJSONSchemaValidation(unittest.TestCase):
         generation_time = time.perf_counter() - start_time
         
         self.assertLess(generation_time, self.json_generation_time_threshold,
-                       f"JSON generation time {generation_time:.4f}s exceeds "
-                       f"threshold {self.json_generation_time_threshold:.4f}s")
+                        f"JSON generation time {generation_time:.4f}s exceeds "
+                        f"threshold {self.json_generation_time_threshold:.4f}s")
 
     def test_memory_footprint_limits(self):
         """Test memory footprint during JSON generation."""
@@ -258,7 +255,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
         
         # Generate large JSON report
         large_violations = [self._create_sample_violation(f"CON_TEST_{i}", "name", "medium", 1.0) 
-                           for i in range(1000)]
+                            for i in range(1000)]
         large_result = AnalysisResult(
             violations=large_violations,
             file_stats={"total_files": 100},
@@ -278,8 +275,8 @@ class TestJSONSchemaValidation(unittest.TestCase):
         memory_increase = (final_memory - initial_memory) / initial_memory
         
         self.assertLess(memory_increase, self.memory_footprint_threshold,
-                       f"Memory footprint increase {memory_increase:.3f} "
-                       f"exceeds threshold {self.memory_footprint_threshold:.3f}")
+                        f"Memory footprint increase {memory_increase:.3f} "
+                        f"exceeds threshold {self.memory_footprint_threshold:.3f}")
 
     def test_sarif_overhead_limits(self):
         """Test SARIF generation overhead (baseline: 6x standard JSON)."""
@@ -296,7 +293,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
         # SARIF should be no more than 6x slower
         overhead_ratio = sarif_time / json_time if json_time > 0 else float('inf')
         self.assertLess(overhead_ratio, 6.0,
-                       f"SARIF overhead ratio {overhead_ratio:.2f}x exceeds 6x limit")
+                        f"SARIF overhead ratio {overhead_ratio:.2f}x exceeds 6x limit")
 
     # PHASE 1 ISSUE 5: Violation ID Determinism Tests
     def test_violation_id_uniqueness(self):
@@ -339,7 +336,7 @@ class TestJSONSchemaValidation(unittest.TestCase):
             # ID should contain rule type information
             rule_id = violation["rule_id"]
             self.assertTrue(violation_id.startswith("test_") or rule_id in violation_id,
-                           f"Violation ID {violation_id} doesn't contain rule information")
+                            f"Violation ID {violation_id} doesn't contain rule information")
 
     def test_path_resolution_consistency(self):
         """Test that file path resolution is consistent."""
@@ -461,7 +458,6 @@ class TestJSONSchemaValidation(unittest.TestCase):
             baseline_comparison={"sample": True},
             summary_metrics={"example_metric": 1.0}
         )
-
 
 if __name__ == "__main__":
     unittest.main()

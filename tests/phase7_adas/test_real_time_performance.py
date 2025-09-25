@@ -1,8 +1,6 @@
-#!/usr/bin/env python3
-"""
-Real-Time Performance Testing for ADAS Phase 7
-Validates critical timing requirements and system performance under load.
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
+"""
 Requirements:
 - Latency < 10ms for safety-critical operations
 - 99.99% uptime under normal conditions
@@ -287,7 +285,7 @@ class TestStressConditions:
     def test_high_load_stress_test(self, performance_tester, sample_sensor_data):
         """Comprehensive stress test with high load"""
         stress_duration = STRESS_TEST_DURATION_SEC
-        num_threads = 10
+        num_threads = MAXIMUM_FUNCTION_PARAMETERS
         operations_per_thread = 100
 
         results = []
@@ -333,7 +331,6 @@ class TestStressConditions:
             total_operations = len(results) + len(errors)
             throughput = total_operations / (end_time - start_time)
 
-            print(f"Stress test results:")
             print(f"  Total operations: {total_operations}")
             print(f"  Average latency: {avg_latency:.2f}ms")
             print(f"  Maximum latency: {max_latency:.2f}ms")
@@ -418,8 +415,6 @@ class TestPerformanceReporting:
         os.makedirs("tests/phase7_adas/reports", exist_ok=True)
         with open("tests/phase7_adas/reports/performance_metrics.json", "w") as f:
             json.dump(metrics_data, f, indent=2)
-
-        print(f"Performance metrics saved to tests/phase7_adas/reports/performance_metrics.json")
 
 if __name__ == "__main__":
     # Run specific performance tests

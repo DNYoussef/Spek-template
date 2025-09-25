@@ -19,10 +19,11 @@ Modules:
 """
 
 # Phase 1A modules
-from .validation.result_processor import (
-    ValidationResult,
-    ValidationStatus,
-    ValidationResultProcessor
+from .cache.health_analyzer import (
+    CacheStats,
+    CacheHealthStatus,
+    CacheHealthMetrics,
+    CacheHealthAnalyzer
 )
 from .performance.measurement import (
     PerformanceMetrics,
@@ -30,11 +31,10 @@ from .performance.measurement import (
     measure_performance,
     benchmark_function
 )
-from .cache.health_analyzer import (
-    CacheStats,
-    CacheHealthStatus,
-    CacheHealthMetrics,
-    CacheHealthAnalyzer
+from .validation.result_processor import (
+    ValidationResult,
+    ValidationStatus,
+    ValidationResultProcessor
 )
 
 # Phase 1B modules

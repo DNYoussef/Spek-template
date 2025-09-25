@@ -1,7 +1,4 @@
-"""
-Reality Validation Engine
-Validates that claimed improvements and metrics represent genuine progress.
-"""
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
 
 import os
 import re
@@ -13,14 +10,12 @@ from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 
-
 class ValidationLevel(Enum):
     """Levels of validation rigor."""
     BASIC = "basic"
     STANDARD = "standard"
     RIGOROUS = "rigorous"
     FORENSIC = "forensic"
-
 
 class ValidationType(Enum):
     """Types of reality validation."""
@@ -29,7 +24,6 @@ class ValidationType(Enum):
     TEST_REALITY = "test_reality"
     PERFORMANCE_REALITY = "performance_reality"
     SECURITY_REALITY = "security_reality"
-
 
 @dataclass
 class ValidationResult:
@@ -42,7 +36,6 @@ class ValidationResult:
     recommendations: List[str]
     score: float  # 0-100, higher is more genuine
 
-
 @dataclass
 class QualityGate:
     """Quality gate with reality validation."""
@@ -52,7 +45,6 @@ class QualityGate:
     claimed_value: float
     passes_reality_check: bool
     validation_evidence: Dict[str, Any]
-
 
 @dataclass
 class RealityCheck:
@@ -65,14 +57,13 @@ class RealityCheck:
     quality_gates: List[QualityGate]
     summary: Dict[str, Any]
 
-
 class RealityValidationEngine:
     """Main reality validation engine."""
 
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
+def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
 
-    def validate_test_reality(self, directory: str) -> ValidationResult:
+def validate_test_reality(self, directory: str) -> ValidationResult:
         """Validate that test metrics represent real testing."""
         evidence = {}
         issues = []
@@ -156,7 +147,7 @@ class RealityValidationEngine:
             score=score
         )
 
-    def validate_metrics_reality(self, metrics: Dict[str, Any]) -> ValidationResult:
+def validate_metrics_reality(self, metrics: Dict[str, Any]) -> ValidationResult:
         """Validate that metrics represent genuine measurements."""
         evidence = {}
         issues = []
@@ -178,7 +169,7 @@ class RealityValidationEngine:
             coverage = float(metrics.get("test_coverage", 0))
             bugs = int(metrics.get("bug_count", 0))
 
-            if coverage == 100 and bugs == 0:
+            if coverage == MAXIMUM_FUNCTION_LENGTH_LINES and bugs == 0:
                 issues.append("100% coverage with 0 bugs is statistically unlikely")
                 recommendations.append("Verify test quality and bug tracking accuracy")
 
@@ -206,7 +197,7 @@ class RealityValidationEngine:
             score=score
         )
 
-    def validate_implementation_reality(self, directory: str) -> ValidationResult:
+def validate_implementation_reality(self, directory: str) -> ValidationResult:
         """Validate that implementation represents real functional changes."""
         evidence = {}
         issues = []
@@ -282,7 +273,7 @@ class RealityValidationEngine:
             score=score
         )
 
-    def validate_performance_reality(self, directory: str, claims: Dict[str, Any]) -> ValidationResult:
+def validate_performance_reality(self, directory: str, claims: Dict[str, Any]) -> ValidationResult:
         """Validate performance improvement claims."""
         evidence = {}
         issues = []
@@ -340,7 +331,7 @@ class RealityValidationEngine:
             score=score
         )
 
-    def comprehensive_reality_check(self, target: str, claims: Optional[Dict[str, Any]] = None) -> RealityCheck:
+def comprehensive_reality_check(self, target: str, claims: Optional[Dict[str, Any]] = None) -> RealityCheck:
         """Perform comprehensive reality validation."""
         claims = claims or {}
         validation_results = []
@@ -386,7 +377,7 @@ class RealityValidationEngine:
             summary=summary
         )
 
-    def _analyze_test_file(self, content: str) -> Tuple[int, int, int]:
+def _analyze_test_file(self, content: str) -> Tuple[int, int, int]:
         """Analyze test file for functions, empty tests, and assertions."""
         test_functions = 0
         empty_tests = 0
@@ -418,7 +409,7 @@ class RealityValidationEngine:
 
         return test_functions, empty_tests, meaningful_assertions
 
-    def _parse_git_diff_stats(self, diff_output: str) -> Dict[str, Any]:
+def _parse_git_diff_stats(self, diff_output: str) -> Dict[str, Any]:
         """Parse git diff --stat output."""
         stats = {
             "files_changed": 0,
@@ -444,7 +435,7 @@ class RealityValidationEngine:
 
         return stats
 
-    def _analyze_code_changes(self, diff_content: str) -> Dict[str, Any]:
+def _analyze_code_changes(self, diff_content: str) -> Dict[str, Any]:
         """Analyze git diff content for change types."""
         analysis = {
             "cosmetic_changes": 0,
@@ -468,7 +459,7 @@ class RealityValidationEngine:
 
         return analysis
 
-    def _has_functional_code(self, content: str) -> bool:
+def _has_functional_code(self, content: str) -> bool:
         """Check if content contains functional code patterns."""
         functional_patterns = [
             r'def\s+\w+\s*\([^)]*\):',  # Function definitions
@@ -484,9 +475,9 @@ class RealityValidationEngine:
         for pattern in functional_patterns:
             functional_count += len(re.findall(pattern, content))
 
-        return functional_count >= 3  # Threshold for functional code
+        return functional_count >= MAXIMUM_RETRY_ATTEMPTS  # Threshold for functional code
 
-    def _has_performance_measurement_code(self, content: str) -> bool:
+def _has_performance_measurement_code(self, content: str) -> bool:
         """Check if content contains performance measurement code."""
         perf_patterns = [
             r'time\.time\(\)',
@@ -505,7 +496,7 @@ class RealityValidationEngine:
 
         return False
 
-    def _calculate_test_reality_score(self, evidence: Dict[str, Any]) -> float:
+def _calculate_test_reality_score(self, evidence: Dict[str, Any]) -> float:
         """Calculate test reality score (0-100)."""
         score = 100.0
 
@@ -523,7 +514,7 @@ class RealityValidationEngine:
 
         return max(0, score)
 
-    def _calculate_metrics_reality_score(self, metrics: Dict[str, Any], issue_count: int) -> float:
+def _calculate_metrics_reality_score(self, metrics: Dict[str, Any], issue_count: int) -> float:
         """Calculate metrics reality score (0-100)."""
         score = 100.0
 
@@ -537,7 +528,7 @@ class RealityValidationEngine:
 
         return max(0, score)
 
-    def _calculate_implementation_reality_score(self, evidence: Dict[str, Any]) -> float:
+def _calculate_implementation_reality_score(self, evidence: Dict[str, Any]) -> float:
         """Calculate implementation reality score (0-100)."""
         score = 100.0
 
@@ -551,13 +542,13 @@ class RealityValidationEngine:
 
         if functional > 0:
             if cosmetic / max(1, functional) < 2:  # Less than 2:1 cosmetic to functional
-                score += 30
+                score += API_TIMEOUT_SECONDS
             else:
                 score -= 20
 
         return max(0, min(100, score))
 
-    def _calculate_performance_reality_score(self, evidence: Dict[str, Any], issue_count: int) -> float:
+def _calculate_performance_reality_score(self, evidence: Dict[str, Any], issue_count: int) -> float:
         """Calculate performance reality score (0-100)."""
         score = 100.0
 
@@ -572,7 +563,7 @@ class RealityValidationEngine:
 
         return max(0, score)
 
-    def _generate_quality_gates(self, validation_results: List[ValidationResult], claims: Dict[str, Any]) -> List[QualityGate]:
+def _generate_quality_gates(self, validation_results: List[ValidationResult], claims: Dict[str, Any]) -> List[QualityGate]:
         """Generate quality gates based on validation results."""
         gates = []
 

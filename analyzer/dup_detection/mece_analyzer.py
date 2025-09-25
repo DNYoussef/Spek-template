@@ -1,7 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-MECE (Mutually Exclusive, Collectively Exhaustive) duplication analyzer.
-"""
+from src.constants.base import THEATER_DETECTION_WARNING_THRESHOLD
 
 import argparse
 import ast
@@ -40,7 +37,6 @@ except ImportError:
             line_number: int = 0
             column: int = 0
 
-
 @dataclass
 class CodeBlock:
     """Represents a block of code for similarity analysis."""
@@ -52,7 +48,6 @@ class CodeBlock:
     normalized_content: str
     hash_signature: str
 
-
 @dataclass
 class DuplicationCluster:
     """Represents a cluster of similar code blocks."""
@@ -61,7 +56,6 @@ class DuplicationCluster:
     blocks: List[CodeBlock]
     similarity_score: float
     description: str
-
 
 class MECEAnalyzer:
     """MECE duplication analyzer for detecting real code duplication and overlap."""
@@ -208,7 +202,7 @@ class MECEAnalyzer:
             "success": True,  # Don't fail CI/CD on timeout
             "timeout": True,
             "message": message,
-            "mece_score": 0.75,  # Reasonable fallback score
+            "mece_score": THEATER_DETECTION_WARNING_THRESHOLD,  # Reasonable fallback score
             "duplications": [],
             "analysis_summary": {
                 "total_files_analyzed": 0,
@@ -486,7 +480,6 @@ class MECEAnalyzer:
         # In quick mode, sample files for representative analysis
         if self.quick_mode:
             # Only analyze files that are likely to have meaningful code patterns
-            # Prioritize main source files, skip utility/config files
             priority_patterns = [
                 "analyzer/", "src/", "lib/", "core/", "main/",
                 "engine", "manager", "controller", "service"
@@ -497,7 +490,6 @@ class MECEAnalyzer:
                 return False
 
         return True
-
 
 def main():
     """Main entry point for command-line usage."""
@@ -525,9 +517,7 @@ def main():
         print(f"Error: {e}", file=sys.stderr)
         return 1
 
-
 if __name__ == "__main__":
     sys.exit(main())
-
 
 __all__ = ["MECEAnalyzer"]

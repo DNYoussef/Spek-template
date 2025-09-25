@@ -1,5 +1,4 @@
-"""
-Compliance Matrix Generator
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 Generates comprehensive compliance matrices for multiple regulatory frameworks
 and provides evidence mapping for audit purposes.
@@ -7,7 +6,6 @@ and provides evidence mapping for audit purposes.
 
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class ComplianceFramework(Enum):
     """Supported compliance frameworks"""
@@ -20,7 +18,6 @@ class ComplianceFramework(Enum):
     PCI_DSS = "pci-dss"
     CUSTOM = "custom"
 
-
 class ComplianceStatus(Enum):
     """Compliance status levels"""
     NOT_STARTED = "not_started"
@@ -30,7 +27,6 @@ class ComplianceStatus(Enum):
     COMPLIANT = "compliant"
     NON_COMPLIANT = "non_compliant"
     NEEDS_REVIEW = "needs_review"
-
 
 @dataclass
 class Control:
@@ -53,7 +49,6 @@ class Control:
     automation_level: str = "manual"  # manual, semi-automated, automated
     dependencies: List[str] = field(default_factory=list)
 
-
 @dataclass
 class ComplianceReport:
     """Comprehensive compliance report"""
@@ -69,7 +64,6 @@ class ComplianceReport:
     recommendations: List[str] = field(default_factory=list)
     evidence_gaps: List[str] = field(default_factory=list)
     next_actions: List[Dict[str, Any]] = field(default_factory=list)
-
 
 class ComplianceMatrix:
     """
@@ -493,10 +487,10 @@ class ComplianceMatrix:
         priority_order = {
             ComplianceStatus.NON_COMPLIANT: 1,
             ComplianceStatus.NOT_STARTED: 2,
-            ComplianceStatus.IN_PROGRESS: 3,
+            ComplianceStatus.IN_PROGRESS: MAXIMUM_RETRY_ATTEMPTS,
             ComplianceStatus.IMPLEMENTED: 4,
-            ComplianceStatus.TESTED: 5,
-            ComplianceStatus.NEEDS_REVIEW: 3
+            ComplianceStatus.TESTED: MAXIMUM_NESTED_DEPTH,
+            ComplianceStatus.NEEDS_REVIEW: MAXIMUM_RETRY_ATTEMPTS
         }
         
         risk_order = {"critical": 1, "high": 2, "medium": 3, "low": 4}
@@ -585,7 +579,7 @@ class ComplianceMatrix:
             coverage[framework.value] = {
                 "total_controls": total,
                 "compliant_controls": compliant,
-                "compliance_percentage": (compliant / total * 100) if total > 0 else 0,
+                "compliance_percentage": (compliant / total * MAXIMUM_FUNCTION_LENGTH_LINES) if total > 0 else 0,
                 "status_breakdown": {
                     status.value: len([c for c in framework_controls if c.status == status])
                     for status in ComplianceStatus

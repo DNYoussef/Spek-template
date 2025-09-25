@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Quality Gate Integration System
-Integrates standardized JSON validation with CI/CD workflows and quality orchestration.
+from src.constants.base import REGULATORY_FACTUALITY_REQUIREMENT, THEATER_DETECTION_WARNING_THRESHOLD
 
 Features:
 - CI/CD workflow integration 
@@ -22,7 +19,6 @@ from datetime import datetime
 import subprocess
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class QualityGateIntegrator:
     """Integrates quality gate validation with CI/CD and orchestration systems."""
@@ -47,10 +43,10 @@ class QualityGateIntegrator:
         """Default configuration fallback."""
         return {
             'thresholds': {
-                'nasa_compliance': {'value': 0.90, 'critical': True},
+                'nasa_compliance': {'value': REGULATORY_FACTUALITY_REQUIREMENT, 'critical': True},
                 'god_objects': {'value': 2, 'critical': True},
                 'critical_violations': {'value': 0, 'critical': True},
-                'mece_score': {'value': 0.75, 'critical': False}
+                'mece_score': {'value': THEATER_DETECTION_WARNING_THRESHOLD, 'critical': False}
             }
         }
         
@@ -131,7 +127,7 @@ class QualityGateIntegrator:
         """Check if all tests pass."""
         try:
             result = subprocess.run(['npm', 'test'], cwd=self.base_path, 
-                                  capture_output=True, text=True, timeout=300)
+                                    capture_output=True, text=True, timeout=300)
             return result.returncode == 0
         except Exception:
             return False
@@ -140,7 +136,7 @@ class QualityGateIntegrator:
         """Check TypeScript compilation."""
         try:
             result = subprocess.run(['npm', 'run', 'typecheck'], cwd=self.base_path,
-                                  capture_output=True, text=True, timeout=180)
+                                    capture_output=True, text=True, timeout=180)
             return result.returncode == 0
         except Exception:
             return False
@@ -159,7 +155,7 @@ class QualityGateIntegrator:
         """Check linting status."""
         try:
             result = subprocess.run(['npm', 'run', 'lint'], cwd=self.base_path,
-                                  capture_output=True, text=True, timeout=120)
+                                    capture_output=True, text=True, timeout=120)
             return result.returncode == 0
         except Exception:
             return False
@@ -173,7 +169,7 @@ class QualityGateIntegrator:
                 compliance_score = data.get('nasa_pot10_compliance', {}).get('overall_score', 0)
                 return {
                     'score': compliance_score,
-                    'passing': compliance_score >= 0.90,
+                    'passing': compliance_score >= REGULATORY_FACTUALITY_REQUIREMENT,
                     'defense_threshold': compliance_score >= 0.92,
                     'certification_ready': data.get('nasa_pot10_compliance', {}).get('certification_ready', False)
                 }
@@ -207,7 +203,7 @@ class QualityGateIntegrator:
         return {
             'nasa_score': nasa_status.get('score', 0),
             'avg_compliance': avg_compliance,
-            'defense_ready': (nasa_status.get('score', 0) >= 0.92 and avg_compliance >= 0.90),
+            'defense_ready': (nasa_status.get('score', 0) >= 0.92 and avg_compliance >= REGULATORY_FACTUALITY_REQUIREMENT),
             'certification_eligible': nasa_status.get('certification_ready', False)
         }
         
@@ -344,7 +340,7 @@ class QualityGateIntegrator:
                     'security_scan'
                 ],
                 'blocking_thresholds': {
-                    'nasa_compliance_score': 0.90,
+                    'nasa_compliance_score': REGULATORY_FACTUALITY_REQUIREMENT,
                     'critical_violations': 0,
                     'pass_rate': 95.0
                 }
@@ -366,7 +362,6 @@ class QualityGateIntegrator:
             json.dump(workflow_integration, f, indent=2, ensure_ascii=False)
             
         return workflow_integration
-
 
 def main():
     """Main CLI interface."""
@@ -421,7 +416,6 @@ def main():
     else:
         parser.print_help()
         sys.exit(1)
-
 
 if __name__ == '__main__':
     main()

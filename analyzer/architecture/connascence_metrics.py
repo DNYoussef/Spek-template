@@ -1,7 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Connascence Metrics Calculator - Advanced Quality Metrics
-========================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, QUALITY_GATE_MINIMUM_PASS_RATE, REGULATORY_FACTUALITY_REQUIREMENT, THEATER_DETECTION_FAILURE_THRESHOLD, THEATER_DETECTION_WARNING_THRESHOLD
 
 High-performance metrics calculator implementing 12 methods for comprehensive
 quality assessment including NASA POT10 compliance scoring.
@@ -21,7 +18,6 @@ from .interfaces import (
 
 logger = logging.getLogger(__name__)
 
-
 class ConnascenceMetrics(ConnascenceMetricsInterface):
     """
     Advanced metrics calculator with NASA POT10 compliance and quality scoring.
@@ -30,7 +26,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
     Implements empirically-validated quality metrics and scoring algorithms.
     """
 
-    def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
+def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
         """
         Initialize metrics calculator with configuration.
 
@@ -46,7 +42,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
             'max_function_lines': 60,      # Rule 4: Function lines <= 60
             'max_class_methods': 15,       # Rule 4: Class methods <= 15
             'max_magic_literals': 5,       # Rule 8: Limited magic numbers
-            'min_test_coverage': 0.80,     # Rule 10: 80% test coverage
+            'min_test_coverage': 0.8,     # Rule 10: 80% test coverage
             'max_cyclomatic_complexity': 10,  # General complexity limit
             'min_compliance_score': 0.95   # 95% compliance for defense industry
         }
@@ -65,7 +61,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
             'CoT': 2,  # Type
             'CoM': 3,  # Meaning
             'CoP': 4,  # Position
-            'CoA': 5,  # Algorithm
+            'CoA': MAXIMUM_NESTED_DEPTH,  # Algorithm
             'CoV': 6,  # Value
             'CoI': 7,  # Identity
             'CoE': 8   # Execution (highest complexity)
@@ -74,7 +70,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
         # Performance tracking
         self.enable_performance_tracking = self._get_config('enable_performance_tracking', True)
 
-    def calculate_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+def calculate_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """
         Calculate comprehensive metrics from violations.
 
@@ -112,7 +108,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
             logger.error(f"Metrics calculation failed: {e}")
             return self._get_fallback_metrics(violations)
 
-    def calculate_nasa_compliance(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+def calculate_nasa_compliance(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """
         Calculate NASA Power of Ten compliance score.
 
@@ -130,19 +126,19 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
         # Rule 4: Limit function and class size
         god_objects = len([v for v in violations if 'god' in v.type.lower() or 'long' in v.type.lower()])
         rule_scores['rule_4'] = max(0, 1.0 - (god_objects / 20))
-        if god_objects > 5:
+        if god_objects > MAXIMUM_NESTED_DEPTH:
             compliance_violations.append(f"Rule 4: {god_objects} oversized functions/classes")
 
         # Rule 6: Limit function parameters
         param_violations = len([v for v in violations if 'parameter' in v.type.lower()])
         rule_scores['rule_6'] = max(0, 1.0 - (param_violations / 15))
-        if param_violations > 3:
+        if param_violations > MAXIMUM_RETRY_ATTEMPTS:
             compliance_violations.append(f"Rule 6: {param_violations} parameter violations")
 
         # Rule 8: Limit preprocessor use (magic literals)
         magic_violations = len([v for v in violations if 'magic' in v.type.lower()])
         rule_scores['rule_8'] = max(0, 1.0 - (magic_violations / 10))
-        if magic_violations > 5:
+        if magic_violations > MAXIMUM_NESTED_DEPTH:
             compliance_violations.append(f"Rule 8: {magic_violations} magic literals")
 
         # Calculate overall compliance score
@@ -153,11 +149,11 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
             'violations': compliance_violations,
             'rule_scores': rule_scores,
             'defense_ready': overall_score >= self.nasa_thresholds['min_compliance_score'],
-            'improvement_needed': overall_score < 0.90,
+            'improvement_needed': overall_score < REGULATORY_FACTUALITY_REQUIREMENT,
             'compliance_grade': self._calculate_compliance_grade(overall_score)
         }
 
-    def _calculate_basic_statistics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+def _calculate_basic_statistics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Calculate basic violation statistics."""
         if not violations:
             return {
@@ -179,7 +175,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
             'weight_standard_deviation': statistics.stdev(weights) if len(weights) > 1 else 0.0
         }
 
-    def _calculate_quality_scores(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+def _calculate_quality_scores(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Calculate comprehensive quality scores."""
         if not violations:
             return {'overall_score': 1.0, 'quality_grade': 'A'}
@@ -215,7 +211,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
             'deployment_recommendation': self._get_deployment_recommendation(overall_score)
         }
 
-    def _calculate_distributions(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+def _calculate_distributions(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Calculate violation distribution statistics."""
         # Severity distribution
         severity_counts = Counter(v.severity for v in violations)
@@ -243,7 +239,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
             'distribution_entropy': self._calculate_distribution_entropy(type_counts)
         }
 
-    def _calculate_complexity_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+def _calculate_complexity_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Calculate connascence complexity metrics."""
         if not violations:
             return {'connascence_complexity_index': 0.0}
@@ -276,7 +272,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
             'complexity_trend': self._analyze_complexity_trend(violations)
         }
 
-    def _calculate_performance_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+def _calculate_performance_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Calculate performance-related metrics."""
         performance_violations = [v for v in violations if 'performance' in v.description.lower()
                                 or 'timing' in v.type.lower() or v.connascence_type == 'CoE']
@@ -288,13 +284,12 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
             'scalability_concerns': self._identify_scalability_concerns(violations)
         }
 
-    def _calculate_density_score(self, violations: List[ConnascenceViolation]) -> float:
+def _calculate_density_score(self, violations: List[ConnascenceViolation]) -> float:
         """Calculate violation density score (higher is better)."""
         unique_files = len(set(v.file_path for v in violations))
         density = len(violations) / max(unique_files, 1)
 
         # Score decreases as density increases
-        # Good projects have < 1 violation per file
         if density <= 1.0:
             return 1.0
         elif density <= 2.0:
@@ -306,7 +301,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
         else:
             return 0.2
 
-    def _calculate_severity_score(self, violations: List[ConnascenceViolation]) -> float:
+def _calculate_severity_score(self, violations: List[ConnascenceViolation]) -> float:
         """Calculate severity distribution score (balanced is better)."""
         severity_counts = Counter(v.severity for v in violations)
         total = len(violations)
@@ -327,7 +322,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
         else:
             return 1.0
 
-    def _calculate_connascence_complexity_score(self, violations: List[ConnascenceViolation]) -> float:
+def _calculate_connascence_complexity_score(self, violations: List[ConnascenceViolation]) -> float:
         """Calculate connascence complexity score (lower complexity is better)."""
         if not violations:
             return 1.0
@@ -347,39 +342,39 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
         # Invert score - lower complexity gets higher score
         return 1.0 - (avg_complexity / max_complexity)
 
-    def _calculate_quality_grade(self, score: float) -> str:
+def _calculate_quality_grade(self, score: float) -> str:
         """Calculate letter grade from quality score."""
         if score >= 0.95:
             return 'A+'
-        elif score >= 0.90:
+        elif score >= REGULATORY_FACTUALITY_REQUIREMENT:
             return 'A'
-        elif score >= 0.85:
+        elif score >= QUALITY_GATE_MINIMUM_PASS_RATE:
             return 'B+'
-        elif score >= 0.80:
+        elif score >= 0.8:
             return 'B'
-        elif score >= 0.75:
+        elif score >= THEATER_DETECTION_WARNING_THRESHOLD:
             return 'C+'
         elif score >= 0.70:
             return 'C'
-        elif score >= 0.60:
+        elif score >= THEATER_DETECTION_FAILURE_THRESHOLD:
             return 'D'
         else:
             return 'F'
 
-    def _calculate_compliance_grade(self, score: float) -> str:
+def _calculate_compliance_grade(self, score: float) -> str:
         """Calculate NASA compliance grade."""
         if score >= 0.98:
             return 'Excellent'
         elif score >= 0.95:
             return 'Good'
-        elif score >= 0.90:
+        elif score >= REGULATORY_FACTUALITY_REQUIREMENT:
             return 'Acceptable'
-        elif score >= 0.80:
+        elif score >= 0.8:
             return 'Needs Improvement'
         else:
             return 'Non-Compliant'
 
-    def _get_deployment_recommendation(self, score: float) -> str:
+def _get_deployment_recommendation(self, score: float) -> str:
         """Get deployment recommendation based on quality score."""
         if score >= 0.95:
             return 'Deploy - Excellent Quality'
@@ -392,7 +387,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
         else:
             return 'Do Not Deploy'
 
-    def _calculate_distribution_entropy(self, counts: Counter) -> float:
+def _calculate_distribution_entropy(self, counts: Counter) -> float:
         """Calculate entropy of violation type distribution."""
         if not counts:
             return 0.0
@@ -407,7 +402,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
 
         return entropy
 
-    def _get_highest_complexity_types(self, violations: List[ConnascenceViolation]) -> List[str]:
+def _get_highest_complexity_types(self, violations: List[ConnascenceViolation]) -> List[str]:
         """Get connascence types with highest complexity."""
         type_counts = Counter(v.connascence_type for v in violations if v.connascence_type)
 
@@ -418,12 +413,11 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
 
         return [ctype for ctype, _ in sorted_types[:5]]
 
-    def _analyze_complexity_trend(self, violations: List[ConnascenceViolation]) -> str:
+def _analyze_complexity_trend(self, violations: List[ConnascenceViolation]) -> str:
         """Analyze overall complexity trend."""
         # This would typically analyze historical data
-        # For now, provide static analysis
         high_complexity_count = len([v for v in violations
-                                   if v.connascence_type in ['CoI', 'CoE', 'CoV']])
+                                    if v.connascence_type in ['CoI', 'CoE', 'CoV']])
         total_count = len(violations)
 
         if total_count == 0:
@@ -438,7 +432,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
         else:
             return 'stable'
 
-    def _calculate_performance_risk_score(self, performance_violations: List[ConnascenceViolation]) -> float:
+def _calculate_performance_risk_score(self, performance_violations: List[ConnascenceViolation]) -> float:
         """Calculate performance risk score."""
         if not performance_violations:
             return 0.0
@@ -453,7 +447,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
         # Normalize to 0-10 scale
         return min(risk_score / 10, 10.0)
 
-    def _identify_scalability_concerns(self, violations: List[ConnascenceViolation]) -> List[str]:
+def _identify_scalability_concerns(self, violations: List[ConnascenceViolation]) -> List[str]:
         """Identify scalability concerns from violations."""
         concerns = []
 
@@ -467,7 +461,7 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
 
         return concerns
 
-    def _generate_calculation_metadata(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+def _generate_calculation_metadata(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Generate metadata about the calculation process."""
         return {
             'calculator_version': '2.0.0',
@@ -477,17 +471,17 @@ class ConnascenceMetrics(ConnascenceMetricsInterface):
             'calculation_method': 'weighted_composite_scoring'
         }
 
-    def _get_fallback_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
+def _get_fallback_metrics(self, violations: List[ConnascenceViolation]) -> Dict[str, Any]:
         """Get fallback metrics when calculation fails."""
         return {
             'total_violations': len(violations),
             'overall_score': 0.75,  # Conservative estimate
             'quality_grade': 'C',
-            'nasa_compliance_score': 0.80,
+            'nasa_compliance_score': 0.8,
             'calculation_error': True
         }
 
-    def _get_config(self, key: str, default: Any) -> Any:
+def _get_config(self, key: str, default: Any) -> Any:
         """Get configuration value with fallback."""
         if self.config_provider:
             return self.config_provider.get_config(key, default)

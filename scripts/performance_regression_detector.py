@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
-"""
-Performance Regression Detection System
-Phase 3: Monitors and detects performance regressions from Phase 2 optimizations
-Target: Maintain 38.9% execution time reduction and detect >10% regressions
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, TAKE_PROFIT_PERCENTAGE
 
 import json
 import time
@@ -17,17 +12,16 @@ import statistics
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
 class PerformanceRegressionDetector:
     """Detects performance regressions in CI/CD pipeline execution."""
     
-    def __init__(self):
+def __init__(self):
         self.phase2_baselines = self._load_phase2_baselines()
         self.regression_thresholds = {
             'execution_time_regression': 0.10,  # 10% regression threshold
             'memory_efficiency_regression': 0.05,  # 5% regression threshold
-            'success_rate_regression': 0.05,    # 5% regression threshold
-            'cost_increase_threshold': 0.15,    # 15% cost increase threshold
+            'success_rate_regression': 0.05,    # MAXIMUM_NESTED_DEPTH% regression threshold
+            'cost_increase_threshold': TAKE_PROFIT_PERCENTAGE,    # 15% cost increase threshold
             'minimum_data_points': 5            # Minimum runs to analyze
         }
         
@@ -42,7 +36,7 @@ class PerformanceRegressionDetector:
             'overall_status': 'healthy'
         }
     
-    def _load_phase2_baselines(self) -> Dict[str, Any]:
+def _load_phase2_baselines(self) -> Dict[str, Any]:
         """Load Phase 2 performance baselines for comparison."""
         baseline_files = [
             '.claude/.artifacts/phase2_validation_report.json',
@@ -86,7 +80,7 @@ class PerformanceRegressionDetector:
         
         return baselines
     
-    def collect_current_performance_metrics(self) -> Dict[str, Any]:
+def collect_current_performance_metrics(self) -> Dict[str, Any]:
         """Collect current performance metrics from recent workflow runs."""
         print("Collecting current performance metrics...")
         
@@ -101,7 +95,7 @@ class PerformanceRegressionDetector:
             # Get recent workflow runs (last 20 runs)
             result = subprocess.run(
                 ['gh', 'run', 'list', '--limit', '20', '--json', 
-                 'status,conclusion,name,createdAt,runStartedAt,updatedAt,workflowName'],
+                'status, conclusion, name, createdAt, runStartedAt, updatedAt, workflowName'],
                 capture_output=True, text=True, timeout=60
             )
             
@@ -144,7 +138,7 @@ class PerformanceRegressionDetector:
                     
                     # Calculate execution time statistics
                     execution_times = [run['execution_time_minutes'] for run in runs_data 
-                                     if run['execution_time_minutes'] is not None]
+                                    if run['execution_time_minutes'] is not None]
                     
                     exec_time_stats = {}
                     if execution_times:
@@ -193,7 +187,7 @@ class PerformanceRegressionDetector:
         self.detection_results['current_metrics'] = current_metrics
         return current_metrics
     
-    def _get_fallback_metrics(self) -> Dict[str, Any]:
+def _get_fallback_metrics(self) -> Dict[str, Any]:
         """Fallback metrics collection from monitoring data."""
         monitoring_file = Path('.claude/.artifacts/monitoring/workflow_health_dashboard.json')
         
@@ -249,7 +243,7 @@ class PerformanceRegressionDetector:
             'trend_analysis': {}
         }
     
-    def detect_performance_regressions(self, current_metrics: Dict[str, Any]) -> Dict[str, Any]:
+def detect_performance_regressions(self, current_metrics: Dict[str, Any]) -> Dict[str, Any]:
         """Detect performance regressions against Phase 2 baselines."""
         print("Analyzing performance regressions...")
         
@@ -282,7 +276,7 @@ class PerformanceRegressionDetector:
         self.detection_results['regression_analysis'] = regression_analysis
         return regression_analysis
     
-    def _analyze_execution_time_regression(self, current_metrics: Dict[str, Any]) -> Dict[str, Any]:
+def _analyze_execution_time_regression(self, current_metrics: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze execution time regression."""
         baseline_exec_time = self.phase2_baselines['execution_time_minutes']
         current_exec_time = current_metrics['system_metrics']['avg_execution_time_minutes']
@@ -320,7 +314,7 @@ class PerformanceRegressionDetector:
             'phase2_target_met': current_exec_time <= baseline_exec_time * 1.1  # Within 10% of target
         }
     
-    def _analyze_success_rate_regression(self, current_metrics: Dict[str, Any]) -> Dict[str, Any]:
+def _analyze_success_rate_regression(self, current_metrics: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze success rate regression."""
         baseline_success_rate = self.phase2_baselines['success_rate']
         current_success_rate = current_metrics['system_metrics']['overall_success_rate']
@@ -358,7 +352,7 @@ class PerformanceRegressionDetector:
             'phase3_target_met': current_success_rate >= 0.85  # Phase 3 target
         }
     
-    def _analyze_memory_efficiency_regression(self, current_metrics: Dict[str, Any]) -> Dict[str, Any]:
+def _analyze_memory_efficiency_regression(self, current_metrics: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze memory efficiency regression (estimated)."""
         baseline_memory_efficiency = self.phase2_baselines['memory_efficiency_score']
         
@@ -375,7 +369,7 @@ class PerformanceRegressionDetector:
             success_factor = current_success_rate / self.phase2_baselines['success_rate']
             
             estimated_memory_efficiency = baseline_memory_efficiency * exec_time_ratio * success_factor
-            estimated_memory_efficiency = min(1.0, max(0.0, estimated_memory_efficiency))  # Clamp to [0,1]
+            estimated_memory_efficiency = min(1.0, max(0.0, estimated_memory_efficiency))  # Clamp to [0, 1]
         else:
             estimated_memory_efficiency = baseline_memory_efficiency * 0.9  # Conservative estimate
         
@@ -405,7 +399,7 @@ class PerformanceRegressionDetector:
             'estimation_method': 'execution_time_correlation'
         }
     
-    def _analyze_cost_regression(self, current_metrics: Dict[str, Any]) -> Dict[str, Any]:
+def _analyze_cost_regression(self, current_metrics: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze cost regression based on execution time and resource usage."""
         baseline_cost_reduction = self.phase2_baselines['cost_reduction_percent'] / 100  # Convert to decimal
         
@@ -437,7 +431,7 @@ class PerformanceRegressionDetector:
                 'regression_detected': regression_detected,
                 'baseline_cost_reduction_percent': baseline_cost_reduction * 100,
                 'estimated_current_cost_reduction_percent': estimated_current_cost_reduction * 100,
-                'estimated_cost_increase_percent': estimated_cost_increase * 100,
+                'estimated_cost_increase_percent': estimated_cost_increase * MAXIMUM_FUNCTION_LENGTH_LINES,
                 'cost_increase_threshold_percent': cost_increase_threshold * 100,
                 'severity': severity,
                 'estimation_method': 'execution_time_correlation'
@@ -450,7 +444,7 @@ class PerformanceRegressionDetector:
             'severity': 'none'
         }
     
-    def generate_performance_alerts(self, regression_analysis: Dict[str, Any]) -> List[Dict[str, Any]]:
+def generate_performance_alerts(self, regression_analysis: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Generate performance alerts based on regression analysis."""
         alerts = []
         
@@ -515,7 +509,7 @@ class PerformanceRegressionDetector:
         self.detection_results['alerts'] = alerts
         return alerts
     
-    def generate_recommendations(self, regression_analysis: Dict[str, Any], alerts: List[Dict[str, Any]]) -> List[str]:
+def generate_recommendations(self, regression_analysis: Dict[str, Any], alerts: List[Dict[str, Any]]) -> List[str]:
         """Generate actionable recommendations based on regression analysis."""
         recommendations = []
         
@@ -565,7 +559,7 @@ class PerformanceRegressionDetector:
         self.detection_results['recommendations'] = recommendations
         return recommendations
     
-    def create_performance_trend_visualization(self, current_metrics: Dict[str, Any]) -> bool:
+def create_performance_trend_visualization(self, current_metrics: Dict[str, Any]) -> bool:
         """Create performance trend visualization (if matplotlib available)."""
         try:
             # Create a simple performance trend chart
@@ -586,7 +580,7 @@ class PerformanceRegressionDetector:
             current_times = [current_metrics['system_metrics']['avg_execution_time_minutes']]
             
             ax1.bar(['Phase 2 Baseline', 'Current'], baselines + current_times, 
-                   color=['green', 'red' if current_times[0] > baselines[0] else 'blue'])
+                    color=['green', 'red' if current_times[0] > baselines[0] else 'blue'])
             ax1.set_ylabel('Execution Time (minutes)')
             ax1.set_title('Execution Time Comparison')
             
@@ -595,7 +589,7 @@ class PerformanceRegressionDetector:
             current_success = [current_metrics['system_metrics']['overall_success_rate'] * 100]
             
             ax2.bar(['Phase 2 Baseline', 'Current'], baseline_success + current_success,
-                   color=['green', 'red' if current_success[0] < baseline_success[0] else 'blue'])
+                    color=['green', 'red' if current_success[0] < baseline_success[0] else 'blue'])
             ax2.set_ylabel('Success Rate (%)')
             ax2.set_title('Success Rate Comparison')
             
@@ -646,7 +640,7 @@ class PerformanceRegressionDetector:
             print(f'Warning: Could not create performance visualization: {e}')
             return False
     
-    def run_regression_detection(self) -> Dict[str, Any]:
+def run_regression_detection(self) -> Dict[str, Any]:
         """Run complete performance regression detection analysis."""
         print("Starting Performance Regression Detection")
         print("=" * 50)
@@ -675,7 +669,6 @@ class PerformanceRegressionDetector:
             self.detection_results['overall_status'] = 'healthy'
         
         return self.detection_results
-
 
 def main():
     """Main regression detection execution."""
@@ -733,7 +726,6 @@ def main():
         sys.exit(1)  # Warning status
     else:
         sys.exit(0)  # Healthy status
-
 
 if __name__ == '__main__':
     main()

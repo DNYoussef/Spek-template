@@ -6,8 +6,6 @@ analyzer components while maintaining full backward compatibility.
 """
 
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
-
 
 class EnterpriseAnalyzerIntegration:
     """
@@ -41,67 +39,108 @@ class EnterpriseAnalyzerIntegration:
             'on_success': []
         }
         
-    def wrap_analyzer(self, name: str, analyzer_class: Type, **kwargs) -> Type:
+    def wrap_analyzer(self, name: str, analyzer_class: Type, validation_config: Dict = None) -> Type:
         """
-        Wrap existing analyzer with enterprise features
-        
+        Wrap existing analyzer with enterprise features using validation strategies.
+
         Returns a new class that extends the original with enterprise capabilities
         while maintaining full API compatibility.
         """
+        from src.enterprise.integration.analyzer_validation_strategies import (
+            SyntaxValidationStrategy, SecurityValidationStrategy,
+            PerformanceValidationStrategy, ComplianceValidationStrategy
+        )
+        from src.utils.validation.validation_framework import ValidationEngine
+
+        # Initialize validation engine with strategies
+        validation_engine = ValidationEngine()
+        validation_engine.register_strategy("syntax", SyntaxValidationStrategy())
+        validation_engine.register_strategy("security", SecurityValidationStrategy())
+        validation_engine.register_strategy("performance", PerformanceValidationStrategy())
+        validation_engine.register_strategy("compliance", ComplianceValidationStrategy())
+
+        validation_config = validation_config or {
+            "strategies": ["syntax", "security", "performance"],
+            "required_score": 0.8
+        }
+
         class EnterpriseWrappedAnalyzer(analyzer_class):
             def __init__(self, *args, **kwargs):
                 super().__init__(*args, **kwargs)
                 self._enterprise_integration = self
                 self._original_class = analyzer_class
                 self._analysis_start_time = None
-                
-            @enterprise_feature("enterprise_telemetry", "Enable Six Sigma telemetry")
+                self._validation_engine = validation_engine
+
             async def analyze(self, *args, **kwargs):
-                """Enhanced analyze method with enterprise features"""
+                """Enhanced analyze method with validation strategies"""
                 analysis_id = f"{name}_{datetime.now().isoformat()}"
                 self._analysis_start_time = datetime.now()
-                
+
                 try:
-                    # Pre-analysis hooks
-                    await self._run_hooks('pre_analysis', analysis_id, args, kwargs)
-                    
-                    # Record analysis start
-                    self.telemetry.record_unit_processed()
-                    
+                    # Pre-analysis validation
+                    validation_result = self._validate_input(*args, **kwargs)
+                    if not validation_result.is_valid:
+                        raise ValueError(f"Input validation failed: {', '.join(validation_result.errors)}")
+
                     # Call original analyze method
-                    if hasattr(super(), 'analyze'):
-                        result = await super().analyze(*args, **kwargs)
-                    else:
-                        # Fallback for sync analyzers
-                        result = super().analyze(*args, **kwargs) if hasattr(super(), 'analyze') else None
-                    
-                    # Record successful analysis
-                    self.telemetry.record_unit_processed(passed=True)
-                    
-                    # Post-analysis hooks
-                    await self._run_hooks('post_analysis', analysis_id, result)
-                    
+                    result = await self._execute_analysis(*args, **kwargs)
+
+                    # Post-analysis validation
+                    self._validate_output(result)
+
                     # Store analysis result
                     self._store_analysis_result(analysis_id, result, success=True)
-                    
-                    # Success hooks
-                    await self._run_hooks('on_success', analysis_id, result)
-                    
+
                     return result
-                    
+
                 except Exception as e:
-                    # Record failed analysis
-                    self.telemetry.record_defect("analysis_failure")
-                    
-                    # Error hooks
-                    await self._run_hooks('on_error', analysis_id, e)
-                    
-                    # Store error result
-                    self._store_analysis_result(analysis_id, None, success=False, error=str(e))
-                    
-                    # Re-raise original exception to maintain compatibility
+                    self._handle_analysis_error(analysis_id, e)
                     raise
-                    
+
+            def _validate_input(self, *args, **kwargs):
+                """Validate analysis input using configured strategies."""
+                # Extract code/data to validate
+                input_data = args[0] if args else kwargs.get('data', '')
+
+                # Run configured validation strategies
+                for strategy_name in validation_config.get("strategies", []):
+                    result = self._validation_engine.validate(strategy_name, input_data)
+                    if not result.is_valid:
+                        return result
+
+                return ValidationResult(is_valid=True)
+
+            async def _execute_analysis(self, *args, **kwargs):
+                """Execute original analysis method."""
+                if hasattr(super(EnterpriseWrappedAnalyzer, self), 'analyze'):
+                    if inspect.iscoroutinefunction(super(EnterpriseWrappedAnalyzer, self).analyze):
+                        return await super(EnterpriseWrappedAnalyzer, self).analyze(*args, **kwargs)
+                    else:
+                        return super(EnterpriseWrappedAnalyzer, self).analyze(*args, **kwargs)
+                return None
+
+            def _validate_output(self, result):
+                """Validate analysis output."""
+                if result and validation_config.get("validate_output", True):
+                    # Create performance metrics for validation
+                    duration_ms = (datetime.now() - self._analysis_start_time).total_seconds() * 1000
+                    metrics = {
+                        'execution_time_ms': duration_ms,
+                        'memory_usage_mb': 50,  # Placeholder
+                        'result_size': len(str(result)) if result else 0
+                    }
+
+                    perf_result = self._validation_engine.validate("performance", metrics)
+                    if not perf_result.is_valid:
+                        logger.warning(f"Performance validation failed: {perf_result.errors}")
+
+            def _handle_analysis_error(self, analysis_id: str, error: Exception):
+                """Handle analysis errors with telemetry."""
+                self._enterprise_integration.telemetry.record_defect("analysis_failure")
+                self._store_analysis_result(analysis_id, None, success=False, error=str(error))
+                logger.error(f"Analysis {analysis_id} failed: {error}")
+
             async def _run_hooks(self, hook_type: str, *args):
                 """Run registered hooks"""
                 hooks = self._enterprise_integration.hooks.get(hook_type, [])
@@ -115,7 +154,7 @@ class EnterpriseAnalyzerIntegration:
                         logger.warning(f"Hook {hook_type} failed: {e}")
                         
             def _store_analysis_result(self, analysis_id: str, result: Any, 
-                                     success: bool, error: Optional[str] = None):
+                                    success: bool, error: Optional[str] = None):
                 """Store analysis result in history"""
                 analysis_record = {
                     'id': analysis_id,
@@ -314,7 +353,7 @@ class EnterpriseAnalyzerIntegration:
         
     @classmethod
     def create_non_breaking_integration(cls, project_root: Path, 
-                                      existing_analyzer_modules: Optional[List[str]] = None) -> 'EnterpriseAnalyzerIntegration':
+                                        existing_analyzer_modules: Optional[List[str]] = None) -> 'EnterpriseAnalyzerIntegration':
         """
         Create a non-breaking integration that automatically discovers and wraps
         existing analyzer modules without requiring code changes.

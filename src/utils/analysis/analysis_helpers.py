@@ -5,12 +5,12 @@ statistical calculations, and pattern matching.
 Extracted from: src/analysis/core/RootCauseAnalyzer.py, analyzer/context_analyzer.py
 """
 
-from typing import Dict, List, Any, Optional, Tuple, Set
 from collections import defaultdict, Counter
-from dataclasses import dataclass
-import statistics
+from typing import Dict, List, Any, Optional, Tuple, Set
 import re
 
+from dataclasses import dataclass
+import statistics
 
 @dataclass
 class AnalysisResult:
@@ -20,7 +20,6 @@ class AnalysisResult:
     findings: List[Dict[str, Any]]
     metadata: Dict[str, Any]
     recommendations: List[str]
-
 
 class ResultAggregator:
     """Aggregate and consolidate analysis results."""
@@ -83,7 +82,6 @@ class ResultAggregator:
         
         return min(base_confidence + quality_boost, 1.0)
 
-
 class StatisticalCalculator:
     """Statistical calculations for analysis."""
 
@@ -137,7 +135,7 @@ class StatisticalCalculator:
         mean_y = statistics.mean(y_values)
         
         numerator = sum((x - mean_x) * (y - mean_y) 
-                       for x, y in zip(x_values, y_values))
+                        for x, y in zip(x_values, y_values))
         
         denominator = (
             sum((x - mean_x) ** 2 for x in x_values) ** 0.5 *
@@ -145,7 +143,6 @@ class StatisticalCalculator:
         )
         
         return numerator / denominator if denominator > 0 else 0.0
-
 
 class PatternMatcher:
     """Pattern detection and matching."""
@@ -167,8 +164,8 @@ class PatternMatcher:
         
         # Filter by minimum occurrences
         patterns = [(token, count) 
-                   for token, count in counter.items() 
-                   if count >= min_occurrences]
+                    for token, count in counter.items() 
+                    if count >= min_occurrences]
         
         return sorted(patterns, key=lambda x: x[1], reverse=True)
 
@@ -195,7 +192,6 @@ class PatternMatcher:
         
         return matches
 
-
 class RecommendationEngine:
     """Generate recommendations from analysis."""
 
@@ -211,8 +207,8 @@ class RecommendationEngine:
             return impact / (effort + 0.1)  # Avoid division by zero
         
         return sorted(recommendations, 
-                     key=score_recommendation, 
-                     reverse=True)
+                    key=score_recommendation, 
+                    reverse=True)
 
     @staticmethod
     def generate_action_plan(

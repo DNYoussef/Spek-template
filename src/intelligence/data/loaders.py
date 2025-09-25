@@ -3,17 +3,17 @@ Market data loaders for various exchanges and data sources.
 Implements efficient data loading with caching and real-time streaming capabilities.
 """
 
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Union, AsyncGenerator, Tuple
+
+from lib.shared.utilities import get_logger
+import aioredis
 import asyncio
 import ccxt
-import yfinance as yf
-import pandas as pd
 import numpy as np
-from typing import Dict, List, Optional, Union, AsyncGenerator, Tuple
-from datetime import datetime, timedelta
-import aioredis
 import orjson
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import pandas as pd
+import yfinance as yf
 
 @dataclass
 class MarketData:
@@ -40,7 +40,6 @@ class DataSource(ABC):
         limit: Optional[int] = None
     ) -> List[MarketData]:
         """Fetch OHLCV data for a symbol."""
-        pass
     
     @abstractmethod
     async def subscribe_real_time(
@@ -49,7 +48,6 @@ class DataSource(ABC):
         callback: callable
     ) -> None:
         """Subscribe to real-time data updates."""
-        pass
 
 class CCXTDataSource(DataSource):
     """CCXT-based data source for cryptocurrency exchanges."""

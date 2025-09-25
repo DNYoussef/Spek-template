@@ -63,15 +63,15 @@ model_routing:
 ### Codex CLI Routing
 - `testing_required` - Quality assurance and testing
 - `sandbox_verification` - Safe execution environment needed
-- `micro_operations` - Small, bounded changes (≤25 LOC)
+- `micro_operations` - Small, bounded changes (<=25 LOC)
 - `surgical_fixes` - Targeted bug fixes
 - `quality_gates` - Automated verification needed
 
 ### Fallback Logic
-1. **Model Unavailable** → Use primary fallback
-2. **Primary Fallback Unavailable** → Use secondary fallback
-3. **All Specific Models Unavailable** → Use emergency fallback
-4. **Complete Failure** → Default to Claude Sonnet 4
+1. **Model Unavailable** -> Use primary fallback
+2. **Primary Fallback Unavailable** -> Use secondary fallback
+3. **All Specific Models Unavailable** -> Use emergency fallback
+4. **Complete Failure** -> Default to Claude Sonnet 4
 
 ## Example Configurations
 

@@ -15,17 +15,18 @@ Features:
 - Backpressure handling for large-scale projects
 """
 
-import asyncio
-import hashlib
-import json
-import time
-import threading
-import weakref
 from collections import defaultdict, deque
-from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, AsyncGenerator, Callable, Dict, List, Optional, Set, Union
+import hashlib
+import json
 import logging
+import time
+
+from dataclasses import dataclass, field
+import asyncio
+import threading
+import weakref
 
 try:
     from watchdog.events import FileSystemEventHandler, FileSystemEvent
@@ -33,7 +34,6 @@ except ImportError:
     # Fallback for when watchdog is not available
     class FileSystemEventHandler:
         """Fallback file system event handler."""
-        pass
 
     class FileSystemEvent:
         """Fallback file system event."""
@@ -42,7 +42,6 @@ except ImportError:
             self.is_directory = False
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class FileChange:
@@ -60,7 +59,6 @@ class FileChange:
             f"Invalid change_type: {self.change_type}"
         assert self.timestamp > 0, "timestamp must be positive"
 
-
 @dataclass
 class AnalysisRequest:
     """Represents an analysis request for processing."""
@@ -76,7 +74,6 @@ class AnalysisRequest:
         assert self.request_id, "request_id cannot be empty"
         assert 0 <= self.priority <= 10, "priority must be 0-10"
 
-
 @dataclass
 class AnalysisResult:
     """Represents analysis result from stream processing."""
@@ -90,7 +87,6 @@ class AnalysisResult:
     dependencies_analyzed: Set[str] = field(default_factory=set)
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-
 class FileWatcher(FileSystemEventHandler):
     """
     File system watcher for detecting Python file changes.
@@ -99,9 +95,9 @@ class FileWatcher(FileSystemEventHandler):
     """
     
     def __init__(self, 
-                 callback: Callable[[List[FileChange]], None],
-                 debounce_seconds: float = 0.5,
-                 file_patterns: Optional[List[str]] = None):
+                callback: Callable[[List[FileChange]], None],
+                debounce_seconds: float = 0.5,
+                file_patterns: Optional[List[str]] = None):
         """
         Initialize file watcher.
         
@@ -224,7 +220,6 @@ class FileWatcher(FileSystemEventHandler):
                 except Exception as e:
                     logger.error(f"File change callback failed: {e}")
 
-
 class StreamProcessor:
     """
     Core stream processing engine for incremental analysis.
@@ -234,12 +229,12 @@ class StreamProcessor:
     """
 
     def __init__(self,
-                 analyzer_factory: Optional[Callable[[], Any]] = None,
-                 max_queue_size: int = 1000,
-                 max_workers: int = 4,
-                 cache_size: int = 10000,
-                 buffer_size: int = 1000,
-                 flush_interval: float = 5.0):
+                analyzer_factory: Optional[Callable[[], Any]] = None,
+                max_queue_size: int = 1000,
+                max_workers: int = 4,
+                cache_size: int = 10000,
+                buffer_size: int = 1000,
+                flush_interval: float = 5.0):
         """
         Initialize stream processor.
         
@@ -684,8 +679,8 @@ class StreamProcessor:
         return hashlib.sha256(key_data.encode()).hexdigest()[:16]
     
     async def _analyze_file_change(self, 
-                                   file_change: FileChange, 
-                                   request: AnalysisRequest) -> Optional[AnalysisResult]:
+                                    file_change: FileChange, 
+                                    request: AnalysisRequest) -> Optional[AnalysisResult]:
         """Analyze individual file change."""
         try:
             # Create analyzer instance
@@ -805,8 +800,8 @@ class StreamProcessor:
             return {"description": str(violation), "type": "unknown"}
     
     def _handle_file_deletion(self, 
-                             file_change: FileChange, 
-                             request: AnalysisRequest) -> AnalysisResult:
+                            file_change: FileChange, 
+                            request: AnalysisRequest) -> AnalysisResult:
         """Handle file deletion by clearing related violations."""
         return AnalysisResult(
             request_id=request.request_id,
@@ -927,13 +922,11 @@ class StreamProcessor:
         """Async context manager exit."""
         await self.stop()
 
-
 # Factory functions and utilities
 
 def create_stream_processor(analyzer_factory: Callable[[], Any], **kwargs) -> StreamProcessor:
     """Factory function to create configured stream processor."""
     return StreamProcessor(analyzer_factory=analyzer_factory, **kwargs)
-
 
 async def process_file_changes_stream(
     directories: List[Union[str, Path]],

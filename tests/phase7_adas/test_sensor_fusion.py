@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Sensor Fusion Testing for ADAS Phase 7
-Validates multi-sensor data synchronization, fusion accuracy, and failure mode handling.
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Requirements:
 - Sensor synchronization tolerance < 1ms
@@ -557,8 +554,6 @@ class TestSensorSynchronization:
         assert avg_drift <= SYNC_TOLERANCE_MS, f"Average synchronization drift {avg_drift:.2f}ms exceeds tolerance"
         assert max_recorded_drift <= SYNC_TOLERANCE_MS * 2, f"Maximum recorded drift {max_recorded_drift:.2f}ms exceeds acceptable limit"
 
-        print(f"High-frequency sync test: avg={avg_drift:.2f}ms, max={max_recorded_drift:.2f}ms")
-
     def test_time_synchronization_failure_detection(self, fusion_tester):
         """Test detection of synchronization failures"""
         # Simulate sensor with time offset
@@ -633,7 +628,6 @@ class TestDataFusionAccuracy:
         assert fusion_accuracy >= FUSION_ACCURACY_THRESHOLD, f"Fusion accuracy {fusion_accuracy:.1f}% below threshold {FUSION_ACCURACY_THRESHOLD}%"
 
         print(f"Multi-sensor fusion accuracy: {fusion_accuracy:.1f}%")
-        print(f"Fused {len(fused_objects)} objects from {len(test_scene)} reference objects")
 
     @pytest.mark.asyncio
     async def test_sensor_confidence_weighting(self, fusion_tester, test_scene):
@@ -659,8 +653,6 @@ class TestDataFusionAccuracy:
             # High-confidence sensors should dominate if available
             if "camera_front" in fused_obj.contributing_sensors:
                 assert fused_obj.confidence >= 0.85, "Camera confidence not properly weighted"
-
-        print(f"Confidence weighting test passed with {len(fused_objects)} fused objects")
 
     @pytest.mark.asyncio
     async def test_redundancy_and_cross_validation(self, fusion_tester, test_scene):
@@ -705,8 +697,6 @@ class TestDataFusionAccuracy:
                         avg_position_variation = sum(position_variations) / len(position_variations)
                         assert avg_position_variation < 0.5, f"High position variation: {avg_position_variation:.2f}m"
 
-        print(f"Redundancy test: avg {avg_objects_detected:.1f} objects detected, variance {detection_variance:.3f}")
-
 class TestCalibrationValidation:
     """Test sensor calibration and drift detection"""
 
@@ -723,7 +713,7 @@ class TestCalibrationValidation:
                 f"Sensor {sensor_id} detection accuracy {errors['detection_accuracy']:.2f} below minimum"
 
             print(f"Sensor {sensor_id}: position error {errors['position_error_m']:.3f}m, "
-                  f"accuracy {errors['detection_accuracy']:.2f}")
+                    f"accuracy {errors['detection_accuracy']:.2f}")
 
     def test_calibration_drift_detection(self, fusion_tester):
         """Test detection of calibration drift over time"""
@@ -774,8 +764,6 @@ class TestCalibrationValidation:
 
         assert recalibration_needed, "Recalibration trigger logic failed"
 
-        print("Automatic recalibration trigger test passed")
-
 class TestFailureModeHandling:
     """Test sensor failure mode handling"""
 
@@ -818,7 +806,7 @@ class TestFailureModeHandling:
         # Collect data with multiple failures
         sensor_data = await fusion_tester.fusion_engine.collect_sensor_data(test_scene)
         active_sensors = [sensor_id for sensor_id, data in sensor_data.items()
-                         if data.status == SensorStatus.ACTIVE]
+                        if data.status == SensorStatus.ACTIVE]
 
         assert len(active_sensors) >= MIN_SENSORS_FOR_FUSION, \
             f"Too few active sensors: {len(active_sensors)} < {MIN_SENSORS_FOR_FUSION}"

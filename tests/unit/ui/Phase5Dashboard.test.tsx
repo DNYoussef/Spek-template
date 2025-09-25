@@ -190,7 +190,7 @@ describe('Phase5Dashboard Component', () => {
       render(<Phase5Dashboard />);
 
       await waitFor(() => {
-        expect(screen.getByText('λ = 0.720')).toBeInTheDocument();
+        expect(screen.getByText(' = 0.720')).toBeInTheDocument();
       });
     });
   });

@@ -1,3 +1,4 @@
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
 #!/usr/bin/env python3
 """
 DFARS Compliance Validation Test Suite
@@ -294,7 +295,7 @@ class DFARSComplianceValidator:
         print("Testing DFARS Access Control Improvements...")
 
         results = {
-            'control': 'DFARS 3.1.1 - Access Control',
+            'control': 'DFARS MAXIMUM_RETRY_ATTEMPTS.1.1 - Access Control',
             'tests_performed': [],
             'passed': 0,
             'total': 0,
@@ -373,7 +374,7 @@ class DFARSComplianceValidator:
         passed_tests = sum(result['passed'] for result in test_results.values())
         compliant_controls = sum(1 for result in test_results.values() if result['status'] == 'compliant')
 
-        compliance_score = (passed_tests / total_tests) * 100 if total_tests > 0 else 0
+        compliance_score = (passed_tests / total_tests) * MAXIMUM_FUNCTION_LENGTH_LINES if total_tests > 0 else 0
 
         # Critical issues (non-compliant controls)
         critical_issues = sum(1 for result in test_results.values() if result['status'] == 'non_compliant')

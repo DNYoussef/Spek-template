@@ -7,18 +7,17 @@ This script directly uses the UnifiedConnascenceAnalyzer to perform real analysi
 bypassing any CI mock modes and fallback mechanisms.
 """
 
-import sys
+from datetime import datetime
+from pathlib import Path
 import json
 import os
-from pathlib import Path
-from datetime import datetime
+import sys
 
 # Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 def main():
-    print("=== REAL ANALYSIS TEST - NO MOCKS ===")
     print(f"Project root: {project_root}")
     print(f"Timestamp: {datetime.now().isoformat()}")
     print("")

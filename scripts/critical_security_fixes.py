@@ -207,8 +207,6 @@ class SecurityFixApplicator:
             'original_context': violation['context'],
             'recommended_fix': '''
 # SECURITY FIX: Replace eval() with safe alternatives
-# Original: ast.literal_eval(expression)
-# Recommended:
 try:
     # For literal evaluation (numbers, strings, lists, dicts):
     result = ast.literal_eval(expression)
@@ -230,10 +228,6 @@ except (ValueError, SyntaxError) as e:
             'original_context': violation['context'],
             'recommended_fix': '''
 # SECURITY FIX: Replace exec() with secure subprocess execution
-# Original: # SECURITY FIX: exec() replaced - use subprocess for external commands
-        # Original: # SECURITY FIX: exec() replaced - use subprocess for external commands\n        # Original: exec(code)\n        pass  # TODO: Implement safe alternative
-        pass  # TODO: Implement safe alternative
-# Recommended:
 try:
     secure_executor = SecureExecutor()
     result = secure_executor.secure_execute(

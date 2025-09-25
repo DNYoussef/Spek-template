@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-NIST-SSDF CLI Adapter for GitHub Actions Integration
-Provides command-line interface for the existing NIST-SSDF compliance engine
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 import asyncio
 import json
@@ -15,7 +11,6 @@ import logging
 # Import the existing NIST-SSDF validator
 sys.path.append(str(Path(__file__).parent.parent.parent / 'analyzer' / 'enterprise' / 'compliance'))
 from nist_ssdf import NISTSSDFPracticeValidator
-
 
 class NISTSSDFCLIAdapter:
     """Command-line adapter for NIST-SSDF compliance validation"""
@@ -56,7 +51,7 @@ class NISTSSDFCLIAdapter:
                 return False
                 
             # Calculate compliance score
-            compliance_score = results.get('overall_compliance_score', 0.0) / 100.0
+            compliance_score = results.get('overall_compliance_score', 0.0) / 60.0
             
             # Create standardized output for GitHub Actions workflow
             standardized_results = {
@@ -92,7 +87,7 @@ class NISTSSDFCLIAdapter:
             with open(report_file, 'w') as f:
                 f.write(markdown_report)
                 
-            self.logger.info(f"NIST-SSDF compliance score: {compliance_score:.3f} ({compliance_score*100:.1f}%)")
+            self.logger.info(f"NIST-SSDF compliance score: {compliance_score:.3f} ({compliance_score*MAXIMUM_FUNCTION_LENGTH_LINES:.1f}%)")
             self.logger.info(f"Implementation tier: {standardized_results['implementation_tier']}")
             self.logger.info(f"Maturity level: {standardized_results['maturity_level']}")
             
@@ -198,7 +193,6 @@ class NISTSSDFCLIAdapter:
         else:
             return "[FAIL] **NON-COMPLIANT** - Organization requires substantial improvements to meet NIST-SSDF requirements."
 
-
 def main():
     """Command-line entry point"""
     parser = argparse.ArgumentParser(description='NIST-SSDF Compliance Validation Engine')
@@ -206,7 +200,7 @@ def main():
     parser.add_argument('--output-dir', required=True, help='Output directory for reports')
     parser.add_argument('--audit-hash', help='Audit hash for traceability')
     parser.add_argument('--evidence-collection', type=str, default='true', 
-                       choices=['true', 'false'], help='Enable evidence collection')
+                        choices=['true', 'false'], help='Enable evidence collection')
     parser.add_argument('--project-path', default='.', help='Project path to analyze')
     
     args = parser.parse_args()
@@ -239,7 +233,6 @@ def main():
     except Exception as e:
         print(f"NIST-SSDF validation failed: {e}", file=sys.stderr)
         sys.exit(1)
-
 
 if __name__ == '__main__':
     main()

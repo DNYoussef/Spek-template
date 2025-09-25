@@ -5,18 +5,24 @@ Implements enterprise-grade quality metrics and process monitoring
 for software development workflows.
 """
 
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+from datetime import datetime, timedelta
+from typing import Dict, Any, List, Optional, Union, Tuple
+import logging
+import time
 
+from dataclasses import dataclass, field
+from enum import Enum
+import statistics
+
+logger = logging.getLogger(__name__)
 
 class QualityLevel(Enum):
     """Six Sigma quality levels"""
-    TWO_SIGMA = 2.0      # 308,537 DPMO
-    THREE_SIGMA = 3.0    # 66,807 DPMO
-    FOUR_SIGMA = 4.0     # 6,210 DPMO
+    TWO_SIGMA = 2.0      # 308, 537 DPMO
+    THREE_SIGMA = 3.0    # 66, 807 DPMO
+    FOUR_SIGMA = 4.0     # 6, 210 DPMO
     FIVE_SIGMA = 5.0     # 233 DPMO
     SIX_SIGMA = 6.0      # 3.4 DPMO
-
 
 @dataclass
 class SixSigmaMetrics:
@@ -31,7 +37,6 @@ class SixSigmaMetrics:
     sample_size: int = 0
     defect_count: int = 0
     opportunity_count: int = 0
-
 
 class SixSigmaTelemetry:
     """
@@ -83,7 +88,7 @@ class SixSigmaTelemetry:
         """
         Calculate Defects Per Million Opportunities
         
-        DPMO = (Number of Defects / Number of Opportunities) * 1,000,000
+        DPMO = (Number of Defects / Number of Opportunities) * 1, 000, 000
         """
         if defects is None:
             defects = self.current_session_data['defects']
@@ -129,7 +134,6 @@ class SixSigmaTelemetry:
         defect_rate = dpmo / 1_000_000
         
         # Calculate sigma level using inverse normal distribution
-        # Sigma level = Z-score + 1.5 (accounting for process shift)
         try:
             from scipy import stats
             z_score = stats.norm.ppf(1 - defect_rate)
@@ -142,7 +146,7 @@ class SixSigmaTelemetry:
     def _approximate_sigma_level(self, dpmo: float) -> float:
         """Approximate sigma level calculation without scipy"""
         for level, threshold in sorted(self.quality_thresholds.items(), 
-                                     key=lambda x: x[1]):
+                                    key=lambda x: x[1]):
             if dpmo <= threshold:
                 return level.value
         return 1.0  # Below 2-sigma
@@ -153,14 +157,14 @@ class SixSigmaTelemetry:
             dpmo = self.calculate_dpmo()
             
         for level, threshold in sorted(self.quality_thresholds.items(),
-                                     key=lambda x: x[1]):
+                                    key=lambda x: x[1]):
             if dpmo <= threshold:
                 return level
                 
         return QualityLevel.TWO_SIGMA  # Default to lowest level
         
     def calculate_process_capability(self, measurements: List[float], 
-                                   lower_spec: float, upper_spec: float) -> Tuple[float, float]:
+                                    lower_spec: float, upper_spec: float) -> Tuple[float, float]:
         """
         Calculate process capability indices (Cp, Cpk)
         
@@ -221,7 +225,7 @@ class SixSigmaTelemetry:
         """Analyze quality trends over specified period"""
         cutoff_date = datetime.now() - timedelta(days=days)
         recent_metrics = [m for m in self.metrics_history 
-                         if m.timestamp >= cutoff_date]
+                        if m.timestamp >= cutoff_date]
         
         if not recent_metrics:
             return {"error": "No metrics data available for trend analysis"}

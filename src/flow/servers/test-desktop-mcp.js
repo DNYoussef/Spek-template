@@ -194,10 +194,10 @@ class DesktopMCPTester {
 
     if (passed) {
       this.testResults.passed++;
-      console.log(`✅ ${testName}`);
+      console.log(`[OK] ${testName}`);
     } else {
       this.testResults.failed++;
-      console.log(`❌ ${testName}`);
+      console.log(`[FAIL] ${testName}`);
       if (details.error) {
         console.log(`   Error: ${details.error}`);
       }

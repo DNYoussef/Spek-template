@@ -14,25 +14,25 @@ Key Features:
 - Adaptive concurrency control with feedback loops
 """
 
-import asyncio
-import threading
-import time
-import math
-import json
-import pickle
-from dataclasses import dataclass, field
-from typing import Dict, List, Set, Optional, Any, Tuple, Callable
 from collections import defaultdict, deque
 from pathlib import Path
+from typing import Dict, List, Set, Optional, Any, Tuple, Callable
+import json
 import logging
-import numpy as np
-from sklearn.linear_model import LinearRegression
+import time
+
+from contextlib import contextmanager
+from dataclasses import dataclass, field
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
+import asyncio
+import math
+import numpy as np
+import pickle
 import psutil
 import sqlite3
-from contextlib import contextmanager
-
+import threading
 
 @dataclass
 class WorkloadMetrics:
@@ -48,7 +48,6 @@ class WorkloadMetrics:
     cache_hit_rate: float
     error_occurred: bool = False
 
-
 @dataclass
 class ResourceAllocation:
     """Resource allocation decision for optimal performance."""
@@ -59,7 +58,6 @@ class ResourceAllocation:
     estimated_overhead: float
     confidence_score: float
 
-
 @dataclass
 class PredictionModel:
     """Machine learning model for workload prediction."""
@@ -69,11 +67,10 @@ class PredictionModel:
     last_trained: Optional[float] = None
     accuracy_score: float = 0.0
 
-
 class WorkloadPredictor:
     """ML-based workload prediction system."""
 
-    def __init__(self, history_size: int = 10000):
+def __init__(self, history_size: int = 10000):
         self.history_size = history_size
         self.metrics_history: deque = deque(maxlen=history_size)
         self.execution_time_model = PredictionModel()
@@ -81,7 +78,7 @@ class WorkloadPredictor:
         self.retrain_threshold = 0.8  # Retrain if accuracy drops below 80%
         self.min_samples_for_training = 100
 
-    def record_metrics(self, metrics: WorkloadMetrics) -> None:
+def record_metrics(self, metrics: WorkloadMetrics) -> None:
         """Record workload metrics for analysis."""
         self.metrics_history.append(metrics)
 
@@ -90,7 +87,7 @@ class WorkloadPredictor:
             len(self.metrics_history) >= self.min_samples_for_training):
             self._retrain_models()
 
-    def _extract_features(self, metrics: WorkloadMetrics) -> List[float]:
+def _extract_features(self, metrics: WorkloadMetrics) -> List[float]:
         """Extract features for ML models."""
         return [
             metrics.queue_depth,
@@ -103,7 +100,7 @@ class WorkloadPredictor:
             time.time() % 86400,  # Time of day
         ]
 
-    def _prepare_training_data(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+def _prepare_training_data(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Prepare training data from metrics history."""
         if len(self.metrics_history) < self.min_samples_for_training:
             return None, None, None
@@ -123,7 +120,7 @@ class WorkloadPredictor:
 
         return np.array(features), np.array(execution_times), np.array(resource_usage)
 
-    def _retrain_models(self) -> None:
+def _retrain_models(self) -> None:
         """Retrain ML models with latest data."""
         try:
             features, execution_times, resource_usage = self._prepare_training_data()
@@ -144,7 +141,7 @@ class WorkloadPredictor:
             self.execution_time_model.model.fit(scaled_features, execution_times)
             self.execution_time_model.last_trained = time.time()
 
-            # Calculate accuracy (R² score)
+            # Calculate accuracy (R0 score)
             predictions = self.execution_time_model.model.predict(scaled_features)
             self.execution_time_model.accuracy_score = self.execution_time_model.model.score(
                 scaled_features, execution_times
@@ -172,11 +169,11 @@ class WorkloadPredictor:
         except Exception as e:
             logging.error(f"Model retraining failed: {e}")
 
-    def predict_execution_time(self,
-                             queue_depth: int,
-                             concurrency_level: int,
-                             system_load: float,
-                             cache_hit_rate: float) -> float:
+def predict_execution_time(self,
+                            queue_depth: int,
+                            concurrency_level: int,
+                            system_load: float,
+                            cache_hit_rate: float) -> float:
         """Predict execution time for given conditions."""
         if (self.execution_time_model.model is None or
             self.execution_time_model.accuracy_score < self.retrain_threshold):
@@ -202,11 +199,11 @@ class WorkloadPredictor:
             logging.warning(f"Execution time prediction failed: {e}")
             return 1.0
 
-    def predict_resource_usage(self,
-                              queue_depth: int,
-                              concurrency_level: int,
-                              system_load: float,
-                              cache_hit_rate: float) -> float:
+def predict_resource_usage(self,
+                                queue_depth: int,
+                                concurrency_level: int,
+                                system_load: float,
+                                cache_hit_rate: float) -> float:
         """Predict resource usage for given conditions."""
         if (self.resource_usage_model.model is None or
             self.resource_usage_model.accuracy_score < self.retrain_threshold):
@@ -232,11 +229,10 @@ class WorkloadPredictor:
             logging.warning(f"Resource usage prediction failed: {e}")
             return 0.5
 
-
 class AdaptiveConcurrencyController:
     """Adaptive concurrency control with feedback loops."""
 
-    def __init__(self, initial_concurrency: int = 4):
+def __init__(self, initial_concurrency: int = 4):
         self.current_concurrency = initial_concurrency
         self.min_concurrency = 1
         self.max_concurrency = min(32, psutil.cpu_count() * 2)
@@ -252,12 +248,12 @@ class AdaptiveConcurrencyController:
         self.last_adjustment = 0
         self.adjustment_cooldown = 30.0  # 30 seconds between adjustments
 
-    def record_performance(self, overhead: float, throughput: float) -> None:
+def record_performance(self, overhead: float, throughput: float) -> None:
         """Record performance metrics for feedback control."""
         self.recent_overheads.append(overhead)
         self.recent_throughputs.append(throughput)
 
-    def should_adjust(self) -> bool:
+def should_adjust(self) -> bool:
         """Determine if concurrency adjustment is needed."""
         if time.time() - self.last_adjustment < self.adjustment_cooldown:
             return False
@@ -268,7 +264,7 @@ class AdaptiveConcurrencyController:
         avg_overhead = sum(self.recent_overheads) / len(self.recent_overheads)
         return abs(avg_overhead - self.target_overhead) > self.overhead_tolerance
 
-    def adjust_concurrency(self) -> int:
+def adjust_concurrency(self) -> int:
         """Adjust concurrency based on recent performance."""
         if not self.should_adjust():
             return self.current_concurrency
@@ -303,10 +299,10 @@ class AdaptiveConcurrencyController:
 
         return self.current_concurrency
 
-    def get_optimal_concurrency(self,
-                               queue_size: int,
-                               system_load: float,
-                               predicted_execution_time: float) -> int:
+def get_optimal_concurrency(self,
+                                queue_size: int,
+                                system_load: float,
+                                predicted_execution_time: float) -> int:
         """Calculate optimal concurrency for current conditions."""
         # Base concurrency on queue size and predicted execution time
         base_concurrency = min(queue_size, self.current_concurrency)
@@ -325,29 +321,28 @@ class AdaptiveConcurrencyController:
 
         return max(self.min_concurrency, min(self.max_concurrency, base_concurrency))
 
-
 class PriorityScheduler:
     """Intelligent detector scheduling with priority queuing."""
 
-    def __init__(self):
+def __init__(self):
         self.priority_queues: Dict[int, deque] = defaultdict(deque)
         self.detector_priorities: Dict[str, int] = {}
         self.detector_weights: Dict[str, float] = {}
         self.execution_counts: Dict[str, int] = defaultdict(int)
         self.last_execution: Dict[str, float] = {}
 
-    def set_detector_priority(self, detector_name: str, priority: int, weight: float = 1.0) -> None:
+def set_detector_priority(self, detector_name: str, priority: int, weight: float = 1.0) -> None:
         """Set priority and weight for a detector."""
         self.detector_priorities[detector_name] = priority
         self.detector_weights[detector_name] = weight
 
-    def enqueue_task(self, detector_name: str, args: tuple, kwargs: dict) -> None:
+def enqueue_task(self, detector_name: str, args: tuple, kwargs: dict) -> None:
         """Enqueue a task with priority-based scheduling."""
         priority = self.detector_priorities.get(detector_name, 5)  # Default priority
         task = (detector_name, args, kwargs, time.time())
         self.priority_queues[priority].append(task)
 
-    def dequeue_batch(self, batch_size: int) -> List[Tuple[str, tuple, dict]]:
+def dequeue_batch(self, batch_size: int) -> List[Tuple[str, tuple, dict]]:
         """Dequeue a batch of tasks with optimal scheduling."""
         batch = []
 
@@ -369,7 +364,7 @@ class PriorityScheduler:
 
         return batch
 
-    def _should_schedule(self, detector_name: str) -> bool:
+def _should_schedule(self, detector_name: str) -> bool:
         """Determine if detector should be scheduled based on fairness."""
         current_time = time.time()
         last_exec = self.last_execution.get(detector_name, 0)
@@ -380,7 +375,7 @@ class PriorityScheduler:
 
         return current_time - last_exec >= min_interval
 
-    def get_queue_stats(self) -> Dict[str, Any]:
+def get_queue_stats(self) -> Dict[str, Any]:
         """Get current queue statistics."""
         total_queued = sum(len(queue) for queue in self.priority_queues.values())
         queue_sizes = {priority: len(queue) for priority, queue in self.priority_queues.items()}
@@ -392,18 +387,17 @@ class PriorityScheduler:
             'detector_priorities': dict(self.detector_priorities)
         }
 
-
 class ResourceContentionDetector:
     """Detect and mitigate resource contention issues."""
 
-    def __init__(self):
+def __init__(self):
         self.cpu_usage_history: deque = deque(maxlen=60)  # 1 minute of data
         self.memory_usage_history: deque = deque(maxlen=60)
         self.io_wait_history: deque = deque(maxlen=60)
         self.contention_threshold = 0.85
         self.contention_events: List[Dict] = []
 
-    def record_system_metrics(self) -> None:
+def record_system_metrics(self) -> None:
         """Record current system metrics."""
         try:
             cpu_percent = psutil.cpu_percent(interval=1)
@@ -420,7 +414,7 @@ class ResourceContentionDetector:
         except Exception as e:
             logging.warning(f"Failed to record system metrics: {e}")
 
-    def detect_contention(self) -> Dict[str, Any]:
+def detect_contention(self) -> Dict[str, Any]:
         """Detect resource contention and return mitigation suggestions."""
         if not self.cpu_usage_history:
             return {'contention_detected': False}
@@ -464,11 +458,10 @@ class ResourceContentionDetector:
 
         return contention_info
 
-
 class WorkloadOptimizer:
     """Main workload optimization coordinator."""
 
-    def __init__(self):
+def __init__(self):
         self.predictor = WorkloadPredictor()
         self.concurrency_controller = AdaptiveConcurrencyController()
         self.scheduler = PriorityScheduler()
@@ -481,28 +474,27 @@ class WorkloadOptimizer:
         # Performance tracking
         self.optimization_history: List[Dict] = []
 
-    def register_detector(self,
-                         detector_name: str,
-                         priority: int = 5,
-                         weight: float = 1.0,
-                         complexity_score: float = 1.0) -> None:
+def register_detector(self,
+                        detector_name: str,
+                        priority: int = 5,
+                        weight: float = 1.0,
+                        complexity_score: float = 1.0) -> None:
         """Register detector with optimization system."""
         self.scheduler.set_detector_priority(detector_name, priority, weight)
 
-    def record_execution_metrics(self, metrics: WorkloadMetrics) -> None:
+def record_execution_metrics(self, metrics: WorkloadMetrics) -> None:
         """Record execution metrics for optimization."""
         self.predictor.record_metrics(metrics)
 
         # Record performance for concurrency control
-        # Simplified overhead calculation - would be more sophisticated in practice
         overhead = max(0, metrics.execution_time - 0.1) / max(0.1, metrics.execution_time)
         throughput = 1.0 / max(0.01, metrics.execution_time)
 
         self.concurrency_controller.record_performance(overhead, throughput)
 
-    def optimize_allocation(self,
-                           pending_tasks: List[Tuple[str, tuple, dict]],
-                           current_system_load: float) -> ResourceAllocation:
+def optimize_allocation(self,
+                            pending_tasks: List[Tuple[str, tuple, dict]],
+                            current_system_load: float) -> ResourceAllocation:
         """Optimize resource allocation for pending tasks."""
         if not self.optimization_enabled:
             return self._get_default_allocation()
@@ -596,7 +588,7 @@ class WorkloadOptimizer:
 
         return allocation
 
-    def _get_default_allocation(self) -> ResourceAllocation:
+def _get_default_allocation(self) -> ResourceAllocation:
         """Get default resource allocation when optimization is disabled."""
         return ResourceAllocation(
             max_threads=4,
@@ -607,7 +599,7 @@ class WorkloadOptimizer:
             confidence_score=0.5
         )
 
-    def get_optimization_stats(self) -> Dict[str, Any]:
+def get_optimization_stats(self) -> Dict[str, Any]:
         """Get optimization statistics and performance metrics."""
         if not self.optimization_history:
             return {'status': 'no_data'}
@@ -636,17 +628,17 @@ class WorkloadOptimizer:
             }
         }
 
-    def enable_optimization(self) -> None:
+def enable_optimization(self) -> None:
         """Enable workload optimization."""
         self.optimization_enabled = True
         logging.info("Workload optimization enabled")
 
-    def disable_optimization(self) -> None:
+def disable_optimization(self) -> None:
         """Disable workload optimization."""
         self.optimization_enabled = False
         logging.info("Workload optimization disabled")
 
-    def save_state(self, filepath: str) -> None:
+def save_state(self, filepath: str) -> None:
         """Save optimizer state for persistence."""
         state = {
             'optimization_history': self.optimization_history,
@@ -659,7 +651,7 @@ class WorkloadOptimizer:
         with open(filepath, 'wb') as f:
             pickle.dump(state, f)
 
-    def load_state(self, filepath: str) -> None:
+def load_state(self, filepath: str) -> None:
         """Load optimizer state for persistence."""
         try:
             with open(filepath, 'rb') as f:
@@ -684,7 +676,6 @@ class WorkloadOptimizer:
 
         except Exception as e:
             logging.error(f"Failed to load optimizer state: {e}")
-
 
 # Example usage and testing
 if __name__ == "__main__":

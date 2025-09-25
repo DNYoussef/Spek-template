@@ -1,5 +1,4 @@
-"""
-High-Performance Kill Switch System for Trading Applications
+from src.constants.base import API_TIMEOUT_SECONDS
 
 Provides emergency position liquidation with <500ms response time
 and comprehensive audit logging.
@@ -18,7 +17,6 @@ from lib.shared.utilities import get_logger
 
 logger = get_logger(__name__)
 
-
 class TriggerType(Enum):
     """Kill switch trigger types."""
     LOSS_LIMIT = "loss_limit"
@@ -26,7 +24,6 @@ class TriggerType(Enum):
     HEARTBEAT_TIMEOUT = "heartbeat_timeout"
     MANUAL = "manual"
     SYSTEM_ERROR = "system_error"
-
 
 @dataclass
 class KillSwitchEvent:
@@ -46,7 +43,6 @@ class KillSwitchEvent:
         result['trigger_type'] = self.trigger_type.value
         return result
 
-
 class BrokerInterface:
     """Mock broker interface for testing."""
 
@@ -57,7 +53,6 @@ class BrokerInterface:
     async def close_position(self, symbol, qty, side, order_type):
         """Close a position."""
         return True
-
 
 class KillSwitchSystem:
     """High-Performance Kill Switch System."""
@@ -89,7 +84,7 @@ class KillSwitchSystem:
         # Risk limits from config
         self.loss_limit = config.get('loss_limit', -1000)
         self.position_limit = config.get('position_limit', 100000)
-        self.heartbeat_timeout = config.get('heartbeat_timeout', 30)
+        self.heartbeat_timeout = config.get('heartbeat_timeout', API_TIMEOUT_SECONDS)
 
         self.logger.info(f"Kill switch initialized with limits: loss={self.loss_limit}, position={self.position_limit}")
 
@@ -322,12 +317,10 @@ class KillSwitchSystem:
             'timestamp': datetime.now(timezone.utc).isoformat()
         }
 
-
 # Convenience functions for integration
 def create_kill_switch_system(broker: BrokerInterface, config: Dict[str, Any]) -> KillSwitchSystem:
     """Factory function to create kill switch system."""
     return KillSwitchSystem(broker, config)
-
 
 def validate_kill_switch_performance(kill_switch: KillSwitchSystem) -> bool:
     """Validate kill switch meets performance requirements."""

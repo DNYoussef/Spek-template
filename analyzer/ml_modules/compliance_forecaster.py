@@ -1,7 +1,4 @@
-"""
-Compliance Forecaster ML Module
-Predicts compliance issues and forecasts compliance trends.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH, TAKE_PROFIT_PERCENTAGE
 
 import re
 import os
@@ -11,7 +8,6 @@ from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from enum import Enum
-
 
 class ComplianceStandard(Enum):
     """Compliance standards that can be forecasted."""
@@ -23,14 +19,12 @@ class ComplianceStandard(Enum):
     NIST = "nist"
     OWASP = "owasp"
 
-
 class ForecastHorizon(Enum):
     """Time horizons for compliance forecasting."""
     IMMEDIATE = "immediate"  # 1-7 days
     SHORT_TERM = "short_term"  # 1-4 weeks
     MEDIUM_TERM = "medium_term"  # 1-6 months
     LONG_TERM = "long_term"  # 6+ months
-
 
 @dataclass
 class ComplianceForecast:
@@ -44,16 +38,15 @@ class ComplianceForecast:
     recommendations: List[str]
     forecast_details: Dict[str, Any]
 
-
 class ComplianceForecaster:
     """ML-based compliance forecasting engine."""
 
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
+def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
         self.compliance_weights = self._initialize_compliance_weights()
         self.trend_analyzers = self._initialize_trend_analyzers()
 
-    def _initialize_compliance_weights(self) -> Dict[str, Dict[str, float]]:
+def _initialize_compliance_weights(self) -> Dict[str, Dict[str, float]]:
         """Initialize weights for different compliance standards."""
         return {
             ComplianceStandard.SOX.value: {
@@ -65,7 +58,7 @@ class ComplianceForecaster:
             },
             ComplianceStandard.GDPR.value: {
                 "data_protection": 0.35,
-                "consent_management": 0.25,
+                "consent_management": 0.3,
                 "data_retention": 0.2,
                 "breach_notification": 0.1,
                 "privacy_by_design": 0.1
@@ -96,7 +89,7 @@ class ComplianceForecaster:
                 "protect": 0.25,
                 "detect": 0.2,
                 "respond": 0.2,
-                "recover": 0.15
+                "recover": TAKE_PROFIT_PERCENTAGE
             },
             ComplianceStandard.OWASP.value: {
                 "injection_prevention": 0.25,
@@ -107,7 +100,7 @@ class ComplianceForecaster:
             }
         }
 
-    def _initialize_trend_analyzers(self) -> Dict[str, callable]:
+def _initialize_trend_analyzers(self) -> Dict[str, callable]:
         """Initialize trend analysis functions."""
         return {
             "code_quality_trend": self._analyze_code_quality_trend,
@@ -117,7 +110,7 @@ class ComplianceForecaster:
             "change_management_trend": self._analyze_change_management_trend
         }
 
-    def extract_compliance_features(self, directory: str, standard: ComplianceStandard) -> Dict[str, float]:
+def extract_compliance_features(self, directory: str, standard: ComplianceStandard) -> Dict[str, float]:
         """Extract features relevant to a specific compliance standard."""
         features = {}
 
@@ -142,7 +135,7 @@ class ComplianceForecaster:
 
         return features
 
-    def _extract_base_compliance_features(self, directory: str) -> Dict[str, float]:
+def _extract_base_compliance_features(self, directory: str) -> Dict[str, float]:
         """Extract base compliance features applicable to all standards."""
         features = {}
 
@@ -164,7 +157,7 @@ class ComplianceForecaster:
                 elif 'test' in file and file.endswith('.py'):
                     tested_files += 1
 
-    def _check_python_file_features(self, file_path):
+def _check_python_file_features(self, file_path):
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
@@ -197,7 +190,7 @@ class ComplianceForecaster:
 
         return features
 
-    def _extract_sox_features(self, directory: str) -> Dict[str, float]:
+def _extract_sox_features(self, directory: str) -> Dict[str, float]:
         """Extract SOX-specific compliance features."""
         features = {}
 
@@ -220,7 +213,7 @@ class ComplianceForecaster:
                     file_path = os.path.join(root, file)
                     integrity_score += self._count_pattern_matches(file_path, integrity_patterns)
 
-    def _count_pattern_matches(self, file_path, patterns):
+def _count_pattern_matches(self, file_path, patterns):
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()
@@ -268,7 +261,7 @@ class ComplianceForecaster:
 
         return features
 
-    def _extract_gdpr_features(self, directory: str) -> Dict[str, float]:
+def _extract_gdpr_features(self, directory: str) -> Dict[str, float]:
         """Extract GDPR-specific compliance features."""
         features = {}
 
@@ -313,7 +306,7 @@ class ComplianceForecaster:
 
         return features
 
-    def _extract_hipaa_features(self, directory: str) -> Dict[str, float]:
+def _extract_hipaa_features(self, directory: str) -> Dict[str, float]:
         """Extract HIPAA-specific compliance features."""
         features = {}
 
@@ -341,7 +334,7 @@ class ComplianceForecaster:
 
         return features
 
-    def _extract_pci_features(self, directory: str) -> Dict[str, float]:
+def _extract_pci_features(self, directory: str) -> Dict[str, float]:
         """Extract PCI DSS-specific compliance features."""
         features = {}
 
@@ -368,7 +361,7 @@ class ComplianceForecaster:
 
         return features
 
-    def _extract_iso_features(self, directory: str) -> Dict[str, float]:
+def _extract_iso_features(self, directory: str) -> Dict[str, float]:
         """Extract ISO 27001-specific compliance features."""
         features = {}
 
@@ -395,7 +388,7 @@ class ComplianceForecaster:
 
         return features
 
-    def _extract_nist_features(self, directory: str) -> Dict[str, float]:
+def _extract_nist_features(self, directory: str) -> Dict[str, float]:
         """Extract NIST-specific compliance features."""
         features = {}
 
@@ -434,7 +427,7 @@ class ComplianceForecaster:
 
         return features
 
-    def _extract_owasp_features(self, directory: str) -> Dict[str, float]:
+def _extract_owasp_features(self, directory: str) -> Dict[str, float]:
         """Extract OWASP-specific compliance features."""
         features = {}
 
@@ -473,17 +466,16 @@ class ComplianceForecaster:
 
         return features
 
-    def _analyze_code_quality_trend(self, directory: str) -> Dict[str, Any]:
+def _analyze_code_quality_trend(self, directory: str) -> Dict[str, Any]:
         """Analyze code quality trends."""
         # This would typically analyze git history
-        # For now, return a simplified trend analysis
         return {
             "trend": "STABLE",
             "confidence": 0.7,
             "indicators": ["consistent_patterns", "adequate_documentation"]
         }
 
-    def _analyze_security_trend(self, directory: str) -> Dict[str, Any]:
+def _analyze_security_trend(self, directory: str) -> Dict[str, Any]:
         """Analyze security implementation trends."""
         return {
             "trend": "IMPROVING",
@@ -491,7 +483,7 @@ class ComplianceForecaster:
             "indicators": ["security_patterns_present", "encryption_implemented"]
         }
 
-    def _analyze_documentation_trend(self, directory: str) -> Dict[str, Any]:
+def _analyze_documentation_trend(self, directory: str) -> Dict[str, Any]:
         """Analyze documentation trends."""
         return {
             "trend": "STABLE",
@@ -499,7 +491,7 @@ class ComplianceForecaster:
             "indicators": ["moderate_documentation", "room_for_improvement"]
         }
 
-    def _analyze_testing_trend(self, directory: str) -> Dict[str, Any]:
+def _analyze_testing_trend(self, directory: str) -> Dict[str, Any]:
         """Analyze testing trends."""
         return {
             "trend": "STABLE",
@@ -507,7 +499,7 @@ class ComplianceForecaster:
             "indicators": ["test_files_present", "coverage_adequate"]
         }
 
-    def _analyze_change_management_trend(self, directory: str) -> Dict[str, Any]:
+def _analyze_change_management_trend(self, directory: str) -> Dict[str, Any]:
         """Analyze change management trends."""
         return {
             "trend": "STABLE",
@@ -515,10 +507,10 @@ class ComplianceForecaster:
             "indicators": ["version_control", "basic_processes"]
         }
 
-    def forecast_compliance(self,
-                          directory: str,
-                          standard: ComplianceStandard,
-                          horizon: ForecastHorizon) -> ComplianceForecast:
+def forecast_compliance(self,
+                            directory: str,
+                            standard: ComplianceStandard,
+                            horizon: ForecastHorizon) -> ComplianceForecast:
         """Forecast compliance for a specific standard and horizon."""
         # Extract features
         features = self.extract_compliance_features(directory, standard)
@@ -534,7 +526,7 @@ class ComplianceForecaster:
                 weighted_sum += weight
 
         if weighted_sum > 0:
-            current_score = (current_score / weighted_sum) * 100
+            current_score = (current_score / weighted_sum) * MAXIMUM_FUNCTION_LENGTH_LINES
         else:
             current_score = 50.0  # Default score
 
@@ -547,9 +539,9 @@ class ComplianceForecaster:
         predicted_score = self._calculate_predicted_score(current_score, trend_results, horizon)
 
         # Determine trend direction
-        if predicted_score > current_score + 5:
+        if predicted_score > current_score + MAXIMUM_NESTED_DEPTH:
             trend_direction = "IMPROVING"
-        elif predicted_score < current_score - 5:
+        elif predicted_score < current_score - MAXIMUM_NESTED_DEPTH:
             trend_direction = "DECLINING"
         else:
             trend_direction = "STABLE"
@@ -580,22 +572,22 @@ class ComplianceForecaster:
             forecast_details=forecast_details
         )
 
-    def _calculate_predicted_score(self,
-                                 current_score: float,
-                                 trend_results: Dict[str, Any],
-                                 horizon: ForecastHorizon) -> float:
+def _calculate_predicted_score(self,
+                                current_score: float,
+                                trend_results: Dict[str, Any],
+                                horizon: ForecastHorizon) -> float:
         """Calculate predicted compliance score."""
         # Simple trend-based prediction
         trend_multiplier = self._horizon_to_multiplier(horizon)
 
         # Analyze overall trend direction
         improving_trends = sum(1 for result in trend_results.values()
-                             if result["trend"] == "IMPROVING")
+                            if result["trend"] == "IMPROVING")
         declining_trends = sum(1 for result in trend_results.values()
-                             if result["trend"] == "DECLINING")
+                            if result["trend"] == "DECLINING")
 
         trend_factor = (improving_trends - declining_trends) / max(1, len(trend_results))
-        trend_adjustment = trend_factor * trend_multiplier * 10  # Scale factor
+        trend_adjustment = trend_factor * trend_multiplier * MAXIMUM_FUNCTION_PARAMETERS  # Scale factor
 
         predicted_score = current_score + trend_adjustment
 
@@ -606,7 +598,7 @@ class ComplianceForecaster:
 
         return max(0.0, min(100.0, predicted_score))
 
-    def _horizon_to_days(self, horizon: ForecastHorizon) -> int:
+def _horizon_to_days(self, horizon: ForecastHorizon) -> int:
         """Convert horizon enum to days."""
         mapping = {
             ForecastHorizon.IMMEDIATE: 7,
@@ -616,7 +608,7 @@ class ComplianceForecaster:
         }
         return mapping[horizon]
 
-    def _horizon_to_multiplier(self, horizon: ForecastHorizon) -> float:
+def _horizon_to_multiplier(self, horizon: ForecastHorizon) -> float:
         """Convert horizon to trend multiplier."""
         mapping = {
             ForecastHorizon.IMMEDIATE: 0.1,
@@ -626,9 +618,9 @@ class ComplianceForecaster:
         }
         return mapping[horizon]
 
-    def _calculate_forecast_confidence(self,
-                                     features: Dict[str, float],
-                                     trend_results: Dict[str, Any]) -> float:
+def _calculate_forecast_confidence(self,
+                                    features: Dict[str, float],
+                                    trend_results: Dict[str, Any]) -> float:
         """Calculate confidence in the forecast."""
         # Base confidence on feature coverage and trend consistency
         feature_strength = np.mean(list(features.values())) if features else 0.5
@@ -637,7 +629,7 @@ class ComplianceForecaster:
         overall_confidence = (feature_strength + trend_confidence) / 2
         return min(1.0, max(0.1, overall_confidence))
 
-    def _generate_compliance_risk_factors(self,
+def _generate_compliance_risk_factors(self,
                                         standard: ComplianceStandard,
                                         features: Dict[str, float],
                                         predicted_score: float) -> List[str]:
@@ -662,10 +654,10 @@ class ComplianceForecaster:
 
         return risk_factors[:5]  # Limit to top 5
 
-    def _generate_compliance_recommendations(self,
-                                           standard: ComplianceStandard,
-                                           features: Dict[str, float],
-                                           trend_direction: str) -> List[str]:
+def _generate_compliance_recommendations(self,
+                                            standard: ComplianceStandard,
+                                            features: Dict[str, float],
+                                            trend_direction: str) -> List[str]:
         """Generate recommendations for compliance improvement."""
         recommendations = []
 

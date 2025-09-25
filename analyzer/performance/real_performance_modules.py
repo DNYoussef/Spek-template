@@ -1,5 +1,4 @@
-"""
-REAL Performance Modules - NO MOCKS, NO THEATER
+from src.constants.base import DAYS_RETENTION_PERIOD
 
 These modules do actual performance monitoring and profiling.
 They FAIL when broken and provide REAL metrics.
@@ -13,7 +12,6 @@ from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, field
 from pathlib import Path
 import json
-
 
 @dataclass
 class RealPerformanceMetrics:
@@ -29,11 +27,10 @@ class RealPerformanceMetrics:
     peak_memory_mb: float
     timestamp: float = field(default_factory=time.time)
 
-
 class RealTimePerformanceMonitor:
     """REAL real-time performance monitor - NO MOCKS."""
 
-    def __init__(self, sample_interval: float = 1.0):
+def __init__(self, sample_interval: float = 1.0):
         """Initialize with real monitoring capabilities."""
         self.sample_interval = sample_interval
         self.is_monitoring = False
@@ -49,7 +46,7 @@ class RealTimePerformanceMonitor:
         except Exception as e:
             raise RuntimeError(f"Performance monitoring not available: {e}")
 
-    def start_monitoring(self) -> None:
+def start_monitoring(self) -> None:
         """Start real-time monitoring."""
         if self.is_monitoring:
             return
@@ -61,7 +58,7 @@ class RealTimePerformanceMonitor:
         self._monitor_thread = threading.Thread(target=self._monitor_loop, daemon=True)
         self._monitor_thread.start()
 
-    def stop_monitoring(self) -> RealPerformanceMetrics:
+def stop_monitoring(self) -> RealPerformanceMetrics:
         """Stop monitoring and return final metrics."""
         if not self.is_monitoring:
             raise RuntimeError("Monitoring not started")
@@ -94,7 +91,7 @@ class RealTimePerformanceMonitor:
         self.metrics_history.append(final_metrics)
         return final_metrics
 
-    def _monitor_loop(self) -> None:
+def _monitor_loop(self) -> None:
         """Internal monitoring loop."""
         while self.is_monitoring:
             try:
@@ -120,7 +117,7 @@ class RealTimePerformanceMonitor:
 
             time.sleep(self.sample_interval)
 
-    def _get_disk_io_mb(self) -> float:
+def _get_disk_io_mb(self) -> float:
         """Get disk I/O in MB."""
         try:
             process = psutil.Process()
@@ -129,11 +126,11 @@ class RealTimePerformanceMonitor:
         except (AttributeError, PermissionError):
             return 0.0
 
-    def get_current_metrics(self) -> Optional[RealPerformanceMetrics]:
+def get_current_metrics(self) -> Optional[RealPerformanceMetrics]:
         """Get the most recent metrics."""
         return self.metrics_history[-1] if self.metrics_history else None
 
-    def get_metrics_summary(self) -> Dict[str, Any]:
+def get_metrics_summary(self) -> Dict[str, Any]:
         """Get summary of all collected metrics."""
         if not self.metrics_history:
             return {"error": "No metrics collected"}
@@ -154,11 +151,10 @@ class RealTimePerformanceMonitor:
             ) * 1000 if len(self.metrics_history) > 1 else 0
         }
 
-
 class RealCachePerformanceProfiler:
     """REAL cache performance profiler - tracks actual cache behavior."""
 
-    def __init__(self):
+def __init__(self):
         """Initialize with real cache tracking."""
         self.cache_stats = {
             "hits": 0,
@@ -171,48 +167,48 @@ class RealCachePerformanceProfiler:
         self.access_times: List[float] = []
         self._cache_memory_tracker = {}
 
-    def record_cache_hit(self, key: str, access_time_ms: float) -> None:
+def record_cache_hit(self, key: str, access_time_ms: float) -> None:
         """Record a real cache hit."""
         self.cache_stats["hits"] += 1
         self.cache_stats["total_accesses"] += 1
         self.access_times.append(access_time_ms)
         self._update_avg_access_time()
 
-    def record_cache_miss(self, key: str, access_time_ms: float) -> None:
+def record_cache_miss(self, key: str, access_time_ms: float) -> None:
         """Record a real cache miss."""
         self.cache_stats["misses"] += 1
         self.cache_stats["total_accesses"] += 1
         self.access_times.append(access_time_ms)
         self._update_avg_access_time()
 
-    def record_cache_eviction(self, key: str, data_size_bytes: int) -> None:
+def record_cache_eviction(self, key: str, data_size_bytes: int) -> None:
         """Record a real cache eviction."""
         self.cache_stats["evictions"] += 1
         if key in self._cache_memory_tracker:
             del self._cache_memory_tracker[key]
         self._update_memory_usage()
 
-    def record_cache_store(self, key: str, data_size_bytes: int) -> None:
+def record_cache_store(self, key: str, data_size_bytes: int) -> None:
         """Record data being stored in cache."""
         self._cache_memory_tracker[key] = data_size_bytes
         self._update_memory_usage()
 
-    def _update_avg_access_time(self) -> None:
+def _update_avg_access_time(self) -> None:
         """Update average access time."""
         if self.access_times:
             self.cache_stats["avg_access_time_ms"] = sum(self.access_times) / len(self.access_times)
 
-    def _update_memory_usage(self) -> None:
+def _update_memory_usage(self) -> None:
         """Update memory usage tracking."""
         total_bytes = sum(self._cache_memory_tracker.values())
         self.cache_stats["memory_usage_mb"] = total_bytes / 1024 / 1024
 
-    def get_cache_hit_rate(self) -> float:
+def get_cache_hit_rate(self) -> float:
         """Get real cache hit rate."""
         total = self.cache_stats["hits"] + self.cache_stats["misses"]
         return self.cache_stats["hits"] / total if total > 0 else 0.0
 
-    def get_cache_efficiency_score(self) -> float:
+def get_cache_efficiency_score(self) -> float:
         """Calculate cache efficiency score based on real metrics."""
         hit_rate = self.get_cache_hit_rate()
         avg_time = self.cache_stats["avg_access_time_ms"]
@@ -223,7 +219,7 @@ class RealCachePerformanceProfiler:
 
         return min(1.0, efficiency)
 
-    def get_performance_report(self) -> Dict[str, Any]:
+def get_performance_report(self) -> Dict[str, Any]:
         """Get comprehensive performance report."""
         return {
             "cache_statistics": self.cache_stats.copy(),
@@ -236,7 +232,7 @@ class RealCachePerformanceProfiler:
             "performance_grade": self._calculate_performance_grade(),
         }
 
-    def _calculate_performance_grade(self) -> str:
+def _calculate_performance_grade(self) -> str:
         """Calculate performance grade based on real metrics."""
         hit_rate = self.get_cache_hit_rate()
         efficiency = self.get_cache_efficiency_score()
@@ -254,11 +250,10 @@ class RealCachePerformanceProfiler:
         else:
             return "F"
 
-
 class RealAnalysisProfiler:
     """REAL analysis profiler that tracks actual analysis performance."""
 
-    def __init__(self):
+def __init__(self):
         """Initialize with real profiling capabilities."""
         self.profiling_data = {
             "phase_timings": {},
@@ -270,7 +265,7 @@ class RealAnalysisProfiler:
         self.current_phase = None
         self.phase_start_time = 0.0
 
-    def start_phase(self, phase_name: str) -> None:
+def start_phase(self, phase_name: str) -> None:
         """Start profiling a specific analysis phase."""
         if self.current_phase:
             self.end_phase()
@@ -288,7 +283,7 @@ class RealAnalysisProfiler:
             "event": "phase_start"
         })
 
-    def end_phase(self) -> Dict[str, Any]:
+def end_phase(self) -> Dict[str, Any]:
         """End current phase and return timing data."""
         if not self.current_phase:
             return {}
@@ -317,8 +312,8 @@ class RealAnalysisProfiler:
         self.current_phase = None
         return phase_data
 
-    def record_file_processing(self, file_path: str, processing_time_ms: float,
-                             violations_found: int, errors_encountered: int) -> None:
+def record_file_processing(self, file_path: str, processing_time_ms: float,
+                            violations_found: int, errors_encountered: int) -> None:
         """Record real file processing metrics."""
         self.profiling_data["file_processing_times"][file_path] = {
             "processing_time_ms": processing_time_ms,
@@ -337,7 +332,7 @@ class RealAnalysisProfiler:
         if errors_encountered > 0:
             self.profiling_data["error_rates"][file_path] = errors_encountered
 
-    def get_performance_summary(self) -> Dict[str, Any]:
+def get_performance_summary(self) -> Dict[str, Any]:
         """Get comprehensive performance summary."""
         if not self.profiling_data["phase_timings"]:
             return {"error": "No profiling data collected"}
@@ -373,7 +368,7 @@ class RealAnalysisProfiler:
             "performance_grade": self._calculate_overall_grade(total_time, len(processing_times)),
         }
 
-    def _calculate_overall_grade(self, total_time_ms: float, files_processed: int) -> str:
+def _calculate_overall_grade(self, total_time_ms: float, files_processed: int) -> str:
         """Calculate overall performance grade."""
         if files_processed == 0:
             return "F"
@@ -392,11 +387,10 @@ class RealAnalysisProfiler:
         else:
             return "F"
 
-    def export_profiling_data(self, output_file: str) -> None:
+def export_profiling_data(self, output_file: str) -> None:
         """Export profiling data to file."""
         with open(output_file, 'w') as f:
             json.dump(self.profiling_data, f, indent=2, default=str)
-
 
 # Export the real performance modules
 __all__ = [

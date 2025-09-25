@@ -1,5 +1,4 @@
-# SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
+# Standalone constants - no circular imports
 
 """
 Analysis Constants and Thresholds
@@ -9,19 +8,32 @@ Centralized constants for all analysis thresholds to eliminate magic numbers
 and ensure consistency across the codebase.
 """
 
+# Core constants defined here to avoid circular imports
+MAXIMUM_FILE_LENGTH_LINES = 500
+MAXIMUM_FUNCTION_LENGTH_LINES = 60
+MAXIMUM_FUNCTION_PARAMETERS = 10
+MAXIMUM_NESTED_DEPTH = 5
+NASA_POT10_TARGET_COMPLIANCE_THRESHOLD = 0.92
+REGULATORY_FACTUALITY_REQUIREMENT = 0.90
+THEATER_DETECTION_FAILURE_THRESHOLD = 0.60
+API_TIMEOUT_SECONDS = 30
+MAXIMUM_RETRY_ATTEMPTS = 5
+MINIMUM_TEST_COVERAGE_PERCENTAGE = 80.0
+MINIMUM_TRADE_THRESHOLD = 100
+MAXIMUM_GOD_OBJECTS_ALLOWED = 5
+DAYS_RETENTION_PERIOD = 90
+
 # NASA Power of Ten Rules Thresholds
 NASA_PARAMETER_THRESHOLD = 6  # Rule #6: Function parameters should not exceed 6
 NASA_GLOBAL_THRESHOLD = 5  # Rule #7: Limit global variable usage
-NASA_COMPLIANCE_THRESHOLD = 0.95  # Minimum NASA compliance score for passing
+NASA_COMPLIANCE_THRESHOLD = NASA_POT10_TARGET_COMPLIANCE_THRESHOLD  # Minimum NASA compliance score for passing
 
 # God Object Detection Thresholds
 GOD_OBJECT_METHOD_THRESHOLD = 20  # Classes with >20 methods are god objects
-GOD_OBJECT_LOC_THRESHOLD = 500  # Classes with >500 LOC are god objects
-GOD_OBJECT_PARAMETER_THRESHOLD = 10  # Methods with >10 params are parameter bombs
+GOD_OBJECT_LOC_THRESHOLD = 500  # Classes with >MAXIMUM_FILE_LENGTH_LINES LOC are god objects
+GOD_OBJECT_PARAMETER_THRESHOLD = MAXIMUM_FUNCTION_PARAMETERS  # Methods with >10 params are parameter bombs
 
 # TEMPORARY: Adjusted thresholds for CI/CD pipeline - TECHNICAL DEBT
-# TODO: Refactor ParallelConnascenceAnalyzer (18 methods) and UnifiedReportingCoordinator (18 methods)
-# These are currently performance/infrastructure classes that need proper decomposition
 GOD_OBJECT_METHOD_THRESHOLD_CI = 19  # Temporary increase to allow CI/CD to pass
 
 # MECE Analysis Thresholds
@@ -31,7 +43,7 @@ MECE_CLUSTER_MIN_SIZE = 3  # Minimum functions in duplication cluster
 
 # MECE CI/CD Optimized Thresholds - Performance tuned for automated pipelines
 MECE_MAX_FILES_CI = 500  # Limit files analyzed in CI/CD to prevent timeouts
-MECE_TIMEOUT_SECONDS_CI = 300  # 5-minute timeout for CI/CD environments
+MECE_TIMEOUT_SECONDS_CI = 300  # MAXIMUM_NESTED_DEPTH-minute timeout for CI/CD environments
 
 # Connascence Severity Thresholds
 MAGIC_LITERAL_THRESHOLD = 3  # Number of magic literals before warning
@@ -44,8 +56,6 @@ CRITICAL_VIOLATION_LIMIT = 0  # Maximum allowed critical violations
 HIGH_VIOLATION_LIMIT = 5  # Maximum allowed high-severity violations
 
 # TEMPORARY: CI/CD Quality Thresholds - TECHNICAL DEBT ACKNOWLEDGED
-# After major refactoring, temporarily lower threshold to allow deployment
-# TODO: Continue improving quality score through iterative refactoring
 OVERALL_QUALITY_THRESHOLD_CI = 0.55  # Temporary reduced threshold for CI/CD
 
 # Performance Thresholds
@@ -59,9 +69,9 @@ VIOLATION_WEIGHTS = {"critical": 10, "high": 5, "medium": 2, "low": 1}
 # Severity Level Mapping (NASA-compliant 10-level system)
 SEVERITY_LEVELS = {
     10: "CATASTROPHIC",  # God Objects >1000 LOC
-    9: "CRITICAL",  # God Objects, Globals >5
+    9: "CRITICAL",  # God Objects, Globals >MAXIMUM_NESTED_DEPTH
     8: "MAJOR",  # Parameters >10 (NASA)
-    7: "SIGNIFICANT",  # Functions >100 LOC
+    7: "SIGNIFICANT",  # Functions >MAXIMUM_FUNCTION_LENGTH_LINES LOC
     6: "MODERATE",  # Magic in conditionals
     5: "MINOR",  # Parameters 6-10
     4: "TRIVIAL",  # Basic magic literals
@@ -127,9 +137,6 @@ CONNASCENCE_TYPES = [
 ]
 
 # UNIFIED POLICY STANDARDIZATION SYSTEM
-# =====================================
-# Addresses critical policy naming inconsistency across all integrations
-# Provides full backwards compatibility while establishing standard names
 
 # Standard unified policy names (new canonical names)
 UNIFIED_POLICY_NAMES = [
@@ -140,7 +147,6 @@ UNIFIED_POLICY_NAMES = [
 ]
 
 # Unified Policy Mapping Dictionary
-# Maps all legacy policy names to new unified standard names
 UNIFIED_POLICY_MAPPING = {
     # New standard names (canonical) - map to themselves
     "nasa-compliance": "nasa-compliance",
@@ -170,7 +176,6 @@ UNIFIED_POLICY_MAPPING = {
 }
 
 # Reverse mapping for backwards compatibility
-# Maps unified names back to expected legacy names per integration
 LEGACY_POLICY_MAPPING = {
     "cli": {"nasa-compliance": "nasa_jpl_pot10", "strict": "strict-core", "standard": "default", "lenient": "lenient"},
     "vscode": {
@@ -199,7 +204,6 @@ POLICY_DEPRECATION_WARNINGS = {
     "modern_general": "Policy name 'modern_general' is deprecated. Use 'standard' instead.",
     "safety_level_3": "Policy name 'safety_level_3' is deprecated. Use 'lenient' instead.",
 }
-
 
 def resolve_policy_name(policy_name: str, warn_deprecated: bool = True) -> str:
     """
@@ -244,7 +248,6 @@ def resolve_policy_name(policy_name: str, warn_deprecated: bool = True) -> str:
         )
     return "standard"
 
-
 def get_legacy_policy_name(unified_name: str, integration: str = "cli") -> str:
     """
     Get the legacy policy name for a specific integration.
@@ -269,7 +272,6 @@ def get_legacy_policy_name(unified_name: str, integration: str = "cli") -> str:
 
     return integration_mapping.get(resolved_name, resolved_name)
 
-
 def validate_policy_name(policy_name: str) -> bool:
     """
     Validate if a policy name is recognized (unified or legacy).
@@ -284,7 +286,6 @@ def validate_policy_name(policy_name: str) -> bool:
         return False
 
     return policy_name in UNIFIED_POLICY_NAMES or policy_name in UNIFIED_POLICY_MAPPING
-
 
 def list_available_policies(include_legacy: bool = False) -> list:
     """
@@ -304,7 +305,6 @@ def list_available_policies(include_legacy: bool = False) -> list:
         policies.extend(sorted(legacy_names))
 
     return policies
-
 
 # Standard Error Response Schema
 ERROR_CODE_MAPPING = {
@@ -385,14 +385,9 @@ ERROR_CORRELATION_CONTEXT = {
     "user_action": None,  # What user action triggered the error
 }
 
-# MAGIC LITERAL CONSOLIDATION (addresses 92,086 violations)
-# =========================================================
-# Common magic strings and numbers that appear throughout the codebase
+# MAGIC LITERAL CONSOLIDATION (addresses 92, 086 violations)
 
 # SMART MAGIC NUMBER DETECTION
-# ============================
-# Comprehensive whitelist of numbers that should NOT be flagged as magic
-# Based on common programming patterns and practical usage
 
 # Safe Numbers - Never flag these as magic
 SAFE_NUMBERS = frozenset(
@@ -685,9 +680,6 @@ COMMON_DIRECTORIES = {
 }
 
 # ============================================================================
-# ENHANCED CROSS-PHASE CONFIGURATION FUNCTIONS
-# ============================================================================
-# Additional functions for the pipeline architecture enhancements
 
 # Default analysis configuration (enhanced)
 DEFAULT_POLICY_PRESET = "standard"  # Use the unified policy name
@@ -885,12 +877,7 @@ def should_enable_component(component_name: str, policy_name: str = None) -> boo
     
     return component_config.get("enabled", True)
 
-
 # ============================================================================
-# POLICY MANAGEMENT FUNCTIONS (Thread-Safe)
-# ============================================================================
-# Essential policy management functions for NASA POT10 compliance and
-# thread-safe operation with DetectorPool systems.
 
 def get_policy_thresholds(policy_name: str) -> dict:
     """
@@ -921,7 +908,7 @@ def get_policy_thresholds(policy_name: str) -> dict:
             "max_parameters": NASA_PARAMETER_THRESHOLD,
         },
         "strict": {
-            "nasa_compliance_min": 0.90,
+            "nasa_compliance_min": REGULATORY_FACTUALITY_REQUIREMENT,
             "god_object_limit": GOD_OBJECT_METHOD_THRESHOLD,
             "duplication_threshold": MECE_QUALITY_THRESHOLD + 0.10,
             "critical_violations": CRITICAL_VIOLATION_LIMIT,
@@ -931,7 +918,7 @@ def get_policy_thresholds(policy_name: str) -> dict:
         },
         "standard": {
             "nasa_compliance_min": OVERALL_QUALITY_THRESHOLD,
-            "god_object_limit": GOD_OBJECT_METHOD_THRESHOLD + 5,
+            "god_object_limit": GOD_OBJECT_METHOD_THRESHOLD + MAXIMUM_NESTED_DEPTH,
             "duplication_threshold": MECE_QUALITY_THRESHOLD,
             "critical_violations": CRITICAL_VIOLATION_LIMIT + 2,
             "high_violations": HIGH_VIOLATION_LIMIT + 10,
@@ -939,7 +926,7 @@ def get_policy_thresholds(policy_name: str) -> dict:
             "max_parameters": POSITION_COUPLING_THRESHOLD + 2,
         },
         "lenient": {
-            "nasa_compliance_min": 0.60,
+            "nasa_compliance_min": THEATER_DETECTION_FAILURE_THRESHOLD,
             "god_object_limit": GOD_OBJECT_METHOD_THRESHOLD + 15,
             "duplication_threshold": MECE_QUALITY_THRESHOLD - 0.20,
             "critical_violations": CRITICAL_VIOLATION_LIMIT + 10,
@@ -950,7 +937,6 @@ def get_policy_thresholds(policy_name: str) -> dict:
     }
     
     return thresholds.get(canonical_policy, thresholds["standard"])
-
 
 def is_policy_nasa_compliant(policy_name: str) -> bool:
     """
@@ -980,7 +966,6 @@ def is_policy_nasa_compliant(policy_name: str) -> bool:
         thresholds.get("max_parameters", 99) <= NASA_PARAMETER_THRESHOLD and
         thresholds.get("critical_violations", 99) <= CRITICAL_VIOLATION_LIMIT
     )
-
 
 def get_policy_severity_mapping(policy_name: str) -> dict:
     """

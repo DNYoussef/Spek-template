@@ -4,16 +4,16 @@ Handles security incident detection and classification
 Part of god object decomposition (Day 3-5)
 """
 
-import json
-from enum import Enum
-from typing import Dict, List, Optional, Tuple, Any, Set
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
 from collections import defaultdict
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Tuple, Any, Set
+import json
 import logging
 
-logger = logging.getLogger(__name__)
+from dataclasses import dataclass, field
+from enum import Enum
 
+logger = logging.getLogger(__name__)
 
 class IncidentType(Enum):
     """Types of security incidents."""
@@ -28,7 +28,6 @@ class IncidentType(Enum):
     DENIAL_OF_SERVICE = "denial_of_service"
     CRYPTOGRAPHIC_FAILURE = "cryptographic_failure"
 
-
 class IncidentSeverity(Enum):
     """Incident severity levels."""
     LOW = "low"
@@ -36,7 +35,6 @@ class IncidentSeverity(Enum):
     HIGH = "high"
     CRITICAL = "critical"
     EMERGENCY = "emergency"
-
 
 @dataclass
 class SecurityIncident:
@@ -52,12 +50,11 @@ class SecurityIncident:
     affected_systems: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-
 class IncidentDetector:
     """
     Handles security incident detection and classification.
 
-    Extracted from EnhancedIncidentResponseSystem (1,226 LOC -> ~300 LOC component).
+    Extracted from EnhancedIncidentResponseSystem (1, 226 LOC -> ~300 LOC component).
     Handles:
     - Real-time incident detection
     - Incident classification and severity assessment
@@ -119,7 +116,7 @@ class IncidentDetector:
         }
 
     def detect_incident(self,
-                       event_data: Dict[str, Any]) -> Optional[SecurityIncident]:
+                        event_data: Dict[str, Any]) -> Optional[SecurityIncident]:
         """Detect security incident from event data."""
         # Extract event information
         event_type = event_data.get("type", "unknown")

@@ -4,16 +4,15 @@ Test script to verify analyzer fixes are working correctly.
 Tests NASA analyzer, core analyzer stub delegation, and fixed analyzer imports.
 """
 
-import sys
-import os
 from pathlib import Path
+import os
+import sys
 
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 def test_nasa_analyzer():
     """Test that NASA analyzer now properly detects violations."""
-    print("\n=== Testing NASA Analyzer ===")
 
     from analyzer.nasa_engine.nasa_analyzer import NASAAnalyzer
     import ast
@@ -75,10 +74,8 @@ result = get_value()  # This is OK
     # NASA Analyzer tests successful
     return True
 
-
 def test_core_analyzer_delegation():
     """Test that core analyzer now delegates to consolidated analyzer."""
-    print("\n=== Testing Core Analyzer Delegation ===")
 
     from analyzer.ast_engine.core_analyzer import ConnascenceASTAnalyzer
 
@@ -92,7 +89,6 @@ def test_core_analyzer_delegation():
         # Core analyzer delegating successfully
 
         # Test that analyze_file returns proper results (not empty list)
-        # Create a test file
         test_file_path = "test_sample.py"
         test_content = """
 def bad_function(a, b, c, d, e, f):  # Too many parameters
@@ -109,7 +105,6 @@ def bad_function(a, b, c, d, e, f):  # Too many parameters
             violations = analyzer.analyze_file(test_file_path)
 
             # Even if no violations are found, the important thing is it doesn't crash
-            # and returns a list (not None)
             assert isinstance(violations, list), "Should return a list of violations"
             # analyze_file() delegation working
             assert isinstance(violations, list)
@@ -119,7 +114,7 @@ def bad_function(a, b, c, d, e, f):  # Too many parameters
             if os.path.exists(test_file_path):
                 os.remove(test_file_path)
     else:
-        print("⚠ ConsolidatedConnascenceAnalyzer not available, stub mode active")
+        print("[WARN] ConsolidatedConnascenceAnalyzer not available, stub mode active")
         # In stub mode, should still return empty list without crashing
         violations = analyzer.analyze_file("nonexistent.py")
         assert violations == [], "Stub mode should return empty list"
@@ -128,10 +123,8 @@ def bad_function(a, b, c, d, e, f):  # Too many parameters
     # Core Analyzer delegation tests successful
     return True
 
-
 def test_fixed_analyzer_imports():
     """Test that fixed analyzer has proper imports and works."""
-    print("\n=== Testing Fixed Analyzer Imports ===")
 
     try:
         # This should not raise ImportError anymore
@@ -164,20 +157,18 @@ def test_fixed_analyzer_imports():
         assert isinstance(violations, list)
 
     except ImportError as e:
-        print(f"❌ Import failed: {e}")
+        print(f"[FAIL] Import failed: {e}")
         return False
     except Exception as e:
-        print(f"❌ Unexpected error: {e}")
+        print(f"[FAIL] Unexpected error: {e}")
         return False
 
     # Fixed Analyzer import tests successful
     return True
 
-
 def main():
     """Run all tests."""
     print("=" * 60)
-    print("ANALYZER FIX VERIFICATION TESTS")
     print("=" * 60)
 
     results = []
@@ -186,39 +177,31 @@ def main():
     try:
         results.append(("NASA Analyzer", test_nasa_analyzer()))
     except Exception as e:
-        print(f"❌ NASA Analyzer test failed: {e}")
         results.append(("NASA Analyzer", False))
 
     try:
         results.append(("Core Analyzer Delegation", test_core_analyzer_delegation()))
     except Exception as e:
-        print(f"❌ Core Analyzer test failed: {e}")
         results.append(("Core Analyzer Delegation", False))
 
     try:
         results.append(("Fixed Analyzer Imports", test_fixed_analyzer_imports()))
     except Exception as e:
-        print(f"❌ Fixed Analyzer test failed: {e}")
         results.append(("Fixed Analyzer Imports", False))
 
     # Summary
     print("\n" + "=" * 60)
-    print("TEST SUMMARY")
     print("=" * 60)
 
     for test_name, passed in results:
-        status = "✅ PASSED" if passed else "❌ FAILED"
-        print(f"{test_name}: {status}")
+        status = "[OK] PASSED" if passed else "[FAIL] FAILED"
 
     all_passed = all(passed for _, passed in results)
 
     if all_passed:
-        print("\n🎉 ALL TESTS PASSED! Analyzer fixes are working correctly!")
         return 0
     else:
-        print("\n⚠️ Some tests failed. Please review the output above.")
         return 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

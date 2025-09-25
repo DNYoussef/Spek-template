@@ -4,7 +4,7 @@
 
 After examining the workflow files, I've identified the **ACTUAL** root cause of the cascade failures:
 
-### 🚨 MAJOR ISSUE: Malformed pip install command
+### [ALERT] MAJOR ISSUE: Malformed pip install command
 
 **Location**: `.github/workflows/nasa-pot10-fix.yml:26`
 
@@ -22,28 +22,28 @@ pip install --upgrade pip || python -m pip install --upgrade pip || python -m pi
 ### Primary Failure Chain
 ```
 NASA POT10 Compliance Fix (2s failure)
-↓
+v
 NASA POT10 Compliance Gates (3s failure)
-↓
+v
 All workflows depending on NASA compliance
-↓
+v
 Production Gate (7s failure)
-↓
+v
 Quality Gate Enforcer (21s failure)
-↓
+v
 Security Quality Gate (1m failure)
 ```
 
 ### Secondary Failure Chain
 ```
 Setup Environment Issues
-↓
+v
 Python package installation failures
-↓
+v
 Tool availability failures (radon, pylint, mypy, etc.)
-↓
+v
 Quality check failures
-↓
+v
 Workflow cancellations and timeouts
 ```
 

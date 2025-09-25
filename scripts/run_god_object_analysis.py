@@ -3,12 +3,12 @@
 Standalone script to run God Object and Connascence analysis
 """
 
-import json
-import sys
-import ast
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any
-from datetime import datetime
+import ast
+import json
+import sys
 
 # Add analyzer path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -238,14 +238,14 @@ def main():
         print("\nTop God Objects:")
         for god_obj in god_object_results["god_objects"][:5]:
             print(f"  - {god_obj['file']}:{god_obj['class_name']} "
-                  f"({god_obj['method_count']} methods, {god_obj['estimated_loc']} LOC)")
+                    f"({god_obj['method_count']} methods, {god_obj['estimated_loc']} LOC)")
 
     print("\nConnascence Violations by Type:")
     for conn_type, violations in connascence_results["by_type"].items():
         if violations:
             print(f"  - {conn_type}: {len(violations)} violations")
 
-    print("\n✓ Analysis complete!")
+    print("\n[PASS] Analysis complete!")
     return 0
 
 if __name__ == "__main__":

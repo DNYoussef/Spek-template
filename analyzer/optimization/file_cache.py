@@ -11,18 +11,18 @@ Compliance:
 - Comprehensive error handling
 """
 
-import ast
-import hashlib
-import threading
-import time
-import weakref
 from collections import OrderedDict
-from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
-from threading import RLock
 from typing import Dict, List, Optional, Set, Tuple, Union
+import ast
+import hashlib
+import time
 
+from dataclasses import dataclass, field
+from threading import RLock
+import threading
+import weakref
 
 @dataclass
 class CacheStats:
@@ -33,11 +33,10 @@ class CacheStats:
     memory_usage: int = 0
     max_memory: int = 50 * 1024 * 1024  # 50MB
     
-    def hit_rate(self) -> float:
+def hit_rate(self) -> float:
         """Calculate cache hit rate."""
         total = self.hits + self.misses
         return self.hits / total if total > 0 else 0.0
-
 
 @dataclass
 class CacheEntry:
@@ -49,7 +48,7 @@ class CacheEntry:
     file_size: int = 0
     parse_time: float = 0.0
     
-    def __post_init__(self):
+def __post_init__(self):
         """Initialize derived fields."""
         if not self.content_hash:
             self.content_hash = hashlib.sha256(
@@ -57,7 +56,6 @@ class CacheEntry:
             ).hexdigest()[:16]
         if not self.file_size:
             self.file_size = len(self.content.encode('utf-8'))
-
 
 class FileContentCache:
     """
@@ -71,7 +69,7 @@ class FileContentCache:
     - Performance monitoring
     """
     
-    def __init__(self, max_memory: int = 50 * 1024 * 1024):
+def __init__(self, max_memory: int = 50 * 1024 * 1024):
         """
         Initialize file content cache.
         
@@ -98,7 +96,7 @@ class FileContentCache:
         # Weak references for cleanup
         self._file_watchers: Set[weakref.ref] = set()
     
-    def get_file_content(self, file_path: Union[str, Path]) -> Optional[str]:
+def get_file_content(self, file_path: Union[str, Path]) -> Optional[str]:
         """
         Get file content from cache or disk.
         
@@ -156,7 +154,7 @@ class FileContentCache:
             except Exception:
                 return None
     
-    def get_ast_tree(self, file_path: Union[str, Path]) -> Optional[ast.AST]:
+def get_ast_tree(self, file_path: Union[str, Path]) -> Optional[ast.AST]:
         """
         Get parsed AST tree from cache or parse from content.
         
@@ -209,8 +207,8 @@ class FileContentCache:
             except SyntaxError:
                 return None
     
-    @lru_cache(maxsize=1000)
-    def get_python_files(self, directory: str) -> List[str]:
+@lru_cache(maxsize=1000)
+def get_python_files(self, directory: str) -> List[str]:
         """
         Get list of Python files in directory (cached).
         
@@ -241,7 +239,7 @@ class FileContentCache:
         except Exception:
             return []
     
-    def get_file_lines(self, file_path: Union[str, Path]) -> List[str]:
+def get_file_lines(self, file_path: Union[str, Path]) -> List[str]:
         """
         Get file content as list of lines.
         
@@ -256,7 +254,7 @@ class FileContentCache:
             return []
         return content.splitlines()
     
-    def prefetch_files(self, file_paths: List[Union[str, Path]]) -> int:
+def prefetch_files(self, file_paths: List[Union[str, Path]]) -> int:
         """
         Prefetch multiple files into cache.
         
@@ -272,7 +270,7 @@ class FileContentCache:
                 cached_count += 1
         return cached_count
     
-    def _enforce_memory_bounds(self) -> None:
+def _enforce_memory_bounds(self) -> None:
         """Enforce memory bounds by evicting LRU entries."""
         # Phase 2A: Enhanced memory pressure handling
         current_usage = self._stats.memory_usage
@@ -310,7 +308,7 @@ class FileContentCache:
             if oldest_path in self._file_mtimes:
                 del self._file_mtimes[oldest_path]
     
-    def clear_cache(self) -> None:
+def clear_cache(self) -> None:
         """Clear all cached data."""
         with self._lock:
             self._cache.clear()
@@ -320,7 +318,7 @@ class FileContentCache:
             # Clear LRU cache
             self.get_python_files.cache_clear()
     
-    def get_cache_stats(self) -> CacheStats:
+def get_cache_stats(self) -> CacheStats:
         """Get cache performance statistics."""
         with self._lock:
             return CacheStats(
@@ -331,7 +329,7 @@ class FileContentCache:
                 max_memory=self._stats.max_memory
             )
     
-    def invalidate_file(self, file_path: Union[str, Path]) -> None:
+def invalidate_file(self, file_path: Union[str, Path]) -> None:
         """Invalidate cache entry for specific file."""
         file_path = str(file_path)
         with self._lock:
@@ -342,7 +340,7 @@ class FileContentCache:
             if file_path in self._file_mtimes:
                 del self._file_mtimes[file_path]
     
-    def get_memory_usage(self) -> Dict[str, int]:
+def get_memory_usage(self) -> Dict[str, int]:
         """Get detailed memory usage breakdown."""
         with self._lock:
             return {
@@ -355,20 +353,17 @@ class FileContentCache:
                 )
             }
     
-    def __enter__(self):
+def __enter__(self):
         """Context manager entry."""
         return self
     
-    def __exit__(self, exc_type, exc_val, exc_tb):
+def __exit__(self, exc_type, exc_val, exc_tb):
         """Context manager exit - cleanup if needed."""
         # Optional: clear cache on exit
-        pass
-
 
 # Global cache instance for module-level access
 _global_cache: Optional[FileContentCache] = None
 _cache_lock = threading.Lock()
-
 
 def get_global_cache() -> FileContentCache:
     """Get global file cache instance (thread-safe singleton)."""
@@ -381,7 +376,6 @@ def get_global_cache() -> FileContentCache:
     
     return _global_cache
 
-
 def clear_global_cache() -> None:
     """Clear global cache instance."""
     global _global_cache
@@ -389,22 +383,18 @@ def clear_global_cache() -> None:
     if _global_cache is not None:
         _global_cache.clear_cache()
 
-
 # Convenience functions for common operations
 def cached_file_content(file_path: Union[str, Path]) -> Optional[str]:
     """Get file content using global cache."""
     return get_global_cache().get_file_content(file_path)
 
-
 def cached_ast_tree(file_path: Union[str, Path]) -> Optional[ast.AST]:
     """Get AST tree using global cache."""
     return get_global_cache().get_ast_tree(file_path)
 
-
 def cached_python_files(directory: Union[str, Path]) -> List[str]:
     """Get Python files list using global cache."""
     return get_global_cache().get_python_files(str(directory))
-
 
 def cached_file_lines(file_path: Union[str, Path]) -> List[str]:
     """Get file lines using global cache."""

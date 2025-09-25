@@ -36,7 +36,7 @@ def calculate_percentage(part, whole):
     return (part / whole) * 100
 EOF
 
-echo "✅ Created mock source files"
+echo "[OK] Created mock source files"
 
 # Test Scenario 1: Tests with assertions
 echo ""
@@ -91,13 +91,13 @@ if python3 -m pytest tests/ -v --tb=short 2>/dev/null || python3 -m unittest dis
     # Count assertions in test files
     assertion_count=$(grep -r "assert\|assertEqual\|assertTrue\|assertFalse" tests/ | wc -l)
     if [[ $assertion_count -gt 0 ]]; then
-        echo "✅ Reality Check 1 PASSED: Found $assertion_count assertions in tests"
+        echo "[OK] Reality Check 1 PASSED: Found $assertion_count assertions in tests"
         reality_checks_passed=$((reality_checks_passed + 1))
     else
-        echo "❌ Reality Check 1 FAILED: No assertions found in tests"
+        echo "[FAIL] Reality Check 1 FAILED: No assertions found in tests"
     fi
 else
-    echo "❌ Reality Check 1 FAILED: Tests failed to run"
+    echo "[FAIL] Reality Check 1 FAILED: Tests failed to run"
 fi
 
 # Test Scenario 2: Coverage file check (with fallback)
@@ -114,10 +114,10 @@ fi
 # Check if coverage.xml exists
 if [[ -f coverage.xml ]]; then
     coverage_lines=$(grep -c "class.*line-rate" coverage.xml 2>/dev/null || echo "0")
-    echo "✅ Reality Check 2 PASSED: Found coverage.xml with $coverage_lines coverage entries"
+    echo "[OK] Reality Check 2 PASSED: Found coverage.xml with $coverage_lines coverage entries"
     reality_checks_passed=$((reality_checks_passed + 1))
 else
-    echo "⚠️  Coverage file missing, creating fallback coverage.xml..."
+    echo "[WARN]  Coverage file missing, creating fallback coverage.xml..."
     # Create fallback coverage.xml (simulating the pipeline logic)
     cat > coverage.xml << 'EOF'
 <?xml version="1.0" ?>
@@ -151,7 +151,7 @@ else
     </packages>
 </coverage>
 EOF
-    echo "✅ Reality Check 2 PASSED: Created fallback coverage.xml (80% coverage)"
+    echo "[OK] Reality Check 2 PASSED: Created fallback coverage.xml (80% coverage)"
     reality_checks_passed=$((reality_checks_passed + 1))
 fi
 
@@ -160,7 +160,7 @@ echo ""
 echo "=== Reality Check 3: Source Files Check ==="
 source_file_count=$(find src/ -name "*.py" | wc -l)
 if [[ $source_file_count -gt 0 ]]; then
-    echo "✅ Reality Check 3 PASSED: Found $source_file_count source files in src/"
+    echo "[OK] Reality Check 3 PASSED: Found $source_file_count source files in src/"
     reality_checks_passed=$((reality_checks_passed + 1))
 
     # List the source files
@@ -170,7 +170,7 @@ if [[ $source_file_count -gt 0 ]]; then
         echo "  - $file ($lines lines)"
     done
 else
-    echo "❌ Reality Check 3 FAILED: No source files found in src/"
+    echo "[FAIL] Reality Check 3 FAILED: No source files found in src/"
 fi
 
 # Final reality validation result
@@ -179,7 +179,7 @@ echo "==== Reality Validation Summary ===="
 echo "Checks Passed: $reality_checks_passed/$total_checks"
 
 if [[ $reality_checks_passed -eq $total_checks ]]; then
-    echo "🎉 ALL REALITY CHECKS PASSED! Pipeline reality validation working correctly."
+    echo "[CELEBRATE] ALL REALITY CHECKS PASSED! Pipeline reality validation working correctly."
     echo ""
     echo "Coverage Analysis:"
     if [[ -f coverage.xml ]]; then
@@ -197,7 +197,7 @@ except:
         echo "Coverage: ${coverage_percent}%"
     fi
 else
-    echo "⚠️  Some reality checks failed. This may indicate issues with the pipeline."
+    echo "[WARN]  Some reality checks failed. This may indicate issues with the pipeline."
 fi
 
 echo ""

@@ -1,8 +1,4 @@
-"""
-TestCoordinator - Extracted from LoopOrchestrator
-Coordinates test execution and failure analysis
-Part of god object decomposition (Day 3)
-"""
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 import subprocess
 import json
@@ -16,7 +12,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-
 @dataclass
 class TestResult:
     """Represents a single test execution result."""
@@ -27,7 +22,6 @@ class TestResult:
     stack_trace: Optional[str] = None
     file_path: Optional[str] = None
     line_number: Optional[int] = None
-
 
 @dataclass
 class TestSuite:
@@ -41,12 +35,11 @@ class TestSuite:
     test_results: List[TestResult] = field(default_factory=list)
     coverage: Optional[float] = None
 
-
 class TestCoordinator:
     """
     Coordinates test execution and failure analysis.
 
-    Extracted from LoopOrchestrator god object (1,323 LOC -> ~300 LOC component).
+    Extracted from LoopOrchestrator god object (1, 323 LOC -> ~300 LOC component).
     Handles:
     - Test discovery and execution
     - Failure pattern analysis
@@ -56,10 +49,10 @@ class TestCoordinator:
     """
 
     def __init__(self,
-                 project_root: str,
-                 test_framework: str = "jest",
-                 parallel_execution: bool = True,
-                 max_workers: int = 4):
+                project_root: str,
+                test_framework: str = "jest",
+                parallel_execution: bool = True,
+                max_workers: int = 4):
         """Initialize the test coordinator."""
         self.project_root = Path(project_root)
         self.test_framework = test_framework
@@ -118,8 +111,8 @@ class TestCoordinator:
         return [str(f.relative_to(self.project_root)) for f in test_files]
 
     def execute_tests(self,
-                     test_files: Optional[List[str]] = None,
-                     with_coverage: bool = False) -> TestSuite:
+                    test_files: Optional[List[str]] = None,
+                    with_coverage: bool = False) -> TestSuite:
         """Execute tests and collect results."""
         config = self.framework_configs.get(self.test_framework, {})
         if not config:
@@ -170,7 +163,7 @@ class TestCoordinator:
                 capture_output=True,
                 text=True,
                 cwd=self.project_root,
-                timeout=300  # 5 minute timeout
+                timeout=300  # MAXIMUM_NESTED_DEPTH minute timeout
             )
             return result
         except subprocess.TimeoutExpired:
@@ -181,8 +174,8 @@ class TestCoordinator:
             raise
 
     def _parse_test_results(self,
-                           result: subprocess.CompletedProcess,
-                           duration: float) -> TestSuite:
+                            result: subprocess.CompletedProcess,
+                            duration: float) -> TestSuite:
         """Parse test execution results."""
         # Try to parse JSON output if available
         output_file = self.framework_configs[self.test_framework].get("output_file")

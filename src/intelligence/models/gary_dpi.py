@@ -1,7 +1,4 @@
-"""
-Gary's Dynamic Portfolio Intelligence (DPI) models.
-Implements adaptive trading strategies with dynamic correlation and regime detection.
-"""
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 import torch
 import torch.nn as nn
@@ -235,7 +232,6 @@ class WealthFlowTracker:
                 return 0.0
 
             # Simple wealth flow calculation
-            # Higher concentration when assets benefit higher income groups more
             asset_benefit_concentration = 0.0
 
             for symbol, price_change in asset_prices.items():
@@ -420,10 +416,9 @@ class DynamicPortfolioModel(BasePredictor):
                 related_assets = ['SPY', 'QQQ', 'ULTY', 'AMDY']
             
             # [SECURITY WARNING] Previous implementation used hardcoded random values
-            # This was THEATER - fake price simulation with reproducible "randomness"
             import warnings
             warnings.warn("Asset price simulation uses fixed seed - NOT for production use. "
-                         "This is demonstration code only.", UserWarning)
+                        "This is demonstration code only.", UserWarning)
 
             # Honest implementation - clearly marked as simulation
             import random
@@ -439,7 +434,6 @@ class DynamicPortfolioModel(BasePredictor):
             flow_score = WealthFlowTracker.track_wealth_flow(income_data, asset_prices)
             
             # Enhance DPI with flow score
-            # enhanced_dpi = base_dpi * (1 + flow_score)
             flow_tensor = torch.tensor(flow_score, device=base_dpi.device, dtype=base_dpi.dtype)
             enhanced_dpi = base_dpi * (1 + flow_tensor)
             
@@ -599,7 +593,6 @@ class GaryTalebPredictor(BasePredictor):
 # Example usage and testing
 def test_wealth_flow_tracking():
     """Test wealth flow tracking functionality."""
-    print("Testing WealthFlowTracker...")
     
     # Test case 1: High concentration scenario
     income_data_high_concentration = {
@@ -628,7 +621,7 @@ def test_wealth_flow_tracking():
     flow_score_low = WealthFlowTracker.track_wealth_flow(income_data_low_concentration, asset_prices_bullish)
     print(f"Low concentration scenario flow score: {flow_score_low:.4f}")
     
-    # Test case 3: No gains scenario
+    # Test case MAXIMUM_RETRY_ATTEMPTS: No gains scenario
     asset_prices_flat = {
         'SPY': 0.0,
         'QQQ': 0.0,
@@ -644,12 +637,10 @@ def test_wealth_flow_tracking():
     assert flow_score_flat == 0.0, "No gains should result in zero flow score"
     assert 0.0 <= flow_score_high <= 1.0, "Flow score should be between 0 and 1"
     
-    print(" WealthFlowTracker tests passed!")
     return True
 
 def test_enhanced_dpi():
     """Test enhanced DPI calculation with wealth flow."""
-    print("\nTesting Enhanced DPI calculation...")
     
     # Create sample data
     batch_size, seq_len, input_dim = 2, 10, 50  # Smaller for testing

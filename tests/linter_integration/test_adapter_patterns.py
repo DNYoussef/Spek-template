@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
-"""
-Adapter Pattern Tests
-Comprehensive test suite for all 5 linter tool adapters (flake8, pylint, ruff, mypy, bandit).
-Tests output parsing, normalization, and error handling for each adapter.
-"""
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_PARAMETERS, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 import pytest
 import asyncio
@@ -28,7 +23,6 @@ from models.linter_models import (
     LinterConfig, LinterResult, LinterViolation,
     StandardSeverity, ViolationType, Position
 )
-
 
 class TestBaseLinterAdapter:
     """Test suite for base adapter functionality"""
@@ -108,8 +102,8 @@ class TestBaseLinterAdapter:
         assert violation.message == "Line too long (88 > 79 characters)"
         assert violation.file_path == "test.py"
         assert violation.position.line == 10
-        assert violation.position.column == 80
-        assert violation.position.end_line == 10
+        assert violation.position.column == MINIMUM_TEST_COVERAGE_PERCENTAGE
+        assert violation.position.end_line == MAXIMUM_FUNCTION_PARAMETERS
         assert violation.position.end_column == 88
         assert violation.rule_description == "Line length check"
         assert violation.fix_suggestion == "Break line"
@@ -179,7 +173,6 @@ class TestBaseLinterAdapter:
         
         # Rule not in either list (default enabled)
         assert base_adapter.is_rule_enabled("W292") is True
-
 
 class TestFlake8Adapter:
     """Test suite for Flake8 adapter"""
@@ -298,7 +291,6 @@ another.py:10:5: F401 'os' imported but unused"""
         # Syntax errors
         assert flake8_adapter.get_violation_type("E999", "") == ViolationType.CORRECTNESS
 
-
 class TestPylintAdapter:
     """Test suite for Pylint adapter"""
     
@@ -362,7 +354,7 @@ class TestPylintAdapter:
         assert v1.file_path == "test.py"
         assert v1.position.line == 10
         assert v1.position.column == 5
-        assert v1.position.end_line == 10
+        assert v1.position.end_line == MAXIMUM_FUNCTION_PARAMETERS
         assert v1.position.end_column == 15
         assert v1.rule_id == "E1120"
         assert v1.message == "Undefined variable 'x'"
@@ -404,7 +396,6 @@ class TestPylintAdapter:
         
         # Convention violations
         assert pylint_adapter.get_violation_type("C0103", "") == ViolationType.STYLE
-
 
 class TestRuffAdapter:
     """Test suite for Ruff adapter"""
@@ -515,7 +506,6 @@ class TestRuffAdapter:
         # Import violations
         assert ruff_adapter.get_violation_type("I001", "") == ViolationType.MAINTAINABILITY
 
-
 class TestMypyAdapter:
     """Test suite for MyPy adapter"""
     
@@ -539,7 +529,7 @@ class TestMypyAdapter:
         args = mypy_adapter.get_command_args(target_paths)
         
         expected = ["mypy", "--show-error-codes", "--no-error-summary", 
-                   "--show-column-numbers", "src/module.py"]
+                    "--show-column-numbers", "src/module.py"]
         assert args == expected
     
     def test_text_output_parsing(self, mypy_adapter):
@@ -596,7 +586,6 @@ test.py:20:1: note: Consider using "typing_extensions.TypedDict" for better type
         
         # Unused ignores are style issues
         assert mypy_adapter.get_violation_type("unused-ignore", "") == ViolationType.STYLE
-
 
 class TestBanditAdapter:
     """Test suite for Bandit adapter"""
@@ -700,14 +689,13 @@ class TestBanditAdapter:
         assert bandit_adapter.get_violation_type("B303", "") == ViolationType.SECURITY
         assert bandit_adapter.get_violation_type("B101", "") == ViolationType.SECURITY
 
-
 class TestAdapterIntegration:
     """Integration tests for adapter functionality"""
     
     @pytest.fixture
     def all_adapters(self):
         """Create instances of all adapters"""
-        base_config = LinterConfig(timeout=30.0)
+        base_config = LinterConfig(timeout=API_TIMEOUT_SECONDS.0)
         
         return {
             "flake8": Flake8Adapter(base_config),
@@ -765,7 +753,6 @@ class TestAdapterIntegration:
         with tempfile.TemporaryDirectory() as temp_dir:
             # Create a test file
             test_file = Path(temp_dir) / "test.py"
-            test_file.write_text("print('hello world')\n")
             
             for adapter_name, adapter in all_adapters.items():
                 # Test with non-existent files
@@ -797,7 +784,6 @@ class TestAdapterIntegration:
             assert len(violations) == 0 or all(
                 isinstance(v, LinterViolation) for v in violations
             )
-
 
 class TestAdapterPerformance:
     """Performance tests for adapter functionality"""
@@ -859,7 +845,6 @@ class TestAdapterPerformance:
             assert len(results) == len(all_adapters)
             for result in results:
                 assert isinstance(result, list)
-
 
 if __name__ == "__main__":
     import logging

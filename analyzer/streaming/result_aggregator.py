@@ -9,11 +9,9 @@ access to aggregated analysis data during streaming operations.
 NASA Rule 7 Compliant: Bounded memory usage with LRU eviction.
 """
 
-import time
 import json
 import logging
-logger = logging.getLogger(__name__)
-
+import time
 
 @dataclass
 class StreamAnalysisResult:
@@ -27,13 +25,12 @@ class StreamAnalysisResult:
     dependencies: Set[str] = field(default_factory=set)
     change_type: str = 'modified'  # 'created', 'modified', 'deleted', 'moved'
     
-    def __post_init__(self):
+def __post_init__(self):
         """Validate result data."""
         assert self.file_path, "file_path cannot be empty"
         assert self.timestamp > 0, "timestamp must be positive"
         assert isinstance(self.violations, dict), "violations must be dict"
         assert isinstance(self.metrics, dict), "metrics must be dict"
-
 
 @dataclass
 class AggregatedResult:
@@ -52,7 +49,6 @@ class AggregatedResult:
     violation_trends: Dict[str, List[Tuple[float, int]]] = field(default_factory=dict)
     file_analysis_history: Dict[str, List[Dict]] = field(default_factory=dict)
 
-
 class StreamResultAggregator:
     """
     Real-time result aggregation for streaming analysis.
@@ -66,10 +62,10 @@ class StreamResultAggregator:
     - Real-time dashboard data generation
     """
     
-    def __init__(self, 
-                 max_file_history: int = 1000,
-                 max_trend_points: int = 500,
-                 aggregation_window_seconds: float = 300.0):
+def __init__(self,
+                max_file_history: int = 1000,
+                max_trend_points: int = 500,
+                aggregation_window_seconds: float = 300.0):
         """
         Initialize stream result aggregator.
         
@@ -113,7 +109,7 @@ class StreamResultAggregator:
         
         logger.info(f"StreamResultAggregator initialized with {max_file_history} file history")
     
-    def add_result(self, result: StreamAnalysisResult) -> None:
+def add_result(self, result: StreamAnalysisResult) -> None:
         """
         Add new streaming analysis result and update aggregated state.
         
@@ -149,7 +145,7 @@ class StreamResultAggregator:
             
             logger.debug(f"Added result for {result.file_path} in {processing_time:.2f}ms")
     
-    def remove_result(self, file_path: str) -> bool:
+def remove_result(self, file_path: str) -> bool:
         """
         Remove result for a file (e.g., when file is deleted).
         
@@ -178,7 +174,7 @@ class StreamResultAggregator:
             logger.info(f"Removed result for deleted file: {file_path}")
             return True
     
-    def get_aggregated_result(self) -> AggregatedResult:
+def get_aggregated_result(self) -> AggregatedResult:
         """Get current aggregated analysis result."""
         with self._lock:
             # Update timestamp
@@ -205,7 +201,7 @@ class StreamResultAggregator:
                 file_analysis_history=self._copy_nested_dict(self.aggregated_result.file_analysis_history)
             )
     
-    def get_real_time_dashboard_data(self) -> Dict[str, Any]:
+def get_real_time_dashboard_data(self) -> Dict[str, Any]:
         """Generate real-time dashboard data."""
         with self._lock:
             current_time = time.time()
@@ -214,7 +210,7 @@ class StreamResultAggregator:
             recent_trends = {}
             for violation_type, timeline in self.violation_timeline.items():
                 recent_points = [(timestamp, count) for timestamp, count in timeline 
-                               if current_time - timestamp <= 600.0]
+                                if current_time - timestamp <= 600.0]
                 if recent_points:
                     recent_trends[violation_type] = recent_points
             
@@ -246,7 +242,7 @@ class StreamResultAggregator:
             
             return dashboard_data
     
-    def get_file_analysis_history(self, file_path: str, limit: int = 50) -> List[Dict[str, Any]]:
+def get_file_analysis_history(self, file_path: str, limit: int = 50) -> List[Dict[str, Any]]:
         """Get analysis history for a specific file."""
         with self._lock:
             if file_path not in self.aggregated_result.file_analysis_history:
@@ -255,9 +251,9 @@ class StreamResultAggregator:
             history = self.aggregated_result.file_analysis_history[file_path]
             return history[-limit:] if len(history) > limit else history
     
-    def get_violation_trends(self, 
-                           violation_type: str, 
-                           time_window_seconds: float = 3600.0) -> List[Tuple[float, int]]:
+def get_violation_trends(self,
+                            violation_type: str, 
+                            time_window_seconds: float = 3600.0) -> List[Tuple[float, int]]:
         """Get violation trend data for a specific type."""
         with self._lock:
             if violation_type not in self.violation_timeline:
@@ -268,11 +264,11 @@ class StreamResultAggregator:
             
             # Filter to time window
             recent_points = [(timestamp, count) for timestamp, count in timeline
-                           if current_time - timestamp <= time_window_seconds]
+                            if current_time - timestamp <= time_window_seconds]
             
             return recent_points
     
-    def invalidate_file_results(self, file_paths: List[str]) -> int:
+def invalidate_file_results(self, file_paths: List[str]) -> int:
         """
         Invalidate results for specific files (e.g., due to dependency changes).
         
@@ -300,7 +296,7 @@ class StreamResultAggregator:
             
             return invalidated
     
-    def get_aggregation_stats(self) -> Dict[str, Any]:
+def get_aggregation_stats(self) -> Dict[str, Any]:
         """Get aggregation performance statistics."""
         with self._lock:
             return {
@@ -311,7 +307,7 @@ class StreamResultAggregator:
                 "memory_usage_estimate_mb": self._estimate_memory_usage()
             }
     
-    def _update_dependencies(self, result: StreamAnalysisResult) -> None:
+def _update_dependencies(self, result: StreamAnalysisResult) -> None:
         """Update dependency tracking for a result."""
         file_path = result.file_path
         
@@ -325,15 +321,15 @@ class StreamResultAggregator:
         for dep in result.dependencies:
             self.reverse_dependencies[dep].add(file_path)
     
-    def _invalidate_dependent_results(self, changed_file: str) -> None:
+def _invalidate_dependent_results(self, changed_file: str) -> None:
         """Invalidate results that depend on a changed file."""
         dependent_files = self.reverse_dependencies.get(changed_file, set())
         if dependent_files:
             self.invalidate_file_results(list(dependent_files))
     
-    def _update_aggregated_metrics(self, 
-                                 new_result: StreamAnalysisResult, 
-                                 old_result: Optional[StreamAnalysisResult]) -> None:
+def _update_aggregated_metrics(self,
+                                new_result: StreamAnalysisResult, 
+                                old_result: Optional[StreamAnalysisResult]) -> None:
         """Update aggregated metrics with new result."""
         # Subtract old result if exists
         if old_result:
@@ -390,7 +386,7 @@ class StreamResultAggregator:
         if len(file_history) > 100:
             self.aggregated_result.file_analysis_history[new_result.file_path] = file_history[-80:]
     
-    def _subtract_result_from_aggregated(self, old_result: StreamAnalysisResult) -> None:
+def _subtract_result_from_aggregated(self, old_result: StreamAnalysisResult) -> None:
         """Subtract old result from aggregated metrics."""
         # Subtract violation counts
         violation_count = sum(len(v) if isinstance(v, list) else 1 
@@ -418,7 +414,7 @@ class StreamResultAggregator:
         else:
             self.aggregated_result.full_analyses = max(0, self.aggregated_result.full_analyses - 1)
     
-    def _update_violation_trends(self, result: StreamAnalysisResult) -> None:
+def _update_violation_trends(self, result: StreamAnalysisResult) -> None:
         """Update violation trend timeline."""
         timestamp = result.timestamp
         
@@ -441,7 +437,7 @@ class StreamResultAggregator:
                 if len(trend_list) > self.max_trend_points:
                     self.aggregated_result.violation_trends[violation_type] = trend_list[-(self.max_trend_points//2):]
     
-    def _cleanup_dependencies(self, file_path: str) -> None:
+def _cleanup_dependencies(self, file_path: str) -> None:
         """Clean up dependency tracking for removed file."""
         # Remove from dependencies
         if file_path in self.file_dependencies:
@@ -455,26 +451,26 @@ class StreamResultAggregator:
             for dep_file in dependent_files:
                 self.file_dependencies[dep_file].discard(file_path)
     
-    def _calculate_analysis_velocity(self) -> Dict[str, float]:
+def _calculate_analysis_velocity(self) -> Dict[str, float]:
         """Calculate analysis velocity metrics."""
         current_time = time.time()
         
         # Count recent analyses (last 5 minutes)
         recent_results = [r for r in self.result_history 
-                         if current_time - r.timestamp <= 300.0]
+                        if current_time - r.timestamp <= 300.0]
         
         velocity = {
             "files_per_minute": len(recent_results) / 5.0 if recent_results else 0.0,
             "violations_per_minute": sum(sum(len(v) if isinstance(v, list) else 1 
-                                           for v in r.violations.values() if v) 
-                                       for r in recent_results) / 5.0,
+                                            for v in r.violations.values() if v) 
+                                        for r in recent_results) / 5.0,
             "avg_processing_time_ms": sum(r.processing_time_ms for r in recent_results) / len(recent_results) 
                                     if recent_results else 0.0
         }
         
         return velocity
     
-    def _get_top_violation_files(self, limit: int = 10) -> List[Dict[str, Any]]:
+def _get_top_violation_files(self, limit: int = 10) -> List[Dict[str, Any]]:
         """Get files with most violations."""
         file_violation_counts = []
         
@@ -493,11 +489,11 @@ class StreamResultAggregator:
         file_violation_counts.sort(key=lambda x: x["violation_count"], reverse=True)
         return file_violation_counts[:limit]
     
-    def _copy_nested_dict(self, nested_dict: Dict[str, Any]) -> Dict[str, Any]:
+def _copy_nested_dict(self, nested_dict: Dict[str, Any]) -> Dict[str, Any]:
         """Create deep copy of nested dictionary."""
         return {k: v.copy() if hasattr(v, 'copy') else v for k, v in nested_dict.items()}
     
-    def _estimate_memory_usage(self) -> float:
+def _estimate_memory_usage(self) -> float:
         """Estimate memory usage in MB."""
         # Rough estimate based on stored data
         file_results_size = len(self.file_results) * 2  # ~2KB per result
@@ -506,11 +502,9 @@ class StreamResultAggregator:
         
         return (file_results_size + history_size + trends_size) / 1024  # Convert to MB
 
-
 # Global stream result aggregator instance
 _global_stream_aggregator: Optional[StreamResultAggregator] = None
 _aggregator_lock = RLock()
-
 
 def get_global_stream_aggregator() -> StreamResultAggregator:
     """Get or create global stream result aggregator."""
@@ -520,18 +514,15 @@ def get_global_stream_aggregator() -> StreamResultAggregator:
             _global_stream_aggregator = StreamResultAggregator()
         return _global_stream_aggregator
 
-
 def add_streaming_result(result: StreamAnalysisResult) -> None:
     """Add result to global stream aggregator."""
     aggregator = get_global_stream_aggregator()
     aggregator.add_result(result)
 
-
 def get_streaming_dashboard_data() -> Dict[str, Any]:
     """Get real-time dashboard data from global aggregator."""
     aggregator = get_global_stream_aggregator()
     return aggregator.get_real_time_dashboard_data()
-
 
 def get_streaming_aggregated_result() -> AggregatedResult:
     """Get aggregated result from global aggregator."""

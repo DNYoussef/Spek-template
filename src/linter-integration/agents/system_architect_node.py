@@ -4,14 +4,15 @@ System Architect Agent Node - Mesh Network Specialist
 Designs external tool pipeline architecture and coordinates tool orchestration.
 """
 
-import asyncio
+from pathlib import Path
+from typing import Dict, List, Any, Optional
 import json
 import logging
-from typing import Dict, List, Any, Optional
-from dataclasses import dataclass, asdict
-import subprocess
 import shutil
-from pathlib import Path
+import subprocess
+
+from dataclasses import dataclass, asdict
+import asyncio
 
 @dataclass
 class ToolPipelineSpec:

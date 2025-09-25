@@ -1,4 +1,4 @@
-name: Gary×Taleb Trading System - Production CI/CD
+name: GaryxTaleb Trading System - Production CI/CD
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
         id: init
         run: |
           echo "swarm_id=${{ env.CLAUDE_FLOW_SESSION }}" >> $GITHUB_OUTPUT
-          echo "🚀 Initializing swarm for financial trading system deployment"
+          echo "[LAUNCH] Initializing swarm for financial trading system deployment"
 
       - name: Determine Deployment Strategy
         id: strategy
@@ -328,14 +328,14 @@ jobs:
       - name: Update deployment status
         if: success()
         run: |
-          echo "🎉 Production deployment successful"
+          echo "[CELEBRATE] Production deployment successful"
           echo "Version: ${{ github.sha }}"
           echo "Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
       - name: Notify on failure
         if: failure()
         run: |
-          echo "❌ Production deployment failed"
+          echo "[FAIL] Production deployment failed"
           # Send alerts to monitoring system
           curl -X POST "${{ secrets.ALERT_WEBHOOK }}" \
             -H "Content-Type: application/json" \

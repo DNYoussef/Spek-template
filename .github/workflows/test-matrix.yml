@@ -199,7 +199,7 @@ jobs:
 
     - name: Run all discoverable tests with summary
       run: |
-        echo "# 📊 Complete SPEK Test Suite Report" >> $GITHUB_STEP_SUMMARY
+        echo "# [DATA] Complete SPEK Test Suite Report" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## Test Discovery" >> $GITHUB_STEP_SUMMARY
         echo "- Total test files found: ${{ needs.discover-tests.outputs.test-count }}" >> $GITHUB_STEP_SUMMARY
@@ -219,8 +219,8 @@ jobs:
           echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
           echo "| Test Suites | $SUITES |" >> $GITHUB_STEP_SUMMARY
           echo "| Total Tests | $TOTAL |" >> $GITHUB_STEP_SUMMARY
-          echo "| Passed | $PASSED ✅ |" >> $GITHUB_STEP_SUMMARY
-          echo "| Failed | $FAILED ❌ |" >> $GITHUB_STEP_SUMMARY
+          echo "| Passed | $PASSED [OK] |" >> $GITHUB_STEP_SUMMARY
+          echo "| Failed | $FAILED [FAIL] |" >> $GITHUB_STEP_SUMMARY
           echo "| Pass Rate | $(( PASSED * 100 / TOTAL ))% |" >> $GITHUB_STEP_SUMMARY
         fi
 

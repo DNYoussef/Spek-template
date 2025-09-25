@@ -1,9 +1,6 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Safety Compliance Testing for ADAS Phase 7
-Implements ISO 26262 ASIL-D compliance validation and fail-safe mechanism testing.
 
+"""
 Requirements:
 - ISO 26262 ASIL-D compliance validation
 - Fail-safe mechanism verification
@@ -361,8 +358,6 @@ class TestFailSafeMechanisms:
         availability = safety_tester.safety_system.get_system_availability()
         assert availability >= 80.0, f"System availability {availability:.2f}% too low after multiple failures"
 
-        print(f"Collision avoidance redundancy test passed with {availability:.2f}% availability")
-
 class TestSystemStates:
     """Test system state transitions and safety modes"""
 
@@ -393,8 +388,6 @@ class TestSystemStates:
             systems = safety_tester.safety_system.redundant_systems[function]
             active_count = sum(1 for system in systems.values() if system["status"] == "active")
             assert active_count >= 1, f"No active system for critical function {function} in fail-safe mode"
-
-        print("Fail-safe state entry test passed")
 
     def test_emergency_stop_conditions(self, safety_tester):
         """Test emergency stop activation conditions"""
@@ -448,8 +441,6 @@ class TestSafetyEventLogging:
             assert event.timestamp > 0, "Invalid timestamp"
             assert event.severity == SafetyLevel.ASIL_D, "Incorrect severity level"
             assert event.response_time_ms > 0, "Invalid response time"
-
-        print(f"Safety event logging test passed with {new_events} events logged")
 
     def test_audit_trail_generation(self, safety_tester):
         """Test generation of safety audit trail"""
@@ -551,7 +542,6 @@ class TestASILDVerification:
         for test, result in compliance_results.items():
             if isinstance(result, dict) and "compliant" in result:
                 status = "PASS" if result["compliant"] else "FAIL"
-                print(f"  {test}: {status}")
 
 if __name__ == "__main__":
     # Run safety compliance tests

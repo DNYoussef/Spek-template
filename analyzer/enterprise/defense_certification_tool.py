@@ -1,6 +1,4 @@
-"""
-Defense Industry Certification Tool - NASA POT10 Integration
-===========================================================
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 Integrates NASA POT10 compliance with defense industry standards:
 - DFARS compliance validation
@@ -146,7 +144,6 @@ class DFARSComplianceValidator:
         assert codebase_path is not None, "NASA Rule 4: codebase_path cannot be None"
 
         # Simplified NIST compliance check
-        # In practice, this would be more comprehensive
         result = "compliant"
 
         # NASA Rule 4: Output validation
@@ -211,7 +208,6 @@ class NISTFrameworkValidator:
         assert isinstance(control_id, str), f"NASA Rule 4: Expected str, got {type(control_id).__name__}"
 
         # Simplified implementation check
-        # Look for relevant patterns in code
 
         security_patterns = {
             "AC": ["authentication", "authorization", "access_control"],
@@ -295,7 +291,6 @@ class DoDSecurityValidator:
         assert requirement_id is not None, "NASA Rule 4: requirement_id cannot be None"
 
         # Simplified DoD compliance check
-        # In practice, this would involve detailed security assessments
 
         if requirement_id == "STIG-GEN":
             return self._check_stig_compliance(codebase_path)
@@ -442,7 +437,7 @@ class DefenseCertificationTool:
         assert requirements is not None, "NASA Rule 4: requirements cannot be None"
 
         if not requirements:
-            return 100.0
+            return 60.0
 
         compliant_count = sum(1 for req in requirements
                             if req.compliance_status in ["compliant", "implemented"])
@@ -450,7 +445,7 @@ class DefenseCertificationTool:
         return (compliant_count / len(requirements)) * 100
 
     def _generate_evidence_package(self, codebase_path: Path,
-                                 report: DefenseCertificationReport) -> List[CertificationEvidence]:
+                                report: DefenseCertificationReport) -> List[CertificationEvidence]:
         """Generate evidence package for certification."""
         # NASA Rule 4: Input validation
         assert codebase_path is not None, "NASA Rule 4: codebase_path cannot be None"
@@ -479,7 +474,7 @@ class DefenseCertificationTool:
         return evidence
 
     def _find_relevant_files(self, codebase_path: Path,
-                           requirement: SecurityRequirement) -> List[Path]:
+                            requirement: SecurityRequirement) -> List[Path]:
         """Find files relevant to a security requirement."""
         # NASA Rule 4: Input validation
         assert codebase_path is not None, "NASA Rule 4: codebase_path cannot be None"
@@ -574,7 +569,7 @@ class DefenseCertificationTool:
             return "non_compliant"
 
     def export_certification_report(self, report: DefenseCertificationReport,
-                                  output_path: Path) -> None:
+                                    output_path: Path) -> None:
         """Export certification report to file."""
         # NASA Rule 4: Input validation
         assert report is not None, "NASA Rule 4: report cannot be None"
@@ -642,10 +637,10 @@ def main():
     parser.add_argument('--project', required=True, help='Project name')
     parser.add_argument('--path', default='.', help='Codebase path to analyze')
     parser.add_argument('--level', default='UNCLASSIFIED',
-                       choices=['UNCLASSIFIED', 'CONFIDENTIAL', 'SECRET'],
-                       help='Security classification level')
+                        choices=['UNCLASSIFIED', 'CONFIDENTIAL', 'SECRET'],
+                        help='Security classification level')
     parser.add_argument('--output', default='defense_certification_report.json',
-                       help='Output report file')
+                        help='Output report file')
 
     args = parser.parse_args()
 

@@ -19,18 +19,18 @@ def calculate_discount(price, discount_percent):
 class Calculator:
     """Simple calculator class."""
 
-    def __init__(self):
+def __init__(self):
         self.history = []
 
-    def add(self, a, b):
+def add(self, a, b):
         result = a + b
         self.history.append(f"{a} + {b} = {result}")
         return result
 
-    def multiply(self, a, b):
+def multiply(self, a, b):
         result = a * b
         self.history.append(f"{a} * {b} = {result}")
         return result
 
-    def get_history(self):
+def get_history(self):
         return self.history.copy()

@@ -24,12 +24,11 @@ except ImportError:
     StreamProcessor = None
     IncrementalCache = None
 
-
 class StreamingManager:
     """
     Manages streaming analysis and real-time file watching.
 
-    Extracted from UnifiedConnascenceAnalyzer (1,860 LOC -> ~150 LOC component).
+    Extracted from UnifiedConnascenceAnalyzer (1, 860 LOC -> ~150 LOC component).
     Handles:
     - Streaming component initialization
     - Real-time file watching

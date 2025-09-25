@@ -4,13 +4,14 @@ Maintains API compatibility while delegating to decomposed components
 Part of god object decomposition (Day 3-5)
 """
 
-import json
-import os
-import hashlib
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Any, Set
+import hashlib
+import json
+import os
+
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
 
 # Import decomposed components
 from .core.PatternMatcher import PatternMatcher, FailurePattern
@@ -20,7 +21,6 @@ from .services.FixGenerator import FixGenerator, FixStrategy
 # Keep original dataclasses for backward compatibility
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 @dataclass
 class FailureSignature:
@@ -36,7 +36,6 @@ class FailureSignature:
     fix_difficulty: str = "medium"
     similar_patterns: List[str] = field(default_factory=list)
 
-
 @dataclass
 class RootCauseAnalysis:
     """Comprehensive root cause analysis result."""
@@ -49,12 +48,11 @@ class RootCauseAnalysis:
     estimated_effort_hours: int
     risk_level: str
 
-
 class FailurePatternDetector:
     """
     Facade for Failure Pattern Detection Engine.
 
-    Original: 1,281 LOC god object
+    Original: 1, 281 LOC god object
     Refactored: ~150 LOC facade + 3 specialized components (~750 LOC total)
 
     Maintains 100% backward compatibility while delegating to:
@@ -109,9 +107,9 @@ class FailurePatternDetector:
                 logger.error(f"Failed to load history: {e}")
 
     def detect_pattern(self,
-                      error_message: str,
-                      step_name: str,
-                      context: Optional[Dict[str, Any]] = None) -> FailureSignature:
+                        error_message: str,
+                        step_name: str,
+                        context: Optional[Dict[str, Any]] = None) -> FailureSignature:
         """Detect failure pattern from error message (original API)."""
         # Use PatternMatcher to find pattern
         pattern = self.pattern_matcher.match_pattern(error_message, context)
@@ -148,8 +146,8 @@ class FailurePatternDetector:
         return signature
 
     def analyze_root_cause(self,
-                          failure_signature: FailureSignature,
-                          historical_context: Optional[List[Dict[str, Any]]] = None) -> RootCauseAnalysis:
+                            failure_signature: FailureSignature,
+                            historical_context: Optional[List[Dict[str, Any]]] = None) -> RootCauseAnalysis:
         """Perform root cause analysis (original API)."""
         # Check cache
         cache_key = failure_signature.context_hash

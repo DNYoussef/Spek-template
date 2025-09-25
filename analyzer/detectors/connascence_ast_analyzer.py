@@ -5,14 +5,13 @@ Provides concrete implementation for detecting all connascence violations.
 This replaces the stub that was returning 0 violations.
 """
 
+from typing import List
 import ast
 import os
 import pathlib
-from typing import List
 
 from utils.types import ConnascenceViolation
 from .base import DetectorBase
-
 
 class ConnascenceASTAnalyzer(DetectorBase):
     """Concrete implementation with REAL violation detection."""
@@ -156,7 +155,6 @@ class ConnascenceASTAnalyzer(DetectorBase):
 
         return violations
 
-
 class UnifiedConnascenceAnalyzer:
     """Unified analyzer for project-wide analysis."""
 
@@ -212,7 +210,6 @@ class UnifiedConnascenceAnalyzer:
 
             except Exception as e:
                 # Skip files that can't be analyzed
-                pass
 
         return {
             'total_violations': len(all_violations),

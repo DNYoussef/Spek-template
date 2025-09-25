@@ -1,14 +1,11 @@
-# SPDX-License-Identifier: MIT
-"""
-Enterprise Performance Monitor
-==============================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Zero-overhead performance monitoring for enterprise features.
 Ensures enterprise modules have no performance impact when disabled
 and provides detailed metrics when enabled.
 
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import time
@@ -17,11 +14,9 @@ from dataclasses import dataclass
 from typing import Optional, List, Dict, Any
 from contextlib import contextmanager
 # from lib.shared.utilities.logging_setup import get_performance_logger
-# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
 
 # Use specialized performance logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class PerformanceMetric:
@@ -33,7 +28,6 @@ class PerformanceMetric:
     success: bool
     error_message: Optional[str] = None
 
-
 @dataclass
 class PerformanceAlert:
     """Performance alert definition."""
@@ -43,7 +37,6 @@ class PerformanceAlert:
     feature_name: str
     timestamp: float
     message: str
-
 
 class EnterprisePerformanceMonitor:
     """

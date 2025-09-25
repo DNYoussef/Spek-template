@@ -1,8 +1,4 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Theater Detection System - Validates that analyzer fix is real work
-"""
 
 import sys
 import time
@@ -22,7 +18,6 @@ def run_theater_detection():
     results = []
 
     # Test 1: Verify the stub was actually changed
-    print("Test 1: Checking if stub implementation was replaced...")
     analyzer_file = Path("analyzer/detectors/connascence_ast_analyzer.py")
     with open(analyzer_file, 'r') as f:
         content = f.read()
@@ -45,7 +40,6 @@ def run_theater_detection():
                 results.append(("WARN", "Stub removed but detection logic unclear"))
 
     # Test 2: Verify actual detection is happening
-    print("\nTest 2: Testing detection on known violations...")
     from analyzer.detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
     analyzer = ConnascenceASTAnalyzer()
 
@@ -69,7 +63,6 @@ def bad_function(a, b, c, d, e, f, g):  # Too many parameters
         results.append(("FAIL", "Test code produced 0 violations - detection not working"))
 
     # Test 3: Verify violations are diverse and realistic
-    print("\nTest 3: Checking violation diversity...")
     test_file = 'src/security/dfars_compliance_engine.py'
     if path_exists(test_file):
         file_violations = analyzer.analyze_file(test_file)
@@ -83,7 +76,6 @@ def bad_function(a, b, c, d, e, f, g):  # Too many parameters
             results.append(("FAIL", "No violation types detected"))
 
     # Test 4: Performance test
-    print("\nTest 4: Performance validation...")
     start = time.time()
     src_violations = analyzer.analyze_directory('src')
     duration = time.time() - start
@@ -96,7 +88,6 @@ def bad_function(a, b, c, d, e, f, g):  # Too many parameters
         results.append(("PASS", f"Analysis took {duration:.2f}s - realistic processing time"))
 
     # Test 5: Verify violation count is realistic
-    print("\nTest 5: Violation count validation...")
     violation_count = len(src_violations)
 
     if violation_count == 0:

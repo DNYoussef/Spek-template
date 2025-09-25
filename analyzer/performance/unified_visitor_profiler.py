@@ -10,21 +10,22 @@ NASA Rule 5 Compliant: Input validation with assertions
 NASA Rule 7 Compliant: Bounded resource management
 """
 
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple, Any, Callable
 import ast
-import cProfile
 import io
-import pstats
-import psutil
+import json
 import sys
 import time
-import threading
+
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from memory_profiler import profile as memory_profile
-from pathlib import Path
 from statistics import mean, median, stdev
-from typing import Dict, List, Optional, Tuple, Any, Callable
-import json
+import cProfile
+import pstats
+import psutil
+import threading
 import tracemalloc
 
 # Add project root to path
@@ -36,7 +37,6 @@ from analyzer.detectors import (
     PositionDetector, MagicLiteralDetector, AlgorithmDetector, GodObjectDetector,
     TimingDetector, ConventionDetector, ValuesDetector, ExecutionDetector
 )
-
 
 @dataclass
 class TraversalMetrics:
@@ -64,7 +64,6 @@ class TraversalMetrics:
     concurrent_accesses: int = 0
     lock_contention_ms: float = 0.0
 
-
 @dataclass
 class PerformanceComparison:
     """Comparison between unified and separate detector approaches."""
@@ -81,7 +80,6 @@ class PerformanceComparison:
     confidence_interval_95: Tuple[float, float] = (0.0, 0.0)
     p_value: float = 0.0
     sample_size: int = 0
-
 
 class UnifiedVisitorProfiler:
     """
@@ -114,7 +112,7 @@ class UnifiedVisitorProfiler:
         self._measurements = []
     
     def benchmark_traversal_reduction(self, test_files: List[Path], 
-                                     iterations: int = 10) -> PerformanceComparison:
+                                    iterations: int = 10) -> PerformanceComparison:
         """
         Benchmark AST traversal reduction with statistical validation.
         
@@ -369,7 +367,7 @@ class UnifiedVisitorProfiler:
         }
         
         detector_types = ['position', 'magic_literal', 'algorithm', 'god_object', 
-                         'timing', 'convention', 'values', 'execution']
+                        'timing', 'convention', 'values', 'execution']
         
         for detector_type in detector_types:
             completeness_report['detector_compatibility'][detector_type] = {
@@ -447,8 +445,6 @@ class UnifiedVisitorProfiler:
             if thread_count > self.max_threads:
                 continue
                 
-            print(f"Testing thread safety with {thread_count} threads")
-            
             thread_safety_results[thread_count] = self._measure_concurrent_performance(
                 test_files, thread_count
             )
@@ -460,7 +456,7 @@ class UnifiedVisitorProfiler:
         }
     
     def _measure_concurrent_performance(self, test_files: List[Path], 
-                                      thread_count: int) -> Dict[str, Any]:
+                                        thread_count: int) -> Dict[str, Any]:
         """
         Measure performance with specific thread count.
         
@@ -647,7 +643,6 @@ class UnifiedVisitorProfiler:
         
         return header + "\n".join(body_lines)
 
-
 def run_comprehensive_performance_audit(output_dir: Path = None) -> Dict[str, Any]:
     """
     Execute comprehensive performance audit of unified visitor efficiency.
@@ -660,11 +655,9 @@ def run_comprehensive_performance_audit(output_dir: Path = None) -> Dict[str, An
     profiler = UnifiedVisitorProfiler()
     
     print("=== UNIFIED VISITOR PERFORMANCE AUDIT ===")
-    print("Generating test files...")
     
     # Generate test files
     test_files = profiler.generate_test_files(output_dir, files_per_category=3)
-    print(f"Generated {len(test_files)} test files")
     
     print("1. Benchmarking AST traversal reduction...")
     comparison = profiler.benchmark_traversal_reduction(test_files, iterations=5)
@@ -709,7 +702,6 @@ def run_comprehensive_performance_audit(output_dir: Path = None) -> Dict[str, An
     }
     
     return audit_results
-
 
 if __name__ == "__main__":
     # Execute comprehensive audit

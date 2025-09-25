@@ -4,17 +4,17 @@ Handles performance profiling and metrics
 Part of god object decomposition (Day 4)
 """
 
+from datetime import datetime
+from typing import Dict, List, Optional, Any, Callable
+import logging
 import time
+
+from contextlib import contextmanager
+from dataclasses import dataclass, field
 import psutil
 import threading
-from typing import Dict, List, Optional, Any, Callable
-from dataclasses import dataclass, field
-from datetime import datetime
-from contextlib import contextmanager
-import logging
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class ProfileMetric:
@@ -29,7 +29,6 @@ class ProfileMetric:
     cpu_percent: Optional[float]
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-
 @dataclass
 class ProfileSession:
     """Profiling session information."""
@@ -39,7 +38,6 @@ class ProfileSession:
     ended_at: Optional[datetime]
     metrics: List[ProfileMetric]
     summary: Optional[Dict[str, Any]]
-
 
 @dataclass
 class PerformanceStats:
@@ -51,12 +49,11 @@ class PerformanceStats:
     function_calls: Dict[str, int]
     slowest_operations: List[Tuple[str, float]]
 
-
 class PerformanceProfiler:
     """
     Handles performance profiling and metrics.
 
-    Extracted from result_aggregation_profiler (1,016 LOC -> ~250 LOC component).
+    Extracted from result_aggregation_profiler (1, 016 LOC -> ~250 LOC component).
     Handles:
     - Performance timing
     - Memory profiling
@@ -360,11 +357,11 @@ class PerformanceProfiler:
             'session2': session2.summary,
             'comparison': {
                 'duration_diff': (session1.summary.get('total_duration', 0) -
-                                 session2.summary.get('total_duration', 0)),
+                                session2.summary.get('total_duration', 0)),
                 'memory_diff': (session1.summary.get('max_memory', 0) -
-                               session2.summary.get('max_memory', 0)),
+                                session2.summary.get('max_memory', 0)),
                 'metric_count_diff': (session1.summary.get('metric_count', 0) -
-                                     session2.summary.get('metric_count', 0))
+                                    session2.summary.get('metric_count', 0))
             }
         }
 

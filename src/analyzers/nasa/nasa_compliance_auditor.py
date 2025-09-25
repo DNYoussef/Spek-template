@@ -1,7 +1,5 @@
 from lib.shared.utilities import path_exists
-# SPDX-License-Identifier: MIT
-"""
-NASA Compliance Auditor - Specialized Agent for POT10 Rule Assessment
+from src.constants.base import CONNASCENCE_ANALYSIS_THRESHOLD, MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT
 
 Performs rule-by-rule compliance assessment and improvement recommendations
 for systematic NASA Power of Ten compliance improvements.
@@ -42,7 +40,7 @@ NASA_RULES_CONFIG = {
         "description": "Functions must not exceed 60 lines",
         "severity": "critical", 
         "weight": 10,
-        "target_compliance": 0.95
+        "target_compliance": NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
     },
     "rule_3": {
         "name": "Heap Usage Restrictions", 
@@ -56,42 +54,42 @@ NASA_RULES_CONFIG = {
         "description": "All loops must have statically determinable upper bounds",
         "severity": "critical",
         "weight": 9,
-        "target_compliance": 0.92
+        "target_compliance": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
     },
     "rule_5": {
         "name": "Defensive Assertions",
         "description": "Minimum 2 assertions per function",
         "severity": "high",
         "weight": 8,
-        "target_compliance": 0.90
+        "target_compliance": REGULATORY_FACTUALITY_REQUIREMENT
     },
     "rule_6": {
         "name": "Variable Scope",
         "description": "Declare objects at smallest possible scope",
         "severity": "medium",
         "weight": 5,
-        "target_compliance": 0.92
+        "target_compliance": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
     },
     "rule_7": {
         "name": "Return Value Checking",
         "description": "Check return values of all non-void functions",
         "severity": "high",
         "weight": 7,
-        "target_compliance": 0.88
+        "target_compliance": CONNASCENCE_ANALYSIS_THRESHOLD
     },
     "rule_8": {
         "name": "Preprocessor Usage",
         "description": "Limit preprocessor usage to simple constants",
         "severity": "medium",
         "weight": 4,
-        "target_compliance": 0.95
+        "target_compliance": NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
     },
     "rule_9": {
         "name": "Pointer Indirection",
         "description": "Limit pointer indirection levels",
         "severity": "high",
         "weight": 6,
-        "target_compliance": 0.90
+        "target_compliance": REGULATORY_FACTUALITY_REQUIREMENT
     },
     "rule_10": {
         "name": "Compiler Warnings",
@@ -101,7 +99,6 @@ NASA_RULES_CONFIG = {
         "target_compliance": 0.98
     }
 }
-
 
 @dataclass
 class RuleComplianceReport:
@@ -119,7 +116,6 @@ class RuleComplianceReport:
     estimated_fix_effort: str
     priority_rank: int
 
-
 @dataclass
 class ProjectComplianceAssessment:
     """Complete project NASA compliance assessment."""
@@ -132,14 +128,13 @@ class ProjectComplianceAssessment:
     improvement_roadmap: Dict[str, Any]
     certification_evidence: Dict[str, Any]
 
-
 class NASAComplianceAuditor:
     """
     Specialized auditor for systematic NASA POT10 compliance assessment.
     NASA Rule 4 compliant: All functions <60 LOC.
     """
     
-    def __init__(self):
+def __init__(self):
         """Initialize NASA compliance auditor."""
         self.nasa_analyzer = NASAAnalyzer()
         self.rules_config = NASA_RULES_CONFIG
@@ -147,7 +142,7 @@ class NASAComplianceAuditor:
         
         # Current compliance baselines (from research)
         self.current_compliance = {
-            "rule_1": 0.95,  # Control flow
+            "rule_1": NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,  # Control flow
             "rule_2": 0.85,  # Function size (PRIMARY GAP)
             "rule_3": 0.98,  # Heap usage
             "rule_4": 0.82,  # Loop bounds (SECONDARY GAP)
@@ -161,9 +156,9 @@ class NASAComplianceAuditor:
         
         # Defense industry thresholds
         self.defense_industry_threshold = 0.90
-        self.target_overall_compliance = 0.92
+        self.target_overall_compliance = NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
     
-    def audit_project_compliance(self, project_path: str) -> ProjectComplianceAssessment:
+def audit_project_compliance(self, project_path: str) -> ProjectComplianceAssessment:
         """
         Comprehensive project NASA POT10 compliance audit.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -217,7 +212,7 @@ class NASAComplianceAuditor:
         
         return assessment
     
-    def _audit_specific_rule(self, rule_id: str, python_files: List[Path]) -> RuleComplianceReport:
+def _audit_specific_rule(self, rule_id: str, python_files: List[Path]) -> RuleComplianceReport:
         """
         Audit specific NASA rule across project files.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -268,7 +263,7 @@ class NASAComplianceAuditor:
             priority_rank=priority_rank
         )
     
-    def _generate_rule_recommendations(self, rule_id: str, violations: List[ConnascenceViolation]) -> List[str]:
+def _generate_rule_recommendations(self, rule_id: str, violations: List[ConnascenceViolation]) -> List[str]:
         """
         Generate specific improvement recommendations for each rule.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -302,7 +297,7 @@ class NASAComplianceAuditor:
         
         return recommendations
     
-    def _estimate_fix_effort(self, rule_id: str, violation_count: int) -> str:
+def _estimate_fix_effort(self, rule_id: str, violation_count: int) -> str:
         """Estimate effort required to fix rule violations."""
         if rule_id in ["rule_2", "rule_4", "rule_5"]:  # Priority gaps
             if violation_count <= 5:
@@ -314,7 +309,7 @@ class NASAComplianceAuditor:
         else:
             return "Standard (systematic fixes required)"
     
-    def _calculate_priority_rank(self, rule_config: Dict, compliance_gap: float, violation_count: int) -> int:
+def _calculate_priority_rank(self, rule_config: Dict, compliance_gap: float, violation_count: int) -> int:
         """Calculate priority ranking for rule improvement."""
         # Weight by rule severity and compliance gap
         severity_multiplier = {"critical": 3, "high": 2, "medium": 1}
@@ -328,7 +323,7 @@ class NASAComplianceAuditor:
         
         return int(priority_score)
     
-    def _calculate_overall_compliance(self, rule_reports: List[RuleComplianceReport]) -> float:
+def _calculate_overall_compliance(self, rule_reports: List[RuleComplianceReport]) -> float:
         """Calculate weighted overall NASA compliance score."""
         total_weighted_score = 0
         total_weight = 0
@@ -342,9 +337,9 @@ class NASAComplianceAuditor:
             return 0.0
         
         overall_compliance = total_weighted_score / total_weight
-        return round(overall_compliance, 3)
+        return round(overall_compliance, MAXIMUM_RETRY_ATTEMPTS)
     
-    def _assess_readiness_status(self, overall_compliance: float) -> str:
+def _assess_readiness_status(self, overall_compliance: float) -> str:
         """Assess defense industry readiness status."""
         if overall_compliance >= 0.95:
             return "CERTIFIED_READY"
@@ -355,7 +350,7 @@ class NASAComplianceAuditor:
         else:
             return "NON_COMPLIANT"
     
-    def _identify_critical_gaps(self, rule_reports: List[RuleComplianceReport]) -> List[str]:
+def _identify_critical_gaps(self, rule_reports: List[RuleComplianceReport]) -> List[str]:
         """Identify critical compliance gaps requiring immediate attention."""
         critical_gaps = []
         
@@ -368,7 +363,7 @@ class NASAComplianceAuditor:
         
         return critical_gaps
     
-    def _generate_improvement_roadmap(self, rule_reports: List[RuleComplianceReport]) -> Dict[str, Any]:
+def _generate_improvement_roadmap(self, rule_reports: List[RuleComplianceReport]) -> Dict[str, Any]:
         """Generate systematic improvement roadmap."""
         # Sort by priority for phased approach
         priority_reports = sorted(rule_reports, key=lambda r: r.priority_rank, reverse=True)
@@ -396,7 +391,7 @@ class NASAComplianceAuditor:
         
         return roadmap
     
-    def _generate_certification_evidence(self, rule_reports: List[RuleComplianceReport], overall_compliance: float) -> Dict[str, Any]:
+def _generate_certification_evidence(self, rule_reports: List[RuleComplianceReport], overall_compliance: float) -> Dict[str, Any]:
         """Generate evidence package for defense industry certification."""
         return {
             "assessment_timestamp": time.time(),
@@ -430,7 +425,7 @@ class NASAComplianceAuditor:
             }
         }
     
-    def generate_detailed_compliance_report(self, assessment: ProjectComplianceAssessment) -> str:
+def generate_detailed_compliance_report(self, assessment: ProjectComplianceAssessment) -> str:
         """
         Generate detailed compliance report for stakeholders.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -477,12 +472,10 @@ IMPROVEMENT ROADMAP
         
         return report
 
-
 # NASA Rule 4 compliant helper functions
 def create_nasa_auditor() -> NASAComplianceAuditor:
     """Factory function for NASA compliance auditor."""
     return NASAComplianceAuditor()
-
 
 def export_compliance_assessment(assessment: ProjectComplianceAssessment, output_path: str) -> None:
     """Export compliance assessment to JSON file."""
@@ -517,7 +510,6 @@ def export_compliance_assessment(assessment: ProjectComplianceAssessment, output
     
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(assessment_dict, f, indent=2, default=str)
-
 
 __all__ = [
     "NASAComplianceAuditor",

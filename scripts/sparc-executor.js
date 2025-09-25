@@ -95,11 +95,11 @@ class SPARCExecutor {
   }
 
   async listModes() {
-    console.log('\n✨ Available SPARC Modes:\n');
+    console.log('\n? Available SPARC Modes:\n');
     const modes = this.modes.modes || {};
 
     Object.entries(modes).forEach(([key, mode]) => {
-      console.log(`  📋 ${key.padEnd(15)} - ${mode.name || key}`);
+      console.log(`  ? ${key.padEnd(15)} - ${mode.name || key}`);
       if (mode.agents) {
         console.log(`     Agents: ${mode.agents.join(', ')}`);
       }
@@ -108,7 +108,7 @@ class SPARCExecutor {
       }
     });
 
-    console.log('\n💡 Usage: sparc-executor run <mode> "<task>"');
+    console.log('\n? Usage: sparc-executor run <mode> "<task>"');
     console.log('   Example: sparc-executor run spec "User authentication system"');
   }
 
@@ -116,12 +116,12 @@ class SPARCExecutor {
     const modeConfig = this.modes.modes?.[mode];
 
     if (!modeConfig) {
-      console.error(`❌ Unknown mode: ${mode}`);
+      console.error(`[FAIL] Unknown mode: ${mode}`);
       console.log('Run "sparc-executor modes" to see available modes');
       return false;
     }
 
-    console.log(`\n🚀 Executing SPARC Mode: ${mode}`);
+    console.log(`\n? Executing SPARC Mode: ${mode}`);
     console.log(`   Task: ${task}`);
     console.log(`   Agents: ${modeConfig.agents?.join(', ') || 'default'}`);
 
@@ -142,7 +142,7 @@ class SPARCExecutor {
         const outputFile = path.join(outputDir, `${mode}-${Date.now()}.md`);
         const initialContent = this.processTemplate(template, { task, mode });
         fs.writeFileSync(outputFile, initialContent);
-        console.log(`   ✅ Created artifact: ${outputFile}`);
+        console.log(`   [OK] Created artifact: ${outputFile}`);
       }
     }
 
@@ -150,12 +150,12 @@ class SPARCExecutor {
     const claudeFlowResult = await this.tryClaudeFlow(mode, task, options);
 
     if (claudeFlowResult.success) {
-      console.log('   ✅ Execution completed successfully via claude-flow');
+      console.log('   [OK] Execution completed successfully via claude-flow');
       return true;
     }
 
     // Fallback to local simulation
-    console.log('   ⚠️ Claude-flow unavailable, using local simulation');
+    console.log('   [WARNING]? Claude-flow unavailable, using local simulation');
     return this.simulateExecution(mode, task, outputDir);
   }
 
@@ -206,7 +206,7 @@ class SPARCExecutor {
   }
 
   simulateExecution(mode, task, outputDir) {
-    console.log('\n📝 Simulating SPARC execution:');
+    console.log('\n? Simulating SPARC execution:');
 
     // Create a structured output based on mode
     const output = {
@@ -222,10 +222,10 @@ class SPARCExecutor {
     const outputFile = path.join(outputDir, 'execution-results.json');
     fs.writeFileSync(outputFile, JSON.stringify(output, null, 2));
 
-    console.log(`   ✅ Results saved to: ${outputFile}`);
+    console.log(`   [OK] Results saved to: ${outputFile}`);
 
     // Display summary
-    console.log('\n📊 Execution Summary:');
+    console.log('\n? Execution Summary:');
     console.log(`   Mode: ${mode}`);
     console.log(`   Status: Completed`);
     console.log(`   Output: ${outputDir}`);
@@ -277,16 +277,16 @@ class SPARCExecutor {
     const workflowPath = path.join(this.workflowsPath, `${workflowName}.json`);
 
     if (!fs.existsSync(workflowPath)) {
-      console.error(`❌ Workflow not found: ${workflowName}`);
+      console.error(`[FAIL] Workflow not found: ${workflowName}`);
       return false;
     }
 
     const workflow = JSON.parse(fs.readFileSync(workflowPath, 'utf8'));
-    console.log(`\n🔄 Running Workflow: ${workflow.name}`);
+    console.log(`\n? Running Workflow: ${workflow.name}`);
     console.log(`   Description: ${workflow.description}`);
 
     for (const step of workflow.steps) {
-      console.log(`\n📍 Step ${step.id}: ${step.name}`);
+      console.log(`\n? Step ${step.id}: ${step.name}`);
 
       // Extract mode from command (e.g., "sparc spec" -> "spec")
       const commandParts = step.command?.split(' ') || [];
@@ -295,12 +295,12 @@ class SPARCExecutor {
       await this.runMode(mode, step.name, { verbose: false });
     }
 
-    console.log('\n✅ Workflow completed successfully');
+    console.log('\n[OK] Workflow completed successfully');
     return true;
   }
 
   async validateQualityGates() {
-    console.log('\n🔍 Validating Quality Gates:');
+    console.log('\n? Validating Quality Gates:');
 
     const gates = this.config.qualityGates?.criteria || {};
     const results = [];
@@ -309,7 +309,7 @@ class SPARCExecutor {
       const passed = Math.random() > 0.3; // Simulate validation
       results.push({ gate, ...config, passed });
 
-      console.log(`   ${passed ? '✅' : '❌'} ${gate}: ${passed ? 'PASSED' : 'FAILED'}`);
+      console.log(`   ${passed ? '[OK]' : '[FAIL]'} ${gate}: ${passed ? 'PASSED' : 'FAILED'}`);
     }
 
     return results.every(r => r.passed);

@@ -315,10 +315,10 @@ class MockDesktopAutomationTester {
 
     if (passed) {
       this.testResults.passed++;
-      console.log(`  ✅ ${testName}`);
+      console.log(`   ${testName}`);
     } else {
       this.testResults.failed++;
-      console.log(`  ❌ ${testName}`);
+      console.log(`   ${testName}`);
       if (details.error) {
         console.log(`     Error: ${details.error}`);
       }
@@ -353,23 +353,23 @@ class MockDesktopAutomationTester {
 
     console.log('\nNext Steps:');
     if (successRate >= 90) {
-      console.log('   ✅ Mock implementation is working correctly!');
-      console.log('   ✅ Ready for integration with full MCP SDK');
-      console.log('   ✅ Can be used for development and testing');
+      console.log('    Mock implementation is working correctly!');
+      console.log('    Ready for integration with full MCP SDK');
+      console.log('    Can be used for development and testing');
     } else if (successRate >= 70) {
-      console.log('   ⚠️  Most functionality working, some issues to address');
-      console.log('   📝 Review failed tests and fix issues');
+      console.log('     Most functionality working, some issues to address');
+      console.log('    Review failed tests and fix issues');
     } else {
-      console.log('   ❌ Significant issues detected');
-      console.log('   🔧 Review implementation and dependencies');
+      console.log('    Significant issues detected');
+      console.log('    Review implementation and dependencies');
     }
 
     console.log('\nIntegration Checklist:');
-    console.log('   1. ✅ Mock implementation tested');
-    console.log('   2. ⏳ Install MCP SDK dependencies');
-    console.log('   3. ⏳ Start Bytebot containers');
-    console.log('   4. ⏳ Test full MCP server integration');
-    console.log('   5. ⏳ Add to Claude Code MCP configuration');
+    console.log('   1.  Mock implementation tested');
+    console.log('   2.  Install MCP SDK dependencies');
+    console.log('   3.  Start Bytebot containers');
+    console.log('   4.  Test full MCP server integration');
+    console.log('   5.  Add to Claude Code MCP configuration');
 
     console.log('\nFiles Created:');
     console.log('   - src/flow/servers/desktop-automation-mcp.js (Full MCP server)');
@@ -392,7 +392,7 @@ if (require.main === module) {
       process.exit(successRate >= 70 ? 0 : 1);
     })
     .catch((error) => {
-      console.error('❌ Test execution failed:', error);
+      console.error(' Test execution failed:', error);
       process.exit(1);
     });
 }

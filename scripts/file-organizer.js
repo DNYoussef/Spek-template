@@ -109,7 +109,7 @@ class FileOrganizer {
 
       // Move the file
       fs.renameSync(sourceFullPath, destFullPath);
-      console.log(`Moved: ${sourcePath} → ${destFullPath}`);
+      console.log(`Moved: ${sourcePath} -> ${destFullPath}`);
       return true;
     } catch (error) {
       console.error(`Error moving ${sourcePath}: ${error.message}`);
@@ -192,21 +192,21 @@ class FileOrganizer {
     console.log('\n=== DETAILED MOVE REPORT ===');
 
     if (this.moveReport.movedToRealtor.length > 0) {
-      console.log('\n📦 MOVED TO REALTOR PROJECT:');
+      console.log('\n? MOVED TO REALTOR PROJECT:');
       this.moveReport.movedToRealtor.forEach((item, index) => {
-        console.log(`${index + 1}. ${item.originalPath} → ${item.newPath}`);
+        console.log(`${index + 1}. ${item.originalPath} -> ${item.newPath}`);
       });
     }
 
     if (this.moveReport.stayedInSpek.length > 0) {
-      console.log('\n🏠 STAYED IN SPEK SYSTEM:');
+      console.log('\n? STAYED IN SPEK SYSTEM:');
       this.moveReport.stayedInSpek.forEach((item, index) => {
         console.log(`${index + 1}. ${item.path} (${item.reason})`);
       });
     }
 
     if (this.moveReport.errors.length > 0) {
-      console.log('\n❌ ERRORS:');
+      console.log('\n[FAIL] ERRORS:');
       this.moveReport.errors.forEach((item, index) => {
         console.log(`${index + 1}. ${item.file}: ${item.error}`);
       });
@@ -222,10 +222,10 @@ async function main() {
     await organizer.organize();
     organizer.printReport();
 
-    console.log('\n✅ File organization completed successfully!');
+    console.log('\n[OK] File organization completed successfully!');
     process.exit(0);
   } catch (error) {
-    console.error(`\n❌ File organization failed: ${error.message}`);
+    console.error(`\n[FAIL] File organization failed: ${error.message}`);
     process.exit(1);
   }
 }

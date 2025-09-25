@@ -209,20 +209,20 @@ jobs:
         | Safety | $SAFETY_VULNS | - | ${{ steps.safety.outputs.safety-status }} |
 
         ## Quality Gate Thresholds
-        - High severity issues: ≤ $MAX_HIGH_ISSUES
-        - Critical findings: ≤ $MAX_CRITICAL_FINDINGS
-        - Known vulnerabilities: ≤ $MAX_VULNERABILITIES
+        - High severity issues: <= $MAX_HIGH_ISSUES
+        - Critical findings: <= $MAX_CRITICAL_FINDINGS
+        - Known vulnerabilities: <= $MAX_VULNERABILITIES
 
         EOF
 
         if [ "$GATE_STATUS" = "FAIL" ]; then
           echo "Critical findings: $CRITICAL_FINDINGS" >> .claude/.artifacts/security-summary.md
-          echo "❌ Security gates FAILED - CRITICAL SECURITY ISSUES DETECTED"
+          echo "[FAIL] Security gates FAILED - CRITICAL SECURITY ISSUES DETECTED"
           echo "security-gate-failure=true" >> $GITHUB_OUTPUT
           echo "critical-security-findings=$CRITICAL_FINDINGS" >> $GITHUB_OUTPUT
           exit 1
         else
-          echo "✅ Security gates PASSED"
+          echo "[OK] Security gates PASSED"
           echo "security-gate-failure=false" >> $GITHUB_OUTPUT
         fi
 
@@ -243,7 +243,7 @@ jobs:
       uses: actions/github-script@v7
       with:
         script: |
-          const title = '🔒 Security Quality Gate Failure';
+          const title = '[LOCKED] Security Quality Gate Failure';
           const body = `
           **Security gates have failed with critical findings:**
 

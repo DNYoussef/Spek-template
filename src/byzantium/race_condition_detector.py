@@ -1,6 +1,4 @@
-"""
-Race Condition Detector for Detector Pool Thread Safety
-=======================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Advanced race condition detection and prevention system specifically
 designed for detector pool thread safety validation. Integrates with
@@ -26,7 +24,6 @@ from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
-
 class RaceType(Enum):
     """Types of race conditions that can be detected."""
     DATA_RACE = auto()
@@ -36,13 +33,11 @@ class RaceType(Enum):
     ORDER_VIOLATION = auto()
     MEMORY_CONSISTENCY = auto()
 
-
 class AccessType(Enum):
     """Memory access types."""
     READ = auto()
     WRITE = auto()
     MODIFY = auto()  # Read-modify-write
-
 
 @dataclass
 class MemoryAccess:
@@ -57,7 +52,6 @@ class MemoryAccess:
     line_number: int = 0
     function_name: str = ""
 
-
 @dataclass
 class RaceConditionViolation:
     """Represents a detected race condition."""
@@ -71,7 +65,6 @@ class RaceConditionViolation:
     detection_method: str
     suggested_fix: str
     confidence: float = 1.0
-
 
 class ThreadInterleaving:
     """Tracks thread interleaving patterns for race detection."""
@@ -214,7 +207,6 @@ class ThreadInterleaving:
         
         return deadlock_risks
 
-
 class DetectorPoolRaceDetector:
     """
     Race condition detector specialized for detector pool operations.
@@ -258,9 +250,9 @@ class DetectorPoolRaceDetector:
     
     @contextmanager
     def monitor_detector_operation(self, 
-                                  operation: str, 
-                                  detector_id: str,
-                                  expected_atomic: bool = True):
+                                    operation: str, 
+                                    detector_id: str,
+                                    expected_atomic: bool = True):
         """
         Context manager to monitor detector pool operations for race conditions.
         
@@ -415,8 +407,8 @@ class DetectorPoolRaceDetector:
             violation = RaceConditionViolation(
                 race_type=RaceType.DATA_RACE,
                 description=f"Data race detected: {access1.access_type.name} by thread {access1.thread_id} "
-                           f"conflicts with {access2.access_type.name} by thread {access2.thread_id} "
-                           f"on {access1.memory_location}",
+                            f"conflicts with {access2.access_type.name} by thread {access2.thread_id} "
+                            f"on {access1.memory_location}",
                 thread_ids=[access1.thread_id, access2.thread_id],
                 memory_locations=[access1.memory_location],
                 conflicting_accesses=[access1, access2],
@@ -485,7 +477,7 @@ class DetectorPoolRaceDetector:
                                 violation = RaceConditionViolation(
                                     race_type=RaceType.ATOMICITY_VIOLATION,
                                     description=f"Atomicity violation: Concurrent {[op['operation'] for op in op_group]} "
-                                               f"operations on detector {detector_id}",
+                                                f"operations on detector {detector_id}",
                                     thread_ids=[op['thread_id'] for op in op_group],
                                     memory_locations=[f"detector_{detector_id}"],
                                     conflicting_accesses=[],
@@ -526,7 +518,7 @@ class DetectorPoolRaceDetector:
                         violation = RaceConditionViolation(
                             race_type=RaceType.ORDER_VIOLATION,
                             description=f"Order violation: Unsynchronized writes to {detector_id} "
-                                       f"by threads {curr_access.thread_id} and {next_access.thread_id}",
+                                        f"by threads {curr_access.thread_id} and {next_access.thread_id}",
                             thread_ids=[curr_access.thread_id, next_access.thread_id],
                             memory_locations=[detector_id],
                             conflicting_accesses=[curr_access, next_access],
@@ -565,15 +557,14 @@ class DetectorPoolRaceDetector:
                         read2 = reads[i + 1]
                         
                         # If reads are close in time but return different values
-                        # without intervening writes, it might be a consistency violation
                         if (read2.timestamp - read1.timestamp < 0.1 and  # 100ms window
                             read1.value != read2.value):
                             
                             violation = RaceConditionViolation(
                                 race_type=RaceType.MEMORY_CONSISTENCY,
                                 description=f"Memory consistency violation: Thread {thread_id} "
-                                           f"read different values ({read1.value} vs {read2.value}) "
-                                           f"from {location} within 100ms",
+                                            f"read different values ({read1.value} vs {read2.value}) "
+                                            f"from {location} within 100ms",
                                 thread_ids=[thread_id],
                                 memory_locations=[location],
                                 conflicting_accesses=[read1, read2],
@@ -602,9 +593,9 @@ class DetectorPoolRaceDetector:
                 if self.interleaving_tracker._is_conflicting_access(access, recent_access):
                     # Immediate race condition detected
                     logger.warning(f"Immediate race condition detected: "
-                                 f"{access.access_type.name} by thread {access.thread_id} "
-                                 f"conflicts with {recent_access.access_type.name} "
-                                 f"by thread {recent_access.thread_id} on {access.memory_location}")
+                                f"{access.access_type.name} by thread {access.thread_id} "
+                                f"conflicts with {recent_access.access_type.name} "
+                                f"by thread {recent_access.thread_id} on {access.memory_location}")
     
     def _analyze_operation_failure(self, operation_info: Dict, exception: Exception) -> None:
         """Analyze operation failure for potential race condition causes."""
@@ -621,8 +612,8 @@ class DetectorPoolRaceDetector:
         for indicator in race_indicators:
             if indicator in error_message:
                 logger.warning(f"Operation failure may indicate race condition: "
-                             f"{operation_info['operation']} failed with '{indicator}' "
-                             f"on thread {operation_info['thread_id']}")
+                            f"{operation_info['operation']} failed with '{indicator}' "
+                            f"on thread {operation_info['thread_id']}")
                 break
     
     def _analyze_completed_operation(self, operation_info: Dict) -> None:
@@ -632,7 +623,7 @@ class DetectorPoolRaceDetector:
         
         if duration > 1.0:  # Operations taking more than 1 second might indicate contention
             logger.warning(f"Slow operation detected: {operation_info['operation']} "
-                          f"took {duration:.2f}s on thread {operation_info['thread_id']}")
+                            f"took {duration:.2f}s on thread {operation_info['thread_id']}")
     
     def _find_overlapping_operations(self, operations: List[Dict]) -> List[List[Dict]]:
         """Find groups of temporally overlapping operations."""
@@ -695,14 +686,13 @@ class DetectorPoolRaceDetector:
         try:
             stack = traceback.extract_stack()
             return [f"{frame.filename}:{frame.lineno} in {frame.name}" 
-                   for frame in stack[-self.detection_config['stack_trace_depth']:]]
+                    for frame in stack[-self.detection_config['stack_trace_depth']:]]
         except Exception:
             return ["<stack trace unavailable>"]
     
     def _get_current_locks(self) -> List[str]:
         """Get currently held locks for this thread (simplified implementation)."""
         # This is a simplified implementation
-        # In practice, you'd need to integrate with the actual locking system
         current_frame = inspect.currentframe()
         try:
             locks_held = []
@@ -807,11 +797,9 @@ class DetectorPoolRaceDetector:
         
         return recommendations
 
-
 # Global race detector instance
 _global_race_detector: Optional[DetectorPoolRaceDetector] = None
 _detector_lock = threading.Lock()
-
 
 def get_global_race_detector() -> DetectorPoolRaceDetector:
     """Get or create global race detector instance."""
@@ -820,7 +808,6 @@ def get_global_race_detector() -> DetectorPoolRaceDetector:
         if _global_race_detector is None:
             _global_race_detector = DetectorPoolRaceDetector()
         return _global_race_detector
-
 
 def validate_detector_pool_race_safety() -> Dict[str, Any]:
     """Run comprehensive race condition validation for detector pool."""
@@ -870,7 +857,7 @@ def validate_detector_pool_race_safety() -> Dict[str, Any]:
                     futures.append(executor.submit(operation))
             
             # Wait for completion
-            concurrent.futures.wait(futures, timeout=5.0)
+            concurrent.futures.wait(futures, timeout=MAXIMUM_NESTED_DEPTH.0)
         
         # Detect races for this scenario
         races_detected = race_detector.detect_race_conditions(analysis_window_ms=2000.0)
@@ -898,7 +885,6 @@ def validate_detector_pool_race_safety() -> Dict[str, Any]:
         'thread_safety_assessment': 'SAFE' if detection_report['detection_summary']['total_races_detected'] == 0 else 'AT_RISK'
     }
 
-
 if __name__ == "__main__":
     # Run race condition validation if executed directly
     results = validate_detector_pool_race_safety()
@@ -911,7 +897,6 @@ if __name__ == "__main__":
     print(f"Race Conditions Detected: {results['race_conditions_detected']}")
     print(f"Thread Safety Assessment: {results['thread_safety_assessment']}")
     
-    print(f"\nTest Scenarios:")
     for scenario, result in results['test_scenarios'].items():
         print(f"  {scenario}: {result['races_detected']} races detected")
     

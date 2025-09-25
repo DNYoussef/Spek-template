@@ -2,11 +2,11 @@
 Deep learning models for the GaryTaleb trading system.
 """
 
+from .architectures import TransformerPredictor, LSTMPredictor, CNNLSTMPredictor
 from .base_models import BasePredictor, BaseRiskModel
+from .ensemble import EnsemblePredictor, ModelBlender
 from .gary_dpi import GaryTalebPredictor, DynamicPortfolioModel
 from .taleb_antifragile import AntifragileRiskModel, TailRiskPredictor
-from .ensemble import EnsemblePredictor, ModelBlender
-from .architectures import TransformerPredictor, LSTMPredictor, CNNLSTMPredictor
 
 __all__ = [
     'BasePredictor',

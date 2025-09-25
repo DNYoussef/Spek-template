@@ -23,15 +23,15 @@ record_test() {
 
     if [[ "$status" == "PASS" ]]; then
         PASSED_TESTS=$((PASSED_TESTS + 1))
-        echo "✅ $test_name: PASSED"
+        echo " $test_name: PASSED"
     else
         FAILED_TESTS=$((FAILED_TESTS + 1))
-        echo "❌ $test_name: FAILED - $status"
+        echo " $test_name: FAILED - $status"
     fi
 }
 
 echo ""
-echo "🧪 Starting comprehensive CI/CD pipeline tests..."
+echo " Starting comprehensive CI/CD pipeline tests..."
 echo ""
 
 # Test 1: Bash Arithmetic Fixes
@@ -194,7 +194,7 @@ EOF
 test_fallback_runner
 
 echo ""
-echo "📊 Test Summary:"
+echo " Test Summary:"
 echo "=================="
 echo "Total Tests: $TOTAL_TESTS"
 echo "Passed: $PASSED_TESTS"
@@ -203,9 +203,9 @@ echo "Success Rate: $(( (PASSED_TESTS * 100) / TOTAL_TESTS ))%"
 echo ""
 
 if [[ $FAILED_TESTS -eq 0 ]]; then
-    echo "🎉 All tests passed! CI/CD pipeline fixes are working correctly."
+    echo " All tests passed! CI/CD pipeline fixes are working correctly."
     exit 0
 else
-    echo "⚠️  Some tests failed. Review the output above for details."
+    echo "  Some tests failed. Review the output above for details."
     exit 1
 fi

@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Security Dashboard Generator - Unified Security Reporting Dashboard
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
 
 Creates comprehensive security dashboards with real-time monitoring, trend analysis,
 and compliance reporting for defense industry standards.
@@ -19,7 +17,6 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 import yaml
-
 
 class SecurityDashboardGenerator:
     """Generate comprehensive security dashboards and reports."""
@@ -558,7 +555,7 @@ class SecurityDashboardGenerator:
         
         if artifacts.get("security_validation"):
             if artifacts["security_validation"].get("compliance_status", {}).get("soc2_compliant", False):
-                base_coverage += 0.3
+                base_coverage += 0.2
         
         return min(base_coverage, 1.0)
     
@@ -593,7 +590,7 @@ class SecurityDashboardGenerator:
                 total_score += score
                 count += 1
         
-        return (total_score / count) * 100 if count > 0 else 0.0
+        return (total_score / count) * MAXIMUM_FUNCTION_LENGTH_LINES if count > 0 else 0.0
     
     def _calculate_performance_metrics(self, artifacts: Dict[str, Any]) -> Dict[str, Any]:
         """Calculate security tool performance metrics."""
@@ -816,7 +813,6 @@ class SecurityDashboardGenerator:
         
         return self.dashboard_data
 
-
 def main():
     """Main execution for dashboard generation."""
     print("Security Dashboard Generator - Agent Delta Mission")
@@ -849,7 +845,6 @@ def main():
     print(f"  NIST: {'' if compliance.get('nist', {}).get('overall', 0.0) > 0.7 else ''}")
     
     print(f"\nDashboard available at: .claude/.artifacts/dashboard/security_dashboard.html")
-
 
 if __name__ == "__main__":
     main()

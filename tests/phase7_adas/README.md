@@ -16,17 +16,17 @@ This testing suite provides comprehensive validation for ADAS systems with focus
 
 ```
 tests/phase7_adas/
-├── __init__.py                     # Module initialization and configuration
-├── conftest.py                     # Shared fixtures and test configuration
-├── README.md                       # This documentation
-├── test_real_time_performance.py   # Real-time performance validation
-├── test_safety_compliance.py       # ISO 26262 ASIL-D compliance testing
-├── test_sensor_fusion.py           # Multi-sensor fusion validation
-├── test_perception_accuracy.py     # Perception system accuracy testing
-├── test_simulation_scenarios.py    # Simulation-based scenario testing
-├── config/                         # Test configuration files
-├── reports/                        # Generated test reports
-└── scenarios/                      # Test scenario definitions
+ __init__.py                     # Module initialization and configuration
+ conftest.py                     # Shared fixtures and test configuration
+ README.md                       # This documentation
+ test_real_time_performance.py   # Real-time performance validation
+ test_safety_compliance.py       # ISO 26262 ASIL-D compliance testing
+ test_sensor_fusion.py           # Multi-sensor fusion validation
+ test_perception_accuracy.py     # Perception system accuracy testing
+ test_simulation_scenarios.py    # Simulation-based scenario testing
+ config/                         # Test configuration files
+ reports/                        # Generated test reports
+ scenarios/                      # Test scenario definitions
 ```
 
 ## Test Categories
@@ -94,7 +94,7 @@ pytest tests/phase7_adas/test_sensor_fusion.py -v
 
 **Sensor Configuration**:
 - Camera: 1920x1080, 30fps
-- LiDAR: 360°, 10Hz, 200m range
+- LiDAR: 360, 10Hz, 200m range
 - Radar: 250m range, 20Hz
 - Ultrasonic: 5m range, 10Hz
 

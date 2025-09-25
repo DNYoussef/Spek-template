@@ -5,9 +5,8 @@ Automated deployment of defense-grade security controls with compliance validati
 """
 
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+from lib.shared.utilities import get_logger
 
 class DeploymentPhase(Enum):
     """Deployment phase stages."""
@@ -18,7 +17,6 @@ class DeploymentPhase(Enum):
     VALIDATION = "validation"
     PRODUCTION = "production"
 
-
 class DeploymentStatus(Enum):
     """Deployment status indicators."""
     PENDING = "pending"
@@ -26,7 +24,6 @@ class DeploymentStatus(Enum):
     COMPLETED = "completed"
     FAILED = "failed"
     SKIPPED = "skipped"
-
 
 @dataclass
 class DeploymentTask:
@@ -43,7 +40,6 @@ class DeploymentTask:
     end_time: Optional[float] = None
     error_message: Optional[str] = None
     output: Optional[str] = None
-
 
 class DFARSSecurityDeployment:
     """
@@ -888,7 +884,6 @@ class DFARSSecurityDeployment:
             self.incident_response.stop_monitoring()
 
         # In production, this would restore from backup
-        # For now, we'll just log the rollback
         logger.info("Deployment rollback completed")
         return True
 
@@ -947,7 +942,6 @@ class DFARSSecurityDeployment:
             "duration_minutes": (time.time() - self.deployment_metrics["start_time"]) / 60
         }
 
-
 async def main():
     """Main deployment function."""
     parser = argparse.ArgumentParser(description="DFARS Security Deployment System")
@@ -987,7 +981,6 @@ async def main():
     else:
         print("\nDFARS security deployment completed successfully!")
         print("All defense-grade security controls are now operational.")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -120,21 +120,21 @@ enterprise:
 
 ```
 .claude/.artifacts/compliance/
-├── soc2/
-│   ├── soc2_evidence_YYYYMMDD_HHMMSS.json
-│   └── soc2_matrix_YYYYMMDD_HHMMSS.json
-├── iso27001/
-│   ├── iso27001_assessments_YYYYMMDD_HHMMSS.json
-│   └── iso27001_risk_assessment_YYYYMMDD_HHMMSS.json
-├── nist_ssdf/
-│   ├── ssdf_assessments_YYYYMMDD_HHMMSS.json
-│   └── ssdf_tier_assessment_YYYYMMDD_HHMMSS.json
-├── audit_trails/
-│   └── audit_trail_ID_YYYYMMDD_HHMMSS.json
-├── evidence_packages/
-│   └── PACKAGE_ID.zip
-└── compliance_reports/
-    └── compliance_report_ID_YYYYMMDD_HHMMSS.json
+___ soc2/
+_   ___ soc2_evidence_YYYYMMDD_HHMMSS.json
+_   ___ soc2_matrix_YYYYMMDD_HHMMSS.json
+___ iso27001/
+_   ___ iso27001_assessments_YYYYMMDD_HHMMSS.json
+_   ___ iso27001_risk_assessment_YYYYMMDD_HHMMSS.json
+___ nist_ssdf/
+_   ___ ssdf_assessments_YYYYMMDD_HHMMSS.json
+_   ___ ssdf_tier_assessment_YYYYMMDD_HHMMSS.json
+___ audit_trails/
+_   ___ audit_trail_ID_YYYYMMDD_HHMMSS.json
+___ evidence_packages/
+_   ___ PACKAGE_ID.zip
+___ compliance_reports/
+    ___ compliance_report_ID_YYYYMMDD_HHMMSS.json
 ```
 
 ## Compliance Framework Details
@@ -165,10 +165,10 @@ enterprise:
 
 | Group | Practices | Implementation Tiers | Maturity Levels |
 |-------|-----------|---------------------|-----------------|
-| PO (Prepare Organization) | 7 practices | Tiers 1-4 | Initial → Optimizing |
-| PS (Protect Software) | 3 practices | Tiers 1-4 | Initial → Optimizing |
-| PW (Produce Well-Secured) | 9 practices | Tiers 1-4 | Initial → Optimizing |
-| RV (Respond to Vulnerabilities) | 5 practices | Tiers 1-4 | Initial → Optimizing |
+| PO (Prepare Organization) | 7 practices | Tiers 1-4 | Initial -> Optimizing |
+| PS (Protect Software) | 3 practices | Tiers 1-4 | Initial -> Optimizing |
+| PW (Produce Well-Secured) | 9 practices | Tiers 1-4 | Initial -> Optimizing |
+| RV (Respond to Vulnerabilities) | 5 practices | Tiers 1-4 | Initial -> Optimizing |
 
 ## Performance Characteristics
 

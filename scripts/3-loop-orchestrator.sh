@@ -27,9 +27,9 @@ NC='\033[0m'
 
 # Logging functions
 log_info() { echo -e "${CYAN}[3-LOOP]${NC} $*"; }
-log_success() { echo -e "${GREEN}[✓]${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[⚠]${NC} $*"; }
-log_error() { echo -e "${RED}[✗]${NC} $*"; }
+log_success() { echo -e "${GREEN}[]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[]${NC} $*"; }
+log_error() { echo -e "${RED}[]${NC} $*"; }
 log_phase() { echo -e "${PURPLE}[PHASE]${NC} $*"; }
 log_loop() { echo -e "${BLUE}[LOOP-$1]${NC} ${@:2}"; }
 
@@ -37,13 +37,13 @@ log_loop() { echo -e "${BLUE}[LOOP-$1]${NC} ${@:2}"; }
 show_banner() {
     echo -e "${BOLD}${BLUE}"
     cat << 'EOF'
-╔══════════════════════════════════════════════════════════════════════╗
-║                    3-LOOP SYSTEM ORCHESTRATOR                       ║
-║                                                                      ║
-║  Loop 1: Planning    → spec/research/premortem → foundation        ║
-║  Loop 2: Development → swarm/implement/theater → implementation    ║
-║  Loop 3: Quality     → analyze/debug/validate  → excellence        ║
-╚══════════════════════════════════════════════════════════════════════╝
+
+                    3-LOOP SYSTEM ORCHESTRATOR                       
+                                                                      
+  Loop 1: Planning     spec/research/premortem  foundation        
+  Loop 2: Development  swarm/implement/theater  implementation    
+  Loop 3: Quality      analyze/debug/validate   excellence        
+
 EOF
     echo -e "${NC}"
 }
@@ -255,10 +255,10 @@ EOF
 5. Maintain up-to-date documentation
 
 ## Success Metrics
-- All tests passing: $(cd "${PROJECT_PATH}" && npm test >/dev/null 2>&1 && echo "✓" || echo "✗")
-- No security vulnerabilities: $(cd "${PROJECT_PATH}" && npm audit --audit-level=high >/dev/null 2>&1 && echo "✓" || echo "✗")
-- Lint checks passing: $(cd "${PROJECT_PATH}" && npm run lint >/dev/null 2>&1 && echo "✓" || echo "✗")
-- Type checks passing: $(cd "${PROJECT_PATH}" && npx tsc --noEmit >/dev/null 2>&1 && echo "✓" || echo "✗")
+- All tests passing: $(cd "${PROJECT_PATH}" && npm test >/dev/null 2>&1 && echo "" || echo "")
+- No security vulnerabilities: $(cd "${PROJECT_PATH}" && npm audit --audit-level=high >/dev/null 2>&1 && echo "" || echo "")
+- Lint checks passing: $(cd "${PROJECT_PATH}" && npm run lint >/dev/null 2>&1 && echo "" || echo "")
+- Type checks passing: $(cd "${PROJECT_PATH}" && npx tsc --noEmit >/dev/null 2>&1 && echo "" || echo "")
 EOF
     else
         # Execute dedicated Loop 1 script

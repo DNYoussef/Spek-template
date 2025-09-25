@@ -1,5 +1,4 @@
-# SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 """
 Enhanced Metrics Calculator - Quality Score and Performance Metrics
@@ -14,17 +13,16 @@ import logging
 from typing import Dict, Any, List, Optional
 logger = logging.getLogger(__name__)
 
-
 class EnhancedMetricsCalculator:
     """Calculates comprehensive quality metrics with performance tracking."""
 
-    def __init__(self):
+def __init__(self):
         """Initialize metrics calculator with performance tracking."""
         self.calculation_history = []
         self.performance_metrics = {}
         self.baseline_metrics = None
 
-    def calculate_comprehensive_metrics(
+def calculate_comprehensive_metrics(
         self,
         connascence_violations: List[Dict[str, Any]],
         duplication_clusters: List[Dict[str, Any]],
@@ -68,7 +66,7 @@ class EnhancedMetricsCalculator:
         self._record_calculation_history(metrics, time.time() - start_time)
         return metrics
 
-    def _count_by_severity(self, violations: List[Dict]) -> Dict[str, int]:
+def _count_by_severity(self, violations: List[Dict]) -> Dict[str, int]:
         """Count violations by severity with enhanced categorization. NASA Rule 4 compliant."""
         severity_counts = {"critical": 0, "high": 0, "medium": 0, "low": 0, "info": 0}
         
@@ -83,7 +81,7 @@ class EnhancedMetricsCalculator:
         
         return severity_counts
 
-    def _calculate_connascence_index_enhanced(self, connascence_violations: List[Dict]) -> float:
+def _calculate_connascence_index_enhanced(self, connascence_violations: List[Dict]) -> float:
         """Calculate enhanced connascence index with type weighting. NASA Rule 4 compliant."""
         if not connascence_violations:
             return 0.0
@@ -111,7 +109,7 @@ class EnhancedMetricsCalculator:
 
         return round(total_weighted_score, 2)
 
-    def _calculate_nasa_score_enhanced(self, nasa_violations: List[Dict], nasa_integration=None) -> float:
+def _calculate_nasa_score_enhanced(self, nasa_violations: List[Dict], nasa_integration=None) -> float:
         """Calculate enhanced NASA compliance score. NASA Rule 4 compliant."""
         if nasa_integration:
             try:
@@ -123,7 +121,7 @@ class EnhancedMetricsCalculator:
         # Enhanced fallback calculation
         return self._calculate_fallback_nasa_score(nasa_violations)
 
-    def _enhance_nasa_score_with_context(self, base_score: float, nasa_violations: List[Dict]) -> float:
+def _enhance_nasa_score_with_context(self, base_score: float, nasa_violations: List[Dict]) -> float:
         """Enhance NASA score with contextual factors. NASA Rule 4 compliant."""
         if not nasa_violations:
             return base_score
@@ -140,7 +138,7 @@ class EnhancedMetricsCalculator:
         enhanced_score = max(0.0, base_score - critical_rule_penalty)
         return round(enhanced_score, 3)
 
-    def _calculate_fallback_nasa_score(self, nasa_violations: List[Dict]) -> float:
+def _calculate_fallback_nasa_score(self, nasa_violations: List[Dict]) -> float:
         """Calculate fallback NASA score with rule weighting. NASA Rule 4 compliant."""
         if not nasa_violations:
             return 1.0
@@ -169,7 +167,7 @@ class EnhancedMetricsCalculator:
         score = max(0.0, 1.0 - total_penalty)
         return round(score, 3)
 
-    def _calculate_duplication_score_enhanced(self, duplication_clusters: List[Dict]) -> float:
+def _calculate_duplication_score_enhanced(self, duplication_clusters: List[Dict]) -> float:
         """Calculate enhanced duplication score with similarity weighting. NASA Rule 4 compliant."""
         if not duplication_clusters:
             return 1.0
@@ -193,7 +191,7 @@ class EnhancedMetricsCalculator:
         score = max(0.0, 1.0 - total_penalty)
         return round(score, 3)
 
-    def _calculate_weighted_quality_score(
+def _calculate_weighted_quality_score(
         self, connascence_index: float, nasa_compliance_score: float, duplication_score: float
     ) -> float:
         """Calculate weighted overall quality score. NASA Rule 4 compliant."""
@@ -211,11 +209,11 @@ class EnhancedMetricsCalculator:
         
         return round(overall_score, 3)
 
-    def _calculate_dynamic_weights(
+def _calculate_dynamic_weights(
         self, connascence_index: float, nasa_score: float, duplication_score: float
     ) -> Dict[str, float]:
         """Calculate dynamic weights based on current metrics. NASA Rule 4 compliant."""
-        base_weights = {"connascence": 0.4, "nasa": 0.3, "duplication": 0.3}
+        base_weights = {"connascence": 0.4, "nasa": 0.3, "duplication": 0.2}
         
         # Adjust weights based on problem areas
         if nasa_score < 0.5:  # Poor NASA compliance
@@ -230,7 +228,7 @@ class EnhancedMetricsCalculator:
         
         return base_weights
 
-    def _calculate_performance_score(self, start_time: float) -> Dict[str, Any]:
+def _calculate_performance_score(self, start_time: float) -> Dict[str, Any]:
         """Calculate performance metrics for this calculation. NASA Rule 4 compliant."""
         calculation_time = time.time() - start_time
         
@@ -245,7 +243,7 @@ class EnhancedMetricsCalculator:
         
         return performance_score
 
-    def _analyze_metrics_trends(self, current_severity_counts: Dict[str, int]) -> Dict[str, Any]:
+def _analyze_metrics_trends(self, current_severity_counts: Dict[str, int]) -> Dict[str, Any]:
         """Analyze trends in metrics over time. NASA Rule 4 compliant."""
         if not self.calculation_history:
             return {"trend": "initial", "change": "none"}
@@ -268,7 +266,7 @@ class EnhancedMetricsCalculator:
         
         return trend_analysis
 
-    def _build_metrics_result(
+def _build_metrics_result(
         self, severity_counts: Dict, connascence_index: float, nasa_score: float,
         duplication_score: float, overall_score: float, performance: Dict, trends: Dict
     ) -> Dict[str, Any]:
@@ -290,7 +288,7 @@ class EnhancedMetricsCalculator:
             "calculation_timestamp": self._get_iso_timestamp(),
         }
 
-    def _record_calculation_history(self, metrics: Dict[str, Any], calculation_time: float) -> None:
+def _record_calculation_history(self, metrics: Dict[str, Any], calculation_time: float) -> None:
         """Record calculation in history for trend analysis. NASA Rule 4 compliant."""
         history_record = {
             "timestamp": self._get_iso_timestamp(),
@@ -313,7 +311,7 @@ class EnhancedMetricsCalculator:
         if len(self.calculation_history) > 10:
             self.calculation_history.pop(0)
 
-    def _normalize_severity(self, severity: str) -> str:
+def _normalize_severity(self, severity: str) -> str:
         """Normalize severity levels. NASA Rule 4 compliant."""
         severity_mapping = {
             "critical": "critical",
@@ -327,7 +325,7 @@ class EnhancedMetricsCalculator:
         }
         return severity_mapping.get(severity.lower(), "medium")
 
-    def _get_performance_rating(self, calculation_time: float) -> str:
+def _get_performance_rating(self, calculation_time: float) -> str:
         """Get performance rating based on calculation time. NASA Rule 4 compliant."""
         if calculation_time < 1.0:
             return "excellent"
@@ -338,20 +336,20 @@ class EnhancedMetricsCalculator:
         else:
             return "poor"
 
-    def _get_iso_timestamp(self) -> str:
+def _get_iso_timestamp(self) -> str:
         """Get current timestamp in ISO format. NASA Rule 4 compliant."""
         return datetime.now().isoformat()
 
-    def set_baseline_metrics(self, metrics: Dict[str, Any]) -> None:
+def set_baseline_metrics(self, metrics: Dict[str, Any]) -> None:
         """Set baseline metrics for comparison."""
         self.baseline_metrics = metrics.copy()
         logger.info("Baseline metrics established")
 
-    def get_calculation_history(self) -> List[Dict[str, Any]]:
+def get_calculation_history(self) -> List[Dict[str, Any]]:
         """Get calculation history for analysis."""
         return self.calculation_history.copy()
 
-    def get_performance_trends(self) -> Dict[str, Any]:
+def get_performance_trends(self) -> Dict[str, Any]:
         """Get performance trend analysis."""
         if not self.performance_metrics:
             return {"trend": "no_data"}

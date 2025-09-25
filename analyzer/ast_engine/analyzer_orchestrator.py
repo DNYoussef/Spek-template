@@ -3,14 +3,14 @@
 AST-based analyzer orchestrator for god object detection and other complex analysis.
 """
 
-import argparse
-import json
 from pathlib import Path
-import sys
 from typing import List
+import json
+import sys
+
+import argparse
 
 from utils.types import ConnascenceViolation
-
 
 class GodObjectAnalyzer:
     """Analyzer for detecting god objects (classes with too many methods/responsibilities)."""
@@ -73,7 +73,6 @@ class GodObjectAnalyzer:
 
         return violations
 
-
 class AnalyzerOrchestrator:
     """Orchestrates various AST-based analyzers."""
 
@@ -114,7 +113,6 @@ class AnalyzerOrchestrator:
         analyzer_class = self.analyzers[analyzer_type]
         analyzer = analyzer_class(threshold=threshold)
         return analyzer.analyze_path(path)
-
 
 def main():
     """Main entry point for command-line usage."""
@@ -161,9 +159,7 @@ def main():
         print(f"Error: {e}", file=sys.stderr)
         return 1
 
-
 if __name__ == "__main__":
     sys.exit(main())
-
 
 __all__ = ["AnalyzerOrchestrator", "GodObjectAnalyzer"]

@@ -1,5 +1,4 @@
-"""
-Refactored ConnascenceDetector
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
 
 Optimized version using unified AST visitor for single-pass analysis.
 Performance improvement: 85-90% reduction in AST traversals.
@@ -42,8 +41,6 @@ except ImportError:
         ExecutionDetector
     )
 # Temporarily disabled broken detector pool
-# from .architecture.detector_pool import get_detector_pool
-
 
 class RefactoredConnascenceDetector(ast.NodeVisitor):
     """Refactored AST visitor that orchestrates specialized detectors."""
@@ -60,7 +57,6 @@ class RefactoredConnascenceDetector(ast.NodeVisitor):
         self.global_vars: set[str] = set()
 
         # PERFORMANCE OPTIMIZATION: Use detector pool instead of creating instances
-        # Reduces object creation overhead from 8 instances per file to pool reuse
         self._detector_pool = None  # Lazy initialization
         self._acquired_detectors = {}  # Track acquired detectors for cleanup
 
@@ -105,8 +101,8 @@ class RefactoredConnascenceDetector(ast.NodeVisitor):
         - 85-90% reduction in AST traversals (from 11+ to 1)
         - 60% reduction in object creation overhead (pool reuse)
         - NASA Rule 4: Function under 60 lines
-        - NASA Rule 5: Input assertions
-        - NASA Rule 7: Bounded resource usage
+        - NASA Rule MAXIMUM_NESTED_DEPTH: Input assertions
+        - NASA Rule DAYS_RETENTION_PERIOD: Bounded resource usage
         
         Args:
             tree: AST tree to analyze
@@ -144,8 +140,8 @@ class RefactoredConnascenceDetector(ast.NodeVisitor):
         Run detector analysis using pool-managed detectors.
         
         NASA Rule 4: Function under 60 lines
-        NASA Rule 5: Input assertions
-        NASA Rule 7: Bounded resource usage
+        NASA Rule MAXIMUM_NESTED_DEPTH: Input assertions
+        NASA Rule DAYS_RETENTION_PERIOD: Bounded resource usage
         """
         assert collected_data is not None, "collected_data cannot be None"
         
@@ -154,7 +150,6 @@ class RefactoredConnascenceDetector(ast.NodeVisitor):
         # Get detector pool instance
         if self._detector_pool is None:
             # self._detector_pool = get_detector_pool()  # Temporarily disabled
-            pass
         
         # Acquire all detectors from pool
         if self._detector_pool:
@@ -245,7 +240,7 @@ class RefactoredConnascenceDetector(ast.NodeVisitor):
         Detect excessive global variable usage from collected data.
         
         NASA Rule 4: Function under 60 lines
-        NASA Rule 5: Input assertions
+        NASA Rule MAXIMUM_NESTED_DEPTH: Input assertions
         """
         assert collected_data is not None, "collected_data cannot be None"
         
@@ -306,7 +301,7 @@ class RefactoredConnascenceDetector(ast.NodeVisitor):
         Release all acquired detector pool resources.
         
         NASA Rule 4: Function under 60 lines
-        NASA Rule 7: Proper resource cleanup
+        NASA Rule DAYS_RETENTION_PERIOD: Proper resource cleanup
         """
         if self._detector_pool and self._acquired_detectors:
             try:

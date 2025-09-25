@@ -9,11 +9,11 @@ Provides comprehensive testing capabilities for enterprise features including:
 - Performance benchmarking
 """
 
-from .test_runner import EnterpriseTestRunner
-from .test_fixtures import enterprise_fixtures, mock_analyzer
 from .compliance_tests import ComplianceTestSuite
-from .security_tests import SecurityTestSuite
 from .performance_tests import PerformanceTestSuite
+from .security_tests import SecurityTestSuite
+from .test_fixtures import enterprise_fixtures, mock_analyzer
+from .test_runner import EnterpriseTestRunner
 
 __all__ = [
     "EnterpriseTestRunner",

@@ -56,72 +56,72 @@ graph TB
 
 ```
 src/dfars/
-├── README.md                          # This file
-├── core/
-│   ├── __init__.py
-│   ├── compliance_engine.py           # Main DFARS compliance engine
-│   ├── control_assessor.py            # Individual control assessment
-│   ├── evidence_collector.py          # Automated evidence collection
-│   ├── violation_detector.py          # Compliance violation detection
-│   └── remediation_manager.py         # Automated remediation actions
-├── controls/
-│   ├── __init__.py
-│   ├── access_control.py              # 3.1.x Access Control family
-│   ├── awareness_training.py          # 3.2.x Awareness and Training
-│   ├── audit_accountability.py        # 3.3.x Audit and Accountability
-│   ├── configuration_management.py    # 3.4.x Configuration Management
-│   ├── identification_auth.py         # 3.5.x Identification and Auth
-│   ├── incident_response.py           # 3.6.x Incident Response
-│   ├── maintenance.py                 # 3.7.x Maintenance
-│   ├── media_protection.py            # 3.8.x Media Protection
-│   ├── personnel_security.py          # 3.9.x Personnel Security
-│   ├── physical_protection.py         # 3.10.x Physical Protection
-│   ├── risk_assessment.py             # 3.11.x Risk Assessment
-│   ├── security_assessment.py         # 3.12.x Security Assessment
-│   ├── system_comms_protection.py     # 3.13.x System & Communications
-│   └── system_info_integrity.py       # 3.14.x System & Information Integrity
-├── cui/
-│   ├── __init__.py
-│   ├── classification_engine.py       # CUI classification system
-│   ├── handling_manager.py            # CUI handling requirements
-│   ├── marking_system.py              # Automated CUI marking
-│   └── protection_controls.py         # CUI-specific protections
-├── assessment/
-│   ├── __init__.py
-│   ├── automated_assessor.py          # Automated control assessment
-│   ├── gap_analyzer.py                # Compliance gap analysis
-│   ├── risk_calculator.py             # Risk assessment calculations
-│   └── maturity_evaluator.py          # Security maturity evaluation
-├── reporting/
-│   ├── __init__.py
-│   ├── ssp_generator.py               # System Security Plan generation
-│   ├── poam_manager.py                # Plan of Action & Milestones
-│   ├── dashboard_generator.py         # Executive dashboard
-│   ├── metrics_collector.py           # Compliance metrics collection
-│   └── export_manager.py              # Report export capabilities
-├── integrations/
-│   ├── __init__.py
-│   ├── audit_integration.py           # Audit system integration
-│   ├── security_integration.py        # Security controls integration
-│   ├── siem_integration.py            # SIEM platform integration
-│   └── external_systems.py            # External system integrations
-├── apis/
-│   ├── __init__.py
-│   ├── compliance_api.py              # RESTful compliance API
-│   ├── assessment_api.py              # Assessment API endpoints
-│   ├── reporting_api.py               # Reporting API endpoints
-│   └── admin_api.py                   # Administrative API
-├── config/
-│   ├── __init__.py
-│   ├── dfars_controls.py              # DFARS control definitions
-│   ├── compliance_settings.py         # Compliance configuration
-│   └── assessment_criteria.py         # Assessment criteria definitions
-└── tests/
-    ├── __init__.py
-    ├── unit/                           # Unit tests
-    ├── integration/                    # Integration tests
-    ├── compliance/                     # Compliance validation tests
-    └── performance/                    # Performance tests
+___ README.md                          # This file
+___ core/
+_   ___ __init__.py
+_   ___ compliance_engine.py           # Main DFARS compliance engine
+_   ___ control_assessor.py            # Individual control assessment
+_   ___ evidence_collector.py          # Automated evidence collection
+_   ___ violation_detector.py          # Compliance violation detection
+_   ___ remediation_manager.py         # Automated remediation actions
+___ controls/
+_   ___ __init__.py
+_   ___ access_control.py              # 3.1.x Access Control family
+_   ___ awareness_training.py          # 3.2.x Awareness and Training
+_   ___ audit_accountability.py        # 3.3.x Audit and Accountability
+_   ___ configuration_management.py    # 3.4.x Configuration Management
+_   ___ identification_auth.py         # 3.5.x Identification and Auth
+_   ___ incident_response.py           # 3.6.x Incident Response
+_   ___ maintenance.py                 # 3.7.x Maintenance
+_   ___ media_protection.py            # 3.8.x Media Protection
+_   ___ personnel_security.py          # 3.9.x Personnel Security
+_   ___ physical_protection.py         # 3.10.x Physical Protection
+_   ___ risk_assessment.py             # 3.11.x Risk Assessment
+_   ___ security_assessment.py         # 3.12.x Security Assessment
+_   ___ system_comms_protection.py     # 3.13.x System & Communications
+_   ___ system_info_integrity.py       # 3.14.x System & Information Integrity
+___ cui/
+_   ___ __init__.py
+_   ___ classification_engine.py       # CUI classification system
+_   ___ handling_manager.py            # CUI handling requirements
+_   ___ marking_system.py              # Automated CUI marking
+_   ___ protection_controls.py         # CUI-specific protections
+___ assessment/
+_   ___ __init__.py
+_   ___ automated_assessor.py          # Automated control assessment
+_   ___ gap_analyzer.py                # Compliance gap analysis
+_   ___ risk_calculator.py             # Risk assessment calculations
+_   ___ maturity_evaluator.py          # Security maturity evaluation
+___ reporting/
+_   ___ __init__.py
+_   ___ ssp_generator.py               # System Security Plan generation
+_   ___ poam_manager.py                # Plan of Action & Milestones
+_   ___ dashboard_generator.py         # Executive dashboard
+_   ___ metrics_collector.py           # Compliance metrics collection
+_   ___ export_manager.py              # Report export capabilities
+___ integrations/
+_   ___ __init__.py
+_   ___ audit_integration.py           # Audit system integration
+_   ___ security_integration.py        # Security controls integration
+_   ___ siem_integration.py            # SIEM platform integration
+_   ___ external_systems.py            # External system integrations
+___ apis/
+_   ___ __init__.py
+_   ___ compliance_api.py              # RESTful compliance API
+_   ___ assessment_api.py              # Assessment API endpoints
+_   ___ reporting_api.py               # Reporting API endpoints
+_   ___ admin_api.py                   # Administrative API
+___ config/
+_   ___ __init__.py
+_   ___ dfars_controls.py              # DFARS control definitions
+_   ___ compliance_settings.py         # Compliance configuration
+_   ___ assessment_criteria.py         # Assessment criteria definitions
+___ tests/
+    ___ __init__.py
+    ___ unit/                           # Unit tests
+    ___ integration/                    # Integration tests
+    ___ compliance/                     # Compliance validation tests
+    ___ performance/                    # Performance tests
 ```
 
 ---

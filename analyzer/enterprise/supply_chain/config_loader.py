@@ -1,7 +1,4 @@
-"""
-Configuration Loader for Supply Chain Security
-Loads and validates enterprise configuration settings.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 import os
 import yaml
@@ -19,7 +16,6 @@ except ImportError:
     # Fallback if security module not available
     PathSecurityValidator = None
     SecurityError = Exception
-
 
 class SupplyChainConfigLoader:
     """Load and validate supply chain security configuration."""
@@ -179,18 +175,57 @@ class SupplyChainConfigLoader:
         return config
     
     def _validate_and_set_defaults(self, config: Dict[str, Any]) -> Dict[str, Any]:
-        """Validate configuration and set defaults."""
-        
+        """Validate configuration and set defaults using validation strategies."""
+        from analyzer.enterprise.supply_chain.config_validation_strategies import (
+            ConfigStructureStrategy, CryptographicStrategy, ComplianceFrameworkStrategy,
+            PerformanceValidationStrategy, SecurityRuleEngine
+        )
+        from src.utils.validation.validation_framework import ValidationEngine
+
         if not config:
             return self._get_default_config()
-        
+
+        # Initialize validation engine
+        engine = ValidationEngine()
+        engine.register_strategy("structure", ConfigStructureStrategy())
+        engine.register_strategy("crypto", CryptographicStrategy())
+        engine.register_strategy("compliance", ComplianceFrameworkStrategy())
+        engine.register_strategy("performance", PerformanceValidationStrategy())
+
+        # Initialize rule engine for security
+        rule_engine = SecurityRuleEngine()
+
+        # Apply defaults first
+        config = self._apply_configuration_defaults(config)
+
+        # Run validation strategies
+        validation_results = self._run_config_validations(engine, config)
+
+        # Run security rules
+        security_validation = rule_engine.evaluate(config)
+
+        # Log validation results
+        self._log_validation_results(validation_results, security_validation)
+
+        return config
+
+    def _apply_configuration_defaults(self, config: Dict[str, Any]) -> Dict[str, Any]:
+        """Apply default configuration values."""
         # Ensure supply_chain section exists
         if 'supply_chain' not in config:
             config['supply_chain'] = {}
-        
+
         sc_config = config['supply_chain']
-        
-        # Set defaults for main supply chain settings
+
+        # Apply defaults in smaller, focused chunks
+        self._apply_supply_chain_defaults(sc_config)
+        self._apply_component_defaults(sc_config)
+        self._apply_integration_defaults(config)
+
+        return config
+
+    def _apply_supply_chain_defaults(self, sc_config: Dict[str, Any]):
+        """Apply supply chain main defaults."""
         sc_defaults = {
             'enabled': True,
             'output_dir': '.claude/.artifacts/supply_chain',
@@ -199,136 +234,96 @@ class SupplyChainConfigLoader:
             'max_workers': 4,
             'timeout_seconds': 300
         }
-        
+
         for key, default_value in sc_defaults.items():
             if key not in sc_config:
                 sc_config[key] = default_value
-        
-        # SBOM defaults
-        if 'sbom' not in sc_config:
-            sc_config['sbom'] = {}
-        sbom_defaults = {
-            'formats': ['CycloneDX-1.4', 'SPDX-2.3'],
-            'include_dev_dependencies': True,
-            'include_system_components': True,
-            'tool_name': 'SPEK-Supply-Chain-Analyzer',
-            'tool_version': '1.0.0'
-        }
-        for key, default_value in sbom_defaults.items():
-            if key not in sc_config['sbom']:
-                sc_config['sbom'][key] = default_value
-        
-        # SLSA defaults
-        if 'slsa' not in sc_config:
-            sc_config['slsa'] = {}
-        slsa_defaults = {
-            'level': 3,
-            'builder_id': 'https://spek.dev/builder/v1',
-            'builder_version': '1.0.0',
-            'build_type': 'https://spek.dev/build-types/generic@v1',
-            'fulcio_url': 'https://fulcio.sigstore.dev',
-            'rekor_url': 'https://rekor.sigstore.dev',
-            'reproducible_builds': False
-        }
-        for key, default_value in slsa_defaults.items():
-            if key not in sc_config['slsa']:
-                sc_config['slsa'][key] = default_value
-        
-        # Vulnerability scanning defaults
-        if 'vulnerability_scanning' not in sc_config:
-            sc_config['vulnerability_scanning'] = {}
-        vuln_defaults = {
-            'enabled': True,
-            'databases': ['OSV', 'GitHub'],
-            'osv_api_url': 'https://api.osv.dev/v1',
-            'severity_thresholds': {
-                'critical': 9.0,
-                'high': 7.0,
-                'medium': 4.0,
-                'low': 0.1
+
+    def _apply_component_defaults(self, sc_config: Dict[str, Any]):
+        """Apply component-specific defaults."""
+        components = {
+            'sbom': {
+                'formats': ['CycloneDX-1.4', 'SPDX-2.3'],
+                'include_dev_dependencies': True,
+                'include_system_components': True,
+                'tool_name': 'SPEK-Supply-Chain-Analyzer',
+                'tool_version': '1.0.0'
+            },
+            'slsa': {
+                'level': 3,
+                'builder_id': 'https://spek.dev/builder/v1',
+                'builder_version': '1.0.0',
+                'build_type': 'https://spek.dev/build-types/generic@v1'
+            },
+            'vulnerability_scanning': {
+                'enabled': True,
+                'databases': ['OSV', 'GitHub'],
+                'osv_api_url': 'https://api.osv.dev/v1'
+            },
+            'cryptographic_signing': {
+                'enabled': True,
+                'signing_method': 'cosign',
+                'allowed_algorithms': ['RSA-SHA256', 'ECDSA-SHA256'],
+                'min_key_size': 2048
             }
         }
-        for key, default_value in vuln_defaults.items():
-            if key not in sc_config['vulnerability_scanning']:
-                sc_config['vulnerability_scanning'][key] = default_value
-        
-        # License compliance defaults
-        if 'license_compliance' not in sc_config:
-            sc_config['license_compliance'] = {}
-        license_defaults = {
-            'enabled': True,
-            'allowed_licenses': ['MIT', 'Apache-2.0', 'BSD-3-Clause', 'BSD-2-Clause', 'ISC'],
-            'restricted_licenses': ['GPL-3.0', 'AGPL-3.0', 'LGPL-3.0', 'CDDL-1.0', 'MPL-2.0'],
-            'prohibited_licenses': ['SSPL-1.0', 'Commons-Clause', 'Elastic-2.0', 'BUSL-1.1']
-        }
-        for key, default_value in license_defaults.items():
-            if key not in sc_config['license_compliance']:
-                sc_config['license_compliance'][key] = default_value
-        
-        # Cryptographic signing defaults
-        if 'cryptographic_signing' not in sc_config:
-            sc_config['cryptographic_signing'] = {}
-        crypto_defaults = {
-            'enabled': True,
-            'signing_method': 'cosign',
-            'cosign_binary': 'cosign',
-            'require_timestamp': True,
-            'require_cert_chain': True,
-            'check_revocation': False,
-            'allowed_algorithms': ['RSA-SHA256', 'ECDSA-SHA256'],
-            'min_key_size': 2048
-        }
-        for key, default_value in crypto_defaults.items():
-            if key not in sc_config['cryptographic_signing']:
-                sc_config['cryptographic_signing'][key] = default_value
-        
-        # Evidence packaging defaults
-        if 'evidence_packaging' not in sc_config:
-            sc_config['evidence_packaging'] = {}
-        evidence_defaults = {
-            'enabled': True,
-            'package_format': 'zip',
-            'compression_level': 6,
-            'max_file_size_mb': 100,
-            'include_sbom': True,
-            'include_provenance': True,
-            'include_vulnerabilities': True,
-            'include_signatures': True,
-            'include_compliance': True,
-            'include_build_logs': False,
-            'include_source_code': False,
-            'contact_email': 'security@company.com',
-            'reviewer': 'Security Team'
-        }
-        for key, default_value in evidence_defaults.items():
-            if key not in sc_config['evidence_packaging']:
-                sc_config['evidence_packaging'][key] = default_value
-        
-        # Integration defaults
+
+        for component, defaults in components.items():
+            if component not in sc_config:
+                sc_config[component] = {}
+            for key, value in defaults.items():
+                if key not in sc_config[component]:
+                    sc_config[component][key] = value
+
+    def _apply_integration_defaults(self, config: Dict[str, Any]):
+        """Apply integration defaults."""
         if 'integration' not in config:
             config['integration'] = {}
+
         integration_defaults = {
             'non_breaking': True,
             'priority': 'normal',
             'performance_monitoring': {
                 'enabled': True,
-                'baseline_duration': 10.0,
+                'baseline_duration': MAXIMUM_FUNCTION_PARAMETERS.0,
                 'alert_threshold': 2.0
-            },
-            'quality_gates': {
-                'enabled': True,
-                'fail_on_critical_vulnerabilities': True,
-                'fail_on_prohibited_licenses': True,
-                'fail_on_signing_failures': True,
-                'max_critical_vulnerabilities': 0,
-                'max_high_vulnerabilities': 5
             }
         }
+
         for key, default_value in integration_defaults.items():
             if key not in config['integration']:
                 config['integration'][key] = default_value
-        
-        return config
+
+    def _run_config_validations(self, engine: ValidationEngine, config: Dict) -> Dict:
+        """Run all configuration validation strategies."""
+        results = {}
+
+        # Structure validation
+        results["structure"] = engine.validate("structure", config)
+
+        # Cryptographic validation
+        results["crypto"] = engine.validate("crypto", config)
+
+        # Compliance validation
+        results["compliance"] = engine.validate("compliance", config.get('supply_chain', {}))
+
+        # Performance validation
+        results["performance"] = engine.validate("performance", config)
+
+        return results
+
+    def _log_validation_results(self, validation_results: Dict, security_validation):
+        """Log validation results for debugging."""
+        for strategy_name, result in validation_results.items():
+            if not result.is_valid:
+                print(f"Config validation {strategy_name} failed: {', '.join(result.errors)}")
+            if result.warnings:
+                print(f"Config validation {strategy_name} warnings: {', '.join(result.warnings)}")
+
+        if not security_validation.is_valid:
+            print(f"Security rules failed: {', '.join(security_validation.errors)}")
+        if security_validation.warnings:
+            print(f"Security warnings: {', '.join(security_validation.warnings)}")
     
     def _get_default_config(self) -> Dict[str, Any]:
         """Get default configuration when file is not available."""
@@ -405,7 +400,7 @@ class SupplyChainConfigLoader:
                 'priority': 'normal',
                 'performance_monitoring': {
                     'enabled': True,
-                    'baseline_duration': 10.0,
+                    'baseline_duration': MAXIMUM_FUNCTION_PARAMETERS.0,
                     'alert_threshold': 2.0
                 },
                 'quality_gates': {
@@ -553,6 +548,6 @@ class SupplyChainConfigLoader:
             'enable_parallel_processing': sc_config.get('enable_parallel_processing', True),
             'max_workers': sc_config.get('max_workers', 4),
             'timeout_seconds': sc_config.get('timeout_seconds', 300),
-            'baseline_duration': integration_config.get('performance_monitoring', {}).get('baseline_duration', 10.0),
+            'baseline_duration': integration_config.get('performance_monitoring', {}).get('baseline_duration', MAXIMUM_FUNCTION_PARAMETERS.0),
             'alert_threshold': integration_config.get('performance_monitoring', {}).get('alert_threshold', 2.0)
         }

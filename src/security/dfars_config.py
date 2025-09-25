@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-DFARS Compliance Configuration Management
-Centralized configuration for DFARS 252.204-7012 compliance automation
-"""
+from src.constants.base import API_TIMEOUT_SECONDS
 
 import json
 import os
@@ -69,7 +65,7 @@ class IncidentResponseConfig:
     notification_endpoints: List[str] = None
     response_team_contacts: List[str] = None
 
-    def __post_init__(self):
+def __post_init__(self):
         if self.escalation_matrix is None:
             self.escalation_matrix = {
                 "CRITICAL": ["CISO", "DoD_CIO", "Legal"],
@@ -100,7 +96,7 @@ class CUIProtectionConfig:
     handling_procedures: Dict[str, str] = None
     marking_requirements: bool = True
 
-    def __post_init__(self):
+def __post_init__(self):
         if self.retention_policies is None:
             self.retention_policies = {
                 "CUI//BASIC": 1095,      # 3 years
@@ -152,12 +148,10 @@ class DFARSConfiguration:
     monitoring: MonitoringConfig = None
     thresholds: ComplianceThresholds = None
 
-    def __post_init__(self):
+def __post_init__(self):
         if self.organization_info is None:
             self.organization_info = {
                 "company_name": "Defense Contractor Inc.",
-                "cage_code": "XXXXX",
-                "duns_number": "XXXXXXXXX",
                 "primary_contact": "security@company.com",
                 "compliance_officer": "compliance@company.com"
             }
@@ -181,12 +175,12 @@ class DFARSConfiguration:
 class DFARSConfigManager:
     """DFARS configuration manager"""
 
-    def __init__(self, config_path: str = "dfars_config.json"):
+def __init__(self, config_path: str = "dfars_config.json"):
         self.config_path = Path(config_path)
         self.config: Optional[DFARSConfiguration] = None
         self.load_config()
 
-    def load_config(self) -> DFARSConfiguration:
+def load_config(self) -> DFARSConfiguration:
         """Load DFARS configuration from file"""
         if self.config_path.exists():
             try:
@@ -205,7 +199,7 @@ class DFARSConfigManager:
 
         return self.config
 
-    def save_config(self):
+def save_config(self):
         """Save DFARS configuration to file"""
         if self.config:
             config_dict = self._config_to_dict(self.config)
@@ -216,7 +210,7 @@ class DFARSConfigManager:
             with open(self.config_path, 'w') as f:
                 json.dump(config_dict, f, indent=2, default=str)
 
-    def _config_to_dict(self, config: DFARSConfiguration) -> Dict[str, Any]:
+def _config_to_dict(self, config: DFARSConfiguration) -> Dict[str, Any]:
         """Convert configuration dataclass to dictionary"""
         return {
             'compliance_level': config.compliance_level.value,
@@ -230,7 +224,7 @@ class DFARSConfigManager:
             'thresholds': asdict(config.thresholds)
         }
 
-    def _dict_to_config(self, config_dict: Dict[str, Any]) -> DFARSConfiguration:
+def _dict_to_config(self, config_dict: Dict[str, Any]) -> DFARSConfiguration:
         """Convert dictionary to configuration dataclass"""
         return DFARSConfiguration(
             compliance_level=ComplianceLevel(config_dict.get('compliance_level', 'ENHANCED')),
@@ -244,7 +238,7 @@ class DFARSConfigManager:
             thresholds=ComplianceThresholds(**config_dict.get('thresholds', {}))
         )
 
-    def update_compliance_level(self, level: ComplianceLevel):
+def update_compliance_level(self, level: ComplianceLevel):
         """Update compliance level and adjust configurations"""
         self.config.compliance_level = level
 
@@ -252,7 +246,7 @@ class DFARSConfigManager:
             # Enhance security for critical systems
             self.config.access_control.session_timeout_minutes = 30
             self.config.access_control.max_failed_attempts = 2
-            self.config.monitoring.monitoring_interval_seconds = 30
+            self.config.monitoring.monitoring_interval_seconds = API_TIMEOUT_SECONDS
             self.config.thresholds.minimum_compliance_score = 95.0
             self.config.thresholds.critical_findings_threshold = 0
             self.config.incident_response.reporting_deadline_hours = 24
@@ -274,7 +268,7 @@ class DFARSConfigManager:
 
         self.save_config()
 
-    def get_control_config(self, control_id: str) -> Dict[str, Any]:
+def get_control_config(self, control_id: str) -> Dict[str, Any]:
         """Get configuration for specific DFARS control"""
         control_configs = {
             "3.1.1": {  # Access Control
@@ -316,7 +310,7 @@ class DFARSConfigManager:
 
         return control_configs.get(control_id, {})
 
-    def validate_configuration(self) -> List[str]:
+def validate_configuration(self) -> List[str]:
         """Validate DFARS configuration for completeness"""
         issues = []
 
@@ -344,7 +338,7 @@ class DFARSConfigManager:
 
         return issues
 
-    def export_policy_document(self) -> str:
+def export_policy_document(self) -> str:
         """Export configuration as policy document"""
         policy = f"""
 DFARS 252.204-7012 COMPLIANCE POLICY
@@ -359,31 +353,31 @@ SECURITY CONTROLS CONFIGURATION
 -----------------------------
 
 1. ACCESS CONTROL (3.1.1)
-   - Multi-factor Authentication: {'REQUIRED' if self.config.access_control.multi_factor_auth_required else 'OPTIONAL'}
-   - Session Timeout: {self.config.access_control.session_timeout_minutes} minutes
-   - Max Failed Attempts: {self.config.access_control.max_failed_attempts}
-   - Password Complexity: {'REQUIRED' if self.config.access_control.password_complexity_required else 'OPTIONAL'}
+    - Multi-factor Authentication: {'REQUIRED' if self.config.access_control.multi_factor_auth_required else 'OPTIONAL'}
+    - Session Timeout: {self.config.access_control.session_timeout_minutes} minutes
+    - Max Failed Attempts: {self.config.access_control.max_failed_attempts}
+    - Password Complexity: {'REQUIRED' if self.config.access_control.password_complexity_required else 'OPTIONAL'}
 
 2. AUDIT AND ACCOUNTABILITY (3.3.1)
-   - Retention Period: {self.config.audit.audit_retention_days} days
-   - Cryptographic Integrity: {'ENABLED' if self.config.audit.cryptographic_integrity else 'DISABLED'}
-   - Real-time Monitoring: {'ENABLED' if self.config.audit.real_time_monitoring else 'DISABLED'}
+    - Retention Period: {self.config.audit.audit_retention_days} days
+    - Cryptographic Integrity: {'ENABLED' if self.config.audit.cryptographic_integrity else 'DISABLED'}
+    - Real-time Monitoring: {'ENABLED' if self.config.audit.real_time_monitoring else 'DISABLED'}
 
 3. INCIDENT RESPONSE (3.6.1)
-   - Reporting Deadline: {self.config.incident_response.reporting_deadline_hours} hours
-   - Automated Containment: {'ENABLED' if self.config.incident_response.automated_containment else 'DISABLED'}
-   - Forensic Preservation: {'ENABLED' if self.config.incident_response.forensic_preservation else 'DISABLED'}
+    - Reporting Deadline: {self.config.incident_response.reporting_deadline_hours} hours
+    - Automated Containment: {'ENABLED' if self.config.incident_response.automated_containment else 'DISABLED'}
+    - Forensic Preservation: {'ENABLED' if self.config.incident_response.forensic_preservation else 'DISABLED'}
 
 4. ENCRYPTION (3.13.1)
-   - Algorithm: {self.config.encryption.algorithm}
-   - FIPS 140-2: {'REQUIRED' if self.config.encryption.fips_140_2_required else 'OPTIONAL'}
-   - At-rest Encryption: {'ENABLED' if self.config.encryption.at_rest_encryption else 'DISABLED'}
-   - In-transit Encryption: {'ENABLED' if self.config.encryption.in_transit_encryption else 'DISABLED'}
+    - Algorithm: {self.config.encryption.algorithm}
+    - FIPS 140-2: {'REQUIRED' if self.config.encryption.fips_140_2_required else 'OPTIONAL'}
+    - At-rest Encryption: {'ENABLED' if self.config.encryption.at_rest_encryption else 'DISABLED'}
+    - In-transit Encryption: {'ENABLED' if self.config.encryption.in_transit_encryption else 'DISABLED'}
 
 5. CUI PROTECTION
-   - Auto-classification: {'ENABLED' if self.config.cui_protection.auto_classification else 'DISABLED'}
-   - Real-time Scanning: {'ENABLED' if self.config.cui_protection.real_time_scanning else 'DISABLED'}
-   - Data Loss Prevention: {'ENABLED' if self.config.cui_protection.data_loss_prevention else 'DISABLED'}
+    - Auto-classification: {'ENABLED' if self.config.cui_protection.auto_classification else 'DISABLED'}
+    - Real-time Scanning: {'ENABLED' if self.config.cui_protection.real_time_scanning else 'DISABLED'}
+    - Data Loss Prevention: {'ENABLED' if self.config.cui_protection.data_loss_prevention else 'DISABLED'}
 
 COMPLIANCE THRESHOLDS
 -------------------

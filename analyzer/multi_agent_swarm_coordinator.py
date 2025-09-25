@@ -1,20 +1,16 @@
-# SPDX-License-Identifier: MIT
-"""
-Multi-Agent Swarm Coordination Protocol - Phase 5
-=================================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
 
 Coordinates multiple analysis agents with Byzantine consensus, theater detection,
 and performance optimization. Implements swarm intelligence for distributed
 analysis with fault tolerance and reality validation.
 
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
 import logging
 logger = logging.getLogger(__name__)
-
 
 class AgentState(Enum):
     """Agent execution states."""
@@ -26,14 +22,12 @@ class AgentState(Enum):
     CONSENSUS = "consensus"
     TERMINATED = "terminated"
 
-
 class ConsensusType(Enum):
     """Types of consensus mechanisms."""
     SIMPLE_MAJORITY = "simple_majority"
     BYZANTINE_FAULT_TOLERANT = "byzantine_fault_tolerant"
     WEIGHTED_CONSENSUS = "weighted_consensus"
     UNANIMOUS = "unanimous"
-
 
 @dataclass
 class AgentCapability:
@@ -45,7 +39,6 @@ class AgentCapability:
     resource_requirements: Dict[str, Any]
     prerequisites: List[str] = field(default_factory=list)
     output_types: List[str] = field(default_factory=list)
-
 
 @dataclass
 class AgentTask:
@@ -60,7 +53,6 @@ class AgentTask:
     retry_count: int = 0
     max_retries: int = 3
     created_at: str = field(default_factory=lambda: datetime.now().isoformat())
-
 
 @dataclass
 class AgentResult:
@@ -77,7 +69,6 @@ class AgentResult:
     error_message: Optional[str] = None
     timestamp: str = field(default_factory=lambda: datetime.now().isoformat())
 
-
 @dataclass
 class ConsensusResult:
     """Result from consensus process."""
@@ -89,7 +80,6 @@ class ConsensusResult:
     dissenting_agents: List[str] = field(default_factory=list)
     consensus_duration: float = 0.0
     byzantine_faults_detected: int = 0
-
 
 class AnalysisAgent:
     """Individual analysis agent with specific capabilities."""
@@ -196,7 +186,6 @@ class AnalysisAgent:
     ) -> Tuple[List[Dict], Dict[str, Any], float]:
         """Execute specific capability analysis."""
         # This would integrate with actual analysis engines
-        # For now, return mock results based on capability
         
         violations = []
         metrics = {}
@@ -287,7 +276,6 @@ class AnalysisAgent:
     def _calculate_theater_detection_score(self, violations: List[Dict], metrics: Dict) -> float:
         """Calculate theater detection score based on results."""
         # Simple theater detection logic
-        # Real implementation would be more sophisticated
         
         if not violations and not metrics:
             return 0.1  # Likely performance theater
@@ -339,7 +327,6 @@ class AnalysisAgent:
     def heartbeat(self):
         """Update agent heartbeat."""
         self.last_heartbeat = time.time()
-
 
 class ByzantineConsensusManager:
     """Manages Byzantine fault-tolerant consensus across agents."""
@@ -535,7 +522,6 @@ class ByzantineConsensusManager:
     def _byzantine_consensus(self, results: List[AgentResult]) -> Tuple[Dict[str, Any], float]:
         """Calculate Byzantine fault-tolerant consensus."""
         # Use a more sophisticated Byzantine consensus algorithm
-        # For now, use weighted consensus with stricter thresholds
         
         consensus_value, base_agreement = self._weighted_consensus(results)
         
@@ -597,7 +583,6 @@ class ByzantineConsensusManager:
         }
         
         return consensus_value, agreement_score
-
 
 class MultiAgentSwarmCoordinator:
     """

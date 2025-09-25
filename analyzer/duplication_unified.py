@@ -15,14 +15,15 @@ duplication analysis. Provides enterprise-grade duplicate code detection with:
 CONSOLIDATED: Inlined functions from duplication_helper.py to eliminate duplication.
 """
 
-import ast
 from collections import defaultdict
-from dataclasses import asdict, dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
+import ast
 import hashlib
 import json
-from pathlib import Path
 import sys
-from typing import Any, Dict, List, Optional, Tuple
+
+from dataclasses import asdict, dataclass
 
 # Import both existing analyzers
 try:
@@ -33,7 +34,6 @@ except ImportError:
     sys.path.append(str(Path(__file__).parent))
     from constants import MECE_CLUSTER_MIN_SIZE, MECE_SIMILARITY_THRESHOLD
     from dup_detection.mece_analyzer import MECEAnalyzer
-
 
 @dataclass
 class DuplicationViolation:
@@ -48,7 +48,6 @@ class DuplicationViolation:
     line_ranges: List[Dict[str, Any]]  # [{"file": "path", "start": 10, "end": 20}]
     recommendation: str
     context: Dict[str, Any]
-
 
 @dataclass
 class UnifiedDuplicationResult:
@@ -71,7 +70,6 @@ class UnifiedDuplicationResult:
             self.algorithm_violations = []
         if self.summary is None:
             self.summary = {}
-
 
 class UnifiedDuplicationAnalyzer:
     """Unified analyzer combining MECE and CoA duplication detection."""
@@ -412,7 +410,6 @@ class UnifiedDuplicationAnalyzer:
     def _calculate_algorithm_similarity(self, functions: List[Tuple[str, ast.FunctionDef, List[str]]]) -> float:
         """Calculate average algorithm similarity for functions with same pattern."""
         # Since they have the same normalized pattern hash, similarity is high
-        # Adjust based on additional factors like parameter count, complexity
 
         base_similarity = 0.85  # High base similarity for same algorithm pattern
 
@@ -560,7 +557,6 @@ class UnifiedDuplicationAnalyzer:
 
         return json_output
 
-
 def main():
     """Command-line interface for unified duplication analysis."""
     import argparse
@@ -589,7 +585,6 @@ def main():
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
         return 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

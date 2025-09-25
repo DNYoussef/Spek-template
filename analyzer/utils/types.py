@@ -3,10 +3,10 @@ Type definitions for the connascence analyzer ecosystem.
 Provides canonical types used across all analyzer modules.
 """
 
-from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Union
-from enum import Enum
 
+from dataclasses import dataclass
+from enum import Enum
 
 class ConnascenceType(Enum):
     """Connascence types with NASA POT10 rule alignment."""
@@ -20,14 +20,12 @@ class ConnascenceType(Enum):
     CoN = "CoN"  # Connascence of Naming - NASA Rule 2
     CoC = "CoC"  # Connascence of Convention - NASA Rule 10
 
-
 class SeverityLevel(Enum):
     """Severity levels for connascence violations."""
     CRITICAL = "critical"
     HIGH = "high"
     MEDIUM = "medium"
     LOW = "low"
-
 
 @dataclass
 class ConnascenceViolation:
@@ -60,12 +58,12 @@ class ConnascenceViolation:
     class_name: Optional[str] = None
     module_name: Optional[str] = None
     
-    def __post_init__(self):
+def __post_init__(self):
         """Ensure severity is valid."""
         if self.severity not in ["critical", "high", "medium", "low"]:
             self.severity = "medium"
     
-    def to_dict(self) -> Dict[str, Any]:
+def to_dict(self) -> Dict[str, Any]:
         """Convert violation to dictionary for JSON serialization."""
         return {
             "id": self.id,
@@ -85,7 +83,6 @@ class ConnascenceViolation:
             "module_name": self.module_name
         }
 
-
 @dataclass
 class AnalysisResult:
     """Container for analysis results."""
@@ -93,14 +90,13 @@ class AnalysisResult:
     summary: Dict[str, Any]
     metadata: Dict[str, Any]
     
-    def __post_init__(self):
+def __post_init__(self):
         if not self.violations:
             self.violations = []
         if not self.summary:
             self.summary = {}
         if not self.metadata:
             self.metadata = {}
-
 
 # Type aliases for backward compatibility
 Violation = ConnascenceViolation

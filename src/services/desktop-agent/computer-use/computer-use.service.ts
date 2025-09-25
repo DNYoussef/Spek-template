@@ -312,7 +312,7 @@ export class ComputerUseService {
       );
       appOpen = stdout.trim().length > 0;
     } catch (error: any) {
-      // grep returns exit code 1 when no match is found – treat as "not open"
+      // grep returns exit code 1 when no match is found  treat as "not open"
       // Also handle timeout errors
       if (error.code !== 1 && !error.message?.includes('timeout')) {
         throw error;

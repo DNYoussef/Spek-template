@@ -5,9 +5,9 @@ trading implications, and technical parameters.
 """
 
 from typing import Dict, List, Tuple, NamedTuple
+
 from dataclasses import dataclass
 from enum import Enum
-
 
 class PatternType(Enum):
     """Chart pattern categories."""
@@ -16,14 +16,12 @@ class PatternType(Enum):
     BILATERAL = "bilateral"
     MOMENTUM = "momentum"
 
-
 class PatternStrength(Enum):
     """Pattern reliability strength."""
     WEAK = 1
     MODERATE = 2
     STRONG = 3
     VERY_STRONG = 4
-
 
 @dataclass
 class PatternCharacteristics:
@@ -44,7 +42,6 @@ class PatternCharacteristics:
     target_calculation: str
     gary_dpi_weight: float  # Gary's DPI weighting factor
     taleb_antifragility_factor: float  # Taleb's antifragility multiplier
-
 
 # Comprehensive chart pattern definitions
 CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
@@ -501,7 +498,6 @@ CHART_PATTERNS: Dict[str, PatternCharacteristics] = {
     )
 }
 
-
 def get_pattern_by_name(pattern_name: str) -> PatternCharacteristics:
     """Get pattern characteristics by name.
 
@@ -519,7 +515,6 @@ def get_pattern_by_name(pattern_name: str) -> PatternCharacteristics:
 
     return CHART_PATTERNS[pattern_name]
 
-
 def get_patterns_by_type(pattern_type: PatternType) -> List[PatternCharacteristics]:
     """Get all patterns of a specific type.
 
@@ -531,7 +526,6 @@ def get_patterns_by_type(pattern_type: PatternType) -> List[PatternCharacteristi
     """
     return [pattern for pattern in CHART_PATTERNS.values()
     if pattern.pattern_type == pattern_type]
-
 
 def get_patterns_by_strength(min_strength: PatternStrength) -> List[PatternCharacteristics]:
     """Get patterns with minimum strength level.
@@ -545,7 +539,6 @@ def get_patterns_by_strength(min_strength: PatternStrength) -> List[PatternChara
     return [pattern for pattern in CHART_PATTERNS.values()
     if pattern.strength.value >= min_strength.value]
 
-
 def get_high_gary_dpi_patterns(min_weight: float = 0.7) -> List[PatternCharacteristics]:
     """Get patterns with high Gary DPI weighting.
 
@@ -558,7 +551,6 @@ def get_high_gary_dpi_patterns(min_weight: float = 0.7) -> List[PatternCharacter
     return [pattern for pattern in CHART_PATTERNS.values()
     if pattern.gary_dpi_weight >= min_weight]
 
-
 def get_antifragile_patterns(min_factor: float = 0.6) -> List[PatternCharacteristics]:
     """Get patterns with high Taleb antifragility factor.
 
@@ -570,7 +562,6 @@ def get_antifragile_patterns(min_factor: float = 0.6) -> List[PatternCharacteris
     """
     return [pattern for pattern in CHART_PATTERNS.values()
     if pattern.taleb_antifragility_factor >= min_factor]
-
 
 # Pattern statistics
 PATTERN_STATS = {

@@ -1,5 +1,4 @@
 # SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
 
 """
 Violation Aggregator - Result Processing and Aggregation
@@ -10,26 +9,24 @@ NASA Rule 4 Compliant: Functions under 60 lines.
 Handles violation formatting, standardization, and metrics coordination.
 """
 
-import logging
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-logger = logging.getLogger(__name__)
-
+import logging
 
 class ViolationAggregator:
     """Aggregates and processes analysis results with standardization."""
 
-    def __init__(self, aggregation_method: str = "weighted"):
+def __init__(self, aggregation_method: str = "weighted"):
         """Initialize aggregator with minimal state."""
         self.aggregation_metadata = {}
         self.aggregation_method = aggregation_method
         self.recommendation_engine = None
 
-    def set_recommendation_engine(self, engine):
+def set_recommendation_engine(self, engine):
         """Set recommendation engine for enhanced aggregation."""
         self.recommendation_engine = engine
 
-    def aggregate(self, results: list) -> dict:
+def aggregate(self, results: list) -> dict:
         """Aggregate analysis results from multiple sources."""
         aggregated_violations = []
         total_files = 0
@@ -47,14 +44,14 @@ class ViolationAggregator:
             "aggregation_method": self.aggregation_method
         }
 
-    def update(self, result: dict):
+def update(self, result: dict):
         """Update aggregator with new result."""
         # Store result for later aggregation
         if "latest_results" not in self.aggregation_metadata:
             self.aggregation_metadata["latest_results"] = []
         self.aggregation_metadata["latest_results"].append(result)
 
-    def build_unified_result(
+def build_unified_result(
         self,
         violations: Dict[str, Any],
         metrics: Dict[str, Any],
@@ -92,7 +89,7 @@ class ViolationAggregator:
         
         return result
 
-    def _standardize_violations(self, violations: Dict[str, Any]) -> Dict[str, Any]:
+def _standardize_violations(self, violations: Dict[str, Any]) -> Dict[str, Any]:
         """Standardize violations format. NASA Rule 4 compliant."""
         # NASA Rule 5: Input validation
         assert violations is not None, "violations cannot be None"
@@ -109,7 +106,7 @@ class ViolationAggregator:
         
         return standardized
 
-    def _standardize_connascence_violations(self, violations: List[Dict]) -> List[Dict]:
+def _standardize_connascence_violations(self, violations: List[Dict]) -> List[Dict]:
         """Standardize connascence violation format. NASA Rule 4 compliant."""
         standardized_violations = []
         
@@ -119,7 +116,7 @@ class ViolationAggregator:
         
         return standardized_violations
 
-    def _standardize_duplication_violations(self, violations: List[Dict]) -> List[Dict]:
+def _standardize_duplication_violations(self, violations: List[Dict]) -> List[Dict]:
         """Standardize duplication violation format. NASA Rule 4 compliant."""
         standardized_violations = []
         
@@ -129,7 +126,7 @@ class ViolationAggregator:
         
         return standardized_violations
 
-    def _standardize_nasa_violations(self, violations: List[Dict]) -> List[Dict]:
+def _standardize_nasa_violations(self, violations: List[Dict]) -> List[Dict]:
         """Standardize NASA violation format. NASA Rule 4 compliant."""
         standardized_violations = []
         
@@ -141,7 +138,7 @@ class ViolationAggregator:
         
         return standardized_violations
 
-    def _create_standard_violation_format(self, violation: Dict, category: str) -> Dict[str, Any]:
+def _create_standard_violation_format(self, violation: Dict, category: str) -> Dict[str, Any]:
         """Create standard violation format. NASA Rule 4 compliant."""
         # NASA Rule 5: Input validation
         assert violation is not None, "violation cannot be None"
@@ -162,7 +159,7 @@ class ViolationAggregator:
             "standardized_at": self._get_iso_timestamp(),
         }
 
-    def _add_nasa_context(self, standardized: Dict, original: Dict) -> Dict[str, Any]:
+def _add_nasa_context(self, standardized: Dict, original: Dict) -> Dict[str, Any]:
         """Add NASA-specific context to violation. NASA Rule 4 compliant."""
         nasa_context = {
             "nasa_rule": original.get("context", {}).get("nasa_rule", "unknown"),
@@ -174,7 +171,7 @@ class ViolationAggregator:
         standardized["context"].update(nasa_context)
         return standardized
 
-    def _enhance_recommendations(self, violations: Dict, recommendations: Dict) -> Dict[str, Any]:
+def _enhance_recommendations(self, violations: Dict, recommendations: Dict) -> Dict[str, Any]:
         """Enhance recommendations with violation metadata. NASA Rule 4 compliant."""
         # NASA Rule 5: Input validation
         assert violations is not None, "violations cannot be None"
@@ -193,7 +190,7 @@ class ViolationAggregator:
         
         return enhanced
 
-    def _integrate_smart_recommendations(self, enhanced: Dict, smart_results: Dict) -> Dict:
+def _integrate_smart_recommendations(self, enhanced: Dict, smart_results: Dict) -> Dict:
         """Integrate smart analysis recommendations. NASA Rule 4 compliant."""
         if smart_results.get("enhanced_recommendations"):
             enhanced["smart_recommendations"] = smart_results["enhanced_recommendations"]
@@ -204,7 +201,7 @@ class ViolationAggregator:
         enhanced["smart_integration_enabled"] = True
         return enhanced
 
-    def _add_correlation_recommendations(self, enhanced: Dict, correlations: List) -> Dict:
+def _add_correlation_recommendations(self, enhanced: Dict, correlations: List) -> Dict:
         """Add correlation-based recommendations. NASA Rule 4 compliant."""
         if correlations:
             correlation_actions = [
@@ -215,7 +212,7 @@ class ViolationAggregator:
         
         return enhanced
 
-    def _create_result_structure(
+def _create_result_structure(
         self,
         violations: Dict,
         metrics: Dict,
@@ -251,7 +248,7 @@ class ViolationAggregator:
             "warnings": warnings or [],
         }
 
-    def _add_metadata_to_result(self, result: Dict, violations: Dict, recommendations: Dict) -> None:
+def _add_metadata_to_result(self, result: Dict, violations: Dict, recommendations: Dict) -> None:
         """Add enhanced metadata to result. NASA Rule 4 compliant."""
         # NASA Rule 5: Input validation
         assert result is not None, "result cannot be None"
@@ -272,12 +269,12 @@ class ViolationAggregator:
             "violations_processed": self._count_total_violations(violations),
         }
 
-    def _generate_violation_id(self, violation: Dict) -> str:
+def _generate_violation_id(self, violation: Dict) -> str:
         """Generate unique violation ID. NASA Rule 4 compliant."""
         base = f"{violation.get('type', 'unknown')}_{violation.get('line_number', 0)}"
         return f"violation_{hash(str(violation)) % 100000}_{base}"
 
-    def _normalize_severity(self, severity: str) -> str:
+def _normalize_severity(self, severity: str) -> str:
         """Normalize severity levels. NASA Rule 4 compliant."""
         severity_mapping = {
             "critical": "critical",
@@ -290,7 +287,7 @@ class ViolationAggregator:
         }
         return severity_mapping.get(severity.lower(), "medium")
 
-    def _calculate_violation_weight(self, violation: Dict) -> float:
+def _calculate_violation_weight(self, violation: Dict) -> float:
         """Calculate violation weight. NASA Rule 4 compliant."""
         severity = violation.get("severity", "medium")
         weight_map = {"critical": 10.0, "high": 5.0, "medium": 2.0, "low": 1.0}
@@ -300,7 +297,7 @@ class ViolationAggregator:
         context_weight = violation.get("context", {}).get("weight_modifier", 1.0)
         return base_weight * context_weight
 
-    def _calculate_compliance_impact(self, violation: Dict) -> str:
+def _calculate_compliance_impact(self, violation: Dict) -> str:
         """Calculate NASA compliance impact. NASA Rule 4 compliant."""
         severity = violation.get("severity", "medium")
         nasa_rule = violation.get("context", {}).get("nasa_rule", "unknown")
@@ -312,7 +309,7 @@ class ViolationAggregator:
         else:
             return "low_impact"
 
-    def _count_analyzed_files(self, violations: Dict) -> int:
+def _count_analyzed_files(self, violations: Dict) -> int:
         """Count number of analyzed files. NASA Rule 4 compliant."""
         file_paths = set()
         
@@ -323,7 +320,7 @@ class ViolationAggregator:
         
         return len(file_paths)
 
-    def _count_total_violations(self, violations: Dict) -> int:
+def _count_total_violations(self, violations: Dict) -> int:
         """Count total violations across categories. NASA Rule 4 compliant."""
         return (
             len(violations.get("connascence", [])) +
@@ -331,14 +328,13 @@ class ViolationAggregator:
             len(violations.get("nasa", []))
         )
 
-    def _get_iso_timestamp(self) -> str:
+def _get_iso_timestamp(self) -> str:
         """Get current timestamp in ISO format. NASA Rule 4 compliant."""
         return datetime.now().isoformat()
 
-    def get_aggregation_stats(self) -> Dict[str, Any]:
+def get_aggregation_stats(self) -> Dict[str, Any]:
         """Get aggregation statistics."""
         return self.aggregation_metadata.copy()
-
 
 # Alias for component integration compatibility
 ResultAggregator = ViolationAggregator

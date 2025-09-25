@@ -9,9 +9,9 @@ Provides enterprise-grade feature flag management with:
 - Zero-impact non-breaking integration
 """
 
-from .feature_flags import FeatureFlag, enterprise_feature, flag_manager
-from .decorators import feature_flag, conditional_execution, enterprise_gate
 from .config import FlagConfiguration
+from .decorators import feature_flag, conditional_execution, enterprise_gate
+from .feature_flags import FeatureFlag, enterprise_feature, flag_manager
 from .monitoring import FlagMonitor
 
 __all__ = [

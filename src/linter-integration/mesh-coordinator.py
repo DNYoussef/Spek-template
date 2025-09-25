@@ -1,9 +1,5 @@
 from lib.shared.utilities import get_logger
-#!/usr/bin/env python3
-"""
-Mesh Queen Coordinator for Phase 2 Linter Integration Architecture Swarm
-Establishes peer-to-peer mesh topology for distributed linter integration coordination.
-"""
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_NESTED_DEPTH
 
 import asyncio
 import json
@@ -151,7 +147,7 @@ class MeshQueenCoordinator:
         return {
             "mesh_health": self.topology_health,
             "active_nodes": len([n for n in self.mesh_nodes.values() 
-                               if n.status == NodeStatus.ACTIVE]),
+                                if n.status == NodeStatus.ACTIVE]),
             "total_nodes": len(self.mesh_nodes),
             "connections": sum(len(n.connections) for n in self.mesh_nodes.values()),
             "integration_progress": {
@@ -206,8 +202,8 @@ class MeshQueenCoordinator:
     async def establish_peer_communication(self) -> Dict[str, Any]:
         """Establish peer-to-peer communication protocols"""
         communication_protocols = {
-            "heartbeat_interval": 5.0,  # seconds
-            "message_timeout": 30.0,
+            "heartbeat_interval": MAXIMUM_NESTED_DEPTH.0,  # seconds
+            "message_timeout": API_TIMEOUT_SECONDS.0,
             "consensus_threshold": 0.75,
             "fault_tolerance_level": 0.33,  # Byzantine fault tolerance
             "load_balancing_strategy": "capability_based"
@@ -258,7 +254,7 @@ class MeshQueenCoordinator:
             
         # Calculate overall system health
         active_nodes = sum(1 for n in self.mesh_nodes.values() 
-                          if n.status == NodeStatus.ACTIVE)
+                            if n.status == NodeStatus.ACTIVE)
         health_metrics["system_health"] = active_nodes / len(self.mesh_nodes)
         
         return health_metrics

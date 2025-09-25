@@ -30,7 +30,7 @@ class EvidenceGenerator {
     };
 
     try {
-      console.log('\n📋 GENERATING EVIDENCE PACKAGE');
+      console.log('\n GENERATING EVIDENCE PACKAGE');
       console.log('==============================');
       console.log(`Evidence ID: ${evidencePackage.id}`);
       console.log(`Target Files: ${targetFiles.length}`);
@@ -977,7 +977,7 @@ ${this.generateRecommendations(evidencePackage).map(rec => `- ${rec}`).join('\n'
    * Display evidence summary
    */
   displayEvidenceSummary(evidencePackage) {
-    console.log('📋 EVIDENCE PACKAGE SUMMARY');
+    console.log(' EVIDENCE PACKAGE SUMMARY');
     console.log('===========================');
     console.log(`Evidence ID: ${evidencePackage.id}`);
     console.log(`Status: ${evidencePackage.success ? 'SUCCESS' : 'FAILED'}`);

@@ -1,7 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Connascence Reporter - Comprehensive Report Generation
-=====================================================
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
 
 Advanced report generator implementing 14 methods for multiple output formats.
 Defense industry compliant with audit trail generation and NASA POT10 reporting.
@@ -24,7 +21,6 @@ from .interfaces import (
 )
 
 logger = logging.getLogger(__name__)
-
 
 class ConnascenceReporter(ConnascenceReporterInterface):
     """
@@ -275,13 +271,13 @@ class ConnascenceReporter(ConnascenceReporterInterface):
             'compliance_score': nasa_data.get('score', 0.0),
             'rules_violated': len(nasa_data.get('violations', [])),
             'critical_violations': len([v for v in result.violations
-                                     if v.severity == 'critical' and v.nasa_rule]),
+                                    if v.severity == 'critical' and v.nasa_rule]),
             'defense_ready': nasa_data.get('score', 0.0) >= 0.95,
             'improvement_needed': nasa_data.get('score', 0.0) < 0.90
         }
 
     def _get_top_files_by_violations(self, violations: List[ConnascenceViolation],
-                                   limit: int = 10) -> List[Dict[str, Any]]:
+                                    limit: int = 10) -> List[Dict[str, Any]]:
         """Get files with most violations for focused remediation."""
         file_counts = {}
         for violation in violations:
@@ -305,7 +301,6 @@ class ConnascenceReporter(ConnascenceReporterInterface):
     def _generate_trend_analysis(self, result: AnalysisResult) -> Dict[str, Any]:
         """Generate trend analysis from historical data."""
         # This would typically compare with previous analysis results
-        # For now, provide baseline analysis
         return {
             'trend': 'stable',
             'quality_direction': 'improving',
@@ -422,9 +417,9 @@ class ConnascenceReporter(ConnascenceReporterInterface):
 
         if risk_score >= 20:
             return 'immediate'
-        elif risk_score >= 10:
+        elif risk_score >= MAXIMUM_FUNCTION_PARAMETERS:
             return 'high'
-        elif risk_score >= 5:
+        elif risk_score >= MAXIMUM_NESTED_DEPTH:
             return 'medium'
         else:
             return 'low'

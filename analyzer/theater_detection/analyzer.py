@@ -1,7 +1,4 @@
-"""
-Theater Analysis Engine
-Orchestrates theater detection across multiple pattern detectors.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 import os
 import json
@@ -16,11 +13,10 @@ from .patterns import (
     QualityTheaterDetector
 )
 
-
 class TheaterAnalyzer:
     """Main analyzer that orchestrates all theater detection."""
 
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
+def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
         self.core_detector = TheaterDetector(config)
         self.detectors = [
@@ -30,7 +26,7 @@ class TheaterAnalyzer:
             QualityTheaterDetector()
         ]
 
-    def analyze_file(self, file_path: str) -> List[TheaterPattern]:
+def analyze_file(self, file_path: str) -> List[TheaterPattern]:
         """Analyze a single file for all theater patterns."""
         if not path_exists(file_path):
             return []
@@ -52,7 +48,7 @@ class TheaterAnalyzer:
 
         return all_patterns
 
-    def analyze_directory(self, directory: str, recursive: bool = True) -> List[TheaterPattern]:
+def analyze_directory(self, directory: str, recursive: bool = True) -> List[TheaterPattern]:
         """Analyze all Python files in a directory."""
         all_patterns = []
 
@@ -75,7 +71,7 @@ class TheaterAnalyzer:
 
         return all_patterns
 
-    def generate_theater_report(self, patterns: List[TheaterPattern]) -> Dict[str, Any]:
+def generate_theater_report(self, patterns: List[TheaterPattern]) -> Dict[str, Any]:
         """Generate comprehensive theater detection report."""
         # Group patterns by severity and type
         severity_stats = {}
@@ -99,7 +95,7 @@ class TheaterAnalyzer:
         critical_patterns = severity_stats.get('critical', 0)
         high_patterns = severity_stats.get('high', 0)
 
-        theater_score = min(100, (critical_patterns * 10) + (high_patterns * 5) + (total_patterns * 1))
+        theater_score = min(MAXIMUM_FUNCTION_LENGTH_LINES, (critical_patterns * 10) + (high_patterns * 5) + (total_patterns * 1))
 
         return {
             "summary": {
@@ -127,7 +123,7 @@ class TheaterAnalyzer:
             ]
         }
 
-    def detect_meta_theater(self, analysis_results: Dict[str, Any]) -> List[str]:
+def detect_meta_theater(self, analysis_results: Dict[str, Any]) -> List[str]:
         """Detect meta-theater patterns in the analysis itself."""
         meta_issues = []
 
@@ -145,14 +141,14 @@ class TheaterAnalyzer:
 
         return meta_issues
 
-    def save_report(self, report: Dict[str, Any], output_path: str) -> None:
+def save_report(self, report: Dict[str, Any], output_path: str) -> None:
         """Save theater detection report to file."""
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(report, f, indent=2, ensure_ascii=False)
 
-    def analyze_and_report(self, target_path: str, output_path: Optional[str] = None) -> Dict[str, Any]:
+def analyze_and_report(self, target_path: str, output_path: Optional[str] = None) -> Dict[str, Any]:
         """Complete analysis workflow with report generation."""
         if validate_file(target_path):
             patterns = self.analyze_file(target_path)

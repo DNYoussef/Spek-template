@@ -1,9 +1,4 @@
 import ast
-#!/usr/bin/env python3
-"""
-Real Linter Tool Integration Validation Tests
-Tests with actual linter tools (flake8, pylint, ruff, mypy, bandit) to validate real-world integration.
-"""
 
 import pytest
 import asyncio
@@ -21,11 +16,9 @@ sys.path.append(str(Path(__file__).parent.parent.parent / "src"))
 from adapters.base_adapter import BaseLinterAdapter
 from models.linter_models import LinterConfig, StandardSeverity, ViolationType
 
-
 def check_tool_available(tool_name: str) -> bool:
     """Check if a linter tool is available in the system"""
     return shutil.which(tool_name) is not None
-
 
 @pytest.fixture
 def sample_python_files():
@@ -171,7 +164,6 @@ def no_docstring():
         
         yield files
 
-
 class TestFlake8Integration:
     """Integration tests with real flake8 linter"""
     
@@ -222,7 +214,6 @@ class TestFlake8Integration:
             # Should find at least some of the expected categories
             assert len(found_categories.intersection(expected_categories)) > 0
 
-
 class TestPylintIntegration:
     """Integration tests with real pylint linter"""
     
@@ -234,7 +225,7 @@ class TestPylintIntegration:
             "pylint",
             "--output-format=json",
             "--disable=all",
-            "--enable=unused-variable,undefined-variable,line-too-long",
+            "--enable=unused-variable, undefined-variable, line-too-long",
             sample_python_files['logical_issues']
         ], capture_output=True, text=True)
         
@@ -263,7 +254,7 @@ class TestPylintIntegration:
             "pylint",
             "--output-format=json",
             "--disable=all",
-            "--enable=unused-variable,line-too-long,missing-docstring",
+            "--enable=unused-variable, line-too-long, missing-docstring",
             sample_python_files['logical_issues']
         ], capture_output=True, text=True)
         
@@ -280,8 +271,6 @@ class TestPylintIntegration:
                     assert len(found_types) > 0
             except json.JSONDecodeError:
                 # Still valid if pylint ran
-                pass
-
 
 class TestRuffIntegration:
     """Integration tests with real ruff linter"""
@@ -331,7 +320,6 @@ class TestRuffIntegration:
                 
                 assert len(rule_prefixes.intersection(expected_prefixes)) > 0
 
-
 class TestMypyIntegration:
     """Integration tests with real mypy linter"""
     
@@ -378,9 +366,8 @@ class TestMypyIntegration:
             ]
             
             found_indicators = [indicator for indicator in type_error_indicators 
-                              if indicator in output]
+                                if indicator in output]
             assert len(found_indicators) > 0
-
 
 class TestBanditIntegration:
     """Integration tests with real bandit linter"""
@@ -438,7 +425,6 @@ class TestBanditIntegration:
                 
                 found_security_issues = test_ids.intersection(security_patterns)
                 assert len(found_security_issues) > 0
-
 
 class TestMultiToolIntegration:
     """Integration tests with multiple real linter tools"""
@@ -524,7 +510,6 @@ class TestMultiToolIntegration:
                     elif tool == 'bandit':
                         assert "line_number" in violation
 
-
 class TestAdapterRealWorldCompatibility:
     """Test adapter compatibility with real linter outputs"""
     
@@ -541,7 +526,6 @@ class TestAdapterRealWorldCompatibility:
             config = LinterConfig(executable_path="flake8")
             
             # Import the actual adapter (would need real implementation)
-            # For now, test that we can parse the JSON structure
             violations_data = json.loads(result.stdout)
             
             # Verify we can extract required fields
@@ -595,7 +579,6 @@ class TestAdapterRealWorldCompatibility:
                 
                 assert expected_unified in list(StandardSeverity)
                 assert expected_type == ViolationType.SECURITY
-
 
 class TestRealWorldPerformance:
     """Performance tests with real linter tools"""
@@ -652,7 +635,6 @@ class TestRealWorldPerformance:
         if 'flake8' in execution_times and 'pylint' in execution_times:
             # Allow some variance, but flake8 should typically be faster
             assert execution_times['flake8'] < execution_times['pylint'] * 2
-
 
 class TestRealWorldErrorHandling:
     """Error handling tests with real linter tools"""
@@ -720,12 +702,10 @@ def use_missing():
                     violations = json.loads(result.stdout)
                     # Should detect import issues
                     import_errors = [v for v in violations 
-                                   if "import" in v.get("message", "").lower()]
+                                    if "import" in v.get("message", "").lower()]
                     assert len(import_errors) > 0
                 except json.JSONDecodeError:
                     # Non-JSON output is acceptable
-                    pass
-
 
 if __name__ == "__main__":
     import logging
@@ -733,7 +713,7 @@ if __name__ == "__main__":
     
     # Only run tests for available tools
     available_tools = [tool for tool in ["flake8", "pylint", "ruff", "mypy", "bandit"] 
-                      if check_tool_available(tool)]
+                        if check_tool_available(tool)]
     
     print(f"Available linter tools: {available_tools}")
     

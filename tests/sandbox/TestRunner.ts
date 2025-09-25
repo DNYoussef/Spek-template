@@ -32,7 +32,7 @@ export class TestRunner {
      * NASA Rule 4: <60 lines
      */
     async runCompleteTestSuite(): Promise<any> {
-        console.log('\\n🚀 STARTING COMPLETE REFACTORING VALIDATION');
+        console.log('\\n STARTING COMPLETE REFACTORING VALIDATION');
         console.log('============================================');
 
         const startTime = Date.now();
@@ -74,7 +74,7 @@ export class TestRunner {
      * NASA Rule 4: <60 lines
      */
     private async createGitHubEpic(): Promise<void> {
-        console.log('\\n📋 Creating GitHub Epic: God Object Remediation');
+        console.log('\\n Creating GitHub Epic: God Object Remediation');
 
         try {
             // Use GitHub Project Manager MCP if available
@@ -119,7 +119,7 @@ Decompose into 6 specialized classes:
                 });
             }
 
-            console.log('✅ GitHub Epic created successfully');
+            console.log(' GitHub Epic created successfully');
 
         } catch (error) {
             console.warn('GitHub Epic creation failed:', error);
@@ -131,7 +131,7 @@ Decompose into 6 specialized classes:
      * NASA Rule 4: <60 lines
      */
     private async createFailureIssues(result: any): Promise<void> {
-        console.log('\\n🔴 Creating GitHub issues for failures');
+        console.log('\\n Creating GitHub issues for failures');
 
         const failedStages = result.stages.filter((stage: any) => !stage.passed);
 
@@ -188,7 +188,7 @@ God Object Remediation - UnifiedConnascenceAnalyzer
             }
         }
 
-        console.log(`✅ Created ${failedStages.length} failure issues`);
+        console.log(` Created ${failedStages.length} failure issues`);
     }
 
     /**
@@ -196,13 +196,13 @@ God Object Remediation - UnifiedConnascenceAnalyzer
      * NASA Rule 4: <60 lines
      */
     private async createSuccessIssue(result: any): Promise<void> {
-        console.log('\\n🟢 Creating GitHub success issue');
+        console.log('\\n Creating GitHub success issue');
 
         try {
             const issue: GitHubIssue = {
                 title: '[SUCCESS] God Object Refactoring Complete - All 9 Stages Passed',
                 body: `
-## ✅ Refactoring Validation Complete
+##  Refactoring Validation Complete
 
 **Overall Status:** SUCCESS
 **Stages Passed:** ${result.summary.passedStages}/${result.summary.totalStages}
@@ -210,36 +210,36 @@ God Object Remediation - UnifiedConnascenceAnalyzer
 **NASA Compliance:** ${result.nasaCompliance.overall.toFixed(1)}%
 **Total Duration:** ${result.summary.totalDuration}ms
 
-### 🎯 Achievement Unlocked: NASA POT10 Compliant
+###  Achievement Unlocked: NASA POT10 Compliant
 
 The UnifiedConnascenceAnalyzer god object (97 methods) has been successfully decomposed into 6 specialized classes:
 
-1. **ConnascenceDetector** - Detection methods ✅
-2. **AnalysisOrchestrator** - Orchestration methods ✅
-3. **CacheManager** - Caching methods ✅
-4. **ResultAggregator** - Result methods ✅
-5. **ConfigurationManager** - Config methods ✅
-6. **ReportGenerator** - Reporting methods ✅
+1. **ConnascenceDetector** - Detection methods 
+2. **AnalysisOrchestrator** - Orchestration methods 
+3. **CacheManager** - Caching methods 
+4. **ResultAggregator** - Result methods 
+5. **ConfigurationManager** - Config methods 
+6. **ReportGenerator** - Reporting methods 
 
-### 🏆 Stage Results
+###  Stage Results
 ${result.stages.map((stage: any) =>
-    `- Stage ${stage.stageNumber}: ${stage.stageName} - ✅ PASSED (${stage.duration}ms)`
+    `- Stage ${stage.stageNumber}: ${stage.stageName} -  PASSED (${stage.duration}ms)`
 ).join('\\n')}
 
-### 🛡️ NASA Power of Ten Compliance
+###  NASA Power of Ten Compliance
 ${Object.keys(result.nasaCompliance).filter(k => k !== 'overall').map((rule: string) =>
-    `- ${rule.toUpperCase()}: ${result.nasaCompliance[rule] ? '✅ PASS' : '❌ FAIL'}`
+    `- ${rule.toUpperCase()}: ${result.nasaCompliance[rule] ? ' PASS' : ' FAIL'}`
 ).join('\\n')}
 
-### 📊 Quality Metrics
+###  Quality Metrics
 - **God Objects Eliminated:** 1 (UnifiedConnascenceAnalyzer)
 - **Methods Per Class:** <18 (down from 97)
 - **Lines Per Function:** <60 (NASA Rule 4)
-- **Assertions Per Function:** ≥2 (NASA Rule 5)
+- **Assertions Per Function:** 2 (NASA Rule 5)
 - **Zero Regressions:** Confirmed
 - **Theater Score:** 0% (no mocks/stubs)
 
-### 🚀 Production Ready
+###  Production Ready
 This refactoring is now ready for production deployment with full NASA POT10 compliance.
                 `,
                 labels: ['success', 'god-object-remediation', 'nasa-compliant', 'production-ready'],
@@ -251,7 +251,7 @@ This refactoring is now ready for production deployment with full NASA POT10 com
                 await (globalThis as any).mcp__github__create_issue(issue);
             }
 
-            console.log('✅ Success issue created');
+            console.log(' Success issue created');
 
         } catch (error) {
             console.warn('Failed to create success issue:', error);
@@ -263,7 +263,7 @@ This refactoring is now ready for production deployment with full NASA POT10 com
      * NASA Rule 4: <60 lines
      */
     private async updateProjectBoard(result: any): Promise<void> {
-        console.log('\\n📊 Updating GitHub Project Board');
+        console.log('\\n Updating GitHub Project Board');
 
         try {
             // Update project board via GitHub Project Manager MCP
@@ -308,7 +308,7 @@ This refactoring is now ready for production deployment with full NASA POT10 com
                 });
             }
 
-            console.log('✅ Project board updated successfully');
+            console.log(' Project board updated successfully');
 
         } catch (error) {
             console.warn('Project board update failed:', error);
@@ -320,33 +320,33 @@ This refactoring is now ready for production deployment with full NASA POT10 com
      * NASA Rule 4: <60 lines
      */
     private printFinalReport(result: any): void {
-        console.log('\\n\\n🏁 FINAL REFACTORING REPORT');
+        console.log('\\n\\n FINAL REFACTORING REPORT');
         console.log('============================');
 
         if (result.success) {
-            console.log('🎉 STATUS: SUCCESS - God Object Eliminated!');
-            console.log(`🏆 Quality Score: ${result.summary.qualityScore}%`);
-            console.log(`🛡️ NASA Compliance: ${result.nasaCompliance.overall}%`);
-            console.log('✅ Ready for Production Deployment');
+            console.log(' STATUS: SUCCESS - God Object Eliminated!');
+            console.log(` Quality Score: ${result.summary.qualityScore}%`);
+            console.log(` NASA Compliance: ${result.nasaCompliance.overall}%`);
+            console.log(' Ready for Production Deployment');
         } else {
-            console.log('❌ STATUS: FAILED - Additional Work Required');
-            console.log(`📊 Progress: ${result.summary.passedStages}/${result.summary.totalStages} stages`);
-            console.log('🔧 Check GitHub issues for required actions');
+            console.log(' STATUS: FAILED - Additional Work Required');
+            console.log(` Progress: ${result.summary.passedStages}/${result.summary.totalStages} stages`);
+            console.log(' Check GitHub issues for required actions');
         }
 
-        console.log('\\n📋 Summary:');
-        console.log(`   • Original God Object: UnifiedConnascenceAnalyzer (97 methods)`);
-        console.log(`   • Refactored Classes: 6 specialized classes`);
-        console.log(`   • Average Methods/Class: ${Math.round(97/6)}`);
-        console.log(`   • NASA Rules Applied: All 10 rules`);
-        console.log(`   • Validation Stages: 9 comprehensive stages`);
-        console.log(`   • Total Duration: ${result.summary.totalDuration}ms`);
+        console.log('\\n Summary:');
+        console.log(`    Original God Object: UnifiedConnascenceAnalyzer (97 methods)`);
+        console.log(`    Refactored Classes: 6 specialized classes`);
+        console.log(`    Average Methods/Class: ${Math.round(97/6)}`);
+        console.log(`    NASA Rules Applied: All 10 rules`);
+        console.log(`    Validation Stages: 9 comprehensive stages`);
+        console.log(`    Total Duration: ${result.summary.totalDuration}ms`);
 
-        console.log('\\n🔗 Integration:');
-        console.log('   • GitHub Epic: Created');
-        console.log('   • GitHub Issues: Created for tracking');
-        console.log('   • Project Board: Updated');
-        console.log('   • Memory Storage: Cross-session persistence');
+        console.log('\\n Integration:');
+        console.log('    GitHub Epic: Created');
+        console.log('    GitHub Issues: Created for tracking');
+        console.log('    Project Board: Updated');
+        console.log('    Memory Storage: Cross-session persistence');
 
         console.log('\\n============================');
         console.log('God Object Remediation Complete');

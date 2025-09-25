@@ -5,14 +5,14 @@ Detects performance theater patterns and fake work in codebases.
 This module ironically was missing, creating the ultimate theater pattern!
 """
 
+from .analyzer import TheaterAnalyzer
 from .core import TheaterDetector, TheaterPattern, RealityValidationResult
 from .patterns import (
     TestTheaterDetector,
-    DocumentationTheaterDetector, 
+    DocumentationTheaterDetector,
     MetricsTheaterDetector,
     QualityTheaterDetector
 )
-from .analyzer import TheaterAnalyzer
 from .validation import RealityValidator
 
 __all__ = [

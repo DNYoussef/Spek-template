@@ -1,7 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Connascence Classifier - Intelligent Type Classification
-=======================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Advanced classifier implementing 12 methods for precise connascence type
 identification and severity assessment. NASA Power of Ten compliant.
@@ -20,7 +17,6 @@ from .interfaces import (
 
 logger = logging.getLogger(__name__)
 
-
 class ConnascenceClassifier(ConnascenceClassifierInterface):
     """
     Intelligent connascence type classifier with machine learning-inspired rules.
@@ -29,7 +25,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
     Implements comprehensive classification rules based on empirical analysis.
     """
 
-    def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
+def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
         """
         Initialize classifier with configuration and classification rules.
 
@@ -47,7 +43,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
             'CoT': 2,   # Connascence of Type
             'CoM': 3,   # Connascence of Meaning
             'CoP': 4,   # Connascence of Position
-            'CoA': 5,   # Connascence of Algorithm
+            'CoA': MAXIMUM_NESTED_DEPTH,   # Connascence of Algorithm
             'CoV': 6,   # Connascence of Value
             'CoI': 7,   # Connascence of Identity
             'CoE': 8,   # Connascence of Execution (strongest)
@@ -63,7 +59,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
             'low': 0.4
         }
 
-    def classify_violation(self, violation: ConnascenceViolation) -> ConnascenceViolation:
+def classify_violation(self, violation: ConnascenceViolation) -> ConnascenceViolation:
         """
         Main classification entry point - enhances violation with type information.
 
@@ -93,11 +89,11 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
             logger.error(f"Classification failed for violation: {e}")
             return violation
 
-    def get_severity_mapping(self) -> Dict[str, str]:
+def get_severity_mapping(self) -> Dict[str, str]:
         """Get connascence type to severity mapping."""
         return self.severity_mapping.copy()
 
-    def _determine_connascence_type(self, violation: ConnascenceViolation) -> str:
+def _determine_connascence_type(self, violation: ConnascenceViolation) -> str:
         """
         Determine connascence type using intelligent pattern matching.
 
@@ -128,7 +124,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
         # Advanced pattern analysis
         return self._classify_by_patterns(violation)
 
-    def _classify_magic_literal(self, violation: ConnascenceViolation) -> str:
+def _classify_magic_literal(self, violation: ConnascenceViolation) -> str:
         """
         Classify magic literal violations with nuanced analysis.
         """
@@ -144,7 +140,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
         else:
             return 'CoM'  # Default for magic literals
 
-    def _classify_by_patterns(self, violation: ConnascenceViolation) -> str:
+def _classify_by_patterns(self, violation: ConnascenceViolation) -> str:
         """
         Classify violations using advanced pattern analysis.
         """
@@ -159,7 +155,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
         # Default classification based on severity
         return self._classify_by_severity_heuristic(violation)
 
-    def _classify_by_severity_heuristic(self, violation: ConnascenceViolation) -> str:
+def _classify_by_severity_heuristic(self, violation: ConnascenceViolation) -> str:
         """
         Fallback classification using severity heuristics.
         """
@@ -172,7 +168,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
 
         return severity_map.get(violation.severity, 'CoM')
 
-    def _refine_severity(self, violation: ConnascenceViolation) -> str:
+def _refine_severity(self, violation: ConnascenceViolation) -> str:
         """
         Refine severity based on connascence type and context.
 
@@ -190,7 +186,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
 
         return adjusted_severity
 
-    def _adjust_severity_by_context(self, violation: ConnascenceViolation, base_severity: str) -> str:
+def _adjust_severity_by_context(self, violation: ConnascenceViolation, base_severity: str) -> str:
         """
         Adjust severity based on violation context and patterns.
         """
@@ -211,7 +207,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
 
         return severity_levels[current_index]
 
-    def _calculate_violation_weight(self, violation: ConnascenceViolation) -> float:
+def _calculate_violation_weight(self, violation: ConnascenceViolation) -> float:
         """
         Calculate violation weight based on type, severity, and context.
 
@@ -241,7 +237,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
         # Ensure reasonable bounds
         return max(1.0, min(final_weight, 10.0))
 
-    def _calculate_context_multiplier(self, violation: ConnascenceViolation) -> float:
+def _calculate_context_multiplier(self, violation: ConnascenceViolation) -> float:
         """
         Calculate context-based weight multiplier.
         """
@@ -262,7 +258,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
 
         return multiplier
 
-    def _determine_nasa_rule(self, violation: ConnascenceViolation) -> str:
+def _determine_nasa_rule(self, violation: ConnascenceViolation) -> str:
         """
         Determine appropriate NASA Power of Ten rule mapping.
         """
@@ -283,7 +279,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
         else:
             return 'Rule 1'  # General code simplicity
 
-    def _initialize_classification_patterns(self) -> Dict[str, List[re.Pattern]]:
+def _initialize_classification_patterns(self) -> Dict[str, List[re.Pattern]]:
         """
         Initialize compiled regex patterns for classification.
 
@@ -324,7 +320,7 @@ class ConnascenceClassifier(ConnascenceClassifierInterface):
             ]
         }
 
-    def _initialize_severity_mapping(self) -> Dict[str, str]:
+def _initialize_severity_mapping(self) -> Dict[str, str]:
         """
         Initialize connascence type to default severity mapping.
 

@@ -1,5 +1,4 @@
-"""
-Comprehensive Integration Tests for Enterprise Analyzer Integration
+from src.constants.base import TAKE_PROFIT_PERCENTAGE
 
 Tests all functionality of the enterprise analyzer integration including:
 - Non-breaking wrapper creation for existing analyzers
@@ -28,7 +27,6 @@ from enterprise.security.supply_chain import SupplyChainSecurity
 from enterprise.compliance.matrix import ComplianceMatrix, ComplianceFramework
 from enterprise.flags.feature_flags import flag_manager, FlagStatus
 
-
 # Mock analyzer classes for testing
 class MockSimpleAnalyzer:
     """Mock analyzer with basic analyze method"""
@@ -41,7 +39,6 @@ class MockSimpleAnalyzer:
         """Simple synchronous analyze method"""
         self.call_count += 1
         return {"result": f"analyzed_{data}", "status": "success"}
-
 
 class MockAsyncAnalyzer:
     """Mock analyzer with async analyze method"""
@@ -56,7 +53,6 @@ class MockAsyncAnalyzer:
         self.call_count += 1
         return {"result": f"async_analyzed_{data}", "status": "success"}
 
-
 class MockFailingAnalyzer:
     """Mock analyzer that fails for testing error handling"""
     
@@ -66,7 +62,6 @@ class MockFailingAnalyzer:
     def analyze(self, data):
         """Analyzer that always fails"""
         raise Exception("Simulated analysis failure")
-
 
 class MockComplexAnalyzer:
     """Mock analyzer with complex functionality for comprehensive testing"""
@@ -91,7 +86,6 @@ class MockComplexAnalyzer:
             "timestamp": self.last_analysis_time.isoformat(),
             "complexity_score": 0.85
         }
-
 
 class TestEnterpriseAnalyzerIntegration:
     """Test basic enterprise analyzer integration functionality"""
@@ -134,7 +128,6 @@ class TestEnterpriseAnalyzerIntegration:
         assert integration.existing_analyzers == existing_analyzers
         assert "simple" in integration.existing_analyzers
         assert "async" in integration.existing_analyzers
-
 
 class TestAnalyzerWrapping:
     """Test analyzer wrapping functionality"""
@@ -237,7 +230,7 @@ class TestAnalyzerWrapping:
         
         # Test security analysis (mock the supply chain report)
         with patch.object(self.integration.supply_chain, 'generate_comprehensive_security_report', 
-                         new_callable=AsyncMock) as mock_security:
+                        new_callable=AsyncMock) as mock_security:
             mock_security.return_value = Mock(
                 security_level=Mock(value="high"),
                 risk_score=0.2,
@@ -260,7 +253,6 @@ class TestAnalyzerWrapping:
         assert 'dpmo' in quality_metrics
         assert 'rty' in quality_metrics
         assert 'sigma_level' in quality_metrics
-
 
 class TestHookSystem:
     """Test the enterprise hook system"""
@@ -358,7 +350,6 @@ class TestHookSystem:
             
         asyncio.run(test_analysis())
 
-
 class TestUnifiedAnalysisInterface:
     """Test the unified analysis interface"""
     
@@ -381,10 +372,10 @@ class TestUnifiedAnalysisInterface:
         
         # Mock security report for security analysis
         with patch.object(self.integration.supply_chain, 'generate_comprehensive_security_report',
-                         new_callable=AsyncMock) as mock_security:
+                        new_callable=AsyncMock) as mock_security:
             mock_security.return_value = Mock(
                 security_level=Mock(value="high"),
-                risk_score=0.15,
+                risk_score=TAKE_PROFIT_PERCENTAGE,
                 vulnerabilities_found=0,
                 sbom_generated=True,
                 slsa_level=Mock(value="level3"),
@@ -472,7 +463,6 @@ class TestUnifiedAnalysisInterface:
                 "nonexistent",
                 "test_data"
             )
-
 
 class TestIntegrationStatus:
     """Test integration status and reporting"""
@@ -592,7 +582,6 @@ class TestIntegrationStatus:
             if output_file.exists():
                 output_file.unlink()
 
-
 class TestNonBreakingIntegration:
     """Test non-breaking integration capabilities"""
     
@@ -654,7 +643,6 @@ class TestNonBreakingIntegration:
             
         # Should complete without crashing, but no analyzers wrapped
         assert len(integration.wrapped_analyzers) == 0
-
 
 class TestPerformanceAndConcurrency:
     """Test performance and concurrency aspects"""
@@ -772,7 +760,6 @@ class TestPerformanceAndConcurrency:
         
         # All hook calls should have completed
         assert len(hook_calls) == 50
-
 
 class TestErrorHandlingAndEdgeCases:
     """Test error handling and edge cases"""
@@ -930,7 +917,6 @@ class TestErrorHandlingAndEdgeCases:
         # All analyses should complete successfully despite flag changes
         successful_results = [r for r in results if isinstance(r, dict)]
         assert len(successful_results) == 10
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

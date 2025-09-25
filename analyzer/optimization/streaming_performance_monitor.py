@@ -9,14 +9,14 @@ during streaming operations.
 NASA Rule 7 Compliant: Bounded resource usage with automatic cleanup.
 """
 
-import time
-import logging
-from threading import Lock
-from dataclasses import dataclass, field
 from typing import Dict, Any, List, Optional, Callable
+import logging
+import time
+
+from dataclasses import dataclass, field
+from threading import Lock
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class StreamingMetrics:
@@ -36,8 +36,7 @@ class StreamingMetrics:
     analysis_latency_ms: List[float] = field(default_factory=list)
     throughput_files_per_second: float = 0.0
 
-
-@dataclass 
+@dataclass
 class StreamingSessionStats:
     """Complete streaming session statistics."""
     session_id: str
@@ -50,7 +49,6 @@ class StreamingSessionStats:
     error_count: int = 0
     warnings_count: int = 0
     cache_efficiency_percent: float = 0.0
-
 
 class StreamingPerformanceMonitor:
     """
@@ -65,9 +63,9 @@ class StreamingPerformanceMonitor:
     - Session-based statistics aggregation
     """
     
-    def __init__(self, 
-                 max_metrics_history: int = 1000,
-                 memory_sample_interval: float = 1.0):
+def __init__(self,
+                max_metrics_history: int = 1000,
+                memory_sample_interval: float = 1.0):
         """
         Initialize streaming performance monitor.
         
@@ -103,7 +101,7 @@ class StreamingPerformanceMonitor:
         
         logger.info(f"StreamingPerformanceMonitor initialized with {max_metrics_history} sample history")
     
-    def start_session(self, session_id: str, watched_files: int = 0) -> None:
+def start_session(self, session_id: str, watched_files: int = 0) -> None:
         """Start a new streaming analysis session."""
         with self._lock:
             session = StreamingSessionStats(
@@ -119,7 +117,7 @@ class StreamingPerformanceMonitor:
             
             logger.info(f"Started streaming session {session_id} with {watched_files} watched files")
     
-    def end_session(self, session_id: str) -> StreamingSessionStats:
+def end_session(self, session_id: str) -> StreamingSessionStats:
         """End streaming session and return final stats."""
         with self._lock:
             if session_id not in self.active_sessions:
@@ -144,7 +142,7 @@ class StreamingPerformanceMonitor:
             logger.info(f"Ended streaming session {session_id}")
             return session
     
-    def record_file_event(self, event_type: str, file_path: str, processing_time_ms: float) -> None:
+def record_file_event(self, event_type: str, file_path: str, processing_time_ms: float) -> None:
         """Record a file change event and processing time."""
         with self._lock:
             current_time = time.time()
@@ -168,7 +166,7 @@ class StreamingPerformanceMonitor:
             # Notify callbacks
             self._notify_event_callbacks(event_type, file_path, processing_time_ms)
     
-    def record_cache_operation(self, hit: bool, operation_type: str = "file_content") -> None:
+def record_cache_operation(self, hit: bool, operation_type: str = "file_content") -> None:
         """Record cache hit or miss."""
         with self._lock:
             if hit:
@@ -176,7 +174,7 @@ class StreamingPerformanceMonitor:
             else:
                 self.current_metrics.cache_misses += 1
     
-    def record_memory_sample(self, memory_mb: float) -> None:
+def record_memory_sample(self, memory_mb: float) -> None:
         """Record memory usage sample."""
         with self._lock:
             timestamp = time.time()
@@ -193,14 +191,14 @@ class StreamingPerformanceMonitor:
             # Store sample for analysis
             self.memory_samples.append((timestamp, memory_mb))
     
-    def record_queue_metrics(self, queue_depth: int, backpressure: bool = False) -> None:
+def record_queue_metrics(self, queue_depth: int, backpressure: bool = False) -> None:
         """Record queue depth and backpressure events."""
         with self._lock:
             self.current_metrics.queue_depth = queue_depth
             if backpressure:
                 self.current_metrics.backpressure_events += 1
     
-    def record_debounce_delay(self, delay_ms: float) -> None:
+def record_debounce_delay(self, delay_ms: float) -> None:
         """Record debounce delay for file change events."""
         with self._lock:
             self.current_metrics.debounce_delays_ms.append(delay_ms)
@@ -209,7 +207,7 @@ class StreamingPerformanceMonitor:
             if len(self.current_metrics.debounce_delays_ms) > 200:
                 self.current_metrics.debounce_delays_ms = self.current_metrics.debounce_delays_ms[-150:]
     
-    def get_current_metrics(self) -> StreamingMetrics:
+def get_current_metrics(self) -> StreamingMetrics:
         """Get current streaming metrics snapshot."""
         with self._lock:
             # Create deep copy to avoid race conditions
@@ -229,7 +227,7 @@ class StreamingPerformanceMonitor:
             
             return metrics
     
-    def get_performance_report(self) -> Dict[str, Any]:
+def get_performance_report(self) -> Dict[str, Any]:
         """Generate comprehensive performance report."""
         with self._lock:
             metrics = self.get_current_metrics()
@@ -266,11 +264,11 @@ class StreamingPerformanceMonitor:
             
             return report
     
-    def add_event_callback(self, callback: Callable[[str, str, float], None]) -> None:
+def add_event_callback(self, callback: Callable[[str, str, float], None]) -> None:
         """Add callback for real-time event notifications."""
         self.event_callbacks.append(callback)
     
-    def _update_throughput(self) -> None:
+def _update_throughput(self) -> None:
         """Update throughput calculation based on recent events."""
         if len(self.current_metrics.analysis_latency_ms) < 10:
             return
@@ -283,26 +281,26 @@ class StreamingPerformanceMonitor:
         if recent_events:
             self.current_metrics.throughput_files_per_second = len(recent_events) / 60.0
     
-    def _calculate_cache_hit_rate(self) -> float:
+def _calculate_cache_hit_rate(self) -> float:
         """Calculate cache hit rate percentage."""
         total_ops = self.current_metrics.cache_hits + self.current_metrics.cache_misses
         if total_ops == 0:
             return 0.0
         return (self.current_metrics.cache_hits / total_ops) * 100.0
     
-    def _calculate_average_latency(self) -> float:
+def _calculate_average_latency(self) -> float:
         """Calculate average analysis latency."""
         if not self.current_metrics.analysis_latency_ms:
             return 0.0
         return sum(self.current_metrics.analysis_latency_ms) / len(self.current_metrics.analysis_latency_ms)
     
-    def _calculate_average_debounce(self) -> float:
+def _calculate_average_debounce(self) -> float:
         """Calculate average debounce delay."""
         if not self.current_metrics.debounce_delays_ms:
             return 0.0
         return sum(self.current_metrics.debounce_delays_ms) / len(self.current_metrics.debounce_delays_ms)
     
-    def _calculate_p95_latency(self) -> float:
+def _calculate_p95_latency(self) -> float:
         """Calculate 95th percentile latency."""
         if not self.current_metrics.analysis_latency_ms:
             return 0.0
@@ -310,7 +308,7 @@ class StreamingPerformanceMonitor:
         p95_index = int(len(sorted_latencies) * 0.95)
         return sorted_latencies[p95_index] if p95_index < len(sorted_latencies) else sorted_latencies[-1]
     
-    def _notify_event_callbacks(self, event_type: str, file_path: str, processing_time_ms: float) -> None:
+def _notify_event_callbacks(self, event_type: str, file_path: str, processing_time_ms: float) -> None:
         """Notify registered callbacks of events."""
         for callback in self.event_callbacks:
             try:
@@ -318,11 +316,9 @@ class StreamingPerformanceMonitor:
             except Exception as e:
                 logger.warning(f"Event callback failed: {e}")
 
-
 # Global streaming performance monitor instance
 _global_streaming_monitor: Optional[StreamingPerformanceMonitor] = None
 _monitor_lock = Lock()
-
 
 def get_global_streaming_monitor() -> StreamingPerformanceMonitor:
     """Get or create global streaming performance monitor."""
@@ -332,24 +328,20 @@ def get_global_streaming_monitor() -> StreamingPerformanceMonitor:
             _global_streaming_monitor = StreamingPerformanceMonitor()
         return _global_streaming_monitor
 
-
 def start_streaming_monitoring(session_id: str, watched_files: int = 0) -> None:
     """Start global streaming monitoring session."""
     monitor = get_global_streaming_monitor()
     monitor.start_session(session_id, watched_files)
-
 
 def stop_streaming_monitoring(session_id: str) -> StreamingSessionStats:
     """Stop global streaming monitoring session."""
     monitor = get_global_streaming_monitor()
     return monitor.end_session(session_id)
 
-
 def record_streaming_event(event_type: str, file_path: str, processing_time_ms: float) -> None:
     """Record streaming event in global monitor."""
     monitor = get_global_streaming_monitor()
     monitor.record_file_event(event_type, file_path, processing_time_ms)
-
 
 def get_streaming_performance_report() -> Dict[str, Any]:
     """Get global streaming performance report."""

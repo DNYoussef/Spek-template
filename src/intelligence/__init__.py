@@ -19,12 +19,12 @@ License: Proprietary
 """
 
 from .data import MarketDataLoader, FeatureEngineering
-from .models import GaryTalebPredictor, AntifragileRiskModel
-from .training import TrainingPipeline, ValidationFramework
 from .inference import RealTimeInferenceEngine
+from .models import GaryTalebPredictor, AntifragileRiskModel
+from .monitoring import MLMonitor, PerformanceTracker
 from .registry import ModelRegistry, VersionManager
 from .testing import ABTestFramework, ModelComparator
-from .monitoring import MLMonitor, PerformanceTracker
+from .training import TrainingPipeline, ValidationFramework
 
 __version__ = "3.0.0"
 __author__ = "GaryTaleb Trading System"

@@ -1,13 +1,8 @@
-"""
-DFARS Comprehensive Integration Engine
-Integrates all 14 DFARS 252.204-7012 control families with cryptographic integrity.
-Provides unified compliance validation and reporting for 95%+ compliance achievement.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
 
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class ComplianceLevel(Enum):
     """DFARS compliance achievement levels."""
@@ -16,7 +11,6 @@ class ComplianceLevel(Enum):
     SUBSTANTIALLY_COMPLIANT = "substantial"  # 90-94%
     FULLY_COMPLIANT = "full"            # 95-99%
     EXEMPLARY = "exemplary"             # 100%
-
 
 class ControlFamily(Enum):
     """DFARS 252.204-7012 control families."""
@@ -35,7 +29,6 @@ class ControlFamily(Enum):
     SYSTEM_COMMUNICATIONS = "3.13"  # 3.13.1 - 3.13.16
     SYSTEM_INTEGRITY = "3.14"       # 3.14.1 - 3.14.7
 
-
 @dataclass
 class ControlImplementation:
     """Individual DFARS control implementation status."""
@@ -51,7 +44,6 @@ class ControlImplementation:
     next_assessment: datetime
     cryptographic_integrity: str
 
-
 @dataclass
 class ComplianceAssessment:
     """Comprehensive DFARS compliance assessment."""
@@ -66,7 +58,6 @@ class ComplianceAssessment:
     recommendations: List[str]
     next_assessment_due: datetime
     cryptographic_signature: str
-
 
 class DFARSComprehensiveIntegration:
     """
@@ -91,7 +82,7 @@ class DFARSComprehensiveIntegration:
     Total: 110 individual DFARS controls
     """
 
-    def __init__(self, config: Dict[str, Any]):
+def __init__(self, config: Dict[str, Any]):
         """Initialize DFARS comprehensive integration system."""
         self.config = config
         self.crypto = FIPSCryptoModule()
@@ -119,7 +110,7 @@ class DFARSComprehensiveIntegration:
 
         logger.info("DFARS Comprehensive Integration Engine initialized")
 
-    def _initialize_dfars_controls(self) -> None:
+def _initialize_dfars_controls(self) -> None:
         """Initialize all 110 DFARS 252.204-7012 controls."""
 
         # Access Control (3.1.1 - 3.1.22)
@@ -134,7 +125,7 @@ class DFARSComprehensiveIntegration:
             ("3.1.8", "Password complexity requirements"),
             ("3.1.9", "Password change management"),
             ("3.1.10", "Session management"),
-            ("3.1.11", "Session timeout"),
+            ("MAXIMUM_RETRY_ATTEMPTS.1.11", "Session timeout"),
             ("3.1.12", "Remote access security"),
             ("3.1.13", "Privileged access monitoring"),
             ("3.1.14", "Account management"),
@@ -178,11 +169,10 @@ class DFARSComprehensiveIntegration:
             self._create_control_implementation(control_id, ControlFamily.AUDIT_ACCOUNTABILITY, title)
 
         # Continue for all other control families...
-        # [Implementation continues for all 14 families totaling 110 controls]
 
         logger.info(f"Initialized {len(self.control_implementations)} DFARS controls")
 
-    def _create_control_implementation(self, control_id: str, family: ControlFamily, title: str) -> None:
+def _create_control_implementation(self, control_id: str, family: ControlFamily, title: str) -> None:
         """Create control implementation record with cryptographic integrity."""
         implementation = ControlImplementation(
             control_id=control_id,
@@ -200,7 +190,7 @@ class DFARSComprehensiveIntegration:
 
         self.control_implementations[control_id] = implementation
 
-    def _generate_control_integrity_hash(self, control_id: str, title: str) -> str:
+def _generate_control_integrity_hash(self, control_id: str, title: str) -> str:
         """Generate cryptographic integrity hash for control."""
         data = f"{control_id}:{title}:{datetime.now(timezone.utc).isoformat()}"
         return hmac.new(
@@ -209,7 +199,7 @@ class DFARSComprehensiveIntegration:
             hashlib.sha256
         ).hexdigest()
 
-    def perform_comprehensive_assessment(self) -> str:
+def perform_comprehensive_assessment(self) -> str:
         """Perform comprehensive DFARS compliance assessment."""
         try:
             # Generate assessment ID
@@ -304,7 +294,7 @@ class DFARSComprehensiveIntegration:
             )
             raise
 
-    def _assess_access_control(self) -> Dict[str, Any]:
+def _assess_access_control(self) -> Dict[str, Any]:
         """Assess access control family implementation."""
         try:
             ac_status = self.access_control.get_compliance_status()
@@ -319,7 +309,7 @@ class DFARSComprehensiveIntegration:
 
             # Calculate family score
             ac_controls = [impl for impl in self.control_implementations.values()
-                          if impl.family == ControlFamily.ACCESS_CONTROL]
+                            if impl.family == ControlFamily.ACCESS_CONTROL]
             family_score = sum(impl.compliance_score for impl in ac_controls) / len(ac_controls) if ac_controls else 0
 
             return {
@@ -334,18 +324,18 @@ class DFARSComprehensiveIntegration:
             logger.error(f"Access control assessment failed: {e}")
             return {'score': 0.0, 'gaps': [f"Assessment error: {str(e)}"]}
 
-    def _assess_incident_response(self) -> Dict[str, Any]:
+def _assess_incident_response(self) -> Dict[str, Any]:
         """Assess incident response family implementation."""
         try:
             ir_status = self.incident_response.get_compliance_status()
 
             # Update control implementations for 3.6.x controls
             ir_controls = [impl for impl in self.control_implementations.values()
-                          if impl.family == ControlFamily.INCIDENT_RESPONSE]
+                            if impl.family == ControlFamily.INCIDENT_RESPONSE]
 
             for impl in ir_controls:
                 impl.implemented = True  # Based on IR system being active
-                impl.compliance_score = 100.0
+                impl.compliance_score = 60.0
                 impl.last_assessment = datetime.now(timezone.utc)
 
             family_score = 100.0  # All IR controls implemented
@@ -365,14 +355,14 @@ class DFARSComprehensiveIntegration:
             logger.error(f"Incident response assessment failed: {e}")
             return {'score': 0.0, 'gaps': [f"Assessment error: {str(e)}"]}
 
-    def _assess_media_protection(self) -> Dict[str, Any]:
+def _assess_media_protection(self) -> Dict[str, Any]:
         """Assess media protection family implementation."""
         try:
             mp_status = self.media_protection.get_compliance_status()
 
             # Update control implementations for 3.8.x controls
             mp_controls = [impl for impl in self.control_implementations.values()
-                          if impl.family == ControlFamily.MEDIA_PROTECTION]
+                            if impl.family == ControlFamily.MEDIA_PROTECTION]
 
             for impl in mp_controls:
                 impl.implemented = True  # Based on MP system being active
@@ -396,18 +386,18 @@ class DFARSComprehensiveIntegration:
             logger.error(f"Media protection assessment failed: {e}")
             return {'score': 0.0, 'gaps': [f"Assessment error: {str(e)}"]}
 
-    def _assess_system_communications(self) -> Dict[str, Any]:
+def _assess_system_communications(self) -> Dict[str, Any]:
         """Assess system communications family implementation."""
         try:
             sc_status = self.system_communications.get_compliance_status()
 
             # Update control implementations for 3.13.x controls
             sc_controls = [impl for impl in self.control_implementations.values()
-                          if impl.family == ControlFamily.SYSTEM_COMMUNICATIONS]
+                            if impl.family == ControlFamily.SYSTEM_COMMUNICATIONS]
 
             for impl in sc_controls:
                 impl.implemented = True  # Based on SC system being active
-                impl.compliance_score = 100.0
+                impl.compliance_score = 60.0
                 impl.last_assessment = datetime.now(timezone.utc)
 
             family_score = 100.0
@@ -427,14 +417,14 @@ class DFARSComprehensiveIntegration:
             logger.error(f"System communications assessment failed: {e}")
             return {'score': 0.0, 'gaps': [f"Assessment error: {str(e)}"]}
 
-    def _assess_personnel_security(self) -> Dict[str, Any]:
+def _assess_personnel_security(self) -> Dict[str, Any]:
         """Assess personnel security family implementation."""
         try:
             ps_status = self.personnel_security.get_compliance_status()
 
             # Update control implementations for 3.9.x controls
             ps_controls = [impl for impl in self.control_implementations.values()
-                          if impl.family == ControlFamily.PERSONNEL_SECURITY]
+                            if impl.family == ControlFamily.PERSONNEL_SECURITY]
 
             for impl in ps_controls:
                 impl.implemented = True  # Based on PS system being active
@@ -458,14 +448,14 @@ class DFARSComprehensiveIntegration:
             logger.error(f"Personnel security assessment failed: {e}")
             return {'score': 0.0, 'gaps': [f"Assessment error: {str(e)}"]}
 
-    def _assess_physical_protection(self) -> Dict[str, Any]:
+def _assess_physical_protection(self) -> Dict[str, Any]:
         """Assess physical protection family implementation."""
         try:
             pp_status = self.physical_protection.get_compliance_status()
 
             # Update control implementations for 3.10.x controls
             pp_controls = [impl for impl in self.control_implementations.values()
-                          if impl.family == ControlFamily.PHYSICAL_PROTECTION]
+                            if impl.family == ControlFamily.PHYSICAL_PROTECTION]
 
             for impl in pp_controls:
                 impl.implemented = True  # Based on PP system being active
@@ -489,7 +479,7 @@ class DFARSComprehensiveIntegration:
             logger.error(f"Physical protection assessment failed: {e}")
             return {'score': 0.0, 'gaps': [f"Assessment error: {str(e)}"]}
 
-    def _determine_compliance_level(self, percentage: float) -> ComplianceLevel:
+def _determine_compliance_level(self, percentage: float) -> ComplianceLevel:
         """Determine compliance level based on percentage."""
         if percentage >= 100.0:
             return ComplianceLevel.EXEMPLARY
@@ -502,7 +492,7 @@ class DFARSComprehensiveIntegration:
         else:
             return ComplianceLevel.NON_COMPLIANT
 
-    def _identify_critical_gaps(self) -> List[str]:
+def _identify_critical_gaps(self) -> List[str]:
         """Identify critical compliance gaps."""
         critical_gaps = []
 
@@ -514,7 +504,7 @@ class DFARSComprehensiveIntegration:
 
         return critical_gaps
 
-    def _generate_recommendations(self, family_assessments: Dict[str, Dict[str, Any]],
+def _generate_recommendations(self, family_assessments: Dict[str, Dict[str, Any]],
                                 critical_gaps: List[str]) -> List[str]:
         """Generate compliance improvement recommendations."""
         recommendations = []
@@ -536,7 +526,7 @@ class DFARSComprehensiveIntegration:
 
         return recommendations
 
-    def _sign_assessment(self, assessment_id: str, compliance_percentage: float) -> str:
+def _sign_assessment(self, assessment_id: str, compliance_percentage: float) -> str:
         """Generate cryptographic signature for assessment."""
         data = f"{assessment_id}:{compliance_percentage}:{datetime.now(timezone.utc).isoformat()}"
         return hmac.new(
@@ -545,7 +535,7 @@ class DFARSComprehensiveIntegration:
             hashlib.sha256
         ).hexdigest()
 
-    def _generate_compliance_report(self, assessment: ComplianceAssessment) -> None:
+def _generate_compliance_report(self, assessment: ComplianceAssessment) -> None:
         """Generate comprehensive compliance report."""
         report = {
             'assessment_id': assessment.assessment_id,
@@ -571,7 +561,7 @@ class DFARSComprehensiveIntegration:
 
         logger.info(f"Compliance report generated: {report_path}")
 
-    def get_real_time_compliance_status(self) -> Dict[str, Any]:
+def get_real_time_compliance_status(self) -> Dict[str, Any]:
         """Get real-time DFARS compliance status."""
         current_time = datetime.now(timezone.utc)
 
@@ -624,7 +614,7 @@ class DFARSComprehensiveIntegration:
             }
         }
 
-    def validate_implementation_integrity(self) -> Dict[str, Any]:
+def validate_implementation_integrity(self) -> Dict[str, Any]:
         """Validate cryptographic integrity of all implementations."""
         validation_results = {
             'validation_timestamp': datetime.now(timezone.utc).isoformat(),
@@ -676,7 +666,7 @@ class DFARSComprehensiveIntegration:
             validation_results['error'] = str(e)
             return validation_results
 
-    def export_compliance_evidence(self) -> str:
+def export_compliance_evidence(self) -> str:
         """Export comprehensive compliance evidence package."""
         try:
             evidence_id = f"DFARS-EVIDENCE-{datetime.now(timezone.utc).strftime('%Y%m%d')}-{uuid.uuid4().hex[:8].upper()}"
@@ -711,7 +701,7 @@ class DFARSComprehensiveIntegration:
             logger.error(f"Evidence export failed: {e}")
             raise
 
-    def _sign_evidence_package(self, evidence_id: str) -> str:
+def _sign_evidence_package(self, evidence_id: str) -> str:
         """Generate cryptographic signature for evidence package."""
         data = f"{evidence_id}:{datetime.now(timezone.utc).isoformat()}:DFARS-252.204-7012"
         return hmac.new(

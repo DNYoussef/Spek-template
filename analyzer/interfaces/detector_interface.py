@@ -6,13 +6,13 @@ Standardized interfaces that reduce coupling between detector components
 and ensure consistent method signatures across all detectors.
 """
 
-import ast
-from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional, Protocol
+import ast
+
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 from utils.types import ConnascenceViolation
-
 
 @dataclass  
 class AnalysisContext:
@@ -31,7 +31,6 @@ class AnalysisContext:
             self.options = {}
         if self.metadata is None:
             self.metadata = {}
-
 
 @dataclass
 class DetectorResult:
@@ -67,7 +66,6 @@ class DetectorResult:
         """Get total violation count."""
         return len(self.violations)
 
-
 class DetectorProtocol(Protocol):
     """
     Protocol that defines the standard detector interface.
@@ -82,7 +80,6 @@ class DetectorProtocol(Protocol):
     def get_supported_violation_types(self) -> List[str]:
         """Get list of violation types this detector can find."""
         ...
-
 
 class StandardDetectorInterface(ABC):
     """
@@ -109,7 +106,6 @@ class StandardDetectorInterface(ABC):
         Returns:
             DetectorResult with violations and metadata
         """
-        pass
     
     @abstractmethod
     def get_supported_violation_types(self) -> List[str]:
@@ -119,7 +115,6 @@ class StandardDetectorInterface(ABC):
         Returns:
             List of violation type strings
         """
-        pass
     
     def get_code_snippet(self, node: ast.AST, context_lines: int = 2) -> str:
         """
@@ -179,7 +174,6 @@ class StandardDetectorInterface(ABC):
             code_snippet=self.get_code_snippet(node),
             context=context_data or {}
         )
-
 
 class ConfigurableDetectorMixin:
     """
@@ -265,7 +259,6 @@ class ConfigurableDetectorMixin:
             print(f"WARNING: Nested config access failed for {self._detector_name}.{path}: {e}")
             return default_value
 
-
 class DetectorFactory:
     """
     Factory class that eliminates direct detector instantiation coupling
@@ -310,7 +303,6 @@ class DetectorFactory:
             if detector:
                 detectors.append(detector)
         return detectors
-
 
 class AnalysisOrchestrator:
     """
@@ -367,7 +359,6 @@ class AnalysisOrchestrator:
         
         return all_violations
 
-
 # Decorator for automatic detector registration
 def register_detector(violation_type: str):
     """
@@ -379,7 +370,6 @@ def register_detector(violation_type: str):
         return detector_class
     return decorator
 
-
 # Common violation severity constants to eliminate magic strings
 class ViolationSeverity:
     """Constants for violation severity levels."""
@@ -387,7 +377,6 @@ class ViolationSeverity:
     HIGH = "high"
     MEDIUM = "medium"
     LOW = "low"
-
 
 # Common connascence type constants
 class ConnascenceType:

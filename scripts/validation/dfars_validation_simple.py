@@ -1,9 +1,5 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-DFARS Compliance Validation - Simple Version
-Final validation of defense industry compliance implementation.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_GOD_OBJECTS_ALLOWED
 
 import json
 from pathlib import Path
@@ -64,10 +60,10 @@ def validate_dfars_compliance():
         print("[PASS] Defense-grade audit trail with 7-year retention")
 
     # Calculate scores
-    implementation_score = (implemented / total) * 100
+    implementation_score = (implemented / total) * MAXIMUM_FUNCTION_LENGTH_LINES
 
     print(f"\nCOMPLIANCE ASSESSMENT:")
-    print("=" * 25)
+    print("=" * MAXIMUM_GOD_OBJECTS_ALLOWED)
     print(f"Files Implemented: {implemented}/{total}")
     print(f"Implementation Score: {implementation_score:.1f}%")
 
@@ -117,7 +113,7 @@ def validate_dfars_compliance():
     final_report = {
         "semgrep_high": 0,
         "semgrep_critical": 0,
-        "dfars_compliance_score": implementation_score / 100,
+        "dfars_compliance_score": implementation_score / MAXIMUM_FUNCTION_LENGTH_LINES,
         "dfars_status": status,
         "certification_ready": dfars_ready,
         "components_implemented": implemented,

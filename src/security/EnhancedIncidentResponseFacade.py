@@ -4,10 +4,11 @@ Maintains API compatibility while delegating to decomposed components
 Part of god object decomposition (Day 3-5)
 """
 
-import json
-from typing import Dict, List, Optional, Tuple, Any
-from dataclasses import dataclass
 from datetime import datetime
+from typing import Dict, List, Optional, Tuple, Any
+import json
+
+from dataclasses import dataclass
 
 # Import decomposed components
 from .core.IncidentDetector import IncidentDetector, SecurityIncident, IncidentType, IncidentSeverity
@@ -18,12 +19,11 @@ from .core.ForensicsEngine import ForensicsEngine, ForensicEvidence, AuditTrail
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
-
 class EnhancedIncidentResponseSystem:
     """
     Facade for Enhanced Incident Response System.
 
-    Original: 1,226 LOC god object
+    Original: 1, 226 LOC god object
     Refactored: ~150 LOC facade + 3 specialized components (~750 LOC total)
 
     Maintains 100% backward compatibility while delegating to:
@@ -32,7 +32,7 @@ class EnhancedIncidentResponseSystem:
     - ForensicsEngine: Evidence collection and forensic analysis
     """
 
-    def __init__(self, config_path: Optional[str] = None):
+def __init__(self, config_path: Optional[str] = None):
         """Initialize the incident response system with decomposed components."""
         self.config_path = config_path
         self.config = self._load_config()
@@ -52,7 +52,7 @@ class EnhancedIncidentResponseSystem:
         self.system_armed = True
         self.monitoring_active = True
 
-    def _load_config(self) -> Dict[str, Any]:
+def _load_config(self) -> Dict[str, Any]:
         """Load configuration from file."""
         if self.config_path:
             try:
@@ -62,8 +62,8 @@ class EnhancedIncidentResponseSystem:
                 logger.error(f"Failed to load config: {e}")
         return {}
 
-    def detect_and_respond(self,
-                          event_data: Dict[str, Any]) -> Dict[str, Any]:
+def detect_and_respond(self,
+                            event_data: Dict[str, Any]) -> Dict[str, Any]:
         """Main entry point for incident detection and response (original API)."""
         response = {
             "incident_detected": False,
@@ -138,7 +138,7 @@ class EnhancedIncidentResponseSystem:
 
         return response
 
-    def investigate_incident(self,
+def investigate_incident(self,
                             incident_id: str) -> Dict[str, Any]:
         """Investigate a specific incident (original API)."""
         investigation = {
@@ -171,7 +171,7 @@ class EnhancedIncidentResponseSystem:
 
         return investigation
 
-    def update_threat_indicators(self,
+def update_threat_indicators(self,
                                 indicators: List[str],
                                 source: str = "external") -> None:
         """Update threat indicators (original API)."""
@@ -188,9 +188,9 @@ class EnhancedIncidentResponseSystem:
             # Process through detector
             self.incident_detector.detect_incident(event_data)
 
-    def quarantine_system(self,
-                         system_id: str,
-                         reason: str) -> Dict[str, Any]:
+def quarantine_system(self,
+                        system_id: str,
+                        reason: str) -> Dict[str, Any]:
         """Quarantine a system (original API)."""
         # Create high-priority incident
         incident = SecurityIncident(
@@ -225,7 +225,7 @@ class EnhancedIncidentResponseSystem:
             "actions_taken": containment_result["actions_taken"]
         }
 
-    def generate_compliance_report(self) -> Dict[str, Any]:
+def generate_compliance_report(self) -> Dict[str, Any]:
         """Generate compliance report (original API)."""
         # Get statistics from all components
         detection_stats = self.incident_detector.get_incident_statistics()
@@ -245,7 +245,7 @@ class EnhancedIncidentResponseSystem:
             }
         }
 
-    def get_system_metrics(self) -> Dict[str, Any]:
+def get_system_metrics(self) -> Dict[str, Any]:
         """Get system metrics (original API)."""
         return {
             "detection_metrics": self.incident_detector.get_incident_statistics(),
@@ -256,26 +256,26 @@ class EnhancedIncidentResponseSystem:
         }
 
     # Additional methods for backward compatibility
-    def arm_system(self) -> None:
+def arm_system(self) -> None:
         """Arm the incident response system."""
         self.system_armed = True
         self.response_coordinator.auto_response_enabled = True
         logger.info("Incident response system armed")
 
-    def disarm_system(self) -> None:
+def disarm_system(self) -> None:
         """Disarm the incident response system."""
         self.system_armed = False
         self.response_coordinator.auto_response_enabled = False
         logger.info("Incident response system disarmed")
 
-    def clear_incident(self, incident_id: str) -> None:
+def clear_incident(self, incident_id: str) -> None:
         """Clear an incident from active list."""
         self.active_incidents = [
             i for i in self.active_incidents
             if i.incident_id != incident_id
         ]
 
-    def export_state(self) -> Dict[str, Any]:
+def export_state(self) -> Dict[str, Any]:
         """Export system state for persistence."""
         return {
             "config": self.config,
@@ -286,7 +286,7 @@ class EnhancedIncidentResponseSystem:
             "monitoring_active": self.monitoring_active
         }
 
-    def import_state(self, state: Dict[str, Any]) -> None:
+def import_state(self, state: Dict[str, Any]) -> None:
         """Import system state from persistence."""
         self.system_armed = state.get("system_armed", True)
         self.monitoring_active = state.get("monitoring_active", True)

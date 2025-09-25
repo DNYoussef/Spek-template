@@ -4,10 +4,10 @@ Maintains API compatibility while delegating to decomposed components
 Part of god object decomposition (Day 5)
 """
 
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Union
 import logging
-from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -31,13 +31,12 @@ except ImportError:
         'priority_fixes', 'improvement_actions', 'errors', 'warnings'
     ])
 
-
 class UnifiedConnascenceAnalyzer:
     """
     Facade for Unified Connascence Analyzer.
 
-    Original: 1,860 LOC god object
-    Refactored: ~200 LOC facade + 6 specialized components (~1,550 LOC total)
+    Original: 1, 860 LOC god object
+    Refactored: ~200 LOC facade + 6 specialized components (~1, 550 LOC total)
 
     Maintains 100% backward compatibility while delegating to:
     - ConfigurationManager: Configuration and monitoring setup

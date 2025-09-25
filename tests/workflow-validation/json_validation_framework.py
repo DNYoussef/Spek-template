@@ -6,13 +6,13 @@ Validates the expected JSON output structure from all GitHub workflows
 to ensure consistent artifacts, proper schema compliance, and cross-workflow compatibility.
 """
 
-import json
-import jsonschema
 from pathlib import Path
 from typing import Dict, List, Any, Optional
-from dataclasses import dataclass
+import json
 import re
 
+from dataclasses import dataclass
+import jsonschema
 
 @dataclass
 class JsonSchema:
@@ -22,7 +22,6 @@ class JsonSchema:
     required_fields: List[str]
     optional_fields: List[str]
     description: str
-
 
 class JsonValidationFramework:
     """Framework for validating JSON outputs from GitHub workflows"""
@@ -502,7 +501,7 @@ class JsonValidationFramework:
         for key, value in data.items():
             if 'score' in key.lower() and isinstance(value, (int, float)):
                 if value < 0 or value > 1:
-                    issues.append(f"Score value {key}={value} outside expected range [0,1]")
+                    issues.append(f"Score value {key}={value} outside expected range [0, 1]")
                     
         # Check for empty arrays where data is expected
         critical_arrays = ['violations', 'recommendations', 'duplications']
@@ -661,7 +660,6 @@ class JsonValidationFramework:
         from datetime import datetime
         return datetime.now().isoformat()
 
-
 def main():
     """Main execution function"""
     import argparse
@@ -669,7 +667,7 @@ def main():
     parser = argparse.ArgumentParser(description="Validate JSON artifacts from workflows")
     parser.add_argument("--repo-root", default=".", help="Repository root directory")
     parser.add_argument("--output", default="tests/workflow-validation/json_validation_results.json",
-                       help="Output file for validation results")
+                        help="Output file for validation results")
     parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
     
     args = parser.parse_args()
@@ -727,7 +725,6 @@ def main():
     
     import sys
     sys.exit(0 if not has_critical and all_compliant else 1)
-
 
 if __name__ == "__main__":
     main()

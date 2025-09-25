@@ -1,88 +1,83 @@
-"""Shared utility functions for logging, project management, and common operations."""
+"""
+Shared utilities for SPEK Enhanced Development Platform.
+Provides common functionality used across multiple modules.
+"""
 
 import logging
 import sys
-from pathlib import Path
-from typing import Optional, Union
+from typing import Optional
 
-
-def get_logger(name: Optional[str] = None) -> logging.Logger:
-    """Get a configured logger instance.
-    
-    Args:
-        name: Logger name. If None, uses the calling module's name.
-        
-    Returns:
-        Configured logger instance with appropriate handlers and formatting.
+def get_logger(name: str, level: int = logging.INFO) -> logging.Logger:
     """
-    logger = logging.getLogger(name or __name__)
-    
-    # Only add handler if logger doesn't already have one
+    Get a configured logger instance.
+
+    Args:
+        name: Logger name (typically __name__)
+        level: Logging level
+
+    Returns:
+        Configured logger instance
+    """
+    logger = logging.getLogger(name)
+
+    # Only configure if no handlers exist (avoid duplicate handlers)
     if not logger.handlers:
         handler = logging.StreamHandler(sys.stdout)
-        handler.setFormatter(logging.Formatter(
+        formatter = logging.Formatter(
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-        ))
+        )
+        handler.setFormatter(formatter)
         logger.addHandler(handler)
-        logger.setLevel(logging.INFO)
-    
+        logger.setLevel(level)
+
+        # Prevent propagation to avoid duplicate messages
+        logger.propagate = False
+
     return logger
 
-
-def get_project_root() -> Path:
-    """Get the project root directory.
-    
-    Returns:
-        Path object pointing to the project root (3 levels up from this file).
+def format_timestamp(timestamp: Optional[float] = None) -> str:
     """
-    return Path(__file__).parent.parent.parent
-
-
-def ensure_directory(path: Union[str, Path]) -> Path:
-    """Ensure a directory exists, creating it if necessary.
-    
-    Args:
-        path: Directory path to create.
-        
-    Returns:
-        Path object pointing to the created/existing directory.
-    """
-    path_obj = Path(path)
-    path_obj.mkdir(parents=True, exist_ok=True)
-    return path_obj
-
-
-def validate_python_path() -> bool:
-    """Validate that the current directory is in Python path.
-    
-    Returns:
-        True if project root is accessible for imports.
-    """
-    project_root = get_project_root()
-    return str(project_root) in sys.path or str(project_root.absolute()) in sys.path
-
-
-def setup_python_path() -> None:
-    """Add project root to Python path if not already present."""
-    project_root = get_project_root()
-    project_root_str = str(project_root.absolute())
-
-    if project_root_str not in sys.path:
-        sys.path.insert(0, project_root_str)
-
-        # Also add current directory for immediate imports
-        current_dir = str(Path.cwd())
-        if current_dir not in sys.path:
-            sys.path.insert(0, current_dir)
-
-
-def path_exists(path: Union[str, Path]) -> bool:
-    """Check if a path exists.
+    Format a timestamp for display.
 
     Args:
-        path: Path to check (string or Path object).
+        timestamp: Unix timestamp (uses current time if None)
 
     Returns:
-        True if path exists, False otherwise.
+        Formatted timestamp string
     """
+    import time
+    if timestamp is None:
+        timestamp = time.time()
+    return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(timestamp))
+
+def ensure_directory(path: str) -> bool:
+    """
+    Ensure a directory exists, creating it if necessary.
+
+    Args:
+        path: Directory path
+
+    Returns:
+        True if directory exists/was created successfully
+    """
+    from pathlib import Path
+    try:
+        Path(path).mkdir(parents=True, exist_ok=True)
+        return True
+    except Exception as e:
+        logger = get_logger(__name__)
+        logger.error(f"Failed to create directory {path}: {e}")
+        return False
+
+def path_exists(path: str) -> bool:
+    """
+    Check if a path exists.
+
+    Args:
+        path: File or directory path
+
+    Returns:
+        True if path exists
+    """
+    from pathlib import Path
     return Path(path).exists()

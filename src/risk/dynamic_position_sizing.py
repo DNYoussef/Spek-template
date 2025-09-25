@@ -11,13 +11,14 @@ Key Features:
 - Multi-timeframe analysis
 """
 
-import time
-import numpy as np
-from typing import Dict, Any, Optional, List, Tuple
-from dataclasses import dataclass
 from datetime import datetime
+from typing import Dict, Any, Optional, List, Tuple
+import time
+
+from dataclasses import dataclass
 from decimal import Decimal
 from enum import Enum
+import numpy as np
 
 # Import dependencies with fixed paths
 import sys
@@ -31,14 +32,12 @@ if str(src_path) not in sys.path:
 from strategies.dpi_calculator import DistributionalPressureIndex, DPIComponents
 from risk.kelly_criterion import KellyCriterionCalculator, KellyInputs, KellyResult
 
-
 class RiskLevel(Enum):
     """Risk level classifications for position sizing."""
     CONSERVATIVE = "conservative"
     MODERATE = "moderate"
     AGGRESSIVE = "aggressive"
     MAXIMUM = "maximum"
-
 
 class MarketRegime(Enum):
     """Market regime classifications."""
@@ -47,7 +46,6 @@ class MarketRegime(Enum):
     RANGING = "ranging"
     VOLATILE = "volatile"
     CRISIS = "crisis"
-
 
 @dataclass
 class PositionSizingConfig:
@@ -59,7 +57,6 @@ class PositionSizingConfig:
     drawdown_threshold: float
     volatility_lookback: int = 20
     rebalance_frequency: int = 5  # minutes
-
 
 @dataclass
 class PositionRecommendation:
@@ -75,7 +72,6 @@ class PositionRecommendation:
     market_regime: MarketRegime
     timestamp: datetime
 
-
 @dataclass
 class PortfolioRiskMetrics:
     """Portfolio-level risk metrics."""
@@ -86,16 +82,15 @@ class PortfolioRiskMetrics:
     sharpe_estimate: float
     correlation_risk: float
 
-
 class DynamicPositionSizer:
     """
     Advanced dynamic position sizing system.
     Integrates Kelly Criterion with DPI for optimal portfolio allocation.
     """
 
-    def __init__(self, config: PositionSizingConfig,
-                 kelly_calculator: Optional[KellyCriterionCalculator] = None,
-                 dpi_calculator: Optional[DistributionalPressureIndex] = None):
+def __init__(self, config: PositionSizingConfig,
+                kelly_calculator: Optional[KellyCriterionCalculator] = None,
+                dpi_calculator: Optional[DistributionalPressureIndex] = None):
         """
         Initialize dynamic position sizer.
 
@@ -117,8 +112,8 @@ class DynamicPositionSizer:
         self._last_rebalance_time = None
         self._calculation_times: List[float] = []
 
-    def calculate_position_sizes(self, symbols: List[str], market_data: Dict[str, Any],
-                               portfolio_capital: Decimal) -> List[PositionRecommendation]:
+def calculate_position_sizes(self, symbols: List[str], market_data: Dict[str, Any],
+                                portfolio_capital: Decimal) -> List[PositionRecommendation]:
         """
         Calculate optimal position sizes for all symbols.
 
@@ -166,8 +161,8 @@ class DynamicPositionSizer:
             print(f"Dynamic position sizing error: {e}")
             return self._create_conservative_recommendations(symbols)
 
-    def _calculate_individual_position(self, symbol: str, symbol_data: Dict[str, Any],
-                                     market_regime: MarketRegime) -> PositionRecommendation:
+def _calculate_individual_position(self, symbol: str, symbol_data: Dict[str, Any],
+                                    market_regime: MarketRegime) -> PositionRecommendation:
         """Calculate position size for individual symbol."""
         try:
             # Extract market data
@@ -238,7 +233,7 @@ class DynamicPositionSizer:
             print(f"Individual position calculation error for {symbol}: {e}")
             return self._create_conservative_recommendation(symbol, market_regime)
 
-    def _analyze_market_regime(self, market_data: Dict[str, Any]) -> MarketRegime:
+def _analyze_market_regime(self, market_data: Dict[str, Any]) -> MarketRegime:
         """Analyze overall market regime from aggregate data."""
         try:
             # Aggregate market indicators
@@ -277,8 +272,8 @@ class DynamicPositionSizer:
             print(f"Market regime analysis error: {e}")
             return MarketRegime.RANGING
 
-    def _apply_regime_adjustment(self, base_fraction: float, regime: MarketRegime,
-                               dpi_value: float) -> float:
+def _apply_regime_adjustment(self, base_fraction: float, regime: MarketRegime,
+                                dpi_value: float) -> float:
         """Apply market regime adjustments to position size."""
         # Base regime adjustments
         regime_multipliers = {
@@ -310,8 +305,8 @@ class DynamicPositionSizer:
         # Apply final bounds
         return max(0.005, min(adjusted_fraction, self.config.max_single_position))
 
-    def _calculate_risk_contribution(self, position_fraction: float,
-                                   symbol_data: Dict[str, Any]) -> float:
+def _calculate_risk_contribution(self, position_fraction: float,
+                                    symbol_data: Dict[str, Any]) -> float:
         """Calculate position's contribution to portfolio risk."""
         returns = symbol_data.get('returns', np.array([0.01]))
         volatility = np.std(returns) if len(returns) > 1 else 0.02
@@ -321,8 +316,8 @@ class DynamicPositionSizer:
 
         return risk_contribution
 
-    def _apply_portfolio_constraints(self, recommendations: List[PositionRecommendation]
-                                   ) -> List[PositionRecommendation]:
+def _apply_portfolio_constraints(self, recommendations: List[PositionRecommendation]
+                                    ) -> List[PositionRecommendation]:
         """Apply portfolio-level risk constraints."""
         # Calculate total exposure
         total_recommended = sum(rec.recommended_size for rec in recommendations)
@@ -341,11 +336,10 @@ class DynamicPositionSizer:
 
         return recommendations
 
-    def _apply_correlation_limits(self, recommendations: List[PositionRecommendation]
+def _apply_correlation_limits(self, recommendations: List[PositionRecommendation]
                                 ) -> List[PositionRecommendation]:
         """Apply correlation-based position limits."""
         # Simplified correlation management
-        # In production, this would use actual correlation matrix
 
         # Limit sector concentration (basic implementation)
         total_exposure = sum(rec.recommended_size for rec in recommendations)
@@ -362,8 +356,8 @@ class DynamicPositionSizer:
 
         return recommendations
 
-    def _create_conservative_recommendation(self, symbol: str,
-                                          market_regime: MarketRegime) -> PositionRecommendation:
+def _create_conservative_recommendation(self, symbol: str,
+                                            market_regime: MarketRegime) -> PositionRecommendation:
         """Create conservative recommendation for error cases."""
         return PositionRecommendation(
             symbol=symbol,
@@ -378,19 +372,19 @@ class DynamicPositionSizer:
             timestamp=datetime.now()
         )
 
-    def _create_conservative_recommendations(self, symbols: List[str]
-                                           ) -> List[PositionRecommendation]:
+def _create_conservative_recommendations(self, symbols: List[str]
+                                            ) -> List[PositionRecommendation]:
         """Create conservative recommendations for error cases."""
         return [
             self._create_conservative_recommendation(symbol, MarketRegime.RANGING)
             for symbol in symbols
         ]
 
-    def update_current_positions(self, positions: Dict[str, Decimal]):
+def update_current_positions(self, positions: Dict[str, Decimal]):
         """Update current position sizes."""
         self.current_positions = positions.copy()
 
-    def should_rebalance(self) -> bool:
+def should_rebalance(self) -> bool:
         """Determine if portfolio should be rebalanced."""
         if self._last_rebalance_time is None:
             return True
@@ -398,8 +392,8 @@ class DynamicPositionSizer:
         time_since_rebalance = (datetime.now() - self._last_rebalance_time).total_seconds() / 60
         return time_since_rebalance >= self.config.rebalance_frequency
 
-    def calculate_portfolio_metrics(self, recommendations: List[PositionRecommendation]
-                                  ) -> PortfolioRiskMetrics:
+def calculate_portfolio_metrics(self, recommendations: List[PositionRecommendation]
+                                    ) -> PortfolioRiskMetrics:
         """Calculate portfolio-level risk metrics."""
         total_exposure = sum(rec.recommended_size for rec in recommendations)
         risk_utilization = float(total_exposure / self.portfolio_capital) if self.portfolio_capital > 0 else 0
@@ -422,7 +416,7 @@ class DynamicPositionSizer:
             correlation_risk=correlation_risk
         )
 
-    def get_performance_metrics(self) -> Dict[str, Any]:
+def get_performance_metrics(self) -> Dict[str, Any]:
         """Get performance metrics for the position sizer."""
         if not self._calculation_times:
             return {"message": "No calculations performed yet"}
@@ -436,12 +430,11 @@ class DynamicPositionSizer:
             "current_positions_count": len(self.current_positions)
         }
 
-
 # Factory functions
 
 def create_position_sizer(risk_level: RiskLevel = RiskLevel.MODERATE,
-                         max_portfolio_risk: float = 0.8,
-                         max_single_position: float = 0.1) -> DynamicPositionSizer:
+                        max_portfolio_risk: float = 0.8,
+                        max_single_position: float = 0.1) -> DynamicPositionSizer:
     """Create configured dynamic position sizer."""
     config = PositionSizingConfig(
         base_risk_level=risk_level,
@@ -455,7 +448,6 @@ def create_position_sizer(risk_level: RiskLevel = RiskLevel.MODERATE,
 
     return DynamicPositionSizer(config)
 
-
 def create_conservative_sizer() -> DynamicPositionSizer:
     """Create conservative position sizer for defensive strategies."""
     return create_position_sizer(
@@ -463,7 +455,6 @@ def create_conservative_sizer() -> DynamicPositionSizer:
         max_portfolio_risk=0.5,
         max_single_position=0.05
     )
-
 
 def create_aggressive_sizer() -> DynamicPositionSizer:
     """Create aggressive position sizer for growth strategies."""

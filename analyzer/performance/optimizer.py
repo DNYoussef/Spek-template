@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Performance Optimization Engine
-===============================
+from src.constants.base import API_TIMEOUT_SECONDS, DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
 
 Advanced performance optimization system that builds on the existing analysis infrastructure
 to deliver 50%+ performance improvements through intelligent caching, parallel processing,
@@ -15,7 +12,7 @@ Features:
 - Real-time performance monitoring and adaptive optimization
 - CI/CD pipeline acceleration with smart batching
 
-NASA Rules 4, 5, 6, 7: Function limits, assertions, scoping, bounded resources
+NASA Rules 4, MAXIMUM_NESTED_DEPTH, 6, 7: Function limits, assertions, scoping, bounded resources
 """
 
 import asyncio
@@ -28,7 +25,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class OptimizationTarget:
@@ -45,7 +41,6 @@ class OptimizationTarget:
         assert 1 <= self.target_improvement_percent <= 90, "Improvement target must be 1-90%"
         assert 1 <= self.priority <= 3, "Priority must be 1-3"
         assert len(self.name) > 0, "Target name cannot be empty"
-
 
 @dataclass
 class OptimizationResult:
@@ -65,7 +60,6 @@ class OptimizationResult:
     def target_achieved(self) -> bool:
         """Check if optimization target was achieved."""
         return self.success and self.improvement_percent > 0
-
 
 class IntelligentCacheManager:
     """
@@ -111,8 +105,8 @@ class IntelligentCacheManager:
         }
     
     async def optimize_cache_performance(self, 
-                                       project_files: List[str],
-                                       optimization_targets: List[OptimizationTarget]) -> List[OptimizationResult]:
+                                        project_files: List[str],
+                                        optimization_targets: List[OptimizationTarget]) -> List[OptimizationResult]:
         """
         Optimize cache performance across all layers.
         
@@ -338,7 +332,7 @@ class IntelligentCacheManager:
             # Apply real memory optimization strategies
             optimized_memory_mb = await self._apply_memory_optimizations(total_memory_mb, target_memory_mb)
             memory_reduction_percent = ((total_memory_mb - optimized_memory_mb) /
-                                       total_memory_mb) * 100
+                                        total_memory_mb) * 100
         else:
             optimized_memory_mb = total_memory_mb
         
@@ -366,8 +360,8 @@ class IntelligentCacheManager:
         )
     
     async def _validate_optimization_targets(self,
-                                          targets: List[OptimizationTarget],
-                                          baseline_metrics: Dict[str, Any]) -> List[OptimizationResult]:
+                                            targets: List[OptimizationTarget],
+                                            baseline_metrics: Dict[str, Any]) -> List[OptimizationResult]:
         """Validate that optimization targets are achieved."""
         validation_results = []
         
@@ -440,13 +434,12 @@ class IntelligentCacheManager:
             "warming_strategies_configured": len(self.warming_strategies)
         }
 
-
 class ParallelProcessingOptimizer:
     """
     Parallel processing optimization for AST operations and analysis tasks.
     
     NASA Rule 4: All methods under 60 lines
-    NASA Rule 7: Bounded resource usage
+    NASA Rule DAYS_RETENTION_PERIOD: Bounded resource usage
     """
     
     def __init__(self, max_workers: Optional[int] = None):
@@ -461,7 +454,7 @@ class ParallelProcessingOptimizer:
         }
         
         # Performance thresholds
-        self.parallelization_threshold = 5  # Minimum items for parallel processing
+        self.parallelization_threshold = MAXIMUM_NESTED_DEPTH  # Minimum items for parallel processing
         self.max_memory_per_worker_mb = 50.0  # Memory limit per worker
         
         logger.info(f"Initialized parallel optimizer with {self.max_workers} workers")
@@ -513,7 +506,7 @@ class ParallelProcessingOptimizer:
         
         # Calculate improvement
         improvement_percent = ((estimated_sequential_time - parallel_time) / 
-                              estimated_sequential_time) * 100
+                                estimated_sequential_time) * 100
         
         # Update statistics
         self.optimization_stats["parallel_operations"] += len(tasks)
@@ -608,7 +601,7 @@ class ParallelProcessingOptimizer:
         results = []
         for future in as_completed(futures, timeout=300):  # 5 minute timeout
             try:
-                result = future.result(timeout=30)  # 30 second timeout per task
+                result = future.result(timeout=30)  # API_TIMEOUT_SECONDS second timeout per task
                 results.append(result)
             except Exception as e:
                 logger.debug(f"Parallel task failed: {e}")
@@ -619,7 +612,7 @@ class ParallelProcessingOptimizer:
     def get_parallel_processing_stats(self) -> Dict[str, Any]:
         """Get parallel processing statistics."""
         total_operations = (self.optimization_stats["parallel_operations"] + 
-                          self.optimization_stats["sequential_operations"])
+                            self.optimization_stats["sequential_operations"])
         
         parallelization_ratio = (
             self.optimization_stats["parallel_operations"] / max(total_operations, 1)
@@ -632,7 +625,6 @@ class ParallelProcessingOptimizer:
             "total_time_saved_ms": self.optimization_stats["time_saved_ms"],
             "operations_stats": self.optimization_stats.copy()
         }
-
 
 class PerformanceOptimizationEngine:
     """
@@ -711,8 +703,8 @@ class PerformanceOptimizationEngine:
             self.add_optimization_target(target)
     
     async def run_comprehensive_optimization(self, 
-                                           project_path: Union[str, Path],
-                                           optimization_config: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+                                            project_path: Union[str, Path],
+                                            optimization_config: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Run comprehensive performance optimization across all systems.
         
@@ -920,7 +912,7 @@ class PerformanceOptimizationEngine:
                 "successful_optimizations": len(successful_optimizations),
                 "failed_optimizations": len(failed_optimizations),
                 "overall_success_rate_percent": (len(successful_optimizations) / 
-                                                 max(len(self.optimization_results), 1)) * 100
+                                                max(len(self.optimization_results), 1)) * 100
             },
             "performance_improvements": {
                 "average_improvement_percent": avg_improvement,
@@ -1118,11 +1110,9 @@ def example_function(x, y):
             "parallel_processing_available": True
         }
 
-
 # Global optimization engine instance
 _global_optimization_engine: Optional[PerformanceOptimizationEngine] = None
 _engine_lock = threading.Lock()
-
 
 def get_global_optimization_engine() -> PerformanceOptimizationEngine:
     """Get or create global performance optimization engine."""
@@ -1136,9 +1126,8 @@ def get_global_optimization_engine() -> PerformanceOptimizationEngine:
     
     return _global_optimization_engine
 
-
 async def optimize_analyzer_performance(project_path: Union[str, Path],
-                                      target_improvement_percent: float = 50.0) -> Dict[str, Any]:
+                                        target_improvement_percent: float = 50.0) -> Dict[str, Any]:
     """
     High-level function to optimize analyzer performance.
     
@@ -1165,7 +1154,6 @@ async def optimize_analyzer_performance(project_path: Union[str, Path],
     results = await engine.run_comprehensive_optimization(project_path)
     
     return results
-
 
 if __name__ == "__main__":
     # Example usage

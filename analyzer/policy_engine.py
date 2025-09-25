@@ -1,17 +1,13 @@
-# SPDX-License-Identifier: MIT
-"""
-Policy Engine - Extracted from UnifiedConnascenceAnalyzer
-========================================================
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT, THEATER_DETECTION_WARNING_THRESHOLD
 
 Manages analysis policies, compliance rules, and quality gate evaluation.
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import json
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class ComplianceResult:
@@ -21,7 +17,6 @@ class ComplianceResult:
     violations: List[Dict[str, Any]]
     recommendation: str
     passed: bool
-
 
 @dataclass
 class QualityGateResult:
@@ -33,14 +28,13 @@ class QualityGateResult:
     violations_count: int
     recommendation: str
 
-
 class PolicyEngine:
     """
     Manages analysis policies and compliance rules.
     Extracted from UnifiedConnascenceAnalyzer to eliminate god object.
     """
 
-    def __init__(self, config_manager=None):
+def __init__(self, config_manager=None):
         """Initialize policy engine with configuration."""
         # NASA Rule 5: Input validation assertions
         assert config_manager is not None, "config_manager cannot be None"
@@ -50,7 +44,7 @@ class PolicyEngine:
         self.nasa_rules = self._initialize_nasa_rules()
         self.quality_gates = self._initialize_quality_gates()
 
-    def evaluate_nasa_compliance(self, violations: List[Dict]) -> ComplianceResult:
+def evaluate_nasa_compliance(self, violations: List[Dict]) -> ComplianceResult:
         """
         Evaluate NASA Power of Ten compliance.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -70,7 +64,7 @@ class PolicyEngine:
             total_score += rule_score
 
         # Calculate overall score (average of rule scores)
-        overall_score = total_score / 10.0
+        overall_score = total_score / MAXIMUM_FUNCTION_PARAMETERS.0
         passed = overall_score >= self.config.get_nasa_compliance_threshold()
 
         # Generate compliance violations for failed rules
@@ -92,7 +86,7 @@ class PolicyEngine:
             passed=passed
         )
 
-    def calculate_mece_score(self, duplications: List[Dict]) -> float:
+def calculate_mece_score(self, duplications: List[Dict]) -> float:
         """
         Calculate MECE (Mutually Exclusive, Collectively Exhaustive) duplication score.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -128,7 +122,7 @@ class PolicyEngine:
         logger.info(f"MECE Score: {mece_score:.3f} (files: {files_with_duplications}/{total_files})")
         return mece_score
 
-    def evaluate_quality_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
+def evaluate_quality_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
         """
         Evaluate all quality gates against analysis results.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -151,7 +145,7 @@ class PolicyEngine:
 
         return gate_results
 
-    def _evaluate_nasa_rule(self, rule_id: int, violations: List) -> float:
+def _evaluate_nasa_rule(self, rule_id: int, violations: List) -> float:
         """Evaluate specific NASA rule compliance."""
         # NASA Rule 5: Input validation
         assert 1 <= rule_id <= 10, f"Invalid NASA rule ID: {rule_id}"
@@ -177,7 +171,7 @@ class PolicyEngine:
             penalty = min(1.0, violation_count * 0.05)  # 5% penalty per violation
             return max(0.0, 1.0 - penalty)
 
-    def _calculate_severity_penalty(self, duplications: List) -> float:
+def _calculate_severity_penalty(self, duplications: List) -> float:
         """Calculate penalty based on duplication severity distribution."""
         severity_weights = {'critical': 0.4, 'high': 0.3, 'medium': 0.2, 'low': 0.1}
         total_penalty = 0.0
@@ -189,7 +183,7 @@ class PolicyEngine:
 
         return min(0.5, total_penalty / len(duplications) if duplications else 0.0)
 
-    def _calculate_similarity_penalty(self, duplications: List) -> float:
+def _calculate_similarity_penalty(self, duplications: List) -> float:
         """Calculate penalty based on similarity scores."""
         if not duplications:
             return 0.0
@@ -202,7 +196,7 @@ class PolicyEngine:
         # Higher similarity = higher penalty (more problematic duplications)
         return min(0.3, avg_similarity * 0.3)
 
-    def _evaluate_critical_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
+def _evaluate_critical_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
         """Evaluate critical quality gates (must pass)."""
         gates = []
         
@@ -210,11 +204,11 @@ class PolicyEngine:
         nasa_score = results.get('nasa_compliance', {}).get('score', 0.0)
         gates.append(QualityGateResult(
             gate_name="NASA Compliance",
-            passed=nasa_score >= 0.90,
+            passed=nasa_score >= REGULATORY_FACTUALITY_REQUIREMENT,
             score=nasa_score,
             threshold=0.90,
             violations_count=len([v for v in violations if v.get('type', '').startswith('nasa')]),
-            recommendation="Improve NASA Power of Ten compliance" if nasa_score < 0.90 else "Compliant"
+            recommendation="Improve NASA Power of Ten compliance" if nasa_score < REGULATORY_FACTUALITY_REQUIREMENT else "Compliant"
         ))
 
         # God Objects Gate
@@ -230,7 +224,7 @@ class PolicyEngine:
 
         return gates
 
-    def _evaluate_quality_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
+def _evaluate_quality_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
         """Evaluate quality gates (warn but allow)."""
         gates = []
         
@@ -238,16 +232,16 @@ class PolicyEngine:
         mece_score = results.get('mece_score', 0.0)
         gates.append(QualityGateResult(
             gate_name="MECE Score",
-            passed=mece_score >= 0.75,
+            passed=mece_score >= THEATER_DETECTION_WARNING_THRESHOLD,
             score=mece_score,
             threshold=0.75,
             violations_count=len([v for v in violations if 'duplication' in v.get('type', '')]),
-            recommendation="Eliminate code duplications" if mece_score < 0.75 else "Good"
+            recommendation="Eliminate code duplications" if mece_score < THEATER_DETECTION_WARNING_THRESHOLD else "Good"
         ))
 
         return gates
 
-    def _evaluate_architecture_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
+def _evaluate_architecture_gates(self, violations: List, results: Dict) -> List[QualityGateResult]:
         """Evaluate architecture quality gates."""
         gates = []
         
@@ -255,7 +249,7 @@ class PolicyEngine:
         arch_health = results.get('architecture_health', 0.0)
         gates.append(QualityGateResult(
             gate_name="Architecture Health",
-            passed=arch_health >= 0.75,
+            passed=arch_health >= THEATER_DETECTION_WARNING_THRESHOLD,
             score=arch_health,
             threshold=0.75,
             violations_count=len([v for v in violations if v.get('severity') == 'critical']),
@@ -264,11 +258,11 @@ class PolicyEngine:
 
         return gates
 
-    def _load_policies(self) -> Dict[str, Any]:
+def _load_policies(self) -> Dict[str, Any]:
         """Load analysis policies from configuration."""
         return {
             'nasa_jpl_pot10': {
-                'compliance_threshold': 0.90,
+                'compliance_threshold': REGULATORY_FACTUALITY_REQUIREMENT,
                 'rule_weights': {f'rule_{i}': 1.0 for i in range(1, 11)}
             },
             'mece_analysis': {
@@ -277,7 +271,7 @@ class PolicyEngine:
             }
         }
 
-    def _initialize_nasa_rules(self) -> Dict[int, str]:
+def _initialize_nasa_rules(self) -> Dict[int, str]:
         """Initialize NASA Power of Ten rules mapping."""
         return {
             1: "Guard clause pattern (no complex control flow)",
@@ -292,7 +286,7 @@ class PolicyEngine:
             10: "Compiler warnings enabled"
         }
 
-    def _initialize_quality_gates(self) -> Dict[str, Dict]:
+def _initialize_quality_gates(self) -> Dict[str, Dict]:
         """Initialize quality gate configurations."""
         return {
             'critical': ['nasa_compliance', 'god_objects', 'critical_violations'],
@@ -300,7 +294,7 @@ class PolicyEngine:
             'architecture': ['architecture_health', 'coupling_score', 'hotspot_count']
         }
 
-    def _maps_to_nasa_rule(self, violation: Dict, rule_id: int) -> bool:
+def _maps_to_nasa_rule(self, violation: Dict, rule_id: int) -> bool:
         """Check if violation maps to specific NASA rule."""
         violation_type = violation.get('type', '')
         
@@ -316,7 +310,7 @@ class PolicyEngine:
             
         return False
 
-    def _score_function_size_rule(self, violations: List) -> float:
+def _score_function_size_rule(self, violations: List) -> float:
         """Score NASA Rule 2 (function size) compliance."""
         # Count functions over size limit
         oversized_count = len(violations)
@@ -325,38 +319,38 @@ class PolicyEngine:
         compliance_ratio = max(0.0, 1.0 - (oversized_count / max(total_functions, 1)))
         return compliance_ratio
 
-    def _score_loop_bounds_rule(self, violations: List) -> float:
+def _score_loop_bounds_rule(self, violations: List) -> float:
         """Score NASA Rule 4 (loop bounds) compliance."""
         unbounded_count = len(violations)
         penalty = min(1.0, unbounded_count * 0.1)
         return max(0.0, 1.0 - penalty)
 
-    def _score_assertions_rule(self, violations: List) -> float:
-        """Score NASA Rule 5 (assertions) compliance."""
+def _score_assertions_rule(self, violations: List) -> float:
+        """Score NASA Rule MAXIMUM_NESTED_DEPTH (assertions) compliance."""
         missing_assertions = len(violations)
         penalty = min(1.0, missing_assertions * 0.05)
         return max(0.0, 1.0 - penalty)
 
-    def _count_analyzed_files(self) -> int:
+def _count_analyzed_files(self) -> int:
         """Count total number of analyzed files."""
         return getattr(self.config, 'total_files_analyzed', 100)  # Fallback estimate
 
-    def _estimate_total_functions(self) -> int:
+def _estimate_total_functions(self) -> int:
         """Estimate total number of functions analyzed."""
         return getattr(self.config, 'total_functions_analyzed', 500)  # Fallback estimate
 
-    def _generate_nasa_recommendation(self, rule_scores: Dict, overall_score: float) -> str:
+def _generate_nasa_recommendation(self, rule_scores: Dict, overall_score: float) -> str:
         """Generate NASA compliance improvement recommendation."""
         if overall_score >= 0.95:
             return "Excellent NASA compliance"
-        elif overall_score >= 0.90:
+        elif overall_score >= REGULATORY_FACTUALITY_REQUIREMENT:
             return "Good NASA compliance with minor improvements needed"
         else:
             failed_rules = [rule for rule, score in rule_scores.items() if score < 0.8]
             return f"Focus on improving: {', '.join(failed_rules)}"
     
-    def evaluate_enterprise_gates(self, analysis_results: Dict, 
-                                 feature_manager) -> List[QualityGateResult]:
+def evaluate_enterprise_gates(self, analysis_results: Dict,
+                                feature_manager) -> List[QualityGateResult]:
         """
         Evaluate enterprise quality gates in addition to existing gates.
         NASA Rule 4 Compliant: Under 60 lines.
@@ -381,7 +375,7 @@ class PolicyEngine:
         
         return enterprise_gates
     
-    def _evaluate_sixsigma_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
+def _evaluate_sixsigma_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
         """Evaluate Six Sigma quality gates."""
         gates = []
         sixsigma_results = analysis_results.get('sixsigma', {})
@@ -410,7 +404,7 @@ class PolicyEngine:
         
         return gates
     
-    def _evaluate_dfars_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
+def _evaluate_dfars_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
         """Evaluate DFARS compliance gates."""
         gates = []
         dfars_results = analysis_results.get('dfars_compliance', {})
@@ -421,16 +415,16 @@ class PolicyEngine:
         
         gates.append(QualityGateResult(
             gate_name="DFARS Compliance",
-            passed=compliance_score >= 0.95,  # 95% compliance required
+            passed=compliance_score >= NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,  # 95% compliance required
             score=compliance_score,
             threshold=0.95,
             violations_count=len(failed_requirements),
-            recommendation="Address DFARS compliance gaps" if compliance_score < 0.95 else "Compliant"
+            recommendation="Address DFARS compliance gaps" if compliance_score < NASA_POT10_TARGET_COMPLIANCE_THRESHOLD else "Compliant"
         ))
         
         return gates
     
-    def _evaluate_supply_chain_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
+def _evaluate_supply_chain_gates(self, analysis_results: Dict) -> List[QualityGateResult]:
         """Evaluate supply chain security gates."""
         gates = []
         supply_chain_results = analysis_results.get('supply_chain', {})

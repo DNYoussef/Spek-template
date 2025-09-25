@@ -3,17 +3,17 @@ Caching systems for high-performance inference.
 Implements prediction and feature caching with TTL and LRU eviction.
 """
 
-import time
-import threading
-import hashlib
-import pickle
-from typing import Dict, Any, Optional, List, Tuple
 from collections import OrderedDict
-from dataclasses import dataclass, field
 from datetime import datetime, timedelta
-import numpy as np
+from typing import Dict, Any, Optional, List, Tuple
+import hashlib
+import time
+
+from dataclasses import dataclass, field
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import numpy as np
+import pickle
+import threading
 
 @dataclass
 class CacheEntry:
@@ -409,11 +409,9 @@ class CacheManager:
 # Example usage and testing
 def test_caching_systems():
     """Test caching functionality."""
-    print("Testing Caching Systems:")
     print("=" * 40)
     
     # Test LRU Cache
-    print("\nTesting LRU Cache:")
     lru = LRUCache(max_size=3, default_ttl=2.0)
     
     # Add entries
@@ -435,7 +433,6 @@ def test_caching_systems():
     print(f"After TTL expiration, get key1: {lru.get('key1')}")
     
     # Test Prediction Cache
-    print("\nTesting Prediction Cache:")
     pred_cache = PredictionCache(max_size=100, ttl_seconds=1)
     
     # Generate test prediction
@@ -447,7 +444,6 @@ def test_caching_systems():
     print(f"Cached prediction: {result}")
     
     # Test Feature Cache
-    print("\nTesting Feature Cache:")
     feat_cache = FeatureCache(max_size=100)
     
     test_features = np.random.randn(50)
@@ -459,7 +455,6 @@ def test_caching_systems():
     print(f"Features cached: {cached_features is not None}")
     
     # Test Cache Manager
-    print("\nTesting Cache Manager:")
     cache_manager = CacheManager()
     
     stats = cache_manager.get_overall_stats()
@@ -472,7 +467,5 @@ def test_caching_systems():
     pred_cache.stop()
     cache_manager.stop()
     
-    print("\nCaching tests completed!")
-
 if __name__ == "__main__":
     test_caching_systems()

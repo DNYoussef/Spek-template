@@ -1,0 +1,51 @@
+{
+  "total_updates": 6,
+  "files_updated": 1,
+  "updates_by_type": {
+    "reference_update": 6
+  },
+  "updates_applied": [
+    {
+      "file_path": "analyzer\\architecture\\validation_tests.py",
+      "old_import": "report = self.analyzer.generateConnascenceReport(options)",
+      "new_import": "report = self.analyzer.generate_connascence_report(options)",
+      "line_number": 126,
+      "update_type": "reference_update"
+    },
+    {
+      "file_path": "analyzer\\architecture\\validation_tests.py",
+      "old_import": "xml_report = self.analyzer.generateConnascenceReport(options)",
+      "new_import": "xml_report = self.analyzer.generate_connascence_report(options)",
+      "line_number": 132,
+      "update_type": "reference_update"
+    },
+    {
+      "file_path": "analyzer\\architecture\\validation_tests.py",
+      "old_import": "compliance = self.analyzer.validateSafetyCompliance(options)",
+      "new_import": "compliance = self.analyzer.validate_safety_compliance(options)",
+      "line_number": 140,
+      "update_type": "reference_update"
+    },
+    {
+      "file_path": "analyzer\\architecture\\validation_tests.py",
+      "old_import": "suggestions = self.analyzer.getRefactoringSuggestions(options)",
+      "new_import": "suggestions = self.analyzer.get_refactoring_suggestions(options)",
+      "line_number": 150,
+      "update_type": "reference_update"
+    },
+    {
+      "file_path": "analyzer\\architecture\\validation_tests.py",
+      "old_import": "# Test getAutomatedFixes (with mock to avoid actual file modification)",
+      "new_import": "# Test get_automated_fixes(with mock to avoid actual file modification)",
+      "line_number": 153,
+      "update_type": "reference_update"
+    },
+    {
+      "file_path": "analyzer\\architecture\\validation_tests.py",
+      "old_import": "fixes = self.analyzer.getAutomatedFixes(fix_options)",
+      "new_import": "fixes = self.analyzer.get_automated_fixes(fix_options)",
+      "line_number": 163,
+      "update_type": "reference_update"
+    }
+  ]
+}

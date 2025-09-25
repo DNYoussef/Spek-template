@@ -28,7 +28,7 @@ export class PrincessManager extends EventEmitter {
    * Initialize all princess instances
    */
   async initialize(): Promise<void> {
-    console.log('👑 Initializing Princess Manager...');
+    console.log(' Initializing Princess Manager...');
 
     // Create princess configurations
     this.createPrincessConfigurations();
@@ -36,7 +36,7 @@ export class PrincessManager extends EventEmitter {
     // Initialize all princesses
     await this.initializePrincesses();
 
-    console.log('✅ Princess Manager initialized');
+    console.log(' Princess Manager initialized');
   }
 
   /**
@@ -116,7 +116,7 @@ export class PrincessManager extends EventEmitter {
 
         this.princesses.set(id, princess);
 
-        console.log(`  ✅ Princess ${id} initialized with ${config.agentCount} agents`);
+        console.log(`   Princess ${id} initialized with ${config.agentCount} agents`);
       }
     );
 
@@ -172,7 +172,7 @@ export class PrincessManager extends EventEmitter {
     const unhealthyPrincesses = results.filter(r => !r.healthy);
 
     if (unhealthyPrincesses.length > 0) {
-      console.warn(`⚠️ ${unhealthyPrincesses.length} unhealthy princesses detected`);
+      console.warn(` ${unhealthyPrincesses.length} unhealthy princesses detected`);
 
       for (const { princess, error } of unhealthyPrincesses) {
         await this.healPrincess(princess, error);
@@ -186,7 +186,7 @@ export class PrincessManager extends EventEmitter {
    * Heal an unhealthy princess
    */
   async healPrincess(princessId: string, error?: any): Promise<void> {
-    console.log(`🔧 Healing princess ${princessId}...`);
+    console.log(` Healing princess ${princessId}...`);
 
     const princess = this.princesses.get(princessId);
     if (!princess) return;
@@ -206,10 +206,10 @@ export class PrincessManager extends EventEmitter {
         await princess.restoreContext(context);
       }
 
-      console.log(`✅ Princess ${princessId} healed successfully`);
+      console.log(` Princess ${princessId} healed successfully`);
 
     } catch (healError) {
-      console.error(`❌ Failed to heal princess ${princessId}:`, healError);
+      console.error(` Failed to heal princess ${princessId}:`, healError);
       await this.quarantinePrincess(princessId);
     }
   }
@@ -218,7 +218,7 @@ export class PrincessManager extends EventEmitter {
    * Quarantine a problematic princess
    */
   private async quarantinePrincess(princessId: string): Promise<void> {
-    console.warn(`⚠️ Quarantining princess ${princessId}`);
+    console.warn(` Quarantining princess ${princessId}`);
 
     const princess = this.princesses.get(princessId);
     if (!princess) return;
@@ -244,11 +244,11 @@ export class PrincessManager extends EventEmitter {
       });
 
     if (candidates.length === 0) {
-      console.error('❌ No healthy princesses available for redistribution');
+      console.error(' No healthy princesses available for redistribution');
       return;
     }
 
-    console.log(`🔄 Redistributing ${failedType} workload to ${candidates.length} princesses`);
+    console.log(` Redistributing ${failedType} workload to ${candidates.length} princesses`);
 
     for (const [id, princess] of candidates) {
       await princess.increaseCapacity(20);
@@ -298,7 +298,7 @@ export class PrincessManager extends EventEmitter {
    * Shutdown all princesses
    */
   async shutdownAll(): Promise<void> {
-    console.log('👑 Shutting down all princesses...');
+    console.log(' Shutting down all princesses...');
 
     await Promise.all(
       Array.from(this.princesses.values()).map(p => p.shutdown())

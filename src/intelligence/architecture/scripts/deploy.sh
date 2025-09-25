@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Gary×Taleb Trading System - Phase 3 Deployment Script
+# GaryxTaleb Trading System - Phase 3 Deployment Script
 # Automated deployment with zero-downtime rolling updates
 
 set -euo pipefail
@@ -417,7 +417,7 @@ cleanup() {
 
 # Main deployment function
 main() {
-    log "Starting Gary×Taleb Phase 3 deployment..."
+    log "Starting GaryxTaleb Phase 3 deployment..."
     log "Version: ${VERSION}, Environment: ${ENVIRONMENT}"
 
     # Set trap for cleanup

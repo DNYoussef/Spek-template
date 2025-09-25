@@ -1,7 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Phase Correlation Engine - Cross-Phase Data Routing
-==================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 Routes and correlates data between all analysis phases while maintaining
 the 58.3% performance improvement. Provides intelligent correlation of
@@ -9,13 +6,12 @@ findings across JSON Schema, Linter Integration, Performance Optimization,
 and Precision Validation phases.
 
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class CorrelationVector:
@@ -26,7 +22,6 @@ class CorrelationVector:
     severity_distribution: Dict[str, int]
     metrics: Dict[str, float]
     timestamp: float
-
 
 @dataclass
 class PhaseCorrelation:
@@ -39,7 +34,6 @@ class PhaseCorrelation:
     confidence_score: float
     evidence: List[str]
 
-
 @dataclass
 class CorrelationMatrix:
     """Complete correlation analysis across all phases."""
@@ -48,7 +42,6 @@ class CorrelationMatrix:
     phase_interaction_map: Dict[str, List[str]]
     optimization_recommendations: List[str]
     analysis_timestamp: str
-
 
 class CorrelationAnalyzer:
     """Analyzes correlations between different types of violations and metrics."""
@@ -141,7 +134,6 @@ class CorrelationAnalyzer:
         
         return intersection / union if union > 0 else 0.0
 
-
 class PhaseCorrelationEngine:
     """
     Routes and correlates data between analysis phases while maintaining performance.
@@ -184,7 +176,7 @@ class PhaseCorrelationEngine:
                         phase_results[phase_b]
                     )
                     
-                    if correlation.correlation_score >= 0.3:  # Filter weak correlations
+                    if correlation.correlation_score >= 0.2:  # Filter weak correlations
                         correlations.append(correlation.__dict__)
             
             # Monitor performance impact
@@ -444,7 +436,6 @@ class PhaseCorrelationEngine:
             key_parts.append(f"{phase_name}:{violation_count}")
         
         return "|".join(sorted(key_parts))
-
 
 class PerformanceCorrelationMonitor:
     """Monitor performance impact of correlation analysis."""

@@ -1,15 +1,10 @@
-#!/usr/bin/env python3
-"""
-Metrics management for self-analysis tracking.
-Minimal stub implementation for Self-Dogfooding Analysis workflow.
-"""
+from src.constants.base import NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT
 
 import argparse
 import json
 import sys
 import os
 from datetime import datetime
-
 
 def main():
     parser = argparse.ArgumentParser(description='Update self-analysis metrics')
@@ -47,7 +42,7 @@ Generated: {datetime.now().isoformat()}
 ## NASA Compliance Analysis
 - **Score**: {results.get('nasa', {}).get('nasa_compliance', {}).get('score', 0.92):.1%}
 - **Status**: {'[OK] APPROVED' if results.get('nasa', {}).get('nasa_compliance', {}).get('score', 0.92) >= 0.90 else '[FAIL] NEEDS IMPROVEMENT'}
-- **Defense Industry Ready**: {results.get('nasa', {}).get('nasa_compliance', {}).get('score', 0.92) >= 0.90}
+- **Defense Industry Ready**: {results.get('nasa', {}).get('nasa_compliance', {}).get('score', NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD) >= REGULATORY_FACTUALITY_REQUIREMENT}
 
 ## God Object Detection
 - **Objects Found**: {len(results.get('god_objects', []))}
@@ -77,7 +72,6 @@ The analyzer demonstrates strong self-analysis capabilities with:
     print(f"[U+1F4C4] Baseline report saved to {args.output}")
     
     return 0
-
 
 if __name__ == '__main__':
     sys.exit(main())

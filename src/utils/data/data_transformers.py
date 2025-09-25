@@ -4,19 +4,18 @@ Consolidates data transformation, format conversion, and normalization functions
 Extracted from: analyzer/reporting/coordinator.py, analyzer/core.py
 """
 
-import json
-from typing import Dict, List, Any, Optional, Union
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Any, Optional, Union
 import base64
 import hashlib
-
+import json
 
 class DataNormalizer:
     """Normalize data to standard formats."""
 
-    @staticmethod
-    def normalize_dict(
+@staticmethod
+def normalize_dict(
         data: Dict[str, Any],
         lowercase_keys: bool = False,
         remove_none: bool = True
@@ -54,8 +53,8 @@ class DataNormalizer:
         
         return result
 
-    @staticmethod
-    def normalize_numeric(
+@staticmethod
+def normalize_numeric(
         value: Union[int, float],
         decimals: int = 2,
         scale: Optional[float] = None
@@ -72,12 +71,11 @@ class DataNormalizer:
             result *= scale
         return round(result, decimals)
 
-
 class FormatConverter:
     """Convert between data formats."""
 
-    @staticmethod
-    def dict_to_json(
+@staticmethod
+def dict_to_json(
         data: Dict[str, Any],
         pretty: bool = True
     ) -> str:
@@ -86,13 +84,13 @@ class FormatConverter:
             return json.dumps(data, indent=2, sort_keys=True)
         return json.dumps(data)
 
-    @staticmethod
-    def json_to_dict(json_str: str) -> Dict[str, Any]:
+@staticmethod
+def json_to_dict(json_str: str) -> Dict[str, Any]:
         """Convert JSON string to dictionary."""
         return json.loads(json_str)
 
-    @staticmethod
-    def list_to_csv(
+@staticmethod
+def list_to_csv(
         data: List[Dict[str, Any]],
         headers: Optional[List[str]] = None
     ) -> str:
@@ -118,24 +116,23 @@ class FormatConverter:
         
         return '\n'.join(lines)
 
-    @staticmethod
-    def encode_base64(data: Union[str, bytes]) -> str:
+@staticmethod
+def encode_base64(data: Union[str, bytes]) -> str:
         """Encode data as base64."""
         if isinstance(data, str):
             data = data.encode()
         return base64.b64encode(data).decode()
 
-    @staticmethod
-    def decode_base64(encoded: str) -> bytes:
+@staticmethod
+def decode_base64(encoded: str) -> bytes:
         """Decode base64 data."""
         return base64.b64decode(encoded)
-
 
 class DataValidator:
     """Validate data structures."""
 
-    @staticmethod
-    def validate_schema(
+@staticmethod
+def validate_schema(
         data: Dict[str, Any],
         required_fields: List[str],
         optional_fields: Optional[List[str]] = None
@@ -168,8 +165,8 @@ class DataValidator:
         
         return result
 
-    @staticmethod
-    def validate_types(
+@staticmethod
+def validate_types(
         data: Dict[str, Any],
         type_spec: Dict[str, type]
     ) -> Dict[str, Any]:
@@ -200,12 +197,11 @@ class DataValidator:
         
         return result
 
-
 class DataMerger:
     """Merge data structures."""
 
-    @staticmethod
-    def merge_dicts(
+@staticmethod
+def merge_dicts(
         *dicts: Dict[str, Any],
         strategy: str = 'override'
     ) -> Dict[str, Any]:
@@ -236,8 +232,8 @@ class DataMerger:
         
         return result
 
-    @staticmethod
-    def deduplicate_list(
+@staticmethod
+def deduplicate_list(
         items: List[Any],
         key_func: Optional[callable] = None
     ) -> List[Any]:
@@ -260,22 +256,21 @@ class DataMerger:
             # For hashable items
             return list(dict.fromkeys(items))
 
-
 class TimestampHandler:
     """Handle timestamps and datetime conversions."""
 
-    @staticmethod
-    def to_iso_format(dt: datetime) -> str:
+@staticmethod
+def to_iso_format(dt: datetime) -> str:
         """Convert datetime to ISO format string."""
         return dt.isoformat()
 
-    @staticmethod
-    def from_iso_format(iso_str: str) -> datetime:
+@staticmethod
+def from_iso_format(iso_str: str) -> datetime:
         """Parse ISO format string to datetime."""
         return datetime.fromisoformat(iso_str)
 
-    @staticmethod
-    def add_timestamps(
+@staticmethod
+def add_timestamps(
         data: Dict[str, Any],
         fields: Optional[List[str]] = None
     ) -> Dict[str, Any]:

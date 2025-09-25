@@ -5,9 +5,8 @@ NASA POT10 Critical Fixes - Address specific compliance violations
 
 from typing import Dict, Any, List
 import subprocess
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+from lib.shared.utilities import get_logger
 
 def apply_nasa_assertions():
     """Apply NASA POT10 assertions to critical functions"""
@@ -59,7 +58,6 @@ def apply_nasa_assertions():
 
     return True
 
-
 def fix_workflow_syntax():
     """Fix GitHub workflow syntax issues"""
 
@@ -79,7 +77,6 @@ def fix_workflow_syntax():
     print("  [OK] Error handling added to pip install")
 
     return True
-
 
 def reduce_critical_complexity():
     """Reduce complexity of the most critical functions"""
@@ -118,7 +115,6 @@ def reduce_critical_complexity():
     # The actual reduction would happen in the respective files
     return True
 
-
 def fix_type_annotations():
     """Fix type annotation issues for zero-warning compilation"""
 
@@ -135,7 +131,6 @@ def fix_type_annotations():
         print(f"  - {fix}")
 
     return True
-
 
 def validate_nasa_compliance():
     """Validate NASA POT10 compliance after fixes"""
@@ -156,7 +151,6 @@ def validate_nasa_compliance():
     print(f"\nEstimated compliance: {estimated_compliance}%")
 
     return estimated_compliance >= 90
-
 
 def main():
     """Apply all NASA POT10 critical fixes"""
@@ -186,7 +180,6 @@ def main():
     print(f"\nNASA POT10 Ready: {'YES' if compliance_ready else 'NO'}")
 
     return len(fixes_applied)
-
 
 if __name__ == "__main__":
     fixes_count = main()

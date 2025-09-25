@@ -4,11 +4,12 @@ Mesh Coordination System Tests
 Comprehensive test suite for the mesh topology management and peer-to-peer coordination.
 """
 
-import pytest
-import asyncio
-import time
 from unittest.mock import Mock, patch, AsyncMock
+import time
+
 from dataclasses import asdict
+import asyncio
+import pytest
 
 # Import system under test
 import sys
@@ -22,7 +23,6 @@ from linter_integration.mesh_coordinator import (
     NodeStatus, 
     MessageType
 )
-
 
 class TestMeshQueenCoordinator:
     """Test suite for mesh queen coordinator functionality"""
@@ -242,7 +242,7 @@ class TestMeshQueenCoordinator:
             
         # System should still function with 3/4 nodes (> 2/3 threshold)
         healthy_count = sum(1 for node in coordinator.mesh_nodes.values() 
-                           if node.status == NodeStatus.ACTIVE)
+                            if node.status == NodeStatus.ACTIVE)
         assert healthy_count >= len(coordinator.mesh_nodes) * 0.67
         
     def test_mesh_connectivity_calculation(self, coordinator):
@@ -301,7 +301,7 @@ class TestMeshQueenCoordinator:
             
         # Find least loaded node for new task assignment
         least_loaded = min(coordinator.mesh_nodes.values(), 
-                          key=lambda n: n.load_score)
+                            key=lambda n: n.load_score)
         assert least_loaded.node_id == "api-docs"
         
     @pytest.mark.asyncio
@@ -487,7 +487,6 @@ class TestMeshQueenCoordinator:
         for node in coordinator.mesh_nodes.values():
             assert len(node.connections) == 5
 
-
 class TestMeshMessageProtocol:
     """Test suite for mesh message protocol and communication"""
     
@@ -543,7 +542,6 @@ class TestMeshMessageProtocol:
         for status in NodeStatus:
             assert status in [NodeStatus.INITIALIZING, NodeStatus.ACTIVE, 
                             NodeStatus.DEGRADED, NodeStatus.FAILED]
-
 
 if __name__ == "__main__":
     # Run tests with pytest

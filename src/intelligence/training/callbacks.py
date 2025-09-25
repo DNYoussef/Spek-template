@@ -1,7 +1,4 @@
-"""
-Training callbacks for model monitoring and control.
-Implements early stopping, checkpointing, and learning rate monitoring.
-"""
+from src.constants.base import API_TIMEOUT_SECONDS
 
 import torch
 import numpy as np
@@ -23,27 +20,21 @@ class Callback(ABC):
     
     def on_train_begin(self):
         """Called at the beginning of training."""
-        pass
     
     def on_train_end(self):
         """Called at the end of training."""
-        pass
     
     def on_epoch_begin(self, epoch: int):
         """Called at the beginning of each epoch."""
-        pass
     
     def on_epoch_end(self, epoch: int, metrics: Any):
         """Called at the end of each epoch."""
-        pass
     
     def on_batch_begin(self, batch_idx: int):
         """Called at the beginning of each batch."""
-        pass
     
     def on_batch_end(self, batch_idx: int, loss: float):
         """Called at the end of each batch."""
-        pass
 
 class EarlyStopping(Callback):
     """Early stopping callback to prevent overfitting."""
@@ -514,7 +505,6 @@ def test_callbacks():
             if self.val_metrics is None:
                 self.val_metrics = {}
     
-    print("Testing Callbacks:")
     print("=" * 40)
     
     # Test EarlyStopping
@@ -534,8 +524,7 @@ def test_callbacks():
             print("Early stopping triggered!")
             break
     
-    print("\nTesting LearningRateMonitor:")
-    print("-" * 30)
+    print("-" * API_TIMEOUT_SECONDS)
     
     lr_monitor = LearningRateMonitor(verbose=True)
     

@@ -6,7 +6,6 @@ import sys
 def fix_fstring_errors(content):
     """Replace ) with } before closing quote in f-strings"""
     # Pattern: finds f-strings with ) before closing quote
-    # Matches: f"...{variable)" and replaces with f"...{variable}"
     pattern = r'(f"[^"]*\{[^}]+)\)"'
     replacement = r'\1}"'
     fixed = re.sub(pattern, replacement, content)

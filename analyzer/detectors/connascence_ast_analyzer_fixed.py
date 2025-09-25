@@ -5,8 +5,8 @@ Properly implements detection by delegating to all available detectors.
 Replaces the stub implementation that was returning empty lists.
 """
 
-import ast
 from typing import List, Optional
+import ast
 import logging
 
 # Import base classes and types
@@ -14,7 +14,6 @@ from .base import DetectorBase
 from ..utils.types import ConnascenceViolation
 
 logger = logging.getLogger(__name__)
-
 
 class ConnascenceASTAnalyzer(DetectorBase):
     """Fixed implementation that actually performs connascence detection."""

@@ -5,19 +5,19 @@ and standardized formatting.
 Extracted from: Multiple files using get_logger patterns
 """
 
-import logging
-import json
-import sys
-from typing import Dict, Any, Optional
 from datetime import datetime
 from pathlib import Path
-import traceback
+from typing import Dict, Any, Optional
+import json
+import logging
+import sys
 
+import traceback
 
 class StructuredFormatter(logging.Formatter):
     """JSON-based structured log formatter."""
 
-    def format(self, record: logging.LogRecord) -> str:
+def format(self, record: logging.LogRecord) -> str:
         """Format log record as structured JSON."""
         log_data = {
             'timestamp': datetime.utcnow().isoformat(),
@@ -43,11 +43,10 @@ class StructuredFormatter(logging.Formatter):
 
         return json.dumps(log_data)
 
-
 class ContextLogger:
     """Logger with context injection."""
 
-    def __init__(self, name: str, context: Optional[Dict[str, Any]] = None):
+def __init__(self, name: str, context: Optional[Dict[str, Any]] = None):
         """Initialize context logger.
         
         Args:
@@ -57,7 +56,7 @@ class ContextLogger:
         self.logger = logging.getLogger(name)
         self.context = context or {}
 
-    def _log_with_context(self, level: int, message: str, **kwargs):
+def _log_with_context(self, level: int, message: str, **kwargs):
         """Log with merged context."""
         extra_data = {**self.context, **kwargs}
         # Create a LogRecord with extra data
@@ -66,34 +65,33 @@ class ContextLogger:
         else:
             self.logger.log(level, message)
 
-    def debug(self, message: str, **kwargs):
+def debug(self, message: str, **kwargs):
         """Log debug message with context."""
         self._log_with_context(logging.DEBUG, message, **kwargs)
 
-    def info(self, message: str, **kwargs):
+def info(self, message: str, **kwargs):
         """Log info message with context."""
         self._log_with_context(logging.INFO, message, **kwargs)
 
-    def warning(self, message: str, **kwargs):
+def warning(self, message: str, **kwargs):
         """Log warning message with context."""
         self._log_with_context(logging.WARNING, message, **kwargs)
 
-    def error(self, message: str, **kwargs):
+def error(self, message: str, **kwargs):
         """Log error message with context."""
         self._log_with_context(logging.ERROR, message, **kwargs)
 
-    def critical(self, message: str, **kwargs):
+def critical(self, message: str, **kwargs):
         """Log critical message with context."""
         self._log_with_context(logging.CRITICAL, message, **kwargs)
 
-    def add_context(self, **kwargs):
+def add_context(self, **kwargs):
         """Add to context dictionary."""
         self.context.update(kwargs)
 
-    def clear_context(self):
+def clear_context(self):
         """Clear context dictionary."""
         self.context.clear()
-
 
 class LoggerFactory:
     """Factory for creating configured loggers."""
@@ -102,8 +100,8 @@ class LoggerFactory:
     _default_level = logging.INFO
     _structured = False
 
-    @classmethod
-    def configure(
+@classmethod
+def configure(
         cls,
         level: int = logging.INFO,
         structured: bool = False,
@@ -141,8 +139,8 @@ class LoggerFactory:
             )
             root_logger.addHandler(file_handler)
 
-    @classmethod
-    def get_logger(
+@classmethod
+def get_logger(
         cls,
         name: Optional[str] = None,
         context: Optional[Dict[str, Any]] = None
@@ -165,11 +163,10 @@ class LoggerFactory:
         
         return ContextLogger(logger_name, context)
 
-
 class AuditLogger:
     """Specialized logger for audit trails."""
 
-    def __init__(self, audit_file: Path):
+def __init__(self, audit_file: Path):
         """Initialize audit logger.
         
         Args:
@@ -183,7 +180,7 @@ class AuditLogger:
         handler.setFormatter(StructuredFormatter())
         self.logger.addHandler(handler)
 
-    def log_event(
+def log_event(
         self,
         event_type: str,
         user: str,
@@ -215,7 +212,6 @@ class AuditLogger:
             f"{event_type}: {user} {action} {resource}",
             extra={'extra_data': event_data}
         )
-
 
 # Convenience function for backward compatibility
 def get_logger(name: Optional[str] = None) -> logging.Logger:

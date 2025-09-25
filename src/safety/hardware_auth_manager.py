@@ -5,14 +5,15 @@ Supports YubiKey, TouchID, biometrics, and master key authentication
 with fail-safe fallback mechanisms.
 """
 
-import asyncio
+from typing import Dict, Any, Set, List, Optional
 import hashlib
-import hmac
 import logging
 import time
-from enum import Enum
+
 from dataclasses import dataclass
-from typing import Dict, Any, Set, List, Optional
+from enum import Enum
+import asyncio
+import hmac
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +46,6 @@ class HardwareAuthManager:
         """Initialize authentication manager."""
         self.config = config
         self.logger = logger
-
 
         # Supported methods from config
         self.allowed_methods = set(
@@ -206,7 +206,6 @@ class HardwareAuthManager:
     def _check_yubikey_available(self) -> bool:
         """Check if YubiKey is available."""
         # In production, this would check for actual YubiKey hardware
-        # For testing, we simulate based on config
         return 'yubikey' in self.allowed_methods
 
     def _check_touch_id_available(self) -> bool:
@@ -382,7 +381,6 @@ class HardwareAuthManager:
 
         try:
             # Mock YubiKey authentication for now
-            # In real implementation, would use ykman or similar
             otp = auth_request.get('otp', '')
             expected_prefix = self.config.get('yubikey_id', 'cccccccccccc')
 
@@ -417,7 +415,6 @@ class HardwareAuthManager:
 
         try:
             # Mock TouchID authentication
-            # In real implementation, would use macOS LocalAuthentication
             prompt = auth_request.get('prompt', 'Authenticate for kill switch')
 
             # Simulate TouchID prompt (would be actual biometric in real implementation)
@@ -455,7 +452,6 @@ class HardwareAuthManager:
 
         try:
             # Mock biometric authentication
-            # Real implementation would use platform-specific APIs
             biometric_type = auth_request.get('biometric_type', 'fingerprint')
 
             await asyncio.sleep(1.0)  # Simulate biometric scan time
@@ -605,12 +601,10 @@ class HardwareAuthManager:
             'system_platform': platform.system()
         }
 
-
 # Convenience functions
 def create_hardware_auth_manager(config: Dict[str, Any]) -> HardwareAuthManager:
     """Factory function to create hardware auth manager."""
     return HardwareAuthManager(config)
-
 
 def validate_auth_config(config: Dict[str, Any]) -> bool:
     """Validate authentication configuration."""

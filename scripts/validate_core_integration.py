@@ -6,9 +6,10 @@ Validates that enterprise modules integrate properly with the core analyzer.
 This script can be executed to verify integration is working.
 """
 
-import sys
-import traceback
 from pathlib import Path
+import sys
+
+import traceback
 
 # Add project root to path
 project_root = Path(__file__).parent.parent
@@ -36,7 +37,7 @@ def validate_core_integration():
         # Check if enterprise integration is available (should be None when not configured)
         has_enterprise_support = hasattr(analyzer, 'enterprise_manager')
         checks.append(("Enterprise manager support", has_enterprise_support, 
-                      "" if has_enterprise_support else "enterprise_manager attribute missing"))
+                        "" if has_enterprise_support else "enterprise_manager attribute missing"))
     except Exception as e:
         checks.append(("Enterprise manager support", False, str(e)))
     
@@ -53,7 +54,7 @@ def validate_core_integration():
         # Verify configuration can be retrieved
         enterprise_enabled = config._config.get('enterprise', {}).get('enabled', False)
         checks.append(("Enterprise configuration", enterprise_enabled, 
-                      "" if enterprise_enabled else "Configuration not loading properly"))
+                        "" if enterprise_enabled else "Configuration not loading properly"))
     except Exception as e:
         checks.append(("Enterprise configuration", False, str(e)))
     
@@ -66,7 +67,7 @@ def validate_core_integration():
         # Should return status dict even if not initialized
         is_valid_status = isinstance(status, dict) and 'initialized' in status
         checks.append(("Enterprise status reporting", is_valid_status,
-                      "" if is_valid_status else "Invalid status format"))
+                        "" if is_valid_status else "Invalid status format"))
     except Exception as e:
         checks.append(("Enterprise status reporting", False, str(e)))
     

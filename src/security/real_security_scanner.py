@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Real Security Scanner - FUNCTIONAL Security Validation Implementation
-=====================================================================
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 Implements ACTUAL security scanning with real tool execution, not simulation.
 Replaces theater-based security validation with functional vulnerability detection.
@@ -13,7 +10,6 @@ import asyncio
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 @dataclass
 class SecurityFinding:
@@ -32,7 +28,6 @@ class SecurityFinding:
     confidence: str = "medium"
     raw_output: Dict[str, Any] = None
 
-
 @dataclass  
 class SecurityScanResult:
     """Result from actual security tool execution."""
@@ -46,7 +41,6 @@ class SecurityScanResult:
     stderr: str
     sarif_file: Optional[str] = None
 
-
 @dataclass
 class SecurityGateResult:
     """Security gate validation with real violation counts."""
@@ -56,7 +50,6 @@ class SecurityGateResult:
     passed: bool
     blocking: bool
     findings: List[SecurityFinding]
-    
     
 class RealSecurityScanner:
     """Functional security scanner that actually executes security tools."""
@@ -98,7 +91,7 @@ class RealSecurityScanner:
         self.security_gates = {
             "critical_vulnerabilities": {"threshold": 0, "blocking": True},
             "high_vulnerabilities": {"threshold": 0, "blocking": True}, 
-            "medium_vulnerabilities": {"threshold": 10, "blocking": False},
+            "medium_vulnerabilities": {"threshold": MAXIMUM_FUNCTION_PARAMETERS, "blocking": False},
             "secrets_detected": {"threshold": 0, "blocking": True},
             "outdated_critical_deps": {"threshold": 0, "blocking": True}
         }
@@ -924,7 +917,6 @@ class RealSecurityScanner:
             logger.error(f"Security validation failed: {e}")
             raise
 
-
 async def main():
     """Main execution for real security validation."""
     scanner = RealSecurityScanner()
@@ -941,7 +933,6 @@ async def main():
     except Exception as e:
         print(f"FATAL: Security validation failed: {e}")
         exit(1)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

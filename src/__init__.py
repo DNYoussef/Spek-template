@@ -7,8 +7,8 @@ __version__ = "2.1.0"
 __author__ = "SPEK Enhanced Development Platform"
 
 # Core modules
-from . import strategies
 from . import risk
+from . import strategies
 
 __all__ = [
     'strategies',

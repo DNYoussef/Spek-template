@@ -3,14 +3,13 @@ DFARS Path Security Validator
 Implements comprehensive path traversal prevention and validation.
 """
 
-import os
-import re
 from pathlib import Path
 from typing import List, Set, Optional, Dict, Any
-from urllib.parse import unquote
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import os
+import re
 
+from lib.shared.utilities import get_logger
+from urllib.parse import unquote
 
 class PathSecurityValidator:
     """
@@ -36,7 +35,7 @@ class PathSecurityValidator:
     }
 
     def __init__(self, allowed_base_paths: List[str],
-                 denied_patterns: Optional[List[str]] = None):
+                denied_patterns: Optional[List[str]] = None):
         """
         Initialize path validator with allowed base paths.
 
@@ -173,7 +172,7 @@ class PathSecurityValidator:
         elif operation == 'execute':
             # Prevent execution of files in data directories
             if any(data_dir in str(path).lower()
-                   for data_dir in ['data', 'uploads', 'temp', 'cache']):
+                    for data_dir in ['data', 'uploads', 'temp', 'cache']):
                 violations.append('Execution blocked in data directory')
 
         return violations
@@ -256,7 +255,6 @@ class PathSecurityValidator:
         # Allow generic types for unknown extensions
         return content_type.startswith(('text/', 'application/', 'image/'))
 
-
 class ConfigurationPathValidator:
     """Specialized path validator for configuration files."""
 
@@ -304,11 +302,8 @@ class ConfigurationPathValidator:
         else:
             raise ValueError(f"Unsupported config format: {config_path.suffix}")
 
-
 class SecurityError(Exception):
     """Security validation error."""
-    pass
-
 
 # Example usage and testing
 def create_dfars_path_validator() -> PathSecurityValidator:
@@ -321,7 +316,6 @@ def create_dfars_path_validator() -> PathSecurityValidator:
     ]
 
     return PathSecurityValidator(allowed_paths)
-
 
 if __name__ == "__main__":
     # Test the validator
@@ -337,7 +331,6 @@ if __name__ == "__main__":
 
     for test_path in test_paths:
         result = validator.validate_path(test_path)
-        print(f"Path: {test_path}")
         print(f"Valid: {result['valid']}")
         print(f"DFARS Compliant: {result['dfars_compliant']}")
         if result['security_violations']:

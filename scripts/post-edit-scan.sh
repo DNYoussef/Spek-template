@@ -12,5 +12,5 @@ fi
 echo "Scanning: $FILE"
 
 # Run analysis using Python wrapper
-python scripts/analyze-file.py "$FILE"
+python scripts/analyze_file.py "$FILE"
 exit $?

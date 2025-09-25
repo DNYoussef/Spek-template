@@ -1,7 +1,4 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Enterprise Integration Test Suite
 
 Comprehensive integration tests for enterprise modules with the existing analyzer.
 These tests validate that enterprise features integrate correctly without breaking existing functionality.
@@ -65,7 +62,6 @@ class TestEnterpriseIntegration(unittest.TestCase):
             # Should handle None config gracefully
         except AssertionError:
             # Expected behavior - None config is not allowed
-            pass
         
         # Test with mock config
         class MockConfig:
@@ -148,7 +144,6 @@ class TestClass:
         test_file.write_text(test_code)
         
         # Should be able to analyze without error
-        # Note: Using existing analyzer functionality
         try:
             # This tests that the integration doesn't break existing functionality
             result = analyzer.analyze_path(str(test_file.parent))
@@ -158,7 +153,7 @@ class TestClass:
             error_msg = str(e).lower()
             acceptable_errors = ['import', 'dependency', 'module', 'not found', 'missing']
             self.assertTrue(any(err in error_msg for err in acceptable_errors),
-                           f"Unexpected error type: {e}")
+                            f"Unexpected error type: {e}")
     
     def test_performance_impact_baseline(self):
         """Test: Measure baseline performance impact of enterprise integration."""
@@ -184,17 +179,16 @@ class TestClass:
             
             # Should complete in reasonable time (under 5 seconds for simple code)
             self.assertLess(analysis_time, 5.0, 
-                           f"Analysis took {analysis_time:.2f}s - too slow")
+                            f"Analysis took {analysis_time:.2f}s - too slow")
             
         except Exception:
             # If analysis fails due to dependencies, that's acceptable for this test
-            # We're primarily testing that initialization doesn't take too long
             end_time = time.time()
             init_time = end_time - start_time
             
             # Initialization should still be fast
             self.assertLess(init_time, 2.0, 
-                           f"Initialization took {init_time:.2f}s - too slow")
+                            f"Initialization took {init_time:.2f}s - too slow")
     
     def test_enterprise_modules_lazy_loading(self):
         """Test: Enterprise modules are loaded only when needed."""
@@ -218,7 +212,7 @@ class TestClass:
         # Should not load many additional modules
         module_increase = after_import_module_count - initial_module_count
         self.assertLess(module_increase, 20, 
-                       f"Too many modules loaded: {module_increase}")
+                        f"Too many modules loaded: {module_increase}")
     
     def test_backward_compatibility(self):
         """Test: Enterprise integration doesn't break existing API."""
@@ -233,7 +227,6 @@ class TestClass:
         self.assertTrue(callable(analyzer.analyze_path))
         
         # Should be able to call with valid path without immediate error
-        # (may fail later due to validation, but shouldn't fail on call)
         try:
             result = analyzer.analyze_path(self.test_dir)
             # If it succeeds, result should be a dict
@@ -244,7 +237,7 @@ class TestClass:
             # Acceptable error types
             acceptable_errors = ['import', 'module', 'dependency', 'path', 'file', 'not found']
             self.assertTrue(any(err in error_msg for err in acceptable_errors),
-                           f"Unexpected API error: {e}")
+                            f"Unexpected API error: {e}")
     
     def test_configuration_integration(self):
         """Test: Configuration system integrates with enterprise features."""
@@ -267,7 +260,6 @@ class TestClass:
             
         except ImportError:
             self.skipTest("Configuration manager not available")
-
 
 class TestEnterpriseIntegrationPoints(unittest.TestCase):
     """Test specific integration points for enterprise features."""
@@ -314,7 +306,6 @@ class TestEnterpriseIntegrationPoints(unittest.TestCase):
         
         # Enterprise manager attribute should exist (even if None)
         self.assertTrue(hasattr(analyzer, 'enterprise_manager'))
-
 
 if __name__ == '__main__':
     # Set up test environment

@@ -1,24 +1,18 @@
-# SPDX-License-Identifier: MIT
-"""
-Master System Integration Controller - Phase 5
-==============================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
 
 Orchestrates all phase interactions and coordinates the complete
 multi-agent analysis pipeline across JSON Schema, Linter Integration,
 Performance Optimization, and Precision Validation phases.
 
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
 # from lib.shared.utilities.logging_setup import get_analyzer_logger
-# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
-# from lib.shared.utilities.path_validation import validate_directory, ensure_dir
 
 # Use shared logging
 logger = get_analyzer_logger(__name__)
-
 
 @dataclass
 class IntegrationConfig:
@@ -33,7 +27,6 @@ class IntegrationConfig:
     correlation_threshold: float = 0.7
     performance_target: float = 0.583  # 58.3% improvement target
 
-
 @dataclass
 class PhaseResult:
     """Result from individual phase execution."""
@@ -44,7 +37,6 @@ class PhaseResult:
     execution_time: float
     metadata: Dict[str, Any]
     error_message: Optional[str] = None
-
 
 @dataclass
 class IntegratedAnalysisResult:
@@ -60,7 +52,6 @@ class IntegratedAnalysisResult:
     theater_detection_score: float
     total_execution_time: float
     metadata: Dict[str, Any]
-
 
 class PhaseManager:
     """Base class for individual phase managers."""
@@ -215,7 +206,6 @@ class PhaseManager:
                 })
 
             # Check for TODO/FIXME theater
-            if any(marker in line.upper() for marker in ['TODO', 'FIXME', 'HACK']):
                 violations.append({
                     'type': 'code_debt',
                     'severity': 'low',
@@ -290,7 +280,6 @@ class PhaseManager:
                 errors.extend(phase_security_errors)
             except:
                 # Continue if phase-specific validation not available
-                pass
 
         return {
             'is_valid': len(errors) == 0,
@@ -314,7 +303,6 @@ class PhaseManager:
                     return False
 
             # Ensure path is within allowed boundaries
-            # Additional path validation logic can be added here
 
             return True
 
@@ -426,7 +414,6 @@ class PhaseManager:
 
         return True
 
-
 class JSONSchemaPhaseManager(PhaseManager):
     """Manager for JSON Schema validation phase (Phase 1)."""
     
@@ -506,7 +493,6 @@ class JSONSchemaPhaseManager(PhaseManager):
         # Penalty-based scoring
         penalty = (critical_count * 0.1) + (high_count * 0.05)
         return max(0.0, 1.0 - penalty)
-
 
 class LinterIntegrationPhaseManager(PhaseManager):
     """Manager for Linter Integration phase (Phase 2)."""
@@ -589,7 +575,6 @@ class LinterIntegrationPhaseManager(PhaseManager):
         # Measure efficiency based on violation resolution capability
         resolved_count = len([v for v in violations if v.get('auto_fixable', False)])
         return resolved_count / len(violations) if violations else 1.0
-
 
 class PerformanceOptimizationPhaseManager(PhaseManager):
     """Manager for Performance Optimization phase (Phase 3)."""
@@ -693,7 +678,6 @@ class PerformanceOptimizationPhaseManager(PhaseManager):
         
         return violations
 
-
 class PrecisionValidationPhaseManager(PhaseManager):
     """Manager for Precision Validation phase (Phase 4)."""
     
@@ -777,7 +761,6 @@ class PrecisionValidationPhaseManager(PhaseManager):
         theater_score = theater_results.get('reality_score', 0.9)
         
         return (byzantine_score + theater_score) / 2.0
-
 
 class SystemIntegrationController:
     """

@@ -3,9 +3,9 @@
 Analyze the entire SPEK template project for connascence violations
 """
 
-import sys
-from pathlib import Path
 from collections import Counter
+from pathlib import Path
+import sys
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -71,7 +71,6 @@ def analyze_full_project():
     print(f"  Improvement: {result.total_violations}x increase in detection capability")
 
     # Direct test of AST analyzer
-    print("\nDirect AST analyzer test:")
     from analyzer.detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
     ast_analyzer = ConnascenceASTAnalyzer()
 

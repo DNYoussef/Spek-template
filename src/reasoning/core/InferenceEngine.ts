@@ -75,7 +75,7 @@ export class InferenceEngine extends EventEmitter {
       id: 'modus-ponens',
       name: 'Modus Ponens',
       type: 'modus_ponens',
-      premises: ['P → Q', 'P'],
+      premises: ['P  Q', 'P'],
       conclusion: 'Q',
       confidence: 1.0
     });
@@ -85,8 +85,8 @@ export class InferenceEngine extends EventEmitter {
       id: 'modus-tollens',
       name: 'Modus Tollens',
       type: 'modus_tollens',
-      premises: ['P → Q', '¬Q'],
-      conclusion: '¬P',
+      premises: ['P  Q', 'Q'],
+      conclusion: 'P',
       confidence: 1.0
     });
 
@@ -95,7 +95,7 @@ export class InferenceEngine extends EventEmitter {
       id: 'disjunctive-syllogism',
       name: 'Disjunctive Syllogism',
       type: 'disjunctive_syllogism',
-      premises: ['P ∨ Q', '¬P'],
+      premises: ['P  Q', 'P'],
       conclusion: 'Q',
       confidence: 1.0
     });
@@ -105,8 +105,8 @@ export class InferenceEngine extends EventEmitter {
       id: 'hypothetical-syllogism',
       name: 'Hypothetical Syllogism',
       type: 'syllogism',
-      premises: ['P → Q', 'Q → R'],
-      conclusion: 'P → R',
+      premises: ['P  Q', 'Q  R'],
+      conclusion: 'P  R',
       confidence: 1.0
     });
   }
@@ -189,14 +189,14 @@ export class InferenceEngine extends EventEmitter {
   }
 
   private applyModusPonens(rule: InferenceRule): InferenceResult | null {
-    // Find P → Q and P
-    const implication = this.findProposition((p) => p.statement.includes('→'));
+    // Find P  Q and P
+    const implication = this.findProposition((p) => p.statement.includes(''));
     const antecedent = this.findProposition((p) =>
-      implication && p.statement === implication.statement.split('→')[0].trim()
+      implication && p.statement === implication.statement.split('')[0].trim()
     );
 
     if (implication && antecedent && antecedent.truthValue === true) {
-      const consequent = implication.statement.split('→')[1].trim();
+      const consequent = implication.statement.split('')[1].trim();
 
       return {
         ruleId: rule.id,
@@ -218,31 +218,31 @@ export class InferenceEngine extends EventEmitter {
   }
 
   private applyModusTollens(rule: InferenceRule): InferenceResult | null {
-    // Find P → Q and ¬Q
-    const implication = this.findProposition((p) => p.statement.includes('→'));
+    // Find P  Q and Q
+    const implication = this.findProposition((p) => p.statement.includes(''));
     if (!implication) return null;
 
-    const consequent = implication.statement.split('→')[1].trim();
+    const consequent = implication.statement.split('')[1].trim();
     const negatedConsequent = this.findProposition((p) =>
-      p.statement === `¬${consequent}` && p.truthValue === true
+      p.statement === `${consequent}` && p.truthValue === true
     );
 
     if (implication && negatedConsequent) {
-      const antecedent = implication.statement.split('→')[0].trim();
+      const antecedent = implication.statement.split('')[0].trim();
 
       return {
         ruleId: rule.id,
         premises: [implication, negatedConsequent],
         conclusion: {
           id: this.generateId('conclusion'),
-          statement: `¬${antecedent}`,
+          statement: `${antecedent}`,
           truthValue: true,
           confidence: Math.min(implication.confidence, negatedConsequent.confidence) * rule.confidence,
           dependencies: [implication.id, negatedConsequent.id]
         },
         confidence: rule.confidence,
         valid: true,
-        explanation: `By modus tollens: ${implication.statement} and ${negatedConsequent.statement}, therefore ¬${antecedent}`
+        explanation: `By modus tollens: ${implication.statement} and ${negatedConsequent.statement}, therefore ${antecedent}`
       };
     }
 
@@ -250,13 +250,13 @@ export class InferenceEngine extends EventEmitter {
   }
 
   private applyDisjunctiveSyllogism(rule: InferenceRule): InferenceResult | null {
-    // Find P ∨ Q and ¬P
-    const disjunction = this.findProposition((p) => p.statement.includes('∨'));
+    // Find P  Q and P
+    const disjunction = this.findProposition((p) => p.statement.includes(''));
     if (!disjunction) return null;
 
-    const [left, right] = disjunction.statement.split('∨').map(s => s.trim());
+    const [left, right] = disjunction.statement.split('').map(s => s.trim());
     const negatedLeft = this.findProposition((p) =>
-      p.statement === `¬${left}` && p.truthValue === true
+      p.statement === `${left}` && p.truthValue === true
     );
 
     if (disjunction && negatedLeft) {
@@ -280,9 +280,9 @@ export class InferenceEngine extends EventEmitter {
   }
 
   private applySyllogism(rule: InferenceRule): InferenceResult | null {
-    // Find P → Q and Q → R
+    // Find P  Q and Q  R
     const implications = Array.from(this.propositions.values())
-      .filter(p => p.statement.includes('→'));
+      .filter(p => p.statement.includes(''));
 
     for (let i = 0; i < implications.length; i++) {
       for (let j = 0; j < implications.length; j++) {
@@ -291,26 +291,26 @@ export class InferenceEngine extends EventEmitter {
         const first = implications[i];
         const second = implications[j];
 
-        const firstConsequent = first.statement.split('→')[1].trim();
-        const secondAntecedent = second.statement.split('→')[0].trim();
+        const firstConsequent = first.statement.split('')[1].trim();
+        const secondAntecedent = second.statement.split('')[0].trim();
 
         if (firstConsequent === secondAntecedent) {
-          const firstAntecedent = first.statement.split('→')[0].trim();
-          const secondConsequent = second.statement.split('→')[1].trim();
+          const firstAntecedent = first.statement.split('')[0].trim();
+          const secondConsequent = second.statement.split('')[1].trim();
 
           return {
             ruleId: rule.id,
             premises: [first, second],
             conclusion: {
               id: this.generateId('conclusion'),
-              statement: `${firstAntecedent} → ${secondConsequent}`,
+              statement: `${firstAntecedent}  ${secondConsequent}`,
               truthValue: null,
               confidence: Math.min(first.confidence, second.confidence) * rule.confidence,
               dependencies: [first.id, second.id]
             },
             confidence: rule.confidence,
             valid: true,
-            explanation: `By syllogism: ${first.statement} and ${second.statement}, therefore ${firstAntecedent} → ${secondConsequent}`
+            explanation: `By syllogism: ${first.statement} and ${second.statement}, therefore ${firstAntecedent}  ${secondConsequent}`
           };
         }
       }
@@ -334,8 +334,8 @@ export class InferenceEngine extends EventEmitter {
     // Check for direct contradictions
     for (const prop of this.propositions.values()) {
       const negation = this.findProposition(p =>
-        p.statement === `¬${prop.statement}` ||
-        prop.statement === `¬${p.statement}`
+        p.statement === `${prop.statement}` ||
+        prop.statement === `${p.statement}`
       );
 
       if (negation && prop.truthValue === negation.truthValue && prop.truthValue !== null) {

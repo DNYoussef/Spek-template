@@ -1,15 +1,4 @@
-# SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 """
 Parallel Processing Enhancement for Connascence Analysis
@@ -43,14 +32,12 @@ logger = logging.getLogger(__name__)
 # Define UnifiedAnalysisResult if not available
 class UnifiedAnalysisResult:
     """Placeholder for unified analysis results."""
-    pass
 
 # Define DashboardMetrics if not available
 class DashboardMetrics:
     """Placeholder for metrics collection."""
     def record_performance(self, **kwargs):
         pass
-
 
 @dataclass
 class ParallelAnalysisConfig:
@@ -63,7 +50,6 @@ class ParallelAnalysisConfig:
     memory_limit_mb: int = 1024  # 1GB per worker
     enable_profiling: bool = False
     worker_initialization_timeout: int = 30
-
 
 @dataclass
 class ParallelAnalysisResult:
@@ -88,7 +74,6 @@ class ParallelAnalysisResult:
     worker_results: List[Dict[str, Any]]
     chunk_processing_times: List[float]
     coordination_overhead_ms: float
-
 
 class ParallelConnascenceAnalyzer:
     """
@@ -540,7 +525,7 @@ class ParallelConnascenceAnalyzer:
 
         # Overall quality score (weighted average)
         overall_quality_score = (
-            (max(0.0, 1.0 - connascence_index * 0.01) * 0.4) + (nasa_compliance_score * 0.3) + (duplication_score * 0.3)
+            (max(0.0, 1.0 - connascence_index * 0.01) * 0.4) + (nasa_compliance_score * 0.3) + (duplication_score * 0.2)
         )
 
         # Generate recommendations
@@ -788,7 +773,6 @@ class TestClass_{i}:
 
         return time.time() - start_time
 
-
 class ResourceMonitor:
     """Monitor system resources during parallel analysis."""
 
@@ -848,7 +832,6 @@ class ResourceMonitor:
 
             except Exception:
                 break
-
 
 # Global instance for easy access
 parallel_analyzer = ParallelConnascenceAnalyzer()

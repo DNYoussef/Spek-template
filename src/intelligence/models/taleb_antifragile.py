@@ -1,7 +1,4 @@
-"""
-Taleb's Antifragility models for risk assessment and tail event prediction.
-Implements concepts from "Antifragile" and options trading principles.
-"""
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 import torch
 import torch.nn as nn
@@ -16,7 +13,7 @@ from ..config import config
 class TailRiskModule(nn.Module):
     """Module for extreme value theory and tail risk modeling."""
     
-    def __init__(self, input_dim: int, tail_dim: int = 32):
+def __init__(self, input_dim: int, tail_dim: int = 32):
         super().__init__()
         self.tail_dim = tail_dim
         
@@ -58,7 +55,7 @@ class TailRiskModule(nn.Module):
             nn.Sigmoid()
         )
     
-    def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
+def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
         """
         Model tail risk characteristics.
         
@@ -92,7 +89,7 @@ class TailRiskModule(nn.Module):
 class VolatilitySmileModule(nn.Module):
     """Module for modeling volatility smile and skew effects."""
     
-    def __init__(self, input_dim: int, smile_dim: int = 24):
+def __init__(self, input_dim: int, smile_dim: int = 24):
         super().__init__()
         self.smile_dim = smile_dim
         
@@ -135,7 +132,7 @@ class VolatilitySmileModule(nn.Module):
             nn.Linear(16, 1)
         )
     
-    def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
+def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
         """
         Model volatility smile characteristics.
         
@@ -165,7 +162,7 @@ class VolatilitySmileModule(nn.Module):
 class AntifragilityModule(nn.Module):
     """Core antifragility detection and scoring module."""
     
-    def __init__(self, input_dim: int, antifragile_dim: int = 48):
+def __init__(self, input_dim: int, antifragile_dim: int = 48):
         super().__init__()
         self.antifragile_dim = antifragile_dim
         
@@ -217,7 +214,7 @@ class AntifragilityModule(nn.Module):
             nn.Sigmoid()
         )
     
-    def forward(self, x: torch.Tensor, volatility: Optional[torch.Tensor] = None) -> Dict[str, torch.Tensor]:
+def forward(self, x: torch.Tensor, volatility: Optional[torch.Tensor] = None) -> Dict[str, torch.Tensor]:
         """
         Assess antifragility characteristics.
         
@@ -268,7 +265,7 @@ class AntifragilityModule(nn.Module):
 class AntifragileRiskModel(BaseRiskModel):
     """Comprehensive antifragile risk assessment model."""
     
-    def __init__(self, input_dim: int, hidden_dim: int = 256):
+def __init__(self, input_dim: int, hidden_dim: int = 256):
         super().__init__(input_dim)
         self.hidden_dim = hidden_dim
         
@@ -315,7 +312,7 @@ class AntifragileRiskModel(BaseRiskModel):
             nn.Linear(32, 1)
         )
         
-    def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
+def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
         """
         Comprehensive risk assessment.
         
@@ -367,7 +364,7 @@ class AntifragileRiskModel(BaseRiskModel):
         
         return risk_metrics
     
-    def calculate_var(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
+def calculate_var(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
         """Calculate Value at Risk."""
         risk_metrics = self.forward(x)
         
@@ -379,7 +376,7 @@ class AntifragileRiskModel(BaseRiskModel):
         else:
             return risk_metrics['var_95']
     
-    def calculate_expected_shortfall(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
+def calculate_expected_shortfall(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
         """Calculate Expected Shortfall (Conditional VaR)."""
         risk_metrics = self.forward(x)
         
@@ -394,7 +391,7 @@ class AntifragileRiskModel(BaseRiskModel):
 class TailRiskPredictor(nn.Module):
     """Specialized model for extreme event prediction."""
     
-    def __init__(self, input_dim: int, sequence_length: int = 60):
+def __init__(self, input_dim: int, sequence_length: int = 60):
         super().__init__()
         self.input_dim = input_dim
         self.sequence_length = sequence_length
@@ -443,7 +440,7 @@ class TailRiskPredictor(nn.Module):
             nn.Linear(32, 1)
         )
     
-    def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
+def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
         """
         Predict tail events and their characteristics.
         
@@ -480,7 +477,7 @@ class TailRiskPredictor(nn.Module):
 class BlackSwanDetector(nn.Module):
     """Detector for black swan events using Taleb's criteria."""
     
-    def __init__(self, input_dim: int):
+def __init__(self, input_dim: int):
         super().__init__()
         
         # Feature encoder for black swan characteristics
@@ -515,7 +512,7 @@ class BlackSwanDetector(nn.Module):
             nn.Sigmoid()
         )
     
-    def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
+def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
         """Detect potential black swan characteristics."""
         features = self.feature_encoder(x.mean(dim=1))
         
@@ -525,7 +522,7 @@ class BlackSwanDetector(nn.Module):
         narrative_score = self.narrative_score(features) # Retrospective predictability
         
         # Composite black swan score
-        black_swan_score = (outlier_score * impact_score * narrative_score) ** (1/3)
+        black_swan_score = (outlier_score * impact_score * narrative_score) ** (1/MAXIMUM_RETRY_ATTEMPTS)
         
         return {
             'black_swan_score': black_swan_score,

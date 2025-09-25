@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-THEATER DETECTION SYSTEM TEST SUITE
-Comprehensive tests for theater detection and reality validation
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, TAKE_PROFIT_PERCENTAGE
 
 import unittest
 import json
@@ -36,7 +32,7 @@ class TestTheaterDetector(unittest.TestCase):
         # Mock metrics with suspicious performance improvements
         current_metrics = {
             "benchmark_results": {
-                "test_1": 100,
+                "test_1": MAXIMUM_FUNCTION_LENGTH_LINES,
                 "test_2": 101,
                 "test_3": 102
             },
@@ -77,7 +73,7 @@ class TestTheaterDetector(unittest.TestCase):
         """Test detection of quality theater patterns"""
         current_metrics = {
             "test_coverage": {
-                "line_coverage": 0.95,  # High coverage increase
+                "line_coverage": NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,  # High coverage increase
                 "test_count": 157  # Minimal test increase
             },
             "complexity_metrics": {
@@ -150,7 +146,6 @@ class TestTheaterDetector(unittest.TestCase):
         monitoring = result["continuous_monitoring"]
         for category in ["performance", "quality", "security", "compliance", "architecture"]:
             self.assertEqual(monitoring[f"{category}_monitoring"], "active")
-
 
 class TestContinuousMonitor(unittest.TestCase):
     """Test continuous theater monitoring system"""
@@ -228,7 +223,6 @@ class TestContinuousMonitor(unittest.TestCase):
         self.assertEqual(latest_update.update_type, "weekly")
         self.assertIn(latest_update.confidence_level, ["high", "medium", "low"])
 
-
 class TestRealityValidator(unittest.TestCase):
     """Test reality validation system"""
     
@@ -269,7 +263,7 @@ class TestRealityValidator(unittest.TestCase):
         """Test Phase 3 god object decomposition validation"""
         evidence = {
             "nasa_compliance": {
-                "current_score": 0.95,
+                "current_score": NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,
                 "baseline_score": 0.78,
                 "improvement_score": 0.17,
                 "rules_implemented": 3
@@ -303,10 +297,10 @@ class TestRealityValidator(unittest.TestCase):
             "god_object_analysis": {
                 "reduction_percentage": 0.50,  # High reduction
                 "complexity_improvement": 0.02,  # Low complexity improvement - theater risk
-                "coupling_increase": 0.15  # Coupling got worse - theater risk
+                "coupling_increase": TAKE_PROFIT_PERCENTAGE  # Coupling got worse - theater risk
             },
             "nasa_compliance": {
-                "improvement_score": 0.15,  # High improvement
+                "improvement_score": TAKE_PROFIT_PERCENTAGE,  # High improvement
                 "rules_implemented": 1  # Low rule implementation - theater risk
             }
         }
@@ -366,7 +360,6 @@ class TestRealityValidator(unittest.TestCase):
         self.assertIn("system_verdict", system_assessment)
         self.assertGreaterEqual(system_assessment["overall_reality_score"], 0.0)
         self.assertLessEqual(system_assessment["overall_reality_score"], 1.0)
-
 
 class TestIntegration(unittest.TestCase):
     """Integration tests for complete theater detection system"""
@@ -435,7 +428,6 @@ class TestIntegration(unittest.TestCase):
         self.assertTrue(monitoring_readiness["monitoring_thresholds_set"])
         self.assertTrue(monitoring_readiness["alert_system_active"])
         self.assertTrue(monitoring_readiness["stakeholder_reporting_enabled"])
-
 
 if __name__ == "__main__":
     # Run all tests

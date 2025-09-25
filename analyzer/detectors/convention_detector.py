@@ -5,18 +5,17 @@ Detects Connascence of Convention violations - naming conventions, style violati
 and documentation pattern inconsistencies.
 """
 
+from typing import List
 import ast
 import re
-from typing import List
 
 from utils.types import ConnascenceViolation
 from .base import DetectorBase
 
-
 class ConventionDetector(DetectorBase):
     """Detects convention-based coupling and naming inconsistencies."""
     
-    def __init__(self, file_path: str, source_lines: List[str]):
+def __init__(self, file_path: str, source_lines: List[str]):
         super().__init__(file_path, source_lines)
         
         # Naming convention patterns
@@ -31,7 +30,7 @@ class ConventionDetector(DetectorBase):
             re.compile(r"'''.*?'''", re.DOTALL),
         ]
     
-    def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
+def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         """
         Detect convention violations in the AST tree.
         
@@ -65,7 +64,7 @@ class ConventionDetector(DetectorBase):
         
         return self.violations
     
-    def _analyze_function_conventions(self, node: ast.FunctionDef) -> None:
+def _analyze_function_conventions(self, node: ast.FunctionDef) -> None:
         """Analyze function naming and documentation conventions."""
         func_name = node.name
         self.function_names.append(func_name)
@@ -93,7 +92,7 @@ class ConventionDetector(DetectorBase):
                 "Function name too abbreviated - use descriptive names"
             )
     
-    def _analyze_class_conventions(self, node: ast.ClassDef) -> None:
+def _analyze_class_conventions(self, node: ast.ClassDef) -> None:
         """Analyze class naming and structure conventions."""
         class_name = node.name
         self.class_names.append(class_name)
@@ -112,7 +111,7 @@ class ConventionDetector(DetectorBase):
                 "Add docstring describing class purpose and usage"
             )
     
-    def _analyze_variable_conventions(self, node: ast.Name) -> None:
+def _analyze_variable_conventions(self, node: ast.Name) -> None:
         """Analyze variable naming conventions."""
         if isinstance(node.ctx, ast.Store):  # Variable assignment
             var_name = node.id
@@ -126,7 +125,7 @@ class ConventionDetector(DetectorBase):
                     "Avoid single-letter variable names except for common cases"
                 )
     
-    def _analyze_assignment_conventions(self, node: ast.Assign) -> None:
+def _analyze_assignment_conventions(self, node: ast.Assign) -> None:
         """Analyze assignment conventions for constants."""
         # Check for potential constants (all uppercase assignments)
         for target in node.targets:
@@ -144,13 +143,13 @@ class ConventionDetector(DetectorBase):
                             "Constants should use UPPER_SNAKE_CASE naming"
                         )
     
-    def _check_naming_consistency(self) -> None:
+def _check_naming_consistency(self) -> None:
         """Check for inconsistent naming patterns across the file."""
         # Check function naming consistency
         snake_case_functions = [name for name in self.function_names 
-                               if self.snake_case_pattern.match(name)]
+                                if self.snake_case_pattern.match(name)]
         camel_case_functions = [name for name in self.function_names 
-                               if self.camel_case_pattern.match(name)]
+                                if self.camel_case_pattern.match(name)]
         
         if len(snake_case_functions) > 0 and len(camel_case_functions) > 0:
             # Mixed naming patterns detected
@@ -171,7 +170,7 @@ class ConventionDetector(DetectorBase):
             )
             self.violations.append(violation)
     
-    def _has_docstring(self, node: ast.FunctionDef | ast.ClassDef) -> bool:
+def _has_docstring(self, node: ast.FunctionDef | ast.ClassDef) -> bool:
         """Check if function or class has a docstring."""
         if (node.body and 
             isinstance(node.body[0], ast.Expr) and 
@@ -180,7 +179,7 @@ class ConventionDetector(DetectorBase):
             return True
         return False
     
-    def _create_naming_violation(self, node: ast.AST, name: str, name_type: str, message: str) -> None:
+def _create_naming_violation(self, node: ast.AST, name: str, name_type: str, message: str) -> None:
         """Create violation for naming convention issues."""
         self.violations.append(
             ConnascenceViolation(
@@ -200,7 +199,7 @@ class ConventionDetector(DetectorBase):
             )
         )
     
-    def _create_documentation_violation(self, node: ast.AST, message: str, recommendation: str) -> None:
+def _create_documentation_violation(self, node: ast.AST, message: str, recommendation: str) -> None:
         """Create violation for documentation issues."""
         self.violations.append(
             ConnascenceViolation(

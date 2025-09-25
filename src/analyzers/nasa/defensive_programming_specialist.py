@@ -1,10 +1,8 @@
 from lib.shared.utilities import path_exists
-# SPDX-License-Identifier: MIT
-"""
-Defensive Programming Specialist - NASA Compliance Agent
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, REGULATORY_FACTUALITY_REQUIREMENT
 
 Specialized agent for assertion injection and input validation framework
-implementation to achieve NASA POT10 Rule 5 compliance (defensive assertions).
+implementation to achieve NASA POT10 Rule MAXIMUM_NESTED_DEPTH compliance (defensive assertions).
 
 Core Capabilities:
 1. Systematic assertion injection with icontract integration
@@ -29,11 +27,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from utils.types import ConnascenceViolation
 
 # Assertion framework configuration
-ASSERTION_COVERAGE_TARGET = 0.90  # 90% coverage target
+ASSERTION_COVERAGE_TARGET = REGULATORY_FACTUALITY_REQUIREMENT  # 90% coverage target
 MIN_ASSERTIONS_PER_FUNCTION = 2   # NASA Rule 5 requirement
 MAX_ASSERTIONS_PER_FUNCTION = 10  # Upper bound to avoid over-assertion
 BOUNDED_ANALYSIS_LIMIT = 50       # Function analysis limit
-
 
 @dataclass
 class AssertionPoint:
@@ -45,7 +42,6 @@ class AssertionPoint:
     rationale: str
     priority: str  # high, medium, low
     estimated_loc: int
-
 
 @dataclass
 class FunctionAnalysis:
@@ -59,7 +55,6 @@ class FunctionAnalysis:
     assertion_points: List[AssertionPoint]
     defensive_score: float
 
-
 @dataclass
 class DefensiveProgrammingPlan:
     """Comprehensive defensive programming implementation plan."""
@@ -70,18 +65,17 @@ class DefensiveProgrammingPlan:
     implementation_phases: List[Dict[str, Any]]
     safety_validation: Dict[str, Any]
 
-
 class DefensiveProgrammingSpecialist:
     """
     Specialized agent for NASA Rule 5 compliance through systematic assertion injection.
     NASA Rule 4 compliant: All functions <60 LOC.
     """
     
-    def __init__(self):
+def __init__(self):
         """Initialize defensive programming specialist."""
         # NASA Rule 5: Input validation assertions
         assert ASSERTION_COVERAGE_TARGET > 0.0, "Coverage target must be positive"
-        assert MIN_ASSERTIONS_PER_FUNCTION >= 2, "NASA Rule 5 requires minimum 2 assertions"
+        assert MIN_ASSERTIONS_PER_FUNCTION >= 2, "NASA Rule MAXIMUM_NESTED_DEPTH requires minimum 2 assertions"
         
         self.assertion_templates = self._initialize_assertion_templates()
         self.coverage_analyzer = AssertionCoverageAnalyzer()
@@ -90,7 +84,7 @@ class DefensiveProgrammingSpecialist:
         # Analysis caching for performance
         self.function_cache: Dict[str, FunctionAnalysis] = {}
         
-    def _initialize_assertion_templates(self) -> Dict[str, List[str]]:
+def _initialize_assertion_templates(self) -> Dict[str, List[str]]:
         """Initialize assertion code templates for different scenarios."""
         return {
             "parameter_validation": [
@@ -118,7 +112,7 @@ class DefensiveProgrammingSpecialist:
             ]
         }
     
-    def analyze_defensive_programming_opportunities(self, file_path: str) -> DefensiveProgrammingPlan:
+def analyze_defensive_programming_opportunities(self, file_path: str) -> DefensiveProgrammingPlan:
         """
         Analyze file for defensive programming opportunities.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -172,7 +166,7 @@ class DefensiveProgrammingSpecialist:
             safety_validation=safety_validation
         )
     
-    def _analyze_function_defensiveness(self, func_node: ast.FunctionDef, source_code: str) -> FunctionAnalysis:
+def _analyze_function_defensiveness(self, func_node: ast.FunctionDef, source_code: str) -> FunctionAnalysis:
         """
         Analyze individual function for defensive programming opportunities.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -207,7 +201,7 @@ class DefensiveProgrammingSpecialist:
             defensive_score=defensive_score
         )
     
-    def _identify_assertion_points(self, func_node: ast.FunctionDef, source_code: str) -> List[AssertionPoint]:
+def _identify_assertion_points(self, func_node: ast.FunctionDef, source_code: str) -> List[AssertionPoint]:
         """
         Identify specific points where assertions should be added.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -272,11 +266,11 @@ class DefensiveProgrammingSpecialist:
         # Limit to reasonable number of assertions
         return assertion_points[:MAX_ASSERTIONS_PER_FUNCTION]
     
-    def _count_current_assertions(self, func_node: ast.FunctionDef) -> int:
+def _count_current_assertions(self, func_node: ast.FunctionDef) -> int:
         """Count existing assertions in function."""
         return len([node for node in ast.walk(func_node) if isinstance(node, ast.Assert)])
     
-    def _calculate_complexity_score(self, func_node: ast.FunctionDef) -> float:
+def _calculate_complexity_score(self, func_node: ast.FunctionDef) -> float:
         """
         Calculate function complexity score for assertion planning.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -299,7 +293,7 @@ class DefensiveProgrammingSpecialist:
         
         return normalized_complexity
     
-    def _calculate_defensive_score(self, current: int, required: int, complexity: float) -> float:
+def _calculate_defensive_score(self, current: int, required: int, complexity: float) -> float:
         """Calculate current defensive programming score."""
         if required == 0:
             return 1.0
@@ -309,7 +303,7 @@ class DefensiveProgrammingSpecialist:
         
         return assertion_ratio * complexity_factor
     
-    def _generate_implementation_phases(self, function_analyses: List[FunctionAnalysis]) -> List[Dict[str, Any]]:
+def _generate_implementation_phases(self, function_analyses: List[FunctionAnalysis]) -> List[Dict[str, Any]]:
         """
         Generate phased implementation plan for assertion injection.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -343,7 +337,7 @@ class DefensiveProgrammingSpecialist:
                 "priority": "medium"
             })
         
-        # Phase 3: Comprehensive coverage (remaining functions)
+        # Phase MAXIMUM_RETRY_ATTEMPTS: Comprehensive coverage (remaining functions)
         remaining_functions = [f for f in priority_functions if f.defensive_score >= 0.75]
         if remaining_functions:
             phases.append({
@@ -357,7 +351,7 @@ class DefensiveProgrammingSpecialist:
         
         return phases
     
-    def _create_safety_validation_plan(self, function_analyses: List[FunctionAnalysis]) -> Dict[str, Any]:
+def _create_safety_validation_plan(self, function_analyses: List[FunctionAnalysis]) -> Dict[str, Any]:
         """Create safety validation plan for assertion injection."""
         return {
             "pre_injection_validation": {
@@ -383,7 +377,7 @@ class DefensiveProgrammingSpecialist:
             }
         }
     
-    def generate_icontract_integration_code(self, plan: DefensiveProgrammingPlan) -> str:
+def generate_icontract_integration_code(self, plan: DefensiveProgrammingPlan) -> str:
         """
         Generate icontract integration code for systematic assertion framework.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -400,19 +394,19 @@ from typing import Any, List, Optional
 
 # NASA Rule 5 compliance decorators
 def nasa_precondition(condition: str, description: str = ""):
-    """NASA Rule 5 compliant precondition decorator."""
+    """NASA Rule MAXIMUM_NESTED_DEPTH compliant precondition decorator."""
     return require(lambda *args, **kwargs: ast.literal_eval(condition), description=description)
 
 def nasa_postcondition(condition: str, description: str = ""):
-    """NASA Rule 5 compliant postcondition decorator.""" 
+    """NASA Rule MAXIMUM_NESTED_DEPTH compliant postcondition decorator.""" 
     return ensure(lambda result, *args, **kwargs: ast.literal_eval(condition), description=description)
 
 def bounded_operation(max_iterations: int = 1000, max_memory: int = 1000000):
     """NASA Rule 4 compliant bounded operation decorator."""
-    def decorator(func):
-        @require(lambda *args, **kwargs: True, description="Bounded operation entry")
-        @ensure(lambda result, *args, **kwargs: True, description="Bounded operation exit")
-        def wrapper(*args, **kwargs):
+def decorator(func):
+@require(lambda *args, **kwargs: True, description="Bounded operation entry")
+@ensure(lambda result, *args, **kwargs: True, description="Bounded operation exit")
+def wrapper(*args, **kwargs):
             # Implementation would include resource monitoring
             return func(*args, **kwargs)
         return wrapper
@@ -425,17 +419,16 @@ def bounded_operation(max_iterations: int = 1000, max_memory: int = 1000000):
         for func_analysis in plan.function_analyses[:3]:  # Bounded to 3 examples
             integration_code += f'''
 @nasa_precondition("len(args) > 0", "Function {func_analysis.name} requires arguments")
-@nasa_postcondition("result is not None", "Function {func_analysis.name} must return valid result") 
+@nasa_postcondition("result is not None", "Function {func_analysis.name} must return valid result")
 @bounded_operation(max_iterations=1000)
 def enhanced_{func_analysis.name}(*args, **kwargs):
-    """Enhanced with NASA Rule 5 compliance."""
+    """Enhanced with NASA Rule MAXIMUM_NESTED_DEPTH compliance."""
     # Original function implementation with assertions
-    pass
 '''
         
         return integration_code
     
-    def inject_assertions_systematically(self, plan: DefensiveProgrammingPlan) -> Dict[str, Any]:
+def inject_assertions_systematically(self, plan: DefensiveProgrammingPlan) -> Dict[str, Any]:
         """
         Execute systematic assertion injection according to plan.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -467,7 +460,7 @@ def enhanced_{func_analysis.name}(*args, **kwargs):
         
         return injection_results
     
-    def _execute_injection_phase(self, phase: Dict[str, Any], plan: DefensiveProgrammingPlan) -> Dict[str, Any]:
+def _execute_injection_phase(self, phase: Dict[str, Any], plan: DefensiveProgrammingPlan) -> Dict[str, Any]:
         """Execute single phase of assertion injection."""
         return {
             "phase_name": phase["phase"],
@@ -479,11 +472,10 @@ def enhanced_{func_analysis.name}(*args, **kwargs):
             "bounded_operation": True
         }
 
-
 class AssertionCoverageAnalyzer:
     """Analyzes assertion coverage for defensive programming assessment."""
     
-    def calculate_current_coverage(self, function_analyses: List[FunctionAnalysis]) -> float:
+def calculate_current_coverage(self, function_analyses: List[FunctionAnalysis]) -> float:
         """Calculate current assertion coverage across functions."""
         if not function_analyses:
             return 0.0
@@ -496,7 +488,7 @@ class AssertionCoverageAnalyzer:
         
         return total_assertions / total_required
     
-    def calculate_projected_coverage(self, function_analyses: List[FunctionAnalysis]) -> float:
+def calculate_projected_coverage(self, function_analyses: List[FunctionAnalysis]) -> float:
         """Calculate projected coverage after assertion injection."""
         if not function_analyses:
             return 0.0
@@ -509,11 +501,10 @@ class AssertionCoverageAnalyzer:
         
         return min(1.0, total_projected / total_required)
 
-
 class DefensivePatternsDetector:
     """Detects existing defensive programming patterns in code."""
     
-    def detect_patterns(self, source_code: str) -> Dict[str, int]:
+def detect_patterns(self, source_code: str) -> Dict[str, int]:
         """Detect existing defensive programming patterns."""
         patterns = {
             "assert_statements": len(re.findall(r'\bassert\b', source_code)),
@@ -524,12 +515,10 @@ class DefensivePatternsDetector:
         
         return patterns
 
-
 # NASA Rule 4 compliant helper functions
 def create_defensive_specialist() -> DefensiveProgrammingSpecialist:
     """Factory function for defensive programming specialist."""
     return DefensiveProgrammingSpecialist()
-
 
 def validate_assertion_injection(before_count: int, after_count: int, expected_count: int) -> bool:
     """Validate assertion injection results."""
@@ -539,7 +528,6 @@ def validate_assertion_injection(before_count: int, after_count: int, expected_c
     
     actual_added = after_count - before_count
     return actual_added >= expected_count * 0.8  # 80% success rate acceptable
-
 
 __all__ = [
     "DefensiveProgrammingSpecialist",

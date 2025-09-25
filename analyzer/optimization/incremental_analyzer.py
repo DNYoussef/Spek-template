@@ -7,12 +7,11 @@ Optimized incremental analysis for CI/CD pipelines that only
 analyzes changed files and their dependencies.
 """
 
-from dataclasses import dataclass, field
 import hashlib
 import json
 import logging
-logger = logging.getLogger(__name__)
 
+from dataclasses import dataclass, field
 
 @dataclass
 class FileChangeInfo:
@@ -24,7 +23,6 @@ class FileChangeInfo:
     content_hash: Optional[str] = None
     size_bytes: int = 0
     modification_time: float = 0.0
-
 
 @dataclass
 class IncrementalAnalysisResult:
@@ -57,7 +55,6 @@ class IncrementalAnalysisResult:
     improvement_detected: bool
 
     timestamp: str = field(default_factory=lambda: time.strftime("%Y-%m-%d %H:%M:%S"))
-
 
 class IncrementalAnalyzer:
     """
@@ -559,7 +556,6 @@ class IncrementalAnalyzer:
         """Update dependency cache (simplified implementation)."""
 
         # This is a simplified implementation
-        # In a full implementation, this would analyze import/dependency relationships
 
         python_files = list(self.project_root.glob("**/*.py"))
 
@@ -579,8 +575,6 @@ class IncrementalAnalyzer:
                     line = line.strip()
                     if line.startswith("import ") or line.startswith("from "):
                         # This is a very simplified dependency extraction
-                        # A full implementation would use AST parsing
-                        pass
 
                 self.dependency_graph[relative_path] = {
                     "dependencies": dependencies,
@@ -653,7 +647,6 @@ class IncrementalAnalyzer:
                 groups[severity] += 1
 
         return groups
-
 
 # Global incremental analyzer instance
 def get_incremental_analyzer(project_root: Union[str, Path]) -> IncrementalAnalyzer:

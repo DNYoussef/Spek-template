@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Performance Improvement Validation Script
-=========================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Comprehensive validation script to demonstrate and verify the 50% performance
 improvement target achievement across all optimization components.
@@ -14,7 +11,7 @@ Validation Areas:
 - Memory usage optimization (bounded resources, cleanup)
 - Real-time monitoring effectiveness (alert response, trend detection)
 
-NASA Rules 4, 5, 6, 7: Function limits, assertions, scoping, bounded resources
+NASA Rules 4, MAXIMUM_NESTED_DEPTH, 6, 7: Function limits, assertions, scoping, bounded resources
 """
 
 import asyncio
@@ -26,7 +23,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class PerformanceValidationSuite:
     """
@@ -126,7 +122,6 @@ class PerformanceValidationSuite:
     
     async def _validate_cache_performance(self) -> Dict[str, Any]:
         """Validate cache performance improvements."""
-        print("  [SEARCH] Testing cache optimization strategies...")
         
         try:
             # Get cache profiler
@@ -136,10 +131,7 @@ class PerformanceValidationSuite:
             test_files = [str(f) for f in self.project_path.rglob("*.py") if f.is_file()][:50]
             
             if not test_files:
-                print("  [WARN] No test files found for cache validation")
                 return {"validation_status": "skipped", "reason": "no_test_files"}
-            
-            print(f"  [FOLDER] Testing with {len(test_files)} files")
             
             # Measure baseline performance (cold cache)
             if cache_profiler.file_cache:
@@ -200,7 +192,6 @@ class PerformanceValidationSuite:
     
     async def _validate_parallel_processing(self) -> Dict[str, Any]:
         """Validate parallel processing improvements."""
-        print("  [SEARCH] Testing parallel processing optimization...")
         
         try:
             optimization_engine = get_global_optimization_engine()
@@ -274,14 +265,12 @@ class PerformanceValidationSuite:
     
     async def _validate_incremental_analysis(self) -> Dict[str, Any]:
         """Validate incremental analysis improvements."""
-        print("  [SEARCH] Testing incremental analysis optimization...")
         
         try:
             # Test incremental analysis vs full analysis
             test_files = [str(f) for f in self.project_path.rglob("*.py") if f.is_file()][:20]
             
             if not test_files:
-                print("  [WARN] No test files found for incremental analysis validation")
                 return {"validation_status": "skipped", "reason": "no_test_files"}
             
             # Simulate full analysis (baseline)
@@ -345,7 +334,6 @@ class PerformanceValidationSuite:
     
     async def _validate_cicd_acceleration(self) -> Dict[str, Any]:
         """Validate CI/CD pipeline acceleration."""
-        print("  [SEARCH] Testing CI/CD pipeline acceleration...")
         
         try:
             # Create mock CI/CD pipeline tasks
@@ -436,7 +424,6 @@ class PerformanceValidationSuite:
     
     async def _validate_memory_optimization(self) -> Dict[str, Any]:
         """Validate memory usage optimization."""
-        print("  [SEARCH] Testing memory optimization...")
         
         try:
             # Test memory usage with and without optimization
@@ -488,7 +475,6 @@ class PerformanceValidationSuite:
     
     async def _validate_integration_performance(self) -> Dict[str, Any]:
         """Validate integrated performance across all optimization systems."""
-        print("  [SEARCH] Testing integrated performance optimization...")
         
         try:
             # Run integrated optimization test
@@ -568,9 +554,9 @@ class PerformanceValidationSuite:
             
             # Count achievements
             targets_achieved = sum(1 for results in self.validation_results.values() 
-                                 if isinstance(results, dict) and results.get("target_achieved", False))
+                                if isinstance(results, dict) and results.get("target_achieved", False))
             total_targets = len([r for r in self.validation_results.values() 
-                               if isinstance(r, dict) and "target_achieved" in r])
+                                if isinstance(r, dict) and "target_achieved" in r])
             
             achievement_rate = (targets_achieved / max(total_targets, 1)) * 100
             overall_target_achieved = overall_improvement >= self.improvement_targets["overall_performance"]
@@ -679,7 +665,6 @@ class PerformanceValidationSuite:
         
         return recommendations
 
-
 async def main():
     """Main entry point for performance validation."""
     import argparse
@@ -688,11 +673,11 @@ async def main():
         description="Performance Improvement Validation Suite"
     )
     parser.add_argument("--project-path", "-p", default=".",
-                       help="Path to project for validation")
+                        help="Path to project for validation")
     parser.add_argument("--output", "-o",
-                       help="Output file for validation report (JSON)")
+                        help="Output file for validation report (JSON)")
     parser.add_argument("--verbose", "-v", action="store_true",
-                       help="Enable verbose output")
+                        help="Enable verbose output")
     
     args = parser.parse_args()
     
@@ -720,7 +705,6 @@ async def main():
         
         print(f"\n[CHART] Validation Summary:")
         print(f"   Project: {summary.get('project_path', 'Unknown')}")
-        print(f"   Components Tested: {summary.get('components_tested', 0)}")
         print(f"   Validation Time: {summary.get('validation_time_seconds', 0):.2f}s")
         print(f"   Status: {validation_report.get('validation_status', 'unknown').upper()}")
         
@@ -756,7 +740,6 @@ async def main():
             import traceback
             traceback.print_exc()
         sys.exit(2)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

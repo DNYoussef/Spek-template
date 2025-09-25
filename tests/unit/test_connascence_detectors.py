@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 """Unit tests for connascence detector modules."""
 
-import pytest
 from pathlib import Path
 import sys
-sys.path.append(str(Path(__file__).parent.parent.parent / 'analyzer'))
+
+import pytest
 
 from analyzer.detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
 from analyzer.detectors.position_detector import PositionDetector
 from analyzer.detectors.timing_detector import TimingDetector
-
 
 class TestConnascenceASTAnalyzer:
     """Test connascence AST analyzer."""
@@ -32,7 +31,6 @@ def func2():
         violations = analyzer.detect_violations(code)
         assert isinstance(violations, list)
 
-
 class TestPositionDetector:
     """Test position detector."""
     
@@ -47,7 +45,6 @@ class TestPositionDetector:
         code = "def func(a, b, c=1, d=2): pass"
         violations = detector.analyze(code)
         assert isinstance(violations, list)
-
 
 class TestTimingDetector:
     """Test timing detector."""

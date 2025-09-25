@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Statistical Process Control (SPC) Charts Implementation
-======================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Advanced SPC monitoring system for Six Sigma quality management.
 Implements X-bar, R, p, c, and CUSUM control charts with automated
@@ -12,7 +9,7 @@ Features:
 - Automated out-of-control detection
 - Trend analysis and forecasting
 - Integration with Six Sigma DPMO calculations
-- Performance overhead <1.5%
+- Performance overhead <1.MAXIMUM_NESTED_DEPTH%
 
 NASA POT10 Compliance: All methods under 60 lines
 """
@@ -20,7 +17,6 @@ NASA POT10 Compliance: All methods under 60 lines
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 @dataclass
 class ControlLimits:
@@ -31,7 +27,6 @@ class ControlLimits:
     usl: Optional[float] = None  # Upper Specification Limit
     lsl: Optional[float] = None  # Lower Specification Limit
 
-
 @dataclass
 class SPCDataPoint:
     """Single data point for SPC analysis"""
@@ -40,7 +35,6 @@ class SPCDataPoint:
     subgroup_id: str
     sample_size: int = 1
     metadata: Dict[str, Any] = field(default_factory=dict)
-
 
 @dataclass
 class SPCAlert:
@@ -52,7 +46,6 @@ class SPCAlert:
     severity: str  # 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL'
     description: str
     recommended_action: str
-
 
 class SPCRules:
     """Western Electric Rules for SPC control charts"""
@@ -77,7 +70,7 @@ class SPCRules:
         for i in range(2, len(values)):
             recent_3 = values[i-2:i+1]
             beyond_2sigma = sum(1 for v in recent_3
-                               if v > upper_2sigma or v < lower_2sigma)
+                                if v > upper_2sigma or v < lower_2sigma)
             if beyond_2sigma >= 2:
                 violations.append(i)
         return violations
@@ -93,7 +86,7 @@ class SPCRules:
         for i in range(4, len(values)):
             recent_5 = values[i-4:i+1]
             beyond_1sigma = sum(1 for v in recent_5
-                               if v > upper_1sigma or v < lower_1sigma)
+                                if v > upper_1sigma or v < lower_1sigma)
             if beyond_1sigma >= 4:
                 violations.append(i)
         return violations
@@ -121,7 +114,6 @@ class SPCRules:
             if increasing or decreasing:
                 violations.append(i)
         return violations
-
 
 class SPCControlChart:
     """Base class for SPC control charts"""
@@ -159,15 +151,15 @@ class SPCControlChart:
         # Check all SPC rules
         rule_checks = [
             (self.rules.rule_1_beyond_3sigma(values, self.control_limits),
-             "Rule 1: Point beyond 3-sigma", "HIGH"),
+            "Rule 1: Point beyond 3-sigma", "HIGH"),
             (self.rules.rule_2_two_of_three_beyond_2sigma(values, self.control_limits),
-             "Rule 2: Two of three beyond 2-sigma", "MEDIUM"),
+            "Rule 2: Two of three beyond 2-sigma", "MEDIUM"),
             (self.rules.rule_3_four_of_five_beyond_1sigma(values, self.control_limits),
-             "Rule 3: Four of five beyond 1-sigma", "MEDIUM"),
+            "Rule 3: Four of five beyond 1-sigma", "MEDIUM"),
             (self.rules.rule_4_nine_consecutive_same_side(values, self.control_limits),
-             "Rule 4: Nine consecutive on same side", "LOW"),
+            "Rule 4: Nine consecutive on same side", "LOW"),
             (self.rules.rule_5_six_consecutive_increasing_decreasing(values),
-             "Rule 5: Six consecutive trending", "LOW")
+            "Rule 5: Six consecutive trending", "LOW")
         ]
 
         for violations, rule_desc, severity in rule_checks:
@@ -233,7 +225,6 @@ class SPCControlChart:
             "ppk": round(ppk, 3)
         }
 
-
 class XBarChart(SPCControlChart):
     """X-bar (Average) control chart for continuous data"""
 
@@ -277,7 +268,6 @@ class XBarChart(SPCControlChart):
 
         self.control_limits = ControlLimits(ucl=ucl, lcl=lcl, cl=x_double_bar)
 
-
 class PChart(SPCControlChart):
     """p-chart for proportion defective"""
 
@@ -307,7 +297,6 @@ class PChart(SPCControlChart):
 
         self.control_limits = ControlLimits(ucl=ucl, lcl=lcl, cl=p_bar)
 
-
 class CChart(SPCControlChart):
     """c-chart for count of defects"""
 
@@ -330,12 +319,11 @@ class CChart(SPCControlChart):
 
         self.control_limits = ControlLimits(ucl=ucl, lcl=lcl, cl=c_bar)
 
-
 class CUSUMChart(SPCControlChart):
     """CUSUM (Cumulative Sum) chart for detecting small shifts"""
 
     def __init__(self, title: str = "CUSUM Chart", target_value: float = 0,
-                 reference_value: float = 1, decision_interval: float = 5):
+                reference_value: float = 1, decision_interval: float = 5):
         super().__init__("CUSUM", title)
         self.target_value = target_value
         self.reference_value = reference_value
@@ -385,7 +373,6 @@ class CUSUMChart(SPCControlChart):
             cl=0
         )
 
-
 class SPCManager:
     """Manager for multiple SPC control charts"""
 
@@ -400,8 +387,8 @@ class SPCManager:
         self.charts[chart_id] = chart
 
     def add_measurement(self, chart_id: str, timestamp: datetime,
-                       value: float, sample_size: int = 1,
-                       metadata: Optional[Dict[str, Any]] = None) -> None:
+                        value: float, sample_size: int = 1,
+                        metadata: Optional[Dict[str, Any]] = None) -> None:
         """Add measurement to specific chart"""
         if chart_id not in self.charts:
             logger.warning(f"Chart {chart_id} not found")
@@ -420,7 +407,7 @@ class SPCManager:
         # Collect new alerts
         chart = self.charts[chart_id]
         new_alerts = [alert for alert in chart.alerts
-                     if alert.timestamp >= timestamp - timedelta(minutes=1)]
+                    if alert.timestamp >= timestamp - timedelta(minutes=1)]
         self.global_alerts.extend(new_alerts)
 
     def generate_dashboard(self) -> Dict[str, Any]:
@@ -454,7 +441,7 @@ class SPCManager:
 
         # Determine overall status
         high_severity_alerts = [a for a in self.global_alerts[-24:]
-                               if a.severity in ['HIGH', 'CRITICAL']]
+                                if a.severity in ['HIGH', 'CRITICAL']]
         if high_severity_alerts:
             dashboard["summary"]["overall_status"] = "ALERT"
 
@@ -485,15 +472,15 @@ class SPCManager:
             # Plot control limits if available
             if chart.control_limits:
                 plt.axhline(y=chart.control_limits.ucl, color='r', linestyle='--',
-                           alpha=0.7, label='UCL')
+                            alpha=0.7, label='UCL')
                 plt.axhline(y=chart.control_limits.lcl, color='r', linestyle='--',
-                           alpha=0.7, label='LCL')
+                            alpha=0.7, label='LCL')
                 plt.axhline(y=chart.control_limits.cl, color='g', linestyle='-',
-                           alpha=0.8, label='Center Line')
+                            alpha=0.8, label='Center Line')
 
                 # Shade control zones
                 plt.fill_between(timestamps, chart.control_limits.lcl,
-                               chart.control_limits.ucl, alpha=0.1, color='green')
+                                chart.control_limits.ucl, alpha=0.1, color='green')
 
             # Highlight violations
             violation_indices = []
@@ -507,7 +494,7 @@ class SPCManager:
                 violation_times = [timestamps[i] for i in violation_indices]
                 violation_values = [values[i] for i in violation_indices]
                 plt.scatter(violation_times, violation_values, color='red',
-                           s=60, marker='x', linewidths=3, label='Violations', zorder=5)
+                            s=60, marker='x', linewidths=3, label='Violations', zorder=5)
 
             plt.title(f'{chart.title} - {chart.chart_type}')
             plt.xlabel('Time')
@@ -546,7 +533,7 @@ class SPCManager:
 
             # Check stability (no recent violations)
             recent_alerts = [a for a in chart.alerts
-                           if a.timestamp >= datetime.now() - timedelta(hours=24)]
+                            if a.timestamp >= datetime.now() - timedelta(hours=24)]
             is_stable = len(recent_alerts) == 0
 
             if is_stable:
@@ -608,7 +595,6 @@ class SPCManager:
         else:
             return "Poor - Below 3 Sigma capability"
 
-
 # Integration functions for Six Sigma system
 def create_six_sigma_spc_system() -> SPCManager:
     """Create comprehensive SPC system for Six Sigma monitoring"""
@@ -622,7 +608,6 @@ def create_six_sigma_spc_system() -> SPCManager:
     spc_manager.add_chart("process_trend", CUSUMChart("Process Trend CUSUM", target_value=95))
 
     return spc_manager
-
 
 if __name__ == "__main__":
     # Demonstrate SPC system

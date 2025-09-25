@@ -6,30 +6,28 @@ Minimal shared functionality to eliminate duplication between CLI, Web, and VSCo
 """
 
 from pathlib import Path
-import sys
 from typing import Any, Dict, Optional
+import sys
 
 # Import core analyzer
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from analyzer.core import ConnascenceAnalyzer
 
-
 class SharedAnalysisEngine:
     """Shared analysis engine used by all interfaces."""
 
-    def __init__(self):
+def __init__(self):
         self.analyzer = ConnascenceAnalyzer()
 
-    def analyze_path(self, path: str, policy: str = "default", **kwargs) -> Dict[str, Any]:
+def analyze_path(self, path: str, policy: str = "default", **kwargs) -> Dict[str, Any]:
         """Common analysis entry point for all interfaces."""
         return self.analyzer.analyze_path(path=path, policy=policy, **kwargs)
-
 
 class SharedFormatter:
     """Shared formatting utilities for all interfaces."""
 
-    @staticmethod
-    def format_summary_stats(analysis_result: Dict[str, Any]) -> Dict[str, Any]:
+@staticmethod
+def format_summary_stats(analysis_result: Dict[str, Any]) -> Dict[str, Any]:
         """Extract and format common summary statistics."""
         summary = analysis_result.get('summary', {})
         return {
@@ -42,8 +40,8 @@ class SharedFormatter:
             'analysis_time': analysis_result.get('metrics', {}).get('analysis_time', 0)
         }
 
-    @staticmethod
-    def get_severity_color(severity: str) -> str:
+@staticmethod
+def get_severity_color(severity: str) -> str:
         """Get color code for severity level."""
         colors = {
             'critical': '#d73a49',
@@ -53,12 +51,11 @@ class SharedFormatter:
         }
         return colors.get(severity, '#6c757d')
 
-
 class SharedValidation:
     """Shared validation utilities."""
 
-    @staticmethod
-    def validate_path(path: str) -> tuple[bool, Optional[str]]:
+@staticmethod
+def validate_path(path: str) -> tuple[bool, Optional[str]]:
         """Validate if path exists and is analyzable."""
         path_obj = Path(path)
         if not path_obj.exists():
@@ -72,14 +69,13 @@ class SharedValidation:
 
         return True, None
 
-    @staticmethod
-    def validate_policy(policy: str) -> tuple[bool, Optional[str]]:
+@staticmethod
+def validate_policy(policy: str) -> tuple[bool, Optional[str]]:
         """Validate policy name."""
         valid_policies = ['default', 'strict-core', 'nasa_jpl_pot10', 'lenient']
         if policy not in valid_policies:
             return False, f"Invalid policy: {policy}. Valid options: {valid_policies}"
         return True, None
-
 
 # Singleton instances for shared use
 analysis_engine = SharedAnalysisEngine()

@@ -3,16 +3,17 @@ Audit Storage Manager - Handles storage, encryption, and retrieval of audit even
 Part of the refactored Enhanced DFARS Audit Trail Manager
 """
 
-import json
-import gzip
-import time
-import hashlib
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import List, Dict, Any, Optional
-from datetime import datetime, timedelta
+import hashlib
+import json
+import time
+
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2
+import gzip
 
 from .audit_event_manager import AuditEvent
 
@@ -100,8 +101,8 @@ class AuditStorageManager:
         return str(event_file)
 
     def read_events(self, start_time: Optional[float] = None,
-                   end_time: Optional[float] = None,
-                   limit: int = 1000) -> List[Dict[str, Any]]:
+                    end_time: Optional[float] = None,
+                    limit: int = 1000) -> List[Dict[str, Any]]:
         """Read events from storage within time range."""
         events = []
 
@@ -184,7 +185,7 @@ class AuditStorageManager:
         return file_dir / f"audit_{chain_id}_{hour_str}.dat"
 
     def _find_event_files(self, start_time: Optional[float],
-                         end_time: Optional[float]) -> List[Path]:
+                        end_time: Optional[float]) -> List[Path]:
         """Find all event files in the time range."""
         files = []
 

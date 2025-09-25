@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-GaryTaleb Trading System - Security Gate Check Script
-Defense Industry Compliance with Financial Regulations
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 This script evaluates security scan results and makes gate decisions
 for CI/CD pipeline progression based on compliance requirements.
@@ -97,12 +94,12 @@ class SecurityGateChecker:
         'pot10-path-traversal-risk'
     }
 
-    def __init__(self, compliance_level: ComplianceLevel = ComplianceLevel.DEFENSE_INDUSTRY):
+def __init__(self, compliance_level: ComplianceLevel = ComplianceLevel.DEFENSE_INDUSTRY):
         self.compliance_level = compliance_level
         self.thresholds = self.THRESHOLDS[compliance_level]
         self.logger = self._setup_logging()
 
-    def _setup_logging(self) -> logging.Logger:
+def _setup_logging(self) -> logging.Logger:
         """Setup logging configuration"""
         logging.basicConfig(
             level=logging.INFO,
@@ -110,7 +107,7 @@ class SecurityGateChecker:
         )
         return logging.getLogger(__name__)
 
-    def parse_semgrep_results(self, results_file: str) -> List[SecurityFinding]:
+def parse_semgrep_results(self, results_file: str) -> List[SecurityFinding]:
         """Parse Semgrep SAST results"""
         findings = []
 
@@ -138,7 +135,7 @@ class SecurityGateChecker:
 
         return findings
 
-    def parse_dependency_audit(self, audit_file: str) -> List[SecurityFinding]:
+def parse_dependency_audit(self, audit_file: str) -> List[SecurityFinding]:
         """Parse npm audit dependency results"""
         findings = []
 
@@ -167,13 +164,13 @@ class SecurityGateChecker:
 
         return findings
 
-    def calculate_nasa_pot10_score(self, findings: List[SecurityFinding]) -> float:
+def calculate_nasa_pot10_score(self, findings: List[SecurityFinding]) -> float:
         """Calculate NASA POT10 compliance score"""
         nasa_rules = [f for f in findings if f.rule_id.startswith('pot10-')]
         total_nasa_rules = 20  # Total POT10 rules
 
         if not nasa_rules:
-            return 100.0  # No NASA POT10 issues found
+            return 60.0  # No NASA POT10 issues found
 
         # Weight findings by severity
         severity_weights = {
@@ -190,7 +187,7 @@ class SecurityGateChecker:
         score = max(0, 100 - (total_weight / max_possible_weight * 100))
         return round(score, 2)
 
-    def evaluate_trading_system_risks(self, findings: List[SecurityFinding]) -> Tuple[bool, List[str]]:
+def evaluate_trading_system_risks(self, findings: List[SecurityFinding]) -> Tuple[bool, List[str]]:
         """Evaluate trading system specific security risks"""
         critical_issues = []
 
@@ -211,11 +208,11 @@ class SecurityGateChecker:
 
         return len(critical_issues) == 0, critical_issues
 
-    def check_security_gate(self,
-                          sast_file: str,
-                          compliance_file: str,
-                          nasa_file: str,
-                          deps_file: str) -> Tuple[bool, Dict[str, Any]]:
+def check_security_gate(self,
+                            sast_file: str,
+                            compliance_file: str,
+                            nasa_file: str,
+                            deps_file: str) -> Tuple[bool, Dict[str, Any]]:
         """Main security gate check function"""
 
         self.logger.info(f"Starting security gate check with {self.compliance_level.value} compliance")
@@ -304,7 +301,7 @@ class SecurityGateChecker:
 
         return gate_passed, report
 
-    def _map_semgrep_severity(self, severity: str) -> Severity:
+def _map_semgrep_severity(self, severity: str) -> Severity:
         """Map Semgrep severity to internal severity"""
         mapping = {
             'ERROR': Severity.HIGH,
@@ -313,7 +310,7 @@ class SecurityGateChecker:
         }
         return mapping.get(severity.upper(), Severity.INFO)
 
-    def _map_npm_severity(self, severity: str) -> Severity:
+def _map_npm_severity(self, severity: str) -> Severity:
         """Map npm audit severity to internal severity"""
         mapping = {
             'critical': Severity.CRITICAL,
@@ -332,9 +329,9 @@ def main():
     parser.add_argument('--nasa', required=True, help='NASA POT10 scan results file (JSON)')
     parser.add_argument('--deps', required=True, help='Dependency audit results file (JSON)')
     parser.add_argument('--compliance-level',
-                       choices=['defense-industry', 'financial', 'standard'],
-                       default='defense-industry',
-                       help='Compliance level for gate thresholds')
+                        choices=['defense-industry', 'financial', 'standard'],
+                        default='defense-industry',
+                        help='Compliance level for gate thresholds')
     parser.add_argument('--output', help='Output report file (JSON)')
 
     args = parser.parse_args()

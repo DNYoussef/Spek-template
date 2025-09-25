@@ -5,13 +5,13 @@ path sanitization, and security checks.
 Extracted from: src/security/path_validator.py, src/security/enhanced_incident_response_system.py
 """
 
-import re
-import os
 from pathlib import Path
 from typing import List, Optional, Dict, Any, Set
-from urllib.parse import unquote
 import hashlib
+import os
+import re
 
+from urllib.parse import unquote
 
 class InputValidator:
     """Validate and sanitize user inputs."""
@@ -29,8 +29,8 @@ class InputValidator:
         r"onload\s*="
     ]
 
-    @classmethod
-    def sanitize_input(cls, value: str, allow_html: bool = False) -> str:
+@classmethod
+def sanitize_input(cls, value: str, allow_html: bool = False) -> str:
         """Sanitize user input."""
         if not isinstance(value, str):
             return str(value)
@@ -51,18 +51,17 @@ class InputValidator:
         
         return value.strip()
 
-    @classmethod
-    def validate_email(cls, email: str) -> bool:
+@classmethod
+def validate_email(cls, email: str) -> bool:
         """Validate email format."""
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         return bool(re.match(pattern, email))
 
-    @classmethod
-    def validate_alphanumeric(cls, value: str, allow_underscore: bool = True) -> bool:
+@classmethod
+def validate_alphanumeric(cls, value: str, allow_underscore: bool = True) -> bool:
         """Validate alphanumeric input."""
         pattern = r'^[a-zA-Z0-9_]+$' if allow_underscore else r'^[a-zA-Z0-9]+$'
         return bool(re.match(pattern, value))
-
 
 class PathSecurityUtils:
     """Path security validation utilities."""
@@ -82,16 +81,16 @@ class PathSecurityUtils:
         'C:\\Windows', 'C:\\Program Files', 'C:\\System32',
     }
 
-    @classmethod
-    def normalize_path(cls, path: str) -> Path:
+@classmethod
+def normalize_path(cls, path: str) -> Path:
         """Normalize and decode path."""
         # Decode URL encoding
         decoded = unquote(path)
         # Resolve to absolute path
         return Path(decoded).resolve()
 
-    @classmethod
-    def check_dangerous_patterns(cls, path: str) -> List[str]:
+@classmethod
+def check_dangerous_patterns(cls, path: str) -> List[str]:
         """Check for dangerous path patterns."""
         violations = []
         for pattern in cls.DANGEROUS_PATTERNS:
@@ -99,8 +98,8 @@ class PathSecurityUtils:
                 violations.append(f"Dangerous pattern: {pattern}")
         return violations
 
-    @classmethod
-    def is_within_allowed_paths(
+@classmethod
+def is_within_allowed_paths(
         cls,
         path: Path,
         allowed_paths: List[Path]
@@ -112,8 +111,8 @@ class PathSecurityUtils:
             for allowed in allowed_paths
         )
 
-    @classmethod
-    def validate_path(
+@classmethod
+def validate_path(
         cls,
         path: str,
         allowed_base_paths: List[str]
@@ -145,36 +144,34 @@ class PathSecurityUtils:
         result['valid'] = True
         return result
 
-
 class CryptoUtils:
     """Cryptographic utilities."""
 
-    @staticmethod
-    def calculate_hash(data: str, algorithm: str = 'sha256') -> str:
+@staticmethod
+def calculate_hash(data: str, algorithm: str = 'sha256') -> str:
         """Calculate hash of data."""
         hasher = hashlib.new(algorithm)
         hasher.update(data.encode())
         return hasher.hexdigest()
 
-    @staticmethod
-    def verify_hash(data: str, expected_hash: str, algorithm: str = 'sha256') -> bool:
+@staticmethod
+def verify_hash(data: str, expected_hash: str, algorithm: str = 'sha256') -> bool:
         """Verify data against hash."""
         actual_hash = CryptoUtils.calculate_hash(data, algorithm)
         return actual_hash == expected_hash
 
-
 class SecurityChecker:
     """Common security checks."""
 
-    @staticmethod
-    def check_permissions(path: Path, required_mode: int) -> bool:
+@staticmethod
+def check_permissions(path: Path, required_mode: int) -> bool:
         """Check file permissions."""
         if not path.exists():
             return False
         return (path.stat().st_mode & required_mode) == required_mode
 
-    @staticmethod
-    def is_safe_filename(filename: str) -> bool:
+@staticmethod
+def is_safe_filename(filename: str) -> bool:
         """Check if filename is safe."""
         # No path separators
         if '/' in filename or '\\' in filename:

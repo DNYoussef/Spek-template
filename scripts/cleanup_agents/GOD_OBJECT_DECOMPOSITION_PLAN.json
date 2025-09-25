@@ -1,0 +1,62 @@
+{
+  "total_files_over_500_loc": 180,
+  "decomposed_count": 2,
+  "remaining_plan": [
+    {
+      "file": ".claude\\artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+      "loc": 1654,
+      "strategy": "Command",
+      "priority": "high"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored_src\\loop_orchestrator_core.py",
+      "loc": 1505,
+      "strategy": "Factory",
+      "priority": "high"
+    },
+    {
+      "file": "src\\analysis\\failure_pattern_detector.py",
+      "loc": 1421,
+      "strategy": "Strategy",
+      "priority": "medium"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored_src\\failure_pattern_detector_core.py",
+      "loc": 1379,
+      "strategy": "Strategy",
+      "priority": "medium"
+    },
+    {
+      "file": "src\\security\\enhanced_incident_response_system.py",
+      "loc": 1371,
+      "strategy": "Factory",
+      "priority": "medium"
+    },
+    {
+      "file": "analyzer\\performance\\result_aggregation_profiler.py",
+      "loc": 1215,
+      "strategy": "Factory",
+      "priority": "medium"
+    },
+    {
+      "file": ".claude\\artifacts\\phase3_refactored_src\\dfars_compliance_validation_system_core.py",
+      "loc": 1187,
+      "strategy": "Factory",
+      "priority": "medium"
+    },
+    {
+      "file": "scripts\\github_integration.py",
+      "loc": 1186,
+      "strategy": "Factory",
+      "priority": "medium"
+    }
+  ],
+  "status": "IN_PROGRESS",
+  "next_targets": [
+    ".claude\\artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+    ".claude\\artifacts\\phase3_refactored_src\\loop_orchestrator_core.py",
+    "src\\analysis\\failure_pattern_detector.py",
+    ".claude\\artifacts\\phase3_refactored_src\\failure_pattern_detector_core.py",
+    "src\\security\\enhanced_incident_response_system.py"
+  ]
+}

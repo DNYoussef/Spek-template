@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-CONTINUOUS THEATER MONITORING SYSTEM
-Real-time theater pattern detection and reality validation monitoring
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Monitors for theater patterns across all categories with automated alerting
 and stakeholder transparency reporting.
@@ -163,7 +160,6 @@ class ContinuousTheaterMonitor:
     def _collect_current_metrics(self, category: str) -> Dict:
         """Collect current metrics for a category"""
         # In a real implementation, this would collect live metrics
-        # For now, simulate with mock data that changes over time
         
         base_time = datetime.now()
         
@@ -174,7 +170,7 @@ class ContinuousTheaterMonitor:
                 "execution_times": {
                     "test_suite": 45.2 * (1 + variance),
                     "analysis_pipeline": 23.1 * (1 - variance),
-                    "compliance_check": 12.5 * (1 + variance/2)
+                    "compliance_check": 12.MAXIMUM_NESTED_DEPTH * (1 + variance/2)
                 },
                 "memory_usage": int(512 * (1 + variance)),
                 "cache_performance": {
@@ -448,8 +444,8 @@ class ContinuousTheaterMonitor:
         The theater detection system has analyzed all quality improvement claims
         across performance, quality, security, compliance, and architecture.
         {'Strong evidence of genuine improvements with minimal theater detected.' if confidence == 'high' else 
-         'Moderate confidence with some theater risks identified.' if confidence == 'medium' else
-         'Significant theater risks detected requiring immediate attention.'}
+        'Moderate confidence with some theater risks identified.' if confidence == 'medium' else
+        'Significant theater risks detected requiring immediate attention.'}
         """
         
         # Generate recommendations
@@ -612,7 +608,6 @@ class ContinuousTheaterMonitor:
             "last_update": self.stakeholder_updates[-1].timestamp.isoformat() if self.stakeholder_updates else None,
             "monitoring_health": "healthy" if len(recent_alerts) <= 5 else "degraded" if len(recent_alerts) <= 10 else "critical"
         }
-
 
 if __name__ == "__main__":
     # Initialize continuous monitoring system

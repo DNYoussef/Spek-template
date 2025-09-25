@@ -1,6 +1,4 @@
-"""
-Cross-Phase Memory Integration Test Suite
-========================================
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, QUALITY_GATE_MINIMUM_PASS_RATE
 
 Comprehensive test suite for validating cross-phase memory correlation,
 learning integration, and NASA POT10 Rule 7 compliance across the unified
@@ -38,7 +36,6 @@ try:
 except ImportError:
     MEMORY_SYSTEM_AVAILABLE = False
     pytest.skip("Memory system components not available", allow_module_level=True)
-
 
 class TestMemorySafetyValidation:
     """Test NASA POT10 Rule 7 compliance and memory safety."""
@@ -83,7 +80,6 @@ class TestMemorySafetyValidation:
         safety_report = validator.get_safety_report()
         assert len(safety_report["recent_violations"]) <= 50
         assert safety_report["total_violations"] <= 100  # Should be capped
-
 
 class TestUnifiedMemoryModel:
     """Test unified memory model functionality."""
@@ -140,14 +136,14 @@ class TestUnifiedMemoryModel:
         assert correlation.source_phase == "phase1"
         assert correlation.target_phase == "phase2"
         assert correlation.correlation_type == "learning"
-        assert correlation.correlation_strength == 0.85
+        assert correlation.correlation_strength == QUALITY_GATE_MINIMUM_PASS_RATE
     
     def test_performance_improvement_tracking(self, temp_memory_model):
         """Test performance improvement tracking and validation."""
         temp_memory_model.track_performance_improvement(
             phase="test_phase",
             metric_name="test_metric",
-            baseline_value=100.0,
+            baseline_value=60.0,
             current_value=150.0,
             correlation_factors=["optimization1", "optimization2"]
         )
@@ -159,7 +155,7 @@ class TestUnifiedMemoryModel:
         trend = trends[0]
         assert trend.phase == "test_phase"
         assert trend.metric_name == "test_metric"
-        assert trend.improvement_percentage == 50.0  # (150-100)/100 * 100
+        assert trend.improvement_percentage == 50.0  # (150-100)/100 * MAXIMUM_FUNCTION_LENGTH_LINES
     
     def test_cross_phase_learning_insights(self, temp_memory_model):
         """Test cross-phase learning insight generation."""
@@ -208,7 +204,6 @@ class TestUnifiedMemoryModel:
         # Memory safety should be reporting compliance issues
         safety_report = temp_memory_model.safety_validator.get_safety_report()
         assert safety_report["nasa_pot10_compliant"] == (safety_report["total_violations"] == 0)
-
 
 class TestPhaseCorrelationStorage:
     """Test persistent storage system."""
@@ -330,7 +325,6 @@ class TestPhaseCorrelationStorage:
         stats = temp_storage.get_storage_statistics()
         assert stats["cache_hits"] > 0
         assert stats["cache_hit_rate"] > 0
-
 
 class TestConcurrentMemoryOperations:
     """Test thread safety and concurrent operations."""
@@ -480,7 +474,6 @@ class TestConcurrentMemoryOperations:
         # Under stress, we expect some violations but the system should remain stable
         assert isinstance(safety_report["nasa_pot10_compliant"], bool)
 
-
 class TestMemoryLeakPrevention:
     """Test memory leak prevention and cleanup."""
     
@@ -564,7 +557,6 @@ class TestMemoryLeakPrevention:
             for entry in accessed_entries:
                 retrieved = leak_test_model.get_memory_entry(entry.phase_id, entry.entry_id)
                 # Should still exist (but might be cleaned if memory pressure was severe)
-                # This is a soft assertion since cleanup behavior can vary
     
     @pytest.mark.asyncio
     async def test_background_cleanup_task(self, leak_test_model):
@@ -596,7 +588,6 @@ class TestMemoryLeakPrevention:
         
         # Stop background cleanup
         await leak_test_model.stop_background_cleanup()
-
 
 class TestPerformanceCorrelationAccuracy:
     """Test accuracy of performance correlation tracking."""
@@ -695,7 +686,6 @@ class TestPerformanceCorrelationAccuracy:
         
         # Overall learning confidence should be reasonable
         assert 0.0 <= insights["learning_confidence"] <= 1.0
-
 
 if __name__ == "__main__":
     # Run specific test categories if called directly

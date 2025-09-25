@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Integration Methods for UnifiedAnalyzer
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 This module provides the component integration methods that connect
 the UnifiedAnalyzer with the ComponentIntegrator for seamless operation.
@@ -8,7 +6,6 @@ the UnifiedAnalyzer with the ComponentIntegrator for seamless operation.
 
 import logging
 logger = logging.getLogger(__name__)
-
 
 class AnalyzerIntegrationMixin:
     """Mixin providing component integration methods for UnifiedAnalyzer."""
@@ -270,7 +267,6 @@ class AnalyzerIntegrationMixin:
             "god_objects_found": god_objects_found,
             "duplication_percentage": duplication_percentage
         }
-
 
 def integrate_unified_analyzer_with_components(analyzer_class):
     """

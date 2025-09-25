@@ -1,6 +1,4 @@
-"""
-Cache Optimization Analyzer Functionality Tests
-===============================================
+from src.constants.base import THEATER_DETECTION_WARNING_THRESHOLD
 
 Test suite for validating the Cache Optimization analyzer functionality including:
 1. FileContentCache class import and basic functionality 
@@ -34,7 +32,6 @@ test_results = {
 
 def test_import_and_basic_functionality():
     """Test 1: Import FileContentCache and basic operations."""
-    print("=== Test 1: Import and Basic Functionality ===")
     
     try:
         # Import the cache module
@@ -68,7 +65,6 @@ def test_import_and_basic_functionality():
     except Exception as e:
         test_results["import_test"]["status"] = "failed"
         test_results["import_test"]["details"] = {"error": str(e)}
-        print(f"[FAIL] Import test failed: {e}")
         return None
 
 def create_test_files():
@@ -103,7 +99,6 @@ def function():
 
 def test_cache_operations(cache):
     """Test 2: Basic cache operations."""
-    print("\n=== Test 2: Basic Cache Operations ===")
     
     try:
         temp_dir, file_paths = create_test_files()
@@ -150,7 +145,6 @@ def test_cache_operations(cache):
 
 def simulate_cache_health_analysis(cache):
     """Test 3: Simulate cache health analysis functionality."""
-    print("\n=== Test 3: Cache Health Analysis ===")
     
     try:
         # Get current stats
@@ -216,7 +210,6 @@ def simulate_cache_health_analysis(cache):
 
 def test_json_output_validation(sample_json):
     """Test 4: Validate JSON output structure."""
-    print("\n=== Test 4: JSON Output Validation ===")
     
     try:
         # Expected structure validation
@@ -286,12 +279,11 @@ def test_json_output_validation(sample_json):
 
 def test_quality_gate_logic(sample_json):
     """Test 5: Quality gate thresholds and logic."""
-    print("\n=== Test 5: Quality Gate Logic ===")
     
     try:
         # Define quality gate thresholds
         thresholds = {
-            "health_score_min": 0.75,      # >= 75%
+            "health_score_min": THEATER_DETECTION_WARNING_THRESHOLD,      # >= 75%
             "hit_rate_min": 0.60,          # >= 60%
             "efficiency_min": 0.70         # >= 70%
         }
@@ -364,7 +356,6 @@ def test_quality_gate_logic(sample_json):
 
 def test_fallback_behavior():
     """Test 6: Fallback behavior and error handling."""
-    print("\n=== Test 6: Fallback Behavior ===")
     
     try:
         # Test with non-existent cache class (simulate import failure)
@@ -390,7 +381,6 @@ def test_fallback_behavior():
         with patch('builtins.__import__', side_effect=ImportError("Module not found")):
             try:
                 # This would normally cause an import error
-                # The fallback should handle this gracefully
                 fallback_active = True
             except ImportError:
                 fallback_active = False
@@ -440,7 +430,6 @@ def test_fallback_behavior():
 def generate_test_report():
     """Generate comprehensive test report."""
     print("\n" + "="*60)
-    print("CACHE OPTIMIZATION ANALYZER TEST REPORT")
     print("="*60)
     
     # Count passed/failed tests
@@ -459,9 +448,6 @@ def generate_test_report():
         "pass_rate": round((passed / total) * 100, 1) if total > 0 else 0
     }
     
-    print(f"\nTEST SUMMARY:")
-    print(f"Tests Passed: {passed}/{total}")
-    print(f"Pass Rate: {test_results['overall_assessment']['summary']['pass_rate']}%")
     print(f"Overall Status: {'READY FOR USE' if overall_pass else 'NEEDS ATTENTION'}")
     
     # Detailed findings
@@ -512,7 +498,6 @@ def generate_test_report():
         print("- Consider monitoring cache hit rates in real deployments")
         print("- Quality gates are properly configured")
     else:
-        print("- Address failing test components before deployment")
         if test_results["import_test"]["status"] == "failed":
             print("- Fix import issues with FileContentCache")
         if test_results["basic_functionality"]["status"] == "failed":
@@ -520,14 +505,12 @@ def generate_test_report():
         if test_results["json_output_validation"]["status"] == "failed":
             print("- Fix JSON output structure issues")
     
-    print("\nNote: This test simulates the expected cache health analysis functionality.")
     print("The actual get_cache_health() method should be implemented in the IncrementalCache class.")
     
     return test_results
 
 def main():
     """Run all cache analyzer tests."""
-    print("CACHE OPTIMIZATION ANALYZER TEST SUITE")
     print("======================================")
     
     # Run tests in sequence

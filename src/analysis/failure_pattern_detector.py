@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Advanced Failure Pattern Detection Engine for CI/CD Loop
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, THEATER_DETECTION_WARNING_THRESHOLD
 
 Applies machine learning, pattern recognition, and reverse engineering
 to detect root causes of CI/CD failures with high confidence.
@@ -21,7 +19,6 @@ from datetime import datetime, timedelta
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
-
 @dataclass
 class FailureSignature:
     """Represents a unique failure pattern signature."""
@@ -36,7 +33,6 @@ class FailureSignature:
     fix_difficulty: str = "medium"
     similar_patterns: List[str] = field(default_factory=list)
 
-
 @dataclass
 class RootCauseAnalysis:
     """Comprehensive root cause analysis result."""
@@ -50,7 +46,6 @@ class RootCauseAnalysis:
     risk_level: str
     dependency_chain: List[str] = field(default_factory=list)
     historical_occurrences: int = 0
-
 
 class FailurePatternDetector:
     """Advanced failure pattern detection and root cause analysis."""
@@ -263,8 +258,8 @@ class FailurePatternDetector:
                 "description": "Resolve dependency version conflicts",
                 "tools": ["npm audit fix", "pip-audit --fix", "yarn resolutions"],
                 "validation": "conflict_resolution_check",
-                "effort_hours": 3,
-                "success_rate": 0.75
+                "effort_hours": MAXIMUM_RETRY_ATTEMPTS,
+                "success_rate": THEATER_DETECTION_WARNING_THRESHOLD
             },
 
             "test_logic_correction": {
@@ -272,7 +267,7 @@ class FailurePatternDetector:
                 "tools": ["test_analyzer", "manual_review"],
                 "validation": "test_execution",
                 "effort_hours": 2,
-                "success_rate": 0.80
+                "success_rate": 0.8
             },
 
             "timeout_adjustment": {
@@ -327,7 +322,7 @@ class FailurePatternDetector:
                 "description": "Fix Docker configuration issues",
                 "tools": ["docker build", "hadolint"],
                 "validation": "docker_build_test",
-                "effort_hours": 3,
+                "effort_hours": MAXIMUM_RETRY_ATTEMPTS,
                 "success_rate": 0.80
             },
 
@@ -425,7 +420,6 @@ class FailurePatternDetector:
     def _extract_error_pattern(self, failure: Dict[str, Any]) -> str:
         """Extract error pattern from failure data."""
         # In a real implementation, this would parse log files
-        # For now, simulate pattern extraction based on step name and category
 
         step_name = failure.get("step_name", "").lower()
         category = failure.get("category", "")
@@ -1352,7 +1346,6 @@ class FailurePatternDetector:
 
         return actions
 
-
 class TestFailureCorrelator:
     """Correlates test failures across different test types and identifies patterns."""
 
@@ -1435,7 +1428,6 @@ class TestFailureCorrelator:
 
         return len(causes1.intersection(causes2)) > 0
 
-
 class TestSuccessPredictor:
     """Predicts test success probability based on code changes and historical data."""
 
@@ -1512,7 +1504,6 @@ class TestSuccessPredictor:
 
         return recommendations
 
-
 class TestPredictionModel:
     """Simple prediction model for test success."""
 
@@ -1541,7 +1532,6 @@ class TestPredictionModel:
         base_probability *= (1.0 - failure_rate * 0.5)
 
         return max(0.0, min(1.0, base_probability))
-
 
 class TestAutoRepair:
     """Provides auto-repair suggestions for test failures."""
@@ -1614,7 +1604,6 @@ class TestAutoRepair:
         else:
             return "2-4 hours"
 
-
 def main():
     """Main entry point for failure pattern detection."""
     import argparse
@@ -1656,7 +1645,6 @@ def main():
 
     print(f"Analysis complete. Found {len(signatures)} patterns and {len(root_causes)} root causes.")
     print(f"Results saved to {output_path}")
-
 
 if __name__ == "__main__":
     main()

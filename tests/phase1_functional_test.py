@@ -1,8 +1,5 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-PHASE 1 FUNCTIONAL VERIFICATION TEST
-===================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Demonstrates actual working functionality of Phase 1 implementations.
 This test proves that the components provide REAL functionality, not theater.
@@ -24,7 +21,6 @@ from analyzer.integrations.github_bridge import GitHubBridge, GitHubConfig
 
 def test_types_functionality():
     """Test that types module provides real functionality."""
-    print("Testing Types Module...")
 
     # Create a violation with all fields
     violation = ConnascenceViolation(
@@ -63,7 +59,6 @@ def test_types_functionality():
 
 def test_detector_functionality():
     """Test that detectors provide real analysis."""
-    print("Testing Detector Module...")
 
     # Create realistic test code with magic literals
     test_code = '''
@@ -84,7 +79,7 @@ class UserAccount:
         fee_rate = 0.025  # Magic literal - should be configuration
         service_fee = amount * fee_rate
         if amount > 10000:  # Magic literal - high value threshold
-            service_fee *= 1.5  # Magic literal - multiplier
+            service_fee *= 1.MAXIMUM_NESTED_DEPTH  # Magic literal - multiplier
         return amount + service_fee
 '''
 
@@ -119,7 +114,6 @@ class UserAccount:
 
 def test_github_bridge_functionality():
     """Test that GitHub bridge provides real integration."""
-    print("Testing GitHub Bridge...")
 
     # Test configuration
     config = GitHubConfig(
@@ -161,7 +155,6 @@ def test_github_bridge_functionality():
 
 def test_integration_workflow():
     """Test end-to-end integration workflow."""
-    print("Testing Integration Workflow...")
 
     # Create temporary test environment
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -228,7 +221,6 @@ def test_integration_workflow():
 
 def run_all_tests():
     """Run all functional tests and report results."""
-    print("PHASE 1 FUNCTIONAL VERIFICATION TEST")
     print("=" * 50)
     print("Demonstrating REAL functionality (not theater)")
     print()
@@ -245,32 +237,24 @@ def run_all_tests():
 
     for test_name, test_func in tests:
         try:
-            print(f"Running {test_name}...")
             if test_func():
                 passed += 1
-                print(f"[PASS] {test_name}: PASSED")
             else:
                 failed += 1
-                print(f"[FAIL] {test_name}: FAILED")
         except Exception as e:
             failed += 1
-            print(f"[FAIL] {test_name}: FAILED - {e}")
         print()
 
     print("=" * 50)
-    print(f"FUNCTIONAL TEST RESULTS:")
     print(f"Passed: {passed}")
     print(f"Failed: {failed}")
-    print(f"Success Rate: {passed}/{len(tests)} ({100*passed/len(tests):.1f}%)")
 
     if passed == len(tests):
         print()
-        print("ALL TESTS PASSED - PHASE 1 PROVIDES REAL FUNCTIONALITY!")
         print("Theater detection: 0% - This is genuine implementation")
         return True
     else:
         print()
-        print("SOME TESTS FAILED - Theater elements detected")
         return False
 
 if __name__ == "__main__":

@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Unified Orchestrator - Component Integration Hub
+from src.constants.base import QUALITY_GATE_MINIMUM_PASS_RATE
 
 This module wires together all analyzer components:
 - Streaming analysis for real-time processing
@@ -16,7 +14,6 @@ import ast
 import json
 import logging
 logger = logging.getLogger(__name__)
-
 
 class UnifiedOrchestrator:
     """
@@ -401,10 +398,9 @@ class UnifiedOrchestrator:
         """Calculate MECE and duplication metrics."""
         # Simplified calculation - would use UnifiedDuplicationAnalyzer in production
         return {
-            "mece_score": 0.85,
+            "mece_score": QUALITY_GATE_MINIMUM_PASS_RATE,
             "duplication_percentage": 5.0
         }
-
 
 def main():
     """CLI entry point for unified orchestrator."""
@@ -457,7 +453,6 @@ def main():
         print(f"  Analysis time: {result.metrics.analysis_time:.2f}s")
 
     return 0 if result.success else 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

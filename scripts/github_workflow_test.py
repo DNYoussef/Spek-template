@@ -7,17 +7,15 @@ Tests the exact pattern used in the GitHub workflow to ensure it works correctly
 This directly tests the line that was failing: arch_orchestrator.analyze_architecture('.')
 """
 
-import sys
-import json
 from pathlib import Path
+import json
+import sys
 
 # Add analyzer to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 def test_github_workflow_pattern():
     """Test the exact GitHub workflow pattern that was failing."""
-    print("Testing GitHub workflow integration pattern...")
-    print("This tests the exact line that was failing in quality-gates.yml:185")
     print("arch_orchestrator.analyze_architecture('.')")
     print()
     
@@ -52,7 +50,6 @@ def test_github_workflow_pattern():
             print(f"[OK] system_overview.{key}: {system_overview[key]}")
         
         # Test JSON serialization (required for GitHub workflow artifact saving)
-        print("\nTesting JSON serialization...")
         json_str = json.dumps(arch_result, default=str)
         assert len(json_str) > 50, "JSON output too short"
         print(f"[OK] JSON serialization successful, length: {len(json_str)} chars")
@@ -80,7 +77,6 @@ def test_github_workflow_pattern():
 
 def test_nonetype_resilience():
     """Test that the system handles NoneType arguments gracefully."""
-    print("\nTesting NoneType resilience...")
     
     try:
         from analyzer.architecture.orchestrator import ArchitectureOrchestrator
@@ -112,12 +108,10 @@ def test_nonetype_resilience():
         return True
         
     except Exception as e:
-        print(f"[FAIL] NoneType resilience test failed: {e}")
         return False
 
 def test_component_availability():
     """Test that components are available or gracefully degrade."""
-    print("\nTesting component availability...")
     
     try:
         from analyzer.architecture.orchestrator import ArchitectureOrchestrator
@@ -142,14 +136,12 @@ def test_component_availability():
         return True
         
     except Exception as e:
-        print(f"[FAIL] Component availability test failed: {e}")
         return False
 
 def main():
     """Run GitHub workflow validation tests."""
     print("GitHub Workflow Surgical Fixes Validation")
     print("=" * 50)
-    print("Testing the specific fixes for GitHub hooks infrastructure issues:")
     print("1. Missing analyze_architecture method")
     print("2. NoneType error handling") 
     print("3. Component availability detection")
@@ -168,7 +160,6 @@ def main():
         print()
     
     print("=" * 50)
-    print(f"GitHub Workflow Validation: {passed}/{len(tests)} tests passed")
     
     if passed == len(tests):
         print("\n[SUCCESS] All GitHub workflow fixes are working!")
@@ -178,7 +169,6 @@ def main():
         print("[OK] GitHub workflow quality-gates.yml should now pass")
         return 0
     else:
-        print(f"\n[PARTIAL] {passed}/{len(tests)} fixes working correctly")
         print("[ERROR] Some GitHub workflow issues remain")
         return 1
 

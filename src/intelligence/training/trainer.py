@@ -1,7 +1,4 @@
-"""
-Comprehensive training pipeline for GaryTaleb trading models.
-Implements advanced training techniques and financial-specific optimizations.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 import torch
 import torch.nn as nn
@@ -596,7 +593,7 @@ def test_training_pipeline():
                 
                 # Create training config
                 config = TrainingConfig(
-                    epochs=10,  # Short test
+                    epochs=MAXIMUM_FUNCTION_PARAMETERS,  # Short test
                     batch_size=32,
                     learning_rate=1e-3
                 )

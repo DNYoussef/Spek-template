@@ -6,12 +6,11 @@ Centralized utility functions that eliminate duplicate algorithms
 and reduce Connascence of Algorithm across the analyzer system.
 """
 
-import ast
 from typing import List, Dict, Any, Optional, Set, Tuple, Union
-from dataclasses import dataclass
+import ast
 import logging
-logger = logging.getLogger(__name__)
 
+from dataclasses import dataclass
 
 @dataclass
 class CodeLocation:
@@ -22,7 +21,6 @@ class CodeLocation:
     
     def __str__(self) -> str:
         return f"{self.file_path}:{self.line_number}:{self.column}"
-
 
 class ASTUtils:
     """
@@ -158,7 +156,6 @@ class ASTUtils:
         
         return "|".join(signature_parts)
 
-
 class PatternMatcher:
     """
     Pattern matching utilities that eliminate duplicate pattern recognition
@@ -248,7 +245,6 @@ class PatternMatcher:
         
         return literals
 
-
 class ViolationFactory:
     """
     Factory for creating standardized violation objects.
@@ -282,7 +278,6 @@ class ViolationFactory:
             code_snippet=code_snippet,
             context=context or {}
         )
-
 
 class ErrorHandlingPatterns:
     """
@@ -347,7 +342,6 @@ class ErrorHandlingPatterns:
             'success': False
         }
 
-
 class ValidationPatterns:
     """
     Common validation patterns that eliminate duplicate validation
@@ -384,7 +378,6 @@ class ValidationPatterns:
         """
         missing_keys = [key for key in required_keys if key not in config]
         return len(missing_keys) == 0, missing_keys
-
 
 class AlgorithmDeduplication:
     """
@@ -464,7 +457,6 @@ class AlgorithmDeduplication:
         union = len(set1 | set2)
         
         return intersection / union if union > 0 else 0.0
-
 
 # Factory function to create common utilities with configuration
 def create_analysis_utilities(config_manager=None):

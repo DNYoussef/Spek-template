@@ -1,8 +1,5 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Phase 3 Integration Reality Test Suite
-====================================
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 Comprehensive tests to verify Phase 3 components actually work and integrate properly.
 Eliminates all theater by testing REAL functionality with REAL files and REAL violations.
@@ -76,9 +73,8 @@ def duplicate_logic_v2():
 
     return content
 
-
 class Phase3IntegrationTester:
-    """Comprehensive Phase 3 integration tester."""
+    """Comprehensive Phase MAXIMUM_RETRY_ATTEMPTS integration tester."""
 
     def __init__(self):
         self.test_results = {}
@@ -87,11 +83,9 @@ class Phase3IntegrationTester:
 
     def setup_test_environment(self):
         """Set up test environment with real files."""
-        print("[SETUP] Creating test environment...")
 
         # Create temporary directory
         self.temp_dir = tempfile.mkdtemp(prefix="phase3_test_")
-        print(f"[SETUP] Test directory: {self.temp_dir}")
 
         # Create test files with known violations
         test_files = [
@@ -104,13 +98,9 @@ class Phase3IntegrationTester:
             file_path = os.path.join(self.temp_dir, filename)
             create_test_file_with_violations(file_path)
             self.test_files.append(file_path)
-            print(f"[SETUP] Created test file: {filename}")
-
-        print(f"[SETUP] Created {len(self.test_files)} test files")
 
     def test_streaming_processor(self) -> Dict[str, Any]:
         """Test StreamProcessor with real file processing."""
-        print("\n[TEST] Testing StreamProcessor...")
 
         try:
             # Try to import, but provide fallback
@@ -194,7 +184,6 @@ class Phase3IntegrationTester:
             return test_result
 
         except Exception as e:
-            print(f"[ERROR] StreamProcessor test failed: {e}")
             return {
                 "test_name": "StreamProcessor Content Processing",
                 "success": False,
@@ -203,7 +192,6 @@ class Phase3IntegrationTester:
 
     def test_parallel_analyzer(self) -> Dict[str, Any]:
         """Test ParallelAnalyzer with real detector execution."""
-        print("\n[TEST] Testing ParallelAnalyzer...")
 
         try:
             from performance.parallel_analyzer import ParallelConnascenceAnalyzer, ParallelAnalysisConfig
@@ -250,7 +238,6 @@ class Phase3IntegrationTester:
             return test_result
 
         except Exception as e:
-            print(f"[ERROR] ParallelAnalyzer test failed: {e}")
             return {
                 "test_name": "ParallelAnalyzer Batch Processing",
                 "success": False,
@@ -259,7 +246,6 @@ class Phase3IntegrationTester:
 
     def test_real_time_monitor(self) -> Dict[str, Any]:
         """Test RealTimeMonitor with actual metric collection."""
-        print("\n[TEST] Testing RealTimeMonitor...")
 
         try:
             from performance.real_time_monitor import RealTimePerformanceMonitor
@@ -290,7 +276,7 @@ class Phase3IntegrationTester:
             peak_memory = final_metrics.get("peak_memory_mb", 0)
 
             success = (files_analyzed > 0 and analysis_duration > 0 and
-                      peak_memory > 0 and violations_found > 0)
+                        peak_memory > 0 and violations_found > 0)
 
             test_result = {
                 "test_name": "RealTimeMonitor Metrics Collection",
@@ -310,7 +296,6 @@ class Phase3IntegrationTester:
             return test_result
 
         except Exception as e:
-            print(f"[ERROR] RealTimeMonitor test failed: {e}")
             return {
                 "test_name": "RealTimeMonitor Metrics Collection",
                 "success": False,
@@ -319,7 +304,6 @@ class Phase3IntegrationTester:
 
     def test_detector_pool(self) -> Dict[str, Any]:
         """Test DetectorPool with real detector coordination."""
-        print("\n[TEST] Testing DetectorPool...")
 
         try:
             # Try to import, but provide fallback
@@ -417,7 +401,6 @@ class Phase3IntegrationTester:
             return test_result
 
         except Exception as e:
-            print(f"[ERROR] DetectorPool test failed: {e}")
             return {
                 "test_name": "DetectorPool Coordination",
                 "success": False,
@@ -426,7 +409,6 @@ class Phase3IntegrationTester:
 
     def test_component_integrator(self) -> Dict[str, Any]:
         """Test ComponentIntegrator end-to-end integration."""
-        print("\n[TEST] Testing ComponentIntegrator...")
 
         try:
             from component_integrator import ComponentIntegrator
@@ -459,7 +441,7 @@ class Phase3IntegrationTester:
             analysis_mode = result.get("mode", "")
 
             success = (violations_found > 0 and files_processed > 0 and
-                      analysis_mode == "streaming")
+                        analysis_mode == "streaming")
 
             test_result = {
                 "test_name": "ComponentIntegrator End-to-End",
@@ -479,7 +461,6 @@ class Phase3IntegrationTester:
             return test_result
 
         except Exception as e:
-            print(f"[ERROR] ComponentIntegrator test failed: {e}")
             return {
                 "test_name": "ComponentIntegrator End-to-End",
                 "success": False,
@@ -513,7 +494,6 @@ class Phase3IntegrationTester:
                 if result.get("success", False):
                     passed_tests += 1
             except Exception as e:
-                print(f"[CRITICAL] Test {test_func.__name__} crashed: {e}")
                 all_results.append({
                     "test_name": test_func.__name__,
                     "success": False,
@@ -589,17 +569,13 @@ class Phase3IntegrationTester:
         score = report["reality_score"]
         print(f"REALITY SCORE: {score:.1f}%")
         print(f"ASSESSMENT: {report['assessment']}")
-        print(f"TESTS PASSED: {report['tests_passed']}/{report['tests_total']}")
 
-        print("\nTEST RESULTS:")
         print("-" * 40)
 
         for result in report["test_results"]:
             test_name = result["test_name"]
             success = result.get("success", False)
             status = "PASS" if success else "FAIL"
-
-            print(f"{status}: {test_name}")
 
             if success and "violations_found" in result:
                 violations = result["violations_found"]
@@ -618,11 +594,9 @@ class Phase3IntegrationTester:
         """Clean up test environment."""
         if self.temp_dir and path_exists(self.temp_dir):
             shutil.rmtree(self.temp_dir)
-            print(f"[CLEANUP] Removed test directory: {self.temp_dir}")
-
 
 def main():
-    """Run Phase 3 integration tests."""
+    """Run Phase MAXIMUM_RETRY_ATTEMPTS integration tests."""
     tester = Phase3IntegrationTester()
 
     try:
@@ -635,9 +609,7 @@ def main():
             sys.exit(1)  # Failure
 
     except Exception as e:
-        print(f"[CRITICAL] Integration testing failed: {e}")
         sys.exit(2)
-
 
 if __name__ == "__main__":
     main()

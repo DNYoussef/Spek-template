@@ -1,0 +1,90 @@
+{
+  "total_files": 1074,
+  "total_loc": 303437,
+  "large_files_count": 189,
+  "largest_files": [
+    [
+      ".\\.claude\\artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+      1484
+    ],
+    [
+      ".\\.claude\\artifacts\\phase3_refactored_src\\loop_orchestrator_core.py",
+      1377
+    ],
+    [
+      ".\\src\\analysis\\failure_pattern_detector.py",
+      1333
+    ],
+    [
+      ".\\.claude\\artifacts\\phase3_refactored_src\\failure_pattern_detector_core.py",
+      1300
+    ],
+    [
+      ".\\analyzer\\performance\\result_aggregation_profiler.py",
+      1105
+    ],
+    [
+      ".\\scripts\\github_integration.py",
+      1099
+    ],
+    [
+      ".\\.claude\\artifacts\\phase3_refactored_src\\dfars_compliance_validation_system_core.py",
+      1098
+    ],
+    [
+      ".\\--output-dir\\result_aggregation_profiler_core.py",
+      1027
+    ],
+    [
+      ".\\.claude\\artifacts\\phase3_refactored\\result_aggregation_profiler_core.py",
+      1027
+    ],
+    [
+      ".\\.claude\\artifacts\\phase3_refactored_src\\enterprise_theater_detection_core.py",
+      1025
+    ],
+    [
+      ".\\unicode_backup\\enterprise_theater_detection_core.py",
+      1025
+    ],
+    [
+      ".\\tests\\wrapper-integration\\test-files\\large-test.py",
+      1000
+    ],
+    [
+      ".\\src\\security\\continuous_risk_assessment.py",
+      964
+    ],
+    [
+      ".\\unicode_backup\\enterprise_theater_detection.py",
+      956
+    ],
+    [
+      ".\\.claude\\artifacts\\phase3_refactored_src\\continuous_risk_assessment_core.py",
+      952
+    ],
+    [
+      ".\\.claude\\artifacts\\phase3_refactored_src\\enhanced_incident_response_system_operations.py",
+      952
+    ],
+    [
+      ".\\src\\security\\enterprise_theater_detection.py",
+      951
+    ],
+    [
+      ".\\tests\\phase7_adas\\test_simulation_scenarios.py",
+      946
+    ],
+    [
+      ".\\src\\security\\dfars_compliance_validation_system.py",
+      943
+    ],
+    [
+      ".\\src\\security\\cdi_protection_framework.py",
+      930
+    ]
+  ],
+  "phase1_analysis": {},
+  "phase2_analysis": {},
+  "phase3_analysis": {}
+}

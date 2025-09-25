@@ -6,18 +6,17 @@ Provides automated feedback to GitHub workflows about CI/CD loop execution resul
 Integrates with GitHub API to update status checks, create issues, and post comments.
 """
 
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Dict, List, Optional, Any
 import json
 import os
 import sys
 import time
-import requests
-import argparse
-from pathlib import Path
-from typing import Dict, List, Optional, Any
-from datetime import datetime, timedelta
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+from lib.shared.utilities import get_logger
+import argparse
+import requests
 
 class GitHubWebhookFeedback:
     """Automated feedback system for GitHub CI/CD integration."""
@@ -208,7 +207,7 @@ class GitHubWebhookFeedback:
         return status_checks
 
     def _create_single_status_check(self, context: str, state: str, description: str,
-                                  target_url: str = None) -> Optional[Dict[str, Any]]:
+                                    target_url: str = None) -> Optional[Dict[str, Any]]:
         """Create a single GitHub status check."""
         if not self.github_token:
             return None
@@ -639,23 +638,23 @@ The automated fixes may not represent genuine quality improvements. Manual valid
 
 The automated CI/CD failure resolution loop has {'completed successfully' if success else 'failed or been escalated'}.
 
-### 📊 Results Overview
+### ? Results Overview
 {self._generate_results_summary(results_data)}
 
-### 🔍 Analysis Performed
+### ? Analysis Performed
 - **Failure Detection**: Aggregated and categorized CI/CD failures
 - **Root Cause Analysis**: Applied reverse engineering and pattern detection
 - **Multi-File Coordination**: Detected and addressed connascence coupling issues
 - **Fix Implementation**: Automated fixes with theater detection validation
 - **Sandbox Testing**: Validated changes in isolated environment
 
-### 🎭 Quality Validation
+### ? Quality Validation
 {self._format_quality_validation_summary(results_data)}
 
-### 📈 Improvements Achieved
+### ? Improvements Achieved
 {self._format_improvements_summary(results_data)}
 
-### 🔗 Links
+### ? Links
 - [Workflow Run]({self._get_workflow_url()})
 - [Commit]({self._get_commit_url()})
 
@@ -713,7 +712,6 @@ The automated CI/CD failure resolution loop has {'completed successfully' if suc
     def _update_deployment_status(self, results_data: Dict[str, Any], success: bool) -> Optional[Dict[str, Any]]:
         """Update deployment status if applicable."""
         # This would be implemented based on deployment context
-        # For now, we'll skip deployment status updates
         return None
 
     def _get_pr_number(self) -> Optional[int]:
@@ -784,13 +782,12 @@ The automated CI/CD failure resolution loop has {'completed successfully' if suc
                 "error": str(e)
             }
 
-
 def main():
     """Main entry point for GitHub webhook feedback script."""
     parser = argparse.ArgumentParser(description="GitHub Webhook Feedback Automation")
     parser.add_argument("--results", required=True, help="Results directory path")
     parser.add_argument("--success", type=lambda x: x.lower() == 'true', default=False,
-                       help="Whether the loop execution was successful")
+                        help="Whether the loop execution was successful")
     parser.add_argument("--config", help="Configuration file path")
     parser.add_argument("--webhook-url", help="External webhook URL for notifications")
 
@@ -833,7 +830,6 @@ def main():
         json.dump(feedback_summary, f, indent=2)
 
     logger.info(f"Feedback summary saved to {summary_path}")
-
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,5887 @@
+{
+  "summary": {
+    "total_files_processed": 839,
+    "total_optimizations": 2198,
+    "dead_code_instances_removed": 870,
+    "imports_cleaned": 786,
+    "files_with_errors": 0,
+    "optimization_coverage": "100.0%"
+  },
+  "detailed_results": [
+    {
+      "file": "src\\api_server.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\compatibility_layer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\constants.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\linter_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\main.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\utils.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\wealth_flow_demo.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\adapters\\bandit_adapter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\adapters\\base_adapter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\adapters\\flake8_adapter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\adapters\\mypy_adapter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\adapters\\pylint_adapter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\adapters\\ruff_adapter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\adapters\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analysis\\FailurePatternDetectorFacade.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analysis\\failure_pattern_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analysis\\test_pattern_builder.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\byzantium\\byzantine_coordinator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\byzantium\\comprehensive_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\byzantium\\race_condition_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\byzantium\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\compliance\\assertion_injection_engine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\compliance\\automated_function_refactorer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\compliance\\memory_allocation_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\compliance\\nasa_compliance_monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\compliance\\risk_assessment_matrix.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\config\\linter_config.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\constants\\business_rules.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\constants\\compliance_thresholds.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\constants\\financial_constants.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\constants\\quality_gates.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\constants\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\agent_database_builder.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\git_safety_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\LoopOrchestratorFacade.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\loop_orchestrator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\queen_coordinator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\recursive_merge_resolver.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\cycles\\profit_calculator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\cycles\\scheduler.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\cycles\\weekly_cycle.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\cycles\\weekly_siphon_automator.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\detectors\\comprehensive_benchmark.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\detectors\\defense_compliance_monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\detectors\\enterprise_detector_pool.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\detectors\\parallel_executor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\detectors\\validation_demo.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\detectors\\workload_optimizer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\config.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\linter-integration\\mesh-coordinator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\models\\linter_models.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\nasa_compliance\\complexity_reducer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\nasa_compliance\\critical_fixes.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\patterns\\command_base.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\patterns\\configuration_objects.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\patterns\\factory_base.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\quiet_star\\algorithms.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\risk\\dynamic_position_sizing.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\risk\\kelly_criterion.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\risk\\risk_calculator_factory.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\risk\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\hardware_auth_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\kill_switch_system.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\__init__.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\access_control_system.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\audit_trail_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\cdi_protection_framework.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\configuration_management_system.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\continuous_risk_assessment.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\continuous_theater_monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\defense_industry_evidence_generator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_access_control.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_compliance_certification.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_compliance_engine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_compliance_validation_system.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_compliance_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_comprehensive_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_config.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_continuous_monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_controls_builder.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_incident_response.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_integration_demo.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_media_protection.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_personnel_security.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_physical_protection.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_remediation_engine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_system_communications.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars_workflow_automation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\EnhancedIncidentResponseFacade.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\enhanced_audit_trail_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\enhanced_audit_wrapper.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\enhanced_incident_response_system.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\enterprise_theater_detection.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\fips_crypto_module.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\incident_response_system.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\path_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\real_security_scanner.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\tls_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\sixsigma\\sixsigma_scorer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\sixsigma\\telemetry_config.py",
+      "dead_code_removed": true,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\sixsigma\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\strategies\\dpi_calculator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\strategies\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\theater-detection\\continuous-monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\theater-detection\\deploy_loop3.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\theater-detection\\reality-validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\theater-detection\\theater-detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\theater-detection\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\trading\\market_data_provider.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\trading\\portfolio_manager.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\trading\\trade_executor.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\trading\\trading_state_machine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\trading\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\validation\\realistic_quality_assessor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\version_log\\ContentHasher.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\version_log\\FooterRenderer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\version_log\\SemverManager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\version_log\\VersionLogManager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\version_log\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analysis\\commands\\analysis_commands.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analysis\\core\\PatternMatcher.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analysis\\core\\RootCauseAnalyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analysis\\profiling\\DataAggregator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analysis\\profiling\\PerformanceProfiler.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analysis\\profiling\\ProfilerFacade.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analysis\\profiling\\ReportBuilder.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analysis\\services\\FixGenerator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analyzers\\nasa\\bounded_ast_walker.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analyzers\\nasa\\defensive_programming_specialist.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analyzers\\nasa\\function_decomposer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analyzers\\nasa\\nasa_compliance_auditor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\analyzers\\nasa\\security_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\cli\\commands\\cli_commands.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\compliance\\engines\\nist-ssdf-adapter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\core\\AutoRepairEngine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\core\\SuccessPredictor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\core\\TestCoordinator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\orchestrator_components\\loop_builder.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\orchestrator_components\\loop_executor.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\orchestrator_components\\orchestrator_base.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\coordination\\orchestrator_components\\task_coordinator.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\adapters\\integration_adapters.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\cli\\enterprise_cli.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\cli\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\compliance\\matrix.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\compliance\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\config\\enterprise_config.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\config\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\factories\\enterprise_factories.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\flags\\feature_flags.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\flags\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\integration\\analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\integration\\analyzer_validation_strategies.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\integration\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\security\\sbom_generator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\security\\slsa_generator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\security\\supply_chain.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\security\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\telemetry\\six_sigma.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\telemetry\\spc_control_charts.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\telemetry\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\tests\\test_runner.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\tests\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\utils\\error_handling.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\utils\\logging_utils.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\enterprise\\utils\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\integration\\github\\GitHubClient.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\integration\\github\\GitHubIntegrationFacade.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\integration\\github\\IssueTracker.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\integration\\github\\PRManager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\integration\\github\\WorkflowManager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data\\loaders.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data\\preprocessing.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data\\validators.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\pipeline_orchestrator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\inference\\caching.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\inference\\inference_engine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\inference\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\models\\base_models.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\models\\gary_dpi.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\models\\taleb_antifragile.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\models\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\example_usage.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\registry\\model_registry.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\registry\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\testing\\ab_testing.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\testing\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\training\\callbacks.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\training\\losses.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\training\\trainer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\training\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\config\\pipeline_config.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\config\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\examples\\basic_usage.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\monitoring\\metrics_collector.py",
+      "dead_code_removed": true,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\monitoring\\pipeline_monitor.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\monitoring\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\processing\\alternative_data_processor.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\processing\\news_processor.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\processing\\options_flow_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\processing\\processor_pipeline.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\processing\\sentiment_processor.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\processing\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\alpaca_source.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\data_source_manager.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\historical_loader.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\polygon_source.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\yahoo_source.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\sources\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\streaming\\failover_manager.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\streaming\\real_time_streamer.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\streaming\\stream_buffer.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\streaming\\websocket_manager.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\streaming\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\validation\\data_validator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\validation\\quality_monitor.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\data_pipeline\\validation\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\cnn\\pattern_definitions.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\cnn\\pattern_recognizer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\cnn\\resnet_backbone.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\cnn\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\ensemble\\ensemble_framework.py",
+      "dead_code_removed": true,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\ensemble\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\lstm\\attention_mechanism.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\lstm\\lstm_predictor.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\lstm\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\rl\\ppo_agent.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\rl\\strategy_optimizer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\rl\\trading_environment.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\rl\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\transformer\\financial_bert.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\transformer\\sentiment_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": false,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\intelligence\\neural_networks\\transformer\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\interfaces\\cli\\config_discovery.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\interfaces\\cli\\connascence.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\interfaces\\cli\\main_python.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\interfaces\\cli\\policy_detection.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\interfaces\\cli\\simple_cli.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\interfaces\\cli\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\interfaces\\core\\interface_base.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\interfaces\\core\\shared_components.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\interfaces\\core\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\linter-integration\\adapters\\base_adapter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\linter-integration\\agents\\api_docs_node.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\linter-integration\\agents\\backend_dev_node.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\linter-integration\\agents\\integration_specialist_node.py",
+      "dead_code_removed": true,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\linter-integration\\agents\\system_architect_node.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\linter-integration\\pipeline\\tool_orchestrator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\linter-integration\\severity-mapping\\unified_severity.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\patterns\\base\\adapter_bridge_pattern.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\patterns\\base\\command_pattern.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\patterns\\base\\configuration_factory.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\patterns\\base\\observer_pattern.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\patterns\\base\\pipeline_pattern.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\patterns\\base\\strategy_pattern.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\patterns\\base\\template_method_pattern.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\performance\\observers\\performance_observers.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\princess\\quality\\analysis-reports\\quality_dashboard.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\princess\\quality\\quality-gates\\cross_domain_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\princess\\quality\\theater-detection\\comprehensive_analysis_engine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\princess\\quality\\theater-detection\\test_theater_engine.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\princess\\quality\\validation-engine\\quality_gate_enforcer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\production\\scripts\\security-gate-check.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\reporting\\factories\\report_factories.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\risk-dashboard\\node_modules\\flatted\\python\\flatted.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\core\\failover_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\core\\safety_manager.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\core\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\integration\\trading_safety_bridge.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\integration\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\monitoring\\availability_monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\monitoring\\redundancy_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\monitoring\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\recovery\\recovery_system.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\safety\\recovery\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\audit_components\\audit_event_manager.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\audit_components\\audit_integrity_manager.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\audit_components\\audit_storage_manager.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\audit_components\\refactored_audit_manager.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\audit_components\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\core\\ForensicsEngine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\core\\IncidentDetector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\core\\ResponseCoordinator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars\\ComplianceChecker.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars\\DFARSComplianceFacade.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars\\ReportGenerator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\dfars\\ValidationEngine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\factories\\scanner_factories.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\security\\handlers\\security_handlers.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\analysis\\analysis_helpers.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\analysis\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\cache\\health_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\cache\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\data\\data_transformers.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\data\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\edge_cases\\boundary_handler.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\edge_cases\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\logging\\structured_logger.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\logging\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\metrics\\aggregation_engine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\metrics\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\patterns\\nested_loops.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\patterns\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\performance\\measurement.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\performance\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\security\\security_utils.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\security\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\testing\\test_helpers.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\testing\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\validation\\complex_chains.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\validation\\result_processor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\validation\\validation_framework.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\utils\\validation\\__init__.py",
+      "dead_code_removed": true,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "src\\version_log\\middleware\\AgentFooterMiddleware.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\version_log\\v2\\agent_prompt_wrapper.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\version_log\\v2\\footer_middleware.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\version_log\\v2\\receipt_schema.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "src\\version_log\\v2\\validation_framework.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\analysis_orchestrator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\analyzer_types.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\bridge.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\cache_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\component_integrator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\comprehensive_analysis_engine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\configuration_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\connascence_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\connascence_ast_analyzer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\consolidated_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\constants.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\context_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\core.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\cross_phase_learning_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\cross_phase_security_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\duplication_unified.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enhanced_github_analyzer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\formal_grammar.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\github_analyzer_runner.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\github_status_reporter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\integration_methods.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\language_strategies.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\multi_agent_swarm_coordinator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\nasa_compliance_calculator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance_monitoring_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\phase_correlation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\phase_correlation_storage.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\policy_engine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\quality_calculator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\real_unified_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\refactored_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\result_aggregator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\setup.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\smart_integration_engine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\system_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\test_critical_violations.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\test_github_output.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\test_high_severity_violations.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\thresholds.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\unified_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\unified_analyzer_god_object_backup.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\unified_api.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\unified_memory_model.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\unified_orchestrator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\violation_remediation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\__main__.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\aggregator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\analysis_executor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\analysis_observers.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\analysis_strategies.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\analysis_strategy.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_cache.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_classifier.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_fixer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_metrics.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_orchestrator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_reporter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\detector_pool.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\enhanced_metrics.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\interfaces.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\orchestrator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\recommendation_engine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\refactoring_audit_report.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\report_generator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\validation_strategies.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\validation_tests.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\ast_engine\\analyzer_orchestrator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\ast_engine\\core_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\ast_engine\\__init__.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\ast_engine\\__main__.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\caching\\ast_cache.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\components\\AnalysisOrchestrator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\components\\CacheManager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\components\\ComponentManager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\components\\ConfigurationManager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\components\\MonitoringManager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\components\\StreamingManager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\components\\UnifiedAnalyzerFacade.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\core\\unified_imports.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\core\\__init__.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\dashboard\\ci_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\dashboard\\metrics.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\dashboard\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\algorithm_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\base.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\connascence_ast_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\connascence_ast_analyzer_fixed.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\consolidated.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\convention_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\enhanced_algorithm_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\enhanced_execution_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\enhanced_timing_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\execution_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\god_object_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\magic_literal_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\position_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\real_detectors.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\timing_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\values_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\detectors\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\dup_detection\\mece_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\dup_detection\\__init__.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\dup_detection\\__main__.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\defense_certification_tool.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\nasa_pot10_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\validation_reporting_system.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\__init__.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise_security\\analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise_security\\compliance.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise_security\\scanner.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise_security\\supply_chain.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise_security\\vulnerability_scanner.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise_security\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\integrations\\github_bridge.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\integrations\\tool_coordinator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\integrations\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\interfaces\\analysis_interfaces.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\interfaces\\detector_interface.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\mece\\mece_analyzer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\mece\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\ml_modules\\compliance_forecaster.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\ml_modules\\pattern_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\ml_modules\\quality_predictor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\ml_modules\\theater_classifier.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\ml_modules\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\nasa_engine\\nasa_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\nasa_engine\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\optimization\\ast_optimizer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\optimization\\file_cache.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\optimization\\incremental_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\optimization\\memory_monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\optimization\\performance_benchmark.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\optimization\\resource_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\optimization\\streaming_performance_monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\optimization\\unified_visitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\optimization\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\cache_optimization_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\cache_performance_profiler.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\ci_cd_accelerator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\detector_pool_optimizer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\incremental_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\integration_optimizer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\optimizer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\parallel_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\real_cache_optimization_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\real_file_profiler.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\real_performance_modules.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\real_time_monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\regression_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\result_aggregation_profiler.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\thread_contention_profiler.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\unified_visitor_profiler.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\performance\\__init__.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\reporting\\coordinator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\reporting\\json.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\reporting\\markdown.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\reporting\\sarif.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\reporting\\__init__.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\services\\dependency_container.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\streaming\\dashboard_reporter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\streaming\\incremental_cache.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\streaming\\result_aggregator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\streaming\\stream_processor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\streaming\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\theater_detection\\analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\theater_detection\\core.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\theater_detection\\patterns.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\theater_detection\\validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\theater_detection\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\code_utils.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\common_patterns.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\config_manager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\connascence_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\error_handling.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\intelligent_magic_number_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\metric_calculators.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\result_builders.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\types.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\validation_utils.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\validation\\enterprise_theater_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\validation\\reality_validation_engine.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\validation\\sanitizer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\validation\\validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\validation\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\services\\ComponentFactory.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\architecture\\services\\ErrorManager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\audit_trail.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\core.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\nist_ssdf.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\soc2.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\validate_retention.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\core\\decorators.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\core\\feature_flags.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\core\\performance_monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\core\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\detector\\EnterpriseDetectorPool.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\detectors\\dfars_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\detectors\\dfars_detector_simple.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\integration\\EnterpriseIntegrationFramework.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\performance\\MLCacheOptimizer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\sixsigma\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\config_loader.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\config_validation_strategies.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\crypto_signer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\evidence_packager.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\sbom_generator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\slsa_provenance.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\supply_chain_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\vulnerability_scanner.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\validation\\EnterprisePerformanceValidator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\nist_components\\nist_base.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\nist_components\\nist_controls.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\nist_components\\nist_reporter.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\nist_components\\nist_validator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "analyzer\\utils\\injection\\container.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\achieve_perfection.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\add_assertions_report.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\add_return_checks.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\analyze_connascence.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\analyze_file.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\analyze_full_project.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\apply_real_fixes.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\automated_docstring_generator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\batch_god_object_processor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\cicd_performance_tester.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\cicd_quality_enforcer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\clean_workflows.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\compare_baselines.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\compare_self_analysis.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\complexity_reduction.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\comprehensive_test_runner.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\comprehensive_theater_scan.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\critical_security_fixes.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\debug_unified_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\demonstrate_loop3.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\deploy_dfars_security.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\deploy_queen_loop3_real_failures.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\deploy_real_queen_swarm.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\dfars_compliance_fixer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\dfars_deployment_task_builder.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\diff_coverage.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\doc_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\e2e_validation_suite.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\eliminate_theater.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\enhanced_loop3_with_video_insights.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\enhanced_return_value_fixer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\execute_remediation_plan.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\final_theater_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\final_unicode_cleanup.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_73_syntax_errors.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_all_fstring_v3.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_all_nasa_syntax.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_all_syntax_comprehensive.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_all_syntax_errors.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_cicd_accelerator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_ci_cd_corruption.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_dict_errors.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_dynamic_memory.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_fstring_errors.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_fstring_v2.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_function_size.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_indentation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_literal_newlines_direct.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_literal_newlines_manual.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_phase2_deep_cleanup.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_phase2_final.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_pointer_patterns.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_return_values.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_syntax_errors.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_unicode_violations.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\fix_workflow_unicode.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\focused_naming_standardizer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\generate_comprehensive_reports.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\generate_real_reports_efficient.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\github_integration.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\github_webhook_feedback.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\github_workflow_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\god_object_counter.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\god_object_decomposer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\interface_segregator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\json_schema_migrator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\json_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\loop3_recursive_fix.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\milestone_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\naming_import_updater.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\naming_standardization_analyzer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\naming_standardization_applier.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\naming_violation_reviewer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\nasa_compliance_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\nasa_quick_compliance_booster.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\performance_monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\performance_regression_detector.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\phase2_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\phase3_deployment_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\phase_4_validation_demo.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\production_deployment_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\python_syntax_fixer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\quality_gate_check.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\quality_gate_integrator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\quality_metrics_dashboard.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\quality_monitor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\queen_debug_test_failures.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\reality_audit_perfection.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\real_analysis_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\remove_literal_newlines.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\remove_unicode.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\replace_magic_numbers.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\reproduce_enterprise_demo.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\run_baseline_scan.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\run_god_object_analysis.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\run_intelligent_com_analysis.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\run_loop3_cascade_analysis.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\run_nasa_compliance_validation.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\run_performance_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\security_compliance_auditor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\security_dashboard_generator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\security_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\service_extractor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\simple_cascade_tree.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\simple_security_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\six_sigma_demo_simple.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\six_sigma_implementation_demo.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\theater_detection_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\unicode_eliminator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\unicode_removal_linter.py",
+      "dead_code_removed": true,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "scripts\\update_readme_metrics.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validate_constants.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validate_core_integration.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validate_dfars_compliance_final.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validate_github_fixes.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validate_performance_improvements.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validate_phase32_migration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validate_pr_quality.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validate_theater_detection.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\verify_counts.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\windows_unicode_fixer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\workflow_cascade_analyzer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\cleanup_agents\\artifact_consolidator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\cleanup_agents\\code_optimizer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\cleanup_agents\\doc_consolidator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\cleanup_agents\\final_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\cleanup_agents\\god_object_decomposer.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\compliance\\fix_critical_security.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\compliance\\unified_compliance_scanner.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\hooks\\pre_commit_footer_check.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\phase3\\defense_industry_certification.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validation\\achieve_100_percent.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validation\\comprehensive_defense_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validation\\dfars_validation_simple.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validation\\dfars_validation_strategies.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validation\\pr_quality_strategies.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validation\\reality_check_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validation\\validate_complete_dfars_implementation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "scripts\\validation\\validate_dfars_compliance.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\batch_validation_report.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\config_reality_check.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration_test_suite.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\naming_convention_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\phase1_critical_fixes.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\phase1_functional_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\production_validation_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\regression_test_runner.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\simple_kill_switch_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\simple_test_runner.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\simplified_integration_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_analyzer.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_analyzer_fixes.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_command_factory_patterns.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_core_functionality.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_fixes.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_fixes_simple.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_focused_pattern_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_github_fixes.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_import_fixes.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_kelly_dpi_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_kill_switch_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_main.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_modules.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_naming_standardization.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_phase3_100_percent.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_phase3_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_phase4_configuration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_phase4_config_wiring_reality.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_phase5_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_phase5_sandbox_reality.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_supply_chain_security.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_utils.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\test_yaml_validator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\theater_detection_audit.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\unified_test_orchestrator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "tests\\batch2_validation\\run_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\batch2_validation\\test_builder_patterns.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\batch2_validation\\test_regression.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\batch3_validation\\run_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\batch_pattern_validators.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\run_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\batches_10_18_validation\\test_suite_orchestrator.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\byzantium\\test_byzantine_stress.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\byzantium\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "tests\\cache_analyzer\\comprehensive_cache_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\cache_analyzer\\test_cache_functionality.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\compliance\\test_compliance_demo.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\compliance\\test_compliance_simple.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\cycles\\test_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\e2e\\test_complete_workflow.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\end_to_end\\complete_system_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\enterprise\\conftest.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\final_reality_check.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\fixed_tool_coordinator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\github_bridge_fixes.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\github_bridge_fixes_clean.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\integration_test_suite.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\production_integration_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\queen_remediation_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\reality_check_simple.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\reality_validation_simple.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\simplified_integration_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\test_analyzer_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\test_enterprise_domains.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\test_enterprise_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\test_error_handling.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\test_github_bridge_reality.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\test_performance_load.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\test_phase2_reality_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\test_phase3_distributed_context.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\test_swarm_hierarchy_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\integration\\test_tool_coordinator_sandbox.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\json_schema_validation\\demo_test_execution.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_json_schema_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_risk_mitigation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_runner.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\json_schema_validation\\test_sarif_compliance.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\linter_integration\\run_all_tests.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\linter_integration\\test_adapter_patterns.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\linter_integration\\test_api_endpoints.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\linter_integration\\test_failure_modes.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\linter_integration\\test_full_pipeline.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\linter_integration\\test_mesh_coordination.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\linter_integration\\test_performance_scalability.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\linter_integration\\test_real_linter_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\linter_integration\\test_real_time_processing.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\linter_integration\\test_severity_mapping.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\linter_integration\\test_tool_management.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\memory_integration\\test_cross_phase_memory.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\ml\\test_compliance_forecaster.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\ml\\test_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\ml\\test_quality_predictor.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\ml\\test_theater_classifier.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\monitoring\\performance_overhead_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\nasa-compliance\\test_nasa_agents.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\phase4\\test_precision_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\phase7_adas\\conftest.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\phase7_adas\\test_perception_accuracy.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\phase7_adas\\test_real_time_performance.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\phase7_adas\\test_safety_compliance.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\phase7_adas\\test_sensor_fusion.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\phase7_adas\\test_simulation_scenarios.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\phase7_adas\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\production\\load_testing_suite.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\regression\\performance_regression_suite.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\safety\\test_import_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\safety\\test_safety_system.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\safety\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "tests\\security\\complete_security_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\security\\test_dfars_compliance.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\security\\test_dfars_workflow_automation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\security\\test_enterprise_theater_detection.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\self-dogfooding\\quality_gate_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\self-dogfooding\\workflow_simulation_test.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\sixsigma\\sample_data.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\sixsigma\\test_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\sixsigma\\__init__.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "tests\\theater-detection\\test_theater_detection.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\unit\\test_analyzer_core.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\unit\\test_connascence_detectors.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\unit\\test_flake8_adapter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\unit\\test_pylint_adapter.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\version_log\\test_unified_validation.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\version_log\\test_version_log_system.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\workflow-validation\\comprehensive_validation_report.py",
+      "dead_code_removed": true,
+      "imports_optimized": false,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\workflow-validation\\json_validation_framework.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\workflow-validation\\python_execution_tests.py",
+      "dead_code_removed": true,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "tests\\workflow-validation\\workflow_test_suite.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\enterprise\\e2e\\test_enterprise_workflows.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\enterprise\\integration\\test_analyzer_integration.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\enterprise\\performance\\test_zero_impact_disabled.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_compliance_matrix.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_feature_flags.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_sbom_generator.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_six_sigma_python.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\enterprise\\unit\\test_six_sigma_telemetry.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_agent_database_builder.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_deployment_task_builder.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_dfars_controls_builder.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\refactored\\batch2\\test_test_pattern_builder.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\refactored\\batch3\\test_validation_strategies.py",
+      "dead_code_removed": true,
+      "imports_optimized": true,
+      "formatting_applied": true,
+      "errors": []
+    },
+    {
+      "file": "tests\\wrapper-integration\\test-files\\file(1).py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "tests\\wrapper-integration\\test-files\\large-test.py",
+      "dead_code_removed": true,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "tests\\wrapper-integration\\test-files\\my file.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    },
+    {
+      "file": "tests\\wrapper-integration\\test-files\\simple.py",
+      "dead_code_removed": false,
+      "imports_optimized": false,
+      "formatting_applied": false,
+      "errors": []
+    }
+  ],
+  "status": "COMPLETE",
+  "optimization_date": "2025-09-24"
+}

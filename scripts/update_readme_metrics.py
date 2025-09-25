@@ -1,13 +1,8 @@
-#!/usr/bin/env python3
-"""
-README metrics update script.
-Minimal stub implementation for Self-Dogfooding Analysis workflow.
-"""
+from src.constants.base import MAXIMUM_NESTED_DEPTH, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
 
 import argparse
 import sys
 from datetime import datetime
-
 
 def main():
     parser = argparse.ArgumentParser(description='Update README metrics')
@@ -26,14 +21,13 @@ def main():
         print("[SEARCH] Checking if metrics changed significantly...")
         
         # Simulate change detection
-        significant_change = abs(args.nasa_score - 0.92) > 0.05 or args.current_violations > 5
+        significant_change = abs(args.nasa_score - NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD) > 0.05 or args.current_violations > MAXIMUM_NESTED_DEPTH
         
         if not significant_change:
             print("[CHART] No significant changes detected, README update skipped")
             return 0
     
     # Simulate README update
-    print("[U+270F][U+FE0F]  Updating README with latest metrics...")
     
     # Create update summary
     update_summary = {
@@ -52,7 +46,6 @@ def main():
     print(f"[U+1F3DB][U+FE0F]  Defense Industry Status: {'[OK] APPROVED' if update_summary['defense_industry_ready'] else '[FAIL] NEEDS IMPROVEMENT'}")
     
     return 0
-
 
 if __name__ == '__main__':
     sys.exit(main())

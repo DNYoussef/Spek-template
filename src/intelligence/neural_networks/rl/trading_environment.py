@@ -1,606 +1,98 @@
-"""Trading Environment for Reinforcement Learning
-
-Gymnasium-compatible trading environment for RL agent training.
-Includes GaryTaleb integration and realistic trading constraints.
-"""
-
-import gymnasium as gym
-import numpy as np
-from typing import Dict, List, Tuple, Optional, Any, Union
-from dataclasses import dataclass
-from enum import Enum
-import pandas as pd
-
-
-class ActionType(Enum):
-    """Trading action types."""
-    HOLD = 0
-    BUY = 1
-    SELL = 2
-    BUY_STRONG = 3
-    SELL_STRONG = 4
-
-
-@dataclass
-class TradingState:
-    """Current trading state."""
-    price: float
-    position: float  # -1 to 1 (short to long)
-    cash: float
-    portfolio_value: float
-    unrealized_pnl: float
-    realized_pnl: float
-    timestamp: int
-    market_features: np.ndarray
-    volatility: float
-    volume_pressure: float
-
-
-@dataclass
-class EnvironmentConfig:
-    """Trading environment configuration."""
-    initial_capital: float = 200.0  # $200 seed capital
-    max_position_size: float = 1.0  # Maximum position as fraction of capital
-    transaction_cost: float = 0.001  # 0.1% transaction cost
-    slippage: float = 0.0005  # 0.05% slippage
-    leverage: float = 1.0  # No leverage initially
-
-    # Risk management
-    max_drawdown: float = 0.20  # 20% max drawdown
-    stop_loss: float = 0.05  # 5% stop loss
-    take_profit: float = 0.10  # 10% take profit
-
-    # Gary×Taleb parameters
-    dpi_reward_weight: float = 0.3
-    antifragile_reward_weight: float = 0.2
-    volatility_opportunity_weight: float = 0.15
-
-    # Environment parameters
-    lookback_window: int = 60
-    max_episode_steps: int = 1000
-    reward_scaling: float = 100.0
-
-
-class TradingEnvironment(gym.Env):
-    """Reinforcement learning trading environment.
-
-    Features:
-    - Realistic trading mechanics with costs and slippage
-    - Gary's DPI reward integration
-    - Taleb's antifragility principles
-    - Risk management constraints
-    - Continuous position sizing
-    """
-
-    def __init__(self,
-                 market_data: pd.DataFrame,
-                 config: EnvironmentConfig):
-        """Initialize trading environment.
-
-Args:
-            market_data: OHLCV market data with additional features
-            config: Environment configuration
-        """
-        super(TradingEnvironment, self).__init__()
-
-self.config = config
-self.market_data = market_data.copy()
-
-# Validate market data
-        required_columns = ['open', 'high', 'low', 'close', 'volume']
-        if not all(col in market_data.columns for col in required_columns):
-            raise ValueError(f"Market data must contain columns: {required_columns)"}
-
-# Add technical indicators if not present
-        self._add_technical_indicators()
-
-# Define action and observation spaces
-        self.action_space = gym.spaces.Box(
-        low=np.array([-1.0, 0.0]),  # [position_change, confidence]
-        high=np.array([1.0, 1.0]),
-            dtype=np.float32
-        )
-
-# Observation space: OHLCV + technical indicators + portfolio state
-        n_features = len(self.market_data.columns) - len(required_columns) + 10  # Base features + portfolio state
-        self.observation_space = gym.spaces.Box(
-        low=-np.inf,
-            high=np.inf,
-            shape=(config.lookback_window, n_features),
-            dtype=np.float32
-        )
-
-# Initialize state
-        self.reset()
-
-    def _add_technical_indicators(self):
-        """Add technical indicators to market data."""
-        df = self.market_data
-
-# Price-based indicators
-        df['returns'] = df['close'].pct_change()
+"""Trading Environment for Reinforcement Learning"Gymnasium-compatible trading environment for RL agent training.Includes GaryTaleb integration and realistic trading constraints."""import gymnasium as gymimport numpy as npfrom typing import Dict, List, Tuple, Optional, Any, Unionfrom dataclasses import dataclassfrom enum import Enumimport pandas as pdclass ActionType(Enum):        """Trading action types."""        HOLD = 0        BUY = 1        SELL = 2        BUY_STRONG = 3        SELL_STRONG = 4        @dataclassclass TradingState:        """Current trading state."""        price: float        position: float  # -1 to 1 (short to long)        cash: float        portfolio_value: float        unrealized_pnl: float        realized_pnl: float        timestamp: int        market_features: np.ndarray        volatility: float        volume_pressure: float        @dataclassclass EnvironmentConfig:        """Trading environment configuration."""        initial_capital: float = 200.0  # $200 seed capital        max_position_size: float = 1.0  # Maximum position as fraction of capital        transaction_cost: float = 0.001  # 0.1% transaction cost        slippage: float = 0.0005  # 0.05% slippage        leverage: float = 1.0  # No leverage initially    # Risk management        max_drawdown: float = 0.20  # 20% max drawdown        stop_loss: float = 0.05  # 5% stop loss        take_profit: float = 0.10  # 10% take profit    # GaryxTaleb parameters        dpi_reward_weight: float = 0.3        antifragile_reward_weight: float = 0.2        volatility_opportunity_weight: float = 0.15    # Environment parameters        lookback_window: int = 60        max_episode_steps: int = 1000        reward_scaling: float = 100.0class TradingEnvironment(gym.Env):        """Reinforcement learning trading environment."        Features:            - Realistic trading mechanics with costs and slippage            - Gary's DPI reward integration'            - Taleb's antifragility principles'            - Risk management constraints            - Continuous position sizing            """    def __init__(self,
+        market_data: pd.DataFrame,        config: EnvironmentConfig):            """Initialize trading environment."        Args:
+                market_data: OHLCV market data with additional features                config: Environment configuration                """                super(TradingEnvironment, self).__init__()                self.config = config                self.market_data = market_data.copy()# Validate market data                required_columns = ['open', 'high', 'low', 'close', 'volume']                if not all(col in market_data.columns for col in required_columns):                    raise ValueError(f"Market data must contain columns: {required_columns}"}# Add technical indicators if not present                    self._add_technical_indicators()# Define action and observation spaces                    self.action_space = gym.spaces.Box(                    low=np.array([-1.0, 0.0]),  # [position_change, confidence]                    high=np.array([1.0, 1.0]),                    dtype=np.float32                    )# Observation space: OHLCV + technical indicators + portfolio state                    n_features = len(self.market_data.columns) - len(required_columns) + 10  # Base features + portfolio state                    self.observation_space = gym.spaces.Box(                    low=-np.inf,                    high=np.inf,                    shape=(config.lookback_window, n_features),                    dtype=np.float32                    )# Initialize state                    self.reset()    def _add_technical_indicators(self):
+            """Add technical indicators to market data."""        df = self.market_data
+# Price-based indicators        df['returns'] = df['close'].pct_change()
         df['log_returns'] = np.log(df['close'] / df['close'].shift(1))
-
-# Moving averages
-        for window in [5, 10, 20, 50]:
-            df[f'sma_{window)'] = df['close'].rolling(window).mean(}
-            df[f'ema_{window)'] = df['close'].ewm(span=window).mean(}
-
-# Volatility measures
-        df['volatility_20'] = df['returns'].rolling(20).std() * np.sqrt(252)
-        df['volatility_5'] = df['returns'].rolling(5).std() * np.sqrt(252)
-
-# Volume indicators
-        df['volume_sma_20'] = df['volume'].rolling(20).mean()
-        df['volume_ratio'] = df['volume'] / df['volume_sma_20']
-        df['price_volume'] = df['close'] * df['volume']
-
-# Momentum indicators
-        df['rsi_14'] = self._calculate_rsi(df['close'], 14)
-        df['macd'], df['macd_signal'] = self._calculate_macd(df['close'])
-        df['bb_upper'], df['bb_lower'] = self._calculate_bollinger_bands(df['close'])
-
-# Gary's DPI indicators
-        df['price_momentum'] = df['close'].pct_change(5)  # 5-period momentum
-        df['volume_pressure'] = (df['volume'] - df['volume_sma_20']) / df['volume_sma_20']
-        df['volatility_regime'] = df['volatility_20'] / df['volatility_20'].rolling(60).mean()
-
-# Taleb's antifragility indicators
-        df['tail_risk'] = df['returns'].rolling(20).quantile(0.05)  # 5% VaR
-        df['upside_capture'] = df['returns'].rolling(20).quantile(0.95)  # 95% upside
-        df['volatility_skew'] = df['returns'].rolling(20).skew()
-        df['kurtosis'] = df['returns'].rolling(20).kurt()
-
-# Drop NaN values
-        self.market_data = df.dropna()
-
-    def _calculate_rsi(self, prices: pd.Series, window: int = 14) -> pd.Series:
+# Moving averages        for window in [5, 10, 20, 50]:
+                df[f'sma_{window)'] = df['close'].rolling(window).mean(}                df[f'ema_{window)'] = df['close'].ewm(span=window).mean(}# Volatility measures                df['volatility_20'] = df['returns'].rolling(20).std() * np.sqrt(252)                df['volatility_5'] = df['returns'].rolling(5).std() * np.sqrt(252)# Volume indicators                df['volume_sma_20'] = df['volume'].rolling(20).mean()                df['volume_ratio'] = df['volume'] / df['volume_sma_20']                df['price_volume'] = df['close'] * df['volume']# Momentum indicators                df['rsi_14'] = self._calculate_rsi(df['close'], 14)                df['macd'], df['macd_signal'] = self._calculate_macd(df['close'])                df['bb_upper'], df['bb_lower'] = self._calculate_bollinger_bands(df['close'])# Gary's DPI indicators'                df['price_momentum'] = df['close'].pct_change(5)  # 5-period momentum                df['volume_pressure'] = (df['volume'] - df['volume_sma_20']) / df['volume_sma_20']                df['volatility_regime'] = df['volatility_20'] / df['volatility_20'].rolling(60).mean()# Taleb's antifragility indicators'                df['tail_risk'] = df['returns'].rolling(20).quantile(0.05)  # 5% VaR                df['upside_capture'] = df['returns'].rolling(20).quantile(0.95)  # 95% upside                df['volatility_skew'] = df['returns'].rolling(20).skew()                df['kurtosis'] = df['returns'].rolling(20).kurt()# Drop NaN values                self.market_data = df.dropna()    def _calculate_rsi(self, prices: pd.Series, window: int = 14) -> pd.Series:
         \"\"\"Calculate RSI indicator.\"\"\"
         delta = prices.diff()
         gain = (delta.where(delta > 0, 0)).rolling(window).mean()
         loss = (-delta.where(delta < 0, 0)).rolling(window).mean()
         rs = gain / loss
         return 100 - (100 / (1 + rs))
-        
-    def _calculate_macd(self, prices: pd.Series) -> Tuple[pd.Series, pd.Series]:
+            def _calculate_macd(self, prices: pd.Series) -> Tuple[pd.Series, pd.Series]:
         \"\"\"Calculate MACD indicator.\"\"\"
         ema_12 = prices.ewm(span=12).mean()
         ema_26 = prices.ewm(span=26).mean()
         macd = ema_12 - ema_26
         signal = macd.ewm(span=9).mean()
-        return macd, signal
-        
-    def _calculate_bollinger_bands(self, prices: pd.Series, window: int = 20) -> Tuple[pd.Series, pd.Series]:
+                return macd, signal
+
+            def _calculate_bollinger_bands(self, prices: pd.Series, window: int = 20) -> Tuple[pd.Series, pd.Series]:
         \"\"\"Calculate Bollinger Bands.\"\"\"
         sma = prices.rolling(window).mean()
         std = prices.rolling(window).std()
         upper = sma + (std * 2)
         lower = sma - (std * 2)
-        return upper, lower
-        
-    def reset(self, seed: Optional[int] = None) -> Tuple[np.ndarray, Dict[str, Any]]:
+                return upper, lower
+
+            def reset(self, seed: Optional[int] = None) -> Tuple[np.ndarray, Dict[str, Any]]:
         \"\"\"Reset environment to initial state.
-        
-        Returns:
-            Initial observation and info dict
-        \"\"\"
-        if seed is not None:
-            np.random.seed(seed)
-            
-        # Reset to random starting point
-        max_start = len(self.market_data) - self.config.max_episode_steps - self.config.lookback_window
-        self.current_step = np.random.randint(self.config.lookback_window, max_start)
-        
-        # Initialize trading state
-        self.state = TradingState(
-        price=self.market_data.iloc[self.current_step]['close'],
-            position=0.0,
-            cash=self.config.initial_capital,
-            portfolio_value=self.config.initial_capital,
-            unrealized_pnl=0.0,
-            realized_pnl=0.0,
-            timestamp=self.current_step,
-            market_features=np.array([]),  # Will be set in _get_observation
-            volatility=self.market_data.iloc[self.current_step]['volatility_20'],
-            volume_pressure=self.market_data.iloc[self.current_step]['volume_pressure']
-        )
-        
-        # Track episode statistics
-        self.episode_stats = {
-        'total_return': 0.0,
-            'max_drawdown': 0.0,
-            'sharpe_ratio': 0.0,
-            'trades': 0,
-            'winning_trades': 0,
-            'gary_dpi_rewards': 0.0,
-            'taleb_antifragile_rewards': 0.0,
-            'transaction_costs': 0.0,
-            'max_portfolio_value': self.config.initial_capital
-)
-        
-        # Portfolio value history for metrics
-        self.portfolio_history = [self.config.initial_capital]
-        self.position_history = [0.0]
-        self.action_history = []
-        
-        observation = self._get_observation()
-        info = {'state': self.state, 'stats': self.episode_stats}
-        
-        return observation, info
-        
-    def step(self, action: np.ndarray) -> Tuple[np.ndarray, float, bool, bool, Dict[str, Any]]:
+                Returns:
+                Initial observation and info dict                \"\"\"                if seed is not None:                    np.random.seed(seed)                    # Reset to random starting point                    max_start = len(self.market_data) - self.config.max_episode_steps - self.config.lookback_window                    self.current_step = np.random.randint(self.config.lookback_window, max_start)                # Initialize trading state                    self.state = TradingState(                    price=self.market_data.iloc[self.current_step]['close'],                    position=0.0,                    cash=self.config.initial_capital,                    portfolio_value=self.config.initial_capital,                    unrealized_pnl=0.0,                    realized_pnl=0.0,                    timestamp=self.current_step,                    market_features=np.array([]),  # Will be set in _get_observation                    volatility=self.market_data.iloc[self.current_step]['volatility_20'],                    volume_pressure=self.market_data.iloc[self.current_step]['volume_pressure']                    )                # Track episode statistics                    self.episode_stats = {                    'total_return': 0.0,                    'max_drawdown': 0.0,                    'sharpe_ratio': 0.0,                    'trades': 0,                    'winning_trades': 0,                    'gary_dpi_rewards': 0.0,                    'taleb_antifragile_rewards': 0.0,                    'transaction_costs': 0.0,                    'max_portfolio_value': self.config.initial_capital                    )                # Portfolio value history for metrics                    self.portfolio_history = [self.config.initial_capital]                    self.position_history = [0.0]                    self.action_history = []                            observation = self._get_observation()                    info = {'state': self.state, 'stats': self.episode_stats}                            return observation, info            def step(self, action: np.ndarray) -> Tuple[np.ndarray, float, bool, bool, Dict[str, Any]]:
         \"\"\"Execute trading action.
-        
-        Args:
-            action: [position_change, confidence] both in [-1, 1]
-            
-        Returns:
-            observation, reward, terminated, truncated, info
-        \"\"\"
-        # Clip action to valid range
-        action = np.clip(action, self.action_space.low, self.action_space.high)
-        position_change, confidence = action
-        
-        # Store action for analysis
-        self.action_history.append(action.copy())
-        
-        # Get current market data
-        current_data = self.market_data.iloc[self.current_step]
-        next_data = self.market_data.iloc[self.current_step + 1] if self.current_step + 1 < len(self.market_data) else current_data
-        
-        # Calculate proposed new position
-        old_position = self.state.position
-        proposed_position = old_position + position_change
-        
-        # Apply position limits
-        max_pos = self.config.max_position_size
-        new_position = np.clip(proposed_position, -max_pos, max_pos)
-        actual_position_change = new_position - old_position
-        
-        # Execute trade if position changes
-        trade_cost = 0.0
-        if abs(actual_position_change) > 0.001:  # Minimum trade threshold
-        trade_cost = self._execute_trade(
-        actual_position_change, 
-                current_data['close'], 
-                confidence
-            )
-            
-        # Update to next time step
-        self.current_step += 1
-        if self.current_step >= len(self.market_data) - 1:
-            self.current_step = len(self.market_data) - 1
-            
-        # Calculate PnL
-        price_change = next_data['close'] - current_data['close']
-        unrealized_pnl_change = self.state.position * price_change * self.config.initial_capital
-        
-        # Update state
-        self.state.price = next_data['close']
-        self.state.unrealized_pnl += unrealized_pnl_change
-        self.state.portfolio_value = self.state.cash + self.state.unrealized_pnl
-        self.state.timestamp = self.current_step
-        self.state.volatility = next_data['volatility_20']
-        self.state.volume_pressure = next_data['volume_pressure']
-        
-        # Update history
-        self.portfolio_history.append(self.state.portfolio_value)
-        self.position_history.append(self.state.position)
-        
-        # Update episode statistics
-        self.episode_stats['max_portfolio_value'] = max(
-        self.episode_stats['max_portfolio_value'],
-            self.state.portfolio_value
-        )
-        
-        # Calculate drawdown
-        current_dd = (self.episode_stats['max_portfolio_value'] - self.state.portfolio_value) / self.episode_stats['max_portfolio_value']
-        self.episode_stats['max_drawdown'] = max(self.episode_stats['max_drawdown'], current_dd)
-        
-        # Calculate reward
-        reward = self._calculate_reward(current_data, next_data, actual_position_change, confidence, trade_cost)
-        
-        # Check termination conditions
-        terminated = (
-        self.state.portfolio_value <= self.config.initial_capital * (1 - self.config.max_drawdown) or
-        self.episode_stats['max_drawdown'] >= self.config.max_drawdown
-        )
-        
-        # Check truncation (max episode length)
-        truncated = (self.current_step - self.config.lookback_window) >= self.config.max_episode_steps
-        
-        # Get observation
-        observation = self._get_observation()
-        
-        # Prepare info dict
-        info = {
-        'state': self.state,
-            'stats': self.episode_stats,
-            'action_taken': action,
-            'position_change': actual_position_change,
-            'trade_cost': trade_cost,
-            'price_change': price_change,
-            'pnl_change': unrealized_pnl_change
-)
-        
-        return observation, reward, terminated, truncated, info
-        
-    def _execute_trade(self, position_change: float, price: float, confidence: float) -> float:
+                Args:
+                action: [position_change, confidence] both in [-1, 1]                            Returns:                    observation, reward, terminated, truncated, info                    \"\"\"        # Clip action to valid range                    action = np.clip(action, self.action_space.low, self.action_space.high)                    position_change, confidence = action                # Store action for analysis                    self.action_history.append(action.copy())                # Get current market data                    current_data = self.market_data.iloc[self.current_step]                    next_data = self.market_data.iloc[self.current_step + 1] if self.current_step + 1 < len(self.market_data) else current_data                # Calculate proposed new position                    old_position = self.state.position                    proposed_position = old_position + position_change                # Apply position limits                    max_pos = self.config.max_position_size                    new_position = np.clip(proposed_position, -max_pos, max_pos)                    actual_position_change = new_position - old_position                # Execute trade if position changes                    trade_cost = 0.0                    if abs(actual_position_change) > 0.001:  # Minimum trade threshold                    trade_cost = self._execute_trade(                    actual_position_change,                     current_data['close'],                     confidence                    )                    # Update to next time step                    self.current_step += 1                    if self.current_step >= len(self.market_data) - 1:                        self.current_step = len(self.market_data) - 1                    # Calculate PnL                        price_change = next_data['close'] - current_data['close']                        unrealized_pnl_change = self.state.position * price_change * self.config.initial_capital                # Update state                        self.state.price = next_data['close']                        self.state.unrealized_pnl += unrealized_pnl_change                        self.state.portfolio_value = self.state.cash + self.state.unrealized_pnl                        self.state.timestamp = self.current_step                        self.state.volatility = next_data['volatility_20']                        self.state.volume_pressure = next_data['volume_pressure']                # Update history                        self.portfolio_history.append(self.state.portfolio_value)                        self.position_history.append(self.state.position)                # Update episode statistics                        self.episode_stats['max_portfolio_value'] = max(                        self.episode_stats['max_portfolio_value'],                        self.state.portfolio_value                        )                # Calculate drawdown                        current_dd = (self.episode_stats['max_portfolio_value'] - self.state.portfolio_value) / self.episode_stats['max_portfolio_value']                        self.episode_stats['max_drawdown'] = max(self.episode_stats['max_drawdown'], current_dd)                # Calculate reward                        reward = self._calculate_reward(current_data, next_data, actual_position_change, confidence, trade_cost)                # Check termination conditions                        terminated = (                        self.state.portfolio_value <= self.config.initial_capital * (1 - self.config.max_drawdown) or                        self.episode_stats['max_drawdown'] >= self.config.max_drawdown                        )                # Check truncation (max episode length)                        truncated = (self.current_step - self.config.lookback_window) >= self.config.max_episode_steps                # Get observation                        observation = self._get_observation()                # Prepare info dict                        info = {                        'state': self.state,                        'stats': self.episode_stats,                        'action_taken': action,                        'position_change': actual_position_change,                        'trade_cost': trade_cost,                        'price_change': price_change,                        'pnl_change': unrealized_pnl_change                        )                                return observation, reward, terminated, truncated, info            def _execute_trade(self, position_change: float, price: float, confidence: float) -> float:
         \"\"\"Execute trade with realistic costs.
-        
-        Args:
-            position_change: Change in position
-            price: Current price
-            confidence: Trade confidence
-            
-        Returns:
-            Total trade cost
+                Args:
+                position_change: Change in position                price: Current price                confidence: Trade confidence                            Returns:                    Total trade cost                    \"\"\"                    trade_value = abs(position_change) * self.config.initial_capital                # Base transaction cost                    transaction_cost = trade_value * self.config.transaction_cost                # Slippage (higher for larger trades and lower confidence)                    slippage_factor = self.config.slippage * (1 + abs(position_change)) * (2 - confidence)                    slippage_cost = trade_value * slippage_factor                            total_cost = transaction_cost + slippage_cost                # Update cash                    self.state.cash -= total_cost                # Update position                    self.state.position += position_change                # Update statistics                    self.episode_stats['trades'] += 1                    self.episode_stats['transaction_costs'] += total_cost                            return total_cost            def _calculate_reward(self,
+        current_data: pd.Series,        next_data: pd.Series,         position_change: float,        confidence: float,        trade_cost: float) -> float:        \"\"\"Calculate reward using GaryTaleb principles.
+                Args:
+                current_data: Current market data                next_data: Next period market data                position_change: Position change taken                confidence: Action confidence                trade_cost: Cost of trade                            Returns:                    Calculated reward                    \"\"\"        # Base PnL reward                    price_return = (next_data['close'] - current_data['close']) / current_data['close']                    position_return = self.state.position * price_return                    base_reward = position_return * self.config.reward_scaling                # Gary's DPI reward component'                    dpi_reward = self._calculate_gary_dpi_reward(current_data, next_data, position_change, confidence)                # Taleb's antifragility reward component'                    antifragile_reward = self._calculate_taleb_antifragile_reward(current_data, next_data, position_change)                # Risk management penalty                    risk_penalty = self._calculate_risk_penalty()                # Transaction cost penalty                    cost_penalty = -trade_cost * self.config.reward_scaling                # Combine all reward components                    total_reward = (                    base_reward +                    dpi_reward * self.config.dpi_reward_weight +                    antifragile_reward * self.config.antifragile_reward_weight +                    risk_penalty +                    cost_penalty                    )                # Update episode statistics                    self.episode_stats['gary_dpi_rewards'] += dpi_reward                    self.episode_stats['taleb_antifragile_rewards'] += antifragile_reward                            return total_reward            def _calculate_gary_dpi_reward(self,
+        current_data: pd.Series,        next_data: pd.Series,        position_change: float,        confidence: float) -> float:        \"\"\"Calculate Gary's Dynamic Position Intelligence reward.'
+                Rewards actions that align with momentum, volume, and technical patterns.
         \"\"\"
-        trade_value = abs(position_change) * self.config.initial_capital
-        
-        # Base transaction cost
-        transaction_cost = trade_value * self.config.transaction_cost
-        
-        # Slippage (higher for larger trades and lower confidence)
-        slippage_factor = self.config.slippage * (1 + abs(position_change)) * (2 - confidence)
-        slippage_cost = trade_value * slippage_factor
-        
-        total_cost = transaction_cost + slippage_cost
-        
-        # Update cash
-        self.state.cash -= total_cost
-        
-        # Update position
-        self.state.position += position_change
-        
-        # Update statistics
-        self.episode_stats['trades'] += 1
-        self.episode_stats['transaction_costs'] += total_cost
-        
-        return total_cost
-        
-    def _calculate_reward(self, 
-                         current_data: pd.Series,
-                         next_data: pd.Series, 
-                         position_change: float,
-                         confidence: float,
-                         trade_cost: float) -> float:
-        \"\"\"Calculate reward using GaryTaleb principles.
-        
-        Args:
-            current_data: Current market data
-            next_data: Next period market data
-            position_change: Position change taken
-            confidence: Action confidence
-            trade_cost: Cost of trade
-            
-        Returns:
-            Calculated reward
-        \"\"\"
-        # Base PnL reward
-        price_return = (next_data['close'] - current_data['close']) / current_data['close']
-        position_return = self.state.position * price_return
-        base_reward = position_return * self.config.reward_scaling
-        
-        # Gary's DPI reward component
-        dpi_reward = self._calculate_gary_dpi_reward(current_data, next_data, position_change, confidence)
-        
-        # Taleb's antifragility reward component
-        antifragile_reward = self._calculate_taleb_antifragile_reward(current_data, next_data, position_change)
-        
-        # Risk management penalty
-        risk_penalty = self._calculate_risk_penalty()
-        
-        # Transaction cost penalty
-        cost_penalty = -trade_cost * self.config.reward_scaling
-        
-        # Combine all reward components
-        total_reward = (
-        base_reward +
-        dpi_reward * self.config.dpi_reward_weight +
-            antifragile_reward * self.config.antifragile_reward_weight +
-            risk_penalty +
-            cost_penalty
-        )
-        
-        # Update episode statistics
-        self.episode_stats['gary_dpi_rewards'] += dpi_reward
-        self.episode_stats['taleb_antifragile_rewards'] += antifragile_reward
-        
-        return total_reward
-        
-    def _calculate_gary_dpi_reward(self, 
-                                  current_data: pd.Series,
-                                  next_data: pd.Series,
-                                  position_change: float,
-                                  confidence: float) -> float:
-        \"\"\"Calculate Gary's Dynamic Position Intelligence reward.
-        
-        Rewards actions that align with momentum, volume, and technical patterns.
-        \"\"\"
-        # Momentum alignment reward
-        price_momentum = current_data['price_momentum']
+        # Momentum alignment reward        price_momentum = current_data['price_momentum']
         momentum_alignment = position_change * np.sign(price_momentum) * abs(price_momentum)
-        
-        # Volume confirmation reward
-        volume_pressure = current_data['volume_pressure']
+                # Volume confirmation reward        volume_pressure = current_data['volume_pressure']
         volume_reward = confidence * volume_pressure if volume_pressure > 0 else 0
-        
-        # Technical indicator alignment
-        rsi = current_data['rsi_14']
+                # Technical indicator alignment        rsi = current_data['rsi_14']
         rsi_signal = 1 if rsi < 30 else (-1 if rsi > 70 else 0)  # Oversold/Overbought
         rsi_reward = position_change * rsi_signal * 0.5
-        
-        # Volatility regime reward (Gary likes controlled volatility)
-        vol_regime = current_data['volatility_regime']
+                # Volatility regime reward (Gary likes controlled volatility)        vol_regime = current_data['volatility_regime']
         vol_reward = confidence * (1 - abs(vol_regime - 1)) if vol_regime > 0 else 0
-        
-        total_dpi_reward = momentum_alignment + volume_reward + rsi_reward + vol_reward
-        
-        return total_dpi_reward * 10  # Scale factor
-        
-    def _calculate_taleb_antifragile_reward(self,
-                                          current_data: pd.Series,
-                                          next_data: pd.Series,
-                                          position_change: float) -> float:
-        \"\"\"Calculate Taleb's antifragility reward.
-        
-        Rewards strategies that benefit from volatility and have asymmetric payoffs.
+                total_dpi_reward = momentum_alignment + volume_reward + rsi_reward + vol_reward
+                return total_dpi_reward * 10  # Scale factor
+            def _calculate_taleb_antifragile_reward(self,
+        current_data: pd.Series,        next_data: pd.Series,        position_change: float) -> float:        \"\"\"Calculate Taleb's antifragility reward.'
+                Rewards strategies that benefit from volatility and have asymmetric payoffs.
         \"\"\"
-        # Volatility benefit reward (antifragile systems benefit from volatility)
-        volatility = current_data['volatility_20']
+        # Volatility benefit reward (antifragile systems benefit from volatility)        volatility = current_data['volatility_20']
         vol_benefit = abs(position_change) * volatility * self.config.volatility_opportunity_weight
-        
-        # Asymmetric payoff reward (limited downside, unlimited upside)
-        tail_risk = current_data['tail_risk']  # 5% VaR (negative)
+                # Asymmetric payoff reward (limited downside, unlimited upside)        tail_risk = current_data['tail_risk']  # 5% VaR (negative)
         upside_capture = current_data['upside_capture']  # 95% upside
-        
-        # Reward positions that capture upside while limiting downside
-        if position_change > 0:  # Long position
+                # Reward positions that capture upside while limiting downside        if position_change > 0:  # Long position
         asymmetry_reward = upside_capture + abs(tail_risk)  # Both positive contribution
-        elif position_change < 0:  # Short position
-        asymmetry_reward = abs(tail_risk) - upside_capture  # Inverted for short
-        else:
-            asymmetry_reward = 0
-        
-        # Convexity reward (benefits from extreme moves)
-        kurtosis = current_data.get('kurtosis', 0)
+        elif position_change < 0:  # Short position        asymmetry_reward = abs(tail_risk) - upside_capture  # Inverted for short        else:        asymmetry_reward = 0
+                # Convexity reward (benefits from extreme moves)        kurtosis = current_data.get('kurtosis', 0)
         convexity_reward = abs(position_change) * max(0, kurtosis) * 0.1
-        
-        # Black swan preparation (reward diversification and optionality)
-        position_flexibility = 1 - abs(self.state.position)  # Reward keeping some powder dry
+                # Black swan preparation (reward diversification and optionality)        position_flexibility = 1 - abs(self.state.position)  # Reward keeping some powder dry
         flexibility_reward = position_flexibility * 0.5
-        
-        total_antifragile_reward = vol_benefit + asymmetry_reward + convexity_reward + flexibility_reward
-        
-        return total_antifragile_reward * 5  # Scale factor
-        
-    def _calculate_risk_penalty(self) -> float:
+                total_antifragile_reward = vol_benefit + asymmetry_reward + convexity_reward + flexibility_reward
+                return total_antifragile_reward * 5  # Scale factor
+            def _calculate_risk_penalty(self) -> float:
         \"\"\"Calculate risk management penalties.\"\"\"
         penalty = 0.0
-        
-        # Drawdown penalty
-        if self.episode_stats['max_drawdown'] > 0.1:  # 10% drawdown threshold
+                # Drawdown penalty        if self.episode_stats['max_drawdown'] > 0.1:  # 10% drawdown threshold
         penalty -= (self.episode_stats['max_drawdown'] - 0.1) * 50
-            
-        # Excessive position penalty
-        if abs(self.state.position) > 0.8:  # 80% position threshold
+                    # Excessive position penalty        if abs(self.state.position) > 0.8:  # 80% position threshold
         penalty -= (abs(self.state.position) - 0.8) * 20
-            
-        # Leverage penalty (if using leverage)
-        if self.config.leverage > 1:
-            penalty -= (self.config.leverage - 1) * abs(self.state.position) * 10
-            
-        return penalty
-        
-    def _get_observation(self) -> np.ndarray:
+                    # Leverage penalty (if using leverage)        if self.config.leverage > 1:
+                penalty -= (self.config.leverage - 1) * abs(self.state.position) * 10                            return penalty            def _get_observation(self) -> np.ndarray:
         \"\"\"Get current observation.
-        
-        Returns:
-            Observation array [lookback_window, features]
-        \"\"\"
-        # Get lookback window of market data
-        start_idx = max(0, self.current_step - self.config.lookback_window + 1)
-        end_idx = self.current_step + 1
-        
-        market_window = self.market_data.iloc[start_idx:end_idx].copy()
-        
-        # Select relevant features (excluding OHLCV base columns)
-        feature_columns = [col for col in market_window.columns 
-        if col not in ['open', 'high', 'low', 'close', 'volume']]
-        
-        market_features = market_window[feature_columns].values
-        
-        # Add portfolio state features
-        portfolio_features = np.array([
-        self.state.position,
-            self.state.cash / self.config.initial_capital,
-            self.state.unrealized_pnl / self.config.initial_capital,
-            self.state.portfolio_value / self.config.initial_capital,
-            self.episode_stats['max_drawdown'],
-            len(self.action_history) / self.config.max_episode_steps,  # Episode progress
-            self.state.volatility,
-            self.state.volume_pressure,
-            self.episode_stats['trades'] / 100,  # Normalized trade count
-            (self.episode_stats['transaction_costs'] / 
-            max(self.state.portfolio_value, 1))  # Cost ratio
-        ])
-        
-        # Ensure we have the right window size
-        if len(market_features) < self.config.lookback_window:
-            # Pad with first available values if we don't have enough history
-            pass  # Auto-fixed: empty block
-            pass  # Auto-fixed: empty block
-            padding_needed = self.config.lookback_window - len(market_features)
-            if len(market_features) > 0:
-                padding = np.tile(market_features[0], (padding_needed, 1))
-                market_features = np.vstack([padding, market_features])
-            else:
-                # Fallback: zeros
-                pass  # Auto-fixed: empty block
-                pass  # Auto-fixed: empty block
-                n_features = len(feature_columns)
-                market_features = np.zeros((self.config.lookback_window, n_features))
-        
-        # Add portfolio features to each timestep
-        portfolio_features_expanded = np.tile(portfolio_features, 
-                                            (market_features.shape[0], 1))
-        
-        # Combine market and portfolio features
-        observation = np.hstack([market_features, portfolio_features_expanded])
-        
-        # Normalize observation (simple standardization)
-        observation = np.nan_to_num(observation, nan=0.0, posinf=1.0, neginf=-1.0)
-        
-        # Update state with current features
-        if len(observation) > 0:
-            self.state.market_features = observation[-1]  # Latest features
-        
-        return observation.astype(np.float32)
-        
-    def get_episode_metrics(self) -> Dict[str, float]:
+                Returns:
+                Observation array [lookback_window, features]                \"\"\"        # Get lookback window of market data                start_idx = max(0, self.current_step - self.config.lookback_window + 1)                end_idx = self.current_step + 1                        market_window = self.market_data.iloc[start_idx:end_idx].copy()                # Select relevant features (excluding OHLCV base columns)                feature_columns = [col for col in market_window.columns                 if col not in ['open', 'high', 'low', 'close', 'volume']]                        market_features = market_window[feature_columns].values                # Add portfolio state features                portfolio_features = np.array([                self.state.position,                self.state.cash / self.config.initial_capital,                self.state.unrealized_pnl / self.config.initial_capital,                self.state.portfolio_value / self.config.initial_capital,                self.episode_stats['max_drawdown'],                len(self.action_history) / self.config.max_episode_steps,  # Episode progress                self.state.volatility,                self.state.volume_pressure,                self.episode_stats['trades'] / 100,  # Normalized trade count                (self.episode_stats['transaction_costs'] /                 max(self.state.portfolio_value, 1))  # Cost ratio                ])                # Ensure we have the right window size                if len(market_features) < self.config.lookback_window:        # Pad with first available values if we don't have enough history'
+                pass  # Auto-fixed: empty block                pass  # Auto-fixed: empty block                padding_needed = self.config.lookback_window - len(market_features)                if len(market_features) > 0:                    padding = np.tile(market_features[0], (padding_needed, 1))                    market_features = np.vstack([padding, market_features])                else:                # Fallback: zeros                    pass  # Auto-fixed: empty block                    pass  # Auto-fixed: empty block                    n_features = len(feature_columns)                    market_features = np.zeros((self.config.lookback_window, n_features))                # Add portfolio features to each timestep                    portfolio_features_expanded = np.tile(portfolio_features,                     (market_features.shape[0], 1))                # Combine market and portfolio features                    observation = np.hstack([market_features, portfolio_features_expanded])                # Normalize observation (simple standardization)                    observation = np.nan_to_num(observation, nan=0.0, posinf=1.0, neginf=-1.0)                # Update state with current features                    if len(observation) > 0:                        self.state.market_features = observation[-1]  # Latest features                                return observation.astype(np.float32)            def get_episode_metrics(self) -> Dict[str, float]:
         \"\"\"Get comprehensive episode performance metrics.\"\"\"
-        if len(self.portfolio_history} < 2}
-            return {}
-            
-        portfolio_values = np.array(self.portfolio_history)
+                if len(self.portfolio_history} < 2}
+
+                return {}
+
+                    portfolio_values = np.array(self.portfolio_history)
         returns = np.diff(portfolio_values) / portfolio_values[:-1]
-        
-        total_return = (portfolio_values[-1] - portfolio_values[0]) / portfolio_values[0]
-        
-        # Sharpe ratio (assuming daily data)
-        if len(returns) > 1 and np.std(returns) > 0:
-            sharpe_ratio = np.mean(returns) / np.std(returns) * np.sqrt(252)
-        else:
-            sharpe_ratio = 0.0
-            
-        # Win rate
-        if self.episode_stats['trades'] > 0:
-            win_rate = self.episode_stats['winning_trades'] / self.episode_stats['trades']
-        else:
-            win_rate = 0.0
-            
-        # Maximum consecutive losses
-        consecutive_losses = 0
-        max_consecutive_losses = 0
-        for ret in returns:
-            if ret < 0:
-                consecutive_losses += 1
-                max_consecutive_losses = max(max_consecutive_losses, consecutive_losses)
-            else:
-                consecutive_losses = 0
-                
-        return {
-        'total_return': total_return,
-            'sharpe_ratio': sharpe_ratio,
-            'max_drawdown': self.episode_stats['max_drawdown'],
-            'win_rate': win_rate,
-            'total_trades': self.episode_stats['trades'],
-            'transaction_costs': self.episode_stats['transaction_costs'],
-            'final_portfolio_value': portfolio_values[-1],
-            'max_consecutive_losses': max_consecutive_losses,
-            'gary_dpi_contribution': self.episode_stats['gary_dpi_rewards'],
-            'taleb_antifragile_contribution': self.episode_stats['taleb_antifragile_rewards'],
-            'avg_position': np.mean(self.position_history),
-            'position_volatility': np.std(self.position_history)
-)"
+                total_return = (portfolio_values[-1] - portfolio_values[0]) / portfolio_values[0]
+                # Sharpe ratio (assuming daily data)        if len(returns) > 1 and np.std(returns) > 0:
+                sharpe_ratio = np.mean(returns) / np.std(returns) * np.sqrt(252)        else:
+                    sharpe_ratio = 0.0                    # Win rate                    if self.episode_stats['trades'] > 0:                        win_rate = self.episode_stats['winning_trades'] / self.episode_stats['trades']                    else:                            win_rate = 0.0                    # Maximum consecutive losses                            consecutive_losses = 0                            max_consecutive_losses = 0                            for ret in returns:                                if ret < 0:                                    consecutive_losses += 1                                    max_consecutive_losses = max(max_consecutive_losses, consecutive_losses)                                else:                                        consecutive_losses = 0                                                        return {                                        'total_return': total_return,                                        'sharpe_ratio': sharpe_ratio,                                        'max_drawdown': self.episode_stats['max_drawdown'],                                        'win_rate': win_rate,                                        'total_trades': self.episode_stats['trades'],                                        'transaction_costs': self.episode_stats['transaction_costs'],                                        'final_portfolio_value': portfolio_values[-1],                                        'max_consecutive_losses': max_consecutive_losses,                                        'gary_dpi_contribution': self.episode_stats['gary_dpi_rewards'],                                        'taleb_antifragile_contribution': self.episode_stats['taleb_antifragile_rewards'],                                        'avg_position': np.mean(self.position_history),                                        'position_volatility': np.std(self.position_history)                                        )""

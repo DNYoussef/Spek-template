@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Production Validation Test Suite
-Comprehensive validation of the post-completion cleanup system for enterprise deployment readiness.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 import os
 import sys
@@ -15,7 +11,6 @@ import unittest
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 from datetime import datetime
-
 
 class ProductionValidationTestSuite(unittest.TestCase):
     """Comprehensive production readiness validation tests."""
@@ -90,13 +85,13 @@ class ProductionValidationTestSuite(unittest.TestCase):
             if os.name == 'nt':  # Windows
                 # Test Windows-specific functionality
                 result = subprocess.run(['bash', '-c', 'echo "Windows test"'], 
-                                      capture_output=True, text=True, timeout=5)
+                                        capture_output=True, text=True, timeout=5)
                 if result.returncode != 0:
                     compatibility_issues.append("Bash unavailable on Windows")
             else:  # Unix-like
                 # Test Unix-specific functionality
                 result = subprocess.run(['bash', '-c', 'echo "Unix test"'], 
-                                      capture_output=True, text=True, timeout=5)
+                                        capture_output=True, text=True, timeout=5)
                 if result.returncode != 0:
                     compatibility_issues.append("Bash issues on Unix")
                     
@@ -141,7 +136,6 @@ class ProductionValidationTestSuite(unittest.TestCase):
                 
         except Exception as e:
             # This is expected in some cases
-            pass
         
         self.assertEqual(len(error_scenarios), 0,
                         f"Error handling issues: {error_scenarios}")
@@ -263,7 +257,6 @@ class ProductionValidationTestSuite(unittest.TestCase):
             # Create many files to test cleanup performance
             for i in range(100):  # Simulate 100 files
                 test_file = large_test_dir / f"test_file_{i}.py"
-                test_file.write_text(f"# Test file {i}\nprint('test')\n")
             
             # Create deep directory structure
             deep_dir = large_test_dir
@@ -383,19 +376,16 @@ class ProductionValidationTestSuite(unittest.TestCase):
                 recovery_issues.append("Script doesn't handle corrupted state files")
             
             # Test permission denied scenarios (simulate)
-            # Create a read-only directory
             readonly_dir = self.test_dir / "readonly"
             readonly_dir.mkdir(exist_ok=True)
             readonly_dir.chmod(0o444)  # Read-only
             
             # Test script handles permission issues
-            # (This is platform-dependent, so we just verify it doesn't crash)
             
         except subprocess.TimeoutExpired:
             recovery_issues.append("Script hangs during failure recovery test")
         except Exception as e:
             # Some failure scenarios are expected
-            pass
         finally:
             # Cleanup test files
             try:
@@ -458,7 +448,7 @@ class ProductionValidationTestSuite(unittest.TestCase):
         total_tests = len(self.results)
         passed_tests = sum(1 for r in self.results.values() if r['status'] == 'passed')
         
-        production_readiness_score = (passed_tests / total_tests) * 100 if total_tests > 0 else 0
+        production_readiness_score = (passed_tests / total_tests) * MAXIMUM_FUNCTION_LENGTH_LINES if total_tests > 0 else 0
         
         # Determine deployment readiness
         critical_tests = [
@@ -474,7 +464,7 @@ class ProductionValidationTestSuite(unittest.TestCase):
         
         # Risk assessment
         failed_tests = [name for name, result in self.results.items() 
-                       if result['status'] == 'failed']
+                        if result['status'] == 'failed']
         
         risk_level = 'LOW'
         if failed_tests:
@@ -546,12 +536,10 @@ class ProductionValidationTestSuite(unittest.TestCase):
             
         return recommendations
 
-
 def run_production_validation():
     """Run the complete production validation suite."""
     print("=" * 80)
     print("SPEK TEMPLATE POST-COMPLETION CLEANUP")
-    print("PRODUCTION VALIDATION TEST SUITE")
     print("=" * 80)
     print()
     
@@ -561,7 +549,7 @@ def run_production_validation():
     
     # Add all test methods
     test_methods = [method for method in dir(test_class) 
-                   if method.startswith('test_') and callable(getattr(test_class, method))]
+                    if method.startswith('test_') and callable(getattr(test_class, method))]
     
     for method in sorted(test_methods):
         suite.addTest(test_class(method))
@@ -599,7 +587,6 @@ def run_production_validation():
     print(f"Overall Score: {report['production_readiness_score']:.1f}%")
     print(f"Deployment Ready: {'[OK] YES' if report['deployment_ready'] else '[FAIL] NO'}")
     print(f"Risk Level: {report['risk_level']}")
-    print(f"Tests Passed: {report['test_summary']['passed_tests']}/{report['test_summary']['total_tests']}")
     
     if report['deployment_blockers']:
         print(f"\n[FAIL] DEPLOYMENT BLOCKERS:")
@@ -615,7 +602,6 @@ def run_production_validation():
     print("=" * 80)
     
     return report
-
 
 if __name__ == '__main__':
     report = run_production_validation()

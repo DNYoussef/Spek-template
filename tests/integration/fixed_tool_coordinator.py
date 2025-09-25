@@ -1,13 +1,9 @@
-#!/usr/bin/env python3
-"""
-Fixed Tool Coordinator - Real Implementation without Import Issues
-"""
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 import json
 import sys
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class FixedToolCoordinator:
     """Fixed implementation of tool coordination that works without complex imports."""
@@ -87,7 +83,7 @@ class FixedToolCoordinator:
         quality_score = max(0.0, 1.0 - (total_issues / 100.0))
 
         return {
-            "nasa_compliance": round(avg_compliance, 3),
+            "nasa_compliance": round(avg_compliance, MAXIMUM_RETRY_ATTEMPTS),
             "total_violations": total_violations + total_external,
             "critical_violations": critical_violations,
             "confidence_level": "high" if critical_violations == 0 else "medium",
@@ -121,7 +117,6 @@ class FixedToolCoordinator:
             recommendations.append("Code quality meets standards - continue monitoring")
 
         return recommendations
-
 
 if __name__ == '__main__':
     import argparse

@@ -106,13 +106,13 @@ class QueenDebugExecutor {
 
         if (resolution.status === 'fixed') {
           this.fixedCount++;
-          console.log(`  ✅ FIXED: ${target.id}`);
+          console.log(`   FIXED: ${target.id}`);
         } else {
           this.failedCount++;
-          console.log(`  ❌ FAILED: ${target.id} - needs manual intervention`);
+          console.log(`   FAILED: ${target.id} - needs manual intervention`);
         }
       } catch (error) {
-        console.error(`  ❌ ERROR: ${error}`);
+        console.error(`   ERROR: ${error}`);
         this.failedCount++;
       }
     }
@@ -145,7 +145,7 @@ class QueenDebugExecutor {
   }
 
   private async fixParallelAnalyzerImport(): Promise<void> {
-    console.log('  🔧 Fixing parallel_analyzer.py imports...');
+    console.log('   Fixing parallel_analyzer.py imports...');
 
     const filePath = path.join(process.cwd(), 'analyzer/performance/parallel_analyzer.py');
 
@@ -159,12 +159,12 @@ class QueenDebugExecutor {
       );
 
       fs.writeFileSync(filePath, content);
-      console.log('    ✓ Added Tuple to typing imports');
+      console.log('     Added Tuple to typing imports');
     }
   }
 
   private async fixGitHubPermissions(): Promise<void> {
-    console.log('  🔧 Fixing GitHub workflow permissions...');
+    console.log('   Fixing GitHub workflow permissions...');
 
     const workflows = [
       '.github/workflows/analyzer-integration.yml',
@@ -194,7 +194,7 @@ permissions:
 `;
             content = content.slice(0, jobsIndex) + permissionsBlock + content.slice(jobsIndex);
             fs.writeFileSync(fullPath, content);
-            console.log(`    ✓ Added permissions to ${path.basename(workflowPath)}`);
+            console.log(`     Added permissions to ${path.basename(workflowPath)}`);
           }
         }
       }
@@ -202,7 +202,7 @@ permissions:
   }
 
   private async fixIntegrationTestSys(): Promise<void> {
-    console.log('  🔧 Fixing integration test sys import...');
+    console.log('   Fixing integration test sys import...');
 
     const filePath = path.join(process.cwd(), '.github/workflows/comprehensive-test-integration.yml');
 
@@ -222,12 +222,12 @@ permissions:
       );
 
       fs.writeFileSync(filePath, content);
-      console.log('    ✓ Added sys import to integration test');
+      console.log('     Added sys import to integration test');
     }
   }
 
   private async createBanditConfig(): Promise<void> {
-    console.log('  🔧 Creating Bandit configuration...');
+    console.log('   Creating Bandit configuration...');
 
     const config = `# Bandit configuration
 [bandit]
@@ -243,11 +243,11 @@ skips = B101,B601,B602,B603,B604,B605,B606,B607,B608,B609
 `;
 
     fs.writeFileSync(path.join(process.cwd(), '.bandit'), config);
-    console.log('    ✓ Created .bandit configuration file');
+    console.log('     Created .bandit configuration file');
   }
 
   private async createSemgrepConfig(): Promise<void> {
-    console.log('  🔧 Creating Semgrep configuration...');
+    console.log('   Creating Semgrep configuration...');
 
     const config = `rules:
   - id: custom-rules
@@ -273,7 +273,7 @@ paths:
 `;
 
     fs.writeFileSync(path.join(process.cwd(), '.semgrep.yml'), config);
-    console.log('    ✓ Created .semgrep.yml configuration file');
+    console.log('     Created .semgrep.yml configuration file');
   }
 
   private generateReport(): void {
@@ -296,17 +296,17 @@ paths:
     console.log(`  System Success Rate: ${(metrics.successRate * 100).toFixed(1)}%`);
 
     console.log('\nFixed Issues:');
-    console.log('  ✅ parallel_analyzer.py - Tuple import added');
-    console.log('  ✅ GitHub workflows - Permissions added');
-    console.log('  ✅ Integration test - sys import added');
-    console.log('  ✅ Bandit config - False positives suppressed');
-    console.log('  ✅ Semgrep config - Custom rules defined');
+    console.log('   parallel_analyzer.py - Tuple import added');
+    console.log('   GitHub workflows - Permissions added');
+    console.log('   Integration test - sys import added');
+    console.log('   Bandit config - False positives suppressed');
+    console.log('   Semgrep config - Custom rules defined');
 
     console.log('\nNext Steps:');
     console.log('  1. Commit the fixes');
     console.log('  2. Push to main branch');
     console.log('  3. Monitor GitHub Actions');
-    console.log('  4. All checks should pass ✅');
+    console.log('  4. All checks should pass ');
 
     console.log('\n' + '='.repeat(80));
     console.log('QUEEN DEBUG SYSTEM COMPLETE');

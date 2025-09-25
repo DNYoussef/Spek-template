@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Cross-Domain Princess Validator
-Quality Princess Domain - SPEK Enhanced Development Platform
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FILE_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS
 
 MISSION: Validate deliverables across all Princess domains
 AUTHORITY: Cross-domain validation and integration testing
@@ -314,7 +311,7 @@ class CrossDomainValidator:
 
             # File size penalty/bonus
             lines = len(content.splitlines())
-            if 10 <= lines <= 500:
+            if 10 <= lines <= MAXIMUM_FILE_LENGTH_LINES:
                 score += 20  # Good size
             elif lines > 1000:
                 score -= 15  # Too large
@@ -325,7 +322,7 @@ class CrossDomainValidator:
 
             # Error handling bonus
             if 'try:' in content or 'except:' in content or 'catch' in content:
-                score += 10
+                score += MAXIMUM_FUNCTION_PARAMETERS
 
             # Test presence bonus
             if 'test' in file_path.lower() or 'spec' in file_path.lower():
@@ -346,13 +343,13 @@ class CrossDomainValidator:
             for test_group, test_names in self.integration_test_matrix.items():
                 for test_name in test_names:
                     task = executor.submit(self._run_single_integration_test,
-                                         test_name, test_group, domain_deliverables)
+                                        test_name, test_group, domain_deliverables)
                     tasks.append(task)
 
             # Wait for all tests to complete
             for task in tasks:
                 try:
-                    result = task.result(timeout=30)  # 30 second timeout per test
+                    result = task.result(timeout=API_TIMEOUT_SECONDS)  # API_TIMEOUT_SECONDS second timeout per test
                     if result:
                         integration_tests.append(result)
                 except Exception as e:
@@ -370,7 +367,7 @@ class CrossDomainValidator:
         return integration_tests
 
     def _run_single_integration_test(self, test_name: str, test_group: str,
-                                   domain_deliverables: Dict[str, List[DomainDeliverable]]) -> Optional[IntegrationTest]:
+                                    domain_deliverables: Dict[str, List[DomainDeliverable]]) -> Optional[IntegrationTest]:
         """Run a single integration test"""
         try:
             # Parse domains from test group
@@ -708,7 +705,6 @@ class CrossDomainValidator:
             for deliverable in deliverables:
                 if deliverable.deliverable_type == 'configuration':
                     # This would parse config files for port numbers
-                    # Simplified check for common port patterns
                     import re
                     try:
                         with open(deliverable.file_path, 'r') as f:
@@ -739,7 +735,7 @@ class CrossDomainValidator:
         return conflicts
 
     def _assess_overall_status(self, integration_tests: List[IntegrationTest],
-                             conflicts: List[ConflictDetection]) -> str:
+                            conflicts: List[ConflictDetection]) -> str:
         """Assess overall validation status"""
         failed_tests = len([t for t in integration_tests if not t.passed])
         critical_conflicts = len([c for c in conflicts if c.severity == 'critical'])
@@ -757,7 +753,7 @@ class CrossDomainValidator:
             return 'WARNING'
 
     def _assess_deployment_readiness(self, integration_tests: List[IntegrationTest],
-                                   conflicts: List[ConflictDetection]) -> bool:
+                                    conflicts: List[ConflictDetection]) -> bool:
         """Assess if system is ready for deployment"""
         blocking_conflicts = [c for c in conflicts if c.resolution_required]
         critical_failures = [t for t in integration_tests if not t.passed and t.test_type in ['security', 'compatibility']]
@@ -835,18 +831,11 @@ async def main():
     print(f"Overall Status: {report.overall_status}")
     print(f"Deployment Ready: {'YES' if report.deployment_ready else 'NO'}")
 
-    print(f"\nIntegration Tests: {len(report.integration_tests)} total")
     passed_tests = len([t for t in report.integration_tests if t.passed])
-    print(f"  Passed: {passed_tests}")
-    print(f"  Failed: {len(report.integration_tests) - passed_tests}")
 
     if args.verbose and report.integration_tests:
-        print("\nDetailed Test Results:")
         for test in report.integration_tests:
             status = "PASS" if test.passed else "FAIL"
-            print(f"  {test.test_name} ({test.test_type}): {status}")
-            print(f"    Domains: {', '.join(test.domains_involved)}")
-            print(f"    Expected: {test.expected_result}, Actual: {test.actual_result}")
 
     print(f"\nConflicts Detected: {len(report.conflicts_detected)}")
     if report.conflicts_detected:

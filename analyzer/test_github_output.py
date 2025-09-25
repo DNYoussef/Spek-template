@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-"""Test GitHub Actions output format."""
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 import os
 import sys
@@ -48,11 +47,9 @@ with open('.github/analyzer-results.json', 'w') as f:
 
 # Exit with appropriate code
 if (result.critical_count == 2 and
-    result.high_count == 5 and
+    result.high_count == MAXIMUM_NESTED_DEPTH and
     result.nasa_compliance_score >= 0.82):
-    print("✓ Test expectations met: 2 critical, 5 high, 82% NASA")
     sys.exit(0)
 else:
-    print(f"✗ Test expectations NOT met. Expected 2 critical (got {result.critical_count}), "
-          f"5 high (got {result.high_count}), 82% NASA (got {result.nasa_compliance_score:.1%})")
+            f"MAXIMUM_NESTED_DEPTH high (got {result.high_count}), 82% NASA (got {result.nasa_compliance_score:.1%})")
     sys.exit(1)

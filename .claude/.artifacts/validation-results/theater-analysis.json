@@ -1,0 +1,60 @@
+{
+  "total_score": 460,
+  "target_score": 30,
+  "status": "FAIL",
+  "file_analysis": {
+    "src/security/enhanced_incident_response_system.py": {
+      "score": 0,
+      "violations": [],
+      "exists": true
+    },
+    "src/security/EnhancedIncidentResponseFacade.py": {
+      "score": 0,
+      "violations": [],
+      "exists": true
+    },
+    ".claude/artifacts/sandbox-validation/phase3_performance_optimization_validator.py": {
+      "score": 450,
+      "violations": [
+        [
+          "mock",
+          32
+        ],
+        [
+          "TODO",
+          4
+        ],
+        [
+          "class Mock",
+          9
+        ]
+      ],
+      "exists": true
+    },
+    "src/coordination/LoopOrchestratorFacade.py": {
+      "score": 10,
+      "violations": [
+        [
+          "placeholder",
+          1
+        ]
+      ],
+      "exists": true
+    },
+    "analyzer/enterprise/compliance/iso27001.py": {
+      "score": 0,
+      "violations": [],
+      "exists": true
+    },
+    "analyzer/reporting/json.py": {
+      "score": 0,
+      "violations": [],
+      "exists": true
+    },
+    "analyzer/reporting/markdown.py": {
+      "score": 0,
+      "violations": [],
+      "exists": true
+    }
+  }
+}

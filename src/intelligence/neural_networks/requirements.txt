@@ -1,4 +1,4 @@
-# Gary×Taleb Neural Networks - Phase 3 Requirements
+# GaryTaleb Neural Networks - Phase 3 Requirements
 # Optimized for <100ms inference with $200 seed capital trading
 
 # Core ML/DL Framework

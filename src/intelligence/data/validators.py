@@ -3,13 +3,13 @@ Data validation and quality checking for market data.
 Ensures data integrity and identifies potential issues before model training.
 """
 
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Tuple, Union
+
+from dataclasses import dataclass
+from lib.shared.utilities import get_logger
 import numpy as np
 import pandas as pd
-from typing import Dict, List, Optional, Tuple, Union
-from dataclasses import dataclass
-from datetime import datetime, timedelta
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
 class ValidationLevel(Enum):
     """Data validation severity levels."""
@@ -41,7 +41,7 @@ class DataValidator:
                 'gap_threshold_minutes': 60,  # Max 60 min gap
             },
             'consistency': {
-                'ohlc_relationship': True,  # O,H,L,C relationships
+                'ohlc_relationship': True,  # O, H, L, C relationships
                 'volume_positive': True,  # Volume must be >= 0
                 'price_positive': True,  # Prices must be > 0
             },

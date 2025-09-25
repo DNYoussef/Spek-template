@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Enhanced GitHub Analyzer - Real Engineering Implementation
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 This enhanced analyzer integrates all real engineering solutions:
 - Proper violation remediation with auto-fix suggestions
@@ -78,7 +76,7 @@ class RealityViolationDetector:
                             "recommendation": "Replace with named constant"
                         })
 
-            # Position coupling detection (functions with >3 parameters)
+            # Position coupling detection (functions with >MAXIMUM_RETRY_ATTEMPTS parameters)
             for node in ast.walk(tree):
                 if isinstance(node, ast.FunctionDef):
                     params = len([arg for arg in node.args.args if arg.arg != 'self'])
@@ -155,7 +153,7 @@ class EnhancedGitHubAnalyzer:
 
         # Aggregate results (pass all violations for reporting, but use active for scoring)
         return self._create_enhanced_result(active_violations, remediation_report, compliance_result,
-                                           suppressed_count=len(suppressed_violations))
+                                            suppressed_count=len(suppressed_violations))
 
     def _detect_violations(self, project_path: str) -> List[Dict]:
         """Detect violations in real project files."""
@@ -301,7 +299,7 @@ QUALITY GATES:
 
         # Quality gate details
         gates = [
-            ("NASA Compliance", f"{result.nasa_compliance_score:.1%}", result.nasa_compliance_score >= 0.80),
+            ("NASA Compliance", f"{result.nasa_compliance_score:.1%}", result.nasa_compliance_score >= 0.8),
             ("Critical Violations", str(result.critical_count), result.critical_count == 0),
             ("High Violations", str(result.high_count), result.high_count <= 3),
             ("Remediation Confidence", f"{result.remediation_confidence:.1%}", result.remediation_confidence >= 0.30)
@@ -377,29 +375,29 @@ def main():
                 logger.info(f"Creating enhanced PR comment for PR #{pr_number}")
                 # Use enhanced comment body
                 enhanced_comment = f"""
-## 🔍 Enhanced Analyzer Report - Real Engineering Solutions
+##   Enhanced Analyzer Report - Real Engineering Solutions
 
-### 📊 Executive Summary
-- **Overall Status**: {'✅ PASS' if result.success else '❌ FAIL'}
+###   Executive Summary
+- **Overall Status**: {'  PASS' if result.success else '  FAIL'}
 - **NASA Compliance**: {result.nasa_compliance_score:.1%} ({result.compliance_level})
 - **Remediation Confidence**: {result.remediation_confidence:.1%}
 
-### 🛠️ Violation Remediation
+###    Violation Remediation
 - **Active Violations**: {result.active_violations}
 - **Auto-fixable**: {result.auto_fixable_violations}
 - **Suppressed (justified)**: {result.suppressed_violations}
 
-### 🎯 Quality Gates
+###   Quality Gates
 | Gate | Status | Value |
 |------|--------|-------|
-| NASA Compliance | {'✅' if result.nasa_compliance_score >= 0.80 else '❌'} | {result.nasa_compliance_score:.1%} |
-| Critical Issues | {'✅' if result.critical_count == 0 else '❌'} | {result.critical_count} |
-| Remediation Ready | {'✅' if result.remediation_confidence >= 0.30 else '❌'} | {result.remediation_confidence:.1%} |
+| NASA Compliance | {' ' if result.nasa_compliance_score >= 0.8 else ' '} | {result.nasa_compliance_score:.1%} |
+| Critical Issues | {' ' if result.critical_count == 0 else ' '} | {result.critical_count} |
+| Remediation Ready | {' ' if result.remediation_confidence >= 0.30 else ' '} | {result.remediation_confidence:.1%} |
 
-### 🚀 Auto-Fix Opportunities
+###   Auto-Fix Opportunities
 {len(result.auto_fixes)} automatic fixes available with confidence scores.
 
-### 📋 Top Recommendations
+###   Top Recommendations
 """
                 for i, rec in enumerate(result.recommendations[:3], 1):
                     enhanced_comment += f"{i}. {rec}\n"

@@ -1,0 +1,62 @@
+{
+  "nasa_compliance": {
+    "name": "nasa_compliance",
+    "current_value": 95.4,
+    "baseline_value": 92.0,
+    "target_value": 98.0,
+    "severity": "QualityGateSeverity.BLOCKING",
+    "auto_adjust": true,
+    "trend_weight": 0.3,
+    "enforcement_enabled": true
+  },
+  "theater_score": {
+    "name": "theater_score",
+    "current_value": 75.0,
+    "baseline_value": 60.0,
+    "target_value": 40.0,
+    "severity": "QualityGateSeverity.CRITICAL",
+    "auto_adjust": true,
+    "trend_weight": 0.3,
+    "enforcement_enabled": true
+  },
+  "god_objects": {
+    "name": "god_objects",
+    "current_value": 293.0,
+    "baseline_value": 25.0,
+    "target_value": 10.0,
+    "severity": "QualityGateSeverity.WARNING",
+    "auto_adjust": true,
+    "trend_weight": 0.3,
+    "enforcement_enabled": true
+  },
+  "test_coverage": {
+    "name": "test_coverage",
+    "current_value": 85.3,
+    "baseline_value": 80.0,
+    "target_value": 90.0,
+    "severity": "QualityGateSeverity.WARNING",
+    "auto_adjust": true,
+    "trend_weight": 0.3,
+    "enforcement_enabled": true
+  },
+  "security_score": {
+    "name": "security_score",
+    "current_value": 98.0,
+    "baseline_value": 95.0,
+    "target_value": 100.0,
+    "severity": "QualityGateSeverity.BLOCKING",
+    "auto_adjust": true,
+    "trend_weight": 0.3,
+    "enforcement_enabled": true
+  },
+  "unicode_violations": {
+    "name": "unicode_violations",
+    "current_value": 0.0,
+    "baseline_value": 0.0,
+    "target_value": 0.0,
+    "severity": "QualityGateSeverity.BLOCKING",
+    "auto_adjust": true,
+    "trend_weight": 0.3,
+    "enforcement_enabled": true
+  }
+}

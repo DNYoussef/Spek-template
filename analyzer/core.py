@@ -1,8 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Core analyzer module with command-line interface support.
-Provides the main entry point for connascence analysis.
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, QUALITY_GATE_MINIMUM_PASS_RATE
 
 import argparse
 from datetime import datetime
@@ -156,7 +152,7 @@ def _create_ci_analyzer_module(result_class):
                     self.total_violations = 0
                     self.critical_count = 0
                     self.overall_quality_score = 0.75
-                    self.nasa_compliance_score = 0.85
+                    self.nasa_compliance_score = QUALITY_GATE_MINIMUM_PASS_RATE
                     self.duplication_score = 1.0
                     self.connascence_index = 0
                     self.files_analyzed = 1
@@ -190,8 +186,8 @@ def _create_ci_components_module(result_class):
     class CIMockComponents:
         def __init__(self):
             for detector in ["ConnascenceDetector", "ConventionDetector", "ExecutionDetector",
-                           "MagicLiteralDetector", "TimingDetector", "GodObjectDetector",
-                           "AlgorithmDetector", "PositionDetector", "ValuesDetector"]:
+                            "MagicLiteralDetector", "TimingDetector", "GodObjectDetector",
+                            "AlgorithmDetector", "PositionDetector", "ValuesDetector"]:
                 setattr(self, detector, self._create_mock_detector())
 
         def _create_mock_detector(self):
@@ -361,7 +357,6 @@ except ImportError:
     def format_duplication_analysis(result):
         return {"score": 1.0, "violations": [], "available": False}
 
-
 # Import MCP server components with unified strategy
 mcp_result = IMPORT_MANAGER.import_mcp_server()
 if mcp_result.has_module:
@@ -369,7 +364,6 @@ if mcp_result.has_module:
 else:
     # Import canonical ConnascenceViolation as fallback
     from utils.types import ConnascenceViolation
-
 
 # Import reporting with unified strategy
 json_reporter_result = IMPORT_MANAGER.import_reporting("json")
@@ -401,7 +395,6 @@ except ImportError:
         FALLBACK_ANALYZER_AVAILABLE = True
     except ImportError:
         FALLBACK_ANALYZER_AVAILABLE = False
-
 
 class ConnascenceAnalyzer:
     """Main connascence analyzer with unified pipeline integration."""
@@ -738,7 +731,6 @@ class ConnascenceAnalyzer:
             "analysis_mode": self.analysis_mode,
         }
 
-
 def create_parser() -> argparse.ArgumentParser:
     """Create command-line argument parser."""
     parser = argparse.ArgumentParser(
@@ -771,10 +763,10 @@ def _add_analysis_arguments(parser):
     """Add analysis-related arguments."""
     parser.add_argument("--nasa-validation", action="store_true", help="Enable NASA Power of Ten validation")
     parser.add_argument("--duplication-analysis", action="store_true", default=True,
-                       help="Enable unified duplication analysis (default: enabled)")
+                        help="Enable unified duplication analysis (default: enabled)")
     parser.add_argument("--no-duplication", action="store_true", help="Disable duplication analysis")
     parser.add_argument("--duplication-threshold", type=float, default=0.7,
-                       help="Similarity threshold for duplication detection (0.0-1.0, default: 0.7)")
+                        help="Similarity threshold for duplication detection (0.0-1.0, default: 0.7)")
     parser.add_argument("--strict-mode", action="store_true", help="Enable strict analysis mode")
     parser.add_argument("--exclude", type=str, nargs="*", default=[], help="Paths to exclude from analysis")
 
@@ -793,7 +785,7 @@ def _add_validation_arguments(parser):
     parser.add_argument("--confidence-threshold", type=float, default=0.8, help="Confidence threshold for correlations")
     parser.add_argument("--fail-on-critical", action="store_true", help="Exit with error code on critical violations")
     parser.add_argument("--max-god-objects", type=int, default=5, help="Maximum allowed god objects before failure")
-    parser.add_argument("--compliance-threshold", type=int, default=95, help="Compliance threshold percentage (0-100)")
+    parser.add_argument("--compliance-threshold", type=int, default=95, help="Compliance threshold percentage (0-MAXIMUM_FUNCTION_LENGTH_LINES)")
 
 def _add_pipeline_arguments(parser):
     """Add enhanced pipeline arguments."""
@@ -801,12 +793,11 @@ def _add_pipeline_arguments(parser):
     parser.add_argument("--enable-audit-trail", action="store_true", help="Enable analysis audit trail tracking")
     parser.add_argument("--enable-smart-recommendations", action="store_true", help="Enable AI-powered smart recommendations")
     parser.add_argument("--correlation-threshold", type=float, default=0.7,
-                       help="Minimum correlation threshold for cross-phase analysis (0.0-1.0)")
+                        help="Minimum correlation threshold for cross-phase analysis (0.0-1.0)")
     parser.add_argument("--export-audit-trail", type=str, help="Export audit trail to specified file path")
     parser.add_argument("--export-correlations", type=str, help="Export correlation data to specified file path")
     parser.add_argument("--export-recommendations", type=str, help="Export smart recommendations to specified file path")
     parser.add_argument("--phase-timing", action="store_true", help="Display detailed phase timing information")
-
 
 def main():
     """Main entry point for command-line execution."""
@@ -845,10 +836,10 @@ def _resolve_and_validate_policy(args):
             try:
                 available_policies = list_available_policies(include_legacy=True)
             except Exception:
-                from analyzer.constants import UNIFIED_POLICY_NAMES
+                from src.constants.base import UNIFIED_POLICY_NAMES
                 available_policies = UNIFIED_POLICY_NAMES
         else:
-            from analyzer.constants import UNIFIED_POLICY_NAMES
+            from src.constants.base import UNIFIED_POLICY_NAMES
             available_policies = UNIFIED_POLICY_NAMES
 
         print(f"Error: Unknown policy '{policy}'. Available: {', '.join(available_policies)}", file=sys.stderr)
@@ -1007,14 +998,12 @@ def _handle_error(error, args):
 
     sys.exit(1)
 
-
 # Deprecated: Use SARIFReporter class instead
 def convert_to_sarif(result: Dict[str, Any], args) -> Dict[str, Any]:
     """Legacy SARIF conversion - use SARIFReporter class instead."""
     print("Warning: Using deprecated convert_to_sarif function. Use SARIFReporter class instead.", file=sys.stderr)
     reporter = SARIFReporter()
     return json.loads(reporter.export_results(result))
-
 
 # Deprecated: Use SARIFReporter._map_severity_to_level instead
 def map_severity_to_sarif(severity: str) -> str:
@@ -1023,7 +1012,6 @@ def map_severity_to_sarif(severity: str) -> str:
 
     reporter = SARIFReporter()
     return reporter._map_severity_to_level(severity)
-
 
 def get_core_analyzer(policy: str = "default", **kwargs) -> 'ConnascenceAnalyzer':
     """
@@ -1038,10 +1026,8 @@ def get_core_analyzer(policy: str = "default", **kwargs) -> 'ConnascenceAnalyzer
     """
     return ConnascenceAnalyzer()
 
-
 if __name__ == "__main__":
     main()
-
 
 # Export enhanced functions for testing and CI integration
 __all__ = [

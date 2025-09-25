@@ -239,10 +239,10 @@ class Phase3PerformanceValidator:
                 try:
                     result = await test_method()
                     self.validation_results.append(result)
-                    logger.info(f"✓ {test_name}: {'PASS' if result.validation_passed else 'FAIL'} "
+                    logger.info(f" {test_name}: {'PASS' if result.validation_passed else 'FAIL'} "
                               f"({result.measured_improvement:.1f}% improvement)")
                 except Exception as e:
-                    logger.error(f"✗ {test_name} failed: {e}")
+                    logger.error(f" {test_name} failed: {e}")
                     # Create failure result
                     failure_result = ValidationResult(
                         component_name=test_name,

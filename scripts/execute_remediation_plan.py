@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Master Remediation Plan Execution Script
-=======================================
+from src.constants.base import API_TIMEOUT_SECONDS
 
 Orchestrates the complete compliance remediation process across all phases:
 - Phase 1: Critical Security (0-7 days)
@@ -208,7 +205,7 @@ class RemediationOrchestrator:
             # Wait for completion with timeout
             stdout, stderr = await asyncio.wait_for(
                 process.communicate(),
-                timeout=1800  # 30 minutes timeout
+                timeout=1800  # API_TIMEOUT_SECONDS minutes timeout
             )
 
             return {

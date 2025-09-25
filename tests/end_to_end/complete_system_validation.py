@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Complete System Validation - End-to-End Production Testing
-==========================================================
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 Comprehensive validation of the complete integrated system across all 260+ files,
 validating all 89 integration points and ensuring production readiness with
@@ -17,7 +14,6 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 sys.path.insert(0, str(PROJECT_ROOT / 'analyzer'))
 sys.path.insert(0, str(PROJECT_ROOT / 'src'))
-
 
 class SystemHealthChecker:
     """Check overall system health and readiness."""
@@ -106,7 +102,6 @@ class SystemHealthChecker:
             'total_test_files': len(list((self.project_root / 'tests').rglob('*.py'))),
             'health_timestamp': time.time()
         }
-
 
 class PerformanceValidator:
     """Validate system performance under various loads."""
@@ -220,7 +215,6 @@ class PerformanceValidator:
         
         return targets
 
-
 class IntegrationPointValidator:
     """Validate all 89 integration points across the system."""
     
@@ -311,7 +305,6 @@ class IntegrationPointValidator:
         
         return results
 
-
 class SecurityComplianceValidator:
     """Validate security and compliance requirements."""
     
@@ -400,7 +393,6 @@ class SecurityComplianceValidator:
         }
         
         return results
-
 
 class EndToEndSystemValidator:
     """Main end-to-end system validator."""
@@ -528,7 +520,7 @@ class EndToEndSystemValidator:
         """Calculate overall health score."""
         score = 0.0
         
-        # Critical files score (30%)
+        # Critical files score (API_TIMEOUT_SECONDS%)
         critical_files = health_data.get('critical_files', {})
         if critical_files:
             files_present = sum(1 for exists in critical_files.values() if exists)
@@ -540,20 +532,17 @@ class EndToEndSystemValidator:
             imports_working = sum(1 for success in module_imports.values() if success)
             score += 0.4 * (imports_working / len(module_imports))
         
-        # Component counts score (30%)
+        # Component counts score (API_TIMEOUT_SECONDS%)
         component_counts = health_data.get('component_counts', {})
         if component_counts:
             total_components = sum(component_counts.values())
             # Expect at least 50 components total
-            score += 0.3 * min(1.0, total_components / 50)
+            score += 0.2 * min(1.0, total_components / 50)
         
         return min(1.0, score)
 
-
 async def main():
     """Main execution function."""
-    print("=" * 80)
-    print("PHASE 5: COMPLETE SYSTEM VALIDATION - PRODUCTION READINESS TEST")
     print("=" * 80)
     
     project_root = Path(__file__).parent.parent.parent
@@ -610,7 +599,6 @@ async def main():
         print(f"\nVALIDATION FAILED: {e}")
         print(f"Stack trace: {traceback.format_exc()}")
         return 1
-
 
 if __name__ == '__main__':
     import sys

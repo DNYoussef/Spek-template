@@ -2,13 +2,14 @@
 Base model classes and interfaces for the trading system.
 """
 
+from typing import Dict, List, Optional, Tuple, Union
+
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from abc import ABC, abstractmethod
-from typing import Dict, List, Optional, Tuple, Union
-import numpy as np
-from dataclasses import dataclass
 
 @dataclass
 class ModelOutput:
@@ -22,23 +23,21 @@ class ModelOutput:
 class BasePredictor(nn.Module, ABC):
     """Abstract base class for all prediction models."""
     
-    def __init__(self, input_dim: int, hidden_dim: int = 256):
+def __init__(self, input_dim: int, hidden_dim: int = 256):
         super().__init__()
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
         self.is_trained = False
         
-    @abstractmethod
-    def forward(self, x: torch.Tensor) -> ModelOutput:
+@abstractmethod
+def forward(self, x: torch.Tensor) -> ModelOutput:
         """Forward pass through the model."""
-        pass
     
-    @abstractmethod
-    def predict(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
+@abstractmethod
+def predict(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
         """Generate predictions with confidence intervals."""
-        pass
     
-    def get_model_info(self) -> Dict:
+def get_model_info(self) -> Dict:
         """Get model information and parameters."""
         total_params = sum(p.numel() for p in self.parameters())
         trainable_params = sum(p.numel() for p in self.parameters() if p.requires_grad)
@@ -55,29 +54,26 @@ class BasePredictor(nn.Module, ABC):
 class BaseRiskModel(nn.Module, ABC):
     """Abstract base class for risk assessment models."""
     
-    def __init__(self, input_dim: int):
+def __init__(self, input_dim: int):
         super().__init__()
         self.input_dim = input_dim
         
-    @abstractmethod
-    def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
+@abstractmethod
+def forward(self, x: torch.Tensor) -> Dict[str, torch.Tensor]:
         """Forward pass returning risk metrics."""
-        pass
     
-    @abstractmethod
-    def calculate_var(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
+@abstractmethod
+def calculate_var(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
         """Calculate Value at Risk."""
-        pass
     
-    @abstractmethod
-    def calculate_expected_shortfall(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
+@abstractmethod
+def calculate_expected_shortfall(self, x: torch.Tensor, confidence_level: float = 0.05) -> torch.Tensor:
         """Calculate Expected Shortfall (Conditional VaR)."""
-        pass
 
 class AttentionModule(nn.Module):
     """Multi-head attention mechanism for time series."""
     
-    def __init__(self, d_model: int, num_heads: int = 8, dropout: float = 0.1):
+def __init__(self, d_model: int, num_heads: int = 8, dropout: float = 0.1):
         super().__init__()
         self.d_model = d_model
         self.num_heads = num_heads
@@ -91,7 +87,7 @@ class AttentionModule(nn.Module):
         self.dropout = nn.Dropout(dropout)
         self.layer_norm = nn.LayerNorm(d_model)
         
-    def forward(self, x: torch.Tensor, mask: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
+def forward(self, x: torch.Tensor, mask: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
         """
         Args:
             x: Input tensor of shape (batch_size, seq_len, d_model)
@@ -128,7 +124,7 @@ class AttentionModule(nn.Module):
 class PositionalEncoding(nn.Module):
     """Positional encoding for transformer models."""
     
-    def __init__(self, d_model: int, max_len: int = 5000):
+def __init__(self, d_model: int, max_len: int = 5000):
         super().__init__()
         
         pe = torch.zeros(max_len, d_model)
@@ -141,21 +137,21 @@ class PositionalEncoding(nn.Module):
         
         self.register_buffer('pe', pe)
         
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
+def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Add positional encoding to input."""
         return x + self.pe[:x.size(0), :]
 
 class ResidualBlock(nn.Module):
     """Residual block with layer normalization."""
     
-    def __init__(self, d_model: int, dropout: float = 0.1):
+def __init__(self, d_model: int, dropout: float = 0.1):
         super().__init__()
         self.linear1 = nn.Linear(d_model, d_model * 4)
         self.linear2 = nn.Linear(d_model * 4, d_model)
         self.dropout = nn.Dropout(dropout)
         self.layer_norm = nn.LayerNorm(d_model)
         
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
+def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass with residual connection."""
         residual = x
         x = F.relu(self.linear1(x))
@@ -167,11 +163,11 @@ class ResidualBlock(nn.Module):
 class GatedLinearUnit(nn.Module):
     """Gated Linear Unit for controlling information flow."""
     
-    def __init__(self, input_dim: int, output_dim: int):
+def __init__(self, input_dim: int, output_dim: int):
         super().__init__()
         self.linear = nn.Linear(input_dim, output_dim * 2)
         
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
+def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Apply gated linear unit."""
         x = self.linear(x)
         x, gate = x.chunk(2, dim=-1)
@@ -180,12 +176,12 @@ class GatedLinearUnit(nn.Module):
 class UncertaintyEstimator(nn.Module):
     """Uncertainty estimation using Monte Carlo Dropout."""
     
-    def __init__(self, model: nn.Module, num_samples: int = 100):
+def __init__(self, model: nn.Module, num_samples: int = 100):
         super().__init__()
         self.model = model
         self.num_samples = num_samples
         
-    def forward(self, x: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+def forward(self, x: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         """
         Generate predictions with uncertainty estimates.
         
@@ -212,8 +208,8 @@ class UncertaintyEstimator(nn.Module):
 class FeatureImportanceCalculator:
     """Calculate feature importance for model interpretability."""
     
-    @staticmethod
-    def calculate_gradient_importance(
+@staticmethod
+def calculate_gradient_importance(
         model: nn.Module,
         x: torch.Tensor,
         target_output: Optional[torch.Tensor] = None
@@ -243,8 +239,8 @@ class FeatureImportanceCalculator:
         
         return importance
     
-    @staticmethod
-    def calculate_permutation_importance(
+@staticmethod
+def calculate_permutation_importance(
         model: nn.Module,
         x: torch.Tensor,
         y: torch.Tensor,
@@ -288,7 +284,7 @@ class FeatureImportanceCalculator:
 class ModelEnsemble(nn.Module):
     """Ensemble of multiple models for robust predictions."""
     
-    def __init__(self, models: List[nn.Module], weights: Optional[List[float]] = None):
+def __init__(self, models: List[nn.Module], weights: Optional[List[float]] = None):
         super().__init__()
         self.models = nn.ModuleList(models)
         
@@ -297,7 +293,7 @@ class ModelEnsemble(nn.Module):
         
         self.register_buffer('weights', torch.tensor(weights))
         
-    def forward(self, x: torch.Tensor) -> ModelOutput:
+def forward(self, x: torch.Tensor) -> ModelOutput:
         """Ensemble forward pass."""
         predictions = []
         confidences = []

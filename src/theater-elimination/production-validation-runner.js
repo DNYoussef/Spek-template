@@ -30,7 +30,7 @@ class ProductionValidationRunner {
       success: false
     };
 
-    console.log('\n🚀 PRODUCTION VALIDATION RUNNER');
+    console.log('\n PRODUCTION VALIDATION RUNNER');
     console.log('===============================');
     console.log(`Validation ID: ${validation.id}`);
     console.log(`Target Files: ${validation.targetFiles.length}`);
@@ -40,12 +40,12 @@ class ProductionValidationRunner {
       this.currentValidation = validation;
 
       // Phase 1: Execute theater elimination demonstration
-      console.log('🎯 Phase 1: Theater Elimination Demonstration');
+      console.log(' Phase 1: Theater Elimination Demonstration');
       validation.phases.demonstration = await this.demo.executeDemonstration(validation.targetFiles);
       console.log(`   Demo Success: ${validation.phases.demonstration.success ? 'YES' : 'NO'}\n`);
 
       // Phase 2: Generate comprehensive evidence
-      console.log('📋 Phase 2: Evidence Generation');
+      console.log(' Phase 2: Evidence Generation');
       validation.phases.evidenceGeneration = await this.evidenceGenerator.generateEvidencePackage(
         validation.phases.demonstration,
         validation.targetFiles
@@ -53,12 +53,12 @@ class ProductionValidationRunner {
       console.log(`   Evidence Success: ${validation.phases.evidenceGeneration.success ? 'YES' : 'NO'}\n`);
 
       // Phase 3: Production readiness assessment
-      console.log('🏭 Phase 3: Production Readiness Assessment');
+      console.log(' Phase 3: Production Readiness Assessment');
       validation.phases.productionAssessment = await this.assessProductionReadiness(validation);
       console.log(`   Production Ready: ${validation.phases.productionAssessment.ready ? 'YES' : 'NO'}\n`);
 
       // Phase 4: Generate final certification
-      console.log('📜 Phase 4: Final Certification');
+      console.log(' Phase 4: Final Certification');
       validation.phases.certification = await this.generateFinalCertification(validation);
       console.log(`   Certification: ${validation.phases.certification.status}\n`);
 
@@ -79,7 +79,7 @@ class ProductionValidationRunner {
     } catch (error) {
       validation.error = error.message;
       validation.endTime = new Date().toISOString();
-      console.log(`\n❌ VALIDATION FAILED: ${error.message}\n`);
+      console.log(`\n VALIDATION FAILED: ${error.message}\n`);
       return validation;
     } finally {
       this.currentValidation = null;
@@ -465,34 +465,34 @@ ${report.recommendations.map(rec => `- ${rec}`).join('\n')}
    * Display final results
    */
   displayFinalResults(validation) {
-    console.log('🏆 PRODUCTION VALIDATION COMPLETE');
+    console.log(' PRODUCTION VALIDATION COMPLETE');
     console.log('=================================');
     console.log(`Validation ID: ${validation.id}`);
     console.log(`Duration: ${this.calculateDuration(validation.startTime, validation.endTime)} seconds`);
     console.log(`Overall Success: ${validation.success ? 'YES' : 'NO'}`);
     console.log('=================================\n');
 
-    console.log('📊 RESULTS SUMMARY:');
+    console.log(' RESULTS SUMMARY:');
     console.log(`   Theater Score: ${validation.phases.demonstration?.evidence?.theaterElimination?.finalScore || 0}/100`);
     console.log(`   Production Ready: ${validation.phases.productionAssessment?.ready ? 'YES' : 'NO'}`);
     console.log(`   Certification: ${validation.phases.certification?.status || 'UNKNOWN'}`);
     console.log(`   Evidence Package: ${validation.phases.evidenceGeneration?.success ? 'COMPLETE' : 'INCOMPLETE'}`);
 
     if (validation.phases.productionAssessment?.blockers?.length > 0) {
-      console.log('\n🚫 BLOCKING ISSUES:');
+      console.log('\n BLOCKING ISSUES:');
       validation.phases.productionAssessment.blockers.forEach(blocker => {
-        console.log(`   • ${blocker}`);
+        console.log(`    ${blocker}`);
       });
     }
 
     if (validation.phases.productionAssessment?.recommendations?.length > 0) {
-      console.log('\n📋 RECOMMENDATIONS:');
+      console.log('\n RECOMMENDATIONS:');
       validation.phases.productionAssessment.recommendations.forEach(rec => {
-        console.log(`   • ${rec}`);
+        console.log(`    ${rec}`);
       });
     }
 
-    console.log('\n✅ VALIDATION COMPLETE');
+    console.log('\n VALIDATION COMPLETE');
     console.log('=====================\n');
   }
 

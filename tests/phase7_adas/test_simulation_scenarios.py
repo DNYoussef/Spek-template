@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Simulation-Based Testing for ADAS Phase 7
-Comprehensive scenario testing for various driving conditions and weather.
+from src.constants.base import DAYS_RETENTION_PERIOD
 
 This module provides simulation-based testing for:
 - Highway scenarios (high-speed, lane changes, merging)
@@ -230,7 +227,6 @@ class SimulationEngine:
         # Initialize traffic lights
         for traffic_light in scenario.traffic_lights:
             # Set initial state based on scenario
-            pass
 
         # Log initialization
         init_event = {
@@ -804,7 +800,7 @@ class SimulationTester:
         self.test_results = []
 
     async def run_scenario_test(self, scenario: SimulationScenario,
-                               expected_outcomes: Dict[str, Any]) -> Dict[str, Any]:
+                                expected_outcomes: Dict[str, Any]) -> Dict[str, Any]:
         """Run a scenario test with expected outcomes"""
         result = await self.simulation_engine.run_scenario(scenario)
 
@@ -1149,7 +1145,7 @@ class TestEmergencyScenarios:
 
         # Should have braking response
         total_brakes = (result["actual_metrics"]["adas_decisions"]["emergency_brake"] +
-                       result["actual_metrics"]["adas_decisions"]["moderate_brake"])
+                        result["actual_metrics"]["adas_decisions"]["moderate_brake"])
         assert total_brakes > 0, "No braking response to cut-in vehicle"
 
         print(f"Vehicle cut-in completed: {total_brakes} braking events")
@@ -1173,8 +1169,8 @@ class TestReportingAndAnalysis:
         # Calculate summary metrics
         if simulation_tester.test_results:
             all_safety_scores = [r["actual_metrics"]["safety_score"]
-                               for r in simulation_tester.test_results
-                               if "safety_score" in r["actual_metrics"]]
+                                for r in simulation_tester.test_results
+                                if "safety_score" in r["actual_metrics"]]
 
             if all_safety_scores:
                 report_data["summary_metrics"] = {

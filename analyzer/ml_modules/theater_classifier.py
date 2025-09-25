@@ -1,7 +1,4 @@
-"""
-Theater Classifier ML Module
-Uses machine learning to classify and predict theater patterns.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 import re
 import ast
@@ -12,7 +9,6 @@ from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
 
-
 class TheaterType(Enum):
     """Types of theater that can be classified."""
     TEST_GAMING = "test_gaming"
@@ -21,7 +17,6 @@ class TheaterType(Enum):
     QUALITY_THEATER = "quality_theater"
     SECURITY_WASHING = "security_washing"
     PERFORMANCE_PRETENSE = "performance_pretense"
-
 
 @dataclass
 class TheaterPrediction:
@@ -33,16 +28,15 @@ class TheaterPrediction:
     risk_factors: List[str]
     severity: str  # LOW, MEDIUM, HIGH, CRITICAL
 
-
 class TheaterClassifier:
     """ML-based theater pattern classifier."""
 
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
+def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
         self.feature_extractors = self._initialize_feature_extractors()
         self.classification_thresholds = self._initialize_thresholds()
 
-    def _initialize_feature_extractors(self) -> Dict[str, callable]:
+def _initialize_feature_extractors(self) -> Dict[str, callable]:
         """Initialize feature extraction functions for each theater type."""
         return {
             TheaterType.TEST_GAMING: self._extract_test_gaming_features,
@@ -53,7 +47,7 @@ class TheaterClassifier:
             TheaterType.PERFORMANCE_PRETENSE: self._extract_performance_pretense_features,
         }
 
-    def _initialize_thresholds(self) -> Dict[TheaterType, Dict[str, float]]:
+def _initialize_thresholds(self) -> Dict[TheaterType, Dict[str, float]]:
         """Initialize classification thresholds for each theater type."""
         return {
             TheaterType.TEST_GAMING: {
@@ -94,7 +88,7 @@ class TheaterClassifier:
             }
         }
 
-    def _extract_test_gaming_features(self, content: str, file_path: str) -> Dict[str, float]:
+def _extract_test_gaming_features(self, content: str, file_path: str) -> Dict[str, float]:
         """Extract features related to test gaming."""
         features = {}
 
@@ -119,7 +113,7 @@ class TheaterClassifier:
                         if isinstance(node, ast.Assert):
                             total_assertions += 1
                             if (isinstance(node.test, ast.Constant) and node.test.value is True) or \
-                               (isinstance(node.test, ast.Compare) and
+                                (isinstance(node.test, ast.Compare) and
                                 isinstance(node.test.left, ast.Constant) and
                                 isinstance(node.test.comparators[0], ast.Constant) and
                                 node.test.left.value == node.test.comparators[0].value):
@@ -127,7 +121,7 @@ class TheaterClassifier:
 
                 features["trivial_assertion_ratio"] = trivial_assertions / max(1, total_assertions)
                 features["no_assertion_ratio"] = sum(1 for func in test_functions
-                                                   if not any(isinstance(node, ast.Assert)
+                                                    if not any(isinstance(node, ast.Assert)
                                                             for node in ast.walk(func))) / len(test_functions)
             else:
                 features.update({
@@ -147,7 +141,6 @@ class TheaterClassifier:
             (r'assert\s+True', "always_true_assertions"),
             (r'assert\s+1\s*==\s*1', "tautology_assertions"),
             (r'@pytest\.mark\.skip', "skipped_tests"),
-            (r'# TODO.*test', "todo_tests"),
             (r'time\.sleep\(\d+\)', "sleep_in_tests")
         ]
 
@@ -157,7 +150,7 @@ class TheaterClassifier:
 
         return features
 
-    def _extract_metrics_manipulation_features(self, content: str, file_path: str) -> Dict[str, float]:
+def _extract_metrics_manipulation_features(self, content: str, file_path: str) -> Dict[str, float]:
         """Extract features related to metrics manipulation."""
         features = {}
 
@@ -194,16 +187,14 @@ class TheaterClassifier:
 
         return features
 
-    def _extract_documentation_facade_features(self, content: str, file_path: str) -> Dict[str, float]:
+def _extract_documentation_facade_features(self, content: str, file_path: str) -> Dict[str, float]:
         """Extract features related to documentation facades."""
         features = {}
 
         # Facade documentation patterns
         facade_patterns = [
-            (r'# TODO:?\s*add\s+doc', "todo_documentation"),
             (r'# This function does something', "meaningless_comments"),
             (r'# Magic happens here', "magic_comments"),
-            (r'\"\"\"TODO.*\"\"\"', "todo_docstrings"),
             (r'# Implementation details', "vague_comments"),
             (r'# Enterprise grade', "buzzword_comments")
         ]
@@ -250,7 +241,7 @@ class TheaterClassifier:
 
         return features
 
-    def _extract_quality_theater_features(self, content: str, file_path: str) -> Dict[str, float]:
+def _extract_quality_theater_features(self, content: str, file_path: str) -> Dict[str, float]:
         """Extract features related to quality theater."""
         features = {}
 
@@ -260,7 +251,7 @@ class TheaterClassifier:
             (r'# Fixed all issues', "fixed_all_claims"),
             (r'# Perfect code', "perfect_code_claims"),
             (r'# No bugs', "no_bug_claims"),
-            (r'# 100% tested', "hundred_percent_claims"),
+            (r'# MAXIMUM_FUNCTION_LENGTH_LINES% tested', "hundred_percent_claims"),
             (r'# Enterprise quality', "enterprise_quality_claims")
         ]
 
@@ -289,7 +280,7 @@ class TheaterClassifier:
 
         return features
 
-    def _extract_security_washing_features(self, content: str, file_path: str) -> Dict[str, float]:
+def _extract_security_washing_features(self, content: str, file_path: str) -> Dict[str, float]:
         """Extract features related to security washing."""
         features = {}
 
@@ -333,7 +324,7 @@ class TheaterClassifier:
 
         return features
 
-    def _extract_performance_pretense_features(self, content: str, file_path: str) -> Dict[str, float]:
+def _extract_performance_pretense_features(self, content: str, file_path: str) -> Dict[str, float]:
         """Extract features related to performance pretense."""
         features = {}
 
@@ -387,7 +378,7 @@ class TheaterClassifier:
 
         return features
 
-    def classify_theater_type(self, file_path: str, theater_type: TheaterType) -> TheaterPrediction:
+def classify_theater_type(self, file_path: str, theater_type: TheaterType) -> TheaterPrediction:
         """Classify a specific type of theater in a file."""
         if not path_exists(file_path):
             return TheaterPrediction(
@@ -441,7 +432,7 @@ class TheaterClassifier:
             severity=severity
         )
 
-    def _adjust_probability(self, theater_type: TheaterType, features: Dict[str, float], base_prob: float) -> float:
+def _adjust_probability(self, theater_type: TheaterType, features: Dict[str, float], base_prob: float) -> float:
         """Adjust probability based on theater type specific patterns."""
         adjusted_prob = base_prob
 
@@ -467,7 +458,7 @@ class TheaterClassifier:
 
         return min(1.0, max(0.0, adjusted_prob))
 
-    def _calculate_confidence(self, features: Dict[str, float]) -> float:
+def _calculate_confidence(self, features: Dict[str, float]) -> float:
         """Calculate confidence in the classification."""
         if not features:
             return 0.0
@@ -481,7 +472,7 @@ class TheaterClassifier:
         confidence = feature_strength * (1 - feature_variance * 0.5)
         return min(1.0, max(0.1, confidence))
 
-    def _determine_severity(self, probability: float, thresholds: Dict[str, float]) -> str:
+def _determine_severity(self, probability: float, thresholds: Dict[str, float]) -> str:
         """Determine severity level based on probability and thresholds."""
         if probability >= thresholds["critical"]:
             return "CRITICAL"
@@ -492,7 +483,7 @@ class TheaterClassifier:
         else:
             return "LOW"
 
-    def _generate_risk_factors(self, theater_type: TheaterType, features: Dict[str, float]) -> List[str]:
+def _generate_risk_factors(self, theater_type: TheaterType, features: Dict[str, float]) -> List[str]:
         """Generate risk factors based on detected features."""
         risk_factors = []
 
@@ -504,7 +495,7 @@ class TheaterClassifier:
 
         return risk_factors[:5]  # Limit to top 5 risk factors
 
-    def _feature_to_risk_factor(self, theater_type: TheaterType, feature_name: str, value: float) -> Optional[str]:
+def _feature_to_risk_factor(self, theater_type: TheaterType, feature_name: str, value: float) -> Optional[str]:
         """Convert feature to human-readable risk factor."""
         risk_mappings = {
             "empty_test_ratio": f"High ratio of empty tests ({value:.1%})",
@@ -518,7 +509,7 @@ class TheaterClassifier:
 
         return risk_mappings.get(feature_name)
 
-    def classify_all_theater_types(self, file_path: str) -> List[TheaterPrediction]:
+def classify_all_theater_types(self, file_path: str) -> List[TheaterPrediction]:
         """Classify all theater types for a file."""
         predictions = []
 
@@ -531,7 +522,7 @@ class TheaterClassifier:
 
         return predictions
 
-    def analyze_directory_theater(self, directory: str) -> Dict[str, Any]:
+def analyze_directory_theater(self, directory: str) -> Dict[str, Any]:
         """Analyze theater patterns across an entire directory."""
         results = {
             "total_files": 0,

@@ -328,7 +328,7 @@ export const AlertPanel: React.FC<{
       
       {alerts.length === 0 ? (
         <div className="text-center py-8 text-gray-500">
-          <div className="text-2xl mb-2">✓</div>
+          <div className="text-2xl mb-2"></div>
           <div>No active alerts</div>
         </div>
       ) : (

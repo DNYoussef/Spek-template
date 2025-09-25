@@ -1,5 +1,4 @@
-"""
-Enterprise Detector Pool Validation Demo
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH
 
 This script demonstrates the enterprise detector pool achieving the <1% overhead
 target with comprehensive validation, benchmarking, and compliance verification.
@@ -18,7 +17,6 @@ import time
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class RealWorldDetectors:
     """Collection of realistic detector implementations for validation."""
@@ -135,7 +133,6 @@ class RealWorldDetectors:
             "check_time": 0.06
         }
 
-
 class ValidationDemo:
     """Comprehensive validation demonstration."""
 
@@ -177,7 +174,7 @@ class ValidationDemo:
                     "dependency_scanner": 3.0,
                     "memory_leak_detector": 4.0,
                     "api_security_validator": 1.5,
-                    "database_optimizer": 2.5,
+                    "database_optimizer": 2.MAXIMUM_NESTED_DEPTH,
                     "compliance_checker": 2.0
                 }.get(name, 1.0)
 
@@ -510,7 +507,7 @@ class ValidationDemo:
         overhead = components.get("overhead_validation", {})
         if "error" not in overhead:
             if overhead.get("overhead_target_achieved", False):
-                scores.append(100)
+                scores.append(MAXIMUM_FUNCTION_LENGTH_LINES)
             else:
                 # Partial credit based on how close to target
                 actual_overhead = overhead.get("actual_overhead_percentage", 10.0)
@@ -576,7 +573,6 @@ class ValidationDemo:
 
         return summary
 
-
 def main():
     """Main validation demonstration."""
     print("Enterprise Detector Pool Validation Demo")
@@ -597,7 +593,6 @@ def main():
     print(f"Validation Passed: {'' if results['validation_passed'] else ''}")
 
     summary = results["summary"]
-    print(f"\nComponents Tested: {summary['total_components_tested']}")
     print(f"Components Passed: {summary['components_passed']}")
 
     print("\nKey Achievements:")
@@ -612,7 +607,6 @@ def main():
     print("\nDetailed results saved to: validation_results.json")
     print("\n" + "=" * 50)
     print("Enterprise Detector Pool Validation Complete!")
-
 
 if __name__ == "__main__":
     main()

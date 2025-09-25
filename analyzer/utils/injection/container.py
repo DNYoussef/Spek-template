@@ -6,22 +6,18 @@ Provides centralized dependency management that reduces coupling between
 components and eliminates hardcoded instantiation patterns.
 """
 
-from typing import Any, Callable, Dict, Optional, Type, TypeVar, Union
 from functools import wraps
+from typing import Any, Callable, Dict, Optional, Type, TypeVar, Union
+
 import inspect
-# from lib.shared.utilities.logging_setup import get_analyzer_logger
-# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
 
 # Use shared logging
 logger = get_analyzer_logger(__name__)
 
 T = TypeVar('T')
 
-
 class DependencyError(Exception):
     """Exception raised when dependency resolution fails."""
-    pass
-
 
 class Container:
     """
@@ -197,10 +193,8 @@ class Container:
         self._interfaces.clear()
         logger.debug("Container cleared")
 
-
 # Global container instance
 _container: Optional[Container] = None
-
 
 def get_container() -> Container:
     """Get the global dependency injection container."""
@@ -209,7 +203,6 @@ def get_container() -> Container:
         _container = Container()
         _setup_default_services()
     return _container
-
 
 def _setup_default_services():
     """Set up default services in the container."""
@@ -225,7 +218,6 @@ def _setup_default_services():
     # Register common factories
     container.register_factory('logger', lambda: logging.getLogger(__name__))
 
-
 # Decorator for dependency injection
 def inject(**dependencies):
     """
@@ -235,7 +227,6 @@ def inject(**dependencies):
         @inject(config_manager='config_manager', logger='logger')
         def my_function(config_manager, logger, other_param):
             # config_manager and logger will be injected automatically
-            pass
     """
     def decorator(func):
         @wraps(func)
@@ -253,7 +244,6 @@ def inject(**dependencies):
             return func(*args, **kwargs)
         return wrapper
     return decorator
-
 
 class Injectable:
     """
@@ -294,7 +284,6 @@ class Injectable:
         for name, value in kwargs.items():
             setattr(self, name, value)
 
-
 # Service registration decorators
 def singleton(name: Optional[str] = None):
     """
@@ -310,7 +299,6 @@ def singleton(name: Optional[str] = None):
         return cls
     return decorator
 
-
 def service(name: Optional[str] = None):
     """
     Decorator to register a class as a transient service.
@@ -324,7 +312,6 @@ def service(name: Optional[str] = None):
         return cls
     return decorator
 
-
 def factory(name: str):
     """
     Decorator to register a function as a service factory.
@@ -336,7 +323,6 @@ def factory(name: str):
         get_container().register_factory(name, func)
         return func
     return decorator
-
 
 # Context manager for scoped containers
 class ContainerScope:
@@ -361,12 +347,10 @@ class ContainerScope:
         global _container
         _container = self.original_container
 
-
 # Utility functions for common patterns
 def resolve(service_name: str) -> Any:
     """Resolve a service by name."""
     return get_container().get(service_name)
-
 
 def resolve_interface(interface: Type[T]) -> T:
     """Resolve a service by interface type."""

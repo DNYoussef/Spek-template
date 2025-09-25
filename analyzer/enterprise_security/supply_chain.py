@@ -1,7 +1,4 @@
-"""
-Supply Chain Security Module
-Manages software supply chain security including SBOM and SLSA validation.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_GOD_OBJECTS_ALLOWED
 
 import os
 import json
@@ -10,7 +7,6 @@ import subprocess
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
 from datetime import datetime
-
 
 @dataclass
 class SoftwareComponent:
@@ -23,7 +19,6 @@ class SoftwareComponent:
     vulnerabilities: List[str] = None
     source_url: Optional[str] = None
 
-
 @dataclass
 class SLSAAttestation:
     """SLSA (Supply chain Levels for Software Artifacts) attestation."""
@@ -31,7 +26,6 @@ class SLSAAttestation:
     predicate_type: str
     predicate: Dict[str, Any]
     signature: Optional[str] = None
-
 
 class SupplyChainSecurity:
     """Main supply chain security manager."""
@@ -304,7 +298,7 @@ class SupplyChainSecurity:
         total_vulns = len(validation_results["vulnerabilities"])
 
         risk_score = (vulnerable_ratio * 50) + (total_vulns * 5)
-        return min(100.0, risk_score)
+        return min(1.0, risk_score)
 
     def _get_risk_level(self, risk_score: float) -> str:
         """Get risk level based on score."""
@@ -312,17 +306,13 @@ class SupplyChainSecurity:
             return "CRITICAL"
         elif risk_score >= 50:
             return "HIGH"
-        elif risk_score >= 25:
+        elif risk_score >= MAXIMUM_GOD_OBJECTS_ALLOWED:
             return "MEDIUM"
         else:
             return "LOW"
 
-
 class SBOMGenerator(SupplyChainSecurity):
     """Alias for SBOM generation functionality."""
-    pass
-
 
 class SLSAGenerator(SupplyChainSecurity):
     """Alias for SLSA attestation functionality."""
-    pass

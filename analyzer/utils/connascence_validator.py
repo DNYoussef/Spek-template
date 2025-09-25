@@ -6,17 +6,17 @@ Validates the effectiveness of connascence reduction measures
 and provides metrics on improvement achieved.
 """
 
+from collections import defaultdict
+from pathlib import Path
+from typing import Dict, List, Any, Tuple
 import ast
 import os
 import time
-from pathlib import Path
-from typing import Dict, List, Any, Tuple
+
 from dataclasses import dataclass
-from collections import defaultdict
 
 from .config_manager import get_config_manager
 from ..interfaces.detector_interface import AnalysisContext, DetectorFactory
-
 
 @dataclass
 class ConnascenceMetrics:
@@ -30,14 +30,14 @@ class ConnascenceMetrics:
     error_handling_patterns: int = 0
     interface_inconsistencies: int = 0
     
-    def total_violations(self) -> int:
+def total_violations(self) -> int:
         """Get total connascence violations."""
         return (self.hardcoded_values_count + self.magic_literals_count + 
                 self.direct_constructor_calls + self.duplicate_algorithms +
                 self.position_coupling_instances + self.configuration_scattering +
                 self.error_handling_patterns + self.interface_inconsistencies)
     
-    def to_dict(self) -> Dict[str, Any]:
+def to_dict(self) -> Dict[str, Any]:
         """Convert metrics to dictionary."""
         return {
             'hardcoded_values': self.hardcoded_values_count,
@@ -51,18 +51,17 @@ class ConnascenceMetrics:
             'total_violations': self.total_violations()
         }
 
-
 class ConnascenceValidator:
     """
     Validator that measures connascence reduction effectiveness by analyzing
     the codebase for remaining connascence violations.
     """
     
-    def __init__(self, analyzer_path: str):
+def __init__(self, analyzer_path: str):
         self.analyzer_path = Path(analyzer_path)
         self.config_manager = get_config_manager()
     
-    def validate_reduction_effectiveness(self) -> Dict[str, Any]:
+def validate_reduction_effectiveness(self) -> Dict[str, Any]:
         """
         Validate the effectiveness of connascence reduction measures.
         
@@ -100,7 +99,7 @@ class ConnascenceValidator:
         
         return results
     
-    def _simulate_before_metrics(self) -> ConnascenceMetrics:
+def _simulate_before_metrics(self) -> ConnascenceMetrics:
         """
         Simulate metrics before refactoring based on known issues.
         In a real implementation, this would be historical data.
@@ -116,7 +115,7 @@ class ConnascenceValidator:
             interface_inconsistencies=7  # Different method signatures
         )
     
-    def _measure_current_metrics(self) -> ConnascenceMetrics:
+def _measure_current_metrics(self) -> ConnascenceMetrics:
         """Measure current connascence violations in the codebase."""
         metrics = ConnascenceMetrics()
         
@@ -134,7 +133,7 @@ class ConnascenceValidator:
         
         return metrics
     
-    def _analyze_file_for_violations(self, file_path: Path) -> ConnascenceMetrics:
+def _analyze_file_for_violations(self, file_path: Path) -> ConnascenceMetrics:
         """Analyze a single file for remaining connascence violations."""
         metrics = ConnascenceMetrics()
         
@@ -173,7 +172,7 @@ class ConnascenceValidator:
         
         return metrics
     
-    def _count_hardcoded_values(self, tree: ast.AST) -> int:
+def _count_hardcoded_values(self, tree: ast.AST) -> int:
         """Count remaining hardcoded values that should be in configuration."""
         count = 0
         config_indicators = ['threshold', 'limit', 'max', 'min', 'timeout']
@@ -187,7 +186,7 @@ class ConnascenceValidator:
                             count += 1
         return count
     
-    def _count_magic_literals(self, tree: ast.AST) -> int:
+def _count_magic_literals(self, tree: ast.AST) -> int:
         """Count magic literals that should be named constants."""
         count = 0
         safe_numbers = {0, 1, -1, 2, 10, 100}
@@ -198,7 +197,7 @@ class ConnascenceValidator:
                     count += 1
         return count
     
-    def _count_direct_constructor_calls(self, tree: ast.AST) -> int:
+def _count_direct_constructor_calls(self, tree: ast.AST) -> int:
         """Count direct constructor calls that bypass dependency injection."""
         count = 0
         
@@ -209,7 +208,7 @@ class ConnascenceValidator:
                     count += 1
         return count
     
-    def _count_duplicate_algorithms(self, tree: ast.AST) -> int:
+def _count_duplicate_algorithms(self, tree: ast.AST) -> int:
         """Count functions with similar algorithm patterns."""
         function_signatures = []
         
@@ -228,7 +227,7 @@ class ConnascenceValidator:
         
         return sum(count - 1 for count in signature_counts.values() if count > 1)
     
-    def _count_position_coupling(self, tree: ast.AST) -> int:
+def _count_position_coupling(self, tree: ast.AST) -> int:
         """Count functions with excessive positional parameters."""
         count = 0
         
@@ -238,7 +237,7 @@ class ConnascenceValidator:
                     count += 1
         return count
     
-    def _count_configuration_scattering(self, content: str) -> int:
+def _count_configuration_scattering(self, content: str) -> int:
         """Count configuration values scattered throughout the file."""
         config_patterns = ['config', 'setting', 'threshold', 'limit']
         count = 0
@@ -250,7 +249,7 @@ class ConnascenceValidator:
         
         return count
     
-    def _count_error_handling_patterns(self, tree: ast.AST) -> int:
+def _count_error_handling_patterns(self, tree: ast.AST) -> int:
         """Count duplicate error handling patterns."""
         try_blocks = 0
         
@@ -261,7 +260,7 @@ class ConnascenceValidator:
         # If more than 3 try blocks, consider it duplicated pattern
         return max(0, try_blocks - 3)
     
-    def _count_interface_inconsistencies(self, tree: ast.AST) -> int:
+def _count_interface_inconsistencies(self, tree: ast.AST) -> int:
         """Count methods with inconsistent interfaces."""
         method_signatures = defaultdict(list)
         
@@ -278,7 +277,7 @@ class ConnascenceValidator:
         
         return inconsistencies
     
-    def _calculate_improvement(self, before: ConnascenceMetrics, after: ConnascenceMetrics) -> Dict[str, float]:
+def _calculate_improvement(self, before: ConnascenceMetrics, after: ConnascenceMetrics) -> Dict[str, float]:
         """Calculate improvement percentages."""
         improvements = {}
         
@@ -310,7 +309,7 @@ class ConnascenceValidator:
         
         return improvements
     
-    def _analyze_improvements(self) -> List[Dict[str, Any]]:
+def _analyze_improvements(self) -> List[Dict[str, Any]]:
         """Analyze specific improvements made."""
         improvements = [
             {
@@ -347,7 +346,7 @@ class ConnascenceValidator:
         
         return improvements
     
-    def _generate_recommendations(self, metrics: ConnascenceMetrics) -> List[str]:
+def _generate_recommendations(self, metrics: ConnascenceMetrics) -> List[str]:
         """Generate recommendations for further improvement."""
         recommendations = []
         
@@ -376,12 +375,11 @@ class ConnascenceValidator:
         
         return recommendations
     
-    def _should_analyze_file(self, file_path: Path) -> bool:
+def _should_analyze_file(self, file_path: Path) -> bool:
         """Check if file should be analyzed."""
         skip_patterns = ['__pycache__', '.git', 'test_', '_test.py']
         path_str = str(file_path)
         return not any(pattern in path_str for pattern in skip_patterns)
-
 
 def validate_connascence_reduction() -> Dict[str, Any]:
     """
@@ -410,7 +408,6 @@ def validate_connascence_reduction() -> Dict[str, Any]:
         print(f"  [U+2022] {rec}")
     
     return results
-
 
 if __name__ == "__main__":
     results = validate_connascence_reduction()

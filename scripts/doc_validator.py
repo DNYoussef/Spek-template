@@ -4,15 +4,15 @@ Documentation Validation Script
 Validates accuracy between documentation and actual implementation
 """
 
-import os
+from pathlib import Path
+from typing import Dict, List, Set, Tuple, Optional
 import json
+import os
 import re
 import subprocess
 import sys
-from pathlib import Path
-from typing import Dict, List, Set, Tuple, Optional
-import yaml
 
+import yaml
 
 class DocumentationValidator:
     """Comprehensive documentation validation and accuracy checking."""
@@ -258,8 +258,6 @@ class DocumentationValidator:
                 for cmd in commands_used:
                     if cmd in documented_commands:
                         # This would require actual command validation
-                        # For now, just track that commands are referenced
-                        pass
                     
             except Exception as e:
                 command_issues.append(f"Error reading workflow {workflow_file}: {e}")
@@ -333,7 +331,6 @@ class DocumentationValidator:
     def _check_nasa_compliance(self) -> bool:
         """Check if NASA compliance tools are available."""
         # This would require actual compliance checking
-        # For now, check if analyzer exists
         analyzer_dir = self.project_root / 'analyzer'
         return analyzer_dir.exists()
     
@@ -383,7 +380,6 @@ class DocumentationValidator:
         from datetime import datetime
         return datetime.now().isoformat()
 
-
 def main():
     """Main execution function."""
     if len(sys.argv) > 1:
@@ -412,7 +408,6 @@ def main():
     
     if results['summary']['overall_status'] != 'pass':
         sys.exit(1)
-
 
 if __name__ == '__main__':
     main()

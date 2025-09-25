@@ -6,8 +6,6 @@ Supports SLSA levels 1-4 with appropriate security guarantees.
 """
 
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
-
 
 class SLSALevel(Enum):
     """SLSA security levels"""
@@ -15,7 +13,6 @@ class SLSALevel(Enum):
     LEVEL_2 = 2  # Tamper resistance  
     LEVEL_3 = 3  # Hardened builds
     LEVEL_4 = 4  # Highest security
-
 
 @dataclass 
 class BuildMetadata:
@@ -29,14 +26,12 @@ class BuildMetadata:
     materials: List[Dict[str, str]] = field(default_factory=list)
     environment: Dict[str, str] = field(default_factory=dict)
 
-
 @dataclass
 class ProvenanceStatement:
     """SLSA provenance statement"""
     predicate_type: str = "https://slsa.dev/provenance/v1"
     subject: List[Dict[str, Any]] = field(default_factory=list)
     predicate: Dict[str, Any] = field(default_factory=dict)
-
 
 class SLSAGenerator:
     """
@@ -54,7 +49,7 @@ class SLSAGenerator:
         )
         
     async def generate_attestation(self, level: SLSALevel = SLSALevel.LEVEL_1,
-                                 artifacts: Optional[List[Path]] = None) -> Path:
+                                artifacts: Optional[List[Path]] = None) -> Path:
         """Generate SLSA attestation for specified level"""
         logger.info(f"Generating SLSA Level {level.value} attestation")
         
@@ -253,7 +248,7 @@ class SLSAGenerator:
         return hasher.hexdigest()
         
     async def generate_build_provenance(self, build_command: str, 
-                                      materials: List[Path] = None) -> Path:
+                                        materials: List[Path] = None) -> Path:
         """Generate detailed build provenance"""
         if materials is None:
             materials = []

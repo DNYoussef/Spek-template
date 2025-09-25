@@ -17,9 +17,9 @@ TOTAL_TESTS=0
 PASSED_TESTS=0
 FAILED_TESTS=0
 
-echo -e "${BLUE}════════════════════════════════════════════════════${NC}"
+echo -e "${BLUE}${NC}"
 echo -e "${BLUE}       SPEK System Validation Suite v1.0            ${NC}"
-echo -e "${BLUE}════════════════════════════════════════════════════${NC}"
+echo -e "${BLUE}${NC}"
 echo ""
 
 # Function to run a test
@@ -32,11 +32,11 @@ run_test() {
 
     if eval "$test_command" &>/dev/null; then
         PASSED_TESTS=$((PASSED_TESTS + 1))
-        echo -e "${GREEN}✓ PASSED${NC}"
+        echo -e "${GREEN} PASSED${NC}"
         return 0
     else
         FAILED_TESTS=$((FAILED_TESTS + 1))
-        echo -e "${RED}✗ FAILED${NC}"
+        echo -e "${RED} FAILED${NC}"
         return 1
     fi
 }
@@ -58,7 +58,7 @@ check_dir() {
 }
 
 echo -e "${BLUE}[1/5] Validating GitHub Workflows${NC}"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
 
 # Test arithmetic increment fixes
 run_test "monitoring-dashboard.yml arithmetic fixes" \
@@ -73,7 +73,7 @@ run_test "Directory creation guards present" \
 
 echo ""
 echo -e "${BLUE}[2/5] Validating Loop Scripts${NC}"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
 
 # Check loop scripts exist
 check_file "scripts/loop1-planning.sh" "Loop 1 planning script exists"
@@ -86,7 +86,7 @@ run_test "Loop scripts properly referenced" \
 
 echo ""
 echo -e "${BLUE}[3/5] Validating Package Configuration${NC}"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
 
 # Test package.json separation
 run_test "JavaScript test command" \
@@ -100,7 +100,7 @@ run_test "Lint commands separated" \
 
 echo ""
 echo -e "${BLUE}[4/5] Validating File Organization${NC}"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
 
 # Check directory structure
 check_dir "scripts" "Scripts directory exists"
@@ -116,14 +116,14 @@ run_test "Test files moved to tests/" \
 
 echo ""
 echo -e "${BLUE}[5/5] Validating Critical Paths${NC}"
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
 
 # Test npm commands work
 if command -v npm &>/dev/null; then
     run_test "npm test command works" \
         "npm run test:js 2>/dev/null || true"
 else
-    echo -e "${YELLOW}⚠ npm not installed - skipping npm tests${NC}"
+    echo -e "${YELLOW} npm not installed - skipping npm tests${NC}"
 fi
 
 # Test Python commands work
@@ -131,7 +131,7 @@ if command -v python &>/dev/null; then
     run_test "Python test command works" \
         "npm run test:py 2>/dev/null || true"
 else
-    echo -e "${YELLOW}⚠ Python not installed - skipping Python tests${NC}"
+    echo -e "${YELLOW} Python not installed - skipping Python tests${NC}"
 fi
 
 # Test workflow syntax (if actionlint is available)
@@ -139,13 +139,13 @@ if command -v actionlint &>/dev/null; then
     run_test "GitHub workflow syntax valid" \
         "actionlint .github/workflows/*.yml"
 else
-    echo -e "${YELLOW}⚠ actionlint not installed - skipping workflow validation${NC}"
+    echo -e "${YELLOW} actionlint not installed - skipping workflow validation${NC}"
 fi
 
 echo ""
-echo -e "${BLUE}════════════════════════════════════════════════════${NC}"
+echo -e "${BLUE}${NC}"
 echo -e "${BLUE}                 VALIDATION SUMMARY                  ${NC}"
-echo -e "${BLUE}════════════════════════════════════════════════════${NC}"
+echo -e "${BLUE}${NC}"
 echo ""
 
 # Calculate pass rate
@@ -195,14 +195,14 @@ echo ""
 
 # Final status
 if [[ $FAILED_TESTS -eq 0 ]]; then
-    echo -e "${GREEN}✅ ALL VALIDATIONS PASSED - System is ready!${NC}"
+    echo -e "${GREEN} ALL VALIDATIONS PASSED - System is ready!${NC}"
     exit 0
 elif [[ $PASS_RATE -ge 80 ]]; then
-    echo -e "${YELLOW}⚠️ PARTIAL SUCCESS - ${PASS_RATE}% tests passed${NC}"
+    echo -e "${YELLOW} PARTIAL SUCCESS - ${PASS_RATE}% tests passed${NC}"
     echo -e "${YELLOW}Review failed tests and apply additional fixes${NC}"
     exit 0
 else
-    echo -e "${RED}❌ VALIDATION FAILED - Only ${PASS_RATE}% tests passed${NC}"
+    echo -e "${RED} VALIDATION FAILED - Only ${PASS_RATE}% tests passed${NC}"
     echo -e "${RED}Critical issues detected. System requires immediate attention.${NC}"
     exit 1
 fi

@@ -19,7 +19,8 @@ const AGENT_CONFIGURATIONS = {
     reasoningComplexity: ReasoningComplexity.MEDIUM,
     capabilities: ['browser_automation', 'screenshot_capture', 'ui_testing', 'visual_validation'],
     mcpServers: ['claude-flow', 'memory', 'github', 'playwright', 'figma'],
-    rationale: 'GPT-5 with Codex CLI for browser automation, screenshots, UI iteration + Figma integration'
+    rationale: 'GPT-5 with Codex CLI for browser automation, screenshots, UI iteration + Figma integration',
+    fsmMode: 'enforced'  // FSM thinking enforced for UI state management
   },
   'ui-designer': {
     primaryModel: AIModel.GPT5,
@@ -91,7 +92,9 @@ const AGENT_CONFIGURATIONS = {
     reasoningComplexity: ReasoningComplexity.HIGH,
     capabilities: ['system_design', 'architectural_analysis', 'pattern_recognition'],
     mcpServers: ['claude-flow', 'memory', 'deepwiki', 'ref', 'context7'],
-    rationale: 'Architecture design with documentation and reference access'
+    rationale: 'Architecture design with documentation and reference access',
+    fsmMode: 'required',  // FSM thinking required for all architecture
+    fsmPrompt: 'FSM_ARCHITECTURE_PROMPT'
   },
   'system-architect': {
     primaryModel: AIModel.GEMINI_PRO,
@@ -101,7 +104,9 @@ const AGENT_CONFIGURATIONS = {
     reasoningComplexity: ReasoningComplexity.HIGH,
     capabilities: ['enterprise_architecture', 'system_integration', 'large_scale_design'],
     mcpServers: ['claude-flow', 'memory', 'deepwiki', 'ref', 'context7'],
-    rationale: 'Enterprise architecture with comprehensive documentation access'
+    rationale: 'Enterprise architecture with comprehensive documentation access',
+    fsmMode: 'required',  // FSM thinking required for system design
+    fsmPrompt: 'FSM_ARCHITECTURE_PROMPT'
   },
 
   // Autonomous Coding & Complex Implementation
@@ -113,7 +118,9 @@ const AGENT_CONFIGURATIONS = {
     reasoningComplexity: ReasoningComplexity.MEDIUM,
     capabilities: ['autonomous_coding', 'long_sessions', 'test_execution', 'iterative_development'],
     mcpServers: ['claude-flow', 'memory', 'github', 'filesystem'],
-    rationale: 'Autonomous coding with GitHub integration and file operations'
+    rationale: 'Autonomous coding with GitHub integration and file operations',
+    fsmMode: 'enforced',  // FSM implementation patterns enforced
+    fsmPrompt: 'FSM_CODER_PROMPT'
   },
   'sparc-coder': {
     primaryModel: AIModel.GPT5,
@@ -123,7 +130,9 @@ const AGENT_CONFIGURATIONS = {
     reasoningComplexity: ReasoningComplexity.HIGH,
     capabilities: ['sparc_methodology', 'tdd_implementation', 'autonomous_development'],
     mcpServers: ['claude-flow', 'memory', 'github', 'filesystem'],
-    rationale: 'SPARC methodology with GitHub integration and autonomous development'
+    rationale: 'SPARC methodology with GitHub integration and autonomous development',
+    fsmMode: 'enforced',  // FSM required for SPARC implementation
+    fsmPrompt: 'FSM_CODER_PROMPT'
   },
   'backend-dev': {
     primaryModel: AIModel.GPT5,
@@ -133,7 +142,9 @@ const AGENT_CONFIGURATIONS = {
     reasoningComplexity: ReasoningComplexity.MEDIUM,
     capabilities: ['api_development', 'database_integration', 'autonomous_testing'],
     mcpServers: ['claude-flow', 'memory', 'github', 'filesystem'],
-    rationale: 'Backend API development with GitHub integration and testing'
+    rationale: 'Backend API development with GitHub integration and testing',
+    fsmMode: 'enforced',  // FSM for API state management
+    fsmPrompt: 'FSM_CODER_PROMPT'
   },
   'ml-developer': {
     primaryModel: AIModel.GPT5,

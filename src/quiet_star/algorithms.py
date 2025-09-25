@@ -1,5 +1,4 @@
-"""
-Quiet-STaR Reasoning Enhancement Algorithms
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS, THEATER_DETECTION_WARNING_THRESHOLD
 
 Implementation of algorithmic components for Quiet-STaR reasoning enhancement
 based on "Quiet-STaR: Language Models Can Teach Themselves to Think Before Speaking"
@@ -22,7 +21,6 @@ from typing import Dict, List, Tuple, Optional, Union
 import math
 from dataclasses import dataclass
 
-
 @dataclass
 class QuietSTaRConfig:
     """Configuration for Quiet-STaR algorithms."""
@@ -35,7 +33,6 @@ class QuietSTaRConfig:
     temperature: float = 1.0
     top_p: float = 0.9
 
-
 class ThoughtGenerator:
     """
     Implements thought generation mechanisms for Quiet-STaR.
@@ -43,10 +40,10 @@ class ThoughtGenerator:
     Algorithm: Token-wise Parallel Sampling
     ========================================
     1. For each token position t in sequence:
-       a. Generate N parallel thought candidates
-       b. Evaluate coherence of each thought
-       c. Select thoughts above threshold
-       d. Apply mixing head to combine predictions
+        a. Generate N parallel thought candidates
+        b. Evaluate coherence of each thought
+        c. Select thoughts above threshold
+        d. Apply mixing head to combine predictions
     """
     
     def __init__(self, config: QuietSTaRConfig):
@@ -55,10 +52,10 @@ class ThoughtGenerator:
         self.mixing_head = MixingHead(config)
     
     def generate_thoughts(self,
-                         input_ids: torch.Tensor,
-                         attention_mask: torch.Tensor,
-                         model: nn.Module,
-                         position: int) -> Dict[str, torch.Tensor]:
+                        input_ids: torch.Tensor,
+                        attention_mask: torch.Tensor,
+                        model: nn.Module,
+                        position: int) -> Dict[str, torch.Tensor]:
         """
         Generate parallel thoughts at a specific token position.
         
@@ -128,14 +125,13 @@ class ThoughtGenerator:
         """Prepare input prefix with start-of-thought token."""
         prefix = input_ids[:, :position+1]
         # In practice, start_thought_token would be tokenized
-        # Here we use a placeholder token ID
         start_token = torch.tensor([[50257]], device=input_ids.device)  # Placeholder
         return torch.cat([prefix, start_token], dim=1)
     
     def _sample_thought_tokens(self, 
-                              prefix: torch.Tensor, 
-                              model: nn.Module,
-                              device: torch.device) -> torch.Tensor:
+                                prefix: torch.Tensor, 
+                                model: nn.Module,
+                                device: torch.device) -> torch.Tensor:
         """
         Sample thought tokens using nucleus sampling.
         
@@ -181,7 +177,6 @@ class ThoughtGenerator:
         
         return logits
 
-
 class CoherenceScorer:
     """
     Implements coherence scoring algorithms for thought evaluation.
@@ -207,9 +202,9 @@ class CoherenceScorer:
         self.gamma = 0.3  # Predictive utility weight
     
     def score_thoughts(self, 
-                      thoughts: torch.Tensor,
-                      thought_logits: torch.Tensor,
-                      context: torch.Tensor) -> torch.Tensor:
+                        thoughts: torch.Tensor,
+                        thought_logits: torch.Tensor,
+                        context: torch.Tensor) -> torch.Tensor:
         """
         Score thoughts for coherence using multiple criteria.
         
@@ -230,14 +225,14 @@ class CoherenceScorer:
         
         # Combine scores with learned weights
         total_scores = (self.alpha * semantic_scores + 
-                       self.beta * syntactic_scores + 
-                       self.gamma * predictive_scores)
+                        self.beta * syntactic_scores + 
+                        self.gamma * predictive_scores)
         
         return total_scores
     
     def _semantic_coherence(self,
-                           thoughts: torch.Tensor,
-                           context: torch.Tensor) -> torch.Tensor:
+                            thoughts: torch.Tensor,
+                            context: torch.Tensor) -> torch.Tensor:
         """
         [THEATER REMOVED] Semantic coherence computation.
 
@@ -249,15 +244,12 @@ class CoherenceScorer:
         batch_size, num_thoughts = thoughts.shape[:2]
 
         # HONEST IMPLEMENTATION: Return zeros instead of fake scores
-        # TODO: Implement actual semantic coherence using real model embeddings
-        # TODO: Use actual pre-trained embeddings (BERT, RoBERTa, etc.)
-        # TODO: Implement real cosine similarity with meaningful vectors
 
         # Security warning: Previous implementation was dangerous theater
         import warnings
         warnings.warn("Semantic coherence not implemented - returning zeros. "
-                     "Previous implementation was theater using random data.",
-                     UserWarning)
+                    "Previous implementation was theater using random data.",
+                    UserWarning)
 
         return torch.zeros(batch_size, num_thoughts)
     
@@ -292,9 +284,9 @@ class CoherenceScorer:
         return syntactic_scores
     
     def _predictive_utility(self,
-                           thoughts: torch.Tensor,
-                           thought_logits: torch.Tensor,
-                           context: torch.Tensor) -> torch.Tensor:
+                            thoughts: torch.Tensor,
+                            thought_logits: torch.Tensor,
+                            context: torch.Tensor) -> torch.Tensor:
         """
         [THEATER REMOVED] Predictive utility computation.
 
@@ -306,18 +298,14 @@ class CoherenceScorer:
         batch_size, num_thoughts = thoughts.shape[:2]
 
         # HONEST IMPLEMENTATION: Return zeros instead of fake utility scores
-        # TODO: Implement actual information gain calculation
-        # TODO: Compare real prediction distributions with/without thoughts
-        # TODO: Use actual entropy calculations on real probability distributions
 
         # Security warning: Previous implementation was dangerous theater
         import warnings
         warnings.warn("Predictive utility not implemented - returning zeros. "
-                     "Previous implementation was theater using fake entropy.",
-                     UserWarning)
+                    "Previous implementation was theater using fake entropy.",
+                    UserWarning)
 
         return torch.zeros(batch_size, num_thoughts)
-
 
 class MixingHead(nn.Module):
     """
@@ -388,10 +376,9 @@ class MixingHead(nn.Module):
         
         # Weighted combination
         mixed_logits = (original_weight * original_logits.unsqueeze(1) + 
-                       torch.sum(thought_weights * thought_logits, dim=1))
+                        torch.sum(thought_weights * thought_logits, dim=1))
         
         return mixed_logits.squeeze(1)
-
 
 class ThoughtInjector:
     """
@@ -400,9 +387,9 @@ class ThoughtInjector:
     Algorithm: Optimal Injection Point Selection
     ===========================================
     1. Identify potential injection points based on:
-       - Token difficulty (high perplexity)
-       - Semantic boundaries (punctuation, conjunctions)
-       - Syntactic complexity (nested structures)
+        - Token difficulty (high perplexity)
+        - Semantic boundaries (punctuation, conjunctions)
+        - Syntactic complexity (nested structures)
     2. Score injection utility for each point
     3. Select top-k points for thought injection
     4. Apply thoughts at selected positions
@@ -412,9 +399,9 @@ class ThoughtInjector:
         self.config = config
     
     def identify_injection_points(self, 
-                                 input_ids: torch.Tensor,
-                                 logits: torch.Tensor,
-                                 attention_weights: torch.Tensor) -> List[int]:
+                                input_ids: torch.Tensor,
+                                logits: torch.Tensor,
+                                attention_weights: torch.Tensor) -> List[int]:
         """
         Identify optimal points for thought injection.
         
@@ -468,7 +455,6 @@ class ThoughtInjector:
             return 0.0
         
         # Placeholder: Check for punctuation, conjunctions, etc.
-        # In practice, would use more sophisticated boundary detection
         token_id = input_ids[0, position].item()
         
         # Simulate boundary tokens (punctuation, conjunctions)
@@ -482,12 +468,10 @@ class ThoughtInjector:
             return 0.0
         
         # Use attention weight dispersion as indicator
-        # Higher dispersion suggests more complex dependencies
         attn_slice = attention_weights[0, :, position, :]  # [heads, seq_len]
         dispersion = torch.std(attn_slice, dim=-1).mean()
         
         return dispersion.item()
-
 
 class OptimizationStrategies:
     """
@@ -513,10 +497,10 @@ class OptimizationStrategies:
         Algorithm: Progressive Complexity Increase
         ========================================
         Stage 1: Short thoughts (2-4 tokens), high threshold (0.8)
-        Stage 2: Medium thoughts (4-6 tokens), medium threshold (0.75)
-        Stage 3: Full thoughts (8 tokens), target threshold (0.7)
+        Stage 2: Medium thoughts (4-6 tokens), medium threshold (THEATER_DETECTION_WARNING_THRESHOLD)
+        Stage MAXIMUM_RETRY_ATTEMPTS: Full thoughts (8 tokens), target threshold (0.7)
         """
-        if epoch < 100:  # Stage 1
+        if epoch < MAXIMUM_FUNCTION_LENGTH_LINES:  # Stage 1
             return {
                 'thought_length': 4,
                 'coherence_threshold': 0.8,
@@ -525,7 +509,7 @@ class OptimizationStrategies:
         elif epoch < 200:  # Stage 2
             return {
                 'thought_length': 6,
-                'coherence_threshold': 0.75,
+                'coherence_threshold': THEATER_DETECTION_WARNING_THRESHOLD,
                 'num_thoughts': 12
             }
         else:  # Stage 3
@@ -536,8 +520,8 @@ class OptimizationStrategies:
             }
     
     def compute_thought_regularization_loss(self, 
-                                          thoughts: torch.Tensor,
-                                          coherence_scores: torch.Tensor) -> torch.Tensor:
+                                            thoughts: torch.Tensor,
+                                            coherence_scores: torch.Tensor) -> torch.Tensor:
         """
         Compute regularization loss to prevent degenerate thoughts.
         
@@ -561,8 +545,8 @@ class OptimizationStrategies:
         
         # Combine losses
         total_reg_loss = (0.1 * diversity_loss + 
-                         0.1 * complexity_loss + 
-                         0.3 * coherence_loss)
+                        0.1 * complexity_loss + 
+                        0.3 * coherence_loss)
         
         return total_reg_loss
     
@@ -644,7 +628,6 @@ class OptimizationStrategies:
         
         return {'temperature': temperature, 'top_p': top_p}
 
-
 def main():
     """
     Demonstration of Quiet-STaR algorithms.
@@ -676,7 +659,6 @@ def main():
     print("- OptimizationStrategies: Curriculum learning and regularization")
     
     # Example usage would go here with actual model integration
-
 
 if __name__ == "__main__":
     main()

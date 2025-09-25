@@ -7,7 +7,7 @@
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 1. [Quick Start](#quick-start)
 2. [What is This?](#what-is-this)
@@ -22,7 +22,7 @@
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 **Get up and running in 5 minutes:**
 
@@ -61,16 +61,16 @@ C:\Users\17175\AppData\Roaming\Python\Python312\Scripts\connascence.exe
 2. Press `Ctrl+Alt+A` (Analyze Current File)
 3. Check the **Problems panel** (bottom) for violations
 4. Look for **colored squiggles** in the editor:
-   - 🔴 **Red** = Critical violations
-   - 🟡 **Yellow** = High severity warnings
-   - 🔵 **Blue** = Medium info
-   - 💡 **Gray** = Low hints
+   -  **Red** = Critical violations
+   -  **Yellow** = High severity warnings
+   -  **Blue** = Medium info
+   -  **Gray** = Low hints
 
-**✅ If you see violations, you're ready to go!**
+** If you see violations, you're ready to go!**
 
 ---
 
-## 📖 What is This?
+##  What is This?
 
 The **VSCode Connascence Analyzer Extension** is a real-time code quality analyzer that detects:
 
@@ -82,16 +82,16 @@ The **VSCode Connascence Analyzer Extension** is a real-time code quality analyz
 
 ### Key Features:
 
-✅ **Real-Time Analysis** - Detects issues as you type (1s debounce)
-✅ **Color-Coded Violations** - Red/Yellow/Blue/Gray squiggles by severity
-✅ **Quick Fixes** - Press `Ctrl+.` for refactoring suggestions
-✅ **Quality Dashboard** - Visual metrics and trends (`Ctrl+Alt+D`)
-✅ **19 Commands** - Comprehensive analysis toolset
-✅ **Multi-Language** - Python, C, C++, JavaScript, TypeScript
+ **Real-Time Analysis** - Detects issues as you type (1s debounce)
+ **Color-Coded Violations** - Red/Yellow/Blue/Gray squiggles by severity
+ **Quick Fixes** - Press `Ctrl+.` for refactoring suggestions
+ **Quality Dashboard** - Visual metrics and trends (`Ctrl+Alt+D`)
+ **19 Commands** - Comprehensive analysis toolset
+ **Multi-Language** - Python, C, C++, JavaScript, TypeScript
 
 ---
 
-## 🔧 Installation
+##  Installation
 
 ### Prerequisites:
 
@@ -109,11 +109,11 @@ The **VSCode Connascence Analyzer Extension** is a real-time code quality analyz
 
 ### What's Already Done:
 
-- ✅ Extension installed in VSCode
-- ✅ Python CLI operational
-- ✅ Wrapper v2.0.0 deployed with security hardening
-- ✅ 5 Python syntax errors fixed
-- ✅ All security vulnerabilities resolved (CVSS 8.1 → 0)
+-  Extension installed in VSCode
+-  Python CLI operational
+-  Wrapper v2.0.0 deployed with security hardening
+-  5 Python syntax errors fixed
+-  All security vulnerabilities resolved (CVSS 8.1  0)
 
 ### What You Need to Do:
 
@@ -123,9 +123,9 @@ The **VSCode Connascence Analyzer Extension** is a real-time code quality analyz
 
 ---
 
-## ⚙️ Configuration
+##  Configuration
 
-### 🎨 Visual Highlights vs Squiggles (NEW!)
+###  Visual Highlights vs Squiggles (NEW!)
 
 **Problem**: Many linters (ESLint, Pylint) use squiggles, causing visual overlap.
 
@@ -149,7 +149,7 @@ The **VSCode Connascence Analyzer Extension** is a real-time code quality analyz
 }
 ```
 
-**Or use our ready-made config**: Copy `.vscode/connascence-highlights.json` → `settings.json`
+**Or use our ready-made config**: Copy `.vscode/connascence-highlights.json`  `settings.json`
 
 **See**: `.claude/.artifacts/VISUAL-HIGHLIGHTING-GUIDE.md` for complete details
 
@@ -182,7 +182,7 @@ The extension is pre-configured with these settings:
 ### Changing Settings:
 
 **Via VSCode UI**:
-1. File → Preferences → Settings
+1. File  Preferences  Settings
 2. Search for "connascence"
 3. Change settings as needed
 
@@ -197,7 +197,7 @@ The extension is pre-configured with these settings:
 
 ---
 
-## 🎮 Using the Extension
+##  Using the Extension
 
 ### 19 Available Commands
 
@@ -253,7 +253,7 @@ Right-click in editor:
 
 ---
 
-## 🎨 Features
+##  Features
 
 ### 1. Real-Time Analysis
 
@@ -277,15 +277,15 @@ Right-click in editor:
 
 | Severity | Color | Visual | Meaning |
 |----------|-------|--------|---------|
-| **Critical** | 🔴 Red | Squiggly underline | Must fix immediately |
-| **High** | 🟡 Yellow | Squiggly underline | Should fix soon |
-| **Medium** | 🔵 Blue | Squiggly underline | Plan to fix |
-| **Low** | 💡 Gray | Dotted underline | Nice to fix |
+| **Critical** |  Red | Squiggly underline | Must fix immediately |
+| **High** |  Yellow | Squiggly underline | Should fix soon |
+| **Medium** |  Blue | Squiggly underline | Plan to fix |
+| **Low** |  Gray | Dotted underline | Nice to fix |
 
 **Example**:
 ```python
 def calculate_area(length, width):
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 🔴 Critical: Duplicate algorithm
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  Critical: Duplicate algorithm
     result = length * width
     return result
 ```
@@ -301,7 +301,7 @@ def calculate_area(length, width):
 
 **Example**:
 ```
-🔴 Connascence: Duplicate Algorithm
+ Connascence: Duplicate Algorithm
 
 Severity: Critical
 Type: algorithm_duplication
@@ -380,7 +380,7 @@ def bar():
 
 **Inline metrics** above functions/classes:
 ```python
-# ⚠️ 2 duplicates | 85% similarity | 5 violations
+#  2 duplicates | 85% similarity | 5 violations
 def process_data(data):
     ...
 ```
@@ -392,7 +392,7 @@ Click metrics to:
 
 ---
 
-## 🔍 Troubleshooting
+##  Troubleshooting
 
 ### Issue 1: Extension Commands Don't Work
 
@@ -406,7 +406,7 @@ where connascence
 
 **Expected**:
 ```
-C:\Users\17175\AppData\Local\Programs\connascence.bat  ← Must be FIRST
+C:\Users\17175\AppData\Local\Programs\connascence.bat   Must be FIRST
 C:\Users\17175\AppData\Roaming\Python\Python312\Scripts\connascence.exe
 ```
 
@@ -430,8 +430,8 @@ connascence-wrapper.bat analyze test.py --profile modern_general --format json
 
 **Fix**:
 - If CLI fails: Check Python installation
-- If CLI works: Check VSCode output log (View → Output → Connascence)
-- If no output: Restart extension (Ctrl+Shift+P → "Reload Window")
+- If CLI works: Check VSCode output log (View  Output  Connascence)
+- If no output: Restart extension (Ctrl+Shift+P  "Reload Window")
 
 ### Issue 3: Real-Time Analysis Not Working
 
@@ -548,33 +548,33 @@ python -m py_compile file.py
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ### Integration Flow
 
 ```
 User Edit in VSCode
-    ↓
+    
 File Watcher (1s debounce)
-    ↓
+    
 Extension Triggers Analysis
-    ↓
+    
 spawn('connascence', ['analyze', file, '--profile', X, '--format', 'json'])
-    ↓
+    
 Windows PATH Resolution
-    ↓
+    
 Wrapper Script (C:\...\Local\Programs\connascence.bat)
-    ↓
+    
 Argument Translation
-    ↓ analyze file --profile X → --path file --policy X
+     analyze file --profile X  --path file --policy X
 Python CLI (connascence.exe)
-    ↓
+    
 Analysis Engine (25,640 LOC Python)
-    ↓
+    
 JSON Results
-    ↓
+    
 Extension Diagnostics Provider
-    ↓
+    
 VSCode Problems Panel + Squiggles
 ```
 
@@ -594,12 +594,12 @@ VSCode Problems Panel + Squiggles
 - Files: `connascence-wrapper.bat` (260 lines), `connascence.bat`
 - Purpose: Translate extension CLI args + security validation
 - Security Features:
-  - ✅ Command injection protection (argument whitelisting)
-  - ✅ Dynamic path resolution (no hardcoded paths)
-  - ✅ Input validation (policies, formats, file existence)
-  - ✅ DoS prevention (max 30 arguments)
-  - ✅ Special character escaping (&, |, <, >)
-  - ✅ Support for --arg=value format
+  -  Command injection protection (argument whitelisting)
+  -  Dynamic path resolution (no hardcoded paths)
+  -  Input validation (policies, formats, file existence)
+  -  DoS prevention (max 30 arguments)
+  -  Special character escaping (&, |, <, >)
+  -  Support for --arg=value format
 - Version Check: `connascence-wrapper.bat --wrapper-version`
 
 **3. Python CLI**
@@ -632,7 +632,7 @@ VSCode Problems Panel + Squiggles
 
 ---
 
-## 🛠️ Development
+##  Development
 
 ### Building from Source
 
@@ -688,13 +688,13 @@ connascence --path C:\Users\17175\Desktop\connascence\analyzer --policy strict -
 ```
 
 **Check Logs**:
-- Extension log: View → Output → Connascence
+- Extension log: View  Output  Connascence
 - CLI log: `%TEMP%\connascence-debug.log`
 - Wrapper log: `C:\Users\17175\AppData\Local\Programs\wrapper.log`
 
 ---
 
-## ❓ FAQ
+##  FAQ
 
 ### Q: Does this work on Linux/Mac?
 
@@ -749,7 +749,7 @@ Then manually trigger with `Ctrl+Alt+A`.
 
 **A**:
 ```
-Quality Score = 1.0 - (Total Violations × Severity Weights) / Max Possible
+Quality Score = 1.0 - (Total Violations  Severity Weights) / Max Possible
 ```
 
 Severity weights:
@@ -791,23 +791,23 @@ Or add to `.connascence.json`:
 
 ---
 
-## 📚 Additional Resources
+##  Additional Resources
 
 ### Documentation:
 - **Integration Report**: `.claude/.artifacts/FINAL-INTEGRATION-REPORT.md`
 - **Test Results**: `.claude/.artifacts/VSCODE-EXTENSION-TEST-RESULTS.md`
 - **Security Audit**: `.claude/.artifacts/SECURITY-AUDIT-REPORT.md`
-- **Security Validation**: `.claude/.artifacts/SECURITY-WRAPPER-VALIDATION-REPORT.md` ⭐
-- **Security Changelog**: `.claude/.artifacts/WRAPPER-SECURITY-CHANGELOG.md` 🆕
+- **Security Validation**: `.claude/.artifacts/SECURITY-WRAPPER-VALIDATION-REPORT.md` 
+- **Security Changelog**: `.claude/.artifacts/WRAPPER-SECURITY-CHANGELOG.md` 
 - **Specialist Findings**: `.claude/.artifacts/SPECIALIST-AGENTS-FINAL-REPORT.md`
 - **Dogfooding Report**: `.claude/.artifacts/DOGFOODING-VALIDATION-REPORT.md`
 
 ### Security (Wrapper v2.0.0):
-- ✅ **CVSS 8.1** Command injection → BLOCKED (whitelisting)
-- ✅ **CVSS 7.3** Hardcoded paths → FIXED (dynamic resolution)
-- ✅ **CVSS 6.5** Path traversal → BLOCKED (file validation)
-- ✅ **CVSS 5.0** DoS attacks → PREVENTED (max 30 args)
-- 📊 **Security Score**: 95/100 (Production Ready)
+-  **CVSS 8.1** Command injection  BLOCKED (whitelisting)
+-  **CVSS 7.3** Hardcoded paths  FIXED (dynamic resolution)
+-  **CVSS 6.5** Path traversal  BLOCKED (file validation)
+-  **CVSS 5.0** DoS attacks  PREVENTED (max 30 args)
+-  **Security Score**: 95/100 (Production Ready)
 
 ### Support:
 - GitHub Issues: [Report bugs/features]
@@ -822,7 +822,7 @@ Or add to `.connascence.json`:
 
 ---
 
-## 📝 Quick Reference Card
+##  Quick Reference Card
 
 ### Essential Commands:
 ```bash
@@ -872,6 +872,6 @@ $newPath = $path -replace 'C:\\Users\\17175\\AppData\\Local\\Programs;', ''
 
 **Version**: 2.0.2
 **Last Updated**: 2025-09-23
-**Status**: ✅ Production Ready (after PATH update)
+**Status**:  Production Ready (after PATH update)
 
-**Quick Start**: Update PATH → Restart VSCode → Press Ctrl+Alt+A → Start analyzing!
+**Quick Start**: Update PATH  Restart VSCode  Press Ctrl+Alt+A  Start analyzing!

@@ -1,0 +1,61 @@
+{
+  "$id": "schema/Task.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Task",
+  "description": "Schema for task records linked to PRDs",
+  "type": "object",
+  "required": ["title", "team", "linked_prd", "status", "priority", "version"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^task_[0-9]+$",
+      "description": "Unique task identifier"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 200,
+      "description": "Task title"
+    },
+    "team": {
+      "enum": ["data", "backend", "email", "frontend", "devops"],
+      "description": "Assigned team"
+    },
+    "linked_prd": {
+      "type": "string",
+      "pattern": "^prd_[0-9]+$",
+      "description": "Linked PRD ID"
+    },
+    "status": {
+      "enum": ["todo", "in_progress", "blocked", "done"],
+      "description": "Task status"
+    },
+    "priority": {
+      "enum": ["p0", "p1", "p2"],
+      "description": "Task priority"
+    },
+    "assignee": {
+      "type": "string",
+      "description": "Assigned person"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Task version"
+    },
+    "last_run": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last processing timestamp"
+    },
+    "upsert_key": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": ["linked_prd", "title", "team"],
+      "description": "Fields used for upsert operations"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,7 +1,4 @@
-"""
-Reality Validation Engine
-Validates that quality improvements are real, not theater.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH
 
 import os
 import json
@@ -13,7 +10,6 @@ from dataclasses import dataclass
 
 from .core import RealityValidationResult, TheaterPattern, TheaterType, SeverityLevel
 
-
 @dataclass
 class QualityMetric:
     """Represents a quality metric measurement."""
@@ -23,14 +19,13 @@ class QualityMetric:
     timestamp: str
     source: str
 
-
 class RealityValidator:
     """Validates that claimed improvements are real."""
 
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
+def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
 
-    def validate_test_claims(self, directory: str) -> Tuple[bool, Dict[str, Any]]:
+def validate_test_claims(self, directory: str) -> Tuple[bool, Dict[str, Any]]:
         """Validate test coverage and quality claims."""
         results = {
             "test_files_found": 0,
@@ -94,7 +89,7 @@ class RealityValidator:
 
         return is_valid, results
 
-    def validate_quality_metrics(self, metrics: Dict[str, Any]) -> Tuple[bool, List[str]]:
+def validate_quality_metrics(self, metrics: Dict[str, Any]) -> Tuple[bool, List[str]]:
         """Validate quality metrics for suspicious values."""
         issues = []
 
@@ -105,7 +100,7 @@ class RealityValidator:
                 issues.append(f"Suspicious perfect value for {key}: {value}")
 
         # Check for impossible combinations
-        if metrics.get("coverage", 0) == 100 and metrics.get("test_count", 0) < 5:
+        if metrics.get("coverage", 0) == MAXIMUM_FUNCTION_LENGTH_LINES and metrics.get("test_count", 0) < MAXIMUM_NESTED_DEPTH:
             issues.append("100% coverage with very few tests is suspicious")
 
         if metrics.get("bug_count", -1) == 0 and metrics.get("complexity", 0) > 50:
@@ -113,7 +108,7 @@ class RealityValidator:
 
         return len(issues) == 0, issues
 
-    def validate_code_changes(self, directory: str) -> Tuple[bool, Dict[str, Any]]:
+def validate_code_changes(self, directory: str) -> Tuple[bool, Dict[str, Any]]:
         """Validate that code changes are meaningful."""
         results = {
             "total_files": 0,
@@ -191,7 +186,7 @@ class RealityValidator:
 
         return is_valid, results
 
-    def perform_reality_check(self, directory: str, claims: Dict[str, Any]) -> RealityValidationResult:
+def perform_reality_check(self, directory: str, claims: Dict[str, Any]) -> RealityValidationResult:
         """Perform comprehensive reality validation."""
         issues = []
         metrics = {}
@@ -247,7 +242,7 @@ class RealityValidator:
                 confidence=0.7
             ))
         else:
-            overall_score += 25
+            overall_score += MAXIMUM_GOD_OBJECTS_ALLOWED
 
         # Check for error masking
         error_patterns = self._check_error_masking(directory)
@@ -264,7 +259,7 @@ class RealityValidator:
             timestamp=datetime.now().isoformat()
         )
 
-    def _check_error_masking(self, directory: str) -> List[TheaterPattern]:
+def _check_error_masking(self, directory: str) -> List[TheaterPattern]:
         """Check for error masking patterns."""
         patterns = []
 

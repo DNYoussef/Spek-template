@@ -1,7 +1,4 @@
-"""
-Refactored DFARS Audit Trail Manager - Main coordinator
-Combines specialized components to eliminate God Object anti-pattern
-"""
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 import time
 import threading
@@ -23,7 +20,7 @@ class RefactoredDFARSAuditManager:
     BACKUP_INTERVAL = 86400  # 24 hours
     INTEGRITY_CHECK_INTERVAL = 3600  # 1 hour
 
-    def __init__(self, storage_path: str = ".claude/.artifacts/enhanced_audit"):
+def __init__(self, storage_path: str = ".claude/.artifacts/enhanced_audit"):
         """Initialize refactored audit manager with specialized components."""
 
         # Specialized component managers
@@ -56,16 +53,16 @@ class RefactoredDFARSAuditManager:
         # Start background processor
         self.start_processor()
 
-    def log_audit_event(self,
-                       event_type: AuditEventType,
-                       severity: SeverityLevel,
-                       user_id: str,
-                       source_ip: str,
-                       component: str,
-                       action: str,
-                       outcome: str,
-                       details: Optional[Dict[str, Any]] = None,
-                       metadata: Optional[Dict[str, Any]] = None) -> str:
+def log_audit_event(self,
+                        event_type: AuditEventType,
+                        severity: SeverityLevel,
+                        user_id: str,
+                        source_ip: str,
+                        component: str,
+                        action: str,
+                        outcome: str,
+                        details: Optional[Dict[str, Any]] = None,
+                        metadata: Optional[Dict[str, Any]] = None) -> str:
         """Log an audit event - main public interface."""
 
         # Create event using event manager
@@ -91,7 +88,7 @@ class RefactoredDFARSAuditManager:
             self._process_single_event(event)
             return event.event_id
 
-    def start_processor(self):
+def start_processor(self):
         """Start background audit processor."""
         if not self.processor_active:
             self.processor_active = True
@@ -101,11 +98,11 @@ class RefactoredDFARSAuditManager:
             )
             self.processor_thread.start()
 
-    def stop_processor(self):
+def stop_processor(self):
         """Stop background processor gracefully."""
         self.processor_active = False
         if self.processor_thread:
-            self.processor_thread.join(timeout=5.0)
+            self.processor_thread.join(timeout=MAXIMUM_NESTED_DEPTH)
 
         # Process remaining events
         self._process_remaining_events()
@@ -115,7 +112,7 @@ class RefactoredDFARSAuditManager:
             self.current_chain = self.integrity_manager.finalize_chain(self.current_chain)
             self.chain_history.append(self.current_chain)
 
-    def _processor_loop(self):
+def _processor_loop(self):
         """Background processor loop."""
         last_maintenance = time.time()
 
@@ -144,12 +141,12 @@ class RefactoredDFARSAuditManager:
                 # Log error but continue
                 print(f"Processor error: {e}")
 
-    def _process_events_batch(self, events: List[AuditEvent]):
+def _process_events_batch(self, events: List[AuditEvent]):
         """Process a batch of events."""
         for event in events:
             self._process_single_event(event)
 
-    def _process_single_event(self, event: AuditEvent):
+def _process_single_event(self, event: AuditEvent):
         """Process single event through the pipeline."""
 
         # Apply integrity protection
@@ -164,12 +161,12 @@ class RefactoredDFARSAuditManager:
         if self.current_chain.event_count >= 10000:
             self._rotate_chain()
 
-    def _start_new_chain(self):
+def _start_new_chain(self):
         """Start a new audit chain."""
         self.current_chain = self.integrity_manager.start_new_chain()
         self.metrics["chains_created"] += 1
 
-    def _rotate_chain(self):
+def _rotate_chain(self):
         """Rotate to a new chain."""
         if self.current_chain:
             # Finalize current chain
@@ -179,7 +176,7 @@ class RefactoredDFARSAuditManager:
         # Start new chain
         self._start_new_chain()
 
-    def _perform_maintenance(self):
+def _perform_maintenance(self):
         """Perform periodic maintenance tasks."""
         # Cleanup old files
         self.storage_manager.cleanup_old_files()
@@ -190,17 +187,17 @@ class RefactoredDFARSAuditManager:
 
         self.metrics["integrity_checks"] += 1
 
-    def _should_backup(self) -> bool:
+def _should_backup(self) -> bool:
         """Check if backup is needed."""
         return (time.time() - self.storage_manager.last_backup_time) > self.BACKUP_INTERVAL
 
-    def _backup_audit_logs(self):
+def _backup_audit_logs(self):
         """Create backup of audit logs."""
         backup_path = str(Path(self.storage_manager.storage_path) / "backups")
         self.storage_manager.backup_audit_logs(backup_path)
         self.metrics["backups_created"] += 1
 
-    def _process_remaining_events(self):
+def _process_remaining_events(self):
         """Process any remaining events in buffer."""
         remaining = []
         while not self.audit_buffer.empty():
@@ -214,9 +211,9 @@ class RefactoredDFARSAuditManager:
 
     # Convenience methods delegating to specialized components
 
-    def log_user_authentication(self, user_id: str, success: bool,
-                               source_ip: str, method: str = "password",
-                               details: Optional[Dict] = None) -> str:
+def log_user_authentication(self, user_id: str, success: bool,
+                                source_ip: str, method: str = "password",
+                                details: Optional[Dict] = None) -> str:
         """Log user authentication event."""
         event = self.event_manager.log_user_authentication(
             user_id, success, source_ip, method, details
@@ -224,8 +221,8 @@ class RefactoredDFARSAuditManager:
         self.audit_buffer.put(event)
         return event.event_id
 
-    def log_data_access(self, user_id: str, resource: str, action: str,
-                       source_ip: str, outcome: str = "success") -> str:
+def log_data_access(self, user_id: str, resource: str, action: str,
+                        source_ip: str, outcome: str = "success") -> str:
         """Log data access event."""
         event = self.event_manager.log_data_access(
             user_id, resource, action, source_ip, outcome
@@ -233,7 +230,7 @@ class RefactoredDFARSAuditManager:
         self.audit_buffer.put(event)
         return event.event_id
 
-    def log_configuration_change(self, change_type: str, component: str,
+def log_configuration_change(self, change_type: str, component: str,
                                 user_id: str, old_value: Any, new_value: Any) -> str:
         """Log configuration change."""
         event = self.event_manager.log_configuration_change(
@@ -242,7 +239,7 @@ class RefactoredDFARSAuditManager:
         self.audit_buffer.put(event)
         return event.event_id
 
-    def get_audit_statistics(self) -> Dict[str, Any]:
+def get_audit_statistics(self) -> Dict[str, Any]:
         """Get comprehensive audit statistics."""
         storage_stats = self.storage_manager.get_storage_statistics()
         integrity_report = self.integrity_manager.get_integrity_report(self.chain_history)
@@ -258,13 +255,13 @@ class RefactoredDFARSAuditManager:
             "buffer_size": self.audit_buffer.qsize()
         }
 
-    def search_audit_events(self, start_time: Optional[float] = None,
-                          end_time: Optional[float] = None,
-                          limit: int = 1000) -> List[Dict[str, Any]]:
+def search_audit_events(self, start_time: Optional[float] = None,
+                            end_time: Optional[float] = None,
+                            limit: int = 1000) -> List[Dict[str, Any]]:
         """Search audit events within time range."""
         return self.storage_manager.read_events(start_time, end_time, limit)
 
-    def verify_audit_trail_integrity(self, start_time: Optional[float] = None,
+def verify_audit_trail_integrity(self, start_time: Optional[float] = None,
                                     end_time: Optional[float] = None) -> Dict[str, Any]:
         """Verify integrity of audit trail."""
         events_data = self.storage_manager.read_events(start_time, end_time, limit=100000)

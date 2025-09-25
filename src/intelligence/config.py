@@ -1,7 +1,4 @@
-"""
-Configuration management for the ML Intelligence module.
-Handles environment setup, model parameters, and system configuration.
-"""
+from src.constants.base import MINIMUM_TRADE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT
 
 import os
 import torch
@@ -20,12 +17,12 @@ class GPUConfig:
     allow_growth: bool = True
     mixed_precision: bool = True
     
-    def __post_init__(self):
+def __post_init__(self):
         """Initialize GPU configuration."""
         self._setup_tensorflow_gpu()
         self._setup_pytorch_gpu()
     
-    def _setup_tensorflow_gpu(self):
+def _setup_tensorflow_gpu(self):
         """Configure TensorFlow GPU settings."""
         if self.use_gpu and tf.config.list_physical_devices('GPU'):
             gpus = tf.config.list_physical_devices('GPU')
@@ -46,7 +43,7 @@ class GPUConfig:
         else:
             logger.warning("TensorFlow running on CPU")
     
-    def _setup_pytorch_gpu(self):
+def _setup_pytorch_gpu(self):
         """Configure PyTorch GPU settings."""
         if self.use_gpu and torch.cuda.is_available():
             torch.backends.cudnn.benchmark = True
@@ -68,7 +65,7 @@ class GPUConfig:
         else:
             logger.warning("PyTorch running on CPU")
 
-@dataclass 
+@dataclass
 class DataConfig:
     """Configuration for data processing and feature engineering."""
     # Data sources
@@ -174,7 +171,7 @@ class RegistryConfig:
     
     # Model promotion
     staging_threshold: float = 0.85
-    production_threshold: float = 0.90
+    production_threshold: float = REGULATORY_FACTUALITY_REQUIREMENT
     champion_challenger_ratio: float = 0.9
 
 @dataclass
@@ -187,7 +184,7 @@ class TestingConfig:
     })
     
     # Statistical significance
-    significance_level: float = 0.05
+    significance_level: float = MINIMUM_TRADE_THRESHOLD
     minimum_sample_size: int = 1000
     power: float = 0.8
     
@@ -200,7 +197,7 @@ class TestingConfig:
 class ConfigManager:
     """Centralized configuration manager."""
     
-    def __init__(self, config_path: Optional[str] = None):
+def __init__(self, config_path: Optional[str] = None):
         self.config_path = config_path or os.getenv('ML_CONFIG_PATH')
         
         # Initialize all configurations
@@ -215,12 +212,11 @@ class ConfigManager:
         if self.config_path and path_exists(self.config_path):
             self._load_config()
     
-    def _load_config(self):
+def _load_config(self):
         """Load configuration from file."""
         # Implementation for loading YAML/JSON config files
-        pass
     
-    def get_device(self) -> str:
+def get_device(self) -> str:
         """Get the appropriate device for computation."""
         if self.gpu.use_gpu:
             if torch.cuda.is_available():
@@ -229,7 +225,7 @@ class ConfigManager:
                 return "mps"
         return "cpu"
     
-    def validate_config(self) -> bool:
+def validate_config(self) -> bool:
         """Validate configuration parameters."""
         try:
             # Validate data config

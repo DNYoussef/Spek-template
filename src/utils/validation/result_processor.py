@@ -11,10 +11,10 @@ Estimated LOC consolidation: 186 lines
 Estimated CoA reduction: ~140 violations
 """
 
-from dataclasses import dataclass
 from typing import List, Dict, Any, Optional
-from enum import Enum
 
+from dataclasses import dataclass
+from enum import Enum
 
 class ValidationStatus(Enum):
     """Standardized validation status types"""
@@ -22,7 +22,6 @@ class ValidationStatus(Enum):
     FAIL = "fail"
     WARNING = "warning"
     SKIPPED = "skipped"
-
 
 @dataclass
 class ValidationResult:
@@ -39,18 +38,17 @@ class ValidationResult:
     error_message: Optional[str] = None
     metadata: Dict[str, Any] = None
 
-    def __post_init__(self):
+def __post_init__(self):
         if self.metadata is None:
             self.metadata = {}
         if not self.success:
             self.status = ValidationStatus.FAIL
 
-
 class ValidationResultProcessor:
     """Process and aggregate validation results"""
 
-    @staticmethod
-    def process_validation_results(results: List[ValidationResult]) -> Dict[str, Any]:
+@staticmethod
+def process_validation_results(results: List[ValidationResult]) -> Dict[str, Any]:
         """
         Process list of validation results into summary statistics
 
@@ -87,14 +85,14 @@ class ValidationResultProcessor:
             "failed_components": [r.component_name for r in results if not r.success]
         }
 
-    @staticmethod
-    def filter_by_status(results: List[ValidationResult],
+@staticmethod
+def filter_by_status(results: List[ValidationResult],
                         status: ValidationStatus) -> List[ValidationResult]:
         """Filter results by validation status"""
         return [r for r in results if r.status == status]
 
-    @staticmethod
-    def group_by_component(results: List[ValidationResult]) -> Dict[str, List[ValidationResult]]:
+@staticmethod
+def group_by_component(results: List[ValidationResult]) -> Dict[str, List[ValidationResult]]:
         """Group validation results by component name"""
         grouped = {}
         for result in results:
@@ -103,8 +101,8 @@ class ValidationResultProcessor:
             grouped[result.component_name].append(result)
         return grouped
 
-    @staticmethod
-    def calculate_improvement_accuracy(results: List[ValidationResult]) -> float:
+@staticmethod
+def calculate_improvement_accuracy(results: List[ValidationResult]) -> float:
         """
         Calculate accuracy of claimed vs measured improvements
 

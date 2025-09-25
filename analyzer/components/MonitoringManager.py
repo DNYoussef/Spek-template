@@ -6,16 +6,16 @@ Part of god object decomposition (Day 5)
 
 from typing import Dict, Any, Callable, Optional
 import logging
+
 import gc
 
 logger = logging.getLogger(__name__)
-
 
 class MonitoringManager:
     """
     Manages memory monitoring and resource cleanup.
 
-    Extracted from UnifiedConnascenceAnalyzer (1,860 LOC -> ~200 LOC component).
+    Extracted from UnifiedConnascenceAnalyzer (1, 860 LOC -> ~200 LOC component).
     Handles:
     - Memory monitoring and alerts
     - Resource management and cleanup
@@ -210,7 +210,7 @@ class MonitoringManager:
                 logger.info("  Resource Breakdown by Type:")
                 for resource_type, stats in resource_report['by_type'].items():
                     logger.info(f"    {resource_type}: {stats['tracked']} tracked, "
-                               f"{stats['size_mb']:.1f}MB, {stats['success_rate']:.1%} cleanup rate")
+                                f"{stats['size_mb']:.1f}MB, {stats['success_rate']:.1%} cleanup rate")
 
         except Exception as e:
             logger.error(f"Failed to generate comprehensive monitoring report: {e}")

@@ -290,8 +290,8 @@ export class TestRunner extends EventEmitter {
 
       // Detect individual test results
       if (currentSuite) {
-        if (line.includes('✓') || line.includes('✔')) {
-          const match = line.match(/\s*✓\s+(.+?)\s+\((\d+)\s*ms\)/);
+        if (line.includes('') || line.includes('')) {
+          const match = line.match(/\s*\s+(.+?)\s+\((\d+)\s*ms\)/);
           if (match) {
             const test: TestResult = {
               name: match[1],
@@ -301,8 +301,8 @@ export class TestRunner extends EventEmitter {
             currentSuite.tests.push(test);
             currentSuite.passed++;
           }
-        } else if (line.includes('✕') || line.includes('✗')) {
-          const match = line.match(/\s*✕\s+(.+?)\s+\((\d+)\s*ms\)/);
+        } else if (line.includes('') || line.includes('')) {
+          const match = line.match(/\s*\s+(.+?)\s+\((\d+)\s*ms\)/);
           if (match) {
             const test: TestResult = {
               name: match[1],
@@ -312,8 +312,8 @@ export class TestRunner extends EventEmitter {
             currentSuite.tests.push(test);
             currentSuite.failed++;
           }
-        } else if (line.includes('○') || line.includes('skipped')) {
-          const match = line.match(/\s*○\s+(.+)/);
+        } else if (line.includes('') || line.includes('skipped')) {
+          const match = line.match(/\s*\s+(.+)/);
           if (match) {
             const test: TestResult = {
               name: match[1],

@@ -11,11 +11,11 @@ This module provides enterprise-grade capabilities including:
 Version: 1.0.0
 """
 
-from .telemetry.six_sigma import SixSigmaTelemetry, SixSigmaMetrics
-from .security.supply_chain import SupplyChainSecurity, SBOMGenerator, SLSAGenerator
 from .compliance.matrix import ComplianceMatrix, ComplianceFramework
 from .flags.feature_flags import FeatureFlag, enterprise_feature, flag_manager
 from .integration.analyzer import EnterpriseAnalyzerIntegration
+from .security.supply_chain import SupplyChainSecurity, SBOMGenerator, SLSAGenerator
+from .telemetry.six_sigma import SixSigmaTelemetry, SixSigmaMetrics
 
 __version__ = "1.0.0"
 __all__ = [

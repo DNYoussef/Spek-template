@@ -5,8 +5,8 @@ Part of god object decomposition (Day 5)
 
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-import logging
 import ast
+import logging
 
 logger = logging.getLogger(__name__)
 
@@ -37,12 +37,11 @@ except ImportError:
     TreeSitterBackend = None
     LanguageSupport = None
 
-
 class AnalysisOrchestrator:
     """
     Orchestrates analysis pipeline execution across all analyzers.
 
-    Extracted from UnifiedConnascenceAnalyzer (1,860 LOC -> ~400 LOC component).
+    Extracted from UnifiedConnascenceAnalyzer (1, 860 LOC -> ~400 LOC component).
     Handles:
     - Batch/streaming/hybrid analysis modes
     - AST analysis coordination

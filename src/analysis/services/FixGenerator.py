@@ -4,14 +4,14 @@ Generates fix strategies for identified failures
 Part of god object decomposition (Day 3-5)
 """
 
-import json
-from typing import Dict, List, Optional, Tuple, Any
-from dataclasses import dataclass, field
 from datetime import datetime
+from typing import Dict, List, Optional, Tuple, Any
+import json
 import logging
 
-logger = logging.getLogger(__name__)
+from dataclasses import dataclass, field
 
+logger = logging.getLogger(__name__)
 
 @dataclass
 class FixStrategy:
@@ -26,12 +26,11 @@ class FixStrategy:
     rollback_plan: List[str] = field(default_factory=list)
     dependencies: List[str] = field(default_factory=list)
 
-
 class FixGenerator:
     """
     Generates fix strategies for failures.
 
-    Extracted from FailurePatternDetector god object (1,281 LOC -> ~200 LOC component).
+    Extracted from FailurePatternDetector god object (1, 281 LOC -> ~200 LOC component).
     Handles:
     - Fix strategy generation
     - Multi-step fix planning
@@ -130,8 +129,8 @@ class FixGenerator:
         self.fix_templates = templates
 
     def generate_strategy(self,
-                         cause_type: str,
-                         evidence: List[str]) -> Optional[FixStrategy]:
+                        cause_type: str,
+                        evidence: List[str]) -> Optional[FixStrategy]:
         """Generate a fix strategy based on root cause."""
         # Map cause types to fix strategies
         cause_to_strategy = {
@@ -154,8 +153,8 @@ class FixGenerator:
         return None
 
     def _customize_strategy(self,
-                          base_strategy: FixStrategy,
-                          evidence: List[str]) -> FixStrategy:
+                            base_strategy: FixStrategy,
+                            evidence: List[str]) -> FixStrategy:
         """Customize strategy based on specific evidence."""
         # Create a copy
         import copy
@@ -179,9 +178,9 @@ class FixGenerator:
         return strategy
 
     def generate_comprehensive_fix(self,
-                                  cause_type: str,
-                                  affected_components: List[str],
-                                  context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+                                    cause_type: str,
+                                    affected_components: List[str],
+                                    context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Generate a comprehensive fix plan."""
         # Get primary strategy
         primary_strategy = self.generate_strategy(cause_type, [])
@@ -309,7 +308,6 @@ class FixGenerator:
             return 0.0
 
         # This would need actual validation data in production
-        # For now, return average success probability
         total_probability = sum(
             fix["fix_plan"].get("success_probability", 0.5)
             for fix in self.generated_fixes

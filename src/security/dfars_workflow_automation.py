@@ -1,8 +1,5 @@
 from lib.shared.utilities import get_logger
-#!/usr/bin/env python3
-"""
-DFARS Compliance Workflow Automation System
-Defense Federal Acquisition Regulation Supplement (DFARS 252.204-7012)
+from src.constants.base import SESSION_TIMEOUT_SECONDS
 
 Comprehensive workflow automation for all 14 DFARS controls with:
 - Real-time compliance monitoring
@@ -189,7 +186,7 @@ class AccessControlManager:
         self.authenticated_users: Dict[str, Dict] = {}
         self.failed_attempts: Dict[str, int] = {}
         self.lockout_threshold = 3
-        self.session_timeout = 3600  # 1 hour
+        self.session_timeout = SESSION_TIMEOUT_SECONDS  # 1 hour
 
     def authenticate_user(self, username: str, password: str, mfa_token: Optional[str] = None) -> Tuple[bool, str]:
         """Multi-factor authentication"""
@@ -374,7 +371,7 @@ class IncidentResponseManager:
         self.response_thread.start()
 
     def create_incident(self, severity: IncidentSeverity, control: DFARSControl,
-                       description: str, affected_assets: List[str]) -> str:
+                        description: str, affected_assets: List[str]) -> str:
         """Create security incident"""
         incident_id = f"DFARS-{datetime.now().strftime('%Y%m%d')}-{secrets.token_hex(4).upper()}"
 
@@ -450,8 +447,8 @@ class AuditTrailManager:
         self.audit_file = Path("audit_trail.log")
 
     def create_audit_record(self, user_id: str, action: str, resource: str,
-                          result: str, ip_address: str = "127.0.0.1",
-                          user_agent: str = "System") -> str:
+                            result: str, ip_address: str = "127.0.0.1",
+                            user_agent: str = "System") -> str:
         """Create tamper-proof audit record"""
         record_id = f"AUDIT-{datetime.now().strftime('%Y%m%d%H%M%S')}-{secrets.token_hex(4)}"
         timestamp = datetime.now()
@@ -853,18 +850,15 @@ async def main():
     dfars_system = DFARSWorkflowAutomation()
 
     # Test authentication
-    print("\n1. Testing Authentication...")
     success, token = dfars_system.authenticate_user("admin_user", "ComplexPassword123!", "123456")
     print(f"Authentication result: {success}, Token: {token[:20]}..." if success else f"Authentication failed: {token}")
 
     # Test CUI scanning
-    print("\n2. Testing CUI Scanning...")
     cui_asset = await dfars_system.cui_manager.scan_for_cui(__file__)
     if cui_asset:
         print(f"CUI detected: {cui_asset.classification.value}")
 
     # Test incident creation
-    print("\n3. Testing Incident Response...")
     incident_id = dfars_system.incident_manager.create_incident(
         IncidentSeverity.HIGH,
         DFARSControl.ACCESS_CONTROL,

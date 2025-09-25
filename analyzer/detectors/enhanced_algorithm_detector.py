@@ -15,11 +15,11 @@ Features:
 @compliance NASA-POT10, Connascence-Theory
 """
 
+from typing import List, Dict, Tuple, Set
 import ast
 import hashlib
-from typing import List, Dict, Tuple, Set
-from dataclasses import dataclass
 
+from dataclasses import dataclass
 
 @dataclass
 class AlgorithmPattern:
@@ -29,7 +29,6 @@ class AlgorithmPattern:
     normalized_hash: str
     complexity: int
     statement_pattern: str
-
 
 class EnhancedAlgorithmDetector:
 
@@ -156,7 +155,6 @@ class EnhancedAlgorithmDetector:
                     "complexity": pattern.complexity,
                     "recommendation": "Extract common algorithm into shared helper function to reduce duplication"
                 })
-
 
 def detect_algorithm_violations(file_path: str, source_code: str) -> List[Dict]:
     detector = EnhancedAlgorithmDetector()

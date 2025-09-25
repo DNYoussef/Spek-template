@@ -1,7 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Analysis Observers - Observer Pattern Implementation
-==================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH, REGULATORY_FACTUALITY_REQUIREMENT
 
 Concrete observer implementations for analysis event handling.
 NASA Power of Ten compliant with focused observer classes.
@@ -15,7 +12,6 @@ from datetime import datetime
 from .interfaces import AnalysisObserver, AnalysisResult, ConnascenceViolation
 
 logger = logging.getLogger(__name__)
-
 
 class LoggingObserver:
     """
@@ -52,7 +48,6 @@ class LoggingObserver:
     def on_error(self, error: Exception, context: Dict[str, Any]) -> None:
         """Log analysis errors."""
         logger.error(f"Analysis error in {context}: {str(error)}")
-
 
 class MetricsCollector:
     """
@@ -110,7 +105,6 @@ class MetricsCollector:
             'average_analysis_time_seconds': round(avg_analysis_time, 3),
             'error_rate': self.metrics['error_count'] / self.metrics['analyses_count']
         }
-
 
 class FileReportObserver:
     """
@@ -204,7 +198,6 @@ class FileReportObserver:
         except Exception as e:
             logger.error(f"Report file write failed: {e}")
 
-
 class RealTimeMonitor:
     """
     Observer for real-time monitoring and alerting.
@@ -212,7 +205,7 @@ class RealTimeMonitor:
     NASA Rule 4 Compliant: Focused monitoring functionality.
     """
 
-    def __init__(self, alert_threshold: int = 5):
+    def __init__(self, alert_threshold: int = MAXIMUM_NESTED_DEPTH):
         self.observer_name = "RealTimeMonitor"
         self.alert_threshold = alert_threshold
         self.current_critical_count = 0
@@ -234,7 +227,7 @@ class RealTimeMonitor:
         """Monitor overall analysis results."""
         nasa_score = result.nasa_compliance.get('score', 1.0)
 
-        if nasa_score < 0.90:
+        if nasa_score < REGULATORY_FACTUALITY_REQUIREMENT:
             self._send_alert(f"NASA compliance below 90%: {nasa_score:.2f}")
 
     def on_error(self, error: Exception, context: Dict[str, Any]) -> None:

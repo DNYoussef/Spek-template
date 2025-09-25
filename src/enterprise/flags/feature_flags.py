@@ -6,8 +6,6 @@ for non-breaking integration with existing systems.
 """
 
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
-
 
 class FlagStatus(Enum):
     """Feature flag status"""
@@ -17,7 +15,6 @@ class FlagStatus(Enum):
     AB_TEST = "ab_test"   # A/B testing
     DEPRECATED = "deprecated"
 
-
 class RolloutStrategy(Enum):
     """Rollout strategies"""
     ALL_USERS = "all_users"
@@ -25,7 +22,6 @@ class RolloutStrategy(Enum):
     USER_LIST = "user_list"
     GRADUAL = "gradual"
     CANARY = "canary"
-
 
 @dataclass
 class FlagMetrics:
@@ -37,7 +33,6 @@ class FlagMetrics:
     error_count: int = 0
     last_accessed: Optional[datetime] = None
     performance_impact: Dict[str, float] = field(default_factory=dict)
-
 
 @dataclass
 class FeatureFlag:
@@ -58,8 +53,8 @@ class FeatureFlag:
     configuration: Dict[str, Any] = field(default_factory=dict)
     
     def is_enabled(self, user_id: Optional[str] = None, 
-                   group_ids: Optional[List[str]] = None,
-                   context: Optional[Dict[str, Any]] = None) -> bool:
+                    group_ids: Optional[List[str]] = None,
+                    context: Optional[Dict[str, Any]] = None) -> bool:
         """Check if flag is enabled for given context"""
         try:
             # Check date constraints
@@ -72,7 +67,6 @@ class FeatureFlag:
             # Check prerequisites
             if self.prerequisites:
                 # Would check other flags - simplified for demo
-                pass
                 
             if self.status == FlagStatus.DISABLED:
                 return False
@@ -93,8 +87,8 @@ class FeatureFlag:
             return False
             
     def _check_rollout_eligibility(self, user_id: Optional[str],
-                                 group_ids: Optional[List[str]], 
-                                 context: Optional[Dict[str, Any]]) -> bool:
+                                group_ids: Optional[List[str]], 
+                                context: Optional[Dict[str, Any]]) -> bool:
         """Check rollout eligibility based on strategy"""
         if self.rollout_strategy == RolloutStrategy.ALL_USERS:
             return True
@@ -117,7 +111,7 @@ class FeatureFlag:
         return False
         
     def _check_ab_test_eligibility(self, user_id: Optional[str],
-                                 context: Optional[Dict[str, Any]]) -> bool:
+                                context: Optional[Dict[str, Any]]) -> bool:
         """Check A/B test eligibility"""
         if user_id:
             # Simple A/B split based on user ID hash
@@ -136,11 +130,10 @@ class FeatureFlag:
         # Update average execution time
         if execution_time > 0:
             total_time = (self.metrics.average_execution_time * 
-                         (self.metrics.total_calls - 1) + execution_time)
+                        (self.metrics.total_calls - 1) + execution_time)
             self.metrics.average_execution_time = total_time / self.metrics.total_calls
             
         self.metrics.last_accessed = datetime.now()
-
 
 class FeatureFlagManager:
     """
@@ -209,8 +202,8 @@ class FeatureFlagManager:
         return self.flags.get(name)
         
     def is_enabled(self, name: str, user_id: Optional[str] = None,
-                   group_ids: Optional[List[str]] = None,
-                   context: Optional[Dict[str, Any]] = None) -> bool:
+                    group_ids: Optional[List[str]] = None,
+                    context: Optional[Dict[str, Any]] = None) -> bool:
         """Check if feature flag is enabled"""
         flag = self.flags.get(name)
         if not flag:
@@ -299,14 +292,12 @@ class FeatureFlagManager:
         with open(self.config_file, 'w') as f:
             json.dump(config_data, f, indent=2)
             
-
 # Global flag manager instance
 flag_manager = FeatureFlagManager()
 
-
 def enterprise_feature(name: str, description: str = "", default: bool = False,
-                      user_id_param: str = "user_id",
-                      context_param: str = "context"):
+                        user_id_param: str = "user_id",
+                        context_param: str = "context"):
     """
     Decorator for enterprise feature flags with non-breaking integration
     
@@ -314,12 +305,10 @@ def enterprise_feature(name: str, description: str = "", default: bool = False,
         @enterprise_feature("new_algorithm", "Use new processing algorithm")
         def process_data(data, user_id=None):
             # Implementation with new algorithm
-            pass
             
         @process_data.fallback
         def process_data_old(data, user_id=None):
             # Original implementation
-            pass
     """
     def decorator(func: Callable) -> Callable:
         # Ensure flag exists
@@ -372,12 +361,10 @@ def enterprise_feature(name: str, description: str = "", default: bool = False,
         
     return decorator
 
-
 # Convenience functions for common patterns
 def feature_flag(name: str, default: bool = False) -> bool:
     """Simple feature flag check"""
     return flag_manager.is_enabled(name)
-
 
 def conditional_execution(flag_name: str, user_id: Optional[str] = None):
     """Context manager for conditional execution"""
@@ -395,7 +382,6 @@ def conditional_execution(flag_name: str, user_id: Optional[str] = None):
             pass
             
     return ConditionalExecution(flag_name, user_id)
-
 
 def enterprise_gate(flags: Union[str, List[str]], require_all: bool = True):
     """

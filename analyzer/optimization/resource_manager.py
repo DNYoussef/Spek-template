@@ -1,6 +1,4 @@
-"""
-Resource Cleanup Automation System
-==================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
 
 Comprehensive resource management system for automatic cleanup and recovery.
 Provides context managers, cleanup hooks, and emergency procedures to prevent
@@ -27,7 +25,6 @@ from typing import Any, Callable, Dict, List, Optional, Set, Union
 import logging
 logger = logging.getLogger(__name__)
 
-
 @dataclass
 class ResourceTracker:
     """Track resource usage and cleanup operations."""
@@ -38,7 +35,7 @@ class ResourceTracker:
     cleanup_callback: Optional[Callable[[], None]] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
     
-    def cleanup(self) -> bool:
+def cleanup(self) -> bool:
         """Execute cleanup callback if available."""
         try:
             if self.cleanup_callback:
@@ -49,8 +46,7 @@ class ResourceTracker:
             return False
         return True
 
-
-@dataclass  
+@dataclass
 class ResourceStats:
     """Resource usage statistics."""
     total_created: int = 0
@@ -61,29 +57,28 @@ class ResourceStats:
     cleanup_failures: int = 0
     emergency_cleanups: int = 0
     
-    @property
-    def cleanup_success_rate(self) -> float:
+@property
+def cleanup_success_rate(self) -> float:
         """Calculate cleanup success rate."""
         total_attempted = self.total_cleaned + self.cleanup_failures
         if total_attempted == 0:
             return 1.0
         return self.total_cleaned / total_attempted
     
-    @property
-    def resource_leak_count(self) -> int:
+@property
+def resource_leak_count(self) -> int:
         """Calculate potential resource leaks."""
         return self.total_created - self.total_cleaned - self.currently_tracked
-
 
 class ResourceManager:
     """
     Comprehensive resource management system with automatic cleanup.
     
     Thread-safe resource tracking with guaranteed cleanup procedures.
-    NASA Rule 7 compliant with bounded resource usage and monitoring.
+    NASA Rule DAYS_RETENTION_PERIOD compliant with bounded resource usage and monitoring.
     """
     
-    def __init__(self, max_tracked_resources: int = 10000):
+def __init__(self, max_tracked_resources: int = 10000):
         """
         Initialize resource manager.
         
@@ -113,7 +108,7 @@ class ResourceManager:
         # Weak reference tracking for automatic cleanup
         self._weak_refs: Dict[str, weakref.ref] = {}
         
-    def start_periodic_cleanup(self) -> None:
+def start_periodic_cleanup(self) -> None:
         """Start background periodic cleanup."""
         with self._lock:
             if self._cleanup_active:
@@ -128,7 +123,7 @@ class ResourceManager:
             self._cleanup_thread.start()
             logger.info("Periodic resource cleanup started")
     
-    def stop_periodic_cleanup(self) -> None:
+def stop_periodic_cleanup(self) -> None:
         """Stop background periodic cleanup."""
         with self._lock:
             if not self._cleanup_active:
@@ -136,17 +131,17 @@ class ResourceManager:
                 
             self._cleanup_active = False
             if self._cleanup_thread and self._cleanup_thread.is_alive():
-                self._cleanup_thread.join(timeout=5.0)
+                self._cleanup_thread.join(timeout=MAXIMUM_NESTED_DEPTH)
                 
         logger.info("Periodic resource cleanup stopped")
     
-    def register_resource(self, 
-                         resource_type: str,
-                         resource_id: str,
-                         resource_obj: Any = None,
-                         size_bytes: int = 0,
-                         cleanup_callback: Optional[Callable[[], None]] = None,
-                         metadata: Optional[Dict[str, Any]] = None) -> str:
+def register_resource(self,
+                        resource_type: str,
+                        resource_id: str,
+                        resource_obj: Any = None,
+                        size_bytes: int = 0,
+                        cleanup_callback: Optional[Callable[[], None]] = None,
+                        metadata: Optional[Dict[str, Any]] = None) -> str:
         """
         Register resource for tracking and cleanup.
         
@@ -202,11 +197,10 @@ class ResourceManager:
                     )
                 except TypeError:
                     # Object doesn't support weak references
-                    pass
                     
             return tracking_id
     
-    def cleanup_resource(self, tracking_id: str) -> bool:
+def cleanup_resource(self, tracking_id: str) -> bool:
         """
         Manually cleanup specific resource.
         
@@ -218,7 +212,7 @@ class ResourceManager:
         """
         return self._cleanup_resource(tracking_id)
     
-    def _cleanup_resource(self, tracking_id: str) -> bool:
+def _cleanup_resource(self, tracking_id: str) -> bool:
         """Internal resource cleanup implementation."""
         with self._lock:
             tracker = self._resources.get(tracking_id)
@@ -247,7 +241,7 @@ class ResourceManager:
                 
             return cleanup_success
     
-    def cleanup_by_type(self, resource_type: str) -> int:
+def cleanup_by_type(self, resource_type: str) -> int:
         """
         Cleanup all resources of specified type.
         
@@ -267,7 +261,7 @@ class ResourceManager:
                     
             return cleaned_count
     
-    def cleanup_old_resources(self, max_age_seconds: float = 300.0) -> int:
+def cleanup_old_resources(self, max_age_seconds: float = 300.0) -> int:
         """
         Cleanup resources older than specified age.
         
@@ -295,7 +289,7 @@ class ResourceManager:
             
         return cleaned_count
     
-    def cleanup_large_resources(self, min_size_mb: float = 50.0) -> int:
+def cleanup_large_resources(self, min_size_mb: float = 50.0) -> int:
         """
         Cleanup resources larger than specified size.
         
@@ -323,7 +317,7 @@ class ResourceManager:
             
         return cleaned_count
     
-    def _emergency_cleanup(self) -> int:
+def _emergency_cleanup(self) -> int:
         """Emergency cleanup when resource limits exceeded."""
         logger.warning("Executing emergency resource cleanup")
         
@@ -353,7 +347,7 @@ class ResourceManager:
         logger.warning(f"Emergency cleanup completed: {cleaned_count} resources cleaned")
         return cleaned_count
     
-    def _periodic_cleanup_loop(self) -> None:
+def _periodic_cleanup_loop(self) -> None:
         """Background periodic cleanup loop."""
         logger.info("Resource cleanup loop started")
         
@@ -367,7 +361,7 @@ class ResourceManager:
                 
         logger.info("Resource cleanup loop ended")
     
-    def _perform_periodic_cleanup(self) -> None:
+def _perform_periodic_cleanup(self) -> None:
         """Perform periodic cleanup operations."""
         # Cleanup old resources (> 5 minutes)
         cleaned_old = self.cleanup_old_resources(max_age_seconds=300.0)
@@ -394,22 +388,22 @@ class ResourceManager:
         if total_cleaned > 0:
             logger.debug(f"Periodic cleanup: {total_cleaned} resources cleaned")
     
-    def add_cleanup_hook(self, callback: Callable[[], None]) -> None:
+def add_cleanup_hook(self, callback: Callable[[], None]) -> None:
         """Add cleanup hook for shutdown procedures."""
         assert callable(callback), "callback must be callable"
         self._cleanup_hooks.append(callback)
         
-    def add_emergency_hook(self, callback: Callable[[], None]) -> None:
+def add_emergency_hook(self, callback: Callable[[], None]) -> None:
         """Add emergency cleanup hook."""
         assert callable(callback), "callback must be callable"
         self._emergency_hooks.append(callback)
         
-    def add_periodic_cleanup_callback(self, callback: Callable[[], int]) -> None:
+def add_periodic_cleanup_callback(self, callback: Callable[[], int]) -> None:
         """Add periodic cleanup callback that returns number of items cleaned."""
         assert callable(callback), "callback must be callable"
         self._periodic_cleanup_callbacks.append(callback)
     
-    def cleanup_all(self) -> int:
+def cleanup_all(self) -> int:
         """Cleanup all tracked resources."""
         with self._lock:
             tracking_ids = list(self._resources.keys())
@@ -429,7 +423,7 @@ class ResourceManager:
         logger.info(f"Cleaned up all resources: {cleaned_count} resources")
         return cleaned_count
 
-    def trigger_cleanup(self) -> None:
+def trigger_cleanup(self) -> None:
         """Trigger immediate cleanup of resources."""
         try:
             # Force garbage collection
@@ -446,7 +440,7 @@ class ResourceManager:
         except Exception as e:
             logger.error(f"Cleanup trigger failed: {e}")
 
-    def record_file_analyzed(self, violation_count: int) -> None:
+def record_file_analyzed(self, violation_count: int) -> None:
         """Record that a file has been analyzed with violation count."""
         try:
             # Register analysis session as a tracked resource
@@ -470,7 +464,7 @@ class ResourceManager:
         except Exception as e:
             logger.error(f"Failed to record file analysis: {e}")
 
-    def get_usage_stats(self) -> Dict[str, Any]:
+def get_usage_stats(self) -> Dict[str, Any]:
         """Get resource usage statistics."""
         with self._lock:
             total_resources = len(self._resources)
@@ -485,7 +479,7 @@ class ResourceManager:
                 "utilization_percent": (total_resources / self.max_tracked_resources) * 100
             }
 
-    def get_resource_stats(self) -> Dict[str, ResourceStats]:
+def get_resource_stats(self) -> Dict[str, ResourceStats]:
         """Get resource statistics by type."""
         with self._lock:
             return {
@@ -501,7 +495,7 @@ class ResourceManager:
                 for resource_type, stats in self._stats_by_type.items()
             }
     
-    def get_resource_report(self) -> Dict[str, Any]:
+def get_resource_report(self) -> Dict[str, Any]:
         """Generate comprehensive resource management report."""
         stats_by_type = self.get_resource_stats()
         
@@ -540,7 +534,7 @@ class ResourceManager:
             "recommendations": self._generate_resource_recommendations(total_stats)
         }
     
-    def _generate_resource_recommendations(self, stats: ResourceStats) -> List[str]:
+def _generate_resource_recommendations(self, stats: ResourceStats) -> List[str]:
         """Generate resource management recommendations."""
         recommendations = []
         
@@ -558,16 +552,15 @@ class ResourceManager:
             
         return recommendations
     
-    def __enter__(self):
+def __enter__(self):
         """Context manager entry."""
         self.start_periodic_cleanup()
         return self
         
-    def __exit__(self, exc_type, exc_val, exc_tb):
+def __exit__(self, exc_type, exc_val, exc_tb):
         """Context manager exit with cleanup."""
         self.stop_periodic_cleanup()
         self.cleanup_all()
-
 
 # Context managers for specific resource types
 
@@ -593,7 +586,6 @@ def managed_file_handle(file_path: Union[str, Path], mode: str = 'r', **kwargs):
             file_handle.close()
         if tracking_id:
             resource_manager.cleanup_resource(tracking_id)
-
 
 @contextmanager
 def managed_ast_tree(file_path: Union[str, Path], source_code: Optional[str] = None):
@@ -626,7 +618,6 @@ def managed_ast_tree(file_path: Union[str, Path], source_code: Optional[str] = N
         if tracking_id:
             resource_manager.cleanup_resource(tracking_id)
 
-
 @contextmanager
 def managed_cache_entry(cache_key: str, cache_obj: Any, size_bytes: int = 0):
     """Context manager for automatic cache entry cleanup."""
@@ -645,11 +636,9 @@ def managed_cache_entry(cache_key: str, cache_obj: Any, size_bytes: int = 0):
     finally:
         resource_manager.cleanup_resource(tracking_id)
 
-
 # Global resource manager instance
 _global_resource_manager: Optional[ResourceManager] = None
 _manager_lock = threading.Lock()
-
 
 def get_global_resource_manager() -> ResourceManager:
     """Get or create global resource manager instance."""
@@ -662,18 +651,15 @@ def get_global_resource_manager() -> ResourceManager:
             
     return _global_resource_manager
 
-
 def cleanup_all_resources() -> int:
     """Cleanup all tracked resources globally."""
     manager = get_global_resource_manager()
     return manager.cleanup_all()
 
-
 def get_resource_report() -> Dict[str, Any]:
     """Get comprehensive resource management report."""
     manager = get_global_resource_manager()
     return manager.get_resource_report()
-
 
 def shutdown_resource_management() -> None:
     """Shutdown global resource management."""

@@ -1,6 +1,4 @@
-"""
-FailoverManager - Automated Failover with <60s Recovery Validation
-=================================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Implements automated failover mechanisms with guaranteed <60 second recovery times.
 Provides multi-tier failover strategies and comprehensive validation testing.
@@ -18,7 +16,7 @@ class FailoverInstance:
     """Failover instance configuration."""
     primary_endpoint: str
     backup_endpoints: list
-    timeout: float = 5.0
+    timeout: float = MAXIMUM_NESTED_DEPTH.0
 
 class FailoverState(Enum):
     """Failover states."""
@@ -206,14 +204,13 @@ class FailoverManager:
         if instance.health_check_url:
             try:
                 import requests
-                response = requests.get(instance.health_check_url, timeout=5)
+                response = requests.get(instance.health_check_url, timeout=MAXIMUM_NESTED_DEPTH)
                 if response.status_code == 200:
                     # Primary is healthy, no failover needed
                     self._reset_circuit_breaker(component_name)
                     return False
             except Exception:
                 # Health check failed, failover needed
-                pass
 
         # Update circuit breaker
         self._increment_circuit_breaker(component_name)
@@ -258,7 +255,7 @@ class FailoverManager:
         # In active-active, we remove the failed endpoint from rotation
         current_endpoint = self._active_endpoints[component_name]
         available_endpoints = [ep for ep in instance.backup_endpoints
-                             if ep != current_endpoint and self._test_endpoint_health(ep)]
+                            if ep != current_endpoint and self._test_endpoint_health(ep)]
 
         if available_endpoints:
             self._active_endpoints[component_name] = available_endpoints[0]
@@ -297,10 +294,8 @@ class FailoverManager:
     def _execute_graceful_degradation(self, component_name: str, instance: FailoverInstance) -> bool:
         """Execute graceful degradation strategy."""
         # Implement degraded mode - reduce functionality but maintain service
-        # This could involve switching to read-only mode, cached data, etc.
 
         # For this implementation, we'll use the first backup endpoint
-        # In real scenarios, this would activate degraded service modes
         if instance.backup_endpoints:
             self._active_endpoints[component_name] = instance.backup_endpoints[0]
             self.logger.info("Activated degraded mode for %s", component_name)
@@ -334,11 +329,10 @@ class FailoverManager:
             # For HTTP endpoints, perform a basic health check
             if endpoint.startswith(('http://', 'https://')):
                 import requests
-                response = requests.get(f"{endpoint}/health", timeout=5)
+                response = requests.get(f"{endpoint}/health", timeout=MAXIMUM_NESTED_DEPTH)
                 return response.status_code == 200
             else:
                 # For other types of endpoints, implement appropriate checks
-                # For now, assume they're healthy
                 return True
         except Exception:
             return False

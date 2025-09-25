@@ -1,4 +1,4 @@
-"""Unit tests for Pylint adapter."""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 import pytest
 import json
@@ -6,7 +6,6 @@ from unittest.mock import Mock, patch, AsyncMock
 
 from src.adapters.pylint_adapter import PylintAdapter
 from src.models.linter_models import LinterConfig, StandardSeverity, ViolationType
-
 
 class TestPylintAdapter:
     """Test cases for PylintAdapter."""
@@ -94,7 +93,7 @@ class TestPylintAdapter:
         assert v1.file_path == "test.py"
         assert v1.position.line == 10
         assert v1.position.column == 5
-        assert v1.position.end_line == 10
+        assert v1.position.end_line == MAXIMUM_FUNCTION_PARAMETERS
         assert v1.position.end_column == 15
         assert v1.severity == StandardSeverity.ERROR
         assert v1.confidence == "HIGH"

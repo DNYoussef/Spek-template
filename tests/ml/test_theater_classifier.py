@@ -1,5 +1,4 @@
-"""
-Comprehensive Test Suite for Theater Classifier ML Model
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS, QUALITY_GATE_MINIMUM_PASS_RATE
 
 This module provides thorough testing for the TheaterClassifier class,
 ensuring >85% accuracy and robust theater detection capabilities.
@@ -30,7 +29,7 @@ class TestTheaterClassifier:
             'theater_threshold': 0.6,
             'confidence_threshold': 0.8,
             'batch_size': 32,
-            'epochs': 10,  # Reduced for testing
+            'epochs': MAXIMUM_FUNCTION_PARAMETERS,  # Reduced for testing
             'learning_rate': 0.001,
             'early_stopping_patience': 5,
             'validation_split': 0.2,
@@ -84,7 +83,7 @@ class TestTheaterClassifier:
                 'functional': 30,
                 'refactoring': 15,
                 'documentation': 5,
-                'testing': 10,
+                'testing': MAXIMUM_FUNCTION_PARAMETERS,
                 'configuration': 0
             },
             'timing': {
@@ -186,7 +185,7 @@ class TestTheaterClassifier:
         assert np.isfinite(features).all()
 
         # Test with minimal data
-        minimal_data = {'metrics': {'lines_added': 10}}
+        minimal_data = {'metrics': {'lines_added': MAXIMUM_FUNCTION_PARAMETERS}}
         features_minimal = theater_classifier.extract_theater_features(minimal_data)
         assert isinstance(features_minimal, np.ndarray)
         assert len(features_minimal) > 0
@@ -234,7 +233,7 @@ class TestTheaterClassifier:
         assert model.network is not None
 
         # Test forward pass
-        batch_size = 10
+        batch_size = MAXIMUM_FUNCTION_PARAMETERS
         input_tensor = torch.randn(batch_size, input_size)
         output = model(input_tensor)
 
@@ -384,7 +383,7 @@ class TestTheaterClassifier:
         # Test theater detected
         recommendation = theater_classifier._generate_theater_recommendation(
             is_theater=True,
-            theater_prob=0.85,
+            theater_prob=QUALITY_GATE_MINIMUM_PASS_RATE,
             gaming_scores={'coverage_gaming': 0.8}
         )
 
@@ -394,7 +393,7 @@ class TestTheaterClassifier:
         # Test genuine change
         recommendation = theater_classifier._generate_theater_recommendation(
             is_theater=False,
-            theater_prob=0.3,
+            theater_prob=0.2,
             gaming_scores={}
         )
 
@@ -537,7 +536,6 @@ class TestTheaterClassifier:
         ensemble_accuracy = metrics['ensemble_accuracy']
 
         # With synthetic data, aim for reasonable performance
-        # In production with real theater data, this should reach >85%
         assert ensemble_accuracy >= 0.6, f"Ensemble accuracy {ensemble_accuracy} below minimum threshold"
 
     def test_memory_efficiency(self, theater_classifier, sample_change_data):

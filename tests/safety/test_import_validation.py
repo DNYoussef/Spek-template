@@ -6,15 +6,15 @@ Validates that all safety system components can be imported and initialized
 without errors. This addresses the critical theater detection findings.
 """
 
-import pytest
-import sys
-import os
-import importlib
 from pathlib import Path
+import os
+import sys
+
+import importlib
+import pytest
 
 # Add src to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
-
 
 class TestSafetySystemImports:
     """Test all safety system imports work correctly."""
@@ -221,7 +221,6 @@ class TestSafetySystemImports:
         except Exception as e:
             pytest.fail(f"Failed to instantiate dataclasses: {e}")
 
-
 class TestModuleStructure:
     """Test the module structure is correct."""
 
@@ -280,7 +279,6 @@ class TestModuleStructure:
         for file_name in expected_files:
             file_path = integration_path / file_name
             assert file_path.exists(), f"Integration module file {file_name} not found"
-
 
 class TestSystemInitialization:
     """Test complete system initialization."""
@@ -356,7 +354,6 @@ class TestSystemInitialization:
 
         except Exception as e:
             pytest.fail(f"Failed to access system metrics: {e}")
-
 
 if __name__ == "__main__":
     # Run the import validation tests

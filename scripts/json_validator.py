@@ -16,18 +16,17 @@ Features:
 """
 
 import json
-import yaml
-import sys
 import os
-import argparse
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
+import sys
 
+from lib.shared.utilities import get_logger
+import argparse
+import yaml
 
 class QualityGateValidator:
     """Comprehensive JSON quality gate validator for SPEK platform."""
     
-    def __init__(self, base_path: str = None, config_path: str = None):
+def __init__(self, base_path: str = None, config_path: str = None):
         """Initialize validator with paths and configuration."""
         self.base_path = Path(base_path or os.getcwd())
         self.artifacts_path = self.base_path / ".claude" / ".artifacts"
@@ -38,7 +37,7 @@ class QualityGateValidator:
         self.config = self._load_config()
         self.validation_results = []
         
-    def _load_schema(self) -> Dict[str, Any]:
+def _load_schema(self) -> Dict[str, Any]:
         """Load JSON schema for validation."""
         try:
             with open(self.schema_path, 'r') as f:
@@ -50,7 +49,7 @@ class QualityGateValidator:
             logger.error(f"Invalid JSON schema: {e}")
             sys.exit(1)
             
-    def _load_config(self) -> Dict[str, Any]:
+def _load_config(self) -> Dict[str, Any]:
         """Load quality gate configuration."""
         try:
             with open(self.config_path, 'r') as f:
@@ -62,7 +61,7 @@ class QualityGateValidator:
             logger.error(f"Invalid YAML config: {e}")
             sys.exit(1)
             
-    def get_nested_value(self, data: Dict[str, Any], path: str) -> Any:
+def get_nested_value(self, data: Dict[str, Any], path: str) -> Any:
         """Extract nested value using dot notation path."""
         try:
             keys = path.split('.')
@@ -83,7 +82,7 @@ class QualityGateValidator:
         except (KeyError, IndexError, TypeError):
             return None
             
-    def validate_thresholds(self, data: Dict[str, Any], artifact_type: str) -> Tuple[bool, List[str]]:
+def validate_thresholds(self, data: Dict[str, Any], artifact_type: str) -> Tuple[bool, List[str]]:
         """Validate data against quality gate thresholds."""
         issues = []
         all_passed = True
@@ -132,7 +131,7 @@ class QualityGateValidator:
                     
         return all_passed, issues
         
-    def _evaluate_threshold(self, actual: Union[int, float], operator: str, expected: Union[int, float]) -> bool:
+def _evaluate_threshold(self, actual: Union[int, float], operator: str, expected: Union[int, float]) -> bool:
         """Evaluate threshold condition."""
         if operator == ">=":
             return actual >= expected
@@ -148,7 +147,7 @@ class QualityGateValidator:
             logger.warning(f"Unknown operator: {operator}")
             return False
             
-    def validate_schema(self, data: Dict[str, Any]) -> Tuple[bool, List[str]]:
+def validate_schema(self, data: Dict[str, Any]) -> Tuple[bool, List[str]]:
         """Validate JSON data against schema."""
         try:
             validate(instance=data, schema=self.schema)
@@ -156,7 +155,7 @@ class QualityGateValidator:
         except ValidationError as e:
             return False, [f"Schema validation failed: {e.message}"]
             
-    def detect_artifact_type(self, file_path: Path, data: Dict[str, Any]) -> str:
+def detect_artifact_type(self, file_path: Path, data: Dict[str, Any]) -> str:
         """Detect artifact type from file path and data."""
         file_name = file_path.name.lower()
         
@@ -191,7 +190,7 @@ class QualityGateValidator:
         else:
             return 'unknown'
             
-    def validate_single_file(self, file_path: Path, fix_issues: bool = False) -> Dict[str, Any]:
+def validate_single_file(self, file_path: Path, fix_issues: bool = False) -> Dict[str, Any]:
         """Validate a single JSON file."""
         logger.info(f"Validating: {file_path.relative_to(self.base_path)}")
         
@@ -247,7 +246,7 @@ class QualityGateValidator:
                 
         return result
         
-    def _auto_fix_issues(self, data: Dict[str, Any], issues: List[str], artifact_type: str) -> Dict[str, Any]:
+def _auto_fix_issues(self, data: Dict[str, Any], issues: List[str], artifact_type: str) -> Dict[str, Any]:
         """Attempt automatic fixes for common issues."""
         # Handle array data (like god_objects.json)
         if isinstance(data, list):
@@ -309,7 +308,7 @@ class QualityGateValidator:
             
         return fixed_data
         
-    def _backup_and_save(self, file_path: Path, data: Dict[str, Any]):
+def _backup_and_save(self, file_path: Path, data: Dict[str, Any]):
         """Backup original file and save fixed version."""
         backup_path = file_path.with_suffix(f"{file_path.suffix}.backup")
         file_path.rename(backup_path)
@@ -319,7 +318,7 @@ class QualityGateValidator:
             
         logger.info(f"Auto-fixed {file_path.relative_to(self.base_path)} (backup: {backup_path.name})")
         
-    def validate_all_artifacts(self, fix_issues: bool = False) -> Dict[str, Any]:
+def validate_all_artifacts(self, fix_issues: bool = False) -> Dict[str, Any]:
         """Validate all JSON artifacts in .claude/.artifacts."""
         logger.info(f"Scanning artifacts in: {self.artifacts_path}")
         
@@ -383,7 +382,7 @@ class QualityGateValidator:
         
         return summary
         
-    def generate_report(self, results: Dict[str, Any], output_path: str = None) -> str:
+def generate_report(self, results: Dict[str, Any], output_path: str = None) -> str:
         """Generate comprehensive validation report."""
         output_path = output_path or (self.base_path / ".claude" / ".artifacts" / "json_validation_report.json")
         
@@ -392,7 +391,6 @@ class QualityGateValidator:
             
         logger.info(f"Validation report saved: {output_path}")
         return str(output_path)
-
 
 def main():
     """Main CLI interface."""
@@ -450,7 +448,6 @@ def main():
         sys.exit(1)
     else:
         sys.exit(0)
-
 
 if __name__ == '__main__':
     main()

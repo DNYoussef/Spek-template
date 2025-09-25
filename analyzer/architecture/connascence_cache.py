@@ -7,19 +7,19 @@ Intelligent caching system implementing 8 methods for optimal performance.
 NASA Power of Ten compliant with comprehensive cache management.
 """
 
-import time
+from collections import OrderedDict
+from pathlib import Path
+from typing import Any, Optional, Dict, List, Tuple
 import hashlib
 import json
-import threading
-from typing import Any, Optional, Dict, List, Tuple
-from pathlib import Path
-from collections import OrderedDict
 import logging
+import time
+
+import threading
 
 from .interfaces import ConnascenceCacheInterface, ConfigurationProvider
 
 logger = logging.getLogger(__name__)
-
 
 class ConnascenceCache(ConnascenceCacheInterface):
     """
@@ -29,7 +29,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
     Implements LRU eviction, TTL expiration, and optional persistence.
     """
 
-    def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
+def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
         """
         Initialize cache with configuration and performance settings.
 
@@ -61,7 +61,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
         if self.enable_persistence:
             self._initialize_persistence()
 
-    def get(self, key: str) -> Optional[Any]:
+def get(self, key: str) -> Optional[Any]:
         """
         Get cached value with TTL and LRU update.
 
@@ -98,7 +98,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
                 self._stats['misses'] += 1
                 return None
 
-    def set(self, key: str, value: Any, ttl: Optional[int] = None) -> None:
+def set(self, key: str, value: Any, ttl: Optional[int] = None) -> None:
         """
         Set cached value with TTL and size management.
 
@@ -138,7 +138,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
             except Exception as e:
                 logger.error(f"Cache set failed for key {key}: {e}")
 
-    def clear(self) -> None:
+def clear(self) -> None:
         """
         Clear all cache entries and reset statistics.
         """
@@ -160,7 +160,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
             except Exception as e:
                 logger.error(f"Cache clear failed: {e}")
 
-    def get_stats(self) -> Dict[str, Any]:
+def get_stats(self) -> Dict[str, Any]:
         """
         Get comprehensive cache statistics and performance metrics.
         """
@@ -181,7 +181,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
                 'average_access_count': self._calculate_average_access_count()
             }
 
-    def _ensure_cache_space(self) -> None:
+def _ensure_cache_space(self) -> None:
         """
         Ensure cache has space for new entries using LRU eviction.
         """
@@ -191,7 +191,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
             del self._cache[oldest_key]
             self._stats['evictions'] += 1
 
-    def _calculate_entry_size(self, value: Any) -> int:
+def _calculate_entry_size(self, value: Any) -> int:
         """
         Calculate approximate size of cache entry in bytes.
         """
@@ -201,7 +201,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
             # Fallback size estimate
             return len(str(value)) * 2  # Rough Unicode character estimate
 
-    def _calculate_memory_usage(self) -> Dict[str, int]:
+def _calculate_memory_usage(self) -> Dict[str, int]:
         """
         Calculate detailed memory usage statistics.
         """
@@ -225,7 +225,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
             'min_entry_size': min_entry_size
         }
 
-    def _calculate_cache_efficiency(self) -> float:
+def _calculate_cache_efficiency(self) -> float:
         """
         Calculate cache efficiency score based on hit rate and access patterns.
         """
@@ -240,7 +240,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
         efficiency = hit_rate * (1 - min(eviction_rate, 0.5))
         return round(efficiency, 3)
 
-    def _calculate_average_access_count(self) -> float:
+def _calculate_average_access_count(self) -> float:
         """
         Calculate average access count across all cached entries.
         """
@@ -250,7 +250,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
         total_accesses = sum(entry['access_count'] for entry in self._cache.values())
         return round(total_accesses / len(self._cache), 2)
 
-    def _initialize_persistence(self) -> None:
+def _initialize_persistence(self) -> None:
         """
         Initialize persistence directory and load existing cache.
         """
@@ -272,20 +272,19 @@ class ConnascenceCache(ConnascenceCacheInterface):
         except Exception as e:
             logger.warning(f"Cache persistence initialization failed: {e}")
 
-    def _persist_entry(self, key: str, entry: Dict[str, Any]) -> None:
+def _persist_entry(self, key: str, entry: Dict[str, Any]) -> None:
         """
         Persist single cache entry to disk.
         """
         try:
             # For production, would implement incremental persistence
-            # For now, persist entire cache periodically
             if len(self._cache) % 10 == 0:  # Persist every 10 updates
                 self._persist_cache()
 
         except Exception as e:
             logger.warning(f"Entry persistence failed: {e}")
 
-    def _persist_cache(self) -> None:
+def _persist_cache(self) -> None:
         """
         Persist entire cache to disk.
         """
@@ -297,7 +296,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
         except Exception as e:
             logger.warning(f"Cache persistence failed: {e}")
 
-    def _clear_persistence(self) -> None:
+def _clear_persistence(self) -> None:
         """
         Clear persisted cache data.
         """
@@ -309,7 +308,7 @@ class ConnascenceCache(ConnascenceCacheInterface):
         except Exception as e:
             logger.warning(f"Persistence clear failed: {e}")
 
-    def _get_config(self, key: str, default: Any) -> Any:
+def _get_config(self, key: str, default: Any) -> Any:
         """Get configuration value with fallback."""
         if self.config_provider:
             return self.config_provider.get_config(key, default)

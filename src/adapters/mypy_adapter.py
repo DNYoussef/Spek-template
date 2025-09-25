@@ -1,23 +1,22 @@
 """MyPy type checker adapter implementation."""
 
+from typing import List, Dict, Any
 import json
 import re
-from typing import List, Dict, Any
 
 from src.adapters.base_adapter import BaseLinterAdapter
 from src.models.linter_models import (
     LinterConfig, LinterViolation, StandardSeverity, ViolationType
 )
 
-
 class MypyAdapter(BaseLinterAdapter):
     """Adapter for MyPy static type checker."""
     
-    def __init__(self, config: LinterConfig):
+def __init__(self, config: LinterConfig):
         super().__init__(config)
         self.tool_name = "mypy"
     
-    def get_command_args(self, target_paths: List[str]) -> List[str]:
+def get_command_args(self, target_paths: List[str]) -> List[str]:
         """Build mypy command arguments."""
         cmd = self.config.get_command_base()
         
@@ -39,7 +38,7 @@ class MypyAdapter(BaseLinterAdapter):
         
         return cmd
     
-    def parse_output(self, raw_output: str, stderr: str = "") -> List[LinterViolation]:
+def parse_output(self, raw_output: str, stderr: str = "") -> List[LinterViolation]:
         """Parse mypy output into standardized violations."""
         violations = []
         
@@ -54,7 +53,7 @@ class MypyAdapter(BaseLinterAdapter):
         # Fall back to text parsing
         return self._parse_text_output(raw_output)
     
-    def _parse_json_output(self, output: str) -> List[LinterViolation]:
+def _parse_json_output(self, output: str) -> List[LinterViolation]:
         """Parse JSON-formatted mypy output."""
         violations = []
         
@@ -92,7 +91,7 @@ class MypyAdapter(BaseLinterAdapter):
         
         return violations
     
-    def _parse_text_output(self, output: str) -> List[LinterViolation]:
+def _parse_text_output(self, output: str) -> List[LinterViolation]:
         """Parse standard mypy text output."""
         violations = []
         
@@ -137,7 +136,7 @@ class MypyAdapter(BaseLinterAdapter):
         
         return violations
     
-    def normalize_severity(self, tool_severity: str, rule_id: str = "") -> StandardSeverity:
+def normalize_severity(self, tool_severity: str, rule_id: str = "") -> StandardSeverity:
         """Convert mypy severity to standard severity."""
         # Apply user overrides first
         if rule_id:
@@ -154,12 +153,12 @@ class MypyAdapter(BaseLinterAdapter):
         
         return severity_map.get(tool_severity.lower(), StandardSeverity.ERROR)
     
-    def get_violation_type(self, rule_id: str, category: str = "") -> ViolationType:
+def get_violation_type(self, rule_id: str, category: str = "") -> ViolationType:
         """Determine violation type from mypy rule ID."""
         # All mypy violations are type-related
         return ViolationType.TYPE
     
-    def _extract_rule_from_message(self, message: str) -> str:
+def _extract_rule_from_message(self, message: str) -> str:
         """Extract or generate rule ID from error message."""
         # Common mypy error patterns
         patterns = {

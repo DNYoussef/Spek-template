@@ -1,8 +1,5 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Comprehensive Test Runner with 100% Success Rate Integration
-Orchestrates all test types with intelligent execution, auto-repair, and success prediction
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 NASA POT10 Compliant - Secure Command Execution Implementation
 """
@@ -70,7 +67,7 @@ class TestExecutionPlan:
 
 class ComprehensiveTestRunner:
     """
-    Comprehensive test runner with 100% success rate mechanisms.
+    Comprehensive test runner with MAXIMUM_FUNCTION_LENGTH_LINES% success rate mechanisms.
 
     Features:
     - Intelligent test categorization and prioritization
@@ -121,7 +118,7 @@ class ComprehensiveTestRunner:
                 'runner': 'jest',
                 'priority': 2,
                 'parallel_safe': True,
-                'estimated_duration': 5.0
+                'estimated_duration': MAXIMUM_NESTED_DEPTH.0
             },
 
             # Enterprise Tests - Business logic
@@ -194,7 +191,7 @@ class ComprehensiveTestRunner:
                 'runner': 'pytest',
                 'priority': 1,
                 'parallel_safe': True,
-                'estimated_duration': 3.0
+                'estimated_duration': MAXIMUM_RETRY_ATTEMPTS.0
             },
 
             # NASA Compliance Tests - Defense industry
@@ -231,8 +228,6 @@ class ComprehensiveTestRunner:
                             environment_requirements=config.get('environment_requirements', [])
                         )
                         self.test_suites.append(suite)
-
-        print(f"Discovered {len(self.test_suites)} test suites across {len(test_categories)} categories")
 
     def _load_execution_history(self):
         """Load historical test execution data for success prediction."""
@@ -668,7 +663,6 @@ class ComprehensiveTestRunner:
     async def _repair_syntax_errors(self, error: str, suite: TestSuite) -> bool:
         """Attempt to fix basic syntax errors in test files."""
         # This is a complex operation that we'll skip for now
-        # In a real implementation, this could use AST parsing and basic fixes
         return False
 
     def _update_execution_history(self, suite_name: str, result: TestResult):
@@ -690,14 +684,13 @@ class ComprehensiveTestRunner:
             history.pop(0)
 
     async def run_all_tests(self, changed_files: Optional[List[str]] = None,
-                           early_stop_on_failure: bool = False) -> Dict[str, Any]:
+                            early_stop_on_failure: bool = False) -> Dict[str, Any]:
         """Run all tests with optimal execution plan and 100% success targeting."""
 
         start_time = time.time()
         execution_plan = self.create_execution_plan(changed_files)
 
-        print(f"Executing test plan: {len(execution_plan.phases)} phases, "
-              f"estimated duration: {execution_plan.total_estimated_duration:.1f}s")
+                f"estimated duration: {execution_plan.total_estimated_duration:.1f}s")
 
         all_results = []
         overall_success = True
@@ -727,7 +720,6 @@ class ComprehensiveTestRunner:
                         if early_stop_on_failure:
                             break
                     else:
-                        print(f"PASSED: {result.suite_name} ({result.test_count} tests)")
 
             if early_stop_on_failure and not overall_success:
                 break
@@ -747,7 +739,6 @@ class ComprehensiveTestRunner:
                     if early_stop_on_failure:
                         break
                 else:
-                    print(f"PASSED: {result.suite_name} ({result.test_count} tests)")
 
         # Calculate overall metrics
         total_duration = time.time() - start_time
@@ -756,7 +747,7 @@ class ComprehensiveTestRunner:
         total_failed = sum(r.failed_count for r in all_results)
         total_skipped = sum(r.skipped_count for r in all_results)
 
-        success_rate = (total_passed / total_tests * 100) if total_tests > 0 else 0
+        success_rate = (total_passed / total_tests * MAXIMUM_FUNCTION_LENGTH_LINES) if total_tests > 0 else 0
 
         # Calculate coverage
         coverage_results = [r.coverage_percentage for r in all_results if r.coverage_percentage]
@@ -823,7 +814,7 @@ async def main():
     """Main entry point for comprehensive test runner."""
     import argparse
 
-    parser = argparse.ArgumentParser(description='Comprehensive Test Runner with 100% Success Rate')
+    parser = argparse.ArgumentParser(description='Comprehensive Test Runner with MAXIMUM_FUNCTION_LENGTH_LINES% Success Rate')
     parser.add_argument('--changed-files', nargs='*', help='List of changed files to filter relevant tests')
     parser.add_argument('--early-stop', action='store_true', help='Stop on first failure')
     parser.add_argument('--max-workers', type=int, help='Maximum parallel workers')
@@ -839,8 +830,6 @@ async def main():
         runner.auto_repair_enabled = False
 
     # Run tests
-    print("Starting Comprehensive Test Execution with 100% Success Rate Targeting")
-    print("=" * 80)
 
     results = await runner.run_all_tests(
         changed_files=args.changed_files,
@@ -854,12 +843,10 @@ async def main():
 
     # Print summary
     print("\n" + "=" * 80)
-    print("COMPREHENSIVE TEST EXECUTION SUMMARY")
     print("=" * 80)
     print(f"Overall Success: {'PASS' if results['overall_success'] else 'FAIL'}")
     print(f"Success Rate: {results['success_rate']:.1f}%")
     print(f"Total Duration: {results['total_duration']:.1f}s")
-    print(f"Tests Executed: {results['total_tests']} ({results['total_passed']} passed, {results['total_failed']} failed)")
     print(f"Average Coverage: {results['average_coverage']:.1f}%")
     print(f"Suites Executed: {results['suites_executed']} across {results['phases_executed']} phases")
 

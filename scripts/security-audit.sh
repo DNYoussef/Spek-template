@@ -16,7 +16,7 @@ PROJECT_ROOT=$(pwd)
 REPORT_FILE=".claude/.artifacts/security-audit-report.json"
 SARIF_FILE=".claude/.artifacts/semgrep-security.sarif"
 
-echo -e "${BLUE}🛡️  Security Audit - CWE Vulnerability Detection${NC}"
+echo -e "${BLUE}  Security Audit - CWE Vulnerability Detection${NC}"
 echo "=================================================="
 
 # Initialize report
@@ -44,7 +44,7 @@ TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 python3 -c "import json; d=json.load(open('$REPORT_FILE')); d['timestamp']='$TIMESTAMP'; json.dump(d, open('$REPORT_FILE', 'w'), indent=2)"
 
 # CWE-78: OS Command Injection
-echo -e "\n${YELLOW}🔍 Scanning for CWE-78: OS Command Injection${NC}"
+echo -e "\n${YELLOW} Scanning for CWE-78: OS Command Injection${NC}"
 echo "Dangerous patterns: eval, exec, subprocess with shell=True, os.system"
 
 CWE78_COUNT=0
@@ -62,7 +62,7 @@ fi
 echo "   Found: $CWE78_COUNT potential issues"
 
 # CWE-88: Argument Injection
-echo -e "\n${YELLOW}🔍 Scanning for CWE-88: Argument Injection${NC}"
+echo -e "\n${YELLOW} Scanning for CWE-88: Argument Injection${NC}"
 echo "Dangerous patterns: unvalidated path arguments, command-line injection"
 
 CWE88_COUNT=0
@@ -76,7 +76,7 @@ fi
 echo "   Found: $CWE88_COUNT potential issues"
 
 # CWE-917: Expression Language Injection
-echo -e "\n${YELLOW}🔍 Scanning for CWE-917: Expression Language Injection${NC}"
+echo -e "\n${YELLOW} Scanning for CWE-917: Expression Language Injection${NC}"
 echo "Dangerous patterns: eval(), exec(), compile() with user input"
 
 CWE917_COUNT=0
@@ -97,7 +97,7 @@ fi
 echo "   Found: $CWE917_COUNT potential issues"
 
 # CWE-95: Code Injection
-echo -e "\n${YELLOW}🔍 Scanning for CWE-95: Code Injection${NC}"
+echo -e "\n${YELLOW} Scanning for CWE-95: Code Injection${NC}"
 echo "Dangerous patterns: dynamic require(), import(), __import__()"
 
 CWE95_COUNT=0
@@ -116,7 +116,7 @@ echo "   Found: $CWE95_COUNT potential issues"
 
 # Run Semgrep if available
 if command -v semgrep &> /dev/null; then
-  echo -e "\n${BLUE}🔬 Running Semgrep security rules${NC}"
+  echo -e "\n${BLUE} Running Semgrep security rules${NC}"
 
   semgrep --config=auto \
     --severity=ERROR \
@@ -133,7 +133,7 @@ if command -v semgrep &> /dev/null; then
     echo "   High: $SEMGREP_HIGH"
   fi
 else
-  echo -e "${YELLOW}⚠️  Semgrep not installed, skipping${NC}"
+  echo -e "${YELLOW}  Semgrep not installed, skipping${NC}"
   SEMGREP_CRITICAL=0
   SEMGREP_HIGH=0
 fi
@@ -141,7 +141,7 @@ fi
 # Generate summary
 TOTAL=$((CWE78_COUNT + CWE88_COUNT + CWE917_COUNT + CWE95_COUNT))
 
-echo -e "\n${BLUE}📊 Security Audit Summary${NC}"
+echo -e "\n${BLUE} Security Audit Summary${NC}"
 echo "=========================="
 echo -e "CWE-78 (Command Injection):    $CWE78_COUNT"
 echo -e "CWE-88 (Argument Injection):   $CWE88_COUNT"
@@ -169,11 +169,11 @@ EOF
 
 # Exit status
 if [ "$TOTAL" -gt 0 ] || [ "$SEMGREP_CRITICAL" -gt 0 ]; then
-  echo -e "\n${RED}❌ Security audit failed: vulnerabilities detected${NC}"
+  echo -e "\n${RED} Security audit failed: vulnerabilities detected${NC}"
   echo "   Review report: $REPORT_FILE"
   echo "   Run security fixes: npm run security:fix"
   exit 1
 else
-  echo -e "\n${GREEN}✅ Security audit passed: no vulnerabilities detected${NC}"
+  echo -e "\n${GREEN} Security audit passed: no vulnerabilities detected${NC}"
   exit 0
 fi

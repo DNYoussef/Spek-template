@@ -4,9 +4,10 @@ Phase 1 Critical YAML Fixes
 Fixes the identified YAML syntax errors in workflow files
 """
 
-import os
-import yaml
 from pathlib import Path
+import os
+
+import yaml
 
 class YAMLFixer:
     def __init__(self, base_path="."):
@@ -22,7 +23,6 @@ class YAMLFixer:
                 content = f.read()
             
             # The issue is likely with multiline Python code in YAML
-            # Need to properly indent and escape the Python block
             lines = content.split('\n')
             
             # Find the problematic section around line 55
@@ -192,4 +192,3 @@ if __name__ == "__main__":
     fixes_count = fixer.apply_all_fixes()
     
     print(f"\nPhase 1 Critical Fixes Complete: {fixes_count} fixes applied")
-    print("Re-run validation test to verify fixes...")

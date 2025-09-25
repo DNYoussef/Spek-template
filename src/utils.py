@@ -1,7 +1,7 @@
 """Utility functions module."""
 
-import re
 from typing import List, Dict, Any
+import re
 
 def format_string(text: str) -> str:
     """Format text to uppercase."""

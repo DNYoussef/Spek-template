@@ -4,10 +4,10 @@ Final Theater Detection Validation
 Confirms the complete analyzer fix is real work with tangible improvements
 """
 
+from collections import Counter
+from pathlib import Path
 import sys
 import time
-from pathlib import Path
-from collections import Counter
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -21,7 +21,6 @@ def run_final_validation():
     validation_results = []
 
     # Test 1: Verify stub was replaced
-    print("\n[TEST 1] Verifying stub implementation was replaced...")
     with open('analyzer/detectors/connascence_ast_analyzer.py', 'r') as f:
         content = f.read()
 
@@ -35,7 +34,6 @@ def run_final_validation():
         validation_results.append(("PASS", "No stub found - implementation is active"))
 
     # Test 2: Verify detection count
-    print("\n[TEST 2] Verifying detection count...")
     from analyzer.detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
 
     analyzer = ConnascenceASTAnalyzer()
@@ -49,7 +47,6 @@ def run_final_validation():
         validation_results.append(("FAIL", f"Only {len(src_violations)} violations - likely broken"))
 
     # Test 3: Verify unified analyzer integration
-    print("\n[TEST 3] Verifying unified analyzer integration...")
     from analyzer.unified_analyzer import UnifiedConnascenceAnalyzer
 
     unified = UnifiedConnascenceAnalyzer()
@@ -65,7 +62,6 @@ def run_final_validation():
         validation_results.append(("FAIL", "Unified analyzer missing violations attribute"))
 
     # Test 4: Verify violation diversity
-    print("\n[TEST 4] Verifying violation type diversity...")
     if src_violations:
         types = Counter(v.type for v in src_violations)
         if len(types) >= 2:
@@ -74,7 +70,6 @@ def run_final_validation():
             validation_results.append(("WARN", f"Only {len(types)} violation type(s)"))
 
     # Test 5: Performance validation
-    print("\n[TEST 5] Performance validation...")
     start = time.time()
     analyzer.analyze_directory('src/adapters')
     duration = time.time() - start
@@ -85,7 +80,6 @@ def run_final_validation():
         validation_results.append(("WARN", f"Unusual processing time: {duration:.2f}s"))
 
     # Test 6: Before/After comparison
-    print("\n[TEST 6] Before/After comparison...")
     print("  BEFORE: Analyzer returned 0 violations (stub implementation)")
     print(f"  AFTER:  Analyzer returns {len(src_violations)} violations (real detection)")
 

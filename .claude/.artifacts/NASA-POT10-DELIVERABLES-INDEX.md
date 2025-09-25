@@ -1,7 +1,7 @@
 # NASA POT10 Iteration 2 - Deliverables Index
 
 **SESSION DATE**: September 23, 2025
-**COMPLIANCE ACHIEVEMENT**: 46.1% → 100% (+53.9pp)
+**COMPLIANCE ACHIEVEMENT**: 46.1% -> 100% (+53.9pp)
 **STATUS**: DEFENSE INDUSTRY READY
 
 ---
@@ -21,7 +21,7 @@ This index provides quick access to all NASA POT10 Iteration 2 deliverables, org
 **Purpose**: High-level overview of compliance achievement
 
 **Contents**:
-- Executive summary of 46.1% → 100% compliance journey
+- Executive summary of 46.1% -> 100% compliance journey
 - Rule-by-rule remediation analysis
 - Tools and automation created
 - Defense industry certification status
@@ -29,7 +29,7 @@ This index provides quick access to all NASA POT10 Iteration 2 deliverables, org
 
 **Key Sections**:
 - Compliance metrics (before/after)
-- Violation elimination statistics (990+ violations → 0)
+- Violation elimination statistics (990+ violations -> 0)
 - Tool inventory (4 automated systems)
 - Production readiness assessment
 
@@ -187,13 +187,13 @@ This index provides quick access to all NASA POT10 Iteration 2 deliverables, org
 |------|-------------|----------|-------|--------|
 | 1 | No Pointer Arithmetic | 0% | 100% | PASS |
 | 2 | Dynamic Memory Bounds | 0% | 100% | PASS |
-| 3 | Function Size ≤60 LOC | 41.7% | 100% | PASS |
-| 4 | Assertion Density ≥2% | 49% | 258% | PASS |
+| 3 | Function Size <=60 LOC | 41.7% | 100% | PASS |
+| 4 | Assertion Density >=2% | 49% | 258% | PASS |
 | 7 | Return Value Checks | 0% | 100% | PASS |
 
 ### Quality Gates
-- NASA Compliance: 100% (target: ≥90%)
-- Test Coverage: 94.7% (target: ≥80%)
+- NASA Compliance: 100% (target: >=90%)
+- Test Coverage: 94.7% (target: >=80%)
 - Security Scan: 0 high/critical (target: 0)
 - Performance: No degradation detected
 
@@ -204,8 +204,8 @@ This index provides quick access to all NASA POT10 Iteration 2 deliverables, org
 ### Compliance Verification
 - [x] Rule 1: No pointer arithmetic (100%)
 - [x] Rule 2: Dynamic memory bounds (100%)
-- [x] Rule 3: Function size ≤60 LOC (100%)
-- [x] Rule 4: Assertion density ≥2% (258%)
+- [x] Rule 3: Function size <=60 LOC (100%)
+- [x] Rule 4: Assertion density >=2% (258%)
 - [x] Rule 7: Return value checks (100%)
 
 ### Additional Safety Standards
@@ -292,37 +292,37 @@ This index provides quick access to all NASA POT10 Iteration 2 deliverables, org
 ### Reports (3 files, 85 KB total)
 ```
 .claude/.artifacts/
-├── NASA-POT10-ITERATION2-REPORT.md (14 KB)
-├── nasa-pot10-technical-details.md (40 KB)
-└── nasa-pot10-lessons-learned.md (31 KB)
+___ NASA-POT10-ITERATION2-REPORT.md (14 KB)
+___ nasa-pot10-technical-details.md (40 KB)
+___ nasa-pot10-lessons-learned.md (31 KB)
 ```
 
 ### Analysis Artifacts (5 files)
 ```
 .claude/.artifacts/
-├── nasa-pot10-rule2-report.json
-├── nasa-pot10-rule3-violations.json
-├── nasa-pot10-rule4-density.json
-├── nasa-pot10-rule7-fixes.json
-└── nasa-pot10-compliance-summary.json
+___ nasa-pot10-rule2-report.json
+___ nasa-pot10-rule3-violations.json
+___ nasa-pot10-rule4-density.json
+___ nasa-pot10-rule7-fixes.json
+___ nasa-pot10-compliance-summary.json
 ```
 
 ### Tools (4 files)
 ```
 scripts/
-├── nasa-pot10-rule2-detector.js
-├── nasa-pot10-rule3-analyzer.js
-├── nasa-pot10-rule4-density.js
-└── nasa-pot10-rule7-validator.js
+___ nasa-pot10-rule2-detector.js
+___ nasa-pot10-rule3-analyzer.js
+___ nasa-pot10-rule4-density.js
+___ nasa-pot10-rule7-validator.js
 ```
 
 ### Modified Source Files (3 files, 2,747 LOC)
 ```
 src/flow/
-├── config/agent-model-registry.js (1,247 LOC)
-└── core/
-    ├── agent-spawner.js (834 LOC)
-    └── model-selector.js (666 LOC)
+___ config/agent-model-registry.js (1,247 LOC)
+___ core/
+    ___ agent-spawner.js (834 LOC)
+    ___ model-selector.js (666 LOC)
 ```
 
 ---

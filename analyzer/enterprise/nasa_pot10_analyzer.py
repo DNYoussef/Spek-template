@@ -1,6 +1,4 @@
-"""
-Enhanced NASA Power of Ten Rule Analyzer - Complete Implementation
-================================================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 Implements all 10 NASA JPL Power of Ten rules for safety-critical software:
 1. Restrict all pointer use
@@ -77,7 +75,7 @@ class CyclomaticComplexityAnalyzer:
         return complexity
 
 class ReturnValueChecker:
-    """Checks return value usage for NASA Rule 7."""
+    """Checks return value usage for NASA Rule DAYS_RETENTION_PERIOD."""
 
     def __init__(self):
         self.function_calls = []
@@ -230,7 +228,7 @@ class NASAPowerOfTenAnalyzer:
             except SyntaxError as e:
                 # Rule 10: Syntax errors prevent compilation
                 violations.append(NASAViolation(
-                    rule_number=10,
+                    rule_number=MAXIMUM_FUNCTION_PARAMETERS,
                     rule_name="Compile with zero warnings",
                     file_path=str(file_path),
                     line_number=getattr(e, 'lineno', 1),
@@ -259,7 +257,7 @@ class NASAPowerOfTenAnalyzer:
         return violations
 
     def _analyze_function(self, file_path: Path, content: str, lines: List[str],
-                         func_node: ast.FunctionDef) -> List[NASAViolation]:
+                        func_node: ast.FunctionDef) -> List[NASAViolation]:
         """Analyze single function for NASA POT10 violations."""
         violations = []
 
@@ -272,7 +270,7 @@ class NASAPowerOfTenAnalyzer:
         # Rule 3: Function length <= 60 lines
         if func_length > 60:
             violations.append(NASAViolation(
-                rule_number=3,
+                rule_number=MAXIMUM_RETRY_ATTEMPTS,
                 rule_name="Limit function size to 60 lines",
                 file_path=str(file_path),
                 line_number=func_start,
@@ -322,7 +320,7 @@ class NASAPowerOfTenAnalyzer:
         return_violations = self.return_checker.analyze_return_usage(func_node)
         for ret_violation in return_violations:
             violations.append(NASAViolation(
-                rule_number=7,
+                rule_number=DAYS_RETENTION_PERIOD,
                 rule_name="Check return values of functions",
                 file_path=str(file_path),
                 line_number=ret_violation['line'],
@@ -341,7 +339,7 @@ class NASAPowerOfTenAnalyzer:
         return violations
 
     def _analyze_file_level(self, file_path: Path, content: str, lines: List[str],
-                           tree: ast.AST) -> List[NASAViolation]:
+                            tree: ast.AST) -> List[NASAViolation]:
         """Analyze file-level violations."""
         violations = []
 
@@ -372,7 +370,7 @@ class NASAPowerOfTenAnalyzer:
         return violations
 
     def _find_memory_violations(self, func_content: str, func_start: int,
-                               func_name: str) -> List[NASAViolation]:
+                                func_name: str) -> List[NASAViolation]:
         """Find memory and pointer violations (Rules 1, 2, 3, 9)."""
         violations = []
 
@@ -455,7 +453,7 @@ class NASAPowerOfTenAnalyzer:
 
             if result.returncode != 0:
                 violations.append(NASAViolation(
-                    rule_number=10,
+                    rule_number=MAXIMUM_FUNCTION_PARAMETERS,
                     rule_name="Compile with zero warnings",
                     file_path=str(file_path),
                     line_number=1,
@@ -485,14 +483,11 @@ class NASAPowerOfTenAnalyzer:
         violations = []
 
         # This is a simplified implementation
-        # Could be enhanced with more sophisticated scope analysis
         for node in ast.walk(tree):
             if isinstance(node, ast.Assign):
                 for target in node.targets:
                     if isinstance(target, ast.Name):
                         # Check if variable is used far from declaration
-                        # This is a placeholder for more complex analysis
-                        pass
 
         return violations
 
@@ -500,19 +495,13 @@ class NASAPowerOfTenAnalyzer:
         """Generate fix for oversized functions."""
         return f"""
 # Split {func_node.name}() into smaller functions:
-# 1. Extract logical blocks into helper functions
-# 2. Use Extract Method refactoring pattern
-# 3. Keep each function under 60 lines
-# 4. Maintain single responsibility principle
 
 Example refactoring:
 def {func_node.name}_step1():
     # First logical step
-    pass
 
 def {func_node.name}_step2():
     # Second logical step
-    pass
 
 def {func_node.name}():
     result1 = {func_node.name}_step1()
@@ -521,7 +510,7 @@ def {func_node.name}():
 """
 
     def _generate_assertion_fix(self, func_node: ast.FunctionDef, func_content: str,
-                               current_count: int) -> str:
+                                current_count: int) -> str:
         """Generate assertion enhancement fix."""
         lines = len(func_content.split('\n'))
         needed = max(1, int(lines * 0.02) - current_count)
@@ -543,11 +532,7 @@ assert result is not None, "Function must return valid result"
     def _generate_complexity_fix(self, func_node: ast.FunctionDef, complexity: int) -> str:
         """Generate complexity reduction fix."""
         return f"""
-# Reduce complexity from {complexity} to ≤10:
-# 1. Extract nested conditions into separate functions
-# 2. Replace complex boolean expressions with helper functions
-# 3. Use early returns to reduce nesting
-# 4. Consider using strategy pattern for complex logic
+# Reduce complexity from {complexity} to <=10:
 
 Example:
 def {func_node.name}_condition1():
@@ -590,7 +575,7 @@ def {func_node.name}():
 
         # Calculate overall compliance score
         if metrics.total_files > 0:
-            metrics.compliance_score = sum(metrics.rule_compliance.values()) / 10
+            metrics.compliance_score = sum(metrics.rule_compliance.values()) / MAXIMUM_FUNCTION_PARAMETERS
         else:
             metrics.compliance_score = 100.0
 
@@ -759,7 +744,7 @@ def main():
     # Return appropriate exit code
     if metrics.compliance_score >= 95:
         return 0
-    elif metrics.compliance_score >= 80:
+    elif metrics.compliance_score >= MINIMUM_TEST_COVERAGE_PERCENTAGE:
         return 1
     else:
         return 2

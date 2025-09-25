@@ -7,11 +7,11 @@ Intelligent fixer implementing 13 methods for automated fix generation
 and safe code transformation. NASA Power of Ten compliant.
 """
 
-import ast
-import re
-from typing import Dict, List, Any, Optional, Tuple
 from pathlib import Path
+from typing import Dict, List, Any, Optional, Tuple
+import ast
 import logging
+import re
 
 from .interfaces import (
     ConnascenceFixerInterface,
@@ -21,7 +21,6 @@ from .interfaces import (
 
 logger = logging.getLogger(__name__)
 
-
 class ConnascenceFixer(ConnascenceFixerInterface):
     """
     Intelligent automated fixer with safe code transformation capabilities.
@@ -30,7 +29,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
     Implements conservative fix strategies to prevent code breaking changes.
     """
 
-    def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
+def __init__(self, config_provider: Optional[ConfigurationProvider] = None):
         """
         Initialize fixer with configuration and safety settings.
 
@@ -55,7 +54,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
             'low': 0.5      # Suggest with detailed explanation
         }
 
-    def generate_fix_suggestions(self, violations: List[ConnascenceViolation]) -> List[ConnascenceViolation]:
+def generate_fix_suggestions(self, violations: List[ConnascenceViolation]) -> List[ConnascenceViolation]:
         """
         Generate automated fix suggestions for violations.
 
@@ -75,7 +74,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
 
         return enhanced_violations
 
-    def apply_fixes(self, file_path: str, fixes: List[Dict[str, Any]]) -> bool:
+def apply_fixes(self, file_path: str, fixes: List[Dict[str, Any]]) -> bool:
         """
         Apply automated fixes to file with safety checks.
 
@@ -114,7 +113,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
             self._restore_backup(file_path)
             return False
 
-    def _generate_violation_fix(self, violation: ConnascenceViolation) -> ConnascenceViolation:
+def _generate_violation_fix(self, violation: ConnascenceViolation) -> ConnascenceViolation:
         """
         Generate fix suggestion for a single violation.
         """
@@ -152,7 +151,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
 
         return enhanced_violation
 
-    def _generate_magic_literal_fix(self, violation: ConnascenceViolation) -> str:
+def _generate_magic_literal_fix(self, violation: ConnascenceViolation) -> str:
         """Generate fix for magic literal violations."""
         description = violation.description
 
@@ -166,7 +165,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
 
         return f"Replace {magic_value} with named constant: {constant_name} = {magic_value}"
 
-    def _generate_parameter_fix(self, violation: ConnascenceViolation) -> str:
+def _generate_parameter_fix(self, violation: ConnascenceViolation) -> str:
         """Generate fix for parameter coupling violations."""
         description = violation.description
 
@@ -180,34 +179,34 @@ class ConnascenceFixer(ConnascenceFixerInterface):
         else:
             return "Consider using default parameters or configuration object"
 
-    def _generate_god_object_fix(self, violation: ConnascenceViolation) -> str:
+def _generate_god_object_fix(self, violation: ConnascenceViolation) -> str:
         """Generate fix for god object violations."""
         if 'class' in violation.description.lower():
             return ("Decompose class using Single Responsibility Principle:\n"
-                   "1. Extract related methods into separate classes\n"
-                   "2. Use composition over inheritance\n"
-                   "3. Apply Command or Strategy patterns")
+                    "1. Extract related methods into separate classes\n"
+                    "2. Use composition over inheritance\n"
+                    "3. Apply Command or Strategy patterns")
         else:
             return ("Break function into smaller, focused functions:\n"
-                   "1. Extract logical blocks into helper functions\n"
-                   "2. Use early returns to reduce nesting\n"
-                   "3. Consider functional decomposition")
+                    "1. Extract logical blocks into helper functions\n"
+                    "2. Use early returns to reduce nesting\n"
+                    "3. Consider functional decomposition")
 
-    def _generate_configuration_fix(self, violation: ConnascenceViolation) -> str:
+def _generate_configuration_fix(self, violation: ConnascenceViolation) -> str:
         """Generate fix for configuration coupling violations."""
         return ("Externalize configuration:\n"
-               "1. Move to environment variables or config file\n"
-               "2. Use configuration management library\n"
-               "3. Implement configuration validation")
+                "1. Move to environment variables or config file\n"
+                "2. Use configuration management library\n"
+                "3. Implement configuration validation")
 
-    def _generate_timing_fix(self, violation: ConnascenceViolation) -> str:
+def _generate_timing_fix(self, violation: ConnascenceViolation) -> str:
         """Generate fix for timing dependency violations."""
         return ("Replace timing dependencies with explicit synchronization:\n"
-               "1. Use locks, semaphores, or queues\n"
-               "2. Implement timeout patterns\n"
-               "3. Consider async/await patterns")
+                "1. Use locks, semaphores, or queues\n"
+                "2. Implement timeout patterns\n"
+                "3. Consider async/await patterns")
 
-    def _generate_generic_fix(self, violation: ConnascenceViolation) -> str:
+def _generate_generic_fix(self, violation: ConnascenceViolation) -> str:
         """Generate generic fix suggestion."""
         connascence_type = violation.connascence_type
 
@@ -222,7 +221,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
 
         return fix_mappings.get(connascence_type, "Review and refactor according to violation type")
 
-    def _validate_fix_safety(self, file_path: str, fixes: List[Dict[str, Any]]) -> bool:
+def _validate_fix_safety(self, file_path: str, fixes: List[Dict[str, Any]]) -> bool:
         """
         Validate that fixes are safe to apply.
         """
@@ -242,7 +241,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
 
         return True
 
-    def _apply_single_fix(self, file_path: str, fix: Dict[str, Any]) -> bool:
+def _apply_single_fix(self, file_path: str, fix: Dict[str, Any]) -> bool:
         """
         Apply a single fix to the file.
         """
@@ -263,7 +262,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
             logger.warning(f"Unknown fix type: {fix_type}")
             return False
 
-    def _apply_magic_literal_fix(self, file_path: str, fix: Dict[str, Any]) -> bool:
+def _apply_magic_literal_fix(self, file_path: str, fix: Dict[str, Any]) -> bool:
         """Apply magic literal fix safely."""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -297,14 +296,13 @@ class ConnascenceFixer(ConnascenceFixerInterface):
             logger.error(f"Magic literal fix failed: {e}")
             return False
 
-    def _apply_parameter_fix(self, file_path: str, fix: Dict[str, Any]) -> bool:
+def _apply_parameter_fix(self, file_path: str, fix: Dict[str, Any]) -> bool:
         """Apply parameter reduction fix safely."""
         # This would implement AST-based parameter refactoring
-        # For now, just log the suggested fix
         logger.info(f"Parameter fix suggested for {file_path}: {fix}")
         return False  # Conservative - don't actually modify
 
-    def _create_backup(self, file_path: str) -> str:
+def _create_backup(self, file_path: str) -> str:
         """Create backup of file before applying fixes."""
         backup_path = f"{file_path}.backup"
 
@@ -321,7 +319,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
             logger.error(f"Backup creation failed: {e}")
             raise
 
-    def _restore_backup(self, file_path: str) -> bool:
+def _restore_backup(self, file_path: str) -> bool:
         """Restore file from backup."""
         backup_path = f"{file_path}.backup"
 
@@ -340,7 +338,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
 
         return False
 
-    def _extract_magic_value(self, description: str) -> Optional[str]:
+def _extract_magic_value(self, description: str) -> Optional[str]:
         """Extract magic value from violation description."""
         # Match patterns like "Magic number 42" or "Magic literal 3.14"
         patterns = [
@@ -356,14 +354,14 @@ class ConnascenceFixer(ConnascenceFixerInterface):
 
         return None
 
-    def _extract_parameter_count(self, description: str) -> int:
+def _extract_parameter_count(self, description: str) -> int:
         """Extract parameter count from violation description."""
         match = re.search(r'has (\d+) parameters', description)
         if match:
             return int(match.group(1))
         return 0
 
-    def _generate_constant_name(self, magic_value: str, file_path: str) -> str:
+def _generate_constant_name(self, magic_value: str, file_path: str) -> str:
         """Generate meaningful constant name for magic value."""
         # Simple heuristic - in production would use context analysis
         try:
@@ -379,7 +377,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
         except ValueError:
             return f"CONSTANT_{magic_value}"
 
-    def _initialize_fix_templates(self) -> Dict[str, str]:
+def _initialize_fix_templates(self) -> Dict[str, str]:
         """Initialize fix templates for different violation types."""
         return {
             'magic_literal': "Replace {value} with {constant_name} = {value}",
@@ -388,7 +386,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
             'configuration_coupling': "Move to environment variables or config file"
         }
 
-    def _initialize_safe_transformations(self) -> Dict[str, Dict[str, Any]]:
+def _initialize_safe_transformations(self) -> Dict[str, Dict[str, Any]]:
         """Initialize safe code transformations."""
         return {
             'magic_literal': {
@@ -403,7 +401,7 @@ class ConnascenceFixer(ConnascenceFixerInterface):
             }
         }
 
-    def _get_config(self, key: str, default: Any) -> Any:
+def _get_config(self, key: str, default: Any) -> Any:
         """Get configuration value with fallback."""
         if self.config_provider:
             return self.config_provider.get_config(key, default)

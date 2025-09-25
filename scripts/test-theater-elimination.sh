@@ -16,9 +16,9 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 log_info() { echo -e "${BLUE}[TEST]${NC} $*"; }
-log_success() { echo -e "${GREEN}[✓]${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[⚠]${NC} $*"; }
-log_error() { echo -e "${RED}[✗]${NC} $*"; }
+log_success() { echo -e "${GREEN}[[PASS]]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[[WARN]]${NC} $*"; }
+log_error() { echo -e "${RED}[[FAIL]]${NC} $*"; }
 
 # Test 1: Check for theater patterns in 3-loop-orchestrator.sh
 test_3loop_theater() {
@@ -270,11 +270,11 @@ main() {
         log_success "ALL TESTS PASSED ($tests_passed/$total_tests)"
         log_success "Production theater has been successfully eliminated!"
         echo
-        echo "✓ Real tool integrations implemented"
-        echo "✓ Evidence-based validation added"
-        echo "✓ Actual metrics collection working"
-        echo "✓ Theater patterns removed"
-        echo "✓ Quality scoring is functional"
+        echo "[PASS] Real tool integrations implemented"
+        echo "[PASS] Evidence-based validation added"
+        echo "[PASS] Actual metrics collection working"
+        echo "[PASS] Theater patterns removed"
+        echo "[PASS] Quality scoring is functional"
         return 0
     else
         log_error "SOME TESTS FAILED ($tests_passed/$total_tests)"

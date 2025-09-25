@@ -318,9 +318,9 @@ export class ComputerUseTools {
     name: 'computer_type_keys',
     description: `Simulates typing a sequence of keys, often used for shortcuts involving modifier keys (e.g., Ctrl+C). Presses and releases each key in order.
     
-────────────────────────
+
 VALID KEYS
-────────────────────────
+
 A, Add, AudioForward, AudioMute, AudioNext, AudioPause, AudioPlay, AudioPrev, AudioRandom, AudioRepeat, AudioRewind, AudioStop, AudioVolDown, AudioVolUp,  
 B, Backslash, Backspace,  
 C, CapsLock, Clear, Comma,  
@@ -373,9 +373,9 @@ V, W, X, Y, Z`,
   @Tool({
     name: 'computer_press_keys',
     description: `Simulates pressing down or releasing specific keys. Useful for holding modifier keys.     
-────────────────────────
+
 VALID KEYS
-────────────────────────
+
 A, Add, AudioForward, AudioMute, AudioNext, AudioPause, AudioPlay, AudioPrev, AudioRandom, AudioRepeat, AudioRewind, AudioStop, AudioVolDown, AudioVolUp,  
 B, Backslash, Backspace,  
 C, CapsLock, Clear, Comma,  

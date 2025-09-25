@@ -1,7 +1,4 @@
-"""
-Advanced feature engineering and data preprocessing for the GaryTaleb trading system.
-Implements Gary's DPI features and Taleb's antifragility indicators.
-"""
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_PARAMETERS
 
 import numpy as np
 import pandas as pd
@@ -29,13 +26,11 @@ class FeatureTransformer(ABC):
     @abstractmethod
     def transform(self, data: pd.DataFrame) -> pd.DataFrame:
         """Transform input data to features."""
-        pass
     
     @property
     @abstractmethod
     def feature_names(self) -> List[str]:
         """Get feature names produced by this transformer."""
-        pass
 
 class TechnicalIndicatorTransformer(FeatureTransformer):
     """Technical indicator feature transformer."""
@@ -268,8 +263,8 @@ class TalebAntifragileTransformer(FeatureTransformer):
     
     def _extreme_event_indicator(self, returns: pd.Series, threshold: float = 2.5) -> pd.Series:
         """Detect extreme events using z-score."""
-        rolling_mean = returns.rolling(30).mean()
-        rolling_std = returns.rolling(30).std()
+        rolling_mean = returns.rolling(API_TIMEOUT_SECONDS).mean()
+        rolling_std = returns.rolling(API_TIMEOUT_SECONDS).std()
         z_scores = (returns - rolling_mean) / rolling_std
         return (np.abs(z_scores) > threshold).astype(int)
     
@@ -317,7 +312,7 @@ class TalebAntifragileTransformer(FeatureTransformer):
                 return 0.0
             
             # Probability of extreme gains during market stress
-            stress_threshold = np.percentile(window_returns, 10)
+            stress_threshold = np.percentile(window_returns, MAXIMUM_FUNCTION_PARAMETERS)
             stress_periods = window_returns <= stress_threshold
             
             if stress_periods.sum() == 0:

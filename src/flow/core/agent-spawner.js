@@ -5,6 +5,7 @@
 
 const { modelSelector } = require('./model-selector');
 const { sequentialThinkingIntegrator } = require('./sequential-thinking-integration');
+const { fsmEnhancer } = require('./fsm-agent-enhancer');
 
 /**
  * Enhanced Agent Spawner with Multi-AI Platform Support
@@ -63,13 +64,23 @@ class AgentSpawner {
       sequentialThinking = sequentialThinkingIntegrator.initializeForAgent(agentType, taskContext);
     }
 
+    // Enhance configuration with FSM capabilities if applicable
+    const baseConfig = modelSelection.config;
+    const enhancedConfig = fsmEnhancer.enhanceAgent(baseConfig, agentType);
+
     // Generate enhanced agent prompt with model-specific optimizations
-    const enhancedPrompt = this.generateEnhancedPrompt(
+    const basePrompt = this.generateEnhancedPrompt(
       agentType,
       taskDescription,
       modelSelection,
       sequentialThinking
     );
+
+    // Inject FSM prompt if configured
+    const enhancedPrompt = fsmEnhancer.injectFSMPrompt(basePrompt, enhancedConfig);
+
+    // Enhance task description with FSM requirements
+    const enhancedTaskDescription = fsmEnhancer.enhanceTaskDescription(taskDescription, enhancedConfig);
 
     // Create agent configuration
     const agentConfig = {
@@ -77,14 +88,15 @@ class AgentSpawner {
       type: agentType,
       model: modelSelection.model,
       platform: modelSelection.platform,
-      taskDescription: taskDescription,
+      taskDescription: enhancedTaskDescription,
       prompt: enhancedPrompt,
       sequentialThinking: sequentialThinking,
-      mcpServers: modelSelection.mcpServers || [],
-      capabilities: modelSelection.config.capabilities,
+      mcpServers: enhancedConfig.mcpServers || modelSelection.mcpServers || [],
+      capabilities: enhancedConfig.capabilities || modelSelection.config.capabilities,
       initialization: modelSelection.initialization,
       spawnTime: new Date().toISOString(),
-      context: taskContext
+      context: taskContext,
+      fsmMetadata: enhancedConfig.fsmMetadata || null
     };
 
     // Execute platform-specific spawn

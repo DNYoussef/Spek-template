@@ -1,5 +1,4 @@
-"""
-Comprehensive Test Suite for Compliance Forecaster ML Model
+from src.constants.base import DAYS_RETENTION_PERIOD, KELLY_CRITERION_FRACTION, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, QUALITY_GATE_MINIMUM_PASS_RATE, THEATER_DETECTION_WARNING_THRESHOLD
 
 This module provides thorough testing for the ComplianceForecaster class,
 ensuring >85% accuracy and robust compliance risk prediction capabilities.
@@ -124,12 +123,12 @@ class TestComplianceForecaster:
             sample['violations']['overdue_count'] = np.random.randint(0, 3)
 
             # Create drift labels (compliance score change)
-            if i % 3 == 0:
+            if i % MAXIMUM_RETRY_ATTEMPTS == 0:
                 drift_score = np.random.uniform(-0.1, -0.02)  # Declining
-            elif i % 3 == 1:
-                drift_score = np.random.uniform(0.02, 0.1)   # Improving
+            elif i % MAXIMUM_RETRY_ATTEMPTS == 1:
+                drift_score = np.random.uniform(KELLY_CRITERION_FRACTION, 0.1)   # Improving
             else:
-                drift_score = np.random.uniform(-0.02, 0.02) # Stable
+                drift_score = np.random.uniform(-0.02, KELLY_CRITERION_FRACTION) # Stable
 
             # Create risk labels (high risk = 1, low risk = 0)
             risk_score = (
@@ -298,7 +297,7 @@ class TestComplianceForecaster:
     def test_risk_level_mapping(self, compliance_forecaster):
         """Test risk level name mapping."""
         # Test different risk scores
-        assert compliance_forecaster._get_risk_level_name(0.95) == 'critical'
+        assert compliance_forecaster._get_risk_level_name(NASA_POT10_TARGET_COMPLIANCE_THRESHOLD) == 'critical'
         assert compliance_forecaster._get_risk_level_name(0.8) == 'high'
         assert compliance_forecaster._get_risk_level_name(0.6) == 'medium'
         assert compliance_forecaster._get_risk_level_name(0.2) == 'low'
@@ -310,7 +309,6 @@ class TestComplianceForecaster:
 
         assert isinstance(risk_factors, list)
         # Should identify some risk factors for typical data
-        # The exact factors depend on the data characteristics
 
     def test_mitigation_recommendations(self, compliance_forecaster):
         """Test mitigation recommendation generation."""
@@ -464,7 +462,7 @@ class TestComplianceForecaster:
                 'code_coverage': 2.0,  # Invalid coverage > 1
                 'security_score': -0.5  # Invalid negative score
             },
-            'violations': {'critical_count': 10**6}
+            'violations': {'critical_count': MAXIMUM_FUNCTION_PARAMETERS**6}
         }
         features = compliance_forecaster.extract_compliance_features(extreme_data)
         assert isinstance(features, np.ndarray)
@@ -525,7 +523,6 @@ class TestComplianceForecaster:
         drift_rmse = metrics['drift_rmse']
 
         # With synthetic data, aim for reasonable performance
-        # In production with real compliance data, risk accuracy should reach >85%
         assert risk_accuracy >= 0.6, f"Risk accuracy {risk_accuracy} below minimum threshold"
         assert drift_rmse <= 0.5, f"Drift RMSE {drift_rmse} too high"
 
@@ -542,7 +539,7 @@ class TestComplianceForecaster:
 
             seasonal_data.append({
                 'timestamp': (base_timestamp - timedelta(days=i)).isoformat(),
-                'overall_score': 0.8 + seasonal_component + np.random.normal(0, 0.02)
+                'overall_score': 0.8 + seasonal_component + np.random.normal(0, KELLY_CRITERION_FRACTION)
             })
 
         ts_features = compliance_forecaster._extract_timeseries_features(seasonal_data)
@@ -594,7 +591,7 @@ class TestComplianceForecaster:
 
         # Test risk level mapping with new thresholds
         assert compliance_forecaster._get_risk_level_name(0.96) == 'critical'
-        assert compliance_forecaster._get_risk_level_name(0.85) == 'high'
+        assert compliance_forecaster._get_risk_level_name(QUALITY_GATE_MINIMUM_PASS_RATE) == 'high'
 
         # Restore original thresholds
         compliance_forecaster.alert_thresholds = original_thresholds
@@ -631,13 +628,13 @@ class TestComplianceForecasterIntegration:
                         'overdue_count': np.random.randint(0, 4)
                     },
                     'process_maturity': {
-                        'automation_score': np.random.uniform(0.7, 0.95),
+                        'automation_score': np.random.uniform(0.7, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD),
                         'monitoring_coverage': np.random.uniform(0.8, 1.0)
                     },
                     'history': [
                         {
                             'timestamp': (base_timestamp - timedelta(days=j)).isoformat(),
-                            'overall_score': 0.85 + np.random.normal(0, 0.05)
+                            'overall_score': QUALITY_GATE_MINIMUM_PASS_RATE + np.random.normal(0, 0.05)
                         }
                         for j in range(30)
                     ]
@@ -651,7 +648,7 @@ class TestComplianceForecasterIntegration:
                 )
 
                 drift_label = np.random.normal(0, 0.05)  # Small drift
-                risk_label = 1 if overall_compliance < 0.75 else 0
+                risk_label = 1 if overall_compliance < THEATER_DETECTION_WARNING_THRESHOLD else 0
 
                 training_samples.append(sample)
                 drift_labels.append(drift_label)

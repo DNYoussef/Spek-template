@@ -1,17 +1,6 @@
-#!/usr/bin/env python3
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_NESTED_DEPTH, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT
 
 # SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
 
 """
 Professional Connascence CLI
@@ -58,7 +47,6 @@ except ImportError:
     LICENSE_VALIDATION_AVAILABLE = False
     logger.warning("License validation system not available")
 
-
 class ConnascenceCLI:
     """Main CLI application class - Focused orchestrator for command delegation."""
 
@@ -74,29 +62,6 @@ class ConnascenceCLI:
             self.license_validator = None
 
         # Initialize command handlers (Delegation pattern)
-        # Note: Handlers commented out - experimental classes not available
-        # self.scan_handler = ScanCommandHandler(
-        #     self.policy_manager, self.baseline_manager, self.budget_tracker
-        # )
-        # self.license_handler = LicenseCommandHandler(
-        #     self.policy_manager, self.baseline_manager, self.budget_tracker,
-        #     self.license_validator
-        # )
-        # self.baseline_handler = BaselineCommandHandler(
-        #     self.policy_manager, self.baseline_manager, self.budget_tracker
-        # )
-        # self.mcp_handler = MCPCommandHandler(
-        #     self.policy_manager, self.baseline_manager, self.budget_tracker
-        # )
-        # self.explain_handler = ExplainCommandHandler(
-        #     self.policy_manager, self.baseline_manager, self.budget_tracker
-        # )
-        # self.autofix_handler = AutofixCommandHandler(
-        #     self.policy_manager, self.baseline_manager, self.budget_tracker
-        # )
-        # self.scan_diff_handler = ScanDiffCommandHandler(
-        #     self.policy_manager, self.baseline_manager, self.budget_tracker
-        # )
 
     def create_parser(self) -> argparse.ArgumentParser:
         """Create the main argument parser with subcommands."""
@@ -106,20 +71,20 @@ class ConnascenceCLI:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Quick Start Examples:
-  connascence scan .                          # Analyze current directory
-  connascence scan src/ --policy strict-core # Use strict quality policy
-  connascence scan . --watch                 # Streaming analysis with monitoring
-  connascence scan . --incremental --since HEAD~1  # Incremental analysis
-  connascence scan-diff --base HEAD~1        # Analyze PR diff
-  connascence analyze-performance .          # Performance benchmarking
-  connascence validate-architecture src/     # Architecture validation
-  connascence autofix --dry-run              # Preview fixes
-  connascence baseline snapshot              # Create quality baseline
+    connascence scan .                          # Analyze current directory
+    connascence scan src/ --policy strict-core # Use strict quality policy
+    connascence scan . --watch                 # Streaming analysis with monitoring
+    connascence scan . --incremental --since HEAD~1  # Incremental analysis
+    connascence scan-diff --base HEAD~1        # Analyze PR diff
+    connascence analyze-performance .          # Performance benchmarking
+    connascence validate-architecture src/     # Architecture validation
+    connascence autofix --dry-run              # Preview fixes
+    connascence baseline snapshot              # Create quality baseline
 
 Advanced Usage:
-  connascence scan . --threshold "critical=5,high=15,medium=50" --enable-streaming
-  connascence analyze-performance . --benchmark-suite comprehensive --profile-memory
-  connascence validate-architecture . --compliance-level nasa --check-coupling
+    connascence scan . --threshold "critical=MAXIMUM_NESTED_DEPTH, high=15, medium=50" --enable-streaming
+    connascence analyze-performance . --benchmark-suite comprehensive --profile-memory
+    connascence validate-architecture . --compliance-level nasa --check-coupling
             """
         )
 
@@ -184,31 +149,31 @@ Advanced Usage:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Examples:
-  Basic Usage:
+    Basic Usage:
     connascence scan .                    # Scan current directory
     connascence scan src/                 # Scan specific directory
     connascence scan --policy strict-core # Use strict quality policy
     
-  Streaming and Monitoring:
+    Streaming and Monitoring:
     connascence scan . --watch            # Continuous monitoring mode
     connascence scan . --enable-streaming # Real-time streaming analysis
     
-  Incremental Analysis:
+    Incremental Analysis:
     connascence scan . --incremental      # Use caching for faster scans
     connascence scan . --since HEAD~1     # Analyze changes since last commit
     connascence scan . --since main       # Analyze changes since main branch
     
-  Custom Thresholds:
-    connascence scan . --threshold "critical=5,high=15,medium=50"
-    connascence scan . --god-object-limit 30 --nasa-compliance-min 0.95
+    Custom Thresholds:
+    connascence scan . --threshold "critical=MAXIMUM_NESTED_DEPTH, high=15, medium=50"
+    connascence scan . --god-object-limit API_TIMEOUT_SECONDS --nasa-compliance-min NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
     connascence scan . --duplication-threshold 0.9
     
-  Advanced Features:
+    Advanced Features:
     connascence scan . --enable-correlations  # Cross-component analysis
     connascence scan . --budget-check         # Check PR budget limits
     connascence scan . --severity high        # Only report high+ severity
     
-  Output Options:
+    Output Options:
     connascence scan . --format json -o results.json
     connascence scan . --format sarif -o report.sarif
     connascence scan . --exclude "*/tests/*" --include "*.py"
@@ -285,7 +250,7 @@ Examples:
 
         scan_parser.add_argument(
             "--threshold",
-            help="Severity thresholds in format: critical=5,high=15,medium=50 (max violations per level)"
+            help="Severity thresholds in format: critical=5, high=15, medium=50 (max violations per level)"
         )
 
         scan_parser.add_argument(
@@ -299,7 +264,7 @@ Examples:
             "--nasa-compliance-min",
             type=float,
             default=0.90,
-            help="Minimum NASA compliance score required (0.0-1.0, default: 0.90)"
+            help="Minimum NASA compliance score required (0.0-1.0, default: REGULATORY_FACTUALITY_REQUIREMENT)"
         )
 
         scan_parser.add_argument(
@@ -329,16 +294,16 @@ Examples:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Examples:
-  Basic Diff Analysis:
+    Basic Diff Analysis:
     connascence scan-diff --base HEAD~1      # Compare with previous commit
     connascence scan-diff --base main        # Compare with main branch
     connascence scan-diff --base HEAD~5 --head HEAD~2  # Compare specific range
     
-  Pull Request Analysis:
+    Pull Request Analysis:
     connascence scan-diff --base origin/main --head HEAD  # PR diff analysis
     connascence scan-diff --base main --format markdown   # Markdown PR report
     
-  Output Formats:
+    Output Formats:
     connascence scan-diff --base HEAD~1 --format json -o changes.json
     connascence scan-diff --base main --format sarif -o pr-analysis.sarif
             """
@@ -406,16 +371,16 @@ Examples:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Examples:
-  Basic Autofix:
+    Basic Autofix:
     connascence autofix .                     # Fix all violations in current dir
     connascence autofix src/ --dry-run        # Preview fixes without applying
     
-  Selective Fixing:
+    Selective Fixing:
     connascence autofix . --types CoM CoP    # Fix only Method/Position violations
     connascence autofix . --severity high    # Fix only high+ severity violations
     connascence autofix . --types god-objects # Fix only god object violations
     
-  Interactive Mode:
+    Interactive Mode:
     connascence autofix . --interactive       # Review each fix interactively
     connascence autofix . --interactive --types CoA --severity critical
             """
@@ -462,7 +427,7 @@ Examples:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Examples:
-  Baseline Management:
+    Baseline Management:
     connascence baseline snapshot             # Create new baseline snapshot
     connascence baseline snapshot --message "Pre-refactor baseline"
     connascence baseline update               # Update existing baseline
@@ -611,28 +576,28 @@ Examples:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Examples:
-  Basic Performance Analysis:
+    Basic Performance Analysis:
     connascence analyze-performance .            # Standard benchmark on current dir
     connascence analyze-performance src/         # Analyze specific directory
     connascence analyze-performance . --iterations 20  # More thorough testing
     
-  Benchmark Suites:
+    Benchmark Suites:
     connascence analyze-performance . --benchmark-suite quick        # Fast analysis
     connascence analyze-performance . --benchmark-suite comprehensive # Full suite
     connascence analyze-performance . --benchmark-suite memory       # Memory focus
     connascence analyze-performance . --benchmark-suite cpu          # CPU focus
     
-  Profiling Options:
+    Profiling Options:
     connascence analyze-performance . --profile-memory  # Memory profiling
     connascence analyze-performance . --profile-cpu     # CPU profiling
     connascence analyze-performance . --profile-memory --profile-cpu  # Both
     
-  Output and Comparison:
+    Output and Comparison:
     connascence analyze-performance . --output-format json -o perf.json
     connascence analyze-performance . --output-format html -o report.html
     connascence analyze-performance . --compare-baseline baseline.json
     
-  Complete Performance Audit:
+    Complete Performance Audit:
     connascence analyze-performance . --benchmark-suite comprehensive \\
         --profile-memory --profile-cpu --output-format html \\
         --iterations 50 --compare-baseline previous.json
@@ -692,37 +657,37 @@ Examples:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Examples:
-  Basic Architecture Validation:
+    Basic Architecture Validation:
     connascence validate-architecture .          # Standard validation
     connascence validate-architecture src/       # Validate specific directory
     connascence validate-architecture . --compliance-level strict  # Strict rules
     
-  Compliance Levels:
+    Compliance Levels:
     connascence validate-architecture . --compliance-level basic    # Basic checks
     connascence validate-architecture . --compliance-level standard # Default level
     connascence validate-architecture . --compliance-level strict   # Strict rules
     connascence validate-architecture . --compliance-level nasa     # NASA standards
     
-  Specific Validation Types:
+    Specific Validation Types:
     connascence validate-architecture . --check-dependencies  # Dependency constraints
     connascence validate-architecture . --check-layering      # Layer separation
     connascence validate-architecture . --check-coupling      # Component coupling
     
-  Coupling Analysis:
+    Coupling Analysis:
     connascence validate-architecture . --check-coupling --max-coupling-score 0.5
     connascence validate-architecture . --check-coupling --max-coupling-score 0.9
     
-  Custom Architecture Definition:
+    Custom Architecture Definition:
     connascence validate-architecture . --architecture-file arch.json
     connascence validate-architecture . --architecture-file design.yaml
     
-  Complete Architecture Audit:
+    Complete Architecture Audit:
     connascence validate-architecture . --compliance-level nasa \\
         --check-dependencies --check-layering --check-coupling \\
         --generate-diagram --report-format html \\
         --max-coupling-score 0.6 --architecture-file system.yaml
     
-  Output Options:
+    Output Options:
     connascence validate-architecture . --generate-diagram    # Create arch diagram
     connascence validate-architecture . --report-format json  # JSON report
     connascence validate-architecture . --report-format pdf   # PDF report
@@ -849,7 +814,6 @@ Examples:
                 import traceback
                 traceback.print_exc()
             return ExitCode.RUNTIME_ERROR
-
 
     def _perform_license_validation(self, project_path: Path, verbose: bool) -> int:
         """Perform license validation and return exit code."""
@@ -986,12 +950,10 @@ Examples:
         print("Architecture validation completed successfully")
         return ExitCode.SUCCESS
 
-
 def main(args=None):
     """Main entry point."""
     cli = ConnascenceCLI()
     return cli.run(args)
-
 
 if __name__ == "__main__":
     sys.exit(main())

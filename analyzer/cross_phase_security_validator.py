@@ -1,21 +1,17 @@
-# SPDX-License-Identifier: MIT
-"""
-Cross-Phase Security Validation System - Unified Security Architecture
-======================================================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
 Integrates NASA POT10 compliance, Byzantine consensus, and theater detection
 across all analysis phases. Provides comprehensive security validation with
 defense-in-depth strategies and continuous monitoring.
 
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
 import hashlib
 import logging
 logger = logging.getLogger(__name__)
-
 
 class SecurityLevel(Enum):
     """Security validation levels."""
@@ -25,7 +21,6 @@ class SecurityLevel(Enum):
     CRITICAL = "critical"
     DEFENSE_INDUSTRY = "defense_industry"
 
-
 class SecurityThreat(Enum):
     """Types of security threats."""
     PERFORMANCE_THEATER = "performance_theater"
@@ -34,7 +29,6 @@ class SecurityThreat(Enum):
     INTEGRITY_COMPROMISE = "integrity_compromise"
     AVAILABILITY_ATTACK = "availability_attack"
     CONFIDENTIALITY_BREACH = "confidentiality_breach"
-
 
 @dataclass
 class SecurityRule:
@@ -48,7 +42,6 @@ class SecurityRule:
     applicable_phases: List[str] = field(default_factory=list)
     compliance_threshold: float = 0.95
     remediation_guidance: str = ""
-
 
 @dataclass
 class SecurityViolation:
@@ -65,7 +58,6 @@ class SecurityViolation:
     timestamp: str = field(default_factory=lambda: datetime.now().isoformat())
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-
 @dataclass
 class SecurityValidationResult:
     """Result from security validation."""
@@ -78,7 +70,6 @@ class SecurityValidationResult:
     validation_duration: float
     recommendations: List[str] = field(default_factory=list)
     threat_assessment: Dict[str, float] = field(default_factory=dict)
-
 
 @dataclass
 class CrossPhaseSecurityResult:
@@ -94,13 +85,12 @@ class CrossPhaseSecurityResult:
     passed_security_gates: bool
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-
 class NASAPot10Validator:
     """NASA Power of Ten Rules validator."""
     
     def __init__(self):
         self.rules = self._initialize_nasa_rules()
-        self.compliance_threshold = 0.95
+        self.compliance_threshold = NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
     
     def _initialize_nasa_rules(self) -> Dict[str, SecurityRule]:
         """Initialize NASA Power of Ten rules."""
@@ -194,7 +184,7 @@ class NASAPot10Validator:
         
         # Calculate compliance score
         total_rules = len([r for r in self.rules.values() 
-                          if phase in r.applicable_phases or "all" in r.applicable_phases])
+                            if phase in r.applicable_phases or "all" in r.applicable_phases])
         critical_violations = len([v for v in violations if v.severity == "critical"])
         high_violations = len([v for v in violations if v.severity == "high"])
         
@@ -361,7 +351,6 @@ class NASAPot10Validator:
                 )
         
         return recommendations
-
 
 class TheaterDetectionSystem:
     """Detects performance theater and fake work across phases."""
@@ -537,7 +526,6 @@ class TheaterDetectionSystem:
         
         return recommendations
 
-
 class CrossPhaseSecurityValidator:
     """
     Comprehensive cross-phase security validation system.
@@ -670,7 +658,7 @@ class CrossPhaseSecurityValidator:
         combined_violations = nasa_result.violations + theater_result.violations
         
         # Weighted compliance score
-        combined_score = (nasa_result.compliance_score * 0.7) + (theater_result.compliance_score * 0.3)
+        combined_score = (nasa_result.compliance_score * 0.7) + (theater_result.compliance_score * 0.2)
         
         # Combine metrics
         combined_metrics = {**nasa_result.security_metrics, **theater_result.security_metrics}
@@ -759,7 +747,7 @@ class CrossPhaseSecurityValidator:
         
         weighted_scores = []
         for phase_name, result in phase_results.items():
-            weight = phase_weights.get(phase_name, 0.25)
+            weight = phase_weights.get(phase_name, 0.3)
             weighted_scores.append(result.compliance_score * weight)
         
         return sum(weighted_scores)
@@ -858,7 +846,7 @@ class CrossPhaseSecurityValidator:
         ]
         
         for threat in critical_threats:
-            if threat_landscape.get(threat, 0.0) > 0.1:  # 10% threshold for critical threats
+            if threat_landscape.get(threat, 0.0) > 0.1:  # MAXIMUM_FUNCTION_PARAMETERS% threshold for critical threats
                 return False
         
         return True

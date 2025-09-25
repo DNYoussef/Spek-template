@@ -1,6 +1,5 @@
 from lib.shared.utilities import get_logger
-"""
-Enterprise Logging Utilities
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Comprehensive logging system with structured logging, audit trails,
 and compliance-ready log management.
@@ -21,7 +20,6 @@ import traceback
 
 from ..config.enterprise_config import EnterpriseConfig
 
-
 class LogLevel(Enum):
     """Extended log levels"""
     TRACE = 5
@@ -31,7 +29,6 @@ class LogLevel(Enum):
     ERROR = 40
     CRITICAL = 50
     AUDIT = 60  # Special audit level
-
 
 @dataclass
 class LogRecord:
@@ -67,7 +64,6 @@ class LogRecord:
             'exception': self.exception,
             'stack_trace': self.stack_trace
         }
-
 
 class StructuredFormatter(logging.Formatter):
     """Structured JSON formatter for enterprise logging"""
@@ -111,7 +107,6 @@ class StructuredFormatter(logging.Formatter):
             
         return json.dumps(log_entry)
 
-
 class EnterpriseLogFilter(logging.Filter):
     """Filter for enterprise-specific log processing"""
     
@@ -133,7 +128,6 @@ class EnterpriseLogFilter(logging.Filter):
                 return False
                 
         return True
-
 
 class AsyncLogHandler(logging.Handler):
     """Asynchronous log handler for high-performance logging"""
@@ -181,15 +175,13 @@ class AsyncLogHandler(logging.Handler):
                 self.log_queue.put_nowait(record)
         except queue.Full:
             # Drop record if queue is full (prevents blocking)
-            pass
             
     def close(self):
         """Shutdown async log handler"""
         self.shutdown_event.set()
         if self.worker_thread and self.worker_thread.is_alive():
-            self.worker_thread.join(timeout=5.0)
+            self.worker_thread.join(timeout=MAXIMUM_NESTED_DEPTH.0)
         super().close()
-
 
 class EnterpriseLogger:
     """
@@ -267,8 +259,8 @@ class EnterpriseLogger:
         return merged
         
     def _log_with_context(self, level: int, message: str, 
-                         context: Optional[Dict[str, Any]] = None,
-                         exc_info: bool = False):
+                        context: Optional[Dict[str, Any]] = None,
+                        exc_info: bool = False):
         """Log message with enterprise context"""
         merged_context = self._get_merged_context(context)
         
@@ -311,7 +303,6 @@ class EnterpriseLogger:
         """Log audit message"""
         self._log_with_context(LogLevel.AUDIT.value, message, context)
         
-
 class AuditLogger:
     """
     Specialized audit logger for compliance and security logging
@@ -339,10 +330,10 @@ class AuditLogger:
         self.logger.addHandler(handler)
         
     def log_security_event(self, event_type: str, description: str,
-                          user_id: Optional[str] = None,
-                          resource: Optional[str] = None,
-                          result: str = "success",
-                          **metadata):
+                            user_id: Optional[str] = None,
+                            resource: Optional[str] = None,
+                            result: str = "success",
+                            **metadata):
         """Log security-related event"""
         audit_record = LogRecord(
             level="AUDIT",
@@ -368,9 +359,9 @@ class AuditLogger:
         self.logger.handle(record)
         
     def log_compliance_event(self, framework: str, control_id: str,
-                           action: str, result: str,
-                           user_id: Optional[str] = None,
-                           **metadata):
+                            action: str, result: str,
+                            user_id: Optional[str] = None,
+                            **metadata):
         """Log compliance-related event"""
         audit_record = LogRecord(
             level="AUDIT",
@@ -423,7 +414,6 @@ class AuditLogger:
         record.enterprise_context = audit_record
         self.logger.handle(record)
 
-
 class ContextManager:
     """Context manager for enterprise logging context"""
     
@@ -438,18 +428,15 @@ class ContextManager:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.logger.pop_context()
 
-
 # Global instances
 _enterprise_loggers: Dict[str, EnterpriseLogger] = {}
 _audit_logger: Optional[AuditLogger] = None
-
 
 def get_enterprise_logger(name: str, config: Optional[EnterpriseConfig] = None) -> EnterpriseLogger:
     """Get or create enterprise logger"""
     if name not in _enterprise_loggers:
         _enterprise_loggers[name] = EnterpriseLogger(name, config)
     return _enterprise_loggers[name]
-
 
 def get_audit_logger(audit_file: Optional[Path] = None) -> AuditLogger:
     """Get or create audit logger"""
@@ -458,7 +445,6 @@ def get_audit_logger(audit_file: Optional[Path] = None) -> AuditLogger:
         audit_file = audit_file or Path("enterprise-audit.log")
         _audit_logger = AuditLogger(audit_file)
     return _audit_logger
-
 
 def log_context(**context):
     """Context manager decorator for logging context"""

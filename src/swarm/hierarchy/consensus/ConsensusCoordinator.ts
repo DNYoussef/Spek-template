@@ -43,14 +43,14 @@ export class ConsensusCoordinator extends EventEmitter {
    * Initialize consensus system with princesses
    */
   async initialize(princesses: Map<string, HivePrincess>): Promise<void> {
-    console.log('🔐 Initializing Consensus Coordinator...');
+    console.log(' Initializing Consensus Coordinator...');
 
     this.consensus = new PrincessConsensus(princesses);
 
     // Setup event listeners
     this.setupEventHandlers();
 
-    console.log('✅ Consensus Coordinator initialized');
+    console.log(' Consensus Coordinator initialized');
   }
 
   /**
@@ -72,7 +72,7 @@ export class ConsensusCoordinator extends EventEmitter {
     this.proposals.set(proposal.id, proposal);
     this.metrics.totalProposals++;
 
-    console.log(`📋 New consensus proposal: ${proposal.id} (${type})`);
+    console.log(` New consensus proposal: ${proposal.id} (${type})`);
 
     // Submit to consensus system
     await this.consensus.propose(proposerId, type, content);
@@ -101,7 +101,7 @@ export class ConsensusCoordinator extends EventEmitter {
       this.metrics.byzantineNodes.add(princess);
       this.emit('byzantine:detected', { princess, pattern });
 
-      console.warn(`🚨 Byzantine node detected: ${princess} - ${pattern}`);
+      console.warn(` Byzantine node detected: ${princess} - ${pattern}`);
     });
   }
 

@@ -6,17 +6,17 @@ Validates and tests system redundancy to ensure resilience and fault tolerance.
 Provides comprehensive redundancy testing and validation reporting.
 """
 
-import time
-import threading
 from datetime import datetime, timedelta
 from typing import Dict, List, Set, Optional, Any, Callable
-from enum import Enum
-from dataclasses import dataclass
+import time
+
 from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
+from enum import Enum
 from lib.shared.utilities import get_logger
+import threading
 
 logger = get_logger(__name__)
-
 
 class ValidationState(Enum):
     """Redundancy validation states."""
@@ -25,7 +25,6 @@ class ValidationState(Enum):
     PASSED = "passed"
     FAILED = "failed"
     ERROR = "error"
-
 
 @dataclass
 class RedundancyGroup:
@@ -36,15 +35,13 @@ class RedundancyGroup:
     validation_checks: List[Callable]
     timeout_seconds: float = 30.0
 
-
 class RedundancyMetrics:
     """Redundancy validation metrics."""
 
-    def __init__(self):
+def __init__(self):
         self.total_validations = 0
         self.successful_validations = 0
         self.failed_validations = 0
-
 
 @dataclass
 class ValidationResult:
@@ -57,11 +54,10 @@ class ValidationResult:
     components_failed: List[str]
     validation_time_seconds: float
 
-
 class RedundancyValidator:
     """Multi-Level Redundancy Verification System."""
 
-    def __init__(self, config: Optional[Dict] = None):
+def __init__(self, config: Optional[Dict] = None):
         """Initialize the redundancy validator.
 
         Args:
@@ -89,13 +85,13 @@ class RedundancyValidator:
 
         self.logger.info("RedundancyValidator initialized")
 
-    def register_redundancy_group(self, group: RedundancyGroup):
+def register_redundancy_group(self, group: RedundancyGroup):
         """Register a redundancy group for validation."""
         self._redundancy_groups[group.name] = group
         self._validation_states[group.name] = ValidationState.IDLE
         self.logger.info("Registered redundancy group: %s", group.name)
 
-    def validate_group(self, group_name: str) -> ValidationResult:
+def validate_group(self, group_name: str) -> ValidationResult:
         """Validate a specific redundancy group."""
         if group_name not in self._redundancy_groups:
             raise ValueError(f"Unknown redundancy group: {group_name}")
@@ -158,7 +154,7 @@ class RedundancyValidator:
             self._active_validations.discard(group_name)
             raise
 
-    def get_validation_status(self) -> Dict[str, Any]:
+def get_validation_status(self) -> Dict[str, Any]:
         """Get current validation status."""
         return {
             'active_validations': list(self._active_validations),

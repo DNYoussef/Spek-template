@@ -1,15 +1,4 @@
-# SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 """
 Unified Reporting Coordinator
@@ -36,7 +25,6 @@ from analyzer.reporting.sarif import SARIFReporter
 from analyzer.reporting.markdown import MarkdownReporter
 
 logger = logging.getLogger(__name__)
-
 
 class UnifiedReportingCoordinator:
     """
@@ -650,7 +638,6 @@ PRIORITY ACTIONS:
         """Convert UnifiedAnalysisResult to legacy format for existing reporters."""
 
         # This would create a mock AnalysisResult object that existing reporters expect
-        # For now, return a simple dict that should work with most reporters
 
         class MockAnalysisResult:
             def __init__(self, unified_result):
@@ -706,7 +693,6 @@ PRIORITY ACTIONS:
                 self.value = value
 
         return MockAnalysisResult(analysis_result)
-
 
 # Singleton instance for global access
 reporting_coordinator = UnifiedReportingCoordinator()

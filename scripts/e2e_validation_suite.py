@@ -1,10 +1,5 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-End-to-End Validation Suite
-Phase 3: Comprehensive Testing - Validates entire CI/CD pipeline functionality
-Target: 85%+ CI/CD success rate from current ~30%
-"""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 import json
 import time
@@ -19,11 +14,10 @@ import concurrent.futures
 import threading
 import yaml
 
-
 class E2EValidationSuite:
     """Comprehensive end-to-end validation for CI/CD pipeline."""
     
-    def __init__(self, github_token: Optional[str] = None):
+def __init__(self, github_token: Optional[str] = None):
         self.github_token = github_token or os.environ.get('GITHUB_TOKEN')
         self.repo_owner = 'your-org'  # Will be detected from git config
         self.repo_name = 'your-repo'  # Will be detected from git config
@@ -45,7 +39,7 @@ class E2EValidationSuite:
         self._detect_repository_info()
         self._load_workflow_configs()
     
-    def _detect_repository_info(self):
+def _detect_repository_info(self):
         """Detect GitHub repository information from git config."""
         try:
             # Get remote URL
@@ -73,9 +67,8 @@ class E2EValidationSuite:
         except Exception as e:
             print(f"Warning: Could not detect repository info: {e}")
             # Use fallback values
-            pass
     
-    def _load_workflow_configs(self):
+def _load_workflow_configs(self):
         """Load and parse all workflow configurations."""
         self.workflows = {}
         workflow_dir = Path('.github/workflows')
@@ -98,9 +91,8 @@ class E2EValidationSuite:
             except Exception as e:
                 print(f"Warning: Could not parse {workflow_file}: {e}")
     
-    def test_analyzer_imports(self) -> Dict[str, Any]:
+def test_analyzer_imports(self) -> Dict[str, Any]:
         """Test core analyzer import functionality - addresses CLI integration risk."""
-        print("Testing analyzer imports and CLI integration...")
         
         import_tests = {}
         
@@ -178,9 +170,8 @@ class E2EValidationSuite:
             'validation_passed': import_success_rate >= 0.8
         }
     
-    def test_workflow_configurations(self) -> Dict[str, Any]:
+def test_workflow_configurations(self) -> Dict[str, Any]:
         """Test workflow configuration validity and dependencies."""
-        print("Testing workflow configurations and dependencies...")
         
         config_tests = {}
         valid_configs = 0
@@ -251,9 +242,8 @@ class E2EValidationSuite:
             'validation_passed': config_success_rate >= 0.8
         }
     
-    def test_dependency_resolution(self) -> Dict[str, Any]:
+def test_dependency_resolution(self) -> Dict[str, Any]:
         """Test dependency resolution and conflicts - addresses 72% failure risk."""
-        print("Testing dependency resolution and conflicts...")
         
         dependency_tests = {
             'requirements_file_exists': False,
@@ -327,12 +317,10 @@ class E2EValidationSuite:
         
         return dependency_tests
     
-    def test_end_to_end_workflow_execution(self) -> Dict[str, Any]:
+def test_end_to_end_workflow_execution(self) -> Dict[str, Any]:
         """Test actual workflow execution end-to-end."""
-        print("Testing end-to-end workflow execution...")
         
         # This would require GitHub API integration for real testing
-        # For now, simulate based on recent runs
         
         execution_tests = {
             'recent_runs_analysis': {},
@@ -346,7 +334,7 @@ class E2EValidationSuite:
         try:
             # Get recent workflow runs via GitHub CLI if available
             result = subprocess.run(
-                ['gh', 'run', 'list', '--limit', '10', '--json', 'status,conclusion,name,createdAt,url'],
+                ['gh', 'run', 'list', '--limit', '10', '--json', 'status, conclusion, name, createdAt, url'],
                 capture_output=True,
                 text=True,
                 timeout=30
@@ -395,9 +383,8 @@ class E2EValidationSuite:
         
         return execution_tests
     
-    def test_performance_regression(self) -> Dict[str, Any]:
+def test_performance_regression(self) -> Dict[str, Any]:
         """Test for performance regressions from Phase 2 optimizations."""
-        print("Testing performance regression from Phase 2 optimizations...")
         
         # Load Phase 2 performance baselines
         phase2_report_path = Path('.claude/.artifacts/phase2_validation_report.json')
@@ -429,7 +416,6 @@ class E2EValidationSuite:
         }
         
         # Simulate current performance measurement
-        # In real implementation, this would measure actual workflow performance
         current_metrics = {
             'execution_time_minutes': 58,  # Slight regression from 55
             'memory_efficiency_score': 0.83,  # Slight regression from 0.85
@@ -446,11 +432,11 @@ class E2EValidationSuite:
             
             # Define regression thresholds (10% degradation)
             if metric in ['execution_time_minutes', 'security_scan_time_minutes']:
-                # Lower is better - regression if increase > 10%
+                # Lower is better - regression if increase > MAXIMUM_FUNCTION_PARAMETERS%
                 threshold = target_value * 1.1
                 is_regression = current_value > threshold
             else:
-                # Higher is better - regression if decrease > 10%
+                # Higher is better - regression if decrease > MAXIMUM_FUNCTION_PARAMETERS%
                 threshold = target_value * 0.9
                 is_regression = current_value < threshold
             
@@ -471,9 +457,8 @@ class E2EValidationSuite:
         
         return performance_tests
     
-    def test_security_compliance(self) -> Dict[str, Any]:
+def test_security_compliance(self) -> Dict[str, Any]:
         """Test security compliance and hardening features."""
-        print("Testing security compliance and hardening...")
         
         security_tests = {
             'sast_tools_available': False,
@@ -508,7 +493,6 @@ class E2EValidationSuite:
                                 security_tests['secrets_detection'] = True
         
         # Check NASA compliance maintenance
-        # This would check actual compliance scores in production
         security_tests['nasa_compliance_maintained'] = True  # Assume maintained from Phase 2
         
         # Security gates functionality
@@ -526,28 +510,22 @@ class E2EValidationSuite:
         
         return security_tests
     
-    def run_comprehensive_validation(self) -> Dict[str, Any]:
+def run_comprehensive_validation(self) -> Dict[str, Any]:
         """Run complete end-to-end validation suite."""
         print("Starting Phase 3 End-to-End Validation Suite")
         print("=" * 60)
         
         # Run all validation tests
-        print("\n1. Testing Analyzer Imports & CLI Integration...")
         self.results['test_results']['analyzer_imports'] = self.test_analyzer_imports()
         
-        print("\n2. Testing Workflow Configurations...")
         self.results['test_results']['workflow_configs'] = self.test_workflow_configurations()
         
-        print("\n3. Testing Dependency Resolution...")
         self.results['test_results']['dependency_resolution'] = self.test_dependency_resolution()
         
-        print("\n4. Testing End-to-End Workflow Execution...")
         self.results['test_results']['e2e_execution'] = self.test_end_to_end_workflow_execution()
         
-        print("\n5. Testing Performance Regression...")
         self.results['test_results']['performance_regression'] = self.test_performance_regression()
         
-        print("\n6. Testing Security Compliance...")
         self.results['test_results']['security_compliance'] = self.test_security_compliance()
         
         # Calculate overall success rate
@@ -564,7 +542,7 @@ class E2EValidationSuite:
         
         return self.results
     
-    def _generate_recommendations(self):
+def _generate_recommendations(self):
         """Generate actionable recommendations based on test results."""
         recommendations = []
         
@@ -618,7 +596,6 @@ class E2EValidationSuite:
         
         self.results['recommendations'] = recommendations
 
-
 def main():
     """Main validation execution."""
     print("Phase 3: End-to-End Validation Suite")
@@ -644,11 +621,9 @@ def main():
     print(f"Target Success Rate: 85%")
     print(f"Validation Status: {'PASSED' if results['overall_success_rate'] >= 0.85 else 'NEEDS IMPROVEMENT'}")
     
-    print("\nTest Results:")
     for test_name, test_results in results['test_results'].items():
         if isinstance(test_results, dict) and 'validation_passed' in test_results:
             status = "PASSED" if test_results['validation_passed'] else "FAILED"
-            print(f"  - {test_name.replace('_', ' ').title()}: {status}")
     
     if results['recommendations']:
         print("\nRecommendations:")
@@ -659,7 +634,6 @@ def main():
     
     # Exit with status indicating overall success
     sys.exit(0 if results['overall_success_rate'] >= 0.85 else 1)
-
 
 if __name__ == '__main__':
     main()

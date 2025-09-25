@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Real-time Processing and Correlation Tests
-Comprehensive test suite for real-time linter result ingestion and cross-tool correlation.
-"""
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 import pytest
 import asyncio
@@ -28,7 +24,6 @@ class MockStreamingResult:
         self.timestamp = time.time()
         self.status = "completed"
 
-
 class MockLinterResult:
     """Mock linter result for testing"""
     def __init__(self, tool: str, violations: List[Dict], execution_time: float = 1.0):
@@ -38,7 +33,6 @@ class MockLinterResult:
         self.timestamp = time.time()
         self.files_analyzed = ["test.py"]
         self.exit_code = 0
-
 
 class MockViolation:
     """Mock violation for testing"""
@@ -51,7 +45,6 @@ class MockViolation:
         self.severity = severity
         self.timestamp = time.time()
         self.id = str(uuid.uuid4())
-
 
 class MockRealTimeLinterIngestionEngine:
     """Mock real-time linter ingestion engine for testing"""
@@ -156,7 +149,6 @@ class MockRealTimeLinterIngestionEngine:
         
         return violations
 
-
 class MockResultCorrelationFramework:
     """Mock result correlation framework for testing"""
     
@@ -220,7 +212,7 @@ class MockResultCorrelationFramework:
         # Line proximity (within 5 lines)
         line1 = result1.get("line", 0)
         line2 = result2.get("line", 0)
-        if abs(line1 - line2) <= 5:
+        if abs(line1 - line2) <= MAXIMUM_NESTED_DEPTH:
             score += 0.3
         
         # Rule similarity
@@ -291,7 +283,6 @@ class MockResultCorrelationFramework:
             return "Review related violations together for comprehensive fix"
         return "Address individual violation"
 
-
 class TestRealTimeLinterIngestionEngine:
     """Test suite for real-time linter ingestion engine"""
     
@@ -307,7 +298,6 @@ class TestRealTimeLinterIngestionEngine:
             files = []
             for i in range(3):
                 file_path = Path(temp_dir) / f"test_{i}.py"
-                file_path.write_text(f"print('test file {i}')\n" * 10)
                 files.append(str(file_path))
             yield files
     
@@ -438,7 +428,6 @@ class TestRealTimeLinterIngestionEngine:
         assert execution_time < 5.0  # 5 seconds for 100 files
         assert result["status"] == "completed"
         assert result["total_violations"] > 0
-
 
 class TestResultCorrelationFramework:
     """Test suite for result correlation framework"""
@@ -655,7 +644,6 @@ class TestResultCorrelationFramework:
         assert result["clusters"] == []
         assert result["total_correlations"] == 0
 
-
 class TestIntegratedRealTimeProcessing:
     """Integration tests for real-time processing with correlation"""
     
@@ -765,7 +753,6 @@ class TestIntegratedRealTimeProcessing:
         assert correlation_time < 5.0  # 5 seconds for correlation
         assert correlation_result["total_correlations"] >= 0
 
-
 class TestRealTimeEventHandling:
     """Test suite for real-time event handling"""
     
@@ -821,7 +808,6 @@ class TestRealTimeEventHandling:
         
         # Should have emitted correlation events
         assert correlation.event_emitter.emit.called
-
 
 if __name__ == "__main__":
     import logging

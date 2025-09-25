@@ -1,13 +1,8 @@
-"""
-DFARS Access Control System (3.1.1 - 3.1.22)
-Multi-factor authentication and role-based access control for defense contractors.
-Implements DFARS 252.204-7012 access control requirements.
-"""
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_RETRY_ATTEMPTS
 
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class AccessLevel(Enum):
     """DFARS access levels for CUI protection."""
@@ -17,7 +12,6 @@ class AccessLevel(Enum):
     CUI_PRIVACY = "cui_privacy"
     CLASSIFIED = "classified"
 
-
 class AuthenticationFactor(Enum):
     """Multi-factor authentication types."""
     PASSWORD = "password"
@@ -25,7 +19,6 @@ class AuthenticationFactor(Enum):
     HARDWARE_TOKEN = "hardware_token"
     BIOMETRIC = "biometric"
     CERTIFICATE = "certificate"
-
 
 @dataclass
 class UserRole:
@@ -38,7 +31,6 @@ class UserRole:
     clearance_level: Optional[str] = None
     need_to_know: List[str] = None
     expiration_date: Optional[datetime] = None
-
 
 @dataclass
 class AuthenticationSession:
@@ -55,7 +47,6 @@ class AuthenticationSession:
     device_fingerprint: str
     encryption_key: str
 
-
 @dataclass
 class AccessAttempt:
     """Access attempt logging for audit trails."""
@@ -70,7 +61,6 @@ class AccessAttempt:
     user_agent: str = ""
     risk_score: float = 0.0
 
-
 class DFARSAccessControl:
     """
     DFARS 252.204-7012 Access Control Implementation
@@ -82,7 +72,7 @@ class DFARSAccessControl:
     ... through 3.1.22
     """
 
-    def __init__(self, config: Dict[str, Any]):
+def __init__(self, config: Dict[str, Any]):
         """Initialize DFARS access control system."""
         self.config = config
         self.crypto = FIPSCryptoModule()
@@ -103,13 +93,13 @@ class DFARSAccessControl:
 
         # Security policies
         self.max_failed_attempts = config.get('max_failed_attempts', 5)
-        self.lockout_duration = timedelta(minutes=config.get('lockout_minutes', 30))
+        self.lockout_duration = timedelta(minutes=config.get('lockout_minutes', API_TIMEOUT_SECONDS))
         self.session_timeout = timedelta(hours=config.get('session_hours', 8))
         self.password_policy = config.get('password_policy', {})
 
         logger.info("DFARS Access Control System initialized")
 
-    def initialize_default_roles(self) -> None:
+def initialize_default_roles(self) -> None:
         """Initialize DFARS-compliant default roles."""
         default_roles = [
             UserRole(
@@ -147,8 +137,8 @@ class DFARSAccessControl:
             details={"roles_count": len(default_roles)}
         )
 
-    def register_user(self, user_id: str, password: str, roles: List[str],
-                     clearance_level: Optional[str] = None) -> Dict[str, Any]:
+def register_user(self, user_id: str, password: str, roles: List[str],
+                    clearance_level: Optional[str] = None) -> Dict[str, Any]:
         """Register new user with DFARS-compliant authentication."""
         try:
             # Validate password policy (3.1.8)
@@ -211,8 +201,8 @@ class DFARSAccessControl:
             )
             raise
 
-    def authenticate_user(self, user_id: str, password: str, totp_code: str,
-                         source_ip: str, device_fingerprint: str) -> Optional[AuthenticationSession]:
+def authenticate_user(self, user_id: str, password: str, totp_code: str,
+                        source_ip: str, device_fingerprint: str) -> Optional[AuthenticationSession]:
         """Authenticate user with multi-factor authentication (3.1.12)."""
         try:
             # Check account lockout (3.1.17)
@@ -260,7 +250,7 @@ class DFARSAccessControl:
             )
             return None
 
-    def authorize_access(self, session_id: str, resource: str, action: str) -> bool:
+def authorize_access(self, session_id: str, resource: str, action: str) -> bool:
         """Authorize access to resources based on RBAC (3.1.1, 3.1.2)."""
         try:
             # Validate session (3.1.11)
@@ -288,7 +278,7 @@ class DFARSAccessControl:
             logger.error(f"Authorization error: {e}")
             return False
 
-    def enforce_session_timeout(self) -> None:
+def enforce_session_timeout(self) -> None:
         """Enforce session timeouts (3.1.11)."""
         current_time = datetime.now(timezone.utc)
         expired_sessions = []
@@ -302,7 +292,7 @@ class DFARSAccessControl:
         for session_id in expired_sessions:
             self.terminate_session(session_id, "Session timeout")
 
-    def terminate_session(self, session_id: str, reason: str = "User logout") -> None:
+def terminate_session(self, session_id: str, reason: str = "User logout") -> None:
         """Terminate user session (3.1.10)."""
         if session_id in self.active_sessions:
             session = self.active_sessions[session_id]
@@ -320,7 +310,7 @@ class DFARSAccessControl:
                 }
             )
 
-    def get_compliance_status(self) -> Dict[str, Any]:
+def get_compliance_status(self) -> Dict[str, Any]:
         """Get DFARS access control compliance status."""
         return {
             'dfars_controls': {
@@ -335,7 +325,7 @@ class DFARSAccessControl:
                 '3.1.9': {'implemented': True, 'status': 'Password change management'},
                 '3.1.10': {'implemented': True, 'status': 'Session management'},
                 '3.1.11': {'implemented': True, 'status': 'Session timeout'},
-                '3.1.12': {'implemented': True, 'status': 'Remote access security'},
+                'MAXIMUM_RETRY_ATTEMPTS.1.12': {'implemented': True, 'status': 'Remote access security'},
                 '3.1.13': {'implemented': True, 'status': 'Privileged access monitoring'},
                 '3.1.14': {'implemented': True, 'status': 'Account management'},
                 '3.1.15': {'implemented': True, 'status': 'Group membership management'},
@@ -356,7 +346,7 @@ class DFARSAccessControl:
 
     # Private helper methods
 
-    def _validate_password_policy(self, password: str) -> bool:
+def _validate_password_policy(self, password: str) -> bool:
         """Validate password against DFARS requirements (3.1.8)."""
         policy = self.password_policy
 
@@ -377,12 +367,12 @@ class DFARSAccessControl:
 
         return True
 
-    def _validate_password(self, user_id: str, password: str) -> bool:
+def _validate_password(self, user_id: str, password: str) -> bool:
         """Validate user password."""
         # In a real implementation, this would check against stored hash
         return True  # Placeholder
 
-    def _validate_totp(self, user_id: str, totp_code: str) -> bool:
+def _validate_totp(self, user_id: str, totp_code: str) -> bool:
         """Validate TOTP code for MFA."""
         if user_id not in self.mfa_secrets:
             return False
@@ -390,7 +380,7 @@ class DFARSAccessControl:
         totp = pyotp.TOTP(self.mfa_secrets[user_id])
         return totp.verify(totp_code, valid_window=1)
 
-    def _create_session(self, user_id: str, source_ip: str, device_fingerprint: str) -> AuthenticationSession:
+def _create_session(self, user_id: str, source_ip: str, device_fingerprint: str) -> AuthenticationSession:
         """Create authenticated session."""
         session_id = secrets.token_urlsafe(32)
         current_time = datetime.now(timezone.utc)
@@ -412,7 +402,7 @@ class DFARSAccessControl:
         self.active_sessions[session_id] = session
         return session
 
-    def _validate_session(self, session_id: str) -> Optional[AuthenticationSession]:
+def _validate_session(self, session_id: str) -> Optional[AuthenticationSession]:
         """Validate session and check expiration."""
         if session_id not in self.active_sessions:
             return None
@@ -426,7 +416,7 @@ class DFARSAccessControl:
 
         return session
 
-    def _check_permissions(self, session: AuthenticationSession, resource: str, action: str) -> bool:
+def _check_permissions(self, session: AuthenticationSession, resource: str, action: str) -> bool:
         """Check role-based permissions."""
         user_permissions = set()
 
@@ -437,12 +427,12 @@ class DFARSAccessControl:
         required_permission = f"{action}_{resource}"
         return required_permission in user_permissions or "admin" in user_permissions
 
-    def _check_need_to_know(self, session: AuthenticationSession, resource: str) -> bool:
+def _check_need_to_know(self, session: AuthenticationSession, resource: str) -> bool:
         """Check need-to-know access (3.1.4)."""
         # Implement need-to-know logic based on resource classification
         return True  # Placeholder
 
-    def _get_user_access_levels(self, user_id: str) -> List[AccessLevel]:
+def _get_user_access_levels(self, user_id: str) -> List[AccessLevel]:
         """Get user's access levels based on roles."""
         access_levels = set()
 
@@ -452,7 +442,7 @@ class DFARSAccessControl:
 
         return list(access_levels)
 
-    def _is_account_locked(self, user_id: str) -> bool:
+def _is_account_locked(self, user_id: str) -> bool:
         """Check if account is locked due to failed attempts."""
         if user_id in self.locked_accounts:
             if datetime.now(timezone.utc) > self.locked_accounts[user_id]:
@@ -473,7 +463,7 @@ class DFARSAccessControl:
 
         return False
 
-    def _log_failed_attempt(self, user_id: str, source_ip: str, reason: str) -> None:
+def _log_failed_attempt(self, user_id: str, source_ip: str, reason: str) -> None:
         """Log failed authentication attempt."""
         current_time = datetime.now(timezone.utc)
 
@@ -494,8 +484,8 @@ class DFARSAccessControl:
             }
         )
 
-    def _log_access_attempt(self, session: AuthenticationSession, resource: str,
-                          action: str, success: bool, reason: str = "") -> None:
+def _log_access_attempt(self, session: AuthenticationSession, resource: str,
+                            action: str, success: bool, reason: str = "") -> None:
         """Log access attempt for audit trail."""
         attempt = AccessAttempt(
             attempt_id=secrets.token_hex(16),

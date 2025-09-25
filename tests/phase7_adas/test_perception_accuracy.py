@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Perception Accuracy Testing for ADAS Phase 7
-Validates object detection metrics, tracking consistency, and edge case handling.
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, QUALITY_GATE_MINIMUM_PASS_RATE, THEATER_DETECTION_WARNING_THRESHOLD
 
 Requirements:
 - Object detection mAP > 85%
@@ -125,7 +122,7 @@ class MockPerceptionSystem:
         self.processing_latency_ms = 30.0
 
     async def detect_objects(self, image_data: np.ndarray, scenario: ScenarioType,
-                           weather: WeatherCondition) -> List[DetectedObject]:
+                            weather: WeatherCondition) -> List[DetectedObject]:
         """Simulate object detection"""
         start_time = time.perf_counter()
 
@@ -170,10 +167,10 @@ class MockPerceptionSystem:
             ScenarioType.CONSTRUCTION: 0.75,
             ScenarioType.EMERGENCY: 0.7
         }
-        return factors.get(scenario, 0.85)
+        return factors.get(scenario, QUALITY_GATE_MINIMUM_PASS_RATE)
 
     def _simulate_detections(self, image_data: np.ndarray, weather_factor: float,
-                           scenario_factor: float) -> List[DetectedObject]:
+                            scenario_factor: float) -> List[DetectedObject]:
         """Simulate object detection from image data"""
         detections = []
         height, width = image_data.shape[:2] if len(image_data.shape) >= 2 else (480, 640)
@@ -192,7 +189,7 @@ class MockPerceptionSystem:
             bbox_h = np.random.uniform(20, min(200, height - bbox_y))
 
             # Calculate 3D position (simplified)
-            depth = np.random.uniform(5.0, 100.0)  # 5-100 meters
+            depth = np.random.uniform(5.0, 100.0)  # 5-MAXIMUM_FUNCTION_LENGTH_LINES meters
             position_3d = (
                 (bbox_x + bbox_w/2 - width/2) * depth / 1000,  # Rough conversion
                 -(bbox_y + bbox_h/2 - height/2) * depth / 1000,
@@ -344,7 +341,7 @@ class PerceptionAccuracyTester:
         return np.random.choice(available_types)
 
     def _get_scenario_position_velocity(self, scenario: ScenarioType,
-                                      object_type: ObjectType) -> Tuple[Tuple[float, float, float], Tuple[float, float, float]]:
+                                        object_type: ObjectType) -> Tuple[Tuple[float, float, float], Tuple[float, float, float]]:
         """Get realistic position and velocity for scenario and object type"""
         if scenario == ScenarioType.HIGHWAY:
             position = (np.random.uniform(-20, 20), np.random.uniform(10, 200), 0.0)
@@ -353,10 +350,10 @@ class PerceptionAccuracyTester:
             position = (np.random.uniform(-15, 15), np.random.uniform(5, 100), 0.0)
             velocity = (np.random.uniform(-10, 10), np.random.uniform(0, 20), 0.0)
         elif scenario == ScenarioType.RESIDENTIAL:
-            position = (np.random.uniform(-10, 10), np.random.uniform(5, 50), 0.0)
-            velocity = (np.random.uniform(-3, 3), np.random.uniform(0, 10), 0.0)
+            position = (np.random.uniform(-10, MAXIMUM_FUNCTION_PARAMETERS), np.random.uniform(5, 50), 0.0)
+            velocity = (np.random.uniform(-3, 3), np.random.uniform(0, MAXIMUM_FUNCTION_PARAMETERS), 0.0)
         else:
-            position = (np.random.uniform(-10, 10), np.random.uniform(5, 50), 0.0)
+            position = (np.random.uniform(-10, MAXIMUM_FUNCTION_PARAMETERS), np.random.uniform(5, 50), 0.0)
             velocity = (np.random.uniform(-5, 5), np.random.uniform(0, 15), 0.0)
 
         # Adjust for pedestrian/cyclist speeds
@@ -368,7 +365,7 @@ class PerceptionAccuracyTester:
         return position, velocity
 
     def _project_to_2d_bbox(self, position_3d: Tuple[float, float, float],
-                           object_type: ObjectType) -> Tuple[float, float, float, float]:
+                            object_type: ObjectType) -> Tuple[float, float, float, float]:
         """Project 3D position to 2D bounding box (simplified)"""
         # Simplified camera projection
         focal_length = 1000  # pixels
@@ -410,8 +407,8 @@ class PerceptionAccuracyTester:
         )
 
     def calculate_detection_metrics(self, detections: List[DetectedObject],
-                                  ground_truth: List[GroundTruthObject],
-                                  iou_threshold: float = 0.5) -> DetectionMetrics:
+                                    ground_truth: List[GroundTruthObject],
+                                    iou_threshold: float = 0.5) -> DetectionMetrics:
         """Calculate detection performance metrics"""
         metrics = DetectionMetrics()
 
@@ -470,7 +467,7 @@ class PerceptionAccuracyTester:
         return metrics
 
     def _calculate_bbox_iou(self, bbox1: Tuple[float, float, float, float],
-                           bbox2: Tuple[float, float, float, float]) -> float:
+                            bbox2: Tuple[float, float, float, float]) -> float:
         """Calculate Intersection over Union (IoU) for bounding boxes"""
         x1, y1, w1, h1 = bbox1
         x2, y2, w2, h2 = bbox2
@@ -490,8 +487,8 @@ class PerceptionAccuracyTester:
         return intersection / union if union > 0 else 0.0
 
     def _calculate_average_precision(self, detections: List[DetectedObject],
-                                   ground_truth: List[GroundTruthObject],
-                                   iou_threshold: float) -> float:
+                                    ground_truth: List[GroundTruthObject],
+                                    iou_threshold: float) -> float:
         """Calculate Average Precision (AP)"""
         # Sort detections by confidence
         sorted_detections = sorted(detections, key=lambda d: d.confidence, reverse=True)
@@ -568,7 +565,7 @@ class TestObjectDetectionMetrics:
             weather = scenario_config["weather"]
 
             # Create ground truth
-            ground_truth = perception_tester.create_test_ground_truth(scenario, num_objects=10)
+            ground_truth = perception_tester.create_test_ground_truth(scenario, num_objects=MAXIMUM_FUNCTION_PARAMETERS)
 
             # Create mock image data
             image_data = np.random.randint(0, 255, (1080, 1920, 3), dtype=np.uint8)
@@ -580,7 +577,7 @@ class TestObjectDetectionMetrics:
 
             # Calculate metrics
             metrics = perception_tester.calculate_detection_metrics(detections, ground_truth)
-            map_scores.append(metrics.average_precision * 100)
+            map_scores.append(metrics.average_precision * MAXIMUM_FUNCTION_LENGTH_LINES)
 
             print(f"Scenario {scenario.value} + {weather.value}: AP = {metrics.average_precision * 100:.1f}%")
 
@@ -608,7 +605,7 @@ class TestObjectDetectionMetrics:
         # Assert precision and recall thresholds
         assert metrics.precision >= 0.8, f"Precision {metrics.precision:.3f} below 0.8 threshold"
         assert metrics.recall >= 0.7, f"Recall {metrics.recall:.3f} below 0.7 threshold"
-        assert metrics.f1_score >= 0.75, f"F1-score {metrics.f1_score:.3f} below 0.75 threshold"
+        assert metrics.f1_score >= THEATER_DETECTION_WARNING_THRESHOLD, f"F1-score {metrics.f1_score:.3f} below THEATER_DETECTION_WARNING_THRESHOLD threshold"
 
         print(f"Detection metrics - Precision: {metrics.precision:.3f}, Recall: {metrics.recall:.3f}, F1: {metrics.f1_score:.3f}")
 
@@ -629,7 +626,7 @@ class TestObjectDetectionMetrics:
 
             total_detections = metrics.true_positives + metrics.false_positives
             if total_detections > 0:
-                fp_rate = (metrics.false_positives / total_detections) * 100
+                fp_rate = (metrics.false_positives / total_detections) * MAXIMUM_FUNCTION_LENGTH_LINES
                 false_positive_rates.append(fp_rate)
 
         avg_fp_rate = sum(false_positive_rates) / len(false_positive_rates) if false_positive_rates else 0
@@ -933,7 +930,7 @@ class TestEdgeCaseScenarios:
                 object_id=f"small_{i}",
                 object_type=ObjectType.PEDESTRIAN,
                 bbox=(100 + i * 150, 300, size, size * 1.5),
-                position_3d=(i * 3.0, 50.0 + i * 20.0, 0.0),  # Increasing distance
+                position_3d=(i * MAXIMUM_RETRY_ATTEMPTS.0, 50.0 + i * 20.0, 0.0),  # Increasing distance
                 velocity=(1.0, 0.0, 0.0),
                 visibility=1.0,
                 occlusion_level=0.0,
@@ -1082,7 +1079,6 @@ class TestReportingAndMetrics:
         benchmark_results = {}
         for benchmark_name, benchmark_value in industry_benchmarks.items():
             # This would normally compare against actual test results
-            # For this example, we'll use placeholder values
             current_value = benchmark_value * 0.95  # Assume 95% of benchmark
 
             benchmark_results[benchmark_name] = {

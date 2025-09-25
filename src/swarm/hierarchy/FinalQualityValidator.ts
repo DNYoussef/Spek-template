@@ -201,7 +201,7 @@ export class FinalQualityValidator {
         };
 
         if (certification.readyForQueen) {
-            console.log('[FinalQualityValidator] ✅ CODE IS READY FOR THE QUEEN!');
+            console.log('[FinalQualityValidator]  CODE IS READY FOR THE QUEEN!');
             console.log('[FinalQualityValidator] Certification Summary:');
             console.log(`  - 100% Complete: ${certification.isComplete}`);
             console.log(`  - 100% Working: ${certification.isWorking}`);
@@ -209,7 +209,7 @@ export class FinalQualityValidator {
             console.log(`  - NASA Certified: ${certification.nasaCertified}`);
             console.log(`  - Defense Certified: ${certification.defenseCertified}`);
         } else {
-            console.log('[FinalQualityValidator] ❌ CODE NOT YET READY - MORE WORK NEEDED');
+            console.log('[FinalQualityValidator]  CODE NOT YET READY - MORE WORK NEEDED');
             this.logDeficiencies(finalMetrics, certification);
         }
 

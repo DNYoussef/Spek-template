@@ -4,10 +4,10 @@ Connascence Analysis and Prioritization Script
 Analyzes the large connascence_analysis.json and creates actionable refactoring plans
 """
 
-import json
-import sys
 from collections import defaultdict, Counter
 from pathlib import Path
+import json
+import sys
 
 def analyze_connascence_data(json_file_path):
     """Load and analyze connascence violations data"""

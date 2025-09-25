@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Unified Severity Mapping System for Cross-Tool Violation Normalization.
-Provides consistent severity levels and violation classification across all linters.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH
 
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass
@@ -48,7 +44,7 @@ class UnifiedSeverityMapper:
     Provides consistent violation classification across flake8, pylint, ruff, mypy, bandit.
     """
     
-    def __init__(self, config_path: Optional[str] = None):
+def __init__(self, config_path: Optional[str] = None):
         self.severity_rules: Dict[str, List[SeverityRule]] = {}
         self.tool_mappings: Dict[str, Dict[str, UnifiedSeverity]] = {}
         self.category_mappings: Dict[str, Dict[str, ViolationCategory]] = {}
@@ -61,7 +57,7 @@ class UnifiedSeverityMapper:
         if config_path:
             self._load_custom_config(config_path)
             
-    def _load_default_mappings(self) -> None:
+def _load_default_mappings(self) -> None:
         """Load default severity mappings for all supported tools"""
         
         # Flake8 mappings
@@ -159,7 +155,7 @@ class UnifiedSeverityMapper:
             "LOW": UnifiedSeverity.MEDIUM,
         }
         
-    def _load_custom_config(self, config_path: str) -> None:
+def _load_custom_config(self, config_path: str) -> None:
         """Load custom severity mappings from configuration file"""
         try:
             path = Path(config_path)
@@ -183,7 +179,7 @@ class UnifiedSeverityMapper:
         except Exception as e:
             print(f"Warning: Could not load custom config from {config_path}: {e}")
             
-    def map_severity(self, tool_name: str, rule_code: str, tool_severity: str = None) -> UnifiedSeverity:
+def map_severity(self, tool_name: str, rule_code: str, tool_severity: str = None) -> UnifiedSeverity:
         """
         Map tool-specific rule code and severity to unified severity.
         
@@ -218,7 +214,7 @@ class UnifiedSeverityMapper:
         # Default fallback
         return UnifiedSeverity.MEDIUM
         
-    def categorize_violation(self, tool_name: str, rule_code: str, message: str) -> ViolationCategory:
+def categorize_violation(self, tool_name: str, rule_code: str, message: str) -> ViolationCategory:
         """
         Categorize violation based on tool, rule code, and message content.
         
@@ -266,7 +262,7 @@ class UnifiedSeverityMapper:
             
         # Testing patterns
         if any(keyword in message_lower for keyword in 
-               ['test', 'assert', 'mock', 'fixture']):
+                ['test', 'assert', 'mock', 'fixture']):
             return ViolationCategory.TESTING
             
         # Style patterns (default for many simple violations)
@@ -278,7 +274,7 @@ class UnifiedSeverityMapper:
         # Maintainability (default fallback)
         return ViolationCategory.MAINTAINABILITY
         
-    def get_severity_distribution(self, violations: List[Dict[str, Any]]) -> Dict[str, int]:
+def get_severity_distribution(self, violations: List[Dict[str, Any]]) -> Dict[str, int]:
         """Get distribution of violations by unified severity level"""
         distribution = {severity.value: 0 for severity in UnifiedSeverity}
         
@@ -292,7 +288,7 @@ class UnifiedSeverityMapper:
             
         return distribution
         
-    def get_category_distribution(self, violations: List[Dict[str, Any]]) -> Dict[str, int]:
+def get_category_distribution(self, violations: List[Dict[str, Any]]) -> Dict[str, int]:
         """Get distribution of violations by category"""
         distribution = {category.value: 0 for category in ViolationCategory}
         
@@ -306,7 +302,7 @@ class UnifiedSeverityMapper:
             
         return distribution
         
-    def calculate_quality_score(self, violations: List[Dict[str, Any]]) -> Dict[str, Any]:
+def calculate_quality_score(self, violations: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
         Calculate overall code quality score based on violations.
         
@@ -335,12 +331,12 @@ class UnifiedSeverityMapper:
         }
         
         total_weight = sum(severity_dist[severity] * weight 
-                          for severity, weight in severity_weights.items())
+                            for severity, weight in severity_weights.items())
         
-        # Base score starts at 100, deduct based on weighted violations
-        base_score = 100.0
+        # Base score starts at MAXIMUM_FUNCTION_LENGTH_LINES, deduct based on weighted violations
+        base_score = 60.0
         deduction = min(total_weight * 0.5, 95)  # Cap at 95% deduction
-        quality_score = max(base_score - deduction, 5.0)  # Minimum score of 5
+        quality_score = max(base_score - deduction, 5.0)  # Minimum score of MAXIMUM_NESTED_DEPTH
         
         # Assign grade
         if quality_score >= 90:
@@ -366,7 +362,7 @@ class UnifiedSeverityMapper:
             "recommendations": recommendations
         }
         
-    def _generate_recommendations(self, severity_dist: Dict[str, int], 
+def _generate_recommendations(self, severity_dist: Dict[str, int],
                                 category_dist: Dict[str, int]) -> List[str]:
         """Generate actionable recommendations based on violation patterns"""
         recommendations = []
@@ -396,7 +392,7 @@ class UnifiedSeverityMapper:
             
         return recommendations
         
-    def export_config(self, output_path: str, format_type: str = "yaml") -> None:
+def export_config(self, output_path: str, format_type: str = "yaml") -> None:
         """Export current mappings to configuration file"""
         config_data = {
             "tool_mappings": {

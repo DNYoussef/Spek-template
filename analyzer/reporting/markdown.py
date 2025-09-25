@@ -1,15 +1,4 @@
 # SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
 
 """
 Markdown Summary Reporter for PR Comments
@@ -23,15 +12,14 @@ from typing import List
 
 from analyzer.ast_engine.core_analyzer import AnalysisResult, Violation
 
-
 class MarkdownReporter:
     """Markdown report generator for PR comments."""
 
-    def __init__(self):
+def __init__(self):
         self.max_violations_to_show = 10
         self.max_files_to_show = 5
 
-    def generate(self, result: AnalysisResult) -> str:
+def generate(self, result: AnalysisResult) -> str:
         """Generate markdown summary from analysis result."""
         sections = []
 
@@ -56,7 +44,7 @@ class MarkdownReporter:
 
         return "\n\n".join(sections)
 
-    def _create_header(self, result: AnalysisResult) -> str:
+def _create_header(self, result: AnalysisResult) -> str:
         """Create report header."""
         total_violations = len(result.violations)
         critical_count = sum(1 for v in result.violations if v.severity.value == "critical")
@@ -78,7 +66,7 @@ class MarkdownReporter:
 
 **Status:** {status} | **Policy:** `{result.policy_preset or 'default'}` | **Duration:** {result.analysis_duration_ms}ms"""
 
-    def _create_summary(self, result: AnalysisResult) -> str:
+def _create_summary(self, result: AnalysisResult) -> str:
         """Create summary statistics."""
         violations = result.violations
 
@@ -124,7 +112,7 @@ class MarkdownReporter:
 
         return "\n".join(summary_lines)
 
-    def _create_top_violations(self, violations: List[Violation]) -> str:
+def _create_top_violations(self, violations: List[Violation]) -> str:
         """Create top violations section."""
         if not violations:
             return ""
@@ -164,7 +152,7 @@ class MarkdownReporter:
 
         return "\n".join(lines)
 
-    def _create_file_breakdown(self, violations: List[Violation]) -> str:
+def _create_file_breakdown(self, violations: List[Violation]) -> str:
         """Create file-by-file breakdown."""
         if not violations:
             return ""
@@ -215,7 +203,7 @@ class MarkdownReporter:
 
         return "\n".join(lines)
 
-    def _create_recommendations(self, result: AnalysisResult) -> str:
+def _create_recommendations(self, result: AnalysisResult) -> str:
         """Create actionable recommendations."""
         violations = result.violations
 
@@ -271,7 +259,7 @@ class MarkdownReporter:
 
         return "\n".join(lines)
 
-    def _create_footer(self, result: AnalysisResult) -> str:
+def _create_footer(self, result: AnalysisResult) -> str:
         """Create report footer."""
         footer_parts = [
             "---",

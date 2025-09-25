@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Reality Check Test Script for Phase 2 Risk & Quality Framework
-Tests actual functionality vs claimed completions
-"""
+from src.constants.base import API_TIMEOUT_SECONDS
 
 import sys
 import os
@@ -28,7 +24,6 @@ class RealityChecker:
 
     def test_evt_models(self):
         """Test Enhanced EVT Models actual functionality"""
-        print("=== Testing Enhanced EVT Models ===")
 
         try:
             # Test import
@@ -62,7 +57,6 @@ class RealityChecker:
 
     def test_kelly_criterion(self):
         """Test Kelly Criterion calculations"""
-        print("=== Testing Kelly Criterion ===")
 
         try:
             # Test basic import
@@ -119,7 +113,6 @@ class RealityChecker:
 
     def test_kill_switch(self):
         """Test Kill Switch response time and functionality"""
-        print("=== Testing Kill Switch ===")
 
         try:
             # Test import
@@ -145,7 +138,7 @@ class RealityChecker:
             config = {
                 'loss_limit': -1000,
                 'position_limit': 10000,
-                'heartbeat_timeout': 30
+                'heartbeat_timeout': API_TIMEOUT_SECONDS
             }
 
             broker = MockBroker()
@@ -187,7 +180,6 @@ class RealityChecker:
 
     def test_hardware_auth(self):
         """Test Hardware Authentication"""
-        print("=== Testing Hardware Authentication ===")
 
         try:
             from safety.hardware_auth_manager import HardwareAuthManager, AuthMethod
@@ -231,7 +223,6 @@ class RealityChecker:
 
     def test_weekly_siphon(self):
         """Test Weekly Siphon Automator"""
-        print("=== Testing Weekly Siphon ===")
 
         try:
             from cycles.weekly_siphon_automator import WeeklySiphonAutomator, SiphonStatus
@@ -294,7 +285,6 @@ class RealityChecker:
 
     def test_frontend_dashboard(self):
         """Test Frontend Dashboard components"""
-        print("=== Testing Frontend Dashboard ===")
 
         # Check for frontend files
         trader_ai_path = Path(r'C:\Users\17175\Desktop\trader-ai')

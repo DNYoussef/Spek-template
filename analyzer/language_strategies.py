@@ -1,7 +1,4 @@
-"""
-Language-specific strategy implementations for connascence detection.
-Consolidates duplicate algorithms across JavaScript and C language detection.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 from utils.types import ConnascenceViolation
 from pathlib import Path
@@ -27,9 +24,7 @@ except ImportError:
         REGEX_PATTERNS,
     )
 
-
 # ConnascenceViolation now imported from utils.types
-
 
 class LanguageStrategy:
     """Base strategy for language-specific connascence detection with comprehensive analysis."""
@@ -58,7 +53,6 @@ class LanguageStrategy:
             return violations
         except ImportError:
             # Fallback to regex-based detection
-            pass
 
         # Original regex-based detection as fallback
         patterns = self.get_magic_literal_patterns()
@@ -107,7 +101,7 @@ class LanguageStrategy:
                 if brace_count <= 0:
                     # Function ended
                     function_length = line_num - function_start + 1
-                    if function_length > GOD_OBJECT_LOC_THRESHOLD // 10:  # 50 lines threshold
+                    if function_length > GOD_OBJECT_LOC_THRESHOLD // MAXIMUM_FUNCTION_PARAMETERS:  # 50 lines threshold
                         violations.append(
                             self._create_god_function_violation(
                                 file_path, function_start, function_name, function_length
@@ -375,13 +369,11 @@ class LanguageStrategy:
                     ))
 
         # Check for TODO/FIXME theater in production code
-        theater_markers = ['TODO', 'FIXME', 'HACK', 'XXX']
         for line_num, line in enumerate(source_lines, 1):
             for marker in theater_markers:
                 if marker in line.upper():
                     violations.append(ConnascenceViolation(
                         type="code_debt",
-                        severity="medium" if marker in ['TODO', 'FIXME'] else "high",
                         file_path=str(file_path),
                         line_number=line_num,
                         column=line.upper().find(marker),
@@ -504,7 +496,6 @@ class LanguageStrategy:
         # Weighted average
         return (comment_score * 0.3 + density_score * 0.4 + function_score * 0.3)
 
-
 class JavaScriptStrategy(LanguageStrategy):
     """JavaScript-specific connascence detection strategy."""
 
@@ -558,7 +549,6 @@ class JavaScriptStrategy(LanguageStrategy):
                 })
 
         return patterns
-
 
 class CStrategy(LanguageStrategy):
     """C/C++-specific connascence detection strategy."""
@@ -614,7 +604,6 @@ class CStrategy(LanguageStrategy):
                 })
 
         return patterns
-
 
 class PythonStrategy(LanguageStrategy):
     """Python-specific connascence detection strategy (extends AST analysis)."""

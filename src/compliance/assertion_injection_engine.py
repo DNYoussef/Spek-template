@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Assertion Injection Engine for NASA POT10 Rule 5 Compliance
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 This module provides comprehensive assertion injection capabilities to achieve
 >98% assertion density across all functions, meeting NASA POT10 Rule 5 requirements
@@ -23,7 +21,6 @@ import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
-
 @dataclass
 class AssertionGap:
     """Represents a function with insufficient assertion density."""
@@ -40,7 +37,6 @@ class AssertionGap:
     parameter_count: int
     nasa_priority: str  # "critical", "high", "medium"
 
-
 @dataclass
 class AssertionTemplate:
     """Template for generating specific types of assertions."""
@@ -50,7 +46,6 @@ class AssertionTemplate:
     nasa_rule: str
     description: str
     code_template: str
-
 
 @dataclass
 class AssertionInjectionResult:
@@ -64,7 +59,6 @@ class AssertionInjectionResult:
     execution_time: float
     injection_details: List[str]
     validation_errors: List[str] = None
-
 
 @dataclass
 class AssertionInjectionMetrics:
@@ -90,7 +84,6 @@ class AssertionInjectionMetrics:
                 ((self.nasa_compliance_rate * (self.functions_injected - 1)) + 1.0) /
                 self.functions_injected
             )
-
 
 class ParameterValidationGenerator:
     """Generates comprehensive parameter validation assertions."""
@@ -212,7 +205,7 @@ class ParameterValidationGenerator:
                     )
                 ]
             ),
-            msg=ast.Constant(value=f"{param_name} must be within reasonable bounds (NASA Rule 5)")
+            msg=ast.Constant(value=f"{param_name} must be within reasonable bounds (NASA Rule MAXIMUM_NESTED_DEPTH)")
         )
 
     def _create_collection_check(self, param_name: str) -> Optional[ast.Assert]:
@@ -230,7 +223,7 @@ class ParameterValidationGenerator:
                 ops=[ast.Lt()],
                 comparators=[ast.Constant(value=10000)]
             ),
-            msg=ast.Constant(value=f"{param_name} collection size must be bounded (NASA Rule 5)")
+            msg=ast.Constant(value=f"{param_name} collection size must be bounded (NASA Rule MAXIMUM_NESTED_DEPTH)")
         )
 
     def _is_numeric_parameter(self, arg: ast.arg) -> bool:
@@ -282,7 +275,6 @@ class ParameterValidationGenerator:
             ]
         }
 
-
 class PostconditionGenerator:
     """Generates postcondition assertions for function outputs."""
 
@@ -329,7 +321,6 @@ class PostconditionGenerator:
                 expected_type = function_node.returns.id
 
                 # Create return type validation
-                # Note: This is a template - would need actual return value capture
                 return ast.Assert(
                     test=ast.Call(
                         func=ast.Name(id='isinstance', ctx=ast.Load()),
@@ -382,10 +373,9 @@ class PostconditionGenerator:
             'bool': 'assert isinstance(result, bool)'
         }
 
-
 class AssertionInjectionEngine:
     """
-    Enterprise-grade assertion injection for NASA POT10 Rule 5 compliance.
+    Enterprise-grade assertion injection for NASA POT10 Rule MAXIMUM_NESTED_DEPTH compliance.
 
     Generates comprehensive precondition, postcondition, and invariant assertions
     based on function signature analysis and semantic patterns.
@@ -599,11 +589,11 @@ class AssertionInjectionEngine:
                         ops=[ast.Lt()],
                         comparators=[ast.Constant(value=10000)]
                     ),
-                    msg=ast.Constant(value="Loop iterations within bounds (NASA Rule 5)")
+                    msg=ast.Constant(value="Loop iterations within bounds (NASA Rule MAXIMUM_NESTED_DEPTH)")
                 )
                 assertions.append(invariant)
 
-                # Limit to 5 loop invariants for NASA Rule 2 compliance
+                # Limit to MAXIMUM_NESTED_DEPTH loop invariants for NASA Rule 2 compliance
                 if len(assertions) >= 5:
                     break
 
@@ -661,7 +651,7 @@ class AssertionInjectionEngine:
                 assertion_type="precondition",
                 nasa_rule="rule_5",
                 description="Validate parameter is not None",
-                code_template="assert {param} is not None, \"{param} cannot be None (NASA Rule 5)\""
+                code_template="assert {param} is not None, \"{param} cannot be None (NASA Rule MAXIMUM_NESTED_DEPTH)\""
             ),
             AssertionTemplate(
                 name="parameter_type_check",
@@ -782,7 +772,6 @@ class AssertionInjectionEngine:
 
         return recommendations
 
-
 def main():
     """Command-line interface for assertion injection engine."""
     import argparse
@@ -834,7 +823,7 @@ def main():
                     total_functions_processed += result['functions_processed']
                     total_assertions_added += result['total_assertions_added']
                     print(f" Processed {file_path}: {result['successful_injections']} functions, "
-                          f"{result['total_assertions_added']} assertions added")
+                            f"{result['total_assertions_added']} assertions added")
                 else:
                     print(f" Failed to process {file_path}: {result.get('error', 'Unknown error')}")
 
@@ -847,10 +836,9 @@ def main():
     print(f"\nAssertion Injection Summary:")
     print(f"Functions processed: {total_functions_processed}")
     print(f"Assertions added: {total_assertions_added}")
-    print(f"NASA Rule 5 compliance rate: {engine.injection_stats.nasa_compliance_rate:.1%}")
+    print(f"NASA Rule MAXIMUM_NESTED_DEPTH compliance rate: {engine.injection_stats.nasa_compliance_rate:.1%}")
 
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

@@ -14,13 +14,14 @@ This script shows how the improvement plan maintains Six Sigma Level 6
 performance while scaling the codebase.
 """
 
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Dict, List, Any, Optional
 import json
 import os
 import sys
 import time
-from datetime import datetime, timedelta
-from pathlib import Path
-from typing import Dict, List, Any, Optional
+
 import random
 import statistics
 
@@ -32,7 +33,6 @@ from src.sixsigma.sixsigma_scorer import SixSigmaScorer, SixSigmaMetrics
 from src.enterprise.telemetry.spc_control_charts import (
     SPCManager, create_six_sigma_spc_system, SPCAlert
 )
-
 
 class SixSigmaImprovementDemo:
     """Demonstrates Six Sigma improvement plan implementation"""
@@ -133,7 +133,7 @@ class SixSigmaImprovementDemo:
         # Final assessment
         final_metrics = phase_results["daily_metrics"][-1]
         success = (final_metrics["dpmo"] <= target_dpmo and
-                  final_metrics["sigma_level"] >= target_sigma)
+                    final_metrics["sigma_level"] >= target_sigma)
 
         phase_results["final_assessment"] = {
             "success": success,
@@ -215,7 +215,7 @@ class SixSigmaImprovementDemo:
 
         define_phase = {
             "problem_statement": "Maintain Six Sigma Level 6 during 5x codebase scaling",
-            "goal_statement": "Sustain DPMO  1,500 and Sigma  4.5 through all growth phases",
+            "goal_statement": "Sustain DPMO  1, 500 and Sigma  4.5 through all growth phases",
             "project_scope": "All development processes and quality gates",
             "critical_requirements": [
                 "Quality: Maintain current excellence",
@@ -225,8 +225,8 @@ class SixSigmaImprovementDemo:
             ],
             "success_criteria": [
                 "Phase 1: DPMO  500, Sigma  5.0",
-                "Phase 2: DPMO  1,000, Sigma  4.7",
-                "Phase 3: DPMO  1,500, Sigma  4.5"
+                "Phase 2: DPMO  1, 000, Sigma  4.7",
+                "Phase 3: DPMO  1, 500, Sigma  4.5"
             ]
         }
 
@@ -373,7 +373,7 @@ class SixSigmaImprovementDemo:
                 "training_schedule": "Quarterly Six Sigma refresher training"
             },
             "monitoring_metrics": [
-                {"metric": "DPMO", "frequency": "Continuous", "alert_threshold": "> 1,500"},
+                {"metric": "DPMO", "frequency": "Continuous", "alert_threshold": "> 1, 500"},
                 {"metric": "Sigma Level", "frequency": "Daily", "alert_threshold": "< 4.5"},
                 {"metric": "Process Capability", "frequency": "Weekly", "alert_threshold": "< 1.33"},
                 {"metric": "Cycle Time", "frequency": "Per Sprint", "alert_threshold": "> 35 hours"}
@@ -463,13 +463,13 @@ class SixSigmaImprovementDemo:
         return str(report_file)
 
     def _generate_final_recommendations(self, scaling_results: List[Dict],
-                                      dmaic_results: Dict) -> List[str]:
+                                        dmaic_results: Dict) -> List[str]:
         """Generate final recommendations based on results"""
         recommendations = []
 
         # Analyze scaling success
         successful_phases = sum(1 for phase in scaling_results
-                              if phase["final_assessment"]["success"])
+                                if phase["final_assessment"]["success"])
         total_phases = len(scaling_results)
 
         if successful_phases == total_phases:
@@ -512,7 +512,6 @@ class SixSigmaImprovementDemo:
         print(f"\nQuality Status: {report['quality_insights']['risk_assessment']} RISK")
         print(f"Process Stability: {report['spc_dashboard']['summary']['overall_status']}")
 
-
 def main():
     """Main demonstration function"""
     print("Six Sigma Improvement Plan - Implementation Demo")
@@ -540,7 +539,6 @@ def main():
         print(f" Demo failed with error: {e}")
         import traceback
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     main()

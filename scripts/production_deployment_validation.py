@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Production Deployment Validation Script
-=======================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Validates that the system is ready for production deployment by:
 - Verifying all components are functional
@@ -19,7 +16,6 @@ logger = get_logger(__name__)
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-
 @dataclass
 class DeploymentCheck:
     """Individual deployment validation check."""
@@ -29,7 +25,6 @@ class DeploymentCheck:
     execution_time: float
     details: Dict[str, Any]
     error_message: Optional[str] = None
-
 
 @dataclass
 class DeploymentValidationResult:
@@ -44,7 +39,6 @@ class DeploymentValidationResult:
     checks: List[DeploymentCheck]
     recommendations: List[str]
     critical_issues: List[str]
-
 
 class EnvironmentValidator:
     """Validate deployment environment setup."""
@@ -170,7 +164,6 @@ class EnvironmentValidator:
             try:
                 # Test if we can execute Python files
                 result = subprocess.run([
-                    sys.executable, '-c', 'print("permissions_test")'
                 ], capture_output=True, text=True, timeout=5)
                 test_results['execute_permission'] = result.returncode == 0
                 if result.returncode != 0:
@@ -208,7 +201,6 @@ class EnvironmentValidator:
                 details={},
                 error_message=str(e)
             )
-
 
 class ComponentValidator:
     """Validate system components are functional."""
@@ -335,7 +327,6 @@ class ComponentValidator:
                 details={},
                 error_message=str(e)
             )
-
 
 class DeploymentScriptValidator:
     """Validate deployment scripts and procedures."""
@@ -489,7 +480,6 @@ class DeploymentScriptValidator:
                 error_message=str(e)
             )
 
-
 class HealthCheckValidator:
     """Validate health check endpoints and monitoring."""
     
@@ -585,7 +575,6 @@ class HealthCheckValidator:
                 details={},
                 error_message=str(e)
             )
-
 
 class ProductionDeploymentValidator:
     """Main production deployment validator."""
@@ -743,7 +732,6 @@ class ProductionDeploymentValidator:
             for i, rec in enumerate(result.recommendations, 1):
                 print(f"{i}. {rec}")
 
-
 async def main():
     """Main execution function."""
     print("="*80)
@@ -783,7 +771,6 @@ async def main():
         import traceback
         print(f"Error details: {traceback.format_exc()}")
         return 1
-
 
 if __name__ == '__main__':
     import sys

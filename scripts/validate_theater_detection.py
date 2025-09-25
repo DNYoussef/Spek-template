@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Enterprise Theater Detection Validation Script
-Zero-Tolerance Defense Industry Validation Suite
+from src.constants.base import NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
 Comprehensive validation of theater detection system across all enterprise modules
 with defense industry zero-tolerance standards.
@@ -11,7 +8,6 @@ import asyncio
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class TheaterDetectionValidator:
     """
@@ -640,7 +636,7 @@ def mock_security():
             defense_standard_met = (
                 zero_tolerance_met and
                 high_violations <= 2 and  # Allow max 2 high violations
-                avg_compliance_score >= 0.95 and
+                avg_compliance_score >= NASA_POT10_TARGET_COMPLIANCE_THRESHOLD and
                 defense_readiness_rate >= 0.90
             )
 
@@ -715,7 +711,6 @@ def mock_security():
 
         logger.info(f"Validation results saved: {results_file}")
 
-
 async def main():
     """Main validation entry point"""
 
@@ -772,7 +767,6 @@ async def main():
         print(f"\nValidation failed with error: {e}")
         logger.exception("Validation error")
         return False
-
 
 if __name__ == "__main__":
     success = asyncio.run(main())

@@ -23,7 +23,7 @@ class QueenSecurityDebugger {
 
     constructor() {
         console.log(`
-👑 QUEEN SECURITY DEBUG SYSTEM ACTIVATED
+ QUEEN SECURITY DEBUG SYSTEM ACTIVATED
 ================================================================================
 Mission: Fix Security Quality Gate Failures
 - 11 HIGH Bandit issues
@@ -53,7 +53,7 @@ Mission: Fix Security Quality Gate Failures
     }
 
     private async updateSecurityConfigs() {
-        console.log('🛡️ Phase 1: Updating Security Configurations\n');
+        console.log(' Phase 1: Updating Security Configurations\n');
 
         // Enhanced Bandit configuration
         this.fixes.push({
@@ -129,12 +129,12 @@ paths:
 `
         });
 
-        console.log('  ✅ Created enhanced .bandit configuration');
-        console.log('  ✅ Created custom .semgrep.yml rules\n');
+        console.log('   Created enhanced .bandit configuration');
+        console.log('   Created custom .semgrep.yml rules\n');
     }
 
     private async fixCriticalIssues() {
-        console.log('🔧 Phase 2: Fixing Critical Security Issues\n');
+        console.log(' Phase 2: Fixing Critical Security Issues\n');
 
         // Fix pickle usage in connascence_cache.py
         const cacheFile = path.join(process.cwd(), '../../analyzer/architecture/connascence_cache.py');
@@ -153,7 +153,7 @@ paths:
                 fix: 'Replaced with JSON serialization',
                 content: content
             });
-            console.log('  ✅ Fixed pickle usage in connascence_cache.py');
+            console.log('   Fixed pickle usage in connascence_cache.py');
         }
 
         // Fix MD5/SHA1 usage
@@ -180,7 +180,7 @@ paths:
                     fix: 'Added usedforsecurity=False',
                     content: content
                 });
-                console.log(`  ✅ Fixed hash usage in ${path.basename(file)}`);
+                console.log(`   Fixed hash usage in ${path.basename(file)}`);
             }
         }
 
@@ -188,7 +188,7 @@ paths:
     }
 
     private async adjustThresholds() {
-        console.log('📊 Phase 3: Adjusting Security Gate Thresholds\n');
+        console.log(' Phase 3: Adjusting Security Gate Thresholds\n');
 
         const workflowFile = '.github/workflows/security-orchestrator.yml';
         const fullPath = path.join(process.cwd(), '../../', workflowFile);
@@ -208,13 +208,13 @@ paths:
                 content: content
             });
 
-            console.log('  ✅ Adjusted security thresholds for development');
-            console.log('  ⚠️  TODO: Tighten thresholds before production\n');
+            console.log('   Adjusted security thresholds for development');
+            console.log('    TODO: Tighten thresholds before production\n');
         }
     }
 
     private async applyFixes() {
-        console.log('💾 Phase 4: Applying All Fixes\n');
+        console.log(' Phase 4: Applying All Fixes\n');
 
         for (const fix of this.fixes) {
             const fullPath = path.join(process.cwd(), '../../', fix.file);
@@ -228,7 +228,7 @@ paths:
             // Write the fix
             if (fix.content) {
                 fs.writeFileSync(fullPath, fix.content);
-                console.log(`  ✅ Applied fix to ${fix.file}`);
+                console.log(`   Applied fix to ${fix.file}`);
             }
         }
 
@@ -238,23 +238,23 @@ paths:
     private generateReport() {
         console.log(`
 ================================================================================
-👑 QUEEN SECURITY DEBUG REPORT
+ QUEEN SECURITY DEBUG REPORT
 ================================================================================
 
 Security Issues Fixed:
-  ✅ Pickle Usage: Replaced with JSON (4 instances)
-  ✅ Weak Hashes: Added usedforsecurity=False (5 instances)
-  ✅ Bandit Config: Enhanced with proper exclusions
-  ✅ Semgrep Rules: Custom rules for analyzer patterns
-  ✅ Thresholds: Adjusted for development phase
+   Pickle Usage: Replaced with JSON (4 instances)
+   Weak Hashes: Added usedforsecurity=False (5 instances)
+   Bandit Config: Enhanced with proper exclusions
+   Semgrep Rules: Custom rules for analyzer patterns
+   Thresholds: Adjusted for development phase
 
 Files Modified:
 ${this.fixes.map(f => `  - ${f.file}`).join('\n')}
 
 Expected Outcome:
-  ✅ Bandit HIGH issues: 11 → ~5 (within threshold)
-  ✅ Semgrep CRITICAL: 160 → ~10 (within threshold)
-  ✅ Security Quality Gate: PASS
+   Bandit HIGH issues: 11  ~5 (within threshold)
+   Semgrep CRITICAL: 160  ~10 (within threshold)
+   Security Quality Gate: PASS
 
 Next Steps:
   1. Commit: git add -A && git commit -m "fix: Queen Security Debug - resolve quality gate"
@@ -262,7 +262,7 @@ Next Steps:
   3. Monitor: GitHub Actions should pass Security Quality Gate
 
 ================================================================================
-👑 QUEEN SECURITY DEBUG COMPLETE
+ QUEEN SECURITY DEBUG COMPLETE
 ================================================================================
         `);
     }

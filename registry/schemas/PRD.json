@@ -1,0 +1,81 @@
+{
+  "$id": "schema/PRD.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Product Requirements Document",
+  "description": "Schema for PRD records with strict validation",
+  "type": "object",
+  "required": ["name", "goal", "problem", "acceptance_tests", "owner", "version", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^prd_[0-9]+$",
+      "description": "Unique PRD identifier"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Parent project identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 100,
+      "description": "PRD name/title"
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 400,
+      "description": "Clear goal statement"
+    },
+    "problem": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 600,
+      "description": "Problem being solved"
+    },
+    "acceptance_tests": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 10
+      },
+      "minItems": 1,
+      "description": "Testable acceptance criteria"
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Identified risks"
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 2,
+      "description": "Owner name/email"
+    },
+    "status": {
+      "enum": ["draft", "ready", "needs_fix"],
+      "description": "PRD status"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "PRD version number"
+    },
+    "last_run": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last processing timestamp"
+    },
+    "upsert_key": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": ["project_id", "name"],
+      "description": "Fields used for upsert operations"
+    }
+  },
+  "additionalProperties": false
+}

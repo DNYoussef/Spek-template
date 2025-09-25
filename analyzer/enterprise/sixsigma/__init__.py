@@ -10,10 +10,10 @@ This module implements the Six Sigma methodology for software quality measuremen
 as defined in the enterprise requirements conversation.
 """
 
-from .telemetry import SixSigmaTelemetry, collect_method_metrics
+from .msa_validator import MSAValidator
 from .scorer import SixSigmaScorer
 from .spc_charts import SPCChartGenerator
-from .msa_validator import MSAValidator
+from .telemetry import SixSigmaTelemetry, collect_method_metrics
 
 __all__ = [
     "SixSigmaTelemetry",

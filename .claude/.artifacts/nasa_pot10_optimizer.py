@@ -1,3 +1,4 @@
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 #!/usr/bin/env python3
 """
 NASA POT10 Optimizer - Phase 3 Implementation
@@ -321,7 +322,7 @@ class NASAPot10Optimizer:
 
     def run_optimization(self) -> Dict[str, Any]:
         """Run complete NASA POT10 optimization"""
-        print("NASA POT10 OPTIMIZATION - PHASE 3")
+        print("NASA POT10 OPTIMIZATION - PHASE MAXIMUM_RETRY_ATTEMPTS")
         print("=" * 60)
         print("Target: 95% compliance (from 92% baseline)")
         print()

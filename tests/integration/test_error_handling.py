@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Error Handling and Graceful Degradation Testing
-===============================================
+from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
 
 Test enterprise feature error handling and graceful degradation:
 1. Module import failures
@@ -30,7 +27,6 @@ try:
     from analyzer.enterprise import initialize_enterprise_features, get_enterprise_status
 except ImportError as e:
     print(f"Warning: Failed to import components: {e}")
-
 
 class ErrorSimulator:
     """Simulate various error conditions for testing."""
@@ -100,7 +96,6 @@ class ErrorSimulator:
                 return None
         
         return NoneConfigManager()
-
 
 class ErrorHandlingTest(unittest.TestCase):
     """Test error handling in enterprise features."""
@@ -193,7 +188,6 @@ class ErrorHandlingTest(unittest.TestCase):
         for expected_feature in expected_features:
             self.assertIn(expected_feature, features)
 
-
 class AnalyzerErrorHandlingTest(unittest.TestCase):
     """Test error handling in analyzer with enterprise features."""
     
@@ -275,7 +269,6 @@ class AnalyzerErrorHandlingTest(unittest.TestCase):
             except:
                 pass
 
-
 class GracefulDegradationTest(unittest.TestCase):
     """Test graceful degradation when enterprise modules are unavailable."""
     
@@ -313,7 +306,7 @@ class GracefulDegradationTest(unittest.TestCase):
         try:
             # Mock enterprise initialization failure
             with patch('analyzer.enterprise.initialize_enterprise_features', 
-                      side_effect=RuntimeError("Enterprise init failed")):
+                        side_effect=RuntimeError("Enterprise init failed")):
                 
                 analyzer = ConnascenceAnalyzer()
                 result = analyzer.analyze_path(str(test_file.parent))
@@ -338,7 +331,7 @@ class GracefulDegradationTest(unittest.TestCase):
                             "state": "enabled",
                             "description": "Available feature",
                             "performance_impact": "low",
-                            "min_nasa_compliance": 0.92
+                            "min_nasa_compliance": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
                         },
                         "unavailable_feature": {
                             "state": "enabled",
@@ -366,7 +359,6 @@ class GracefulDegradationTest(unittest.TestCase):
                 # Should handle unavailable features gracefully
                 enabled_features = feature_manager.get_enabled_modules()
                 # May include all features even if some are unavailable (depends on implementation)
-
 
 class ResourceConstraintTest(unittest.TestCase):
     """Test behavior under resource constraints."""
@@ -415,7 +407,6 @@ class ResourceConstraintTest(unittest.TestCase):
         timeout = config_manager.get_config_value("analysis_timeout")
         self.assertEqual(timeout, 0.1)
 
-
 class ErrorRecoveryTest(unittest.TestCase):
     """Test error recovery mechanisms."""
     
@@ -429,7 +420,7 @@ class ErrorRecoveryTest(unittest.TestCase):
                             "state": "enabled",
                             "description": "Test feature",
                             "performance_impact": "low",
-                            "min_nasa_compliance": 0.92
+                            "min_nasa_compliance": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
                         }
                     }
                 }
@@ -457,14 +448,14 @@ class ErrorRecoveryTest(unittest.TestCase):
                             "state": "disabled",  # Dependency is disabled
                             "description": "Base feature",
                             "performance_impact": "low",
-                            "min_nasa_compliance": 0.92
+                            "min_nasa_compliance": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
                         },
                         "dependent_feature": {
                             "state": "enabled",
                             "description": "Dependent feature",
                             "dependencies": ["base_feature"],  # Depends on disabled feature
                             "performance_impact": "medium",
-                            "min_nasa_compliance": 0.92
+                            "min_nasa_compliance": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
                         }
                     }
                 }
@@ -479,7 +470,6 @@ class ErrorRecoveryTest(unittest.TestCase):
         self.assertFalse(feature_manager.is_enabled("dependent_feature"))
         self.assertFalse(feature_manager.is_enabled("base_feature"))
 
-
 if __name__ == "__main__":
     # Run error handling tests
     test_classes = [
@@ -490,13 +480,9 @@ if __name__ == "__main__":
         ErrorRecoveryTest
     ]
     
-    print("Starting Error Handling and Graceful Degradation Testing")
-    print("=" * 80)
-    
     overall_success = True
     
     for test_class in test_classes:
-        print(f"\nRunning {test_class.__name__}")
         print("-" * 50)
         
         suite = unittest.TestLoader().loadTestsFromTestCase(test_class)
@@ -505,10 +491,7 @@ if __name__ == "__main__":
         
         if not result.wasSuccessful():
             overall_success = False
-            print(f"FAILED: {test_class.__name__}")
             
-    print("\n" + "=" * 80)
-    print(f"Error Handling Testing: {'PASSED' if overall_success else 'FAILED'}")
     print("=" * 80)
     
     sys.exit(0 if overall_success else 1)

@@ -1,21 +1,17 @@
-# SPDX-License-Identifier: MIT
-"""
-Enterprise Enhancement Decorators
-=================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Non-breaking decorator patterns for enhancing existing analyzer methods
 with enterprise capabilities while maintaining zero performance impact
 when features are disabled.
 
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 from functools import wraps
 from typing import Callable, Any, Dict, List, Optional
 import logging
 logger = logging.getLogger(__name__)
-
 
 class EnterpriseEnhancer:
     """
@@ -60,7 +56,7 @@ class EnterpriseEnhancer:
                     )
                     
                     logger.debug(f"Enterprise enhancement {feature_name} applied: "
-                               f"{len(violations)} -> {len(enhanced_violations)} violations")
+                                f"{len(violations)} -> {len(enhanced_violations)} violations")
                     
                     return enhanced_violations
                     
@@ -102,7 +98,7 @@ class EnterpriseEnhancer:
                     combined_results = gate_results + enterprise_gates
                     
                     logger.debug(f"Enterprise gates {feature_name} added: "
-                               f"{len(gate_results)} -> {len(combined_results)} gates")
+                                f"{len(gate_results)} -> {len(combined_results)} gates")
                     
                     return combined_results
                     
@@ -203,7 +199,7 @@ class EnterpriseEnhancer:
         return decorator
     
     def _apply_enterprise_analysis(self, violations: List[Dict], feature_name: str, 
-                                  *args, **kwargs) -> List[Dict]:
+                                    *args, **kwargs) -> List[Dict]:
         """
         Apply enterprise analysis to existing violations.
         
@@ -253,7 +249,7 @@ class EnterpriseEnhancer:
         return enterprise_gates
     
     def _get_enterprise_config(self, feature_name: str, base_config: Dict,
-                              *args, **kwargs) -> Dict[str, Any]:
+                                *args, **kwargs) -> Dict[str, Any]:
         """
         Get enterprise-specific configuration settings.
         
@@ -284,7 +280,6 @@ class EnterpriseEnhancer:
         defect_density = len(violations) / (total_loc / 100)
         
         # Six Sigma target: < 3.4 defects per million opportunities
-        # For code analysis: < 0.34 violations per 100 LOC
         if defect_density > 0.34:
             sixsigma_violations.append({
                 'type': 'sixsigma_defect_density',
@@ -342,7 +337,7 @@ class EnterpriseEnhancer:
             return 0
     
     def _record_performance_metrics(self, feature_name: str, execution_time: float, 
-                                   memory_delta: int) -> None:
+                                    memory_delta: int) -> None:
         """Record performance metrics for enterprise feature."""
         if feature_name not in self._enhancement_registry:
             self._enhancement_registry[feature_name] = {

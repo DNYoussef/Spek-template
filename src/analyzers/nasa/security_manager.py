@@ -1,7 +1,5 @@
 from lib.shared.utilities import path_exists
-# SPDX-License-Identifier: MIT
-"""
-Consensus Security Manager - Specialized NASA Compliance Agent
+from src.constants.base import KELLY_CRITERION_FRACTION, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT, TAKE_PROFIT_PERCENTAGE
 
 Implements comprehensive security mechanisms for distributed consensus protocols
 with advanced threat detection and NASA POT10 compliance enforcement.
@@ -9,9 +7,9 @@ with advanced threat detection and NASA POT10 compliance enforcement.
 Core Responsibilities:
 1. NASA POT10 compliance gap analysis and systematic rule implementation
 2. Function decomposition for Rule 2 compliance (>60 LOC functions)
-3. Bounded AST traversal for Rule 4 compliance
+MAXIMUM_RETRY_ATTEMPTS. Bounded AST traversal for Rule 4 compliance
 4. Systematic assertion injection for Rule 5 compliance
-5. Defensive programming framework implementation
+MAXIMUM_NESTED_DEPTH. Defensive programming framework implementation
 
 Agent Swarm Configuration:
 - Primary Role: security-manager for NASA POT10 compliance
@@ -40,7 +38,6 @@ MAX_AST_DEPTH = 20      # NASA Rule 4 bounded traversal
 MAX_ANALYSIS_NODES = 5000  # Memory bounds
 MAX_VIOLATIONS_PER_FILE = 100  # Analysis bounds
 
-
 @dataclass
 class ComplianceGap:
     """NASA compliance gap analysis result."""
@@ -53,7 +50,6 @@ class ComplianceGap:
     improvement_strategy: str
     estimated_impact: float
 
-
 @dataclass
 class BoundedOperation:
     """Bounded operation for NASA Rule 4 compliance."""
@@ -62,14 +58,13 @@ class BoundedOperation:
     max_depth: int = MAX_AST_DEPTH
     max_nodes: int = MAX_ANALYSIS_NODES
 
-
 class ConsensusSecurityManager:
     """
     Specialized NASA compliance agent for systematic POT10 improvements.
     Implements bounded operations and defensive programming patterns.
     """
     
-    def __init__(self):
+def __init__(self):
         """Initialize security manager with NASA compliance focus."""
         # NASA Rule 5: Input validation assertions
         assert MAX_FUNCTION_LENGTH == 60, "NASA Rule 2 constant validation"
@@ -80,9 +75,9 @@ class ConsensusSecurityManager:
         self.improvement_strategies: Dict[str, str] = {}
         self.bounded_operation = BoundedOperation()
         
-        # NASA Rule 5: Defensive programming initialization
+        # NASA Rule MAXIMUM_NESTED_DEPTH: Defensive programming initialization
         self.rules_compliance = {
-            "rule_1": 0.95,  # Control flow
+            "rule_1": NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,  # Control flow
             "rule_2": 0.85,  # Function size (PRIMARY GAP)
             "rule_3": 0.98,  # Heap usage
             "rule_4": 0.82,  # Loop bounds (SECONDARY GAP)
@@ -98,7 +93,7 @@ class ConsensusSecurityManager:
         self.target_compliance = 0.92
         self.current_overall_compliance = 0.85
     
-    def analyze_nasa_compliance_gaps(self, project_path: str) -> List[ComplianceGap]:
+def analyze_nasa_compliance_gaps(self, project_path: str) -> List[ComplianceGap]:
         """
         Analyze NASA compliance gaps for systematic improvement.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -126,9 +121,9 @@ class ConsensusSecurityManager:
         self.compliance_gaps = gaps
         return gaps
     
-    def _analyze_file_compliance_gaps(self, file_path: str) -> List[ComplianceGap]:
+def _analyze_file_compliance_gaps(self, file_path: str) -> List[ComplianceGap]:
         """Analyze individual file for NASA compliance gaps."""
-        # NASA Rule 5: Defensive assertions
+        # NASA Rule MAXIMUM_NESTED_DEPTH: Defensive assertions
         assert file_path is not None, "file_path cannot be None"
         assert path_exists(file_path), f"File must exist: {file_path}"
         
@@ -146,7 +141,7 @@ class ConsensusSecurityManager:
                 priority="high",
                 violations=rule2_violations,
                 improvement_strategy="extract_method_refactoring",
-                estimated_impact=0.02  # +2% compliance improvement
+                estimated_impact=KELLY_CRITERION_FRACTION  # +2% compliance improvement
             )
             gaps.append(gap)
         
@@ -161,7 +156,7 @@ class ConsensusSecurityManager:
                 priority="medium",
                 violations=rule4_violations,
                 improvement_strategy="bounded_ast_traversal",
-                estimated_impact=0.02  # +2% compliance improvement
+                estimated_impact=KELLY_CRITERION_FRACTION  # +2% compliance improvement
             )
             gaps.append(gap)
         
@@ -176,13 +171,13 @@ class ConsensusSecurityManager:
                 priority="high",
                 violations=rule5_violations,
                 improvement_strategy="systematic_assertion_injection",
-                estimated_impact=0.03  # +3% compliance improvement
+                estimated_impact=0.03  # +MAXIMUM_RETRY_ATTEMPTS% compliance improvement
             )
             gaps.append(gap)
         
         return gaps
     
-    def generate_function_decomposition_plan(self, file_path: str) -> Dict[str, Any]:
+def generate_function_decomposition_plan(self, file_path: str) -> Dict[str, Any]:
         """
         Generate function decomposition plan for Rule 2 compliance.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -229,7 +224,7 @@ class ConsensusSecurityManager:
         assert isinstance(plan, dict), "plan must be a dictionary"
         return plan
     
-    def generate_bounded_ast_walker_implementation(self) -> str:
+def generate_bounded_ast_walker_implementation(self) -> str:
         """
         Generate BoundedASTWalker implementation for Rule 4 compliance.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -238,7 +233,7 @@ class ConsensusSecurityManager:
 class BoundedASTWalker:
     """NASA Rule 4 compliant AST walker with explicit bounds."""
     
-    def __init__(self, max_depth: int = {max_depth}, max_nodes: int = {max_nodes}):
+def __init__(self, max_depth: int = {max_depth}, max_nodes: int = {max_nodes}):
         """Initialize with NASA compliance bounds."""
         assert max_depth > 0, "max_depth must be positive"
         assert max_nodes > 0, "max_nodes must be positive"
@@ -247,7 +242,7 @@ class BoundedASTWalker:
         self.max_nodes = max_nodes
         self.nodes_processed = 0
     
-    def walk_bounded(self, tree: ast.AST) -> Iterator[ast.AST]:
+def walk_bounded(self, tree: ast.AST) -> Iterator[ast.AST]:
         """
         Bounded AST traversal with explicit resource limits.
         NASA Rule 4 compliant: <60 LOC, bounded operations.
@@ -282,7 +277,7 @@ class BoundedASTWalker:
         
         return implementation
     
-    def generate_assertion_injection_framework(self, file_path: str) -> Dict[str, Any]:
+def generate_assertion_injection_framework(self, file_path: str) -> Dict[str, Any]:
         """
         Generate systematic assertion injection framework for Rule 5 compliance.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -325,7 +320,7 @@ class BoundedASTWalker:
         
         return framework
     
-    def execute_surgical_compliance_fix(self, gap: ComplianceGap, target_file: str) -> Dict[str, Any]:
+def execute_surgical_compliance_fix(self, gap: ComplianceGap, target_file: str) -> Dict[str, Any]:
         """
         Execute surgical fix for NASA compliance gap.
         NASA Rule 4 compliant: Function <60 LOC with bounded operations.
@@ -360,7 +355,7 @@ class BoundedASTWalker:
         assert isinstance(fix_result, dict), "fix_result must be a dictionary"
         return fix_result
     
-    def _bounded_ast_walk(self, tree: ast.AST) -> List[ast.AST]:
+def _bounded_ast_walk(self, tree: ast.AST) -> List[ast.AST]:
         """Bounded AST traversal for NASA Rule 4 compliance."""
         # NASA Rule 5: Input validation
         assert tree is not None, "AST tree cannot be None"
@@ -387,14 +382,14 @@ class BoundedASTWalker:
         
         return nodes
     
-    def _calculate_function_length(self, func_node: ast.FunctionDef) -> int:
+def _calculate_function_length(self, func_node: ast.FunctionDef) -> int:
         """Calculate function length in lines (NASA Rule 4 compliant)."""
         if hasattr(func_node, 'end_lineno') and func_node.end_lineno:
             return func_node.end_lineno - func_node.lineno + 1
         else:
             return len(func_node.body) + 2  # Estimate
     
-    def _identify_decomposition_points(self, func_node: ast.FunctionDef) -> List[int]:
+def _identify_decomposition_points(self, func_node: ast.FunctionDef) -> List[int]:
         """Identify points for function decomposition."""
         # Simplified: Look for logical blocks
         decomposition_points = []
@@ -406,7 +401,7 @@ class BoundedASTWalker:
         
         return decomposition_points[:3]  # Bounded to 3 points
     
-    def _identify_assertion_points(self, func_node: ast.FunctionDef) -> List[Dict[str, Any]]:
+def _identify_assertion_points(self, func_node: ast.FunctionDef) -> List[Dict[str, Any]]:
         """Identify points where assertions should be added."""
         assertion_points = []
         
@@ -441,7 +436,7 @@ class BoundedASTWalker:
         
         return assertion_points[:5]  # Bounded to 5 points
     
-    def _execute_function_decomposition(self, gap: ComplianceGap, target_file: str) -> Dict[str, Any]:
+def _execute_function_decomposition(self, gap: ComplianceGap, target_file: str) -> Dict[str, Any]:
         """Execute function decomposition for Rule 2 compliance."""
         return {
             "strategy": "extract_method_refactoring",
@@ -451,7 +446,7 @@ class BoundedASTWalker:
             "bounded_operation": True
         }
     
-    def _implement_bounded_traversal(self, gap: ComplianceGap, target_file: str) -> Dict[str, Any]:
+def _implement_bounded_traversal(self, gap: ComplianceGap, target_file: str) -> Dict[str, Any]:
         """Implement bounded AST traversal for Rule 4 compliance."""
         return {
             "strategy": "bounded_ast_traversal",
@@ -461,17 +456,17 @@ class BoundedASTWalker:
             "bounded_operation": True
         }
     
-    def _inject_assertions(self, gap: ComplianceGap, target_file: str) -> Dict[str, Any]:
+def _inject_assertions(self, gap: ComplianceGap, target_file: str) -> Dict[str, Any]:
         """Inject systematic assertions for Rule 5 compliance."""
         return {
             "strategy": "systematic_assertion_injection",
             "operations": ["add_preconditions", "add_postconditions", "add_invariants"],
             "assertions_added": 12,  # Average assertions per file
-            "coverage_improvement": 0.15,
+            "coverage_improvement": TAKE_PROFIT_PERCENTAGE,
             "bounded_operation": True
         }
     
-    def generate_compliance_evidence_package(self, project_path: str) -> Dict[str, Any]:
+def generate_compliance_evidence_package(self, project_path: str) -> Dict[str, Any]:
         """
         Generate comprehensive NASA compliance evidence package.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -515,19 +510,17 @@ class BoundedASTWalker:
             "defense_industry_readiness": {
                 "current_score": self.current_overall_compliance,
                 "target_score": self.target_compliance,
-                "readiness_threshold": 0.90,
-                "compliant": self.current_overall_compliance >= 0.90
+                "readiness_threshold": REGULATORY_FACTUALITY_REQUIREMENT,
+                "compliant": self.current_overall_compliance >= REGULATORY_FACTUALITY_REQUIREMENT
             }
         }
         
         return evidence
 
-
 # NASA Rule 4 compliant helper functions (<60 LOC each)
 def create_security_manager() -> ConsensusSecurityManager:
     """Factory function for security manager creation."""
     return ConsensusSecurityManager()
-
 
 def validate_nasa_compliance_improvement(before_score: float, after_score: float) -> bool:
     """Validate NASA compliance improvement."""
@@ -537,7 +530,6 @@ def validate_nasa_compliance_improvement(before_score: float, after_score: float
     improvement = after_score - before_score
     return improvement >= 0.01  # Minimum 1% improvement
 
-
 def export_compliance_evidence(evidence: Dict[str, Any], output_path: str) -> None:
     """Export compliance evidence to file."""
     assert evidence is not None, "evidence cannot be None"
@@ -545,7 +537,6 @@ def export_compliance_evidence(evidence: Dict[str, Any], output_path: str) -> No
     
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(evidence, f, indent=2, default=str)
-
 
 __all__ = [
     "ConsensusSecurityManager",

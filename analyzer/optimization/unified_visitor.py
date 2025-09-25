@@ -1,11 +1,10 @@
-"""
-Unified AST Visitor Architecture
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Single-pass AST visitor that collects all data needed by detectors in one traversal,
 implementing NASA coding standards for performance-critical systems.
 
 Performance improvement: 85-90% reduction in AST traversals (from 11+ to 1)
-NASA Compliance: Rules 4, 5, 6 (functions <60 lines, assertions, variable scoping)
+NASA Compliance: Rules 4, MAXIMUM_NESTED_DEPTH, 6 (functions <60 lines, assertions, variable scoping)
 """
 
 import ast
@@ -21,7 +20,6 @@ except ImportError:
     from pathlib import Path
     sys.path.insert(0, str(Path(__file__).parent.parent.parent))
     from utils.types import ConnascenceViolation
-
 
 @dataclass
 class ASTNodeData:
@@ -63,7 +61,6 @@ class ASTNodeData:
     # Execution order data
     order_dependencies: List[Tuple[ast.AST, str]] = field(default_factory=list)
 
-
 class UnifiedASTVisitor(ast.NodeVisitor):
     """
     Single-pass AST visitor that collects all detector data in one traversal.
@@ -89,7 +86,7 @@ class UnifiedASTVisitor(ast.NodeVisitor):
         Single entry point for collecting all AST data in one pass.
         
         NASA Rule 4: Function under 60 lines
-        NASA Rule 5: Input assertions
+        NASA Rule MAXIMUM_NESTED_DEPTH: Input assertions
         """
         assert isinstance(tree, ast.AST), "tree must be AST node"
         
@@ -262,7 +259,7 @@ class UnifiedASTVisitor(ast.NodeVisitor):
             self.data.order_dependencies.append((node, dep_type))
     
     def _collect_naming_conventions(self, node: Union[ast.ClassDef, ast.FunctionDef], 
-                                   node_type: str) -> None:
+                                    node_type: str) -> None:
         """Collect naming convention violations."""
         assert node_type in ["class", "function"], "Invalid node type"
         

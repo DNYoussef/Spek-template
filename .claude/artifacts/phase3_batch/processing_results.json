@@ -1,0 +1,2112 @@
+{
+  "timestamp": "2025-09-24 12:33:07",
+  "statistics": {
+    "total_files": 233,
+    "processed": 233,
+    "successful": 233,
+    "syntax_errors": 0,
+    "stubs_created": 0,
+    "modules_created": 0,
+    "lines_refactored": 181422,
+    "total_time": 42.88696479797363
+  },
+  "results": [
+    {
+      "file_path": ".claude\\artifacts\\sandbox-validation\\phase3_performance_optimization_validator.py",
+      "original_loc": 2008,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 2008,
+      "error_message": null,
+      "processing_time": 0.15658235549926758
+    },
+    {
+      "file_path": "src\\coordination\\loop_orchestrator.py",
+      "original_loc": 1888,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1888,
+      "error_message": null,
+      "processing_time": 0.1575791835784912
+    },
+    {
+      "file_path": "src\\security\\enhanced_incident_response_system.py",
+      "original_loc": 1588,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1588,
+      "error_message": null,
+      "processing_time": 0.16755175590515137
+    },
+    {
+      "file_path": "analyzer\\performance\\result_aggregation_profiler.py",
+      "original_loc": 1523,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1523,
+      "error_message": null,
+      "processing_time": 0.16954827308654785
+    },
+    {
+      "file_path": "src\\analysis\\failure_pattern_detector.py",
+      "original_loc": 1662,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1662,
+      "error_message": null,
+      "processing_time": 0.1715404987335205
+    },
+    {
+      "file_path": "scripts\\github_integration.py",
+      "original_loc": 1461,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1461,
+      "error_message": null,
+      "processing_time": 0.173537015914917
+    },
+    {
+      "file_path": "tests\\wrapper-integration\\test-files\\large-test.py",
+      "original_loc": 1502,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1502,
+      "error_message": null,
+      "processing_time": 0.173537015914917
+    },
+    {
+      "file_path": "analyzer\\enterprise\\compliance\\nist_ssdf.py",
+      "original_loc": 2088,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 2088,
+      "error_message": null,
+      "processing_time": 0.1765286922454834
+    },
+    {
+      "file_path": "analyzer\\enterprise\\compliance\\iso27001.py",
+      "original_loc": 1362,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1362,
+      "error_message": null,
+      "processing_time": 0.15358901023864746
+    },
+    {
+      "file_path": "src\\security\\dfars_compliance_validation_system.py",
+      "original_loc": 1437,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1437,
+      "error_message": null,
+      "processing_time": 0.1625664234161377
+    },
+    {
+      "file_path": "src\\security\\continuous_risk_assessment.py",
+      "original_loc": 1279,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1279,
+      "error_message": null,
+      "processing_time": 0.15358972549438477
+    },
+    {
+      "file_path": "analyzer\\enterprise\\compliance\\reporting.py",
+      "original_loc": 1259,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1259,
+      "error_message": null,
+      "processing_time": 0.1545875072479248
+    },
+    {
+      "file_path": "src\\security\\cdi_protection_framework.py",
+      "original_loc": 1196,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1196,
+      "error_message": null,
+      "processing_time": 0.15558362007141113
+    },
+    {
+      "file_path": "analyzer\\performance\\optimizer.py",
+      "original_loc": 1196,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1196,
+      "error_message": null,
+      "processing_time": 0.15857577323913574
+    },
+    {
+      "file_path": "src\\security\\enterprise_theater_detection.py",
+      "original_loc": 1263,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1263,
+      "error_message": null,
+      "processing_time": 0.16256451606750488
+    },
+    {
+      "file_path": "tests\\phase7_adas\\test_simulation_scenarios.py",
+      "original_loc": 1201,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1201,
+      "error_message": null,
+      "processing_time": 0.15857577323913574
+    },
+    {
+      "file_path": "src\\coordination\\queen_coordinator.py",
+      "original_loc": 1189,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1189,
+      "error_message": null,
+      "processing_time": 0.16655373573303223
+    },
+    {
+      "file_path": "src\\security\\defense_industry_evidence_generator.py",
+      "original_loc": 1155,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1155,
+      "error_message": null,
+      "processing_time": 0.16256380081176758
+    },
+    {
+      "file_path": "src\\security\\dfars_compliance_engine.py",
+      "original_loc": 1123,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1123,
+      "error_message": null,
+      "processing_time": 0.16156744956970215
+    },
+    {
+      "file_path": "analyzer\\performance\\incremental_analyzer.py",
+      "original_loc": 1087,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1087,
+      "error_message": null,
+      "processing_time": 0.17154216766357422
+    },
+    {
+      "file_path": "analyzer\\performance\\cache_performance_profiler.py",
+      "original_loc": 1103,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1103,
+      "error_message": null,
+      "processing_time": 0.17752552032470703
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactoring_audit_report.py",
+      "original_loc": 1081,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1081,
+      "error_message": null,
+      "processing_time": 0.18151497840881348
+    },
+    {
+      "file_path": "tests\\phase7_adas\\test_perception_accuracy.py",
+      "original_loc": 1114,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1114,
+      "error_message": null,
+      "processing_time": 0.20345544815063477
+    },
+    {
+      "file_path": "src\\detectors\\comprehensive_benchmark.py",
+      "original_loc": 1073,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1073,
+      "error_message": null,
+      "processing_time": 0.22739219665527344
+    },
+    {
+      "file_path": "src\\security\\dfars_compliance_certification.py",
+      "original_loc": 1065,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1065,
+      "error_message": null,
+      "processing_time": 0.18450665473937988
+    },
+    {
+      "file_path": "analyzer\\cross_phase_learning_integration.py",
+      "original_loc": 1058,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1058,
+      "error_message": null,
+      "processing_time": 0.19248533248901367
+    },
+    {
+      "file_path": "src\\byzantium\\byzantine_coordinator.py",
+      "original_loc": 1057,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1057,
+      "error_message": null,
+      "processing_time": 0.18350934982299805
+    },
+    {
+      "file_path": "tests\\enterprise\\e2e\\test_enterprise_workflows.py",
+      "original_loc": 1069,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1069,
+      "error_message": null,
+      "processing_time": 0.21642184257507324
+    },
+    {
+      "file_path": "analyzer\\unified_memory_model.py",
+      "original_loc": 1049,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1049,
+      "error_message": null,
+      "processing_time": 0.19148826599121094
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "original_loc": 1055,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1055,
+      "error_message": null,
+      "processing_time": 0.1984694004058838
+    },
+    {
+      "file_path": "analyzer\\component_integrator.py",
+      "original_loc": 1047,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1047,
+      "error_message": null,
+      "processing_time": 0.19547700881958008
+    },
+    {
+      "file_path": "analyzer\\constants.py",
+      "original_loc": 1018,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1018,
+      "error_message": null,
+      "processing_time": 0.2064495086669922
+    },
+    {
+      "file_path": "src\\security\\dfars_remediation_engine.py",
+      "original_loc": 1017,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1017,
+      "error_message": null,
+      "processing_time": 0.17752599716186523
+    },
+    {
+      "file_path": "analyzer\\performance\\real_time_monitor.py",
+      "original_loc": 1007,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1007,
+      "error_message": null,
+      "processing_time": 0.17054486274719238
+    },
+    {
+      "file_path": "analyzer\\system_integration.py",
+      "original_loc": 1002,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1002,
+      "error_message": null,
+      "processing_time": 0.18051671981811523
+    },
+    {
+      "file_path": "scripts\\deploy_dfars_security.py",
+      "original_loc": 993,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 993,
+      "error_message": null,
+      "processing_time": 0.16755199432373047
+    },
+    {
+      "file_path": "src\\interfaces\\cli\\main_python.py",
+      "original_loc": 997,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 997,
+      "error_message": null,
+      "processing_time": 0.17353534698486328
+    },
+    {
+      "file_path": "src\\compliance\\risk_assessment_matrix.py",
+      "original_loc": 1000,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 1000,
+      "error_message": null,
+      "processing_time": 0.18550348281860352
+    },
+    {
+      "file_path": "tests\\phase7_adas\\test_sensor_fusion.py",
+      "original_loc": 968,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 968,
+      "error_message": null,
+      "processing_time": 0.16755199432373047
+    },
+    {
+      "file_path": "analyzer\\streaming\\stream_processor.py",
+      "original_loc": 965,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 965,
+      "error_message": null,
+      "processing_time": 0.2044506072998047
+    },
+    {
+      "file_path": "tests\\enterprise\\unit\\test_feature_flags.py",
+      "original_loc": 960,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 960,
+      "error_message": null,
+      "processing_time": 0.16655325889587402
+    },
+    {
+      "file_path": "src\\compliance\\memory_allocation_analyzer.py",
+      "original_loc": 954,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 954,
+      "error_message": null,
+      "processing_time": 0.16356110572814941
+    },
+    {
+      "file_path": "analyzer\\performance\\regression_detector.py",
+      "original_loc": 947,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 947,
+      "error_message": null,
+      "processing_time": 0.16755223274230957
+    },
+    {
+      "file_path": "src\\security\\dfars_physical_protection.py",
+      "original_loc": 944,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 944,
+      "error_message": null,
+      "processing_time": 0.16057109832763672
+    },
+    {
+      "file_path": "src\\security\\real_security_scanner.py",
+      "original_loc": 947,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 947,
+      "error_message": null,
+      "processing_time": 0.16655397415161133
+    },
+    {
+      "file_path": "tests\\enterprise\\integration\\test_analyzer_integration.py",
+      "original_loc": 936,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 936,
+      "error_message": null,
+      "processing_time": 0.16755199432373047
+    },
+    {
+      "file_path": "src\\byzantium\\race_condition_detector.py",
+      "original_loc": 920,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 920,
+      "error_message": null,
+      "processing_time": 0.1655571460723877
+    },
+    {
+      "file_path": "tests\\enterprise\\unit\\test_sbom_generator.py",
+      "original_loc": 920,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 920,
+      "error_message": null,
+      "processing_time": 0.1845073699951172
+    },
+    {
+      "file_path": "src\\detectors\\enterprise_detector_pool.py",
+      "original_loc": 917,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 917,
+      "error_message": null,
+      "processing_time": 0.15957355499267578
+    },
+    {
+      "file_path": "src\\security\\dfars_personnel_security.py",
+      "original_loc": 919,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 919,
+      "error_message": null,
+      "processing_time": 0.19148802757263184
+    },
+    {
+      "file_path": "tests\\integration\\integration_test_suite.py",
+      "original_loc": 917,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 917,
+      "error_message": null,
+      "processing_time": 0.1735363006591797
+    },
+    {
+      "file_path": "analyzer\\phase_correlation_storage.py",
+      "original_loc": 912,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 912,
+      "error_message": null,
+      "processing_time": 0.17154216766357422
+    },
+    {
+      "file_path": "src\\security\\access_control_system.py",
+      "original_loc": 913,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 913,
+      "error_message": null,
+      "processing_time": 0.18450665473937988
+    },
+    {
+      "file_path": "analyzer\\performance\\detector_pool_optimizer.py",
+      "original_loc": 909,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 909,
+      "error_message": null,
+      "processing_time": 0.18949437141418457
+    },
+    {
+      "file_path": "src\\theater-detection\\reality-validator.py",
+      "original_loc": 903,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 903,
+      "error_message": null,
+      "processing_time": 0.18949389457702637
+    },
+    {
+      "file_path": "src\\detectors\\parallel_executor.py",
+      "original_loc": 900,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 900,
+      "error_message": null,
+      "processing_time": 0.16655468940734863
+    },
+    {
+      "file_path": "src\\security\\dfars_workflow_automation.py",
+      "original_loc": 899,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 899,
+      "error_message": null,
+      "processing_time": 0.16156768798828125
+    },
+    {
+      "file_path": "scripts\\validation\\comprehensive_defense_validation.py",
+      "original_loc": 889,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 889,
+      "error_message": null,
+      "processing_time": 0.15857672691345215
+    },
+    {
+      "file_path": "src\\princess\\quality\\quality-gates\\cross_domain_validator.py",
+      "original_loc": 884,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 884,
+      "error_message": null,
+      "processing_time": 0.15059709548950195
+    },
+    {
+      "file_path": "analyzer\\cross_phase_security_validator.py",
+      "original_loc": 884,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 884,
+      "error_message": null,
+      "processing_time": 0.15857458114624023
+    },
+    {
+      "file_path": "analyzer\\performance\\real_cache_optimization_validator.py",
+      "original_loc": 877,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 877,
+      "error_message": null,
+      "processing_time": 0.15358781814575195
+    },
+    {
+      "file_path": "src\\security\\configuration_management_system.py",
+      "original_loc": 884,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 884,
+      "error_message": null,
+      "processing_time": 0.1655564308166504
+    },
+    {
+      "file_path": "scripts\\comprehensive_test_runner.py",
+      "original_loc": 877,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 877,
+      "error_message": null,
+      "processing_time": 0.15957355499267578
+    },
+    {
+      "file_path": "analyzer\\multi_agent_swarm_coordinator.py",
+      "original_loc": 872,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 872,
+      "error_message": null,
+      "processing_time": 0.1605701446533203
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_adapter_patterns.py",
+      "original_loc": 867,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 867,
+      "error_message": null,
+      "processing_time": 0.157578706741333
+    },
+    {
+      "file_path": ".claude\\.artifacts\\stub_replacement_implementations.py",
+      "original_loc": 860,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 860,
+      "error_message": null,
+      "processing_time": 0.15059757232666016
+    },
+    {
+      "file_path": "src\\compliance\\assertion_injection_engine.py",
+      "original_loc": 856,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 856,
+      "error_message": null,
+      "processing_time": 0.1605699062347412
+    },
+    {
+      "file_path": "scripts\\security_dashboard_generator.py",
+      "original_loc": 855,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 855,
+      "error_message": null,
+      "processing_time": 0.17752599716186523
+    },
+    {
+      "file_path": "analyzer\\performance\\parallel_analyzer.py",
+      "original_loc": 854,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 854,
+      "error_message": null,
+      "processing_time": 0.1765289306640625
+    },
+    {
+      "file_path": "analyzer\\enterprise\\validation_reporting_system.py",
+      "original_loc": 850,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 850,
+      "error_message": null,
+      "processing_time": 0.1904914379119873
+    },
+    {
+      "file_path": "src\\security\\incident_response_system.py",
+      "original_loc": 846,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 846,
+      "error_message": null,
+      "processing_time": 0.18849492073059082
+    },
+    {
+      "file_path": "src\\detectors\\defense_compliance_monitor.py",
+      "original_loc": 835,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 835,
+      "error_message": null,
+      "processing_time": 0.16755247116088867
+    },
+    {
+      "file_path": "scripts\\github_webhook_feedback.py",
+      "original_loc": 839,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 839,
+      "error_message": null,
+      "processing_time": 0.1874992847442627
+    },
+    {
+      "file_path": "tests\\security\\complete_security_validation.py",
+      "original_loc": 825,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 825,
+      "error_message": null,
+      "processing_time": 0.16954755783081055
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_real_time_processing.py",
+      "original_loc": 829,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 829,
+      "error_message": null,
+      "processing_time": 0.18450665473937988
+    },
+    {
+      "file_path": "analyzer\\enterprise\\compliance\\soc2.py",
+      "original_loc": 824,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 824,
+      "error_message": null,
+      "processing_time": 0.1625652313232422
+    },
+    {
+      "file_path": "analyzer\\performance\\cache_optimization_validator.py",
+      "original_loc": 820,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 820,
+      "error_message": null,
+      "processing_time": 0.1605699062347412
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_tool_management.py",
+      "original_loc": 799,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 799,
+      "error_message": null,
+      "processing_time": 0.1625652313232422
+    },
+    {
+      "file_path": "src\\compliance\\automated_function_refactorer.py",
+      "original_loc": 798,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 798,
+      "error_message": null,
+      "processing_time": 0.15259265899658203
+    },
+    {
+      "file_path": "src\\compliance\\nasa_compliance_monitor.py",
+      "original_loc": 795,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 795,
+      "error_message": null,
+      "processing_time": 0.15957283973693848
+    },
+    {
+      "file_path": "scripts\\production_deployment_validation.py",
+      "original_loc": 790,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 790,
+      "error_message": null,
+      "processing_time": 0.16057062149047852
+    },
+    {
+      "file_path": "src\\coordination\\recursive_merge_resolver.py",
+      "original_loc": 779,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 779,
+      "error_message": null,
+      "processing_time": 0.1508951187133789
+    },
+    {
+      "file_path": "scripts\\security_validator.py",
+      "original_loc": 782,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 782,
+      "error_message": null,
+      "processing_time": 0.16690587997436523
+    },
+    {
+      "file_path": "tests\\enterprise\\unit\\test_compliance_matrix.py",
+      "original_loc": 790,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 790,
+      "error_message": null,
+      "processing_time": 0.17730093002319336
+    },
+    {
+      "file_path": "scripts\\validate_theater_detection.py",
+      "original_loc": 779,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 779,
+      "error_message": null,
+      "processing_time": 0.18424415588378906
+    },
+    {
+      "file_path": "src\\security\\dfars_media_protection.py",
+      "original_loc": 775,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 775,
+      "error_message": null,
+      "processing_time": 0.16493964195251465
+    },
+    {
+      "file_path": "analyzer\\performance\\thread_contention_profiler.py",
+      "original_loc": 777,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 777,
+      "error_message": null,
+      "processing_time": 0.19784951210021973
+    },
+    {
+      "file_path": ".claude\\artifacts\\memory_security_analysis.py",
+      "original_loc": 771,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 771,
+      "error_message": null,
+      "processing_time": 0.185560941696167
+    },
+    {
+      "file_path": "analyzer\\enterprise\\nasa_pot10_analyzer.py",
+      "original_loc": 768,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 768,
+      "error_message": null,
+      "processing_time": 0.22899746894836426
+    },
+    {
+      "file_path": "src\\security\\dfars_system_communications.py",
+      "original_loc": 766,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 766,
+      "error_message": null,
+      "processing_time": 0.21990394592285156
+    },
+    {
+      "file_path": "tests\\cache_analyzer\\comprehensive_cache_test.py",
+      "original_loc": 768,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 768,
+      "error_message": null,
+      "processing_time": 0.24298954010009766
+    },
+    {
+      "file_path": "scripts\\validate_performance_improvements.py",
+      "original_loc": 762,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 762,
+      "error_message": null,
+      "processing_time": 0.2385237216949463
+    },
+    {
+      "file_path": "src\\coordination\\git_safety_manager.py",
+      "original_loc": 751,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 751,
+      "error_message": null,
+      "processing_time": 0.21594500541687012
+    },
+    {
+      "file_path": "analyzer\\formal_grammar.py",
+      "original_loc": 752,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 752,
+      "error_message": null,
+      "processing_time": 0.2185831069946289
+    },
+    {
+      "file_path": "tests\\enterprise\\conftest.py",
+      "original_loc": 750,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 750,
+      "error_message": null,
+      "processing_time": 0.18901991844177246
+    },
+    {
+      "file_path": "tests\\ml\\test_integration.py",
+      "original_loc": 741,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 741,
+      "error_message": null,
+      "processing_time": 0.19233179092407227
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_real_linter_validation.py",
+      "original_loc": 740,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 740,
+      "error_message": null,
+      "processing_time": 0.186265230178833
+    },
+    {
+      "file_path": "scripts\\performance_regression_detector.py",
+      "original_loc": 739,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 739,
+      "error_message": null,
+      "processing_time": 0.16661310195922852
+    },
+    {
+      "file_path": "scripts\\validation\\achieve_100_percent.py",
+      "original_loc": 738,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 738,
+      "error_message": null,
+      "processing_time": 0.17350196838378906
+    },
+    {
+      "file_path": "tests\\workflow-validation\\json_validation_framework.py",
+      "original_loc": 733,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 733,
+      "error_message": null,
+      "processing_time": 0.1655566692352295
+    },
+    {
+      "file_path": "tests\\integration\\github_bridge_fixes.py",
+      "original_loc": 736,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 736,
+      "error_message": null,
+      "processing_time": 0.19344878196716309
+    },
+    {
+      "file_path": "src\\security\\dfars_compliance_validator.py",
+      "original_loc": 734,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 734,
+      "error_message": null,
+      "processing_time": 0.17752456665039062
+    },
+    {
+      "file_path": "src\\princess\\quality\\analysis-reports\\quality_dashboard.py",
+      "original_loc": 735,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 735,
+      "error_message": null,
+      "processing_time": 0.18550419807434082
+    },
+    {
+      "file_path": "analyzer\\enterprise\\compliance\\audit_trail.py",
+      "original_loc": 731,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 731,
+      "error_message": null,
+      "processing_time": 0.17553091049194336
+    },
+    {
+      "file_path": "analyzer\\performance\\unified_visitor_profiler.py",
+      "original_loc": 729,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 729,
+      "error_message": null,
+      "processing_time": 0.17752552032470703
+    },
+    {
+      "file_path": "analyzer\\performance\\integration_optimizer.py",
+      "original_loc": 730,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 730,
+      "error_message": null,
+      "processing_time": 0.20046377182006836
+    },
+    {
+      "file_path": "src\\princess\\quality\\validation-engine\\quality_gate_enforcer.py",
+      "original_loc": 727,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 727,
+      "error_message": null,
+      "processing_time": 0.201460599899292
+    },
+    {
+      "file_path": "src\\security\\audit_trail_manager.py",
+      "original_loc": 726,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 726,
+      "error_message": null,
+      "processing_time": 0.18550348281860352
+    },
+    {
+      "file_path": "tests\\byzantium\\test_byzantine_stress.py",
+      "original_loc": 726,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 726,
+      "error_message": null,
+      "processing_time": 0.18350982666015625
+    },
+    {
+      "file_path": "src\\intelligence\\models\\gary_dpi.py",
+      "original_loc": 718,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 718,
+      "error_message": null,
+      "processing_time": 0.17852258682250977
+    },
+    {
+      "file_path": "src\\security\\dfars_comprehensive_integration.py",
+      "original_loc": 721,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 721,
+      "error_message": null,
+      "processing_time": 0.1984694004058838
+    },
+    {
+      "file_path": "src\\security\\dfars_continuous_monitor.py",
+      "original_loc": 718,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 718,
+      "error_message": null,
+      "processing_time": 0.16156840324401855
+    },
+    {
+      "file_path": "tests\\security\\test_dfars_workflow_automation.py",
+      "original_loc": 718,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 718,
+      "error_message": null,
+      "processing_time": 0.16057133674621582
+    },
+    {
+      "file_path": "tests\\enterprise\\unit\\test_six_sigma_telemetry.py",
+      "original_loc": 716,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 716,
+      "error_message": null,
+      "processing_time": 0.1685488224029541
+    },
+    {
+      "file_path": "analyzer\\reporting\\coordinator.py",
+      "original_loc": 715,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 715,
+      "error_message": null,
+      "processing_time": 0.1705460548400879
+    },
+    {
+      "file_path": "src\\detectors\\workload_optimizer.py",
+      "original_loc": 713,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 713,
+      "error_message": null,
+      "processing_time": 0.17453408241271973
+    },
+    {
+      "file_path": "src\\intelligence\\inference\\inference_engine.py",
+      "original_loc": 711,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 711,
+      "error_message": null,
+      "processing_time": 0.17054367065429688
+    },
+    {
+      "file_path": "tests\\ml\\test_compliance_forecaster.py",
+      "original_loc": 709,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 709,
+      "error_message": null,
+      "processing_time": 0.16455984115600586
+    },
+    {
+      "file_path": "tests\\memory_integration\\test_cross_phase_memory.py",
+      "original_loc": 707,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 707,
+      "error_message": null,
+      "processing_time": 0.17553067207336426
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_api_endpoints.py",
+      "original_loc": 700,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 700,
+      "error_message": null,
+      "processing_time": 0.17154169082641602
+    },
+    {
+      "file_path": "tests\\ml\\test_theater_classifier.py",
+      "original_loc": 695,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 695,
+      "error_message": null,
+      "processing_time": 0.18350815773010254
+    },
+    {
+      "file_path": "analyzer\\language_strategies.py",
+      "original_loc": 692,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 692,
+      "error_message": null,
+      "processing_time": 0.16156864166259766
+    },
+    {
+      "file_path": "analyzer\\ml_modules\\compliance_forecaster.py",
+      "original_loc": 691,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 691,
+      "error_message": null,
+      "processing_time": 0.15857768058776855
+    },
+    {
+      "file_path": "analyzer\\enterprise\\defense_certification_tool.py",
+      "original_loc": 691,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 691,
+      "error_message": null,
+      "processing_time": 0.168548583984375
+    },
+    {
+      "file_path": "tests\\theater_detection_audit.py",
+      "original_loc": 689,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 689,
+      "error_message": null,
+      "processing_time": 0.16356301307678223
+    },
+    {
+      "file_path": "tests\\unified_test_orchestrator.py",
+      "original_loc": 689,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 689,
+      "error_message": null,
+      "processing_time": 0.1765279769897461
+    },
+    {
+      "file_path": "src\\intelligence\\testing\\ab_testing.py",
+      "original_loc": 687,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 687,
+      "error_message": null,
+      "processing_time": 0.17353606224060059
+    },
+    {
+      "file_path": "analyzer\\optimization\\resource_manager.py",
+      "original_loc": 686,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 686,
+      "error_message": null,
+      "processing_time": 0.15957355499267578
+    },
+    {
+      "file_path": "tests\\integration\\simplified_integration_test.py",
+      "original_loc": 686,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 686,
+      "error_message": null,
+      "processing_time": 0.1545865535736084
+    },
+    {
+      "file_path": "src\\quiet_star\\algorithms.py",
+      "original_loc": 682,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 682,
+      "error_message": null,
+      "processing_time": 0.1655569076538086
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_performance_scalability.py",
+      "original_loc": 670,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 670,
+      "error_message": null,
+      "processing_time": 0.16057062149047852
+    },
+    {
+      "file_path": "src\\enterprise\\telemetry\\spc_control_charts.py",
+      "original_loc": 673,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 673,
+      "error_message": null,
+      "processing_time": 0.1635608673095703
+    },
+    {
+      "file_path": "scripts\\e2e_validation_suite.py",
+      "original_loc": 665,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 665,
+      "error_message": null,
+      "processing_time": 0.1625652313232422
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_failure_modes.py",
+      "original_loc": 664,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 664,
+      "error_message": null,
+      "processing_time": 0.1625652313232422
+    },
+    {
+      "file_path": "analyzer\\optimization\\incremental_analyzer.py",
+      "original_loc": 661,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 661,
+      "error_message": null,
+      "processing_time": 0.16655397415161133
+    },
+    {
+      "file_path": "tests\\integration\\test_performance_load.py",
+      "original_loc": 661,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 661,
+      "error_message": null,
+      "processing_time": 0.16356205940246582
+    },
+    {
+      "file_path": "scripts\\security_compliance_auditor.py",
+      "original_loc": 659,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 659,
+      "error_message": null,
+      "processing_time": 0.1655573844909668
+    },
+    {
+      "file_path": "analyzer\\architecture\\orchestrator.py",
+      "original_loc": 658,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 658,
+      "error_message": null,
+      "processing_time": 0.16655492782592773
+    },
+    {
+      "file_path": "tests\\security\\test_enterprise_theater_detection.py",
+      "original_loc": 652,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 652,
+      "error_message": null,
+      "processing_time": 0.16655445098876953
+    },
+    {
+      "file_path": "src\\security\\continuous_theater_monitor.py",
+      "original_loc": 646,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 646,
+      "error_message": null,
+      "processing_time": 0.16755247116088867
+    },
+    {
+      "file_path": "scripts\\validate_dfars_compliance_final.py",
+      "original_loc": 646,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 646,
+      "error_message": null,
+      "processing_time": 0.16655421257019043
+    },
+    {
+      "file_path": ".claude\\.artifacts\\compliance\\compliance_packager.py",
+      "original_loc": 645,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 645,
+      "error_message": null,
+      "processing_time": 0.18351054191589355
+    },
+    {
+      "file_path": "tests\\test_phase3_integration.py",
+      "original_loc": 643,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 643,
+      "error_message": null,
+      "processing_time": 0.15957403182983398
+    },
+    {
+      "file_path": "tests\\enterprise\\performance\\test_zero_impact_disabled.py",
+      "original_loc": 644,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 644,
+      "error_message": null,
+      "processing_time": 0.1765282154083252
+    },
+    {
+      "file_path": "analyzer\\smart_integration_engine.py",
+      "original_loc": 641,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 641,
+      "error_message": null,
+      "processing_time": 0.1904909610748291
+    },
+    {
+      "file_path": "src\\enterprise\\tests\\test_runner.py",
+      "original_loc": 640,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 640,
+      "error_message": null,
+      "processing_time": 0.17253899574279785
+    },
+    {
+      "file_path": "analyzer\\utils\\config_manager.py",
+      "original_loc": 638,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 638,
+      "error_message": null,
+      "processing_time": 0.1765282154083252
+    },
+    {
+      "file_path": "src\\safety\\hardware_auth_manager.py",
+      "original_loc": 632,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 632,
+      "error_message": null,
+      "processing_time": 0.17253851890563965
+    },
+    {
+      "file_path": "src\\security\\dfars_incident_response.py",
+      "original_loc": 635,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 635,
+      "error_message": null,
+      "processing_time": 0.1765279769897461
+    },
+    {
+      "file_path": "src\\theater-detection\\continuous-monitor.py",
+      "original_loc": 630,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 630,
+      "error_message": null,
+      "processing_time": 0.17154145240783691
+    },
+    {
+      "file_path": "src\\security\\dfars_integration_demo.py",
+      "original_loc": 630,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 630,
+      "error_message": null,
+      "processing_time": 0.18151450157165527
+    },
+    {
+      "file_path": ".claude\\.artifacts\\dfars_compliance_framework.py",
+      "original_loc": 629,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 629,
+      "error_message": null,
+      "processing_time": 0.17852306365966797
+    },
+    {
+      "file_path": "tests\\production_validation_test.py",
+      "original_loc": 627,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 627,
+      "error_message": null,
+      "processing_time": 0.1715409755706787
+    },
+    {
+      "file_path": "analyzer\\enterprise\\compliance\\integration.py",
+      "original_loc": 628,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 628,
+      "error_message": null,
+      "processing_time": 0.1765275001525879
+    },
+    {
+      "file_path": "analyzer\\comprehensive_analysis_engine.py",
+      "original_loc": 619,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 619,
+      "error_message": null,
+      "processing_time": 0.18650126457214355
+    },
+    {
+      "file_path": "analyzer\\enterprise\\supply_chain\\vulnerability_scanner.py",
+      "original_loc": 621,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 621,
+      "error_message": null,
+      "processing_time": 0.2014622688293457
+    },
+    {
+      "file_path": "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+      "original_loc": 620,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 620,
+      "error_message": null,
+      "processing_time": 0.2014617919921875
+    },
+    {
+      "file_path": "analyzer\\performance_monitoring_integration.py",
+      "original_loc": 619,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 619,
+      "error_message": null,
+      "processing_time": 0.17253851890563965
+    },
+    {
+      "file_path": "src\\detectors\\validation_demo.py",
+      "original_loc": 618,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 618,
+      "error_message": null,
+      "processing_time": 0.18650054931640625
+    },
+    {
+      "file_path": "src\\intelligence\\training\\trainer.py",
+      "original_loc": 617,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 617,
+      "error_message": null,
+      "processing_time": 0.19148731231689453
+    },
+    {
+      "file_path": "tests\\end_to_end\\complete_system_validation.py",
+      "original_loc": 617,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 617,
+      "error_message": null,
+      "processing_time": 0.20844292640686035
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_full_pipeline.py",
+      "original_loc": 617,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 617,
+      "error_message": null,
+      "processing_time": 0.22440004348754883
+    },
+    {
+      "file_path": "src\\linter-integration\\agents\\backend_dev_node.py",
+      "original_loc": 616,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 616,
+      "error_message": null,
+      "processing_time": 0.22140765190124512
+    },
+    {
+      "file_path": "analyzer\\ml_modules\\pattern_detector.py",
+      "original_loc": 614,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 614,
+      "error_message": null,
+      "processing_time": 0.21941256523132324
+    },
+    {
+      "file_path": "analyzer\\streaming\\dashboard_reporter.py",
+      "original_loc": 613,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 613,
+      "error_message": null,
+      "processing_time": 0.22739171981811523
+    },
+    {
+      "file_path": "analyzer\\context_analyzer.py",
+      "original_loc": 612,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 612,
+      "error_message": null,
+      "processing_time": 0.229386568069458
+    },
+    {
+      "file_path": "analyzer\\enterprise\\supply_chain\\crypto_signer.py",
+      "original_loc": 611,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 611,
+      "error_message": null,
+      "processing_time": 0.2204113006591797
+    },
+    {
+      "file_path": "tests\\integration_test_suite.py",
+      "original_loc": 613,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 613,
+      "error_message": null,
+      "processing_time": 0.260303258895874
+    },
+    {
+      "file_path": "analyzer\\streaming\\incremental_cache.py",
+      "original_loc": 605,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 605,
+      "error_message": null,
+      "processing_time": 0.1795203685760498
+    },
+    {
+      "file_path": "scripts\\nasa_compliance_analyzer.py",
+      "original_loc": 611,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 611,
+      "error_message": null,
+      "processing_time": 0.2124321460723877
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_severity_mapping.py",
+      "original_loc": 605,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 605,
+      "error_message": null,
+      "processing_time": 0.19148802757263184
+    },
+    {
+      "file_path": "analyzer\\architecture\\validation_tests.py",
+      "original_loc": 603,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 603,
+      "error_message": null,
+      "processing_time": 0.19647479057312012
+    },
+    {
+      "file_path": "src\\princess\\quality\\theater-detection\\comprehensive_analysis_engine.py",
+      "original_loc": 600,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 600,
+      "error_message": null,
+      "processing_time": 0.18450713157653809
+    },
+    {
+      "file_path": "analyzer\\optimization\\ast_optimizer.py",
+      "original_loc": 604,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 604,
+      "error_message": null,
+      "processing_time": 0.22240614891052246
+    },
+    {
+      "file_path": "tests\\integration\\test_phase3_distributed_context.py",
+      "original_loc": 597,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 597,
+      "error_message": null,
+      "processing_time": 0.22938752174377441
+    },
+    {
+      "file_path": "src\\intelligence\\registry\\model_registry.py",
+      "original_loc": 597,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 597,
+      "error_message": null,
+      "processing_time": 0.2373650074005127
+    },
+    {
+      "file_path": "analyzer\\duplication_unified.py",
+      "original_loc": 595,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 595,
+      "error_message": null,
+      "processing_time": 0.2044525146484375
+    },
+    {
+      "file_path": "src\\enterprise\\compliance\\matrix.py",
+      "original_loc": 595,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 595,
+      "error_message": null,
+      "processing_time": 0.1964740753173828
+    },
+    {
+      "file_path": "analyzer\\analysis_orchestrator.py",
+      "original_loc": 594,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 594,
+      "error_message": null,
+      "processing_time": 0.2014608383178711
+    },
+    {
+      "file_path": "src\\interfaces\\cli\\config_discovery.py",
+      "original_loc": 594,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 594,
+      "error_message": null,
+      "processing_time": 0.20046377182006836
+    },
+    {
+      "file_path": "tests\\integration\\test_swarm_hierarchy_integration.py",
+      "original_loc": 591,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 591,
+      "error_message": null,
+      "processing_time": 0.24534273147583008
+    },
+    {
+      "file_path": "analyzer\\validation\\reality_validation_engine.py",
+      "original_loc": 590,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 590,
+      "error_message": null,
+      "processing_time": 0.19248461723327637
+    },
+    {
+      "file_path": "analyzer\\core\\unified_imports.py",
+      "original_loc": 592,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 592,
+      "error_message": null,
+      "processing_time": 0.2987067699432373
+    },
+    {
+      "file_path": "src\\intelligence\\neural_networks\\cnn\\pattern_definitions.py",
+      "original_loc": 587,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 587,
+      "error_message": null,
+      "processing_time": 0.2879650592803955
+    },
+    {
+      "file_path": "tests\\integration\\test_enterprise_domains.py",
+      "original_loc": 583,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 583,
+      "error_message": null,
+      "processing_time": 0.2520613670349121
+    },
+    {
+      "file_path": "tests\\safety\\test_safety_system.py",
+      "original_loc": 580,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 580,
+      "error_message": null,
+      "processing_time": 0.30561399459838867
+    },
+    {
+      "file_path": "analyzer\\ml_modules\\theater_classifier.py",
+      "original_loc": 577,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 577,
+      "error_message": null,
+      "processing_time": 0.25343799591064453
+    },
+    {
+      "file_path": "src\\security\\fips_crypto_module.py",
+      "original_loc": 575,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 575,
+      "error_message": null,
+      "processing_time": 0.20843863487243652
+    },
+    {
+      "file_path": "tests\\enterprise\\unit\\test_six_sigma_python.py",
+      "original_loc": 571,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 571,
+      "error_message": null,
+      "processing_time": 0.21574640274047852
+    },
+    {
+      "file_path": "src\\intelligence\\models\\taleb_antifragile.py",
+      "original_loc": 576,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 576,
+      "error_message": null,
+      "processing_time": 0.312330961227417
+    },
+    {
+      "file_path": "analyzer\\integrations\\github_bridge.py",
+      "original_loc": 570,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 570,
+      "error_message": null,
+      "processing_time": 0.23127031326293945
+    },
+    {
+      "file_path": "tests\\production\\load_testing_suite.py",
+      "original_loc": 568,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 568,
+      "error_message": null,
+      "processing_time": 0.26665377616882324
+    },
+    {
+      "file_path": "analyzer\\enterprise\\supply_chain\\supply_chain_analyzer.py",
+      "original_loc": 564,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 564,
+      "error_message": null,
+      "processing_time": 0.2034437656402588
+    },
+    {
+      "file_path": ".claude\\.artifacts\\dfars_critical_remediation.py",
+      "original_loc": 567,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 567,
+      "error_message": null,
+      "processing_time": 0.2736353874206543
+    },
+    {
+      "file_path": "tests\\ml\\test_quality_predictor.py",
+      "original_loc": 565,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 565,
+      "error_message": null,
+      "processing_time": 0.2190849781036377
+    },
+    {
+      "file_path": "src\\linter-integration\\agents\\api_docs_node.py",
+      "original_loc": 562,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 562,
+      "error_message": null,
+      "processing_time": 0.24512362480163574
+    },
+    {
+      "file_path": "src\\security\\tls_manager.py",
+      "original_loc": 562,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 562,
+      "error_message": null,
+      "processing_time": 0.2229759693145752
+    },
+    {
+      "file_path": "analyzer\\performance\\real_file_profiler.py",
+      "original_loc": 563,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 563,
+      "error_message": null,
+      "processing_time": 0.27736377716064453
+    },
+    {
+      "file_path": "analyzer\\enterprise\\supply_chain\\config_loader.py",
+      "original_loc": 558,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 558,
+      "error_message": null,
+      "processing_time": 0.25751423835754395
+    },
+    {
+      "file_path": "tests\\phase7_adas\\test_safety_compliance.py",
+      "original_loc": 558,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 558,
+      "error_message": null,
+      "processing_time": 0.16954469680786133
+    },
+    {
+      "file_path": "src\\intelligence\\data_pipeline\\pipeline_orchestrator.py",
+      "original_loc": 558,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 558,
+      "error_message": null,
+      "processing_time": 0.1904902458190918
+    },
+    {
+      "file_path": "src\\analyzers\\nasa\\security_manager.py",
+      "original_loc": 557,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 557,
+      "error_message": null,
+      "processing_time": 0.1874988079071045
+    },
+    {
+      "file_path": "analyzer\\detectors\\real_detectors.py",
+      "original_loc": 555,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 555,
+      "error_message": null,
+      "processing_time": 0.18849635124206543
+    },
+    {
+      "file_path": "src\\analyzers\\nasa\\defensive_programming_specialist.py",
+      "original_loc": 553,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 553,
+      "error_message": null,
+      "processing_time": 0.1685483455657959
+    },
+    {
+      "file_path": "tests\\cache_analyzer\\test_cache_functionality.py",
+      "original_loc": 552,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 552,
+      "error_message": null,
+      "processing_time": 0.18051743507385254
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_mesh_coordination.py",
+      "original_loc": 552,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 552,
+      "error_message": null,
+      "processing_time": 0.18450665473937988
+    },
+    {
+      "file_path": "src\\analyzers\\nasa\\function_decomposer.py",
+      "original_loc": 548,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 548,
+      "error_message": null,
+      "processing_time": 0.15558385848999023
+    },
+    {
+      "file_path": "analyzer\\unified_api.py",
+      "original_loc": 548,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 548,
+      "error_message": null,
+      "processing_time": 0.15957307815551758
+    },
+    {
+      "file_path": "src\\intelligence\\training\\callbacks.py",
+      "original_loc": 548,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 548,
+      "error_message": null,
+      "processing_time": 0.1545875072479248
+    },
+    {
+      "file_path": "scripts\\six_sigma_implementation_demo.py",
+      "original_loc": 546,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 546,
+      "error_message": null,
+      "processing_time": 0.1605701446533203
+    },
+    {
+      "file_path": "analyzer\\caching\\ast_cache.py",
+      "original_loc": 542,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 542,
+      "error_message": null,
+      "processing_time": 0.15857458114624023
+    },
+    {
+      "file_path": "analyzer\\real_unified_analyzer.py",
+      "original_loc": 540,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 540,
+      "error_message": null,
+      "processing_time": 0.1515946388244629
+    },
+    {
+      "file_path": "analyzer\\optimization\\memory_monitor.py",
+      "original_loc": 539,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 539,
+      "error_message": null,
+      "processing_time": 0.14760470390319824
+    },
+    {
+      "file_path": "analyzer\\streaming\\result_aggregator.py",
+      "original_loc": 539,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 539,
+      "error_message": null,
+      "processing_time": 0.15358948707580566
+    },
+    {
+      "file_path": "tests\\regression\\performance_regression_suite.py",
+      "original_loc": 537,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 537,
+      "error_message": null,
+      "processing_time": 0.14959979057312012
+    },
+    {
+      "file_path": "scripts\\execute_remediation_plan.py",
+      "original_loc": 536,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 536,
+      "error_message": null,
+      "processing_time": 0.15259289741516113
+    },
+    {
+      "file_path": "scripts\\phase2_validation.py",
+      "original_loc": 534,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 534,
+      "error_message": null,
+      "processing_time": 0.15259099006652832
+    },
+    {
+      "file_path": "scripts\\phase3_deployment_validator.py",
+      "original_loc": 533,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 533,
+      "error_message": null,
+      "processing_time": 0.15259337425231934
+    },
+    {
+      "file_path": "analyzer\\dup_detection\\mece_analyzer.py",
+      "original_loc": 533,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 533,
+      "error_message": null,
+      "processing_time": 0.17353606224060059
+    },
+    {
+      "file_path": "src\\intelligence\\neural_networks\\cnn\\resnet_backbone.py",
+      "original_loc": 530,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 530,
+      "error_message": null,
+      "processing_time": 0.18151569366455078
+    },
+    {
+      "file_path": "tests\\integration\\test_phase2_reality_validation.py",
+      "original_loc": 530,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 530,
+      "error_message": null,
+      "processing_time": 0.18650221824645996
+    },
+    {
+      "file_path": "src\\analyzers\\nasa\\nasa_compliance_auditor.py",
+      "original_loc": 528,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 528,
+      "error_message": null,
+      "processing_time": 0.19946646690368652
+    },
+    {
+      "file_path": "scripts\\six_sigma_demo_simple.py",
+      "original_loc": 524,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 524,
+      "error_message": null,
+      "processing_time": 0.19946718215942383
+    },
+    {
+      "file_path": "tests\\json_schema_validation\\test_risk_mitigation.py",
+      "original_loc": 523,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 523,
+      "error_message": null,
+      "processing_time": 0.19747090339660645
+    },
+    {
+      "file_path": "src\\intelligence\\data\\preprocessing.py",
+      "original_loc": 522,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 522,
+      "error_message": null,
+      "processing_time": 0.19049072265625
+    },
+    {
+      "file_path": "scripts\\deploy_real_queen_swarm.py",
+      "original_loc": 520,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 520,
+      "error_message": null,
+      "processing_time": 0.19447875022888184
+    },
+    {
+      "file_path": "src\\intelligence\\data\\validators.py",
+      "original_loc": 519,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 519,
+      "error_message": null,
+      "processing_time": 0.19846892356872559
+    },
+    {
+      "file_path": "analyzer\\result_aggregator.py",
+      "original_loc": 517,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 517,
+      "error_message": null,
+      "processing_time": 0.17852091789245605
+    },
+    {
+      "file_path": "src\\security\\dfars_access_control.py",
+      "original_loc": 516,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 516,
+      "error_message": null,
+      "processing_time": 0.1685490608215332
+    },
+    {
+      "file_path": "tests\\integration\\test_error_handling.py",
+      "original_loc": 514,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 514,
+      "error_message": null,
+      "processing_time": 0.14960002899169922
+    },
+    {
+      "file_path": "analyzer\\enterprise\\compliance\\validate_retention.py",
+      "original_loc": 509,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 509,
+      "error_message": null,
+      "processing_time": 0.13463997840881348
+    },
+    {
+      "file_path": "scripts\\dfars_compliance_fixer.py",
+      "original_loc": 510,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 510,
+      "error_message": null,
+      "processing_time": 0.1406238079071045
+    },
+    {
+      "file_path": "tests\\test_supply_chain_security.py",
+      "original_loc": 507,
+      "status": "success",
+      "modules_created": 0,
+      "lines_refactored": 507,
+      "error_message": null,
+      "processing_time": 0.13065004348754883
+    }
+  ]
+}

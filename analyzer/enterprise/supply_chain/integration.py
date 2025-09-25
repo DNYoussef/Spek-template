@@ -1,7 +1,4 @@
-"""
-Supply Chain Security Integration Module
-Provides non-breaking integration with existing analyzer and enterprise systems.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 import asyncio
 import json
@@ -13,13 +10,12 @@ import time
 from .config_loader import SupplyChainConfigLoader
 from .supply_chain_analyzer import SupplyChainAnalyzer
 
-
 class SupplyChainIntegration:
     """Integration layer for supply chain security with existing analyzer."""
     
-    def __init__(self, 
-                 analyzer_instance: Optional[Any] = None,
-                 config_path: Optional[str] = None):
+def __init__(self,
+                analyzer_instance: Optional[Any] = None,
+                config_path: Optional[str] = None):
         
         self.config_loader = SupplyChainConfigLoader(config_path)
         self.config = self.config_loader.load_config()
@@ -32,7 +28,7 @@ class SupplyChainIntegration:
         
         # Performance monitoring
         self.perf_config = self.integration_config.get('performance_monitoring', {})
-        self.baseline_duration = self.perf_config.get('baseline_duration', 10.0)
+        self.baseline_duration = self.perf_config.get('baseline_duration', MAXIMUM_FUNCTION_PARAMETERS.0)
         self.alert_threshold = self.perf_config.get('alert_threshold', 2.0)
         
         # Quality gates
@@ -47,9 +43,9 @@ class SupplyChainIntegration:
         self.output_dir = Path(sc_config.get('output_dir', '.claude/.artifacts/supply_chain'))
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
-    def integrate_with_analyzer(self, 
-                               analysis_callback: Optional[Callable] = None,
-                               project_path: str = ".") -> Dict[str, Any]:
+def integrate_with_analyzer(self,
+                                analysis_callback: Optional[Callable] = None,
+                                project_path: str = ".") -> Dict[str, Any]:
         """Integrate supply chain analysis with existing analyzer workflow."""
         
         integration_result = {
@@ -126,7 +122,7 @@ class SupplyChainIntegration:
         
         return integration_result
     
-    def _pre_integration_hooks(self, integration_result: Dict[str, Any]):
+def _pre_integration_hooks(self, integration_result: Dict[str, Any]):
         """Execute pre-integration hooks."""
         
         # Validate configuration
@@ -147,9 +143,9 @@ class SupplyChainIntegration:
         except Exception as e:
             integration_result['warnings'].append(f'Could not create output directory: {e}')
     
-    def _post_integration_hooks(self, 
-                               integration_result: Dict[str, Any],
-                               sc_results: Dict[str, Any]):
+def _post_integration_hooks(self,
+                                integration_result: Dict[str, Any],
+                                sc_results: Dict[str, Any]):
         """Execute post-integration hooks."""
         
         # Generate performance report
@@ -176,7 +172,7 @@ class SupplyChainIntegration:
         # Trigger notifications if configured
         self._trigger_notifications(integration_result, sc_results)
     
-    def _calculate_performance_impact(self, 
+def _calculate_performance_impact(self,
                                     sc_duration: float,
                                     existing_duration: float) -> Dict[str, Any]:
         """Calculate performance impact of supply chain analysis."""
@@ -198,7 +194,7 @@ class SupplyChainIntegration:
             'alert_threshold_exceeded': overhead_percentage > self.alert_threshold
         }
     
-    def _apply_quality_gates(self, sc_results: Dict[str, Any]) -> Dict[str, Any]:
+def _apply_quality_gates(self, sc_results: Dict[str, Any]) -> Dict[str, Any]:
         """Apply quality gates to supply chain analysis results."""
         
         gate_results = {
@@ -288,9 +284,9 @@ class SupplyChainIntegration:
         
         return gate_results
     
-    def _trigger_notifications(self, 
-                              integration_result: Dict[str, Any],
-                              sc_results: Dict[str, Any]):
+def _trigger_notifications(self,
+                                integration_result: Dict[str, Any],
+                                sc_results: Dict[str, Any]):
         """Trigger notifications based on results."""
         
         notifications_config = self.config.get('notifications', {})
@@ -348,7 +344,7 @@ class SupplyChainIntegration:
             
             self._send_notifications(alert_data, notifications_config)
     
-    def _send_notifications(self, alert_data: Dict[str, Any], config: Dict[str, Any]):
+def _send_notifications(self, alert_data: Dict[str, Any], config: Dict[str, Any]):
         """Send notifications via configured channels."""
         
         # Save alert for audit trail
@@ -357,29 +353,24 @@ class SupplyChainIntegration:
             json.dump(alert_data, f, indent=2, ensure_ascii=False)
         
         # Note: In a production implementation, this would integrate with:
-        # - Email systems (SMTP)
-        # - Slack webhooks
-        # - Microsoft Teams
-        # - PagerDuty
-        # - Custom notification systems
         
         print(f"SUPPLY CHAIN SECURITY ALERT: {', '.join(alert_data['reasons'])}")
     
-    def _save_integration_results(self, integration_result: Dict[str, Any]):
+def _save_integration_results(self, integration_result: Dict[str, Any]):
         """Save integration results for audit and monitoring."""
         
         results_path = self.output_dir / f"integration-{int(time.time())}.json"
         with open(results_path, 'w', encoding='utf-8') as f:
             json.dump(integration_result, f, indent=2, ensure_ascii=False)
     
-    def _save_performance_report(self, perf_report: Dict[str, Any]):
+def _save_performance_report(self, perf_report: Dict[str, Any]):
         """Save performance report."""
         
         perf_path = self.output_dir / f"performance-{int(time.time())}.json"
         with open(perf_path, 'w', encoding='utf-8') as f:
             json.dump(perf_report, f, indent=2, ensure_ascii=False)
     
-    def get_integration_status(self) -> Dict[str, Any]:
+def get_integration_status(self) -> Dict[str, Any]:
         """Get current integration status and health."""
         
         status = {
@@ -418,19 +409,18 @@ class SupplyChainIntegration:
         
         return status
     
-    def create_integration_adapter(self) -> 'SupplyChainAdapter':
+def create_integration_adapter(self) -> 'SupplyChainAdapter':
         """Create adapter for easier integration with existing code."""
         
         return SupplyChainAdapter(self)
 
-
 class SupplyChainAdapter:
     """Adapter class for easier integration with existing analyzer code."""
     
-    def __init__(self, integration: SupplyChainIntegration):
+def __init__(self, integration: SupplyChainIntegration):
         self.integration = integration
     
-    def __call__(self, project_path: str = ".") -> Dict[str, Any]:
+def __call__(self, project_path: str = ".") -> Dict[str, Any]:
         """Make the adapter callable for easy integration."""
         
         return self.integration.integrate_with_analyzer(
@@ -438,14 +428,14 @@ class SupplyChainAdapter:
             project_path=project_path
         )
     
-    def analyze(self, project_path: str = ".") -> Dict[str, Any]:
+def analyze(self, project_path: str = ".") -> Dict[str, Any]:
         """Analyze project with supply chain security."""
         
         return self(project_path)
     
-    def with_existing_analyzer(self, 
-                              analyzer_callback: Callable,
-                              project_path: str = ".") -> Dict[str, Any]:
+def with_existing_analyzer(self,
+                                analyzer_callback: Callable,
+                                project_path: str = ".") -> Dict[str, Any]:
         """Integrate with existing analyzer callback."""
         
         return self.integration.integrate_with_analyzer(
@@ -453,7 +443,7 @@ class SupplyChainAdapter:
             project_path=project_path
         )
     
-    def get_results_summary(self) -> Dict[str, Any]:
+def get_results_summary(self) -> Dict[str, Any]:
         """Get summary of recent analysis results."""
         
         output_dir = self.integration.output_dir
@@ -482,13 +472,13 @@ class SupplyChainAdapter:
         except Exception as e:
             return {'status': 'error', 'message': f'Could not read results: {e}'}
     
-    def is_healthy(self) -> bool:
+def is_healthy(self) -> bool:
         """Check if supply chain integration is healthy."""
         
         status = self.integration.get_integration_status()
         return status.get('overall_health') == 'HEALTHY'
     
-    def get_performance_metrics(self) -> Dict[str, Any]:
+def get_performance_metrics(self) -> Dict[str, Any]:
         """Get performance metrics for supply chain analysis."""
         
         if hasattr(self.integration.sc_analyzer, 'performance_metrics'):

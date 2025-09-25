@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Comprehensive Defense Industry Validation Script
-==============================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS
 
 This script provides comprehensive validation of all defense industry components
 to achieve 100% certification completion by properly detecting and testing:
@@ -32,7 +29,7 @@ import yaml
 class ComprehensiveDefenseValidator:
     """Comprehensive validation system for defense industry compliance."""
 
-    def __init__(self, project_root: str = None):
+def __init__(self, project_root: str = None):
         self.project_root = Path(project_root or os.getcwd())
         self.results = {
             'validation_timestamp': datetime.now().isoformat(),
@@ -46,7 +43,7 @@ class ComprehensiveDefenseValidator:
             'recommendations': []
         }
 
-    def run_comprehensive_validation(self) -> Dict[str, Any]:
+def run_comprehensive_validation(self) -> Dict[str, Any]:
         """Execute complete validation suite."""
         print("Starting Comprehensive Defense Industry Validation...")
 
@@ -75,7 +72,7 @@ class ComprehensiveDefenseValidator:
         self.validate_documentation()
 
         # Phase 7: Calculate Overall Scores
-        print("\nPhase 7: Calculating Final Scores...")
+        print("\nPhase DAYS_RETENTION_PERIOD: Calculating Final Scores...")
         self.calculate_overall_scores()
 
         # Phase 8: Generate Recommendations
@@ -84,7 +81,7 @@ class ComprehensiveDefenseValidator:
 
         return self.results
 
-    def validate_dfars_compliance(self):
+def validate_dfars_compliance(self):
         """Validate DFARS 252.204-7012 compliance implementation."""
         security_dir = self.project_root / "src" / "security"
 
@@ -198,7 +195,7 @@ class ComprehensiveDefenseValidator:
 
         print(f"   DFARS Compliance Score: {dfars_score:.1f}% ({implemented_components}/{total_components} components)")
 
-    def validate_nasa_pot10_analyzer(self):
+def validate_nasa_pot10_analyzer(self):
         """Validate NASA POT10 analyzer functionality."""
         analyzer_dir = self.project_root / "analyzer" / "enterprise"
 
@@ -269,7 +266,7 @@ class ComprehensiveDefenseValidator:
 
         print(f"    NASA POT10 Analyzer Score: {nasa_score:.1f}% ({implemented_components}/{total_components} components)")
 
-    def validate_enterprise_integration(self):
+def validate_enterprise_integration(self):
         """Validate enterprise integration components."""
         enterprise_components = {
             'enterprise_core': self.project_root / "analyzer" / "enterprise" / "core",
@@ -334,7 +331,7 @@ class ComprehensiveDefenseValidator:
 
         print(f"    Enterprise Integration Score: {enterprise_score:.1f}% ({implemented_components}/{total_components} components)")
 
-    def validate_cicd_workflows(self):
+def validate_cicd_workflows(self):
         """Validate CI/CD workflow functionality."""
         workflows_dir = self.project_root / ".github" / "workflows"
 
@@ -418,7 +415,7 @@ class ComprehensiveDefenseValidator:
 
         print(f"    CI/CD Workflows Score: {cicd_score:.1f}% ({implemented_workflows}/{total_workflows} workflows)")
 
-    def validate_api_endpoints(self):
+def validate_api_endpoints(self):
         """Validate API endpoint functionality."""
         # Look for API-related files
         api_patterns = [
@@ -462,7 +459,7 @@ class ComprehensiveDefenseValidator:
 
         # Calculate API score
         if total_apis > 0:
-            api_score = (functional_apis / total_apis) * 100
+            api_score = (functional_apis / total_apis) * MAXIMUM_FUNCTION_LENGTH_LINES
         else:
             # Look for API references in security files
             security_apis = self._find_security_api_references()
@@ -470,7 +467,7 @@ class ComprehensiveDefenseValidator:
 
         # Documentation bonus
         if api_docs:
-            api_score += 10
+            api_score += MAXIMUM_FUNCTION_PARAMETERS
             api_score = min(api_score, 100)
 
         self.results['api_endpoints'] = {
@@ -485,7 +482,7 @@ class ComprehensiveDefenseValidator:
 
         print(f"    API Endpoints Score: {api_score:.1f}% ({functional_apis}/{total_apis} APIs functional)")
 
-    def validate_documentation(self):
+def validate_documentation(self):
         """Validate documentation completeness."""
         doc_requirements = {
             'README.md': {'required': True, 'weight': 20},
@@ -526,8 +523,8 @@ class ComprehensiveDefenseValidator:
             elif doc_item == 'security documentation':
                 # Special case: look for security docs
                 security_docs = list(self.project_root.glob("**/security*.md")) + \
-                               list(self.project_root.glob("**/SECURITY*.md")) + \
-                               list(self.project_root.glob("**/dfars*.md"))
+                                list(self.project_root.glob("**/SECURITY*.md")) + \
+                                list(self.project_root.glob("**/dfars*.md"))
                 if security_docs:
                     doc_details['exists'] = True
                     doc_details['score'] = 100
@@ -565,7 +562,7 @@ class ComprehensiveDefenseValidator:
 
         print(f"    Documentation Score: {doc_score:.1f}% ({achieved_weight:.1f}/{total_weight} weighted points)")
 
-    def calculate_overall_scores(self):
+def calculate_overall_scores(self):
         """Calculate overall certification scores."""
         # Weight factors for different components
         weights = {
@@ -611,7 +608,7 @@ class ComprehensiveDefenseValidator:
         print(f"   Status: {certification_status}")
         print(f"   Defense Industry Ready: {'YES' if weighted_score >= 95 else 'NO'}")
 
-    def generate_recommendations(self):
+def generate_recommendations(self):
         """Generate recommendations for achieving 100% certification."""
         recommendations = []
 
@@ -687,7 +684,7 @@ class ComprehensiveDefenseValidator:
 
         print(f"\nGenerated {len(recommendations)} recommendations for improvement")
 
-    def _test_python_file_functionality(self, file_path: Path) -> int:
+def _test_python_file_functionality(self, file_path: Path) -> int:
         """Test Python file functionality and return score 0-100."""
         try:
             # Read file content
@@ -740,7 +737,7 @@ class ComprehensiveDefenseValidator:
         except Exception:
             return 20  # File exists but has issues
 
-    def _check_nasa_pot10_features(self, file_path: Path) -> List[str]:
+def _check_nasa_pot10_features(self, file_path: Path) -> List[str]:
         """Check for NASA POT10 specific features in a file."""
         features = []
         try:
@@ -761,7 +758,7 @@ class ComprehensiveDefenseValidator:
 
         return features
 
-    def _check_enterprise_features(self, file_path: Path) -> List[str]:
+def _check_enterprise_features(self, file_path: Path) -> List[str]:
         """Check for enterprise-specific features in a file."""
         features = []
         try:
@@ -782,7 +779,7 @@ class ComprehensiveDefenseValidator:
 
         return features
 
-    def _analyze_api_file(self, file_path: Path) -> List[str]:
+def _analyze_api_file(self, file_path: Path) -> List[str]:
         """Analyze a Python file for API endpoints."""
         endpoints = []
         try:
@@ -808,7 +805,7 @@ class ComprehensiveDefenseValidator:
 
         return endpoints
 
-    def _find_security_api_references(self) -> List[str]:
+def _find_security_api_references(self) -> List[str]:
         """Find API references in security components."""
         references = []
         security_dir = self.project_root / "src" / "security"
@@ -827,7 +824,7 @@ class ComprehensiveDefenseValidator:
 
         return references
 
-    def save_results(self, output_file: str = None):
+def save_results(self, output_file: str = None):
         """Save validation results to file."""
         if not output_file:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -841,7 +838,6 @@ class ComprehensiveDefenseValidator:
 
         print(f"\nResults saved to: {output_path}")
         return output_path
-
 
 def main():
     """Main execution function."""
@@ -876,14 +872,13 @@ def main():
     print(f"\nRecommendations: {len(results['recommendations'])} items")
 
     if overall_score >= 100:
-        print("\nCONGRATULATIONS! 100% Certification Achievement!")
+        print("\nCONGRATULATIONS! MAXIMUM_FUNCTION_LENGTH_LINES% Certification Achievement!")
     elif overall_score >= 95:
         print("\nEXCELLENT! Defense Industry Certification Ready!")
     else:
         print(f"\nNeed {95 - overall_score:.1f} more points for certification readiness")
 
     return results
-
 
 if __name__ == "__main__":
     results = main()

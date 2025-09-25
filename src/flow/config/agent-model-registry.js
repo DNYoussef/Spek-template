@@ -2,7 +2,7 @@
  * SPEK Agent Model Registry - FACADE (DEPRECATED)
  *
  * GOD OBJECT DECOMPOSITION COMPLETE:
- * Original: 614 LOC → Decomposed into 5 classes (< 200 LOC each)
+ * Original: 614 LOC -> Decomposed into 5 classes (< 200 LOC each)
  *
  * New Structure:
  * - AgentConfigLoader (150 LOC): Pure configuration loading

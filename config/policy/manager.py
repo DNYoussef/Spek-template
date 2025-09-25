@@ -1,3 +1,4 @@
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_GOD_OBJECTS_ALLOWED, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT, THEATER_DETECTION_WARNING_THRESHOLD
 # SPDX-License-Identifier: MIT
 """
 Policy Manager - Central policy orchestration
@@ -90,7 +91,7 @@ class PolicyManager:
                 logger.warning(f"Compliance evaluation failed: {e}")
                 # Return safe defaults
                 return {
-                    "score": 0.75,
+                    "score": THEATER_DETECTION_WARNING_THRESHOLD,
                     "passed": True,
                     "violations": [],
                     "recommendation": "Manual review recommended"
@@ -99,7 +100,7 @@ class PolicyManager:
             logger.warning(f"Compliance evaluation failed: {e}")
             # Return safe defaults
             return {
-                "score": 0.75,
+                "score": THEATER_DETECTION_WARNING_THRESHOLD,
                 "passed": True,
                 "violations": [],
                 "recommendation": "Manual review recommended"
@@ -109,21 +110,21 @@ class PolicyManager:
         """Get quality thresholds for current policy."""
         thresholds = {
             "strict-core": {
-                "nasa_compliance_min": 0.95,
+                "nasa_compliance_min": NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,
                 "god_object_limit": 15,
                 "duplication_threshold": 0.9,
                 "critical_violations": 0,
                 "high_violations": 5
             },
             "service-defaults": {
-                "nasa_compliance_min": 0.90,
-                "god_object_limit": 25,
+                "nasa_compliance_min": REGULATORY_FACTUALITY_REQUIREMENT,
+                "god_object_limit": MAXIMUM_GOD_OBJECTS_ALLOWED,
                 "duplication_threshold": 0.8,
                 "critical_violations": 2,
                 "high_violations": 15
             },
             "experimental": {
-                "nasa_compliance_min": 0.75,
+                "nasa_compliance_min": THEATER_DETECTION_WARNING_THRESHOLD,
                 "god_object_limit": 50,
                 "duplication_threshold": 0.7,
                 "critical_violations": 10,

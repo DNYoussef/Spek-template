@@ -4,9 +4,8 @@ Automated deployment and validation of defense-grade security controls.
 """
 
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+from lib.shared.utilities import get_logger
 
 class RemediationPhase(Enum):
     """Remediation implementation phases."""
@@ -16,7 +15,6 @@ class RemediationPhase(Enum):
     OPTIMIZATION = "optimization"
     VALIDATION = "validation"
 
-
 class RemediationStatus(Enum):
     """Status of remediation tasks."""
     PENDING = "pending"
@@ -24,7 +22,6 @@ class RemediationStatus(Enum):
     COMPLETED = "completed"
     FAILED = "failed"
     REQUIRES_MANUAL = "requires_manual"
-
 
 @dataclass
 class ViolationRecord:
@@ -40,7 +37,6 @@ class ViolationRecord:
     resolved_timestamp: Optional[float] = None
     remediation_details: Optional[Dict[str, Any]] = None
 
-
 @dataclass
 class RemediationTask:
     """Automated remediation task."""
@@ -54,7 +50,6 @@ class RemediationTask:
     progress_percentage: float
     error_message: Optional[str] = None
     completion_timestamp: Optional[float] = None
-
 
 class DFARSRemediationEngine:
     """

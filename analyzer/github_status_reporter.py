@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-GitHub Status Reporter for Analyzer System
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH
 
 This module provides direct GitHub integration for reporting analyzer
 results as GitHub status checks, PR comments, and issue creation.
@@ -15,7 +13,6 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class AnalyzerResult:
@@ -32,7 +29,6 @@ class AnalyzerResult:
     def __post_init__(self):
         if self.details is None:
             self.details = []
-
 
 class GitHubStatusReporter:
     """Reports analyzer results directly to GitHub UI."""
@@ -63,9 +59,9 @@ class GitHubStatusReporter:
 
         try:
             if method == 'GET':
-                response = requests.get(url, headers=headers, timeout=30)
+                response = requests.get(url, headers=headers, timeout=API_TIMEOUT_SECONDS)
             elif method == 'POST':
-                response = requests.post(url, headers=headers, json=data, timeout=30)
+                response = requests.post(url, headers=headers, json=data, timeout=API_TIMEOUT_SECONDS)
             else:
                 raise ValueError(f"Unsupported method: {method}")
 
@@ -143,7 +139,7 @@ class GitHubStatusReporter:
 
 {summary}
 
-### 📊 Analysis Summary
+###   Analysis Summary
 - **Files Analyzed**: {result.file_count}
 - **Total Issues**: {result.violations_count}
 - **Critical**: {result.critical_count}
@@ -151,14 +147,14 @@ class GitHubStatusReporter:
 - **NASA POT10 Compliance**: {result.nasa_compliance_score:.1%}
 - **Analysis Time**: {result.analysis_time:.1f}s
 
-### 🎯 Quality Gates
+###   Quality Gates
 | Gate | Status | Score |
 |------|--------|-------|
 | NASA POT10 Compliance | {' Pass' if result.nasa_compliance_score >= 0.9 else ' Fail'} | {result.nasa_compliance_score:.1%} |
 | Critical Issues | {' Pass' if result.critical_count == 0 else ' Fail'} | {result.critical_count} found |
 | Performance | {' Pass' if result.analysis_time < 60 else ' Fail'} | {result.analysis_time:.1f}s |
 
-### 🔍 Violation Breakdown
+###   Violation Breakdown
 """
 
         # Add top violations if available
@@ -174,7 +170,7 @@ class GitHubStatusReporter:
                 comment_body += f"   - File: `{file_path}:{line}`\n\n"
 
         comment_body += f"""
-### 🛠️ Next Steps
+###    Next Steps
 {' Great job! All quality gates passed.' if result.success else 'Please address the critical and high severity issues before merging.'}
 
 ---
@@ -193,14 +189,14 @@ class GitHubStatusReporter:
         issue_title = f" Critical Quality Issues Detected - {result.critical_count} Critical Issues"
 
         issue_body = f"""
-## 🚨 Critical Analyzer Issues Detected
+##   Critical Analyzer Issues Detected
 
 **Analysis Date**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}
 **Commit**: {commit_sha or 'Latest'}
 **Critical Issues**: {result.critical_count}
 **High Severity Issues**: {result.high_count}
 
-### ⚠️ Critical Issues Requiring Immediate Attention
+###    Critical Issues Requiring Immediate Attention
 
 """
 
@@ -220,18 +216,18 @@ class GitHubStatusReporter:
 
         issue_body += f"""
 
-### 📊 Quality Gate Status
+###   Quality Gate Status
 - **NASA POT10 Compliance**: {result.nasa_compliance_score:.1%} ({' Pass' if result.nasa_compliance_score >= 0.9 else ' Fail'})
 - **Total Issues**: {result.violations_count}
 - **Files Analyzed**: {result.file_count}
 
-### 🎯 Resolution Steps
+###   Resolution Steps
 1. **Priority**: Address all critical issues first
 2. **Review**: Each issue includes specific recommendations
 3. **Validate**: Re-run analyzer after fixes
 4. **Close**: This issue will be closed when all critical issues are resolved
 
-### 🔗 Resources
+###   Resources
 - [NASA POT10 Guidelines](https://example.com/nasa-pot10)
 - [Analyzer Documentation](https://example.com/analyzer-docs)
 - [Quality Gate Configuration](https://example.com/quality-gates)
@@ -258,9 +254,9 @@ class GitHubStatusReporter:
             return
 
         summary_content = f"""
-# 🔍 Analyzer Quality Gate Report
+#   Analyzer Quality Gate Report
 
-## Overall Status: {'✅ PASSED' if result.success else '🚨 FAILED'}
+## Overall Status: {'  PASSED' if result.success else '  FAILED'}
 
 ### Analysis Results
 - **Files Analyzed**: {result.file_count}
@@ -286,27 +282,25 @@ class GitHubStatusReporter:
         except Exception as e:
             logger.error(f"Failed to update workflow summary: {e}")
 
-
 def main():
     """Run status reporter - uses test data only when TEST_MODE is set."""
     # Check if we're in test mode
     test_mode = os.environ.get('TEST_MODE', '').lower() == 'true'
 
     if test_mode:
-        print("Running in TEST MODE - using test data for visibility testing")
         # Test data for visibility testing only
         test_result = AnalyzerResult(
             success=False,
             violations_count=15,
             critical_count=2,
-            high_count=5,
+            high_count=MAXIMUM_NESTED_DEPTH,
             nasa_compliance_score=0.82,
             file_count=25,
             analysis_time=12.5,
             details=[
                 {
                     'severity': 'critical',
-                    'description': 'TEST: God object detected with 25 methods',
+                    'description': 'TEST: God object detected with MAXIMUM_GOD_OBJECTS_ALLOWED methods',
                     'file_path': 'src/test_analyzer.py',
                     'line_number': 45,
                     'recommendation': 'TEST: Break class into smaller, focused classes'
@@ -340,8 +334,7 @@ def main():
                 details=enhanced_result.violations[:10]  # Top 10 violations
             )
 
-            print(f"Actual analyzer results: {test_result.nasa_compliance_score:.1%} compliance, "
-                  f"{test_result.critical_count} critical issues")
+                    f"{test_result.critical_count} critical issues")
         except Exception as e:
             logger.error(f"Failed to run actual analyzer: {e}")
             print(f"Error running analyzer: {e}")
@@ -363,8 +356,6 @@ def main():
     commit_sha = os.environ.get('TEST_COMMIT_SHA', os.environ.get('GITHUB_SHA'))
     if commit_sha:
         if test_mode:
-            print(f"Creating TEST status checks for commit: {commit_sha}")
-            print("Note: Test checks should not affect production status")
         else:
             print(f"Creating REAL status checks for commit: {commit_sha}")
 
@@ -379,16 +370,12 @@ def main():
 
     # Only create failure issues in test mode or if there are real failures
     if test_mode:
-        print("TEST MODE: Simulating failure issue creation")
         # In test mode, don't actually create issues unless explicitly requested
         if os.environ.get('CREATE_TEST_ISSUE', '').lower() == 'true':
             issue_number = reporter.create_failure_issue(test_result)
             if issue_number:
-                print(f"Created TEST issue #{issue_number}")
         else:
-            print("Skipping test issue creation (set CREATE_TEST_ISSUE=true to create)")
     elif test_result.critical_count > 0:
-        print(f"Creating failure issue for {test_result.critical_count} critical violations")
         issue_number = reporter.create_failure_issue(test_result)
         if issue_number:
             print(f"Created issue #{issue_number}")
@@ -398,7 +385,6 @@ def main():
     # Test workflow summary
     print("Updating workflow summary")
     reporter.update_workflow_summary(test_result)
-
 
 if __name__ == "__main__":
     main()

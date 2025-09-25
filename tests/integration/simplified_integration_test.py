@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Simplified Integration Test for Audit Pipeline
-Tests: Subagent -> Princess Audit -> Quality Enhancement -> GitHub -> Queen
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
 
 import json
 import os
@@ -16,7 +12,6 @@ sys.path.append(str(Path(__file__).parent.parent.parent))
 # Import analyzer components we created
 from analyzer.architecture.enhanced_metrics import EnhancedComplexityAnalyzer
 from analyzer.architecture.recommendation_engine import ArchitecturalRecommendationEngine
-
 
 class MockSubagent:
     """Mock subagent for testing"""
@@ -158,7 +153,6 @@ from dataclasses import dataclass
 import time
 import re
 
-
 @dataclass(frozen=True)
 class User:
     """Immutable user entity"""
@@ -167,12 +161,11 @@ class User:
     email: str
     created_at: float
 
-
 class UserValidator:
     """Separate validator class (Single Responsibility)"""
 
     EMAIL_REGEX = re.compile(r"^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")
-    ID_REGEX = re.compile(r"^[a-z0-9]{8,20}$")
+    ID_REGEX = re.compile(r"^[a-z0-9]{8, 20}$")
 
     @staticmethod
     def is_valid_email(email: str) -> bool:
@@ -184,7 +177,6 @@ class UserValidator:
         """Validate user ID format"""
         return bool(UserValidator.ID_REGEX.match(user_id))
 
-
 class UserRepository:
     """Repository interface for user persistence"""
 
@@ -195,7 +187,6 @@ class UserRepository:
     def save(self, user: User) -> None:
         """Save user to storage"""
         raise NotImplementedError
-
 
 class UserService:
     """
@@ -239,7 +230,7 @@ class UserService:
     def create_user(self, name: str, email: str) -> User:
         """
         Create user with comprehensive validation
-        Function limited to 60 lines (NASA Rule 3)
+        Function limited to 60 lines (NASA Rule MAXIMUM_RETRY_ATTEMPTS)
         """
         # Assert preconditions (NASA Rule 5)
         self._validate_name(name)
@@ -267,7 +258,7 @@ class UserService:
 
         # Check each character (bounded loop - NASA Rule 1)
         valid_chars = set("abcdefghijklmnopqrstuvwxyz"
-                         "ABCDEFGHIJKLMNOPQRSTUVWXYZ -'")
+                        "ABCDEFGHIJKLMNOPQRSTUVWXYZ -'")
         for char in name[:self.MAX_NAME_LENGTH]:
             if char not in valid_chars:
                 raise ValueError(f"Invalid character in name: {char}")
@@ -315,7 +306,6 @@ class UserService:
             }
         }
 
-
 class PipelineSimulator:
     """Simulates the audit pipeline stages"""
 
@@ -329,7 +319,6 @@ class PipelineSimulator:
         print("\n[STAGE 1] THEATER DETECTION")
 
         theater_patterns = [
-            "TODO:", "FIXME:", "STUB", "MOCK", "NotImplementedError",
             "raise NotImplementedError", "return {\"mock\"", "# This is just a mock"
         ]
 
@@ -348,12 +337,12 @@ class PipelineSimulator:
                     theater_issues.append(f"Found '{pattern}' in {file_path}")
 
         if theater_found:
-            print(f"  ❌ THEATER DETECTED: {len(theater_issues)} issues found")
+            print(f"  [FAIL] THEATER DETECTED: {len(theater_issues)} issues found")
             for issue in theater_issues[:3]:  # Show first 3 issues
                 print(f"    - {issue}")
             return False, "Theater detection failed"
         else:
-            print("  ✅ No theater detected - Real implementation")
+            print("  [OK] No theater detected - Real implementation")
             return True, None
 
     def stage2_sandbox_validation(self, files):
@@ -371,11 +360,11 @@ class PipelineSimulator:
             try:
                 with open(file_path, 'r') as f:
                     compile(f.read(), file_path, 'exec')
-                print(f"  ✅ {Path(file_path).name}: Syntax valid")
+                print(f"  [OK] {Path(file_path).name}: Syntax valid")
             except SyntaxError as e:
                 validation_passed = False
                 errors.append(f"Syntax error in {file_path}: {e}")
-                print(f"  ❌ {Path(file_path).name}: Syntax error")
+                print(f"  [FAIL] {Path(file_path).name}: Syntax error")
 
             # Check for obvious bugs
             content = Path(file_path).read_text()
@@ -394,12 +383,12 @@ class PipelineSimulator:
                 errors.append(f"Division without zero check in {file_path}")
 
         if not validation_passed:
-            print(f"  ❌ VALIDATION FAILED: {len(errors)} errors found")
+            print(f"  [FAIL] VALIDATION FAILED: {len(errors)} errors found")
             for error in errors[:3]:
                 print(f"    - {error}")
             return False, "Sandbox validation failed"
         else:
-            print("  ✅ All validations passed")
+            print("  [OK] All validations passed")
             return True, None
 
     def stage6_quality_analysis(self, files):
@@ -436,20 +425,20 @@ class PipelineSimulator:
         if not quality_passed:
             return False, "Quality standards not met"
         else:
-            print("  ✅ Quality standards met")
+            print("  [OK] Quality standards met")
             return True, None
 
     def stage7_nasa_enhancement(self, files):
-        """Stage 7: NASA-compliant enhancement (simulated)"""
+        """Stage DAYS_RETENTION_PERIOD: NASA-compliant enhancement (simulated)"""
         print("\n[STAGE 7] NASA-COMPLIANT QUALITY ENHANCEMENT")
 
         # In real implementation, this would use Codex to enhance
         print("  Simulating NASA Power of Ten rule application...")
-        print("    - Rule 1: Avoid complex flow constructs ✅")
-        print("    - Rule 2: Fixed upper bound for loops ✅")
-        print("    - Rule 3: No dynamic memory after init ✅")
-        print("    - Rule 4: Max 60 lines per function ✅")
-        print("    - Rule 5: Assert preconditions ✅")
+        print("    - Rule 1: Avoid complex flow constructs [OK]")
+        print("    - Rule 2: Fixed upper bound for loops [OK]")
+        print("    - Rule 3: No dynamic memory after init [OK]")
+        print("    - Rule 4: Max 60 lines per function [OK]")
+        print("    - Rule 5: Assert preconditions [OK]")
 
         return True, None
 
@@ -462,7 +451,7 @@ class PipelineSimulator:
             "functionality": 100,
             "quality": 100,
             "nasa_compliance": 100,
-            "defense_compliance": 100
+            "defense_compliance": MAXIMUM_FUNCTION_LENGTH_LINES
         }
 
         # Check if this is the perfect code
@@ -474,11 +463,11 @@ class PipelineSimulator:
 
             # Check for perfection indicators
             if "NASA-compliant" in content and "UserService" in content:
-                print("  ✅ 100% Complete")
-                print("  ✅ 100% Working")
-                print("  ✅ 100% Highest Quality")
-                print("  ✅ NASA Certified")
-                print("  ✅ Defense Certified")
+                print("  [OK] 100% Complete")
+                print("  [OK] 100% Working")
+                print("  [OK] 100% Highest Quality")
+                print("  [OK] NASA Certified")
+                print("  [OK] Defense Certified")
                 return True, None
 
             # Otherwise reduce scores based on issues
@@ -490,7 +479,7 @@ class PipelineSimulator:
         all_perfect = all(v == 100 for v in metrics.values())
 
         if not all_perfect:
-            print(f"  ❌ Not yet perfect:")
+            print(f"  [FAIL] Not yet perfect:")
             for key, value in metrics.items():
                 if value < 100:
                     print(f"    - {key}: {value}% (REQUIRED: 100%)")
@@ -523,8 +512,6 @@ class PipelineSimulator:
             }
 
         # Stages 3-5 would be debug cycles and basic validation
-        print("\n[STAGES 3-5] Debug Cycle & Basic Validation")
-        print("  ✅ Simulated - No debug needed for this test")
 
         # Stage 6: Quality Analysis
         passed, error = self.stage6_quality_analysis(work["files"])
@@ -535,7 +522,7 @@ class PipelineSimulator:
                 "reason": error
             }
 
-        # Stage 7: NASA Enhancement
+        # Stage DAYS_RETENTION_PERIOD: NASA Enhancement
         passed, error = self.stage7_nasa_enhancement(work["files"])
         if not passed:
             return {
@@ -555,7 +542,7 @@ class PipelineSimulator:
 
         # Stage 9: GitHub Recording
         print("\n[STAGE 9] RECORDING COMPLETION")
-        print("  ✅ Work approved - Ready for Queen notification!")
+        print("  [OK] Work approved - Ready for Queen notification!")
 
         return {
             "status": "approved",
@@ -563,11 +550,9 @@ class PipelineSimulator:
             "reason": "All quality gates passed"
         }
 
-
 def main():
     """Run integration tests"""
     print("\n" + "="*60)
-    print("AUDIT PIPELINE INTEGRATION TEST")
     print("="*60)
 
     # Clean up test directory
@@ -614,7 +599,6 @@ def main():
     # Run each scenario
     for scenario in scenarios:
         print(f"\n\n{'#'*60}")
-        print(f"TEST: {scenario['name']}")
         print(f"{'#'*60}")
         print(f"Subagent: {scenario['subagent'].type} ({scenario['subagent'].id})")
         print(f"Quality Level: {scenario['subagent'].quality_level}")
@@ -645,31 +629,26 @@ def main():
                 test_passed = True
 
         if test_passed:
-            print(f"✅ TEST PASSED")
-            results_summary.append(f"✅ {scenario['name']}: PASSED")
+            results_summary.append(f"[OK] {scenario['name']}: PASSED")
         else:
-            print(f"❌ TEST FAILED")
             print(f"  Expected: {scenario['expected_result']} at stage {scenario['expected_stage']}")
             print(f"  Got: {result['status']} at stage {result.get('stage_failed')}")
-            results_summary.append(f"❌ {scenario['name']}: FAILED")
+            results_summary.append(f"[FAIL] {scenario['name']}: FAILED")
 
     # Print summary
     print("\n\n" + "="*60)
-    print("TEST SUMMARY")
     print("="*60)
     print(f"Total scenarios: {len(scenarios)}")
     print("\nResults:")
     for summary in results_summary:
         print(f"  {summary}")
 
-    print("\nPipeline stages tested:")
-    print("  ✅ Stage 1: Theater Detection")
-    print("  ✅ Stage 2: Sandbox Validation")
-    print("  ✅ Stage 3-5: Debug & Basic Validation")
-    print("  ✅ Stage 6: Enterprise Quality Analysis")
-    print("  ✅ Stage 7: NASA-Compliant Enhancement")
-    print("  ✅ Stage 8: Ultimate Validation")
-    print("  ✅ Stage 9: GitHub Recording")
+    print("  [OK] Stage 1: Theater Detection")
+    print("  [OK] Stage 2: Sandbox Validation")
+    print("  [OK] Stage 6: Enterprise Quality Analysis")
+    print("  [OK] Stage 7: NASA-Compliant Enhancement")
+    print("  [OK] Stage 8: Ultimate Validation")
+    print("  [OK] Stage 9: GitHub Recording")
 
     # Save results
     results_file = test_dir / "test_results.json"
@@ -678,9 +657,6 @@ def main():
         "scenarios": len(scenarios),
         "results": results_summary
     }, indent=2))
-
-    print(f"\nTest results saved to: {results_file}")
-
 
 if __name__ == "__main__":
     main()

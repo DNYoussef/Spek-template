@@ -178,18 +178,18 @@ console.log(`Confidence: ${analysis.qualityCorrelation.confidenceScore}`);
 
 ```
 analyzer/enterprise/sixsigma/
-├── index.js                  # Main entry point and orchestration
-├── ctq-calculator.js         # SR-001: CTQ metrics collector
-├── spc-chart-generator.js    # SR-002: SPC chart generation
-├── dpmo-calculator.js        # SR-003: DPMO/RTY calculations
-├── theater-integrator.js     # SR-004: Theater detection
-├── report-generator.js       # SR-005: Report generation
-├── performance-monitor.js    # Performance monitoring
-├── config.js                 # Configuration management
-└── README.md                 # This documentation
+___ index.js                  # Main entry point and orchestration
+___ ctq-calculator.js         # SR-001: CTQ metrics collector
+___ spc-chart-generator.js    # SR-002: SPC chart generation
+___ dpmo-calculator.js        # SR-003: DPMO/RTY calculations
+___ theater-integrator.js     # SR-004: Theater detection
+___ report-generator.js       # SR-005: Report generation
+___ performance-monitor.js    # Performance monitoring
+___ config.js                 # Configuration management
+___ README.md                 # This documentation
 
 tests/enterprise/sixsigma/
-└── sixsigma.test.js          # Comprehensive test suite
+___ sixsigma.test.js          # Comprehensive test suite
 
 .claude/.artifacts/sixsigma/  # Generated reports and artifacts
 ```

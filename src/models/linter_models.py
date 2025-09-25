@@ -1,12 +1,12 @@
 """Unified data models for linter violations and results."""
 
+from pathlib import Path
+from typing import Dict, List, Optional, Any, Union
+import json
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Dict, List, Optional, Any, Union
-import json
-from pathlib import Path
-
 
 class StandardSeverity(Enum):
     """Standardized severity levels across all linters."""
@@ -15,7 +15,6 @@ class StandardSeverity(Enum):
     WARNING = "warning"
     INFO = "info"
     NOTE = "note"
-
 
 class ViolationType(Enum):
     """Categories of linter violations."""
@@ -30,7 +29,6 @@ class ViolationType(Enum):
     COMPLEXITY = "complexity"
     PERFORMANCE = "performance"
 
-
 @dataclass
 class Position:
     """Position information for a violation."""
@@ -38,7 +36,6 @@ class Position:
     column: Optional[int] = None
     end_line: Optional[int] = None
     end_column: Optional[int] = None
-
 
 @dataclass
 class LinterViolation:
@@ -87,7 +84,6 @@ class LinterViolation:
             "raw_data": self.raw_data,
         }
 
-
 @dataclass
 class LinterResult:
     """Complete result from a linter execution."""
@@ -130,7 +126,6 @@ class LinterResult:
             }
         }
 
-
 @dataclass
 class LinterConfig:
     """Configuration for a specific linter tool."""
@@ -148,10 +143,8 @@ class LinterConfig:
         cmd = [self.executable_path or self.tool_name]
         if self.config_file:
             # Tool-specific config file flags will be added by adapters
-            pass
         cmd.extend(self.extra_args)
         return cmd
-
 
 class LinterAdapter(ABC):
     """Abstract base class for all linter adapters."""
@@ -163,27 +156,22 @@ class LinterAdapter(ABC):
     @abstractmethod
     async def run_linter(self, target_paths: List[str]) -> LinterResult:
         """Execute the linter on specified paths."""
-        pass
     
     @abstractmethod
     def parse_output(self, raw_output: str, stderr: str = "") -> List[LinterViolation]:
         """Parse raw linter output into standardized violations."""
-        pass
     
     @abstractmethod
     def get_command_args(self, target_paths: List[str]) -> List[str]:
         """Get command line arguments for the linter."""
-        pass
     
     @abstractmethod
     def normalize_severity(self, tool_severity: str, rule_id: str = "") -> StandardSeverity:
         """Convert tool-specific severity to standard severity."""
-        pass
     
     @abstractmethod
     def get_violation_type(self, rule_id: str, category: str = "") -> ViolationType:
         """Determine violation type from rule ID and category."""
-        pass
     
     def validate_config(self) -> bool:
         """Validate the adapter configuration."""

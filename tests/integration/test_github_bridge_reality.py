@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-REALITY CHECK: GitHub Bridge Integration Tests
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 This test suite brutally validates that GitHubBridge makes REAL HTTP requests
 and handles authentication properly. No theater, no stubs, no fake correlation.
@@ -22,7 +20,6 @@ sys.path.append(str(Path(__file__).parent.parent.parent / "analyzer"))
 from mock_github_server import MockGitHubServer
 from analyzer.integrations.github_bridge import GitHubBridge, GitHubConfig, UnifiedAnalysisResult, ViolationSeverity
 from analyzer.integrations.tool_coordinator import ToolCoordinator
-
 
 class TestGitHubBridgeReality(unittest.TestCase):
     """Brutal reality check tests for GitHub Bridge."""
@@ -77,7 +74,7 @@ class TestGitHubBridgeReality(unittest.TestCase):
             nasa_compliance_score=0.73,
             six_sigma_level=3.2,
             mece_score=0.67,
-            god_objects_found=3,
+            god_objects_found=MAXIMUM_RETRY_ATTEMPTS,
             duplication_percentage=18.5
         )
 
@@ -201,7 +198,6 @@ class TestGitHubBridgeReality(unittest.TestCase):
 
         print(" REALITY VERIFIED: Real issue creation API call")
 
-
 class TestToolCoordinatorReality(unittest.TestCase):
     """Reality check for ToolCoordinator - no theater allowed."""
 
@@ -293,7 +289,6 @@ class TestToolCoordinatorReality(unittest.TestCase):
         self.assertIn("High duplication", recommendations[0])
 
         print(" REALITY VERIFIED: Recommendations based on real data thresholds")
-
 
 class TestEndToEndIntegration(unittest.TestCase):
     """End-to-end integration test to verify no theater."""
@@ -411,7 +406,6 @@ class TestEndToEndIntegration(unittest.TestCase):
                 if key in os.environ:
                     del os.environ[key]
 
-
 def calculate_reality_score():
     """Calculate overall reality score for Phase 2 GitHub integration."""
 
@@ -444,7 +438,6 @@ def calculate_reality_score():
     reality_score = (total_actual / total_possible) * 100
 
     return reality_score, scores, criteria
-
 
 if __name__ == "__main__":
     print(" STARTING BRUTAL REALITY CHECK OF PHASE 2 GITHUB INTEGRATION")

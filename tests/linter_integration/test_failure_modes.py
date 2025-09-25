@@ -1,9 +1,4 @@
 import ast
-#!/usr/bin/env python3
-"""
-Failure Mode and Fault Tolerance Tests
-Comprehensive test suite for failure scenarios, error handling, and fault tolerance mechanisms.
-"""
 
 import pytest
 import asyncio
@@ -25,7 +20,6 @@ from test_full_pipeline import IntegratedLinterPipeline
 from test_mesh_coordination import MeshQueenCoordinator, NodeStatus
 from test_tool_management import ToolManagementSystem
 from test_real_time_processing import MockRealTimeLinterIngestionEngine, MockResultCorrelationFramework
-
 
 class TestMeshCoordinationFailures:
     """Test suite for mesh coordination failure scenarios"""
@@ -77,7 +71,7 @@ class TestMeshCoordinationFailures:
         # System should still function (>66% nodes healthy)
         health = await coordinator.monitor_integration_health()
         healthy_nodes = sum(1 for node in coordinator.mesh_nodes.values() 
-                           if node.status == NodeStatus.ACTIVE)
+                            if node.status == NodeStatus.ACTIVE)
         
         assert healthy_nodes >= len(coordinator.mesh_nodes) * 0.66
         assert health["system_health"] >= 0.66
@@ -120,7 +114,7 @@ class TestMeshCoordinationFailures:
         
         # Verify other nodes don't cascade into failure
         remaining_nodes = [node for node_id, node in coordinator.mesh_nodes.items() 
-                          if node_id != "backend-dev"]
+                            if node_id != "backend-dev"]
         
         for node in remaining_nodes:
             assert node.status == NodeStatus.ACTIVE
@@ -151,7 +145,6 @@ class TestMeshCoordinationFailures:
         for node_id in stale_nodes:
             if coordinator.mesh_nodes[node_id].status == NodeStatus.ACTIVE:
                 coordinator.mesh_nodes[node_id].status = NodeStatus.DEGRADED
-
 
 class TestToolManagementFailures:
     """Test suite for tool management failure scenarios"""
@@ -216,7 +209,7 @@ class TestToolManagementFailures:
         
         # Mock failing execution
         with patch.object(tool_manager, 'executeWithMonitoring', 
-                         side_effect=Exception("Tool execution failed")):
+                        side_effect=Exception("Tool execution failed")):
             
             # Cause 5 failures to trigger circuit breaker
             for i in range(5):
@@ -255,8 +248,8 @@ class TestToolManagementFailures:
         
         # Mock recovery methods
         with patch.object(tool_manager, 'resetToolConfiguration', new_callable=AsyncMock), \
-             patch.object(tool_manager, 'clearToolCache', new_callable=AsyncMock), \
-             patch.object(tool_manager, 'executeRecoveryStep', new_callable=AsyncMock):
+            patch.object(tool_manager, 'clearToolCache', new_callable=AsyncMock), \
+            patch.object(tool_manager, 'executeRecoveryStep', new_callable=AsyncMock):
             
             # Attempt recovery
             await tool_manager.attemptToolRecovery(mock_tool.id)
@@ -286,7 +279,6 @@ class TestToolManagementFailures:
         
         # Queue should be reduced
         assert len(tool_manager.executionQueue[tool_id]) == 9
-
 
 class TestRealTimeProcessingFailures:
     """Test suite for real-time processing failure scenarios"""
@@ -399,7 +391,6 @@ class TestRealTimeProcessingFailures:
             # Acceptable failure mode under extreme memory pressure
             pytest.skip("System reached memory limits gracefully")
 
-
 class TestFullPipelineFailures:
     """Test suite for full pipeline failure scenarios"""
     
@@ -419,7 +410,6 @@ class TestFullPipelineFailures:
             files = []
             for i in range(3):
                 file_path = Path(temp_dir) / f"test_{i}.py"
-                file_path.write_text(f"print('test {i}')\n")
                 files.append(str(file_path))
             
             # Mock partial failure in ingestion engine
@@ -448,7 +438,7 @@ class TestFullPipelineFailures:
         
         # Mock initialization failure
         with patch.object(pipeline.mesh_coordinator, 'initialize_mesh_topology', 
-                         side_effect=Exception("Initialization failed")):
+                        side_effect=Exception("Initialization failed")):
             
             with pytest.raises(Exception, match="Initialization failed"):
                 await pipeline.initialize_pipeline("/tmp")
@@ -466,7 +456,6 @@ class TestFullPipelineFailures:
         """Test handling of pipeline state corruption during execution"""
         with tempfile.TemporaryDirectory() as temp_dir:
             files = [str(Path(temp_dir) / "test.py")]
-            Path(files[0]).write_text("print('test')\n")
             
             # Corrupt pipeline state during execution
             original_execute = pipeline.execute_full_pipeline
@@ -499,7 +488,6 @@ class TestFullPipelineFailures:
         """Test isolation of cascading failures in pipeline"""
         with tempfile.TemporaryDirectory() as temp_dir:
             files = [str(Path(temp_dir) / "test.py")]
-            Path(files[0]).write_text("print('test')\n")
             
             # Mock cascading failures
             failure_count = 0
@@ -513,9 +501,9 @@ class TestFullPipelineFailures:
             
             # Apply failure to multiple components
             with patch.object(pipeline.mesh_coordinator, 'coordinate_linter_integration', 
-                             side_effect=increment_failures), \
-                 patch.object(pipeline.correlation_framework, 'correlateResults', 
-                             side_effect=increment_failures):
+                            side_effect=increment_failures), \
+                patch.object(pipeline.correlation_framework, 'correlateResults', 
+                            side_effect=increment_failures):
                 
                 # Should isolate failures and not crash entire pipeline
                 try:
@@ -525,7 +513,6 @@ class TestFullPipelineFailures:
                 except Exception as e:
                     # Should fail gracefully, not crash uncontrollably
                     assert "Cascading failure" in str(e)
-
 
 class TestResourceExhaustionScenarios:
     """Test suite for resource exhaustion scenarios"""
@@ -548,7 +535,6 @@ class TestResourceExhaustionScenarios:
                 files = []
                 for i in range(test_limit + 10):  # More files than limit
                     file_path = Path(temp_dir) / f"test_{i}.py"
-                    file_path.write_text("print('test')\n")
                     files.append(str(file_path))
                 
                 # Should handle file descriptor exhaustion gracefully
@@ -588,7 +574,6 @@ class TestResourceExhaustionScenarios:
             except OSError:
                 # Acceptable if system actually runs out of space
                 pytest.skip("Simulated disk space exhaustion")
-
 
 class TestSecurityFailureScenarios:
     """Test suite for security-related failure scenarios"""
@@ -655,8 +640,6 @@ def malicious_function():
                 assert result["status"] in ["completed", "failed"]
             except (FileNotFoundError, PermissionError, OSError):
                 # Expected failure for invalid/protected paths
-                pass
-
 
 if __name__ == "__main__":
     import logging

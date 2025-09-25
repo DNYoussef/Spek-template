@@ -8,9 +8,9 @@
 
 | Metric | Target | Status |
 |--------|--------|---------|
-| **DPMO** | ≤ 1,500 | [CYCLE] Calculating... |
-| **RTY** | ≥ 99.8% | [CYCLE] Calculating... |
-| **Sigma Level** | ≥ 4.5 | [CYCLE] Calculating... |
+| **DPMO** | <= 1,500 | [CYCLE] Calculating... |
+| **RTY** | >= 99.8% | [CYCLE] Calculating... |
+| **Sigma Level** | >= 4.5 | [CYCLE] Calculating... |
 | **Performance Overhead** | < 1.2% | [CYCLE] Monitoring... |
 
 ---

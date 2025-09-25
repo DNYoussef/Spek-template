@@ -3,13 +3,14 @@
 Loop 3 Recursive Fix - Takes GitHub CI/CD failures and applies fixes recursively
 """
 
-import asyncio
-import json
-import sys
-import subprocess
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, List, Any
+import json
+import subprocess
+import sys
+
+import asyncio
 
 # Add coordination module to path
 sys.path.append(str(Path(__file__).parent.parent / "src" / "coordination"))

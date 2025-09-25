@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Swarm Hierarchy Integration Test
-Comprehensive testing of the anti-degradation system with all components
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 import asyncio
 import json
@@ -30,11 +26,9 @@ class SwarmHierarchyIntegrationTest:
     async def run_all_tests(self) -> Dict[str, Any]:
         """Run complete integration test suite"""
         print("\n" + "="*80)
-        print("SWARM HIERARCHY INTEGRATION TEST - ANTI-DEGRADATION SYSTEM")
         print("="*80)
 
         # Phase 1: Component Tests
-        print("\n[PHASE 1] Testing Individual Components...")
         await self.test_context_dna()
         await self.test_princess_hierarchy()
         await self.test_consensus_system()
@@ -42,14 +36,12 @@ class SwarmHierarchyIntegrationTest:
         await self.test_protocol_system()
 
         # Phase 2: Integration Tests
-        print("\n[PHASE 2] Testing System Integration...")
         await self.test_context_flow()
         await self.test_degradation_prevention()
         await self.test_byzantine_tolerance()
         await self.test_cross_hive_communication()
 
         # Phase 3: Performance Tests
-        print("\n[PHASE 3] Testing Performance...")
         await self.test_scalability()
         await self.test_throughput()
         await self.test_recovery_time()
@@ -61,7 +53,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_context_dna(self) -> None:
         """Test Context DNA integrity system"""
-        print("\n  Testing Context DNA...")
 
         try:
             # Test fingerprint generation
@@ -72,7 +63,6 @@ class SwarmHierarchyIntegrationTest:
             }
 
             # Simulate ContextDNA functionality
-            fingerprint = self._generate_fingerprint(test_context)
 
             # Test compression
             compressed = self._compress_context(test_context)
@@ -100,7 +90,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_princess_hierarchy(self) -> None:
         """Test princess hierarchy structure"""
-        print("\n  Testing Princess Hierarchy...")
 
         princess_types = [
             'development', 'quality', 'security',
@@ -125,7 +114,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_consensus_system(self) -> None:
         """Test Byzantine fault tolerant consensus"""
-        print("\n  Testing Consensus System...")
 
         try:
             # Simulate consensus proposal
@@ -160,7 +148,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_router_system(self) -> None:
         """Test context routing system"""
-        print("\n  Testing Router System...")
 
         try:
             # Simulate routing decision
@@ -194,7 +181,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_protocol_system(self) -> None:
         """Test cross-hive communication protocol"""
-        print("\n  Testing Protocol System...")
 
         try:
             # Simulate protocol metrics
@@ -227,7 +213,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_context_flow(self) -> None:
         """Test end-to-end context flow"""
-        print("\n  Testing Context Flow...")
 
         try:
             start_time = time.time()
@@ -262,7 +247,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_degradation_prevention(self) -> None:
         """Test degradation prevention system"""
-        print("\n  Testing Degradation Prevention...")
 
         try:
             # Simulate degradation monitoring
@@ -298,7 +282,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_byzantine_tolerance(self) -> None:
         """Test Byzantine fault tolerance"""
-        print("\n  Testing Byzantine Tolerance...")
 
         try:
             # Simulate Byzantine scenario
@@ -323,7 +306,6 @@ class SwarmHierarchyIntegrationTest:
             }
 
             status = "" if is_tolerant else ""
-            print(f"    {status} Byzantine: Tolerating {byzantine_test['byzantine_nodes']}/{max_tolerable} failures")
 
         except Exception as e:
             self.test_results['integration']['byzantine'] = {
@@ -334,7 +316,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_cross_hive_communication(self) -> None:
         """Test cross-hive communication"""
-        print("\n  Testing Cross-Hive Communication...")
 
         try:
             # Simulate cross-hive metrics
@@ -373,7 +354,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_scalability(self) -> None:
         """Test system scalability"""
-        print("\n  Testing Scalability...")
 
         try:
             # Simulate scalability metrics
@@ -409,7 +389,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_throughput(self) -> None:
         """Test system throughput"""
-        print("\n  Testing Throughput...")
 
         try:
             # Simulate throughput test
@@ -445,7 +424,6 @@ class SwarmHierarchyIntegrationTest:
 
     async def test_recovery_time(self) -> None:
         """Test system recovery time"""
-        print("\n  Testing Recovery Time...")
 
         try:
             # Simulate recovery scenarios
@@ -500,7 +478,7 @@ class SwarmHierarchyIntegrationTest:
                     elif status == 'ERROR':
                         error_tests += 1
 
-        success_rate = (passed_tests / total_tests * 100) if total_tests > 0 else 0
+        success_rate = (passed_tests / total_tests * MAXIMUM_FUNCTION_LENGTH_LINES) if total_tests > 0 else 0
 
         self.test_results['summary'] = {
             'total_tests': total_tests,
@@ -512,11 +490,6 @@ class SwarmHierarchyIntegrationTest:
         }
 
         # Print summary
-        print(f"\nTest Results:")
-        print(f"  Total Tests: {total_tests}")
-        print(f"   Passed: {passed_tests}")
-        print(f"   Failed: {failed_tests}")
-        print(f"    Errors: {error_tests}")
         print(f"  Success Rate: {success_rate:.1f}%")
 
         if self.test_results['summary']['production_ready']:
@@ -529,7 +502,6 @@ class SwarmHierarchyIntegrationTest:
             print("\n  SYSTEM REQUIRES ATTENTION")
             print(f"   - Success rate below 90% threshold")
             if error_tests > 0:
-                print(f"   - {error_tests} tests encountered errors")
 
         # Save detailed report
         report_path = '.claude/.artifacts/swarm-hierarchy-integration-report.json'
@@ -568,7 +540,6 @@ class SwarmHierarchyIntegrationTest:
         # Simulate validation
         return princess_type in ['development', 'quality', 'security', 'research', 'infrastructure', 'coordination']
 
-
 async def main():
     """Main test execution"""
     tester = SwarmHierarchyIntegrationTest()
@@ -585,7 +556,6 @@ async def main():
     except Exception as e:
         print(f"\n CRITICAL ERROR: {e}")
         sys.exit(2)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

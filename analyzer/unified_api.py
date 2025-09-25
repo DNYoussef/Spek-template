@@ -1,7 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Unified API Architecture - Single Entry Point for All Capabilities
-================================================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
 Provides a single, coherent interface for all analysis capabilities
 across JSON Schema, Linter Integration, Performance Optimization,
@@ -9,13 +6,12 @@ and Precision Validation phases. Maintains 58.3% performance improvement
 while offering comprehensive multi-phase analysis.
 
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class UnifiedAnalysisConfig:
@@ -57,7 +53,6 @@ class UnifiedAnalysisConfig:
     include_correlations: bool = True
     include_recommendations: bool = True
     verbose_output: bool = False
-
 
 @dataclass
 class UnifiedAnalysisResult:
@@ -103,7 +98,6 @@ class UnifiedAnalysisResult:
     # Quality Gates
     quality_gates_passed: Dict[str, bool] = field(default_factory=dict)
     quality_gate_summary: str = "Not Evaluated"
-
 
 class UnifiedAnalyzerAPI:
     """
@@ -377,9 +371,9 @@ class UnifiedAnalyzerAPI:
             )
         
         # NASA compliance recommendations
-        if result.nasa_compliance_score < 0.95:
+        if result.nasa_compliance_score < NASA_POT10_TARGET_COMPLIANCE_THRESHOLD:
             recommendations.append(
-                f"Improve NASA compliance score from {result.nasa_compliance_score:.2f} to 0.95"
+                f"Improve NASA compliance score from {result.nasa_compliance_score:.2f} to NASA_POT10_TARGET_COMPLIANCE_THRESHOLD"
             )
         
         # Performance recommendations
@@ -420,7 +414,7 @@ class UnifiedAnalyzerAPI:
         """Generate security-specific recommendations."""
         recommendations = []
         
-        if result.nasa_compliance_score < 0.95:
+        if result.nasa_compliance_score < NASA_POT10_TARGET_COMPLIANCE_THRESHOLD:
             recommendations.append("Implement additional NASA POT10 compliance measures")
         
         if result.theater_detection_score < 0.9:
@@ -438,7 +432,7 @@ class UnifiedAnalyzerAPI:
         
         # Weight different quality aspects
         nasa_weight = 0.3
-        performance_weight = 0.3
+        performance_weight = 0.2
         correlation_weight = 0.2
         consensus_weight = 0.2
         

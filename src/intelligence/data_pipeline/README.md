@@ -1,8 +1,8 @@
-# Gary×Taleb Data Pipeline
+# GaryxTaleb Data Pipeline
 
 A high-performance, real-time data pipeline system designed for quantitative trading with DPI calculations and antifragility analysis. Built for handling $200 seed capital accounts with institutional-grade data processing capabilities.
 
-## 🚀 Features
+## [LAUNCH] Features
 
 ### Historical Data Ingestion
 - **Multi-Source Support**: Alpaca, Yahoo Finance, Polygon.io
@@ -40,27 +40,27 @@ A high-performance, real-time data pipeline system designed for quantitative tra
 - **Quality SLA**: 95%+ data quality compliance monitoring
 - **Alert System**: Configurable thresholds with multiple notification channels
 
-## 🏗️ Architecture
+## __ Architecture
 
 ```
-Gary×Taleb Data Pipeline
-├── Sources Layer
-│   ├── Historical Data Loader (Multi-source)
-│   ├── Real-Time Streamer (WebSocket)
-│   └── Alternative Data Processor
-├── Processing Layer
-│   ├── News Processor (1000+ articles/min)
-│   ├── Sentiment Processor (FinBERT)
-│   └── Options Flow Analyzer
-├── Quality Layer
-│   ├── Data Validator
-│   └── Quality Monitor
-└── Monitoring Layer
-    ├── Pipeline Monitor
-    └── Metrics Collector
+GaryxTaleb Data Pipeline
+___ Sources Layer
+_   ___ Historical Data Loader (Multi-source)
+_   ___ Real-Time Streamer (WebSocket)
+_   ___ Alternative Data Processor
+___ Processing Layer
+_   ___ News Processor (1000+ articles/min)
+_   ___ Sentiment Processor (FinBERT)
+_   ___ Options Flow Analyzer
+___ Quality Layer
+_   ___ Data Validator
+_   ___ Quality Monitor
+___ Monitoring Layer
+    ___ Pipeline Monitor
+    ___ Metrics Collector
 ```
 
-## 📦 Installation
+## _ Installation
 
 ```bash
 # Clone the repository
@@ -87,7 +87,7 @@ torch>=1.12.0
 psutil>=5.9.0
 ```
 
-## 🔧 Configuration
+## [TOOL] Configuration
 
 ### Environment Variables
 ```bash
@@ -124,7 +124,7 @@ REDDIT_CLIENT_SECRET=your_reddit_secret
 }
 ```
 
-## 🚀 Quick Start
+## [LAUNCH] Quick Start
 
 ### Basic Pipeline Usage
 ```python
@@ -233,7 +233,7 @@ for item in top_flow:
     print(f"{item['symbol']}: ${item['total_premium']:,.0f} flow")
 ```
 
-## 📊 Monitoring & Metrics
+## [DATA] Monitoring & Metrics
 
 ### Pipeline Status
 ```python
@@ -274,7 +274,7 @@ prometheus_metrics = collector.export_prometheus_format()
 print(prometheus_metrics)
 ```
 
-## 🔍 Advanced Usage
+## [SEARCH] Advanced Usage
 
 ### Custom Data Validation Rules
 ```python
@@ -311,7 +311,7 @@ for signal in signals[:5]:
     print(f"{signal.symbol}: {signal.direction} ({signal.strength:.2f})")
 ```
 
-## 📈 Performance Characteristics
+## [GROWTH] Performance Characteristics
 
 ### Throughput Benchmarks
 - **Historical Data**: 10,000+ symbols/hour
@@ -332,7 +332,7 @@ for signal in signals[:5]:
 - **Data Sources**: Unlimited source integration
 - **Processing**: Thread-pool based parallel processing
 
-## 🛠️ Troubleshooting
+## [TOOLS] Troubleshooting
 
 ### Common Issues
 
@@ -372,7 +372,7 @@ for alert in alerts:
     print(f"Critical alert: {alert['description']}")
 ```
 
-## 🔒 Security Considerations
+## [LOCKED] Security Considerations
 
 - **API Keys**: Store in environment variables, never commit to code
 - **Rate Limiting**: Respect API rate limits to avoid service disruption
@@ -380,11 +380,11 @@ for alert in alerts:
 - **Network Security**: Use HTTPS/WSS for all external connections
 - **Access Control**: Implement proper authentication for monitoring endpoints
 
-## 📄 License
+## [DOC] License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🤝 Contributing
+## _ Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -392,7 +392,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📞 Support
+## _ Support
 
 For support and questions:
 - Create an issue on GitHub
@@ -401,4 +401,4 @@ For support and questions:
 
 ---
 
-Built for the Gary×Taleb trading system - where DPI meets antifragility for superior risk-adjusted returns.
+Built for the GaryxTaleb trading system - where DPI meets antifragility for superior risk-adjusted returns.

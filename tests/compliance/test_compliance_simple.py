@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-SPEK Compliance Evidence System Simple Demonstration
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 This script demonstrates the compliance evidence generation system
 without Unicode characters for Windows compatibility.
@@ -23,15 +21,12 @@ logging.basicConfig(
 # Add analyzer to Python path
 sys.path.append(str(Path(__file__).parent))
 
-
 async def test_compliance_infrastructure():
     """Test the basic compliance infrastructure"""
-    print("SPEK Compliance Evidence System Test")
     print("=" * 50)
     
     try:
         # Test 1: Import compliance modules
-        print("Test 1: Importing compliance modules...")
         from analyzer.enterprise.compliance.core import ComplianceOrchestrator, ComplianceConfig
         from analyzer.enterprise.compliance.soc2 import SOC2EvidenceCollector
         from analyzer.enterprise.compliance.iso27001 import ISO27001ControlMapper
@@ -41,7 +36,6 @@ async def test_compliance_infrastructure():
         print("   SUCCESS: All modules imported successfully")
         
         # Test 2: Create compliance configuration
-        print("Test 2: Creating compliance configuration...")
         config = ComplianceConfig(
             enabled=True,
             frameworks={"SOC2", "ISO27001", "NIST-SSDF"},
@@ -50,15 +44,13 @@ async def test_compliance_infrastructure():
         )
         print(f"   SUCCESS: Configuration created with {len(config.frameworks)} frameworks")
         
-        # Test 3: Initialize compliance orchestrator
-        print("Test 3: Initializing compliance orchestrator...")
+        # Test MAXIMUM_RETRY_ATTEMPTS: Initialize compliance orchestrator
         orchestrator = ComplianceOrchestrator()
         orchestrator.config = config
         status = orchestrator.get_compliance_status()
         print(f"   SUCCESS: Orchestrator status: {status['audit_trail']}")
         
         # Test 4: Test individual collectors
-        print("Test 4: Testing framework collectors...")
         
         # SOC2 Collector
         if config.soc2_enabled:
@@ -77,19 +69,16 @@ async def test_compliance_infrastructure():
         
         print("   SUCCESS: All collectors initialized")
         
-        # Test 5: Test audit trail generator
-        print("Test 5: Testing audit trail generator...")
+        # Test MAXIMUM_NESTED_DEPTH: Test audit trail generator
         audit_trail = AuditTrailGenerator(config)
         audit_status = audit_trail.get_audit_trail_status()
         print(f"   SUCCESS: Audit trail status: {audit_status['status']}")
         
         # Test 6: Test report generator
-        print("Test 6: Testing report generator...")
         report_generator = ComplianceReportGenerator(config)
         print("   SUCCESS: Report generator initialized")
         
         # Test 7: Test evidence collection simulation
-        print("Test 7: Testing evidence collection simulation...")
         
         # Create mock evidence results
         mock_evidence = {
@@ -104,13 +93,13 @@ async def test_compliance_infrastructure():
                 "status": "success", 
                 "assessment_timestamp": datetime.now().isoformat(),
                 "controls_assessed": 15,
-                "overall_compliance_score": 78.5
+                "overall_compliance_score": 78.MAXIMUM_NESTED_DEPTH
             },
             "NIST-SSDF": {
                 "status": "success",
                 "analysis_timestamp": datetime.now().isoformat(),
                 "practices_assessed": 12,
-                "overall_compliance_score": 72.3,
+                "overall_compliance_score": 72.MAXIMUM_RETRY_ATTEMPTS,
                 "implementation_tier": {"overall_implementation_tier": 2}
             }
         }
@@ -118,7 +107,6 @@ async def test_compliance_infrastructure():
         print("   SUCCESS: Mock evidence created")
         
         # Test 8: Test audit trail generation
-        print("Test 8: Testing audit trail generation...")
         audit_result = await audit_trail.generate_audit_trail(mock_evidence, datetime.now())
         
         if audit_result.get("status") == "success":
@@ -127,7 +115,6 @@ async def test_compliance_infrastructure():
             print(f"   WARNING: Audit trail generation issues: {audit_result.get('status')}")
         
         # Test 9: Test report generation
-        print("Test 9: Testing unified report generation...")
         report_result = await report_generator.generate_unified_report(mock_evidence)
         
         if report_result.get("status") == "success":
@@ -137,7 +124,6 @@ async def test_compliance_infrastructure():
             print(f"   WARNING: Report generation issues: {report_result.get('status')}")
         
         # Test 10: Performance validation
-        print("Test 10: Performance validation...")
         start_time = time.time()
         
         # Simulate performance test
@@ -152,9 +138,7 @@ async def test_compliance_infrastructure():
         
         # Summary
         print("\n" + "=" * 50)
-        print("COMPLIANCE SYSTEM TEST SUMMARY")
         print("=" * 50)
-        print("All core components tested successfully!")
         print(f"Frameworks supported: {len(config.frameworks)}")
         print(f"Evidence retention: {config.evidence_retention_days} days")
         print(f"Performance compliant: {within_limits}")
@@ -171,15 +155,10 @@ async def test_compliance_infrastructure():
         return False
         
     except Exception as e:
-        print(f"TEST ERROR: {e}")
-        print("Unexpected error during compliance system test.")
         return False
-
 
 async def main():
     """Main test function"""
-    print("Starting SPEK Compliance Evidence System Test...")
-    print(f"Test Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
     
     success = await test_compliance_infrastructure()
@@ -188,16 +167,13 @@ async def main():
         print("\nSUCCESS: Compliance Evidence System is operational!")
         return 0
     else:
-        print("\nFAILURE: Compliance Evidence System test failed.")
         return 1
-
 
 if __name__ == "__main__":
     try:
         exit_code = asyncio.run(main())
         sys.exit(exit_code)
     except KeyboardInterrupt:
-        print("\nTest interrupted by user.")
         sys.exit(1)
     except Exception as e:
         print(f"\nFatal Error: {e}")

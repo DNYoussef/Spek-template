@@ -1,7 +1,4 @@
-"""
-DFARS 252.204-7012 Compliance Certification System
-Final validation and certification system for 100% DFARS compliance.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT
 
 import json
 import time
@@ -9,14 +6,12 @@ import hashlib
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
-
 class CertificationLevel(Enum):
     """DFARS certification levels."""
     BASIC_COMPLIANCE = "basic_compliance"
     SUBSTANTIAL_COMPLIANCE = "substantial_compliance"
     FULL_COMPLIANCE = "full_compliance"
     DEFENSE_CERTIFIED = "defense_certified"
-
 
 class ControlImplementationStatus(Enum):
     """Control implementation status."""
@@ -26,7 +21,6 @@ class ControlImplementationStatus(Enum):
     FULLY_IMPLEMENTED = "fully_implemented"
     TESTED = "tested"
     CERTIFIED = "certified"
-
 
 @dataclass
 class DFARSControl:
@@ -46,7 +40,6 @@ class DFARSControl:
     dependencies: List[str]
     risk_rating: str
 
-
 @dataclass
 class ComplianceCertificate:
     """DFARS compliance certificate."""
@@ -63,7 +56,6 @@ class ComplianceCertificate:
     conditions: List[str]
     digital_signature: str
     validation_hash: str
-
 
 class DFARSComplianceCertification:
     """
@@ -235,14 +227,14 @@ class DFARSComplianceCertification:
                 "assessor_name": "DFARS Compliance Assessor",
                 "certificate_validity_days": 1095,  # 3 years
                 "minimum_score_thresholds": {
-                    "basic_compliance": 0.80,
-                    "substantial_compliance": 0.90,
-                    "full_compliance": 0.95,
+                    "basic_compliance": 0.8,
+                    "substantial_compliance": REGULATORY_FACTUALITY_REQUIREMENT,
+                    "full_compliance": NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,
                     "defense_certified": 0.98
                 },
                 "required_controls": {
                     "basic_compliance": 20,
-                    "substantial_compliance": 25,
+                    "substantial_compliance": MAXIMUM_GOD_OBJECTS_ALLOWED,
                     "full_compliance": 28,
                     "defense_certified": 30
                 },
@@ -570,7 +562,7 @@ class DFARSComplianceCertification:
             # Information at Rest
             if self.cdi_framework.cdi_assets:
                 encrypted_assets = [a for a in self.cdi_framework.cdi_assets.values()
-                                  if a.asset_id in self.cdi_framework.protection_keys]
+                                    if a.asset_id in self.cdi_framework.protection_keys]
                 if encrypted_assets:
                     score = len(encrypted_assets) / len(self.cdi_framework.cdi_assets)
 
@@ -677,7 +669,7 @@ class DFARSComplianceCertification:
         overall_score = assessment_result["overall_score"]
 
         # Critical findings
-        if overall_score < 0.95:
+        if overall_score < NASA_POT10_TARGET_COMPLIANCE_THRESHOLD:
             findings.append("Overall compliance score below 95% - additional controls required")
 
         # Component-specific findings
@@ -714,7 +706,7 @@ class DFARSComplianceCertification:
         if overall_score < 0.98:
             recommendations.append("Implement additional security controls to achieve Defense Certified status")
 
-        if overall_score < 0.95:
+        if overall_score < NASA_POT10_TARGET_COMPLIANCE_THRESHOLD:
             recommendations.append("Strengthen critical security controls for Full Compliance certification")
 
         # Component-specific recommendations
@@ -902,7 +894,7 @@ class DFARSComplianceCertification:
         if active_certificates:
             level_priorities = {
                 CertificationLevel.DEFENSE_CERTIFIED: 4,
-                CertificationLevel.FULL_COMPLIANCE: 3,
+                CertificationLevel.FULL_COMPLIANCE: MAXIMUM_RETRY_ATTEMPTS,
                 CertificationLevel.SUBSTANTIAL_COMPLIANCE: 2,
                 CertificationLevel.BASIC_COMPLIANCE: 1
             }
@@ -914,12 +906,12 @@ class DFARSComplianceCertification:
             "total_certificates": len(self.certificates),
             "next_expiry": min([cert.expiry_date for cert in active_certificates]) if active_certificates else None,
             "controls_implemented": sum(1 for control in self.controls.values()
-                                      if control.implementation_status in [
-                                          ControlImplementationStatus.IMPLEMENTED,
-                                          ControlImplementationStatus.FULLY_IMPLEMENTED,
-                                          ControlImplementationStatus.TESTED,
-                                          ControlImplementationStatus.CERTIFIED
-                                      ]),
+                                        if control.implementation_status in [
+                                            ControlImplementationStatus.IMPLEMENTED,
+                                            ControlImplementationStatus.FULLY_IMPLEMENTED,
+                                            ControlImplementationStatus.TESTED,
+                                            ControlImplementationStatus.CERTIFIED
+                                        ]),
             "total_controls": len(self.controls),
             "last_assessment": max([cert.issued_date for cert in self.certificates.values()]) if self.certificates else None
         }
@@ -947,7 +939,7 @@ class DFARSComplianceCertification:
             "certification_timeline": {}
         }
 
-        # Check for 100% compliance criteria
+        # Check for MAXIMUM_FUNCTION_LENGTH_LINES% compliance criteria
         if assessment_result["overall_score"] >= 0.98:
             validation_result["certification_ready"] = True
 
@@ -1018,12 +1010,10 @@ class DFARSComplianceCertification:
 
         return validation_result
 
-
 # Factory function
 def create_dfars_certification_system(config_path: Optional[str] = None) -> DFARSComplianceCertification:
     """Create DFARS compliance certification system."""
     return DFARSComplianceCertification(config_path)
-
 
 # Example usage
 if __name__ == "__main__":

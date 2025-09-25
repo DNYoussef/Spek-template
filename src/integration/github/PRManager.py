@@ -4,15 +4,15 @@ Handles GitHub pull request management
 Part of god object decomposition (Day 4)
 """
 
-import json
-from typing import Dict, List, Optional, Any, Tuple
-from dataclasses import dataclass, field
 from datetime import datetime
-import subprocess
+from typing import Dict, List, Optional, Any, Tuple
+import json
 import logging
+import subprocess
+
+from dataclasses import dataclass, field
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class PullRequest:
@@ -32,7 +32,6 @@ class PullRequest:
     reviewers: List[str] = field(default_factory=list)
     checks: List[Dict[str, Any]] = field(default_factory=list)
 
-
 @dataclass
 class Review:
     """Pull request review information."""
@@ -41,7 +40,6 @@ class Review:
     state: str  # APPROVED, CHANGES_REQUESTED, COMMENTED
     body: str
     submitted_at: datetime
-
 
 @dataclass
 class Comment:
@@ -53,12 +51,11 @@ class Comment:
     path: Optional[str] = None
     line: Optional[int] = None
 
-
 class PRManager:
     """
     Handles GitHub pull request management.
 
-    Extracted from github_integration (1,037 LOC -> ~250 LOC component).
+    Extracted from github_integration (1, 037 LOC -> ~250 LOC component).
     Handles:
     - PR creation and updates
     - Reviews and approvals
@@ -67,19 +64,19 @@ class PRManager:
     - PR status checks
     """
 
-    def __init__(self, repo_owner: str, repo_name: str):
+def __init__(self, repo_owner: str, repo_name: str):
         """Initialize PR manager."""
         self.repo_owner = repo_owner
         self.repo_name = repo_name
         self.pull_requests: Dict[int, PullRequest] = {}
 
-    def create_pull_request(self,
-                          title: str,
-                          body: str,
-                          head_branch: str,
-                          base_branch: str = 'main',
-                          labels: Optional[List[str]] = None,
-                          reviewers: Optional[List[str]] = None) -> Optional[PullRequest]:
+def create_pull_request(self,
+                            title: str,
+                            body: str,
+                            head_branch: str,
+                            base_branch: str = 'main',
+                            labels: Optional[List[str]] = None,
+                            reviewers: Optional[List[str]] = None) -> Optional[PullRequest]:
         """Create new pull request."""
         try:
             cmd = [
@@ -117,13 +114,13 @@ class PRManager:
             logger.error(f"Failed to create pull request: {e}")
             return None
 
-    def get_pull_request(self, pr_number: int) -> Optional[PullRequest]:
+def get_pull_request(self, pr_number: int) -> Optional[PullRequest]:
         """Get pull request details."""
         try:
             result = subprocess.run(
                 ['gh', 'pr', 'view', str(pr_number),
-                 '--repo', f'{self.repo_owner}/{self.repo_name}',
-                 '--json', 'number,title,body,state,author,baseRefName,headRefName,createdAt,updatedAt,merged,mergeable,labels,reviewRequests,statusCheckRollup'],
+                '--repo', f'{self.repo_owner}/{self.repo_name}',
+                '--json', 'number, title, body, state, author, baseRefName, headRefName, createdAt, updatedAt, merged, mergeable, labels, reviewRequests, statusCheckRollup'],
                 capture_output=True,
                 text=True,
                 check=True
@@ -155,9 +152,9 @@ class PRManager:
             logger.error(f"Failed to get pull request: {e}")
             return None
 
-    def list_pull_requests(self,
-                          state: str = 'open',
-                          limit: int = 10) -> List[PullRequest]:
+def list_pull_requests(self,
+                            state: str = 'open',
+                            limit: int = 10) -> List[PullRequest]:
         """List pull requests."""
         try:
             cmd = [
@@ -165,7 +162,7 @@ class PRManager:
                 '--repo', f'{self.repo_owner}/{self.repo_name}',
                 '--state', state,
                 '--limit', str(limit),
-                '--json', 'number,title,state,author,createdAt,updatedAt,labels'
+                '--json', 'number, title, state, author, createdAt, updatedAt, labels'
             ]
 
             result = subprocess.run(
@@ -201,15 +198,15 @@ class PRManager:
             logger.error(f"Failed to list pull requests: {e}")
             return []
 
-    def update_pull_request(self,
-                          pr_number: int,
-                          title: Optional[str] = None,
-                          body: Optional[str] = None,
-                          labels: Optional[List[str]] = None) -> bool:
+def update_pull_request(self,
+                            pr_number: int,
+                            title: Optional[str] = None,
+                            body: Optional[str] = None,
+                            labels: Optional[List[str]] = None) -> bool:
         """Update pull request."""
         try:
             cmd = ['gh', 'pr', 'edit', str(pr_number),
-                   '--repo', f'{self.repo_owner}/{self.repo_name}']
+                    '--repo', f'{self.repo_owner}/{self.repo_name}']
 
             if title:
                 cmd.extend(['--title', title])
@@ -226,15 +223,15 @@ class PRManager:
             logger.error(f"Failed to update pull request: {e}")
             return False
 
-    def add_comment(self,
-                   pr_number: int,
-                   comment: str) -> bool:
+def add_comment(self,
+                    pr_number: int,
+                    comment: str) -> bool:
         """Add comment to pull request."""
         try:
             subprocess.run(
                 ['gh', 'pr', 'comment', str(pr_number),
-                 '--repo', f'{self.repo_owner}/{self.repo_name}',
-                 '--body', comment],
+                '--repo', f'{self.repo_owner}/{self.repo_name}',
+                '--body', comment],
                 check=True,
                 capture_output=True
             )
@@ -245,15 +242,15 @@ class PRManager:
             logger.error(f"Failed to add comment: {e}")
             return False
 
-    def request_review(self,
-                       pr_number: int,
-                       reviewers: List[str]) -> bool:
+def request_review(self,
+                        pr_number: int,
+                        reviewers: List[str]) -> bool:
         """Request reviews for pull request."""
         try:
             subprocess.run(
                 ['gh', 'pr', 'review', str(pr_number),
-                 '--repo', f'{self.repo_owner}/{self.repo_name}',
-                 '--request'] + reviewers,
+                '--repo', f'{self.repo_owner}/{self.repo_name}',
+                '--request'] + reviewers,
                 check=True,
                 capture_output=True
             )
@@ -264,14 +261,14 @@ class PRManager:
             logger.error(f"Failed to request reviews: {e}")
             return False
 
-    def approve_pull_request(self,
+def approve_pull_request(self,
                             pr_number: int,
                             comment: Optional[str] = None) -> bool:
         """Approve pull request."""
         try:
             cmd = ['gh', 'pr', 'review', str(pr_number),
-                   '--repo', f'{self.repo_owner}/{self.repo_name}',
-                   '--approve']
+                    '--repo', f'{self.repo_owner}/{self.repo_name}',
+                    '--approve']
 
             if comment:
                 cmd.extend(['--body', comment])
@@ -284,16 +281,16 @@ class PRManager:
             logger.error(f"Failed to approve pull request: {e}")
             return False
 
-    def request_changes(self,
-                       pr_number: int,
-                       comment: str) -> bool:
+def request_changes(self,
+                        pr_number: int,
+                        comment: str) -> bool:
         """Request changes on pull request."""
         try:
             subprocess.run(
                 ['gh', 'pr', 'review', str(pr_number),
-                 '--repo', f'{self.repo_owner}/{self.repo_name}',
-                 '--request-changes',
-                 '--body', comment],
+                '--repo', f'{self.repo_owner}/{self.repo_name}',
+                '--request-changes',
+                '--body', comment],
                 check=True,
                 capture_output=True
             )
@@ -304,9 +301,9 @@ class PRManager:
             logger.error(f"Failed to request changes: {e}")
             return False
 
-    def merge_pull_request(self,
-                          pr_number: int,
-                          merge_method: str = 'merge') -> bool:
+def merge_pull_request(self,
+                            pr_number: int,
+                            merge_method: str = 'merge') -> bool:
         """Merge pull request."""
         try:
             method_map = {
@@ -317,9 +314,9 @@ class PRManager:
 
             subprocess.run(
                 ['gh', 'pr', 'merge', str(pr_number),
-                 '--repo', f'{self.repo_owner}/{self.repo_name}',
-                 method_map.get(merge_method, '--merge'),
-                 '--delete-branch'],
+                '--repo', f'{self.repo_owner}/{self.repo_name}',
+                method_map.get(merge_method, '--merge'),
+                '--delete-branch'],
                 check=True,
                 capture_output=True
             )
@@ -330,13 +327,13 @@ class PRManager:
             logger.error(f"Failed to merge pull request: {e}")
             return False
 
-    def close_pull_request(self,
-                          pr_number: int,
-                          comment: Optional[str] = None) -> bool:
+def close_pull_request(self,
+                            pr_number: int,
+                            comment: Optional[str] = None) -> bool:
         """Close pull request without merging."""
         try:
             cmd = ['gh', 'pr', 'close', str(pr_number),
-                   '--repo', f'{self.repo_owner}/{self.repo_name}']
+                    '--repo', f'{self.repo_owner}/{self.repo_name}']
 
             if comment:
                 cmd.extend(['--comment', comment])
@@ -349,13 +346,13 @@ class PRManager:
             logger.error(f"Failed to close pull request: {e}")
             return False
 
-    def get_pr_checks(self, pr_number: int) -> List[Dict[str, Any]]:
+def get_pr_checks(self, pr_number: int) -> List[Dict[str, Any]]:
         """Get status checks for pull request."""
         try:
             result = subprocess.run(
                 ['gh', 'pr', 'checks', str(pr_number),
-                 '--repo', f'{self.repo_owner}/{self.repo_name}',
-                 '--json', 'name,status,conclusion,startedAt,completedAt'],
+                '--repo', f'{self.repo_owner}/{self.repo_name}',
+                '--json', 'name, status, conclusion, startedAt, completedAt'],
                 capture_output=True,
                 text=True,
                 check=True
@@ -367,12 +364,12 @@ class PRManager:
             logger.error(f"Failed to get PR checks: {e}")
             return []
 
-    def get_pr_diff(self, pr_number: int) -> str:
+def get_pr_diff(self, pr_number: int) -> str:
         """Get diff for pull request."""
         try:
             result = subprocess.run(
                 ['gh', 'pr', 'diff', str(pr_number),
-                 '--repo', f'{self.repo_owner}/{self.repo_name}'],
+                '--repo', f'{self.repo_owner}/{self.repo_name}'],
                 capture_output=True,
                 text=True,
                 check=True

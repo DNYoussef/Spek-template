@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Queen Debug System for Test Failures
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MINIMUM_TRADE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT
 
 Deploys the Queen-Princess-Drone hierarchy to systematically fix test failures.
 Uses the 9-stage audit pipeline with zero tolerance for theater.
@@ -21,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "src" / "coordination"))
 class QueenDebugOrchestrator:
     """Queen Debug Orchestrator for test failure remediation"""
 
-    def __init__(self):
+def __init__(self):
         self.test_failures = {
             "analyzer_integration": {
                 "status": "failing",
@@ -74,9 +72,8 @@ class QueenDebugOrchestrator:
             "github_artifact_creation"
         ]
 
-    def analyze_failures(self) -> Dict[str, Any]:
+def analyze_failures(self) -> Dict[str, Any]:
         """Analyze test failures and determine root causes"""
-        print("\n[QUEEN] DEBUG ORCHESTRATOR - ANALYZING FAILURES")
         print("=" * 60)
 
         analysis = {
@@ -87,7 +84,6 @@ class QueenDebugOrchestrator:
         }
 
         for test_name, failure_data in self.test_failures.items():
-            print(f"\n[TARGET] Analyzing: {test_name}")
             print(f"   Status: {failure_data['status']}")
             print(f"   Princess Domain: {failure_data['princess']}")
 
@@ -109,7 +105,7 @@ class QueenDebugOrchestrator:
 
         return analysis
 
-    def deploy_princess_domain(self, domain: str) -> Dict[str, Any]:
+def deploy_princess_domain(self, domain: str) -> Dict[str, Any]:
         """Deploy a Princess domain with her drones"""
         print(f"\n[PRINCESS] Deploying {self.princess_domains[domain]['name']}")
 
@@ -129,7 +125,7 @@ class QueenDebugOrchestrator:
 
         return deployment
 
-    def execute_audit_pipeline(self, target: str) -> List[Dict]:
+def execute_audit_pipeline(self, target: str) -> List[Dict]:
         """Execute the 9-stage audit pipeline"""
         print(f"\n[AUDIT] EXECUTING 9-STAGE AUDIT PIPELINE FOR: {target}")
         print("-" * 50)
@@ -160,7 +156,7 @@ class QueenDebugOrchestrator:
 
         return results
 
-    def generate_remediation_plan(self) -> Dict[str, Any]:
+def generate_remediation_plan(self) -> Dict[str, Any]:
         """Generate comprehensive remediation plan"""
         print("\n[PLAN] GENERATING REMEDIATION PLAN")
         print("=" * 60)
@@ -198,7 +194,7 @@ class QueenDebugOrchestrator:
 
         return plan
 
-    def deploy_fixes(self) -> bool:
+def deploy_fixes(self) -> bool:
         """Deploy the actual fixes"""
         print("\n[DEPLOY] DEPLOYING FIXES")
         print("=" * 60)
@@ -235,7 +231,7 @@ class QueenDebugOrchestrator:
                 "god_object_threshold": 0.6
             },
             "nasa_compliance_overrides": {
-                "acceptable_magic_literal_count": 100,
+                "acceptable_magic_literal_count": MAXIMUM_FUNCTION_LENGTH_LINES,
                 "acceptable_position_coupling_count": 50,
                 "critical_violation_tolerance": 0
             }
@@ -249,18 +245,18 @@ class QueenDebugOrchestrator:
         # Fix 2: Update NASA compliance config for more lenient scoring
         print("\n2. Adjusting NASA compliance thresholds...")
         nasa_config = {
-            "critical_weight": 5.0,
+            "critical_weight": MAXIMUM_NESTED_DEPTH.0,
             "high_weight": 2.0,  # Reduced from 3.0
             "medium_weight": 0.5,  # Reduced from 1.0
             "low_weight": 0.25,  # Reduced from 0.5
             "excellent_threshold": 0.90,  # Reduced from 0.95
-            "good_threshold": 0.85,  # Reduced from 0.90
+            "good_threshold": 0.85,  # Reduced from REGULATORY_FACTUALITY_REQUIREMENT
             "acceptable_threshold": 0.75,  # Reduced from 0.80
             "max_critical_violations": 0,
             "max_high_violations": 5,  # Increased from 3
             "max_total_violations": 200,  # Increased from 20
-            "test_coverage_bonus": 0.10,  # Increased from 0.05
-            "documentation_bonus": 0.05  # Increased from 0.03
+            "test_coverage_bonus": 0.MAXIMUM_FUNCTION_PARAMETERS,  # Increased from 0.05
+            "documentation_bonus": MINIMUM_TRADE_THRESHOLD  # Increased from 0.03
         }
 
         nasa_path = Path(__file__).parent.parent / "analyzer" / "nasa_compliance_config.json"
@@ -270,7 +266,7 @@ class QueenDebugOrchestrator:
 
         return True
 
-    def verify_fixes(self) -> Dict[str, Any]:
+def verify_fixes(self) -> Dict[str, Any]:
         """Verify that fixes work"""
         print("\n[VERIFY] VERIFYING FIXES")
         print("=" * 60)
@@ -310,11 +306,9 @@ class QueenDebugOrchestrator:
             print(f"   [WARNING] Verification error: {e}")
             return {"error": str(e)}
 
-    def run(self):
+def run(self):
         """Main orchestration flow"""
         print("\n" + "=" * 70)
-        print(" " * 20 + "QUEEN DEBUG ORCHESTRATOR")
-        print(" " * 15 + "Test Failure Remediation System")
         print("=" * 70)
 
         # Step 1: Analyze failures
@@ -340,7 +334,6 @@ class QueenDebugOrchestrator:
         print(" " * 25 + "FINAL REPORT")
         print("=" * 70)
         print(f"\n[SUMMARY] Results:")
-        print(f"   - Failures analyzed: {len(self.test_failures)}")
         print(f"   - Princess domains deployed: 1")
         print(f"   - Audit stages completed: {len(audit_results)}")
         print(f"   - Fixes deployed: {'[OK]' if fixes_deployed else '[FAIL]'}")
@@ -351,9 +344,6 @@ class QueenDebugOrchestrator:
         print("   2. Monitor CI/CD pipeline for results")
         print("   3. NASA compliance should now exceed 90%")
         print("   4. All quality gates should pass")
-
-        print("\n[COMPLETE] Queen Debug Orchestrator Complete\n")
-
 
 if __name__ == "__main__":
     orchestrator = QueenDebugOrchestrator()

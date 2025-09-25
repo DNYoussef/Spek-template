@@ -12,10 +12,10 @@ import { SwarmInitializer } from '../../src/swarm/orchestration/SwarmInitializer
 
 async function main() {
   console.log('\n');
-  console.log('╔════════════════════════════════════════════════════════════╗');
-  console.log('║   HIERARCHICAL SWARM INITIALIZATION FOR GOD OBJECT        ║');
-  console.log('║   REMEDIATION - DAYS 3-5 TARGET: 20 OBJECTS               ║');
-  console.log('╚════════════════════════════════════════════════════════════╝');
+  console.log('?');
+  console.log('?   HIERARCHICAL SWARM INITIALIZATION FOR GOD OBJECT        ?');
+  console.log('?   REMEDIATION - DAYS 3-5 TARGET: 20 OBJECTS               ?');
+  console.log('?');
   console.log('\n');
 
   const swarmConfig = {
@@ -32,16 +32,16 @@ async function main() {
 
   // Event listeners for monitoring
   initializer.on('swarm:initialized', (status) => {
-    console.log('✓ Swarm initialization complete');
+    console.log('[OK] Swarm initialization complete');
     console.log('  Status:', JSON.stringify(status, null, 2));
   });
 
   initializer.on('godObject:decomposed', (task) => {
-    console.log(`✓ God object decomposed: ${task.id}`);
+    console.log(`[OK] God object decomposed: ${task.id}`);
   });
 
   initializer.on('godObject:failed', (task) => {
-    console.error(`✗ God object decomposition failed: ${task.id}`);
+    console.error(`[X] God object decomposition failed: ${task.id}`);
   });
 
   initializer.on('health:checked', (results) => {
@@ -58,9 +58,9 @@ async function main() {
     // Initialize swarm infrastructure
     const status = await initializer.initializeSwarm();
 
-    console.log('\n╔════════════════════════════════════════════════════════════╗');
-    console.log('║   SWARM STATUS                                             ║');
-    console.log('╚════════════════════════════════════════════════════════════╝\n');
+    console.log('\n?');
+    console.log('?   SWARM STATUS                                             ?');
+    console.log('?\n');
     console.log(`Queen Status:           ${status.queenStatus}`);
     console.log(`Princess Count:         ${status.princessCount}`);
     console.log(`Active Princesses:      ${status.activePrincesses.join(', ')}`);
@@ -69,9 +69,9 @@ async function main() {
     console.log(`God Objects Processed:  ${status.godObjectsProcessed}/${swarmConfig.godObjectTarget}`);
     console.log(`Estimated Completion:   ${status.estimatedCompletionHours.toFixed(1)} hours`);
 
-    console.log('\n╔════════════════════════════════════════════════════════════╗');
-    console.log('║   PRINCESS DOMAINS ACTIVE                                  ║');
-    console.log('╚════════════════════════════════════════════════════════════╝\n');
+    console.log('\n?');
+    console.log('?   PRINCESS DOMAINS ACTIVE                                  ?');
+    console.log('?\n');
     console.log('  1. DevelopmentPrincess    - Core development & implementation');
     console.log('  2. QualityPrincess        - Testing & validation');
     console.log('  3. SecurityPrincess       - Security compliance & auditing');
@@ -79,34 +79,34 @@ async function main() {
     console.log('  5. InfrastructurePrincess - Build & environment management');
     console.log('  6. CoordinationPrincess   - Task management & coordination');
 
-    console.log('\n╔════════════════════════════════════════════════════════════╗');
-    console.log('║   BYZANTINE CONSENSUS CONFIGURATION                        ║');
-    console.log('╚════════════════════════════════════════════════════════════╝\n');
+    console.log('\n?');
+    console.log('?   BYZANTINE CONSENSUS CONFIGURATION                        ?');
+    console.log('?\n');
     console.log(`  Consensus Type:         Byzantine Fault Tolerant`);
     console.log(`  Quorum Requirement:     ${swarmConfig.consensusQuorum * 100}%`);
     console.log(`  Byzantine Tolerance:    ${Math.floor(swarmConfig.byzantineToleranceLevel * 100)}%`);
     console.log(`  Minimum Healthy Nodes:  ${Math.ceil(status.princessCount * swarmConfig.consensusQuorum)}`);
 
-    console.log('\n╔════════════════════════════════════════════════════════════╗');
-    console.log('║   PARALLEL EXECUTION CAPACITY                              ║');
-    console.log('╚════════════════════════════════════════════════════════════╝\n');
+    console.log('\n?');
+    console.log('?   PARALLEL EXECUTION CAPACITY                              ?');
+    console.log('?\n');
     console.log(`  Pipelines per Princess: ${swarmConfig.parallelPipelinesPerPrincess}`);
     console.log(`  Max Concurrent Files:   ${swarmConfig.maxConcurrentFiles}`);
     console.log(`  Total Pipelines:        ${status.parallelPipelines}`);
     console.log(`  Max System Throughput:  ${status.parallelPipelines * swarmConfig.maxConcurrentFiles} files/cycle`);
 
-    console.log('\n╔════════════════════════════════════════════════════════════╗');
-    console.log('║   SUCCESS CRITERIA                                         ║');
-    console.log('╚════════════════════════════════════════════════════════════╝\n');
-    console.log(`  ✓ Swarm operational with all 6 princesses active`);
-    console.log(`  ✓ Byzantine consensus configured and healthy`);
-    console.log(`  ✓ Parallel execution pipelines ready`);
-    console.log(`  ✓ Monitoring and progress tracking initialized`);
-    console.log(`  ✓ Target: Support decomposition of 20 god objects in Days 3-5`);
+    console.log('\n?');
+    console.log('?   SUCCESS CRITERIA                                         ?');
+    console.log('?\n');
+    console.log(`  [OK] Swarm operational with all 6 princesses active`);
+    console.log(`  [OK] Byzantine consensus configured and healthy`);
+    console.log(`  [OK] Parallel execution pipelines ready`);
+    console.log(`  [OK] Monitoring and progress tracking initialized`);
+    console.log(`  [OK] Target: Support decomposition of 20 god objects in Days 3-5`);
 
-    console.log('\n╔════════════════════════════════════════════════════════════╗');
-    console.log('║   NEXT STEPS                                               ║');
-    console.log('╚════════════════════════════════════════════════════════════╝\n');
+    console.log('\n?');
+    console.log('?   NEXT STEPS                                               ?');
+    console.log('?\n');
     console.log('  1. Run god object detection to identify targets');
     console.log('  2. Execute: swarm.decomposeGodObject(filePath, metadata)');
     console.log('  3. Monitor progress via health checks and metrics');
@@ -117,7 +117,7 @@ async function main() {
     console.log('Swarm is now active and monitoring... (Press Ctrl+C to shutdown)\n');
 
   } catch (error) {
-    console.error('\n✗ Swarm initialization failed:', error);
+    console.error('\n[X] Swarm initialization failed:', error);
     process.exit(1);
   }
 }

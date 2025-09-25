@@ -1,8 +1,4 @@
-"""
-ComplianceChecker - Extracted from dfars_compliance_validation_system
-Handles DFARS compliance rule validation and checking
-Part of god object decomposition (Day 4)
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES
 
 import json
 from typing import Dict, List, Optional, Tuple, Any, Set
@@ -13,14 +9,12 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-
 class ComplianceLevel(Enum):
     """DFARS compliance levels."""
     BASIC = "basic"
     MODERATE = "moderate"
     HIGH = "high"
     CONTROLLED = "controlled_unclassified"
-
 
 class ComplianceStatus(Enum):
     """Compliance check status."""
@@ -29,7 +23,6 @@ class ComplianceStatus(Enum):
     PARTIAL = "partial"
     PENDING = "pending"
     NOT_APPLICABLE = "not_applicable"
-
 
 @dataclass
 class ComplianceRule:
@@ -43,7 +36,6 @@ class ComplianceRule:
     verification_methods: List[str]
     mandatory: bool = True
 
-
 @dataclass
 class ComplianceCheck:
     """Results of a compliance check."""
@@ -55,12 +47,11 @@ class ComplianceCheck:
     checked_at: datetime
     confidence: float
 
-
 class ComplianceChecker:
     """
     Handles DFARS compliance rule validation and checking.
 
-    Extracted from dfars_compliance_validation_system (1,054 LOC -> ~250 LOC component).
+    Extracted from dfars_compliance_validation_system (1, 054 LOC -> ~250 LOC component).
     Handles:
     - Compliance rule management
     - Validation execution
@@ -69,7 +60,7 @@ class ComplianceChecker:
     - Compliance scoring
     """
 
-    def __init__(self):
+def __init__(self):
         """Initialize the compliance checker."""
         self.compliance_rules: Dict[str, ComplianceRule] = {}
         self.check_results: Dict[str, ComplianceCheck] = {}
@@ -78,7 +69,7 @@ class ComplianceChecker:
         # Load DFARS compliance rules
         self._load_dfars_rules()
 
-    def _load_dfars_rules(self) -> None:
+def _load_dfars_rules(self) -> None:
         """Load DFARS compliance rules and requirements."""
         # Key DFARS clauses for cybersecurity
         rules = [
@@ -144,7 +135,7 @@ class ComplianceChecker:
         for rule in rules:
             self.compliance_rules[rule.rule_id] = rule
 
-    def check_compliance(self,
+def check_compliance(self,
                         rule_id: str,
                         evidence: List[str],
                         system_data: Optional[Dict[str, Any]] = None) -> ComplianceCheck:
@@ -176,7 +167,7 @@ class ComplianceChecker:
 
         return check
 
-    def _evaluate_compliance(self,
+def _evaluate_compliance(self,
                             rule: ComplianceRule,
                             evidence: List[str],
                             system_data: Optional[Dict[str, Any]]) -> Tuple[ComplianceStatus, List[str], float]:
@@ -209,10 +200,10 @@ class ComplianceChecker:
 
         return status, gaps, confidence
 
-    def _is_requirement_met(self,
-                           requirement: str,
-                           evidence: List[str],
-                           system_data: Optional[Dict[str, Any]]) -> bool:
+def _is_requirement_met(self,
+                            requirement: str,
+                            evidence: List[str],
+                            system_data: Optional[Dict[str, Any]]) -> bool:
         """Check if a specific requirement is met."""
         # Simplified check - in production would be more sophisticated
         requirement_lower = requirement.lower()
@@ -232,7 +223,7 @@ class ComplianceChecker:
 
         return False
 
-    def _calculate_confidence(self, evidence: List[str], verification_methods: List[str]) -> float:
+def _calculate_confidence(self, evidence: List[str], verification_methods: List[str]) -> float:
         """Calculate confidence score based on evidence quality."""
         if not evidence:
             return 0.1
@@ -255,7 +246,7 @@ class ComplianceChecker:
 
         return min(confidence, 0.95)
 
-    def _generate_recommendations(self, rule: ComplianceRule, gaps: List[str]) -> List[str]:
+def _generate_recommendations(self, rule: ComplianceRule, gaps: List[str]) -> List[str]:
         """Generate recommendations for closing compliance gaps."""
         recommendations = []
 
@@ -275,7 +266,7 @@ class ComplianceChecker:
 
         return recommendations
 
-    def batch_check(self, evidence_map: Dict[str, List[str]]) -> Dict[str, ComplianceCheck]:
+def batch_check(self, evidence_map: Dict[str, List[str]]) -> Dict[str, ComplianceCheck]:
         """Perform batch compliance checking."""
         results = {}
 
@@ -285,7 +276,7 @@ class ComplianceChecker:
 
         return results
 
-    def get_compliance_score(self) -> Dict[str, Any]:
+def get_compliance_score(self) -> Dict[str, Any]:
         """Calculate overall compliance score."""
         if not self.check_results:
             return {"score": 0, "status": "not_assessed"}
@@ -305,7 +296,7 @@ class ComplianceChecker:
         score = ((compliant_count * 1.0) + (partial_count * 0.5)) / total_rules if total_rules > 0 else 0
 
         return {
-            "score": score * 100,
+            "score": score * MAXIMUM_FUNCTION_LENGTH_LINES,
             "compliant": compliant_count,
             "partial": partial_count,
             "non_compliant": total_rules - compliant_count - partial_count,
@@ -313,7 +304,7 @@ class ComplianceChecker:
             "status": self._get_overall_status(score)
         }
 
-    def _get_overall_status(self, score: float) -> str:
+def _get_overall_status(self, score: float) -> str:
         """Determine overall compliance status."""
         if score >= 0.95:
             return "fully_compliant"
@@ -324,7 +315,7 @@ class ComplianceChecker:
         else:
             return "non_compliant"
 
-    def get_critical_gaps(self) -> List[Dict[str, Any]]:
+def get_critical_gaps(self) -> List[Dict[str, Any]]:
         """Get critical compliance gaps requiring immediate attention."""
         critical_gaps = []
 

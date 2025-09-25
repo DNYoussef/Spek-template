@@ -3,12 +3,13 @@
 Loop 3 Cascade Analysis - Identify fixes with maximum impact
 """
 
-import asyncio
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Any
 import json
 import sys
-from pathlib import Path
-from datetime import datetime
-from typing import Dict, List, Any
+
+import asyncio
 
 # Add coordination module to path
 sys.path.append(str(Path(__file__).parent.parent / "src" / "coordination"))
@@ -245,7 +246,6 @@ def main():
     """Main entry point"""
     print("\n" + "="*70)
     print("LOOP 3 CASCADE IMPACT ANALYSIS")
-    print("Identifying fixes with maximum cascade to passed tests")
     print("="*70)
 
     try:

@@ -104,9 +104,9 @@ Use jest.useFakeTimers() and jest.advanceTimersByTime()
 ## Priority Execution Order
 
 ### Phase 1: Emergency (4 hours - Day 1 PM)
-1. ✓ swarmqueen-decomposition.test.ts (30 min) - FIXED
-2. ✓ agent-registry-decomposition.test.js (30 min) - FIXED
-3. ✓ hiveprincess-decomposition.test.ts (30 min) - FIXED
+1. [PASS] swarmqueen-decomposition.test.ts (30 min) - FIXED
+2. [PASS] agent-registry-decomposition.test.js (30 min) - FIXED
+3. [PASS] hiveprincess-decomposition.test.ts (30 min) - FIXED
 4. desktop-automation-service.test.js (1 hour)
 5. e2e/agent-forge-ui.test.ts (45 min)
 6. deployment-orchestration/*.test.{js,ts} (1.5 hours)
@@ -125,8 +125,8 @@ npm test -- --coverage
 ```
 
 ## Files Already Fixed (2025-09-23 morning)
-- ✓ tests/unit/swarmqueen-decomposition.test.ts
-- ✓ tests/unit/agent-registry-decomposition.test.js
-- ✓ tests/unit/hiveprincess-decomposition.test.ts
-- ✓ tests/setup/test-environment.js (created)
-- ✓ jest.config.js (updated)
+- [PASS] tests/unit/swarmqueen-decomposition.test.ts
+- [PASS] tests/unit/agent-registry-decomposition.test.js
+- [PASS] tests/unit/hiveprincess-decomposition.test.ts
+- [PASS] tests/setup/test-environment.js (created)
+- [PASS] jest.config.js (updated)

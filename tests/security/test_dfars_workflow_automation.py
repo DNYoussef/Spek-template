@@ -4,14 +4,15 @@ Unit Tests for DFARS Workflow Automation System
 Comprehensive test suite for defense industry compliance validation
 """
 
-import asyncio
-import json
-import pytest
-import tempfile
-import unittest
 from datetime import datetime, timedelta
 from pathlib import Path
 from unittest.mock import Mock, patch, AsyncMock
+import json
+import tempfile
+import unittest
+
+import asyncio
+import pytest
 
 import sys
 import os
@@ -695,24 +696,18 @@ if __name__ == '__main__':
 
     # Print summary
     print(f"\n{'='*60}")
-    print("DFARS Workflow Automation Test Summary")
     print(f"{'='*60}")
-    print(f"Tests run: {result.testsRun}")
     print(f"Failures: {len(result.failures)}")
     print(f"Errors: {len(result.errors)}")
-    print(f"Success rate: {((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun * 100):.1f}%")
 
     if result.failures:
         print(f"\nFailures:")
         for test, traceback in result.failures:
-            print(f"- {test}: {traceback}")
 
     if result.errors:
         print(f"\nErrors:")
         for test, traceback in result.errors:
-            print(f"- {test}: {traceback}")
 
     # Exit with appropriate code
     exit_code = 0 if result.wasSuccessful() else 1
-    print(f"\nTest execution {'PASSED' if exit_code == 0 else 'FAILED'}")
     exit(exit_code)

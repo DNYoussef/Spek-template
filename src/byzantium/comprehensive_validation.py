@@ -7,10 +7,11 @@ integrated with race condition detection for detector pool thread safety.
 Production-ready validation with comprehensive reporting.
 """
 
-import time
-import threading
-import json
 from typing import Dict, Any, List
+import json
+import time
+
+import threading
 
 try:
     from .byzantine_coordinator import (
@@ -34,7 +35,6 @@ except ImportError:
         AccessType,
         validate_detector_pool_race_safety
     )
-
 
 class ComprehensiveByzantineValidator:
     """Comprehensive validator for Byzantine fault tolerance system."""
@@ -445,7 +445,6 @@ class ComprehensiveByzantineValidator:
             'deployment_confidence': final_assessment['confidence_score']
         }
 
-
 def run_comprehensive_validation():
     """Run comprehensive Byzantine fault tolerance validation."""
     validator = ComprehensiveByzantineValidator()
@@ -491,7 +490,6 @@ def run_comprehensive_validation():
         print(f"  * {rec}")
     
     return results
-
 
 if __name__ == "__main__":
     # Run comprehensive validation if executed directly

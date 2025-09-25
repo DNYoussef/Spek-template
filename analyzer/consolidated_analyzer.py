@@ -3,12 +3,12 @@ Consolidated Connascence Analyzer - MECE Compliant
 Single source of truth replacing 7 duplicate implementations.
 """
 
-import ast
-import os
 from pathlib import Path
 from typing import List, Dict, Any, Optional
-from dataclasses import dataclass
+import ast
+import os
 
+from dataclasses import dataclass
 
 @dataclass
 class ConnascenceViolation:
@@ -36,7 +36,6 @@ class ConnascenceViolation:
             'connascence_type': self.connascence_type,
             'weight': self.weight
         }
-
 
 class ConsolidatedConnascenceAnalyzer:
     """
@@ -316,12 +315,10 @@ class ConsolidatedConnascenceAnalyzer:
 
         return violation_objects
 
-
 # Alias for backwards compatibility
 UnifiedConnascenceAnalyzer = ConsolidatedConnascenceAnalyzer
 ConnascenceAnalyzer = ConsolidatedConnascenceAnalyzer
 ConnascenceASTAnalyzer = ConsolidatedConnascenceAnalyzer
-
 
 def analyze_project(path: str = ".", **kwargs) -> Dict[str, Any]:
     """Convenience function for quick analysis."""

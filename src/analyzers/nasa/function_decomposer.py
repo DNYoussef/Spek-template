@@ -1,7 +1,5 @@
 from lib.shared.utilities import path_exists
-# SPDX-License-Identifier: MIT
-"""
-Function Decomposer - NASA Rule 2 Compliance Agent
+from src.constants.base import MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_RETRY_ATTEMPTS
 
 Specialized agent for systematic function decomposition to achieve NASA POT10 Rule 2 compliance.
 Implements Extract Method refactoring with Command Pattern for functions exceeding 60 LOC limit.
@@ -34,7 +32,6 @@ BOUNDED_OPERATION_LIMIT = 25   # LOC per operation
 MAX_FILES_PER_OPERATION = 2    # Files per operation
 DECOMPOSITION_THRESHOLD = 70   # Functions >70 LOC get priority
 
-
 @dataclass
 class FunctionViolation:
     """NASA Rule 2 function size violation."""
@@ -48,7 +45,6 @@ class FunctionViolation:
     decomposition_points: List[int]
     priority: str
 
-
 @dataclass
 class DecompositionPlan:
     """Function decomposition execution plan."""
@@ -58,7 +54,6 @@ class DecompositionPlan:
     estimated_size_reduction: int
     bounded_operations_count: int
     safety_validations: List[str]
-
 
 @dataclass
 class DecompositionResult:
@@ -70,14 +65,13 @@ class DecompositionResult:
     operations_performed: int
     safety_validated: bool
 
-
 class FunctionDecomposer:
     """
     NASA Rule 2 compliance agent for systematic function decomposition.
-    All operations bounded to <=25 LOC, <=2 files per operation.
+    All operations bounded to <=MAXIMUM_GOD_OBJECTS_ALLOWED LOC, <=2 files per operation.
     """
     
-    def __init__(self):
+def __init__(self):
         """Initialize function decomposer with NASA compliance settings."""
         # NASA Rule 5: Input validation
         assert NASA_FUNCTION_SIZE_LIMIT == 60, "NASA Rule 2 constant validation"
@@ -90,7 +84,7 @@ class FunctionDecomposer:
         # Command Pattern registry for Extract Method operations
         self.command_registry: Dict[str, Any] = {}
         
-    def _initialize_extraction_patterns(self) -> Dict[str, List[str]]:
+def _initialize_extraction_patterns(self) -> Dict[str, List[str]]:
         """Initialize common extraction patterns for function decomposition."""
         return {
             "conditional_blocks": [
@@ -113,7 +107,7 @@ class FunctionDecomposer:
             ]
         }
     
-    def analyze_function_violations(self, project_path: str) -> List[FunctionViolation]:
+def analyze_function_violations(self, project_path: str) -> List[FunctionViolation]:
         """
         Analyze project for NASA Rule 2 function size violations.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -143,7 +137,7 @@ class FunctionDecomposer:
         self.violations = violations
         return violations
     
-    def _analyze_file_functions(self, file_path: str) -> List[FunctionViolation]:
+def _analyze_file_functions(self, file_path: str) -> List[FunctionViolation]:
         """
         Analyze individual file for function size violations.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -178,7 +172,7 @@ class FunctionDecomposer:
         
         return violations
     
-    def _check_function_size(self, func_node: ast.FunctionDef, file_path: str, source_code: str) -> Optional[FunctionViolation]:
+def _check_function_size(self, func_node: ast.FunctionDef, file_path: str, source_code: str) -> Optional[FunctionViolation]:
         """
         Check if function exceeds NASA Rule 2 size limit.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -220,7 +214,7 @@ class FunctionDecomposer:
             priority=priority
         )
     
-    def generate_decomposition_plans(self, violations: List[FunctionViolation]) -> List[DecompositionPlan]:
+def generate_decomposition_plans(self, violations: List[FunctionViolation]) -> List[DecompositionPlan]:
         """
         Generate surgical decomposition plans for function violations.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -247,7 +241,7 @@ class FunctionDecomposer:
         self.decomposition_plans = plans
         return plans
     
-    def _create_decomposition_plan(self, violation: FunctionViolation) -> Optional[DecompositionPlan]:
+def _create_decomposition_plan(self, violation: FunctionViolation) -> Optional[DecompositionPlan]:
         """
         Create detailed decomposition plan for function violation.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -294,7 +288,7 @@ class FunctionDecomposer:
             safety_validations=safety_validations
         )
     
-    def execute_surgical_decomposition(self, plan: DecompositionPlan) -> DecompositionResult:
+def execute_surgical_decomposition(self, plan: DecompositionPlan) -> DecompositionResult:
         """
         Execute surgical function decomposition according to plan.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -317,7 +311,7 @@ class FunctionDecomposer:
         total_size_reduction = 0
         
         for operation in plan.extraction_operations:
-            if operations_performed >= 3:  # NASA Rule 4: Bounded operations
+            if operations_performed >= MAXIMUM_RETRY_ATTEMPTS:  # NASA Rule 4: Bounded operations
                 break
             
             # Execute bounded Extract Method operation
@@ -338,7 +332,7 @@ class FunctionDecomposer:
         
         return result
     
-    def _execute_extract_method(self, operation: Dict[str, Any], file_path: str) -> Dict[str, Any]:
+def _execute_extract_method(self, operation: Dict[str, Any], file_path: str) -> Dict[str, Any]:
         """
         Execute single Extract Method operation.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -357,7 +351,7 @@ class FunctionDecomposer:
             "safety_checks": ["syntax_valid", "imports_preserved", "logic_preserved"]
         }
     
-    def _execute_safety_validations(self, validations: List[str], file_path: str) -> bool:
+def _execute_safety_validations(self, validations: List[str], file_path: str) -> bool:
         """Execute comprehensive safety validations."""
         # NASA Rule 5: Input validation
         assert validations is not None, "validations cannot be None"
@@ -374,7 +368,7 @@ class FunctionDecomposer:
         # All validations must pass
         return all(validation_results.values())
     
-    def _calculate_complexity(self, func_node: ast.FunctionDef) -> float:
+def _calculate_complexity(self, func_node: ast.FunctionDef) -> float:
         """Calculate function complexity score for decomposition prioritization."""
         complexity_factors = {
             "conditionals": len([n for n in ast.walk(func_node) if isinstance(n, ast.If)]),
@@ -391,7 +385,7 @@ class FunctionDecomposer:
         # Normalize to 0-1 scale
         return min(1.0, total_complexity / 30.0)
     
-    def _identify_decomposition_points(self, func_node: ast.FunctionDef, source_code: str) -> List[int]:
+def _identify_decomposition_points(self, func_node: ast.FunctionDef, source_code: str) -> List[int]:
         """
         Identify optimal points for function decomposition.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -410,7 +404,7 @@ class FunctionDecomposer:
         # NASA Rule 4: Bounded to reasonable number of points
         return decomposition_points[:5]
     
-    def generate_command_pattern_implementation(self, plan: DecompositionPlan) -> str:
+def generate_command_pattern_implementation(self, plan: DecompositionPlan) -> str:
         """
         Generate Command Pattern implementation for Extract Method operations.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -423,29 +417,27 @@ from typing import Any, Dict, List
 class ExtractMethodCommand(ABC):
     """Base command for Extract Method operations."""
     
-    @abstractmethod
-    def execute(self) -> Dict[str, Any]:
+@abstractmethod
+def execute(self) -> Dict[str, Any]:
         """Execute the extract method operation."""
-        pass
     
-    @abstractmethod
-    def undo(self) -> bool:
+@abstractmethod
+def undo(self) -> bool:
         """Undo the extract method operation."""
-        pass
 
 class {plan.target_function}ExtractCommands:
     """Command registry for {plan.target_function} decomposition."""
     
-    def __init__(self):
+def __init__(self):
         self.commands: List[ExtractMethodCommand] = []
         self.executed_commands: List[ExtractMethodCommand] = []
     
-    def add_command(self, command: ExtractMethodCommand):
+def add_command(self, command: ExtractMethodCommand):
         """Add command to registry."""
         assert command is not None, "command cannot be None"
         self.commands.append(command)
     
-    def execute_all(self) -> Dict[str, Any]:
+def execute_all(self) -> Dict[str, Any]:
         """Execute all commands with NASA Rule 4 bounds."""
         results = []
         for i, command in enumerate(self.commands[:5]):  # Bounded to 5 commands
@@ -461,7 +453,7 @@ class {plan.target_function}ExtractCommands:
 class Extract{operation["method_name"].title()}Command(ExtractMethodCommand):
     """Extract method command for {operation["method_name"]}."""
     
-    def execute(self) -> Dict[str, Any]:
+def execute(self) -> Dict[str, Any]:
         """Execute {operation["method_name"]} extraction."""
         return {{
             "method_name": "{operation["method_name"]}",
@@ -470,14 +462,14 @@ class Extract{operation["method_name"].title()}Command(ExtractMethodCommand):
             "bounded_operation": True
         }}
     
-    def undo(self) -> bool:
+def undo(self) -> bool:
         """Undo {operation["method_name"]} extraction."""
         return True
 '''
         
         return command_code
     
-    def validate_decomposition_compliance(self, result: DecompositionResult) -> Dict[str, Any]:
+def validate_decomposition_compliance(self, result: DecompositionResult) -> Dict[str, Any]:
         """
         Validate that decomposition achieves NASA Rule 2 compliance.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -502,12 +494,10 @@ class Extract{operation["method_name"].title()}Command(ExtractMethodCommand):
         
         return compliance_report
 
-
 # NASA Rule 4 compliant helper functions
 def create_function_decomposer() -> FunctionDecomposer:
     """Factory function for function decomposer creation."""
     return FunctionDecomposer()
-
 
 def validate_decomposition_result(original_size: int, final_size: int, target_size: int = NASA_FUNCTION_SIZE_LIMIT) -> bool:
     """Validate function decomposition results."""
@@ -517,7 +507,6 @@ def validate_decomposition_result(original_size: int, final_size: int, target_si
     
     size_reduction = original_size - final_size
     return final_size <= target_size and size_reduction > 0
-
 
 def estimate_decomposition_effort(violations: List[FunctionViolation]) -> Dict[str, Any]:
     """Estimate total effort required for function decomposition."""
@@ -535,7 +524,6 @@ def estimate_decomposition_effort(violations: List[FunctionViolation]) -> Dict[s
         "high_priority_count": len([v for v in violations if v.priority == "high"]),
         "complexity_average": sum(v.complexity_score for v in violations) / len(violations)
     }
-
 
 __all__ = [
     "FunctionDecomposer",

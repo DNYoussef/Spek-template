@@ -4,10 +4,10 @@ Automated Syntax Error Fixer for 73 Blocked Files
 Fixes patterns identified in full codebase scan
 """
 
-import re
-import sys
 from pathlib import Path
 from typing import List, Tuple
+import re
+import sys
 
 SYNTAX_ERROR_FILES = [
     ("scripts/performance_monitor.py", 67, "f-string parenthesis mismatch"),
@@ -82,7 +82,6 @@ SYNTAX_ERROR_FILES = [
     ("tests/workflow-validation/workflow_test_suite.py", 339, "unterminated string"),
 ]
 
-
 def fix_unexpected_indent(file_path: Path, line_num: int) -> bool:
     """Fix unexpected indent errors by removing excess indentation."""
     try:
@@ -100,7 +99,6 @@ def fix_unexpected_indent(file_path: Path, line_num: int) -> bool:
     except Exception as e:
         print(f"ERROR fixing indent in {file_path}:{line_num}: {e}")
     return False
-
 
 def fix_fstring_mismatch(file_path: Path, line_num: int) -> bool:
     """Fix f-string parenthesis mismatches by replacing { with (."""
@@ -120,7 +118,6 @@ def fix_fstring_mismatch(file_path: Path, line_num: int) -> bool:
         print(f"ERROR fixing f-string in {file_path}:{line_num}: {e}")
     return False
 
-
 def fix_missing_except(file_path: Path, line_num: int) -> bool:
     """Fix missing except/finally by adding pass block."""
     try:
@@ -136,7 +133,6 @@ def fix_missing_except(file_path: Path, line_num: int) -> bool:
     except Exception as e:
         print(f"ERROR fixing except in {file_path}:{line_num}: {e}")
     return False
-
 
 def fix_unterminated_string(file_path: Path, line_num: int) -> bool:
     """Fix unterminated strings by adding closing quotes."""
@@ -157,7 +153,6 @@ def fix_unterminated_string(file_path: Path, line_num: int) -> bool:
     except Exception as e:
         print(f"ERROR fixing string in {file_path}:{line_num}: {e}")
     return False
-
 
 def main():
     """Process all syntax error files."""
@@ -201,7 +196,6 @@ def main():
 
     print(f"\nResults: {fixed_count} fixed, {failed_count} failed, {len(SYNTAX_ERROR_FILES) - fixed_count - failed_count} manual")
     return 0 if failed_count == 0 else 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

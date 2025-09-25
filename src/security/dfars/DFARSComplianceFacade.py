@@ -4,8 +4,8 @@ Maintains API compatibility while delegating to decomposed components
 Part of god object decomposition (Day 4)
 """
 
-from typing import Dict, List, Optional, Any, Tuple
 from datetime import datetime
+from typing import Dict, List, Optional, Any, Tuple
 import logging
 
 from .ComplianceChecker import (
@@ -25,12 +25,11 @@ from .ReportGenerator import (
 
 logger = logging.getLogger(__name__)
 
-
 class DFARSComplianceValidationSystem:
     """
     Facade for DFARS Compliance Validation System.
 
-    Original: 1,054 LOC god object
+    Original: 1, 054 LOC god object
     Refactored: ~150 LOC facade + 3 specialized components (~700 LOC total)
 
     Maintains 100% backward compatibility while delegating to:
@@ -39,7 +38,7 @@ class DFARSComplianceValidationSystem:
     - ReportGenerator: Compliance reporting
     """
 
-    def __init__(self):
+def __init__(self):
         """Initialize the DFARS compliance validation system."""
         # Initialize components
         self.compliance_checker = ComplianceChecker()
@@ -55,7 +54,7 @@ class DFARSComplianceValidationSystem:
         logger.info("DFARS Compliance Validation System initialized")
 
     # Original API methods - Compliance checking
-    def check_compliance(self,
+def check_compliance(self,
                         rule_id: str,
                         evidence: List[str],
                         system_data: Optional[Dict[str, Any]] = None) -> ComplianceCheck:
@@ -64,22 +63,22 @@ class DFARSComplianceValidationSystem:
         self._update_assessment_history("compliance_check", result)
         return result
 
-    def batch_check_compliance(self, evidence_map: Dict[str, List[str]]) -> Dict[str, ComplianceCheck]:
+def batch_check_compliance(self, evidence_map: Dict[str, List[str]]) -> Dict[str, ComplianceCheck]:
         """Perform batch compliance checking."""
         results = self.compliance_checker.batch_check(evidence_map)
         self._update_assessment_history("batch_compliance_check", results)
         return results
 
-    def get_compliance_score(self) -> Dict[str, Any]:
+def get_compliance_score(self) -> Dict[str, Any]:
         """Get overall compliance score."""
         return self.compliance_checker.get_compliance_score()
 
-    def get_critical_gaps(self) -> List[Dict[str, Any]]:
+def get_critical_gaps(self) -> List[Dict[str, Any]]:
         """Get critical compliance gaps."""
         return self.compliance_checker.get_critical_gaps()
 
     # Original API methods - Validation
-    def validate_control(self,
+def validate_control(self,
                         control_id: str,
                         system_config: Dict[str, Any],
                         evidence: Optional[List[str]] = None) -> ValidationResult:
@@ -88,40 +87,40 @@ class DFARSComplianceValidationSystem:
         self._update_assessment_history("control_validation", result)
         return result
 
-    def validate_all_controls(self, system_config: Dict[str, Any]) -> List[ValidationResult]:
+def validate_all_controls(self, system_config: Dict[str, Any]) -> List[ValidationResult]:
         """Validate all security controls."""
         results = self.validation_engine.validate_all_controls(system_config)
         self._update_assessment_history("full_validation", results)
         return results
 
-    def validate_cmmc_requirements(self,
-                                  cmmc_level: int,
-                                  system_config: Dict[str, Any]) -> Dict[str, Any]:
+def validate_cmmc_requirements(self,
+                                    cmmc_level: int,
+                                    system_config: Dict[str, Any]) -> Dict[str, Any]:
         """Validate CMMC level requirements."""
         self.cmmc_level = cmmc_level
         results = self.validation_engine.validate_cmmc_requirements(cmmc_level, system_config)
         self._update_assessment_history("cmmc_validation", results)
         return results
 
-    def continuous_monitoring(self,
+def continuous_monitoring(self,
                             system_config: Dict[str, Any],
                             interval_hours: int = 24) -> List[ValidationResult]:
         """Perform continuous monitoring validation."""
         return self.validation_engine.continuous_monitoring(system_config, interval_hours)
 
-    def get_validation_summary(self) -> Dict[str, Any]:
+def get_validation_summary(self) -> Dict[str, Any]:
         """Get validation summary."""
         return self.validation_engine.get_validation_summary()
 
-    def export_validation_evidence(self) -> List[Dict[str, Any]]:
+def export_validation_evidence(self) -> List[Dict[str, Any]]:
         """Export validation evidence."""
         return self.validation_engine.export_validation_evidence()
 
     # Original API methods - Reporting
-    def generate_compliance_report(self,
-                                  format_type: str = "json",
-                                  include_evidence: bool = True,
-                                  include_recommendations: bool = True) -> Dict[str, Any]:
+def generate_compliance_report(self,
+                                    format_type: str = "json",
+                                    include_evidence: bool = True,
+                                    include_recommendations: bool = True) -> Dict[str, Any]:
         """Generate comprehensive compliance report."""
         # Gather data from components
         compliance_checks = list(self.compliance_checker.check_results.values())
@@ -144,14 +143,14 @@ class DFARSComplianceValidationSystem:
         self.last_assessment_date = datetime.now()
         return report
 
-    def export_report(self, report_id: str, export_path: str) -> bool:
+def export_report(self, report_id: str, export_path: str) -> bool:
         """Export report to file."""
         return self.report_generator.export_report(report_id, export_path)
 
     # Original API methods - Combined assessments
-    def perform_full_assessment(self,
-                               system_config: Dict[str, Any],
-                               evidence_map: Dict[str, List[str]]) -> Dict[str, Any]:
+def perform_full_assessment(self,
+                                system_config: Dict[str, Any],
+                                evidence_map: Dict[str, List[str]]) -> Dict[str, Any]:
         """Perform complete DFARS compliance assessment."""
         self.system_config = system_config
 
@@ -182,7 +181,7 @@ class DFARSComplianceValidationSystem:
         self._update_assessment_history("full_assessment", assessment)
         return assessment
 
-    def get_remediation_plan(self) -> Dict[str, Any]:
+def get_remediation_plan(self) -> Dict[str, Any]:
         """Generate remediation plan based on gaps."""
         gaps = self.get_critical_gaps()
 
@@ -214,7 +213,7 @@ class DFARSComplianceValidationSystem:
 
         return plan
 
-    def _estimate_effort(self, gap: Dict[str, Any]) -> str:
+def _estimate_effort(self, gap: Dict[str, Any]) -> str:
         """Estimate remediation effort."""
         gap_count = len(gap.get("gaps", []))
 
@@ -225,7 +224,7 @@ class DFARSComplianceValidationSystem:
         else:
             return "High (1-2 weeks)"
 
-    def _update_assessment_history(self, assessment_type: str, data: Any) -> None:
+def _update_assessment_history(self, assessment_type: str, data: Any) -> None:
         """Update assessment history."""
         entry = {
             "timestamp": datetime.now().isoformat(),
@@ -239,7 +238,7 @@ class DFARSComplianceValidationSystem:
         if len(self.assessment_history) > 100:
             self.assessment_history = self.assessment_history[-100:]
 
-    def _create_summary(self, data: Any) -> Dict[str, Any]:
+def _create_summary(self, data: Any) -> Dict[str, Any]:
         """Create summary of assessment data."""
         if isinstance(data, ComplianceCheck):
             return {
@@ -261,23 +260,23 @@ class DFARSComplianceValidationSystem:
             return {"type": str(type(data))}
 
     # Utility methods for backward compatibility
-    def get_assessment_history(self) -> List[Dict[str, Any]]:
+def get_assessment_history(self) -> List[Dict[str, Any]]:
         """Get assessment history."""
         return self.assessment_history
 
-    def get_system_config(self) -> Dict[str, Any]:
+def get_system_config(self) -> Dict[str, Any]:
         """Get current system configuration."""
         return self.system_config
 
-    def update_system_config(self, config: Dict[str, Any]) -> None:
+def update_system_config(self, config: Dict[str, Any]) -> None:
         """Update system configuration."""
         self.system_config.update(config)
 
-    def get_cmmc_level(self) -> int:
+def get_cmmc_level(self) -> int:
         """Get current CMMC level."""
         return self.cmmc_level
 
-    def set_cmmc_level(self, level: int) -> None:
+def set_cmmc_level(self, level: int) -> None:
         """Set CMMC level target."""
         if level not in [0, 1, 2, 3]:
             raise ValueError("CMMC level must be 0-3")

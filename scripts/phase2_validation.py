@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
-"""
-Phase 2 Performance Validation Script
-Validates tiered runner strategy, parallel execution, memory optimization,
-and security hardening improvements.
-"""
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 import json
 import time
@@ -16,7 +11,6 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 import concurrent.futures
 import threading
-
 
 class Phase2Validator:
     """Validates Phase 2 performance and security improvements."""
@@ -228,7 +222,7 @@ class Phase2Validator:
             if cache_stats['memory_efficiency'] < 0.9:  # Good memory management
                 optimization_score += 0.4
             if cache_stats['cache_entries'] > 0:  # Cache is working
-                optimization_score += 0.3
+                optimization_score += 0.2
             
             return {
                 'memory_delta_mb': memory_delta,
@@ -480,7 +474,6 @@ class Phase2Validator:
         
         self.results['recommendations'] = recommendations
 
-
 def main():
     """Main validation execution."""
     print("Phase 2 Performance & Security Validation")
@@ -528,7 +521,6 @@ def main():
     
     # Exit with appropriate code
     sys.exit(0 if results['quality_gates']['phase2_validation_passed'] else 1)
-
 
 if __name__ == '__main__':
     main()

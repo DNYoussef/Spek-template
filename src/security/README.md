@@ -53,19 +53,19 @@ graph TB
 
 ```
 src/security/
-├── README.md                          # This file
-├── fips_crypto_module.py              # FIPS 140-2 cryptographic operations
-├── enhanced_audit_trail_manager.py    # Comprehensive audit logging
-├── dfars_compliance_engine.py         # DFARS compliance framework
-├── incident_response_system.py        # Automated incident response
-├── cui_classification_engine.py       # CUI classification and handling
-├── access_control_manager.py          # Multi-factor access control
-├── network_security_monitor.py        # Network security monitoring
-├── threat_detection_engine.py         # AI-powered threat detection
-├── security_orchestrator.py           # Security component orchestration
-├── vulnerability_scanner.py           # Automated vulnerability assessment
-├── penetration_testing_framework.py   # Internal penetration testing
-└── security_metrics_collector.py      # Security performance metrics
+___ README.md                          # This file
+___ fips_crypto_module.py              # FIPS 140-2 cryptographic operations
+___ enhanced_audit_trail_manager.py    # Comprehensive audit logging
+___ dfars_compliance_engine.py         # DFARS compliance framework
+___ incident_response_system.py        # Automated incident response
+___ cui_classification_engine.py       # CUI classification and handling
+___ access_control_manager.py          # Multi-factor access control
+___ network_security_monitor.py        # Network security monitoring
+___ threat_detection_engine.py         # AI-powered threat detection
+___ security_orchestrator.py           # Security component orchestration
+___ vulnerability_scanner.py           # Automated vulnerability assessment
+___ penetration_testing_framework.py   # Internal penetration testing
+___ security_metrics_collector.py      # Security performance metrics
 ```
 
 ---

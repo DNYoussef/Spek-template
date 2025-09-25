@@ -24,7 +24,7 @@ The .sandboxes directory contains 127 Python files across 4 main categories:
 
 #### Sandbox Experimental Code Analysis:
 
-##### ✅ STABLE - Ready for Migration:
+#####  STABLE - Ready for Migration:
 - **God Object Refactor**: `refactored_analyzer.py`, `refactored_audit_manager.py`
   - Status: Well-tested refactoring patterns
   - Migration: Apply refactoring patterns to main codebase
@@ -33,7 +33,7 @@ The .sandboxes directory contains 127 Python files across 4 main categories:
   - Status: Proven consolidation approach
   - Migration: Replace duplicate detector implementations
 
-##### ⚠️ EXPERIMENTAL - Archive Only:
+#####  EXPERIMENTAL - Archive Only:
 - **Phase 2 Config Test**: Full analyzer duplicate with 115+ files
   - Status: Test environment, not production ready
   - Action: Archive as historical reference
@@ -70,10 +70,10 @@ The .sandboxes directory contains 127 Python files across 4 main categories:
 - [ ] Create clear separation documentation
 
 ### Production Safety Measures:
-1. ✅ No imports from .sandboxes in main code detected
-2. ✅ Sandboxes are isolated development environments
-3. ⚠️ Need to verify no hidden dependencies exist
-4. 📋 Create explicit separation guidelines
+1.  No imports from .sandboxes in main code detected
+2.  Sandboxes are isolated development environments
+3.  Need to verify no hidden dependencies exist
+4.  Create explicit separation guidelines
 
 ### Next Actions:
 1. **SandboxCleaner**: Remove cache files and obsolete experiments

@@ -1,6 +1,4 @@
-"""
-Memory Leak Detection and Monitoring System
-==========================================
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 Real-time memory usage tracking and leak detection for the connascence analyzer.
 Implements NASA Rule 7 compliance with bounded resource management and automatic
@@ -28,7 +26,6 @@ import weakref
 import logging
 logger = logging.getLogger(__name__)
 
-
 @dataclass
 class MemoryThreshold:
     """Memory threshold configuration."""
@@ -36,7 +33,6 @@ class MemoryThreshold:
     critical_mb: int = 500     # Critical threshold in MB  
     maximum_mb: int = 1000     # Maximum allowed memory in MB
     growth_rate_mb_s: float = 10.0  # Maximum growth rate MB/s
-
 
 @dataclass
 class MemorySnapshot:
@@ -54,7 +50,6 @@ class MemorySnapshot:
         assert self.vms_mb >= 0, "VMS memory cannot be negative"
         assert self.heap_objects >= 0, "Heap objects cannot be negative"
 
-
 @dataclass
 class MemoryStats:
     """Aggregated memory statistics."""
@@ -66,7 +61,6 @@ class MemoryStats:
     snapshots_count: int = 0
     last_gc_time: float = 0.0
     leak_candidates: List[str] = field(default_factory=list)
-
 
 class MemoryLeakDetector:
     """
@@ -84,7 +78,7 @@ class MemoryLeakDetector:
             window_size: Number of snapshots to analyze (bounded per NASA Rule 7)
             sensitivity: Sensitivity multiplier for leak detection
         """
-        assert 10 <= window_size <= 100, "window_size must be between 10-100"
+        assert MAXIMUM_FUNCTION_PARAMETERS <= window_size <= 100, "window_size must be between 10-100"
         assert 1.0 <= sensitivity <= 3.0, "sensitivity must be between 1.0-3.0"
         
         self.window_size = window_size
@@ -197,7 +191,6 @@ class MemoryLeakDetector:
         # If >70% of samples show growth, likely a leak
         return (increasing_count / (len(memory_values) - 1)) > 0.7
 
-
 class MemoryMonitor:
     """
     Comprehensive memory monitoring system with leak detection and automatic recovery.
@@ -207,9 +200,9 @@ class MemoryMonitor:
     """
     
     def __init__(self, 
-                 thresholds: Optional[MemoryThreshold] = None,
-                 monitoring_interval: float = 5.0,
-                 max_snapshots: int = 1000):
+                thresholds: Optional[MemoryThreshold] = None,
+                monitoring_interval: float = 5.0,
+                max_snapshots: int = 1000):
         """
         Initialize memory monitor.
         
@@ -481,11 +474,9 @@ class MemoryMonitor:
         """Context manager exit with cleanup."""
         self.stop_monitoring()
 
-
 # Global memory monitor instance
 _global_monitor: Optional[MemoryMonitor] = None
 _monitor_lock = threading.Lock()
-
 
 def get_global_memory_monitor() -> MemoryMonitor:
     """Get or create global memory monitor instance."""
@@ -497,12 +488,10 @@ def get_global_memory_monitor() -> MemoryMonitor:
             
     return _global_monitor
 
-
 def start_global_monitoring() -> None:
     """Start global memory monitoring."""
     monitor = get_global_memory_monitor()
     monitor.start_monitoring()
-
 
 def stop_global_monitoring() -> None:
     """Stop global memory monitoring."""
@@ -512,12 +501,10 @@ def stop_global_monitoring() -> None:
         if _global_monitor:
             _global_monitor.stop_monitoring()
 
-
 def get_memory_report() -> Dict[str, Any]:
     """Get comprehensive memory report from global monitor."""
     monitor = get_global_memory_monitor()
     return monitor.get_memory_report()
-
 
 # Context manager for temporary memory monitoring
 class MemoryWatcher:

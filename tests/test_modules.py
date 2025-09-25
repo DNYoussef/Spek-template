@@ -5,12 +5,11 @@ This replaces the theater pattern of hiding failures.
 """
 
 import sys
+
 import traceback
 
 def test_critical_modules():
     """Test all critical modules and report real status."""
-    print("=== CRITICAL MODULE TESTING ===")
-    print("Testing modules that were previously missing...")
 
     failures = []
     successes = []
@@ -88,7 +87,6 @@ def test_critical_modules():
 
 def test_functionality():
     """Test actual functionality of the modules."""
-    print("\n=== FUNCTIONALITY TESTING ===")
 
     try:
         from analyzer.theater_detection import TheaterDetector
@@ -109,7 +107,6 @@ coverage = 100
         patterns = detector.detect_all_patterns("test_sample.py")
         if hasattr(detector, 'detect_test_gaming'):
             test_patterns = detector.detect_test_gaming("test_sample.py", sample_code)
-            print(f"[OK] Theater detection functional: Found {len(test_patterns)} patterns")
         else:
             print("[OK] Theater detector created successfully")
 

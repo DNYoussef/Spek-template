@@ -1,4 +1,4 @@
-# Gary×Taleb Trading System - Kubernetes Namespaces
+# GaryxTaleb Trading System - Kubernetes Namespaces
 # Namespace definitions for environment separation
 
 apiVersion: v1
@@ -11,7 +11,7 @@ metadata:
     tier: trading-platform
     compliance: defense-industry
   annotations:
-    description: "Gary×Taleb Trading System - Production Environment"
+    description: "GaryxTaleb Trading System - Production Environment"
     contact: "platform-team@gary-taleb.com"
     compliance: "NASA POT10, SOC2 Type II"
 ---
@@ -24,7 +24,7 @@ metadata:
     environment: staging
     tier: trading-platform
   annotations:
-    description: "Gary×Taleb Trading System - Staging Environment"
+    description: "GaryxTaleb Trading System - Staging Environment"
     contact: "platform-team@gary-taleb.com"
 ---
 apiVersion: v1
@@ -36,7 +36,7 @@ metadata:
     environment: development
     tier: trading-platform
   annotations:
-    description: "Gary×Taleb Trading System - Development Environment"
+    description: "GaryxTaleb Trading System - Development Environment"
     contact: "platform-team@gary-taleb.com"
 ---
 apiVersion: v1
@@ -48,7 +48,7 @@ metadata:
     environment: shared
     tier: observability
   annotations:
-    description: "Gary×Taleb Trading System - Monitoring and Observability"
+    description: "GaryxTaleb Trading System - Monitoring and Observability"
     contact: "platform-team@gary-taleb.com"
 ---
 # Resource Quotas for Production

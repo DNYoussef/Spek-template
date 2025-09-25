@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Simplified DFARS Compliance Detector
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 A concrete, working implementation that demonstrates enterprise integration
 without dependency issues.
@@ -11,7 +9,6 @@ import re
 from typing import List, Dict, Any
 from pathlib import Path
 
-
 class SimpleDFARSViolation:
     """Simple violation class for DFARS compliance issues."""
     
@@ -20,7 +17,6 @@ class SimpleDFARSViolation:
         self.line_number = line_number
         self.description = description
         self.severity = severity
-
 
 class SimpleDFARSDetector:
     """
@@ -214,7 +210,6 @@ class SimpleDFARSDetector:
         from datetime import datetime
         return datetime.now().isoformat()
 
-
 def demonstrate_enterprise_dfars_integration():
     """
     Demonstrate concrete enterprise DFARS integration.
@@ -264,7 +259,7 @@ def secure_send_data(data):
     }
     detector.enable_enterprise_features(enterprise_config)
     
-    print("Step 3: Detect DFARS violations")
+    print("Step MAXIMUM_RETRY_ATTEMPTS: Detect DFARS violations")
     violations = detector.detect_violations(test_code)
     
     print(f"\nDetected {len(violations)} DFARS violations:")
@@ -301,7 +296,6 @@ def secure_send_data(data):
     
     print("\n[SUCCESS] Enterprise DFARS integration demonstration completed")
     return compliance_results
-
 
 if __name__ == "__main__":
     demonstrate_enterprise_dfars_integration()

@@ -1,3 +1,4 @@
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS, QUALITY_GATE_MINIMUM_PASS_RATE, REGULATORY_FACTUALITY_REQUIREMENT
 #!/usr/bin/env python3
 """
 NASA Compliance Investigation
@@ -39,7 +40,7 @@ class NASAComplianceInvestigator:
         """Investigate detailed NASA compliance failures."""
         investigation = {
             "timestamp": "2025-09-10T19:45:00Z",
-            "current_score": 0.85,
+            "current_score": QUALITY_GATE_MINIMUM_PASS_RATE,
             "target_score": 0.90,
             "gap_analysis": {},
             "specific_violations": {},
@@ -215,7 +216,7 @@ class NASAComplianceInvestigator:
         
         # Calculate needed improvements
         current_score = 0.85
-        target_score = 0.90
+        target_score = REGULATORY_FACTUALITY_REQUIREMENT
         needed_improvement = target_score - current_score
         
         remediation = {
@@ -255,7 +256,7 @@ class NASAComplianceInvestigator:
             {
                 "type": "add_assertions",
                 "description": "Add parameter validation assertions to functions",
-                "impact": "+3% compliance",
+                "impact": "+MAXIMUM_RETRY_ATTEMPTS% compliance",
                 "effort": "15 minutes",
                 "automated": True
             },
@@ -263,14 +264,14 @@ class NASAComplianceInvestigator:
                 "type": "split_long_functions", 
                 "description": "Split functions > 60 lines into smaller functions",
                 "impact": "+2% compliance",
-                "effort": "30 minutes",
+                "effort": "API_TIMEOUT_SECONDS minutes",
                 "automated": False
             },
             {
                 "type": "add_docstrings",
                 "description": "Add comprehensive docstrings with parameter validation",
                 "impact": "+1% compliance", 
-                "effort": "10 minutes",
+                "effort": "MAXIMUM_FUNCTION_PARAMETERS minutes",
                 "automated": True
             }
         ]

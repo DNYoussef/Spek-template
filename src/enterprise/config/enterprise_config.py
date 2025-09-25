@@ -6,8 +6,6 @@ environment-specific settings and security controls.
 """
 
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
-
 
 class EnvironmentType(Enum):
     """Environment types"""
@@ -15,7 +13,6 @@ class EnvironmentType(Enum):
     TESTING = "testing"
     STAGING = "staging"
     PRODUCTION = "production"
-
 
 @dataclass
 class TelemetryConfig:
@@ -27,7 +24,6 @@ class TelemetryConfig:
     report_interval_hours: int = 24
     store_detailed_metrics: bool = True
 
-
 @dataclass
 class SecurityConfig:
     """Supply chain security configuration"""
@@ -38,7 +34,6 @@ class SecurityConfig:
     auto_security_reports: bool = True
     security_level: str = "enhanced"  # basic, enhanced, critical, top_secret
 
-
 @dataclass
 class ComplianceConfig:
     """Compliance framework configuration"""
@@ -47,7 +42,6 @@ class ComplianceConfig:
     auto_compliance_checks: bool = True
     evidence_collection: bool = True
     audit_trail_enabled: bool = True
-
 
 @dataclass
 class FeatureFlagConfig:
@@ -58,7 +52,6 @@ class FeatureFlagConfig:
     monitoring_enabled: bool = True
     default_rollout_strategy: str = "percentage"
 
-
 @dataclass
 class IntegrationConfig:
     """Analyzer integration configuration"""
@@ -67,7 +60,6 @@ class IntegrationConfig:
     hook_system_enabled: bool = True
     performance_monitoring: bool = True
     error_recovery_enabled: bool = True
-
 
 @dataclass
 class LoggingConfig:
@@ -80,7 +72,6 @@ class LoggingConfig:
     backup_count: int = 5
     structured_logging: bool = True
 
-
 class EnterpriseConfig:
     """
     Enterprise configuration manager
@@ -90,8 +81,8 @@ class EnterpriseConfig:
     """
     
     def __init__(self, 
-                 config_file: Optional[Path] = None,
-                 environment: EnvironmentType = EnvironmentType.DEVELOPMENT):
+                config_file: Optional[Path] = None,
+                environment: EnvironmentType = EnvironmentType.DEVELOPMENT):
         self.environment = environment
         self.config_file = config_file or self._get_default_config_file()
         

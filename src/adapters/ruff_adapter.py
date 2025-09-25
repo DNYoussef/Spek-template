@@ -1,22 +1,21 @@
 """Ruff linter adapter implementation."""
 
-import json
 from typing import List, Dict, Any, Optional
+import json
 
 from src.adapters.base_adapter import BaseLinterAdapter
 from src.models.linter_models import (
     LinterConfig, LinterViolation, StandardSeverity, ViolationType
 )
 
-
 class RuffAdapter(BaseLinterAdapter):
     """Adapter for Ruff Python linter and formatter."""
     
-    def __init__(self, config: LinterConfig):
+def __init__(self, config: LinterConfig):
         super().__init__(config)
         self.tool_name = "ruff"
     
-    def get_command_args(self, target_paths: List[str]) -> List[str]:
+def get_command_args(self, target_paths: List[str]) -> List[str]:
         """Build ruff command arguments."""
         cmd = self.config.get_command_base()
         
@@ -35,7 +34,7 @@ class RuffAdapter(BaseLinterAdapter):
         
         return cmd
     
-    def parse_output(self, raw_output: str, stderr: str = "") -> List[LinterViolation]:
+def parse_output(self, raw_output: str, stderr: str = "") -> List[LinterViolation]:
         """Parse ruff JSON output into standardized violations."""
         violations = []
         
@@ -103,7 +102,7 @@ class RuffAdapter(BaseLinterAdapter):
         
         return violations
     
-    def normalize_severity(self, tool_severity: str, rule_id: str = "") -> StandardSeverity:
+def normalize_severity(self, tool_severity: str, rule_id: str = "") -> StandardSeverity:
         """Convert ruff severity to standard severity."""
         # Apply user overrides first
         if rule_id:
@@ -122,9 +121,9 @@ class RuffAdapter(BaseLinterAdapter):
             
             # Medium severity rules
             elif (rule_id.startswith('E') or  # pycodestyle errors
-                  rule_id.startswith('W') or  # pycodestyle warnings
-                  rule_id.startswith('B') or  # flake8-bugbear
-                  rule_id.startswith('C4')):  # flake8-comprehensions
+                    rule_id.startswith('W') or  # pycodestyle warnings
+                    rule_id.startswith('B') or  # flake8-bugbear
+                    rule_id.startswith('C4')):  # flake8-comprehensions
                 return StandardSeverity.WARNING
             
             # Lower severity rules
@@ -140,7 +139,7 @@ class RuffAdapter(BaseLinterAdapter):
         
         return severity_map.get(tool_severity.lower(), StandardSeverity.WARNING)
     
-    def get_violation_type(self, rule_id: str, category: str = "") -> ViolationType:
+def get_violation_type(self, rule_id: str, category: str = "") -> ViolationType:
         """Determine violation type from ruff rule ID."""
         if not rule_id:
             return ViolationType.STYLE
@@ -189,7 +188,7 @@ class RuffAdapter(BaseLinterAdapter):
         
         return ViolationType.STYLE
     
-    def _get_severity_from_rule(self, rule_id: str) -> str:
+def _get_severity_from_rule(self, rule_id: str) -> str:
         """Get severity string based on rule type."""
         if rule_id.startswith(('F', 'E9', 'B0', 'S1')):
             return "error"
@@ -198,7 +197,7 @@ class RuffAdapter(BaseLinterAdapter):
         else:
             return "info"
     
-    def _get_category_from_rule(self, rule_id: str) -> str:
+def _get_category_from_rule(self, rule_id: str) -> str:
         """Get category description from rule ID."""
         category_map = {
             'F': 'PyFlakes',
@@ -229,7 +228,7 @@ class RuffAdapter(BaseLinterAdapter):
         
         return 'Unknown'
     
-    def _get_rule_url(self, rule_id: str) -> Optional[str]:
+def _get_rule_url(self, rule_id: str) -> Optional[str]:
         """Get documentation URL for a rule."""
         if rule_id:
             # Ruff documentation URLs

@@ -10,12 +10,13 @@ Tests all functionality of the compliance matrix generator including:
 - Performance and scalability
 """
 
-import pytest
-import json
-import tempfile
+from datetime import datetime, date, timedelta
 from pathlib import Path
 from unittest.mock import Mock, patch, MagicMock
-from datetime import datetime, date, timedelta
+import json
+import tempfile
+
+import pytest
 
 # Import the modules under test
 import sys
@@ -25,7 +26,6 @@ from enterprise.compliance.matrix import (
     ComplianceMatrix, Control, ComplianceReport, 
     ComplianceFramework, ComplianceStatus
 )
-
 
 class TestComplianceFramework:
     """Test ComplianceFramework enum"""
@@ -41,7 +41,6 @@ class TestComplianceFramework:
         assert ComplianceFramework.PCI_DSS.value == "pci-dss"
         assert ComplianceFramework.CUSTOM.value == "custom"
 
-
 class TestComplianceStatus:
     """Test ComplianceStatus enum"""
     
@@ -54,7 +53,6 @@ class TestComplianceStatus:
         assert ComplianceStatus.COMPLIANT.value == "compliant"
         assert ComplianceStatus.NON_COMPLIANT.value == "non_compliant"
         assert ComplianceStatus.NEEDS_REVIEW.value == "needs_review"
-
 
 class TestControl:
     """Test Control dataclass"""
@@ -123,7 +121,6 @@ class TestControl:
         assert control.automation_level == "automated"
         assert control.dependencies == ["A.5.1.2"]
 
-
 class TestComplianceReport:
     """Test ComplianceReport dataclass"""
     
@@ -143,7 +140,6 @@ class TestComplianceReport:
         assert report.recommendations == []
         assert report.evidence_gaps == []
         assert report.next_actions == []
-
 
 class TestComplianceMatrix:
     """Test ComplianceMatrix main class"""
@@ -236,7 +232,6 @@ class TestComplianceMatrix:
         assert control.risk_rating == "critical"
         assert "lawful" in control.description.lower()
 
-
 class TestControlManagement:
     """Test control management functionality"""
     
@@ -326,7 +321,6 @@ class TestControlManagement:
         
         with pytest.raises(ValueError, match="Control INVALID not found"):
             self.matrix.add_evidence("INVALID", evidence_file)
-
 
 class TestComplianceReporting:
     """Test compliance reporting functionality"""
@@ -462,7 +456,6 @@ class TestComplianceReporting:
         assert "compliant" in security_breakdown
         assert security_breakdown["compliant"] >= 1
 
-
 class TestMatrixExportImport:
     """Test matrix export and import functionality"""
     
@@ -534,7 +527,6 @@ class TestMatrixExportImport:
         assert "Implemented access policy" in control_data["notes"][0]
         assert "Policy document" in control_data["notes"][1]
 
-
 class TestFrameworkCoverage:
     """Test framework coverage analysis"""
     
@@ -592,7 +584,7 @@ class TestFrameworkCoverage:
         
         # ISO27001: Mark 2 controls as compliant
         iso_controls = [c for c in self.matrix.controls.keys() 
-                       if self.matrix.controls[c].framework == ComplianceFramework.ISO27001]
+                        if self.matrix.controls[c].framework == ComplianceFramework.ISO27001]
         for control_id in iso_controls[:2]:
             self.matrix.update_control_status(control_id, ComplianceStatus.COMPLIANT)
         
@@ -606,7 +598,6 @@ class TestFrameworkCoverage:
         assert iso_percentage > 0
         # ISO should have higher percentage (2 compliant vs fewer total controls)
         assert iso_percentage >= soc2_percentage
-
 
 class TestPerformanceAndScalability:
     """Test performance and scalability"""
@@ -693,7 +684,6 @@ class TestPerformanceAndScalability:
             assert report.total_controls > 0
             assert isinstance(report.overall_status, float)
 
-
 class TestErrorHandlingAndEdgeCases:
     """Test error handling and edge cases"""
     
@@ -730,7 +720,6 @@ class TestErrorHandlingAndEdgeCases:
         evidence_dir = self.matrix.evidence_directory
         
         # This test would require platform-specific permission manipulation
-        # For now, just verify the directory structure is created properly
         assert evidence_dir.exists()
         assert evidence_dir.is_dir()
     

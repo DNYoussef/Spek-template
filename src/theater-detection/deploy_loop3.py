@@ -4,10 +4,10 @@ LOOP 3 DEPLOYMENT SCRIPT
 Deploy comprehensive theater detection and reality validation system
 """
 
-import json
-import sys
 from datetime import datetime
 from pathlib import Path
+import json
+import sys
 
 # Simple imports to avoid module issues
 import theater_detector

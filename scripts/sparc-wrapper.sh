@@ -66,7 +66,7 @@ init_sparc() {
         mkdir -p "$TEMPLATES_DIR"
         mkdir -p "$WORKFLOWS_DIR"
         mkdir -p "$SPARC_DIR/logs"
-        print_color "$GREEN" "✓ SPARC directories created"
+        print_color "$GREEN" " SPARC directories created"
     fi
 
     if [ ! -f "$ROOMODES" ] && [ ! -f "$SPARC_CONFIG" ]; then
@@ -88,7 +88,7 @@ init_sparc() {
             };
             require('fs').writeFileSync('.roomodes', JSON.stringify(config, null, 2));
             "
-            print_color "$GREEN" "✓ Created .roomodes"
+            print_color "$GREEN" " Created .roomodes"
         fi
     fi
 }
@@ -130,14 +130,14 @@ execute_local() {
 
 # Function to list available modes
 list_modes() {
-    print_color "$BLUE" "\n✨ Available SPARC Modes:\n"
+    print_color "$BLUE" "\n Available SPARC Modes:\n"
 
     if [ -f "$ROOMODES" ]; then
         node -e "
         const config = JSON.parse(require('fs').readFileSync('.roomodes', 'utf8'));
         const modes = config.modes || {};
         Object.entries(modes).forEach(([key, mode]) => {
-            console.log('  📋 ' + key.padEnd(15) + ' - ' + (mode.name || key));
+            console.log('   ' + key.padEnd(15) + ' - ' + (mode.name || key));
             if (mode.agents) {
                 console.log('     Agents: ' + mode.agents.join(', '));
             }
@@ -146,15 +146,15 @@ list_modes() {
     else
         # Fallback to default modes
         cat <<EOF
-  📋 spec           - Specification phase
-  📋 architect      - Architecture design
-  📋 tdd            - Test-driven development
-  📋 coder          - Implementation
-  📋 review         - Code review
-  📋 test           - Testing
-  📋 debug          - Debugging
-  📋 optimize       - Optimization
-  📋 document       - Documentation
+   spec           - Specification phase
+   architect      - Architecture design
+   tdd            - Test-driven development
+   coder          - Implementation
+   review         - Code review
+   test           - Testing
+   debug          - Debugging
+   optimize       - Optimization
+   document       - Documentation
 EOF
     fi
 
@@ -170,7 +170,7 @@ run_mode() {
     shift 2
     local options="$@"
 
-    print_color "$BLUE" "\n🚀 Executing SPARC Mode: $mode"
+    print_color "$BLUE" "\n Executing SPARC Mode: $mode"
     print_color "$BLUE" "   Task: $task"
 
     # Check claude-flow availability
@@ -181,10 +181,10 @@ run_mode() {
 
         # Try claude-flow execution
         if execute_claude_flow "$cf_version" "run $mode \"$task\" $options"; then
-            print_color "$GREEN" "✅ Execution completed successfully"
+            print_color "$GREEN" " Execution completed successfully"
             return 0
         else
-            print_color "$YELLOW" "⚠️ Claude-flow execution failed, falling back to local executor"
+            print_color "$YELLOW" " Claude-flow execution failed, falling back to local executor"
         fi
     else
         print_color "$YELLOW" "   Claude-flow not available, using local executor"
@@ -198,7 +198,7 @@ run_mode() {
 run_workflow() {
     local workflow=$1
 
-    print_color "$BLUE" "\n🔄 Running SPARC Workflow: $workflow"
+    print_color "$BLUE" "\n Running SPARC Workflow: $workflow"
 
     # Check if workflow file exists
     if [ ! -f "$WORKFLOWS_DIR/$workflow.json" ]; then
@@ -213,7 +213,7 @@ run_workflow() {
 
     if [ "$cf_version" != "none" ]; then
         if execute_claude_flow "$cf_version" "workflow $workflow"; then
-            print_color "$GREEN" "✅ Workflow completed successfully"
+            print_color "$GREEN" " Workflow completed successfully"
             return 0
         fi
     fi
@@ -224,7 +224,7 @@ run_workflow() {
 
 # Function to validate quality gates
 validate_gates() {
-    print_color "$BLUE" "\n🔍 Validating Quality Gates..."
+    print_color "$BLUE" "\n Validating Quality Gates..."
 
     # Try with claude-flow first
     local cf_version=$(check_claude_flow)

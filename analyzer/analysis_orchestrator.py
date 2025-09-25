@@ -1,17 +1,13 @@
-# SPDX-License-Identifier: MIT
-"""
-Analysis Orchestrator - Extracted from UnifiedConnascenceAnalyzer
-================================================================
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
 
 Main analysis coordination and workflow management.
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class AnalysisRequest:
@@ -24,7 +20,6 @@ class AnalysisRequest:
     # Configuration constants
     DEFAULT_TIMEOUT_SECONDS = 300
     timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS
-
 
 @dataclass
 class AnalysisResult:
@@ -39,7 +34,6 @@ class AnalysisResult:
     metadata: Dict[str, Any]
     success: bool
     error_message: Optional[str] = None
-
 
 class AnalysisOrchestrator:
     """
@@ -148,7 +142,7 @@ class AnalysisOrchestrator:
         # Collect results as they complete
         results = []
         # Timeout constants
-        PARALLEL_TIMEOUT_SECONDS = 600  # 10 minutes
+        PARALLEL_TIMEOUT_SECONDS = 600  # MAXIMUM_FUNCTION_PARAMETERS minutes
         for future in as_completed(future_to_request, timeout=PARALLEL_TIMEOUT_SECONDS):
             try:
                 result = future.result()

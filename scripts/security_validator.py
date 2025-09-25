@@ -1,7 +1,5 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Security Gate Validator - Comprehensive Security Quality Gate Implementation
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 Validates security scanning integration and enforces comprehensive security quality gates
 for production-ready deployment with defense industry compliance standards.
@@ -26,7 +24,6 @@ import re
 from dataclasses import dataclass
 from enum import Enum
 
-
 class SecuritySeverity(Enum):
     """Security finding severity levels."""
     CRITICAL = "critical"
@@ -34,7 +31,6 @@ class SecuritySeverity(Enum):
     MEDIUM = "medium"
     LOW = "low"
     INFO = "info"
-
 
 @dataclass
 class SecurityFinding:
@@ -50,8 +46,7 @@ class SecurityFinding:
     remediation: Optional[str] = None
     confidence: str = "medium"
 
-
-@dataclass  
+@dataclass
 class SecurityGateResult:
     """Security gate validation result."""
     gate_name: str
@@ -62,11 +57,10 @@ class SecurityGateResult:
     execution_time: float
     details: Dict[str, Any]
 
-
 class SecurityValidator:
     """Comprehensive security validation with quality gate enforcement."""
     
-    def __init__(self, config_path: str = "configs/security_gates.yaml"):
+def __init__(self, config_path: str = "configs/security_gates.yaml"):
         """Initialize security validator with configuration."""
         self.config_path = config_path
         self.config = self._load_security_config()
@@ -75,7 +69,7 @@ class SecurityValidator:
         self.sarif_results = []
         self.start_time = time.time()
         
-    def _load_security_config(self) -> Dict[str, Any]:
+def _load_security_config(self) -> Dict[str, Any]:
         """Load security gates configuration."""
         try:
             with open(self.config_path, 'r') as f:
@@ -84,7 +78,7 @@ class SecurityValidator:
             print(f"Warning: Config file not found: {self.config_path}")
             return self._get_default_config()
     
-    def _get_default_config(self) -> Dict[str, Any]:
+def _get_default_config(self) -> Dict[str, Any]:
         """Get default security configuration."""
         return {
             "security_gates": {
@@ -105,7 +99,7 @@ class SecurityValidator:
             "performance": {"max_total_execution_time_minutes": 15}
         }
     
-    def validate_tool_configurations(self) -> Dict[str, Any]:
+def validate_tool_configurations(self) -> Dict[str, Any]:
         """Validate security tool configurations and availability."""
         print("Validating security tool configurations...")
         
@@ -143,7 +137,7 @@ class SecurityValidator:
         
         return validation_results
     
-    def _check_tool_availability(self, tool_name: str) -> bool:
+def _check_tool_availability(self, tool_name: str) -> bool:
         """Check if security tool is available."""
         tool_commands = {
             "semgrep": ["semgrep", "--version"],
@@ -158,12 +152,12 @@ class SecurityValidator:
             return False
             
         try:
-            result = subprocess.run(command, capture_output=True, timeout=10)
+            result = subprocess.run(command, capture_output=True, timeout=MAXIMUM_FUNCTION_PARAMETERS)
             return result.returncode == 0
         except (subprocess.TimeoutExpired, FileNotFoundError):
             return False
     
-    def run_comprehensive_security_scan(self) -> Dict[str, SecurityGateResult]:
+def run_comprehensive_security_scan(self) -> Dict[str, SecurityGateResult]:
         """Run comprehensive security scan with all enabled tools."""
         print("Running comprehensive security scan...")
         
@@ -191,7 +185,7 @@ class SecurityValidator:
         
         return scan_results
     
-    def _run_tool_scan(self, tool_name: str, tool_config: Dict[str, Any]) -> SecurityGateResult:
+def _run_tool_scan(self, tool_name: str, tool_config: Dict[str, Any]) -> SecurityGateResult:
         """Run individual security tool scan."""
         start_time = time.time()
         findings = []
@@ -223,7 +217,7 @@ class SecurityValidator:
             details={"tool_config": tool_config, "findings_by_severity": self._count_by_severity(findings)}
         )
     
-    def _run_semgrep_scan(self, config: Dict[str, Any]) -> List[SecurityFinding]:
+def _run_semgrep_scan(self, config: Dict[str, Any]) -> List[SecurityFinding]:
         """Run Semgrep SAST scan."""
         findings = []
         
@@ -254,7 +248,7 @@ class SecurityValidator:
         
         return findings
     
-    def _run_bandit_scan(self, config: Dict[str, Any]) -> List[SecurityFinding]:
+def _run_bandit_scan(self, config: Dict[str, Any]) -> List[SecurityFinding]:
         """Run Bandit Python security scan."""
         findings = []
         
@@ -285,7 +279,7 @@ class SecurityValidator:
         
         return findings
     
-    def _run_safety_scan(self, config: Dict[str, Any]) -> List[SecurityFinding]:
+def _run_safety_scan(self, config: Dict[str, Any]) -> List[SecurityFinding]:
         """Run Safety dependency vulnerability scan."""
         findings = []
         
@@ -344,7 +338,7 @@ class SecurityValidator:
         
         return findings
     
-    def _run_npm_audit_scan(self, config: Dict[str, Any]) -> List[SecurityFinding]:
+def _run_npm_audit_scan(self, config: Dict[str, Any]) -> List[SecurityFinding]:
         """Run NPM audit for JavaScript dependencies."""
         findings = []
         
@@ -383,7 +377,7 @@ class SecurityValidator:
         
         return findings
     
-    def _run_codeql_scan(self, config: Dict[str, Any]) -> List[SecurityFinding]:
+def _run_codeql_scan(self, config: Dict[str, Any]) -> List[SecurityFinding]:
         """Run CodeQL advanced static analysis."""
         findings = []
         
@@ -416,7 +410,7 @@ class SecurityValidator:
         
         return findings
     
-    def _map_codeql_severity(self, level: str) -> SecuritySeverity:
+def _map_codeql_severity(self, level: str) -> SecuritySeverity:
         """Map CodeQL severity levels."""
         mapping = {
             "error": SecuritySeverity.HIGH,
@@ -425,7 +419,7 @@ class SecurityValidator:
         }
         return mapping.get(level, SecuritySeverity.LOW)
     
-    def _count_by_severity(self, findings: List[SecurityFinding]) -> Dict[str, int]:
+def _count_by_severity(self, findings: List[SecurityFinding]) -> Dict[str, int]:
         """Count findings by severity level."""
         counts = {severity.value: 0 for severity in SecuritySeverity}
         
@@ -434,7 +428,7 @@ class SecurityValidator:
             
         return counts
     
-    def _create_error_result(self, tool_name: str, error: str) -> SecurityGateResult:
+def _create_error_result(self, tool_name: str, error: str) -> SecurityGateResult:
         """Create error result for failed tool scan."""
         return SecurityGateResult(
             gate_name=tool_name,
@@ -446,7 +440,7 @@ class SecurityValidator:
             details={"error": error, "status": "failed"}
         )
     
-    def validate_security_gates(self, scan_results: Dict[str, SecurityGateResult]) -> Dict[str, Any]:
+def validate_security_gates(self, scan_results: Dict[str, SecurityGateResult]) -> Dict[str, Any]:
         """Validate security findings against configured gates."""
         print("Validating security gates...")
         
@@ -512,7 +506,7 @@ class SecurityValidator:
         
         return gate_validation
     
-    def _get_gate_count(self, gate_name: str, severity_counts: Dict[str, int], all_findings: List[SecurityFinding]) -> int:
+def _get_gate_count(self, gate_name: str, severity_counts: Dict[str, int], all_findings: List[SecurityFinding]) -> int:
         """Get count for specific security gate."""
         if gate_name == "critical_vulnerabilities":
             return severity_counts.get("critical", 0)
@@ -529,7 +523,7 @@ class SecurityValidator:
         else:
             return 0
     
-    def generate_sarif_output(self, scan_results: Dict[str, SecurityGateResult]) -> Dict[str, Any]:
+def generate_sarif_output(self, scan_results: Dict[str, SecurityGateResult]) -> Dict[str, Any]:
         """Generate SARIF format output for GitHub Security integration."""
         print("Generating SARIF output...")
         
@@ -586,7 +580,7 @@ class SecurityValidator:
         
         return sarif_output
     
-    def _map_severity_to_sarif(self, severity: SecuritySeverity) -> str:
+def _map_severity_to_sarif(self, severity: SecuritySeverity) -> str:
         """Map security severity to SARIF level."""
         mapping = {
             SecuritySeverity.CRITICAL: "error",
@@ -597,7 +591,7 @@ class SecurityValidator:
         }
         return mapping.get(severity, "note")
     
-    def generate_security_report(self, scan_results: Dict[str, SecurityGateResult], gate_validation: Dict[str, Any]) -> Dict[str, Any]:
+def generate_security_report(self, scan_results: Dict[str, SecurityGateResult], gate_validation: Dict[str, Any]) -> Dict[str, Any]:
         """Generate comprehensive security report."""
         execution_time = time.time() - self.start_time
         
@@ -648,7 +642,7 @@ class SecurityValidator:
         
         return report
     
-    def _generate_recommendations(self, scan_results: Dict[str, SecurityGateResult], gate_validation: Dict[str, Any]) -> List[str]:
+def _generate_recommendations(self, scan_results: Dict[str, SecurityGateResult], gate_validation: Dict[str, Any]) -> List[str]:
         """Generate actionable security recommendations."""
         recommendations = []
         
@@ -673,7 +667,7 @@ class SecurityValidator:
         
         return recommendations
     
-    def _generate_next_steps(self, gate_validation: Dict[str, Any]) -> List[str]:
+def _generate_next_steps(self, gate_validation: Dict[str, Any]) -> List[str]:
         """Generate next steps based on validation results."""
         next_steps = []
         
@@ -698,7 +692,7 @@ class SecurityValidator:
         
         return next_steps
     
-    def run_full_validation(self) -> Dict[str, Any]:
+def run_full_validation(self) -> Dict[str, Any]:
         """Run full security validation pipeline."""
         print("Starting comprehensive security validation...")
         print("=" * 60)
@@ -723,7 +717,7 @@ class SecurityValidator:
         
         return security_report
     
-    def _save_validation_results(self, report: Dict[str, Any], sarif_output: Dict[str, Any]) -> None:
+def _save_validation_results(self, report: Dict[str, Any], sarif_output: Dict[str, Any]) -> None:
         """Save validation results to artifacts."""
         artifacts_dir = Path(".claude/.artifacts/security")
         artifacts_dir.mkdir(parents=True, exist_ok=True)
@@ -737,7 +731,6 @@ class SecurityValidator:
         
         # Save SARIF (already saved in generate_sarif_output)
         print(f"SARIF output saved: {artifacts_dir}/sarif/security-scan-results.sarif")
-
 
 def main():
     """Main execution for security validation."""
@@ -776,7 +769,6 @@ def main():
         sys.exit(1)
     else:
         sys.exit(0)
-
 
 if __name__ == "__main__":
     main()

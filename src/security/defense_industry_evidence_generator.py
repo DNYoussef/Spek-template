@@ -1,6 +1,4 @@
-"""
-Defense Industry Evidence Package Generator
-Comprehensive Audit Trail and Compliance Evidence System
+from src.constants.base import NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
 Generates forensic-level evidence packages for defense industry
 audits with complete theater detection documentation.
@@ -11,7 +9,6 @@ import hashlib
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 @dataclass
 class EvidencePackageMetadata:
@@ -27,7 +24,6 @@ class EvidencePackageMetadata:
     package_hash: str
     certification_status: str
 
-
 @dataclass
 class AuditEvidence:
     """Individual piece of audit evidence"""
@@ -39,7 +35,6 @@ class AuditEvidence:
     validation_status: str
     criticality_level: str
     timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-
 
 class DefenseIndustryEvidenceGenerator:
     """
@@ -68,9 +63,9 @@ class DefenseIndustryEvidenceGenerator:
         self.evidence_output_dir.mkdir(parents=True, exist_ok=True)
 
     async def generate_complete_evidence_package(self,
-                                               audit_scope: List[str] = None,
-                                               include_source_code: bool = True,
-                                               compress_package: bool = True) -> Path:
+                                                audit_scope: List[str] = None,
+                                                include_source_code: bool = True,
+                                                compress_package: bool = True) -> Path:
         """
         Generate complete evidence package for defense industry audit
 
@@ -158,12 +153,12 @@ class DefenseIndustryEvidenceGenerator:
         # Analyze theater detection results
         total_modules = len(theater_reports)
         modules_with_theater = len([r for r in theater_reports.values()
-                                  if r.overall_theater_level != TheaterSeverity.NONE])
+                                    if r.overall_theater_level != TheaterSeverity.NONE])
         critical_violations = sum(len([v for v in r.theater_violations
-                                     if v.severity == TheaterSeverity.CRITICAL])
+                                    if v.severity == TheaterSeverity.CRITICAL])
                                 for r in theater_reports.values())
         high_violations = sum(len([v for v in r.theater_violations
-                                 if v.severity == TheaterSeverity.HIGH])
+                                if v.severity == TheaterSeverity.HIGH])
                             for r in theater_reports.values())
 
         # Calculate overall compliance score
@@ -219,7 +214,7 @@ class DefenseIndustryEvidenceGenerator:
                     "modules_theater_free": total_modules - modules_with_theater,
                     "overall_compliance_score": avg_compliance,
                     "zero_tolerance_status": "MET" if critical_violations == 0 else "VIOLATED",
-                    "defense_industry_ready": critical_violations == 0 and avg_compliance >= 0.95
+                    "defense_industry_ready": critical_violations == 0 and avg_compliance >= NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
                 },
                 "violation_statistics": {
                     "critical_violations": critical_violations,
@@ -889,17 +884,17 @@ class DefenseIndustryEvidenceGenerator:
         return complexity_metrics
 
     async def _compile_evidence_package(self,
-                                      work_dir: Path,
-                                      theater_evidence: Dict,
-                                      math_evidence: Dict,
-                                      performance_evidence: Dict,
-                                      security_evidence: Dict,
-                                      compliance_evidence: Dict,
-                                      monitoring_evidence: Dict,
-                                      source_analysis: Optional[Dict],
-                                      package_id: str,
-                                      timestamp: datetime,
-                                      compress: bool) -> Path:
+                                        work_dir: Path,
+                                        theater_evidence: Dict,
+                                        math_evidence: Dict,
+                                        performance_evidence: Dict,
+                                        security_evidence: Dict,
+                                        compliance_evidence: Dict,
+                                        monitoring_evidence: Dict,
+                                        source_analysis: Optional[Dict],
+                                        package_id: str,
+                                        timestamp: datetime,
+                                        compress: bool) -> Path:
         """Compile complete evidence package"""
 
         # Generate package metadata
@@ -914,7 +909,7 @@ class DefenseIndustryEvidenceGenerator:
             compliance_level="ZERO_TOLERANCE",
             audit_scope=["enterprise_modules", "security_controls", "performance_validation"],
             evidence_types=["theater_detection", "mathematical_validation", "performance_verification",
-                          "security_controls", "compliance_frameworks", "continuous_monitoring"],
+                            "security_controls", "compliance_frameworks", "continuous_monitoring"],
             package_hash="",  # Will be calculated
             certification_status="PENDING_REVIEW"
         )
@@ -1050,9 +1045,9 @@ class DefenseIndustryEvidenceGenerator:
             "critical_findings": {
                 "theater_violations": critical_violations,
                 "security_gaps": len([item for item in self.evidence_items
-                                   if item.criticality_level == "CRITICAL" and item.validation_status != "VERIFIED"]),
+                                    if item.criticality_level == "CRITICAL" and item.validation_status != "VERIFIED"]),
                 "compliance_gaps": len([item for item in self.evidence_items
-                                     if item.validation_status == "FAILED"])
+                                    if item.validation_status == "FAILED"])
             },
             "evidence_completeness": {
                 "total_evidence_items": len(self.evidence_items),
@@ -1109,12 +1104,10 @@ class DefenseIndustryEvidenceGenerator:
 
         return hash_sha256.hexdigest()
 
-
 # Factory function
 def create_defense_evidence_generator(project_root: str = None) -> DefenseIndustryEvidenceGenerator:
     """Create defense industry evidence generator"""
     return DefenseIndustryEvidenceGenerator(project_root)
-
 
 # CLI interface
 async def main():
@@ -1148,7 +1141,6 @@ async def main():
     except Exception as e:
         print(f"[FAIL] Evidence generation failed: {e}")
         return False
-
 
 if __name__ == "__main__":
     success = asyncio.run(main())

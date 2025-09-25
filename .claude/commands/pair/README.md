@@ -1,4 +1,4 @@
-# 👥 Pair Programming Command
+#  Pair Programming Command
 
 Collaborative development with real-time verification and AI assistance.
 
@@ -184,24 +184,24 @@ claude-flow pair --start --ci --non-interactive
 ## Session Output
 
 ```
-👥 Pair Programming Session Started
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Pair Programming Session Started
+
 
 Partner: expert-coder
 Mode: Switch (10m intervals)
 Focus: Implementation
-Verification: ✅ Enabled (0.95)
-Testing: ✅ Auto-run
+Verification:  Enabled (0.95)
+Testing:  Auto-run
 
 Current Role: DRIVER (you)
 Navigator: expert-coder is reviewing...
 
-📝 Working on: src/auth/login.js
-Truth Score: 0.972 ✅
-Test Coverage: 84% 📈
+ Working on: src/auth/login.js
+Truth Score: 0.972 
+Test Coverage: 84% 
 
-💡 Suggestion: Consider adding input validation for email field
-🔍 Review: Line 23 - Potential SQL injection vulnerability
+ Suggestion: Consider adding input validation for email field
+ Review: Line 23 - Potential SQL injection vulnerability
 
 Type /help for commands or start coding...
 ```

@@ -7,13 +7,14 @@ not just hiding them. Implements auto-fix capabilities, suppression system
 with justifications, and proper violation management.
 """
 
-import ast
-import re
-import logging
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
+import ast
 import json
+import logging
+import re
+
+from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
 
@@ -135,7 +136,6 @@ class ViolationRemediationEngine:
         # Handle ** wildcard which means "any number of directories"
         if '**' in pattern:
             # Convert ** pattern to work with fnmatch
-            # **/*.py should match test.py, dir/test.py, dir/subdir/test.py
             if pattern.startswith('**/'):
                 # **/*.py matches any .py file at any depth
                 simple_pattern = pattern[3:]  # Remove **/
@@ -152,7 +152,6 @@ class ViolationRemediationEngine:
                     return True
             elif '/**/' in pattern:
                 # Pattern like tests/**/*.py or dir/**/file.py
-                # Split pattern and check if file is under the directory and matches the ending
                 parts = pattern.split('/**/')
                 if len(parts) == 2:
                     dir_prefix, file_pattern = parts
@@ -164,7 +163,6 @@ class ViolationRemediationEngine:
                             return True
             else:
                 # Other patterns with **
-                # Convert to regex-like pattern for fnmatch
                 import re
                 regex_pattern = pattern.replace('**', '*')
                 if fnmatch.fnmatch(file_path, regex_pattern):
@@ -293,15 +291,12 @@ def method(self, params: MethodParams):"""
 
 class UserManagement:
     # Methods: user_login, user_logout, user_register, etc.
-    pass
 
 class DataProcessing:
     # Methods: process_data, validate_data, transform_data, etc.
-    pass
 
 class NotificationService:
     # Methods: send_email, send_sms, notify_users, etc.
-    pass
 
 # Original class becomes coordinator:
 class Controller:

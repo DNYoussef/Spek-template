@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-REALITY VALIDATION SYSTEM
-Comprehensive evidence-based validation that quality improvements are genuine
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MINIMUM_TEST_COVERAGE_PERCENTAGE, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, QUALITY_GATE_MINIMUM_PASS_RATE, REGULATORY_FACTUALITY_REQUIREMENT, TAKE_PROFIT_PERCENTAGE, THEATER_DETECTION_FAILURE_THRESHOLD, THEATER_DETECTION_WARNING_THRESHOLD
 
 This system provides final validation that all improvements claimed across
 the 3-phase loop system are real, measurable, and beneficial rather than
@@ -50,7 +47,7 @@ class RealityValidationSystem:
     and not just superficial theater that passes automated checks
     """
     
-    def __init__(self, artifacts_dir: str = ".claude/.artifacts"):
+def __init__(self, artifacts_dir: str = ".claude/.artifacts"):
         self.artifacts_dir = Path(artifacts_dir)
         self.validation_dir = self.artifacts_dir / "theater-detection" / "reality-validation"
         self.validation_dir.mkdir(parents=True, exist_ok=True)
@@ -58,7 +55,7 @@ class RealityValidationSystem:
         # Reality validation criteria
         self.validation_criteria = {
             "performance": {
-                "minimum_improvement": 0.05,  # 5% minimum real improvement
+                "minimum_improvement": 0.05,  # MAXIMUM_NESTED_DEPTH% minimum real improvement
                 "measurement_consistency": 0.90,  # 90% consistent measurements
                 "baseline_stability": 0.85,  # 85% stable baseline
                 "evidence_depth": 3  # Minimum 3 types of evidence
@@ -92,7 +89,7 @@ class RealityValidationSystem:
         self.assessments = []
         self.system_wide_validation = None
 
-    def validate_phase_completion(self, phase: str, phase_evidence: Dict[str, Any]) -> RealityAssessment:
+def validate_phase_completion(self, phase: str, phase_evidence: Dict[str, Any]) -> RealityAssessment:
         """
         Validate that a completed phase (1, 2, or 3) achieved genuine improvements
         """
@@ -107,7 +104,7 @@ class RealityValidationSystem:
         else:
             raise ValueError(f"Unknown phase: {phase}")
 
-    def _validate_phase_1_file_consolidation(self, evidence: Dict) -> RealityAssessment:
+def _validate_phase_1_file_consolidation(self, evidence: Dict) -> RealityAssessment:
         """Validate Phase 1: File consolidation and architectural cleanup"""
         
         # Collect evidence items
@@ -181,7 +178,7 @@ class RealityValidationSystem:
         self.assessments.append(assessment)
         return assessment
 
-    def _validate_phase_2_claude_cleanup(self, evidence: Dict) -> RealityAssessment:
+def _validate_phase_2_claude_cleanup(self, evidence: Dict) -> RealityAssessment:
         """Validate Phase 2: CLAUDE.md cleanup and integration quality"""
         
         evidence_items = []
@@ -247,7 +244,7 @@ class RealityValidationSystem:
         self.assessments.append(assessment)
         return assessment
 
-    def _validate_phase_3_god_object_decomposition(self, evidence: Dict) -> RealityAssessment:
+def _validate_phase_3_god_object_decomposition(self, evidence: Dict) -> RealityAssessment:
         """Validate Phase 3: God object decomposition and NASA compliance"""
         
         evidence_items = []
@@ -326,7 +323,7 @@ class RealityValidationSystem:
         self.assessments.append(assessment)
         return assessment
 
-    def _calculate_consolidation_reality_score(self, evidence_items: List[EvidenceItem]) -> float:
+def _calculate_consolidation_reality_score(self, evidence_items: List[EvidenceItem]) -> float:
         """Calculate reality score for file consolidation"""
         if not evidence_items:
             return 0.0
@@ -345,7 +342,7 @@ class RealityValidationSystem:
                     if reduction_rate > 0.30 and maintainability_improvement < 0.05:
                         scores.append(0.40)  # Theater risk
                     elif reduction_rate > 0.15 and maintainability_improvement >= 0.10:
-                        scores.append(0.85)  # Genuine improvement
+                        scores.append(QUALITY_GATE_MINIMUM_PASS_RATE)  # Genuine improvement
                     else:
                         scores.append(0.65)  # Moderate improvement
             
@@ -359,7 +356,7 @@ class RealityValidationSystem:
         
         return statistics.mean(scores) if scores else 0.5
 
-    def _calculate_cleanup_reality_score(self, evidence_items: List[EvidenceItem]) -> float:
+def _calculate_cleanup_reality_score(self, evidence_items: List[EvidenceItem]) -> float:
         """Calculate reality score for CLAUDE.md cleanup"""
         if not evidence_items:
             return 0.0
@@ -385,11 +382,11 @@ class RealityValidationSystem:
             
             elif item.evidence_type == "stakeholder_feedback":
                 # Stakeholder feedback
-                scores.append(0.80)
+                scores.append(0.8)
         
         return statistics.mean(scores) if scores else 0.5
 
-    def _calculate_decomposition_reality_score(self, evidence_items: List[EvidenceItem]) -> float:
+def _calculate_decomposition_reality_score(self, evidence_items: List[EvidenceItem]) -> float:
         """Calculate reality score for god object decomposition"""
         if not evidence_items:
             return 0.0
@@ -416,10 +413,10 @@ class RealityValidationSystem:
                     else:
                         compliance_score = 0
                         
-                    if compliance_score >= 0.95:
-                        scores.append(0.95)
-                    elif compliance_score >= 0.90:
-                        scores.append(0.85)
+                    if compliance_score >= NASA_POT10_TARGET_COMPLIANCE_THRESHOLD:
+                        scores.append(NASA_POT10_TARGET_COMPLIANCE_THRESHOLD)
+                    elif compliance_score >= REGULATORY_FACTUALITY_REQUIREMENT:
+                        scores.append(QUALITY_GATE_MINIMUM_PASS_RATE)
                     else:
                         scores.append(0.70)
             
@@ -432,11 +429,11 @@ class RealityValidationSystem:
                     
                     # Check for genuine decomposition vs superficial splitting
                     if reduction > 0.30 and complexity_improvement >= 0.15:
-                        scores.append(0.90)  # Genuine decomposition
+                        scores.append(REGULATORY_FACTUALITY_REQUIREMENT)  # Genuine decomposition
                     elif reduction > 0.20 and complexity_improvement >= 0.08:
-                        scores.append(0.75)  # Good decomposition
-                    elif reduction > 0.15:
-                        scores.append(0.60)  # Some improvement
+                        scores.append(THEATER_DETECTION_WARNING_THRESHOLD)  # Good decomposition
+                    elif reduction > TAKE_PROFIT_PERCENTAGE:
+                        scores.append(THEATER_DETECTION_FAILURE_THRESHOLD)  # Some improvement
                     else:
                         scores.append(0.40)  # Minimal improvement
             
@@ -450,7 +447,7 @@ class RealityValidationSystem:
         
         return statistics.mean(scores) if scores else 0.5
 
-    def _identify_consolidation_theater_risks(self, evidence: Dict) -> List[str]:
+def _identify_consolidation_theater_risks(self, evidence: Dict) -> List[str]:
         """Identify theater risk factors in consolidation"""
         risks = []
         
@@ -475,7 +472,7 @@ class RealityValidationSystem:
         
         return risks
 
-    def _identify_cleanup_theater_risks(self, evidence: Dict) -> List[str]:
+def _identify_cleanup_theater_risks(self, evidence: Dict) -> List[str]:
         """Identify theater risk factors in CLAUDE.md cleanup"""
         risks = []
         
@@ -490,12 +487,12 @@ class RealityValidationSystem:
         
         if "integration_metrics" in evidence:
             int_data = evidence["integration_metrics"]
-            if int_data.get("effectiveness_score", 0) < 0.60:
+            if int_data.get("effectiveness_score", 0) < THEATER_DETECTION_FAILURE_THRESHOLD:
                 risks.append("Low integration effectiveness despite cleanup efforts")
         
         return risks
 
-    def _identify_decomposition_theater_risks(self, evidence: Dict) -> List[str]:
+def _identify_decomposition_theater_risks(self, evidence: Dict) -> List[str]:
         """Identify theater risk factors in god object decomposition"""
         risks = []
         
@@ -528,7 +525,7 @@ class RealityValidationSystem:
         
         return risks
 
-    def _identify_consolidation_benefits(self, evidence: Dict) -> List[str]:
+def _identify_consolidation_benefits(self, evidence: Dict) -> List[str]:
         """Identify genuine benefits from consolidation"""
         benefits = []
         
@@ -551,7 +548,7 @@ class RealityValidationSystem:
         
         return benefits
 
-    def _identify_cleanup_benefits(self, evidence: Dict) -> List[str]:
+def _identify_cleanup_benefits(self, evidence: Dict) -> List[str]:
         """Identify genuine benefits from cleanup"""
         benefits = []
         
@@ -571,7 +568,7 @@ class RealityValidationSystem:
         
         return benefits
 
-    def _identify_decomposition_benefits(self, evidence: Dict) -> List[str]:
+def _identify_decomposition_benefits(self, evidence: Dict) -> List[str]:
         """Identify genuine benefits from decomposition"""
         benefits = []
         
@@ -610,7 +607,7 @@ class RealityValidationSystem:
         
         return benefits
 
-    def _determine_verdict(self, reality_score: float, theater_risk_count: int) -> str:
+def _determine_verdict(self, reality_score: float, theater_risk_count: int) -> str:
         """Determine final validation verdict"""
         if reality_score >= 0.85 and theater_risk_count <= 1:
             return "GENUINE"
@@ -623,7 +620,7 @@ class RealityValidationSystem:
         else:
             return "THEATER"
 
-    def _generate_recommendation(self, verdict: str, theater_risks: List[str]) -> str:
+def _generate_recommendation(self, verdict: str, theater_risks: List[str]) -> str:
         """Generate recommendation based on validation verdict"""
         if verdict == "GENUINE":
             return "Proceed with confidence - genuine improvements validated with strong evidence"
@@ -636,7 +633,7 @@ class RealityValidationSystem:
         else:  # THEATER
             return "Reject claims - improvements appear to be theater without genuine benefit, require complete re-validation"
 
-    def validate_system_wide_reality(self) -> Dict[str, Any]:
+def validate_system_wide_reality(self) -> Dict[str, Any]:
         """
         Validate reality across all three phases for comprehensive system assessment
         """
@@ -723,7 +720,7 @@ class RealityValidationSystem:
         logger.info(f"System-wide validation complete: {system_verdict} (Reality Score: {system_reality_score:.3f})")
         return system_validation
 
-    def _collect_all_phase_evidence(self) -> Dict[str, Dict]:
+def _collect_all_phase_evidence(self) -> Dict[str, Dict]:
         """Collect evidence artifacts from all completed phases"""
         evidence = {}
         
@@ -796,7 +793,7 @@ class RealityValidationSystem:
         
         return evidence
 
-    def _generate_system_recommendations(self, assessments: List[RealityAssessment], verdict: str) -> List[str]:
+def _generate_system_recommendations(self, assessments: List[RealityAssessment], verdict: str) -> List[str]:
         """Generate system-wide recommendations"""
         recommendations = []
         
@@ -841,7 +838,7 @@ class RealityValidationSystem:
         
         return recommendations
 
-    def _assess_success_criteria(self, assessments: List[RealityAssessment], reality_score: float) -> Dict[str, bool]:
+def _assess_success_criteria(self, assessments: List[RealityAssessment], reality_score: float) -> Dict[str, bool]:
         """Assess achievement of success criteria"""
         return {
             "all_categories_deployed": len(assessments) >= 3,  # All 3 phases
@@ -851,11 +848,11 @@ class RealityValidationSystem:
             "mission_success": (
                 reality_score >= 0.80 and 
                 len(assessments) >= 3 and 
-                sum(len(a.theater_risk_factors) for a in assessments) <= 10
+                sum(len(a.theater_risk_factors) for a in assessments) <= MAXIMUM_FUNCTION_PARAMETERS
             )
         }
 
-    def _determine_stakeholder_confidence(self, reality_score: float, theater_risks: int) -> str:
+def _determine_stakeholder_confidence(self, reality_score: float, theater_risks: int) -> str:
         """Determine stakeholder confidence level"""
         if reality_score >= 0.85 and theater_risks <= 3:
             return "high"
@@ -864,7 +861,7 @@ class RealityValidationSystem:
         else:
             return "low"
 
-    def _assess_evidence_quality(self, assessments: List[RealityAssessment]) -> Dict[str, Any]:
+def _assess_evidence_quality(self, assessments: List[RealityAssessment]) -> Dict[str, Any]:
         """Assess overall evidence quality"""
         total_evidence_items = sum(len(a.evidence_items) for a in assessments)
         high_confidence_items = sum(len([e for e in a.evidence_items if e.confidence >= 0.85]) for a in assessments)
@@ -876,7 +873,6 @@ class RealityValidationSystem:
             "evidence_diversity": len(set(e.evidence_type for a in assessments for e in a.evidence_items)),
             "evidence_completeness": min(1.0, total_evidence_items / 10)  # Target 10+ evidence items
         }
-
 
 if __name__ == "__main__":
     # Initialize reality validation system

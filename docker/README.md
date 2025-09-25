@@ -13,13 +13,13 @@ This directory contains Docker configurations for the SPEK Enhanced Development 
 ### File Structure
 ```
 docker/
-├── compose.desktop.yaml       # Main Docker Compose configuration (V2 format)
-├── docker-compose.desktop.yml # Legacy filename (symlink to compose.desktop.yaml)
-├── bytebot/
-│   ├── .env.example           # Environment variables template
-│   ├── nginx.conf             # Evidence collector configuration
-│   └── init-scripts/          # Database initialization
-└── README.md                  # This file
+ compose.desktop.yaml       # Main Docker Compose configuration (V2 format)
+ docker-compose.desktop.yml # Legacy filename (symlink to compose.desktop.yaml)
+ bytebot/
+    .env.example           # Environment variables template
+    nginx.conf             # Evidence collector configuration
+    init-scripts/          # Database initialization
+ README.md                  # This file
 ```
 
 ## Quick Start
@@ -148,10 +148,10 @@ Desktop automation agents are registered in:
 Quality gate evidence is collected in:
 ```
 .claude/.artifacts/desktop/
-├── screenshots/
-├── logs/
-├── audit/
-└── integration-test-report.json
+ screenshots/
+ logs/
+ audit/
+ integration-test-report.json
 ```
 
 ## Production Deployment
@@ -224,7 +224,7 @@ For issues with:
 
 ---
 
-**Integration Status**: ✅ PRODUCTION READY (100% score)
+**Integration Status**:  PRODUCTION READY (100% score)
 **Last Updated**: 2024-09-18
 **Docker Desktop Version**: 24.0.2
 **Docker Compose Version**: v2.18.1

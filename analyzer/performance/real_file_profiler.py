@@ -8,17 +8,18 @@ unified visitor efficiency claims with concrete evidence.
 Provides statistical validation of the 85-90% AST traversal reduction claim.
 """
 
-import ast
-import time
-import tracemalloc
-import threading
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass, field
 from pathlib import Path
-from statistics import mean, median, stdev
 from typing import Dict, List, Optional, Tuple, Any
+import ast
 import json
 import sys
+import time
+
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass, field
+from statistics import mean, median, stdev
+import threading
+import tracemalloc
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
@@ -29,7 +30,6 @@ from analyzer.detectors import (
     PositionDetector, MagicLiteralDetector, AlgorithmDetector, GodObjectDetector,
     TimingDetector, ConventionDetector, ValuesDetector, ExecutionDetector
 )
-
 
 @dataclass
 class DetailedTraversalMetrics:
@@ -62,14 +62,13 @@ class DetailedTraversalMetrics:
     data_completeness_rate: float = 0.0
     detector_compatibility_rate: float = 0.0
 
-
 class RealFileProfiler:
     """
     Performance profiler using real project source files for validation.
     Provides concrete evidence for unified visitor efficiency claims.
     """
     
-    def __init__(self, project_root: Path):
+def __init__(self, project_root: Path):
         """Initialize profiler with project root."""
         assert isinstance(project_root, Path), "project_root must be Path"
         
@@ -82,7 +81,7 @@ class RealFileProfiler:
             TimingDetector, ConventionDetector, ValuesDetector, ExecutionDetector
         ]
     
-    def collect_real_source_files(self) -> Dict[str, List[Path]]:
+def collect_real_source_files(self) -> Dict[str, List[Path]]:
         """
         Collect real Python source files from project by size category.
         
@@ -125,8 +124,8 @@ class RealFileProfiler:
         
         return categorized_files
     
-    def measure_traversal_reduction_concrete(self, source_files: List[Path], 
-                                           iterations: int = 3) -> DetailedTraversalMetrics:
+def measure_traversal_reduction_concrete(self, source_files: List[Path],
+                                            iterations: int = 3) -> DetailedTraversalMetrics:
         """
         Measure concrete AST traversal reduction with real files.
         
@@ -168,7 +167,7 @@ class RealFileProfiler:
         # Calculate aggregate metrics
         return self._aggregate_measurements(measurements)
     
-    def _measure_unified_traversal(self, source_files: List[Path]) -> Dict[str, Any]:
+def _measure_unified_traversal(self, source_files: List[Path]) -> Dict[str, Any]:
         """
         Measure performance of unified visitor approach on real files.
         """
@@ -205,7 +204,6 @@ class RealFileProfiler:
                                 detector.analyze_from_data(ast_data)
                             except Exception as e:
                                 # Some detectors may not fully implement analyze_from_data
-                                pass
                     
                     self.detector_pool.release_all_detectors(detectors)
                 
@@ -227,7 +225,7 @@ class RealFileProfiler:
             'files_processed': files_processed
         }
     
-    def _measure_separate_traversal(self, source_files: List[Path]) -> Dict[str, Any]:
+def _measure_separate_traversal(self, source_files: List[Path]) -> Dict[str, Any]:
         """
         Measure performance of separate detector approach on real files.
         """
@@ -258,7 +256,6 @@ class RealFileProfiler:
                         total_traversals += 1
                     except Exception as e:
                         # Some detector classes may have initialization issues
-                        pass
                 
                 files_processed += 1
                 
@@ -278,7 +275,7 @@ class RealFileProfiler:
             'files_processed': files_processed
         }
     
-    def _aggregate_measurements(self, measurements: List[DetailedTraversalMetrics]) -> DetailedTraversalMetrics:
+def _aggregate_measurements(self, measurements: List[DetailedTraversalMetrics]) -> DetailedTraversalMetrics:
         """
         Aggregate multiple measurement iterations into final metrics.
         """
@@ -314,7 +311,7 @@ class RealFileProfiler:
         
         return aggregated
     
-    def validate_ast_data_completeness_real(self, source_files: List[Path]) -> Dict[str, Any]:
+def validate_ast_data_completeness_real(self, source_files: List[Path]) -> Dict[str, Any]:
         """
         Validate ASTNodeData completeness using real source files.
         """
@@ -363,7 +360,7 @@ class RealFileProfiler:
         
         return validation_report
     
-    def _validate_detector_data(self, ast_data: ASTNodeData, validation_dict: Dict[str, Dict[str, int]]):
+def _validate_detector_data(self, ast_data: ASTNodeData, validation_dict: Dict[str, Dict[str, int]]):
         """
         Validate that AST data contains the required information for each detector.
         """
@@ -407,7 +404,7 @@ class RealFileProfiler:
             validation_dict['execution']['files_with_data'] += 1
             validation_dict['execution']['total_dependencies_found'] += len(ast_data.order_dependencies)
     
-    def generate_evidence_report(self, metrics: DetailedTraversalMetrics, 
+def generate_evidence_report(self, metrics: DetailedTraversalMetrics,
                                 validation_data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Generate comprehensive evidence report for unified visitor efficiency.
@@ -493,7 +490,6 @@ class RealFileProfiler:
             }
         }
 
-
 def run_real_file_audit(project_root: Path = None) -> Dict[str, Any]:
     """
     Execute comprehensive performance audit using real project files.
@@ -518,10 +514,7 @@ def run_real_file_audit(project_root: Path = None) -> Dict[str, Any]:
         test_files.extend(files[:3])
     
     if not test_files:
-        print("ERROR: No suitable source files found for testing")
         return {'error': 'No test files available'}
-    
-    print(f"Selected {len(test_files)} files for comprehensive testing")
     
     # Execute comprehensive measurements
     print("1. Measuring AST traversal reduction with real files...")
@@ -534,7 +527,6 @@ def run_real_file_audit(project_root: Path = None) -> Dict[str, Any]:
     evidence_report = profiler.generate_evidence_report(traversal_metrics, validation_data)
     
     return evidence_report
-
 
 if __name__ == "__main__":
     # Execute real file audit

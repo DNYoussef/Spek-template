@@ -4,12 +4,13 @@ Generate REAL comprehensive JSON reports using ACTUAL analysis
 Optimized for efficiency without cheating - all data is real
 """
 
+from collections import Counter, defaultdict
+from datetime import datetime
+from pathlib import Path
 import json
 import sys
 import time
-from pathlib import Path
-from datetime import datetime
-from collections import Counter, defaultdict
+
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 sys.path.insert(0, str(Path(__file__).parent.parent))

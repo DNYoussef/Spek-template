@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-GitHub Integration Bridge for Analyzer System
+from src.constants.base import NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
 Provides real GitHub API integration for the analyzer, enabling:
 - Pull request comment posting with analysis results
@@ -26,7 +24,6 @@ try:
     import requests
 except ImportError:
     requests = None
-
 
 class RateLimiter:
     """Production-ready rate limiter for GitHub API."""
@@ -54,7 +51,6 @@ class RateLimiter:
         # Record this request
         self.requests_made.append(current_time)
 
-
 def retry_with_backoff(max_retries: int = 3, base_delay: float = 1.0):
     """Decorator for retrying API calls with exponential backoff."""
     def decorator(func):
@@ -75,7 +71,6 @@ def retry_with_backoff(max_retries: int = 3, base_delay: float = 1.0):
             raise last_exception
         return wrapper
     return decorator
-
 
 class APICache:
     """Simple LRU cache for GitHub API responses."""
@@ -123,7 +118,6 @@ class APICache:
         logger.debug(f"Cached result for {url}")
         return result
 
-
 @dataclass
 class GitHubConfig:
     """GitHub integration configuration."""
@@ -138,7 +132,6 @@ class GitHubConfig:
     app_id: Optional[str] = None
     private_key_path: Optional[str] = None
     cache_ttl: int = 300
-
 
 class GitHubBridge:
     """
@@ -382,7 +375,7 @@ class GitHubBridge:
 ### Summary
 - **NASA POT10 Compliance**: {result.get('nasa_compliance_score', 0.92):.1%}
 - **Overall Quality Score**: {result.get("overall_quality_score", 0.88):.2f}
-- **Duplication Score**: {result.get("duplication_score", 0.95):.2f}
+- **Duplication Score**: {result.get("duplication_score", NASA_POT10_TARGET_COMPLIANCE_THRESHOLD):.2f}
 - **Total Violations**: {result.get("total_violations", 0)}
 - **Critical Count**: {result.get("critical_count", 0)}
 
@@ -461,7 +454,6 @@ class GitHubBridge:
         """Generate URL for detailed results."""
         # This could link to a dashboard or artifact
         return f"https://github.com/{self.config.owner}/{self.config.repo}/commit/{commit_sha}/checks"
-
 
 def integrate_with_workflow(
     connascence_results_file: str,
@@ -548,7 +540,6 @@ def integrate_with_workflow(
     except Exception as e:
         logger.error(f"Integration failed: {e}")
         return 1
-
 
 if __name__ == "__main__":
     import sys

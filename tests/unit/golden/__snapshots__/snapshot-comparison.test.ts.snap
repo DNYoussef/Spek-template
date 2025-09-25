@@ -1,0 +1,289 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Golden Master Snapshots API Response Snapshots matches snapshot for single resource response 1`] = `
+{
+  "data": {
+    "email": "alice@example.com",
+    "id": 1,
+    "permissions": [
+      "read",
+      "write",
+    ],
+    "profile": {
+      "firstName": "Alice",
+      "lastName": "Smith",
+    },
+  },
+  "metadata": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440000",
+    "timestamp": "2025-09-24T00:00:00.000Z",
+    "version": "1.0.0",
+  },
+  "status": "success",
+}
+`;
+
+exports[`Golden Master Snapshots API Response Snapshots matches snapshot for user list response 1`] = `
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Alice",
+      "role": "admin",
+    },
+    {
+      "id": 2,
+      "name": "Bob",
+      "role": "user",
+    },
+  ],
+  "metadata": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440000",
+    "timestamp": "2025-09-24T00:00:00.000Z",
+    "version": "1.0.0",
+  },
+  "status": "success",
+}
+`;
+
+exports[`Golden Master Snapshots Complex Data Structure Snapshots matches snapshot for nested configuration tree 1`] = `
+{
+  "root": {
+    "features": {
+      "auth": {
+        "enabled": true,
+        "providers": [
+          "local",
+          "oauth",
+        ],
+      },
+      "cache": {
+        "enabled": true,
+        "ttl": 3600,
+      },
+    },
+    "services": {
+      "api": {
+        "middleware": [
+          "cors",
+          "helmet",
+          "compression",
+        ],
+        "port": 3000,
+        "routes": [
+          "/api/v1/users",
+          "/api/v1/posts",
+        ],
+      },
+      "database": {
+        "host": "localhost",
+        "pool": {
+          "max": 10,
+          "min": 2,
+        },
+        "port": 5432,
+      },
+    },
+  },
+}
+`;
+
+exports[`Golden Master Snapshots Complex Data Structure Snapshots matches snapshot for workflow execution result 1`] = `
+{
+  "id": "wf-123",
+  "output": {
+    "failed": 2,
+    "processed": 100,
+    "success": 98,
+  },
+  "status": "completed",
+  "steps": [
+    {
+      "duration": 120,
+      "id": 1,
+      "name": "validate",
+      "status": "passed",
+    },
+    {
+      "duration": 450,
+      "id": 2,
+      "name": "process",
+      "status": "passed",
+    },
+    {
+      "duration": 80,
+      "id": 3,
+      "name": "notify",
+      "status": "passed",
+    },
+  ],
+  "totalDuration": 650,
+}
+`;
+
+exports[`Golden Master Snapshots Component Rendering Snapshots matches snapshot for button component props 1`] = `
+{
+  "ariaLabel": "Submit form",
+  "className": "btn-submit",
+  "disabled": false,
+  "label": "Submit",
+  "onClick": "[Function]",
+  "variant": "primary",
+}
+`;
+
+exports[`Golden Master Snapshots Component Rendering Snapshots matches snapshot for form component structure 1`] = `
+{
+  "fields": [
+    {
+      "label": "Email Address",
+      "name": "email",
+      "required": true,
+      "type": "email",
+    },
+    {
+      "label": "Password",
+      "name": "password",
+      "required": true,
+      "type": "password",
+    },
+    {
+      "label": "Remember me",
+      "name": "remember",
+      "required": false,
+      "type": "checkbox",
+    },
+  ],
+  "submitButton": {
+    "label": "Sign In",
+    "variant": "primary",
+  },
+  "validation": {
+    "email": [
+      "required",
+      "email",
+    ],
+    "password": [
+      "required",
+      "minLength:8",
+    ],
+  },
+}
+`;
+
+exports[`Golden Master Snapshots Configuration Output Snapshots matches snapshot for development configuration 1`] = `
+{
+  "environment": "development",
+  "features": [
+    "debug-mode",
+    "hot-reload",
+    "verbose-logging",
+  ],
+  "settings": {
+    "cache": false,
+    "debug": true,
+    "verbose": true,
+  },
+  "timestamp": "2025-09-24T00:00:00.000Z",
+  "version": "1.0.0",
+}
+`;
+
+exports[`Golden Master Snapshots Configuration Output Snapshots matches snapshot for production configuration 1`] = `
+{
+  "environment": "production",
+  "features": [
+    "caching",
+    "compression",
+    "monitoring",
+  ],
+  "settings": {
+    "cache": true,
+    "debug": false,
+    "verbose": false,
+  },
+  "timestamp": "2025-09-24T00:00:00.000Z",
+  "version": "1.0.0",
+}
+`;
+
+exports[`Golden Master Snapshots Error Message Snapshots matches snapshot for authentication error 1`] = `
+{
+  "error": {
+    "code": "AUTH_ERROR",
+    "details": undefined,
+    "message": "Invalid credentials",
+    "statusCode": 500,
+  },
+  "metadata": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440000",
+    "timestamp": "2025-09-24T00:00:00.000Z",
+  },
+}
+`;
+
+exports[`Golden Master Snapshots Error Message Snapshots matches snapshot for server error 1`] = `
+{
+  "error": {
+    "code": "INTERNAL_ERROR",
+    "details": {
+      "code": "DB_CONNECTION_FAILED",
+      "message": "Could not connect to database",
+    },
+    "message": "An unexpected error occurred",
+    "statusCode": 500,
+  },
+  "metadata": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440000",
+    "timestamp": "2025-09-24T00:00:00.000Z",
+  },
+}
+`;
+
+exports[`Golden Master Snapshots Error Message Snapshots matches snapshot for validation error 1`] = `
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "details": [
+      {
+        "field": "email",
+        "issue": "Invalid email format",
+      },
+      {
+        "field": "password",
+        "issue": "Must be at least 8 characters",
+      },
+    ],
+    "message": "Input validation failed",
+    "statusCode": 400,
+  },
+  "metadata": {
+    "requestId": "550e8400-e29b-41d4-a716-446655440000",
+    "timestamp": "2025-09-24T00:00:00.000Z",
+  },
+}
+`;
+
+exports[`Golden Master Snapshots Snapshot Update Scenarios detects changes when data structure changes: structure-v1 1`] = `
+{
+  "features": [
+    "feature1",
+    "feature2",
+  ],
+  "version": "1.0.0",
+}
+`;
+
+exports[`Golden Master Snapshots Snapshot Update Scenarios detects changes when data structure changes: structure-v2 1`] = `
+{
+  "deprecated": [
+    "oldFeature",
+  ],
+  "features": [
+    "feature1",
+    "feature2",
+    "feature3",
+  ],
+  "version": "2.0.0",
+}
+`;

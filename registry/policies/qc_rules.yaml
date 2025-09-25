@@ -1,0 +1,297 @@
+# Quality Control Rules v2.0
+# Integrates with existing NASA POT10, Connascence, and Enterprise analyzers
+
+# Core validation rules
+validation:
+  placeholder: "TK CONFIRM"
+
+  # Eight Notion-style Prompting Principles
+  notion_principles:
+    scope:
+      description: "Only modify allowed_paths - never create outside boundaries"
+      allowed_paths:
+        - "/src"
+        - "/tests"
+        - "/docs"
+        - "/config"
+        - "/scripts"
+        - ".claude/.artifacts"
+      forbidden_paths:
+        - "/"  # Never save to root
+        - "/node_modules"
+        - "/.git"
+
+    define_done:
+      description: "Every operation must append Receipt with explicit status"
+      required_receipt_fields:
+        - "status"  # OK | PARTIAL | BLOCKED
+        - "reason_if_blocked"
+        - "mutations"
+        - "models"
+        - "tools_used"
+      status_rules:
+        - "OK only if all validations pass"
+        - "PARTIAL if placeholder inserted"
+        - "BLOCKED if critical error"
+
+    tables_over_text:
+      description: "Use structured data formats over prose"
+      preferred_formats:
+        - "JSON for data exchange"
+        - "YAML for configuration"
+        - "Markdown tables for reports"
+        - "CSV for bulk data"
+      avoid:
+        - "Long paragraphs for data"
+        - "Unstructured lists"
+        - "Prose descriptions of numbers"
+
+    quality_checks:
+      description: "Validate length, required fields, and numeric facts"
+      checks:
+        - "Field length validation"
+        - "Required field presence"
+        - "Numeric range validation"
+        - "Type checking"
+        - "Reference integrity"
+      numeric_validation:
+        min_precision: 2  # decimal places
+        require_units: true
+        ban_approximations: ["about", "around", "roughly", "approximately"]
+
+    no_duplicates:
+      description: "Upsert by key - never create duplicates"
+      upsert_strategy:
+        - "Check existence by primary key"
+        - "Update if exists, insert if not"
+        - "Maintain version history"
+        - "Preserve idempotency"
+      keys:
+        prd: "name"
+        task: "title"
+        prompt: "prompt_id"
+
+    run_log:
+      description: "Structured logging with footer discipline"
+      required_log_fields:
+        - "timestamp"
+        - "agent_model"
+        - "change_summary"
+        - "artifacts_changed"
+        - "status"
+        - "cost_usd"
+        - "content_hash"
+      footer_rules:
+        - "20 row maximum rotation"
+        - "Append-only semantics"
+        - "SHA-256 content hashing"
+        - "Version increment on change"
+
+    plain_language:
+      description: "Exact counts and facts - no fluff"
+      requirements:
+        - "Use exact numbers, not ranges"
+        - "Specific file paths, not descriptions"
+        - "Concrete status, not suggestions"
+        - "Direct statements, not hedging"
+      banned_phrases:
+        - "It seems that"
+        - "Perhaps we should"
+        - "Might want to consider"
+        - "Could potentially"
+        - "May be able to"
+
+    no_invention:
+      description: "Insert 'TK CONFIRM' if data unsupported"
+      placeholder_triggers:
+        - "Missing required data"
+        - "Uncertain values"
+        - "Unverified information"
+        - "Incomplete specifications"
+      placeholder_format: "TK CONFIRM"
+      validation: "Status must be PARTIAL if placeholder present"
+
+  banned_words:
+    - "delve"
+    - "plethora"
+    - "cutting-edge"
+    - "revolutionary"
+    - "game-changing"
+    - "synergy"
+    - "leverage"
+    - "paradigm shift"
+
+  # Length constraints by field type
+  length_limits:
+    goal: {min: 20, max: 400}
+    problem: {min: 20, max: 600}
+    acceptance_test: {min: 10, max: 200}
+    change_summary: {min: 5, max: 80}
+    cover_letter: {min: 100, max: 1000}
+
+  # Required fields by schema type
+  required_fields:
+    prd: ["name", "goal", "problem", "acceptance_tests", "owner", "version", "status"]
+    task: ["title", "team", "linked_prd", "status", "priority", "version"]
+    cover_letter: ["company", "role", "one_numeric_achievement"]
+    interview_score: ["candidate", "question", "clarity", "impact", "specificity", "overall"]
+
+  # Numeric constraints
+  numeric_requirements:
+    prd_acceptance_tests: {min: 1, max: 10}
+    task_priority: {allowed: ["p0", "p1", "p2"]}
+    interview_scores: {min: 0, max: 5}
+    overall_score: {min: 0, max: 100}
+    cost_usd: {min: 0, max: 1000}
+
+# NASA Power of Ten compliance thresholds
+nasa_pot10:
+  enabled: true
+  strict_mode: false  # Set true for safety-critical systems
+
+  thresholds:
+    max_function_length: 60        # Lines per function
+    max_cyclomatic_complexity: 10  # Complexity score
+    max_nesting_depth: 4           # Loop/conditional nesting
+    max_recursion_depth: 0         # 0 = no recursion allowed
+    heap_allocation_allowed: true  # False for embedded systems
+    goto_allowed: false            # Never allow goto
+
+  enforcement:
+    block_on_violation: false      # Set true for CI/CD gates
+    require_static_analysis: true
+    require_bounds_checking: true
+
+# Connascence detection thresholds
+connascence:
+  enabled: true
+
+  thresholds:
+    max_name_coupling: 5         # Max references to same name
+    max_position_coupling: 3     # Max positional parameters
+    max_meaning_coupling: 2      # Max magic literals
+    max_algorithm_coupling: 1    # Max duplicated algorithms
+    max_execution_coupling: 0    # No order dependencies
+
+  god_object_limits:
+    max_methods: 20
+    max_attributes: 15
+    max_lines: 500
+    max_dependencies: 10
+
+# Enterprise compliance frameworks
+enterprise:
+  soc2_enabled: true
+  iso27001_enabled: true
+  nist_ssdf_enabled: true
+  dfars_enabled: true
+
+  evidence_retention_days: 90
+  audit_trail_required: true
+
+  security_gates:
+    no_hardcoded_secrets: true
+    no_vulnerable_dependencies: true
+    require_encryption_at_rest: true
+    require_signed_commits: false  # Set true for high security
+
+# Actions based on validation results
+actions:
+  on_missing_required:
+    - "set:status=needs_fix"
+    - "insert_placeholder"
+    - "warn:missing_required_field"
+
+  on_violate_length:
+    - "set:status=needs_fix"
+    - "warn:length_violation"
+    - "suggest:truncate_or_split"
+
+  on_banned_word:
+    - "warn:banned_word_detected"
+    - "suggest:alternative_phrasing"
+
+  on_nasa_violation:
+    - "set:status=PARTIAL"
+    - "log:nasa_pot10_violation"
+    - "suggest:refactor_recommendation"
+
+  on_connascence_violation:
+    - "warn:connascence_detected"
+    - "suggest:decoupling_strategy"
+    - "track:technical_debt"
+
+  on_security_violation:
+    - "set:status=BLOCKED"
+    - "alert:security_team"
+    - "block:deployment"
+
+# Continuous validation triggers
+continuous_validation:
+  validate_on_save: true
+  validate_on_commit: true
+  validate_on_pr: true
+  validate_on_deploy: true
+
+  # Real-time validation during agent execution
+  realtime_checks:
+    - schema_validation      # JSON schema compliance
+    - grounding_validation   # Claims supported by inputs
+    - consistency_check      # No contradictions
+    - coverage_check        # All inputs referenced
+
+  # Batch validation in CI/CD
+  batch_checks:
+    - nasa_pot10_full      # Complete NASA analysis
+    - connascence_full     # Full connascence scan
+    - security_scan        # Security vulnerability scan
+    - performance_profile  # Performance benchmarks
+
+# SLO thresholds for quality gates
+quality_gates:
+  pass_thresholds:
+    schema_compliance: 1.0      # 100% required
+    nasa_compliance: 0.92       # 92% minimum
+    connascence_score: 0.85     # 85% minimum
+    security_score: 0.95        # 95% minimum
+    test_coverage: 0.80         # 80% minimum
+
+  degradation_allowed:
+    schema_compliance: 0.0      # No degradation
+    nasa_compliance: 0.02       # 2% degradation
+    connascence_score: 0.05     # 5% degradation
+    security_score: 0.0         # No degradation
+    test_coverage: 0.05         # 5% degradation
+
+# Integration with existing analyzers
+analyzer_integration:
+  # Maps to analyzer/unified_analyzer.py
+  unified_analyzer:
+    enabled: true
+    config_path: "analyzer/config/unified_config.yaml"
+    cache_enabled: true
+    parallel_processing: true
+
+  # Maps to analyzer/nasa_engine/nasa_analyzer.py
+  nasa_analyzer:
+    enabled: true
+    config_path: "policy/presets/nasa_power_of_ten.yml"
+    strict_mode: false
+
+  # Maps to analyzer/connascence_analyzer.py
+  connascence_analyzer:
+    enabled: true
+    detector_pool_size: 8
+    use_ast_cache: true
+
+  # Maps to analyzer/enterprise/compliance/
+  compliance_orchestrator:
+    enabled: true
+    frameworks: ["SOC2", "ISO27001", "NIST-SSDF", "DFARS"]
+    evidence_path: ".claude/.artifacts/compliance/"
+
+  # Maps to src/security/theater_detector.py
+  theater_detector:
+    enabled: true
+    threshold: 60  # Score above 60 = likely theater
+    auto_reject_theater: true

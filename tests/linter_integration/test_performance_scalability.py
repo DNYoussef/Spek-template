@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Performance and Scalability Tests
-Comprehensive test suite for performance benchmarking and scalability validation of the linter integration system.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 import pytest
 import asyncio
@@ -29,7 +25,6 @@ from test_mesh_coordination import MeshQueenCoordinator
 from test_tool_management import ToolManagementSystem
 from test_real_time_processing import MockRealTimeLinterIngestionEngine
 
-
 @dataclass
 class PerformanceMetrics:
     """Performance metrics data class"""
@@ -40,7 +35,6 @@ class PerformanceMetrics:
     correlations_per_second: float
     files_per_second: float
     throughput_score: float
-
 
 class PerformanceBenchmark:
     """Performance benchmarking utility"""
@@ -91,8 +85,8 @@ class PerformanceBenchmark:
         
         # Calculate throughput score (composite metric)
         throughput_score = (violations_per_second * 0.4 + 
-                           correlations_per_second * 0.3 + 
-                           files_per_second * 0.3)
+                            correlations_per_second * 0.3 + 
+                            files_per_second * 0.3)
         
         metrics = PerformanceMetrics(
             execution_time=execution_time,
@@ -122,7 +116,6 @@ class PerformanceBenchmark:
             "throughput_ratio": metrics.throughput_score / max(self.baseline_metrics.throughput_score, 0.001),
             "cpu_ratio": metrics.cpu_usage / max(self.baseline_metrics.cpu_usage, 0.001)
         }
-
 
 class TestMeshCoordinationPerformance:
     """Performance tests for mesh coordination system"""
@@ -203,8 +196,7 @@ class TestMeshCoordinationPerformance:
         
         # Should handle high message throughput
         assert messages_per_second > 1000  # Over 1000 messages/second
-        assert processing_time < 10.0  # Under 10 seconds total
-
+        assert processing_time < 10.0  # Under MAXIMUM_FUNCTION_PARAMETERS seconds total
 
 class TestToolManagementPerformance:
     """Performance tests for tool management system"""
@@ -287,7 +279,6 @@ class TestToolManagementPerformance:
         metrics = tool_manager.metrics[tool_id]
         assert metrics.totalExecutions == 1000
         assert metrics.averageExecutionTime > 0
-
 
 class TestRealTimeProcessingPerformance:
     """Performance tests for real-time processing"""
@@ -377,7 +368,6 @@ class TestRealTimeProcessingPerformance:
         violations_per_second = total_violations / processing_time
         assert violations_per_second > 50  # Over 50 violations/second total
 
-
 class TestFullPipelinePerformance:
     """Performance tests for complete pipeline"""
     
@@ -400,7 +390,6 @@ class TestFullPipelinePerformance:
             files = []
             for i in range(5):
                 file_path = Path(temp_dir) / f"test_{i}.py"
-                file_path.write_text(f"print('test {i}')\n" * 20)
                 files.append(str(file_path))
             
             # Measure baseline performance
@@ -529,7 +518,6 @@ class TestFullPipelinePerformance:
                 assert avg_cpu < 80.0  # Average under 80%
                 assert max_cpu < 100.0  # Never max out (completely)
 
-
 class TestPerformanceRegression:
     """Performance regression tests"""
     
@@ -537,7 +525,6 @@ class TestPerformanceRegression:
     def test_phase1_performance_baseline(self):
         """Test that Phase 2 doesn't regress Phase 1 performance"""
         # Phase 1 baseline: 3.6% improvement in JSON generation
-        # This test ensures Phase 2 doesn't slow down existing functionality
         
         # Simulate Phase 1 JSON generation
         data = {"violations": [{"file": "test.py", "line": 1} for _ in range(1000)]}
@@ -596,7 +583,6 @@ class Module{i}:
             assert files_per_second > 0.2  # Over 0.2 files/second
             assert violations_per_second > 1.0  # Over 1 violation/second
 
-
 class TestStressTests:
     """Stress tests for system limits"""
     
@@ -610,7 +596,6 @@ class TestStressTests:
         async def small_task():
             with tempfile.TemporaryDirectory() as temp_dir:
                 file_path = Path(temp_dir) / "test.py"
-                file_path.write_text("print('stress test')\n")
                 return await pipeline.execute_full_pipeline([str(file_path)])
         
         # Execute many tasks concurrently
@@ -662,7 +647,6 @@ class TestStressTests:
                 
             except MemoryError:
                 pytest.skip("System reached memory limits gracefully")
-
 
 if __name__ == "__main__":
     import logging

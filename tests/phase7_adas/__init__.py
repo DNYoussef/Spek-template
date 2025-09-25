@@ -1,7 +1,4 @@
 """
-ADAS Phase 7 Testing Suite
-Comprehensive safety-critical testing for Advanced Driver Assistance Systems.
-
 This module provides testing frameworks for:
 - Real-time performance validation
 - ISO 26262 ASIL-D safety compliance
@@ -15,6 +12,8 @@ Requirements:
 - Multi-sensor fusion accuracy > 95%
 - Object detection mAP > 85%
 """
+
+from src.constants.base import MINIMUM_TRADE_THRESHOLD
 
 __version__ = "1.0.0"
 __author__ = "ADAS Testing Team"
@@ -103,7 +102,7 @@ ADAS_TEST_CONFIG = {
         "sync_tolerance_ms": 1.0,
         "fusion_accuracy_threshold": 95.0,
         "min_sensors_for_fusion": 2,
-        "calibration_drift_threshold": 0.05
+        "calibration_drift_threshold": MINIMUM_TRADE_THRESHOLD
     },
     "perception": {
         "map_threshold": 85.0,

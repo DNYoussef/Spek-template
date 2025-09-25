@@ -24,9 +24,9 @@ logger = logging.getLogger(__name__)
 
 # Check if optimization components are available
 try:
-    from analyzer.optimization.optimization_engine import get_global_optimization_engine
-    from analyzer.optimization.incremental_analysis_engine import get_global_incremental_engine
-    from analyzer.optimization.file_cache import get_global_cache
+from analyzer.optimization.optimization_engine import get_global_optimization_engine
+from analyzer.optimization.incremental_analysis_engine import get_global_incremental_engine
+from analyzer.optimization.file_cache import get_global_cache
     OPTIMIZATION_COMPONENTS_AVAILABLE = True
 except ImportError:
     OPTIMIZATION_COMPONENTS_AVAILABLE = False
@@ -51,7 +51,6 @@ import os
 {imports_to_add}""")
 
 # Fix the escaped newlines - looking for literal \n followed by whitespace
-# This pattern matches the corrupted format where \n appears as literal text
 content = re.sub(r'\\n\s+', '\n        ', content)
 
 # Write the fixed content

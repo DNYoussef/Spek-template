@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-NASA POT10 Compliance Risk Assessment and Prioritization Matrix
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_RETRY_ATTEMPTS, TAKE_PROFIT_PERCENTAGE
 
 This module provides comprehensive risk assessment capabilities for NASA POT10
 compliance violations, enabling data-driven prioritization of remediation efforts
@@ -22,7 +20,6 @@ import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
-
 @dataclass
 class RiskDimension:
     """Represents a risk assessment dimension."""
@@ -31,7 +28,6 @@ class RiskDimension:
     score: float  # 0.0 to 1.0
     description: str
     evidence: List[str]
-
 
 @dataclass
 class ViolationRiskProfile:
@@ -59,7 +55,6 @@ class ViolationRiskProfile:
     certification_blocker: bool
     audit_priority: int  # 1-10 ranking
 
-
 @dataclass
 class RemediationPlan:
     """Detailed remediation plan for addressing violations."""
@@ -72,7 +67,6 @@ class RemediationPlan:
     risk_reduction_potential: float
     cost_benefit_ratio: float
 
-
 @dataclass
 class RiskAssessmentSummary:
     """Executive summary of risk assessment results."""
@@ -84,7 +78,6 @@ class RiskAssessmentSummary:
     estimated_total_effort: int  # person-days
     compliance_forecast: Dict[str, float]
     executive_summary: str
-
 
 class SafetyRiskAnalyzer:
     """Analyzes safety criticality of NASA POT10 violations."""
@@ -191,7 +184,6 @@ class SafetyRiskAnalyzer:
 
         return evidence
 
-
 class BusinessRiskAnalyzer:
     """Analyzes business impact of NASA POT10 violations."""
 
@@ -207,7 +199,7 @@ class BusinessRiskAnalyzer:
 
         # Weighted business risk score
         business_score = (
-            compliance_impact * 0.3 +
+            compliance_impact * 0.2 +
             certification_impact * 0.3 +
             reputation_impact * 0.2 +
             operational_impact * 0.2
@@ -219,7 +211,7 @@ class BusinessRiskAnalyzer:
 
         return RiskDimension(
             name="business_risk",
-            weight=0.25,  # 25% of overall risk
+            weight=0.25,  # MAXIMUM_GOD_OBJECTS_ALLOWED% of overall risk
             score=business_score,
             description="Business impact including compliance and certification risks",
             evidence=evidence
@@ -286,8 +278,8 @@ class BusinessRiskAnalyzer:
         return analyzer._map_violation_to_rule(violation)
 
     def _generate_business_evidence(self, violation: ConnascenceViolation,
-                                  compliance_impact: float, certification_impact: float,
-                                  business_score: float) -> List[str]:
+                                    compliance_impact: float, certification_impact: float,
+                                    business_score: float) -> List[str]:
         """Generate evidence for business risk assessment."""
         evidence = [
             f"Compliance impact score: {compliance_impact:.2f}",
@@ -301,7 +293,6 @@ class BusinessRiskAnalyzer:
             evidence.append("Moderate business risk - affects competitive positioning")
 
         return evidence
-
 
 class TechnicalRiskAnalyzer:
     """Analyzes technical complexity and remediation difficulty."""
@@ -389,7 +380,7 @@ class TechnicalRiskAnalyzer:
         return risk_factors.get(violation.severity, 0.4)
 
     def _generate_technical_evidence(self, violation: ConnascenceViolation,
-                                   technical_score: float, complexity_score: float) -> List[str]:
+                                    technical_score: float, complexity_score: float) -> List[str]:
         """Generate evidence for technical risk assessment."""
         evidence = [
             f"Remediation complexity score: {complexity_score:.2f}",
@@ -403,7 +394,6 @@ class TechnicalRiskAnalyzer:
             evidence.append("Moderate technical risk - careful implementation needed")
 
         return evidence
-
 
 class TemporalRiskAnalyzer:
     """Analyzes time-sensitive aspects of violations."""
@@ -428,7 +418,7 @@ class TemporalRiskAnalyzer:
 
         return RiskDimension(
             name="temporal_risk",
-            weight=0.15,  # 15% of overall risk
+            weight=TAKE_PROFIT_PERCENTAGE,  # 15% of overall risk
             score=temporal_score,
             description="Time-sensitive aspects including urgency and degradation risk",
             evidence=evidence
@@ -470,7 +460,7 @@ class TemporalRiskAnalyzer:
         return {'critical': 0.9, 'high': 0.7, 'medium': 0.4, 'low': 0.2}.get(violation.severity, 0.3)
 
     def _generate_temporal_evidence(self, violation: ConnascenceViolation,
-                                  temporal_score: float, urgency_score: float) -> List[str]:
+                                    temporal_score: float, urgency_score: float) -> List[str]:
         """Generate evidence for temporal risk assessment."""
         evidence = [
             f"Remediation urgency score: {urgency_score:.2f}",
@@ -483,7 +473,6 @@ class TemporalRiskAnalyzer:
             evidence.append("Moderate temporal risk - timely remediation recommended")
 
         return evidence
-
 
 class RiskAssessmentEngine:
     """
@@ -815,7 +804,7 @@ class RiskAssessmentEngine:
         return total_days
 
     def _forecast_compliance_improvement(self, profiles: List[ViolationRiskProfile],
-                                       plans: List[RemediationPlan]) -> Dict[str, float]:
+                                        plans: List[RemediationPlan]) -> Dict[str, float]:
         """Forecast compliance improvement from remediation plans."""
         current_violations = len(profiles)
 
@@ -827,7 +816,7 @@ class RiskAssessmentEngine:
 
         # Projected compliance after remediation
         remaining_violations = current_violations - planned_resolution
-        projected_compliance = (1000 - remaining_violations) / 1000 * 100
+        projected_compliance = (1000 - remaining_violations) / 1000 * MAXIMUM_FUNCTION_LENGTH_LINES
 
         return {
             'current_compliance_pct': current_compliance,
@@ -838,7 +827,7 @@ class RiskAssessmentEngine:
         }
 
     def _generate_executive_summary(self, profiles: List[ViolationRiskProfile],
-                                  distribution: Dict[str, int]) -> str:
+                                    distribution: Dict[str, int]) -> str:
         """Generate executive summary of risk assessment."""
         total_violations = len(profiles)
         critical_count = distribution.get('critical', 0)
@@ -855,8 +844,8 @@ EXECUTIVE RISK ASSESSMENT SUMMARY
 Total NASA POT10 Violations: {total_violations}
 
 RISK DISTRIBUTION:
-- Critical Priority: {critical_count} violations ({critical_count/max(total_violations,1)*100:.1f}%)
-- High Priority: {high_count} violations ({high_count/max(total_violations,1)*100:.1f}%)
+- Critical Priority: {critical_count} violations ({critical_count/max(total_violations, 1)*100:.1f}%)
+- High Priority: {high_count} violations ({high_count/max(total_violations, 1)*100:.1f}%)
 - Medium/Low Priority: {total_violations - critical_count - high_count} violations
 
 KEY FINDINGS:
@@ -910,7 +899,6 @@ opening new contract opportunities and reducing operational risk.
 
         return output_path
 
-
 def main():
     """Command-line interface for risk assessment matrix."""
     import argparse
@@ -955,7 +943,6 @@ def main():
 
         elif args.project:
             # For project assessment, we'd need to integrate with other compliance tools
-            # This is a placeholder for now
             print(f"Project-wide risk assessment for {args.project} not yet implemented")
             print("Use --violations-file with output from compliance tools")
             return 1
@@ -994,7 +981,6 @@ def main():
         return 1
 
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

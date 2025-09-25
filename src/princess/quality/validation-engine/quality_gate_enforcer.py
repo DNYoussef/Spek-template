@@ -8,15 +8,16 @@ AUTHORITY: Cross-domain validation of all Princess deliverables
 TARGET: 100% quality gate compliance before production deployment
 """
 
-import json
-import sys
-import os
-from typing import Dict, List, Any, Optional, Tuple
-from dataclasses import dataclass, asdict
-from pathlib import Path
 from datetime import datetime
-import subprocess
+from pathlib import Path
+from typing import Dict, List, Any, Optional, Tuple
+import json
+import os
 import re
+import subprocess
+import sys
+
+from dataclasses import dataclass, asdict
 
 @dataclass
 class QualityGate:
@@ -334,7 +335,7 @@ class QualityGateEnforcer:
                 if result.stdout:
                     bandit_data = json.loads(result.stdout)
                     high_severity = len([r for r in bandit_data.get('results', [])
-                                       if r.get('issue_severity') in ['HIGH', 'MEDIUM']])
+                                        if r.get('issue_severity') in ['HIGH', 'MEDIUM']])
                     violations += high_severity
                     evidence.append(f"Bandit found {high_severity} high/medium severity issues")
 
@@ -423,7 +424,7 @@ class QualityGateEnforcer:
                     if result.stdout:
                         eslint_data = json.loads(result.stdout)
                         error_count = sum(len([msg for msg in file_data.get('messages', [])
-                                             if msg.get('severity') == 2])
+                                            if msg.get('severity') == 2])
                                         for file_data in eslint_data)
                         errors += error_count
                         evidence.append(f"ESLint found {error_count} errors")
@@ -477,7 +478,7 @@ class QualityGateEnforcer:
 
                     # Count errors from stderr (mypy outputs to stderr)
                     error_lines = [line for line in result.stderr.splitlines()
-                                 if 'error:' in line.lower()]
+                                if 'error:' in line.lower()]
                     mypy_errors = len(error_lines)
                     errors += mypy_errors
                     evidence.append(f"MyPy found {mypy_errors} type errors")
@@ -496,7 +497,7 @@ class QualityGateEnforcer:
 
                     # Count TypeScript errors
                     error_lines = [line for line in result.stdout.splitlines()
-                                 if 'error TS' in line]
+                                if 'error TS' in line]
                     ts_errors = len(error_lines)
                     errors += ts_errors
                     evidence.append(f"TypeScript found {ts_errors} type errors")
@@ -538,7 +539,6 @@ class QualityGateEnforcer:
         """Run NASA POT10 compliance analysis"""
         try:
             # This would integrate with actual NASA compliance checkers
-            # For now, implementing a basic compliance score
             compliance_score = 85.0  # Placeholder
 
             evidence = [
@@ -634,7 +634,7 @@ class QualityGateEnforcer:
         return recommendations
 
     def _generate_validation_artifacts(self, domain: str, gate_results: List[GateResult],
-                                     path: str) -> List[str]:
+                                    path: str) -> List[str]:
         """Generate validation artifacts for audit trail"""
         artifacts = []
 

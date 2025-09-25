@@ -7,16 +7,15 @@ Validates that all the surgical fixes for GitHub hooks infrastructure work corre
 Tests the specific implementation issues that were causing workflow failures.
 """
 
-import sys
-import json
 from pathlib import Path
+import json
+import sys
 
 # Add analyzer to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 def test_architecture_orchestrator():
     """Test that ArchitectureOrchestrator.analyze_architecture method exists and works."""
-    print("Testing ArchitectureOrchestrator.analyze_architecture method...")
     
     try:
         from analyzer.architecture.orchestrator import ArchitectureOrchestrator
@@ -48,12 +47,10 @@ def test_architecture_orchestrator():
         return True
         
     except Exception as e:
-        print(f"[FAIL] ArchitectureOrchestrator test failed: {e}")
         return False
 
 def test_core_analyzer_nonetype_fixes():
     """Test that ConnascenceAnalyzer handles NoneType arguments correctly."""
-    print("Testing ConnascenceAnalyzer NoneType argument handling...")
     
     try:
         # Import from the main module file, not the package
@@ -84,12 +81,10 @@ def test_core_analyzer_nonetype_fixes():
         return True
         
     except Exception as e:
-        print(f"[FAIL] ConnascenceAnalyzer NoneType test failed: {e}")
         return False
 
 def test_unified_imports_detection():
     """Test that unified imports component detection works better."""
-    print("Testing unified imports component detection...")
     
     try:
         from core.unified_imports import IMPORT_MANAGER
@@ -139,12 +134,10 @@ def test_unified_imports_detection():
         return True
         
     except Exception as e:
-        print(f"[FAIL] Unified imports test failed: {e}")
         return False
 
 def test_github_workflow_integration():
     """Test the exact code pattern used in GitHub workflow."""
-    print("Testing GitHub workflow integration pattern...")
     
     try:
         # This is the exact code pattern from .github/workflows/quality-gates.yml line 185
@@ -166,12 +159,10 @@ def test_github_workflow_integration():
         return True
         
     except Exception as e:
-        print(f"[FAIL] GitHub workflow integration test failed: {e}")
         return False
 
 def test_core_analysis_initialization():
     """Test that core analysis can be initialized without errors."""
-    print("Testing core analysis initialization...")
     
     try:
         # Import from the main module file, not the package
@@ -194,7 +185,6 @@ def test_core_analysis_initialization():
         return True
         
     except Exception as e:
-        print(f"[FAIL] Core analysis initialization test failed: {e}")
         return False
 
 def main():
@@ -219,7 +209,6 @@ def main():
         print()
     
     print("=" * 50)
-    print(f"Validation Results: {passed}/{total} tests passed")
     
     if passed == total:
         print("[SUCCESS] All GitHub hooks infrastructure fixes are working correctly!")
@@ -227,7 +216,6 @@ def main():
         return 0
     else:
         print("[ERROR] Some fixes need additional work.")
-        print("   Check the failed tests above for specific issues.")
         return 1
 
 if __name__ == "__main__":

@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Production Load Testing Suite
-============================
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MINIMUM_TEST_COVERAGE_PERCENTAGE, QUALITY_GATE_MINIMUM_PASS_RATE
 
 Comprehensive load testing for production deployment validation.
 Tests system performance under various load conditions and validates
@@ -14,7 +11,6 @@ logger = get_logger(__name__)
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 
-
 @dataclass
 class LoadTestConfig:
     """Configuration for load testing scenarios."""
@@ -25,8 +21,7 @@ class LoadTestConfig:
     test_duration: float
     target_success_rate: float = 0.95
     target_avg_response_time: float = 2.0  # seconds
-    target_p95_response_time: float = 5.0  # seconds
-
+    target_p95_response_time: float = MAXIMUM_NESTED_DEPTH  # seconds
 
 @dataclass
 class LoadTestResult:
@@ -46,7 +41,6 @@ class LoadTestResult:
     total_execution_time: float
     errors: List[str]
     performance_targets_met: Dict[str, bool]
-
 
 class WorkloadSimulator:
     """Simulates realistic analysis workloads."""
@@ -134,7 +128,6 @@ class WorkloadSimulator:
             time.sleep(random.uniform(0.1, 0.5))
         
         return results
-
 
 class LoadTestRunner:
     """Runs load testing scenarios."""
@@ -253,7 +246,6 @@ class LoadTestRunner:
             performance_targets_met=performance_targets_met
         )
 
-
 class MemoryMonitor:
     """Monitor memory usage during load testing."""
     
@@ -309,7 +301,6 @@ class MemoryMonitor:
             'monitoring_duration': max(s['timestamp'] for s in self.memory_samples) - min(s['timestamp'] for s in self.memory_samples)
         }
 
-
 class ProductionLoadTestSuite:
     """Complete production load testing suite."""
     
@@ -324,10 +315,10 @@ class ProductionLoadTestSuite:
             # Light Load
             LoadTestConfig(
                 name="Light Load Test",
-                concurrent_users=5,
+                concurrent_users=MAXIMUM_NESTED_DEPTH,
                 requests_per_user=10,
                 ramp_up_time=2.0,
-                test_duration=30.0,
+                test_duration=API_TIMEOUT_SECONDS.0,
                 target_success_rate=0.98,
                 target_avg_response_time=1.0,
                 target_p95_response_time=2.0
@@ -338,7 +329,7 @@ class ProductionLoadTestSuite:
                 name="Medium Load Test", 
                 concurrent_users=20,
                 requests_per_user=15,
-                ramp_up_time=5.0,
+                ramp_up_time=MAXIMUM_NESTED_DEPTH,
                 test_duration=60.0,
                 target_success_rate=0.95,
                 target_avg_response_time=2.0,
@@ -350,7 +341,7 @@ class ProductionLoadTestSuite:
                 name="Heavy Load Test",
                 concurrent_users=50,
                 requests_per_user=20,
-                ramp_up_time=10.0,
+                ramp_up_time=MAXIMUM_FUNCTION_PARAMETERS.0,
                 test_duration=120.0,
                 target_success_rate=0.90,
                 target_avg_response_time=3.0,
@@ -360,7 +351,7 @@ class ProductionLoadTestSuite:
             # Stress Test
             LoadTestConfig(
                 name="Stress Test",
-                concurrent_users=100,
+                concurrent_users=MAXIMUM_FUNCTION_LENGTH_LINES,
                 requests_per_user=10,
                 ramp_up_time=20.0,
                 test_duration=180.0,
@@ -461,16 +452,14 @@ class ProductionLoadTestSuite:
             'max_p95_response_time': max_p95_response_time,
             'total_throughput': total_throughput,
             'performance_targets_summary': {
-                'success_rate_target': overall_success_rate >= 0.85,  # Overall minimum
+                'success_rate_target': overall_success_rate >= QUALITY_GATE_MINIMUM_PASS_RATE,  # Overall minimum
                 'response_time_target': weighted_avg_response_time <= 3.0,  # Overall maximum
-                'throughput_target': total_throughput >= 10.0  # Minimum throughput
+                'throughput_target': total_throughput >= MAXIMUM_FUNCTION_PARAMETERS.0  # Minimum throughput
             }
         }
     
     def print_results(self, suite_results: Dict[str, Any]):
         """Print comprehensive results."""
-        print(f"\n{'='*80}")
-        print("PRODUCTION LOAD TEST SUITE RESULTS")
         print(f"{'='*80}")
         
         # Suite summary
@@ -521,11 +510,8 @@ class ProductionLoadTestSuite:
             status = "PASS" if passed else "FAIL"
             print(f"{target}: {status}")
 
-
 async def main():
     """Main execution function."""
-    print("="*80)
-    print("PRODUCTION LOAD TESTING SUITE")
     print("="*80)
     
     project_root = PROJECT_ROOT
@@ -541,12 +527,10 @@ async def main():
         # Determine exit code
         if results['overall_success']:
             print(f"\n{'='*80}")
-            print("LOAD TESTING PASSED - SYSTEM IS READY FOR PRODUCTION LOAD")
             print(f"{'='*80}")
             return 0
         else:
             print(f"\n{'='*80}")
-            print("LOAD TESTING FAILED - SYSTEM REQUIRES OPTIMIZATION")
             print(f"{'='*80}")
             return 1
             
@@ -555,7 +539,6 @@ async def main():
         import traceback
         print(f"Error details: {traceback.format_exc()}")
         return 1
-
 
 if __name__ == '__main__':
     import sys

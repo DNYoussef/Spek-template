@@ -1,9 +1,9 @@
-# Gary×Taleb Trading System - API Specifications
+# GaryxTaleb Trading System - API Specifications
 # OpenAPI 3.0 specification for all microservices
 
 openapi: 3.0.3
 info:
-  title: Gary×Taleb Trading Platform APIs
+  title: GaryxTaleb Trading Platform APIs
   description: Distributed trading system with Gary's DPI and Taleb's antifragility principles
   version: 3.0.0
   contact:

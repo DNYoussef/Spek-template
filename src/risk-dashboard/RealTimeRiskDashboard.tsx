@@ -82,7 +82,7 @@ export const RealTimeRiskDashboard: React.FC<DashboardProps> = ({
   useEffect(() => {
     const initializeDashboard = async () => {
       try {
-        console.log('🚀 Initializing Real-Time Risk Dashboard...');
+        console.log(' Initializing Real-Time Risk Dashboard...');
         
         // Create risk monitoring instance
         riskMonitor.current = new RiskMonitoringDashboard(config);
@@ -96,11 +96,11 @@ export const RealTimeRiskDashboard: React.FC<DashboardProps> = ({
         setIsInitialized(true);
         setError(null);
         
-        console.log('✅ Real-Time Risk Dashboard initialized successfully');
+        console.log(' Real-Time Risk Dashboard initialized successfully');
         
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-        console.error('❌ Failed to initialize dashboard:', errorMessage);
+        console.error(' Failed to initialize dashboard:', errorMessage);
         setError(errorMessage);
       }
     };
@@ -148,11 +148,11 @@ export const RealTimeRiskDashboard: React.FC<DashboardProps> = ({
     
     // Handle connection events
     monitor.on('connected', () => {
-      console.log('🔗 Connected to risk data stream');
+      console.log(' Connected to risk data stream');
     });
     
     monitor.on('disconnected', () => {
-      console.log('❌ Disconnected from risk data stream');
+      console.log(' Disconnected from risk data stream');
     });
     
     // Handle errors
@@ -246,7 +246,7 @@ export const RealTimeRiskDashboard: React.FC<DashboardProps> = ({
       <div className={`min-h-screen bg-gray-100 ${className}`}>
         <div className="flex items-center justify-center h-screen">
           <div className="text-center max-w-md">
-            <div className="text-red-600 text-6xl mb-4">⚠</div>
+            <div className="text-red-600 text-6xl mb-4"></div>
             <div className="text-xl font-semibold text-gray-800 mb-2">Dashboard Error</div>
             <div className="text-gray-600 mb-4">{error}</div>
             <button
@@ -283,7 +283,7 @@ export const RealTimeRiskDashboard: React.FC<DashboardProps> = ({
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <h1 className="text-2xl font-bold text-gray-900">
-                Gary×Taleb Risk Monitor
+                GaryTaleb Risk Monitor
               </h1>
               <div className="ml-4 text-sm text-gray-500">
                 Phase 2 Division 4: Real-Time Risk Monitoring

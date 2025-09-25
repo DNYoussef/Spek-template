@@ -1,0 +1,16 @@
+{
+  "total_meaningful_violations": 5483,
+  "filtered_from_naive_count": "~14,906",
+  "filter_efficiency": "99.4%",
+  "priority_breakdown": {
+    "HIGH": 287,
+    "MEDIUM": 3446,
+    "LOW": 1750
+  },
+  "next_actions": [
+    "Focus on HIGH priority business logic violations first",
+    "Extract NASA/DFARS compliance thresholds to constants",
+    "Configure timeout/retry values externally",
+    "Document domain-specific algorithm parameters"
+  ]
+}

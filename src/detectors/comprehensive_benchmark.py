@@ -1,5 +1,4 @@
-"""
-Comprehensive Benchmarking Suite for Enterprise Detector Pool
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 This module provides extensive benchmarking capabilities to validate performance
 characteristics, measure overhead, and ensure the <1% target is achieved across
@@ -41,7 +40,6 @@ from memory_profiler import profile as memory_profile
 import cProfile
 import pstats
 from concurrent.futures import ThreadPoolExecutor, as_completed
-
 
 @dataclass
 class BenchmarkResult:
@@ -90,7 +88,6 @@ class BenchmarkResult:
             self.efficiency_score = 1.0 - (self.overhead_percentage / 100.0)
             self.consistency_score = 1.0 - (self.std_dev_time / self.mean_time) if self.mean_time > 0 else 0.0
 
-
 @dataclass
 class LoadTestConfig:
     """Configuration for load testing scenarios."""
@@ -102,7 +99,6 @@ class LoadTestConfig:
     think_time_ms: int
     target_throughput: float
 
-
 @dataclass
 class ComplianceTestResult:
     """Defense industry compliance test results."""
@@ -113,7 +109,6 @@ class ComplianceTestResult:
     compliance_percentage: float
     critical_issues: List[str]
     recommendations: List[str]
-
 
 class MemoryTracker:
     """Advanced memory tracking for leak detection."""
@@ -188,7 +183,6 @@ class MemoryTracker:
             'snapshot_count': len(self.snapshots)
         }
 
-
 class PerformanceProfiler:
     """Detailed performance profiling for optimization."""
 
@@ -237,7 +231,6 @@ class PerformanceProfiler:
             'avg_call_time': total_time / total_calls if total_calls > 0 else 0
         }
 
-
 class StatisticalAnalyzer:
     """Statistical analysis and validation for benchmark results."""
 
@@ -271,7 +264,7 @@ class StatisticalAnalyzer:
             upper_bound = q3 + 1.5 * iqr
 
             outliers = [i for i, value in enumerate(data)
-                       if value < lower_bound or value > upper_bound]
+                        if value < lower_bound or value > upper_bound]
             return outliers
 
         elif method == 'zscore':
@@ -280,7 +273,7 @@ class StatisticalAnalyzer:
             z_threshold = 2.0
 
             outliers = [i for i, value in enumerate(data)
-                       if abs((value - mean) / std_dev) > z_threshold]
+                        if abs((value - mean) / std_dev) > z_threshold]
             return outliers
 
         return []
@@ -301,7 +294,6 @@ class StatisticalAnalyzer:
             'p_value': p_value,
             'std_error': std_err
         }
-
 
 class DefenseComplianceValidator:
     """Validation against defense industry requirements."""
@@ -383,7 +375,6 @@ class DefenseComplianceValidator:
             critical_issues=critical_issues,
             recommendations=recommendations
         )
-
 
 class ComprehensiveBenchmark:
     """
@@ -507,7 +498,7 @@ class ComprehensiveBenchmark:
         # Calculate overhead
         baseline_time = statistics.median(execution_times) if execution_times else 0.0
         theoretical_minimum = 0.001  # 1ms theoretical minimum
-        overhead_percentage = ((baseline_time - theoretical_minimum) / baseline_time * 100) if baseline_time > 0 else 0.0
+        overhead_percentage = ((baseline_time - theoretical_minimum) / baseline_time * MAXIMUM_FUNCTION_LENGTH_LINES) if baseline_time > 0 else 0.0
 
         # Calculate success rate
         success_rate = successful_executions / sample_size
@@ -525,7 +516,7 @@ class ComprehensiveBenchmark:
         )
 
         # Calculate compliance scores (simplified)
-        result.nasa_pot10_score = min(100, 100 - overhead_percentage * 10)
+        result.nasa_pot10_score = min(100, MAXIMUM_FUNCTION_LENGTH_LINES - overhead_percentage * 10)
         result.security_score = 95.0  # Would be calculated based on actual security tests
         result.reliability_score = success_rate * 100
 
@@ -541,9 +532,9 @@ class ComprehensiveBenchmark:
         return result
 
     def run_parallel_benchmark(self,
-                             detector_configs: List[Tuple[str, tuple, dict]],
-                             concurrency_levels: List[int] = None,
-                             sample_size: int = None) -> Dict[int, BenchmarkResult]:
+                            detector_configs: List[Tuple[str, tuple, dict]],
+                            concurrency_levels: List[int] = None,
+                            sample_size: int = None) -> Dict[int, BenchmarkResult]:
         """
         Benchmark parallel execution at different concurrency levels.
 
@@ -705,11 +696,11 @@ class ComprehensiveBenchmark:
         return results
 
     def _simulate_user_load(self,
-                          user_id: int,
-                          config: LoadTestConfig,
-                          start_time: float,
-                          end_time: float,
-                          ramp_up_end: float) -> Dict[str, Any]:
+                            user_id: int,
+                            config: LoadTestConfig,
+                            start_time: float,
+                            end_time: float,
+                            ramp_up_end: float) -> Dict[str, Any]:
         """Simulate individual user load."""
         response_times = []
         error_count = 0
@@ -755,9 +746,9 @@ class ComprehensiveBenchmark:
         }
 
     def run_memory_leak_test(self,
-                           detector_name: str,
-                           iterations: int = 1000,
-                           sample_interval: int = 100) -> Dict[str, Any]:
+                            detector_name: str,
+                            iterations: int = 1000,
+                            sample_interval: int = 100) -> Dict[str, Any]:
         """
         Test for memory leaks in detector execution.
 
@@ -934,9 +925,9 @@ class ComprehensiveBenchmark:
         return recommendations
 
     def run_comprehensive_suite(self,
-                               detector_configs: List[Tuple[str, tuple, dict]],
-                               include_load_tests: bool = True,
-                               include_memory_tests: bool = True) -> Dict[str, Any]:
+                                detector_configs: List[Tuple[str, tuple, dict]],
+                                include_load_tests: bool = True,
+                                include_memory_tests: bool = True) -> Dict[str, Any]:
         """
         Run the complete benchmark suite.
 
@@ -1019,11 +1010,9 @@ class ComprehensiveBenchmark:
 
         return suite_results
 
-
 # Example usage and testing
 if __name__ == "__main__":
     # This would typically be run with an actual detector pool
-    # For demonstration, we'll create mock objects
 
     class MockDetectorPool:
         """Mock detector pool for testing."""

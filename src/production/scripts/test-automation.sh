@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Gary×Taleb Trading System - Comprehensive Test Automation
+# GaryxTaleb Trading System - Comprehensive Test Automation
 # Defense Industry Testing with Financial Compliance
 
 set -euo pipefail
@@ -400,7 +400,7 @@ EOF
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gary×Taleb Trading System - Test Report</title>
+    <title>GaryxTaleb Trading System - Test Report</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 40px; }
         .header { background: #2c3e50; color: white; padding: 20px; margin-bottom: 20px; }
@@ -412,7 +412,7 @@ EOF
 </head>
 <body>
     <div class="header">
-        <h1>Gary×Taleb Trading System</h1>
+        <h1>GaryxTaleb Trading System</h1>
         <h2>Test Report - $(date)</h2>
         <p>Compliance Mode: $COMPLIANCE_MODE</p>
     </div>
@@ -446,7 +446,7 @@ main() {
     local start_time=$(date +%s)
     local overall_success=true
 
-    log "Starting comprehensive test automation for Gary×Taleb Trading System"
+    log "Starting comprehensive test automation for GaryxTaleb Trading System"
     log "Compliance mode: $COMPLIANCE_MODE"
     log "Environment: $NODE_ENV"
 
@@ -491,12 +491,12 @@ main() {
     local total_duration=$((end_time - start_time))
 
     if [ "$overall_success" = true ]; then
-        log "✅ All tests passed in ${total_duration}s"
+        log "[OK] All tests passed in ${total_duration}s"
         send_metric "test_automation_success" 1
         send_metric "test_automation_duration" "$total_duration"
         exit 0
     else
-        error "❌ Test automation failed in ${total_duration}s"
+        error "[FAIL] Test automation failed in ${total_duration}s"
         send_metric "test_automation_failed" 1
         send_metric "test_automation_duration" "$total_duration"
         exit 1

@@ -1,9 +1,7 @@
 """Async execution manager for concurrent linting operations."""
 
-import asyncio
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
-
+import asyncio
 
 class LinterManager:
     """Manages concurrent execution of multiple linter tools."""
@@ -315,7 +313,6 @@ class LinterManager:
     def _export_junit(self, results: Dict[str, LinterResult], output_path: Path) -> None:
         """Export results as JUnit XML."""
         # This would require xml.etree.ElementTree or similar
-        # Implementation placeholder
         logger.warning("JUnit export not implemented yet")
     
     def _export_text(self, results: Dict[str, LinterResult], output_path: Path) -> None:
@@ -338,7 +335,6 @@ class LinterManager:
         
         logger.info(f"Results exported to {output_path}")
 
-
 async def main():
     """Example usage of the LinterManager."""
     # Initialize manager with default configuration
@@ -354,7 +350,6 @@ async def main():
     # Print statistics
     stats = manager.get_execution_stats()
     print(f"Execution stats: {stats}")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

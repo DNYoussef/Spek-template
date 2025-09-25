@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Result Aggregation Performance Profiler
-=======================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
 
 Comprehensive performance benchmarking and optimization analysis for distributed 
 result aggregation across the analyzer pipeline. Builds on Phase 3 optimization 
@@ -15,7 +12,7 @@ Features:
 - Memory allocation pattern analysis with optimization opportunity detection
 - Cross-phase performance validation demonstrating cumulative improvements
 
-NASA Rules 4, 5, 6, 7: Function limits, assertions, scoping, bounded resources
+NASA Rules 4, MAXIMUM_NESTED_DEPTH, 6, 7: Function limits, assertions, scoping, bounded resources
 """
 
 import time
@@ -32,7 +29,6 @@ from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
 from contextlib import contextmanager
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class AggregationBenchmarkMetrics:
@@ -65,7 +61,6 @@ class AggregationBenchmarkMetrics:
     timeout_errors: int = 0
     memory_pressure_events: int = 0
 
-
 @dataclass
 class CorrelationEngineMetrics:
     """Metrics for correlation engine performance analysis."""
@@ -91,7 +86,6 @@ class CorrelationEngineMetrics:
     average_correlation_time_ms: float = 0.0
     correlation_cache_hit_rate: float = 0.0
 
-
 @dataclass
 class StreamingAggregationMetrics:
     """Metrics for streaming aggregation performance."""
@@ -115,7 +109,6 @@ class StreamingAggregationMetrics:
     peak_concurrent_streams: int = 0
     stream_multiplexing_efficiency: float = 0.0
     load_balancing_effectiveness: float = 0.0
-
 
 @dataclass
 class SmartIntegrationMetrics:
@@ -141,7 +134,6 @@ class SmartIntegrationMetrics:
     integration_error_rate: float = 0.0
     rollback_recovery_time_ms: float = 0.0
 
-
 @dataclass
 class CumulativePerformanceValidation:
     """Validation of cumulative performance improvements across phases."""
@@ -163,7 +155,6 @@ class CumulativePerformanceValidation:
     cumulative_memory_reduction_percent: float = 0.0
     overall_scalability_improvement_factor: float = 1.0
 
-
 class DataVolumeGenerator:
     """Generates test data with varying volume characteristics for benchmarking."""
     
@@ -180,7 +171,7 @@ class DataVolumeGenerator:
         NASA Rule 5: Input validation
         NASA Rule 7: Bounded resource usage
         """
-        assert 10 <= size <= 100000, "Dataset size must be 10-100,000 for safety"
+        assert 10 <= size <= 100000, "Dataset size must be 10-100, 000 for safety"
         assert complexity in ['low', 'medium', 'high'], "Complexity must be low/medium/high"
         
         violations = []
@@ -314,7 +305,6 @@ class DataVolumeGenerator:
         
         return violations
 
-
 class PerformanceProfiler:
     """Base class for performance profiling with common utilities."""
     
@@ -364,7 +354,6 @@ class PerformanceProfiler:
         
         return result
 
-
 class MemoryTracker:
     """Utility class for tracking memory usage during benchmarks."""
     
@@ -389,7 +378,6 @@ class MemoryTracker:
     def reset_baseline(self) -> None:
         """Reset memory baseline to current usage."""
         self.baseline_memory_mb = self.get_current_memory_mb()
-
 
 class AggregationPipelineProfiler(PerformanceProfiler):
     """
@@ -425,7 +413,7 @@ class AggregationPipelineProfiler(PerformanceProfiler):
         NASA Rule 5: Input validation
         """
         assert isinstance(data_volumes, list), "data_volumes must be list"
-        assert all(10 <= vol <= 10000 for vol in data_volumes), "Volumes must be 10-10,000"
+        assert all(10 <= vol <= 10000 for vol in data_volumes), "Volumes must be 10-10, 000"
         
         performance_results = {}
         
@@ -659,7 +647,6 @@ class AggregationPipelineProfiler(PerformanceProfiler):
         
         return recommendations
 
-
 class CorrelationEngineProfiler(PerformanceProfiler):
     """
     Profiles correlation engine performance with focus on multi-tool integration.
@@ -763,7 +750,7 @@ class CorrelationEngineProfiler(PerformanceProfiler):
         return nasa_violations
     
     async def _measure_correlation_performance(self, test_data: Dict, 
-                                             scenario: Dict) -> CorrelationEngineMetrics:
+                                            scenario: Dict) -> CorrelationEngineMetrics:
         """
         Measure detailed correlation engine performance.
         
@@ -858,7 +845,7 @@ class CorrelationEngineProfiler(PerformanceProfiler):
             'average_accuracy': statistics.mean(accuracies),
             'average_quality_score': statistics.mean(quality_scores),
             'performance_consistency': 1.0 - (statistics.stdev(processing_times) / 
-                                           max(statistics.mean(processing_times), 1.0))
+                                            max(statistics.mean(processing_times), 1.0))
         }
         
         return analysis
@@ -893,13 +880,12 @@ class CorrelationEngineProfiler(PerformanceProfiler):
         
         return optimizations
 
-
 class StreamingAggregationProfiler(PerformanceProfiler):
     """
     Profiles streaming aggregation scalability under high-load conditions.
     
     NASA Rule 4: All methods under 60 lines
-    NASA Rule 7: Bounded resource usage
+    NASA Rule DAYS_RETENTION_PERIOD: Bounded resource usage
     """
     
     def __init__(self):
@@ -951,7 +937,7 @@ class StreamingAggregationProfiler(PerformanceProfiler):
         return self.data_generator.generate_streaming_data(duration, rate)
     
     async def _measure_streaming_performance(self, stream_data: List[StreamAnalysisResult],
-                                           scenario: Dict) -> StreamingAggregationMetrics:
+                                            scenario: Dict) -> StreamingAggregationMetrics:
         """
         Measure streaming aggregation performance under load.
         
@@ -1011,7 +997,7 @@ class StreamingAggregationProfiler(PerformanceProfiler):
         # Performance scaling metrics
         metrics.peak_concurrent_streams = scenario.get('rate_per_second', 10)
         metrics.stream_multiplexing_efficiency = min(1.0, metrics.processing_velocity / 
-                                                   max(scenario.get('rate_per_second', 1), 1))
+                                                    max(scenario.get('rate_per_second', 1), 1))
         
         return metrics
     
@@ -1064,7 +1050,6 @@ class StreamingAggregationProfiler(PerformanceProfiler):
             )
         
         return optimizations
-
 
 class ResultAggregationBenchmarker:
     """
@@ -1155,7 +1140,7 @@ class ResultAggregationBenchmarker:
         }
     
     def _generate_final_analysis(self, aggregation_results: Dict, correlation_results: Dict,
-                               streaming_results: Dict, cumulative_results: Dict) -> Dict[str, Any]:
+                                streaming_results: Dict, cumulative_results: Dict) -> Dict[str, Any]:
         """Generate final comprehensive analysis."""
         analysis = {
             'overall_performance_score': self._calculate_overall_performance_score(
@@ -1261,7 +1246,7 @@ class ResultAggregationBenchmarker:
                 
                 # Check for critical issues
                 critical_issues = [rec for rec in recommendations 
-                                 if any(word in rec.lower() for word in ['critical', 'memory pressure', 'timeout'])]
+                                if any(word in rec.lower() for word in ['critical', 'memory pressure', 'timeout'])]
                 if critical_issues:
                     readiness_factors['error_handling_robust'] = False
         
@@ -1272,7 +1257,6 @@ class ResultAggregationBenchmarker:
             'readiness_factors': readiness_factors,
             'blocking_issues': [k for k, v in readiness_factors.items() if not v]
         }
-
 
 class CumulativePerformanceValidator:
     """
@@ -1287,8 +1271,8 @@ class CumulativePerformanceValidator:
         self.phase_baselines = self._load_phase_baselines()
     
     async def validate_cumulative_improvements(self, aggregation_results: Dict, 
-                                             correlation_results: Dict, 
-                                             streaming_results: Dict) -> Dict[str, Any]:
+                                            correlation_results: Dict, 
+                                            streaming_results: Dict) -> Dict[str, Any]:
         """
         Validate cumulative performance improvements across phases.
         
@@ -1398,7 +1382,7 @@ class CumulativePerformanceValidator:
         """Generate summary of cumulative improvements."""
         return {
             'phases_validated': 2 if validation.ast_traversal_reduction_validated and 
-                                   validation.memory_efficiency_improvement_validated else 1,
+                                    validation.memory_efficiency_improvement_validated else 1,
             'total_performance_gain': validation.total_performance_improvement_percent,
             'key_achievements': [
                 f"AST traversal: {validation.ast_time_improvement_percent:.1f}% improvement",
@@ -1408,7 +1392,6 @@ class CumulativePerformanceValidator:
             ],
             'scalability_multiplier': validation.overall_scalability_improvement_factor
         }
-
 
 def generate_comprehensive_report(benchmark_results: Dict[str, Any]) -> str:
     """
@@ -1471,16 +1454,15 @@ def generate_comprehensive_report(benchmark_results: Dict[str, Any]) -> str:
     report.append("PERFORMANCE TARGETS")
     report.append("-" * 22)
     report.append("Target: 50% throughput improvement - ACHIEVED" if 
-                 final_analysis.get('overall_performance_score', 0) >= 0.7 else 
-                 "Target: 50% throughput improvement - NOT ACHIEVED")
+                final_analysis.get('overall_performance_score', 0) >= 0.7 else 
+                "Target: 50% throughput improvement - NOT ACHIEVED")
     report.append("Target: <50ms P95 latency - ACHIEVED" if 
-                 True else "Target: <50ms P95 latency - NEEDS WORK")  # Simplified check
+                True else "Target: <50ms P95 latency - NEEDS WORK")  # Simplified check
     report.append("")
     
     report.append("=" * 80)
     
     return "\n".join(report)
-
 
 async def main():
     """Main entry point for result aggregation profiler."""
@@ -1517,7 +1499,6 @@ async def main():
         print(f"Benchmark failed: {e}")
         import traceback
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

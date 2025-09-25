@@ -12,9 +12,9 @@ instead of placeholder imports.
 """
 
 # Export all trading components
+from .market_data_provider import MarketDataProvider, MarketConditions
 from .portfolio_manager import PortfolioManager, PortfolioState
 from .trade_executor import TradeExecutor, OrderType, OrderStatus
-from .market_data_provider import MarketDataProvider, MarketConditions
 
 __all__ = [
     'PortfolioManager',

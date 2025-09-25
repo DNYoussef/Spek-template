@@ -3,7 +3,7 @@
 ## Purpose
 Testing improved security scanning to distinguish real vulnerabilities from false positives.
 
-## Status: ⚠️ EXPERIMENTAL - Extract Patterns Only
+## Status: [WARN] EXPERIMENTAL - Extract Patterns Only
 
 ## Contents
 - `improved_security_scan.py` - Enhanced security scanner with false positive detection

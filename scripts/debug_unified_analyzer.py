@@ -3,8 +3,8 @@
 Debug script to trace where violations are being lost in the unified analyzer
 """
 
-import sys
 from pathlib import Path
+import sys
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -13,24 +13,19 @@ def debug_unified_analyzer():
 
     from analyzer.unified_analyzer import UnifiedConnascenceAnalyzer
 
-    print("=== DEBUGGING UNIFIED ANALYZER ===\n")
-
     # Create analyzer
     analyzer = UnifiedConnascenceAnalyzer()
 
     # Test the AST analyzer directly
-    print("1. Testing AST analyzer directly:")
     ast_results = analyzer.ast_analyzer.analyze_directory('src/adapters')
     print(f"   AST analyzer found: {len(ast_results)} violations")
 
     # Test the _run_ast_analysis method
-    print("\n2. Testing _run_ast_analysis method:")
     project_path = Path('src/adapters')
     ast_analysis_results = analyzer._run_ast_analysis(project_path)
     print(f"   _run_ast_analysis returned: {len(ast_analysis_results)} violations")
 
     # Test the full analyze_project method
-    print("\n3. Testing full analyze_project method:")
     result = analyzer.analyze_project('src/adapters', policy_preset='lenient')
 
     if hasattr(result, 'violations'):

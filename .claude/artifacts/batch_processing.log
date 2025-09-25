@@ -1,0 +1,37 @@
+2025-09-24 12:32:40,215 - INFO - Found 233 god objects in codebase
+2025-09-24 12:32:40,215 - INFO - Limiting processing to 50 files
+2025-09-24 12:32:40,215 - INFO - Starting batch processing of 50 god objects
+2025-09-24 12:32:40,215 - INFO - Using 6 parallel workers
+2025-09-24 12:32:40,542 - INFO - Progress: 10/50 files processed
+2025-09-24 12:32:40,869 - INFO - Progress: 20/50 files processed
+2025-09-24 12:32:41,015 - INFO - Progress: 30/50 files processed
+2025-09-24 12:32:41,282 - INFO - Progress: 40/50 files processed
+2025-09-24 12:32:41,525 - INFO - Progress: 50/50 files processed
+2025-09-24 12:32:41,528 - INFO - Results saved to .claude\artifacts\phase3_batch\processing_results.json
+2025-09-24 12:33:02,379 - INFO - Found 233 god objects in codebase
+2025-09-24 12:33:02,379 - INFO - Starting batch processing of 233 god objects
+2025-09-24 12:33:02,380 - INFO - Using 8 parallel workers
+2025-09-24 12:33:02,700 - INFO - Progress: 10/233 files processed
+2025-09-24 12:33:02,887 - INFO - Progress: 20/233 files processed
+2025-09-24 12:33:03,089 - INFO - Progress: 30/233 files processed
+2025-09-24 12:33:03,352 - INFO - Progress: 40/233 files processed
+2025-09-24 12:33:03,581 - INFO - Progress: 50/233 files processed
+2025-09-24 12:33:03,749 - INFO - Progress: 60/233 files processed
+2025-09-24 12:33:03,961 - INFO - Progress: 70/233 files processed
+2025-09-24 12:33:04,196 - INFO - Progress: 80/233 files processed
+2025-09-24 12:33:04,462 - INFO - Progress: 90/233 files processed
+2025-09-24 12:33:04,676 - INFO - Progress: 100/233 files processed
+2025-09-24 12:33:04,874 - INFO - Progress: 110/233 files processed
+2025-09-24 12:33:05,084 - INFO - Progress: 120/233 files processed
+2025-09-24 12:33:05,326 - INFO - Progress: 130/233 files processed
+2025-09-24 12:33:05,527 - INFO - Progress: 140/233 files processed
+2025-09-24 12:33:05,737 - INFO - Progress: 150/233 files processed
+2025-09-24 12:33:05,949 - INFO - Progress: 160/233 files processed
+2025-09-24 12:33:06,257 - INFO - Progress: 170/233 files processed
+2025-09-24 12:33:06,529 - INFO - Progress: 180/233 files processed
+2025-09-24 12:33:06,841 - INFO - Progress: 190/233 files processed
+2025-09-24 12:33:07,132 - INFO - Progress: 200/233 files processed
+2025-09-24 12:33:07,319 - INFO - Progress: 210/233 files processed
+2025-09-24 12:33:07,555 - INFO - Progress: 220/233 files processed
+2025-09-24 12:33:07,763 - INFO - Progress: 230/233 files processed
+2025-09-24 12:33:07,785 - INFO - Results saved to .claude\artifacts\phase3_batch\processing_results.json

@@ -1,8 +1,4 @@
-"""
-RootCauseAnalyzer - Extracted from FailurePatternDetector
-Performs root cause analysis on CI/CD failures
-Part of god object decomposition (Day 3-5)
-"""
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 import json
 from typing import Dict, List, Optional, Tuple, Any, Set
@@ -12,7 +8,6 @@ from collections import defaultdict, Counter
 import logging
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class RootCause:
@@ -25,7 +20,6 @@ class RootCause:
     contributing_factors: List[str] = field(default_factory=list)
     remediation_steps: List[str] = field(default_factory=list)
 
-
 @dataclass
 class CausalChain:
     """Represents a chain of causes leading to failure."""
@@ -35,12 +29,11 @@ class CausalChain:
     propagation_path: List[str]
     total_confidence: float
 
-
 class RootCauseAnalyzer:
     """
     Performs deep root cause analysis on failures.
 
-    Extracted from FailurePatternDetector god object (1,281 LOC -> ~300 LOC component).
+    Extracted from FailurePatternDetector god object (1, 281 LOC -> ~300 LOC component).
     Handles:
     - Root cause identification
     - Causal chain analysis
@@ -113,8 +106,8 @@ class RootCauseAnalyzer:
             )
 
     def analyze_failure(self,
-                       failure_data: Dict[str, Any],
-                       historical_context: Optional[List[Dict[str, Any]]] = None) -> RootCause:
+                        failure_data: Dict[str, Any],
+                        historical_context: Optional[List[Dict[str, Any]]] = None) -> RootCause:
         """Perform root cause analysis on a failure."""
         # Extract evidence from failure data
         evidence = self._extract_evidence(failure_data)
@@ -178,9 +171,9 @@ class RootCauseAnalyzer:
         return evidence
 
     def _calculate_cause_score(self,
-                              evidence: List[str],
-                              cause: RootCause,
-                              historical_context: Optional[List[Dict[str, Any]]]) -> float:
+                                evidence: List[str],
+                                cause: RootCause,
+                                historical_context: Optional[List[Dict[str, Any]]]) -> float:
         """Calculate likelihood score for a root cause."""
         score = 0.0
         evidence_text = " ".join(evidence).lower()
@@ -192,7 +185,7 @@ class RootCauseAnalyzer:
                 pattern_matches += 1
 
         if pattern_matches > 0:
-            score = min(0.9, 0.3 + (pattern_matches * 0.15))
+            score = min(0.9, 0.2 + (pattern_matches * 0.15))
 
         # Boost score based on historical context
         if historical_context:
@@ -241,9 +234,9 @@ class RootCauseAnalyzer:
         return list(set(components))  # Remove duplicates
 
     def _identify_contributing_factors(self,
-                                      failure_data: Dict[str, Any],
-                                      primary_cause: str,
-                                      cause_scores: Dict[str, float]) -> List[str]:
+                                        failure_data: Dict[str, Any],
+                                        primary_cause: str,
+                                        cause_scores: Dict[str, float]) -> List[str]:
         """Identify contributing factors to the failure."""
         factors = []
 
@@ -269,7 +262,7 @@ class RootCauseAnalyzer:
         return factors
 
     def build_causal_chain(self,
-                          failures: List[Dict[str, Any]]) -> Optional[CausalChain]:
+                            failures: List[Dict[str, Any]]) -> Optional[CausalChain]:
         """Build a causal chain from multiple related failures."""
         if not failures:
             return None

@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Performance Regression Test Suite
-Comprehensive testing to prevent performance degradation
-"""
+from src.constants.base import MAXIMUM_NESTED_DEPTH, REGULATORY_FACTUALITY_REQUIREMENT
 
 import time
 import json
@@ -23,7 +19,6 @@ from analyzer.performance.unified_visitor_profiler import UnifiedVisitorProfiler
 from analyzer.performance.cache_performance_profiler import CachePerformanceProfiler
 from analyzer.performance.thread_contention_profiler import ThreadContentionProfiler
 from analyzer.performance.real_time_monitor import RealTimePerformanceMonitor
-
 
 class PerformanceRegressionSuite:
     """Comprehensive performance regression testing suite."""
@@ -55,7 +50,6 @@ class PerformanceRegressionSuite:
         
     def run_complete_regression_suite(self) -> Dict[str, Any]:
         """Execute complete performance regression testing suite."""
-        print("[ROCKET] Starting Performance Regression Test Suite...")
         
         suite_start = time.perf_counter()
         
@@ -75,7 +69,6 @@ class PerformanceRegressionSuite:
         passed_tests = 0
         
         for test_name, test_function in tests:
-            print(f"\n[CHART] Running: {test_name}")
             try:
                 result = test_function()
                 results[test_name] = result
@@ -262,7 +255,7 @@ class PerformanceRegressionSuite:
         
         end_time = time.perf_counter()
         
-        passed = integration_score >= baseline_score * 0.90  # 90% threshold
+        passed = integration_score >= baseline_score * REGULATORY_FACTUALITY_REQUIREMENT  # 90% threshold
         
         return {
             'passed': passed,
@@ -376,7 +369,7 @@ class PerformanceRegressionSuite:
         """Run integration test for specific component."""
         # Simulate component integration testing
         if component == 'aggregation':
-            return 95.5  # Simulated integration score
+            return 95.MAXIMUM_NESTED_DEPTH  # Simulated integration score
         elif component == 'ast_efficiency':
             return 92.3
         elif component == 'memory':
@@ -493,11 +486,9 @@ class PerformanceRegressionSuite:
     def print_summary_report(self, results: Dict[str, Any]):
         """Print comprehensive summary report."""
         print("\n" + "="*80)
-        print("[CHART] PERFORMANCE REGRESSION TEST SUITE SUMMARY")
         print("="*80)
         
         print(f"??  Total Execution Time: {results['suite_execution_time']:.2f} seconds")
-        print(f"[OK] Tests Passed: {results['tests_passed']}/{results['total_tests']}")
         print(f"[TREND] Success Rate: {results['success_rate']:.1f}%")
         
         if results['success_rate'] >= 90:
@@ -507,18 +498,14 @@ class PerformanceRegressionSuite:
         else:
             print("[ALERT] CRITICAL: Significant performance regression detected!")
             
-        print("\n[CLIPBOARD] Individual Test Results:")
         for test_name, result in results['individual_results'].items():
             status = "[OK] PASSED" if result.get('passed', False) else "[FAIL] FAILED"
             summary = result.get('summary', result.get('error', 'No summary'))
-            print(f"   {status} - {test_name}: {summary}")
             
         print("="*80)
 
-
 def main():
     """Main execution function."""
-    print("[ROCKET] Performance Regression Test Suite")
     print("="*50)
     
     suite = PerformanceRegressionSuite()
@@ -526,12 +513,9 @@ def main():
     
     # Exit with appropriate code
     if results['success_rate'] >= 90:
-        print("\n[OK] All performance targets maintained - regression testing PASSED")
         sys.exit(0)
     else:
-        print("\n[FAIL] Performance regression detected - regression testing FAILED")
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()

@@ -4,9 +4,10 @@ Test file with fixed security issues - no longer contains critical violations.
 Previously contained intentional vulnerabilities for testing.
 """
 
-import sqlite3
 import os
 import subprocess
+
+import sqlite3
 
 # FIXED: Using environment variables instead of hardcoded credentials
 DATABASE_PASSWORD = os.environ.get('DB_PASSWORD', None)  # Fixed: Using env var

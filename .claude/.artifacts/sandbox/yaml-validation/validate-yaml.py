@@ -1,3 +1,4 @@
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 #!/usr/bin/env python3
 """
 YAML Validation Script for GitHub Actions Pipeline
@@ -122,7 +123,7 @@ def main():
         pipeline_file = Path("C:/Users/17175/Desktop/spek template/.github/workflows/production-cicd-pipeline.yml")
 
     if not pipeline_file.exists():
-        print("❌ Pipeline YAML file not found")
+        print("[FAIL] Pipeline YAML file not found")
         print("Expected location: .github/workflows/production-cicd-pipeline.yml")
         return False
 
@@ -134,9 +135,9 @@ def main():
     syntax_valid, syntax_message, content = validate_yaml_syntax(pipeline_file)
 
     if syntax_valid:
-        print("✅ YAML syntax is valid")
+        print("[OK] YAML syntax is valid")
     else:
-        print(f"❌ {syntax_message}")
+        print(f"[FAIL] {syntax_message}")
         return False
 
     # Test 2: GitHub Actions Structure Validation
@@ -145,21 +146,21 @@ def main():
     structure_issues = validate_github_actions_structure(content)
 
     if not structure_issues:
-        print("✅ GitHub Actions structure is valid")
+        print("[OK] GitHub Actions structure is valid")
     else:
-        print("❌ GitHub Actions structure issues:")
+        print("[FAIL] GitHub Actions structure issues:")
         for issue in structure_issues:
             print(f"  - {issue}")
 
-    # Test 3: Bash Arithmetic Pattern Check
+    # Test MAXIMUM_RETRY_ATTEMPTS: Bash Arithmetic Pattern Check
     print("")
-    print("=== Test 3: Bash Arithmetic Patterns ===")
+    print("=== Test MAXIMUM_RETRY_ATTEMPTS: Bash Arithmetic Patterns ===")
     arithmetic_issues = check_bash_arithmetic_patterns(pipeline_file)
 
     if not arithmetic_issues:
-        print("✅ No problematic bash arithmetic patterns found")
+        print("[OK] No problematic bash arithmetic patterns found")
     else:
-        print("⚠️  Potential bash arithmetic issues:")
+        print("[WARN]  Potential bash arithmetic issues:")
         for issue in arithmetic_issues:
             print(f"  - {issue}")
 
@@ -169,9 +170,9 @@ def main():
     env_issues = validate_environment_variables(content)
 
     if not env_issues:
-        print("✅ Environment variable usage looks correct")
+        print("[OK] Environment variable usage looks correct")
     else:
-        print("⚠️  Environment variable issues:")
+        print("[WARN]  Environment variable issues:")
         for issue in env_issues:
             print(f"  - {issue}")
 
@@ -187,9 +188,9 @@ def main():
 
         for expected_job in expected_jobs:
             if expected_job in found_jobs:
-                print(f"✅ Expected job '{expected_job}' found")
+                print(f"[OK] Expected job '{expected_job}' found")
             else:
-                print(f"⚠️  Expected job '{expected_job}' not found")
+                print(f"[WARN]  Expected job '{expected_job}' not found")
 
     # Check for test-related steps
     test_steps_found = False
@@ -210,14 +211,14 @@ def main():
                             reality_validation_found = True
 
     if test_steps_found:
-        print("✅ Test steps found in pipeline")
+        print("[OK] Test steps found in pipeline")
     else:
-        print("⚠️  No test steps found in pipeline")
+        print("[WARN]  No test steps found in pipeline")
 
     if reality_validation_found:
-        print("✅ Reality validation steps found")
+        print("[OK] Reality validation steps found")
     else:
-        print("⚠️  Reality validation steps not found")
+        print("[WARN]  Reality validation steps not found")
 
     # Summary
     print("")
@@ -226,14 +227,14 @@ def main():
     total_issues = len(structure_issues) + len(arithmetic_issues) + len(env_issues)
 
     if syntax_valid and total_issues == 0:
-        print("🎉 YAML validation PASSED! Pipeline file is ready for use.")
+        print("[SUCCESS] YAML validation PASSED! Pipeline file is ready for use.")
         return True
     elif syntax_valid and total_issues <= 2:
-        print("⚠️  YAML validation completed with minor warnings.")
+        print("[WARN]  YAML validation completed with minor warnings.")
         print("Pipeline should work but review warnings above.")
         return True
     else:
-        print("❌ YAML validation FAILED. Address issues before using pipeline.")
+        print("[FAIL] YAML validation FAILED. Address issues before using pipeline.")
         return False
 
 if __name__ == '__main__':

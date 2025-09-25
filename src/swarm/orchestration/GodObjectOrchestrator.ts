@@ -70,9 +70,9 @@ export class GodObjectOrchestrator extends EventEmitter {
    * Initialize orchestrator and swarm infrastructure
    */
   async initialize(): Promise<void> {
-    console.log('\n╔════════════════════════════════════════════════════════════╗');
-    console.log('║   GOD OBJECT ORCHESTRATOR INITIALIZATION                   ║');
-    console.log('╚════════════════════════════════════════════════════════════╝\n');
+    console.log('\n');
+    console.log('   GOD OBJECT ORCHESTRATOR INITIALIZATION                   ');
+    console.log('\n');
 
     // Initialize swarm
     await this.swarmInitializer.initializeSwarm();
@@ -86,7 +86,7 @@ export class GodObjectOrchestrator extends EventEmitter {
     // Start monitoring
     this.monitor.startMonitoring(10000);
 
-    console.log('✓ God Object Orchestrator initialized\n');
+    console.log(' God Object Orchestrator initialized\n');
   }
 
   /**
@@ -183,9 +183,9 @@ export class GodObjectOrchestrator extends EventEmitter {
    * Execute decomposition with swarm coordination
    */
   async executeDecomposition(filePath: string): Promise<DecompositionResult> {
-    console.log(`\n╔════════════════════════════════════════════════════════════╗`);
-    console.log(`║   EXECUTING DECOMPOSITION: ${filePath.padEnd(32)}║`);
-    console.log(`╚════════════════════════════════════════════════════════════╝\n`);
+    console.log(`\n`);
+    console.log(`   EXECUTING DECOMPOSITION: ${filePath.padEnd(32)}`);
+    console.log(`\n`);
 
     const plan = this.plans.get(filePath);
     if (!plan) {
@@ -221,7 +221,7 @@ export class GodObjectOrchestrator extends EventEmitter {
     };
 
     this.results.set(filePath, result);
-    console.log('\n✓ Decomposition complete');
+    console.log('\n Decomposition complete');
     console.log(`  Modules created: ${result.modulesCreated.length}`);
     console.log(`  LOC reduction: ${result.locReduction}`);
     console.log(`  Complexity reduction: ${result.complexityReduction}%`);
@@ -238,9 +238,9 @@ export class GodObjectOrchestrator extends EventEmitter {
   async executeBatchDecomposition(targets?: string[]): Promise<DecompositionResult[]> {
     const filePaths = targets || Array.from(this.targets.keys());
 
-    console.log(`\n╔════════════════════════════════════════════════════════════╗`);
-    console.log(`║   BATCH DECOMPOSITION: ${String(filePaths.length).padEnd(35)}targets ║`);
-    console.log(`╚════════════════════════════════════════════════════════════╝\n`);
+    console.log(`\n`);
+    console.log(`   BATCH DECOMPOSITION: ${String(filePaths.length).padEnd(35)}targets `);
+    console.log(`\n`);
 
     const results: DecompositionResult[] = [];
 
@@ -254,14 +254,14 @@ export class GodObjectOrchestrator extends EventEmitter {
         results.push(result);
 
       } catch (error) {
-        console.error(`✗ Decomposition failed for ${filePath}:`, error);
+        console.error(` Decomposition failed for ${filePath}:`, error);
         this.emit('decomposition:failed', { filePath, error });
       }
     }
 
-    console.log(`\n╔════════════════════════════════════════════════════════════╗`);
-    console.log(`║   BATCH DECOMPOSITION COMPLETE                             ║`);
-    console.log(`╚════════════════════════════════════════════════════════════╝`);
+    console.log(`\n`);
+    console.log(`   BATCH DECOMPOSITION COMPLETE                             `);
+    console.log(``);
     console.log(`  Total processed: ${results.length}/${filePaths.length}`);
     console.log(`  Success rate: ${(results.filter(r => r.success).length / results.length * 100).toFixed(1)}%\n`);
 
@@ -329,6 +329,6 @@ ${JSON.stringify(this.swarmInitializer.getStatus(), null, 2)}
     this.monitor.stopMonitoring();
     await this.swarmInitializer.shutdown();
 
-    console.log('✓ Orchestrator shutdown complete\n');
+    console.log(' Orchestrator shutdown complete\n');
   }
 }

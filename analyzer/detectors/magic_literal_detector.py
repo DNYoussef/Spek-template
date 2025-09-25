@@ -1,5 +1,4 @@
-"""
-Magic Literal Detector
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 Detects Connascence of Meaning violations - magic literals that should be named constants.
 FIXED: Now uses ConfigurableDetectorMixin for REAL configuration instead of hardcoded values.
@@ -13,14 +12,11 @@ from .base import DetectorBase
 # FIXED: Import ConfigurableDetectorMixin for real configuration
 try:
     from ..interfaces.detector_interface import ConfigurableDetectorMixin
-    print("DEBUG: MagicLiteralDetector successfully imported ConfigurableDetectorMixin")
 except ImportError as e:
-    print(f"DEBUG: MagicLiteralDetector failed to import ConfigurableDetectorMixin: {e}")
     # Fallback dummy class
     class ConfigurableDetectorMixin:
         def get_threshold(self, name, default):
             return default
-
 
 class MagicLiteralDetector(DetectorBase, ConfigurableDetectorMixin):
     """Detects magic literals that should be named constants."""
@@ -33,11 +29,9 @@ class MagicLiteralDetector(DetectorBase, ConfigurableDetectorMixin):
         self.current_function = None
 
         # FIXED: Use configured thresholds instead of hardcoded values
-        self.number_repetition_threshold = self.get_threshold('number_repetition', 3)
+        self.number_repetition_threshold = self.get_threshold('number_repetition', MAXIMUM_RETRY_ATTEMPTS)
         self.string_repetition_threshold = self.get_threshold('string_repetition', 2)
 
-        print(f"DEBUG: MagicLiteralDetector using thresholds: number={self.number_repetition_threshold}, string={self.string_repetition_threshold}")
-    
     def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         """
         Detect magic literals in the AST tree.
@@ -161,8 +155,6 @@ class MagicLiteralDetector(DetectorBase, ConfigurableDetectorMixin):
                 column=node.col_offset,
                 description=description,
                 # recommendation field not supported - include in description
-                # code_snippet field not supported
-                # context field not supported
                 nasa_rule="Rule 8",
                 connascence_type="CoM",
                 weight=severity_score
@@ -191,8 +183,6 @@ class MagicLiteralDetector(DetectorBase, ConfigurableDetectorMixin):
                 column=node.col_offset,
                 description=description,
                 # recommendation field not supported - include in description
-                # code_snippet field not supported
-                # context field not supported
                 nasa_rule="Rule 8",
                 connascence_type="CoM",
                 weight=5.0  # Default weight for simple violations

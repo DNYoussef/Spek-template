@@ -6,8 +6,6 @@ recovery mechanisms, and audit trail capabilities.
 """
 
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
-
 
 class ErrorSeverity(Enum):
     """Error severity levels"""
@@ -15,7 +13,6 @@ class ErrorSeverity(Enum):
     MEDIUM = "medium"
     HIGH = "high"
     CRITICAL = "critical"
-
 
 class ErrorCategory(Enum):
     """Error categories for classification"""
@@ -28,7 +25,6 @@ class ErrorCategory(Enum):
     VALIDATION = "validation"
     EXTERNAL = "external"
 
-
 @dataclass
 class ErrorContext:
     """Contextual information for error handling"""
@@ -40,7 +36,6 @@ class ErrorContext:
     session_id: Optional[str] = None
     request_id: Optional[str] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
-
 
 @dataclass
 class ErrorRecord:
@@ -56,16 +51,15 @@ class ErrorRecord:
     resolved: bool = False
     resolution_notes: Optional[str] = None
 
-
 class EnterpriseError(Exception):
     """Base enterprise exception with enhanced context"""
     
     def __init__(self, message: str, 
-                 severity: ErrorSeverity = ErrorSeverity.MEDIUM,
-                 category: ErrorCategory = ErrorCategory.SYSTEM,
-                 context: Optional[ErrorContext] = None,
-                 cause: Optional[Exception] = None,
-                 recoverable: bool = True):
+                severity: ErrorSeverity = ErrorSeverity.MEDIUM,
+                category: ErrorCategory = ErrorCategory.SYSTEM,
+                context: Optional[ErrorContext] = None,
+                cause: Optional[Exception] = None,
+                recoverable: bool = True):
         super().__init__(message)
         self.message = message
         self.severity = severity
@@ -93,7 +87,6 @@ class EnterpriseError(Exception):
             'metadata': self.context.metadata
         }
 
-
 class SecurityError(EnterpriseError):
     """Security-related errors"""
     def __init__(self, message: str, **kwargs):
@@ -103,7 +96,6 @@ class SecurityError(EnterpriseError):
             category=ErrorCategory.SECURITY,
             **kwargs
         )
-
 
 class ComplianceError(EnterpriseError):
     """Compliance-related errors"""
@@ -115,7 +107,6 @@ class ComplianceError(EnterpriseError):
             **kwargs
         )
 
-
 class ConfigurationError(EnterpriseError):
     """Configuration-related errors"""
     def __init__(self, message: str, **kwargs):
@@ -126,7 +117,6 @@ class ConfigurationError(EnterpriseError):
             **kwargs
         )
 
-
 class ValidationError(EnterpriseError):
     """Validation-related errors"""
     def __init__(self, message: str, **kwargs):
@@ -136,7 +126,6 @@ class ValidationError(EnterpriseError):
             category=ErrorCategory.VALIDATION,
             **kwargs
         )
-
 
 class ErrorHandler:
     """
@@ -164,7 +153,7 @@ class ErrorHandler:
             self.error_logger.setLevel(logging.ERROR)
             
     def register_recovery_strategy(self, exception_type: Type[Exception], 
-                                 strategy: Callable):
+                                strategy: Callable):
         """Register recovery strategy for specific exception type"""
         self.recovery_strategies[exception_type] = strategy
         
@@ -325,7 +314,6 @@ class ErrorHandler:
     def _send_alert(self, error_record: ErrorRecord):
         """Send alert for high/critical errors"""
         # Placeholder for alert system integration
-        # Could integrate with Slack, email, PagerDuty, etc.
         logger.warning(
             f"ALERT: {error_record.severity.value.upper()} error in "
             f"{error_record.context.component}: {error_record.exception_message}"
@@ -396,13 +384,11 @@ class ErrorHandler:
                 self._persist_error_record(error_record)
                 break
 
-
 # Global error handler instance
 _global_error_handler = ErrorHandler()
 
-
 def error_boundary(component: str = "", operation: str = "", 
-                  recoverable: bool = True, re_raise: bool = True):
+                    recoverable: bool = True, re_raise: bool = True):
     """
     Decorator for comprehensive error handling with enterprise context
     
@@ -410,7 +396,6 @@ def error_boundary(component: str = "", operation: str = "",
         @error_boundary(component="telemetry", operation="calculate_dpmo")
         def risky_function():
             # Function that might raise errors
-            pass
     """
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
@@ -457,14 +442,12 @@ def error_boundary(component: str = "", operation: str = "",
             
     return decorator
 
-
 def get_global_error_handler() -> ErrorHandler:
     """Get global error handler instance"""
     return _global_error_handler
 
-
 def handle_enterprise_error(error: Exception, component: str = "", 
-                          operation: str = "") -> ErrorRecord:
+                            operation: str = "") -> ErrorRecord:
     """Handle error with global enterprise error handler"""
     context = ErrorContext(component=component, operation=operation)
     return _global_error_handler.handle_error(error, context)

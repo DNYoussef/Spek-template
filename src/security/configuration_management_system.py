@@ -1,14 +1,10 @@
-"""
-DFARS Configuration Management System
-Security baseline enforcement and drift detection for defense industry compliance.
-"""
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 import json
 import time
 import hashlib
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class ConfigurationLevel(Enum):
     """Security configuration levels."""
@@ -17,7 +13,6 @@ class ConfigurationLevel(Enum):
     HARDENED = "hardened"
     DFARS_COMPLIANT = "dfars_compliant"
 
-
 class DriftSeverity(Enum):
     """Configuration drift severity levels."""
     LOW = "low"
@@ -25,14 +20,12 @@ class DriftSeverity(Enum):
     HIGH = "high"
     CRITICAL = "critical"
 
-
 class ConfigurationStatus(Enum):
     """Configuration status."""
     COMPLIANT = "compliant"
     DRIFT_DETECTED = "drift_detected"
     REMEDIATION_REQUIRED = "remediation_required"
     CRITICAL_VIOLATION = "critical_violation"
-
 
 @dataclass
 class SecurityBaseline:
@@ -48,7 +41,6 @@ class SecurityBaseline:
     compliance_mappings: Dict[str, List[str]]  # Maps to DFARS controls
     validation_rules: List[Dict[str, Any]]
 
-
 @dataclass
 class ConfigurationDrift:
     """Configuration drift detection result."""
@@ -62,7 +54,6 @@ class ConfigurationDrift:
     drift_description: str
     remediation_actions: List[str]
     compliance_impact: List[str]
-
 
 class DFARSConfigurationManager:
     """
@@ -97,7 +88,7 @@ class DFARSConfigurationManager:
         default_config = {
             "configuration_management": {
                 "monitoring_enabled": True,
-                "drift_detection_interval": 300,  # 5 minutes
+                "drift_detection_interval": 300,  # MAXIMUM_NESTED_DEPTH minutes
                 "auto_remediation": {
                     "enabled": True,
                     "severity_threshold": "medium",
@@ -334,7 +325,7 @@ class DFARSConfigurationManager:
         return baseline_id
 
     async def validate_configuration_compliance(self, baseline_id: str,
-                                              target_systems: Optional[List[str]] = None) -> Dict[str, Any]:
+                                                target_systems: Optional[List[str]] = None) -> Dict[str, Any]:
         """Validate current configuration against security baseline."""
         if baseline_id not in self.baselines:
             raise ValueError(f"Baseline {baseline_id} not found")
@@ -377,7 +368,7 @@ class DFARSConfigurationManager:
             # Determine compliance status
             if validation_results["drift_items"]:
                 critical_drifts = [d for d in validation_results["drift_items"]
-                                 if d["severity"] == DriftSeverity.CRITICAL.value]
+                                if d["severity"] == DriftSeverity.CRITICAL.value]
                 if critical_drifts:
                     validation_results["compliance_status"] = ConfigurationStatus.CRITICAL_VIOLATION
                 else:
@@ -416,8 +407,8 @@ class DFARSConfigurationManager:
         return validation_results
 
     async def _validate_category_configuration(self, category: str,
-                                             config_items: Dict[str, Any],
-                                             validation_rules: List[Dict[str, Any]]) -> Dict[str, Any]:
+                                            config_items: Dict[str, Any],
+                                            validation_rules: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Validate specific configuration category."""
         category_result = {
             "category": category,
@@ -461,7 +452,6 @@ class DFARSConfigurationManager:
     async def _get_current_configuration(self, category: str) -> Dict[str, Any]:
         """Get current system configuration for category."""
         # This would integrate with actual system configuration in production
-        # For now, simulate configuration retrieval
         current_config = {}
 
         if category == "encryption":
@@ -547,8 +537,8 @@ class DFARSConfigurationManager:
         }
 
     def _validate_configuration_item(self, item_path: str, current_value: Any,
-                                   expected_config: Any,
-                                   validation_rules: List[Dict[str, Any]]) -> Dict[str, Any]:
+                                    expected_config: Any,
+                                    validation_rules: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Validate individual configuration item."""
         validation_result = {
             "item_path": item_path,
@@ -775,7 +765,6 @@ class DFARSConfigurationManager:
     async def _execute_remediation_action(self, action: str, component: str):
         """Execute remediation action for configuration drift."""
         # This would integrate with actual configuration management systems
-        # For now, simulate remediation execution
         logger.info(f"Executing remediation action for {component}: {action}")
 
     async def _generate_compliance_report(self, validation_result: Dict[str, Any]):
@@ -845,12 +834,10 @@ class DFARSConfigurationManager:
             "validation_rules": len(baseline.validation_rules)
         }
 
-
 # Factory function
 def create_configuration_manager(config_path: Optional[str] = None) -> DFARSConfigurationManager:
     """Create DFARS configuration management system."""
     return DFARSConfigurationManager(config_path)
-
 
 # Example usage
 if __name__ == "__main__":

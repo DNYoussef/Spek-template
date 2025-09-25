@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Complete Self-Dogfooding Workflow Simulation Test
-Simulates the complete GitHub workflow with all key components.
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD
 
 import json
 import os
@@ -38,7 +34,6 @@ def simulate_workflow_step(step_name, test_data_file):
     with open(result_file, 'w') as dst:
         json.dump(test_data, dst, indent=2)
     
-    print(f"Created test result file: {result_file}")
     return result_file
 
 def extract_metrics_from_file(file_path):
@@ -49,9 +44,9 @@ def extract_metrics_from_file(file_path):
     commands = [
         f'python -c "import json; data=json.load(open(\'{file_path}\')); print(f\'Total violations: {{len(data.get(\\\"violations\\\", []))}}\')"',
         f'python -c "import json; data=json.load(open(\'{file_path}\')); critical=[v for v in data.get(\'violations\',[]) if v.get(\'severity\')==\'critical\']; print(f\'Critical: {{len(critical)}}\')"',
-        f'python -c "import json; data=json.load(open(\'{file_path}\')); nasa_score=data.get(\'nasa_compliance\',{{}}).get(\'score\',0); print(f\'NASA: {{nasa_score:.1%}}\')"',
+        f'python -c "import json; data=json.load(open(\'{file_path}\')); nasa_score=data.get(\'nasa_compliance\',{{}}).get(\'score\', 0); print(f\'NASA: {{nasa_score:.1%}}\')"',
         f'python -c "import json; data=json.load(open(\'{file_path}\')); god_objects=len(data.get(\'god_objects\',[])); print(f\'God objects: {{god_objects}}\')"',
-        f'python -c "import json; data=json.load(open(\'{file_path}\')); mece_score=data.get(\'mece_analysis\',{{}}).get(\'score\',0); print(f\'MECE: {{mece_score:.1%}}\')"'
+        f'python -c "import json; data=json.load(open(\'{file_path}\')); mece_score=data.get(\'mece_analysis\',{{}}).get(\'score\', 0); print(f\'MECE: {{mece_score:.1%}}\')"'
     ]
     
     results = []
@@ -190,9 +185,7 @@ def run_complete_workflow_test():
     
     print("\n" + "=" * 60)
     if all_passed:
-        print("SUCCESS: ALL TESTS PASSED - Self-Dogfooding workflow is ready for production!")
     else:
-        print("WARNING: SOME TESTS FAILED - Review workflow implementation")
     print("=" * 60)
     
     return all_passed

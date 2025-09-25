@@ -1,16 +1,10 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Apply REAL fixes that actually eliminate violations
-No theater - actual code improvement
-"""
 
 import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-
 
 def fix_file_magic_numbers(file_path: str) -> int:
     """Apply real fixes to eliminate magic number violations."""
@@ -55,7 +49,7 @@ def fix_file_magic_numbers(file_path: str) -> int:
         # Add import if we made changes
         if modified and not imports_added:
             # Find where to add import
-            import_line = "from src.constants import SECONDS_PER_DAY, SECONDS_PER_HOUR, SECONDS_PER_MINUTE, MILLISECONDS_PER_SECOND, DEFAULT_MAX_ITEMS, DEFAULT_BATCH_SIZE, BYTES_PER_KB, DFARS_RETENTION_DAYS\n"
+            import_line = "from src.constants.base import SECONDS_PER_DAY, SECONDS_PER_HOUR, SECONDS_PER_MINUTE, MILLISECONDS_PER_SECOND, DEFAULT_MAX_ITEMS, DEFAULT_BATCH_SIZE, BYTES_PER_KB, DFARS_RETENTION_DAYS\n"
 
             # Add after other imports
             for i, line in enumerate(lines):
@@ -75,7 +69,6 @@ def fix_file_magic_numbers(file_path: str) -> int:
         print(f"Error fixing {file_path}: {e}")
 
     return fixes_applied
-
 
 def apply_fixes_to_worst_offenders():
     """Fix the files with most violations."""
@@ -128,7 +121,6 @@ def apply_fixes_to_worst_offenders():
 
     return total_before - total_after
 
-
 def reality_check_after_fixes():
     """Verify fixes are real and working."""
 
@@ -161,7 +153,6 @@ def reality_check_after_fixes():
             print(f"Sample real violation: {violations[0].type} at {violations[0].file_path}:{violations[0].line_number}")
 
     print("\nVERDICT: REAL FIXES APPLIED - NO THEATER")
-
 
 if __name__ == "__main__":
     improvement = apply_fixes_to_worst_offenders()

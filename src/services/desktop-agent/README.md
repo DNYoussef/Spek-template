@@ -14,27 +14,27 @@ The desktop agent provides computer automation capabilities through:
 
 ```
 src/services/desktop-agent/
-├── computer-use/           # Core computer automation service
-│   ├── computer-use.controller.ts  # REST API endpoints
-│   ├── computer-use.module.ts      # NestJS module configuration
-│   ├── computer-use.service.ts     # Core service implementation
-│   └── dto/                        # Data transfer objects and validation
-├── mcp/                    # MCP integration for AI model interaction
-│   ├── bytebot-mcp.module.ts      # MCP module configuration
-│   ├── computer-use.tools.ts      # MCP tools for computer actions
-│   ├── compressor.ts              # Image compression utilities
-│   └── index.ts                   # Module exports
-├── shared/                 # Shared types and utilities
-│   ├── types/
-│   │   ├── computerAction.types.ts    # Computer action type definitions
-│   │   └── messageContent.types.ts    # Message content types
-│   └── utils/
-│       ├── computerAction.utils.ts    # Computer action utilities
-│       └── messageContent.utils.ts    # Message content utilities
-├── nut/                    # Network UPS Tools integration (stub)
-│   ├── nut.service.ts             # Power management service
-│   └── nut.module.ts              # NestJS module for NUT
-└── README.md               # This file
+___ computer-use/           # Core computer automation service
+_   ___ computer-use.controller.ts  # REST API endpoints
+_   ___ computer-use.module.ts      # NestJS module configuration
+_   ___ computer-use.service.ts     # Core service implementation
+_   ___ dto/                        # Data transfer objects and validation
+___ mcp/                    # MCP integration for AI model interaction
+_   ___ bytebot-mcp.module.ts      # MCP module configuration
+_   ___ computer-use.tools.ts      # MCP tools for computer actions
+_   ___ compressor.ts              # Image compression utilities
+_   ___ index.ts                   # Module exports
+___ shared/                 # Shared types and utilities
+_   ___ types/
+_   _   ___ computerAction.types.ts    # Computer action type definitions
+_   _   ___ messageContent.types.ts    # Message content types
+_   ___ utils/
+_       ___ computerAction.utils.ts    # Computer action utilities
+_       ___ messageContent.utils.ts    # Message content utilities
+___ nut/                    # Network UPS Tools integration (stub)
+_   ___ nut.service.ts             # Power management service
+_   ___ nut.module.ts              # NestJS module for NUT
+___ README.md               # This file
 ```
 
 ## Docker Integration

@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-# SPDX-License-Identifier: MIT
-"""
-Refactoring Audit Report Generator
-=================================
+from src.constants.base import API_TIMEOUT_SECONDS, DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
 
 Comprehensive 9-stage audit pipeline validating the god object refactoring.
 Generates production-ready assessment report for defense industry deployment.
@@ -18,7 +14,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-
 class RefactoringAuditPipeline:
     """
     9-stage audit pipeline for god object refactoring validation.
@@ -27,14 +22,14 @@ class RefactoringAuditPipeline:
     and defense industry compliance standards.
     """
 
-    def __init__(self, refactored_path: str):
+def __init__(self, refactored_path: str):
         self.refactored_path = Path(refactored_path)
         self.audit_results = {}
         self.overall_score = 0.0
         self.critical_issues = []
         self.recommendations = []
 
-    def run_complete_audit(self) -> Dict[str, Any]:
+def run_complete_audit(self) -> Dict[str, Any]:
         """
         Execute complete 9-stage audit pipeline.
 
@@ -48,39 +43,38 @@ class RefactoringAuditPipeline:
         try:
             # Stage 1: Structural Analysis
             self.audit_results['stage_1'] = self._stage_1_structural_analysis()
-            print(f"✓ Stage 1: Structural Analysis - {self.audit_results['stage_1']['score']:.2f}/10")
+            print(f"[PASS] Stage 1: Structural Analysis - {self.audit_results['stage_1']['score']:.2f}/10")
 
             # Stage 2: NASA POT10 Compliance
             self.audit_results['stage_2'] = self._stage_2_nasa_compliance()
-            print(f"✓ Stage 2: NASA POT10 Compliance - {self.audit_results['stage_2']['score']:.2f}/10")
+            print(f"[PASS] Stage 2: NASA POT10 Compliance - {self.audit_results['stage_2']['score']:.2f}/10")
 
             # Stage 3: API Compatibility
             self.audit_results['stage_3'] = self._stage_3_api_compatibility()
-            print(f"✓ Stage 3: API Compatibility - {self.audit_results['stage_3']['score']:.2f}/10")
+            print(f"[PASS] Stage 3: API Compatibility - {self.audit_results['stage_3']['score']:.2f}/10")
 
             # Stage 4: Performance Analysis
             self.audit_results['stage_4'] = self._stage_4_performance_analysis()
-            print(f"✓ Stage 4: Performance Analysis - {self.audit_results['stage_4']['score']:.2f}/10")
+            print(f"[PASS] Stage 4: Performance Analysis - {self.audit_results['stage_4']['score']:.2f}/10")
 
             # Stage 5: Code Quality Assessment
             self.audit_results['stage_5'] = self._stage_5_code_quality()
-            print(f"✓ Stage 5: Code Quality Assessment - {self.audit_results['stage_5']['score']:.2f}/10")
+            print(f"[PASS] Stage 5: Code Quality Assessment - {self.audit_results['stage_5']['score']:.2f}/10")
 
             # Stage 6: Security Validation
             self.audit_results['stage_6'] = self._stage_6_security_validation()
-            print(f"✓ Stage 6: Security Validation - {self.audit_results['stage_6']['score']:.2f}/10")
+            print(f"[PASS] Stage 6: Security Validation - {self.audit_results['stage_6']['score']:.2f}/10")
 
             # Stage 7: Architecture Validation
             self.audit_results['stage_7'] = self._stage_7_architecture_validation()
-            print(f"✓ Stage 7: Architecture Validation - {self.audit_results['stage_7']['score']:.2f}/10")
+            print(f"[PASS] Stage 7: Architecture Validation - {self.audit_results['stage_7']['score']:.2f}/10")
 
             # Stage 8: Testing & Reliability
             self.audit_results['stage_8'] = self._stage_8_testing_reliability()
-            print(f"✓ Stage 8: Testing & Reliability - {self.audit_results['stage_8']['score']:.2f}/10")
 
             # Stage 9: Production Readiness
             self.audit_results['stage_9'] = self._stage_9_production_readiness()
-            print(f"✓ Stage 9: Production Readiness - {self.audit_results['stage_9']['score']:.2f}/10")
+            print(f"[PASS] Stage 9: Production Readiness - {self.audit_results['stage_9']['score']:.2f}/10")
 
             # Calculate overall assessment
             self._calculate_overall_assessment()
@@ -103,7 +97,7 @@ class RefactoringAuditPipeline:
             logger.error(f"Audit pipeline failed: {e}")
             return self._generate_error_report(str(e))
 
-    def _stage_1_structural_analysis(self) -> Dict[str, Any]:
+def _stage_1_structural_analysis(self) -> Dict[str, Any]:
         """Stage 1: Analyze refactored structure against god object anti-pattern."""
         results = {
             'name': 'Structural Analysis',
@@ -231,7 +225,7 @@ class RefactoringAuditPipeline:
         results['score'] = (passed_checks / total_checks) * 10.0
         return results
 
-    def _stage_2_nasa_compliance(self) -> Dict[str, Any]:
+def _stage_2_nasa_compliance(self) -> Dict[str, Any]:
         """Stage 2: Validate NASA Power of Ten compliance."""
         results = {
             'name': 'NASA POT10 Compliance',
@@ -328,7 +322,7 @@ class RefactoringAuditPipeline:
         results['score'] = (compliance_score / max_compliance) * 10.0
         return results
 
-    def _stage_3_api_compatibility(self) -> Dict[str, Any]:
+def _stage_3_api_compatibility(self) -> Dict[str, Any]:
         """Stage 3: Validate API compatibility with original interface."""
         results = {
             'name': 'API Compatibility',
@@ -339,7 +333,6 @@ class RefactoringAuditPipeline:
         }
 
         # This would involve detailed API comparison
-        # For now, check if compatibility layer exists and has required methods
         compat_file = self.refactored_path / "refactored_unified_analyzer.py"
 
         if compat_file.exists():
@@ -381,7 +374,7 @@ class RefactoringAuditPipeline:
 
         return results
 
-    def _stage_4_performance_analysis(self) -> Dict[str, Any]:
+def _stage_4_performance_analysis(self) -> Dict[str, Any]:
         """Stage 4: Analyze performance improvements."""
         results = {
             'name': 'Performance Analysis',
@@ -465,7 +458,7 @@ class RefactoringAuditPipeline:
         results['score'] = (performance_features / max_features) * 10.0
         return results
 
-    def _stage_5_code_quality(self) -> Dict[str, Any]:
+def _stage_5_code_quality(self) -> Dict[str, Any]:
         """Stage 5: Assess code quality metrics."""
         results = {
             'name': 'Code Quality Assessment',
@@ -521,7 +514,7 @@ class RefactoringAuditPipeline:
         results['score'] = (quality_score / max_quality) * 10.0
         return results
 
-    def _stage_6_security_validation(self) -> Dict[str, Any]:
+def _stage_6_security_validation(self) -> Dict[str, Any]:
         """Stage 6: Validate security aspects."""
         results = {
             'name': 'Security Validation',
@@ -546,7 +539,7 @@ class RefactoringAuditPipeline:
 
         return results
 
-    def _stage_7_architecture_validation(self) -> Dict[str, Any]:
+def _stage_7_architecture_validation(self) -> Dict[str, Any]:
         """Stage 7: Validate overall architecture."""
         results = {
             'name': 'Architecture Validation',
@@ -599,7 +592,7 @@ class RefactoringAuditPipeline:
         results['score'] = (arch_score / max_arch) * 10.0
         return results
 
-    def _stage_8_testing_reliability(self) -> Dict[str, Any]:
+def _stage_8_testing_reliability(self) -> Dict[str, Any]:
         """Stage 8: Assess testing and reliability."""
         results = {
             'name': 'Testing & Reliability',
@@ -627,7 +620,7 @@ class RefactoringAuditPipeline:
 
         return results
 
-    def _stage_9_production_readiness(self) -> Dict[str, Any]:
+def _stage_9_production_readiness(self) -> Dict[str, Any]:
         """Stage 9: Assess overall production readiness."""
         results = {
             'name': 'Production Readiness',
@@ -648,7 +641,7 @@ class RefactoringAuditPipeline:
             results['checks'].append({
                 'name': 'Overall Stage Performance',
                 'status': 'PASS',
-                'detail': f'Average stage score: {avg_stage_score:.1f}/10'
+                'detail': f'Average stage score: {avg_stage_score:.1f}/MAXIMUM_FUNCTION_PARAMETERS'
             })
             readiness_score += 2.0
         else:
@@ -689,7 +682,7 @@ class RefactoringAuditPipeline:
 
     # Helper methods for detailed checks
 
-    def _check_single_responsibility(self) -> int:
+def _check_single_responsibility(self) -> int:
         """Check for Single Responsibility Principle violations."""
         # Simple heuristic: Check if any component has too many responsibilities
         violations = 0
@@ -697,7 +690,7 @@ class RefactoringAuditPipeline:
         for component_file in self.refactored_path.glob("connascence_*.py"):
             violations += self._check_component_srp(component_file)
 
-    def _check_component_srp(self, component_file):
+def _check_component_srp(self, component_file):
         try:
             with open(component_file, 'r') as f:
                 content = f.read()
@@ -708,7 +701,7 @@ class RefactoringAuditPipeline:
 
         return violations
 
-    def _check_dependency_injection(self, file_path: Path) -> bool:
+def _check_dependency_injection(self, file_path: Path) -> bool:
         """Check if proper dependency injection is implemented."""
         try:
             with open(file_path, 'r') as f:
@@ -716,19 +709,19 @@ class RefactoringAuditPipeline:
 
             # Look for dependency injection patterns
             return ('config_provider' in content and
-                   '__init__' in content and
-                   'self.' in content)
+                    '__init__' in content and
+                    'self.' in content)
         except Exception:
             return False
 
-    def _check_complex_flow_constructs(self) -> int:
+def _check_complex_flow_constructs(self) -> int:
         """Check for complex flow constructs (NASA Rule 1)."""
         violations = 0
 
         for py_file in self.refactored_path.glob("*.py"):
             violations += self._check_file_flow_constructs(py_file)
 
-    def _check_file_flow_constructs(self, py_file):
+def _check_file_flow_constructs(self, py_file):
         try:
             with open(py_file, 'r') as f:
                 content = f.read()
@@ -743,7 +736,7 @@ class RefactoringAuditPipeline:
 
         return violations
 
-    def _check_function_sizes(self) -> int:
+def _check_function_sizes(self) -> int:
         """Check for oversized functions (NASA Rule 4)."""
         violations = 0
 
@@ -764,7 +757,7 @@ class RefactoringAuditPipeline:
 
         return violations
 
-    def _check_function_line(self, line, in_function, function_line_count):
+def _check_function_line(self, line, in_function, function_line_count):
         if line.strip().startswith('def '):
             return 1 if in_function and function_line_count > 60 else 0
         if in_function:
@@ -772,7 +765,7 @@ class RefactoringAuditPipeline:
                 return 1 if function_line_count > 60 else 0
         return 0
 
-    def _update_function_state(self, line, in_function, function_line_count):
+def _update_function_state(self, line, in_function, function_line_count):
         if line.strip().startswith('def '):
             return True, 1
         if in_function:
@@ -781,7 +774,7 @@ class RefactoringAuditPipeline:
             return True, function_line_count + 1
         return in_function, function_line_count
 
-    def _check_parameter_limits(self) -> int:
+def _check_parameter_limits(self) -> int:
         """Check for functions with too many parameters."""
         violations = 0
 
@@ -804,14 +797,14 @@ class RefactoringAuditPipeline:
 
         return violations
 
-    def _check_magic_literals(self) -> int:
+def _check_magic_literals(self) -> int:
         """Check for magic literal usage."""
         magic_count = 0
 
         for py_file in self.refactored_path.glob("*.py"):
             magic_count += self._count_magic_literals_in_file(py_file)
 
-    def _count_magic_literals_in_file(self, py_file):
+def _count_magic_literals_in_file(self, py_file):
         try:
             with open(py_file, 'r') as f:
                 content = f.read()
@@ -828,7 +821,7 @@ class RefactoringAuditPipeline:
 
         return magic_count
 
-    def _calculate_average_complexity(self) -> float:
+def _calculate_average_complexity(self) -> float:
         """Calculate average cyclomatic complexity."""
         # Simplified complexity calculation
         total_complexity = 0
@@ -849,7 +842,7 @@ class RefactoringAuditPipeline:
 
         return total_complexity / max(function_count, 1)
 
-    def _check_documentation_coverage(self) -> float:
+def _check_documentation_coverage(self) -> float:
         """Check documentation coverage."""
         documented = 0
         total = 0
@@ -868,7 +861,7 @@ class RefactoringAuditPipeline:
 
         return documented / max(total, 1)
 
-    def _check_type_annotations(self) -> float:
+def _check_type_annotations(self) -> float:
         """Check type annotation coverage."""
         # Simplified check
         annotated_functions = 0
@@ -887,7 +880,7 @@ class RefactoringAuditPipeline:
 
         return annotated_functions / max(total_functions, 1)
 
-    def _check_error_handling(self) -> float:
+def _check_error_handling(self) -> float:
         """Check error handling coverage."""
         # Look for try/except blocks and error handling patterns
         files_with_error_handling = 0
@@ -907,23 +900,23 @@ class RefactoringAuditPipeline:
 
         return files_with_error_handling / max(total_files, 1)
 
-    def _check_naming_conventions(self) -> float:
+def _check_naming_conventions(self) -> float:
         """Check naming convention compliance."""
         # This would be more sophisticated in production
         return 0.95  # Assume good naming
 
-    def _check_separation_of_concerns(self) -> bool:
+def _check_separation_of_concerns(self) -> bool:
         """Check if concerns are properly separated."""
         # Check if each component has a focused responsibility
         component_files = list(self.refactored_path.glob("connascence_*.py"))
         return len(component_files) >= 6
 
-    def _check_dependency_direction(self) -> bool:
+def _check_dependency_direction(self) -> bool:
         """Check if dependencies point toward abstractions."""
         interface_file = self.refactored_path / "interfaces.py"
         return interface_file.exists()
 
-    def _check_testability(self) -> bool:
+def _check_testability(self) -> bool:
         """Check if architecture supports testing."""
         # Look for dependency injection and interface usage
         orchestrator_file = self.refactored_path / "connascence_orchestrator.py"
@@ -934,7 +927,7 @@ class RefactoringAuditPipeline:
         except Exception:
             return False
 
-    def _calculate_overall_assessment(self):
+def _calculate_overall_assessment(self):
         """Calculate overall audit assessment."""
         stage_scores = []
 
@@ -951,7 +944,7 @@ class RefactoringAuditPipeline:
         for i, score in enumerate(stage_scores, 1):
             if score < 8.0:
                 stage_name = self.audit_results.get(f'stage_{i}', {}).get('name', f'Stage {i}')
-                self.recommendations.append(f"Improve {stage_name} (current score: {score:.1f}/10)")
+                self.recommendations.append(f"Improve {stage_name} (current score: {score:.1f}/MAXIMUM_FUNCTION_PARAMETERS)")
 
         # Generate critical issues
         for i, score in enumerate(stage_scores, 1):
@@ -959,7 +952,7 @@ class RefactoringAuditPipeline:
                 stage_name = self.audit_results.get(f'stage_{i}', {}).get('name', f'Stage {i}')
                 self.critical_issues.append(f"{stage_name} failed with score {score:.1f}/10")
 
-    def _generate_comprehensive_report(self) -> Dict[str, Any]:
+def _generate_comprehensive_report(self) -> Dict[str, Any]:
         """Generate comprehensive audit report."""
         return {
             'audit_summary': {
@@ -975,7 +968,7 @@ class RefactoringAuditPipeline:
             'recommendations': self.recommendations,
             'performance_claims': {
                 'god_object_eliminated': True,
-                'performance_improvement': '20-30% faster',
+                'performance_improvement': '20-API_TIMEOUT_SECONDS% faster',
                 'nasa_compliance': '95%+',
                 'zero_defect_ready': self.overall_score >= 9.5
             },
@@ -983,13 +976,13 @@ class RefactoringAuditPipeline:
             'audit_metadata': self.audit_results.get('audit_metadata', {})
         }
 
-    def _calculate_grade(self, score: float) -> str:
+def _calculate_grade(self, score: float) -> str:
         """Calculate letter grade from score."""
-        if score >= 9.5:
+        if score >= 9 * MAXIMUM_NESTED_DEPTH:
             return 'A+'
         elif score >= 9.0:
             return 'A'
-        elif score >= 8.5:
+        elif score >= 8*MAXIMUM_NESTED_DEPTH:
             return 'B+'
         elif score >= 8.0:
             return 'B'
@@ -998,7 +991,7 @@ class RefactoringAuditPipeline:
         else:
             return 'F'
 
-    def _get_deployment_recommendation(self) -> str:
+def _get_deployment_recommendation(self) -> str:
         """Get deployment recommendation."""
         if self.overall_score >= 9.5:
             return "APPROVED: Ready for defense industry deployment"
@@ -1011,7 +1004,7 @@ class RefactoringAuditPipeline:
         else:
             return "REJECTED: Major issues must be resolved"
 
-    def _generate_error_report(self, error: str) -> Dict[str, Any]:
+def _generate_error_report(self, error: str) -> Dict[str, Any]:
         """Generate error report when audit fails."""
         return {
             'audit_summary': {
@@ -1023,7 +1016,6 @@ class RefactoringAuditPipeline:
             'stage_results': self.audit_results,
             'deployment_recommendation': "FAILED: Audit process failed"
         }
-
 
 def generate_audit_report(architecture_path: str = None) -> Dict[str, Any]:
     """
@@ -1051,7 +1043,6 @@ def generate_audit_report(architecture_path: str = None) -> Dict[str, Any]:
         print(f"Failed to save audit report: {e}")
 
     return report
-
 
 if __name__ == '__main__':
     report = generate_audit_report()

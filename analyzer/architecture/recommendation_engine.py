@@ -1,5 +1,4 @@
-# SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 """
 Recommendation Engine - Intelligent Analysis Suggestions
@@ -14,16 +13,15 @@ import logging
 from typing import Dict, Any, List, Optional
 logger = logging.getLogger(__name__)
 
-
 class RecommendationEngine:
     """Generates intelligent improvement recommendations with priority analysis."""
 
-    def __init__(self):
+def __init__(self):
         """Initialize recommendation engine with rule mappings."""
         self.priority_rules = self._initialize_priority_rules()
         self.recommendation_cache = {}
 
-    def generate_unified_recommendations(
+def generate_unified_recommendations(
         self,
         connascence_violations: List[Dict[str, Any]],
         duplication_clusters: List[Dict[str, Any]],
@@ -69,7 +67,7 @@ class RecommendationEngine:
 
         return recommendations
 
-    def _initialize_priority_rules(self) -> Dict[str, Dict]:
+def _initialize_priority_rules(self) -> Dict[str, Dict]:
         """Initialize priority classification rules. NASA Rule 4 compliant."""
         return {
             "critical_nasa_rules": ["Rule1", "Rule2", "Rule3", "Rule4"],  # NASA Power of Ten critical rules
@@ -83,7 +81,7 @@ class RecommendationEngine:
             }
         }
 
-    def _generate_priority_fixes(
+def _generate_priority_fixes(
         self, connascence_violations: List[Dict], nasa_violations: List[Dict]
     ) -> List[str]:
         """Generate priority fixes for critical violations. NASA Rule 4 compliant."""
@@ -105,7 +103,7 @@ class RecommendationEngine:
 
         return priority_fixes
 
-    def _create_nasa_priority_fix(self, violation: Dict) -> Optional[str]:
+def _create_nasa_priority_fix(self, violation: Dict) -> Optional[str]:
         """Create NASA-specific priority fix. NASA Rule 4 compliant."""
         nasa_rule = violation.get("context", {}).get("nasa_rule", "unknown")
         file_path = violation.get("file_path", "unknown file")
@@ -122,7 +120,7 @@ class RecommendationEngine:
         template = nasa_fix_templates.get(nasa_rule, f"Fix NASA {nasa_rule} violation")
         return f"CRITICAL: {template} in {file_path}:{line_number}"
 
-    def _create_connascence_priority_fix(self, violation: Dict) -> Optional[str]:
+def _create_connascence_priority_fix(self, violation: Dict) -> Optional[str]:
         """Create connascence-specific priority fix. NASA Rule 4 compliant."""
         connascence_type = violation.get("type", "unknown")
         file_path = violation.get("file_path", "unknown file")
@@ -141,7 +139,7 @@ class RecommendationEngine:
         template = connascence_fix_templates.get(connascence_type, f"Fix {connascence_type} violation")
         return f"HIGH: {template} in {file_path}:{line_number}"
 
-    def _generate_nasa_actions(
+def _generate_nasa_actions(
         self, nasa_violations: List[Dict], nasa_integration=None
     ) -> List[str]:
         """Generate NASA compliance improvement actions. NASA Rule 4 compliant."""
@@ -164,7 +162,7 @@ class RecommendationEngine:
 
         return actions
 
-    def _generate_fallback_nasa_actions(self, nasa_violations: List[Dict]) -> List[str]:
+def _generate_fallback_nasa_actions(self, nasa_violations: List[Dict]) -> List[str]:
         """Generate fallback NASA actions. NASA Rule 4 compliant."""
         actions = []
         rule_counts = {}
@@ -181,7 +179,7 @@ class RecommendationEngine:
 
         return actions
 
-    def _generate_duplication_actions(self, duplication_clusters: List[Dict]) -> List[str]:
+def _generate_duplication_actions(self, duplication_clusters: List[Dict]) -> List[str]:
         """Generate duplication reduction actions. NASA Rule 4 compliant."""
         if not duplication_clusters:
             return []
@@ -207,7 +205,7 @@ class RecommendationEngine:
 
         return actions
 
-    def _generate_connascence_actions(self, connascence_violations: List[Dict]) -> List[str]:
+def _generate_connascence_actions(self, connascence_violations: List[Dict]) -> List[str]:
         """Generate connascence improvement actions. NASA Rule 4 compliant."""
         if not connascence_violations:
             return []
@@ -227,7 +225,7 @@ class RecommendationEngine:
 
         return actions
 
-    def _generate_strategic_suggestions(
+def _generate_strategic_suggestions(
         self, connascence_violations: List[Dict], duplication_clusters: List[Dict], nasa_violations: List[Dict]
     ) -> List[str]:
         """Generate high-level strategic suggestions. NASA Rule 4 compliant."""
@@ -246,12 +244,12 @@ class RecommendationEngine:
 
         # Quality gate suggestions
         critical_violations = self._count_critical_violations(connascence_violations, nasa_violations)
-        if critical_violations > 5:
+        if critical_violations > MAXIMUM_NESTED_DEPTH:
             suggestions.append("Implement pre-commit hooks to prevent critical violations")
 
         return suggestions
 
-    def _get_nasa_rule_description(self, rule: str) -> str:
+def _get_nasa_rule_description(self, rule: str) -> str:
         """Get NASA rule description. NASA Rule 4 compliant."""
         descriptions = {
             "Rule1": "avoid goto statements",
@@ -267,7 +265,7 @@ class RecommendationEngine:
         }
         return descriptions.get(rule, "unknown rule")
 
-    def _get_connascence_description(self, connascence_type: str) -> str:
+def _get_connascence_description(self, connascence_type: str) -> str:
         """Get connascence type description. NASA Rule 4 compliant."""
         descriptions = {
             "CoN": "use consistent naming patterns",
@@ -283,7 +281,7 @@ class RecommendationEngine:
         }
         return descriptions.get(connascence_type, "reduce coupling")
 
-    def _count_critical_violations(
+def _count_critical_violations(
         self, connascence_violations: List[Dict], nasa_violations: List[Dict]
     ) -> int:
         """Count critical violations. NASA Rule 4 compliant."""
@@ -297,7 +295,7 @@ class RecommendationEngine:
         
         return critical_count
 
-    def generate_file_specific_recommendations(self, file_path: str, violations: List[Dict]) -> List[str]:
+def generate_file_specific_recommendations(self, file_path: str, violations: List[Dict]) -> List[str]:
         """Generate file-specific recommendations. NASA Rule 4 compliant."""
         # NASA Rule 5: Input validation
         assert file_path is not None, "file_path cannot be None"
@@ -328,10 +326,10 @@ class RecommendationEngine:
         self.recommendation_cache[cache_key] = recommendations
         return recommendations
 
-    def clear_cache(self) -> None:
+def clear_cache(self) -> None:
         """Clear recommendation cache."""
         self.recommendation_cache.clear()
 
-    def get_cache_stats(self) -> Dict[str, int]:
+def get_cache_stats(self) -> Dict[str, int]:
         """Get cache statistics."""
         return {"cached_recommendations": len(self.recommendation_cache)}

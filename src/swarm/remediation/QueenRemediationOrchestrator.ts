@@ -456,9 +456,9 @@ export class QueenRemediationOrchestrator extends EventEmitter {
         const approval = await this.requestQueenApproval();
 
         if (approval) {
-            console.log('✅ QUEEN APPROVED - Deployment complete!');
+            console.log(' QUEEN APPROVED - Deployment complete!');
         } else {
-            console.log('❌ QUEEN REJECTED - Additional work required');
+            console.log(' QUEEN REJECTED - Additional work required');
         }
 
         this.phaseProgress.set('deployment', 100);

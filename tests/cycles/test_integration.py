@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Integration Tests - Validate import and execution functionality.
+from src.constants.base import MAXIMUM_FILE_LENGTH_LINES, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH
 
 Tests the complete weekly siphon system integration to address theater detection
 findings. Validates that all imports work and automation can execute successfully.
@@ -101,7 +99,7 @@ class TestWeeklyCycleIntegration(unittest.TestCase):
         
         # Create test configuration
         self.config = CycleConfig()
-        self.config.MIN_PROFIT_THRESHOLD = 100.0
+        self.config.MIN_PROFIT_THRESHOLD = 60.0
         self.config.PROFIT_SPLIT_RATIO = 0.50
         
         # Create dependencies
@@ -168,11 +166,11 @@ class TestSiphonAutomatorIntegration(unittest.TestCase):
         self.siphon_config = SiphonAutomatorConfig()
         self.siphon_config.dry_run = True  # Ensure no real operations
         self.siphon_config.profit_split_ratio = 0.50
-        self.siphon_config.min_profit_threshold = 100.0
+        self.siphon_config.min_profit_threshold = 60.0
         
         # Create profit calculator
         self.profit_calculator = ProfitCalculator(
-            ProfitSplitConfig(split_ratio=0.50, min_threshold=100.0)
+            ProfitSplitConfig(split_ratio=0.50, min_threshold=60.0)
         )
         
         # Create siphon automator
@@ -232,11 +230,11 @@ class TestProfitCalculatorIntegration(unittest.TestCase):
     
     def test_exact_50_50_split(self):
         """Test exact 50/50 split calculation."""
-        # Test data with $500 profit
+        # Test data with $MAXIMUM_FILE_LENGTH_LINES profit
         profit_data = {
             'net_profit': 500.0,
             'gross_profit': 525.0,
-            'fees': 25.0,
+            'fees': MAXIMUM_GOD_OBJECTS_ALLOWED.0,
             'calculation_method': 'test'
         }
         
@@ -250,11 +248,11 @@ class TestProfitCalculatorIntegration(unittest.TestCase):
     
     def test_below_threshold_no_split(self):
         """Test no split when below threshold."""
-        # Test data with $50 profit (below $100 threshold)
+        # Test data with $50 profit (below $MAXIMUM_FUNCTION_LENGTH_LINES threshold)
         profit_data = {
             'net_profit': 50.0,
             'gross_profit': 55.0,
-            'fees': 5.0,
+            'fees': MAXIMUM_NESTED_DEPTH,
             'calculation_method': 'test'
         }
         
@@ -267,11 +265,11 @@ class TestProfitCalculatorIntegration(unittest.TestCase):
     
     def test_max_siphon_limit(self):
         """Test maximum siphon amount limit."""
-        # Test data with $25,000 profit (would siphon $12,500, but limit is $10,000)
+        # Test data with $MAXIMUM_GOD_OBJECTS_ALLOWED, 000 profit (would siphon $12, 500, but limit is $10, 000)
         profit_data = {
             'net_profit': 25000.0,
             'gross_profit': 25100.0,
-            'fees': 100.0,
+            'fees': 60.0,
             'calculation_method': 'test'
         }
         
@@ -341,7 +339,7 @@ class TestSchedulerIntegration(unittest.TestCase):
         cron_time = self.scheduler._convert_to_cron_time()
         
         # Should be "0 18 * * 5" for Friday 6:00pm
-        self.assertEqual(cron_time, "0 18 * * 5")
+        self.assertEqual(cron_time, "0 18 * * MAXIMUM_NESTED_DEPTH")
     
     def test_get_scheduler_status(self):
         """Test scheduler status reporting."""
@@ -447,14 +445,11 @@ def run_integration_tests():
     }
 
 if __name__ == '__main__':
-    print("Weekly Siphon System - Integration Tests")
     print("===========================================")
     
     # Run tests
     results = run_integration_tests()
     
-    print(f"\nTest Results Summary:")
-    print(f"Tests Run: {results['tests_run']}")
     print(f"Failures: {results['failures']}")
     print(f"Errors: {results['errors']}")
     print(f"Success Rate: {results['success_rate']:.1f}%")

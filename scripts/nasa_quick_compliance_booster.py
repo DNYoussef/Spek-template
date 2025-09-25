@@ -4,10 +4,10 @@ Quick NASA POT10 Compliance Booster
 Targets easy wins for Rule 2 (long functions) and Rule 3 (nesting depth).
 """
 
-import json
-import sys
 from pathlib import Path
 from typing import List, Dict, Any
+import json
+import sys
 
 def load_violations(json_path: str) -> List[Dict[str, Any]]:
     """Load NASA violations from analyzer output."""
@@ -132,7 +132,6 @@ def generate_fix_recommendations(analysis: Dict[str, Any]) -> str:
 def main():
     if len(sys.argv) < 2:
         print("Usage: python nasa_quick_compliance_booster.py <violations.json>")
-        print("Example: python nasa_quick_compliance_booster.py .claude/.artifacts/test-json-fix-v2.json")
         sys.exit(1)
 
     violations_file = sys.argv[1]

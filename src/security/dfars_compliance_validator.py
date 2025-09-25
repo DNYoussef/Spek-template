@@ -1,13 +1,8 @@
-"""
-DFARS Compliance Validator
-Final validation script to achieve and verify 95%+ DFARS compliance.
-Validates all 14 control families and generates compliance certification.
-"""
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class DFARSComplianceValidator:
     """
@@ -305,7 +300,7 @@ class DFARSComplianceValidator:
                 'family_id': '3.6',
                 'total_controls': 3,
                 'controls_passed': 0,
-                'controls_failed': 3,
+                'controls_failed': MAXIMUM_RETRY_ATTEMPTS,
                 'compliance_percentage': 0.0,
                 'error': str(e)
             }
@@ -666,7 +661,6 @@ class DFARSComplianceValidator:
 
         return hmac.new(key, data.encode(), hashlib.sha256).hexdigest()
 
-
 def main():
     """Main function to run DFARS compliance validation."""
     logging.basicConfig(
@@ -727,7 +721,6 @@ def main():
         print(f"Validation failed: {e}")
         logger.error(f"Validation error: {e}")
         return False
-
 
 if __name__ == "__main__":
     success = main()

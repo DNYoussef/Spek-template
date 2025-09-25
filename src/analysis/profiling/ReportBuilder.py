@@ -4,16 +4,16 @@ Handles report generation and formatting
 Part of god object decomposition (Day 4)
 """
 
-import json
-import csv
-from typing import Dict, List, Optional, Any, Union
-from dataclasses import dataclass, asdict
 from datetime import datetime
 from pathlib import Path
+from typing import Dict, List, Optional, Any, Union
+import json
 import logging
 
-logger = logging.getLogger(__name__)
+from dataclasses import dataclass, asdict
+import csv
 
+logger = logging.getLogger(__name__)
 
 @dataclass
 class ReportSection:
@@ -24,7 +24,6 @@ class ReportSection:
     order: int
     metadata: Dict[str, Any]
 
-
 @dataclass
 class ReportTemplate:
     """Report template definition."""
@@ -32,7 +31,6 @@ class ReportTemplate:
     sections: List[ReportSection]
     format: str  # html, pdf, markdown, json
     style: Optional[Dict[str, Any]]
-
 
 @dataclass
 class Report:
@@ -45,12 +43,11 @@ class Report:
     metadata: Dict[str, Any]
     content: str
 
-
 class ReportBuilder:
     """
     Handles report generation and formatting.
 
-    Extracted from result_aggregation_profiler (1,016 LOC -> ~200 LOC component).
+    Extracted from result_aggregation_profiler (1, 016 LOC -> ~200 LOC component).
     Handles:
     - Report generation
     - Multiple output formats
@@ -104,10 +101,10 @@ class ReportBuilder:
         )
 
     def create_report(self,
-                     title: str,
-                     data: Dict[str, Any],
-                     template_name: str = 'performance',
-                     format: Optional[str] = None) -> Report:
+                    title: str,
+                    data: Dict[str, Any],
+                    template_name: str = 'performance',
+                    format: Optional[str] = None) -> Report:
         """Create report from data using template."""
         template = self.templates.get(template_name)
         if not template:
@@ -144,8 +141,8 @@ class ReportBuilder:
         return report
 
     def _build_sections(self,
-                       data: Dict[str, Any],
-                       template: ReportTemplate) -> List[ReportSection]:
+                        data: Dict[str, Any],
+                        template: ReportTemplate) -> List[ReportSection]:
         """Build report sections from data."""
         sections = []
 
@@ -330,8 +327,8 @@ class ReportBuilder:
         return '\n'.join(text)
 
     def export_report(self,
-                     report_id: str,
-                     output_path: str) -> bool:
+                    report_id: str,
+                    output_path: str) -> bool:
         """Export report to file."""
         if report_id not in self.reports:
             logger.error(f"Report not found: {report_id}")

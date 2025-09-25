@@ -1,7 +1,7 @@
 #!/bin/bash
 # Phase 3 Critical Fixes Validation Script
 
-echo "🔍 Validating Phase 3 Critical Fixes"
+echo " Validating Phase 3 Critical Fixes"
 echo "======================================"
 
 WORKSPACE_ROOT="$(dirname "$(dirname "$(realpath "$0")")")"
@@ -13,16 +13,16 @@ FAIL=0
 
 check_result() {
     if [ $1 -eq 0 ]; then
-        echo "✅ $2"
+        echo " $2"
         ((PASS++))
     else
-        echo "❌ $2"
+        echo " $2"
         ((FAIL++))
     fi
 }
 
 echo ""
-echo "1. 🎯 Branch Reference Cleanup"
+echo "1.  Branch Reference Cleanup"
 echo "------------------------------"
 
 # Check for develop branch references in critical workflows
@@ -30,7 +30,7 @@ DEVELOP_REFS=$(find .github/workflows -name "*.yml" -exec grep -l "develop" {} \
 check_result $([[ $DEVELOP_REFS -eq 0 ]] && echo 0 || echo 1) "No develop branch references in workflows"
 
 echo ""
-echo "2. 🛡️ Error Handling Validation"
+echo "2.  Error Handling Validation"
 echo "-------------------------------"
 
 # Check critical workflows have continue-on-error: false for validation steps
@@ -47,7 +47,7 @@ for file in "${CRITICAL_FILES[@]}"; do
 done
 
 echo ""
-echo "3. 📁 Configuration Path Monitoring"
+echo "3.  Configuration Path Monitoring"
 echo "-----------------------------------"
 
 # Check that critical workflows monitor configuration paths
@@ -66,7 +66,7 @@ for file in "${CRITICAL_FILES[@]}"; do
 done
 
 echo ""
-echo "4. 📧 Email Notification Elimination"
+echo "4.  Email Notification Elimination"
 echo "------------------------------------"
 
 # Check for email notifications (should be eliminated)
@@ -77,7 +77,7 @@ check_result $([[ $EMAIL_NOTIFICATIONS -eq 0 ]] && echo 0 || echo 1) "No email n
 check_result $([[ -f ".github/workflows/enhanced-notification-strategy.yml" ]] && echo 0 || echo 1) "Enhanced notification strategy workflow exists"
 
 echo ""
-echo "5. 🧪 Test Integration Validation"
+echo "5.  Test Integration Validation"
 echo "---------------------------------"
 
 # Check that comprehensive test integration exists
@@ -89,7 +89,7 @@ TEST_DIRS=$(find . -type d -name "tests" 2>/dev/null | wc -l)
 check_result $([[ $TEST_FILES -gt 0 ]] || [[ $TEST_DIRS -gt 0 ]] && echo 0 || echo 1) "Test files or test directories exist"
 
 echo ""
-echo "6. 📊 Failure Reporter Scope"
+echo "6.  Failure Reporter Scope"
 echo "----------------------------"
 
 # Check that failure reporter monitors all critical workflows
@@ -101,7 +101,7 @@ else
 fi
 
 echo ""
-echo "7. 🔧 Quality Gate Outputs"
+echo "7.  Quality Gate Outputs"
 echo "--------------------------"
 
 # Check that critical workflows have proper output definitions
@@ -113,7 +113,7 @@ for file in "${CRITICAL_FILES[@]}"; do
 done
 
 echo ""
-echo "8. 📁 Artifact Structure"
+echo "8.  Artifact Structure"
 echo "------------------------"
 
 # Check that .claude/.artifacts directory exists for QA outputs
@@ -123,7 +123,7 @@ check_result $([[ -d ".claude/.artifacts" ]] && echo 0 || echo 1) "Quality assur
 check_result $([[ -f ".claude/.artifacts/phase3-critical-fixes-summary.md" ]] && echo 0 || echo 1) "Phase 3 fixes summary artifact exists"
 
 echo ""
-echo "9. 🔍 Theater Pattern Elimination"
+echo "9.  Theater Pattern Elimination"
 echo "---------------------------------"
 
 # Check for remaining theater patterns
@@ -136,16 +136,16 @@ check_result $([[ $JOB_NEEDS -ge 3 ]] && echo 0 || echo 1) "Critical workflows h
 
 echo ""
 echo "========================================="
-echo "🎯 Phase 3 Validation Results"
+echo " Phase 3 Validation Results"
 echo "========================================="
-echo "✅ PASSED: $PASS"
-echo "❌ FAILED: $FAIL"
-echo "📊 TOTAL:  $((PASS + FAIL))"
+echo " PASSED: $PASS"
+echo " FAILED: $FAIL"
+echo " TOTAL:  $((PASS + FAIL))"
 
 if [ $FAIL -eq 0 ]; then
     echo ""
-    echo "🎉 ALL PHASE 3 CRITICAL FIXES VALIDATED SUCCESSFULLY!"
-    echo "🚀 Ready for production deployment"
+    echo " ALL PHASE 3 CRITICAL FIXES VALIDATED SUCCESSFULLY!"
+    echo " Ready for production deployment"
     echo ""
     echo "Key Improvements:"
     echo "- Email spam eliminated (GitHub-centric notifications)"
@@ -157,7 +157,7 @@ if [ $FAIL -eq 0 ]; then
     exit 0
 else
     echo ""
-    echo "⚠️  Some validations failed. Review the output above."
-    echo "❗ Address failing checks before production deployment."
+    echo "  Some validations failed. Review the output above."
+    echo " Address failing checks before production deployment."
     exit 1
 fi

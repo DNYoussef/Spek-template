@@ -10,12 +10,6 @@ Refactored: 4 focused components with single responsibilities
 
 # Import refactored components
 from .audit_components import (
-    RefactoredDFARSAuditManager,
-    create_refactored_audit_manager,
-    AuditEventType,
-    SeverityLevel,
-    IntegrityStatus
-)
 
 # Alias for backward compatibility
 EnhancedDFARSAuditTrailManager = RefactoredDFARSAuditManager

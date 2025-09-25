@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Six Sigma Quality Scorer
-Theater-Free Quality Validation with DPMO/RTY Calculations
-"""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 import json
 import math
@@ -13,7 +9,6 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 import yaml
 import csv
-
 
 @dataclass
 class DefectRecord:
@@ -27,7 +22,6 @@ class DefectRecord:
     resolved: bool = False
     resolution_time: Optional[timedelta] = None
 
-
 @dataclass
 class ProcessStage:
     """Process stage data for RTY calculation"""
@@ -37,10 +31,9 @@ class ProcessStage:
     yield_rate: float
     target_yield: float
     
-    @property
-    def meets_target(self) -> bool:
+@property
+def meets_target(self) -> bool:
         return self.yield_rate >= self.target_yield
-
 
 @dataclass
 class SixSigmaMetrics:
@@ -54,11 +47,10 @@ class SixSigmaMetrics:
     improvement_opportunities: List[str]
     timestamp: datetime
     
-    def to_dict(self) -> Dict[str, Any]:
+def to_dict(self) -> Dict[str, Any]:
         result = asdict(self)
         result['timestamp'] = self.timestamp.isoformat()
         return result
-
 
 class SixSigmaScorer:
     """
@@ -66,13 +58,13 @@ class SixSigmaScorer:
     Calculates DPMO, RTY, and Sigma levels for theater-free quality validation
     """
     
-    def __init__(self, config_path: str = "config/checks.yaml"):
+def __init__(self, config_path: str = "config/checks.yaml"):
         """Initialize with configuration"""
         self.config = self._load_config(config_path)
         self.defect_records: List[DefectRecord] = []
         self.process_stages: List[ProcessStage] = []
         
-    def _load_config(self, config_path: str) -> Dict[str, Any]:
+def _load_config(self, config_path: str) -> Dict[str, Any]:
         """Load configuration from YAML file"""
         try:
             with open(config_path, 'r') as f:
@@ -83,20 +75,20 @@ class SixSigmaScorer:
                 'quality_gates': {
                     'six_sigma': {
                         'target_sigma_level': 4.0,
-                        'minimum_sigma_level': 3.0,
+                        'minimum_sigma_level': MAXIMUM_RETRY_ATTEMPTS.0,
                         'defect_categories': {
-                            'critical': {'weight': 10.0, 'threshold': 0},
-                            'major': {'weight': 5.0, 'threshold': 2},
-                            'minor': {'weight': 2.0, 'threshold': 10},
+                            'critical': {'weight': MAXIMUM_FUNCTION_PARAMETERS.0, 'threshold': 0},
+                            'major': {'weight': MAXIMUM_NESTED_DEPTH, 'threshold': 2},
+                            'minor': {'weight': 2.0, 'threshold': MAXIMUM_FUNCTION_PARAMETERS},
                             'cosmetic': {'weight': 1.0, 'threshold': 50}
                         }
                     }
                 }
             }
     
-    def add_defect(self, category: str, severity: str, stage: str, 
-                   description: str, resolved: bool = False,
-                   resolution_time: Optional[timedelta] = None) -> None:
+def add_defect(self, category: str, severity: str, stage: str,
+                    description: str, resolved: bool = False,
+                    resolution_time: Optional[timedelta] = None) -> None:
         """Add a defect record"""
         weight = self.config['quality_gates']['six_sigma']['defect_categories'].get(
             severity, {}
@@ -115,8 +107,8 @@ class SixSigmaScorer:
         
         self.defect_records.append(defect)
     
-    def add_process_stage(self, name: str, opportunities: int, defects: int,
-                         target_yield: float = 0.95) -> None:
+def add_process_stage(self, name: str, opportunities: int, defects: int,
+                        target_yield: float = 0.95) -> None:
         """Add a process stage for RTY calculation"""
         yield_rate = max(0, 1 - (defects / opportunities)) if opportunities > 0 else 1.0
         
@@ -130,10 +122,10 @@ class SixSigmaScorer:
         
         self.process_stages.append(stage)
     
-    def calculate_dpmo(self) -> float:
+def calculate_dpmo(self) -> float:
         """
         Calculate Defects Per Million Opportunities (DPMO)
-        DPMO = (Total Defects * 1,000,000) / Total Opportunities
+        DPMO = (Total Defects * 1, 000, 000) / Total Opportunities
         """
         if not self.defect_records:
             return 0.0
@@ -153,7 +145,7 @@ class SixSigmaScorer:
         dpmo = (total_weighted_defects * 1_000_000) / total_opportunities
         return round(dpmo, 2)
     
-    def calculate_rty(self) -> float:
+def calculate_rty(self) -> float:
         """
         Calculate Rolled Throughput Yield (RTY)
         RTY = Product of all stage yields
@@ -167,7 +159,7 @@ class SixSigmaScorer:
         
         return round(rty, 4)
     
-    def calculate_sigma_level(self, dpmo: Optional[float] = None) -> float:
+def calculate_sigma_level(self, dpmo: Optional[float] = None) -> float:
         """
         Calculate Sigma Level from DPMO
         Uses the inverse normal distribution with 1.5 sigma shift
@@ -185,7 +177,6 @@ class SixSigmaScorer:
         probability = dpmo / 1_000_000
         
         # Calculate z-score using inverse normal distribution
-        # Adding 1.5 sigma shift for long-term capability
         try:
             # Using approximation for inverse normal
             if probability >= 0.5:
@@ -201,7 +192,7 @@ class SixSigmaScorer:
         except (ValueError, ZeroDivisionError):
             return 0.0
     
-    def calculate_process_capability(self) -> float:
+def calculate_process_capability(self) -> float:
         """
         Calculate Process Capability (Cp)
         Cp = (USL - LSL) / (6 * sigma)
@@ -216,7 +207,7 @@ class SixSigmaScorer:
         capability = sigma_level / target_sigma
         return round(capability, 3)
     
-    def analyze_defect_categories(self) -> Dict[str, int]:
+def analyze_defect_categories(self) -> Dict[str, int]:
         """Analyze defects by category"""
         categories = {}
         for defect in self.defect_records:
@@ -225,11 +216,11 @@ class SixSigmaScorer:
         
         return categories
     
-    def analyze_stage_performance(self) -> Dict[str, float]:
+def analyze_stage_performance(self) -> Dict[str, float]:
         """Analyze performance by process stage"""
         return {stage.name: stage.yield_rate for stage in self.process_stages}
     
-    def identify_improvement_opportunities(self) -> List[str]:
+def identify_improvement_opportunities(self) -> List[str]:
         """Identify areas for improvement based on metrics"""
         opportunities = []
         
@@ -267,7 +258,7 @@ class SixSigmaScorer:
         
         return opportunities
     
-    def calculate_comprehensive_metrics(self) -> SixSigmaMetrics:
+def calculate_comprehensive_metrics(self) -> SixSigmaMetrics:
         """Calculate all Six Sigma metrics"""
         dpmo = self.calculate_dpmo()
         rty = self.calculate_rty()
@@ -288,7 +279,7 @@ class SixSigmaScorer:
             timestamp=datetime.now()
         )
     
-    def generate_report(self, output_dir: str = ".claude/.artifacts/sixsigma") -> str:
+def generate_report(self, output_dir: str = ".claude/.artifacts/sixsigma") -> str:
         """Generate comprehensive Six Sigma report"""
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         
@@ -320,7 +311,7 @@ class SixSigmaScorer:
         
         return str(report_file)
     
-    def _generate_html_report(self, metrics: SixSigmaMetrics) -> str:
+def _generate_html_report(self, metrics: SixSigmaMetrics) -> str:
         """Generate HTML report"""
         html = f"""
 <!DOCTYPE html>
@@ -335,7 +326,7 @@ class SixSigmaScorer:
         .metric h3 {{ margin-top: 0; color: #2c3e50; }}
         .metric .value {{ font-size: 2em; font-weight: bold; color: #e74c3c; }}
         .stage-analysis {{ margin: 20px 0; }}
-        .stage {{ background: #ffffff; padding: 15px; margin: 10px 0; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }}
+        .stage {{ background: #ffffff; padding: 15px; margin: 10px 0; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }}
         .opportunities {{ background: #fff3cd; padding: 20px; border-radius: 5px; margin: 20px 0; }}
         .pass {{ color: #27ae60; }}
         .fail {{ color: #e74c3c; }}
@@ -351,7 +342,7 @@ class SixSigmaScorer:
         <div class="metric">
             <h3>DPMO (Defects Per Million Opportunities)</h3>
             <div class="value {'pass' if metrics.dpmo < 6210 else 'fail'}">{metrics.dpmo:,.0f}</div>
-            <p>Target: &lt; 6,210 (4-sigma)</p>
+            <p>Target: &lt; 6, 210 (4-sigma)</p>
         </div>
         
         <div class="metric">
@@ -429,7 +420,6 @@ class SixSigmaScorer:
         
         return html
 
-
 def create_sample_data_scenario() -> SixSigmaScorer:
     """Create sample data scenario for testing"""
     scorer = SixSigmaScorer()
@@ -449,7 +439,6 @@ def create_sample_data_scenario() -> SixSigmaScorer:
     scorer.add_defect("formatting", "cosmetic", "implementation", "Inconsistent code indentation")
     
     return scorer
-
 
 if __name__ == "__main__":
     # Test the Six Sigma scorer with sample data

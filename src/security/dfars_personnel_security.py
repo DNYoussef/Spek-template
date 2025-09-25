@@ -1,13 +1,8 @@
-"""
-DFARS Personnel Security System (3.9.1 - 3.9.2)
-Personnel clearance tracking and security awareness for defense contractors.
-Implements DFARS 252.204-7012 personnel security requirements.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS
 
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class ClearanceLevel(Enum):
     """Security clearance levels for defense contractors."""
@@ -17,7 +12,6 @@ class ClearanceLevel(Enum):
     TOP_SECRET = "top_secret"
     TOP_SECRET_SCI = "top_secret_sci"
     NONE = "none"
-
 
 class PersonnelStatus(Enum):
     """Personnel security status tracking."""
@@ -30,7 +24,6 @@ class PersonnelStatus(Enum):
     SUSPENDED = "suspended"
     TERMINATED = "terminated"
 
-
 class TrainingStatus(Enum):
     """Security awareness training status."""
     NOT_STARTED = "not_started"
@@ -38,7 +31,6 @@ class TrainingStatus(Enum):
     COMPLETED = "completed"
     EXPIRED = "expired"
     OVERDUE = "overdue"
-
 
 class AccessNeed(Enum):
     """Types of access needs for personnel."""
@@ -48,7 +40,6 @@ class AccessNeed(Enum):
     CLASSIFIED_SECRET = "classified_secret"
     CLASSIFIED_TOP_SECRET = "classified_top_secret"
     COMPARTMENTED_INFORMATION = "compartmented_information"
-
 
 @dataclass
 class SecurityInvestigation:
@@ -65,7 +56,6 @@ class SecurityInvestigation:
     results: Optional[str]
     reciprocity_accepted: bool
 
-
 @dataclass
 class ClearanceRecord:
     """Personnel security clearance record."""
@@ -81,7 +71,6 @@ class ClearanceRecord:
     last_investigation: Optional[str]
     next_investigation_due: datetime
 
-
 @dataclass
 class SecurityTraining:
     """Security awareness training record."""
@@ -95,7 +84,6 @@ class SecurityTraining:
     status: TrainingStatus
     provider: str
     certificate_number: Optional[str]
-
 
 @dataclass
 class AccessAuthorization:
@@ -111,7 +99,6 @@ class AccessAuthorization:
     expiration_date: Optional[datetime]
     conditions: List[str]
     status: str
-
 
 @dataclass
 class PersonnelSecurityRecord:
@@ -131,7 +118,6 @@ class PersonnelSecurityRecord:
     status: PersonnelStatus
     last_updated: datetime
 
-
 class DFARSPersonnelSecurity:
     """
     DFARS 252.204-7012 Personnel Security Implementation
@@ -144,7 +130,7 @@ class DFARSPersonnelSecurity:
     and continuous monitoring of personnel security status.
     """
 
-    def __init__(self, config: Dict[str, Any]):
+def __init__(self, config: Dict[str, Any]):
         """Initialize DFARS personnel security system."""
         self.config = config
         self.crypto = FIPSCryptoModule()
@@ -169,8 +155,8 @@ class DFARSPersonnelSecurity:
 
         logger.info("DFARS Personnel Security System initialized")
 
-    def create_personnel_record(self, employee_id: str, full_name: str, position: str,
-                              department: str, supervisor: str, hire_date: datetime) -> str:
+def create_personnel_record(self, employee_id: str, full_name: str, position: str,
+                                department: str, supervisor: str, hire_date: datetime) -> str:
         """Create new personnel security record."""
         try:
             # Generate personnel ID
@@ -223,8 +209,8 @@ class DFARSPersonnelSecurity:
             )
             raise
 
-    def initiate_security_screening(self, personnel_id: str, requested_clearance: ClearanceLevel,
-                                  access_needs: List[AccessNeed], justification: str) -> str:
+def initiate_security_screening(self, personnel_id: str, requested_clearance: ClearanceLevel,
+                                    access_needs: List[AccessNeed], justification: str) -> str:
         """Initiate security screening for CUI access (3.9.1)."""
         if personnel_id not in self.personnel_records:
             raise ValueError(f"Personnel record not found: {personnel_id}")
@@ -295,8 +281,8 @@ class DFARSPersonnelSecurity:
             )
             raise
 
-    def assign_security_training(self, personnel_id: str, training_type: str,
-                               required_completion_date: datetime) -> str:
+def assign_security_training(self, personnel_id: str, training_type: str,
+                                required_completion_date: datetime) -> str:
         """Assign security awareness training (3.9.2)."""
         if personnel_id not in self.personnel_records:
             raise ValueError(f"Personnel record not found: {personnel_id}")
@@ -360,8 +346,8 @@ class DFARSPersonnelSecurity:
             )
             raise
 
-    def complete_security_training(self, training_id: str, completion_date: datetime,
-                                 score: float, certificate_number: str) -> None:
+def complete_security_training(self, training_id: str, completion_date: datetime,
+                                score: float, certificate_number: str) -> None:
         """Record security training completion."""
         try:
             # Find training record
@@ -421,9 +407,9 @@ class DFARSPersonnelSecurity:
             )
             raise
 
-    def grant_clearance(self, investigation_id: str, clearance_level: ClearanceLevel,
-                       scope: List[str], granting_agency: str,
-                       validity_years: int = 5) -> str:
+def grant_clearance(self, investigation_id: str, clearance_level: ClearanceLevel,
+                        scope: List[str], granting_agency: str,
+                        validity_years: int = 5) -> str:
         """Grant security clearance based on completed investigation."""
         if investigation_id not in self.active_investigations:
             raise ValueError(f"Investigation not found: {investigation_id}")
@@ -497,8 +483,8 @@ class DFARSPersonnelSecurity:
             )
             raise
 
-    def authorize_cui_access(self, personnel_id: str, access_needs: List[AccessNeed],
-                           systems: List[str], justification: str) -> str:
+def authorize_cui_access(self, personnel_id: str, access_needs: List[AccessNeed],
+                            systems: List[str], justification: str) -> str:
         """Authorize CUI access for screened personnel."""
         if personnel_id not in self.personnel_records:
             raise ValueError(f"Personnel record not found: {personnel_id}")
@@ -562,7 +548,7 @@ class DFARSPersonnelSecurity:
             )
             raise
 
-    def monitor_personnel_status(self) -> Dict[str, Any]:
+def monitor_personnel_status(self) -> Dict[str, Any]:
         """Monitor personnel security status and compliance."""
         monitoring_results = {
             'monitoring_timestamp': datetime.now(timezone.utc).isoformat(),
@@ -621,8 +607,8 @@ class DFARSPersonnelSecurity:
                 'personnel_with_current_training': len([
                     r for r in self.personnel_records.values()
                     if any(t.status == TrainingStatus.COMPLETED and
-                          t.expiration_date and t.expiration_date > current_date
-                          for t in r.training_records)
+                            t.expiration_date and t.expiration_date > current_date
+                            for t in r.training_records)
                 ]),
                 'active_investigations': len(self.active_investigations),
                 'compliance_percentage': self._calculate_compliance_percentage()
@@ -636,8 +622,8 @@ class DFARSPersonnelSecurity:
                 details={
                     'total_personnel': monitoring_results['total_personnel'],
                     'issues_found': len(monitoring_results['clearance_expiring_soon']) +
-                                  len(monitoring_results['training_overdue']) +
-                                  len(monitoring_results['investigation_overdue'])
+                                    len(monitoring_results['training_overdue']) +
+                                    len(monitoring_results['investigation_overdue'])
                 }
             )
 
@@ -653,7 +639,7 @@ class DFARSPersonnelSecurity:
             )
             raise
 
-    def get_compliance_status(self) -> Dict[str, Any]:
+def get_compliance_status(self) -> Dict[str, Any]:
         """Get DFARS personnel security compliance status."""
         total_personnel = len(self.personnel_records)
         screened_personnel = len([
@@ -665,12 +651,12 @@ class DFARSPersonnelSecurity:
             if any(t.status == TrainingStatus.COMPLETED for t in r.training_records)
         ])
 
-        screening_coverage = (screened_personnel / total_personnel * 100) if total_personnel > 0 else 100
-        training_coverage = (trained_personnel / total_personnel * 100) if total_personnel > 0 else 100
+        screening_coverage = (screened_personnel / total_personnel * 100) if total_personnel > 0 else MAXIMUM_FUNCTION_LENGTH_LINES
+        training_coverage = (trained_personnel / total_personnel * 100) if total_personnel > 0 else MAXIMUM_FUNCTION_LENGTH_LINES
 
         return {
             'dfars_controls': {
-                '3.9.1': {
+                'MAXIMUM_RETRY_ATTEMPTS.9.1': {
                     'implemented': True,
                     'status': 'Personnel screening for CUI access implemented',
                     'coverage': f"{screening_coverage:.1f}%"
@@ -693,7 +679,7 @@ class DFARSPersonnelSecurity:
 
     # Private helper methods
 
-    def _determine_screening_level(self, access_needs: List[AccessNeed]) -> str:
+def _determine_screening_level(self, access_needs: List[AccessNeed]) -> str:
         """Determine required screening level based on access needs."""
         if AccessNeed.CLASSIFIED_TOP_SECRET in access_needs:
             return "TOP_SECRET"
@@ -706,7 +692,7 @@ class DFARSPersonnelSecurity:
         else:
             return "CUI_BASIC"
 
-    def _get_current_clearance(self, record: PersonnelSecurityRecord) -> Optional[ClearanceRecord]:
+def _get_current_clearance(self, record: PersonnelSecurityRecord) -> Optional[ClearanceRecord]:
         """Get current active clearance for personnel."""
         active_clearances = [
             c for c in record.clearance_records
@@ -729,7 +715,7 @@ class DFARSPersonnelSecurity:
 
         return None
 
-    def _clearance_meets_requirements(self, current: ClearanceRecord, required: ClearanceLevel) -> bool:
+def _clearance_meets_requirements(self, current: ClearanceRecord, required: ClearanceLevel) -> bool:
         """Check if current clearance meets required level."""
         clearance_hierarchy = {
             ClearanceLevel.NONE: 0,
@@ -745,12 +731,12 @@ class DFARSPersonnelSecurity:
 
         return current_level >= required_level
 
-    def _grant_access_with_existing_clearance(self, personnel_id: str, access_needs: List[AccessNeed]) -> str:
+def _grant_access_with_existing_clearance(self, personnel_id: str, access_needs: List[AccessNeed]) -> str:
         """Grant access using existing clearance."""
         # Create authorization record without new investigation
         return f"EXISTING-CLR-{uuid.uuid4().hex[:8].upper()}"
 
-    def _get_investigative_agency(self, clearance_level: ClearanceLevel) -> str:
+def _get_investigative_agency(self, clearance_level: ClearanceLevel) -> str:
         """Get appropriate investigative agency for clearance level."""
         agency_mapping = {
             ClearanceLevel.PUBLIC_TRUST: "OPM",
@@ -762,20 +748,18 @@ class DFARSPersonnelSecurity:
 
         return agency_mapping.get(clearance_level, "DCSA")
 
-    def _get_adjudication_agency(self, clearance_level: ClearanceLevel) -> str:
+def _get_adjudication_agency(self, clearance_level: ClearanceLevel) -> str:
         """Get appropriate adjudication agency for clearance level."""
         # Most defense clearances adjudicated by DoD CAF
         return "DoD_CAF"
 
-    def _initiate_screening_process(self, investigation: SecurityInvestigation,
-                                  access_needs: List[AccessNeed], justification: str) -> None:
+def _initiate_screening_process(self, investigation: SecurityInvestigation,
+                                    access_needs: List[AccessNeed], justification: str) -> None:
         """Initiate the actual screening process."""
         # Submit investigation request to appropriate agency
-        # Generate required forms (SF-86, etc.)
-        # Schedule interviews and background checks
         logger.info(f"Screening process initiated for investigation {investigation.investigation_id}")
 
-    def _schedule_training_reminders(self, training: SecurityTraining, due_date: datetime) -> None:
+def _schedule_training_reminders(self, training: SecurityTraining, due_date: datetime) -> None:
         """Schedule training reminder notifications."""
         # Schedule email reminders at 30, 14, and 7 days before due date
         reminder_dates = [
@@ -786,7 +770,7 @@ class DFARSPersonnelSecurity:
 
         logger.info(f"Training reminders scheduled for {training.training_id}")
 
-    def _check_cui_access_eligibility(self, record: PersonnelSecurityRecord) -> None:
+def _check_cui_access_eligibility(self, record: PersonnelSecurityRecord) -> None:
         """Check if personnel is eligible for CUI access after training completion."""
         # Validate both screening and training requirements
         has_clearance = any(
@@ -803,8 +787,8 @@ class DFARSPersonnelSecurity:
         if has_clearance and has_current_training:
             logger.info(f"Personnel {record.personnel_id} eligible for CUI access")
 
-    def _validate_screening_requirements(self, record: PersonnelSecurityRecord,
-                                       access_needs: List[AccessNeed]) -> bool:
+def _validate_screening_requirements(self, record: PersonnelSecurityRecord,
+                                        access_needs: List[AccessNeed]) -> bool:
         """Validate personnel meets screening requirements for CUI access."""
         required_clearance_level = self._get_required_clearance_level(access_needs)
         current_clearance = self._get_current_clearance(record)
@@ -812,8 +796,8 @@ class DFARSPersonnelSecurity:
         return (current_clearance and
                 self._clearance_meets_requirements(current_clearance, required_clearance_level))
 
-    def _validate_training_requirements(self, record: PersonnelSecurityRecord,
-                                      access_needs: List[AccessNeed]) -> bool:
+def _validate_training_requirements(self, record: PersonnelSecurityRecord,
+                                        access_needs: List[AccessNeed]) -> bool:
         """Validate personnel meets training requirements for CUI access."""
         required_training_types = self._get_required_training_types(access_needs)
         current_date = datetime.now(timezone.utc)
@@ -831,7 +815,7 @@ class DFARSPersonnelSecurity:
 
         return True
 
-    def _get_required_clearance_level(self, access_needs: List[AccessNeed]) -> ClearanceLevel:
+def _get_required_clearance_level(self, access_needs: List[AccessNeed]) -> ClearanceLevel:
         """Get required clearance level for access needs."""
         if AccessNeed.CLASSIFIED_TOP_SECRET in access_needs:
             return ClearanceLevel.TOP_SECRET
@@ -842,7 +826,7 @@ class DFARSPersonnelSecurity:
         else:
             return ClearanceLevel.PUBLIC_TRUST
 
-    def _get_required_training_types(self, access_needs: List[AccessNeed]) -> List[str]:
+def _get_required_training_types(self, access_needs: List[AccessNeed]) -> List[str]:
         """Get required training types for access needs."""
         training_types = ["security_awareness", "cui_handling"]
 
@@ -854,7 +838,7 @@ class DFARSPersonnelSecurity:
 
         return training_types
 
-    def _calculate_authorization_expiration(self, record: PersonnelSecurityRecord) -> Optional[datetime]:
+def _calculate_authorization_expiration(self, record: PersonnelSecurityRecord) -> Optional[datetime]:
         """Calculate authorization expiration based on clearance and training."""
         current_clearance = self._get_current_clearance(record)
         if current_clearance:
@@ -865,7 +849,7 @@ class DFARSPersonnelSecurity:
 
         return datetime.now(timezone.utc) + timedelta(days=365)
 
-    def _generate_access_conditions(self, access_needs: List[AccessNeed]) -> List[str]:
+def _generate_access_conditions(self, access_needs: List[AccessNeed]) -> List[str]:
         """Generate access conditions based on access needs."""
         conditions = [
             "Must maintain current security clearance",
@@ -878,7 +862,7 @@ class DFARSPersonnelSecurity:
 
         return conditions
 
-    def _calculate_compliance_percentage(self) -> float:
+def _calculate_compliance_percentage(self) -> float:
         """Calculate overall personnel security compliance percentage."""
         if not self.personnel_records:
             return 100.0
@@ -906,7 +890,7 @@ class DFARSPersonnelSecurity:
 
         return (compliant_count / len(self.personnel_records)) * 100
 
-    def _get_clearance_distribution(self) -> Dict[str, int]:
+def _get_clearance_distribution(self) -> Dict[str, int]:
         """Get distribution of clearance levels."""
         distribution = {}
 

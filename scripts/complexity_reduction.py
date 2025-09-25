@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Phase 3.3: Complexity Reduction Script
-Identifies and suggests fixes for high cyclomatic complexity violations (NASA Rule 1).
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 NASA POT10 Rule 1: All functions must have cyclomatic complexity <= 10
 """
@@ -12,7 +9,6 @@ from pathlib import Path
 from typing import List, Dict, Tuple, Any
 from dataclasses import dataclass
 
-
 @dataclass
 class ComplexityViolation:
     """Represents a function with excessive complexity."""
@@ -22,11 +18,10 @@ class ComplexityViolation:
     complexity: int
     suggestions: List[str]
 
-
 class ComplexityAnalyzer:
     """Analyzes cyclomatic complexity and suggests refactoring."""
 
-    def __init__(self, threshold: int = 10):
+    def __init__(self, threshold: int = MAXIMUM_FUNCTION_PARAMETERS):
         self.threshold = threshold
         self.violations: List[ComplexityViolation] = []
 
@@ -200,7 +195,6 @@ class ComplexityAnalyzer:
             ]
         }
 
-
 def main():
     """Main entry point."""
     import argparse
@@ -260,7 +254,6 @@ def main():
 
     # Exit code based on violations
     return 1 if analyzer.violations else 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

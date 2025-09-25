@@ -7,13 +7,13 @@ Comprehensive test suite validating 100% backward compatibility and
 measuring performance improvements for the refactored architecture.
 """
 
-import sys
-import time
-import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch
-import tempfile
 import os
+import sys
+import tempfile
+import time
+import unittest
 
 # Add parent directories for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -27,7 +27,6 @@ try:
 except ImportError as e:
     print(f"Refactored components not available: {e}")
     REFACTORED_AVAILABLE = False
-
 
 class BackwardCompatibilityTests(unittest.TestCase):
     """
@@ -123,13 +122,13 @@ def bad_function(a, b, c, d, e, f):  # Too many parameters
         }
 
         # Test generateConnascenceReport
-        report = self.analyzer.generateConnascenceReport(options)
+        report = self.analyzer.generate_connascence_report(options)
         self.assertIsInstance(report, str)
         self.assertTrue(len(report) > 0)
 
         # Test with different format
         options['format'] = 'xml'
-        xml_report = self.analyzer.generateConnascenceReport(options)
+        xml_report = self.analyzer.generate_connascence_report(options)
         self.assertIsInstance(xml_report, str)
 
     def test_legacy_compliance_methods(self):
@@ -137,7 +136,7 @@ def bad_function(a, b, c, d, e, f):  # Too many parameters
         options = {'project_path': self.test_project_path}
 
         # Test validateSafetyCompliance
-        compliance = self.analyzer.validateSafetyCompliance(options)
+        compliance = self.analyzer.validate_safety_compliance(options)
         self.assertIn('compliant', compliance)
         self.assertIn('score', compliance)
         self.assertIsInstance(compliance['score'], (int, float))
@@ -147,10 +146,10 @@ def bad_function(a, b, c, d, e, f):  # Too many parameters
         options = {'project_path': self.test_project_path}
 
         # Test getRefactoringSuggestions
-        suggestions = self.analyzer.getRefactoringSuggestions(options)
+        suggestions = self.analyzer.get_refactoring_suggestions(options)
         self.assertIsInstance(suggestions, list)
 
-        # Test getAutomatedFixes (with mock to avoid actual file modification)
+        # Test get_automated_fixes(with mock to avoid actual file modification)
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write("test = 42\n")
             test_file = f.name
@@ -160,7 +159,7 @@ def bad_function(a, b, c, d, e, f):  # Too many parameters
                 'file_path': test_file,
                 'fixes': [{'line_number': 1, 'fix_type': 'test', 'confidence': 0.5}]
             }
-            fixes = self.analyzer.getAutomatedFixes(fix_options)
+            fixes = self.analyzer.get_automated_fixes(fix_options)
             self.assertIsInstance(fixes, list)
 
         finally:
@@ -225,7 +224,6 @@ def bad_function(a, b, c, d, e, f):  # Too many parameters
 
         analyzer2 = create_unified_analyzer()
         self.assertIsInstance(analyzer2, RefactoredUnifiedAnalyzer)
-
 
 class PerformanceComparisonTests(unittest.TestCase):
     """
@@ -415,7 +413,6 @@ def very_long_function():
         result2 = analyzer.analyze_project(self.test_dir)
         second_run_time = time.perf_counter() - start_time
 
-        print(f"\nCaching Performance Test:")
         print(f"  First run: {first_run_time:.4f} seconds")
         print(f"  Second run: {second_run_time:.4f} seconds")
         print(f"  Improvement: {((first_run_time - second_run_time) / first_run_time * 100):.1f}%")
@@ -426,7 +423,6 @@ def very_long_function():
             len(result2.get('violations', [])),
             "Cached results should match original results"
         )
-
 
 class NASAComplianceTests(unittest.TestCase):
     """
@@ -492,7 +488,7 @@ class NASAComplianceTests(unittest.TestCase):
 
         # ConnascenceOrchestrator should have exactly 5 public methods per NASA Rule 4
         public_methods = [method for method in dir(ConnascenceOrchestrator)
-                         if not method.startswith('_') and callable(getattr(ConnascenceOrchestrator, method))]
+                        if not method.startswith('_') and callable(getattr(ConnascenceOrchestrator, method))]
 
         # Filter out inherited methods
         orchestrator_methods = []
@@ -510,7 +506,7 @@ class NASAComplianceTests(unittest.TestCase):
 
         for method in expected_methods:
             self.assertIn(method, orchestrator_methods,
-                         f"Required method '{method}' missing from ConnascenceOrchestrator")
+                        f"Required method '{method}' missing from ConnascenceOrchestrator")
 
     def test_error_handling_compliance(self):
         """Test comprehensive error handling throughout the system."""
@@ -541,7 +537,7 @@ class NASAComplianceTests(unittest.TestCase):
         result = analyzer.analyze_project(architecture_path)
 
         critical_violations = [v for v in result.get('violations', [])
-                             if v.get('severity') == 'critical']
+                            if v.get('severity') == 'critical']
 
         print(f"\nCritical violations in refactored code: {len(critical_violations)}")
         for violation in critical_violations:
@@ -550,7 +546,6 @@ class NASAComplianceTests(unittest.TestCase):
         # NASA Rule 1: Zero critical violations allowed
         self.assertEqual(len(critical_violations), 0,
                         "Refactored code must have zero critical violations for NASA compliance")
-
 
 def run_validation_suite():
     """Run the complete validation test suite."""
@@ -580,23 +575,18 @@ def run_validation_suite():
     print("\n" + "=" * 80)
     print("VALIDATION SUMMARY")
     print("=" * 80)
-    print(f"Tests run: {result.testsRun}")
     print(f"Failures: {len(result.failures)}")
     print(f"Errors: {len(result.errors)}")
-    print(f"Success rate: {((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun * 100):.1f}%")
 
     if result.failures:
         print("\nFAILURES:")
         for test, traceback in result.failures:
-            print(f"  {test}: {traceback}")
 
     if result.errors:
         print("\nERRORS:")
         for test, traceback in result.errors:
-            print(f"  {test}: {traceback}")
 
     return result.wasSuccessful()
-
 
 if __name__ == '__main__':
     success = run_validation_suite()

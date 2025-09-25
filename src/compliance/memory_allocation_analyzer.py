@@ -20,9 +20,8 @@ Usage:
 
 import ast
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+from lib.shared.utilities import get_logger
 
 @dataclass
 class AllocationViolation:
@@ -38,7 +37,6 @@ class AllocationViolation:
     conversion_complexity: str  # "simple", "moderate", "complex"
     nasa_rule: str = "rule_3"
 
-
 @dataclass
 class ConversionResult:
     """Result of dynamic to static allocation conversion."""
@@ -51,7 +49,6 @@ class ConversionResult:
     conversion_notes: List[str]
     rollback_required: bool = False
     reason: Optional[str] = None
-
 
 @dataclass
 class MemoryAnalysisMetrics:
@@ -71,7 +68,6 @@ class MemoryAnalysisMetrics:
         if result.success:
             self.successful_conversions += 1
         self.total_execution_time += result.execution_time
-
 
 class AllocationPatternDetector:
     """Detects various dynamic memory allocation patterns."""
@@ -217,7 +213,6 @@ class AllocationPatternDetector:
     def _find_parent_call(self, node: ast.AST) -> Optional[ast.Call]:
         """Find parent call node for generator expression."""
         # This would require parent tracking in a real implementation
-        # For now, return None to indicate no parent call found
         return None
 
     def _creates_collection(self, call_node: ast.Call) -> bool:
@@ -256,7 +251,6 @@ class AllocationPatternDetector:
                 'format_in_loop': {'severity': 'low', 'complexity': 'simple'}
             }
         }
-
 
 class LoopContextTracker:
     """Tracks loop contexts for enhanced allocation analysis."""
@@ -339,7 +333,6 @@ class LoopContextTracker:
             return 100  # Conservative estimate for while loops
 
         return None
-
 
 class StaticAllocationConverter:
     """Converts dynamic allocations to static alternatives."""
@@ -427,7 +420,6 @@ class StaticAllocationConverter:
             'generator_to_collection': GeneratorConverter()
         }
 
-
 class ConversionStrategy:
     """Base class for allocation conversion strategies."""
 
@@ -439,7 +431,6 @@ class ConversionStrategy:
         """Get notes about the conversion performed."""
         return []
 
-
 class ListAppendConverter(ConversionStrategy):
     """Converts repeated list.append() to pre-allocated list with indexing."""
 
@@ -448,15 +439,6 @@ class ListAppendConverter(ConversionStrategy):
         assert violation is not None, "Violation cannot be None"
 
         # Example transformation:
-        # Before:
-        # results = []
-        # for item in items:
-        #     results.append(process(item))
-        #
-        # After:
-        # results = [None] * len(items)  # Pre-allocated
-        # for i, item in enumerate(items):
-        #     results[i] = process(item)
 
         lines = original_code.split('\\n')
         converted_lines = []
@@ -464,7 +446,6 @@ class ListAppendConverter(ConversionStrategy):
         for line in lines:
             if 'append(' in line:
                 # Convert append to indexed assignment
-                # This is a simplified conversion - real implementation would need AST manipulation
                 converted_line = line.replace('.append(', '[index] = ')
                 converted_lines.append(converted_line)
             elif 'for ' in line and ' in ' in line:
@@ -483,7 +464,6 @@ class ListAppendConverter(ConversionStrategy):
             "Requires knowledge of maximum collection size"
         ]
 
-
 class ListComprehensionConverter(ConversionStrategy):
     """Converts list comprehensions in loops to pre-allocated alternatives."""
 
@@ -498,14 +478,12 @@ class ListComprehensionConverter(ConversionStrategy):
             "Requires size estimation for pre-allocation"
         ]
 
-
 class DictCreationConverter(ConversionStrategy):
     """Converts dictionary creation in loops to pre-allocated alternatives."""
 
     def convert(self, violation: AllocationViolation, original_code: str) -> str:
         """Convert dict creation to pre-allocated alternative."""
         # Complex conversion - would need comprehensive AST analysis
-        return original_code + "\\n# TODO: Convert to pre-allocated dictionary or fixed-size data structure"
 
     def get_conversion_notes(self) -> List[str]:
         return [
@@ -514,20 +492,17 @@ class DictCreationConverter(ConversionStrategy):
             "Alternative: Use fixed-size data structure or array-based approach"
         ]
 
-
 class SetCreationConverter(ConversionStrategy):
     """Converts set creation in loops to boolean array alternatives."""
 
     def convert(self, violation: AllocationViolation, original_code: str) -> str:
         """Convert set creation to boolean array alternative."""
-        return original_code + "\\n# TODO: Convert to pre-allocated boolean array for membership testing"
 
     def get_conversion_notes(self) -> List[str]:
         return [
             "Set operations can be replaced with pre-allocated boolean arrays",
             "Requires known universe of possible values"
         ]
-
 
 class StringConcatConverter(ConversionStrategy):
     """Converts string concatenation in loops to join() alternatives."""
@@ -543,20 +518,17 @@ class StringConcatConverter(ConversionStrategy):
             "Pre-allocate list for string parts, then join()"
         ]
 
-
 class GeneratorConverter(ConversionStrategy):
     """Converts generator expressions to pre-allocated alternatives."""
 
     def convert(self, violation: AllocationViolation, original_code: str) -> str:
         """Convert generator expression to pre-allocated alternative."""
-        return original_code + "\\n# TODO: Consider itertools or pre-allocated collection"
 
     def get_conversion_notes(self) -> List[str]:
         return [
             "Generator expressions can often be replaced with itertools",
             "Consider pre-allocating target collection if size is known"
         ]
-
 
 class ConversionSafetyValidator:
     """Validates the safety and correctness of allocation conversions."""
@@ -607,7 +579,6 @@ class ConversionSafetyValidator:
         improvement_indicators = ['pre_allocated', 'fixed_size', 'bounded', '[None] *']
 
         return any(indicator in converted for indicator in improvement_indicators)
-
 
 class MemoryAllocationAnalyzer:
     """
@@ -885,7 +856,6 @@ class MemoryAllocationAnalyzer:
             'remediation_required': len(violations) > 0
         }
 
-
 def main():
     """Command-line interface for memory allocation analyzer."""
     import argparse
@@ -948,7 +918,6 @@ def main():
         return 1
 
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

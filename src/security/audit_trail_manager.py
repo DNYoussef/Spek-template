@@ -1,12 +1,13 @@
-"""
-DFARS Audit Trail Manager
-Defense-grade audit logging and trail management for compliance requirements.
-"""
+from typing import Optional, Dict, Any, List
+
+from contextlib import contextmanager
+from dataclasses import dataclass
+from enum import Enum
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class AuditEventType(Enum):
     """DFARS audit event types."""
@@ -21,7 +22,6 @@ class AuditEventType(Enum):
     VULNERABILITY_SCAN = "vulnerability_scan"
     INCIDENT_RESPONSE = "incident_response"
 
-
 class SeverityLevel(Enum):
     """Event severity levels."""
     CRITICAL = "critical"
@@ -29,7 +29,6 @@ class SeverityLevel(Enum):
     MEDIUM = "medium"
     LOW = "low"
     INFO = "info"
-
 
 @dataclass
 class AuditEvent:
@@ -48,12 +47,12 @@ class AuditEvent:
     compliance_tags: List[str]
     integrity_hash: Optional[str] = None
 
-    def __post_init__(self):
+def __post_init__(self):
         """Calculate integrity hash after initialization."""
         if not self.integrity_hash:
             self.integrity_hash = self._calculate_integrity_hash()
 
-    def _calculate_integrity_hash(self) -> str:
+def _calculate_integrity_hash(self) -> str:
         """Calculate SHA-256 hash for event integrity."""
         # Create deterministic string representation
         event_data = {
@@ -75,11 +74,10 @@ class AuditEvent:
         hash_input = json.dumps(event_data, sort_keys=True)
         return hashlib.sha256(hash_input.encode('utf-8')).hexdigest()
 
-    def verify_integrity(self) -> bool:
+def verify_integrity(self) -> bool:
         """Verify event integrity by recalculating hash."""
         expected_hash = self._calculate_integrity_hash()
         return expected_hash == self.integrity_hash
-
 
 class DFARSAuditTrailManager:
     """
@@ -87,11 +85,11 @@ class DFARSAuditTrailManager:
     Implements comprehensive logging, tamper detection, and retention policies.
     """
 
-    def __init__(self,
-                 storage_path: str = ".claude/.artifacts/audit",
-                 max_queue_size: int = 10000,
-                 batch_size: int = 100,
-                 retention_days: int = 2555):  # 7 years for DFARS
+def __init__(self,
+                storage_path: str = ".claude/.artifacts/audit",
+                max_queue_size: int = 10000,
+                batch_size: int = 100,
+                retention_days: int = 2555):  # 7 years for DFARS
         """
         Initialize audit trail manager.
 
@@ -128,7 +126,7 @@ class DFARSAuditTrailManager:
         # Lock for thread safety
         self._lock = threading.Lock()
 
-    def _initialize_database(self):
+def _initialize_database(self):
         """Initialize SQLite database for audit storage."""
         with sqlite3.connect(self.db_path) as conn:
             conn.execute('''
@@ -183,7 +181,7 @@ class DFARSAuditTrailManager:
 
             conn.commit()
 
-    def _start_processor(self):
+def _start_processor(self):
         """Start background audit processor thread."""
         if self.processor_thread is None or not self.processor_thread.is_alive():
             self.processor_thread = threading.Thread(
@@ -194,7 +192,7 @@ class DFARSAuditTrailManager:
             self.processor_thread.start()
             logger.info("Audit processor thread started")
 
-    def _process_audit_events(self):
+def _process_audit_events(self):
         """Background processor for audit events."""
         batch = []
 
@@ -202,7 +200,7 @@ class DFARSAuditTrailManager:
             try:
                 # Get event from queue (with timeout)
                 try:
-                    event = self.audit_queue.get(timeout=5.0)
+                    event = self.audit_queue.get(timeout=MAXIMUM_NESTED_DEPTH)
                     batch.append(event)
                 except queue.Empty:
                     # Process any pending batch
@@ -227,7 +225,7 @@ class DFARSAuditTrailManager:
                     finally:
                         batch.clear()
 
-    def _write_batch_to_database(self, events: List[AuditEvent]):
+def _write_batch_to_database(self, events: List[AuditEvent]):
         """Write batch of events to database."""
         if not events:
             return
@@ -283,17 +281,17 @@ class DFARSAuditTrailManager:
             logger.error(f"Failed to write audit batch: {e}")
             raise
 
-    def log_event(self,
-                  event_type: AuditEventType,
-                  severity: SeverityLevel,
-                  user_id: str,
-                  session_id: str,
-                  resource: str,
-                  action: str,
-                  outcome: str,
-                  details: Optional[Dict[str, Any]] = None,
-                  source_ip: Optional[str] = None,
-                  compliance_tags: Optional[List[str]] = None) -> str:
+def log_event(self,
+                    event_type: AuditEventType,
+                    severity: SeverityLevel,
+                    user_id: str,
+                    session_id: str,
+                    resource: str,
+                    action: str,
+                    outcome: str,
+                    details: Optional[Dict[str, Any]] = None,
+                    source_ip: Optional[str] = None,
+                    compliance_tags: Optional[List[str]] = None) -> str:
         """
         Log audit event with DFARS compliance.
 
@@ -329,15 +327,15 @@ class DFARSAuditTrailManager:
             # In production, this would trigger alerts
             raise RuntimeError("Audit system overloaded")
 
-    def log_security_event(self,
-                          user_id: str,
-                          session_id: str,
-                          action: str,
-                          resource: str,
-                          outcome: str,
-                          threat_level: str = "medium",
-                          details: Optional[Dict[str, Any]] = None,
-                          source_ip: Optional[str] = None) -> str:
+def log_security_event(self,
+                            user_id: str,
+                            session_id: str,
+                            action: str,
+                            resource: str,
+                            outcome: str,
+                            threat_level: str = "medium",
+                            details: Optional[Dict[str, Any]] = None,
+                            source_ip: Optional[str] = None) -> str:
         """Log security-specific event."""
         severity_mapping = {
             'critical': SeverityLevel.CRITICAL,
@@ -359,12 +357,12 @@ class DFARSAuditTrailManager:
             compliance_tags=['DFARS-252.204-7012', 'SECURITY', threat_level.upper()]
         )
 
-    def log_compliance_check(self,
-                           check_type: str,
-                           result: str,
-                           details: Dict[str, Any],
-                           user_id: str = "system",
-                           session_id: str = "compliance-scan") -> str:
+def log_compliance_check(self,
+                            check_type: str,
+                            result: str,
+                            details: Dict[str, Any],
+                            user_id: str = "system",
+                            session_id: str = "compliance-scan") -> str:
         """Log compliance check result."""
         severity = SeverityLevel.HIGH if result == "FAILURE" else SeverityLevel.INFO
 
@@ -380,7 +378,7 @@ class DFARSAuditTrailManager:
             compliance_tags=['DFARS-252.204-7012', 'COMPLIANCE', check_type.upper()]
         )
 
-    def query_events(self,
+def query_events(self,
                     start_time: Optional[str] = None,
                     end_time: Optional[str] = None,
                     event_type: Optional[AuditEventType] = None,
@@ -433,7 +431,7 @@ class DFARSAuditTrailManager:
             logger.error(f"Failed to query audit events: {e}")
             return []
 
-    def verify_event_integrity(self, event_id: str) -> Dict[str, Any]:
+def verify_event_integrity(self, event_id: str) -> Dict[str, Any]:
         """Verify integrity of specific audit event."""
         query = "SELECT * FROM audit_events WHERE event_id = ?"
 
@@ -481,9 +479,9 @@ class DFARSAuditTrailManager:
             logger.error(f"Failed to verify event integrity: {e}")
             return {'verified': False, 'error': str(e)}
 
-    def generate_compliance_report(self,
-                                 start_date: Optional[str] = None,
-                                 end_date: Optional[str] = None) -> Dict[str, Any]:
+def generate_compliance_report(self,
+                                start_date: Optional[str] = None,
+                                end_date: Optional[str] = None) -> Dict[str, Any]:
         """Generate DFARS compliance audit report."""
         if not start_date:
             start_date = (datetime.now() - timedelta(days=30)).isoformat()
@@ -557,7 +555,7 @@ class DFARSAuditTrailManager:
             'recommendations': self._generate_recommendations(stats, integrity_failures)
         }
 
-    def _generate_recommendations(self, stats: Dict[str, Any], integrity_failures: int) -> List[str]:
+def _generate_recommendations(self, stats: Dict[str, Any], integrity_failures: int) -> List[str]:
         """Generate compliance recommendations."""
         recommendations = []
 
@@ -579,7 +577,7 @@ class DFARSAuditTrailManager:
 
         return recommendations
 
-    def cleanup_old_records(self, days_to_keep: Optional[int] = None) -> Dict[str, int]:
+def cleanup_old_records(self, days_to_keep: Optional[int] = None) -> Dict[str, int]:
         """Clean up old audit records per retention policy."""
         if days_to_keep is None:
             days_to_keep = self.retention_days
@@ -613,7 +611,7 @@ class DFARSAuditTrailManager:
             logger.error(f"Failed to cleanup old audit records: {e}")
             return {'error': str(e)}
 
-    def get_system_status(self) -> Dict[str, Any]:
+def get_system_status(self) -> Dict[str, Any]:
         """Get audit system status."""
         return {
             'queue_size': self.audit_queue.qsize(),
@@ -625,11 +623,11 @@ class DFARSAuditTrailManager:
             'retention_days': self.retention_days
         }
 
-    def __enter__(self):
+def __enter__(self):
         """Context manager entry."""
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+def __exit__(self, exc_type, exc_val, exc_tb):
         """Context manager exit - ensure cleanup."""
         # Process remaining events
         if hasattr(self, 'audit_queue'):
@@ -644,13 +642,12 @@ class DFARSAuditTrailManager:
             if remaining_events:
                 self._write_batch_to_database(remaining_events)
 
-
 # Context manager for audit sessions
 @contextmanager
 def audit_session(audit_manager: DFARSAuditTrailManager,
-                 user_id: str,
-                 session_id: str,
-                 resource: str):
+                user_id: str,
+                session_id: str,
+                resource: str):
     """Context manager for audit sessions."""
     # Log session start
     audit_manager.log_event(
@@ -691,12 +688,10 @@ def audit_session(audit_manager: DFARSAuditTrailManager,
         )
         raise
 
-
 # Factory function
 def create_dfars_audit_manager(storage_path: str = ".claude/.artifacts/audit") -> DFARSAuditTrailManager:
     """Create DFARS-compliant audit trail manager."""
     return DFARSAuditTrailManager(storage_path=storage_path)
-
 
 if __name__ == "__main__":
     # Example usage

@@ -4,9 +4,8 @@ Code utility functions for connascence analysis.
 Consolidates common code snippet extraction functionality 
 used across multiple detector classes.
 """
-import ast
 from typing import List
-
+import ast
 
 def get_code_snippet_for_node(node: ast.AST, source_lines: List[str], context_lines: int = 2) -> str:
     """

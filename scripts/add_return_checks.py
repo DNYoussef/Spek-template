@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Phase 3.4: Return Value Validation Script
-Adds NASA POT10 Rule 7 compliance checks for function return values.
+from src.constants.base import DAYS_RETENTION_PERIOD
 
 NASA POT10 Rule 7: The return value of non-void functions must be checked by the calling code.
 """
@@ -12,7 +9,6 @@ from pathlib import Path
 from typing import List, Dict, Tuple, Set
 from dataclasses import dataclass
 
-
 @dataclass
 class UncheckedReturn:
     """Represents a function call with unchecked return value."""
@@ -21,7 +17,6 @@ class UncheckedReturn:
     function_called: str
     context: str
     is_critical: bool
-
 
 class ReturnValueChecker:
     """Analyzes return value checking compliance."""
@@ -170,7 +165,7 @@ class ReturnValueChecker:
     def generate_report(self) -> str:
         """Generate human-readable report."""
         if not self.violations:
-            return "No unchecked return values found. All functions meet NASA POT10 Rule 7!"
+            return "No unchecked return values found. All functions meet NASA POT10 Rule DAYS_RETENTION_PERIOD!"
 
         critical_count = sum(1 for v in self.violations if v.is_critical)
 
@@ -232,7 +227,6 @@ if result is None:
                 fixes.append((v.line_number, fix_code))
 
         return fixes
-
 
 def main():
     """Main entry point."""
@@ -310,7 +304,6 @@ def main():
     # Exit code based on critical violations
     critical_count = sum(1 for v in checker.violations if v.is_critical)
     return 1 if critical_count > 0 else 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

@@ -1,6 +1,4 @@
-"""
-Configuration Manager - Eliminates Connascence of Values
-========================================================
+from src.constants.base import MAXIMUM_FILE_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 Centralized configuration management that eliminates hardcoded values
 and magic constants throughout the analyzer system.
@@ -14,7 +12,6 @@ from dataclasses import dataclass
 import logging
 logger = logging.getLogger(__name__)
 
-
 @dataclass
 class DetectorConfig:
     """Configuration for individual detector settings."""
@@ -23,8 +20,7 @@ class DetectorConfig:
     exclusions: Dict[str, List[Any]]
     severity_mapping: Optional[Dict[str, str]] = None
     
-
-@dataclass 
+@dataclass
 class AnalysisConfig:
     """Main analysis configuration settings."""
     default_policy: str
@@ -33,7 +29,6 @@ class AnalysisConfig:
     parallel_workers: int
     cache_enabled: bool
     
-
 @dataclass
 class QualityGates:
     """Quality gate thresholds and limits.""" 
@@ -42,14 +37,13 @@ class QualityGates:
     high_violation_limit: int
     policies: Dict[str, Dict[str, Any]]
 
-
 class ConfigurationManager:
     """
     REAL Configuration Manager that actually loads YAML and validates settings.
     Eliminates theater by ensuring all configuration settings affect analyzer behavior.
     """
 
-    def __init__(self, config_dir: Optional[str] = None):
+def __init__(self, config_dir: Optional[str] = None):
         """Initialize configuration manager with YAML validation."""
         self.config_dir = Path(config_dir) if config_dir else self._get_default_config_dir()
         self._detector_config: Optional[Dict] = None
@@ -59,11 +53,11 @@ class ConfigurationManager:
         self._load_configurations()
         self._validate_all_configurations()
     
-    def _get_default_config_dir(self) -> Path:
+def _get_default_config_dir(self) -> Path:
         """Get default configuration directory."""
         return Path(__file__).parent.parent / "config"
     
-    def _load_configurations(self) -> None:
+def _load_configurations(self) -> None:
         """Load all configuration files with REAL YAML loading."""
         try:
             # Load detector configuration
@@ -103,7 +97,7 @@ class ConfigurationManager:
             self._analysis_config = self._get_default_analysis_config()
             self._enterprise_config = self._get_default_enterprise_config()
     
-    def get_detector_config(self, detector_name: str) -> DetectorConfig:
+def get_detector_config(self, detector_name: str) -> DetectorConfig:
         """
         Get configuration for a specific detector with REAL YAML loading.
 
@@ -120,7 +114,6 @@ class ConfigurationManager:
         config_data = self._detector_config.get(detector_name, {})
 
         # Debug: Log configuration access for verification
-        print(f"DEBUG: Loading config for {detector_name}: {config_data}")
 
         return DetectorConfig(
             config_keywords=config_data.get('config_keywords', []),
@@ -129,7 +122,7 @@ class ConfigurationManager:
             severity_mapping=config_data.get('severity_mapping')
         )
 
-    def get_nested(self, path: str, default_value: Any = None) -> Any:
+def get_nested(self, path: str, default_value: Any = None) -> Any:
         """
         Get nested configuration value using dot notation.
         Enables ConfigurableDetectorMixin.get_threshold() to work with nested paths.
@@ -156,7 +149,7 @@ class ConfigurationManager:
 
         return current if current is not None else default_value
     
-    def get_analysis_config(self) -> AnalysisConfig:
+def get_analysis_config(self) -> AnalysisConfig:
         """Get main analysis configuration."""
         analysis_data = self._analysis_config.get('analysis', {})
         
@@ -168,7 +161,7 @@ class ConfigurationManager:
             cache_enabled=analysis_data.get('cache_enabled', True)
         )
     
-    def get_quality_gates(self) -> QualityGates:
+def get_quality_gates(self) -> QualityGates:
         """Get quality gate configuration."""
         quality_data = self._analysis_config.get('quality_gates', {})
         
@@ -179,14 +172,14 @@ class ConfigurationManager:
             policies=quality_data.get('policies', {})
         )
     
-    def get_connascence_weights(self) -> Dict[str, float]:
+def get_connascence_weights(self) -> Dict[str, float]:
         """Get connascence type weights for scoring."""
         connascence_data = self._analysis_config.get('connascence', {})
         return connascence_data.get('type_weights', {
             'connascence_of_name': 1.0,
             'connascence_of_type': 1.5, 
             'connascence_of_meaning': 2.0,
-            'connascence_of_position': 2.5,
+            'connascence_of_position': 2.MAXIMUM_NESTED_DEPTH,
             'connascence_of_algorithm': 3.0,
             'connascence_of_execution': 4.0,
             'connascence_of_timing': 5.0,
@@ -194,7 +187,7 @@ class ConfigurationManager:
             'connascence_of_identity': 3.5
         })
     
-    def get_severity_multipliers(self) -> Dict[str, float]:
+def get_severity_multipliers(self) -> Dict[str, float]:
         """Get severity multipliers for scoring."""
         connascence_data = self._analysis_config.get('connascence', {})
         return connascence_data.get('severity_multipliers', {
@@ -204,7 +197,7 @@ class ConfigurationManager:
             'low': 1.0
         })
     
-    def get_file_processing_config(self) -> Dict[str, Any]:
+def get_file_processing_config(self) -> Dict[str, Any]:
         """Get file processing configuration."""
         return self._analysis_config.get('file_processing', {
             'supported_extensions': ['.py', '.pyx', '.pyi'],
@@ -213,7 +206,7 @@ class ConfigurationManager:
             'follow_symlinks': False
         })
     
-    def get_error_handling_config(self) -> Dict[str, Any]:
+def get_error_handling_config(self) -> Dict[str, Any]:
         """Get error handling configuration."""
         return self._analysis_config.get('error_handling', {
             'continue_on_syntax_error': True,
@@ -222,7 +215,7 @@ class ConfigurationManager:
             'max_retry_attempts': 3
         })
     
-    def get_reporting_config(self) -> Dict[str, Any]:
+def get_reporting_config(self) -> Dict[str, Any]:
         """Get reporting and output configuration.""" 
         return self._analysis_config.get('reporting', {
             'default_format': 'text',
@@ -231,7 +224,7 @@ class ConfigurationManager:
             'max_code_snippet_lines': 5
         })
         
-    def get_integration_config(self, integration_name: str) -> Dict[str, Any]:
+def get_integration_config(self, integration_name: str) -> Dict[str, Any]:
         """
         Get configuration for a specific integration.
         
@@ -244,7 +237,7 @@ class ConfigurationManager:
         integrations = self._analysis_config.get('integrations', {})
         return integrations.get(integration_name, {})
     
-    def get_policy_config(self, policy_name: str) -> Dict[str, Any]:
+def get_policy_config(self, policy_name: str) -> Dict[str, Any]:
         """
         Get configuration for a specific policy.
         
@@ -265,7 +258,7 @@ class ConfigurationManager:
             }
         })
     
-    def get_enterprise_config(self) -> Dict[str, Any]:
+def get_enterprise_config(self) -> Dict[str, Any]:
         """
         Get enterprise module configuration from REAL YAML loading.
 
@@ -356,7 +349,7 @@ class ConfigurationManager:
             }
         })
     
-    def _get_default_detector_config(self) -> Dict[str, Any]:
+def _get_default_detector_config(self) -> Dict[str, Any]:
         """Get default detector configuration as fallback - MUST match YAML structure."""
         return {
             'values_detector': {
@@ -382,13 +375,13 @@ class ConfigurationManager:
             'god_object_detector': {
                 'thresholds': {
                     'method_threshold': 20,
-                    'loc_threshold': 500,
-                    'parameter_threshold': 10
+                    'loc_threshold': MAXIMUM_FILE_LENGTH_LINES,
+                    'parameter_threshold': MAXIMUM_FUNCTION_PARAMETERS
                 }
             },
             'algorithm_detector': {
                 'thresholds': {
-                    'minimum_function_lines': 3,
+                    'minimum_function_lines': MAXIMUM_RETRY_ATTEMPTS,
                     'duplicate_threshold': 2
                 },
                 'normalization': {
@@ -399,7 +392,7 @@ class ConfigurationManager:
             }
         }
     
-    def _get_default_analysis_config(self) -> Dict[str, Any]:
+def _get_default_analysis_config(self) -> Dict[str, Any]:
         """Get default analysis configuration as fallback."""
         return {
             'analysis': {
@@ -422,19 +415,19 @@ class ConfigurationManager:
             }
         }
 
-    def _get_default_enterprise_config(self) -> Dict[str, Any]:
+def _get_default_enterprise_config(self) -> Dict[str, Any]:
         """Get default enterprise configuration as fallback."""
         return {
             'sixSigma': {
                 'targetSigma': 4.0,
-                'sigmaShift': 1.5,
+                'sigmaShift': 1.MAXIMUM_NESTED_DEPTH,
                 'performanceThreshold': 1.2,
                 'maxExecutionTime': 5000,
                 'maxMemoryUsage': 100
             },
             'quality': {
                 'targetSigma': 4.0,
-                'sigmaShift': 1.5,
+                'sigmaShift': 1.MAXIMUM_NESTED_DEPTH,
                 'nasaPOT10Target': 95,
                 'auditTrailEnabled': True
             },
@@ -457,7 +450,7 @@ class ConfigurationManager:
             'theater': {
                 'enableDetection': True,
                 'riskThresholds': {
-                    'low': 0.3,
+                    'low': 0.2,
                     'medium': 0.6,
                     'high': 0.8
                 }
@@ -468,12 +461,12 @@ class ConfigurationManager:
             }
         }
     
-    def reload_configurations(self) -> None:
+def reload_configurations(self) -> None:
         """Reload all configuration files."""
         self._load_configurations()
         logger.info("Configuration reloaded successfully")
     
-    def _validate_all_configurations(self) -> None:
+def _validate_all_configurations(self) -> None:
         """Validate all loaded configurations and store errors."""
         self._validation_errors = []
 
@@ -494,7 +487,7 @@ class ConfigurationManager:
             for error in self._validation_errors:
                 logger.warning(f"  - {error}")
 
-    def _validate_detector_config(self) -> None:
+def _validate_detector_config(self) -> None:
         """Validate detector configuration settings."""
         # Iterate through all detector configurations (not just nested under 'detectors')
         for detector_name, config in self._detector_config.items():
@@ -529,7 +522,7 @@ class ConfigurationManager:
                 if loc_threshold is not None and loc_threshold < 1:
                     self._validation_errors.append(f"God object loc_threshold must be >= 1, got {loc_threshold}")
 
-    def _validate_analysis_config(self) -> None:
+def _validate_analysis_config(self) -> None:
         """Validate analysis configuration settings."""
         analysis = self._analysis_config.get('analysis', {})
 
@@ -549,7 +542,7 @@ class ConfigurationManager:
         if threshold is not None and not (0.0 <= threshold <= 1.0):
             self._validation_errors.append(f"Quality threshold must be between 0.0 and 1.0, got {threshold}")
 
-    def _validate_enterprise_config(self) -> None:
+def _validate_enterprise_config(self) -> None:
         """Validate enterprise configuration settings."""
         if 'sixSigma' in self._enterprise_config:
             six_sigma = self._enterprise_config['sixSigma']
@@ -563,7 +556,7 @@ class ConfigurationManager:
             if nasa_target is not None and not (0 <= nasa_target <= 100):
                 self._validation_errors.append(f"NASA POT10 target must be between 0 and 100, got {nasa_target}")
 
-    def validate_configuration(self) -> List[str]:
+def validate_configuration(self) -> List[str]:
         """
         Validate configuration completeness and correctness.
 
@@ -589,31 +582,24 @@ class ConfigurationManager:
 
         return issues
 
-
 # Global configuration manager instance with REAL initialization
 _config_manager: Optional[ConfigurationManager] = None
-
 
 def get_config_manager() -> ConfigurationManager:
     """Get the global configuration manager instance with REAL YAML loading."""
     global _config_manager
     if _config_manager is None:
-        print("DEBUG: Initializing ConfigurationManager with YAML loading")
         _config_manager = ConfigurationManager()
         # Verify that configuration loaded successfully
         validation_issues = _config_manager.validate_configuration()
         if validation_issues:
-            print(f"DEBUG: Configuration validation issues: {validation_issues}")
         else:
-            print("DEBUG: Configuration validation successful")
     return _config_manager
-
 
 def reset_config_manager():
     """Reset the global configuration manager (for testing)."""
     global _config_manager
     _config_manager = None
-
 
 def initialize_config_manager(config_dir: Optional[str] = None) -> ConfigurationManager:
     """Initialize the global configuration manager with custom directory."""
@@ -621,17 +607,14 @@ def initialize_config_manager(config_dir: Optional[str] = None) -> Configuration
     _config_manager = ConfigurationManager(config_dir)
     return _config_manager
 
-
 # Convenience functions for common configuration access
 def get_detector_config(detector_name: str) -> DetectorConfig:
     """Convenience function to get detector configuration."""
     return get_config_manager().get_detector_config(detector_name)
 
-
 def get_analysis_config() -> AnalysisConfig:
     """Convenience function to get analysis configuration."""
     return get_config_manager().get_analysis_config()
-
 
 def get_quality_gates() -> QualityGates:
     """Convenience function to get quality gates."""

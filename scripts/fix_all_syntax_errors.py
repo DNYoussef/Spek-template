@@ -1,199 +1,254 @@
 #!/usr/bin/env python3
 """
-Comprehensive syntax error fixer for the entire codebase.
-Fixes f-string errors, indentation issues, and parenthesis mismatches.
+Automated Python Syntax Error Fixer
+Fixes common syntax errors found by connascence analyzer
 """
 
+from pathlib import Path
+from typing import List, Tuple
+import os
 import re
 import sys
-from pathlib import Path
-import ast
 
-def fix_fstring_errors(content):
-    """Fix f-string parenthesis mismatches."""
-    fixes = 0
+# Error patterns and their fixes
+FIXES = {
+    # Pattern 1: Empty if/else/try blocks with only comments
+    'empty_block': {
+        'pattern': r'((?:if|else|elif|try|except|finally|for|while|with|def|class)[^:]*:)\s*\n(\s*)(#[^\n]*\n)(?=\s*(?:except|elif|else|finally|\S))',
+        'replacement': r'\1\n\2\3\2pass  # Auto-fixed: empty block\n'
+    },
 
-    # Pattern 1: f"{var)" -> f"{var}"
-    pattern1 = r'f"([^"]*\{[^}]+):([^"]*)"'
-    if re.search(pattern1, content):
-        content = re.sub(pattern1, r'f"\1}\2"', content)
-        fixes += 1
+    # Pattern 2: Unexpected indent (usually extra spaces at line start)
+    'unexpected_indent': {
+        'line_check': lambda line, prev_line: line.strip() and line[0] == ' ' and (not prev_line.strip() or not prev_line.rstrip().endswith(':')),
+        'fix': lambda line: line.lstrip()
+    },
 
-    # Pattern 2: f"{var)}" -> f"{var}"
-    pattern2 = r'f"([^"]*\{[^}]+)\)([^"]*)"'
-    if re.search(pattern2, content):
-        content = re.sub(pattern2, r'f"\1}\2"', content)
-        fixes += 1
+    # Pattern 3: Unterminated string literals (triple quotes)
+    'unterminated_triple_quote': {
+        'pattern': r'("""[^"]*$)',
+        'check': lambda content: content.count('"""') % 2 != 0,
+        'fix': lambda content: content + '\n"""'
+    },
 
-    # Pattern 3: Unmatched ) in f-strings
-    lines = content.split('\n')
-    for i, line in enumerate(lines):
-        if 'f"' in line or "f'" in line:
-            # Count braces and parens in f-string
-            if line.count('{') != line.count('}'):
-                # Try to fix by replacing ) with }
-                if '):' in line and line.count(')') > line.count('('):
-                    lines[i] = line.replace('):', '}:')
-                    fixes += 1
+    # Pattern 4: Line continuation character issues (backslash at end)
+    'bad_line_continuation': {
+        'pattern': r'\\\s*\n\s*\n',  # Backslash followed by blank line
+        'replacement': r'\n'
+    },
 
-    return '\n'.join(lines), fixes
+    # Pattern 5: Mismatched parentheses
+    'mismatched_parens': {
+        'pattern': r'\}\s*\)',
+        'replacement': r')'
+    }
+}
 
-def fix_indentation_errors(content):
-    """Fix unexpected indentation errors."""
-    fixes = 0
+def fix_empty_blocks(content: str) -> str:
+    """Fix if/else/try blocks that only have comments"""
+    pattern = FIXES['empty_block']['pattern']
+    replacement = FIXES['empty_block']['replacement']
+    return re.sub(pattern, replacement, content, flags=re.MULTILINE)
+
+def fix_unexpected_indents(content: str) -> str:
+    """Fix unexpected indentation errors"""
     lines = content.split('\n')
     fixed_lines = []
 
     for i, line in enumerate(lines):
+        prev_line = lines[i-1] if i > 0 else ''
+
         # Check if line has unexpected indent
-        if line.strip() and i > 0:
-            prev_line = lines[i-1].strip()
+        if line.strip() and line[0] == ' ':
+            # If previous line doesn't end with colon and isn't indented, this is likely wrong
+            if prev_line.strip() and not prev_line.rstrip().endswith(':'):
+                # Check if this line's indent matches previous
+                prev_indent = len(prev_line) - len(prev_line.lstrip())
+                curr_indent = len(line) - len(line.lstrip())
 
-            # If previous line doesn't end with : and current line is indented more than expected
-            if not prev_line.endswith(':') and not prev_line.endswith('\\'):
-                # Check indentation
-                current_indent = len(line) - len(line.lstrip())
-                if i > 0:
-                    prev_indent = len(lines[i-1]) - len(lines[i-1].lstrip())
-
-                    # If indent jumped more than 4 spaces without a colon, reduce it
-                    if current_indent > prev_indent + 4 and not prev_line.endswith((',', '(')):
-                        # Reduce indent to match previous + 4
-                        fixed_line = ' ' * (prev_indent) + line.lstrip()
-                        fixed_lines.append(fixed_line)
-                        fixes += 1
-                        continue
+                if curr_indent > prev_indent and not prev_line.rstrip().endswith((':', '\\', ',')):
+                    # Unexpected indent - reduce to match previous
+                    fixed_lines.append(' ' * prev_indent + line.lstrip())
+                    continue
 
         fixed_lines.append(line)
 
-    return '\n'.join(fixed_lines), fixes
+    return '\n'.join(fixed_lines)
 
-def fix_parenthesis_mismatch(content):
-    """Fix parenthesis/brace mismatches."""
-    fixes = 0
-    lines = content.split('\n')
+def fix_unterminated_strings(content: str) -> str:
+    """Fix unterminated triple-quoted strings"""
+    # Count triple quotes
+    if content.count('"""') % 2 != 0:
+        # Find last triple quote
+        last_triple = content.rfind('"""')
+        if last_triple != -1:
+            # Add closing triple quote at end
+            content += '\n"""  # Auto-fixed: unterminated string'
 
-    for i, line in enumerate(lines):
-        # Check for {  with closing )
-        if '{' in line and ')' in line:
-            open_brace = line.count('{')
-            close_paren = line.count(')')
-            open_paren = line.count('(')
-            close_brace = line.count('}')
+    return content
 
-            # If we have { but closing with )
-            if open_brace > close_brace and close_paren > open_paren:
-                # Replace the mismatched ) with }
-                # Find the last ) that should be }
-                lines[i] = line[::-1].replace(')', '}', open_brace - close_brace)[::-1]
-                fixes += 1
+def fix_line_continuations(content: str) -> str:
+    """Fix bad line continuation characters"""
+    pattern = FIXES['bad_line_continuation']['pattern']
+    replacement = FIXES['bad_line_continuation']['replacement']
+    return re.sub(pattern, replacement, content, flags=re.MULTILINE)
 
-    return '\n'.join(lines), fixes
+def fix_mismatched_parens(content: str) -> str:
+    """Fix mismatched parentheses/brackets"""
+    # Replace '}' with ')' if it's closing a Python expression
+    content = re.sub(r'(\w+)\s*\}', r'\1)', content)
+    return content
 
-def can_parse(content):
-    """Check if Python code can be parsed."""
-    try:
-        ast.parse(content)
-        return True, None
-    except SyntaxError as e:
-        return False, str(e)
-
-def fix_file(filepath):
-    """Fix syntax errors in a single file."""
+def fix_file(filepath: Path) -> Tuple[bool, str]:
+    """Fix syntax errors in a single file"""
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
-            original_content = f.read()
+            content = f.read()
 
-        content = original_content
-        total_fixes = 0
+        original = content
 
-        # Apply fixes
-        content, fixes1 = fix_fstring_errors(content)
-        total_fixes += fixes1
+        # Apply fixes in order
+        content = fix_empty_blocks(content)
+        content = fix_unexpected_indents(content)
+        content = fix_unterminated_strings(content)
+        content = fix_line_continuations(content)
+        content = fix_mismatched_parens(content)
 
-        content, fixes2 = fix_indentation_errors(content)
-        total_fixes += fixes2
-
-        content, fixes3 = fix_parenthesis_mismatch(content)
-        total_fixes += fixes3
-
-        # Only write if we made changes
-        if content != original_content:
-            # Verify it parses before writing
-            can_parse_result, error = can_parse(content)
-
+        # Only write if changed
+        if content != original:
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(content)
+            return True, "Fixed"
 
-            return total_fixes, can_parse_result
-
-        return 0, True
+        return False, "No changes needed"
 
     except Exception as e:
-        print(f"Error processing {filepath}: {e}")
-        return 0, False
+        return False, f"Error: {str(e)}"
 
 def main():
-    """Fix all Python files with syntax errors."""
-
-    # Files known to have syntax errors (from analyzer output)
+    """Main execution"""
+    # ALL Files with syntax errors (from connascence output)
     error_files = [
+        # Already fixed batch 1
+        "scripts/fix_all_nasa_syntax.py",
         "scripts/performance_monitor.py",
-        "src/intelligence/neural_networks/rl/strategy_optimizer.py",
-        "src/intelligence/neural_networks/rl/trading_environment.py",
-        "tests/workflow-validation/comprehensive_validation_report.py",
-        "analyzer/integrations/tool_coordinator.py",
-        ".claude/performance/baselines/baseline_collector.py",
-        "src/intelligence/neural_networks/lstm/lstm_predictor.py",
-        "src/intelligence/neural_networks/transformer/financial_bert.py",
-        "src/intelligence/neural_networks/transformer/sentiment_analyzer.py",
+        "scripts/remove_unicode.py",
+        "scripts/unicode_removal_linter.py",
+        ".claude/.artifacts/artifact_manager.py",
         ".claude/.artifacts/dfars_compliance_framework.py",
-        "analyzer/enterprise/compliance/core.py",
-        "analyzer/enterprise/compliance/integration.py",
-        "analyzer/enterprise/compliance/iso27001.py",
-        "analyzer/enterprise/compliance/nist_ssdf.py",
+        ".claude/.artifacts/quality_analysis.py",
+        ".claude/.artifacts/quality_validator.py",
+        ".claude/.artifacts/compliance/compliance_packager.py",
+        ".claude/coordination/adaptive/agent_deployment_protocol.py",
+        ".claude/performance/baselines/baseline_collector.py",
+        ".claude/performance/monitoring/realtime_monitor.py",
+        ".claude/performance/validation/theater_detector.py",
+
+        # Enterprise compliance
         "analyzer/enterprise/compliance/reporting.py",
         "analyzer/enterprise/compliance/soc2.py",
         "analyzer/enterprise/compliance/validate_retention.py",
+        "analyzer/enterprise/compliance/core.py",
+        "analyzer/enterprise/compliance/integration.py",
+        "analyzer/enterprise/compliance/iso27001.py",
         "analyzer/enterprise/performance/MLCacheOptimizer.py",
+        "analyzer/integrations/tool_coordinator.py",
+        "analyzer/performance/ci_cd_accelerator.py",
+
+        # Cycles/Trading
         "src/cycles/profit_calculator.py",
         "src/cycles/scheduler.py",
         "src/cycles/weekly_cycle.py",
-        "src/cycles/weekly_siphon_automator.py"
+        "src/cycles/weekly_siphon_automator.py",
+        "src/trading/market_data_provider.py",
+        "src/trading/portfolio_manager.py",
+        "src/trading/trade_executor.py",
+
+        # Security
+        "src/security/dfars_compliance_engine.py",
+        "src/security/enhanced_audit_trail_manager.py",
+
+        # Six Sigma
+        "src/sixsigma/telemetry_config.py",
+
+        # Theater detection
+        "src/theater-detection/theater-detector.py",
+
+        # Intelligence data pipeline
+        "src/intelligence/data_pipeline/monitoring/metrics_collector.py",
+        "src/intelligence/data_pipeline/monitoring/pipeline_monitor.py",
+        "src/intelligence/data_pipeline/processing/alternative_data_processor.py",
+        "src/intelligence/data_pipeline/processing/news_processor.py",
+        "src/intelligence/data_pipeline/processing/options_flow_analyzer.py",
+        "src/intelligence/data_pipeline/processing/sentiment_processor.py",
+        "src/intelligence/data_pipeline/sources/alpaca_source.py",
+        "src/intelligence/data_pipeline/sources/data_source_manager.py",
+        "src/intelligence/data_pipeline/sources/historical_loader.py",
+        "src/intelligence/data_pipeline/sources/polygon_source.py",
+        "src/intelligence/data_pipeline/sources/yahoo_source.py",
+        "src/intelligence/data_pipeline/streaming/failover_manager.py",
+        "src/intelligence/data_pipeline/streaming/real_time_streamer.py",
+        "src/intelligence/data_pipeline/streaming/stream_buffer.py",
+        "src/intelligence/data_pipeline/streaming/websocket_manager.py",
+        "src/intelligence/data_pipeline/validation/data_validator.py",
+        "src/intelligence/data_pipeline/validation/quality_monitor.py",
+
+        # Neural networks
+        "src/intelligence/neural_networks/cnn/pattern_definitions.py",
+        "src/intelligence/neural_networks/cnn/pattern_recognizer.py",
+        "src/intelligence/neural_networks/cnn/resnet_backbone.py",
+        "src/intelligence/neural_networks/ensemble/ensemble_framework.py",
+        "src/intelligence/neural_networks/lstm/attention_mechanism.py",
+        "src/intelligence/neural_networks/lstm/lstm_predictor.py",
+        "src/intelligence/neural_networks/rl/ppo_agent.py",
+        "src/intelligence/neural_networks/rl/strategy_optimizer.py",
+        "src/intelligence/neural_networks/rl/trading_environment.py",
+        "src/intelligence/neural_networks/transformer/financial_bert.py",
+        "src/intelligence/neural_networks/transformer/sentiment_analyzer.py",
+
+        # Linter integration
+        "src/linter-integration/agents/api_docs_node.py",
+        "src/linter-integration/agents/integration_specialist_node.py",
+
+        # Safety
+        "src/safety/integration/trading_safety_bridge.py",
+
+        # Tests
+        "tests/workflow-validation/comprehensive_validation_report.py",
+        "tests/workflow-validation/python_execution_tests.py",
     ]
 
-    print("Comprehensive Syntax Error Fixer")
-    print("=" * 60)
+    base_dir = Path(__file__).parent.parent
 
-    fixed_files = []
-    parse_errors = []
+    print("Automated Python Syntax Error Fixer")
+    print("=" * 50)
 
-    for filepath in error_files:
-        path = Path(filepath)
-        if not path.exists():
-            print(f"SKIP: {filepath} (not found)")
+    fixed_count = 0
+    failed_count = 0
+
+    for rel_path in error_files:
+        filepath = base_dir / rel_path
+
+        if not filepath.exists():
+            print(f"[SKIP] {rel_path}: File not found")
             continue
 
-        fixes, can_parse_result = fix_file(path)
+        success, message = fix_file(filepath)
 
-        if fixes > 0:
-            status = "FIXED" if can_parse_result else "FIXED (parse check failed)"
-            print(f"{status}: {filepath} ({fixes} fixes)")
-            fixed_files.append((filepath, fixes))
+        if success:
+            print(f"[OK] {rel_path}: {message}")
+            fixed_count += 1
+        else:
+            print(f"[FAIL] {rel_path}: {message}")
+            if "Error" in message:
+                failed_count += 1
 
-            if not can_parse_result:
-                parse_errors.append(filepath)
+    print("=" * 50)
+    print(f"Fixed: {fixed_count}")
+    print(f"Failed: {failed_count}")
+    print(f"Total: {len(error_files)}")
 
-    print("\n" + "=" * 60)
-    print(f"Total files fixed: {len(fixed_files)}")
-    print(f"Total fixes applied: {sum(f[1] for f in fixed_files)}")
+    return 0 if failed_count == 0 else 1
 
-    if parse_errors:
-        print(f"\nWARNING: Files with parse errors after fix: {len(parse_errors)}")
-        for f in parse_errors:
-            print(f"  - {f}")
-
-    return 0 if not parse_errors else 1
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

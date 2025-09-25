@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Queen Coordinator for Enhanced Loop 3 CI/CD System
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Gemini-powered Queen that ingests all GitHub failures, performs root cause analysis,
 and distributes tasks MECE-style to specialized agents from the 85+ agent pool.
@@ -21,7 +19,6 @@ import logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-
 @dataclass
 class MECETaskDivision:
     """Represents a MECE (Mutually Exclusive, Collectively Exhaustive) task division."""
@@ -36,7 +33,6 @@ class MECETaskDivision:
     estimated_duration: int = 30  # minutes
     priority: str = "medium"  # high, medium, low
 
-
 @dataclass
 class AgentAssignment:
     """Represents an agent assignment with full MCP integration."""
@@ -49,7 +45,6 @@ class AgentAssignment:
     coordination_requirements: List[str] = field(default_factory=list)
     estimated_effort: int = 20  # minutes
     skill_match_score: float = 0.8  # 0.0 to 1.0
-
 
 @dataclass
 class QueenAnalysis:
@@ -65,7 +60,6 @@ class QueenAnalysis:
     sequential_thinking_chains: int
     confidence_score: float  # 0.0 to 1.0
 
-
 class AgentRegistry:
     """Registry of all 85+ available agents with their specialties and capabilities."""
 
@@ -74,200 +68,16 @@ class AgentRegistry:
         self.mcp_compatibility = self._initialize_mcp_compatibility()
 
     def _initialize_agent_database(self) -> Dict[str, Dict[str, Any]]:
-        """Initialize comprehensive agent database with specialties."""
-        return {
-            # Core Development Agents
-            "coder": {
-                "type": "development",
-                "specialties": ["code_implementation", "bug_fixes", "feature_development"],
-                "complexity_rating": "medium",
-                "parallel_capable": True,
-                "skill_areas": ["javascript", "python", "typescript", "general_coding"]
-            },
-            "reviewer": {
-                "type": "quality",
-                "specialties": ["code_review", "quality_assessment", "best_practices"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["code_quality", "security_review", "architecture_review"]
-            },
-            "tester": {
-                "type": "testing",
-                "specialties": ["test_creation", "test_automation", "qa_validation"],
-                "complexity_rating": "medium",
-                "parallel_capable": True,
-                "skill_areas": ["unit_testing", "integration_testing", "e2e_testing"]
-            },
-            "planner": {
-                "type": "coordination",
-                "specialties": ["task_planning", "project_coordination", "resource_allocation"],
-                "complexity_rating": "high",
-                "parallel_capable": False,  # Coordination role
-                "skill_areas": ["project_management", "strategic_planning", "resource_optimization"]
-            },
-            "researcher": {
-                "type": "analysis",
-                "specialties": ["information_gathering", "pattern_analysis", "solution_research"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["web_research", "documentation_analysis", "pattern_recognition"]
-            },
-
-            # SPEK Methodology Agents
-            "sparc-coord": {
-                "type": "methodology",
-                "specialties": ["spek_coordination", "workflow_orchestration", "phase_management"],
-                "complexity_rating": "high",
-                "parallel_capable": False,
-                "skill_areas": ["methodology_implementation", "process_optimization"]
-            },
-            "specification": {
-                "type": "methodology",
-                "specialties": ["requirements_analysis", "specification_writing", "documentation"],
-                "complexity_rating": "medium",
-                "parallel_capable": True,
-                "skill_areas": ["requirements_engineering", "technical_writing"]
-            },
-            "architecture": {
-                "type": "methodology",
-                "specialties": ["system_design", "architectural_planning", "design_patterns"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["system_architecture", "design_patterns", "scalability"]
-            },
-            "refinement": {
-                "type": "methodology",
-                "specialties": ["code_refinement", "optimization", "quality_improvement"],
-                "complexity_rating": "medium",
-                "parallel_capable": True,
-                "skill_areas": ["code_optimization", "performance_tuning", "refactoring"]
-            },
-
-            # Specialized Development Agents
-            "backend-dev": {
-                "type": "development",
-                "specialties": ["api_development", "server_side_logic", "database_integration"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["rest_apis", "graphql", "microservices", "databases"]
-            },
-            "mobile-dev": {
-                "type": "development",
-                "specialties": ["mobile_development", "react_native", "cross_platform"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["react_native", "ios", "android", "mobile_ui"]
-            },
-            "ml-developer": {
-                "type": "development",
-                "specialties": ["machine_learning", "ai_models", "data_science"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["tensorflow", "pytorch", "data_analysis", "model_training"]
-            },
-            "cicd-engineer": {
-                "type": "infrastructure",
-                "specialties": ["pipeline_creation", "automation", "deployment"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["github_actions", "docker", "kubernetes", "automation"]
-            },
-            "system-architect": {
-                "type": "architecture",
-                "specialties": ["system_design", "technical_decisions", "architecture_patterns"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["distributed_systems", "microservices", "system_integration"]
-            },
-
-            # Quality Assurance Agents
-            "code-analyzer": {
-                "type": "quality",
-                "specialties": ["static_analysis", "code_metrics", "quality_assessment"],
-                "complexity_rating": "medium",
-                "parallel_capable": True,
-                "skill_areas": ["static_analysis", "code_metrics", "quality_gates"]
-            },
-            "security-manager": {
-                "type": "security",
-                "specialties": ["security_analysis", "vulnerability_assessment", "compliance"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["security_scanning", "owasp", "compliance_frameworks"]
-            },
-            "performance-benchmarker": {
-                "type": "performance",
-                "specialties": ["performance_testing", "benchmarking", "optimization"],
-                "complexity_rating": "medium",
-                "parallel_capable": True,
-                "skill_areas": ["load_testing", "performance_analysis", "optimization"]
-            },
-
-            # GitHub Integration Agents
-            "pr-manager": {
-                "type": "github",
-                "specialties": ["pull_request_management", "code_review_coordination", "workflow"],
-                "complexity_rating": "medium",
-                "parallel_capable": True,
-                "skill_areas": ["github_workflows", "pr_automation", "code_review"]
-            },
-            "github-modes": {
-                "type": "github",
-                "specialties": ["github_automation", "workflow_management", "repository_operations"],
-                "complexity_rating": "medium",
-                "parallel_capable": True,
-                "skill_areas": ["github_api", "workflow_automation", "repository_management"]
-            },
-            "workflow-automation": {
-                "type": "github",
-                "specialties": ["workflow_creation", "automation_scripts", "pipeline_management"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["github_actions", "workflow_orchestration", "automation"]
-            },
-
-            # Theater Detection and Validation Agents
-            "theater-killer": {
-                "type": "validation",
-                "specialties": ["theater_detection", "authenticity_validation", "quality_verification"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["pattern_detection", "quality_validation", "authenticity_scoring"]
-            },
-            "reality-checker": {
-                "type": "validation",
-                "specialties": ["reality_validation", "end_user_testing", "functionality_verification"],
-                "complexity_rating": "high",
-                "parallel_capable": True,
-                "skill_areas": ["user_journey_testing", "functionality_validation", "integration_testing"]
-            },
-            "completion-auditor": {
-                "type": "validation",
-                "specialties": ["completion_verification", "quality_auditing", "deliverable_validation"],
-                "complexity_rating": "medium",
-                "parallel_capable": True,
-                "skill_areas": ["audit_processes", "completion_validation", "quality_assessment"]
-            },
-
-            # Add more agents as needed - this is a core subset of the 85+ available
-        }
+        """Initialize comprehensive agent database using builder pattern."""
+        from src.coordination.agent_database_builder import _initialize_agent_database
+        agents = _initialize_agent_database()
+        return {k: v.__dict__ for k, v in agents.items()}
 
     def _initialize_mcp_compatibility(self) -> Dict[str, List[str]]:
-        """Initialize MCP server compatibility for each agent type."""
-        return {
-            "development": ["memory", "sequential-thinking", "context7", "ref"],
-            "quality": ["memory", "sequential-thinking", "ref"],
-            "testing": ["memory", "sequential-thinking", "context7"],
-            "coordination": ["memory", "sequential-thinking", "claude-flow"],
-            "analysis": ["memory", "sequential-thinking", "context7", "ref", "deepwiki"],
-            "methodology": ["memory", "sequential-thinking", "ref"],
-            "infrastructure": ["memory", "sequential-thinking", "context7"],
-            "architecture": ["memory", "sequential-thinking", "ref", "deepwiki"],
-            "security": ["memory", "sequential-thinking", "ref"],
-            "performance": ["memory", "sequential-thinking"],
-            "github": ["memory", "sequential-thinking", "github"],
-            "validation": ["memory", "sequential-thinking", "context7", "ref"]
-        }
+        """Initialize MCP server compatibility using builder pattern."""
+        from src.coordination.agent_database_builder import _initialize_mcp_compatibility
+        compat = _initialize_mcp_compatibility()
+        return {k: v.mcp_servers for k, v in compat.items()}
 
     def find_best_agents_for_task(self, task_type: str, required_skills: List[str],
                                 complexity: str, max_agents: int = 3) -> List[Dict[str, Any]]:
@@ -320,7 +130,6 @@ class AgentRegistry:
             agent_type = self.agent_database[agent_name]["type"]
             return self.mcp_compatibility.get(agent_type, ["memory", "sequential-thinking"])
         return ["memory", "sequential-thinking"]  # Default MCPs
-
 
 class QueenCoordinator:
     """
@@ -406,8 +215,8 @@ class QueenCoordinator:
         await self._save_analysis_artifacts(analysis)
 
         logger.info(f"Queen Analysis Complete: {analysis.total_issues_processed} issues  "
-                   f"{len(analysis.mece_divisions)} MECE divisions  "
-                   f"{len(analysis.agent_assignments)} agent assignments")
+                    f"{len(analysis.mece_divisions)} MECE divisions  "
+                    f"{len(analysis.agent_assignments)} agent assignments")
 
         return analysis
 
@@ -428,7 +237,7 @@ class QueenCoordinator:
 
         # Simulate Gemini analysis (in real implementation, this would call Gemini API)
         logger.info(f"Gemini ingesting {failure_context['total_failures']} failures across "
-                   f"{len(failure_context['failure_categories'])} categories...")
+                    f"{len(failure_context['failure_categories'])} categories...")
 
         # Simulate processing time
         await asyncio.sleep(2)
@@ -528,7 +337,7 @@ class QueenCoordinator:
         return requirements
 
     async def _sequential_thinking_root_cause_analysis(self, ingestion_results: Dict[str, Any],
-                                                     analysis_id: str) -> Dict[str, Any]:
+                                                    analysis_id: str) -> Dict[str, Any]:
         """Perform root cause analysis using sequential thinking MCP."""
 
         logger.info("Performing sequential thinking root cause analysis...")
@@ -634,7 +443,7 @@ class QueenCoordinator:
         return risk_factors or ["standard_development_risk"]
 
     async def _integrate_into_memory_system(self, root_cause_analysis: Dict[str, Any],
-                                          analysis_id: str) -> Dict[str, Any]:
+                                            analysis_id: str) -> Dict[str, Any]:
         """Integrate analysis results into memory system for learning."""
 
         entities_created = 0
@@ -797,7 +606,7 @@ class QueenCoordinator:
         return "low"
 
     async def _select_and_assign_agents(self, mece_divisions: List[MECETaskDivision],
-                                      analysis_id: str) -> List[AgentAssignment]:
+                                        analysis_id: str) -> List[AgentAssignment]:
         """Select optimal agents for each MECE division and create assignments."""
 
         logger.info("Selecting optimal agents from 85+ agent registry...")
@@ -909,7 +718,7 @@ class QueenCoordinator:
         return list(set(skills))  # Remove duplicates
 
     def _calculate_analysis_confidence(self, root_cause_analysis: Dict[str, Any],
-                                     mece_divisions: List[MECETaskDivision]) -> float:
+                                    mece_divisions: List[MECETaskDivision]) -> float:
         """Calculate overall confidence in the analysis."""
 
         base_confidence = root_cause_analysis.get("analysis_confidence", 0.8)
@@ -1144,7 +953,6 @@ class QueenCoordinator:
 
         return deployment_result
 
-
 async def main():
     """Main function for testing Queen Coordinator."""
 
@@ -1183,7 +991,6 @@ async def main():
     # Deploy agents
     deployment_results = await queen.deploy_agents_parallel(analysis.agent_assignments)
     print(f"\nAgent Deployment: {deployment_results['successful_deployments']}/{deployment_results['total_agents']} successful")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

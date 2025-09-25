@@ -126,7 +126,7 @@ jobs:
       with:
         script: |
           const issueBody = `
-          ## 🚨 Analyzer Integration Failure
+          ## [ALERT] Analyzer Integration Failure
 
           **Workflow Run**: [${context.runId}](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
           **Commit**: ${context.sha}
@@ -150,7 +150,7 @@ jobs:
           await github.rest.issues.create({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            title: `🚨 Analyzer Integration Failure - ${new Date().toDateString()}`,
+            title: `[ALERT] Analyzer Integration Failure - ${new Date().toDateString()}`,
             body: issueBody,
             labels: ['type:integration', 'priority:high', 'auto-created']
           });
@@ -178,9 +178,9 @@ jobs:
              -o repo_info.json
 
         if [ $? -eq 0 ]; then
-          echo "✅ GitHub API connectivity successful"
+          echo "[OK] GitHub API connectivity successful"
         else
-          echo "❌ GitHub API connectivity failed"
+          echo "[FAIL] GitHub API connectivity failed"
           exit 1
         fi
 
@@ -200,9 +200,9 @@ jobs:
               description: 'GitHub Bridge API test passed',
               context: 'analyzer/github-bridge'
             });
-            console.log('✅ Status check creation successful');
+            console.log('[OK] Status check creation successful');
           } catch (error) {
-            console.log('❌ Status check creation failed:', error.message);
+            console.log('[FAIL] Status check creation failed:', error.message);
             throw error;
           }
 
@@ -220,17 +220,17 @@ jobs:
       with:
         script: |
           const comment = `
-          ## 🔍 Analyzer Integration Test Results
+          ## [SEARCH] Analyzer Integration Test Results
 
-          **Status**: ✅ Integration test completed
+          **Status**: [OK] Integration test completed
           **Commit**: ${context.sha.substring(0, 7)}
           **Workflow**: [${context.runId}](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
 
           ### Test Results
-          - ✅ Analyzer imports functional
-          - ✅ GitHub API connectivity verified
-          - ✅ Status checks working
-          - ✅ PR comment integration active
+          - [OK] Analyzer imports functional
+          - [OK] GitHub API connectivity verified
+          - [OK] Status checks working
+          - [OK] PR comment integration active
 
           ### Next Steps
           When analyzer finds violations, they will appear here automatically with:
@@ -287,12 +287,12 @@ jobs:
 
             // Add to step summary
             core.summary
-              .addHeading('🚨 Analyzer Integration Failures')
+              .addHeading('[ALERT] Analyzer Integration Failures')
               .addTable([
                 [{data: 'Job', header: true}, {data: 'Status', header: true}],
                 ...Object.entries(jobs).map(([job, result]) => [
                   job,
-                  result === 'failure' ? '❌ Failed' : '✅ Passed'
+                  result === 'failure' ? '[FAIL] Failed' : '[OK] Passed'
                 ])
               ])
               .write();
@@ -301,11 +301,11 @@ jobs:
     - name: Success summary
       if: needs.analyzer-test.result == 'success' && needs.github-bridge-test.result == 'success'
       run: |
-        echo "## ✅ All Analyzer Integration Tests Passed" >> $GITHUB_STEP_SUMMARY
+        echo "## [OK] All Analyzer Integration Tests Passed" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "- Analyzer imports: ✅" >> $GITHUB_STEP_SUMMARY
-        echo "- GitHub API: ✅" >> $GITHUB_STEP_SUMMARY
-        echo "- Status checks: ✅" >> $GITHUB_STEP_SUMMARY
-        echo "- PR comments: ✅" >> $GITHUB_STEP_SUMMARY
+        echo "- Analyzer imports: [OK]" >> $GITHUB_STEP_SUMMARY
+        echo "- GitHub API: [OK]" >> $GITHUB_STEP_SUMMARY
+        echo "- Status checks: [OK]" >> $GITHUB_STEP_SUMMARY
+        echo "- PR comments: [OK]" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "Analyzer system is ready for production use with full GitHub visibility."

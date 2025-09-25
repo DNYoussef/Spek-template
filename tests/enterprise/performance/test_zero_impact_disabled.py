@@ -1,5 +1,4 @@
-"""
-Comprehensive Performance Tests for Zero-Impact When Disabled
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MINIMUM_TRADE_THRESHOLD
 
 Tests that enterprise features have zero performance impact when disabled,
 ensuring that the feature flag system provides true conditional execution
@@ -26,7 +25,6 @@ from enterprise.security.sbom_generator import SBOMGenerator
 from enterprise.compliance.matrix import ComplianceMatrix
 from enterprise.integration.analyzer import EnterpriseAnalyzerIntegration
 
-
 class BaselineAnalyzer:
     """Baseline analyzer without any enterprise features for comparison"""
     
@@ -39,7 +37,6 @@ class BaselineAnalyzer:
         # Simulate some work
         result = {"data": data, "processed": True, "timestamp": time.time()}
         return result
-
 
 class TestFeatureFlagPerformanceImpact:
     """Test performance impact of feature flag checking"""
@@ -84,7 +81,7 @@ class TestFeatureFlagPerformanceImpact:
         
         # Overhead should be minimal compared to baseline
         overhead = max(disabled_duration, enabled_duration) - baseline_duration
-        assert overhead < 0.05  # Less than 50ms overhead
+        assert overhead < MINIMUM_TRADE_THRESHOLD  # Less than 50ms overhead
         
     def test_nonexistent_flag_performance(self):
         """Test performance when checking nonexistent flags"""
@@ -137,8 +134,7 @@ class TestFeatureFlagPerformanceImpact:
         second_run = time.perf_counter() - start_time
         
         # Second run should be faster or at least not slower
-        assert second_run <= first_run * 1.1  # Allow 10% margin
-
+        assert second_run <= first_run * 1.1  # Allow MAXIMUM_FUNCTION_PARAMETERS% margin
 
 class TestDecoratorPerformanceImpact:
     """Test performance impact of enterprise decorators when disabled"""
@@ -231,7 +227,6 @@ class TestDecoratorPerformanceImpact:
         assert enabled_duration < 0.5
         assert disabled_duration < 0.5
 
-
 class TestEnterpriseComponentsDisabledPerformance:
     """Test performance when enterprise components are disabled"""
     
@@ -255,7 +250,6 @@ class TestEnterpriseComponentsDisabledPerformance:
         duration = time.perf_counter() - start_time
         
         # Should complete quickly even when "disabled"
-        # (Note: actual disabling would require feature flag integration in telemetry)
         assert duration < 1.0
         
     def test_sbom_generator_disabled_impact(self):
@@ -291,7 +285,6 @@ class TestEnterpriseComponentsDisabledPerformance:
         
         # Should be efficient
         assert duration < 1.0
-
 
 class TestIntegrationLayerDisabledPerformance:
     """Test performance of integration layer when enterprise features disabled"""
@@ -382,7 +375,6 @@ class TestIntegrationLayerDisabledPerformance:
         # Should be fast with no hooks
         assert duration < 3.0  # Less than 3 seconds for 1000 analyses
 
-
 class TestMemoryImpactDisabled:
     """Test memory impact when enterprise features are disabled"""
     
@@ -391,7 +383,7 @@ class TestMemoryImpactDisabled:
         flag_manager.flags.clear()
         # Disable all enterprise features
         for feature in ["enterprise_telemetry", "enterprise_security", 
-                       "enterprise_compliance", "enterprise_metrics"]:
+                        "enterprise_compliance", "enterprise_metrics"]:
             flag_manager.create_flag(feature, "Test", status=FlagStatus.DISABLED)
             
     def test_memory_usage_disabled_features(self):
@@ -446,7 +438,6 @@ class TestMemoryImpactDisabled:
         # Memory usage should be stable
         assert sys.getsizeof(integration.analysis_history) < 1024 * 1024  # Less than 1MB
 
-
 class TestConcurrencyPerformanceDisabled:
     """Test concurrency performance when enterprise features disabled"""
     
@@ -454,7 +445,7 @@ class TestConcurrencyPerformanceDisabled:
         """Setup for each test method"""
         flag_manager.flags.clear()
         for feature in ["enterprise_telemetry", "enterprise_security",
-                       "enterprise_compliance", "enterprise_metrics"]:
+                        "enterprise_compliance", "enterprise_metrics"]:
             flag_manager.create_flag(feature, "Test", status=FlagStatus.DISABLED)
             
         self.project_root = Path("/tmp/concurrency_perf")
@@ -489,7 +480,6 @@ class TestConcurrencyPerformanceDisabled:
             assert len(successful) == concurrency
             
         # Higher concurrency should scale reasonably
-        # (not necessarily linearly due to overhead, but shouldn't be exponential)
         assert results[100] < results[10] * 20  # Not more than 20x slower
         
     def test_thread_safety_disabled_features(self):
@@ -531,7 +521,6 @@ class TestConcurrencyPerformanceDisabled:
             assert "processed" in result
             assert result["processed"] is True
 
-
 class TestStartupPerformanceImpact:
     """Test startup performance impact of enterprise features"""
     
@@ -544,7 +533,7 @@ class TestStartupPerformanceImpact:
         start_time = time.perf_counter()
         
         for feature in ["enterprise_telemetry", "enterprise_security",
-                       "enterprise_compliance", "enterprise_metrics"]:
+                        "enterprise_compliance", "enterprise_metrics"]:
             flag_manager.create_flag(feature, "Test", status=FlagStatus.DISABLED)
             
         project_root = Path("/tmp/startup_perf")
@@ -582,7 +571,6 @@ class TestStartupPerformanceImpact:
         # Verify all flags were created
         assert len(flag_manager.flags) == 100
 
-
 class TestResourceCleanupDisabled:
     """Test resource cleanup when features are disabled"""
     
@@ -592,7 +580,7 @@ class TestResourceCleanupDisabled:
         
         # Disable all features
         for feature in ["enterprise_telemetry", "enterprise_security",
-                       "enterprise_compliance", "enterprise_metrics"]:
+                        "enterprise_compliance", "enterprise_metrics"]:
             flag_manager.create_flag(feature, "Test", status=FlagStatus.DISABLED)
             
         initial_objects = len(gc.get_objects())
@@ -638,7 +626,6 @@ class TestResourceCleanupDisabled:
         # Should cleanup quickly
         assert cleanup_time < 0.1  # Less than 100ms
         assert len(flag_manager.flags) == 0
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

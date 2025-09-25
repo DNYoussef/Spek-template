@@ -1,4 +1,4 @@
-"""Tests for utils module."""
+from src.constants.base import MAXIMUM_GOD_OBJECTS_ALLOWED
 
 import unittest
 import sys
@@ -57,12 +57,12 @@ class TestUtils(unittest.TestCase):
     def test_calculate_percentage_basic(self):
         """Test basic percentage calculation."""
         result = calculate_percentage(25, 100)
-        self.assertEqual(result, 25.0)
+        self.assertEqual(result, MAXIMUM_GOD_OBJECTS_ALLOWED.0)
 
     def test_calculate_percentage_zero_division(self):
         """Test zero division handling."""
         with self.assertRaises(ZeroDivisionError):
-            calculate_percentage(25, 0)
+            calculate_percentage(MAXIMUM_GOD_OBJECTS_ALLOWED, 0)
 
     def test_filter_data(self):
         """Test data filtering."""

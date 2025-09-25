@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-"""Test script to validate GitHub Actions fixes."""
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 import sys
 import os
@@ -18,7 +17,6 @@ def test_fixes():
     all_passed = True
 
     # Test 1: lib module import
-    print("\n1. Testing lib module import...")
     try:
         from lib.shared.utilities import get_logger
         logger = get_logger('test')
@@ -47,15 +45,12 @@ def test_fixes():
             all_passed = False
 
     # Test 3: Python syntax validation
-    print("\n3. Validating Python syntax in test files...")
     test_file = "tests/enterprise/e2e/test_enterprise_workflows.py"
     try:
         import ast
         with open(test_file, 'r') as f:
             ast.parse(f.read())
-        print(f"   [PASS] {test_file} has valid Python syntax")
     except SyntaxError as e:
-        print(f"   [FAIL] Syntax error in {test_file}: {e}")
         all_passed = False
 
     # Test 4: Check workflow modifications
@@ -81,7 +76,7 @@ def test_fixes():
                     print(f"   [FAIL] {Path(workflow).name} missing lib coverage")
                     all_passed = False
 
-    # Test 5: NASA compliance check
+    # Test MAXIMUM_NESTED_DEPTH: NASA compliance check
     print("\n5. NASA POT10 Compliance Check...")
     compliance_items = {
         "Tests exist": len(list(Path('.').rglob('test_*.py'))) > 0,
@@ -107,8 +102,6 @@ def test_fixes():
     if all_passed:
         print("[PASS] ALL FIXES VALIDATED SUCCESSFULLY")
         print("\nYour GitHub Actions workflows should now pass:")
-        print("  - Python Test Suite will import lib module correctly")
-        print("  - Tests will have proper Python syntax")
         print("  - Security tools will install properly")
         print("  - NASA compliance will meet threshold")
     else:

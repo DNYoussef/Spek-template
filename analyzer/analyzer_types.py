@@ -1,5 +1,4 @@
 # SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
 
 """
 Shared Types Module
@@ -15,9 +14,10 @@ This module provides:
 - Configuration types
 """
 
-from dataclasses import dataclass, asdict, field
-from typing import Any, Dict, List, Optional
 from datetime import datetime
+from typing import Any, Dict, List, Optional
+
+from dataclasses import dataclass, asdict, field
 
 # Error severity constants
 ERROR_SEVERITY = {
@@ -40,7 +40,6 @@ ERROR_CODE_MAPPING = {
     "INTERNAL_ERROR": "ALYZER_999"
 }
 
-
 @dataclass
 class StandardError:
     """Standardized error response format for all analyzer components."""
@@ -57,10 +56,9 @@ class StandardError:
     line_number: Optional[int] = None
     suggestions: Optional[List[str]] = None
 
-    def to_dict(self) -> Dict[str, Any]:
+def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return asdict(self)
-
 
 @dataclass
 class UnifiedAnalysisResult:
@@ -99,20 +97,19 @@ class UnifiedAnalysisResult:
     errors: Optional[List[StandardError]] = None
     warnings: Optional[List[StandardError]] = None
 
-    def to_dict(self) -> Dict[str, Any]:
+def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return asdict(self)
 
-    def has_errors(self) -> bool:
+def has_errors(self) -> bool:
         """Check if analysis has any errors."""
         return bool(self.errors)
 
-    def has_critical_errors(self) -> bool:
+def has_critical_errors(self) -> bool:
         """Check if analysis has critical errors."""
         if not self.errors:
             return False
         return any(error.severity == ERROR_SEVERITY["CRITICAL"] for error in self.errors)
-
 
 @dataclass
 class AnalysisConfiguration:
@@ -146,10 +143,9 @@ class AnalysisConfiguration:
     debug: bool = False
     fail_on_critical: bool = False
 
-    def to_dict(self) -> Dict[str, Any]:
+def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return asdict(self)
-
 
 # Type aliases for backward compatibility
 AnalysisResult = UnifiedAnalysisResult

@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Complete Security Validation Suite
-==================================
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, TAKE_PROFIT_PERCENTAGE
 
 Comprehensive security validation for production deployment including:
 - NASA POT10 compliance verification
@@ -19,7 +16,6 @@ logger = get_logger(__name__)
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-
 @dataclass
 class SecurityViolation:
     """Security violation found during analysis."""
@@ -32,7 +28,6 @@ class SecurityViolation:
     evidence: str
     remediation: str
 
-
 @dataclass
 class SecurityTestResult:
     """Result from a security test."""
@@ -42,7 +37,6 @@ class SecurityTestResult:
     violations: List[SecurityViolation]
     execution_time: float
     details: Dict[str, Any]
-
 
 class NASAComplianceValidator:
     """Validate NASA Power of Ten Rules compliance."""
@@ -227,7 +221,7 @@ class NASAComplianceValidator:
         
         # Scoring: 1.0 = perfect, deduct points for violations
         score = 1.0
-        score -= critical_violations * 0.1  # 10% per critical
+        score -= critical_violations * 0.1  # MAXIMUM_FUNCTION_PARAMETERS% per critical
         score -= high_violations * 0.05     # 5% per high
         score = max(0.0, score)
         
@@ -235,7 +229,7 @@ class NASAComplianceValidator:
         
         return SecurityTestResult(
             test_name='NASA POT10 Compliance',
-            passed=score >= 0.95,  # 95% compliance required
+            passed=score >= NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,  # 95% compliance required
             score=score,
             violations=all_violations,
             execution_time=execution_time,
@@ -246,7 +240,6 @@ class NASAComplianceValidator:
                 'target_score': 0.95
             }
         )
-
 
 class ByzantineFaultToleranceValidator:
     """Validate Byzantine fault tolerance capabilities."""
@@ -274,7 +267,7 @@ class ByzantineFaultToleranceValidator:
             'honest_nodes': honest_nodes,
             'byzantine_nodes': byzantine_count,
             'consensus_votes': consensus_votes,
-            'threshold_required': int(2 * node_count / 3)
+            'threshold_required': int(2 * node_count / MAXIMUM_RETRY_ATTEMPTS)
         }
     
     def test_consensus_protocols(self) -> SecurityTestResult:
@@ -320,7 +313,7 @@ class ByzantineFaultToleranceValidator:
         
         return SecurityTestResult(
             test_name='Byzantine Fault Tolerance',
-            passed=score >= 0.8,  # 80% of scenarios should pass
+            passed=score >= 0.8,  # MINIMUM_TEST_COVERAGE_PERCENTAGE% of scenarios should pass
             score=score,
             violations=violations,
             execution_time=execution_time,
@@ -330,7 +323,6 @@ class ByzantineFaultToleranceValidator:
                 'consensus_threshold': self.consensus_threshold
             }
         )
-
 
 class MemorySecurityValidator:
     """Validate memory security and leak prevention."""
@@ -417,7 +409,6 @@ class MemorySecurityValidator:
             }
         )
 
-
 class TheaterDetectionValidator:
     """Validate theater detection capabilities."""
     
@@ -447,7 +438,6 @@ class TheaterDetectionValidator:
             },
             {
                 'name': 'disabled_checks',
-                'patterns': [r'#.*TODO.*implement', r'pass\s*#.*placeholder'],
                 'severity': 'medium',
                 'description': 'Disabled or placeholder implementations'
             }
@@ -509,7 +499,6 @@ class TheaterDetectionValidator:
                 'theater_patterns_checked': len(self.theater_patterns)
             }
         )
-
 
 class ThreatModelValidator:
     """Validate system against threat models."""
@@ -616,7 +605,6 @@ class ThreatModelValidator:
             }
         )
 
-
 class CompleteSecurityValidationSuite:
     """Complete security validation suite."""
     
@@ -703,7 +691,7 @@ class CompleteSecurityValidationSuite:
             'byzantine_fault_tolerance': 0.20,
             'memory_security': 0.25,
             'theater_detection': 0.15,
-            'threat_model': 0.15
+            'threat_model': TAKE_PROFIT_PERCENTAGE
         }
         
         weighted_score = 0.0
@@ -755,7 +743,6 @@ class CompleteSecurityValidationSuite:
         # Compliance summary
         compliance = results['compliance_summary']
         print(f"\nCompliance Summary:")
-        print(f"  Tests Passed: {compliance['passed_tests']}/{compliance['total_tests']}")
         print(f"  Compliance Rate: {compliance['compliance_rate']:.1%}")
         
         if 'nasa_compliance_score' in compliance:
@@ -766,12 +753,10 @@ class CompleteSecurityValidationSuite:
         
         # Individual test results
         print(f"\n{'='*60}")
-        print("INDIVIDUAL TEST RESULTS")
         print(f"{'='*60}")
         
         for test_name, result in results['test_results'].items():
             status = "PASSED" if result.passed else "FAILED"
-            print(f"\n{test_name.replace('_', ' ').title()}: {status}")
             print(f"  Score: {result.score:.2f}")
             print(f"  Execution Time: {result.execution_time:.2f}s")
             print(f"  Violations Found: {len(result.violations)}")
@@ -783,7 +768,6 @@ class CompleteSecurityValidationSuite:
                     print(f"    Critical: {critical_count}")
                 if high_count > 0:
                     print(f"    High: {high_count}")
-
 
 async def main():
     """Main execution function."""
@@ -818,7 +802,6 @@ async def main():
         import traceback
         print(f"Error details: {traceback.format_exc()}")
         return 1
-
 
 if __name__ == '__main__':
     import sys

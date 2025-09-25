@@ -1,8 +1,4 @@
-"""
-Consolidated Detector Module - MECE Compliant
-Single source of truth for all detector implementations.
-Eliminates 73+ duplicate detector classes.
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD
 
 import ast
 from abc import ABC, abstractmethod
@@ -26,7 +22,6 @@ except ImportError:
         connascence_type: Optional[str] = None
         weight: float = 1.0
 
-
 class ConsolidatedDetectorBase(ABC):
     """
     Single base class for all detectors.
@@ -42,7 +37,6 @@ class ConsolidatedDetectorBase(ABC):
     @abstractmethod
     def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         """Must be implemented by all detectors."""
-        pass
 
     def get_line_content(self, line_number: int) -> str:
         """Get content of a specific line."""
@@ -57,7 +51,6 @@ class ConsolidatedDetectorBase(ABC):
             end = min(len(self.source_lines), node.lineno + context)
             return '\n'.join(self.source_lines[start-1:end])
         return ""
-
 
 class ConsolidatedMagicLiteralDetector(ConsolidatedDetectorBase):
     """
@@ -144,7 +137,6 @@ class ConsolidatedMagicLiteralDetector(ConsolidatedDetectorBase):
         """Check if string is a hardcoded path or URL."""
         return any(indicator in value for indicator in self.PATH_INDICATORS)
 
-
 class ConsolidatedPositionDetector(ConsolidatedDetectorBase):
     """
     Consolidated position detector.
@@ -153,7 +145,7 @@ class ConsolidatedPositionDetector(ConsolidatedDetectorBase):
 
     MAX_PARAMETERS = 3
     WARNING_THRESHOLD = 5
-    CRITICAL_THRESHOLD = 7
+    CRITICAL_THRESHOLD = DAYS_RETENTION_PERIOD
 
     def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         """Detect position-based violations."""
@@ -210,7 +202,6 @@ class ConsolidatedPositionDetector(ConsolidatedDetectorBase):
                 connascence_type='CoP',
                 weight=5.0
             ))
-
 
 class ConsolidatedGodObjectDetector(ConsolidatedDetectorBase):
     """
@@ -304,14 +295,12 @@ class ConsolidatedGodObjectDetector(ConsolidatedDetectorBase):
                     weight=7.0
                 ))
 
-
 # Backwards compatibility aliases
 MagicLiteralDetector = ConsolidatedMagicLiteralDetector
 PositionDetector = ConsolidatedPositionDetector
 GodObjectDetector = ConsolidatedGodObjectDetector
 DetectorBase = ConsolidatedDetectorBase
 DetectorInterface = ConsolidatedDetectorBase  # For interface compatibility
-
 
 # Export all consolidated detectors
 __all__ = [

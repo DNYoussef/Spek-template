@@ -14,18 +14,17 @@ Features:
 - Real-time memory pressure monitoring with bounded resource usage
 """
 
-import asyncio
-import json
-import threading
-import time
-import weakref
 from collections import defaultdict, deque
-from dataclasses import dataclass, field, asdict
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Union, Tuple, Callable
+import json
 import logging
-logger = logging.getLogger(__name__)
+import time
 
+from dataclasses import dataclass, field, asdict
+import asyncio
+import threading
+import weakref
 
 @dataclass
 class MemoryCorrelation:
@@ -36,7 +35,6 @@ class MemoryCorrelation:
     correlation_strength: float  # 0.0 to 1.0
     metadata: Dict[str, Any] = field(default_factory=dict)
     timestamp: float = field(default_factory=time.time)
-
 
 @dataclass
 class PhaseMemoryEntry:
@@ -52,7 +50,6 @@ class PhaseMemoryEntry:
     ttl_seconds: Optional[int] = None  # Time to live
     tags: Set[str] = field(default_factory=set)
 
-
 @dataclass
 class PerformanceCorrelation:
     """Tracks performance improvements and correlations across phases."""
@@ -65,7 +62,6 @@ class PerformanceCorrelation:
     measurement_timestamp: float = field(default_factory=time.time)
     validation_status: str = "pending"  # pending, validated, rejected
 
-
 @dataclass
 class MemoryUsageStats:
     """Memory usage statistics for bounded resource management."""
@@ -77,7 +73,6 @@ class MemoryUsageStats:
     cache_hit_rate: float
     cleanup_operations: int
     last_cleanup: float
-
 
 class MemorySafetyValidator:
     """Validates memory operations for NASA POT10 Rule 7 compliance."""
@@ -134,7 +129,6 @@ class MemorySafetyValidator:
                 "recent_violations": self.safety_violations[-10:],
                 "nasa_pot10_compliant": len(self.safety_violations) == 0
             }
-
 
 class PhaseCorrelationStorage:
     """Persistent storage for cross-phase memory correlations."""
@@ -210,7 +204,7 @@ class PhaseCorrelationStorage:
                     conn.execute("""
                         INSERT INTO phase_correlations 
                         (source_phase, target_phase, correlation_type, 
-                         correlation_strength, metadata, timestamp)
+                        correlation_strength, metadata, timestamp)
                         VALUES (?, ?, ?, ?, ?, ?)
                     """, (
                         correlation.source_phase,
@@ -240,8 +234,8 @@ class PhaseCorrelationStorage:
                     conn.execute("""
                         INSERT INTO performance_correlations 
                         (phase, metric_name, baseline_value, current_value,
-                         improvement_percentage, correlation_factors, 
-                         measurement_timestamp, validation_status)
+                        improvement_percentage, correlation_factors, 
+                        measurement_timestamp, validation_status)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                     """, (
                         perf_corr.phase,
@@ -268,7 +262,7 @@ class PhaseCorrelationStorage:
             with self.get_connection() as conn:
                 cursor = conn.execute("""
                     SELECT source_phase, target_phase, correlation_type,
-                           correlation_strength, metadata, timestamp
+                            correlation_strength, metadata, timestamp
                     FROM phase_correlations 
                     WHERE source_phase = ? OR target_phase = ?
                     ORDER BY timestamp DESC
@@ -299,8 +293,8 @@ class PhaseCorrelationStorage:
                 if phase:
                     cursor = conn.execute("""
                         SELECT phase, metric_name, baseline_value, current_value,
-                               improvement_percentage, correlation_factors,
-                               measurement_timestamp, validation_status
+                                improvement_percentage, correlation_factors,
+                                measurement_timestamp, validation_status
                         FROM performance_correlations 
                         WHERE phase = ?
                         ORDER BY measurement_timestamp DESC
@@ -308,8 +302,8 @@ class PhaseCorrelationStorage:
                 else:
                     cursor = conn.execute("""
                         SELECT phase, metric_name, baseline_value, current_value,
-                               improvement_percentage, correlation_factors,
-                               measurement_timestamp, validation_status
+                                improvement_percentage, correlation_factors,
+                                measurement_timestamp, validation_status
                         FROM performance_correlations 
                         ORDER BY measurement_timestamp DESC
                     """)
@@ -359,14 +353,13 @@ class PhaseCorrelationStorage:
         
         return cleanup_count
 
-
 class UnifiedMemoryModel:
     """Unified memory model for cross-phase memory correlation and learning."""
     
     def __init__(self, 
-                 storage_path: Optional[str] = None,
-                 max_memory_mb: int = 500,
-                 max_entries: int = 10000):
+                storage_path: Optional[str] = None,
+                max_memory_mb: int = 500,
+                max_entries: int = 10000):
         """Initialize unified memory model."""
         # Core storage and safety
         self.storage = PhaseCorrelationStorage(storage_path)
@@ -574,9 +567,9 @@ class UnifiedMemoryModel:
         return insights
     
     def _generate_optimization_suggestions(self,
-                                         target_phase: str,
-                                         correlations: List[MemoryCorrelation],
-                                         performance_trends: List[PerformanceCorrelation]) -> List[str]:
+                                        target_phase: str,
+                                        correlations: List[MemoryCorrelation],
+                                        performance_trends: List[PerformanceCorrelation]) -> List[str]:
         """Generate optimization suggestions based on cross-phase learning."""
         suggestions = []
         
@@ -844,11 +837,9 @@ class UnifiedMemoryModel:
         
         logger.info("Unified Memory Model shutdown completed")
 
-
 # Global unified memory model instance
 _global_memory_model: Optional[UnifiedMemoryModel] = None
 _memory_model_lock = threading.Lock()
-
 
 def get_global_memory_model() -> UnifiedMemoryModel:
     """Get or create global unified memory model."""
@@ -859,7 +850,6 @@ def get_global_memory_model() -> UnifiedMemoryModel:
             _global_memory_model = UnifiedMemoryModel()
     
     return _global_memory_model
-
 
 async def initialize_cross_phase_memory(coordinator_data_path: str = ".claude/coordination") -> Dict[str, Any]:
     """Initialize cross-phase memory correlation from existing coordination data."""
@@ -942,11 +932,9 @@ async def initialize_cross_phase_memory(coordinator_data_path: str = ".claude/co
     logger.info(f"Cross-phase memory initialization completed: {initialization_results}")
     return initialization_results
 
-
 async def _load_phase3_coordination_data(file_path: Path) -> Dict[str, Any]:
     """Load Phase 3 coordination data from summary file."""
     # This is a simplified loader - in production, would parse the actual markdown
-    # and extract structured data
     
     phase3_data = {
         "memory_entries": [
@@ -1003,7 +991,6 @@ async def _load_phase3_coordination_data(file_path: Path) -> Dict[str, Any]:
     }
     
     return phase3_data
-
 
 async def _load_phase4_validation_data(file_path: Path) -> Dict[str, Any]:
     """Load Phase 4 validation data from completion report."""

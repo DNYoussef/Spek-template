@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Recursive Merge Resolver for Queen Coordinator Loop 3
+from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 Implements recursive feedback loop for merge failure resolution:
 1. Failed merge report analysis
@@ -22,7 +20,6 @@ from dataclasses import dataclass, field
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
-
 @dataclass
 class MergeFailureReport:
     """Comprehensive merge failure analysis report."""
@@ -38,7 +35,6 @@ class MergeFailureReport:
     resolution_attempts: int = 0
     max_resolution_attempts: int = 5
 
-
 @dataclass
 class RecursiveResolutionExecution:
     """Tracks recursive resolution loop execution."""
@@ -51,7 +47,6 @@ class RecursiveResolutionExecution:
     escalation_triggered: bool = False
     total_agent_deployments: int = 0
     github_hooks_status: Dict[str, str] = field(default_factory=dict)
-
 
 class RecursiveMergeResolver:
     """
@@ -174,7 +169,7 @@ class RecursiveMergeResolver:
         return execution
 
     async def _analyze_current_failure_state(self, failure_report: MergeFailureReport,
-                                          execution: RecursiveResolutionExecution) -> Dict[str, Any]:
+                                            execution: RecursiveResolutionExecution) -> Dict[str, Any]:
         """Analyze the current state of failures to target resolution efforts."""
 
         logger.info("Analyzing current failure state...")
@@ -209,7 +204,7 @@ class RecursiveMergeResolver:
         return analysis
 
     async def _create_targeted_failure_data(self, failure_analysis: Dict[str, Any],
-                                          execution: RecursiveResolutionExecution) -> Dict[str, Any]:
+                                            execution: RecursiveResolutionExecution) -> Dict[str, Any]:
         """Create targeted failure data optimized for Queen Coordinator analysis."""
 
         logger.info("Creating targeted failure data for Queen Coordinator...")
@@ -287,7 +282,7 @@ class RecursiveMergeResolver:
         return targeted_failure_data
 
     async def _deploy_queen_swarm_for_fixes(self, targeted_failure_data: Dict[str, Any],
-                                          execution: RecursiveResolutionExecution) -> Dict[str, Any]:
+                                            execution: RecursiveResolutionExecution) -> Dict[str, Any]:
         """Deploy Queen Coordinator swarm specifically for failure fixes."""
 
         logger.info("Deploying Queen Coordinator swarm for targeted fixes...")
@@ -415,7 +410,7 @@ class RecursiveMergeResolver:
         return audit_results
 
     async def _validate_github_hooks_and_tests(self, safety_branch_name: str,
-                                             execution: RecursiveResolutionExecution) -> Dict[str, Any]:
+                                            execution: RecursiveResolutionExecution) -> Dict[str, Any]:
         """Validate current status of GitHub hooks and tests after fixes."""
 
         logger.info("Validating GitHub hooks and tests...")
@@ -471,7 +466,7 @@ class RecursiveMergeResolver:
                 validation_results["overall_status"] = "multiple_failures"
 
             logger.info(f"Validation complete: {validation_results['hooks_passing']} hooks passing, "
-                       f"{validation_results['tests_passing']} tests passing, ready_for_merge={validation_results['ready_for_merge']}")
+                        f"{validation_results['tests_passing']} tests passing, ready_for_merge={validation_results['ready_for_merge']}")
 
         except Exception as e:
             logger.error(f"Validation failed: {e}")
@@ -480,7 +475,7 @@ class RecursiveMergeResolver:
         return validation_results
 
     async def _attempt_merge_with_validation(self, safety_branch_name: str,
-                                           execution: RecursiveResolutionExecution) -> Dict[str, Any]:
+                                            execution: RecursiveResolutionExecution) -> Dict[str, Any]:
         """Attempt merge with comprehensive validation."""
 
         logger.info(f"Attempting merge for safety branch: {safety_branch_name}")
@@ -529,7 +524,7 @@ class RecursiveMergeResolver:
         return merge_results
 
     def _should_continue_resolution(self, validation_results: Dict[str, Any],
-                                  execution: RecursiveResolutionExecution) -> bool:
+                                    execution: RecursiveResolutionExecution) -> bool:
         """Determine if recursive resolution should continue."""
 
         # Stop if we're at max iterations
@@ -561,8 +556,8 @@ class RecursiveMergeResolver:
         return True
 
     async def _update_failure_report_for_next_iteration(self, failure_report: MergeFailureReport,
-                                                      validation_results: Dict[str, Any],
-                                                      execution: RecursiveResolutionExecution) -> MergeFailureReport:
+                                                        validation_results: Dict[str, Any],
+                                                        execution: RecursiveResolutionExecution) -> MergeFailureReport:
         """Update failure report with current status for next iteration."""
 
         # Update resolution attempts
@@ -623,7 +618,7 @@ class RecursiveMergeResolver:
         }
 
     def _categorize_failures_by_priority(self, hook_status: Dict, test_status: Dict,
-                                       conflict_analysis: Dict) -> Dict[str, List]:
+                                        conflict_analysis: Dict) -> Dict[str, List]:
         """Categorize failures by resolution priority."""
         return {
             "critical": [],  # Merge conflicts, security issues
@@ -666,7 +661,7 @@ class RecursiveMergeResolver:
     async def _assess_quality_metrics(self, branch_name: str) -> Dict[str, Any]:
         """Assess code quality metrics."""
         return {
-            "overall_score": 80,
+            "overall_score": MINIMUM_TEST_COVERAGE_PERCENTAGE,
             "test_coverage": 85,
             "complexity_score": 75,
             "below_threshold": []
@@ -740,7 +735,6 @@ class RecursiveMergeResolver:
 
         logger.info(f"Recursive resolution report saved: {report_file}")
 
-
 async def main():
     """Test Recursive Merge Resolver functionality."""
 
@@ -773,7 +767,6 @@ async def main():
     print(f"- Iterations: {resolution_execution.current_iteration}")
     print(f"- Final success: {resolution_execution.final_success}")
     print(f"- Agent deployments: {resolution_execution.total_agent_deployments}")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

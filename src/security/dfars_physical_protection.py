@@ -1,13 +1,8 @@
-"""
-DFARS Physical Protection System (3.10.1 - 3.10.6)
-Physical security controls for defense contractors.
-Implements DFARS 252.204-7012 physical protection requirements.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS
 
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class FacilityType(Enum):
     """Types of physical facilities requiring protection."""
@@ -20,7 +15,6 @@ class FacilityType(Enum):
     SERVER_ROOM = "server_room"
     ARCHIVE_FACILITY = "archive_facility"
 
-
 class SecurityZone(Enum):
     """Physical security zones based on sensitivity."""
     PUBLIC = "public"
@@ -28,7 +22,6 @@ class SecurityZone(Enum):
     RESTRICTED = "restricted"
     SECURE = "secure"
     TOP_SECRET = "top_secret"
-
 
 class AccessMethod(Enum):
     """Physical access control methods."""
@@ -39,7 +32,6 @@ class AccessMethod(Enum):
     ESCORT_REQUIRED = "escort_required"
     GUARD_POST = "guard_post"
 
-
 class MonitoringType(Enum):
     """Types of physical monitoring systems."""
     CCTV = "cctv"
@@ -48,7 +40,6 @@ class MonitoringType(Enum):
     INTRUSION_DETECTION = "intrusion_detection"
     ENVIRONMENTAL = "environmental"
     GUARD_PATROL = "guard_patrol"
-
 
 @dataclass
 class PhysicalAsset:
@@ -64,7 +55,6 @@ class PhysicalAsset:
     custodian: str
     last_security_review: datetime
     protection_measures: List[str]
-
 
 @dataclass
 class SecurityFacility:
@@ -82,7 +72,6 @@ class SecurityFacility:
     certification_level: str
     compliance_status: str
 
-
 @dataclass
 class AccessControl:
     """Physical access control configuration."""
@@ -95,7 +84,6 @@ class AccessControl:
     escort_requirements: bool
     logging_enabled: bool
     multi_person_control: bool
-
 
 @dataclass
 class PhysicalAccess:
@@ -113,7 +101,6 @@ class PhysicalAccess:
     duration: Optional[timedelta]
     anomalies: List[str]
 
-
 @dataclass
 class SecurityIncident:
     """Physical security incident record."""
@@ -129,7 +116,6 @@ class SecurityIncident:
     resolution_status: str
     cui_involved: bool
 
-
 class DFARSPhysicalProtection:
     """
     DFARS 252.204-7012 Physical Protection Implementation
@@ -143,7 +129,7 @@ class DFARSPhysicalProtection:
     3.10.6 - Enforce safeguarding measures for CUI at alternate work sites
     """
 
-    def __init__(self, config: Dict[str, Any]):
+def __init__(self, config: Dict[str, Any]):
         """Initialize DFARS physical protection system."""
         self.config = config
         self.crypto = FIPSCryptoModule()
@@ -168,9 +154,9 @@ class DFARSPhysicalProtection:
 
         logger.info("DFARS Physical Protection System initialized")
 
-    def register_security_facility(self, facility_name: str, facility_type: FacilityType,
-                                 address: str, security_zones: List[SecurityZone],
-                                 cui_authorized: bool, security_officer: str) -> str:
+def register_security_facility(self, facility_name: str, facility_type: FacilityType,
+                                address: str, security_zones: List[SecurityZone],
+                                cui_authorized: bool, security_officer: str) -> str:
         """Register physical facility for security controls (3.10.1, 3.10.2)."""
         try:
             # Generate facility ID
@@ -230,10 +216,10 @@ class DFARSPhysicalProtection:
             )
             raise
 
-    def configure_access_control(self, facility_id: str, zone: SecurityZone,
-                               access_methods: List[AccessMethod], authorized_personnel: List[str],
-                               time_restrictions: Dict[str, str] = None,
-                               multi_person_control: bool = False) -> str:
+def configure_access_control(self, facility_id: str, zone: SecurityZone,
+                                access_methods: List[AccessMethod], authorized_personnel: List[str],
+                                time_restrictions: Dict[str, str] = None,
+                                multi_person_control: bool = False) -> str:
         """Configure physical access controls (3.10.1, 3.10.5)."""
         if facility_id not in self.facilities:
             raise ValueError(f"Facility not found: {facility_id}")
@@ -245,7 +231,7 @@ class DFARSPhysicalProtection:
             # Validate access methods for zone
             self._validate_access_methods(zone, access_methods)
 
-            # Determine escort requirements (3.10.3)
+            # Determine escort requirements (3.MAXIMUM_FUNCTION_PARAMETERS.3)
             escort_required = self._determine_escort_requirements(zone, self.facilities[facility_id].cui_authorized)
 
             # Create access control configuration
@@ -295,7 +281,7 @@ class DFARSPhysicalProtection:
             )
             raise
 
-    def grant_physical_access(self, facility_id: str, zone: SecurityZone, personnel_id: str,
+def grant_physical_access(self, facility_id: str, zone: SecurityZone, personnel_id: str,
                             access_method: AccessMethod, purpose: str,
                             escort_id: Optional[str] = None) -> str:
         """Grant physical access with security controls (3.10.1, 3.10.3, 3.10.4)."""
@@ -312,7 +298,7 @@ class DFARSPhysicalProtection:
             if not self._validate_physical_authorization(access_control, personnel_id, access_method):
                 raise PermissionError(f"Personnel {personnel_id} not authorized for {zone.value} access")
 
-            # Check escort requirements (3.10.3)
+            # Check escort requirements (3.MAXIMUM_FUNCTION_PARAMETERS.3)
             if access_control.escort_requirements and not escort_id:
                 raise ValueError(f"Escort required for {zone.value} access")
 
@@ -379,7 +365,7 @@ class DFARSPhysicalProtection:
             )
             raise
 
-    def monitor_physical_facility(self, facility_id: str) -> Dict[str, Any]:
+def monitor_physical_facility(self, facility_id: str) -> Dict[str, Any]:
         """Monitor physical facility security (3.10.2)."""
         if facility_id not in self.facilities:
             raise ValueError(f"Facility not found: {facility_id}")
@@ -453,8 +439,8 @@ class DFARSPhysicalProtection:
             )
             raise
 
-    def enforce_alternate_worksite_controls(self, personnel_id: str, worksite_location: str,
-                                          cui_categories: List[str], controls: Dict[str, Any]) -> str:
+def enforce_alternate_worksite_controls(self, personnel_id: str, worksite_location: str,
+                                            cui_categories: List[str], controls: Dict[str, Any]) -> str:
         """Enforce CUI safeguarding at alternate work sites (3.10.6)."""
         try:
             # Generate worksite control ID
@@ -514,7 +500,7 @@ class DFARSPhysicalProtection:
             )
             raise
 
-    def manage_access_devices(self, facility_id: str, device_type: str, action: str,
+def manage_access_devices(self, facility_id: str, device_type: str, action: str,
                             device_id: str = None) -> Dict[str, Any]:
         """Control and manage physical access devices (3.10.5)."""
         if facility_id not in self.facilities:
@@ -542,23 +528,23 @@ class DFARSPhysicalProtection:
             )
             raise
 
-    def get_compliance_status(self) -> Dict[str, Any]:
+def get_compliance_status(self) -> Dict[str, Any]:
         """Get DFARS physical protection compliance status."""
         # Calculate access control coverage
         total_zones = sum(len(f.security_zones) for f in self.facilities.values())
         controlled_zones = len(self.access_controls)
-        access_control_coverage = (controlled_zones / total_zones * 100) if total_zones > 0 else 100
+        access_control_coverage = (controlled_zones / total_zones * 100) if total_zones > 0 else MAXIMUM_FUNCTION_LENGTH_LINES
 
         # Calculate monitoring coverage
         facilities_with_monitoring = len([
             f for f in self.facilities.values()
             if f.monitoring_systems and len(f.monitoring_systems) > 0
         ])
-        monitoring_coverage = (facilities_with_monitoring / len(self.facilities) * 100) if self.facilities else 100
+        monitoring_coverage = (facilities_with_monitoring / len(self.facilities) * 100) if self.facilities else MAXIMUM_FUNCTION_LENGTH_LINES
 
         return {
             'dfars_controls': {
-                '3.10.1': {
+                '3.MAXIMUM_FUNCTION_PARAMETERS.1': {
                     'implemented': True,
                     'status': 'Physical access limitations implemented',
                     'coverage': f"{access_control_coverage:.1f}%"
@@ -597,9 +583,9 @@ class DFARSPhysicalProtection:
 
     # Private helper methods
 
-    def _determine_monitoring_requirements(self, facility_type: FacilityType,
-                                         security_zones: List[SecurityZone],
-                                         cui_authorized: bool) -> List[MonitoringType]:
+def _determine_monitoring_requirements(self, facility_type: FacilityType,
+                                        security_zones: List[SecurityZone],
+                                        cui_authorized: bool) -> List[MonitoringType]:
         """Determine required monitoring systems based on facility characteristics."""
         monitoring_systems = [MonitoringType.CCTV, MonitoringType.DOOR_ALARM]
 
@@ -615,8 +601,8 @@ class DFARSPhysicalProtection:
 
         return list(set(monitoring_systems))
 
-    def _determine_access_control_requirements(self, security_zones: List[SecurityZone],
-                                             cui_authorized: bool) -> List[AccessMethod]:
+def _determine_access_control_requirements(self, security_zones: List[SecurityZone],
+                                            cui_authorized: bool) -> List[AccessMethod]:
         """Determine required access control methods."""
         access_methods = [AccessMethod.CARD_READER]
 
@@ -631,7 +617,7 @@ class DFARSPhysicalProtection:
 
         return list(set(access_methods))
 
-    def _determine_certification_level(self, security_zones: List[SecurityZone], cui_authorized: bool) -> str:
+def _determine_certification_level(self, security_zones: List[SecurityZone], cui_authorized: bool) -> str:
         """Determine required certification level for facility."""
         if SecurityZone.TOP_SECRET in security_zones:
             return "FISMA_HIGH"
@@ -640,7 +626,7 @@ class DFARSPhysicalProtection:
         else:
             return "FISMA_LOW"
 
-    def _create_zone_access_controls(self, facility_id: str, zone: SecurityZone, cui_authorized: bool) -> None:
+def _create_zone_access_controls(self, facility_id: str, zone: SecurityZone, cui_authorized: bool) -> None:
         """Create default access controls for security zone."""
         default_methods = self._get_default_access_methods(zone, cui_authorized)
         multi_person = zone in [SecurityZone.TOP_SECRET, SecurityZone.SECURE]
@@ -653,7 +639,7 @@ class DFARSPhysicalProtection:
             multi_person_control=multi_person
         )
 
-    def _get_default_access_methods(self, zone: SecurityZone, cui_authorized: bool) -> List[AccessMethod]:
+def _get_default_access_methods(self, zone: SecurityZone, cui_authorized: bool) -> List[AccessMethod]:
         """Get default access methods for security zone."""
         if zone == SecurityZone.TOP_SECRET:
             return [AccessMethod.BIOMETRIC, AccessMethod.ESCORT_REQUIRED]
@@ -664,7 +650,7 @@ class DFARSPhysicalProtection:
         else:
             return [AccessMethod.CARD_READER]
 
-    def _validate_access_methods(self, zone: SecurityZone, access_methods: List[AccessMethod]) -> None:
+def _validate_access_methods(self, zone: SecurityZone, access_methods: List[AccessMethod]) -> None:
         """Validate access methods are appropriate for security zone."""
         required_methods = self._get_minimum_access_methods(zone)
 
@@ -672,7 +658,7 @@ class DFARSPhysicalProtection:
             if required not in access_methods:
                 raise ValueError(f"Access method {required.value} required for {zone.value}")
 
-    def _get_minimum_access_methods(self, zone: SecurityZone) -> List[AccessMethod]:
+def _get_minimum_access_methods(self, zone: SecurityZone) -> List[AccessMethod]:
         """Get minimum required access methods for zone."""
         if zone == SecurityZone.TOP_SECRET:
             return [AccessMethod.BIOMETRIC]
@@ -681,11 +667,11 @@ class DFARSPhysicalProtection:
         else:
             return [AccessMethod.CARD_READER]
 
-    def _determine_escort_requirements(self, zone: SecurityZone, cui_authorized: bool) -> bool:
+def _determine_escort_requirements(self, zone: SecurityZone, cui_authorized: bool) -> bool:
         """Determine if escort is required for zone access."""
         return zone in [SecurityZone.TOP_SECRET, SecurityZone.SECURE] or cui_authorized
 
-    def _configure_access_devices(self, access_control: AccessControl) -> None:
+def _configure_access_devices(self, access_control: AccessControl) -> None:
         """Configure physical access devices for access control."""
         for method in access_control.access_methods:
             device_id = f"DEV-{method.value}-{uuid.uuid4().hex[:8].upper()}"
@@ -703,15 +689,15 @@ class DFARSPhysicalProtection:
 
             self.access_devices[device_id] = device_config
 
-    def _find_access_control(self, facility_id: str, zone: SecurityZone) -> Optional[AccessControl]:
+def _find_access_control(self, facility_id: str, zone: SecurityZone) -> Optional[AccessControl]:
         """Find access control for facility and zone."""
         for control in self.access_controls.values():
             if control.facility_id == facility_id and control.zone == zone:
                 return control
         return None
 
-    def _validate_physical_authorization(self, access_control: AccessControl,
-                                       personnel_id: str, access_method: AccessMethod) -> bool:
+def _validate_physical_authorization(self, access_control: AccessControl,
+                                        personnel_id: str, access_method: AccessMethod) -> bool:
         """Validate personnel authorization for physical access."""
         # Check if personnel is authorized
         if personnel_id not in access_control.authorized_personnel:
@@ -723,7 +709,7 @@ class DFARSPhysicalProtection:
 
         return True
 
-    def _validate_time_restrictions(self, access_control: AccessControl) -> bool:
+def _validate_time_restrictions(self, access_control: AccessControl) -> bool:
         """Validate access against time restrictions."""
         if not access_control.time_restrictions:
             return True
@@ -738,11 +724,11 @@ class DFARSPhysicalProtection:
 
         return False
 
-    def _is_visitor(self, personnel_id: str) -> bool:
+def _is_visitor(self, personnel_id: str) -> bool:
         """Check if personnel ID represents a visitor."""
         return personnel_id.startswith('VIS-') or personnel_id.startswith('VISITOR-')
 
-    def _track_visitor_access(self, access_record: PhysicalAccess) -> None:
+def _track_visitor_access(self, access_record: PhysicalAccess) -> None:
         """Track visitor access for monitoring and escort requirements."""
         visitor_id = access_record.personnel_id
 
@@ -761,7 +747,7 @@ class DFARSPhysicalProtection:
             'timestamp': access_record.timestamp
         }
 
-    def _get_recent_access_activity(self, facility_id: str, hours: int = 24) -> List[PhysicalAccess]:
+def _get_recent_access_activity(self, facility_id: str, hours: int = 24) -> List[PhysicalAccess]:
         """Get recent access activity for facility."""
         cutoff_time = datetime.now(timezone.utc) - timedelta(hours=hours)
 
@@ -770,7 +756,7 @@ class DFARSPhysicalProtection:
             if access.facility_id == facility_id and access.timestamp >= cutoff_time
         ]
 
-    def _check_monitoring_system(self, facility_id: str, system: MonitoringType) -> Dict[str, Any]:
+def _check_monitoring_system(self, facility_id: str, system: MonitoringType) -> Dict[str, Any]:
         """Check status of monitoring system."""
         return {
             'status': 'OPERATIONAL',
@@ -778,7 +764,7 @@ class DFARSPhysicalProtection:
             'alerts': []
         }
 
-    def _detect_security_anomalies(self, facility_id: str) -> List[Dict[str, Any]]:
+def _detect_security_anomalies(self, facility_id: str) -> List[Dict[str, Any]]:
         """Detect security anomalies for facility."""
         anomalies = []
 
@@ -801,7 +787,7 @@ class DFARSPhysicalProtection:
 
         return anomalies
 
-    def _monitor_environmental_controls(self, facility_id: str) -> Dict[str, Any]:
+def _monitor_environmental_controls(self, facility_id: str) -> Dict[str, Any]:
         """Monitor environmental controls for CUI areas."""
         return {
             'temperature': {'status': 'NORMAL', 'value': 22.5},
@@ -811,7 +797,7 @@ class DFARSPhysicalProtection:
             'hvac_filtration': {'status': 'OPERATIONAL'}
         }
 
-    def _assess_facility_compliance(self, facility: SecurityFacility) -> Dict[str, Any]:
+def _assess_facility_compliance(self, facility: SecurityFacility) -> Dict[str, Any]:
         """Assess facility compliance with DFARS requirements."""
         compliance_checks = {
             'access_controls_configured': len(self._get_facility_access_controls(facility.facility_id)) > 0,
@@ -831,14 +817,14 @@ class DFARSPhysicalProtection:
             'status': 'COMPLIANT' if compliance_score >= 90 else 'NON_COMPLIANT'
         }
 
-    def _get_facility_access_controls(self, facility_id: str) -> List[AccessControl]:
+def _get_facility_access_controls(self, facility_id: str) -> List[AccessControl]:
         """Get all access controls for facility."""
         return [
             control for control in self.access_controls.values()
             if control.facility_id == facility_id
         ]
 
-    def _get_required_alternate_worksite_controls(self, cui_categories: List[str]) -> Dict[str, Dict[str, Any]]:
+def _get_required_alternate_worksite_controls(self, cui_categories: List[str]) -> Dict[str, Dict[str, Any]]:
         """Get required controls for alternate worksite CUI handling."""
         base_controls = {
             'physical_security': {'type': 'lockable_workspace', 'required': True},
@@ -856,7 +842,7 @@ class DFARSPhysicalProtection:
 
         return base_controls
 
-    def _validate_control_implementation(self, implementation: Any, requirement: Dict[str, Any]) -> bool:
+def _validate_control_implementation(self, implementation: Any, requirement: Dict[str, Any]) -> bool:
         """Validate that control implementation meets requirements."""
         if requirement.get('required', False) and not implementation:
             return False
@@ -864,7 +850,7 @@ class DFARSPhysicalProtection:
         # Additional validation logic would go here
         return True
 
-    def _register_access_device(self, facility_id: str, device_type: str, device_id: str = None) -> Dict[str, Any]:
+def _register_access_device(self, facility_id: str, device_type: str, device_id: str = None) -> Dict[str, Any]:
         """Register new access device."""
         if not device_id:
             device_id = f"DEV-{device_type}-{uuid.uuid4().hex[:8].upper()}"
@@ -889,7 +875,7 @@ class DFARSPhysicalProtection:
 
         return device_config
 
-    def _deactivate_access_device(self, facility_id: str, device_id: str) -> Dict[str, Any]:
+def _deactivate_access_device(self, facility_id: str, device_id: str) -> Dict[str, Any]:
         """Deactivate access device."""
         if device_id not in self.access_devices:
             raise ValueError(f"Access device not found: {device_id}")
@@ -907,7 +893,7 @@ class DFARSPhysicalProtection:
 
         return device
 
-    def _audit_access_devices(self, facility_id: str) -> Dict[str, Any]:
+def _audit_access_devices(self, facility_id: str) -> Dict[str, Any]:
         """Audit access devices for facility."""
         facility_devices = [
             device for device in self.access_devices.values()
@@ -932,7 +918,7 @@ class DFARSPhysicalProtection:
 
         return audit_results
 
-    def _update_access_device(self, facility_id: str, device_id: str) -> Dict[str, Any]:
+def _update_access_device(self, facility_id: str, device_id: str) -> Dict[str, Any]:
         """Update access device configuration."""
         if device_id not in self.access_devices:
             raise ValueError(f"Access device not found: {device_id}")

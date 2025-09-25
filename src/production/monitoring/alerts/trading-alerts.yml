@@ -1,4 +1,4 @@
-# Gary×Taleb Trading System - Critical Alert Rules
+# GaryxTaleb Trading System - Critical Alert Rules
 # Defense Industry Compliance with Real-Time Monitoring
 
 groups:
@@ -14,7 +14,7 @@ groups:
         compliance: defense-industry
       annotations:
         summary: "Trading system is down"
-        description: "Gary×Taleb trading system has been down for more than 30 seconds. Immediate attention required."
+        description: "GaryxTaleb trading system has been down for more than 30 seconds. Immediate attention required."
         runbook_url: "https://runbooks.gary-taleb.trading/trading-system-down"
         escalation: "page-on-call-immediately"
 

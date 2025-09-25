@@ -1,1 +1,1 @@
-"""Lib package for shared utilities and components."""
+"""Shared library package for SPEK Enhanced Development Platform."""

@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Simplified Phase 4 Configuration Reality Check
-==============================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Direct test of configuration loading and detector behavior to identify root causes.
 """
@@ -17,7 +14,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "analyzer"))
 
 def test_basic_config_loading():
     """Test basic YAML loading."""
-    print("=== BASIC CONFIG LOADING TEST ===")
 
     # Create temp directory and config files
     temp_dir = tempfile.mkdtemp()
@@ -57,7 +53,7 @@ def test_basic_config_loading():
     enterprise_config = {
         'sixSigma': {
             'targetSigma': 4.0,
-            'sigmaShift': 1.5
+            'sigmaShift': 1.MAXIMUM_NESTED_DEPTH
         },
         'compliance': {
             'nasaPOT10': 95,
@@ -110,7 +106,6 @@ def test_basic_config_loading():
 
 def test_detector_with_config():
     """Test detector using configuration."""
-    print("\n=== DETECTOR CONFIGURATION TEST ===")
 
     try:
         # Test the position detector directly
@@ -164,7 +159,6 @@ def test_detector_with_config():
             return False
 
     except Exception as e:
-        print(f"- Detector test failed: {e}")
         import traceback
         traceback.print_exc()
         return False

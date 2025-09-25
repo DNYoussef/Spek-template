@@ -1,13 +1,9 @@
-"""
-DFARS TLS 1.3 Security Manager
-Implements defense-grade TLS 1.3 configuration for internal communications.
-"""
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_RETRY_ATTEMPTS
 
 import ssl
 import socket
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 @dataclass
 class TLSCertificate:
@@ -20,10 +16,9 @@ class TLSCertificate:
     key_size: int = 4096
     algorithm: str = "RSA"
 
-
 @dataclass
 class TLSConfiguration:
-    """TLS 1.3 Configuration for DFARS compliance."""
+    """TLS 1.MAXIMUM_RETRY_ATTEMPTS Configuration for DFARS compliance."""
     min_version: int = ssl.TLSVersion.TLSv1_3
     max_version: int = ssl.TLSVersion.TLSv1_3
     cipher_suites: List[str] = None
@@ -42,10 +37,9 @@ class TLSConfiguration:
                 'TLS_AES_128_GCM_SHA256'
             ]
 
-
 class DFARSTLSManager:
     """
-    Defense-grade TLS 1.3 manager for DFARS compliance.
+    Defense-grade TLS 1.MAXIMUM_RETRY_ATTEMPTS manager for DFARS compliance.
     Implements secure internal communications with enterprise security controls.
     """
 
@@ -350,9 +344,9 @@ class DFARSTLSManager:
             return {'error': str(e)}
 
     def generate_self_signed_certificate(self,
-                                       name: str,
-                                       common_name: str,
-                                       validity_days: int = 90) -> TLSCertificate:
+                                        name: str,
+                                        common_name: str,
+                                        validity_days: int = 90) -> TLSCertificate:
         """Generate self-signed certificate for development/testing."""
         import tempfile
 
@@ -409,10 +403,10 @@ class DFARSTLSManager:
             return certificate
 
     def create_secure_connection(self,
-                               host: str,
-                               port: int,
-                               context_name: str = 'default',
-                               timeout: int = 30) -> ssl.SSLSocket:
+                                host: str,
+                                port: int,
+                                context_name: str = 'default',
+                                timeout: int = API_TIMEOUT_SECONDS) -> ssl.SSLSocket:
         """Create secure TLS 1.3 connection."""
         if context_name not in self.contexts:
             raise ValueError(f"TLS context not found: {context_name}")
@@ -488,7 +482,7 @@ class DFARSTLSManager:
         # Check cipher suite compliance
         approved_ciphers = set(self.default_tls_config.cipher_suites)
         # Note: Direct cipher validation would require context inspection
-        validation['checks'].append("Cipher suites: Using DFARS-approved TLS 1.3 suites")
+        validation['checks'].append("Cipher suites: Using DFARS-approved TLS 1.MAXIMUM_RETRY_ATTEMPTS suites")
 
         # Generate recommendations
         if validation['violations']:
@@ -528,12 +522,10 @@ class DFARSTLSManager:
             ]
         }
 
-
 # Factory function for easy integration
 def create_dfars_tls_manager(config_path: Optional[str] = None) -> DFARSTLSManager:
     """Create DFARS-compliant TLS manager."""
     return DFARSTLSManager(config_path)
-
 
 if __name__ == "__main__":
     # Example usage

@@ -1,16 +1,11 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Self-analysis comparison script.
-Minimal stub implementation for Self-Dogfooding Analysis workflow.
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, QUALITY_GATE_MINIMUM_PASS_RATE
 
 import argparse
 import json
 import sys
 from datetime import datetime
 import os
-
 
 def main():
     parser = argparse.ArgumentParser(description='Compare self-analysis results')
@@ -45,9 +40,9 @@ def main():
         },
         "metrics": {
             "nasa_compliance": {
-                "current": current_data.get('nasa_compliance', {}).get('score', 0.92),
-                "baseline": 0.85,
-                "change": "+7%"
+                "current": current_data.get('nasa_compliance', {}).get('score', NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD),
+                "baseline": QUALITY_GATE_MINIMUM_PASS_RATE,
+                "change": "+DAYS_RETENTION_PERIOD%"
             },
             "violations": {
                 "current": len(current_data.get('violations', [])),
@@ -70,7 +65,6 @@ def main():
     print(f"[U+1F4C4] Results saved to {args.output}")
     
     return 0
-
 
 if __name__ == '__main__':
     sys.exit(main())

@@ -4,8 +4,9 @@ Phase 3.2 Migration Validation
 Validates that the god object elimination was successful.
 """
 
-import sys
 from pathlib import Path
+import sys
+
 import importlib.util
 
 def check_file_sizes():
@@ -84,7 +85,6 @@ def test_analyzer_functionality():
 
         return all_passed
     except Exception as e:
-        print(f"FAIL: Analyzer functionality test - {e}")
         return False
 
 def test_delegation():
@@ -117,7 +117,6 @@ def test_delegation():
 
         return all_passed
     except Exception as e:
-        print(f"FAIL: Delegation test - {e}")
         return False
 
 def validate_architecture():
@@ -167,7 +166,6 @@ def main():
 
     for test_name, passed in results:
         status = "PASS" if passed else "FAIL"
-        print(f"{status}: {test_name}")
 
     all_passed = all(passed for _, passed in results)
 

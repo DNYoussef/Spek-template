@@ -7,21 +7,21 @@ Generates comprehensive docstrings for missing documentation.
 Priority: P3 - Must be completed within 60 days.
 """
 
+from pathlib import Path
+from typing import Dict, List, Optional, Any, Tuple
 import ast
 import os
 import re
-from pathlib import Path
-from typing import Dict, List, Optional, Any, Tuple
+
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
 class DocstringGenerator:
     """AI-powered docstring generation for Python code."""
 
-    def __init__(self, root_path: str):
+def __init__(self, root_path: str):
         self.root_path = Path(root_path)
 
-    def analyze_function(self, func_node: ast.FunctionDef, source_lines: List[str]) -> Dict[str, Any]:
+def analyze_function(self, func_node: ast.FunctionDef, source_lines: List[str]) -> Dict[str, Any]:
         """Analyze function to extract information for docstring generation."""
         analysis = {
             'name': func_node.name,
@@ -56,7 +56,7 @@ class DocstringGenerator:
 
         return analysis
 
-    def _infer_purpose(self, func_name: str) -> str:
+def _infer_purpose(self, func_name: str) -> str:
         """Infer function purpose from name using common patterns."""
         patterns = {
             r'^get_': 'Retrieve',
@@ -111,7 +111,7 @@ class DocstringGenerator:
         else:
             return "Process data"
 
-    def _infer_type_from_context(self, arg_name: str, func_node: ast.FunctionDef) -> str:
+def _infer_type_from_context(self, arg_name: str, func_node: ast.FunctionDef) -> str:
         """Infer argument type from context and naming conventions."""
         # Check for type annotations
         for arg in func_node.args.args:
@@ -153,7 +153,7 @@ class DocstringGenerator:
 
         return 'Any'
 
-    def _infer_arg_description(self, arg_name: str) -> str:
+def _infer_arg_description(self, arg_name: str) -> str:
         """Generate description for argument based on name."""
         descriptions = {
             'self': 'Instance reference',
@@ -187,7 +187,7 @@ class DocstringGenerator:
         else:
             return f"{arg_name.title()} parameter"
 
-    def _infer_return_type(self, func_node: ast.FunctionDef) -> Dict[str, str]:
+def _infer_return_type(self, func_node: ast.FunctionDef) -> Dict[str, str]:
         """Infer return type and description."""
         if func_node.returns:
             return {
@@ -200,7 +200,7 @@ class DocstringGenerator:
             'description': 'Function result'
         }
 
-    def _infer_return_from_body(self, func_node: ast.FunctionDef, source_lines: List[str]) -> Dict[str, str]:
+def _infer_return_from_body(self, func_node: ast.FunctionDef, source_lines: List[str]) -> Dict[str, str]:
         """Infer return information from function body."""
         return_statements = []
 
@@ -217,7 +217,7 @@ class DocstringGenerator:
         else:
             return {'type': 'Any', 'description': 'Result based on conditions'}
 
-    def _find_raised_exceptions(self, func_node: ast.FunctionDef, source_lines: List[str]) -> List[Dict[str, str]]:
+def _find_raised_exceptions(self, func_node: ast.FunctionDef, source_lines: List[str]) -> List[Dict[str, str]]:
         """Find exceptions that can be raised by the function."""
         exceptions = []
 
@@ -238,7 +238,7 @@ class DocstringGenerator:
 
         return exceptions
 
-    def _assess_complexity(self, func_node: ast.FunctionDef) -> str:
+def _assess_complexity(self, func_node: ast.FunctionDef) -> str:
         """Assess function complexity level."""
         complexity_indicators = 0
 
@@ -253,7 +253,7 @@ class DocstringGenerator:
         else:
             return 'complex'
 
-    def generate_docstring(self, analysis: Dict[str, Any]) -> str:
+def generate_docstring(self, analysis: Dict[str, Any]) -> str:
         """Generate comprehensive docstring based on analysis."""
         if analysis['has_docstring']:
             return None  # Skip if already has docstring
@@ -311,7 +311,7 @@ class DocstringGenerator:
 
         return '    """' + '\n    '.join(lines).rstrip() + '\n    """'
 
-    def process_file(self, file_path: Path) -> Dict[str, Any]:
+def process_file(self, file_path: Path) -> Dict[str, Any]:
         """Process a single file to add missing docstrings."""
         if file_path.suffix != '.py':
             return {'processed': False, 'reason': 'Not a Python file'}
@@ -383,7 +383,7 @@ class DocstringGenerator:
             logger.error(f"Failed to process {file_path}: {e}")
             return {'processed': False, 'reason': str(e)}
 
-    def process_codebase(self) -> Dict[str, Any]:
+def process_codebase(self) -> Dict[str, Any]:
         """Process entire codebase to add missing docstrings."""
         results = {
             'total_files': 0,

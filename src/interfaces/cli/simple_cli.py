@@ -1,6 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Flake8-style simple CLI interface for connascence analysis.
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 Usage:
     connascence .                    # Analyze current directory
@@ -29,7 +27,6 @@ try:
 except ImportError:
     ANALYZER_AVAILABLE = False
 
-
 class SimpleConnascenceCLI:
     """Simple flake8-style interface for connascence analysis."""
 
@@ -46,12 +43,12 @@ class SimpleConnascenceCLI:
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog="""
 Examples:
-  connascence .                     # Analyze current directory
-  connascence src/                  # Analyze src directory
-  connascence file.py               # Analyze single file
-  connascence --config=setup.cfg .  # Use specific config file
-  connascence --format=sarif .      # Output SARIF format
-  connascence --policy=strict .     # Use strict policy
+    connascence .                     # Analyze current directory
+    connascence src/                  # Analyze src directory
+    connascence file.py               # Analyze single file
+    connascence --config=setup.cfg .  # Use specific config file
+    connascence --format=sarif .      # Output SARIF format
+    connascence --policy=strict .     # Use strict policy
             """.strip()
         )
 
@@ -153,7 +150,7 @@ Examples:
             "--compliance-threshold",
             type=int,
             default=95,
-            help="Compliance threshold percentage (0-100)"
+            help="Compliance threshold percentage (0-MAXIMUM_FUNCTION_LENGTH_LINES)"
         )
 
         parser.add_argument(
@@ -260,7 +257,7 @@ Examples:
         return "\n".join(lines)
 
     def filter_violations(self, violations: List[Dict[str, Any]],
-                         severity_filter: Optional[str] = None) -> List[Dict[str, Any]]:
+                        severity_filter: Optional[str] = None) -> List[Dict[str, Any]]:
         """Filter violations by severity level."""
         if not severity_filter:
             return violations
@@ -437,12 +434,10 @@ Examples:
 
         return combined
 
-
 def main(argv: Optional[List[str]] = None) -> int:
     """Main entry point for simple CLI."""
     cli = SimpleConnascenceCLI()
     return cli.run(argv)
-
 
 if __name__ == "__main__":
     sys.exit(main())

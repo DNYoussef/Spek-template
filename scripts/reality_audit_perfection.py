@@ -1,16 +1,10 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Reality Audit for Perfection Achievement
-Validates that improvements are REAL, not theater
-"""
 
 import sys
 from pathlib import Path
 from collections import Counter
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-
 
 def run_reality_audit():
     """Perform reality audit after improvements."""
@@ -25,7 +19,6 @@ def run_reality_audit():
     analyzer = ConnascenceASTAnalyzer()
 
     # TEST 1: Verify constants file reduces violations
-    print("\n[TEST 1] Verifying constants.py impact...")
 
     # Check if our new constants file has violations
     constants_path = 'src/constants.py'
@@ -39,7 +32,6 @@ def run_reality_audit():
             print(f"  FAIL: Constants file has {len(violations)} violations")
 
     # TEST 2: Check if configuration objects pattern works
-    print("\n[TEST 2] Verifying configuration objects pattern...")
 
     config_path = 'src/patterns/configuration_objects.py'
     if path_exists(config_path):
@@ -54,7 +46,6 @@ def run_reality_audit():
             print(f"  FAIL: Still {param_violations} parameter violations")
 
     # TEST 3: Re-analyze directories to measure improvement
-    print("\n[TEST 3] Measuring real improvement...")
 
     before_violations = {
         'src': 1757,
@@ -77,7 +68,6 @@ def run_reality_audit():
     total_improvement = total_before - total_current
 
     # TEST 4: Verify improvements are real
-    print("\n[TEST 4] Theater detection...")
 
     if total_improvement > 0:
         print(f"  REAL IMPROVEMENT: {total_improvement} violations actually fixed")
@@ -90,11 +80,10 @@ def run_reality_audit():
         print("  WARNING: No improvement detected - possible theater")
 
     # TEST 5: Verify fixes don't break functionality
-    print("\n[TEST 5] Functionality validation...")
 
     try:
         # Import our constants to ensure they work
-        from src.constants import SECONDS_PER_DAY, DFARS_RETENTION_DAYS
+        from src.constants.base import SECONDS_PER_DAY, DFARS_RETENTION_DAYS
 
         if SECONDS_PER_DAY == 86400 and DFARS_RETENTION_DAYS == 2555:
             print("  PASS: Constants are functional and correct")
@@ -104,7 +93,6 @@ def run_reality_audit():
         print(f"  FAIL: Cannot import constants - {e}")
 
     # TEST 6: Check for performance theater
-    print("\n[TEST 6] Performance theater check...")
 
     # Ensure our analyzer still detects violations (not disabled)
     test_code = '''
@@ -118,9 +106,7 @@ def bad_function(a, b, c, d, e, f, g, h):  # Too many params
     test_violations = analyzer.detect_violations(tree)
 
     if len(test_violations) >= 2:  # Should detect parameter and magic number
-        print(f"  PASS: Analyzer still detecting violations ({len(test_violations)} found)")
     else:
-        print(f"  FAIL: Analyzer may be compromised ({len(test_violations)} violations)")
 
     # FINAL VERDICT
     print("\n" + "="*70)
@@ -137,7 +123,6 @@ def bad_function(a, b, c, d, e, f, g, h):  # Too many params
         print("  - Improvements may not be genuine")
 
     return total_improvement, total_current
-
 
 def generate_audit_report(improvement: int, remaining: int):
     """Generate formal audit report."""
@@ -172,7 +157,6 @@ def generate_audit_report(improvement: int, remaining: int):
     print(f"\nAudit report saved to .claude/.artifacts/reality_audit_report.json")
 
     return report
-
 
 if __name__ == "__main__":
     improvement, remaining = run_reality_audit()

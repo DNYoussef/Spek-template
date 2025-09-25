@@ -6,8 +6,6 @@ compliance validation, and integration testing capabilities.
 """
 
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
-
 
 class TestResult:
     """Enhanced test result with enterprise metrics"""
@@ -23,7 +21,7 @@ class TestResult:
         self.quality_metrics = None
         
     def add_test_result(self, test_name: str, status: str, 
-                       execution_time: float, error_msg: Optional[str] = None):
+                        execution_time: float, error_msg: Optional[str] = None):
         """Add individual test result"""
         self.test_details.append({
             'test_name': test_name,
@@ -42,9 +40,8 @@ class TestResult:
             self.skipped += 1
             
         self.success_rate = ((self.tests_run - self.failures - self.errors) / 
-                           max(1, self.tests_run)) * 100
+                            max(1, self.tests_run)) * 100
                            
-
 class EnterpriseTestRunner:
     """
     Enterprise test runner with comprehensive testing capabilities
@@ -399,7 +396,7 @@ class EnterpriseTestRunner:
             
             # Check that SOC 2 controls are loaded
             soc2_controls = [c for c in compliance.controls.values() 
-                           if c.framework == ComplianceFramework.SOC2_TYPE2]
+                            if c.framework == ComplianceFramework.SOC2_TYPE2]
             
             assert len(soc2_controls) > 0, "SOC 2 controls should be loaded"
             
@@ -424,7 +421,7 @@ class EnterpriseTestRunner:
             
             # Check that ISO 27001 controls are loaded
             iso_controls = [c for c in compliance.controls.values() 
-                          if c.framework == ComplianceFramework.ISO27001]
+                            if c.framework == ComplianceFramework.ISO27001]
             
             assert len(iso_controls) > 0, "ISO 27001 controls should be loaded"
             
@@ -445,7 +442,7 @@ class EnterpriseTestRunner:
             
             # Check that NIST controls are loaded
             nist_controls = [c for c in compliance.controls.values() 
-                           if c.framework == ComplianceFramework.NIST_CSF]
+                            if c.framework == ComplianceFramework.NIST_CSF]
             
             assert len(nist_controls) > 0, "NIST controls should be loaded"
             
@@ -522,7 +519,6 @@ class EnterpriseTestRunner:
         
         try:
             # This would test actual vulnerability scanning
-            # For now, just validate the interface
             
             security = SupplyChainSecurity(self.temp_dir, SecurityLevel.BASIC)
             status = security.get_security_status()

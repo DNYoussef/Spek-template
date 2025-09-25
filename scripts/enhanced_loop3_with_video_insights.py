@@ -4,13 +4,14 @@ Enhanced Loop 3 with Video Insights - CI/CD Quality & Debugging with Advanced To
 Integrates video insights for improved debugging and collaboration
 """
 
-import asyncio
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Any, Optional
 import json
 import subprocess
 import sys
-from pathlib import Path
-from datetime import datetime
-from typing import Dict, List, Any, Optional
+
+import asyncio
 
 class VideoInsightsLoop3:
     """Enhanced Loop 3 implementation with video insights tools"""
@@ -31,7 +32,7 @@ class VideoInsightsLoop3:
         """Check if a tool is available in PATH"""
         try:
             subprocess.run([tool_name, '--version'],
-                         capture_output=True, check=True, timeout=5)
+                        capture_output=True, check=True, timeout=5)
             return True
         except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
             return False
@@ -118,7 +119,6 @@ class VideoInsightsLoop3:
 
             if upload_process.returncode == 0:
                 url = stdout.decode().strip()
-                print(f"Debug file shared: {url}")
                 if encrypt:
                     print("File is encrypted - share password separately")
                 return url
@@ -127,7 +127,6 @@ class VideoInsightsLoop3:
                 return None
 
         except Exception as e:
-            print(f"Error sharing debug file: {e}")
             return None
 
     async def parallel_quality_checks(self) -> Dict[str, bool]:
@@ -426,13 +425,10 @@ async def main():
     print(f"Tasks created: {results['tasks_created']}")
     print(f"Processes cleaned: {results['processes_killed']}")
     print(f"Search results copied: {results['search_results_copied']}")
-    print(f"Debug files shared: {len(results['shared_files'])}")
 
     if results['analysis'].get('fabric_analysis'):
         print("\n=== AI Analysis Summary ===")
         print(results['analysis']['fabric_analysis'][:200] + "...")
-
-    print(f"\nFull results saved to: .claude/.artifacts/loop3-debug.json")
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -7,15 +7,14 @@ Concrete strategy implementations for different analysis approaches.
 NASA Power of Ten compliant with focused strategy classes.
 """
 
-from typing import Dict, Any, List
 from pathlib import Path
-import time
+from typing import Dict, Any, List
 import logging
+import time
 
 from .interfaces import AnalysisStrategy, AnalysisResult, ConnascenceViolation
 
 logger = logging.getLogger(__name__)
-
 
 class BatchAnalysisStrategy(AnalysisStrategy):
     """
@@ -24,18 +23,17 @@ class BatchAnalysisStrategy(AnalysisStrategy):
     NASA Rule 4 Compliant: Focused strategy implementation.
     """
 
-    def __init__(self, orchestrator):
+def __init__(self, orchestrator):
         self.orchestrator = orchestrator
         self.strategy_name = "BatchAnalysisStrategy"
 
-    def analyze_project(self, project_path: Path, config: Dict[str, Any]) -> AnalysisResult:
+def analyze_project(self, project_path: Path, config: Dict[str, Any]) -> AnalysisResult:
         """Execute batch analysis with comprehensive file processing."""
         return self.orchestrator._execute_default_analysis(project_path, config)
 
-    def get_strategy_name(self) -> str:
+def get_strategy_name(self) -> str:
         """Get strategy name."""
         return self.strategy_name
-
 
 class StreamingAnalysisStrategy(AnalysisStrategy):
     """
@@ -44,20 +42,18 @@ class StreamingAnalysisStrategy(AnalysisStrategy):
     NASA Rule 4 Compliant: Focused streaming implementation.
     """
 
-    def __init__(self, orchestrator):
+def __init__(self, orchestrator):
         self.orchestrator = orchestrator
         self.strategy_name = "StreamingAnalysisStrategy"
 
-    def analyze_project(self, project_path: Path, config: Dict[str, Any]) -> AnalysisResult:
+def analyze_project(self, project_path: Path, config: Dict[str, Any]) -> AnalysisResult:
         """Execute streaming analysis with file watching."""
         # For now, fallback to batch analysis
-        # Production implementation would add file watching
         return self.orchestrator._execute_default_analysis(project_path, config)
 
-    def get_strategy_name(self) -> str:
+def get_strategy_name(self) -> str:
         """Get strategy name."""
         return self.strategy_name
-
 
 class FastAnalysisStrategy(AnalysisStrategy):
     """
@@ -66,11 +62,11 @@ class FastAnalysisStrategy(AnalysisStrategy):
     NASA Rule 4 Compliant: Focused speed optimization.
     """
 
-    def __init__(self, orchestrator):
+def __init__(self, orchestrator):
         self.orchestrator = orchestrator
         self.strategy_name = "FastAnalysisStrategy"
 
-    def analyze_project(self, project_path: Path, config: Dict[str, Any]) -> AnalysisResult:
+def analyze_project(self, project_path: Path, config: Dict[str, Any]) -> AnalysisResult:
         """Execute fast analysis with limited scope."""
         # Implement optimized analysis with reduced scope
         start_time = time.time()
@@ -110,6 +106,6 @@ class FastAnalysisStrategy(AnalysisStrategy):
             }
         )
 
-    def get_strategy_name(self) -> str:
+def get_strategy_name(self) -> str:
         """Get strategy name."""
         return self.strategy_name

@@ -4,15 +4,15 @@ Handles pattern recognition and matching for CI/CD failures
 Part of god object decomposition (Day 3-5)
 """
 
-import re
-import hashlib
-from typing import Dict, List, Optional, Tuple, Any, Set
-from dataclasses import dataclass, field
 from collections import defaultdict, Counter
+from typing import Dict, List, Optional, Tuple, Any, Set
+import hashlib
 import logging
+import re
+
+from dataclasses import dataclass, field
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class FailurePattern:
@@ -25,12 +25,11 @@ class FailurePattern:
     examples: List[str] = field(default_factory=list)
     context_hash: str = ""
 
-
 class PatternMatcher:
     """
     Handles pattern recognition and matching for failures.
 
-    Extracted from FailurePatternDetector god object (1,281 LOC -> ~250 LOC component).
+    Extracted from FailurePatternDetector god object (1, 281 LOC -> ~250 LOC component).
     Handles:
     - Pattern detection and classification
     - Pattern frequency analysis
@@ -63,7 +62,7 @@ class PatternMatcher:
             "null": r"(null|undefined|NullPointerException|cannot read property)",
             "dependency": r"(dependency|package|module|version conflict|peer dep)",
             "build": r"(build failed|compilation error|webpack|rollup|tsc)",
-            "test": r"(test failed|suite failed|● |✗ |FAIL)",
+            "test": r"(test failed|suite failed| |FAIL)",
             "lint": r"(lint error|eslint|tslint|pylint|formatting)",
             "coverage": r"(coverage threshold|below threshold|coverage failed)"
         }
@@ -78,8 +77,8 @@ class PatternMatcher:
             )
 
     def match_pattern(self,
-                     error_message: str,
-                     context: Optional[Dict[str, Any]] = None) -> Optional[FailurePattern]:
+                    error_message: str,
+                    context: Optional[Dict[str, Any]] = None) -> Optional[FailurePattern]:
         """Match error message against known patterns."""
         # Check cache first
         message_hash = hashlib.md5(error_message.encode()).hexdigest()
@@ -111,8 +110,8 @@ class PatternMatcher:
         return best_match
 
     def _calculate_match_score(self,
-                              message: str,
-                              pattern: FailurePattern) -> float:
+                                message: str,
+                                pattern: FailurePattern) -> float:
         """Calculate match score between message and pattern."""
         try:
             # Check regex match
@@ -157,9 +156,9 @@ class PatternMatcher:
         return len(intersection) / len(union) if union else 0.0
 
     def add_pattern(self,
-                   pattern_type: str,
-                   regex: str,
-                   confidence: float = 0.7) -> FailurePattern:
+                    pattern_type: str,
+                    regex: str,
+                    confidence: float = 0.7) -> FailurePattern:
         """Add a new pattern to the matcher."""
         pattern_id = f"custom_{pattern_type}_{len(self.patterns)}"
 
@@ -200,7 +199,7 @@ class PatternMatcher:
             ]
         }
 
-    def evolve_patterns(self) -> List[FailurePattern]:
+def evolve_patterns(self) -> List[FailurePattern]:
         """Evolve patterns based on frequency and confidence."""
         evolved = []
 
@@ -218,7 +217,7 @@ class PatternMatcher:
 
         return evolved
 
-    def export_patterns(self) -> List[Dict[str, Any]]:
+def export_patterns(self) -> List[Dict[str, Any]]:
         """Export patterns for persistence."""
         return [
             {
@@ -232,7 +231,7 @@ class PatternMatcher:
             for p in self.patterns.values()
         ]
 
-    def import_patterns(self, patterns_data: List[Dict[str, Any]]) -> None:
+def import_patterns(self, patterns_data: List[Dict[str, Any]]) -> None:
         """Import patterns from persistent storage."""
         for data in patterns_data:
             pattern = FailurePattern(

@@ -214,7 +214,7 @@ export class PrincessAuditGate extends EventEmitter {
       console.log(`    - God objects found: ${qualityReport.godObjects?.length || 0}`);
       console.log(`    - NASA compliance: ${qualityReport.nasaCompliance?.overallCompliance || 0}%`);
       console.log(`    - Defense standards: ${qualityReport.defenseStandards?.overallScore || 0}%`);
-      console.log(`    - Lean Six Sigma: ${qualityReport.leanSixSigma?.sigmaLevel || 0}σ`);
+      console.log(`    - Lean Six Sigma: ${qualityReport.leanSixSigma?.sigmaLevel || 0}`);
 
       // STAGE 7: NASA-Compliant Quality Enhancement
       console.log(`\n[STAGE 7] NASA-COMPLIANT QUALITY ENHANCEMENT`);

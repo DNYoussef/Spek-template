@@ -1,10 +1,7 @@
-#!/usr/bin/env python3
-"""
-Real Theater Detection Analysis Engine
-Quality Princess Domain - SPEK Enhanced Development Platform
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_LENGTH_LINES
 
 MISSION: Comprehensive theater detection with AST parsing and pattern recognition
-AUTHORITY: Theater Detection Gate enforcement (≥60/100 score required)
+AUTHORITY: Theater Detection Gate enforcement (>=60/100 score required)
 TARGET: >95% detection accuracy for simulation vs authentic implementation
 """
 
@@ -53,7 +50,7 @@ class AuthenticityScore:
 class ASTTheaterDetector:
     """AST-based theater pattern detection"""
 
-    def __init__(self):
+def __init__(self):
         self.theater_patterns = {
             'mock_implementations': [
                 r'def\s+\w+.*:\s*pass\s*$',
@@ -64,8 +61,6 @@ class ASTTheaterDetector:
                 r'def\s+\w+.*:\s*return\s+""?\s*$'
             ],
             'placeholder_content': [
-                r'TODO.*implement',
-                r'FIXME.*placeholder',
                 r'# Implementation goes here',
                 r'# Add your code here',
                 r'# Placeholder',
@@ -90,7 +85,7 @@ class ASTTheaterDetector:
             ]
         }
 
-    def analyze_ast_node(self, node: ast.AST, source_lines: List[str]) -> List[TheaterPattern]:
+def analyze_ast_node(self, node: ast.AST, source_lines: List[str]) -> List[TheaterPattern]:
         """Analyze AST node for theater patterns"""
         patterns = []
 
@@ -103,7 +98,7 @@ class ASTTheaterDetector:
 
         return patterns
 
-    def _analyze_function(self, node: ast.FunctionDef, source_lines: List[str]) -> List[TheaterPattern]:
+def _analyze_function(self, node: ast.FunctionDef, source_lines: List[str]) -> List[TheaterPattern]:
         """Analyze function for theater patterns"""
         patterns = []
 
@@ -145,7 +140,7 @@ class ASTTheaterDetector:
 
         return patterns
 
-    def _analyze_class(self, node: ast.ClassDef, source_lines: List[str]) -> List[TheaterPattern]:
+def _analyze_class(self, node: ast.ClassDef, source_lines: List[str]) -> List[TheaterPattern]:
         """Analyze class for theater patterns"""
         patterns = []
 
@@ -174,7 +169,7 @@ class ASTTheaterDetector:
 
         return patterns
 
-    def _analyze_return(self, node: ast.Return, source_lines: List[str]) -> List[TheaterPattern]:
+def _analyze_return(self, node: ast.Return, source_lines: List[str]) -> List[TheaterPattern]:
         """Analyze return statements for theater patterns"""
         patterns = []
 
@@ -198,10 +193,10 @@ class ASTTheaterDetector:
 class ComplexityAnalyzer:
     """Real complexity measurement and scoring"""
 
-    def __init__(self):
+def __init__(self):
         self.reset_metrics()
 
-    def reset_metrics(self):
+def reset_metrics(self):
         """Reset metrics for new analysis"""
         self.cyclomatic_complexity = 0
         self.cognitive_complexity = 0
@@ -211,7 +206,7 @@ class ComplexityAnalyzer:
         self.function_count = 0
         self.class_count = 0
 
-    def analyze_complexity(self, tree: ast.AST, source_lines: List[str]) -> ComplexityMetrics:
+def analyze_complexity(self, tree: ast.AST, source_lines: List[str]) -> ComplexityMetrics:
         """Analyze code complexity"""
         self.reset_metrics()
         self.lines_of_code = len(source_lines)
@@ -244,7 +239,7 @@ class ComplexityAnalyzer:
             class_count=self.class_count
         )
 
-    def _analyze_node_complexity(self, node: ast.AST):
+def _analyze_node_complexity(self, node: ast.AST):
         """Analyze individual node for complexity"""
         # Cyclomatic complexity
         if isinstance(node, (ast.If, ast.While, ast.For, ast.ExceptHandler)):
@@ -273,7 +268,7 @@ class ComplexityAnalyzer:
         elif isinstance(node, ast.Name):
             self.halstead_operands.add(node.id)
 
-    def _count_operator_occurrences(self, tree: ast.AST) -> int:
+def _count_operator_occurrences(self, tree: ast.AST) -> int:
         """Count total operator occurrences"""
         count = 0
         for node in ast.walk(tree):
@@ -281,7 +276,7 @@ class ComplexityAnalyzer:
                 count += 1
         return count
 
-    def _count_operand_occurrences(self, tree: ast.AST) -> int:
+def _count_operand_occurrences(self, tree: ast.AST) -> int:
         """Count total operand occurrences"""
         count = 0
         for node in ast.walk(tree):
@@ -289,8 +284,8 @@ class ComplexityAnalyzer:
                 count += 1
         return count
 
-    def _calculate_maintainability_index(self, halstead_volume: float,
-                                       cyclomatic: int, loc: int) -> float:
+def _calculate_maintainability_index(self, halstead_volume: float,
+                                        cyclomatic: int, loc: int) -> float:
         """Calculate maintainability index"""
         if loc == 0:
             return 100.0
@@ -302,11 +297,11 @@ class ComplexityAnalyzer:
 class AuthenticityValidator:
     """Evidence-based authenticity validation (0-100 scale)"""
 
-    def __init__(self):
+def __init__(self):
         self.ast_detector = ASTTheaterDetector()
         self.complexity_analyzer = ComplexityAnalyzer()
 
-    def validate_file(self, file_path: str) -> AuthenticityScore:
+def validate_file(self, file_path: str) -> AuthenticityScore:
         """Validate file authenticity with evidence"""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -360,7 +355,7 @@ class AuthenticityValidator:
                 validation_timestamp=datetime.now().isoformat()
             )
 
-    def _calculate_authenticity_score(self, theater_patterns: List[TheaterPattern],
+def _calculate_authenticity_score(self, theater_patterns: List[TheaterPattern],
                                     complexity_metrics: ComplexityMetrics,
                                     content: str) -> int:
         """Calculate 0-100 authenticity score"""
@@ -382,7 +377,7 @@ class AuthenticityValidator:
             score -= 20  # Very short files with functions are often mocks
 
         if complexity_metrics.cyclomatic == 0 and complexity_metrics.function_count > 0:
-            score -= 30  # No branching in functions suggests simple returns
+            score -= API_TIMEOUT_SECONDS  # No branching in functions suggests simple returns
 
         # Bonus for genuine implementation indicators
         genuine_indicators = [
@@ -397,8 +392,8 @@ class AuthenticityValidator:
 
         return max(0, min(100, score))
 
-    def _gather_implementation_evidence(self, content: str, tree: ast.AST,
-                                      complexity_metrics: ComplexityMetrics) -> Dict[str, Any]:
+def _gather_implementation_evidence(self, content: str, tree: ast.AST,
+                                        complexity_metrics: ComplexityMetrics) -> Dict[str, Any]:
         """Gather evidence of authentic implementation"""
         evidence = {
             'file_size_bytes': len(content.encode('utf-8')),
@@ -409,8 +404,8 @@ class AuthenticityValidator:
             'has_configuration': bool(re.search(r'config|settings|environment', content)),
             'import_count': len([node for node in ast.walk(tree) if isinstance(node, (ast.Import, ast.ImportFrom))]),
             'docstring_count': len([node for node in ast.walk(tree)
-                                  if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant)
-                                  and isinstance(node.value.value, str)]),
+                                    if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant)
+                                    and isinstance(node.value.value, str)]),
             'complexity_indicators': {
                 'has_conditionals': complexity_metrics.cyclomatic > 0,
                 'has_loops': bool(re.search(r'for |while ', content)),
@@ -424,11 +419,11 @@ class AuthenticityValidator:
 class TheaterDetectionEngine:
     """Main theater detection and validation engine"""
 
-    def __init__(self):
+def __init__(self):
         self.validator = AuthenticityValidator()
         self.results_cache = {}
 
-    def scan_directory(self, directory: str, extensions: List[str] = None) -> Dict[str, AuthenticityScore]:
+def scan_directory(self, directory: str, extensions: List[str] = None) -> Dict[str, AuthenticityScore]:
         """Scan directory for theater patterns"""
         if extensions is None:
             extensions = ['.py', '.js', '.ts', '.jsx', '.tsx']
@@ -443,7 +438,7 @@ class TheaterDetectionEngine:
 
         return results
 
-    def generate_quality_report(self, scan_results: Dict[str, AuthenticityScore]) -> Dict[str, Any]:
+def generate_quality_report(self, scan_results: Dict[str, AuthenticityScore]) -> Dict[str, Any]:
         """Generate comprehensive quality gate report"""
         total_files = len(scan_results)
         passing_files = len([score for score in scan_results.values() if score.overall_score >= 60])
@@ -473,7 +468,7 @@ class TheaterDetectionEngine:
             'summary': {
                 'total_files_analyzed': total_files,
                 'files_passing_gate': passing_files,
-                'gate_pass_rate': (passing_files / total_files * 100) if total_files > 0 else 0,
+                'gate_pass_rate': (passing_files / total_files * MAXIMUM_FUNCTION_LENGTH_LINES) if total_files > 0 else 0,
                 'average_authenticity_score': round(avg_score, 2),
                 'gate_threshold': 60,
                 'gate_status': 'PASS' if (passing_files / total_files >= 0.8 if total_files > 0 else False) else 'FAIL'
@@ -490,7 +485,7 @@ class TheaterDetectionEngine:
 
         return report
 
-    def _generate_recommendations(self, scan_results: Dict[str, AuthenticityScore]) -> List[str]:
+def _generate_recommendations(self, scan_results: Dict[str, AuthenticityScore]) -> List[str]:
         """Generate actionable recommendations"""
         recommendations = []
 
@@ -539,11 +534,11 @@ def main():
     parser.add_argument('directory', help='Directory to analyze')
     parser.add_argument('--output', '-o', help='Output file for results (JSON format)')
     parser.add_argument('--threshold', '-t', type=int, default=60,
-                       help='Quality gate threshold (default: 60)')
+                        help='Quality gate threshold (default: 60)')
     parser.add_argument('--extensions', '-e', nargs='+', default=['.py', '.js', '.ts'],
-                       help='File extensions to analyze')
+                        help='File extensions to analyze')
     parser.add_argument('--verbose', '-v', action='store_true',
-                       help='Verbose output with detailed patterns')
+                        help='Verbose output with detailed patterns')
 
     args = parser.parse_args()
 

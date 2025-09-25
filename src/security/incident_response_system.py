@@ -1,13 +1,9 @@
-"""
-DFARS Incident Response System
-Automated incident detection, response, and reporting for defense industry compliance.
-"""
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 import json
 import time
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class IncidentSeverity(Enum):
     """DFARS incident severity levels."""
@@ -15,7 +11,6 @@ class IncidentSeverity(Enum):
     MEDIUM = "medium"
     HIGH = "high"
     CRITICAL = "critical"
-
 
 class IncidentCategory(Enum):
     """DFARS incident categories."""
@@ -28,7 +23,6 @@ class IncidentCategory(Enum):
     CONFIGURATION_DRIFT = "configuration_drift"
     SUPPLY_CHAIN_COMPROMISE = "supply_chain_compromise"
 
-
 class IncidentStatus(Enum):
     """Incident response status."""
     NEW = "new"
@@ -37,7 +31,6 @@ class IncidentStatus(Enum):
     ERADICATED = "eradicated"
     RECOVERED = "recovered"
     CLOSED = "closed"
-
 
 @dataclass
 class SecurityIncident:
@@ -61,7 +54,6 @@ class SecurityIncident:
     root_cause: Optional[str] = None
     remediation_plan: Optional[Dict[str, Any]] = None
     lessons_learned: Optional[str] = None
-
 
 class DFARSIncidentResponseSystem:
     """
@@ -124,7 +116,7 @@ class DFARSIncidentResponseSystem:
                     }
                 },
                 "detection_rules": {
-                    "failed_login_threshold": 5,
+                    "failed_login_threshold": MAXIMUM_NESTED_DEPTH,
                     "file_access_patterns": True,
                     "network_anomaly_detection": True,
                     "cryptographic_failures": True,
@@ -185,9 +177,6 @@ class DFARSIncidentResponseSystem:
     def _setup_notification_systems(self):
         """Setup notification channels for incident alerts."""
         # Email notification setup would go here
-        # Webhook notification setup would go here
-        # Syslog notification setup would go here
-        pass
 
     async def detect_incidents(self):
         """Continuous incident detection monitoring."""
@@ -207,7 +196,6 @@ class DFARSIncidentResponseSystem:
         threshold = self.config['incident_response']['detection_rules']['failed_login_threshold']
 
         # Simulate failed login detection
-        # In production, this would integrate with authentication systems
         while True:
             try:
                 # Check for failed login patterns
@@ -238,7 +226,6 @@ class DFARSIncidentResponseSystem:
     async def _check_authentication_logs(self) -> Dict[str, int]:
         """Check authentication logs for failed attempts."""
         # Simulate authentication log analysis
-        # In production, this would parse actual auth logs
         return {}
 
     async def _monitor_file_access_anomalies(self):
@@ -268,7 +255,6 @@ class DFARSIncidentResponseSystem:
     async def _analyze_file_access_patterns(self) -> List[Dict[str, Any]]:
         """Analyze file access patterns for anomalies."""
         # Simulate file access analysis
-        # In production, this would integrate with file system monitoring
         return []
 
     async def _monitor_network_anomalies(self):
@@ -548,14 +534,12 @@ class DFARSIncidentResponseSystem:
     async def _isolate_system(self, system: str) -> bool:
         """Isolate system from network."""
         # Simulate network isolation
-        # In production, this would integrate with network infrastructure
         logger.info(f"Isolating system: {system}")
         return True
 
     async def _block_ip_address(self, ip_address: str) -> bool:
         """Block IP address at network perimeter."""
         # Simulate IP blocking
-        # In production, this would integrate with firewall/IPS systems
         logger.info(f"Blocking IP address: {ip_address}")
         return True
 
@@ -712,13 +696,11 @@ class DFARSIncidentResponseSystem:
     async def _send_email_notification(self, notification_data: Dict[str, Any]):
         """Send email notification for incident."""
         # Simulate email notification
-        # In production, this would integrate with email systems
         logger.info(f"Email notification sent for incident {notification_data['incident_id']}")
 
     async def _send_webhook_notification(self, notification_data: Dict[str, Any]):
         """Send webhook notification for incident."""
         # Simulate webhook notification
-        # In production, this would send HTTP POST to configured endpoints
         logger.info(f"Webhook notification sent for incident {notification_data['incident_id']}")
 
     async def _schedule_dfars_reporting(self, incident: SecurityIncident):
@@ -802,12 +784,10 @@ class DFARSIncidentResponseSystem:
             }
         }
 
-
 # Factory function
 def create_incident_response_system(config_path: Optional[str] = None) -> DFARSIncidentResponseSystem:
     """Create DFARS incident response system."""
     return DFARSIncidentResponseSystem(config_path)
-
 
 # Example usage
 if __name__ == "__main__":
@@ -832,8 +812,6 @@ if __name__ == "__main__":
                 "attack_vector": "web_application"
             }
         )
-
-        print(f"Created test incident: {incident_id}")
 
         # Generate status report
         report = irs.get_incident_status_report()

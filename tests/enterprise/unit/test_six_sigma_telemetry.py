@@ -1,5 +1,4 @@
-"""
-Comprehensive Unit Tests for Six Sigma Telemetry System
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 Tests all functionality of the Six Sigma quality monitoring system including:
 - DPMO (Defects Per Million Opportunities) calculations
@@ -26,7 +25,6 @@ sys.path.append(str(Path(__file__).parent.parent.parent.parent / 'src'))
 from enterprise.telemetry.six_sigma import (
     SixSigmaTelemetry, SixSigmaMetrics, QualityLevel
 )
-
 
 class TestSixSigmaMetrics:
     """Test SixSigmaMetrics dataclass"""
@@ -61,7 +59,6 @@ class TestSixSigmaMetrics:
         assert metrics.defect_count == 0
         assert metrics.opportunity_count == 0
 
-
 class TestQualityLevel:
     """Test QualityLevel enum"""
     
@@ -78,7 +75,6 @@ class TestQualityLevel:
         levels = list(QualityLevel)
         values = [level.value for level in levels]
         assert values == sorted(values)  # Should be in ascending order
-
 
 class TestSixSigmaTelemetryBasic:
     """Test basic SixSigmaTelemetry functionality"""
@@ -139,7 +135,6 @@ class TestSixSigmaTelemetryBasic:
         assert self.telemetry.current_session_data['units_processed'] == 0
         assert self.telemetry.current_session_data['units_passed'] == 0
 
-
 class TestDPMOCalculations:
     """Test DPMO (Defects Per Million Opportunities) calculations"""
     
@@ -176,7 +171,7 @@ class TestDPMOCalculations:
         
     def test_calculate_dpmo_fractional(self):
         """Test DPMO calculation with fractional result"""
-        # 3 defects in 7000 opportunities ≈ 428.57 DPMO
+        # 3 defects in 7000 opportunities ~= 428.57 DPMO
         self.telemetry.current_session_data['defects'] = 3
         self.telemetry.current_session_data['opportunities'] = 7000
         
@@ -195,7 +190,6 @@ class TestDPMOCalculations:
         # 3.4 defects per million opportunities (Six Sigma)
         dpmo = self.telemetry.calculate_dpmo(defects=34, opportunities=10_000_000)
         assert abs(dpmo - 3.4) < 0.1
-
 
 class TestRTYCalculations:
     """Test RTY (Rolled Throughput Yield) calculations"""
@@ -239,7 +233,6 @@ class TestRTYCalculations:
         rty = self.telemetry.calculate_rty(units_processed=100, units_passed=0)
         assert rty == 0.0
 
-
 class TestSigmaLevelCalculations:
     """Test sigma level calculations"""
     
@@ -256,7 +249,7 @@ class TestSigmaLevelCalculations:
         """Test sigma level calculation for Six Sigma (3.4 DPMO)"""
         sigma_level = self.telemetry.calculate_sigma_level(dpmo=3.4)
         # Should be close to 6.0 sigma
-        assert sigma_level >= 5.9
+        assert sigma_level >= MAXIMUM_NESTED_DEPTH.9
         
     def test_calculate_sigma_level_fallback_method(self):
         """Test fallback sigma level calculation without scipy"""
@@ -284,7 +277,6 @@ class TestSigmaLevelCalculations:
             else:
                 sigma_level = self.telemetry._approximate_sigma_level(dpmo)
                 assert sigma_level == expected_level
-
 
 class TestQualityLevelDetermination:
     """Test quality level determination"""
@@ -322,7 +314,6 @@ class TestQualityLevelDetermination:
         """Test quality level below Two Sigma"""
         quality_level = self.telemetry.get_quality_level(dpmo=500000)
         assert quality_level == QualityLevel.TWO_SIGMA  # Default to lowest
-
 
 class TestProcessCapability:
     """Test process capability calculations (Cp, Cpk)"""
@@ -384,7 +375,6 @@ class TestProcessCapability:
         assert cp > 0
         assert cpk > 0
 
-
 class TestMetricsSnapshots:
     """Test metrics snapshot generation"""
     
@@ -403,7 +393,7 @@ class TestMetricsSnapshots:
         
         assert isinstance(snapshot, SixSigmaMetrics)
         assert snapshot.process_name == "snapshot_test"
-        assert snapshot.sample_size == 3  # 3 units processed
+        assert snapshot.sample_size == 3  # MAXIMUM_RETRY_ATTEMPTS units processed
         assert snapshot.defect_count == 1  # 1 failed unit
         assert snapshot.opportunity_count == 30  # 3 * 10 opportunities
         assert snapshot.dpmo > 0  # Should have calculated DPMO
@@ -424,7 +414,6 @@ class TestMetricsSnapshots:
             assert isinstance(snapshot, SixSigmaMetrics)
             
         assert len(self.telemetry.metrics_history) == 5
-
 
 class TestTrendAnalysis:
     """Test trend analysis functionality"""
@@ -487,7 +476,6 @@ class TestTrendAnalysis:
         if trend["dpmo"]["current"] < trend["dpmo"]["best"]:
             assert trend["dpmo"]["trend"] == "improving"
 
-
 class TestDataExport:
     """Test data export functionality"""
     
@@ -535,7 +523,6 @@ class TestDataExport:
         assert metric_record["sample_size"] == snapshot.sample_size
         assert metric_record["defect_count"] == snapshot.defect_count
         assert metric_record["opportunity_count"] == snapshot.opportunity_count
-
 
 class TestPerformanceAndConcurrency:
     """Test performance and concurrency aspects"""
@@ -631,7 +618,6 @@ class TestPerformanceAndConcurrency:
         # Should be very fast for repeated calculations
         assert duration < 0.1  # Less than 100ms for 1000 calculations
 
-
 class TestErrorHandlingAndEdgeCases:
     """Test error handling and edge cases"""
     
@@ -710,7 +696,6 @@ class TestErrorHandlingAndEdgeCases:
         
         assert self.telemetry.current_session_data['defects'] == 1
         assert self.telemetry.current_session_data['opportunities'] == 1
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

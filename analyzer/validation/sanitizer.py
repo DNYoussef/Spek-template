@@ -3,13 +3,13 @@ Data Sanitization Engine
 Sanitizes and cleans input data for security.
 """
 
-import re
-import html
-import urllib.parse
 from typing import Any, Dict, List, Optional, Union
+import re
+
 from dataclasses import dataclass
 from enum import Enum
-
+import html
+import urllib.parse
 
 class SanitizationType(Enum):
     """Types of sanitization."""
@@ -21,7 +21,6 @@ class SanitizationType(Enum):
     NORMALIZE_WHITESPACE = "normalize_whitespace"
     REMOVE_CONTROL_CHARS = "remove_control_chars"
 
-
 @dataclass
 class SanitizationResult:
     """Result of sanitization operation."""
@@ -30,17 +29,16 @@ class SanitizationResult:
     sanitization_applied: List[str]
     warnings: List[str]
 
-
 class DataSanitizer:
     """Main data sanitization engine."""
 
-    def __init__(self):
+def __init__(self):
         self.default_sanitizations = [
             SanitizationType.REMOVE_CONTROL_CHARS,
             SanitizationType.NORMALIZE_WHITESPACE
         ]
 
-    def sanitize(self,
+def sanitize(self,
                 value: Any,
                 sanitizations: Optional[List[SanitizationType]] = None) -> SanitizationResult:
         """Sanitize a value using specified sanitization methods."""
@@ -97,20 +95,20 @@ class DataSanitizer:
             warnings=warnings
         )
 
-    def _html_escape(self, value: str) -> str:
+def _html_escape(self, value: str) -> str:
         """Escape HTML special characters."""
         return html.escape(value, quote=True)
 
-    def _url_encode(self, value: str) -> str:
+def _url_encode(self, value: str) -> str:
         """URL encode the value."""
         return urllib.parse.quote(value, safe='')
 
-    def _sql_escape(self, value: str) -> str:
+def _sql_escape(self, value: str) -> str:
         """Escape SQL special characters."""
         # Basic SQL escaping - replace single quotes
         return value.replace("'", "''")
 
-    def _remove_scripts(self, value: str) -> tuple[str, List[str]]:
+def _remove_scripts(self, value: str) -> tuple[str, List[str]]:
         """Remove script tags and JavaScript."""
         warnings = []
 
@@ -134,7 +132,7 @@ class DataSanitizer:
 
         return value, warnings
 
-    def _remove_html(self, value: str) -> str:
+def _remove_html(self, value: str) -> str:
         """Remove all HTML tags."""
         # Remove HTML tags
         clean_text = re.sub(r'<[^>]+>', '', value)
@@ -144,7 +142,7 @@ class DataSanitizer:
 
         return clean_text
 
-    def _normalize_whitespace(self, value: str) -> str:
+def _normalize_whitespace(self, value: str) -> str:
         """Normalize whitespace characters."""
         # Replace multiple whitespace with single space
         normalized = re.sub(r'\s+', ' ', value)
@@ -154,18 +152,18 @@ class DataSanitizer:
 
         return normalized
 
-    def _remove_control_chars(self, value: str) -> str:
+def _remove_control_chars(self, value: str) -> str:
         """Remove control characters."""
         # Remove non-printable characters except common whitespace
         cleaned = ''.join(char for char in value
-                         if ord(char) >= 32 or char in '\t\n\r')
+                        if ord(char) >= 32 or char in '\t\n\r')
 
         # Remove null bytes
         cleaned = cleaned.replace('\x00', '')
 
         return cleaned
 
-    def sanitize_filename(self, filename: str) -> str:
+def sanitize_filename(self, filename: str) -> str:
         """Sanitize filename for safe storage."""
         # Remove path separators and dangerous characters
         dangerous_chars = r'[<>:"/\\|?*\x00-\x1f]'
@@ -181,7 +179,7 @@ class DataSanitizer:
 
         return clean_name or 'sanitized_file'
 
-    def sanitize_json_keys(self, data: Dict[str, Any]) -> Dict[str, Any]:
+def sanitize_json_keys(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Sanitize JSON object keys."""
         sanitized = {}
 
@@ -202,7 +200,7 @@ class DataSanitizer:
 
         return sanitized
 
-    def _sanitize_json_key(self, key: str) -> str:
+def _sanitize_json_key(self, key: str) -> str:
         """Sanitize a JSON key."""
         # Remove dangerous characters from keys
         clean_key = re.sub(r'[^\w\-_]', '_', key)
@@ -213,7 +211,7 @@ class DataSanitizer:
 
         return clean_key or 'sanitized_key'
 
-    def detect_malicious_patterns(self, value: str) -> List[str]:
+def detect_malicious_patterns(self, value: str) -> List[str]:
         """Detect potentially malicious patterns in input."""
         threats = []
 
@@ -263,9 +261,9 @@ class DataSanitizer:
 
         return threats
 
-    def comprehensive_sanitize(self,
-                             value: Any,
-                             context: str = "general") -> SanitizationResult:
+def comprehensive_sanitize(self,
+                            value: Any,
+                            context: str = "general") -> SanitizationResult:
         """Perform comprehensive sanitization based on context."""
         sanitizations = []
 

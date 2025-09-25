@@ -1,6 +1,4 @@
-"""
-Cache Performance Profiler and Optimizer
-=========================================
+from src.constants.base import SESSION_TIMEOUT_SECONDS
 
 Advanced performance analysis and optimization system for all caching layers
 in the analyzer system. Provides detailed profiling, intelligent warming,
@@ -43,7 +41,6 @@ except ImportError:
 
 logger = logging.getLogger(__name__)
 
-
 @dataclass
 class CacheMetrics:
     """Detailed cache performance metrics."""
@@ -76,7 +73,6 @@ class CacheMetrics:
         """Calculate entry count utilization percentage."""
         return (self.entry_count / self.max_entry_count * 100) if self.max_entry_count > 0 else 0.0
 
-
 @dataclass 
 class WarmingStrategy:
     """Configuration for cache warming strategy."""
@@ -95,7 +91,6 @@ class WarmingStrategy:
         assert 1 <= self.parallel_workers <= 16, "parallel_workers must be 1-16"
         assert 10 <= self.batch_size <= 1000, "batch_size must be 10-1000"
         assert 0.1 <= self.memory_pressure_threshold <= 1.0, "memory_pressure_threshold must be 0.1-1.0"
-
 
 @dataclass
 class AccessPattern:
@@ -133,7 +128,6 @@ class AccessPattern:
             return self.last_access_time + avg_interval
         
         return None
-
 
 class CacheCoherenceManager:
     """Manages coherence across different cache layers."""
@@ -182,20 +176,18 @@ class CacheCoherenceManager:
         
         with self._lock:
             # Implementation would sync cache states
-            # For now, track sync operations
             self.coherence_stats["sync_operations"] += 1
             sync_count = len(secondary_caches)
         
         return sync_count
 
-
 class IntelligentCacheWarmer:
     """Intelligent cache warming with predictive algorithms."""
 
     def __init__(self,
-                 file_cache: Optional[Any] = None,  # FileContentCache when available
-                 ast_cache: Optional[Any] = None,  # ASTCache when available
-                 incremental_cache: Optional[Any] = None):  # IncrementalCache when available
+                file_cache: Optional[Any] = None,  # FileContentCache when available
+                ast_cache: Optional[Any] = None,  # ASTCache when available
+                incremental_cache: Optional[Any] = None):  # IncrementalCache when available
         """Initialize intelligent cache warmer."""
         self.file_cache = file_cache
         self.ast_cache = ast_cache
@@ -240,8 +232,8 @@ class IntelligentCacheWarmer:
                     pattern.co_accessed_files[co_file] = pattern.co_accessed_files.get(co_file, 0) + 1
     
     async def warm_cache_intelligently(self, 
-                                     strategy: WarmingStrategy,
-                                     progress_callback: Optional[Callable[[int, int], None]] = None) -> Dict[str, Any]:
+                                    strategy: WarmingStrategy,
+                                    progress_callback: Optional[Callable[[int, int], None]] = None) -> Dict[str, Any]:
         """Execute intelligent cache warming strategy."""
         start_time = time.time()
         logger.info(f"Starting intelligent cache warming with strategy: {strategy.name}")
@@ -320,7 +312,7 @@ class IntelligentCacheWarmer:
                     
                     # Recent access bonus
                     time_since_access = time.time() - pattern.last_access_time
-                    if time_since_access < 3600:  # Within 1 hour
+                    if time_since_access < SESSION_TIMEOUT_SECONDS:  # Within 1 hour
                         score += 100.0 / (time_since_access / 60 + 1)  # Decay over time
                     
                     # Predictive access bonus
@@ -328,7 +320,7 @@ class IntelligentCacheWarmer:
                     if next_access:
                         time_until_access = next_access - time.time()
                         if 0 < time_until_access < 7200:  # Within 2 hours
-                            score += 50.0 / (time_until_access / 3600 + 1)
+                            score += 50.0 / (time_until_access / SESSION_TIMEOUT_SECONDS + 1)
                 
                 file_scores[file_path] = score
         
@@ -336,9 +328,9 @@ class IntelligentCacheWarmer:
         return sorted(files, key=lambda f: file_scores.get(f, 0.0), reverse=True)
     
     async def _execute_warming_batches(self,
-                                     files: List[str], 
-                                     strategy: WarmingStrategy,
-                                     progress_callback: Optional[Callable[[int, int], None]] = None) -> Dict[str, Any]:
+                                    files: List[str], 
+                                    strategy: WarmingStrategy,
+                                    progress_callback: Optional[Callable[[int, int], None]] = None) -> Dict[str, Any]:
         """Execute cache warming in parallel batches."""
         files_warmed = 0
         files_failed = 0
@@ -554,7 +546,6 @@ class IntelligentCacheWarmer:
         total_predictions = self.warming_stats["predictive_hits"] + self.warming_stats["predictive_misses"]
         return self.warming_stats["predictive_hits"] / total_predictions if total_predictions > 0 else 0.0
 
-
 class CachePerformanceProfiler:
     """Comprehensive cache performance profiler and optimizer."""
     
@@ -757,8 +748,8 @@ class CachePerformanceProfiler:
         self.alert_callbacks.append(callback)
     
     async def run_performance_benchmark(self, 
-                                      test_files: List[str],
-                                      benchmark_config: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+                                        test_files: List[str],
+                                        benchmark_config: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Run comprehensive performance benchmark."""
         config = benchmark_config or {
             "iterations": 100,
@@ -1053,11 +1044,9 @@ class CachePerformanceProfiler:
         # Return average hit rate across all active caches
         return total_hit_rate / active_caches if active_caches > 0 else 0.0
 
-
 # Global profiler instance
 _global_profiler: Optional[CachePerformanceProfiler] = None
 _profiler_lock = threading.Lock()
-
 
 def get_global_profiler() -> CachePerformanceProfiler:
     """Get or create global cache performance profiler."""
@@ -1069,9 +1058,8 @@ def get_global_profiler() -> CachePerformanceProfiler:
     
     return _global_profiler
 
-
 async def run_cache_optimization(test_files: Optional[List[str]] = None,
-                               warming_strategy: Optional[WarmingStrategy] = None) -> Dict[str, Any]:
+                                warming_strategy: Optional[WarmingStrategy] = None) -> Dict[str, Any]:
     """High-level function to run complete cache optimization."""
     profiler = get_global_profiler()
     

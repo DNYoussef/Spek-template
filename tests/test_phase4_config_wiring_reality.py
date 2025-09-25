@@ -1,6 +1,4 @@
 from lib.shared.utilities import path_exists
-"""
-Phase 4 Configuration Wiring Reality Test
 
 CRITICAL TEST: Proves that detectors use REAL configuration values, not hardcoded defaults.
 This test validates that changing YAML config files changes actual detector behavior.
@@ -26,7 +24,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from analyzer.utils.config_manager import ConfigurationManager, get_config_manager, reset_config_manager
 from analyzer.detectors.position_detector import PositionDetector
 from analyzer.detectors.magic_literal_detector import MagicLiteralDetector
-
 
 class ConfigWiringRealityTest:
     """
@@ -107,7 +104,6 @@ class ConfigWiringRealityTest:
 
     def test_position_detector_threshold_changes(self) -> Dict[str, Any]:
         """Test 1: Changing position detector threshold affects violation detection."""
-        print("\\n=== Test 1: Position Detector Threshold Changes ===")
 
         test_code = '''
 def function_with_many_params(a, b, c, d, e, f):
@@ -164,13 +160,11 @@ def function_with_many_params(a, b, c, d, e, f):
         print(f"Violations with threshold=3: {len(violations_3)}")
         print(f"Violations with threshold=10: {len(violations_10)}")
         print(f"Configuration affects behavior: {result['config_changes_behavior']}")
-        print(f"Test SUCCESS: {result['success']}")
 
         return result
 
     def test_magic_literal_exclusions_affect_detection(self) -> Dict[str, Any]:
         """Test 2: Changing magic literal exclusions affects violation detection."""
-        print("\\n=== Test 2: Magic Literal Exclusions Changes ===")
 
         test_code = '''
 def test_function():
@@ -243,13 +237,11 @@ def test_function():
         print(f"Violations with 42 excluded: {len(violations_excluded)}")
         print(f"Violations with 42 not excluded: {len(violations_not_excluded)}")
         print(f"Exclusions affect behavior: {result['exclusions_affect_behavior']}")
-        print(f"Test SUCCESS: {result['success']}")
 
         return result
 
     def test_yaml_loading_verification(self) -> Dict[str, Any]:
         """Test 3: Verify YAML files are actually loaded and parsed."""
-        print("\\n=== Test 3: YAML Loading Verification ===")
 
         # Create config with unique test values
         unique_value = 999
@@ -280,13 +272,11 @@ def test_function():
         print(f"Unique value set: {unique_value}")
         print(f"Unique value loaded: {result['unique_value_loaded']}")
         print(f"YAML loading works: {result['yaml_loading_works']}")
-        print(f"Test SUCCESS: {result['success']}")
 
         return result
 
     def test_invalid_config_rejection(self) -> Dict[str, Any]:
         """Test 4: Invalid configuration values are rejected with clear errors."""
-        print("\\n=== Test 4: Invalid Config Rejection ===")
 
         # Create config with invalid values
         config_dir = self.setup_test_config({
@@ -325,14 +315,12 @@ def test_function():
 
         print(f"Validation issues found: {result.get('validation_issues_found', 'exception')}")
         print(f"Invalid config caught: {result['validation_catches_invalid']}")
-        print(f"Test SUCCESS: {result['success']}")
 
         return result
 
     def run_all_tests(self) -> Dict[str, Any]:
         """Run all configuration wiring tests and return comprehensive results."""
         print("\\n" + "="*80)
-        print("PHASE 4 CONFIGURATION WIRING REALITY TEST")
         print("="*80)
 
         test_results = []
@@ -365,12 +353,8 @@ def test_function():
         }
 
         print("\\n" + "="*80)
-        print("PHASE 4 REALITY TEST RESULTS")
         print("="*80)
-        print(f"Total Tests: {total_tests}")
-        print(f"Successful Tests: {successful_tests}")
         print(f"Reality Score: {reality_score}%")
-        print(f"Configuration Wiring Works: {overall_result['phase4_reality_test']['configuration_wiring_works']}")
 
         if reality_score == 100.0:
             print("\\nSUCCESS: Phase 4 achieves 100% reality!")
@@ -383,7 +367,6 @@ def test_function():
             print("Configuration wiring gaps still exist")
 
         return overall_result
-
 
 def main():
     """Main test execution function."""
@@ -401,7 +384,6 @@ def main():
     # Return exit code based on success
     reality_score = results['phase4_reality_test']['reality_score_percent']
     return 0 if reality_score == 100.0 else 1
-
 
 if __name__ == "__main__":
     exit(main())

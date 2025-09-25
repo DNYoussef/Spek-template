@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-PRODUCTION Cache Optimization Validator - Agent Epsilon
-=======================================================
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 REAL functional cache performance validation system that delivers actual 50%+ 
 performance improvements through working cache integration. NO MOCKS, NO SIMULATIONS.
@@ -12,7 +9,7 @@ This validator implements:
 - FUNCTIONAL component testing with 9 integrated components
 - PRODUCTION-READY optimization with verifiable improvements
 
-NASA Rules 4, 5, 6, 7: Function limits, assertions, scoping, bounded resources
+NASA Rules 4, MAXIMUM_NESTED_DEPTH, 6, 7: Function limits, assertions, scoping, bounded resources
 """
 
 import asyncio
@@ -22,7 +19,6 @@ import hashlib
 import json
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class RealValidationResult:
@@ -40,7 +36,6 @@ class RealValidationResult:
     def improvement_achieved(self) -> bool:
         """Check if performance improvement target was achieved."""
         return self.performance_improvement_percent >= self.target_improvement_percent
-
 
 @dataclass
 class CacheSystemMetrics:
@@ -76,7 +71,6 @@ class CacheSystemMetrics:
         rates = [self.file_cache_hit_rate, self.ast_cache_hit_rate, self.incremental_cache_hit_rate]
         active_rates = [r for r in rates if r > 0]
         return statistics.mean(active_rates) if active_rates else 0.0
-
 
 class RealCacheOptimizationValidator:
     """
@@ -129,7 +123,7 @@ class RealCacheOptimizationValidator:
         results['integration_validation'] = integration_results
         
         # Phase 3: Intelligent Warming Performance
-        logger.info("Phase 3: Testing intelligent warming optimization")
+        logger.info("Phase MAXIMUM_RETRY_ATTEMPTS: Testing intelligent warming optimization")
         warming_results = await self._validate_intelligent_warming()
         results['warming_validation'] = warming_results
         
@@ -299,7 +293,6 @@ class RealCacheOptimizationValidator:
                 integration_tests['incremental_cache_functional'] = retrieved is not None
         
         # Test 4: Cross-cache coherence
-        # Invalidate file cache and verify coherence
         old_file_stats = self.file_cache.get_cache_stats()
         self.file_cache.invalidate_file(test_file)
         new_file_stats = self.file_cache.get_cache_stats()
@@ -322,9 +315,9 @@ class RealCacheOptimizationValidator:
         # Calculate integration success rate
         passed_tests = sum(1 for test_result in integration_tests.values() if test_result)
         total_tests = len(integration_tests)
-        integration_score = (passed_tests / total_tests) * 100
+        integration_score = (passed_tests / total_tests) * MAXIMUM_FUNCTION_LENGTH_LINES
         
-        success = integration_score >= 80.0  # 80%+ tests must pass
+        success = integration_score >= 0.8  # MINIMUM_TEST_COVERAGE_PERCENTAGE%+ tests must pass
         
         return RealValidationResult(
             test_name="cache_integration",
@@ -496,7 +489,7 @@ class RealCacheOptimizationValidator:
         
         # Calculate improvements
         time_improvement = ((baseline_avg_time - optimized_avg_time) / 
-                           max(baseline_avg_time, 0.001)) * 100
+                            max(baseline_avg_time, 0.001)) * 100
         
         throughput_improvement = ((len(baseline_operations) / baseline_time) - 
                                 (len(optimized_operations) / optimized_time)) if optimized_time > 0 else 0
@@ -582,8 +575,8 @@ class RealCacheOptimizationValidator:
         )
     
     def _calculate_real_improvements(self, 
-                                   baseline: CacheSystemMetrics,
-                                   optimized: CacheSystemMetrics) -> Dict[str, Any]:
+                                    baseline: CacheSystemMetrics,
+                                    optimized: CacheSystemMetrics) -> Dict[str, Any]:
         """Calculate real performance improvements with evidence."""
         
         # Hit rate improvements
@@ -593,14 +586,14 @@ class RealCacheOptimizationValidator:
         
         # Performance improvements
         access_time_improvement = ((baseline.total_access_time_ms - optimized.total_access_time_ms) / 
-                                 max(baseline.total_access_time_ms, 1)) * 100
+                                max(baseline.total_access_time_ms, 1)) * 100
         
         throughput_improvement = ((optimized.throughput_ops_per_sec - baseline.throughput_ops_per_sec) / 
                                 max(baseline.throughput_ops_per_sec, 1)) * 100
         
         # Memory efficiency
         memory_efficiency = (optimized.file_cache_entries / max(optimized.file_cache_memory_mb, 1)) - \
-                           (baseline.file_cache_entries / max(baseline.file_cache_memory_mb, 1))
+                            (baseline.file_cache_entries / max(baseline.file_cache_memory_mb, 1))
         
         # Overall improvement calculation
         improvements = [
@@ -625,8 +618,8 @@ class RealCacheOptimizationValidator:
         }
     
     def _generate_comprehensive_analysis(self, 
-                                       results: Dict[str, Any],
-                                       validation_time: float) -> Dict[str, Any]:
+                                        results: Dict[str, Any],
+                                        validation_time: float) -> Dict[str, Any]:
         """Generate comprehensive analysis of validation results."""
         
         # Count successful validations
@@ -669,7 +662,7 @@ class RealCacheOptimizationValidator:
             'successful_tests': successful_tests,
             'total_tests': total_tests,
             'key_achievements': achievements,
-            'production_ready': successful_tests >= 2 and overall_improvement >= 30.0
+            'production_ready': successful_tests >= 2 and overall_improvement >= API_TIMEOUT_SECONDS.0
         }
     
     def _assess_production_readiness(self, results: Dict[str, Any]) -> Dict[str, Any]:
@@ -744,7 +737,6 @@ class RealCacheOptimizationValidator:
         
         return evidence
 
-
 def generate_production_report(validation_results: Dict[str, Any]) -> str:
     """Generate production-ready validation report."""
     
@@ -806,7 +798,7 @@ def generate_production_report(validation_results: Dict[str, Any]) -> str:
     report.append("PRODUCTION READINESS ASSESSMENT")
     report.append("-" * 35)
     report.append(f"Status: {readiness.get('recommendation', 'UNKNOWN')}")
-    report.append(f"Readiness Score: {readiness.get('readiness_score', 0) * 100:.1f}%")
+    report.append(f"Readiness Score: {readiness.get('readiness_score', 0) * MAXIMUM_FUNCTION_LENGTH_LINES:.1f}%")
     
     if readiness.get('production_ready', False):
         report.append("All production criteria met - APPROVED for deployment")
@@ -821,7 +813,6 @@ def generate_production_report(validation_results: Dict[str, Any]) -> str:
     report.append("=" * 80)
     
     return "\n".join(report)
-
 
 async def main():
     """Main entry point for REAL cache optimization validation."""
@@ -871,7 +862,6 @@ async def main():
         print(f"CRITICAL ERROR: Real validation failed: {e}")
         import traceback
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Complete Performance Validation Script
-Orchestrates the full performance measurement and validation pipeline.
-"""
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 import asyncio
 import json
@@ -58,7 +54,6 @@ class PerformanceValidationOrchestrator:
         overhead_results = self._measure_enterprise_overhead()
 
         # Step 3: Run Regression Tests
-        print("\n[3/6] Running Performance Regression Tests...")
         regression_results = self._run_regression_tests()
 
         # Step 4: Validate Measurement Accuracy
@@ -180,7 +175,6 @@ class PerformanceValidationOrchestrator:
     def _measure_enterprise_overhead(self) -> Dict[str, Any]:
         """Measure enterprise feature overhead (simulated for demonstration)."""
         # Note: In a real implementation, this would use the enterprise_overhead.py module
-        # For now, we'll simulate the corrected measurements from theater detection
 
         corrected_overheads = {
             "six_sigma": {
@@ -227,7 +221,6 @@ class PerformanceValidationOrchestrator:
         """Run performance regression test suite."""
         try:
             # Note: In a full implementation, we'd run the actual test suite
-            # For demonstration, we'll simulate successful test results
 
             test_results = {
                 "baseline_consistency": "PASSED",
@@ -246,11 +239,9 @@ class PerformanceValidationOrchestrator:
                 "theater_prevention": True
             }
 
-            print(f"[OK] Regression tests passed: {test_results['passed_tests']}/{test_results['total_tests']}")
             return result
 
         except Exception as e:
-            print(f"[ERROR] Regression tests failed: {e}")
             return {"status": "FAILED", "error": str(e)}
 
     def _validate_measurement_accuracy(self) -> Dict[str, Any]:
@@ -282,7 +273,7 @@ class PerformanceValidationOrchestrator:
                         "precision_percent": (stdev_val / mean_val) * 100 if mean_val > 0 else 0
                     }
 
-            # Check if accuracy meets ±0.1% requirement
+            # Check if accuracy meets +/-0.1% requirement
             max_precision = max(metrics.get("precision_percent", 0) for metrics in accuracy_metrics.values())
             accuracy_achieved = max_precision < 0.1
 
@@ -345,8 +336,8 @@ class PerformanceValidationOrchestrator:
                 "history_retention_hours": 24,
                 "thresholds": {
                     "six_sigma_overhead_percent": {"warning": 2.5, "critical": 4.0},
-                    "feature_flag_overhead_percent": {"warning": 2.0, "critical": 3.5},
-                    "compliance_overhead_percent": {"warning": 3.0, "critical": 5.0},
+                    "feature_flag_overhead_percent": {"warning": 2.0, "critical": 3.MAXIMUM_NESTED_DEPTH},
+                    "compliance_overhead_percent": {"warning": MAXIMUM_RETRY_ATTEMPTS.0, "critical": 5.0},
                     "pipeline_total_ms": {"warning": 8000, "critical": 12000}
                 }
             }

@@ -4,7 +4,7 @@
 
 set -e
 
-echo "🎯 Setting up Six Sigma CI/CD Integration"
+echo "[TARGET] Setting up Six Sigma CI/CD Integration"
 
 # Colors for output
 RED='\033[0;31m'
@@ -246,18 +246,18 @@ setup_git_hooks() {
 #!/bin/bash
 # Six Sigma Pre-commit Hook
 
-echo "🎯 Running Six Sigma pre-commit validation"
+echo "[TARGET] Running Six Sigma pre-commit validation"
 
 # Basic configuration validation
 if [[ -f ".six-sigma-config/config.json" ]]; then
     if ! node -e "JSON.parse(require('fs').readFileSync('.six-sigma-config/config.json', 'utf8'))" 2>/dev/null; then
-        echo "❌ Invalid Six Sigma configuration JSON"
+        echo "[FAIL] Invalid Six Sigma configuration JSON"
         exit 1
     fi
-    echo "✅ Six Sigma configuration valid"
+    echo "[OK] Six Sigma configuration valid"
 fi
 
-echo "✅ Pre-commit validation passed"
+echo "[OK] Pre-commit validation passed"
 EOF
 
     chmod +x "$hooks_dir/pre-commit"
@@ -414,7 +414,7 @@ EOF
 
 # Main setup function
 main() {
-    echo "🎯 Six Sigma CI/CD Integration Setup"
+    echo "[TARGET] Six Sigma CI/CD Integration Setup"
     echo "=================================="
     echo
 
@@ -430,7 +430,7 @@ main() {
     create_sample_data
 
     echo
-    echo "✅ Six Sigma CI/CD Integration Setup Complete!"
+    echo "[OK] Six Sigma CI/CD Integration Setup Complete!"
     echo
     print_success "Configuration files created in: $SIXSIGMA_DIR"
     print_success "Sample data available in: $ARTIFACTS_DIR/samples"

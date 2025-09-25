@@ -1,5 +1,4 @@
 # SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
 
 """
 Analysis Configuration Manager - Extracted from UnifiedConnascenceAnalyzer
@@ -11,12 +10,9 @@ NASA Rule 4 Compliant: Single responsibility pattern.
 """
 
 # from lib.shared.utilities.logging_setup import get_analyzer_logger
-# from lib.shared.utilities.path_validation import validate_file, validate_directory
-# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
 
 # Use shared logging
 logger = get_analyzer_logger(__name__)
-
 
 class AnalysisConfigurationManager:
     """
@@ -53,16 +49,7 @@ class AnalysisConfigurationManager:
             if config_validation.is_valid:
                 config_file = config_validation.path
                 import json
-                with open(config_file, 'r') as f:
-                    loaded_config = json.load(f)
-                # Merge with defaults
-                default_config.update(loaded_config)
-                logger.info(f"Configuration loaded from {config_path}")
-            else:
-                logger.warning(f"Config file not found: {config_path}, using defaults")
-        except Exception as e:
-            logger.error(f"Failed to load config from {config_path}: {e}")
-            
+
         return default_config
     
     def get_config_value(self, key: str, default: Any = None) -> Any:

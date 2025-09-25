@@ -1,10 +1,5 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Phase 3 Deployment Validator
-Final validation of Phase 3 implementation and deployment readiness
-Target: 85%+ CI/CD success rate, comprehensive monitoring, automated recovery
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH, THEATER_DETECTION_WARNING_THRESHOLD
 
 import json
 import subprocess
@@ -13,7 +8,6 @@ import os
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any, Optional
-
 
 class Phase3DeploymentValidator:
     """Validates Phase 3 deployment readiness and actual vs theoretical performance."""
@@ -145,7 +139,6 @@ class Phase3DeploymentValidator:
             return result.returncode == 0
             
         except Exception as e:
-            print(f'Warning: Could not test script {script_path}: {e}')
             return False
     
     def _validate_workflow_config(self, workflow_path: Path) -> bool:
@@ -279,7 +272,7 @@ class Phase3DeploymentValidator:
                 
                 current_metrics = perf_data.get('current_metrics', {}).get('system_metrics', {})
                 actual_metrics['execution_time_minutes'] = current_metrics.get('avg_execution_time_minutes', 
-                                                                              actual_metrics.get('execution_time_minutes', 60.0))
+                                                                                actual_metrics.get('execution_time_minutes', 60.0))
                 actual_metrics['success_rate'] = current_metrics.get('overall_success_rate',
                                                                     actual_metrics.get('success_rate', 0.75))
                 
@@ -332,7 +325,7 @@ class Phase3DeploymentValidator:
         performance_score = actual_vs_theoretical.get('actual_performance_score', 0.0)
         deployment_readiness['performance_readiness_score'] = performance_score
         
-        if performance_score < 0.75:  # Less than 75% of targets met
+        if performance_score < THEATER_DETECTION_WARNING_THRESHOLD:  # Less than 75% of targets met
             deployment_readiness['deployment_blockers'].append('Performance targets not met')
         
         # Monitoring readiness (check for monitoring artifacts)
@@ -457,7 +450,6 @@ class Phase3DeploymentValidator:
         
         return self.validation_results
 
-
 def main():
     """Main Phase 3 deployment validation execution."""
     print("Phase 3: Deployment Validation")
@@ -527,7 +519,6 @@ def main():
     else:
         print("\\n[WARN]  PHASE 3 DEPLOYMENT: NOT READY")
         sys.exit(1)
-
 
 if __name__ == '__main__':
     main()

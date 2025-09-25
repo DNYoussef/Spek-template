@@ -1,7 +1,4 @@
-"""
-MLflow-based model registry for versioning and deployment management.
-Implements automated model promotion and governance workflows.
-"""
+from src.constants.base import TAKE_PROFIT_PERCENTAGE
 
 import mlflow
 import mlflow.pytorch
@@ -260,8 +257,8 @@ class ModelRegistry:
             'sharpe_ratio': 0.3,
             'information_ratio': 0.2,
             'max_drawdown': -0.2,  # Negative weight (lower is better)
-            'win_rate': 0.15,
-            'profit_factor': 0.15
+            'win_rate': TAKE_PROFIT_PERCENTAGE,
+            'profit_factor': TAKE_PROFIT_PERCENTAGE
         }
         
         score = 0.0
@@ -591,7 +588,6 @@ def test_model_registry():
             print(comparison)
         
     except Exception as e:
-        print(f"Test failed: {e}")
 
 if __name__ == "__main__":
     test_model_registry()

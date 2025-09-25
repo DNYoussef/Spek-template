@@ -4,11 +4,12 @@ Comprehensive example demonstrating all neural network components
 for the Phase 3 trading system with $200 seed capital.
 """
 
+from typing import Dict, Any, List
+import time
+
 import numpy as np
 import pandas as pd
 import torch
-import time
-from typing import Dict, Any, List
 
 # Import all neural network components
 from lstm import create_lstm_predictor
@@ -16,7 +17,6 @@ from transformer import create_sentiment_analyzer
 from cnn import create_pattern_recognizer
 from rl import create_strategy_optimizer
 from ensemble import create_neural_ensemble
-
 
 def generate_sample_market_data(num_periods: int = 1000) -> pd.DataFrame:
     """Generate sample OHLCV market data for demonstration."""
@@ -54,7 +54,6 @@ def generate_sample_market_data(num_periods: int = 1000) -> pd.DataFrame:
 
     return data
 
-
 def generate_sample_news_data() -> List[str]:
     """Generate sample financial news for sentiment analysis."""
     news_samples = [
@@ -68,7 +67,6 @@ def generate_sample_news_data() -> List[str]:
         "Energy sector faces headwinds from renewable transition but maintains strong cash flows"
     ]
     return news_samples
-
 
 def demonstrate_lstm_predictor():
     """Demonstrate LSTM price prediction with GaryTaleb integration."""
@@ -109,7 +107,6 @@ def demonstrate_lstm_predictor():
     print(f"  Target <100ms: {'' if inference_time < 100 else ''}")
     print()
 
-
 def demonstrate_sentiment_analyzer():
     """Demonstrate financial sentiment analysis."""
     print("=== Sentiment Analyzer Demo ===")
@@ -146,7 +143,6 @@ def demonstrate_sentiment_analyzer():
     print(f"Average Inference Time: {avg_inference_time:.1f}ms")
     print(f"Target <100ms: {'' if avg_inference_time < 100 else ''}")
     print()
-
 
 def demonstrate_pattern_recognizer():
     """Demonstrate chart pattern recognition."""
@@ -200,7 +196,6 @@ def demonstrate_pattern_recognizer():
     print(f"  Target <100ms: {'' if inference_time < 100 else ''}")
     print()
 
-
 def demonstrate_rl_strategy_optimizer():
     """Demonstrate RL strategy optimization."""
     print("=== RL Strategy Optimizer Demo ===")
@@ -247,7 +242,6 @@ def demonstrate_rl_strategy_optimizer():
     print(f"    Total Inference Time: {action_result['total_inference_time_ms']:.1f}ms")
     print(f"    Real-time Ready: {action_result['real_time_ready']}")
     print()
-
 
 def demonstrate_neural_ensemble():
     """Demonstrate the complete neural ensemble."""
@@ -309,7 +303,7 @@ def demonstrate_neural_ensemble():
         print(f"  Individual Model Performance:")
         for model_name, pred_info in ensemble_result['individual_predictions'].items():
             print(f"    {model_name.upper()}: confidence={pred_info['confidence']:.3f}, "
-                  f"time={pred_info['inference_time_ms']:.1f}ms")
+                    f"time={pred_info['inference_time_ms']:.1f}ms")
 
     except Exception as e:
         print(f"Ensemble prediction failed: {e}")
@@ -324,7 +318,6 @@ def demonstrate_neural_ensemble():
     print(f"    Taleb Antifragile Weight: {performance_metrics['taleb_antifragile_ensemble_weight']}")
 
     print()
-
 
 def demonstrate_gary_taleb_integration():
     """Demonstrate GaryTaleb integration principles."""
@@ -360,10 +353,8 @@ def demonstrate_gary_taleb_integration():
 
     print()
 
-
 def run_comprehensive_performance_test():
     """Run comprehensive performance test of all components."""
-    print("=== Comprehensive Performance Test ===")
 
     # Test data
     market_data = generate_sample_market_data(500)
@@ -448,7 +439,6 @@ def run_comprehensive_performance_test():
 
     print()
 
-
 def main():
     """Main demonstration function."""
     print("GaryTaleb Neural Networks - Phase 3 Trading System")
@@ -479,7 +469,6 @@ def main():
     print("3. Implement live data feeds")
     print("4. Deploy ensemble for paper trading")
     print("5. Scale to live trading with risk management")
-
 
 if __name__ == "__main__":
     main()

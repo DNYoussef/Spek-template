@@ -4,10 +4,10 @@ NASA Rule 3 Function Size Analyzer and Reporter
 Detects functions over 60 lines and generates fix recommendations.
 """
 
-import re
 from pathlib import Path
 from typing import List, Dict, Tuple
 import json
+import re
 
 def analyze_function_sizes(filepath: str) -> List[Dict]:
     """Analyze function sizes in a Python file."""

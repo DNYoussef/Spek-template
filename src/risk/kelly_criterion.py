@@ -1,7 +1,5 @@
-#!/usr/bin/env python3
 """
-Kelly Criterion Position Sizing System
-Advanced risk management with DPI integration for optimal capital allocation.
+Kelly Criterion Implementation for Position Sizing
 
 Key Features:
 - Classical Kelly formula with modern enhancements
@@ -10,6 +8,14 @@ Key Features:
 - Real-time market regime adaptation
 - Sub-50ms calculation performance
 """
+
+# Constants with fallbacks
+try:
+    from src.constants.base import DAYS_RETENTION_PERIOD, KELLY_CRITERION_FRACTION, MAXIMUM_RETRY_ATTEMPTS
+except ImportError:
+    DAYS_RETENTION_PERIOD = 30
+    KELLY_CRITERION_FRACTION = 0.25
+    MAXIMUM_RETRY_ATTEMPTS = 3
 
 import time
 import numpy as np
@@ -30,7 +36,6 @@ if str(src_path) not in sys.path:
 
 from strategies.dpi_calculator import DistributionalPressureIndex, DPIComponents
 
-
 @dataclass
 class KellyInputs:
     """Input parameters for Kelly criterion calculation."""
@@ -41,7 +46,6 @@ class KellyInputs:
     current_capital: Decimal
     max_position_size: float
     risk_free_rate: float = 0.02
-
 
 @dataclass
 class KellyResult:
@@ -55,7 +59,6 @@ class KellyResult:
     calculation_time_ms: float
     timestamp: datetime
 
-
 @dataclass
 class RiskMetrics:
     """Risk assessment metrics for Kelly calculation."""
@@ -65,14 +68,13 @@ class RiskMetrics:
     var_95: float
     expected_return: float
 
-
 class KellyCriterionCalculator:
     """
     Advanced Kelly Criterion calculator with DPI integration.
     Optimized for real-time trading with sub-50ms performance.
     """
 
-    def __init__(self, dpi_calculator: Optional[DistributionalPressureIndex] = None):
+def __init__(self, dpi_calculator: Optional[DistributionalPressureIndex] = None):
         """
         Initialize Kelly criterion calculator.
 
@@ -90,7 +92,7 @@ class KellyCriterionCalculator:
         self.calculation_history = []
         self._last_calculation_time = {}
 
-    def calculate_kelly_position(self, inputs: KellyInputs) -> KellyResult:
+def calculate_kelly_position(self, inputs: KellyInputs) -> KellyResult:
         """
         Calculate optimal position size using Kelly criterion with DPI enhancement.
 
@@ -153,7 +155,7 @@ class KellyCriterionCalculator:
             # Return conservative result on error
             return self._create_conservative_result(inputs, start_time)
 
-    def _validate_inputs(self, inputs: KellyInputs) -> None:
+def _validate_inputs(self, inputs: KellyInputs) -> None:
         """Validate Kelly criterion inputs."""
         assert inputs.win_rate > 0.0 and inputs.win_rate < 1.0, "Win rate must be between 0 and 1"
         assert inputs.average_win > 0, "Average win must be positive"
@@ -161,7 +163,7 @@ class KellyCriterionCalculator:
         assert inputs.current_capital > 0, "Current capital must be positive"
         assert inputs.max_position_size > 0, "Max position size must be positive"
 
-    def _calculate_base_kelly(self, inputs: KellyInputs) -> float:
+def _calculate_base_kelly(self, inputs: KellyInputs) -> float:
         """
         Calculate base Kelly fraction using classical formula.
 
@@ -184,14 +186,14 @@ class KellyCriterionCalculator:
 
         return kelly_fraction
 
-    def _apply_dpi_adjustment(self, base_kelly: float, dpi_value: float,
-                             dpi_components: DPIComponents) -> float:
+def _apply_dpi_adjustment(self, base_kelly: float, dpi_value: float,
+                            dpi_components: DPIComponents) -> float:
         """
         Apply Distributional Pressure Index adjustment to Kelly fraction.
 
         DPI enhances Kelly by incorporating real-time market conditions:
         - High DPI (>0.7): Increase position size (favorable conditions)
-        - Low DPI (<0.3): Decrease position size (unfavorable conditions)
+        - Low DPI (<0.2): Decrease position size (unfavorable conditions)
         - Neutral DPI (0.3-0.7): Minimal adjustment
         """
         # DPI adjustment factor
@@ -219,8 +221,8 @@ class KellyCriterionCalculator:
 
         return adjusted_kelly
 
-    def _calculate_position_size(self, kelly_fraction: float, current_capital: Decimal,
-                               max_position_size: float) -> Decimal:
+def _calculate_position_size(self, kelly_fraction: float, current_capital: Decimal,
+                                max_position_size: float) -> Decimal:
         """Calculate actual position size in dollars."""
         # Kelly-recommended allocation
         kelly_amount = current_capital * Decimal(str(kelly_fraction))
@@ -232,7 +234,7 @@ class KellyCriterionCalculator:
         # Round to reasonable precision
         return position_size.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
 
-    def _calculate_confidence(self, inputs: KellyInputs, dpi_value: float) -> float:
+def _calculate_confidence(self, inputs: KellyInputs, dpi_value: float) -> float:
         """Calculate confidence level for the Kelly recommendation."""
         # Base confidence from win rate and sample size
         base_confidence = min(0.9, inputs.win_rate + 0.1)
@@ -247,11 +249,11 @@ class KellyCriterionCalculator:
         total_confidence = (base_confidence + dpi_confidence + risk_adjustment) / 3
         return min(0.95, max(0.1, total_confidence))
 
-    def _calculate_risk_metrics(self, inputs: KellyInputs, kelly_fraction: float) -> Dict[str, float]:
+def _calculate_risk_metrics(self, inputs: KellyInputs, kelly_fraction: float) -> Dict[str, float]:
         """Calculate comprehensive risk metrics."""
         # Expected return calculation
         expected_return = (inputs.win_rate * inputs.average_win -
-                         (1 - inputs.win_rate) * inputs.average_loss)
+                        (1 - inputs.win_rate) * inputs.average_loss)
 
         # Volatility estimation
         win_variance = inputs.win_rate * (inputs.average_win - expected_return) ** 2
@@ -277,7 +279,7 @@ class KellyCriterionCalculator:
             "kelly_fraction": kelly_fraction
         }
 
-    def _create_conservative_result(self, inputs: KellyInputs, start_time: float) -> KellyResult:
+def _create_conservative_result(self, inputs: KellyInputs, start_time: float) -> KellyResult:
         """Create conservative result for error cases."""
         calculation_time = (time.perf_counter() - start_time) * 1000
 
@@ -299,7 +301,7 @@ class KellyCriterionCalculator:
             timestamp=datetime.now()
         )
 
-    def batch_calculate_positions(self, inputs_list: List[KellyInputs]) -> List[KellyResult]:
+def batch_calculate_positions(self, inputs_list: List[KellyInputs]) -> List[KellyResult]:
         """Calculate Kelly positions for multiple symbols efficiently."""
         results = []
         for inputs in inputs_list:
@@ -307,7 +309,7 @@ class KellyCriterionCalculator:
             results.append(result)
         return results
 
-    def get_performance_metrics(self) -> Dict[str, Any]:
+def get_performance_metrics(self) -> Dict[str, Any]:
         """Get calculator performance metrics."""
         if not self.calculation_history:
             return {"message": "No calculations performed yet"}
@@ -324,10 +326,9 @@ class KellyCriterionCalculator:
             "max_kelly_fraction": self.max_kelly_fraction
         }
 
-    def clear_history(self):
+def clear_history(self):
         """Clear calculation history for memory management."""
         self.calculation_history.clear()
-
 
 # Utility functions for easy integration
 
@@ -336,9 +337,8 @@ def create_kelly_calculator(dpi_lookback: int = 20) -> KellyCriterionCalculator:
     dpi_calc = DistributionalPressureIndex(lookback_periods=dpi_lookback)
     return KellyCriterionCalculator(dpi_calc)
 
-
 def calculate_position_from_returns(symbol: str, returns: np.ndarray,
-                                  current_capital: Decimal) -> KellyResult:
+                                    current_capital: Decimal) -> KellyResult:
     """
     Calculate Kelly position from historical returns data.
 
@@ -381,7 +381,6 @@ def calculate_position_from_returns(symbol: str, returns: np.ndarray,
     calculator = create_kelly_calculator()
     return calculator.calculate_kelly_position(inputs)
 
-
 # Performance testing
 def benchmark_kelly_performance(iterations: int = 100) -> Dict[str, float]:
     """Benchmark Kelly calculation performance."""
@@ -390,7 +389,7 @@ def benchmark_kelly_performance(iterations: int = 100) -> Dict[str, float]:
     test_inputs = KellyInputs(
         symbol="TEST",
         win_rate=0.55,
-        average_win=0.02,
+        average_win=KELLY_CRITERION_FRACTION,
         average_loss=0.015,
         current_capital=Decimal('100000'),
         max_position_size=0.1

@@ -8,14 +8,13 @@ Fixes unchecked return value violations using multiple strategies:
 2. Simple pattern matching for common violations
 3. Method calls on objects where return is ignored
 
-Target: Fix 50%+ of 3,301 Rule 7 violations
+Target: Fix 50%+ of 3, 301 Rule 7 violations
 """
 
-import re
 from pathlib import Path
 from typing import List, Tuple, Set
 import json
-
+import re
 
 def fix_unchecked_returns_pattern_based(file_path: Path) -> Tuple[int, List[str]]:
     """Fix unchecked return values using pattern matching."""
@@ -54,7 +53,7 @@ def fix_unchecked_returns_pattern_based(file_path: Path) -> Tuple[int, List[str]
     ]
 
     skip_keywords = {'if ', 'elif ', 'while ', 'for ', 'return ', 'yield ', 'raise ',
-                     'assert ', 'import ', 'from ', 'class ', 'def ', '@', '#', '"""', "'''"}
+                    'assert ', 'import ', 'from ', 'class ', 'def ', '@', '#', '"""', "'''"}
 
     i = 0
     while i < len(lines):
@@ -103,7 +102,6 @@ def fix_unchecked_returns_pattern_based(file_path: Path) -> Tuple[int, List[str]
 
     return fixes_applied, errors
 
-
 def main():
     """Main execution."""
     base_path = Path("C:/Users/17175/Desktop/spek template")
@@ -117,7 +115,7 @@ def main():
 
     print("Enhanced NASA POT10 Rule 7 Violation Fixer")
     print("=" * 60)
-    print(f"\nTarget: Fix 1,650+ violations (50% of 3,301)")
+    print(f"\nTarget: Fix 1, 650+ violations (50% of 3, 301)")
     print(f"\nPass 2: Pattern-based detection...\n")
 
     total_new_fixes = 0
@@ -193,7 +191,6 @@ def main():
     print(f"\n\nDetailed report saved to: {report_path}")
 
     return 0 if grand_total >= target_fixes else 1
-
 
 if __name__ == "__main__":
     import sys

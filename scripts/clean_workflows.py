@@ -4,11 +4,12 @@ Batch cleaner for corrupted GitHub workflow files
 Removes null bytes and fixes encoding issues
 """
 
+from pathlib import Path
 import os
 import sys
+
 import glob
 import yaml
-from pathlib import Path
 
 def clean_workflow_file(filepath):
     """Clean a single workflow file by removing null bytes"""
@@ -22,7 +23,6 @@ def clean_workflow_file(filepath):
             print(f"Cleaning: {filepath}")
 
             # Remove null bytes (every other byte in the corrupted files)
-            # The pattern is: char, null, char, null...
             cleaned = b''
             for i in range(0, len(content), 2):
                 if i < len(content):

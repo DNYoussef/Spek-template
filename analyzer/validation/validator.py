@@ -3,13 +3,13 @@ Input Validation Engine
 Comprehensive input validation and sanitization.
 """
 
-import re
-import html
-import json
 from typing import Any, Dict, List, Optional, Union, Callable
+import json
+import re
+
 from dataclasses import dataclass
 from enum import Enum
-
+import html
 
 class ValidationType(Enum):
     """Types of validation."""
@@ -23,7 +23,6 @@ class ValidationType(Enum):
     REGEX = "regex"
     CUSTOM = "custom"
 
-
 @dataclass
 class ValidationRule:
     """Represents a validation rule."""
@@ -36,28 +35,26 @@ class ValidationRule:
     custom_validator: Optional[Callable] = None
     error_message: Optional[str] = None
 
-
 class ValidationError(Exception):
     """Validation error exception."""
 
-    def __init__(self, field: str, message: str, value: Any = None):
+def __init__(self, field: str, message: str, value: Any = None):
         self.field = field
         self.message = message
         self.value = value
         super().__init__(f"Validation error in field '{field}': {message}")
 
-
 class InputValidator:
     """Main input validation engine."""
 
-    def __init__(self):
+def __init__(self):
         self.rules = {}
 
-    def add_rule(self, rule: ValidationRule) -> None:
+def add_rule(self, rule: ValidationRule) -> None:
         """Add a validation rule."""
         self.rules[rule.field_name] = rule
 
-    def validate(self, data: Dict[str, Any]) -> Dict[str, Any]:
+def validate(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Validate data against all rules."""
         errors = []
         validated_data = {}
@@ -75,7 +72,7 @@ class InputValidator:
 
         return validated_data
 
-    def _validate_field(self, field_name: str, value: Any, rule: ValidationRule) -> Any:
+def _validate_field(self, field_name: str, value: Any, rule: ValidationRule) -> Any:
         """Validate a single field."""
         # Check if required
         if rule.required and (value is None or value == ""):
@@ -110,7 +107,7 @@ class InputValidator:
         else:
             return value
 
-    def _validate_string(self, field_name: str, value: Any, rule: ValidationRule) -> str:
+def _validate_string(self, field_name: str, value: Any, rule: ValidationRule) -> str:
         """Validate string value."""
         if not isinstance(value, str):
             try:
@@ -147,7 +144,7 @@ class InputValidator:
 
         return value
 
-    def _validate_integer(self, field_name: str, value: Any, rule: ValidationRule) -> int:
+def _validate_integer(self, field_name: str, value: Any, rule: ValidationRule) -> int:
         """Validate integer value."""
         try:
             if isinstance(value, str):
@@ -158,14 +155,14 @@ class InputValidator:
         except (ValueError, TypeError):
             raise ValidationError(field_name, "Value must be an integer")
 
-    def _validate_float(self, field_name: str, value: Any, rule: ValidationRule) -> float:
+def _validate_float(self, field_name: str, value: Any, rule: ValidationRule) -> float:
         """Validate float value."""
         try:
             return float(value)
         except (ValueError, TypeError):
             raise ValidationError(field_name, "Value must be a number")
 
-    def _validate_email(self, field_name: str, value: Any, rule: ValidationRule) -> str:
+def _validate_email(self, field_name: str, value: Any, rule: ValidationRule) -> str:
         """Validate email address."""
         if not isinstance(value, str):
             raise ValidationError(field_name, "Email must be a string")
@@ -177,7 +174,7 @@ class InputValidator:
 
         return value.lower().strip()
 
-    def _validate_url(self, field_name: str, value: Any, rule: ValidationRule) -> str:
+def _validate_url(self, field_name: str, value: Any, rule: ValidationRule) -> str:
         """Validate URL."""
         if not isinstance(value, str):
             raise ValidationError(field_name, "URL must be a string")
@@ -193,7 +190,7 @@ class InputValidator:
 
         return value.strip()
 
-    def _validate_path(self, field_name: str, value: Any, rule: ValidationRule) -> str:
+def _validate_path(self, field_name: str, value: Any, rule: ValidationRule) -> str:
         """Validate file path."""
         if not isinstance(value, str):
             raise ValidationError(field_name, "Path must be a string")
@@ -208,7 +205,7 @@ class InputValidator:
 
         return value.strip()
 
-    def _validate_sql(self, field_name: str, value: Any, rule: ValidationRule) -> str:
+def _validate_sql(self, field_name: str, value: Any, rule: ValidationRule) -> str:
         """Validate SQL input for injection attempts."""
         if not isinstance(value, str):
             value = str(value)
@@ -228,7 +225,7 @@ class InputValidator:
 
         return value
 
-    def _validate_regex(self, field_name: str, value: Any, rule: ValidationRule) -> str:
+def _validate_regex(self, field_name: str, value: Any, rule: ValidationRule) -> str:
         """Validate using custom regex pattern."""
         if not isinstance(value, str):
             value = str(value)
@@ -241,7 +238,7 @@ class InputValidator:
 
         return value
 
-    def _validate_custom(self, field_name: str, value: Any, rule: ValidationRule) -> Any:
+def _validate_custom(self, field_name: str, value: Any, rule: ValidationRule) -> Any:
         """Validate using custom validator function."""
         if rule.custom_validator:
             try:
@@ -254,7 +251,7 @@ class InputValidator:
 
         return value
 
-    def _contains_injection_patterns(self, value: str) -> bool:
+def _contains_injection_patterns(self, value: str) -> bool:
         """Check for common injection patterns."""
         dangerous_patterns = [
             r'<script[^>]*>',  # XSS
@@ -272,7 +269,7 @@ class InputValidator:
 
         return False
 
-    def _is_suspicious_url(self, url: str) -> bool:
+def _is_suspicious_url(self, url: str) -> bool:
         """Check if URL appears malicious."""
         suspicious_patterns = [
             r'javascript:',
@@ -288,7 +285,7 @@ class InputValidator:
 
         return False
 
-    def sanitize_html(self, html_string: str) -> str:
+def sanitize_html(self, html_string: str) -> str:
         """Sanitize HTML content."""
         # Basic HTML escaping
         sanitized = html.escape(html_string)
@@ -307,7 +304,7 @@ class InputValidator:
 
         return sanitized
 
-    def validate_json(self, json_string: str) -> Dict[str, Any]:
+def validate_json(self, json_string: str) -> Dict[str, Any]:
         """Validate and parse JSON safely."""
         try:
             # Limit JSON size to prevent DoS
@@ -325,7 +322,7 @@ class InputValidator:
         except json.JSONDecodeError as e:
             raise ValidationError("json", f"Invalid JSON: {str(e)}")
 
-    def _get_json_depth(self, obj: Any, depth: int = 0) -> int:
+def _get_json_depth(self, obj: Any, depth: int = 0) -> int:
         """Calculate JSON object depth."""
         if depth > 50:  # Prevent infinite recursion
             return depth
@@ -337,7 +334,7 @@ class InputValidator:
         else:
             return depth
 
-    def create_rule_set(self, schema: Dict[str, Any]) -> None:
+def create_rule_set(self, schema: Dict[str, Any]) -> None:
         """Create validation rules from a schema definition."""
         for field_name, field_config in schema.items():
             rule = ValidationRule(

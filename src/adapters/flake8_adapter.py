@@ -1,23 +1,22 @@
 """Flake8 linter adapter implementation."""
 
-import re
 from typing import List, Dict, Any
 import json
+import re
 
 from src.adapters.base_adapter import BaseLinterAdapter
 from src.models.linter_models import (
     LinterConfig, LinterViolation, StandardSeverity, ViolationType
 )
 
-
 class Flake8Adapter(BaseLinterAdapter):
     """Adapter for flake8 Python linter."""
     
-    def __init__(self, config: LinterConfig):
+def __init__(self, config: LinterConfig):
         super().__init__(config)
         self.tool_name = "flake8"
     
-    def get_command_args(self, target_paths: List[str]) -> List[str]:
+def get_command_args(self, target_paths: List[str]) -> List[str]:
         """Build flake8 command arguments."""
         cmd = self.config.get_command_base()
         
@@ -33,7 +32,7 @@ class Flake8Adapter(BaseLinterAdapter):
         
         return cmd
     
-    def parse_output(self, raw_output: str, stderr: str = "") -> List[LinterViolation]:
+def parse_output(self, raw_output: str, stderr: str = "") -> List[LinterViolation]:
         """Parse flake8 output into standardized violations."""
         violations = []
         
@@ -48,7 +47,7 @@ class Flake8Adapter(BaseLinterAdapter):
         # Fall back to text parsing
         return self._parse_text_output(raw_output)
     
-    def _parse_json_output(self, output: str) -> List[LinterViolation]:
+def _parse_json_output(self, output: str) -> List[LinterViolation]:
         """Parse JSON-formatted flake8 output."""
         violations = []
         
@@ -81,7 +80,7 @@ class Flake8Adapter(BaseLinterAdapter):
         
         return violations
     
-    def _parse_text_output(self, output: str) -> List[LinterViolation]:
+def _parse_text_output(self, output: str) -> List[LinterViolation]:
         """Parse standard flake8 text output."""
         violations = []
         
@@ -112,7 +111,7 @@ class Flake8Adapter(BaseLinterAdapter):
         
         return violations
     
-    def normalize_severity(self, tool_severity: str, rule_id: str = "") -> StandardSeverity:
+def normalize_severity(self, tool_severity: str, rule_id: str = "") -> StandardSeverity:
         """Convert flake8 severity to standard severity."""
         # Apply user overrides first
         if rule_id:
@@ -143,7 +142,7 @@ class Flake8Adapter(BaseLinterAdapter):
         
         return severity_map.get(tool_severity.lower(), StandardSeverity.WARNING)
     
-    def get_violation_type(self, rule_id: str, category: str = "") -> ViolationType:
+def get_violation_type(self, rule_id: str, category: str = "") -> ViolationType:
         """Determine violation type from flake8 rule ID."""
         if not rule_id:
             return ViolationType.STYLE
@@ -167,7 +166,7 @@ class Flake8Adapter(BaseLinterAdapter):
         
         return type_map.get(first_char, ViolationType.STYLE)
     
-    def _get_severity_from_code(self, code: str) -> str:
+def _get_severity_from_code(self, code: str) -> str:
         """Extract severity indication from error code."""
         if not code:
             return "warning"
@@ -178,7 +177,7 @@ class Flake8Adapter(BaseLinterAdapter):
         else:
             return "warning"
     
-    def _get_category_from_code(self, code: str) -> str:
+def _get_category_from_code(self, code: str) -> str:
         """Get descriptive category from error code."""
         if not code:
             return "unknown"

@@ -1,7 +1,6 @@
-"""
-Detector Pool Architecture for Performance Optimization
+from src.constants.base import DAYS_RETENTION_PERIOD
 
-NASA Rule 7 Compliant: Bounded resource management
+NASA Rule DAYS_RETENTION_PERIOD Compliant: Bounded resource management
 Singleton pattern with thread-safe detector reuse
 Eliminates object creation overhead (8 objects per file -> 1 pool)
 """
@@ -47,7 +46,6 @@ except ImportError:
     from pathlib import Path
     sys.path.insert(0, str(Path(__file__).parent.parent.parent))
     from utils.types import ConnascenceViolation
-
 
 class PooledDetector:
     """
@@ -102,7 +100,6 @@ class PooledDetector:
             self.detector.file_path = ""
             self.detector.source_lines = []
             self.detector.violations = []
-
 
 class DetectorPool:
     """
@@ -292,7 +289,7 @@ class DetectorPool:
         return acquired_detectors
     
     def _handle_partial_acquisition_failure(self, acquired: Dict[str, DetectorBase], 
-                                          failed: List[str]):
+                                            failed: List[str]):
         """
         Handle cases where some detectors couldn't be acquired.
         
@@ -358,7 +355,6 @@ class DetectorPool:
                 current_size = len(self._pools[detector_name])
                 for _ in range(max(0, self.WARMUP_COUNT - current_size)):
                     self._create_detector_instance(detector_name)
-
 
 # Global pool instance
 _global_pool = None

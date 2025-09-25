@@ -6,9 +6,8 @@ Fixes complexity violations to achieve NASA compliance
 
 from typing import Dict, Any, List, Optional
 import subprocess
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+from lib.shared.utilities import get_logger
 
 class NASACompliantGitOperations:
     """NASA POT10 compliant Git operations with reduced complexity"""
@@ -72,7 +71,6 @@ class NASACompliantGitOperations:
         # Default case
         logger.error(f"Git operation failed: {operation} - {error_msg}")
         return False
-
 
 class NASACompliantReportGenerator:
     """NASA POT10 compliant report generation with reduced complexity"""
@@ -156,7 +154,6 @@ class NASACompliantReportGenerator:
 
         return 0
 
-
 def add_nasa_assertions_to_critical_paths(file_path: str, function_name: str) -> None:
     """Add NASA POT10 defensive assertions to critical paths"""
 
@@ -174,7 +171,6 @@ def add_nasa_assertions_to_critical_paths(file_path: str, function_name: str) ->
     logger.info(f"Adding {len(critical_assertions)} NASA assertions to {function_name}")
     # Implementation would modify the actual function
 
-
 def reduce_function_complexity(function_code: str, target_complexity: int = 10) -> str:
     """Reduce function complexity to meet NASA POT10 standards"""
 
@@ -183,12 +179,9 @@ def reduce_function_complexity(function_code: str, target_complexity: int = 10) 
     assert function_code, "Function code required (NASA POT10)"
 
     # Strategy: Extract complex conditions into separate functions
-    # Strategy: Use lookup tables instead of if-elif chains
-    # Strategy: Break down large functions into smaller ones
 
     logger.info(f"Reducing complexity to target: {target_complexity}")
     return function_code  # Placeholder
-
 
 if __name__ == "__main__":
     # NASA Assertion 9: Module self-test

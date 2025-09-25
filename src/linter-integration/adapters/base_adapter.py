@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Base adapter pattern for linter integration.
-Provides common interface for all linter tool adapters.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
@@ -102,22 +98,18 @@ class BaseLinterAdapter(ABC):
     @abstractmethod
     def _get_severity_mapping(self) -> Dict[str, SeverityLevel]:
         """Get tool-specific severity mapping to unified levels"""
-        pass
         
     @abstractmethod
     def _get_violation_type_mapping(self) -> Dict[str, ViolationType]:
         """Get tool-specific violation type mapping"""
-        pass
         
     @abstractmethod
     def _build_command(self, target_path: str, **kwargs) -> List[str]:
         """Build command line arguments for the linter"""
-        pass
         
     @abstractmethod
     def _parse_output(self, stdout: str, stderr: str) -> List[LinterViolation]:
         """Parse linter output into unified violation format"""
-        pass
         
     async def run_analysis(self, target_path: str, **kwargs) -> LinterResult:
         """
@@ -227,7 +219,7 @@ class BaseLinterAdapter(ABC):
             result = subprocess.run(
                 [self.tool_name, '--version'],
                 capture_output=True,
-                timeout=10
+                timeout=MAXIMUM_FUNCTION_PARAMETERS
             )
             return result.returncode == 0
         except (subprocess.TimeoutExpired, FileNotFoundError):
@@ -239,7 +231,7 @@ class BaseLinterAdapter(ABC):
             result = subprocess.run(
                 [self.tool_name, '--version'],
                 capture_output=True,
-                timeout=10
+                timeout=MAXIMUM_FUNCTION_PARAMETERS
             )
             if result.returncode == 0:
                 version_output = result.stdout.decode('utf-8', errors='ignore')

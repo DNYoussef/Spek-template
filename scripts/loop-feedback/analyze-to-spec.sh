@@ -19,8 +19,8 @@ NC='\033[0m'
 
 # Logging
 log_info() { echo -e "${CYAN}[FEEDBACK]${NC} $*"; }
-log_success() { echo -e "${GREEN}[✓]${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[⚠]${NC} $*"; }
+log_success() { echo -e "${GREEN}[[PASS]]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[[WARN]]${NC} $*"; }
 
 # Main conversion function
 convert_analysis_to_spec() {
@@ -114,10 +114,10 @@ EOF
 ## Success Criteria
 
 1. **Quality Gates**
-   - All tests passing: ✓
-   - Zero lint errors: ✓
-   - No security vulnerabilities: ✓
-   - Code coverage >= 80%: ✓
+   - All tests passing: [PASS]
+   - Zero lint errors: [PASS]
+   - No security vulnerabilities: [PASS]
+   - Code coverage >= 80%: [PASS]
 
 2. **Performance Metrics**
    - Build time < 60 seconds

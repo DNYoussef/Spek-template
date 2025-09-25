@@ -36,9 +36,9 @@ except:
 
 echo "Coverage 1 result: ${coverage1}%"
 if [[ "$coverage1" == "80.0" ]]; then
-    echo "✅ Test 1 PASSED"
+    echo "[OK] Test 1 PASSED"
 else
-    echo "❌ Test 1 FAILED - Expected 80.0, got $coverage1"
+    echo "[FAIL] Test 1 FAILED - Expected 80.0, got $coverage1"
 fi
 
 # Test 2: Valid coverage.xml with low coverage
@@ -66,9 +66,9 @@ except:
 
 echo "Coverage 2 result: ${coverage2}%"
 if [[ "$coverage2" == "45.0" ]]; then
-    echo "✅ Test 2 PASSED"
+    echo "[OK] Test 2 PASSED"
 else
-    echo "❌ Test 2 FAILED - Expected 45.0, got $coverage2"
+    echo "[FAIL] Test 2 FAILED - Expected 45.0, got $coverage2"
 fi
 
 # Test 3: Invalid/corrupted coverage.xml
@@ -94,9 +94,9 @@ except:
 
 echo "Coverage 3 result: ${coverage3}% (should be 0.0 for invalid XML)"
 if [[ "$coverage3" == "0.0" ]]; then
-    echo "✅ Test 3 PASSED"
+    echo "[OK] Test 3 PASSED"
 else
-    echo "❌ Test 3 FAILED - Expected 0.0, got $coverage3"
+    echo "[FAIL] Test 3 FAILED - Expected 0.0, got $coverage3"
 fi
 
 # Test 4: Missing coverage.xml
@@ -115,9 +115,9 @@ except:
 
 echo "Coverage 4 result: ${coverage4}% (should be 0.0 for missing file)"
 if [[ "$coverage4" == "0.0" ]]; then
-    echo "✅ Test 4 PASSED"
+    echo "[OK] Test 4 PASSED"
 else
-    echo "❌ Test 4 FAILED - Expected 0.0, got $coverage4"
+    echo "[FAIL] Test 4 FAILED - Expected 0.0, got $coverage4"
 fi
 
 # Test 5: Edge case - Perfect coverage (100%)
@@ -145,9 +145,9 @@ except:
 
 echo "Coverage 5 result: ${coverage5}%"
 if [[ "$coverage5" == "100.0" ]]; then
-    echo "✅ Test 5 PASSED"
+    echo "[OK] Test 5 PASSED"
 else
-    echo "❌ Test 5 FAILED - Expected 100.0, got $coverage5"
+    echo "[FAIL] Test 5 FAILED - Expected 100.0, got $coverage5"
 fi
 
 # Test 6: Test the threshold logic
@@ -163,9 +163,9 @@ for test_cov in "${test_coverage_values[@]}"; do
     test_cov_int=${test_cov%.*}
 
     if [[ $test_cov_int -ge $coverage_threshold ]]; then
-        echo "  Coverage ${test_cov}% >= ${coverage_threshold}% ✅ PASS"
+        echo "  Coverage ${test_cov}% >= ${coverage_threshold}% [OK] PASS"
     else
-        echo "  Coverage ${test_cov}% < ${coverage_threshold}% ❌ FAIL"
+        echo "  Coverage ${test_cov}% < ${coverage_threshold}% [FAIL] FAIL"
     fi
 done
 

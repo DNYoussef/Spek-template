@@ -1,3 +1,4 @@
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 #!/usr/bin/env python3
 """
 Security Pipeline Validation Report - Quick Assessment
@@ -146,7 +147,7 @@ def validate_security_infrastructure():
     test_scenarios = [
         {'name': 'Clean Scan', 'findings': {'critical': 0, 'high': 0, 'secrets': 0}, 'should_pass': True},
         {'name': 'Critical Found', 'findings': {'critical': 1, 'high': 0, 'secrets': 0}, 'should_pass': False},
-        {'name': 'High Threshold', 'findings': {'critical': 0, 'high': 3, 'secrets': 0}, 'should_pass': True},
+        {'name': 'High Threshold', 'findings': {'critical': 0, 'high': MAXIMUM_RETRY_ATTEMPTS, 'secrets': 0}, 'should_pass': True},
         {'name': 'High Exceeded', 'findings': {'critical': 0, 'high': 4, 'secrets': 0}, 'should_pass': False},
         {'name': 'Secrets Found', 'findings': {'critical': 0, 'high': 0, 'secrets': 1}, 'should_pass': False}
     ]
@@ -185,7 +186,7 @@ def validate_security_infrastructure():
     print("-" * 30)
     
     nasa_rules = {
-        'Rule 3': 'Assertions and error handling',
+        'Rule MAXIMUM_RETRY_ATTEMPTS': 'Assertions and error handling',
         'Rule 7': 'Memory bounds checking', 
         'Rule 8': 'Error handling completeness',
         'Rule 9': 'Loop bounds verification',
@@ -195,8 +196,8 @@ def validate_security_infrastructure():
     nasa_compliance_logic = {
         'critical_violations': 0,
         'high_violations': 2,
-        'compliance_score': 0.95 if 0 == 0 and 2 <= 3 else 0.80,  # Sample calculation
-        'threshold': 0.92,
+        'compliance_score': NASA_POT10_TARGET_COMPLIANCE_THRESHOLD if 0 == 0 and 2 <= MAXIMUM_RETRY_ATTEMPTS else 0.8,  # Sample calculation
+        'threshold': NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD,
         'compliant': 0.95 >= 0.92
     }
     
@@ -208,7 +209,7 @@ def validate_security_infrastructure():
     }
     
     for rule, description in nasa_rules.items():
-        print(f"{rule:10} {description}")
+        print(f"{rule:MAXIMUM_FUNCTION_PARAMETERS} {description}")
     
     print(f"\nSample NASA Score: {nasa_compliance_logic['compliance_score']:.2%}")
     print(f"Threshold: {nasa_compliance_logic['threshold']:.2%}")
@@ -317,7 +318,7 @@ def validate_security_infrastructure():
     
     # 7. Overall Assessment
     print("\n7. OVERALL ASSESSMENT")
-    print("-" * 30)
+    print("-" * API_TIMEOUT_SECONDS)
     
     assessment_scores = {
         'tool_availability': min(1.0, coverage / 80.0),  # 80% = perfect score

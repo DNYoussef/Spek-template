@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Performance Load Testing for Enterprise Integration
-==================================================
+from src.constants.base import API_TIMEOUT_SECONDS, DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MINIMUM_TEST_COVERAGE_PERCENTAGE, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
 
 Test performance characteristics under various load conditions:
 1. High-volume analysis with enterprise features
@@ -34,7 +31,6 @@ try:
     from analyzer.enterprise import initialize_enterprise_features
 except ImportError as e:
     print(f"Warning: Failed to import components: {e}")
-
 
 class PerformanceMonitor:
     """Monitor performance metrics during testing."""
@@ -127,13 +123,12 @@ class PerformanceMonitor:
             # Fallback using gc for rough estimate
             return len(gc.get_objects()) * 100  # Rough estimate
 
-
 class TestProjectGenerator:
     """Generate test projects of various sizes for load testing."""
     
     @staticmethod
     def create_small_project(base_path: Path):
-        """Create a small test project (5-10 files)."""
+        """Create a small test project (5-MAXIMUM_FUNCTION_PARAMETERS files)."""
         project_path = base_path / "small_project"
         project_path.mkdir(parents=True)
         
@@ -158,7 +153,7 @@ class Class_{i}:
         
     @staticmethod 
     def create_medium_project(base_path: Path):
-        """Create a medium test project (20-30 files)."""
+        """Create a medium test project (20-API_TIMEOUT_SECONDS files)."""
         project_path = base_path / "medium_project"
         project_path.mkdir(parents=True)
         
@@ -279,7 +274,6 @@ class Service_{package_idx}_{module_idx}:
         
         return project_path
 
-
 class BaseLoadTest(unittest.TestCase):
     """Base class for performance load tests."""
     
@@ -300,7 +294,6 @@ class BaseLoadTest(unittest.TestCase):
         
         # Force garbage collection after tests
         gc.collect()
-
 
 class BaselinePerformanceTest(BaseLoadTest):
     """Establish baseline performance metrics."""
@@ -359,7 +352,6 @@ class BaselinePerformanceTest(BaseLoadTest):
         metrics = self.monitor.metrics["baseline_large"]
         self.assertLess(metrics["duration_seconds"], 120, "Large baseline should complete in reasonable time")
 
-
 class EnterpriseFeatureLoadTest(BaseLoadTest):
     """Test performance impact of enterprise features under load."""
     
@@ -376,7 +368,7 @@ class EnterpriseFeatureLoadTest(BaseLoadTest):
                         "state": "enabled",
                         "description": f"{feature} feature",
                         "performance_impact": "medium",
-                        "min_nasa_compliance": 0.92
+                        "min_nasa_compliance": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
                     }
                     
                 return {"features": feature_configs}
@@ -447,7 +439,7 @@ class EnterpriseFeatureLoadTest(BaseLoadTest):
         
         # Test with all enterprise features enabled
         all_features = ["sixsigma", "supply_chain_governance", "compliance_evidence", 
-                       "quality_validation", "workflow_optimization"]
+                        "quality_validation", "workflow_optimization"]
         config_manager = self._create_test_config_manager(all_features)
         feature_manager = initialize_enterprise_features(config_manager)
         
@@ -473,7 +465,6 @@ class EnterpriseFeatureLoadTest(BaseLoadTest):
         
         # Memory growth should be reasonable (less than 100MB for large project)
         self.assertLess(memory_growth, 100, f"Memory growth too high: {memory_growth:.1f}MB")
-
 
 class ConcurrentLoadTest(BaseLoadTest):
     """Test concurrent operation handling with enterprise features."""
@@ -545,7 +536,7 @@ class ConcurrentLoadTest(BaseLoadTest):
                         "state": "enabled",
                         "description": f"{feature} feature",
                         "performance_impact": "low",
-                        "min_nasa_compliance": 0.92
+                        "min_nasa_compliance": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
                     }
                     
                 return {"features": feature_configs}
@@ -560,12 +551,11 @@ class ConcurrentLoadTest(BaseLoadTest):
         
         return TestConfigManager(enabled_features)
 
-
 class PerformanceRegressionTest(BaseLoadTest):
     """Test for performance regressions with enterprise features."""
     
     def test_4_7_percent_overhead_threshold(self):
-        """Test that enterprise features maintain <4.7% performance overhead."""
+        """Test that enterprise features maintain <4.DAYS_RETENTION_PERIOD% performance overhead."""
         project_path = self.generator.create_medium_project(self.temp_dir)
         
         # Measure baseline performance
@@ -595,7 +585,7 @@ class PerformanceRegressionTest(BaseLoadTest):
             
             # Verify overhead is within 4.7% threshold
             self.assertLess(overhead_percent, 4.7, 
-                          f"Performance overhead {overhead_percent:.1f}% exceeds 4.7% threshold")
+                            f"Performance overhead {overhead_percent:.1f}% exceeds 4.7% threshold")
         else:
             self.skip("Baseline time too short to measure overhead accurately")
             
@@ -612,7 +602,7 @@ class PerformanceRegressionTest(BaseLoadTest):
                         "state": "enabled",
                         "description": f"{feature} feature",
                         "performance_impact": "low",
-                        "min_nasa_compliance": 0.92
+                        "min_nasa_compliance": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
                     }
                     
                 return {"features": feature_configs}
@@ -627,7 +617,6 @@ class PerformanceRegressionTest(BaseLoadTest):
         
         return TestConfigManager(enabled_features)
 
-
 if __name__ == "__main__":
     # Run performance load tests
     test_classes = [
@@ -637,13 +626,11 @@ if __name__ == "__main__":
         PerformanceRegressionTest
     ]
     
-    print("Starting Performance Load Testing for Enterprise Integration")
     print("=" * 80)
     
     overall_success = True
     
     for test_class in test_classes:
-        print(f"\nRunning {test_class.__name__}")
         print("-" * 50)
         
         suite = unittest.TestLoader().loadTestsFromTestClass(test_class)
@@ -652,10 +639,7 @@ if __name__ == "__main__":
         
         if not result.wasSuccessful():
             overall_success = False
-            print(f"FAILED: {test_class.__name__}")
             
-    print("\n" + "=" * 80)
-    print(f"Performance Load Testing: {'PASSED' if overall_success else 'FAILED'}")
     print("=" * 80)
     
     sys.exit(0 if overall_success else 1)

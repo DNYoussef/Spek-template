@@ -8,11 +8,11 @@ Provides enterprise-grade supply chain security including:
 - Dependency analysis and risk assessment
 """
 
-from .supply_chain import SupplyChainSecurity
+from .dependency_analyzer import DependencyAnalyzer
 from .sbom_generator import SBOMGenerator, SBOMFormat
 from .slsa_generator import SLSAGenerator, SLSALevel
+from .supply_chain import SupplyChainSecurity
 from .vulnerability_scanner import VulnerabilityScanner
-from .dependency_analyzer import DependencyAnalyzer
 
 __all__ = [
     "SupplyChainSecurity",

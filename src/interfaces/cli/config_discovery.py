@@ -10,11 +10,12 @@ Automatically discovers and loads configuration from:
 5. Environment variables
 """
 
-import configparser
-import json
-import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
+import json
+import os
+
+import configparser
 
 try:
     import toml
@@ -31,7 +32,6 @@ try:
     YAML_AVAILABLE = True
 except ImportError:
     YAML_AVAILABLE = False
-
 
 class ConfigDiscovery:
     """Discovers configuration files and loads settings."""
@@ -246,7 +246,7 @@ class ConfigDiscovery:
     def _convert_env_value(self, value: str, key: str) -> Any:
         """Convert environment variable value to appropriate type."""
         if key in ("exit_zero", "show_source", "strict_mode", "nasa_validation",
-                  "ignore_failures", "parallel", "detailed", "metrics"):
+                    "ignore_failures", "parallel", "detailed", "metrics"):
             return self._to_bool(value)
         elif key in ("exclude", "include"):
             return [item.strip() for item in value.split(",") if item.strip()]
@@ -401,9 +401,9 @@ format: json
 
 # Files/patterns to exclude from analysis
 exclude:
-  - "test_*"
-  - "*.pyc"
-  - "__pycache__/*"
+    - "test_*"
+    - "*.pyc"
+    - "__pycache__/*"
 
 # Files/patterns to include (empty = all files)
 include: []
@@ -475,7 +475,6 @@ show_source = false
 exit_zero = false
 
 # Minimum severity level to report (low, medium, high, critical)
-# severity = "medium"
 
 # Enable strict validation mode
 strict_mode = false
@@ -484,7 +483,6 @@ strict_mode = false
 nasa_validation = false
 
 # Output file path (optional)
-# output_file = "connascence-report.json"
 
 # Ignore analysis failures and continue
 ignore_failures = false
@@ -493,7 +491,6 @@ ignore_failures = false
 parallel = true
 
 # Minimum connascence threshold to report
-# threshold = 5
 
 # Include detailed analysis information
 detailed = false
@@ -502,7 +499,6 @@ detailed = false
 metrics = false
 
 # Baseline file for comparison (optional)
-# baseline = "baseline.json"
 '''
 
     def _get_cfg_template(self) -> str:
@@ -532,7 +528,6 @@ show_source = false
 exit_zero = false
 
 # Minimum severity level to report (low, medium, high, critical)
-# severity = medium
 
 # Enable strict validation mode
 strict_mode = false
@@ -541,7 +536,6 @@ strict_mode = false
 nasa_validation = false
 
 # Output file path (optional)
-# output_file = connascence-report.json
 
 # Ignore analysis failures and continue
 ignore_failures = false
@@ -550,7 +544,6 @@ ignore_failures = false
 parallel = true
 
 # Minimum connascence threshold to report
-# threshold = 5
 
 # Include detailed analysis information
 detailed = false
@@ -559,7 +552,6 @@ detailed = false
 metrics = false
 
 # Baseline file for comparison (optional)
-# baseline = baseline.json
 '''
 
     def validate_config_file(self, config_path: str) -> List[str]:

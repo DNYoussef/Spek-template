@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Sample Data Scenarios for Six Sigma Integration Testing
-Theater-Free Quality Validation Test Cases
-"""
+from src.constants.base import NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT
 
 from datetime import datetime, timedelta
 import sys
@@ -12,7 +8,6 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
 from sixsigma import SixSigmaScorer, SixSigmaTelemetryManager
-
 
 def create_excellent_quality_scenario() -> SixSigmaScorer:
     """Create 6-sigma quality scenario (DPMO < 3.4)"""
@@ -32,9 +27,8 @@ def create_excellent_quality_scenario() -> SixSigmaScorer:
     
     return scorer
 
-
 def create_good_quality_scenario() -> SixSigmaScorer:
-    """Create 4-sigma quality scenario (DPMO ~6,210)"""
+    """Create 4-sigma quality scenario (DPMO ~6, 210)"""
     scorer = SixSigmaScorer()
     
     # Process stages with good yields
@@ -61,9 +55,8 @@ def create_good_quality_scenario() -> SixSigmaScorer:
     
     return scorer
 
-
 def create_poor_quality_scenario() -> SixSigmaScorer:
-    """Create 2-sigma quality scenario (DPMO ~308,537)"""
+    """Create 2-sigma quality scenario (DPMO ~308, 537)"""
     scorer = SixSigmaScorer()
     
     # Process stages with poor yields
@@ -87,7 +80,6 @@ def create_poor_quality_scenario() -> SixSigmaScorer:
         scorer.add_defect("style_violation", "minor", "implementation", f"Style issue #{i+1}")
     
     return scorer
-
 
 def create_theater_heavy_scenario() -> SixSigmaScorer:
     """Create scenario with high theater (vanity metrics vs reality)"""
@@ -118,7 +110,6 @@ def create_theater_heavy_scenario() -> SixSigmaScorer:
     
     return scorer
 
-
 def create_enterprise_scenario() -> SixSigmaScorer:
     """Create enterprise-scale realistic scenario"""
     scorer = SixSigmaScorer()
@@ -131,8 +122,8 @@ def create_enterprise_scenario() -> SixSigmaScorer:
         ("Frontend Development", 2000, 140, 0.88),
         ("Backend Development", 3000, 180, 0.87),
         ("Database Development", 500, 30, 0.92),
-        ("API Development", 800, 45, 0.90),
-        ("Unit Testing", 1500, 90, 0.92),
+        ("API Development", 800, 45, REGULATORY_FACTUALITY_REQUIREMENT),
+        ("Unit Testing", 1500, 90, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD),
         ("Integration Testing", 600, 42, 0.90),
         ("System Testing", 400, 24, 0.93),
         ("Performance Testing", 200, 15, 0.92),
@@ -175,7 +166,6 @@ def create_enterprise_scenario() -> SixSigmaScorer:
         scorer.add_defect(category, severity, stage, description)
     
     return scorer
-
 
 def run_sample_scenarios():
     """Run all sample scenarios and generate reports"""
@@ -255,16 +245,13 @@ def run_sample_scenarios():
     for name, result in results.items():
         status = "PASS" if result['sigma_level'] >= 3.0 else "FAIL"
         print(f"{name:<20} {result['dpmo']:<10,.0f} {result['rty']:<8.1%} "
-              f"{result['sigma_level']:<8.1f} {result['total_defects']:<8} {status:<8}")
+                f"{result['sigma_level']:<8.1f} {result['total_defects']:<8} {status:<8}")
     
     return results
-
 
 if __name__ == "__main__":
     # Run sample scenarios
     results = run_sample_scenarios()
     
-    print(f"\nSix Sigma Integration Testing Complete!")
-    print(f"Scenarios Tested: {len(results)}")
     print(f"Reports Generated: {len([r for r in results.values() if r['report_file']])}")
     print(f"Theater-Free Validation: VERIFIED")

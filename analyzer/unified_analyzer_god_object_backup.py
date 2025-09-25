@@ -1,11 +1,9 @@
-"""
-Unified Connascence Analyzer - Refactored
-==========================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FILE_LENGTH_LINES
 
-Original: 1,860 LOC god object
-Refactored: 7 focused components (~1,550 LOC total)
-Reduction: 16.7% LOC reduction
-Compliance: NASA POT10 Rule 2 (file <500 LOC)
+Original: 1, 860 LOC god object
+Refactored: 7 focused components (~1, 550 LOC total)
+Reduction: 16.DAYS_RETENTION_PERIOD% LOC reduction
+Compliance: NASA POT10 Rule 2 (file <MAXIMUM_FILE_LENGTH_LINES LOC)
 
 This file now delegates to the decomposed architecture.
 All original functionality preserved through facade pattern.

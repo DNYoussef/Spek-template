@@ -3,13 +3,14 @@ Pipeline Orchestrator
 Main orchestration system for the GaryTaleb data pipeline
 """
 
-import asyncio
-import logging
-import signal
-import sys
-from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Any
+import logging
+import sys
+
 from dataclasses import dataclass
+import asyncio
+import signal
 
 from .config.pipeline_config import config
 from .sources import HistoricalDataLoader, DataSourceManager
@@ -17,7 +18,6 @@ from .streaming import RealTimeStreamer, WebSocketManager
 from .processing import NewsProcessor, SentimentProcessor, OptionsFlowAnalyzer, AlternativeDataProcessor
 from .validation import DataValidator, QualityMonitor
 from .monitoring import PipelineMonitor, MetricsCollector
-
 
 @dataclass
 class PipelineStatus:
@@ -29,7 +29,6 @@ class PipelineStatus:
     uptime_seconds: float
     errors: List[str]
     warnings: List[str]
-
 
 class PipelineOrchestrator:
     """
@@ -272,7 +271,6 @@ class PipelineOrchestrator:
             # Connect quality monitor to all data processors
             if self.quality_monitor:
                 # Setup quality monitoring callbacks
-                pass
 
             self.logger.info(" Data flow connections established")
 
@@ -345,7 +343,6 @@ class PipelineOrchestrator:
         """Start monitoring dashboard"""
         try:
             # This would start a web dashboard for monitoring
-            # For now, just log status
             self.logger.info(" Monitoring dashboard available")
 
         except Exception as e:
@@ -542,7 +539,6 @@ class PipelineOrchestrator:
             if self.status != "stopped":
                 await self.shutdown()
 
-
 async def main():
     """Main entry point for the pipeline"""
     orchestrator = PipelineOrchestrator()
@@ -552,7 +548,6 @@ async def main():
     except Exception as e:
         logging.error(f"Pipeline failed: {e}")
         sys.exit(1)
-
 
 if __name__ == "__main__":
     asyncio.run(main())

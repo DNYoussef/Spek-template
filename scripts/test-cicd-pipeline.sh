@@ -23,9 +23,9 @@ NC='\033[0m'
 
 # Logging functions
 log_info() { echo -e "${CYAN}[TEST]${NC} $*"; }
-log_success() { echo -e "${GREEN}[✓]${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[⚠]${NC} $*"; }
-log_error() { echo -e "${RED}[✗]${NC} $*"; }
+log_success() { echo -e "${GREEN}[]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[]${NC} $*"; }
+log_error() { echo -e "${RED}[]${NC} $*"; }
 log_phase() { echo -e "${PURPLE}[PHASE]${NC} $*"; }
 
 # Test results tracking
@@ -59,12 +59,12 @@ run_test() {
 show_banner() {
     echo -e "${BOLD}${BLUE}"
     cat << 'EOF'
-╔══════════════════════════════════════════════════════════════════════╗
-║                  CI/CD PIPELINE INFRASTRUCTURE TEST                  ║
-║                                                                      ║
-║  Testing production-grade pipeline with theater prevention          ║
-║  Validating deployment automation and monitoring systems             ║
-╚══════════════════════════════════════════════════════════════════════╝
+
+                  CI/CD PIPELINE INFRASTRUCTURE TEST                  
+                                                                      
+  Testing production-grade pipeline with theater prevention          
+  Validating deployment automation and monitoring systems             
+
 EOF
     echo -e "${NC}"
 }
@@ -366,7 +366,7 @@ EOF
 
 **Session ID**: ${TEST_SESSION_ID}
 **Completed**: $(date -Iseconds)
-**Status**: $([[ $TESTS_FAILED -eq 0 ]] && echo "✅ SUCCESS" || echo "❌ FAILURE")
+**Status**: $([[ $TESTS_FAILED -eq 0 ]] && echo " SUCCESS" || echo " FAILURE")
 
 ## Test Summary
 
@@ -382,9 +382,9 @@ EOF
     # Add detailed results
     for result in "${TEST_RESULTS[@]}"; do
         if [[ "$result" =~ ^PASS: ]]; then
-            echo "- ✅ ${result#PASS: }" >> "$summary_file"
+            echo "-  ${result#PASS: }" >> "$summary_file"
         else
-            echo "- ❌ ${result#FAIL: }" >> "$summary_file"
+            echo "-  ${result#FAIL: }" >> "$summary_file"
         fi
     done
 
@@ -409,7 +409,7 @@ EOF
 
     if [[ $TESTS_FAILED -eq 0 ]]; then
         cat >> "$summary_file" << EOF
-✅ **All tests passed!** The CI/CD infrastructure is ready for production deployment.
+ **All tests passed!** The CI/CD infrastructure is ready for production deployment.
 
 ### Next Steps:
 1. Deploy to staging environment for end-to-end testing
@@ -420,7 +420,7 @@ EOF
 EOF
     else
         cat >> "$summary_file" << EOF
-⚠️ **Some tests failed.** Review and fix the following issues before production deployment:
+ **Some tests failed.** Review and fix the following issues before production deployment:
 
 ### Failed Tests:
 EOF
@@ -466,13 +466,13 @@ display_results() {
     echo ""
 
     if [[ $TESTS_FAILED -eq 0 ]]; then
-        echo -e "${GREEN}${BOLD}🎉 All tests passed! CI/CD infrastructure is ready for production.${NC}"
+        echo -e "${GREEN}${BOLD} All tests passed! CI/CD infrastructure is ready for production.${NC}"
     else
-        echo -e "${RED}${BOLD}❌ Some tests failed. Review issues before production deployment.${NC}"
+        echo -e "${RED}${BOLD} Some tests failed. Review issues before production deployment.${NC}"
         echo -e "\n${YELLOW}Failed tests:${NC}"
         for result in "${TEST_RESULTS[@]}"; do
             if [[ "$result" =~ ^FAIL: ]]; then
-                echo -e "  ${RED}• ${result#FAIL: }${NC}"
+                echo -e "  ${RED} ${result#FAIL: }${NC}"
             fi
         done
     fi

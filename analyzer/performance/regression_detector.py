@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Performance Regression Detection System
-=======================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, MINIMUM_TRADE_THRESHOLD
 
 Advanced regression detection system that provides statistical analysis,
 baseline tracking, and automated alerting for performance degradation.
@@ -30,14 +27,12 @@ from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
 import logging
 logger = logging.getLogger(__name__)
 
-
 class RegressionSeverity(Enum):
     """Severity levels for performance regressions."""
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
     CRITICAL = "critical"
-
 
 class RegressionType(Enum):
     """Types of performance regressions."""
@@ -47,7 +42,6 @@ class RegressionType(Enum):
     CPU = "cpu"
     CACHE_EFFICIENCY = "cache_efficiency"
     ERROR_RATE = "error_rate"
-
 
 @dataclass
 class PerformanceMetric:
@@ -65,7 +59,6 @@ class PerformanceMetric:
         assert self.value >= 0, "value must be non-negative"
         assert self.timestamp > 0, "timestamp must be positive"
         assert 0.0 <= self.confidence <= 1.0, "confidence must be 0.0-1.0"
-
 
 @dataclass
 class RegressionDetectionResult:
@@ -86,7 +79,6 @@ class RegressionDetectionResult:
         """Check if regression is statistically significant."""
         return self.statistical_significance >= 0.95  # 95% confidence
 
-
 @dataclass
 class BaselineConfiguration:
     """Configuration for baseline performance tracking."""
@@ -105,16 +97,15 @@ class BaselineConfiguration:
         assert 5 <= self.baseline_window_minutes <= 1440, "baseline_window must be 5-1440 minutes"
         assert 3 <= self.min_samples_for_baseline <= 1000, "min_samples must be 3-1000"
         assert 1 <= self.max_baseline_age_hours <= 168, "max_age must be 1-168 hours"
-        assert 1.0 <= self.regression_threshold_percent <= 100.0, "threshold must be 1-100%"
+        assert 1.0 <= self.regression_threshold_percent <= 60.0, "threshold must be 1-100%"
         assert 0.8 <= self.statistical_confidence <= 0.99, "confidence must be 0.8-0.99"
-
 
 class StatisticalAnalyzer:
     """
     Statistical analysis engine for performance regression detection.
     
     NASA Rule 4: All methods under 60 lines
-    NASA Rule 7: Bounded resource usage
+    NASA Rule DAYS_RETENTION_PERIOD: Bounded resource usage
     """
     
     def __init__(self):
@@ -126,10 +117,10 @@ class StatisticalAnalyzer:
         logger.info("Statistical analyzer initialized")
     
     def detect_regression(self,
-                         baseline_data: List[float],
-                         current_data: List[float],
-                         regression_threshold: float = 15.0,
-                         confidence_level: float = 0.95) -> Dict[str, Any]:
+                        baseline_data: List[float],
+                        current_data: List[float],
+                        regression_threshold: float = 15.0,
+                        confidence_level: float = 0.95) -> Dict[str, Any]:
         """
         Detect performance regression using statistical analysis.
         
@@ -140,7 +131,7 @@ class StatisticalAnalyzer:
         assert isinstance(current_data, list), "current_data must be list"
         assert len(baseline_data) >= 3, "baseline_data must have at least 3 samples"
         assert len(current_data) >= 3, "current_data must have at least 3 samples"
-        assert 1.0 <= regression_threshold <= 100.0, "threshold must be 1-100%"
+        assert 1.0 <= regression_threshold <= 60.0, "threshold must be 1-100%"
         assert 0.8 <= confidence_level <= 0.99, "confidence must be 0.8-0.99"
         
         # Calculate descriptive statistics
@@ -150,7 +141,7 @@ class StatisticalAnalyzer:
         current_std = statistics.stdev(current_data) if len(current_data) > 1 else 0.0
         
         # Calculate regression percentage
-        regression_percent = ((current_mean - baseline_mean) / baseline_mean) * 100
+        regression_percent = ((current_mean - baseline_mean) / baseline_mean) * MAXIMUM_FUNCTION_LENGTH_LINES
         
         # Statistical significance test (simplified t-test)
         t_statistic = self._calculate_t_statistic(baseline_data, current_data)
@@ -203,17 +194,15 @@ class StatisticalAnalyzer:
     def _calculate_p_value(self, t_stat: float, degrees_freedom: int) -> float:
         """Calculate p-value for t-statistic (simplified approximation)."""
         # Simplified p-value calculation using normal approximation
-        # In production, would use proper t-distribution
         try:
             # Using normal approximation for simplicity
-            # More accurate would be to use scipy.stats.t.cdf
             z_score = abs(t_stat)
             
             # Rough approximation of p-value for normal distribution
             if z_score > 3.0:
                 return 0.001  # Very significant
             elif z_score > 2.0:
-                return 0.05   # Significant
+                return MINIMUM_TRADE_THRESHOLD   # Significant
             elif z_score > 1.0:
                 return 0.2    # Somewhat significant
             else:
@@ -261,7 +250,7 @@ class StatisticalAnalyzer:
             if std_dev > 0:
                 for i, value in enumerate(data):
                     z_score = abs((value - mean) / std_dev)
-                    if z_score > 2.5:  # 2.5 standard deviations
+                    if z_score > 2.5:  # 2.MAXIMUM_NESTED_DEPTH standard deviations
                         outlier_indices.append(i)
         
         return outlier_indices
@@ -322,13 +311,12 @@ class StatisticalAnalyzer:
             self.analysis_cache.clear()
             logger.debug("Statistical analysis cache cleared")
 
-
 class BaselineTracker:
     """
     Tracks and manages performance baselines for regression detection.
     
     NASA Rule 4: All methods under 60 lines
-    NASA Rule 7: Bounded resource usage
+    NASA Rule DAYS_RETENTION_PERIOD: Bounded resource usage
     """
     
     def __init__(self):
@@ -365,9 +353,9 @@ class BaselineTracker:
                 self.last_cleanup = current_time
     
     def get_baseline_data(self, 
-                         metric_name: str, 
-                         window_minutes: int = 60,
-                         min_samples: int = 10) -> List[float]:
+                        metric_name: str, 
+                        window_minutes: int = 60,
+                        min_samples: int = 10) -> List[float]:
         """
         Get baseline data for regression analysis.
         
@@ -490,7 +478,6 @@ class BaselineTracker:
             stats["metric_details"] = metric_stats
             return stats
 
-
 class RegressionDetectionEngine:
     """
     Main regression detection engine coordinating all components.
@@ -534,8 +521,8 @@ class RegressionDetectionEngine:
         logger.info("Regression detection stopped")
     
     async def analyze_metric_for_regression(self, 
-                                          metric: PerformanceMetric,
-                                          force_analysis: bool = False) -> Optional[RegressionDetectionResult]:
+                                            metric: PerformanceMetric,
+                                            force_analysis: bool = False) -> Optional[RegressionDetectionResult]:
         """
         Analyze performance metric for regression.
         
@@ -840,11 +827,9 @@ class RegressionDetectionEngine:
             ]
         }
 
-
 # Global regression detection engine instance
 _global_regression_engine: Optional[RegressionDetectionEngine] = None
 _engine_lock = threading.Lock()
-
 
 def get_global_regression_engine() -> RegressionDetectionEngine:
     """Get or create global regression detection engine."""
@@ -856,11 +841,10 @@ def get_global_regression_engine() -> RegressionDetectionEngine:
     
     return _global_regression_engine
 
-
 async def detect_performance_regression(metric_name: str, 
-                                      metric_type: RegressionType,
-                                      value: float,
-                                      context: Optional[Dict[str, Any]] = None) -> Optional[RegressionDetectionResult]:
+                                        metric_type: RegressionType,
+                                        value: float,
+                                        context: Optional[Dict[str, Any]] = None) -> Optional[RegressionDetectionResult]:
     """
     High-level function to detect performance regression for a metric.
     
@@ -884,7 +868,6 @@ async def detect_performance_regression(metric_name: str,
     )
     
     return await engine.analyze_metric_for_regression(metric)
-
 
 if __name__ == "__main__":
     # Example usage

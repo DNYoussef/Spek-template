@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Automated Function Refactoring Engine for NASA POT10 Rule 4 Compliance
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 This module provides production-grade automated refactoring capabilities to systematically
 decompose oversized functions (>60 lines) into NASA POT10 compliant smaller functions.
@@ -22,7 +20,6 @@ import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
-
 @dataclass
 class ExtractionCandidate:
     """Represents a code block candidate for method extraction."""
@@ -34,7 +31,6 @@ class ExtractionCandidate:
     extracted_method_name: str
     complexity_score: int
     nasa_compliant: bool = True
-
 
 @dataclass
 class FunctionRefactoringPlan:
@@ -56,7 +52,6 @@ class FunctionRefactoringPlan:
         assert self.estimated_success_rate > 0.7, "Success rate too low for safe refactoring"
         return True
 
-
 @dataclass
 class RefactoringResult:
     """Result of automated function refactoring attempt."""
@@ -69,7 +64,6 @@ class RefactoringResult:
     reason: Optional[str] = None
     validation_errors: List[str] = None
     rollback_required: bool = False
-
 
 @dataclass
 class RefactoringMetrics:
@@ -90,7 +84,6 @@ class RefactoringMetrics:
         self.functions_refactored += 1
         self.total_lines_reduced += (result.original_lines - result.final_lines)
         self.methods_extracted += result.methods_extracted
-
 
 class SemanticBlockAnalyzer:
     """Analyzes function code to identify cohesive blocks for extraction."""
@@ -252,7 +245,6 @@ class SemanticBlockAnalyzer:
             ]
         }
 
-
 class RefactoringSafetyValidator:
     """Validates refactoring safety and correctness."""
 
@@ -293,7 +285,6 @@ class RefactoringSafetyValidator:
             'max_complexity_score': 100,
             'min_cohesion_score': 0.5
         }
-
 
 class AutomatedFunctionRefactorer:
     """
@@ -384,8 +375,8 @@ class AutomatedFunctionRefactorer:
             self.refactoring_stats.record_success(plan, result)
 
             self.logger.info(f"Successfully refactored {plan.function_name}: "
-                           f"{result.original_lines} -> {result.final_lines} lines, "
-                           f"{result.methods_extracted} methods extracted")
+                            f"{result.original_lines} -> {result.final_lines} lines, "
+                            f"{result.methods_extracted} methods extracted")
 
             return result
 
@@ -729,7 +720,6 @@ class AutomatedFunctionRefactorer:
 
         return recommendations
 
-
 def main():
     """Command-line interface for automated function refactoring."""
     import argparse
@@ -792,7 +782,6 @@ def main():
     print(f"Success rate: {(total_refactored/max(total_functions_processed, 1))*100:.1f}%")
 
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

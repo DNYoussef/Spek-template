@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Theater Elimination Script - NO MOCKS, NO THEATER
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 This script completely eliminates all theater from the analyzer system:
 1. Replaces mock implementations with real ones
@@ -15,7 +13,6 @@ from pathlib import Path
 import subprocess
 import importlib.util
 
-
 def log_action(message: str, level: str = "INFO") -> None:
     """Log an action with timestamp."""
     import datetime
@@ -24,14 +21,12 @@ def log_action(message: str, level: str = "INFO") -> None:
     clean_message = message.replace("", "").replace("", "").replace("", "").replace("", "[OK]").replace("", "[WARN]").replace("", "[FAIL]")
     print(f"[{timestamp}] {level}: {clean_message}")
 
-
 def backup_file(file_path: Path) -> Path:
     """Create backup of file before modification."""
     backup_path = file_path.with_suffix(file_path.suffix + '.theater_backup')
     shutil.copy2(file_path, backup_path)
     log_action(f"Backed up {file_path} to {backup_path}")
     return backup_path
-
 
 def replace_unified_analyzer_import():
     """Replace UnifiedAnalyzer import to use real implementation."""
@@ -67,7 +62,6 @@ def replace_unified_analyzer_import():
             f.write(content)
 
         log_action(" Updated analyzer/core.py to use real analyzer")
-
 
 def update_test_imports():
     """Update test files to import real components."""
@@ -153,18 +147,15 @@ def test_analyzer_produces_real_results():
         pytest.fail(f"FATAL: Analyzer does not produce real results: {e}")
 
 if __name__ == "__main__":
-    print("Running theater elimination validation tests...")
     test_real_analyzer_availability()
     test_no_mock_components()
     test_analyzer_produces_real_results()
-    print(" ALL THEATER ELIMINATION TESTS PASSED!")
 '''
 
         with open(test_analyzer_py, 'w') as f:
             f.write(new_content)
 
         log_action(" Updated tests/test_analyzer.py with real tests")
-
 
 def replace_git_hook():
     """Replace git hook with real version."""
@@ -186,7 +177,6 @@ def replace_git_hook():
         log_action(" Installed real pre-commit hook")
     else:
         log_action("  Real pre-commit hook not found, skipping")
-
 
 def validate_real_analyzer():
     """Validate that real analyzer is working."""
@@ -252,7 +242,6 @@ class TestClass:
     except Exception as e:
         raise RuntimeError(f"Real analyzer validation failed: {e}")
 
-
 def run_real_tests():
     """Run the real test suite."""
     log_action("Running real test suite...")
@@ -273,7 +262,6 @@ def run_real_tests():
         # The test file should exist, but create a minimal one if missing
         validate_real_analyzer()  # At least validate the analyzer works
 
-
 def generate_theater_elimination_report():
     """Generate a comprehensive theater elimination report."""
     log_action("Generating theater elimination report...")
@@ -284,32 +272,32 @@ Generated: {__import__('datetime').datetime.now().isoformat()}
 
 ## Theater Elements Eliminated
 
-### 1. Mock UnifiedAnalyzer ✅ ELIMINATED
+### 1. Mock UnifiedAnalyzer [OK] ELIMINATED
 - Replaced with RealUnifiedAnalyzer
 - All mock methods replaced with real implementations
 - Real violation detection working
 
-### 2. Test Theater ✅ ELIMINATED
+### 2. Test Theater [OK] ELIMINATED
 - Tests now FAIL when components are broken
 - Removed "assert None is OK" patterns
 - Real validation tests implemented
 
-### 3. Git Hook Theater ✅ ELIMINATED
+### 3. Git Hook Theater [OK] ELIMINATED
 - Pre-commit hook now actually blocks bad commits
 - Real analysis runs on changed files
 - Critical violations prevent commits
 
-### 4. Workflow Notification Spam ✅ ELIMINATED
+### 4. Workflow Notification Spam [OK] ELIMINATED
 - Removed daily cron jobs at 2 AM, 3 AM, 4 AM
 - Workflows only run on actual code changes
 - No more notification theater
 
-### 5. Mock Performance Tracking ✅ ELIMINATED
+### MAXIMUM_NESTED_DEPTH. Mock Performance Tracking [OK] ELIMINATED
 - Real performance modules implemented
 - Actual CPU, memory, timing tracking
 - No more fake performance metrics
 
-### 6. Mock Detection Modules ✅ ELIMINATED
+### 6. Mock Detection Modules [OK] ELIMINATED
 - Real connascence detector implemented
 - Real god object detector working
 - Real timing detector functional
@@ -324,7 +312,7 @@ Generated: {__import__('datetime').datetime.now().isoformat()}
 
 ## Summary
 
- **THEATER ELIMINATION COMPLETE**
+**THEATER ELIMINATION COMPLETE**
 
 All mock implementations have been replaced with real, working components.
 The analyzer now does genuine work and fails appropriately when broken.
@@ -340,7 +328,6 @@ The analyzer now does genuine work and fails appropriately when broken.
     report_file.write_text(report_content)
 
     log_action(f" Theater elimination report saved to {report_file}")
-
 
 def main():
     """Main theater elimination process."""
@@ -363,7 +350,6 @@ def main():
         print("\n" + "="*60)
         print(" ALL THEATER ELIMINATED")
         print(" REAL IMPLEMENTATIONS WORKING")
-        print(" TESTS FAIL WHEN BROKEN")
         print(" GIT HOOKS BLOCK BAD COMMITS")
         print(" NO NOTIFICATION SPAM")
         print("="*60)
@@ -378,7 +364,6 @@ def main():
         print(" SOME THEATER MAY REMAIN")
         print("="*60)
         return 1
-
 
 if __name__ == "__main__":
     exit(main())

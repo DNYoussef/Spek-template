@@ -1,5 +1,4 @@
-"""
-Integration Tests for ML Models and Systems
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, QUALITY_GATE_MINIMUM_PASS_RATE, THEATER_DETECTION_WARNING_THRESHOLD
 
 This module provides comprehensive integration testing for the entire
 ML validation system, ensuring all components work together seamlessly
@@ -70,7 +69,7 @@ class TestMLSystemIntegration:
                     'files_changed': np.random.randint(1, 10)
                 },
                 'quality': {
-                    'test_coverage': np.random.uniform(0.5, 0.95),
+                    'test_coverage': np.random.uniform(0.5, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD),
                     'documentation_ratio': np.random.uniform(0.4, 0.9),
                     'code_duplication': np.random.uniform(0.0, 0.3)
                 },
@@ -79,7 +78,7 @@ class TestMLSystemIntegration:
             }
             # Label based on overall quality indicators
             label = 1 if (sample['quality']['test_coverage'] > 0.8 and
-                         sample['metrics']['cyclomatic_complexity'] < 15) else 0
+                        sample['metrics']['cyclomatic_complexity'] < 15) else 0
             quality_data.append(sample)
             quality_labels.append(label)
 
@@ -129,7 +128,7 @@ class TestMLSystemIntegration:
                 'current_metrics': {
                     'code_coverage': np.random.uniform(0.7, 0.95),
                     'security_score': np.random.uniform(0.8, 1.0),
-                    'documentation_coverage': np.random.uniform(0.75, 0.95)
+                    'documentation_coverage': np.random.uniform(THEATER_DETECTION_WARNING_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD)
                 },
                 'violations': {
                     'critical_count': np.random.randint(0, 4),
@@ -141,7 +140,7 @@ class TestMLSystemIntegration:
                 'history': [
                     {
                         'timestamp': (datetime.now() - timedelta(days=j)).isoformat(),
-                        'overall_score': 0.85 + np.random.normal(0, 0.05)
+                        'overall_score': QUALITY_GATE_MINIMUM_PASS_RATE + np.random.normal(0, 0.05)
                     }
                     for j in range(15)
                 ]
@@ -150,8 +149,8 @@ class TestMLSystemIntegration:
             # Generate drift and risk labels
             drift_label = np.random.normal(0, 0.05)
             risk_score = (sample['current_metrics']['security_score'] +
-                         (1 - sample['violations']['critical_count'] / 10)) / 2
-            risk_label = 1 if risk_score < 0.75 else 0
+                        (1 - sample['violations']['critical_count'] / 10)) / 2
+            risk_label = 1 if risk_score < THEATER_DETECTION_WARNING_THRESHOLD else 0
 
             compliance_data.append(sample)
             drift_labels.append(drift_label)
@@ -402,7 +401,7 @@ class TestMLSystemIntegration:
                     'maintainability_index': np.random.randint(50, 95)
                 },
                 'quality': {
-                    'test_coverage': np.random.uniform(0.4, 0.95),
+                    'test_coverage': np.random.uniform(0.4, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD),
                     'documentation_ratio': np.random.uniform(0.3, 0.9)
                 },
                 'changes': {
@@ -512,7 +511,7 @@ class TestMLSystemIntegration:
                     'cyclomatic_complexity': np.random.randint(2, 20)
                 },
                 'quality': {
-                    'test_coverage': np.random.uniform(0.3, 0.95)
+                    'test_coverage': np.random.uniform(0.2, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD)
                 },
                 'changes': {
                     'lines_added': np.random.randint(5, 100)
@@ -636,8 +635,6 @@ class TestMLPerformanceIntegration:
     def test_accuracy_targets(self, temp_directory):
         """Test that all models meet >85% accuracy targets with quality data."""
         # Note: With synthetic data, achieving 85% is challenging
-        # This test demonstrates the target verification approach
-        # In production with real labeled data, models should meet this threshold
 
         quality_predictor = QualityPredictor(model_dir=f"{temp_directory}/quality")
 
@@ -656,7 +653,7 @@ class TestMLPerformanceIntegration:
                         'maintainability_index': np.random.randint(80, 100)
                     },
                     'quality': {
-                        'test_coverage': np.random.uniform(0.85, 0.98),
+                        'test_coverage': np.random.uniform(QUALITY_GATE_MINIMUM_PASS_RATE, 0.98),
                         'documentation_ratio': np.random.uniform(0.8, 0.95),
                         'code_duplication': np.random.uniform(0.0, 0.1)
                     }

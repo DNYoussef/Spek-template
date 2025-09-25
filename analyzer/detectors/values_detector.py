@@ -1,5 +1,4 @@
-"""
-Values Detector - Refactored to Eliminate Connascence Violations
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS
 
 Detects Connascence of Values violations using standardized interfaces
 and configuration-driven thresholds to eliminate hardcoded coupling.
@@ -16,9 +15,6 @@ from ..interfaces.detector_interface import (
     ConfigurableDetectorMixin, ViolationSeverity, ConnascenceType
 )
 # Temporarily disabled broken utility imports
-# from ..utils.common_patterns import ASTUtils, PatternMatcher, ViolationFactory
-# from ..utils.config_manager import get_detector_config
-
 
 # FIXED: Enable real configuration support
 class ValuesDetector(DetectorBase, ConfigurableDetectorMixin):
@@ -129,7 +125,7 @@ class ValuesDetector(DetectorBase, ConfigurableDetectorMixin):
     
     def _check_duplicate_literals(self) -> None:
         """Check for duplicate literals using configuration-driven thresholds."""
-        min_occurrences = self.get_threshold('duplicate_literal_minimum', 3)
+        min_occurrences = self.get_threshold('duplicate_literal_minimum', MAXIMUM_RETRY_ATTEMPTS)
         
         # Check string literals
         for literal_value, nodes in self.string_literals.items():
@@ -151,7 +147,7 @@ class ValuesDetector(DetectorBase, ConfigurableDetectorMixin):
     
     def _check_configuration_coupling(self) -> None:
         """Check for excessive configuration coupling using configurable thresholds."""
-        coupling_limit = self.get_threshold('configuration_coupling_limit', 10)
+        coupling_limit = self.get_threshold('configuration_coupling_limit', MAXIMUM_FUNCTION_PARAMETERS)
         line_spread_limit = self.get_threshold('configuration_line_spread', 5)
         
         if len(self.configuration_patterns) > coupling_limit:

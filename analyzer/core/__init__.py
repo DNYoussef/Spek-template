@@ -1,5 +1,4 @@
 # SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
 
 """
 Analyzer Core Package
@@ -16,16 +15,8 @@ This package provides the foundational infrastructure for all analyzer operation
 # Import core components with proper error handling
 try:
     from .unified_imports import IMPORT_MANAGER, ImportResult, UnifiedImportManager
-    UNIFIED_IMPORTS_AVAILABLE = True
-except ImportError as e:
-    UNIFIED_IMPORTS_AVAILABLE = False
-    # Create minimal fallback
-    class ImportResult:
-        def __init__(self, has_module=False, module=None, error=None):
-            self.has_module = has_module
-            self.module = module
-            self.error = error
-
+except ImportError:
+    # Create fallback implementation
     class UnifiedImportManager:
         def __init__(self):
             self.import_stats = {}
@@ -35,6 +26,7 @@ except ImportError as e:
             return {"fallback_mode": True}
 
     IMPORT_MANAGER = UnifiedImportManager()
+    ImportResult = None
 
 # Import core functions from the main core.py module
 try:
@@ -75,6 +67,9 @@ except Exception as e:
     validate_critical_dependencies = None
     create_enhanced_mock_import_manager = None
     CORE_FUNCTIONS_AVAILABLE = False
+
+# Add UNIFIED_IMPORTS_AVAILABLE flag
+UNIFIED_IMPORTS_AVAILABLE = True
 
 # Export main components
 __all__ = [

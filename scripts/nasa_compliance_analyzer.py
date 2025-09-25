@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-NASA Power of Ten Compliance Analyzer - Phase 3 Safety Standards
-================================================================
+from src.constants.base import KELLY_CRITERION_FRACTION
 
 Implements NASA POT10 rules enforcement:
 - Rule 3: No dynamic memory allocation
@@ -207,12 +204,8 @@ class NASAComplianceAnalyzer:
         """Generate refactoring suggestions for long functions."""
         return f"""
 # REFACTORING SUGGESTION for {func_node.name}():
-# Current: {len(func_content.split('\n'))} lines (exceeds 60-line limit)
 
 # Recommended approach:
-# 1. Extract Method: Break into smaller functions
-# 2. Single Responsibility: Each function should have one clear purpose
-# 3. Maximum complexity: Keep cyclomatic complexity < 10
 
 # Example refactoring pattern:
 def {func_node.name}_main():
@@ -225,17 +218,14 @@ def {func_node.name}_main():
 def {func_node.name}_prepare_data():
     \"\"\"Data preparation step.\"\"\"
     # Move data preparation logic here
-    pass
 
 def {func_node.name}_process_data(data):
     \"\"\"Data processing step.\"\"\"
     # Move core processing logic here
-    pass
 
 def {func_node.name}_finalize_result(result):
     \"\"\"Result finalization step.\"\"\"
     # Move finalization logic here
-    pass
 """
 
     def _generate_assertion_fix(self, func_node: ast.FunctionDef, func_content: str) -> str:
@@ -245,8 +235,6 @@ def {func_node.name}_finalize_result(result):
 
         return f"""
 # ASSERTION ENHANCEMENT for {func_node.name}():
-# Current assertion density: {self._count_assertions(func_content)} assertions in {func_length} lines
-# Required: At least {int(func_length * 0.02)} assertions (2% minimum)
 
 # Recommended assertions to add:
 
@@ -286,14 +274,11 @@ except Exception as e:
             if '.append(' in pattern:
                 fix_suggestions.append(f"""
 # Replace dynamic append with pre-allocated structure:
-# Original: {context}
-# Fixed: Use pre-allocated list with known maximum size
 MAX_ITEMS = 1000  # Define maximum based on requirements
 result_list = [None] * MAX_ITEMS
 result_index = 0
 
 # Instead of: result_list.append(item)
-# Use:
 if result_index < MAX_ITEMS:
     result_list[result_index] = item
     result_index += 1
@@ -304,9 +289,6 @@ else:
             elif 'dict(' in pattern or 'list(' in pattern or 'set(' in pattern:
                 fix_suggestions.append(f"""
 # Replace dynamic collection creation:
-# Original: {context}
-# Fixed: Use pre-allocated collections or static alternatives
-# Consider using namedtuple, dataclass, or fixed-size collections
 from collections import namedtuple
 from typing import NamedTuple
 
@@ -318,23 +300,14 @@ result = ResultData(field1=value1, field2=value2, field3=value3)
             else:
                 fix_suggestions.append(f"""
 # Address dynamic memory allocation:
-# Original: {context}
-# Analysis: Review if this allocation is necessary
-# Consider: Static allocation, object pooling, or elimination
 """)
 
         return f"""
 # DYNAMIC MEMORY ELIMINATION for {func_node.name}():
-# Found {len(allocations)} dynamic allocations
 
 {''.join(fix_suggestions)}
 
 # General strategies:
-# 1. Pre-allocate with known maximum sizes
-# 2. Use object pooling for reusable objects
-# 3. Consider stack-based alternatives
-# 4. Use immutable data structures where possible
-# 5. Implement memory budgets and limits
 """
 
     def generate_refactoring_script(self, violations: List[FunctionViolation]) -> str:
@@ -371,7 +344,6 @@ class FunctionRefactorer:
         func_lines = lines[start_line-1:end_line]
 
         # Simple heuristic: split at logical boundaries
-        # Look for comments, blank lines, or control structures
         breakpoints = []
         for i, line in enumerate(func_lines):
             if (line.strip().startswith('#') or
@@ -409,8 +381,6 @@ class FunctionRefactorer:
     def _create_helper_functions(self, file_path: str, function_name: str, func_lines: List[str], breakpoints: List[int]):
         \"\"\"Create helper functions from breakpoints.\"\"\"
         # Implementation would create extracted methods
-        # This is a simplified version for demonstration
-        pass
 
 def main():
     \"\"\"Execute automated refactoring.\"\"\"
@@ -427,12 +397,10 @@ def main():
         print(f"Processing: {{file_path}}")
 
         # Apply refactoring based on violations
-        # This would implement the actual refactoring logic
 
         print(f"Completed: {{file_path}}")
 
     print("Automated refactoring completed.")
-    print("Manual review and testing required before deployment.")
 
 if __name__ == '__main__':
     main()

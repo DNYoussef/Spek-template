@@ -1,6 +1,4 @@
-"""
-Integration Optimizer for Detector Pool and Unified Visitor
-============================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Optimizes resource allocation and memory management for the integration
 between detector pool and unified visitor pattern. Addresses performance
@@ -25,7 +23,6 @@ from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
 import logging
 logger = logging.getLogger(__name__)
 
-
 @dataclass
 class IntegrationMetrics:
     """Metrics for detector pool and unified visitor integration."""
@@ -40,7 +37,6 @@ class IntegrationMetrics:
     resource_contention_events: int = 0
     integration_optimization_cycles: int = 0
 
-
 @dataclass
 class SharedResourcePool:
     """Shared resource pool for detector-visitor coordination."""
@@ -53,7 +49,6 @@ class SharedResourcePool:
     last_cleanup: float = field(default_factory=time.time)
     reference_count: int = 0
 
-
 class UnifiedResourceAllocator:
     """
     Unified resource allocator for detector pool and visitor coordination.
@@ -63,8 +58,8 @@ class UnifiedResourceAllocator:
     """
     
     def __init__(self, 
-                 max_shared_pools: int = 16,
-                 pool_cleanup_interval: float = 300.0):
+                max_shared_pools: int = 16,
+                pool_cleanup_interval: float = 300.0):
         """
         Initialize unified resource allocator.
         
@@ -243,7 +238,7 @@ class UnifiedResourceAllocator:
         
         self.cleanup_active = False
         if self.cleanup_thread and self.cleanup_thread.is_alive():
-            self.cleanup_thread.join(timeout=5.0)
+            self.cleanup_thread.join(timeout=MAXIMUM_NESTED_DEPTH)
         
         logger.info("Periodic resource cleanup stopped")
     
@@ -308,7 +303,6 @@ class UnifiedResourceAllocator:
                 )
             }
 
-
 class DetectorVisitorCoordinator:
     """
     Coordinator for optimized detector pool and unified visitor integration.
@@ -318,7 +312,7 @@ class DetectorVisitorCoordinator:
     """
     
     def __init__(self, 
-                 resource_allocator: Optional[UnifiedResourceAllocator] = None):
+                resource_allocator: Optional[UnifiedResourceAllocator] = None):
         """
         Initialize detector-visitor coordinator.
         
@@ -341,10 +335,10 @@ class DetectorVisitorCoordinator:
         logger.info("DetectorVisitorCoordinator initialized")
     
     def coordinate_analysis(self, 
-                           file_path: str, 
-                           source_lines: List[str],
-                           detector_types: List[str],
-                           visitor_config: Dict[str, Any]) -> Dict[str, Any]:
+                            file_path: str, 
+                            source_lines: List[str],
+                            detector_types: List[str],
+                            visitor_config: Dict[str, Any]) -> Dict[str, Any]:
         """
         Coordinate analysis between detector pool and unified visitor.
         
@@ -389,7 +383,7 @@ class DetectorVisitorCoordinator:
                 history_len = len(self.coordination_history)
                 self.coordination_metrics.visitor_detector_coordination_ms = (
                     (self.coordination_metrics.visitor_detector_coordination_ms * 
-                     history_len + coordination_time) / 
+                    history_len + coordination_time) / 
                     (history_len + 1)
                 )
                 self.coordination_history.append({
@@ -492,11 +486,11 @@ class DetectorVisitorCoordinator:
         return detector_results
     
     def _coordinate_visitor_analysis(self, 
-                                   visitor_config: Dict[str, Any],
-                                   file_path: str,
-                                   source_lines: List[str],
-                                   ast_tree: Any,
-                                   shared_pool: SharedResourcePool) -> Dict[str, Any]:
+                                    visitor_config: Dict[str, Any],
+                                    file_path: str,
+                                    source_lines: List[str],
+                                    ast_tree: Any,
+                                    shared_pool: SharedResourcePool) -> Dict[str, Any]:
         """Coordinate visitor analysis with shared resources."""
         
         # Check for cached visitor results
@@ -528,9 +522,9 @@ class DetectorVisitorCoordinator:
         return visitor_result
     
     def _merge_analysis_results(self, 
-                              detector_results: Dict[str, Any],
-                              visitor_results: Dict[str, Any],
-                              shared_pool: SharedResourcePool) -> Dict[str, Any]:
+                                detector_results: Dict[str, Any],
+                                visitor_results: Dict[str, Any],
+                                shared_pool: SharedResourcePool) -> Dict[str, Any]:
         """Merge detector and visitor results optimally."""
         
         merged_results = {
@@ -558,7 +552,7 @@ class DetectorVisitorCoordinator:
     def _calculate_data_sharing_efficiency(self) -> float:
         """Calculate data sharing efficiency percentage."""
         total_operations = (self.coordination_metrics.data_sharing_cache_hits + 
-                          self.coordination_metrics.data_sharing_cache_misses)
+                            self.coordination_metrics.data_sharing_cache_misses)
         if total_operations == 0:
             return 0.0
         
@@ -677,11 +671,9 @@ class DetectorVisitorCoordinator:
         
         return recommendations
 
-
 # Global integration optimizer instance
 _global_integration_optimizer: Optional[DetectorVisitorCoordinator] = None
 _optimizer_lock = threading.Lock()
-
 
 def get_global_integration_optimizer() -> DetectorVisitorCoordinator:
     """Get or create global integration optimizer."""
@@ -690,7 +682,6 @@ def get_global_integration_optimizer() -> DetectorVisitorCoordinator:
         if _global_integration_optimizer is None:
             _global_integration_optimizer = DetectorVisitorCoordinator()
         return _global_integration_optimizer
-
 
 def optimize_detector_visitor_integration() -> Dict[str, Any]:
     """Run comprehensive detector-visitor integration optimization."""

@@ -10,13 +10,13 @@ Key Features:
 - Volume-weighted skew calculations
 """
 
+from datetime import datetime, timedelta
+from typing import Dict, Any, Optional, Tuple
 import time
+
+from dataclasses import dataclass
 import numpy as np
 import pandas as pd
-from typing import Dict, Any, Optional, Tuple
-from dataclasses import dataclass
-from datetime import datetime, timedelta
-
 
 @dataclass
 class DPIComponents:
@@ -27,7 +27,6 @@ class DPIComponents:
     market_regime_factor: float
     timestamp: datetime
 
-
 @dataclass
 class DPIResult:
     """Complete DPI calculation result."""
@@ -37,14 +36,13 @@ class DPIResult:
     calculation_time_ms: float
     symbol: str
 
-
 class DistributionalPressureIndex:
     """
     High-performance Distributional Pressure Index calculator.
     Optimized for <50ms response time with comprehensive market analysis.
     """
 
-    def __init__(self, lookback_periods: int = 20, min_volume_threshold: float = 1000.0):
+def __init__(self, lookback_periods: int = 20, min_volume_threshold: float = 1000.0):
         """
         Initialize DPI calculator with performance optimization.
 
@@ -63,12 +61,12 @@ class DistributionalPressureIndex:
         # Pre-computed weights for speed
         self._decay_weights = self._compute_decay_weights()
 
-    def _compute_decay_weights(self) -> np.ndarray:
+def _compute_decay_weights(self) -> np.ndarray:
         """Pre-compute exponential decay weights for performance."""
         weights = np.exp(-0.1 * np.arange(self.lookback_periods))
         return weights / weights.sum()
 
-    def calculate_dpi(self, symbol: str) -> Tuple[float, DPIComponents]:
+def calculate_dpi(self, symbol: str) -> Tuple[float, DPIComponents]:
         """
         Calculate Distributional Pressure Index for given symbol.
         Target: <50ms execution time.
@@ -141,7 +139,7 @@ class DistributionalPressureIndex:
             )
             return 0.5, components
 
-    def _fetch_market_data_cached(self, symbol: str, periods: int) -> Optional[pd.DataFrame]:
+def _fetch_market_data_cached(self, symbol: str, periods: int) -> Optional[pd.DataFrame]:
         """
         Fetch market data with intelligent caching for performance.
 
@@ -169,7 +167,7 @@ class DistributionalPressureIndex:
 
         return data
 
-    def _fetch_market_data(self, symbol: str, periods: int) -> pd.DataFrame:
+def _fetch_market_data(self, symbol: str, periods: int) -> pd.DataFrame:
         """
         Fetch market data (simulated for demonstration).
         In production, this would connect to a real data feed.
@@ -205,7 +203,7 @@ class DistributionalPressureIndex:
             'open': np.roll(prices, 1)  # Previous period's close
         })
 
-    def _calculate_order_flow_pressure(self, data: pd.DataFrame) -> float:
+def _calculate_order_flow_pressure(self, data: pd.DataFrame) -> float:
         """
         Calculate order flow pressure component.
         Measures buying vs selling pressure through volume analysis.
@@ -234,7 +232,7 @@ class DistributionalPressureIndex:
         # Apply exponential smoothing
         return np.clip(flow_pressure, 0.0, 1.0)
 
-    def _calculate_volume_weighted_skew(self, data: pd.DataFrame) -> float:
+def _calculate_volume_weighted_skew(self, data: pd.DataFrame) -> float:
         """
         Calculate volume-weighted skewness component.
         Measures asymmetry in volume distribution.
@@ -258,13 +256,13 @@ class DistributionalPressureIndex:
 
         weighted_std = np.sqrt(weighted_var)
         weighted_skew = np.average(((price_changes - weighted_mean) / weighted_std) ** 3,
-                                 weights=volume_weights)
+                                weights=volume_weights)
 
         # Normalize skew to [0, 1] range
         normalized_skew = (weighted_skew + 2) / 4  # Assuming skew in [-2, 2] range
         return np.clip(normalized_skew, 0.0, 1.0)
 
-    def _calculate_price_momentum_bias(self, data: pd.DataFrame) -> float:
+def _calculate_price_momentum_bias(self, data: pd.DataFrame) -> float:
         """
         Calculate price momentum bias component.
         Measures directional momentum strength.
@@ -288,12 +286,11 @@ class DistributionalPressureIndex:
         momentum_difference = short_momentum - long_momentum
 
         # Normalize to [0, 1] range
-        # Positive bias (upward momentum) -> higher values
         bias = 0.5 + np.tanh(momentum_difference * 10) * 0.5
 
         return np.clip(bias, 0.0, 1.0)
 
-    def _calculate_market_regime_factor(self, data: pd.DataFrame) -> float:
+def _calculate_market_regime_factor(self, data: pd.DataFrame) -> float:
         """
         Calculate market regime factor component.
         Identifies current market regime (trending vs ranging).
@@ -324,7 +321,7 @@ class DistributionalPressureIndex:
 
         return np.clip(regime_factor, 0.5, 2.0)
 
-    def get_performance_metrics(self) -> Dict[str, Any]:
+def get_performance_metrics(self) -> Dict[str, Any]:
         """Get performance metrics for optimization monitoring."""
         return {
             "cache_size": len(self._price_cache),
@@ -333,18 +330,16 @@ class DistributionalPressureIndex:
             "min_volume_threshold": self.min_volume_threshold
         }
 
-    def clear_cache(self):
+def clear_cache(self):
         """Clear performance caches."""
         self._price_cache.clear()
         self._volume_cache.clear()
         self._last_calculation_time.clear()
 
-
 # Factory function for easy instantiation
 def create_dpi_calculator(lookback_periods: int = 20) -> DistributionalPressureIndex:
     """Create optimized DPI calculator instance."""
     return DistributionalPressureIndex(lookback_periods=lookback_periods)
-
 
 # Performance testing utility
 def benchmark_dpi_performance(symbols: list, iterations: int = 100) -> Dict[str, float]:

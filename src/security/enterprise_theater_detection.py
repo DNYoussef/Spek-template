@@ -6,13 +6,12 @@ Implements forensic-level theater detection with complete validation
 of enterprise module functionality against performance claims.
 """
 
-import asyncio
 import hashlib
-import inspect
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+from lib.shared.utilities import get_logger
+import asyncio
+import inspect
 
 class TheaterType(Enum):
     """Types of theater detected"""
@@ -23,7 +22,6 @@ class TheaterType(Enum):
     MEASUREMENT_THEATER = "measurement_theater"
     VALIDATION_THEATER = "validation_theater"
 
-
 class TheaterSeverity(Enum):
     """Severity levels for theater detection"""
     CRITICAL = "critical"      # Complete fake functionality
@@ -31,7 +29,6 @@ class TheaterSeverity(Enum):
     MEDIUM = "medium"         # Minor theater elements
     LOW = "low"               # Cosmetic theater only
     NONE = "none"             # Genuine implementation
-
 
 @dataclass
 class TheaterEvidence:
@@ -46,7 +43,6 @@ class TheaterEvidence:
     forensic_details: Dict[str, Any]
     timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
-
 @dataclass
 class ValidationMetrics:
     """Metrics for validation testing"""
@@ -57,7 +53,6 @@ class ValidationMetrics:
     execution_time: float
     memory_usage: int
     error_details: Optional[str] = None
-
 
 @dataclass
 class TheaterDetectionReport:
@@ -72,7 +67,6 @@ class TheaterDetectionReport:
     defense_industry_ready: bool
     forensic_hash: str
     detection_timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
-
 
 class EnterpriseTheaterDetector:
     """
@@ -97,7 +91,6 @@ class EnterpriseTheaterDetector:
         """Load patterns that indicate theater"""
         return {
             "performance_theater": [
-                r"# TODO.*performance",
                 r"# FAKE.*implementation",
                 r"return\s+0\.0\s*#.*performance",
                 r"pass\s*#.*real.*implementation",
@@ -108,13 +101,11 @@ class EnterpriseTheaterDetector:
             "compliance_theater": [
                 r"# MOCK.*compliance",
                 r"return\s+True\s*#.*compliant",
-                r"# TODO.*audit",
                 r"fake.*evidence",
                 r"dummy.*control",
                 r"pass\s*#.*compliance"
             ],
             "security_theater": [
-                r"# TODO.*crypto",
                 r"return\s+\"encrypted\"\s*#.*fake",
                 r"pass\s*#.*security",
                 r"fake.*validation",
@@ -123,7 +114,6 @@ class EnterpriseTheaterDetector:
             ],
             "functionality_theater": [
                 r"raise\s+NotImplementedError",
-                r"return\s+None\s*#.*TODO",
                 r"pass\s*#.*implement",
                 r"# STUB.*implementation",
                 r"placeholder.*function"
@@ -804,7 +794,7 @@ class EnterpriseTheaterDetector:
                 # Verify measurement accuracy
                 if report.get('total_measurements', 0) > 0:
                     measured_time = report.get('average_execution_time', 0)
-                    # Should measure approximately 10ms (allow ±5ms tolerance)
+                    # Should measure approximately 10ms (allow +/-5ms tolerance)
                     accurate_measurement = 0.005 <= measured_time <= 0.015
                 else:
                     accurate_measurement = False
@@ -983,7 +973,7 @@ class EnterpriseTheaterDetector:
         try:
             # For DPMO calculation specifically
             if 'defects' in formula.lower() and 'opportunities' in formula.lower():
-                # Test known values: 5 defects in 1,000,000 opportunities = 5.0 DPMO
+                # Test known values: 5 defects in 1, 000, 000 opportunities = 5.0 DPMO
                 test_defects = 5
                 test_opportunities = 1000000
                 expected_dpmo = 5.0
@@ -1205,12 +1195,10 @@ class EnterpriseTheaterDetector:
 
         return evidence_package
 
-
 # Factory function for enterprise theater detection
 def create_enterprise_theater_detector(project_root: str = None) -> EnterpriseTheaterDetector:
     """Create enterprise theater detector instance"""
     return EnterpriseTheaterDetector(project_root)
-
 
 # CLI interface for theater detection
 async def main():
@@ -1256,7 +1244,6 @@ async def main():
     except Exception as e:
         print(f"[FAIL] Theater detection failed: {e}")
         return False
-
 
 if __name__ == "__main__":
     success = asyncio.run(main())

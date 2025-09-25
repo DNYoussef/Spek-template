@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-NASA POT10 Compliance Validation Runner
-======================================
+from src.constants.base import MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 Enhanced runner script that integrates all NASA POT10 compliance tools:
 - Enhanced NASA POT10 analyzer with all 10 rules
@@ -22,7 +19,7 @@ logger = get_logger(__name__)
 class NASAComplianceValidator:
     """Main NASA POT10 compliance validation coordinator."""
 
-    def __init__(self, project_name: str, codebase_path: Path, output_dir: Path):
+def __init__(self, project_name: str, codebase_path: Path, output_dir: Path):
         self.project_name = project_name
         self.codebase_path = codebase_path
         self.output_dir = output_dir
@@ -34,8 +31,8 @@ class NASAComplianceValidator:
         self.reporting_system = ValidationReportingSystem(project_name, output_dir)
         self.fixer = AutomatedNASAFixer()
 
-    def run_complete_validation(self, apply_fixes: bool = False,
-                              generate_reports: bool = True) -> dict:
+def run_complete_validation(self, apply_fixes: bool = False,
+                                generate_reports: bool = True) -> dict:
         """Run complete NASA POT10 compliance validation."""
         logger.info(f"Starting NASA POT10 compliance validation for {self.project_name}")
         start_time = time.time()
@@ -154,8 +151,8 @@ class NASAComplianceValidator:
             'target_compliance_achieved': results['nasa_compliance'].get('compliance_score', 0) >= 95,
             'recommended_actions': self._generate_action_items(results),
             'next_validation_recommended': (datetime.now().date() +
-                                          (timedelta(days=7) if results['nasa_compliance'].get('compliance_score', 0) < 95
-                                           else timedelta(days=30))).isoformat()
+                                            (timedelta(days=7) if results['nasa_compliance'].get('compliance_score', 0) < 95
+                                            else timedelta(days=30))).isoformat()
         }
 
         logger.info(f"Validation completed in {duration:.1f} seconds")
@@ -163,7 +160,7 @@ class NASAComplianceValidator:
 
         return results
 
-    def _determine_success(self, results: dict) -> bool:
+def _determine_success(self, results: dict) -> bool:
         """Determine if validation was successful."""
         # Check for errors
         if 'error' in results.get('nasa_compliance', {}):
@@ -176,9 +173,9 @@ class NASAComplianceValidator:
         defense_score = results.get('defense_certification', {}).get('overall_score', 0)
 
         # Success if both scores are above minimum thresholds
-        return nasa_score >= 85 and defense_score >= 80
+        return nasa_score >= 85 and defense_score >= MINIMUM_TEST_COVERAGE_PERCENTAGE
 
-    def _generate_action_items(self, results: dict) -> list:
+def _generate_action_items(self, results: dict) -> list:
         """Generate prioritized action items based on results."""
         actions = []
 
@@ -217,7 +214,7 @@ class NASAComplianceValidator:
 
         return actions
 
-    def export_results(self, results: dict, output_file: Path = None) -> Path:
+def export_results(self, results: dict, output_file: Path = None) -> Path:
         """Export validation results to JSON file."""
         if output_file is None:
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -236,34 +233,34 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Run basic validation
-  python run_nasa_compliance_validation.py --project "MyProject"
+    # Run basic validation
+    python run_nasa_compliance_validation.py --project "MyProject"
 
-  # Run with automated fixes
-  python run_nasa_compliance_validation.py --project "MyProject" --fix
+    # Run with automated fixes
+    python run_nasa_compliance_validation.py --project "MyProject" --fix
 
-  # Run with reports generation
-  python run_nasa_compliance_validation.py --project "MyProject" --report
+    # Run with reports generation
+    python run_nasa_compliance_validation.py --project "MyProject" --report
 
-  # Full validation with all features
-  python run_nasa_compliance_validation.py --project "MyProject" --fix --report --output results/
+    # Full validation with all features
+    python run_nasa_compliance_validation.py --project "MyProject" --fix --report --output results/
         """
     )
 
     parser.add_argument('--project', required=True,
-                       help='Project name for validation')
+                        help='Project name for validation')
     parser.add_argument('--path', default='.',
-                       help='Path to codebase to analyze (default: current directory)')
+                        help='Path to codebase to analyze (default: current directory)')
     parser.add_argument('--output', default='nasa_compliance_results',
-                       help='Output directory for results (default: nasa_compliance_results)')
+                        help='Output directory for results (default: nasa_compliance_results)')
     parser.add_argument('--fix', action='store_true',
-                       help='Apply automated fixes for violations')
+                        help='Apply automated fixes for violations')
     parser.add_argument('--report', action='store_true',
-                       help='Generate comprehensive reports (HTML, PDF, etc.)')
+                        help='Generate comprehensive reports (HTML, PDF, etc.)')
     parser.add_argument('--verbose', '-v', action='store_true',
-                       help='Enable verbose logging')
+                        help='Enable verbose logging')
     parser.add_argument('--json-output',
-                       help='Specify custom JSON output file path')
+                        help='Specify custom JSON output file path')
 
     args = parser.parse_args()
 

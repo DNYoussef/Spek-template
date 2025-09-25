@@ -1,4 +1,4 @@
-# Gary×Taleb Trading System - Execution Engine Kubernetes Deployment
+# GaryxTaleb Trading System - Execution Engine Kubernetes Deployment
 # Ultra-low latency order execution and routing service
 
 apiVersion: apps/v1

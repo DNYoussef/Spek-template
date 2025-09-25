@@ -1,15 +1,10 @@
-#!/usr/bin/env python3
-"""
-CI integration dashboard for self-analysis visualization.
-Minimal stub implementation for Self-Dogfooding Analysis workflow.
-"""
+from src.constants.base import NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
 
 import argparse
 import json
 import sys
 import os
 from datetime import datetime
-
 
 def main():
     parser = argparse.ArgumentParser(description='Generate self-analysis dashboard')
@@ -26,7 +21,7 @@ def main():
     
     # Load available results
     data = {
-        'nasa': {'nasa_compliance': {'score': 0.92}},
+        'nasa': {'nasa_compliance': {'score': NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD}},
         'mece': {'mece_score': 0.75},
         'god_objects': [],
         'correlation': {'correlation_score': 0.88}
@@ -112,7 +107,6 @@ def main():
     print(f"[GLOBE] Dashboard saved to {args.output}")
     
     return 0
-
 
 if __name__ == '__main__':
     sys.exit(main())

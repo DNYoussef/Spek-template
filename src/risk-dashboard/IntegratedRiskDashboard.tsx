@@ -125,7 +125,7 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
   useEffect(() => {
     const initializeSystems = async () => {
       try {
-        console.log('🚀 Initializing Integrated Risk Dashboard - Division 4...');
+        console.log(' Initializing Integrated Risk Dashboard - Division 4...');
 
         // Initialize Gary's DPI Engine (Phase 1)
         garyEngine.current = new GaryDPIEngine();
@@ -152,15 +152,15 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
         setIsInitialized(true);
         setError(null);
 
-        console.log('✅ All systems initialized successfully');
-        console.log('📊 Gary DPI Engine: Market analysis and signal generation');
-        console.log('🏺 Taleb Barbell: Antifragile portfolio allocation');
-        console.log('🎲 Kelly Criterion: Optimal position sizing');
-        console.log('⚠️ Risk Monitor: Real-time P(ruin) calculations');
+        console.log(' All systems initialized successfully');
+        console.log(' Gary DPI Engine: Market analysis and signal generation');
+        console.log(' Taleb Barbell: Antifragile portfolio allocation');
+        console.log(' Kelly Criterion: Optimal position sizing');
+        console.log(' Risk Monitor: Real-time P(ruin) calculations');
 
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-        console.error('❌ Failed to initialize systems:', errorMessage);
+        console.error(' Failed to initialize systems:', errorMessage);
         setError(errorMessage);
       }
     };
@@ -379,10 +379,10 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
             <div className="text-xl font-bold text-gray-800 mb-2">Initializing Division 4</div>
             <div className="text-lg text-gray-700 mb-4">Risk Monitoring Dashboard</div>
             <div className="space-y-2 text-sm text-gray-600">
-              <div>🎯 Starting Gary's DPI Engine...</div>
-              <div>🏺 Loading Taleb's Barbell Strategy...</div>
-              <div>🎲 Initializing Kelly Criterion...</div>
-              <div>⚠️ Connecting Real-time Risk Monitor...</div>
+              <div> Starting Gary's DPI Engine...</div>
+              <div> Loading Taleb's Barbell Strategy...</div>
+              <div> Initializing Kelly Criterion...</div>
+              <div> Connecting Real-time Risk Monitor...</div>
             </div>
           </div>
         </div>
@@ -396,7 +396,7 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
       <div className={`min-h-screen bg-gray-100 ${className}`}>
         <div className="flex items-center justify-center h-screen">
           <div className="text-center max-w-md">
-            <div className="text-red-600 text-6xl mb-4">⚠</div>
+            <div className="text-red-600 text-6xl mb-4"></div>
             <div className="text-xl font-semibold text-gray-800 mb-2">Division 4 System Error</div>
             <div className="text-gray-600 mb-4">{error}</div>
             <button
@@ -424,7 +424,7 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
                 Division 4: Integrated Risk Monitor
               </h1>
               <div className="text-sm text-gray-500">
-                Gary×Taleb×Kelly Real-Time Dashboard
+                GaryTalebKelly Real-Time Dashboard
               </div>
             </div>
 
@@ -577,7 +577,7 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
             <div className="space-y-6">
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <h3 className="text-lg font-semibold mb-4" style={{ color: COLORS.GARY.primary }}>
-                  🎯 Gary DPI Signals
+                   Gary DPI Signals
                 </h3>
 
                 {garyData.signals.length > 0 ? (
@@ -606,7 +606,7 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
                   </div>
                 ) : (
                   <div className="text-center py-8 text-gray-500">
-                    <div className="text-2xl mb-2">📊</div>
+                    <div className="text-2xl mb-2"></div>
                     <div>Analyzing market conditions...</div>
                   </div>
                 )}
@@ -642,7 +642,7 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
             <div className="space-y-6">
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <h3 className="text-lg font-semibold mb-4" style={{ color: COLORS.TALEB.primary }}>
-                  🏺 Taleb Barbell Strategy
+                   Taleb Barbell Strategy
                 </h3>
 
                 {talebData.allocation.timestamp ? (
@@ -699,7 +699,7 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
                   </div>
                 ) : (
                   <div className="text-center py-8 text-gray-500">
-                    <div className="text-2xl mb-2">🏺</div>
+                    <div className="text-2xl mb-2"></div>
                     <div>Optimizing barbell allocation...</div>
                   </div>
                 )}
@@ -738,7 +738,7 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
             <div className="space-y-6">
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <h3 className="text-lg font-semibold mb-4" style={{ color: COLORS.KELLY.primary }}>
-                  🎲 Kelly Criterion Positions
+                   Kelly Criterion Positions
                 </h3>
 
                 {kellyData.positions.length > 0 ? (
@@ -767,7 +767,7 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
                   </div>
                 ) : (
                   <div className="text-center py-8 text-gray-500">
-                    <div className="text-2xl mb-2">🎲</div>
+                    <div className="text-2xl mb-2"></div>
                     <div>Calculating optimal positions...</div>
                   </div>
                 )}
@@ -805,7 +805,7 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
           {riskData.alerts.length > 0 && (
             <div className="bg-white rounded-lg shadow-lg p-6">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                🚨 Active Risk Alerts
+                 Active Risk Alerts
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {riskData.alerts.slice(-6).map((alert) => (
@@ -850,10 +850,10 @@ export const IntegratedRiskDashboard: React.FC<IntegratedDashboardProps> = ({
               Division 4 Integrated Risk Dashboard - Phase 2 Complete
             </div>
             <div className="flex items-center space-x-6">
-              <span>Gary DPI: {systemStatus.gary.running ? '🟢' : '🔴'}</span>
-              <span>Taleb Barbell: {systemStatus.taleb.running ? '🟢' : '🔴'}</span>
-              <span>Kelly Criterion: {systemStatus.kelly.running ? '🟢' : '🔴'}</span>
-              <span>Risk Monitor: {systemStatus.risk.running ? '🟢' : '🔴'}</span>
+              <span>Gary DPI: {systemStatus.gary.running ? '' : ''}</span>
+              <span>Taleb Barbell: {systemStatus.taleb.running ? '' : ''}</span>
+              <span>Kelly Criterion: {systemStatus.kelly.running ? '' : ''}</span>
+              <span>Risk Monitor: {systemStatus.risk.running ? '' : ''}</span>
             </div>
           </div>
         </div>

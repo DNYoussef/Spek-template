@@ -4,16 +4,16 @@ Generates comprehensive DFARS compliance reports
 Part of god object decomposition (Day 4)
 """
 
-import json
-from typing import Dict, List, Optional, Any
-from dataclasses import dataclass
 from datetime import datetime
-import os
 from pathlib import Path
+from typing import Dict, List, Optional, Any
+import json
+import os
+
+from dataclasses import dataclass
 
 from .ComplianceChecker import ComplianceCheck, ComplianceStatus
 from .ValidationEngine import ValidationResult
-
 
 @dataclass
 class ReportFormat:
@@ -23,12 +23,11 @@ class ReportFormat:
     include_evidence: bool = True
     include_recommendations: bool = True
 
-
 class ReportGenerator:
     """
     Generates comprehensive DFARS compliance reports.
 
-    Extracted from dfars_compliance_validation_system (1,054 LOC -> ~200 LOC component).
+    Extracted from dfars_compliance_validation_system (1, 054 LOC -> ~200 LOC component).
     Handles:
     - Report generation
     - Evidence packaging
@@ -44,9 +43,9 @@ class ReportGenerator:
         self.template_dir = Path(__file__).parent / "templates"
 
     def generate_compliance_report(self,
-                                  compliance_checks: List[ComplianceCheck],
-                                  validation_results: List[ValidationResult],
-                                  report_format: ReportFormat) -> Dict[str, Any]:
+                                    compliance_checks: List[ComplianceCheck],
+                                    validation_results: List[ValidationResult],
+                                    report_format: ReportFormat) -> Dict[str, Any]:
         """Generate comprehensive compliance report."""
         # Create report structure
         report = {
@@ -86,8 +85,8 @@ class ReportGenerator:
         }
 
     def _generate_executive_summary(self,
-                                   compliance_checks: List[ComplianceCheck],
-                                   validation_results: List[ValidationResult]) -> Dict[str, Any]:
+                                    compliance_checks: List[ComplianceCheck],
+                                    validation_results: List[ValidationResult]) -> Dict[str, Any]:
         """Generate executive summary."""
         total_checks = len(compliance_checks)
         compliant = sum(1 for c in compliance_checks if c.status == ComplianceStatus.COMPLIANT)
@@ -126,8 +125,8 @@ class ReportGenerator:
             return "Non-Compliant - Immediate Action Required"
 
     def _extract_key_findings(self,
-                             compliance_checks: List[ComplianceCheck],
-                             validation_results: List[ValidationResult]) -> List[str]:
+                            compliance_checks: List[ComplianceCheck],
+                            validation_results: List[ValidationResult]) -> List[str]:
         """Extract key findings from assessments."""
         findings = []
 
@@ -158,8 +157,8 @@ class ReportGenerator:
         return findings
 
     def _identify_immediate_actions(self,
-                                   critical_issues: List[ValidationResult],
-                                   high_issues: List[ValidationResult]) -> List[str]:
+                                    critical_issues: List[ValidationResult],
+                                    high_issues: List[ValidationResult]) -> List[str]:
         """Identify immediate actions required."""
         actions = []
 
@@ -230,8 +229,8 @@ class ReportGenerator:
         ]
 
     def _compile_evidence(self,
-                         compliance_checks: List[ComplianceCheck],
-                         include_evidence: bool) -> Dict[str, Any]:
+                        compliance_checks: List[ComplianceCheck],
+                        include_evidence: bool) -> Dict[str, Any]:
         """Compile evidence summary."""
         if not include_evidence:
             return {"included": False}
@@ -257,8 +256,8 @@ class ReportGenerator:
         }
 
     def _compile_gaps_and_recommendations(self,
-                                         compliance_checks: List[ComplianceCheck],
-                                         include_recommendations: bool) -> List[Dict[str, Any]]:
+                                        compliance_checks: List[ComplianceCheck],
+                                        include_recommendations: bool) -> List[Dict[str, Any]]:
         """Compile gaps and recommendations."""
         gaps_and_recs = []
 
@@ -277,8 +276,8 @@ class ReportGenerator:
         return gaps_and_recs
 
     def _generate_audit_trail(self,
-                             compliance_checks: List[ComplianceCheck],
-                             validation_results: List[ValidationResult]) -> List[Dict[str, Any]]:
+                            compliance_checks: List[ComplianceCheck],
+                            validation_results: List[ValidationResult]) -> List[Dict[str, Any]]:
         """Generate audit trail for assessment."""
         trail = []
 

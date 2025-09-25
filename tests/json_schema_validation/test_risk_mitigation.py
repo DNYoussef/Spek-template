@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Risk Mitigation and Failure Mode Prevention Test Suite
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 Tests all failure modes and risk scenarios identified in Phase 1:
 - Data integrity maintenance under edge conditions
@@ -29,7 +27,6 @@ from analyzer.reporting.json import JSONReporter
 from analyzer.reporting.sarif import SARIFReporter
 from analyzer.ast_engine.core_analyzer import AnalysisResult, Violation
 from analyzer.thresholds import ConnascenceType, Severity
-
 
 class TestRiskMitigation(unittest.TestCase):
     """Risk mitigation and failure mode prevention tests."""
@@ -69,7 +66,7 @@ class TestRiskMitigation(unittest.TestCase):
                 line_number=i % 1000 + 1,
                 column=i % 80 + 1,
                 end_line=i % 1000 + 1,
-                end_column=i % 80 + 10,
+                end_column=i % MINIMUM_TEST_COVERAGE_PERCENTAGE + MAXIMUM_FUNCTION_PARAMETERS,
                 description=f"Stress test violation {i}",
                 recommendation=f"Fix violation {i}",
                 function_name=f"function_{i % 100}",
@@ -280,7 +277,7 @@ class TestRiskMitigation(unittest.TestCase):
         for i, policy in enumerate(policy_structures[1:], 1):
             policy_keys = set(policy.keys())
             self.assertEqual(first_policy_keys, policy_keys,
-                           f"Policy structure inconsistent at result {i}")
+                            f"Policy structure inconsistent at result {i}")
 
     def _create_sample_violation(self, violation_id: str, index: int) -> Violation:
         """Create a sample violation with specified ID and index."""
@@ -331,7 +328,7 @@ class TestRiskMitigation(unittest.TestCase):
         first_result = results[0][1]
         for thread_id, result in results[1:]:
             self.assertEqual(result, first_result, 
-                           f"Non-deterministic result from thread {thread_id}")
+                            f"Non-deterministic result from thread {thread_id}")
 
     def test_resource_exhaustion_protection(self):
         """Test protection against resource exhaustion attacks."""
@@ -417,7 +414,7 @@ class TestRiskMitigation(unittest.TestCase):
             locality="local",
             file_path="circular.py",
             line_number=10,
-            column=5,
+            column=MAXIMUM_NESTED_DEPTH,
             description="Circular reference test",
             recommendation="Fix circular reference",
             context=circular_context
@@ -517,7 +514,6 @@ class TestRiskMitigation(unittest.TestCase):
         valid_ids = {v["id"] for v in violations}
         self.assertIn("valid_1", valid_ids)
         self.assertIn("valid_2", valid_ids)
-
 
 if __name__ == "__main__":
     unittest.main()

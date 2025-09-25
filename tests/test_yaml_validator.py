@@ -4,11 +4,12 @@ YAML Validation Test Suite for Phase 1 Deployment
 Tests all workflow files for syntax and GitHub Actions schema compliance
 """
 
-import os
-import yaml
-import json
-import sys
 from pathlib import Path
+import json
+import os
+import sys
+
+import yaml
 
 class YAMLValidator:
     def __init__(self, base_path="."):
@@ -177,11 +178,9 @@ class YAMLValidator:
 
     def run_comprehensive_test(self):
         """Run all validation tests"""
-        print("Phase 1 Deployment Validation Test Suite")
         print("=" * 50)
         
         # Test 1: Branch Protection Workflow
-        print("\n1. Testing Branch Protection Workflow...")
         bp_ok, bp_issues = self.test_branch_protection_workflow()
         if bp_ok:
             print("PASS - Branch protection workflow is valid")
@@ -193,7 +192,6 @@ class YAMLValidator:
             self.errors.extend(bp_issues)
         
         # Test 2: CODEOWNERS File
-        print("\n2. Testing CODEOWNERS File...")
         co_ok, co_issues = self.test_codeowners_syntax()
         if co_ok:
             print("PASS - CODEOWNERS file is valid")
@@ -205,7 +203,6 @@ class YAMLValidator:
             self.errors.extend(co_issues)
         
         # Test 3: Working Workflows
-        print("\n3. Testing Working Workflows...")
         workflow_results = self.test_working_workflows()
         
         for workflow, result in workflow_results.items():
@@ -219,7 +216,6 @@ class YAMLValidator:
                 self.errors.extend([f"{workflow}: {issue}" for issue in result["issues"]])
         
         # Test 4: All Workflow Files YAML Syntax
-        print("\n4. Testing All Workflow YAML Syntax...")
         workflows_dir = self.base_path / ".github/workflows"
         if workflows_dir.exists():
             yaml_files = list(workflows_dir.glob("*.yml")) + list(workflows_dir.glob("*.yaml"))
@@ -262,12 +258,7 @@ if __name__ == "__main__":
     report = validator.run_comprehensive_test()
     
     print("\n" + "=" * 50)
-    print("PHASE 1 DEPLOYMENT TEST REPORT")
     print("=" * 50)
-    print(f"Total Components Tested: {report['test_summary']['total_components_tested']}")
-    print(f"Passed: {report['test_summary']['passed']}")
-    print(f"Failed: {report['test_summary']['failed']}")
-    print(f"Success Rate: {report['test_summary']['success_rate']}")
     
     if report['phase1_readiness']['ready_for_phase2']:
         print("\nPHASE 1 READY FOR DEPLOYMENT")
@@ -281,7 +272,5 @@ if __name__ == "__main__":
     # Save detailed report
     with open("tests/phase1_validation_report.json", "w") as f:
         json.dump(report, f, indent=2)
-    
-    print(f"\nDetailed report saved to: tests/phase1_validation_report.json")
     
     sys.exit(0 if report['phase1_readiness']['ready_for_phase2'] else 1)

@@ -116,11 +116,9 @@ def print_metrics(metrics):
 def main():
     """Main test execution."""
     if len(sys.argv) != 2:
-        print("Usage: python quality_gate_test.py <analysis_file>")
         sys.exit(1)
     
     file_path = sys.argv[1]
-    print(f"Testing quality gates for: {file_path}")
     print("=" * 50)
     
     # Load data

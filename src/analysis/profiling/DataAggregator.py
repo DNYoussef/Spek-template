@@ -4,16 +4,16 @@ Handles data collection and aggregation
 Part of god object decomposition (Day 4)
 """
 
-import json
-from typing import Dict, List, Optional, Any, Tuple, Set
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
 from collections import defaultdict
-import statistics
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Any, Tuple, Set
+import json
 import logging
 
-logger = logging.getLogger(__name__)
+from dataclasses import dataclass, field
+import statistics
 
+logger = logging.getLogger(__name__)
 
 @dataclass
 class DataPoint:
@@ -23,7 +23,6 @@ class DataPoint:
     value: float
     tags: Dict[str, str]
     metadata: Dict[str, Any]
-
 
 @dataclass
 class AggregationResult:
@@ -39,7 +38,6 @@ class AggregationResult:
     percentiles: Dict[int, float]
     time_range: Tuple[datetime, datetime]
 
-
 @dataclass
 class TimeSeries:
     """Time series data structure."""
@@ -48,12 +46,11 @@ class TimeSeries:
     resolution: str  # second, minute, hour, day
     aggregation_method: str  # sum, avg, min, max, count
 
-
 class DataAggregator:
     """
     Handles data collection and aggregation.
 
-    Extracted from result_aggregation_profiler (1,016 LOC -> ~250 LOC component).
+    Extracted from result_aggregation_profiler (1, 016 LOC -> ~250 LOC component).
     Handles:
     - Data collection from multiple sources
     - Time-based aggregation
@@ -62,18 +59,18 @@ class DataAggregator:
     - Result caching
     """
 
-    def __init__(self):
+def __init__(self):
         """Initialize data aggregator."""
         self.data_points: List[DataPoint] = []
         self.time_series: Dict[str, TimeSeries] = {}
         self.aggregation_cache: Dict[str, AggregationResult] = {}
         self.data_sources: Dict[str, Any] = {}
 
-    def add_data_point(self,
-                      metric_name: str,
-                      value: float,
-                      tags: Optional[Dict[str, str]] = None,
-                      metadata: Optional[Dict[str, Any]] = None) -> None:
+def add_data_point(self,
+                        metric_name: str,
+                        value: float,
+                        tags: Optional[Dict[str, str]] = None,
+                        metadata: Optional[Dict[str, Any]] = None) -> None:
         """Add single data point."""
         data_point = DataPoint(
             timestamp=datetime.now(),
@@ -92,7 +89,7 @@ class DataAggregator:
         # Clear cache for this metric
         self._clear_cache(metric_name)
 
-    def bulk_add_data(self, data_points: List[Dict[str, Any]]) -> int:
+def bulk_add_data(self, data_points: List[Dict[str, Any]]) -> int:
         """Add multiple data points in bulk."""
         added = 0
 
@@ -110,7 +107,7 @@ class DataAggregator:
 
         return added
 
-    def aggregate_metric(self,
+def aggregate_metric(self,
                         metric_name: str,
                         start_time: Optional[datetime] = None,
                         end_time: Optional[datetime] = None) -> Optional[AggregationResult]:
@@ -149,10 +146,10 @@ class DataAggregator:
         self.aggregation_cache[cache_key] = result
         return result
 
-    def _filter_data_points(self,
-                           metric_name: str,
-                           start_time: Optional[datetime],
-                           end_time: Optional[datetime]) -> List[DataPoint]:
+def _filter_data_points(self,
+                            metric_name: str,
+                            start_time: Optional[datetime],
+                            end_time: Optional[datetime]) -> List[DataPoint]:
         """Filter data points by metric and time range."""
         points = [p for p in self.data_points if p.metric_name == metric_name]
 
@@ -164,7 +161,7 @@ class DataAggregator:
 
         return points
 
-    def _calculate_percentiles(self, values: List[float]) -> Dict[int, float]:
+def _calculate_percentiles(self, values: List[float]) -> Dict[int, float]:
         """Calculate standard percentiles."""
         if not values:
             return {}
@@ -182,10 +179,10 @@ class DataAggregator:
 
         return percentiles
 
-    def create_time_series(self,
-                          name: str,
-                          resolution: str = 'minute',
-                          aggregation_method: str = 'avg') -> TimeSeries:
+def create_time_series(self,
+                            name: str,
+                            resolution: str = 'minute',
+                            aggregation_method: str = 'avg') -> TimeSeries:
         """Create new time series for tracking."""
         ts = TimeSeries(
             name=name,
@@ -197,7 +194,7 @@ class DataAggregator:
         self.time_series[name] = ts
         return ts
 
-    def aggregate_time_series(self,
+def aggregate_time_series(self,
                             series_name: str,
                             window: timedelta) -> List[Dict[str, Any]]:
         """Aggregate time series data over specified window."""
@@ -248,9 +245,9 @@ class DataAggregator:
 
         return list(buckets.values())
 
-    def correlate_metrics(self,
-                         metric1: str,
-                         metric2: str) -> float:
+def correlate_metrics(self,
+                        metric1: str,
+                        metric2: str) -> float:
         """Calculate correlation between two metrics."""
         points1 = self._filter_data_points(metric1, None, None)
         points2 = self._filter_data_points(metric2, None, None)
@@ -278,9 +275,9 @@ class DataAggregator:
 
         return numerator / (denominator1 * denominator2) ** 0.5
 
-    def group_by_tags(self,
-                     metric_name: str,
-                     tag_key: str) -> Dict[str, List[DataPoint]]:
+def group_by_tags(self,
+                    metric_name: str,
+                    tag_key: str) -> Dict[str, List[DataPoint]]:
         """Group data points by tag value."""
         points = self._filter_data_points(metric_name, None, None)
         groups = defaultdict(list)
@@ -291,7 +288,7 @@ class DataAggregator:
 
         return dict(groups)
 
-    def detect_anomalies(self,
+def detect_anomalies(self,
                         metric_name: str,
                         threshold_std: float = 3.0) -> List[DataPoint]:
         """Detect anomalies using standard deviation method."""
@@ -309,7 +306,7 @@ class DataAggregator:
 
         return anomalies
 
-    def get_trending_metrics(self, window: timedelta = timedelta(hours=1)) -> List[str]:
+def get_trending_metrics(self, window: timedelta = timedelta(hours=1)) -> List[str]:
         """Get metrics with increasing trend."""
         trending = []
         now = datetime.now()
@@ -327,7 +324,7 @@ class DataAggregator:
 
         return trending
 
-    def _clear_cache(self, metric_name: Optional[str] = None) -> None:
+def _clear_cache(self, metric_name: Optional[str] = None) -> None:
         """Clear aggregation cache."""
         if metric_name:
             # Clear only specific metric
@@ -338,7 +335,7 @@ class DataAggregator:
             # Clear all
             self.aggregation_cache.clear()
 
-    def export_data(self, format: str = 'json') -> Any:
+def export_data(self, format: str = 'json') -> Any:
         """Export aggregated data."""
         if format == 'json':
             return {

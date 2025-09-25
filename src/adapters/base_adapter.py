@@ -1,14 +1,13 @@
 """Base adapter implementation with common functionality."""
 
-import asyncio
+from pathlib import Path
+from typing import List, Dict, Any, Optional, Tuple
 import json
 import subprocess
 import time
-from pathlib import Path
-from typing import List, Dict, Any, Optional, Tuple
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+from lib.shared.utilities import get_logger
+import asyncio
 
 class BaseLinterAdapter(LinterAdapter):
     """Base implementation for common linter adapter functionality."""

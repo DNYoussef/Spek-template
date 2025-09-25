@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Tool Management System Tests
-Comprehensive test suite for linter tool lifecycle management, resource allocation, and health monitoring.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 import pytest
 import asyncio
@@ -43,7 +39,6 @@ class MockLinterTool:
         self.timeout = 30000
         self.outputFormat = "json"
         self.healthCheckCommand = f"{command} --version"
-
 
 class TestToolManagementSystem:
     """Test suite for tool management system"""
@@ -164,7 +159,7 @@ class TestToolManagementSystem:
         
         # Mock validation failure
         with patch.object(tool_manager, 'validateToolInstallation', 
-                         side_effect=Exception("Tool not found")):
+                        side_effect=Exception("Tool not found")):
             with pytest.raises(Exception, match="Tool not found"):
                 await tool_manager.registerTool(tool)
         
@@ -182,7 +177,6 @@ class TestToolManagementSystem:
             mock_run.return_value.stdout = "flake8 6.0.0"
             
             # This would normally validate the tool
-            # For testing, we'll mock the validation method
             with patch.object(tool_manager, 'validateToolInstallation', new_callable=AsyncMock):
                 await tool_manager.registerTool(tool)
         
@@ -218,7 +212,7 @@ class TestToolManagementSystem:
         )
         
         with patch.object(tool_manager, 'executeWithMonitoring', 
-                         return_value=mock_result):
+                        return_value=mock_result):
             result = await tool_manager.executeTool(tool.id, test_files)
         
         assert result.success is True
@@ -244,7 +238,7 @@ class TestToolManagementSystem:
         
         # Mock tool execution failure
         with patch.object(tool_manager, 'executeWithMonitoring', 
-                         side_effect=Exception("Execution failed")):
+                        side_effect=Exception("Execution failed")):
             with pytest.raises(Exception, match="Execution failed"):
                 await tool_manager.executeTool(tool.id, test_files)
         
@@ -271,7 +265,7 @@ class TestToolManagementSystem:
         
         # Cause 5 failures to trigger circuit breaker
         with patch.object(tool_manager, 'executeWithMonitoring', 
-                         side_effect=Exception("Execution failed")):
+                        side_effect=Exception("Execution failed")):
             for i in range(5):
                 with pytest.raises(Exception):
                     await tool_manager.executeTool(tool.id, test_files)
@@ -342,7 +336,7 @@ class TestToolManagementSystem:
         
         # Simulate health check failure
         with patch.object(tool_manager, 'validateToolInstallation', 
-                         side_effect=Exception("Health check failed")):
+                        side_effect=Exception("Health check failed")):
             await tool_manager.performToolHealthCheck(tool.id)
         
         # Verify degraded health
@@ -368,8 +362,8 @@ class TestToolManagementSystem:
         
         # Test recovery execution
         with patch.object(tool_manager, 'resetToolConfiguration', new_callable=AsyncMock), \
-             patch.object(tool_manager, 'clearToolCache', new_callable=AsyncMock), \
-             patch.object(tool_manager, 'executeRecoveryStep', new_callable=AsyncMock):
+            patch.object(tool_manager, 'clearToolCache', new_callable=AsyncMock), \
+            patch.object(tool_manager, 'executeRecoveryStep', new_callable=AsyncMock):
             
             await tool_manager.attemptToolRecovery(tool.id)
         
@@ -607,7 +601,6 @@ class TestToolManagementSystem:
         assert health.failureRate == 1.0
         assert health.lastError == "Execution failed"
 
-
 class TestToolConfiguration:
     """Test suite for tool configuration management"""
     
@@ -651,7 +644,6 @@ class TestToolConfiguration:
         assert allocation.priorityWeight == 0.8
         assert allocation.executionQuota == 100
         assert allocation.throttleInterval == 2000
-
 
 class TestToolHealthMonitoring:
     """Test suite for tool health monitoring"""
@@ -704,11 +696,10 @@ class TestToolHealthMonitoring:
         
         # Recovery
         health.isHealthy = True
-        health.healthScore = min(100, health.healthScore + 10)
+        health.healthScore = min(100, health.healthScore + MAXIMUM_FUNCTION_PARAMETERS)
         
         assert health.healthScore == 70
         assert health.isHealthy is True
-
 
 class TestToolPerformanceMetrics:
     """Test suite for tool performance metrics"""
@@ -791,7 +782,6 @@ class TestToolPerformanceMetrics:
         assert metrics.minExecutionTime == 0.5
         assert metrics.maxExecutionTime == 10.0
         assert metrics.averageExecutionTime == 3.0  # (0.5+1.0+1.5+2.0+10.0)/5
-
 
 if __name__ == "__main__":
     import logging

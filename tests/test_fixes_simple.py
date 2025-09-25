@@ -1,17 +1,12 @@
-#!/usr/bin/env python3
-"""
-Simple test script to validate GitHub Actions workflow fixes.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 import sys
 import os
 import subprocess
 from pathlib import Path
 
-
 def setup_environment():
     """Set up the testing environment with proper Python path."""
-    print("Setting up test environment...")
 
     # Add current directory to Python path
     current_dir = Path.cwd()
@@ -25,10 +20,8 @@ def setup_environment():
 
     print(f"PASS: Python path configured: {os.environ['PYTHONPATH']}")
 
-
 def test_lib_module():
     """Test that the lib module can be imported successfully."""
-    print("\nTesting lib module imports...")
 
     try:
         # Test basic lib import
@@ -51,13 +44,10 @@ def test_lib_module():
         return True
 
     except Exception as e:
-        print(f"FAIL: Lib module test failed: {e}")
         return False
-
 
 def test_syntax():
     """Test Python syntax in critical files."""
-    print("\nTesting Python syntax...")
 
     files_to_check = [
         "tests/enterprise/e2e/test_enterprise_workflows.py",
@@ -88,10 +78,8 @@ def test_syntax():
 
     return all_good
 
-
 def test_compliance_files():
     """Test NASA compliance file structure."""
-    print("\nTesting NASA compliance files...")
 
     required_files = [
         ".github/CODEOWNERS",
@@ -124,10 +112,8 @@ def test_compliance_files():
 
     return all_good
 
-
 def test_workflow_config():
     """Test that workflow files have proper PYTHONPATH configuration."""
-    print("\nTesting workflow file configuration...")
 
     workflow_files = [
         ".github/workflows/comprehensive-test-integration.yml",
@@ -159,10 +145,8 @@ def test_workflow_config():
 
     return all_good
 
-
 def test_import_basic():
     """Test basic import that was failing in GitHub Actions."""
-    print("\nTesting the specific import that was failing...")
 
     try:
         # This is the import that was failing in the GitHub Actions
@@ -173,7 +157,6 @@ def test_import_basic():
     except Exception as e:
         print(f"FAIL: Import failed: {e}")
         return False
-
 
 def calculate_compliance_score():
     """Calculate a basic NASA compliance score."""
@@ -190,7 +173,7 @@ def calculate_compliance_score():
 
     passed_checks = sum(checks.values())
     total_checks = len(checks)
-    score = int((passed_checks / total_checks) * 100)
+    score = int((passed_checks / total_checks) * MAXIMUM_FUNCTION_LENGTH_LINES)
 
     print(f"NASA Compliance Checks:")
     for check, passed in checks.items():
@@ -200,7 +183,6 @@ def calculate_compliance_score():
     print(f"\nCompliance Score: {score}% ({passed_checks}/{total_checks})")
 
     return score
-
 
 def main():
     """Run all validation tests."""
@@ -225,12 +207,9 @@ def main():
         try:
             passed = test_func()
             if passed:
-                print(f"\nPASS: {test_name} completed successfully")
             else:
-                print(f"\nFAIL: {test_name} had issues")
                 all_passed = False
         except Exception as e:
-            print(f"\nFAIL: {test_name} error: {e}")
             all_passed = False
 
     # Calculate NASA compliance
@@ -241,14 +220,11 @@ def main():
     print("VALIDATION SUMMARY")
     print("=" * 60)
 
-    if all_passed and compliance_score >= 80:
-        print("ALL TESTS PASSED - GitHub Actions fixes are working!")
+    if all_passed and compliance_score >= MINIMUM_TEST_COVERAGE_PERCENTAGE:
         print("Ready for CI/CD pipeline execution")
         return 0
     else:
-        print("SOME TESTS FAILED - Review and fix issues before deployment")
         return 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

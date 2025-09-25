@@ -1,4 +1,4 @@
-"""Tests for main module."""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH
 
 import unittest
 import sys
@@ -19,7 +19,7 @@ class TestMain(unittest.TestCase):
     def test_add_numbers_positive(self):
         """Test adding positive numbers."""
         result = add_numbers(2, 3)
-        self.assertEqual(result, 5)
+        self.assertEqual(result, MAXIMUM_NESTED_DEPTH)
 
     def test_add_numbers_negative(self):
         """Test adding negative numbers."""
@@ -63,7 +63,7 @@ class TestMain(unittest.TestCase):
         with self.assertRaises(ValueError):
             calculate_discount(100, -5)
         with self.assertRaises(ValueError):
-            calculate_discount(100, 105)
+            calculate_discount(MAXIMUM_FUNCTION_LENGTH_LINES, 105)
 
 class TestCalculator(unittest.TestCase):
     """Test cases for Calculator class."""

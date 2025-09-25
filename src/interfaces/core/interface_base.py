@@ -6,16 +6,16 @@ Common functionality and patterns shared across all interface types.
 Provides consistent API for CLI, Web, and VSCode interfaces.
 """
 
+from pathlib import Path
+from typing import Any, Dict, List
+import sys
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from pathlib import Path
-import sys
-from typing import Any, Dict, List
 
 # Import analyzer components
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from analyzer.core import ConnascenceAnalyzer
-
 
 @dataclass
 class InterfaceConfig:
@@ -28,30 +28,26 @@ class InterfaceConfig:
     enable_autofix: bool = True
     enable_ci_integration: bool = False
 
-
 class InterfaceBase(ABC):
     """Base class for all interface implementations."""
 
-    def __init__(self, config: InterfaceConfig):
+def __init__(self, config: InterfaceConfig):
         self.config = config
         self.analyzer = ConnascenceAnalyzer()
         self._setup_interface()
 
-    def _setup_interface(self):
+def _setup_interface(self):
         """Initialize interface-specific setup."""
-        pass
 
-    @abstractmethod
-    def display_results(self, analysis_result: Dict[str, Any]) -> None:
+@abstractmethod
+def display_results(self, analysis_result: Dict[str, Any]) -> None:
         """Display analysis results in interface-appropriate format."""
-        pass
 
-    @abstractmethod
-    def handle_error(self, error: Exception) -> None:
+@abstractmethod
+def handle_error(self, error: Exception) -> None:
         """Handle errors in interface-appropriate way."""
-        pass
 
-    def analyze_path(self, path: str, **kwargs) -> Dict[str, Any]:
+def analyze_path(self, path: str, **kwargs) -> Dict[str, Any]:
         """Common analysis entry point for all interfaces."""
         try:
             return self.analyzer.analyze_path(
@@ -68,11 +64,11 @@ class InterfaceBase(ABC):
                 'summary': {'total_violations': 0}
             }
 
-    def get_supported_formats(self) -> List[str]:
+def get_supported_formats(self) -> List[str]:
         """Get supported output formats for this interface."""
         return ['json', 'sarif', 'markdown', 'text']
 
-    def format_summary(self, analysis_result: Dict[str, Any]) -> str:
+def format_summary(self, analysis_result: Dict[str, Any]) -> str:
         """Create a formatted summary appropriate for this interface."""
         if not analysis_result.get('success', True):
             return f"Analysis failed: {analysis_result.get('error', 'Unknown error')}"
@@ -88,7 +84,7 @@ class InterfaceBase(ABC):
         else:
             return f"[WARN]  {total} violations found"
 
-    def _load_theme(self, theme_name: str) -> Dict[str, Any]:
+def _load_theme(self, theme_name: str) -> Dict[str, Any]:
         """Load theme configuration."""
         themes = {
             'default': {
@@ -116,12 +112,11 @@ class InterfaceBase(ABC):
         }
         return themes.get(theme_name, themes['default'])
 
-
 class OutputFormatter:
     """Unified output formatting across interfaces."""
 
-    @staticmethod
-    def format_violation(violation: Dict[str, Any], interface_type: str) -> str:
+@staticmethod
+def format_violation(violation: Dict[str, Any], interface_type: str) -> str:
         """Format a single violation for display."""
         severity = violation.get('severity', 'medium')
         description = violation.get('description', 'Unknown violation')
@@ -135,8 +130,8 @@ class OutputFormatter:
         else:  # vscode or other
             return f"{severity}: {description} ({file_path}:{line_number})"
 
-    @staticmethod
-    def format_summary_table(summary: Dict[str, Any], interface_type: str) -> str:
+@staticmethod
+def format_summary_table(summary: Dict[str, Any], interface_type: str) -> str:
         """Format summary statistics as table."""
         total = summary.get('total_violations', 0)
         critical = summary.get('critical_violations', 0)
@@ -147,20 +142,20 @@ class OutputFormatter:
         if interface_type == 'cli':
             return f"""
 Summary:
-  Total: {total}
-  Critical: {critical}
-  High: {high}
-  Medium: {medium}
-  Low: {low}
+    Total: {total}
+    Critical: {critical}
+    High: {high}
+    Medium: {medium}
+    Low: {low}
 """
         elif interface_type == 'web':
             return f"""
 <table class="summary-table">
-  <tr><td>Total</td><td>{total}</td></tr>
-  <tr><td>Critical</td><td class="critical">{critical}</td></tr>
-  <tr><td>High</td><td class="high">{high}</td></tr>
-  <tr><td>Medium</td><td class="medium">{medium}</td></tr>
-  <tr><td>Low</td><td class="low">{low}</td></tr>
+    <tr><td>Total</td><td>{total}</td></tr>
+    <tr><td>Critical</td><td class="critical">{critical}</td></tr>
+    <tr><td>High</td><td class="high">{high}</td></tr>
+    <tr><td>Medium</td><td class="medium">{medium}</td></tr>
+    <tr><td>Low</td><td class="low">{low}</td></tr>
 </table>
 """
         else:

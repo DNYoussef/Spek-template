@@ -4,11 +4,12 @@ Maintains API compatibility while delegating to decomposed components
 Part of god object decomposition (Day 3)
 """
 
-import json
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Any, Set
+import json
+
 from dataclasses import dataclass, field
-from datetime import datetime
 
 # Import decomposed components
 from .core.TestCoordinator import TestCoordinator, TestResult, TestSuite
@@ -19,7 +20,6 @@ from .MultiFileCoordinator import MultiFileCoordinator, MultiFileFix
 
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class LoopExecution:
@@ -35,13 +35,12 @@ class LoopExecution:
     escalation_triggered: bool = False
     success_metrics: Dict[str, float] = field(default_factory=dict)
 
-
 class LoopOrchestrator:
     """
     Facade for the CI/CD Loop Orchestrator.
 
-    Original: 1,323 LOC god object
-    Refactored: ~150 LOC facade + 5 specialized components (~1,200 LOC total)
+    Original: 1, 323 LOC god object
+    Refactored: ~150 LOC facade + 5 specialized components (~1, 200 LOC total)
 
     Maintains 100% backward compatibility while delegating to:
     - TestCoordinator: Test execution and failure analysis
@@ -51,9 +50,9 @@ class LoopOrchestrator:
     - MultiFileCoordinator: Cross-file fix coordination
     """
 
-    def __init__(self,
-                 project_root: str,
-                 config_path: Optional[str] = None):
+def __init__(self,
+                project_root: str,
+                config_path: Optional[str] = None):
         """Initialize the loop orchestrator with decomposed components."""
         self.project_root = Path(project_root)
         self.config_path = config_path
@@ -89,7 +88,7 @@ class LoopOrchestrator:
         self.current_execution: Optional[LoopExecution] = None
         self.execution_history: List[LoopExecution] = []
 
-    def _load_config(self) -> Dict[str, Any]:
+def _load_config(self) -> Dict[str, Any]:
         """Load configuration from file."""
         if self.config_path and Path(self.config_path).exists():
             try:
@@ -99,9 +98,9 @@ class LoopOrchestrator:
                 logger.error(f"Failed to load config: {e}")
         return {}
 
-    def start_loop(self,
-                   max_iterations: int = 10,
-                   target_success_rate: float = 0.95) -> LoopExecution:
+def start_loop(self,
+                    max_iterations: int = 10,
+                    target_success_rate: float = 0.95) -> LoopExecution:
         """Start a new CI/CD loop execution."""
         loop_id = f"loop_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
@@ -116,7 +115,7 @@ class LoopOrchestrator:
         logger.info(f"Started CI/CD loop: {loop_id}")
         return self.current_execution
 
-    def execute_step(self, step_name: str) -> Dict[str, Any]:
+def execute_step(self, step_name: str) -> Dict[str, Any]:
         """Execute a specific step in the loop."""
         if not self.current_execution:
             raise RuntimeError("No active loop execution")
@@ -147,7 +146,7 @@ class LoopOrchestrator:
         self.current_execution.step_results[step_name] = result
         return result
 
-    def _run_tests_step(self) -> Dict[str, Any]:
+def _run_tests_step(self) -> Dict[str, Any]:
         """Run tests using TestCoordinator."""
         test_suite = self.test_coordinator.execute_tests(with_coverage=True)
 
@@ -160,7 +159,7 @@ class LoopOrchestrator:
             "coverage": test_suite.coverage
         }
 
-    def _analyze_failures_step(self) -> Dict[str, Any]:
+def _analyze_failures_step(self) -> Dict[str, Any]:
         """Analyze test failures for patterns and coupling."""
         # Get failure summary from TestCoordinator
         failure_summary = self.test_coordinator.get_failure_summary()
@@ -180,7 +179,7 @@ class LoopOrchestrator:
 
         return {"total_failures": 0}
 
-    def _predict_success_step(self) -> Dict[str, Any]:
+def _predict_success_step(self) -> Dict[str, Any]:
         """Predict likelihood of success using SuccessPredictor."""
         if not self.current_execution:
             return {}
@@ -215,7 +214,7 @@ class LoopOrchestrator:
             "estimated_iterations": prediction.estimated_iterations
         }
 
-    def _generate_fixes_step(self) -> Dict[str, Any]:
+def _generate_fixes_step(self) -> Dict[str, Any]:
         """Generate fixes using AutoRepairEngine."""
         fixes_generated = []
 
@@ -251,7 +250,7 @@ class LoopOrchestrator:
             ))
         }
 
-    def _apply_fixes_step(self) -> Dict[str, Any]:
+def _apply_fixes_step(self) -> Dict[str, Any]:
         """Apply generated fixes."""
         applied = 0
         successful = 0
@@ -260,7 +259,6 @@ class LoopOrchestrator:
         fixes = self.current_execution.step_results.get("generate_fixes", {})
 
         # Note: In real implementation, would iterate through actual fixes
-        # This is simplified for the facade
 
         return {
             "fixes_applied": applied,
@@ -268,7 +266,7 @@ class LoopOrchestrator:
             "rollback_available": True
         }
 
-    def _validate_step(self) -> Dict[str, Any]:
+def _validate_step(self) -> Dict[str, Any]:
         """Validate that fixes resolved issues."""
         # Re-run tests
         validation_suite = self.test_coordinator.execute_tests()
@@ -284,7 +282,7 @@ class LoopOrchestrator:
             "remaining_failures": validation_suite.failed
         }
 
-    def _calculate_coupling_strength(self) -> float:
+def _calculate_coupling_strength(self) -> float:
         """Calculate average coupling strength from connascence issues."""
         if not self.current_execution.connascence_issues:
             return 0.0
@@ -295,7 +293,7 @@ class LoopOrchestrator:
         )
         return total_strength / len(self.current_execution.connascence_issues)
 
-    def _calculate_previous_success_rate(self) -> float:
+def _calculate_previous_success_rate(self) -> float:
         """Calculate success rate from previous iterations."""
         if not self.execution_history:
             return 0.5  # Default 50%
@@ -307,7 +305,7 @@ class LoopOrchestrator:
         )
         return successes / len(recent)
 
-    def complete_loop(self) -> Dict[str, Any]:
+def complete_loop(self) -> Dict[str, Any]:
         """Complete the current loop execution."""
         if not self.current_execution:
             return {}
@@ -337,7 +335,7 @@ class LoopOrchestrator:
         self.current_execution = None
         return final_metrics
 
-    def _is_successful(self) -> bool:
+def _is_successful(self) -> bool:
         """Determine if the loop execution was successful."""
         if not self.current_execution:
             return False
@@ -345,7 +343,7 @@ class LoopOrchestrator:
         validation = self.current_execution.step_results.get("validate", {})
         return validation.get("validation_passed", False)
 
-    def get_execution_status(self) -> Dict[str, Any]:
+def get_execution_status(self) -> Dict[str, Any]:
         """Get current execution status."""
         if not self.current_execution:
             return {"status": "idle"}

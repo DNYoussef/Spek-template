@@ -1,20 +1,16 @@
-# SPDX-License-Identifier: MIT
-"""
-Unified Test Orchestrator - Testing Integration Framework
-========================================================
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 Orchestrates testing across all 45+ test files with cross-phase validation
 and integration point testing. Provides hierarchical test execution with
 correlation validation and performance regression testing.
 
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 @dataclass
 class TestSuite:
@@ -25,8 +21,7 @@ class TestSuite:
     dependencies: List[str] = field(default_factory=list)
     execution_order: int = 0
     parallel_safe: bool = True
-    estimated_duration: float = 30.0  # seconds
-
+    estimated_duration: float = API_TIMEOUT_SECONDS.0  # seconds
 
 @dataclass
 class TestResult:
@@ -41,7 +36,6 @@ class TestResult:
     error_output: str = ""
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-
 @dataclass
 class IntegrationTestResult:
     """Result from integration point testing."""
@@ -51,7 +45,6 @@ class IntegrationTestResult:
     success: bool
     validation_results: List[Dict[str, Any]]
     execution_time: float
-
 
 @dataclass
 class UnifiedTestResult:
@@ -82,7 +75,6 @@ class UnifiedTestResult:
     # Metadata
     test_environment: Dict[str, Any] = field(default_factory=dict)
     metadata: Dict[str, Any] = field(default_factory=dict)
-
 
 class TestSuiteRegistry:
     """Registry for managing test suites across all phases."""
@@ -118,7 +110,7 @@ class TestSuiteRegistry:
             estimated_duration=60.0
         )
         
-        # Phase 3: Performance Optimization Tests
+        # Phase MAXIMUM_RETRY_ATTEMPTS: Performance Optimization Tests
         cache_files = list((project_root / "tests" / "cache_analyzer").glob("*.py"))
         performance_files = list((project_root / "analyzer" / "performance").glob("*test*.py"))
         self.suites["performance_optimization"] = TestSuite(
@@ -167,7 +159,6 @@ class TestSuiteRegistry:
         """Get suites that can be executed in parallel."""
         return [suite for suite in self.suites.values() if suite.parallel_safe]
 
-
 class IntegrationPointValidator:
     """Validates integration points between phases."""
     
@@ -206,7 +197,6 @@ class IntegrationPointValidator:
                 'expected_data_flow': 'phase_results -> correlation_matrix'
             },
             # Additional integration points would be defined here
-            # Representing the full 89 integration points
         ]
     
     async def validate_integration_point(
@@ -329,7 +319,6 @@ class IntegrationPointValidator:
         
         return results
 
-
 class UnifiedTestOrchestrator:
     """
     Orchestrates testing across all phases with correlation validation
@@ -373,7 +362,7 @@ class UnifiedTestOrchestrator:
             
             unified_result = UnifiedTestResult(
                 success=all(result.success for result in suite_results.values()) and 
-                       all(result.success for result in integration_results),
+                        all(result.success for result in integration_results),
                 total_execution_time=total_execution_time,
                 test_timestamp=test_timestamp,
                 suite_results=suite_results,

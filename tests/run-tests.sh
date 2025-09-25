@@ -51,13 +51,13 @@ echo -e "${YELLOW}[1/3] Running Unit Tests (React Components)...${NC}"
 echo ""
 
 if npm run test:unit -- --json --outputFile=test-results/unit-results.json --silent 2>/dev/null; then
-    echo -e "${GREEN}✓ Unit tests passed${NC}"
+    echo -e "${GREEN}[PASS] Unit tests passed${NC}"
     # Parse results (simplified - actual would parse JSON)
     UNIT_PASSED=45
     UNIT_FAILED=0
     update_counts "unit" $UNIT_PASSED $UNIT_FAILED
 else
-    echo -e "${RED}✗ Unit tests failed${NC}"
+    echo -e "${RED}[FAIL] Unit tests failed${NC}"
     UNIT_PASSED=38
     UNIT_FAILED=7
     update_counts "unit" $UNIT_PASSED $UNIT_FAILED
@@ -74,12 +74,12 @@ echo -e "${YELLOW}[2/3] Running Integration Tests (API Endpoints)...${NC}"
 echo ""
 
 if pytest tests/integration/api/grokfast_forge_api.test.py -v --json-report --json-report-file=test-results/integration-results.json 2>/dev/null; then
-    echo -e "${GREEN}✓ Integration tests passed${NC}"
+    echo -e "${GREEN}[PASS] Integration tests passed${NC}"
     INTEGRATION_PASSED=32
     INTEGRATION_FAILED=0
     update_counts "integration" $INTEGRATION_PASSED $INTEGRATION_FAILED
 else
-    echo -e "${RED}✗ Integration tests failed${NC}"
+    echo -e "${RED}[FAIL] Integration tests failed${NC}"
     INTEGRATION_PASSED=28
     INTEGRATION_FAILED=4
     update_counts "integration" $INTEGRATION_PASSED $INTEGRATION_FAILED
@@ -102,12 +102,12 @@ echo -e "${YELLOW}[3/3] Running E2E Tests (Playwright)...${NC}"
 echo ""
 
 if npx playwright test --reporter=json > test-results/e2e-results.json 2>/dev/null; then
-    echo -e "${GREEN}✓ E2E tests passed${NC}"
+    echo -e "${GREEN}[PASS] E2E tests passed${NC}"
     E2E_PASSED=15
     E2E_FAILED=0
     update_counts "e2e" $E2E_PASSED $E2E_FAILED
 else
-    echo -e "${RED}✗ E2E tests failed${NC}"
+    echo -e "${RED}[FAIL] E2E tests failed${NC}"
     E2E_PASSED=13
     E2E_FAILED=2
     update_counts "e2e" $E2E_PASSED $E2E_FAILED
@@ -164,7 +164,7 @@ if [ $FAILED_TESTS -gt 0 ]; then
         echo -e "${RED}Unit Test Failures:${NC}"
         echo "  1. GrokfastMonitor.test.tsx"
         echo "     - Test: 'should handle division by zero'"
-        echo "       Error: Expected '∞' but received 'NaN'"
+        echo "       Error: Expected 'infinity' but received 'NaN'"
         echo "       Fix: Update formatMetric() to handle Infinity"
         echo ""
         echo "  2. Phase5Dashboard.test.tsx"
@@ -240,10 +240,10 @@ if [ $(echo "$COVERAGE_STATEMENTS < 85" | bc -l) -eq 1 ]; then
 fi
 
 echo -e "${GREEN}Strengths:${NC}"
-echo "  ✓ Comprehensive edge case testing"
-echo "  ✓ Good API integration coverage"
-echo "  ✓ Memory leak detection in place"
-echo "  ✓ Real-time update validation"
+echo "  [PASS] Comprehensive edge case testing"
+echo "  [PASS] Good API integration coverage"
+echo "  [PASS] Memory leak detection in place"
+echo "  [PASS] Real-time update validation"
 echo ""
 
 # 9. Test Artifacts

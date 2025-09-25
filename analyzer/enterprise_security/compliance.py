@@ -3,15 +3,15 @@ Security Compliance Checker
 Validates code against security standards and regulations.
 """
 
+from typing import List, Dict, Any, Optional
+import json
 import os
 import re
-import json
-from typing import List, Dict, Any, Optional
+
 from dataclasses import dataclass
 from enum import Enum
 
 from .scanner import SecurityVulnerability, VulnerabilityType, SecurityLevel
-
 
 class SecurityStandard(Enum):
     """Security standards and regulations."""
@@ -23,7 +23,6 @@ class SecurityStandard(Enum):
     GDPR = "gdpr"
     ISO_27001 = "iso_27001"
 
-
 @dataclass
 class ComplianceRule:
     """Represents a compliance rule."""
@@ -33,7 +32,6 @@ class ComplianceRule:
     description: str
     severity: SecurityLevel
     check_function: str
-
 
 @dataclass
 class ComplianceViolation:
@@ -45,15 +43,14 @@ class ComplianceViolation:
     evidence: Dict[str, Any]
     recommendation: str
 
-
 class ComplianceChecker:
     """Main compliance checking engine."""
 
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
+def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
         self.rules = self._load_compliance_rules()
 
-    def _load_compliance_rules(self) -> List[ComplianceRule]:
+def _load_compliance_rules(self) -> List[ComplianceRule]:
         """Load compliance rules for various standards."""
         rules = []
 
@@ -123,7 +120,7 @@ class ComplianceChecker:
 
         return rules
 
-    def check_access_control(self, file_path: str, content: str) -> List[ComplianceViolation]:
+def check_access_control(self, file_path: str, content: str) -> List[ComplianceViolation]:
         """Check for broken access control patterns."""
         violations = []
 
@@ -155,7 +152,7 @@ class ComplianceChecker:
 
         return violations
 
-    def check_cryptographic_failures(self, file_path: str, content: str) -> List[ComplianceViolation]:
+def check_cryptographic_failures(self, file_path: str, content: str) -> List[ComplianceViolation]:
         """Check for cryptographic failures."""
         violations = []
 
@@ -182,7 +179,7 @@ class ComplianceChecker:
 
         return violations
 
-    def check_injection_vulnerabilities(self, file_path: str, content: str) -> List[ComplianceViolation]:
+def check_injection_vulnerabilities(self, file_path: str, content: str) -> List[ComplianceViolation]:
         """Check for injection vulnerabilities."""
         violations = []
 
@@ -227,16 +224,16 @@ class ComplianceChecker:
 
         return violations
 
-    def check_insecure_design(self, file_path: str, content: str) -> List[ComplianceViolation]:
+def check_insecure_design(self, file_path: str, content: str) -> List[ComplianceViolation]:
         """Check for insecure design patterns."""
         violations = []
 
         # Insecure design patterns
         design_patterns = [
-            (r'password\s*=\s*["\'][^"\']{1,7}["\']', "Weak password policy"),
+            (r'password\s*=\s*["\'][^"\']{1, 7}["\']', "Weak password policy"),
             (r'session_timeout\s*=\s*0', "Infinite session timeout"),
             (r'debug\s*=\s*True', "Debug mode in production"),
-            (r'SECRET_KEY\s*=\s*["\'][^"\']{1,15}["\']', "Weak secret key"),
+            (r'SECRET_KEY\s*=\s*["\'][^"\']{1, 15}["\']', "Weak secret key"),
         ]
 
         for pattern, description in design_patterns:
@@ -253,7 +250,7 @@ class ComplianceChecker:
 
         return violations
 
-    def check_security_misconfiguration(self, file_path: str, content: str) -> List[ComplianceViolation]:
+def check_security_misconfiguration(self, file_path: str, content: str) -> List[ComplianceViolation]:
         """Check for security misconfigurations."""
         violations = []
 
@@ -279,7 +276,7 @@ class ComplianceChecker:
 
         return violations
 
-    def check_cardholder_data_protection(self, file_path: str, content: str) -> List[ComplianceViolation]:
+def check_cardholder_data_protection(self, file_path: str, content: str) -> List[ComplianceViolation]:
         """Check for PCI DSS cardholder data protection."""
         violations = []
 
@@ -305,7 +302,7 @@ class ComplianceChecker:
 
         return violations
 
-    def check_encryption_in_transit(self, file_path: str, content: str) -> List[ComplianceViolation]:
+def check_encryption_in_transit(self, file_path: str, content: str) -> List[ComplianceViolation]:
         """Check for proper encryption in transit."""
         violations = []
 
@@ -331,14 +328,14 @@ class ComplianceChecker:
 
         return violations
 
-    def _get_rule(self, rule_id: str) -> ComplianceRule:
+def _get_rule(self, rule_id: str) -> ComplianceRule:
         """Get rule by ID."""
         for rule in self.rules:
             if rule.rule_id == rule_id:
                 return rule
         return None
 
-    def check_compliance(self, file_path: str, standards: List[SecurityStandard] = None) -> List[ComplianceViolation]:
+def check_compliance(self, file_path: str, standards: List[SecurityStandard] = None) -> List[ComplianceViolation]:
         """Check compliance against specified standards."""
         if not path_exists(file_path):
             return []
@@ -364,7 +361,7 @@ class ComplianceChecker:
 
         return all_violations
 
-    def generate_compliance_report(self, violations: List[ComplianceViolation]) -> Dict[str, Any]:
+def generate_compliance_report(self, violations: List[ComplianceViolation]) -> Dict[str, Any]:
         """Generate compliance report."""
         standard_counts = {}
         severity_counts = {s.value: 0 for s in SecurityLevel}

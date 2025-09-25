@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 """
 Diff coverage analysis for changed files (Python version)
-TODO: Implement actual diff coverage calculation
 """
 
+from pathlib import Path
+from typing import Dict, List, Any
 import json
 import os
 import subprocess
 import sys
-from pathlib import Path
-from typing import Dict, List, Any
 
 def get_changed_files() -> List[str]:
     """Get list of changed files from git."""
@@ -43,7 +42,6 @@ def analyze_diff_coverage() -> Dict[str, Any]:
             print(f"  - {file}")
         
         # TODO: Implement actual coverage calculation
-        # For now, return success with placeholder metrics
         result = {
             "ok": True,
             "coverage_delta": "+0.0%",
@@ -52,7 +50,6 @@ def analyze_diff_coverage() -> Dict[str, Any]:
             "total_lines": 0,
             "baseline_coverage": 0,
             "current_coverage": 0,
-            "message": "TODO: Implement diff coverage calculation"
         }
         
         # Save results

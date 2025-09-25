@@ -1,6 +1,4 @@
 """
-Shared Cache Health Analysis Utilities
-
 Consolidates duplicate cache health analysis patterns from:
 - comprehensive_cache_test.py
 - comprehensive_benchmark.py
@@ -9,10 +7,11 @@ Estimated LOC consolidation: 154 lines
 Estimated CoA reduction: ~112 violations
 """
 
+from src.constants.base import THEATER_DETECTION_FAILURE_THRESHOLD
+
 from dataclasses import dataclass
 from typing import Dict, Any, List, Optional
 from enum import Enum
-
 
 class CacheHealthStatus(Enum):
     """Cache health status levels"""
@@ -21,7 +20,6 @@ class CacheHealthStatus(Enum):
     FAIR = "fair"
     POOR = "poor"
     CRITICAL = "critical"
-
 
 @dataclass
 class CacheStats:
@@ -32,17 +30,16 @@ class CacheStats:
     max_size_bytes: int = 0
     evictions: int = 0
 
-    @property
-    def hit_rate(self) -> float:
+@property
+def hit_rate(self) -> float:
         """Calculate cache hit rate"""
         total = self.hits + self.misses
         return self.hits / total if total > 0 else 0.0
 
-    @property
-    def utilization(self) -> float:
+@property
+def utilization(self) -> float:
         """Calculate cache memory utilization"""
         return self.size_bytes / self.max_size_bytes if self.max_size_bytes > 0 else 0.0
-
 
 @dataclass
 class CacheHealthMetrics:
@@ -55,21 +52,20 @@ class CacheHealthMetrics:
     file_cache_stats: Optional[CacheStats] = None
     incremental_cache_stats: Optional[CacheStats] = None
 
-
 class CacheHealthAnalyzer:
     """Analyze cache health and performance"""
 
     # Health score thresholds
     EXCELLENT_THRESHOLD = 0.90
     GOOD_THRESHOLD = 0.75
-    FAIR_THRESHOLD = 0.60
+    FAIR_THRESHOLD = THEATER_DETECTION_FAILURE_THRESHOLD
     POOR_THRESHOLD = 0.40
 
-    @staticmethod
-    def calculate_cache_health(file_cache_stats: Dict[str, Any],
-                               incremental_cache_stats: Dict[str, Any],
-                               file_weight: float = 0.6,
-                               incremental_weight: float = 0.4) -> CacheHealthMetrics:
+@staticmethod
+def calculate_cache_health(file_cache_stats: Dict[str, Any],
+                                incremental_cache_stats: Dict[str, Any],
+                                file_weight: float = 0.6,
+                                incremental_weight: float = 0.4) -> CacheHealthMetrics:
         """
         Calculate overall cache health from component statistics
 
@@ -123,8 +119,8 @@ class CacheHealthAnalyzer:
             recommendations=recommendations
         )
 
-    @staticmethod
-    def _determine_health_status(health_score: float) -> CacheHealthStatus:
+@staticmethod
+def _determine_health_status(health_score: float) -> CacheHealthStatus:
         """Determine health status from score"""
         if health_score >= CacheHealthAnalyzer.EXCELLENT_THRESHOLD:
             return CacheHealthStatus.EXCELLENT
@@ -137,11 +133,11 @@ class CacheHealthAnalyzer:
         else:
             return CacheHealthStatus.CRITICAL
 
-    @staticmethod
-    def _generate_recommendations(combined_hit_rate: float,
-                                 combined_memory_utilization: float,
-                                 file_cache_stats: Dict[str, Any],
-                                 incremental_cache_stats: Dict[str, Any]) -> List[str]:
+@staticmethod
+def _generate_recommendations(combined_hit_rate: float,
+                                combined_memory_utilization: float,
+                                file_cache_stats: Dict[str, Any],
+                                incremental_cache_stats: Dict[str, Any]) -> List[str]:
         """Generate cache optimization recommendations"""
         recommendations = []
 

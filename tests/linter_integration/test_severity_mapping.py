@@ -4,12 +4,13 @@ Severity Mapping and Normalization Tests
 Comprehensive test suite for the unified severity mapping system and cross-tool violation normalization.
 """
 
-import pytest
-import tempfile
-import json
-import yaml
 from pathlib import Path
 from typing import Dict, Any, List
+import json
+import tempfile
+
+import pytest
+import yaml
 
 # Import system under test
 import sys
@@ -22,7 +23,6 @@ from linter_integration.severity_mapping.unified_severity import (
     SeverityRule,
     unified_mapper
 )
-
 
 class TestUnifiedSeverityMapper:
     """Test suite for unified severity mapping system"""
@@ -446,7 +446,6 @@ class TestUnifiedSeverityMapper:
             assert severity == UnifiedSeverity.MEDIUM
             assert category == ViolationCategory.STYLE
 
-
 class TestSeverityRule:
     """Test suite for SeverityRule data class"""
     
@@ -470,7 +469,6 @@ class TestSeverityRule:
         assert rule.category == ViolationCategory.STYLE
         assert "readability" in rule.rationale
         assert len(rule.examples) == 2
-
 
 class TestUnifiedSeverityEnums:
     """Test suite for unified severity and category enums"""
@@ -499,7 +497,6 @@ class TestUnifiedSeverityEnums:
         actual_categories = {cat.value for cat in ViolationCategory}
         assert actual_categories == expected_categories
 
-
 class TestGlobalMapperInstance:
     """Test suite for global unified_mapper instance"""
     
@@ -521,7 +518,6 @@ class TestGlobalMapperInstance:
         category = unified_mapper.categorize_violation("bandit", "B602", "security issue")
         assert isinstance(category, ViolationCategory)
         assert category == ViolationCategory.SECURITY
-
 
 class TestSeverityMappingIntegration:
     """Integration tests for severity mapping with real violation data"""
@@ -597,7 +593,6 @@ class TestSeverityMappingIntegration:
         for tool, rule, message in security_violations:
             severity = mapper.map_severity(tool, rule, "")
             assert severity in [UnifiedSeverity.HIGH, UnifiedSeverity.CRITICAL]
-
 
 if __name__ == "__main__":
     import logging

@@ -10,12 +10,12 @@ Tasks: SC-001 through SC-005
 - SC-005: Supply chain evidence package generator
 """
 
-from .sbom_generator import SBOMGenerator
-from .slsa_provenance import SLSAProvenanceGenerator
-from .vulnerability_scanner import VulnerabilityScanner
 from .crypto_signer import CryptographicSigner
 from .evidence_packager import EvidencePackager
+from .sbom_generator import SBOMGenerator
+from .slsa_provenance import SLSAProvenanceGenerator
 from .supply_chain_analyzer import SupplyChainAnalyzer
+from .vulnerability_scanner import VulnerabilityScanner
 
 __all__ = [
     'SBOMGenerator',

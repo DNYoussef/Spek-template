@@ -4,11 +4,12 @@ Validates import resolution and critical bug fixes.
 Also includes comprehensive import structure analysis from analyzer-import-test.py.
 """
 
-import pytest
-import sys
-import os
-import importlib.util
 from pathlib import Path
+import os
+import sys
+
+import importlib.util
+import pytest
 
 # Add analyzer to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
@@ -113,12 +114,9 @@ def test_analyzer_basic_functionality():
             assert analyzer_instance is not None
             print("UnifiedAnalyzer instantiation successful")
         else:
-            print("UnifiedAnalyzer not available for testing")
 
     except Exception as e:
-        print(f"UnifiedAnalyzer functionality test failed (but import succeeded): {e}")
         # Don't fail the test if import worked but instantiation failed
-        pass
 
 def test_analyzer_structure():
     """Test analyzer directory structure and module availability (from analyzer-import-test.py)."""
@@ -141,7 +139,6 @@ def test_analyzer_structure():
             missing_modules.append(str(module_path))
 
     # This test provides information but doesn't fail
-    # since many modules are optional
     if missing_modules:
         print(f"Optional modules not found: {missing_modules}")
     else:
@@ -172,7 +169,6 @@ def test_import_fallbacks():
     assert True
 
 if __name__ == "__main__":
-    print("Running analyzer tests...")
 
     # Run basic import tests
     test_analyzer_import()
@@ -185,5 +181,3 @@ if __name__ == "__main__":
     # Run structure tests from analyzer-import-test.py
     test_analyzer_structure()
     test_import_fallbacks()
-
-    print("All tests completed!")

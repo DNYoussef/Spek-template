@@ -1,15 +1,4 @@
 # SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
 
 """
 JSON Export for Machine-Readable Connascence Analysis
@@ -18,19 +7,18 @@ Generates stable, agent-friendly JSON reports with deterministic ordering
 and comprehensive metadata for tool integration.
 """
 
-import json
 from typing import Any, Dict, List
+import json
 
 from analyzer.ast_engine.core_analyzer import AnalysisResult, Violation
-
 
 class JSONReporter:
     """JSON report generator with stable schema."""
 
-    def __init__(self):
+def __init__(self):
         self.schema_version = "1.0.0"
 
-    def generate(self, result: AnalysisResult) -> str:
+def generate(self, result: AnalysisResult) -> str:
         """Generate JSON report from analysis result."""
         report = {
             "schema_version": self.schema_version,
@@ -44,7 +32,7 @@ class JSONReporter:
         # Ensure deterministic ordering
         return json.dumps(report, indent=2, sort_keys=True, ensure_ascii=False)
 
-    def _create_metadata(self, result: AnalysisResult) -> Dict[str, Any]:
+def _create_metadata(self, result: AnalysisResult) -> Dict[str, Any]:
         """Create report metadata."""
         return {
             "tool": {
@@ -62,7 +50,7 @@ class JSONReporter:
             "environment": {"python_version": "3.11+", "platform": "multi-platform"},
         }
 
-    def _create_summary(self, result: AnalysisResult) -> Dict[str, Any]:
+def _create_summary(self, result: AnalysisResult) -> Dict[str, Any]:
         """Create summary statistics."""
         violations = result.violations
 
@@ -108,7 +96,7 @@ class JSONReporter:
             },
         }
 
-    def _serialize_violation(self, violation: Violation) -> Dict[str, Any]:
+def _serialize_violation(self, violation: Violation) -> Dict[str, Any]:
         """Serialize a violation to JSON-friendly format."""
         return {
             "id": getattr(violation, 'id', 'unknown'),
@@ -134,7 +122,7 @@ class JSONReporter:
             "context": violation.context or {},
         }
 
-    def _create_policy_compliance(self, result: AnalysisResult) -> Dict[str, Any]:
+def _create_policy_compliance(self, result: AnalysisResult) -> Dict[str, Any]:
         """Create policy compliance information."""
         compliance = {
             "policy_preset": result.policy_preset,
@@ -157,7 +145,7 @@ class JSONReporter:
 
         return compliance
 
-    def export_results(self, result, output_file=None):
+def export_results(self, result, output_file=None):
         """Export results to JSON format.
 
         Args:
@@ -183,7 +171,7 @@ class JSONReporter:
             # Return JSON string
             return json_output
 
-    def _get_top_problematic_files(self, violations: List[Violation]) -> List[Dict[str, Any]]:
+def _get_top_problematic_files(self, violations: List[Violation]) -> List[Dict[str, Any]]:
         """Get files with the most violations, sorted by weight."""
         file_stats = {}
 

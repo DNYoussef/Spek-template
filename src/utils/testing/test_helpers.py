@@ -1,6 +1,6 @@
-"""Shared Testing Utilities and Helpers
+from src.constants.base import QUALITY_GATE_MINIMUM_PASS_RATE
 
-Consolidates common test setup, teardown, fixtures, and data generation patterns.
+"""Consolidates common test setup, teardown, fixtures, and data generation patterns.
 Extracted from: tests/cache_analyzer/, tests/enterprise/conftest.py
 """
 
@@ -12,7 +12,6 @@ from typing import Dict, List, Any, Optional, Generator
 from unittest.mock import Mock, MagicMock
 from datetime import datetime, timedelta
 import sys
-
 
 class TestProjectBuilder:
     """Build realistic project structures for testing."""
@@ -74,7 +73,6 @@ def function():
             files[filename] = file_path
         return files
 
-
 class TestDataFactory:
     """Generate common test data structures."""
 
@@ -115,7 +113,7 @@ class TestDataFactory:
         """Create sample metric data."""
         if metric_type == "performance":
             return {
-                "health_score": 0.85,
+                "health_score": QUALITY_GATE_MINIMUM_PASS_RATE,
                 "hit_rate": 0.75,
                 "efficiency": 0.80,
                 "utilization": 0.70
@@ -128,7 +126,6 @@ class TestDataFactory:
                 "maintainability": 0.78
             }
         return {}
-
 
 class AsyncTestHelper:
     """Utilities for async testing."""
@@ -156,7 +153,6 @@ class AsyncTestHelper:
         """Run coroutine with timeout."""
         return await asyncio.wait_for(coroutine, timeout=timeout_seconds)
 
-
 class MockFactory:
     """Create common mock objects."""
 
@@ -177,7 +173,6 @@ class MockFactory:
             hit_rate=lambda: hit_rate
         )
         return mock
-
 
 class PathHelper:
     """Path management for tests."""

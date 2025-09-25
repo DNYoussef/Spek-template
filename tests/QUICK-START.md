@@ -87,19 +87,19 @@ Coverage:    86.2%
 
 ```
 tests/
-├── unit/ui/
-│   ├── GrokfastMonitor.test.tsx       (22 tests)
-│   └── Phase5Dashboard.test.tsx       (23 tests)
-├── integration/api/
-│   └── grokfast_forge_api.test.py     (32 tests)
-├── e2e/
-│   └── agent-forge-ui.test.ts         (15 tests)
-├── mocks/
-│   └── api-responses.ts               (Test fixtures)
-├── setup.ts                            (Test environment)
-├── test-runner.config.ts               (Jest/Playwright config)
-├── run-tests.sh                        (Main test runner)
-└── package.json                        (NPM scripts)
+ unit/ui/
+    GrokfastMonitor.test.tsx       (22 tests)
+    Phase5Dashboard.test.tsx       (23 tests)
+ integration/api/
+    grokfast_forge_api.test.py     (32 tests)
+ e2e/
+    agent-forge-ui.test.ts         (15 tests)
+ mocks/
+    api-responses.ts               (Test fixtures)
+ setup.ts                            (Test environment)
+ test-runner.config.ts               (Jest/Playwright config)
+ run-tests.sh                        (Main test runner)
+ package.json                        (NPM scripts)
 ```
 
 ## Debugging Failed Tests

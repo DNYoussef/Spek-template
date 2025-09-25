@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Phase 3 Distributed Context Architecture Integration Test
-Tests the complete distributed context system with real implementations
-"""
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 import asyncio
 import json
@@ -43,7 +39,7 @@ class Phase3DistributedContextTester:
             self.test_results['summary']['failed'] += 1
             print(f"FAIL {name}: {details.get('error', 'Unknown error')}")
 
-    def run_node_test(self, test_code, timeout=30):
+    def run_node_test(self, test_code, timeout=API_TIMEOUT_SECONDS):
         """Run JavaScript test code in Node.js"""
         try:
             # Create temporary test file
@@ -246,7 +242,7 @@ runTest().then(result => {{
         }
         console.log('Threshold retrieval working');
 
-        // Test 3: Set threshold
+        // Test MAXIMUM_RETRY_ATTEMPTS: Set threshold
         const setResult = manager.setThreshold('context_degradation', 0.2, 'Test override');
         if (!setResult) {
             throw new Error('Threshold setting failed');
@@ -264,7 +260,7 @@ runTest().then(result => {{
         });
         console.log('System conditions update working');
 
-        // Test 5: Get statistics
+        // Test MAXIMUM_NESTED_DEPTH: Get statistics
         const stats = manager.getThresholdStatistics();
         if (!stats || typeof stats !== 'object') {
             throw new Error('Statistics generation failed');
@@ -391,7 +387,7 @@ runTest().then(result => {{
             })
 
     def test_integration_all_components(self):
-        """Test integration of all Phase 3 components together"""
+        """Test integration of all Phase MAXIMUM_RETRY_ATTEMPTS components together"""
         test_code = """
         const { IntelligentContextPruner } = require('./src/context/IntelligentContextPruner');
         const { SemanticDriftDetector } = require('./src/context/SemanticDriftDetector');
@@ -451,9 +447,9 @@ runTest().then(result => {{
         if result['success']:
             self.log_test('Phase 3 Component Integration', 'PASSED')
         else:
-            self.log_test('Phase 3 Component Integration', 'FAILED', {
+            self.log_test('Phase MAXIMUM_RETRY_ATTEMPTS Component Integration', 'FAILED', {
                 'error': result.get('error', 'Unknown error'),
-                'details': 'Failed to integrate all Phase 3 components'
+                'details': 'Failed to integrate all Phase MAXIMUM_RETRY_ATTEMPTS components'
             })
 
     def test_error_handling_and_validation(self):
@@ -531,14 +527,12 @@ runTest().then(result => {{
 
     def run_all_tests(self):
         """Run all Phase 3 distributed context tests"""
-        print("Phase 3 Distributed Context Architecture Integration Test")
         print("=" * 60)
 
         # Check Node.js availability
         try:
             subprocess.run(['node', '--version'], capture_output=True, check=True)
         except (subprocess.CalledProcessError, FileNotFoundError):
-            print("FAIL Node.js not available - skipping JavaScript tests")
             return False
 
         # Run all tests
@@ -567,11 +561,7 @@ runTest().then(result => {{
 
         # Print summary
         print("\n" + "=" * 60)
-        print("TEST SUMMARY")
-        print(f"Total Tests: {total}")
         print(f"Passed: {passed}")
-        print(f"Failed: {self.test_results['summary']['failed']}")
-        print(f"Success Rate: {self.test_results['summary']['success_rate']:.1f}%")
 
         # Save results
         results_file = self.project_root / '.claude' / '.artifacts' / 'phase3-integration-test-results.json'
@@ -585,10 +575,8 @@ runTest().then(result => {{
         # Determine overall success
         success_threshold = 85.0
         if self.test_results['summary']['success_rate'] >= success_threshold:
-            print(f"\nPASS PHASE 3 INTEGRATION TEST: PASSED ({self.test_results['summary']['success_rate']:.1f}% >= {success_threshold}%)")
             return True
         else:
-            print(f"\nFAIL PHASE 3 INTEGRATION TEST: FAILED ({self.test_results['summary']['success_rate']:.1f}% < {success_threshold}%)")
             return False
 
 if __name__ == '__main__':

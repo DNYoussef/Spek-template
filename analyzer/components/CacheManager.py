@@ -17,12 +17,11 @@ try:
 except ImportError:
     CACHE_AVAILABLE = False
 
-
 class CacheManager:
     """
     Manages file content caching, AST caching, and performance tracking.
 
-    Extracted from UnifiedConnascenceAnalyzer (1,860 LOC -> ~250 LOC component).
+    Extracted from UnifiedConnascenceAnalyzer (1, 860 LOC -> ~250 LOC component).
     Handles:
     - File content caching
     - AST tree caching

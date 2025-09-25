@@ -154,10 +154,10 @@ jobs:
 
             const degraded = '${{ steps.analysis.outputs.degraded }}' === 'true';
 
-            const nasaIcon = prNasa >= baseNasa ? '✅' : '❌';
-            const theaterIcon = prTheater <= baseTheater ? '✅' : '❌';
-            const godIcon = prGod <= baseGod ? '✅' : '❌';
-            const coverageIcon = prCoverage >= baseCoverage ? '✅' : '❌';
+            const nasaIcon = prNasa >= baseNasa ? '[OK]' : '[FAIL]';
+            const theaterIcon = prTheater <= baseTheater ? '[OK]' : '[FAIL]';
+            const godIcon = prGod <= baseGod ? '[OK]' : '[FAIL]';
+            const coverageIcon = prCoverage >= baseCoverage ? '[OK]' : '[FAIL]';
 
             const body = `## PR Quality Gate Analysis
 
@@ -168,7 +168,7 @@ jobs:
             | God Objects | ${baseGod} | ${prGod} | ${prGod - baseGod} | ${godIcon} |
             | Test Coverage | ${baseCoverage}% | ${prCoverage}% | ${(prCoverage - baseCoverage).toFixed(1)}% | ${coverageIcon} |
 
-            ${degraded ? '❌ **Quality Degradation Detected**\n\nThis PR degrades code quality metrics. Please fix before merging.' : '✅ **No Quality Degradation**\n\nThis PR maintains or improves quality standards.'}
+            ${degraded ? '[FAIL] **Quality Degradation Detected**\n\nThis PR degrades code quality metrics. Please fix before merging.' : '[OK] **No Quality Degradation**\n\nThis PR maintains or improves quality standards.'}
             `;
 
             github.rest.issues.createComment({
@@ -181,11 +181,11 @@ jobs:
       - name: Fail if Quality Degraded
         if: steps.analysis.outputs.degraded == 'true'
         run: |
-          echo "❌ PR degrades quality metrics"
-          echo "NASA Compliance: ${{ steps.base-metrics.outputs.nasa }}% → ${{ steps.pr-metrics.outputs.nasa }}%"
-          echo "Theater Score: ${{ steps.base-metrics.outputs.theater }} → ${{ steps.pr-metrics.outputs.theater }}"
-          echo "God Objects: ${{ steps.base-metrics.outputs.god }} → ${{ steps.pr-metrics.outputs.god }}"
-          echo "Test Coverage: ${{ steps.base-metrics.outputs.coverage }}% → ${{ steps.pr-metrics.outputs.coverage }}%"
+          echo "[FAIL] PR degrades quality metrics"
+          echo "NASA Compliance: ${{ steps.base-metrics.outputs.nasa }}% -> ${{ steps.pr-metrics.outputs.nasa }}%"
+          echo "Theater Score: ${{ steps.base-metrics.outputs.theater }} -> ${{ steps.pr-metrics.outputs.theater }}"
+          echo "God Objects: ${{ steps.base-metrics.outputs.god }} -> ${{ steps.pr-metrics.outputs.god }}"
+          echo "Test Coverage: ${{ steps.base-metrics.outputs.coverage }}% -> ${{ steps.pr-metrics.outputs.coverage }}%"
           exit 1
 
       - name: Upload Analysis Reports

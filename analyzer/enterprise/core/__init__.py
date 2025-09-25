@@ -7,8 +7,8 @@ Core infrastructure for enterprise features including feature flags,
 decorators, and performance monitoring.
 """
 
-from .feature_flags import EnterpriseFeatureManager, FeatureState, FeatureFlag
 from .decorators import EnterpriseEnhancer
+from .feature_flags import EnterpriseFeatureManager, FeatureState, FeatureFlag
 from .performance_monitor import EnterprisePerformanceMonitor
 
 __all__ = [

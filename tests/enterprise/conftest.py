@@ -1,5 +1,4 @@
-"""
-Comprehensive Test Configuration and Fixtures for Enterprise Tests
+from src.constants.base import API_TIMEOUT_SECONDS
 
 Provides shared fixtures, utilities, and configuration for all enterprise tests
 including mock factories, test data generators, and enterprise component setup.
@@ -103,7 +102,6 @@ except ImportError:
         Control = MockControl
         EnterpriseAnalyzerIntegration = MockIntegration
 
-
 # Test Configuration Constants
 TEST_PROJECT_NAME = "enterprise_test_project"
 TEST_ORGANIZATION = "SPEK Enterprise Testing"
@@ -113,14 +111,12 @@ DEFAULT_COMPLIANCE_FRAMEWORKS = [
     ComplianceFramework.NIST_CSF
 ]
 
-
 @pytest.fixture(scope="session", autouse=True)
 def event_loop():
     """Create event loop for async tests"""
     loop = asyncio.new_event_loop()
     yield loop
     loop.close()
-
 
 @pytest.fixture(autouse=True)
 def clean_feature_flags():
@@ -132,7 +128,6 @@ def clean_feature_flags():
     
     # Clear flags after test
     flag_manager.flags.clear()
-
 
 @pytest.fixture
 def temp_project_dir():
@@ -147,7 +142,6 @@ def temp_project_dir():
         
         yield project_root
 
-
 @pytest.fixture
 def realistic_project_dir():
     """Create realistic project directory with files for testing"""
@@ -158,7 +152,6 @@ def realistic_project_dir():
         create_realistic_project_structure(project_root)
         
         yield project_root
-
 
 def create_realistic_project_structure(project_root: Path):
     """Create a realistic project structure for testing"""
@@ -185,7 +178,7 @@ logger = get_logger(__name__)
             headers["Authorization"] = f"Bearer {self.api_key}"
             
         try:
-            response = self.session.get(url, headers=headers, timeout=30)
+            response = self.session.get(url, headers=headers, timeout=API_TIMEOUT_SECONDS)
             response.raise_for_status()
             
             return APIResponse(
@@ -370,7 +363,6 @@ class TestUtils:
     with open(project_root / "package.json", 'w') as f:
         json.dump(package_json, f, indent=2)
 
-
 @pytest.fixture
 def enterprise_features_enabled():
     """Enable all enterprise features for testing"""
@@ -394,7 +386,6 @@ def enterprise_features_enabled():
     
     # Cleanup handled by clean_feature_flags fixture
 
-
 @pytest.fixture
 def enterprise_features_disabled():
     """Disable all enterprise features for testing"""
@@ -416,20 +407,17 @@ def enterprise_features_disabled():
         
     yield features
 
-
 @pytest.fixture
 def six_sigma_telemetry():
     """Create Six Sigma telemetry instance for testing"""
     telemetry = SixSigmaTelemetry("test_process")
     yield telemetry
 
-
 @pytest.fixture
 def sbom_generator(temp_project_dir):
     """Create SBOM generator for testing"""
     generator = SBOMGenerator(temp_project_dir)
     yield generator
-
 
 @pytest.fixture
 def compliance_matrix(temp_project_dir):
@@ -442,13 +430,11 @@ def compliance_matrix(temp_project_dir):
         
     yield matrix
 
-
 @pytest.fixture
 def enterprise_integration(temp_project_dir):
     """Create enterprise analyzer integration for testing"""
     integration = EnterpriseAnalyzerIntegration(temp_project_dir)
     yield integration
-
 
 @pytest.fixture
 def mock_analyzer_class():
@@ -473,7 +459,6 @@ def mock_analyzer_class():
             
     return MockAnalyzer
 
-
 @pytest.fixture
 def failing_analyzer_class():
     """Mock analyzer class that fails for testing error scenarios"""
@@ -494,7 +479,6 @@ def failing_analyzer_class():
             return {"result": f"success_{data}", "call": self.call_count}
             
     return FailingAnalyzer
-
 
 # Test Data Factories
 
@@ -559,12 +543,10 @@ class TestDataFactory:
             "opportunities": total_opportunities
         }
 
-
 @pytest.fixture
 def test_data_factory():
     """Provide test data factory"""
     return TestDataFactory()
-
 
 # Utility Functions for Tests
 
@@ -593,7 +575,6 @@ def assert_enterprise_result_structure(result: Dict[str, Any]):
     for feature in expected_features:
         assert feature in features
 
-
 def assert_compliance_report_structure(report):
     """Assert that compliance report has expected structure"""
     from enterprise.compliance.matrix import ComplianceReport
@@ -607,7 +588,6 @@ def assert_compliance_report_structure(report):
     assert hasattr(report, "evidence_gaps")
     assert hasattr(report, "next_actions")
 
-
 def assert_telemetry_metrics_structure(metrics):
     """Assert that telemetry metrics have expected structure"""
     from enterprise.telemetry.six_sigma import SixSigmaMetrics
@@ -619,7 +599,6 @@ def assert_telemetry_metrics_structure(metrics):
     assert hasattr(metrics, "quality_level")
     assert hasattr(metrics, "sample_size")
     assert hasattr(metrics, "defect_count")
-
 
 # Performance Testing Utilities
 
@@ -645,12 +624,10 @@ class PerformanceTimer:
             f"{self.name} took {self.duration:.3f}s, expected < {max_seconds}s"
         )
 
-
 @pytest.fixture
 def performance_timer():
     """Provide performance timer utility"""
     return PerformanceTimer
-
 
 # Async Testing Utilities
 
@@ -677,12 +654,10 @@ class AsyncTestHelper:
         except asyncio.TimeoutError:
             pytest.fail(f"Coroutine timed out after {timeout_seconds}s")
 
-
 @pytest.fixture
 def async_helper():
     """Provide async testing helper"""
     return AsyncTestHelper()
-
 
 # Mock Data Generators
 
@@ -709,7 +684,6 @@ def sample_project_files():
         ]
     }
 
-
 # Pytest Configuration
 
 def pytest_configure(config):
@@ -731,7 +705,6 @@ def pytest_configure(config):
         "performance: mark test as performance test"
     )
 
-
 def pytest_collection_modifyitems(config, items):
     """Modify collected tests based on markers"""
     import pytest
@@ -744,7 +717,6 @@ def pytest_collection_modifyitems(config, items):
         # Add enterprise marker to enterprise tests
         if "enterprise" in str(item.fspath) or "enterprise" in item.name:
             item.add_marker(pytest.mark.enterprise)
-
 
 # Import time for performance testing
 import time

@@ -1,7 +1,4 @@
-"""
-SC-002: SLSA Level 3 Provenance Attestation System
-Generates SLSA provenance attestations for supply chain security.
-"""
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 import json
 import hashlib
@@ -12,9 +9,8 @@ from typing import Dict, List, Any, Optional
 import subprocess
 import os
 
-
 class SLSAProvenanceGenerator:
-    """SLSA Level 3 provenance attestation generator."""
+    """SLSA Level MAXIMUM_RETRY_ATTEMPTS provenance attestation generator."""
     
     def __init__(self, config: Dict[str, Any]):
         self.config = config
@@ -27,8 +23,8 @@ class SLSAProvenanceGenerator:
         self.build_type = config.get('build_type', 'https://spek.dev/build-types/generic@v1')
         
     def generate_provenance(self, 
-                           subject_artifacts: List[Dict[str, Any]],
-                           build_metadata: Dict[str, Any]) -> str:
+                            subject_artifacts: List[Dict[str, Any]],
+                            build_metadata: Dict[str, Any]) -> str:
         """Generate SLSA provenance attestation."""
         
         # Create provenance statement
@@ -45,8 +41,8 @@ class SLSAProvenanceGenerator:
         return str(provenance_path)
     
     def _create_provenance_statement(self, 
-                                   subject_artifacts: List[Dict[str, Any]],
-                                   build_metadata: Dict[str, Any]) -> Dict[str, Any]:
+                                    subject_artifacts: List[Dict[str, Any]],
+                                    build_metadata: Dict[str, Any]) -> Dict[str, Any]:
         """Create SLSA provenance statement."""
         
         return {
@@ -71,8 +67,8 @@ class SLSAProvenanceGenerator:
         }
     
     def _create_intoto_statement(self, 
-                               provenance: Dict[str, Any],
-                               subject_artifacts: List[Dict[str, Any]]) -> Dict[str, Any]:
+                                provenance: Dict[str, Any],
+                                subject_artifacts: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Create in-toto statement wrapper."""
         
         return {
@@ -305,25 +301,25 @@ class SLSAProvenanceGenerator:
             
             # Get commit hash
             result = subprocess.run(['git', 'rev-parse', 'HEAD'], 
-                                  capture_output=True, text=True, timeout=10)
+                                    capture_output=True, text=True, timeout=10)
             if result.returncode == 0:
                 git_info['commit'] = result.stdout.strip()
             
             # Get branch
             result = subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], 
-                                  capture_output=True, text=True, timeout=10)
+                                    capture_output=True, text=True, timeout=10)
             if result.returncode == 0:
                 git_info['ref'] = f"refs/heads/{result.stdout.strip()}"
             
             # Get remote origin URL
             result = subprocess.run(['git', 'remote', 'get-url', 'origin'], 
-                                  capture_output=True, text=True, timeout=10)
+                                    capture_output=True, text=True, timeout=10)
             if result.returncode == 0:
                 git_info['repository'] = result.stdout.strip()
             
             # Get commit timestamp
             result = subprocess.run(['git', 'show', '-s', '--format=%ci', 'HEAD'], 
-                                  capture_output=True, text=True, timeout=10)
+                                    capture_output=True, text=True, timeout=10)
             if result.returncode == 0:
                 git_info['commit_timestamp'] = result.stdout.strip()
                 

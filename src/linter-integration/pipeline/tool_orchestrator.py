@@ -1,9 +1,4 @@
 from lib.shared.utilities import get_logger
-#!/usr/bin/env python3
-"""
-External Tool Pipeline Orchestrator for Linter Integration.
-Coordinates execution of multiple linters and aggregates results.
-"""
 
 import asyncio
 import json

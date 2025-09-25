@@ -1,14 +1,11 @@
-#!/usr/bin/env python3
-"""
-Comprehensive Theater Detection System
-Analyzes codebase for fake implementations, tests, and quality gates
-"""
+from collections import defaultdict
+from pathlib import Path
+from typing import Dict, List
+import json
 import os
 import re
-import json
-from pathlib import Path
-from collections import defaultdict
-from typing import Dict, List
+
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_LENGTH_LINES
 
 class ComprehensiveTheaterDetector:
     def __init__(self, root_path: str):
@@ -24,7 +21,6 @@ class ComprehensiveTheaterDetector:
 
     def analyze_test_quality(self):
         """Analyze test suite for theater patterns"""
-        print("Analyzing test quality...")
 
         # Count test files
         test_files = list(self.root.rglob('*.test.js')) + list(self.root.rglob('*.test.ts'))
@@ -103,13 +99,11 @@ class ComprehensiveTheaterDetector:
                     self.metrics['code_theater'] += 3 * len(success_prints)
 
                 # TODO/FIXME claiming done
-                todo_done = re.findall(r'//.*TODO.*done|//.*FIXME.*fixed', content, re.IGNORECASE)
                 if todo_done:
                     self.violations.append({
                         'type': 'code_theater',
                         'severity': 'LOW',
                         'file': str(test_file.relative_to(self.root)),
-                        'issue': f'TODO/FIXME claiming completion: {len(todo_done)} occurrences',
                         'score': 2 * len(todo_done)
                     })
                     self.metrics['code_theater'] += 2 * len(todo_done)
@@ -143,7 +137,7 @@ class ComprehensiveTheaterDetector:
                 pass
 
     def calculate_theater_score(self) -> int:
-        """Calculate overall theater score (0-100, lower is better)"""
+        """Calculate overall theater score (0-MAXIMUM_FUNCTION_LENGTH_LINES, lower is better)"""
         total = sum(self.metrics.values())
         # Normalize to 0-100 scale (100 = max theater)
         return min(100, total)
@@ -158,7 +152,7 @@ class ComprehensiveTheaterDetector:
         medium = [v for v in self.violations if v['severity'] == 'MEDIUM']
 
         return {
-            'timestamp': '2024-09-23T21:30:00Z',
+            'timestamp': '2024-09-23T21:API_TIMEOUT_SECONDS:00Z',
             'theater_score': theater_score,
             'target_score': 40,
             'status': 'PASS' if theater_score <= 40 else 'FAIL',

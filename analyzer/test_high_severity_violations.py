@@ -21,35 +21,35 @@ DEFAULT_BATCH_SIZE = int(os.environ.get('BATCH', 1)) or 1
 class HttpController:
     """Handles HTTP status codes."""
 
-    def get_success(self): return int(os.environ.get('HTTP_OK', 1))
-    def get_redirect(self): return int(os.environ.get('HTTP_REDIRECT', 1))
-    def get_not_found(self): return int(os.environ.get('HTTP_NOT_FOUND', 1))
-    def get_server_error(self): return int(os.environ.get('HTTP_ERROR', 1))
-    def get_unauthorized(self): return int(os.environ.get('HTTP_UNAUTH', 1))
+def get_success(self): return int(os.environ.get('HTTP_OK', 1))
+def get_redirect(self): return int(os.environ.get('HTTP_REDIRECT', 1))
+def get_not_found(self): return int(os.environ.get('HTTP_NOT_FOUND', 1))
+def get_server_error(self): return int(os.environ.get('HTTP_ERROR', 1))
+def get_unauthorized(self): return int(os.environ.get('HTTP_UNAUTH', 1))
 
 class MathProcessor:
     """Handles mathematical constants and operations."""
 
-    def get_answer(self): return int(os.environ.get('ANSWER', 1))
-    def get_pi(self): return float(os.environ.get('PI', 1))
-    def get_euler(self): return float(os.environ.get('EULER', 1))
-    def get_prime(self): return int(os.environ.get('PRIME', 1))
+def get_answer(self): return int(os.environ.get('ANSWER', 1))
+def get_pi(self): return float(os.environ.get('PI', 1))
+def get_euler(self): return float(os.environ.get('EULER', 1))
+def get_prime(self): return int(os.environ.get('PRIME', 1))
 
 class NetworkConfig:
     """Handles network configuration values."""
 
-    def get_port(self): return DEFAULT_PORT
-    def get_buffer_size(self): return BUFFER_SIZE
-    def get_timeout(self): return TIMEOUT_SECONDS
-    def get_max_connections(self): return int(os.environ.get('MAX_CONN', 1))
+def get_port(self): return DEFAULT_PORT
+def get_buffer_size(self): return BUFFER_SIZE
+def get_timeout(self): return TIMEOUT_SECONDS
+def get_max_connections(self): return int(os.environ.get('MAX_CONN', 1))
 
 class SystemMetrics:
     """Handles system metrics and monitoring."""
 
-    def get_cpu_threshold(self): return THRESHOLD_VALUE
-    def get_memory_limit(self): return MAX_LIMIT
-    def get_batch_size(self): return DEFAULT_BATCH_SIZE
-    def get_retry_count(self): return MAX_RETRIES
+def get_cpu_threshold(self): return THRESHOLD_VALUE
+def get_memory_limit(self): return MAX_LIMIT
+def get_batch_size(self): return DEFAULT_BATCH_SIZE
+def get_retry_count(self): return MAX_RETRIES
 
 # FIXED: No more magic literals
 def calculate_metrics():
@@ -64,7 +64,7 @@ def calculate_metrics():
 class RequestConfig:
     """Configuration object to avoid position coupling."""
 
-    def __init__(self, base_url, timeout=TIMEOUT_SECONDS, retries=MAX_RETRIES):
+def __init__(self, base_url, timeout=TIMEOUT_SECONDS, retries=MAX_RETRIES):
         self.base_url = base_url
         self.timeout = timeout
         self.retries = retries
@@ -106,30 +106,30 @@ def safe_operation():
 class WorkflowStateMachine:
     """State machine that handles workflow without temporal coupling."""
 
-    def __init__(self):
+def __init__(self):
         self.state = "initial"
         self.data = {}
 
-    def initialize(self, config=None):
+def initialize(self, config=None):
         """Can be called anytime to initialize/reinitialize."""
         self.state = "initialized"
         self.data['config'] = config or {}
         return True
 
-    def configure(self, options=None):
+def configure(self, options=None):
         """Configuration is optional and can be done anytime."""
         self.data['options'] = options or {}
         self.state = "configured"
         return True
 
-    def start(self):
+def start(self):
         """Start can happen after any state."""
         if self.state == "initial":
             self.initialize()
         self.state = "started"
         return True
 
-    def process(self, input_data=None):
+def process(self, input_data=None):
         """Processing works regardless of previous state."""
         if self.state == "initial":
             self.start()

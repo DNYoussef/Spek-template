@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Comprehensive Test Runner for Phase 2 Linter Integration
-Runs all test suites with proper categorization, reporting, and validation.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 import pytest
 import sys
@@ -12,7 +8,6 @@ from pathlib import Path
 from typing import Dict, List, Any
 import subprocess
 import argparse
-
 
 class LinterIntegrationTestRunner:
     """Comprehensive test runner for linter integration system"""
@@ -87,10 +82,6 @@ class LinterIntegrationTestRunner:
         }
         
         print("=" * 80)
-        print("PHASE 2 LINTER INTEGRATION - COMPREHENSIVE TEST SUITE")
-        print("=" * 80)
-        print(f"Test Categories: {', '.join(test_categories)}")
-        print(f"Total Test Suites: {len(test_suites)}")
         print("-" * 80)
         
         # Run test suites
@@ -115,7 +106,6 @@ class LinterIntegrationTestRunner:
             
             # Print immediate results
             if result["passed"]:
-                print(f"   [OK] {result['tests_run']} tests passed in {suite_duration:.2f}s")
             else:
                 print(f"   [FAIL] {result['failures']} failures, {result['errors']} errors")
                 if result["error_summary"]:
@@ -256,7 +246,7 @@ class LinterIntegrationTestRunner:
         total_errors = sum(result["errors"] for result in self.results.values())
         total_passed = total_tests - total_failures - total_errors
         
-        success_rate = (total_passed / total_tests * 100) if total_tests > 0 else 0
+        success_rate = (total_passed / total_tests * MAXIMUM_FUNCTION_LENGTH_LINES) if total_tests > 0 else 0
         
         # Generate report
         report = {
@@ -301,7 +291,7 @@ class LinterIntegrationTestRunner:
             coverage[component] = {
                 "covered": len(covered_suites) > 0,
                 "test_count": total_tests,
-                "success_rate": (passed_tests / total_tests * 100) if total_tests > 0 else 0
+                "success_rate": (passed_tests / total_tests * MAXIMUM_FUNCTION_LENGTH_LINES) if total_tests > 0 else 0
             }
         
         return coverage
@@ -334,7 +324,6 @@ class LinterIntegrationTestRunner:
     def _print_final_report(self, report: Dict[str, Any]):
         """Print comprehensive final report"""
         print("\n" + "=" * 80)
-        print("FINAL TEST REPORT - PHASE 2 LINTER INTEGRATION")
         print("=" * 80)
         
         # Overall status
@@ -345,8 +334,6 @@ class LinterIntegrationTestRunner:
         print()
         
         # Test summary
-        print("[CHART] TEST SUMMARY:")
-        print(f"   Total Tests: {report['total_tests']}")
         print(f"   Passed: {report['total_passed']}")
         print(f"   Failed: {report['total_failures']}")
         print(f"   Errors: {report['total_errors']}")
@@ -356,7 +343,6 @@ class LinterIntegrationTestRunner:
         print("[CLIPBOARD] SUITE RESULTS:")
         for suite_name, result in report["suite_results"].items():
             status_icon = "[OK]" if result["passed"] else "[FAIL]"
-            print(f"   {status_icon} {suite_name}: {result['tests_run']} tests in {result['duration']:.2f}s")
             if not result["passed"] and result.get("error_summary"):
                 print(f"      [BULB] {result['error_summary']}")
         print()
@@ -365,7 +351,6 @@ class LinterIntegrationTestRunner:
         print("[TARGET] COVERAGE ANALYSIS:")
         for component, data in report["coverage_analysis"].items():
             status_icon = "[OK]" if data["covered"] else "[FAIL]"
-            print(f"   {status_icon} {component}: {data['test_count']} tests ({data['success_rate']:.1f}% success)")
         print()
         
         # Recommendations
@@ -374,7 +359,6 @@ class LinterIntegrationTestRunner:
             print(f"   {i}. {rec}")
         
         print("\n" + "=" * 80)
-
 
 def main():
     """Main entry point for test runner"""
@@ -417,12 +401,9 @@ def main():
         sys.exit(0 if report["overall_success"] else 1)
         
     except KeyboardInterrupt:
-        print("\n[WARNING]  Test run interrupted by user")
         sys.exit(130)
     except Exception as e:
-        print(f"\n? Test runner error: {e}")
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()

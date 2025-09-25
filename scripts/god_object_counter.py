@@ -4,11 +4,11 @@ God Object Counter - Detects files exceeding LOC thresholds
 Real implementation that can actually fail based on configurable thresholds
 """
 
-import os
-import sys
-import json
 from pathlib import Path
 from typing import Dict, List, Tuple
+import json
+import os
+import sys
 
 # Configurable thresholds
 LOC_THRESHOLD = 500  # Lines of code per file
@@ -123,7 +123,7 @@ def main():
             for i, obj in enumerate(report['top_10_offenders'], 1):
                 print(f"  {i}. {obj['file']}: {obj['loc']} LOC (+{obj['excess']} over threshold)")
         else:
-            print("✅ No god objects found!")
+            print("[OK] No god objects found!")
 
     # Exit with appropriate code for CI
     if ci_mode:

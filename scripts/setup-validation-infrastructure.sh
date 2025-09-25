@@ -6,7 +6,7 @@ echo "Setting up validation infrastructure..."
 
 # Make scripts executable
 chmod +x scripts/post-edit-scan.sh
-chmod +x scripts/quality-gate-check.py
+chmod +x scripts/quality_gate_check.py
 
 # Create git pre-commit hook
 cat > .git/hooks/pre-commit << 'EOF'
@@ -30,7 +30,7 @@ for FILE in $MODIFIED_FILES; do
     ./scripts/post-edit-scan.sh "$FILE"
 
     if [ $? -ne 0 ]; then
-      echo "❌ $FILE failed quality gate"
+      echo "[FAIL] $FILE failed quality gate"
       echo "Commit blocked. Fix violations and try again."
       echo "To skip this check (not recommended): git commit --no-verify"
       exit 1
@@ -38,7 +38,7 @@ for FILE in $MODIFIED_FILES; do
   fi
 done
 
-echo "✅ All modified files pass quality gates"
+echo "[OK] All modified files pass quality gates"
 exit 0
 EOF
 
@@ -110,12 +110,12 @@ cat > .claude/.artifacts/remediation-progress.json << 'EOF'
 }
 EOF
 
-echo "✅ Validation infrastructure setup complete!"
+echo "[OK] Validation infrastructure setup complete!"
 echo ""
 echo "Created:"
 echo "  - .git/hooks/pre-commit (automatic quality checks)"
 echo "  - scripts/post-edit-scan.sh (file-level scanning)"
-echo "  - scripts/quality-gate-check.py (gate validation)"
+echo "  - scripts/quality_gate_check.py (gate validation)"
 echo "  - .claude/.artifacts/remediation-progress.json (progress tracking)"
 echo ""
 echo "Next steps:"

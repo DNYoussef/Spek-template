@@ -55,7 +55,7 @@ export class QueenOrchestrator extends EventEmitter {
   async initialize(): Promise<void> {
     if (this.initialized) return;
 
-    console.log('🔷 Initializing Queen Orchestrator...');
+    console.log(' Initializing Queen Orchestrator...');
 
     // Initialize princess manager
     await this.princessManager.initialize();
@@ -82,7 +82,7 @@ export class QueenOrchestrator extends EventEmitter {
     this.initialized = true;
     this.emit('queen:initialized', this.swarmMetrics.getMetrics());
 
-    console.log('✅ Queen Orchestrator initialized successfully');
+    console.log(' Queen Orchestrator initialized successfully');
   }
 
   /**
@@ -214,14 +214,14 @@ export class QueenOrchestrator extends EventEmitter {
         );
 
         if (degradation > this.degradationThreshold) {
-          console.warn(`⚠️ High degradation detected from ${princessId}: ${degradation}`);
+          console.warn(` High degradation detected from ${princessId}: ${degradation}`);
           await this.handleDegradation(task, princessId, degradation);
         }
 
         return result;
 
       } catch (error) {
-        console.error(`❌ Princess ${princessId} execution failed:`, error);
+        console.error(` Princess ${princessId} execution failed:`, error);
         return null;
       }
     });
@@ -238,7 +238,7 @@ export class QueenOrchestrator extends EventEmitter {
     princessId: string,
     degradation: number
   ): Promise<void> {
-    console.log(`🔧 Handling degradation for task ${task.id} from ${princessId}`);
+    console.log(` Handling degradation for task ${task.id} from ${princessId}`);
 
     await this.consensusCoordinator.propose(
       'queen',
@@ -267,7 +267,7 @@ export class QueenOrchestrator extends EventEmitter {
    * Synchronize all princesses
    */
   private async synchronizeAllPrincesses(): Promise<void> {
-    console.log('🔄 Synchronizing all princess domains...');
+    console.log(' Synchronizing all princess domains...');
 
     const githubTruth = await this.githubIntegration.getProcessTruth();
 
@@ -294,10 +294,10 @@ export class QueenOrchestrator extends EventEmitter {
     const averageIntegrity = results.reduce((sum, r) => sum + r.integrity, 0) / results.length;
 
     if (averageIntegrity < 0.85) {
-      console.warn(`⚠️ Low average integrity: ${averageIntegrity}`);
+      console.warn(` Low average integrity: ${averageIntegrity}`);
       await this.initiateRecovery();
     } else {
-      console.log(`✅ Synchronization verified: ${(averageIntegrity * 100).toFixed(1)}% integrity`);
+      console.log(` Synchronization verified: ${(averageIntegrity * 100).toFixed(1)}% integrity`);
     }
   }
 
@@ -305,7 +305,7 @@ export class QueenOrchestrator extends EventEmitter {
    * Initiate recovery procedures
    */
   private async initiateRecovery(): Promise<void> {
-    console.log('🔧 Initiating recovery procedures...');
+    console.log(' Initiating recovery procedures...');
 
     await this.consensusCoordinator.propose(
       'queen',
@@ -326,31 +326,31 @@ export class QueenOrchestrator extends EventEmitter {
   private setupEventHandlers(): void {
     // Consensus events
     this.consensusCoordinator.on('consensus:reached', (proposal) => {
-      console.log(`✅ Consensus reached: ${proposal.id}`);
+      console.log(` Consensus reached: ${proposal.id}`);
     });
 
     this.consensusCoordinator.on('byzantine:detected', ({ princess, pattern }) => {
-      console.warn(`⚠️ Byzantine behavior detected: ${princess} - ${pattern}`);
+      console.warn(` Byzantine behavior detected: ${princess} - ${pattern}`);
     });
 
     // Protocol events
     this.protocol.on('message:failed', ({ message, target }) => {
-      console.error(`❌ Message delivery failed to ${target}`);
+      console.error(` Message delivery failed to ${target}`);
     });
 
     this.protocol.on('princess:unresponsive', ({ princess }) => {
-      console.warn(`⚠️ Princess ${princess} unresponsive`);
+      console.warn(` Princess ${princess} unresponsive`);
       this.princessManager.healPrincess(princess);
     });
 
     // Router events
     this.router.on('circuit:open', ({ princess }) => {
-      console.warn(`⚠️ Circuit breaker opened for ${princess}`);
+      console.warn(` Circuit breaker opened for ${princess}`);
     });
 
     // Degradation events
     this.degradationMonitor.on('degradation:critical', (data) => {
-      console.error(`❌ Critical degradation detected:`, data);
+      console.error(` Critical degradation detected:`, data);
       this.initiateRecovery();
     });
 
@@ -442,7 +442,7 @@ export class QueenOrchestrator extends EventEmitter {
    * Shutdown the orchestrator
    */
   async shutdown(): Promise<void> {
-    console.log('🔷 Shutting down Queen Orchestrator...');
+    console.log(' Shutting down Queen Orchestrator...');
 
     this.protocol.shutdown();
     this.router.shutdown();

@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-DFARS Compliance Fixer - Phase 2 Defense Requirements
-====================================================
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 Implements encryption for sensitive data and comprehensive audit trails.
 Priority: P1 - Must be completed within 21 days.
@@ -151,11 +148,11 @@ class AuditTrailManager:
             """)
 
     def log_event(self,
-                  event_type: str,
-                  action: str,
-                  resource_path: Optional[str] = None,
-                  user_id: Optional[str] = None,
-                  details: Optional[Dict] = None) -> int:
+                    event_type: str,
+                    action: str,
+                    resource_path: Optional[str] = None,
+                    user_id: Optional[str] = None,
+                    details: Optional[Dict] = None) -> int:
         """Log audit event with integrity verification."""
 
         timestamp = datetime.now().isoformat()
@@ -170,7 +167,7 @@ class AuditTrailManager:
             cursor = conn.execute("""
                 INSERT INTO audit_events
                 (timestamp, event_type, user_id, session_id, resource_path,
-                 action, details, signature, created_at)
+                action, details, signature, created_at)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 timestamp, event_type, user_id, session_id, resource_path,
@@ -215,7 +212,7 @@ class AuditTrailManager:
                 conn.execute("""
                     INSERT INTO file_integrity
                     (file_path, checksum_after, modification_time, user_id,
-                     change_description, audit_event_id)
+                    change_description, audit_event_id)
                     VALUES (?, ?, ?, ?, ?, ?)
                 """, (
                     str(path),
@@ -250,7 +247,7 @@ class AuditTrailManager:
                 # Verify event signatures
                 cursor = conn.execute("""
                     SELECT id, timestamp, event_type, action, resource_path,
-                           user_id, signature FROM audit_events
+                            user_id, signature FROM audit_events
                 """)
 
                 violations = []
@@ -500,7 +497,7 @@ def main():
             logger.info("DFARS compliance achieved")
             return 0
         else:
-            logger.error(f"DFARS compliance not achieved: {success_rate*100:.1f}%")
+            logger.error(f"DFARS compliance not achieved: {success_rate*MAXIMUM_FUNCTION_LENGTH_LINES:.1f}%")
             return 1
     else:
         logger.info("No sensitive files requiring encryption found")

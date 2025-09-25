@@ -4,16 +4,16 @@ Handles forensic analysis and evidence collection
 Part of god object decomposition (Day 3-5)
 """
 
-import json
-import hashlib
-from typing import Dict, List, Optional, Tuple, Any, Set
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
 from collections import defaultdict
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Tuple, Any, Set
+import hashlib
+import json
 import logging
 
-logger = logging.getLogger(__name__)
+from dataclasses import dataclass, field
 
+logger = logging.getLogger(__name__)
 
 @dataclass
 class ForensicEvidence:
@@ -28,7 +28,6 @@ class ForensicEvidence:
     chain_of_custody: List[Dict[str, str]] = field(default_factory=list)
     integrity_verified: bool = True
 
-
 @dataclass
 class AuditTrail:
     """Represents an audit trail entry."""
@@ -40,12 +39,11 @@ class AuditTrail:
     result: str
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-
 class ForensicsEngine:
     """
     Handles forensic analysis and evidence collection.
 
-    Extracted from EnhancedIncidentResponseSystem (1,226 LOC -> ~200 LOC component).
+    Extracted from EnhancedIncidentResponseSystem (1, 226 LOC -> ~200 LOC component).
     Handles:
     - Evidence collection and preservation
     - Audit trail generation
@@ -154,7 +152,7 @@ class ForensicsEngine:
         self.audit_trails.append(trail)
 
     def build_forensic_timeline(self,
-                               incident_id: str) -> List[Dict[str, Any]]:
+                                incident_id: str) -> List[Dict[str, Any]]:
         """Build forensic timeline for incident."""
         timeline = []
 
@@ -189,7 +187,7 @@ class ForensicsEngine:
         return timeline
 
     def verify_evidence_integrity(self,
-                                 evidence_id: str) -> Tuple[bool, str]:
+                                evidence_id: str) -> Tuple[bool, str]:
         """Verify integrity of stored evidence."""
         evidence = self.evidence_store.get(evidence_id)
         if not evidence:
@@ -214,9 +212,9 @@ class ForensicsEngine:
             return False, "Integrity check failed - evidence may be tampered"
 
     def update_chain_of_custody(self,
-                               evidence_id: str,
-                               action: str,
-                               actor: str) -> None:
+                                evidence_id: str,
+                                action: str,
+                                actor: str) -> None:
         """Update chain of custody for evidence."""
         evidence = self.evidence_store.get(evidence_id)
         if evidence:
@@ -238,7 +236,7 @@ class ForensicsEngine:
             )
 
     def export_evidence_package(self,
-                               incident_id: str) -> Dict[str, Any]:
+                                incident_id: str) -> Dict[str, Any]:
         """Export complete evidence package for incident."""
         evidence_ids = self.evidence_index.get(incident_id, [])
 

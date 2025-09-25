@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Phase 4 Precision Validation Test Suite
-Comprehensive testing for micro-operations and hierarchical coordination
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES
 
 import unittest
 import asyncio
@@ -22,7 +18,6 @@ try:
 except ImportError:
     CACHE_PROFILER_AVAILABLE = False
 
-
 class TestPhase4PrecisionValidation(unittest.TestCase):
     """Test suite for Phase 4 precision validation micro-operations."""
     
@@ -33,7 +28,6 @@ class TestPhase4PrecisionValidation(unittest.TestCase):
     def tearDown(self):
         """Clean up test environment."""
         test_duration = time.time() - self.test_start_time
-        print(f"Test completed in {test_duration:.3f}s")
 
     def test_cache_hit_rate_method_exists(self):
         """Test that measure_cache_hit_rate method exists and is callable."""
@@ -54,7 +48,7 @@ class TestPhase4PrecisionValidation(unittest.TestCase):
         
         self.assertIsInstance(hit_rate, float)
         self.assertGreaterEqual(hit_rate, 0.0)
-        self.assertLessEqual(hit_rate, 100.0)
+        self.assertLessEqual(hit_rate, 60.0)
     
     def test_cache_hit_rate_method_thread_safety(self):
         """Test that measure_cache_hit_rate is thread-safe."""
@@ -93,7 +87,6 @@ class TestPhase4PrecisionValidation(unittest.TestCase):
     def test_variable_scoping_fix_validation(self):
         """Test that variable scoping issues have been resolved."""
         # This test validates that the target_hit_rate variable scoping fix is working
-        # by simulating the problematic scenario
         
         def test_variable_scope():
             """Simulate the fixed variable scoping pattern."""
@@ -110,7 +103,7 @@ class TestPhase4PrecisionValidation(unittest.TestCase):
         
         # Test should complete without UnboundLocalError
         result = test_variable_scope()
-        self.assertEqual(result, 96.7 * 0.9)
+        self.assertEqual(result, 96.DAYS_RETENTION_PERIOD * 0.9)
 
     def test_micro_operations_precision(self):
         """Test that micro-operations maintain precision characteristics."""
@@ -127,7 +120,7 @@ class TestPhase4PrecisionValidation(unittest.TestCase):
         
         for fix_name, loc_count in actual_fixes:
             self.assertLessEqual(loc_count, max_loc_per_fix, 
-                               f"{fix_name} exceeds LOC limit: {loc_count} > {max_loc_per_fix}")
+                                f"{fix_name} exceeds LOC limit: {loc_count} > {max_loc_per_fix}")
     
     def test_performance_baselines_maintained(self):
         """Test that performance baselines are maintained after micro-fixes."""
@@ -155,7 +148,7 @@ class TestPhase4PrecisionValidation(unittest.TestCase):
         for metric, target in performance_targets.items():
             current = current_performance[metric]
             self.assertGreaterEqual(current, target * 0.95,  # Allow 5% tolerance
-                                  f"{metric}: {current} < {target} (95% threshold)")
+                                    f"{metric}: {current} < {target} (95% threshold)")
 
     def test_integration_stability(self):
         """Test that all micro-fixes work together without conflicts."""
@@ -236,7 +229,6 @@ class TestPhase4PrecisionValidation(unittest.TestCase):
         self.assertEqual(coordination_metrics['success_rate'], 1.0)
         self.assertEqual(coordination_metrics['integration_conflicts'], 0)
 
-
 class TestPhase4SecurityValidation(unittest.TestCase):
     """Test suite for Phase 4 security and safety validation."""
     
@@ -278,7 +270,6 @@ class TestPhase4SecurityValidation(unittest.TestCase):
         self.assertLess(byzantine_validation_results['consensus_latency_ms'], 200)
         self.assertLess(byzantine_validation_results['performance_overhead_percent'], 15)
 
-
 class TestPhase4PerformanceValidation(unittest.TestCase):
     """Test suite for Phase 4 performance validation."""
     
@@ -301,7 +292,7 @@ class TestPhase4PerformanceValidation(unittest.TestCase):
             # Performance should not regress (allow small improvements)
             regression_threshold = before * (1 - tolerance)
             self.assertGreaterEqual(after, regression_threshold,
-                                  f"{metric} regression detected: {after} < {regression_threshold}")
+                                    f"{metric} regression detected: {after} < {regression_threshold}")
 
     def test_micro_fix_performance_impact(self):
         """Test that micro-fixes have minimal performance impact."""
@@ -319,8 +310,7 @@ class TestPhase4PerformanceValidation(unittest.TestCase):
             max_acceptable = impact_data['max_acceptable']
             
             self.assertLessEqual(overhead, max_acceptable,
-                               f"{fix_name} overhead too high: {overhead}% > {max_acceptable}%")
-
+                                f"{fix_name} overhead too high: {overhead}% > {max_acceptable}%")
 
 def run_phase4_tests():
     """Run complete Phase 4 test suite."""
@@ -350,17 +340,13 @@ def run_phase4_tests():
         'success_rate': (result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun if result.testsRun > 0 else 0.0
     }
 
-
 if __name__ == '__main__':
-    print("[ROCKET] Phase 4 Precision Validation Test Suite")
     print("=" * 60)
     
     results = run_phase4_tests()
     
     print("\n" + "=" * 60)
-    print("[CHART] PHASE 4 TEST SUITE RESULTS")
     print("=" * 60)
-    print(f"Tests Run: {results['tests_run']}")
     print(f"Failures: {results['failures']}")
     print(f"Errors: {results['errors']}")
     print(f"Success Rate: {results['success_rate']:.1%}")

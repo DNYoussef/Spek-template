@@ -1,6 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Automatic policy detection based on project characteristics.
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Analyzes project structure and content to suggest the most appropriate
 connascence analysis policy.
@@ -10,11 +8,10 @@ from pathlib import Path
 import re
 from typing import Any, Dict, List
 
-
 class PolicyDetection:
     """Detects appropriate analysis policy based on project characteristics."""
 
-    def __init__(self):
+def __init__(self):
         self.policy_indicators = {
             "nasa_jpl_pot10": [
                 # NASA/aerospace indicators
@@ -43,7 +40,7 @@ class PolicyDetection:
             ]
         }
 
-    def detect_policy(self, paths: List[str]) -> str:
+def detect_policy(self, paths: List[str]) -> str:
         """Detect the most appropriate policy for the given paths."""
         if not paths:
             return "default"
@@ -70,7 +67,7 @@ class PolicyDetection:
         selected_policy = best_policy[0] if best_policy[1] > 0 else "default"
         return policy_mapping.get(selected_policy, "default")
 
-    def _analyze_paths(self, paths: List[str]) -> Dict[str, Any]:
+def _analyze_paths(self, paths: List[str]) -> Dict[str, Any]:
         """Analyze project characteristics from the given paths."""
         characteristics = {
             "file_patterns": set(),
@@ -97,7 +94,7 @@ class PolicyDetection:
 
         return characteristics
 
-    def _analyze_directory(self, directory: Path, characteristics: Dict[str, Any]) -> None:
+def _analyze_directory(self, directory: Path, characteristics: Dict[str, Any]) -> None:
         """Analyze a directory for policy indicators."""
         # Analyze directory structure
         characteristics["directory_names"].add(directory.name.lower())
@@ -137,7 +134,7 @@ class PolicyDetection:
         for py_file in sample_files:
             self._analyze_file(py_file, characteristics)
 
-    def _analyze_file(self, file_path: Path, characteristics: Dict[str, Any]) -> None:
+def _analyze_file(self, file_path: Path, characteristics: Dict[str, Any]) -> None:
         """Analyze a single file for policy indicators."""
         characteristics["file_patterns"].add(file_path.suffix.lower())
         characteristics["total_files"] += 1
@@ -162,9 +159,8 @@ class PolicyDetection:
 
         except (OSError, UnicodeDecodeError):
             # Skip files that can't be read
-            pass
 
-    def _is_test_file(self, file_path: Path) -> bool:
+def _is_test_file(self, file_path: Path) -> bool:
         """Check if a file is a test file."""
         test_patterns = [
             r"test_.*\.py$",
@@ -176,7 +172,7 @@ class PolicyDetection:
         path_str = str(file_path).lower()
         return any(re.search(pattern, path_str) for pattern in test_patterns)
 
-    def _extract_dependencies(self, content: str, characteristics: Dict[str, Any]) -> None:
+def _extract_dependencies(self, content: str, characteristics: Dict[str, Any]) -> None:
         """Extract dependency information from config files."""
         # Simple dependency extraction
         dependency_patterns = [
@@ -189,7 +185,7 @@ class PolicyDetection:
             matches = re.findall(pattern, content, re.MULTILINE)
             characteristics["dependencies"].update(dep.lower() for dep in matches)
 
-    def _score_policies(self, characteristics: Dict[str, Any]) -> Dict[str, float]:
+def _score_policies(self, characteristics: Dict[str, Any]) -> Dict[str, float]:
         """Score each policy based on project characteristics."""
         scores = {}
 
@@ -223,7 +219,7 @@ class PolicyDetection:
 
         return scores
 
-    def _apply_structure_bonuses(self, scores: Dict[str, float],
+def _apply_structure_bonuses(self, scores: Dict[str, float],
                                 characteristics: Dict[str, Any]) -> Dict[str, float]:
         """Apply bonuses based on project structure characteristics."""
 
@@ -245,7 +241,7 @@ class PolicyDetection:
 
         # Default bonus for balanced projects
         test_ratio = (characteristics.get("test_files", 0) /
-                     max(characteristics.get("python_files", 1), 1))
+                    max(characteristics.get("python_files", 1), 1))
         if 0.1 <= test_ratio <= 0.5:  # Reasonable test coverage
             scores["default"] = scores.get("default", 0) + 1.0
 

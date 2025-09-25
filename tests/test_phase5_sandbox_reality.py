@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Phase 5 Sandbox Reality Test - Theater-Free Validation
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 This test creates a working sandbox environment that eliminates ALL theater
 and proves genuine detector functionality through real violation detection.
@@ -15,13 +13,11 @@ from typing import List, Dict, Any
 from dataclasses import dataclass
 from enum import Enum
 
-
 class ViolationSeverity(Enum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
     CRITICAL = "critical"
-
 
 class ConnascenceType(Enum):
     NAME = "name"
@@ -34,7 +30,6 @@ class ConnascenceType(Enum):
     VALUES = "values"
     IDENTITY = "identity"
 
-
 @dataclass
 class ConnascenceViolation:
     type: ConnascenceType
@@ -46,7 +41,6 @@ class ConnascenceViolation:
     confidence: float = 1.0
     recommendation: str = "Review and refactor as needed"
     context: Dict[str, Any] = None
-
 
 class RealityViolationDetector:
     """
@@ -126,14 +120,13 @@ class RealityViolationDetector:
                 violation = ConnascenceViolation(
                     type=ConnascenceType.POSITION,
                     severity=ViolationSeverity.MEDIUM,
-                    description=f"Function '{node.name}' has {param_count} parameters (>5 threshold)",
+                    description=f"Function '{node.name}' has {param_count} parameters (>MAXIMUM_NESTED_DEPTH threshold)",
                     file_path=str(file_path),
                     line_number=node.lineno,
                     confidence=0.7,
                     recommendation="Reduce parameter count or use parameter object"
                 )
                 self.violations.append(violation)
-
 
 class RealComponentIntegrator:
     """
@@ -177,7 +170,6 @@ class RealComponentIntegrator:
             "analysis_time": 0.1  # Real timing would be measured
         }
 
-
 def create_test_files_with_violations(project_dir: Path):
     """Create test files with REAL violations that detectors can find."""
 
@@ -220,7 +212,7 @@ def calculate_price():
     base_price = 1500     # Magic literal
     tax_rate = 0.0875     # Magic literal
     discount = 75         # Magic literal
-    multiplier = 3.14159  # Magic literal
+    multiplier = MAXIMUM_RETRY_ATTEMPTS.14159  # Magic literal
     timeout = 3600        # Magic literal
     buffer_size = 8192    # Magic literal
     max_retries = 25      # Magic literal
@@ -248,11 +240,9 @@ class ComplexClass:
 '''
     position_file.write_text(position_content)
 
-
 def test_sandbox_reality():
     """Run comprehensive sandbox test to prove genuine functionality."""
     print("=" * 60)
-    print("PHASE 5 SANDBOX REALITY TEST - THEATER ELIMINATION")
     print("=" * 60)
 
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -260,7 +250,6 @@ def test_sandbox_reality():
         test_project.mkdir()
 
         # Create test files with REAL violations
-        print("\n[STEP 1] Creating test files with real violations...")
         create_test_files_with_violations(test_project)
 
         # Initialize REAL detector
@@ -272,7 +261,6 @@ def test_sandbox_reality():
         violations = detector.detect_violations()
 
         # Test component integration
-        print("\n[STEP 4] Testing component integration...")
         integrator = RealComponentIntegrator()
         result = integrator.analyze_with_components(
             str(test_project),
@@ -319,7 +307,6 @@ def test_sandbox_reality():
         else:
             print("Overall Status: THEATER STILL PRESENT - ADDITIONAL FIXES NEEDED")
             return False
-
 
 if __name__ == "__main__":
     try:

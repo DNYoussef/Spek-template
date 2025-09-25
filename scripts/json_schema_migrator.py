@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-JSON Schema Migration Tool
-Migrates existing 70+ JSON artifacts to standardized quality gate schema.
+from src.constants.base import REGULATORY_FACTUALITY_REQUIREMENT
 
 Features:
 - Preserves original data while adding standardized structure
@@ -17,7 +14,6 @@ from datetime import datetime
 from typing import Dict, Any, List
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class JSONSchemaMigrator:
     """Migrates JSON artifacts to standardized quality gate schema."""
@@ -233,7 +229,7 @@ class JSONSchemaMigrator:
         metrics = self._extract_metrics(data, 'unknown')
         
         return (
-            metrics.get('nasa_compliance_score', 0) >= 0.90 and
+            metrics.get('nasa_compliance_score', 0) >= REGULATORY_FACTUALITY_REQUIREMENT and
             metrics.get('critical_violations', 999) == 0 and
             metrics.get('god_objects_count', 999) <= 2
         )
@@ -243,7 +239,7 @@ class JSONSchemaMigrator:
         metrics = self._extract_metrics(data, 'unknown')
         
         return (
-            metrics.get('nasa_compliance_score', 0) >= 0.90 and
+            metrics.get('nasa_compliance_score', 0) >= REGULATORY_FACTUALITY_REQUIREMENT and
             metrics.get('critical_violations', 999) == 0
         )
         
@@ -291,7 +287,6 @@ class JSONSchemaMigrator:
             }
         }
 
-
 def main():
     import argparse
     
@@ -309,7 +304,6 @@ def main():
     print(f"  Migrated: {summary['migrated']}")
     print(f"  Errors: {summary['errors']}")
     print(f"  Success rate: {summary['success_rate']:.1f}%")
-
 
 if __name__ == '__main__':
     main()

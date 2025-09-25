@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 """End-to-end tests for complete analysis workflow."""
 
-import pytest
-import json
-import tempfile
-import os
 from pathlib import Path
+import json
+import os
 import sys
-sys.path.append(str(Path(__file__).parent.parent.parent / 'analyzer'))
+import tempfile
+
+import pytest
 
 from analyzer.core import UnifiedAnalyzer
 from analyzer.utils.config_manager import ConfigManager
-
 
 class TestCompleteWorkflow:
     """End-to-end tests for complete analysis workflow."""

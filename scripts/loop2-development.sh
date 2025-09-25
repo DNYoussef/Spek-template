@@ -20,9 +20,9 @@ SRC_DIR="src"
 TESTS_DIR="tests"
 TIMEOUT=600
 
-echo -e "${PURPLE}╔═══════════════════════════════════════════╗${NC}"
-echo -e "${PURPLE}║     Loop 2: Development & Implementation  ║${NC}"
-echo -e "${PURPLE}╚═══════════════════════════════════════════╝${NC}"
+echo -e "${PURPLE}${NC}"
+echo -e "${PURPLE}     Loop 2: Development & Implementation  ${NC}"
+echo -e "${PURPLE}${NC}"
 
 # Initialize
 mkdir -p "$ARTIFACTS_DIR"
@@ -337,8 +337,8 @@ main() {
 EOF
 
     log_step "Loop 2 completed in ${DURATION} seconds"
-    echo -e "${GREEN}✅ Loop 2: Development & Implementation - COMPLETE${NC}"
-    echo -e "${BLUE}→ Ready for Loop 3: Quality & Deployment${NC}"
+    echo -e "${GREEN} Loop 2: Development & Implementation - COMPLETE${NC}"
+    echo -e "${BLUE} Ready for Loop 3: Quality & Deployment${NC}"
 
     # Exit with success
     exit 0

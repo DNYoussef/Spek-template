@@ -1,4 +1,4 @@
-# Gary×Taleb Trading System - Market Data Gateway Kubernetes Deployment
+# GaryxTaleb Trading System - Market Data Gateway Kubernetes Deployment
 # Real-time market data ingestion and distribution service
 
 apiVersion: apps/v1

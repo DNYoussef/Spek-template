@@ -1,60 +1,60 @@
-# Gary×Taleb Trading System - Machine Learning Intelligence Module
+# GaryxTaleb Trading System - Machine Learning Intelligence Module
 
 ## Overview
 
-This module implements the complete ML infrastructure for the Gary×Taleb trading system Phase 3, combining Gary's Dynamic Portfolio Intelligence (DPI) with Taleb's antifragility principles. The system is designed for production trading with $200 seed capital and <100ms inference latency requirements.
+This module implements the complete ML infrastructure for the GaryxTaleb trading system Phase 3, combining Gary's Dynamic Portfolio Intelligence (DPI) with Taleb's antifragility principles. The system is designed for production trading with $200 seed capital and <100ms inference latency requirements.
 
 ## Architecture
 
 ```
 intelligence/
-├── __init__.py                 # Main module interface
-├── config.py                   # Configuration management with GPU support
-├── requirements.txt            # ML dependencies
-├── README.md                   # This documentation
-│
-├── data/                       # Data pipeline
-│   ├── __init__.py
-│   ├── loaders.py              # Multi-source market data loading
-│   ├── preprocessing.py        # Feature engineering (Gary DPI + Taleb features)
-│   └── validators.py           # Data quality and validation
-│
-├── models/                     # Deep learning models
-│   ├── __init__.py
-│   ├── base_models.py          # Abstract base classes and utilities
-│   ├── gary_dpi.py            # Gary's DPI models with regime detection
-│   ├── taleb_antifragile.py   # Taleb's antifragility models
-│   └── ensemble.py            # Model ensemble and blending
-│
-├── training/                   # Training pipeline
-│   ├── __init__.py
-│   ├── trainer.py             # Advanced training pipeline with SWA
-│   ├── losses.py              # Financial-specific loss functions
-│   ├── callbacks.py           # Training callbacks and monitoring
-│   └── validation.py          # Cross-validation and model validation
-│
-├── registry/                   # Model versioning and registry
-│   ├── __init__.py
-│   ├── model_registry.py      # MLflow-based model registry
-│   └── version_manager.py     # Semantic versioning and promotion
-│
-├── inference/                  # Real-time inference engine
-│   ├── __init__.py
-│   ├── inference_engine.py    # High-performance inference (<100ms)
-│   ├── caching.py            # Multi-level caching system
-│   └── optimizations.py      # Model optimization (TensorRT, ONNX)
-│
-├── testing/                    # A/B testing framework
-│   ├── __init__.py
-│   ├── ab_testing.py          # Statistical A/B testing
-│   ├── model_comparator.py    # Model comparison utilities
-│   └── experiment_manager.py  # Experiment lifecycle management
-│
-└── monitoring/                 # Model monitoring and alerting
-    ├── __init__.py
-    ├── performance_monitor.py  # Real-time performance monitoring
-    ├── drift_detection.py     # Concept/data drift detection
-    └── alerting.py            # Alert system for model degradation
+___ __init__.py                 # Main module interface
+___ config.py                   # Configuration management with GPU support
+___ requirements.txt            # ML dependencies
+___ README.md                   # This documentation
+_
+___ data/                       # Data pipeline
+_   ___ __init__.py
+_   ___ loaders.py              # Multi-source market data loading
+_   ___ preprocessing.py        # Feature engineering (Gary DPI + Taleb features)
+_   ___ validators.py           # Data quality and validation
+_
+___ models/                     # Deep learning models
+_   ___ __init__.py
+_   ___ base_models.py          # Abstract base classes and utilities
+_   ___ gary_dpi.py            # Gary's DPI models with regime detection
+_   ___ taleb_antifragile.py   # Taleb's antifragility models
+_   ___ ensemble.py            # Model ensemble and blending
+_
+___ training/                   # Training pipeline
+_   ___ __init__.py
+_   ___ trainer.py             # Advanced training pipeline with SWA
+_   ___ losses.py              # Financial-specific loss functions
+_   ___ callbacks.py           # Training callbacks and monitoring
+_   ___ validation.py          # Cross-validation and model validation
+_
+___ registry/                   # Model versioning and registry
+_   ___ __init__.py
+_   ___ model_registry.py      # MLflow-based model registry
+_   ___ version_manager.py     # Semantic versioning and promotion
+_
+___ inference/                  # Real-time inference engine
+_   ___ __init__.py
+_   ___ inference_engine.py    # High-performance inference (<100ms)
+_   ___ caching.py            # Multi-level caching system
+_   ___ optimizations.py      # Model optimization (TensorRT, ONNX)
+_
+___ testing/                    # A/B testing framework
+_   ___ __init__.py
+_   ___ ab_testing.py          # Statistical A/B testing
+_   ___ model_comparator.py    # Model comparison utilities
+_   ___ experiment_manager.py  # Experiment lifecycle management
+_
+___ monitoring/                 # Model monitoring and alerting
+    ___ __init__.py
+    ___ performance_monitor.py  # Real-time performance monitoring
+    ___ drift_detection.py     # Concept/data drift detection
+    ___ alerting.py            # Alert system for model degradation
 ```
 
 ## Key Features
@@ -174,7 +174,7 @@ async def main():
         model_name="gary_taleb_v1",
         metadata={
             'metrics': {'sharpe_ratio': 1.8, 'max_drawdown': 0.12},
-            'description': 'Gary×Taleb production model v1'
+            'description': 'GaryxTaleb production model v1'
         }
     )
     
@@ -213,7 +213,7 @@ variants = [
 
 test = framework.create_test(
     test_id="model_comparison_001",
-    name="Gary×Taleb v1 vs v2",
+    name="GaryxTaleb v1 vs v2",
     variants=variants,
     primary_metric="sharpe_ratio"
 )
@@ -278,7 +278,7 @@ config.registry.production_threshold = 0.90
 
 ## Integration with Trading System
 
-The ML module integrates seamlessly with the broader Gary×Taleb trading system:
+The ML module integrates seamlessly with the broader GaryxTaleb trading system:
 
 1. **Data Sources**: Connects to existing market data infrastructure
 2. **Signal Generation**: Provides predictions to the strategy engine
@@ -344,4 +344,4 @@ For technical support and questions:
 
 ---
 
-The Gary×Taleb ML Intelligence module represents a complete, production-ready machine learning infrastructure specifically designed for quantitative trading. It combines cutting-edge deep learning techniques with robust engineering practices to deliver reliable, high-performance trading signals with comprehensive risk management capabilities.
+The GaryxTaleb ML Intelligence module represents a complete, production-ready machine learning infrastructure specifically designed for quantitative trading. It combines cutting-edge deep learning techniques with robust engineering practices to deliver reliable, high-performance trading signals with comprehensive risk management capabilities.

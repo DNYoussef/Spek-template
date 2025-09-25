@@ -401,7 +401,7 @@ class RiskCalculationEngine {
     async calculateRiskMetrics(data) {
         const startTime = performance.now();
         try {
-            // Calculate P(ruin) using Gary×Taleb methodology
+            // Calculate P(ruin) using GaryxTaleb methodology
             const pRuin = await this.calculateProbabilityOfRuin(data);
             // Calculate other risk metrics
             const volatility = this.calculateVolatility(data.returns || []);
@@ -445,7 +445,7 @@ class RiskCalculationEngine {
         const volatility = this.calculateVolatility(returns);
         const drawdownThreshold = data.drawdownThreshold || 0.20;
         const timeHorizon = data.timeHorizon || 252; // Trading days
-        // Gary×Taleb probability of ruin calculation
+        // GaryxTaleb probability of ruin calculation
         // P(ruin) = probability of hitting drawdown threshold within time horizon
         let pRuinValue = 0;
         if (returns.length > 0 && volatility > 0) {
@@ -572,7 +572,7 @@ class RiskCalculationEngine {
         return marketVariance === 0 ? 1 : covariance / marketVariance;
     }
     calculateAntifragilityIndex(data) {
-        // Gary×Taleb antifragility index calculation
+        // GaryxTaleb antifragility index calculation
         const returns = data.returns || [];
         if (returns.length === 0)
             return 0;

@@ -1,38 +1,12 @@
 """
-Global Constants Module - Enterprise Grade Code Quality
-Eliminates magic numbers for perfect, maintainable code
+Application Constants - Core Configuration Values
 """
 
-# Time Constants - Using derivations to avoid magic numbers
-SECONDS_PER_MINUTE = 60  # Base unit, universally accepted
-MINUTES_PER_HOUR = 60  # Base unit, universally accepted
-HOURS_PER_DAY = 24  # Base unit, universally accepted
-DAYS_PER_WEEK = 7  # Base unit, universally accepted
-
-# Derived values - no magic numbers
-SECONDS_PER_HOUR = SECONDS_PER_MINUTE * MINUTES_PER_HOUR
-SECONDS_PER_DAY = SECONDS_PER_HOUR * HOURS_PER_DAY
-DAYS_PER_MONTH = 30  # Average, documented
-DAYS_PER_YEAR = 365  # Non-leap year, documented
-MILLISECONDS_PER_SECOND = 1000  # SI unit conversion
-
-# Size Constants - Using base and derivations
-BYTES_PER_KB = 1 << 10  # 2^10, binary standard
-KB_PER_MB = 1 << 10  # 2^10, binary standard
-MB_PER_GB = 1 << 10  # 2^10, binary standard
-
-# Derived values
-BYTES_PER_MB = BYTES_PER_KB * KB_PER_MB
-BYTES_PER_GB = BYTES_PER_MB * MB_PER_GB
-
-# Limits and Thresholds
+# System Limits
 DEFAULT_MAX_ITEMS = 10000
 DEFAULT_BATCH_SIZE = 100
 DEFAULT_TIMEOUT = 30
-DEFAULT_RETRY_COUNT = 3
 MAX_RETRIES = 5
-PERCENTAGE_MAX = 100
-BYTE_MAX_VALUE = 255
 
 # Compliance Constants
 DFARS_RETENTION_DAYS = 2555  # 7 years
@@ -53,6 +27,8 @@ MIN_DOCUMENTATION_COVERAGE = 90.0
 MAX_CYCLOMATIC_COMPLEXITY = 10
 MAX_COGNITIVE_COMPLEXITY = 15
 MAX_DUPLICATION_PERCENTAGE = 5.0
+QUALITY_GATE_MINIMUM_PASS_RATE = 85.0  # Minimum pass rate for quality gates
+MAXIMUM_RETRY_ATTEMPTS = 3  # Maximum retry attempts for operations
 
 # Performance Constants
 CACHE_SIZE_MB = 100
@@ -77,20 +53,10 @@ MIN_CONFIDENCE_SCORE = 0.75
 HIGH_SEVERITY_THRESHOLD = 0.8
 CRITICAL_SEVERITY_THRESHOLD = 0.95
 
-# Export all constants for easy import
+# Export meaningful constants
 __all__ = [
-    # Time
-    'SECONDS_PER_MINUTE', 'SECONDS_PER_HOUR', 'SECONDS_PER_DAY',
-    'MINUTES_PER_HOUR', 'HOURS_PER_DAY', 'DAYS_PER_WEEK',
-    'DAYS_PER_MONTH', 'DAYS_PER_YEAR', 'MILLISECONDS_PER_SECOND',
-
-    # Size
-    'BYTES_PER_KB', 'BYTES_PER_MB', 'BYTES_PER_GB',
-    'KB_PER_MB', 'MB_PER_GB',
-
     # Limits
-    'DEFAULT_MAX_ITEMS', 'DEFAULT_BATCH_SIZE', 'DEFAULT_TIMEOUT',
-    'DEFAULT_RETRY_COUNT', 'MAX_RETRIES', 'PERCENTAGE_MAX', 'BYTE_MAX_VALUE',
+    'DEFAULT_MAX_ITEMS', 'DEFAULT_BATCH_SIZE', 'DEFAULT_TIMEOUT', 'MAX_RETRIES',
 
     # Compliance
     'DFARS_RETENTION_DAYS', 'NASA_MAX_FUNCTION_LENGTH',
@@ -100,7 +66,7 @@ __all__ = [
     # Network
     'DEFAULT_PORT', 'HTTPS_PORT', 'HTTP_PORT', 'LOCALHOST',
 
-    # Quality
+    # Quality Thresholds
     'MIN_TEST_COVERAGE', 'MIN_DOCUMENTATION_COVERAGE',
     'MAX_CYCLOMATIC_COMPLEXITY', 'MAX_COGNITIVE_COMPLEXITY',
     'MAX_DUPLICATION_PERCENTAGE',
@@ -109,13 +75,13 @@ __all__ = [
     'CACHE_SIZE_MB', 'MAX_CONCURRENT_REQUESTS',
     'CONNECTION_POOL_SIZE', 'WORKER_THREAD_COUNT',
 
-    # Status
+    # Status Codes
     'SUCCESS', 'FAILURE', 'ERROR', 'WARNING', 'INFO',
 
     # File System
     'MAX_FILE_SIZE_MB', 'MAX_PATH_LENGTH', 'DEFAULT_ENCODING',
 
-    # Analysis
+    # Analysis Thresholds
     'MIN_CONFIDENCE_SCORE', 'HIGH_SEVERITY_THRESHOLD',
     'CRITICAL_SEVERITY_THRESHOLD'
 ]

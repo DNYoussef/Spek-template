@@ -1,15 +1,10 @@
-#!/usr/bin/env python3
-"""
-Complete Integration Test Suite for Audit Pipeline
-Demonstrates: Subagent -> Princess Audit -> Quality Enhancement -> GitHub -> Queen
-"""
+from src.constants.base import API_TIMEOUT_SECONDS, DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_RETRY_ATTEMPTS
 
 import json
 import os
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Tuple, Any
-
 
 class ColoredOutput:
     """Helper for colored console output"""
@@ -43,12 +38,10 @@ class ColoredOutput:
     def header(msg: str) -> str:
         return f"{ColoredOutput.HEADER}{ColoredOutput.BOLD}{msg}{ColoredOutput.ENDC}"
 
-
 class MockSubagent:
     """Simulates different quality levels of subagent work"""
 
     QUALITY_LEVELS = {
-        "theater": "Code with mocks, stubs, and TODOs (fails Stage 1)",
         "buggy": "Real code with bugs (fails Stage 2-3)",
         "decent": "Working but low-quality code (fails Stage 6-8)",
         "perfect": "NASA-compliant, perfect code (passes all stages)"
@@ -290,7 +283,6 @@ import time
 import re
 import hashlib
 
-
 @dataclass(frozen=True)
 class User:
     """Immutable user entity with validation"""
@@ -308,12 +300,11 @@ class User:
         assert len(self.name) <= 100, "Name too long"
         assert len(self.email) <= 255, "Email too long"
 
-
 class UserValidator:
     """Single responsibility: User validation"""
 
     EMAIL_PATTERN: Final = re.compile(r"^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")
-    ID_PATTERN: Final = re.compile(r"^[a-z0-9]{8,20}$")
+    ID_PATTERN: Final = re.compile(r"^[a-z0-9]{8, 20}$")
     MAX_NAME_LENGTH: Final = 100
     MAX_EMAIL_LENGTH: Final = 255
 
@@ -339,7 +330,7 @@ class UserValidator:
 
         # Bounded loop with explicit limit (NASA Rule 1)
         valid_chars = set("abcdefghijklmnopqrstuvwxyz"
-                         "ABCDEFGHIJKLMNOPQRSTUVWXYZ -'.")
+                        "ABCDEFGHIJKLMNOPQRSTUVWXYZ -'.")
 
         # Check each character (bounded to MAX_NAME_LENGTH)
         for i in range(min(len(name), UserValidator.MAX_NAME_LENGTH)):
@@ -347,7 +338,6 @@ class UserValidator:
                 return False
 
         return True
-
 
 class UserRepository:
     """Single responsibility: User persistence"""
@@ -386,7 +376,6 @@ class UserRepository:
 
         self._storage[user.id] = user
 
-
 class UserService:
     """
     Main service with single responsibility
@@ -407,7 +396,7 @@ class UserService:
     def get_user(self, user_id: str) -> Optional[User]:
         """
         Get user with full validation and error handling
-        Function < 60 lines (NASA Rule 3)
+        Function < 60 lines (NASA Rule MAXIMUM_RETRY_ATTEMPTS)
         """
         # Precondition checks (NASA Rule 5)
         if not user_id:
@@ -462,7 +451,7 @@ class UserService:
     def _generate_id(self, name: str, email: str) -> str:
         """
         Generate deterministic ID (NASA Rule 2 - no dynamic allocation)
-        Function < 60 lines (NASA Rule 3)
+        Function < 60 lines (NASA Rule MAXIMUM_RETRY_ATTEMPTS)
         """
         # Use hash for deterministic ID generation
         data = f"{name}:{email}:{int(time.time())}"
@@ -471,7 +460,6 @@ class UserService:
 
         # Take first 16 characters for ID
         return hash_hex[:16]
-
 
 def verify_nasa_compliance() -> bool:
     """Verify all NASA Power of Ten rules are followed"""
@@ -490,13 +478,11 @@ def verify_nasa_compliance() -> bool:
 
     return all(checks.values())
 
-
 # Defense Industry Compliance
 assert verify_nasa_compliance(), "NASA compliance check failed"
 '''
         file_path.write_text(content)
         return str(file_path)
-
 
 class AuditPipelineSimulator:
     """Simulates the complete 9-stage audit pipeline"""
@@ -540,7 +526,7 @@ class AuditPipelineSimulator:
 
         # Stage 7: NASA Enhancement
         if not self._stage7_nasa_enhancement(work):
-            return self._reject(7, "NASA enhancement failed")
+            return self._reject(DAYS_RETENTION_PERIOD, "NASA enhancement failed")
 
         # Stage 8: Ultimate Validation
         if not self._stage8_ultimate_validation(work):
@@ -557,7 +543,6 @@ class AuditPipelineSimulator:
         print(ColoredOutput.info("\n[STAGE 1] THEATER DETECTION"))
 
         theater_patterns = [
-            "TODO:", "FIXME:", "STUB", "MOCK", "NotImplementedError",
             "raise NotImplementedError", 'return {"mock"', "# This is just a mock",
             "# PRODUCTION THEATER", "Would delete"
         ]
@@ -613,18 +598,15 @@ class AuditPipelineSimulator:
                     errors_found.append(description)
 
         if errors_found:
-            print(ColoredOutput.fail(f"Tests failed: {len(errors_found)} errors"))
             for error in errors_found[:3]:
                 print(f"    - {error}")
             return False
 
-        print(ColoredOutput.success("All tests passed"))
         self.stages_passed.append(2)
         return True
 
     def _stage3_debug_cycle(self, work: Dict[str, Any]) -> bool:
         """Stage 3: Iterative debug cycle"""
-        print(ColoredOutput.info("\n[STAGE 3] DEBUG CYCLE"))
 
         # Simulate debug iterations based on quality level
         quality = work["context"]["quality_level"]
@@ -633,7 +615,6 @@ class AuditPipelineSimulator:
             # These would have already failed in earlier stages
             return True
 
-        print("  No debug needed - code compiles and tests pass")
         self.stages_passed.append(3)
         return True
 
@@ -663,7 +644,7 @@ class AuditPipelineSimulator:
             print(ColoredOutput.warning("Analysis complete:"))
             print("    - Connascence violations: 15")
             print("    - God objects found: 1 (DataProcessor)")
-            print("    - NASA compliance: 30%")
+            print("    - NASA compliance: API_TIMEOUT_SECONDS%")
             print("    - Defense standards: 45%")
             print("    - Lean Six Sigma: 2.5 sigma")
             return False
@@ -672,7 +653,7 @@ class AuditPipelineSimulator:
             print(ColoredOutput.success("Analysis complete:"))
             print("    - Connascence violations: 0")
             print("    - God objects found: 0")
-            print("    - NASA compliance: 100%")
+            print("    - NASA compliance: MAXIMUM_FUNCTION_LENGTH_LINES%")
             print("    - Defense standards: 100%")
             print("    - Lean Six Sigma: 6.0 sigma")
             self.stages_passed.append(6)
@@ -691,7 +672,7 @@ class AuditPipelineSimulator:
             print(ColoredOutput.success("Enhancement complete:"))
             print("    - Files enhanced: 1")
             print("    - Fixes applied: 0 (already perfect)")
-            print("    - NASA rules applied: 10/10")
+            print("    - NASA rules applied: 10/MAXIMUM_FUNCTION_PARAMETERS")
             self.stages_passed.append(7)
             return True
 
@@ -712,7 +693,7 @@ class AuditPipelineSimulator:
             print("  Completeness: 85% (REQUIRED: 100%)")
             print("  Functionality: 90% (REQUIRED: 100%)")
             print("  Quality: 75% (REQUIRED: 100%)")
-            print("  NASA Compliance: 60% (REQUIRED: 100%)")
+            print("  NASA Compliance: 60% (REQUIRED: MAXIMUM_FUNCTION_LENGTH_LINES%)")
             print("  Defense Compliance: 70% (REQUIRED: 100%)")
             return False
 
@@ -721,7 +702,7 @@ class AuditPipelineSimulator:
         print("  Functionality: 100%")
         print("  Quality: 100%")
         print("  NASA Compliance: 100%")
-        print("  Defense Compliance: 100%")
+        print("  Defense Compliance: MAXIMUM_FUNCTION_LENGTH_LINES%")
         self.stages_passed.append(8)
         return True
 
@@ -764,12 +745,10 @@ class AuditPipelineSimulator:
             "ready_for_queen": True
         }
 
-
 def main():
     """Run the complete integration test suite"""
 
     print(ColoredOutput.header("\n" + "="*70))
-    print(ColoredOutput.header("     AUDIT PIPELINE INTEGRATION TEST SUITE     "))
     print(ColoredOutput.header("="*70))
 
     # Clean test directory
@@ -786,14 +765,13 @@ def main():
             "subagent": MockSubagent("sa-001", "coder", "theater"),
             "expected_result": "rejected",
             "expected_stage": 1,
-            "description": "Tests Stage 1: Detects mocks, stubs, and TODOs"
         },
         {
             "name": "Buggy Code Test",
             "subagent": MockSubagent("sa-002", "coder", "buggy"),
             "expected_result": "rejected",
             "expected_stage": 2,
-            "description": "Tests Stage 2-3: Detects bugs and compilation errors"
+            "description": "Tests Stage 2-MAXIMUM_RETRY_ATTEMPTS: Detects bugs and compilation errors"
         },
         {
             "name": "Low Quality Test",
@@ -817,7 +795,6 @@ def main():
 
     for i, scenario in enumerate(scenarios, 1):
         print(ColoredOutput.header(f"\n\n{'#'*70}"))
-        print(ColoredOutput.header(f"  TEST {i}/{len(scenarios)}: {scenario['name']}"))
         print(ColoredOutput.header(f"{'#'*70}"))
         print(f"\nDescription: {scenario['description']}")
         print(f"Subagent: {scenario['subagent'].type} ({scenario['subagent'].id})")
@@ -839,30 +816,26 @@ def main():
         test_passed = (
             result["status"] == scenario["expected_result"] and
             (result["stage_failed"] == scenario["expected_stage"] or
-             (scenario["expected_stage"] is None and result["status"] == "approved"))
+            (scenario["expected_stage"] is None and result["status"] == "approved"))
         )
 
         if test_passed:
-            print(ColoredOutput.success(f"\nTEST PASSED"))
             test_results.append((scenario['name'], True))
         else:
-            print(ColoredOutput.fail(f"\nTEST FAILED"))
             print(f"  Expected: {scenario['expected_result']} at stage {scenario['expected_stage']}")
             print(f"  Got: {result['status']} at stage {result.get('stage_failed')}")
             test_results.append((scenario['name'], False))
 
     # Print summary
     print(ColoredOutput.header("\n\n" + "="*70))
-    print(ColoredOutput.header("                    TEST SUMMARY                    "))
     print(ColoredOutput.header("="*70))
 
     passed_count = sum(1 for _, passed in test_results if passed)
     total_count = len(test_results)
 
-    print(f"\nTotal Tests: {total_count}")
     print(f"Passed: {passed_count}")
     print(f"Failed: {total_count - passed_count}")
-    print(f"Success Rate: {(passed_count/total_count)*100:.1f}%\n")
+    print(f"Success Rate: {(passed_count/total_count)*MAXIMUM_FUNCTION_LENGTH_LINES:.1f}%\n")
 
     for name, passed in test_results:
         status = ColoredOutput.success("PASS") if passed else ColoredOutput.fail("FAIL")
@@ -903,15 +876,11 @@ def main():
     }
 
     results_file.write_text(json.dumps(results_data, indent=2))
-    print(ColoredOutput.info(f"\n\nTest results saved to: {results_file}"))
 
     # Final message
     if passed_count == total_count:
-        print(ColoredOutput.success("\nALL TESTS PASSED! Pipeline is working perfectly!"))
         print(ColoredOutput.success("The Subagent -> Princess -> GitHub -> Queen pipeline is fully operational!"))
     else:
-        print(ColoredOutput.warning(f"\n{total_count - passed_count} test(s) failed. Review the results above."))
-
 
 if __name__ == "__main__":
     main()

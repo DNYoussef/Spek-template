@@ -1,4 +1,4 @@
-"""Unit tests for Flake8 adapter."""
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 import pytest
 import json
@@ -7,7 +7,6 @@ from pathlib import Path
 
 from src.adapters.flake8_adapter import Flake8Adapter
 from src.models.linter_models import LinterConfig, StandardSeverity, ViolationType
-
 
 class TestFlake8Adapter:
     """Test cases for Flake8Adapter."""
@@ -91,7 +90,7 @@ other.py:10:15: F401 'os' imported but unused"""
         assert v1.rule_id == "E501"
         assert v1.file_path == "test.py"
         assert v1.position.line == 1
-        assert v1.position.column == 5
+        assert v1.position.column == MAXIMUM_NESTED_DEPTH
         assert "line too long" in v1.message
         
         # Test third violation

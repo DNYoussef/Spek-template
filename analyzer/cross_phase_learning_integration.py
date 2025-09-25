@@ -1,6 +1,4 @@
-"""
-Cross-Phase Learning Integration System
-======================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Advanced learning integration system that enables knowledge transfer and pattern
 recognition across all phases of the SPEK development platform with intelligent
@@ -21,7 +19,6 @@ import json
 import logging
 logger = logging.getLogger(__name__)
 
-
 @dataclass
 class LearningPattern:
     """Represents a learned pattern that can be applied across phases."""
@@ -38,7 +35,6 @@ class LearningPattern:
     effectiveness_history: List[float] = field(default_factory=list)
     prerequisites: List[str] = field(default_factory=list)
     contraindications: List[str] = field(default_factory=list)
-
 
 @dataclass
 class OptimizationRecommendation:
@@ -57,7 +53,6 @@ class OptimizationRecommendation:
     validation_criteria: List[str]
     created_at: float = field(default_factory=time.time)
 
-
 @dataclass
 class LearningEffectiveness:
     """Tracks effectiveness of applied learning patterns."""
@@ -71,7 +66,6 @@ class LearningEffectiveness:
     application_timestamp: float
     validation_timestamp: float
     feedback_data: Dict[str, Any] = field(default_factory=dict)
-
 
 class PatternClassifier:
     """Classifies and analyzes patterns for cross-phase learning."""
@@ -137,8 +131,8 @@ class PatternClassifier:
         return pattern
     
     def _determine_pattern_type(self, 
-                               correlation: MemoryCorrelation,
-                               performance_data: Optional[List[PerformanceCorrelation]]) -> str:
+                                correlation: MemoryCorrelation,
+                                performance_data: Optional[List[PerformanceCorrelation]]) -> str:
         """Determine the type of pattern based on correlation and performance data."""
         # Start with correlation type as base
         if correlation.correlation_type in self.pattern_templates:
@@ -177,9 +171,9 @@ class PatternClassifier:
         return base_type
     
     def _calculate_confidence_score(self,
-                                  correlation: MemoryCorrelation,
-                                  performance_data: Optional[List[PerformanceCorrelation]],
-                                  pattern_type: str) -> float:
+                                    correlation: MemoryCorrelation,
+                                    performance_data: Optional[List[PerformanceCorrelation]],
+                                    pattern_type: str) -> float:
         """Calculate confidence score for the classified pattern."""
         base_confidence = correlation.correlation_strength
         
@@ -207,9 +201,9 @@ class PatternClassifier:
         return max(0.0, min(1.0, final_confidence))
     
     def _estimate_success_rate(self,
-                              correlation: MemoryCorrelation,
-                              performance_data: Optional[List[PerformanceCorrelation]],
-                              pattern_type: str) -> float:
+                                correlation: MemoryCorrelation,
+                                performance_data: Optional[List[PerformanceCorrelation]],
+                                pattern_type: str) -> float:
         """Estimate success rate for the pattern."""
         # Base success rate on correlation strength
         base_rate = correlation.correlation_strength
@@ -240,8 +234,8 @@ class PatternClassifier:
         return hashlib.md5(pattern_string.encode(), usedforsecurity=False).hexdigest()[:16]
     
     def _extract_pattern_data(self,
-                             correlation: MemoryCorrelation,
-                             performance_data: Optional[List[PerformanceCorrelation]]) -> Dict[str, Any]:
+                            correlation: MemoryCorrelation,
+                            performance_data: Optional[List[PerformanceCorrelation]]) -> Dict[str, Any]:
         """Extract structured pattern data."""
         pattern_data = {
             "source_phase": correlation.source_phase,
@@ -262,7 +256,6 @@ class PatternClassifier:
                 })
         
         return pattern_data
-
 
 class OptimizationRecommendationEngine:
     """Generates optimization recommendations based on learned patterns."""
@@ -321,9 +314,9 @@ class OptimizationRecommendationEngine:
         return recommendations
     
     def _create_recommendation_from_pattern(self,
-                                          pattern: LearningPattern,
-                                          target_phase: str,
-                                          current_metrics: Optional[Dict[str, float]]) -> Optional[OptimizationRecommendation]:
+                                            pattern: LearningPattern,
+                                            target_phase: str,
+                                            current_metrics: Optional[Dict[str, float]]) -> Optional[OptimizationRecommendation]:
         """Create recommendation from a learned pattern."""
         try:
             # Determine recommendation type and priority
@@ -396,7 +389,7 @@ class OptimizationRecommendationEngine:
                 base_score += 0.1
         
         # Consider usage count (proven patterns)
-        if pattern.usage_count > 5:
+        if pattern.usage_count > MAXIMUM_NESTED_DEPTH:
             base_score += 0.1
         
         # Priority thresholds
@@ -600,9 +593,9 @@ class OptimizationRecommendationEngine:
         return criteria
     
     def track_recommendation_effectiveness(self, 
-                                         recommendation_id: str,
-                                         before_metrics: Dict[str, float],
-                                         after_metrics: Dict[str, float]) -> LearningEffectiveness:
+                                        recommendation_id: str,
+                                        before_metrics: Dict[str, float],
+                                        after_metrics: Dict[str, float]) -> LearningEffectiveness:
         """Track the effectiveness of an applied recommendation."""
         recommendation = next(
             (r for r in self.recommendation_history if r.recommendation_id == recommendation_id),
@@ -616,7 +609,7 @@ class OptimizationRecommendationEngine:
         improvement_achieved = 0.0
         if "performance" in after_metrics and "performance" in before_metrics:
             improvement_achieved = ((after_metrics["performance"] - before_metrics["performance"]) 
-                                  / before_metrics["performance"] * 100)
+                                    / before_metrics["performance"] * 100)
         
         # Calculate effectiveness score
         expected_improvement = recommendation.expected_improvement
@@ -639,7 +632,6 @@ class OptimizationRecommendationEngine:
         
         self.effectiveness_tracking[recommendation_id] = effectiveness
         return effectiveness
-
 
 class CrossPhaseLearningIntegration:
     """Main integration system for cross-phase learning."""
@@ -703,7 +695,7 @@ class CrossPhaseLearningIntegration:
                     relevant_perf_data = [
                         p for p in performance_data 
                         if any(factor in correlation.metadata.get('correlation_factors', []) 
-                              for factor in p.correlation_factors)
+                                for factor in p.correlation_factors)
                     ]
                     
                     # Classify pattern
@@ -768,9 +760,9 @@ class CrossPhaseLearningIntegration:
         return recommendations
     
     async def apply_learning_pattern(self, 
-                                   pattern_id: str,
-                                   target_phase: str,
-                                   current_metrics: Dict[str, float]) -> Dict[str, Any]:
+                                    pattern_id: str,
+                                    target_phase: str,
+                                    current_metrics: Dict[str, float]) -> Dict[str, Any]:
         """Apply a learned pattern to a target phase."""
         with self.learning_lock:
             pattern = self.learned_patterns.get(pattern_id)
@@ -833,7 +825,6 @@ class CrossPhaseLearningIntegration:
         before_metrics = {}
         
         # This would typically look up the application from storage
-        # For now, we'll create a simple effectiveness record
         
         with self.learning_lock:
             pattern = self.learned_patterns.get(pattern_id)
@@ -977,12 +968,11 @@ class CrossPhaseLearningIntegration:
         )
     
     async def _store_pattern_application(self, 
-                                       pattern_id: str,
-                                       target_phase: str,
-                                       application_result: Dict[str, Any]) -> None:
+                                        pattern_id: str,
+                                        target_phase: str,
+                                        application_result: Dict[str, Any]) -> None:
         """Store pattern application record."""
         # This would store the application details for later effectiveness validation
-        pass
     
     async def _generate_phase_recommendations(self, phase_id: str, learning_results: Dict[str, Any]) -> None:
         """Generate recommendations for phases related to the analyzed phase."""
@@ -1028,11 +1018,9 @@ class CrossPhaseLearningIntegration:
         
         logger.info("Cross-Phase Learning Integration shutdown completed")
 
-
 # Global learning integration instance
 _global_learning_integration: Optional[CrossPhaseLearningIntegration] = None
 _learning_lock = threading.Lock()
-
 
 def get_global_learning_integration() -> CrossPhaseLearningIntegration:
     """Get or create global cross-phase learning integration."""
@@ -1043,7 +1031,6 @@ def get_global_learning_integration() -> CrossPhaseLearningIntegration:
             _global_learning_integration = CrossPhaseLearningIntegration()
     
     return _global_learning_integration
-
 
 async def initialize_learning_integration() -> Dict[str, Any]:
     """Initialize cross-phase learning integration system."""

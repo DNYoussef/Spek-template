@@ -1,5 +1,4 @@
-# SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES
 
 """
 Analysis Cache Manager - Extracted from UnifiedConnascenceAnalyzer
@@ -23,7 +22,6 @@ try:
 except ImportError:
     CACHE_AVAILABLE = False
     logger.warning("Cache optimization not available")
-
 
 class AnalysisCacheManager:
     """
@@ -83,9 +81,9 @@ class AnalysisCacheManager:
         def priority_score(file_path: Path) -> float:
             try:
                 stat = file_path.stat()
-                size_score = min(stat.st_size / 1024, 100)  # Size in KB, cap at 100
+                size_score = min(stat.st_size / 1024, MAXIMUM_FUNCTION_LENGTH_LINES)  # Size in KB, cap at 100
                 # Prefer recently modified files
-                age_score = 100 - min((stat.st_mtime % 86400) / 864, 100)  # Recent = higher
+                age_score = 100 - min((stat.st_mtime % 86400) / 864, MAXIMUM_FUNCTION_LENGTH_LINES)  # Recent = higher
                 return size_score + age_score
             except (OSError, AttributeError):
                 return 0.0

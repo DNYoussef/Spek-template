@@ -1,7 +1,4 @@
-"""
-Financial-specific loss functions for trading model training.
-Implements Sharpe ratio, maximum drawdown, and other trading-relevant losses.
-"""
+from src.constants.base import API_TIMEOUT_SECONDS
 
 import torch
 import torch.nn as nn
@@ -12,12 +9,12 @@ import numpy as np
 class SharpeRatioLoss(nn.Module):
     """Loss function based on negative Sharpe ratio."""
     
-    def __init__(self, risk_free_rate: float = 0.02, annualization_factor: float = 252):
+def __init__(self, risk_free_rate: float = 0.02, annualization_factor: float = 252):
         super().__init__()
         self.risk_free_rate = risk_free_rate
         self.annualization_factor = annualization_factor
     
-    def forward(
+def forward(
         self,
         predictions: torch.Tensor,
         targets: torch.Tensor,
@@ -57,11 +54,11 @@ class SharpeRatioLoss(nn.Module):
 class MaxDrawdownLoss(nn.Module):
     """Loss function based on maximum drawdown."""
     
-    def __init__(self, penalty_factor: float = 1.0):
+def __init__(self, penalty_factor: float = 1.0):
         super().__init__()
         self.penalty_factor = penalty_factor
     
-    def forward(
+def forward(
         self,
         predictions: torch.Tensor,
         targets: torch.Tensor,
@@ -100,11 +97,11 @@ class MaxDrawdownLoss(nn.Module):
 class DirectionalAccuracyLoss(nn.Module):
     """Loss function for directional accuracy."""
     
-    def __init__(self, weight: float = 1.0):
+def __init__(self, weight: float = 1.0):
         super().__init__()
         self.weight = weight
     
-    def forward(
+def forward(
         self,
         predictions: torch.Tensor,
         targets: torch.Tensor,
@@ -134,11 +131,11 @@ class DirectionalAccuracyLoss(nn.Module):
 class VolatilityPenaltyLoss(nn.Module):
     """Penalize excessive volatility in predictions."""
     
-    def __init__(self, penalty_factor: float = 0.1):
+def __init__(self, penalty_factor: float = 0.1):
         super().__init__()
         self.penalty_factor = penalty_factor
     
-    def forward(
+def forward(
         self,
         predictions: torch.Tensor,
         targets: torch.Tensor,
@@ -156,11 +153,11 @@ class VolatilityPenaltyLoss(nn.Module):
 class InformationRatioLoss(nn.Module):
     """Loss based on negative information ratio."""
     
-    def __init__(self, benchmark_return: float = 0.0):
+def __init__(self, benchmark_return: float = 0.0):
         super().__init__()
         self.benchmark_return = benchmark_return
     
-    def forward(
+def forward(
         self,
         predictions: torch.Tensor,
         targets: torch.Tensor,
@@ -185,12 +182,12 @@ class InformationRatioLoss(nn.Module):
 class TailRiskLoss(nn.Module):
     """Loss function for tail risk optimization."""
     
-    def __init__(self, quantile: float = 0.05, penalty_factor: float = 1.0):
+def __init__(self, quantile: float = 0.05, penalty_factor: float = 1.0):
         super().__init__()
         self.quantile = quantile
         self.penalty_factor = penalty_factor
     
-    def forward(
+def forward(
         self,
         predictions: torch.Tensor,
         targets: torch.Tensor,
@@ -211,11 +208,11 @@ class TailRiskLoss(nn.Module):
 class AntifragileRewardLoss(nn.Module):
     """Reward antifragile behavior (benefits from volatility)."""
     
-    def __init__(self, volatility_threshold: float = 0.02):
+def __init__(self, volatility_threshold: float = 0.02):
         super().__init__()
         self.volatility_threshold = volatility_threshold
     
-    def forward(
+def forward(
         self,
         predictions: torch.Tensor,
         targets: torch.Tensor,
@@ -243,7 +240,7 @@ class AntifragileRewardLoss(nn.Module):
 class CompositeLoss(nn.Module):
     """Composite loss combining multiple financial objectives."""
     
-    def __init__(
+def __init__(
         self,
         primary_loss: str = 'mse',
         weights: Optional[Dict[str, float]] = None,
@@ -275,7 +272,7 @@ class CompositeLoss(nn.Module):
         self.tail_risk_loss = TailRiskLoss()
         self.antifragile_reward = AntifragileRewardLoss()
         
-    def _get_primary_loss(self, loss_name: str) -> nn.Module:
+def _get_primary_loss(self, loss_name: str) -> nn.Module:
         """Get primary loss function."""
         loss_map = {
             'mse': nn.MSELoss(),
@@ -285,7 +282,7 @@ class CompositeLoss(nn.Module):
         }
         return loss_map.get(loss_name, nn.MSELoss())
     
-    def forward(
+def forward(
         self,
         predictions: torch.Tensor,
         targets: torch.Tensor,
@@ -342,11 +339,11 @@ class CompositeLoss(nn.Module):
 class QuantileLoss(nn.Module):
     """Quantile regression loss for uncertainty estimation."""
     
-    def __init__(self, quantiles: List[float] = [0.1, 0.5, 0.9]):
+def __init__(self, quantiles: List[float] = [0.1, 0.5, 0.9]):
         super().__init__()
         self.quantiles = quantiles
     
-    def forward(
+def forward(
         self,
         predictions: torch.Tensor,
         targets: torch.Tensor,
@@ -382,12 +379,12 @@ class QuantileLoss(nn.Module):
 class ContrastiveLoss(nn.Module):
     """Contrastive loss for regime-aware learning."""
     
-    def __init__(self, margin: float = 1.0, temperature: float = 0.1):
+def __init__(self, margin: float = 1.0, temperature: float = 0.1):
         super().__init__()
         self.margin = margin
         self.temperature = temperature
     
-    def forward(
+def forward(
         self,
         features: torch.Tensor,
         labels: torch.Tensor,
@@ -439,7 +436,6 @@ def test_loss_functions():
     predictions = torch.randn(batch_size, 1, requires_grad=True)
     targets = torch.randn(batch_size, 1)
     
-    print("Testing Financial Loss Functions:")
     print("=" * 50)
     
     # Test individual losses
@@ -460,8 +456,7 @@ def test_loss_functions():
         except Exception as e:
             print(f"{name:<20}: Error - {e}")
     
-    print("\nTesting Composite Loss:")
-    print("-" * 30)
+    print("-" * API_TIMEOUT_SECONDS)
     
     # Test composite loss
     composite_loss = CompositeLoss(
@@ -482,7 +477,6 @@ def test_loss_functions():
     print(f"Gradient computed successfully: {predictions.grad is not None}")
     
     # Test quantile loss
-    print("\nTesting Quantile Loss:")
     print("-" * 20)
     
     quantile_predictions = torch.randn(batch_size, 3, requires_grad=True)  # 3 quantiles

@@ -1,6 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Bounded AST Walker - NASA Rule 4 Compliant Implementation
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Implements bounded AST traversal with explicit resource limits for NASA Power of Ten Rule 4 compliance.
 Replaces recursive traversal with stack-based iteration to ensure bounded operations.
@@ -24,7 +22,6 @@ MAX_AST_NODES = 5000       # NASA Rule 4: Maximum nodes processed
 MAX_PROCESSING_TIME = 30   # NASA Rule 4: Maximum processing time (seconds)
 MAX_STACK_SIZE = 1000      # NASA Rule 4: Maximum stack depth
 
-
 @dataclass
 class TraversalBounds:
     """NASA Rule 4 compliant traversal bounds configuration."""
@@ -33,13 +30,12 @@ class TraversalBounds:
     max_time_seconds: int = MAX_PROCESSING_TIME
     max_stack_size: int = MAX_STACK_SIZE
     
-    def __post_init__(self):
+def __post_init__(self):
         """NASA Rule 5: Input validation assertions."""
         assert self.max_depth > 0, "max_depth must be positive"
         assert self.max_nodes > 0, "max_nodes must be positive"
         assert self.max_time_seconds > 0, "max_time_seconds must be positive"
         assert self.max_stack_size > 0, "max_stack_size must be positive"
-
 
 @dataclass
 class TraversalStats:
@@ -51,7 +47,6 @@ class TraversalStats:
     bounds_exceeded: bool = False
     truncated_at_node: Optional[str] = None
 
-
 class BoundedASTWalker:
     """
     NASA Rule 4 compliant AST walker with explicit bounds.
@@ -59,7 +54,7 @@ class BoundedASTWalker:
     All operations are bounded with resource limits (NASA Rule 4).
     """
     
-    def __init__(self, bounds: Optional[TraversalBounds] = None):
+def __init__(self, bounds: Optional[TraversalBounds] = None):
         """
         Initialize bounded AST walker with NASA compliance bounds.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -72,10 +67,10 @@ class BoundedASTWalker:
         self.start_time: Optional[float] = None
         self.visited_nodes: Set[int] = set()  # Prevent infinite loops
         
-        # NASA Rule 5: Post-condition assertion
+        # NASA Rule MAXIMUM_NESTED_DEPTH: Post-condition assertion
         assert isinstance(self.bounds, TraversalBounds), "bounds must be TraversalBounds instance"
     
-    def walk_bounded(self, tree: ast.AST) -> Iterator[ast.AST]:
+def walk_bounded(self, tree: ast.AST) -> Iterator[ast.AST]:
         """
         Bounded AST traversal with explicit resource limits.
         NASA Rule 4 compliant: <60 LOC, bounded operations.
@@ -92,9 +87,9 @@ class BoundedASTWalker:
         
         # NASA Rule 4: Bounded iteration with explicit limits
         while (stack and 
-               self.stats.nodes_processed < self.bounds.max_nodes and
-               len(stack) <= self.bounds.max_stack_size and
-               not self._is_time_exceeded()):
+                self.stats.nodes_processed < self.bounds.max_nodes and
+                len(stack) <= self.bounds.max_stack_size and
+                not self._is_time_exceeded()):
             
             node, depth = stack.popleft()
             
@@ -133,7 +128,7 @@ class BoundedASTWalker:
         if self.stats.bounds_exceeded:
             print(f"Warning: AST traversal truncated - {self.stats.truncated_at_node} at depth {self.stats.max_depth_reached}")
     
-    def walk_specific_types(self, tree: ast.AST, node_types: Tuple[type, ...]) -> Iterator[ast.AST]:
+def walk_specific_types(self, tree: ast.AST, node_types: Tuple[type, ...]) -> Iterator[ast.AST]:
         """
         Bounded traversal for specific AST node types.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -147,7 +142,7 @@ class BoundedASTWalker:
             if isinstance(node, node_types):
                 yield node
     
-    def collect_functions_bounded(self, tree: ast.AST) -> List[ast.FunctionDef]:
+def collect_functions_bounded(self, tree: ast.AST) -> List[ast.FunctionDef]:
         """
         Collect function definitions with bounded traversal.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -168,7 +163,7 @@ class BoundedASTWalker:
         assert isinstance(functions, list), "functions must be a list"
         return functions
     
-    def find_violations_bounded(self, tree: ast.AST, violation_types: Dict[str, type]) -> Dict[str, List[ast.AST]]:
+def find_violations_bounded(self, tree: ast.AST, violation_types: Dict[str, type]) -> Dict[str, List[ast.AST]]:
         """
         Find specific violation types with bounded search.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -189,18 +184,18 @@ class BoundedASTWalker:
         
         return violations
     
-    def _initialize_traversal(self) -> None:
+def _initialize_traversal(self) -> None:
         """Initialize traversal state and statistics."""
         self.start_time = time.time()
         self.stats = TraversalStats()
         self.visited_nodes.clear()
     
-    def _finalize_traversal(self) -> None:
+def _finalize_traversal(self) -> None:
         """Finalize traversal and calculate final statistics."""
         if self.start_time is not None:
             self.stats.traversal_time_ms = (time.time() - self.start_time) * 1000
     
-    def _is_time_exceeded(self) -> bool:
+def _is_time_exceeded(self) -> bool:
         """Check if traversal time limit exceeded."""
         if self.start_time is None:
             return False
@@ -208,7 +203,7 @@ class BoundedASTWalker:
         elapsed = time.time() - self.start_time
         return elapsed > self.bounds.max_time_seconds
     
-    def get_traversal_report(self) -> Dict[str, Any]:
+def get_traversal_report(self) -> Dict[str, Any]:
         """
         Generate traversal performance report.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -241,21 +236,21 @@ class BoundedASTWalker:
             }
         }
     
-    def _calculate_nodes_per_second(self) -> float:
+def _calculate_nodes_per_second(self) -> float:
         """Calculate nodes processed per second."""
         if self.stats.traversal_time_ms <= 0:
             return 0.0
         
         return (self.stats.nodes_processed * 1000) / self.stats.traversal_time_ms
     
-    def _calculate_memory_efficiency(self) -> float:
+def _calculate_memory_efficiency(self) -> float:
         """Calculate memory efficiency (0.0-1.0)."""
         if self.bounds.max_stack_size <= 0:
             return 0.0
         
         return 1.0 - (self.stats.max_stack_size_used / self.bounds.max_stack_size)
     
-    def _calculate_bound_utilization(self) -> Dict[str, float]:
+def _calculate_bound_utilization(self) -> Dict[str, float]:
         """Calculate utilization of various bounds."""
         return {
             "depth_utilization": self.stats.max_depth_reached / self.bounds.max_depth,
@@ -264,19 +259,18 @@ class BoundedASTWalker:
             "time_utilization": (self.stats.traversal_time_ms / 1000) / self.bounds.max_time_seconds
         }
 
-
 class NASACompliantAnalyzer:
     """
     NASA compliant analyzer using bounded AST traversal.
     Demonstrates integration of BoundedASTWalker for Rule 4 compliance.
     """
     
-    def __init__(self, traversal_bounds: Optional[TraversalBounds] = None):
+def __init__(self, traversal_bounds: Optional[TraversalBounds] = None):
         """Initialize NASA compliant analyzer."""
         self.walker = BoundedASTWalker(traversal_bounds)
         self.analysis_cache: Dict[str, Any] = {}
     
-    def analyze_file_bounded(self, file_path: str) -> Dict[str, Any]:
+def analyze_file_bounded(self, file_path: str) -> Dict[str, Any]:
         """
         Analyze file using bounded AST traversal.
         NASA Rule 4 compliant: Function <60 LOC.
@@ -317,7 +311,7 @@ class NASACompliantAnalyzer:
         except Exception as e:
             return {"error": str(e), "file_path": file_path}
     
-    def _is_function_too_long(self, func_node: ast.FunctionDef) -> bool:
+def _is_function_too_long(self, func_node: ast.FunctionDef) -> bool:
         """Check if function exceeds NASA Rule 2 (60 LOC limit)."""
         if hasattr(func_node, 'end_lineno') and func_node.end_lineno:
             length = func_node.end_lineno - func_node.lineno + 1
@@ -326,18 +320,15 @@ class NASACompliantAnalyzer:
         
         return length > 60
 
-
 # NASA Rule 4 compliant factory functions (<60 LOC each)
 def create_bounded_walker(max_depth: int = MAX_AST_DEPTH, max_nodes: int = MAX_AST_NODES) -> BoundedASTWalker:
     """Factory function for bounded AST walker creation."""
     bounds = TraversalBounds(max_depth=max_depth, max_nodes=max_nodes)
     return BoundedASTWalker(bounds)
 
-
 def create_nasa_compliant_analyzer() -> NASACompliantAnalyzer:
     """Factory function for NASA compliant analyzer creation."""
     return NASACompliantAnalyzer()
-
 
 def validate_traversal_bounds(bounds: TraversalBounds) -> bool:
     """Validate traversal bounds configuration."""
@@ -347,7 +338,6 @@ def validate_traversal_bounds(bounds: TraversalBounds) -> bool:
             bounds.max_nodes > 0 and 
             bounds.max_time_seconds > 0 and
             bounds.max_stack_size > 0)
-
 
 def benchmark_bounded_traversal(file_path: str, iterations: int = 5) -> Dict[str, Any]:
     """
@@ -380,7 +370,6 @@ def benchmark_bounded_traversal(file_path: str, iterations: int = 5) -> Dict[str
         }
     
     return {"error": "No successful traversals"}
-
 
 __all__ = [
     "BoundedASTWalker",

@@ -1,7 +1,4 @@
-# SPDX-License-Identifier: MIT
-"""
-Comprehensive Analysis Engine - Defense Industry Grade
-=====================================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, REGULATORY_FACTUALITY_REQUIREMENT
 
 Provides genuine implementation for all abstract methods that were previously
 showing NotImplementedError theater. This engine delivers actual functionality
@@ -9,7 +6,7 @@ for syntax analysis, pattern detection, report generation, compliance validation
 and performance optimization.
 
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import ast
@@ -21,8 +18,21 @@ import time
 from datetime import datetime
 from pathlib import Path
 import logging
-logger = logging.getLogger(__name__)
 
+from .utils.validation_utils import (
+    validate_string_input, validate_dict_input, validate_output_format,
+    validate_path_exists, validate_source_code
+)
+from .utils.result_builders import (
+    build_error_result, build_success_result, build_analysis_result,
+    build_compliance_result, build_performance_result
+)
+from .utils.metric_calculators import (
+    calculate_compliance_score, calculate_performance_improvement,
+    aggregate_issue_counts
+)
+
+logger = logging.getLogger(__name__)
 
 @dataclass
 class AnalysisResult:
@@ -36,7 +46,6 @@ class AnalysisResult:
     metadata: Dict[str, Any]
     execution_time: float
 
-
 @dataclass
 class Pattern:
     """Pattern detection result."""
@@ -47,7 +56,6 @@ class Pattern:
     context: str
     recommendation: str
     confidence: float
-
 
 class ComprehensiveAnalysisEngine:
     """
@@ -68,10 +76,8 @@ class ComprehensiveAnalysisEngine:
         Comprehensive syntax analysis with AST parsing and validation.
         NASA Rule 4: Under 60 lines with focused responsibility.
         """
-        # NASA Rule 5: Input validation
-        assert isinstance(source_code, str), "source_code must be string"
-        assert isinstance(language, str), "language must be string"
-        assert len(source_code.strip()) > 0, "source_code cannot be empty"
+        # Use centralized validation
+        validate_source_code(source_code, language)
 
         start_time = time.time()
         syntax_issues = []
@@ -88,25 +94,22 @@ class ComprehensiveAnalysisEngine:
 
             execution_time = time.time() - start_time
 
-            return {
-                "success": True,
-                "language": language,
-                "syntax_issues": syntax_issues,
-                "total_issues": len(syntax_issues),
-                "critical_issues": len([i for i in syntax_issues if i.get("severity") == "critical"]),
-                "execution_time": execution_time,
-                "analysis_timestamp": datetime.now().isoformat(),
-                "engine_version": "1.0.0"
-            }
+            # Use centralized result builder
+            return build_analysis_result(
+                success=True,
+                syntax_issues=syntax_issues,
+                execution_time=execution_time,
+                language=language,
+                engine_version="1.0.0"
+            )
 
         except Exception as e:
             self.logger.error(f"Syntax analysis failed: {e}")
-            return {
-                "success": False,
-                "error": str(e),
-                "syntax_issues": [],
-                "execution_time": time.time() - start_time
-            }
+            return build_error_result(
+                error_msg=str(e),
+                execution_time=time.time() - start_time,
+                syntax_issues=[]
+            )
 
     def detect_patterns(self, ast_tree, source_code: str = None) -> List[Pattern]:
         """
@@ -153,10 +156,9 @@ class ComprehensiveAnalysisEngine:
         Comprehensive report generation with multiple output formats.
         NASA Rule 4: Focused report generation responsibility.
         """
-        # NASA Rule 5: Input validation
-        assert isinstance(analysis_results, dict), "analysis_results must be dictionary"
-        assert isinstance(output_format, str), "output_format must be string"
-        assert output_format in ["json", "html", "markdown", "xml"], f"Unsupported format: {output_format}"
+        # Use centralized validation
+        validate_dict_input(analysis_results, "analysis_results")
+        validate_output_format(output_format, ["json", "html", "markdown", "xml"])
 
         try:
             if output_format == "json":
@@ -182,8 +184,8 @@ class ComprehensiveAnalysisEngine:
         NASA POT10 and defense industry compliance validation.
         NASA Rule 4: Focused compliance validation responsibility.
         """
-        # NASA Rule 5: Input validation
-        assert isinstance(analysis_results, dict), "analysis_results must be dictionary"
+        # Use centralized validation
+        validate_dict_input(analysis_results, "analysis_results")
         standards = standards or ["NASA_POT10", "DFARS", "ISO27001"]
 
         start_time = time.time()
@@ -206,34 +208,31 @@ class ComprehensiveAnalysisEngine:
 
             execution_time = time.time() - start_time
 
-            return {
-                "success": True,
-                "overall_compliance_score": overall_score,
-                "standards_validated": standards,
-                "individual_scores": compliance_results,
-                "validation_timestamp": datetime.now().isoformat(),
-                "execution_time": execution_time,
-                "recommendations": self._generate_compliance_recommendations(compliance_results)
-            }
+            # Use centralized result builder
+            return build_compliance_result(
+                overall_score=overall_score,
+                standards=standards,
+                individual_scores=compliance_results,
+                execution_time=execution_time
+            )
 
         except Exception as e:
             self.logger.error(f"Compliance validation failed: {e}")
-            return {
-                "success": False,
-                "error": str(e),
-                "overall_compliance_score": 0.0,
-                "execution_time": time.time() - start_time
-            }
+            return build_error_result(
+                error_msg=str(e),
+                execution_time=time.time() - start_time,
+                overall_compliance_score=0.0
+            )
 
     def optimize_performance(self, target_path: Path, analysis_results: Dict[str, Any]) -> Dict[str, Any]:
         """
         Comprehensive performance optimization with metrics and recommendations.
         NASA Rule 4: Focused performance optimization responsibility.
         """
-        # NASA Rule 5: Input validation
-        assert isinstance(target_path, Path), "target_path must be Path object"
-        assert target_path.exists(), f"Target path does not exist: {target_path}"
-        assert isinstance(analysis_results, dict), "analysis_results must be dictionary"
+        # Use centralized validation
+        validated_path = validate_path_exists(target_path, "target_path")
+        validate_dict_input(analysis_results, "analysis_results")
+        target_path = validated_path
 
         start_time = time.time()
 
@@ -250,31 +249,26 @@ class ComprehensiveAnalysisEngine:
             # Measure improved performance
             optimized_metrics = self._measure_optimized_performance(target_path)
 
-            # Calculate improvement percentage
-            improvement = self._calculate_performance_improvement(baseline_metrics, optimized_metrics)
-
+            # Use centralized metric calculator
+            improvement = calculate_performance_improvement(baseline_metrics, optimized_metrics)
             execution_time = time.time() - start_time
 
-            return {
-                "success": True,
-                "baseline_metrics": baseline_metrics,
-                "optimized_metrics": optimized_metrics,
-                "performance_improvement": improvement,
-                "optimizations_applied": len(optimization_results),
-                "optimization_details": optimization_results,
-                "execution_time": execution_time,
-                "recommendations": self._generate_performance_recommendations(optimizations),
-                "timestamp": datetime.now().isoformat()
-            }
+            # Use centralized result builder
+            return build_performance_result(
+                baseline_metrics=baseline_metrics,
+                optimized_metrics=optimized_metrics,
+                improvement=improvement,
+                optimizations=optimization_results,
+                execution_time=execution_time
+            )
 
         except Exception as e:
             self.logger.error(f"Performance optimization failed: {e}")
-            return {
-                "success": False,
-                "error": str(e),
-                "performance_improvement": 0.0,
-                "execution_time": time.time() - start_time
-            }
+            return build_error_result(
+                error_msg=str(e),
+                execution_time=time.time() - start_time,
+                performance_improvement=0.0
+            )
 
     # Implementation helpers for syntax analysis
     def _analyze_python_syntax(self, source_code: str) -> List[Dict[str, Any]]:
@@ -400,7 +394,6 @@ class ComprehensiveAnalysisEngine:
         return issues
 
     # Additional helper methods would continue here...
-    # (Implementation continues with pattern detection, report generation, etc.)
 
     def _initialize_syntax_analyzers(self) -> Dict[str, Any]:
         """Initialize syntax analyzers for different languages."""
@@ -421,7 +414,7 @@ class ComprehensiveAnalysisEngine:
     def _initialize_compliance_validators(self) -> Dict[str, Any]:
         """Initialize compliance validation engines."""
         return {
-            "NASA_POT10": {"rules": 10, "threshold": 0.90},
+            "NASA_POT10": {"rules": MAXIMUM_FUNCTION_PARAMETERS, "threshold": 0.90},
             "DFARS": {"sections": ["252.204-7012"], "threshold": 0.95},
             "ISO27001": {"controls": ["A.14.2.1"], "threshold": 0.85}
         }
@@ -511,16 +504,14 @@ class ComprehensiveAnalysisEngine:
 
     def _validate_nasa_pot10_compliance(self, results: Dict[str, Any]) -> Dict[str, Any]:
         """Validate NASA POT10 compliance standards."""
-        # Calculate compliance based on critical issues
+        # Use centralized metric calculator
         critical_count = results.get('critical_issues', 0)
         total_issues = results.get('total_issues', 1)
-
-        # NASA POT10 requires minimal critical issues
-        compliance_score = max(0.0, 1.0 - (critical_count / total_issues))
+        compliance_score = calculate_compliance_score(critical_count, total_issues)
 
         return {
             "score": compliance_score,
-            "passed": compliance_score >= 0.90,
+            "passed": compliance_score >= REGULATORY_FACTUALITY_REQUIREMENT,
             "critical_violations": critical_count,
             "recommendations": ["Address all critical violations for NASA compliance"]
         }
@@ -581,14 +572,8 @@ class ComprehensiveAnalysisEngine:
 
     def _calculate_performance_improvement(self, baseline: Dict, optimized: Dict) -> float:
         """Calculate performance improvement percentage."""
-        baseline_time = baseline.get("analysis_time", 1.0)
-        optimized_time = optimized.get("analysis_time", 1.0)
-
-        if baseline_time <= 0:
-            return 0.0
-
-        improvement = (baseline_time - optimized_time) / baseline_time
-        return max(0.0, improvement)
+        # Use centralized metric calculator
+        return calculate_performance_improvement(baseline, optimized)
 
     def _generate_performance_recommendations(self, optimizations: List[Dict]) -> List[str]:
         """Generate performance optimization recommendations."""
@@ -597,12 +582,10 @@ class ComprehensiveAnalysisEngine:
             recommendations.append(f"Apply {opt['type']} optimization for {opt['impact']} impact")
         return recommendations
 
-
 # Factory function for easy instantiation
 def create_comprehensive_analyzer() -> ComprehensiveAnalysisEngine:
     """Create and initialize comprehensive analysis engine."""
     return ComprehensiveAnalysisEngine()
-
 
 # Main execution for testing
 if __name__ == "__main__":

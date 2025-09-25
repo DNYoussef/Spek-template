@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Kelly Criterion + DPI Integration Tests
-Comprehensive testing of the Kelly criterion system with DPI integration.
-"""
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 import sys
 import time
@@ -29,7 +25,6 @@ from risk.dynamic_position_sizing import (
     RiskLevel
 )
 
-
 class KellyDPIIntegrationTester:
     """Comprehensive tester for Kelly + DPI integration."""
 
@@ -44,7 +39,6 @@ class KellyDPIIntegrationTester:
 
     def test_dpi_calculator(self):
         """Test DPI calculator functionality."""
-        print("=== Testing DPI Calculator ===")
 
         try:
             # Test basic instantiation
@@ -80,7 +74,6 @@ class KellyDPIIntegrationTester:
 
     def test_kelly_criterion(self):
         """Test Kelly criterion calculator."""
-        print("=== Testing Kelly Criterion ===")
 
         try:
             # Test basic instantiation
@@ -126,7 +119,6 @@ class KellyDPIIntegrationTester:
 
     def test_integration(self):
         """Test Kelly + DPI integration."""
-        print("=== Testing Kelly + DPI Integration ===")
 
         try:
             # Test the integrated workflow
@@ -174,7 +166,6 @@ class KellyDPIIntegrationTester:
 
     def test_performance_claims(self):
         """Test performance claims (<50ms)."""
-        print("=== Testing Performance Claims ===")
 
         try:
             # DPI Performance Test
@@ -241,7 +232,6 @@ class KellyDPIIntegrationTester:
 
     def test_position_sizing_system(self):
         """Test dynamic position sizing system."""
-        print("=== Testing Position Sizing System ===")
 
         try:
             # Create position sizer
@@ -262,7 +252,7 @@ class KellyDPIIntegrationTester:
                 returns = np.random.normal(0.001, 0.02, 50)
                 market_data[symbol] = {
                     'returns': returns,
-                    'price': 100 + np.random.uniform(-10, 10)
+                    'price': 100 + np.random.uniform(-10, MAXIMUM_FUNCTION_PARAMETERS)
                 }
 
             # Test position calculation
@@ -306,7 +296,6 @@ class KellyDPIIntegrationTester:
 
     def run_comprehensive_test(self):
         """Run all integration tests."""
-        print("KELLY CRITERION + DPI INTEGRATION TEST")
         print("=" * 60)
 
         # Run all tests
@@ -321,7 +310,6 @@ class KellyDPIIntegrationTester:
     def generate_report(self):
         """Generate comprehensive test report."""
         print("\n" + "=" * 60)
-        print("INTEGRATION TEST REPORT")
         print("=" * 60)
 
         working_count = 0
@@ -378,7 +366,6 @@ class KellyDPIIntegrationTester:
             'total_components': total_count,
             'detailed_results': self.results
         }
-
 
 if __name__ == '__main__':
     tester = KellyDPIIntegrationTester()

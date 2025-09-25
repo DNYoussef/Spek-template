@@ -1,4 +1,4 @@
-# Gary×Taleb Trading System - Advanced Auto-scaling Policies
+# GaryxTaleb Trading System - Advanced Auto-scaling Policies
 # Multi-dimensional scaling based on trading volume, volatility, and resource utilization
 
 apiVersion: autoscaling/v2

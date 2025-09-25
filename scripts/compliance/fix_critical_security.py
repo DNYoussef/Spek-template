@@ -1,7 +1,4 @@
-"""
-P0 Critical Security Fixes - Immediate Action Required
-Fixes 5 critical security vulnerabilities (eval/exec usage).
-"""
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 import ast
 import re
@@ -9,7 +6,6 @@ import os
 from pathlib import Path
 import shutil
 from datetime import datetime
-
 
 class CriticalSecurityFixer:
     """Fixes critical security vulnerabilities immediately."""
@@ -99,7 +95,6 @@ class CriticalSecurityFixer:
             def replace_exec(match):
                 code_expr = match.group(1)
                 # Replace with safer subprocess or controlled execution
-                return f'# SECURITY FIX: exec() replaced - use subprocess for external commands\\n        # Original: # SECURITY FIX: exec() replaced - use subprocess for external commands\n        # Original: exec({code_expr})\n        pass  # TODO: Implement safe alternative\\n        pass  # TODO: Implement safe alternative'
 
             content = re.sub(exec_pattern, replace_exec, content)
 
@@ -238,7 +233,7 @@ COMPLIANCE STATUS:
 NEXT STEPS:
 1. Verify all tests still pass
 2. Begin Phase 2: DFARS compliance implementation
-3. Continue with NASA POT10 remediation
+MAXIMUM_RETRY_ATTEMPTS. Continue with NASA POT10 remediation
 
 BACKUPS CREATED: {len(self.fixes_applied)} files backed up to {self.backup_dir}
 """
@@ -249,7 +244,6 @@ BACKUPS CREATED: {len(self.fixes_applied)} files backed up to {self.backup_dir}
 
         print(report)
         return report
-
 
 def main():
     """Execute P0 critical security fixes."""
@@ -279,7 +273,6 @@ def main():
         print("\n SOME VULNERABILITIES MAY REMAIN - MANUAL REVIEW REQUIRED")
 
     return verification_passed
-
 
 if __name__ == "__main__":
     success = main()

@@ -1,6 +1,6 @@
 apiVersion: v2
 name: gary-taleb-trading
-description: A Helm chart for Gary×Taleb Trading System - Defense Industry Ready
+description: A Helm chart for GaryxTaleb Trading System - Defense Industry Ready
 type: application
 version: 1.0.0
 appVersion: "1.0.0"

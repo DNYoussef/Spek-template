@@ -4,10 +4,11 @@ Maintains API compatibility while delegating to decomposed components
 Part of god object decomposition (Day 4)
 """
 
-from typing import Dict, List, Optional, Any, Tuple, Callable
 from datetime import datetime, timedelta
-from contextlib import contextmanager
+from typing import Dict, List, Optional, Any, Tuple, Callable
 import logging
+
+from contextlib import contextmanager
 
 from .DataAggregator import DataAggregator, AggregationResult, TimeSeries
 from .PerformanceProfiler import PerformanceProfiler, ProfileMetric, ProfileSession, PerformanceStats
@@ -15,12 +16,11 @@ from .ReportBuilder import ReportBuilder, Report, ReportTemplate, ReportSection
 
 logger = logging.getLogger(__name__)
 
-
 class ResultAggregationProfiler:
     """
     Facade for Result Aggregation and Profiling System.
 
-    Original: 1,016 LOC god object
+    Original: 1, 016 LOC god object
     Refactored: ~150 LOC facade + 3 specialized components (~700 LOC total)
 
     Maintains 100% backward compatibility while delegating to:
@@ -29,7 +29,7 @@ class ResultAggregationProfiler:
     - ReportBuilder: Report generation and formatting
     """
 
-    def __init__(self):
+def __init__(self):
         """Initialize result aggregation profiler."""
         # Initialize components
         self.data_aggregator = DataAggregator()
@@ -44,57 +44,57 @@ class ResultAggregationProfiler:
         logger.info("Result Aggregation Profiler initialized")
 
     # Data aggregation methods (delegated to DataAggregator)
-    def add_data_point(self,
-                      metric_name: str,
-                      value: float,
-                      tags: Optional[Dict[str, str]] = None,
-                      metadata: Optional[Dict[str, Any]] = None) -> None:
+def add_data_point(self,
+                        metric_name: str,
+                        value: float,
+                        tags: Optional[Dict[str, str]] = None,
+                        metadata: Optional[Dict[str, Any]] = None) -> None:
         """Add data point for aggregation."""
         self.data_aggregator.add_data_point(metric_name, value, tags, metadata)
 
-    def bulk_add_data(self, data_points: List[Dict[str, Any]]) -> int:
+def bulk_add_data(self, data_points: List[Dict[str, Any]]) -> int:
         """Add multiple data points."""
         return self.data_aggregator.bulk_add_data(data_points)
 
-    def aggregate_metric(self,
+def aggregate_metric(self,
                         metric_name: str,
                         start_time: Optional[datetime] = None,
                         end_time: Optional[datetime] = None) -> Optional[AggregationResult]:
         """Aggregate metric data."""
         return self.data_aggregator.aggregate_metric(metric_name, start_time, end_time)
 
-    def create_time_series(self,
-                          name: str,
-                          resolution: str = 'minute',
-                          aggregation_method: str = 'avg') -> TimeSeries:
+def create_time_series(self,
+                            name: str,
+                            resolution: str = 'minute',
+                            aggregation_method: str = 'avg') -> TimeSeries:
         """Create time series for tracking."""
         return self.data_aggregator.create_time_series(name, resolution, aggregation_method)
 
-    def aggregate_time_series(self,
+def aggregate_time_series(self,
                             series_name: str,
                             window: timedelta) -> List[Dict[str, Any]]:
         """Aggregate time series data."""
         return self.data_aggregator.aggregate_time_series(series_name, window)
 
-    def correlate_metrics(self, metric1: str, metric2: str) -> float:
+def correlate_metrics(self, metric1: str, metric2: str) -> float:
         """Calculate correlation between metrics."""
         return self.data_aggregator.correlate_metrics(metric1, metric2)
 
-    def detect_anomalies(self,
+def detect_anomalies(self,
                         metric_name: str,
                         threshold_std: float = 3.0) -> List[Any]:
         """Detect anomalies in metric data."""
         return self.data_aggregator.detect_anomalies(metric_name, threshold_std)
 
     # Performance profiling methods (delegated to PerformanceProfiler)
-    def start_profiling_session(self, name: str) -> str:
+def start_profiling_session(self, name: str) -> str:
         """Start new profiling session."""
         session_id = self.performance_profiler.start_session(name)
         self.current_session = session_id
         self.active_profiling = True
         return session_id
 
-    def end_profiling_session(self, session_id: Optional[str] = None) -> Optional[ProfileSession]:
+def end_profiling_session(self, session_id: Optional[str] = None) -> Optional[ProfileSession]:
         """End profiling session."""
         sid = session_id or self.current_session
         if sid:
@@ -105,7 +105,7 @@ class ResultAggregationProfiler:
             return session
         return None
 
-    def start_metric(self,
+def start_metric(self,
                     name: str,
                     metadata: Optional[Dict[str, Any]] = None) -> str:
         """Start timing a metric."""
@@ -113,37 +113,37 @@ class ResultAggregationProfiler:
             name, self.current_session, metadata
         )
 
-    def end_metric(self, metric_id: str) -> Optional[ProfileMetric]:
+def end_metric(self, metric_id: str) -> Optional[ProfileMetric]:
         """End timing a metric."""
         return self.performance_profiler.end_metric(metric_id)
 
-    @contextmanager
-    def profile(self, name: str):
+@contextmanager
+def profile(self, name: str):
         """Context manager for profiling."""
         with self.performance_profiler.profile(name, self.current_session) as metric_id:
             yield metric_id
 
-    def profile_function(self, func: Callable) -> Callable:
+def profile_function(self, func: Callable) -> Callable:
         """Decorator for profiling functions."""
         return self.performance_profiler.profile_function(func)
 
-    def start_monitoring(self, interval: float = 1.0):
+def start_monitoring(self, interval: float = 1.0):
         """Start continuous monitoring."""
         self.performance_profiler.start_monitoring(interval)
 
-    def stop_monitoring(self):
+def stop_monitoring(self):
         """Stop continuous monitoring."""
         self.performance_profiler.stop_monitoring()
 
-    def get_performance_stats(self) -> PerformanceStats:
+def get_performance_stats(self) -> PerformanceStats:
         """Get performance statistics."""
         return self.performance_profiler.get_performance_stats()
 
     # Report generation methods (delegated to ReportBuilder)
-    def create_report(self,
-                     title: str,
-                     template_name: str = 'performance',
-                     format: Optional[str] = None) -> Report:
+def create_report(self,
+                    title: str,
+                    template_name: str = 'performance',
+                    format: Optional[str] = None) -> Report:
         """Create comprehensive report."""
         # Gather data from components
         data = self._gather_report_data()
@@ -158,24 +158,24 @@ class ResultAggregationProfiler:
 
         return report
 
-    def export_report(self,
-                     report_id: str,
-                     output_path: str) -> bool:
+def export_report(self,
+                    report_id: str,
+                    output_path: str) -> bool:
         """Export report to file."""
         return self.report_builder.export_report(report_id, output_path)
 
-    def add_report_template(self, name: str, template: ReportTemplate):
+def add_report_template(self, name: str, template: ReportTemplate):
         """Add custom report template."""
         self.report_builder.add_template(name, template)
 
     # Combined analysis methods
-    def analyze_performance(self,
-                          session_id: Optional[str] = None) -> Dict[str, Any]:
+def analyze_performance(self,
+                            session_id: Optional[str] = None) -> Dict[str, Any]:
         """Analyze performance data."""
         # Get session data
         if session_id:
             sessions = [s for s in self.performance_profiler.completed_sessions
-                       if s.id == session_id]
+                        if s.id == session_id]
             if not sessions:
                 return {'error': 'Session not found'}
             session = sessions[0]
@@ -209,7 +209,7 @@ class ResultAggregationProfiler:
 
         return analysis
 
-    def get_trending_analysis(self,
+def get_trending_analysis(self,
                             window: timedelta = timedelta(hours=1)) -> Dict[str, Any]:
         """Get trending metrics analysis."""
         trending = self.data_aggregator.get_trending_metrics(window)
@@ -232,10 +232,10 @@ class ResultAggregationProfiler:
 
         return analysis
 
-    def benchmark(self,
-                 func: Callable,
-                 iterations: int = 100,
-                 warmup: int = 10) -> Dict[str, Any]:
+def benchmark(self,
+                func: Callable,
+                iterations: int = 100,
+                warmup: int = 10) -> Dict[str, Any]:
         """Benchmark a function."""
         # Warmup
         for _ in range(warmup):
@@ -266,7 +266,7 @@ class ResultAggregationProfiler:
             'session_id': session_id
         }
 
-    def _gather_report_data(self) -> Dict[str, Any]:
+def _gather_report_data(self) -> Dict[str, Any]:
         """Gather data for report generation."""
         data = {
             'executive_summary': {
@@ -301,7 +301,7 @@ class ResultAggregationProfiler:
 
         return data
 
-    def _generate_recommendations(self, stats: PerformanceStats) -> List[str]:
+def _generate_recommendations(self, stats: PerformanceStats) -> List[str]:
         """Generate performance recommendations."""
         recommendations = []
 
@@ -319,14 +319,14 @@ class ResultAggregationProfiler:
         return recommendations
 
     # Utility methods
-    def clear_data(self):
+def clear_data(self):
         """Clear all collected data."""
         self.data_aggregator._clear_cache()
         self.performance_profiler.clear_history()
         self.results_cache.clear()
         logger.info("Cleared all profiler data")
 
-    def get_summary(self) -> Dict[str, Any]:
+def get_summary(self) -> Dict[str, Any]:
         """Get overall summary."""
         return {
             'data_points': len(self.data_aggregator.data_points),

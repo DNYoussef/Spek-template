@@ -8,23 +8,34 @@ This deploys the ACTUAL hierarchical swarm with:
 - 85+ specialized drone agents executing under Princess supervision
 - MECE task division for zero overlap
 - 9-stage audit pipeline with real execution
+- Version Log v2.0 prompt evaluation and bidirectional validation
 """
 
-import os
-import sys
-import json
-import subprocess
-import asyncio
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, List, Any, Tuple
+import json
 import logging
+import os
+import subprocess
+import sys
+
+import asyncio
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Add paths for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# Import Version Log v2.0 components
+try:
+    from orchestration.swarm_comms import SwarmCommunicationInterceptor
+    VALIDATION_AVAILABLE = True
+    logger.info("Version Log v2.0 validation enabled")
+except ImportError:
+    VALIDATION_AVAILABLE = False
+    logger.warning("Version Log v2.0 validation not available")
 
 class QueenSeraphina:
     """Master Orchestrator - Queen Seraphina"""
@@ -34,6 +45,12 @@ class QueenSeraphina:
         self.princess_domains = {}
         self.active_swarms = []
         self.audit_results = []
+
+        # Initialize Version Log v2.0 validation
+        self.interceptor = None
+        if VALIDATION_AVAILABLE:
+            self.interceptor = SwarmCommunicationInterceptor()
+            logger.info("Swarm communication interceptor initialized")
 
         print("\n" + "="*80)
         print(" "*30 + "QUEEN SERAPHINA")
@@ -52,11 +69,17 @@ class QueenSeraphina:
             "coordination": CoordinationPrincess()
         }
 
+        # Set interceptor for all princesses
+        if self.interceptor:
+            for princess in self.princess_domains.values():
+                princess.set_interceptor(self.interceptor)
+            logger.info("Interceptor set for all Princess domains")
+
         print("\n[QUEEN] Initializing 6 Princess Domains:")
         for name, princess in self.princess_domains.items():
             print(f"  [PRINCESS] {princess.name} - {len(princess.drone_agents)} drones ready")
 
-    def analyze_failures(self, failures: Dict) -> Dict:
+def analyze_failures(self, failures: Dict) -> Dict:
         """Analyze failures and assign to appropriate Princess domains"""
 
         print("\n[QUEEN] Analyzing failures with Byzantine consensus...")
@@ -94,12 +117,30 @@ class QueenSeraphina:
         princess = self.princess_domains[domain]
         print(f"\n[QUEEN] Deploying {princess.name} with swarm...")
 
+        # Validate Queen->Princess communication with Version Log v2.0
+        order = {
+            "domain": domain,
+            "tasks": tasks,
+            "princess": princess.name
+        }
+
+        if self.interceptor:
+            validated_order, report = self.interceptor.intercept_queen_to_princess(domain, order)
+            print(f"    [VALIDATION] Pass rate: {report.pass_rate:.1%} | Status: {report.validation_status.value}")
+
+            if not report.passed:
+                print(f"    [WARNING] Validation failed - using fallback version")
+                if report.rollback_version:
+                    print(f"    [ROLLBACK] Using {report.rollback_version}")
+
+            tasks = validated_order.get("tasks", tasks)
+
         swarm = princess.deploy_drones(tasks)
         self.active_swarms.append(swarm)
 
         return swarm
 
-    def execute_9_stage_audit(self, target: str) -> List[Dict]:
+def execute_9_stage_audit(self, target: str) -> List[Dict]:
         """Execute the mandatory 9-stage audit pipeline"""
 
         print(f"\n[QUEEN] Executing 9-Stage Audit Pipeline")
@@ -146,7 +187,6 @@ class QueenSeraphina:
         self.audit_results = results
         return results
 
-
 class PrincessBase:
     """Base class for all Princess domains"""
 
@@ -156,6 +196,13 @@ class PrincessBase:
         self.context_limit = "2MB"
         self.drone_agents = []
         self.active_tasks = []
+
+        # Get reference to Queen's interceptor if available
+        self.interceptor = None
+
+    def set_interceptor(self, interceptor):
+        """Set communication interceptor from Queen"""
+        self.interceptor = interceptor
 
     def deploy_drones(self, tasks: List[str]) -> Dict:
         """Deploy specialized drone agents for tasks"""
@@ -171,12 +218,40 @@ class PrincessBase:
         }
 
         for agent in self.drone_agents[:5]:  # Deploy up to 5 drones
-            drone = self.spawn_drone(agent, tasks)
+            # Validate Princess->Drone communication with Version Log v2.0
+            task_assignment = {
+                "agent": agent,
+                "tasks": tasks,
+                "file_path": "/src",  # Default allowed path
+                "prompt": agent.get("command", "")
+            }
+
+            if self.interceptor:
+                validated_task, report = self.interceptor.intercept_princess_to_drone(
+                    self.domain,
+                    agent["name"],
+                    task_assignment
+                )
+                print(f"    [VALIDATION] Drone {agent['name']}: {report.validation_status.value}")
+
+                if not report.passed and report.warnings:
+                    print(f"      Warnings: {', '.join(report.warnings[:2])}")
+
+                # Use validated task
+                task_assignment = validated_task
+
+            drone = self.spawn_drone(task_assignment.get("agent", agent), tasks)
             swarm["drones"].append(drone)
 
         return swarm
 
-    def spawn_drone(self, agent: Dict, tasks: List[str]) -> Dict:
+    def validate_drone_output(self, drone_id: str, output: Dict) -> Tuple[Dict, Any]:
+        """Validate drone output before passing to Queen"""
+        if self.interceptor:
+            return self.interceptor.validate_drone_to_princess(drone_id, self.domain, output)
+        return output, None
+
+def spawn_drone(self, agent: Dict, tasks: List[str]) -> Dict:
         """Spawn individual drone with specific capabilities"""
 
         print(f"    [DRONE] Spawning {agent['name']} ({agent['model']})")
@@ -197,11 +272,10 @@ class PrincessBase:
 
         return drone
 
-
 class DevelopmentPrincess(PrincessBase):
     """Development Princess - Code implementation and fixes"""
 
-    def __init__(self):
+def __init__(self):
         super().__init__("Development Princess", "development")
 
         self.drone_agents = [
@@ -237,11 +311,10 @@ class DevelopmentPrincess(PrincessBase):
             }
         ]
 
-
 class QualityPrincess(PrincessBase):
     """Quality Princess - Testing and compliance"""
 
-    def __init__(self):
+def __init__(self):
         super().__init__("Quality Princess", "quality")
 
         self.drone_agents = [
@@ -277,11 +350,10 @@ class QualityPrincess(PrincessBase):
             }
         ]
 
-
 class SecurityPrincess(PrincessBase):
     """Security Princess - Security and compliance validation"""
 
-    def __init__(self):
+def __init__(self):
         super().__init__("Security Princess", "security")
 
         self.drone_agents = [
@@ -299,11 +371,10 @@ class SecurityPrincess(PrincessBase):
             }
         ]
 
-
 class ResearchPrincess(PrincessBase):
     """Research Princess - Information gathering and analysis"""
 
-    def __init__(self):
+def __init__(self):
         super().__init__("Research Princess", "research")
 
         self.drone_agents = [
@@ -321,11 +392,10 @@ class ResearchPrincess(PrincessBase):
             }
         ]
 
-
 class InfrastructurePrincess(PrincessBase):
     """Infrastructure Princess - DevOps and CI/CD"""
 
-    def __init__(self):
+def __init__(self):
         super().__init__("Infrastructure Princess", "infrastructure")
 
         self.drone_agents = [
@@ -349,11 +419,10 @@ class InfrastructurePrincess(PrincessBase):
             }
         ]
 
-
 class CoordinationPrincess(PrincessBase):
     """Coordination Princess - Task orchestration and communication"""
 
-    def __init__(self):
+def __init__(self):
         super().__init__("Coordination Princess", "coordination")
 
         self.drone_agents = [
@@ -377,11 +446,10 @@ class CoordinationPrincess(PrincessBase):
             }
         ]
 
-
 class RealQueenDebugSystem:
     """Main system that deploys the real Queen-Princess-Drone hierarchy"""
 
-    def __init__(self):
+def __init__(self):
         self.queen = QueenSeraphina()
         self.test_failures = {
             "analyzer_integration": {
@@ -403,7 +471,7 @@ class RealQueenDebugSystem:
             }
         }
 
-    def execute_full_remediation(self):
+def execute_full_remediation(self):
         """Execute full remediation using Queen-Princess-Drone hierarchy"""
 
         print("\n[SYSTEM] Initializing Queen-Princess-Drone Hierarchy...")
@@ -435,7 +503,7 @@ class RealQueenDebugSystem:
         # Final report
         self.generate_final_report(active_swarms, audit_results, verification)
 
-    def deploy_actual_fixes(self):
+def deploy_actual_fixes(self):
         """Deploy the actual code fixes through drones"""
 
         print("\n[QUALITY PRINCESS] Deploying NASA compliance fix...")
@@ -451,7 +519,7 @@ class RealQueenDebugSystem:
         for fix in fixes:
             print(f"  [DRONE EXECUTION] {fix}")
 
-    def verify_with_anti_degradation(self) -> Dict:
+def verify_with_anti_degradation(self) -> Dict:
         """Verify fixes with anti-degradation system"""
 
         print("\n[ANTI-DEGRADATION] Verifying context integrity...")
@@ -471,7 +539,7 @@ class RealQueenDebugSystem:
 
         return verification
 
-    def generate_final_report(self, swarms: List, audit: List, verification: Dict):
+def generate_final_report(self, swarms: List, audit: List, verification: Dict):
         """Generate comprehensive final report"""
 
         print("\n" + "="*80)
@@ -508,12 +576,10 @@ class RealQueenDebugSystem:
         print("  1. Commit configuration changes")
         print("  2. Push to GitHub")
         print("  3. Monitor CI/CD pipeline")
-        print("  4. Expect 30/30 tests passing")
 
         print("\n" + "="*80)
         print(" "*25 + "SWARM DEPLOYMENT COMPLETE")
         print("="*80 + "\n")
-
 
 if __name__ == "__main__":
     system = RealQueenDebugSystem()

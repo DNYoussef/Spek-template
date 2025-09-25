@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: MIT
-# Smart integration engine for real connascence analysis
 
-import ast
 from pathlib import Path
 from typing import Any, Dict, List
+import ast
 
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
 
 class CorrelationAnalyzer:
     """Analyzes correlations between different analyzer findings."""
@@ -175,7 +175,6 @@ class CorrelationAnalyzer:
         
         return correlations
 
-
 class RecommendationEngine:
     """Generates intelligent recommendations based on analysis results."""
 
@@ -276,7 +275,6 @@ class RecommendationEngine:
             }
         ]
 
-
 class PythonASTAnalyzer:
     """Specialized analyzer for Python AST-based violations."""
 
@@ -357,7 +355,7 @@ class PythonASTAnalyzer:
                     "rule_id": "data_class",
                     "type": "data_class",
                     "severity": "medium",
-                    "description": f'Data Class smell: Class "{node.name}" has {len(instance_vars)} instance variables (threshold: 10)',
+                    "description": f'Data Class smell: Class "{node.name}" has {len(instance_vars)} instance variables (threshold: MAXIMUM_FUNCTION_PARAMETERS)',
                     "file_path": str(file_path),
                     "line_number": node.lineno,
                     "weight": 2.5,
@@ -512,7 +510,6 @@ class PythonASTAnalyzer:
 
         return depth_visitor(node)
 
-
 class SmartIntegrationEngine:
     """Smart integration engine for real connascence analysis."""
 
@@ -636,6 +633,5 @@ class SmartIntegrationEngine:
             ],
             "mitigation": ["Address critical violations immediately", "Implement code review process"],
         }
-
 
 __all__ = ["SmartIntegrationEngine"]

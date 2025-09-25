@@ -1,14 +1,10 @@
-"""
-DFARS Continuous Risk Assessment System
-Real-time threat intelligence and risk monitoring for defense industry compliance.
-"""
+from src.constants.base import API_TIMEOUT_SECONDS, DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 import json
 import time
 import hashlib
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class RiskLevel(Enum):
     """Risk assessment levels."""
@@ -17,7 +13,6 @@ class RiskLevel(Enum):
     MEDIUM = "medium"
     HIGH = "high"
     CRITICAL = "critical"
-
 
 class ThreatCategory(Enum):
     """Threat categories for risk assessment."""
@@ -32,7 +27,6 @@ class ThreatCategory(Enum):
     SYSTEM_COMPROMISE = "system_compromise"
     DENIAL_OF_SERVICE = "denial_of_service"
 
-
 class VulnerabilitySource(Enum):
     """Vulnerability information sources."""
     NVD = "nvd"  # National Vulnerability Database
@@ -41,7 +35,6 @@ class VulnerabilitySource(Enum):
     VENDOR = "vendor"  # Vendor advisories
     INTERNAL = "internal"  # Internal security scanning
     THREAT_INTEL = "threat_intel"  # Commercial threat intelligence
-
 
 @dataclass
 class ThreatIndicator:
@@ -57,7 +50,6 @@ class ThreatIndicator:
     source: str
     context: Dict[str, Any]
     ttl: Optional[float]  # Time to live
-
 
 @dataclass
 class VulnerabilityAssessment:
@@ -77,7 +69,6 @@ class VulnerabilityAssessment:
     business_impact: str
     technical_impact: str
 
-
 @dataclass
 class RiskAssessment:
     """Comprehensive risk assessment result."""
@@ -92,7 +83,6 @@ class RiskAssessment:
     recommendations: List[str]
     mitigating_controls: List[str]
     residual_risks: List[Dict[str, Any]]
-
 
 class DFARSContinuousRiskAssessment:
     """
@@ -435,7 +425,6 @@ class DFARSContinuousRiskAssessment:
     async def _get_internal_threat_indicators(self) -> List[Dict[str, Any]]:
         """Get internal threat indicators from security systems."""
         # Simulate internal threat indicator collection
-        # In production, this would integrate with SIEM, IDS/IPS, etc.
         indicators = []
 
         # Example: Collect indicators from log analysis
@@ -460,7 +449,6 @@ class DFARSContinuousRiskAssessment:
     async def _fetch_external_threat_feed(self, feed_name: str, feed_config: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Fetch threat intelligence from external feed."""
         # Simulate external feed fetching
-        # In production, this would make actual HTTP requests to threat intel APIs
 
         if feed_name == "cisa":
             return await self._fetch_cisa_advisories()
@@ -565,7 +553,6 @@ class DFARSContinuousRiskAssessment:
         matches = []
 
         # Simulate checking indicator against organizational assets
-        # In production, this would query network logs, DNS queries, etc.
 
         if indicator.indicator_type == "ip":
             # Check against network logs for IP connections
@@ -602,7 +589,7 @@ class DFARSContinuousRiskAssessment:
     async def _detect_threat_campaigns(self, indicators: List[ThreatIndicator]):
         """Detect coordinated threat campaigns from indicator patterns."""
         # Group indicators by source and time window
-        campaign_threshold = 5  # Minimum indicators for campaign detection
+        campaign_threshold = MAXIMUM_NESTED_DEPTH  # Minimum indicators for campaign detection
         time_window = 3600  # 1 hour window
 
         # Group by threat category and time
@@ -639,7 +626,6 @@ class DFARSContinuousRiskAssessment:
     async def _perform_vulnerability_scan(self):
         """Perform comprehensive vulnerability scanning."""
         # Simulate vulnerability scanning
-        # In production, this would integrate with vulnerability scanners
 
         discovered_vulnerabilities = await self._run_vulnerability_scanners()
 
@@ -723,7 +709,7 @@ class DFARSContinuousRiskAssessment:
         """Assess technical impact of vulnerability."""
         if cvss_score >= 9.0:
             impact = "Critical technical impact"
-        elif cvss_score >= 7.0:
+        elif cvss_score >= DAYS_RETENTION_PERIOD.0:
             impact = "High technical impact"
         elif cvss_score >= 4.0:
             impact = "Medium technical impact"
@@ -764,7 +750,6 @@ class DFARSContinuousRiskAssessment:
     async def _discover_assets(self):
         """Discover and inventory organizational assets."""
         # Simulate asset discovery
-        # In production, this would use network discovery tools
 
         discovered_assets = await self._run_asset_discovery()
 
@@ -963,7 +948,7 @@ class DFARSContinuousRiskAssessment:
                                     vulnerability_summary: Dict[str, int],
                                     asset_risk_scores: Dict[str, float]) -> float:
         """Calculate overall organizational risk score."""
-        # Threat landscape component (30% weight)
+        # Threat landscape component (API_TIMEOUT_SECONDS% weight)
         threat_score = sum(threat_landscape.values()) / len(threat_landscape) if threat_landscape else 0.0
         threat_component = threat_score * 0.3
 
@@ -981,9 +966,9 @@ class DFARSContinuousRiskAssessment:
 
         vuln_component = vuln_score * 0.4
 
-        # Asset risk component (30% weight)
+        # Asset risk component (API_TIMEOUT_SECONDS% weight)
         asset_score = sum(asset_risk_scores.values()) / len(asset_risk_scores) if asset_risk_scores else 0.0
-        asset_component = asset_score * 0.3
+        asset_component = asset_score * 0.2
 
         overall_score = threat_component + vuln_component + asset_component
         return min(overall_score, 1.0)
@@ -1025,8 +1010,8 @@ class DFARSContinuousRiskAssessment:
         return trends
 
     def _generate_risk_recommendations(self, threat_landscape: Dict[ThreatCategory, float],
-                                     vulnerability_summary: Dict[str, int],
-                                     asset_risk_scores: Dict[str, float]) -> List[str]:
+                                    vulnerability_summary: Dict[str, int],
+                                    asset_risk_scores: Dict[str, float]) -> List[str]:
         """Generate risk mitigation recommendations."""
         recommendations = []
 
@@ -1243,12 +1228,10 @@ class DFARSContinuousRiskAssessment:
             }
         }
 
-
 # Factory function
 def create_continuous_risk_assessment(config_path: Optional[str] = None) -> DFARSContinuousRiskAssessment:
     """Create DFARS continuous risk assessment system."""
     return DFARSContinuousRiskAssessment(config_path)
-
 
 # Example usage
 if __name__ == "__main__":

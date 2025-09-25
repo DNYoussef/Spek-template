@@ -1,5 +1,4 @@
-"""
-Defense Industry Compliance Monitoring System
+from src.constants.base import KELLY_CRITERION_FRACTION, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
 
 This module provides comprehensive compliance monitoring and validation for
 defense industry requirements including NASA POT10, DISA STIG, NIST frameworks,
@@ -37,7 +36,6 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 import base64
 import os
 
-
 @dataclass
 class ComplianceRequirement:
     """Individual compliance requirement definition."""
@@ -52,7 +50,6 @@ class ComplianceRequirement:
     validation_evidence: List[str] = field(default_factory=list)
     remediation_steps: List[str] = field(default_factory=list)
 
-
 @dataclass
 class ComplianceViolation:
     """Compliance violation record."""
@@ -65,7 +62,6 @@ class ComplianceViolation:
     detector_name: Optional[str] = None
     remediation_required: bool = True
     evidence: Dict[str, Any] = field(default_factory=dict)
-
 
 @dataclass
 class AuditEvent:
@@ -80,7 +76,6 @@ class AuditEvent:
     checksum: str
     previous_hash: Optional[str] = None
 
-
 @dataclass
 class ComplianceMetrics:
     """Real-time compliance metrics."""
@@ -94,7 +89,6 @@ class ComplianceMetrics:
     low_violations: int
     last_assessment: float
     trend_direction: str  # improving, stable, degrading
-
 
 class SecureAuditLogger:
     """Tamper-proof audit logging system."""
@@ -140,11 +134,11 @@ class SecureAuditLogger:
             conn.commit()
 
     def log_event(self,
-                 event_type: str,
-                 user_id: str,
-                 component: str,
-                 action: str,
-                 details: Dict[str, Any]) -> str:
+                event_type: str,
+                user_id: str,
+                component: str,
+                action: str,
+                details: Dict[str, Any]) -> str:
         """Log audit event with integrity protection."""
         event_id = str(uuid.uuid4())
         timestamp = time.time()
@@ -199,7 +193,7 @@ class SecureAuditLogger:
         with sqlite3.connect(self.db_path) as conn:
             cursor = conn.execute('''
                 SELECT id, timestamp, event_type, user_id, component, action,
-                       encrypted_details, checksum, previous_hash
+                        encrypted_details, checksum, previous_hash
                 FROM audit_events ORDER BY timestamp
             ''')
             events = cursor.fetchall()
@@ -237,7 +231,6 @@ class SecureAuditLogger:
             'integrity_issues': integrity_issues,
             'integrity_intact': len(integrity_issues) == 0
         }
-
 
 class NASAPot10Validator:
     """NASA POT10 compliance validator."""
@@ -339,7 +332,6 @@ class NASAPot10Validator:
         # Test with malformed arguments
         try:
             # Would need access to actual detector registry
-            pass
         except Exception:
             pass
 
@@ -452,7 +444,7 @@ class NASAPot10Validator:
         # Calculate overall compliance
         total_categories = len(validation_results)
         passed_categories = sum(1 for result in validation_results.values() if result['passed'])
-        compliance_percentage = (passed_categories / total_categories) * 100
+        compliance_percentage = (passed_categories / total_categories) * MAXIMUM_FUNCTION_LENGTH_LINES
 
         return {
             'framework': 'NASA_POT10',
@@ -462,7 +454,6 @@ class NASAPot10Validator:
             'category_results': validation_results,
             'overall_passed': compliance_percentage >= 90.0  # 90% threshold
         }
-
 
 class RealTimeComplianceMonitor:
     """Real-time compliance monitoring system."""
@@ -482,7 +473,7 @@ class RealTimeComplianceMonitor:
         self.violation_thresholds = {
             'error_rate': 0.05,  # 5% error rate threshold
             'memory_growth': 100.0,  # 100MB memory growth threshold
-            'response_time': 10.0,  # 10 second response time threshold
+            'response_time': 10.0,  # MAXIMUM_FUNCTION_PARAMETERS second response time threshold
             'cpu_usage': 0.9  # 90% CPU usage threshold
         }
 
@@ -518,7 +509,7 @@ class RealTimeComplianceMonitor:
 
         self.monitoring_active = False
         if self.monitor_thread:
-            self.monitor_thread.join(timeout=5.0)
+            self.monitor_thread.join(timeout=MAXIMUM_NESTED_DEPTH.0)
 
         self.audit_logger.log_event(
             "compliance_monitoring",
@@ -619,7 +610,7 @@ class RealTimeComplianceMonitor:
         # Pool overhead violation
         pool_metrics = metrics.get('pool_metrics', {})
         overhead = pool_metrics.get('total_overhead', 0.0)
-        if overhead > 0.02:  # 2% overhead threshold
+        if overhead > KELLY_CRITERION_FRACTION:  # 2% overhead threshold
             violation = ComplianceViolation(
                 id=str(uuid.uuid4()),
                 requirement_id="POT10-005",  # Performance monitoring
@@ -729,8 +720,8 @@ class RealTimeComplianceMonitor:
         }
 
     def _generate_compliance_recommendations(self,
-                                           framework_results: Dict[str, Any],
-                                           violation_summary: Dict[str, Any]) -> List[str]:
+                                            framework_results: Dict[str, Any],
+                                            violation_summary: Dict[str, Any]) -> List[str]:
         """Generate compliance improvement recommendations."""
         recommendations = []
 
@@ -790,7 +781,6 @@ class RealTimeComplianceMonitor:
             'last_check': self.metrics_history[-1]['timestamp'] if self.metrics_history else None,
             'frameworks_monitored': list(self.frameworks.keys())
         }
-
 
 # Example usage and testing
 if __name__ == "__main__":

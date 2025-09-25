@@ -1,9 +1,5 @@
 from lib.shared.utilities import get_logger
-#!/usr/bin/env python3
-"""
-DFARS Continuous Compliance Monitoring System
-Real-time monitoring for DFARS 252.204-7012 compliance with automated alerting
-"""
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 import asyncio
 import json
@@ -277,7 +273,7 @@ class DFARSContinuousMonitor:
 
         # Monitoring intervals
         self.system_check_interval = 60  # 1 minute
-        self.compliance_check_interval = 300  # 5 minutes
+        self.compliance_check_interval = 300  # MAXIMUM_NESTED_DEPTH minutes
         self.cui_scan_interval = 900  # 15 minutes
 
         # Start monitoring threads
@@ -489,7 +485,7 @@ class DFARSContinuousMonitor:
         return (compliant_controls / total_controls) * 100
 
     def _create_alert(self, alert_type: AlertType, severity: MonitoringLevel,
-                     control: str, description: str, metrics: Dict[str, Any]):
+                    control: str, description: str, metrics: Dict[str, Any]):
         """Create compliance alert"""
         alert_id = f"ALERT-{datetime.now().strftime('%Y%m%d%H%M%S')}-{hash(description) % 10000:04d}"
 
@@ -574,10 +570,10 @@ class DFARSContinuousMonitor:
         if alert.escalation_required:
             self.dfars_system.incident_manager.create_incident(
                 severity=getattr(self.dfars_system.incident_manager.IncidentSeverity, alert.severity.value,
-                               self.dfars_system.incident_manager.IncidentSeverity.MEDIUM),
+                                self.dfars_system.incident_manager.IncidentSeverity.MEDIUM),
                 control=getattr(self.dfars_system.incident_manager.DFARSControl,
-                               alert.control_affected.replace('_', ''),
-                               self.dfars_system.incident_manager.DFARSControl.AUDIT_ACCOUNTABILITY),
+                                alert.control_affected.replace('_', ''),
+                                self.dfars_system.incident_manager.DFARSControl.AUDIT_ACCOUNTABILITY),
                 description=f"Alert escalation: {alert.description}",
                 affected_assets=[f"alert_{alert.alert_id}"]
             )
@@ -699,11 +695,8 @@ async def main():
         def __init__(self):
             from dfars_workflow_automation import DFARSWorkflowAutomation
             # Initialize with mock components
-            pass
 
     # Initialize monitoring system
-    # dfars_system = MockDFARSSystem()
-    # monitor = DFARSContinuousMonitor(dfars_system)
 
     print("Monitoring system would run continuously...")
     print("Features:")

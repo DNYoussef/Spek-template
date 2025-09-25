@@ -1,6 +1,4 @@
 # from lib.shared.utilities.logging_setup import get_security_logger
-# from lib.shared.utilities.error_handling import ErrorHandler, ErrorCategory, ErrorSeverity
-# from lib.shared.utilities.path_validation import path_exists, validate_file, validate_directory
 
 # Use specialized security logging for supply chain
 logger = get_security_logger(__name__)
@@ -9,19 +7,19 @@ Supply Chain Security Analyzer - Main Orchestrator
 Coordinates all supply chain security components and provides unified interface.
 """
 
-import asyncio
-import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Any, Optional
+import json
 import time
+
+import asyncio
 
 from .sbom_generator import SBOMGenerator
 from .slsa_provenance import SLSAProvenanceGenerator
 from .vulnerability_scanner import VulnerabilityScanner
 from .crypto_signer import CryptographicSigner
 from .evidence_packager import EvidencePackager
-
 
 class SupplyChainAnalyzer:
     """Main supply chain security analyzer orchestrating all components."""
@@ -163,8 +161,8 @@ class SupplyChainAnalyzer:
             return {'error': str(e), 'status': 'FAILED'}
     
     async def _run_provenance_generation(self, 
-                                       artifacts: List[Dict[str, Any]], 
-                                       build_metadata: Dict[str, Any]) -> Dict[str, Any]:
+                                        artifacts: List[Dict[str, Any]], 
+                                        build_metadata: Dict[str, Any]) -> Dict[str, Any]:
         """Run provenance generation asynchronously."""
         try:
             # Convert to sync call since SLSA generator is not async

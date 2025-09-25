@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 """Integration tests for analyzer system components."""
 
-import pytest
-import json
-import tempfile
 from pathlib import Path
+import json
 import sys
-sys.path.append(str(Path(__file__).parent.parent.parent / 'analyzer'))
+import tempfile
+
+import pytest
 
 from analyzer.core import UnifiedAnalyzer
 from analyzer.detectors.connascence_ast_analyzer import ConnascenceASTAnalyzer
 from analyzer.architecture.enhanced_metrics import EnhancedMetrics
-
 
 class TestAnalyzerIntegration:
     """Integration tests for analyzer components working together."""

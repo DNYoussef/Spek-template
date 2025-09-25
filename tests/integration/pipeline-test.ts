@@ -1,6 +1,6 @@
 /**
  * Integration Test for Complete Audit Pipeline
- * Tests: Subagent → Princess Audit → Quality Enhancement → GitHub → Queen
+ * Tests: Subagent  Princess Audit  Quality Enhancement  GitHub  Queen
  */
 
 import { PrincessAuditGate, SubagentWork } from '../../src/swarm/hierarchy/PrincessAuditGate';
@@ -498,7 +498,7 @@ async function runPipelineTest(): Promise<void> {
       logger.log(`\nAudit Result: ${auditResult.finalStatus.toUpperCase()}`);
 
       if (auditResult.finalStatus === 'approved') {
-        logger.log('✅ Work APPROVED - Ready for Queen!');
+        logger.log(' Work APPROVED - Ready for Queen!');
         logger.log('All quality gates passed:');
         logger.log('  - No theater detected');
         logger.log('  - All tests passing');
@@ -506,7 +506,7 @@ async function runPipelineTest(): Promise<void> {
         logger.log('  - 100% Defense standards met');
         logger.log('  - 100% Enterprise quality achieved');
       } else {
-        logger.log('❌ Work REJECTED');
+        logger.log(' Work REJECTED');
         if (auditResult.rejectionReasons) {
           logger.log('Rejection reasons:');
           for (const reason of auditResult.rejectionReasons) {
@@ -517,7 +517,7 @@ async function runPipelineTest(): Promise<void> {
 
       // Verify expected outcome
       const passed = auditResult.finalStatus === scenario.expectedResult;
-      logger.log(`\nTest Result: ${passed ? '✅ PASS' : '❌ FAIL'}`);
+      logger.log(`\nTest Result: ${passed ? ' PASS' : ' FAIL'}`);
 
       if (!passed) {
         logger.log(`  Expected: ${scenario.expectedResult}`);
@@ -525,7 +525,7 @@ async function runPipelineTest(): Promise<void> {
       }
 
     } catch (error) {
-      logger.log(`\n❌ Test failed with error: ${error.message}`);
+      logger.log(`\n Test failed with error: ${error.message}`);
     }
   }
 
@@ -535,14 +535,14 @@ async function runPipelineTest(): Promise<void> {
   logger.log('========================================');
   logger.log(`Total scenarios: ${scenarios.length}`);
   logger.log('Pipeline stages tested:');
-  logger.log('  ✅ Stage 1: Theater Detection');
-  logger.log('  ✅ Stage 2: Sandbox Validation');
-  logger.log('  ✅ Stage 3: Debug Cycle');
-  logger.log('  ✅ Stage 4: Final Validation');
-  logger.log('  ✅ Stage 6: Enterprise Quality Analysis');
-  logger.log('  ✅ Stage 7: NASA-Compliant Enhancement');
-  logger.log('  ✅ Stage 8: Ultimate Validation');
-  logger.log('  ✅ Stage 9: GitHub Recording');
+  logger.log('   Stage 1: Theater Detection');
+  logger.log('   Stage 2: Sandbox Validation');
+  logger.log('   Stage 3: Debug Cycle');
+  logger.log('   Stage 4: Final Validation');
+  logger.log('   Stage 6: Enterprise Quality Analysis');
+  logger.log('   Stage 7: NASA-Compliant Enhancement');
+  logger.log('   Stage 8: Ultimate Validation');
+  logger.log('   Stage 9: GitHub Recording');
 
   // Save test results
   const resultsPath = path.join(testDir, 'test-results.json');

@@ -1,4 +1,4 @@
-# Gary×Taleb Trading System - Advanced Resource Optimization
+# GaryxTaleb Trading System - Advanced Resource Optimization
 # GPU scheduling, CPU affinity, memory optimization, and cost management
 
 apiVersion: v1
@@ -163,7 +163,7 @@ spec:
           #!/bin/sh
           set -e
 
-          echo "Starting Gary×Taleb Resource Optimizer on node: $NODE_NAME"
+          echo "Starting GaryxTaleb Resource Optimizer on node: $NODE_NAME"
 
           # CPU Optimization
           optimize_cpu() {

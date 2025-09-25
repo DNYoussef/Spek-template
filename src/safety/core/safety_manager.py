@@ -6,12 +6,13 @@ Coordinates all safety subsystems to ensure 99.9% availability with <60s recover
 Implements comprehensive monitoring, failover orchestration, and recovery validation.
 """
 
-import logging
-import threading
 from datetime import datetime, timedelta
-from enum import Enum
 from typing import Dict, Callable, Any
+import logging
+
 from dataclasses import dataclass
+from enum import Enum
+import threading
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +42,7 @@ class SafetyMetrics:
 class SafetyManager:
     """Central safety system orchestration."""
 
-    def __init__(self, config: Dict[str, Any] = None):
+def __init__(self, config: Dict[str, Any] = None):
         """Initialize safety manager."""
         self.config = config or {}
 
@@ -69,7 +70,7 @@ class SafetyManager:
 
         logger.info("Safety manager initialized")
 
-    def get_health_status(self) -> Dict[str, Any]:
+def get_health_status(self) -> Dict[str, Any]:
         """Get current health status."""
         return {
             "state": self._state.value,
@@ -77,7 +78,7 @@ class SafetyManager:
             "components": {comp.value: health for comp, health in self._component_health.items()}
         }
 
-    def is_healthy(self) -> bool:
+def is_healthy(self) -> bool:
         """Check if system is healthy."""
         return self._state == SafetyState.HEALTHY
 
@@ -92,7 +93,7 @@ class SafetyManager:
 
         self.logger.info("SafetyManager initialized with config: %s", self.config)
 
-    def initialize_subsystems(self, failover_manager, recovery_system,
+def initialize_subsystems(self, failover_manager, recovery_system,
                             availability_monitor, redundancy_validator):
         """Initialize references to safety subsystems."""
         self.failover_manager = failover_manager
@@ -105,7 +106,7 @@ class SafetyManager:
             self._component_health[component] = False
             self._component_last_check[component] = datetime.utcnow()
 
-    def start(self):
+def start(self):
         """Start the safety system monitoring and management."""
         if self._is_running:
             self.logger.warning("SafetyManager already running")
@@ -124,7 +125,7 @@ class SafetyManager:
 
         self.logger.info("SafetyManager started successfully")
 
-    def stop(self):
+def stop(self):
         """Stop the safety system."""
         if not self._is_running:
             return
@@ -137,24 +138,24 @@ class SafetyManager:
 
         self.logger.info("SafetyManager stopped")
 
-    def register_health_check(self, component: SystemComponent,
+def register_health_check(self, component: SystemComponent,
                             health_check_func: Callable[[], bool]):
         """Register a health check function for a component."""
         self._health_checks[component] = health_check_func
         self.logger.info("Health check registered for %s", component.value)
 
-    def get_system_state(self) -> SafetyState:
+def get_system_state(self) -> SafetyState:
         """Get current system safety state."""
         with self._state_lock:
             return self._state
 
-    def get_metrics(self) -> SafetyMetrics:
+def get_metrics(self) -> SafetyMetrics:
         """Get current safety metrics."""
         # Update calculated metrics
         self._update_metrics()
         return self.metrics
 
-    def trigger_failover(self, component: SystemComponent, reason: str) -> bool:
+def trigger_failover(self, component: SystemComponent, reason: str) -> bool:
         """
         Trigger failover for a specific component.
 
@@ -188,7 +189,7 @@ class SafetyManager:
 
             if success:
                 self.logger.info("Failover successful for %s in %.2fs",
-                               component.value, recovery_time)
+                                component.value, recovery_time)
 
                 # Validate recovery meets <60s requirement
                 if recovery_time > self.config.get('max_recovery_time_seconds', 60):
@@ -218,7 +219,7 @@ class SafetyManager:
                 self._state = SafetyState.FAILED
             return False
 
-    def validate_availability_sla(self) -> Dict[str, Any]:
+def validate_availability_sla(self) -> Dict[str, Any]:
         """
         Validate that 99.9% availability SLA is being met.
 
@@ -251,7 +252,7 @@ class SafetyManager:
 
         return result
 
-    def _monitoring_loop(self):
+def _monitoring_loop(self):
         """Main monitoring loop running in separate thread."""
         interval = self.config.get('health_check_interval_seconds', 5)
 
@@ -267,7 +268,7 @@ class SafetyManager:
             except Exception as e:
                 self.logger.error("Error in monitoring loop: %s", e)
 
-    def _perform_health_checks(self):
+def _perform_health_checks(self):
         """Perform health checks on all registered components."""
         for component, health_check in self._health_checks.items():
             try:
@@ -294,7 +295,7 @@ class SafetyManager:
                 self._component_health[component] = False
                 self.metrics.health_checks_failed += 1
 
-    def _assess_system_state(self):
+def _assess_system_state(self):
         """Assess overall system state based on component health."""
         healthy_components = sum(1 for health in self._component_health.values() if health)
         total_components = len(self._component_health)
@@ -318,13 +319,13 @@ class SafetyManager:
                     self._state = SafetyState.CRITICAL
                     self._start_downtime()
 
-    def _start_downtime(self):
+def _start_downtime(self):
         """Mark the start of system downtime."""
         if self._downtime_start is None:
             self._downtime_start = datetime.utcnow()
             self.logger.warning("System downtime started at %s", self._downtime_start)
 
-    def _end_downtime(self):
+def _end_downtime(self):
         """Mark the end of system downtime."""
         if self._downtime_start:
             downtime_duration = datetime.utcnow() - self._downtime_start
@@ -332,7 +333,7 @@ class SafetyManager:
             self.logger.info("System downtime ended. Duration: %s", downtime_duration)
             self._downtime_start = None
 
-    def _calculate_uptime_percentage(self) -> float:
+def _calculate_uptime_percentage(self) -> float:
         """Calculate current uptime percentage."""
         total_runtime = datetime.utcnow() - self._startup_time
         if total_runtime.total_seconds() == 0:
@@ -345,7 +346,7 @@ class SafetyManager:
         uptime = total_runtime - current_downtime
         return max(0.0, min(1.0, uptime.total_seconds() / total_runtime.total_seconds()))
 
-    def _calculate_total_uptime(self) -> timedelta:
+def _calculate_total_uptime(self) -> timedelta:
         """Calculate total uptime duration."""
         total_runtime = datetime.utcnow() - self._startup_time
         current_downtime = self._total_downtime
@@ -355,7 +356,7 @@ class SafetyManager:
 
         return total_runtime - current_downtime
 
-    def _calculate_downtime_budget_remaining(self) -> float:
+def _calculate_downtime_budget_remaining(self) -> float:
         """Calculate remaining downtime budget for 99.9% SLA."""
         total_runtime = datetime.utcnow() - self._startup_time
         target_availability = self.config.get('availability_target', 0.999)
@@ -368,7 +369,7 @@ class SafetyManager:
 
         return max(0.0, (allowed_downtime - current_downtime).total_seconds())
 
-    def _update_metrics(self):
+def _update_metrics(self):
         """Update calculated metrics."""
         if self.metrics.recovery_times:
             self.metrics.mean_recovery_time = sum(self.metrics.recovery_times) / len(self.metrics.recovery_times)
@@ -378,7 +379,7 @@ class SafetyManager:
             if datetime.utcnow() - self.metrics.last_incident < timedelta(hours=24):
                 self.metrics.incidents_24h += 1
 
-    def _log_system_status(self):
+def _log_system_status(self):
         """Log current system status for monitoring."""
         metrics = self.get_metrics()
         sla_status = self.validate_availability_sla()

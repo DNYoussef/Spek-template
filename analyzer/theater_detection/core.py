@@ -3,15 +3,15 @@ Core Theater Detection Components
 Detects various forms of performance theater in software development.
 """
 
-import re
-import ast
-import os
-import json
 from typing import List, Dict, Any, Optional, Tuple
+import ast
+import json
+import logging
+import os
+import re
+
 from dataclasses import dataclass
 from enum import Enum
-import logging
-logger = logging.getLogger(__name__)
 
 class TheaterType(Enum):
     """Types of theater patterns."""

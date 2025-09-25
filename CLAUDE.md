@@ -2,6 +2,10 @@
 
 # RULES FOR CODING
 1. NO UNICODE OR EMOKI'S
+2. **FSM-FIRST DEVELOPMENT**: All features MUST be designed as state machines with explicit states, events, and transitions
+3. **STATE ISOLATION**: One file per state, no cross-state globals
+4. **CENTRALIZED TRANSITIONS**: All state changes through single TransitionHub
+5. **NO STRING EVENTS**: Use enums for all events and states
 
 
 ## [TARGET] Project Overview
@@ -38,6 +42,7 @@ Loop 3: Quality (analysis->root cause->fixes->validation)
 2. **NEVER save working files, text/mds and tests to the root folder**
 3. ALWAYS organize files in appropriate subdirectories
 4. NO UNICODE!!!
+5. **ALWAYS maintain Version & Run Log footers in ALL files** (see Version Log section below)
 
 ### [LIGHTNING] GOLDEN RULE: "1 MESSAGE = ALL RELATED OPERATIONS"
 
@@ -180,49 +185,49 @@ See [docs/3-LOOP-SYSTEM.md](docs/3-LOOP-SYSTEM.md) for complete documentation.
 ### **Specialized Agent Categories (85+ Total with Optimal AI Models)**
 
 #### **Browser Automation & Visual (GPT-5 + Codex CLI)**
-- `frontend-developer` → GPT-5 + [claude-flow, memory, github, playwright, figma]
-- `ui-designer` → GPT-5 + [claude-flow, memory, playwright, figma, puppeteer]
-- `mobile-dev` → GPT-5 + [claude-flow, memory, github, playwright, puppeteer]
-- `rapid-prototyper` → GPT-5 + [claude-flow, memory, playwright, figma]
+- `frontend-developer` -> GPT-5 + [claude-flow, memory, github, playwright, figma]
+- `ui-designer` -> GPT-5 + [claude-flow, memory, playwright, figma, puppeteer]
+- `mobile-dev` -> GPT-5 + [claude-flow, memory, github, playwright, puppeteer]
+- `rapid-prototyper` -> GPT-5 + [claude-flow, memory, playwright, figma]
 
 #### **Large Context & Research (Gemini 2.5 Pro - 1M tokens)**
-- `researcher` → Gemini Pro + [claude-flow, memory, deepwiki, firecrawl, ref, context7]
-- `specification` → Gemini Pro + [claude-flow, memory, deepwiki, ref, context7, markitdown]
-- `architecture` → Gemini Pro + [claude-flow, memory, deepwiki, ref, context7]
-- `system-architect` → Gemini Pro + [claude-flow, memory, deepwiki, ref, context7]
+- `researcher` -> Gemini Pro + [claude-flow, memory, deepwiki, firecrawl, ref, context7]
+- `specification` -> Gemini Pro + [claude-flow, memory, deepwiki, ref, context7, markitdown]
+- `architecture` -> Gemini Pro + [claude-flow, memory, deepwiki, ref, context7]
+- `system-architect` -> Gemini Pro + [claude-flow, memory, deepwiki, ref, context7]
 
 #### **Quality Assurance (Claude Opus 4.1 - 72.7% SWE-bench)**
-- `reviewer` → Claude Opus + [claude-flow, memory, github, eva]
-- `code-analyzer` → Claude Opus + [claude-flow, memory, eva]
-- `security-manager` → Claude Opus + [claude-flow, memory, eva]
-- `tester` → Claude Opus + [claude-flow, memory, github, playwright, eva]
-- `production-validator` → Claude Opus + [claude-flow, memory, eva]
+- `reviewer` -> Claude Opus + [claude-flow, memory, github, eva]
+- `code-analyzer` -> Claude Opus + [claude-flow, memory, eva]
+- `security-manager` -> Claude Opus + [claude-flow, memory, eva]
+- `tester` -> Claude Opus + [claude-flow, memory, github, playwright, eva]
+- `production-validator` -> Claude Opus + [claude-flow, memory, eva]
 
 #### **Coordination & Orchestration (Claude Sonnet 4 + Sequential)**
-- `sparc-coord` → Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
-- `hierarchical-coordinator` → Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
-- `mesh-coordinator` → Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
-- `task-orchestrator` → Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
+- `sparc-coord` -> Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
+- `hierarchical-coordinator` -> Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
+- `mesh-coordinator` -> Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
+- `task-orchestrator` -> Sonnet + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
 
 #### **Cost-Effective Operations (Gemini Flash + Sequential)**
-- `planner` → Flash + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
-- `refinement` → Flash + Sequential + [claude-flow, memory, sequential-thinking]
-- `pr-manager` → Flash + Sequential + [claude-flow, memory, github, sequential-thinking]
-- `issue-tracker` → Flash + Sequential + [claude-flow, memory, github, sequential-thinking, github-project-manager]
+- `planner` -> Flash + Sequential + [claude-flow, memory, sequential-thinking, github-project-manager]
+- `refinement` -> Flash + Sequential + [claude-flow, memory, sequential-thinking]
+- `pr-manager` -> Flash + Sequential + [claude-flow, memory, github, sequential-thinking]
+- `issue-tracker` -> Flash + Sequential + [claude-flow, memory, github, sequential-thinking, github-project-manager]
 
 ### **Agent Deployment Pattern with Automatic Model Selection**
 ```javascript
 // Automatic model and MCP assignment based on agent type
 const { agentSpawner } = require('./src/flow/core/agent-spawner');
 
-// Frontend agent → Gets Codex + browser automation MCP servers
+// Frontend agent -> Gets Codex + browser automation MCP servers
 await agentSpawner.spawnAgent(
   'frontend-developer',
   'Create responsive UI with screenshots'
 );
 // Auto-assigns: GPT-5 + [playwright, figma, ...] with Codex CLI tool
 
-// Research agent → Gets Gemini Pro + research MCP servers
+// Research agent -> Gets Gemini Pro + research MCP servers
 await agentSpawner.spawnAgent(
   'researcher',
   'Analyze large codebase patterns'
@@ -320,6 +325,51 @@ Pattern detection -> Evidence validation -> Quality verification -> Learning
 - **mcp__memory__read_graph**: Read entire knowledge graph
 - **mcp__memory__search_nodes**: Query-based node search
 - **mcp__memory__open_nodes**: Retrieve specific entities
+
+## [NEW] FSM-First Development Workflow
+
+### Required FSM Process for ALL Features
+
+1. **Start with State Design** (/fsm:design)
+   ```bash
+   /fsm:design "feature description"
+   # Outputs: fsm_spec.yaml, state diagram, transition matrix
+   ```
+
+2. **Generate Implementation** (/fsm:generate)
+   ```bash
+   /fsm:generate
+   # Creates: State files, TransitionHub, Guards, Types
+   ```
+
+3. **Validate Completeness** (/fsm:validate)
+   ```bash
+   /fsm:validate --strict
+   # Checks: Reachability, Coverage, Deadlocks, Implementation
+   ```
+
+4. **Test All Transitions** (/fsm:test-matrix)
+   ```bash
+   /fsm:test-matrix
+   # Runs: Every statexevent combination test
+   ```
+
+### FSM Quality Requirements
+- **100% Transition Coverage**: Every (state, event) pair handled
+- **State Isolation**: Each state in separate file
+- **Centralized Transitions**: Single TransitionHub
+- **Enum Events**: No string literals for events/states
+- **Complete Contracts**: init/update/shutdown/checkInvariants
+- **Transition Guards**: All complex transitions guarded
+- **Error Recovery**: Explicit error states with recovery paths
+
+### Agent FSM Enhancement
+Architecture and coding agents now ENFORCE FSM patterns:
+- **'architecture'**: FSM required for all system design
+- **'system-architect'**: FSM thinking for enterprise systems
+- **'coder'**: FSM implementation patterns enforced
+- **'sparc-coder'**: SPARC with mandatory FSM structure
+- **'backend-dev'**: API state management via FSM
 
 ## [BRAIN] AI Model & MCP Server Intelligence System
 
@@ -491,18 +541,306 @@ const result = modelSelector.selectModel('frontend-developer', {
 ---
 
 **Key Principles**:
-- **Claude Flow coordinates** → Swarm orchestration
-- **Claude Code executes** → Direct implementation
-- **AI Models optimize** → Task-specific performance
-- **MCP Servers enhance** → Specialized capabilities
+- **Claude Flow coordinates** -> Swarm orchestration
+- **Claude Code executes** -> Direct implementation
+- **AI Models optimize** -> Task-specific performance
+- **MCP Servers enhance** -> Specialized capabilities
 
 ### **Quick Model Selection Guide**
-- **Need browser automation?** → GPT-5 + Codex CLI + playwright/puppeteer
-- **Need large context?** → Gemini 2.5 Pro + deepwiki/firecrawl
-- **Need quality analysis?** → Claude Opus 4.1 + eva
-- **Need coordination?** → Claude Sonnet 4 + sequential-thinking
-- **Need cost efficiency?** → Gemini Flash + sequential-thinking
+- **Need browser automation?** -> GPT-5 + Codex CLI + playwright/puppeteer
+- **Need large context?** -> Gemini 2.5 Pro + deepwiki/firecrawl
+- **Need quality analysis?** -> Claude Opus 4.1 + eva
+- **Need coordination?** -> Claude Sonnet 4 + sequential-thinking
+- **Need cost efficiency?** -> Gemini Flash + sequential-thinking
 
 **Agent Registry**: `src/flow/config/agent/` (decomposed facade pattern) [ROCKET]
+
+## Version & Run Log System v2.0
+
+**COMPLETE AUDIT & VALIDATION SYSTEM** - Integrates NASA POT10, Connascence, Enterprise compliance, and Theater detection with automatic prompt evaluation and rollback.
+
+### System Overview
+Version Log v2.0 provides comprehensive tracking and validation for every agent interaction with:
+- **Receipt Schema**: Per-turn tracking with status OK|PARTIAL|BLOCKED
+- **Footer Middleware**: 20-row rotation with SHA-256 content hashing
+- **Unified Validation**: Integrates NASA, Connascence, Enterprise, Theater analyzers
+- **Prompt Evaluation**: Automatic rollback on quality degradation (85% threshold)
+- **Eight Notion Principles**: Structured quality rules for all outputs
+- **SLO Monitoring**: Health lattice tracking component states
+- **Swarm Integration**: Bidirectional validation in Queen-Princess-Drone hierarchy
+
+### Quick Start
+
+#### Initialize Components
+```python
+from src.version_log.v2.footer_middleware import FooterMiddleware
+from src.version_log.v2.validation_framework import UnifiedValidator
+from src.version_log.v2.receipt_schema import Receipt, ModelInfo
+from orchestration.workflows.prompt_eval_harness import PromptEvalHarness
+
+# Initialize
+middleware = FooterMiddleware()
+validator = UnifiedValidator()
+harness = PromptEvalHarness()
+```
+
+#### Create Receipt for Turn
+```python
+receipt = Receipt(
+    status="OK",
+    models=[ModelInfo(name="agent@model", version="v1")],
+    tools_used=["filesystem", "github"],
+    mutations=[{"type": "PRD", "id": "prd_123", "version": 2}]
+)
+```
+
+#### Validate Artifacts
+```python
+result = validator.validate_turn(receipt, artifacts, files)
+# Returns: ValidationResult with status, scores, warnings
+```
+
+#### Update File with Footer
+```python
+updated = middleware.update_footer(
+    file_text=content,
+    agent_meta="agent@model",
+    receipt=receipt,
+    file_path="src/file.py"
+)
+```
+
+### Eight Notion Principles (Integrated in QC Rules)
+
+1. **Scope**: Only modify allowed paths (/src, /tests, /docs, /config, /scripts)
+2. **Define Done**: Every operation must append Receipt with explicit status
+3. **Tables > Text**: Use structured data formats (JSON, YAML, tables)
+4. **Quality Checks**: Validate length, required fields, numeric facts
+5. **No Duplicates**: Upsert by key - never create duplicates
+6. **Run Log**: Structured logging with footer discipline
+7. **Plain Language**: Exact counts and facts - no fluff
+8. **No Invention**: Insert 'TK CONFIRM' if data is unsupported
+
+**Configuration**: `registry/policies/qc_rules.yaml` contains complete rules
+
+### Swarm Integration
+
+#### Queen -> Princess Communication
+```python
+# Automatic validation in deploy_real_queen_swarm.py
+order = {"domain": "development", "tasks": ["fix imports"]}
+validated_order, report = interceptor.intercept_queen_to_princess(domain, order)
+
+# Output:
+# [VALIDATION] Pass rate: 92% | Status: OK
+# [ROLLBACK] Using v2 (if validation fails)
+```
+
+#### Princess -> Drone Deployment
+```python
+# Validates all drone commands before deployment
+task = {"command": "Fix auth", "file_path": "/src/auth.py"}
+validated_task, report = interceptor.intercept_princess_to_drone(domain, drone_id, task)
+
+# Enforces Eight Notion principles automatically
+```
+
+#### Bidirectional Validation (Drone -> Princess -> Queen)
+```python
+# Validate drone output
+output = {"files": ["auth.py"], "receipt": {"status": "OK"}}
+validated_output, report = interceptor.validate_drone_to_princess(drone_id, domain, output)
+
+# Checks:
+# - Theater detection (<60 required)
+# - NASA compliance (>=92%)
+# - Connascence score (>=85%)
+# - Security scan (no secrets)
+```
+
+### Prompt Evaluation Harness
+
+#### Register Prompts
+```python
+harness.register_prompt(
+    prompt_id="prd_generator",
+    content="Transform meeting notes into PRDs..."
+)
+```
+
+#### Add Gold Tasks
+```python
+harness.add_gold_task(
+    task_id="test_basic",
+    inputs={"notes": "..."},
+    expected_output={"status": "draft"},
+    required_fields=["name", "goal", "problem"]
+)
+```
+
+#### Run with Auto-Rollback
+```python
+result = harness.run_harness("prd_generator", auto_rollback=True)
+# Automatically rolls back if pass_rate < 85%
+```
+
+### SLO Monitoring & Health Lattice
+
+#### Initialize Monitor
+```python
+from orchestration.slo_monitor import SLOMonitor
+
+monitor = SLOMonitor()
+metrics = monitor.collect_metrics()
+```
+
+#### Check Health Status
+```python
+health = monitor.health_lattice
+# Returns component states:
+# - VALIDATOR: OK
+# - NASA: OK
+# - CONNASCENCE: OK
+# - PLANNER: OK
+# - TOOL: DEGRADED (if latency high)
+# - MEMORY: STALE (if no recent updates)
+# - ROUTER: FALLBACK (if cost high)
+```
+
+#### Monitor Continuous
+```python
+monitor.monitor_continuous(interval=60)  # Every 60 seconds
+# Tracks:
+# - factuality_p90 >= 0.92
+# - coverage_p95 >= 0.90
+# - pass_rate_week >= 0.85
+# - latency_p95: cheap <=2.0s, heavy <=8.0s
+# - usd_per_task_p95 <= $0.60
+```
+
+### Quality Gates & Thresholds
+
+**Pass Requirements** (enforced by unified validator):
+- Schema compliance: 100% (required fields)
+- NASA compliance: >=92% (POT10 rules)
+- Connascence score: >=85% (low coupling)
+- Security score: >=95% (no secrets)
+- Theater score: <60 (genuine work)
+- Test coverage: >=80% (unit tests)
+
+**Configuration**: `registry/policies/qc_rules.yaml`
+
+### Agent Prompt Wrapper
+
+#### Wrap All Agent Prompts
+```python
+from src.version_log.v2.agent_prompt_wrapper import AgentPromptWrapper
+
+wrapper = AgentPromptWrapper()
+
+# Automatically injects:
+# - Footer requirements
+# - Receipt requirements
+# - Eight Notion principles
+# - Quality gate thresholds
+# - Validation rules
+```
+
+#### Wrap Task Calls
+```python
+@wrapper.wrap_task_call
+def Task(prompt, agent_type):
+    # Original task execution
+    pass
+
+# Now automatically validates pre/post execution
+```
+
+### File Structure
+```
+src/version_log/v2/
+___ receipt_schema.py          # Receipt & data models
+___ footer_middleware.py       # Footer management
+___ validation_framework.py    # Unified validation
+___ agent_prompt_wrapper.py    # Agent prompt wrapping
+
+orchestration/
+___ workflows/
+_   ___ prompt_eval_harness.py # Prompt evaluation
+___ swarm_comms.py             # Swarm interceptor
+___ slo_monitor.py             # SLO monitoring
+
+registry/policies/
+___ qc_rules.yaml              # QC rules + Eight Notion principles
+```
+
+### Integration Examples
+
+#### In Agent Code
+```python
+# Every agent must:
+receipt = Receipt(status="OK", models=[...], tools_used=[...])
+validation = validator.validate_turn(receipt, artifacts, files)
+updated = middleware.update_footer(content, "agent@model", receipt=receipt)
+```
+
+#### In Swarm Deployment
+```python
+# scripts/deploy_real_queen_swarm.py automatically:
+# 1. Validates Queen->Princess orders
+# 2. Validates Princess->Drone commands
+# 3. Validates Drone->Princess outputs
+# 4. Validates Princess->Queen reports
+```
+
+#### In CI/CD
+```yaml
+# .github/workflows/validation.yml
+- name: Quality gates
+  run: |
+    python -c "
+    from src.version_log.v2.validation_framework import UnifiedValidator
+    validator = UnifiedValidator()
+    # Run validation...
+    "
+```
+
+### Documentation References
+
+- **Complete Guide**: `docs/VERSION-LOG-V2-INTEGRATION.md`
+- **Footer Instructions**: `src/version-log/FOOTER-INSTRUCTIONS.md` (legacy v1)
+- **Tests**: `tests/version_log/test_unified_validation.py`
+- **Prompt Harness Example**: `orchestration/workflows/prompt_eval_harness.py`
+
+---
+
+## Version & Run Log Footer Management
+
+**MANDATORY FOR ALL AGENTS**: Every file modification MUST include a Version & Run Log footer. See [src/version-log/FOOTER-INSTRUCTIONS.md](src/version-log/FOOTER-INSTRUCTIONS.md) for complete details.
+
+### Quick Footer Format
+```markdown
+<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
+## Version & Run Log
+| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+| 1.0.0   | 2025-09-24T15:12:03-04:00 | agent@Model | Description | files | OK | -- | 0.00 | 7chars |
+
+### Receipt
+- status: OK | PARTIAL | BLOCKED
+- reason_if_blocked: --
+- run_id: unique-id
+- inputs: ["source-files"]
+- tools_used: ["mcp-servers", "tools"]
+- versions: {"model":"version","prompt":"version"}
+<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+```
+
+### Footer Rules
+1. **Always** compute Content Hash (SHA-256, first 7 chars, exclude footer)
+2. **Maintain** chronological order, keep max 20 rows
+3. **Status**: OK for success, PARTIAL for incomplete, BLOCKED for failures
+4. **Idempotency**: If hash unchanged, status=PARTIAL with "no-op (idempotent)"
+5. **Never** edit outside footer markers
 
 *This streamlined configuration maximizes context window efficiency while maintaining full system functionality through comprehensive documentation references.*

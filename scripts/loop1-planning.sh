@@ -18,9 +18,9 @@ SPEC_FILE="SPEC.md"
 REQUIREMENTS_FILE="requirements.txt"
 TIMEOUT=300
 
-echo -e "${BLUE}╔══════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║     Loop 1: Planning & Discovery     ║${NC}"
-echo -e "${BLUE}╚══════════════════════════════════════╝${NC}"
+echo -e "${BLUE}${NC}"
+echo -e "${BLUE}     Loop 1: Planning & Discovery     ${NC}"
+echo -e "${BLUE}${NC}"
 
 # Initialize
 mkdir -p "$ARTIFACTS_DIR"
@@ -230,8 +230,8 @@ main() {
 EOF
 
     log_step "Loop 1 completed in ${DURATION} seconds"
-    echo -e "${GREEN}✅ Loop 1: Planning & Discovery - COMPLETE${NC}"
-    echo -e "${BLUE}→ Ready for Loop 2: Development & Implementation${NC}"
+    echo -e "${GREEN} Loop 1: Planning & Discovery - COMPLETE${NC}"
+    echo -e "${BLUE} Ready for Loop 2: Development & Implementation${NC}"
 
     # Exit with success
     exit 0

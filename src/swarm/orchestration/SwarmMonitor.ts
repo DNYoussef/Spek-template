@@ -157,57 +157,57 @@ export class SwarmMonitor extends EventEmitter {
 
     console.clear();
     console.log('\n');
-    console.log('╔════════════════════════════════════════════════════════════════════════╗');
-    console.log('║          HIERARCHICAL SWARM MONITORING DASHBOARD                       ║');
-    console.log('╚════════════════════════════════════════════════════════════════════════╝');
+    console.log('');
+    console.log('          HIERARCHICAL SWARM MONITORING DASHBOARD                       ');
+    console.log('');
     console.log('');
 
     // Swarm Health Section
-    console.log('┌─ SWARM HEALTH ──────────────────────────────────────────────────────────┐');
-    console.log(`│ Queen Status:         ${this.padRight(metrics.swarmHealth.queenStatus, 50)} │`);
-    console.log(`│ Healthy Princesses:   ${metrics.swarmHealth.healthyPrincesses}/${metrics.swarmHealth.totalPrincesses} ${this.getHealthBar(metrics.swarmHealth.healthyPrincesses / metrics.swarmHealth.totalPrincesses)} │`);
-    console.log(`│ Byzantine Nodes:      ${this.padRight(String(metrics.swarmHealth.byzantineNodes), 50)} │`);
-    console.log(`│ Consensus Health:     ${(metrics.swarmHealth.consensusHealth * 100).toFixed(1)}% ${this.getHealthBar(metrics.swarmHealth.consensusHealth)} │`);
-    console.log('└─────────────────────────────────────────────────────────────────────────┘');
+    console.log(' SWARM HEALTH ');
+    console.log(` Queen Status:         ${this.padRight(metrics.swarmHealth.queenStatus, 50)} `);
+    console.log(` Healthy Princesses:   ${metrics.swarmHealth.healthyPrincesses}/${metrics.swarmHealth.totalPrincesses} ${this.getHealthBar(metrics.swarmHealth.healthyPrincesses / metrics.swarmHealth.totalPrincesses)} `);
+    console.log(` Byzantine Nodes:      ${this.padRight(String(metrics.swarmHealth.byzantineNodes), 50)} `);
+    console.log(` Consensus Health:     ${(metrics.swarmHealth.consensusHealth * 100).toFixed(1)}% ${this.getHealthBar(metrics.swarmHealth.consensusHealth)} `);
+    console.log('');
     console.log('');
 
     // God Object Progress Section
-    console.log('┌─ GOD OBJECT REMEDIATION PROGRESS ──────────────────────────────────────┐');
-    console.log(`│ Target Objects:       ${this.padRight(String(metrics.godObjectProgress.target), 50)} │`);
-    console.log(`│ Processed:            ${this.padRight(String(metrics.godObjectProgress.processed), 50)} │`);
-    console.log(`│ Remaining:            ${this.padRight(String(metrics.godObjectProgress.remaining), 50)} │`);
-    console.log(`│ Progress:             ${metrics.godObjectProgress.percentComplete.toFixed(1)}% ${this.getProgressBar(metrics.godObjectProgress.percentComplete / 100)} │`);
-    console.log(`│ Current Rate:         ${this.padRight(`${metrics.godObjectProgress.currentRate.toFixed(2)} objects/hour`, 50)} │`);
-    console.log(`│ Est. Completion:      ${this.padRight(`${metrics.godObjectProgress.estimatedCompletionHours.toFixed(1)} hours`, 50)} │`);
-    console.log('└─────────────────────────────────────────────────────────────────────────┘');
+    console.log(' GOD OBJECT REMEDIATION PROGRESS ');
+    console.log(` Target Objects:       ${this.padRight(String(metrics.godObjectProgress.target), 50)} `);
+    console.log(` Processed:            ${this.padRight(String(metrics.godObjectProgress.processed), 50)} `);
+    console.log(` Remaining:            ${this.padRight(String(metrics.godObjectProgress.remaining), 50)} `);
+    console.log(` Progress:             ${metrics.godObjectProgress.percentComplete.toFixed(1)}% ${this.getProgressBar(metrics.godObjectProgress.percentComplete / 100)} `);
+    console.log(` Current Rate:         ${this.padRight(`${metrics.godObjectProgress.currentRate.toFixed(2)} objects/hour`, 50)} `);
+    console.log(` Est. Completion:      ${this.padRight(`${metrics.godObjectProgress.estimatedCompletionHours.toFixed(1)} hours`, 50)} `);
+    console.log('');
     console.log('');
 
     // Task Metrics Section
-    console.log('┌─ TASK EXECUTION METRICS ───────────────────────────────────────────────┐');
-    console.log(`│ Total Tasks:          ${this.padRight(String(metrics.taskMetrics.totalTasks), 50)} │`);
-    console.log(`│ Completed:            ${this.padRight(String(metrics.taskMetrics.completedTasks), 50)} │`);
-    console.log(`│ Active:               ${this.padRight(String(metrics.taskMetrics.activeTasks), 50)} │`);
-    console.log(`│ Failed:               ${this.padRight(String(metrics.taskMetrics.failedTasks), 50)} │`);
-    console.log(`│ Avg Completion Time:  ${this.padRight(`${(metrics.taskMetrics.averageCompletionTime / 1000).toFixed(2)}s`, 50)} │`);
-    console.log(`│ Throughput:           ${this.padRight(`${metrics.taskMetrics.throughput.toFixed(2)} tasks/hour`, 50)} │`);
-    console.log('└─────────────────────────────────────────────────────────────────────────┘');
+    console.log(' TASK EXECUTION METRICS ');
+    console.log(` Total Tasks:          ${this.padRight(String(metrics.taskMetrics.totalTasks), 50)} `);
+    console.log(` Completed:            ${this.padRight(String(metrics.taskMetrics.completedTasks), 50)} `);
+    console.log(` Active:               ${this.padRight(String(metrics.taskMetrics.activeTasks), 50)} `);
+    console.log(` Failed:               ${this.padRight(String(metrics.taskMetrics.failedTasks), 50)} `);
+    console.log(` Avg Completion Time:  ${this.padRight(`${(metrics.taskMetrics.averageCompletionTime / 1000).toFixed(2)}s`, 50)} `);
+    console.log(` Throughput:           ${this.padRight(`${metrics.taskMetrics.throughput.toFixed(2)} tasks/hour`, 50)} `);
+    console.log('');
     console.log('');
 
     // Consensus Metrics Section
-    console.log('┌─ BYZANTINE CONSENSUS METRICS ──────────────────────────────────────────┐');
-    console.log(`│ Total Votes:          ${this.padRight(String(metrics.consensusMetrics.totalVotes), 50)} │`);
-    console.log(`│ Successful:           ${this.padRight(String(metrics.consensusMetrics.successfulConsensus), 50)} │`);
-    console.log(`│ Failed:               ${this.padRight(String(metrics.consensusMetrics.failedConsensus), 50)} │`);
-    console.log(`│ Byzantine Detected:   ${this.padRight(String(metrics.consensusMetrics.byzantineDetections), 50)} │`);
-    console.log(`│ Quorum Achieved:      ${this.padRight(String(metrics.consensusMetrics.quorumAchieved), 50)} │`);
-    console.log('└─────────────────────────────────────────────────────────────────────────┘');
+    console.log(' BYZANTINE CONSENSUS METRICS ');
+    console.log(` Total Votes:          ${this.padRight(String(metrics.consensusMetrics.totalVotes), 50)} `);
+    console.log(` Successful:           ${this.padRight(String(metrics.consensusMetrics.successfulConsensus), 50)} `);
+    console.log(` Failed:               ${this.padRight(String(metrics.consensusMetrics.failedConsensus), 50)} `);
+    console.log(` Byzantine Detected:   ${this.padRight(String(metrics.consensusMetrics.byzantineDetections), 50)} `);
+    console.log(` Quorum Achieved:      ${this.padRight(String(metrics.consensusMetrics.quorumAchieved), 50)} `);
+    console.log('');
     console.log('');
 
     // Runtime Info
-    console.log('┌─ RUNTIME INFO ──────────────────────────────────────────────────────────┐');
-    console.log(`│ Elapsed Time:         ${this.padRight(`${elapsed.toFixed(2)} hours`, 50)} │`);
-    console.log(`│ Last Update:          ${this.padRight(new Date(metrics.timestamp).toISOString(), 50)} │`);
-    console.log('└─────────────────────────────────────────────────────────────────────────┘');
+    console.log(' RUNTIME INFO ');
+    console.log(` Elapsed Time:         ${this.padRight(`${elapsed.toFixed(2)} hours`, 50)} `);
+    console.log(` Last Update:          ${this.padRight(new Date(metrics.timestamp).toISOString(), 50)} `);
+    console.log('');
     console.log('');
   }
 
@@ -276,9 +276,9 @@ Elapsed Time: ${elapsed.toFixed(2)} hours
 - Quorum Achieved: ${latest.consensusMetrics.quorumAchieved}
 
 ## Success Criteria Status
-- ✓ Swarm operational with all 6 princesses: ${latest.swarmHealth.healthyPrincesses === 6 ? 'YES' : 'NO'}
-- ✓ Byzantine consensus healthy: ${latest.swarmHealth.consensusHealth >= 0.67 ? 'YES' : 'NO'}
-- ✓ Progress towards 20 object target: ${latest.godObjectProgress.processed}/${latest.godObjectProgress.target}
+-  Swarm operational with all 6 princesses: ${latest.swarmHealth.healthyPrincesses === 6 ? 'YES' : 'NO'}
+-  Byzantine consensus healthy: ${latest.swarmHealth.consensusHealth >= 0.67 ? 'YES' : 'NO'}
+-  Progress towards 20 object target: ${latest.godObjectProgress.processed}/${latest.godObjectProgress.target}
 `;
 
     const reportFile = path.join(this.artifactsDir, 'swarm-progress-report.md');
@@ -299,7 +299,7 @@ Elapsed Time: ${elapsed.toFixed(2)} hours
    */
   private getHealthBar(value: number, length = 20): string {
     const filled = Math.round(value * length);
-    const bar = '█'.repeat(filled) + '░'.repeat(length - filled);
+    const bar = ''.repeat(filled) + ''.repeat(length - filled);
     return `[${bar}]`;
   }
 
@@ -308,7 +308,7 @@ Elapsed Time: ${elapsed.toFixed(2)} hours
    */
   private getProgressBar(value: number, length = 30): string {
     const filled = Math.round(value * length);
-    const bar = '█'.repeat(filled) + '░'.repeat(length - filled);
+    const bar = ''.repeat(filled) + ''.repeat(length - filled);
     return `[${bar}]`;
   }
 }

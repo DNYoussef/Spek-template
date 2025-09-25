@@ -1,6 +1,4 @@
-"""
-Real-time Dashboard Reporter
-============================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 Generates real-time reporting data for streaming analysis dashboards.
 Provides structured data for visualization of violations, performance metrics,
@@ -13,7 +11,6 @@ import json
 import time
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class DashboardMetrics:
@@ -32,7 +29,6 @@ class DashboardMetrics:
         """Convert to dictionary for JSON serialization."""
         return asdict(self)
 
-
 @dataclass  
 class ViolationTrend:
     """Violation trend data point."""
@@ -41,7 +37,6 @@ class ViolationTrend:
     count: int
     cumulative_count: int
     files_affected: int
-
 
 @dataclass
 class SystemHealthMetrics:
@@ -59,7 +54,6 @@ class SystemHealthMetrics:
     stream_disconnections: int
     backpressure_events: int
 
-
 class DashboardReporter:
     """
     Real-time dashboard data generation for streaming analysis.
@@ -74,18 +68,18 @@ class DashboardReporter:
     """
     
     def __init__(self, 
-                 metrics_retention_minutes: int = 60,
-                 trend_sampling_interval_seconds: float = 5.0,
-                 health_check_interval_seconds: float = 10.0):
+                metrics_retention_minutes: int = 60,
+                trend_sampling_interval_seconds: float = 5.0,
+                health_check_interval_seconds: float = 10.0):
         """
         Initialize dashboard reporter.
         
         Args:
-            metrics_retention_minutes: How long to retain metrics (NASA Rule 7)
+            metrics_retention_minutes: How long to retain metrics (NASA Rule DAYS_RETENTION_PERIOD)
             trend_sampling_interval_seconds: Interval for trend data sampling
             health_check_interval_seconds: System health check interval
         """
-        assert 5 <= metrics_retention_minutes <= 1440, "Retention must be 5min-24hrs"
+        assert MAXIMUM_NESTED_DEPTH <= metrics_retention_minutes <= 1440, "Retention must be 5min-24hrs"
         assert 1.0 <= trend_sampling_interval_seconds <= 60.0, "Interval must be 1-60s"
         assert 5.0 <= health_check_interval_seconds <= 300.0, "Health interval must be 5s-5min"
         
@@ -165,9 +159,9 @@ class DashboardReporter:
             return dashboard_data
     
     def add_metrics_sample(self, 
-                          violations: int,
-                          files_analyzed: int,
-                          performance_data: Dict[str, Any]) -> None:
+                            violations: int,
+                            files_analyzed: int,
+                            performance_data: Dict[str, Any]) -> None:
         """Add new metrics sample to history."""
         with self._lock:
             timestamp = time.time()
@@ -187,10 +181,10 @@ class DashboardReporter:
             self.metrics_history.append(metrics)
     
     def add_violation_trend(self, 
-                           violation_type: str,
-                           count: int,
-                           cumulative_count: int,
-                           files_affected: int) -> None:
+                            violation_type: str,
+                            count: int,
+                            cumulative_count: int,
+                            files_affected: int) -> None:
         """Add violation trend data point."""
         with self._lock:
             timestamp = time.time()
@@ -206,7 +200,7 @@ class DashboardReporter:
             self.violation_trends[violation_type].append(trend)
     
     def get_metrics_history(self, 
-                           time_window_minutes: Optional[int] = None) -> List[Dict[str, Any]]:
+                            time_window_minutes: Optional[int] = None) -> List[Dict[str, Any]]:
         """Get metrics history for specified time window."""
         with self._lock:
             if not time_window_minutes:
@@ -218,8 +212,8 @@ class DashboardReporter:
             return [m.to_dict() for m in filtered_metrics]
     
     def get_violation_trends(self, 
-                           violation_type: Optional[str] = None,
-                           time_window_minutes: int = 30) -> Dict[str, List[Dict[str, Any]]]:
+                            violation_type: Optional[str] = None,
+                            time_window_minutes: int = 30) -> Dict[str, List[Dict[str, Any]]]:
         """Get violation trend data."""
         with self._lock:
             cutoff_time = time.time() - (time_window_minutes * 60)
@@ -268,8 +262,8 @@ class DashboardReporter:
         }
     
     def _generate_summary(self, 
-                         aggregated_result: AggregatedResult,
-                         performance_report: Dict[str, Any]) -> Dict[str, Any]:
+                        aggregated_result: AggregatedResult,
+                        performance_report: Dict[str, Any]) -> Dict[str, Any]:
         """Generate summary dashboard section."""
         current_metrics = performance_report.get("current_metrics", {})
         
@@ -523,7 +517,7 @@ class DashboardReporter:
         return severity_counts
     
     def _calculate_analysis_type_breakdown(self, 
-                                         file_analysis_history: Dict[str, List[Dict]]) -> Dict[str, int]:
+                                        file_analysis_history: Dict[str, List[Dict]]) -> Dict[str, int]:
         """Calculate breakdown of analysis types."""
         type_counts = {"incremental": 0, "full": 0, "cached": 0}
         
@@ -540,7 +534,7 @@ class DashboardReporter:
         
         # Penalize high CPU usage
         cpu_usage = health_metrics.get("cpu_usage_percent", 0)
-        if cpu_usage > 80:
+        if cpu_usage > MINIMUM_TEST_COVERAGE_PERCENTAGE:
             score -= 20
         elif cpu_usage > 60:
             score -= 10
@@ -584,11 +578,9 @@ class DashboardReporter:
         oldest_timestamp = self.metrics_history[0].timestamp
         return (time.time() - oldest_timestamp) / 60.0
 
-
 # Global dashboard reporter instance
 _global_dashboard_reporter: Optional[DashboardReporter] = None
 _reporter_lock = RLock()
-
 
 def get_global_dashboard_reporter() -> DashboardReporter:
     """Get or create global dashboard reporter."""
@@ -598,12 +590,10 @@ def get_global_dashboard_reporter() -> DashboardReporter:
             _global_dashboard_reporter = DashboardReporter()
         return _global_dashboard_reporter
 
-
 def generate_dashboard_report() -> Dict[str, Any]:
     """Generate dashboard report using global reporter."""
     reporter = get_global_dashboard_reporter()
     return reporter.generate_real_time_report()
-
 
 def add_dashboard_metrics_sample(violations: int, 
                                 files_analyzed: int,

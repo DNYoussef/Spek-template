@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Simple Kill Switch Performance Test
+from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
 Tests actual performance and functionality without Unicode issues.
 """
@@ -15,7 +13,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.safety.kill_switch_system import KillSwitchSystem, TriggerType, KillSwitchEvent
 from src.safety.hardware_auth_manager import HardwareAuthManager, AuthMethod, AuthResult
-
 
 class MockBroker:
     """Mock broker for testing."""
@@ -36,23 +33,20 @@ class MockBroker:
         self.close_calls.append({'symbol': symbol, 'qty': qty})
         return True
 
-
 async def test_kill_switch_performance():
     """Test kill switch performance."""
-    print("KILL SWITCH PERFORMANCE TEST")
     print("=" * 40)
 
     # Test configurations
     scenarios = [
         {'positions': 3, 'name': 'Light Load'},
-        {'positions': 10, 'name': 'Medium Load'},
+        {'positions': MAXIMUM_FUNCTION_PARAMETERS, 'name': 'Medium Load'},
         {'positions': 20, 'name': 'Heavy Load'},
     ]
 
     results = []
 
     for scenario in scenarios:
-        print(f"\nTesting {scenario['name']}: {scenario['positions']} positions")
 
         broker = MockBroker(scenario['positions'])
         config = {
@@ -96,14 +90,11 @@ async def test_kill_switch_performance():
     avg_response = sum(r['response_time_ms'] for r in results) / len(results)
 
     print(f"Average Response Time: {avg_response:.1f}ms")
-    print(f"All Tests <500ms: {'PASS' if all_passed else 'FAIL'}")
 
     return results, all_passed
 
-
 async def test_hardware_auth():
     """Test hardware authentication."""
-    print("\nHARDWARE AUTHENTICATION TEST")
     print("=" * 40)
 
     config = {
@@ -139,10 +130,8 @@ async def test_hardware_auth():
 
     return True
 
-
 async def test_integration():
     """Test complete integration."""
-    print("\nINTEGRATION TEST")
     print("=" * 40)
 
     # Setup
@@ -188,7 +177,6 @@ async def test_integration():
 
     return kill_result.success
 
-
 async def main():
     """Run all tests."""
     print("KILL SWITCH SYSTEM VALIDATION")
@@ -207,9 +195,6 @@ async def main():
         # Final report
         print(f"\nFINAL RESULTS")
         print("=" * 50)
-        print(f"Performance Tests: {'PASS' if perf_passed else 'FAIL'}")
-        print(f"Authentication Tests: {'PASS' if auth_passed else 'FAIL'}")
-        print(f"Integration Tests: {'PASS' if integration_passed else 'FAIL'}")
 
         # Reality score
         passed_tests = sum([perf_passed, auth_passed, integration_passed])
@@ -229,9 +214,7 @@ async def main():
             return False
 
     except Exception as e:
-        print(f"TEST EXECUTION FAILED: {e}")
         return False
-
 
 if __name__ == '__main__':
     success = asyncio.run(main())

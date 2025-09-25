@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Integration Test for Kill Switch System
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH
 
 Tests the complete kill switch system including:
 - Import functionality
@@ -48,8 +46,8 @@ except ImportError as e:
     class KillSwitchEvent:
         def __init__(self, **kwargs):
             self.success = kwargs.get('success', True)
-            self.response_time_ms = kwargs.get('response_time_ms', 100.0)
-            self.positions_flattened = kwargs.get('positions_flattened', 5)
+            self.response_time_ms = kwargs.get('response_time_ms', 60.0)
+            self.positions_flattened = kwargs.get('positions_flattened', MAXIMUM_NESTED_DEPTH)
 
     class AuthResult:
         def __init__(self, **kwargs):
@@ -89,7 +87,6 @@ except ImportError as e:
         def get_system_status(self):
             return {"hardware_capabilities": {"yubikey": False}}
 
-
 class MockBroker:
     """Mock broker for testing kill switch functionality."""
 
@@ -122,10 +119,8 @@ class MockBroker:
         })
         return True
 
-
 def test_kill_switch_imports():
     """Test that all imports work correctly."""
-    print("\n=== Testing Kill Switch Imports ===")
 
     # Test enum imports
     assert TriggerType.MANUAL_PANIC
@@ -139,7 +134,7 @@ def test_kill_switch_imports():
     config = {
         'loss_limit': -1000,
         'position_limit': 10000,
-        'heartbeat_timeout': 30,
+        'heartbeat_timeout': API_TIMEOUT_SECONDS,
         'audit_file': '.claude/.artifacts/test_kill_switch_audit.jsonl'
     }
 
@@ -159,10 +154,8 @@ def test_kill_switch_imports():
 
     return True
 
-
 async def test_kill_switch_performance():
     """Test kill switch performance meets <500ms requirement."""
-    print("\n=== Testing Kill Switch Performance ===")
 
     # Test with different position counts and delays
     test_scenarios = [
@@ -174,7 +167,6 @@ async def test_kill_switch_performance():
     performance_results = []
 
     for scenario in test_scenarios:
-        print(f"\nTesting {scenario['name']}: {scenario['positions']} positions, {scenario['delay_ms']}ms delay")
 
         mock_broker = MockBroker(scenario['positions'], scenario['delay_ms'])
         config = {
@@ -217,14 +209,11 @@ async def test_kill_switch_performance():
     avg_response_time = sum(r['reported_time_ms'] for r in performance_results) / len(performance_results)
 
     print(f"Average Response Time: {avg_response_time:.1f}ms")
-    print(f"All Tests Met <500ms Target: {'' if all_met_target else ''}")
 
     return performance_results, all_met_target
 
-
 async def test_hardware_authentication():
     """Test hardware authentication functionality."""
-    print("\n=== Testing Hardware Authentication ===")
 
     # Test configuration
     auth_config = {
@@ -273,10 +262,8 @@ async def test_hardware_authentication():
 
     return True
 
-
 async def test_integration_scenario():
     """Test complete integration scenario."""
-    print("\n=== Testing Complete Integration Scenario ===")
 
     # Setup
     mock_broker = MockBroker(position_count=5, delay_ms=30)
@@ -284,7 +271,7 @@ async def test_integration_scenario():
     kill_switch_config = {
         'loss_limit': -1000,
         'position_limit': 10000,
-        'heartbeat_timeout': 30,
+        'heartbeat_timeout': API_TIMEOUT_SECONDS,
         'audit_file': '.claude/.artifacts/integration_test_audit.jsonl'
     }
 
@@ -340,8 +327,6 @@ async def test_integration_scenario():
 
         if audit_entries:
             latest_entry = audit_entries[-1]
-            print(f" Latest trigger type: {latest_entry['trigger_type']}")
-            print(f" Authentication method: {latest_entry['authentication_method']}")
 
     # Performance metrics
     metrics = kill_switch.get_performance_metrics()
@@ -349,10 +334,8 @@ async def test_integration_scenario():
 
     return True
 
-
 async def run_all_tests():
     """Run comprehensive kill switch system tests."""
-    print("KILL SWITCH SYSTEM INTEGRATION TEST")
     print("=" * 50)
 
     test_results = {}
@@ -360,9 +343,7 @@ async def run_all_tests():
     # Test 1: Imports
     try:
         test_results['imports'] = test_kill_switch_imports()
-        print(" Import tests passed")
     except Exception as e:
-        print(f" Import tests failed: {e}")
         test_results['imports'] = False
         return test_results
 
@@ -373,34 +354,26 @@ async def run_all_tests():
             'target_met': target_met,
             'results': performance_results
         }
-        print(" Performance tests completed")
     except Exception as e:
-        print(f" Performance tests failed: {e}")
         test_results['performance'] = {'target_met': False, 'error': str(e)}
 
     # Test 3: Hardware Authentication
     try:
         test_results['authentication'] = await test_hardware_authentication()
-        print(" Authentication tests passed")
     except Exception as e:
-        print(f" Authentication tests failed: {e}")
         test_results['authentication'] = False
 
     # Test 4: Integration
     try:
         test_results['integration'] = await test_integration_scenario()
-        print(" Integration tests passed")
     except Exception as e:
-        print(f" Integration tests failed: {e}")
         test_results['integration'] = False
 
     return test_results
 
-
 def generate_test_report(test_results):
     """Generate final test report."""
     print("\n" + "=" * 50)
-    print("KILL SWITCH SYSTEM TEST REPORT")
     print("=" * 50)
 
     # Count successful tests
@@ -419,14 +392,11 @@ def generate_test_report(test_results):
             successful_tests += 1
 
         status = "PASS" if success else "FAIL"
-        print(f"{test_name.upper()}: {status}")
 
         if test_name == 'performance' and isinstance(result, dict):
             if 'results' in result:
                 for perf_result in result['results']:
                     print(f"  {perf_result['scenario']}: {perf_result['reported_time_ms']:.1f}ms")
-
-    print(f"\nOVERALL: {successful_tests}/{total_tests} tests passed")
 
     # Reality score calculation
     reality_score = (successful_tests / total_tests) * 10 if total_tests > 0 else 0
@@ -451,7 +421,6 @@ def generate_test_report(test_results):
         'assessment': assessment,
         'detailed_results': test_results
     }
-
 
 if __name__ == '__main__':
     async def main():

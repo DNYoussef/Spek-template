@@ -17,18 +17,18 @@ This test suite provides extensive validation of the configuration system across
 
 ```
 tests/configuration/
-├── README.md                     # This documentation
-├── run-all-tests.js             # Comprehensive test runner
-├── validation-helpers.js        # Reusable validation utilities
-├── schema-validation.test.js     # Schema validation tests
-├── migration-testing.test.js     # Migration and compatibility tests
-├── environment-override.test.js  # Environment configuration tests
-├── performance-impact.test.js    # Performance and memory tests
-├── sixsigma-integration.test.js  # Six Sigma integration tests
-├── error-handling.test.js        # Error recovery and resilience tests
-└── fixtures/                    # Test data and scenarios
-    ├── mock-configs.js          # Mock configuration data
-    └── test-scenarios.js        # Comprehensive test scenarios
+ README.md                     # This documentation
+ run-all-tests.js             # Comprehensive test runner
+ validation-helpers.js        # Reusable validation utilities
+ schema-validation.test.js     # Schema validation tests
+ migration-testing.test.js     # Migration and compatibility tests
+ environment-override.test.js  # Environment configuration tests
+ performance-impact.test.js    # Performance and memory tests
+ sixsigma-integration.test.js  # Six Sigma integration tests
+ error-handling.test.js        # Error recovery and resilience tests
+ fixtures/                    # Test data and scenarios
+     mock-configs.js          # Mock configuration data
+     test-scenarios.js        # Comprehensive test scenarios
 ```
 
 ## Running Tests

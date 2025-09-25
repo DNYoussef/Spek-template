@@ -3,10 +3,11 @@ GaryTaleb Data Pipeline - Basic Usage Examples
 Demonstrates core functionality of the data pipeline system
 """
 
-import asyncio
-import logging
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
+import logging
+
+import asyncio
 
 # Import pipeline components
 from ..pipeline_orchestrator import PipelineOrchestrator
@@ -15,7 +16,6 @@ from ..streaming import RealTimeStreamer
 from ..processing import NewsProcessor, SentimentProcessor, OptionsFlowAnalyzer
 from ..validation import QualityMonitor
 from ..monitoring import MetricsCollector
-
 
 async def basic_pipeline_example():
     """
@@ -85,7 +85,6 @@ async def basic_pipeline_example():
         await pipeline.shutdown()
         print("Pipeline shutdown complete")
 
-
 async def historical_data_example():
     """
     Example focused on historical data loading from multiple sources
@@ -141,7 +140,6 @@ async def historical_data_example():
     finally:
         await loader.stop() if hasattr(loader, 'stop') else None
 
-
 async def real_time_streaming_example():
     """
     Example demonstrating real-time data streaming
@@ -153,8 +151,8 @@ async def real_time_streaming_example():
     # Data callback function
     def handle_streaming_data(stream_data):
         print(f"[{stream_data.timestamp.strftime('%H:%M:%S')}] "
-              f"{stream_data.symbol} {stream_data.data_type}: "
-              f"{stream_data.data} (latency: {stream_data.latency_ms:.1f}ms)")
+                f"{stream_data.symbol} {stream_data.data_type}: "
+                f"{stream_data.data} (latency: {stream_data.latency_ms:.1f}ms)")
 
     try:
         await streamer.start()
@@ -191,7 +189,6 @@ async def real_time_streaming_example():
         logging.exception("Streaming error")
     finally:
         await streamer.stop()
-
 
 async def news_sentiment_example():
     """
@@ -239,7 +236,7 @@ async def news_sentiment_example():
             for sent in trending[:5]:
                 direction = "" if sent.direction == "bullish" else ""
                 print(f"  {direction} {sent.symbol}: {sent.weighted_score:.2f} "
-                      f"({sent.total_articles} articles)")
+                        f"({sent.total_articles} articles)")
 
     except Exception as e:
         print(f"News/sentiment error: {e}")
@@ -247,7 +244,6 @@ async def news_sentiment_example():
     finally:
         await news_processor.stop()
         await sentiment_processor.stop()
-
 
 async def options_flow_example():
     """
@@ -280,7 +276,7 @@ async def options_flow_example():
             print(f"\nTop Options Flow Symbols:")
             for item in top_flow:
                 print(f"  {item['symbol']}: ${item['total_premium']:,.0f} "
-                      f"(C/P: {item['call_put_ratio']:.1f})")
+                        f"(C/P: {item['call_put_ratio']:.1f})")
 
         # Get analytics summary
         summary = analyzer.get_analytics_summary()
@@ -294,7 +290,6 @@ async def options_flow_example():
         logging.exception("Options flow error")
     finally:
         await analyzer.stop()
-
 
 async def data_quality_example():
     """
@@ -333,15 +328,13 @@ async def data_quality_example():
         for source in sources:
             source_quality = monitor.get_source_quality(source)
             if 'latest_quality_score' in source_quality:
-                print(f"  {source}: {source_quality['latest_quality_score']:.2f} "
-                      f"({source_quality['trend']})")
+                        f"({source_quality['trend']})")
 
     except Exception as e:
         print(f"Quality monitoring error: {e}")
         logging.exception("Quality monitoring error")
     finally:
         await monitor.stop()
-
 
 async def performance_monitoring_example():
     """
@@ -388,7 +381,6 @@ async def performance_monitoring_example():
     finally:
         await collector.stop()
 
-
 async def main():
     """
     Main function running all examples
@@ -407,8 +399,6 @@ async def main():
         await basic_pipeline_example()
         await historical_data_example()
         # await real_time_streaming_example()  # Requires API keys
-        # await news_sentiment_example()       # Requires API keys
-        # await options_flow_example()         # Requires options data
         await data_quality_example()
         await performance_monitoring_example()
 
@@ -419,7 +409,6 @@ async def main():
         logging.exception("Example execution error")
 
     print("\n=== All examples completed ===")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

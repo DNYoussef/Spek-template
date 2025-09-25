@@ -1,0 +1,87 @@
+# Capability-Based Routing Policy v2.0
+# Maps complexity/uncertainty to optimal model selection
+
+routing:
+  estimator: "gemini-flash"  # Fast estimator for complexity scoring
+
+  buckets:
+    - name: cheap
+      description: "Simple, low-risk operations"
+      when: "complexity < 0.25 && uncertainty < 0.3"
+      model: "gemini-flash"
+      mcp_servers: ["claude-flow", "memory"]
+      max_tokens: 1500
+      timebox_s: 10
+      temperature: 0.1
+
+    - name: mid
+      description: "Standard operations and analysis"
+      when: "complexity < 0.6 || deadline_high"
+      model: "claude-sonnet-4"
+      mcp_servers: ["claude-flow", "memory", "sequential-thinking"]
+      max_tokens: 6000
+      timebox_s: 25
+      temperature: 0.3
+
+    - name: heavy
+      description: "Complex analysis and critical operations"
+      when: "true"  # Fallback for high complexity
+      model: "claude-opus-4.1"
+      critic: "gemini-flash"  # Cheap critic for validation
+      self_consistency: 3
+      mcp_servers: ["claude-flow", "memory", "sequential-thinking", "eva"]
+      max_tokens: 12000
+      timebox_s: 60
+      temperature: 0.2
+
+  # Model capabilities reference
+  models:
+    gemini-flash:
+      provider: "gemini"
+      strengths: ["fast", "cheap", "good-for-validation"]
+      context_window: 32768
+      cost_per_1k_tokens: 0.00015
+
+    claude-sonnet-4:
+      provider: "anthropic"
+      strengths: ["balanced", "good-reasoning", "coordination"]
+      context_window: 200000
+      cost_per_1k_tokens: 0.003
+
+    claude-opus-4.1:
+      provider: "anthropic"
+      strengths: ["best-quality", "complex-analysis", "security"]
+      context_window: 200000
+      cost_per_1k_tokens: 0.015
+      swe_bench_score: 0.727
+
+    gpt-5:
+      provider: "openai"
+      strengths: ["browser-automation", "visual", "github-native"]
+      context_window: 128000
+      cost_per_1k_tokens: 0.01
+      requires_codex_cli: true
+
+    gemini-2.5-pro:
+      provider: "gemini"
+      strengths: ["massive-context", "research", "architecture"]
+      context_window: 1000000
+      cost_per_1k_tokens: 0.00125
+
+  # Complexity scoring factors
+  complexity_factors:
+    file_count: 0.1         # Per file over 5
+    line_count: 0.0001      # Per line of code
+    integration_count: 0.15 # Per external system
+    security_required: 0.3  # If security analysis needed
+    visual_required: 0.4    # If UI/browser automation needed
+    research_required: 0.2  # If web search needed
+
+  # Uncertainty signals
+  uncertainty_signals:
+    - "unsure"
+    - "might be"
+    - "possibly"
+    - "TK CONFIRM"
+    - "unclear requirements"
+    - "conflicting information"

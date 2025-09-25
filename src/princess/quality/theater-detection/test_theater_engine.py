@@ -8,12 +8,12 @@ AUTHORITY: Validation testing framework for quality gates
 TARGET: 100% test coverage with real-world theater pattern validation
 """
 
-import unittest
-import tempfile
-import os
-import sys
 from pathlib import Path
 import json
+import os
+import sys
+import tempfile
+import unittest
 
 # Add the parent directory to the path to import the theater detection engine
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))

@@ -9,21 +9,21 @@ Migrated from: analyzer/utils/error_handling.py
 To use: lib/shared/utilities/error_handling.py
 
 Eliminated patterns:
-- Direct logging.getLogger calls → get_analyzer_logger
-- Duplicate error classification → unified ErrorCategory
-- Local exception handling → shared ErrorHandler
+- Direct logging.getLogger calls -> get_analyzer_logger
+- Duplicate error classification -> unified ErrorCategory
+- Local exception handling -> shared ErrorHandler
 """
 
 # from lib.shared.utilities.logging_setup import get_analyzer_logger
-from enum import Enum
-import time
-import traceback
-from typing import Any, Dict, List, Optional, Callable
-from dataclasses import dataclass
 from functools import wraps
+from typing import Any, Dict, List, Optional, Callable
+import time
+
+from dataclasses import dataclass
+from enum import Enum
+import traceback
 
 logger = get_analyzer_logger(__name__)
-
 
 class ErrorSeverity(Enum):
     """Standardized error severity levels."""
@@ -32,7 +32,6 @@ class ErrorSeverity(Enum):
     MEDIUM = "medium"
     LOW = "low"
     INFO = "info"
-
 
 class ErrorCategory(Enum):
     """Error categories for classification."""
@@ -43,7 +42,6 @@ class ErrorCategory(Enum):
     VALIDATION = "validation"
     DEPENDENCY = "dependency"
     INTERNAL = "internal"
-
 
 @dataclass
 class AnalysisError:
@@ -79,7 +77,6 @@ class AnalysisError:
             'timestamp': self.timestamp,
             'context': self.context
         }
-
 
 class ErrorHandler:
     """
@@ -242,7 +239,6 @@ class ErrorHandler:
         self.errors.clear()
         self.warnings.clear()
 
-
 class SafeExecutionMixin:
     """
     Mixin that provides safe execution patterns for detector methods.
@@ -314,7 +310,6 @@ class SafeExecutionMixin:
             context={'file_path': file_path, 'encoding': encoding}
         )
 
-
 # Decorator for automatic error handling
 def handle_errors(
     category: ErrorCategory,
@@ -352,7 +347,6 @@ def handle_errors(
                 return default_return
         return wrapper
     return decorator
-
 
 # Context manager for error boundaries
 class ErrorBoundary:
@@ -399,7 +393,6 @@ class ErrorBoundary:
     def has_errors(self) -> bool:
         """Check if errors occurred in this boundary.""" 
         return self.exception_occurred or self.error_handler.has_errors()
-
 
 # Factory for creating error handlers
 class ErrorHandlerFactory:

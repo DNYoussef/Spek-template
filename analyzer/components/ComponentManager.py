@@ -50,12 +50,11 @@ try:
 except ImportError:
     MECEAnalyzer = None
 
-
 class ComponentManager:
     """
     Manages initialization of optional analysis components.
 
-    Extracted from UnifiedConnascenceAnalyzer (1,860 LOC -> ~200 LOC component).
+    Extracted from UnifiedConnascenceAnalyzer (1, 860 LOC -> ~200 LOC component).
     Handles:
     - Core analyzer initialization
     - Optional component setup with fallbacks

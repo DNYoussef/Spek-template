@@ -1,5 +1,4 @@
-"""
-Comprehensive End-to-End Enterprise Workflow Tests
+from src.constants.base import MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 Tests complete enterprise workflows from start to finish including:
 - Full analysis lifecycle with all enterprise features enabled
@@ -28,7 +27,6 @@ from enterprise.telemetry.six_sigma import SixSigmaTelemetry, QualityLevel
 from enterprise.security.sbom_generator import SBOMGenerator, SBOMFormat
 from enterprise.compliance.matrix import ComplianceMatrix, ComplianceFramework, ComplianceStatus
 from enterprise.integration.analyzer import EnterpriseAnalyzerIntegration
-
 
 class MockProductionAnalyzer:
     """Mock analyzer that simulates a production code analyzer"""
@@ -64,7 +62,6 @@ class MockProductionAnalyzer:
         }
         
         return results
-
 
 class TestCompleteEnterpriseWorkflow:
     """Test complete end-to-end enterprise workflow"""
@@ -232,7 +229,7 @@ class TestCompleteEnterpriseWorkflow:
                 notes=f"Testing completed for {control.title}"
             )
             
-        # Phase 3: Mark as compliant after successful testing
+        # Phase MAXIMUM_RETRY_ATTEMPTS: Mark as compliant after successful testing
         tested_controls = [c for c in soc2_controls if c.status == ComplianceStatus.TESTED]
         for control in tested_controls:
             compliance_matrix.update_control_status(
@@ -383,7 +380,6 @@ pydantic>=1.8.0
         telemetry = SixSigmaTelemetry("quality_workflow")
         
         # Simulate development workflow with quality tracking
-        # Phase 1: Initial development with some defects
         development_tasks = [
             ("implement_feature_a", True, 5),   # 5 opportunities, passed
             ("implement_feature_b", False, 8),  # 8 opportunities, failed (defect)
@@ -419,7 +415,7 @@ pydantic>=1.8.0
             ("refactor_module_a", True, 10),
             ("add_unit_tests", True, 15),
             ("implement_feature_e", True, 7),
-            ("code_review", True, 5),
+            ("code_review", True, MAXIMUM_NESTED_DEPTH),
             ("integration_test", True, 8),
             ("performance_opt", False, 4),  # One failure for realism
         ]
@@ -493,7 +489,7 @@ pydantic>=1.8.0
             """Fallback to old analysis method"""
             return {"result": f"old_engine_analyzed_{data}", "engine": "v1"}
             
-        # Test initial rollout (25%)
+        # Test initial rollout (MAXIMUM_GOD_OBJECTS_ALLOWED%)
         for user in test_users:
             result = new_analysis_method("test_data", user_id=user)
             rollout_results.append((user, result["engine"]))
@@ -621,7 +617,6 @@ pydantic>=1.8.0
         assert integration_status["successful_analyses"] == len(results)
         assert integration_status["failed_analyses"] == len(errors)
         assert integration_status["average_analysis_time"] > 0
-
 
 class TestRealWorldIntegrationScenarios:
     """Test real-world enterprise integration scenarios"""
@@ -1063,7 +1058,6 @@ addopts = "--cov=myapp --cov-report=html --cov-report=term"
         assert summary_data["total_analyses"] == total_analyses
         assert "enterprise_features_adoption" in summary_data
         assert "compliance_status" in summary_data
-
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

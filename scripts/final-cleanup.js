@@ -88,7 +88,7 @@ class FinalCleanup {
         to: destPath
       });
 
-      console.log(`Moved: ${relativePath} → ${destPath}`);
+      console.log(`Moved: ${relativePath} -> ${destPath}`);
       return true;
     } catch (error) {
       this.report.errors.push({
@@ -133,14 +133,14 @@ class FinalCleanup {
 
   printReport() {
     if (this.report.moved.length > 0) {
-      console.log('\n📦 MOVED FILES:');
+      console.log('\n? MOVED FILES:');
       this.report.moved.forEach((item, index) => {
         console.log(`${index + 1}. ${item.from}`);
       });
     }
 
     if (this.report.errors.length > 0) {
-      console.log('\n❌ ERRORS:');
+      console.log('\n[FAIL] ERRORS:');
       this.report.errors.forEach((item, index) => {
         console.log(`${index + 1}. ${item.file}: ${item.error}`);
       });
@@ -156,9 +156,9 @@ async function main() {
     await cleanup.cleanup();
     cleanup.printReport();
 
-    console.log('\n✅ Final cleanup completed successfully!');
+    console.log('\n[OK] Final cleanup completed successfully!');
   } catch (error) {
-    console.error(`\n❌ Final cleanup failed: ${error.message}`);
+    console.error(`\n[FAIL] Final cleanup failed: ${error.message}`);
     process.exit(1);
   }
 }

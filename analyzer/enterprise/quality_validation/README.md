@@ -17,21 +17,21 @@ The Quality Validation Agent (Domain QV) implements a comprehensive quality vali
 
 ```
 quality_validation/
-├── quality_validator.js           # Main quality validation coordinator
-├── engines/
-│   └── theater_detection_engine.js # QV-001: Theater detection with pattern recognition
-├── validators/
-│   ├── reality_validation_system.js # QV-002: Evidence-based reality validation
-│   └── quality_gate_enforcer.js    # QV-003: Automated quality gate enforcement
-├── monitors/
-│   ├── nasa_compliance_monitor.js  # QV-004: NASA POT10 compliance monitoring
-│   └── quality_alerting.js         # Alert system for quality events
-├── dashboards/
-│   └── quality_dashboard.js        # QV-005: Quality dashboard and visualization
-├── utils/
-│   └── performance_tracker.js      # Performance overhead monitoring
-├── index.js                        # Domain entry point and factory
-└── README.md                       # This documentation
+___ quality_validator.js           # Main quality validation coordinator
+___ engines/
+_   ___ theater_detection_engine.js # QV-001: Theater detection with pattern recognition
+___ validators/
+_   ___ reality_validation_system.js # QV-002: Evidence-based reality validation
+_   ___ quality_gate_enforcer.js    # QV-003: Automated quality gate enforcement
+___ monitors/
+_   ___ nasa_compliance_monitor.js  # QV-004: NASA POT10 compliance monitoring
+_   ___ quality_alerting.js         # Alert system for quality events
+___ dashboards/
+_   ___ quality_dashboard.js        # QV-005: Quality dashboard and visualization
+___ utils/
+_   ___ performance_tracker.js      # Performance overhead monitoring
+___ index.js                        # Domain entry point and factory
+___ README.md                       # This documentation
 ```
 
 ## Components

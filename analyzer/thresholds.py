@@ -7,7 +7,6 @@ Defines the various types of connascence and their severity thresholds.
 
 from enum import Enum
 
-
 class ConnascenceType(Enum):
     """Types of connascence for analysis."""
 
@@ -28,7 +27,6 @@ class ConnascenceType(Enum):
     STATE = "CoState"  # State-related connascence
     TIMING = "CoTiming"  # Timing-related connascence
 
-
 class SeverityLevel(Enum):
     """Severity levels for violations."""
 
@@ -36,7 +34,6 @@ class SeverityLevel(Enum):
     HIGH = "high"
     MEDIUM = "medium"
     LOW = "low"
-
 
 # Default severity mappings for connascence types
 DEFAULT_SEVERITY_MAP = {
@@ -53,7 +50,6 @@ DEFAULT_SEVERITY_MAP = {
     ConnascenceType.TIMING: SeverityLevel.CRITICAL,
 }
 
-
 # Weight values for calculating connascence index
 DEFAULT_WEIGHT_MAP = {
     SeverityLevel.CRITICAL: 10.0,
@@ -62,16 +58,13 @@ DEFAULT_WEIGHT_MAP = {
     SeverityLevel.LOW: 1.0,
 }
 
-
 def get_connascence_severity(conn_type: ConnascenceType) -> SeverityLevel:
     """Get default severity level for a connascence type."""
     return DEFAULT_SEVERITY_MAP.get(conn_type, SeverityLevel.MEDIUM)
 
-
 def get_severity_weight(severity: SeverityLevel) -> float:
     """Get numerical weight for a severity level."""
     return DEFAULT_WEIGHT_MAP.get(severity, 1.0)
-
 
 # NASA Power of Ten rule mappings
 NASA_POT_MAPPINGS = {

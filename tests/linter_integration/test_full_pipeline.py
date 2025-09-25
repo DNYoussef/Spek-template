@@ -4,17 +4,18 @@ End-to-End Pipeline Integration Tests
 Comprehensive test suite for the complete linter integration pipeline from execution to API output.
 """
 
-import pytest
-import asyncio
-import time
-import json
-import tempfile
-import uuid
-from unittest.mock import Mock, patch, AsyncMock, MagicMock
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-import aiohttp
+from unittest.mock import Mock, patch, AsyncMock, MagicMock
+import json
+import tempfile
+import time
+
 from concurrent.futures import ThreadPoolExecutor
+import aiohttp
+import asyncio
+import pytest
+import uuid
 
 # Import system under test
 import sys
@@ -26,7 +27,6 @@ from test_api_endpoints import MockIngestionEngine, MockToolManager, MockCorrela
 from test_tool_management import ToolManagementSystem
 from test_severity_mapping import UnifiedSeverityMapper
 from test_real_time_processing import MockRealTimeLinterIngestionEngine, MockResultCorrelationFramework
-
 
 class IntegratedLinterPipeline:
     """Integrated linter pipeline for end-to-end testing"""
@@ -168,7 +168,6 @@ class IntegratedLinterPipeline:
             "total_executions": len(self.execution_history),
             "last_execution": self.execution_history[-1] if self.execution_history else None
         }
-
 
 class TestFullPipelineIntegration:
     """Test suite for complete pipeline integration"""
@@ -477,7 +476,6 @@ def get_config():
             assert execution["status"] == "completed"
             assert "execution_time" in execution
 
-
 class TestPipelinePerformance:
     """Performance tests for pipeline integration"""
     
@@ -544,13 +542,11 @@ class TestPipelinePerformance:
                 assert result["status"] == "completed"
         
         # Execution time should scale reasonably (not exponentially)
-        # Allow some variance but ensure it's not exponential growth
         for i in range(1, len(execution_times)):
             # Each doubling of files shouldn't more than triple execution time
             time_ratio = execution_times[i] / execution_times[0]
             file_ratio = file_counts[i] / file_counts[0]
             assert time_ratio <= file_ratio * 3
-
 
 class TestPipelineRegression:
     """Regression tests for pipeline functionality"""
@@ -569,7 +565,6 @@ class TestPipelineRegression:
         assert isinstance(quality_phase["quality_score"], (int, float))
         
         # SARIF compatibility (Phase 1 requirement)
-        # Note: In real implementation, would verify SARIF 2.1.0 format
         assert result["status"] in ["completed", "failed"]
         
         # Performance regression protection (Phase 1 baseline: 3.6% JSON generation)
@@ -609,7 +604,6 @@ class TestPipelineRegression:
         assert "severity_distribution" in quality_phase
         assert "category_distribution" in quality_phase
         assert "recommendations" in quality_phase
-
 
 if __name__ == "__main__":
     import logging

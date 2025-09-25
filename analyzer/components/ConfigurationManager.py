@@ -25,12 +25,11 @@ try:
 except ImportError:
     ADVANCED_MONITORING_AVAILABLE = False
 
-
 class ConfigurationManager:
     """
     Manages analysis configuration, validation, and monitoring setup.
 
-    Extracted from UnifiedConnascenceAnalyzer (1,860 LOC -> ~150 LOC component).
+    Extracted from UnifiedConnascenceAnalyzer (1, 860 LOC -> ~150 LOC component).
     Handles:
     - Configuration loading and validation
     - Monitoring system initialization

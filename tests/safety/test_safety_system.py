@@ -1,6 +1,4 @@
-"""
-Comprehensive Safety System Test Suite
-======================================
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
 Tests all safety system components to validate:
 - Import functionality
@@ -36,7 +34,6 @@ from safety.monitoring.availability_monitor import AvailabilityState, Availabili
 from safety.monitoring.redundancy_validator import RedundancyGroup, RedundantNode, RedundancyType, RedundancyLevel
 from safety.integration.trading_safety_bridge import TradingSafetyBridge, TradingState, CircuitBreakerConfig
 
-
 class TestSafetySystemImports:
     """Test that all safety system components can be imported."""
 
@@ -63,7 +60,6 @@ class TestSafetySystemImports:
         assert AvailabilityState.AVAILABLE is not None
         assert RedundancyType.ACTIVE_ACTIVE is not None
 
-
 class TestSafetyManager:
     """Test SafetyManager functionality."""
 
@@ -74,7 +70,7 @@ class TestSafetyManager:
             'max_recovery_time_seconds': 60,
             'redundancy_levels': 3,
             'health_check_interval_seconds': 1,
-            'failover_trigger_threshold': 0.95,
+            'failover_trigger_threshold': NASA_POT10_TARGET_COMPLIANCE_THRESHOLD,
             'monitoring_enabled': True
         }
 
@@ -154,7 +150,6 @@ class TestSafetyManager:
         # Should still succeed but metrics should track the time
         assert len(safety_manager.metrics.recovery_times) > 0
 
-
 class TestFailoverManager:
     """Test FailoverManager functionality."""
 
@@ -212,7 +207,6 @@ class TestFailoverManager:
         # This would be called internally during failover validation
         is_healthy = failover_manager._test_endpoint_health("http://test:8080")
         assert is_healthy is True
-
 
 class TestRecoverySystem:
     """Test RecoverySystem functionality."""
@@ -288,7 +282,6 @@ class TestRecoverySystem:
         result = recovery_system._execute_single_action(action, 30.0)
         assert result is True
 
-
 class TestAvailabilityMonitor:
     """Test AvailabilityMonitor functionality."""
 
@@ -351,7 +344,6 @@ class TestAvailabilityMonitor:
         )
 
         assert "test_component" in availability_monitor._active_incidents
-
 
 class TestRedundancyValidator:
     """Test RedundancyValidator functionality."""
@@ -433,7 +425,6 @@ class TestRedundancyValidator:
         assert 'summary' in report
         assert report['summary']['total_groups'] == 1
 
-
 class TestTradingSafetyBridge:
     """Test TradingSafetyBridge functionality."""
 
@@ -453,7 +444,7 @@ class TestTradingSafetyBridge:
     def circuit_breaker_config(self):
         return CircuitBreakerConfig(
             name="trading_api",
-            failure_threshold=3,
+            failure_threshold=MAXIMUM_RETRY_ATTEMPTS,
             timeout_seconds=300,
             half_open_max_calls=2
         )
@@ -511,7 +502,6 @@ class TestTradingSafetyBridge:
         assert 'risk_level' in status
         assert 'metrics' in status
 
-
 class TestIntegrationScenarios:
     """Test end-to-end integration scenarios."""
 
@@ -535,7 +525,6 @@ class TestIntegrationScenarios:
     def test_end_to_end_failover_scenario(self, integrated_safety_system):
         """Test complete failover scenario."""
         # This would test a complete failover scenario
-        # from detection through recovery and validation
 
         # Mock components for testing
         def mock_health_check():
@@ -547,7 +536,6 @@ class TestIntegrationScenarios:
         )
 
         # The system should detect the failure and attempt recovery
-        # This is a placeholder for the full integration test
         assert integrated_safety_system.get_system_state() in [
             SafetyState.HEALTHY,
             SafetyState.DEGRADED,
@@ -573,7 +561,6 @@ class TestIntegrationScenarios:
 
         # System should remain stable
         assert integrated_safety_system.get_system_state() != SafetyState.FAILED
-
 
 if __name__ == "__main__":
     # Run the tests

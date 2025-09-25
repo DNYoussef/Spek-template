@@ -4,8 +4,8 @@ Import Fix Validation Test
 Tests that all previously failing imports now work correctly.
 """
 
-import sys
 from pathlib import Path
+import sys
 
 # Add src to path for imports
 project_root = Path(__file__).parent.parent
@@ -14,7 +14,6 @@ sys.path.insert(0, str(src_path))
 
 def test_dpi_import():
     """Test DPI calculator import that was previously failing."""
-    print("Testing DPI import...")
     try:
         from strategies.dpi_calculator import DistributionalPressureIndex
         print(" DistributionalPressureIndex import successful")
@@ -34,7 +33,6 @@ def test_dpi_import():
 
 def test_kelly_import():
     """Test Kelly criterion import."""
-    print("\nTesting Kelly criterion import...")
     try:
         from risk.kelly_criterion import KellyCriterionCalculator, KellyInputs
         print(" Kelly imports successful")
@@ -53,7 +51,6 @@ def test_kelly_import():
 
 def test_position_sizing_import():
     """Test dynamic position sizing import."""
-    print("\nTesting position sizing import...")
     try:
         from risk.dynamic_position_sizing import DynamicPositionSizer, RiskLevel
         print(" Position sizing imports successful")
@@ -78,12 +75,10 @@ def test_position_sizing_import():
 
 def test_reality_checker_compatibility():
     """Test that the reality checker can now import the fixed modules."""
-    print("\nTesting reality checker compatibility...")
     try:
         # Simulate the imports that were failing in reality_check_test.py
 
         # This was the failing line: from src.strategies.dpi_calculator import DistributionalPressureIndex
-        # Now should work as:
         from strategies.dpi_calculator import DistributionalPressureIndex
 
         # Test Kelly system that was partially working
@@ -135,8 +130,6 @@ def main():
 
     passed = sum(results)
     total = len(results)
-
-    print(f"Tests passed: {passed}/{total}")
 
     if passed == total:
         print(" ALL IMPORT FAILURES FIXED")

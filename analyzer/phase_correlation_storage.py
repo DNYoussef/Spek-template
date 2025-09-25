@@ -1,9 +1,7 @@
-"""
-Phase Correlation Storage System
-===============================
+from src.constants.base import API_TIMEOUT_SECONDS, DAYS_RETENTION_PERIOD
 
 Advanced persistent storage system for cross-phase memory correlations with 
-intelligent indexing, performance optimization, and NASA POT10 Rule 7 compliance.
+intelligent indexing, performance optimization, and NASA POT10 Rule DAYS_RETENTION_PERIOD compliance.
 
 Features:
 - High-performance SQLite storage with WAL mode
@@ -22,7 +20,6 @@ import threading
 import time
 import logging
 logger = logging.getLogger(__name__)
-
 
 class ConnectionPool:
     """Thread-safe SQLite connection pool for high-performance operations."""
@@ -44,7 +41,7 @@ class ConnectionPool:
             for _ in range(self.pool_size):
                 conn = sqlite3.connect(
                     self.database_path,
-                    timeout=30.0,
+                    timeout=API_TIMEOUT_SECONDS.0,
                     check_same_thread=False
                 )
                 
@@ -77,7 +74,7 @@ class ConnectionPool:
             logger.warning("Connection pool exhausted, creating temporary connection")
             connection = sqlite3.connect(
                 self.database_path,
-                timeout=30.0,
+                timeout=API_TIMEOUT_SECONDS.0,
                 check_same_thread=False
             )
         
@@ -99,7 +96,6 @@ class ConnectionPool:
                 conn.close()
             self.connections.clear()
             self.available_connections.clear()
-
 
 class QueryOptimizer:
     """Query optimization and caching system."""
@@ -152,14 +148,13 @@ class QueryOptimizer:
         
         return stats
 
-
 class PhaseCorrelationStorage:
     """Advanced persistent storage for cross-phase memory correlations."""
     
     def __init__(self, 
-                 storage_path: Optional[str] = None,
-                 enable_compression: bool = True,
-                 backup_enabled: bool = True):
+                storage_path: Optional[str] = None,
+                enable_compression: bool = True,
+                backup_enabled: bool = True):
         """Initialize phase correlation storage."""
         self.storage_path = storage_path or "analyzer/phase_correlation_storage.db"
         self.enable_compression = enable_compression
@@ -324,7 +319,7 @@ class PhaseCorrelationStorage:
                 conn.execute("""
                     INSERT INTO phase_correlations 
                     (source_phase, target_phase, correlation_type, 
-                     correlation_strength, metadata, timestamp)
+                    correlation_strength, metadata, timestamp)
                     VALUES (?, ?, ?, ?, ?, ?)
                 """, (
                     correlation.source_phase,
@@ -374,8 +369,8 @@ class PhaseCorrelationStorage:
                 conn.execute("""
                     INSERT INTO performance_correlations 
                     (phase, metric_name, baseline_value, current_value,
-                     improvement_percentage, correlation_factors, 
-                     measurement_timestamp, validation_status)
+                    improvement_percentage, correlation_factors, 
+                    measurement_timestamp, validation_status)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
                     perf_corr.phase,
@@ -430,7 +425,7 @@ class PhaseCorrelationStorage:
                 conn.execute("""
                     INSERT OR REPLACE INTO memory_entries 
                     (phase_id, entry_id, entry_type, content_data,
-                     access_count, last_access, created_at, ttl_seconds, tags)
+                    access_count, last_access, created_at, ttl_seconds, tags)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
                     entry.phase_id,
@@ -496,7 +491,7 @@ class PhaseCorrelationStorage:
             with self.connection_pool.get_connection() as conn:
                 cursor = conn.execute("""
                     SELECT source_phase, target_phase, correlation_type,
-                           correlation_strength, metadata, timestamp
+                            correlation_strength, metadata, timestamp
                     FROM phase_correlations 
                     WHERE source_phase = ? OR target_phase = ?
                     ORDER BY correlation_strength DESC, timestamp DESC
@@ -538,9 +533,9 @@ class PhaseCorrelationStorage:
         return correlations
     
     def get_performance_trends(self, 
-                              phase: Optional[str] = None,
-                              metric_name: Optional[str] = None,
-                              validation_status: Optional[str] = None) -> List[PerformanceCorrelation]:
+                                phase: Optional[str] = None,
+                                metric_name: Optional[str] = None,
+                                validation_status: Optional[str] = None) -> List[PerformanceCorrelation]:
         """Get performance trends with advanced filtering."""
         start_time = time.time()
         trends = []
@@ -567,8 +562,8 @@ class PhaseCorrelationStorage:
             with self.connection_pool.get_connection() as conn:
                 cursor = conn.execute(f"""
                     SELECT phase, metric_name, baseline_value, current_value,
-                           improvement_percentage, correlation_factors,
-                           measurement_timestamp, validation_status
+                            improvement_percentage, correlation_factors,
+                            measurement_timestamp, validation_status
                     FROM performance_correlations 
                     WHERE {where_sql}
                     ORDER BY measurement_timestamp DESC
@@ -598,10 +593,10 @@ class PhaseCorrelationStorage:
         return trends
     
     def store_learning_pattern(self, 
-                              pattern_key: str,
-                              pattern_type: str,
-                              pattern_strength: float,
-                              pattern_data: Dict[str, Any]) -> bool:
+                                pattern_key: str,
+                                pattern_type: str,
+                                pattern_strength: float,
+                                pattern_data: Dict[str, Any]) -> bool:
         """Store learning pattern for cross-phase knowledge transfer."""
         try:
             pattern_data_json = json.dumps(pattern_data)
@@ -629,7 +624,7 @@ class PhaseCorrelationStorage:
                     conn.execute("""
                         INSERT INTO learning_patterns 
                         (pattern_key, pattern_type, pattern_strength, 
-                         usage_count, success_rate, last_used, pattern_data)
+                        usage_count, success_rate, last_used, pattern_data)
                         VALUES (?, ?, ?, ?, ?, ?, ?)
                     """, (pattern_key, pattern_type, pattern_strength, 1, pattern_strength, current_time, pattern_data_json))
                 
@@ -650,7 +645,7 @@ class PhaseCorrelationStorage:
             with self.connection_pool.get_connection() as conn:
                 cursor = conn.execute("""
                     SELECT pattern_key, pattern_strength, usage_count, 
-                           success_rate, last_used, pattern_data
+                            success_rate, last_used, pattern_data
                     FROM learning_patterns 
                     WHERE pattern_type = ? AND pattern_strength >= ?
                     ORDER BY pattern_strength DESC, usage_count DESC
@@ -873,11 +868,9 @@ class PhaseCorrelationStorage:
         
         logger.info("Phase Correlation Storage shutdown completed")
 
-
 # Global storage instance
 _global_storage: Optional[PhaseCorrelationStorage] = None
 _storage_lock = threading.Lock()
-
 
 def get_global_storage() -> PhaseCorrelationStorage:
     """Get or create global phase correlation storage."""
@@ -888,7 +881,6 @@ def get_global_storage() -> PhaseCorrelationStorage:
             _global_storage = PhaseCorrelationStorage()
     
     return _global_storage
-
 
 async def initialize_storage_system(config: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """Initialize the storage system with optional configuration."""

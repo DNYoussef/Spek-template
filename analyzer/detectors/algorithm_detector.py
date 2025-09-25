@@ -1,8 +1,8 @@
 """
-Algorithm Detector
-
 Detects Connascence of Algorithm violations - duplicate algorithms across functions.
 """
+
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 import ast
 import collections
@@ -11,14 +11,13 @@ from typing import List, Dict, Tuple
 from utils.types import ConnascenceViolation
 from .base import DetectorBase
 
-
 class AlgorithmDetector(DetectorBase):
     """Detects duplicate algorithms across functions."""
-    
+
     def __init__(self, file_path: str, source_lines: List[str]):
         super().__init__(file_path, source_lines)
         self.function_hashes: Dict[str, List[Tuple[str, ast.FunctionDef]]] = collections.defaultdict(list)
-    
+
     def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         """
         Detect duplicate algorithms in the AST tree.
@@ -48,7 +47,7 @@ class AlgorithmDetector(DetectorBase):
         # NASA Rule 7: Validate return value
         assert isinstance(self.violations, list), "violations must be a list"
         return self.violations
-    
+
     def _analyze_function(self, node: ast.FunctionDef) -> None:
         """Analyze a function and create a normalized hash."""
         # NASA Rule 5: Input validation assertions
@@ -60,7 +59,7 @@ class AlgorithmDetector(DetectorBase):
         # Only check substantial functions (NASA Rule 1: Avoid trivial complexity)
         if len(node.body) > 3:
             self.function_hashes[body_hash].append((self.file_path, node))
-    
+
     def _normalize_function_body(self, node: ast.FunctionDef) -> str:
         """Create normalized hash of function body for duplicate detection."""
         # NASA Rule 5: Input validation assertions
@@ -77,7 +76,7 @@ class AlgorithmDetector(DetectorBase):
         # NASA Rule 7: Validate return value
         assert isinstance(result, str), "Normalized body must be string"
         return result
-    
+
     def _get_statement_type(self, stmt: ast.stmt) -> str:
         """Get normalized statement type. NASA Rule 4 compliant."""
         # NASA Rule 5: Input validation assertion
@@ -105,7 +104,7 @@ class AlgorithmDetector(DetectorBase):
             return "class"
         else:
             return type(stmt).__name__.lower()
-    
+
     def _find_duplicate_algorithms(self) -> None:
         """Find and report duplicate algorithms. NASA Rule 4 compliant - reduced nesting."""
         # NASA Rule 5: Input validation assertions
@@ -117,7 +116,7 @@ class AlgorithmDetector(DetectorBase):
                 continue
                 
             self._create_violations_for_duplicate_group(body_hash, functions)
-    
+
     def _create_violations_for_duplicate_group(self, body_hash: str, functions: List) -> None:
         """Create violations for a group of duplicate functions. NASA Rule 4 compliant."""
         # NASA Rule 5: Input validation assertions
@@ -129,7 +128,7 @@ class AlgorithmDetector(DetectorBase):
         for file_path, func_node in filtered_functions:
             violation = self._create_algorithm_violation(body_hash, functions, file_path, func_node)
             self.violations.append(violation)
-    
+
     def _filter_duplicate_groups(self, functions: List) -> List:
         """Filter duplicate function groups for processing. NASA Rule 4 compliant."""
         # NASA Rule 5: Input validation assertions
@@ -137,7 +136,7 @@ class AlgorithmDetector(DetectorBase):
         
         # For now, return all functions but this method allows for future filtering logic
         return functions
-    
+
     def _create_algorithm_violation(
         self, body_hash: str, functions: List, file_path: str, func_node
     ) -> ConnascenceViolation:
@@ -164,13 +163,13 @@ class AlgorithmDetector(DetectorBase):
                 "algorithm_hash": body_hash
             },
         )
-    
+
     def analyze_from_data(self, collected_data) -> List[ConnascenceViolation]:
         """
         Optimized two-phase method: Analyze from pre-collected data.
         
         NASA Rule 4: Function under 60 lines
-        NASA Rule 5: Input assertions
+        NASA Rule MAXIMUM_NESTED_DEPTH: Input assertions
         
         Args:
             collected_data: Pre-collected AST data from unified visitor

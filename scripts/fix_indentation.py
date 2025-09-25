@@ -15,7 +15,6 @@ for i, line in enumerate(lines):
         curr_line = line.rstrip()
 
         # If previous line is an if statement and current line is patterns.append
-        # but indentation is wrong
         if prev_line.endswith(':') and 'if ' in prev_line:
             # Check if current line needs more indentation
             if curr_line.lstrip().startswith('patterns.append('):

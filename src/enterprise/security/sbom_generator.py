@@ -6,8 +6,6 @@ Supports SPDX and CycloneDX standards.
 """
 
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
-
 
 class SBOMFormat(Enum):
     """Supported SBOM formats"""
@@ -15,7 +13,6 @@ class SBOMFormat(Enum):
     SPDX_TAG = "spdx-tag"
     CYCLONEDX_JSON = "cyclonedx-json" 
     CYCLONEDX_XML = "cyclonedx-xml"
-
 
 @dataclass
 class Component:
@@ -32,7 +29,6 @@ class Component:
     checksums: Dict[str, str] = field(default_factory=dict)
     external_refs: List[Dict[str, str]] = field(default_factory=list)
     relationships: List[str] = field(default_factory=list)
-
 
 class SBOMGenerator:
     """
@@ -52,7 +48,7 @@ class SBOMGenerator:
         self.document_namespace = f"https://sbom.example.com/{uuid.uuid4()}"
         
     async def generate_sbom(self, format: SBOMFormat = SBOMFormat.SPDX_JSON, 
-                          output_file: Optional[Path] = None) -> Path:
+                            output_file: Optional[Path] = None) -> Path:
         """Generate SBOM in specified format"""
         logger.info(f"Generating SBOM in {format.value} format")
         
@@ -216,8 +212,6 @@ class SBOMGenerator:
     async def _analyze_system_dependencies(self):
         """Analyze system-level dependencies"""
         # This could be extended to analyze Docker base images,
-        # system packages, etc.
-        pass
         
     async def _calculate_directory_hash(self, directory: Path) -> str:
         """Calculate SHA256 hash of directory contents"""

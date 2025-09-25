@@ -3,20 +3,18 @@
 FINAL REALITY CHECK: Tests the fixed GitHub integration components
 """
 
-import sys
-import json
-import tempfile
 from pathlib import Path
+import json
+import sys
+import tempfile
 
 # Add current directory to path
 sys.path.append(str(Path(__file__).parent))
 
 from fixed_tool_coordinator import FixedToolCoordinator
 
-
 def test_correlation_reality():
     """Test that correlation logic produces real, calculable results."""
-    print("Testing correlation logic...")
 
     # Test data with known expected results
     connascence_data = {
@@ -64,18 +62,14 @@ def test_correlation_reality():
     ]
 
     passed = sum(1 for _, test in tests if test)
-    print(f"  Correlation tests: {passed}/{len(tests)} passed")
 
     for test_name, test_result in tests:
         status = "[OK]" if test_result else "[FAIL]"
-        print(f"    {status} {test_name}")
 
     return passed >= 6  # Require most tests to pass
 
-
 def test_file_operations():
     """Test file operations work end-to-end."""
-    print("Testing file operations...")
 
     with tempfile.TemporaryDirectory() as temp_dir:
         conn_file = Path(temp_dir) / "conn.json"
@@ -127,7 +121,6 @@ def test_file_operations():
             print(f"  File operations: [FAIL] - Output not created")
             return False
 
-
 def main():
     """Run final reality assessment."""
     print("FINAL REALITY CHECK - FIXED COMPONENTS")
@@ -148,7 +141,6 @@ def main():
     else:
         print(f"\n[FAILURE] Theater still detected in components")
         return False
-
 
 if __name__ == "__main__":
     success = main()

@@ -27,21 +27,21 @@ NC='\033[0m'
 
 # Logging
 log_info() { echo -e "${CYAN}[REMEDIATE]${NC} $*"; }
-log_success() { echo -e "${GREEN}[✓]${NC} $*"; }
-log_warning() { echo -e "${YELLOW}[⚠]${NC} $*"; }
-log_error() { echo -e "${RED}[✗]${NC} $*"; }
+log_success() { echo -e "${GREEN}[]${NC} $*"; }
+log_warning() { echo -e "${YELLOW}[]${NC} $*"; }
+log_error() { echo -e "${RED}[]${NC} $*"; }
 log_phase() { echo -e "${PURPLE}[PHASE]${NC} $*"; }
 
 # Banner
 show_banner() {
     echo -e "${BOLD}${BLUE}"
     cat << 'EOF'
-╔══════════════════════════════════════════════════════════════════════╗
-║                   CODEBASE REMEDIATION SYSTEM                       ║
-║                                                                      ║
-║  Transform messy codebases into clean, maintainable systems        ║
-║  Using iterative analysis → planning → implementation → validation  ║
-╚══════════════════════════════════════════════════════════════════════╝
+
+                   CODEBASE REMEDIATION SYSTEM                       
+                                                                      
+  Transform messy codebases into clean, maintainable systems        
+  Using iterative analysis  planning  implementation  validation  
+
 EOF
     echo -e "${NC}"
 }

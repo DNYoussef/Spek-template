@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-09-24T18:58:02.760025",
+  "overall_score": 0.0,
+  "overall_status": "CRITICAL",
+  "metrics": [],
+  "performance": {
+    "collection_time_seconds": 0.9807932376861572,
+    "metrics_collected": 0,
+    "overall_score": 0.0
+  },
+  "ci_cd": {
+    "acceleration_enabled": true,
+    "parallel_jobs": 6,
+    "cache_hit_rate": 0.0,
+    "performance_improvement": 0.0
+  }
+}

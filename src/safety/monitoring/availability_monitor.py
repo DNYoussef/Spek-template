@@ -6,25 +6,24 @@ Monitors system availability in real-time with 99.9% SLA validation.
 Provides comprehensive uptime tracking, SLA breach detection, and reporting.
 """
 
-import time
-import threading
-import statistics
+from collections import deque, defaultdict
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any, Union
-from enum import Enum
+import time
+
 from dataclasses import dataclass
-from collections import deque, defaultdict
+from enum import Enum
 from lib.shared.utilities import get_logger
+import statistics
+import threading
 
 logger = get_logger(__name__)
-
 
 class AvailabilityState(Enum):
     """Component availability states."""
     AVAILABLE = "available"
     UNAVAILABLE = "unavailable"
     UNKNOWN = "unknown"
-
 
 @dataclass
 class AvailabilityIncident:
@@ -36,10 +35,9 @@ class AvailabilityIncident:
     mttr_seconds: Optional[float] = None
     resolution_actions: List[str] = None
 
-    def __post_init__(self):
+def __post_init__(self):
         if self.resolution_actions is None:
             self.resolution_actions = []
-
 
 @dataclass
 class SLAMetrics:
@@ -55,11 +53,10 @@ class SLAMetrics:
     downtime_budget_used: float = 0.0
     downtime_budget_remaining: float = 0.0
 
-
 class AvailabilityMonitor:
     """99.9% SLA Monitoring and Validation System."""
 
-    def __init__(self, config: Optional[Dict] = None):
+def __init__(self, config: Optional[Dict] = None):
         """Initialize the availability monitor.
 
         Args:
@@ -100,7 +97,7 @@ class AvailabilityMonitor:
         self.logger.info("AvailabilityMonitor initialized with %.3f%% SLA target",
                         self.sla_target * 100)
 
-    def register_component(self, component_name: str, health_checker: callable):
+def register_component(self, component_name: str, health_checker: callable):
         """
         Register a component for availability monitoring.
 
@@ -114,7 +111,7 @@ class AvailabilityMonitor:
 
         self.logger.info("Registered component for monitoring: %s", component_name)
 
-    def start_monitoring(self):
+def start_monitoring(self):
         """Start availability monitoring."""
         if self._is_running:
             self.logger.warning("AvailabilityMonitor already running")
@@ -133,7 +130,7 @@ class AvailabilityMonitor:
 
         self.logger.info("AvailabilityMonitor started")
 
-    def stop_monitoring(self):
+def stop_monitoring(self):
         """Stop availability monitoring."""
         if not self._is_running:
             return
@@ -150,7 +147,7 @@ class AvailabilityMonitor:
 
         self.logger.info("AvailabilityMonitor stopped")
 
-    def get_sla_metrics(self, component_name: Optional[str] = None) -> Union[SLAMetrics, Dict[str, SLAMetrics]]:
+def get_sla_metrics(self, component_name: Optional[str] = None) -> Union[SLAMetrics, Dict[str, SLAMetrics]]:
         """
         Get SLA metrics for a component or all components.
 
@@ -165,9 +162,9 @@ class AvailabilityMonitor:
                 return self._calculate_sla_metrics(component_name)
             else:
                 return {name: self._calculate_sla_metrics(name)
-                       for name in self._health_checkers.keys()}
+                        for name in self._health_checkers.keys()}
 
-    def get_availability_status(self) -> Dict[str, Any]:
+def get_availability_status(self) -> Dict[str, Any]:
         """
         Get current availability status for all components.
 
@@ -208,7 +205,7 @@ class AvailabilityMonitor:
 
         return status
 
-    def validate_sla_compliance(self) -> Dict[str, Any]:
+def validate_sla_compliance(self) -> Dict[str, Any]:
         """
         Validate SLA compliance across all components.
 
@@ -272,7 +269,7 @@ class AvailabilityMonitor:
 
         return compliance_report
 
-    def _monitoring_loop(self):
+def _monitoring_loop(self):
         """Main monitoring loop."""
         while not self._shutdown_event.wait(self.check_interval_seconds):
             try:
@@ -287,7 +284,7 @@ class AvailabilityMonitor:
             except Exception as e:
                 self.logger.error("Error in monitoring loop: %s", e)
 
-    def _perform_health_checks(self):
+def _perform_health_checks(self):
         """Perform health checks on all registered components."""
         check_time = datetime.utcnow()
 
@@ -314,7 +311,7 @@ class AvailabilityMonitor:
                 self._component_states[component_name] = AvailabilityState.UNKNOWN
                 self._component_last_check[component_name] = check_time
 
-    def _handle_state_transition(self, component_name: str,
+def _handle_state_transition(self, component_name: str,
                                 previous_state: AvailabilityState,
                                 new_state: AvailabilityState,
                                 timestamp: datetime):
@@ -338,7 +335,7 @@ class AvailabilityMonitor:
             self._close_incident(component_name, incident, "Component recovered")
             self.logger.info("Availability incident resolved for %s", component_name)
 
-    def _close_incident(self, component_name: str, incident: AvailabilityIncident, resolution: str):
+def _close_incident(self, component_name: str, incident: AvailabilityIncident, resolution: str):
         """Close an active incident."""
         incident.end_time = datetime.utcnow()
         incident.mttr_seconds = (incident.end_time - incident.start_time).total_seconds()
@@ -353,7 +350,7 @@ class AvailabilityMonitor:
             component_name, incident.mttr_seconds
         )
 
-    def _update_availability_samples(self):
+def _update_availability_samples(self):
         """Update availability samples for metrics calculation."""
         timestamp = datetime.utcnow()
 
@@ -369,7 +366,7 @@ class AvailabilityMonitor:
 
             self._availability_samples[component_name].append(sample)
 
-    def _calculate_sla_metrics(self, component_name: str) -> SLAMetrics:
+def _calculate_sla_metrics(self, component_name: str) -> SLAMetrics:
         """Calculate SLA metrics for a component."""
         samples = list(self._availability_samples[component_name])
 
@@ -402,8 +399,8 @@ class AvailabilityMonitor:
 
         # Calculate MTTR and MTBF
         component_incidents = [i for i in self._incident_history
-                             if i.component == component_name and
-                             i.start_time >= window_start and i.mttr_seconds is not None]
+                            if i.component == component_name and
+                            i.start_time >= window_start and i.mttr_seconds is not None]
 
         mttr_average = 0.0
         if component_incidents:
@@ -437,7 +434,7 @@ class AvailabilityMonitor:
             downtime_budget_remaining=downtime_budget_remaining
         )
 
-    def _check_sla_violations(self):
+def _check_sla_violations(self):
         """Check for SLA violations and log warnings."""
         for component_name in self._health_checkers.keys():
             metrics = self._calculate_sla_metrics(component_name)
@@ -451,7 +448,7 @@ class AvailabilityMonitor:
                     metrics.downtime_budget_used * 100
                 )
 
-    def _log_monitoring_status(self):
+def _log_monitoring_status(self):
         """Log current monitoring status."""
         status = self.get_availability_status()
 

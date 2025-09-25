@@ -1,6 +1,4 @@
-"""
-Comprehensive Validation Reporting System
-========================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Advanced reporting system for NASA POT10 compliance and defense certification:
 - Multi-format report generation (JSON, HTML, PDF, XML)
@@ -61,7 +59,7 @@ class HTMLReportGenerator:
         self.html_template = self._get_html_template()
 
     def generate_html_report(self, cert_report: DefenseCertificationReport,
-                           metrics: ValidationMetrics, output_path: Path) -> None:
+                            metrics: ValidationMetrics, output_path: Path) -> None:
         """Generate comprehensive HTML report."""
 
         # Prepare data for template
@@ -241,7 +239,7 @@ class HTMLReportGenerator:
         """Get HTML CSS styles."""
         return """    <style>
         body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }}
-        .container {{ max-width: 1200px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }}
+        .container {{ max-width: 1200px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); overflow: hidden; }}
         .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }}
         .status-badge {{ display: inline-block; padding: 8px 16px; border-radius: 20px; font-weight: bold; margin-top: 10px; }}
         .status-certified {{ background-color: #4CAF50; }} .status-conditional {{ background-color: #FF9800; }}
@@ -311,7 +309,7 @@ class PDFReportGenerator:
         self.html_generator = HTMLReportGenerator()
 
     def generate_pdf_report(self, cert_report: DefenseCertificationReport,
-                          metrics: ValidationMetrics, output_path: Path) -> None:
+                            metrics: ValidationMetrics, output_path: Path) -> None:
         """Generate PDF report from HTML."""
         # Generate HTML first
         html_path = output_path.with_suffix('.html')
@@ -341,7 +339,7 @@ class ComplianceDashboard:
         self.trends_file = self.data_dir / "compliance_trends.json"
 
     def update_metrics(self, cert_report: DefenseCertificationReport,
-                      metrics: ValidationMetrics) -> None:
+                        metrics: ValidationMetrics) -> None:
         """Update dashboard metrics."""
         # Store current metrics
         current_metrics = {
@@ -506,7 +504,7 @@ class ValidationReportingSystem:
         return report_files
 
     def _collect_validation_metrics(self, codebase_path: Path,
-                                  cert_report: DefenseCertificationReport) -> ValidationMetrics:
+                                    cert_report: DefenseCertificationReport) -> ValidationMetrics:
         """Collect comprehensive validation metrics."""
         metrics = ValidationMetrics()
 
@@ -591,7 +589,7 @@ class ValidationReportingSystem:
         return risks
 
     def _generate_executive_summary(self, cert_report: DefenseCertificationReport,
-                                   metrics: ValidationMetrics) -> str:
+                                    metrics: ValidationMetrics) -> str:
         """Generate executive summary in markdown format."""
         header = self._format_summary_header(cert_report, metrics)
         findings = self._format_key_findings(cert_report, metrics)
@@ -675,7 +673,7 @@ Based on current compliance levels, estimated certification timeline:
 2. Implement automated fixes for auto-fixable violations
 3. Prioritize manual remediation based on risk assessment
 4. Establish continuous compliance monitoring
-5. Schedule follow-up assessment after remediation
+MAXIMUM_NESTED_DEPTH. Schedule follow-up assessment after remediation
 
 ---
 *Report generated on {cert_report.timestamp.strftime('%Y-%m-%d at %H:%M:%S')}*
@@ -747,7 +745,6 @@ Based on current compliance levels, estimated certification timeline:
         """Generate CI/CD integration script."""
         return f"""#!/bin/bash
 # Automated Compliance Check Script
-# Generated for {self.project_name}
 
 set -e
 

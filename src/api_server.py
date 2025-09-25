@@ -6,9 +6,10 @@ Defense Industry API Implementation
 This module provides API endpoint implementations for defense industry compliance.
 """
 
-from flask import Flask, request, jsonify
-import sys
 import os
+import sys
+
+from flask import Flask, request, jsonify
 
 # Add project root to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

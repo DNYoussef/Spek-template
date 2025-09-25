@@ -9,7 +9,7 @@
 - **Real AST Parsing**: Comprehensive analysis of code patterns with `comprehensive_analysis_engine.py`
 - **Pattern Recognition**: Detection of mock, fake, stub, and placeholder implementations
 - **Authenticity Scoring**: Evidence-based 0-100 scale validation system
-- **Production Gate**: ≥60/100 score required for deployment
+- **Production Gate**: >=60/100 score required for deployment
 
 ### 2. Quality Gate Enforcement
 - **Zero Tolerance**: Production-blocking violations prevent deployment
@@ -26,13 +26,13 @@
 ## QUALITY GATES
 
 ### Gate 1: Theater Detection (BLOCKING)
-- **Threshold**: ≥60/100 authenticity score
+- **Threshold**: >=60/100 authenticity score
 - **Patterns Detected**: Mock implementations, hardcoded returns, empty functions
 - **Severity Levels**: Low, Medium, High, Critical with corresponding penalties
 - **Evidence Required**: Real implementation with complexity, error handling, validation
 
 ### Gate 2: Test Coverage (BLOCKING)
-- **Threshold**: ≥80% code coverage
+- **Threshold**: >=80% code coverage
 - **Tools**: pytest-cov for Python, jest/mocha for JavaScript
 - **Validation**: Real test execution, not simulated results
 
@@ -42,12 +42,12 @@
 - **Zero Tolerance**: Any critical security issue blocks deployment
 
 ### Gate 4: NASA POT10 Compliance (BLOCKING)
-- **Threshold**: ≥90% compliance
+- **Threshold**: >=90% compliance
 - **Standards**: Defense industry coding standards
 - **Mission Critical**: Required for government/defense contracts
 
 ### Gate 5: Code Complexity (WARNING)
-- **Threshold**: ≤10 cyclomatic complexity per function
+- **Threshold**: <=10 cyclomatic complexity per function
 - **Metrics**: Cyclomatic, cognitive, Halstead volume, maintainability index
 
 ## SYSTEM COMPONENTS

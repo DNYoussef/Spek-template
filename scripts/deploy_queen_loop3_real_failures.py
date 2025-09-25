@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Deploy Queen Coordinator Loop 3 for Real GitHub CI/CD Failures
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Process 17 real GitHub failures across Defense Industry, NASA POT10, and Six Sigma pipelines
 using enhanced Queen Coordinator with MECE task division and 85+ agent coordination.
@@ -205,7 +203,7 @@ async def deploy_queen_coordinator_for_real_failures():
         "enable_mece_parallel": True,
         "enable_full_mcp_integration": True,
         "max_parallel_agents": 12,
-        "timeout_per_agent": 300,  # 5 minutes per agent
+        "timeout_per_agent": 300,  # MAXIMUM_NESTED_DEPTH minutes per agent
         "theater_detection_threshold": 0.75,
         "reality_validation_enabled": True
     }

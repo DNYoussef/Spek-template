@@ -6,16 +6,16 @@ This is a complete replacement for the mock-filled unified_analyzer.py.
 Every component does REAL work and FAILS when broken.
 """
 
+from pathlib import Path
+from typing import List, Dict, Set, Any, Optional
 import ast
 import json
 import logging
 import time
+
 from dataclasses import dataclass
-from typing import List, Dict, Set, Any, Optional
-from pathlib import Path
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class RealViolation:
@@ -79,7 +79,6 @@ class RealViolation:
             'weight': self.weight
         }
 
-
 @dataclass
 class RealAnalysisResult:
     """Real analysis result with actual metrics."""
@@ -133,7 +132,6 @@ class RealAnalysisResult:
             'files_analyzed': self.files_analyzed,
             'analysis_duration_ms': self.analysis_duration_ms
         }
-
 
 class RealConnascenceDetector:
     """Real connascence detector that actually finds violations."""
@@ -230,7 +228,6 @@ class RealConnascenceDetector:
 
         return violations
 
-
 class RealNASAAnalyzer:
     """Real NASA POT10 analyzer with actual rules."""
 
@@ -308,7 +305,6 @@ class RealNASAAnalyzer:
 
         return max_depth
 
-
 class RealDuplicationAnalyzer:
     """Real duplication analyzer that finds actual code clones."""
 
@@ -383,7 +379,6 @@ class RealDuplicationAnalyzer:
 
         return intersection / union if union > 0 else 0.0
 
-
 class RealUnifiedAnalyzer:
     """REAL Unified Analyzer - NO MOCKS, NO THEATER."""
 
@@ -407,7 +402,7 @@ class RealUnifiedAnalyzer:
         return self.analyze_project(project_path=path, policy_preset=policy, options=kwargs)
 
     def analyze_project(self, project_path: str, policy_preset: str = "strict",
-                       options: Optional[Dict[str, Any]] = None) -> RealAnalysisResult:
+                        options: Optional[Dict[str, Any]] = None) -> RealAnalysisResult:
         """Analyze entire project with REAL analysis."""
         start_time = time.time()
         options = options or {}
@@ -531,7 +526,6 @@ class RealUnifiedAnalyzer:
     def get_analysis_stats(self) -> Dict[str, Any]:
         """Get real analysis statistics."""
         return self.analysis_stats.copy()
-
 
 # Replace the mock analyzer in the core system
 UnifiedConnascenceAnalyzer = RealUnifiedAnalyzer

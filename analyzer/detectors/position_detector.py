@@ -1,5 +1,4 @@
-"""
-Position Detector - Refactored to Eliminate Connascence Violations
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_RETRY_ATTEMPTS
 
 Detects Connascence of Position violations using standardized interfaces
 and configuration-driven thresholds to reduce parameter order coupling.
@@ -15,9 +14,7 @@ try:
     from ..interfaces.detector_interface import (
         ConfigurableDetectorMixin, ViolationSeverity, ConnascenceType
     )
-    print("DEBUG: Successfully imported ConfigurableDetectorMixin")
 except ImportError as e:
-    print(f"DEBUG: Failed to import ConfigurableDetectorMixin: {e}")
     # Fallback dummy class
     class ConfigurableDetectorMixin:
         def __init__(self):
@@ -25,8 +22,6 @@ except ImportError as e:
         def get_threshold(self, name, default):
             return default
 # from ..utils.common_patterns import ASTUtils, ViolationFactory  
-# from ..utils.error_handling import SafeExecutionMixin, handle_errors, ErrorCategory
-
 
 # FIXED: Enable real configuration support
 class PositionDetector(DetectorBase, ConfigurableDetectorMixin):
@@ -41,11 +36,8 @@ class PositionDetector(DetectorBase, ConfigurableDetectorMixin):
         ConfigurableDetectorMixin.__init__(self)
 
         # Debug: Check if mixin initialized properly
-        print(f"DEBUG: _detector_name = {getattr(self, '_detector_name', 'NOT_SET')}")
 
         # FIXED: Use real configuration instead of hardcoded values
-        # Note: Don't cache threshold in __init__ - load fresh each time for testing
-        print(f"DEBUG: PositionDetector initialized with _detector_name={self._detector_name}")
     
     def detect_violations(self, tree: ast.AST) -> List[ConnascenceViolation]:
         """
@@ -81,14 +73,10 @@ class PositionDetector(DetectorBase, ConfigurableDetectorMixin):
         max_positional_params = self.get_threshold('max_positional_params', 3)
 
         # CRITICAL DEBUG: Check actual threshold being used
-        print(f"DEBUG: Function '{node.name}' has {positional_count} params, threshold={max_positional_params}")
 
         # Use configured threshold - REAL configuration, not hardcoded!
         if positional_count <= max_positional_params:
-            print(f"DEBUG: No violation - {positional_count} <= {max_positional_params}")
             return True
-
-        print(f"DEBUG: VIOLATION DETECTED - {positional_count} > {max_positional_params}")
 
         # Determine severity based on how far over the threshold we are
         severity = self._calculate_severity(positional_count, max_positional_params)
@@ -122,9 +110,9 @@ class PositionDetector(DetectorBase, ConfigurableDetectorMixin):
             print(f"WARNING: Failed to get severity mapping: {e}")
 
         # Fallback to default severity calculation
-        if parameter_count <= threshold + 3:
+        if parameter_count <= threshold + MAXIMUM_RETRY_ATTEMPTS:
             return "medium"
-        elif parameter_count <= threshold + 7:
+        elif parameter_count <= threshold + DAYS_RETENTION_PERIOD:
             return "high"
         else:
             return "critical"

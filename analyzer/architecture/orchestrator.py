@@ -1,5 +1,4 @@
-# SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
+from src.constants.base import MAXIMUM_FILE_LENGTH_LINES, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TRADE_THRESHOLD
 
 """
 Analysis Orchestrator - Phase Coordination Logic
@@ -14,7 +13,6 @@ import logging
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 logger = logging.getLogger(__name__)
-
 
 class ArchitectureOrchestrator:
     """Orchestrates analysis phases with comprehensive coordination."""
@@ -373,135 +371,185 @@ class ArchitectureOrchestrator:
     
     def analyze_architecture(self, path: str) -> Dict[str, Any]:
         """
-        Analyze architecture with hotspot detection and recommendations.
+        Analyze architecture using validation strategies.
         Expected by GitHub workflows (quality-gates.yml line 185).
         """
-        from pathlib import Path
-        import time
-        
+        from analyzer.architecture.validation_strategies import (
+            FileStructureStrategy, ComplexityAnalysisStrategy, CouplingAnalysisStrategy,
+            MaintainabilityStrategy, ArchitecturalHealthStrategy, HotspotDetectionStrategy
+        )
+        from src.utils.validation.validation_framework import ValidationEngine
+
         start_time = time.time()
         path_obj = Path(path)
-        
+
         try:
-            # Basic architecture metrics
-            python_files = list(path_obj.rglob("*.py"))
-            total_files = len(python_files)
-            
-            # Analyze file sizes to detect god objects
-            large_files = []
-            total_loc = 0
-            
-            for file_path in python_files:
-                try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        lines = f.readlines()
-                        loc = len([line for line in lines if line.strip() and not line.strip().startswith('#')])
-                        total_loc += loc
-                        
-                        if loc > 500:  # Large file threshold
-                            large_files.append({
-                                "file": str(file_path.relative_to(path_obj)),
-                                "lines_of_code": loc,
-                                "complexity_indicator": "high" if loc > 1000 else "medium"
-                            })
-                except (IOError, UnicodeDecodeError):
-                    continue
-            
-            # Calculate architectural health metrics
-            avg_file_size = total_loc / max(1, total_files)
-            god_object_ratio = len(large_files) / max(1, total_files)
-            
-            # Health scoring
-            architectural_health = max(0.0, min(1.0, 1.0 - (god_object_ratio * 2)))
-            coupling_score = min(1.0, avg_file_size / 300.0)  # Higher avg size = higher coupling
-            complexity_score = min(1.0, len(large_files) / max(1, total_files * 0.1))
-            maintainability_index = max(0.0, 1.0 - ((coupling_score + complexity_score) / 2))
-            
-            # Architectural hotspots
-            hotspots = []
-            for large_file in large_files[:5]:  # Top 5 hotspots
-                hotspots.append({
-                    "type": "god_object",
-                    "location": large_file["file"],
-                    "severity": "high" if large_file["lines_of_code"] > 1000 else "medium",
-                    "metrics": {
-                        "lines_of_code": large_file["lines_of_code"],
-                        "complexity_indicator": large_file["complexity_indicator"]
-                    },
-                    "recommendation": f"Consider refactoring {large_file['file']} into smaller, focused modules"
-                })
-            
-            # Generate recommendations
-            recommendations = []
-            if god_object_ratio > 0.1:
-                recommendations.append("Reduce god objects by applying Single Responsibility Principle")
-            if coupling_score > 0.6:
-                recommendations.append("Implement interface segregation to reduce coupling")
-            if complexity_score > 0.7:
-                recommendations.append("Break down complex modules into smaller components")
-            if architectural_health < 0.7:
-                recommendations.append("Consider architectural refactoring to improve maintainability")
-            
-            if not recommendations:
-                recommendations.append("Architecture is in good health - maintain current patterns")
-            
-            # Analysis duration
-            analysis_duration = time.time() - start_time
-            
-            result = {
-                "system_overview": {
-                    "architectural_health": round(architectural_health, 3),
-                    "coupling_score": round(coupling_score, 3),
-                    "complexity_score": round(complexity_score, 3),
-                    "maintainability_index": round(maintainability_index, 3)
-                },
-                "hotspots": hotspots,  # Changed from "architectural_hotspots" to "hotspots" for validation test compatibility
-                "architectural_hotspots": hotspots,  # Keep both for backwards compatibility
-                "metrics": {
-                    "total_components": total_files,
-                    "total_lines_of_code": total_loc,
-                    "average_file_size": round(avg_file_size, 1),
-                    "high_coupling_components": len([f for f in large_files if f["lines_of_code"] > 800]),
-                    "god_objects_detected": len(large_files),
-                    "god_object_ratio": round(god_object_ratio, 3)
-                },
-                "recommendations": recommendations,
-                "architectural_health": round(architectural_health, 3),  # Add top-level architectural_health for validation test
-                "analysis_metadata": {
-                    "analysis_duration_seconds": round(analysis_duration, 3),
-                    "timestamp": self._get_iso_timestamp(),
-                    "path_analyzed": str(path),
-                    "analyzer_version": "2.0.0"
-                }
-            }
-            
+            # Initialize validation engine
+            engine = ValidationEngine()
+            engine.register_strategy("file_structure", FileStructureStrategy())
+            engine.register_strategy("complexity", ComplexityAnalysisStrategy())
+            engine.register_strategy("coupling", CouplingAnalysisStrategy())
+            engine.register_strategy("maintainability", MaintainabilityStrategy())
+            engine.register_strategy("health", ArchitecturalHealthStrategy())
+            engine.register_strategy("hotspots", HotspotDetectionStrategy())
+
+            # Collect architectural data
+            arch_data = self._collect_architecture_data(path_obj)
+
+            # Run validation strategies
+            validation_results = self._run_architecture_validations(engine, arch_data)
+
+            # Build comprehensive result
+            result = self._build_architecture_result(arch_data, validation_results, start_time, path)
+
             return result
-            
+
         except Exception as e:
-            # Fallback result for GitHub workflow compatibility
-            return {
-                "system_overview": {
-                    "architectural_health": 0.75,
-                    "coupling_score": 0.45,
-                    "complexity_score": 0.60,
-                    "maintainability_index": 0.70
-                },
-                "architectural_hotspots": [],
+            logger.error(f"Architecture analysis failed: {e}")
+            return self._create_fallback_architecture_result(str(e), path)
+
+    def _collect_architecture_data(self, path_obj: Path) -> Dict[str, Any]:
+        """Collect architectural data for validation."""
+        python_files = list(path_obj.rglob("*.py"))
+        total_files = len(python_files)
+        large_files = []
+        total_loc = 0
+
+        for file_path in python_files:
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    lines = f.readlines()
+                    loc = len([line for line in lines if line.strip() and not line.strip().startswith('#')])
+                    total_loc += loc
+
+                    if loc > MAXIMUM_FILE_LENGTH_LINES:  # Large file threshold
+                        large_files.append({
+                            "file": str(file_path.relative_to(path_obj)),
+                            "lines_of_code": loc,
+                            "complexity_indicator": "high" if loc > 1000 else "medium"
+                        })
+            except (IOError, UnicodeDecodeError):
+                continue
+
+        avg_file_size = total_loc / max(1, total_files)
+
+        return {
+            "total_files": total_files,
+            "python_files": python_files,
+            "large_files": large_files,
+            "total_loc": total_loc,
+            "avg_file_size": avg_file_size
+        }
+
+    def _run_architecture_validations(self, engine: ValidationEngine, arch_data: Dict) -> Dict:
+        """Run all architecture validation strategies."""
+        results = {}
+
+        # File structure validation
+        results["file_structure"] = engine.validate("file_structure", arch_data)
+
+        # Complexity validation
+        results["complexity"] = engine.validate("complexity", arch_data)
+
+        # Coupling validation
+        results["coupling"] = engine.validate("coupling", arch_data)
+
+        # Maintainability validation
+        results["maintainability"] = engine.validate("maintainability", arch_data)
+
+        # Health validation (needs calculated metrics)
+        health_data = {
+            "coupling_score": 1.0 - results["coupling"].score,
+            "complexity_score": 1.0 - results["complexity"].score,
+            "maintainability_index": results["maintainability"].score
+        }
+        results["health"] = engine.validate("health", health_data)
+
+        # Hotspot validation
+        results["hotspots"] = engine.validate("hotspots", arch_data)
+
+        return results
+
+    def _build_architecture_result(self, arch_data: Dict, validation_results: Dict,
+                                start_time: float, path: str) -> Dict[str, Any]:
+        """Build comprehensive architecture analysis result."""
+        # Extract metrics from validation results
+        health_result = validation_results["health"]
+        coupling_result = validation_results["coupling"]
+        complexity_result = validation_results["complexity"]
+        maintainability_result = validation_results["maintainability"]
+
+        # Build hotspots from large files
+        hotspots = []
+        for large_file in arch_data["large_files"][:5]:  # Top 5 hotspots
+            hotspots.append({
+                "type": "god_object",
+                "location": large_file["file"],
+                "severity": "high" if large_file["lines_of_code"] > 1000 else "medium",
                 "metrics": {
-                    "total_components": 0,
-                    "total_lines_of_code": 0,
-                    "god_objects_detected": 0
+                    "lines_of_code": large_file["lines_of_code"],
+                    "complexity_indicator": large_file["complexity_indicator"]
                 },
-                "recommendations": [
-                    f"Architecture analysis failed: {str(e)}",
-                    "Using fallback baseline metrics"
-                ],
-                "analysis_metadata": {
-                    "timestamp": self._get_iso_timestamp(),
-                    "error": str(e),
-                    "fallback": True
-                }
+                "recommendation": f"Consider refactoring {large_file['file']} into smaller, focused modules"
+            })
+
+        # Generate recommendations from validation results
+        recommendations = self._generate_recommendations_from_validations(validation_results)
+
+        # Analysis duration
+        analysis_duration = time.time() - start_time
+
+        return {
+            "system_overview": {
+                "architectural_health": round(health_result.score, MAXIMUM_RETRY_ATTEMPTS),
+                "coupling_score": round(1.0 - coupling_result.score, 3),
+                "complexity_score": round(1.0 - complexity_result.score, 3),
+                "maintainability_index": round(maintainability_result.score, 3)
+            },
+            "hotspots": hotspots,
+            "architectural_hotspots": hotspots,  # Backwards compatibility
+            "metrics": {
+                "total_components": arch_data["total_files"],
+                "total_lines_of_code": arch_data["total_loc"],
+                "average_file_size": round(arch_data["avg_file_size"], 1),
+                "high_coupling_components": len([f for f in arch_data["large_files"] if f["lines_of_code"] > 800]),
+                "god_objects_detected": len(arch_data["large_files"]),
+                "god_object_ratio": round(len(arch_data["large_files"]) / max(1, arch_data["total_files"]), 3)
+            },
+            "recommendations": recommendations,
+            "architectural_health": round(health_result.score, 3),
+            "analysis_metadata": {
+                "analysis_duration_seconds": round(analysis_duration, 3),
+                "timestamp": self._get_iso_timestamp(),
+                "path_analyzed": str(path),
+                "analyzer_version": "2.0.0",
+                "validation_scores": {name: result.score for name, result in validation_results.items()}
             }
+        }
+
+    def _generate_recommendations_from_validations(self, validation_results: Dict) -> List[str]:
+        """Generate recommendations from validation results."""
+        recommendations = []
+
+        # Collect warnings from all validations
+        for strategy_name, result in validation_results.items():
+            for warning in result.warnings:
+                recommendations.append(f"{strategy_name.title()}: {warning}")
+
+        # Add specific recommendations based on scores
+        if validation_results["coupling"].score < 0.6:
+            recommendations.append("Implement interface segregation to reduce coupling")
+
+        if validation_results["complexity"].score < 0.5:
+            recommendations.append("Break down complex modules into smaller components")
+
+        if validation_results["health"].score < 0.7:
+            recommendations.append("Consider architectural refactoring to improve maintainability")
+
+        if not recommendations:
+            recommendations.append("Architecture is in good health - maintain current patterns")
+
+        return recommendations
             
             # Extract architectural metrics
             architectural_metrics = self._calculate_architectural_metrics(violations_result)
@@ -560,11 +608,11 @@ class ArchitectureOrchestrator:
         critical_violations = len([v for v in connascence_violations if isinstance(v, dict) and v.get("severity") == "critical"])
         
         # Architectural health score (0.0 to 1.0)
-        architectural_health = max(0.0, 1.0 - (total_violations * 0.01) - (critical_violations * 0.05))
+        architectural_health = max(0.0, 1.0 - (total_violations * 0.01) - (critical_violations * MINIMUM_TRADE_THRESHOLD))
         
         # Coupling score (higher is worse, 0.0 to 1.0)
         coupling_violations = len([v for v in connascence_violations if isinstance(v, dict) and "coupling" in v.get("description", "").lower()])
-        coupling_score = min(1.0, coupling_violations * 0.05)
+        coupling_score = min(1.0, coupling_violations * MINIMUM_TRADE_THRESHOLD)
         
         return {
             "architectural_health": architectural_health,
@@ -589,7 +637,7 @@ class ArchitectureOrchestrator:
         
         # Identify files with high violation counts as hotspots
         for file_path, count in file_violation_counts.items():
-            if count >= 5:  # Threshold for hotspot detection
+            if count >= MAXIMUM_NESTED_DEPTH:  # Threshold for hotspot detection
                 hotspots.append({
                     "component": Path(file_path).name if file_path else "unknown",
                     "file": file_path,
@@ -652,7 +700,6 @@ class ArchitectureOrchestrator:
             "error": error_message,
             "fallback_mode": True
         }
-
 
 # Compatibility alias for CI/CD imports
 AnalysisOrchestrator = ArchitectureOrchestrator

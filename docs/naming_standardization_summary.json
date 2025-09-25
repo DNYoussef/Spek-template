@@ -1,0 +1,84 @@
+{
+  "total_changes": 8,
+  "files_modified": 2,
+  "changes_by_type": {
+    "function": 8
+  },
+  "backup_created": true,
+  "changes_applied": [
+    {
+      "file_path": "analyzer\\unified_analyzer.py",
+      "old_name": "generateConnascenceReport",
+      "new_name": "generate_connascence_report",
+      "change_type": "function",
+      "line_numbers": [
+        167
+      ]
+    },
+    {
+      "file_path": "analyzer\\unified_analyzer.py",
+      "old_name": "validateSafetyCompliance",
+      "new_name": "validate_safety_compliance",
+      "change_type": "function",
+      "line_numbers": [
+        173
+      ]
+    },
+    {
+      "file_path": "analyzer\\unified_analyzer.py",
+      "old_name": "getRefactoringSuggestions",
+      "new_name": "get_refactoring_suggestions",
+      "change_type": "function",
+      "line_numbers": [
+        178,
+        181
+      ]
+    },
+    {
+      "file_path": "analyzer\\unified_analyzer.py",
+      "old_name": "getAutomatedFixes",
+      "new_name": "get_automated_fixes",
+      "change_type": "function",
+      "line_numbers": [
+        185,
+        188
+      ]
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "old_name": "generateConnascenceReport",
+      "new_name": "generate_connascence_report",
+      "change_type": "function",
+      "line_numbers": [
+        185
+      ]
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "old_name": "validateSafetyCompliance",
+      "new_name": "validate_safety_compliance",
+      "change_type": "function",
+      "line_numbers": [
+        274
+      ]
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "old_name": "getRefactoringSuggestions",
+      "new_name": "get_refactoring_suggestions",
+      "change_type": "function",
+      "line_numbers": [
+        296
+      ]
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "old_name": "getAutomatedFixes",
+      "new_name": "get_automated_fixes",
+      "change_type": "function",
+      "line_numbers": [
+        321
+      ]
+    }
+  ]
+}

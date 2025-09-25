@@ -7,14 +7,13 @@ Optimized AST traversal algorithms for improved performance
 in connascence analysis.
 """
 
-import ast
 from collections import defaultdict
-from dataclasses import dataclass
+from typing import Any, Callable, Dict, Iterator, List, Optional, Set, Tuple, Union
+import ast
 import logging
 import time
-from typing import Any, Callable, Dict, Iterator, List, Optional, Set, Tuple, Union
-logger = logging.getLogger(__name__)
 
+from dataclasses import dataclass
 
 @dataclass
 class TraversalStats:
@@ -26,7 +25,6 @@ class TraversalStats:
     cache_hits: int = 0
     cache_misses: int = 0
     optimizations_applied: int = 0
-
 
 class OptimizedASTVisitor(ast.NodeVisitor):
     """
@@ -261,7 +259,6 @@ class OptimizedASTVisitor(ast.NodeVisitor):
         """Group patterns by the AST node types they target."""
 
         # This is a simplified grouping - in practice, you'd analyze the patterns
-        # to determine which node types they actually check
 
         type_groups = defaultdict(dict)
 
@@ -281,7 +278,6 @@ class OptimizedASTVisitor(ast.NodeVisitor):
                     type_groups[node_type][pattern_name] = pattern_func
 
         return dict(type_groups)
-
 
 class ConnascencePatternOptimizer:
     """
@@ -422,7 +418,6 @@ class ConnascencePatternOptimizer:
         def detect_algorithm_coupling(node: ast.AST) -> bool:
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 # Look for functions that might have algorithmic coupling
-                # This is a simplified heuristic
                 body_lines = len(node.body)
                 return body_lines > 50  # Long functions often have algorithmic coupling
             return False
@@ -467,7 +462,6 @@ class ConnascencePatternOptimizer:
         }
 
         return descriptions.get(connascence_type, f"Connascence violation: {connascence_type}")
-
 
 class PerformanceProfiler:
     """Profile AST traversal performance for optimization."""
@@ -541,11 +535,9 @@ class PerformanceProfiler:
         except Exception:
             return 0
 
-
 # Global instances for easy access
 ast_optimizer = ConnascencePatternOptimizer()
 performance_profiler = PerformanceProfiler()
-
 
 def optimize_ast_analysis(ast_tree: ast.AST, target_patterns: Optional[Set[str]] = None) -> Dict[str, Any]:
     """
@@ -582,7 +574,6 @@ def optimize_ast_analysis(ast_tree: ast.AST, target_patterns: Optional[Set[str]]
     finally:
         performance_stats = performance_profiler.end_profile("ast_analysis")
         logger.debug(f"AST analysis performance: {performance_stats}")
-
 
 def get_optimization_statistics() -> Dict[str, Any]:
     """Get AST optimization performance statistics."""

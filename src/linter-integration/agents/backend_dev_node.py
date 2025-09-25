@@ -4,14 +4,15 @@ Backend Developer Agent Node - Mesh Network Specialist
 Implements adapter patterns for flake8, pylint, ruff, mypy, bandit integration.
 """
 
-import asyncio
+from pathlib import Path
+from typing import Dict, List, Any, Optional
 import json
 import logging
 import re
-from typing import Dict, List, Any, Optional
+
 from dataclasses import dataclass
+import asyncio
 import xml.etree.ElementTree as ET
-from pathlib import Path
 
 from ..adapters.base_adapter import BaseLinterAdapter, LinterViolation, SeverityLevel, ViolationType
 
@@ -195,7 +196,6 @@ class PylintAdapter(BaseLinterAdapter):
                     violations.append(self._parse_pylint_violation(item))
             except json.JSONDecodeError:
                 # Fallback to text parsing if JSON fails
-                pass
                 
         return violations
         

@@ -1,6 +1,4 @@
-"""
-Byzantine Fault Tolerance Stress Testing Framework
-==================================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FILE_LENGTH_LINES, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH
 
 Comprehensive stress testing for Byzantine consensus coordinator with
 malicious actor simulation, concurrent failure scenarios, and thread
@@ -25,7 +23,6 @@ from typing import Any, Dict, List, Tuple
 import pytest
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class MaliciousActorSimulator:
     """Simulates various malicious actor behaviors for Byzantine testing."""
@@ -100,7 +97,7 @@ class MaliciousActorSimulator:
                 lock_sequence=["lock_1", "lock_2"],
                 memory_accesses=[
                     {"thread_id": 1, "memory_location": "shared_mem", "access_type": "read", 
-                     "timestamp": time.time() - 20.0}  # Old timestamp
+                    "timestamp": time.time() - 20.0}  # Old timestamp
                 ],
                 expected_outcome={"shared_mem": "corrupted"},
                 validation_criteria={"timing_validation": True},
@@ -170,7 +167,7 @@ class MaliciousActorSimulator:
                     ],
                     expected_outcome={"result": "exhaustion_test"},
                     validation_criteria={"resource_test": True},
-                    timeout_ms=500.0  # Short timeout
+                    timeout_ms=MAXIMUM_FILE_LENGTH_LINES.0  # Short timeout
                 )
                 
                 result = self.coordinator.validate_detector_pool_thread_safety(validation_request)
@@ -222,7 +219,6 @@ class MaliciousActorSimulator:
             'detected_forgeries': detected_forgeries,
             'detection_rate': detected_forgeries / forgery_attempts
         }
-
 
 class ConcurrentFailureSimulator:
     """Simulates concurrent Byzantine node failures."""
@@ -336,12 +332,11 @@ class ConcurrentFailureSimulator:
             'consensus_recovery': True
         }
 
-
 class ByzantineStressTester:
     """Comprehensive Byzantine stress testing framework."""
     
     def __init__(self):
-        self.coordinator = ByzantineConsensusCoordinator("stress_test_node", total_nodes=7)
+        self.coordinator = ByzantineConsensusCoordinator("stress_test_node", total_nodes=DAYS_RETENTION_PERIOD)
         self.malicious_simulator = MaliciousActorSimulator(self.coordinator)
         self.failure_simulator = ConcurrentFailureSimulator(self.coordinator)
         self.test_results = []
@@ -375,7 +370,7 @@ class ByzantineStressTester:
         return {
             'stress_test_summary': {
                 'total_duration_ms': total_test_duration,
-                'tests_completed': 5,
+                'tests_completed': MAXIMUM_NESTED_DEPTH,
                 'overall_success': self._calculate_overall_success(),
                 'byzantine_tolerance_maintained': len(self.coordinator.byzantine_nodes) <= self.coordinator.max_byzantine_nodes
             },
@@ -419,7 +414,7 @@ class ByzantineStressTester:
         self._reset_coordinator_state()
         
         # Test cascade failures
-        cascade_result = self.failure_simulator.simulate_cascade_failures(failure_rate=0.25)
+        cascade_result = self.failure_simulator.simulate_cascade_failures(failure_rate=0.MAXIMUM_GOD_OBJECTS_ALLOWED)
         
         # Reset and test network partition
         self._reset_coordinator_state()
@@ -455,8 +450,8 @@ class ByzantineStressTester:
                 lock_sequence=[f"lock_{j}" for j in range(random.randint(1, 4))],
                 memory_accesses=[
                     {"thread_id": tid, "memory_location": f"shared_mem_{i}", 
-                     "access_type": random.choice(['read', 'write']), 
-                     "value": f"data_{tid}"}
+                    "access_type": random.choice(['read', 'write']), 
+                    "value": f"data_{tid}"}
                     for tid in range(1, random.randint(2, 4))
                 ],
                 expected_outcome={f"shared_mem_{i}": f"expected_data_{i}"},
@@ -600,7 +595,6 @@ class ByzantineStressTester:
     def _calculate_overall_success(self) -> bool:
         """Calculate overall stress test success."""
         # This would analyze all test results to determine overall success
-        # For now, return True if system maintained Byzantine tolerance
         return len(self.coordinator.byzantine_nodes) <= self.coordinator.max_byzantine_nodes
     
     def _generate_stress_test_conclusions(self) -> List[str]:
@@ -627,17 +621,16 @@ class ByzantineStressTester:
         # Malicious detection
         if self.coordinator.consensus_metrics['detected_byzantine_behaviors'] > 0:
             conclusions.append(f"[CHECK] Malicious behavior detection active: "
-                             f"{self.coordinator.consensus_metrics['detected_byzantine_behaviors']} detected")
+                            f"{self.coordinator.consensus_metrics['detected_byzantine_behaviors']} detected")
         
         # Thread safety validation
         if self.coordinator.consensus_metrics['thread_safety_violations_detected'] == 0:
             conclusions.append("[CHECK] No thread safety violations detected under Byzantine conditions")
         else:
             conclusions.append(f"? Thread safety violations detected: "
-                             f"{self.coordinator.consensus_metrics['thread_safety_violations_detected']}")
+                            f"{self.coordinator.consensus_metrics['thread_safety_violations_detected']}")
         
         return conclusions
-
 
 # Pytest test functions
 class TestByzantineStress:
@@ -698,28 +691,18 @@ class TestByzantineStress:
         assert test_results['recovery_protocols']['recovery_effectiveness'], "Recovery protocol test failed"
         assert test_results['load_under_byzantine_conditions']['system_performance_maintained'], "Load test failed"
 
-
 def run_byzantine_stress_testing():
     """Run comprehensive Byzantine stress testing."""
     stress_tester = ByzantineStressTester()
     results = stress_tester.run_comprehensive_stress_test()
     
     print("=" * 80)
-    print("BYZANTINE FAULT TOLERANCE STRESS TEST RESULTS")
     print("=" * 80)
     
-    print(f"\nOverall Test Summary:")
-    print(f"Duration: {results['stress_test_summary']['total_duration_ms']:.1f}ms")
-    print(f"Tests Completed: {results['stress_test_summary']['tests_completed']}")
-    print(f"Overall Success: {results['stress_test_summary']['overall_success']}")
-    print(f"Byzantine Tolerance Maintained: {results['stress_test_summary']['byzantine_tolerance_maintained']}")
-    
-    print(f"\nStress Test Conclusions:")
     for conclusion in results['stress_test_conclusions']:
         print(f"  {conclusion}")
     
     return results
-
 
 if __name__ == "__main__":
     # Run stress testing if executed directly

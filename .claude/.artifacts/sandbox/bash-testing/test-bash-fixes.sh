@@ -30,10 +30,10 @@ EOF
 
     # Run the test
     if "$temp_script" 2>&1; then
-        echo "✅ $test_name: PASSED"
+        echo "[OK] $test_name: PASSED"
         tests_passed=$((tests_passed + 1))
     else
-        echo "❌ $test_name: FAILED (exit code: $?)"
+        echo "[FAIL] $test_name: FAILED (exit code: $?)"
     fi
 
     rm -f "$temp_script"
@@ -127,10 +127,10 @@ echo "Reality Check 1: Tests with assertions"
 if true; then  # Simulate passing test
     reality_checks_passed=$((reality_checks_passed + 1))
     quality_score=$((quality_score + 10))
-    echo "✅ Tests found with assertions"
+    echo "[OK] Tests found with assertions"
 else
     test_failures=$((test_failures + 1))
-    echo "❌ No assertions found"
+    echo "[FAIL] No assertions found"
 fi
 
 # Reality check 2: Coverage file
@@ -138,10 +138,10 @@ echo "Reality Check 2: Coverage file check"
 if true; then  # Simulate coverage file exists
     reality_checks_passed=$((reality_checks_passed + 1))
     quality_score=$((quality_score + 10))
-    echo "✅ Coverage file found"
+    echo "[OK] Coverage file found"
 else
     test_failures=$((test_failures + 1))
-    echo "❌ Coverage file missing"
+    echo "[FAIL] Coverage file missing"
 fi
 
 # Reality check 3: Source files
@@ -149,10 +149,10 @@ echo "Reality Check 3: Source files check"
 if true; then  # Simulate source files exist
     reality_checks_passed=$((reality_checks_passed + 1))
     quality_score=$((quality_score + 10))
-    echo "✅ Source files found"
+    echo "[OK] Source files found"
 else
     test_failures=$((test_failures + 1))
-    echo "❌ No source files"
+    echo "[FAIL] No source files"
 fi
 
 echo ""
@@ -202,17 +202,17 @@ echo "Tests passed: $tests_passed"
 echo "Tests failed: $((tests_run - tests_passed))"
 
 if [[ $tests_passed -eq $tests_run ]]; then
-    echo "🎉 ALL BASH ARITHMETIC FIXES WORKING CORRECTLY!"
+    echo "[CELEBRATE] ALL BASH ARITHMETIC FIXES WORKING CORRECTLY!"
     echo ""
     echo "Verified fixes:"
-    echo "  ✅ Line 146-149: test_counter=$((test_counter + 1))"
-    echo "  ✅ Line 171-179: iteration_count=$((iteration_count + 1))"
-    echo "  ✅ Line 362-392: reality_checks_passed=$((reality_checks_passed + 1))"
-    echo "  ✅ All arithmetic works with set -euo pipefail"
-    echo "  ✅ Comparison operations working correctly"
-    echo "  ✅ Complex pipeline scenarios handled properly"
+    echo "  [OK] Line 146-149: test_counter=$((test_counter + 1))"
+    echo "  [OK] Line 171-179: iteration_count=$((iteration_count + 1))"
+    echo "  [OK] Line 362-392: reality_checks_passed=$((reality_checks_passed + 1))"
+    echo "  [OK] All arithmetic works with set -euo pipefail"
+    echo "  [OK] Comparison operations working correctly"
+    echo "  [OK] Complex pipeline scenarios handled properly"
 else
-    echo "⚠️  Some bash arithmetic tests failed!"
+    echo "[WARN]  Some bash arithmetic tests failed!"
     echo "This indicates potential issues with the fixes."
 fi
 

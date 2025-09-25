@@ -508,10 +508,10 @@ export class RefactoringValidationSuite {
 
         // Print stage details
         for (const stage of result.stages) {
-            const status = stage.passed ? '✅' : '❌';
+            const status = stage.passed ? '' : '';
             console.log(`${status} Stage ${stage.stageNumber}: ${stage.stageName} (${stage.duration}ms)`);
             if (stage.errors.length > 0) {
-                stage.errors.forEach(error => console.log(`  ⚠️  ${error}`));
+                stage.errors.forEach(error => console.log(`    ${error}`));
             }
         }
     }

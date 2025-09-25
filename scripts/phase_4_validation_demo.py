@@ -10,14 +10,15 @@ Usage:
     python scripts/phase_4_validation_demo.py
 """
 
+from collections import defaultdict
+from pathlib import Path
+import hashlib
+import sys
 import time
-import threading
+
 import concurrent.futures
 import gc
-from pathlib import Path
-import sys
-from collections import defaultdict
-import hashlib
+import threading
 
 # Add project root to path  
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -77,8 +78,7 @@ def demonstrate_cache_hit_rate_method():
                     latest_metrics = metrics_list[-1]
                     total_hit_rate += latest_metrics.hit_rate
                     active_caches += 1
-                    print(f"   {cache_name}: {latest_metrics.hit_rate:.1f}% hit rate "
-                          f"({latest_metrics.hits} hits, {latest_metrics.misses} misses)")
+                            f"({latest_metrics.hits} hits, {latest_metrics.misses} misses)")
             
             return total_hit_rate / active_caches if active_caches > 0 else 0.0
     
@@ -128,8 +128,6 @@ def demonstrate_memory_leak_prevention():
     for item in test_data:
         # Simulate processing
         processed_count += len(item['content'])
-    
-    print(f"   Processed {len(test_data):,} items ({processed_count:,} bytes)")
     
     # Clean up resources (Phase 4 fix: proper cleanup)
     del test_data
@@ -275,12 +273,8 @@ def run_comprehensive_validation():
     
     for i, (test_name, passed) in enumerate(zip(test_names, validation_results)):
         status = "PASS" if passed else "FAIL"
-        print(f"{i+1}. {test_name}: [{status}]")
-    
-    print(f"\nOverall Results: {passed_tests}/{total_tests} tests passed ({success_rate:.1f}%)")
     
     if success_rate == 100.0:
-        print("\n[CELEBRATION] PHASE 4 COMPLETION VALIDATION: ALL TESTS PASSED")
         print("[OK] System is PRODUCTION READY with all micro-fixes integrated")
         print("[OK] Performance improvements validated and maintained")
         print("[OK] Zero regressions detected")

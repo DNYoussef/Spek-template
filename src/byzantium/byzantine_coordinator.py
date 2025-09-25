@@ -1,7 +1,5 @@
 """
-from src.constants import SECONDS_PER_DAY, SECONDS_PER_HOUR, SECONDS_PER_MINUTE, MILLISECONDS_PER_SECOND, DEFAULT_MAX_ITEMS, DEFAULT_BATCH_SIZE, BYTES_PER_KB, DFARS_RETENTION_DAYS
-Byzantine Consensus Coordinator for Detector Pool Thread Safety Validation
-=========================================================================
+from src.constants.base import SECONDS_PER_DAY, SECONDS_PER_HOUR, SECONDS_PER_MINUTE, MILLISECONDS_PER_SECOND, DEFAULT_MAX_ITEMS, DEFAULT_BATCH_SIZE, BYTES_PER_KB, DFARS_RETENTION_DAYS
 
 Implements Byzantine fault-tolerant consensus protocols to ensure system integrity
 and reliability in the presence of malicious actors and concurrent failures.
@@ -27,9 +25,23 @@ from collections import defaultdict, deque
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Union
+from enum import Enum, auto
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+# Import shared utilities for deduplication
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "analyzer"))
+
+from analyzer.utils.validation_utils import validate_node_count, validate_threshold
+from analyzer.utils.result_builders import (
+    build_error_result, build_validation_result, build_consensus_result
+)
+from analyzer.utils.metric_calculators import (
+    calculate_average_latency, calculate_success_rate, calculate_byzantine_ratio
+)
+
+logger = get_logger(__name__)
 
 class NodeState(Enum):
     """Byzantine node states."""
@@ -37,7 +49,6 @@ class NodeState(Enum):
     SUSPECTED = auto()
     BYZANTINE = auto()
     ISOLATED = auto()
-
 
 class MessageType(Enum):
     """Byzantine consensus message types."""
@@ -49,7 +60,6 @@ class MessageType(Enum):
     HEARTBEAT = auto()
     THREAD_SAFETY_VALIDATION = auto()
     MALICIOUS_DETECTION = auto()
-
 
 @dataclass
 class ByzantineMessage:
@@ -77,7 +87,6 @@ class ByzantineMessage:
             'nonce': self.nonce
         }
 
-
 @dataclass
 class ThreadSafetyValidationRequest:
     """Thread safety validation request for Byzantine consensus."""
@@ -88,7 +97,6 @@ class ThreadSafetyValidationRequest:
     expected_outcome: Dict[str, Any]
     validation_criteria: Dict[str, Any]
     timeout_ms: float = 5000.0
-
 
 @dataclass
 class ByzantineNode:
@@ -102,7 +110,6 @@ class ByzantineNode:
     malicious_behaviors: List[str] = field(default_factory=list)
     isolation_time: Optional[float] = None
 
-
 class ByzantineConsensusCoordinator:
     """
     Byzantine fault-tolerant consensus coordinator for detector pool thread safety.
@@ -112,9 +119,9 @@ class ByzantineConsensusCoordinator:
     """
     
     def __init__(self, 
-                 node_id: str,
-                 total_nodes: int = 7,
-                 byzantine_threshold: float = 0.29):
+                node_id: str,
+                total_nodes: int = 7,
+                byzantine_threshold: float = 0.29):
         """
         Initialize Byzantine consensus coordinator.
         
@@ -123,8 +130,9 @@ class ByzantineConsensusCoordinator:
             total_nodes: Total number of nodes in the network
             byzantine_threshold: Maximum fraction of Byzantine nodes (< 0.33)
         """
-        assert 3 <= total_nodes <= 21, "total_nodes must be 3-21 for practical PBFT"
-        assert 0 < byzantine_threshold < 0.33, "byzantine_threshold must be < 0.33"
+        # Use centralized validation
+        validate_node_count(total_nodes, min_nodes=3, max_nodes=21)
+        validate_threshold(byzantine_threshold, min_val=0.0, max_val=0.33, param_name="byzantine_threshold")
         
         self.node_id = node_id
         self.total_nodes = total_nodes
@@ -172,8 +180,8 @@ class ByzantineConsensusCoordinator:
         self._initialize_network()
         
         logger.info(f"ByzantineConsensusCoordinator initialized: "
-                   f"node={node_id}, total_nodes={total_nodes}, "
-                   f"max_byzantine={self.max_byzantine_nodes}")
+                    f"node={node_id}, total_nodes={total_nodes}, "
+                    f"max_byzantine={self.max_byzantine_nodes}")
     
     def _initialize_network(self) -> None:
         """Initialize Byzantine network with nodes."""
@@ -212,7 +220,7 @@ class ByzantineConsensusCoordinator:
         return hmac.compare_digest(message.signature, expected_signature)
     
     def validate_detector_pool_thread_safety(self, 
-                                           validation_request: ThreadSafetyValidationRequest) -> Dict[str, Any]:
+                                            validation_request: ThreadSafetyValidationRequest) -> Dict[str, Any]:
         """
         Validate detector pool thread safety through Byzantine consensus.
         
@@ -238,13 +246,14 @@ class ByzantineConsensusCoordinator:
             )
             
             if not prepare_result['success']:
-                return {
-                    'validation_id': validation_id,
-                    'success': False,
-                    'error': 'Prepare phase failed',
-                    'byzantine_nodes_detected': prepare_result.get('byzantine_nodes', []),
-                    'consensus_time_ms': (time.time() - consensus_start) * MILLISECONDS_PER_SECOND
-                }
+                # Use centralized result builder
+                return build_validation_result(
+                    validation_id=validation_id,
+                    success=False,
+                    error='Prepare phase failed',
+                    byzantine_nodes_detected=prepare_result.get('byzantine_nodes', []),
+                    consensus_time_ms=(time.time() - consensus_start) * MILLISECONDS_PER_SECOND
+                )
             
             # Phase 2: Commit - Thread safety validation
             commit_result = self._execute_commit_phase(
@@ -252,13 +261,14 @@ class ByzantineConsensusCoordinator:
             )
             
             if not commit_result['success']:
-                return {
-                    'validation_id': validation_id,
-                    'success': False,
-                    'error': 'Commit phase failed',
-                    'thread_safety_violations': commit_result.get('violations', []),
-                    'consensus_time_ms': (time.time() - consensus_start) * MILLISECONDS_PER_SECOND
-                }
+                # Use centralized result builder
+                return build_validation_result(
+                    validation_id=validation_id,
+                    success=False,
+                    error='Commit phase failed',
+                    thread_safety_violations=commit_result.get('violations', []),
+                    consensus_time_ms=(time.time() - consensus_start) * MILLISECONDS_PER_SECOND
+                )
             
             # Phase 3: Finalize - Consensus decision
             consensus_result = self._finalize_consensus(
@@ -275,24 +285,25 @@ class ByzantineConsensusCoordinator:
                     self.consensus_metrics['successful_validations'] += 1
             
             logger.info(f"Byzantine consensus completed: {validation_id}, "
-                       f"success={consensus_result['success']}, "
-                       f"time={consensus_time:.1f}ms")
+                        f"success={consensus_result['success']}, "
+                        f"time={consensus_time:.1f}ms")
             
             return consensus_result
             
         except Exception as e:
             logger.error(f"Byzantine consensus failed for {validation_id}: {e}")
-            return {
-                'validation_id': validation_id,
-                'success': False,
-                'error': str(e),
-                'consensus_time_ms': (time.time() - consensus_start) * MILLISECONDS_PER_SECOND
-            }
+            # Use centralized error builder
+            return build_error_result(
+                error_msg=str(e),
+                execution_time=(time.time() - consensus_start) / 1000,
+                validation_id=validation_id,
+                consensus_time_ms=(time.time() - consensus_start) * MILLISECONDS_PER_SECOND
+            )
     
     def _execute_prepare_phase(self, 
-                              validation_id: str, 
-                              sequence_number: int,
-                              validation_request: ThreadSafetyValidationRequest) -> Dict[str, Any]:
+                                validation_id: str, 
+                                sequence_number: int,
+                                validation_request: ThreadSafetyValidationRequest) -> Dict[str, Any]:
         """Execute PBFT prepare phase with malicious actor detection."""
         
         prepare_messages = {}
@@ -356,9 +367,9 @@ class ByzantineConsensusCoordinator:
         }
     
     def _execute_commit_phase(self, 
-                             validation_id: str, 
-                             sequence_number: int,
-                             validation_request: ThreadSafetyValidationRequest) -> Dict[str, Any]:
+                            validation_id: str, 
+                            sequence_number: int,
+                            validation_request: ThreadSafetyValidationRequest) -> Dict[str, Any]:
         """Execute PBFT commit phase with thread safety validation."""
         
         commit_messages = {}
@@ -420,7 +431,7 @@ class ByzantineConsensusCoordinator:
         byzantine_tolerance = len(self.nodes) - self.max_byzantine_nodes
         
         success = (len(commit_messages) >= byzantine_tolerance and 
-                  len(thread_safety_violations) == 0)
+                    len(thread_safety_violations) == 0)
         
         return {
             'success': success,
@@ -431,10 +442,10 @@ class ByzantineConsensusCoordinator:
         }
     
     def _finalize_consensus(self, 
-                           validation_id: str, 
-                           sequence_number: int,
-                           prepare_result: Dict[str, Any], 
-                           commit_result: Dict[str, Any]) -> Dict[str, Any]:
+                            validation_id: str, 
+                            sequence_number: int,
+                            prepare_result: Dict[str, Any], 
+                            commit_result: Dict[str, Any]) -> Dict[str, Any]:
         """Finalize Byzantine consensus decision."""
         
         consensus_decision = (prepare_result['success'] and commit_result['success'])
@@ -467,27 +478,26 @@ class ByzantineConsensusCoordinator:
             with self._consensus_lock:
                 self.consensus_metrics['thread_safety_violations_detected'] += len(commit_result['violations'])
         
-        return {
-            'validation_id': validation_id,
-            'success': consensus_decision,
-            'consensus_achieved': consensus_decision,
-            'byzantine_fault_tolerance': True,
-            'thread_safety_validated': commit_result['success'],
-            'byzantine_nodes_detected': prepare_result.get('byzantine_nodes', []),
-            'thread_safety_violations': commit_result.get('violations', []),
-            'consensus_details': {
+        # Use centralized consensus result builder
+        return build_consensus_result(
+            validation_id=validation_id,
+            consensus_achieved=consensus_decision,
+            byzantine_nodes=prepare_result.get('byzantine_nodes', []),
+            violations=commit_result.get('violations', []),
+            thread_safety_validated=commit_result['success'],
+            consensus_details={
                 'view_number': self.current_view,
                 'sequence_number': sequence_number,
                 'prepare_responses': prepare_result['received_responses'],
                 'commit_responses': commit_result['received_commits'],
                 'byzantine_tolerance_maintained': len(self.byzantine_nodes) <= self.max_byzantine_nodes
             }
-        }
+        )
     
     def _simulate_node_prepare_response(self, 
-                                       node_id: str, 
-                                       prepare_message: ByzantineMessage,
-                                       validation_request: ThreadSafetyValidationRequest) -> ByzantineMessage:
+                                        node_id: str, 
+                                        prepare_message: ByzantineMessage,
+                                        validation_request: ThreadSafetyValidationRequest) -> ByzantineMessage:
         """Simulate node response to prepare message."""
         
         # Simulate Byzantine behavior for testing
@@ -619,7 +629,7 @@ class ByzantineConsensusCoordinator:
             
             # Ensure new primary is not Byzantine or isolated
             while (self.primary_node_id in self.byzantine_nodes or 
-                   self.primary_node_id in self.isolated_nodes):
+                    self.primary_node_id in self.isolated_nodes):
                 self.current_view += 1
                 new_primary_index = self.current_view % self.total_nodes
                 self.primary_node_id = f"node_{new_primary_index}"
@@ -634,7 +644,7 @@ class ByzantineConsensusCoordinator:
         }
         
         logger.info(f"View change completed: {old_view} -> {self.current_view}, "
-                   f"primary: {self.primary_node_id}")
+                    f"primary: {self.primary_node_id}")
         
         return view_change_result
     
@@ -642,14 +652,13 @@ class ByzantineConsensusCoordinator:
         """Generate comprehensive Byzantine consensus report."""
         with self._consensus_lock:
             healthy_nodes = [nid for nid, node in self.nodes.items() 
-                           if node.state == NodeState.HEALTHY]
+                            if node.state == NodeState.HEALTHY]
             suspected_nodes = [nid for nid, node in self.nodes.items() 
-                             if node.state == NodeState.SUSPECTED]
+                            if node.state == NodeState.SUSPECTED]
             
-            avg_consensus_latency = (
-                sum(self.consensus_metrics['consensus_latency_ms']) / 
-                len(self.consensus_metrics['consensus_latency_ms'])
-                if self.consensus_metrics['consensus_latency_ms'] else 0
+            # Use centralized metric calculator
+            avg_consensus_latency = calculate_average_latency(
+                self.consensus_metrics['consensus_latency_ms']
             )
             
             return {
@@ -671,9 +680,9 @@ class ByzantineConsensusCoordinator:
                 'consensus_performance': {
                     'total_consensus_rounds': self.consensus_metrics['total_consensus_rounds'],
                     'successful_validations': self.consensus_metrics['successful_validations'],
-                    'success_rate_percent': (
-                        (self.consensus_metrics['successful_validations'] / 
-                         max(1, self.consensus_metrics['total_consensus_rounds'])) * DEFAULT_BATCH_SIZE
+                    'success_rate_percent': calculate_success_rate(
+                        self.consensus_metrics['successful_validations'],
+                        self.consensus_metrics['total_consensus_rounds']
                     ),
                     'average_consensus_latency_ms': avg_consensus_latency,
                     'detected_byzantine_behaviors': self.consensus_metrics['detected_byzantine_behaviors'],
@@ -681,9 +690,9 @@ class ByzantineConsensusCoordinator:
                 },
                 'thread_safety_validation': {
                     'thread_safety_violations_detected': self.consensus_metrics['thread_safety_violations_detected'],
-                    'validation_success_rate': (
-                        (self.consensus_metrics['successful_validations'] / 
-                         max(1, self.consensus_metrics['total_consensus_rounds'])) * DEFAULT_BATCH_SIZE
+                    'validation_success_rate': calculate_success_rate(
+                        self.consensus_metrics['successful_validations'],
+                        self.consensus_metrics['total_consensus_rounds']
                     )
                 },
                 'security_analysis': {
@@ -709,18 +718,22 @@ class ByzantineConsensusCoordinator:
     def _generate_consensus_recommendations(self) -> List[str]:
         """Generate consensus optimization recommendations."""
         recommendations = []
-        
-        byzantine_ratio = len(self.byzantine_nodes) / self.total_nodes
+
+        # Use centralized metric calculator
+        byzantine_ratio = calculate_byzantine_ratio(
+            len(self.byzantine_nodes), self.total_nodes
+        )
         if byzantine_ratio > 0.2:
             recommendations.append(
                 f"HIGH: Byzantine node ratio {byzantine_ratio:.1%} approaching threshold. "
                 "Consider network isolation or node replacement."
             )
         
-        success_rate = (
-            self.consensus_metrics['successful_validations'] / 
-            max(1, self.consensus_metrics['total_consensus_rounds'])
-        )
+        # Use centralized metric calculator
+        success_rate = calculate_success_rate(
+            self.consensus_metrics['successful_validations'],
+            self.consensus_metrics['total_consensus_rounds']
+        ) / 100.0  # Convert percentage to ratio
         if success_rate < 0.9:
             recommendations.append(
                 f"MODERATE: Consensus success rate {success_rate:.1%} below target 95%. "
@@ -742,7 +755,6 @@ class ByzantineConsensusCoordinator:
             )
         
         return recommendations
-
 
 class ThreadSafetyValidator:
     """Thread safety validator for Byzantine consensus validation."""
@@ -951,11 +963,9 @@ class ThreadSafetyValidator:
         
         return violations
 
-
 # Global Byzantine coordinator instance
 _global_byzantine_coordinator: Optional[ByzantineConsensusCoordinator] = None
 _coordinator_lock = threading.Lock()
-
 
 def get_global_byzantine_coordinator(node_id: str = "coordinator_node") -> ByzantineConsensusCoordinator:
     """Get or create global Byzantine consensus coordinator."""
@@ -964,7 +974,6 @@ def get_global_byzantine_coordinator(node_id: str = "coordinator_node") -> Byzan
         if _global_byzantine_coordinator is None:
             _global_byzantine_coordinator = ByzantineConsensusCoordinator(node_id)
         return _global_byzantine_coordinator
-
 
 def validate_detector_pool_byzantine_safety() -> Dict[str, Any]:
     """Run comprehensive Byzantine safety validation for detector pool."""

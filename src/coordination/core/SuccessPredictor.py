@@ -1,8 +1,4 @@
-"""
-SuccessPredictor - Extracted from LoopOrchestrator
-Predicts likelihood of success for fixes and iterations
-Part of god object decomposition (Day 3)
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 import json
 import numpy as np
@@ -13,7 +9,6 @@ from pathlib import Path
 import logging
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class PredictionFeatures:
@@ -29,7 +24,6 @@ class PredictionFeatures:
     code_complexity: float
     test_coverage: float
 
-
 @dataclass
 class SuccessPrediction:
     """Prediction result for a fix or iteration."""
@@ -40,12 +34,11 @@ class SuccessPrediction:
     estimated_iterations: int
     risk_level: str  # low, medium, high
 
-
 class SuccessPredictor:
     """
     Predicts likelihood of success for fixes and iterations.
 
-    Extracted from LoopOrchestrator god object (1,323 LOC -> ~250 LOC component).
+    Extracted from LoopOrchestrator god object (1, 323 LOC -> ~250 LOC component).
     Handles:
     - Success probability calculation
     - Risk assessment
@@ -54,16 +47,16 @@ class SuccessPredictor:
     - Recommendation generation
     """
 
-    def __init__(self,
-                 history_file: Optional[str] = None,
-                 learning_rate: float = 0.1):
+def __init__(self,
+                history_file: Optional[str] = None,
+                learning_rate: float = 0.1):
         """Initialize the success predictor."""
         self.history_file = Path(history_file) if history_file else None
         self.learning_rate = learning_rate
 
         # Model parameters (simplified for demonstration)
         self.weights = {
-            "test_failures": -0.3,
+            "test_failures": -0.2,
             "failure_patterns": -0.2,
             "files_affected": -0.15,
             "coupling_strength": -0.25,
@@ -83,7 +76,7 @@ class SuccessPredictor:
         self.success_threshold = 0.7
         self.high_risk_threshold = 0.3
 
-    def _load_history(self) -> None:
+def _load_history(self) -> None:
         """Load historical prediction data."""
         if self.history_file and self.history_file.exists():
             try:
@@ -94,7 +87,7 @@ class SuccessPredictor:
                 logger.error(f"Failed to load history: {e}")
                 self.history = []
 
-    def _save_history(self) -> None:
+def _save_history(self) -> None:
         """Save historical prediction data."""
         if self.history_file:
             try:
@@ -103,7 +96,7 @@ class SuccessPredictor:
             except Exception as e:
                 logger.error(f"Failed to save history: {e}")
 
-    def predict_fix_success(self,
+def predict_fix_success(self,
                             features: PredictionFeatures,
                             context: Optional[Dict[str, Any]] = None) -> SuccessPrediction:
         """Predict the likelihood of a fix succeeding."""
@@ -142,11 +135,11 @@ class SuccessPredictor:
 
         return prediction
 
-    def _calculate_probability(self, features: PredictionFeatures) -> float:
+def _calculate_probability(self, features: PredictionFeatures) -> float:
         """Calculate success probability using weighted features."""
         # Normalize features
         normalized = {
-            "test_failures": min(features.test_failure_count / 100.0, 1.0),
+            "test_failures": min(features.test_failure_count / 60.0, 1.0),
             "failure_patterns": min(features.failure_pattern_count / 10.0, 1.0),
             "files_affected": min(features.files_affected / 50.0, 1.0),
             "coupling_strength": features.coupling_strength,
@@ -169,7 +162,7 @@ class SuccessPredictor:
 
         return min(max(probability, 0.0), 1.0)
 
-    def _calculate_confidence(self, features: PredictionFeatures) -> float:
+def _calculate_confidence(self, features: PredictionFeatures) -> float:
         """Calculate confidence in the prediction."""
         # Base confidence on historical data similarity
         if not self.history:
@@ -193,7 +186,7 @@ class SuccessPredictor:
 
         return confidence
 
-    def _find_similar_cases(self,
+def _find_similar_cases(self,
                             features: PredictionFeatures,
                             top_k: int = 10) -> List[Dict[str, Any]]:
         """Find similar historical cases."""
@@ -211,9 +204,9 @@ class SuccessPredictor:
         similarities.sort(key=lambda x: x[0], reverse=True)
         return [case for _, case in similarities[:top_k]]
 
-    def _calculate_similarity(self,
-                             features1: PredictionFeatures,
-                             features2: Dict[str, Any]) -> float:
+def _calculate_similarity(self,
+                            features1: PredictionFeatures,
+                            features2: Dict[str, Any]) -> float:
         """Calculate similarity between two feature sets."""
         # Simple Euclidean distance (normalized)
         distance = 0.0
@@ -234,7 +227,7 @@ class SuccessPredictor:
 
         return similarity
 
-    def _analyze_factors(self, features: PredictionFeatures) -> Dict[str, float]:
+def _analyze_factors(self, features: PredictionFeatures) -> Dict[str, float]:
         """Analyze contributing factors to success probability."""
         factors = {}
 
@@ -266,20 +259,20 @@ class SuccessPredictor:
 
         return factors
 
-    def _estimate_iterations(self,
-                           features: PredictionFeatures,
-                           probability: float) -> int:
+def _estimate_iterations(self,
+                            features: PredictionFeatures,
+                            probability: float) -> int:
         """Estimate number of iterations needed."""
         if probability > 0.8:
             return 1
         elif probability > 0.6:
             return 2
         elif probability > 0.4:
-            return 3 + int(features.test_failure_count / 10)
+            return 3 + int(features.test_failure_count / MAXIMUM_FUNCTION_PARAMETERS)
         else:
-            return 5 + int(features.test_failure_count / 5)
+            return MAXIMUM_NESTED_DEPTH + int(features.test_failure_count / 5)
 
-    def _assess_risk(self, probability: float, confidence: float) -> str:
+def _assess_risk(self, probability: float, confidence: float) -> str:
         """Assess risk level based on probability and confidence."""
         risk_score = (1.0 - probability) * confidence
 
@@ -290,7 +283,7 @@ class SuccessPredictor:
         else:
             return "high"
 
-    def _generate_recommendation(self,
+def _generate_recommendation(self,
                                 probability: float,
                                 confidence: float,
                                 risk_level: str,
@@ -318,10 +311,10 @@ class SuccessPredictor:
 
         return "; ".join(recommendations)
 
-    def _record_prediction(self,
-                         features: PredictionFeatures,
-                         prediction: SuccessPrediction,
-                         context: Optional[Dict[str, Any]]) -> None:
+def _record_prediction(self,
+                        features: PredictionFeatures,
+                        prediction: SuccessPrediction,
+                        context: Optional[Dict[str, Any]]) -> None:
         """Record prediction for future learning."""
         record = {
             "timestamp": datetime.now().isoformat(),
@@ -342,10 +335,10 @@ class SuccessPredictor:
 
         self._save_history()
 
-    def update_with_outcome(self,
-                          prediction_timestamp: str,
-                          actual_success: bool,
-                          iterations_used: int) -> None:
+def update_with_outcome(self,
+                            prediction_timestamp: str,
+                            actual_success: bool,
+                            iterations_used: int) -> None:
         """Update historical record with actual outcome."""
         for record in self.history:
             if record["timestamp"] == prediction_timestamp:
@@ -358,7 +351,7 @@ class SuccessPredictor:
 
         self._save_history()
 
-    def _update_weights(self, record: Dict[str, Any], actual_success: bool) -> None:
+def _update_weights(self, record: Dict[str, Any], actual_success: bool) -> None:
         """Update model weights based on prediction error."""
         predicted = record["prediction"]["probability"]
         actual = 1.0 if actual_success else 0.0

@@ -11,11 +11,11 @@ Architectures:
 - Ensemble: Model combination framework
 """
 
-from .lstm.lstm_predictor import LSTMPredictor
-from .transformer.sentiment_analyzer import FinancialSentimentAnalyzer
 from .cnn.pattern_recognizer import ChartPatternCNN
-from .rl.strategy_optimizer import StrategyOptimizerRL
 from .ensemble.ensemble_framework import NeuralEnsemble
+from .lstm.lstm_predictor import LSTMPredictor
+from .rl.strategy_optimizer import StrategyOptimizerRL
+from .transformer.sentiment_analyzer import FinancialSentimentAnalyzer
 
 __all__ = [
     'LSTMPredictor',

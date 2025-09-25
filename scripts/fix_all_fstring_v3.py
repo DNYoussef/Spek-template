@@ -5,7 +5,6 @@ import re
 def fix_fstrings_comprehensive(content):
     """Fix ALL f-string errors where ) is used instead of } inside interpolations"""
     # Pattern to find {variable) and replace with {variable}
-    # This handles ANY case where { is followed by content and then )
     pattern = r'\{([^{}]+?)\)'
 
     lines = content.split('\n')
@@ -15,7 +14,6 @@ def fix_fstrings_comprehensive(content):
         # Only process lines that look like they have f-strings
         if 'f"' in line or "f'" in line:
             # Replace {content) with {content} when inside f-strings
-            # This is a simpler, more comprehensive approach
             fixed_line = re.sub(pattern, r'{\1}', line)
             fixed_lines.append(fixed_line)
         else:

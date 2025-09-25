@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Gary×Taleb Trading System - Database Backup Script
+# GaryxTaleb Trading System - Database Backup Script
 # Financial Compliance with Defense Industry Standards
 
 set -euo pipefail
@@ -318,7 +318,7 @@ health_check() {
 main() {
     local start_time=$(date +%s)
 
-    log "Starting Gary×Taleb database backup process"
+    log "Starting GaryxTaleb database backup process"
     log "Backup type: $BACKUP_TYPE"
     log "Environment: $ENVIRONMENT"
 
@@ -356,7 +356,7 @@ main() {
     if [ -n "${SNS_TOPIC_ARN:-}" ]; then
         aws sns publish \
             --topic-arn "$SNS_TOPIC_ARN" \
-            --subject "Gary×Taleb Backup Success" \
+            --subject "GaryxTaleb Backup Success" \
             --message "Database backup completed successfully. Type: $BACKUP_TYPE, Duration: ${duration}s" \
             --region "$AWS_REGION"
     fi

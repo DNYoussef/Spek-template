@@ -6,8 +6,6 @@ into existing CLI systems and comprehensive command support.
 """
 
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
-
 
 class EnterpriseCommand:
     """Base class for enterprise CLI commands"""
@@ -18,7 +16,6 @@ class EnterpriseCommand:
         
     def add_arguments(self, parser: argparse.ArgumentParser):
         """Add command-specific arguments to parser"""
-        pass
         
     async def execute(self, args: argparse.Namespace) -> int:
         """Execute command and return exit code with comprehensive error handling."""
@@ -58,7 +55,6 @@ class EnterpriseCommand:
         # Return success for base implementation
         return True
         
-
 class TelemetryCommand(EnterpriseCommand):
     """Six Sigma telemetry commands"""
     
@@ -133,7 +129,6 @@ class TelemetryCommand(EnterpriseCommand):
             print(f"Error: {e}", file=sys.stderr)
             return 1
 
-
 class SecurityCommand(EnterpriseCommand):
     """Supply chain security commands"""
     
@@ -146,19 +141,19 @@ class SecurityCommand(EnterpriseCommand):
         # SBOM command
         sbom_parser = subparsers.add_parser('sbom', help='Generate SBOM')
         sbom_parser.add_argument('--format', choices=['spdx-json', 'cyclonedx-json'], 
-                               default='spdx-json', help='SBOM format')
+                                default='spdx-json', help='SBOM format')
         sbom_parser.add_argument('--output', '-o', help='Output file path')
         
         # SLSA command
         slsa_parser = subparsers.add_parser('slsa', help='Generate SLSA attestation')
         slsa_parser.add_argument('--level', type=int, choices=[1, 2, 3, 4], 
-                               default=2, help='SLSA level')
+                                default=2, help='SLSA level')
         slsa_parser.add_argument('--output', '-o', help='Output file path')
         
         # Report command
         report_parser = subparsers.add_parser('report', help='Generate security report')
         report_parser.add_argument('--level', choices=['basic', 'enhanced', 'critical', 'top_secret'],
-                                 default='enhanced', help='Security level')
+                                default='enhanced', help='Security level')
         report_parser.add_argument('--output', '-o', help='Output directory')
         
         # Status command
@@ -193,9 +188,7 @@ class SecurityCommand(EnterpriseCommand):
                 if args.output:
                     output_path = Path(args.output)
                     output_path.write_bytes(attestation_file.read_bytes())
-                    print(f"SLSA attestation saved: {output_path}")
                 else:
-                    print(f"SLSA attestation generated: {attestation_file}")
                     
             elif args.security_action == 'report':
                 report = await security.generate_comprehensive_security_report()
@@ -225,7 +218,6 @@ class SecurityCommand(EnterpriseCommand):
             print(f"Error: {e}", file=sys.stderr)
             return 1
 
-
 class ComplianceCommand(EnterpriseCommand):
     """Compliance matrix commands"""
     
@@ -238,21 +230,21 @@ class ComplianceCommand(EnterpriseCommand):
         # Status command
         status_parser = subparsers.add_parser('status', help='Show compliance status')
         status_parser.add_argument('--framework', 
-                                 choices=['soc2-type2', 'iso27001', 'nist-csf', 'gdpr'],
-                                 help='Specific framework')
+                                choices=['soc2-type2', 'iso27001', 'nist-csf', 'gdpr'],
+                                help='Specific framework')
         
         # Report command
         report_parser = subparsers.add_parser('report', help='Generate compliance report')
         report_parser.add_argument('--framework', required=True,
-                                 choices=['soc2-type2', 'iso27001', 'nist-csf', 'gdpr'])
+                                choices=['soc2-type2', 'iso27001', 'nist-csf', 'gdpr'])
         report_parser.add_argument('--output', '-o', help='Output file path')
         
         # Update command
         update_parser = subparsers.add_parser('update', help='Update control status')
         update_parser.add_argument('--control', required=True, help='Control ID')
         update_parser.add_argument('--status', required=True,
-                                 choices=['not_started', 'in_progress', 'implemented', 
-                                         'tested', 'compliant', 'non_compliant'])
+                                choices=['not_started', 'in_progress', 'implemented', 
+                                        'tested', 'compliant', 'non_compliant'])
         update_parser.add_argument('--notes', help='Update notes')
         
         # Export command
@@ -336,7 +328,6 @@ class ComplianceCommand(EnterpriseCommand):
             print(f"Error: {e}", file=sys.stderr)
             return 1
 
-
 class TestCommand(EnterpriseCommand):
     """Enterprise testing commands"""
     
@@ -357,16 +348,12 @@ class TestCommand(EnterpriseCommand):
             test_runner = EnterpriseTestRunner(project_root)
             
             if args.test_action == 'run':
-                print("Running enterprise test suite...")
                 
                 if args.verbose:
                     logging.getLogger().setLevel(logging.INFO)
                     
                 result = await test_runner.run_all_tests()
                 
-                print(f"\nTest Results:")
-                print(f"Tests Run: {result.tests_run}")
-                print(f"Successes: {result.tests_run - result.failures - result.errors}")
                 print(f"Failures: {result.failures}")
                 print(f"Errors: {result.errors}")
                 print(f"Success Rate: {result.success_rate:.1f}%")
@@ -382,7 +369,6 @@ class TestCommand(EnterpriseCommand):
             logger.error(f"Test command error: {e}")
             print(f"Error: {e}", file=sys.stderr)
             return 1
-
 
 class EnterpriseCLI:
     """
@@ -415,8 +401,8 @@ class EnterpriseCLI:
         
         parser.add_argument('--config', help='Configuration file path')
         parser.add_argument('--environment', 
-                          choices=['development', 'testing', 'staging', 'production'],
-                          default='development', help='Environment')
+                            choices=['development', 'testing', 'staging', 'production'],
+                            default='development', help='Environment')
         parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
         
         # Add subparsers for commands
@@ -478,13 +464,11 @@ class EnterpriseCLI:
         except KeyboardInterrupt:
             return 130
 
-
 # CLI entry point
 def main():
     """Main CLI entry point"""
     cli = EnterpriseCLI()
     return cli.run_sync()
-
 
 if __name__ == '__main__':
     sys.exit(main())

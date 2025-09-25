@@ -1,13 +1,8 @@
-"""
-DFARS System Communications Security (3.13.1 - 3.13.16)
-Secure communications protocols for defense contractors.
-Implements DFARS 252.204-7012 system and communications protection requirements.
-"""
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 class CommunicationType(Enum):
     """DFARS communication classification types."""
@@ -19,7 +14,6 @@ class CommunicationType(Enum):
     API_ENDPOINT = "api_endpoint"
     FILE_TRANSFER = "file_transfer"
 
-
 class SecurityProtocol(Enum):
     """Approved security protocols for communications."""
     TLS_1_3 = "tls_1_3"
@@ -30,7 +24,6 @@ class SecurityProtocol(Enum):
     SFTP = "sftp"
     VPN = "vpn"
 
-
 class CommunicationStatus(Enum):
     """Communication session status tracking."""
     ESTABLISHING = "establishing"
@@ -39,7 +32,6 @@ class CommunicationStatus(Enum):
     TERMINATING = "terminating"
     TERMINATED = "terminated"
     FAILED = "failed"
-
 
 @dataclass
 class CommunicationEndpoint:
@@ -55,7 +47,6 @@ class CommunicationEndpoint:
     last_security_scan: datetime
     vulnerability_status: str
     compliance_status: str
-
 
 @dataclass
 class SecureCommunication:
@@ -75,7 +66,6 @@ class SecureCommunication:
     cui_involved: bool
     integrity_checks: List[str]
 
-
 @dataclass
 class NetworkBoundary:
     """Network security boundary definition."""
@@ -86,7 +76,6 @@ class NetworkBoundary:
     monitoring_enabled: bool
     cui_processing: bool
     trust_level: str
-
 
 class DFARSSystemCommunications:
     """
@@ -111,7 +100,7 @@ class DFARSSystemCommunications:
     3.13.16 - Control use of Voice over Internet Protocol
     """
 
-    def __init__(self, config: Dict[str, Any]):
+def __init__(self, config: Dict[str, Any]):
         """Initialize DFARS system communications security."""
         self.config = config
         self.crypto = FIPSCryptoModule()
@@ -148,9 +137,9 @@ class DFARSSystemCommunications:
 
         logger.info("DFARS System Communications Security initialized")
 
-    def register_communication_endpoint(self, endpoint_type: CommunicationType,
-                                      address: str, port: int, protocol: SecurityProtocol,
-                                      security_level: str, cui_authorized: bool) -> str:
+def register_communication_endpoint(self, endpoint_type: CommunicationType,
+                                        address: str, port: int, protocol: SecurityProtocol,
+                                        security_level: str, cui_authorized: bool) -> str:
         """Register secure communication endpoint (3.13.1, 3.13.7)."""
         try:
             # Generate endpoint ID
@@ -217,8 +206,8 @@ class DFARSSystemCommunications:
             )
             raise
 
-    def establish_secure_communication(self, source_endpoint_id: str, destination_endpoint_id: str,
-                                     authentication_method: str, cui_involved: bool) -> str:
+def establish_secure_communication(self, source_endpoint_id: str, destination_endpoint_id: str,
+                                    authentication_method: str, cui_involved: bool) -> str:
         """Establish secure communication session (3.13.4, 3.13.5, 3.13.10)."""
         try:
             # Validate endpoints exist
@@ -302,7 +291,7 @@ class DFARSSystemCommunications:
             )
             raise
 
-    def monitor_communication_flow(self, session_id: str) -> Dict[str, Any]:
+def monitor_communication_flow(self, session_id: str) -> Dict[str, Any]:
         """Monitor and control communication flows (3.13.1, 3.13.14)."""
         if session_id not in self.active_sessions:
             raise ValueError(f"Communication session not found: {session_id}")
@@ -353,7 +342,7 @@ class DFARSSystemCommunications:
             )
             raise
 
-    def implement_boundary_protection(self, boundary_type: str, network_range: str,
+def implement_boundary_protection(self, boundary_type: str, network_range: str,
                                     security_controls: List[str], cui_processing: bool) -> str:
         """Implement network boundary protection mechanisms (3.13.8)."""
         try:
@@ -413,7 +402,7 @@ class DFARSSystemCommunications:
             )
             raise
 
-    def terminate_network_connections(self, criteria: Dict[str, Any] = None) -> List[str]:
+def terminate_network_connections(self, criteria: Dict[str, Any] = None) -> List[str]:
         """Terminate network connections based on criteria (3.13.6)."""
         terminated_sessions = []
 
@@ -475,7 +464,7 @@ class DFARSSystemCommunications:
             )
             raise
 
-    def control_voip_usage(self, voip_session_id: str, controls: Dict[str, Any]) -> bool:
+def control_voip_usage(self, voip_session_id: str, controls: Dict[str, Any]) -> bool:
         """Control use of Voice over Internet Protocol (3.13.16)."""
         try:
             # Validate VoIP security requirements
@@ -522,7 +511,7 @@ class DFARSSystemCommunications:
             logger.error(f"Failed to control VoIP usage: {e}")
             return False
 
-    def get_compliance_status(self) -> Dict[str, Any]:
+def get_compliance_status(self) -> Dict[str, Any]:
         """Get DFARS system communications compliance status."""
         # Calculate encryption coverage
         encrypted_sessions = len([s for s in self.active_sessions.values()
@@ -532,11 +521,11 @@ class DFARSSystemCommunications:
 
         # Calculate boundary protection coverage
         protected_boundaries = len([b for b in self.network_boundaries.values()
-                                  if b.monitoring_enabled])
+                                    if b.monitoring_enabled])
 
         return {
             'dfars_controls': {
-                '3.13.1': {'implemented': True, 'status': 'Communication monitoring active'},
+                'MAXIMUM_RETRY_ATTEMPTS.13.1': {'implemented': True, 'status': 'Communication monitoring active'},
                 '3.13.2': {'implemented': True, 'status': 'Architectural designs implemented'},
                 '3.13.3': {'implemented': True, 'status': 'User/management separation enforced'},
                 '3.13.4': {'implemented': True, 'status': 'Transmission protection active'},
@@ -565,7 +554,7 @@ class DFARSSystemCommunications:
 
     # Private helper methods
 
-    def _initialize_secure_configurations(self) -> None:
+def _initialize_secure_configurations(self) -> None:
         """Initialize secure communication configurations (3.13.7)."""
         # Disable unnecessary protocols and services (3.13.15)
         disabled_protocols = ['telnet', 'ftp', 'tftp', 'snmp_v1', 'snmp_v2']
@@ -580,7 +569,7 @@ class DFARSSystemCommunications:
         logger.info(f"Disabled protocols: {disabled_protocols}")
         logger.info(f"Approved cipher suites: {approved_cipher_suites}")
 
-    def _validate_network_boundaries(self, address: str) -> bool:
+def _validate_network_boundaries(self, address: str) -> bool:
         """Validate endpoint against network boundary policies (3.13.8, 3.13.11)."""
         try:
             ip = ipaddress.ip_address(address)
@@ -602,7 +591,7 @@ class DFARSSystemCommunications:
             # If not an IP address, perform DNS resolution validation
             return True  # Placeholder for DNS validation
 
-    def _generate_endpoint_certificate(self, endpoint_id: str, address: str) -> str:
+def _generate_endpoint_certificate(self, endpoint_id: str, address: str) -> str:
         """Generate X.509 certificate for endpoint."""
         # Generate certificate using FIPS crypto module
         cert_id = f"CERT-{datetime.now(timezone.utc).strftime('%Y%m%d')}-{uuid.uuid4().hex[:8].upper()}"
@@ -612,7 +601,7 @@ class DFARSSystemCommunications:
 
         return cert_id
 
-    def _apply_secure_configurations(self, endpoint: CommunicationEndpoint) -> None:
+def _apply_secure_configurations(self, endpoint: CommunicationEndpoint) -> None:
         """Apply secure configurations to endpoint (3.13.7)."""
         # Apply protocol-specific secure configurations
         if endpoint.protocol in [SecurityProtocol.TLS_1_3, SecurityProtocol.TLS_1_2]:
@@ -622,23 +611,20 @@ class DFARSSystemCommunications:
         elif endpoint.protocol == SecurityProtocol.IPSEC:
             self._configure_ipsec_endpoint(endpoint)
 
-    def _configure_tls_endpoint(self, endpoint: CommunicationEndpoint) -> None:
+def _configure_tls_endpoint(self, endpoint: CommunicationEndpoint) -> None:
         """Configure TLS endpoint with secure settings."""
         # Implement TLS 1.3/1.2 configuration
-        pass
 
-    def _configure_ssh_endpoint(self, endpoint: CommunicationEndpoint) -> None:
+def _configure_ssh_endpoint(self, endpoint: CommunicationEndpoint) -> None:
         """Configure SSH endpoint with secure settings."""
         # Implement SSH configuration
-        pass
 
-    def _configure_ipsec_endpoint(self, endpoint: CommunicationEndpoint) -> None:
+def _configure_ipsec_endpoint(self, endpoint: CommunicationEndpoint) -> None:
         """Configure IPSec endpoint with secure settings."""
         # Implement IPSec configuration
-        pass
 
-    def _establish_cryptographic_protection(self, protocol: SecurityProtocol,
-                                          cui_involved: bool) -> Tuple[str, str]:
+def _establish_cryptographic_protection(self, protocol: SecurityProtocol,
+                                            cui_involved: bool) -> Tuple[str, str]:
         """Establish cryptographic protection for communication (3.13.5, 3.13.9, 3.13.10)."""
         # Generate session key using FIPS crypto module
         session_key = self.crypto.generate_session_key()
@@ -653,8 +639,8 @@ class DFARSSystemCommunications:
 
         return session_key, encryption_cipher
 
-    def _authenticate_communication(self, session: SecureCommunication,
-                                  authentication_method: str) -> bool:
+def _authenticate_communication(self, session: SecureCommunication,
+                                    authentication_method: str) -> bool:
         """Authenticate communication session."""
         # Implement authentication based on method
         if authentication_method == "certificate":
@@ -666,22 +652,22 @@ class DFARSSystemCommunications:
         else:
             return False
 
-    def _authenticate_with_certificate(self, session: SecureCommunication) -> bool:
+def _authenticate_with_certificate(self, session: SecureCommunication) -> bool:
         """Authenticate using X.509 certificates."""
         # Certificate-based authentication
         return True  # Placeholder
 
-    def _authenticate_with_psk(self, session: SecureCommunication) -> bool:
+def _authenticate_with_psk(self, session: SecureCommunication) -> bool:
         """Authenticate using pre-shared keys."""
         # PSK-based authentication
         return True  # Placeholder
 
-    def _authenticate_with_kerberos(self, session: SecureCommunication) -> bool:
+def _authenticate_with_kerberos(self, session: SecureCommunication) -> bool:
         """Authenticate using Kerberos."""
         # Kerberos-based authentication
         return True  # Placeholder
 
-    def _verify_communication_integrity(self, session: SecureCommunication) -> str:
+def _verify_communication_integrity(self, session: SecureCommunication) -> str:
         """Verify communication integrity."""
         # Perform integrity checks
         integrity_hash = hmac.new(
@@ -693,7 +679,7 @@ class DFARSSystemCommunications:
         session.integrity_checks.append(integrity_hash)
         return "VERIFIED"
 
-    def _detect_communication_anomalies(self, session: SecureCommunication) -> List[str]:
+def _detect_communication_anomalies(self, session: SecureCommunication) -> List[str]:
         """Detect communication anomalies."""
         anomalies = []
 
@@ -708,14 +694,14 @@ class DFARSSystemCommunications:
 
         return anomalies
 
-    def _determine_trust_level(self, network_range: str, cui_processing: bool) -> str:
+def _determine_trust_level(self, network_range: str, cui_processing: bool) -> str:
         """Determine trust level for network boundary."""
         if cui_processing:
             return "HIGH_TRUST"
         else:
             return "MEDIUM_TRUST"
 
-    def _implement_boundary_controls(self, boundary: NetworkBoundary) -> None:
+def _implement_boundary_controls(self, boundary: NetworkBoundary) -> None:
         """Implement security controls for network boundary."""
         # Implement boundary-specific controls
         for control in boundary.security_controls:
@@ -726,22 +712,19 @@ class DFARSSystemCommunications:
             elif control == "dlp":
                 self._configure_data_loss_prevention(boundary)
 
-    def _configure_firewall(self, boundary: NetworkBoundary) -> None:
+def _configure_firewall(self, boundary: NetworkBoundary) -> None:
         """Configure firewall for boundary protection."""
         # Implement firewall configuration
-        pass
 
-    def _configure_intrusion_detection(self, boundary: NetworkBoundary) -> None:
+def _configure_intrusion_detection(self, boundary: NetworkBoundary) -> None:
         """Configure intrusion detection for boundary."""
         # Implement IDS configuration
-        pass
 
-    def _configure_data_loss_prevention(self, boundary: NetworkBoundary) -> None:
+def _configure_data_loss_prevention(self, boundary: NetworkBoundary) -> None:
         """Configure DLP for boundary protection."""
         # Implement DLP configuration
-        pass
 
-    def _matches_termination_criteria(self, session: SecureCommunication,
+def _matches_termination_criteria(self, session: SecureCommunication,
                                     criteria: Dict[str, Any]) -> bool:
         """Check if session matches termination criteria."""
         for criterion, value in criteria.items():
@@ -754,7 +737,7 @@ class DFARSSystemCommunications:
 
         return False
 
-    def _secure_session_cleanup(self, session: SecureCommunication) -> None:
+def _secure_session_cleanup(self, session: SecureCommunication) -> None:
         """Securely clean up session resources."""
         # Clear session key from memory
         session.session_key = "CLEARED"

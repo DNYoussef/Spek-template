@@ -4,12 +4,11 @@ God Object Detector
 Detects God Object violations - classes that are too large and violate Single Responsibility Principle.
 """
 
-import ast
 from typing import List
+import ast
 
 from utils.types import ConnascenceViolation
 from .base import DetectorBase
-
 
 class GodObjectDetector(DetectorBase):
     """Detects classes that violate Single Responsibility Principle."""
@@ -62,7 +61,6 @@ class GodObjectDetector(DetectorBase):
                 
         except ImportError:
             # Fallback to basic analysis
-            pass
         
         # Basic analysis fallback
         self._basic_god_object_analysis(node)

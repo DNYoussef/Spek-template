@@ -6,17 +6,41 @@ Uses the configuration from policy/presets/nasa_power_of_ten.yml to perform comp
 rule checking.
 """
 
-import ast
-import re
 from collections import defaultdict
 from pathlib import Path
-import sys
 from typing import Dict, List, Optional, Set
+import ast
+import re
+import sys
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from utils.types import ConnascenceViolation
+# Import constants with fallbacks
+try:
+    from src.constants import (
+        DFARS_RETENTION_DAYS as DAYS_RETENTION_PERIOD,
+        MAX_CYCLOMATIC_COMPLEXITY as MAXIMUM_NESTED_DEPTH
+    )
+except ImportError:
+    DAYS_RETENTION_PERIOD = 7
+    MAXIMUM_NESTED_DEPTH = 5
+
+# Import violation types
+try:
+    from analyzer.utils.types import ConnascenceViolation
+except ImportError:
+    # Fallback ConnascenceViolation class
+    class ConnascenceViolation:
+        def __init__(self, type=None, severity=None, file_path=None, line_number=None,
+                    description=None, suggestion=None, nasa_rule=None, violation_type=None):
+            self.type = type or violation_type
+            self.severity = severity
+            self.file_path = file_path
+            self.line_number = line_number
+            self.description = description
+            self.nasa_rule = nasa_rule
+            # Note: removed 'suggestion' parameter to fix TypeError
 
 # Import optimization components
 try:
@@ -31,7 +55,6 @@ try:
     import yaml
 except ImportError:
     yaml = None
-
 
 class NASAAnalyzer:
     """Analyzes code for NASA Power of Ten compliance."""
@@ -100,7 +123,6 @@ class NASAAnalyzer:
             violations = []
 
             # Rule 1: No goto statements (N/A in Python)
-            # Rule 2: All loops must have fixed bounds
             violations.extend(self._check_loop_bounds(tree, file_path))
 
             # Rule 3: No dynamic memory allocation after initialization
@@ -136,8 +158,7 @@ class NASAAnalyzer:
                 severity="error",
                 file_path=file_path,
                 line_number=1,
-                description=f"NASA analysis failed: {str(e)}",
-                suggestion="Check file accessibility and format"
+                description=f"NASA analysis failed: {str(e)} (Check file accessibility and format)"
             )
             return [violation]
 
@@ -220,15 +241,15 @@ class NASAAnalyzer:
 
         if global_count > 0:
             # Determine severity based on threshold (default threshold = 5 globals)
-            threshold = 5  # NASA_GLOBAL_THRESHOLD from constants
+            threshold = MAXIMUM_NESTED_DEPTH  # NASA_GLOBAL_THRESHOLD from constants
             if global_count > threshold:
                 severity = "warning"
                 description = (f"Project defines {global_count} global variables (limit {threshold}). "
-                             f"Move declarations to narrower scopes.")
+                            f"Move declarations to narrower scopes.")
             else:
                 severity = "info"
                 description = (f"Project defines {global_count} global variables. "
-                             f"Declare objects in local scope when possible.")
+                            f"Declare objects in local scope when possible.")
 
             violations.append(ConnascenceViolation(
                 type="NASA-Global-Scope",
@@ -326,8 +347,6 @@ class NASAAnalyzer:
             }
         }
 
-
 # Alias for compatibility with CI/CD workflows
 class NASARuleEngine(NASAAnalyzer):
     """Alias for NASAAnalyzer to maintain CI/CD compatibility."""
-    pass

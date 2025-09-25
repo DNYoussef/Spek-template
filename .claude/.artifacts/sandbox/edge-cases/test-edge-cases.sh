@@ -32,11 +32,11 @@ EOF
 
     # Run the test and capture result
     if "$temp_script" 2>&1; then
-        echo "✅ $test_name: PASSED"
+        echo "[OK] $test_name: PASSED"
         edge_tests_passed=$((edge_tests_passed + 1))
     else
         local exit_code=$?
-        echo "❌ $test_name: FAILED (exit code: $exit_code)"
+        echo "[FAIL] $test_name: FAILED (exit code: $exit_code)"
         echo "   This failure may be expected for this edge case."
     fi
 
@@ -192,9 +192,9 @@ except:
 
     # Should always return 0.0 for corrupted files
     if [[ "$coverage_result" == "0.0" ]]; then
-        echo "✓ Correctly handled $corruption_type corruption"
+        echo "[PASS] Correctly handled $corruption_type corruption"
     else
-        echo "✗ Unexpected result for $corruption_type: $coverage_result"
+        echo "[FAIL] Unexpected result for $corruption_type: $coverage_result"
     fi
 done
 
@@ -375,17 +375,17 @@ echo "Edge tests passed: $edge_tests_passed"
 echo "Edge tests failed: $((edge_tests_run - edge_tests_passed))"
 
 if [[ $edge_tests_passed -ge $((edge_tests_run - 1)) ]]; then
-    echo "🎉 EDGE CASE TESTING SUCCESSFUL!"
+    echo "[CELEBRATE] EDGE CASE TESTING SUCCESSFUL!"
     echo ""
     echo "The pipeline handles edge cases robustly:"
-    echo "  ✅ Empty test directories"
-    echo "  ✅ Tests without assertions"
-    echo "  ✅ Corrupted coverage files"
-    echo "  ✅ Arithmetic edge values"
-    echo "  ✅ Resource constraints"
-    echo "  ✅ Timeout scenarios"
+    echo "  [OK] Empty test directories"
+    echo "  [OK] Tests without assertions"
+    echo "  [OK] Corrupted coverage files"
+    echo "  [OK] Arithmetic edge values"
+    echo "  [OK] Resource constraints"
+    echo "  [OK] Timeout scenarios"
 else
-    echo "⚠️  Some edge cases failed handling"
+    echo "[WARN]  Some edge cases failed handling"
     echo "Review the output above for specific issues"
 fi
 

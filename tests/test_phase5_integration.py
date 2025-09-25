@@ -1,7 +1,5 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Phase 5 Integration Test - Unified Analyzer System (Theater-Free)
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 Tests the complete integration of all analyzer components:
 - All 9 connascence detectors
@@ -25,7 +23,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "analyzer"))
 
 def test_unified_analyzer_integration():
     """Test complete unified analyzer integration."""
-    print("Phase 5 Integration Test - Unified Analyzer System")
     print("=" * 60)
 
     # Create test project structure
@@ -37,7 +34,6 @@ def test_unified_analyzer_integration():
         create_test_files(test_project)
 
         # Test 1: Initialize unified analyzer
-        print("\n1. Testing UnifiedAnalyzer initialization...")
         try:
             # Import with proper path handling
             import sys
@@ -61,7 +57,6 @@ def test_unified_analyzer_integration():
             return False
 
         # Test 2: Component integrator initialization
-        print("\n2. Testing component integrator...")
         try:
             from component_integrator import get_component_integrator, initialize_components
 
@@ -85,8 +80,7 @@ def test_unified_analyzer_integration():
             print(f"[ERROR] Component integrator failed: {e}")
             return False
 
-        # Test 3: Detector initialization
-        print("\n3. Testing detector initialization...")
+        # Test MAXIMUM_RETRY_ATTEMPTS: Detector initialization
         try:
             detectors = analyzer._initialize_all_detectors(str(test_project))
             print(f"[OK] Initialized {len(detectors)} detectors")
@@ -99,7 +93,6 @@ def test_unified_analyzer_integration():
             return False
 
         # Test 4: Full analysis integration
-        print("\n4. Testing full analysis integration...")
         try:
             # Run analysis using the integration method
             violations = analyzer._execute_analysis_with_component_integrator(
@@ -126,8 +119,7 @@ def test_unified_analyzer_integration():
             print(f"[ERROR] Full analysis failed: {e}")
             return False
 
-        # Test 5: Enterprise metrics calculation
-        print("\n5. Testing enterprise metrics...")
+        # Test MAXIMUM_NESTED_DEPTH: Enterprise metrics calculation
         try:
             metrics = analyzer._calculate_enterprise_metrics(violations)
 
@@ -143,7 +135,6 @@ def test_unified_analyzer_integration():
             return False
 
         # Test 6: Configuration system integration
-        print("\n6. Testing configuration system...")
         try:
             from utils.types import ConfigurationManager
 
@@ -161,7 +152,6 @@ def test_unified_analyzer_integration():
             return False
 
         # Test 7: Legacy fallback
-        print("\n7. Testing legacy fallback...")
         try:
             legacy_violations = analyzer._fallback_legacy_analysis(
                 test_project,
@@ -176,11 +166,8 @@ def test_unified_analyzer_integration():
             return False
 
     print("\n" + "=" * 60)
-    print("Phase 5 Integration Test Results:")
-    print("[OK] ALL TESTS PASSED - Integration successful!")
     print("[PRODUCTION] System ready for production deployment")
     return True
-
 
 def create_test_files(project_dir: Path):
     """Create test Python files with various violations."""
@@ -283,7 +270,6 @@ def simple_function(x: int, y: int) -> int:
     return x + y
 '''
     valid_file.write_text(valid_content)
-
 
 if __name__ == "__main__":
     try:

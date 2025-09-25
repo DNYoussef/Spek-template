@@ -39,7 +39,7 @@ class ModelSelector {
    * @returns {object} Model selection
    */
   inferModelFromCapabilities(capabilities, complexity, contextSize) {
-    // Browser automation & visual capabilities → GPT-5
+    // Browser automation & visual capabilities -> GPT-5
     if (this.hasBrowserCapabilities(capabilities)) {
       return {
         primaryModel: AIModel.GPT5,
@@ -49,7 +49,7 @@ class ModelSelector {
       };
     }
 
-    // Quality assurance & analysis → Claude Opus (check BEFORE research)
+    // Quality assurance & analysis -> Claude Opus (check BEFORE research)
     if (this.hasQualityCapabilities(capabilities)) {
       return {
         primaryModel: AIModel.CLAUDE_OPUS,
@@ -59,7 +59,7 @@ class ModelSelector {
       };
     }
 
-    // Large context research → Gemini Pro
+    // Large context research -> Gemini Pro
     if (contextSize > 200000 || this.hasResearchCapabilities(capabilities)) {
       return {
         primaryModel: AIModel.GEMINI_PRO,
@@ -69,7 +69,7 @@ class ModelSelector {
       };
     }
 
-    // Coordination & orchestration → Claude Sonnet with sequential thinking
+    // Coordination & orchestration -> Claude Sonnet with sequential thinking
     if (this.hasCoordinationCapabilities(capabilities)) {
       return {
         primaryModel: AIModel.CLAUDE_SONNET,
@@ -79,7 +79,7 @@ class ModelSelector {
       };
     }
 
-    // Autonomous coding → GPT-5
+    // Autonomous coding -> GPT-5
     if (this.hasCodingCapabilities(capabilities)) {
       return {
         primaryModel: AIModel.GPT5,
@@ -89,7 +89,7 @@ class ModelSelector {
       };
     }
 
-    // Fast/routine operations → Gemini Flash
+    // Fast/routine operations -> Gemini Flash
     if (complexity === ReasoningComplexity.LOW || this.hasRoutineCapabilities(capabilities)) {
       return {
         primaryModel: AIModel.GEMINI_FLASH,

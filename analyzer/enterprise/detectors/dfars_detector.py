@@ -8,10 +8,10 @@ compliance detection for the analyzer system.
 This demonstrates real enterprise integration with specific, testable functionality.
 """
 
+from pathlib import Path
+from typing import List, Dict, Any, Set
 import ast
 import re
-from typing import List, Dict, Any, Set
-from pathlib import Path
 
 # Import from parent modules
 import sys
@@ -19,7 +19,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
 from analyzer.detectors.base import DetectorBase
 from utils.types import ConnascenceViolation
-
 
 class DFARSDetector(DetectorBase):
     """
@@ -319,12 +318,10 @@ class DFARSDetector(DetectorBase):
         from datetime import datetime
         return datetime.now().isoformat()
 
-
 # Factory function for integration
 def create_dfars_detector(file_path: str = "", source_lines: List[str] = None) -> DFARSDetector:
     """Create a DFARS detector instance."""
     return DFARSDetector(file_path, source_lines)
-
 
 # Integration test function
 def test_dfars_detector():
@@ -368,7 +365,6 @@ def send_data(data):
     print(f"  Level: {compliance['compliance_level']}")
     print(f"  Score: {compliance['compliance_score']:.2f}")
     print(f"  Total violations: {compliance['violation_summary']['total']}")
-
 
 if __name__ == "__main__":
     test_dfars_detector()

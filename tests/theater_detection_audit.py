@@ -1,8 +1,5 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-PHASE 1 THEATER DETECTION & REALITY CHECK AUDIT
-==============================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH, QUALITY_GATE_MINIMUM_PASS_RATE, TAKE_PROFIT_PERCENTAGE
 
 GPT-5 Codex Theater Killer Audit - Comprehensive Reality Validation
 Tests all Phase 1 implementations for actual functionality vs. performance theater.
@@ -40,7 +37,6 @@ except Exception as e:
     IMPORTS_SUCCESS = False
     IMPORT_ERRORS = [str(e)]
 
-
 @dataclass
 class TheaterDetectionResult:
     """Results of theater detection analysis."""
@@ -51,7 +47,6 @@ class TheaterDetectionResult:
     fixes_applied: List[str]
     test_results: Dict[str, Any]
     production_ready: bool
-
 
 class TheaterDetectionAudit:
     """Main theater detection and reality check audit system."""
@@ -82,7 +77,7 @@ class TheaterDetectionAudit:
         detector_result = self._test_detector_functionality()
         self.results.append(detector_result)
 
-        # Test 5: Integration Testing
+        # Test MAXIMUM_NESTED_DEPTH: Integration Testing
         integration_result = self._test_integration()
         self.results.append(integration_result)
 
@@ -94,7 +89,6 @@ class TheaterDetectionAudit:
 
     def _test_imports(self) -> TheaterDetectionResult:
         """Test import functionality - detect fake imports."""
-        print("Testing Import Functionality...")
 
         theater_elements = []
         real_functionality = []
@@ -129,7 +123,6 @@ class TheaterDetectionAudit:
 
     def _test_types_functionality(self) -> TheaterDetectionResult:
         """Test ConnascenceViolation and types - detect stub implementations."""
-        print("Testing Types Functionality...")
 
         theater_elements = []
         real_functionality = []
@@ -214,7 +207,6 @@ class TheaterDetectionAudit:
 
     def _test_github_bridge(self) -> TheaterDetectionResult:
         """Test GitHub bridge - detect mock implementations."""
-        print("Testing GitHub Bridge Functionality...")
 
         theater_elements = []
         real_functionality = []
@@ -326,7 +318,6 @@ class TheaterDetectionAudit:
 
     def _test_detector_functionality(self) -> TheaterDetectionResult:
         """Test detector modules - detect stub implementations."""
-        print("Testing Detector Functionality...")
 
         theater_elements = []
         real_functionality = []
@@ -429,7 +420,6 @@ def test_function():
 
     def _test_integration(self) -> TheaterDetectionResult:
         """Test end-to-end integration - detect workflow theater."""
-        print("Testing Integration Functionality...")
 
         theater_elements = []
         real_functionality = []
@@ -450,7 +440,7 @@ def test_function():
                     "violations": [],
                     "nasa_compliance": 0.92,
                     "six_sigma_level": 4.5,
-                    "mece_score": 0.85
+                    "mece_score": QUALITY_GATE_MINIMUM_PASS_RATE
                 }
 
                 with open(analysis_file, 'w') as f:
@@ -562,7 +552,7 @@ def test_function():
             'types': 0.25,
             'github_bridge': 0.30,
             'detectors': 0.25,
-            'integration': 0.15
+            'integration': TAKE_PROFIT_PERCENTAGE
         }
 
         total_score = 0.0
@@ -633,7 +623,6 @@ def test_function():
 
         return report
 
-
 def main():
     """Run the complete theater detection audit."""
     print("PHASE 1 THEATER DETECTION & REALITY CHECK AUDIT")
@@ -682,7 +671,6 @@ def main():
     else:
         print(f"\nAUDIT FAILED - Reality score {report['overall_reality_score']:.1f}% below 80% threshold")
         return 1
-
 
 if __name__ == "__main__":
     exit_code = main()

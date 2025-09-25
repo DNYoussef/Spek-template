@@ -26,12 +26,12 @@ The SPEK platform introduces a **3-Loop System** that provides comprehensive dev
 
 #### Loop Architecture
 ```
-Loop 1: Discovery & Planning (spec→research→premortem→plan)
-  ↓ Feeds planning data & risk analysis
-Loop 2: Development & Implementation (swarm→MECE→deploy→theater)
-  ↓ Feeds implementation & theater detection data
-Loop 3: CI/CD Quality & Debugging (analysis→root cause→fixes→validation)
-  ↓ Feeds failure analysis back to planning
+Loop 1: Discovery & Planning (spec->research->premortem->plan)
+  v Feeds planning data & risk analysis
+Loop 2: Development & Implementation (swarm->MECE->deploy->theater)
+  v Feeds implementation & theater detection data
+Loop 3: CI/CD Quality & Debugging (analysis->root cause->fixes->validation)
+  v Feeds failure analysis back to planning
 ```
 
 #### Quick Start Commands
@@ -39,10 +39,10 @@ Loop 3: CI/CD Quality & Debugging (analysis→root cause→fixes→validation)
 # Auto-detect mode and run 3-loop system
 ./scripts/3-loop-orchestrator.sh
 
-# New project (forward flow: Loop 1→2→3)
+# New project (forward flow: Loop 1->2->3)
 ./scripts/3-loop-orchestrator.sh forward
 
-# Existing codebase (reverse flow: Loop 3→1→2→3)
+# Existing codebase (reverse flow: Loop 3->1->2->3)
 ./scripts/3-loop-orchestrator.sh reverse
 
 # Remediate existing project progressively
@@ -50,9 +50,9 @@ Loop 3: CI/CD Quality & Debugging (analysis→root cause→fixes→validation)
 ```
 
 #### Flow Patterns
-- **Forward Flow (New Projects)**: Loop 1 → Loop 2 → Loop 3
+- **Forward Flow (New Projects)**: Loop 1 -> Loop 2 -> Loop 3
   - Start with planning, implement with quality gates, validate
-- **Reverse Flow (Existing Codebases)**: Loop 3 → Loop 1 → Loop 2 → Loop 3
+- **Reverse Flow (Existing Codebases)**: Loop 3 -> Loop 1 -> Loop 2 -> Loop 3
   - Analyze current state, plan improvements, implement fixes, validate
 
 #### Key Features
@@ -93,12 +93,12 @@ The SPEK platform implements a **Queen-Princess-Drone swarm architecture** with:
 - **Documentation**: Comprehensive guides in `docs/` directory
 
 ### Core Development Squadron (11 agents with AI Models)
-- **`coder`** → GPT-5 Codex + [claude-flow, memory, github, filesystem]
-- **`reviewer`** → Claude Opus 4.1 + [claude-flow, memory, github, eva]
-- **`tester`** → Claude Opus 4.1 + [claude-flow, memory, github, playwright, eva]
-- **`planner`** → Gemini Flash + Sequential + [claude-flow, memory, sequential-thinking, plane]
-- **`researcher`** → Gemini 2.5 Pro + [claude-flow, memory, deepwiki, firecrawl, ref, context7]
-- **`code-analyzer`** → Claude Opus 4.1 + [claude-flow, memory, eva]
+- **`coder`** -> GPT-5 Codex + [claude-flow, memory, github, filesystem]
+- **`reviewer`** -> Claude Opus 4.1 + [claude-flow, memory, github, eva]
+- **`tester`** -> Claude Opus 4.1 + [claude-flow, memory, github, playwright, eva]
+- **`planner`** -> Gemini Flash + Sequential + [claude-flow, memory, sequential-thinking, plane]
+- **`researcher`** -> Gemini 2.5 Pro + [claude-flow, memory, deepwiki, firecrawl, ref, context7]
+- **`code-analyzer`** -> Claude Opus 4.1 + [claude-flow, memory, eva]
 - Other specialized agents with optimal model assignments
 
 ### Architecture & System Design (6 agents)
@@ -309,11 +309,11 @@ The platform integrates **15+ MCP (Model Context Protocol) servers** for enhance
 ```bash
 # 1. For new projects - Forward Flow
 ./scripts/3-loop-orchestrator.sh forward
-# Automatically runs: Planning → Development → Quality
+# Automatically runs: Planning -> Development -> Quality
 
 # 2. For existing codebases - Reverse Flow
 ./scripts/3-loop-orchestrator.sh reverse
-# Automatically runs: Analysis → Planning → Fixes → Validation
+# Automatically runs: Analysis -> Planning -> Fixes -> Validation
 
 # 3. Progressive remediation with convergence
 ./scripts/codebase-remediation.sh . progressive 10
@@ -378,41 +378,41 @@ Example workflow:
 Our complete development system consists of three interconnected loops that handle **Planning**, **Coding**, and **Quality & Debugging**:
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    Loop 1: Discovery & Planning Loop                   │
-│               spec->plan->research->premortem->plan (5x)                │
-│  Tools: /research:web, /research:github, /spec:plan, /pre-mortem-loop  │
-│  Output: Risk-mitigated foundation with evidence-based planning        │
-│  Function: PLANNING - Prevent problems before they occur               │
-└─────────────────────────┬───────────────────────────────────────────────┘
-                          │ Feeds planning data & risk analysis
-                          ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                  Loop 2: Development & Implementation Loop             │
-│     9-Step Swarm: Init->Discovery->MECE->Deploy->Theater->Integrate    │
-│  Tools: /dev:swarm, 54 AI agents, MECE task division, parallel exec   │
-│  Output: Theater-free, reality-validated implementation                │
-│  Function: CODING - Execute with genuine quality                       │
-└─────────────────────────┬───────────────────────────────────────────────┘
-                          │ Feeds implementation & theater detection data
-                          ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│              Loop 3: CI/CD Quality & Debugging Loop                    │
-│  GitHub hooks->AI analysis->root cause->fixes->theater->validation     │
-│  Tools: /cicd-loop, failure patterns, comprehensive tests, auto-repair │
-│  Output: 100% test success with authentic quality improvements         │
-│  Function: QUALITY & DEBUGGING - Maintain production excellence        │
-└─────────────────────────┬───────────────────────────────────────────────┘
-                          │ Feeds failure analysis back to planning
-                          └─────────────────────────────────────────────────┘
+___________________________________________________________________________
+_                    Loop 1: Discovery & Planning Loop                   _
+_               spec->plan->research->premortem->plan (5x)                _
+_  Tools: /research:web, /research:github, /spec:plan, /pre-mortem-loop  _
+_  Output: Risk-mitigated foundation with evidence-based planning        _
+_  Function: PLANNING - Prevent problems before they occur               _
+___________________________________________________________________________
+                          _ Feeds planning data & risk analysis
+                          _
+___________________________________________________________________________
+_                  Loop 2: Development & Implementation Loop             _
+_     9-Step Swarm: Init->Discovery->MECE->Deploy->Theater->Integrate    _
+_  Tools: /dev:swarm, 54 AI agents, MECE task division, parallel exec   _
+_  Output: Theater-free, reality-validated implementation                _
+_  Function: CODING - Execute with genuine quality                       _
+___________________________________________________________________________
+                          _ Feeds implementation & theater detection data
+                          _
+___________________________________________________________________________
+_              Loop 3: CI/CD Quality & Debugging Loop                    _
+_  GitHub hooks->AI analysis->root cause->fixes->theater->validation     _
+_  Tools: /cicd-loop, failure patterns, comprehensive tests, auto-repair _
+_  Output: 100% test success with authentic quality improvements         _
+_  Function: QUALITY & DEBUGGING - Maintain production excellence        _
+___________________________________________________________________________
+                          _ Feeds failure analysis back to planning
+                          ___________________________________________________
 ```
 
 ### Loop Integration Architecture
 
 **Key Integration Points:**
-- **Planning → Coding**: Loop 1's risk-mitigated plans feed directly into Loop 2's MECE task division
-- **Coding → Quality**: Loop 2's theater detection validates Loop 3's quality claims
-- **Quality → Planning**: Loop 3's failure analysis informs Loop 1's next risk assessment
+- **Planning -> Coding**: Loop 1's risk-mitigated plans feed directly into Loop 2's MECE task division
+- **Coding -> Quality**: Loop 2's theater detection validates Loop 3's quality claims
+- **Quality -> Planning**: Loop 3's failure analysis informs Loop 1's next risk assessment
 - **Continuous Learning**: All loops share memory via unified memory coordination
 
 ## Detailed Loop Documentation
@@ -614,7 +614,7 @@ echo "## User Authentication
 
 ### Loop Interconnection Examples
 
-#### Planning → Coding Integration
+#### Planning -> Coding Integration
 ```bash
 # Loop 1 generates research-backed plan
 /research:web 'microservices architecture patterns'
@@ -624,7 +624,7 @@ echo "## User Authentication
 /dev:swarm "$(cat plan.json)"  # Auto-feeds planning data to agents
 ```
 
-#### Coding → Quality Integration
+#### Coding -> Quality Integration
 ```bash
 # Loop 2 produces theater detection validation data
 /dev:swarm "feature implementation"  # Generates theater audit trails
@@ -633,7 +633,7 @@ echo "## User Authentication
 /cicd-loop "validate feature with theater baseline"  # Cross-validates authenticity
 ```
 
-#### Quality → Planning Feedback
+#### Quality -> Planning Feedback
 ```bash
 # Loop 3 generates failure analysis data
 /cicd-loop "system validation"  # Produces failure pattern analysis
@@ -712,11 +712,11 @@ All analysis results stored in `.claude/.artifacts/` with SARIF integration for 
 - **Mesh Networks**: Peer-to-peer distributed decision making
 - **Adaptive Topologies**: Dynamic switching based on task complexity
 - **Smart Model Assignment**: Automatic AI model selection based on:
-  - **Task Context**: Browser automation → GPT-5 Codex
-  - **Context Size**: >500K tokens → Gemini 2.5 Pro
-  - **Quality Focus**: Code review → Claude Opus 4.1
-  - **Coordination**: Complex orchestration → Claude Sonnet 4 + Sequential
-  - **Cost Optimization**: Routine tasks → Gemini Flash
+  - **Task Context**: Browser automation -> GPT-5 Codex
+  - **Context Size**: >500K tokens -> Gemini 2.5 Pro
+  - **Quality Focus**: Code review -> Claude Opus 4.1
+  - **Coordination**: Complex orchestration -> Claude Sonnet 4 + Sequential
+  - **Cost Optimization**: Routine tasks -> Gemini Flash
 - **MCP Server Integration**: Automatic tool assignment per agent domain
 - **Platform Fallbacks**: Intelligent switching on platform unavailability
 
@@ -894,19 +894,19 @@ Start with your first project: `vim SPEC.md` -> Define requirements -> Let the s
 **CURRENT STATUS**: Complete Multi-Agent Workflow Orchestration Platform
 
 ### What's Actually Working:
-- ✅ **Queen-Princess-Drone Swarm**: Full hierarchical orchestration system
-- ✅ **85+ AI Agents**: Complete registry with automatic model optimization
-- ✅ **172 Slash Commands**: Full workflow automation framework
-- ✅ **15+ MCP Servers**: Memory, GitHub, browser automation, sequential thinking
-- ✅ **Theater Detection**: Zero-tolerance audit gates with reality validation
-- ✅ **9-Step Dev Swarm**: Complete implementation workflow
-- ✅ **Multi-Platform AI**: GPT-5 Codex, Gemini Pro, Claude Opus integration
+- [OK] **Queen-Princess-Drone Swarm**: Full hierarchical orchestration system
+- [OK] **85+ AI Agents**: Complete registry with automatic model optimization
+- [OK] **172 Slash Commands**: Full workflow automation framework
+- [OK] **15+ MCP Servers**: Memory, GitHub, browser automation, sequential thinking
+- [OK] **Theater Detection**: Zero-tolerance audit gates with reality validation
+- [OK] **9-Step Dev Swarm**: Complete implementation workflow
+- [OK] **Multi-Platform AI**: GPT-5 Codex, Gemini Pro, Claude Opus integration
 
 ### What Needs Configuration:
-- ⚠️ **SPARC Commands**: Require `.roomodes` file (`npx claude-flow@latest init --sparc`)
-- ⚠️ **Test Suite**: Pytest has import errors - needs `pip install --upgrade pytest`
-- ⚠️ **Python Analyzer**: Had syntax error in github_bridge.py (now fixed)
-- ⚠️ **Linting**: Shows 500+ style warnings but works correctly
+- [WARN] **SPARC Commands**: Require `.roomodes` file (`npx claude-flow@latest init --sparc`)
+- [WARN] **Test Suite**: Pytest has import errors - needs `pip install --upgrade pytest`
+- [WARN] **Python Analyzer**: Had syntax error in github_bridge.py (now fixed)
+- [WARN] **Linting**: Shows 500+ style warnings but works correctly
 
 ### Core Functionality:
 This is a **complete enterprise-grade platform** that provides:
@@ -919,10 +919,10 @@ This is a **complete enterprise-grade platform** that provides:
 
 ### Quick Commands That Work:
 ```bash
-npm run lint           # Python flake8 linting - ✅ Working (many style warnings)
-npm run security       # Bandit security scan - ✅ Working (outputs to .claude/.artifacts/)
-npm run build          # Build validation - ✅ Working
-python test_modules.py # Module testing - ✅ Working (all modules load after fix)
+npm run lint           # Python flake8 linting - [OK] Working (many style warnings)
+npm run security       # Bandit security scan - [OK] Working (outputs to .claude/.artifacts/)
+npm run build          # Build validation - [OK] Working
+python test_modules.py # Module testing - [OK] Working (all modules load after fix)
 ```
 
 ### To Activate Full Features:

@@ -1,0 +1,30 @@
+IMPORT UPDATE REPORT
+============================================================
+Timestamp: 2025-09-24 22:23:29.770140
+Files processed: 1043
+Files changed: 1
+Total changes: 5
+Backup directory: import_backup_20250924_222328
+
+ALL CHANGES MADE:
+------------------------------------------------------------
+src/constants/__init__.py:
+  OLD: import analyzer.constants
+  NEW: from .base import *
+
+.\fix_circular_imports.py:
+  OLD: from src.constants import {match}'
+  NEW: from src.constants.base import {match}'
+
+.\fix_circular_imports.py:
+  OLD: from analyzer.constants import X -> from src.constants.base import X
+  NEW: from src.constants.base import X -> from src.constants.base import X
+
+.\fix_circular_imports.py:
+  OLD: from analyzer.constants import {match}'
+  NEW: from src.constants.base import {match}'
+
+.\fix_circular_imports.py:
+  OLD: import analyzer.constants
+  NEW: import src.constants.base
+

@@ -1,5 +1,4 @@
-"""
-High-Performance Parallel Execution Engine for Detector Pool
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 This module provides advanced parallel processing capabilities with intelligent
 load balancing, adaptive concurrency control, and minimal overhead execution.
@@ -35,7 +34,6 @@ import pickle
 import signal
 import os
 
-
 @dataclass
 class ExecutionTask:
     """Represents a detector execution task with metadata."""
@@ -50,7 +48,6 @@ class ExecutionTask:
     dependencies: List[str] = field(default_factory=list)
     affinity: Optional[int] = None  # CPU affinity hint
 
-
 @dataclass
 class ExecutionResult:
     """Represents the result of a detector execution."""
@@ -64,7 +61,6 @@ class ExecutionResult:
     error: Optional[str] = None
     worker_id: Optional[str] = None
 
-
 @dataclass
 class WorkerMetrics:
     """Performance metrics for individual workers."""
@@ -77,7 +73,6 @@ class WorkerMetrics:
     last_task_time: Optional[float] = None
     error_count: int = 0
     affinity: Optional[int] = None
-
 
 class LockFreeQueue:
     """Lock-free queue implementation for high-performance task passing."""
@@ -111,7 +106,6 @@ class LockFreeQueue:
     def qsize(self) -> int:
         """Get approximate queue size."""
         return max(0, self._size_estimate)
-
 
 class WorkStealingScheduler:
     """Work-stealing scheduler for optimal load distribution."""
@@ -222,7 +216,6 @@ class WorkStealingScheduler:
             'worker_metrics': {wid: metrics for wid, metrics in self.worker_metrics.items()}
         }
 
-
 class AdaptiveBatchProcessor:
     """Adaptive batch processing for optimal throughput."""
 
@@ -235,8 +228,8 @@ class AdaptiveBatchProcessor:
         self.current_batch_size = 4
 
     def calculate_optimal_batch_size(self,
-                                   pending_tasks: List[ExecutionTask],
-                                   worker_capacity: int) -> int:
+                                    pending_tasks: List[ExecutionTask],
+                                    worker_capacity: int) -> int:
         """Calculate optimal batch size based on task characteristics."""
         if not pending_tasks:
             return self.min_batch_size
@@ -305,15 +298,14 @@ class AdaptiveBatchProcessor:
 
         return int(avg_size)
 
-
 class HighPerformanceWorker:
     """High-performance worker with optimized execution."""
 
     def __init__(self,
-                 worker_id: str,
-                 detectors: Dict[str, Callable],
-                 scheduler: WorkStealingScheduler,
-                 worker_index: int):
+                worker_id: str,
+                detectors: Dict[str, Callable],
+                scheduler: WorkStealingScheduler,
+                worker_index: int):
         self.worker_id = worker_id
         self.worker_index = worker_index
         self.detectors = detectors
@@ -343,7 +335,6 @@ class HighPerformanceWorker:
 
         except (OSError, AttributeError):
             # CPU affinity not supported or failed
-            pass
 
     def start(self) -> None:
         """Start worker thread."""
@@ -355,7 +346,7 @@ class HighPerformanceWorker:
         """Stop worker thread."""
         self.running = False
         if self.thread:
-            self.thread.join(timeout=5.0)
+            self.thread.join(timeout=MAXIMUM_NESTED_DEPTH.0)
 
     def _worker_loop(self) -> None:
         """Main worker execution loop."""
@@ -436,7 +427,6 @@ class HighPerformanceWorker:
             worker_id=self.worker_id
         )
 
-
 class ParallelExecutor:
     """
     High-performance parallel execution engine for detector pool.
@@ -450,10 +440,10 @@ class ParallelExecutor:
     """
 
     def __init__(self,
-                 detectors: Dict[str, Callable],
-                 max_workers: Optional[int] = None,
-                 enable_process_pool: bool = False,
-                 enable_numa_awareness: bool = True):
+                detectors: Dict[str, Callable],
+                max_workers: Optional[int] = None,
+                enable_process_pool: bool = False,
+                enable_numa_awareness: bool = True):
         """
         Initialize parallel executor.
 
@@ -535,12 +525,12 @@ class ParallelExecutor:
         logging.info("Parallel executor stopped")
 
     def submit_task(self,
-                   detector_name: str,
-                   args: tuple = (),
-                   kwargs: dict = None,
-                   priority: int = 5,
-                   complexity_score: float = 1.0,
-                   dependencies: List[str] = None) -> str:
+                    detector_name: str,
+                    args: tuple = (),
+                    kwargs: dict = None,
+                    priority: int = 5,
+                    complexity_score: float = 1.0,
+                    dependencies: List[str] = None) -> str:
         """
         Submit a task for execution.
 
@@ -637,8 +627,8 @@ class ParallelExecutor:
             time.sleep(0.001)
 
     def get_batch_results(self,
-                         task_ids: List[str],
-                         timeout: Optional[float] = None) -> Dict[str, Optional[ExecutionResult]]:
+                        task_ids: List[str],
+                        timeout: Optional[float] = None) -> Dict[str, Optional[ExecutionResult]]:
         """
         Get results for a batch of tasks.
 
@@ -679,8 +669,8 @@ class ParallelExecutor:
         return results
 
     def execute_adaptive_batch(self,
-                              task_configs: List[Tuple[str, tuple, dict]],
-                              target_overhead: float = 0.01) -> Dict[str, ExecutionResult]:
+                                task_configs: List[Tuple[str, tuple, dict]],
+                                target_overhead: float = 0.01) -> Dict[str, ExecutionResult]:
         """
         Execute batch with adaptive optimization for minimal overhead.
 
@@ -848,7 +838,6 @@ class ParallelExecutor:
     def __exit__(self, exc_type, exc_val, exc_tb):
         """Context manager exit."""
         self.stop()
-
 
 # Example usage and testing
 if __name__ == "__main__":

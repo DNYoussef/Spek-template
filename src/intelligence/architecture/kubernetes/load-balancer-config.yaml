@@ -1,4 +1,4 @@
-# Gary×Taleb Trading System - Load Balancer and Auto-scaling Configuration
+# GaryxTaleb Trading System - Load Balancer and Auto-scaling Configuration
 # HAProxy + NGINX + Istio Service Mesh for ultra-low latency
 
 apiVersion: v1

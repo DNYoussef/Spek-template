@@ -4,11 +4,12 @@ Python-Node Bridge for SPEK Analyzer
 Provides JSON-RPC interface for Node.js command system
 """
 
+from pathlib import Path
 import json
 import sys
+
 import argparse
 import traceback
-from pathlib import Path
 
 # Add analyzer to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -200,19 +201,19 @@ class AnalyzerBridge:
         """Run as CLI tool"""
         parser = argparse.ArgumentParser(description='SPEK Analyzer Bridge')
         parser.add_argument('command', choices=list(self.commands.keys()),
-                          help='Command to execute')
+                            help='Command to execute')
         parser.add_argument('--path', default='.', help='Path to analyze')
         parser.add_argument('--depth', type=int, default=3,
-                          help='Analysis depth')
+                            help='Analysis depth')
         parser.add_argument('--format', default='json',
-                          choices=['json', 'text'],
-                          help='Output format')
+                            choices=['json', 'text'],
+                            help='Output format')
         parser.add_argument('--architecture', action='store_true',
-                          help='Include architecture analysis')
+                            help='Include architecture analysis')
         parser.add_argument('--detector-pools', action='store_true',
-                          help='Use detector pools')
+                            help='Use detector pools')
         parser.add_argument('--enhanced-metrics', action='store_true',
-                          help='Include enhanced metrics')
+                            help='Include enhanced metrics')
 
         args = parser.parse_args()
 
@@ -265,7 +266,6 @@ class AnalyzerBridge:
             else:
                 print(f'{spaces}{key}: {value}')
 
-
 def main():
     """Main entry point for JSON-RPC mode"""
     if len(sys.argv) > 1:
@@ -317,7 +317,6 @@ def main():
                 }
             }
             print(json.dumps(error_response))
-
 
 if __name__ == '__main__':
     main()

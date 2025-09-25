@@ -4,16 +4,16 @@ Orchestrates incident response actions and escalation
 Part of god object decomposition (Day 3-5)
 """
 
-import json
-from enum import Enum
-from typing import Dict, List, Optional, Tuple, Any, Set
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
 from collections import defaultdict
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Tuple, Any, Set
+import json
 import logging
 
-logger = logging.getLogger(__name__)
+from dataclasses import dataclass, field
+from enum import Enum
 
+logger = logging.getLogger(__name__)
 
 class ResponseAction(Enum):
     """Types of response actions."""
@@ -28,7 +28,6 @@ class ResponseAction(Enum):
     PATCH_SYSTEM = "patch_system"
     MONITOR = "monitor"
 
-
 class EscalationLevel(Enum):
     """Escalation levels for incidents."""
     LEVEL_1 = "tier1_analyst"
@@ -36,7 +35,6 @@ class EscalationLevel(Enum):
     LEVEL_3 = "incident_commander"
     LEVEL_4 = "ciso"
     LEVEL_5 = "executive"
-
 
 @dataclass
 class ResponsePlan:
@@ -50,12 +48,11 @@ class ResponsePlan:
     executed_actions: List[str] = field(default_factory=list)
     rollback_available: bool = True
 
-
 class ResponseCoordinator:
     """
     Orchestrates incident response actions and escalation.
 
-    Extracted from EnhancedIncidentResponseSystem (1,226 LOC -> ~250 LOC component).
+    Extracted from EnhancedIncidentResponseSystem (1, 226 LOC -> ~250 LOC component).
     Handles:
     - Response plan generation
     - Action execution coordination
@@ -121,10 +118,10 @@ class ResponseCoordinator:
         }
 
     def generate_response_plan(self,
-                              incident_id: str,
-                              incident_type: str,
-                              severity: str,
-                              affected_systems: List[str]) -> ResponsePlan:
+                                incident_id: str,
+                                incident_type: str,
+                                severity: str,
+                                affected_systems: List[str]) -> ResponsePlan:
         """Generate a response plan for an incident."""
         # Select containment strategy
         actions = self.containment_strategies.get(
@@ -194,8 +191,8 @@ class ResponseCoordinator:
         return f"RESP-{datetime.now().strftime('%Y%m%d')}-{uuid.uuid4().hex[:8]}"
 
     def execute_action(self,
-                      incident_id: str,
-                      action: ResponseAction) -> Dict[str, Any]:
+                        incident_id: str,
+                        action: ResponseAction) -> Dict[str, Any]:
         """Execute a response action."""
         result = {
             "action": action.value,
@@ -270,8 +267,8 @@ class ResponseCoordinator:
         self.escalation_history.append(escalation_record)
 
     def coordinate_containment(self,
-                              incident_id: str,
-                              affected_systems: List[str]) -> Dict[str, Any]:
+                                incident_id: str,
+                                affected_systems: List[str]) -> Dict[str, Any]:
         """Coordinate containment actions across systems."""
         containment_result = {
             "incident_id": incident_id,

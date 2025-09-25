@@ -13,13 +13,13 @@ Usage:
     python scripts/fix_dynamic_memory.py --scan-all
 """
 
-import ast
-import sys
+from collections import defaultdict
 from pathlib import Path
 from typing import List, Dict, Tuple
-from dataclasses import dataclass
-from collections import defaultdict
+import ast
+import sys
 
+from dataclasses import dataclass
 
 @dataclass
 class Violation:
@@ -30,11 +30,10 @@ class Violation:
     code_snippet: str
     suggestion: str
 
-
 class DynamicMemoryDetector(ast.NodeVisitor):
     """Detects NASA Rule 2 violations in Python AST."""
 
-    def __init__(self, file_path: str, source_lines: List[str]):
+def __init__(self, file_path: str, source_lines: List[str]):
         self.file_path = file_path
         self.source_lines = source_lines
         self.violations: List[Violation] = []
@@ -42,7 +41,7 @@ class DynamicMemoryDetector(ast.NodeVisitor):
         self.dict_update_count = 0
         self.string_concat_count = 0
 
-    def visit_Call(self, node: ast.Call) -> None:
+def visit_Call(self, node: ast.Call) -> None:
         """Detect list.append() and dict.update() calls."""
         if isinstance(node.func, ast.Attribute):
             if node.func.attr == 'append':
@@ -73,7 +72,7 @@ class DynamicMemoryDetector(ast.NodeVisitor):
 
         self.generic_visit(node)
 
-    def visit_AugAssign(self, node: ast.AugAssign) -> None:
+def visit_AugAssign(self, node: ast.AugAssign) -> None:
         """Detect string concatenation with +=."""
         if isinstance(node.op, ast.Add):
             # Check if target is likely a string
@@ -93,7 +92,7 @@ class DynamicMemoryDetector(ast.NodeVisitor):
 
         self.generic_visit(node)
 
-    def _is_dict_call(self, node: ast.Call) -> bool:
+def _is_dict_call(self, node: ast.Call) -> bool:
         """Check if call is on a dict object."""
         # Simple heuristic: check variable names and common patterns
         if isinstance(node.func, ast.Attribute):
@@ -103,7 +102,6 @@ class DynamicMemoryDetector(ast.NodeVisitor):
                 dict_patterns = ['dict', 'map', 'cache', 'stats', 'metrics', 'config']
                 return any(pattern in var_name.lower() for pattern in dict_patterns)
         return False
-
 
 def analyze_file(file_path: Path) -> Tuple[List[Violation], Dict[str, int]]:
     """Analyze a single file for NASA Rule 2 violations."""
@@ -129,7 +127,6 @@ def analyze_file(file_path: Path) -> Tuple[List[Violation], Dict[str, int]]:
         print(f"Error analyzing {file_path}: {e}")
         return [], {'append': 0, 'dict_update': 0, 'string_concat': 0, 'total': 0}
 
-
 def scan_directory(root_path: Path, pattern: str = "*.py") -> Dict[str, Tuple[List[Violation], Dict[str, int]]]:
     """Scan directory for NASA Rule 2 violations."""
     results = {}
@@ -144,7 +141,6 @@ def scan_directory(root_path: Path, pattern: str = "*.py") -> Dict[str, Tuple[Li
             results[str(file_path)] = (violations, stats)
 
     return results
-
 
 def generate_report(results: Dict[str, Tuple[List[Violation], Dict[str, int]]]) -> str:
     """Generate comprehensive violation report."""
@@ -190,7 +186,6 @@ def generate_report(results: Dict[str, Tuple[List[Violation], Dict[str, int]]]) 
     report.append("4. Document unavoidable dynamic allocations with NASA Rule 2 justification")
 
     return "\n".join(report)
-
 
 def main():
     """Main entry point."""
@@ -247,7 +242,6 @@ def main():
         else:
             print(f"Error: {target} is not a valid file or directory")
             sys.exit(1)
-
 
 if __name__ == "__main__":
     main()

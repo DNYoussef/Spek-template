@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Cache Optimization Validation Script
-====================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Validates the comprehensive caching strategy optimizations implemented in Phase 3.5.
 Demonstrates the integration with all previous Phase 3 optimizations and measures
@@ -14,7 +11,7 @@ Features:
 - Memory optimization validation
 - Cumulative Phase 3 improvement verification
 
-NASA Rules 4, 5, 6, 7: Function limits, assertions, scoping, bounded resources
+NASA Rules 4, MAXIMUM_NESTED_DEPTH, 6, 7: Function limits, assertions, scoping, bounded resources
 """
 
 import asyncio
@@ -26,7 +23,6 @@ from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass, field
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class ValidationResult:
@@ -42,7 +38,6 @@ class ValidationResult:
     def target_achieved(self) -> bool:
         """Check if performance target was achieved."""
         return self.measured_improvement_percent >= self.target_improvement_percent
-
 
 @dataclass
 class CacheValidationMetrics:
@@ -70,7 +65,6 @@ class CacheValidationMetrics:
     # Integration metrics
     cumulative_improvement_percent: float = 0.0
     phase_3_integration_score: float = 0.0
-
 
 class CacheOptimizationValidator:
     """
@@ -409,7 +403,7 @@ class CacheOptimizationValidator:
         throughput_improvement = ((optimized_throughput - baseline_throughput) / 
                                 max(baseline_throughput, 1)) * 100
         
-        # Target: 45,000+ violations/second equivalent throughput
+        # Target: 45, 000+ violations/second equivalent throughput
         target_throughput = 45000
         success = optimized_throughput >= target_throughput or throughput_improvement >= 30.0
         
@@ -541,7 +535,6 @@ class CacheOptimizationValidator:
             phase_improvements['phase_3_5_caching_optimization'] = 15.0  # Conservative estimate
         
         # Calculate total cumulative improvement
-        # Use weighted average instead of simple sum to avoid over-counting
         weights = {
             'phase_3_2_ast_traversal': 0.3,
             'phase_3_3_memory_coordination': 0.25,
@@ -678,7 +671,6 @@ class CacheOptimizationValidator:
         
         return weighted_score / total_weight if total_weight > 0 else 0.0
 
-
 def generate_validation_report(validation_results: Dict[str, Any]) -> str:
     """
     Generate comprehensive validation report.
@@ -767,7 +759,6 @@ def generate_validation_report(validation_results: Dict[str, Any]) -> str:
     
     return "\n".join(report)
 
-
 async def main():
     """Main entry point for cache optimization validation."""
     validator = CacheOptimizationValidator()
@@ -814,7 +805,6 @@ async def main():
         print(f"Validation failed: {e}")
         import traceback
         traceback.print_exc()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

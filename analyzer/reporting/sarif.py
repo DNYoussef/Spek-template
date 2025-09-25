@@ -1,15 +1,4 @@
 # SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
 
 """
 SARIF 2.1.0 Export for Connascence Analysis
@@ -21,25 +10,25 @@ SARIF 2.1.0 Specification: https://docs.oasis-open.org/sarif/sarif/v2.1.0/
 """
 
 from datetime import datetime
-import json
 from pathlib import Path
 from typing import Any, Dict, List
+import json
+
 import uuid
 
 from analyzer.ast_engine.core_analyzer import AnalysisResult, Violation
 from analyzer.thresholds import ConnascenceType
 
-
 class SARIFReporter:
     """SARIF 2.1.0 report generator."""
 
-    def __init__(self):
+def __init__(self):
         self.tool_name = "connascence"
         self.tool_version = "1.0.0"
         self.tool_uri = "https://github.com/connascence/connascence-analyzer"
         self.organization = "Connascence Analytics"
 
-    def generate(self, result: AnalysisResult) -> str:
+def generate(self, result: AnalysisResult) -> str:
         """Generate SARIF report from analysis result."""
         sarif_report = {
             "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0.json",
@@ -49,7 +38,7 @@ class SARIFReporter:
 
         return json.dumps(sarif_report, indent=2, ensure_ascii=False)
 
-    def _create_run(self, result: AnalysisResult) -> Dict[str, Any]:
+def _create_run(self, result: AnalysisResult) -> Dict[str, Any]:
         """Create the main SARIF run object."""
         return {
             "tool": self._create_tool(),
@@ -83,7 +72,7 @@ class SARIFReporter:
             },
         }
 
-    def _create_tool(self) -> Dict[str, Any]:
+def _create_tool(self) -> Dict[str, Any]:
         """Create the tool descriptor."""
         return {
             "driver": {
@@ -111,7 +100,7 @@ class SARIFReporter:
             }
         }
 
-    def _create_rules(self) -> List[Dict[str, Any]]:
+def _create_rules(self) -> List[Dict[str, Any]]:
         """Create SARIF rule definitions for all connascence types."""
         rules = []
 
@@ -240,7 +229,7 @@ class SARIFReporter:
 
         return rules
 
-    def _create_result(self, violation: Violation) -> Dict[str, Any]:
+def _create_result(self, violation: Violation) -> Dict[str, Any]:
         """Create SARIF result from violation."""
         rule_id = f"CON_{violation.type.value}"
 
@@ -293,12 +282,12 @@ class SARIFReporter:
 
         return result
 
-    def _severity_to_sarif_level(self, severity: str) -> str:
+def _severity_to_sarif_level(self, severity: str) -> str:
         """Convert connascence severity to SARIF level."""
         mapping = {"low": "note", "medium": "warning", "high": "error", "critical": "error"}
         return mapping.get(severity, "warning")
 
-    def _get_rule_index(self, connascence_type: ConnascenceType) -> int:
+def _get_rule_index(self, connascence_type: ConnascenceType) -> int:
         """Get the index of a rule in the rules array."""
         # This would map to actual rule positions
         type_order = [
@@ -314,13 +303,13 @@ class SARIFReporter:
         ]
         return type_order.index(connascence_type)
 
-    def _normalize_path(self, file_path: str) -> str:
+def _normalize_path(self, file_path: str) -> str:
         """Normalize file path for SARIF."""
         # Convert Windows paths to URI format
         path = Path(file_path)
         return path.as_posix()
 
-    def _extract_related_locations(self, violation: Violation) -> List[Dict[str, Any]]:
+def _extract_related_locations(self, violation: Violation) -> List[Dict[str, Any]]:
         """Extract related locations from violation context."""
         related_locations = []
 
@@ -342,7 +331,7 @@ class SARIFReporter:
 
         return related_locations
 
-    def export_results(self, result, output_file=None):
+def export_results(self, result, output_file=None):
         """Export results to SARIF format.
 
         Args:
@@ -368,7 +357,7 @@ class SARIFReporter:
             # Return SARIF string
             return sarif_output
 
-    def _convert_dict_to_sarif(self, result_dict):
+def _convert_dict_to_sarif(self, result_dict):
         """Convert dict-based analysis result to SARIF format."""
         # Create a minimal SARIF report from dict results
         violations = result_dict.get("violations", [])
@@ -402,7 +391,7 @@ class SARIFReporter:
 
         return json.dumps(sarif_report, indent=2, ensure_ascii=False)
 
-    def _create_result_from_dict(self, violation_dict):
+def _create_result_from_dict(self, violation_dict):
         """Create SARIF result from violation dictionary."""
         rule_id = violation_dict.get("rule_id", "CON_UNKNOWN")
         severity = violation_dict.get("severity", "medium")

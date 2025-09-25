@@ -3,16 +3,16 @@ High-performance real-time inference engine with <100ms latency guarantee.
 Implements model optimization, caching, and batch processing for trading systems.
 """
 
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Union, Tuple, Any
+import time
+
+from dataclasses import dataclass, field
+from lib.shared.utilities import get_logger
+import asyncio
+import numpy as np
 import torch
 import torch.nn as nn
-import numpy as np
-import asyncio
-import time
-from typing import Dict, List, Optional, Union, Tuple, Any
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
 @dataclass
 class InferenceRequest:
@@ -278,7 +278,6 @@ class RealTimeInferenceEngine:
                 raise TimeoutError("Request queue is full")
             
             # For real-time inference, we'd use a response mechanism
-            # For this implementation, we'll process directly
             response = await self._process_request(request)
             
             # Cache the response
@@ -386,7 +385,6 @@ class RealTimeInferenceEngine:
         
         for request in requests:
             # For now, assume all requests use the same model
-            # In practice, you'd determine model based on symbol/strategy
             model_name = "gary_taleb"  # Default model
             key = (model_name, request.symbol)
             
@@ -420,7 +418,7 @@ class RealTimeInferenceEngine:
                 # Extract predictions
                 if isinstance(predictions, dict):
                     pred_dict = {k: float(v.item() if torch.is_tensor(v) else v) 
-                               for k, v in predictions.items() if torch.is_tensor(v)}
+                                for k, v in predictions.items() if torch.is_tensor(v)}
                     confidence = pred_dict.get('confidence', 0.5)
                 else:
                     pred_dict = {'prediction': float(predictions.item())}
@@ -539,7 +537,6 @@ class RealTimeInferenceEngine:
                 response = loop.run_until_complete(self._process_request(request))
                 
                 # In a real implementation, you'd send the response back
-                # For now, we just log it
                 logger.debug(f"Worker {worker_id} processed request {request.request_id}")
                 
             except Empty:
@@ -569,8 +566,8 @@ class RealTimeInferenceEngine:
                 # Log metrics periodically
                 if self.metrics.total_requests % 1000 == 0 and self.metrics.total_requests > 0:
                     logger.info(f"Metrics: {self.metrics.total_requests} requests, "
-                              f"avg latency: {self.metrics.avg_latency_ms:.1f}ms, "
-                              f"cache hit rate: {self.metrics.cache_hits/self.metrics.total_requests:.2%}")
+                                f"avg latency: {self.metrics.avg_latency_ms:.1f}ms, "
+                                f"cache hit rate: {self.metrics.cache_hits/self.metrics.total_requests:.2%}")
                 
                 time.sleep(10)  # Update every 10 seconds
                 
@@ -699,13 +696,12 @@ async def test_inference_engine():
         # Get metrics
         metrics = engine.get_metrics()
         print(f"Engine metrics: {metrics.successful_requests} successful, "
-              f"avg latency: {metrics.avg_latency_ms:.2f}ms")
+                f"avg latency: {metrics.avg_latency_ms:.2f}ms")
         
         # Stop engine
         await engine.stop()
         
     except Exception as e:
-        print(f"Test failed: {e}")
 
 if __name__ == "__main__":
     asyncio.run(test_inference_engine())

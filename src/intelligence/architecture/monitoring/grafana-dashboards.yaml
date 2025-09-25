@@ -1,4 +1,4 @@
-# Gary×Taleb Trading System - Grafana Dashboards Configuration
+# GaryxTaleb Trading System - Grafana Dashboards Configuration
 # Real-time trading performance and system monitoring dashboards
 
 apiVersion: v1
@@ -14,7 +14,7 @@ data:
     {
       "dashboard": {
         "id": null,
-        "title": "Gary×Taleb Trading Performance",
+        "title": "GaryxTaleb Trading Performance",
         "tags": ["trading", "performance", "real-time"],
         "style": "dark",
         "timezone": "UTC",
@@ -186,7 +186,7 @@ data:
     {
       "dashboard": {
         "id": null,
-        "title": "Gary×Taleb System Performance",
+        "title": "GaryxTaleb System Performance",
         "tags": ["system", "performance", "infrastructure"],
         "style": "dark",
         "timezone": "UTC",
@@ -530,7 +530,7 @@ data:
             "targets": [
               {
                 "expr": "DCGM_FI_DEV_GPU_TEMP",
-                "legendFormat": "Temperature °C",
+                "legendFormat": "Temperature degC",
                 "refId": "A"
               },
               {

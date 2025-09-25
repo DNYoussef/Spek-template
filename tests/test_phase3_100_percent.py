@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
-"""
-Phase 3 ComponentIntegrator 100% Reality Test Suite
-=================================================
+from src.constants.base import MAXIMUM_RETRY_ATTEMPTS
 
 Comprehensive test suite to verify that ComponentIntegrator achieves 100% reality
 by testing:
 1. ComponentIntegrator initialization without failures
 2. All fallbacks work when modules are missing
-3. Real violation detection in StreamProcessor
+MAXIMUM_RETRY_ATTEMPTS. Real violation detection in StreamProcessor
 4. Actual caching in IncrementalCache
 5. Real resource stats from ResourceManager
 6. Full integration test analyzing real files
@@ -74,7 +71,6 @@ class TestPhase3ComponentIntegrator100PercentReality(unittest.TestCase):
 
 def test_component_initialization():
     """Test 2: All components initialize successfully."""
-    print("\n=== Test 2: Component Initialization ===")
     try:
         from component_integrator import get_component_integrator
 
@@ -105,7 +101,6 @@ def test_component_initialization():
 
 def test_memory_monitor_real_usage():
     """Test 3: MemoryMonitor returns real memory metrics."""
-    print("\n=== Test 3: Real Memory Monitoring ===")
     try:
         from optimization.memory_monitor import MemoryMonitor
 
@@ -134,12 +129,10 @@ def test_memory_monitor_real_usage():
             return False
 
     except Exception as e:
-        print(f"[FAIL] Memory monitoring test failed: {e}")
         return False
 
 def test_stream_processor_real_analysis():
     """Test 4: StreamProcessor processes real files with violation detection."""
-    print("\n=== Test 4: Real Stream Processing ===")
     try:
         from streaming.stream_processor import StreamProcessor
 
@@ -205,12 +198,10 @@ class GodObject:  # God object simulation
             return False
 
     except Exception as e:
-        print(f"[FAIL] Stream processing test failed: {e}")
         return False
 
 def test_architecture_coordination():
     """Test 5: Architecture components coordinate properly."""
-    print("\n=== Test 5: Architecture Coordination ===")
     try:
         from architecture.orchestrator import ArchitectureOrchestrator
         from architecture.aggregator import ResultAggregator
@@ -241,12 +232,10 @@ def test_architecture_coordination():
             return False
 
     except Exception as e:
-        print(f"[FAIL] Architecture coordination test failed: {e}")
         return False
 
 def test_end_to_end_integration():
     """Test 6: Complete end-to-end integration test."""
-    print("\n=== Test 6: End-to-End Integration ===")
     try:
         from component_integrator import get_component_integrator
 
@@ -272,7 +261,6 @@ def problematic_function(arg1, arg2, arg3, arg4, arg5, arg6):
                 print(f"[OK] End-to-end analysis completed: {len(violations)} violations in {files_processed} files")
 
                 if len(violations) > 0:
-                    print("[OK] Real violations detected in end-to-end test")
 
                 # Check performance metrics
                 metrics = result.get("metrics", {})
@@ -289,12 +277,10 @@ def problematic_function(arg1, arg2, arg3, arg4, arg5, arg6):
             os.unlink(temp_file)
 
     except Exception as e:
-        print(f"[FAIL] End-to-end integration test failed: {e}")
         return False
 
 def test_incremental_cache_functionality():
     """Test 7: IncrementalCache get/set methods work."""
-    print("\n=== Test 7: IncrementalCache Functionality ===")
     try:
         from streaming.incremental_cache import IncrementalCache
 
@@ -317,12 +303,10 @@ def test_incremental_cache_functionality():
             return False
 
     except Exception as e:
-        print(f"[FAIL] IncrementalCache test failed: {e}")
         return False
 
 def test_resource_manager_functionality():
     """Test 8: ResourceManager trigger_cleanup and record_file_analyzed work."""
-    print("\n=== Test 8: ResourceManager Functionality ===")
     try:
         from optimization.resource_manager import ResourceManager
 
@@ -346,7 +330,6 @@ def test_resource_manager_functionality():
             return False
 
     except Exception as e:
-        print(f"[FAIL] ResourceManager test failed: {e}")
         return False
 
 def main():
@@ -374,7 +357,6 @@ def main():
             if test():
                 passed += 1
         except Exception as e:
-            print(f"[FAIL] Test {test.__name__} crashed: {e}")
 
     end_time = time.time()
 
@@ -384,9 +366,7 @@ def main():
     print("\n" + "=" * 65)
     print("PHASE 3 REALITY SCORE RESULTS")
     print("=" * 65)
-    print(f"Tests Passed: {passed}/{total}")
     print(f"Reality Score: {reality_score:.1f}%")
-    print(f"Test Duration: {end_time - start_time:.2f} seconds")
 
     if reality_score == 100.0:
         print("[SUCCESS] ACHIEVEMENT: 100% REALITY SCORE - Phase 3 is production ready!")

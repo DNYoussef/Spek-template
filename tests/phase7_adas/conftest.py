@@ -3,14 +3,15 @@ ADAS Phase 7 Test Configuration
 Shared fixtures and configuration for ADAS testing suite.
 """
 
-import pytest
-import asyncio
-import os
-import json
-import tempfile
-import shutil
 from typing import Dict, Any, List
+import json
+import os
+import shutil
+import tempfile
+
+import asyncio
 import numpy as np
+import pytest
 
 # Test configuration
 pytest_plugins = ["pytest_asyncio"]
@@ -307,7 +308,6 @@ def pytest_addoption(parser):
 def pytest_runtest_teardown(item):
     """Teardown for each test"""
     # Clean up any temporary resources
-    pass
 
 @pytest.fixture(autouse=True)
 def setup_test_environment():
@@ -321,7 +321,6 @@ def setup_test_environment():
     yield
 
     # Cleanup after test
-    pass
 
 # Test data generators
 def generate_test_vehicle_data(count: int = 5) -> List[Dict[str, Any]]:

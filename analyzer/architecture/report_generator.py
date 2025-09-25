@@ -1,11 +1,8 @@
-# SPDX-License-Identifier: MIT
-"""
-Report Generator - Extracted from ComprehensiveAnalysisEngine
-============================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Specialized report generation using template pattern.
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import json
@@ -17,7 +14,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-
 class ReportTemplate(ABC):
     """
     Abstract template for report generation.
@@ -27,22 +23,18 @@ class ReportTemplate(ABC):
     @abstractmethod
     def generate_header(self, analysis_results: Dict[str, Any]) -> str:
         """Generate report header."""
-        pass
 
     @abstractmethod
     def generate_summary(self, analysis_results: Dict[str, Any]) -> str:
         """Generate report summary."""
-        pass
 
     @abstractmethod
     def generate_details(self, analysis_results: Dict[str, Any]) -> str:
         """Generate detailed results."""
-        pass
 
     @abstractmethod
     def generate_footer(self, analysis_results: Dict[str, Any]) -> str:
         """Generate report footer."""
-        pass
 
     def generate_report(self, analysis_results: Dict[str, Any]) -> str:
         """
@@ -62,8 +54,6 @@ class ReportTemplate(ABC):
     @abstractmethod
     def _combine_sections(self, header: str, summary: str, details: str, footer: str) -> str:
         """Combine report sections."""
-        pass
-
 
 class JsonReportTemplate(ReportTemplate):
     """
@@ -132,7 +122,6 @@ class JsonReportTemplate(ReportTemplate):
             else:
                 sanitized[strategy_name] = result
         return sanitized
-
 
 class HtmlReportTemplate(ReportTemplate):
     """
@@ -228,7 +217,6 @@ class HtmlReportTemplate(ReportTemplate):
         """Combine HTML sections."""
         return header + summary + details + footer
 
-
 class MarkdownReportTemplate(ReportTemplate):
     """
     Markdown report template implementation.
@@ -251,13 +239,13 @@ class MarkdownReportTemplate(ReportTemplate):
         violations_count = len(analysis_results.get("aggregated_violations", []))
         overall_score = analysis_results.get("overall_score", 0.0)
 
-        status_emoji = "✅" if overall_score > 0.8 else "⚠️" if overall_score > 0.5 else "❌"
+        status_emoji = " " if overall_score > 0.8 else "  " if overall_score > 0.5 else " "
 
         return f"""## Executive Summary
 
 - **Overall Score:** {status_emoji} {overall_score:.2f}
 - **Total Violations:** {violations_count}
-- **Analysis Status:** {'✅ Success' if analysis_results.get('success') else '❌ Failed'}
+- **Analysis Status:** {'  Success' if analysis_results.get('success') else '  Failed'}
 - **Execution Time:** {analysis_results.get('execution_time', 0.0):.2f} seconds
 
 """
@@ -272,7 +260,7 @@ class MarkdownReportTemplate(ReportTemplate):
 
         for violation in violations[:5]:  # Show first 5
             severity = violation.get('severity', 'medium')
-            emoji = {"critical": "🔴", "high": "🟠", "medium": "🟡", "low": "🟢"}.get(severity, "⚪")
+            emoji = {"critical": " ", "high": " ", "medium": " ", "low": " "}.get(severity, " ")
             details_md += f"- {emoji} **[{severity.upper()}]** {violation.get('type', 'Unknown')}\n"
             details_md += f"  - {violation.get('description', 'No description')}\n\n"
 
@@ -303,7 +291,6 @@ class MarkdownReportTemplate(ReportTemplate):
     def _combine_sections(self, header: str, summary: str, details: str, footer: str) -> str:
         """Combine Markdown sections."""
         return header + summary + details + footer
-
 
 class ReportGenerator:
     """
@@ -368,7 +355,6 @@ class ReportGenerator:
             return f"<html><body><h1>Report Generation Error</h1><p>{error_message}</p></body></html>"
         else:  # markdown
             return f"# Report Generation Error\n\n**Error:** {error_message}\n\n**Time:** {datetime.now().isoformat()}"
-
 
 def create_report_generator() -> ReportGenerator:
     """Factory function to create report generator."""

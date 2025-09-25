@@ -4,9 +4,8 @@ Multi-factor authentication and role-based access control for defense industry c
 """
 
 import json
-from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
 
+from lib.shared.utilities import get_logger
 
 class AuthenticationMethod(Enum):
     """Supported authentication methods."""
@@ -16,7 +15,6 @@ class AuthenticationMethod(Enum):
     BIOMETRIC = "biometric"
     HARDWARE_TOKEN = "hardware_token"
 
-
 class AuthorizationLevel(Enum):
     """Authorization levels for DFARS compliance."""
     PUBLIC = "public"
@@ -24,7 +22,6 @@ class AuthorizationLevel(Enum):
     CONFIDENTIAL = "confidential"
     RESTRICTED = "restricted"
     TOP_SECRET = "top_secret"
-
 
 class UserRole(Enum):
     """User roles with specific permissions."""
@@ -34,14 +31,12 @@ class UserRole(Enum):
     OPERATIONS_USER = "operations_user"
     READ_ONLY_USER = "read_only_user"
 
-
 class SessionStatus(Enum):
     """User session status."""
     ACTIVE = "active"
     EXPIRED = "expired"
     LOCKED = "locked"
     TERMINATED = "terminated"
-
 
 @dataclass
 class User:
@@ -66,7 +61,6 @@ class User:
     permissions: Set[str]
     metadata: Dict[str, Any]
 
-
 @dataclass
 class Session:
     """User session with security controls."""
@@ -83,7 +77,6 @@ class Session:
     permissions: Set[str]
     access_log: List[Dict[str, Any]]
 
-
 @dataclass
 class Permission:
     """Fine-grained permission definition."""
@@ -94,7 +87,6 @@ class Permission:
     actions: List[str]
     authorization_level: AuthorizationLevel
     conditions: Dict[str, Any]
-
 
 @dataclass
 class AccessRequest:
@@ -108,7 +100,6 @@ class AccessRequest:
     source_ip: str
     user_agent: str
     context: Dict[str, Any]
-
 
 class DFARSAccessControlSystem:
     """
@@ -373,8 +364,8 @@ class DFARSAccessControlSystem:
                 self.permissions[permission.permission_id] = permission
 
     def create_user(self, username: str, email: str, full_name: str,
-                   role: UserRole, clearance_level: AuthorizationLevel,
-                   password: str, **kwargs) -> str:
+                    role: UserRole, clearance_level: AuthorizationLevel,
+                    password: str, **kwargs) -> str:
         """Create new user account with DFARS compliance checks."""
         # Validate password complexity
         if not self._validate_password_complexity(password):
@@ -435,9 +426,9 @@ class DFARSAccessControlSystem:
         return user_id
 
     def authenticate_user(self, username: str, password: str,
-                         source_ip: str, user_agent: str,
-                         mfa_token: Optional[str] = None,
-                         smart_card_data: Optional[str] = None) -> Tuple[Optional[str], Dict[str, Any]]:
+                        source_ip: str, user_agent: str,
+                        mfa_token: Optional[str] = None,
+                        smart_card_data: Optional[str] = None) -> Tuple[Optional[str], Dict[str, Any]]:
         """Authenticate user with multi-factor authentication."""
         auth_result = {
             "success": False,
@@ -583,7 +574,6 @@ class DFARSAccessControlSystem:
             return totp.verify(token, valid_window=1)
         except ImportError:
             # Fallback implementation for demonstration
-            # In production, use proper TOTP library
             return len(token) == 6 and token.isdigit()
 
     def _verify_smart_card(self, user: User, smart_card_data: str) -> bool:
@@ -592,11 +582,10 @@ class DFARSAccessControlSystem:
             return False
 
         # In production, implement proper smart card verification
-        # This is a simplified example
         return smart_card_data == user.smart_card_id
 
     def _create_session(self, user: User, source_ip: str, user_agent: str,
-                       auth_method: AuthenticationMethod) -> str:
+                        auth_method: AuthenticationMethod) -> str:
         """Create authenticated session."""
         session_id = f"sess_{int(time.time())}_{secrets.token_hex(16)}"
 
@@ -619,7 +608,7 @@ class DFARSAccessControlSystem:
         return session_id
 
     def _log_authentication_failure(self, username: str, source_ip: str,
-                                  user_agent: str, reason: str):
+                                    user_agent: str, reason: str):
         """Log authentication failure."""
         self.audit_manager.log_user_authentication(
             user_id=username,  # Use username since user_id may not exist
@@ -722,7 +711,6 @@ class DFARSAccessControlSystem:
         # Check time-based restrictions
         if "time_restrictions" in conditions:
             # Implement time-based access control
-            pass
 
         # Check IP restrictions
         if "allowed_ips" in conditions:

@@ -1,7 +1,4 @@
-"""
-Phase 3 Step 7: Comprehensive Integration Testing Suite
-Tests integration between new enterprise artifact generation system and existing 47,731 LOC analyzer.
-"""
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 import json
 import time
@@ -25,7 +22,6 @@ try:
 except ImportError as e:
     print(f"Import error: {e}")
     UNIFIED_ANALYZER_AVAILABLE = False
-
 
 class EnterpriseIntegrationTestSuite(unittest.TestCase):
     """
@@ -76,7 +72,6 @@ def global_function():
         
     def test_01_baseline_analyzer_functionality(self):
         """Test 1: Baseline - existing analyzer with enterprise features disabled"""
-        print("\n=== TEST 1: Baseline Analyzer Functionality ===")
         
         start_time = time.time()
         
@@ -104,14 +99,12 @@ def global_function():
             "features_enabled": "none"
         })
         
-        print(f" Baseline test completed in {baseline_time:.3f}s")
         print(f"  - Analysis mode: {analyzer.analysis_mode}")
         print(f"  - Violations found: {len(result.get('violations', []))}")
         print(f"  - NASA compliance score: {result.get('nasa_compliance', {}).get('score', 'N/A')}")
         
     def test_02_enterprise_config_integration(self):
         """Test 2: Enterprise configuration system integration"""
-        print("\n=== TEST 2: Enterprise Configuration Integration ===")
         
         # Test enterprise config loading
         config = EnterpriseConfig(environment=EnvironmentType.DEVELOPMENT)
@@ -140,11 +133,8 @@ def global_function():
             self.assertIsNotNone(env_config)
             print(f"   {env.value} environment config loaded")
         
-        print(" Enterprise configuration integration test passed")
-        
     def test_03_six_sigma_domain_integration(self):
         """Test 3: Six Sigma (SR) domain integration with analyzer"""
-        print("\n=== TEST 3: Six Sigma Domain Integration ===")
         
         start_time = time.time()
         
@@ -191,11 +181,8 @@ def global_function():
             "overhead_pct": ((end_time - start_time) / self.performance_data[0]["time_seconds"] - 1) * 100
         })
         
-        print(" Six Sigma domain integration test passed")
-        
     def test_04_supply_chain_domain_integration(self):
         """Test 4: Supply Chain (SC) domain integration"""
-        print("\n=== TEST 4: Supply Chain Domain Integration ===")
         
         start_time = time.time()
         
@@ -263,11 +250,9 @@ def global_function():
         
         print(f"   SBOM generated: {sbom_file}")
         print(f"   SLSA provenance generated: {provenance_file}")
-        print(" Supply Chain domain integration test passed")
         
     def test_05_compliance_domain_integration(self):
         """Test 5: Compliance Matrix (CE) domain integration"""
-        print("\n=== TEST 5: Compliance Domain Integration ===")
         
         start_time = time.time()
         
@@ -316,11 +301,9 @@ def global_function():
         print(f"   SOC2 controls: {len(soc2_controls)}")
         print(f"   ISO27001 controls: {len(iso27001_controls)}")
         print(f"   NIST-SSDF practices: {len(nist_controls)}")
-        print(" Compliance domain integration test passed")
         
     def test_06_full_integration_test(self):
         """Test 6: Full integration with all enterprise features enabled"""
-        print("\n=== TEST 6: Full Integration Test ===")
         
         start_time = time.time()
         
@@ -398,11 +381,9 @@ def global_function():
         print(f"   Performance impact: {performance_impact:.1f}% (target: <4.7%)")
         print(f"   Violations found: {len(result.get('violations', []))}")
         print(f"   NASA compliance score: {result.get('nasa_compliance', {}).get('score', 'N/A')}")
-        print(" Full integration test passed")
         
     def test_07_error_handling_and_graceful_degradation(self):
-        """Test 7: Error handling and graceful degradation"""
-        print("\n=== TEST 7: Error Handling and Graceful Degradation ===")
+        """Test DAYS_RETENTION_PERIOD: Error handling and graceful degradation"""
         
         # Test invalid configuration
         config = EnterpriseConfig()
@@ -439,11 +420,8 @@ def global_function():
         except Exception as e:
             print(f"   Exception handled gracefully: {type(e).__name__}")
         
-        print(" Error handling and graceful degradation test passed")
-        
     def test_08_configuration_compatibility(self):
         """Test 8: Configuration compatibility between systems"""
-        print("\n=== TEST 8: Configuration Compatibility ===")
         
         # Test loading existing analysis_config.yaml
         analysis_config_path = Path(__file__).parent.parent / "analyzer" / "config" / "analysis_config.yaml"
@@ -474,8 +452,6 @@ def global_function():
         self.assertIn("telemetry", config_dict)
         self.assertIn("security", config_dict)
         self.assertIn("compliance", config_dict)
-        
-        print(" Configuration compatibility test passed")
         
     def _calculate_sigma_level(self, dpmo: float) -> float:
         """Calculate approximate sigma level from DPMO"""
@@ -532,13 +508,10 @@ def global_function():
     def generate_integration_report(self):
         """Generate comprehensive integration test report"""
         print("\n" + "="*80)
-        print("ENTERPRISE INTEGRATION TEST REPORT")
         print("="*80)
         
-        print(f"\nTest Suite: Phase 3 Step 7 - Integration Testing")
         print(f"Analyzer Version: 2.0.0")
         print(f"Enterprise Features: Six Sigma, Supply Chain, Compliance")
-        print(f"Total Tests: {len(self.performance_data)}")
         
         print("\nPerformance Analysis:")
         print("-" * 40)
@@ -557,9 +530,7 @@ def global_function():
                 
                 if data["test"] != "baseline":
                     overhead = ((data["time_seconds"] / baseline_time) - 1) * 100
-                    print(f"  {test_name:<20} | {time_ms:8.1f}ms | {features:<15} | +{overhead:5.1f}%")
                 else:
-                    print(f"  {test_name:<20} | {time_ms:8.1f}ms | {features:<15} | baseline")
         
         print("\nIntegration Summary:")
         print("-" * 40)
@@ -583,7 +554,6 @@ def global_function():
         print("Backward Compatibility: PRESERVED ")
         
         print("\n" + "="*80)
-
 
 if __name__ == "__main__":
     # Create test suite

@@ -1,5 +1,4 @@
-# SPDX-License-Identifier: MIT
-# SPDX-FileCopyrightText: 2024 Connascence Safety Analyzer Contributors
+from src.constants.base import QUALITY_GATE_MINIMUM_PASS_RATE
 
 """
 Unified Import Management System
@@ -13,13 +12,11 @@ import logging
 from typing import NamedTuple, Optional, Any, Dict
 logger = logging.getLogger(__name__)
 
-
 class ImportResult(NamedTuple):
     """Result of an import attempt with module and availability status."""
     has_module: bool
     module: Optional[Any] = None
     error: Optional[str] = None
-
 
 class UnifiedImportManager:
     """Centralized import manager for all analyzer components."""
@@ -240,7 +237,7 @@ class UnifiedImportManager:
                     "total_violations": 0,
                     "critical_count": 0,
                     "overall_quality_score": 0.75,
-                    "nasa_compliance_score": 0.85,
+                    "nasa_compliance_score": QUALITY_GATE_MINIMUM_PASS_RATE,
                     "duplication_score": 1.0,
                     "connascence_index": 0,
                     "files_analyzed": 1,
@@ -290,7 +287,7 @@ class UnifiedImportManager:
                     'total_violations': 0,
                     'critical_count': 0,
                     'overall_quality_score': 0.75,  # Safe default for CI
-                    'nasa_compliance_score': 0.85,  # Safe default for CI  
+                    'nasa_compliance_score': QUALITY_GATE_MINIMUM_PASS_RATE,  # Safe default for CI  
                     'duplication_score': 1.0,
                     'connascence_index': 0,
                     'files_analyzed': files_count,
@@ -537,7 +534,6 @@ class UnifiedImportManager:
             self.log_import("output_manager", False, f"Using mock coordinator: {str(e)}")
             return ImportResult(has_module=True, module=OutputModule())
 
-
     def _create_mock_detector(self, detector_name: str):
         """Create a DetectorPool-compatible mock detector for missing components."""
         class MockDetector:
@@ -584,7 +580,6 @@ class UnifiedImportManager:
         summary["unified_mode_ready"] = summary["unified_analyzer"] and summary["analyzer_components"]
         
         return summary
-
 
 # Global import manager instance
 IMPORT_MANAGER = UnifiedImportManager()

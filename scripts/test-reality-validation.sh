@@ -13,9 +13,9 @@ REALITY_PASSED=0
 echo "Starting Check 1: Test assertions..."
 if find . \( -name "*test*.py" -o -name "*test*.js" \) -type f 2>/dev/null | head -5 | xargs grep -l "assert\|expect" >/dev/null 2>&1; then
   REALITY_PASSED=$((REALITY_PASSED + 1))
-  echo "✅ Tests contain real assertions"
+  echo "[OK] Tests contain real assertions"
 else
-  echo "❌ Tests lack meaningful assertions"
+  echo "[FAIL] Tests lack meaningful assertions"
 fi
 REALITY_CHECKS=$((REALITY_CHECKS + 1))
 
@@ -25,12 +25,12 @@ if [[ -f "coverage.xml" ]]; then
   COVERAGE_LINES=$(grep -o 'line-rate="[^"]*"' coverage.xml | head -1 | cut -d'"' -f2)
   if [[ "$COVERAGE_LINES" != "1.0" && "$COVERAGE_LINES" != "0.0" ]]; then
     REALITY_PASSED=$((REALITY_PASSED + 1))
-    echo "✅ Coverage data appears realistic: $COVERAGE_LINES"
+    echo "[OK] Coverage data appears realistic: $COVERAGE_LINES"
   else
-    echo "❌ Suspicious coverage data: $COVERAGE_LINES"
+    echo "[FAIL] Suspicious coverage data: $COVERAGE_LINES"
   fi
 else
-  echo "⚠ No coverage.xml file found (normal for local testing)"
+  echo "[WARN] No coverage.xml file found (normal for local testing)"
 fi
 REALITY_CHECKS=$((REALITY_CHECKS + 1))
 
@@ -39,9 +39,9 @@ echo "Starting Check 3: Source files..."
 SOURCE_FILES=$(find . -name "*.py" -o -name "*.js" -o -name "*.ts" | grep -v test | grep -v node_modules | wc -l)
 if [[ $SOURCE_FILES -gt 5 ]]; then
   REALITY_PASSED=$((REALITY_PASSED + 1))
-  echo "✅ Substantial implementation code found: $SOURCE_FILES files"
+  echo "[OK] Substantial implementation code found: $SOURCE_FILES files"
 else
-  echo "❌ Insufficient implementation code: $SOURCE_FILES files"
+  echo "[FAIL] Insufficient implementation code: $SOURCE_FILES files"
 fi
 REALITY_CHECKS=$((REALITY_CHECKS + 1))
 
@@ -50,9 +50,9 @@ echo ""
 echo "Reality validation results: $REALITY_PASSED/$REALITY_CHECKS checks passed"
 
 if [[ $REALITY_PASSED -eq $REALITY_CHECKS ]]; then
-  echo "✅ Reality validation: PASSED ($REALITY_PASSED/$REALITY_CHECKS)"
+  echo "[OK] Reality validation: PASSED ($REALITY_PASSED/$REALITY_CHECKS)"
   exit 0
 else
-  echo "❌ Reality validation: FAILED ($REALITY_PASSED/$REALITY_CHECKS)"
+  echo "[FAIL] Reality validation: FAILED ($REALITY_PASSED/$REALITY_CHECKS)"
   exit 1
 fi

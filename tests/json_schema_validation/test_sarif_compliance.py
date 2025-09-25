@@ -10,14 +10,15 @@ Tests SARIF compliance issues identified in Phase 1:
 - Fingerprint implementation testing
 """
 
-import json
-import uuid
 from pathlib import Path
 from typing import Dict, List, Any
-import unittest
 from unittest.mock import patch, MagicMock
-import jsonschema
+import json
+import unittest
+
 from jsonschema import validate, ValidationError
+import jsonschema
+import uuid
 
 # Import the actual SARIF reporter to test
 import sys
@@ -26,7 +27,6 @@ sys.path.append(str(Path(__file__).parent.parent.parent))
 from analyzer.reporting.sarif import SARIFReporter
 from analyzer.ast_engine.core_analyzer import AnalysisResult, Violation
 from analyzer.thresholds import ConnascenceType, Severity
-
 
 class TestSARIFCompliance(unittest.TestCase):
     """SARIF 2.1.0 compliance validation tests."""
@@ -50,7 +50,7 @@ class TestSARIFCompliance(unittest.TestCase):
         self.sarif_schema = self._load_sarif_schema()
 
     def _create_sample_violation(self, rule_id: str, conn_type: ConnascenceType, 
-                               severity: Severity, weight: float) -> Violation:
+                                severity: Severity, weight: float) -> Violation:
         """Create a sample violation for testing."""
         return Violation(
             id=f"test_{rule_id}_{uuid.uuid4().hex[:8]}",
@@ -89,7 +89,6 @@ class TestSARIFCompliance(unittest.TestCase):
     def _load_sarif_schema(self) -> Dict:
         """Load SARIF 2.1.0 JSON schema for validation."""
         # In a real implementation, this would load the official SARIF schema
-        # For now, we'll define key validation rules
         return {
             "type": "object",
             "required": ["$schema", "version", "runs"],
@@ -187,7 +186,7 @@ class TestSARIFCompliance(unittest.TestCase):
             
             # Validate rule ID format
             self.assertTrue(rule["id"].startswith("CON_"), 
-                          f"Invalid rule ID format: {rule['id']}")
+                            f"Invalid rule ID format: {rule['id']}")
             
             # Validate descriptions
             self.assertIn("text", rule["shortDescription"])
@@ -210,7 +209,7 @@ class TestSARIFCompliance(unittest.TestCase):
             # Validate level values
             valid_levels = ["note", "warning", "error"]
             self.assertIn(result["level"], valid_levels, 
-                         f"Invalid level: {result['level']}")
+                        f"Invalid level: {result['level']}")
             
             # Validate message structure
             message = result["message"]
@@ -271,7 +270,7 @@ class TestSARIFCompliance(unittest.TestCase):
             # Fingerprints should be unique
             fingerprint = partial_fingerprints["connascenceFingerprint"]
             self.assertNotIn(fingerprint, fingerprints, 
-                           f"Duplicate fingerprint: {fingerprint}")
+                            f"Duplicate fingerprint: {fingerprint}")
             fingerprints.add(fingerprint)
 
     def test_sarif_fingerprint_determinism(self):
@@ -294,7 +293,7 @@ class TestSARIFCompliance(unittest.TestCase):
             fingerprints2 = result2["partialFingerprints"]
             
             self.assertEqual(fingerprints1, fingerprints2, 
-                           "Fingerprints are not deterministic")
+                            "Fingerprints are not deterministic")
 
     # SARIF Severity Mapping Tests
     def test_sarif_severity_mapping_correctness(self):
@@ -320,7 +319,7 @@ class TestSARIFCompliance(unittest.TestCase):
             if original_severity:
                 expected_level = severity_mapping.get(original_severity)
                 self.assertEqual(sarif_level, expected_level,
-                               f"Incorrect severity mapping: {original_severity} -> {sarif_level}")
+                                f"Incorrect severity mapping: {original_severity} -> {sarif_level}")
 
     # SARIF Automation Details Tests
     def test_sarif_automation_details_compliance(self):
@@ -337,12 +336,12 @@ class TestSARIFCompliance(unittest.TestCase):
         required_fields = ["id", "description"]
         for field in required_fields:
             self.assertIn(field, automation_details, 
-                         f"Missing automation details field: {field}")
+                        f"Missing automation details field: {field}")
         
         # Validate ID format
         automation_id = automation_details["id"]
         self.assertTrue(automation_id.startswith("connascence/"),
-                       f"Invalid automation ID format: {automation_id}")
+                        f"Invalid automation ID format: {automation_id}")
         
         # Validate description
         description = automation_details["description"]
@@ -367,7 +366,7 @@ class TestSARIFCompliance(unittest.TestCase):
             required_fields = ["executionSuccessful", "startTimeUtc", "workingDirectory"]
             for field in required_fields:
                 self.assertIn(field, invocation, 
-                             f"Missing invocation field: {field}")
+                            f"Missing invocation field: {field}")
             
             # Validate execution status
             self.assertIsInstance(invocation["executionSuccessful"], bool)
@@ -375,13 +374,13 @@ class TestSARIFCompliance(unittest.TestCase):
             # Validate timestamp format (should end with Z for UTC)
             start_time = invocation["startTimeUtc"]
             self.assertTrue(start_time.endswith("Z"), 
-                          f"Invalid timestamp format: {start_time}")
+                            f"Invalid timestamp format: {start_time}")
             
             # Validate working directory URI format
             working_dir = invocation["workingDirectory"]
             self.assertIn("uri", working_dir)
             self.assertTrue(working_dir["uri"].startswith("file://"),
-                          f"Invalid working directory URI: {working_dir['uri']}")
+                            f"Invalid working directory URI: {working_dir['uri']}")
 
     # SARIF Properties Extension Tests
     def test_sarif_properties_extension_compliance(self):
@@ -407,7 +406,7 @@ class TestSARIFCompliance(unittest.TestCase):
             expected_result_properties = ["connascenceType", "severity", "weight", "locality"]
             for prop in expected_result_properties:
                 self.assertIn(prop, result_properties, 
-                             f"Missing result property: {prop}")
+                            f"Missing result property: {prop}")
 
     # Industry Integration Compatibility Tests
     def test_github_code_scanning_compatibility(self):
@@ -454,7 +453,6 @@ class TestSARIFCompliance(unittest.TestCase):
             properties = rule.get("properties", {})
             self.assertIn("tags", properties, f"Rule {rule['id']} missing tags")
             self.assertIn("precision", properties, f"Rule {rule['id']} missing precision")
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -15,10 +15,9 @@ Detects:
 @compliance Connascence-Theory, NASA-POT10
 """
 
-import ast
-from typing import List, Dict, Set, Tuple
 from collections import defaultdict
-
+from typing import List, Dict, Set, Tuple
+import ast
 
 class EnhancedExecutionDetector:
 
@@ -187,7 +186,6 @@ class EnhancedExecutionDetector:
         elif isinstance(call.func, ast.Attribute):
             return call.func.attr
         return "unknown"
-
 
 def detect_execution_violations(file_path: str, source_code: str) -> List[Dict]:
     detector = EnhancedExecutionDetector()

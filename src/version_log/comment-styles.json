@@ -1,0 +1,241 @@
+{
+  "comment_styles": {
+    ".md": {
+      "style": "html",
+      "begin": "<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->",
+      "end": "<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "Markdown/HTML files"
+    },
+    ".html": {
+      "style": "html",
+      "begin": "<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->",
+      "end": "<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "HTML files"
+    },
+    ".py": {
+      "style": "hash",
+      "begin": "# ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "# ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "# ",
+      "line_suffix": "",
+      "description": "Python files"
+    },
+    ".sh": {
+      "style": "hash",
+      "begin": "# ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "# ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "# ",
+      "line_suffix": "",
+      "description": "Shell scripts"
+    },
+    ".bash": {
+      "style": "hash",
+      "begin": "# ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "# ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "# ",
+      "line_suffix": "",
+      "description": "Bash scripts"
+    },
+    ".js": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "JavaScript files"
+    },
+    ".ts": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "TypeScript files"
+    },
+    ".jsx": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "React JSX files"
+    },
+    ".tsx": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "React TSX files"
+    },
+    ".java": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "Java files"
+    },
+    ".c": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "C files"
+    },
+    ".cpp": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "C++ files"
+    },
+    ".cc": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "C++ files"
+    },
+    ".h": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "Header files"
+    },
+    ".hpp": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "C++ header files"
+    },
+    ".go": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "Go files"
+    },
+    ".rs": {
+      "style": "slash",
+      "begin": "// ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "// ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "// ",
+      "line_suffix": "",
+      "description": "Rust files"
+    },
+    ".yaml": {
+      "style": "hash",
+      "begin": "# ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "# ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "# ",
+      "line_suffix": "",
+      "description": "YAML files"
+    },
+    ".yml": {
+      "style": "hash",
+      "begin": "# ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "# ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "# ",
+      "line_suffix": "",
+      "description": "YAML files"
+    },
+    ".toml": {
+      "style": "hash",
+      "begin": "# ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "# ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "# ",
+      "line_suffix": "",
+      "description": "TOML files"
+    },
+    ".ini": {
+      "style": "semicolon",
+      "begin": "; ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "; ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "; ",
+      "line_suffix": "",
+      "description": "INI configuration files"
+    },
+    ".conf": {
+      "style": "hash",
+      "begin": "# ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "# ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "# ",
+      "line_suffix": "",
+      "description": "Configuration files"
+    },
+    ".sql": {
+      "style": "dash",
+      "begin": "-- ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "-- ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "-- ",
+      "line_suffix": "",
+      "description": "SQL files"
+    },
+    ".rb": {
+      "style": "hash",
+      "begin": "# ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "# ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "# ",
+      "line_suffix": "",
+      "description": "Ruby files"
+    },
+    ".php": {
+      "style": "block",
+      "begin": "/* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE",
+      "end": "AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */",
+      "line_prefix": "",
+      "line_suffix": "",
+      "description": "PHP files"
+    },
+    ".cs": {
+      "style": "slash",
+      "begin": "// ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "// ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "// ",
+      "line_suffix": "",
+      "description": "C# files"
+    },
+    ".swift": {
+      "style": "slash",
+      "begin": "// ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "// ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "// ",
+      "line_suffix": "",
+      "description": "Swift files"
+    },
+    ".kt": {
+      "style": "slash",
+      "begin": "// ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+      "end": "// ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+      "line_prefix": "// ",
+      "line_suffix": "",
+      "description": "Kotlin files"
+    },
+    ".json": {
+      "style": "sidecar",
+      "description": "JSON files use sidecar .footer.md files",
+      "note": "Footer stored in filename.json.footer.md"
+    }
+  },
+  "default_style": {
+    "style": "hash",
+    "begin": "# ===== AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE =====",
+    "end": "# ===== AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE =====",
+    "line_prefix": "# ",
+    "line_suffix": "",
+    "description": "Default for unknown file types"
+  }
+}

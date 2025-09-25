@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Automated Test Runner for JSON Schema Validation Test Suite
+from src.constants.base import TAKE_PROFIT_PERCENTAGE
 
 Orchestrates all Phase 1 JSON schema validation tests with:
 - Comprehensive test execution
@@ -18,7 +16,6 @@ from pathlib import Path
 from typing import Dict, List, Any, Tuple
 import argparse
 from io import StringIO
-
 
 class JSONSchemaTestRunner:
     """Automated test runner for JSON schema validation."""
@@ -39,7 +36,7 @@ class JSONSchemaTestRunner:
         
         # Phase 1 critical issues to track
         self.phase1_issues = {
-            "mock_data_contamination": {"threshold": 0.15, "baseline": 0.857},
+            "mock_data_contamination": {"threshold": TAKE_PROFIT_PERCENTAGE, "baseline": 0.857},
             "schema_consistency": {"threshold": 0.80, "baseline": 0.71},
             "sarif_compliance": {"threshold": 95, "baseline": 85},
             "performance_regression": {"threshold": 1.0, "baseline": 0.036},
@@ -51,11 +48,8 @@ class JSONSchemaTestRunner:
         start_time = time.time()
         
         print("=" * 80)
-        print("JSON SCHEMA VALIDATION TEST SUITE - PHASE 1 FINDINGS")
         print("=" * 80)
-        print(f"Test Directory: {self.test_dir}")
         print(f"Output Directory: {self.output_dir}")
-        print(f"Test Modules: {', '.join(self.test_modules)}")
         print()
         
         # Run tests for each module
@@ -75,8 +69,7 @@ class JSONSchemaTestRunner:
             
             # Print module summary
             status = "PASS" if module_result["success"] else "FAIL"
-            print(f"  {status}: {module_result['tests_run']} tests, "
-                  f"{module_result['failures']} failures, {module_result['errors']} errors")
+                    f"{module_result['failures']} failures, {module_result['errors']} errors")
             print()
         
         # Calculate overall results
@@ -183,13 +176,11 @@ class JSONSchemaTestRunner:
     def _print_summary(self, summary: Dict[str, Any]):
         """Print test execution summary."""
         print("=" * 80)
-        print("TEST EXECUTION SUMMARY")
         print("=" * 80)
         
         # Overall status
         status = "PASS" if summary["overall_success"] else "FAIL"
         print(f"Overall Status: {status}")
-        print(f"Total Tests: {summary['total_tests']}")
         print(f"Failures: {summary['total_failures']}")
         print(f"Errors: {summary['total_errors']}")
         print(f"Execution Time: {summary['total_time']:.2f} seconds")
@@ -199,7 +190,6 @@ class JSONSchemaTestRunner:
         print("Module Results:")
         for module, result in summary["modules"].items():
             status = "PASS" if result["success"] else "FAIL"
-            print(f"  {module}: {status} ({result['tests_run']} tests, {result['time']:.2f}s)")
         print()
         
         # Phase 1 compliance
@@ -252,7 +242,6 @@ class JSONSchemaTestRunner:
 
     def run_specific_test(self, test_name: str, verbose: bool = True) -> Dict[str, Any]:
         """Run a specific test method."""
-        print(f"Running specific test: {test_name}")
         
         # Parse test name (module.class.method)
         parts = test_name.split('.')
@@ -305,19 +294,15 @@ class JSONSchemaTestRunner:
             try:
                 result = self.run_specific_test(test, verbose=False)
                 if not result["success"]:
-                    print(f"REGRESSION DETECTED: {test}")
                     all_passed = False
                 else:
-                    print(f"PROTECTED: {test}")
             except Exception as e:
-                print(f"ERROR in regression test {test}: {e}")
                 all_passed = False
         
         status = "PROTECTED" if all_passed else "VULNERABLE"
         print(f"\nRegression Protection Status: {status}")
         
         return all_passed
-
 
 def main():
     """Main entry point for test runner."""
@@ -326,7 +311,7 @@ def main():
     parser.add_argument("--output", help="Output directory for results")
     parser.add_argument("--verbose", action="store_true", help="Verbose output")
     parser.add_argument("--regression-check", action="store_true", 
-                       help="Run Phase 1 regression protection validation")
+                        help="Run Phase 1 regression protection validation")
     
     args = parser.parse_args()
     
@@ -351,7 +336,6 @@ def main():
     except Exception as e:
         print(f"ERROR: {e}")
         sys.exit(2)
-
 
 if __name__ == "__main__":
     main()

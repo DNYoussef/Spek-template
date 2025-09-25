@@ -9,15 +9,14 @@ Automatically fixes unchecked return value violations by:
 3. Adding acknowledgment comments for side-effect calls
 4. Adding void return documentation
 
-Target: Fix 50%+ of 3,301 Rule 7 violations (1,650+ fixes)
+Target: Fix 50%+ of 3, 301 Rule 7 violations (1, 650+ fixes)
 """
 
-import ast
-import sys
 from pathlib import Path
 from typing import List, Dict, Tuple, Set
+import ast
 import re
-
+import sys
 
 class ReturnValueFixer(ast.NodeTransformer):
     """AST-based fixer for unchecked return values."""
@@ -116,7 +115,6 @@ class ReturnValueFixer(ast.NodeTransformer):
         # Default: capture return value
         return 'capture'
 
-
 def fix_file(file_path: Path) -> Tuple[int, List[str]]:
     """Fix unchecked return values in a file."""
 
@@ -195,7 +193,6 @@ def fix_file(file_path: Path) -> Tuple[int, List[str]]:
 
     return fixes_applied, errors
 
-
 def main():
     """Main execution."""
 
@@ -211,7 +208,7 @@ def main():
 
     print("NASA POT10 Rule 7 Violation Fixer")
     print("=" * 60)
-    print(f"\nTarget: Fix 1,650+ violations (50% of 3,301)")
+    print(f"\nTarget: Fix 1, 650+ violations (50% of 3, 301)")
     print(f"\nProcessing {len(target_files)} files...\n")
 
     total_fixes = 0
@@ -289,7 +286,6 @@ def main():
     print(f"\n\nDetailed report saved to: {report_path}")
 
     return 0 if total_fixes >= target_fixes else 1
-
 
 if __name__ == "__main__":
     sys.exit(main())

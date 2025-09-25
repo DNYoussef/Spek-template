@@ -8,15 +8,17 @@ Enables granular control over enterprise capabilities with complete
 backward compatibility.
 
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
-from dataclasses import dataclass
 from typing import Dict, Any, Optional, List
-from enum import Enum
 import logging
-logger = logging.getLogger(__name__)
 
+from dataclasses import dataclass
+from enum import Enum
+
+from src.constants.base import MAXIMUM_NESTED_DEPTH, NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
+logger = loggi, NASA_POT10_TARGET_COMPLIANCE_THRESHOLDng.getLogger(__name__)
 
 class FeatureState(Enum):
     """Enterprise feature states."""
@@ -24,7 +26,6 @@ class FeatureState(Enum):
     ENABLED = "enabled"
     BETA = "beta"
     DEPRECATED = "deprecated"
-
 
 @dataclass
 class FeatureFlag:
@@ -34,9 +35,9 @@ class FeatureFlag:
     description: str
     dependencies: List[str] = None
     performance_impact: str = "none"  # none, low, medium, high
-    min_nasa_compliance: float = 0.92  # Minimum NASA compliance required
+    min_nasa_compliance: float = NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD  # Minimum NASA compliance required
     
-    def __post_init__(self):
+def __post_init__(self):
         """Post-initialization validation."""
         if self.dependencies is None:
             self.dependencies = []
@@ -48,7 +49,6 @@ class FeatureFlag:
         # NASA Rule 5: Validate NASA compliance requirement
         assert 0.0 <= self.min_nasa_compliance <= 1.0, "NASA compliance must be between 0.0 and 1.0"
 
-
 class EnterpriseFeatureManager:
     """
     Manages enterprise feature flags with zero performance impact.
@@ -59,7 +59,7 @@ class EnterpriseFeatureManager:
     NASA Rule 4 Compliant: All methods under 60 lines.
     """
     
-    def __init__(self, config_manager):
+def __init__(self, config_manager):
         """Initialize feature manager with configuration."""
         # NASA Rule 5: Input validation assertions
         assert config_manager is not None, "config_manager cannot be None"
@@ -73,7 +73,7 @@ class EnterpriseFeatureManager:
         enabled_count = len(self.get_enabled_modules())
         logger.info(f"Enterprise features initialized: {enabled_count} enabled, {len(self.features)} total")
         
-    def is_enabled(self, feature_name: str) -> bool:
+def is_enabled(self, feature_name: str) -> bool:
         """
         Check if enterprise feature is enabled (cached for performance).
         
@@ -107,7 +107,7 @@ class EnterpriseFeatureManager:
         self._feature_cache[feature_name] = enabled
         return enabled
     
-    def get_enabled_modules(self) -> List[str]:
+def get_enabled_modules(self) -> List[str]:
         """
         Get list of enabled enterprise modules.
         
@@ -122,7 +122,7 @@ class EnterpriseFeatureManager:
         
         return enabled_modules
     
-    def get_feature_info(self, feature_name: str) -> Optional[FeatureFlag]:
+def get_feature_info(self, feature_name: str) -> Optional[FeatureFlag]:
         """
         Get detailed information about a feature.
         
@@ -137,7 +137,7 @@ class EnterpriseFeatureManager:
         
         return self.features.get(feature_name)
     
-    def validate_nasa_compliance(self, current_compliance: float) -> Dict[str, Any]:
+def validate_nasa_compliance(self, current_compliance: float) -> Dict[str, Any]:
         """
         Validate that enabled features meet NASA compliance requirements.
         
@@ -175,7 +175,7 @@ class EnterpriseFeatureManager:
         
         return validation_result
     
-    def get_performance_impact_summary(self) -> Dict[str, Any]:
+def get_performance_impact_summary(self) -> Dict[str, Any]:
         """
         Get performance impact summary for enabled features.
         
@@ -219,12 +219,12 @@ class EnterpriseFeatureManager:
             "recommendations": self._generate_performance_recommendations(impact_counts)
         }
     
-    def clear_cache(self) -> None:
+def clear_cache(self) -> None:
         """Clear the feature flag cache (useful for testing)."""
         self._feature_cache.clear()
         logger.debug("Enterprise feature cache cleared")
     
-    def _load_feature_config(self) -> Dict[str, FeatureFlag]:
+def _load_feature_config(self) -> Dict[str, FeatureFlag]:
         """
         Load enterprise feature configuration from config manager.
         
@@ -243,7 +243,7 @@ class EnterpriseFeatureManager:
                     description=config.get('description', ''),
                     dependencies=config.get('dependencies', []),
                     performance_impact=config.get('performance_impact', 'none'),
-                    min_nasa_compliance=config.get('min_nasa_compliance', 0.92)
+                    min_nasa_compliance=config.get('min_nasa_compliance', NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD)
                 )
                 features[name] = feature
                 
@@ -261,7 +261,7 @@ class EnterpriseFeatureManager:
         
         return features
     
-    def _get_default_features(self) -> Dict[str, FeatureFlag]:
+def _get_default_features(self) -> Dict[str, FeatureFlag]:
         """Get default enterprise feature definitions."""
         return {
             'sixsigma': FeatureFlag(
@@ -269,25 +269,25 @@ class EnterpriseFeatureManager:
                 state=FeatureState.DISABLED,
                 description='Six Sigma quality analysis and DMAIC methodology',
                 performance_impact='low',
-                min_nasa_compliance=0.92
+                min_nasa_compliance=NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
             ),
             'dfars_compliance': FeatureFlag(
                 name='dfars_compliance', 
                 state=FeatureState.DISABLED,
                 description='DFARS 252.204-7012 compliance checking',
                 performance_impact='medium',
-                min_nasa_compliance=0.95  # Higher compliance required for defense
+                min_nasa_compliance=NASA_POT10_TARGET_COMPLIANCE_THRESHOLD  # Higher compliance required for defense
             ),
             'supply_chain_governance': FeatureFlag(
                 name='supply_chain_governance',
                 state=FeatureState.DISABLED,
                 description='Supply chain security and SBOM analysis',
                 performance_impact='medium',
-                min_nasa_compliance=0.92
+                min_nasa_compliance=NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
             )
         }
     
-    def _generate_performance_recommendations(self, impact_counts: Dict[str, int]) -> List[str]:
+def _generate_performance_recommendations(self, impact_counts: Dict[str, int]) -> List[str]:
         """Generate performance optimization recommendations."""
         recommendations = []
         

@@ -1,16 +1,11 @@
 from lib.shared.utilities import path_exists
-#!/usr/bin/env python3
-"""
-Baseline comparison script.
-Minimal stub implementation for Self-Dogfooding Analysis workflow.
-"""
+from src.constants.base import NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT
 
 import argparse
 import json
 import sys
 import os
 from datetime import datetime
-
 
 def main():
     parser = argparse.ArgumentParser(description='Compare analysis baselines')
@@ -37,8 +32,8 @@ def main():
         "trends": {
             "nasa_compliance": {
                 "direction": "stable",
-                "current_score": 0.92,
-                "previous_score": 0.90,
+                "current_score": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD,
+                "previous_score": REGULATORY_FACTUALITY_REQUIREMENT,
                 "trend": "improving"
             },
             "violation_count": {
@@ -73,7 +68,6 @@ def main():
     print(f"[TREND] Trends saved to {args.output}")
     
     return 0
-
 
 if __name__ == '__main__':
     sys.exit(main())

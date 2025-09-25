@@ -32,13 +32,13 @@ jobs:
             echo "compliance=$COMPLIANCE" >> $GITHUB_OUTPUT
 
             if (( $(echo "$COMPLIANCE < 90" | bc -l) )); then
-              echo "❌ NASA POT10 compliance: $COMPLIANCE% (minimum: 90%)"
+              echo "[FAIL] NASA POT10 compliance: $COMPLIANCE% (minimum: 90%)"
               exit 1
             else
-              echo "✅ NASA POT10 compliance: $COMPLIANCE%"
+              echo "[OK] NASA POT10 compliance: $COMPLIANCE%"
             fi
           else
-            echo "⚠️ NASA analyzer not found, skipping"
+            echo "[WARN] NASA analyzer not found, skipping"
           fi
 
       - name: Upload NASA Compliance Report
@@ -60,7 +60,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `❌ **NASA POT10 Compliance Failed**\n\nCompliance: ${compliance}% (minimum: 90%)\n\nPlease fix compliance issues before merging.`
+              body: `[FAIL] **NASA POT10 Compliance Failed**\n\nCompliance: ${compliance}% (minimum: 90%)\n\nPlease fix compliance issues before merging.`
             });
 
   theater-detection:
@@ -84,13 +84,13 @@ jobs:
             echo "score=$SCORE" >> $GITHUB_OUTPUT
 
             if [ "$SCORE" -gt 40 ]; then
-              echo "❌ Theater score: $SCORE/100 (maximum: 40/100)"
+              echo "[FAIL] Theater score: $SCORE/100 (maximum: 40/100)"
               exit 1
             else
-              echo "✅ Theater score: $SCORE/100"
+              echo "[OK] Theater score: $SCORE/100"
             fi
           else
-            echo "⚠️ Theater scanner not found, skipping"
+            echo "[WARN] Theater scanner not found, skipping"
           fi
 
       - name: Upload Theater Report
@@ -112,7 +112,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `❌ **Theater Detection Failed**\n\nTheater Score: ${score}/100 (maximum: 40/100)\n\nReduce fake work patterns before merging.`
+              body: `[FAIL] **Theater Detection Failed**\n\nTheater Score: ${score}/100 (maximum: 40/100)\n\nReduce fake work patterns before merging.`
             });
 
   god-object-monitor:
@@ -137,11 +137,11 @@ jobs:
           echo "status=$STATUS" >> $GITHUB_OUTPUT
 
           if [ "$STATUS" = "FAIL" ]; then
-            echo "❌ God objects: $COUNT (maximum: 100)"
+            echo "[FAIL] God objects: $COUNT (maximum: 100)"
             jq -r '.top_10_offenders[] | "  - \(.file): \(.loc) LOC"' god-objects.json
             exit 1
           else
-            echo "✅ God objects: $COUNT"
+            echo "[OK] God objects: $COUNT"
           fi
 
       - name: Upload God Object Report
@@ -163,7 +163,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `❌ **God Object Limit Exceeded**\n\nFound: ${count} god objects (maximum: 100)\n\nRefactor large files before merging.`
+              body: `[FAIL] **God Object Limit Exceeded**\n\nFound: ${count} god objects (maximum: 100)\n\nRefactor large files before merging.`
             });
 
   security-scan:
@@ -188,14 +188,14 @@ jobs:
           echo "high=$HIGH" >> $GITHUB_OUTPUT
 
           if [ "$CRITICAL" -gt 0 ]; then
-            echo "❌ Critical security issues: $CRITICAL"
+            echo "[FAIL] Critical security issues: $CRITICAL"
             jq -r '.results[] | select(.extra.severity == "ERROR") | "  - \(.check_id): \(.path)"' security-results.json
             exit 1
           elif [ "$HIGH" -gt 5 ]; then
-            echo "❌ High severity issues: $HIGH (maximum: 5)"
+            echo "[FAIL] High severity issues: $HIGH (maximum: 5)"
             exit 1
           else
-            echo "✅ Security scan passed (Critical: $CRITICAL, High: $HIGH)"
+            echo "[OK] Security scan passed (Critical: $CRITICAL, High: $HIGH)"
           fi
 
       - name: Upload Security Report
@@ -229,10 +229,10 @@ jobs:
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
 
           if (( $(echo "$COVERAGE < 80" | bc -l) )); then
-            echo "❌ Test coverage: $COVERAGE% (minimum: 80%)"
+            echo "[FAIL] Test coverage: $COVERAGE% (minimum: 80%)"
             exit 1
           else
-            echo "✅ Test coverage: $COVERAGE%"
+            echo "[OK] Test coverage: $COVERAGE%"
           fi
 
       - name: Upload Coverage Report
@@ -254,8 +254,8 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Gate | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| NASA POT10 Compliance | ${{ needs.nasa-compliance.result == 'success' && '✅ PASS' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Theater Detection | ${{ needs.theater-detection.result == 'success' && '✅ PASS' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| God Object Monitor | ${{ needs.god-object-monitor.result == 'success' && '✅ PASS' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Security Scan | ${{ needs.security-scan.result == 'success' && '✅ PASS' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Test Coverage | ${{ needs.test-coverage.result == 'success' && '✅ PASS' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| NASA POT10 Compliance | ${{ needs.nasa-compliance.result == 'success' && '[OK] PASS' || '[FAIL] FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Theater Detection | ${{ needs.theater-detection.result == 'success' && '[OK] PASS' || '[FAIL] FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| God Object Monitor | ${{ needs.god-object-monitor.result == 'success' && '[OK] PASS' || '[FAIL] FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Security Scan | ${{ needs.security-scan.result == 'success' && '[OK] PASS' || '[FAIL] FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Test Coverage | ${{ needs.test-coverage.result == 'success' && '[OK] PASS' || '[FAIL] FAIL' }} |" >> $GITHUB_STEP_SUMMARY

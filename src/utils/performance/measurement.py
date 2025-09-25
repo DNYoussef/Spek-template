@@ -10,12 +10,12 @@ Estimated LOC consolidation: 168 lines
 Estimated CoA reduction: ~125 violations
 """
 
+from typing import Optional, Callable, Any
 import time
-import tracemalloc
+
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import Optional, Callable, Any
-
+import tracemalloc
 
 @dataclass
 class PerformanceMetrics:
@@ -25,11 +25,10 @@ class PerformanceMetrics:
     peak_memory_mb: Optional[float] = None
     cpu_time_ms: Optional[float] = None
 
-
 class PerformanceMeasurement:
     """Context manager for measuring execution performance"""
 
-    def __init__(self, track_memory: bool = True):
+def __init__(self, track_memory: bool = True):
         self.track_memory = track_memory
         self.start_time = None
         self.end_time = None
@@ -37,7 +36,7 @@ class PerformanceMeasurement:
         self.end_memory = None
         self.peak_memory = None
 
-    def __enter__(self):
+def __enter__(self):
         """Start performance measurement"""
         self.start_time = time.perf_counter()
 
@@ -47,7 +46,7 @@ class PerformanceMeasurement:
 
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+def __exit__(self, exc_type, exc_val, exc_tb):
         """Stop performance measurement"""
         self.end_time = time.perf_counter()
 
@@ -57,35 +56,34 @@ class PerformanceMeasurement:
             self.peak_memory = peak
             tracemalloc.stop()
 
-    @property
-    def execution_time_ms(self) -> float:
+@property
+def execution_time_ms(self) -> float:
         """Get execution time in milliseconds"""
         if self.start_time is None or self.end_time is None:
             return 0.0
         return (self.end_time - self.start_time) * 1000
 
-    @property
-    def memory_usage_mb(self) -> float:
+@property
+def memory_usage_mb(self) -> float:
         """Get memory usage in megabytes"""
         if not self.track_memory or self.start_memory is None or self.end_memory is None:
             return 0.0
         return (self.end_memory - self.start_memory) / (1024 * 1024)
 
-    @property
-    def peak_memory_mb(self) -> Optional[float]:
+@property
+def peak_memory_mb(self) -> Optional[float]:
         """Get peak memory usage in megabytes"""
         if not self.track_memory or self.peak_memory is None:
             return None
         return self.peak_memory / (1024 * 1024)
 
-    def get_metrics(self) -> PerformanceMetrics:
+def get_metrics(self) -> PerformanceMetrics:
         """Get all performance metrics"""
         return PerformanceMetrics(
             execution_time_ms=self.execution_time_ms,
             memory_usage_mb=self.memory_usage_mb,
             peak_memory_mb=self.peak_memory_mb
         )
-
 
 @contextmanager
 def measure_performance(track_memory: bool = True):
@@ -95,13 +93,11 @@ def measure_performance(track_memory: bool = True):
     Usage:
         with measure_performance() as perf:
             # code to measure
-            pass
         metrics = perf.get_metrics()
     """
     measurement = PerformanceMeasurement(track_memory=track_memory)
     with measurement:
         yield measurement
-
 
 def benchmark_function(func: Callable, *args, iterations: int = 10, **kwargs) -> PerformanceMetrics:
     """

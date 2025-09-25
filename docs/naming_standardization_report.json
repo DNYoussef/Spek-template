@@ -1,0 +1,2743 @@
+{
+  "summary": {
+    "total_violations": 187,
+    "total_renamings": 79,
+    "files_affected": 53,
+    "backward_compatible_items": 3
+  },
+  "violations_by_type": {
+    "constant": 90,
+    "function": 97
+  },
+  "violations_by_language": {
+    "python": 187
+  },
+  "violations_by_severity": {
+    "high": 174,
+    "medium": 4,
+    "low": 9
+  },
+  "violations": [
+    {
+      "file_path": "analyzer\\analyzer_types.py",
+      "line_number": 155,
+      "violation_type": "constant",
+      "current_name": "AnalysisResult",
+      "suggested_name": "ANALYSIS_RESULT",
+      "language": "python",
+      "context": "AnalysisResult = UnifiedAnalysisResult",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\analyzer_types.py",
+      "line_number": 156,
+      "violation_type": "constant",
+      "current_name": "Error",
+      "suggested_name": "ERROR",
+      "language": "python",
+      "context": "Error = StandardError",
+      "severity": "medium"
+    },
+    {
+      "file_path": "analyzer\\connascence_analyzer.py",
+      "line_number": 195,
+      "violation_type": "constant",
+      "current_name": "ConnascenceDetector",
+      "suggested_name": "CONNASCENCE_DETECTOR",
+      "language": "python",
+      "context": "ConnascenceDetector = ConnascenceAnalyzer  # Alias for compatibility",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\consolidated_analyzer.py",
+      "line_number": 321,
+      "violation_type": "constant",
+      "current_name": "UnifiedConnascenceAnalyzer",
+      "suggested_name": "UNIFIED_CONNASCENCE_ANALYZER",
+      "language": "python",
+      "context": "UnifiedConnascenceAnalyzer = ConsolidatedConnascenceAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\consolidated_analyzer.py",
+      "line_number": 322,
+      "violation_type": "constant",
+      "current_name": "ConnascenceAnalyzer",
+      "suggested_name": "CONNASCENCE_ANALYZER",
+      "language": "python",
+      "context": "ConnascenceAnalyzer = ConsolidatedConnascenceAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\consolidated_analyzer.py",
+      "line_number": 323,
+      "violation_type": "constant",
+      "current_name": "ConnascenceASTAnalyzer",
+      "suggested_name": "CONNASCENCE_A_S_T_ANALYZER",
+      "language": "python",
+      "context": "ConnascenceASTAnalyzer = ConsolidatedConnascenceAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 379,
+      "violation_type": "constant",
+      "current_name": "JSONReporter",
+      "suggested_name": "J_S_O_N_REPORTER",
+      "language": "python",
+      "context": "JSONReporter = getattr(json_reporter_result.module, \"JSONReporter\", None) if json_reporter_result.has_module else None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 380,
+      "violation_type": "constant",
+      "current_name": "SARIFReporter",
+      "suggested_name": "S_A_R_I_F_REPORTER",
+      "language": "python",
+      "context": "SARIFReporter = (",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 325,
+      "violation_type": "constant",
+      "current_name": "UnifiedConnascenceAnalyzer",
+      "suggested_name": "UNIFIED_CONNASCENCE_ANALYZER",
+      "language": "python",
+      "context": "UnifiedConnascenceAnalyzer = analyzer_result.module",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 369,
+      "violation_type": "constant",
+      "current_name": "ConnascenceViolation",
+      "suggested_name": "CONNASCENCE_VIOLATION",
+      "language": "python",
+      "context": "ConnascenceViolation = getattr(mcp_result.module, \"ConnascenceViolation\", None)",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 393,
+      "violation_type": "constant",
+      "current_name": "FallbackAnalyzer",
+      "suggested_name": "FALLBACK_ANALYZER",
+      "language": "python",
+      "context": "FallbackAnalyzer = UnifiedConnascenceAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 184,
+      "violation_type": "constant",
+      "current_name": "UnifiedDuplicationAnalyzer",
+      "suggested_name": "UNIFIED_DUPLICATION_ANALYZER",
+      "language": "python",
+      "context": "UnifiedDuplicationAnalyzer = CIMockDuplicationAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 219,
+      "violation_type": "constant",
+      "current_name": "ArchitectureOrchestrator",
+      "suggested_name": "ARCHITECTURE_ORCHESTRATOR",
+      "language": "python",
+      "context": "ArchitectureOrchestrator = CIMockOrchestrator",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 220,
+      "violation_type": "constant",
+      "current_name": "AnalysisOrchestrator",
+      "suggested_name": "ANALYSIS_ORCHESTRATOR",
+      "language": "python",
+      "context": "AnalysisOrchestrator = CIMockOrchestrator",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 237,
+      "violation_type": "constant",
+      "current_name": "ConnascenceViolation",
+      "suggested_name": "CONNASCENCE_VIOLATION",
+      "language": "python",
+      "context": "ConnascenceViolation = CIConnascenceViolation",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 255,
+      "violation_type": "constant",
+      "current_name": "JSONReporter",
+      "suggested_name": "J_S_O_N_REPORTER",
+      "language": "python",
+      "context": "JSONReporter = CIMockReporter",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 256,
+      "violation_type": "constant",
+      "current_name": "SARIFReporter",
+      "suggested_name": "S_A_R_I_F_REPORTER",
+      "language": "python",
+      "context": "SARIFReporter = CIMockReporter",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 257,
+      "violation_type": "constant",
+      "current_name": "MarkdownReporter",
+      "suggested_name": "MARKDOWN_REPORTER",
+      "language": "python",
+      "context": "MarkdownReporter = CIMockReporter",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 267,
+      "violation_type": "constant",
+      "current_name": "ReportingCoordinator",
+      "suggested_name": "REPORTING_COORDINATOR",
+      "language": "python",
+      "context": "ReportingCoordinator = CIMockOutputManager",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 345,
+      "violation_type": "constant",
+      "current_name": "UnifiedConnascenceAnalyzer",
+      "suggested_name": "UNIFIED_CONNASCENCE_ANALYZER",
+      "language": "python",
+      "context": "UnifiedConnascenceAnalyzer = MinimalUnifiedAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 348,
+      "violation_type": "constant",
+      "current_name": "UnifiedConnascenceAnalyzer",
+      "suggested_name": "UNIFIED_CONNASCENCE_ANALYZER",
+      "language": "python",
+      "context": "UnifiedConnascenceAnalyzer = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 360,
+      "violation_type": "constant",
+      "current_name": "UnifiedDuplicationAnalyzer",
+      "suggested_name": "UNIFIED_DUPLICATION_ANALYZER",
+      "language": "python",
+      "context": "UnifiedDuplicationAnalyzer = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\core.py",
+      "line_number": 400,
+      "violation_type": "constant",
+      "current_name": "FallbackAnalyzer",
+      "suggested_name": "FALLBACK_ANALYZER",
+      "language": "python",
+      "context": "FallbackAnalyzer = UnifiedConnascenceAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\real_unified_analyzer.py",
+      "line_number": 537,
+      "violation_type": "constant",
+      "current_name": "UnifiedConnascenceAnalyzer",
+      "suggested_name": "UNIFIED_CONNASCENCE_ANALYZER",
+      "language": "python",
+      "context": "UnifiedConnascenceAnalyzer = RealUnifiedAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\unified_analyzer.py",
+      "line_number": 167,
+      "violation_type": "function",
+      "current_name": "generateConnascenceReport",
+      "suggested_name": "generate_connascence_report",
+      "language": "python",
+      "context": "def generateConnascenceReport(self, options: Dict[str, Any]) -> Dict[str, Any]:",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\unified_analyzer.py",
+      "line_number": 173,
+      "violation_type": "function",
+      "current_name": "validateSafetyCompliance",
+      "suggested_name": "validate_safety_compliance",
+      "language": "python",
+      "context": "def validateSafetyCompliance(self, options: Dict[str, Any]) -> Dict[str, Any]:",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\unified_analyzer.py",
+      "line_number": 178,
+      "violation_type": "function",
+      "current_name": "getRefactoringSuggestions",
+      "suggested_name": "get_refactoring_suggestions",
+      "language": "python",
+      "context": "def getRefactoringSuggestions(self, options: Dict[str, Any]) -> List[Dict[str, Any]]:",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\unified_analyzer.py",
+      "line_number": 185,
+      "violation_type": "function",
+      "current_name": "getAutomatedFixes",
+      "suggested_name": "get_automated_fixes",
+      "language": "python",
+      "context": "def getAutomatedFixes(self, options: Dict[str, Any]) -> List[Dict[str, Any]]:",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\unified_analyzer.py",
+      "line_number": 55,
+      "violation_type": "constant",
+      "current_name": "UnifiedAnalysisResult",
+      "suggested_name": "UNIFIED_ANALYSIS_RESULT",
+      "language": "python",
+      "context": "UnifiedAnalysisResult = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\__init__.py",
+      "line_number": 41,
+      "violation_type": "constant",
+      "current_name": "UnifiedAnalyzer",
+      "suggested_name": "UNIFIED_ANALYZER",
+      "language": "python",
+      "context": "UnifiedAnalyzer = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration_test_suite.py",
+      "line_number": 37,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration_test_suite.py",
+      "line_number": 74,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\production_validation_test.py",
+      "line_number": 25,
+      "violation_type": "function",
+      "current_name": "setUpClass",
+      "suggested_name": "set_up_class",
+      "language": "python",
+      "context": "def setUpClass(cls):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\production_validation_test.py",
+      "line_number": 37,
+      "violation_type": "function",
+      "current_name": "tearDownClass",
+      "suggested_name": "tear_down_class",
+      "language": "python",
+      "context": "def tearDownClass(cls):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\production_validation_test.py",
+      "line_number": 42,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\production_validation_test.py",
+      "line_number": 46,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\test_command_factory_patterns.py",
+      "line_number": 27,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\test_command_factory_patterns.py",
+      "line_number": 32,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\test_command_factory_patterns.py",
+      "line_number": 92,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\test_command_factory_patterns.py",
+      "line_number": 97,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\test_command_factory_patterns.py",
+      "line_number": 350,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\test_command_factory_patterns.py",
+      "line_number": 355,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\test_main.py",
+      "line_number": 72,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\test_phase3_100_percent.py",
+      "line_number": 38,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\test_phase3_100_percent.py",
+      "line_number": 43,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\test_phase4_configuration.py",
+      "line_number": 37,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\test_phase4_configuration.py",
+      "line_number": 79,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": ".claude\\analyzer\\unified_analyzer_working.py",
+      "line_number": 160,
+      "violation_type": "constant",
+      "current_name": "UnifiedAnalyzer",
+      "suggested_name": "UNIFIED_ANALYZER",
+      "language": "python",
+      "context": "UnifiedAnalyzer = WorkingUnifiedAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": ".claude\\analyzer\\unified_analyzer_working.py",
+      "line_number": 161,
+      "violation_type": "constant",
+      "current_name": "UnifiedConnascenceAnalyzer",
+      "suggested_name": "UNIFIED_CONNASCENCE_ANALYZER",
+      "language": "python",
+      "context": "UnifiedConnascenceAnalyzer = WorkingUnifiedAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": ".sandboxes\\mece-consolidation\\consolidated_detectors.py",
+      "line_number": 283,
+      "violation_type": "constant",
+      "current_name": "MagicLiteralDetector",
+      "suggested_name": "MAGIC_LITERAL_DETECTOR",
+      "language": "python",
+      "context": "MagicLiteralDetector = ConsolidatedMagicLiteralDetector",
+      "severity": "high"
+    },
+    {
+      "file_path": ".sandboxes\\mece-consolidation\\consolidated_detectors.py",
+      "line_number": 284,
+      "violation_type": "constant",
+      "current_name": "PositionDetector",
+      "suggested_name": "POSITION_DETECTOR",
+      "language": "python",
+      "context": "PositionDetector = ConsolidatedPositionDetector",
+      "severity": "high"
+    },
+    {
+      "file_path": ".sandboxes\\mece-consolidation\\consolidated_detectors.py",
+      "line_number": 285,
+      "violation_type": "constant",
+      "current_name": "GodObjectDetector",
+      "suggested_name": "GOD_OBJECT_DETECTOR",
+      "language": "python",
+      "context": "GodObjectDetector = ConsolidatedGodObjectDetector",
+      "severity": "high"
+    },
+    {
+      "file_path": ".sandboxes\\mece-consolidation\\consolidated_detectors.py",
+      "line_number": 286,
+      "violation_type": "constant",
+      "current_name": "DetectorBase",
+      "suggested_name": "DETECTOR_BASE",
+      "language": "python",
+      "context": "DetectorBase = BaseDetector",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\aggregator.py",
+      "line_number": 344,
+      "violation_type": "constant",
+      "current_name": "ResultAggregator",
+      "suggested_name": "RESULT_AGGREGATOR",
+      "language": "python",
+      "context": "ResultAggregator = ViolationAggregator",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "line_number": 402,
+      "violation_type": "constant",
+      "current_name": "UnifiedConnascenceAnalyzer",
+      "suggested_name": "UNIFIED_CONNASCENCE_ANALYZER",
+      "language": "python",
+      "context": "UnifiedConnascenceAnalyzer = RefactoredUnifiedAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "line_number": 414,
+      "violation_type": "constant",
+      "current_name": "ConnascenceAnalyzer",
+      "suggested_name": "CONNASCENCE_ANALYZER",
+      "language": "python",
+      "context": "ConnascenceAnalyzer = RefactoredUnifiedAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "line_number": 415,
+      "violation_type": "constant",
+      "current_name": "ConnascenceASTAnalyzer",
+      "suggested_name": "CONNASCENCE_A_S_T_ANALYZER",
+      "language": "python",
+      "context": "ConnascenceASTAnalyzer = RefactoredUnifiedAnalyzer",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "line_number": 185,
+      "violation_type": "function",
+      "current_name": "generateConnascenceReport",
+      "suggested_name": "generate_connascence_report",
+      "language": "python",
+      "context": "def generateConnascenceReport(self, options: Dict[str, Any]) -> str:",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "line_number": 274,
+      "violation_type": "function",
+      "current_name": "validateSafetyCompliance",
+      "suggested_name": "validate_safety_compliance",
+      "language": "python",
+      "context": "def validateSafetyCompliance(self, options: Dict[str, Any]) -> Dict[str, Any]:",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "line_number": 296,
+      "violation_type": "function",
+      "current_name": "getRefactoringSuggestions",
+      "suggested_name": "get_refactoring_suggestions",
+      "language": "python",
+      "context": "def getRefactoringSuggestions(self, options: Dict[str, Any]) -> List[Dict[str, Any]]:",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "line_number": 321,
+      "violation_type": "function",
+      "current_name": "getAutomatedFixes",
+      "suggested_name": "get_automated_fixes",
+      "language": "python",
+      "context": "def getAutomatedFixes(self, options: Dict[str, Any]) -> List[Dict[str, Any]]:",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\validation_tests.py",
+      "line_number": 40,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\validation_tests.py",
+      "line_number": 238,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\validation_tests.py",
+      "line_number": 247,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\architecture\\validation_tests.py",
+      "line_number": 439,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\ast_engine\\core_analyzer.py",
+      "line_number": 14,
+      "violation_type": "constant",
+      "current_name": "ConsolidatedConnascenceAnalyzer",
+      "suggested_name": "CONSOLIDATED_CONNASCENCE_ANALYZER",
+      "language": "python",
+      "context": "ConsolidatedConnascenceAnalyzer = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\AnalysisOrchestrator.py",
+      "line_number": 37,
+      "violation_type": "constant",
+      "current_name": "TreeSitterBackend",
+      "suggested_name": "TREE_SITTER_BACKEND",
+      "language": "python",
+      "context": "TreeSitterBackend = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\AnalysisOrchestrator.py",
+      "line_number": 38,
+      "violation_type": "constant",
+      "current_name": "LanguageSupport",
+      "suggested_name": "LANGUAGE_SUPPORT",
+      "language": "python",
+      "context": "LanguageSupport = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\ComponentManager.py",
+      "line_number": 16,
+      "violation_type": "constant",
+      "current_name": "SmartIntegrationEngine",
+      "suggested_name": "SMART_INTEGRATION_ENGINE",
+      "language": "python",
+      "context": "SmartIntegrationEngine = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\ComponentManager.py",
+      "line_number": 21,
+      "violation_type": "constant",
+      "current_name": "FailureDetectionSystem",
+      "suggested_name": "FAILURE_DETECTION_SYSTEM",
+      "language": "python",
+      "context": "FailureDetectionSystem = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\ComponentManager.py",
+      "line_number": 26,
+      "violation_type": "constant",
+      "current_name": "NASAPowerOfTenIntegration",
+      "suggested_name": "N_A_S_A_POWER_OF_TEN_INTEGRATION",
+      "language": "python",
+      "context": "NASAPowerOfTenIntegration = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\ComponentManager.py",
+      "line_number": 31,
+      "violation_type": "constant",
+      "current_name": "PolicyManager",
+      "suggested_name": "POLICY_MANAGER",
+      "language": "python",
+      "context": "PolicyManager = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\ComponentManager.py",
+      "line_number": 36,
+      "violation_type": "constant",
+      "current_name": "BudgetTracker",
+      "suggested_name": "BUDGET_TRACKER",
+      "language": "python",
+      "context": "BudgetTracker = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\ComponentManager.py",
+      "line_number": 41,
+      "violation_type": "constant",
+      "current_name": "ConnascenceASTAnalyzer",
+      "suggested_name": "CONNASCENCE_A_S_T_ANALYZER",
+      "language": "python",
+      "context": "ConnascenceASTAnalyzer = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\ComponentManager.py",
+      "line_number": 46,
+      "violation_type": "constant",
+      "current_name": "GodObjectOrchestrator",
+      "suggested_name": "GOD_OBJECT_ORCHESTRATOR",
+      "language": "python",
+      "context": "GodObjectOrchestrator = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\ComponentManager.py",
+      "line_number": 51,
+      "violation_type": "constant",
+      "current_name": "MECEAnalyzer",
+      "suggested_name": "M_E_C_E_ANALYZER",
+      "language": "python",
+      "context": "MECEAnalyzer = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\StreamingManager.py",
+      "line_number": 24,
+      "violation_type": "constant",
+      "current_name": "StreamProcessor",
+      "suggested_name": "STREAM_PROCESSOR",
+      "language": "python",
+      "context": "StreamProcessor = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\StreamingManager.py",
+      "line_number": 25,
+      "violation_type": "constant",
+      "current_name": "IncrementalCache",
+      "suggested_name": "INCREMENTAL_CACHE",
+      "language": "python",
+      "context": "IncrementalCache = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\components\\UnifiedAnalyzerFacade.py",
+      "line_number": 26,
+      "violation_type": "constant",
+      "current_name": "UnifiedAnalysisResult",
+      "suggested_name": "UNIFIED_ANALYSIS_RESULT",
+      "language": "python",
+      "context": "UnifiedAnalysisResult = namedtuple('UnifiedAnalysisResult', [",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\detectors\\base.py",
+      "line_number": 159,
+      "violation_type": "constant",
+      "current_name": "BaseDetector",
+      "suggested_name": "BASE_DETECTOR",
+      "language": "python",
+      "context": "BaseDetector = DetectorBase",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\detectors\\consolidated.py",
+      "line_number": 310,
+      "violation_type": "constant",
+      "current_name": "MagicLiteralDetector",
+      "suggested_name": "MAGIC_LITERAL_DETECTOR",
+      "language": "python",
+      "context": "MagicLiteralDetector = ConsolidatedMagicLiteralDetector",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\detectors\\consolidated.py",
+      "line_number": 311,
+      "violation_type": "constant",
+      "current_name": "PositionDetector",
+      "suggested_name": "POSITION_DETECTOR",
+      "language": "python",
+      "context": "PositionDetector = ConsolidatedPositionDetector",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\detectors\\consolidated.py",
+      "line_number": 312,
+      "violation_type": "constant",
+      "current_name": "GodObjectDetector",
+      "suggested_name": "GOD_OBJECT_DETECTOR",
+      "language": "python",
+      "context": "GodObjectDetector = ConsolidatedGodObjectDetector",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\detectors\\consolidated.py",
+      "line_number": 313,
+      "violation_type": "constant",
+      "current_name": "DetectorBase",
+      "suggested_name": "DETECTOR_BASE",
+      "language": "python",
+      "context": "DetectorBase = ConsolidatedDetectorBase",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\detectors\\consolidated.py",
+      "line_number": 314,
+      "violation_type": "constant",
+      "current_name": "DetectorInterface",
+      "suggested_name": "DETECTOR_INTERFACE",
+      "language": "python",
+      "context": "DetectorInterface = ConsolidatedDetectorBase  # For interface compatibility",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\optimization\\__init__.py",
+      "line_number": 33,
+      "violation_type": "constant",
+      "current_name": "StreamingPerformanceMonitor",
+      "suggested_name": "STREAMING_PERFORMANCE_MONITOR",
+      "language": "python",
+      "context": "StreamingPerformanceMonitor = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\performance\\cache_performance_profiler.py",
+      "line_number": 33,
+      "violation_type": "constant",
+      "current_name": "FileContentCache",
+      "suggested_name": "FILE_CONTENT_CACHE",
+      "language": "python",
+      "context": "FileContentCache = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\performance\\cache_performance_profiler.py",
+      "line_number": 38,
+      "violation_type": "constant",
+      "current_name": "ASTCache",
+      "suggested_name": "A_S_T_CACHE",
+      "language": "python",
+      "context": "ASTCache = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\performance\\cache_performance_profiler.py",
+      "line_number": 43,
+      "violation_type": "constant",
+      "current_name": "IncrementalCache",
+      "suggested_name": "INCREMENTAL_CACHE",
+      "language": "python",
+      "context": "IncrementalCache = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\performance\\__init__.py",
+      "line_number": 25,
+      "violation_type": "constant",
+      "current_name": "RealTimeMonitor",
+      "suggested_name": "REAL_TIME_MONITOR",
+      "language": "python",
+      "context": "RealTimeMonitor = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\performance\\__init__.py",
+      "line_number": 32,
+      "violation_type": "constant",
+      "current_name": "CachePerformanceProfiler",
+      "suggested_name": "CACHE_PERFORMANCE_PROFILER",
+      "language": "python",
+      "context": "CachePerformanceProfiler = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "analyzer\\utils\\types.py",
+      "line_number": 106,
+      "violation_type": "constant",
+      "current_name": "Violation",
+      "suggested_name": "VIOLATION",
+      "language": "python",
+      "context": "Violation = ConnascenceViolation",
+      "severity": "medium"
+    },
+    {
+      "file_path": "analyzer\\utils\\types.py",
+      "line_number": 13,
+      "violation_type": "constant",
+      "current_name": "CoM",
+      "suggested_name": "CO_M",
+      "language": "python",
+      "context": "CoM = \"CoM\"  # Connascence of Meaning (magic literals) - NASA Rule 8",
+      "severity": "low"
+    },
+    {
+      "file_path": "analyzer\\utils\\types.py",
+      "line_number": 14,
+      "violation_type": "constant",
+      "current_name": "CoP",
+      "suggested_name": "CO_P",
+      "language": "python",
+      "context": "CoP = \"CoP\"  # Connascence of Position - NASA Rule 6",
+      "severity": "low"
+    },
+    {
+      "file_path": "analyzer\\utils\\types.py",
+      "line_number": 15,
+      "violation_type": "constant",
+      "current_name": "CoA",
+      "suggested_name": "CO_A",
+      "language": "python",
+      "context": "CoA = \"CoA\"  # Connascence of Algorithm - NASA Rule 1",
+      "severity": "low"
+    },
+    {
+      "file_path": "analyzer\\utils\\types.py",
+      "line_number": 16,
+      "violation_type": "constant",
+      "current_name": "CoT",
+      "suggested_name": "CO_T",
+      "language": "python",
+      "context": "CoT = \"CoT\"  # Connascence of Type - NASA Rule 9",
+      "severity": "low"
+    },
+    {
+      "file_path": "analyzer\\utils\\types.py",
+      "line_number": 17,
+      "violation_type": "constant",
+      "current_name": "CoV",
+      "suggested_name": "CO_V",
+      "language": "python",
+      "context": "CoV = \"CoV\"  # Connascence of Values - NASA Rule 5",
+      "severity": "low"
+    },
+    {
+      "file_path": "analyzer\\utils\\types.py",
+      "line_number": 18,
+      "violation_type": "constant",
+      "current_name": "CoE",
+      "suggested_name": "CO_E",
+      "language": "python",
+      "context": "CoE = \"CoE\"  # Connascence of Execution - NASA Rule 4",
+      "severity": "low"
+    },
+    {
+      "file_path": "analyzer\\utils\\types.py",
+      "line_number": 19,
+      "violation_type": "constant",
+      "current_name": "CoI",
+      "suggested_name": "CO_I",
+      "language": "python",
+      "context": "CoI = \"CoI\"  # Connascence of Identity - NASA Rule 7",
+      "severity": "low"
+    },
+    {
+      "file_path": "analyzer\\utils\\types.py",
+      "line_number": 20,
+      "violation_type": "constant",
+      "current_name": "CoN",
+      "suggested_name": "CO_N",
+      "language": "python",
+      "context": "CoN = \"CoN\"  # Connascence of Naming - NASA Rule 2",
+      "severity": "low"
+    },
+    {
+      "file_path": "analyzer\\utils\\types.py",
+      "line_number": 21,
+      "violation_type": "constant",
+      "current_name": "CoC",
+      "suggested_name": "CO_C",
+      "language": "python",
+      "context": "CoC = \"CoC\"  # Connascence of Convention - NASA Rule 10",
+      "severity": "low"
+    },
+    {
+      "file_path": "src\\safety\\__init__.py",
+      "line_number": 22,
+      "violation_type": "constant",
+      "current_name": "SafetyManager",
+      "suggested_name": "SAFETY_MANAGER",
+      "language": "python",
+      "context": "SafetyManager = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "src\\safety\\__init__.py",
+      "line_number": 28,
+      "violation_type": "constant",
+      "current_name": "FailoverManager",
+      "suggested_name": "FAILOVER_MANAGER",
+      "language": "python",
+      "context": "FailoverManager = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "src\\safety\\__init__.py",
+      "line_number": 34,
+      "violation_type": "constant",
+      "current_name": "RecoverySystem",
+      "suggested_name": "RECOVERY_SYSTEM",
+      "language": "python",
+      "context": "RecoverySystem = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "src\\safety\\__init__.py",
+      "line_number": 40,
+      "violation_type": "constant",
+      "current_name": "AvailabilityMonitor",
+      "suggested_name": "AVAILABILITY_MONITOR",
+      "language": "python",
+      "context": "AvailabilityMonitor = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "src\\safety\\__init__.py",
+      "line_number": 46,
+      "violation_type": "constant",
+      "current_name": "RedundancyValidator",
+      "suggested_name": "REDUNDANCY_VALIDATOR",
+      "language": "python",
+      "context": "RedundancyValidator = None",
+      "severity": "high"
+    },
+    {
+      "file_path": "src\\security\\enhanced_audit_wrapper.py",
+      "line_number": 21,
+      "violation_type": "constant",
+      "current_name": "EnhancedDFARSAuditTrailManager",
+      "suggested_name": "ENHANCED_D_F_A_R_S_AUDIT_TRAIL_MANAGER",
+      "language": "python",
+      "context": "EnhancedDFARSAuditTrailManager = RefactoredDFARSAuditManager",
+      "severity": "high"
+    },
+    {
+      "file_path": "src\\enterprise\\telemetry\\spc_control_charts.py",
+      "line_number": 272,
+      "violation_type": "constant",
+      "current_name": "A2_values",
+      "suggested_name": "A2_VALUES",
+      "language": "python",
+      "context": "A2_values = {2: 1.880, 3: 1.023, 4: 0.729, 5: 0.577, 6: 0.483,",
+      "severity": "medium"
+    },
+    {
+      "file_path": "src\\princess\\quality\\theater-detection\\test_theater_engine.py",
+      "line_number": 34,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "src\\princess\\quality\\theater-detection\\test_theater_engine.py",
+      "line_number": 39,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "src\\princess\\quality\\theater-detection\\test_theater_engine.py",
+      "line_number": 403,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "src\\princess\\quality\\theater-detection\\test_theater_engine.py",
+      "line_number": 437,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "line_number": 298,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "line_number": 340,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "line_number": 387,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "line_number": 473,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "line_number": 541,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+      "line_number": 574,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\cycles\\test_integration.py",
+      "line_number": 95,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\cycles\\test_integration.py",
+      "line_number": 163,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\cycles\\test_integration.py",
+      "line_number": 222,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\cycles\\test_integration.py",
+      "line_number": 319,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\enterprise\\conftest.py",
+      "line_number": 96,
+      "violation_type": "constant",
+      "current_name": "FeatureFlag",
+      "suggested_name": "FEATURE_FLAG",
+      "language": "python",
+      "context": "FeatureFlag = MockFeatureFlag",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\enterprise\\conftest.py",
+      "line_number": 97,
+      "violation_type": "constant",
+      "current_name": "FlagStatus",
+      "suggested_name": "FLAG_STATUS",
+      "language": "python",
+      "context": "FlagStatus = MockEnum()",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\enterprise\\conftest.py",
+      "line_number": 98,
+      "violation_type": "constant",
+      "current_name": "SixSigmaTelemetry",
+      "suggested_name": "SIX_SIGMA_TELEMETRY",
+      "language": "python",
+      "context": "SixSigmaTelemetry = MockTelemetry",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\enterprise\\conftest.py",
+      "line_number": 99,
+      "violation_type": "constant",
+      "current_name": "QualityLevel",
+      "suggested_name": "QUALITY_LEVEL",
+      "language": "python",
+      "context": "QualityLevel = MockEnum()",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\enterprise\\conftest.py",
+      "line_number": 100,
+      "violation_type": "constant",
+      "current_name": "SBOMGenerator",
+      "suggested_name": "S_B_O_M_GENERATOR",
+      "language": "python",
+      "context": "SBOMGenerator = MockSBOMGenerator",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\enterprise\\conftest.py",
+      "line_number": 101,
+      "violation_type": "constant",
+      "current_name": "ComplianceMatrix",
+      "suggested_name": "COMPLIANCE_MATRIX",
+      "language": "python",
+      "context": "ComplianceMatrix = MockComplianceMatrix",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\enterprise\\conftest.py",
+      "line_number": 102,
+      "violation_type": "constant",
+      "current_name": "ComplianceFramework",
+      "suggested_name": "COMPLIANCE_FRAMEWORK",
+      "language": "python",
+      "context": "ComplianceFramework = MockEnum()",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\enterprise\\conftest.py",
+      "line_number": 103,
+      "violation_type": "constant",
+      "current_name": "ComplianceStatus",
+      "suggested_name": "COMPLIANCE_STATUS",
+      "language": "python",
+      "context": "ComplianceStatus = MockEnum()",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\enterprise\\conftest.py",
+      "line_number": 104,
+      "violation_type": "constant",
+      "current_name": "Control",
+      "suggested_name": "CONTROL",
+      "language": "python",
+      "context": "Control = MockControl",
+      "severity": "medium"
+    },
+    {
+      "file_path": "tests\\enterprise\\conftest.py",
+      "line_number": 105,
+      "violation_type": "constant",
+      "current_name": "EnterpriseAnalyzerIntegration",
+      "suggested_name": "ENTERPRISE_ANALYZER_INTEGRATION",
+      "language": "python",
+      "context": "EnterpriseAnalyzerIntegration = MockIntegration",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_enterprise_domains.py",
+      "line_number": 161,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_enterprise_domains.py",
+      "line_number": 173,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_enterprise_integration.py",
+      "line_number": 24,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_error_handling.py",
+      "line_number": 109,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_error_handling.py",
+      "line_number": 114,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_error_handling.py",
+      "line_number": 201,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_error_handling.py",
+      "line_number": 205,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_github_bridge_reality.py",
+      "line_number": 32,
+      "violation_type": "function",
+      "current_name": "setUpClass",
+      "suggested_name": "set_up_class",
+      "language": "python",
+      "context": "def setUpClass(cls):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_github_bridge_reality.py",
+      "line_number": 39,
+      "violation_type": "function",
+      "current_name": "tearDownClass",
+      "suggested_name": "tear_down_class",
+      "language": "python",
+      "context": "def tearDownClass(cls):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_github_bridge_reality.py",
+      "line_number": 43,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_github_bridge_reality.py",
+      "line_number": 209,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_github_bridge_reality.py",
+      "line_number": 303,
+      "violation_type": "function",
+      "current_name": "setUpClass",
+      "suggested_name": "set_up_class",
+      "language": "python",
+      "context": "def setUpClass(cls):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_github_bridge_reality.py",
+      "line_number": 310,
+      "violation_type": "function",
+      "current_name": "tearDownClass",
+      "suggested_name": "tear_down_class",
+      "language": "python",
+      "context": "def tearDownClass(cls):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_performance_load.py",
+      "line_number": 287,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_performance_load.py",
+      "line_number": 296,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\integration\\test_phase2_reality_validation.py",
+      "line_number": 72,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+      "line_number": 35,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+      "line_number": 53,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\json_schema_validation\\test_json_schema_validation.py",
+      "line_number": 39,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\json_schema_validation\\test_risk_mitigation.py",
+      "line_number": 38,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\json_schema_validation\\test_risk_mitigation.py",
+      "line_number": 48,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\json_schema_validation\\test_sarif_compliance.py",
+      "line_number": 34,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_api_endpoints.py",
+      "line_number": 93,
+      "violation_type": "function",
+      "current_name": "getAllToolStatus",
+      "suggested_name": "get_all_tool_status",
+      "language": "python",
+      "context": "def getAllToolStatus(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\linter_integration\\test_api_endpoints.py",
+      "line_number": 108,
+      "violation_type": "function",
+      "current_name": "getToolStatus",
+      "suggested_name": "get_tool_status",
+      "language": "python",
+      "context": "def getToolStatus(self, tool_id: str):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\monitoring\\performance_overhead_validation.py",
+      "line_number": 43,
+      "violation_type": "constant",
+      "current_name": "AdvancedPerformanceMonitor",
+      "suggested_name": "ADVANCED_PERFORMANCE_MONITOR",
+      "language": "python",
+      "context": "AdvancedPerformanceMonitor = MockMonitor",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\nasa-compliance\\test_nasa_agents.py",
+      "line_number": 54,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\nasa-compliance\\test_nasa_agents.py",
+      "line_number": 119,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\nasa-compliance\\test_nasa_agents.py",
+      "line_number": 186,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\nasa-compliance\\test_nasa_agents.py",
+      "line_number": 253,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\nasa-compliance\\test_nasa_agents.py",
+      "line_number": 305,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\nasa-compliance\\test_nasa_agents.py",
+      "line_number": 374,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\phase4\\test_precision_validation.py",
+      "line_number": 30,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\phase4\\test_precision_validation.py",
+      "line_number": 34,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\security\\test_dfars_workflow_automation.py",
+      "line_number": 40,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\security\\test_dfars_workflow_automation.py",
+      "line_number": 93,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\security\\test_dfars_workflow_automation.py",
+      "line_number": 184,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\security\\test_dfars_workflow_automation.py",
+      "line_number": 234,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\security\\test_dfars_workflow_automation.py",
+      "line_number": 313,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\security\\test_dfars_workflow_automation.py",
+      "line_number": 403,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\security\\test_dfars_workflow_automation.py",
+      "line_number": 476,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\security\\test_dfars_workflow_automation.py",
+      "line_number": 484,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\security\\test_dfars_workflow_automation.py",
+      "line_number": 579,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\security\\test_dfars_workflow_automation.py",
+      "line_number": 586,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\sixsigma\\test_integration.py",
+      "line_number": 28,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\sixsigma\\test_integration.py",
+      "line_number": 33,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\sixsigma\\test_integration.py",
+      "line_number": 295,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\sixsigma\\test_integration.py",
+      "line_number": 299,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\theater-detection\\test_theater_detection.py",
+      "line_number": 28,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\theater-detection\\test_theater_detection.py",
+      "line_number": 32,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\theater-detection\\test_theater_detection.py",
+      "line_number": 159,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\theater-detection\\test_theater_detection.py",
+      "line_number": 163,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\theater-detection\\test_theater_detection.py",
+      "line_number": 236,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\theater-detection\\test_theater_detection.py",
+      "line_number": 240,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\theater-detection\\test_theater_detection.py",
+      "line_number": 375,
+      "violation_type": "function",
+      "current_name": "setUp",
+      "suggested_name": "set_up",
+      "language": "python",
+      "context": "def setUp(self):",
+      "severity": "high"
+    },
+    {
+      "file_path": "tests\\theater-detection\\test_theater_detection.py",
+      "line_number": 378,
+      "violation_type": "function",
+      "current_name": "tearDown",
+      "suggested_name": "tear_down",
+      "language": "python",
+      "context": "def tearDown(self):",
+      "severity": "high"
+    }
+  ],
+  "renaming_map": [
+    {
+      "old_name": "AnalysisResult",
+      "new_name": "ANALYSIS_RESULT",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\analyzer_types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "Error",
+      "new_name": "ERROR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\analyzer_types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ConnascenceDetector",
+      "new_name": "CONNASCENCE_DETECTOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\connascence_analyzer.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "UnifiedConnascenceAnalyzer",
+      "new_name": "UNIFIED_CONNASCENCE_ANALYZER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\consolidated_analyzer.py",
+        ".claude\\analyzer\\unified_analyzer_working.py",
+        "analyzer\\real_unified_analyzer.py",
+        "analyzer\\core.py",
+        "analyzer\\architecture\\refactored_unified_analyzer.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ConnascenceAnalyzer",
+      "new_name": "CONNASCENCE_ANALYZER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\architecture\\refactored_unified_analyzer.py",
+        "analyzer\\consolidated_analyzer.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ConnascenceASTAnalyzer",
+      "new_name": "CONNASCENCE_A_S_T_ANALYZER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\architecture\\refactored_unified_analyzer.py",
+        "analyzer\\consolidated_analyzer.py",
+        "analyzer\\components\\ComponentManager.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "JSONReporter",
+      "new_name": "J_S_O_N_REPORTER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\core.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "SARIFReporter",
+      "new_name": "S_A_R_I_F_REPORTER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\core.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ConnascenceViolation",
+      "new_name": "CONNASCENCE_VIOLATION",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\core.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "FallbackAnalyzer",
+      "new_name": "FALLBACK_ANALYZER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\core.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "UnifiedDuplicationAnalyzer",
+      "new_name": "UNIFIED_DUPLICATION_ANALYZER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\core.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ArchitectureOrchestrator",
+      "new_name": "ARCHITECTURE_ORCHESTRATOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\core.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "AnalysisOrchestrator",
+      "new_name": "ANALYSIS_ORCHESTRATOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\core.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "MarkdownReporter",
+      "new_name": "MARKDOWN_REPORTER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\core.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ReportingCoordinator",
+      "new_name": "REPORTING_COORDINATOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\core.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "generateConnascenceReport",
+      "new_name": "generate_connascence_report",
+      "name_type": "function",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\unified_analyzer.py",
+        "analyzer\\architecture\\refactored_unified_analyzer.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "validateSafetyCompliance",
+      "new_name": "validate_safety_compliance",
+      "name_type": "function",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\unified_analyzer.py",
+        "analyzer\\architecture\\refactored_unified_analyzer.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "getRefactoringSuggestions",
+      "new_name": "get_refactoring_suggestions",
+      "name_type": "function",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\unified_analyzer.py",
+        "analyzer\\architecture\\refactored_unified_analyzer.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "getAutomatedFixes",
+      "new_name": "get_automated_fixes",
+      "name_type": "function",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\unified_analyzer.py",
+        "analyzer\\architecture\\refactored_unified_analyzer.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "UnifiedAnalysisResult",
+      "new_name": "UNIFIED_ANALYSIS_RESULT",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\unified_analyzer.py",
+        "analyzer\\components\\UnifiedAnalyzerFacade.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "UnifiedAnalyzer",
+      "new_name": "UNIFIED_ANALYZER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\__init__.py",
+        ".claude\\analyzer\\unified_analyzer_working.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "setUp",
+      "new_name": "set_up",
+      "name_type": "function",
+      "language": "python",
+      "files_affected": [
+        "tests\\integration\\test_enterprise_integration.py",
+        "tests\\security\\test_dfars_workflow_automation.py",
+        "tests\\sixsigma\\test_integration.py",
+        "tests\\integration\\test_phase2_reality_validation.py",
+        "tests\\batch3_validation\\test_strategy_pattern_validation.py",
+        "tests\\production_validation_test.py",
+        "tests\\integration\\test_github_bridge_reality.py",
+        "tests\\json_schema_validation\\test_sarif_compliance.py",
+        "tests\\integration\\test_enterprise_domains.py",
+        "tests\\theater-detection\\test_theater_detection.py",
+        "tests\\test_phase3_100_percent.py",
+        "tests\\json_schema_validation\\test_json_schema_validation.py",
+        "tests\\cycles\\test_integration.py",
+        "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+        "analyzer\\architecture\\validation_tests.py",
+        "tests\\integration\\test_error_handling.py",
+        "tests\\nasa-compliance\\test_nasa_agents.py",
+        "tests\\integration_test_suite.py",
+        "tests\\test_phase4_configuration.py",
+        "tests\\test_command_factory_patterns.py",
+        "tests\\phase4\\test_precision_validation.py",
+        "tests\\test_main.py",
+        "tests\\integration\\test_performance_load.py",
+        "tests\\json_schema_validation\\test_risk_mitigation.py",
+        "src\\princess\\quality\\theater-detection\\test_theater_engine.py"
+      ],
+      "backward_compatible": true
+    },
+    {
+      "old_name": "tearDown",
+      "new_name": "tear_down",
+      "name_type": "function",
+      "language": "python",
+      "files_affected": [
+        "tests\\security\\test_dfars_workflow_automation.py",
+        "tests\\integration\\test_enterprise_domains.py",
+        "tests\\sixsigma\\test_integration.py",
+        "tests\\integration\\test_error_handling.py",
+        "tests\\phase4\\test_precision_validation.py",
+        "tests\\json_schema_validation\\test_full_pipeline_integration.py",
+        "tests\\theater-detection\\test_theater_detection.py",
+        "tests\\test_phase3_100_percent.py",
+        "tests\\integration\\test_performance_load.py",
+        "tests\\integration_test_suite.py",
+        "src\\princess\\quality\\theater-detection\\test_theater_engine.py",
+        "tests\\test_phase4_configuration.py",
+        "tests\\json_schema_validation\\test_risk_mitigation.py",
+        "tests\\test_command_factory_patterns.py",
+        "analyzer\\architecture\\validation_tests.py",
+        "tests\\production_validation_test.py"
+      ],
+      "backward_compatible": true
+    },
+    {
+      "old_name": "setUpClass",
+      "new_name": "set_up_class",
+      "name_type": "function",
+      "language": "python",
+      "files_affected": [
+        "tests\\integration\\test_github_bridge_reality.py",
+        "tests\\production_validation_test.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "tearDownClass",
+      "new_name": "tear_down_class",
+      "name_type": "function",
+      "language": "python",
+      "files_affected": [
+        "tests\\integration\\test_github_bridge_reality.py",
+        "tests\\production_validation_test.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "MagicLiteralDetector",
+      "new_name": "MAGIC_LITERAL_DETECTOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        ".sandboxes\\mece-consolidation\\consolidated_detectors.py",
+        "analyzer\\detectors\\consolidated.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "PositionDetector",
+      "new_name": "POSITION_DETECTOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        ".sandboxes\\mece-consolidation\\consolidated_detectors.py",
+        "analyzer\\detectors\\consolidated.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "GodObjectDetector",
+      "new_name": "GOD_OBJECT_DETECTOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        ".sandboxes\\mece-consolidation\\consolidated_detectors.py",
+        "analyzer\\detectors\\consolidated.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "DetectorBase",
+      "new_name": "DETECTOR_BASE",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        ".sandboxes\\mece-consolidation\\consolidated_detectors.py",
+        "analyzer\\detectors\\consolidated.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ResultAggregator",
+      "new_name": "RESULT_AGGREGATOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\architecture\\aggregator.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ConsolidatedConnascenceAnalyzer",
+      "new_name": "CONSOLIDATED_CONNASCENCE_ANALYZER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\ast_engine\\core_analyzer.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "TreeSitterBackend",
+      "new_name": "TREE_SITTER_BACKEND",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\components\\AnalysisOrchestrator.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "LanguageSupport",
+      "new_name": "LANGUAGE_SUPPORT",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\components\\AnalysisOrchestrator.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "SmartIntegrationEngine",
+      "new_name": "SMART_INTEGRATION_ENGINE",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\components\\ComponentManager.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "FailureDetectionSystem",
+      "new_name": "FAILURE_DETECTION_SYSTEM",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\components\\ComponentManager.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "NASAPowerOfTenIntegration",
+      "new_name": "N_A_S_A_POWER_OF_TEN_INTEGRATION",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\components\\ComponentManager.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "PolicyManager",
+      "new_name": "POLICY_MANAGER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\components\\ComponentManager.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "BudgetTracker",
+      "new_name": "BUDGET_TRACKER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\components\\ComponentManager.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "GodObjectOrchestrator",
+      "new_name": "GOD_OBJECT_ORCHESTRATOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\components\\ComponentManager.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "MECEAnalyzer",
+      "new_name": "M_E_C_E_ANALYZER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\components\\ComponentManager.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "StreamProcessor",
+      "new_name": "STREAM_PROCESSOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\components\\StreamingManager.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "IncrementalCache",
+      "new_name": "INCREMENTAL_CACHE",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\components\\StreamingManager.py",
+        "analyzer\\performance\\cache_performance_profiler.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "BaseDetector",
+      "new_name": "BASE_DETECTOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\detectors\\base.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "DetectorInterface",
+      "new_name": "DETECTOR_INTERFACE",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\detectors\\consolidated.py"
+      ],
+      "backward_compatible": true
+    },
+    {
+      "old_name": "StreamingPerformanceMonitor",
+      "new_name": "STREAMING_PERFORMANCE_MONITOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\optimization\\__init__.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "FileContentCache",
+      "new_name": "FILE_CONTENT_CACHE",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\performance\\cache_performance_profiler.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ASTCache",
+      "new_name": "A_S_T_CACHE",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\performance\\cache_performance_profiler.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "RealTimeMonitor",
+      "new_name": "REAL_TIME_MONITOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\performance\\__init__.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "CachePerformanceProfiler",
+      "new_name": "CACHE_PERFORMANCE_PROFILER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\performance\\__init__.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "Violation",
+      "new_name": "VIOLATION",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\utils\\types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "CoM",
+      "new_name": "CO_M",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\utils\\types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "CoP",
+      "new_name": "CO_P",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\utils\\types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "CoA",
+      "new_name": "CO_A",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\utils\\types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "CoT",
+      "new_name": "CO_T",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\utils\\types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "CoV",
+      "new_name": "CO_V",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\utils\\types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "CoE",
+      "new_name": "CO_E",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\utils\\types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "CoI",
+      "new_name": "CO_I",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\utils\\types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "CoN",
+      "new_name": "CO_N",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\utils\\types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "CoC",
+      "new_name": "CO_C",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "analyzer\\utils\\types.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "SafetyManager",
+      "new_name": "SAFETY_MANAGER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "src\\safety\\__init__.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "FailoverManager",
+      "new_name": "FAILOVER_MANAGER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "src\\safety\\__init__.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "RecoverySystem",
+      "new_name": "RECOVERY_SYSTEM",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "src\\safety\\__init__.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "AvailabilityMonitor",
+      "new_name": "AVAILABILITY_MONITOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "src\\safety\\__init__.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "RedundancyValidator",
+      "new_name": "REDUNDANCY_VALIDATOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "src\\safety\\__init__.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "EnhancedDFARSAuditTrailManager",
+      "new_name": "ENHANCED_D_F_A_R_S_AUDIT_TRAIL_MANAGER",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "src\\security\\enhanced_audit_wrapper.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "A2_values",
+      "new_name": "A2_VALUES",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "src\\enterprise\\telemetry\\spc_control_charts.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "FeatureFlag",
+      "new_name": "FEATURE_FLAG",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "tests\\enterprise\\conftest.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "FlagStatus",
+      "new_name": "FLAG_STATUS",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "tests\\enterprise\\conftest.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "SixSigmaTelemetry",
+      "new_name": "SIX_SIGMA_TELEMETRY",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "tests\\enterprise\\conftest.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "QualityLevel",
+      "new_name": "QUALITY_LEVEL",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "tests\\enterprise\\conftest.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "SBOMGenerator",
+      "new_name": "S_B_O_M_GENERATOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "tests\\enterprise\\conftest.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ComplianceMatrix",
+      "new_name": "COMPLIANCE_MATRIX",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "tests\\enterprise\\conftest.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ComplianceFramework",
+      "new_name": "COMPLIANCE_FRAMEWORK",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "tests\\enterprise\\conftest.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "ComplianceStatus",
+      "new_name": "COMPLIANCE_STATUS",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "tests\\enterprise\\conftest.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "Control",
+      "new_name": "CONTROL",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "tests\\enterprise\\conftest.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "EnterpriseAnalyzerIntegration",
+      "new_name": "ENTERPRISE_ANALYZER_INTEGRATION",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "tests\\enterprise\\conftest.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "getAllToolStatus",
+      "new_name": "get_all_tool_status",
+      "name_type": "function",
+      "language": "python",
+      "files_affected": [
+        "tests\\linter_integration\\test_api_endpoints.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "getToolStatus",
+      "new_name": "get_tool_status",
+      "name_type": "function",
+      "language": "python",
+      "files_affected": [
+        "tests\\linter_integration\\test_api_endpoints.py"
+      ],
+      "backward_compatible": false
+    },
+    {
+      "old_name": "AdvancedPerformanceMonitor",
+      "new_name": "ADVANCED_PERFORMANCE_MONITOR",
+      "name_type": "constant",
+      "language": "python",
+      "files_affected": [
+        "tests\\monitoring\\performance_overhead_validation.py"
+      ],
+      "backward_compatible": false
+    }
+  ]
+}

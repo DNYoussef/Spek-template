@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Full Pipeline Integration Test Suite for Phase 1 JSON Schema Analysis
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, TAKE_PROFIT_PERCENTAGE
 
 End-to-end tests validating the complete JSON generation and validation pipeline:
 - Complete workflow testing from analysis to JSON output
@@ -26,7 +24,6 @@ from analyzer.reporting.json import JSONReporter
 from analyzer.reporting.sarif import SARIFReporter
 from analyzer.ast_engine.core_analyzer import AnalysisResult, Violation
 from analyzer.thresholds import ConnascenceType, Severity
-
 
 class TestFullPipelineIntegration(unittest.TestCase):
     """End-to-end integration tests for the complete JSON pipeline."""
@@ -383,7 +380,7 @@ def calculate_score(base, multiplier):
         json_output = self.json_reporter.generate(self.comprehensive_result)
         result_dict = json.loads(json_output)
         mock_score = self._calculate_mock_contamination(result_dict)
-        self.assertLess(mock_score, 0.15, "REGRESSION: Mock data contamination detected")
+        self.assertLess(mock_score, TAKE_PROFIT_PERCENTAGE, "REGRESSION: Mock data contamination detected")
         
         # 2. Schema Consistency Validation (71% consistency score - needs improvement)
         self._validate_schema_consistency(result_dict)
@@ -391,7 +388,7 @@ def calculate_score(base, multiplier):
         # 3. Policy Field Standardization
         self._validate_policy_field_standardization(result_dict)
         
-        # 4. SARIF 2.1.0 Compliance (85/100 score - 3 critical issues)
+        # 4. SARIF 2.1.0 Compliance (85/MAXIMUM_FUNCTION_LENGTH_LINES score - 3 critical issues)
         sarif_output = self.sarif_reporter.generate(self.comprehensive_result)
         sarif_dict = json.loads(sarif_output)
         self._validate_sarif_compliance(sarif_dict)
@@ -399,7 +396,7 @@ def calculate_score(base, multiplier):
         # 5. Violation ID Determinism (85% probability failure mode)
         self._validate_violation_id_determinism(result_dict)
         
-        # 6. Performance Regression Detection (3.6% JSON generation time baseline)
+        # 6. Performance Regression Detection (MAXIMUM_RETRY_ATTEMPTS.6% JSON generation time baseline)
         start_time = time.perf_counter()
         self.json_reporter.generate(self.comprehensive_result)
         generation_time = time.perf_counter() - start_time
@@ -418,7 +415,7 @@ def calculate_score(base, multiplier):
                 locality="cross_module" if i % 5 == 0 else "local",
                 file_path=f"src/module_{i // 5:03d}.py",
                 line_number=i % 1000 + 1,
-                column=i % 80 + 1,
+                column=i % MINIMUM_TEST_COVERAGE_PERCENTAGE + 1,
                 description=f"Stress test violation {i}",
                 recommendation=f"Fix stress violation {i}",
                 context={"stress_test": True, "index": i}
@@ -591,7 +588,7 @@ def calculate_score(base, multiplier):
             for i, violation in enumerate(violations[1:], 1):
                 violation_keys = set(violation.keys())
                 self.assertEqual(first_violation_keys, violation_keys,
-                               f"Violation {i} has inconsistent structure")
+                                f"Violation {i} has inconsistent structure")
 
     def _validate_policy_field_standardization(self, result_dict: Dict):
         """Validate policy field standardization."""
@@ -614,7 +611,6 @@ def calculate_score(base, multiplier):
         for violation_id in violation_ids:
             self.assertIsInstance(violation_id, str)
             self.assertGreater(len(violation_id), 0)
-
 
 if __name__ == "__main__":
     unittest.main()

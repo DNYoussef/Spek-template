@@ -30,7 +30,7 @@ class TheaterEliminationDemo {
       success: false
     };
 
-    console.log('\n🎯 THEATER ELIMINATION DEMONSTRATION');
+    console.log('\n THEATER ELIMINATION DEMONSTRATION');
     console.log('====================================');
     console.log(`Target Files: ${targetFiles.length}`);
     console.log(`Demo ID: ${demo.id}`);
@@ -38,18 +38,18 @@ class TheaterEliminationDemo {
 
     try {
       // Phase 1: Initialize all systems
-      console.log('🔧 Phase 1: System Initialization');
+      console.log(' Phase 1: System Initialization');
       demo.phases.initialization = await this.initializeAllSystems();
       console.log(`   Status: ${demo.phases.initialization.success ? 'SUCCESS' : 'FAILED'}\n`);
 
       // Phase 2: Create sandbox environment
-      console.log('📦 Phase 2: Sandbox Environment Creation');
+      console.log(' Phase 2: Sandbox Environment Creation');
       demo.phases.sandbox = await this.createDemoSandbox();
       console.log(`   Sandbox ID: ${demo.phases.sandbox.sandboxId}`);
       console.log(`   Status: ${demo.phases.sandbox.success ? 'SUCCESS' : 'FAILED'}\n`);
 
       // Phase 3: Execute theater detection
-      console.log('🔍 Phase 3: Theater Pattern Detection');
+      console.log(' Phase 3: Theater Pattern Detection');
       demo.phases.detection = await this.executeTheaterDetection(
         demo.phases.sandbox.sandboxId,
         targetFiles
@@ -59,20 +59,20 @@ class TheaterEliminationDemo {
       console.log(`   Status: ${demo.phases.detection.success ? 'SUCCESS' : 'FAILED'}\n`);
 
       // Phase 4: Deploy Princess agents
-      console.log('👸 Phase 4: Princess Agent Deployment');
+      console.log(' Phase 4: Princess Agent Deployment');
       demo.phases.princesses = await this.deployPrincessAgents(targetFiles);
       console.log(`   Deployed Princesses: ${demo.phases.princesses.deployedPrincesses}`);
       console.log(`   Status: ${demo.phases.princesses.success ? 'SUCCESS' : 'FAILED'}\n`);
 
       // Phase 5: Execute nine-stage elimination
-      console.log('🔄 Phase 5: Nine-Stage Theater Elimination');
+      console.log(' Phase 5: Nine-Stage Theater Elimination');
       demo.phases.nineStage = await this.executeNineStageElimination(targetFiles);
       console.log(`   Completed Stages: ${demo.phases.nineStage.completedStages}/9`);
       console.log(`   Success Rate: ${demo.phases.nineStage.successRate}%`);
       console.log(`   Status: ${demo.phases.nineStage.success ? 'SUCCESS' : 'FAILED'}\n`);
 
       // Phase 6: Final validation
-      console.log('✅ Phase 6: Final Theater-Free Validation');
+      console.log(' Phase 6: Final Theater-Free Validation');
       demo.phases.finalValidation = await this.executeComprehensiveValidation(
         demo.phases.sandbox.sandboxId,
         targetFiles
@@ -93,7 +93,7 @@ class TheaterEliminationDemo {
     } catch (error) {
       demo.error = error.message;
       demo.endTime = new Date().toISOString();
-      console.log(`\n❌ DEMONSTRATION FAILED: ${error.message}\n`);
+      console.log(`\n DEMONSTRATION FAILED: ${error.message}\n`);
       return demo;
     }
   }
@@ -354,7 +354,7 @@ class TheaterEliminationDemo {
    * Display demonstration results
    */
   displayDemoResults(demo) {
-    console.log('🏆 THEATER ELIMINATION DEMONSTRATION RESULTS');
+    console.log(' THEATER ELIMINATION DEMONSTRATION RESULTS');
     console.log('============================================');
     console.log(`Demo ID: ${demo.id}`);
     console.log(`Duration: ${this.calculateDuration(demo.startTime, demo.endTime)} seconds`);
@@ -362,16 +362,16 @@ class TheaterEliminationDemo {
     console.log('============================================\n');
 
     // Phase results
-    console.log('📊 PHASE RESULTS:');
+    console.log(' PHASE RESULTS:');
     for (const [phaseName, result] of Object.entries(demo.phases)) {
-      const status = result.success ? '✅ PASSED' : '❌ FAILED';
+      const status = result.success ? ' PASSED' : ' FAILED';
       console.log(`   ${phaseName.padEnd(20)}: ${status}`);
     }
 
     // Theater elimination results
     if (demo.evidence?.theaterElimination) {
       const te = demo.evidence.theaterElimination;
-      console.log('\n🎭 THEATER ELIMINATION:');
+      console.log('\n THEATER ELIMINATION:');
       console.log(`   Initial Score: ${te.initialScore}/100`);
       console.log(`   Final Score: ${te.finalScore}/100`);
       console.log(`   Improvement: +${te.improvement} points`);
@@ -381,18 +381,18 @@ class TheaterEliminationDemo {
     // Production readiness
     if (demo.evidence?.productionReadiness) {
       const pr = demo.evidence.productionReadiness;
-      console.log('\n🚀 PRODUCTION READINESS:');
+      console.log('\n PRODUCTION READINESS:');
       console.log(`   Ready for Production: ${pr.ready ? 'YES' : 'NO'}`);
       console.log(`   Theater Score: ${pr.theaterScore}/100`);
       console.log(`   Quality Gates Passed: ${pr.qualityGatesPassed}/5`);
 
       if (pr.recommendations.length > 0) {
-        console.log('\n📋 RECOMMENDATIONS:');
-        pr.recommendations.forEach(rec => console.log(`   • ${rec}`));
+        console.log('\n RECOMMENDATIONS:');
+        pr.recommendations.forEach(rec => console.log(`    ${rec}`));
       }
     }
 
-    console.log('\n🎯 DEMONSTRATION COMPLETE');
+    console.log('\n DEMONSTRATION COMPLETE');
     console.log('========================\n');
   }
 

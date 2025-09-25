@@ -10,18 +10,17 @@ Provides comprehensive Git branching safety layer for automated CI/CD failure re
 - Maintains audit trail of all Git operations
 """
 
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple, Any
 import json
 import os
 import subprocess
 import time
-import asyncio
-from datetime import datetime
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Any
+
 from dataclasses import dataclass, field
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
-
+import asyncio
 
 @dataclass
 class GitSafetyBranch:
@@ -37,7 +36,6 @@ class GitSafetyBranch:
     merge_conflicts: List[str] = field(default_factory=list)
     conflict_resolution_attempts: int = 0
 
-
 @dataclass
 class MergeConflictReport:
     """Detailed report of merge conflicts for Queen analysis."""
@@ -50,7 +48,6 @@ class MergeConflictReport:
     recommended_strategy: str
     queen_analysis_required: bool = True
 
-
 @dataclass
 class GitOperation:
     """Tracks Git operations for audit trail."""
@@ -62,7 +59,6 @@ class GitOperation:
     output: str
     error: str = ""
     files_affected: List[str] = field(default_factory=list)
-
 
 class GitSafetyManager:
     """
@@ -399,7 +395,7 @@ class GitSafetyManager:
         return await self.trigger_recursive_merge_resolution(conflict_report)
 
     async def _execute_git_operation(self, operation_type: str, command: List[str],
-                                   description: str, allow_failure: bool = False) -> GitOperation:
+                                    description: str, allow_failure: bool = False) -> GitOperation:
         """Execute Git command with comprehensive logging and error handling."""
 
         operation_id = f"{operation_type}_{int(time.time())}"
@@ -551,7 +547,7 @@ class GitSafetyManager:
             return []
 
     async def _generate_conflict_report(self, safety_branch: GitSafetyBranch,
-                                      conflicted_files: List[str]) -> MergeConflictReport:
+                                        conflicted_files: List[str]) -> MergeConflictReport:
         """Generate detailed conflict report for Queen analysis."""
 
         conflict_id = f"conflict_{safety_branch.branch_name}_{int(time.time())}"
@@ -716,7 +712,6 @@ class GitSafetyManager:
 
         return report
 
-
 async def main():
     """Test Git Safety Manager functionality."""
 
@@ -730,8 +725,6 @@ async def main():
     test_loop_id = f"test_{int(time.time())}"
     test_categories = ["nasa_pot10", "quality_gates"]
 
-    print("Testing Git Safety Manager...")
-
     # Create safety branch
     safety_branch = await safety_manager.create_safety_branch(test_loop_id, test_categories)
     print(f"Created safety branch: {safety_branch.branch_name}")
@@ -743,9 +736,6 @@ async def main():
     # Generate safety report
     safety_report = await safety_manager.generate_git_safety_report()
     print(f"Safety report generated: {safety_report['total_operations']} operations")
-
-    print("Git Safety Manager test completed successfully!")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

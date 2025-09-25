@@ -4,23 +4,23 @@ Integration API Server Tests
 Comprehensive test suite for REST, WebSocket, and GraphQL endpoints.
 """
 
-import pytest
-import asyncio
+from typing import Dict, Any, List
+from unittest.mock import Mock, patch, AsyncMock, MagicMock
 import json
 import time
-import websockets
-from unittest.mock import Mock, patch, AsyncMock, MagicMock
-from typing import Dict, Any, List
-import aiohttp
+
 from aiohttp import web, WSMsgType
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
+import aiohttp
+import asyncio
+import pytest
 import weakref
+import websockets
 
 # Import system under test
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent / "src"))
-
 
 class MockIngestionEngine:
     """Mock real-time ingestion engine for testing"""
@@ -51,7 +51,6 @@ class MockIngestionEngine:
                 }
             ]
         }
-
 
 class MockToolManager:
     """Mock tool management system for testing"""
@@ -131,7 +130,6 @@ class MockToolManager:
             "exitCode": 0
         }
 
-
 class MockCorrelationFramework:
     """Mock correlation framework for testing"""
     
@@ -157,7 +155,6 @@ class MockCorrelationFramework:
                 "averageConfidence": 0.85
             }
         }
-
 
 class TestIntegrationApiServer:
     """Test suite for Integration API Server"""
@@ -239,7 +236,7 @@ class TestIntegrationApiServer:
         }
         
         response = await api_client.post("/api/v1/lint/execute", 
-                                       json=payload, headers=headers)
+                                        json=payload, headers=headers)
         
         assert response.status == 202  # Accepted
         data = await response.json()
@@ -263,7 +260,7 @@ class TestIntegrationApiServer:
         }
         
         response = await api_client.post("/api/v1/lint/execute", 
-                                       json=payload, headers=headers)
+                                        json=payload, headers=headers)
         
         assert response.status == 400
         data = await response.json()
@@ -277,7 +274,7 @@ class TestIntegrationApiServer:
         correlation_id = "test_correlation_123"
         
         response = await api_client.get(f"/api/v1/lint/results/{correlation_id}", 
-                                      headers=headers)
+                                        headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -316,7 +313,7 @@ class TestIntegrationApiServer:
         tool_id = "flake8"
         
         response = await api_client.get(f"/api/v1/tools/{tool_id}/status", 
-                                      headers=headers)
+                                        headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -334,7 +331,7 @@ class TestIntegrationApiServer:
         tool_id = "nonexistent"
         
         response = await api_client.get(f"/api/v1/tools/{tool_id}/status", 
-                                      headers=headers)
+                                        headers=headers)
         
         assert response.status == 404
         data = await response.json()
@@ -351,7 +348,7 @@ class TestIntegrationApiServer:
         }
         
         response = await api_client.post(f"/api/v1/tools/{tool_id}/execute", 
-                                       json=payload, headers=headers)
+                                        json=payload, headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -381,7 +378,7 @@ class TestIntegrationApiServer:
         }
         
         response = await api_client.post("/api/v1/correlations/analyze", 
-                                       json=payload, headers=headers)
+                                        json=payload, headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -396,7 +393,7 @@ class TestIntegrationApiServer:
         """Test correlation clusters list endpoint"""
         headers = {"X-API-Key": "dev-key-12345"}
         response = await api_client.get("/api/v1/correlations/clusters", 
-                                      headers=headers)
+                                        headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -426,7 +423,7 @@ class TestIntegrationApiServer:
         """Test correlation metrics endpoint"""
         headers = {"X-API-Key": "dev-key-12345"}
         response = await api_client.get("/api/v1/metrics/correlations", 
-                                      headers=headers)
+                                        headers=headers)
         
         assert response.status == 200
         data = await response.json()
@@ -508,7 +505,6 @@ class TestIntegrationApiServer:
             assert response.status == 200
             
         # Check rate limit headers would be present in real implementation
-        # This is a simplified test since our mock doesn't implement full rate limiting
     
     @pytest.mark.asyncio
     async def test_cors_headers(self, api_client):
@@ -516,10 +512,6 @@ class TestIntegrationApiServer:
         response = await api_client.get("/health")
         
         # Check basic CORS headers would be present
-        # In a full implementation, we'd check for:
-        # Access-Control-Allow-Origin
-        # Access-Control-Allow-Methods
-        # Access-Control-Allow-Headers
         assert response.status == 200
     
     @pytest.mark.asyncio
@@ -539,7 +531,6 @@ class TestIntegrationApiServer:
     async def test_endpoint_timeout_handling(self, api_client):
         """Test endpoint timeout handling"""
         # This would test timeout scenarios in a real implementation
-        # For now, verify basic response structure
         response = await api_client.get("/health")
         assert response.status == 200
     
@@ -569,12 +560,10 @@ class TestIntegrationApiServer:
         }
         
         response = await api_client.post("/api/v1/lint/execute", 
-                                       json=small_payload, headers=headers)
+                                        json=small_payload, headers=headers)
         assert response.status == 202
         
         # Test with very large payload would fail in real implementation
-        # For now, just verify the endpoint works with normal data
-
 
 class TestWebSocketEndpoints:
     """Test suite for WebSocket functionality"""
@@ -592,7 +581,6 @@ class TestWebSocketEndpoints:
     async def test_websocket_connection(self, mock_dependencies):
         """Test WebSocket connection establishment"""
         # This would test WebSocket connections in a real implementation
-        # For now, verify the mock components work
         assert mock_dependencies["ingestion_engine"] is not None
         assert mock_dependencies["tool_manager"] is not None
         assert mock_dependencies["correlation_framework"] is not None
@@ -637,7 +625,6 @@ class TestWebSocketEndpoints:
             # In real implementation, would test error responses
             if channel:
                 assert len(channel) >= 0  # Basic validation
-
 
 class TestApiPerformance:
     """Performance tests for API endpoints"""
@@ -692,7 +679,6 @@ class TestApiPerformance:
         
         # Memory increase should be reasonable (< 50MB)
         assert memory_increase < 50 * 1024 * 1024
-
 
 if __name__ == "__main__":
     import logging

@@ -3,12 +3,13 @@ Audit Integrity Manager - Handles hash chains, signatures, and integrity verific
 Part of the refactored Enhanced DFARS Audit Trail Manager
 """
 
-import hashlib
-import hmac
-import time
 from typing import List, Dict, Any, Optional
+import hashlib
+import time
+
 from dataclasses import dataclass
 from enum import Enum
+import hmac
 
 from .audit_event_manager import AuditEvent
 

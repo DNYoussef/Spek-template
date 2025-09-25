@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Simple demonstration of the enhanced Gary DPI system with wealth flow tracking.
+from src.constants.base import MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH
 
 This file demonstrates the "Follow the Flow" principle enhancement to the existing
 DPI calculator without requiring complex dependencies.
@@ -12,15 +10,14 @@ Usage:
 from typing import Dict
 import random
 
-
 class WealthFlowTracker:
     """
     Simple wealth flow tracking for Follow the Flow principle.
     Tracks who benefits from price changes and wealth concentration patterns.
     """
 
-    @staticmethod
-    def track_wealth_flow(income_data: Dict, asset_prices: Dict) -> float:
+@staticmethod
+def track_wealth_flow(income_data: Dict, asset_prices: Dict) -> float:
         """
         Track wealth flow and concentration - Follow the Flow principle
 
@@ -40,7 +37,6 @@ class WealthFlowTracker:
                 return 0.0
 
             # Simple wealth flow calculation
-            # Higher concentration when assets benefit higher income groups more
             asset_benefit_concentration = 0.0
 
             for symbol, price_change in asset_prices.items():
@@ -63,17 +59,16 @@ class WealthFlowTracker:
         except Exception:
             return 0.0
 
-
 class SimpleDPICalculator:
     """
     Simplified DPI calculator for demonstration purposes.
     In production, this integrates with the full Gary DPI neural network model.
     """
 
-    def __init__(self):
+def __init__(self):
         self.name = "Gary's Enhanced DPI Calculator"
 
-    def calculate_base_dpi(self, market_data: Dict) -> float:
+def calculate_base_dpi(self, market_data: Dict) -> float:
         """
         Calculate base DPI from market data.
         Simplified version for demo - in production uses full neural network.
@@ -89,8 +84,8 @@ class SimpleDPICalculator:
         # Bound between -1 and 1
         return max(-1.0, min(1.0, base_dpi))
 
-    def calculate_enhanced_dpi(self, market_data: Dict, income_data: Dict = None,
-                             related_assets: list = None) -> Dict:
+def calculate_enhanced_dpi(self, market_data: Dict, income_data: Dict = None,
+                            related_assets: list = None) -> Dict:
         """
         Calculate DPI enhanced with wealth flow tracking.
 
@@ -139,9 +134,8 @@ class SimpleDPICalculator:
             'asset_prices': asset_prices,
             'income_data': income_data,
             'enhancement_factor': 1 + flow_score,
-            'enhancement_percentage': flow_score * 100
+            'enhancement_percentage': flow_score * MAXIMUM_FUNCTION_LENGTH_LINES
         }
-
 
 def run_demo():
     """Run demonstration of enhanced DPI with wealth flow tracking."""
@@ -217,7 +211,6 @@ def run_demo():
     print("[SUCCESS] Simple math that works with real market data")
     print("[SUCCESS] No new dependencies required")
     print("[SUCCESS] Focuses on Follow the Flow principle")
-
 
 if __name__ == "__main__":
     run_demo()

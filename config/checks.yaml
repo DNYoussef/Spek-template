@@ -1,7 +1,7 @@
-# Spek / Analyzer — Six Sigma Telemetry Manifest
+# Spek / Analyzer -- Six Sigma Telemetry Manifest
 schema_version: v1
 unit: PR                        # or Deploy
-sigma_shift: 1.5                # set 0 to disable the 1.5σ shift convention
+sigma_shift: 1.5                # set 0 to disable the 1.5? shift convention
 artifact_roots:
   - ".claude/.artifacts"
   - ".artifacts"

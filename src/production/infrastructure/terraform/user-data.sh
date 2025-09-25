@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Gary×Taleb Trading System - EKS Node User Data
+# GaryxTaleb Trading System - EKS Node User Data
 # Defense Industry Compliance with Enhanced Security
 
 set -o xtrace
@@ -158,4 +158,4 @@ systemctl start node_exporter
 # Cleanup
 rm -rf /tmp/node_exporter-*
 
-echo "Node setup completed for Gary×Taleb Trading System"
+echo "Node setup completed for GaryxTaleb Trading System"

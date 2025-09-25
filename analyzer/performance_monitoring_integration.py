@@ -1,20 +1,16 @@
-# SPDX-License-Identifier: MIT
-"""
-Performance Monitoring Integration - Cross-Phase Performance Architecture
-=========================================================================
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE
 
 Monitors and maintains the 58.3% performance improvement across all analysis
 phases with real-time tracking, bottleneck detection, and optimization
 recommendations. Provides comprehensive performance visibility and control.
 
 NASA Rule 4 Compliant: All methods under 60 lines.
-NASA Rule 5 Compliant: Comprehensive defensive assertions.
+NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
 
 import asyncio
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class PerformanceMetrics:
@@ -31,7 +27,6 @@ class PerformanceMetrics:
     thread_count: int = 1
     process_count: int = 1
 
-
 @dataclass
 class PerformanceBaseline:
     """Performance baseline for comparison."""
@@ -42,7 +37,6 @@ class PerformanceBaseline:
     average_cpu_utilization: float
     target_improvement: float = 0.583  # 58.3%
     measurements_count: int = 0
-
 
 @dataclass
 class PerformanceAlert:
@@ -58,7 +52,6 @@ class PerformanceAlert:
     timestamp: str
     suggested_actions: List[str] = field(default_factory=list)
 
-
 @dataclass
 class OptimizationRecommendation:
     """Performance optimization recommendation."""
@@ -70,7 +63,6 @@ class OptimizationRecommendation:
     expected_improvement: float
     implementation_effort: str  # 'low', 'medium', 'high'
     evidence: List[str] = field(default_factory=list)
-
 
 class SystemResourceMonitor:
     """Monitors system resources during analysis execution."""
@@ -163,7 +155,6 @@ class SystemResourceMonitor:
                 'avg_system_cpu_percent': statistics.mean(m['system_cpu_percent'] for m in recent_metrics)
             }
 
-
 class PerformanceBaselineManager:
     """Manages performance baselines for all phases."""
     
@@ -216,7 +207,6 @@ class PerformanceBaselineManager:
         with self.lock:
             return len(self.baseline_measurements.get(phase_name, [])) >= min_measurements
 
-
 class PerformanceAlertManager:
     """Manages performance alerts and notifications."""
     
@@ -238,11 +228,11 @@ class PerformanceAlertManager:
                 'critical_threshold': 2000       # 2GB memory usage
             },
             'cpu_utilization': {
-                'high_threshold': 80,            # 80% CPU usage
+                'high_threshold': MINIMUM_TEST_COVERAGE_PERCENTAGE,            # MINIMUM_TEST_COVERAGE_PERCENTAGE% CPU usage
                 'critical_threshold': 95         # 95% CPU usage
             },
             'performance_improvement': {
-                'target_threshold': 0.583,       # 58.3% target improvement
+                'target_threshold': 0.583,       # 58.MAXIMUM_RETRY_ATTEMPTS% target improvement
                 'minimum_threshold': 0.2         # 20% minimum improvement
             }
         }
@@ -351,7 +341,6 @@ class PerformanceAlertManager:
             
             return sorted(alerts, key=lambda a: a.timestamp, reverse=True)
 
-
 class PerformanceMonitoringIntegration:
     """
     Comprehensive performance monitoring integration across all phases.
@@ -367,7 +356,7 @@ class PerformanceMonitoringIntegration:
         self.lock = Lock()
         
         # Performance targets
-        self.target_improvement = 0.583  # 58.3%
+        self.target_improvement = 0.583  # 58.MAXIMUM_RETRY_ATTEMPTS%
         self.minimum_improvement = 0.2   # 20%
     
     async def start_phase_monitoring(self, phase_name: str):

@@ -3,21 +3,20 @@ SC-004: Cryptographic Artifact Signing with Cosign Integration
 Enterprise-grade cryptographic signing and verification for supply chain artifacts.
 """
 
-import json
-import hashlib
-import base64
-import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Union
+import base64
+import hashlib
+import json
 import os
+import subprocess
 import tempfile
-
 
 class CryptographicSigner:
     """Enterprise cryptographic signing system with cosign integration."""
     
-    def __init__(self, config: Dict[str, Any]):
+def __init__(self, config: Dict[str, Any]):
         self.config = config
         self.output_dir = Path(config.get('output_dir', '.claude/.artifacts/supply_chain'))
         self.output_dir.mkdir(parents=True, exist_ok=True)
@@ -40,7 +39,7 @@ class CryptographicSigner:
         self.ca_cert_path = config.get('ca_cert_path')
         self.intermediate_cert_path = config.get('intermediate_cert_path')
         
-    def sign_artifacts(self, artifacts: List[Dict[str, Any]]) -> Dict[str, Any]:
+def sign_artifacts(self, artifacts: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Sign multiple artifacts with cryptographic signatures."""
         
         signing_results = {
@@ -77,7 +76,7 @@ class CryptographicSigner:
             
         return signing_results
     
-    def _sign_single_artifact(self, artifact: Dict[str, Any]) -> Dict[str, Any]:
+def _sign_single_artifact(self, artifact: Dict[str, Any]) -> Dict[str, Any]:
         """Sign a single artifact."""
         
         artifact_path = artifact.get('path')
@@ -126,7 +125,7 @@ class CryptographicSigner:
         
         return result
     
-    def _sign_with_cosign(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
+def _sign_with_cosign(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
         """Sign artifact using cosign."""
         
         result = {}
@@ -201,7 +200,7 @@ class CryptographicSigner:
         
         return result
     
-    def _sign_with_pki(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
+def _sign_with_pki(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
         """Sign artifact using traditional PKI."""
         
         result = {}
@@ -250,7 +249,7 @@ class CryptographicSigner:
         
         return result
     
-    def _sign_keyless(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
+def _sign_keyless(self, artifact_path: str, artifact: Dict[str, Any]) -> Dict[str, Any]:
         """Sign artifact using keyless signing (OIDC)."""
         
         result = {}
@@ -295,10 +294,10 @@ class CryptographicSigner:
         
         return result
     
-    def _verify_signature(self, 
-                         artifact_path: str,
-                         signature_path: Optional[str],
-                         certificate_path: Optional[str]) -> bool:
+def _verify_signature(self,
+                        artifact_path: str,
+                        signature_path: Optional[str],
+                        certificate_path: Optional[str]) -> bool:
         """Verify cryptographic signature."""
         
         try:
@@ -318,10 +317,10 @@ class CryptographicSigner:
         
         return False
     
-    def _verify_with_cosign(self, 
-                           artifact_path: str,
-                           signature_path: str,
-                           certificate_path: Optional[str]) -> bool:
+def _verify_with_cosign(self,
+                            artifact_path: str,
+                            signature_path: str,
+                            certificate_path: Optional[str]) -> bool:
         """Verify signature using cosign."""
         
         try:
@@ -352,7 +351,7 @@ class CryptographicSigner:
             print(f"Error verifying with cosign: {e}")
             return False
     
-    def _verify_with_openssl(self, 
+def _verify_with_openssl(self,
                             artifact_path: str,
                             signature_path: str,
                             certificate_path: str) -> bool:
@@ -391,7 +390,7 @@ class CryptographicSigner:
             print(f"Error verifying with OpenSSL: {e}")
             return False
     
-    def _extract_public_key(self, private_key_path: str) -> Optional[str]:
+def _extract_public_key(self, private_key_path: str) -> Optional[str]:
         """Extract public key from private key."""
         
         try:
@@ -416,10 +415,10 @@ class CryptographicSigner:
         
         return None
     
-    def _create_signature_metadata(self, 
-                                  artifact_path: str,
-                                  signature_path: str,
-                                  certificate_path: str) -> Dict[str, Any]:
+def _create_signature_metadata(self,
+                                    artifact_path: str,
+                                    signature_path: str,
+                                    certificate_path: str) -> Dict[str, Any]:
         """Create signature metadata."""
         
         metadata = {
@@ -448,7 +447,7 @@ class CryptographicSigner:
         
         return metadata
     
-    def _get_certificate_info(self, certificate_path: str) -> Dict[str, Any]:
+def _get_certificate_info(self, certificate_path: str) -> Dict[str, Any]:
         """Extract certificate information."""
         
         try:
@@ -476,7 +475,7 @@ class CryptographicSigner:
         
         return {'path': certificate_path, 'error': 'Could not parse certificate'}
     
-    def _extract_cert_field(self, cert_text: str, field_name: str) -> str:
+def _extract_cert_field(self, cert_text: str, field_name: str) -> str:
         """Extract field from certificate text."""
         
         lines = cert_text.split('\n')
@@ -486,7 +485,7 @@ class CryptographicSigner:
         
         return 'unknown'
     
-    def _get_certificate_fingerprint(self, certificate_path: str) -> str:
+def _get_certificate_fingerprint(self, certificate_path: str) -> str:
         """Get certificate SHA256 fingerprint."""
         
         try:
@@ -502,7 +501,7 @@ class CryptographicSigner:
         
         return 'unknown'
     
-    def _get_signer_info(self) -> Dict[str, Any]:
+def _get_signer_info(self) -> Dict[str, Any]:
         """Get information about the signer."""
         
         signer_info = {
@@ -526,7 +525,7 @@ class CryptographicSigner:
         
         return signer_info
     
-    def _is_cosign_available(self) -> bool:
+def _is_cosign_available(self) -> bool:
         """Check if cosign binary is available."""
         
         try:
@@ -538,7 +537,7 @@ class CryptographicSigner:
         except Exception:
             return False
     
-    def _calculate_file_hash(self, file_path: str) -> str:
+def _calculate_file_hash(self, file_path: str) -> str:
         """Calculate SHA256 hash of file."""
         
         try:
@@ -547,7 +546,7 @@ class CryptographicSigner:
         except Exception:
             return ''
     
-    def create_signature_bundle(self, artifacts: List[Dict[str, Any]]) -> str:
+def create_signature_bundle(self, artifacts: List[Dict[str, Any]]) -> str:
         """Create a comprehensive signature bundle."""
         
         bundle = {
@@ -595,7 +594,7 @@ class CryptographicSigner:
         
         return str(bundle_path)
     
-    def _get_signing_policies(self) -> Dict[str, Any]:
+def _get_signing_policies(self) -> Dict[str, Any]:
         """Get signing policies and requirements."""
         
         return {

@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-# SPDX-License-Identifier: MIT
 """Main entry point for analyzer module execution via python -m analyzer"""
 
-import sys
-import os
 from pathlib import Path
+import os
+import sys
 
 # Enhanced error handling for __main__ execution
 def main_with_fallback():

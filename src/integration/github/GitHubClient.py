@@ -4,16 +4,16 @@ Handles core GitHub repository operations
 Part of god object decomposition (Day 4)
 """
 
-import json
-from typing import Dict, List, Optional, Any, Tuple
-from dataclasses import dataclass
 from datetime import datetime
-import subprocess
-import os
+from typing import Dict, List, Optional, Any, Tuple
+import json
 import logging
+import os
+import subprocess
+
+from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class Repository:
@@ -28,7 +28,6 @@ class Repository:
     created_at: datetime
     updated_at: datetime
 
-
 @dataclass
 class Branch:
     """Git branch information."""
@@ -37,7 +36,6 @@ class Branch:
     protected: bool
     ahead_by: int
     behind_by: int
-
 
 @dataclass
 class Commit:
@@ -49,12 +47,11 @@ class Commit:
     date: datetime
     files_changed: List[str]
 
-
 class GitHubClient:
     """
     Handles core GitHub repository operations.
 
-    Extracted from github_integration (1,037 LOC -> ~250 LOC component).
+    Extracted from github_integration (1, 037 LOC -> ~250 LOC component).
     Handles:
     - Repository management
     - Branch operations
@@ -112,7 +109,7 @@ class GitHubClient:
 
         data = self._execute_gh_command([
             'repo', 'view', f'{owner}/{name}',
-            '--json', 'owner,name,url,defaultBranchRef,description,repositoryTopics,isPrivate,createdAt,updatedAt'
+            '--json', 'owner, name, url, defaultBranchRef, description, repositoryTopics, isPrivate, createdAt, updatedAt'
         ])
 
         if not data:
@@ -174,8 +171,8 @@ class GitHubClient:
             return False
 
     def get_commit_history(self,
-                          branch: str = 'main',
-                          limit: int = 10) -> List[Commit]:
+                            branch: str = 'main',
+                            limit: int = 10) -> List[Commit]:
         """Get commit history for branch."""
         if not self.current_repo:
             raise ValueError("No repository set")
@@ -212,8 +209,8 @@ class GitHubClient:
         try:
             result = subprocess.run(
                 ['gh', 'api',
-                 f'/repos/{self.current_repo.owner}/{self.current_repo.name}/contents/{path}',
-                 '-F', f'ref={branch}'],
+                f'/repos/{self.current_repo.owner}/{self.current_repo.name}/contents/{path}',
+                '-F', f'ref={branch}'],
                 capture_output=True,
                 text=True,
                 check=True
@@ -231,10 +228,10 @@ class GitHubClient:
             return None
 
     def update_file(self,
-                   path: str,
-                   content: str,
-                   message: str,
-                   branch: str = 'main') -> bool:
+                    path: str,
+                    content: str,
+                    message: str,
+                    branch: str = 'main') -> bool:
         """Update file in repository."""
         try:
             # Write content to local file
@@ -311,7 +308,7 @@ class GitHubClient:
             'search', 'code',
             query,
             f'--repo={repo.owner}/{repo.name}',
-            '--json', 'path,url,match'
+            '--json', 'path, url, match'
         ])
 
         return results if isinstance(results, list) else []

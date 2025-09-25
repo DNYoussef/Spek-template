@@ -1,15 +1,10 @@
 from lib.shared.utilities import path_exists
-"""
-Pipeline Configuration Management
-Centralized configuration for all data pipeline components
-"""
 
 import os
 import json
 from dataclasses import dataclass, asdict
 from typing import Dict, List, Optional, Any
 from pathlib import Path
-
 
 @dataclass
 class DataSourceConfig:
@@ -22,7 +17,6 @@ class DataSourceConfig:
     retry_attempts: int
     enabled: bool = True
 
-
 @dataclass
 class StreamingConfig:
     """Configuration for real-time streaming"""
@@ -33,7 +27,6 @@ class StreamingConfig:
     heartbeat_interval: float = 30.0
     reconnect_attempts: int = 5
 
-
 @dataclass
 class ProcessingConfig:
     """Configuration for data processing"""
@@ -43,10 +36,9 @@ class ProcessingConfig:
     news_filters: List[str] = None
     options_flow_threshold: float = 1000000  # $1M unusual activity
 
-    def __post_init__(self):
+def __post_init__(self):
         if self.news_filters is None:
             self.news_filters = ["earnings", "merger", "acquisition", "bankruptcy"]
-
 
 @dataclass
 class ValidationConfig:
@@ -56,7 +48,6 @@ class ValidationConfig:
     latency_threshold: float = 0.1  # 100ms
     error_rate_threshold: float = 0.01  # 1%
 
-
 @dataclass
 class MonitoringConfig:
     """Configuration for monitoring and metrics"""
@@ -65,11 +56,10 @@ class MonitoringConfig:
     alert_threshold: float = 0.95
     dashboard_port: int = 8080
 
-
 class PipelineConfig:
     """Main pipeline configuration manager"""
 
-    def __init__(self, config_file: Optional[str] = None):
+def __init__(self, config_file: Optional[str] = None):
         self.config_file = config_file or "config/pipeline.json"
         self.config_dir = Path(__file__).parent
 
@@ -84,7 +74,7 @@ class PipelineConfig:
         if path_exists(self.config_file):
             self.load_config()
 
-    def _load_data_sources(self) -> Dict[str, DataSourceConfig]:
+def _load_data_sources(self) -> Dict[str, DataSourceConfig]:
         """Load data source configurations"""
         return {
             "alpaca": DataSourceConfig(
@@ -129,7 +119,7 @@ class PipelineConfig:
             )
         }
 
-    def load_config(self):
+def load_config(self):
         """Load configuration from JSON file"""
         try:
             with open(self.config_file, 'r') as f:
@@ -148,7 +138,7 @@ class PipelineConfig:
         except Exception as e:
             print(f"Warning: Could not load config file {self.config_file}: {e}")
 
-    def save_config(self):
+def save_config(self):
         """Save current configuration to JSON file"""
         config_data = {
             "streaming": asdict(self.streaming),
@@ -161,11 +151,11 @@ class PipelineConfig:
         with open(self.config_file, 'w') as f:
             json.dump(config_data, f, indent=2)
 
-    def get_source_config(self, source_name: str) -> Optional[DataSourceConfig]:
+def get_source_config(self, source_name: str) -> Optional[DataSourceConfig]:
         """Get configuration for specific data source"""
         return self.data_sources.get(source_name)
 
-    def validate_config(self) -> List[str]:
+def validate_config(self) -> List[str]:
         """Validate configuration and return list of issues"""
         issues = []
 
@@ -183,7 +173,6 @@ class PipelineConfig:
             issues.append("Batch size may be too small for efficiency")
 
         return issues
-
 
 # Global configuration instance
 config = PipelineConfig()

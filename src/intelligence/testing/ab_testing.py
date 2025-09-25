@@ -1,7 +1,4 @@
-"""
-A/B testing framework for comparing trading models and strategies.
-Implements statistical significance testing and performance monitoring.
-"""
+from src.constants.base import MINIMUM_TRADE_THRESHOLD
 
 import numpy as np
 import pandas as pd
@@ -86,7 +83,7 @@ class ABTest:
     secondary_metrics: List[str]
     
     # Test parameters
-    significance_level: float = 0.05
+    significance_level: float = MINIMUM_TRADE_THRESHOLD
     minimum_sample_size: int = 1000
     test_duration_days: int = 7
     
@@ -115,7 +112,7 @@ class ABTestFramework:
         self.completed_tests: Dict[str, ABTest] = {}
         
         # Statistical testing configuration
-        self.min_effect_size = 0.05  # Minimum meaningful effect size
+        self.min_effect_size = MINIMUM_TRADE_THRESHOLD  # Minimum meaningful effect size
         self.power = 0.8  # Statistical power
         
     def create_test(
@@ -213,7 +210,7 @@ class ABTestFramework:
                 # For cumulative metrics, we might need to update differently
                 if metric_name in ['total_trades']:
                     setattr(variant_metrics, metric_name, 
-                           getattr(variant_metrics, metric_name) + value)
+                            getattr(variant_metrics, metric_name) + value)
                 else:
                     setattr(variant_metrics, metric_name, value)
             else:
@@ -270,7 +267,6 @@ class ABTestFramework:
                 return test.variant_samples[variant_name]
             else:
                 # For other metrics, we need to extract from recorded metrics
-                # This is simplified - in practice you'd store samples for all metrics
                 variant_metrics = test.variant_metrics[variant_name]
                 if hasattr(variant_metrics, metric):
                     value = getattr(variant_metrics, metric)
@@ -321,7 +317,7 @@ class ABTestFramework:
         if len(samples_a) > 1 and len(samples_b) > 1:
             pooled_std = np.sqrt(
                 ((len(samples_a) - 1) * np.var(samples_a, ddof=1) + 
-                 (len(samples_b) - 1) * np.var(samples_b, ddof=1)) / 
+                (len(samples_b) - 1) * np.var(samples_b, ddof=1)) / 
                 (len(samples_a) + len(samples_b) - 2)
             )
             effect_size = difference / pooled_std if pooled_std > 0 else 0.0
@@ -377,7 +373,7 @@ class ABTestFramework:
                 "can_stop": False,
                 "reason": "minimum_sample_size_not_met",
                 "sample_sizes": {name: len(samples) 
-                               for name, samples in test.variant_samples.items()}
+                                for name, samples in test.variant_samples.items()}
             }
         
         # Analyze current results
@@ -584,14 +580,13 @@ class ABTestFramework:
         
         if status:
             return [test_id for test_id, test in all_tests.items() 
-                   if test.status == status]
+                    if test.status == status]
         
         return list(all_tests.keys())
 
 # Example usage and testing
 def test_ab_framework():
     """Test the A/B testing framework."""
-    print("Testing A/B Testing Framework:")
     print("=" * 50)
     
     # Create framework
@@ -626,11 +621,8 @@ def test_ab_framework():
         minimum_sample_size=100
     )
     
-    print(f"Created test: {test.test_id}")
-    
     # Start test
     framework.start_test(test.test_id)
-    print(f"Started test: {test.status.value}")
     
     # Simulate recording results
     np.random.seed(42)
@@ -681,7 +673,6 @@ def test_ab_framework():
     
     # Stop test
     framework.stop_test(test.test_id, reason="test_completed")
-    print(f"\nTest stopped. Status: {test.status.value}")
 
 if __name__ == "__main__":
     test_ab_framework()

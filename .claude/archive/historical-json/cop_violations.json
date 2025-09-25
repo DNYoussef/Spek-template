@@ -1,0 +1,605 @@
+{
+  "total": 601,
+  "violations": [
+    {
+      "name": "enhance_documentation",
+      "lines": 471,
+      "params": 0,
+      "file": "scripts\\validation\\achieve_100_percent.py"
+    },
+    {
+      "name": "generate_all_reports",
+      "lines": 316,
+      "params": 0,
+      "file": "scripts\\generate_comprehensive_reports.py"
+    },
+    {
+      "name": "run_reality_analyzer",
+      "lines": 280,
+      "params": 1,
+      "file": "analyzer\\github_analyzer_runner.py"
+    },
+    {
+      "name": "_create_html_dashboard",
+      "lines": 275,
+      "params": 2,
+      "file": "src\\princess\\quality\\analysis-reports\\quality_dashboard.py"
+    },
+    {
+      "name": "__init__",
+      "lines": 205,
+      "params": 1,
+      "file": "scripts\\validate_dfars_compliance_final.py"
+    },
+    {
+      "name": "generate_real_reports_efficiently",
+      "lines": 204,
+      "params": 0,
+      "file": "scripts\\generate_real_reports_efficient.py"
+    },
+    {
+      "name": "enhance_api_endpoints",
+      "lines": 198,
+      "params": 0,
+      "file": "scripts\\validation\\achieve_100_percent.py"
+    },
+    {
+      "name": "_load_test_patterns",
+      "lines": 190,
+      "params": 1,
+      "file": "src\\analysis\\failure_pattern_detector.py"
+    },
+    {
+      "name": "_initialize_deployment_tasks",
+      "lines": 190,
+      "params": 1,
+      "file": "scripts\\deploy_dfars_security.py"
+    },
+    {
+      "name": "_initialize_agent_database",
+      "lines": 178,
+      "params": 1,
+      "file": "src\\coordination\\queen_coordinator.py"
+    },
+    {
+      "name": "_initialize_dfars_controls",
+      "lines": 176,
+      "params": 1,
+      "file": "src\\security\\dfars_compliance_validation_system.py"
+    },
+    {
+      "name": "wrap_analyzer",
+      "lines": 172,
+      "params": 3,
+      "file": "src\\enterprise\\integration\\analyzer.py"
+    },
+    {
+      "name": "validate_dfars_implementation",
+      "lines": 171,
+      "params": 0,
+      "file": "scripts\\validation\\validate_dfars_compliance.py"
+    },
+    {
+      "name": "main",
+      "lines": 167,
+      "params": 0,
+      "file": "scripts\\validate-pr-quality.py"
+    },
+    {
+      "name": "_load_error_patterns",
+      "lines": 164,
+      "params": 1,
+      "file": "src\\analysis\\failure_pattern_detector.py"
+    },
+    {
+      "name": "analyze_architecture",
+      "lines": 156,
+      "params": 2,
+      "file": "analyzer\\architecture\\orchestrator.py"
+    },
+    {
+      "name": "_validate_and_set_defaults",
+      "lines": 151,
+      "params": 2,
+      "file": "analyzer\\enterprise\\supply_chain\\config_loader.py"
+    },
+    {
+      "name": "initialize",
+      "lines": 150,
+      "params": 2,
+      "file": "analyzer\\component_integrator.py"
+    },
+    {
+      "name": "initialize",
+      "lines": 149,
+      "params": 2,
+      "file": "analyzer\\component_integrator.py"
+    },
+    {
+      "name": "_initialize_pattern_definitions",
+      "lines": 146,
+      "params": 1,
+      "file": "analyzer\\ml_modules\\pattern_detector.py"
+    },
+    {
+      "name": "create_parser",
+      "lines": 146,
+      "params": 1,
+      "file": "src\\interfaces\\cli\\simple_cli.py"
+    },
+    {
+      "name": "_add_scan_parser",
+      "lines": 144,
+      "params": 2,
+      "file": "src\\interfaces\\cli\\main_python.py"
+    },
+    {
+      "name": "_initialize_default_playbooks",
+      "lines": 142,
+      "params": 1,
+      "file": "src\\security\\enhanced_incident_response_system.py"
+    },
+    {
+      "name": "run_concurrent_load_test",
+      "lines": 141,
+      "params": 4,
+      "file": "analyzer\\performance\\thread_contention_profiler.py"
+    },
+    {
+      "name": "_check_nasa_rule_in_file",
+      "lines": 141,
+      "params": 4,
+      "file": "scripts\\security_compliance_auditor.py"
+    },
+    {
+      "name": "_discover_test_suites",
+      "lines": 139,
+      "params": 1,
+      "file": "scripts\\comprehensive_test_runner.py"
+    },
+    {
+      "name": "validate_dfars_compliance",
+      "lines": 138,
+      "params": 0,
+      "file": "scripts\\validation\\dfars_validation_simple.py"
+    },
+    {
+      "name": "initialize",
+      "lines": 137,
+      "params": 2,
+      "file": "analyzer\\component_integrator.py"
+    },
+    {
+      "name": "update_file",
+      "lines": 131,
+      "params": 11,
+      "file": "src\\version_log\\VersionLogManager.py"
+    },
+    {
+      "name": "_detect_ast_theater_patterns",
+      "lines": 129,
+      "params": 3,
+      "file": "src\\security\\enterprise_theater_detection.py"
+    },
+    {
+      "name": "train_epoch",
+      "lines": 129,
+      "params": 3,
+      "file": "src\\intelligence\\training\\trainer.py"
+    },
+    {
+      "name": "_create_rules",
+      "lines": 128,
+      "params": 1,
+      "file": "analyzer\\reporting\\sarif.py"
+    },
+    {
+      "name": "run_complete_validation",
+      "lines": 128,
+      "params": 3,
+      "file": "scripts\\run_nasa_compliance_validation.py"
+    },
+    {
+      "name": "_stage_1_structural_analysis",
+      "lines": 127,
+      "params": 1,
+      "file": "analyzer\\architecture\\refactoring_audit_report.py"
+    },
+    {
+      "name": "run_theater_detection",
+      "lines": 126,
+      "params": 0,
+      "file": "scripts\\theater_detection_validation.py"
+    },
+    {
+      "name": "run_reality_audit",
+      "lines": 125,
+      "params": 0,
+      "file": "scripts\\reality_audit_perfection.py"
+    },
+    {
+      "name": "run_final_validation",
+      "lines": 124,
+      "params": 0,
+      "file": "scripts\\final_theater_validation.py"
+    },
+    {
+      "name": "main",
+      "lines": 124,
+      "params": 0,
+      "file": "scripts\\fix-all-syntax-errors.py"
+    },
+    {
+      "name": "main",
+      "lines": 124,
+      "params": 0,
+      "file": "scripts\\real_analysis_test.py"
+    },
+    {
+      "name": "run_single_detector_benchmark",
+      "lines": 117,
+      "params": 6,
+      "file": "src\\detectors\\comprehensive_benchmark.py"
+    },
+    {
+      "name": "_create_default_dfars_baseline",
+      "lines": 117,
+      "params": 1,
+      "file": "src\\security\\configuration_management_system.py"
+    },
+    {
+      "name": "main",
+      "lines": 117,
+      "params": 0,
+      "file": "scripts\\run_nasa_compliance_validation.py"
+    },
+    {
+      "name": "detect_violations",
+      "lines": 114,
+      "params": 2,
+      "file": "analyzer\\github_analyzer_runner.py"
+    },
+    {
+      "name": "deploy_loop3_theater_detection",
+      "lines": 113,
+      "params": 0,
+      "file": "src\\theater-detection\\deploy_loop3.py"
+    },
+    {
+      "name": "validate_dfars_compliance",
+      "lines": 113,
+      "params": 1,
+      "file": "scripts\\validation\\comprehensive_defense_validation.py"
+    },
+    {
+      "name": "create_test_project",
+      "lines": 112,
+      "params": 1,
+      "file": "analyzer\\architecture\\validation_tests.py"
+    },
+    {
+      "name": "analyze_path",
+      "lines": 112,
+      "params": 3,
+      "file": "analyzer\\dup_detection\\mece_analyzer.py"
+    },
+    {
+      "name": "main",
+      "lines": 111,
+      "params": 0,
+      "file": "analyzer\\github_status_reporter.py"
+    },
+    {
+      "name": "generate_html_dashboard",
+      "lines": 111,
+      "params": 2,
+      "file": "scripts\\security_dashboard_generator.py"
+    },
+    {
+      "name": "_generate_html_report",
+      "lines": 108,
+      "params": 2,
+      "file": "src\\sixsigma\\sixsigma_scorer.py"
+    },
+    {
+      "name": "run",
+      "lines": 108,
+      "params": 2,
+      "file": "src\\interfaces\\cli\\simple_cli.py"
+    },
+    {
+      "name": "_collect_current_metrics",
+      "lines": 107,
+      "params": 2,
+      "file": "src\\theater-detection\\continuous-monitor.py"
+    },
+    {
+      "name": "_load_comment_styles",
+      "lines": 107,
+      "params": 1,
+      "file": "src\\version_log\\FooterRenderer.py"
+    },
+    {
+      "name": "collect_current_performance_metrics",
+      "lines": 106,
+      "params": 1,
+      "file": "scripts\\performance_regression_detector.py"
+    },
+    {
+      "name": "main",
+      "lines": 106,
+      "params": 0,
+      "file": "scripts\\remove_unicode.py"
+    },
+    {
+      "name": "_init_database_schema",
+      "lines": 104,
+      "params": 1,
+      "file": "analyzer\\phase_correlation_storage.py"
+    },
+    {
+      "name": "authenticate_user",
+      "lines": 104,
+      "params": 7,
+      "file": "src\\security\\access_control_system.py"
+    },
+    {
+      "name": "calculate_compliance",
+      "lines": 103,
+      "params": 5,
+      "file": "analyzer\\nasa_compliance_calculator.py"
+    },
+    {
+      "name": "_compare_variants",
+      "lines": 103,
+      "params": 5,
+      "file": "src\\intelligence\\testing\\ab_testing.py"
+    },
+    {
+      "name": "main",
+      "lines": 103,
+      "params": 0,
+      "file": "scripts\\add_assertions_report.py"
+    },
+    {
+      "name": "generate_refactoring_script",
+      "lines": 102,
+      "params": 2,
+      "file": "scripts\\nasa_compliance_analyzer.py"
+    },
+    {
+      "name": "import_constants",
+      "lines": 101,
+      "params": 1,
+      "file": "analyzer\\core\\unified_imports.py"
+    },
+    {
+      "name": "main",
+      "lines": 101,
+      "params": 0,
+      "file": "analyzer\\dashboard\\ci_integration.py"
+    },
+    {
+      "name": "_add_validate_architecture_parser",
+      "lines": 101,
+      "params": 2,
+      "file": "src\\interfaces\\cli\\main_python.py"
+    },
+    {
+      "name": "get_system_status",
+      "lines": 100,
+      "params": 1,
+      "file": "src\\security\\enhanced_incident_response_system.py"
+    },
+    {
+      "name": "_load_fix_strategies",
+      "lines": 99,
+      "params": 1,
+      "file": "src\\analysis\\failure_pattern_detector.py"
+    },
+    {
+      "name": "_load_system_data",
+      "lines": 98,
+      "params": 1,
+      "file": "src\\security\\enhanced_incident_response_system.py"
+    },
+    {
+      "name": "_initialize_threat_indicators",
+      "lines": 98,
+      "params": 1,
+      "file": "src\\security\\enhanced_incident_response_system.py"
+    },
+    {
+      "name": "main",
+      "lines": 98,
+      "params": 0,
+      "file": "scripts\\nasa_compliance_analyzer.py"
+    },
+    {
+      "name": "_load_connascence_patterns",
+      "lines": 97,
+      "params": 1,
+      "file": "src\\coordination\\loop_orchestrator.py"
+    },
+    {
+      "name": "_load_default_mappings",
+      "lines": 97,
+      "params": 1,
+      "file": "src\\linter-integration\\severity-mapping\\unified_severity.py"
+    },
+    {
+      "name": "_stage_2_nasa_compliance",
+      "lines": 96,
+      "params": 1,
+      "file": "analyzer\\architecture\\refactoring_audit_report.py"
+    },
+    {
+      "name": "track_file_change",
+      "lines": 95,
+      "params": 4,
+      "file": "analyzer\\streaming\\incremental_cache.py"
+    },
+    {
+      "name": "optimize_allocation",
+      "lines": 95,
+      "params": 3,
+      "file": "src\\detectors\\workload_optimizer.py"
+    },
+    {
+      "name": "update_test_imports",
+      "lines": 95,
+      "params": 0,
+      "file": "scripts\\eliminate_theater.py"
+    },
+    {
+      "name": "main",
+      "lines": 95,
+      "params": 0,
+      "file": "scripts\\validate_dfars_compliance_final.py"
+    },
+    {
+      "name": "perform_comprehensive_assessment",
+      "lines": 94,
+      "params": 1,
+      "file": "src\\security\\dfars_comprehensive_integration.py"
+    },
+    {
+      "name": "_initialize_quality_gates",
+      "lines": 94,
+      "params": 1,
+      "file": "src\\princess\\quality\\validation-engine\\quality_gate_enforcer.py"
+    },
+    {
+      "name": "validate_core_integration",
+      "lines": 94,
+      "params": 0,
+      "file": "scripts\\validate_core_integration.py"
+    },
+    {
+      "name": "_initialize_databases",
+      "lines": 93,
+      "params": 1,
+      "file": "src\\security\\cdi_protection_framework.py"
+    },
+    {
+      "name": "test_ab_framework",
+      "lines": 93,
+      "params": 0,
+      "file": "src\\intelligence\\testing\\ab_testing.py"
+    },
+    {
+      "name": "main",
+      "lines": 93,
+      "params": 0,
+      "file": "scripts\\fix_return_values.py"
+    },
+    {
+      "name": "analyze_connascence",
+      "lines": 93,
+      "params": 1,
+      "file": "scripts\\run_god_object_analysis.py"
+    },
+    {
+      "name": "build_cascade_tree",
+      "lines": 93,
+      "params": 0,
+      "file": "scripts\\simple-cascade-tree.py"
+    },
+    {
+      "name": "analyze_project",
+      "lines": 92,
+      "params": 4,
+      "file": "analyzer\\real_unified_analyzer.py"
+    },
+    {
+      "name": "_analyze_node_for_allocation",
+      "lines": 92,
+      "params": 3,
+      "file": "src\\compliance\\memory_allocation_analyzer.py"
+    },
+    {
+      "name": "validate_all_controls",
+      "lines": 92,
+      "params": 1,
+      "file": "src\\security\\dfars_compliance_validator.py"
+    },
+    {
+      "name": "check_security_gate",
+      "lines": 92,
+      "params": 5,
+      "file": "src\\production\\scripts\\security-gate-check.py"
+    },
+    {
+      "name": "analyze_file",
+      "lines": 91,
+      "params": 3,
+      "file": "analyzer\\nasa_engine\\nasa_analyzer.py"
+    },
+    {
+      "name": "analyze_changes",
+      "lines": 91,
+      "params": 4,
+      "file": "analyzer\\optimization\\incremental_analyzer.py"
+    },
+    {
+      "name": "_create_incident_from_indicator",
+      "lines": 91,
+      "params": 4,
+      "file": "src\\security\\enhanced_incident_response_system.py"
+    },
+    {
+      "name": "get_enterprise_config",
+      "lines": 90,
+      "params": 1,
+      "file": "analyzer\\utils\\config_manager.py"
+    },
+    {
+      "name": "monitor_personnel_status",
+      "lines": 90,
+      "params": 1,
+      "file": "src\\security\\dfars_personnel_security.py"
+    },
+    {
+      "name": "validate_actual_vs_theoretical_performance",
+      "lines": 90,
+      "params": 1,
+      "file": "scripts\\phase3_deployment_validator.py"
+    },
+    {
+      "name": "simulate_scaling_phase",
+      "lines": 90,
+      "params": 3,
+      "file": "scripts\\six_sigma_implementation_demo.py"
+    },
+    {
+      "name": "main",
+      "lines": 89,
+      "params": 0,
+      "file": "analyzer\\enhanced_github_analyzer.py"
+    },
+    {
+      "name": "benchmark_streaming_analysis",
+      "lines": 89,
+      "params": 1,
+      "file": "analyzer\\optimization\\performance_benchmark.py"
+    },
+    {
+      "name": "_apply_quality_gates",
+      "lines": 89,
+      "params": 2,
+      "file": "analyzer\\enterprise\\supply_chain\\integration.py"
+    },
+    {
+      "name": "main",
+      "lines": 89,
+      "params": 0,
+      "file": "scripts\\enhanced_return_value_fixer.py"
+    },
+    {
+      "name": "validate_health_check_implementation",
+      "lines": 89,
+      "params": 1,
+      "file": "scripts\\production_deployment_validation.py"
+    }
+  ]
+}

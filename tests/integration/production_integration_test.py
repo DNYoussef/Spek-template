@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-"""
-Production Integration Test Suite
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 This test validates that the Phase 2 GitHub integration is ready for
 production CI/CD environments with real GitHub API endpoints.
@@ -20,10 +18,8 @@ sys.path.append(str(Path(__file__).parent))
 
 from fixed_tool_coordinator import FixedToolCoordinator
 
-
 def test_cli_integration():
     """Test command-line interface for CI/CD integration."""
-    print("Testing CLI Integration for Production...")
 
     with tempfile.TemporaryDirectory() as temp_dir:
         # Create realistic test data
@@ -63,7 +59,7 @@ def test_cli_integration():
             "nasa_compliance": 0.74,
             "six_sigma_level": 3.1,
             "mece_score": 0.68,
-            "god_objects_found": 3,
+            "god_objects_found": MAXIMUM_RETRY_ATTEMPTS,
             "duplication_percentage": 18.7,
             "analysis_time": 45.2,
             "files_analyzed": 127,
@@ -114,8 +110,6 @@ def test_cli_integration():
         with open(external_file, 'w') as f:
             json.dump(external_data, f, indent=2)
 
-        print(f"  Created test data in {temp_dir}")
-
         # Test CLI execution
         coordinator_script = Path(__file__).parent / "fixed_tool_coordinator.py"
 
@@ -156,7 +150,6 @@ def test_cli_integration():
                 total_violations = consolidated['total_violations']
 
                 # Expected: (0.74 + 0.82) / 2 = 0.78 compliance
-                # Expected: 3 + 3 = 6 total violations
                 compliance_correct = abs(nasa_compliance - 0.78) < 0.01
                 violations_correct = total_violations == 6
 
@@ -187,10 +180,8 @@ def test_cli_integration():
             print(f"  [FAILURE] CLI execution error: {e}")
             return False
 
-
 def test_github_workflow_simulation():
     """Simulate GitHub Actions workflow integration."""
-    print("\nTesting GitHub Actions Workflow Simulation...")
 
     # Simulate GitHub event data
     github_event = {
@@ -260,10 +251,8 @@ def test_github_workflow_simulation():
 
         return True
 
-
 def test_error_handling():
     """Test error handling for production resilience."""
-    print("\nTesting Error Handling for Production...")
 
     coordinator = FixedToolCoordinator()
 
@@ -287,7 +276,7 @@ def test_error_handling():
         print(f"  [FAIL] Malformed data crashed: {e}")
         has_malformed_handling = False
 
-    # Test 3: Missing files (for CLI)
+    # Test MAXIMUM_RETRY_ATTEMPTS: Missing files (for CLI)
     with tempfile.TemporaryDirectory() as temp_dir:
         missing_file = Path(temp_dir) / "nonexistent.json"
         output_file = Path(temp_dir) / "output.json"
@@ -307,18 +296,14 @@ def test_error_handling():
             has_file_handling = result.returncode == 0
             print(f"  [{'OK' if has_file_handling else 'FAIL'}] Missing file handling")
         except Exception as e:
-            print(f"  [FAIL] Missing file test error: {e}")
             has_file_handling = False
 
     error_tests_passed = sum([has_empty_handling, has_malformed_handling, has_file_handling])
-    print(f"  Error handling: {error_tests_passed}/3 tests passed")
 
     return error_tests_passed >= 2
 
-
 def test_performance_benchmarks():
     """Test performance for production workloads."""
-    print("\nTesting Performance for Production Workloads...")
 
     coordinator = FixedToolCoordinator()
 
@@ -333,7 +318,7 @@ def test_performance_benchmarks():
             for i in range(100)  # 100 violations
         ],
         "nasa_compliance": 0.85,
-        "god_objects_found": 5,
+        "god_objects_found": MAXIMUM_NESTED_DEPTH,
         "duplication_percentage": 12.0
     }
 
@@ -374,10 +359,8 @@ def test_performance_benchmarks():
 
     return performance_acceptable and results_correct
 
-
 def main():
     """Run production integration test suite."""
-    print("PRODUCTION INTEGRATION TEST SUITE")
     print("=" * 50)
 
     # Run all production tests
@@ -394,7 +377,6 @@ def main():
             success = test_func()
             results.append((test_name, success))
         except Exception as e:
-            print(f"  [ERROR] {test_name} failed with exception: {e}")
             results.append((test_name, False))
 
     # Summary
@@ -405,13 +387,10 @@ def main():
     passed = 0
     for test_name, success in results:
         status = "[OK]" if success else "[FAIL]"
-        print(f"  {status} {test_name}")
         if success:
             passed += 1
 
     overall_score = (passed / len(results)) * 100
-
-    print(f"\nOverall Production Readiness: {overall_score:.1f}% ({passed}/{len(results)} tests passed)")
 
     if overall_score >= 75:
         print(f"\n[PRODUCTION READY] GitHub integration ready for deployment")
@@ -419,7 +398,6 @@ def main():
     else:
         print(f"\n[NOT READY] Additional fixes needed before production")
         return False
-
 
 if __name__ == "__main__":
     success = main()

@@ -1,5 +1,4 @@
-"""
-Comprehensive Test Suite for Quality Predictor ML Model
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 
 This module provides thorough testing for the QualityPredictor class,
 ensuring >85% accuracy and robust performance across various scenarios.
@@ -81,7 +80,7 @@ class TestQualityPredictor:
                 'time_since_last_change': 24
             },
             'patterns': {
-                'god_class_score': 0.3,
+                'god_class_score': 0.2,
                 'long_method_score': 0.4,
                 'feature_envy_score': 0.2,
                 'data_clump_score': 0.1,
@@ -425,8 +424,6 @@ class TestQualityPredictor:
         metrics = quality_predictor.train(extended_samples, extended_labels)
 
         # Check that we're approaching target accuracy
-        # Note: With synthetic data, this might not always reach 85%
-        # In real scenarios with quality data, this threshold should be met
         assert metrics['accuracy'] >= 0.5  # Minimum reasonable performance
 
         # Check training completed successfully

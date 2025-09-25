@@ -1,15 +1,10 @@
-#!/usr/bin/env python3
-"""
-Enterprise demo reproduction script.
-Minimal stub implementation for Self-Dogfooding Analysis workflow.
-"""
+from src.constants.base import NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
 
 import argparse
 import json
 import sys
 import time
 from datetime import datetime
-
 
 def main():
     parser = argparse.ArgumentParser(description='Reproduce enterprise demo results')
@@ -39,7 +34,7 @@ def main():
             "execution_time": 1.2,
             "files_analyzed": 150,
             "violations_found": 0,
-            "nasa_compliance": 0.92,
+            "nasa_compliance": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD,
             "performance_score": 0.88
         },
         "validation_status": "passed" if args.validate_performance else "skipped"
@@ -54,7 +49,6 @@ def main():
     print(f"[TARGET] Performance validation: {'[OK] PASSED' if args.validate_performance else '[U+23ED][U+FE0F]  SKIPPED'}")
     
     return 0
-
 
 if __name__ == '__main__':
     sys.exit(main())

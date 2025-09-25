@@ -4,15 +4,15 @@ Handles GitHub issue tracking operations
 Part of god object decomposition (Day 4)
 """
 
-import json
-from typing import Dict, List, Optional, Any, Tuple
-from dataclasses import dataclass, field
 from datetime import datetime
-import subprocess
+from typing import Dict, List, Optional, Any, Tuple
+import json
 import logging
+import subprocess
+
+from dataclasses import dataclass, field
 
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class Issue:
@@ -31,7 +31,6 @@ class Issue:
     comments_count: int
     reactions: Dict[str, int] = field(default_factory=dict)
 
-
 @dataclass
 class IssueComment:
     """Issue comment information."""
@@ -42,14 +41,12 @@ class IssueComment:
     updated_at: datetime
     reactions: Dict[str, int] = field(default_factory=dict)
 
-
 @dataclass
 class Label:
     """GitHub label information."""
     name: str
     color: str
     description: Optional[str]
-
 
 @dataclass
 class Milestone:
@@ -62,12 +59,11 @@ class Milestone:
     open_issues: int
     closed_issues: int
 
-
 class IssueTracker:
     """
     Handles GitHub issue tracking operations.
 
-    Extracted from github_integration (1,037 LOC -> ~200 LOC component).
+    Extracted from github_integration (1, 037 LOC -> ~200 LOC component).
     Handles:
     - Issue creation and management
     - Labels and milestones
@@ -76,7 +72,7 @@ class IssueTracker:
     - Issue templates
     """
 
-    def __init__(self, repo_owner: str, repo_name: str):
+def __init__(self, repo_owner: str, repo_name: str):
         """Initialize issue tracker."""
         self.repo_owner = repo_owner
         self.repo_name = repo_name
@@ -84,7 +80,7 @@ class IssueTracker:
         self.labels_cache: List[Label] = []
         self.milestones_cache: List[Milestone] = []
 
-    def create_issue(self,
+def create_issue(self,
                     title: str,
                     body: str,
                     labels: Optional[List[str]] = None,
@@ -128,7 +124,7 @@ class IssueTracker:
             logger.error(f"Failed to create issue: {e}")
             return None
 
-    def get_issue(self, issue_number: int) -> Optional[Issue]:
+def get_issue(self, issue_number: int) -> Optional[Issue]:
         """Get issue details."""
         if issue_number in self.issues_cache:
             return self.issues_cache[issue_number]
@@ -136,8 +132,8 @@ class IssueTracker:
         try:
             result = subprocess.run(
                 ['gh', 'issue', 'view', str(issue_number),
-                 '--repo', f'{self.repo_owner}/{self.repo_name}',
-                 '--json', 'number,title,body,state,author,assignees,labels,milestone,createdAt,updatedAt,closedAt,comments'],
+                '--repo', f'{self.repo_owner}/{self.repo_name}',
+                '--json', 'number, title, body, state, author, assignees, labels, milestone, createdAt, updatedAt, closedAt, comments'],
                 capture_output=True,
                 text=True,
                 check=True
@@ -167,11 +163,11 @@ class IssueTracker:
             logger.error(f"Failed to get issue: {e}")
             return None
 
-    def list_issues(self,
-                   state: str = 'open',
-                   labels: Optional[List[str]] = None,
-                   assignee: Optional[str] = None,
-                   limit: int = 30) -> List[Issue]:
+def list_issues(self,
+                    state: str = 'open',
+                    labels: Optional[List[str]] = None,
+                    assignee: Optional[str] = None,
+                    limit: int = 30) -> List[Issue]:
         """List issues with filters."""
         try:
             cmd = [
@@ -179,7 +175,7 @@ class IssueTracker:
                 '--repo', f'{self.repo_owner}/{self.repo_name}',
                 '--state', state,
                 '--limit', str(limit),
-                '--json', 'number,title,state,author,labels,assignees,createdAt,updatedAt'
+                '--json', 'number, title, state, author, labels, assignees, createdAt, updatedAt'
             ]
 
             if labels:
@@ -221,7 +217,7 @@ class IssueTracker:
             logger.error(f"Failed to list issues: {e}")
             return []
 
-    def update_issue(self,
+def update_issue(self,
                     issue_number: int,
                     title: Optional[str] = None,
                     body: Optional[str] = None,
@@ -231,7 +227,7 @@ class IssueTracker:
         """Update issue."""
         try:
             cmd = ['gh', 'issue', 'edit', str(issue_number),
-                   '--repo', f'{self.repo_owner}/{self.repo_name}']
+                    '--repo', f'{self.repo_owner}/{self.repo_name}']
 
             if title:
                 cmd.extend(['--title', title])
@@ -262,13 +258,13 @@ class IssueTracker:
             logger.error(f"Failed to update issue: {e}")
             return False
 
-    def close_issue(self,
-                   issue_number: int,
-                   comment: Optional[str] = None) -> bool:
+def close_issue(self,
+                    issue_number: int,
+                    comment: Optional[str] = None) -> bool:
         """Close issue."""
         try:
             cmd = ['gh', 'issue', 'close', str(issue_number),
-                   '--repo', f'{self.repo_owner}/{self.repo_name}']
+                    '--repo', f'{self.repo_owner}/{self.repo_name}']
 
             if comment:
                 cmd.extend(['--comment', comment])
@@ -281,12 +277,12 @@ class IssueTracker:
             logger.error(f"Failed to close issue: {e}")
             return False
 
-    def reopen_issue(self, issue_number: int) -> bool:
+def reopen_issue(self, issue_number: int) -> bool:
         """Reopen closed issue."""
         try:
             subprocess.run(
                 ['gh', 'issue', 'reopen', str(issue_number),
-                 '--repo', f'{self.repo_owner}/{self.repo_name}'],
+                '--repo', f'{self.repo_owner}/{self.repo_name}'],
                 check=True,
                 capture_output=True
             )
@@ -297,15 +293,15 @@ class IssueTracker:
             logger.error(f"Failed to reopen issue: {e}")
             return False
 
-    def add_comment(self,
-                   issue_number: int,
-                   comment: str) -> bool:
+def add_comment(self,
+                    issue_number: int,
+                    comment: str) -> bool:
         """Add comment to issue."""
         try:
             subprocess.run(
                 ['gh', 'issue', 'comment', str(issue_number),
-                 '--repo', f'{self.repo_owner}/{self.repo_name}',
-                 '--body', comment],
+                '--repo', f'{self.repo_owner}/{self.repo_name}',
+                '--body', comment],
                 check=True,
                 capture_output=True
             )
@@ -316,14 +312,14 @@ class IssueTracker:
             logger.error(f"Failed to add comment: {e}")
             return False
 
-    def create_label(self,
+def create_label(self,
                     name: str,
                     description: Optional[str] = None,
                     color: Optional[str] = None) -> bool:
         """Create new label."""
         try:
             cmd = ['gh', 'label', 'create', name,
-                   '--repo', f'{self.repo_owner}/{self.repo_name}']
+                    '--repo', f'{self.repo_owner}/{self.repo_name}']
 
             if description:
                 cmd.extend(['--description', description])
@@ -341,7 +337,7 @@ class IssueTracker:
             logger.error(f"Failed to create label: {e}")
             return False
 
-    def list_labels(self) -> List[Label]:
+def list_labels(self) -> List[Label]:
         """List all repository labels."""
         if self.labels_cache:
             return self.labels_cache
@@ -349,8 +345,8 @@ class IssueTracker:
         try:
             result = subprocess.run(
                 ['gh', 'label', 'list',
-                 '--repo', f'{self.repo_owner}/{self.repo_name}',
-                 '--json', 'name,color,description'],
+                '--repo', f'{self.repo_owner}/{self.repo_name}',
+                '--json', 'name, color, description'],
                 capture_output=True,
                 text=True,
                 check=True
@@ -374,14 +370,14 @@ class IssueTracker:
             logger.error(f"Failed to list labels: {e}")
             return []
 
-    def search_issues(self, query: str) -> List[Issue]:
+def search_issues(self, query: str) -> List[Issue]:
         """Search issues using GitHub search syntax."""
         try:
             result = subprocess.run(
                 ['gh', 'search', 'issues',
-                 query,
-                 f'--repo={self.repo_owner}/{self.repo_name}',
-                 '--json', 'number,title,state,author,createdAt'],
+                query,
+                f'--repo={self.repo_owner}/{self.repo_name}',
+                '--json', 'number, title, state, author, createdAt'],
                 capture_output=True,
                 text=True,
                 check=True
@@ -413,13 +409,13 @@ class IssueTracker:
             logger.error(f"Failed to search issues: {e}")
             return []
 
-    def get_issue_timeline(self, issue_number: int) -> List[Dict[str, Any]]:
+def get_issue_timeline(self, issue_number: int) -> List[Dict[str, Any]]:
         """Get issue timeline events."""
         try:
             result = subprocess.run(
                 ['gh', 'api',
-                 f'/repos/{self.repo_owner}/{self.repo_name}/issues/{issue_number}/timeline',
-                 '--paginate'],
+                f'/repos/{self.repo_owner}/{self.repo_name}/issues/{issue_number}/timeline',
+                '--paginate'],
                 capture_output=True,
                 text=True,
                 check=True

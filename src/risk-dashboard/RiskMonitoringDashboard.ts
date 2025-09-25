@@ -548,7 +548,7 @@ class RiskCalculationEngine {
     const startTime = performance.now();
     
     try {
-      // Calculate P(ruin) using Gary×Taleb methodology
+      // Calculate P(ruin) using GaryTaleb methodology
       const pRuin = await this.calculateProbabilityOfRuin(data);
       
       // Calculate other risk metrics
@@ -597,7 +597,7 @@ class RiskCalculationEngine {
     const drawdownThreshold = data.drawdownThreshold || 0.20;
     const timeHorizon = data.timeHorizon || 252; // Trading days
     
-    // Gary×Taleb probability of ruin calculation
+    // GaryTaleb probability of ruin calculation
     // P(ruin) = probability of hitting drawdown threshold within time horizon
     let pRuinValue = 0;
     
@@ -749,7 +749,7 @@ class RiskCalculationEngine {
   }
 
   private calculateAntifragilityIndex(data: any): number {
-    // Gary×Taleb antifragility index calculation
+    // GaryTaleb antifragility index calculation
     const returns = data.returns || [];
     if (returns.length === 0) return 0;
     

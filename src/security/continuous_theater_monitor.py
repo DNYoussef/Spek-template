@@ -1,6 +1,4 @@
-"""
-Continuous Theater Monitoring System
-Defense Industry Zero-Tolerance Continuous Surveillance
+from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 Implements real-time theater detection with continuous monitoring
 for enterprise modules and defense industry compliance.
@@ -11,7 +9,6 @@ import hashlib
 import json
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
-
 
 @dataclass
 class TheaterAlert:
@@ -26,7 +23,6 @@ class TheaterAlert:
     resolved: bool = False
     resolution_time: Optional[datetime] = None
 
-
 @dataclass
 class MonitoringMetrics:
     """Metrics for theater monitoring system"""
@@ -38,7 +34,6 @@ class MonitoringMetrics:
     alerts_generated: int
     defense_industry_compliance_score: float
     continuous_uptime_hours: float
-
 
 class TheaterFileHandler(FileSystemEventHandler):
     """File system event handler for theater detection"""
@@ -92,7 +87,6 @@ class TheaterFileHandler(FileSystemEventHandler):
 
         return any(pattern in path_str for pattern in enterprise_patterns)
 
-
 class ContinuousTheaterMonitor:
     """
     Continuous theater monitoring system for defense industry
@@ -145,7 +139,7 @@ class ContinuousTheaterMonitor:
         return {
             "monitoring": {
                 "enabled": True,
-                "check_interval_seconds": 300,  # 5 minutes
+                "check_interval_seconds": 300,  # MAXIMUM_NESTED_DEPTH minutes
                 "alert_threshold": TheaterSeverity.MEDIUM,
                 "defense_industry_mode": True,
                 "zero_tolerance": True
@@ -560,12 +554,10 @@ class ContinuousTheaterMonitor:
             }
         }
 
-
 # Factory function for continuous theater monitoring
 def create_continuous_theater_monitor(project_root: str = None, config: Dict[str, Any] = None) -> ContinuousTheaterMonitor:
     """Create continuous theater monitor instance"""
     return ContinuousTheaterMonitor(project_root, config)
-
 
 # Example alert callback functions
 def email_alert_callback(alert: TheaterAlert) -> None:
@@ -573,18 +565,15 @@ def email_alert_callback(alert: TheaterAlert) -> None:
     logger.info(f" EMAIL ALERT: {alert.description}")
     # In production, would send actual email
 
-
 def webhook_alert_callback(alert: TheaterAlert) -> None:
     """Webhook alert callback (example implementation)"""
     logger.info(f" WEBHOOK ALERT: {alert.description}")
     # In production, would send webhook notification
 
-
 def slack_alert_callback(alert: TheaterAlert) -> None:
     """Slack alert callback (example implementation)"""
     logger.info(f" SLACK ALERT: {alert.description}")
     # In production, would send Slack notification
-
 
 # CLI interface for continuous theater monitoring
 async def main():
@@ -639,7 +628,6 @@ async def main():
     except Exception as e:
         print(f"[FAIL] Monitoring error: {e}")
         return False
-
 
 if __name__ == "__main__":
     success = asyncio.run(main())

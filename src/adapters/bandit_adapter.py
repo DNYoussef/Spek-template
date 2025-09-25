@@ -1,24 +1,24 @@
 """Bandit security linter adapter implementation."""
 
-import json
-import csv
-import io
 from typing import List, Dict, Any
+import io
+import json
+
+import csv
 
 from src.adapters.base_adapter import BaseLinterAdapter
 from src.models.linter_models import (
     LinterConfig, LinterViolation, StandardSeverity, ViolationType
 )
 
-
 class BanditAdapter(BaseLinterAdapter):
     """Adapter for Bandit security linter."""
     
-    def __init__(self, config: LinterConfig):
+def __init__(self, config: LinterConfig):
         super().__init__(config)
         self.tool_name = "bandit"
     
-    def get_command_args(self, target_paths: List[str]) -> List[str]:
+def get_command_args(self, target_paths: List[str]) -> List[str]:
         """Build bandit command arguments."""
         cmd = self.config.get_command_base()
         
@@ -37,7 +37,7 @@ class BanditAdapter(BaseLinterAdapter):
         
         return cmd
     
-    def parse_output(self, raw_output: str, stderr: str = "") -> List[LinterViolation]:
+def parse_output(self, raw_output: str, stderr: str = "") -> List[LinterViolation]:
         """Parse bandit JSON output into standardized violations."""
         violations = []
         
@@ -52,7 +52,7 @@ class BanditAdapter(BaseLinterAdapter):
         # Fall back to text parsing if needed
         return self._parse_text_output(raw_output)
     
-    def _parse_json_output(self, output: str) -> List[LinterViolation]:
+def _parse_json_output(self, output: str) -> List[LinterViolation]:
         """Parse JSON-formatted bandit output."""
         violations = []
         
@@ -112,12 +112,11 @@ class BanditAdapter(BaseLinterAdapter):
         
         return violations
     
-    def _parse_text_output(self, output: str) -> List[LinterViolation]:
+def _parse_text_output(self, output: str) -> List[LinterViolation]:
         """Parse text-formatted bandit output (fallback)."""
         violations = []
         
         # Text parsing for bandit is complex due to multi-line format
-        # This is a simplified version for basic cases
         lines = output.strip().split('\n')
         current_issue = {}
         
@@ -145,10 +144,9 @@ class BanditAdapter(BaseLinterAdapter):
         
         return violations
     
-    def _create_violation_from_text(self, issue_data: Dict[str, Any]) -> LinterViolation:
+def _create_violation_from_text(self, issue_data: Dict[str, Any]) -> LinterViolation:
         """Create violation from parsed text data."""
         # This is a simplified implementation
-        # In production, you'd want more robust text parsing
         line = issue_data.get('line', '')
         details = issue_data.get('details', [])
         
@@ -168,7 +166,7 @@ class BanditAdapter(BaseLinterAdapter):
             raw_data=issue_data
         )
     
-    def normalize_severity(self, tool_severity: str, rule_id: str = "") -> StandardSeverity:
+def normalize_severity(self, tool_severity: str, rule_id: str = "") -> StandardSeverity:
         """Convert bandit severity to standard severity."""
         # Apply user overrides first
         if rule_id:
@@ -185,12 +183,12 @@ class BanditAdapter(BaseLinterAdapter):
         
         return severity_map.get(tool_severity.upper(), StandardSeverity.WARNING)
     
-    def get_violation_type(self, rule_id: str, category: str = "") -> ViolationType:
+def get_violation_type(self, rule_id: str, category: str = "") -> ViolationType:
         """Determine violation type from bandit rule ID."""
         # All bandit violations are security-related
         return ViolationType.SECURITY
     
-    def _get_cwe_mapping(self, test_id: str) -> str:
+def _get_cwe_mapping(self, test_id: str) -> str:
         """Get CWE ID mapping for bandit test IDs."""
         # Common Bandit test ID to CWE mappings
         cwe_mapping = {
@@ -263,7 +261,7 @@ class BanditAdapter(BaseLinterAdapter):
         
         return cwe_mapping.get(test_id, '')
     
-    def _get_test_description(self, test_id: str) -> str:
+def _get_test_description(self, test_id: str) -> str:
         """Get description for bandit test ID."""
         descriptions = {
             'B101': 'Use of assert detected',

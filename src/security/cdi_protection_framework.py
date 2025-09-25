@@ -1,7 +1,4 @@
-"""
-Covered Defense Information (CDI) Protection Framework
-Comprehensive data protection system for DFARS compliance with granular access controls.
-"""
+from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_RETRY_ATTEMPTS
 
 import json
 import time
@@ -10,7 +7,6 @@ import hmac
 from lib.shared.utilities import get_logger
 logger = get_logger(__name__)
 
-
 class CDIClassification(Enum):
     """CDI classification levels."""
     CONTROLLED_UNCLASSIFIED = "cui"
@@ -18,7 +14,6 @@ class CDIClassification(Enum):
     SPECIFIED_CUI = "specified_cui"
     DFARS_COVERED = "dfars_covered"
     EXPORT_CONTROLLED = "export_controlled"
-
 
 class AccessLevel(Enum):
     """Access control levels."""
@@ -30,14 +25,12 @@ class AccessLevel(Enum):
     ADMIN = "admin"
     FULL_CONTROL = "full_control"
 
-
 class DataState(Enum):
     """Data states for protection."""
     AT_REST = "at_rest"
     IN_TRANSIT = "in_transit"
     IN_PROCESSING = "in_processing"
     IN_MEMORY = "in_memory"
-
 
 @dataclass
 class CDIAsset:
@@ -57,7 +50,6 @@ class CDIAsset:
     access_history: List[Dict[str, Any]]
     protection_requirements: Dict[str, Any]
     metadata: Dict[str, Any]
-
 
 @dataclass
 class AccessPolicy:
@@ -79,7 +71,6 @@ class AccessPolicy:
     approval_required: bool
     approval_status: Optional[str]
 
-
 @dataclass
 class DataAccessRequest:
     """Data access request record."""
@@ -96,7 +87,6 @@ class DataAccessRequest:
     approved_at: Optional[float]
     conditions: Dict[str, Any]
     session_id: Optional[str]
-
 
 class CDIProtectionFramework:
     """
@@ -267,12 +257,12 @@ class CDIProtectionFramework:
         logger.info(f"Loaded {len(self.cdi_assets)} CDI assets")
 
     def register_cdi_asset(self, name: str, description: str,
-                          classification: CDIClassification, owner: str,
-                          data_type: str, file_path: Optional[str] = None,
-                          sensitivity_markers: Optional[List[str]] = None,
-                          retention_period: int = 2555,  # 7 years default
-                          protection_requirements: Optional[Dict[str, Any]] = None,
-                          metadata: Optional[Dict[str, Any]] = None) -> str:
+                            classification: CDIClassification, owner: str,
+                            data_type: str, file_path: Optional[str] = None,
+                            sensitivity_markers: Optional[List[str]] = None,
+                            retention_period: int = 2555,  # 7 years default
+                            protection_requirements: Optional[Dict[str, Any]] = None,
+                            metadata: Optional[Dict[str, Any]] = None) -> str:
         """Register new CDI asset for protection."""
         asset_id = f"cdi_{uuid.uuid4().hex[:16]}"
         current_time = time.time()
@@ -400,8 +390,8 @@ class CDIProtectionFramework:
         intervals = {
             CDIClassification.CONTROLLED_UNCLASSIFIED: 365 * 24 * 3600,  # 1 year
             CDIClassification.BASIC_CUI: 180 * 24 * 3600,  # 6 months
-            CDIClassification.SPECIFIED_CUI: 90 * 24 * 3600,  # 3 months
-            CDIClassification.DFARS_COVERED: 30 * 24 * 3600,  # 1 month
+            CDIClassification.SPECIFIED_CUI: 90 * 24 * 3600,  # MAXIMUM_RETRY_ATTEMPTS months
+            CDIClassification.DFARS_COVERED: API_TIMEOUT_SECONDS * 24 * 3600,  # 1 month
             CDIClassification.EXPORT_CONTROLLED: 30 * 24 * 3600  # 1 month
         }
         return intervals.get(classification, 90 * 24 * 3600)
@@ -491,7 +481,6 @@ class CDIProtectionFramework:
     async def _apply_transit_protection(self, asset: CDIAsset):
         """Apply protection for data in transit."""
         # This would integrate with network security controls
-        # For now, log the protection application
         self.audit_manager.log_audit_event(
             event_type=AuditEventType.DATA_ACCESS,
             severity=SeverityLevel.INFO,
@@ -508,7 +497,6 @@ class CDIProtectionFramework:
     async def _apply_processing_protection(self, asset: CDIAsset):
         """Apply protection for data in processing."""
         # This would implement memory protection, secure enclaves, etc.
-        # For now, log the protection application
         self.audit_manager.log_audit_event(
             event_type=AuditEventType.DATA_ACCESS,
             severity=SeverityLevel.INFO,
@@ -523,14 +511,14 @@ class CDIProtectionFramework:
         )
 
     def create_access_policy(self, name: str, description: str,
-                           subject_type: str, subject_id: str,
-                           resource_pattern: str, access_level: AccessLevel,
-                           created_by: str, conditions: Optional[Dict[str, Any]] = None,
-                           time_constraints: Optional[Dict[str, Any]] = None,
-                           location_constraints: Optional[List[str]] = None,
-                           purpose_limitation: Optional[str] = None,
-                           expires_at: Optional[float] = None,
-                           approval_required: bool = False) -> str:
+                            subject_type: str, subject_id: str,
+                            resource_pattern: str, access_level: AccessLevel,
+                            created_by: str, conditions: Optional[Dict[str, Any]] = None,
+                            time_constraints: Optional[Dict[str, Any]] = None,
+                            location_constraints: Optional[List[str]] = None,
+                            purpose_limitation: Optional[str] = None,
+                            expires_at: Optional[float] = None,
+                            approval_required: bool = False) -> str:
         """Create access control policy for CDI resources."""
         policy_id = f"policy_{uuid.uuid4().hex[:16]}"
 
@@ -599,9 +587,9 @@ class CDIProtectionFramework:
             ))
 
     def request_data_access(self, user_id: str, asset_id: str,
-                          access_level: AccessLevel, purpose: str,
-                          justification: str, expires_at: Optional[float] = None,
-                          session_id: Optional[str] = None) -> str:
+                            access_level: AccessLevel, purpose: str,
+                            justification: str, expires_at: Optional[float] = None,
+                            session_id: Optional[str] = None) -> str:
         """Request access to CDI asset."""
         request_id = f"req_{uuid.uuid4().hex[:16]}"
 
@@ -678,7 +666,6 @@ class CDIProtectionFramework:
     def _check_user_approval_requirements(self, user_id: str, asset_id: str) -> bool:
         """Check if user has policies requiring approval."""
         # This would integrate with identity management system
-        # For now, return False (no approval required)
         return False
 
     def _persist_access_request(self, request: DataAccessRequest):
@@ -716,7 +703,7 @@ class CDIProtectionFramework:
         }
 
     def approve_access_request(self, request_id: str, approver_id: str,
-                             conditions: Optional[Dict[str, Any]] = None) -> bool:
+                            conditions: Optional[Dict[str, Any]] = None) -> bool:
         """Approve pending access request."""
         if request_id not in self.access_requests:
             raise ValueError(f"Access request {request_id} not found")
@@ -764,9 +751,9 @@ class CDIProtectionFramework:
         return True
 
     def check_access_authorization(self, user_id: str, asset_id: str,
-                                 access_level: AccessLevel,
-                                 session_id: Optional[str] = None,
-                                 context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+                                access_level: AccessLevel,
+                                session_id: Optional[str] = None,
+                                context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Check if user is authorized for specific access to CDI asset."""
         # Check cache first
         cache_key = f"{user_id}:{asset_id}"
@@ -908,7 +895,7 @@ class CDIProtectionFramework:
         return True
 
     def _log_asset_access(self, user_id: str, asset: CDIAsset, access_level: AccessLevel,
-                         session_id: Optional[str], outcome: str):
+                        session_id: Optional[str], outcome: str):
         """Log CDI asset access attempt."""
         # Add to asset access history
         access_record = {
@@ -947,7 +934,7 @@ class CDIProtectionFramework:
         )
 
     async def decrypt_cdi_asset(self, asset_id: str, user_id: str,
-                              session_id: Optional[str] = None) -> bytes:
+                                session_id: Optional[str] = None) -> bytes:
         """Decrypt CDI asset for authorized access."""
         # Check authorization
         auth_result = self.check_access_authorization(
@@ -984,7 +971,6 @@ class CDIProtectionFramework:
                 remaining_data = f.read()
 
             # Extract encryption components (simplified - would need proper parsing)
-            # This is a simplified version for demonstration
             ciphertext_length = len(remaining_data) - 12 - 16  # IV (12) + tag (16)
             ciphertext = remaining_data[:ciphertext_length]
             iv = remaining_data[ciphertext_length:ciphertext_length + 12]
@@ -1037,7 +1023,7 @@ class CDIProtectionFramework:
             raise
 
     def get_cdi_inventory(self, classification_filter: Optional[CDIClassification] = None,
-                         owner_filter: Optional[str] = None) -> List[Dict[str, Any]]:
+                        owner_filter: Optional[str] = None) -> List[Dict[str, Any]]:
         """Get CDI asset inventory."""
         inventory = []
 
@@ -1112,12 +1098,10 @@ class CDIProtectionFramework:
 
         return report
 
-
 # Factory function
 def create_cdi_protection_framework(storage_path: str = ".claude/.artifacts/cdi_protection") -> CDIProtectionFramework:
     """Create CDI protection framework."""
     return CDIProtectionFramework(storage_path)
-
 
 # Example usage
 if __name__ == "__main__":

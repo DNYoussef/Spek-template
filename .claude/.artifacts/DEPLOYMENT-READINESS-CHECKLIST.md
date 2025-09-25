@@ -12,7 +12,7 @@
 
 This checklist provides a comprehensive roadmap for achieving production readiness. Based on current system state analysis, **4 critical blockers** must be resolved before deployment. The checklist is organized into 4 phases with clear gates, deliverables, and success criteria.
 
-**Critical Path**: Test Suite (2d) → NASA Compliance (5d) → Security (3d) → Architecture (5d) → Validation (3d) = **18 days minimum**
+**Critical Path**: Test Suite (2d) -> NASA Compliance (5d) -> Security (3d) -> Architecture (5d) -> Validation (3d) = **18 days minimum**
 
 ---
 
@@ -81,17 +81,17 @@ This checklist provides a comprehensive roadmap for achieving production readine
 
 #### Tasks
 - [ ] Fix top 10 god objects (80/20 rule)
-  - [ ] `interfaces/cli/src/mcp/server.js` (2,847 LOC → target <300 LOC)
+  - [ ] `interfaces/cli/src/mcp/server.js` (2,847 LOC -> target <300 LOC)
   - [ ] `src/flow/agents/queen/` modules (apply SwarmQueen pattern)
   - [ ] `src/flow/agents/princess/` modules (apply HivePrincess pattern)
   - [ ] Configuration managers (apply agent-registry pattern)
   - [ ] Utility modules (extract focused classes)
 
 - [ ] Reduce critical connascence violations
-  - [ ] CoM (Coupling of Meaning): 156 violations → target <30
-  - [ ] CoC (Coupling of Components): 127 violations → target <25
-  - [ ] CoE (Coupling of Execution): 89 violations → target <20
-  - [ ] CoT (Coupling of Type): 78 violations → target <15
+  - [ ] CoM (Coupling of Meaning): 156 violations -> target <30
+  - [ ] CoC (Coupling of Components): 127 violations -> target <25
+  - [ ] CoE (Coupling of Execution): 89 violations -> target <20
+  - [ ] CoT (Coupling of Type): 78 violations -> target <15
 
 - [ ] Apply proven remediation patterns
   - [ ] Extract Class pattern (create focused utilities)
@@ -102,7 +102,7 @@ This checklist provides a comprehensive roadmap for achieving production readine
 #### Validation Criteria
 - [ ] **NASA POT10 compliance >70%** (interim target)
 - [ ] **Zero critical connascence violations** (severity 9-10)
-- [ ] **God objects reduced by 50%** (243 → <120)
+- [ ] **God objects reduced by 50%** (243 -> <120)
 - [ ] **Average file size <400 LOC** (down from 500+)
 - [ ] **Automated compliance check passes** in CI/CD
 
@@ -388,16 +388,16 @@ This checklist provides a comprehensive roadmap for achieving production readine
 
 #### Tasks
 - [ ] Critical path testing (100% coverage)
-  - [ ] User onboarding flow (registration → first task)
-  - [ ] Agent deployment workflow (swarm init → task completion)
-  - [ ] Quality gate validation (test → lint → security → deploy)
-  - [ ] NASA compliance workflow (analyze → remediate → validate)
+  - [ ] User onboarding flow (registration -> first task)
+  - [ ] Agent deployment workflow (swarm init -> task completion)
+  - [ ] Quality gate validation (test -> lint -> security -> deploy)
+  - [ ] NASA compliance workflow (analyze -> remediate -> validate)
 
 - [ ] Integration testing
   - [ ] MCP server integration (all 16+ servers)
   - [ ] GitHub integration (PR creation, issue tracking)
   - [ ] AI model integration (GPT-5, Gemini, Claude)
-  - [ ] CI/CD pipeline (commit → deploy)
+  - [ ] CI/CD pipeline (commit -> deploy)
 
 - [ ] Error scenario testing
   - [ ] Network failures (timeouts, retries)

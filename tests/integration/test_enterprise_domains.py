@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Enterprise Domain Integration Testing
-====================================
+from src.constants.base import NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
 
 Test incremental enablement of each enterprise domain:
 - SR: Six Sigma and Statistical Process Control
@@ -32,7 +29,6 @@ try:
     from analyzer.enterprise import initialize_enterprise_features, get_enterprise_status
 except ImportError as e:
     print(f"Warning: Failed to import components: {e}")
-
 
 class TestConfigManager:
     """Test configuration manager for enterprise domain testing."""
@@ -73,7 +69,7 @@ class TestConfigManager:
             "state": "enabled" if "quality_validation" in self.enabled_features else "disabled",
             "description": "Advanced quality validation and NASA POT10 enhancement",
             "performance_impact": "low",
-            "min_nasa_compliance": 0.95
+            "min_nasa_compliance": NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
         }
         
         # Workflow Optimization (WO)
@@ -81,7 +77,7 @@ class TestConfigManager:
             "state": "enabled" if "workflow_optimization" in self.enabled_features else "disabled",
             "description": "Workflow optimization and performance monitoring",
             "performance_impact": "medium",
-            "min_nasa_compliance": 0.92
+            "min_nasa_compliance": NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
         }
         
         return {"features": features}
@@ -96,7 +92,6 @@ class TestConfigManager:
             "nasa_compliance_threshold": 0.92
         }
         return config.get(key, default)
-
 
 class EnterprisePerformanceTracker:
     """Track performance metrics for enterprise domain testing."""
@@ -152,7 +147,6 @@ class EnterprisePerformanceTracker:
             return psutil.Process().memory_info().rss
         except ImportError:
             return 0
-
 
 class BaseDomainTest(unittest.TestCase):
     """Base class for enterprise domain tests."""
@@ -218,7 +212,6 @@ API_KEY = "abc123"  # Hardcoded API key
 DEBUG = True
 """)
 
-
 class SixSigmaDomainTest(BaseDomainTest):
     """Test Six Sigma (SR) domain integration."""
     
@@ -275,7 +268,6 @@ class SixSigmaDomainTest(BaseDomainTest):
         # Should pass since Six Sigma requires 0.92
         self.assertTrue(low_compliance_validation["overall_valid"])
 
-
 class SupplyChainDomainTest(BaseDomainTest):
     """Test Supply Chain (SC) domain integration."""
     
@@ -323,7 +315,6 @@ class SupplyChainDomainTest(BaseDomainTest):
         self.assertEqual(impact_summary["total_features"], 1)
         self.assertEqual(impact_summary["performance_impact"], "medium")
 
-
 class ComplianceDomainTest(BaseDomainTest):
     """Test Compliance and Evidence (CE) domain integration."""
     
@@ -354,7 +345,6 @@ class ComplianceDomainTest(BaseDomainTest):
         adequate_validation = feature_manager.validate_nasa_compliance(0.94)
         self.assertTrue(adequate_validation["overall_valid"])
 
-
 class QualityValidationDomainTest(BaseDomainTest):
     """Test Quality Validation (QV) domain integration."""
     
@@ -384,7 +374,6 @@ class QualityValidationDomainTest(BaseDomainTest):
         high_validation = feature_manager.validate_nasa_compliance(0.96)
         self.assertTrue(high_validation["overall_valid"])
 
-
 class WorkflowOptimizationDomainTest(BaseDomainTest):
     """Test Workflow Optimization (WO) domain integration."""
     
@@ -410,7 +399,6 @@ class WorkflowOptimizationDomainTest(BaseDomainTest):
         
         self.assertEqual(impact_summary["total_features"], 1)
         self.assertEqual(impact_summary["performance_impact"], "medium")
-
 
 class MultiDomainIntegrationTest(BaseDomainTest):
     """Test multiple enterprise domains working together."""
@@ -497,7 +485,6 @@ class MultiDomainIntegrationTest(BaseDomainTest):
         self.assertIsNotNone(quality_violation)
         self.assertEqual(quality_violation["required_compliance"], 0.95)
 
-
 class DomainPerformanceTest(BaseDomainTest):
     """Test performance characteristics of enterprise domains."""
     
@@ -546,8 +533,7 @@ class DomainPerformanceTest(BaseDomainTest):
                 # Performance should scale reasonably
                 expected_max_time = 200 * i  # 200ms per domain
                 self.assertLess(init_time_ms, expected_max_time, 
-                              f"Performance degrades too much with {i} domains")
-
+                                f"Performance degrades too much with {i} domains")
 
 if __name__ == "__main__":
     # Create test suite
@@ -564,7 +550,6 @@ if __name__ == "__main__":
     # Run all tests
     for test_class in test_classes:
         print(f"\n{'='*60}")
-        print(f"Running {test_class.__name__}")
         print('='*60)
         
         suite = unittest.TestLoader().loadTestsFromTestCase(test_class)
@@ -572,12 +557,10 @@ if __name__ == "__main__":
         result = runner.run(suite)
         
         if not result.wasSuccessful():
-            print(f"FAILED: {test_class.__name__}")
             for failure in result.failures:
                 print(f"  FAILURE: {failure[0]}")
             for error in result.errors:
                 print(f"  ERROR: {error[0]}")
     
     print(f"\n{'='*60}")
-    print("Enterprise Domain Integration Testing Complete")
     print('='*60)

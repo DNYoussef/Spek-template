@@ -6,10 +6,10 @@ The automated fixes incorrectly placed assert statements inside append() calls.
 This script moves them to the next line.
 """
 
-import re
-import os
-import sys
 from pathlib import Path
+import os
+import re
+import sys
 
 def fix_syntax_errors(filepath):
     """Fix syntax errors in a single file."""

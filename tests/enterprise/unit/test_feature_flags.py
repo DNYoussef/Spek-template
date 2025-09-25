@@ -1,5 +1,4 @@
-"""
-Unit Tests for Enterprise Feature Flag System
+from src.constants.base import NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, QUALITY_GATE_MINIMUM_PASS_RATE
 
 Tests zero-performance-impact feature flag system with comprehensive
 validation of feature states, dependencies, and NASA compliance requirements.
@@ -18,7 +17,6 @@ from feature_flags import (
     FeatureState, FeatureFlag, EnterpriseFeatureManager
 )
 
-
 class TestFeatureState:
     """Test FeatureState enum"""
     
@@ -28,7 +26,6 @@ class TestFeatureState:
         assert FeatureState.ENABLED.value == "enabled"
         assert FeatureState.BETA.value == "beta"
         assert FeatureState.DEPRECATED.value == "deprecated"
-
 
 class TestFeatureFlag:
     """Test FeatureFlag dataclass"""
@@ -46,7 +43,7 @@ class TestFeatureFlag:
         assert flag.description == "Test feature for unit testing"
         assert flag.dependencies == []  # Default empty list
         assert flag.performance_impact == "none"  # Default
-        assert flag.min_nasa_compliance == 0.92  # Default
+        assert flag.min_nasa_compliance == NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD  # Default
     
     def test_feature_flag_with_all_fields(self):
         """Test feature flag creation with all fields"""
@@ -56,7 +53,7 @@ class TestFeatureFlag:
             description="Advanced feature in beta",
             dependencies=["basic_feature", "auth_module"],
             performance_impact="medium",
-            min_nasa_compliance=0.95
+            min_nasa_compliance=NASA_POT10_TARGET_COMPLIANCE_THRESHOLD
         )
         
         assert flag.name == "advanced_feature"
@@ -117,7 +114,6 @@ class TestFeatureFlag:
                 min_nasa_compliance=-0.1
             )
 
-
 class TestEnterpriseFeatureManager:
     """Test EnterpriseFeatureManager main class"""
     
@@ -131,7 +127,7 @@ class TestEnterpriseFeatureManager:
                     'state': 'enabled',
                     'description': 'Six Sigma quality analysis',
                     'performance_impact': 'low',
-                    'min_nasa_compliance': 0.92
+                    'min_nasa_compliance': NASA_POT10_MINIMUM_COMPLIANCE_THRESHOLD
                 },
                 'dfars_compliance': {
                     'state': 'disabled',
@@ -263,7 +259,6 @@ class TestEnterpriseFeatureManager:
         with pytest.raises(AssertionError, match="feature_name cannot be None"):
             self.manager.get_feature_info(None)
 
-
 class TestNASAComplianceValidation:
     """Test NASA compliance validation functionality"""
     
@@ -275,7 +270,7 @@ class TestNASAComplianceValidation:
                 'low_compliance': {
                     'state': 'enabled',
                     'description': 'Low compliance requirement',
-                    'min_nasa_compliance': 0.85
+                    'min_nasa_compliance': QUALITY_GATE_MINIMUM_PASS_RATE
                 },
                 'high_compliance': {
                     'state': 'enabled',
@@ -350,7 +345,6 @@ class TestNASAComplianceValidation:
         violations = [v['feature'] for v in result['feature_violations']]
         assert 'high_compliance' in violations
         assert 'disabled_feature' not in violations
-
 
 class TestPerformanceImpactAnalysis:
     """Test performance impact analysis functionality"""
@@ -480,7 +474,6 @@ class TestPerformanceImpactAnalysis:
         rec_text = ' '.join(recommendations)
         assert 'number' in rec_text.lower() or 'monitor' in rec_text.lower()
 
-
 class TestCacheManagement:
     """Test cache management functionality"""
     
@@ -556,7 +549,6 @@ class TestCacheManagement:
         assert self.manager._feature_cache['test_feature'] is True
         assert self.manager._feature_cache['another_feature'] is False
 
-
 class TestDefaultFeaturesConfiguration:
     """Test default features configuration"""
     
@@ -593,14 +585,13 @@ class TestDefaultFeaturesConfiguration:
         dfars = manager.features['dfars_compliance']
         assert dfars.state == FeatureState.DISABLED
         assert dfars.performance_impact == 'medium'
-        assert dfars.min_nasa_compliance == 0.95  # Higher for defense
+        assert dfars.min_nasa_compliance == NASA_POT10_TARGET_COMPLIANCE_THRESHOLD  # Higher for defense
         
         # Check supply chain governance properties
         supply_chain = manager.features['supply_chain_governance']
         assert supply_chain.state == FeatureState.DISABLED
         assert supply_chain.performance_impact == 'medium'
         assert supply_chain.min_nasa_compliance == 0.92
-
 
 class TestConfigurationLoading:
     """Test configuration loading functionality"""
@@ -667,7 +658,6 @@ class TestConfigurationLoading:
         assert 'sixsigma' in manager.features
         assert 'dfars_compliance' in manager.features
         assert 'supply_chain_governance' in manager.features
-
 
 class TestPerformanceAndMemory:
     """Test performance and memory efficiency"""
@@ -785,7 +775,6 @@ class TestPerformanceAndMemory:
         object_growth = final_objects - initial_objects
         assert object_growth < 5000  # Reasonable growth limit
 
-
 class TestErrorHandlingAndEdgeCases:
     """Test error handling and edge cases"""
     
@@ -823,13 +812,11 @@ class TestErrorHandlingAndEdgeCases:
         self.manager.clear_cache()
         
         # Should handle gracefully without infinite recursion
-        # Implementation may vary, but should not crash
         try:
             result_a = self.manager.is_enabled('feature_a')
             result_b = self.manager.is_enabled('feature_b')
             
             # Both should be disabled due to circular dependency
-            # (exact behavior may depend on implementation)
             assert isinstance(result_a, bool)
             assert isinstance(result_b, bool)
             

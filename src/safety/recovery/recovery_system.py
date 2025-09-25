@@ -6,18 +6,18 @@ Implements automated recovery mechanisms with guaranteed <60 second recovery tim
 Provides comprehensive recovery strategies, validation, and performance monitoring.
 """
 
-import time
-import threading
-import concurrent.futures
-import subprocess
 from datetime import datetime
 from typing import Dict, List, Optional, Any
-from enum import Enum
+import subprocess
+import time
+
 from dataclasses import dataclass
+from enum import Enum
 from lib.shared.utilities import get_logger
+import concurrent.futures
+import threading
 
 logger = get_logger(__name__)
-
 
 class RecoveryState(Enum):
     """Recovery state enumeration."""
@@ -27,7 +27,6 @@ class RecoveryState(Enum):
     VALIDATING = "validating"
     COMPLETED = "completed"
     FAILED = "failed"
-
 
 class RecoveryStrategy(Enum):
     """Recovery strategy enumeration."""
@@ -39,7 +38,6 @@ class RecoveryStrategy(Enum):
     BACKUP_RESTORE = "backup_restore"
     GRACEFUL_RESTART = "graceful_restart"
     EMERGENCY_STOP = "emergency_stop"
-
 
 @dataclass
 class RecoveryAction:
@@ -53,10 +51,9 @@ class RecoveryAction:
     priority: int = 1
     validation_checks: List = None
 
-    def __post_init__(self):
+def __post_init__(self):
         if self.validation_checks is None:
             self.validation_checks = []
-
 
 @dataclass
 class RecoveryPlan:
@@ -67,11 +64,10 @@ class RecoveryPlan:
     parallel_execution: bool = False
     rollback_on_failure: bool = True
 
-
 class RecoveryMetrics:
     """Recovery metrics tracking."""
 
-    def __init__(self):
+def __init__(self):
         self.total_recoveries = 0
         self.successful_recoveries = 0
         self.failed_recoveries = 0
@@ -82,11 +78,10 @@ class RecoveryMetrics:
         self.min_recovery_time = float('inf')
         self.strategy_success_rates = {}
 
-
 class RecoverySystem:
     """Automated Recovery System with <60s Guarantee."""
 
-    def __init__(self, config: Optional[Dict] = None):
+def __init__(self, config: Optional[Dict] = None):
         """Initialize the recovery system.
 
         Args:
@@ -116,7 +111,7 @@ class RecoverySystem:
 
         self.logger.info("RecoverySystem initialized")
 
-    def register_recovery_plan(self, plan: RecoveryPlan):
+def register_recovery_plan(self, plan: RecoveryPlan):
         """
         Register a recovery plan for a component.
 
@@ -129,7 +124,7 @@ class RecoverySystem:
 
         self.logger.info("Registered recovery plan for %s", plan.component_name)
 
-    def execute_recovery(self, component_name: str, failure_context: Optional[Dict] = None) -> bool:
+def execute_recovery(self, component_name: str, failure_context: Optional[Dict] = None) -> bool:
         """
         Execute recovery for a component with <60s guarantee.
 
@@ -207,11 +202,11 @@ class RecoverySystem:
             self._active_recoveries.pop(component_name, None)
             return False
 
-    def get_recovery_state(self, component_name: str) -> Optional[RecoveryState]:
+def get_recovery_state(self, component_name: str) -> Optional[RecoveryState]:
         """Get the current recovery state for a component."""
         return self._recovery_states.get(component_name)
 
-    def validate_recovery_time_sla(self) -> Dict[str, Any]:
+def validate_recovery_time_sla(self) -> Dict[str, Any]:
         """
         Validate that all recoveries meet the <60s SLA requirement.
 
@@ -241,7 +236,7 @@ class RecoverySystem:
             'strategy_success_rates': dict(self.metrics.strategy_success_rates)
         }
 
-    def _diagnose_failure(self, component_name: str, failure_context: Optional[Dict]) -> Dict[str, Any]:
+def _diagnose_failure(self, component_name: str, failure_context: Optional[Dict]) -> Dict[str, Any]:
         """Diagnose the failure to determine appropriate recovery actions."""
         diagnosis = {
             'component': component_name,
@@ -270,7 +265,7 @@ class RecoverySystem:
 
         return diagnosis
 
-    def _execute_recovery_plan(self, plan: RecoveryPlan, diagnosis: Dict[str, Any]) -> bool:
+def _execute_recovery_plan(self, plan: RecoveryPlan, diagnosis: Dict[str, Any]) -> bool:
         """Execute the recovery plan based on diagnosis."""
         # Filter actions based on diagnosis if available
         relevant_actions = self._filter_relevant_actions(plan.actions, diagnosis)
@@ -280,7 +275,7 @@ class RecoverySystem:
         else:
             return self._execute_actions_sequential(relevant_actions, plan.max_total_time)
 
-    def _filter_relevant_actions(self, actions: List[RecoveryAction],
+def _filter_relevant_actions(self, actions: List[RecoveryAction],
                                 diagnosis: Dict[str, Any]) -> List[RecoveryAction]:
         """Filter actions based on diagnosis and priority."""
         suggested_strategies = diagnosis.get('suggested_strategies', [])
@@ -288,15 +283,15 @@ class RecoverySystem:
         if suggested_strategies:
             # Prioritize actions matching suggested strategies
             relevant = [action for action in actions
-                       if action.strategy in suggested_strategies]
+                        if action.strategy in suggested_strategies]
             if relevant:
                 return sorted(relevant, key=lambda x: x.priority)
 
         # Return all actions sorted by priority
         return sorted(actions, key=lambda x: x.priority)
 
-    def _execute_actions_sequential(self, actions: List[RecoveryAction],
-                                  max_time: float) -> bool:
+def _execute_actions_sequential(self, actions: List[RecoveryAction],
+                                    max_time: float) -> bool:
         """Execute recovery actions sequentially."""
         start_time = time.time()
 
@@ -312,7 +307,7 @@ class RecoverySystem:
 
         return True
 
-    def _execute_actions_parallel(self, actions: List[RecoveryAction],
+def _execute_actions_parallel(self, actions: List[RecoveryAction],
                                 max_time: float) -> bool:
         """Execute recovery actions in parallel."""
         futures = {}
@@ -347,7 +342,7 @@ class RecoverySystem:
             self.logger.error("Recovery timeout during parallel execution")
             return False
 
-    def _execute_single_action(self, action: RecoveryAction, timeout: float) -> bool:
+def _execute_single_action(self, action: RecoveryAction, timeout: float) -> bool:
         """Execute a single recovery action."""
         self.logger.info("Executing recovery action: %s", action.name)
 
@@ -388,7 +383,7 @@ class RecoverySystem:
 
         return False
 
-    def _restart_service(self, action: RecoveryAction, timeout: float) -> bool:
+def _restart_service(self, action: RecoveryAction, timeout: float) -> bool:
         """Restart a service."""
         if not action.command:
             return False
@@ -406,43 +401,43 @@ class RecoverySystem:
         except Exception:
             return False
 
-    def _rollback_deployment(self, action: RecoveryAction, timeout: float) -> bool:
+def _rollback_deployment(self, action: RecoveryAction, timeout: float) -> bool:
         """Rollback a deployment."""
         # Implementation would depend on deployment system
         self.logger.info("Rolling back deployment for %s", action.name)
         return True  # Placeholder
 
-    def _scale_resources(self, action: RecoveryAction, timeout: float) -> bool:
+def _scale_resources(self, action: RecoveryAction, timeout: float) -> bool:
         """Scale system resources."""
         self.logger.info("Scaling resources for %s", action.name)
         return True  # Placeholder
 
-    def _clear_cache(self, action: RecoveryAction, timeout: float) -> bool:
+def _clear_cache(self, action: RecoveryAction, timeout: float) -> bool:
         """Clear system caches."""
         self.logger.info("Clearing cache for %s", action.name)
         return True  # Placeholder
 
-    def _reload_config(self, action: RecoveryAction, timeout: float) -> bool:
+def _reload_config(self, action: RecoveryAction, timeout: float) -> bool:
         """Reload configuration."""
         self.logger.info("Reloading configuration for %s", action.name)
         return True  # Placeholder
 
-    def _backup_restore(self, action: RecoveryAction, timeout: float) -> bool:
+def _backup_restore(self, action: RecoveryAction, timeout: float) -> bool:
         """Restore from backup."""
         self.logger.info("Restoring from backup for %s", action.name)
         return True  # Placeholder
 
-    def _graceful_restart(self, action: RecoveryAction, timeout: float) -> bool:
+def _graceful_restart(self, action: RecoveryAction, timeout: float) -> bool:
         """Perform graceful restart."""
         self.logger.info("Graceful restart for %s", action.name)
         return True  # Placeholder
 
-    def _emergency_stop(self, action: RecoveryAction, timeout: float) -> bool:
+def _emergency_stop(self, action: RecoveryAction, timeout: float) -> bool:
         """Emergency stop."""
         self.logger.info("Emergency stop for %s", action.name)
         return True  # Placeholder
 
-    def _validate_action(self, action: RecoveryAction) -> bool:
+def _validate_action(self, action: RecoveryAction) -> bool:
         """Validate that an action was successful."""
         for validation_check in action.validation_checks:
             try:
@@ -453,18 +448,18 @@ class RecoverySystem:
                 return False
         return True
 
-    def _validate_recovery(self, plan: RecoveryPlan) -> bool:
+def _validate_recovery(self, plan: RecoveryPlan) -> bool:
         """Validate that the complete recovery was successful."""
         # This would implement component-specific validation
         self.logger.info("Validating recovery for %s", plan.component_name)
         return True  # Placeholder
 
-    def _rollback_recovery(self, plan: RecoveryPlan):
+def _rollback_recovery(self, plan: RecoveryPlan):
         """Rollback recovery actions if validation fails."""
         self.logger.warning("Rolling back recovery for %s", plan.component_name)
         # Implementation would reverse the recovery actions
 
-    def _record_recovery_metrics(self, component_name: str, recovery_time: float, success: bool):
+def _record_recovery_metrics(self, component_name: str, recovery_time: float, success: bool):
         """Record recovery metrics."""
         self.metrics.total_recoveries += 1
         self.metrics.recovery_times.append(recovery_time)
@@ -485,7 +480,7 @@ class RecoverySystem:
         if self.metrics.recovery_times:
             self.metrics.average_recovery_time = sum(self.metrics.recovery_times) / len(self.metrics.recovery_times)
 
-    def shutdown(self):
+def shutdown(self):
         """Shutdown the recovery system."""
         self.logger.info("Shutting down RecoverySystem")
         self._executor.shutdown(wait=True)

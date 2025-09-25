@@ -1,9 +1,10 @@
+from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS
 """
 NASA Power of Ten Critical Fixes - Surgical Remediation
 ======================================================
 
 This module contains the specific code fixes required to achieve NASA POT10 compliance.
-All fixes are bounded operations (≤25 LOC) with comprehensive validation.
+All fixes are bounded operations (<=25 LOC) with comprehensive validation.
 
 SPDX-License-Identifier: MIT
 SPDX-FileCopyrightText: 2024 NASA Compliance Enforcement Team
@@ -103,7 +104,7 @@ class NASACriticalFixes:
 
     def generate_assertion_injections(self) -> List[ComplianceFix]:
         """
-        Generate assertion injections for defensive programming (NASA Rule 5).
+        Generate assertion injections for defensive programming (NASA Rule MAXIMUM_NESTED_DEPTH).
         NASA Rule 4 compliant: <60 lines.
         """
         fixes = []
@@ -123,7 +124,7 @@ class NASACriticalFixes:
             """,
             fixed_code="""
     def analyze_file(self, file_path, options=None):
-        # NASA Rule 5: Precondition assertions
+        # NASA Rule MAXIMUM_NESTED_DEPTH: Precondition assertions
         assert file_path is not None, "file_path cannot be None"
         assert isinstance(file_path, str), "file_path must be string"
         assert len(file_path.strip()) > 0, "file_path cannot be empty"
@@ -177,7 +178,7 @@ class NASACriticalFixes:
 
     def generate_bounded_resource_constraints(self) -> Dict[str, int]:
         """
-        Generate bounded resource constraints (NASA Rule 3).
+        Generate bounded resource constraints (NASA Rule MAXIMUM_RETRY_ATTEMPTS).
         NASA Rule 4 compliant: <60 lines.
         """
         constraints = {
@@ -243,7 +244,7 @@ class NASACriticalFixes:
         return not has_unbounded and has_bounded
 
     def _check_assertion_coverage(self, code: str) -> bool:
-        """Check assertion coverage (NASA Rule 5)."""
+        """Check assertion coverage (NASA Rule MAXIMUM_NESTED_DEPTH)."""
         assert code is not None, "code cannot be None"
 
         assertion_count = code.count("assert")

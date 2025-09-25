@@ -3,19 +3,18 @@ FIPS 140-2 Level 3 Cryptographic Module
 Advanced cryptographic operations compliant with federal standards.
 """
 
-import os
-import hashlib
-import hmac
-import secrets
+from pathlib import Path
 from typing import Dict, Any, Optional, Tuple, List
+import hashlib
+import json
+import os
+import time
+
 from dataclasses import dataclass
 from enum import Enum
-import time
-import json
-from pathlib import Path
 from lib.shared.utilities import get_logger
-logger = get_logger(__name__)
-
+import hmac
+import secrets
 
 class FIPSComplianceLevel(Enum):
     """FIPS 140-2 compliance levels."""
@@ -23,7 +22,6 @@ class FIPSComplianceLevel(Enum):
     LEVEL_2 = "level_2"
     LEVEL_3 = "level_3"
     LEVEL_4 = "level_4"
-
 
 @dataclass
 class CryptoOperation:
@@ -34,7 +32,6 @@ class CryptoOperation:
     timestamp: float
     fips_compliant: bool
     integrity_hash: str
-
 
 class FIPSCryptoModule:
     """
@@ -67,7 +64,7 @@ class FIPSCryptoModule:
     # Prohibited algorithms for DFARS compliance
     PROHIBITED_ALGORITHMS = ['MD5', 'SHA1', 'DES', '3DES', 'RC4', 'RC2']
 
-    def __init__(self, compliance_level: FIPSComplianceLevel = FIPSComplianceLevel.LEVEL_3):
+def __init__(self, compliance_level: FIPSComplianceLevel = FIPSComplianceLevel.LEVEL_3):
         """Initialize FIPS crypto module."""
         self.compliance_level = compliance_level
         self.operation_log: List[CryptoOperation] = []
@@ -81,11 +78,11 @@ class FIPSCryptoModule:
         logger.info(f"FIPS crypto module initialized at {compliance_level.value}")
         self._log_module_initialization()
 
-    def _generate_integrity_key(self) -> bytes:
+def _generate_integrity_key(self) -> bytes:
         """Generate key for operation integrity verification."""
         return secrets.token_bytes(32)  # 256-bit key for HMAC-SHA256
 
-    def _log_module_initialization(self):
+def _log_module_initialization(self):
         """Log module initialization for audit trail."""
         init_record = {
             "event": "module_initialization",
@@ -98,8 +95,8 @@ class FIPSCryptoModule:
         with open(self.audit_path / "crypto_init.json", 'w') as f:
             json.dump(init_record, f, indent=2)
 
-    def _create_operation_record(self, operation: str, algorithm: str,
-                               key_size: int, success: bool) -> CryptoOperation:
+def _create_operation_record(self, operation: str, algorithm: str,
+                                key_size: int, success: bool) -> CryptoOperation:
         """Create operation record for audit trail."""
         operation_id = secrets.token_hex(16)
         timestamp = time.time()
@@ -128,7 +125,7 @@ class FIPSCryptoModule:
 
         return record
 
-    def _persist_operation_record(self, record: CryptoOperation):
+def _persist_operation_record(self, record: CryptoOperation):
         """Persist operation record to audit trail."""
         audit_file = self.audit_path / f"operations_{int(record.timestamp // 86400)}.jsonl"
 
@@ -143,7 +140,7 @@ class FIPSCryptoModule:
             }, f)
             f.write('\n')
 
-    def generate_symmetric_key(self, algorithm: str = "AES-256-GCM") -> Tuple[bytes, str]:
+def generate_symmetric_key(self, algorithm: str = "AES-256-GCM") -> Tuple[bytes, str]:
         """Generate FIPS-compliant symmetric key."""
         if algorithm not in self.APPROVED_ALGORITHMS['symmetric']:
             raise ValueError(f"Algorithm {algorithm} not FIPS approved")
@@ -159,7 +156,7 @@ class FIPSCryptoModule:
         logger.info(f"Generated {algorithm} key (ID: {operation.operation_id})")
         return key, operation.operation_id
 
-    def generate_asymmetric_keypair(self, algorithm: str = "RSA-4096") -> Tuple[bytes, bytes, str]:
+def generate_asymmetric_keypair(self, algorithm: str = "RSA-4096") -> Tuple[bytes, bytes, str]:
         """Generate FIPS-compliant asymmetric key pair."""
         if algorithm not in self.APPROVED_ALGORITHMS['asymmetric']:
             raise ValueError(f"Algorithm {algorithm} not FIPS approved")
@@ -194,7 +191,7 @@ class FIPSCryptoModule:
         logger.info(f"Generated {algorithm} keypair (ID: {operation.operation_id})")
         return private_pem, public_pem, operation.operation_id
 
-    def encrypt_data(self, data: bytes, key: bytes, algorithm: str = "AES-256-GCM") -> Dict[str, Any]:
+def encrypt_data(self, data: bytes, key: bytes, algorithm: str = "AES-256-GCM") -> Dict[str, Any]:
         """Encrypt data using FIPS-approved algorithm."""
         if algorithm not in self.APPROVED_ALGORITHMS['symmetric']:
             raise ValueError(f"Algorithm {algorithm} not FIPS approved")
@@ -248,7 +245,7 @@ class FIPSCryptoModule:
             logger.error(f"Encryption failed (ID: {operation.operation_id}): {e}")
             raise
 
-    def decrypt_data(self, encrypted_data: Dict[str, Any], key: bytes) -> bytes:
+def decrypt_data(self, encrypted_data: Dict[str, Any], key: bytes) -> bytes:
         """Decrypt data using FIPS-approved algorithm."""
         algorithm = encrypted_data['algorithm']
 
@@ -295,7 +292,7 @@ class FIPSCryptoModule:
             logger.error(f"Decryption failed (ID: {operation.operation_id}): {e}")
             raise
 
-    def compute_hash(self, data: bytes, algorithm: str = "SHA-256") -> Tuple[bytes, str]:
+def compute_hash(self, data: bytes, algorithm: str = "SHA-256") -> Tuple[bytes, str]:
         """Compute FIPS-approved cryptographic hash."""
         if algorithm not in self.APPROVED_ALGORITHMS['hash']:
             raise ValueError(f"Hash algorithm {algorithm} not FIPS approved")
@@ -320,7 +317,7 @@ class FIPSCryptoModule:
             logger.error(f"Hash computation failed (ID: {operation.operation_id}): {e}")
             raise
 
-    def sign_data(self, data: bytes, private_key_pem: bytes, algorithm: str = "RSA-4096") -> Dict[str, Any]:
+def sign_data(self, data: bytes, private_key_pem: bytes, algorithm: str = "RSA-4096") -> Dict[str, Any]:
         """Sign data using FIPS-approved digital signature."""
         if algorithm not in self.APPROVED_ALGORITHMS['asymmetric']:
             raise ValueError(f"Signature algorithm {algorithm} not FIPS approved")
@@ -366,7 +363,7 @@ class FIPSCryptoModule:
             logger.error(f"Data signing failed (ID: {operation.operation_id}): {e}")
             raise
 
-    def verify_signature(self, data: bytes, signature_data: Dict[str, Any],
+def verify_signature(self, data: bytes, signature_data: Dict[str, Any],
                         public_key_pem: bytes) -> Tuple[bool, str]:
         """Verify digital signature using FIPS-approved algorithm."""
         algorithm = signature_data['algorithm']
@@ -408,8 +405,8 @@ class FIPSCryptoModule:
             logger.warning(f"Signature verification failed (ID: {operation.operation_id}): {e}")
             return False, operation.operation_id
 
-    def derive_key(self, password: bytes, salt: bytes, iterations: int = 100000,
-                   key_length: int = 32, algorithm: str = "PBKDF2-SHA256") -> Tuple[bytes, str]:
+def derive_key(self, password: bytes, salt: bytes, iterations: int = 100000,
+                    key_length: int = 32, algorithm: str = "PBKDF2-SHA256") -> Tuple[bytes, str]:
         """Derive key using FIPS-approved key derivation function."""
         if algorithm != "PBKDF2-SHA256":
             raise ValueError(f"Key derivation algorithm {algorithm} not FIPS approved")
@@ -441,7 +438,7 @@ class FIPSCryptoModule:
             logger.error(f"Key derivation failed (ID: {operation.operation_id}): {e}")
             raise
 
-    def get_compliance_status(self) -> Dict[str, Any]:
+def get_compliance_status(self) -> Dict[str, Any]:
         """Get FIPS compliance status and operation statistics."""
         total_operations = len(self.operation_log)
         compliant_operations = sum(1 for op in self.operation_log if op.fips_compliant)
@@ -462,7 +459,7 @@ class FIPSCryptoModule:
             "audit_trail_location": str(self.audit_path)
         }
 
-    def perform_integrity_check(self) -> Dict[str, Any]:
+def perform_integrity_check(self) -> Dict[str, Any]:
         """Perform integrity check on operation log."""
         integrity_failures = []
 
@@ -498,7 +495,7 @@ class FIPSCryptoModule:
 
         return integrity_status
 
-    def export_audit_trail(self) -> Dict[str, Any]:
+def export_audit_trail(self) -> Dict[str, Any]:
         """Export complete audit trail for compliance reporting."""
         audit_data = {
             "module_info": {
@@ -529,12 +526,10 @@ class FIPSCryptoModule:
         logger.info(f"Audit trail exported to {export_file}")
         return audit_data
 
-
 # Factory function
 def create_fips_crypto_module(compliance_level: FIPSComplianceLevel = FIPSComplianceLevel.LEVEL_3) -> FIPSCryptoModule:
     """Create FIPS crypto module instance."""
     return FIPSCryptoModule(compliance_level)
-
 
 # Example usage and self-test
 if __name__ == "__main__":
@@ -551,14 +546,10 @@ if __name__ == "__main__":
     encrypted = crypto.encrypt_data(test_data, key, "AES-256-GCM")
     decrypted = crypto.decrypt_data(encrypted, key)
 
-    print(f"Encryption test: {'PASS' if decrypted == test_data else 'FAIL'}")
-
     # Test digital signatures
     private_key, public_key, keypair_id = crypto.generate_asymmetric_keypair("RSA-4096")
     signature_data = crypto.sign_data(test_data, private_key, "RSA-4096")
     verified, verify_id = crypto.verify_signature(test_data, signature_data, public_key)
-
-    print(f"Digital signature test: {'PASS' if verified else 'FAIL'}")
 
     # Test hash computation
     hash_value, hash_id = crypto.compute_hash(test_data, "SHA-256")

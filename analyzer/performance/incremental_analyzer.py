@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-Incremental Analysis Engine with Multi-threading Optimization
-=============================================================
+from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
 
 Advanced incremental analysis engine that provides intelligent file change detection,
 dependency tracking, and parallel processing for maximum performance improvements.
@@ -14,7 +11,7 @@ Features:
 - Memory-efficient streaming analysis
 - Real-time performance monitoring integration
 
-NASA Rules 4, 5, 6, 7: Function limits, assertions, scoping, bounded resources
+NASA Rules 4, MAXIMUM_NESTED_DEPTH, 6, 7: Function limits, assertions, scoping, bounded resources
 """
 
 import asyncio
@@ -28,7 +25,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union, Callable
 import logging
 logger = logging.getLogger(__name__)
-
 
 @dataclass
 class FileChangeRecord:
@@ -47,7 +43,6 @@ class FileChangeRecord:
         assert self.file_path, "file_path cannot be empty"
         assert self.change_type in ['added', 'modified', 'deleted'], "Invalid change_type"
         assert self.timestamp > 0, "timestamp must be positive"
-
 
 @dataclass
 class DependencyNode:
@@ -71,7 +66,6 @@ class DependencyNode:
         """Get all files that could be impacted by changes to this file."""
         return self.dependents.copy()
 
-
 @dataclass
 class AnalysisTask:
     """Task for incremental analysis processing."""
@@ -91,13 +85,12 @@ class AnalysisTask:
         assert 1 <= self.priority <= 3, "priority must be 1-3"
         assert self.max_retries >= 0, "max_retries must be non-negative"
 
-
 class DependencyGraphAnalyzer:
     """
     Analyzes project dependency graph for impact analysis.
     
     NASA Rule 4: All methods under 60 lines
-    NASA Rule 7: Bounded resource usage
+    NASA Rule DAYS_RETENTION_PERIOD: Bounded resource usage
     """
     
     def __init__(self, max_depth: int = 10):
@@ -315,7 +308,6 @@ class DependencyGraphAnalyzer:
                 "analysis_stats": self.analysis_stats.copy()
             }
 
-
 class IncrementalAnalysisEngine:
     """
     Main incremental analysis engine with parallel processing.
@@ -385,8 +377,8 @@ class IncrementalAnalysisEngine:
         logger.info("Incremental analysis engine stopped")
     
     async def analyze_project_incrementally(self,
-                                          project_path: Union[str, Path],
-                                          changed_files: Optional[List[str]] = None) -> Dict[str, Any]:
+                                            project_path: Union[str, Path],
+                                            changed_files: Optional[List[str]] = None) -> Dict[str, Any]:
         """
         Perform incremental analysis on project with intelligent change detection.
         
@@ -452,8 +444,8 @@ class IncrementalAnalysisEngine:
             return await self._fallback_full_analysis(project_path)
     
     async def _create_analysis_tasks(self,
-                                   file_changes: List[FileChangeRecord],
-                                   impact_analysis: Dict[str, Set[str]]) -> List[AnalysisTask]:
+                                    file_changes: List[FileChangeRecord],
+                                    impact_analysis: Dict[str, Set[str]]) -> List[AnalysisTask]:
         """Create analysis tasks based on file changes and impact analysis."""
         tasks = []
         task_id_counter = 0
@@ -828,7 +820,7 @@ class IncrementalAnalysisEngine:
     def get_performance_stats(self) -> Dict[str, Any]:
         """Get comprehensive performance statistics."""
         total_analyses = (self.analysis_stats["incremental_analyses"] + 
-                         self.analysis_stats["full_analyses"])
+                        self.analysis_stats["full_analyses"])
         
         incremental_ratio = (
             self.analysis_stats["incremental_analyses"] / max(total_analyses, 1)
@@ -854,13 +846,12 @@ class IncrementalAnalysisEngine:
             }
         }
 
-
 class FileChangeTracker:
     """
     Tracks file changes for incremental analysis.
     
     NASA Rule 4: All methods under 60 lines
-    NASA Rule 7: Bounded resource usage
+    NASA Rule DAYS_RETENTION_PERIOD: Bounded resource usage
     """
     
     def __init__(self, max_tracked_files: int = 10000):
@@ -1016,11 +1007,9 @@ class FileChangeTracker:
                 "max_tracked_files": self.max_tracked_files
             }
 
-
 # Global incremental analysis engine instance
 _global_incremental_engine: Optional[IncrementalAnalysisEngine] = None
 _engine_lock = threading.Lock()
-
 
 def get_global_incremental_engine() -> IncrementalAnalysisEngine:
     """Get or create global incremental analysis engine."""
@@ -1032,9 +1021,8 @@ def get_global_incremental_engine() -> IncrementalAnalysisEngine:
     
     return _global_incremental_engine
 
-
 async def analyze_project_changes(project_path: Union[str, Path],
-                                  changed_files: Optional[List[str]] = None) -> Dict[str, Any]:
+                                    changed_files: Optional[List[str]] = None) -> Dict[str, Any]:
     """
     High-level function to analyze project changes incrementally.
     
@@ -1052,8 +1040,6 @@ async def analyze_project_changes(project_path: Union[str, Path],
         return results
     finally:
         # Keep engine running for next analysis
-        pass
-
 
 if __name__ == "__main__":
     # Example usage

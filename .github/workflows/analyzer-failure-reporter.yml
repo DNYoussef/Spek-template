@@ -74,29 +74,29 @@ jobs:
 
         try:
             import analyzer
-            print('✓ Base analyzer import successful')
+            print('[PASS] Base analyzer import successful')
         except Exception as e:
-            print(f'✗ Base analyzer import failed: {e}')
+            print(f'[FAIL] Base analyzer import failed: {e}')
             exit(1)
 
         try:
             from analyzer import UnifiedAnalyzer, UNIFIED_ANALYZER_AVAILABLE
             if UNIFIED_ANALYZER_AVAILABLE:
-                print('✓ UnifiedAnalyzer import successful')
+                print('[PASS] UnifiedAnalyzer import successful')
             else:
-                print('⚠ UnifiedAnalyzer not available but handled gracefully')
+                print('[WARN] UnifiedAnalyzer not available but handled gracefully')
         except Exception as e:
-            print(f'✗ UnifiedAnalyzer import failed: {e}')
+            print(f'[FAIL] UnifiedAnalyzer import failed: {e}')
             exit(1)
 
         try:
             from analyzer.performance import REAL_TIME_MONITOR_AVAILABLE, CACHE_PROFILER_AVAILABLE
             if REAL_TIME_MONITOR_AVAILABLE and CACHE_PROFILER_AVAILABLE:
-                print('✓ Performance modules available')
+                print('[PASS] Performance modules available')
             else:
-                print('⚠ Some performance modules unavailable but handled')
+                print('[WARN] Some performance modules unavailable but handled')
         except Exception as e:
-            print(f'✗ Performance module import failed: {e}')
+            print(f'[FAIL] Performance module import failed: {e}')
             exit(1)
 
         print('All critical imports successful!')
@@ -167,7 +167,7 @@ jobs:
       uses: actions/github-script@v7
       with:
         script: |
-          const title = '🚨 Critical Analyzer Failure Detected';
+          const title = '[ALERT] Critical Analyzer Failure Detected';
           const body = `
           A critical analyzer failure has been detected:
 
@@ -201,7 +201,7 @@ jobs:
         echo "- Critical Failure: ${{ steps.analyze-failure.outputs.is-critical-failure || 'false' }}" >> $GITHUB_STEP_SUMMARY
 
         if [[ "${{ steps.analyze-failure.outputs.is-critical-failure }}" == "true" ]]; then
-          echo "🚨 Critical failure detected - issue created" >> $GITHUB_STEP_SUMMARY
+          echo "[ALERT] Critical failure detected - issue created" >> $GITHUB_STEP_SUMMARY
         else
-          echo "✅ No critical failures detected" >> $GITHUB_STEP_SUMMARY
+          echo "[OK] No critical failures detected" >> $GITHUB_STEP_SUMMARY
         fi

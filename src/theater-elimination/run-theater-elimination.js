@@ -11,7 +11,7 @@ const path = require('path');
 async function main() {
   const runner = new ProductionValidationRunner();
 
-  console.log('🎭 THEATER ELIMINATION SYSTEM');
+  console.log(' THEATER ELIMINATION SYSTEM');
   console.log('=============================');
   console.log('Initializing production validation runner...\n');
 
@@ -27,8 +27,8 @@ async function main() {
       path.resolve(__dirname, 'production-validation-runner.js')
     ];
 
-    console.log(`🎯 Target Files: ${targetFiles.length}`);
-    console.log('📁 Files to validate:');
+    console.log(` Target Files: ${targetFiles.length}`);
+    console.log(' Files to validate:');
     targetFiles.forEach((file, index) => {
       console.log(`   ${index + 1}. ${path.basename(file)}`);
     });
@@ -38,7 +38,7 @@ async function main() {
     const validation = await runner.runProductionValidation(targetFiles);
 
     // Display final results
-    console.log('\n🏆 THEATER ELIMINATION COMPLETE');
+    console.log('\n THEATER ELIMINATION COMPLETE');
     console.log('===============================');
     console.log(`Validation ID: ${validation.id}`);
     console.log(`Success: ${validation.success ? 'YES' : 'NO'}`);
@@ -47,22 +47,22 @@ async function main() {
     console.log(`Certification: ${validation.phases?.certification?.status || 'UNKNOWN'}`);
 
     if (validation.success) {
-      console.log('\n✅ PRODUCTION DEPLOYMENT AUTHORIZED');
+      console.log('\n PRODUCTION DEPLOYMENT AUTHORIZED');
       console.log('Theater elimination successful - system is production ready!');
     } else {
-      console.log('\n❌ PRODUCTION DEPLOYMENT BLOCKED');
+      console.log('\n PRODUCTION DEPLOYMENT BLOCKED');
       console.log('Theater elimination incomplete - address issues before deployment');
 
       if (validation.phases?.productionAssessment?.blockers?.length > 0) {
         console.log('\nBlocking Issues:');
         validation.phases.productionAssessment.blockers.forEach(blocker => {
-          console.log(`  • ${blocker}`);
+          console.log(`   ${blocker}`);
         });
       }
     }
 
     // Cleanup
-    console.log('\n🧹 Cleaning up resources...');
+    console.log('\n Cleaning up resources...');
     await runner.cleanup();
     console.log('Cleanup complete.\n');
 
@@ -70,7 +70,7 @@ async function main() {
     process.exit(validation.success ? 0 : 1);
 
   } catch (error) {
-    console.error('\n❌ THEATER ELIMINATION FAILED');
+    console.error('\n THEATER ELIMINATION FAILED');
     console.error('=============================');
     console.error(`Error: ${error.message}`);
     console.error('\nStack trace:');
