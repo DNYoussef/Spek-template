@@ -341,9 +341,7 @@ jobs:
         echo "version=$ROLLBACK_VERSION" >> $GITHUB_OUTPUT
 
         echo "✅ Rollback deployment completed"
-        echo "📦 New version: $ROLLBACK_VERSION"
-
-    - name: Setup Python
+        echo "📦 New version: $ROLLBACK_VERSION"    - name: Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
