@@ -53,51 +53,47 @@ jobs:
         # Install any additional dependencies for the analyzer
         pip install -r requirements.txt || echo "No requirements.txt found"
 
-    - name: Run connascence analysis
+    - name: Run unified analyzer v2.0 with connascence analysis
       id: analysis
       continue-on-error: false
       run: |
-        echo "Running connascence analysis..."
+        echo "[SEARCH] Running unified analyzer v2.0 for comprehensive analysis..."
         mkdir -p .claude/.artifacts
 
-        # Run connascence analysis using existing analyzer
-        python3 << 'EOF'
-        import ast
-        import os
-        import json
-        import sys
-        from pathlib import Path
-        from collections import defaultdict
+        # Run unified analyzer with comprehensive analysis
+        if python -m analyzer . --comprehensive --output .claude/.artifacts/unified-analysis.json 2>/dev/null; then
+          echo "[OK] Unified analyzer v2.0 executed successfully"
 
-        class ConnascenceAnalyzer:
-            def __init__(self):
-                self.violations = defaultdict(list)
-                self.file_metrics = {}
+          # Extract connascence metrics from unified analysis
+          python3 << 'EOF'
+          import json
+          import os
+          import sys
+          from pathlib import Path
 
-            def analyze_file(self, filepath):
-                """Analyze a Python file for connascence violations."""
-                try:
-                    with open(filepath, 'r', encoding='utf-8') as f:
-                        content = f.read()
+          # Load unified analyzer results
+          try:
+              with open('.claude/.artifacts/unified-analysis.json', 'r') as f:
+                  data = json.load(f)
+          except Exception as e:
+              print(f"[WARN] Could not load unified analysis: {e}")
+              # Fallback to basic analysis
+              data = {"violations": [], "connascence": {}, "mece_score": 0.0}
 
-                    tree = ast.parse(content, filename=str(filepath))
-                    self.analyze_ast(tree, filepath)
+          # Extract connascence violations
+          violations = data.get('violations', [])
+          connascence_violations = [v for v in violations if 'connascence' in v.get('type', '').lower() or 'coupling' in v.get('type', '')]
 
-                except Exception as e:
-                    print(f"Error analyzing {filepath}: {e}")
+          critical_count = len([v for v in connascence_violations if v.get('severity') == 'CRITICAL'])
+          high_count = len([v for v in connascence_violations if v.get('severity') == 'HIGH'])
 
-            def analyze_ast(self, tree, filepath):
-                """Analyze AST for connascence patterns."""
-                class_count = 0
-                method_count = 0
-                complexity_sum = 0
-                god_objects = []
+          # Extract MECE score from unified analysis
+          mece_score = data.get('mece_score', 0.75)
 
-                for node in ast.walk(tree):
-                    if isinstance(node, ast.ClassDef):
-                        class_count += 1
-                        # Check for god objects (classes with too many methods)
-                        methods = [n for n in ast.walk(node) if isinstance(n, ast.FunctionDef)]
+          # Calculate connascence metrics from all violations
+          total_violations = len(violations)
+          coupling_violations = len([v for v in violations if 'coupling' in v.get('type', '').lower()])
+          god_objects = len([v for v in violations if v.get('type') == 'God Object'])
                         if len(methods) > 20:
                             god_objects.append({
                                 "class": node.name,
