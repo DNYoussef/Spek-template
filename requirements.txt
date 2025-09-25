@@ -11,6 +11,9 @@ networkx>=3.0
 numpy>=1.20.0
 pandas>=2.0.0  # Data processing for analyzer components
 
+# HTTP requests for GitHub integration
+requests>=2.31.0
+
 # Code analysis tools (already installed via Loop 3 fixes)
 radon>=5.0.0
 pylint>=2.0.0
