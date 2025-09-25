@@ -49,7 +49,7 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install flake8 pylint mypy bandit radon complexity-validator
-        pip install -r requirements.txt || echo "No requirements.txt found"
+        pip install -r requirements.txt
 
     - name: NASA POT10 Rule Validation with Unified Analyzer v2.0
       id: nasa-rules
@@ -66,6 +66,7 @@ jobs:
         fi
 
         # NASA POT10 Critical Rules Assessment using unified analyzer results
+        export PYTHONPATH=${{ github.workspace }}
         python3 << 'EOF'
         import os
         import json

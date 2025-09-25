@@ -126,7 +126,7 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install pytest pytest-cov pytest-html coverage
-        pip install -r requirements.txt || echo "No requirements.txt found"
+        pip install -r requirements.txt
 
         if [ -f "package.json" ]; then
           npm ci
@@ -223,7 +223,7 @@ jobs:
     - name: Install analyzer dependencies
       run: |
         pip install --upgrade pip
-        pip install -r requirements.txt || echo "No requirements.txt found"
+        pip install -r requirements.txt
 
         # Ensure analyzer module is available
         python -c "from analyzer.unified_analyzer import UnifiedConnascenceAnalyzer" 2>/dev/null || {
@@ -500,7 +500,7 @@ jobs:
         pip install bandit safety flake8 pylint mypy || echo "Some security tools failed to install"
         # Install semgrep separately as it may require different dependencies
         pip install semgrep || echo "Semgrep installation failed, will skip semgrep scans"
-        pip install -r requirements.txt || echo "No requirements.txt found"
+        pip install -r requirements.txt
 
     - name: Security scanning
       id: security
@@ -753,7 +753,7 @@ jobs:
 
         pip install --upgrade pip
         pip install build twine wheel
-        pip install -r requirements.txt || echo "No requirements.txt found"
+        pip install -r requirements.txt
 
     - name: Build application
       id: build

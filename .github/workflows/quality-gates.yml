@@ -36,14 +36,16 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
+        cache: 'pip'
 
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install -r requirements.txt || echo "No requirements.txt found"
+          pip install -r requirements.txt
           pip install jq bc
 
           # Verify comprehensive analyzer availability
+          export PYTHONPATH=${{ github.workspace }}
           python -c "from analyzer.unified_analyzer import UnifiedConnascenceAnalyzer" 2>/dev/null || {
             echo "[WARN] Unified analyzer not available, will use fallback analysis"
           }

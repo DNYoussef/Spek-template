@@ -41,7 +41,7 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install pytest pytest-cov pytest-html coverage radon
-        pip install -r requirements.txt || echo "No requirements.txt found"
+        pip install -r requirements.txt
 
     - name: Discover test files
       id: discover
@@ -234,7 +234,7 @@ jobs:
     - name: Install analyzer dependencies
       run: |
         pip install --upgrade pip
-        pip install -r requirements.txt || echo "No requirements.txt found"
+        pip install -r requirements.txt
 
     - name: Test analyzer integration
       id: integration

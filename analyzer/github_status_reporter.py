@@ -1,5 +1,6 @@
 from src.constants.base import API_TIMEOUT_SECONDS, MAXIMUM_GOD_OBJECTS_ALLOWED, MAXIMUM_NESTED_DEPTH
 
+"""
 This module provides direct GitHub integration for reporting analyzer
 results as GitHub status checks, PR comments, and issue creation.
 No more email-only notifications - everything visible in GitHub UI.

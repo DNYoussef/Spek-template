@@ -51,7 +51,7 @@ jobs:
         pip install --upgrade pip
         pip install ast-grep radon complexity-validator
         # Install any additional dependencies for the analyzer
-        pip install -r requirements.txt || echo "No requirements.txt found"
+        pip install -r requirements.txt
 
     - name: Run unified analyzer v2.0 with connascence analysis
       id: analysis
@@ -65,6 +65,7 @@ jobs:
           echo "[OK] Unified analyzer v2.0 executed successfully"
 
           # Extract connascence metrics from unified analysis
+          export PYTHONPATH=${{ github.workspace }}
           python3 << 'EOF'
           import json
           import os
