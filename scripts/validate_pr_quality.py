@@ -21,9 +21,16 @@ THRESHOLD_THEATER = 40
 def run_command(cmd, capture=True):
     """Run shell command and return output"""
     try:
+        # Split command into list for safe execution
+        if isinstance(cmd, str):
+            import shlex
+            cmd_list = shlex.split(cmd)
+        else:
+            cmd_list = cmd
+
         result = subprocess.run(
-            cmd,
-            shell=True,
+            cmd_list,
+            shell=False,
             capture_output=capture,
             text=True,
             cwd=ROOT_DIR

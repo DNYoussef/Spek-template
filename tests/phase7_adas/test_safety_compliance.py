@@ -117,7 +117,7 @@ class MockSafetySystem:
 
         # Log safety event
         event = SafetyEvent(
-            event_id=hashlib.md5(f"{fault_type.value}_{affected_component}_{time.time()}".encode()).hexdigest()[:8],
+            event_id=hashlib.sha256(f"{fault_type.value}_{affected_component}_{time.time()}".encode()).hexdigest()[:8],
             timestamp=time.time(),
             event_type=fault_type.value,
             severity=SafetyLevel.ASIL_D,

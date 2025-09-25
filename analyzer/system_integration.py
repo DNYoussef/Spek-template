@@ -375,7 +375,7 @@ class PhaseManager:
         """Create hash of configuration for audit trail."""
         import hashlib
         config_str = str(sorted(config.items()))
-        return hashlib.md5(config_str.encode()).hexdigest()
+        return hashlib.sha256(config_str.encode()).hexdigest()
 
     def _create_security_failure_result(self, errors: List[str], execution_time: float) -> PhaseResult:
         """Create standardized security failure result for defense industry compliance."""

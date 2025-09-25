@@ -195,7 +195,7 @@ class AgentFooterMiddleware:
         import hashlib
         import time
         data = f"{time.time()}-{os.getpid()}"
-        return hashlib.md5(data.encode()).hexdigest()[:8]
+        return hashlib.sha256(data.encode()).hexdigest()[:8]
 
     def _log_error(self, message: str) -> None:
         """Log error message"""

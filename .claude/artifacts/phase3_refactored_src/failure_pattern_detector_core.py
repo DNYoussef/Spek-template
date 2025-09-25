@@ -387,7 +387,7 @@ class FailurePatternDetector:
 
             # Calculate context hash for deduplication
             context_data = f"{category}:{step_name}:{error_pattern}"
-            context_hash = hashlib.md5(context_data.encode()).hexdigest()[:12]
+            context_hash = hashlib.sha256(context_data.encode()).hexdigest()[:12]
 
             # Find matching known patterns
             matched_pattern = self._match_known_patterns(error_pattern, category)

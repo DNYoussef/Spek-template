@@ -230,14 +230,14 @@ class FeatureHasher:
         
         # Create hash
         array_bytes = rounded.tobytes()
-        return hashlib.md5(array_bytes).hexdigest()[:16]
+        return hashlib.sha256(array_bytes).hexdigest()[:16]
     
     def hash_dict(self, data: Dict[str, Any]) -> str:
         """Generate hash for dictionary data."""
         # Sort keys for consistent hashing
         sorted_items = sorted(data.items())
         data_str = str(sorted_items)
-        return hashlib.md5(data_str.encode()).hexdigest()[:16]
+        return hashlib.sha256(data_str.encode()).hexdigest()[:16]
 
 class ModelCache:
     """Cache for loaded models and their components."""

@@ -324,7 +324,7 @@ def continuous_monitoring(self,
 def _get_cache_key(self, control_id: str, system_config: Dict[str, Any]) -> str:
         """Generate cache key for validation results."""
         config_str = json.dumps(system_config, sort_keys=True)
-        return hashlib.md5(f"{control_id}:{config_str}".encode()).hexdigest()
+        return hashlib.sha256(f"{control_id}:{config_str}".encode()).hexdigest()
 
 def _is_cache_valid(self, result: ValidationResult) -> bool:
         """Check if cached result is still valid."""

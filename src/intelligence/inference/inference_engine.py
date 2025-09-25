@@ -516,7 +516,7 @@ class RealTimeInferenceEngine:
     def _generate_cache_key(self, request: InferenceRequest) -> str:
         """Generate cache key for request."""
         # Create hash of features and metadata
-        feature_hash = hashlib.md5(request.features.tobytes()).hexdigest()[:16]
+        feature_hash = hashlib.sha256(request.features.tobytes()).hexdigest()[:16]
         return f"{request.symbol}:{feature_hash}"
     
     def _worker_loop(self, worker_id: int):

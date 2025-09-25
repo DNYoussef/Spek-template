@@ -351,9 +351,11 @@ def _validate_fix(self, files_modified: List[str]) -> Dict[str, Any]:
         test_command = f"npm test -- {' '.join(files_modified)}"
 
         try:
+            import shlex
+            cmd_list = shlex.split(test_command)
             result = subprocess.run(
-                test_command,
-                shell=True,
+                cmd_list,
+                shell=False,
                 capture_output=True,
                 text=True,
                 cwd=self.project_root,

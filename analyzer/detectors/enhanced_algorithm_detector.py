@@ -83,7 +83,7 @@ class EnhancedAlgorithmDetector:
 
         structure_str = "|".join(body_structure)
 
-        return hashlib.md5(structure_str.encode()).hexdigest()
+        return hashlib.sha256(structure_str.encode()).hexdigest()
 
     def _get_statement_signature(self, stmt: ast.stmt) -> str:
         if isinstance(stmt, ast.Return):

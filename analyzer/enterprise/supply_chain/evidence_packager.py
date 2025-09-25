@@ -788,13 +788,13 @@ class EvidencePackager:
 
         extract_dir.mkdir(parents=True, exist_ok=True)
 
-        # Extract package
+        # Extract package safely
         if package_path.suffix == '.zip':
             with zipfile.ZipFile(package_path, 'r') as zf:
-                zf.extractall(extract_dir)
+                self._safe_extract_zip(zf, extract_dir)
         elif package_path.suffix in ['.tar', '.gz']:
             with tarfile.open(package_path, 'r:*') as tf:
-                tf.extractall(extract_dir)
+                self._safe_extract_tar(tf, extract_dir)
         else:
             raise ValueError(f"Unsupported package format: {package_path.suffix}")
 
@@ -806,6 +806,26 @@ class EvidencePackager:
             'verification': verification,
             'manifest_path': str(extract_dir / "manifest.json") if (extract_dir / "manifest.json").exists() else None
         }
+
+    def _safe_extract_tar(self, tar_file: tarfile.TarFile, extract_dir: Path) -> None:
+        """Safely extract tar file with validation."""
+        import os
+        for member in tar_file.getmembers():
+            # Validate member path to prevent directory traversal
+            if os.path.isabs(member.name) or ".." in member.name:
+                raise ValueError(f"Unsafe tar member: {member.name}")
+            # Extract safe members only
+            tar_file.extract(member, extract_dir)
+
+    def _safe_extract_zip(self, zip_file: zipfile.ZipFile, extract_dir: Path) -> None:
+        """Safely extract zip file with validation."""
+        import os
+        for member in zip_file.namelist():
+            # Validate member path to prevent directory traversal
+            if os.path.isabs(member) or ".." in member:
+                raise ValueError(f"Unsafe zip member: {member}")
+            # Extract each member individually
+            zip_file.extract(member, extract_dir)
 
     def _verify_extracted_package(self, extract_dir: Path) -> Dict[str, Any]:
         """Verify integrity of extracted package."""

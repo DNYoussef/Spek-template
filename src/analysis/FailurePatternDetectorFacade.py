@@ -123,7 +123,7 @@ class FailurePatternDetector:
                 frequency=pattern.frequency,
                 confidence_score=pattern.confidence,
                 affected_files=context.get("files", []) if context else [],
-                context_hash=hashlib.md5(error_message.encode()).hexdigest(),
+                context_hash=hashlib.sha256(error_message.encode()).hexdigest()[:12],
                 root_cause_hypothesis="",  # Will be filled by root cause analysis
                 fix_difficulty="medium",
                 similar_patterns=pattern.examples[:3]
@@ -137,7 +137,7 @@ class FailurePatternDetector:
                 frequency=1,
                 confidence_score=0.3,
                 affected_files=context.get("files", []) if context else [],
-                context_hash=hashlib.md5(error_message.encode()).hexdigest(),
+                context_hash=hashlib.sha256(error_message.encode()).hexdigest()[:12],
                 root_cause_hypothesis="Unknown failure pattern",
                 fix_difficulty="high"
             )

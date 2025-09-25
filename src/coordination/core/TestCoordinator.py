@@ -157,9 +157,11 @@ class TestCoordinator:
     def _run_command(self, command: str) -> subprocess.CompletedProcess:
         """Run a command and capture output."""
         try:
+            import shlex
+            cmd_list = shlex.split(command)
             result = subprocess.run(
-                command,
-                shell=True,
+                cmd_list,
+                shell=False,
                 capture_output=True,
                 text=True,
                 cwd=self.project_root,

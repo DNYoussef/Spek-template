@@ -126,12 +126,8 @@ class ForensicsEngine:
         else:
             data_bytes = json.dumps(data, sort_keys=True).encode('utf-8')
 
-        if self.hash_algorithm == "sha256":
-            return hashlib.sha256(data_bytes).hexdigest()
-        elif self.hash_algorithm == "md5":
-            return hashlib.md5(data_bytes).hexdigest()
-        else:
-            return hashlib.sha1(data_bytes).hexdigest()
+        # Always use secure SHA-256 hash for security purposes
+        return hashlib.sha256(data_bytes).hexdigest()
 
     def _log_audit_trail(self,
                         action: str,

@@ -81,7 +81,7 @@ class PatternMatcher:
                     context: Optional[Dict[str, Any]] = None) -> Optional[FailurePattern]:
         """Match error message against known patterns."""
         # Check cache first
-        message_hash = hashlib.md5(error_message.encode()).hexdigest()
+        message_hash = hashlib.sha256(error_message.encode()).hexdigest()
         if message_hash in self.pattern_cache:
             pattern_id = self.pattern_cache[message_hash]
             return self.patterns.get(pattern_id)
