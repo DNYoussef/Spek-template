@@ -9,7 +9,7 @@ from typing import List
 import ast
 import re
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 from .base import DetectorBase
 
 class ConventionDetector(DetectorBase):

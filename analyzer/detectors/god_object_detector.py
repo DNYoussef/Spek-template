@@ -7,7 +7,7 @@ Detects God Object violations - classes that are too large and violate Single Re
 from typing import List
 import ast
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 from .base import DetectorBase
 
 class GodObjectDetector(DetectorBase):

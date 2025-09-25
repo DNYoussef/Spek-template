@@ -8,7 +8,7 @@ and configuration-driven thresholds to reduce parameter order coupling.
 import ast
 from typing import List
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 from .base import DetectorBase
 # FIXED: Enable real configuration imports
 try:

@@ -9,6 +9,7 @@ networkx>=3.0
 
 # Numerical operations for similarity calculations
 numpy>=1.20.0
+pandas>=2.0.0  # Data processing for analyzer components
 
 # Code analysis tools (already installed via Loop 3 fixes)
 radon>=5.0.0

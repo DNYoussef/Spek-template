@@ -79,7 +79,7 @@ class GitHubStatusReporter:
 
         if result.success:
             state = "success"
-            description = f"{'TEST: ' if test_mode else ''}Analysis passed: {result.violations_count} issues, {result.nasa_compliance_score:.1%} NASA compliance"
+            description = f"{'TEST: ' if test_mode else ''}Analysis passed: {result.violations_count} issues, {round(result.nasa_compliance_score*100, 1)}% NASA compliance"
         else:
             state = "failure"
             description = f"{'TEST: ' if test_mode else ''}Analysis failed: {result.critical_count} critical, {result.high_count} high severity issues"
@@ -103,7 +103,7 @@ class GitHubStatusReporter:
             {
                 'context': f'{context_prefix}/nasa-compliance',
                 'state': 'success' if result.nasa_compliance_score >= 0.9 else 'failure',
-                'description': f'{"TEST: " if test_mode else ""}NASA POT10: {result.nasa_compliance_score:.1%} compliance'
+                'description': f'{"TEST: " if test_mode else ""}NASA POT10: {round(result.nasa_compliance_score*100, 1)}% compliance'
             },
             {
                 'context': f'{context_prefix}/critical-issues',
@@ -113,7 +113,7 @@ class GitHubStatusReporter:
             {
                 'context': f'{context_prefix}/performance',
                 'state': 'success' if result.analysis_time < 60 else 'failure',
-                'description': f'{"TEST: " if test_mode else ""}Analysis time: {result.analysis_time:.1f}s ({result.file_count} files)'
+                'description': f'{"TEST: " if test_mode else ""}Analysis time: {round(result.analysis_time, 1)}s ({result.file_count} files)'
             }
         ]
 
@@ -144,15 +144,15 @@ class GitHubStatusReporter:
 - **Total Issues**: {result.violations_count}
 - **Critical**: {result.critical_count}
 - **High Severity**: {result.high_count}
-- **NASA POT10 Compliance**: {result.nasa_compliance_score:.1%}
-- **Analysis Time**: {result.analysis_time:.1f}s
+- **NASA POT10 Compliance**: {round(result.nasa_compliance_score*100, 1)}%
+- **Analysis Time**: {round(result.analysis_time, 1)}s
 
 ###   Quality Gates
 | Gate | Status | Score |
 |------|--------|-------|
-| NASA POT10 Compliance | {' Pass' if result.nasa_compliance_score >= 0.9 else ' Fail'} | {result.nasa_compliance_score:.1%} |
+| NASA POT10 Compliance | {' Pass' if result.nasa_compliance_score >= 0.9 else ' Fail'} | {round(result.nasa_compliance_score*100, 1)}% |
 | Critical Issues | {' Pass' if result.critical_count == 0 else ' Fail'} | {result.critical_count} found |
-| Performance | {' Pass' if result.analysis_time < 60 else ' Fail'} | {result.analysis_time:.1f}s |
+| Performance | {' Pass' if result.analysis_time < 60 else ' Fail'} | {round(result.analysis_time, 1)}s |
 
 ###   Violation Breakdown
 """
@@ -217,7 +217,7 @@ class GitHubStatusReporter:
         issue_body += f"""
 
 ###   Quality Gate Status
-- **NASA POT10 Compliance**: {result.nasa_compliance_score:.1%} ({' Pass' if result.nasa_compliance_score >= 0.9 else ' Fail'})
+- **NASA POT10 Compliance**: {round(result.nasa_compliance_score*100, 1)}% ({' Pass' if result.nasa_compliance_score >= 0.9 else ' Fail'})
 - **Total Issues**: {result.violations_count}
 - **Files Analyzed**: {result.file_count}
 
@@ -253,28 +253,42 @@ class GitHubStatusReporter:
             logger.warning("Not running in GitHub Actions - summary update skipped")
             return
 
-        summary_content = f"""
+        summary_content = """
 #   Analyzer Quality Gate Report
 
-## Overall Status: {'  PASSED' if result.success else '  FAILED'}
+## Overall Status: {}
 
 ### Analysis Results
-- **Files Analyzed**: {result.file_count}
-- **Total Issues**: {result.violations_count}
-- **Critical Issues**: {result.critical_count}
-- **High Severity**: {result.high_count}
-- **Analysis Time**: {result.analysis_time:.1f} seconds
+- **Files Analyzed**: {}
+- **Total Issues**: {}
+- **Critical Issues**: {}
+- **High Severity**: {}
+- **Analysis Time**: {} seconds
 
 ### Quality Gates
 | Gate | Threshold | Actual | Status |
 |------|-----------|--------|---------|
-| NASA POT10 Compliance | 90% | {result.nasa_compliance_score:.1%} | {'' if result.nasa_compliance_score >= 0.9 else ''} |
-| Critical Issues | 0 | {result.critical_count} | {'' if result.critical_count == 0 else ''} |
-| Performance | <60s | {result.analysis_time:.1f}s | {'' if result.analysis_time < 60 else ''} |
+| NASA POT10 Compliance | 90% | {}% | {} |
+| Critical Issues | 0 | {} | {} |
+| Performance | &lt;60 s | {} s | {} |
 
 ### Next Steps
-{' All quality gates passed! Code is ready for production.' if result.success else ' Please address critical issues before proceeding.'}
-"""
+{}
+""".format(
+            '  PASSED' if result.success else '  FAILED',
+            result.file_count,
+            result.violations_count,
+            result.critical_count,
+            result.high_count,
+            round(result.analysis_time, 1),
+            round(result.nasa_compliance_score*100, 1),
+            '' if result.nasa_compliance_score >= 0.9 else '',
+            result.critical_count,
+            '' if result.critical_count == 0 else '',
+            round(result.analysis_time, 1),
+            '' if result.analysis_time < 60 else '',
+            ' All quality gates passed! Code is ready for production.' if result.success else ' Please address critical issues before proceeding.'
+        )
 
         try:
             with open(summary_file, 'w') as f:
@@ -334,7 +348,8 @@ def main():
                 details=enhanced_result.violations[:10]  # Top 10 violations
             )
 
-                    f"{test_result.critical_count} critical issues")
+            print(f"Actual analyzer result: {test_result.violations_count} violations, "
+                  f"{test_result.critical_count} critical issues")
         except Exception as e:
             logger.error(f"Failed to run actual analyzer: {e}")
             print(f"Error running analyzer: {e}")
@@ -356,6 +371,7 @@ def main():
     commit_sha = os.environ.get('TEST_COMMIT_SHA', os.environ.get('GITHUB_SHA'))
     if commit_sha:
         if test_mode:
+            print(f"Creating TEST status checks for commit: {commit_sha}")
         else:
             print(f"Creating REAL status checks for commit: {commit_sha}")
 
@@ -374,7 +390,9 @@ def main():
         if os.environ.get('CREATE_TEST_ISSUE', '').lower() == 'true':
             issue_number = reporter.create_failure_issue(test_result)
             if issue_number:
+                print(f"Created test issue #{issue_number}")
         else:
+            print("Skipping test issue creation (set CREATE_TEST_ISSUE=true to enable)")
     elif test_result.critical_count > 0:
         issue_number = reporter.create_failure_issue(test_result)
         if issue_number:

@@ -10,7 +10,7 @@ import ast
 import collections
 from typing import Any, List
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 try:
     from .optimization.unified_visitor import UnifiedASTVisitor, ASTNodeData
     from .utils.code_utils import get_code_snippet_for_node

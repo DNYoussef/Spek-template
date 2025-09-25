@@ -8,7 +8,7 @@ import ast
 import collections
 from typing import List, Dict, Tuple
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 from .base import DetectorBase
 
 class AlgorithmDetector(DetectorBase):

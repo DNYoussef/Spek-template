@@ -10,7 +10,7 @@ import ast
 import os
 import pathlib
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 from .base import DetectorBase
 
 class ConnascenceASTAnalyzer(DetectorBase):

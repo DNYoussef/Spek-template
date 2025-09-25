@@ -12,7 +12,7 @@ import ast
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 
 @dataclass  
 class AnalysisContext:

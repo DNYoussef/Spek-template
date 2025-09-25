@@ -1,6 +1,6 @@
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 from pathlib import Path
 import re
 import json

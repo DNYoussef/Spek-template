@@ -7,7 +7,7 @@ Detects Connascence of Timing violations - sleep-based timing dependencies and r
 from typing import List
 import ast
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 from .base import DetectorBase
 
 class TimingDetector(DetectorBase):

@@ -50,6 +50,9 @@ jobs:
           git checkout ${{ github.base_ref }}
           echo "[BAR_CHART] Analyzing base branch: ${{ github.base_ref }}"
 
+          # Ensure output directory exists
+          mkdir -p .claude/.artifacts
+
           # Run comprehensive analyzer on base branch
           if python -m analyzer . --comprehensive --output base-comprehensive-analysis.json 2>/dev/null; then
             echo "[OK] Comprehensive analyzer executed on base branch"
@@ -147,6 +150,9 @@ jobs:
         id: pr-metrics
         run: |
           echo "[BAR_CHART] Analyzing PR branch: ${{ github.head_ref }}"
+
+          # Ensure output directory exists
+          mkdir -p .claude/.artifacts
 
           # Run comprehensive analyzer on PR branch
           if python -m analyzer . --comprehensive --output pr-comprehensive-analysis.json 2>/dev/null; then

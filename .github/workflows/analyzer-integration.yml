@@ -57,6 +57,10 @@ jobs:
       run: |
         echo "Running production-ready analyzer with GitHub integration..."
         echo "Test scenario: $TEST_SCENARIO"
+
+        # Ensure output directory exists
+        mkdir -p .claude/.artifacts
+
         cd analyzer
 
         # Run the enhanced analyzer with real engineering solutions

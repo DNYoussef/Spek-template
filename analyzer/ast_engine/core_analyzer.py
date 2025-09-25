@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 
 # Import the consolidated analyzer for delegation
 try:

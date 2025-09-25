@@ -18,7 +18,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
 from analyzer.detectors.base import DetectorBase
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 
 class DFARSDetector(DetectorBase):
     """

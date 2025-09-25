@@ -10,7 +10,7 @@ import sys
 
 import argparse
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 
 class GodObjectAnalyzer:
     """Analyzer for detecting god objects (classes with too many methods/responsibilities)."""

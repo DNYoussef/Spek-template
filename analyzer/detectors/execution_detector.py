@@ -9,7 +9,7 @@ from collections import defaultdict
 from typing import List, Dict, Set
 import ast
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 from .base import DetectorBase
 
 class ExecutionDetector(DetectorBase):

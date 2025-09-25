@@ -9,7 +9,7 @@ import ast
 from collections import defaultdict
 from typing import Dict, List, Set
 
-from utils.types import ConnascenceViolation
+from analyzer.utils.types import ConnascenceViolation
 from .base import DetectorBase
 # FIXED: Enable real configuration imports
 from ..interfaces.detector_interface import (
