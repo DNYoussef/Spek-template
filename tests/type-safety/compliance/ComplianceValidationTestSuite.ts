@@ -1,6 +1,5 @@
 /**
  * Compliance Validation Test Suite
- *
  * Validates enterprise compliance standards including NASA POT10,
  * security requirements, and audit trail functionality.
  */

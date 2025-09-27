@@ -1,6 +1,5 @@
 /**
  * Quality Gates Domain - Export Index
- * 
  * Comprehensive quality gates enforcement system with Six Sigma metrics,
  * automated decisions, NASA POT10 compliance, and enterprise integration.
  */
@@ -108,7 +107,6 @@ export type {
 
 /**
  * Quality Gates Domain Factory
- * 
  * Creates a fully configured quality gates system with all components
  * integrated and configured according to enterprise requirements.
  */

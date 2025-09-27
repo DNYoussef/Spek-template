@@ -1,6 +1,5 @@
 /**
  * Container Orchestrator - Real Container Management
- *
  * Provides genuine container deployment, scaling, and management
  * Supports Docker, Kubernetes, and Docker Swarm
  */

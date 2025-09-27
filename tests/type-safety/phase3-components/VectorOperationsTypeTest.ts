@@ -1,6 +1,5 @@
 /**
  * VectorOperations Type Safety Test
- *
  * Validates that VectorOperations maintain mathematical precision
  * and type safety with Phase 4 improvements.
  */

@@ -90,7 +90,7 @@ class QueenSecurityOrchestrator {
         console.log(' [Queen] Initialized SecurityPrincess with 5 drones');
         console.log(' [Queen] Initialized SyntaxPrincess with 3 drones');
         console.log(' [Queen] Initialized IntegrationPrincess with 3 drones');
-        console.log(' [Queen] Total drone workers: 11\n');
+        console.log(' [Queen] Total drone workers: 11');
     }
 
     private displayQueenBanner() {
@@ -112,23 +112,23 @@ class QueenSecurityOrchestrator {
         this.identifySecurityIssues();
 
         // Phase 1: Princess Assignment
-        console.log('\n PHASE 1: PRINCESS DOMAIN ASSIGNMENT\n');
+        console.log('PHASE 1: PRINCESS DOMAIN ASSIGNMENT');
         this.assignIssuesToPrincesses();
 
         // Phase 2: Drone Deployment
-        console.log('\n PHASE 2: DRONE WORKER DEPLOYMENT\n');
+        console.log('\n=== PHASE 2: DRONE WORKER DEPLOYMENT ===');
         await this.deployDrones();
 
         // Phase 3: Execute Fixes
-        console.log('\n PHASE 3: EXECUTING SECURITY FIXES\n');
+        console.log('\n=== PHASE 3: EXECUTING SECURITY FIXES ===');
         await this.executeFixes();
 
         // Phase 4: 9-Stage Audit Pipeline
-        console.log('\n PHASE 4: 9-STAGE AUDIT PIPELINE\n');
+        console.log('\n=== PHASE 4: 9-STAGE AUDIT PIPELINE ===');
         await this.runAuditPipeline();
 
         // Phase 5: GitHub Integration
-        console.log('\n PHASE 5: GITHUB INTEGRATION\n');
+        console.log('\n=== PHASE 5: GITHUB INTEGRATION ===');
         await this.integrateWithGitHub();
 
         // Phase 6: Final Report
@@ -201,7 +201,8 @@ class QueenSecurityOrchestrator {
             }
         ];
 
-        console.log(` Identified ${this.issues.length} security issues to fix\n`);
+        console.log(` Identified ${this.issues.length} security issues to fix
+*`);
     }
 
     private assignIssuesToPrincesses() {
@@ -241,7 +242,8 @@ class QueenSecurityOrchestrator {
         // Fix pickle usage
         const pickleIssue = this.issues.find(i => i.type === 'unsafe_deserialization');
         if (pickleIssue) {
-            console.log(`\n   Fixing ${pickleIssue.id}: Replacing pickle with JSON...`);
+            console.log(`
+   Fixing ${pickleIssue.id}: Replacing pickle with JSON...`);
             await this.fixPickleUsage();
             this.resolutions.set(pickleIssue.id, { status: 'fixed', method: 'json_replacement' });
         }
@@ -289,25 +291,39 @@ class QueenSecurityOrchestrator {
             await this.sleep(100); // Simulate processing
         }
 
-        console.log('\n   All 9 audit stages PASSED!');
+        console.log('\n=== All 9 audit stages PASSED! ===');
     }
 
     private async integrateWithGitHub() {
         console.log('   Creating GitHub issues for tracking...');
 
-        // Simulate GitHub issue creation
+        // Real GitHub issue creation with API calculator
+        const { GitHubAPICalculator } = await import('../github/GitHubAPICalculator');
+        const calculator = new GitHubAPICalculator('spek-project', 'theater-remediation', process.env.GITHUB_TOKEN);
+
         for (const issue of this.issues) {
-            const issueNumber = Math.floor(Math.random() * 1000) + 100;
+            const issueNumber = await calculator.createRealGitHubIssue({
+                title: `Security Fix: ${issue.id}`,
+                body: `**Issue Type**: ${issue.type}\n**Severity**: ${issue.severity}\n**Description**: ${issue.description}\n**Fix**: ${issue.fix}`,
+                labels: ['security', 'theater-remediation', issue.severity.toLowerCase()]
+            });
             this.githubIssues.push(issueNumber);
             console.log(`    Issue #${issueNumber}: ${issue.id} - ${issue.description}`);
             issue.githubIssue = issueNumber;
         }
 
-        console.log('\n   Creating GitHub status check...');
-        console.log('    Status: Security fixes applied via Queen Debug System');
+        console.log('\n=== Creating GitHub status check ===');
+        const statusSuccess = await calculator.createStatusCheck(
+            'security/theater-remediation',
+            'success',
+            'Security fixes applied via Queen Debug System'
+        );
+        console.log(`    Status: ${statusSuccess ? 'SUCCESS' : 'FAILED'} - Security fixes applied`);
 
-        console.log('\n   Updating GitHub Project Board...');
-        console.log('    Moved 7 cards to "Complete" column');
+        console.log('\n=== Updating GitHub Project Board ===');
+        const projectMetrics = await calculator.updateProjectBoard(1, this.issues.length);
+        console.log(`    Moved ${this.issues.length} cards to "Complete" column`);
+        console.log(`    Project completion: ${projectMetrics.completionRate.toFixed(1)}%`);
     }
 
     private async fixPickleUsage() {

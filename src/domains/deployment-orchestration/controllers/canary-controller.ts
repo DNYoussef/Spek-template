@@ -1,6 +1,5 @@
 /**
  * Canary Release Controller (DO-003)
- *
  * Implements canary release automation with progressive traffic shifting,
  * health monitoring, and automated rollback triggers.
  */

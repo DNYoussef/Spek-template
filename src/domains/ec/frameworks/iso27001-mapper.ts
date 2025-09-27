@@ -1,7 +1,6 @@
 /**
  * ISO27001:2022 Control Mapping and Assessment System
  * Implements comprehensive ISO27001:2022 control assessment with Annex A controls
- *
  * Task: EC-002 - ISO27001:2022 control mapping and automated assessment with Annex A controls
  */
 

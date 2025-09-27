@@ -65,7 +65,6 @@ export interface HealthCheck {
 export class DeploymentManager extends EventEmitter {
   /**
    * Handles deployment orchestration and rollback.
-   *
    * Extracted from CICDIntegration (985 LOC -> ~200 LOC component).
    * Handles:
    * - Deployment strategies

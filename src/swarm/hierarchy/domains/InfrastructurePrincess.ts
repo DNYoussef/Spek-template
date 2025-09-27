@@ -1,6 +1,5 @@
 /**
  * Infrastructure Princess - Build, Environment & DevOps Domain
- *
  * Manages build processes, environment configuration, CI/CD pipelines,
  * and infrastructure automation.
  */

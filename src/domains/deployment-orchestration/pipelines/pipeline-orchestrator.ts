@@ -1,6 +1,5 @@
 /**
  * Pipeline Orchestrator (DO-006)
- *
  * Orchestrates deployment pipelines with Phase 3 artifact integration,
  * compliance validation, and multi-stage deployment coordination.
  */

@@ -1,6 +1,5 @@
 /**
  * Dependency Resolution and Conflict Management System
- *
  * Manages dependencies between Princess domains, resolves conflicts,
  * and ensures proper execution order with deadlock prevention.
  */

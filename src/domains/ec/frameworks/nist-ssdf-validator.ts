@@ -1,7 +1,6 @@
 /**
  * NIST-SSDF v1.1 Practice Alignment and Validation Engine
  * Implements comprehensive NIST Secure Software Development Framework practice validation
- *
  * Task: EC-003 - NIST-SSDF v1.1 practice alignment and implementation tier validation
  */
 

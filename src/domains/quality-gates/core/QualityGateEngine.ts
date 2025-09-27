@@ -1,6 +1,5 @@
 /**
  * Core Quality Gate Enforcement Engine
- * 
  * Implements comprehensive quality gates with Six Sigma metrics,
  * automated decisions, and enterprise compliance validation.
  */

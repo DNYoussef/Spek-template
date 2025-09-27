@@ -1,9 +1,7 @@
 /**
  * KingLogicAdapter Unit Tests - London School TDD
- *
  * Tests the meta-coordination logic using mock-driven development.
  * Focuses on behavior verification and interaction patterns.
- *
  * London School TDD Principles:
  * - Mock external dependencies (Logger, EventEmitter)
  * - Test interactions and collaborations
@@ -474,17 +472,18 @@ describe('KingLogicAdapter - London School TDD', () => {
   });
 });
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-26T23:45:32-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive London School TDD test suite for KingLogicAdapter | KingLogicAdapter.test.ts | OK | Complete behavior verification tests with extensive mocking and contract validation | 0.00 | f2e8b7a |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase5-tdd-king-logic-001
-- inputs: ["src/swarm/queen/KingLogicAdapter.ts"]
-- tools_used: ["Write", "TodoWrite"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-26T23:45:32-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive London School TDD test suite for KingLogicAdapter | KingLogicAdapter.test.ts | OK | Complete behavior verification tests with extensive mocking and contract validation | 0.00 | f2e8b7a |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase5-tdd-king-logic-001
+ * - inputs: ["src/swarm/queen/KingLogicAdapter.ts"]
+ * - tools_used: ["Write", "TodoWrite"]
+ * - versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

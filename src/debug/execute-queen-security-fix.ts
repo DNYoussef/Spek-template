@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /**
  * Queen Debug System - Security Quality Gate Fix Command
- *
  * This command specifically targets and fixes security issues found by:
  * - Bandit (11 HIGH issues)
  * - Semgrep (160 CRITICAL findings)

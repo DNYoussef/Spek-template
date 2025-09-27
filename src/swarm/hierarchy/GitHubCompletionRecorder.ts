@@ -1,6 +1,5 @@
 /**
  * GitHub Completion Recorder
- *
  * Records validated task completions to GitHub Project Manager,
  * creating issues, updating project boards, and maintaining
  * comprehensive audit trails for ACTUAL completed work.

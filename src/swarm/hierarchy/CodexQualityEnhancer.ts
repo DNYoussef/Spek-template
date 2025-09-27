@@ -1,6 +1,5 @@
 /**
  * Codex Quality Enhancer
- *
  * Stage 7 of Princess Audit Pipeline
  * Takes analyzer report JSON and uses GPT-5 Codex to fix ALL issues
  * while following NASA Power of Ten rules for safety-critical software.

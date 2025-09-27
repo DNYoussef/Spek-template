@@ -62,7 +62,6 @@ export interface RuleExecutionResult {
 export class RuleEngine extends EventEmitter {
   /**
    * Handles business rule evaluation and enforcement.
-   *
    * Extracted from ContextValidator (978 LOC -> ~200 LOC component).
    * Handles:
    * - Business rule definition

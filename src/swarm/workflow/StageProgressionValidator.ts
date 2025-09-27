@@ -1,6 +1,5 @@
 /**
  * Stage Progression Validator with Functional Gates
- *
  * Validates workflow stage progression with real functional gates that
  * enforce quality, completeness, and readiness before allowing advancement.
  * Replaces theater with authentic validation mechanisms.

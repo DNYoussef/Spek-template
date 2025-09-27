@@ -1,0 +1,558 @@
+name: Deployment Princess - Enterprise CI/CD Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        type: choice
+        options: ['development', 'staging', 'production', 'dr']
+        default: 'development'
+      strategy:
+        description: 'Deployment strategy'
+        required: false
+        type: choice
+        default: 'blue-green'
+        options: ['blue-green', 'canary', 'rolling', 'recreate']
+      force_deploy:
+        description: 'Force deployment (skip security checks)'
+        required: false
+        type: boolean
+        default: false
+      rollback_enabled:
+        description: 'Enable automatic rollback'
+        required: false
+        type: boolean
+        default: true
+      notification_channels:
+        description: 'Notification channels (comma-separated)'
+        required: false
+        type: string
+        default: 'slack,email'
+  push:
+    branches:
+      - main
+      - staging
+      - develop
+  pull_request:
+    branches:
+      - main
+      - staging
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  DEPLOYMENT_TIMEOUT: 600
+  HEALTH_CHECK_TIMEOUT: 300
+
+permissions:
+  contents: read
+  packages: write
+  deployments: write
+  security-events: write
+  id-token: write
+
+jobs:
+  # Security and compliance scanning
+  security_scan:
+    name: Security & Compliance Scan
+    runs-on: ubuntu-latest
+    if: ${{ !inputs.force_deploy || github.event_name == 'pull_request' }}
+    outputs:
+      security_passed: ${{ steps.security_check.outputs.passed }}
+      compliance_score: ${{ steps.compliance.outputs.score }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          exit-code: 1
+          severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy scan results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: Run Snyk security scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+      - name: Run Semgrep SAST
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: 'auto'
+          publishToken: ${{ secrets.SEMGREP_PUBLISH_TOKEN }}
+
+      - name: NASA POT10 Compliance Check
+        id: compliance
+        run: |
+          npm run compliance:nasa-pot10
+          echo "score=$(cat compliance-score.txt)" >> $GITHUB_OUTPUT
+
+      - name: License compliance check
+        run: |
+          npm install -g license-checker
+          license-checker --onlyAllow 'MIT;Apache-2.0;BSD-3-Clause;ISC' --failOn 'GPL;AGPL;LGPL'
+
+      - name: Secrets scanning with TruffleHog
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: main
+          head: HEAD
+          extra_args: --debug --only-verified
+
+      - name: Security check summary
+        id: security_check
+        run: |
+          if [ "${{ steps.compliance.outputs.score }}" -ge "90" ]; then
+            echo "passed=true" >> $GITHUB_OUTPUT
+          else
+            echo "passed=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+  # Build and test pipeline
+  build_and_test:
+    name: Build, Test & Package
+    runs-on: ubuntu-latest
+    needs: [security_scan]
+    if: always() && (needs.security_scan.result == 'success' || inputs.force_deploy)
+    outputs:
+      image_digest: ${{ steps.build.outputs.digest }}
+      image_tag: ${{ steps.meta.outputs.tags }}
+      test_coverage: ${{ steps.coverage.outputs.percentage }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+
+      - name: Run type checking
+        run: npm run typecheck
+
+      - name: Run unit tests with coverage
+        run: npm run test:coverage
+
+      - name: Extract test coverage
+        id: coverage
+        run: |
+          COVERAGE=$(cat coverage/coverage-summary.json | jq -r '.total.lines.pct')
+          echo "percentage=$COVERAGE" >> $GITHUB_OUTPUT
+          if [ $(echo "$COVERAGE < 80" | bc -l) -eq 1 ]; then
+            echo "Test coverage $COVERAGE% is below required 80%"
+            exit 1
+          fi
+
+      - name: Run integration tests
+        run: npm run test:integration
+
+      - name: Run E2E tests
+        run: |
+          npm run test:e2e:ci
+        env:
+          CI: true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=${{ inputs.environment }}-{{date 'YYYYMMDD-HHmmss'}}
+
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILDTIME=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
+            VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+            REVISION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.revision'] }}
+
+      - name: Container image security scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
+          format: 'sarif'
+          output: 'container-scan-results.sarif'
+
+      - name: Upload container scan results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'container-scan-results.sarif'
+
+  # Performance testing
+  performance_test:
+    name: Performance Testing
+    runs-on: ubuntu-latest
+    needs: [build_and_test]
+    if: inputs.environment == 'staging' || inputs.environment == 'production'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup k6
+        run: |
+          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install k6
+
+      - name: Run load tests
+        run: |
+          k6 run --vus 50 --duration 5m tests/performance/load-test.js
+        env:
+          TARGET_URL: ${{ vars.STAGING_URL }}
+
+      - name: Run stress tests
+        run: |
+          k6 run --vus 100 --duration 2m tests/performance/stress-test.js
+        env:
+          TARGET_URL: ${{ vars.STAGING_URL }}
+
+  # Environment-specific deployment
+  deploy:
+    name: Deploy to ${{ inputs.environment || 'auto' }}
+    runs-on: ubuntu-latest
+    needs: [security_scan, build_and_test]
+    if: always() && needs.build_and_test.result == 'success'
+    environment:
+      name: ${{ inputs.environment || (github.ref == 'refs/heads/main' && 'production') || (github.ref == 'refs/heads/staging' && 'staging') || 'development' }}
+      url: ${{ steps.deploy.outputs.application_url }}
+    outputs:
+      deployment_id: ${{ steps.deploy.outputs.deployment_id }}
+      application_url: ${{ steps.deploy.outputs.application_url }}
+      deployment_status: ${{ steps.deploy.outputs.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        if: contains(vars.CLOUD_PROVIDER, 'aws')
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Configure Azure credentials
+        if: contains(vars.CLOUD_PROVIDER, 'azure')
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Configure GCP credentials
+        if: contains(vars.CLOUD_PROVIDER, 'gcp')
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.28.0'
+
+      - name: Configure Kubernetes context
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+          kubectl config current-context
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: 'v3.12.0'
+
+      - name: Deploy with Deployment Princess strategy
+        id: deploy
+        run: |
+          ENVIRONMENT="${{ inputs.environment || (github.ref == 'refs/heads/main' && 'production') || (github.ref == 'refs/heads/staging' && 'staging') || 'development' }}"
+          STRATEGY="${{ inputs.strategy || 'blue-green' }}"
+          IMAGE_TAG="${{ needs.build_and_test.outputs.image_tag }}"
+
+          # Generate deployment ID
+          DEPLOYMENT_ID="${{ github.repository_owner }}-${{ github.event.repository.name }}-${ENVIRONMENT}-$(date +%Y%m%d-%H%M%S)"
+          echo "deployment_id=$DEPLOYMENT_ID" >> $GITHUB_OUTPUT
+
+          # Create namespace if it doesn't exist
+          kubectl create namespace ${ENVIRONMENT} --dry-run=client -o yaml | kubectl apply -f -
+
+          # Deploy based on strategy
+          case $STRATEGY in
+            "blue-green")
+              echo "Executing Blue-Green deployment..."
+              ./scripts/deploy-blue-green.sh $ENVIRONMENT $IMAGE_TAG $DEPLOYMENT_ID
+              ;;
+            "canary")
+              echo "Executing Canary deployment..."
+              ./scripts/deploy-canary.sh $ENVIRONMENT $IMAGE_TAG $DEPLOYMENT_ID
+              ;;
+            "rolling")
+              echo "Executing Rolling deployment..."
+              kubectl set image deployment/app app=$IMAGE_TAG -n $ENVIRONMENT
+              kubectl rollout status deployment/app -n $ENVIRONMENT --timeout=600s
+              ;;
+            "recreate")
+              echo "Executing Recreate deployment..."
+              kubectl delete deployment app -n $ENVIRONMENT --ignore-not-found=true
+              kubectl apply -f k8s/deployment.yaml -n $ENVIRONMENT
+              ;;
+          esac
+
+          # Get application URL
+          APP_URL=$(kubectl get service app-service -n $ENVIRONMENT -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' || echo "http://localhost")
+          echo "application_url=$APP_URL" >> $GITHUB_OUTPUT
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Wait for deployment readiness
+        run: |
+          ENVIRONMENT="${{ inputs.environment || (github.ref == 'refs/heads/main' && 'production') || (github.ref == 'refs/heads/staging' && 'staging') || 'development' }}"
+
+          # Wait for all pods to be ready
+          kubectl wait --for=condition=ready pod -l app=${{ github.event.repository.name }} -n $ENVIRONMENT --timeout=600s
+
+          # Verify deployment health
+          kubectl get pods -n $ENVIRONMENT
+          kubectl get services -n $ENVIRONMENT
+
+      - name: Run deployment verification
+        run: |
+          ENVIRONMENT="${{ inputs.environment || (github.ref == 'refs/heads/main' && 'production') || (github.ref == 'refs/heads/staging' && 'staging') || 'development' }}"
+
+          # Health check
+          for i in {1..30}; do
+            if kubectl exec -n $ENVIRONMENT deployment/${{ github.event.repository.name }} -- curl -f http://localhost:8080/health; then
+              echo "Health check passed"
+              break
+            fi
+            echo "Health check attempt $i failed, retrying..."
+            sleep 10
+          done
+
+          # Smoke tests
+          npm run test:smoke -- --environment=$ENVIRONMENT
+
+      - name: Setup rollback triggers
+        if: inputs.rollback_enabled
+        run: |
+          DEPLOYMENT_ID="${{ steps.deploy.outputs.deployment_id }}"
+          ENVIRONMENT="${{ inputs.environment || (github.ref == 'refs/heads/main' && 'production') || (github.ref == 'refs/heads/staging' && 'staging') || 'development' }}"
+
+          # Setup monitoring and automatic rollback
+          node scripts/setup-deployment-monitoring.js --deployment-id=$DEPLOYMENT_ID --environment=$ENVIRONMENT
+
+  # Post-deployment monitoring and validation
+  post_deploy_validation:
+    name: Post-Deployment Validation
+    runs-on: ubuntu-latest
+    needs: [deploy]
+    if: needs.deploy.result == 'success'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup monitoring
+        run: |
+          DEPLOYMENT_ID="${{ needs.deploy.outputs.deployment_id }}"
+          ENVIRONMENT="${{ inputs.environment || (github.ref == 'refs/heads/main' && 'production') || (github.ref == 'refs/heads/staging' && 'staging') || 'development' }}"
+
+          # Start deployment metrics collection
+          node scripts/start-deployment-metrics.js --deployment-id=$DEPLOYMENT_ID --environment=$ENVIRONMENT
+
+      - name: Run comprehensive health checks
+        run: |
+          APP_URL="${{ needs.deploy.outputs.application_url }}"
+
+          # API health check
+          curl -f $APP_URL/health || exit 1
+
+          # Database connectivity check
+          curl -f $APP_URL/health/database || exit 1
+
+          # External dependencies check
+          curl -f $APP_URL/health/dependencies || exit 1
+
+      - name: Performance baseline validation
+        run: |
+          APP_URL="${{ needs.deploy.outputs.application_url }}"
+
+          # Run quick performance check
+          k6 run --vus 10 --duration 30s tests/performance/baseline-check.js
+        env:
+          TARGET_URL: ${{ needs.deploy.outputs.application_url }}
+
+      - name: Security posture validation
+        run: |
+          APP_URL="${{ needs.deploy.outputs.application_url }}"
+
+          # OWASP ZAP baseline scan
+          docker run -t owasp/zap2docker-stable zap-baseline.py -t $APP_URL
+
+  # Rollback job (manual trigger or automatic)
+  rollback:
+    name: Emergency Rollback
+    runs-on: ubuntu-latest
+    if: failure() && inputs.rollback_enabled
+    needs: [deploy, post_deploy_validation]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
+
+      - name: Execute rollback
+        run: |
+          ENVIRONMENT="${{ inputs.environment || (github.ref == 'refs/heads/main' && 'production') || (github.ref == 'refs/heads/staging' && 'staging') || 'development' }}"
+          DEPLOYMENT_ID="${{ needs.deploy.outputs.deployment_id }}"
+
+          echo "Executing emergency rollback for deployment $DEPLOYMENT_ID"
+
+          # Rollback to previous version
+          kubectl rollout undo deployment/${{ github.event.repository.name }} -n $ENVIRONMENT
+
+          # Wait for rollback to complete
+          kubectl rollout status deployment/${{ github.event.repository.name }} -n $ENVIRONMENT --timeout=300s
+
+          # Verify rollback
+          kubectl get pods -n $ENVIRONMENT
+
+      - name: Rollback verification
+        run: |
+          ENVIRONMENT="${{ inputs.environment || (github.ref == 'refs/heads/main' && 'production') || (github.ref == 'refs/heads/staging' && 'staging') || 'development' }}"
+
+          # Health check after rollback
+          kubectl exec -n $ENVIRONMENT deployment/${{ github.event.repository.name }} -- curl -f http://localhost:8080/health
+
+  # Notification and reporting
+  notify:
+    name: Deployment Notification
+    runs-on: ubuntu-latest
+    needs: [security_scan, build_and_test, deploy, post_deploy_validation, rollback]
+    if: always()
+    steps:
+      - name: Determine deployment status
+        id: status
+        run: |
+          if [ "${{ needs.deploy.result }}" == "success" ] && [ "${{ needs.post_deploy_validation.result }}" == "success" ]; then
+            echo "status=success" >> $GITHUB_OUTPUT
+            echo "message=Deployment completed successfully" >> $GITHUB_OUTPUT
+          elif [ "${{ needs.rollback.result }}" == "success" ]; then
+            echo "status=rolled_back" >> $GITHUB_OUTPUT
+            echo "message=Deployment failed and was rolled back successfully" >> $GITHUB_OUTPUT
+          else
+            echo "status=failed" >> $GITHUB_OUTPUT
+            echo "message=Deployment failed" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Slack notification
+        if: contains(inputs.notification_channels, 'slack') || github.event_name == 'push'
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          channel-id: ${{ vars.SLACK_DEPLOYMENT_CHANNEL }}
+          slack-message: |
+            🚀 Deployment Princess Report
+
+            *Repository:* ${{ github.repository }}
+            *Environment:* ${{ inputs.environment || 'auto-detected' }}
+            *Strategy:* ${{ inputs.strategy || 'blue-green' }}
+            *Status:* ${{ steps.status.outputs.status }}
+            *Message:* ${{ steps.status.outputs.message }}
+
+            *Details:*
+            • Commit: ${{ github.sha }}
+            • Actor: ${{ github.actor }}
+            • Workflow: ${{ github.run_id }}
+            • Security Score: ${{ needs.security_scan.outputs.compliance_score }}%
+            • Test Coverage: ${{ needs.build_and_test.outputs.test_coverage }}%
+
+            ${{ needs.deploy.outputs.application_url && format('• Application URL: {0}', needs.deploy.outputs.application_url) || '' }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name: Send email notification
+        if: contains(inputs.notification_channels, 'email') && (steps.status.outputs.status == 'failed' || inputs.environment == 'production')
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: 587
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "Deployment Princess: ${{ steps.status.outputs.status }} - ${{ github.repository }}"
+          to: ${{ vars.DEPLOYMENT_EMAIL_LIST }}
+          from: "Deployment Princess <${{ secrets.SMTP_USERNAME }}>"
+          body: |
+            Deployment Princess has completed with status: ${{ steps.status.outputs.status }}
+
+            Repository: ${{ github.repository }}
+            Environment: ${{ inputs.environment || 'auto-detected' }}
+            Strategy: ${{ inputs.strategy || 'blue-green' }}
+
+            Commit: ${{ github.sha }}
+            Actor: ${{ github.actor }}
+            Workflow: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            ${{ steps.status.outputs.message }}
+
+      - name: Update deployment status
+        if: always()
+        run: |
+          echo "Deployment process completed with status: ${{ steps.status.outputs.status }}"
+          echo "GitHub deployment URL: https://github.com/${{ github.repository }}/deployments"

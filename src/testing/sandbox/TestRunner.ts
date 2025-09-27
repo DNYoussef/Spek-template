@@ -39,7 +39,6 @@ export interface CoverageData {
 export class TestRunner extends EventEmitter {
   /**
    * Executes tests within sandbox environments.
-   *
    * Extracted from SandboxTestingFramework (1,213 LOC -> ~300 LOC component).
    * Handles:
    * - Test execution and monitoring

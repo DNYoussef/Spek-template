@@ -1,7 +1,6 @@
 /**
  * Enterprise Compliance Automation Agent
  * Implements comprehensive multi-framework compliance automation with real-time monitoring
- *
  * Domain: EC (Enterprise Compliance)
  * Tasks: EC-001 through EC-006
  * Frameworks: SOC2 Type II, ISO27001:2022, NIST-SSDF v1.1

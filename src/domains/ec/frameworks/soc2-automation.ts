@@ -1,7 +1,6 @@
 /**
  * SOC2 Type II Automation Engine
  * Implements comprehensive SOC2 compliance automation with Trust Services Criteria validation
- *
  * Task: EC-001 - SOC2 Type II compliance automation with Trust Services Criteria validation
  */
 

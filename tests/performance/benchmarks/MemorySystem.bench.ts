@@ -949,17 +949,18 @@ export class MemorySystemBenchmark {
 // Export for use in test runners
 export default MemorySystemBenchmark;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-01-27T19:06:48-05:00 | performance-benchmarker@Claude Sonnet 4 | Created comprehensive Memory System benchmark suite with 10 test categories to validate Phase 2 50% memory reduction | MemorySystem.bench.ts | OK | Validates 120MB target with pattern storage, search, eviction, and Langroid integration benchmarks | 0.00 | a7b95ef |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: perf-benchmarker-memory-system-001
-- inputs: ["LangroidMemory.ts", "VectorStore.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"perf-benchmarker-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-01-27T19:06:48-05:00 | performance-benchmarker@Claude Sonnet 4 | Created comprehensive Memory System benchmark suite with 10 test categories to validate Phase 2 50% memory reduction | MemorySystem.bench.ts | OK | Validates 120MB target with pattern storage, search, eviction, and Langroid integration benchmarks | 0.00 | a7b95ef |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: perf-benchmarker-memory-system-001
+ * - inputs: ["LangroidMemory.ts", "VectorStore.ts"]
+ * - tools_used: ["Write"]
+ * - versions: {"model":"claude-sonnet-4","prompt":"perf-benchmarker-v1"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

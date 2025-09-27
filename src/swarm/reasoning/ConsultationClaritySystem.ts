@@ -2,7 +2,6 @@ import { EventEmitter } from 'events';
 
 /**
  * Consultation Clarity System
- *
  * Provides intelligent requirement clarification, ambiguity detection,
  * and decision logging for swarm coordination and project management.
  * Integrates with GitHub Project Manager and Rationalist Reasoning Engine.

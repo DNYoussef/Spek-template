@@ -1,0 +1,61 @@
+{
+  "timestamp": "2025-09-27T05:21:09.509Z",
+  "testName": "Phase 1 Cognate UI Backend Integration Test",
+  "url": "http://localhost:3001/phases/cognate",
+  "results": {
+    "pageLoad": "SUCCESS",
+    "pageTitle": "Create Next App",
+    "pageUrl": "http://localhost:3001/phases/cognate",
+    "configFields": {
+      "maxIterations": false,
+      "convergenceThreshold": false,
+      "parallelAgents": false,
+      "timeout": false,
+      "debugging": true,
+      "totalInputs": 5,
+      "totalForms": 0,
+      "totalButtons": 1
+    },
+    "startButton": {
+      "found": true,
+      "text": "Start Training",
+      "className": "w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition-colors",
+      "disabled": false
+    },
+    "finalAnalysis": {
+      "sessionElements": 0,
+      "statusElements": 0,
+      "metricsElements": 0,
+      "configElements": 0,
+      "totalApiRelatedElements": 0
+    }
+  },
+  "screenshots": [
+    "docs/screenshots/phase1-cognate-backend-test.png",
+    "docs/screenshots/phase1-cognate-after-start.png"
+  ],
+  "errors": [],
+  "apiCalls": [
+    {
+      "url": "http://localhost:3001/api/phases/cognate",
+      "method": "POST",
+      "timestamp": "2025-09-27T05:21:14.057Z"
+    }
+  ],
+  "backendData": {
+    "sessionId": null,
+    "status": null,
+    "metrics": null,
+    "bodyText": "Back to DashboardPhase 1: Cognate Model CreationAdvanced neural architecture design and initial model trainingModel ConfigurationMax IterationsConvergence ThresholdParallel AgentsTimeout (seconds)Enable DebuggingStart TrainingCognate OverviewSession ID:Not startedStatus:ReadyAgents:3Network error starting Cognate phase0Iteration0.000Avg Loss0.0%Convergence0Active PodsTraining ProgressReady to begin Cognate phaseConfigure parameters and start to see real-time metrics from the backendTraining LogCognate log will appear here when phase starts...(self.__next_f=self.__next_f||[]).push([0])self.__next_f.push([1,\"5:I[\\\"(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/segment-explorer-node.js\\\",[\\\"app-pages-internals\\\",\\\"static/chunks/app-pages-internals.js\\\"],\\\"SegmentViewNode\\\"]\\n7:\\\"$Sreact.fragment\\\"\\n16:I[\\\"(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js\\\",[\\\"app-pages-internals\\\",\\\"static/chunks/app-pages-internals.js\\\"],\\\"\\\"]\\n18:I"
+  },
+  "consoleLogs": [],
+  "summary": {
+    "pageLoaded": true,
+    "configFieldsFound": true,
+    "startButtonFound": true,
+    "apiCallsDetected": true,
+    "backendDataVisible": false,
+    "consoleErrors": 0,
+    "overallSuccess": true
+  }
+}

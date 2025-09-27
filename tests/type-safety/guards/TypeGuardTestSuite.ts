@@ -1,6 +1,5 @@
 /**
  * Type Guard Test Suite
- *
  * Comprehensive testing for all type guards and validation functions
  * implemented in Phase 4 type safety improvements.
  */

@@ -1,6 +1,5 @@
 /**
  * Security Framework Type Safety Test
- *
  * Validates that security framework maintains enterprise compliance
  * with enhanced type safety from Phase 4.
  */

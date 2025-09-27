@@ -1,6 +1,6 @@
 /**
  * SPEK Template Main Entry Point
- *
+
  * Main application entry point for the SPEK-driven development template
  * with Claude Flow integration and comprehensive quality gates.
  */

@@ -1,6 +1,5 @@
 /**
  * MECE Validation Protocol for Princess Coordination
- *
  * Enforces Mutually Exclusive, Collectively Exhaustive principles across
  * Princess domains to prevent overlap and ensure complete coverage.
  */

@@ -1,6 +1,5 @@
 /**
  * Enterprise Configuration & CTQ Specifications Support
- * 
  * Provides enterprise-grade configuration management with CTQ (Critical-to-Quality)
  * specifications and comprehensive quality gate configuration support.
  */

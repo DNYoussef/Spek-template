@@ -1,6 +1,5 @@
 /**
  * Architecture Princess - System Design Domain Specialist
- *
  * Manages architectural design, system patterns, and structural integrity.
  * Coordinates architecture agents for scalable, maintainable system design.
  */

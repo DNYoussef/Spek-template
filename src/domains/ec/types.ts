@@ -1,7 +1,6 @@
 /**
  * Enterprise Compliance Domain Type Definitions
  * Comprehensive types for compliance automation, audit trails, and monitoring
- *
  * Domain: EC (Enterprise Compliance)
  */
 

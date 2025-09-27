@@ -1,6 +1,5 @@
 /**
  * Automated Rollback System (DO-004)
- *
  * Implements automated rollback triggers with health check validation,
  * failure detection, and comprehensive monitoring across deployment strategies.
  */

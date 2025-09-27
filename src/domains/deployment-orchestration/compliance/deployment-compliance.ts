@@ -1,6 +1,5 @@
 /**
  * Deployment Compliance Validation
- *
  * Implements comprehensive compliance validation for NASA POT10 requirements
  * with full audit trails and enterprise-grade security validation.
  */
@@ -14,17 +13,43 @@ import {
   Environment
 } from '../types/deployment-types';
 
+import { RealSecurityValidator } from './RealSecurityValidation';
+import { SecurityNotificationSystem } from './SecurityNotificationSystem';
+
 export class DeploymentComplianceValidator {
   private complianceRules: Map<string, ComplianceRule[]> = new Map();
   private auditLogger: ComplianceAuditLogger;
   private securityValidator: SecurityValidator;
   private nasaPot10Validator: NasaPot10Validator;
+  private realSecurityValidator: RealSecurityValidator;
 
   constructor() {
     this.auditLogger = new ComplianceAuditLogger();
     this.securityValidator = new SecurityValidator();
     this.nasaPot10Validator = new NasaPot10Validator();
+    this.realSecurityValidator = new RealSecurityValidator();
     this.initializeComplianceValidator();
+  }
+
+  /**
+   * Perform real security scan on deployment artifact
+   */
+  private async performRealSecurityScan(artifact: DeploymentArtifact) {
+    return await this.realSecurityValidator.performRealSecurityScan(artifact);
+  }
+
+  /**
+   * Perform real access control validation
+   */
+  private async performRealAccessControlValidation(environment: Environment) {
+    return await this.realSecurityValidator.performRealAccessControlValidation(environment);
+  }
+
+  /**
+   * Get required access controls for environment type
+   */
+  private getRequiredAccessControls(environmentType: string): string[] {
+    return this.realSecurityValidator.getRequiredAccessControls(environmentType);
   }
 
   /**
@@ -176,7 +201,7 @@ export class DeploymentComplianceValidator {
     rules.push(rule);
     this.complianceRules.set(level, rules);
 
-    console.log(`Compliance rule ${rule.name} registered for level ${level}`);
+    await this.auditLogger.logComplianceRuleRegistration(rule.name, level);
   }
 
   /**
@@ -221,7 +246,7 @@ export class DeploymentComplianceValidator {
     // Initialize NASA POT10 compliance rules
     this.initializeNasaPot10ComplianceRules();
 
-    console.log('Deployment Compliance Validator initialized');
+    await this.auditLogger.logSystemInitialization('DeploymentComplianceValidator');
   }
 
   /**
@@ -360,8 +385,13 @@ export class DeploymentComplianceValidator {
   }
 
   private async validateArtifactSecurity(artifact: DeploymentArtifact): Promise<ComplianceCheck> {
-    // Simulate security validation
-    const securityScanPassed = Math.random() > 0.1; // 90% pass rate
+    // Real security validation implementation
+    const scanResults = await this.performRealSecurityScan(artifact);
+
+    const criticalVulns = scanResults.vulnerabilities.filter(v => v.severity === 'CRITICAL');
+    const highVulns = scanResults.vulnerabilities.filter(v => v.severity === 'HIGH');
+
+    const securityScanPassed = criticalVulns.length === 0 && highVulns.length <= 2;
 
     return {
       name: 'Artifact Security',
@@ -369,8 +399,8 @@ export class DeploymentComplianceValidator {
       status: securityScanPassed ? 'pass' : 'fail',
       severity: 'high',
       details: securityScanPassed
-        ? 'Security scan completed without critical issues'
-        : 'Security scan found critical vulnerabilities'
+        ? `Security scan passed: ${scanResults.vulnerabilities.length} total vulnerabilities (0 critical, ${highVulns.length} high)`
+        : `Security scan failed: ${criticalVulns.length} critical, ${highVulns.length} high vulnerabilities found`
     };
   }
 
@@ -448,8 +478,14 @@ export class DeploymentComplianceValidator {
   }
 
   private async validateAccessControls(environment: Environment): Promise<ComplianceCheck> {
-    // Simulate access control validation
-    const accessControlsValid = environment.type === 'production' ? Math.random() > 0.2 : true;
+    // Real access control validation implementation
+    const accessControlResults = await this.performRealAccessControlValidation(environment);
+
+    const requiredControls = this.getRequiredAccessControls(environment.type);
+    const implementedControls = accessControlResults.implementedControls;
+
+    const missingControls = requiredControls.filter(control => !implementedControls.includes(control));
+    const accessControlsValid = missingControls.length === 0;
 
     return {
       name: 'Access Controls',
@@ -457,8 +493,8 @@ export class DeploymentComplianceValidator {
       status: accessControlsValid ? 'pass' : 'fail',
       severity: 'high',
       details: accessControlsValid
-        ? 'Access controls properly configured'
-        : 'Access controls insufficient for environment'
+        ? `Access controls properly configured: ${implementedControls.length}/${requiredControls.length} controls implemented`
+        : `Access controls insufficient: Missing ${missingControls.join(', ')}`
     };
   }
 
@@ -671,18 +707,96 @@ export class DeploymentComplianceValidator {
 
   private async storeComplianceReport(report: ComplianceReport): Promise<void> {
     // Store compliance report for audit purposes
-    console.log(`Compliance report stored for deployment ${report.deploymentId}`);
+    await this.auditLogger.logComplianceReportStored(report.deploymentId, report.overallStatus);
   }
 }
 
 // Supporting classes
 class ComplianceAuditLogger {
+  private auditTrail: AuditEvent[] = [];
+  private securityNotifier: SecurityNotificationSystem;
+
+  constructor() {
+    this.securityNotifier = new SecurityNotificationSystem();
+  }
+
   async startComplianceAudit(deploymentId: string): Promise<void> {
-    console.log(`Starting compliance audit for deployment ${deploymentId}`);
+    const auditEvent: AuditEvent = {
+      timestamp: new Date(),
+      actor: 'ComplianceAuditLogger',
+      action: 'audit_started',
+      resource: `deployment/${deploymentId}`,
+      outcome: 'success',
+      details: { phase: 'initialization' }
+    };
+
+    this.auditTrail.push(auditEvent);
+    await this.securityNotifier.sendAuditNotification(auditEvent);
   }
 
   async completeComplianceAudit(deploymentId: string, checks: ComplianceCheck[]): Promise<void> {
-    console.log(`Completed compliance audit for deployment ${deploymentId} with ${checks.length} checks`);
+    const failedChecks = checks.filter(check => check.status === 'fail');
+    const criticalFailures = failedChecks.filter(check => check.severity === 'critical');
+
+    const auditEvent: AuditEvent = {
+      timestamp: new Date(),
+      actor: 'ComplianceAuditLogger',
+      action: 'audit_completed',
+      resource: `deployment/${deploymentId}`,
+      outcome: criticalFailures.length > 0 ? 'failure' : 'success',
+      details: {
+        totalChecks: checks.length,
+        failedChecks: failedChecks.length,
+        criticalFailures: criticalFailures.length
+      }
+    };
+
+    this.auditTrail.push(auditEvent);
+    await this.securityNotifier.sendComplianceReport(deploymentId, auditEvent);
+
+    if (criticalFailures.length > 0) {
+      await this.securityNotifier.sendCriticalComplianceAlert(deploymentId, criticalFailures);
+    }
+  }
+
+  async logComplianceRuleRegistration(ruleName: string, level: string): Promise<void> {
+    const auditEvent: AuditEvent = {
+      timestamp: new Date(),
+      actor: 'ComplianceAuditLogger',
+      action: 'rule_registered',
+      resource: `compliance/${level}/${ruleName}`,
+      outcome: 'success',
+      details: { ruleName, level }
+    };
+
+    this.auditTrail.push(auditEvent);
+  }
+
+  async logSystemInitialization(system: string): Promise<void> {
+    const auditEvent: AuditEvent = {
+      timestamp: new Date(),
+      actor: 'ComplianceAuditLogger',
+      action: 'system_initialized',
+      resource: `system/${system}`,
+      outcome: 'success',
+      details: { system, timestamp: Date.now() }
+    };
+
+    this.auditTrail.push(auditEvent);
+    await this.securityNotifier.sendSystemStatusNotification(auditEvent);
+  }
+
+  async logComplianceReportStored(deploymentId: string, status: string): Promise<void> {
+    const auditEvent: AuditEvent = {
+      timestamp: new Date(),
+      actor: 'ComplianceAuditLogger',
+      action: 'report_stored',
+      resource: `deployment/${deploymentId}/report`,
+      outcome: 'success',
+      details: { deploymentId, overallStatus: status }
+    };
+
+    this.auditTrail.push(auditEvent);
   }
 }
 

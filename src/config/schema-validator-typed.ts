@@ -922,17 +922,18 @@ export class EnterpriseConfigValidator {
 
 export default EnterpriseConfigValidator;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-26T23:09:35-04:00 | coder@claude-sonnet-4 | Eliminate all 'any' types in schema-validator.ts (25+ types eliminated) | schema-validator-typed.ts | OK | All 'any' types replaced with proper types | 0.00 | f4c8d1a |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase4-week10-type-elimination-005
-- inputs: ["primitives.ts", "common.ts", "schema-validator.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-26T23:09:35-04:00 | coder@claude-sonnet-4 | Eliminate all 'any' types in schema-validator.ts (25+ types eliminated) | schema-validator-typed.ts | OK | All 'any' types replaced with proper types | 0.00 | f4c8d1a |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase4-week10-type-elimination-005
+ * - inputs: ["primitives.ts", "common.ts", "schema-validator.ts"]
+ * - tools_used: ["Write"]
+ * - versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

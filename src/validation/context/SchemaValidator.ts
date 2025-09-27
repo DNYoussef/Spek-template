@@ -64,7 +64,6 @@ export interface ValidationResult {
 export class SchemaValidator extends EventEmitter {
   /**
    * Handles schema definition and validation.
-   *
    * Extracted from ContextValidator (978 LOC -> ~250 LOC component).
    * Handles:
    * - Schema registration and versioning

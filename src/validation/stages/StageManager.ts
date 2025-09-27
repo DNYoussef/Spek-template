@@ -39,7 +39,6 @@ export interface StageConfiguration {
 export class StageManager extends EventEmitter {
   /**
    * Manages stage lifecycle and transitions.
-   *
    * Extracted from StageProgressionValidator (1,188 LOC -> ~250 LOC component).
    * Handles:
    * - Stage definition and configuration

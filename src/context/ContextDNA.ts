@@ -1,6 +1,5 @@
 /**
  * Context DNA - Semantic Fingerprinting with Anti-Degradation
- *
  * Implements triple-layer integrity system:
  * 1. SHA-256 checksums for data integrity
  * 2. Vector embeddings for semantic drift tracking

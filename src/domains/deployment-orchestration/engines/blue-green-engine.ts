@@ -1,6 +1,5 @@
 /**
  * Blue-Green Deployment Engine (DO-002)
- *
  * Implements blue-green deployment strategy with zero-downtime switching,
  * automated traffic management, and comprehensive validation.
  */

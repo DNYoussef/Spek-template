@@ -1,0 +1,4 @@
+god_object_detector:
+  method_threshold: 20
+  loc_threshold: 500
+  parameter_threshold: 10

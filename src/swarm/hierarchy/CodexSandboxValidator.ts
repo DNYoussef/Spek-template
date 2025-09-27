@@ -1,6 +1,5 @@
 /**
  * Codex Sandbox Validator
- *
  * GPT-5 Codex-powered sandbox testing system that executes actual code
  * in isolated environments to validate real functionality.
  * Leverages Codex's 7+ hour autonomous sessions for thorough testing.
@@ -662,7 +661,8 @@ if __name__ == '__main__':
     const warnings: string[] = [];
 
     // Basic Python validation
-    const lines = content.split('\n');
+    const lines = content.split('
+*');
     let indentLevel = 0;
 
     for (let i = 0; i < lines.length; i++) {
@@ -863,7 +863,10 @@ if __name__ == '__main__':
     try {
       // In production, read actual file
       // For now, return sample content
-      return `// File: ${filePath}\nexport function processData(input: any) {\n  return input;\n}`;
+      return `// File: ${filePath}
+export function processData(input: any) {
+  return input;
+}`;
     } catch (error) {
       console.error(`Failed to read ${filePath}:`, error);
       return '';

@@ -84,7 +84,6 @@ export interface TestRun {
 export class TestRunner extends EventEmitter {
   /**
    * Handles test execution and result reporting.
-   *
    * Extracted from CICDIntegration (985 LOC -> ~200 LOC component).
    * Handles:
    * - Test execution orchestration
@@ -437,6 +436,6 @@ export class TestRunner extends EventEmitter {
   }
 
   private generateId(prefix: string): string {
-    return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    return `${prefix}-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
   }
 }

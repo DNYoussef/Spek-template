@@ -1,6 +1,5 @@
 /**
  * Documentation Princess - Documentation & Knowledge Domain Specialist
- *
  * Manages documentation creation, maintenance, and knowledge transfer.
  * Coordinates documentation agents for comprehensive project documentation.
  */

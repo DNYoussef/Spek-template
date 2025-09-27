@@ -1,9 +1,7 @@
 /**
  * DevelopmentPrincess Unit Tests - London School TDD
- *
  * Tests focusing on behavior verification and object interactions.
  * Uses mocks extensively to isolate the unit under test and define contracts.
- *
  * London School TDD Principles Applied:
  * - Mock-driven development for dependencies
  * - Outside-in testing approach
@@ -420,17 +418,18 @@ describe('DevelopmentPrincess - London School TDD', () => {
   });
 });
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-26T23:39:15-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive London School TDD test suite for DevelopmentPrincess | DevelopmentPrincess.test.ts | OK | Complete outside-in testing with mock-driven behavior verification | 0.00 | a7b4c1e |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase5-tdd-dev-princess-001
-- inputs: ["src/swarm/hierarchy/domains/DevelopmentPrincess.ts", "src/swarm/queen/KingLogicAdapter.ts"]
-- tools_used: ["Write", "TodoWrite", "Bash", "Read"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-26T23:39:15-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive London School TDD test suite for DevelopmentPrincess | DevelopmentPrincess.test.ts | OK | Complete outside-in testing with mock-driven behavior verification | 0.00 | a7b4c1e |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase5-tdd-dev-princess-001
+ * - inputs: ["src/swarm/hierarchy/domains/DevelopmentPrincess.ts", "src/swarm/queen/KingLogicAdapter.ts"]
+ * - tools_used: ["Write", "TodoWrite", "Bash", "Read"]
+ * - versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

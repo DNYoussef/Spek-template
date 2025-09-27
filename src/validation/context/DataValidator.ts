@@ -62,7 +62,6 @@ export interface RuleViolation {
 export class DataValidator extends EventEmitter {
   /**
    * Handles data integrity and consistency validation.
-   *
    * Extracted from ContextValidator (978 LOC -> ~200 LOC component).
    * Handles:
    * - Data integrity verification

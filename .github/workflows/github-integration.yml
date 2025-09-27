@@ -1,0 +1,208 @@
+name: GitHub Integration
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  issues:
+    types: [opened, closed, labeled, assigned]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+  workflow_dispatch:
+    inputs:
+      integration_test:
+        description: 'Run integration tests'
+        required: false
+        default: 'true'
+        type: boolean
+
+jobs:
+  github-integration-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Test GitHub API Integration
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TEST_REPO: ${{ github.repository }}
+        run: |
+          npm test -- --testPathPattern=github-integration
+
+      - name: Test GitHub Projects Integration
+        if: github.event_name == 'workflow_dispatch' && inputs.integration_test == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROJECT_ID: ${{ vars.GITHUB_PROJECT_ID }}
+        run: |
+          npm test -- --testPathPattern=github-project
+
+      - name: Test Webhook Handler
+        env:
+          WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
+        run: |
+          npm test -- --testPathPattern=webhook-handler
+
+  auto-label-issues:
+    if: github.event_name == 'issues' && github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Auto-label Issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubIssueManager } = require('./dist/src/github/GitHubIssueManager.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
+
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const issueManager = new GitHubIssueManager(apiClient);
+
+            const issue = context.payload.issue;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            try {
+              const suggestedLabels = await issueManager.autoLabel(owner, repo, issue);
+              console.log(`Applied labels: ${suggestedLabels.join(', ')}`);
+            } catch (error) {
+              console.error('Failed to auto-label issue:', error);
+            }
+
+  auto-assign-reviewers:
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Auto-assign Reviewers
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubPRManager } = require('./dist/src/github/GitHubPRManager.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
+
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const prManager = new GitHubPRManager(apiClient);
+
+            const pr = context.payload.pull_request;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            try {
+              const assignedReviewers = await prManager.autoAssignReviewers(owner, repo, pr);
+              console.log(`Assigned reviewers: ${assignedReviewers.join(', ')}`);
+            } catch (error) {
+              console.error('Failed to auto-assign reviewers:', error);
+            }
+
+  sync-to-project:
+    if: github.event_name == 'issues' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Sync to GitHub Project
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROJECT_ID: ${{ vars.GITHUB_PROJECT_ID }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubProjectManager } = require('./dist/src/github/GitHubProjectManager.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
+
+            if (!process.env.PROJECT_ID) {
+              console.log('No project ID configured, skipping sync');
+              return;
+            }
+
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const projectManager = new GitHubProjectManager(apiClient);
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const projectId = process.env.PROJECT_ID;
+
+            try {
+              if (context.payload.issue) {
+                const item = await projectManager.addItemToProject(projectId, context.payload.issue.node_id);
+                console.log(`Added issue #${context.payload.issue.number} to project`);
+              } else if (context.payload.pull_request) {
+                const item = await projectManager.addItemToProject(projectId, context.payload.pull_request.node_id);
+                console.log(`Added PR #${context.payload.pull_request.number} to project`);
+              }
+            } catch (error) {
+              console.error('Failed to sync to project:', error);
+            }
+
+  workflow-notifications:
+    if: always()
+    needs: [github-integration-test, auto-label-issues, auto-assign-reviewers, sync-to-project]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Send Workflow Notifications
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubNotifications } = require('./dist/src/github/GitHubNotifications.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
+
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const notifications = new GitHubNotifications(apiClient);
+
+            const workflowStatus = '${{ needs.github-integration-test.result }}';
+            const runId = '${{ github.run_id }}';
+            const runUrl = `https://github.com/${{ github.repository }}/actions/runs/${runId}`;
+
+            let message = `GitHub Integration Workflow ${workflowStatus.toUpperCase()}`;
+            message += `\nRepository: ${{ github.repository }}`;
+            message += `\nBranch: ${{ github.ref_name }}`;
+            message += `\nCommit: ${{ github.sha }}`;
+            message += `\nRun: ${runUrl}`;
+
+            if (workflowStatus === 'failure') {
+              message = `🚨 ${message}`;
+              console.log('Workflow failed - would send alert notification');
+            } else if (workflowStatus === 'success') {
+              message = `✅ ${message}`;
+              console.log('Workflow succeeded - would send success notification');
+            }
+
+            console.log('Notification message:', message);
+
+            // In a real implementation, this would send to Slack, Teams, etc.
+            if (process.env.SLACK_WEBHOOK) {
+              console.log('Would send to Slack webhook');
+            }

@@ -1,6 +1,5 @@
 /**
  * Deployment Configuration Management
- *
  * Integrates with Phase 3 artifact system and enterprise configuration
  * for centralized deployment settings and compliance validation.
  */

@@ -1,6 +1,5 @@
 /**
  * Debug Cycle Controller
- *
  * Manages iterative debugging cycles using GPT-5 Codex to automatically
  * fix issues discovered during sandbox validation. Continues until code
  * is 100% functional or max iterations reached.

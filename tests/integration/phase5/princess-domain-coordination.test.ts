@@ -1,9 +1,7 @@
 /**
  * Princess Domain Coordination Integration Tests - London School TDD
- *
  * Tests the integration between multiple Princess domains using real objects
  * where possible and mocks for external dependencies.
- *
  * London School Integration Testing:
  * - Test real collaborations between Princess components
  * - Mock external systems (MCP, file system, etc.)
@@ -413,17 +411,18 @@ describe('Princess Domain Coordination Integration Tests', () => {
   });
 });
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-26T23:52:18-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive integration tests for Princess domain coordination | princess-domain-coordination.test.ts | OK | London School integration tests with real object collaboration and mock external dependencies | 0.00 | d4f6a9c |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase5-tdd-integration-001
-- inputs: ["src/swarm/hierarchy/domains/DevelopmentPrincess.ts", "src/swarm/hierarchy/domains/QualityPrincess.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-26T23:52:18-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive integration tests for Princess domain coordination | princess-domain-coordination.test.ts | OK | London School integration tests with real object collaboration and mock external dependencies | 0.00 | d4f6a9c |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase5-tdd-integration-001
+ * - inputs: ["src/swarm/hierarchy/domains/DevelopmentPrincess.ts", "src/swarm/hierarchy/domains/QualityPrincess.ts"]
+ * - tools_used: ["Write"]
+ * - versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

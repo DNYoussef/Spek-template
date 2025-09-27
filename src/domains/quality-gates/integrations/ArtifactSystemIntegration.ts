@@ -1,6 +1,5 @@
 /**
  * Phase 3 Artifact System Integration (QG-007)
- * 
  * Integrates quality gates with Phase 3 artifact system quality validation (QV domain)
  * for comprehensive artifact-based quality enforcement and validation.
  */

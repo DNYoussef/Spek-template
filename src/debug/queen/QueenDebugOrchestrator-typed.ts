@@ -1,6 +1,5 @@
 /**
  * Queen Debug Orchestrator - Master Debug System Controller - Phase 4 Type-Safe Version
- *
  * Coordinates all debugging activities through Princess domains and drone swarms.
  * Implements mandatory 9-stage audit pipeline for every debug resolution.
  * Zero tolerance for fake fixes or theatrical debugging.
@@ -1978,17 +1977,18 @@ export class QueenDebugOrchestrator extends EventEmitter {
 
 export default QueenDebugOrchestrator;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-26T23:09:45-04:00 | coder@claude-sonnet-4 | Eliminate all 'any' types in QueenDebugOrchestrator.ts (30+ types eliminated) | QueenDebugOrchestrator-typed.ts | OK | All 'any' types replaced with comprehensive debug types | 0.00 | 8a9f2e1 |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase4-week10-type-elimination-006
-- inputs: ["debug-types.ts", "primitives.ts", "QueenDebugOrchestrator.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-26T23:09:45-04:00 | coder@claude-sonnet-4 | Eliminate all 'any' types in QueenDebugOrchestrator.ts (30+ types eliminated) | QueenDebugOrchestrator-typed.ts | OK | All 'any' types replaced with comprehensive debug types | 0.00 | 8a9f2e1 |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase4-week10-type-elimination-006
+ * - inputs: ["debug-types.ts", "primitives.ts", "QueenDebugOrchestrator.ts"]
+ * - tools_used: ["Write"]
+ * - versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

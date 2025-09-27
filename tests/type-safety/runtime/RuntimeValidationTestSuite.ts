@@ -1,6 +1,5 @@
 /**
  * Runtime Type Validation Test Suite
- *
  * Tests runtime type checking with Zod integration and
  * validates input/output type validation in APIs.
  */

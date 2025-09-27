@@ -1,6 +1,5 @@
 /**
  * KingLogicAdapter Type Safety Test
- *
  * Validates that KingLogicAdapter maintains swarm coordination
  * functionality with enhanced type safety from Phase 4.
  */

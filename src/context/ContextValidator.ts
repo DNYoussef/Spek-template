@@ -1,6 +1,5 @@
 /**
  * Context Validator - Multi-Layer Validation System
- *
  * Implements triple-layer validation:
  * 1. Process Truth (GitHub Project Manager)
  * 2. Semantic Truth (Memory MCP)

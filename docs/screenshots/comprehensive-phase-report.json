@@ -1,0 +1,81 @@
+{
+  "timestamp": "2025-09-27T05:05:53.051Z",
+  "summary": {
+    "totalPhases": 8,
+    "successfulCaptures": 1,
+    "errors": 8
+  },
+  "navigation": {
+    "baseUrl": "http://localhost:3001",
+    "routePattern": "/phases/{name}",
+    "discoveredRoutes": [
+      "/phases/cognate",
+      "/phases/evomerge",
+      "/phases/quietstar",
+      "/phases/bitnet",
+      "/phases/forge",
+      "/phases/baking",
+      "/phases/adas",
+      "/phases/final"
+    ]
+  },
+  "captures": [
+    {
+      "phase": "Main Dashboard",
+      "route": "/",
+      "title": "Create Next App",
+      "screenshot": "docs/screenshots/00-main-dashboard.png",
+      "status": "success"
+    }
+  ],
+  "errors": [
+    {
+      "phase": "Phase 1 - Cognate Model Creation",
+      "route": "/phases/cognate",
+      "error": "HTTP 404"
+    },
+    {
+      "phase": "Phase 2 - EvoMerge Evolution",
+      "route": "/phases/evomerge",
+      "error": "HTTP 404"
+    },
+    {
+      "phase": "Phase 3 - Quiet-STaR Reasoning",
+      "route": "/phases/quietstar",
+      "error": "HTTP 404"
+    },
+    {
+      "phase": "Phase 4 - BitNet Compression",
+      "route": "/phases/bitnet",
+      "error": "HTTP 404"
+    },
+    {
+      "phase": "Phase 5 - Forge Training",
+      "route": "/phases/forge",
+      "error": "HTTP 404"
+    },
+    {
+      "phase": "Phase 6 - Baking Tools",
+      "route": "/phases/baking",
+      "error": "HTTP 404"
+    },
+    {
+      "phase": "Phase 7 - ADAS Architecture",
+      "route": "/phases/adas",
+      "error": "HTTP 404"
+    },
+    {
+      "phase": "Phase 8 - Final Production",
+      "route": "/phases/final",
+      "error": "HTTP 404"
+    }
+  ],
+  "systemInfo": {
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "timestamp": "2025-09-27T05:05:53.055Z"
+  }
+}

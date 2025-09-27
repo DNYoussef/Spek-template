@@ -1,6 +1,5 @@
 /**
  * Phase 3 Integration Test Suite
- *
  * Validates that Phase 4 type improvements maintain all
  * Phase 3 functionality and enterprise compliance.
  */

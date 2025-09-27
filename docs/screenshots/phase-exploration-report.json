@@ -1,0 +1,54 @@
+{
+  "timestamp": "2025-09-27T05:04:49.595Z",
+  "totalPhasesFound": 0,
+  "mainDashboard": {
+    "title": "Create Next App",
+    "screenshot": "docs/screenshots/main-dashboard.png"
+  },
+  "phases": [],
+  "navigationElements": {
+    "links": [
+      {
+        "href": "http://localhost:3001/phases/cognate",
+        "text": "🧠Phase 1CognateModel Creation",
+        "visible": true
+      },
+      {
+        "href": "http://localhost:3001/phases/evomerge",
+        "text": "🧬Phase 2EvoMergeEvolution",
+        "visible": true
+      },
+      {
+        "href": "http://localhost:3001/phases/quietstar",
+        "text": "💭Phase 3Quiet-STaRReasoning",
+        "visible": true
+      },
+      {
+        "href": "http://localhost:3001/phases/bitnet",
+        "text": "📦Phase 4BitNetCompression",
+        "visible": true
+      },
+      {
+        "href": "http://localhost:3001/phases/forge",
+        "text": "🔥Phase 5ForgeTraining",
+        "visible": true
+      },
+      {
+        "href": "http://localhost:3001/phases/baking",
+        "text": "🛠️Phase 6BakingTools",
+        "visible": true
+      },
+      {
+        "href": "http://localhost:3001/phases/adas",
+        "text": "🔬Phase 7ADASArchitecture",
+        "visible": true
+      },
+      {
+        "href": "http://localhost:3001/phases/final",
+        "text": "✨Phase 8FinalProduction",
+        "visible": true
+      }
+    ],
+    "buttons": []
+  }
+}

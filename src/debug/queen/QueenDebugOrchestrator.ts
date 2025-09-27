@@ -1,6 +1,5 @@
 /**
  * Queen Debug Orchestrator - Master Debug System Controller
- *
  * Coordinates all debugging activities through Princess domains and drone swarms.
  * Implements mandatory 9-stage audit pipeline for every debug resolution.
  * Zero tolerance for fake fixes or theatrical debugging.

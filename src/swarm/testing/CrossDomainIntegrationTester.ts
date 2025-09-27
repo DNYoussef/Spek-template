@@ -1,6 +1,5 @@
 /**
  * Cross-Domain Integration Testing Framework
- *
  * Validates integration between Princess domains, ensuring proper handoffs,
  * communication integrity, and end-to-end workflow functionality.
  */
@@ -363,7 +362,8 @@ export class CrossDomainIntegrationTester extends EventEmitter {
       throw new Error(`Test suite not found: ${suiteId}`);
     }
 
-    console.log(`\n[Integration Testing] Executing test suite: ${suite.suiteName}`);
+    console.log(`
+*[Integration Testing] Executing test suite: ${suite.suiteName}`);
     console.log(`  Tests: ${suite.tests.length}`);
     console.log(`  Execution Order: ${suite.executionOrder}`);
     console.log(`  Max Duration: ${suite.maxDuration}ms`);
@@ -396,7 +396,8 @@ export class CrossDomainIntegrationTester extends EventEmitter {
       // Store results
       this.testResults.set(suiteId, results);
 
-      console.log(`\n[Integration Testing] Suite ${suite.suiteName} completed`);
+      console.log(`
+*[Integration Testing] Suite ${suite.suiteName} completed`);
       console.log(`  Duration: ${duration}ms`);
       console.log(`  Passed: ${passedTests}/${suite.tests.length}`);
       console.log(`  Failed: ${failedTests}/${suite.tests.length}`);
@@ -432,7 +433,8 @@ export class CrossDomainIntegrationTester extends EventEmitter {
     const results: TestResult[] = [];
 
     for (const test of tests) {
-      console.log(`\n  Executing: ${test.testName}`);
+      console.log(`
+  Executing: ${test.testName}`);
       const result = await this.executeTest(test);
       results.push(result);
 
@@ -450,7 +452,8 @@ export class CrossDomainIntegrationTester extends EventEmitter {
    * Execute tests in parallel
    */
   private async executeParallelTests(tests: IntegrationTest[]): Promise<TestResult[]> {
-    console.log(`\n  Executing ${tests.length} tests in parallel`);
+    console.log(`
+  Executing ${tests.length} tests in parallel`);
 
     const testPromises = tests.map(test => this.executeTest(test));
     const results = await Promise.allSettled(testPromises);
@@ -998,7 +1001,8 @@ export class CrossDomainIntegrationTester extends EventEmitter {
       timeoutTests: number;
     };
   }> {
-    console.log(`\n[Integration Testing] Starting complete integration validation`);
+    console.log(`
+*[Integration Testing] Starting complete integration validation`);
 
     const startTime = Date.now();
     const suiteResults: any[] = [];
@@ -1054,7 +1058,8 @@ export class CrossDomainIntegrationTester extends EventEmitter {
       timeoutTests
     };
 
-    console.log(`\n[Integration Testing] Complete validation finished`);
+    console.log(`
+*[Integration Testing] Complete validation finished`);
     console.log(`  Overall Status: ${overallStatus.toUpperCase()}`);
     console.log(`  Total Duration: ${totalDuration}ms`);
     console.log(`  Summary:`, summary);

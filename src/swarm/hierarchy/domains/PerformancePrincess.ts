@@ -1,6 +1,5 @@
 /**
  * Performance Princess - Performance & Optimization Domain Specialist
- *
  * Manages performance testing, optimization, and resource efficiency.
  * Coordinates performance agents for system optimization.
  */

@@ -1,6 +1,5 @@
 /**
  * Enterprise Quality Analyzer
- *
  * Stage 6 of Princess Audit Pipeline
  * Analyzes 100% working code for enterprise-grade quality issues:
  * - Connascence violations

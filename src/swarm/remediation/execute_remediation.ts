@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /**
  * Execute Queen Remediation
- *
  * This script initiates the complete remediation of 95 god objects
  * and 35,973 connascence violations using the Queen-Princess-Subagent hierarchy
  */

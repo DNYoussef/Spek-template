@@ -257,6 +257,82 @@ export interface DriftAlert {
   readonly suppressUntil?: Timestamp;
 }
 
+// Scan result types
+export interface ComplianceScanResult {
+  id: string;
+  standard: ComplianceStandard;
+  timestamp: Timestamp;
+  duration: number;
+  overallScore: ComplianceScore;
+  ruleScores: Array<[ComplianceRuleId, ComplianceScore]>;
+  violations: RuleViolation[];
+  evidence: ComplianceEvidence;
+  metadata: ScanMetadata;
+}
+
+export interface ScanMetadata {
+  version: string;
+  environment: string;
+  scope: string[];
+  coverage: number;
+  confidence: number;
+  methodology: string;
+  tools: ToolInfo[];
+}
+
+export interface ToolInfo {
+  name: string;
+  version: string;
+  configuration: Record<string, any>;
+  results: ToolResult[];
+}
+
+export interface ToolResult {
+  type: string;
+  status: 'success' | 'failure' | 'warning';
+  data: any;
+  duration: number;
+}
+
+export interface RuleDetails {
+  id: ComplianceRuleId;
+  name: string;
+  description: string;
+  standard: ComplianceStandard;
+  category: string;
+  severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+  autoFixable: boolean;
+  fixActions: FixAction[];
+  dependencies: ComplianceRuleId[];
+  documentation: DocumentationReference[];
+  examples: string[];
+}
+
+export interface FixAction {
+  id: string;
+  type: 'configuration' | 'code' | 'permission' | 'documentation' | 'process';
+  description: string;
+  automated: boolean;
+  riskLevel: 'low' | 'medium' | 'high';
+  estimatedDuration: number;
+  parameters: Record<string, { type: string; value: any }>;
+  validation: ValidationRequirement;
+}
+
+export interface ValidationRequirement {
+  method: 'automated' | 'manual' | 'hybrid';
+  criteria: string;
+  timeout: number;
+  required: boolean;
+}
+
+export interface DocumentationReference {
+  type: 'standard' | 'guideline' | 'example' | 'tool';
+  title: string;
+  url?: string;
+  relevance: number;
+}
+
 // Enum types
 export enum ComplianceStandard {
   NASA_POT10 = 'NASA_POT10',
@@ -378,17 +454,18 @@ export const createComplianceResult = (
   }
 });
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-26T23:09:30-04:00 | coder@claude-sonnet-4 | Create comprehensive compliance types replacing 'any' in ComplianceDriftDetector | compliance-types.ts | OK | -- | 0.00 | 5b9d8e2 |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase4-week10-type-elimination-004
-- inputs: ["primitives.ts", "common.ts", "ComplianceDriftDetector.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-26T23:09:30-04:00 | coder@claude-sonnet-4 | Create comprehensive compliance types replacing 'any' in ComplianceDriftDetector | compliance-types.ts | OK | -- | 0.00 | 5b9d8e2 |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase4-week10-type-elimination-004
+ * - inputs: ["primitives.ts", "common.ts", "ComplianceDriftDetector.ts"]
+ * - tools_used: ["Write"]
+ * - versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

@@ -1,0 +1,2349 @@
+{
+  "timestamp": "2025-09-27T14:41:42.518Z",
+  "summary": {
+    "totalFiles": 47,
+    "violatingFiles": 23,
+    "totalViolations": 247,
+    "avgTheaterScore": 26.680635335692187,
+    "avgReliabilityScore": 68.93617021276596,
+    "criticalViolations": 203,
+    "recommendedActions": [
+      "🎭 CRITICAL: Replace all 203 Math.random() calls with real computational workloads",
+      "⏱️ HIGH: Replace 10 fake delay simulations with real I/O operations",
+      "🎪 HIGH: Replace 30 simulation-based measurements with authentic operations",
+      "🔧 MEDIUM: Add real computational workloads to 39 files",
+      "📊 MEDIUM: Add authentic performance measurements to 6 files",
+      "🚨 SYSTEM: Performance measurement reliability is 68.9% - target 95%+"
+    ]
+  },
+  "files": [
+    {
+      "file": "benchmark-validation-framework.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\benchmark-validation-framework.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "DevelopmentPrincess.bench.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\benchmarks\\DevelopmentPrincess.bench.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "KingLogicAdapter.bench.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\benchmarks\\KingLogicAdapter.bench.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "MemorySystem.bench.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\benchmarks\\MemorySystem.bench.ts",
+      "theaterScore": 8.281573498964804,
+      "reliabilityScore": 85,
+      "violations": [
+        {
+          "line": 470,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "embedding[j] = Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        }
+      ]
+    },
+    {
+      "file": "VectorOperations.bench.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\benchmarks\\VectorOperations.bench.ts",
+      "theaterScore": 10.32258064516129,
+      "reliabilityScore": 85,
+      "violations": [
+        {
+          "line": 88,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "vector[j] = (Math.random() - 0.5) * 2; // Range: -1 to 1",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        }
+      ]
+    },
+    {
+      "file": "enterprise-load-tester.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\enterprise-load-tester.ts",
+      "theaterScore": 5.47945205479452,
+      "reliabilityScore": 95,
+      "violations": [
+        {
+          "line": 174,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Phase 7: Production Simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "CrossPrincessPerformance.suite.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\integration\\CrossPrincessPerformance.suite.ts",
+      "theaterScore": 11.741682974559687,
+      "reliabilityScore": 75,
+      "violations": [
+        {
+          "line": 580,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Real code analysis simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 590,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Real security scanning simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 611,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Real computational work - AST parsing simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "integration-test-runner.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\integration-test-runner.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "RealLoadTestFramework.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\load\\RealLoadTestFramework.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "system-load.test.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\load\\system-load.test.ts",
+      "theaterScore": 29.80132450331126,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 460,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "embedding[j] = Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 645,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "embedding[i] = Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1023,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return tasks[Math.floor(Math.random() * tasks.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1023,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return tasks[Math.floor(Math.random() * tasks.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 76,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Test 2: Concurrent user simulation (1000+ users)",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "load-test.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\load-test.js",
+      "theaterScore": 28.77697841726619,
+      "reliabilityScore": 85,
+      "violations": [
+        {
+          "line": 71,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Test 3: Authentication flow simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "LoadTester.test.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\LoadTester.test.ts",
+      "theaterScore": 100,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 19,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 44,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 66,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "if (Math.random() < 0.2) { // 20% error rate",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 116,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 140,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const delay = Math.random() * 10; // Variable delay",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 168,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 191,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const array = new Array(1000).fill(Math.random());",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 217,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction1 = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 220,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 259,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 291,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 320,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 356,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 380,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 405,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 440,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 463,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 482,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 140,
+          "type": "fake_delay",
+          "severity": "high",
+          "description": "Fake delay simulation using setTimeout with Math.random()",
+          "code": "const delay = Math.random() * 10; // Variable delay",
+          "fix": "Replace simulated delays with real network requests or I/O operations"
+        }
+      ]
+    },
+    {
+      "file": "performance-test-runner.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\performance-test-runner.ts",
+      "theaterScore": 9.493670886075948,
+      "reliabilityScore": 65,
+      "violations": [
+        {
+          "line": 55,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "productionSimulation: any;  // Phase 6: Production simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 243,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Production Simulation Configuration",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 434,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Phase 8: Production Simulation (Phase 6)",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "PerformanceAnalyzer.test.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\PerformanceAnalyzer.test.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "PerformanceBenchmarker.test.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\PerformanceBenchmarker.test.ts",
+      "theaterScore": 100,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 44,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 60,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "if (Math.random() < 0.1) { // 10% chance of error",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 86,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return array.map(x => Math.random());",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 114,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 130,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 148,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 160,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 172,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 212,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 231,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 251,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const delay = Math.floor(Math.random() * 10); // 0-9ms variance",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 251,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const delay = Math.floor(Math.random() * 10); // 0-9ms variance",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 277,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "arrays.push(new Array(1000).fill(Math.random()));",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 333,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const testFunction = () => Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 344,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const rand = Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 251,
+          "type": "fake_delay",
+          "severity": "high",
+          "description": "Fake delay simulation using setTimeout with Math.random()",
+          "code": "const delay = Math.floor(Math.random() * 10); // 0-9ms variance",
+          "fix": "Replace simulated delays with real network requests or I/O operations"
+        },
+        {
+          "line": 251,
+          "type": "fake_variance",
+          "severity": "high",
+          "description": "Fake performance variance generation using Math.random()",
+          "code": "const delay = Math.floor(Math.random() * 10); // 0-9ms variance",
+          "fix": "Use real system variability or remove artificial variance generation"
+        }
+      ]
+    },
+    {
+      "file": "RealPerformanceTestRunner.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\RealPerformanceTestRunner.ts",
+      "theaterScore": 56.02240896358544,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 3,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "* Demonstrates genuine performance measurements with ZERO Math.random() usage",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 59,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "console.log('✅ Zero Math.random() usage');",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 337,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "// Check for Math.random() usage in performance files",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 351,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "fakeMetricsDetected.push(`${path.basename(file)}: ${mathRandomMatches.length} Math.random() calls`);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 560,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "recommendations.push('🎭 CRITICAL: Remove all Math.random() usage from performance tests');",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        }
+      ]
+    },
+    {
+      "file": "RealPerformanceValidation.test.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\RealPerformanceValidation.test.ts",
+      "theaterScore": 100,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 5,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "* - Contains ZERO Math.random() usage",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 12,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "* ✅ Zero Math.random() usage in all performance measurement code",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 26,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "describe('Math.random() Theater Detection', () => {",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 27,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "test('should contain ZERO Math.random() usage in performance benchmarker', async () => {",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 31,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "// Critical validation: No Math.random() usage",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 40,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "console.log('✅ RealPerformanceBenchmarker contains ZERO Math.random() usage');",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 43,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "test('should contain ZERO Math.random() usage in adaptive optimizer', async () => {",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 47,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "// Critical validation: No Math.random() usage",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 51,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "console.log('✅ AdaptivePerformanceOptimizer contains ZERO Math.random() usage');",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 61,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "console.log('✅ Benchmarker instance validated as Math.random()-free');",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 98,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "// Validate no Math.random() in computation",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 107,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "// Generate deterministic test data (NO Math.random())",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 138,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "// Create deterministic matrices (NO Math.random())",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 293,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "test('should execute complete real benchmark without Math.random()', async () => {",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 324,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "expect(report).toContain('Zero Math.random() usage confirmed');",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 426,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "test('should detect Math.random() usage in legacy performance files', async () => {",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 458,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "console.log(`   ${detection.file}: ${detection.violations} Math.random() calls`);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 514,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "* | 1.0.0   | 2025-09-27T10:25:30-04:00 | assistant@claude-sonnet-4 | Created comprehensive performance validation tests with zero Math.random() theater | RealPerformanceValidation.test.ts | OK | Theater detection validated | 0.00 | b2e7c94 |",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 183,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Real complex object creation - business entity simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 245,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Real HTTP request - no simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "RealTimeMonitor.test.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\RealTimeMonitor.test.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "performance-regression.test.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\regression\\performance-regression.test.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "real-world-scenarios.test.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\scenarios\\real-world-scenarios.test.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "stress-test.js",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\stress-test.js",
+      "theaterScore": 100,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 42,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 42,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 59,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "sleep(Math.random() * 2 + 1); // Random sleep between 1-3 seconds",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 88,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const endpoint = endpoints[Math.floor(Math.random() * endpoints.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 88,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const endpoint = endpoints[Math.floor(Math.random() * endpoints.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 150,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "iteration: Math.floor(Math.random() * 10000)",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 150,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "iteration: Math.floor(Math.random() * 10000)",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        }
+      ]
+    },
+    {
+      "file": "api-benchmark.suite.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\suites\\api-benchmark.suite.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "cpu-benchmark.suite.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\suites\\cpu-benchmark.suite.ts",
+      "theaterScore": 100,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 203,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const matrixA = Array(size).fill(0).map(() => Array(size).fill(0).map(() => Math.random()));",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 204,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const matrixB = Array(size).fill(0).map(() => Array(size).fill(0).map(() => Math.random()));",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 408,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const array = Array(size).fill(0).map(() => Math.floor(Math.random() * 10000));",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 408,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const array = Array(size).fill(0).map(() => Math.floor(Math.random() * 10000));",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 438,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const array = Array(size).fill(0).map(() => Math.floor(Math.random() * 10000));",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 438,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const array = Array(size).fill(0).map(() => Math.floor(Math.random() * 10000));",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 487,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const target = Math.floor(Math.random() * 10000);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 487,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const target = Math.floor(Math.random() * 10000);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 503,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "if (i !== j && Math.random() < 0.3) {",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 504,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "graph[i][j] = Math.floor(Math.random() * 100) + 1;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 504,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "graph[i][j] = Math.floor(Math.random() * 100) + 1;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 549,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return Array(length).fill(0).map(() => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join('');",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 549,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return Array(length).fill(0).map(() => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join('');",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 582,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const edgeCount = Math.floor(Math.random() * 5) + 1;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 582,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const edgeCount = Math.floor(Math.random() * 5) + 1;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 584,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const target = Math.floor(Math.random() * nodeCount);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 584,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const target = Math.floor(Math.random() * nodeCount);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 801,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "value: Math.random(),",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 829,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "<value>${Math.random()}</value>",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 920,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const x = Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 921,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const y = Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 947,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "Array(size).fill(0).map(() => Math.random())",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 977,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const input = Array(size).fill(0).map(() => Math.random());",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1007,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const data = Array(dataSize).fill(0).map(() => Math.random() * 100);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1015,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const data2 = Array(dataSize).fill(0).map(() => Math.random() * 100);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 822,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Simple XML parsing simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 850,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Simple compression simulation (counting character frequencies)",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 857,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Calculate compression ratio simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "database-benchmark.suite.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\suites\\database-benchmark.suite.ts",
+      "theaterScore": 100,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 445,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "await this.sleep(Math.random() * 5 + 1); // 1-6ms connection time",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 459,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "rowsAffected = query.expectedRowCount || Math.floor(Math.random() * 1000);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 459,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "rowsAffected = query.expectedRowCount || Math.floor(Math.random() * 1000);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 471,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "rowsAffected = Math.floor(Math.random() * 10) + 1;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 471,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "rowsAffected = Math.floor(Math.random() * 10) + 1;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 477,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "rowsAffected = Math.floor(Math.random() * 5) + 1;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 477,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "rowsAffected = Math.floor(Math.random() * 5) + 1;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 483,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "rowsAffected = Math.floor(Math.random() * 50);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 483,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "rowsAffected = Math.floor(Math.random() * 50);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 492,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "executionTime += Math.random() * 10 - 5; // ±5ms variance",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 495,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "if (Math.random() < 0.05) { // 5% chance",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 496,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "executionTime += Math.random() * 500 + 100; // 100-600ms additional time",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 500,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "if (Math.random() < 0.001) { // 0.1% chance",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 543,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const executionTime = baseTime + Math.random() * 10;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 551,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const executionTime = baseTime + Math.random() * 15;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 559,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const executionTime = baseTime + Math.random() * 12;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 567,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const executionTime = baseTime + Math.random() * 50;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 578,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const executionTime = size * 0.5 + Math.random() * size * 0.1;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 604,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const executionTime = size * 0.7 + Math.random() * size * 0.15;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 630,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const executionTime = size * 0.6 + Math.random() * size * 0.2;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 668,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "warmUpPromises.push(this.sleep(Math.random() * 20 + 10)); // 10-30ms per connection",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 692,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const queueTime = Math.random() * 50; // 0-50ms queue time",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 722,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "waitingRequests: Math.floor(Math.random() * 5),",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 722,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "waitingRequests: Math.floor(Math.random() * 5),",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 723,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "totalConnectionsCreated: poolSize + Math.floor(Math.random() * 10),",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 723,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "totalConnectionsCreated: poolSize + Math.floor(Math.random() * 10),",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 724,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "totalConnectionsClosed: Math.floor(Math.random() * 3),",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 724,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "totalConnectionsClosed: Math.floor(Math.random() * 3),",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 725,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "averageConnectionTime: Math.random() * 20 + 10,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 726,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "poolOverflowCount: Math.floor(Math.random() * 2)",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 726,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "poolOverflowCount: Math.floor(Math.random() * 2)",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 876,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const query = queries[Math.floor(Math.random() * queries.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 876,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const query = queries[Math.floor(Math.random() * queries.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 492,
+          "type": "fake_variance",
+          "severity": "high",
+          "description": "Fake performance variance generation using Math.random()",
+          "code": "executionTime += Math.random() * 10 - 5; // ±5ms variance",
+          "fix": "Use real system variability or remove artificial variance generation"
+        },
+        {
+          "line": 492,
+          "type": "fake_variance",
+          "severity": "high",
+          "description": "Fake performance variance generation using Math.random()",
+          "code": "executionTime += Math.random() * 10 - 5; // ±5ms variance",
+          "fix": "Use real system variability or remove artificial variance generation"
+        }
+      ]
+    },
+    {
+      "file": "memory-benchmark.suite.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\suites\\memory-benchmark.suite.ts",
+      "theaterScore": 82.68733850129198,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 281,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const method = Math.floor(Math.random() * 3);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 281,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const method = Math.floor(Math.random() * 3);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 308,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "array[i] = { id: i, value: Math.random() };",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 325,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "data: 'x'.repeat(Math.floor(Math.random() * 100) + 50),",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 325,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "data: 'x'.repeat(Math.floor(Math.random() * 100) + 50),",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 328,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "value: Math.random(),",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 339,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const method = Math.floor(Math.random() * 3);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 339,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const method = Math.floor(Math.random() * 3);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 367,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "mixed.array[i] = Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 768,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "largeObject.payload.numbers.fill(Math.random());",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1046,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "size = Math.floor(Math.random() * 1024 * 1024) + 1024; // 1KB to 1MB",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1046,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "size = Math.floor(Math.random() * 1024 * 1024) + 1024; // 1KB to 1MB",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1060,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "if (i > 10 && Math.random() < 0.3) {",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1122,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const randomKey = keys[Math.floor(Math.random() * keys.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1122,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const randomKey = keys[Math.floor(Math.random() * keys.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1277,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "{ name: 'array_creation', operation: () => new Array(1000).fill(Math.random()) },",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        }
+      ]
+    },
+    {
+      "file": "network-benchmark.suite.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\suites\\network-benchmark.suite.ts",
+      "theaterScore": 82.58527827648115,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 368,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const handshakeTime = Math.random() * 50 + 20; // 20-70ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 372,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const messageExchangeTime = Math.random() * 30 + 10; // 10-40ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1036,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "await new Promise(resolve => setTimeout(resolve, Math.random() * 100 + 50)); // 50-150ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1043,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "connectionTime: Math.random() * 20 + 10,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1044,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "requestTime: Math.random() * 30 + 15,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1045,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "responseTime: Math.random() * 25 + 10,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1050,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "dnsLookupTime: Math.random() * 10 + 2,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1051,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "tcpConnectTime: Math.random() * 15 + 5,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1052,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "tlsHandshakeTime: endpoint.protocol === 'https' ? Math.random() * 20 + 10 : 0,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1053,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "success: Math.random() > 0.05, // 95% success rate",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1036,
+          "type": "fake_delay",
+          "severity": "high",
+          "description": "Fake delay simulation using setTimeout with Math.random()",
+          "code": "await new Promise(resolve => setTimeout(resolve, Math.random() * 100 + 50)); // 50-150ms",
+          "fix": "Replace simulated delays with real network requests or I/O operations"
+        },
+        {
+          "line": 1036,
+          "type": "fake_delay",
+          "severity": "high",
+          "description": "Fake delay simulation using setTimeout with Math.random()",
+          "code": "await new Promise(resolve => setTimeout(resolve, Math.random() * 100 + 50)); // 50-150ms",
+          "fix": "Replace simulated delays with real network requests or I/O operations"
+        },
+        {
+          "line": 1036,
+          "type": "fake_delay",
+          "severity": "high",
+          "description": "Fake delay simulation using setTimeout with Math.random()",
+          "code": "await new Promise(resolve => setTimeout(resolve, Math.random() * 100 + 50)); // 50-150ms",
+          "fix": "Replace simulated delays with real network requests or I/O operations"
+        }
+      ]
+    },
+    {
+      "file": "swarm-benchmark.suite.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\suites\\swarm-benchmark.suite.ts",
+      "theaterScore": 100,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 238,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "spawnTime = Math.random() * 200 + 100; // 100-300ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 241,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "spawnTime = Math.random() * 150 + 75; // 75-225ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 244,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "spawnTime = Math.random() * 100 + 50; // 50-150ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 334,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "pid: Math.floor(Math.random() * 10000) + 1000,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 334,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "pid: Math.floor(Math.random() * 10000) + 1000,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 365,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return overhead + Math.random() * 5;",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 444,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const sender = agents[Math.floor(Math.random() * agents.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 444,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const sender = agents[Math.floor(Math.random() * agents.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 445,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const recipient = agents.filter(a => a !== sender)[Math.floor(Math.random() * (agents.length - 1))];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 445,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const recipient = agents.filter(a => a !== sender)[Math.floor(Math.random() * (agents.length - 1))];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 529,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const networkLatency = Math.random() * 10; // 0-10ms network",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 642,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "dependencies: i > 0 && Math.random() < 0.3 ? [`task_${i - 1}`] : [],",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 654,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "case 'low': return Math.random() * 100 + 50; // 50-150ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 655,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "case 'medium': return Math.random() * 300 + 200; // 200-500ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 656,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "case 'high': return Math.random() * 800 + 500; // 500-1300ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 657,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "case 'extreme': return Math.random() * 2000 + 1000; // 1000-3000ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 718,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const distributionTime = Math.random() * 20 + 5; // 5-25ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 769,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return agents[Math.floor(Math.random() * agents.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 769,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "return agents[Math.floor(Math.random() * agents.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 959,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const electionTime = Math.random() * 20 + 10; // 10-30ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 962,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const replicationTime = majority * (Math.random() * 5 + 2); // 2-7ms per agent",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 975,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const phaseTime = agentCount * (Math.random() * 10 + 5); // 5-15ms per agent per phase",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 986,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const roundTime = Math.random() * 15 + 5; // 5-20ms per round",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1064,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const failedAgent = agents[Math.floor(Math.random() * agents.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1064,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const failedAgent = agents[Math.floor(Math.random() * agents.length)];",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1084,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const detectionTime = Math.random() * 1000 + 500; // 500-1500ms",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1118,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "await this.sleep(Math.random() * 200 + 100); // 100-300ms per action",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1164,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const electionTime = this.agents.size * (Math.random() * 50 + 25); // 25-75ms per agent",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1197,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const partitionHandlingTime = Math.random() * 2000 + 1000; // 1-3 seconds",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1286,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const cpuIntensity = Math.random() * 100 + 50; // 50-150ms CPU work",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1287,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const memoryUsage = Math.random() * 10 + 5; // 5-15MB memory",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1342,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "Math.random();",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1383,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "const shuffled = [...agents].sort(() => Math.random() - 0.5);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1505,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "await new Promise(resolve => setTimeout(resolve, Math.random() * 100 + 50));",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 1505,
+          "type": "fake_delay",
+          "severity": "high",
+          "description": "Fake delay simulation using setTimeout with Math.random()",
+          "code": "await new Promise(resolve => setTimeout(resolve, Math.random() * 100 + 50));",
+          "fix": "Replace simulated delays with real network requests or I/O operations"
+        },
+        {
+          "line": 1505,
+          "type": "fake_delay",
+          "severity": "high",
+          "description": "Fake delay simulation using setTimeout with Math.random()",
+          "code": "await new Promise(resolve => setTimeout(resolve, Math.random() * 100 + 50));",
+          "fix": "Replace simulated delays with real network requests or I/O operations"
+        },
+        {
+          "line": 1505,
+          "type": "fake_delay",
+          "severity": "high",
+          "description": "Fake delay simulation using setTimeout with Math.random()",
+          "code": "await new Promise(resolve => setTimeout(resolve, Math.random() * 100 + 50));",
+          "fix": "Replace simulated delays with real network requests or I/O operations"
+        }
+      ]
+    },
+    {
+      "file": "sustained-load-monitor.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\tests\\performance\\sustained-load-monitor.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "PerformanceAnalyzer.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\analysis\\PerformanceAnalyzer.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "BenchmarkExecutor.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\benchmarker\\BenchmarkExecutor.ts",
+      "theaterScore": 9.693053311793214,
+      "reliabilityScore": 75,
+      "violations": [
+        {
+          "line": 673,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Real health checks with actual network timing simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 703,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Real health check simulation with actual timing",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 937,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Real GitHub Actions health check simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "CICDPerformanceBenchmarker.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\benchmarker\\CICDPerformanceBenchmarker.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "AdaptivePerformanceOptimizer.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\benchmarking\\AdaptivePerformanceOptimizer.ts",
+      "theaterScore": 5.181347150259068,
+      "reliabilityScore": 100,
+      "violations": [
+        {
+          "line": 502,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Apply optimization (simulation - in real implementation would modify code)",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "CrossPlatformBenchmark.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\benchmarking\\CrossPlatformBenchmark.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "PerformanceBenchmarker.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\benchmarking\\PerformanceBenchmarker.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "RealPerformanceBenchmarker.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\benchmarking\\RealPerformanceBenchmarker.ts",
+      "theaterScore": 91.82209469153514,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 2,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "* Real Performance Benchmarker - ZERO Math.random() THEATER",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 12,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "* ✅ Zero Math.random() usage in all performance measurement code",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 382,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "// Validate no Math.random() usage in this class",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 409,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "* Validate that this class contains no Math.random() usage",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 414,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "throw new Error('THEATER VIOLATION: Math.random() detected in performance benchmarker');",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 673,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "✅ Zero Math.random() usage confirmed",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 688,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "| 1.0.0   | 2025-09-27T10:15:03-04:00 | assistant@claude-sonnet-4 | Created Real Performance Benchmarker with zero Math.random() theater | RealPerformanceBenchmarker.ts | OK | Authentic workloads implemented | 0.00 | a7b93c2 |",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 35,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Real performance metrics without any simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 247,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Real HTTP request - no simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "BenchmarkReporter.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\BenchmarkReporter.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "BenchmarkCLI.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\cli\\BenchmarkCLI.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "PerformanceTheaterDetector.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\cli\\PerformanceTheaterDetector.ts",
+      "theaterScore": 100,
+      "reliabilityScore": 0,
+      "violations": [
+        {
+          "line": 5,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "* - Math.random() usage detection in performance code",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 268,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "// Detect Math.random() violations",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 301,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "* Detect Math.random() usage violations",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 315,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "description: `Math.random() usage detected in performance measurement code`,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 317,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "fixRecommendation: 'Replace Math.random() with deterministic computational workload or real data source'",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 341,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "description: `Fake delay simulation using setTimeout with Math.random()`,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 419,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "description: `Fake performance variance generation using Math.random()`,",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 534,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "actions.push(`🎭 CRITICAL: Replace all ${mathRandomViolations} Math.random() calls with real computational workloads`);",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 327,
+          "type": "fake_delay",
+          "severity": "high",
+          "description": "Fake delay simulation using setTimeout with Math.random()",
+          "code": "* Detect fake delay violations (setTimeout with Math.random)",
+          "fix": "Replace simulated delays with real network requests or I/O operations"
+        },
+        {
+          "line": 341,
+          "type": "fake_delay",
+          "severity": "high",
+          "description": "Fake delay simulation using setTimeout with Math.random()",
+          "code": "description: `Fake delay simulation using setTimeout with Math.random()`,",
+          "fix": "Replace simulated delays with real network requests or I/O operations"
+        },
+        {
+          "line": 6,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "* - Simulation-based fake measurements identification",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 112,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "/simulate.*performance/gi,",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 113,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "/fake.*measurement/gi,",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 114,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "/mock.*performance/gi",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 277,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Detect simulation-based fake measurements",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 277,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Detect simulation-based fake measurements",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 379,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "* Detect simulation-based fake measurements",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 393,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "description: `Simulation-based fake performance measurement detected`,",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        },
+        {
+          "line": 419,
+          "type": "fake_variance",
+          "severity": "high",
+          "description": "Fake performance variance generation using Math.random()",
+          "code": "description: `Fake performance variance generation using Math.random()`,",
+          "fix": "Use real system variability or remove artificial variance generation"
+        }
+      ]
+    },
+    {
+      "file": "LoadTester.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\load\\LoadTester.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "LoadGenerator.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\LoadGenerator.ts",
+      "theaterScore": 7.194244604316547,
+      "reliabilityScore": 95,
+      "violations": [
+        {
+          "line": 329,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Default work simulation - CPU intensive task",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "PerformanceAnalyzer.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\PerformanceAnalyzer.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "PerformanceBenchmarker.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\PerformanceBenchmarker.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "RealPerformanceBenchmarker.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\RealPerformanceBenchmarker.ts",
+      "theaterScore": 14.906832298136646,
+      "reliabilityScore": 80,
+      "violations": [
+        {
+          "line": 3,
+          "type": "math_random",
+          "severity": "critical",
+          "description": "Math.random() usage detected in performance measurement code",
+          "code": "* THEATER REMEDIATION: Replaces ALL Math.random() with genuine Node.js performance APIs",
+          "fix": "Replace Math.random() with deterministic computational workload or real data source"
+        },
+        {
+          "line": 427,
+          "type": "simulation",
+          "severity": "high",
+          "description": "Simulation-based fake performance measurement detected",
+          "code": "// Real network-like operation simulation",
+          "fix": "Replace simulation with real system operations and authentic measurements"
+        }
+      ]
+    },
+    {
+      "file": "StressTestRunner.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\StressTestRunner.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "CrossPlatformTestRunner.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\testing\\CrossPlatformTestRunner.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "LoadTestOrchestrator.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\testing\\LoadTestOrchestrator.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    },
+    {
+      "file": "PerformanceBenchmarker.ts",
+      "fullPath": "C:\\Users\\17175\\Desktop\\spek template\\src\\performance\\testing\\PerformanceBenchmarker.ts",
+      "theaterScore": 0,
+      "reliabilityScore": 100,
+      "violations": []
+    }
+  ]
+}

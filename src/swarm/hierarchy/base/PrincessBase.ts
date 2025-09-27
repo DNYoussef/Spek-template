@@ -1,6 +1,5 @@
 /**
  * Princess Base Class
- *
  * Abstract base class providing common functionality for all Princess agents.
  * Handles core lifecycle, audit gates, context management, and communication protocols.
  */

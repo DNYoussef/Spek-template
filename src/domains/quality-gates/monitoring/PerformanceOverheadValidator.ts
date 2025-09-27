@@ -1,6 +1,5 @@
 /**
  * Performance Overhead Validator
- * 
  * Validates 0.4% performance overhead budget compliance for quality gates
  * and ensures quality enforcement doesn't significantly impact system performance.
  */

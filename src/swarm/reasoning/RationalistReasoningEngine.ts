@@ -1,6 +1,5 @@
 /**
  * Rationalist Reasoning Engine for Evidence-Based Decision Making
- *
  * Implements systematic rationalist reasoning principles for swarm coordination:
  * - Evidence-based decision making with Bayesian updates
  * - Hypothesis generation and systematic testing

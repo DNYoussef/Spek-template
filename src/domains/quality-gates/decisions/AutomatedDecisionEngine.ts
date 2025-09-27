@@ -1,6 +1,5 @@
 /**
  * Automated Decision Engine (QG-002)
- * 
  * Implements automated quality gate decisions with pass/fail thresholds
  * and remediation workflows for enterprise quality enforcement.
  */

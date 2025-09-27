@@ -1,0 +1,337 @@
+name: PR Review Automation
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to analyze'
+        required: true
+        type: number
+
+jobs:
+  auto-review-assignment:
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Auto-assign Reviewers
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubPRManager } = require('./dist/src/github/GitHubPRManager.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
+
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const prManager = new GitHubPRManager(apiClient);
+
+            const pr = context.payload.pull_request;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            try {
+              const assignedReviewers = await prManager.autoAssignReviewers(owner, repo, pr);
+              console.log(`Auto-assigned reviewers: ${assignedReviewers.join(', ')}`);
+
+              // Add initial PR comment with review guidelines
+              await prManager.addComment(owner, repo, pr.number,
+                `## 🔍 PR Review Guidelines
+
+                **Reviewers**: ${assignedReviewers.length > 0 ? assignedReviewers.map(r => `@${r}`).join(', ') : 'Auto-assigned based on changed files'}
+
+                **What to review:**
+                - [ ] Code quality and maintainability
+                - [ ] Test coverage for new functionality
+                - [ ] Documentation updates if needed
+                - [ ] Breaking changes are documented
+                - [ ] Security considerations
+
+                **Size**: ${pr.additions + pr.deletions} lines changed (${pr.additions} additions, ${pr.deletions} deletions)
+
+                *This comment was generated automatically by PR Review Automation*`
+              );
+
+            } catch (error) {
+              console.error('Auto-reviewer assignment failed:', error);
+            }
+
+  pr-size-analysis:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Analyze PR Size
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubPRManager } = require('./dist/src/github/GitHubPRManager.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
+
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const prManager = new GitHubPRManager(apiClient);
+
+            const pr = context.payload.pull_request;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            const additions = pr.additions || 0;
+            const deletions = pr.deletions || 0;
+            const totalChanges = additions + deletions;
+
+            let sizeLabel = 'size/small';
+            let sizeEmoji = '🟢';
+            let reviewRequirement = '1 reviewer';
+
+            if (totalChanges > 1000) {
+              sizeLabel = 'size/extra-large';
+              sizeEmoji = '🔴';
+              reviewRequirement = '3+ reviewers';
+            } else if (totalChanges > 500) {
+              sizeLabel = 'size/large';
+              sizeEmoji = '🟠';
+              reviewRequirement = '2+ reviewers';
+            } else if (totalChanges > 100) {
+              sizeLabel = 'size/medium';
+              sizeEmoji = '🟡';
+              reviewRequirement = '2 reviewers';
+            }
+
+            try {
+              // Add size label
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number: pr.number,
+                labels: [sizeLabel]
+              });
+
+              // Add size analysis comment
+              if (totalChanges > 500) {
+                await prManager.addComment(owner, repo, pr.number,
+                  `${sizeEmoji} **Large PR Detected** (${totalChanges} lines)
+
+                  This PR is quite large and may be difficult to review effectively. Consider:
+                  - Breaking it into smaller, focused PRs
+                  - Providing additional context in the description
+                  - Adding more detailed commit messages
+
+                  **Recommended**: ${reviewRequirement} for thorough review.`
+                );
+              }
+
+              console.log(`PR size: ${totalChanges} lines, labeled as ${sizeLabel}`);
+
+            } catch (error) {
+              console.error('PR size analysis failed:', error);
+            }
+
+  merge-readiness-check:
+    if: github.event_name == 'pull_request' && github.event.action == 'synchronize'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Check Merge Readiness
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubPRManager } = require('./dist/src/github/GitHubPRManager.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
+
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const prManager = new GitHubPRManager(apiClient);
+
+            const pr = context.payload.pull_request;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            try {
+              const mergeCheck = await prManager.checkMergeConditions(owner, repo, pr.number);
+
+              if (mergeCheck.allowed) {
+                await github.rest.issues.addLabels({
+                  owner,
+                  repo,
+                  issue_number: pr.number,
+                  labels: ['ready-to-merge']
+                });
+
+                await prManager.addComment(owner, repo, pr.number,
+                  `✅ **This PR is ready to merge!**
+
+                  All merge conditions have been satisfied:
+                  - ✅ Required reviews approved
+                  - ✅ All checks passing
+                  - ✅ No merge conflicts
+                  - ✅ Not in draft state
+
+                  Feel free to merge when ready.`
+                );
+              } else {
+                // Remove ready-to-merge label if it exists
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner,
+                    repo,
+                    issue_number: pr.number,
+                    name: 'ready-to-merge'
+                  });
+                } catch (e) {
+                  // Label might not exist, ignore
+                }
+
+                await prManager.addComment(owner, repo, pr.number,
+                  `⏳ **This PR is not ready to merge yet**
+
+                  The following conditions need to be addressed:
+                  ${mergeCheck.reasons.map(reason => `- ❌ ${reason}`).join('\n')}
+
+                  Please address these issues before merging.`
+                );
+              }
+
+            } catch (error) {
+              console.error('Merge readiness check failed:', error);
+            }
+
+  review-reminder:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Send Review Reminders
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubPRManager } = require('./dist/src/github/GitHubPRManager.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
+
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const prManager = new GitHubPRManager(apiClient);
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            try {
+              const openPRs = await prManager.getPullRequests(owner, repo, {
+                state: 'open',
+                sort: 'created',
+                direction: 'asc'
+              });
+
+              const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
+
+              for (const pr of openPRs) {
+                if (pr.draft) continue;
+
+                const createdAt = new Date(pr.created_at);
+                const reviews = await prManager.getReviews(owner, repo, pr.number);
+                const approvedReviews = reviews.filter(review => review.state === 'APPROVED');
+
+                // Skip if already approved
+                if (approvedReviews.length > 0) continue;
+
+                // Skip if created less than 2 days ago
+                if (createdAt > twoDaysAgo) continue;
+
+                // Check if reminder was already sent recently
+                const comments = await prManager.getComments(owner, repo, pr.number);
+                const recentReminder = comments.find(comment =>
+                  comment.body.includes('Review Reminder') &&
+                  new Date(comment.created_at) > new Date(Date.now() - 24 * 60 * 60 * 1000)
+                );
+
+                if (recentReminder) continue;
+
+                // Send reminder
+                const daysSinceCreated = Math.floor((Date.now() - createdAt.getTime()) / (1000 * 60 * 60 * 24));
+
+                await prManager.addComment(owner, repo, pr.number,
+                  `🔔 **Review Reminder**
+
+                  This PR has been open for ${daysSinceCreated} days and is waiting for review.
+
+                  **Reviewers**: ${pr.requested_reviewers?.map(r => `@${r.login}`).join(', ') || 'No specific reviewers assigned'}
+
+                  Could someone please take a look when you have a moment? Thanks! 🙏`
+                );
+
+                console.log(`Sent review reminder for PR #${pr.number}`);
+              }
+
+            } catch (error) {
+              console.error('Review reminder failed:', error);
+            }

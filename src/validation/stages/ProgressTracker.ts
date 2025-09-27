@@ -5,6 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
+import { randomUUID } from 'crypto';
 
 export interface ProgressMetrics {
   stageId: string;
@@ -63,7 +64,6 @@ export interface RiskInfo {
 export class ProgressTracker extends EventEmitter {
   /**
    * Tracks and reports stage progression metrics.
-   *
    * Extracted from StageProgressionValidator (1,188 LOC -> ~200 LOC component).
    * Handles:
    * - Progress monitoring
@@ -204,7 +204,7 @@ export class ProgressTracker extends EventEmitter {
   }
 
   reportBlocker(blocker: Omit<BlockerInfo, 'id' | 'reportedAt'>): void {
-    const blockerId = `blocker-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const blockerId = `blocker-${Date.now()}-${randomUUID()}`;
     const fullBlocker: BlockerInfo = {
       ...blocker,
       id: blockerId,
@@ -240,7 +240,7 @@ export class ProgressTracker extends EventEmitter {
   }
 
   identifyRisk(risk: Omit<RiskInfo, 'id' | 'identifiedAt'>): void {
-    const riskId = `risk-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const riskId = `risk-${Date.now()}-${randomUUID()}`;
     const fullRisk: RiskInfo = {
       ...risk,
       id: riskId,

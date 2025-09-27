@@ -1,9 +1,7 @@
 /**
  * Complete Development Workflow E2E Tests - London School TDD
- *
  * Tests end-to-end workflows using real object collaboration where possible
  * and strategic mocking for external systems.
- *
  * London School E2E Testing:
  * - Test complete user journeys and workflows
  * - Mock external systems (file system, network, MCP servers)
@@ -186,9 +184,7 @@ describe('Complete Development Workflow E2E Tests', () => {
 
       // Phase 4: Verify workflow coordination
       console.log('Phase 4: Workflow Coordination Verification');
-      expect(global.globalThis.mcp__claude_flow__agent_spawn).toHaveBeenCalledTimes(
-        expect.any(Number)
-      );
+      expect(global.globalThis.mcp__claude_flow__agent_spawn).toHaveBeenCalledTimes(3);
 
       // Verify all phases completed successfully
       const allResults = [devResult, qaResult, securityResult];
@@ -503,26 +499,25 @@ describe('Complete Development Workflow E2E Tests', () => {
       expect(result.taskId).toBe(problematicTask.id);
 
       // Verify recovery attempt was made
-      expect(mockAgentSpawn).toHaveBeenCalledTimes(
-        expect.any(Number)
-      );
+      expect(mockAgentSpawn).toHaveBeenCalledTimes(2);
 
       console.log('Error recovery workflow completed successfully');
     });
   });
 });
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T00:15:28-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive E2E workflow tests for complete development lifecycle | complete-development-workflow.test.ts | OK | Full end-to-end testing with real object collaboration and strategic external mocking | 0.00 | 9f1e6d4 |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase5-tdd-e2e-001
-- inputs: ["src/swarm/hierarchy/domains/*.ts", "src/swarm/queen/KingLogicAdapter.ts", "src/swarm/types/task.types.ts"]
-- tools_used: ["Write", "TodoWrite"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-27T00:15:28-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive E2E workflow tests for complete development lifecycle | complete-development-workflow.test.ts | OK | Full end-to-end testing with real object collaboration and strategic external mocking | 0.00 | 9f1e6d4 |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase5-tdd-e2e-001
+ * - inputs: ["src/swarm/hierarchy/domains/*.ts", "src/swarm/queen/KingLogicAdapter.ts", "src/swarm/types/task.types.ts"]
+ * - tools_used: ["Write", "TodoWrite"]
+ * - versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

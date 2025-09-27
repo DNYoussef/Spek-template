@@ -1,6 +1,5 @@
 /**
  * Performance Impact Test Suite
- *
  * Measures and validates the performance impact of Phase 4
  * type improvements against baseline metrics.
  */

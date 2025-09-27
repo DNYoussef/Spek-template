@@ -2,7 +2,6 @@
 
 /**
  * DemoRefactoredAnalyzer - NASA POT10 Compliant
- *
  * Simple demonstration of the refactored UnifiedConnascenceAnalyzer
  * Shows the 97-method god object broken into 6 specialized classes
  * Following NASA Power of Ten Rules

@@ -34,7 +34,6 @@ export interface Context7Config {
 
 /**
  * MCP Server for Connascence AI Integration
- * 
  * Provides unified interface for multiple AI providers with Context7 integration
  * for accurate, up-to-date API configuration and rate limiting
  */
@@ -661,7 +660,7 @@ export class MCPServer {
 
     return {
       code: text.includes('```') ? text.match(/```[\s\S]*?```/)?.[0]?.replace(/```/g, '') : '',
-      description: text.split('\n')[0] || text.substring(0, 100),
+      description: text.split('*')[0] || text.substring(0, 100),
       confidence: 75
     };
   }
@@ -704,62 +703,77 @@ ${context}`;
 
     // Add enhanced pipeline context with detailed recommendations
     if (enhancedContext && (enhancedContext.correlations?.length > 0 || enhancedContext.smart_recommendations?.length > 0)) {
-      prompt += `\n\n=== ENHANCED ARCHITECTURAL ANALYSIS ===`;
+      prompt += `
+*n=== ENHANCED ARCHITECTURAL ANALYSIS ===`;
       
       // Add cross-phase correlations with architectural insights
       if (enhancedContext.correlations?.length > 0) {
-        prompt += `\n\nCross-Phase Correlations (${enhancedContext.correlations.length} found):`;
+        prompt += `
+*nCross-Phase Correlations (${enhancedContext.correlations.length} found):`;
         enhancedContext.correlations.slice(0, 5).forEach((corr: any, index: number) => {
           const score = (corr.correlation_score * 100).toFixed(1);
           const priority = corr.priority || 'medium';
-          prompt += `\n${index + 1}. [${priority.toUpperCase()}] ${corr.analyzer1} <-> ${corr.analyzer2} (${score}% correlation)`;
-          prompt += `\n   Impact: ${corr.description}`;
+          prompt += `
+*${index + 1}. [${priority.toUpperCase()}] ${corr.analyzer1} <-> ${corr.analyzer2} (${score}% correlation)`;
+          prompt += `
+   Impact: ${corr.description}`;
           if (corr.remediation_impact) {
-            prompt += `\n   Remediation: ${corr.remediation_impact}`;
+            prompt += `
+   Remediation: ${corr.remediation_impact}`;
           }
           if (corr.affected_files?.length > 0) {
-            prompt += `\n   Affects: ${corr.affected_files.slice(0, 3).join(', ')}${corr.affected_files.length > 3 ? '...' : ''}`;
+            prompt += `
+   Affects: ${corr.affected_files.slice(0, 3).join(', ')}${corr.affected_files.length > 3 ? '...' : ''}`;
           }
         });
       }
       
       // Add smart architectural recommendations with detailed context
       if (enhancedContext.smart_recommendations?.length > 0) {
-        prompt += `\n\nSmart Architectural Recommendations (${enhancedContext.smart_recommendations.length} generated):`;
+        prompt += `
+*nSmart Architectural Recommendations (${enhancedContext.smart_recommendations.length} generated):`;
         enhancedContext.smart_recommendations.slice(0, 4).forEach((rec: any, index: number) => {
           const priority = rec.priority || 'medium';
           const category = rec.category || 'General';
           const impact = rec.impact || 'unknown';
           const effort = rec.effort || 'unknown';
           
-          prompt += `\n${index + 1}. [${priority.toUpperCase()} PRIORITY] ${category}`;
-          prompt += `\n   Recommendation: ${rec.description}`;
-          prompt += `\n   Impact: ${impact} | Effort: ${effort}`;
+          prompt += `
+*${index + 1}. [${priority.toUpperCase()} PRIORITY] ${category}`;
+          prompt += `
+   Recommendation: ${rec.description}`;
+          prompt += `
+   Impact: ${impact} | Effort: ${effort}`;
           
           if (rec.rationale) {
-            prompt += `\n   Rationale: ${rec.rationale}`;
+            prompt += `
+   Rationale: ${rec.rationale}`;
           }
           if (rec.implementation_notes) {
-            prompt += `\n   Implementation: ${rec.implementation_notes}`;
+            prompt += `
+   Implementation: ${rec.implementation_notes}`;
           }
         });
       }
       
       // Add policy and component information
       if (enhancedContext.canonical_policy) {
-        prompt += `\n\nActive Policy: ${enhancedContext.canonical_policy}`;
+        prompt += `
+*nActive Policy: ${enhancedContext.canonical_policy}`;
       }
       if (enhancedContext.components_used) {
         const activeComponents = Object.entries(enhancedContext.components_used)
           .filter(([_, enabled]) => enabled)
           .map(([component, _]) => component);
         if (activeComponents.length > 0) {
-          prompt += `\nActive Analyzers: ${activeComponents.join(', ')}`;
+          prompt += `
+*Active Analyzers: ${activeComponents.join(', ')}`;
         }
       }
     }
 
-    prompt += `\n\n=== REQUIREMENTS ===
+    prompt += `
+*n=== REQUIREMENTS ===
 - Generate working code that eliminates the connascence violation
 - Preserve all functionality while reducing coupling strength
 - Apply architectural patterns identified in enhanced analysis
@@ -795,20 +809,25 @@ ${context}`;
 
     // Add enhanced analysis context for better suggestions
     if (enhancedContext && (enhancedContext.correlations?.length > 0 || enhancedContext.smart_recommendations?.length > 0)) {
-      prompt += `\n\n=== ENHANCED ARCHITECTURAL CONTEXT ===`;
+      prompt += `
+*n=== ENHANCED ARCHITECTURAL CONTEXT ===`;
       
       if (enhancedContext.correlations?.length > 0) {
-        prompt += `\nCross-Phase Correlations:`;
+        prompt += `
+*Cross-Phase Correlations:`;
         enhancedContext.correlations.slice(0, 3).forEach((corr: any, index: number) => {
           const score = (corr.correlation_score * 100).toFixed(1);
-          prompt += `\n[U+2022] ${corr.analyzer1} <-> ${corr.analyzer2} (${score}%): ${corr.description}`;
+          prompt += `
+*[U+2022] ${corr.analyzer1} <-> ${corr.analyzer2} (${score}%): ${corr.description}`;
         });
       }
       
       if (enhancedContext.smart_recommendations?.length > 0) {
-        prompt += `\nSmart Architectural Recommendations:`;
+        prompt += `
+*Smart Architectural Recommendations:`;
         enhancedContext.smart_recommendations.slice(0, 3).forEach((rec: any, index: number) => {
-          prompt += `\n[U+2022] [${rec.priority || 'medium'}] ${rec.category}: ${rec.description}`;
+          prompt += `
+*[U+2022] [${rec.priority || 'medium'}] ${rec.category}: ${rec.description}`;
         });
       }
     }

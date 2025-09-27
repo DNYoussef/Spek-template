@@ -1,6 +1,5 @@
 /**
  * Coordination Princess - Claude Sonnet 4 with MANDATORY Sequential Thinking
- *
  * Manages 15 coordination agents with enforced sequential thinking MCP
  * for every decision, ensuring structured reasoning and preventing
  * context degradation through step-by-step analysis.

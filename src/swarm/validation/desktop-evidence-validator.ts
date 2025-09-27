@@ -1,6 +1,5 @@
 /**
  * Desktop Evidence Validator
- * 
  * Validates desktop automation evidence for authenticity and completeness
  * Integrates with theater detection and reality validation systems
  */

@@ -1,6 +1,5 @@
 /**
  * Development Swarm Controller - Queen-led Concurrent Development System
- *
  * Automates the development swarm process:
  * 1. Queen analyzes spec and plan documents
  * 2. Maps dependency chains for all phases

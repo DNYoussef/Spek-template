@@ -31,7 +31,6 @@ export interface SandboxEnvironment {
 export class SandboxManager extends EventEmitter {
   /**
    * Manages sandbox environment lifecycle.
-   *
    * Extracted from SandboxTestingFramework (1,213 LOC -> ~250 LOC component).
    * Handles:
    * - Environment creation and destruction

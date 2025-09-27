@@ -1,6 +1,5 @@
 /**
  * Degradation Monitor - Real-time Drift Detection
- *
  * Monitors context degradation across the swarm in real-time,
  * detecting semantic drift and triggering recovery mechanisms
  * before critical thresholds are reached.

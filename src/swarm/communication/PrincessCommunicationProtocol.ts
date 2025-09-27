@@ -1,15 +1,17 @@
 /**
  * Princess Communication Protocol
- *
  * Manages secure, validated communication between Princess domains
  * with context integrity, handoff validation, and conflict resolution.
  */
 
 import { EventEmitter } from 'events';
+import WebSocket from 'ws';
+import { v4 as uuidv4 } from 'uuid';
 import { HivePrincess } from '../hierarchy/HivePrincess';
 import { PrincessConsensus } from '../hierarchy/PrincessConsensus';
 import { MECEValidationProtocol, CrossDomainHandoff } from '../validation/MECEValidationProtocol';
 import { ContextDNA, ContextFingerprint } from '../../context/ContextDNA';
+import { LoggerFactory } from '../../utils/logger';
 
 export interface CommunicationChannel {
   channelId: string;
@@ -67,12 +69,16 @@ export class PrincessCommunicationProtocol extends EventEmitter {
   private responseTracker: Map<string, MessageResponse> = new Map();
   private communicationHistory: PrincessMessage[] = [];
   private metrics: CommunicationMetrics;
+  private webSocketServer: WebSocket.Server;
+  private wsConnections: Map<string, WebSocket> = new Map();
+  private logger = LoggerFactory.getLogger('PrincessCommunication');
 
   // Communication timeouts and limits
   private readonly MESSAGE_TIMEOUT = 30000; // 30 seconds
   private readonly MAX_RETRY_COUNT = 3;
   private readonly BROADCAST_DELAY = 1000; // 1 second between broadcasts
   private readonly INTEGRITY_THRESHOLD = 0.85; // 85% minimum integrity
+  private readonly WS_PORT = 8081;
 
   constructor(
     princesses: Map<string, HivePrincess>,
@@ -85,9 +91,66 @@ export class PrincessCommunicationProtocol extends EventEmitter {
     this.meceValidator = meceValidator;
     this.metrics = this.initializeMetrics();
 
+    this.initializeWebSocketServer();
     this.initializeCommunicationChannels();
     this.setupMessageHandlers();
     this.startMaintenanceTasks();
+  }
+
+  /**
+   * Initialize WebSocket server for real-time communication
+   */
+  private initializeWebSocketServer(): void {
+    this.webSocketServer = new WebSocket.Server({ port: this.WS_PORT });
+
+    this.webSocketServer.on('connection', (ws: WebSocket, request) => {
+      const connectionId = uuidv4();
+      this.wsConnections.set(connectionId, ws);
+
+      this.logger.info('WebSocket connection established', {
+        operation: 'websocket_connect',
+        metadata: { connectionId, url: request.url }
+      });
+
+      ws.on('message', (data: Buffer) => {
+        this.handleWebSocketMessage(connectionId, data);
+      });
+
+      ws.on('close', () => {
+        this.wsConnections.delete(connectionId);
+        this.logger.info('WebSocket connection closed', {
+          operation: 'websocket_disconnect',
+          metadata: { connectionId }
+        });
+      });
+
+      ws.on('error', (error: Error) => {
+        this.logger.error('WebSocket error', { operation: 'websocket_error' }, error);
+        this.wsConnections.delete(connectionId);
+      });
+    });
+
+    this.logger.info(`WebSocket server started on port ${this.WS_PORT}`);
+  }
+
+  /**
+   * Handle incoming WebSocket messages
+   */
+  private handleWebSocketMessage(connectionId: string, data: Buffer): void {
+    try {
+      const message: PrincessMessage = JSON.parse(data.toString());
+
+      this.logger.debug('WebSocket message received', {
+        operation: 'websocket_message',
+        metadata: { connectionId, messageType: message.messageType }
+      });
+
+      // Process the message through normal channels
+      this.processIncomingMessage(message);
+    } catch (error) {
+      this.logger.error('Failed to parse WebSocket message',
+        { operation: 'websocket_parse' }, error as Error);
+    }
   }
 
   /**
@@ -110,7 +173,7 @@ export class PrincessCommunicationProtocol extends EventEmitter {
       this.createChannel(domains[i], '*', 'broadcast');
     }
 
-    console.log(`[Communication] Initialized ${this.channels.size} communication channels`);
+    this.logger.info(`Initialized ${this.channels.size} communication channels`);
   }
 
   /**
@@ -177,8 +240,15 @@ export class PrincessCommunicationProtocol extends EventEmitter {
       retryCount: 0
     };
 
-    console.log(`[Communication] Sending message: ${message.fromPrincess} -> ${message.toPrincess}`);
-    console.log(`  Type: ${message.messageType}, Priority: ${message.priority}`);
+    this.logger.info('Sending princess message', {
+      operation: 'send_message',
+      metadata: {
+        from: message.fromPrincess,
+        to: message.toPrincess,
+        type: message.messageType,
+        priority: message.priority
+      }
+    });
 
     try {
       // Validate message before sending
@@ -205,12 +275,12 @@ export class PrincessCommunicationProtocol extends EventEmitter {
       }
 
     } catch (error) {
-      console.error(`[Communication] Send failed:`, error);
+      this.logger.error('Message send failed', { operation: 'send_message' }, error as Error);
       return {
         success: false,
         messageId,
         deliveryStatus: 'failed',
-        error: error.message
+        error: (error as Error).message
       };
     }
   }
@@ -826,11 +896,41 @@ export class PrincessCommunicationProtocol extends EventEmitter {
   }
 
   /**
-   * Notify princess of incoming message
+   * Notify princess of incoming message via WebSocket
    */
   private notifyPrincessOfMessage(princessId: string, messageId: string): void {
-    // Implementation would notify princess through available channels
-    console.log(`[Communication] Notifying ${princessId} of message: ${messageId}`);
+    const notification = {
+      type: 'message_notification',
+      princessId,
+      messageId,
+      timestamp: Date.now()
+    };
+
+    // Send via WebSocket to all connected clients
+    this.broadcastViaWebSocket(notification as any);
+
+    this.logger.debug('Princess notification sent', {
+      operation: 'notify_princess',
+      metadata: { princessId, messageId }
+    });
+  }
+
+  /**
+   * Shutdown WebSocket server
+   */
+  public async shutdown(): Promise<void> {
+    return new Promise((resolve) => {
+      // Close all WebSocket connections
+      for (const ws of this.wsConnections.values()) {
+        ws.close();
+      }
+
+      // Close server
+      this.webSocketServer.close(() => {
+        this.logger.info('WebSocket server shutdown complete');
+        resolve();
+      });
+    });
   }
 
   /**
@@ -892,7 +992,13 @@ export class PrincessCommunicationProtocol extends EventEmitter {
       this.communicationHistory = this.communicationHistory.slice(-1000);
     }
 
-    console.log(`[Communication] Cleanup completed - ${this.messageQueue.size} queued, ${this.responseTracker.size} responses tracked`);
+    this.logger.debug('Communication cleanup completed', {
+      operation: 'cleanup',
+      metadata: {
+        queuedMessages: this.messageQueue.size,
+        trackedResponses: this.responseTracker.size
+      }
+    });
   }
 
   /**
@@ -931,7 +1037,10 @@ export class PrincessCommunicationProtocol extends EventEmitter {
       timestamp: Date.now()
     };
 
-    console.log(`[Communication] Metrics Report:`, report);
+    this.logger.info('Communication metrics report', {
+      operation: 'metrics_report',
+      metadata: report
+    });
     this.emit('metrics:report', report);
   }
 
@@ -951,17 +1060,139 @@ export class PrincessCommunicationProtocol extends EventEmitter {
   }
 
   /**
-   * Generate unique message ID
+   * Generate unique message ID using UUID
    */
   private generateMessageId(): string {
-    return `msg-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+    return `msg-${uuidv4()}`;
   }
 
   /**
-   * Generate unique response ID
+   * Generate unique response ID using UUID
    */
   private generateResponseId(): string {
-    return `resp-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+    return `resp-${uuidv4()}`;
+  }
+
+  /**
+   * Process incoming message (real implementation)
+   */
+  private async processIncomingMessage(message: PrincessMessage): Promise<void> {
+    // Add to communication history
+    this.communicationHistory.push(message);
+
+    // Update metrics
+    this.metrics.totalMessages++;
+
+    // Route message to appropriate handler
+    switch (message.messageType) {
+      case 'task_handoff':
+        await this.handleTaskHandoff(message);
+        break;
+      case 'status_update':
+        await this.handleStatusUpdate(message);
+        break;
+      case 'escalation':
+        await this.handleEscalationMessage(message);
+        break;
+      case 'resource_request':
+        await this.handleResourceRequest(message);
+        break;
+      case 'coordination_sync':
+        await this.handleCoordinationSync(message);
+        break;
+      default:
+        this.logger.warn('Unknown message type', {
+          operation: 'process_message',
+          metadata: { messageType: message.messageType }
+        });
+    }
+  }
+
+  /**
+   * Handle task handoff messages
+   */
+  private async handleTaskHandoff(message: PrincessMessage): Promise<void> {
+    const targetPrincess = this.princesses.get(message.toPrincess as string);
+    if (targetPrincess) {
+      await targetPrincess.receiveTask(message.payload);
+      this.metrics.successfulDeliveries++;
+    } else {
+      this.metrics.failedDeliveries++;
+    }
+  }
+
+  /**
+   * Handle status update messages
+   */
+  private async handleStatusUpdate(message: PrincessMessage): Promise<void> {
+    this.emit('status_update', {
+      from: message.fromPrincess,
+      to: message.toPrincess,
+      payload: message.payload
+    });
+  }
+
+  /**
+   * Handle escalation messages
+   */
+  private async handleEscalationMessage(message: PrincessMessage): Promise<void> {
+    this.metrics.escalations++;
+    this.emit('escalation', message);
+  }
+
+  /**
+   * Handle resource request messages
+   */
+  private async handleResourceRequest(message: PrincessMessage): Promise<void> {
+    // Process resource allocation logic
+    this.emit('resource_request', message);
+  }
+
+  /**
+   * Handle coordination sync messages
+   */
+  private async handleCoordinationSync(message: PrincessMessage): Promise<void> {
+    // Synchronize state across princesses
+    this.emit('coordination_sync', message);
+  }
+
+  /**
+   * Broadcast message via WebSocket
+   */
+  private broadcastViaWebSocket(message: PrincessMessage): void {
+    const messageData = JSON.stringify(message);
+
+    for (const [connectionId, ws] of this.wsConnections) {
+      if (ws.readyState === WebSocket.OPEN) {
+        try {
+          ws.send(messageData);
+        } catch (error) {
+          this.logger.error('WebSocket broadcast failed',
+            { operation: 'websocket_broadcast', metadata: { connectionId } },
+            error as Error);
+        }
+      }
+    }
+  }
+
+  /**
+   * Get real performance metrics
+   */
+  public getRealTimeMetrics(): {
+    connections: number;
+    messagesPerSecond: number;
+    averageLatency: number;
+    errorRate: number;
+  } {
+    const now = Date.now();
+    const lastMinute = this.communicationHistory.filter(m => now - m.timestamp < 60000);
+
+    return {
+      connections: this.wsConnections.size,
+      messagesPerSecond: lastMinute.length / 60,
+      averageLatency: this.metrics.averageResponseTime,
+      errorRate: this.metrics.failedDeliveries / Math.max(1, this.metrics.totalMessages)
+    };
   }
 
   // Public interface methods

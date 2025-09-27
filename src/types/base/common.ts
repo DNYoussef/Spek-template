@@ -172,17 +172,18 @@ export const createLoadResult = <T>(
   timestamp: Date.now() as Timestamp
 });
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-26T23:09:20-04:00 | coder@claude-sonnet-4 | Create common interfaces replacing 'any' types in config/validation | common.ts | OK | -- | 0.00 | 9d8e4f1 |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase4-week10-type-elimination-002
-- inputs: ["primitives.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-26T23:09:20-04:00 | coder@claude-sonnet-4 | Create common interfaces replacing 'any' types in config/validation | common.ts | OK | -- | 0.00 | 9d8e4f1 |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase4-week10-type-elimination-002
+ * - inputs: ["primitives.ts"]
+ * - tools_used: ["Write"]
+ * - versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

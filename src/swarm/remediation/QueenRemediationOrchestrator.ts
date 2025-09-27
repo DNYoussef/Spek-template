@@ -1,6 +1,5 @@
 /**
  * QueenRemediationOrchestrator.ts
- *
  * Master orchestrator for systematic remediation of 95 God Objects and 35,973 Connascence violations.
  * Coordinates 6 Princess domains with 30 total subagents using MECE principle.
  */

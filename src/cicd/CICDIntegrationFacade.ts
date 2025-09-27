@@ -41,10 +41,8 @@ export interface CICDStatus {
 export class CICDIntegration extends EventEmitter {
   /**
    * Facade for CI/CD Integration System.
-   *
    * Original: 985 LOC god object
    * Refactored: ~150 LOC facade + 3 specialized components (~650 LOC total)
-   *
    * Maintains 100% backward compatibility while delegating to:
    * - PipelineManager: CI/CD pipeline orchestration
    * - TestRunner: Test execution and reporting

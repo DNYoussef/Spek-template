@@ -50,7 +50,6 @@ export interface ValidationSummary {
 export class ValidationEngine extends EventEmitter {
   /**
    * Executes validation rules for stage transitions.
-   *
    * Extracted from StageProgressionValidator (1,188 LOC -> ~250 LOC component).
    * Handles:
    * - Validation rule definition and execution

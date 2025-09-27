@@ -758,17 +758,18 @@ export class VectorOperationsBenchmark {
 // Export for use in test runners
 export default VectorOperationsBenchmark;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-01-27T18:58:12-05:00 | performance-benchmarker@Claude Sonnet 4 | Created comprehensive VectorOperations benchmark suite with 10 test categories to validate Phase 2 10.8x improvement | VectorOperations.bench.ts | OK | Validates 487 ops/s baseline with 10.8x target, includes enterprise-scale testing and memory efficiency validation | 0.00 | f89de3c |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: perf-benchmarker-vector-ops-001
-- inputs: ["VectorStore.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"perf-benchmarker-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-01-27T18:58:12-05:00 | performance-benchmarker@Claude Sonnet 4 | Created comprehensive VectorOperations benchmark suite with 10 test categories to validate Phase 2 10.8x improvement | VectorOperations.bench.ts | OK | Validates 487 ops/s baseline with 10.8x target, includes enterprise-scale testing and memory efficiency validation | 0.00 | f89de3c |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: perf-benchmarker-vector-ops-001
+ * - inputs: ["VectorStore.ts"]
+ * - tools_used: ["Write"]
+ * - versions: {"model":"claude-sonnet-4","prompt":"perf-benchmarker-v1"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

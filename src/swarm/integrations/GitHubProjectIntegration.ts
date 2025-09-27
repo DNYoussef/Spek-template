@@ -1,6 +1,5 @@
 /**
  * GitHub Project Manager Integration for Swarm Coordination
- *
  * Integrates the swarm system with GitHub Project Manager MCP for:
  * - Real-time synchronization of swarm progress with GitHub projects
  * - Automatic issue creation and task tracking

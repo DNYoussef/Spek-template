@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /**
  * Execute Queen Debug System
- *
  * REAL debugging system that fixes ACTUAL errors in the codebase
  * Uses Queen-Princess-Drone hierarchy to fix GitHub Actions failures
  */

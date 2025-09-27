@@ -1,6 +1,5 @@
 /**
  * Six Sigma Metrics Integration (QG-001)
- * 
  * Implements comprehensive Six Sigma metrics with CTQ validation
  * and automated quality scoring for quality gate decisions.
  */

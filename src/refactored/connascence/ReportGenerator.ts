@@ -1,6 +1,5 @@
 /**
  * ReportGenerator - NASA POT10 Compliant
- *
  * Reporting methods extracted from UnifiedConnascenceAnalyzer
  * Following NASA Rule 4: Functions <60 lines
  * Following NASA Rule 5: 2+ assertions per function

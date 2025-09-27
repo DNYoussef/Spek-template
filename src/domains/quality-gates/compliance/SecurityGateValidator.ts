@@ -1,6 +1,5 @@
 /**
  * Security Vulnerability Gate Validator (QG-005)
- * 
  * Implements security vulnerability gate with zero critical/high finding
  * enforcement and comprehensive security validation for quality gates.
  */

@@ -1,7 +1,6 @@
 #!/usr/bin/env ts-node
 /**
  * Phase 4 Week 10: Type Safety Test Runner
- *
  * Comprehensive test execution script for validating Phase 4
  * type safety improvements and enterprise compliance.
  */

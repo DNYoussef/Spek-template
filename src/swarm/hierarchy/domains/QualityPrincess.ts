@@ -1,7 +1,6 @@
 /**
  * Quality Princess - Quality Assurance Domain Specialist
  * Enhanced with King Logic and Langroid Theater Detection
- *
  * Manages testing, quality gates, and compliance validation with:
  * - King's meta-logic for quality task distribution
  * - Langroid memory for test patterns and theater detection
@@ -33,7 +32,12 @@ export class QualityPrincess extends PrincessBase {
   private async initialize(): Promise<void> {
     if (this.isInitialized) return;
 
-    console.log('[Quality Princess] Initializing with King Logic and Theater Detection...');
+    this.logger.info('Quality Princess initialization starting', {
+      component: 'QualityPrincess',
+      features: ['KingLogic', 'TheaterDetection', 'MECEDistribution'],
+      theaterThreshold: this.theaterThreshold,
+      timestamp: new Date().toISOString()
+    });
 
     // Configure King's meta-logic for quality domain
     this.kingLogic.configureMetaLogic({
@@ -53,23 +57,45 @@ export class QualityPrincess extends PrincessBase {
     });
 
     this.isInitialized = true;
-    console.log('[Quality Princess] Initialization complete with theater detection');
+    this.logger.info('Quality Princess initialization complete', {
+      component: 'QualityPrincess',
+      kingLogicConfigured: true,
+      theaterDetectionEnabled: true,
+      meceDistributorConfigured: true,
+      timestamp: new Date().toISOString()
+    });
   }
 
   async executeTask(task: any): Promise<any> {
     await this.initialize();
 
-    console.log(`[Quality Princess] Executing task with Theater Detection: ${task.id}`);
+    this.logger.info('Quality task execution started', {
+      component: 'QualityPrincess',
+      taskId: task.id,
+      description: task.description,
+      theaterDetectionEnabled: true,
+      timestamp: new Date().toISOString()
+    });
 
     try {
       // Step 1: Apply King's meta-logic to analyze task complexity
       const complexity = this.kingLogic.analyzeTaskComplexity(task);
-      console.log(`[Quality] Task complexity: ${complexity}`);
+      this.logger.info('Task complexity analyzed', {
+        component: 'QualityPrincess',
+        taskId: task.id,
+        complexity: complexity,
+        timestamp: new Date().toISOString()
+      });
 
       // Step 2: Check if task should be sharded using King's logic
       let tasksToExecute: any[];
       if (this.kingLogic.shouldShardTask(task)) {
-        console.log('[Quality] Sharding complex quality task...');
+        this.logger.info('Quality task sharding initiated', {
+          component: 'QualityPrincess',
+          taskId: task.id,
+          reason: 'Complex quality validation required',
+          timestamp: new Date().toISOString()
+        });
         const shards = this.kingLogic.shardTask(task);
         tasksToExecute = shards.map(shard => shard.subtask);
       } else {
@@ -88,7 +114,14 @@ export class QualityPrincess extends PrincessBase {
         { maxTheaterScore: this.theaterThreshold, minRealityScore: 40 }
       );
 
-      console.log(`[Quality] Found ${similarPatterns.length} reality-based quality patterns`);
+      this.logger.info('Reality-based pattern search completed', {
+        component: 'QualityPrincess',
+        taskId: task.id,
+        patternsFound: similarPatterns.length,
+        maxTheaterScore: this.theaterThreshold,
+        minRealityScore: 40,
+        timestamp: new Date().toISOString()
+      });
 
       // Step 5: Detect theater patterns in current task
       const theaterPatterns = await this.detectTheaterPatterns(task);
@@ -125,7 +158,13 @@ export class QualityPrincess extends PrincessBase {
       };
 
     } catch (error) {
-      console.error('[Quality] Task execution failed:', error);
+      this.logger.error('Quality task execution failed', {
+        component: 'QualityPrincess',
+        taskId: task.id,
+        error: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+        timestamp: new Date().toISOString()
+      });
       throw error;
     }
   }
@@ -196,7 +235,13 @@ export class QualityPrincess extends PrincessBase {
    * Execute quality validation with theater detection
    */
   private async executeQualityWithTheaterDetection(task: any, patterns: any[]): Promise<any> {
-    console.log(`[Quality] Executing validation for ${task.id} with theater detection`);
+    this.logger.info('Quality validation with theater detection started', {
+      component: 'QualityPrincess',
+      taskId: task.id,
+      patternsAvailable: patterns.length,
+      theaterDetectionEnabled: true,
+      timestamp: new Date().toISOString()
+    });
 
     // Spawn QA-specific agents
     const agents = await this.spawnQualityAgents(task);
@@ -250,7 +295,12 @@ export class QualityPrincess extends PrincessBase {
       theaterPatterns.push(...patterns.map(p => p.id));
 
     } catch (error) {
-      console.warn('[Quality] Theater detection failed:', error);
+      this.logger.warn('Theater detection failed', {
+        component: 'QualityPrincess',
+        taskId: task.id,
+        error: error instanceof Error ? error.message : String(error),
+        timestamp: new Date().toISOString()
+      });
     }
 
     return theaterPatterns;
@@ -281,8 +331,13 @@ export class QualityPrincess extends PrincessBase {
   }
 
   private async coordinateQualityValidation(task: any, agents: string[], guidance: string = ''): Promise<any> {
-    console.log(`[Quality] Coordinating validation with ${agents.length} agents`);
-    console.log(`[Quality] Using guidance: ${guidance}`);
+    this.logger.info('Quality validation coordination started', {
+      component: 'QualityPrincess',
+      taskId: task.id,
+      agentCount: agents.length,
+      guidance: guidance,
+      timestamp: new Date().toISOString()
+    });
 
     // Apply King's multi-agent coordination
     const taskDistribution = await this.kingLogic.coordinateMultipleAgents([task], agents.length);
@@ -320,7 +375,13 @@ export class QualityPrincess extends PrincessBase {
           tags: ['successful', 'quality', 'reality-validated']
         });
 
-        console.log(`[Quality] Stored reality-validated pattern for task ${task.id}`);
+        this.logger.info('Reality-validated pattern stored', {
+          component: 'QualityPrincess',
+          taskId: task.id,
+          realityScore: validation.realityScore,
+          theaterScore: validation.theaterScore,
+          timestamp: new Date().toISOString()
+        });
       }
     }
   }

@@ -1,7 +1,6 @@
 /**
  * Cross-Framework Compliance Correlation System
  * Implements correlation matrix with gap analysis and unified reporting
- *
  * Task: EC-005 - Cross-framework compliance correlation and gap analysis
  */
 

@@ -1,9 +1,7 @@
 /**
  * Task Types Unit Tests - London School TDD
- *
  * Tests type definitions and their behavior contracts.
  * Focuses on type safety, validation, and interface compliance.
- *
  * London School TDD Principles:
  * - Test type behavior and contracts
  * - Verify enum value consistency
@@ -114,15 +112,14 @@ describe('Task Types - London School TDD', () => {
         timeout: 3600
       };
 
-      expect(mockResources).toEqual(
-        expect.objectContaining({
-          memory: expect.any(Number),
-          cpu: expect.any(Number),
-          network: expect.any(Boolean),
-          storage: expect.any(Number),
-          timeout: expect.any(Number)
-        })
-      );
+      expect(mockResources).toEqual({
+        memory: 512,
+        cpu: 2,
+        network: true,
+        storage: 1024,
+        timeout: 3600,
+        gpu: true
+      });
 
       // GPU should be optional
       expect(mockResources.gpu).toBeDefined();
@@ -191,17 +188,15 @@ describe('Task Types - London School TDD', () => {
         reviewRequired: true
       };
 
-      expect(mockMetadata).toEqual(
-        expect.objectContaining({
-          estimatedDuration: expect.any(Number),
-          complexity: expect.any(Number),
-          tags: expect.any(Array),
-          author: expect.any(String),
-          version: expect.any(String),
-          testRequired: expect.any(Boolean),
-          reviewRequired: expect.any(Boolean)
-        })
-      );
+      expect(mockMetadata).toEqual({
+        estimatedDuration: 180,
+        complexity: 65,
+        tags: ['security', 'api', 'validation'],
+        author: 'security-agent',
+        version: '1.2.0',
+        testRequired: true,
+        reviewRequired: true
+      });
 
       // Framework should be optional
       expect(mockMetadata.framework).toBe('express');
@@ -309,8 +304,8 @@ describe('Task Types - London School TDD', () => {
       expect(mockTask.domain).toBeDefined();
 
       // Optional properties should be defined when provided
-      expect(mockTask.files).toEqual(expect.arrayContaining([expect.any(String)]));
-      expect(mockTask.dependencies).toEqual(expect.arrayContaining([expect.any(String)]));
+      expect(mockTask.files).toEqual(['src/auth/validators.ts', 'src/auth/middleware.ts']);
+      expect(mockTask.dependencies).toEqual(['auth-base-001', 'crypto-utils-002']);
       expect(mockTask.estimatedLOC).toBe(300);
       expect(mockTask.priority).toBe(TaskPriority.HIGH);
       expect(mockTask.status).toBe(TaskStatus.PENDING);
@@ -421,19 +416,17 @@ describe('Task Types - London School TDD', () => {
         complexityReduction: -5
       };
 
-      expect(mockMetrics).toEqual(
-        expect.objectContaining({
-          executionTime: expect.any(Number),
-          memoryUsage: expect.any(Number),
-          cpuUsage: expect.any(Number),
-          linesChanged: expect.any(Number),
-          filesModified: expect.any(Number),
-          testsRun: expect.any(Number),
-          testsPassed: expect.any(Number),
-          qualityScore: expect.any(Number),
-          complexityReduction: expect.any(Number)
-        })
-      );
+      expect(mockMetrics).toEqual({
+        executionTime: 2847,
+        memoryUsage: 156.8,
+        cpuUsage: 23.4,
+        linesChanged: 127,
+        filesModified: 3,
+        testsRun: 24,
+        testsPassed: 23,
+        qualityScore: 87.6,
+        complexityReduction: 34.2
+      });
     });
 
     it('should support quality score calculation', () => {
@@ -573,17 +566,18 @@ describe('Task Types - London School TDD', () => {
   });
 });
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T00:07:52-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive London School TDD test suite for task type definitions | task.types.test.ts | OK | Complete type system validation with enum behavior, interface contracts, and mock-driven validation logic | 0.00 | 5a9d4b2 |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase5-tdd-types-001
-- inputs: ["src/swarm/types/task.types.ts", "src/swarm/hierarchy/types.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-27T00:07:52-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive London School TDD test suite for task type definitions | task.types.test.ts | OK | Complete type system validation with enum behavior, interface contracts, and mock-driven validation logic | 0.00 | 5a9d4b2 |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase5-tdd-types-001
+ * - inputs: ["src/swarm/types/task.types.ts", "src/swarm/hierarchy/types.ts"]
+ * - tools_used: ["Write"]
+ * - versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

@@ -1,7 +1,6 @@
 /**
  * Deployment Orchestration Agent - Real Implementation
  * Domain: DO - Theater Remediation Complete
- *
  * MISSION: Genuine deployment orchestration with actual blue-green, canary,
  * and rolling deployment strategies. NO THEATER PATTERNS.
  */

@@ -63,7 +63,6 @@ export interface StageResult {
 export class PipelineManager extends EventEmitter {
   /**
    * Manages CI/CD pipeline configuration and execution.
-   *
    * Extracted from CICDIntegration (985 LOC -> ~250 LOC component).
    * Handles:
    * - Pipeline definition and configuration
@@ -361,6 +360,6 @@ export class PipelineManager extends EventEmitter {
   }
 
   private generateId(prefix: string): string {
-    return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    return `${prefix}-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`;
   }
 }

@@ -1,6 +1,5 @@
 /**
  * Desktop Automation Quality Gates
- * 
  * Validates desktop automation evidence and ensures production readiness
  * Integrates with SPEK quality system and theater detection
  */

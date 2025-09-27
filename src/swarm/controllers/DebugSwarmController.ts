@@ -1,6 +1,5 @@
 /**
  * Debug Swarm Controller - Large-Scale Error Analysis & Expert Distribution System
- *
  * Handles massive error reports from GitHub/analyzer by:
  * 1. Analyzing and categorizing errors by expertise domain
  * 2. Distributing to expert Princess specialists

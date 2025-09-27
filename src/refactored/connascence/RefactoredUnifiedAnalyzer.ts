@@ -1,6 +1,5 @@
 /**
  * RefactoredUnifiedAnalyzer - NASA POT10 Compliant
- *
  * Replacement for the 97-method UnifiedConnascenceAnalyzer god object
  * Following NASA Power of Ten Rules:
  * Rule 1: No complex control flow

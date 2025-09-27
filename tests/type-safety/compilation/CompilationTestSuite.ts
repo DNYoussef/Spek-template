@@ -1,6 +1,5 @@
 /**
  * Compilation Test Suite
- *
  * Comprehensive testing for TypeScript strict mode compilation
  * and validation of type safety across the codebase.
  */

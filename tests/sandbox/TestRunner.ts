@@ -1,6 +1,5 @@
 /**
  * TestRunner - NASA POT10 Compliant
- *
  * Executes the complete refactoring validation suite and integrates with GitHub
  * Following NASA Power of Ten Rules
  */

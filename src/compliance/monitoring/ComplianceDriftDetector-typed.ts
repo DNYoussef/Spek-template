@@ -1279,7 +1279,7 @@ class ComplianceRuleScanner {
       standard,
       timestamp: Date.now() as Timestamp,
       duration: 30, // 30 seconds
-      overallScore: (0.92 + (Math.random() * 0.06)) as ComplianceScore, // 92-98% score
+      overallScore: await this.calculateActualComplianceScore(standard) as ComplianceScore,
       ruleScores,
       violations: [],
       evidence: {
@@ -1314,7 +1314,7 @@ class ComplianceRuleScanner {
       standard: ComplianceStandard.NASA_POT10,
       category: 'security',
       severity: ComplianceSeverity.MEDIUM,
-      autoFixable: Math.random() > 0.5,
+      autoFixable: await this.analyzeActualFixability(ruleId),
       fixActions: [
         {
           id: `fix_${ruleId}_1`,
@@ -1349,17 +1349,18 @@ class ComplianceRuleScanner {
 
 export default ComplianceDriftDetector;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-26T23:09:55-04:00 | coder@claude-sonnet-4 | Eliminate all 'any' types in ComplianceDriftDetector.ts (20+ types eliminated) | ComplianceDriftDetector-typed.ts | OK | All 'any' types replaced with comprehensive compliance types | 0.00 | 6b4e7d2 |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase4-week10-type-elimination-007
-- inputs: ["compliance-types.ts", "primitives.ts", "ComplianceDriftDetector.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-26T23:09:55-04:00 | coder@claude-sonnet-4 | Eliminate all 'any' types in ComplianceDriftDetector.ts (20+ types eliminated) | ComplianceDriftDetector-typed.ts | OK | All 'any' types replaced with comprehensive compliance types | 0.00 | 6b4e7d2 |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase4-week10-type-elimination-007
+ * - inputs: ["compliance-types.ts", "primitives.ts", "ComplianceDriftDetector.ts"]
+ * - tools_used: ["Write"]
+ * - versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

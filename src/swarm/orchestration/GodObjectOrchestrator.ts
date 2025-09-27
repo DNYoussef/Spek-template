@@ -1,14 +1,18 @@
 /**
  * GodObjectOrchestrator - God Object Decomposition Task Manager
- *
  * Coordinates god object detection, analysis, and decomposition
  * across the hierarchical swarm with Byzantine consensus validation.
  */
 
 import { EventEmitter } from 'events';
+import { v4 as uuidv4 } from 'uuid';
+import { Project, Node, SyntaxKind } from 'ts-morph';
+import * as fs from 'fs/promises';
+import * as path from 'path';
 import { SwarmInitializer } from './SwarmInitializer';
 import { ParallelPipelineManager } from './ParallelPipelineManager';
 import { SwarmMonitor } from './SwarmMonitor';
+import { LoggerFactory } from '../../utils/logger';
 
 export interface GodObjectTarget {
   filePath: string;
@@ -52,6 +56,8 @@ export class GodObjectOrchestrator extends EventEmitter {
   private targets: Map<string, GodObjectTarget> = new Map();
   private plans: Map<string, DecompositionPlan> = new Map();
   private results: Map<string, DecompositionResult> = new Map();
+  private project: Project;
+  private logger = LoggerFactory.getLogger('GodObjectOrchestrator');
 
   constructor() {
     super();
@@ -64,15 +70,21 @@ export class GodObjectOrchestrator extends EventEmitter {
     });
     this.pipelineManager = new ParallelPipelineManager();
     this.monitor = new SwarmMonitor();
+    this.project = new Project({
+      tsConfigFilePath: 'tsconfig.json',
+      skipAddingFilesFromTsConfig: true
+    });
   }
 
   /**
    * Initialize orchestrator and swarm infrastructure
    */
   async initialize(): Promise<void> {
-    console.log('\n');
-    console.log('   GOD OBJECT ORCHESTRATOR INITIALIZATION                   ');
-    console.log('\n');
+    const startTime = performance.now();
+    this.logger.info('God Object Orchestrator initialization starting', {
+      component: 'GodObjectOrchestrator',
+      timestamp: new Date().toISOString()
+    });
 
     // Initialize swarm
     await this.swarmInitializer.initializeSwarm();
@@ -86,14 +98,24 @@ export class GodObjectOrchestrator extends EventEmitter {
     // Start monitoring
     this.monitor.startMonitoring(10000);
 
-    console.log(' God Object Orchestrator initialized\n');
+    this.logger.info('God Object Orchestrator initialization complete', {
+      component: 'GodObjectOrchestrator',
+      princesses: princesses.length,
+      initializationTime: performance.now() - startTime,
+      timestamp: new Date().toISOString()
+    });
   }
 
   /**
    * Detect god objects in codebase
    */
   async detectGodObjects(baseDir = 'src'): Promise<GodObjectTarget[]> {
-    console.log(`\nDetecting god objects in ${baseDir}...`);
+    const startTime = performance.now();
+    this.logger.info('God object detection started', {
+      component: 'GodObjectOrchestrator',
+      baseDirectory: baseDir,
+      timestamp: new Date().toISOString()
+    });
 
     // This would integrate with actual code analysis tools
     // For now, return mock data
@@ -120,7 +142,12 @@ export class GodObjectOrchestrator extends EventEmitter {
       this.targets.set(target.filePath, target);
     }
 
-    console.log(`  Found ${mockTargets.length} god objects\n`);
+    this.logger.info('God object detection complete', {
+      component: 'GodObjectOrchestrator',
+      targetsFound: mockTargets.length,
+      detectionTime: performance.now() - startTime,
+      timestamp: new Date().toISOString()
+    });
     this.emit('detection:complete', mockTargets);
 
     return mockTargets;
@@ -130,10 +157,20 @@ export class GodObjectOrchestrator extends EventEmitter {
    * Analyze god object and create decomposition plan
    */
   async analyzeAndPlan(filePath: string): Promise<DecompositionPlan> {
-    console.log(`\nAnalyzing god object: ${filePath}`);
+    const startTime = performance.now();
+    this.logger.info('God object analysis started', {
+      component: 'GodObjectOrchestrator',
+      targetFile: filePath,
+      timestamp: new Date().toISOString()
+    });
 
     const target = this.targets.get(filePath);
     if (!target) {
+      this.logger.error('Target not found for analysis', {
+        component: 'GodObjectOrchestrator',
+        targetFile: filePath,
+        timestamp: new Date().toISOString()
+      });
       throw new Error(`Target not found: ${filePath}`);
     }
 
@@ -173,7 +210,14 @@ export class GodObjectOrchestrator extends EventEmitter {
     };
 
     this.plans.set(filePath, plan);
-    console.log(`  Plan created: ${plan.proposedModules.length} modules proposed\n`);
+    this.logger.info('Decomposition plan created', {
+      component: 'GodObjectOrchestrator',
+      targetFile: filePath,
+      modulesProposed: plan.proposedModules.length,
+      riskLevel: plan.riskLevel,
+      analysisTime: performance.now() - startTime,
+      timestamp: new Date().toISOString()
+    });
     this.emit('plan:created', plan);
 
     return plan;
@@ -183,25 +227,48 @@ export class GodObjectOrchestrator extends EventEmitter {
    * Execute decomposition with swarm coordination
    */
   async executeDecomposition(filePath: string): Promise<DecompositionResult> {
-    console.log(`\n`);
-    console.log(`   EXECUTING DECOMPOSITION: ${filePath.padEnd(32)}`);
-    console.log(`\n`);
+    const startTime = performance.now();
+    this.logger.info('Decomposition execution started', {
+      component: 'GodObjectOrchestrator',
+      targetFile: filePath,
+      timestamp: new Date().toISOString()
+    });
 
     const plan = this.plans.get(filePath);
     if (!plan) {
+      this.logger.error('No decomposition plan found', {
+        component: 'GodObjectOrchestrator',
+        targetFile: filePath,
+        timestamp: new Date().toISOString()
+      });
       throw new Error(`No plan found for: ${filePath}`);
     }
 
     // Phase 1: Development Princess - Implementation
-    console.log('Phase 1: Implementation (Development Princess)...');
+    this.logger.info('Phase 1: Implementation starting', {
+      component: 'GodObjectOrchestrator',
+      phase: 'development',
+      princess: 'Development',
+      targetFile: filePath
+    });
     const devTaskId = await this.pipelineManager.submitTask('Development', filePath, 'high');
 
     // Phase 2: Quality Princess - Testing
-    console.log('Phase 2: Testing & Validation (Quality Princess)...');
+    this.logger.info('Phase 2: Testing & Validation starting', {
+      component: 'GodObjectOrchestrator',
+      phase: 'quality',
+      princess: 'Quality',
+      targetFile: filePath
+    });
     const qaTaskId = await this.pipelineManager.submitTask('Quality', filePath, 'high');
 
     // Phase 3: Security Princess - Security Review
-    console.log('Phase 3: Security Review (Security Princess)...');
+    this.logger.info('Phase 3: Security Review starting', {
+      component: 'GodObjectOrchestrator',
+      phase: 'security',
+      princess: 'Security',
+      targetFile: filePath
+    });
     const secTaskId = await this.pipelineManager.submitTask('Security', filePath, 'medium');
 
     // Wait for all phases (event-driven in practice)
@@ -221,11 +288,17 @@ export class GodObjectOrchestrator extends EventEmitter {
     };
 
     this.results.set(filePath, result);
-    console.log('\n Decomposition complete');
-    console.log(`  Modules created: ${result.modulesCreated.length}`);
-    console.log(`  LOC reduction: ${result.locReduction}`);
-    console.log(`  Complexity reduction: ${result.complexityReduction}%`);
-    console.log(`  Test coverage: ${result.testCoverage}%\n`);
+    this.logger.info('Decomposition execution complete', {
+      component: 'GodObjectOrchestrator',
+      targetFile: filePath,
+      success: result.success,
+      modulesCreated: result.modulesCreated.length,
+      locReduction: result.locReduction,
+      complexityReduction: result.complexityReduction,
+      testCoverage: result.testCoverage,
+      executionTime: performance.now() - startTime,
+      timestamp: new Date().toISOString()
+    });
 
     this.emit('decomposition:complete', result);
 
@@ -236,11 +309,15 @@ export class GodObjectOrchestrator extends EventEmitter {
    * Execute batch decomposition for multiple targets
    */
   async executeBatchDecomposition(targets?: string[]): Promise<DecompositionResult[]> {
+    const startTime = performance.now();
     const filePaths = targets || Array.from(this.targets.keys());
 
-    console.log(`\n`);
-    console.log(`   BATCH DECOMPOSITION: ${String(filePaths.length).padEnd(35)}targets `);
-    console.log(`\n`);
+    this.logger.info('Batch decomposition started', {
+      component: 'GodObjectOrchestrator',
+      totalTargets: filePaths.length,
+      targets: filePaths,
+      timestamp: new Date().toISOString()
+    });
 
     const results: DecompositionResult[] = [];
 
@@ -254,16 +331,27 @@ export class GodObjectOrchestrator extends EventEmitter {
         results.push(result);
 
       } catch (error) {
-        console.error(` Decomposition failed for ${filePath}:`, error);
+        this.logger.error('Decomposition failed', {
+          component: 'GodObjectOrchestrator',
+          targetFile: filePath,
+          error: error instanceof Error ? error.message : String(error),
+          stack: error instanceof Error ? error.stack : undefined,
+          timestamp: new Date().toISOString()
+        });
         this.emit('decomposition:failed', { filePath, error });
       }
     }
 
-    console.log(`\n`);
-    console.log(`   BATCH DECOMPOSITION COMPLETE                             `);
-    console.log(``);
-    console.log(`  Total processed: ${results.length}/${filePaths.length}`);
-    console.log(`  Success rate: ${(results.filter(r => r.success).length / results.length * 100).toFixed(1)}%\n`);
+    const successfulResults = results.filter(r => r.success);
+    this.logger.info('Batch decomposition complete', {
+      component: 'GodObjectOrchestrator',
+      totalTargets: filePaths.length,
+      totalProcessed: results.length,
+      successfulCount: successfulResults.length,
+      successRate: (successfulResults.length / results.length * 100).toFixed(1),
+      batchTime: performance.now() - startTime,
+      timestamp: new Date().toISOString()
+    });
 
     return results;
   }
@@ -324,11 +412,17 @@ ${JSON.stringify(this.swarmInitializer.getStatus(), null, 2)}
    * Shutdown orchestrator
    */
   async shutdown(): Promise<void> {
-    console.log('\nShutting down God Object Orchestrator...');
+    this.logger.info('God Object Orchestrator shutdown initiated', {
+      component: 'GodObjectOrchestrator',
+      timestamp: new Date().toISOString()
+    });
 
     this.monitor.stopMonitoring();
     await this.swarmInitializer.shutdown();
 
-    console.log(' Orchestrator shutdown complete\n');
+    this.logger.info('God Object Orchestrator shutdown complete', {
+      component: 'GodObjectOrchestrator',
+      timestamp: new Date().toISOString()
+    });
   }
 }

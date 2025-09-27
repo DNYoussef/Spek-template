@@ -1,0 +1,342 @@
+/**
+ * FSM Types and Enums - No String Literals for States/Events
+ * TypeScript enums for all FSM states and events to prevent runtime errors
+ */
+
+// Core FSM State Types
+export enum SystemState {
+  IDLE = 'IDLE',
+  INITIALIZING = 'INITIALIZING', 
+  ACTIVE = 'ACTIVE',
+  TRANSITIONING = 'TRANSITIONING',
+  ERROR = 'ERROR',
+  SHUTDOWN = 'SHUTDOWN',
+  SUSPENDED = 'SUSPENDED',
+  RECOVERING = 'RECOVERING'
+}
+
+export enum SystemEvent {
+  INITIALIZE = 'INITIALIZE',
+  START = 'START',
+  PAUSE = 'PAUSE',
+  RESUME = 'RESUME',
+  STOP = 'STOP',
+  ERROR_OCCURRED = 'ERROR_OCCURRED',
+  RECOVERY_COMPLETE = 'RECOVERY_COMPLETE',
+  TRANSITION_COMPLETE = 'TRANSITION_COMPLETE',
+  HEALTH_CHECK = 'HEALTH_CHECK',
+  FORCE_SHUTDOWN = 'FORCE_SHUTDOWN'
+}
+
+// Princess Domain States
+export enum PrincessState {
+  UNINITIALIZED = 'UNINITIALIZED',
+  READY = 'READY',
+  WORKING = 'WORKING',
+  WAITING = 'WAITING',
+  BLOCKED = 'BLOCKED',
+  COMPLETE = 'COMPLETE',
+  FAILED = 'FAILED',
+  DEGRADED = 'DEGRADED'
+}
+
+export enum PrincessEvent {
+  INITIALIZE = 'INITIALIZE',
+  ASSIGN_TASK = 'ASSIGN_TASK',
+  TASK_PROGRESS = 'TASK_PROGRESS',
+  TASK_COMPLETE = 'TASK_COMPLETE',
+  TASK_FAILED = 'TASK_FAILED',
+  DEPENDENCY_RESOLVED = 'DEPENDENCY_RESOLVED',
+  DEPENDENCY_BLOCKED = 'DEPENDENCY_BLOCKED',
+  QUALITY_CHECK = 'QUALITY_CHECK',
+  ROLLBACK = 'ROLLBACK'
+}
+
+// Development Princess Specific States
+export enum DevelopmentState {
+  ANALYZING_REQUIREMENTS = 'ANALYZING_REQUIREMENTS',
+  DESIGNING_SOLUTION = 'DESIGNING_SOLUTION',
+  IMPLEMENTING_CODE = 'IMPLEMENTING_CODE',
+  RUNNING_TESTS = 'RUNNING_TESTS',
+  CODE_REVIEW = 'CODE_REVIEW',
+  REFACTORING = 'REFACTORING',
+  DOCUMENTATION = 'DOCUMENTATION',
+  DEPLOYMENT_PREP = 'DEPLOYMENT_PREP'
+}
+
+export enum DevelopmentEvent {
+  REQUIREMENTS_ANALYZED = 'REQUIREMENTS_ANALYZED',
+  DESIGN_APPROVED = 'DESIGN_APPROVED',
+  CODE_IMPLEMENTED = 'CODE_IMPLEMENTED',
+  TESTS_PASSED = 'TESTS_PASSED',
+  TESTS_FAILED = 'TESTS_FAILED',
+  REVIEW_PASSED = 'REVIEW_PASSED',
+  REVIEW_FAILED = 'REVIEW_FAILED',
+  REFACTORING_COMPLETE = 'REFACTORING_COMPLETE',
+  DOCS_COMPLETE = 'DOCS_COMPLETE'
+}
+
+// Security Princess States
+export enum SecurityState {
+  THREAT_ASSESSMENT = 'THREAT_ASSESSMENT',
+  VULNERABILITY_SCAN = 'VULNERABILITY_SCAN',
+  COMPLIANCE_CHECK = 'COMPLIANCE_CHECK',
+  AUTH_VALIDATION = 'AUTH_VALIDATION',
+  AUDIT_SETUP = 'AUDIT_SETUP',
+  MONITORING_SETUP = 'MONITORING_SETUP',
+  SECURITY_VALIDATION = 'SECURITY_VALIDATION',
+  REMEDIATION = 'REMEDIATION'
+}
+
+export enum SecurityEvent {
+  THREATS_IDENTIFIED = 'THREATS_IDENTIFIED',
+  VULNERABILITIES_FOUND = 'VULNERABILITIES_FOUND',
+  NO_VULNERABILITIES = 'NO_VULNERABILITIES',
+  COMPLIANCE_PASSED = 'COMPLIANCE_PASSED',
+  COMPLIANCE_FAILED = 'COMPLIANCE_FAILED',
+  AUTH_VALIDATED = 'AUTH_VALIDATED',
+  AUTH_FAILED = 'AUTH_FAILED',
+  AUDIT_CONFIGURED = 'AUDIT_CONFIGURED',
+  MONITORING_ACTIVE = 'MONITORING_ACTIVE',
+  VALIDATION_PASSED = 'VALIDATION_PASSED',
+  VALIDATION_FAILED = 'VALIDATION_FAILED',
+  REMEDIATION_COMPLETE = 'REMEDIATION_COMPLETE',
+  REMEDIATION_FAILED = 'REMEDIATION_FAILED'
+}
+
+// Infrastructure Princess States
+export enum InfrastructureState {
+  RESOURCE_PLANNING = 'RESOURCE_PLANNING',
+  PROVISIONING = 'PROVISIONING',
+  CONFIGURATION = 'CONFIGURATION',
+  DEPLOYMENT = 'DEPLOYMENT',
+  MONITORING_SETUP = 'MONITORING_SETUP',
+  SCALING_SETUP = 'SCALING_SETUP',
+  BACKUP_SETUP = 'BACKUP_SETUP',
+  HEALTH_VALIDATION = 'HEALTH_VALIDATION'
+}
+
+export enum InfrastructureEvent {
+  RESOURCES_PLANNED = 'RESOURCES_PLANNED',
+  RESOURCES_PROVISIONED = 'RESOURCES_PROVISIONED',
+  PROVISIONING_FAILED = 'PROVISIONING_FAILED',
+  CONFIGURATION_COMPLETE = 'CONFIGURATION_COMPLETE',
+  CONFIGURATION_FAILED = 'CONFIGURATION_FAILED',
+  DEPLOYMENT_SUCCESSFUL = 'DEPLOYMENT_SUCCESSFUL',
+  DEPLOYMENT_FAILED = 'DEPLOYMENT_FAILED',
+  MONITORING_CONFIGURED = 'MONITORING_CONFIGURED',
+  SCALING_CONFIGURED = 'SCALING_CONFIGURED',
+  BACKUP_CONFIGURED = 'BACKUP_CONFIGURED',
+  HEALTH_CHECK_PASSED = 'HEALTH_CHECK_PASSED',
+  HEALTH_CHECK_FAILED = 'HEALTH_CHECK_FAILED'
+}
+
+// Quality Princess States
+export enum QualityState {
+  TEST_PLANNING = 'TEST_PLANNING',
+  UNIT_TESTING = 'UNIT_TESTING',
+  INTEGRATION_TESTING = 'INTEGRATION_TESTING',
+  E2E_TESTING = 'E2E_TESTING',
+  PERFORMANCE_TESTING = 'PERFORMANCE_TESTING',
+  SECURITY_TESTING = 'SECURITY_TESTING',
+  CODE_QUALITY_ANALYSIS = 'CODE_QUALITY_ANALYSIS',
+  COMPLIANCE_CHECK = 'COMPLIANCE_CHECK',
+  QUALITY_REPORTING = 'QUALITY_REPORTING'
+}
+
+export enum QualityEvent {
+  TEST_PLAN_APPROVED = 'TEST_PLAN_APPROVED',
+  TEST_PLAN_REJECTED = 'TEST_PLAN_REJECTED',
+  UNIT_TESTS_PASSED = 'UNIT_TESTS_PASSED',
+  UNIT_TESTS_FAILED = 'UNIT_TESTS_FAILED',
+  INTEGRATION_TESTS_PASSED = 'INTEGRATION_TESTS_PASSED',
+  INTEGRATION_TESTS_FAILED = 'INTEGRATION_TESTS_FAILED',
+  E2E_TESTS_PASSED = 'E2E_TESTS_PASSED',
+  E2E_TESTS_FAILED = 'E2E_TESTS_FAILED',
+  PERFORMANCE_TESTS_PASSED = 'PERFORMANCE_TESTS_PASSED',
+  PERFORMANCE_TESTS_FAILED = 'PERFORMANCE_TESTS_FAILED',
+  SECURITY_TESTS_PASSED = 'SECURITY_TESTS_PASSED',
+  SECURITY_TESTS_FAILED = 'SECURITY_TESTS_FAILED',
+  CODE_QUALITY_ACCEPTABLE = 'CODE_QUALITY_ACCEPTABLE',
+  CODE_QUALITY_POOR = 'CODE_QUALITY_POOR',
+  COMPLIANCE_PASSED = 'COMPLIANCE_PASSED',
+  COMPLIANCE_FAILED = 'COMPLIANCE_FAILED',
+  REPORT_GENERATED = 'REPORT_GENERATED'
+}
+
+// Research Princess States
+export enum ResearchState {
+  REQUIREMENT_ANALYSIS = 'REQUIREMENT_ANALYSIS',
+  SOURCE_IDENTIFICATION = 'SOURCE_IDENTIFICATION',
+  DATA_COLLECTION = 'DATA_COLLECTION',
+  ANALYSIS = 'ANALYSIS',
+  SYNTHESIS = 'SYNTHESIS',
+  VALIDATION = 'VALIDATION',
+  RECOMMENDATION_GENERATION = 'RECOMMENDATION_GENERATION',
+  REPORT_CREATION = 'REPORT_CREATION'
+}
+
+export enum ResearchEvent {
+  REQUIREMENTS_DEFINED = 'REQUIREMENTS_DEFINED',
+  SOURCES_IDENTIFIED = 'SOURCES_IDENTIFIED',
+  INSUFFICIENT_SOURCES = 'INSUFFICIENT_SOURCES',
+  DATA_COLLECTED = 'DATA_COLLECTED',
+  DATA_INSUFFICIENT = 'DATA_INSUFFICIENT',
+  ANALYSIS_COMPLETE = 'ANALYSIS_COMPLETE',
+  ANALYSIS_INSUFFICIENT = 'ANALYSIS_INSUFFICIENT',
+  SYNTHESIS_COMPLETE = 'SYNTHESIS_COMPLETE',
+  SYNTHESIS_INCOMPLETE = 'SYNTHESIS_INCOMPLETE',
+  VALIDATION_PASSED = 'VALIDATION_PASSED',
+  VALIDATION_FAILED = 'VALIDATION_FAILED',
+  RECOMMENDATIONS_GENERATED = 'RECOMMENDATIONS_GENERATED',
+  REPORT_FINALIZED = 'REPORT_FINALIZED'
+}
+
+// Deployment Princess States
+export enum DeploymentState {
+  PIPELINE_SETUP = 'PIPELINE_SETUP',
+  ENVIRONMENT_PREP = 'ENVIRONMENT_PREP',
+  ARTIFACT_BUILD = 'ARTIFACT_BUILD',
+  PRE_DEPLOYMENT_VALIDATION = 'PRE_DEPLOYMENT_VALIDATION',
+  DEPLOYMENT_EXECUTION = 'DEPLOYMENT_EXECUTION',
+  POST_DEPLOYMENT_VALIDATION = 'POST_DEPLOYMENT_VALIDATION',
+  MONITORING_SETUP = 'MONITORING_SETUP',
+  RELEASE_FINALIZATION = 'RELEASE_FINALIZATION',
+  ROLLBACK = 'ROLLBACK'
+}
+
+export enum DeploymentEvent {
+  PIPELINE_CONFIGURED = 'PIPELINE_CONFIGURED',
+  ENVIRONMENT_READY = 'ENVIRONMENT_READY',
+  ENVIRONMENT_FAILED = 'ENVIRONMENT_FAILED',
+  ARTIFACTS_READY = 'ARTIFACTS_READY',
+  BUILD_FAILED = 'BUILD_FAILED',
+  VALIDATION_PASSED = 'VALIDATION_PASSED',
+  VALIDATION_FAILED = 'VALIDATION_FAILED',
+  DEPLOYMENT_SUCCESSFUL = 'DEPLOYMENT_SUCCESSFUL',
+  DEPLOYMENT_FAILED = 'DEPLOYMENT_FAILED',
+  POST_VALIDATION_PASSED = 'POST_VALIDATION_PASSED',
+  POST_VALIDATION_FAILED = 'POST_VALIDATION_FAILED',
+  MONITORING_ACTIVE = 'MONITORING_ACTIVE',
+  RELEASE_FINALIZED = 'RELEASE_FINALIZED',
+  ROLLBACK_SUCCESSFUL = 'ROLLBACK_SUCCESSFUL',
+  ROLLBACK_FAILED = 'ROLLBACK_FAILED'
+}
+
+// Transition Guard Types
+export interface TransitionGuard {
+  name: string;
+  condition: (context: FSMContext) => boolean;
+  errorMessage?: string;
+}
+
+export interface FSMContext {
+  currentState: any;
+  previousState?: any;
+  data: Record<string, any>;
+  timestamp: number;
+  transitionHistory: TransitionRecord[];
+  metadata: Record<string, any>;
+}
+
+export interface TransitionRecord {
+  from: any;
+  to: any;
+  event: any;
+  timestamp: number;
+  duration: number;
+  success: boolean;
+  error?: string;
+  context?: any;
+}
+
+export interface StateDefinition {
+  name: string;
+  entry?: (context: FSMContext) => Promise<void>;
+  exit?: (context: FSMContext) => Promise<void>;
+  invariants?: ((context: FSMContext) => boolean)[];
+  timeout?: number;
+  onTimeout?: string;
+}
+
+export interface TransitionDefinition {
+  from: any;
+  to: any;
+  event: any;
+  guards?: TransitionGuard[];
+  actions?: ((context: FSMContext) => Promise<void>)[];
+}
+
+export interface FSMConfiguration {
+  id: string;
+  initialState: any;
+  states: Map<any, StateDefinition>;
+  transitions: TransitionDefinition[];
+  globalGuards?: TransitionGuard[];
+  errorHandler?: (error: Error, context: FSMContext) => Promise<void>;
+  logger?: (level: string, message: string, context?: any) => void;
+}
+
+// LangGraph Integration Types
+export interface LangGraphNode {
+  id: string;
+  name: string;
+  type: 'state' | 'transition' | 'condition';
+  state?: any;
+  metadata: Record<string, any>;
+}
+
+export interface LangGraphEdge {
+  from: string;
+  to: string;
+  event: any;
+  guards?: TransitionGuard[];
+  weight?: number;
+}
+
+export interface LangGraphWorkflow {
+  id: string;
+  name: string;
+  nodes: LangGraphNode[];
+  edges: LangGraphEdge[];
+  metadata: Record<string, any>;
+}
+
+// Performance Metrics
+export interface FSMMetrics {
+  totalTransitions: number;
+  averageTransitionTime: number;
+  stateDistribution: Map<any, number>;
+  errorRate: number;
+  performanceByState: Map<any, {
+    averageDuration: number;
+    successRate: number;
+    entryCount: number;
+  }>;
+  lastUpdated: number;
+}
+
+// Monitoring Types
+export interface StateChangeEvent {
+  fsmId: string;
+  from: any;
+  to: any;
+  event: any;
+  timestamp: number;
+  duration: number;
+  success: boolean;
+  context: FSMContext;
+}
+
+export interface FSMHealthStatus {
+  fsmId: string;
+  isHealthy: boolean;
+  currentState: any;
+  uptime: number;
+  lastTransition: number;
+  errorCount: number;
+  warnings: string[];
+}
+
+// Export all for centralized access
+export * from './FSMTypes';

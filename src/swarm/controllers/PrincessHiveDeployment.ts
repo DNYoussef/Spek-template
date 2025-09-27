@@ -1,6 +1,5 @@
 /**
  * Princess Hive Deployment System
- *
  * Manages Princess hive deployments with the 9-part development loop integration.
  * Each Princess executes the complete development cycle autonomously while
  * reporting progress back to the Queen for coordination and validation.

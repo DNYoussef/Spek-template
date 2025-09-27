@@ -1,6 +1,5 @@
 /**
  * Multi-Environment Coordinator (DO-001)
- *
  * Coordinates deployments across multiple environments (dev, staging, prod)
  * with environment-specific configurations and health monitoring.
  */

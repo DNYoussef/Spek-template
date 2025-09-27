@@ -1,6 +1,5 @@
 /**
  * Princess Audit Gate System
- *
  * Mandatory audit framework that ALL subagent work must pass through.
  * Enforces theater detection, sandbox validation, and iterative debugging
  * until code is 100% functional with zero fakery.
@@ -147,7 +146,8 @@ export class PrincessAuditGate extends EventEmitter {
   async auditSubagentWork(work: SubagentWork): Promise<AuditResult> {
     const auditId = this.generateAuditId();
 
-    console.log(`\n========================================`);
+    console.log(`
+*========================================`);
     console.log(`PRINCESS AUDIT GATE - ${this.princessDomain.toUpperCase()}`);
     console.log(`========================================`);
     console.log(`Audit ID: ${auditId}`);
@@ -155,7 +155,8 @@ export class PrincessAuditGate extends EventEmitter {
     console.log(`Task: ${work.taskId}`);
     console.log(`Files to audit: ${work.files.length}`);
     console.log(`Claimed completion: ${work.claimedCompletion}`);
-    console.log(`========================================\n`);
+    console.log(`========================================
+*`);
 
     const auditResult: AuditResult = {
       auditId,
@@ -183,12 +184,14 @@ export class PrincessAuditGate extends EventEmitter {
       }
 
       // STAGE 2: Sandbox Validation
-      console.log(`\n[STAGE 2] SANDBOX VALIDATION`);
+      console.log(`
+*[STAGE 2] SANDBOX VALIDATION`);
       const sandboxResult = await this.performSandboxValidation(work, auditResult);
 
       if (!sandboxResult.allTestsPassed) {
         // Enter debug cycle
-        console.log(`\n[STAGE 3] DEBUG CYCLE - Tests failed, entering iterative debug`);
+        console.log(`
+*[STAGE 3] DEBUG CYCLE - Tests failed, entering iterative debug`);
         const debugResult = await this.performDebugCycle(work, auditResult, sandboxResult);
 
         if (debugResult.status !== 'resolved') {
@@ -197,7 +200,8 @@ export class PrincessAuditGate extends EventEmitter {
       }
 
       // STAGE 4: Final Validation
-      console.log(`\n[STAGE 4] FINAL VALIDATION`);
+      console.log(`
+*[STAGE 4] FINAL VALIDATION`);
       const finalValidation = await this.performFinalValidation(work, auditResult);
 
       if (!finalValidation.passed) {
@@ -205,7 +209,8 @@ export class PrincessAuditGate extends EventEmitter {
       }
 
       // STAGE 6: Enterprise Quality Analysis
-      console.log(`\n[STAGE 6] ENTERPRISE QUALITY ANALYSIS`);
+      console.log(`
+*[STAGE 6] ENTERPRISE QUALITY ANALYSIS`);
       console.log(`  Analyzing for connascence, god objects, safety, Lean Six Sigma, defense standards...`);
       const qualityReport = await this.qualityAnalyzer.analyzeCode(work.files);
 
@@ -217,7 +222,8 @@ export class PrincessAuditGate extends EventEmitter {
       console.log(`    - Lean Six Sigma: ${qualityReport.leanSixSigma?.sigmaLevel || 0}`);
 
       // STAGE 7: NASA-Compliant Quality Enhancement
-      console.log(`\n[STAGE 7] NASA-COMPLIANT QUALITY ENHANCEMENT`);
+      console.log(`
+*[STAGE 7] NASA-COMPLIANT QUALITY ENHANCEMENT`);
       console.log(`  Feeding analysis reports to Codex with NASA 10 rules...`);
       const enhancementResult = await this.qualityEnhancer.enhanceCodeQuality(
         work.files,
@@ -234,7 +240,8 @@ export class PrincessAuditGate extends EventEmitter {
       work.files = enhancementResult.enhancedFiles;
 
       // STAGE 8: Ultimate Validation Loop
-      console.log(`\n[STAGE 8] ULTIMATE VALIDATION - 100% COMPLETE, 100% WORKING, 100% HIGHEST QUALITY`);
+      console.log(`
+*[STAGE 8] ULTIMATE VALIDATION - 100% COMPLETE, 100% WORKING, 100% HIGHEST QUALITY`);
       const ultimateValidation = await this.finalValidator.validateUltimate(
         work.files,
         work.context,
@@ -242,7 +249,8 @@ export class PrincessAuditGate extends EventEmitter {
       );
 
       if (!ultimateValidation.passed) {
-        console.log(`\n[FAILURE] Code did not reach 100% perfection after ${ultimateValidation.iterations} iterations`);
+        console.log(`
+*[FAILURE] Code did not reach 100% perfection after ${ultimateValidation.iterations} iterations`);
         return this.rejectWithQualityFailure(work, auditResult, ultimateValidation);
       }
 
@@ -250,20 +258,23 @@ export class PrincessAuditGate extends EventEmitter {
       work.files = ultimateValidation.enhancedFiles;
 
       // SUCCESS - Record completion
-      console.log(`\n[STAGE 9] RECORDING COMPLETION - CODE IS PERFECT!`);
+      console.log(`
+*[STAGE 9] RECORDING COMPLETION - CODE IS PERFECT!`);
       await this.recordSuccessfulCompletion(work, auditResult);
 
       auditResult.finalStatus = 'approved';
       this.storeAuditResult(auditResult);
 
-      console.log(`\n========================================`);
+      console.log(`
+*========================================`);
       console.log(`AUDIT RESULT: APPROVED - 100% PERFECT CODE`);
       console.log(`  Completeness: ${ultimateValidation.metrics.completeness}%`);
       console.log(`  Functionality: ${ultimateValidation.metrics.functionality}%`);
       console.log(`  Quality: ${ultimateValidation.metrics.quality}%`);
       console.log(`  NASA Compliance: ${ultimateValidation.metrics.nasaCompliance}%`);
       console.log(`  Defense Compliance: ${ultimateValidation.metrics.defenseCompliance}%`);
-      console.log(`========================================\n`);
+      console.log(`========================================
+*`);
 
       return auditResult;
 
@@ -317,7 +328,8 @@ export class PrincessAuditGate extends EventEmitter {
     auditResult.theaterDetails = detections;
     auditResult.theaterScore = averageTheaterScore;
 
-    console.log(`\n  Overall Theater Score: ${averageTheaterScore.toFixed(1)}%`);
+    console.log(`
+  Overall Theater Score: ${averageTheaterScore.toFixed(1)}%`);
     console.log(`  Threshold: ${this.config.theaterThreshold}%`);
     console.log(`  Result: ${theaterDetected ? 'FAILED - Theater detected' : 'PASSED - No theater'}`);
 
@@ -472,7 +484,8 @@ export class PrincessAuditGate extends EventEmitter {
     work: SubagentWork,
     auditResult: AuditResult
   ): Promise<AuditResult> {
-    console.log(`\n[REJECTION] THEATER DETECTED - SENDING BACK TO SUBAGENT`);
+    console.log(`
+*[REJECTION] THEATER DETECTED - SENDING BACK TO SUBAGENT`);
 
     auditResult.finalStatus = 'needs_rework';
     auditResult.rejectionReasons = [
@@ -516,7 +529,8 @@ export class PrincessAuditGate extends EventEmitter {
     work: SubagentWork,
     auditResult: AuditResult
   ): Promise<AuditResult> {
-    console.log(`\n[REJECTION] DEBUG CYCLE FAILED - SENDING BACK TO SUBAGENT`);
+    console.log(`
+*[REJECTION] DEBUG CYCLE FAILED - SENDING BACK TO SUBAGENT`);
 
     auditResult.finalStatus = 'needs_rework';
     auditResult.rejectionReasons = [
@@ -551,7 +565,8 @@ export class PrincessAuditGate extends EventEmitter {
     auditResult: AuditResult,
     validation: { passed: boolean; issues?: string[] }
   ): Promise<AuditResult> {
-    console.log(`\n[REJECTION] FINAL VALIDATION FAILED - SENDING BACK TO SUBAGENT`);
+    console.log(`
+*[REJECTION] FINAL VALIDATION FAILED - SENDING BACK TO SUBAGENT`);
 
     auditResult.finalStatus = 'needs_rework';
     auditResult.rejectionReasons = [
@@ -579,7 +594,8 @@ export class PrincessAuditGate extends EventEmitter {
     auditResult: AuditResult,
     validation: FinalValidationResult
   ): Promise<AuditResult> {
-    console.log(`\n[REJECTION] QUALITY STANDARDS NOT MET - SENDING BACK TO SUBAGENT`);
+    console.log(`
+*[REJECTION] QUALITY STANDARDS NOT MET - SENDING BACK TO SUBAGENT`);
 
     auditResult.finalStatus = 'needs_rework';
     auditResult.rejectionReasons = [

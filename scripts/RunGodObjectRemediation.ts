@@ -2,7 +2,6 @@
 
 /**
  * RunGodObjectRemediation - NASA POT10 Compliant
- *
  * Complete demonstration of the Queen-Princess-Subagent remediation system
  * with full 9-stage audit pipeline integration and GitHub Project Manager
  * Following NASA Power of Ten Rules

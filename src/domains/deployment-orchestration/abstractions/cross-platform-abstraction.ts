@@ -1,6 +1,5 @@
 /**
  * Cross-Platform Deployment Abstraction (DO-005)
- *
  * Provides unified deployment interface across Kubernetes, Docker, serverless,
  * and VM platforms with platform-specific optimizations.
  */

@@ -59,17 +59,18 @@ export const isComplianceScore = (value: unknown): value is ComplianceScore =>
 export const isTimestamp = (value: unknown): value is Timestamp =>
   typeof value === 'number' && value > 0;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-26T23:09:15-04:00 | coder@claude-sonnet-4 | Create base primitives with branded types for Phase 4 type safety | primitives.ts | OK | -- | 0.00 | a7f3b2c |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase4-week10-type-elimination-001
-- inputs: ["phase4-implementation-blueprint", "swarm-types.ts", "tsconfig.strict.json"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-26T23:09:15-04:00 | coder@claude-sonnet-4 | Create base primitives with branded types for Phase 4 type safety | primitives.ts | OK | -- | 0.00 | a7f3b2c |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase4-week10-type-elimination-001
+ * - inputs: ["phase4-implementation-blueprint", "swarm-types.ts", "tsconfig.strict.json"]
+ * - tools_used: ["Write"]
+ * - versions: {"model":"claude-sonnet-4","prompt":"phase4-week10-implementation"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

@@ -1,6 +1,5 @@
 /**
  * Theater Remediation Validation Test Suite
- *
  * MISSION: Validate that all theater patterns have been eliminated and replaced
  * with genuine implementations that produce verifiable results.
  */

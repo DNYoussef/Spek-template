@@ -1,7 +1,6 @@
 /**
  * Automated Remediation Orchestrator
  * Implements automated remediation workflows with escalation and tracking
- *
  * Component of Task EC-006: Real-time compliance monitoring with automated remediation workflows
  */
 

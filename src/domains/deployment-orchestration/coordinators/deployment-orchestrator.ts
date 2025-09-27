@@ -1,6 +1,5 @@
 /**
  * Deployment Orchestrator - Main Coordinator
- *
  * Hierarchical coordinator managing all deployment operations with
  * multi-environment coordination and enterprise-grade automation.
  */

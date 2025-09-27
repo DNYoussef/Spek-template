@@ -1,73 +1,92 @@
-name: GitHub Project Automation
-
+name: Project Automation
 on:
   issues:
-    types: [opened, edited, closed, reopened]
+    types: [opened, closed, assigned, labeled, unlabeled]
   pull_request:
-    types: [opened, edited, closed, reopened, merged]
-  workflow_run:
-    workflows: ["Tests", "CodeQL Analysis", "Complete Test Matrix"]
-    types: [completed]
+    types: [opened, closed, merged, ready_for_review, converted_to_draft]
+  pull_request_review:
+    types: [submitted]
+  workflow_dispatch:
+    inputs:
+      sync_all:
+        description: 'Sync all items to project'
+        required: false
+        default: 'false'
+        type: boolean
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PROJECT_ID: ${{ vars.GITHUB_PROJECT_ID }}
 
 jobs:
-  update-project:
+  project-sync:
     runs-on: ubuntu-latest
-    name: Update GitHub Project
-
     steps:
-    - name: Update project board
-      run: |
-        echo "Project board integration disabled - no valid project URL configured"
-        echo "Skipping project board update to prevent workflow failures"
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Auto-assign based on labels
-      if: github.event.action == 'opened'
-      run: |
-        if [[ "${{ contains(github.event.issue.labels.*.name, 'priority:critical') }}" == "true" ]]; then
-          echo "Critical issue detected - auto-assigning"
-        fi
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
 
-    - name: Update status based on workflow results
-      if: github.event_name == 'workflow_run'
-      run: |
-        echo "Workflow ${{ github.event.workflow_run.name }} completed with ${{ github.event.workflow_run.conclusion }}"
-        if [[ "${{ github.event.workflow_run.conclusion }}" == "failure" ]]; then
-          echo "Creating failure tracking issue"
-        fi
+      - name: Install dependencies
+        run: npm install
 
-  track-workflow-health:
-    runs-on: ubuntu-latest
-    name: Track Workflow Health
-    if: github.event_name == 'workflow_run'
+      - name: Build project
+        run: npm run build
 
-    steps:
-    - name: Check workflow failure patterns
-      run: |
-        echo "Monitoring workflow: ${{ github.event.workflow_run.name }}"
-        echo "Status: ${{ github.event.workflow_run.conclusion }}"
-        echo "Runtime: ${{ github.event.workflow_run.updated_at }} - ${{ github.event.workflow_run.created_at }}"
+      - name: Sync Item to Project
+        if: github.event_name != 'workflow_dispatch'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { GitHubProjectManager } = require('./dist/src/github/GitHubProjectManager.js');
+            const { GitHubAuthentication } = require('./dist/src/github/GitHubAuthentication.js');
+            const { GitHubAPIClient } = require('./dist/src/github/GitHubAPIClient.js');
 
-    - name: Report persistent failures
-      if: github.event.workflow_run.conclusion == 'failure'
-      run: |
-        echo "Workflow failure detected - checking for patterns"
-        echo "This would trigger automated issue creation for persistent failures"
+            if (!process.env.PROJECT_ID) {
+              console.log('No project ID configured');
+              return;
+            }
 
-  milestone-tracking:
-    runs-on: ubuntu-latest
-    name: Milestone Progress Tracking
-    if: github.event.action == 'closed' && github.event.issue.state == 'closed'
+            const auth = GitHubAuthentication.createPersonalToken(process.env.GITHUB_TOKEN);
+            const apiClient = new GitHubAPIClient(auth);
+            const projectManager = new GitHubProjectManager(apiClient);
 
-    steps:
-    - name: Update milestone progress
-      run: |
-        echo "Issue closed: ${{ github.event.issue.title }}"
-        echo "Labels: ${{ join(github.event.issue.labels.*.name, ', ') }}"
+            const projectId = process.env.PROJECT_ID;
+            let contentId, itemType, itemNumber;
 
-        if [[ "${{ contains(github.event.issue.labels.*.name, 'phase:1') }}" == "true" ]]; then
-          echo "Phase 1 task completed"
-        elif [[ "${{ contains(github.event.issue.labels.*.name, 'phase:2') }}" == "true" ]]; then
-          echo "Phase 2 task completed"
-        elif [[ "${{ contains(github.event.issue.labels.*.name, 'phase:3') }}" == "true" ]]; then
-          echo "Phase 3 task completed"
-        fi
+            if (context.payload.issue) {
+              contentId = context.payload.issue.node_id;
+              itemType = 'Issue';
+              itemNumber = context.payload.issue.number;
+            } else if (context.payload.pull_request) {
+              contentId = context.payload.pull_request.node_id;
+              itemType = 'Pull Request';
+              itemNumber = context.payload.pull_request.number;
+            } else {
+              console.log('No issue or PR in payload');
+              return;
+            }
+
+            try {
+              const item = await projectManager.addItemToProject(projectId, contentId);
+              console.log(`Added ${itemType} #${itemNumber} to project`);
+
+              let status = 'Todo';
+              if (context.payload.action === 'closed') {
+                status = 'Done';
+              } else if (context.payload.action === 'assigned') {
+                status = 'In Progress';
+              } else if (context.payload.pull_request?.draft === false) {
+                status = 'In Review';
+              }
+
+              await projectManager.moveItemToStatus(projectId, item.id, status);
+              console.log(`Set status to: ${status}`);
+
+            } catch (error) {
+              console.error('Project sync failed:', error);
+            }

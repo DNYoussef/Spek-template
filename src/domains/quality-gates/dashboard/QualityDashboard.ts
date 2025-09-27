@@ -1,6 +1,5 @@
 /**
  * Unified Quality Dashboard (QG-006)
- * 
  * Implements cross-domain quality orchestration with unified quality dashboard
  * for comprehensive quality gate visualization and monitoring.
  */

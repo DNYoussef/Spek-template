@@ -1,6 +1,5 @@
 /**
  * Performance Regression Detection & Monitoring (QG-004)
- * 
  * Implements performance regression detection with automated rollback triggers
  * and continuous performance monitoring for quality gate decisions.
  */

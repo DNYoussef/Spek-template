@@ -1,10 +1,8 @@
 #!/usr/bin/env ts-node
 /**
  * Initialize Hierarchical Swarm for God Object Remediation
- *
  * This script deploys the complete Queen-Princess-Drone architecture
  * with Byzantine consensus and parallel execution pipelines.
- *
  * Usage: ts-node scripts/swarm/initialize-hierarchical-swarm.ts
  */
 

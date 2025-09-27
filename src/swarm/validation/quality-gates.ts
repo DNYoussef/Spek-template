@@ -1,6 +1,5 @@
 /**
  * Unified Quality Gates System
- * 
  * Integrates SPEK quality validation with desktop automation evidence
  * Provides comprehensive quality assurance across all development domains
  */

@@ -1,6 +1,5 @@
 /**
  * Phase 4 Week 10: Comprehensive Type Safety Test Suite
- *
  * Master test orchestrator for validating 'any' type elimination
  * and ensuring enterprise-grade type safety compliance.
  */

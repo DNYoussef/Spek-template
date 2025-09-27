@@ -68,7 +68,9 @@ export class LangroidMemory extends EventEmitter {
       tools: ['code_editor', 'compiler', 'debugger', 'git', 'pattern_matcher']
     });
 
-    this.loadPersistedMemory();
+    this.loadPersistedMemory().catch(error => {
+      this.logger.error('Failed to load persisted memory:', error);
+    });
   }
 
   /**
@@ -172,25 +174,47 @@ export class LangroidMemory extends EventEmitter {
   }
 
   /**
-   * Generate embedding for content
+   * Generate real OpenAI embedding for content
    */
   private async generateEmbedding(content: string): Promise<Float32Array> {
-    // Simplified embedding generation (would use real model in production)
-    const embedding = new Float32Array(this.embeddingDimension);
-    
-    // Generate deterministic pseudo-embeddings based on content
-    const hash = this.hashString(content);
-    for (let i = 0; i < this.embeddingDimension; i++) {
-      embedding[i] = Math.sin(hash * (i + 1)) * Math.cos(hash / (i + 1));
-    }
+    try {
+      // Use real OpenAI embedding API
+      const response = await fetch('https://api.openai.com/v1/embeddings', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'text-embedding-3-small',
+          input: content
+        })
+      });
 
-    // Normalize
-    const norm = Math.sqrt(embedding.reduce((sum, val) => sum + val * val, 0));
-    for (let i = 0; i < embedding.length; i++) {
-      embedding[i] /= norm;
-    }
+      if (!response.ok) {
+        throw new Error(`OpenAI API error: ${response.statusText}`);
+      }
 
-    return embedding;
+      const data = await response.json();
+      return new Float32Array(data.data[0].embedding);
+    } catch (error) {
+      this.logger.warn('OpenAI embedding failed, using fallback:', error);
+
+      // Fallback to deterministic embeddings if API fails
+      const embedding = new Float32Array(this.embeddingDimension);
+      const hash = this.hashString(content);
+      for (let i = 0; i < this.embeddingDimension; i++) {
+        embedding[i] = Math.sin(hash * (i + 1)) * Math.cos(hash / (i + 1));
+      }
+
+      // Normalize
+      const norm = Math.sqrt(embedding.reduce((sum, val) => sum + val * val, 0));
+      for (let i = 0; i < embedding.length; i++) {
+        embedding[i] /= norm;
+      }
+
+      return embedding;
+    }
   }
 
   /**
@@ -224,13 +248,15 @@ export class LangroidMemory extends EventEmitter {
   }
 
   /**
-   * Calculate size of memory entry
+   * Calculate actual size of memory entry in bytes
    */
   private calculateEntrySize(content: string): number {
-    // Content size + embedding size + metadata overhead
-    return content.length * 2 + // UTF-16
-           this.embeddingDimension * 4 + // Float32
-           512; // Metadata overhead
+    // Calculate actual memory usage:
+    const contentSize = Buffer.byteLength(content, 'utf8');
+    const embeddingSize = this.embeddingDimension * 4; // Float32 = 4 bytes per element
+    const metadataSize = 512; // Estimated metadata overhead
+
+    return contentSize + embeddingSize + metadataSize;
   }
 
   /**
@@ -280,19 +306,53 @@ export class LangroidMemory extends EventEmitter {
   }
 
   /**
-   * Load persisted memory from disk
+   * Load persisted memory from disk with real I/O
    */
-  private loadPersistedMemory(): void {
-    // Would load from disk in production
-    this.logger.info('Memory persistence not implemented yet');
+  private async loadPersistedMemory(): Promise<void> {
+    try {
+      const { promises: fs } = require('fs');
+      await fs.mkdir('./memory', { recursive: true });
+
+      const data = await fs.readFile('./memory/langroid_memories.json', 'utf8');
+      const memories = JSON.parse(data);
+
+      for (const memory of memories) {
+        this.memories.set(memory.id, {
+          ...memory,
+          timestamp: new Date(memory.timestamp),
+          embedding: new Float32Array(memory.embedding)
+        });
+        this.currentSize += this.calculateEntrySize(memory.content);
+      }
+
+      this.logger.info(`Loaded ${memories.length} persisted memories from disk`);
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        this.logger.info('No persisted memory file found, starting fresh');
+      } else {
+        this.logger.error('Failed to load persisted memory:', error);
+      }
+    }
   }
 
   /**
-   * Persist memory to disk
+   * Persist memory to disk with real file I/O
    */
   async persistMemory(): Promise<void> {
-    // Would save to disk in production
-    this.logger.info(`Persisting ${this.memories.size} memory entries`);
+    try {
+      const { promises: fs } = require('fs');
+      const memoryArray = Array.from(this.memories.values()).map(memory => ({
+        ...memory,
+        timestamp: memory.timestamp.toISOString(),
+        embedding: Array.from(memory.embedding)
+      }));
+
+      await fs.writeFile('./memory/langroid_memories.json', JSON.stringify(memoryArray, null, 2));
+      this.logger.info(`Persisted ${memoryArray.length} memory entries to disk`);
+    } catch (error) {
+      this.logger.error('Failed to persist memory:', error);
+      throw new Error(`Memory persistence failed: ${error.message}`);
+    }
   }
 
   /**

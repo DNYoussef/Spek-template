@@ -1,7 +1,6 @@
 /**
  * Phase 3 Compliance Evidence System Integration
  * Integrates with existing Phase 3 compliance evidence infrastructure
- *
  * Task: EC-008 - Integration with Phase 3 compliance evidence system
  */
 

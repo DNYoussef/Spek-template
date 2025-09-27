@@ -1,6 +1,5 @@
 /**
  * CI/CD Pipeline Integration (QG-008)
- * 
  * Implements comprehensive CI/CD pipeline integration with GitHub Actions workflows
  * and enterprise-grade quality gate automation for continuous deployment.
  */

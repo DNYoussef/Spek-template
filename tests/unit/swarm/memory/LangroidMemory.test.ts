@@ -1,9 +1,7 @@
 /**
  * LangroidMemory Unit Tests - London School TDD
- *
  * Tests the Langroid memory system using mock-driven development.
  * Focuses on behavior verification and interaction patterns with external dependencies.
- *
  * London School TDD Principles:
  * - Mock external dependencies (LangroidAdapter, Logger)
  * - Test memory management behaviors
@@ -462,17 +460,18 @@ describe('LangroidMemory - London School TDD', () => {
   });
 });
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T00:02:45-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive London School TDD test suite for LangroidMemory system | LangroidMemory.test.ts | OK | Complete memory system testing with embedding, search, and Langroid integration verification | 0.00 | 8c3f2e1 |
-
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: phase5-tdd-memory-001
-- inputs: ["src/swarm/memory/development/LangroidMemory.ts", "src/swarm/types/task.types.ts", "src/swarm/hierarchy/types.ts"]
-- tools_used: ["Write", "Bash", "Read"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+/**
+ * AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
+ * ## Version & Run Log
+ * | Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
+ * |--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
+ * | 1.0.0   | 2025-09-27T00:02:45-04:00 | tdd-london-swarm@claude-sonnet-4-20250514 | Create comprehensive London School TDD test suite for LangroidMemory system | LangroidMemory.test.ts | OK | Complete memory system testing with embedding, search, and Langroid integration verification | 0.00 | 8c3f2e1 |
+ * ### Receipt
+ * - status: OK
+ * - reason_if_blocked: --
+ * - run_id: phase5-tdd-memory-001
+ * - inputs: ["src/swarm/memory/development/LangroidMemory.ts", "src/swarm/types/task.types.ts", "src/swarm/hierarchy/types.ts"]
+ * - tools_used: ["Write", "Bash", "Read"]
+ * - versions: {"model":"claude-sonnet-4-20250514","prompt":"tdd-london-swarm-v1.0"}
+ * AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE
+ */

@@ -1,7 +1,6 @@
 /**
  * Automated Audit Trail Generation System
  * Implements tamper-evident evidence packaging with 90-day retention
- *
  * Task: EC-004 - Automated audit trail generation with tamper-evident evidence packaging
  */
 

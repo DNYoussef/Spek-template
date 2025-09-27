@@ -1,6 +1,5 @@
 /**
  * Security Princess - Security & Compliance Domain Specialist
- *
  * Manages security audits, vulnerability scanning, and compliance validation.
  * Coordinates security agents for comprehensive security assurance.
  */

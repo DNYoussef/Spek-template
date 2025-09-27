@@ -1,6 +1,5 @@
 /**
  * Research Princess - Pattern Analysis & Knowledge Discovery Domain
- *
  * Specializes in code pattern analysis, architecture research, and
  * knowledge synthesis using large-context AI models.
  */

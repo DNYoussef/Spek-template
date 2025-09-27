@@ -1,6 +1,5 @@
 /**
  * NASA POT10 Compliance Gate Manager (QG-003)
- * 
  * Implements NASA POT10 compliance gate enforcement with 95%+ threshold
  * validation for defense industry readiness and enterprise compliance.
  */

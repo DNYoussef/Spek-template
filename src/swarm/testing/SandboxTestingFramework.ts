@@ -1,10 +1,8 @@
 /**
  * Sandbox Testing Framework - Isolated Fix Validation System
- *
  * Provides comprehensive isolated testing environments for validating fixes
  * before integration. Ensures Queen and Princesses can safely test work
  * of subordinates without affecting main system.
- *
  * Key Features:
  * - Isolated sandbox environments with full resource control
  * - Comprehensive test suite execution and validation
