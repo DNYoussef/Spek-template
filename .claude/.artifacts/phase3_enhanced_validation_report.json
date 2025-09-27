@@ -1,0 +1,87 @@
+{
+  "timestamp": 1758942906.4070494,
+  "summary": {
+    "total_tests": 8,
+    "passed_tests": 5,
+    "failed_tests": 3,
+    "success_rate": 62.5
+  },
+  "detailed_results": {
+    "syntax_validation": {
+      "status": "PASS",
+      "details": {
+        "import_test": "PASS",
+        "instantiation_test": "PASS"
+      },
+      "errors": []
+    },
+    "method_compatibility": {
+      "status": "PASS",
+      "details": {
+        "process_sequence": "EXISTS",
+        "curriculum_get_current_stage_config": "EXISTS",
+        "curriculum_advance_stage": "EXISTS",
+        "curriculum_get_progress": "EXISTS"
+      },
+      "errors": []
+    },
+    "parallel_reasoning": {
+      "status": "PASS",
+      "details": {
+        "thoughts_shape": "torch.Size([2, 4, 8])",
+        "shape_validation": "PASS",
+        "attention_mask": "GENERATED"
+      },
+      "errors": []
+    },
+    "curriculum_learning": {
+      "status": "PASS",
+      "details": {
+        "initial_stage": "Foundation",
+        "stages_progressed": 6,
+        "final_progress": 83.33333333333334,
+        "stage_count": "CORRECT"
+      },
+      "errors": []
+    },
+    "data_flow": {
+      "status": "FAIL",
+      "details": {
+        "phase1_input": "SIMULATED",
+        "phase2_input": "SIMULATED"
+      },
+      "errors": [
+        "Data flow error: Tensors must have same number of dimensions: got 2 and 3"
+      ]
+    },
+    "performance": {
+      "status": "FAIL",
+      "details": {},
+      "errors": [
+        "Performance error: Tensors must have same number of dimensions: got 2 and 3"
+      ]
+    },
+    "reasoning_tokens": {
+      "status": "FAIL",
+      "details": {
+        "start_token": "<|startofthought|>",
+        "end_token": "<|endofthought|>",
+        "token_boundaries": "DEFINED"
+      },
+      "errors": [
+        "Token compatibility error: Tensors must have same number of dimensions: got 2 and 3"
+      ]
+    },
+    "system_integration": {
+      "status": "PASS",
+      "details": {
+        "config_1": "PASS",
+        "config_2": "PASS",
+        "config_3": "PASS",
+        "edge_case_1": "PASS",
+        "edge_case_2": "PASS"
+      },
+      "errors": []
+    }
+  }
+}

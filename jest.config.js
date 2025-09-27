@@ -25,13 +25,15 @@ module.exports = {
     '/tests/integration/cicd/phase4-cicd-integration.test.js' // This might hang too
   ],
 
-  // Coverage configuration
+  // Coverage configuration - Enhanced for 95% target
   collectCoverageFrom: [
     'src/**/*.{js,ts}',
     '!src/**/*.test.{js,ts}',
     '!src/**/*.spec.{js,ts}',
     '!src/**/index.{js,ts}',
-    '!src/**/*.d.ts'
+    '!src/**/*.d.ts',
+    '!src/risk-dashboard/node_modules/**',
+    '!src/**/interfaces/cli/**'
   ],
 
   coverageDirectory: 'coverage',
@@ -40,8 +42,39 @@ module.exports = {
     'text',
     'text-summary',
     'html',
-    'lcov'
+    'lcov',
+    'json',
+    'clover'
   ],
+
+  // Coverage thresholds - Enforce 95% target
+  coverageThreshold: {
+    global: {
+      branches: 90,
+      functions: 95,
+      lines: 95,
+      statements: 95
+    },
+    // Critical components requiring 100% coverage
+    'src/swarm/queen/KingLogicAdapter.ts': {
+      branches: 95,
+      functions: 100,
+      lines: 100,
+      statements: 100
+    },
+    'src/swarm/hierarchy/domains/DevelopmentPrincess.ts': {
+      branches: 95,
+      functions: 100,
+      lines: 95,
+      statements: 95
+    },
+    'src/swarm/memory/development/VectorStore.ts': {
+      branches: 90,
+      functions: 95,
+      lines: 95,
+      statements: 95
+    }
+  },
 
   // Performance settings - run serially for async cleanup
   maxWorkers: 1, // Run tests serially to avoid resource conflicts

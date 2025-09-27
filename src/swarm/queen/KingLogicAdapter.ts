@@ -9,6 +9,26 @@ import { Logger } from '../../utils/logger';
 import { Task, TaskPriority } from '../types/task.types';
 import { PrincessDomain } from '../hierarchy/types';
 
+export interface KingLogicStats {
+  totalTasksAnalyzed: number;
+  averageComplexity: number;
+  shardingEfficiency: number;
+  meceScore: number;
+  distributionBalance: number;
+  coordinationLatency: number;
+  resourceUtilization: number;
+  qualityMetrics: {
+    taskCompletionRate: number;
+    errorRate: number;
+    averageExecutionTime: number;
+  };
+  currentState: {
+    activeTasks: number;
+    queuedTasks: number;
+    failedTasks: number;
+  };
+}
+
 export interface KingMetaLogic {
   taskSharding: boolean;
   meceDistribution: boolean;

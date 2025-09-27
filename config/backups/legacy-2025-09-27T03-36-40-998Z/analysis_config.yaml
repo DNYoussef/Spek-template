@@ -1,0 +1,5 @@
+analysis:
+  max_file_size_mb: 10
+  parallel_workers: 4
+quality_gates:
+  overall_quality_threshold: 0.85
