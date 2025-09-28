@@ -126,7 +126,6 @@ module.exports = {
   // Transform settings - support both JS and TS with React
   transform: {
     '^.+\\.tsx?$': ['ts-jest', {
-      isolatedModules: true,
       tsconfig: 'tsconfig.test.json',
       diagnostics: {
         warnOnly: true // Don't fail on TS errors during tests

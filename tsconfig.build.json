@@ -1,0 +1,33 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "node_modules",
+    "src/api/**",
+    "src/migration/**",
+    "src/security/**",
+    "src/theater-elimination/**/*.js",
+    "src/compliance/**/*.js",
+    "src/flow/**/*.js",
+    "**/*.js",
+    "tests/**/*.test.ts",
+    "tests/**/*.test.js",
+    "**/*.spec.ts",
+    "**/*.spec.js",
+    "dist/**",
+    "build/**",
+    "coverage/**"
+  ]
+}

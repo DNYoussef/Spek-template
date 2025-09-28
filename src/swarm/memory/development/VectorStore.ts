@@ -344,4 +344,4 @@ export class VectorStore extends EventEmitter {
   }
 }
 
-export default VectorStore;"
+export default VectorStore;

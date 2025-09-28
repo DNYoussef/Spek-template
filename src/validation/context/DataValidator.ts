@@ -106,7 +106,7 @@ export class DataValidator extends EventEmitter {
         crc = (crc >>> 8) ^ str.charCodeAt(i);
       }
       return (crc ^ (-1)) >>> 0;
-    }.toString());
+    }).toString();
   }
 
   private registerDefaultRules(): void {
