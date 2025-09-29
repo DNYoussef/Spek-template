@@ -9,12 +9,12 @@ export interface TestResult {
   error?: string;
 }
 export class TestRunner {
-  private tests: Map<string, ()  = > Promise<void>>  =  new Map();
+  private tests: Map<string, () => Promise<void>>  =  new Map();
   private results: TestResult[]  =  [];
   /**
    * Register a test
    */
-  registerTest(name: string, fn: ()  = > Promise<void>): void {
+  registerTest(name: string, fn: () => Promise<void>): void {
     this.tests.set(name, fn);
   }
   /**
