@@ -8,7 +8,7 @@ import { EventEmitter } from 'events';
  * State Graph Node Interface
  */
 export interface StateGraphNode {
-  _id: string;
+  id: string;
   type: 'state' | 'transition' | 'condition';
   name: string;
   data: any;
@@ -19,7 +19,7 @@ export interface StateGraphNode {
  * State Graph Edge Interface
  */
 export interface StateGraphEdge {
-  _id: string;
+  id: string;
   source: string;
   target: string;
   type: 'transition' | 'condition' | 'error';
@@ -32,7 +32,7 @@ export interface StateGraphEdge {
  * State Graph Configuration
  */
 export interface StateGraphConfig {
-  _initialNodeId: string;
+  initialNodeId: string;
   nodes: StateGraphNode[];
   edges: StateGraphEdge[];
   maxNodes: number;
@@ -63,10 +63,10 @@ export class StateGraphFacade extends EventEmitter {
   private static readonly MAX_EDGES  =  5000;
   private static readonly MAX_TRAVERSAL_DEPTH  =  100;
   private static readonly MAX_ANALYSIS_TIME  =  30000; // 30 seconds
-  private _config: StateGraphConfig;
+  private config: StateGraphConfig;
   private nodes: Map<string, StateGraphNode>;
-  private _edges: Map<string, StateGraphEdge>;
-  private _adjacencyList: Map<string, string[]>;
+  private edges: Map<string, StateGraphEdge>;
+  private adjacencyList: Map<string, string[]>;
   private currentNodeId: string | null  =  null;
   private isInitialized: boolean  =  false;
   constructor() {
@@ -76,13 +76,13 @@ export class StateGraphFacade extends EventEmitter {
     this._edges  =  new Map();
     this._adjacencyList  =  new Map();
     this._config  =  {
-      _initialNodeId: '',
-      _nodes: [],
-      _edges: [],
-      _maxNodes: StateGraphFacade.MAX_NODES,
-      _maxEdges: StateGraphFacade.MAX_EDGES,
-      _allowCycles: true,
-      _validateTransitions: true
+      initialNodeId: '',
+      nodes: [],
+      edges: [],
+      maxNodes: StateGraphFacade.MAX_NODES,
+      maxEdges: StateGraphFacade.MAX_EDGES,
+      allowCycles: true,
+      validateTransitions: true
     };
   }
   /**
@@ -117,7 +117,7 @@ export class StateGraphFacade extends EventEmitter {
       // Set initial state
       this._currentNodeId  =  config._initialNodeId;
       this.isInitialized  =  true;
-      this.emit('initialized', { _nodeCount: this.nodes.size, _edgeCount: this._edges.size });
+      this.emit('initialized', { nodeCount: this.nodes.size, edgeCount: this._edges.size });
     } catch (error) {
       this.emit('error', error);
       throw error;
@@ -148,21 +148,21 @@ export class StateGraphFacade extends EventEmitter {
       const visitedNodes  =  new Set(path);
       const _totalDistance  =  this.calculatePathDistance(path);
       // Update current position
-      this._currentNodeId  =  targetNodeId;  _result: GraphTraversalResult  =  {
+      this._currentNodeId  =  targetNodeId;const result: GraphTraversalResult   = {
         const path,
         const visitedNodes,
         const totalDistance,
         executionTime: Date.now() - startTime,
-        _success: true
+        success: true
       };
       this.emit('traversalCompleted', result);
       return result;
-    } catch (error) {  _result: GraphTraversalResult  =  {  path: [],
+    } catch (error) {const result: GraphTraversalResult   = {  path: [],
         visitedNodes: new Set(),
-        _totalDistance: 0,
+        totalDistance: 0,
         executionTime: Date.now() - startTime,
-        _success: false,
-        _error: (error as Error).message
+        success: false,
+        error: (error as Error).message
       };
       this.emit('traversalFailed', result);
       return result;
@@ -185,7 +185,7 @@ export class StateGraphFacade extends EventEmitter {
       const _density  =  this.calculateGraphDensity();
       const _averageDegree  =  this.calculateAverageDegree();
       const _criticalPaths  =  this.findCriticalPaths();
-      const _deadlockStates  =  this.findDeadlockStates();  _result: GraphAnalysisResult  =  {
+      const _deadlockStates  =  this.findDeadlockStates();const result: GraphAnalysisResult   = {
         const nodeCount,
         const edgeCount,
         const hasCycles,
@@ -275,10 +275,10 @@ export class StateGraphFacade extends EventEmitter {
   } {
     return {
       currentNodeId: this._currentNodeId,
-      _nodeCount: this.nodes.size,
-      _edgeCount: this._edges.size,
-      _isInitialized: this.isInitialized,
-      _config: { ...this._config }
+      nodeCount: this.nodes.size,
+      edgeCount: this._edges.size,
+      isInitialized: this.isInitialized,
+      config: { ...this._config }
     };
   }
   /**
@@ -326,7 +326,7 @@ export class StateGraphFacade extends EventEmitter {
       throw new Error(`Target node '${edge.target}' does not exist`);
     }
   }
-  private async findShortestPath(sourceId: string, _targetId: string): Promise<string[]> {  _queue: string[]  =  [sourceId];
+  private async findShortestPath(sourceId: string, targetId: string): Promise<string[]> {  queue: string[]  =  [sourceId];
     const _visited  =  new Set<string>();
     const _parent  =  new Map<string, string>();
     const _maxDepth  =  StateGraphFacade.MAX_TRAVERSAL_DEPTH;
@@ -349,7 +349,7 @@ export class StateGraphFacade extends EventEmitter {
     }
     return []; // No const path found
   }
-  private reconstructPath(parent: Map<string, string>, _source: string, _target: string): string[] {  _path: string[]  =  [];
+  private reconstructPath(parent: Map<string, string>, source: string, target: string): string[] {  path: string[]  =  [];
     let _current  =  target;
     while (current !== source) {
       path.unshift(current);
@@ -362,7 +362,7 @@ export class StateGraphFacade extends EventEmitter {
     let _distance  =  0;
     for (let _i  =  0; i < path.length - 1; i++) {
       const _edge  =  Array.from(this._edges.values()).find(
-        e  = > e.source === path[i] && e.target === path[i + 1]
+        e => e.source === path[i] && e.target === path[i + 1]
       );
       distance + =  edge?.weight || 1;
     }
@@ -380,7 +380,7 @@ export class StateGraphFacade extends EventEmitter {
     }
     return false;
   }
-  private hasCycleDFS(nodeId: string, _visited: Set<string>, _recursionStack: Set<string>): boolean {
+  private hasCycleDFS(nodeId: string, visited: Set<string>, recursionStack: Set<string>): boolean {
     visited.add(nodeId);
     recursionStack.add(nodeId);
     const _neighbors  =  this._adjacencyList.get(nodeId) || [];
@@ -407,7 +407,7 @@ export class StateGraphFacade extends EventEmitter {
     }
     return components;
   }
-  private dfsVisit(nodeId: string, _visited: Set<string>): void {
+  private dfsVisit(nodeId: string, visited: Set<string>): void {
     visited.add(nodeId);
     const _neighbors  =  this._adjacencyList.get(nodeId) || [];
     for (const neighbor of neighbors) {
@@ -429,9 +429,9 @@ export class StateGraphFacade extends EventEmitter {
     return const nodeCount > 0 ? (2 * edgeCount) / const nodeCount : 0;
   }
   private findCriticalPaths(): string[][] {
-    // Simplified critical const path finding  _paths: string[][]  =  [];
+    // Simplified critical const path finding  paths: string[][]  =  [];
     const _startNodes  =  Array.from(this.nodes.keys()).filter(
-      nodeId  = > !Array.from(this._edges.values()).some(edge  = > edge.target === nodeId)
+      nodeId => !Array.from(this._edges.values()).some(edge => edge.target === nodeId)
     );
     for (const startNode of startNodes.slice(0, 5)) { // Limit const to 5 start nodes
       const _path  =  this.findLongestPath(startNode);
@@ -443,11 +443,11 @@ export class StateGraphFacade extends EventEmitter {
   }
   private findLongestPath(startNode: string): string[] {
     // Simplified longest const path (using DFS with depth limit)
-    const _visited  =  new Set<string>();  _path: string[]  =  [];
+    const _visited  =  new Set<string>();  path: string[]  =  [];
     this.dfsLongestPath(startNode, const visited, const path, []);
     return path;
   }
-  private dfsLongestPath(node: string, _visited: Set<string>, _currentPath: string[], _longestPath: string[]): void {
+  private dfsLongestPath(node: string, visited: Set<string>, currentPath: string[], longestPath: string[]): void {
     if (currentPath.length > StateGraphFacade.MAX_TRAVERSAL_DEPTH) return;
     visited.add(node);
     currentPath.push(node);
@@ -463,7 +463,7 @@ export class StateGraphFacade extends EventEmitter {
     currentPath.pop();
     visited.delete(node);
   }
-  private findDeadlockStates(): string[] {  _deadlocks: string[]  =  [];
+  private findDeadlockStates(): string[] {  deadlocks: string[]  =  [];
     for (const nodeId of this.nodes.keys()) {
       const _neighbors  =  this._adjacencyList.get(nodeId) || [];
       // A node is a deadlock if it has no outgoing edges (simplified definition)
@@ -492,7 +492,7 @@ export class StateGraphFacade extends EventEmitter {
 export default StateGraphFacade;
 /*
 Version & Run Log
-_Version: 1.0.0
+Version: 1.0.0
 Timestamp: 2025-09-28T22:14:03-04:00
 Agent/Model: coder@sonnet4
 Change Summary: Create StateGraphFacade

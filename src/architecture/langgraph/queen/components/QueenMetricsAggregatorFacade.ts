@@ -157,7 +157,7 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
     }
     const endTime  =  Date.now();
     startTime  =  timeRangeMs ? endTime - timeRangeMs : endTime - QueenMetricsAggregatorFacade.MAX_AGGREGATION_WINDOW;
-    const filteredMetrics  =  Array.from(this.metricHistory.values()).filter(metric  = > {
+    const filteredMetrics  =  Array.from(this.metricHistory.values()).filter(metric => {
     const matchesType  =  !type || metric.type === type;
       const inTimeRange  =  metric.timestamp >= startTime && metric.timestamp <= endTime;
       return matchesType && inTimeRange;
@@ -166,9 +166,9 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
       const aggregated  =  this.aggregateMetrics(filteredMetrics, type);
       return aggregated ? [aggregated] : [];
     }
-    results: AggregatedMetric[]  =  [];
+const results: AggregatedMetric[]   = [];
     for (const metricType of Object.values(MetricType)) {
-      const typeMetrics  =  filteredMetrics.filter(m  = > m.type === metricType);
+      const typeMetrics  =  filteredMetrics.filter(m => m.type === metricType);
       if (typeMetrics.length > 0) {
         const aggregated  =  this.aggregateMetrics(typeMetrics, metricType);
         if (aggregated) {
@@ -188,8 +188,8 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
     }
     const endTime  =  Date.now();
     startTime  =  timeRangeMs ? endTime - timeRangeMs : endTime - QueenMetricsAggregatorFacade.MAX_AGGREGATION_WINDOW;
-    const aggregatedMetrics  =  this.getAggregatedMetrics(undefined, timeRangeMs);  aggregatedMetricsMap: Record<MetricType, AggregatedMetric>  =  {} as Record<MetricType, AggregatedMetric>;
-    aggregatedMetrics.forEach(metric  = > {
+    const aggregatedMetrics  =  this.getAggregatedMetrics(undefined, timeRangeMs);const aggregatedMetricsMap: Record<MetricType, AggregatedMetric>   = {} as Record<MetricType, AggregatedMetric>;
+    aggregatedMetrics.forEach(metric => {
       aggregatedMetricsMap[metric.type]  =  metric;
     });
     const systemHealth  =  this.calculateSystemHealth(aggregatedMetrics);
@@ -207,9 +207,9 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
    * NASA Rule 10: ≤60 lines, bounded alert retrieval
    */
   getActiveAlerts(severity?: MetricAlert['severity']): MetricAlert[] {
-    const alerts  =  Array.from(this.activeAlerts.values()).filter(alert  = > alert.isActive);
+    const alerts  =  Array.from(this.activeAlerts.values()).filter(alert => alert.isActive);
     if (severity) {
-      return alerts.filter(alert  = > alert.severity === severity);
+      return alerts.filter(alert => alert.severity === severity);
     }
     return alerts;
   }
@@ -273,17 +273,17 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
     if (metrics.length === 0) {
       return null;
     }
-    const values  =  metrics.map(m  = > m.value);
-    const sum  =  values.reduce((a, b)  = > a + b, 0);
+    const values  =  metrics.map(m => m.value);
+    const sum  =  values.reduce((a, b) => a + b, 0);
     const average  =  sum / values.length;
     const min  =  Math.min(...values);
     const max  =  Math.max(...values);
     // Calculate standard deviation
-    const variance  =  values.reduce((acc, val)  = > acc + Math.pow(val - average, 2), 0) / values.length;
+    const variance  =  values.reduce((acc, val) => acc + Math.pow(val - average, 2), 0) / values.length;
     const standardDeviation  =  Math.sqrt(variance);
     // Calculate trend (simplified)
     const trend  =  this.calculateTrend(values);
-    const timestamps  =  metrics.map(m  = > m.timestamp);
+    const timestamps  =  metrics.map(m => m.timestamp);
     return {
       const type,
       count: metrics.length,
@@ -304,8 +304,8 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
     if (values.length < 2) return 'stable';
     const firstHalf  =  values.slice(0, Math.floor(values.length / 2));
     const secondHalf  =  values.slice(Math.floor(values.length / 2));
-    const firstAvg  =  firstHalf.reduce((a, b)  = > a + b, 0) / firstHalf.length;
-    const secondAvg  =  secondHalf.reduce((a, b)  = > a + b, 0) / secondHalf.length;
+    const firstAvg  =  firstHalf.reduce((a, b) => a + b, 0) / firstHalf.length;
+    const secondAvg  =  secondHalf.reduce((a, b) => a + b, 0) / secondHalf.length;
     const change  =  (secondAvg - firstAvg) / firstAvg;
     if (change > 0.05) return 'increasing';
     if (change < -0.05) return 'decreasing';
@@ -316,7 +316,7 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
     const thresholds  =  this.getThresholds(metric.type);
     for (const [level, threshold] of Object.entries(thresholds)) {
       if (metric.value > threshold) {
-        const alertId  =  `${metric.type}_${level}_${Date.now()}`;  alert: MetricAlert  =  {
+        const alertId  =  `${metric.type}_${level}_${Date.now()}`;const alert: MetricAlert   = {
           id: alertId,
           type: metric.type,
           severity: level as MetricAlert['severity'],
@@ -346,7 +346,7 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
     if (metrics.length === 0) {
       return { overall: 'fair', score: 50, issues: ['No metrics available'] };
     }
-    const scores  =  metrics.map(m  = > {
+    const scores  =  metrics.map(m => {
       // Simplified health scoring
       if (m.average < 50) return 100;
       if (m.average < 70) return 80;
@@ -354,7 +354,7 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
       if (m.average < 95) return 40;
       return 20;
     });
-    const averageScore  =  scores.reduce((a, b)  = > a + b, 0) / scores.length;
+    const averageScore  =  scores.reduce((a, b) => a + b, 0) / scores.length;
     let overall: MetricsSummary['systemHealth']['overall'];
     if (averageScore >= 90) overall  =  'excellent';
     else if (averageScore >= 75) overall  =  'good';
@@ -367,7 +367,7 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
     return { overall, score: averageScore, issues };
   }
   private generateRecommendations(metrics: AggregatedMetric[]): string[] {  recommendations: string[]  =  [];
-    metrics.forEach(metric  = > {
+    metrics.forEach(metric => {
     // WARNING: Recursion detected - consider iterative approach for NASA Rule 10 compliance
       if (metric.trend === 'increasing' && metric.average > 80) {
         recommendations.push(`Consider optimizing ${metric.type.toLowerCase()} - showing increasing trend`);
@@ -390,7 +390,7 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
     }
   }
   private startAggregationTimer(): void {
-    this.aggregationTimer  =  setInterval(()  = > {
+    this.aggregationTimer  =  setInterval(() => {
       this.performPeriodicAggregation();
     }, QueenMetricsAggregatorFacade.AGGREGATION_INTERVAL);
   }
@@ -398,7 +398,7 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
     // Update aggregated metrics for all types
     for (const metricType of Object.values(MetricType)) {
       const typeMetrics  =  Array.from(this.metricHistory.values())
-        .filter(m  = > m.type === metricType);
+        .filter(m => m.type === metricType);
       if (typeMetrics.length > 0) {
         const aggregated  =  this.aggregateMetrics(typeMetrics, metricType);
         if (aggregated) {
