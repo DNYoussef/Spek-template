@@ -104,10 +104,11 @@ export class QueenMetricsAggregatorFacade extends EventEmitter {
    * Initialize Metrics Aggregator
    * NASA Rule 10: ≤60 lines, ≥2 assertions
    */
-  async initialize(...args: any[]): Promise<void> console.assert(!this.isInitialized, 'Metrics aggregator must not be already initialized');
+  async initialize(...args: any[]): Promise<void> {
+    console.assert(!this.isInitialized, 'Metrics aggregator must not be already initialized');
     console.assert(this.metricHistory.size === 0, 'Metric history must be empty during initialization');
-{
-        try {
+
+    try {
       this.isInitialized  =  true;
       this.startAggregationTimer();
       this.emit('initialized');
