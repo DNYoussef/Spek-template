@@ -241,17 +241,17 @@ export interface StateTransition {
   action?: (context: StressTestContext) => Promise<void>;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T16:31:27-04:00 | coder@Sonnet | Extract type definitions for FSM-based stress testing | StressTestTypes.ts | OK | Extracted all interfaces and added FSM enums | 0.00 | abc123f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: stress_test_refactor_001
-- inputs: ["StressTestRunner.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"Sonnet 4","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: stress_test_refactor_001
+// inputs: ["StressTestRunner.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"Sonnet 4","prompt":"v1.0"}
+// === END FOOTER ===

@@ -260,17 +260,17 @@ export {
   RoutingRule
 };
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.0.0   | 2025-09-28T21:55:00Z | MEGA_088@claude-sonnet-4 | MASSIVE GOD OBJECT ELIMINATION: 634->120 lines (81% reduction) | MessageRouter.ts | OK | Refactored to FSM facade delegation, eliminated 514 lines | 0.00 | b7f3a8c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega088-a2a-message-router-elimination-001
-- inputs: ["A2A MessageRouter.ts", "MessageRouterFacade.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"mega088-god-object-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 2.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega088-a2a-message-router-elimination-001
+// inputs: ["A2A MessageRouter.ts", "MessageRouterFacade.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"mega088-god-object-elimination"}
+// === END FOOTER ===

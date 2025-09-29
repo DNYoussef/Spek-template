@@ -407,17 +407,17 @@ interface MonitoringStatus {
   lastQualityCheck: number;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T18:14:32-04:00 | SystemIntegrationOrchestrator@refactor | Created IntegrationMonitor FSM component with health and conflict monitoring | IntegrationMonitor.ts | OK | 340 lines, NASA Rule 10 compliant | 0.00 | b5c2a19 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-monitor-001
-- inputs: ["IntegrationFSMTypes.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-monitor-001
+// inputs: ["IntegrationFSMTypes.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
+// === END FOOTER ===

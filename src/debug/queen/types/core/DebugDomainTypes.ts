@@ -369,17 +369,17 @@ export function createDebugSession(target: DebugTarget): DebugSession {
   };
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T10:29:18-04:00 | decomposer@claude-sonnet-4 | Created DebugDomainTypes.ts - debug domain interfaces | DebugDomainTypes.ts | OK | Extracted debug domain types, <500 lines | 0.00 | i5e0b1f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: debug-decomposition-001
-- inputs: ["QueenDebugTypes.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"type-decomposition-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: debug-decomposition-001
+// inputs: ["QueenDebugTypes.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"type-decomposition-v1"}
+// === END FOOTER ===

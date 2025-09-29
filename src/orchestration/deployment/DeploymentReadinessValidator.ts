@@ -117,17 +117,17 @@ export class DeploymentReadinessValidator {
 // Backward compatibility - keep the same export
 export default DeploymentReadinessValidator;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.0.0   | 2025-01-28T03:46:12-05:00 | coder@claude-sonnet-4 | Refactored god object to FSM-based architecture with backward compatibility | DeploymentReadinessValidator.ts | OK | NASA Rule 10 compliant, 995→118 lines (-88%) | 0.15 | bcd7890 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: readiness-refactor-010
-- inputs: ["ReadinessOrchestrator.ts", "original file"]
-- tools_used: ["MultiEdit", "Edit"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 2.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: readiness-refactor-010
+// inputs: ["ReadinessOrchestrator.ts", "original file"]
+// tools_used: ["MultiEdit", "Edit"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
+// === END FOOTER ===

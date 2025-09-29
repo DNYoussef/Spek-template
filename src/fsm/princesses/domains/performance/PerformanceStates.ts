@@ -101,17 +101,17 @@ export class PerformanceStates {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:35:36-04:00 | agent@Sonnet4 | Create PerformanceStates FSM component | PerformanceStates.ts | OK | NASA Rule 10 compliant FSM states | 0.00 | 2u3v4w5 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: princess-domain-elimination-009
-- inputs: ["PerformancePrincessFSM.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-3-5-sonnet-20241022","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: princess-domain-elimination-009
+// inputs: ["PerformancePrincessFSM.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-3-5-sonnet-20241022","prompt":"v1.0"}
+// === END FOOTER ===

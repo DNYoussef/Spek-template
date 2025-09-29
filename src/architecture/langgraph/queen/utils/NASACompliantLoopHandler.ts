@@ -268,17 +268,17 @@ export class NASACompliantLoopHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T16:26:45-04:00 | CODEX AGENT 024@Claude Sonnet | Created NASACompliantLoopHandler.ts with bounded loop operations | NASACompliantLoopHandler.ts | OK | NASA Rule 10 compliance utility | 0.00 | b8c3d4e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-024-nasa-loop-handler
-- inputs: ["QueenOrchestrator.ts refactoring requirements"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-024-nasa-loop-handler
+// inputs: ["QueenOrchestrator.ts refactoring requirements"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
+// === END FOOTER ===

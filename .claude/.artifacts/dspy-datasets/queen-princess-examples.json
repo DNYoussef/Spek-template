@@ -1,0 +1,259 @@
+[
+  {
+    "id": "queen_princess_001",
+    "communication_type": "queen_princess",
+    "input": {
+      "context": {
+        "domain": "development",
+        "urgency": "high",
+        "complexity": "complex",
+        "scope": "feature",
+        "resources": {
+          "agents_available": 5,
+          "time_constraints": "2 weeks",
+          "technical_constraints": ["React 18", "TypeScript", "Jest testing"]
+        }
+      },
+      "requirements": [
+        "Implement user authentication system",
+        "Support OAuth2 and JWT tokens",
+        "Include role-based access control",
+        "Ensure security compliance"
+      ],
+      "constraints": {
+        "timeline": "14 days",
+        "budget": "medium",
+        "team_size": 5,
+        "security_level": "high"
+      }
+    },
+    "output": {
+      "communication": "Princess Development, I assign you the critical authentication system implementation. Deploy 3 specialized drones: 1 backend security specialist for OAuth2/JWT integration, 1 frontend developer for login/registration UI, and 1 testing specialist for security validation. Timeline: 14 days with daily progress reports. Priority gates: security audit by day 7, integration testing by day 10, production deployment by day 14. Resource allocation: full team focus, escalate any blockers immediately.",
+      "structured_data": {
+        "task_id": "AUTH_SYSTEM_2024_001",
+        "priority": "critical",
+        "domain": "development",
+        "timeline": "14 days",
+        "drone_assignments": [
+          {
+            "role": "backend_security_specialist",
+            "focus": "OAuth2_JWT_implementation",
+            "deliverables": ["auth_service", "token_management", "security_middleware"]
+          },
+          {
+            "role": "frontend_developer",
+            "focus": "authentication_ui",
+            "deliverables": ["login_component", "registration_form", "role_dashboard"]
+          },
+          {
+            "role": "testing_specialist",
+            "focus": "security_validation",
+            "deliverables": ["security_tests", "penetration_testing", "compliance_validation"]
+          }
+        ],
+        "quality_gates": [
+          {"day": 7, "gate": "security_audit", "criteria": "vulnerability_scan_passed"},
+          {"day": 10, "gate": "integration_testing", "criteria": "all_tests_passing"},
+          {"day": 14, "gate": "production_deployment", "criteria": "compliance_validated"}
+        ]
+      },
+      "quality_metrics": {
+        "clarity": 9,
+        "completeness": 8,
+        "actionability": 9
+      }
+    },
+    "scoring": {
+      "clarity": 9,
+      "actionability": 9,
+      "completeness": 8,
+      "efficiency": 8,
+      "overall_score": 8.5
+    },
+    "metadata": {
+      "created_date": "2024-09-28T14:30:00Z",
+      "agent_source": "queen_coordination_agent",
+      "validation_status": "validated",
+      "performance_data": {
+        "response_time_ms": 1250,
+        "token_count": 89,
+        "complexity_score": 7.5,
+        "user_satisfaction_estimate": 0.92,
+        "timestamp": "2024-09-28T14:30:00Z"
+      }
+    }
+  },
+  {
+    "id": "queen_princess_002",
+    "communication_type": "queen_princess",
+    "input": {
+      "context": {
+        "domain": "testing",
+        "urgency": "medium",
+        "complexity": "moderate",
+        "scope": "project",
+        "resources": {
+          "agents_available": 3,
+          "time_constraints": "1 week",
+          "technical_constraints": ["Playwright", "Jest", "CI/CD pipeline"]
+        }
+      },
+      "requirements": [
+        "Establish comprehensive testing framework",
+        "Implement automated test suite",
+        "Set up continuous integration",
+        "Achieve 90% code coverage"
+      ],
+      "constraints": {
+        "timeline": "7 days",
+        "budget": "low",
+        "team_size": 3,
+        "coverage_target": "90%"
+      }
+    },
+    "output": {
+      "communication": "Princess Testing, initiate comprehensive testing framework establishment. Deploy 2 drones: 1 automation specialist for Playwright e2e testing and 1 unit testing specialist for Jest integration. Target: 90% coverage within 7 days. Daily checkpoints: day 3 framework setup, day 5 test implementation, day 7 coverage validation. Coordinate with CI/CD team for pipeline integration.",
+      "structured_data": {
+        "task_id": "TEST_FRAMEWORK_2024_002",
+        "priority": "medium",
+        "domain": "testing",
+        "timeline": "7 days",
+        "drone_assignments": [
+          {
+            "role": "automation_specialist",
+            "focus": "e2e_testing",
+            "deliverables": ["playwright_setup", "e2e_test_suite", "visual_testing"]
+          },
+          {
+            "role": "unit_testing_specialist",
+            "focus": "jest_integration",
+            "deliverables": ["unit_test_framework", "mocking_setup", "coverage_reports"]
+          }
+        ],
+        "quality_gates": [
+          {"day": 3, "gate": "framework_setup", "criteria": "testing_environment_ready"},
+          {"day": 5, "gate": "test_implementation", "criteria": "core_tests_written"},
+          {"day": 7, "gate": "coverage_validation", "criteria": "90_percent_coverage_achieved"}
+        ]
+      },
+      "quality_metrics": {
+        "clarity": 8,
+        "completeness": 9,
+        "actionability": 8
+      }
+    },
+    "scoring": {
+      "clarity": 8,
+      "actionability": 8,
+      "completeness": 9,
+      "efficiency": 7,
+      "overall_score": 8.0
+    },
+    "metadata": {
+      "created_date": "2024-09-28T15:15:00Z",
+      "agent_source": "queen_coordination_agent",
+      "validation_status": "validated",
+      "performance_data": {
+        "response_time_ms": 980,
+        "token_count": 76,
+        "complexity_score": 6.0,
+        "user_satisfaction_estimate": 0.88,
+        "timestamp": "2024-09-28T15:15:00Z"
+      }
+    }
+  },
+  {
+    "id": "queen_princess_003",
+    "communication_type": "queen_princess",
+    "input": {
+      "context": {
+        "domain": "deployment",
+        "urgency": "critical",
+        "complexity": "enterprise",
+        "scope": "system",
+        "resources": {
+          "agents_available": 8,
+          "time_constraints": "24 hours",
+          "technical_constraints": ["AWS", "Docker", "Kubernetes", "zero downtime"]
+        }
+      },
+      "requirements": [
+        "Execute production deployment",
+        "Ensure zero downtime migration",
+        "Implement rollback strategy",
+        "Monitor system health"
+      ],
+      "constraints": {
+        "timeline": "24 hours",
+        "budget": "high",
+        "team_size": 8,
+        "availability_requirement": "99.99%"
+      }
+    },
+    "output": {
+      "communication": "Princess Deployment, CRITICAL production deployment initiated. Full team deployment: 3 infrastructure drones for blue-green deployment setup, 2 monitoring drones for real-time health tracking, 2 database migration specialists, 1 rollback coordinator. Zero downtime mandate - any service interruption triggers immediate rollback. 4-hour checkpoints, continuous monitoring, escalate any anomalies within 15 minutes.",
+      "structured_data": {
+        "task_id": "PROD_DEPLOY_2024_003",
+        "priority": "critical",
+        "domain": "deployment",
+        "timeline": "24 hours",
+        "drone_assignments": [
+          {
+            "role": "infrastructure_specialist",
+            "count": 3,
+            "focus": "blue_green_deployment",
+            "deliverables": ["cluster_setup", "load_balancer_config", "deployment_scripts"]
+          },
+          {
+            "role": "monitoring_specialist",
+            "count": 2,
+            "focus": "system_health_tracking",
+            "deliverables": ["health_dashboards", "alert_configuration", "metrics_collection"]
+          },
+          {
+            "role": "database_migration_specialist",
+            "count": 2,
+            "focus": "data_migration",
+            "deliverables": ["migration_scripts", "data_validation", "backup_verification"]
+          },
+          {
+            "role": "rollback_coordinator",
+            "count": 1,
+            "focus": "contingency_management",
+            "deliverables": ["rollback_procedures", "incident_response", "communication_protocol"]
+          }
+        ],
+        "quality_gates": [
+          {"hour": 4, "gate": "infrastructure_ready", "criteria": "blue_green_environment_validated"},
+          {"hour": 8, "gate": "migration_started", "criteria": "data_migration_in_progress"},
+          {"hour": 16, "gate": "deployment_complete", "criteria": "services_migrated_successfully"},
+          {"hour": 24, "gate": "production_stable", "criteria": "zero_downtime_confirmed"}
+        ]
+      },
+      "quality_metrics": {
+        "clarity": 9,
+        "completeness": 10,
+        "actionability": 10
+      }
+    },
+    "scoring": {
+      "clarity": 9,
+      "actionability": 10,
+      "completeness": 10,
+      "efficiency": 8,
+      "overall_score": 9.25
+    },
+    "metadata": {
+      "created_date": "2024-09-28T16:00:00Z",
+      "agent_source": "queen_coordination_agent",
+      "validation_status": "validated",
+      "performance_data": {
+        "response_time_ms": 1450,
+        "token_count": 124,
+        "complexity_score": 9.5,
+        "user_satisfaction_estimate": 0.96,
+        "timestamp": "2024-09-28T16:00:00Z"
+      }
+    }
+  }
+]

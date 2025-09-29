@@ -262,17 +262,17 @@ export class StateRegistry {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T10:05:11-04:00 | agent@Sonnet-4 | Created centralized state registry | StateRegistry.ts | OK | All states registered with FSM | 0.00 | f6g7h8i |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-046-state-registry
-- inputs: ["ValidationStateMachine.ts", "all state handlers"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-046-state-registry
+// inputs: ["ValidationStateMachine.ts", "all state handlers"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4-20250514","prompt":"v1"}
+// === END FOOTER ===

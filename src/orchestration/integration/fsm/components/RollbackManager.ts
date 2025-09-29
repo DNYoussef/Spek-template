@@ -307,17 +307,17 @@ interface RollbackOperation {
   data: any;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T18:19:28-04:00 | SystemIntegrationOrchestrator@refactor | Created RollbackManager FSM component with rollback coordination and recovery | RollbackManager.ts | OK | 297 lines, NASA Rule 10 compliant | 0.00 | f2e8c41 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-rollback-manager-001
-- inputs: ["IntegrationFSMTypes.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-rollback-manager-001
+// inputs: ["IntegrationFSMTypes.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
+// === END FOOTER ===

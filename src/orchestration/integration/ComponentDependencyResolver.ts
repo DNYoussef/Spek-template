@@ -70,16 +70,16 @@ export { default } from './dependency/DependencyFacade';
 /*
 AGENT FOOTER: CODEX AGENT 008 REFACTORING COMPLETE
 
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.0.0   | 2025-09-27T18:23:15-04:00 | agent@codex | Refactor 1,855 line file to 7 focused components | ComponentDependencyResolver.ts, 7 new files | OK | NASA Rule 10 compliant, backward compatible | 0.00 | h1i2j52 |
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-008-refactor-complete
-- inputs: ["Original 1,855 line monolith"]
-- tools_used: ["Write", "Edit", "Read"]
-- versions: {"model":"codex","prompt":"nasa-rule-10-decomposition"}
+// Version: 2.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-008-refactor-complete
+// inputs: ["Original 1,855 line monolith"]
+// tools_used: ["Write", "Edit", "Read"]
+// versions: {"model":"codex","prompt":"nasa-rule-10-decomposition"}
 */

@@ -78,17 +78,17 @@ export class MemorySubscriber {
 
 export default MemorySubscriber;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T11:45:23-04:00 | agent@claude-3-5-sonnet-20241022 | FSM decomposition: 712->80 lines (88.8% reduction) | MemorySubscriber.ts + 7 FSM components | OK | NASA Rule 10 compliant | 0.00 | e4b7c9d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: memory-subscriber-fsm-final
-- inputs: ["src/memory/sharing/MemorySubscriber.ts"]
-- tools_used: ["Read", "Write", "Edit", "TodoWrite", "Bash"]
-- versions: {"model":"claude-3-5-sonnet-20241022","prompt":"fsm-decomposition-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: memory-subscriber-fsm-final
+// inputs: ["src/memory/sharing/MemorySubscriber.ts"]
+// tools_used: ["Read", "Write", "Edit", "TodoWrite", "Bash"]
+// versions: {"model":"claude-3-5-sonnet-20241022","prompt":"fsm-decomposition-v1"}
+// === END FOOTER ===

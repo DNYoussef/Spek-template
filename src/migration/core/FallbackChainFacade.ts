@@ -216,17 +216,17 @@ export class FallbackChainFacade extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T14:32:15-04:00 | coder@claude-sonnet-4 | Created facade for FSM delegation | FallbackChainFacade.ts | OK | NASA Rule 10 compliant facade | 0.00 | a8c4f1e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fallback-fsm-refactor-004
-- inputs: ["FallbackChainManager.ts", "FallbackStateMachine.ts", "TransitionHub.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-facade-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fallback-fsm-refactor-004
+// inputs: ["FallbackChainManager.ts", "FallbackStateMachine.ts", "TransitionHub.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-facade-v1"}
+// === END FOOTER ===

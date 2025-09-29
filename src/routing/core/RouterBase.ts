@@ -275,17 +275,17 @@ export interface RouterMetrics {
   lastTransition: number;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T21:35:00Z | MEGA_088@claude-sonnet-4 | Created router base class with FSM foundation | RouterBase.ts | OK | Shared FSM foundation for all router types | 0.00 | a9b4f2e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega088-router-base-001
-- inputs: ["RoutingStates.ts", "RoutingTransitionHub.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"mega088-fsm-architecture"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega088-router-base-001
+// inputs: ["RoutingStates.ts", "RoutingTransitionHub.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"mega088-fsm-architecture"}
+// === END FOOTER ===

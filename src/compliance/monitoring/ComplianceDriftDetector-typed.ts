@@ -49,17 +49,17 @@ export class ComplianceDriftDetector {
 // Re-export main class for compatibility
 export default ComplianceDriftDetector;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T20:24:12-04:00 | agent@ModelMEGA093 | Replace 1138-line god object with 52-line FSM facade | ComplianceDriftDetector-typed.ts | OK | 95.4% reduction | 0.00 | a8b5c3f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: compliance-facade-093
-- inputs: ["original god object", "FSM implementation"]
-- tools_used: ["Write"]
-- versions: {"model":"MEGA093","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: compliance-facade-093
+// inputs: ["original god object", "FSM implementation"]
+// tools_used: ["Write"]
+// versions: {"model":"MEGA093","prompt":"v1.0"}
+// === END FOOTER ===

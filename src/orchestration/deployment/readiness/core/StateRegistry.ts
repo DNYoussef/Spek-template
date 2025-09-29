@@ -167,17 +167,17 @@ export class StateRegistry {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-01-28T03:39:28-05:00 | coder@claude-sonnet-4 | Created state registry for FSM handler management | StateRegistry.ts | OK | NASA Rule 10 compliant with auto-registration | 0.07 | jkl3456 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: readiness-registry-004
-- inputs: ["TransitionHub.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: readiness-registry-004
+// inputs: ["TransitionHub.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
+// === END FOOTER ===

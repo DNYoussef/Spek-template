@@ -145,17 +145,17 @@ export class ComplianceValidator extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.0.0   | 2025-09-28T11:51:38-04:00 | validation-destroyer@claude-4 | ELIMINATED ComplianceValidator god object (896→70 lines) | ComplianceValidator.ts | OK | 92.2% line reduction, FSM-based | 0.00 | c7a4e92 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: compliance-validator-elimination-001
-- inputs: ["ValidationFSM.ts", "original-god-object"]
-- tools_used: ["mcp__filesystem__write_file"]
-- versions: {"model":"claude-4","prompt":"validation-destroyer-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 2.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: compliance-validator-elimination-001
+// inputs: ["ValidationFSM.ts", "original-god-object"]
+// tools_used: ["mcp__filesystem__write_file"]
+// versions: {"model":"claude-4","prompt":"validation-destroyer-v1"}
+// === END FOOTER ===

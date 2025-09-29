@@ -93,17 +93,17 @@ export interface MonitorConfig {
   timeoutMs: number;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T20:15:32-04:00 | agent@ModelMEGA093 | Create shared monitoring FSM types and contracts | MonitoringFSMTypes.ts | OK | -- | 0.00 | 8a7c9d1 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: monitor-fsm-types-093
-- inputs: ["monitoring requirements", "god object analysis"]
-- tools_used: ["Write"]
-- versions: {"model":"MEGA093","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: monitor-fsm-types-093
+// inputs: ["monitoring requirements", "god object analysis"]
+// tools_used: ["Write"]
+// versions: {"model":"MEGA093","prompt":"v1.0"}
+// === END FOOTER ===

@@ -207,17 +207,17 @@ export class DriftDetectionFSM {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:45:23-04:00 | agent@claude-sonnet-4 | Create FSM component for drift detection state management | DriftDetectionFSM.ts | OK | NASA Rule 10 compliant FSM with <=60 line functions | 0.00 | a7b8c9d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-020-fsm-refactor
-- inputs: ["ComplianceDriftDetector-typed.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-nasa-rule-10"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-020-fsm-refactor
+// inputs: ["ComplianceDriftDetector-typed.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-nasa-rule-10"}
+// === END FOOTER ===

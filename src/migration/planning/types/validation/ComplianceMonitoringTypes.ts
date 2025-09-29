@@ -413,17 +413,17 @@ export interface StakeholderMonitoring {
   feedback: boolean;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T10:19:45-04:00 | decomposer@claude-sonnet-4 | Created ComplianceMonitoringTypes.ts - compliance interfaces | ComplianceMonitoringTypes.ts | OK | Extracted compliance/monitoring types, <500 lines | 0.00 | d0f5b1c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: migration-decomposition-004
-- inputs: ["MigrationAnalysisTypes.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"type-decomposition-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: migration-decomposition-004
+// inputs: ["MigrationAnalysisTypes.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"type-decomposition-v1"}
+// === END FOOTER ===

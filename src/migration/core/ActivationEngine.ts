@@ -277,17 +277,17 @@ export class ActivationEngine extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T14:36:18-04:00 | coder@claude-sonnet-4 | Created activation engine component | ActivationEngine.ts | OK | FSM-driven activation management | 0.00 | 6f8a9c2 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fallback-fsm-refactor-006
-- inputs: ["FallbackChainFacade.ts", "FallbackStateMachine.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-component-v2"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fallback-fsm-refactor-006
+// inputs: ["FallbackChainFacade.ts", "FallbackStateMachine.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-component-v2"}
+// === END FOOTER ===

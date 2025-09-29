@@ -105,17 +105,17 @@ export interface TransitionGuard {
 // Re-export types from original implementation
 export * from '../../../MigrationPlanner';
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T19:47:12-04:00 | coder@claude-sonnet-4-20250514 | Create FSM types for migration planning | MigrationFSMTypes.ts | OK | -- | 0.00 | a7b8c9d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: migration-fsm-types-001
-- inputs: ["MigrationPlanner.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"migration-fsm-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: migration-fsm-types-001
+// inputs: ["MigrationPlanner.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4-20250514","prompt":"migration-fsm-refactor-v1"}
+// === END FOOTER ===

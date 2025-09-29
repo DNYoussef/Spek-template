@@ -122,17 +122,17 @@ export class CanaryProtocolMigration extends EventEmitter {
 
 export default CanaryProtocolMigration;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:19:05-04:00 | agent048@claude-sonnet-4 | Refactored monolithic class to FSM-based delegation pattern | CanaryProtocolMigration.ts | OK | 972 lines -> 100 lines, FSM-based architecture | 0.00 | h8i9j0k |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-agent-048-legacy-wrapper
-- inputs: ["CanaryProtocolMigration.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"codex-048-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-agent-048-legacy-wrapper
+// inputs: ["CanaryProtocolMigration.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"codex-048-v1"}
+// === END FOOTER ===

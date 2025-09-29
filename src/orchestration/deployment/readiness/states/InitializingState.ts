@@ -103,17 +103,17 @@ export default class InitializingState implements StateHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-01-28T03:40:15-05:00 | coder@claude-sonnet-4 | Created initializing state handler with setup logic | InitializingState.ts | OK | NASA Rule 10 compliant state handler | 0.05 | mno7890 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: readiness-init-005
-- inputs: ["StateRegistry.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: readiness-init-005
+// inputs: ["StateRegistry.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
+// === END FOOTER ===

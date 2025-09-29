@@ -268,17 +268,17 @@ export class QualityReporter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:36:27-04:00 | agent@Sonnet4 | Create QualityReporter component | QualityReporter.ts | OK | NASA Rule 10 reporting logic | 0.00 | 0t1u2v3 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: princess-domain-elimination-026
-- inputs: ["QualityPrincessCore.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-3-5-sonnet-20241022","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: princess-domain-elimination-026
+// inputs: ["QualityPrincessCore.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-3-5-sonnet-20241022","prompt":"v1.0"}
+// === END FOOTER ===

@@ -1,8 +1,8 @@
 
-// real-time-monitorFacade.ts - Facade for eliminated god object
+// RealTimeMonitorFacade.ts - Facade for eliminated god object
 import { monitorBaseFSMConfig } from './fsm/MonitorBaseFSM';
 
-export class real-time-monitorFacade {
+export class RealTimeMonitorFacade {
     private fsmConfig = monitorBaseFSMConfig;
 
     constructor() {

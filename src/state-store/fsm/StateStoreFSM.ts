@@ -107,17 +107,17 @@ export class StateStoreFSM extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0 | 2025-09-28T19:15:45-04:00 | mega-agent-103@claude-sonnet-4 | State store FSM with state transitions | StateStoreFSM.ts | OK | Clean FSM implementation ≤60 lines per function | 0.00 | k1l2m3n |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: memory-terminator-010
-- inputs: ["StateStoreState", "StateStoreEvent"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: memory-terminator-010
+// inputs: ["StateStoreState", "StateStoreEvent"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
+// === END FOOTER ===

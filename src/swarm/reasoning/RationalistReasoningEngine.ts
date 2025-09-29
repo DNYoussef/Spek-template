@@ -51,17 +51,17 @@ export type { RiskAssessment, RiskFactor, StakeholderImpact } from './rationalis
  * Testing: All existing tests continue to work without modification
  */
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.0.0   | 2025-09-28T15:08:22-04:00 | mega-destroyer@sonnet-4 | Eliminated 1255-line god object via FSM decomposition | RationalistReasoningEngine+4components | OK | 97.2% reduction achieved | 0.00 | d0a6f4c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-destroyer-106-rationalist
-- inputs: ["RationalistReasoningEngine.ts(1255)"]
-- tools_used: ["shared-mega-fsm", "evidence-processor", "hypothesis-engine", "decision-engine", "fsm-facade"]
-- versions: {"model":"claude-sonnet-4","prompt":"mega-destroyer-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 2.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-destroyer-106-rationalist
+// inputs: ["RationalistReasoningEngine.ts(1255)"]
+// tools_used: ["shared-mega-fsm", "evidence-processor", "hypothesis-engine", "decision-engine", "fsm-facade"]
+// versions: {"model":"claude-sonnet-4","prompt":"mega-destroyer-v1"}
+// === END FOOTER ===

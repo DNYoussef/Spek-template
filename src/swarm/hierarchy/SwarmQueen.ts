@@ -8,6 +8,8 @@ import { EventEmitter } from 'events';
 import { QueenOrchestrator } from './core/QueenOrchestrator';
 import { ContextDNA } from '../../context/ContextDNA';
 import { IntelligentContextPruner } from '../../context/IntelligentContextPruner';
+import { A2ACommunicationEngine } from '../../dspy-integration/a2a-context-dna/A2ACommunicationEngine';
+import { ContextDNAEnhancer } from '../../dspy-integration/a2a-context-dna/ContextDNAEnhancer';
 
 interface SwarmTask {
   id: string;
@@ -37,6 +39,8 @@ export class SwarmQueen extends EventEmitter {
   private orchestrator: QueenOrchestrator;
   private contextDNA: ContextDNA;
   private queenPruner: IntelligentContextPruner;
+  private a2aEngine: A2ACommunicationEngine;
+  private contextEnhancer: ContextDNAEnhancer;
   private readonly maxQueenContext = 500 * 1024;
 
   constructor() {
@@ -44,6 +48,14 @@ export class SwarmQueen extends EventEmitter {
     this.orchestrator = new QueenOrchestrator();
     this.contextDNA = new ContextDNA();
     this.queenPruner = new IntelligentContextPruner(this.maxQueenContext);
+
+    // Initialize DSPy-optimized communication
+    this.a2aEngine = new A2ACommunicationEngine(
+      this.contextEnhancer,
+      null, // Quality scorer will be injected later
+      null  // Memory coordinator will be injected later
+    );
+    this.contextEnhancer = new ContextDNAEnhancer();
 
     // Forward all events from orchestrator
     this.setupEventForwarding();
@@ -54,6 +66,9 @@ export class SwarmQueen extends EventEmitter {
    */
   async initialize(): Promise<void> {
     await this.orchestrator.initialize();
+
+    // Pass A2A engine to orchestrator for DSPy optimization
+    await this.orchestrator.setA2AEngine(this.a2aEngine);
   }
 
   /**

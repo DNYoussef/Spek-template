@@ -1,10 +1,6 @@
 {
   "errors": [
     {
-      "filename": "analyzer/architecture\\analysis_strategy.py",
-      "reason": "syntax error while parsing AST from file"
-    },
-    {
       "filename": "analyzer/architecture\\detector_pool.py",
       "reason": "syntax error while parsing AST from file"
     },
@@ -209,18 +205,18 @@
       "reason": "syntax error while parsing AST from file"
     }
   ],
-  "generated_at": "2025-09-27T04:14:37Z",
+  "generated_at": "2025-09-28T23:32:11Z",
   "metrics": {
     "_totals": {
-      "CONFIDENCE.HIGH": 421,
+      "CONFIDENCE.HIGH": 426,
       "CONFIDENCE.LOW": 0,
       "CONFIDENCE.MEDIUM": 3,
       "CONFIDENCE.UNDEFINED": 0,
       "SEVERITY.HIGH": 0,
-      "SEVERITY.LOW": 422,
+      "SEVERITY.LOW": 427,
       "SEVERITY.MEDIUM": 2,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 69126,
+      "loc": 69105,
       "nosec": 0,
       "skipped_tests": 0
     },
@@ -355,7 +351,15 @@
       "skipped_tests": 0
     },
     "analyzer/architecture\\analysis_strategy.py": {
-      "loc": 293,
+      "CONFIDENCE.HIGH": 5,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 5,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 273,
       "nosec": 0,
       "skipped_tests": 0
     },
@@ -817,7 +821,7 @@
       "SEVERITY.LOW": 0,
       "SEVERITY.MEDIUM": 0,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 170,
+      "loc": 169,
       "nosec": 0,
       "skipped_tests": 0
     },
@@ -3554,6 +3558,106 @@
       "line_number": 137,
       "line_range": [
         137
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "31         \"\"\"Validate analysis result after initialization.\"\"\"\n32         assert 0.0 <= self.confidence <= 1.0, \"Confidence must be between 0 and 1\"\n33         assert isinstance(self.findings, list), \"Findings must be a list\"\n",
+      "col_offset": 8,
+      "end_col_offset": 82,
+      "filename": "analyzer/architecture\\analysis_strategy.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 32,
+      "line_range": [
+        32
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "32         assert 0.0 <= self.confidence <= 1.0, \"Confidence must be between 0 and 1\"\n33         assert isinstance(self.findings, list), \"Findings must be a list\"\n34         assert isinstance(self.metrics, dict), \"Metrics must be a dictionary\"\n",
+      "col_offset": 8,
+      "end_col_offset": 73,
+      "filename": "analyzer/architecture\\analysis_strategy.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 33,
+      "line_range": [
+        33
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "33         assert isinstance(self.findings, list), \"Findings must be a list\"\n34         assert isinstance(self.metrics, dict), \"Metrics must be a dictionary\"\n35 \n",
+      "col_offset": 8,
+      "end_col_offset": 77,
+      "filename": "analyzer/architecture\\analysis_strategy.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 34,
+      "line_range": [
+        34
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "343         \"\"\"Register new strategy type.\"\"\"\n344         assert isinstance(name, str), \"name must be string\"\n345         assert issubclass(strategy_class, AnalysisStrategy), \"must be AnalysisStrategy subclass\"\n",
+      "col_offset": 8,
+      "end_col_offset": 59,
+      "filename": "analyzer/architecture\\analysis_strategy.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 344,
+      "line_range": [
+        344
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "344         assert isinstance(name, str), \"name must be string\"\n345         assert issubclass(strategy_class, AnalysisStrategy), \"must be AnalysisStrategy subclass\"\n346 \n",
+      "col_offset": 8,
+      "end_col_offset": 96,
+      "filename": "analyzer/architecture\\analysis_strategy.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 345,
+      "line_range": [
+        345
       ],
       "more_info": "https://bandit.readthedocs.io/en/1.8.6/plugins/b101_assert_used.html",
       "test_id": "B101",

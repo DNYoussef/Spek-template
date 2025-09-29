@@ -466,17 +466,17 @@ export default SystemIntegrationOrchestratorFSM;
 // Re-export original class for gradual migration
 export { SystemIntegrationOrchestrator } from './SystemIntegrationOrchestrator';
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T18:22:41-04:00 | SystemIntegrationOrchestrator@refactor | Created FSM-first refactored orchestrator with backward compatibility | SystemIntegrationOrchestratorFSM.ts | OK | 490 lines, NASA Rule 10 compliant | 0.00 | d7a5b3f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-orchestrator-main-001
-- inputs: ["All FSM components", "original SystemIntegrationOrchestrator.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-orchestrator-main-001
+// inputs: ["All FSM components", "original SystemIntegrationOrchestrator.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
+// === END FOOTER ===

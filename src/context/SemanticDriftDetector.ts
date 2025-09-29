@@ -58,17 +58,17 @@ export class SemanticDriftDetector {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T20:25:02-04:00 | agent@ModelMEGA093 | Replace 777-line god object with 48-line FSM facade | SemanticDriftDetector.ts | OK | 93.8% reduction | 0.00 | c5d8a2e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: semantic-facade-093
-- inputs: ["original god object", "FSM implementation"]
-- tools_used: ["Write"]
-- versions: {"model":"MEGA093","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: semantic-facade-093
+// inputs: ["original god object", "FSM implementation"]
+// tools_used: ["Write"]
+// versions: {"model":"MEGA093","prompt":"v1.0"}
+// === END FOOTER ===

@@ -190,17 +190,17 @@ export class ContextRouter extends EventEmitter {
 // Re-export RouteDecision for backward compatibility
 export { RouteDecision };
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.0.0   | 2025-09-28T21:50:00Z | MEGA_088@claude-sonnet-4 | MASSIVE GOD OBJECT ELIMINATION: 1697->150 lines (91% reduction) | ContextRouter.ts | OK | Refactored to FSM facade delegation, eliminated 1547 lines | 0.00 | a8c6e4f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega088-context-router-elimination-001
-- inputs: ["ContextRouter.ts", "ContextRouterFacade.ts"]
-- tools_used: ["Write", "Edit", "MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"mega088-god-object-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 2.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega088-context-router-elimination-001
+// inputs: ["ContextRouter.ts", "ContextRouterFacade.ts"]
+// tools_used: ["Write", "Edit", "MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"mega088-god-object-elimination"}
+// === END FOOTER ===

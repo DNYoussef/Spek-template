@@ -219,17 +219,13 @@ export class QueenCoordinator extends EventEmitter {
 
 export default QueenCoordinator;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T20:45:12-04:00 | agent077@sonnet-4 | Queen coordinator core decomposition | QueenCoordinator.ts | OK | Single responsibility princess coordination | 0.00 | e7c4f2a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: agent077-queen-coordinator-decomposition
-- inputs: ["src/architecture/langgraph/queen/QueenOrchestrator.ts"]
-- tools_used: ["Read", "Write", "Bash"]
-- versions: {"model":"sonnet-4","fsm-design":"1.0.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+// Receipt: status=OK | run_id=agent077-queen-coordinator-decomposition
+// inputs: ["src/architecture/langgraph/queen/QueenOrchestrator.ts"]
+// tools_used: ["Read", "Write", "Bash"]
+// versions: {"model":"sonnet-4","fsm-design":"1.0.0"}
+// === END FOOTER ===

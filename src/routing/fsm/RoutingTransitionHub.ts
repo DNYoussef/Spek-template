@@ -265,17 +265,17 @@ export class RoutingTransitionHub {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T21:32:00Z | MEGA_088@claude-sonnet-4 | Created unified routing transition hub | RoutingTransitionHub.ts | OK | Centralized FSM transitions for all router types | 0.00 | c3d5e7f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega088-routing-transition-hub-001
-- inputs: ["RoutingStates.ts", "FSM transition analysis"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"mega088-fsm-architecture"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega088-routing-transition-hub-001
+// inputs: ["RoutingStates.ts", "FSM transition analysis"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"mega088-fsm-architecture"}
+// === END FOOTER ===

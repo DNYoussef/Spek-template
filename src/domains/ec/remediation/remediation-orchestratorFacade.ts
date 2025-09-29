@@ -1,8 +1,8 @@
 
-// remediation-orchestratorFacade.ts - Facade for eliminated god object
+// RemediationOrchestratorFacade.ts - Facade for eliminated god object
 import { orchestratorBaseFSMConfig } from './fsm/OrchestratorBaseFSM';
 
-export class remediation-orchestratorFacade {
+export class RemediationOrchestratorFacade {
     private fsmConfig = orchestratorBaseFSMConfig;
 
     constructor() {

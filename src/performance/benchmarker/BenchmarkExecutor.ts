@@ -57,10 +57,10 @@ export class BenchmarkExecutor {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.0.0   | 2025-09-28T14:51:00-04:00 | agent@God-Object-Terminator | Eliminated 1237-line god object to 48-line FSM facade | BenchmarkExecutor.ts | OK | 96.1% reduction, FSM-based architecture | 0.00 | e8f4d2c |
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
+
+// Version: 2.0.0
+// === END FOOTER ===
 

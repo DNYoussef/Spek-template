@@ -43,9 +43,9 @@ export class ExecutorPool {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T14:50:00-04:00 | agent@God-Object-Terminator | Created executor pool for managing multiple benchmarks | ExecutorPool.ts | OK | Pool management extracted from god object | 0.00 | d9e2f5a |
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
+
+// Version: 1.0.0
+// === END FOOTER ===

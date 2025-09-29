@@ -274,17 +274,17 @@ export class IntegrationValidator {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:39:45-04:00 | mega-swarm-100@agent | Created Integration Validator with contract-based validation engine | IntegrationValidator.ts | OK | Eliminates validation god object patterns with NASA compliance | 0.00 | c2d3f4e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: integration-killer-003
-- inputs: ["IntegrationFSMCore.ts", "IntegrationHub.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"mega-swarm-100","prompt":"integration-elimination-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: integration-killer-003
+// inputs: ["IntegrationFSMCore.ts", "IntegrationHub.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"mega-swarm-100","prompt":"integration-elimination-v1"}
+// === END FOOTER ===

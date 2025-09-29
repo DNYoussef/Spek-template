@@ -334,17 +334,17 @@ export class ValidationStateMachine extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:47:35-04:00 | agent@Sonnet-4 | Created central FSM state machine | ValidationStateMachine.ts | OK | Complete transition management system | 0.00 | b8d5e7f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-046-fsm-statemachine
-- inputs: ["ValidationTypes.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-046-fsm-statemachine
+// inputs: ["ValidationTypes.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4-20250514","prompt":"v1"}
+// === END FOOTER ===

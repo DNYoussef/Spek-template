@@ -218,17 +218,17 @@ export class IdleState implements IIntegrationTestState {
 
 export default IdleState;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:58:42-04:00 | agent@Sonnet4 | Created IdleState with FSM contract and NASA Rule 10 compliance | IdleState.ts | OK | FSM state isolation pattern | 0.00 | 9b6d4e1 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: integration-idle-state-001
-- inputs: ["IntegrationTestFSM.types.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"Sonnet4","prompt":"fsm-first-integration"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: integration-idle-state-001
+// inputs: ["IntegrationTestFSM.types.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"Sonnet4","prompt":"fsm-first-integration"}
+// === END FOOTER ===

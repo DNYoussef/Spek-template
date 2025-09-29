@@ -57,17 +57,17 @@ export class ReportingState {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T11:42:47-04:00 | validation-destroyer@claude-4 | Created ReportingState | ReportingState.ts | OK | Functions ≤60 lines | 0.00 | b9d4f73 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: reporting-state-001
-- inputs: ["ValidationFSMTypes.ts", "ValidationReporter.ts"]
-- tools_used: ["mcp__filesystem__write_file"]
-- versions: {"model":"claude-4","prompt":"validation-destroyer-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: reporting-state-001
+// inputs: ["ValidationFSMTypes.ts", "ValidationReporter.ts"]
+// tools_used: ["mcp__filesystem__write_file"]
+// versions: {"model":"claude-4","prompt":"validation-destroyer-v1"}
+// === END FOOTER ===

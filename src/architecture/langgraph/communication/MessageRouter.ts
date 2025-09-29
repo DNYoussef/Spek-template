@@ -140,7 +140,6 @@ export class MessageRouter {
   removeAllListeners = this.facade.removeAllListeners.bind(this.facade);
   once = this.facade.once.bind(this.facade);
 }
-}
 
 export default MessageRouter;
 

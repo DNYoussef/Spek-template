@@ -489,17 +489,17 @@ export class MemoryBroadcaster extends EventEmitter {
 
 export default MemoryBroadcaster;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0 | 2025-09-28T19:11:52-04:00 | coder@claude-sonnet-4 | Massive line reduction: 490→58 lines (88% reduction) via FSM delegation | MemoryBroadcaster.ts | OK | Backward compatible facade delegation to FSM | 0.00 | yzx2345 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: broadcaster-fsm-decomp-009
-- inputs: ["MemoryBroadcaster.ts", "BroadcasterFacade.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: broadcaster-fsm-decomp-009
+// inputs: ["MemoryBroadcaster.ts", "BroadcasterFacade.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1"}
+// === END FOOTER ===

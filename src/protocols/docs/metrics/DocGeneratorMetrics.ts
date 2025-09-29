@@ -419,17 +419,17 @@ export class DocGeneratorMetrics {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-01-28T20:06:15-05:00 | CODEX-047@claude-3-5-sonnet-20241022 | Created comprehensive metrics system for documentation generator | DocGeneratorMetrics.ts | OK | Full performance tracking with bottleneck analysis and NASA Rule 10 compliance | 0.00 | f1b5e7a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-047-a2a-doc-generator-refactor
-- inputs: ["Metrics system requirements"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-3-5-sonnet-20241022","prompt":"metrics-implementation"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-047-a2a-doc-generator-refactor
+// inputs: ["Metrics system requirements"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-3-5-sonnet-20241022","prompt":"metrics-implementation"}
+// === END FOOTER ===

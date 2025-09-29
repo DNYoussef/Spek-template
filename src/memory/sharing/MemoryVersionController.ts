@@ -74,17 +74,17 @@ export class MemoryVersionController {
 
 export default MemoryVersionController;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0 | 2025-09-28T19:15:44-04:00 | mega-agent-103@claude-sonnet-4 | Eliminated MemoryVersionController god object (90.3% reduction) | MemoryVersionController.ts | OK | 463→72 lines via FSM facade delegation | 0.00 | c4d5e6f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: memory-terminator-008
-- inputs: ["MemoryVersionController.ts", "MemoryVersionFacade"]
-- tools_used: ["Edit"]
-- versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: memory-terminator-008
+// inputs: ["MemoryVersionController.ts", "MemoryVersionFacade"]
+// tools_used: ["Edit"]
+// versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
+// === END FOOTER ===

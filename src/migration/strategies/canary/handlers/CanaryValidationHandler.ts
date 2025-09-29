@@ -296,17 +296,17 @@ export class CanaryValidationHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:16:05-04:00 | agent048@claude-sonnet-4 | Created CanaryValidationHandler with comprehensive validation logic | CanaryValidationHandler.ts | OK | Validation with monitoring and rollback triggers | 0.00 | e5f6g7h |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-agent-048-validation-handler
-- inputs: ["none"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"codex-048-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-agent-048-validation-handler
+// inputs: ["none"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"codex-048-v1"}
+// === END FOOTER ===

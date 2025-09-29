@@ -308,17 +308,17 @@ export class FallbackStateMachine extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T12:16:45-04:00 | agent@Model | Created FSM state machine | states/FallbackStateMachine.ts | OK | Complete FSM implementation | 0.00 | 9f2b1c8 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fallback-fsm-refactor-002
-- inputs: ["FallbackChainManager.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"codex-agent-026"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fallback-fsm-refactor-002
+// inputs: ["FallbackChainManager.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"codex-agent-026"}
+// === END FOOTER ===

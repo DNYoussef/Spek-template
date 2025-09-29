@@ -451,17 +451,17 @@ export class DefaultStepValidator {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T10:48:30-04:00 | agent@Sonnet | Create isolated step executor with FSM integration | StepExecutor.ts | OK | Step-level execution isolation | 0.00 | c7f8a1e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: step-executor-001
-- inputs: ["WorkflowTransitionHub.ts"]
-- tools_used: ["mcp__filesystem__write_file"]
-- versions: {"model":"claude-sonnet-4","prompt":"workflow-hunter-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: step-executor-001
+// inputs: ["WorkflowTransitionHub.ts"]
+// tools_used: ["mcp__filesystem__write_file"]
+// versions: {"model":"claude-sonnet-4","prompt":"workflow-hunter-v1"}
+// === END FOOTER ===

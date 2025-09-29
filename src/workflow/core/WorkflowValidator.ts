@@ -444,17 +444,17 @@ export class WorkflowValidator extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T10:52:00-04:00 | agent@Sonnet | Create workflow acceptance criteria validator | WorkflowValidator.ts | OK | Comprehensive validation engine | 0.00 | e6c3f7a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: workflow-validator-001
-- inputs: ["WorkflowStates.ts", "WorkflowTransitionHub.ts"]
-- tools_used: ["mcp__filesystem__write_file"]
-- versions: {"model":"claude-sonnet-4","prompt":"workflow-hunter-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: workflow-validator-001
+// inputs: ["WorkflowStates.ts", "WorkflowTransitionHub.ts"]
+// tools_used: ["mcp__filesystem__write_file"]
+// versions: {"model":"claude-sonnet-4","prompt":"workflow-hunter-v1"}
+// === END FOOTER ===

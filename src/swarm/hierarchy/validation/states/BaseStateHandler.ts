@@ -199,17 +199,17 @@ export abstract class BaseStateHandler implements StateHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:52:15-04:00 | agent@Sonnet-4 | Created base state handler class | BaseStateHandler.ts | OK | Abstract base with common functionality | 0.00 | d7f8b9c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-046-base-handler
-- inputs: ["ValidationTypes.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-046-base-handler
+// inputs: ["ValidationTypes.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4-20250514","prompt":"v1"}
+// === END FOOTER ===

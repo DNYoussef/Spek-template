@@ -82,17 +82,17 @@ export class ComplianceRemediator {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T12:50:35-04:00 | AGENT104@sonnet-4 | Extract ComplianceRemediator from god object | ComplianceRemediator.ts | OK | Split compliance handling, <60 lines per function | 0.00 | a5c7d9b |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: agent104-compliance-remediator
-- inputs: ["SecurityRemediationService.ts analysis"]
-- tools_used: ["Write"]
-- versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: agent104-compliance-remediator
+// inputs: ["SecurityRemediationService.ts analysis"]
+// tools_used: ["Write"]
+// versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
+// === END FOOTER ===

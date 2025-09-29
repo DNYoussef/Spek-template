@@ -335,17 +335,17 @@ export default MonitoringOrchestrator;
 // Re-export types for convenience
 export * from './types/DegradationTypes';
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:55:08-04:00 | codex@sonnet-4 | Create MonitoringOrchestrator facade | MonitoringOrchestrator.ts | OK | Main facade with dependency injection, FSM coordination, backward compatibility | 0.03 | 4a7b2d8 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: deg-orchestrator-001
-- inputs: ["MonitoringOrchestrator requirements"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"sonnet-4","prompt":"nasa-rule-10"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: deg-orchestrator-001
+// inputs: ["MonitoringOrchestrator requirements"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"sonnet-4","prompt":"nasa-rule-10"}
+// === END FOOTER ===

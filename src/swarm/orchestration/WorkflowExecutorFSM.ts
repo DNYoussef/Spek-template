@@ -423,17 +423,17 @@ export class WorkflowExecutorFSM extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T11:00:30-04:00 | agent@Sonnet | Create FSM replacement for 1019-line god object | WorkflowExecutorFSM.ts | OK | 80% line reduction achieved | 0.00 | c8f2e1d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: workflow-executor-fsm-001
-- inputs: ["WorkflowFacade.ts", "AgentFSMFacade.ts"]
-- tools_used: ["mcp__filesystem__write_file"]
-- versions: {"model":"claude-sonnet-4","prompt":"workflow-hunter-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: workflow-executor-fsm-001
+// inputs: ["WorkflowFacade.ts", "AgentFSMFacade.ts"]
+// tools_used: ["mcp__filesystem__write_file"]
+// versions: {"model":"claude-sonnet-4","prompt":"workflow-hunter-v1"}
+// === END FOOTER ===

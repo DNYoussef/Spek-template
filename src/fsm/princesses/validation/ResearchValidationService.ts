@@ -235,17 +235,17 @@ export class ResearchValidationService {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T16:46:52-04:00 | codex-agent@claude-sonnet-4 | Created ResearchValidationService for validation operations | src/fsm/princesses/validation/ResearchValidationService.ts | OK | NASA Rule 10 compliant validation service | 0.00 | d9e0f25 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-agent-023-research-fsm-refactor
-- inputs: ["src/fsm/princesses/ResearchPrincessFSM.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"codex-agent-023-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-agent-023-research-fsm-refactor
+// inputs: ["src/fsm/princesses/ResearchPrincessFSM.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"codex-agent-023-v1"}
+// === END FOOTER ===

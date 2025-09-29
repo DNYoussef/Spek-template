@@ -139,17 +139,17 @@ export class DocumentationPrincessDomain extends PrincessBase<DocumentationConte
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:35:12-04:00 | agent@Sonnet4 | Create DocumentationPrincessDomain decomposition from 1110-line god object | DocumentationPrincessDomain.ts | OK | NASA Rule 10 compliant, ≤60 lines per function | 0.00 | 7a8b9c2 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: princess-domain-elimination-001
-- inputs: ["DocumentationPrincessFSM.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-3-5-sonnet-20241022","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: princess-domain-elimination-001
+// inputs: ["DocumentationPrincessFSM.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-3-5-sonnet-20241022","prompt":"v1.0"}
+// === END FOOTER ===

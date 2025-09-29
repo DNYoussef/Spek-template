@@ -394,17 +394,17 @@ export interface ResponsePlan {
   documentation: boolean;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T10:16:45-04:00 | decomposer@claude-sonnet-4 | Created PerformanceAnalysisTypes.ts - performance interfaces | PerformanceAnalysisTypes.ts | OK | Extracted performance/security types, <500 lines | 0.00 | b8f3d9e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: migration-decomposition-002
-- inputs: ["MigrationAnalysisTypes.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"type-decomposition-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: migration-decomposition-002
+// inputs: ["MigrationAnalysisTypes.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"type-decomposition-v1"}
+// === END FOOTER ===

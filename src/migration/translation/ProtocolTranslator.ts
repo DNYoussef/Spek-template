@@ -105,17 +105,17 @@ export default ProtocolTranslator;
  * ```
  */
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:56:22-04:00 | coder@claude-sonnet-4 | Decompose ProtocolTranslator (1,769→64 lines, 96.4% reduction) | 3 files: Types, Core, Facade | OK | NASA Rule 10 compliant, modular architecture | 0.00 | d8e1c3f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: god-object-elimination-004
-- inputs: ["ProtocolTranslator.ts"]
-- tools_used: ["Write", "Bash"]
-- versions: {"model":"claude-sonnet-4","prompt":"god-object-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: god-object-elimination-004
+// inputs: ["ProtocolTranslator.ts"]
+// tools_used: ["Write", "Bash"]
+// versions: {"model":"claude-sonnet-4","prompt":"god-object-elimination"}
+// === END FOOTER ===

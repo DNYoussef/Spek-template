@@ -222,17 +222,17 @@ export abstract class BaseStateHandler implements StateHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:16:45-04:00 | agent@coder | Created base state handler with common functionality | BaseStateHandler.ts | OK | -- | 0.00 | c8d2f9a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-refactor-003
-- inputs: ["AnalysisStateMachine.ts"]
-- tools_used: ["filesystem"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-refactor-003
+// inputs: ["AnalysisStateMachine.ts"]
+// tools_used: ["filesystem"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
+// === END FOOTER ===

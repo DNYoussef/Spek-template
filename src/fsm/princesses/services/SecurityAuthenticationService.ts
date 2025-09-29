@@ -428,17 +428,17 @@ export class SecurityAuthenticationService {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0 | 2025-09-28T04:15:06-04:00 | CODEX-038@sonnet-4 | Create SecurityAuthenticationService following NASA Rule 10 | services/SecurityAuthenticationService.ts | OK | Extracted authentication validation operations from main FSM | 0.00 | b5f8e3a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-038-authentication-service
-- inputs: ["SecurityPrincessFSM.ts analysis"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"sonnet-4","prompt":"nasa-rule-10-fsm"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-038-authentication-service
+// inputs: ["SecurityPrincessFSM.ts analysis"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"sonnet-4","prompt":"nasa-rule-10-fsm"}
+// === END FOOTER ===

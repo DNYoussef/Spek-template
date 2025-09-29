@@ -105,17 +105,17 @@ export default RiskAssessmentEngine;
  * ```
  */
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:47:12-04:00 | coder@claude-sonnet-4 | Decompose RiskAssessmentEngine (2,151→75 lines, 96.5% reduction) | 4 files: Types, StateMachine, Core, Facade | OK | FSM-First architecture, NASA Rule 10 compliant | 0.00 | b3e8f1a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: god-object-elimination-002
-- inputs: ["RiskAssessmentEngine.ts"]
-- tools_used: ["Write", "Bash"]
-- versions: {"model":"claude-sonnet-4","prompt":"god-object-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: god-object-elimination-002
+// inputs: ["RiskAssessmentEngine.ts"]
+// tools_used: ["Write", "Bash"]
+// versions: {"model":"claude-sonnet-4","prompt":"god-object-elimination"}
+// === END FOOTER ===

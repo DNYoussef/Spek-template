@@ -281,17 +281,17 @@ export class StressTestStateMachine extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T16:31:28-04:00 | coder@Sonnet | Create FSM state machine with NASA Rule 10 compliance | StressTestStateMachine.ts | OK | Fixed bounds for transitions, recovery, and phase retries | 0.00 | def456g |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: stress_test_refactor_002
-- inputs: ["StressTestTypes.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"Sonnet 4","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: stress_test_refactor_002
+// inputs: ["StressTestTypes.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"Sonnet 4","prompt":"v1.0"}
+// === END FOOTER ===

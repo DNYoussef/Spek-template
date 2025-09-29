@@ -202,17 +202,17 @@ export class PlanningState extends BaseStateHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:25:18-04:00 | agent@coder | Created PlanningState with migration plan creation | PlanningState.ts | OK | -- | 0.00 | f9b2d4a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-refactor-008
-- inputs: ["AnalysisStateMachine.ts"]
-- tools_used: ["filesystem"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-refactor-008
+// inputs: ["AnalysisStateMachine.ts"]
+// tools_used: ["filesystem"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
+// === END FOOTER ===

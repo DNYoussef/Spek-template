@@ -254,17 +254,17 @@ export class SecurityRemediationHandler extends RequestHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T12:51:25-04:00 | AGENT104@sonnet-4 | Create FSM-based SecurityRemediationHandler | SecurityRemediationHandler.ts | OK | 634→200 lines, FSM integration, <60 lines per function | 0.00 | c9a4f1b |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: agent104-security-remediation-handler
-- inputs: ["SecurityRemediationService.ts", "RequestHandler.ts", "VulnerabilityRemediator.ts", "ComplianceRemediator.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: agent104-security-remediation-handler
+// inputs: ["SecurityRemediationService.ts", "RequestHandler.ts", "VulnerabilityRemediator.ts", "ComplianceRemediator.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
+// === END FOOTER ===

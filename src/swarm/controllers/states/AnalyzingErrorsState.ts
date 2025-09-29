@@ -193,17 +193,17 @@ export class AnalyzingErrorsState {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:35:20-04:00 | codex@sonnet-4 | Create AnalyzingErrorsState with NASA Rule 10 compliance | AnalyzingErrorsState.ts | OK | FSM state implementation | 0.00 | c3d4e5f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: debug-fsm-state-001
-- inputs: ["DebugState types"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"sonnet-4","prompt":"fsm-debug-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: debug-fsm-state-001
+// inputs: ["DebugState types"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"sonnet-4","prompt":"fsm-debug-v1"}
+// === END FOOTER ===

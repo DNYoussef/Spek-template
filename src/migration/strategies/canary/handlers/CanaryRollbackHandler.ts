@@ -221,17 +221,17 @@ export class CanaryRollbackHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:17:01-04:00 | agent048@claude-sonnet-4 | Created CanaryRollbackHandler with comprehensive rollback operations | CanaryRollbackHandler.ts | OK | Rollback logic with validation and cleanup | 0.00 | f6g7h8i |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-agent-048-rollback-handler
-- inputs: ["none"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"codex-048-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-agent-048-rollback-handler
+// inputs: ["none"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"codex-048-v1"}
+// === END FOOTER ===

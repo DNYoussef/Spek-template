@@ -186,17 +186,17 @@ interface DetectionResult {
 
 export default BiasDetector;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:36:00-04:00 | codex@Model | Create bias detection analyzer | BiasDetector.ts | OK | <=60 lines per method | 0.00 | 6c3d8f4 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: bias-detector-001
-- inputs: ["RationalistReasoningEngine.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"codex","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: bias-detector-001
+// inputs: ["RationalistReasoningEngine.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"codex","prompt":"v1"}
+// === END FOOTER ===

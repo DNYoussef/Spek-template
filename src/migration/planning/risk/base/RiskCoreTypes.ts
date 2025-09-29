@@ -217,17 +217,17 @@ export interface AssessmentRecord {
   error?: string;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T10:23:15-04:00 | decomposer@claude-sonnet-4 | Created RiskCoreTypes.ts - core risk assessment interfaces | RiskCoreTypes.ts | OK | Extracted core risk types, <500 lines | 0.00 | f2b7e8c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: risk-decomposition-001
-- inputs: ["RiskAssessmentTypes.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"type-decomposition-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: risk-decomposition-001
+// inputs: ["RiskAssessmentTypes.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"type-decomposition-v1"}
+// === END FOOTER ===

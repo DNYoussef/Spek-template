@@ -306,17 +306,17 @@ export class UnifiedIntegrationFacade extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:41:15-04:00 | mega-swarm-100@agent | Created Unified Integration Facade eliminating all integration god objects | UnifiedIntegrationFacade.ts | OK | Single entry point replaces 4 major god objects with FSM architecture | 0.00 | f1a2b3c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: integration-killer-006
-- inputs: ["IntegrationHub.ts", "IntegrationValidator.ts", "AdapterFactory.ts", "IntegrationMonitor.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"mega-swarm-100","prompt":"integration-elimination-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: integration-killer-006
+// inputs: ["IntegrationHub.ts", "IntegrationValidator.ts", "AdapterFactory.ts", "IntegrationMonitor.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"mega-swarm-100","prompt":"integration-elimination-v1"}
+// === END FOOTER ===

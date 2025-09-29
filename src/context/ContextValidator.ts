@@ -426,17 +426,17 @@ export class ContextValidator {
 
 export default ContextValidator;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.0.0   | 2025-09-28T20:15:00-04:00 | agent027@sonnet-4 | NASA Rule 10 refactor with FSM states | ContextValidator.ts | OK | Eliminated recursion, added FSM state management, 2+ assertions per function | 0.00 | a7f4c9d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: agent027-fsm-refactor-20250928
-- inputs: ["src/context/ContextValidator.ts"]
-- tools_used: ["Read", "MultiEdit", "Edit", "Bash"]
-- versions: {"model":"sonnet-4","prompt":"agent027-nasa-rule10-fsm"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 2.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: agent027-fsm-refactor-20250928
+// inputs: ["src/context/ContextValidator.ts"]
+// tools_used: ["Read", "MultiEdit", "Edit", "Bash"]
+// versions: {"model":"sonnet-4","prompt":"agent027-nasa-rule10-fsm"}
+// === END FOOTER ===

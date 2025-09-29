@@ -397,17 +397,17 @@ export class MCPProtocolAdapter extends EventEmitter {
   }
 }
 
-/* <!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-01-27T14:55:03-05:00 | protocol-dev@claude-3-5-sonnet-20241022 | Created real MCP Protocol Adapter | MCPProtocolAdapter.ts | OK | Real WebSocket-based protocol bridge | 0.00 | a7c4f9e |
+/* // === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: a2a-protocol-mcp-adapter-creation
-- inputs: ["A2A Protocol system requirements"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-3-5-sonnet-20241022","prompt":"protocol-dev-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE --> */
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: a2a-protocol-mcp-adapter-creation
+// inputs: ["A2A Protocol system requirements"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-3-5-sonnet-20241022","prompt":"protocol-dev-v1.0"}
+// === END FOOTER === */

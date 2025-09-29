@@ -1,8 +1,8 @@
 
-// nist-ssdf-validatorFacade.ts - Facade for eliminated god object
+// NistSsdfValidatorFacade.ts - Facade for eliminated god object
 import { validatorBaseFSMConfig } from './fsm/ValidatorBaseFSM';
 
-export class nist-ssdf-validatorFacade {
+export class NistSsdfValidatorFacade {
     private fsmConfig = validatorBaseFSMConfig;
 
     constructor() {

@@ -470,17 +470,17 @@ export class ResearchMachineConfig {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T16:42:13-04:00 | codex-agent@claude-sonnet-4 | Created ResearchMachineConfig for state machine separation | src/fsm/princesses/config/ResearchMachineConfig.ts | OK | NASA Rule 10 compliant state machine config | 0.00 | a7b4c92 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-agent-023-research-fsm-refactor
-- inputs: ["src/fsm/princesses/ResearchPrincessFSM.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"codex-agent-023-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-agent-023-research-fsm-refactor
+// inputs: ["src/fsm/princesses/ResearchPrincessFSM.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"codex-agent-023-v1"}
+// === END FOOTER ===

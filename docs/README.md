@@ -40,6 +40,17 @@ Welcome to the comprehensive documentation for the SPEK Enhanced Development Pla
 - **[Contributing](development/contributing.md)** - Contribution guidelines
 - **[Testing](development/testing.md)** - Test strategies
 - **[Debugging](development/debugging.md)** - Troubleshooting guide
+- **[Development Reports](development/README.md)** - Script and process documentation
+
+###  Analysis & Validation
+- **[Technical Analysis](analysis/README.md)** - System analysis and optimization reports
+- **[Validation Reports](validation/README.md)** - Audit reports and theater elimination
+- **[Performance Analysis](performance/README.md)** - Performance optimization reports
+
+###  Operations
+- **[Deployment](deployment/README.md)** - Deployment procedures and readiness
+- **[Workflows](workflows/README.md)** - GitHub workflow configuration
+- **[Compliance](compliance/README.md)** - NASA rules and enterprise standards
 
 ## System Highlights
 

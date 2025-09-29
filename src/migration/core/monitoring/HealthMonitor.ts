@@ -398,17 +398,17 @@ export class HealthMonitor extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T12:22:48-04:00 | agent@Model | Created health monitor | monitoring/HealthMonitor.ts | OK | Centralized health monitoring | 0.00 | 2f8a7b4 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fallback-fsm-refactor-006
-- inputs: ["FallbackChainManager.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"codex-agent-026"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fallback-fsm-refactor-006
+// inputs: ["FallbackChainManager.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"codex-agent-026"}
+// === END FOOTER ===

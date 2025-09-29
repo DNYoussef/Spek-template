@@ -51,17 +51,17 @@ export class QualityPrincessCore extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.1.0   | 2025-09-28T09:36:36-04:00 | agent@Sonnet4 | Optimize QualityPrincessCore to 75 lines (92.6% reduction from 1010) | QualityPrincessCore.ts | OK | NASA Rule 10 compliant, under 90 lines | 0.00 | 2c3d4e5 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: princess-domain-elimination-029
-- inputs: ["QualityPrincessCore.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-3-5-sonnet-20241022","prompt":"v2.1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 2.1.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: princess-domain-elimination-029
+// inputs: ["QualityPrincessCore.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-3-5-sonnet-20241022","prompt":"v2.1"}
+// === END FOOTER ===

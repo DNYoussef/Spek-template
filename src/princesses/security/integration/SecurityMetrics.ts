@@ -59,16 +59,16 @@ export class SecurityMetricsCollector {
 }
 
 /* AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T15:20:30-04:00 | security-fix@sonnet-4 | Created missing SecurityMetrics module for SecurityPrincess integration | SecurityMetrics.ts | OK | Fixed missing import dependency | 0.00 | a1b2c3d |
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: security-metrics-creation
-- inputs: ["Missing SecurityMetrics import error"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"security-metrics-v1.0"}
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: security-metrics-creation
+// inputs: ["Missing SecurityMetrics import error"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"security-metrics-v1.0"}
 AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE */

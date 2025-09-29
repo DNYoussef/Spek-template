@@ -21,17 +21,17 @@ export * from './validation/ComplianceMonitoringTypes';
 // - ./reporting/ReportingTypes (impact reports, analysis results)
 // - ./optimization/OptimizationTypes (cost-benefit, resource optimization)
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T10:21:12-04:00 | decomposer@claude-sonnet-4 | Created index.ts barrel export for migration types | index.ts | OK | Backward compatibility maintained | 0.00 | e1a6d7f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: migration-decomposition-005
-- inputs: ["decomposed migration types"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"type-decomposition-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: migration-decomposition-005
+// inputs: ["decomposed migration types"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"type-decomposition-v1"}
+// === END FOOTER ===

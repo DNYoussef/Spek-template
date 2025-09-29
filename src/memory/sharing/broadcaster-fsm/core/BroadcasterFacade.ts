@@ -260,17 +260,17 @@ export class BroadcasterFacade extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0 | 2025-09-28T19:11:52-04:00 | coder@claude-sonnet-4 | Implemented BroadcasterFacade with FSM delegation | BroadcasterFacade.ts | OK | NASA Rule 10 compliant facade orchestrating FSM | 0.00 | vwx8901 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: broadcaster-fsm-decomp-008
-- inputs: ["BroadcasterTypes.ts", "Components", "StateMachine"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: broadcaster-fsm-decomp-008
+// inputs: ["BroadcasterTypes.ts", "Components", "StateMachine"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1"}
+// === END FOOTER ===

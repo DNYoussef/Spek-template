@@ -183,17 +183,17 @@ export class BackupManager extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0 | 2025-09-28T19:15:46-04:00 | mega-agent-103@claude-sonnet-4 | Backup manager with bounded operations | BackupManager.ts | OK | NASA Rule 10: Bounded backup size/count | 0.00 | w1x2y3z |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: memory-terminator-013
-- inputs: ["StateSnapshot", "maxBackupSize"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: memory-terminator-013
+// inputs: ["StateSnapshot", "maxBackupSize"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
+// === END FOOTER ===

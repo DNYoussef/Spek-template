@@ -438,17 +438,17 @@ abstract class StepValidator {
 
 export default MigrationExecutor;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T20:45:12-04:00 | agent078@sonnet-4 | Migration executor core decomposition | MigrationExecutor.ts | OK | Single responsibility migration execution | 0.00 | c9e7f4a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: agent078-migration-executor-decomposition
-- inputs: ["src/migration/core/MigrationOrchestrator.ts"]
-- tools_used: ["Read", "Write", "Bash"]
-- versions: {"model":"sonnet-4","fsm-design":"1.0.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: agent078-migration-executor-decomposition
+// inputs: ["src/migration/core/MigrationOrchestrator.ts"]
+// tools_used: ["Read", "Write", "Bash"]
+// versions: {"model":"sonnet-4","fsm-design":"1.0.0"}
+// === END FOOTER ===

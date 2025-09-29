@@ -105,17 +105,17 @@ export class CryptographyManager extends EventEmitter {
 
 export default CryptographyManager;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T11:57:24-04:00 | agent@claude-sonnet-4 | Eliminated CryptographyManager god object (93.2% reduction) | CryptographyManager.ts | OK | Replaced 1099 lines with 75-line facade delegation | 0.00 | j2k3l4m |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-agent-094-crypto-elimination
-- inputs: ["CryptographyManager god object"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-agent-094-crypto-elimination
+// inputs: ["CryptographyManager god object"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1"}
+// === END FOOTER ===

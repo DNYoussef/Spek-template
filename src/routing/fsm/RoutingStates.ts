@@ -117,17 +117,17 @@ export interface MessageRoutingFSMContext extends RoutingFSMContext {
   deliveryStatus?: string;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T21:30:00Z | MEGA_088@claude-sonnet-4 | Created unified routing FSM states and events | RoutingStates.ts | OK | Centralized state definitions for all router types | 0.00 | f8a2b1c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega088-routing-fsm-states-001
-- inputs: ["ContextRouter.ts", "MessageRouter.ts analysis"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"mega088-fsm-architecture"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega088-routing-fsm-states-001
+// inputs: ["ContextRouter.ts", "MessageRouter.ts analysis"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"mega088-fsm-architecture"}
+// === END FOOTER ===

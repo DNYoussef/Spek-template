@@ -237,17 +237,17 @@ export class QualityValidators {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T17:31:45-04:00 | coder@sonnet-4 | Created QualityPrincessValidators.ts with NASA-compliant validation logic | quality-validators | OK | All functions ≤60 lines, 2+ assertions | 0.00 | e1b8f6a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: quality-princess-fsm-refactor-005
-- inputs: ["QualityPrincess.ts"]
-- tools_used: ["claude-code", "filesystem"]
-- versions: {"model":"sonnet-4","prompt":"quality-fsm-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: quality-princess-fsm-refactor-005
+// inputs: ["QualityPrincess.ts"]
+// tools_used: ["claude-code", "filesystem"]
+// versions: {"model":"sonnet-4","prompt":"quality-fsm-refactor-v1"}
+// === END FOOTER ===

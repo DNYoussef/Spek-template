@@ -74,17 +74,17 @@ export class ServiceRouter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T12:46:45-04:00 | AGENT104@sonnet-4 | Create ServiceRouter component | ServiceRouter.ts | OK | Request routing with priority handling | 0.00 | c4a9b8e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: agent104-service-router
-- inputs: ["ServiceFSMTypes.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: agent104-service-router
+// inputs: ["ServiceFSMTypes.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
+// === END FOOTER ===

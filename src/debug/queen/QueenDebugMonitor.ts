@@ -64,17 +64,17 @@ export class QueenDebugMonitor {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T20:25:28-04:00 | agent@ModelMEGA093 | Replace 559-line god object with 52-line FSM facade | QueenDebugMonitor.ts | OK | 90.7% reduction | 0.00 | e7a9f3b |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: queen-debug-facade-093
-- inputs: ["original god object", "FSM implementation"]
-- tools_used: ["Write"]
-- versions: {"model":"MEGA093","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: queen-debug-facade-093
+// inputs: ["original god object", "FSM implementation"]
+// tools_used: ["Write"]
+// versions: {"model":"MEGA093","prompt":"v1.0"}
+// === END FOOTER ===

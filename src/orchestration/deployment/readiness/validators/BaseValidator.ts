@@ -229,18 +229,18 @@ export abstract class BaseValidator {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-01-28T03:41:32-05:00 | coder@claude-sonnet-4 | Created base validator class with common validation logic | BaseValidator.ts | OK | NASA Rule 10 compliant with command execution | 0.10 | pqr1234 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: readiness-base-006
-- inputs: ["InitializingState.ts"]
-- tools_used: ["MultiEdit"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: readiness-base-006
+// inputs: ["InitializingState.ts"]
+// tools_used: ["MultiEdit"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
+// === END FOOTER ===

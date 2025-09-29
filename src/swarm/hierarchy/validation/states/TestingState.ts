@@ -400,17 +400,17 @@ if __name__ == '__main__':
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T10:00:18-04:00 | agent@Sonnet-4 | Created comprehensive testing state | TestingState.ts | OK | Auto test discovery and generation | 0.00 | a1b2c3d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-046-testing-state
-- inputs: ["BaseStateHandler.ts", "ValidationTypes.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-046-testing-state
+// inputs: ["BaseStateHandler.ts", "ValidationTypes.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4-20250514","prompt":"v1"}
+// === END FOOTER ===

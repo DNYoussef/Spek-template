@@ -172,17 +172,17 @@ export const DEFAULT_CONFIG: MonitoringConfig = {
   maxHistoryLength: 100
 };
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:47:23-04:00 | codex@sonnet-4 | Create degradation monitoring types | DegradationTypes.ts | OK | FSM types, interfaces, enums | 0.01 | 3bf7c42 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: deg-types-001
-- inputs: ["DegradationMonitor.ts analysis"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"sonnet-4","prompt":"nasa-rule-10"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: deg-types-001
+// inputs: ["DegradationMonitor.ts analysis"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"sonnet-4","prompt":"nasa-rule-10"}
+// === END FOOTER ===

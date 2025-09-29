@@ -160,17 +160,17 @@ export class SecurityPrincessFSM extends PrincessBase<SecurityContext, SecurityS
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 3.0.0   | 2025-09-28T21:27:15-04:00 | MEGA-AGENT-090@Sonnet-4 | Security Princess FSM elimination complete | SecurityPrincessFSM.ts | OK | Reduced from 279 to 119 lines (57.3% reduction) | 0.00 | e3f2c8a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-agent-090-security-elimination
-- inputs: ["SecurityPrincessFSM.ts (279 lines)"]
-- tools_used: ["Write"]
-- versions: {"model":"sonnet-4","prompt":"princess-fsm-eliminator"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 3.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-agent-090-security-elimination
+// inputs: ["SecurityPrincessFSM.ts (279 lines)"]
+// tools_used: ["Write"]
+// versions: {"model":"sonnet-4","prompt":"princess-fsm-eliminator"}
+// === END FOOTER ===

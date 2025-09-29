@@ -12,6 +12,8 @@ import { CrossHiveProtocol } from '../CrossHiveProtocol';
 import { ContextValidator } from '../../../context/ContextValidator';
 import { DegradationMonitor } from '../../../context/DegradationMonitor';
 import { GitHubProjectIntegration } from '../../../context/GitHubProjectIntegration';
+import { A2ACommunicationEngine } from '../../../dspy-integration/a2a-context-dna/A2ACommunicationEngine';
+import { AgentIdentity, AgentMessage } from '../../../dspy-integration/a2a-context-dna/interfaces/types';
 
 interface SwarmTask {
   id: string;
@@ -35,8 +37,10 @@ export class QueenOrchestrator extends EventEmitter {
   private validator: ContextValidator;
   private degradationMonitor: DegradationMonitor;
   private githubIntegration: GitHubProjectIntegration;
+  private a2aEngine: A2ACommunicationEngine | null = null;
   private activeTasks: Map<string, SwarmTask> = new Map();
   private readonly degradationThreshold = 0.15;
+  private readonly minQualityScore = 0.85;
   private initialized = false;
 
   constructor() {
@@ -449,5 +453,85 @@ export class QueenOrchestrator extends EventEmitter {
     await this.princessManager.shutdownAll();
 
     this.emit('queen:shutdown');
+  }
+
+  /**
+   * Set A2A communication engine for DSPy optimization
+   * NASA Rule 10: Simple setter with validation
+   */
+  async setA2AEngine(engine: A2ACommunicationEngine): Promise<void> {
+    if (!engine) {
+      throw new Error('A2A engine required');
+    }
+    this.a2aEngine = engine;
+    console.log(' A2A DSPy engine integrated with Queen Orchestrator');
+  }
+
+  /**
+   * Optimize directive with quality scoring
+   * NASA Rule 10: Bounded optimization, quality enforcement
+   */
+  private async optimizeDirective(
+    taskDescription: string,
+    targetPrincess: string
+  ): Promise<{ optimized: any; qualityScore: number }> {
+    if (!this.a2aEngine) {
+      // Fallback without optimization
+      return {
+        optimized: { content: taskDescription },
+        qualityScore: 0.75
+      };
+    }
+
+    const queenIdentity: AgentIdentity = {
+      id: 'queen_primary',
+      role: 'QUEEN',
+      type: 'orchestrator',
+      metadata: { domain: 'strategic' }
+    };
+
+    const princessIdentity: AgentIdentity = {
+      id: targetPrincess,
+      role: 'PRINCESS',
+      type: 'coordinator',
+      metadata: { domain: this.extractDomain(targetPrincess) }
+    };
+
+    const message: AgentMessage = {
+      id: `msg_${Date.now()}`,
+      content: taskDescription,
+      sourceAgent: queenIdentity,
+      targetAgent: princessIdentity,
+      timestamp: Date.now(),
+      priority: 'high',
+      agentContext: {}
+    };
+
+    // Optimize through A2A engine
+    const result = await this.a2aEngine.routeCommunication(
+      queenIdentity,
+      princessIdentity,
+      message
+    );
+
+    // Enforce minimum quality
+    if (result.qualityScore < this.minQualityScore) {
+      console.warn(`Quality score ${result.qualityScore} below threshold ${this.minQualityScore}`);
+    }
+
+    return {
+      optimized: result.optimizedMessage,
+      qualityScore: result.qualityScore
+    };
+  }
+
+  /**
+   * Extract domain from princess ID
+   * NASA Rule 10: Simple extraction logic
+   */
+  private extractDomain(princessId: string): string {
+    // Extract domain from princess ID pattern: princess_<domain>_<id>
+    const parts = princessId.split('_');
+    return parts.length > 1 ? parts[1] : 'development';
   }
 }

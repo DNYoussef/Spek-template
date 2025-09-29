@@ -213,17 +213,17 @@ export default class CodeQualityState implements StateHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-01-28T03:42:45-05:00 | coder@claude-sonnet-4 | Created code quality state handler with validator | CodeQualityState.ts | OK | NASA Rule 10 compliant with TypeScript/ESLint checks | 0.11 | stu5678 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: readiness-code-007
-- inputs: ["BaseValidator.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: readiness-code-007
+// inputs: ["BaseValidator.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-refactor-v2"}
+// === END FOOTER ===

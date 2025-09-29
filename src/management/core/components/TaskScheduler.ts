@@ -199,17 +199,17 @@ export class TaskScheduler extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T11:46:45-04:00 | agent@claude-sonnet-4 | Created TaskScheduler shared component | TaskScheduler.ts | OK | Shared task scheduling with NASA compliance | 0.00 | b4c5d6e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-agent-094-task-scheduler
-- inputs: ["ManagementHub architecture"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-agent-094-task-scheduler
+// inputs: ["ManagementHub architecture"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1"}
+// === END FOOTER ===

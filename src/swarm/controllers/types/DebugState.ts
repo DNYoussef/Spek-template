@@ -52,17 +52,17 @@ export interface StateTransition {
   action?: (context: DebugStateContext) => Promise<void>;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:30:15-04:00 | codex@sonnet-4 | Create DebugState types with FSM enums | DebugState.ts | OK | FSM-first development | 0.00 | a1b2c3d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: debug-fsm-types-001
-- inputs: ["Mission requirements"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"sonnet-4","prompt":"fsm-debug-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: debug-fsm-types-001
+// inputs: ["Mission requirements"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"sonnet-4","prompt":"fsm-debug-v1"}
+// === END FOOTER ===

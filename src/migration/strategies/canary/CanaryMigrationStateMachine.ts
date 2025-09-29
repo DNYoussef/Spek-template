@@ -259,17 +259,17 @@ export class CanaryMigrationStateMachine extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:13:15-04:00 | agent048@claude-sonnet-4 | Created CanaryMigrationStateMachine with FSM implementation | CanaryMigrationStateMachine.ts | OK | Complete FSM with transitions and guards | 0.00 | b2c3d4e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-agent-048-fsm-machine
-- inputs: ["none"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"codex-048-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-agent-048-fsm-machine
+// inputs: ["none"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"codex-048-v1"}
+// === END FOOTER ===

@@ -77,17 +77,17 @@ export interface StateStoreContext {
   error?: Error;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0 | 2025-09-28T19:15:45-04:00 | mega-agent-103@claude-sonnet-4 | State store types with FSM enums | StateStoreTypes.ts | OK | Clean type extraction for state management | 0.00 | g7h8i9j |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: memory-terminator-009
-- inputs: ["StateStore.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: memory-terminator-009
+// inputs: ["StateStore.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
+// === END FOOTER ===

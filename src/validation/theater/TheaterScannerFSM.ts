@@ -57,10 +57,54 @@ enum TheaterType {
 
 export class TheaterScannerFSM extends MonitoringHub<TheaterScanData, TheaterScanResult> {
   private patternDetectors: Map<TheaterType, (content: string, file: string) => TheaterPattern[]>;
+  private dspyPatternDetector?: any; // Will be injected by DSPy integration
 
   constructor(config: MonitorConfig) {
     super(config);
     this.initializeDetectors();
+  }
+
+  // DSPy Integration Methods
+  public setDSPyPatternDetector(detector: any): void {
+    this.dspyPatternDetector = detector;
+  }
+
+  public async enhanceWithDSPyPatterns(patterns: TheaterPattern[], communicationQuality: any): Promise<TheaterPattern[]> {
+    if (!this.dspyPatternDetector) {
+      return patterns;
+    }
+
+    // Enhance theater patterns with DSPy communication analysis
+    const enhancedPatterns = [...patterns];
+
+    // Add communication-based theater patterns
+    if (communicationQuality && communicationQuality.clarity_score < 0.8) {
+      enhancedPatterns.push({
+        type: TheaterType.FAKE_IMPLEMENTATION,
+        file: 'communication_analysis',
+        line: 0,
+        content: 'Low communication clarity detected',
+        severity: 'MEDIUM',
+        description: 'Communication clarity below threshold may indicate theater',
+        suggestion: 'Improve communication clarity to reduce theater risk',
+        autoFixable: false
+      });
+    }
+
+    if (communicationQuality && communicationQuality.actionability_score < 0.7) {
+      enhancedPatterns.push({
+        type: TheaterType.PLACEHOLDER_CODE,
+        file: 'communication_analysis',
+        line: 0,
+        content: 'Low actionability in communications',
+        severity: 'HIGH',
+        description: 'Non-actionable communications may indicate theater behavior',
+        suggestion: 'Focus on specific, actionable communication',
+        autoFixable: false
+      });
+    }
+
+    return enhancedPatterns;
   }
 
   protected getMonitorType(): string {
@@ -368,17 +412,17 @@ export class TheaterScannerFSM extends MonitoringHub<TheaterScanData, TheaterSca
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T20:19:45-04:00 | agent@ModelMEGA093 | Create FSM replacement for TheaterScanner god object | TheaterScannerFSM.ts | OK | -- | 0.00 | 4b8f2c9 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: theater-fsm-093
-- inputs: ["MonitoringHub", "theater detection patterns"]
-- tools_used: ["Write"]
-- versions: {"model":"MEGA093","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: theater-fsm-093
+// inputs: ["MonitoringHub", "theater detection patterns"]
+// tools_used: ["Write"]
+// versions: {"model":"MEGA093","prompt":"v1.0"}
+// === END FOOTER ===

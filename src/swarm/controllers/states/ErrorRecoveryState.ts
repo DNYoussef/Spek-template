@@ -289,17 +289,17 @@ export class ErrorRecoveryState {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:37:15-04:00 | codex@sonnet-4 | Create ErrorRecoveryState with comprehensive recovery strategies | ErrorRecoveryState.ts | OK | FSM error recovery | 0.00 | d4e5f6g |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: debug-fsm-recovery-001
-- inputs: ["DebugState types"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"sonnet-4","prompt":"fsm-debug-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: debug-fsm-recovery-001
+// inputs: ["DebugState types"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"sonnet-4","prompt":"fsm-debug-v1"}
+// === END FOOTER ===

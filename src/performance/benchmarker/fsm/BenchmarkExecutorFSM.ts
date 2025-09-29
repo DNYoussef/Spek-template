@@ -52,9 +52,9 @@ export interface BenchmarkResults {
   violations: ConstraintViolation[];
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T14:48:00-04:00 | agent@God-Object-Terminator | Created FSM architecture for BenchmarkExecutor | BenchmarkExecutorFSM.ts | OK | FSM states and events defined | 0.00 | b4e7a2f |
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
+
+// Version: 1.0.0
+// === END FOOTER ===

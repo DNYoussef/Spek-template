@@ -465,17 +465,17 @@ export class RecoveryExecutor implements IRecoveryExecutor {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:53:52-04:00 | codex@sonnet-4 | Create RecoveryExecutor component | RecoveryExecutor.ts | OK | Recovery action execution, context reconstruction, escalation | 0.03 | 5e8b9c2 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: deg-recovery-001
-- inputs: ["RecoveryExecutor requirements"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"sonnet-4","prompt":"nasa-rule-10"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: deg-recovery-001
+// inputs: ["RecoveryExecutor requirements"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"sonnet-4","prompt":"nasa-rule-10"}
+// === END FOOTER ===

@@ -93,17 +93,17 @@ export class StateStore extends EventEmitter {
 
 export default StateStore;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0 | 2025-09-28T19:15:47-04:00 | mega-agent-103@claude-sonnet-4 | Eliminated StateStore god object (88.5% reduction) | StateStore.ts | OK | 737→85 lines via FSM facade delegation | 0.00 | j1k2l3m |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: memory-terminator-016
-- inputs: ["StateStore.ts", "StateStoreFacade"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: memory-terminator-016
+// inputs: ["StateStore.ts", "StateStoreFacade"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"FSM-First-v1.0"}
+// === END FOOTER ===

@@ -474,17 +474,17 @@ export class NASARule10Verifier {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T18:16:15-04:00 | agent@RiskAssessment-Decomposition | Created NASA Rule 10 compliance verifier for automated validation | nasa-rule-10-verifier.ts | OK | All functions ≤60 lines, fixed bounds, ≥2 assertions per NASA Rule 10 | 0.00 | a3c4d56 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: risk-assessment-decomposition-007
-- inputs: ["All RiskAssessment components"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: risk-assessment-decomposition-007
+// inputs: ["All RiskAssessment components"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
+// === END FOOTER ===

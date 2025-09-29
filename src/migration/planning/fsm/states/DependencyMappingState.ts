@@ -170,17 +170,17 @@ export class DependencyMappingState extends BaseStateHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:23:45-04:00 | agent@coder | Created DependencyMappingState with dependency analysis | DependencyMappingState.ts | OK | -- | 0.00 | e7c5a9f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-refactor-007
-- inputs: ["AnalysisStateMachine.ts"]
-- tools_used: ["filesystem"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-refactor-007
+// inputs: ["AnalysisStateMachine.ts"]
+// tools_used: ["filesystem"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
+// === END FOOTER ===

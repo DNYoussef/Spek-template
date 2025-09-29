@@ -112,17 +112,17 @@ export class TTLStrategy implements CacheStrategyDefinition {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:35:25-04:00 | agent@Claude | Created TTL strategy component | TTLStrategy.ts | OK | NASA Rule 10 compliant, expiration-based eviction | 0.00 | e6f7g8h |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: cache-ttl-strategy-001
-- inputs: ["CacheFSMTypes.ts", "MemoryCacheStrategy.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"cache-strategy-decomposition"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: cache-ttl-strategy-001
+// inputs: ["CacheFSMTypes.ts", "MemoryCacheStrategy.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"cache-strategy-decomposition"}
+// === END FOOTER ===

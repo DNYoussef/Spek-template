@@ -164,17 +164,17 @@ export class DroneTaskExecutor {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T21:49:45-04:00 | agent@claude-sonnet-4 | Create drone task executor component | DroneTaskExecutor.ts | OK | NASA Rule 10 compliant task execution with bounded loops and timeouts | 0.00 | h7i8j9k |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-agent-096-drone-elimination
-- inputs: ["DroneTypes.ts", "DroneTransitionHub.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-agent-096-drone-elimination
+// inputs: ["DroneTypes.ts", "DroneTransitionHub.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1"}
+// === END FOOTER ===

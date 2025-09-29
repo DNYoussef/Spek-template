@@ -494,17 +494,17 @@ export class SIEMIntegration extends SIEMIntegrationFSM {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:42:45-04:00 | mega-swarm-100@agent | Eliminated SIEMIntegration god object (902->189 lines, 87% reduction) | SIEMIntegrationFSM.ts | OK | FSM-compliant replacement preserves all SIEM functionality with NASA compliance | 0.00 | b2c3d4e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: integration-killer-008
-- inputs: ["SIEMIntegration.ts analysis", "UnifiedIntegrationFacade.ts"]
-- tools_used: ["Write", "Bash"]
-- versions: {"model":"mega-swarm-100","prompt":"integration-elimination-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: integration-killer-008
+// inputs: ["SIEMIntegration.ts analysis", "UnifiedIntegrationFacade.ts"]
+// tools_used: ["Write", "Bash"]
+// versions: {"model":"mega-swarm-100","prompt":"integration-elimination-v1"}
+// === END FOOTER ===

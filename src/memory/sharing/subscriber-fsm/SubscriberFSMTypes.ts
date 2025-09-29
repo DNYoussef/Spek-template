@@ -55,17 +55,17 @@ export interface SubscriberStateMachine {
   transitions: StateTransition[];
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T11:45:23-04:00 | agent@claude-3-5-sonnet-20241022 | Create FSM types for MemorySubscriber | SubscriberFSMTypes.ts | OK | -- | 0.00 | a7b9c2f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: memory-subscriber-fsm-001
-- inputs: ["src/memory/sharing/MemorySubscriber.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-3-5-sonnet-20241022","prompt":"fsm-decomposition-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: memory-subscriber-fsm-001
+// inputs: ["src/memory/sharing/MemorySubscriber.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-3-5-sonnet-20241022","prompt":"fsm-decomposition-v1"}
+// === END FOOTER ===

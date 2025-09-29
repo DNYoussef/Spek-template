@@ -484,17 +484,17 @@ export class RecoveryState extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T16:31:31-04:00 | coder@Sonnet | Create recovery state with NASA Rule 10 compliance | RecoveryState.ts | OK | Fixed bounds for recovery strategies, duration, and cleanup operations | 0.00 | mno345j |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: stress_test_refactor_005
-- inputs: ["StressTestTypes.ts", "MetricsCollector.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"Sonnet 4","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: stress_test_refactor_005
+// inputs: ["StressTestTypes.ts", "MetricsCollector.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"Sonnet 4","prompt":"v1.0"}
+// === END FOOTER ===

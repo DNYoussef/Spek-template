@@ -450,17 +450,17 @@ export class ContextValidationCore {
 
 export default ContextValidationCore;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T20:45:12-04:00 | agent080@sonnet-4 | Context validation core optimization | ContextValidationCore.ts | OK | Single responsibility validation logic | 0.00 | a3f8c7e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: agent080-context-validation-core-optimization
-- inputs: ["src/context/ContextValidator.ts"]
-- tools_used: ["Read", "Write", "Bash"]
-- versions: {"model":"sonnet-4","optimization":"focused"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: agent080-context-validation-core-optimization
+// inputs: ["src/context/ContextValidator.ts"]
+// tools_used: ["Read", "Write", "Bash"]
+// versions: {"model":"sonnet-4","optimization":"focused"}
+// === END FOOTER ===

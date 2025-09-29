@@ -175,17 +175,17 @@ export class ResearchWorkflowCore extends EventEmitter {
 
 export default ResearchWorkflowCore;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T20:45:12-04:00 | agent076@sonnet-4 | Research workflow core decomposition | ResearchWorkflowCore.ts | OK | Single responsibility research operations | 0.00 | f4c8e9d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: agent076-research-core-decomposition
-- inputs: ["src/fsm/princesses/ResearchPrincessFSM.ts"]
-- tools_used: ["Read", "Write", "Bash"]
-- versions: {"model":"sonnet-4","fsm-design":"1.0.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: agent076-research-core-decomposition
+// inputs: ["src/fsm/princesses/ResearchPrincessFSM.ts"]
+// tools_used: ["Read", "Write", "Bash"]
+// versions: {"model":"sonnet-4","fsm-design":"1.0.0"}
+// === END FOOTER ===

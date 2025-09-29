@@ -113,17 +113,17 @@ export class CanaryDeploymentHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:14:08-04:00 | agent048@claude-sonnet-4 | Created CanaryDeploymentHandler with NASA Rule 10 compliance | CanaryDeploymentHandler.ts | OK | Deployment logic under 60 lines per method | 0.00 | c3d4e5f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-agent-048-deployment-handler
-- inputs: ["none"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"codex-048-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-agent-048-deployment-handler
+// inputs: ["none"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"codex-048-v1"}
+// === END FOOTER ===

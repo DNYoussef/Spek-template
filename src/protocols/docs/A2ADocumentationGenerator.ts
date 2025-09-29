@@ -299,18 +299,18 @@ interface ValidationResult {
   warnings: string[];
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-01-27T14:38:14-05:00 | agent@claude-3-5-sonnet-20241022 | Created A2A Documentation Generator with OpenAPI 3.1 support | A2ADocumentationGenerator.ts | OK | Comprehensive documentation automation with interactive examples and multi-format export | 0.00 | e1a6c5d |
-| 2.0.0   | 2025-01-28T20:06:28-05:00 | CODEX-047@claude-3-5-sonnet-20241022 | Refactored to FSM-based architecture following NASA Rule 10 | A2ADocumentationGenerator.ts + fsm/ + metrics/ | OK | Eliminated god object, created 14-state FSM with context isolation and metrics | 0.00 | c8d4f29 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-047-a2a-doc-generator-refactor
-- inputs: ["A2ADocumentationGenerator.ts god object"]
-- tools_used: ["MultiEdit", "Write"]
-- versions: {"model":"claude-3-5-sonnet-20241022","prompt":"fsm-god-object-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+// Version: 2.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-047-a2a-doc-generator-refactor
+// inputs: ["A2ADocumentationGenerator.ts god object"]
+// tools_used: ["MultiEdit", "Write"]
+// versions: {"model":"claude-3-5-sonnet-20241022","prompt":"fsm-god-object-elimination"}
+// === END FOOTER ===

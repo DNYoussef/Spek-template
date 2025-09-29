@@ -166,17 +166,17 @@ export class StressTestRunnerFacade extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T16:31:34-04:00 | coder@Sonnet | Create backward compatibility facade for StressTestRunner | StressTestRunnerFacade.ts | OK | Maintains original API while delegating to FSM orchestrator | 0.00 | vwx234m |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: stress_test_refactor_008
-- inputs: ["StressTestOrchestrator.ts", "StressTestTypes.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"Sonnet 4","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: stress_test_refactor_008
+// inputs: ["StressTestOrchestrator.ts", "StressTestTypes.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"Sonnet 4","prompt":"v1.0"}
+// === END FOOTER ===

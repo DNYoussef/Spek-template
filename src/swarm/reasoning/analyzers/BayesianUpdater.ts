@@ -103,17 +103,17 @@ interface UpdateResult {
 
 export default BayesianUpdater;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:35:00-04:00 | codex@Model | Create Bayesian updater analyzer | BayesianUpdater.ts | OK | <=60 lines per method | 0.00 | 1a6b7e9 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: bayesian-analyzer-001
-- inputs: ["RationalistReasoningEngine.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"codex","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: bayesian-analyzer-001
+// inputs: ["RationalistReasoningEngine.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"codex","prompt":"v1"}
+// === END FOOTER ===

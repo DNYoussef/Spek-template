@@ -501,17 +501,17 @@ interface ExecutionOptions {
   customTimeout?: number;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T18:08:42-04:00 | SystemIntegrationOrchestrator@refactor | Created IntegrationExecutor FSM component with phase/component execution | IntegrationExecutor.ts | OK | 471 lines, NASA Rule 10 compliant | 0.00 | c3b8d17 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-executor-001
-- inputs: ["IntegrationFSMTypes.ts", "IntegrationPlanManager.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-executor-001
+// inputs: ["IntegrationFSMTypes.ts", "IntegrationPlanManager.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
+// === END FOOTER ===

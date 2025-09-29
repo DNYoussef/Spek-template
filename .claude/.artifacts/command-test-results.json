@@ -1,0 +1,132 @@
+[
+  {
+    "command": "npm run build",
+    "category": "Core Build Commands",
+    "status": "failure",
+    "output": "TypeScript compilation failed with 400+ errors",
+    "error": "Multiple syntax errors in src/architecture/langgraph/ files - Invalid characters, missing types, parsing errors",
+    "fix": "Fix corrupted TypeScript files in src/architecture/langgraph/ directory",
+    "dependencies": ["typescript", "tsc"],
+    "notes": "Critical: Corrupted files blocking all builds"
+  },
+  {
+    "command": "npm run test",
+    "category": "Core Build Commands",
+    "status": "success",
+    "output": "Tests passed with --passWithNoTests, extensive system logs generated",
+    "error": null,
+    "fix": null,
+    "dependencies": ["jest"],
+    "notes": "Tests run successfully but may be using fallback mode"
+  },
+  {
+    "command": "npm run lint",
+    "category": "Core Build Commands",
+    "status": "partial",
+    "output": "ESLint found 500+ warnings and errors",
+    "error": "Many @typescript-eslint/no-explicit-any warnings and parsing errors",
+    "fix": "Fix TypeScript parsing errors first, then address type safety issues",
+    "dependencies": ["eslint", "@typescript-eslint"],
+    "notes": "Linting partially works but has critical parsing failures"
+  },
+  {
+    "command": "npm run typecheck",
+    "category": "Core Build Commands",
+    "status": "failure",
+    "output": "TypeScript type checking failed",
+    "error": "Same parsing errors as build command - corrupted files",
+    "fix": "Restore corrupted TypeScript files from backup or regenerate",
+    "dependencies": ["typescript"],
+    "notes": "Cannot proceed until file corruption is resolved"
+  },
+  {
+    "command": "npx claude-flow sparc modes",
+    "category": "SPARC Commands",
+    "status": "failure",
+    "output": "Available SPARC Modes header shown but failed to list modes",
+    "error": "config.customModes is not iterable",
+    "fix": "Check .claude-flow/config.json and ensure customModes is properly configured as array",
+    "dependencies": ["claude-flow@alpha"],
+    "notes": "Claude-flow installed but configuration is broken"
+  },
+  {
+    "command": "npx claude-flow sparc info spec-pseudocode",
+    "category": "SPARC Commands",
+    "status": "failure",
+    "output": "Command failed to show mode info",
+    "error": "Cannot read properties of undefined (reading 'find')",
+    "fix": "Fix claude-flow configuration file structure",
+    "dependencies": ["claude-flow@alpha"],
+    "notes": "Related to same config issue as sparc modes"
+  },
+  {
+    "command": "scripts/3-loop-orchestrator.sh",
+    "category": "3-Loop System Commands",
+    "status": "exists",
+    "output": "File exists and is executable",
+    "error": null,
+    "fix": null,
+    "dependencies": ["bash"],
+    "notes": "Script exists, would need execution test"
+  },
+  {
+    "command": "scripts/simple_quality_loop.sh",
+    "category": "3-Loop System Commands",
+    "status": "exists",
+    "output": "File exists and is executable",
+    "error": null,
+    "fix": null,
+    "dependencies": ["bash"],
+    "notes": "Script exists, would need execution test"
+  },
+  {
+    "command": "scripts/codebase-remediation.sh",
+    "category": "3-Loop System Commands",
+    "status": "exists",
+    "output": "File exists and is executable",
+    "error": null,
+    "fix": null,
+    "dependencies": ["bash"],
+    "notes": "Script exists, would need execution test"
+  },
+  {
+    "command": "npm run dspy:validate-all-agents",
+    "category": "DSPy Optimization Commands",
+    "status": "failure",
+    "output": "Validated 17 agents, all failed with 78.8% score",
+    "error": "All templates failed validation with 3 violations each",
+    "fix": "Review and fix template validation rules or template quality",
+    "dependencies": ["node", "dspy validation system"],
+    "notes": "System working but all templates failing quality gates"
+  },
+  {
+    "command": "python -m pytest tests/",
+    "category": "Python Analysis Commands",
+    "status": "failure",
+    "output": "Collection failed due to syntax error",
+    "error": "SyntaxError in tests/phase7_adas/test_sensor_fusion.py line 4: invalid decimal literal",
+    "fix": "Fix syntax error in test file - likely malformed number format",
+    "dependencies": ["pytest", "python"],
+    "notes": "Python environment works but test files have syntax errors"
+  },
+  {
+    "command": "npm run compliance:nasa-pot10",
+    "category": "Quality Gate Commands",
+    "status": "failure",
+    "output": "Command failed to find compliance script",
+    "error": "Cannot find module 'scripts/nasa-pot10-compliance.js'",
+    "fix": "Create missing nasa-pot10-compliance.js script or update package.json path",
+    "dependencies": ["node"],
+    "notes": "Script referenced in package.json but file missing"
+  },
+  {
+    "command": "npm run security:py",
+    "category": "Quality Gate Commands",
+    "status": "success",
+    "output": "Security scan completed, output written to file",
+    "error": null,
+    "fix": null,
+    "dependencies": ["python", "bandit"],
+    "notes": "Security scanning works, JSON report generated successfully"
+  }
+]

@@ -281,17 +281,17 @@ export class ExecutionManager {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T16:31:02-04:00 | CODEX AGENT 024@Claude Sonnet | Created ExecutionManager.ts with NASA Rule 10 compliant execution management | ExecutionManager.ts | OK | Decomposed execution management | 0.00 | e1f6g7h |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-024-execution-manager
-- inputs: ["QueenOrchestrator.ts refactoring requirements"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-024-execution-manager
+// inputs: ["QueenOrchestrator.ts refactoring requirements"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
+// === END FOOTER ===

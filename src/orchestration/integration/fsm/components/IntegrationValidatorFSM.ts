@@ -432,17 +432,17 @@ export class IntegrationValidatorFSM extends EventEmitter implements ComponentSt
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T18:11:55-04:00 | SystemIntegrationOrchestrator@refactor | Created IntegrationValidatorFSM component with quality gates and validation | IntegrationValidatorFSM.ts | OK | 390 lines, NASA Rule 10 compliant | 0.00 | f1a7e3c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-validator-001
-- inputs: ["IntegrationFSMTypes.ts", "IntegrationValidator.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-validator-001
+// inputs: ["IntegrationFSMTypes.ts", "IntegrationValidator.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
+// === END FOOTER ===

@@ -431,17 +431,17 @@ class LatencyValidator extends StepValidator {
 
 export default MigrationOrchestrator;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T20:45:12-04:00 | agent@Model | Legacy orchestrator marked for FSM migration | MigrationOrchestrator.ts | OK | NASA Rule 10 refactoring pending | 0.00 | a7b8c9d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: migration-orchestrator-fsm-refactor-001
-- inputs: ["src/migration/core/MigrationOrchestrator.ts"]
-- tools_used: ["Read", "Write", "Edit", "TodoWrite"]
-- versions: {"fsm-design":"1.0.0","nasa-rule-10":"compliant"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: migration-orchestrator-fsm-refactor-001
+// inputs: ["src/migration/core/MigrationOrchestrator.ts"]
+// tools_used: ["Read", "Write", "Edit", "TodoWrite"]
+// versions: {"fsm-design":"1.0.0","nasa-rule-10":"compliant"}
+// === END FOOTER ===

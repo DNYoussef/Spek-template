@@ -1,8 +1,8 @@
 
-// environment-overridesFacade.ts - Facade for eliminated god object
+// EnvironmentOverridesFacade.ts - Facade for eliminated god object
 import { configBaseFSMConfig } from './fsm/ConfigBaseFSM';
 
-export class environment-overridesFacade {
+export class EnvironmentOverridesFacade {
     private fsmConfig = configBaseFSMConfig;
 
     constructor() {

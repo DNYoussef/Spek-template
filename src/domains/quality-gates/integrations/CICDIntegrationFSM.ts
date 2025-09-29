@@ -407,17 +407,17 @@ export class CICDIntegration extends CICDIntegrationFSM {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:42:00-04:00 | mega-swarm-100@agent | Eliminated CICDIntegration god object (1259->189 lines, 85% reduction) | CICDIntegrationFSM.ts | OK | FSM-compliant replacement preserves all interfaces and functionality | 0.00 | a1b2c3d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: integration-killer-007
-- inputs: ["CICDIntegration.ts analysis", "UnifiedIntegrationFacade.ts"]
-- tools_used: ["Write", "Bash"]
-- versions: {"model":"mega-swarm-100","prompt":"integration-elimination-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: integration-killer-007
+// inputs: ["CICDIntegration.ts analysis", "UnifiedIntegrationFacade.ts"]
+// tools_used: ["Write", "Bash"]
+// versions: {"model":"mega-swarm-100","prompt":"integration-elimination-v1"}
+// === END FOOTER ===

@@ -45,17 +45,17 @@ export * from './degradation/types/DegradationTypes';
 // Export the new implementation as the default
 export { MonitoringOrchestrator as default } from './degradation/MonitoringOrchestrator';
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:58:25-04:00 | codex@sonnet-4 | Replace god object with backward-compatible facade | DegradationMonitor.ts | OK | 982->2200 lines across 7 focused files, NASA Rule 10 compliant | 0.01 | f7d4e86 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: deg-final-001
-- inputs: ["God object elimination, backward compatibility"]
-- tools_used: ["Write"]
-- versions: {"model":"sonnet-4","prompt":"god-object-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: deg-final-001
+// inputs: ["God object elimination, backward compatibility"]
+// tools_used: ["Write"]
+// versions: {"model":"sonnet-4","prompt":"god-object-elimination"}
+// === END FOOTER ===

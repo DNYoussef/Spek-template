@@ -332,17 +332,17 @@ export class ValidationEngine implements IValidationEngine {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:52:34-04:00 | codex@sonnet-4 | Create ValidationEngine component | ValidationEngine.ts | OK | Context validation, checkpoint management, agent capability checks | 0.02 | 9f1a7e6 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: deg-validation-001
-- inputs: ["ValidationEngine requirements"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"sonnet-4","prompt":"nasa-rule-10"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: deg-validation-001
+// inputs: ["ValidationEngine requirements"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"sonnet-4","prompt":"nasa-rule-10"}
+// === END FOOTER ===

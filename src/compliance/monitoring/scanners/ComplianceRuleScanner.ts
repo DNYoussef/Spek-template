@@ -226,17 +226,17 @@ export class ComplianceRuleScanner {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:51:05-04:00 | agent@claude-sonnet-4 | Create modular compliance rule scanner with NASA Rule 10 compliance | ComplianceRuleScanner.ts | OK | All functions <=60 lines, extracted from main detector | 0.00 | g3h4i5j |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-020-fsm-refactor
-- inputs: ["ComplianceDriftDetector-typed.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-nasa-rule-10"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-020-fsm-refactor
+// inputs: ["ComplianceDriftDetector-typed.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-nasa-rule-10"}
+// === END FOOTER ===

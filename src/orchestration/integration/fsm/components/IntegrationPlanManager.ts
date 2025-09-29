@@ -437,17 +437,17 @@ interface PlanRequirements {
   };
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T18:05:28-04:00 | SystemIntegrationOrchestrator@refactor | Created IntegrationPlanManager FSM component with plan lifecycle management | IntegrationPlanManager.ts | OK | 448 lines, NASA Rule 10 compliant | 0.00 | e2f9a8b |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-plan-manager-001
-- inputs: ["IntegrationFSMTypes.ts", "TransitionHub.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-plan-manager-001
+// inputs: ["IntegrationFSMTypes.ts", "TransitionHub.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
+// === END FOOTER ===

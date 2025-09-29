@@ -121,17 +121,17 @@ export class DroneTransitionHub {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T21:47:33-04:00 | agent@claude-sonnet-4 | Create drone transition hub for centralized state management | DroneTransitionHub.ts | OK | NASA Rule 10 compliant, ≤60 line functions, bounded loops, assertions | 0.00 | e4f5g6h |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-agent-096-drone-elimination
-- inputs: ["DroneTypes.ts", "FSM requirements"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-agent-096-drone-elimination
+// inputs: ["DroneTypes.ts", "FSM requirements"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1"}
+// === END FOOTER ===

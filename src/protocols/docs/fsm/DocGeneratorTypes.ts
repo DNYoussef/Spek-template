@@ -353,17 +353,17 @@ export interface ValidationResult {
   warnings: string[];
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-01-28T20:05:22-05:00 | CODEX-047@claude-3-5-sonnet-20241022 | Created FSM types and transition hub for documentation generator | DocGeneratorTypes.ts | OK | Comprehensive state machine definition with 14 states, 13 events, and transition validation | 0.00 | a3f7e82 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-047-a2a-doc-generator-refactor
-- inputs: ["A2ADocumentationGenerator.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-3-5-sonnet-20241022","prompt":"fsm-types-creation"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-047-a2a-doc-generator-refactor
+// inputs: ["A2ADocumentationGenerator.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-3-5-sonnet-20241022","prompt":"fsm-types-creation"}
+// === END FOOTER ===

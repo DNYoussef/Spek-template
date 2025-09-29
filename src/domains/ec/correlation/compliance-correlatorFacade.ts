@@ -1,8 +1,8 @@
 
-// compliance-correlatorFacade.ts - Facade for eliminated god object
+// ComplianceCorrelatorFacade.ts - Facade for eliminated god object
 import { correlatorBaseFSMConfig } from './fsm/CorrelatorBaseFSM';
 
-export class compliance-correlatorFacade {
+export class ComplianceCorrelatorFacade {
     private fsmConfig = correlatorBaseFSMConfig;
 
     constructor() {

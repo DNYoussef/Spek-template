@@ -294,17 +294,17 @@ export default WorkflowOrchestrator;
  * - Proper error handling and recovery mechanisms
  */
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T16:15:22-04:00 | agent-075@claude-sonnet-4 | Eliminate WorkflowOrchestrator god object (1,258→274 lines, 78.2% reduction) | 7 files: Types, StateMachine, Core, Executor, Validator, Facade + orchestrator | OK | FSM-First architecture, NASA Rule 10 compliant, 6 modular components | 0.00 | f8a4b2e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: god-object-elimination-batch-b-group-2-complete
-- inputs: ["WorkflowOrchestrator.ts"]
-- tools_used: ["Write", "Edit", "Read", "TodoWrite"]
-- versions: {"model":"claude-sonnet-4","prompt":"god-object-elimination-fsm-decomposition"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: god-object-elimination-batch-b-group-2-complete
+// inputs: ["WorkflowOrchestrator.ts"]
+// tools_used: ["Write", "Edit", "Read", "TodoWrite"]
+// versions: {"model":"claude-sonnet-4","prompt":"god-object-elimination-fsm-decomposition"}
+// === END FOOTER ===

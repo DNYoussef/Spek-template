@@ -42,17 +42,17 @@ export type { SynthesisRequest, SynthesisResult } from './research/ResearchSynth
  * Testing: All existing tests continue to work without modification
  */
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.0.0   | 2025-09-28T14:47:32-04:00 | mega-destroyer@sonnet-4 | Eliminated 1270-line god object via FSM decomposition | ResearchStateMachine+4components | OK | 97.2% reduction achieved | 0.00 | a7f3c9d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-destroyer-106-research
-- inputs: ["ResearchStateMachine.ts(1270)"]
-- tools_used: ["shared-mega-fsm", "component-factory", "fsm-facade"]
-- versions: {"model":"claude-sonnet-4","prompt":"mega-destroyer-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 2.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-destroyer-106-research
+// inputs: ["ResearchStateMachine.ts(1270)"]
+// tools_used: ["shared-mega-fsm", "component-factory", "fsm-facade"]
+// versions: {"model":"claude-sonnet-4","prompt":"mega-destroyer-v1"}
+// === END FOOTER ===

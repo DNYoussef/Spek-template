@@ -270,17 +270,17 @@ export class CancelledState extends BaseStateHandler {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:29:05-04:00 | agent@coder | Created terminal states (Completed, Failed, Cancelled) | TerminalStates.ts | OK | -- | 0.00 | b7d4f2c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-refactor-010
-- inputs: ["AnalysisStateMachine.ts"]
-- tools_used: ["filesystem"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-refactor-010
+// inputs: ["AnalysisStateMachine.ts"]
+// tools_used: ["filesystem"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1.0"}
+// === END FOOTER ===

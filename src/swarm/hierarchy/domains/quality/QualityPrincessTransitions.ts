@@ -160,17 +160,17 @@ export class QualityTransitionHub {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T17:31:45-04:00 | coder@sonnet-4 | Created QualityPrincessTransitions.ts with centralized transition hub | quality-transitions | OK | Single hub, no recursion | 0.00 | d0a7e5f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: quality-princess-fsm-refactor-004
-- inputs: ["QualityPrincess.ts"]
-- tools_used: ["claude-code", "filesystem"]
-- versions: {"model":"sonnet-4","prompt":"quality-fsm-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: quality-princess-fsm-refactor-004
+// inputs: ["QualityPrincess.ts"]
+// tools_used: ["claude-code", "filesystem"]
+// versions: {"model":"sonnet-4","prompt":"quality-fsm-refactor-v1"}
+// === END FOOTER ===

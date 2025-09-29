@@ -99,17 +99,17 @@ export interface QualityMetrics {
   theaterDetections: number;
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T17:31:45-04:00 | coder@sonnet-4 | Created QualityPrincessTypes.ts with comprehensive type definitions | quality-types | OK | Types for FSM-first design | 0.00 | a7f4b2c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: quality-princess-fsm-refactor-001
-- inputs: ["QualityPrincess.ts"]
-- tools_used: ["claude-code", "filesystem"]
-- versions: {"model":"sonnet-4","prompt":"quality-fsm-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: quality-princess-fsm-refactor-001
+// inputs: ["QualityPrincess.ts"]
+// tools_used: ["claude-code", "filesystem"]
+// versions: {"model":"sonnet-4","prompt":"quality-fsm-refactor-v1"}
+// === END FOOTER ===

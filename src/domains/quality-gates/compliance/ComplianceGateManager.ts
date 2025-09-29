@@ -98,17 +98,17 @@ export class ComplianceGateManager extends EventEmitter {
 
 export default ComplianceGateManager;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T11:59:46-04:00 | agent@claude-sonnet-4 | Eliminated ComplianceGateManager god object (91.4% reduction) | ComplianceGateManager.ts | OK | Replaced 935 lines with 80-line facade delegation | 0.00 | l4m5n6o |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-agent-094-compliance-elimination
-- inputs: ["ComplianceGateManager god object"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-agent-094-compliance-elimination
+// inputs: ["ComplianceGateManager god object"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1"}
+// === END FOOTER ===

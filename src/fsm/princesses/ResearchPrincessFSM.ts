@@ -178,17 +178,17 @@ export class ResearchPrincessFSM extends PrincessBase<ResearchContext, ResearchS
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 3.0.0   | 2025-09-28T21:25:42-04:00 | MEGA-AGENT-090@Sonnet-4 | Research Princess FSM elimination complete | ResearchPrincessFSM.ts | OK | Reduced from 417 to 134 lines (67.9% reduction) | 0.00 | a4b8d1f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-agent-090-research-elimination
-- inputs: ["ResearchPrincessFSM.ts (417 lines)"]
-- tools_used: ["Write"]
-- versions: {"model":"sonnet-4","prompt":"princess-fsm-eliminator"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 3.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-agent-090-research-elimination
+// inputs: ["ResearchPrincessFSM.ts (417 lines)"]
+// tools_used: ["Write"]
+// versions: {"model":"sonnet-4","prompt":"princess-fsm-eliminator"}
+// === END FOOTER ===

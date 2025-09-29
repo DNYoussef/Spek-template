@@ -460,17 +460,17 @@ export class TransitionHub extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T18:02:14-04:00 | SystemIntegrationOrchestrator@refactor | Created centralized FSM TransitionHub with guards, actions, and strict state management | TransitionHub.ts | OK | Single responsibility state control | 0.00 | d9c4f1e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-transition-hub-001
-- inputs: ["IntegrationFSMTypes.ts", "IntegrationOrchestratorFSM.yaml"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-transition-hub-001
+// inputs: ["IntegrationFSMTypes.ts", "IntegrationOrchestratorFSM.yaml"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
+// === END FOOTER ===

@@ -197,17 +197,17 @@ export class BaselineManager {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:46:15-04:00 | agent@claude-sonnet-4 | Create baseline manager component with NASA Rule 10 compliance | BaselineManager.ts | OK | All functions <=60 lines, handles baseline lifecycle | 0.00 | b8c9d0e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-020-fsm-refactor
-- inputs: ["ComplianceDriftDetector-typed.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-nasa-rule-10"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-020-fsm-refactor
+// inputs: ["ComplianceDriftDetector-typed.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-nasa-rule-10"}
+// === END FOOTER ===

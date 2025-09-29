@@ -169,17 +169,17 @@ export class PenetrationTester {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T12:55:18-04:00 | AGENT104@sonnet-4 | Extract PenetrationTester from SecurityValidationService | PenetrationTester.ts | OK | Penetration testing split, <60 lines per function | 0.00 | f1c8e4a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: agent104-penetration-tester
-- inputs: ["SecurityValidationService.ts analysis"]
-- tools_used: ["Write"]
-- versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: agent104-penetration-tester
+// inputs: ["SecurityValidationService.ts analysis"]
+// tools_used: ["Write"]
+// versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
+// === END FOOTER ===

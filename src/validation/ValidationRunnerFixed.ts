@@ -220,52 +220,52 @@ export class ValidationRunner {
 **Overall Status:** ${gateResult.passed ? '✅ PRODUCTION READY' : '❌ NOT PRODUCTION READY'}
 **Overall Score:** ${gateResult.overallScore}/100
 
-### Critical Metrics Achievement
+// Critical Metrics Achievement
 
-| Metric | Current | Target | Status |
-|--------|---------|--------|--------|
-| Production Readiness | ${gateResult.gateResults.productionReadiness.score} | ${gateResult.gateResults.productionReadiness.threshold} | ${gateResult.gateResults.productionReadiness.status} |
-| NASA POT10 Compliance | ${gateResult.gateResults.nasaCompliance.score}% | ${gateResult.gateResults.nasaCompliance.threshold}% | ${gateResult.gateResults.nasaCompliance.status} |
-| Theater Detection | ${gateResult.gateResults.theaterDetection.score}/100 | ${gateResult.gateResults.theaterDetection.threshold}/100 | ${gateResult.gateResults.theaterDetection.status} |
-| Test Coverage | ${gateResult.gateResults.testCoverage.score}% | ${gateResult.gateResults.testCoverage.threshold}% | ${gateResult.gateResults.testCoverage.status} |
+// |  Metric  |  Current  |  Target  |  Status  |
+
+// |  Production Readiness  |  ${gateResult.gateResults.productionReadiness.score}  |  ${gateResult.gateResults.productionReadiness.threshold}  |  ${gateResult.gateResults.productionReadiness.status}  |
+// |  NASA POT10 Compliance  |  ${gateResult.gateResults.nasaCompliance.score}%  |  ${gateResult.gateResults.nasaCompliance.threshold}%  |  ${gateResult.gateResults.nasaCompliance.status}  |
+// |  Theater Detection  |  ${gateResult.gateResults.theaterDetection.score}/100  |  ${gateResult.gateResults.theaterDetection.threshold}/100  |  ${gateResult.gateResults.theaterDetection.status}  |
+// |  Test Coverage  |  ${gateResult.gateResults.testCoverage.score}%  |  ${gateResult.gateResults.testCoverage.threshold}%  |  ${gateResult.gateResults.testCoverage.status}  |
 
 ## Detailed Quality Gate Analysis
 
-### 1. Production Readiness Assessment
+// 1. Production Readiness Assessment
 **Score:** ${gateResult.gateResults.productionReadiness.score}/${gateResult.gateResults.productionReadiness.threshold}
 **Status:** ${gateResult.gateResults.productionReadiness.status}
 
 **Details:**
 ${gateResult.gateResults.productionReadiness.details.map(d => `- ${d}`).join('\n')}
 
-### 2. NASA POT10 Compliance
+// 2. NASA POT10 Compliance
 **Score:** ${gateResult.gateResults.nasaCompliance.score}%
 **Status:** ${gateResult.gateResults.nasaCompliance.status}
 
 **Details:**
 ${gateResult.gateResults.nasaCompliance.details.map(d => `- ${d}`).join('\n')}
 
-### 3. Theater Detection & Elimination
+// 3. Theater Detection & Elimination
 **Score:** ${gateResult.gateResults.theaterDetection.score}/100
 **Status:** ${gateResult.gateResults.theaterDetection.status}
 
 **Details:**
 ${gateResult.gateResults.theaterDetection.details.map(d => `- ${d}`).join('\n')}
 
-### 4. Test Coverage Analysis
+// 4. Test Coverage Analysis
 **Score:** ${gateResult.gateResults.testCoverage.score}%
 **Status:** ${gateResult.gateResults.testCoverage.status}
 
 **Details:**
 ${gateResult.gateResults.testCoverage.details.map(d => `- ${d}`).join('\n')}
 
-### 5. Compilation & Type Safety
+// 5. Compilation & Type Safety
 **Status:** ${gateResult.gateResults.compilationCheck.status}
 
 **Details:**
 ${gateResult.gateResults.compilationCheck.details.map(d => `- ${d}`).join('\n')}
 
-### 6. Security Assessment
+// 6. Security Assessment
 **Status:** ${gateResult.gateResults.securityCheck.status}
 
 **Details:**
@@ -273,12 +273,12 @@ ${gateResult.gateResults.securityCheck.details.map(d => `- ${d}`).join('\n')}
 
 ## Issues Requiring Attention
 
-### Blocking Issues
+// Blocking Issues
 ${gateResult.blockingIssues.length === 0 ?
   '✅ No blocking issues detected' :
   gateResult.blockingIssues.map(issue => `❌ ${issue}`).join('\n')}
 
-### Warnings
+// Warnings
 ${gateResult.warnings.length === 0 ?
   '✅ No warnings' :
   gateResult.warnings.map(warning => `⚠️ ${warning}`).join('\n')}
@@ -288,14 +288,14 @@ ${gateResult.recommendations.map(rec => `📋 ${rec}`).join('\n')}
 
 ## System Readiness Assessment
 
-### Current State vs Target Metrics
+// Current State vs Target Metrics
 
-| Component | Current | Target | Gap | Priority |
-|-----------|---------|--------|-----|----------|
-| Production Score | ${gateResult.gateResults.productionReadiness.score} | 80+ | ${Math.max(0, 80 - gateResult.gateResults.productionReadiness.score)} | ${gateResult.gateResults.productionReadiness.score < 80 ? 'HIGH' : 'LOW'} |
-| NASA Compliance | ${gateResult.gateResults.nasaCompliance.score}% | 92%+ | ${Math.max(0, 92 - gateResult.gateResults.nasaCompliance.score)}% | ${gateResult.gateResults.nasaCompliance.score < 92 ? 'CRITICAL' : 'LOW'} |
-| Theater Score | ${gateResult.gateResults.theaterDetection.score} | 60+ | ${Math.max(0, 60 - gateResult.gateResults.theaterDetection.score)} | ${gateResult.gateResults.theaterDetection.score < 60 ? 'HIGH' : 'LOW'} |
-| Test Coverage | ${gateResult.gateResults.testCoverage.score}% | 95%+ | ${Math.max(0, 95 - gateResult.gateResults.testCoverage.score)}% | ${gateResult.gateResults.testCoverage.score < 95 ? 'HIGH' : 'LOW'} |
+// |  Component  |  Current  |  Target  |  Gap  |  Priority  |
+
+// |  Production Score  |  ${gateResult.gateResults.productionReadiness.score}  |  80+  |  ${Math.max(0, 80 - gateResult.gateResults.productionReadiness.score)}  |  ${gateResult.gateResults.productionReadiness.score < 80 ? 'HIGH' : 'LOW'}  |
+// |  NASA Compliance  |  ${gateResult.gateResults.nasaCompliance.score}%  |  92%+  |  ${Math.max(0, 92 - gateResult.gateResults.nasaCompliance.score)}%  |  ${gateResult.gateResults.nasaCompliance.score < 92 ? 'CRITICAL' : 'LOW'}  |
+// |  Theater Score  |  ${gateResult.gateResults.theaterDetection.score}  |  60+  |  ${Math.max(0, 60 - gateResult.gateResults.theaterDetection.score)}  |  ${gateResult.gateResults.theaterDetection.score < 60 ? 'HIGH' : 'LOW'}  |
+// |  Test Coverage  |  ${gateResult.gateResults.testCoverage.score}%  |  95%+  |  ${Math.max(0, 95 - gateResult.gateResults.testCoverage.score)}%  |  ${gateResult.gateResults.testCoverage.score < 95 ? 'HIGH' : 'LOW'}  |
 
 ## Conclusion
 
@@ -323,7 +323,7 @@ ${gateResult.passed ?
 ## NASA Power of Ten Rules Assessment
 
 ${gateResult.detailedResults.nasa ? `
-### Rule Compliance Breakdown
+// Rule Compliance Breakdown
 
 ${gateResult.detailedResults.nasa.ruleResults.map(rule => `
 #### Rule ${rule.ruleNumber}: ${rule.ruleName}
@@ -338,7 +338,7 @@ ${rule.violations.map(v => `- ${v.file}:${v.line} - ${v.message} (${v.severity})
 ` : '✅ No violations detected'}
 `).join('\n')}
 
-### Critical Violations Requiring Immediate Attention
+// Critical Violations Requiring Immediate Attention
 
 ${gateResult.detailedResults.nasa.criticalViolations.length === 0 ?
   '✅ No critical violations detected' :
@@ -346,7 +346,7 @@ ${gateResult.detailedResults.nasa.criticalViolations.length === 0 ?
     `❌ **Rule ${v.ruleNumber}** - ${v.file}:${v.line}\n   ${v.message}`
   ).join('\n\n')}
 
-### Compliance Recommendations
+// Compliance Recommendations
 
 ${gateResult.detailedResults.nasa.recommendations.map(rec => `📋 ${rec}`).join('\n')}
 ` : 'NASA compliance data not available'}
@@ -448,11 +448,11 @@ ${gateResult.gateResults.nasaCompliance.score >= 92 ?
 
 ## Key Metrics Achieved
 
-- **Production Readiness:** ${result.metrics.productionReadiness}/80 (${result.metrics.productionReadiness >= 80 ? '✅' : '❌'})
-- **NASA POT10 Compliance:** ${result.metrics.nasaCompliance}/92 (${result.metrics.nasaCompliance >= 92 ? '✅' : '❌'})
-- **Theater Score:** ${result.metrics.theaterScore}/60 (${result.metrics.theaterScore >= 60 ? '✅' : '❌'})
-- **Test Coverage:** ${result.metrics.testCoverage}/95 (${result.metrics.testCoverage >= 95 ? '✅' : '❌'})
-- **Compilation:** ${result.metrics.compilationStatus} (${result.metrics.compilationStatus === 'PASS' ? '✅' : '❌'})
+// **Production Readiness:** ${result.metrics.productionReadiness}/80 (${result.metrics.productionReadiness >= 80 ? '✅' : '❌'})
+// **NASA POT10 Compliance:** ${result.metrics.nasaCompliance}/92 (${result.metrics.nasaCompliance >= 92 ? '✅' : '❌'})
+// **Theater Score:** ${result.metrics.theaterScore}/60 (${result.metrics.theaterScore >= 60 ? '✅' : '❌'})
+// **Test Coverage:** ${result.metrics.testCoverage}/95 (${result.metrics.testCoverage >= 95 ? '✅' : '❌'})
+// **Compilation:** ${result.metrics.compilationStatus} (${result.metrics.compilationStatus === 'PASS' ? '✅' : '❌'})
 
 ## Critical Actions Required
 
@@ -464,9 +464,9 @@ ${result.nextSteps.slice(0, 5).map(step => `${step}`).join('\n')}
 
 ## Generated Reports
 
-- **Executive Summary:** ${result.reportPaths.executive}
-- **Detailed Technical:** ${result.reportPaths.detailed}
-- **Compliance Report:** ${result.reportPaths.compliance}
+// **Executive Summary:** ${result.reportPaths.executive}
+// **Detailed Technical:** ${result.reportPaths.detailed}
+// **Compliance Report:** ${result.reportPaths.compliance}
 
 ---
 

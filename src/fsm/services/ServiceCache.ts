@@ -95,17 +95,17 @@ export class ServiceCache {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T12:48:32-04:00 | AGENT104@sonnet-4 | Create ServiceCache component | ServiceCache.ts | OK | TTL-based caching with cleanup | 0.00 | f2b4e7a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: agent104-service-cache
-- inputs: ["ServiceFSMTypes.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: agent104-service-cache
+// inputs: ["ServiceFSMTypes.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
+// === END FOOTER ===

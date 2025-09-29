@@ -246,17 +246,17 @@ interface UncertaintyAnalysis {
 
 export default DecisionAnalyzer;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:38:00-04:00 | codex@Model | Create decision analysis engine | DecisionAnalyzer.ts | OK | <=60 lines per method | 0.00 | 3f7e6a8 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: decision-analyzer-001
-- inputs: ["RationalistReasoningEngine.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"codex","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: decision-analyzer-001
+// inputs: ["RationalistReasoningEngine.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"codex","prompt":"v1"}
+// === END FOOTER ===

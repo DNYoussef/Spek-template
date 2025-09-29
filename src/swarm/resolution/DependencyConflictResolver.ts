@@ -46,17 +46,17 @@ export type { DependencyUpdate, TrackerMetrics } from './dependency/DependencyTr
  * Testing: All existing tests continue to work without modification
  */
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.0.0   | 2025-09-28T14:52:18-04:00 | mega-destroyer@sonnet-4 | Eliminated 1267-line god object via FSM decomposition | DependencyConflictResolver+4components | OK | 97.2% reduction achieved | 0.00 | b8e4d2a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-destroyer-106-dependency
-- inputs: ["DependencyConflictResolver.ts(1267)"]
-- tools_used: ["shared-mega-fsm", "graph-engine", "conflict-engine", "tracker-engine", "fsm-facade"]
-- versions: {"model":"claude-sonnet-4","prompt":"mega-destroyer-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 2.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-destroyer-106-dependency
+// inputs: ["DependencyConflictResolver.ts(1267)"]
+// tools_used: ["shared-mega-fsm", "graph-engine", "conflict-engine", "tracker-engine", "fsm-facade"]
+// versions: {"model":"claude-sonnet-4","prompt":"mega-destroyer-v1"}
+// === END FOOTER ===

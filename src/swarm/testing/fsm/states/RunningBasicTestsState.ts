@@ -317,17 +317,17 @@ export class RunningBasicTestsState implements IIntegrationTestState {
 
 export default RunningBasicTestsState;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T16:03:15-04:00 | agent@Sonnet4 | Created RunningBasicTestsState with bounded execution and NASA Rule 10 compliance | RunningBasicTestsState.ts | OK | Fixed-loop basic test execution | 0.00 | c4f7a9e |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: integration-basic-state-001
-- inputs: ["IntegrationTestFSM.types.ts", "IdleState.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"Sonnet4","prompt":"fsm-first-integration"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: integration-basic-state-001
+// inputs: ["IntegrationTestFSM.types.ts", "IdleState.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"Sonnet4","prompt":"fsm-first-integration"}
+// === END FOOTER ===

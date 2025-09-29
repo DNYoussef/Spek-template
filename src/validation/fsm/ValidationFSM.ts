@@ -285,17 +285,17 @@ export class ValidationFSM {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T11:45:12-04:00 | validation-destroyer@claude-4 | Created unified ValidationFSM facade | ValidationFSM.ts | OK | Replaces 3 god objects, functions ≤60 lines | 0.00 | a5c8b71 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: validation-fsm-001
-- inputs: ["All FSM components and states"]
-- tools_used: ["mcp__filesystem__write_file"]
-- versions: {"model":"claude-4","prompt":"validation-destroyer-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: validation-fsm-001
+// inputs: ["All FSM components and states"]
+// tools_used: ["mcp__filesystem__write_file"]
+// versions: {"model":"claude-4","prompt":"validation-destroyer-v1"}
+// === END FOOTER ===

@@ -186,17 +186,17 @@ export class DeploymentPrincessFSM extends PrincessBase<DeploymentContext, Deplo
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 3.0.0   | 2025-09-28T21:15:34-04:00 | MEGA-AGENT-090@Sonnet-4 | MASSIVE god object elimination - DeploymentPrincessFSM | DeploymentPrincessFSM.ts + state handlers | OK | Reduced from 1287 to 147 lines (88.6% reduction) | 0.00 | f8d4e2a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-agent-090-deployment-elimination
-- inputs: ["DeploymentPrincessFSM.ts (1287 lines)"]
-- tools_used: ["Read", "Write", "MultiEdit", "TodoWrite"]
-- versions: {"model":"sonnet-4","prompt":"princess-fsm-eliminator"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 3.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-agent-090-deployment-elimination
+// inputs: ["DeploymentPrincessFSM.ts (1287 lines)"]
+// tools_used: ["Read", "Write", "MultiEdit", "TodoWrite"]
+// versions: {"model":"sonnet-4","prompt":"princess-fsm-eliminator"}
+// === END FOOTER ===

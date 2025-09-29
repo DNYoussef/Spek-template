@@ -23,17 +23,17 @@ export class MemoryCacheStrategy {
 
 export default MemoryCacheStrategy;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 2.0.0   | 2025-09-28T15:45:00-04:00 | agent@Claude | MASSIVE FSM delegation refactor - 95.4% line reduction | MemoryCacheStrategy.ts | OK | 522→24 lines, complete FSM delegation, NASA Rule 10 | 0.00 | l3m4n5o |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: cache-fsm-delegation-001
-- inputs: ["Original 522-line implementation", "CacheFSMFacade.ts"]
-- tools_used: ["Edit"]
-- versions: {"model":"claude-sonnet-4","prompt":"cache-fsm-massive-reduction"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 2.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: cache-fsm-delegation-001
+// inputs: ["Original 522-line implementation", "CacheFSMFacade.ts"]
+// tools_used: ["Edit"]
+// versions: {"model":"claude-sonnet-4","prompt":"cache-fsm-massive-reduction"}
+// === END FOOTER ===

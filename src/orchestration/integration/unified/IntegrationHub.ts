@@ -224,17 +224,17 @@ export class IntegrationHub extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:39:15-04:00 | mega-swarm-100@agent | Created centralized Integration Hub with NASA-compliant state management | IntegrationHub.ts | OK | Centralized transition hub eliminates god object patterns | 0.00 | b4e9c1d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: integration-killer-002
-- inputs: ["IntegrationFSMCore.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"mega-swarm-100","prompt":"integration-elimination-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: integration-killer-002
+// inputs: ["IntegrationFSMCore.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"mega-swarm-100","prompt":"integration-elimination-v1"}
+// === END FOOTER ===

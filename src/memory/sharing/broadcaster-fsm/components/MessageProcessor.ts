@@ -158,17 +158,17 @@ export class MessageProcessorImpl implements MessageProcessor {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0 | 2025-09-28T19:11:52-04:00 | coder@claude-sonnet-4 | Implemented MessageProcessor with NASA Rule 10 compliance | MessageProcessor.ts | OK | Fixed loops, 2+ assertions, no recursion | 0.00 | ghi9101 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: broadcaster-fsm-decomp-003
-- inputs: ["BroadcasterTypes.ts", "SharedMemoryBus.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"claude-sonnet-4","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: broadcaster-fsm-decomp-003
+// inputs: ["BroadcasterTypes.ts", "SharedMemoryBus.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"claude-sonnet-4","prompt":"v1"}
+// === END FOOTER ===

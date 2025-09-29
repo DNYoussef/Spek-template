@@ -313,17 +313,17 @@ export class ContextRouterFacade extends RouterBase {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T21:46:00Z | MEGA_088@claude-sonnet-4 | Created context router facade with 90% reduction | ContextRouterFacade.ts | OK | FSM-based facade delegates to specialized components | 0.00 | f2a4b7c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega088-context-router-facade-001
-- inputs: ["ContextRouter.ts analysis", "FSM components"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"mega088-fsm-architecture"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega088-context-router-facade-001
+// inputs: ["ContextRouter.ts analysis", "FSM components"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"mega088-fsm-architecture"}
+// === END FOOTER ===

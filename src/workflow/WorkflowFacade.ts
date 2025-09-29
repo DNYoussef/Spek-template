@@ -479,17 +479,17 @@ export class WorkflowFacade extends EventEmitter {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T10:56:45-04:00 | agent@Sonnet | Create unified workflow facade replacing god objects | WorkflowFacade.ts | OK | 76% line reduction achieved | 0.00 | a8d4e9c |
+/*
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: workflow-facade-001
-- inputs: ["WorkflowTransitionHub.ts", "StepExecutor.ts", "ProcessMonitor.ts", "WorkflowValidator.ts"]
-- tools_used: ["mcp__filesystem__write_file"]
-- versions: {"model":"claude-sonnet-4","prompt":"workflow-hunter-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: workflow-facade-001
+// inputs: ["WorkflowTransitionHub.ts", "StepExecutor.ts", "ProcessMonitor.ts", "WorkflowValidator.ts"]
+// tools_used: ["mcp__filesystem__write_file"]
+// versions: {"model":"claude-sonnet-4","prompt":"workflow-hunter-v1"}
+*/

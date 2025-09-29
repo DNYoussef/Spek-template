@@ -344,17 +344,17 @@ export class SecurityComplianceService {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0 | 2025-09-28T04:14:39-04:00 | CODEX-038@sonnet-4 | Create SecurityComplianceService following NASA Rule 10 | services/SecurityComplianceService.ts | OK | Extracted compliance checking operations from main FSM | 0.00 | a8c4d1f |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-038-compliance-service
-- inputs: ["SecurityPrincessFSM.ts analysis"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"sonnet-4","prompt":"nasa-rule-10-fsm"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-038-compliance-service
+// inputs: ["SecurityPrincessFSM.ts analysis"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"sonnet-4","prompt":"nasa-rule-10-fsm"}
+// === END FOOTER ===

@@ -1,16 +1,21 @@
 # Claude Code Configuration - SPEK Enhanced Development Platform
 
-# RULES FOR CODING
-1. NO UNICODE OR EMOKI'S
+# DSPy OPTIMIZATION ENFORCEMENT - MANDATORY RULES
+1. **NO UNICODE OR EMOJIS**: ASCII only for all code and comments
 2. **FSM-FIRST DEVELOPMENT**: All features MUST be designed as state machines with explicit states, events, and transitions
 3. **STATE ISOLATION**: One file per state, no cross-state globals
 4. **CENTRALIZED TRANSITIONS**: All state changes through single TransitionHub
 5. **NO STRING EVENTS**: Use enums for all events and states
+6. **NASA RULE 10 COMPLIANCE**: Functions <=60 lines, >=2 assertions, no recursion
+7. **MANDATORY CONCURRENCY**: ALL operations in single message (minimum 3 concurrent ops)
+8. **QUALITY GATES**: Target NASA>=90%, FSM>=90%, Theater<60, Tests>=80%
+9. **DEVELOPMENT STANDARDS**: No TODOs, no placeholders, enterprise quality target
+10. **VERSION FOOTERS**: Mandatory on ALL files with proper hash calculation
 
 
 ## [TARGET] Project Overview
 
-**SPEK Enhanced Development Platform** is a complete multi-agent workflow orchestration system with Queen-Princess-Drone swarm hierarchy. The platform integrates 90+ specialized AI agents (including 5 desktop automation specialists via Bytebot), 172 slash commands, 16+ MCP servers (including Bytebot desktop control), comprehensive theater detection, and the **3-Loop Development System** for both new projects and existing codebase remediation.
+**SPEK Enhanced Development Platform** is a sophisticated development framework under active construction. The platform provides a foundation for multi-agent workflow orchestration with swarm architecture patterns. It includes agent registry facades, ~30 functional commands, 16+ MCP server integrations, comprehensive theater detection capabilities, and the **3-Loop Development System** for systematic development workflows.
 
 ### Core Pipeline: S-R-P-E-K Methodology with 3-Loop System
 ```
@@ -25,24 +30,57 @@ Loop 2: Development (swarm->MECE->deploy->theater)
 Loop 3: Quality (analysis->root cause->fixes->validation)
 ```
 
-**Key Components:**
-- **Swarm Architecture**: Queen-Princess-Drone hierarchy with 6 domain princesses
-- **AI Agent System**: 90+ specialized agents with automatic model optimization
-- **Command Framework**: 172 slash commands for complete workflow automation
-- **MCP Integration**: 16+ servers including memory, GitHub, browser automation, desktop control
-- **Theater Detection**: Zero-tolerance audit gates for fake work elimination
-- **9-Step Dev Process**: Complete implementation workflow with reality validation
-- **3-Loop System**: Forward flow for new projects, reverse flow for remediation
-- **Real Implementations**: 37+ tool integrations with evidence-based validation
+**Actual Working Components:**
+- **Swarm Architecture**: Facade pattern with event forwarding (simplified from theoretical hierarchy)
+- **Agent Registry**: Framework with model selection logic (agents pending full implementation)
+- **Command Framework**: ~30 actual command files with script-based execution
+- **MCP Integration**: 16+ server configurations (functional when properly initialized)
+- **Theater Detection**: Working detection algorithms with scoring system
+- **3-Loop System**: 733-line implementation with quality analysis
+- **Python Analysis**: 7/8 tests passing with substantial infrastructure
+- **Script Infrastructure**: 200+ utility scripts for automation
 
-## [U+1F6A8] CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT
+**Current Status**: Development framework with excellent architectural foundations requiring completion of implementation and resolution of build errors.
 
-**ABSOLUTE RULES**:
-1. ALL operations MUST be concurrent/parallel in a single message
-2. **NEVER save working files, text/mds and tests to the root folder**
-3. ALWAYS organize files in appropriate subdirectories
-4. NO UNICODE!!!
-5. **ALWAYS maintain Version & Run Log footers in ALL files** (see Version Log section below)
+## [ALERT] Known Issues & Build Status
+
+### **Critical Build Issues**
+- **TypeScript Compilation**: 951 errors blocking builds (as of latest analysis)
+- **Primary Cause**: HTML comment footers in TypeScript files (partially resolved)
+- **Secondary Issues**: Invalid identifiers with hyphens, markdown content in TS files
+- **Test Failures**: 1/8 Python tests failing with syntax errors
+- **Command Success Rate**: Only 23% of documented commands functional
+
+### **Resolution Priority**
+1. Fix remaining TypeScript syntax errors in src/types/ and src/architecture/
+2. Complete claude-flow configuration for SPARC commands
+3. Implement missing nasa-pot10-compliance.js script
+4. Resolve DSPy template validation failures (78.8% score vs 85% required)
+
+### **Workarounds**
+- Use jest in fallback mode for testing
+- Security scanning works via Bandit
+- Shell scripts are executable despite TypeScript issues
+- Python environment functional for analysis tasks
+
+## CRITICAL: CONCURRENT EXECUTION & FILE MANAGEMENT - DSPy ENFORCED
+
+**MANDATORY CONCURRENT EXECUTION PROTOCOL**:
+1. **MINIMUM OPERATIONS**: >=3 concurrent operations per message (ENFORCED)
+2. **TodoWrite BATCHING**: MINIMUM 5-10 todos in single call (ENFORCED)
+3. **FILE OPERATIONS**: ALL reads/writes/edits in ONE batch (ENFORCED)
+4. **AGENT COORDINATION**: ALL Task spawns in ONE message (ENFORCED)
+5. **SYSTEM COMMANDS**: ALL bash operations combined with && or ; (ENFORCED)
+
+**FILE ORGANIZATION ENFORCEMENT**:
+1. **NEVER save working files, text/mds and tests to the root folder**
+2. **ALWAYS organize files in appropriate subdirectories**
+3. **NO UNICODE** - ASCII only for all code and comments
+4. **ALWAYS maintain Version & Run Log footers in ALL files** with SHA-256 hash
+5. **PRODUCTION READY**: No TODOs, no placeholders, enterprise quality only
+
+**VIOLATION DETECTION**: Automatic scan for prohibited patterns
+**VIOLATION RESPONSE**: Immediate correction required, no exceptions
 
 ### [LIGHTNING] GOLDEN RULE: "1 MESSAGE = ALL RELATED OPERATIONS"
 
@@ -182,7 +220,9 @@ See [docs/3-LOOP-SYSTEM.md](docs/3-LOOP-SYSTEM.md) for complete documentation.
 - **Agent Spawner**: `src/flow/core/agent-spawner.js`
 - **MCP Configuration**: `src/flow/config/mcp-multi-platform.json`
 
-### **Specialized Agent Categories (85+ Total with Optimal AI Models)**
+### **Specialized Agent Categories (Framework for 85+ Agents - Implementation Pending)**
+
+**Note**: The agent registry provides a sophisticated framework for agent management with model selection logic. However, most agent definitions are pending full implementation. The facade pattern is in place but requires completion of actual agent logic.
 
 #### **Browser Automation & Visual (GPT-5 + Codex CLI)**
 - `frontend-developer` -> GPT-5 + [claude-flow, memory, github, playwright, figma]
@@ -237,18 +277,18 @@ await agentSpawner.spawnAgent(
 
 ## [CHART] Quality Gate Essentials
 
-### **Critical Gates (Must Pass)**
-- **NASA Compliance**: >=90% (currently 92% post-Phase 2)
-- **God Objects**: <=25 (achieved through Phase 1 consolidation)
-- **MECE Score**: >=0.75 (achieved >0.85 post-consolidation)
-- **Security**: Zero critical/high findings
+### **Target Gates (In Development)**
+- **NASA Compliance**: Target >=90% (implementation in progress)
+- **God Objects**: Facade pattern refactoring complete
+- **MECE Score**: Target >=0.75 (57% coverage currently)
+- **Security**: Bandit scanner functional, Semgrep integration pending
 
 ### **Current System Status**
-- **Total Files**: 70 (reduced from 74, -5.4%) + Phase 3 monitoring infrastructure
-- **LOC Eliminated**: 1,568 (Phase 1 consolidation)
-- **God Objects**: 2 major eliminated (4 focused classes created)
-- **Defense Industry**: [OK] PRODUCTION READY (95% NASA compliance)
-- **CI/CD Success**: 85%+ target infrastructure with comprehensive monitoring
+- **Total Files**: 70 core TypeScript files + 200+ utility scripts
+- **Build Status**: 951 TypeScript compilation errors requiring resolution
+- **Test Status**: 7/8 Python tests passing, 1 test with syntax errors
+- **Command Success Rate**: 23% (3/13 commands functional)
+- **Documentation Coverage**: 57% MECE coverage identified
 
 ## [CYCLE] Loop System Integration
 
@@ -475,7 +515,9 @@ const result = modelSelector.selectModel('frontend-developer', {
 - **Agent Coordination**: SessionEnd hooks support 54+ agent workflows
 - **Quality Gate Documentation**: Model attribution in `.claude/.artifacts/` for compliance
 
-## [TOOL] Available Slash Commands (29 Total)
+## [TOOL] Available Slash Commands (~30 Implemented)
+
+**Note**: Documentation references additional commands that are conceptual or planned but not yet implemented. The following commands have actual file implementations:
 
 ### **[SCIENCE] Research & Discovery Commands**
 | Command | Description | Reference |
@@ -844,3 +886,186 @@ updated = middleware.update_footer(content, "agent@model", receipt=receipt)
 5. **Never** edit outside footer markers
 
 *This streamlined configuration maximizes context window efficiency while maintaining full system functionality through comprehensive documentation references.*
+
+## DSPy Optimization Enforcement
+
+### Mandatory Requirements (Automatically Enforced)
+
+1. **Concurrency**: ALL operations in single message
+2. **NASA Rule 10**: Functions <=60 lines, >=2 assertions, no recursion
+3. **FSM-First**: Enum states/events, centralized transitions
+4. **Quality Gates**: NASA>=92%, FSM>=90%, Theater<60, Tests>=80%
+5. **Memory**: Dual storage with automatic cleanup
+6. **No Unicode**: ASCII only for all code
+7. **No TODOs**: Production-ready code only
+8. **Version Footers**: Mandatory on all files
+
+### Quality Thresholds by Agent Category
+
+**Browser Automation & Visual (GPT-5)**: 0.90 quality threshold
+- `frontend-developer`, `ui-designer`, `mobile-dev`, `rapid-prototyper`
+
+**Large Context & Research (Gemini 2.5 Pro)**: 0.85 quality threshold
+- `researcher`, `specification`, `architecture`, `system-architect`
+
+**Quality Assurance (Claude Opus 4.1)**: 0.95 quality threshold
+- `reviewer`, `code-analyzer`, `security-manager`, `tester`, `production-validator`
+
+**Coordination & Orchestration (Claude Sonnet 4)**: 0.88 quality threshold
+- `sparc-coord`, `hierarchical-coordinator`, `mesh-coordinator`, `task-orchestrator`
+
+**Cost-Effective Operations (Gemini Flash)**: 0.85 quality threshold
+- `planner`, `refinement`, `pr-manager`, `issue-tracker`
+
+### DSPy I/O Examples (Critical Patterns)
+
+#### Concurrency Pattern
+**REQUIRED**: Minimum 3 concurrent operations per message
+```javascript
+// ✅ CORRECT: Single message with 8 concurrent operations
+[
+  TodoWrite({ todos: [todo1, todo2, todo3, todo4, todo5] }),
+  Read("/src/file1.ts"),
+  Read("/src/file2.ts"),
+  Read("/src/file3.ts"),
+  Task("Agent 1: Implement feature X"),
+  Task("Agent 2: Write tests for X"),
+  Bash("npm test && npm run lint && npm run typecheck"),
+  Write("/src/output.ts", optimizedContent)
+]
+
+// ❌ FORBIDDEN: Sequential message pattern
+Message 1: TodoWrite({ todos: [todo1] })
+Message 2: Read("/src/file1.ts")
+Message 3: Task("Agent 1: Implement feature")
+```
+
+#### NASA Rule 10 Pattern
+**REQUIRED**: Functions <=60 lines, >=2 assertions, no recursion
+```typescript
+// ✅ CORRECT: NASA compliant function
+async function validateAuthToken(token: string, expectedUserId: string): Promise<AuthResult> {
+  assert(token.length > 0, 'Token cannot be empty');
+  assert(expectedUserId.length > 0, 'UserId cannot be empty');
+
+  if (token.length > 512) {
+    return { valid: false, error: 'Token exceeds maximum length' };
+  }
+
+  const decodeResult = await decodeJWT(token);
+  assert(decodeResult !== null, 'Token decode must not return null');
+
+  if (!decodeResult.success) {
+    return { valid: false, error: decodeResult.error };
+  }
+
+  const payload = decodeResult.payload;
+  assert(payload.userId !== undefined, 'Payload must contain userId');
+
+  return { valid: !isExpired && isValidUser };
+}
+
+// ❌ FORBIDDEN: No assertions, >60 lines, recursion
+function badFunction(data) { // Missing assertions
+  if (condition) return badFunction(modified); // Recursion forbidden
+  // 70+ lines of code... // Exceeds limit
+}
+```
+
+#### FSM State Management Pattern
+**REQUIRED**: Enum states/events, centralized transitions, state isolation
+```typescript
+// ✅ CORRECT: FSM implementation
+enum AuthState {
+  IDLE = "IDLE",
+  AUTHENTICATING = "AUTHENTICATING",
+  AUTHENTICATED = "AUTHENTICATED",
+  FAILED = "FAILED"
+}
+
+enum AuthEvent {
+  LOGIN_REQUEST = "LOGIN_REQUEST",
+  CREDENTIALS_VALID = "CREDENTIALS_VALID",
+  CREDENTIALS_INVALID = "CREDENTIALS_INVALID"
+}
+
+class IdleState implements StateContract {
+  async update(event: AuthEvent): Promise<TransitionResult> {
+    switch (event) {
+      case AuthEvent.LOGIN_REQUEST:
+        return { nextState: AuthState.AUTHENTICATING };
+      default:
+        return { nextState: AuthState.IDLE };
+    }
+  }
+}
+
+// ❌ FORBIDDEN: String events, direct state changes
+if (userAction === "login") { // String events forbidden
+  this.state = "authenticating"; // Direct state change forbidden
+}
+```
+
+#### Quality Gate Pattern
+**REQUIRED**: Sequential validation with specific thresholds
+```bash
+# MANDATORY: Quality gate execution sequence
+npm run test:unit:coverage    # >=80% required
+npm run test:integration      # 100% pass required
+npm run typecheck:strict      # Zero violations
+npm run lint:ci               # Zero issues
+npm run compliance:nasa-pot10 # >=92% required
+npm run security:scan         # Zero critical/high
+
+# FAILURE PROTOCOL: Any step fails = targeted fix branch
+git checkout -b fix/[STEP_NAME]_[TIMESTAMP]
+# Maximum 3 attempts per step
+# If 3 attempts fail, escalate to senior agent
+```
+
+#### Memory Optimization Pattern
+**REQUIRED**: Dual memory storage with automatic cleanup
+```javascript
+// ✅ CORRECT: MCP knowledge graph + filesystem persistence
+await mcp__memory__create_entities([
+  { name: "user_auth", entityType: "feature", observations: ["FSM implemented"] }
+]);
+await mcp__memory__create_relations([
+  { from: "user_auth", to: "security", relationType: "implements" }
+]);
+
+// Automatic cleanup at thresholds
+if (entityCount > 1000 || relationCount > 5000) {
+  await mcp__memory__cleanup_old_entities();
+}
+
+// ❌ FORBIDDEN: Unmanaged memory growth
+globalState.cache[key] = value; // No cleanup mechanism
+```
+
+### Enforcement Mechanisms
+
+**Pre-Execution Validation**:
+- Scan message for operation count (>=3 required)
+- Validate function line counts (<=60 required)
+- Check for forbidden patterns (recursion, TODOs, Unicode)
+- Verify FSM compliance (enum states/events required)
+
+**Runtime Monitoring**:
+- Track parallelism efficiency
+- Monitor quality gate compliance
+- Validate memory usage patterns
+- Check version footer completeness
+
+**Post-Execution Scoring**:
+- Concurrent operation success rate
+- NASA Rule 10 compliance percentage
+- FSM pattern adherence
+- Quality threshold achievement
+
+**Violation Response Protocol**:
+1. **Detection**: Automatic pattern scanning
+2. **Classification**: Critical/High/Medium/Low
+3. **Correction**: Immediate retry with fix
+4. **Escalation**: Senior agent involvement if repeated
+5. **Learning**: Update DSPy examples with violations

@@ -37,7 +37,7 @@ export type DroneId = string & { readonly __brand: 'DroneId' };
 export type DirectiveId = string & { readonly __brand: 'DirectiveId' };
 
 // Range-specific type definitions for 600-699
-export interface swarm-typesConfig {
+export interface SwarmTypesConfig {
     range: '600-699';
     maxLines: number;
     decomposed: boolean;

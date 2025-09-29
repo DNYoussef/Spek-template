@@ -3,7 +3,7 @@
 
 
 
-export class swarm-typesCore {
+export class SwarmTypesCore {
     private state: string = 'initial';
 
     constructor() {

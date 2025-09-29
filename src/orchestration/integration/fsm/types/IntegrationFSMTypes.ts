@@ -218,17 +218,17 @@ export {
   IntegrationLog
 } from '../SystemIntegrationOrchestrator';
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-27T17:58:43-04:00 | SystemIntegrationOrchestrator@refactor | Created FSM types with strict enum constraints and centralized definitions | IntegrationFSMTypes.ts | OK | NASA Rule 10 compliance | 0.00 | a7f8b92 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-types-creation-001
-- inputs: ["SystemIntegrationOrchestrator.ts", "IntegrationOrchestratorFSM.yaml"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-types-creation-001
+// inputs: ["SystemIntegrationOrchestrator.ts", "IntegrationOrchestratorFSM.yaml"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"fsm-first-refactor-v1"}
+// === END FOOTER ===

@@ -152,17 +152,17 @@ export class CacheRetriever {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:37:35-04:00 | agent@Claude | Created cache retriever component | CacheRetriever.ts | OK | NASA Rule 10 compliant, focused retrieval operations | 0.00 | g8h9i0j |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: cache-retriever-component-001
-- inputs: ["CacheFSMTypes.ts", "MemoryCacheStrategy.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4","prompt":"cache-operations-decomposition"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: cache-retriever-component-001
+// inputs: ["CacheFSMTypes.ts", "MemoryCacheStrategy.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4","prompt":"cache-operations-decomposition"}
+// === END FOOTER ===

@@ -138,17 +138,17 @@ export class DistributedMemorySync extends EventEmitter {
 
 export default DistributedMemorySync;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T09:15:23-04:00 | agent@Claude-Sonnet-4 | FSM decomposition of DistributedMemorySync | 8 files | OK | 95%+ line reduction achieved | 0.00 | a7b8c9d |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: fsm-decomposition-083
-- inputs: ["DistributedMemorySync.ts"]
-- tools_used: ["MultiEdit", "TodoWrite"]
-- versions: {"model":"Claude-Sonnet-4","prompt":"FSM-First-v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: fsm-decomposition-083
+// inputs: ["DistributedMemorySync.ts"]
+// tools_used: ["MultiEdit", "TodoWrite"]
+// versions: {"model":"Claude-Sonnet-4","prompt":"FSM-First-v1.0"}
+// === END FOOTER ===

@@ -202,17 +202,17 @@ export class MigrationValidator extends EventEmitter {
 
 export default MigrationValidator;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T20:26:00-04:00 | agent@ModelMEGA095 | Replace 1218-line god object with 87-line AnalysisHub facade | MigrationValidator.ts | OK | 92.9% reduction | 0.00 | e9f2a8c |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: migration-facade-095
-- inputs: ["original god object", "AnalysisHub FSM"]
-- tools_used: ["Write"]
-- versions: {"model":"MEGA095","prompt":"v1.0"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: migration-facade-095
+// inputs: ["original god object", "AnalysisHub FSM"]
+// tools_used: ["Write"]
+// versions: {"model":"MEGA095","prompt":"v1.0"}
+// === END FOOTER ===

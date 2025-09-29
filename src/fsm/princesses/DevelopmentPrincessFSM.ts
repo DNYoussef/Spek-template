@@ -179,17 +179,17 @@ export class DevelopmentPrincessFSM extends PrincessBase<DevelopmentContext, Dev
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 3.0.0   | 2025-09-28T21:29:08-04:00 | MEGA-AGENT-090@Sonnet-4 | Development Princess FSM elimination complete | DevelopmentPrincessFSM.ts | OK | Reduced from 729 to 137 lines (81.2% reduction) | 0.00 | d6c4f9b |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: mega-agent-090-development-elimination
-- inputs: ["DevelopmentPrincessFSM.ts (729 lines)"]
-- tools_used: ["Write"]
-- versions: {"model":"sonnet-4","prompt":"princess-fsm-eliminator"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 3.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: mega-agent-090-development-elimination
+// inputs: ["DevelopmentPrincessFSM.ts (729 lines)"]
+// tools_used: ["Write"]
+// versions: {"model":"sonnet-4","prompt":"princess-fsm-eliminator"}
+// === END FOOTER ===

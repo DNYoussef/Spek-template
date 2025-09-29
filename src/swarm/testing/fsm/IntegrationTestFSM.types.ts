@@ -279,17 +279,17 @@ export interface PrincessIntegrationConfig {
   };
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:47:23-04:00 | agent@Sonnet4 | Created FSM types for integration testing with NASA Rule 10 compliance | IntegrationTestFSM.types.ts | OK | FSM-first development pattern | 0.00 | 8a7c5fd |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: integration-fsm-types-001
-- inputs: ["CrossDomainIntegrationTester.ts", "ValidationFSM.types.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"Sonnet4","prompt":"fsm-first-integration"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: integration-fsm-types-001
+// inputs: ["CrossDomainIntegrationTester.ts", "ValidationFSM.types.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"Sonnet4","prompt":"fsm-first-integration"}
+// === END FOOTER ===

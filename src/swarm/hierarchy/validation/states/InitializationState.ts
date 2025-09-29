@@ -251,17 +251,17 @@ def process_data(input_data):
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T10:02:45-04:00 | agent@Sonnet-4 | Created sandbox initialization state | InitializationState.ts | OK | Complete environment setup | 0.00 | e3f4g5h |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: codex-046-initialization-state
-- inputs: ["BaseStateHandler.ts", "ValidationTypes.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"claude-sonnet-4-20250514","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: codex-046-initialization-state
+// inputs: ["BaseStateHandler.ts", "ValidationTypes.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"claude-sonnet-4-20250514","prompt":"v1"}
+// === END FOOTER ===

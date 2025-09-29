@@ -144,17 +144,17 @@ export class ComputerUseToolsOrchestrator {
   }
 }
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T12:54:35-04:00 | AGENT104@sonnet-4 | Create orchestrator to replace god object | ComputerUseToolsOrchestrator.ts | OK | 698→150 lines, organized delegation, <60 lines per function | 0.00 | c4f9b1a |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: agent104-tools-orchestrator
-- inputs: ["computer-use.tools.ts", "MouseToolHandler.ts", "KeyboardToolHandler.ts", "SystemToolHandler.ts", "FileToolHandler.ts"]
-- tools_used: ["Write"]
-- versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: agent104-tools-orchestrator
+// inputs: ["computer-use.tools.ts", "MouseToolHandler.ts", "KeyboardToolHandler.ts", "SystemToolHandler.ts", "FileToolHandler.ts"]
+// tools_used: ["Write"]
+// versions: {"model":"sonnet-4","prompt":"service-fsm-elimination"}
+// === END FOOTER ===

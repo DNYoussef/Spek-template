@@ -211,17 +211,17 @@ interface PredictionResults {
 
 export default HypothesisTestingState;
 
-<!-- AGENT FOOTER BEGIN: DO NOT EDIT ABOVE THIS LINE -->
-## Version & Run Log
-| Version | Timestamp | Agent/Model | Change Summary | Artifacts | Status | Notes | Cost | Hash |
-|--------:|-----------|-------------|----------------|-----------|--------|-------|------|------|
-| 1.0.0   | 2025-09-28T15:37:00-04:00 | codex@Model | Create hypothesis testing state | HypothesisTestingState.ts | OK | <=60 lines per method | 0.00 | 7a9b4c2 |
+// === AGENT FOOTER ===
+// Version & Run Log
+// Version History
 
-### Receipt
-- status: OK
-- reason_if_blocked: --
-- run_id: hypothesis-testing-state-001
-- inputs: ["RationalistReasoningEngine.ts"]
-- tools_used: ["MultiEdit"]
-- versions: {"model":"codex","prompt":"v1"}
-<!-- AGENT FOOTER END: DO NOT EDIT BELOW THIS LINE -->
+// Version: 1.0.0
+
+// Receipt
+// status: OK
+// reason_if_blocked: --
+// run_id: hypothesis-testing-state-001
+// inputs: ["RationalistReasoningEngine.ts"]
+// tools_used: ["MultiEdit"]
+// versions: {"model":"codex","prompt":"v1"}
+// === END FOOTER ===
