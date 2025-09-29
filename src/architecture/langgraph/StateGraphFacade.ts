@@ -43,7 +43,7 @@ export interface StateGraphConfig {
 /**
  * Graph Traversal Result
  */
-export interface GraphTraversalResult {  path: string[];  visitedNodes: Set<string>;  totalDistance: number;
+export interface GraphTraversalResult {  path: string[];  visitedNodes: Set<string>;  totalDistance: number;
   executionTime: number;
   success: boolean;
   error?: string;
@@ -51,7 +51,7 @@ export interface GraphTraversalResult {  path: string[];  visitedNodes: Set<st
 /**
  * Graph Analysis Result
  */
-export interface GraphAnalysisResult {  nodeCount: number;  edgeCount: number;  hasCycles: boolean;  connectedComponents: number;  density: number;  averageDegree: number;  criticalPaths: string[][];  deadlockStates: string[];
+export interface GraphAnalysisResult {  nodeCount: number;  edgeCount: number;  hasCycles: boolean;  connectedComponents: number;  density: number;  averageDegree: number;  criticalPaths: string[][];  deadlockStates: string[];
 }
 /**
  * State Graph Facade
@@ -148,16 +148,19 @@ export class StateGraphFacade extends EventEmitter {
       const visitedNodes  =  new Set(path);
       const _totalDistance  =  this.calculatePathDistance(path);
       // Update current position
-      this._currentNodeId  =  targetNodeId;const result: GraphTraversalResult   = {
-        const path,
-        const visitedNodes,
-        const totalDistance,
+      this._currentNodeId  =  targetNodeId;
+      const result: GraphTraversalResult = {
+        path,
+        visitedNodes,
+        totalDistance: _totalDistance,
         executionTime: Date.now() - startTime,
         success: true
       };
       this.emit('traversalCompleted', result);
       return result;
-    } catch (error) {const result: GraphTraversalResult   = {  path: [],
+    } catch (error) {
+      const result: GraphTraversalResult = {
+        path: [],
         visitedNodes: new Set(),
         totalDistance: 0,
         executionTime: Date.now() - startTime,
@@ -185,7 +188,8 @@ export class StateGraphFacade extends EventEmitter {
       const _density  =  this.calculateGraphDensity();
       const _averageDegree  =  this.calculateAverageDegree();
       const _criticalPaths  =  this.findCriticalPaths();
-      const _deadlockStates  =  this.findDeadlockStates();const result: GraphAnalysisResult   = {
+      const _deadlockStates  =  this.findDeadlockStates();
+      const result: GraphAnalysisResult   = {
         nodeCount: _nodeCount,
         edgeCount: _edgeCount,
         hasCycles: _hasCycles,
@@ -269,7 +273,7 @@ export class StateGraphFacade extends EventEmitter {
    * NASA Rule 10: ≤60 lines, bounded state retrieval
    */
   getGraphState(): {
-    currentNodeId: string | null;  nodeCount: number;  edgeCount: number;
+    currentNodeId: string | null;  nodeCount: number;  edgeCount: number;
     isInitialized: boolean;
     config: StateGraphConfig;
   } {
@@ -362,20 +366,20 @@ export class StateGraphFacade extends EventEmitter {
   }
   private calculatePathDistance(path: string[]): number {
     let _distance  =  0;
-    for (let _i  =  0; i < path.length - 1; i++) {
+    for (let _i  =  0; _i < path.length - 1; _i++) {
       const _edge  =  Array.from(this._edges.values()).find(
-        e => e.source === path[i] && e.target === path[i + 1]
+        e => e.source === path[_i] && e.target === path[_i + 1]
       );
-      distance + =  edge?.weight || 1;
+      _distance +=  edge?.weight || 1;
     }
-    return distance;
+    return _distance;
   }
   private detectCycles(): boolean {
     const _visited  =  new Set<string>();
     const _recursionStack  =  new Set<string>();
     for (const nodeId of this.nodes.keys()) {
-      if (!visited.has(nodeId)) {
-        if (this.hasCycleDFS(nodeId, const visited, recursionStack)) {
+      if (!_visited.has(nodeId)) {
+        if (this.hasCycleDFS(nodeId, _visited, _recursionStack)) {
           return true;
         }
       }
@@ -387,7 +391,7 @@ export class StateGraphFacade extends EventEmitter {
     recursionStack.add(nodeId);
     const _neighbors  =  this._adjacencyList.get(nodeId) || [];
     for (const neighbor of _neighbors) {
-      if (!_visited.has(neighbor)) {
+      if (!visited.has(neighbor)) {
         if (this.hasCycleDFS(neighbor, visited, recursionStack)) {
           return true;
         }
@@ -413,7 +417,7 @@ export class StateGraphFacade extends EventEmitter {
     visited.add(nodeId);
     const _neighbors  =  this._adjacencyList.get(nodeId) || [];
     for (const neighbor of _neighbors) {
-      if (!_visited.has(neighbor)) {
+      if (!visited.has(neighbor)) {
         this.dfsVisit(neighbor, visited);
       }
     }
