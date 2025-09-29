@@ -6,6 +6,8 @@ JSON Export for Machine-Readable Connascence Analysis
 Generates stable, agent-friendly JSON reports with deterministic ordering
 and comprehensive metadata for tool integration.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from typing import Any, Dict, List
 import json

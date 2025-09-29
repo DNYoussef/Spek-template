@@ -7,6 +7,9 @@ Replaces regex-based pattern matching with proper Abstract Syntax Tree (AST)
 analysis for accurate code pattern detection. Provides language-specific
 formal grammar definitions and parsing rules.
 """
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import Any, Dict, List, Optional

@@ -1,3 +1,6 @@
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Unified Connascence AST Analyzer - REAL Implementation
 

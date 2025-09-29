@@ -1,0 +1,1850 @@
+{
+  "timestamp": "2025-09-28T21:10:15.309419",
+  "files_analyzed": 234,
+  "files_with_issues": 193,
+  "fixes": [
+    {
+      "file": "analyzer\\analysis_orchestrator.py",
+      "missing_imports": [
+        "concurrent",
+        "dataclass",
+        "time",
+        "typing",
+        "datetime"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\analyzer_types.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\cache_manager.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\component_integrator.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 10: unterminated triple-quoted string literal (detected at line 11)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\comprehensive_analysis_engine.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\configuration_manager.py",
+      "missing_imports": [
+        "typing",
+        "logging"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\connascence_analyzer.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\consolidated_analyzer.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\constants.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\context_analyzer.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\core.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\cross_phase_learning_integration.py",
+      "missing_imports": [
+        "typing",
+        "dataclass",
+        "time"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\cross_phase_security_validator.py",
+      "missing_imports": [
+        "dataclass",
+        "time",
+        "typing",
+        "datetime",
+        "enum"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\duplication_unified.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enhanced_github_analyzer.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\formal_grammar.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\github_analyzer_runner.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\github_status_reporter.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\integration_methods.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\language_strategies.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\multi_agent_swarm_coordinator.py",
+      "missing_imports": [
+        "concurrent",
+        "dataclass",
+        "time",
+        "typing",
+        "queue",
+        "datetime",
+        "enum"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\nasa_compliance_calculator.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance_monitoring_integration.py",
+      "missing_imports": [
+        "dataclass",
+        "time",
+        "psutil",
+        "typing",
+        "datetime"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\phase_correlation.py",
+      "missing_imports": [
+        "path",
+        "typing",
+        "dataclass",
+        "time"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\phase_correlation_storage.py",
+      "missing_imports": [
+        "path",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 8: invalid syntax"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\policy_engine.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [
+        "Line 68: invalid syntax"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\quality_calculator.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\real_unified_analyzer.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\refactored_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\result_aggregator.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\smart_integration_engine.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\system_integration.py",
+      "missing_imports": [
+        "concurrent",
+        "dataclass",
+        "time",
+        "typing",
+        "logging",
+        "datetime"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\test_github_output.py",
+      "missing_imports": [],
+      "syntax_errors": [
+        "Line 54: unmatched ')'"
+      ],
+      "fixed": false
+    },
+    {
+      "file": "analyzer\\unified_analyzer.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\unified_analyzer_god_object_backup.py",
+      "missing_imports": [],
+      "syntax_errors": [
+        "Line 19: unterminated triple-quoted string literal (detected at line 25)"
+      ],
+      "fixed": false
+    },
+    {
+      "file": "analyzer\\unified_api.py",
+      "missing_imports": [
+        "dataclass",
+        "time",
+        "typing",
+        "path",
+        "datetime"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\unified_memory_model.py",
+      "missing_imports": [
+        "concurrent",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\unified_orchestrator.py",
+      "missing_imports": [
+        "concurrent",
+        "time",
+        "typing",
+        "path",
+        "sys"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\violation_remediation.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\__main__.py",
+      "missing_imports": [
+        "datetime"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\aggregator.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\analysis_executor.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\analysis_observers.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\analysis_strategies.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\analysis_strategy.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_cache.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_classifier.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_fixer.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_metrics.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_orchestrator.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\connascence_reporter.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\detector_pool.py",
+      "missing_imports": [
+        "concurrent",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 363: unterminated triple-quoted string literal (detected at line 367)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\enhanced_metrics.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "time"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\interfaces.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\orchestrator.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "time"
+      ],
+      "syntax_errors": [
+        "Line 555: unexpected indent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\recommendation_engine.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\refactored_unified_analyzer.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\refactoring_audit_report.py",
+      "missing_imports": [
+        "concurrent",
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 856: unterminated string literal (detected at line 856)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\report_generator.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 141: invalid decimal literal"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\validation_strategies.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\ast_engine\\analyzer_orchestrator.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\caching\\ast_cache.py",
+      "missing_imports": [
+        "concurrent",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\components\\AnalysisOrchestrator.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\components\\CacheManager.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\components\\ComponentManager.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\components\\ConfigurationManager.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\components\\MonitoringManager.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\components\\StreamingManager.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\components\\UnifiedAnalyzerFacade.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\core\\unified_imports.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\dashboard\\ci_integration.py",
+      "missing_imports": [
+        "datetime"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\dashboard\\metrics.py",
+      "missing_imports": [
+        "datetime"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\algorithm_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\base.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\connascence_ast_analyzer.py",
+      "missing_imports": [
+        "path",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\connascence_ast_analyzer_fixed.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\consolidated.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\convention_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\enhanced_algorithm_detector.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\enhanced_execution_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\enhanced_timing_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\execution_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\god_object_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\magic_literal_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\position_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\real_detectors.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\timing_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\detectors\\values_detector.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\dup_detection\\mece_analyzer.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [
+        "Line 31: unexpected unindent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\defense_certification_tool.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 635: unterminated triple-quoted string literal (detected at line 688)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\nasa_pot10_analyzer.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 690: unterminated triple-quoted string literal (detected at line 754)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\validation_reporting_system.py",
+      "missing_imports": [
+        "path",
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [
+        "Line 242: invalid decimal literal"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\__init__.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise_security\\analyzer.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise_security\\compliance.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise_security\\scanner.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise_security\\supply_chain.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise_security\\vulnerability_scanner.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\integrations\\github_bridge.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\integrations\\tool_coordinator.py",
+      "missing_imports": [
+        "json",
+        "typing",
+        "logging",
+        "datetime",
+        "sys"
+      ],
+      "syntax_errors": [
+        "Line 4: closing parenthesis '}' does not match opening parenthesis '('"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\interfaces\\analysis_interfaces.py",
+      "missing_imports": [
+        "path",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\interfaces\\detector_interface.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\ml_modules\\compliance_forecaster.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\ml_modules\\pattern_detector.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\ml_modules\\quality_predictor.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\ml_modules\\theater_classifier.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\nasa_engine\\nasa_analyzer.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\optimization\\ast_optimizer.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\optimization\\file_cache.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\optimization\\incremental_analyzer.py",
+      "missing_imports": [
+        "path",
+        "typing",
+        "time"
+      ],
+      "syntax_errors": [
+        "Line 441: unindent does not match any outer indentation level"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\optimization\\memory_monitor.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\optimization\\performance_benchmark.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\optimization\\resource_manager.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 665: unterminated triple-quoted string literal (detected at line 672)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\optimization\\streaming_performance_monitor.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\optimization\\unified_visitor.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 362: unterminated triple-quoted string literal (detected at line 365)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\cache_optimization_validator.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\cache_performance_profiler.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 1063: unterminated triple-quoted string literal (detected at line 1091)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\ci_cd_accelerator.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 3: unexpected indent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\detector_pool_optimizer.py",
+      "missing_imports": [
+        "psutil",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 873: unterminated triple-quoted string literal (detected at line 897)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\incremental_analyzer.py",
+      "missing_imports": [
+        "typing",
+        "json"
+      ],
+      "syntax_errors": [
+        "Line 1035: unterminated triple-quoted string literal (detected at line 1073)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\integration_optimizer.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\optimizer.py",
+      "missing_imports": [
+        "psutil",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\parallel_analyzer.py",
+      "missing_imports": [
+        "concurrent",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\real_cache_optimization_validator.py",
+      "missing_imports": [
+        "path",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [
+        "Line 818: unterminated triple-quoted string literal (detected at line 867)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\real_file_profiler.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 208: expected an indented block after 'except' statement on line 205"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\real_performance_modules.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\real_time_monitor.py",
+      "missing_imports": [
+        "psutil",
+        "typing",
+        "json"
+      ],
+      "syntax_errors": [
+        "Line 961: unterminated triple-quoted string literal (detected at line 992)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\regression_detector.py",
+      "missing_imports": [
+        "typing",
+        "enum"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\result_aggregation_profiler.py",
+      "missing_imports": [
+        "psutil",
+        "gc",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 3: invalid syntax"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\thread_contention_profiler.py",
+      "missing_imports": [
+        "psutil",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 731: unterminated triple-quoted string literal (detected at line 767)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\performance\\unified_visitor_profiler.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\reporting\\coordinator.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\reporting\\json.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\reporting\\markdown.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\reporting\\sarif.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\services\\dependency_container.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\streaming\\dashboard_reporter.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\streaming\\incremental_cache.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 588: unterminated triple-quoted string literal (detected at line 595)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\streaming\\result_aggregator.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\streaming\\stream_processor.py",
+      "missing_imports": [
+        "queue",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\theater_detection\\analyzer.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\theater_detection\\core.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\theater_detection\\patterns.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\theater_detection\\validation.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\utils\\code_utils.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\utils\\common_patterns.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\utils\\config_manager.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [
+        "Line 183: invalid decimal literal"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\utils\\connascence_validator.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\utils\\error_handling.py",
+      "missing_imports": [
+        "logging",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [
+        "Line 305: unindent does not match any outer indentation level"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\utils\\intelligent_magic_number_analyzer.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [
+        "Line 15: invalid syntax"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\utils\\metric_calculators.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\utils\\result_builders.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\utils\\types.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\utils\\validation_utils.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\validation\\enterprise_theater_detector.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\validation\\reality_validation_engine.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\validation\\sanitizer.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\validation\\validator.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\services\\ComponentFactory.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\architecture\\services\\ErrorManager.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\audit_trail.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "time"
+      ],
+      "syntax_errors": [
+        "Line 43: unindent does not match any outer indentation level"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\core.py",
+      "missing_imports": [
+        "path",
+        "datetime",
+        "typing",
+        "json"
+      ],
+      "syntax_errors": [
+        "Line 16: unexpected indent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\integration.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 16: unexpected indent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001.py",
+      "missing_imports": [
+        "path",
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 29: unexpected indent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting.py",
+      "missing_imports": [
+        "path",
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 45: closing parenthesis ')' does not match opening parenthesis '{'"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\soc2.py",
+      "missing_imports": [
+        "path",
+        "datetime",
+        "typing",
+        "logging"
+      ],
+      "syntax_errors": [
+        "Line 23: unexpected indent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\validate_retention.py",
+      "missing_imports": [
+        "path",
+        "datetime",
+        "typing",
+        "time"
+      ],
+      "syntax_errors": [
+        "Line 16: unexpected indent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\core\\decorators.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\core\\feature_flags.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\core\\performance_monitor.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\detector\\EnterpriseDetectorPool.py",
+      "missing_imports": [
+        "concurrent",
+        "json",
+        "psutil",
+        "typing",
+        "logging",
+        "path",
+        "datetime"
+      ],
+      "syntax_errors": [
+        "Line 3: unexpected indent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\detectors\\dfars_detector.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\detectors\\dfars_detector_simple.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 221: unterminated triple-quoted string literal (detected at line 303)"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\integration\\EnterpriseIntegrationFramework.py",
+      "missing_imports": [
+        "path",
+        "datetime",
+        "typing",
+        "logging"
+      ],
+      "syntax_errors": [
+        "Line 3: unexpected indent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\performance\\MLCacheOptimizer.py",
+      "missing_imports": [
+        "dataclass",
+        "time",
+        "typing",
+        "logging",
+        "path",
+        "datetime"
+      ],
+      "syntax_errors": [
+        "Line 3: unexpected indent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\config_loader.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 288: invalid syntax. Perhaps you forgot a comma?"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\config_validation_strategies.py",
+      "missing_imports": [
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\crypto_signer.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\evidence_packager.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\integration.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 31: invalid syntax. Perhaps you forgot a comma?"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\sbom_generator.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\slsa_provenance.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\supply_chain_analyzer.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\supply_chain\\vulnerability_scanner.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 41: invalid syntax. Perhaps you forgot a comma?"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\validation\\EnterprisePerformanceValidator.py",
+      "missing_imports": [
+        "concurrent",
+        "dataclass",
+        "json",
+        "time",
+        "psutil",
+        "typing",
+        "logging",
+        "path",
+        "datetime"
+      ],
+      "syntax_errors": [
+        "Line 3: unexpected indent"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001\\compliance_assessor.py",
+      "missing_imports": [
+        "datetime",
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [
+        "Line 488: invalid decimal literal"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001\\control_definitions.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [
+        "Line 279: invalid decimal literal"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\iso27001\\iso27001_core.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 357: invalid decimal literal"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting\\reporting_core.py",
+      "missing_imports": [
+        "datetime",
+        "typing"
+      ],
+      "syntax_errors": [
+        "Line 416: invalid decimal literal"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting\\report_generator.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [
+        "Line 548: invalid decimal literal"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\enterprise\\compliance\\reporting\\report_templates.py",
+      "missing_imports": [
+        "typing",
+        "dataclass"
+      ],
+      "syntax_errors": [
+        "Line 478: invalid decimal literal"
+      ],
+      "fixed": true
+    },
+    {
+      "file": "analyzer\\utils\\injection\\container.py",
+      "missing_imports": [
+        "typing",
+        "logging"
+      ],
+      "syntax_errors": [
+        "Line 233: unexpected unindent"
+      ],
+      "fixed": true
+    }
+  ]
+}

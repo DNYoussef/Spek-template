@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Intelligent Magic Number Analyzer - Enhanced CoM Violation Detection
 ==================================================================

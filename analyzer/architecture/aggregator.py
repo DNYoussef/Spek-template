@@ -8,6 +8,9 @@ Extracted from UnifiedConnascenceAnalyzer's god object.
 NASA Rule 4 Compliant: Functions under 60 lines.
 Handles violation formatting, standardization, and metrics coordination.
 """
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import Dict, Any, List, Optional

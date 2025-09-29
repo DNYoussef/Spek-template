@@ -6,6 +6,8 @@ Connascence Detector - Core Detection Logic
 High-performance core detector implementing 15 optimized detection methods.
 NASA Power of Ten compliant with comprehensive connascence pattern detection.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import List, Dict, Any, Set, Optional

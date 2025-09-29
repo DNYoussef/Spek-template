@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 CacheManager - Extracted from UnifiedConnascenceAnalyzer
 Handles file caching, AST caching, and performance optimization

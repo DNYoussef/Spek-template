@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Consolidated Connascence Analyzer - MECE Compliant
 Single source of truth replacing 7 duplicate implementations.

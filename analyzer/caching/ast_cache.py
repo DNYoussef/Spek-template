@@ -6,6 +6,10 @@ AST Caching System
 Intelligent caching system for AST parsing and analysis results
 to improve performance on repeated analysis runs.
 """
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union

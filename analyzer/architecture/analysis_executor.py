@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 """Main analysis executor using strategy pattern to eliminate god object.
@@ -271,7 +274,6 @@ class AnalysisExecutor:
 
         return performance
 
-    def create_analysis_executor(config_manager=None) -> AnalysisExecutor:
-        pass
+def create_analysis_executor(config_manager=None) -> AnalysisExecutor:
     """Factory function to create analysis executor."""
     return AnalysisExecutor(config_manager)

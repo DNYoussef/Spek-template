@@ -1,3 +1,6 @@
+import psutil
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_NESTED_DEPTH, THEATER_DETECTION_WARNING_THRESHOLD
 
 Advanced optimization system for detector pool resource management.

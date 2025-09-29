@@ -1,3 +1,6 @@
+import psutil
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import API_TIMEOUT_SECONDS, DAYS_RETENTION_PERIOD, MAXIMUM_NESTED_DEPTH
 
 """Advanced performance optimization system that builds on the existing analysis infrastructure

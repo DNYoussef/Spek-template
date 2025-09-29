@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Code utility functions for connascence analysis.
 

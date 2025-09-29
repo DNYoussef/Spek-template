@@ -5,6 +5,9 @@ REAL Unified Connascence Analyzer - NO THEATER, NO MOCKS
 This is a complete replacement for the mock-filled unified_analyzer.py.
 Every component does REAL work and FAILS when broken.
 """
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import List, Dict, Set, Any, Optional

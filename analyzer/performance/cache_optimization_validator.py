@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_NESTED_DEPTH
 
 """Validates the comprehensive caching strategy optimizations implemented in Phase 3.5.

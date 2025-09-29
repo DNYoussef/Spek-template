@@ -1,3 +1,6 @@
+import psutil
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import DAYS_RETENTION_PERIOD, MAXIMUM_FILE_LENGTH_LINES, MAXIMUM_FUNCTION_LENGTH_LINES, MAXIMUM_NESTED_DEPTH
 
 Advanced thread contention analysis for detector pool optimization.

@@ -6,6 +6,8 @@ Connascence Orchestrator - Main Coordination Hub
 Production-ready orchestrator implementing exactly 5 methods per NASA Rule 4.
 Coordinates all analysis components with Strategy and Observer patterns.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Union

@@ -1,5 +1,9 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import DAYS_RETENTION_PERIOD
 
+"""
 NASA Rule DAYS_RETENTION_PERIOD Compliant: Bounded resource management
 Singleton pattern with thread-safe detector reuse
 Eliminates object creation overhead (8 objects per file -> 1 pool)

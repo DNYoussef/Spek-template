@@ -1,3 +1,7 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import API_TIMEOUT_SECONDS, DAYS_RETENTION_PERIOD, MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
 
 Comprehensive 9-stage audit pipeline validating the god object refactoring.
@@ -853,7 +857,7 @@ class RefactoringAuditPipeline:
                     content = f.read()
 
                 total += 1
-                if '"""' in content or "'''" in content:'
+                if '"""' in content or "'''" in content:
                     documented += 1
 
             except Exception:

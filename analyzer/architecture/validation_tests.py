@@ -590,7 +590,7 @@ class NASAComplianceTests(unittest.TestCase):
         for test, traceback in result.errors:
             pass
 
-    return result.wasSuccessful()
+        return result.wasSuccessful()
 
 if __name__ == '__main__':
     success = run_validation_suite()

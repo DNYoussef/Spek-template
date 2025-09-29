@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 from src.constants.base import MAXIMUM_NESTED_DEPTH, MAXIMUM_RETRY_ATTEMPTS, MINIMUM_TEST_COVERAGE_PERCENTAGE, MINIMUM_TRADE_THRESHOLD, NASA_POT10_TARGET_COMPLIANCE_THRESHOLD, REGULATORY_FACTUALITY_REQUIREMENT
 
 """Legitimate NASA compliance scoring system that provides honest assessment

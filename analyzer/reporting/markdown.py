@@ -6,6 +6,8 @@ Markdown Summary Reporter for PR Comments
 Generates concise, actionable markdown summaries suitable for
 GitHub/GitLab pull request comments and documentation.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import List

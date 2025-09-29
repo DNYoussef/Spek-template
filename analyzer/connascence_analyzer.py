@@ -5,6 +5,8 @@ Connascence Analyzer - Main analysis interface
 Provides the primary interface for connascence analysis that workflows expect.
 This module acts as a facade over the existing unified analyzer infrastructure.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import Dict, Any

@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 ComponentManager - Extracted from UnifiedConnascenceAnalyzer
 Handles initialization of optional analysis components

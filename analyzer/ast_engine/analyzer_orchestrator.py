@@ -2,6 +2,8 @@
 """
 AST-based analyzer orchestrator for god object detection and other complex analysis.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import List

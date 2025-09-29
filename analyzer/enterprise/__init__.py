@@ -9,6 +9,8 @@ Six Sigma quality management, and supply chain governance.
 This package provides non-breaking enterprise enhancements to the analyzer
 system while maintaining 92% NASA POT10 compliance.
 """
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from typing import Dict, Any, Optional
 import logging

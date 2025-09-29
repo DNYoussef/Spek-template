@@ -1,4 +1,26 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+import time
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+from pathlib import Path
+
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
+
+try:
+    from .quality_calculator import QualityMetrics
+    from .analyzer_types import ComplianceResult
+except ImportError:
+    # Fallback definitions
+    class QualityMetrics:
+        def __init__(self, **kwargs):
+            for k, v in kwargs.items():
+                setattr(self, k, v)
+
+    class ComplianceResult:
+        def __init__(self, **kwargs):
+            for k, v in kwargs.items():
+                setattr(self, k, v)
 
 """Main analysis coordination and workflow management.
 NASA Rule 4 Compliant: All methods under 60 lines.

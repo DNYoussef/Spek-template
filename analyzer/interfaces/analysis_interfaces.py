@@ -12,6 +12,10 @@ NASA Power of Ten Compliance:
 - Rule 5: All parameters validated with assertions
 - Rule 7: All return values checked
 """
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from typing import Any, Dict, List, Optional, Path, Tuple, Union
 import logging
