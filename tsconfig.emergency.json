@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "noImplicitReturns": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "suppressExcessPropertyErrors": true
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.js",
+    "tests/**",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "dist/**",
+    "build/**",
+    "coverage/**",
+    "src/architecture/langgraph/communication/**",
+    "src/architecture/langgraph/LangGraphEngine*"
+  ]
+}

@@ -1,0 +1,30 @@
+src/architecture/langgraph/queen/components/PrincessDispatcherFacade.ts(181,20): error TS1109: Expression expected.
+src/architecture/langgraph/queen/components/PrincessDispatcherFacade.ts(243,34): error TS1109: Expression expected.
+src/architecture/langgraph/queen/components/QueenCommandProcessorFacade.ts(12,9): error TS1357: An enum member name must be followed by a ',', '=', or '}'.
+src/architecture/langgraph/queen/components/QueenCommandProcessorFacade.ts(162,18): error TS1011: An element access expression should take an argument.
+src/architecture/langgraph/queen/components/QueenCommandProcessorFacade.ts(163,20): error TS1011: An element access expression should take an argument.
+src/architecture/langgraph/queen/components/QueenCommandProcessorFacade.ts(265,34): error TS1109: Expression expected.
+src/architecture/langgraph/queen/components/QueenCommandProcessorFacade.ts(280,18): error TS1011: An element access expression should take an argument.
+src/architecture/langgraph/queen/components/QueenCommandProcessorFacade.ts(281,20): error TS1011: An element access expression should take an argument.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(12,9): error TS1357: An enum member name must be followed by a ',', '=', or '}'.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(107,51): error TS1144: '{' or ';' expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(107,58): error TS1068: Unexpected token. A constructor, method, accessor, or property was expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(107,66): error TS1003: Identifier expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(107,71): error TS1005: ',' expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(107,87): error TS1003: Identifier expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(108,5): error TS1434: Unexpected keyword or identifier.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(108,12): error TS1068: Unexpected token. A constructor, method, accessor, or property was expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(108,24): error TS1005: ',' expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(108,38): error TS1005: ',' expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(108,44): error TS1005: ',' expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(108,103): error TS1005: ';' expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(123,3): error TS1434: Unexpected keyword or identifier.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(123,28): error TS1005: ',' expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(123,46): error TS1005: ';' expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(123,60): error TS1109: Expression expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(124,9): error TS1003: Identifier expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(124,14): error TS1005: ',' expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(124,28): error TS1005: ',' expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(124,30): error TS1136: Property assignment expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(148,3): error TS1128: Declaration or statement expected.
+src/architecture/langgraph/queen/components/QueenMetricsAggregatorFacade.ts(153,29): error TS1109: Expression expected.
