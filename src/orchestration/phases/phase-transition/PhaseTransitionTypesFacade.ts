@@ -12,7 +12,7 @@ export interface PhaseState {
   metadata?: Record<string, unknown>;
 }
 export enum PhaseEvent {
-  const START  =  'START',
+  START  =  'START',
   COMPLETE  =  'COMPLETE',
   FAIL  =  'FAIL',
   SKIP  =  'SKIP',
@@ -54,7 +54,7 @@ export interface TransitionState {
   transitionHistory: PhaseTransition[];
 }
 export enum TransitionEvent {
-  const INITIATE  =  'INITIATE',
+  INITIATE  =  'INITIATE',
   VALIDATE  =  'VALIDATE',
   APPROVE  =  'APPROVE',
   REJECT  =  'REJECT',

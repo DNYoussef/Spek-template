@@ -34,7 +34,7 @@ export interface ValidationWarning {
 }
 // Validation severity levels
 export enum ValidationSeverity {
-  const LOW  =  'LOW',
+  LOW  =  'LOW',
   MEDIUM  =  'MEDIUM',
   HIGH  =  'HIGH',
   CRITICAL  =  'CRITICAL'
@@ -61,7 +61,7 @@ export interface ValidationRule {
 }
 // Validation rule types
 export enum ValidationRuleType {
-  const REQUIRED  =  'REQUIRED',
+  REQUIRED  =  'REQUIRED',
   FORMAT  =  'FORMAT',
   RANGE  =  'RANGE',
   LENGTH  =  'LENGTH',
@@ -82,7 +82,7 @@ export interface ValidationCondition {
 }
 // Validation operators
 export enum ValidationOperator {
-  const EQUALS  =  'EQUALS',
+  EQUALS  =  'EQUALS',
   NOT_EQUALS  =  'NOT_EQUALS',
   GREATER_THAN  =  'GREATER_THAN',
   GREATER_THAN_OR_EQUAL  =  'GREATER_THAN_OR_EQUAL',

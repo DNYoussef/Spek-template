@@ -10,7 +10,7 @@ import { QueenFSMStates, QueenFSMEvents } from './fsm/QueenFSMTypes';
  * NASA Rule 10: Fixed operation vocabulary
  */
 export enum QueenOperationType {
-  const INITIALIZE  =  'INITIALIZE',
+  INITIALIZE  =  'INITIALIZE',
   REGISTER_PRINCESS  =  'REGISTER_PRINCESS',
   DEFINE_OBJECTIVE  =  'DEFINE_OBJECTIVE',
   EXECUTE_OBJECTIVE  =  'EXECUTE_OBJECTIVE',

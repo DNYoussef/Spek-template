@@ -29,7 +29,7 @@ export interface AgentSignature {
   lastUpdated: Timestamp;
 }
 export enum AgentType {
-  const BROWSER_AUTOMATION  =  'browser_automation',
+  BROWSER_AUTOMATION  =  'browser_automation',
   LARGE_CONTEXT  =  'large_context',
   QUALITY_ASSURANCE  =  'quality_assurance',
   COORDINATION  =  'coordination',
@@ -69,7 +69,7 @@ export interface CoordinationEngine {
   messageRouter: MessageRouter;
 }
 export enum SwarmTopology {
-  const MESH  =  'mesh',
+  MESH  =  'mesh',
   HIERARCHICAL  =  'hierarchical',
   RING  =  'ring',
   STAR  =  'star'
@@ -88,7 +88,7 @@ export interface AgentInstance {
   metrics: AgentMetrics;
 }
 export enum AgentStatus {
-  const IDLE  =  'idle',
+  IDLE  =  'idle',
   BUSY  =  'busy',
   OFFLINE  =  'offline',
   ERROR  =  'error'
@@ -139,7 +139,7 @@ export interface AgentMessage {
   priority: number;
 }
 export enum MessageType {
-  const TASK_REQUEST  =  'task_request',
+  TASK_REQUEST  =  'task_request',
   TASK_RESPONSE  =  'task_response',
   STATUS_UPDATE  =  'status_update',
   ERROR_REPORT  =  'error_report',

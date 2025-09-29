@@ -15,7 +15,7 @@ export interface ServiceConfig {
 }
 // Service types
 export enum ServiceType {
-  const REST_API  =  'REST_API',
+  REST_API  =  'REST_API',
   GRAPHQL  =  'GRAPHQL',
   WEBSOCKET  =  'WEBSOCKET',
   GRPC  =  'GRPC',
@@ -42,7 +42,7 @@ export interface AuthConfig {
   readonly refreshEndpoint?: string;
 }
 export enum AuthType {
-  const NONE  =  'NONE',
+  NONE  =  'NONE',
   API_KEY  =  'API_KEY',
   BEARER_TOKEN  =  'BEARER_TOKEN',
   OAUTH2  =  'OAUTH2',
@@ -72,7 +72,7 @@ export interface ServiceStatus {
   readonly metadata?: Record<string, any>;
 }
 export enum ServiceHealthStatus {
-  const HEALTHY  =  'HEALTHY',
+  HEALTHY  =  'HEALTHY',
   DEGRADED  =  'DEGRADED',
   UNHEALTHY  =  'UNHEALTHY',
   UNKNOWN  =  'UNKNOWN',
@@ -119,7 +119,7 @@ export interface ServiceMetrics {
   readonly errorRate: number;
 }
 export enum MetricsPeriod {
-  const MINUTE  =  'MINUTE',
+  MINUTE  =  'MINUTE',
   HOUR  =  'HOUR',
   DAY  =  'DAY',
   WEEK  =  'WEEK',
@@ -148,7 +148,7 @@ export interface ServiceHealthCheck {
   readonly unhealthyThreshold: number;
 }
 export enum HealthCheckType {
-  const HTTP  =  'HTTP',
+  HTTP  =  'HTTP',
   TCP  =  'TCP',
   GRPC  =  'GRPC',
   CUSTOM  =  'CUSTOM'

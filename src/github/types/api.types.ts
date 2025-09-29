@@ -19,7 +19,7 @@ export interface ApiResult {
   statusCode?: number;
 }
 export enum ApiStatus {
-  const IDLE  =  'IDLE',
+  IDLE  =  'IDLE',
   ACTIVE  =  'ACTIVE',
   COMPLETE  =  'COMPLETE',
   ERROR  =  'ERROR'

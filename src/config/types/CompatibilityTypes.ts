@@ -20,7 +20,7 @@ export interface MigrationStep {
   params?: any;
 }
 export enum CompatibilityStatus {
-  const COMPATIBLE  =  'COMPATIBLE',
+  COMPATIBLE  =  'COMPATIBLE',
   NEEDS_MIGRATION  =  'NEEDS_MIGRATION',
   INCOMPATIBLE  =  'INCOMPATIBLE',
   DEPRECATED  =  'DEPRECATED'

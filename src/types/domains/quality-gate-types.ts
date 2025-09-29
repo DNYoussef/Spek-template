@@ -26,7 +26,7 @@ export interface QualityGateRule {
   severity: 'warning' | 'error' | 'critical';
 }
 export enum EnforcementLevel {
-  const ADVISORY  =  'advisory',
+  ADVISORY  =  'advisory',
   WARNING  =  'warning',
   BLOCKING  =  'blocking',
   STRICT  =  'strict'

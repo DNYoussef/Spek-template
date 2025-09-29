@@ -9,7 +9,7 @@ import { EventEmitter } from 'events';
  * NASA Rule 10: Fixed const command vocabulary
  */
 export enum QueenCommandType {
-  const REGISTER_PRINCESS  =  'REGISTER_PRINCESS',
+  REGISTER_PRINCESS  =  'REGISTER_PRINCESS',
   DEFINE_OBJECTIVE  =  'DEFINE_OBJECTIVE',
   PLAN_EXECUTION  =  'PLAN_EXECUTION',
   EXECUTE_OBJECTIVE  =  'EXECUTE_OBJECTIVE',

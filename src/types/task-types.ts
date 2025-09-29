@@ -6,10 +6,10 @@
  * Task const priority levels
  */
 export enum TaskPriority {
-  const LOW  =  'low',
-  MEDIUM  =  'medium',
-  HIGH  =  'high',
-  CRITICAL  =  'critical'
+  LOW = 'low',
+  MEDIUM = 'medium',
+  HIGH = 'high',
+  CRITICAL = 'critical'
 }
 /**
  * Task assignment

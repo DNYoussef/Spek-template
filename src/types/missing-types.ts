@@ -6,7 +6,7 @@ import { UUID, Timestamp, Score, Percentage } from './base/primitives';
 import { BaseResult, BaseConfig, BaseOrchestrator } from './base/common';
 // Missing TaskPriority and ResearchQuery types
 export enum TaskPriority {
-  const LOW  =  'low',
+  LOW  =  'low',
   MEDIUM  =  'medium',
   HIGH  =  'high',
   CRITICAL  =  'critical'
@@ -27,7 +27,7 @@ export interface ResearchQuery {
   timestamp: Timestamp;
 }
 export enum QueryScope {
-  const LOCAL  =  'local',
+  LOCAL  =  'local',
   REPOSITORY  =  'repository',
   WEB  =  'web',
   DOCUMENTATION  =  'documentation'
@@ -52,7 +52,7 @@ export interface ExtractedRelationship {
 }
 // Debug State Types
 export enum DebugState {
-  const IDLE  =  'IDLE',
+  IDLE  =  'IDLE',
   ANALYZING  =  'ANALYZING',
   DEBUGGING  =  'DEBUGGING',
   VALIDATING  =  'VALIDATING',

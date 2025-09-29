@@ -9,7 +9,7 @@ import { EventEmitter } from 'events';
  * NASA Rule 10: Fixed bounded enumeration for memory partitioning
  */
 export enum PrincessDomain {
-  const ARCHITECTURE  =  'ARCHITECTURE',
+  ARCHITECTURE  =  'ARCHITECTURE',
   DEVELOPMENT  =  'DEVELOPMENT',
   INFRASTRUCTURE  =  'INFRASTRUCTURE',
   RESEARCH  =  'RESEARCH',

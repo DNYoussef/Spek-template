@@ -9,7 +9,7 @@ import { EventEmitter } from 'events';
  * NASA Rule 10: Fixed bounded state space
  */
 export enum InfrastructureStates {
-  const IDLE  =  'IDLE',
+  IDLE  =  'IDLE',
   INITIALIZING  =  'INITIALIZING',
   PROVISIONING  =  'PROVISIONING',
   CONFIGURING  =  'CONFIGURING',
