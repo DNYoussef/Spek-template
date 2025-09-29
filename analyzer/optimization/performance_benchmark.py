@@ -454,20 +454,19 @@ class PerformanceBenchmark:
             print(f"  [U+2022] Real-time monitoring: {streaming_data.get('monitor_report_time_ms', 0)}ms") 
             print(f"  [U+2022] Hybrid mode initialization: {streaming_data.get('hybrid_init_time_ms', 0)}ms")
 
-    def main():
-        pass
+def main():
     """Run benchmark suite from command line."""
     import argparse
-    
+
     parser = argparse.ArgumentParser(description="File I/O Optimization Benchmark")
     parser.add_argument("--directory", "-d", default=".", help="Directory to benchmark")
     parser.add_argument("--output", "-o", help="Output file for results")
-    
+
     args = parser.parse_args()
-    
+
     benchmark = PerformanceBenchmark(args.directory)
     results = benchmark.run_full_benchmark()
-    
+
     if args.output:
         import json
         with open(args.output, 'w') as f:
