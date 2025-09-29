@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 ISO27001:2022 Control Definitions Module
 Contains comprehensive Annex A control catalog with structured definitions.

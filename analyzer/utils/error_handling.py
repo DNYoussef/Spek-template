@@ -300,12 +300,12 @@ class SafeExecutionMixin:
     
     def safe_file_read(self, file_path: str, encoding: str = 'utf-8'):
         """Safely read file with standardized error handling."""
-    def read_operation():
+        def read_operation():
             with open(file_path, 'r', encoding=encoding) as f:
                 content = f.read()
                 lines = content.splitlines()
                 return content, lines
-        
+
         return self.safe_execute(
             read_operation,
             ErrorCategory.FILE_IO,
@@ -315,7 +315,7 @@ class SafeExecutionMixin:
         )
 
 # Decorator for automatic error handling
-    def handle_errors(
+def handle_errors(
     category: ErrorCategory,
     severity: ErrorSeverity = ErrorSeverity.MEDIUM,
     default_return=None,

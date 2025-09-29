@@ -7,6 +7,9 @@ compliance detection for the analyzer system.
 
 This demonstrates real enterprise integration with specific, testable functionality.
 """
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from pathlib import Path
 from typing import List, Dict, Any, Set

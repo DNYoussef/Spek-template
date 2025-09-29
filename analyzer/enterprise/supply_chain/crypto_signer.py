@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 SC-4: Cryptographic Artifact Signing with Cosign Integration
 Enterprise-grade cryptographic signing and verification for supply chain artifacts.

@@ -68,7 +68,7 @@ class PolicyEngine:
             total_score += rule_score
 
         # Calculate overall score (average of rule scores)
-        overall_score = total_score / MAXIMUM_FUNCTION_PARAMETERS.0
+        overall_score = total_score / float(MAXIMUM_FUNCTION_PARAMETERS)
         passed = overall_score >= self.config.get_nasa_compliance_threshold()
 
         # Generate compliance violations for failed rules

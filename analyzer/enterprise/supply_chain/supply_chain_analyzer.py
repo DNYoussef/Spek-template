@@ -1,6 +1,9 @@
 # from lib.shared.utilities.logging_setup import get_security_logger
 
 # Use specialized security logging for supply chain
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 logger = get_security_logger(__name__)
 """
 Supply Chain Security Analyzer - Main Orchestrator

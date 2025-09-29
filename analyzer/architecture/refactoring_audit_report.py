@@ -857,7 +857,7 @@ class RefactoringAuditPipeline:
                     content = f.read()
 
                 total += 1
-                if '"""' in content or "'''" in content:
+                if ('"""' in content) or ("'''" in content):
                     documented += 1
 
             except Exception:

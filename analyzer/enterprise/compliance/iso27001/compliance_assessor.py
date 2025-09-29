@@ -1,3 +1,7 @@
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 ISO27001 Compliance Assessment Module
 Handles assessment, gap analysis, and risk evaluation for ISO27001 controls.

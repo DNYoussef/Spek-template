@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Report Generator Module
 Handles generation of compliance reports in various formats with evidence packaging.

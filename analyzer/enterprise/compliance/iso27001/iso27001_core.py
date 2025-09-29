@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 ISO27001 Core Module - Refactored using Delegation Pattern
 Coordinates control definitions, assessments, and reporting for ISO27001 compliance.

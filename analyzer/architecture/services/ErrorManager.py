@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 ErrorManager - Extracted from UnifiedAnalyzer
 Handles all error collection, processing, and reporting

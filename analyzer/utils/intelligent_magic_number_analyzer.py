@@ -1,5 +1,8 @@
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+from enum import Enum
+import ast
+import re
 
 """
 Intelligent Magic Number Analyzer - Enhanced CoM Violation Detection
@@ -7,12 +10,7 @@ Intelligent Magic Number Analyzer - Enhanced CoM Violation Detection
 
 Provides contextual analysis of magic numbers to distinguish meaningful business logic
 from common computer science values that don't require named constants.
-
-import ast
-import re
-from typing import Dict, List, Set, Tuple, Optional
-from dataclasses import dataclass
-from enum import Enum
+"""
 
 class MagicNumberCategory(Enum):
     """Categories for magic number analysis"""
@@ -107,11 +105,12 @@ class IntelligentMagicNumberAnalyzer:
 
         except SyntaxError:
             # Skip files with syntax errors
+            pass
 
         return self.violations
 
     def _analyze_number_in_context(self, node: ast.AST, lines: List[str], file_path: str) -> None:
-        """Analyze a number in its code context to determine if it's meaningful."""'
+        """Analyze a number in its code context to determine if it's meaningful."""
         value = node.value
         line_num = getattr(node, 'lineno', 1)
 

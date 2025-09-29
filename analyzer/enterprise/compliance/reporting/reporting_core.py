@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Reporting Core Module - Refactored using Delegation Pattern
 Coordinates report generation, templates, and evidence packaging for compliance frameworks.

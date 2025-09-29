@@ -8,8 +8,10 @@ from pathlib import Path
 from src.constants.base import MAXIMUM_FUNCTION_PARAMETERS, MAXIMUM_NESTED_DEPTH
 
 try:
-    from .quality_calculator import QualityMetrics
+    from .quality_calculator import QualityMetrics, QualityCalculator
     from .analyzer_types import ComplianceResult
+    from .policy_engine import QualityGateResult, PolicyEngine
+    from .result_aggregator import AggregationResult, ResultAggregator
 except ImportError:
     # Fallback definitions
     class QualityMetrics:
@@ -21,6 +23,28 @@ except ImportError:
         def __init__(self, **kwargs):
             for k, v in kwargs.items():
                 setattr(self, k, v)
+
+    class QualityGateResult:
+        def __init__(self, **kwargs):
+            for k, v in kwargs.items():
+                setattr(self, k, v)
+
+    class AggregationResult:
+        def __init__(self, **kwargs):
+            for k, v in kwargs.items():
+                setattr(self, k, v)
+
+    class PolicyEngine:
+        def __init__(self, config):
+            self.config = config
+
+    class QualityCalculator:
+        def __init__(self, config):
+            self.config = config
+
+    class ResultAggregator:
+        def __init__(self, config):
+            self.config = config
 
 """Main analysis coordination and workflow management.
 NASA Rule 4 Compliant: All methods under 60 lines.

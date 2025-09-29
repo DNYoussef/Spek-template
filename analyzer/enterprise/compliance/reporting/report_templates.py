@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 """
 Report Templates Module
 Manages report templates and formatting for various compliance frameworks.

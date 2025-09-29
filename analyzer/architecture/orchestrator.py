@@ -407,7 +407,6 @@ class ArchitectureOrchestrator:
             result = self._build_architecture_result(arch_data, validation_results, start_time, path)
 
             return result
-
         except Exception as e:
             logger.error(f"Architecture analysis failed: {e}")
             return self._create_fallback_architecture_result(str(e), path)
@@ -554,10 +553,6 @@ class ArchitectureOrchestrator:
             recommendations.append("Architecture is in good health - maintain current patterns")
 
         return recommendations
-            
-        except Exception as e:
-            logger.error(f"Architecture analysis failed: {e}")
-            return self._create_fallback_architecture_result(str(e), project_path)
 
     def _initialize_analyzers(self) -> Dict[str, Any]:
         """Initialize available analyzers. NASA Rule 4 compliant."""

@@ -10,6 +10,9 @@ backward compatibility.
 NASA Rule 4 Compliant: All methods under 60 lines.
 NASA Rule MAXIMUM_NESTED_DEPTH Compliant: Comprehensive defensive assertions.
 """
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Union, Tuple, Callable, Set
+
 
 from typing import Dict, Any, Optional, List
 import logging
