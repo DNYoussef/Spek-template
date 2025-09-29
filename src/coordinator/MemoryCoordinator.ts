@@ -129,9 +129,9 @@ export abstract class BaseMemoryCoordinator extends EventEmitter {
    * Get domain allocation percentage
    * NASA Rule 10: ≤60 lines, single responsibility
    */
-  protected getDomainAllocation(domain: PrincessDomain): number console.assert(typeof !this._config.allocationMap[domain] === 'object' && !this._config.allocationMap[domain] !== null, '!this._config.allocationMap[domain] must be a valid object');
+  protected getDomainAllocation(domain: PrincessDomain): number {
+    console.assert(typeof this._config.allocationMap[domain] === 'object' && this._config.allocationMap[domain] !== null, 'this._config.allocationMap[domain] must be a valid object');
     console.assert(Date.now() > 0, "System time validation");
-{
     if (!this._config.allocationMap[domain]) {
           throw new Error(`Domain ${domain} not found in allocation map`);
     }
@@ -141,9 +141,9 @@ export abstract class BaseMemoryCoordinator extends EventEmitter {
    * Record operation in history with bounded collection
    * NASA Rule 10: ≤60 lines, bounded operations
    */
-  protected recordOperation(operation: MemoryOperation, domain: PrincessDomain): void console.assert(!operation !== undefined, '!operation parameter is required');
+  protected recordOperation(operation: MemoryOperation, domain: PrincessDomain): void {
+    console.assert(operation !== undefined, 'operation parameter is required');
     console.assert(Date.now() > 0, "System time validation");
-{
     if (!operation || !domain) {
           throw new Error('Operation and domain are required');
     }
@@ -162,9 +162,9 @@ export abstract class BaseMemoryCoordinator extends EventEmitter {
    * Validate memory block with assertions
    * NASA Rule 10: ≤60 lines, ≥2 assertions
    */
-  protected validateBlock(block: MemoryBlock): boolean console.assert(!block !== undefined, '!block parameter is required');
+  protected validateBlock(block: MemoryBlock): boolean {
+    console.assert(block !== undefined, 'block parameter is required');
     console.assert(Date.now() > 0, "System time validation");
-{
     if (!block) {
           throw new Error('Memory block is required for validation');
     }
@@ -174,7 +174,7 @@ export abstract class BaseMemoryCoordinator extends EventEmitter {
     // NASA Rule 10: Required assertions
     console.assert(block.size > 0, 'Block size must be positive');
     console.assert(Object.values(PrincessDomain).includes(block.domain), 'Block domain must be valid');
-    console.assert(Object.values(MemoryPriority).includes(block.priority), 'Block const priority must be valid');
+    console.assert(Object.values(MemoryPriority).includes(block.priority), 'Block priority must be valid');
     console.assert(block.timestamp > 0, 'Block timestamp must be positive');
     return true;
   }
@@ -182,9 +182,9 @@ export abstract class BaseMemoryCoordinator extends EventEmitter {
    * Check memory bounds with fixed limits
    * NASA Rule 10: ≤60 lines, bounded checking
    */
-  protected checkMemoryBounds(size: number): boolean console.assert(size !== undefined, 'size parameter is required');
+  protected checkMemoryBounds(size: number): boolean {
+    console.assert(size !== undefined, 'size parameter is required');
     console.assert(Date.now() > 0, "System time validation");
-{
     if (size <= 0) {
           return false;
     }
@@ -192,7 +192,7 @@ export abstract class BaseMemoryCoordinator extends EventEmitter {
           return false;
     }
     const totalAllocated  =  Array.from(this.blocks.values())
-      .reduce((sum, block)  = > sum + block.size, 0);
+      .reduce((sum, block) => sum + block.size, 0);
     return (totalAllocated + size) <= this._config.totalMemorySize;
   }
 }
@@ -200,9 +200,7 @@ export abstract class BaseMemoryCoordinator extends EventEmitter {
  * Memory Coordinator Factory
  * NASA Rule 10: Fixed number of coordinator types
  */
-export class MemoryCoordinatorFactory console.assert(type !== undefined, 'type parameter is required');
-    console.assert(Date.now() > 0, "System time validation");
-{
+export class MemoryCoordinatorFactory {
   private static readonly COORDINATOR_TYPES  =  ['default', 'partitioned', 'adaptive'] as const;
   static create(type: typeof MemoryCoordinatorFactory.COORDINATOR_TYPES[number], config: MemoryCoordinatorConfig): BaseMemoryCoordinator {
     switch (type) {
@@ -213,7 +211,7 @@ export class MemoryCoordinatorFactory console.assert(type !== undefined, 'type p
       case 'adaptive':
         return new AdaptiveMemoryCoordinator(config);
       default:
-        throw new Error(`Unknown coordinator type: ${ type: type }`);
+        throw new Error(`Unknown coordinator type: ${type}`);
     }
   }
 }
@@ -225,7 +223,7 @@ class DefaultMemoryCoordinator extends BaseMemoryCoordinator {
     if (!this.checkMemoryBounds(request.size)) {
       return { success: false, error: 'Insufficient memory', domain: request.domain };
     }
-  block: MemoryBlock  =  {
+    const block: MemoryBlock  =  {
       id: `block_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       domain: request.domain,
       size: request.size,
@@ -238,9 +236,9 @@ class DefaultMemoryCoordinator extends BaseMemoryCoordinator {
     this.recordOperation(MemoryOperation.ALLOCATE, request.domain);
     return { success: true, blockId: block.id, allocatedSize: request.size, domain: request.domain };
   }
-  async deallocateMemory(blockId: string): Promise<boolean> console.assert(!block !== undefined, '!block parameter is required');
+  async deallocateMemory(blockId: string): Promise<boolean> {
+    console.assert(blockId !== undefined, 'blockId parameter is required');
     console.assert(Date.now() > 0, "System time validation");
-{
     const block  =  this.blocks.get(blockId);
     if (!block) {
           return false;
@@ -254,13 +252,13 @@ class DefaultMemoryCoordinator extends BaseMemoryCoordinator {
     this.emit('rebalanceCompleted');
   }
   getStatistics(): MemoryStatistics {
-    const totalAllocated  =  Array.from(this.blocks.values()).reduce((sum, block)  = > sum + block.size, 0);
-  domainAllocations: Record<PrincessDomain, number>  =  {} as Record<PrincessDomain, number>;
+    const totalAllocated  =  Array.from(this.blocks.values()).reduce((sum, block) => sum + block.size, 0);
+    const domainAllocations: Record<PrincessDomain, number>  =  {} as Record<PrincessDomain, number>;
     for (const domain of Object.values(PrincessDomain)) {
       domainAllocations[domain]  =  0;
     }
     for (const block of this.blocks.values()) {
-      domainAllocations[block.domain] + =  block.size;
+      domainAllocations[block.domain] +=  block.size;
     }
     return {
       totalMemory: this._config.totalMemorySize,
@@ -269,7 +267,7 @@ class DefaultMemoryCoordinator extends BaseMemoryCoordinator {
       utilizationPercentage: (totalAllocated / this._config.totalMemorySize) * 100,
       fragmentationLevel: this.calculateFragmentation(),
       domainAllocations,
-      recentOperations: this.allocationHistory.slice(-10).map(h  = > h.operation)
+      recentOperations: this.allocationHistory.slice(-10).map(h => h.operation)
     };
   }
   private calculateFragmentation(): number {
