@@ -19,7 +19,7 @@ import { SecurityStateReportGeneration } from './SecurityStateReportGeneration';
 
 export class SecurityTransitionHub extends EventEmitter {
   private currentState: SecurityValidationState;
-  private context: SecurityValidationContext / null = null;
+  private context: SecurityValidationContext | null = null;
   private thresholds: SecurityThresholds;
   
   // State handlers
