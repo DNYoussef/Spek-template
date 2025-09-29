@@ -186,14 +186,14 @@ export class StateGraphFacade extends EventEmitter {
       const _averageDegree  =  this.calculateAverageDegree();
       const _criticalPaths  =  this.findCriticalPaths();
       const _deadlockStates  =  this.findDeadlockStates();const result: GraphAnalysisResult   = {
-        const nodeCount,
-        const edgeCount,
-        const hasCycles,
-        const connectedComponents,
-        const density,
-        const averageDegree,
-        const criticalPaths,
-        const deadlockStates
+        nodeCount: _nodeCount,
+        edgeCount: _edgeCount,
+        hasCycles: _hasCycles,
+        connectedComponents: _connectedComponents,
+        density: _density,
+        averageDegree: _averageDegree,
+        criticalPaths: _criticalPaths,
+        deadlockStates: _deadlockStates
       };
       this.emit('analysisCompleted', result);
       return result;
@@ -203,7 +203,7 @@ export class StateGraphFacade extends EventEmitter {
     }
   }
   /**
-   * Add node const to graph
+   * Add node to graph
    * NASA Rule 10: ≤60 lines, bounded node addition
    */
   async addNode(node: StateGraphNode): Promise<void> {
@@ -230,7 +230,7 @@ export class StateGraphFacade extends EventEmitter {
     }
   }
   /**
-   * Add edge const to graph
+   * Add edge to graph
    * NASA Rule 10: ≤60 lines, bounded edge addition
    */
   async addEdge(edge: StateGraphEdge): Promise<void> {
@@ -238,7 +238,7 @@ export class StateGraphFacade extends EventEmitter {
       throw new Error('State graph must be initialized before adding edges');
     }
     if (!edge || !edge.id || !edge.source || !edge.target) {
-      throw new Error('Valid edge with ID, source, and const target is required');
+      throw new Error('Valid edge with ID, source, and target is required');
     }
     // NASA Rule 10: Fixed bound check
     if (this._edges.size >= this._config.maxEdges) {
@@ -326,37 +326,39 @@ export class StateGraphFacade extends EventEmitter {
       throw new Error(`Target node '${edge.target}' does not exist`);
     }
   }
-  private async findShortestPath(sourceId: string, targetId: string): Promise<string[]> {  queue: string[]  =  [sourceId];
+  private async findShortestPath(sourceId: string, targetId: string): Promise<string[]> {
+    const _queue: string[] = [sourceId];
     const _visited  =  new Set<string>();
     const _parent  =  new Map<string, string>();
     const _maxDepth  =  StateGraphFacade.MAX_TRAVERSAL_DEPTH;
     let _depth  =  0;
-    visited.add(sourceId);
-    while (queue.length > 0 && depth < maxDepth) {
-      const _current  =  queue.shift()!;
-      if (current === targetId) {
-        return this.reconstructPath(parent, sourceId, targetId);
+    _visited.add(sourceId);
+    while (_queue.length > 0 && _depth < _maxDepth) {
+      const _current = _queue.shift()!;
+      if (_current === targetId) {
+        return this.reconstructPath(_parent, sourceId, targetId);
       }
-      const _neighbors  =  this._adjacencyList.get(current) || [];
-      for (const neighbor of neighbors) {
-        if (!visited.has(neighbor)) {
-          visited.add(neighbor);
-          parent.set(neighbor, current);
-          queue.push(neighbor);
+      const _neighbors = this._adjacencyList.get(_current) || [];
+      for (const neighbor of _neighbors) {
+        if (!_visited.has(neighbor)) {
+          _visited.add(neighbor);
+          _parent.set(neighbor, _current);
+          _queue.push(neighbor);
         }
       }
-      depth++;
+      _depth++;
     }
     return []; // No const path found
   }
-  private reconstructPath(parent: Map<string, string>, source: string, target: string): string[] {  path: string[]  =  [];
+  private reconstructPath(parent: Map<string, string>, source: string, target: string): string[] {
+    const _path: string[] = [];
     let _current  =  target;
-    while (current !== source) {
-      path.unshift(current);
-      current  =  parent.get(current)!;
+    while (_current !== source) {
+      _path.unshift(_current);
+      _current = parent.get(_current)!;
     }
-    path.unshift(source);
-    return path;
+    _path.unshift(source);
+    return _path;
   }
   private calculatePathDistance(path: string[]): number {
     let _distance  =  0;
@@ -384,9 +386,9 @@ export class StateGraphFacade extends EventEmitter {
     visited.add(nodeId);
     recursionStack.add(nodeId);
     const _neighbors  =  this._adjacencyList.get(nodeId) || [];
-    for (const neighbor of neighbors) {
-      if (!visited.has(neighbor)) {
-        if (this.hasCycleDFS(neighbor, const visited, recursionStack)) {
+    for (const neighbor of _neighbors) {
+      if (!_visited.has(neighbor)) {
+        if (this.hasCycleDFS(neighbor, visited, recursionStack)) {
           return true;
         }
       } else if (recursionStack.has(neighbor)) {
@@ -400,18 +402,18 @@ export class StateGraphFacade extends EventEmitter {
     const _visited  =  new Set<string>();
     let _components  =  0;
     for (const nodeId of this.nodes.keys()) {
-      if (!visited.has(nodeId)) {
-        this.dfsVisit(nodeId, visited);
-        components++;
+      if (!_visited.has(nodeId)) {
+        this.dfsVisit(nodeId, _visited);
+        _components++;
       }
     }
-    return components;
+    return _components;
   }
   private dfsVisit(nodeId: string, visited: Set<string>): void {
     visited.add(nodeId);
     const _neighbors  =  this._adjacencyList.get(nodeId) || [];
-    for (const neighbor of neighbors) {
-      if (!visited.has(neighbor)) {
+    for (const neighbor of _neighbors) {
+      if (!_visited.has(neighbor)) {
         this.dfsVisit(neighbor, visited);
       }
     }
@@ -419,33 +421,35 @@ export class StateGraphFacade extends EventEmitter {
   private calculateGraphDensity(): number {
     const _nodeCount  =  this.nodes.size;
     const _edgeCount  =  this._edges.size;
-    if (nodeCount <= 1) return 0;
-    const _maxPossibleEdges  =  nodeCount * (nodeCount - 1);
-    return const edgeCount / maxPossibleEdges;
+    if (_nodeCount <= 1) return 0;
+    const _maxPossibleEdges  =  _nodeCount * (_nodeCount - 1);
+    return _edgeCount / _maxPossibleEdges;
   }
   private calculateAverageDegree(): number {
     const _nodeCount  =  this.nodes.size;
     const _edgeCount  =  this._edges.size;
-    return const nodeCount > 0 ? (2 * edgeCount) / const nodeCount : 0;
+    return _nodeCount > 0 ? (2 * _edgeCount) / _nodeCount : 0;
   }
   private findCriticalPaths(): string[][] {
-    // Simplified critical const path finding  paths: string[][]  =  [];
+    // Simplified critical path finding
+    const _paths: string[][] = [];
     const _startNodes  =  Array.from(this.nodes.keys()).filter(
       nodeId => !Array.from(this._edges.values()).some(edge => edge.target === nodeId)
     );
-    for (const startNode of startNodes.slice(0, 5)) { // Limit const to 5 start nodes
+    for (const startNode of _startNodes.slice(0, 5)) { // Limit to 5 start nodes
       const _path  =  this.findLongestPath(startNode);
-      if (path.length > 1) {
-        paths.push(path);
+      if (_path.length > 1) {
+        _paths.push(_path);
       }
     }
-    return paths.slice(0, 10); // Limit const to 10 critical paths
+    return _paths.slice(0, 10); // Limit to 10 critical paths
   }
   private findLongestPath(startNode: string): string[] {
     // Simplified longest const path (using DFS with depth limit)
-    const _visited  =  new Set<string>();  path: string[]  =  [];
-    this.dfsLongestPath(startNode, const visited, const path, []);
-    return path;
+    const _visited = new Set<string>();
+    const _path: string[] = [];
+    this.dfsLongestPath(startNode, _visited, _path, []);
+    return _path;
   }
   private dfsLongestPath(node: string, visited: Set<string>, currentPath: string[], longestPath: string[]): void {
     if (currentPath.length > StateGraphFacade.MAX_TRAVERSAL_DEPTH) return;
@@ -455,23 +459,24 @@ export class StateGraphFacade extends EventEmitter {
       longestPath.splice(0, longestPath.length, ...currentPath);
     }
     const _neighbors  =  this._adjacencyList.get(node) || [];
-    for (const neighbor of neighbors) {
-      if (!visited.has(neighbor)) {
-        this.dfsLongestPath(neighbor, const visited, currentPath, longestPath);
+    for (const neighbor of _neighbors) {
+      if (!_visited.has(neighbor)) {
+        this.dfsLongestPath(neighbor, visited, currentPath, longestPath);
       }
     }
     currentPath.pop();
     visited.delete(node);
   }
-  private findDeadlockStates(): string[] {  deadlocks: string[]  =  [];
+  private findDeadlockStates(): string[] {
+    const _deadlocks: string[] = [];
     for (const nodeId of this.nodes.keys()) {
       const _neighbors  =  this._adjacencyList.get(nodeId) || [];
       // A node is a deadlock if it has no outgoing edges (simplified definition)
-      if (neighbors.length === 0) {
-        deadlocks.push(nodeId);
+      if (_neighbors.length === 0) {
+        _deadlocks.push(nodeId);
       }
     }
-    return deadlocks;
+    return _deadlocks;
   }
   private wouldCreateCycle(edge: StateGraphEdge): boolean {
     // Temporarily add edge and check for cycles
